@@ -1,0 +1,444 @@
+[
+  {
+    "league": "Premier League",
+    "home": "AFC Bournemouth",
+    "away": "Manchester City",
+    "start_ts": 1779215400,
+    "match_id": "4813735",
+    "picks": [
+      {
+        "direction": "away_dc",
+        "type": "Double chance",
+        "label": "Nul ou Manchester City (X2)",
+        "cote": null,
+        "confidence": 97,
+        "reasoning": "Manchester City invaincu 100% sur 5 derniers matchs · H2H: 1/1 matchs sans défaite",
+        "stats": {
+          "form": [
+            "W",
+            "W",
+            "D",
+            "W",
+            "W"
+          ]
+        },
+        "is_fun": false
+      },
+      {
+        "direction": "away_win",
+        "type": "Victoire extérieur",
+        "label": "Manchester City gagne",
+        "cote": null,
+        "confidence": 81,
+        "reasoning": "Manchester City : 4V/1N/0D sur 5 matchs · #2 au classement · H2H: 1V/0N/0D · Note Sofa: 6.5/10",
+        "stats": {
+          "form": [
+            "W",
+            "W",
+            "D",
+            "W",
+            "W"
+          ]
+        },
+        "is_fun": false
+      },
+      {
+        "direction": "home_win",
+        "type": "Victoire domicile",
+        "label": "AFC Bournemouth gagne",
+        "cote": null,
+        "confidence": 62,
+        "reasoning": "AFC Bournemouth : 4V/1N/0D sur 5 matchs · #6 au classement · H2H: 0V/0N/1D · Note Sofa: 6.5/10",
+        "stats": {
+          "form": [
+            "W",
+            "W",
+            "D",
+            "W",
+            "W"
+          ]
+        },
+        "is_fun": false
+      },
+      {
+        "direction": "shots_over_22.5",
+        "type": "Tirs (total match)",
+        "label": "Plus de 22.5 tirs total",
+        "cote": null,
+        "cote_min": 1.27,
+        "value": [
+          "⚠️",
+          "Value serrée",
+          "#f59e0b"
+        ],
+        "confidence": 79,
+        "reasoning": "AFC Bournemouth ~11.0 tirs/m · Manchester City ~15.7 → total attendu ~26.7 (Manchester City favori (#2 vs #6))",
+        "stats": {
+          "expected_total": 26.7
+        }
+      },
+      {
+        "direction": "tirs_(manchester_city)_over_12.5",
+        "type": "Tirs (Manchester City)",
+        "label": "Plus de 12.5 tirs Manchester City",
+        "cote": null,
+        "cote_min": 1.27,
+        "value": [
+          "⚠️",
+          "Value serrée",
+          "#f59e0b"
+        ],
+        "confidence": 79,
+        "edge": null,
+        "reasoning": "Manchester City prend 20.0/m [pondere vs opp #6] · adv. concède 10.0/m → attendu ~15.7 (Manchester City favori (#2 vs #6))",
+        "stats": {
+          "expected": 15.7
+        }
+      }
+    ],
+    "home_players": [],
+    "away_players": [
+      {
+        "player": "Erling Haaland",
+        "position": "F",
+        "is_sub": false,
+        "type": "Joueur décisif",
+        "label": "Erling Haaland but ou passe décisive",
+        "cote": null,
+        "confidence": 66,
+        "reasoning": "26 buts + 8 passes décisives en 34 matchs (100.0% de chance/match) · xG+xA: 0.81/match · défense correcte",
+        "context": {
+          "weakness": 0.41
+        },
+        "stats": {
+          "goals": 26,
+          "assists": 8,
+          "apps": 34
+        },
+        "team": "away"
+      },
+      {
+        "player": "Erling Haaland",
+        "position": "F",
+        "is_sub": false,
+        "type": "Buteur",
+        "label": "Erling Haaland marque",
+        "cote": null,
+        "confidence": 65,
+        "reasoning": "26 buts en 34 matchs cette saison (76.5% de chance/match) · bonne efficacité (20% conv.) · xG moyen 0.74/match, défense adverse poreuse (1.4 buts concédés/match) · défense correcte",
+        "context": {
+          "weakness": 0.41
+        },
+        "stats": {
+          "goals": 26,
+          "apps": 34,
+          "gpm": 0.765,
+          "xgpm": 0.741
+        },
+        "team": "away"
+      }
+    ],
+    "fun_picks": [],
+    "top_pick": {
+      "direction": "away_dc",
+      "type": "Double chance",
+      "label": "Nul ou Manchester City (X2)",
+      "cote": null,
+      "confidence": 97,
+      "reasoning": "Manchester City invaincu 100% sur 5 derniers matchs · H2H: 1/1 matchs sans défaite",
+      "stats": {
+        "form": [
+          "W",
+          "W",
+          "D",
+          "W",
+          "W"
+        ]
+      },
+      "is_fun": false
+    }
+  },
+  {
+    "league": "Premier League",
+    "home": "Chelsea",
+    "away": "Tottenham Hotspur",
+    "start_ts": 1779218100,
+    "match_id": "4813739",
+    "picks": [
+      {
+        "direction": "shots_over_19.5",
+        "type": "Tirs (total match)",
+        "label": "Plus de 19.5 tirs total",
+        "cote": null,
+        "cote_min": 1.27,
+        "value": [
+          "⚠️",
+          "Value serrée",
+          "#f59e0b"
+        ],
+        "confidence": 79,
+        "reasoning": "Chelsea ~14.4 tirs/m · Tottenham Hotspur ~9.1 → total attendu ~23.5 (Chelsea favori (#10 vs #17))",
+        "stats": {
+          "expected_total": 23.5
+        }
+      },
+      {
+        "direction": "tirs_(tottenham_hotspur)_under_11.5",
+        "type": "Tirs (Tottenham Hotspur)",
+        "label": "Moins de 11.5 tirs Tottenham Hotspur",
+        "cote": null,
+        "cote_min": 1.26,
+        "value": [
+          "⚠️",
+          "Value serrée",
+          "#f59e0b"
+        ],
+        "confidence": 79,
+        "edge": null,
+        "reasoning": "Tottenham Hotspur prend 12.1/m [pondere vs opp #10] · adv. concède 7.8/m → attendu ~9.1 (Chelsea favori (#10 vs #17))",
+        "stats": {
+          "expected": 9.1
+        }
+      }
+    ],
+    "home_players": [
+      {
+        "player": "João Pedro",
+        "position": "F",
+        "is_sub": false,
+        "type": "Joueur décisif",
+        "label": "João Pedro but ou passe décisive",
+        "cote": null,
+        "confidence": 48,
+        "reasoning": "15 buts + 5 passes décisives en 34 matchs (58.8% de chance/match) · xG+xA: 0.48/match · défense fragile",
+        "context": {
+          "weakness": 0.64
+        },
+        "stats": {
+          "goals": 15,
+          "assists": 5,
+          "apps": 34
+        },
+        "team": "home"
+      },
+      {
+        "player": "João Pedro",
+        "position": "F",
+        "is_sub": false,
+        "type": "Buteur",
+        "label": "João Pedro marque",
+        "cote": null,
+        "confidence": 47,
+        "reasoning": "15 buts en 34 matchs cette saison (44.1% de chance/match) · xG moyen 0.42/match, défense adverse poreuse (1.5 buts concédés/match) · défense fragile",
+        "context": {
+          "weakness": 0.64
+        },
+        "stats": {
+          "goals": 15,
+          "apps": 34,
+          "gpm": 0.441,
+          "xgpm": 0.424
+        },
+        "team": "home"
+      }
+    ],
+    "away_players": [],
+    "fun_picks": [],
+    "top_pick": {
+      "direction": "shots_over_19.5",
+      "type": "Tirs (total match)",
+      "label": "Plus de 19.5 tirs total",
+      "cote": null,
+      "cote_min": 1.27,
+      "value": [
+        "⚠️",
+        "Value serrée",
+        "#f59e0b"
+      ],
+      "confidence": 79,
+      "reasoning": "Chelsea ~14.4 tirs/m · Tottenham Hotspur ~9.1 → total attendu ~23.5 (Chelsea favori (#10 vs #17))",
+      "stats": {
+        "expected_total": 23.5
+      }
+    }
+  },
+  {
+    "league": "Europa League",
+    "home": "Freiburg",
+    "away": "Aston Villa",
+    "start_ts": 1779303600,
+    "match_id": "5206177",
+    "picks": [
+      {
+        "direction": "home_dc",
+        "type": "Double chance",
+        "label": "Freiburg ou Nul (1X)",
+        "cote": null,
+        "confidence": 76,
+        "reasoning": "Freiburg invaincu 80% sur 5 derniers matchs · H2H: 0/0 matchs sans défaite",
+        "stats": {
+          "form": [
+            "W",
+            "L",
+            "W",
+            "W",
+            "W"
+          ]
+        },
+        "is_fun": false
+      },
+      {
+        "direction": "away_win",
+        "type": "Victoire extérieur",
+        "label": "Aston Villa gagne",
+        "cote": null,
+        "confidence": 69,
+        "reasoning": "Aston Villa : 4V/0N/1D sur 5 matchs · #2 au classement · H2H: 0V/0N/0D · Note Sofa: 6.5/10",
+        "stats": {
+          "form": [
+            "W",
+            "L",
+            "W",
+            "W",
+            "W"
+          ]
+        },
+        "is_fun": false
+      },
+      {
+        "direction": "home_win",
+        "type": "Victoire domicile",
+        "label": "Freiburg gagne",
+        "cote": null,
+        "confidence": 64,
+        "reasoning": "Freiburg : 4V/0N/1D sur 5 matchs · #7 au classement · H2H: 0V/0N/0D · Note Sofa: 6.5/10",
+        "stats": {
+          "form": [
+            "W",
+            "L",
+            "W",
+            "W",
+            "W"
+          ]
+        },
+        "is_fun": false
+      },
+      {
+        "direction": "shots_under_28.5",
+        "type": "Tirs (total match)",
+        "label": "Moins de 28.5 tirs total",
+        "cote": null,
+        "cote_min": 1.25,
+        "value": [
+          "⚠️",
+          "Value serrée",
+          "#f59e0b"
+        ],
+        "confidence": 80,
+        "reasoning": "Freiburg ~11.7 tirs/m · Aston Villa ~12.8 → total attendu ~24.4 (Aston Villa favori (#2 vs #7))",
+        "stats": {
+          "expected_total": 24.4
+        }
+      },
+      {
+        "direction": "tirs_cadrés_(aston_villa)_over_3.5",
+        "type": "Tirs cadrés (Aston Villa)",
+        "label": "Plus de 3.5 tirs cadrés Aston Villa",
+        "cote": null,
+        "cote_min": 1.29,
+        "value": [
+          "⚠️",
+          "Value serrée",
+          "#f59e0b"
+        ],
+        "confidence": 77,
+        "edge": null,
+        "reasoning": "Aston Villa prend 6.3/m [pondere vs opp #7] · adv. concède 3.8/m → attendu ~5.3 (Aston Villa favori (#2 vs #7))",
+        "stats": {
+          "expected": 5.3
+        }
+      }
+    ],
+    "home_players": [
+      {
+        "player": "Vincenzo Grifo",
+        "position": "F",
+        "is_sub": false,
+        "type": "Joueur décisif",
+        "label": "Vincenzo Grifo but ou passe décisive",
+        "cote": null,
+        "confidence": 40,
+        "reasoning": "5 buts + 4 passes décisives en 14 matchs (64.3% de chance/match) · xG+xA: 0.35/match · défense solide",
+        "context": {
+          "weakness": 0.25
+        },
+        "stats": {
+          "goals": 5,
+          "assists": 4,
+          "apps": 14
+        },
+        "team": "home"
+      }
+    ],
+    "away_players": [
+      {
+        "player": "Ollie Watkins",
+        "position": "F",
+        "is_sub": false,
+        "type": "Buteur",
+        "label": "Ollie Watkins marque",
+        "cote": null,
+        "confidence": 38,
+        "reasoning": "5 buts en 14 matchs cette saison (35.7% de chance/match) · xG moyen 0.39/match · défense correcte",
+        "context": {
+          "weakness": 0.36
+        },
+        "stats": {
+          "goals": 5,
+          "apps": 14,
+          "gpm": 0.357,
+          "xgpm": 0.386
+        },
+        "team": "away"
+      },
+      {
+        "player": "Emiliano Buendía",
+        "position": "F",
+        "is_sub": false,
+        "type": "Joueur décisif",
+        "label": "Emiliano Buendía but ou passe décisive",
+        "cote": null,
+        "confidence": 34,
+        "reasoning": "⚠️ Emiliano Buendía INCERTAIN · 3 buts + 5 passes décisives en 14 matchs (57.1% de chance/match) · xG+xA: 0.41/match · défense correcte",
+        "context": {
+          "weakness": 0.36
+        },
+        "stats": {
+          "goals": 3,
+          "assists": 5,
+          "apps": 14
+        },
+        "team": "away"
+      }
+    ],
+    "fun_picks": [],
+    "top_pick": {
+      "direction": "home_dc",
+      "type": "Double chance",
+      "label": "Freiburg ou Nul (1X)",
+      "cote": null,
+      "confidence": 76,
+      "reasoning": "Freiburg invaincu 80% sur 5 derniers matchs · H2H: 0/0 matchs sans défaite",
+      "stats": {
+        "form": [
+          "W",
+          "L",
+          "W",
+          "W",
+          "W"
+        ]
+      },
+      "is_fun": false
+    }
+  }
+]
