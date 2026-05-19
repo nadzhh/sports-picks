@@ -899,7 +899,8 @@ def analyze_match(match, pstats_all):
 
     # ── Tirs équipe ─────────────────────────────────────────────────────────
     shots_props = team_shots_props(home_ts_data, away_ts_data, home_rec, away_rec,
-                                   h2h_shots_d, home, away, hp, ap, match_odds=odds)
+                                   h2h_shots_d, home, away, hp, ap, match_odds=odds,
+                                   home_form=hf, away_form=af)
     team_picks.extend(shots_props)
 
     return team_picks, home_pp, away_pp, fun_picks
@@ -1075,7 +1076,7 @@ def _extract_bookmaker_shot_lines(match_odds):
     return out
 
 
-def team_shots_props(home_ts, away_ts, home_recent, away_recent, h2h_shots, home_name, away_name, home_pos=10, away_pos=10, match_odds=None):
+def team_shots_props(home_ts, away_ts, home_recent, away_recent, h2h_shots, home_name, away_name, home_pos=10, away_pos=10, match_odds=None, home_form=None, away_form=None):
     """
     Genere des picks tirs/SoT.
     - Utilise les splits dom/ext (Betis home -> shots_home, Elche away -> shots_away)
@@ -1192,6 +1193,44 @@ def team_shots_props(home_ts, away_ts, home_recent, away_recent, h2h_shots, home
 
     if not exp_total_shots: return props
 
+    # ── Helper pour reasoning detaille (stats brutes + ajustements + forme) ──
+    def _build_shots_reasoning(stat_label="tirs"):
+        """
+        Construit le reasoning multi-ligne pour les picks tirs.
+        Format : stats brutes L10/L5 -> defenses adverses -> attendu match -> forme.
+        L'utilisateur veut voir les VRAIES stats pour pouvoir verifier.
+        """
+        h_l10 = hr.get("shots_l10"); h_l5 = hr.get("shots_l5")
+        a_l10 = ar.get("shots_l10"); a_l5 = ar.get("shots_l5")
+        # Ligne 1 : stats brutes
+        def _stat_str(l10, l5):
+            if l10 is None and l5 is None: return "?"
+            parts = []
+            if l10 is not None: parts.append(f"L10 {l10:.1f}")
+            if l5 is not None: parts.append(f"L5 {l5:.1f}")
+            return " (".join(parts) + (")" if l5 is not None else "")
+        l1 = f"📊 Brut : {home_name} {_stat_str(h_l10, h_l5)} {stat_label}/m · {away_name} {_stat_str(a_l10, a_l5)} {stat_label}/m"
+        # Ligne 2 : defenses adverses
+        h_def_v = h_shots_def if stat_label == "tirs" else h_sot_def
+        a_def_v = a_shots_def if stat_label == "tirs" else a_sot_def
+        l2_parts = []
+        if h_def_v is not None: l2_parts.append(f"{home_name} concède {h_def_v:.1f}/m")
+        if a_def_v is not None: l2_parts.append(f"{away_name} concède {a_def_v:.1f}/m")
+        l2 = "🛡️ Défenses : " + " · ".join(l2_parts) if l2_parts else ""
+        # Ligne 3 : attendu match
+        exp_h = exp_h_shots if stat_label == "tirs" else exp_h_sot
+        exp_a = exp_a_shots if stat_label == "tirs" else exp_a_sot
+        exp_t = (exp_h or 0) + (exp_a or 0)
+        l3 = f"🎯 Attendu : {home_name} ~{exp_h:.1f} · {away_name} ~{exp_a:.1f} → total ~{exp_t:.1f}"
+        # Ligne 4 : contexte rank + forme si dispo
+        l4_parts = [rank_ctx]
+        if home_form:
+            l4_parts.append(f"{home_name} forme : {'-'.join(home_form[:5])}")
+        if away_form:
+            l4_parts.append(f"{away_name} forme : {'-'.join(away_form[:5])}")
+        l4 = "⚖️ " + " · ".join(l4_parts)
+        return "\n".join(filter(None, [l1, l2, l3, l4]))
+
     # ── Lignes bookmaker realistes (centrees sur l'esperance) ────────────────
     # Le bookmaker propose typiquement 3 lignes autour de l'esperance.
     # On evite les lignes irrealistes qu'aucun bookmaker n'offre.
@@ -1273,7 +1312,7 @@ def team_shots_props(home_ts, away_ts, home_recent, away_recent, h2h_shots, home
             "value": p_real["value"],
             "confidence": p_real["confidence"],
             "edge": p_real["edge"],
-            "reasoning": f"{home_name} ~{round(exp_h_shots,1)} tirs/m · {away_name} ~{round(exp_a_shots,1)} → attendu ~{round(exp_total_shots,1)} | bookmaker ligne {p_real['line']} cote {p_real['cote']} → edge +{p_real['edge']}% ({rank_ctx})",
+            "reasoning": _build_shots_reasoning("tirs") + f"\n💰 Ligne book {p_real['line']} @ {p_real['cote']} → edge +{p_real['edge']}%",
             "stats": {"expected_total": round(exp_total_shots, 1)},
             "priority": 1,
         })
@@ -1287,7 +1326,7 @@ def team_shots_props(home_ts, away_ts, home_recent, away_recent, h2h_shots, home
                 "label": p["label"],
                 "cote": None, "cote_min": p["cote_min"], "value": p.get("value"),
                 "confidence": p["confidence"],
-                "reasoning": f"{home_name} ~{round(exp_h_shots,1)} tirs/m · {away_name} ~{round(exp_a_shots,1)} → total attendu ~{round(exp_total_shots,1)} ({rank_ctx})",
+                "reasoning": _build_shots_reasoning("tirs"),
                 "stats": {"expected_total": round(exp_total_shots, 1)},
                 "priority": 1,
             })
@@ -1344,7 +1383,7 @@ def team_shots_props(home_ts, away_ts, home_recent, away_recent, h2h_shots, home
                 "value": p_real_sot["value"],
                 "confidence": p_real_sot["confidence"],
                 "edge": p_real_sot["edge"],
-                "reasoning": f"{home_name} ~{round(exp_h_sot,1)} cadrés · {away_name} ~{round(exp_a_sot,1)} → total ~{round(exp_total_sot,1)} | bookmaker ligne {p_real_sot['line']} cote {p_real_sot['cote']} → edge +{p_real_sot['edge']}% ({rank_ctx})",
+                "reasoning": _build_shots_reasoning("tirs cadrés") + f"\n💰 Ligne book {p_real_sot['line']} @ {p_real_sot['cote']} → edge +{p_real_sot['edge']}%",
                 "stats": {"expected_total": round(exp_total_sot, 1)},
                 "priority": 3,
             })
@@ -1357,7 +1396,7 @@ def team_shots_props(home_ts, away_ts, home_recent, away_recent, h2h_shots, home
                     "label": p["label"],
                     "cote": None, "cote_min": p["cote_min"], "value": p.get("value"),
                     "confidence": p["confidence"],
-                    "reasoning": f"{home_name} ~{round(exp_h_sot,1)} cadrés · {away_name} ~{round(exp_a_sot,1)} → total ~{round(exp_total_sot,1)} ({rank_ctx})",
+                    "reasoning": _build_shots_reasoning("tirs cadrés"),
                     "stats": {"expected_total": round(exp_total_sot, 1)},
                     "priority": 3,
                 })

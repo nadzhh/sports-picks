@@ -1319,7 +1319,7 @@ def build_team_pick(p, ai_txt=""):
         f'</div>'
         f'<div style="background:{color};color:#000;font-weight:bold;border-radius:20px;padding:4px 12px;font-size:14px">{c}%</div>'
         f'</div>'
-        f'<div style="color:#94a3b8;font-size:13px;margin-top:8px">{p["reasoning"]}</div>'
+        f'<div style="color:#94a3b8;font-size:13px;margin-top:8px;line-height:1.55">{p["reasoning"].replace(chr(10), "<br>")}</div>'
         f'<div style="margin-top:6px">{form}</div>'
         f'{advice}'
         f'{ai_bl}'
@@ -1350,7 +1350,7 @@ def build_player_pick(p, ai_analyses=None):
         f'<span style="color:#475569;font-size:12px;margin-left:4px">{type_}</span>'
         f'{sub_b}'
         f'</div>'
-        f'<div style="color:#64748b;font-size:12px">{p["reasoning"]}</div>'
+        f'<div style="color:#64748b;font-size:12px;line-height:1.55">{p["reasoning"].replace(chr(10), "<br>")}</div>'
         f'{ai_bl}'
         f'</div>'
         f'<div style="background:{color};color:#000;font-weight:bold;border-radius:16px;padding:3px 10px;font-size:13px">{c}%</div>'
@@ -1768,7 +1768,10 @@ def build_foot_history(history_data):
             conf_color = "#22c55e" if conf >= 70 else ("#84cc16" if conf >= 65 else "#f59e0b")
             conf_html = f'<div style="background:{conf_color};color:#0a1628;font-weight:800;border-radius:12px;padding:2px 10px;font-size:13px;text-align:center">{conf}%</div>' if conf else ""
             reason = p.get("reasoning", "")
-            reason_html = f'<div style="color:#64748b;font-size:12px;margin-top:3px;line-height:1.45">{reason[:200]}</div>' if reason else ""
+            # Multi-line reasoning : \n -> <br>, on monte la limite a 500 chars pour
+            # accueillir les nouveaux reasoning detailes (stats brutes + ajustements + forme)
+            reason_safe = (reason or "")[:500].replace("\n", "<br>")
+            reason_html = f'<div style="color:#94a3b8;font-size:12px;margin-top:4px;line-height:1.55">{reason_safe}</div>' if reason_safe else ""
             actual_str = ""
             if actual is not None:
                 if isinstance(actual, dict):
