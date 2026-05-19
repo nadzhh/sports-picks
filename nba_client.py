@@ -81,10 +81,17 @@ def get(endpoint, params=None, ttl=3600, force=False):
             raw = gzip.decompress(raw)
         data = json.loads(raw)
     except urllib.error.HTTPError as e:
-        print(f"  [nba {e.code}] {endpoint}")
+        # Log verbeux pour diagnostiquer les blocages IP (CI vs local)
+        body = ""
+        try: body = e.read()[:200].decode("utf-8", "ignore")
+        except Exception: pass
+        print(f"  [nba HTTP {e.code}] {endpoint}  url={url[:80]}  body={body!r}")
+        return None
+    except urllib.error.URLError as e:
+        print(f"  [nba URLError] {endpoint}: reason={e.reason}")
         return None
     except Exception as e:
-        print(f"  [nba err] {endpoint}: {e}")
+        print(f"  [nba err] {endpoint}: {type(e).__name__}: {e}")
         return None
 
     _cache_set(path, data)
