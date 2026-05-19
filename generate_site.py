@@ -1734,11 +1734,22 @@ def build_foot_history(history_data):
         wr_col   = "#22c55e" if d_wr is not None and d_wr >= 55 else ("#84cc16" if d_wr is not None and d_wr >= 50 else "#ef4444")
         if d_wr is None: wr_col = "#94a3b8"
 
-        # Group picks per match for readability
+        # Group picks per match - puis sub-buckets : gagnes / perdus / autres
         from collections import OrderedDict
         per_match = OrderedDict()
         for p in day_picks:
-            per_match.setdefault(p.get("match_id","?"), {"matchup": p.get("matchup","?"), "league": p.get("league",""), "picks": []})["picks"].append(p)
+            mid = p.get("match_id","?")
+            per_match.setdefault(mid, {
+                "matchup": p.get("matchup","?"),
+                "league":  p.get("league",""),
+                "won_picks":  [],
+                "lost_picks": [],
+                "other_picks":[],
+            })
+            result = (p.get("result") or "PENDING").upper()
+            if   result == "WIN":  per_match[mid]["won_picks"].append(p)
+            elif result == "LOSS": per_match[mid]["lost_picks"].append(p)
+            else:                  per_match[mid]["other_picks"].append(p)
 
         def _render_foot_pick(p):
             result = p.get("result", "PENDING")
@@ -1792,27 +1803,30 @@ def build_foot_history(history_data):
 
         match_blocks = ""
         for mid, mdata in per_match.items():
-            # Split picks team/player pour layout 2 cols si beaucoup de picks
-            team_picks   = [p for p in mdata["picks"] if p.get("category") == "team"]
-            player_picks = [p for p in mdata["picks"] if p.get("category") == "player"]
-            other_picks  = [p for p in mdata["picks"] if p.get("category") not in ("team","player")]
-            team_html   = "".join(_render_foot_pick(p) for p in team_picks)
-            player_html = "".join(_render_foot_pick(p) for p in player_picks)
-            other_html  = "".join(_render_foot_pick(p) for p in other_picks)
-            # Si on a et team et player, 2 cols ; sinon 1 col compact
-            if team_picks and player_picks:
-                body = (
-                    f'<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">'
-                    f'<div>{team_html}</div><div>{player_html}</div>'
-                    f'</div>{other_html}'
-                )
-            else:
-                body = f"{team_html}{player_html}{other_html}"
+            won_html  = "".join(_render_foot_pick(p) for p in mdata["won_picks"])
+            lost_html = "".join(_render_foot_pick(p) for p in mdata["lost_picks"])
+            other_html = "".join(_render_foot_pick(p) for p in mdata["other_picks"])
+            n_won  = len(mdata["won_picks"])
+            n_lost = len(mdata["lost_picks"])
+            empty = '<div style="color:#475569;font-size:11px;text-align:center;padding:14px;font-style:italic">aucun</div>'
             match_blocks += (
                 f'<div style="background:#0a1628;border-radius:8px;padding:10px 12px;margin-bottom:10px">'
-                f'<div style="color:#3b82f6;font-size:12px;font-weight:700;margin-bottom:8px">'
+                f'<div style="color:#3b82f6;font-size:13px;font-weight:700;margin-bottom:10px">'
                 f'⚽ {mdata["matchup"]} <span style="color:#475569;font-weight:500">· {mdata["league"]}</span></div>'
-                f'{body}'
+                f'<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">'
+                # Col gauche : GAGNES
+                f'<div>'
+                f'<div style="color:#22c55e;font-size:11px;font-weight:800;letter-spacing:1px;text-transform:uppercase;margin-bottom:6px;border-bottom:1px solid rgba(34,197,94,0.25);padding-bottom:4px">✓ Gagnés ({n_won})</div>'
+                f'{won_html or empty}'
+                f'</div>'
+                # Col droite : PERDUS
+                f'<div>'
+                f'<div style="color:#ef4444;font-size:11px;font-weight:800;letter-spacing:1px;text-transform:uppercase;margin-bottom:6px;border-bottom:1px solid rgba(239,68,68,0.25);padding-bottom:4px">✗ Perdus ({n_lost})</div>'
+                f'{lost_html or empty}'
+                f'</div>'
+                f'</div>'
+                # PUSH / PENDING en pleine largeur
+                f'{other_html}'
                 f'</div>'
             )
 
@@ -1914,19 +1928,19 @@ def build_nba_history(history_data):
         wr_col   = "#22c55e" if d_wr is not None and d_wr >= 55 else ("#84cc16" if d_wr is not None and d_wr >= 50 else "#ef4444")
         if d_wr is None: wr_col = "#94a3b8"
 
-        # Group picks par match, puis 2 colonnes home/away (comme les picks live)
+        # Group picks par match, puis 2 colonnes GAGNES (gauche) / PERDUS (droite)
         from collections import OrderedDict
         per_match = OrderedDict()
         for p in day_picks:
             mid = p.get("game_id", "?")
             per_match.setdefault(mid, {
                 "matchup": p.get("matchup", "?"),
-                "home_picks": [], "away_picks": [], "other": []
+                "won_picks": [], "lost_picks": [], "other_picks": []
             })
-            side = (p.get("side") or "").lower()
-            if   side == "home": per_match[mid]["home_picks"].append(p)
-            elif side == "away": per_match[mid]["away_picks"].append(p)
-            else:                per_match[mid]["other"].append(p)
+            result = (p.get("result") or "PENDING").upper()
+            if   result == "WIN":  per_match[mid]["won_picks"].append(p)
+            elif result == "LOSS": per_match[mid]["lost_picks"].append(p)
+            else:                  per_match[mid]["other_picks"].append(p)  # PUSH/DNP/PENDING
 
         def _render_pick_compact(p):
             result = p.get("result", "PENDING")
@@ -2040,16 +2054,30 @@ def build_nba_history(history_data):
 
         picks_html = ""
         for mid, mdata in per_match.items():
-            home_html = "".join(_render_pick_compact(p) for p in mdata["home_picks"])
-            away_html = "".join(_render_pick_compact(p) for p in mdata["away_picks"])
-            other_html = "".join(_render_pick_compact(p) for p in mdata["other"])
+            won_html  = "".join(_render_pick_compact(p) for p in mdata["won_picks"])
+            lost_html = "".join(_render_pick_compact(p) for p in mdata["lost_picks"])
+            other_html = "".join(_render_pick_compact(p) for p in mdata["other_picks"])
+            n_won  = len(mdata["won_picks"])
+            n_lost = len(mdata["lost_picks"])
+            # Headers de colonnes (tjrs affiches meme si une est vide)
+            won_empty  = '<div style="color:#475569;font-size:11px;text-align:center;padding:14px;font-style:italic">aucun</div>'
+            lost_empty = '<div style="color:#475569;font-size:11px;text-align:center;padding:14px;font-style:italic">aucun</div>'
             picks_html += (
                 f'<div style="background:#0a1628;border-radius:8px;padding:10px 12px;margin-bottom:10px">'
-                f'<div style="color:#fb923c;font-size:12px;font-weight:700;margin-bottom:8px">🏀 {mdata["matchup"]}</div>'
-                f'<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">'
-                f'<div>{home_html}</div>'
-                f'<div>{away_html}</div>'
+                f'<div style="color:#fb923c;font-size:13px;font-weight:700;margin-bottom:10px">🏀 {mdata["matchup"]}</div>'
+                f'<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">'
+                # Col gauche : GAGNES
+                f'<div>'
+                f'<div style="color:#22c55e;font-size:11px;font-weight:800;letter-spacing:1px;text-transform:uppercase;margin-bottom:6px;border-bottom:1px solid rgba(34,197,94,0.25);padding-bottom:4px">✓ Gagnés ({n_won})</div>'
+                f'{won_html or won_empty}'
                 f'</div>'
+                # Col droite : PERDUS
+                f'<div>'
+                f'<div style="color:#ef4444;font-size:11px;font-weight:800;letter-spacing:1px;text-transform:uppercase;margin-bottom:6px;border-bottom:1px solid rgba(239,68,68,0.25);padding-bottom:4px">✗ Perdus ({n_lost})</div>'
+                f'{lost_html or lost_empty}'
+                f'</div>'
+                f'</div>'
+                # PUSH / DNP / PENDING en pleine largeur
                 f'{other_html}'
                 f'</div>'
             )
