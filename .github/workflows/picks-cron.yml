@@ -1,0 +1,70 @@
+name: Sport-picks cron
+
+on:
+  schedule:
+    - cron: "*/15 * * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: picks-cron
+  cancel-in-progress: false
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: |
+          if [ -f requirements.txt ]; then
+            python -m pip install --upgrade pip
+            pip install -r requirements.txt
+          else
+            echo "Pas de requirements.txt - stdlib seulement"
+          fi
+
+      - name: Pipeline complet
+        env:
+          API_KEY: ${{ secrets.API_KEY }}
+          ODDS_API_KEY: ${{ secrets.ODDS_API_KEY }}
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+          PYTHONIOENCODING: utf-8
+        run: |
+          python foot_resolver.py         || echo "[!] foot_resolver KO"
+          python nba_resolver.py          || echo "[!] nba_resolver KO"
+          python scraper.py               || echo "[!] scraper foot KO"
+          python scraper_players_today.py || echo "[!] scraper_players KO"
+          python nba_scraper.py           || echo "[!] nba_scraper KO"
+          python nba_odds.py              || echo "[!] nba_odds KO"
+          python nba_picks_engine.py      || echo "[!] nba_picks_engine KO"
+          python picks_engine.py          || echo "[!] picks_engine KO"
+          python notify.py                || echo "[!] notify KO"
+          echo "Pipeline termine"
+
+      - name: Commit & push data updates
+        run: |
+          git config user.name  "sport-picks-bot"
+          git config user.email "actions@github.com"
+          git add data/*.json index.html 2>/dev/null || true
+          if git diff --cached --quiet; then
+            echo "No data changes to commit"
+          else
+            git commit -m "Auto-update picks $(date -u +'%Y-%m-%d %H:%M UTC')"
+            git push
+          fi
