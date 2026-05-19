@@ -29,16 +29,84 @@ def win_rate(f):   return f.count("W") / len(f) if f else 0
 def unbeaten(f):   return (f.count("W") + f.count("D")) / len(f) if f else 0
 def loss_rate(f):  return f.count("L") / len(f) if f else 0
 
-def get_pos(fd, s): return (fd or {}).get(s, {}).get("position", 20)
+def get_pos(fd, s):
+    pos = (fd or {}).get(s, {}).get("position", None)
+    return pos if pos is not None else 20
 def get_rat(fd, s):
-    try: return float((fd or {}).get(s, {}).get("avgRating", 6.5))
+    try:
+        v = (fd or {}).get(s, {}).get("avgRating", None)
+        return float(v) if v is not None else 6.5
     except: return 6.5
 
 def parse_h2h(h):
     try:
         d = h.get("teamDuel", {})
-        return d.get("homeWins",0), d.get("draws",0), d.get("awayWins",0)
+        hw = int(d.get("homeWins", 0) or 0)
+        dr = int(d.get("draws", 0) or 0)
+        aw = int(d.get("awayWins", 0) or 0)
+        return hw, dr, aw
     except: return 0,0,0
+
+def is_cup_league(league_id):
+    """Détecte si c'est une coupe européenne."""
+    return league_id in {7, 679, 17015}
+
+def home_away_context(recent, is_home):
+    """
+    Retourne les stats pertinentes selon si l'équipe joue à domicile ou extérieur.
+    Préfère les stats home/away spécifiques si disponibles (>=3 matchs).
+    """
+    if not recent:
+        return {}
+    h_gf = recent.get("home_gf_pm", 0)
+    h_ga = recent.get("home_ga_pm", 0)
+    a_gf = recent.get("away_gf_pm", 0)
+    a_ga = recent.get("away_ga_pm", 0)
+    h_n  = recent.get("home_n", 0)
+    a_n  = recent.get("away_n", 0)
+
+    if is_home and h_n >= 3:
+        return {"gf": h_gf, "ga": h_ga, "n": h_n, "src": "domicile"}
+    elif not is_home and a_n >= 3:
+        return {"gf": a_gf, "ga": a_ga, "n": a_n, "src": "extérieur"}
+    else:
+        return {"gf": recent.get("goals_for_pm",0), "ga": recent.get("goals_ag_pm",0),
+                "n": recent.get("n_matches",0), "src": "L10"}
+
+def cup_context(recent, cup_league=False):
+    """
+    Pour les matchs européens, retourne les stats en coupe si disponibles.
+    Minimum 5 matchs pour être statistiquement fiable.
+    """
+    if not recent or not cup_league:
+        return {}
+    cup_gf = recent.get("cup_gf_pm", 0)
+    cup_n  = recent.get("cup_n", 0)
+    if cup_n >= 5:  # minimum 5 matchs en coupe
+        return {"gf": cup_gf, "ga": recent.get("cup_ga_pm",0), "n": cup_n}
+    return {}
+
+def knockout_pressure_bonus(league_id, form):
+    """
+    En phase KO (demi, quart...) les équipes à domicile ont un bonus de motivation.
+    Retourne un bonus 0-10% sur les probabilités offensives.
+    """
+    if not is_cup_league(league_id):
+        return 0
+    # En méforme globale mais match KO à domicile → boost motivation
+    w_rate = form.count("W") / len(form) if form else 0
+    # Même une équipe en méforme peut se surpasser en KO à domicile
+    return 0.08  # +8% boost motivation KO
+
+def opponent_quality_adjust(form_details):
+    """
+    Ajuste la valeur de la forme selon la qualité des adversaires récents.
+    Si les victoires sont contre des équipes faibles → dévalue la série.
+    Utilise les match_details pour détecter les adversaires.
+    """
+    # Pas implémentable sans classement adversaires dans details
+    # → retourne 1.0 (neutre) pour l'instant
+    return 1.0
 
 def poisson_at_least(lam, k):
     """P(X >= k) pour X ~ Poisson(lam) — probabilité réelle."""
@@ -98,8 +166,8 @@ def prob(cote):
 def form_summary(f):
     """Résumé lisible de la forme : ex '4V 1N 0D sur 5 matchs'"""
     if not f: return ""
-    w, d, l = f.count("W"), f.count("D"), f.count("L")
-    return f"{w}V/{d}N/{l}D sur {len(f)} matchs"
+    w, dn, l = f.count("W"), f.count("D"), f.count("L")
+    return f"{w}V/{dn}N/{l}D sur {len(f)} matchs"
 
 def recent_form_score(f, n=5):
     """Score 0-100 basé sur les N derniers matchs (forme récente)."""
@@ -300,7 +368,7 @@ def analyze_match(match, pstats_all):
     hf = get_form(form,"homeTeam"); af = get_form(form,"awayTeam")
     hp = get_pos(form,"homeTeam");  ap = get_pos(form,"awayTeam")
     hr = get_rat(form,"homeTeam");  ar = get_rat(form,"awayTeam")
-    hw, d, aw = parse_h2h(h2h); h2ht = hw+d+aw
+    hw, dn, aw = parse_h2h(h2h); h2ht = hw+dn+aw
 
     # Forme récente (score 0-100 basé sur les 5 derniers)
     h_form_score = recent_form_score(hf)
@@ -318,6 +386,24 @@ def analyze_match(match, pstats_all):
 
     h_goals = goals_analysis(home_rec, home_ts_data, home)
     a_goals = goals_analysis(away_rec, away_ts_data, away)
+
+    # ── Contexte domicile/extérieur ──────────────────────────────────────────
+    league_id   = match.get("league_id", 0) or 0
+    is_cup      = is_cup_league(league_id)
+    h_ha_ctx    = home_away_context(home_rec, is_home=True)   # stats dom de l'équipe dom
+    a_ha_ctx    = home_away_context(away_rec, is_home=False)  # stats ext de l'équipe ext
+    h_cup_ctx   = cup_context(home_rec, is_cup)
+    a_cup_ctx   = cup_context(away_rec, is_cup)
+    ko_bonus_h  = knockout_pressure_bonus(league_id, hf) if hf else 0
+    ko_bonus_a  = knockout_pressure_bonus(league_id, af) if af else 0
+
+    # Buts attendus avec contexte home/away (plus précis que la moyenne globale)
+    h_gf_ctx = h_cup_ctx.get("gf") or h_ha_ctx.get("gf") or h_goals.get("gf", 0)
+    a_gf_ctx = a_cup_ctx.get("gf") or a_ha_ctx.get("gf") or a_goals.get("gf", 0)
+    h_ga_ctx = h_cup_ctx.get("ga") or h_ha_ctx.get("ga") or h_goals.get("ga", 0)
+    a_ga_ctx = a_cup_ctx.get("ga") or a_ha_ctx.get("ga") or a_goals.get("ga", 0)
+    h_gf_src = h_cup_ctx.get("n","") and "LDC" or h_ha_ctx.get("src","L10")
+    a_gf_src = a_cup_ctx.get("n","") and "LDC" or a_ha_ctx.get("src","L10")
 
     ft  = get_mkt(odds,"Full time")
     dc  = get_mkt(odds,"Double chance")
@@ -354,7 +440,7 @@ def analyze_match(match, pstats_all):
             trend_txt = f" ({h_trend})" if h_trend != "stable" else ""
             add("home_win","Victoire domicile",f"{home} gagne",c1,conf,
                 f"{home} : {form_summary(hf)}{trend_txt} · #{hp} au classement · "
-                f"H2H: {hw}V/{d}N/{aw}D · Note Sofa: {hr:.1f}/10",hf)
+                f"H2H: {hw}V/{dn}N/{aw}D · Note Sofa: {hr:.1f}/10",hf)
 
     if af:
         form_c = a_form_score * 0.55
@@ -366,7 +452,7 @@ def analyze_match(match, pstats_all):
             trend_txt = f" ({a_trend})" if a_trend != "stable" else ""
             add("away_win","Victoire extérieur",f"{away} gagne",c2,conf,
                 f"{away} : {form_summary(af)}{trend_txt} · #{ap} au classement · "
-                f"H2H: {aw}V/{d}N/{hw}D · Note Sofa: {ar:.1f}/10",af)
+                f"H2H: {aw}V/{dn}N/{hw}D · Note Sofa: {ar:.1f}/10",af)
 
     # ── Favori net ─────────────────────────────────────────────────────────
     if hf and af:
@@ -395,23 +481,23 @@ def analyze_match(match, pstats_all):
     dc_cands = []
     if hf:
         ub   = unbeaten(hf)
-        h2h_ = (hw+d)/h2ht if h2ht else 0.5
+        h2h_ = (hw+dn)/h2ht if h2ht else 0.5
         # Forme récente pondérée davantage
         conf = round(ub * 65 + h_form_score * 0.2 + h2h_ * 15)
         if conf >= 70:
             trend_txt = f", {h_trend}" if h_trend not in ("stable","en légère baisse") else ""
             dc_cands.append(("home_dc","Double chance",f"{home} ou Nul (1X)",c1x,conf,
                 f"{home} invaincu {round(ub*100)}% sur {len(hf)} derniers matchs{trend_txt} · "
-                f"H2H: {hw+d}/{h2ht} matchs sans défaite",hf))
+                f"H2H: {hw+dn}/{h2ht} matchs sans défaite",hf))
     if af:
         ub   = unbeaten(af)
-        h2h_ = (aw+d)/h2ht if h2ht else 0.5
+        h2h_ = (aw+dn)/h2ht if h2ht else 0.5
         conf = round(ub * 65 + a_form_score * 0.2 + h2h_ * 15)
         if conf >= 70:
             trend_txt = f", {a_trend}" if a_trend not in ("stable","en légère baisse") else ""
             dc_cands.append(("away_dc","Double chance",f"Nul ou {away} (X2)",cx2,conf,
                 f"{away} invaincu {round(ub*100)}% sur {len(af)} derniers matchs{trend_txt} · "
-                f"H2H: {aw+d}/{h2ht} matchs sans défaite",af))
+                f"H2H: {aw+dn}/{h2ht} matchs sans défaite",af))
     if dc_cands:
         add(*max(dc_cands, key=lambda x: x[4]))
 
@@ -422,8 +508,8 @@ def analyze_match(match, pstats_all):
         import math as _math
 
         # Probabilité de scorer via Poisson + fréquence BTTS observée
-        h_gf  = h_goals.get("gf", 0)
-        a_gf  = a_goals.get("gf", 0)
+        h_gf  = h_gf_ctx or h_goals.get("gf", 0)
+        a_gf  = a_gf_ctx or a_goals.get("gf", 0)
         h_score_prob = round((1 - _math.exp(-h_gf)) * 100) if h_gf > 0 else None
         a_score_prob = round((1 - _math.exp(-a_gf)) * 100) if a_gf > 0 else None
 
@@ -479,10 +565,11 @@ def analyze_match(match, pstats_all):
         a_gf_s  = a_goals.get("s_gf", 0)
         h_ga_s  = h_goals.get("s_ga", 0)
         a_ga_s  = a_goals.get("s_ga", 0)
-        h_gf_r  = home_rec.get("goals_for_pm", 0)
-        a_gf_r  = away_rec.get("goals_for_pm", 0)
-        h_ga_r  = home_rec.get("goals_ag_pm", 0)
-        a_ga_r  = away_rec.get("goals_ag_pm", 0)
+        # Priorité : contexte home/away/cup > L10 > saison
+        h_gf_r  = h_gf_ctx or home_rec.get("goals_for_pm", 0)
+        a_gf_r  = a_gf_ctx or away_rec.get("goals_for_pm", 0)
+        h_ga_r  = h_ga_ctx or home_rec.get("goals_ag_pm", 0)
+        a_ga_r  = a_ga_ctx or away_rec.get("goals_ag_pm", 0)
         h_btts  = home_rec.get("btts_rate", 0) / 100 if home_rec.get("btts_n", 0) >= 5 else None
         a_btts  = away_rec.get("btts_rate", 0) / 100 if away_rec.get("btts_n", 0) >= 5 else None
         h_tot_r = home_rec.get("total_goals_pm", 0)
@@ -525,10 +612,11 @@ def analyze_match(match, pstats_all):
 
         if conf_over >= 55 and co:
             if total_exp:
+                cup_note = f" · contexte LDC ({h_gf_src}/{a_gf_src})" if is_cup else ""
                 r = (
                     f"{home}: {h_att:.1f} buts/{src_hr} · défense {away} concède {a_def:.1f}/{src_ar} → ~{h_exp:.1f} attendus · "
                     f"{away}: {a_att:.1f} buts/{src_ar} · défense {home} concède {h_def:.1f}/{src_hr} → ~{a_exp:.1f} attendus · "
-                    f"Total: ~{total_exp} buts (P={p_data}% via Poisson)"
+                    f"Total: ~{total_exp} buts (P={p_data}%{cup_note})"
                 )
             else:
                 r = f"Deux équipes offensives, match orienté vers les buts"
@@ -548,16 +636,29 @@ def analyze_match(match, pstats_all):
     if fts and hf:
         c_home = get_odds(fts, home); c_away = get_odds(fts, away)
         ph = prob(c_home); pa = prob(c_away)
+
+        # Stats offensives pour FTS
+        h_off = h_gf_ctx or h_goals.get("gf", 0)
+        a_off = a_gf_ctx or a_goals.get("gf", 0)
+        h_def = h_ga_ctx or h_goals.get("ga", 0)
+        a_def = a_ga_ctx or a_goals.get("ga", 0)
+
         if ph >= 52 and ph > pa:
-            r = (f"{home} a l'avantage du terrain et {form_summary(hf[-3:])} sur ses 3 derniers — "
-                 f"tendance à ouvrir le score à domicile")
+            r = (
+                f"{home} marque {h_off:.1f} buts/match ({h_gf_src}) · "
+                f"défense {away} concède {a_def:.1f}/match · "
+                f"cote bookmaker → {round(ph)}% de probabilité"
+            )
             add("fts_home","1ère équipe à marquer",f"{home} marque en premier",c_home,
-                min(82,round(ph+3)),r)
+                min(80,round(ph+2)),r)
         elif pa >= 52 and pa > ph:
-            r = (f"{away} {form_summary(af[-3:])} sur ses 3 derniers — "
-                 f"équipe capable de scorer rapidement même à l'extérieur")
+            r = (
+                f"{away} marque {a_off:.1f} buts/match ({a_gf_src}) · "
+                f"défense {home} concède {h_def:.1f}/match · "
+                f"cote bookmaker → {round(pa)}% de probabilité"
+            )
             add("fts_away","1ère équipe à marquer",f"{away} marque en premier",c_away,
-                min(82,round(pa+3)),r)
+                min(80,round(pa+2)),r)
 
     # ── Corners ────────────────────────────────────────────────────────────
     if crn:
@@ -587,7 +688,31 @@ def analyze_match(match, pstats_all):
     for pk in sorted(candidates, key=lambda x: x["confidence"], reverse=True):
         k = pk.get("direction", pk["label"])
         if k not in seen: seen[k] = pk
-    team_picks = sorted(seen.values(), key=lambda x: x["confidence"], reverse=True)[:5]
+    raw_picks = list(seen.values())
+
+    # ── Cohérence Over/Under buts : évite les contradictions ─────────────────
+    directions = {p.get("direction","") for p in raw_picks}
+    filtered = []
+    for pk in raw_picks:
+        d = pk.get("direction","")
+        # Over 1.5 incompatible avec Under 2.5 ou Under 3.5
+        if d == "over15" and ("under25" in directions or "under35" in directions):
+            continue
+        # Over 1.5 redondant si Over 2.5 existe
+        if d == "over15" and "over25" in directions:
+            continue
+        # Over 2.5 incompatible avec Under 3.5 (quasi-contradiction)
+        if d == "over25" and "under35" in directions:
+            o = next((p for p in raw_picks if p.get("direction")=="over25"), None)
+            u = next((p for p in raw_picks if p.get("direction")=="under35"), None)
+            if o and u and u["confidence"] > o["confidence"]:
+                continue  # garde under35, supprime over25
+        # Under 3.5 redondant si Under 2.5 plus restrictif existe
+        if d == "under35" and "under25" in directions:
+            continue
+        filtered.append(pk)
+
+    team_picks = sorted(filtered, key=lambda x: x["confidence"], reverse=True)[:5]
 
     # ── Paris fun (cote >= 2.0, analyse sérieuse) ──────────────────────────
     fun_picks = []
@@ -614,7 +739,7 @@ def analyze_match(match, pstats_all):
     if hf and af and cx and cx >= 2.0:
         pd = abs(ap - hp)
         if pd <= 4 and abs(h_form_score - a_form_score) <= 15:
-            conf = round(min(65, 40 + d/h2ht*25 if h2ht else 45))
+            conf = round(min(65, 40 + int(dn or 0)/int(h2ht or 1)*25 if h2ht else 45))
             if conf >= 40:
                 fun_picks.append({
                     "direction": "fun_draw", "type": "🎲 Paris fun",
@@ -651,11 +776,64 @@ def analyze_match(match, pstats_all):
     home_recent  = home_rec
     away_recent  = away_rec
 
+    # Filtre joueurs absents/blesses (depuis lineup.unavailable)
+    lineup = pstats.get("lineup") or {}
+    def _names_unavailable(side):
+        t = lineup.get(side) or {}
+        out_absent = set()
+        out_doubt  = set()
+        for u in (t.get("unavailable") or []):
+            name = (u.get("name") or "").strip().lower()
+            if not name: continue
+            ret = (u.get("return") or "").lower()
+            # Doubtful = incertain mais peut jouer
+            if "doubt" in ret:
+                out_doubt.add(name)
+            else:
+                out_absent.add(name)
+        return out_absent, out_doubt
+
+    h_absent, h_doubt = _names_unavailable("home")
+    a_absent, a_doubt = _names_unavailable("away")
+
+    def _is_absent(player, side_absent):
+        n = (player.get("name") or player.get("shortName") or "").strip().lower()
+        if not n: return False
+        if n in side_absent: return True
+        # Match partiel (au cas ou les noms different legerement)
+        for ab in side_absent:
+            if ab and ab in n: return True
+            if n and n in ab: return True
+        return False
+
+    # Annote les doubtful (penalite confiance) et exclut les absents
+    home_players_filt = []
+    for p in home_players:
+        if _is_absent(p, h_absent):
+            continue
+        if _is_absent(p, h_doubt):
+            p = dict(p); p["_doubtful"] = True
+        home_players_filt.append(p)
+    away_players_filt = []
+    for p in away_players:
+        if _is_absent(p, a_absent):
+            continue
+        if _is_absent(p, a_doubt):
+            p = dict(p); p["_doubtful"] = True
+        away_players_filt.append(p)
+
     home_conceded = away_ts_data.get("conceded_pm", 0) if away_ts_data else 0
     away_conceded = home_ts_data.get("conceded_pm", 0) if home_ts_data else 0
 
-    home_pp_raw = player_picks_contextual(home_players, ap, ar, home_conceded, btts_p)
-    away_pp_raw = player_picks_contextual(away_players, hp, hr, away_conceded, btts_p)
+    home_pp_raw = player_picks_contextual(home_players_filt, ap, ar, home_conceded, btts_p)
+    away_pp_raw = player_picks_contextual(away_players_filt, hp, hr, away_conceded, btts_p)
+
+    # Marquer les picks de joueurs doubtful (confidence x0.85)
+    for pk in home_pp_raw + away_pp_raw:
+        pname = (pk.get("player") or "").strip().lower()
+        if pname in h_doubt or pname in a_doubt:
+            pk["confidence"] = round(pk["confidence"] * 0.85)
+            pk["reasoning"] = f"⚠️ {pname.title()} INCERTAIN · " + pk.get("reasoning", "")
 
     # ── Max 3 props joueurs PAR MATCH (pas par équipe) ──────────────────────
     # Mélange les deux listes, trie par confiance, garde les 3 meilleurs
@@ -721,99 +899,505 @@ def analyze_match(match, pstats_all):
 
     # ── Tirs équipe ─────────────────────────────────────────────────────────
     shots_props = team_shots_props(home_ts_data, away_ts_data, home_rec, away_rec,
-                                   h2h_shots_d, home, away, hp, ap)
+                                   h2h_shots_d, home, away, hp, ap, match_odds=odds)
     team_picks.extend(shots_props)
 
     return team_picks, home_pp, away_pp, fun_picks
 
 # ─── Tirs équipe ─────────────────────────────────────────────────────────────
 
-def team_shots_props(home_ts, away_ts, home_recent, away_recent, h2h_shots, home_name, away_name, home_pos=10, away_pos=10):
+def _weighted_avg(l5, l10, season, w5=0.50, w10=0.30, ws=0.20):
+    """Moyenne ponderee L5/L10/Saison. Skip valeurs None."""
+    vals = []
+    if l5     is not None: vals.append((float(l5),     w5))
+    if l10    is not None: vals.append((float(l10),    w10))
+    if season is not None: vals.append((float(season), ws))
+    if not vals: return None
+    total_w = sum(w for _, w in vals)
+    return sum(v * w for v, w in vals) / total_w
+
+
+def _poisson_over(lam, k):
+    """P(X > k) pour X ~ Poisson(lam). k peut etre fractionnaire (line 20.5)."""
+    if lam is None or lam <= 0: return 0
+    import math
+    threshold = int(k)
+    # P(X >= threshold + 1) = 1 - P(X <= threshold)
+    cum = sum(math.exp(-lam) * lam**i / math.factorial(i) for i in range(threshold + 1))
+    return round((1 - cum) * 100, 1)
+
+
+def _generate_lines(expected, n_lines=3, spread=3.0):
+    """Legacy: lignes centrees autour de expected. Pour compat tirs cadres internes."""
+    if not expected or expected <= 0: return []
+    def to_half(v): return round(v * 2) / 2 - (0 if (round(v * 2) % 2 == 1) else 0.5)
+    if n_lines == 3:
+        return sorted({to_half(expected - spread), to_half(expected), to_half(expected + spread)})
+    return sorted({to_half(expected - spread + i * (2 * spread / (n_lines - 1))) for i in range(n_lines)})
+
+
+# Lignes bookmaker reelles (basees sur observations Betclic/Bet365/Unibet)
+BOOKMAKER_LINES = {
+    "total_shots":  [19.5, 21.5, 22.5, 23.5, 24.5, 25.5, 26.5, 27.5, 28.5, 30.5],
+    "home_shots":   [7.5, 8.5, 9.5, 10.5, 11.5, 12.5, 13.5, 14.5, 15.5, 16.5],
+    "away_shots":   [6.5, 7.5, 8.5, 9.5, 10.5, 11.5, 12.5, 13.5, 14.5],
+    "total_sot":    [5.5, 6.5, 7.5, 8.5, 9.5, 10.5, 11.5],
+    "home_sot":     [1.5, 2.5, 3.5, 4.5, 5.5, 6.5],
+    "away_sot":     [1.5, 2.5, 3.5, 4.5, 5.5],
+}
+
+
+def _fair_cote(probability):
+    """
+    Cote fair / break-even / seuil-valeur:
+    - Si tu joues au-dessus = +EV
+    - Si tu joues en-dessous = -EV (bookmaker te gruge)
+    """
+    if not probability or probability <= 0 or probability >= 100:
+        return None
+    return round(1 / (probability / 100), 2)
+
+
+def _value_tier(cote_min):
+    """
+    Note la qualite d'une opportunite selon le cote_min (= cote requise pour +EV):
+    - Plus la cote_min est haute, plus c'est facile a trouver chez un bookmaker
+    """
+    if not cote_min: return None
+    if cote_min >= 1.45: return ("🎯", "Belle value", "#22c55e")    # green - facile a beat
+    if cote_min >= 1.30: return ("💎", "Value correcte", "#84cc16") # lime - jouable
+    if cote_min >= 1.22: return ("⚠️", "Value serrée", "#f59e0b")  # amber - bookmaker souvent en dessous
+    return ("🚫", "Quasi-impossible", "#94a3b8")  # gray - presque toujours -EV
+
+
+# Sweet spot: conf 60-80% donne cote_min 1.25-1.67
+# - >80% conf donne cote_min <1.25 = quasi-impossible a beat (bookmaker offre toujours moins)
+# - <60% pas fiable
+SWEET_SPOT_CONF = (60, 80)
+MIN_CONF        = 60
+MIN_COTE_MIN    = 1.20    # filtre: skip si cote_min < 1.20 (vraiment trop dur)
+
+
+def _pick_line(expected, lines, line_label_prefix, kind, min_conf=MIN_CONF, sweet_spot=SWEET_SPOT_CONF):
+    """
+    Cherche LA ligne donnant une cote_min raisonnable (1.30+).
+    Privilegie zones 60-75% confidence = cote_min 1.33-1.67 = vraies opportunites de value.
+    """
+    if not expected or expected <= 0 or not lines: return None
+    sweet_lo, sweet_hi = sweet_spot
+    sweet_candidates = []
+    fallback = None
+    fallback_dist = 0
+
+    def _make_pick(line, direction, conf):
+        cote_min = _fair_cote(conf)
+        if cote_min is None or cote_min < MIN_COTE_MIN:
+            return None  # filtre: trop pres certitude, no value
+        label = (f"Plus de {line} {line_label_prefix}" if direction == "over"
+                 else f"Moins de {line} {line_label_prefix}")
+        return {
+            "line": line, "direction": direction,
+            "label": label,
+            "confidence": round(conf), "kind": kind,
+            "cote_min": cote_min,
+            "value": _value_tier(cote_min),
+        }
+
+    for line in lines:
+        p_over = _poisson_over(expected, line)
+        # OVER
+        if sweet_lo <= p_over <= sweet_hi:
+            pick = _make_pick(line, "over", p_over)
+            if pick: sweet_candidates.append(pick)
+        elif p_over >= min_conf:
+            pick = _make_pick(line, "over", p_over)
+            if pick:
+                dist = p_over - 50
+                if dist > fallback_dist:
+                    fallback = pick
+                    fallback_dist = dist
+        # UNDER
+        p_under = 100 - p_over
+        if sweet_lo <= p_under <= sweet_hi:
+            pick = _make_pick(line, "under", p_under)
+            if pick: sweet_candidates.append(pick)
+        elif p_under >= min_conf:
+            pick = _make_pick(line, "under", p_under)
+            if pick:
+                dist = p_under - 50
+                if dist > fallback_dist:
+                    fallback = pick
+                    fallback_dist = dist
+
+    if sweet_candidates:
+        # Choix: la conf la plus haute DANS la sweet spot (meilleur edge potentiel)
+        return max(sweet_candidates, key=lambda x: x["confidence"])
+    return fallback
+
+
+def _extract_bookmaker_shot_lines(match_odds):
+    """
+    Extrait les lignes bookmaker reelles pour tirs/tirs cadres depuis match_odds.
+    """
+    out = {
+        "total_shots": [], "total_sot": [],
+        "home_shots":  [], "away_shots": [],
+    }
+    if not match_odds:
+        return out
+    markets = match_odds.get("markets", [])
+    for mk in markets:
+        name = mk.get("marketName", "")
+        cg = mk.get("choiceGroup")
+        if not cg: continue
+        try:
+            line = float(cg)
+        except:
+            continue
+        over_cote = under_cote = None
+        for c in mk.get("choices", []):
+            cn = c.get("name", "")
+            try:
+                dec = round(float(c.get("fractionalValue", 0)) + 1, 2)
+            except:
+                continue
+            if cn.lower() == "over":   over_cote = dec
+            elif cn.lower() == "under": under_cote = dec
+        if over_cote and under_cote:
+            if name == "Total shots":
+                out["total_shots"].append((line, over_cote, under_cote))
+            elif name == "Total shots on target":
+                out["total_sot"].append((line, over_cote, under_cote))
+            elif name == "Away team total shots":
+                out["away_shots"].append((line, over_cote, under_cote))
+            elif name == "Home team total shots":
+                out["home_shots"].append((line, over_cote, under_cote))
+    return out
+
+
+def team_shots_props(home_ts, away_ts, home_recent, away_recent, h2h_shots, home_name, away_name, home_pos=10, away_pos=10, match_odds=None):
+    """
+    Genere des picks tirs/SoT.
+    - Utilise les splits dom/ext (Betis home -> shots_home, Elche away -> shots_away)
+    - Fallback sur overall (L5/L10/saison) si splits trop petits ou indisponibles.
+    """
     props = []
-    h_shots_r = home_recent.get("shots_pm", 0)
-    a_shots_r = away_recent.get("shots_pm", 0)
-    h_sot_r   = home_recent.get("sot_pm", 0)
-    a_sot_r   = away_recent.get("sot_pm", 0)
-    h_trend   = home_recent.get("shots_trend", "→ stable")
-    a_trend   = away_recent.get("shots_trend", "→ stable")
+    hr = home_recent or {}; ar = away_recent or {}
 
-    h_shots_s = (home_ts or {}).get("shots_pm", 0)
-    a_shots_s = (away_ts or {}).get("shots_pm", 0)
-    h_sot_s   = (home_ts or {}).get("sot_pm", 0)
-    a_sot_s   = (away_ts or {}).get("sot_pm", 0)
+    # ── Stats contextuelles (selon role dans CE match) ─────────────────────
+    def ctx_or_overall(side_dict, ctx_key, ctx_n_key, overall_l5, overall_l10, overall_season,
+                       min_split_n=4):
+        """
+        Prefere la stat contextuelle (ex: shots_home) si echantillon >= min_split_n.
+        Sinon blend 60% split + 40% overall pour compenser le petit echantillon.
+        Sinon fallback complet sur overall.
+        """
+        ctx_val = side_dict.get(ctx_key)
+        ctx_n   = side_dict.get(ctx_n_key, 0)
+        overall = _weighted_avg(
+            side_dict.get(overall_l5),
+            side_dict.get(overall_l10),
+            side_dict.get(overall_season),
+        )
+        if ctx_val is None:
+            return overall, "overall"
+        if ctx_n >= min_split_n + 2:
+            # Echantillon suffisant: 80% split + 20% overall (pour reduire variance)
+            if overall is None: return ctx_val, f"dom/ext ({ctx_n}m)"
+            return ctx_val * 0.8 + overall * 0.2, f"dom/ext ({ctx_n}m)"
+        if ctx_n >= min_split_n:
+            # Echantillon limite: blend 60/40
+            if overall is None: return ctx_val, f"dom/ext faible ({ctx_n}m)"
+            return ctx_val * 0.6 + overall * 0.4, f"dom/ext blend ({ctx_n}m)"
+        return overall, "overall (split trop petit)"
 
+    # Home team joue a domicile -> stats "home"
+    # Away team joue a l'exterieur -> stats "away"
+    # Adversaire concede: home_team concede a domicile -> opp_shots_home
+    #                    away_team concede a l'exterieur -> opp_shots_away
+
+    # ── Stats PONDEREES par qualite adversaire (priorite) ─────────────────
+    # Si dispo, on utilise la moyenne L10 ponderee selon similitude opp_rank avec aujourd'hui
+    h_shots_w = hr.get("shots_weighted")
+    a_shots_w = ar.get("shots_weighted")
+
+    if h_shots_w is not None:
+        h_shots_off = h_shots_w
+        h_off_src = f"pondere vs opp #{hr.get('target_opp_rank')}"
+    else:
+        h_shots_off, h_off_src = ctx_or_overall(hr, "shots_home", "shots_home_n",
+                                                "shots_l5", "shots_l10", "shots_season")
+    if a_shots_w is not None:
+        a_shots_off = a_shots_w
+        a_off_src = f"pondere vs opp #{ar.get('target_opp_rank')}"
+    else:
+        a_shots_off, a_off_src = ctx_or_overall(ar, "shots_away", "shots_away_n",
+                                                "shots_l5", "shots_l10", "shots_season")
+
+    h_shots_def, h_def_src = ctx_or_overall(hr, "opp_shots_home", "shots_home_n",
+                                            "opp_shots_l5", "opp_shots_l10", None)
+    a_shots_def, a_def_src = ctx_or_overall(ar, "opp_shots_away", "shots_away_n",
+                                            "opp_shots_l5", "opp_shots_l10", None)
+
+    h_sot_off, _   = ctx_or_overall(hr, "sot_home", "shots_home_n",
+                                    "sot_l5", "sot_l10", "sot_season")
+    a_sot_off, _   = ctx_or_overall(ar, "sot_away", "shots_away_n",
+                                    "sot_l5", "sot_l10", "sot_season")
+    h_sot_def, _   = ctx_or_overall(hr, "opp_sot_home", "shots_home_n",
+                                    "opp_sot_l5", "opp_sot_l10", None)
+    a_sot_def, _   = ctx_or_overall(ar, "opp_sot_away", "shots_away_n",
+                                    "opp_sot_l5", "opp_sot_l10", None)
+
+    # Attendu = moyenne attaque (contextuelle) + defense adverse (contextuelle)
+    def _expect(off, opp_def):
+        if off is None and opp_def is None: return None
+        if off is None: return opp_def
+        if opp_def is None: return off
+        return (off + opp_def) / 2
+
+    exp_h_shots = _expect(h_shots_off, a_shots_def)
+    exp_a_shots = _expect(a_shots_off, h_shots_def)
+    exp_h_sot   = _expect(h_sot_off,   a_sot_def)
+    exp_a_sot   = _expect(a_sot_off,   h_sot_def)
+
+    # Source pour reasoning
+    src_info = f"{home_name} (att {h_off_src}) · {away_name} (att {a_off_src})"
+
+    # Ajustement classement (favori prend plus de tirs)
+    pd = away_pos - home_pos
+    if abs(pd) > 3 and exp_h_shots and exp_a_shots:
+        adj = min(0.20, abs(pd) * 0.012)
+        if pd > 3:  # home favori
+            exp_h_shots *= (1 + adj); exp_a_shots *= max(0.80, 1 - adj)
+            if exp_h_sot: exp_h_sot *= (1 + adj * 0.7)
+            if exp_a_sot: exp_a_sot *= max(0.80, 1 - adj * 0.7)
+            rank_ctx = f"{home_name} favori (#{home_pos} vs #{away_pos})"
+        else:        # away favori
+            exp_a_shots *= (1 + adj); exp_h_shots *= max(0.80, 1 - adj)
+            if exp_a_sot: exp_a_sot *= (1 + adj * 0.7)
+            if exp_h_sot: exp_h_sot *= max(0.80, 1 - adj * 0.7)
+            rank_ctx = f"{away_name} favori (#{away_pos} vs #{home_pos})"
+    else:
+        rank_ctx = "équipes proches au classement"
+
+    # H2H blend si dispo
     h2h_avg = h2h_shots.get("avg_total_shots", 0)
     h2h_n   = h2h_shots.get("n_matches", 0)
 
-    h_shots = h_shots_r if h_shots_r else h_shots_s
-    a_shots = a_shots_r if a_shots_r else a_shots_s
-    h_sot   = h_sot_r   if h_sot_r   else h_sot_s
-    a_sot   = a_sot_r   if a_sot_r   else a_sot_s
-    src     = "forme récente" if (h_shots_r and a_shots_r) else "stats saison"
+    exp_total_shots = (exp_h_shots or 0) + (exp_a_shots or 0)
+    if h2h_avg and h2h_n >= 3 and exp_total_shots:
+        exp_total_shots = exp_total_shots * 0.7 + h2h_avg * 0.3
 
-    if not h_shots or not a_shots: return props
+    exp_total_sot = (exp_h_sot or 0) + (exp_a_sot or 0)
 
-    pd = away_pos - home_pos
-    adj = min(0.28, abs(pd) * 0.015)
-    if pd > 3:
-        h_adj = round(h_shots * (1 + adj), 1); a_adj = round(a_shots * max(0.72, 1-adj), 1)
-        h_sot_adj = round(h_sot * (1 + adj*0.8), 1); a_sot_adj = round(a_sot * max(0.72, 1-adj*0.8), 1)
-        ctx = f" · {home_name} favoris ({abs(pd)} places d'écart)"
-    elif pd < -3:
-        h_adj = round(h_shots * max(0.72, 1-adj), 1); a_adj = round(a_shots * (1 + adj), 1)
-        h_sot_adj = round(h_sot * max(0.72, 1-adj*0.8), 1); a_sot_adj = round(a_sot * (1 + adj*0.8), 1)
-        ctx = f" · {away_name} favoris ({abs(pd)} places d'écart)"
+    if not exp_total_shots: return props
+
+    # ── Lignes bookmaker realistes (centrees sur l'esperance) ────────────────
+    # Le bookmaker propose typiquement 3 lignes autour de l'esperance.
+    # On evite les lignes irrealistes qu'aucun bookmaker n'offre.
+    def _build_reasoning(off, opp_def, expected, side_name, ctx_label=""):
+        off_s = f"{round(off,1)}" if off else "?"
+        def_s = f"{round(opp_def,1)}" if opp_def else "?"
+        exp_s = f"{round(expected,1)}" if expected else "?"
+        ctx_suffix = f" [{ctx_label}]" if ctx_label else ""
+        return f"{side_name} prend {off_s}/m{ctx_suffix} · adv. concède {def_s}/m → attendu ~{exp_s} ({rank_ctx})"
+
+    # ── Tous les candidats (max 2 picks finaux) ──────────────────────────
+    candidates = []
+
+    def _add(p, pick_type, expected_val, reasoning_text, priority):
+        if not p: return
+        candidates.append({
+            "direction": f"{pick_type.lower().replace(' ','_')}_{p['direction']}_{p['line']}",
+            "type": pick_type,
+            "label": p["label"],
+            "cote": p.get("cote"),  # vrai cote bookmaker si dispo
+            "cote_min": p["cote_min"],
+            "value": p.get("value"),
+            "confidence": p["confidence"],
+            "edge": p.get("edge"),
+            "reasoning": reasoning_text,
+            "stats": {"expected": round(expected_val, 1)},
+            "priority": priority,
+        })
+
+    # ── Recupere lignes bookmaker reelles si dispo ────────────────────────
+    bm_lines = _extract_bookmaker_shot_lines(match_odds)
+
+    def _best_real_line(expected, bm_data, kind):
+        """
+        Pour chaque ligne bookmaker, calcule l'edge reel (my_prob * cote - 1).
+        Retourne le meilleur over/under avec edge positif.
+        """
+        if not expected or not bm_data: return None
+        best = None
+        for line, over_cote, under_cote in bm_data:
+            p_over = _poisson_over(expected, line) / 100
+            # Over edge = my_prob * cote - 1 (>0 = +EV)
+            over_edge = p_over * over_cote - 1
+            under_edge = (1 - p_over) * under_cote - 1
+            # Prefere positif et eleve. Ignore les picks sous 60% confidence
+            if over_edge > 0 and p_over >= 0.60:
+                conf = round(p_over * 100)
+                if not best or over_edge > best["edge"]:
+                    best = {
+                        "line": line, "direction": "over",
+                        "label": f"Plus de {line} {kind}",
+                        "confidence": conf, "cote": over_cote,
+                        "cote_min": round(1/p_over, 2),
+                        "edge": round(over_edge * 100, 1),
+                        "value": ("🎯", f"Edge +{round(over_edge*100,1)}%", "#22c55e"),
+                    }
+            if under_edge > 0 and (1-p_over) >= 0.60:
+                conf = round((1-p_over) * 100)
+                if not best or under_edge > best["edge"]:
+                    best = {
+                        "line": line, "direction": "under",
+                        "label": f"Moins de {line} {kind}",
+                        "confidence": conf, "cote": under_cote,
+                        "cote_min": round(1/(1-p_over), 2),
+                        "edge": round(under_edge * 100, 1),
+                        "value": ("🎯", f"Edge +{round(under_edge*100,1)}%", "#22c55e"),
+                    }
+        return best
+
+    # Total tirs - prefer real bookmaker lines
+    p_real = _best_real_line(exp_total_shots, bm_lines.get("total_shots"), "tirs total")
+    if p_real:
+        candidates.append({
+            "direction": f"shots_{p_real['direction']}_{p_real['line']}",
+            "type": "Tirs (total match)",
+            "label": p_real["label"],
+            "cote": p_real["cote"],
+            "cote_min": p_real["cote_min"],
+            "value": p_real["value"],
+            "confidence": p_real["confidence"],
+            "edge": p_real["edge"],
+            "reasoning": f"{home_name} ~{round(exp_h_shots,1)} tirs/m · {away_name} ~{round(exp_a_shots,1)} → attendu ~{round(exp_total_shots,1)} | bookmaker ligne {p_real['line']} cote {p_real['cote']} → edge +{p_real['edge']}% ({rank_ctx})",
+            "stats": {"expected_total": round(exp_total_shots, 1)},
+            "priority": 1,
+        })
     else:
-        h_adj=h_shots; a_adj=a_shots; h_sot_adj=h_sot; a_sot_adj=a_sot; ctx=""
+        # Fallback hardcoded lines (pas de cotes reelles dispo)
+        p = _pick_line(exp_total_shots, BOOKMAKER_LINES["total_shots"], "tirs total", "Tirs total")
+        if p:
+            candidates.append({
+                "direction": f"shots_{p['direction']}_{p['line']}",
+                "type": "Tirs (total match)",
+                "label": p["label"],
+                "cote": None, "cote_min": p["cote_min"], "value": p.get("value"),
+                "confidence": p["confidence"],
+                "reasoning": f"{home_name} ~{round(exp_h_shots,1)} tirs/m · {away_name} ~{round(exp_a_shots,1)} → total attendu ~{round(exp_total_shots,1)} ({rank_ctx})",
+                "stats": {"expected_total": round(exp_total_shots, 1)},
+                "priority": 1,
+            })
 
-    total = round(h_adj + a_adj, 1)
-    total_sot = round(h_sot_adj + a_sot_adj, 1)
-
-    if h2h_avg and h2h_n >= 3:
-        total = round(total * 0.65 + h2h_avg * 0.35, 1)
-        h2h_txt = f" · H2H: {h2h_avg} tirs/match ({h2h_n} confrontations)"
-    else:
-        h2h_txt = ""
-
-    trend_txt = f" · {home_name} {h_trend}, {away_name} {a_trend}" if (h_shots_r and a_shots_r) else ""
-
-    reasoning_shots = (f"{src}: {home_name} {h_shots}→{h_adj}/match · "
-                       f"{away_name} {a_shots}→{a_adj}/match{ctx}{h2h_txt}{trend_txt} → ~{total} attendus")
-
-    # Lignes bookmaker réelles pour les tirs
-    BOOKMAKER_SHOT_LINES = [20.5, 22.5, 24.5, 26.5, 28.5, 30.5, 32.5]
-    closest = min(BOOKMAKER_SHOT_LINES, key=lambda x: abs(total - x))
-    diff = total - closest
-    if abs(diff) >= 1.5:
-        if diff > 0:
-            props.append({"direction": f"shots_over_{closest}",
-                "type":"Tirs (équipes)","label":f"Plus de {closest} tirs total",
-                "cote":None,"confidence":min(82,round(52+diff*2.5)),
-                "reasoning":reasoning_shots,"stats":{}})
+    # Tirs equipe - vraies cotes si dispo
+    if exp_h_shots:
+        p_real_h = _best_real_line(exp_h_shots, bm_lines.get("home_shots"), f"tirs {home_name}")
+        if p_real_h:
+            candidates.append({
+                "direction": f"shots_home_{p_real_h['direction']}_{p_real_h['line']}",
+                "type": f"Tirs ({home_name})",
+                "label": p_real_h["label"],
+                "cote": p_real_h["cote"], "cote_min": p_real_h["cote_min"],
+                "value": p_real_h["value"], "confidence": p_real_h["confidence"],
+                "edge": p_real_h["edge"],
+                "reasoning": _build_reasoning(h_shots_off, a_shots_def, exp_h_shots, home_name, h_off_src)
+                             + f" | bookmaker {p_real_h['line']} @ {p_real_h['cote']} → edge +{p_real_h['edge']}%",
+                "stats": {"expected": round(exp_h_shots, 1)},
+                "priority": 2,
+            })
         else:
-            props.append({"direction": f"shots_under_{closest}",
-                "type":"Tirs (équipes)","label":f"Moins de {closest} tirs total",
-                "cote":None,"confidence":min(80,round(52+abs(diff)*2.5)),
-                "reasoning":reasoning_shots,"stats":{}})
+            p = _pick_line(exp_h_shots, BOOKMAKER_LINES["home_shots"], f"tirs {home_name}", "Tirs équipe")
+            _add(p, f"Tirs ({home_name})", exp_h_shots,
+                 _build_reasoning(h_shots_off, a_shots_def, exp_h_shots, home_name, h_off_src), 2)
+    if exp_a_shots:
+        p_real_a = _best_real_line(exp_a_shots, bm_lines.get("away_shots"), f"tirs {away_name}")
+        if p_real_a:
+            candidates.append({
+                "direction": f"shots_away_{p_real_a['direction']}_{p_real_a['line']}",
+                "type": f"Tirs ({away_name})",
+                "label": p_real_a["label"],
+                "cote": p_real_a["cote"], "cote_min": p_real_a["cote_min"],
+                "value": p_real_a["value"], "confidence": p_real_a["confidence"],
+                "edge": p_real_a["edge"],
+                "reasoning": _build_reasoning(a_shots_off, h_shots_def, exp_a_shots, away_name, a_off_src)
+                             + f" | bookmaker {p_real_a['line']} @ {p_real_a['cote']} → edge +{p_real_a['edge']}%",
+                "stats": {"expected": round(exp_a_shots, 1)},
+                "priority": 2,
+            })
+        else:
+            p = _pick_line(exp_a_shots, BOOKMAKER_LINES["away_shots"], f"tirs {away_name}", "Tirs équipe")
+            _add(p, f"Tirs ({away_name})", exp_a_shots,
+                 _build_reasoning(a_shots_off, h_shots_def, exp_a_shots, away_name, a_off_src), 2)
 
-    if total_sot > 0:
-        reasoning_sot = (f"{src}: {home_name} {h_sot}→{h_sot_adj} cadrés/match · "
-                         f"{away_name} {a_sot}→{a_sot_adj} cadrés/match{h2h_txt} → ~{total_sot} attendus")
-        BOOKMAKER_SOT_LINES = [6.5, 7.5, 8.5, 9.5, 10.5, 11.5]
-        closest_sot = min(BOOKMAKER_SOT_LINES, key=lambda x: abs(total_sot - x))
-        diff_sot = total_sot - closest_sot
-        if abs(diff_sot) >= 1.0:
-            if diff_sot > 0:
-                props.append({"direction": f"sot_over_{closest_sot}",
-                    "type":"Tirs cadrés (équipes)","label":f"Plus de {closest_sot} tirs cadrés",
-                    "cote":None,"confidence":min(80,round(50+diff_sot*3)),
-                    "reasoning":reasoning_sot,"stats":{}})
-            else:
-                props.append({"direction": f"sot_under_{closest_sot}",
-                    "type":"Tirs cadrés (équipes)","label":f"Moins de {closest_sot} tirs cadrés",
-                    "cote":None,"confidence":min(78,round(50+abs(diff_sot)*3)),
-                    "reasoning":reasoning_sot,"stats":{}})
+    # Tirs cadres total - prefer real bookmaker lines
+    if exp_total_sot:
+        p_real_sot = _best_real_line(exp_total_sot, bm_lines.get("total_sot"), "tirs cadrés total")
+        if p_real_sot:
+            candidates.append({
+                "direction": f"sot_{p_real_sot['direction']}_{p_real_sot['line']}",
+                "type": "Tirs cadrés (total)",
+                "label": p_real_sot["label"],
+                "cote": p_real_sot["cote"], "cote_min": p_real_sot["cote_min"],
+                "value": p_real_sot["value"],
+                "confidence": p_real_sot["confidence"],
+                "edge": p_real_sot["edge"],
+                "reasoning": f"{home_name} ~{round(exp_h_sot,1)} cadrés · {away_name} ~{round(exp_a_sot,1)} → total ~{round(exp_total_sot,1)} | bookmaker ligne {p_real_sot['line']} cote {p_real_sot['cote']} → edge +{p_real_sot['edge']}% ({rank_ctx})",
+                "stats": {"expected_total": round(exp_total_sot, 1)},
+                "priority": 3,
+            })
+        else:
+            p = _pick_line(exp_total_sot, BOOKMAKER_LINES["total_sot"], "tirs cadrés total", "Tirs cadrés total")
+            if p:
+                candidates.append({
+                    "direction": f"sot_{p['direction']}_{p['line']}",
+                    "type": "Tirs cadrés (total)",
+                    "label": p["label"],
+                    "cote": None, "cote_min": p["cote_min"], "value": p.get("value"),
+                    "confidence": p["confidence"],
+                    "reasoning": f"{home_name} ~{round(exp_h_sot,1)} cadrés · {away_name} ~{round(exp_a_sot,1)} → total ~{round(exp_total_sot,1)} ({rank_ctx})",
+                    "stats": {"expected_total": round(exp_total_sot, 1)},
+                    "priority": 3,
+                })
+    if exp_h_sot:
+        p = _pick_line(exp_h_sot, BOOKMAKER_LINES["home_sot"], f"tirs cadrés {home_name}", "Tirs cadrés équipe")
+        _add(p, f"Tirs cadrés ({home_name})", exp_h_sot,
+             _build_reasoning(h_sot_off, a_sot_def, exp_h_sot, home_name, h_off_src), 4)
+    if exp_a_sot:
+        p = _pick_line(exp_a_sot, BOOKMAKER_LINES["away_sot"], f"tirs cadrés {away_name}", "Tirs cadrés équipe")
+        _add(p, f"Tirs cadrés ({away_name})", exp_a_sot,
+             _build_reasoning(a_sot_off, h_sot_def, exp_a_sot, away_name, a_off_src), 4)
 
+    if not candidates:
+        return props
+
+    # Tri: confidence desc (privilege le pick le plus marque)
+    candidates.sort(key=lambda c: (-c["confidence"], c["priority"]))
+
+    # MAX 2 picks final : prefere 1 "total" + 1 "equipe" si dispo, sinon top 2 par confiance
+    selected = []
+    has_total = False
+    has_team = False
+    for c in candidates:
+        is_total = "(total" in c["type"]
+        if is_total and not has_total and len(selected) < 2:
+            selected.append(c); has_total = True
+        elif (not is_total) and not has_team and len(selected) < 2:
+            selected.append(c); has_team = True
+        if len(selected) >= 2: break
+
+    # Si on n'a que 1 pick mais d'autres candidats forts existent, prendre le 2eme top
+    if len(selected) < 2 and len(candidates) > 1:
+        for c in candidates:
+            if c not in selected:
+                selected.append(c); break
+
+    for c in selected:
+        c.pop("priority", None)
+
+    props.extend(selected)
     return props
 
 # ─── Main ────────────────────────────────────────────────────────────────────
@@ -853,7 +1437,62 @@ def run():
         fun = len(m.get("fun_picks",[]))
         print(f"  {m['home']} vs {m['away']} → {tp['label']} ({tp['confidence']}%){c} · {nb} props joueurs · {fun} fun picks")
 
+    _save_to_history(output)
     return output
+
+
+def _save_to_history(matches):
+    """Sauvegarde les picks foot dans data/picks_history.json (PENDING - resolu plus tard)."""
+    from pathlib import Path
+    from datetime import datetime, timezone
+    hist_path = Path("data/picks_history.json")
+    history = {"picks": []}
+    if hist_path.exists():
+        try: history = json.loads(hist_path.read_text(encoding="utf-8"))
+        except Exception: history = {"picks": []}
+    existing_ids = {p.get("id") for p in history.get("picks", [])}
+    today = datetime.now().strftime("%Y-%m-%d")
+    n_added = 0
+
+    for m in matches:
+        match_id = m.get("match_id")
+        matchup = f"{m.get('home','?')} vs {m.get('away','?')}"
+        league = m.get("league", "")
+        ts = m.get("start_ts")
+        try:
+            date = datetime.fromtimestamp(int(ts), tz=timezone.utc).strftime("%Y-%m-%d") if ts else today
+        except Exception:
+            date = today
+
+        # Team picks
+        for pk in m.get("picks", []):
+            pid = f"{date}_{match_id}_team_{pk.get('direction','?')}"
+            if pid in existing_ids: continue
+            e = dict(pk); e.update({"id": pid, "date": date, "match_id": match_id,
+                                     "matchup": matchup, "league": league, "category": "team",
+                                     "result": "PENDING", "actual": None, "resolved_at": None})
+            history["picks"].append(e); existing_ids.add(pid); n_added += 1
+        # Player picks
+        for plist, side in [(m.get("home_players", []), "home"), (m.get("away_players", []), "away")]:
+            for pk in plist:
+                pid = f"{date}_{match_id}_player_{pk.get('player','?')}_{pk.get('type','?')}"
+                if pid in existing_ids: continue
+                e = dict(pk); e.update({"id": pid, "date": date, "match_id": match_id,
+                                         "matchup": matchup, "league": league, "category": "player",
+                                         "side": side, "result": "PENDING", "actual": None, "resolved_at": None})
+                history["picks"].append(e); existing_ids.add(pid); n_added += 1
+        # Fun picks
+        for pk in m.get("fun_picks", []):
+            pid = f"{date}_{match_id}_fun_{pk.get('type','?')}_{pk.get('label','?')[:30]}"
+            if pid in existing_ids: continue
+            e = dict(pk); e.update({"id": pid, "date": date, "match_id": match_id,
+                                     "matchup": matchup, "league": league, "category": "fun",
+                                     "result": "PENDING", "actual": None, "resolved_at": None})
+            history["picks"].append(e); existing_ids.add(pid); n_added += 1
+
+    hist_path.write_text(json.dumps(history, ensure_ascii=False, indent=2), encoding="utf-8")
+    print(f"[history] {n_added} picks foot ajoutes (total: {len(history['picks'])})")
+
 
 if __name__ == "__main__":
     run()

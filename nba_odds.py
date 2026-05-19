@@ -1,0 +1,276 @@
+"""
+nba_odds.py — Recupere les vraies lignes NBA player props via The Odds API.
+
+Source : https://the-odds-api.com (free tier 500 req/mois)
+Necessite ODDS_API_KEY dans config.py.
+
+Produit data/nba_odds.json :
+{
+  "<game_id_nba>": {                    # match_id stats.nba.com
+    "<player_name>": {
+      "PTS":  {"line": 24.5, "over": 1.85, "under": 1.95, "book": "draftkings"},
+      "REB":  {"line": 7.5,  ...},
+      "AST":  {"line": 5.5,  ...},
+      "FG3M": {"line": 2.5,  ...},
+      "PRA":  {"line": 39.5, ...},
+      "PR":   {"line": 32.5, ...},
+      "PA":   {"line": 30.5, ...},
+    },
+    ...
+  }
+}
+
+Match-id mapping : on map (home, away, date) entre les events Odds API et nba_matches.json.
+"""
+import json, os, urllib.request, urllib.parse, urllib.error, gzip, time
+from datetime import datetime
+from pathlib import Path
+
+try:
+    from config import ODDS_API_KEY, ODDS_API_BASE
+except ImportError:
+    ODDS_API_KEY = ""
+    ODDS_API_BASE = "https://api.the-odds-api.com/v4"
+
+# Markets supportes par Odds API (NBA)
+MARKETS = {
+    "player_points":                  "PTS",
+    "player_rebounds":                "REB",
+    "player_assists":                 "AST",
+    "player_threes":                  "FG3M",
+    "player_points_rebounds_assists": "PRA",
+    "player_points_rebounds":         "PR",
+    "player_points_assists":          "PA",
+}
+
+# Bookmakers prefere (ordre)
+PREFERRED_BOOKS = ["draftkings", "fanduel", "betmgm", "caesars"]
+
+HEADERS = {
+    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0 Safari/537.36",
+    "Accept": "application/json",
+}
+
+
+def _get(url):
+    req = urllib.request.Request(url, headers=HEADERS)
+    try:
+        r = urllib.request.urlopen(req, timeout=20)
+        raw = r.read()
+        if raw[:2] == b"\x1f\x8b":
+            raw = gzip.decompress(raw)
+        return json.loads(raw), dict(r.headers)
+    except urllib.error.HTTPError as e:
+        body = e.read().decode("utf-8", "ignore")[:200]
+        print(f"  [odds {e.code}] {body}")
+        return None, {}
+    except Exception as e:
+        print(f"  [odds err] {e}")
+        return None, {}
+
+
+def list_events():
+    """Liste des matchs NBA upcoming."""
+    if not ODDS_API_KEY:
+        return []
+    url = f"{ODDS_API_BASE}/sports/basketball_nba/events?apiKey={ODDS_API_KEY}"
+    data, hdr = _get(url)
+    remaining = hdr.get("x-requests-remaining") or hdr.get("X-Requests-Remaining")
+    if remaining:
+        print(f"  [odds-api] requetes restantes : {remaining}")
+    return data or []
+
+
+def event_props(event_id):
+    """Recupere tous les markets player props pour un event."""
+    if not ODDS_API_KEY:
+        return None
+    markets = ",".join(MARKETS.keys())
+    books   = ",".join(PREFERRED_BOOKS)
+    params = {
+        "apiKey":       ODDS_API_KEY,
+        "regions":      "us",
+        "markets":      markets,
+        "bookmakers":   books,
+        "oddsFormat":   "decimal",
+    }
+    url = f"{ODDS_API_BASE}/sports/basketball_nba/events/{event_id}/odds?" + urllib.parse.urlencode(params)
+    data, _ = _get(url)
+    return data
+
+
+def event_game_lines(event_id):
+    """
+    Recupere h2h / spreads / totals pour calculer les team totals implicites.
+    Le team total = (O/U + spread_team) / 2.
+    """
+    if not ODDS_API_KEY:
+        return None
+    books = ",".join(PREFERRED_BOOKS)
+    params = {
+        "apiKey":     ODDS_API_KEY,
+        "regions":    "us",
+        "markets":    "h2h,spreads,totals",
+        "bookmakers": books,
+        "oddsFormat": "decimal",
+    }
+    url = f"{ODDS_API_BASE}/sports/basketball_nba/events/{event_id}/odds?" + urllib.parse.urlencode(params)
+    data, _ = _get(url)
+    return data
+
+
+def _parse_game_lines(event_data):
+    """Extrait {total, home_spread, away_spread, home_total, away_total, book}."""
+    if not event_data: return {}
+    out = {"home_team": event_data.get("home_team"), "away_team": event_data.get("away_team")}
+    for book in event_data.get("bookmakers", []):
+        bkey = book.get("key")
+        total, h_spread, a_spread = None, None, None
+        for mkt in book.get("markets", []):
+            k = mkt.get("key")
+            for o in mkt.get("outcomes", []):
+                name  = o.get("name")
+                point = o.get("point")
+                if k == "totals" and name == "Over":
+                    total = point
+                elif k == "spreads":
+                    if name == event_data.get("home_team"):
+                        h_spread = point
+                    elif name == event_data.get("away_team"):
+                        a_spread = point
+        if total is not None and h_spread is not None and a_spread is not None:
+            # Team total = (game_total - spread) / 2 .... actually formula:
+            # home_total = (total - home_spread) / 2 ; away_total = (total - away_spread) / 2
+            # (parce que spread negatif = favori, donc retire son spread de la somme)
+            out["book"]        = bkey
+            out["game_total"]  = total
+            out["home_spread"] = h_spread
+            out["away_spread"] = a_spread
+            out["home_total"]  = round((total - h_spread) / 2, 1)
+            out["away_total"]  = round((total - a_spread) / 2, 1)
+            return out
+    return out
+
+
+def _norm_name(s):
+    """Normalisation pour matcher les noms d'equipes (Pelicans -> pelicans, etc.)."""
+    return (s or "").lower().replace("_", " ").strip()
+
+
+def _match_game(event, nba_games):
+    """Retourne game_id stats.nba.com pour un event Odds API, sinon None."""
+    home = _norm_name(event.get("home_team", ""))
+    away = _norm_name(event.get("away_team", ""))
+    for g in nba_games:
+        # noms stats.nba.com : home = "Knicks", home_city = "New York"
+        full_home = _norm_name(f"{g.get('home_city','')} {g.get('home','')}")
+        full_away = _norm_name(f"{g.get('away_city','')} {g.get('away','')}")
+        if home in full_home or full_home in home:
+            if away in full_away or full_away in away:
+                return g.get("game_id")
+        # Match inverse (au cas ou)
+        if home == _norm_name(g.get("home", "")) and away == _norm_name(g.get("away", "")):
+            return g.get("game_id")
+    return None
+
+
+def _parse_event_props(event_data):
+    """
+    Extrait {player_name: {prop_key: {line, over, under, book}}} pour 1 event.
+    Strategie : par market, on prend le 1er bookmaker dispo dans PREFERRED_BOOKS.
+    """
+    players = {}
+    if not event_data: return players
+
+    for book in event_data.get("bookmakers", []):
+        bkey = book.get("key", "")
+        for mkt in book.get("markets", []):
+            prop = MARKETS.get(mkt.get("key", ""))
+            if not prop: continue
+
+            # Outcomes : pour player props, chaque outcome a {name: player, description: 'Over'/'Under', point: line, price: cote}
+            buckets = {}  # player -> {'over': (line, price), 'under': (line, price)}
+            for o in mkt.get("outcomes", []):
+                pname = o.get("description") or o.get("name", "")
+                side  = (o.get("name") or "").lower()
+                line  = o.get("point")
+                price = o.get("price")
+                if not pname or line is None: continue
+                d = buckets.setdefault(pname, {})
+                if side == "over":
+                    d["over"]  = {"line": line, "price": price}
+                elif side == "under":
+                    d["under"] = {"line": line, "price": price}
+
+            for pname, sides in buckets.items():
+                line = (sides.get("over") or sides.get("under") or {}).get("line")
+                if line is None: continue
+                pdata = players.setdefault(pname, {})
+                # Ne pas ecraser si un bookmaker precedent a deja ce prop
+                if prop in pdata: continue
+                pdata[prop] = {
+                    "line":  line,
+                    "over":  (sides.get("over")  or {}).get("price"),
+                    "under": (sides.get("under") or {}).get("price"),
+                    "book":  bkey,
+                }
+    return players
+
+
+def run():
+    if not ODDS_API_KEY:
+        print("[!] Pas de cle ODDS_API_KEY (config.py) - lignes heuristiques utilisees.")
+        # Ecrit un fichier vide pour clarifier
+        Path("data").mkdir(exist_ok=True)
+        with open("data/nba_odds.json", "w", encoding="utf-8") as f:
+            json.dump({}, f)
+        return {}
+
+    # Charge les matchs NBA pour mapper
+    try:
+        nba_games = json.load(open("data/nba_matches.json", encoding="utf-8"))
+    except Exception:
+        print("[X] data/nba_matches.json absent - lance nba_scraper.py d'abord.")
+        return {}
+
+    print("=== Odds NBA player props (The Odds API) ===")
+    events = list_events()
+    print(f"  {len(events)} events NBA upcoming sur l'API")
+    if not events:
+        with open("data/nba_odds.json", "w", encoding="utf-8") as f:
+            json.dump({}, f)
+        return {}
+
+    # Filtre : on prend uniquement les events qui matchent un game NBA local
+    out, game_lines = {}, {}
+    for ev in events:
+        gid = _match_game(ev, nba_games)
+        if not gid:
+            continue
+        print(f"  {ev.get('away_team')} @ {ev.get('home_team')}  ->  game_id {gid}")
+        # 1) Player props
+        props_data = event_props(ev.get("id"))
+        players    = _parse_event_props(props_data)
+        if players:
+            out[str(gid)] = players
+            n_props = sum(len(v) for v in players.values())
+            print(f"    {len(players)} joueurs, {n_props} props")
+        time.sleep(0.4)
+        # 2) Game lines (h2h, spreads, totals) pour calculer team totals implicites
+        gl_data = event_game_lines(ev.get("id"))
+        gl      = _parse_game_lines(gl_data)
+        if gl.get("game_total"):
+            game_lines[str(gid)] = gl
+            print(f"    Total {gl['game_total']}  · home {gl['home_total']}  · away {gl['away_total']}  ({gl.get('book')})")
+        time.sleep(0.4)
+
+    with open("data/nba_odds.json", "w", encoding="utf-8") as f:
+        json.dump(out, f, ensure_ascii=False, indent=2)
+    with open("data/nba_game_lines.json", "w", encoding="utf-8") as f:
+        json.dump(game_lines, f, ensure_ascii=False, indent=2)
+    print(f"\n[OK] {len(out)} matchs props + {len(game_lines)} game lines -> data/nba_odds.json, data/nba_game_lines.json")
+    return out
+
+
+if __name__ == "__main__":
+    run()

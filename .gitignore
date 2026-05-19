@@ -1,6 +1,25 @@
 venv/
-data/
 __pycache__/
 *.pyc
+*.bak
 debug_*.py
-index.html
+
+# Cache local (volumineux, regenerable)
+data/cache_*/
+
+# Fichiers de travail regenerables a chaque run
+data/matches.json
+data/player_stats.json
+data/nba_matches.json
+data/nba_player_stats.json
+data/nba_odds.json
+data/nba_game_lines.json
+data/picks.json
+data/nba_picks.json
+data/*.backup.json
+data/.quota
+
+# IMPORTANT : on GARDE en versionne (besoin entre runs cron)
+# - data/picks_history.json
+# - data/nba_picks_history.json
+# - data/notif_log.json
