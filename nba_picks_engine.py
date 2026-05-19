@@ -211,13 +211,30 @@ def player_props(player, ctx=None, real_lines=None, match_ctx=None):
     """
     name = player.get("name", "?")
     season = player.get("season_avg", {})
-    games = player.get("l10_games", []) or []
+    raw_games = player.get("l10_games", []) or []   # 20 derniers matchs bruts
     real_lines = real_lines or {}
     match_ctx = match_ctx or {}
     is_home = bool(match_ctx.get("is_home"))
 
-    # ─── Drop garbage games (MIN < 15) — early fouls / blowouts / DNP ──────
-    games = [g for g in games if (g.get("MIN") or 0) >= 15]
+    # ─── Detection rotation reduite (joueur passe en bench / sortie equipe) ─
+    # Si 4+ des 10 derniers VRAIS matchs ont MIN<15, le joueur n'est plus dans
+    # la rotation (cas Harrison Barnes en mai 2026). On flag pour avertir
+    # l'utilisateur et bloquer les alertes high-value, MAIS on garde tous les
+    # matchs dans l'analyse (sinon biais positif sur L10/L20).
+    last10_raw = raw_games[:10]
+    low_min_count = sum(1 for g in last10_raw if (g.get("MIN") or 0) < 15)
+    rotation_warning = None
+    if last10_raw and low_min_count >= 4:
+        recent_mins = [int(g.get("MIN") or 0) for g in last10_raw[:5]]
+        rotation_warning = (
+            f"Rotation reduite : {low_min_count}/10 derniers matchs <15 min "
+            f"(derniers 5 : {'/'.join(str(m) for m in recent_mins)} min)"
+        )
+
+    # ─── Filtre minimum : seulement les VRAIS DNP (MIN=0, blesse/scratch) ──
+    # On garde TOUS les autres matchs (bench, garbage, etc.) pour avoir un L10/L20
+    # honnete representant la production actuelle du joueur.
+    games = [g for g in raw_games if (g.get("MIN") or 0) > 0]
     if not games: return []
 
     # ─── B2B detection (utilise la date du game le + recent du joueur) ──────
@@ -403,7 +420,8 @@ def player_props(player, ctx=None, real_lines=None, match_ctx=None):
                     "trend_delta": trend_delta,
                     "trend_icon":  trend_icon,
                     "context": mult_bd,
-                    "def_argument": def_argument,    # nouveau : argument defensif fort
+                    "def_argument": def_argument,
+                    "rotation_warning": rotation_warning,  # flag si joueur passe bench
                     "stats": {"mu": round(mu, 1), "sigma": round(sigma, 1),
                               "L5": round(l5_v or 0, 1), "L10": round(l10_v or 0, 1),
                               "Saison": round(season_v or 0, 1)},

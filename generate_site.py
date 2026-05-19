@@ -1552,6 +1552,17 @@ def build_nba_card(game):
                 f'L10 {hit_l10} ({hit_l10_pct}%)'
                 f'</div>'
             )
+        # Warning rotation reduite (joueur passe au bench - stats L10/L20 biaisees)
+        rot_warning = p.get("rotation_warning", "")
+        rot_html = ""
+        if rot_warning:
+            rot_html = (
+                f'<div style="color:#ef4444;font-size:11px;font-weight:700;margin-top:3px;'
+                f'background:rgba(239,68,68,0.10);border-left:2px solid #ef4444;padding:3px 7px;border-radius:3px">'
+                f'⚠️ {rot_warning}'
+                f'</div>'
+            )
+
         # Argument defensif (faille/force de l'adversaire)
         def_argument = p.get("def_argument", "")
         def_html = ""

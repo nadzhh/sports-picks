@@ -340,7 +340,11 @@ def _get_nba_picks(game_id):
 # ─── High-value alerts (single pick, hors fenetre kickoff) ───────────────────
 
 def _is_high_value_nba(pick):
-    """Pick NBA qualifie pour alerte single-pick."""
+    """Pick NBA qualifie pour alerte single-pick.
+    EXCLUT les picks avec rotation_warning (joueurs passes au bench - cas Barnes)
+    car les L10/L20 sont calcules sur des matchs ou ils etaient titulaires."""
+    if pick.get("rotation_warning"):
+        return False
     conf = pick.get("confidence", 0)
     edge = pick.get("edge") or 0
     hit_l20 = pick.get("hit_l20_pct", 0)
