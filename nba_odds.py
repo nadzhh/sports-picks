@@ -22,7 +22,7 @@ Produit data/nba_odds.json :
 
 Match-id mapping : on map (home, away, date) entre les events Odds API et nba_matches.json.
 """
-import json, os, urllib.request, urllib.parse, urllib.error, gzip, time
+import json, os, hashlib, urllib.request, urllib.parse, urllib.error, gzip, time
 from datetime import datetime
 from pathlib import Path
 
@@ -31,6 +31,11 @@ try:
 except ImportError:
     ODDS_API_KEY = ""
     ODDS_API_BASE = "https://api.the-odds-api.com/v4"
+
+# Cache disque pour eviter de brule le quota (6h TTL)
+CACHE_DIR = Path("data/cache_odds")
+CACHE_DIR.mkdir(parents=True, exist_ok=True)
+CACHE_TTL = 6 * 3600   # 6h, les odds bougent peu intra-day
 
 # Markets supportes par Odds API (NBA)
 MARKETS = {
@@ -43,8 +48,32 @@ MARKETS = {
     "player_points_assists":          "PA",
 }
 
-# Bookmakers prefere (ordre)
-PREFERRED_BOOKS = ["draftkings", "fanduel", "betmgm", "caesars"]
+# Bookmakers fetched (regions us + eu)
+# us : draftkings, fanduel, betmgm, caesars, pointsbet (etats unis)
+# eu : pinnacle, unibet, betfair, marathonbet, betclic, bwin (europe + france pour certains)
+PREFERRED_BOOKS = [
+    # US (lignes early, reference sharp)
+    "draftkings", "fanduel", "betmgm", "caesars", "pointsbetus",
+    # EU sharps + matches Betclic
+    "pinnacle", "unibet_eu", "unibet_uk", "betfair_ex_eu", "marathonbet", "betclic", "bwin",
+]
+REGIONS = "us,eu"   # multi-regions : DK/FD + Pinnacle/Unibet/Betclic
+
+# Affichage human-friendly des noms de books pour l'UI
+BOOK_DISPLAY = {
+    "draftkings":    "DK",
+    "fanduel":       "FD",
+    "betmgm":        "MGM",
+    "caesars":       "Caesars",
+    "pointsbetus":   "PointsBet",
+    "pinnacle":      "Pinnacle",
+    "unibet_eu":     "Unibet",
+    "unibet_uk":     "Unibet UK",
+    "betfair_ex_eu": "Betfair",
+    "marathonbet":   "Marathon",
+    "betclic":       "Betclic",
+    "bwin":          "Bwin",
+}
 
 HEADERS = {
     "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0 Safari/537.36",
@@ -52,14 +81,38 @@ HEADERS = {
 }
 
 
-def _get(url):
+def _cache_path(url):
+    h = hashlib.md5(url.encode()).hexdigest()[:16]
+    return CACHE_DIR / f"odds_{h}.json"
+
+
+def _cache_get(path, ttl=CACHE_TTL):
+    if not path.exists(): return None
+    if time.time() - path.stat().st_mtime > ttl: return None
+    try: return json.loads(path.read_text(encoding="utf-8"))
+    except Exception: return None
+
+
+def _cache_set(path, data):
+    try: path.write_text(json.dumps(data, ensure_ascii=False), encoding="utf-8")
+    except Exception: pass
+
+
+def _get(url, use_cache=True):
+    """Fetch + cache 6h (sauf list_events qui doit etre frais)."""
+    if use_cache:
+        path = _cache_path(url)
+        cached = _cache_get(path)
+        if cached is not None:
+            return cached["data"], cached.get("headers", {})
     req = urllib.request.Request(url, headers=HEADERS)
     try:
         r = urllib.request.urlopen(req, timeout=20)
         raw = r.read()
         if raw[:2] == b"\x1f\x8b":
             raw = gzip.decompress(raw)
-        return json.loads(raw), dict(r.headers)
+        data = json.loads(raw)
+        headers = dict(r.headers)
     except urllib.error.HTTPError as e:
         body = e.read().decode("utf-8", "ignore")[:200]
         print(f"  [odds {e.code}] {body}")
@@ -67,14 +120,17 @@ def _get(url):
     except Exception as e:
         print(f"  [odds err] {e}")
         return None, {}
+    if use_cache:
+        _cache_set(path, {"data": data, "headers": headers})
+    return data, headers
 
 
 def list_events():
-    """Liste des matchs NBA upcoming."""
+    """Liste des matchs NBA upcoming. Pas de cache (toujours frais)."""
     if not ODDS_API_KEY:
         return []
     url = f"{ODDS_API_BASE}/sports/basketball_nba/events?apiKey={ODDS_API_KEY}"
-    data, hdr = _get(url)
+    data, hdr = _get(url, use_cache=False)
     remaining = hdr.get("x-requests-remaining") or hdr.get("X-Requests-Remaining")
     if remaining:
         print(f"  [odds-api] requetes restantes : {remaining}")
@@ -82,17 +138,17 @@ def list_events():
 
 
 def event_props(event_id):
-    """Recupere tous les markets player props pour un event."""
+    """Recupere tous les markets player props pour un event (us + eu)."""
     if not ODDS_API_KEY:
         return None
     markets = ",".join(MARKETS.keys())
     books   = ",".join(PREFERRED_BOOKS)
     params = {
-        "apiKey":       ODDS_API_KEY,
-        "regions":      "us",
-        "markets":      markets,
-        "bookmakers":   books,
-        "oddsFormat":   "decimal",
+        "apiKey":     ODDS_API_KEY,
+        "regions":    REGIONS,           # us,eu
+        "markets":    markets,
+        "bookmakers": books,
+        "oddsFormat": "decimal",
     }
     url = f"{ODDS_API_BASE}/sports/basketball_nba/events/{event_id}/odds?" + urllib.parse.urlencode(params)
     data, _ = _get(url)
@@ -109,7 +165,7 @@ def event_game_lines(event_id):
     books = ",".join(PREFERRED_BOOKS)
     params = {
         "apiKey":     ODDS_API_KEY,
-        "regions":    "us",
+        "regions":    REGIONS,           # us,eu
         "markets":    "h2h,spreads,totals",
         "bookmakers": books,
         "oddsFormat": "decimal",
@@ -176,61 +232,69 @@ def _match_game(event, nba_games):
 
 def _parse_event_props(event_data):
     """
-    Extrait {player_name: {prop_key: {line, over, under, book, all_lines}}} pour 1 event.
-    `all_lines` contient TOUS les alt-lines dispo (= [{line, over, under, book}, ...])
-    permettant a l'engine de choisir la ligne avec le meilleur edge.
+    Extrait {player_name: {prop_key: {line, over, under, books: [...], all_lines: [...]}}}.
+
+    Pour chaque prop, on collecte TOUS les bookmakers qui le proposent (us + eu).
+    - `books` : liste {name, line, over, under} pour chaque book qui quote la headline line
+    - `all_lines` : tous les alt-lines (multi-book aussi)
+    - `line`/`over`/`under`/`book` : la "meilleure" ligne (cote la + favorable a l'utilisateur)
     """
     players = {}
     if not event_data: return players
 
+    # Structure intermediaire : {player: {prop: {line: {book: {over,under}}}}}
+    grid = {}
     for book in event_data.get("bookmakers", []):
         bkey = book.get("key", "")
         for mkt in book.get("markets", []):
             prop = MARKETS.get(mkt.get("key", ""))
             if not prop: continue
-
-            # Outcomes : pour player props, chaque outcome a {name: player, description: 'Over'/'Under', point: line, price: cote}
-            # Une meme prop peut avoir PLUSIEURS lignes (alt-lines) : on les collecte toutes.
-            # Structure intermediaire : {player: {line: {over: price, under: price}}}
-            grid = {}
             for o in mkt.get("outcomes", []):
                 pname = o.get("description") or o.get("name", "")
                 side  = (o.get("name") or "").lower()
                 line  = o.get("point")
                 price = o.get("price")
                 if not pname or line is None: continue
-                p_grid = grid.setdefault(pname, {})
-                l_entry = p_grid.setdefault(line, {})
-                if side == "over":    l_entry["over"]  = price
-                elif side == "under": l_entry["under"] = price
+                pg = grid.setdefault(pname, {}).setdefault(prop, {}).setdefault(line, {})
+                bk_entry = pg.setdefault(bkey, {})
+                if side == "over":  bk_entry["over"]  = price
+                elif side == "under": bk_entry["under"] = price
 
-            for pname, lines_grid in grid.items():
-                if not lines_grid: continue
-                # Construit la liste d'alt-lines pour ce joueur/prop
-                all_lines = []
-                for line_val, prices in lines_grid.items():
+    # Reconstruit la structure finale
+    for pname, props in grid.items():
+        for prop, lines_dict in props.items():
+            # Pour chaque ligne, recolte tous les books qui la proposent
+            all_lines = []
+            for line_val, books_dict in lines_dict.items():
+                # Headline = pour cette ligne, le meilleur book par direction
+                # On store toutes les variantes book pour le display
+                for bkey, prices in books_dict.items():
                     all_lines.append({
                         "line":  line_val,
                         "over":  prices.get("over"),
                         "under": prices.get("under"),
                         "book":  bkey,
                     })
-                # Trie : on prend la ligne "centrale" comme headline (cote la + proche de 1.91)
-                def _centrality(L):
-                    o = L.get("over") or 999; u = L.get("under") or 999
-                    return min(abs((o or 1.91) - 1.91), abs((u or 1.91) - 1.91))
-                all_lines.sort(key=_centrality)
-                headline = all_lines[0]
+            if not all_lines: continue
+            # Selectionne la ligne "headline" = la plus centrale (cote ~1.91)
+            def _centrality(L):
+                o = L.get("over") or 999; u = L.get("under") or 999
+                return min(abs((o or 1.91) - 1.91), abs((u or 1.91) - 1.91))
+            all_lines.sort(key=_centrality)
+            headline = all_lines[0]
+            # Liste des books qui proposent CETTE ligne headline (pour affichage)
+            books_for_headline = [L for L in all_lines if L["line"] == headline["line"]]
+            books_for_headline.sort(key=lambda L: PREFERRED_BOOKS.index(L["book"]) if L["book"] in PREFERRED_BOOKS else 99)
 
-                pdata = players.setdefault(pname, {})
-                if prop in pdata: continue  # 1er bookmaker prevaut
-                pdata[prop] = {
-                    "line":      headline["line"],
-                    "over":      headline["over"],
-                    "under":     headline["under"],
-                    "book":      bkey,
-                    "all_lines": all_lines,
-                }
+            pdata = players.setdefault(pname, {})
+            pdata[prop] = {
+                "line":      headline["line"],
+                "over":      headline["over"],
+                "under":     headline["under"],
+                "book":      headline["book"],
+                "books":     books_for_headline,   # tous les books pour la ligne headline
+                "all_lines": all_lines,             # toutes les alt-lines (multi-book)
+            }
     return players
 
 

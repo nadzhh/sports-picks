@@ -350,18 +350,23 @@ def player_props(player, ctx=None, real_lines=None, match_ctx=None):
                 else:
                     if not (SWEET_LOW <= p_pct <= SWEET_HIGH): continue
                 cm = _fair_cote(p_pct)
-                # Cote bookmaker reelle : si on scanne des alt-lines, recupere la cote
-                # de la ligne specifique (pas la headline)
+                # Multi-book : pour CETTE ligne specifique, on trouve les meilleurs cotes
+                # par direction parmi tous les books qui la quotent
                 real_cote = None
-                if use_real:
-                    if alt_lines_data:
-                        # Trouve l'entry correspondant a `line`
-                        for L in alt_lines_data:
-                            if L.get("line") == line:
-                                real_cote = L.get(direction)
-                                break
-                    else:
-                        real_cote = real.get(direction)
+                best_book = None
+                all_books_this_line = []
+                if use_real and alt_lines_data:
+                    # Recupere tous les entries alt_lines pour cette ligne specifique
+                    entries_for_line = [L for L in alt_lines_data if L.get("line") == line]
+                    all_books_this_line = entries_for_line  # liste de {line,over,under,book}
+                    # Pick la meilleure cote pour cette direction (la PLUS GRANDE = plus payante)
+                    candidates_with_cote = [(L.get(direction), L.get("book")) for L in entries_for_line if L.get(direction)]
+                    if candidates_with_cote:
+                        candidates_with_cote.sort(key=lambda x: x[0], reverse=True)
+                        real_cote, best_book = candidates_with_cote[0]
+                elif use_real:
+                    real_cote = real.get(direction)
+                    best_book = real.get("book")
                 # Edge : ecart entre cote du book et fair cote (fair = 100/p_pct)
                 edge = None
                 if use_real and real_cote and cm:
@@ -398,6 +403,14 @@ def player_props(player, ctx=None, real_lines=None, match_ctx=None):
                         def_argument = f"Adversaire encaisse beaucoup de {stat_label} (#{rank}/30)"
                     elif rank >= 23:
                         def_argument = f"Adversaire solide vs {stat_label} (#{rank}/30)"
+                # Liste tous les books proposant cette ligne+direction (pour display)
+                books_for_pick = []
+                if use_real and all_books_this_line:
+                    for L in all_books_this_line:
+                        if L.get(direction):
+                            books_for_pick.append({"book": L["book"], "cote": L[direction]})
+                    # Tri par cote decroissante (meilleure d'abord)
+                    books_for_pick.sort(key=lambda b: b["cote"], reverse=True)
                 candidates.append({
                     "prop": prop_key,
                     "label": f"{name} {prefix} {line} {label_str}",
@@ -406,7 +419,8 @@ def player_props(player, ctx=None, real_lines=None, match_ctx=None):
                     "confidence": round(p_pct),
                     "cote_min": cm,
                     "real_cote": real_cote,
-                    "book": (real.get("book") if use_real else None),
+                    "book": best_book if use_real else None,
+                    "books": books_for_pick,  # liste {book, cote} pour display multi-book
                     "edge": edge,
                     "is_real_line": bool(use_real),
                     "value": tier,

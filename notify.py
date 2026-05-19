@@ -367,13 +367,22 @@ def _is_high_value_foot(pick):
     return True
 
 
+BOOK_LABELS = {
+    "draftkings": "DK", "fanduel": "FanDuel", "betmgm": "BetMGM", "caesars": "Caesars",
+    "pointsbetus": "PointsBet", "pinnacle": "Pinnacle", "unibet_eu": "Unibet",
+    "unibet_uk": "Unibet UK", "betfair_ex_eu": "Betfair", "marathonbet": "Marathon",
+    "betclic": "Betclic", "bwin": "Bwin",
+}
+
+
 def _format_hv_nba(pick, game):
     home = game.get("home_team", "?")
     away = game.get("away_team", "?")
     cote = pick.get("real_cote")
-    book = (pick.get("book") or "").upper()
+    book = BOOK_LABELS.get(pick.get("book"), (pick.get("book") or "").upper())
     edge = pick.get("edge")
     s = pick.get("stats", {})
+    books_list = pick.get("books") or []
     lines = [
         "🚨 <b>PICK HIGH VALUE NBA</b> 🚨",
         "",
@@ -383,7 +392,15 @@ def _format_hv_nba(pick, game):
         "",
     ]
     if cote:
-        lines.append(f"💰 <b>{book} @ {cote}</b> · edge <b>+{edge}%</b>")
+        lines.append(f"💰 Meilleure cote : <b>{book} @ {cote}</b> · edge <b>+{edge}%</b>")
+        # Autres books si plusieurs
+        others = [b for b in books_list if b.get("book") != pick.get("book")][:4]
+        if others:
+            others_str = " · ".join(
+                f'{BOOK_LABELS.get(b["book"], b["book"])} @ {b["cote"]}'
+                for b in others
+            )
+            lines.append(f"   <i>Autres : {others_str}</i>")
     lines.append(f"🎯 Confidence <b>{pick.get('confidence', 0)}%</b>")
     # Hit rate L10 / L20 + trend
     if pick.get("hit_l10") and pick.get("hit_l20"):

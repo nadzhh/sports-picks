@@ -1599,19 +1599,41 @@ def build_nba_card(game):
         cote_min = p.get("cote_min")
         real_cote = p.get("real_cote")
         book = p.get("book")
+        books_list = p.get("books") or []
         edge = p.get("edge")
         is_real = p.get("is_real_line")
-        # Bloc cote a droite : si vraie cote dispo, on l'affiche en gros, sinon cote_min
+
+        # Bloc cote a droite : badge principal = meilleur book/cote, puis liste autres books en dessous
+        BOOK_LABELS = {
+            "draftkings": "DK", "fanduel": "FD", "betmgm": "MGM", "caesars": "Caesars",
+            "pointsbetus": "PointsBet", "pinnacle": "Pin", "unibet_eu": "Unibet",
+            "unibet_uk": "UnibetUK", "betfair_ex_eu": "Betfair", "marathonbet": "Marathon",
+            "betclic": "Betclic", "bwin": "Bwin",
+        }
         cote_html = ""
         if real_cote:
-            book_label = (book or "").upper()[:3]
+            book_label = BOOK_LABELS.get(book, (book or "").upper()[:8])
             edge_color = "#22c55e" if (edge or 0) >= 5 else ("#84cc16" if (edge or 0) > 0 else "#94a3b8")
-            edge_text = f'<span style="color:{edge_color};font-size:11px;font-weight:700">{"+" if (edge or 0)>0 else ""}{edge}% edge</span>' if edge is not None else ""
-            cote_html = (
-                f'<span style="background:#1e293b;color:#fb923c;border-radius:6px;padding:3px 8px;font-size:12px;font-weight:700">'
-                f'{book_label} @ {real_cote}</span>'
+            edge_text = f'<div style="color:{edge_color};font-size:11px;font-weight:700;text-align:right">{"+" if (edge or 0)>0 else ""}{edge}% edge</div>' if edge is not None else ""
+            # Badge principal : best book + cote + edge
+            main_badge = (
+                f'<div style="background:#1e293b;color:#fb923c;border-radius:6px;padding:3px 8px;font-size:12px;font-weight:700;white-space:nowrap;text-align:right">'
+                f'<b>{book_label}</b> @ <b>{real_cote}</b></div>'
                 f'{edge_text}'
             )
+            # Liste des autres books (skip celui du badge principal)
+            others = [b for b in books_list if b.get("book") != book][:5]
+            others_html = ""
+            if others:
+                rows = "".join(
+                    f'<div style="display:flex;justify-content:flex-end;gap:6px;font-size:10px;color:#94a3b8;line-height:1.4">'
+                    f'<span>{BOOK_LABELS.get(b["book"], b["book"][:8])}</span>'
+                    f'<span style="color:#cbd5e1;font-weight:600">@ {b["cote"]}</span>'
+                    f'</div>'
+                    for b in others
+                )
+                others_html = f'<div style="margin-top:4px;border-top:1px solid #1e293b;padding-top:3px">{rows}</div>'
+            cote_html = main_badge + others_html
         elif cote_min:
             cote_html = f'<span style="color:#94a3b8;font-size:11px">cote≥{cote_min}</span>'
         return (
@@ -2028,16 +2050,36 @@ def build_nba_history(history_data):
                 chips.append('<span style="background:rgba(239,68,68,0.15);color:#ef4444;border-radius:3px;padding:1px 5px;font-size:11px;font-weight:700">B2B</span>')
             chips_html = f'<div style="margin-top:4px;display:flex;gap:4px;flex-wrap:wrap">{"".join(chips)}</div>' if chips else ""
 
-            book_label = (book or "").upper()[:3]
+            BOOK_LABELS_HIST = {
+                "draftkings": "DK", "fanduel": "FD", "betmgm": "MGM", "caesars": "Caesars",
+                "pointsbetus": "PointsBet", "pinnacle": "Pin", "unibet_eu": "Unibet",
+                "unibet_uk": "UnibetUK", "betfair_ex_eu": "Betfair", "marathonbet": "Marathon",
+                "betclic": "Betclic", "bwin": "Bwin",
+            }
+            book_label = BOOK_LABELS_HIST.get(book, (book or "").upper()[:8])
+            books_list_h = p.get("books") or []
             cote_block = ""
             if cote:
                 edge_txt = ""
                 if edge is not None:
                     ec = "#22c55e" if edge >= 5 else ("#84cc16" if edge > 0 else "#94a3b8")
                     edge_txt = f'<div style="color:{ec};font-size:11px;font-weight:700">{"+" if edge>0 else ""}{edge}%</div>'
+                # Liste autres books
+                others_h = [b for b in books_list_h if b.get("book") != book][:3]
+                others_html = ""
+                if others_h:
+                    rows = "".join(
+                        f'<div style="display:flex;justify-content:flex-end;gap:4px;font-size:10px;color:#94a3b8;line-height:1.3">'
+                        f'<span>{BOOK_LABELS_HIST.get(b["book"], b["book"][:8])}</span>'
+                        f'<span style="color:#cbd5e1">@{b["cote"]}</span>'
+                        f'</div>'
+                        for b in others_h
+                    )
+                    others_html = f'<div style="margin-top:3px;border-top:1px solid #1e293b;padding-top:2px">{rows}</div>'
                 cote_block = (
-                    f'<div style="background:#1e293b;color:#fb923c;border-radius:4px;padding:3px 8px;font-size:13px;font-weight:700;white-space:nowrap">{book_label} @ {cote}</div>'
+                    f'<div style="background:#1e293b;color:#fb923c;border-radius:4px;padding:3px 8px;font-size:13px;font-weight:700;white-space:nowrap"><b>{book_label}</b> @ <b>{cote}</b></div>'
                     f'{edge_txt}'
+                    f'{others_html}'
                 )
 
             conf_color = "#22c55e" if conf >= 70 else ("#84cc16" if conf >= 65 else "#f59e0b")
