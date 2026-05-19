@@ -72,26 +72,37 @@ def get(endpoint, params=None, ttl=3600, force=False):
     if params:
         url += "?" + urllib.parse.urlencode(params)
 
-    _throttle()
-    req = urllib.request.Request(url, headers=HEADERS)
-    try:
-        r = urllib.request.urlopen(req, timeout=20)
-        raw = r.read()
-        if raw[:2] == b"\x1f\x8b":
-            raw = gzip.decompress(raw)
-        data = json.loads(raw)
-    except urllib.error.HTTPError as e:
-        # Log verbeux pour diagnostiquer les blocages IP (CI vs local)
-        body = ""
-        try: body = e.read()[:200].decode("utf-8", "ignore")
-        except Exception: pass
-        print(f"  [nba HTTP {e.code}] {endpoint}  url={url[:80]}  body={body!r}")
-        return None
-    except urllib.error.URLError as e:
-        print(f"  [nba URLError] {endpoint}: reason={e.reason}")
-        return None
-    except Exception as e:
-        print(f"  [nba err] {endpoint}: {type(e).__name__}: {e}")
+    # Retry avec backoff pour les timeouts (stats.nba.com tarpit data center IPs)
+    data = None
+    last_err = None
+    for attempt, timeout_s in enumerate([45, 60, 90]):
+        _throttle()
+        req = urllib.request.Request(url, headers=HEADERS)
+        try:
+            r = urllib.request.urlopen(req, timeout=timeout_s)
+            raw = r.read()
+            if raw[:2] == b"\x1f\x8b":
+                raw = gzip.decompress(raw)
+            data = json.loads(raw)
+            if attempt > 0:
+                print(f"  [nba OK retry {attempt+1}/{3}] {endpoint}")
+            break
+        except urllib.error.HTTPError as e:
+            body = ""
+            try: body = e.read()[:200].decode("utf-8", "ignore")
+            except Exception: pass
+            print(f"  [nba HTTP {e.code}] {endpoint}  body={body!r}")
+            return None
+        except (urllib.error.URLError, TimeoutError) as e:
+            last_err = e
+            print(f"  [nba timeout {attempt+1}/3 t={timeout_s}s] {endpoint}: {e}")
+            continue
+        except Exception as e:
+            last_err = e
+            print(f"  [nba err] {endpoint}: {type(e).__name__}: {e}")
+            return None
+    if data is None:
+        print(f"  [nba GIVE UP] {endpoint} apres 3 retries (derniere err: {last_err})")
         return None
 
     _cache_set(path, data)
