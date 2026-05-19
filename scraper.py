@@ -468,10 +468,19 @@ def build_match(fm_match, lname, fm_lid, standings, league_data, odds_idx):
 
     # Odds via api-football (matching par nom + date)
     date_iso = utc[:10]
-    odd_payload = (
-        odds_idx.get((_norm(home_name), _norm(away_name), date_iso))
-        or odds_idx.get((_norm(home_name), _norm(away_name), date_iso))
-    )
+    n_home, n_away = _norm(home_name), _norm(away_name)
+    odd_payload = odds_idx.get((n_home, n_away, date_iso))
+    # Fallback fuzzy : api-football utilise parfois des noms courts
+    # ('bournemouth' au lieu de 'afcbournemouth', 'tottenham' au lieu de 'tottenhamhotspur')
+    # On accepte le match par substring containment.
+    if not odd_payload:
+        for (k_home, k_away, k_date), v in odds_idx.items():
+            if k_date != date_iso: continue
+            home_ok = (k_home in n_home) or (n_home in k_home)
+            away_ok = (k_away in n_away) or (n_away in k_away)
+            if home_ok and away_ok:
+                odd_payload = v
+                break
     match_odds = convert_odds(odd_payload, home_name, away_name)
 
     return {
