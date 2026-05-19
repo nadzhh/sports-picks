@@ -66,69 +66,6 @@
         "side": "home"
       },
       {
-        "prop": "AST",
-        "label": "Karl-Anthony Towns plus de 4.5 passes",
-        "line": 4.5,
-        "direction": "over",
-        "confidence": 74,
-        "cote_min": 1.35,
-        "real_cote": 1.82,
-        "book": "fanduel",
-        "books": [
-          {
-            "book": "fanduel",
-            "cote": 1.82
-          },
-          {
-            "book": "pinnacle",
-            "cote": 1.8
-          },
-          {
-            "book": "draftkings",
-            "cote": 1.67
-          },
-          {
-            "book": "betmgm",
-            "cote": 1.65
-          }
-        ],
-        "edge": 34.8,
-        "is_real_line": true,
-        "value": [
-          "🎯",
-          "Real DK/FD",
-          "#22c55e"
-        ],
-        "hit_rate": "7/10",
-        "hit_pct": 70,
-        "hit_l10": "7/10",
-        "hit_l10_pct": 70,
-        "hit_l20": "10/20",
-        "hit_l20_pct": 50,
-        "trend": "hot",
-        "trend_delta": 20.0,
-        "trend_icon": "📈",
-        "context": {
-          "pace": 0.99,
-          "def": 1.006,
-          "def_rank": 15,
-          "def_stat": "passes"
-        },
-        "def_argument": "",
-        "rotation_warning": null,
-        "stats": {
-          "mu": 6.6,
-          "sigma": 3.2,
-          "L5": 8.0,
-          "L10": 6.6,
-          "Saison": 3.0
-        },
-        "reasoning": "L5 8.0 · L10 6.6 · Saison 3.0 → attendu 6.6 · pace×0.99 · def×1.006",
-        "player": "Karl-Anthony Towns",
-        "team": "Knicks",
-        "side": "home"
-      },
-      {
         "prop": "PA",
         "label": "Josh Hart moins de 17.5 pts + ast",
         "line": 17.5,
@@ -144,7 +81,7 @@
           },
           {
             "book": "fanduel",
-            "cote": 1.85
+            "cote": 1.88
           }
         ],
         "edge": 32.7,
@@ -191,16 +128,16 @@
         "direction": "over",
         "confidence": 73,
         "cote_min": 1.37,
-        "real_cote": 2.01,
-        "book": "pinnacle",
+        "real_cote": 2.02,
+        "book": "fanduel",
         "books": [
+          {
+            "book": "fanduel",
+            "cote": 2.02
+          },
           {
             "book": "pinnacle",
             "cote": 2.01
-          },
-          {
-            "book": "fanduel",
-            "cote": 1.98
           },
           {
             "book": "draftkings",
@@ -211,7 +148,7 @@
             "cote": 1.95
           }
         ],
-        "edge": 46.7,
+        "edge": 47.4,
         "is_real_line": true,
         "value": [
           "🎯",
@@ -249,22 +186,82 @@
         "side": "home"
       },
       {
-        "prop": "PR",
-        "label": "OG Anunoby plus de 21.5 pts + reb",
-        "line": 21.5,
+        "prop": "PTS",
+        "label": "Landry Shamet plus de 2.5 points",
+        "line": 2.5,
         "direction": "over",
-        "confidence": 68,
-        "cote_min": 1.47,
-        "real_cote": 1.96,
+        "confidence": 80,
+        "cote_min": 1.24,
+        "real_cote": 1.82,
         "book": "fanduel",
         "books": [
           {
             "book": "fanduel",
-            "cote": 1.96
+            "cote": 1.82
+          }
+        ],
+        "edge": 46.8,
+        "is_real_line": true,
+        "value": [
+          "🎯",
+          "Real DK/FD",
+          "#22c55e"
+        ],
+        "hit_rate": "6/10",
+        "hit_pct": 60,
+        "hit_l10": "6/10",
+        "hit_l10_pct": 60,
+        "hit_l20": "14/20",
+        "hit_l20_pct": 70,
+        "trend": "cold",
+        "trend_delta": -10.0,
+        "trend_icon": "📉",
+        "context": {
+          "pace": 0.99,
+          "vegas": 0.996,
+          "def": 0.998,
+          "def_rank": 16,
+          "def_stat": "points"
+        },
+        "def_argument": "",
+        "rotation_warning": "Rotation reduite : 7/10 derniers matchs <15 min (derniers 5 : 11/26/8/12/15 min)",
+        "stats": {
+          "mu": 6.5,
+          "sigma": 4.7,
+          "L5": 7.0,
+          "L10": 4.1,
+          "Saison": 9.3
+        },
+        "reasoning": "L5 7.0 · L10 4.1 · Saison 9.3 → attendu 6.5 · pace×0.99 · vegas×0.996 · def×0.998",
+        "player": "Landry Shamet",
+        "team": "Knicks",
+        "side": "home"
+      },
+      {
+        "prop": "AST",
+        "label": "Karl-Anthony Towns plus de 4.5 passes",
+        "line": 4.5,
+        "direction": "over",
+        "confidence": 74,
+        "cote_min": 1.35,
+        "real_cote": 1.8,
+        "book": "fanduel",
+        "books": [
+          {
+            "book": "fanduel",
+            "cote": 1.8
+          },
+          {
+            "book": "pinnacle",
+            "cote": 1.8
           },
           {
             "book": "draftkings",
-            "cote": 1.88
+            "cote": 1.67
+          },
+          {
+            "book": "betmgm",
+            "cote": 1.65
           }
         ],
         "edge": 33.3,
@@ -278,29 +275,28 @@
         "hit_pct": 70,
         "hit_l10": "7/10",
         "hit_l10_pct": 70,
-        "hit_l20": "12/20",
-        "hit_l20_pct": 60,
+        "hit_l20": "10/20",
+        "hit_l20_pct": 50,
         "trend": "hot",
-        "trend_delta": 10.0,
+        "trend_delta": 20.0,
         "trend_icon": "📈",
         "context": {
           "pace": 0.99,
-          "vegas": 0.996,
-          "def": 0.998,
-          "def_rank": 16,
-          "def_stat": "points"
+          "def": 1.006,
+          "def_rank": 15,
+          "def_stat": "passes"
         },
         "def_argument": "",
         "rotation_warning": null,
         "stats": {
-          "mu": 26.1,
-          "sigma": 9.7,
-          "L5": 29.0,
-          "L10": 25.5,
-          "Saison": 21.9
+          "mu": 6.6,
+          "sigma": 3.2,
+          "L5": 8.0,
+          "L10": 6.6,
+          "Saison": 3.0
         },
-        "reasoning": "L5 29.0 · L10 25.5 · Saison 21.9 → attendu 26.1 · pace×0.99 · vegas×0.996 · def×0.998",
-        "player": "OG Anunoby",
+        "reasoning": "L5 8.0 · L10 6.6 · Saison 3.0 → attendu 6.6 · pace×0.99 · def×1.006",
+        "player": "Karl-Anthony Towns",
         "team": "Knicks",
         "side": "home"
       },
@@ -364,36 +360,40 @@
         "side": "home"
       },
       {
-        "prop": "PTS",
-        "label": "Landry Shamet plus de 3.5 points",
-        "line": 3.5,
+        "prop": "PR",
+        "label": "OG Anunoby plus de 21.5 pts + reb",
+        "line": 21.5,
         "direction": "over",
-        "confidence": 74,
-        "cote_min": 1.35,
-        "real_cote": 2.04,
+        "confidence": 68,
+        "cote_min": 1.47,
+        "real_cote": 1.93,
         "book": "fanduel",
         "books": [
           {
             "book": "fanduel",
-            "cote": 2.04
+            "cote": 1.93
+          },
+          {
+            "book": "draftkings",
+            "cote": 1.88
           }
         ],
-        "edge": 51.1,
+        "edge": 31.3,
         "is_real_line": true,
         "value": [
           "🎯",
           "Real DK/FD",
           "#22c55e"
         ],
-        "hit_rate": "3/10",
-        "hit_pct": 30,
-        "hit_l10": "3/10",
-        "hit_l10_pct": 30,
-        "hit_l20": "9/20",
-        "hit_l20_pct": 45,
-        "trend": "cold",
-        "trend_delta": -15.0,
-        "trend_icon": "📉",
+        "hit_rate": "7/10",
+        "hit_pct": 70,
+        "hit_l10": "7/10",
+        "hit_l10_pct": 70,
+        "hit_l20": "12/20",
+        "hit_l20_pct": 60,
+        "trend": "hot",
+        "trend_delta": 10.0,
+        "trend_icon": "📈",
         "context": {
           "pace": 0.99,
           "vegas": 0.996,
@@ -402,39 +402,35 @@
           "def_stat": "points"
         },
         "def_argument": "",
-        "rotation_warning": "Rotation reduite : 7/10 derniers matchs <15 min (derniers 5 : 11/26/8/12/15 min)",
+        "rotation_warning": null,
         "stats": {
-          "mu": 6.5,
-          "sigma": 4.7,
-          "L5": 7.0,
-          "L10": 4.1,
-          "Saison": 9.3
+          "mu": 26.1,
+          "sigma": 9.7,
+          "L5": 29.0,
+          "L10": 25.5,
+          "Saison": 21.9
         },
-        "reasoning": "L5 7.0 · L10 4.1 · Saison 9.3 → attendu 6.5 · pace×0.99 · vegas×0.996 · def×0.998",
-        "player": "Landry Shamet",
+        "reasoning": "L5 29.0 · L10 25.5 · Saison 21.9 → attendu 26.1 · pace×0.99 · vegas×0.996 · def×0.998",
+        "player": "OG Anunoby",
         "team": "Knicks",
         "side": "home"
       },
       {
-        "prop": "PRA",
-        "label": "Mikal Bridges plus de 18.5 PRA",
-        "line": 18.5,
+        "prop": "PA",
+        "label": "Mikal Bridges plus de 16.5 pts + ast",
+        "line": 16.5,
         "direction": "over",
-        "confidence": 71,
-        "cote_min": 1.41,
-        "real_cote": 1.83,
-        "book": "fanduel",
+        "confidence": 66,
+        "cote_min": 1.53,
+        "real_cote": 1.99,
+        "book": "draftkings",
         "books": [
           {
-            "book": "fanduel",
-            "cote": 1.83
-          },
-          {
-            "book": "betmgm",
-            "cote": 1.74
+            "book": "draftkings",
+            "cote": 1.99
           }
         ],
-        "edge": 29.8,
+        "edge": 30.1,
         "is_real_line": true,
         "value": [
           "🎯",
@@ -460,13 +456,13 @@
         "def_argument": "",
         "rotation_warning": null,
         "stats": {
-          "mu": 22.4,
-          "sigma": 7.1,
-          "L5": 26.0,
-          "L10": 18.0,
-          "Saison": 21.9
+          "mu": 19.0,
+          "sigma": 6.3,
+          "L5": 22.2,
+          "L10": 15.4,
+          "Saison": 18.1
         },
-        "reasoning": "L5 26.0 · L10 18.0 · Saison 21.9 → attendu 22.4 · pace×0.99 · vegas×0.996 · def×0.998",
+        "reasoning": "L5 22.2 · L10 15.4 · Saison 18.1 → attendu 19.0 · pace×0.99 · vegas×0.996 · def×0.998",
         "player": "Mikal Bridges",
         "team": "Knicks",
         "side": "home"
@@ -491,7 +487,7 @@
           },
           {
             "book": "fanduel",
-            "cote": 1.77
+            "cote": 1.8
           }
         ],
         "edge": 34.5,
@@ -587,83 +583,28 @@
     "away_picks": [
       {
         "prop": "FG3M",
-        "label": "Dennis Schroder plus de 0.5 3-points",
-        "line": 0.5,
-        "direction": "over",
-        "confidence": 68,
-        "cote_min": 1.46,
-        "real_cote": 2.0,
-        "book": "betmgm",
-        "books": [
-          {
-            "book": "betmgm",
-            "cote": 2.0
-          },
-          {
-            "book": "draftkings",
-            "cote": 1.96
-          }
-        ],
-        "edge": 37.0,
-        "is_real_line": true,
-        "value": [
-          "🎯",
-          "Real DK/FD",
-          "#22c55e"
-        ],
-        "hit_rate": "4/10",
-        "hit_pct": 40,
-        "hit_l10": "4/10",
-        "hit_l10_pct": 40,
-        "hit_l20": "9/20",
-        "hit_l20_pct": 45,
-        "trend": "stable",
-        "trend_delta": -5.0,
-        "trend_icon": "",
-        "context": {
-          "pace": 0.99,
-          "def": 1.045,
-          "def_rank": 10,
-          "def_stat": "3-points"
-        },
-        "def_argument": "",
-        "rotation_warning": null,
-        "stats": {
-          "mu": 1.0,
-          "sigma": 0.9,
-          "L5": 0.8,
-          "L10": 0.8,
-          "Saison": 1.4
-        },
-        "reasoning": "L5 0.8 · L10 0.8 · Saison 1.4 → attendu 1.0 · pace×0.99 · def×1.045",
-        "player": "Dennis Schroder",
-        "team": "Cavaliers",
-        "side": "away"
-      },
-      {
-        "prop": "FG3M",
         "label": "Sam Merrill plus de 1.5 3-points",
         "line": 1.5,
         "direction": "over",
         "confidence": 76,
         "cote_min": 1.32,
-        "real_cote": 1.69,
-        "book": "fanduel",
+        "real_cote": 1.71,
+        "book": "betmgm",
         "books": [
           {
+            "book": "betmgm",
+            "cote": 1.71
+          },
+          {
             "book": "fanduel",
-            "cote": 1.69
+            "cote": 1.71
           },
           {
             "book": "draftkings",
             "cote": 1.69
-          },
-          {
-            "book": "betmgm",
-            "cote": 1.67
           }
         ],
-        "edge": 28.0,
+        "edge": 29.5,
         "is_real_line": true,
         "value": [
           "🎯",
@@ -700,65 +641,53 @@
         "side": "away"
       },
       {
-        "prop": "REB",
-        "label": "Donovan Mitchell plus de 4.5 rebonds",
-        "line": 4.5,
+        "prop": "FG3M",
+        "label": "Dennis Schroder plus de 0.5 3-points",
+        "line": 0.5,
         "direction": "over",
-        "confidence": 59,
-        "cote_min": 1.69,
-        "real_cote": 2.07,
-        "book": "pinnacle",
+        "confidence": 68,
+        "cote_min": 1.46,
+        "real_cote": 1.96,
+        "book": "draftkings",
         "books": [
           {
-            "book": "pinnacle",
-            "cote": 2.07
-          },
-          {
             "book": "draftkings",
-            "cote": 2.05
-          },
-          {
-            "book": "betmgm",
-            "cote": 2.0
-          },
-          {
-            "book": "fanduel",
-            "cote": 1.98
+            "cote": 1.96
           }
         ],
-        "edge": 22.5,
+        "edge": 34.2,
         "is_real_line": true,
         "value": [
           "🎯",
           "Real DK/FD",
           "#22c55e"
         ],
-        "hit_rate": "6/10",
-        "hit_pct": 60,
-        "hit_l10": "6/10",
-        "hit_l10_pct": 60,
-        "hit_l20": "12/20",
-        "hit_l20_pct": 60,
+        "hit_rate": "4/10",
+        "hit_pct": 40,
+        "hit_l10": "4/10",
+        "hit_l10_pct": 40,
+        "hit_l20": "9/20",
+        "hit_l20_pct": 45,
         "trend": "stable",
-        "trend_delta": 0.0,
+        "trend_delta": -5.0,
         "trend_icon": "",
         "context": {
           "pace": 0.99,
-          "def": 0.925,
-          "def_rank": 28,
-          "def_stat": "rebonds"
+          "def": 1.045,
+          "def_rank": 10,
+          "def_stat": "3-points"
         },
-        "def_argument": "Adversaire solide vs rebonds (#28/30)",
+        "def_argument": "",
         "rotation_warning": null,
         "stats": {
-          "mu": 4.9,
-          "sigma": 1.7,
-          "L5": 5.8,
-          "L10": 5.2,
-          "Saison": 4.5
+          "mu": 1.0,
+          "sigma": 0.9,
+          "L5": 0.8,
+          "L10": 0.8,
+          "Saison": 1.4
         },
-        "reasoning": "L5 5.8 · L10 5.2 · Saison 4.5 → attendu 4.9 · pace×0.99 · def×0.925",
-        "player": "Donovan Mitchell",
+        "reasoning": "L5 0.8 · L10 0.8 · Saison 1.4 → attendu 1.0 · pace×0.99 · def×1.045",
+        "player": "Dennis Schroder",
         "team": "Cavaliers",
         "side": "away"
       },
@@ -778,7 +707,7 @@
           },
           {
             "book": "betmgm",
-            "cote": 1.91
+            "cote": 1.95
           },
           {
             "book": "draftkings",
@@ -845,7 +774,7 @@
           },
           {
             "book": "fanduel",
-            "cote": 1.72
+            "cote": 1.74
           }
         ],
         "edge": 16.1,
@@ -990,6 +919,57 @@
         "player": "Sam Merrill",
         "team": "Cavaliers",
         "side": "away"
+      },
+      {
+        "prop": "FG3M",
+        "label": "Evan Mobley plus de 0.5 3-points",
+        "line": 0.5,
+        "direction": "over",
+        "confidence": 79,
+        "cote_min": 1.26,
+        "real_cote": 1.43,
+        "book": "betmgm",
+        "books": [
+          {
+            "book": "betmgm",
+            "cote": 1.43
+          }
+        ],
+        "edge": 13.5,
+        "is_real_line": true,
+        "value": [
+          "🎯",
+          "Real DK/FD",
+          "#22c55e"
+        ],
+        "hit_rate": "9/10",
+        "hit_pct": 90,
+        "hit_l10": "9/10",
+        "hit_l10_pct": 90,
+        "hit_l20": "12/20",
+        "hit_l20_pct": 60,
+        "trend": "hot",
+        "trend_delta": 30.0,
+        "trend_icon": "📈",
+        "context": {
+          "pace": 0.99,
+          "def": 1.045,
+          "def_rank": 10,
+          "def_stat": "3-points"
+        },
+        "def_argument": "",
+        "rotation_warning": null,
+        "stats": {
+          "mu": 1.3,
+          "sigma": 1.0,
+          "L5": 1.2,
+          "L10": 1.6,
+          "Saison": 1.0
+        },
+        "reasoning": "L5 1.2 · L10 1.6 · Saison 1.0 → attendu 1.3 · pace×0.99 · def×1.045",
+        "player": "Evan Mobley",
+        "team": "Cavaliers",
+        "side": "away"
       }
     ]
   },
@@ -1111,19 +1091,15 @@
         "direction": "over",
         "confidence": 72,
         "cote_min": 1.38,
-        "real_cote": 1.8,
+        "real_cote": 1.77,
         "book": "betmgm",
         "books": [
           {
             "book": "betmgm",
-            "cote": 1.8
-          },
-          {
-            "book": "draftkings",
-            "cote": 1.79
+            "cote": 1.77
           }
         ],
-        "edge": 30.4,
+        "edge": 28.3,
         "is_real_line": true,
         "value": [
           "🎯",
@@ -1180,7 +1156,7 @@
           },
           {
             "book": "draftkings",
-            "cote": 1.86
+            "cote": 1.89
           }
         ],
         "edge": 33.1,
@@ -1506,58 +1482,6 @@
     ],
     "away_picks": [
       {
-        "prop": "PA",
-        "label": "Devin Vassell moins de 15.5 pts + ast",
-        "line": 15.5,
-        "direction": "under",
-        "confidence": 76,
-        "cote_min": 1.32,
-        "real_cote": 1.85,
-        "book": "draftkings",
-        "books": [
-          {
-            "book": "draftkings",
-            "cote": 1.85
-          }
-        ],
-        "edge": 40.2,
-        "is_real_line": true,
-        "value": [
-          "🎯",
-          "Real DK/FD",
-          "#22c55e"
-        ],
-        "hit_rate": "7/10",
-        "hit_pct": 70,
-        "hit_l10": "7/10",
-        "hit_l10_pct": 70,
-        "hit_l20": "12/20",
-        "hit_l20_pct": 60,
-        "trend": "hot",
-        "trend_delta": 10.0,
-        "trend_icon": "📈",
-        "context": {
-          "pace": 1.002,
-          "vegas": 0.925,
-          "def": 0.933,
-          "def_rank": 29,
-          "def_stat": "points"
-        },
-        "def_argument": "Adversaire solide vs points (#29/30)",
-        "rotation_warning": null,
-        "stats": {
-          "mu": 13.3,
-          "sigma": 3.1,
-          "L5": 15.4,
-          "L10": 14.8,
-          "Saison": 16.4
-        },
-        "reasoning": "L5 15.4 · L10 14.8 · Saison 16.4 → attendu 13.3 · pace×1.002 · vegas×0.925 · def×0.933",
-        "player": "Devin Vassell",
-        "team": "Spurs",
-        "side": "away"
-      },
-      {
         "prop": "REB",
         "label": "Dylan Harper plus de 3.5 rebonds",
         "line": 3.5,
@@ -1614,32 +1538,20 @@
       },
       {
         "prop": "PTS",
-        "label": "De'Aaron Fox plus de 14.5 points",
-        "line": 14.5,
+        "label": "De'Aaron Fox plus de 13.5 points",
+        "line": 13.5,
         "direction": "over",
-        "confidence": 65,
-        "cote_min": 1.54,
-        "real_cote": 1.98,
-        "book": "fanduel",
+        "confidence": 72,
+        "cote_min": 1.39,
+        "real_cote": 1.79,
+        "book": "draftkings",
         "books": [
           {
-            "book": "fanduel",
-            "cote": 1.98
-          },
-          {
-            "book": "pinnacle",
-            "cote": 1.96
-          },
-          {
-            "book": "betmgm",
-            "cote": 1.83
-          },
-          {
             "book": "draftkings",
-            "cote": 1.83
+            "cote": 1.79
           }
         ],
-        "edge": 28.6,
+        "edge": 28.8,
         "is_real_line": true,
         "value": [
           "🎯",
@@ -1650,10 +1562,10 @@
         "hit_pct": 90,
         "hit_l10": "9/10",
         "hit_l10_pct": 90,
-        "hit_l20": "14/20",
-        "hit_l20_pct": 70,
+        "hit_l20": "15/20",
+        "hit_l20_pct": 75,
         "trend": "hot",
-        "trend_delta": 20.0,
+        "trend_delta": 15.0,
         "trend_icon": "📈",
         "context": {
           "pace": 1.002,
@@ -1689,10 +1601,6 @@
           {
             "book": "betmgm",
             "cote": 1.85
-          },
-          {
-            "book": "draftkings",
-            "cote": 1.82
           }
         ],
         "edge": 30.3,
@@ -1729,6 +1637,61 @@
         },
         "reasoning": "L5 41.6 · L10 36.1 · Saison 39.6 → attendu 34.2 · pace×1.002 · vegas×0.925 · def×0.933",
         "player": "Victor Wembanyama",
+        "team": "Spurs",
+        "side": "away"
+      },
+      {
+        "prop": "FG3M",
+        "label": "Keldon Johnson plus de 0.5 3-points",
+        "line": 0.5,
+        "direction": "over",
+        "confidence": 78,
+        "cote_min": 1.28,
+        "real_cote": 1.62,
+        "book": "betmgm",
+        "books": [
+          {
+            "book": "betmgm",
+            "cote": 1.62
+          },
+          {
+            "book": "draftkings",
+            "cote": 1.45
+          }
+        ],
+        "edge": 26.6,
+        "is_real_line": true,
+        "value": [
+          "🎯",
+          "Real DK/FD",
+          "#22c55e"
+        ],
+        "hit_rate": "6/10",
+        "hit_pct": 60,
+        "hit_l10": "6/10",
+        "hit_l10_pct": 60,
+        "hit_l20": "14/20",
+        "hit_l20_pct": 70,
+        "trend": "cold",
+        "trend_delta": -10.0,
+        "trend_icon": "📉",
+        "context": {
+          "pace": 1.002,
+          "def": 1.075,
+          "def_rank": 3,
+          "def_stat": "3-points"
+        },
+        "def_argument": "Adversaire encaisse beaucoup de 3-points (#3/30)",
+        "rotation_warning": null,
+        "stats": {
+          "mu": 1.2,
+          "sigma": 0.9,
+          "L5": 1.2,
+          "L10": 0.9,
+          "Saison": 1.2
+        },
+        "reasoning": "L5 1.2 · L10 0.9 · Saison 1.2 → attendu 1.2 · pace×1.002 · def×1.075",
+        "player": "Keldon Johnson",
         "team": "Spurs",
         "side": "away"
       },
@@ -1789,61 +1752,6 @@
       },
       {
         "prop": "FG3M",
-        "label": "Keldon Johnson plus de 0.5 3-points",
-        "line": 0.5,
-        "direction": "over",
-        "confidence": 78,
-        "cote_min": 1.28,
-        "real_cote": 1.61,
-        "book": "betmgm",
-        "books": [
-          {
-            "book": "betmgm",
-            "cote": 1.61
-          },
-          {
-            "book": "draftkings",
-            "cote": 1.47
-          }
-        ],
-        "edge": 25.8,
-        "is_real_line": true,
-        "value": [
-          "🎯",
-          "Real DK/FD",
-          "#22c55e"
-        ],
-        "hit_rate": "6/10",
-        "hit_pct": 60,
-        "hit_l10": "6/10",
-        "hit_l10_pct": 60,
-        "hit_l20": "14/20",
-        "hit_l20_pct": 70,
-        "trend": "cold",
-        "trend_delta": -10.0,
-        "trend_icon": "📉",
-        "context": {
-          "pace": 1.002,
-          "def": 1.075,
-          "def_rank": 3,
-          "def_stat": "3-points"
-        },
-        "def_argument": "Adversaire encaisse beaucoup de 3-points (#3/30)",
-        "rotation_warning": null,
-        "stats": {
-          "mu": 1.2,
-          "sigma": 0.9,
-          "L5": 1.2,
-          "L10": 0.9,
-          "Saison": 1.2
-        },
-        "reasoning": "L5 1.2 · L10 0.9 · Saison 1.2 → attendu 1.2 · pace×1.002 · def×1.075",
-        "player": "Keldon Johnson",
-        "team": "Spurs",
-        "side": "away"
-      },
-      {
-        "prop": "FG3M",
         "label": "Stephon Castle plus de 1.5 3-points",
         "line": 1.5,
         "direction": "over",
@@ -1857,12 +1765,12 @@
             "cote": 2.05
           },
           {
-            "book": "draftkings",
-            "cote": 2.03
-          },
-          {
             "book": "fanduel",
             "cote": 2.0
+          },
+          {
+            "book": "draftkings",
+            "cote": 1.98
           }
         ],
         "edge": 25.0,
@@ -1908,12 +1816,12 @@
         "direction": "under",
         "confidence": 68,
         "cote_min": 1.48,
-        "real_cote": 1.98,
+        "real_cote": 1.82,
         "book": "draftkings",
         "books": [
           {
             "book": "draftkings",
-            "cote": 1.98
+            "cote": 1.82
           },
           {
             "book": "fanduel",
@@ -1924,7 +1832,7 @@
             "cote": 1.77
           }
         ],
-        "edge": 33.8,
+        "edge": 23.0,
         "is_real_line": true,
         "value": [
           "🎯",
@@ -1974,6 +1882,10 @@
           {
             "book": "fanduel",
             "cote": 1.88
+          },
+          {
+            "book": "draftkings",
+            "cote": 1.84
           }
         ],
         "edge": 25.3,
@@ -2062,6 +1974,66 @@
         },
         "reasoning": "L5 39.2 · L10 33.5 · Saison 36.5 → attendu 32.0 · pace×1.002 · vegas×0.925 · def×0.933",
         "player": "Victor Wembanyama",
+        "team": "Spurs",
+        "side": "away"
+      },
+      {
+        "prop": "PR",
+        "label": "De'Aaron Fox plus de 17.5 pts + reb",
+        "line": 17.5,
+        "direction": "over",
+        "confidence": 61,
+        "cote_min": 1.64,
+        "real_cote": 1.95,
+        "book": "betmgm",
+        "books": [
+          {
+            "book": "betmgm",
+            "cote": 1.95
+          },
+          {
+            "book": "draftkings",
+            "cote": 1.91
+          },
+          {
+            "book": "fanduel",
+            "cote": 1.85
+          }
+        ],
+        "edge": 18.9,
+        "is_real_line": true,
+        "value": [
+          "🎯",
+          "Real DK/FD",
+          "#22c55e"
+        ],
+        "hit_rate": "8/10",
+        "hit_pct": 80,
+        "hit_l10": "8/10",
+        "hit_l10_pct": 80,
+        "hit_l20": "14/20",
+        "hit_l20_pct": 70,
+        "trend": "hot",
+        "trend_delta": 10.0,
+        "trend_icon": "📈",
+        "context": {
+          "pace": 1.002,
+          "vegas": 0.925,
+          "def": 0.933,
+          "def_rank": 29,
+          "def_stat": "points"
+        },
+        "def_argument": "Adversaire solide vs points (#29/30)",
+        "rotation_warning": null,
+        "stats": {
+          "mu": 19.3,
+          "sigma": 6.4,
+          "L5": 22.2,
+          "L10": 22.3,
+          "Saison": 22.4
+        },
+        "reasoning": "L5 22.2 · L10 22.3 · Saison 22.4 → attendu 19.3 · pace×1.002 · vegas×0.925 · def×0.933",
+        "player": "De'Aaron Fox",
         "team": "Spurs",
         "side": "away"
       }
