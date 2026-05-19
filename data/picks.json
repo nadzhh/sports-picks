@@ -114,7 +114,28 @@
         }
       }
     ],
-    "home_players": [],
+    "home_players": [
+      {
+        "player": "Junior Kroupi",
+        "position": "F",
+        "is_sub": false,
+        "type": "Buteur",
+        "label": "Junior Kroupi marque",
+        "cote": null,
+        "confidence": 36,
+        "reasoning": "13 buts en 31 matchs cette saison (41.9% de chance/match) · finisseur efficace (16% de conv.) · xG moyen 0.26/match · défense solide",
+        "context": {
+          "weakness": 0.28
+        },
+        "stats": {
+          "goals": 13,
+          "apps": 31,
+          "gpm": 0.419,
+          "xgpm": 0.258
+        },
+        "team": "home"
+      }
+    ],
     "away_players": [
       {
         "player": "Erling Haaland",
@@ -466,41 +487,41 @@
     ],
     "home_players": [
       {
-        "player": "João Pedro",
+        "player": "Cole Palmer",
         "position": "F",
         "is_sub": false,
         "type": "Joueur décisif",
-        "label": "João Pedro but ou passe décisive",
+        "label": "Cole Palmer but ou passe décisive",
         "cote": null,
-        "confidence": 48,
-        "reasoning": "15 buts + 5 passes décisives en 34 matchs (58.8% de chance/match) · xG+xA: 0.48/match · défense fragile",
+        "confidence": 45,
+        "reasoning": "9 buts + 1 passes décisives en 24 matchs (41.7% de chance/match) · xG+xA: 0.53/match · défense fragile",
         "context": {
           "weakness": 0.64
         },
         "stats": {
-          "goals": 15,
-          "assists": 5,
-          "apps": 34
+          "goals": 9,
+          "assists": 1,
+          "apps": 24
         },
         "team": "home"
       },
       {
-        "player": "João Pedro",
+        "player": "Cole Palmer",
         "position": "F",
         "is_sub": false,
         "type": "Buteur",
-        "label": "João Pedro marque",
+        "label": "Cole Palmer marque",
         "cote": null,
-        "confidence": 47,
-        "reasoning": "15 buts en 34 matchs cette saison (44.1% de chance/match) · xG moyen 0.42/match, défense adverse poreuse (1.5 buts concédés/match) · défense fragile",
+        "confidence": 44,
+        "reasoning": "9 buts en 24 matchs cette saison (37.5% de chance/match) · xG moyen 0.42/match, défense adverse poreuse (1.5 buts concédés/match) · défense fragile",
         "context": {
           "weakness": 0.64
         },
         "stats": {
-          "goals": 15,
-          "apps": 34,
-          "gpm": 0.441,
-          "xgpm": 0.424
+          "goals": 9,
+          "apps": 24,
+          "gpm": 0.375,
+          "xgpm": 0.425
         },
         "team": "home"
       }
