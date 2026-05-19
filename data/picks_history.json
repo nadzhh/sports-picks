@@ -1138,6 +1138,62 @@
       "result": "PENDING",
       "actual": null,
       "resolved_at": null
+    },
+    {
+      "direction": "shots_under_27.5",
+      "type": "Tirs (total match)",
+      "label": "Moins de 27.5 tirs total",
+      "cote": null,
+      "cote_min": 1.25,
+      "value": [
+        "⚠️",
+        "Value serrée",
+        "#f59e0b"
+      ],
+      "confidence": 80,
+      "reasoning": "📊 Brut : Chelsea L10 13.8 (L5 13.5) tirs/m · Tottenham Hotspur L10 11.9 (L5 12.2) tirs/m\n🛡️ Défenses : Chelsea concède 7.8/m · Tottenham Hotspur concède 12.0/m\n🎯 Attendu : Chelsea ~14.7 · Tottenham Hotspur ~8.8 → total ~23.5\n⚖️ Chelsea favori (#8 vs #17) · Chelsea forme : D-L-L-L-L · Tottenham Hotspur forme : D-W-W-D-L",
+      "stats": {
+        "expected_total": 23.5
+      },
+      "id": "2026-05-19_4813739_team_shots_under_27.5",
+      "date": "2026-05-19",
+      "match_id": "4813739",
+      "matchup": "Chelsea vs Tottenham Hotspur",
+      "league": "Premier League",
+      "category": "team",
+      "result": "PENDING",
+      "actual": null,
+      "resolved_at": null
+    },
+    {
+      "player": "Richarlison",
+      "position": "F",
+      "is_sub": false,
+      "type": "Buteur",
+      "label": "Richarlison marque",
+      "cote": null,
+      "confidence": 37,
+      "reasoning": "11 buts en 30 matchs cette saison (36.7% de chance/match) · finisseur efficace (12% de conv.) · xG moyen 0.28/match, défense adverse poreuse (1.4 buts concédés/match) · défense correcte",
+      "context": {
+        "weakness": 0.45
+      },
+      "stats": {
+        "goals": 11,
+        "apps": 30,
+        "gpm": 0.367,
+        "xgpm": 0.283
+      },
+      "team": "away",
+      "id": "2026-05-19_4813739_player_Richarlison_Buteur",
+      "date": "2026-05-19",
+      "match_id": "4813739",
+      "matchup": "Chelsea vs Tottenham Hotspur",
+      "league": "Premier League",
+      "category": "player",
+      "side": "away",
+      "result": "PENDING",
+      "actual": null,
+      "resolved_at": null
     }
   ]
 }

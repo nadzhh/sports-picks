@@ -1,5 +1,130 @@
 [
   {
+    "league": "Premier League",
+    "home": "Chelsea",
+    "away": "Tottenham Hotspur",
+    "start_ts": 1779218100,
+    "match_id": "4813739",
+    "picks": [
+      {
+        "direction": "shots_under_27.5",
+        "type": "Tirs (total match)",
+        "label": "Moins de 27.5 tirs total",
+        "cote": null,
+        "cote_min": 1.25,
+        "value": [
+          "⚠️",
+          "Value serrée",
+          "#f59e0b"
+        ],
+        "confidence": 80,
+        "reasoning": "📊 Brut : Chelsea L10 13.8 (L5 13.5) tirs/m · Tottenham Hotspur L10 11.9 (L5 12.2) tirs/m\n🛡️ Défenses : Chelsea concède 7.8/m · Tottenham Hotspur concède 12.0/m\n🎯 Attendu : Chelsea ~14.7 · Tottenham Hotspur ~8.8 → total ~23.5\n⚖️ Chelsea favori (#8 vs #17) · Chelsea forme : D-L-L-L-L · Tottenham Hotspur forme : D-W-W-D-L",
+        "stats": {
+          "expected_total": 23.5
+        }
+      },
+      {
+        "direction": "tirs_(chelsea)_over_11.5",
+        "type": "Tirs (Chelsea)",
+        "label": "Plus de 11.5 tirs Chelsea",
+        "cote": null,
+        "cote_min": 1.26,
+        "value": [
+          "⚠️",
+          "Value serrée",
+          "#f59e0b"
+        ],
+        "confidence": 79,
+        "edge": null,
+        "reasoning": "Chelsea prend 14.5/m [pondere vs opp #17] · adv. concède 12.0/m → attendu ~14.7 (Chelsea favori (#8 vs #17))",
+        "stats": {
+          "expected": 14.7
+        }
+      }
+    ],
+    "home_players": [
+      {
+        "player": "Cole Palmer",
+        "position": "F",
+        "is_sub": false,
+        "type": "Joueur décisif",
+        "label": "Cole Palmer but ou passe décisive",
+        "cote": null,
+        "confidence": 45,
+        "reasoning": "9 buts + 1 passes décisives en 24 matchs (41.7% de chance/match) · xG+xA: 0.53/match · défense fragile",
+        "context": {
+          "weakness": 0.64
+        },
+        "stats": {
+          "goals": 9,
+          "assists": 1,
+          "apps": 24
+        },
+        "team": "home"
+      },
+      {
+        "player": "Cole Palmer",
+        "position": "F",
+        "is_sub": false,
+        "type": "Buteur",
+        "label": "Cole Palmer marque",
+        "cote": null,
+        "confidence": 44,
+        "reasoning": "9 buts en 24 matchs cette saison (37.5% de chance/match) · xG moyen 0.43/match, défense adverse poreuse (1.5 buts concédés/match) · défense fragile",
+        "context": {
+          "weakness": 0.64
+        },
+        "stats": {
+          "goals": 9,
+          "apps": 24,
+          "gpm": 0.375,
+          "xgpm": 0.429
+        },
+        "team": "home"
+      }
+    ],
+    "away_players": [
+      {
+        "player": "Richarlison",
+        "position": "F",
+        "is_sub": false,
+        "type": "Buteur",
+        "label": "Richarlison marque",
+        "cote": null,
+        "confidence": 37,
+        "reasoning": "11 buts en 30 matchs cette saison (36.7% de chance/match) · finisseur efficace (12% de conv.) · xG moyen 0.28/match, défense adverse poreuse (1.4 buts concédés/match) · défense correcte",
+        "context": {
+          "weakness": 0.45
+        },
+        "stats": {
+          "goals": 11,
+          "apps": 30,
+          "gpm": 0.367,
+          "xgpm": 0.283
+        },
+        "team": "away"
+      }
+    ],
+    "fun_picks": [],
+    "top_pick": {
+      "direction": "shots_under_27.5",
+      "type": "Tirs (total match)",
+      "label": "Moins de 27.5 tirs total",
+      "cote": null,
+      "cote_min": 1.25,
+      "value": [
+        "⚠️",
+        "Value serrée",
+        "#f59e0b"
+      ],
+      "confidence": 80,
+      "reasoning": "📊 Brut : Chelsea L10 13.8 (L5 13.5) tirs/m · Tottenham Hotspur L10 11.9 (L5 12.2) tirs/m\n🛡️ Défenses : Chelsea concède 7.8/m · Tottenham Hotspur concède 12.0/m\n🎯 Attendu : Chelsea ~14.7 · Tottenham Hotspur ~8.8 → total ~23.5\n⚖️ Chelsea favori (#8 vs #17) · Chelsea forme : D-L-L-L-L · Tottenham Hotspur forme : D-W-W-D-L",
+      "stats": {
+        "expected_total": 23.5
+      }
+    }
+  },
+  {
     "league": "Europa League",
     "home": "Freiburg",
     "away": "Aston Villa",
@@ -174,142 +299,6 @@
           "W",
           "W"
         ]
-      },
-      "is_fun": false
-    }
-  },
-  {
-    "league": "Premier League",
-    "home": "Chelsea",
-    "away": "Tottenham Hotspur",
-    "start_ts": 1779218100,
-    "match_id": "4813739",
-    "picks": [
-      {
-        "direction": "under35",
-        "type": "Under 3.5 buts",
-        "label": "Moins de 3.5 buts",
-        "cote": 1.44,
-        "confidence": 71,
-        "reasoning": "Défenses solides — Chelsea concède 1.3/L10, Tottenham Hotspur concède 1.3/L10 · Total attendu: ~2.7 buts (P Under=71.4%)",
-        "stats": {
-          "form": []
-        },
-        "is_fun": false
-      },
-      {
-        "direction": "btts_yes",
-        "type": "BTTS",
-        "label": "Les deux équipes marquent",
-        "cote": 1.62,
-        "confidence": 65,
-        "reasoning": "Chelsea: 1.3 buts marqués/L10, 1.4 concédés/L10 · marque dans ~74% des matchs · BTTS 5/10 derniers matchs (50%) | Tottenham Hotspur: 1.4 buts marqués/L10, 1.5 concédés/L10 · marque dans ~75% des matchs · BTTS 7/10 derniers matchs (70%)",
-        "stats": {
-          "form": []
-        },
-        "is_fun": false
-      },
-      {
-        "direction": "fts_home",
-        "type": "1ère équipe à marquer",
-        "label": "Chelsea marque en premier",
-        "cote": 1.67,
-        "confidence": 62,
-        "reasoning": "Chelsea marque 1.3 buts/match (domicile) · défense Tottenham Hotspur concède 1.3/match · cote bookmaker → 60% de probabilité",
-        "stats": {
-          "form": []
-        },
-        "is_fun": false
-      },
-      {
-        "direction": "tirs_(chelsea)_over_11.5",
-        "type": "Tirs (Chelsea)",
-        "label": "Plus de 11.5 tirs Chelsea",
-        "cote": null,
-        "cote_min": 1.26,
-        "value": [
-          "⚠️",
-          "Value serrée",
-          "#f59e0b"
-        ],
-        "confidence": 79,
-        "edge": null,
-        "reasoning": "Chelsea prend 14.5/m [pondere vs opp #17] · adv. concède 12.0/m → attendu ~14.7 (Chelsea favori (#8 vs #17))",
-        "stats": {
-          "expected": 14.7
-        }
-      },
-      {
-        "direction": "shots_under_26.5",
-        "type": "Tirs (total match)",
-        "label": "Moins de 26.5 tirs total",
-        "cote": 1.73,
-        "cote_min": 1.35,
-        "value": [
-          "🎯",
-          "Edge +27.8%",
-          "#22c55e"
-        ],
-        "confidence": 74,
-        "edge": 27.8,
-        "reasoning": "📊 Brut : Chelsea L10 13.8 (L5 13.5) tirs/m · Tottenham Hotspur L10 11.9 (L5 12.2) tirs/m\n🛡️ Défenses : Chelsea concède 7.8/m · Tottenham Hotspur concède 12.0/m\n🎯 Attendu : Chelsea ~14.7 · Tottenham Hotspur ~8.8 → total ~23.5\n⚖️ Chelsea favori (#8 vs #17) · Chelsea forme : D-L-L-L-L · Tottenham Hotspur forme : D-W-W-D-L\n💰 Ligne book 26.5 @ 1.73 → edge +27.8%",
-        "stats": {
-          "expected_total": 23.5
-        }
-      }
-    ],
-    "home_players": [
-      {
-        "player": "Cole Palmer",
-        "position": "F",
-        "is_sub": false,
-        "type": "Joueur décisif",
-        "label": "Cole Palmer but ou passe décisive",
-        "cote": null,
-        "confidence": 45,
-        "reasoning": "9 buts + 1 passes décisives en 24 matchs (41.7% de chance/match) · xG+xA: 0.53/match · défense fragile",
-        "context": {
-          "weakness": 0.64
-        },
-        "stats": {
-          "goals": 9,
-          "assists": 1,
-          "apps": 24
-        },
-        "team": "home"
-      },
-      {
-        "player": "Cole Palmer",
-        "position": "F",
-        "is_sub": false,
-        "type": "Buteur",
-        "label": "Cole Palmer marque",
-        "cote": null,
-        "confidence": 44,
-        "reasoning": "9 buts en 24 matchs cette saison (37.5% de chance/match) · xG moyen 0.42/match, défense adverse poreuse (1.5 buts concédés/match) · défense fragile",
-        "context": {
-          "weakness": 0.64
-        },
-        "stats": {
-          "goals": 9,
-          "apps": 24,
-          "gpm": 0.375,
-          "xgpm": 0.425
-        },
-        "team": "home"
-      }
-    ],
-    "away_players": [],
-    "fun_picks": [],
-    "top_pick": {
-      "direction": "under35",
-      "type": "Under 3.5 buts",
-      "label": "Moins de 3.5 buts",
-      "cote": 1.44,
-      "confidence": 71,
-      "reasoning": "Défenses solides — Chelsea concède 1.3/L10, Tottenham Hotspur concède 1.3/L10 · Total attendu: ~2.7 buts (P Under=71.4%)",
-      "stats": {
-        "form": []
       },
       "is_fun": false
     }
