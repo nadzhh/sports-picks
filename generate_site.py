@@ -7,6 +7,18 @@ generate_site.py — v6
 
 import json, os, urllib.request
 from datetime import datetime, timedelta
+try:
+    from zoneinfo import ZoneInfo
+    TZ_PARIS = ZoneInfo("Europe/Paris")
+except Exception:
+    TZ_PARIS = None
+
+
+def _now_paris():
+    """datetime.now() en heure de Paris (Europe/Paris) - utile en CI ou le runner est UTC."""
+    if TZ_PARIS:
+        return datetime.now(TZ_PARIS)
+    return datetime.now()
 import picks_engine
 
 ANTHROPIC_API_KEY = os.environ.get("ANTHROPIC_API_KEY", "")
@@ -2070,7 +2082,7 @@ def build_nba_history(history_data):
 
 def build_html(matches, team_ai, player_ai, pstats_data, nba_picks=None, nba_history=None, foot_history=None):
     team_ai_map = {item.get("pick",""):item.get("analyse","") for item in (team_ai or [])}
-    now         = datetime.now().strftime("%d/%m/%Y %H:%M")
+    now         = _now_paris().strftime("%d/%m/%Y %H:%M")
     nba_picks = nba_picks or {}
     nba_history = nba_history or {"picks": []}
     foot_history = foot_history or {"picks": []}
@@ -2302,7 +2314,7 @@ def push_to_github():
             print("  ℹ️ Aucun changement à pousser")
             return
 
-        now = datetime.now().strftime("%d/%m/%Y %H:%M")
+        now = _now_paris().strftime("%d/%m/%Y %H:%M")
         subprocess.run(
             ["git", "commit", "-m", f"Update picks {now}"],
             check=True, timeout=15
