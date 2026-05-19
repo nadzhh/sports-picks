@@ -2271,8 +2271,13 @@ def push_to_github():
     """
     Pousse index.html directement sur gh-pages à chaque génération.
     Fonctionne même si index.html est dans .gitignore.
+    En CI (GitHub Actions), skip cette logique : le workflow gère le push lui-même
+    (evite les double-commits + conflicts).
     """
-    import subprocess
+    import subprocess, os
+    if os.environ.get("GITHUB_ACTIONS"):
+        print("  ℹ️ CI detected - push gere par le workflow GitHub Actions")
+        return
     try:
         # Vérifie git dispo
         result = subprocess.run(["git", "status"], capture_output=True, text=True, timeout=10)
