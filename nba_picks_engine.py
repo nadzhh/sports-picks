@@ -46,11 +46,48 @@ ALLOWED_DIRECTIONS = {
     "PA":   ("over", "under"),
 }
 
-# Sweet spot pour picks
-SWEET_LOW, SWEET_HIGH = 60, 78  # 60-78% conf -> cote_min 1.28-1.67
+# Sweet spot heuristique (fallback si pas de book reel)
+SWEET_LOW, SWEET_HIGH = 60, 78
 MIN_CONF = 60
-MAX_PICKS_PER_PLAYER = 2  # Limite par joueur
-MAX_PICKS_PER_TEAM = 4    # Limite par equipe (les + interessants)
+MAX_PICKS_PER_PLAYER = 2
+
+# Filtre qualite : nombre de picks par equipe est VARIABLE selon la qualite des
+# signaux alignes. On garde tout ce qui passe le quality_score min, plus un
+# hard cap pour eviter le spam (10/equipe max).
+QUALITY_SCORE_MIN = 50
+HARD_CAP_PER_TEAM = 10
+
+
+def _quality_score(p):
+    """
+    Score qualite d'un pick basee sur l'alignement de signaux multiples.
+    Un pick a 64% conf mais avec edge solide + trend hot + def_arg + hit L20 OK
+    doit etre garde. Inversement un pick 80% conf sans support contextuel est
+    filtre.
+
+    Composantes (toutes additives) :
+      - Edge bookmaker (pondere x1.5) : c'est l'EV reelle, le signal le + fort
+      - Bonus confidence > 50%
+      - Bonus hit rate L20 > 50% (durabilite vs sample)
+      - Bonus trend hot (delta L10-L20 positif)
+      - Bonus def_argument (matchup favorable)
+      - Penalite rotation_warning (deja filtre upstream, double secu)
+    """
+    edge = p.get("edge") or 0
+    conf = p.get("confidence", 0)
+    hit_l20 = p.get("hit_l20_pct", p.get("hit_pct", 0))
+    td = p.get("trend_delta", 0)
+    has_def_arg = bool(p.get("def_argument"))
+    has_rotation_warn = bool(p.get("rotation_warning"))
+
+    score = 0.0
+    score += edge * 1.5                          # edge le + important
+    score += max(0, conf - 50) * 0.5             # bonus au-dessus 50% conf
+    score += max(0, hit_l20 - 50) * 0.5          # bonus au-dessus 50% L20
+    score += max(0, td) * 0.4                    # bonus trend hot uniquement
+    if has_def_arg:        score += 12           # matchup favorable
+    if has_rotation_warn:  score -= 25           # joueur bench -> penalise fort
+    return score
 
 
 def _normal_cdf(x, mu, sigma):
@@ -560,63 +597,40 @@ def analyze_match(match_data, odds_for_game=None, game_lines=None):
             pk["side"] = "away"
         away_picks.extend(picks)
 
-    def _score(p):
-        """Score de pick : confidence + bonus L20 + trend.
-        - hit_l20_pct * 0.2 : valide la moyenne longue
-        - trend_delta * 0.3 : bonus hot streak (positif) / malus cold streak (negatif)
-        - cap trend_delta in [-30, +30] pour eviter les exploits sur petits samples
+    def _filter_by_quality(picks, max_per_player=1, hard_cap=HARD_CAP_PER_TEAM):
         """
-        td = max(-30, min(30, p.get("trend_delta", 0)))
-        return (
-            p["confidence"]
-            + p.get("hit_l20_pct", p.get("hit_pct", 0)) * 0.2
-            + td * 0.3
-        )
+        Selection par QUALITY_SCORE (alignment de signaux) plutot que par count fixe.
+        - On garde tous les picks avec quality_score >= QUALITY_SCORE_MIN
+        - Diversifie par joueur (max 1 par joueur en priorite, 2 si pas plein)
+        - Cap absolu HARD_CAP_PER_TEAM par equipe pour eviter spam
+        Le nombre de picks par equipe est donc VARIABLE (0 si rien de bon, 1-10 sinon).
+        """
+        # Filtre seuil qualite
+        eligible = [p for p in picks if _quality_score(p) >= QUALITY_SCORE_MIN]
+        # Tri par quality_score desc
+        eligible.sort(key=_quality_score, reverse=True)
 
-    def _diversify(picks, max_total, max_per_player=1):
-        """
-        Mix high-conf (>=70%, cote ~1.30) et mid-conf (<70%, cote ~1.50-1.67).
-        Diversifie par joueur (1 pick / joueur en priorite).
-        Alterne high/mid pour varier les cotes proposees.
-        """
-        high = sorted([p for p in picks if p["confidence"] >= 70], key=_score, reverse=True)
-        mid  = sorted([p for p in picks if p["confidence"] <  70], key=_score, reverse=True)
         selected, per_player = [], {}
-
-        def _add_next(arr, start_idx, cap):
-            """Avance dans arr jusqu'a trouver un pick acceptable (player cap)."""
-            i = start_idx
-            while i < len(arr):
-                p = arr[i]
-                pname = p.get("player", "?")
-                if per_player.get(pname, 0) < cap and p not in selected:
-                    selected.append(p)
-                    per_player[pname] = per_player.get(pname, 0) + 1
-                    return i + 1
-                i += 1
-            return i
-
-        # Alterne high / mid jusqu'a max_total (1 par joueur)
-        i_h, i_m = 0, 0
-        while len(selected) < max_total and (i_h < len(high) or i_m < len(mid)):
-            prev_len = len(selected)
-            if i_h < len(high): i_h = _add_next(high, i_h, max_per_player)
-            if len(selected) >= max_total: break
-            if i_m < len(mid):  i_m = _add_next(mid,  i_m, max_per_player)
-            if len(selected) == prev_len: break  # plus rien d'ajoutable
-        # 2eme passage : autorise 2 / joueur si on n'a pas rempli
-        if len(selected) < max_total:
-            for p in (high + mid):
+        # 1er passage : max 1 pick par joueur
+        for p in eligible:
+            if len(selected) >= hard_cap: break
+            pname = p.get("player", "?")
+            if per_player.get(pname, 0) >= max_per_player: continue
+            selected.append(p)
+            per_player[pname] = per_player.get(pname, 0) + 1
+        # 2eme passage : tolere 2 par joueur si on a pas atteint le hard cap
+        if len(selected) < hard_cap:
+            for p in eligible:
                 if p in selected: continue
                 pname = p.get("player", "?")
                 if per_player.get(pname, 0) >= 2: continue
                 selected.append(p)
                 per_player[pname] = per_player.get(pname, 0) + 1
-                if len(selected) >= max_total: break
+                if len(selected) >= hard_cap: break
         return selected
 
-    home_picks = _diversify(home_picks, MAX_PICKS_PER_TEAM)
-    away_picks = _diversify(away_picks, MAX_PICKS_PER_TEAM)
+    home_picks = _filter_by_quality(home_picks)
+    away_picks = _filter_by_quality(away_picks)
     return home_picks, away_picks
 
 
