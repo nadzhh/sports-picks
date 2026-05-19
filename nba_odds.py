@@ -176,8 +176,9 @@ def _match_game(event, nba_games):
 
 def _parse_event_props(event_data):
     """
-    Extrait {player_name: {prop_key: {line, over, under, book}}} pour 1 event.
-    Strategie : par market, on prend le 1er bookmaker dispo dans PREFERRED_BOOKS.
+    Extrait {player_name: {prop_key: {line, over, under, book, all_lines}}} pour 1 event.
+    `all_lines` contient TOUS les alt-lines dispo (= [{line, over, under, book}, ...])
+    permettant a l'engine de choisir la ligne avec le meilleur edge.
     """
     players = {}
     if not event_data: return players
@@ -189,30 +190,46 @@ def _parse_event_props(event_data):
             if not prop: continue
 
             # Outcomes : pour player props, chaque outcome a {name: player, description: 'Over'/'Under', point: line, price: cote}
-            buckets = {}  # player -> {'over': (line, price), 'under': (line, price)}
+            # Une meme prop peut avoir PLUSIEURS lignes (alt-lines) : on les collecte toutes.
+            # Structure intermediaire : {player: {line: {over: price, under: price}}}
+            grid = {}
             for o in mkt.get("outcomes", []):
                 pname = o.get("description") or o.get("name", "")
                 side  = (o.get("name") or "").lower()
                 line  = o.get("point")
                 price = o.get("price")
                 if not pname or line is None: continue
-                d = buckets.setdefault(pname, {})
-                if side == "over":
-                    d["over"]  = {"line": line, "price": price}
-                elif side == "under":
-                    d["under"] = {"line": line, "price": price}
+                p_grid = grid.setdefault(pname, {})
+                l_entry = p_grid.setdefault(line, {})
+                if side == "over":    l_entry["over"]  = price
+                elif side == "under": l_entry["under"] = price
 
-            for pname, sides in buckets.items():
-                line = (sides.get("over") or sides.get("under") or {}).get("line")
-                if line is None: continue
+            for pname, lines_grid in grid.items():
+                if not lines_grid: continue
+                # Construit la liste d'alt-lines pour ce joueur/prop
+                all_lines = []
+                for line_val, prices in lines_grid.items():
+                    all_lines.append({
+                        "line":  line_val,
+                        "over":  prices.get("over"),
+                        "under": prices.get("under"),
+                        "book":  bkey,
+                    })
+                # Trie : on prend la ligne "centrale" comme headline (cote la + proche de 1.91)
+                def _centrality(L):
+                    o = L.get("over") or 999; u = L.get("under") or 999
+                    return min(abs((o or 1.91) - 1.91), abs((u or 1.91) - 1.91))
+                all_lines.sort(key=_centrality)
+                headline = all_lines[0]
+
                 pdata = players.setdefault(pname, {})
-                # Ne pas ecraser si un bookmaker precedent a deja ce prop
-                if prop in pdata: continue
+                if prop in pdata: continue  # 1er bookmaker prevaut
                 pdata[prop] = {
-                    "line":  line,
-                    "over":  (sides.get("over")  or {}).get("price"),
-                    "under": (sides.get("under") or {}).get("price"),
-                    "book":  bkey,
+                    "line":      headline["line"],
+                    "over":      headline["over"],
+                    "under":     headline["under"],
+                    "book":      bkey,
+                    "all_lines": all_lines,
                 }
     return players
 

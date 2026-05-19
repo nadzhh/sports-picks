@@ -179,6 +179,16 @@ def _compute_multipliers(match_ctx, prop_key, is_home):
         mult *= rest_mult
         bd["b2b"] = rest_mult
 
+    # ─── Blowout mult (spread eleve = garbage time pour les starters) ───────
+    # Quand |spread| >= 10 le coach sort ses starters tot, -6% sur volume.
+    # On regarde le spread du cote du joueur.
+    team_spread = match_ctx.get("home_spread") if is_home else match_ctx.get("away_spread")
+    if team_spread is not None and abs(team_spread) >= 10:
+        blowout_mult = 0.94
+        if prop_key in ("PTS", "REB", "AST", "FG3M", "PRA", "PR", "PA"):
+            mult *= blowout_mult
+            bd["blowout"] = blowout_mult
+
     return mult, bd
 
 
@@ -294,14 +304,18 @@ def player_props(player, ctx=None, real_lines=None, match_ctx=None):
             return
         allowed = ALLOWED_DIRECTIONS.get(prop_key, ("over", "under"))
 
-        # Si on a une vraie ligne bookmaker, on l'utilise EXCLUSIVEMENT (et plus large SWEET range)
+        # Si on a une vraie ligne bookmaker, on scanne TOUTES les alt-lines pour
+        # trouver celle avec le meilleur edge. Sinon : fallback heuristique.
         real = real_lines.get(prop_key)
         use_real = real and real.get("line") is not None
+        alt_lines_data = (real or {}).get("all_lines") or []
         if use_real:
-            lines_to_check = [real["line"]]
+            if alt_lines_data:
+                lines_to_check = [L["line"] for L in alt_lines_data]
+            else:
+                lines_to_check = [real["line"]]
         elif has_any_real:
-            # Bookmaker existe mais ne quote pas ce prop pour ce joueur -> skip
-            return
+            return  # bookmaker n'a pas ce prop pour ce joueur -> skip
         else:
             lines_to_check = lines
 
@@ -319,14 +333,23 @@ def player_props(player, ctx=None, real_lines=None, match_ctx=None):
                 else:
                     if not (SWEET_LOW <= p_pct <= SWEET_HIGH): continue
                 cm = _fair_cote(p_pct)
-                # Cote bookmaker reelle si dispo
-                real_cote = real.get(direction) if use_real else None
-                # Edge : ecart entre cote du book et fair cote (notre fair = 100/p_pct)
-                # Edge positif si book > fair (le book paie plus que notre estimation theorique)
+                # Cote bookmaker reelle : si on scanne des alt-lines, recupere la cote
+                # de la ligne specifique (pas la headline)
+                real_cote = None
+                if use_real:
+                    if alt_lines_data:
+                        # Trouve l'entry correspondant a `line`
+                        for L in alt_lines_data:
+                            if L.get("line") == line:
+                                real_cote = L.get(direction)
+                                break
+                    else:
+                        real_cote = real.get(direction)
+                # Edge : ecart entre cote du book et fair cote (fair = 100/p_pct)
                 edge = None
                 if use_real and real_cote and cm:
                     edge = round((real_cote - cm) / cm * 100, 1)
-                    if edge < 3:  # filtre edge minimum 3% post-vig
+                    if edge < 3:
                         continue
                 tier = _value_tier(cm) if not use_real else ("🎯", "Real DK/FD", "#22c55e")
                 if not tier: continue
@@ -457,7 +480,7 @@ def analyze_match(match_data, odds_for_game=None, game_lines=None):
     game_lines = game_lines or {}
     bookmaker_mode = bool(odds_for_game)  # True si on a des odds reelles pour ce match
 
-    # ─── Match context (pace, vegas total, game date, def stats) ────────────
+    # ─── Match context (pace, vegas total, game date, def stats, spread) ────
     base_ctx = {
         "home_team":       home_team,
         "away_team":       away_team,
@@ -469,8 +492,9 @@ def analyze_match(match_data, odds_for_game=None, game_lines=None):
         "home_total":      game_lines.get("home_total"),
         "away_total":      game_lines.get("away_total"),
         "game_total":      game_lines.get("game_total"),
+        "home_spread":     game_lines.get("home_spread"),  # pour blowout mult
+        "away_spread":     game_lines.get("away_spread"),
         "game_date":       match_data.get("game_date") or "",
-        # Defense allowed (failles defensives par stat)
         "home_def_allowed": match_data.get("home_def_allowed", {}),
         "away_def_allowed": match_data.get("away_def_allowed", {}),
         "league_def_avg":   match_data.get("league_def_avg", {}),
