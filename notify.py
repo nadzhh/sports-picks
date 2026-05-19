@@ -41,6 +41,16 @@ NOTIF_LOG_FILE = Path("data/notif_log.json")
 WINDOW_MIN_FROM = 15   # ne pas notifier si trop loin
 WINDOW_MIN_TO   = 60   # ne pas notifier si trop proche / passe
 
+# Seuils pour les alertes "high value" (immediat, hors fenetre kickoff)
+HIGH_VALUE_NBA = {
+    "confidence_min": 80,   # confiance algo >=80%
+    "edge_min":       40,   # edge bookmaker >=40% (post-vig)
+    "hit_l20_pct_min": 65,  # taux de reussite L20 >=65%
+}
+HIGH_VALUE_FOOT = {
+    "confidence_min": 85,   # confiance algo >=85% (foot pas d'edge calcule)
+}
+
 
 # ─── Telegram API ────────────────────────────────────────────────────────────
 
@@ -323,6 +333,158 @@ def _get_nba_picks(game_id):
         return None
 
 
+# ─── High-value alerts (single pick, hors fenetre kickoff) ───────────────────
+
+def _is_high_value_nba(pick):
+    """Pick NBA qualifie pour alerte single-pick."""
+    conf = pick.get("confidence", 0)
+    edge = pick.get("edge") or 0
+    hit_l20 = pick.get("hit_l20_pct", 0)
+    return (conf >= HIGH_VALUE_NBA["confidence_min"]
+            and edge >= HIGH_VALUE_NBA["edge_min"]
+            and hit_l20 >= HIGH_VALUE_NBA["hit_l20_pct_min"])
+
+
+def _is_high_value_foot(pick):
+    return pick.get("confidence", 0) >= HIGH_VALUE_FOOT["confidence_min"]
+
+
+def _format_hv_nba(pick, game):
+    home = game.get("home_team", "?")
+    away = game.get("away_team", "?")
+    cote = pick.get("real_cote")
+    book = (pick.get("book") or "").upper()
+    edge = pick.get("edge")
+    s = pick.get("stats", {})
+    lines = [
+        "🚨 <b>PICK HIGH VALUE NBA</b> 🚨",
+        "",
+        f"🏀 <b>{away}</b> @ <b>{home}</b>",
+        "",
+        f"<b>{pick.get('label', '?')}</b>",
+        "",
+    ]
+    if cote:
+        lines.append(f"💰 <b>{book} @ {cote}</b> · edge <b>+{edge}%</b>")
+    lines.append(f"🎯 Confidence <b>{pick.get('confidence', 0)}%</b>")
+    # Hit rate L10 / L20 + trend
+    if pick.get("hit_l10") and pick.get("hit_l20"):
+        td = pick.get("trend_delta", 0)
+        trend_icon = ""
+        if td >= 10: trend_icon = f" 📈 +{td:.0f}pp"
+        elif td <= -10: trend_icon = f" 📉 {td:.0f}pp"
+        lines.append(f"📊 L10 {pick['hit_l10']} ({pick.get('hit_l10_pct',0)}%) · L20 {pick['hit_l20']} ({pick.get('hit_l20_pct',0)}%){trend_icon}")
+    # Stats
+    if s:
+        lines.append(f"📈 L5 {s.get('L5','?')} · L10 {s.get('L10','?')} · Saison {s.get('Saison','?')} → attendu <b>{s.get('mu','?')}</b>")
+    # Def argument
+    if pick.get("def_argument"):
+        lines.append(f"🎯 {pick['def_argument']}")
+    # Context chips
+    ctx = pick.get("context", {})
+    chips = []
+    if ctx.get("pace"):  chips.append(f"pace×{ctx['pace']}")
+    if ctx.get("vegas"): chips.append(f"vegas×{ctx['vegas']}")
+    if ctx.get("def"):   chips.append(f"def×{ctx['def']}")
+    if ctx.get("b2b"):   chips.append("B2B -4%")
+    if chips:
+        lines.append("⚙️ " + " · ".join(chips))
+    return "\n".join(lines)
+
+
+def _format_hv_foot(pick, match):
+    home = match.get("home", "?")
+    away = match.get("away", "?")
+    league = match.get("league", "")
+    cote = pick.get("cote")
+    lines = [
+        "🚨 <b>PICK HIGH VALUE FOOT</b> 🚨",
+        "",
+        f"⚽ <b>{home}</b> vs <b>{away}</b>",
+        f"<i>{league}</i>",
+        "",
+        f"<b>{pick.get('label', '?')}</b>",
+        "",
+    ]
+    if cote:
+        lines.append(f"💰 Cote <b>@ {cote:.2f}</b>")
+    lines.append(f"🎯 Confidence <b>{pick.get('confidence', 0)}%</b>")
+    reasoning = pick.get("reasoning", "")
+    if reasoning:
+        lines.append("")
+        lines.append(f"<i>{reasoning[:300]}</i>")
+    return "\n".join(lines)
+
+
+def send_high_value_alerts():
+    """
+    Scan tous les picks (NBA + foot), envoie une alerte Telegram pour CHAQUE
+    pick high-value pas encore notifie. Anti-doublon perpetuel via notif_log.
+    """
+    if not TELEGRAM_CHAT_ID:
+        return
+
+    log = _load_notif_log()
+    sent_ids = set(log.get("high_value_sent", []))
+    new_count = 0
+
+    # ─── NBA picks ──────────────────────────────────────────────────────────
+    try:
+        nba = json.load(open("data/nba_picks.json", encoding="utf-8"))
+        for gid, game in nba.items():
+            date_part = (game.get("date") or "")[:10]
+            for pk in (game.get("home_picks", []) + game.get("away_picks", [])):
+                pid = f"nba_{date_part}_{gid}_{pk.get('player','?')}_{pk.get('prop','?')}_{pk.get('direction','?')}_{pk.get('line','?')}"
+                if pid in sent_ids: continue
+                if not _is_high_value_nba(pk): continue
+                text = _format_hv_nba(pk, game)
+                if tg_send(text):
+                    sent_ids.add(pid)
+                    new_count += 1
+                    print(f"  [HV-NBA] {pk.get('label','?')[:60]} (conf {pk.get('confidence')}%, edge {pk.get('edge')}%)")
+    except FileNotFoundError:
+        pass
+    except Exception as e:
+        print(f"  [hv-nba err] {e}")
+
+    # ─── Foot picks ─────────────────────────────────────────────────────────
+    try:
+        foot = json.load(open("data/picks.json", encoding="utf-8"))
+        for m in foot:
+            mid = m.get("match_id")
+            # Team picks
+            for pk in m.get("picks", []):
+                pid = f"foot_{mid}_team_{pk.get('direction','?')}"
+                if pid in sent_ids: continue
+                if not _is_high_value_foot(pk): continue
+                text = _format_hv_foot(pk, m)
+                if tg_send(text):
+                    sent_ids.add(pid)
+                    new_count += 1
+                    print(f"  [HV-FOOT-TEAM] {pk.get('label','?')[:60]} (conf {pk.get('confidence')}%)")
+            # Player picks
+            for pk in (m.get("home_players", []) + m.get("away_players", [])):
+                pid = f"foot_{mid}_player_{pk.get('player','?')}_{pk.get('type','?')}"
+                if pid in sent_ids: continue
+                if not _is_high_value_foot(pk): continue
+                text = _format_hv_foot(pk, m)
+                if tg_send(text):
+                    sent_ids.add(pid)
+                    new_count += 1
+                    print(f"  [HV-FOOT-PLAYER] {pk.get('label','?')[:60]} (conf {pk.get('confidence')}%)")
+    except FileNotFoundError:
+        pass
+    except Exception as e:
+        print(f"  [hv-foot err] {e}")
+
+    log["high_value_sent"] = sorted(sent_ids)
+    _save_notif_log(log)
+    if new_count:
+        print(f"[HV] {new_count} alerte(s) high-value envoyee(s)")
+    else:
+        print(f"[HV] Aucune nouvelle alerte (deja {len(sent_ids)} pick(s) high-value envoyes au total)")
+
+
 # ─── Main ────────────────────────────────────────────────────────────────────
 
 def run_notifications():
@@ -330,12 +492,17 @@ def run_notifications():
         print("[!] TELEGRAM_CHAT_ID vide. Lance d'abord : python notify.py setup")
         return
 
+    # 1. Alertes single-pick high-value (independantes de la fenetre kickoff)
+    print("=== Scan high-value picks ===")
+    send_high_value_alerts()
+
+    # 2. Notifications par match (30 min avant kickoff, summary complet)
     log = _load_notif_log()
     notified = log.get("notified", {})
 
     foot = _upcoming_football()
     nba  = _upcoming_nba()
-    print(f"=== Notifs : {len(foot)} matchs foot + {len(nba)} matchs NBA dans la fenetre ({WINDOW_MIN_FROM}-{WINDOW_MIN_TO} min) ===")
+    print(f"\n=== Notifs kickoff : {len(foot)} matchs foot + {len(nba)} matchs NBA dans la fenetre ({WINDOW_MIN_FROM}-{WINDOW_MIN_TO} min) ===")
 
     n_sent = 0
     for match, ko in foot:
