@@ -42,13 +42,17 @@ WINDOW_MIN_FROM = 15   # ne pas notifier si trop loin
 WINDOW_MIN_TO   = 60   # ne pas notifier si trop proche / passe
 
 # Seuils pour les alertes "high value" (immediat, hors fenetre kickoff)
+# Filtre commun : cote minimum 1.40 (les picks a @1.10 ne valent rien a parier
+# meme si la confiance est tres haute - mise inutile)
+HIGH_VALUE_MIN_COTE = 1.40
+
 HIGH_VALUE_NBA = {
-    "confidence_min": 80,   # confiance algo >=80%
-    "edge_min":       40,   # edge bookmaker >=40% (post-vig)
-    "hit_l20_pct_min": 65,  # taux de reussite L20 >=65%
+    "confidence_min": 80,
+    "edge_min":       40,
+    "hit_l20_pct_min": 65,
 }
 HIGH_VALUE_FOOT = {
-    "confidence_min": 85,   # confiance algo >=85% (foot pas d'edge calcule)
+    "confidence_min": 85,
 }
 
 
@@ -340,13 +344,23 @@ def _is_high_value_nba(pick):
     conf = pick.get("confidence", 0)
     edge = pick.get("edge") or 0
     hit_l20 = pick.get("hit_l20_pct", 0)
+    cote = pick.get("real_cote") or pick.get("cote_min") or 0
     return (conf >= HIGH_VALUE_NBA["confidence_min"]
             and edge >= HIGH_VALUE_NBA["edge_min"]
-            and hit_l20 >= HIGH_VALUE_NBA["hit_l20_pct_min"])
+            and hit_l20 >= HIGH_VALUE_NBA["hit_l20_pct_min"]
+            and cote >= HIGH_VALUE_MIN_COTE)
 
 
 def _is_high_value_foot(pick):
-    return pick.get("confidence", 0) >= HIGH_VALUE_FOOT["confidence_min"]
+    """Pick foot qualifie. Skip si cote bookmaker < 1.40 (trop bas pour valoir une mise)."""
+    conf = pick.get("confidence", 0)
+    cote = pick.get("cote")
+    if conf < HIGH_VALUE_FOOT["confidence_min"]:
+        return False
+    # Si pas de cote bookmaker disponible : skip (on ne saurait pas si betable)
+    if cote is None or cote < HIGH_VALUE_MIN_COTE:
+        return False
+    return True
 
 
 def _format_hv_nba(pick, game):
