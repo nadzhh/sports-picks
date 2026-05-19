@@ -1,28 +1,52 @@
 """
 config.py — Configuration sport-picks
 
-Les valeurs ci-dessous sont les defauts pour le dev local. Sur GitHub Actions,
-les variables d'environnement (homonymes) prennent le pas via env_or().
+Aucun secret n'est commit ici. Les valeurs sont lues depuis :
+  1. les variables d'environnement (utilise par GitHub Actions via Secrets)
+  2. un fichier .env local (gitignore) au format KEY=VALUE pour le dev local
+
+Si une valeur est vide, le script concerne se desactive proprement
+(ex: notify.py n'envoie rien si TELEGRAM_BOT_TOKEN est vide).
 """
 import os
+from pathlib import Path
 
-def env_or(name, default):
+
+def _load_dotenv():
+    """Charge data/.env ou .env dans os.environ si present (dev local)."""
+    for candidate in [Path(__file__).parent / ".env", Path(__file__).parent / "data" / ".env"]:
+        if not candidate.exists(): continue
+        try:
+            for line in candidate.read_text(encoding="utf-8").splitlines():
+                line = line.strip()
+                if not line or line.startswith("#") or "=" not in line: continue
+                k, v = line.split("=", 1)
+                os.environ.setdefault(k.strip(), v.strip().strip('"').strip("'"))
+        except Exception:
+            pass
+
+
+_load_dotenv()
+
+
+def env_or(name, default=""):
     """Retourne os.environ[name] si defini et non vide, sinon default."""
     v = os.environ.get(name)
     return v if (v and v.strip()) else default
 
+
 # ─── api-football (api-sports.io) — utilise uniquement pour les odds ──────────
-API_KEY  = env_or("API_KEY", "7c8c61e65bc47178790aab94763e96c5")
+API_KEY  = env_or("API_KEY")
 API_BASE = "https://v3.football.api-sports.io"
 
 # ─── The Odds API (https://the-odds-api.com) — lignes NBA player props ───────
 # Gratuit 500 req/mois.
-ODDS_API_KEY  = env_or("ODDS_API_KEY", "a35e3286e887969427b9cdc1444ed37f")
+ODDS_API_KEY  = env_or("ODDS_API_KEY")
 ODDS_API_BASE = "https://api.the-odds-api.com/v4"
 
 # ─── Telegram bot (notifications) ─────────────────────────────────────────────
-TELEGRAM_BOT_TOKEN = env_or("TELEGRAM_BOT_TOKEN", "8812256746:AAFXFOALPvTTckvb4ak1JUQovE79_2FuLDE")
-TELEGRAM_CHAT_ID   = env_or("TELEGRAM_CHAT_ID",   "1041292568")
+TELEGRAM_BOT_TOKEN = env_or("TELEGRAM_BOT_TOKEN")
+TELEGRAM_CHAT_ID   = env_or("TELEGRAM_CHAT_ID")
 
 # ─── FotMob IDs ──────────────────────────────────────────────────────────────
 # league_id, season_id pour endpoint /stats/{lid}/season/{sid}/{stat}.json
