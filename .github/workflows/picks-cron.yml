@@ -29,6 +29,11 @@ jobs:
         with:
           python-version: "3.12"
 
+      - name: Configure git
+        run: |
+          git config --global user.name  "sport-picks-bot"
+          git config --global user.email "actions@github.com"
+
       - name: Install dependencies
         run: |
           if [ -f requirements.txt ]; then
@@ -54,17 +59,18 @@ jobs:
           python nba_odds.py              || echo "[!] nba_odds KO"
           python nba_picks_engine.py      || echo "[!] nba_picks_engine KO"
           python picks_engine.py          || echo "[!] picks_engine KO"
+          python generate_site.py         || echo "[!] generate_site KO"
           python notify.py                || echo "[!] notify KO"
           echo "Pipeline termine"
 
-      - name: Commit & push data updates
+      - name: Commit master + push gh-pages
         run: |
-          git config user.name  "sport-picks-bot"
-          git config user.email "actions@github.com"
-          git add data/*.json index.html 2>/dev/null || true
+          git add -f data/*.json index.html 2>/dev/null || true
           if git diff --cached --quiet; then
-            echo "No data changes to commit"
+            echo "No changes to commit"
           else
             git commit -m "Auto-update picks $(date -u +'%Y-%m-%d %H:%M UTC')"
-            git push
+            git push origin master
+            git push origin master:gh-pages --force
+            echo "Pushed to master + gh-pages"
           fi
