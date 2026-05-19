@@ -10,7 +10,7 @@
         "direction": "away_dc",
         "type": "Double chance",
         "label": "Nul ou Manchester City (X2)",
-        "cote": null,
+        "cote": 1.2,
         "confidence": 97,
         "reasoning": "Manchester City invaincu 100% sur 5 derniers matchs · H2H: 1/1 matchs sans défaite",
         "stats": {
@@ -28,7 +28,7 @@
         "direction": "away_win",
         "type": "Victoire extérieur",
         "label": "Manchester City gagne",
-        "cote": null,
+        "cote": 1.67,
         "confidence": 81,
         "reasoning": "Manchester City : 4V/1N/0D sur 5 matchs · #2 au classement · H2H: 1V/0N/0D · Note Sofa: 6.5/10",
         "stats": {
@@ -43,20 +43,38 @@
         "is_fun": false
       },
       {
-        "direction": "home_win",
-        "type": "Victoire domicile",
-        "label": "AFC Bournemouth gagne",
-        "cote": null,
-        "confidence": 62,
-        "reasoning": "AFC Bournemouth : 4V/1N/0D sur 5 matchs · #6 au classement · H2H: 0V/0N/1D · Note Sofa: 6.5/10",
+        "direction": "btts_yes",
+        "type": "BTTS",
+        "label": "Les deux équipes marquent",
+        "cote": 1.5,
+        "confidence": 70,
+        "reasoning": "AFC Bournemouth: 1.6 buts marqués/L10, 1.4 concédés/L10 · marque dans ~79% des matchs · BTTS 5/10 derniers matchs (50%) | Manchester City: 1.7 buts marqués/L10, 0.9 concédés/L10 · marque dans ~82% des matchs · BTTS 5/10 derniers matchs (50%)",
         "stats": {
-          "form": [
-            "W",
-            "W",
-            "D",
-            "W",
-            "W"
-          ]
+          "form": []
+        },
+        "is_fun": false
+      },
+      {
+        "direction": "fts_away",
+        "type": "1ère équipe à marquer",
+        "label": "Manchester City marque en premier",
+        "cote": 1.53,
+        "confidence": 67,
+        "reasoning": "Manchester City marque 1.7 buts/match (extérieur) · défense AFC Bournemouth concède 1.1/match · cote bookmaker → 65% de probabilité",
+        "stats": {
+          "form": []
+        },
+        "is_fun": false
+      },
+      {
+        "direction": "under35",
+        "type": "Under 3.5 buts",
+        "label": "Moins de 3.5 buts",
+        "cote": 1.73,
+        "confidence": 66,
+        "reasoning": "Défenses solides — AFC Bournemouth concède 1.1/L10, Manchester City concède 1.1/L10 · Total attendu: ~2.7 buts (P Under=71.4%)",
+        "stats": {
+          "form": []
         },
         "is_fun": false
       },
@@ -78,9 +96,9 @@
         }
       },
       {
-        "direction": "tirs_(manchester_city)_over_12.5",
-        "type": "Tirs (Manchester City)",
-        "label": "Plus de 12.5 tirs Manchester City",
+        "direction": "tirs_(afc_bournemouth)_under_13.5",
+        "type": "Tirs (AFC Bournemouth)",
+        "label": "Moins de 13.5 tirs AFC Bournemouth",
         "cote": null,
         "cote_min": 1.27,
         "value": [
@@ -88,11 +106,11 @@
           "Value serrée",
           "#f59e0b"
         ],
-        "confidence": 79,
+        "confidence": 78,
         "edge": null,
-        "reasoning": "Manchester City prend 20.0/m [pondere vs opp #6] · adv. concède 10.0/m → attendu ~15.7 (Manchester City favori (#2 vs #6))",
+        "reasoning": "AFC Bournemouth prend 14.0/m [pondere vs opp #2] · adv. concède 9.0/m → attendu ~11.0 (Manchester City favori (#2 vs #6))",
         "stats": {
-          "expected": 15.7
+          "expected": 11.0
         }
       }
     ],
@@ -138,12 +156,41 @@
         "team": "away"
       }
     ],
-    "fun_picks": [],
+    "fun_picks": [
+      {
+        "direction": "fun_over35",
+        "type": "🎲 Paris fun",
+        "label": "Plus de 3.5 buts",
+        "cote": 2.1,
+        "confidence": 52,
+        "is_fun": true,
+        "stats": {},
+        "reasoning": "Deux attaques prolifiques (AFC Bournemouth et Manchester City marquent régulièrement), BTTS probable — match à buts à 2.1"
+      },
+      {
+        "direction": "fun_draw",
+        "type": "🎲 Paris fun",
+        "label": "Match nul",
+        "cote": 4.33,
+        "confidence": 40,
+        "is_fun": true,
+        "stats": {
+          "form": [
+            "W",
+            "W",
+            "D",
+            "W",
+            "W"
+          ]
+        },
+        "reasoning": "Deux équipes au niveau similaire (#6 vs #2), forme équilibrée des deux côtés — nul logique à 4.33"
+      }
+    ],
     "top_pick": {
       "direction": "away_dc",
       "type": "Double chance",
       "label": "Nul ou Manchester City (X2)",
-      "cote": null,
+      "cote": 1.2,
       "confidence": 97,
       "reasoning": "Manchester City invaincu 100% sur 5 derniers matchs · H2H: 1/1 matchs sans défaite",
       "stats": {
@@ -156,110 +203,6 @@
         ]
       },
       "is_fun": false
-    }
-  },
-  {
-    "league": "Premier League",
-    "home": "Chelsea",
-    "away": "Tottenham Hotspur",
-    "start_ts": 1779218100,
-    "match_id": "4813739",
-    "picks": [
-      {
-        "direction": "shots_over_19.5",
-        "type": "Tirs (total match)",
-        "label": "Plus de 19.5 tirs total",
-        "cote": null,
-        "cote_min": 1.27,
-        "value": [
-          "⚠️",
-          "Value serrée",
-          "#f59e0b"
-        ],
-        "confidence": 79,
-        "reasoning": "Chelsea ~14.4 tirs/m · Tottenham Hotspur ~9.1 → total attendu ~23.5 (Chelsea favori (#10 vs #17))",
-        "stats": {
-          "expected_total": 23.5
-        }
-      },
-      {
-        "direction": "tirs_(tottenham_hotspur)_under_11.5",
-        "type": "Tirs (Tottenham Hotspur)",
-        "label": "Moins de 11.5 tirs Tottenham Hotspur",
-        "cote": null,
-        "cote_min": 1.26,
-        "value": [
-          "⚠️",
-          "Value serrée",
-          "#f59e0b"
-        ],
-        "confidence": 79,
-        "edge": null,
-        "reasoning": "Tottenham Hotspur prend 12.1/m [pondere vs opp #10] · adv. concède 7.8/m → attendu ~9.1 (Chelsea favori (#10 vs #17))",
-        "stats": {
-          "expected": 9.1
-        }
-      }
-    ],
-    "home_players": [
-      {
-        "player": "João Pedro",
-        "position": "F",
-        "is_sub": false,
-        "type": "Joueur décisif",
-        "label": "João Pedro but ou passe décisive",
-        "cote": null,
-        "confidence": 48,
-        "reasoning": "15 buts + 5 passes décisives en 34 matchs (58.8% de chance/match) · xG+xA: 0.48/match · défense fragile",
-        "context": {
-          "weakness": 0.64
-        },
-        "stats": {
-          "goals": 15,
-          "assists": 5,
-          "apps": 34
-        },
-        "team": "home"
-      },
-      {
-        "player": "João Pedro",
-        "position": "F",
-        "is_sub": false,
-        "type": "Buteur",
-        "label": "João Pedro marque",
-        "cote": null,
-        "confidence": 47,
-        "reasoning": "15 buts en 34 matchs cette saison (44.1% de chance/match) · xG moyen 0.42/match, défense adverse poreuse (1.5 buts concédés/match) · défense fragile",
-        "context": {
-          "weakness": 0.64
-        },
-        "stats": {
-          "goals": 15,
-          "apps": 34,
-          "gpm": 0.441,
-          "xgpm": 0.424
-        },
-        "team": "home"
-      }
-    ],
-    "away_players": [],
-    "fun_picks": [],
-    "top_pick": {
-      "direction": "shots_over_19.5",
-      "type": "Tirs (total match)",
-      "label": "Plus de 19.5 tirs total",
-      "cote": null,
-      "cote_min": 1.27,
-      "value": [
-        "⚠️",
-        "Value serrée",
-        "#f59e0b"
-      ],
-      "confidence": 79,
-      "reasoning": "Chelsea ~14.4 tirs/m · Tottenham Hotspur ~9.1 → total attendu ~23.5 (Chelsea favori (#10 vs #17))",
-      "stats": {
-        "expected_total": 23.5
-      }
     }
   },
   {
@@ -437,6 +380,142 @@
           "W",
           "W"
         ]
+      },
+      "is_fun": false
+    }
+  },
+  {
+    "league": "Premier League",
+    "home": "Chelsea",
+    "away": "Tottenham Hotspur",
+    "start_ts": 1779218100,
+    "match_id": "4813739",
+    "picks": [
+      {
+        "direction": "under35",
+        "type": "Under 3.5 buts",
+        "label": "Moins de 3.5 buts",
+        "cote": 1.44,
+        "confidence": 71,
+        "reasoning": "Défenses solides — Chelsea concède 1.3/L10, Tottenham Hotspur concède 1.3/L10 · Total attendu: ~2.7 buts (P Under=71.4%)",
+        "stats": {
+          "form": []
+        },
+        "is_fun": false
+      },
+      {
+        "direction": "btts_yes",
+        "type": "BTTS",
+        "label": "Les deux équipes marquent",
+        "cote": 1.62,
+        "confidence": 65,
+        "reasoning": "Chelsea: 1.3 buts marqués/L10, 1.4 concédés/L10 · marque dans ~74% des matchs · BTTS 5/10 derniers matchs (50%) | Tottenham Hotspur: 1.4 buts marqués/L10, 1.5 concédés/L10 · marque dans ~75% des matchs · BTTS 7/10 derniers matchs (70%)",
+        "stats": {
+          "form": []
+        },
+        "is_fun": false
+      },
+      {
+        "direction": "fts_home",
+        "type": "1ère équipe à marquer",
+        "label": "Chelsea marque en premier",
+        "cote": 1.67,
+        "confidence": 62,
+        "reasoning": "Chelsea marque 1.3 buts/match (domicile) · défense Tottenham Hotspur concède 1.3/match · cote bookmaker → 60% de probabilité",
+        "stats": {
+          "form": []
+        },
+        "is_fun": false
+      },
+      {
+        "direction": "tirs_cadrés_(tottenham_hotspur)_over_2.5",
+        "type": "Tirs cadrés (Tottenham Hotspur)",
+        "label": "Plus de 2.5 tirs cadrés Tottenham Hotspur",
+        "cote": null,
+        "cote_min": 1.27,
+        "value": [
+          "⚠️",
+          "Value serrée",
+          "#f59e0b"
+        ],
+        "confidence": 78,
+        "edge": null,
+        "reasoning": "Tottenham Hotspur prend 4.4/m [pondere vs opp #10] · adv. concède 4.5/m → attendu ~4.2 (Chelsea favori (#10 vs #17))",
+        "stats": {
+          "expected": 4.2
+        }
+      },
+      {
+        "direction": "shots_under_26.5",
+        "type": "Tirs (total match)",
+        "label": "Moins de 26.5 tirs total",
+        "cote": 1.73,
+        "cote_min": 1.35,
+        "value": [
+          "🎯",
+          "Edge +28.4%",
+          "#22c55e"
+        ],
+        "confidence": 74,
+        "edge": 28.4,
+        "reasoning": "Chelsea ~14.4 tirs/m · Tottenham Hotspur ~9.1 → attendu ~23.5 | bookmaker ligne 26.5 cote 1.73 → edge +28.4% (Chelsea favori (#10 vs #17))",
+        "stats": {
+          "expected_total": 23.5
+        }
+      }
+    ],
+    "home_players": [
+      {
+        "player": "João Pedro",
+        "position": "F",
+        "is_sub": false,
+        "type": "Joueur décisif",
+        "label": "João Pedro but ou passe décisive",
+        "cote": null,
+        "confidence": 48,
+        "reasoning": "15 buts + 5 passes décisives en 34 matchs (58.8% de chance/match) · xG+xA: 0.48/match · défense fragile",
+        "context": {
+          "weakness": 0.64
+        },
+        "stats": {
+          "goals": 15,
+          "assists": 5,
+          "apps": 34
+        },
+        "team": "home"
+      },
+      {
+        "player": "João Pedro",
+        "position": "F",
+        "is_sub": false,
+        "type": "Buteur",
+        "label": "João Pedro marque",
+        "cote": null,
+        "confidence": 47,
+        "reasoning": "15 buts en 34 matchs cette saison (44.1% de chance/match) · xG moyen 0.42/match, défense adverse poreuse (1.5 buts concédés/match) · défense fragile",
+        "context": {
+          "weakness": 0.64
+        },
+        "stats": {
+          "goals": 15,
+          "apps": 34,
+          "gpm": 0.441,
+          "xgpm": 0.424
+        },
+        "team": "home"
+      }
+    ],
+    "away_players": [],
+    "fun_picks": [],
+    "top_pick": {
+      "direction": "under35",
+      "type": "Under 3.5 buts",
+      "label": "Moins de 3.5 buts",
+      "cote": 1.44,
+      "confidence": 71,
+      "reasoning": "Défenses solides — Chelsea concède 1.3/L10, Tottenham Hotspur concède 1.3/L10 · Total attendu: ~2.7 buts (P Under=71.4%)",
+      "stats": {
+        "form": []
       },
       "is_fun": false
     }
