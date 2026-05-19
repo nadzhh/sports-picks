@@ -21,8 +21,12 @@
             "cote": 1.88
           },
           {
+            "book": "betmgm",
+            "cote": 1.83
+          },
+          {
             "book": "draftkings",
-            "cote": 1.81
+            "cote": 1.82
           }
         ],
         "edge": 34.3,
@@ -68,15 +72,15 @@
         "direction": "over",
         "confidence": 74,
         "cote_min": 1.35,
-        "real_cote": 1.81,
-        "book": "pinnacle",
+        "real_cote": 1.82,
+        "book": "fanduel",
         "books": [
           {
-            "book": "pinnacle",
-            "cote": 1.81
+            "book": "fanduel",
+            "cote": 1.82
           },
           {
-            "book": "fanduel",
+            "book": "pinnacle",
             "cote": 1.8
           },
           {
@@ -88,7 +92,7 @@
             "cote": 1.65
           }
         ],
-        "edge": 34.1,
+        "edge": 34.8,
         "is_real_line": true,
         "value": [
           "🎯",
@@ -125,6 +129,62 @@
         "side": "home"
       },
       {
+        "prop": "PA",
+        "label": "Josh Hart moins de 17.5 pts + ast",
+        "line": 17.5,
+        "direction": "under",
+        "confidence": 68,
+        "cote_min": 1.47,
+        "real_cote": 1.95,
+        "book": "draftkings",
+        "books": [
+          {
+            "book": "draftkings",
+            "cote": 1.95
+          },
+          {
+            "book": "fanduel",
+            "cote": 1.85
+          }
+        ],
+        "edge": 32.7,
+        "is_real_line": true,
+        "value": [
+          "🎯",
+          "Real DK/FD",
+          "#22c55e"
+        ],
+        "hit_rate": "8/10",
+        "hit_pct": 80,
+        "hit_l10": "8/10",
+        "hit_l10_pct": 80,
+        "hit_l20": "14/20",
+        "hit_l20_pct": 70,
+        "trend": "hot",
+        "trend_delta": 10.0,
+        "trend_icon": "📈",
+        "context": {
+          "pace": 0.99,
+          "vegas": 0.996,
+          "def": 0.998,
+          "def_rank": 16,
+          "def_stat": "points"
+        },
+        "def_argument": "",
+        "rotation_warning": null,
+        "stats": {
+          "mu": 14.9,
+          "sigma": 5.6,
+          "L5": 14.8,
+          "L10": 14.5,
+          "Saison": 16.8
+        },
+        "reasoning": "L5 14.8 · L10 14.5 · Saison 16.8 → attendu 14.9 · pace×0.99 · vegas×0.996 · def×0.998",
+        "player": "Josh Hart",
+        "team": "Knicks",
+        "side": "home"
+      },
+      {
         "prop": "PTS",
         "label": "Jordan Clarkson plus de 4.5 points",
         "line": 4.5,
@@ -145,6 +205,10 @@
           {
             "book": "draftkings",
             "cote": 1.97
+          },
+          {
+            "book": "betmgm",
+            "cote": 1.95
           }
         ],
         "edge": 46.7,
@@ -191,19 +255,19 @@
         "direction": "over",
         "confidence": 68,
         "cote_min": 1.47,
-        "real_cote": 1.94,
+        "real_cote": 1.96,
         "book": "fanduel",
         "books": [
           {
             "book": "fanduel",
-            "cote": 1.94
+            "cote": 1.96
           },
           {
             "book": "draftkings",
-            "cote": 1.8
+            "cote": 1.88
           }
         ],
-        "edge": 32.0,
+        "edge": 33.3,
         "is_real_line": true,
         "value": [
           "🎯",
@@ -256,7 +320,7 @@
           },
           {
             "book": "draftkings",
-            "cote": 1.99
+            "cote": 2.0
           },
           {
             "book": "betmgm",
@@ -358,19 +422,19 @@
         "direction": "over",
         "confidence": 71,
         "cote_min": 1.41,
-        "real_cote": 1.82,
+        "real_cote": 1.83,
         "book": "fanduel",
         "books": [
           {
             "book": "fanduel",
-            "cote": 1.82
+            "cote": 1.83
           },
           {
             "book": "betmgm",
             "cote": 1.74
           }
         ],
-        "edge": 29.1,
+        "edge": 29.8,
         "is_real_line": true,
         "value": [
           "🎯",
@@ -423,11 +487,11 @@
           },
           {
             "book": "draftkings",
-            "cote": 1.83
+            "cote": 1.82
           },
           {
             "book": "fanduel",
-            "cote": 1.82
+            "cote": 1.77
           }
         ],
         "edge": 34.5,
@@ -468,86 +532,35 @@
         "side": "home"
       },
       {
-        "prop": "FG3M",
-        "label": "OG Anunoby plus de 1.5 3-points",
-        "line": 1.5,
-        "direction": "over",
-        "confidence": 74,
-        "cote_min": 1.35,
-        "real_cote": 1.5,
-        "book": "fanduel",
-        "books": [
-          {
-            "book": "fanduel",
-            "cote": 1.5
-          }
-        ],
-        "edge": 11.1,
-        "is_real_line": true,
-        "value": [
-          "🎯",
-          "Real DK/FD",
-          "#22c55e"
-        ],
-        "hit_rate": "9/10",
-        "hit_pct": 90,
-        "hit_l10": "9/10",
-        "hit_l10_pct": 90,
-        "hit_l20": "17/20",
-        "hit_l20_pct": 85,
-        "trend": "stable",
-        "trend_delta": 5.0,
-        "trend_icon": "",
-        "context": {
-          "pace": 0.99,
-          "def": 1.068,
-          "def_rank": 4,
-          "def_stat": "3-points"
-        },
-        "def_argument": "Adversaire encaisse beaucoup de 3-points (#4/30)",
-        "rotation_warning": null,
-        "stats": {
-          "mu": 2.6,
-          "sigma": 1.7,
-          "L5": 2.6,
-          "L10": 2.4,
-          "Saison": 2.3
-        },
-        "reasoning": "L5 2.6 · L10 2.4 · Saison 2.3 → attendu 2.6 · pace×0.99 · def×1.068",
-        "player": "OG Anunoby",
-        "team": "Knicks",
-        "side": "home"
-      },
-      {
         "prop": "PRA",
-        "label": "Jordan Clarkson plus de 7.5 PRA",
-        "line": 7.5,
-        "direction": "over",
-        "confidence": 74,
-        "cote_min": 1.36,
-        "real_cote": 1.87,
-        "book": "betmgm",
+        "label": "Josh Hart moins de 26.5 PRA",
+        "line": 26.5,
+        "direction": "under",
+        "confidence": 72,
+        "cote_min": 1.4,
+        "real_cote": 1.79,
+        "book": "draftkings",
         "books": [
           {
-            "book": "betmgm",
-            "cote": 1.87
+            "book": "draftkings",
+            "cote": 1.79
           }
         ],
-        "edge": 37.5,
+        "edge": 27.9,
         "is_real_line": true,
         "value": [
           "🎯",
           "Real DK/FD",
           "#22c55e"
         ],
-        "hit_rate": "8/10",
-        "hit_pct": 80,
-        "hit_l10": "8/10",
-        "hit_l10_pct": 80,
+        "hit_rate": "7/10",
+        "hit_pct": 70,
+        "hit_l10": "7/10",
+        "hit_l10_pct": 70,
         "hit_l20": "15/20",
         "hit_l20_pct": 75,
         "trend": "stable",
-        "trend_delta": 5.0,
+        "trend_delta": -5.0,
         "trend_icon": "",
         "context": {
           "pace": 0.99,
@@ -557,16 +570,16 @@
           "def_stat": "points"
         },
         "def_argument": "",
-        "rotation_warning": "Rotation reduite : 7/10 derniers matchs <15 min (derniers 5 : 8/13/8/14/11 min)",
+        "rotation_warning": null,
         "stats": {
-          "mu": 9.7,
-          "sigma": 3.5,
-          "L5": 9.2,
-          "L10": 9.7,
-          "Saison": 11.7
+          "mu": 22.9,
+          "sigma": 6.3,
+          "L5": 22.8,
+          "L10": 23.5,
+          "Saison": 24.2
         },
-        "reasoning": "L5 9.2 · L10 9.7 · Saison 11.7 → attendu 9.7 · pace×0.99 · vegas×0.996 · def×0.998",
-        "player": "Jordan Clarkson",
+        "reasoning": "L5 22.8 · L10 23.5 · Saison 24.2 → attendu 22.9 · pace×0.99 · vegas×0.996 · def×0.998",
+        "player": "Josh Hart",
         "team": "Knicks",
         "side": "home"
       }
@@ -574,28 +587,83 @@
     "away_picks": [
       {
         "prop": "FG3M",
+        "label": "Dennis Schroder plus de 0.5 3-points",
+        "line": 0.5,
+        "direction": "over",
+        "confidence": 68,
+        "cote_min": 1.46,
+        "real_cote": 2.0,
+        "book": "betmgm",
+        "books": [
+          {
+            "book": "betmgm",
+            "cote": 2.0
+          },
+          {
+            "book": "draftkings",
+            "cote": 1.96
+          }
+        ],
+        "edge": 37.0,
+        "is_real_line": true,
+        "value": [
+          "🎯",
+          "Real DK/FD",
+          "#22c55e"
+        ],
+        "hit_rate": "4/10",
+        "hit_pct": 40,
+        "hit_l10": "4/10",
+        "hit_l10_pct": 40,
+        "hit_l20": "9/20",
+        "hit_l20_pct": 45,
+        "trend": "stable",
+        "trend_delta": -5.0,
+        "trend_icon": "",
+        "context": {
+          "pace": 0.99,
+          "def": 1.045,
+          "def_rank": 10,
+          "def_stat": "3-points"
+        },
+        "def_argument": "",
+        "rotation_warning": null,
+        "stats": {
+          "mu": 1.0,
+          "sigma": 0.9,
+          "L5": 0.8,
+          "L10": 0.8,
+          "Saison": 1.4
+        },
+        "reasoning": "L5 0.8 · L10 0.8 · Saison 1.4 → attendu 1.0 · pace×0.99 · def×1.045",
+        "player": "Dennis Schroder",
+        "team": "Cavaliers",
+        "side": "away"
+      },
+      {
+        "prop": "FG3M",
         "label": "Sam Merrill plus de 1.5 3-points",
         "line": 1.5,
         "direction": "over",
         "confidence": 76,
         "cote_min": 1.32,
-        "real_cote": 1.71,
-        "book": "betmgm",
+        "real_cote": 1.69,
+        "book": "fanduel",
         "books": [
           {
-            "book": "betmgm",
-            "cote": 1.71
-          },
-          {
             "book": "fanduel",
-            "cote": 1.71
+            "cote": 1.69
           },
           {
             "book": "draftkings",
             "cote": 1.69
+          },
+          {
+            "book": "betmgm",
+            "cote": 1.67
           }
         ],
-        "edge": 29.5,
+        "edge": 28.0,
         "is_real_line": true,
         "value": [
           "🎯",
@@ -632,53 +700,65 @@
         "side": "away"
       },
       {
-        "prop": "FG3M",
-        "label": "Dennis Schroder plus de 0.5 3-points",
-        "line": 0.5,
+        "prop": "REB",
+        "label": "Donovan Mitchell plus de 4.5 rebonds",
+        "line": 4.5,
         "direction": "over",
-        "confidence": 68,
-        "cote_min": 1.46,
-        "real_cote": 1.96,
-        "book": "draftkings",
+        "confidence": 59,
+        "cote_min": 1.69,
+        "real_cote": 2.07,
+        "book": "pinnacle",
         "books": [
           {
+            "book": "pinnacle",
+            "cote": 2.07
+          },
+          {
             "book": "draftkings",
-            "cote": 1.96
+            "cote": 2.05
+          },
+          {
+            "book": "betmgm",
+            "cote": 2.0
+          },
+          {
+            "book": "fanduel",
+            "cote": 1.98
           }
         ],
-        "edge": 34.2,
+        "edge": 22.5,
         "is_real_line": true,
         "value": [
           "🎯",
           "Real DK/FD",
           "#22c55e"
         ],
-        "hit_rate": "4/10",
-        "hit_pct": 40,
-        "hit_l10": "4/10",
-        "hit_l10_pct": 40,
-        "hit_l20": "9/20",
-        "hit_l20_pct": 45,
+        "hit_rate": "6/10",
+        "hit_pct": 60,
+        "hit_l10": "6/10",
+        "hit_l10_pct": 60,
+        "hit_l20": "12/20",
+        "hit_l20_pct": 60,
         "trend": "stable",
-        "trend_delta": -5.0,
+        "trend_delta": 0.0,
         "trend_icon": "",
         "context": {
           "pace": 0.99,
-          "def": 1.045,
-          "def_rank": 10,
-          "def_stat": "3-points"
+          "def": 0.925,
+          "def_rank": 28,
+          "def_stat": "rebonds"
         },
-        "def_argument": "",
+        "def_argument": "Adversaire solide vs rebonds (#28/30)",
         "rotation_warning": null,
         "stats": {
-          "mu": 1.0,
-          "sigma": 0.9,
-          "L5": 0.8,
-          "L10": 0.8,
-          "Saison": 1.4
+          "mu": 4.9,
+          "sigma": 1.7,
+          "L5": 5.8,
+          "L10": 5.2,
+          "Saison": 4.5
         },
-        "reasoning": "L5 0.8 · L10 0.8 · Saison 1.4 → attendu 1.0 · pace×0.99 · def×1.045",
-        "player": "Dennis Schroder",
+        "reasoning": "L5 5.8 · L10 5.2 · Saison 4.5 → attendu 4.9 · pace×0.99 · def×0.925",
+        "player": "Donovan Mitchell",
         "team": "Cavaliers",
         "side": "away"
       },
@@ -761,11 +841,11 @@
           },
           {
             "book": "draftkings",
-            "cote": 1.79
+            "cote": 1.76
           },
           {
             "book": "fanduel",
-            "cote": 1.74
+            "cote": 1.72
           }
         ],
         "edge": 16.1,
@@ -862,23 +942,19 @@
         "direction": "over",
         "confidence": 67,
         "cote_min": 1.5,
-        "real_cote": 1.85,
+        "real_cote": 1.83,
         "book": "draftkings",
         "books": [
           {
             "book": "draftkings",
-            "cote": 1.85
-          },
-          {
-            "book": "betmgm",
-            "cote": 1.8
+            "cote": 1.83
           },
           {
             "book": "fanduel",
             "cote": 1.78
           }
         ],
-        "edge": 23.3,
+        "edge": 22.0,
         "is_real_line": true,
         "value": [
           "🎯",
@@ -1613,6 +1689,10 @@
           {
             "book": "betmgm",
             "cote": 1.85
+          },
+          {
+            "book": "draftkings",
+            "cote": 1.82
           }
         ],
         "edge": 30.3,

@@ -2210,6 +2210,198 @@
       "result": "PENDING",
       "actual": null,
       "resolved_at": null
+    },
+    {
+      "prop": "PA",
+      "label": "Josh Hart moins de 17.5 pts + ast",
+      "line": 17.5,
+      "direction": "under",
+      "confidence": 68,
+      "cote_min": 1.47,
+      "real_cote": 1.95,
+      "book": "draftkings",
+      "books": [
+        {
+          "book": "draftkings",
+          "cote": 1.95
+        },
+        {
+          "book": "fanduel",
+          "cote": 1.85
+        }
+      ],
+      "edge": 32.7,
+      "is_real_line": true,
+      "value": [
+        "🎯",
+        "Real DK/FD",
+        "#22c55e"
+      ],
+      "hit_rate": "8/10",
+      "hit_pct": 80,
+      "hit_l10": "8/10",
+      "hit_l10_pct": 80,
+      "hit_l20": "14/20",
+      "hit_l20_pct": 70,
+      "trend": "hot",
+      "trend_delta": 10.0,
+      "trend_icon": "📈",
+      "context": {
+        "pace": 0.99,
+        "vegas": 0.996,
+        "def": 0.998,
+        "def_rank": 16,
+        "def_stat": "points"
+      },
+      "def_argument": "",
+      "rotation_warning": null,
+      "stats": {
+        "mu": 14.9,
+        "sigma": 5.6,
+        "L5": 14.8,
+        "L10": 14.5,
+        "Saison": 16.8
+      },
+      "reasoning": "L5 14.8 · L10 14.5 · Saison 16.8 → attendu 14.9 · pace×0.99 · vegas×0.996 · def×0.998",
+      "player": "Josh Hart",
+      "team": "Knicks",
+      "side": "home",
+      "id": "2026-05-20_401873341_Josh Hart_PA_under_17.5",
+      "date": "2026-05-20",
+      "game_id": "401873341",
+      "matchup": "Cavaliers @ Knicks",
+      "result": "PENDING",
+      "actual": null,
+      "resolved_at": null
+    },
+    {
+      "prop": "PRA",
+      "label": "Josh Hart moins de 26.5 PRA",
+      "line": 26.5,
+      "direction": "under",
+      "confidence": 72,
+      "cote_min": 1.4,
+      "real_cote": 1.79,
+      "book": "draftkings",
+      "books": [
+        {
+          "book": "draftkings",
+          "cote": 1.79
+        }
+      ],
+      "edge": 27.9,
+      "is_real_line": true,
+      "value": [
+        "🎯",
+        "Real DK/FD",
+        "#22c55e"
+      ],
+      "hit_rate": "7/10",
+      "hit_pct": 70,
+      "hit_l10": "7/10",
+      "hit_l10_pct": 70,
+      "hit_l20": "15/20",
+      "hit_l20_pct": 75,
+      "trend": "stable",
+      "trend_delta": -5.0,
+      "trend_icon": "",
+      "context": {
+        "pace": 0.99,
+        "vegas": 0.996,
+        "def": 0.998,
+        "def_rank": 16,
+        "def_stat": "points"
+      },
+      "def_argument": "",
+      "rotation_warning": null,
+      "stats": {
+        "mu": 22.9,
+        "sigma": 6.3,
+        "L5": 22.8,
+        "L10": 23.5,
+        "Saison": 24.2
+      },
+      "reasoning": "L5 22.8 · L10 23.5 · Saison 24.2 → attendu 22.9 · pace×0.99 · vegas×0.996 · def×0.998",
+      "player": "Josh Hart",
+      "team": "Knicks",
+      "side": "home",
+      "id": "2026-05-20_401873341_Josh Hart_PRA_under_26.5",
+      "date": "2026-05-20",
+      "game_id": "401873341",
+      "matchup": "Cavaliers @ Knicks",
+      "result": "PENDING",
+      "actual": null,
+      "resolved_at": null
+    },
+    {
+      "prop": "REB",
+      "label": "Donovan Mitchell plus de 4.5 rebonds",
+      "line": 4.5,
+      "direction": "over",
+      "confidence": 59,
+      "cote_min": 1.69,
+      "real_cote": 2.07,
+      "book": "pinnacle",
+      "books": [
+        {
+          "book": "pinnacle",
+          "cote": 2.07
+        },
+        {
+          "book": "draftkings",
+          "cote": 2.05
+        },
+        {
+          "book": "betmgm",
+          "cote": 2.0
+        },
+        {
+          "book": "fanduel",
+          "cote": 1.98
+        }
+      ],
+      "edge": 22.5,
+      "is_real_line": true,
+      "value": [
+        "🎯",
+        "Real DK/FD",
+        "#22c55e"
+      ],
+      "hit_rate": "6/10",
+      "hit_pct": 60,
+      "hit_l10": "6/10",
+      "hit_l10_pct": 60,
+      "hit_l20": "12/20",
+      "hit_l20_pct": 60,
+      "trend": "stable",
+      "trend_delta": 0.0,
+      "trend_icon": "",
+      "context": {
+        "pace": 0.99,
+        "def": 0.925,
+        "def_rank": 28,
+        "def_stat": "rebonds"
+      },
+      "def_argument": "Adversaire solide vs rebonds (#28/30)",
+      "rotation_warning": null,
+      "stats": {
+        "mu": 4.9,
+        "sigma": 1.7,
+        "L5": 5.8,
+        "L10": 5.2,
+        "Saison": 4.5
+      },
+      "reasoning": "L5 5.8 · L10 5.2 · Saison 4.5 → attendu 4.9 · pace×0.99 · def×0.925",
+      "player": "Donovan Mitchell",
+      "team": "Cavaliers",
+      "side": "away",
+      "id": "2026-05-20_401873341_Donovan Mitchell_REB_over_4.5",
+      "date": "2026-05-20",
+      "game_id": "401873341",
+      "matchup": "Cavaliers @ Knicks",
+      "result": "PENDING",
+      "actual": null,
+      "resolved_at": null
     }
   ]
 }

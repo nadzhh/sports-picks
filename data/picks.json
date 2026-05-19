@@ -10,7 +10,7 @@
         "direction": "away_dc",
         "type": "Double chance",
         "label": "Nul ou Manchester City (X2)",
-        "cote": 1.2,
+        "cote": 1.18,
         "confidence": 97,
         "reasoning": "Manchester City invaincu 100% sur 5 derniers matchs · H2H: 1/1 matchs sans défaite",
         "stats": {
@@ -28,7 +28,7 @@
         "direction": "away_win",
         "type": "Victoire extérieur",
         "label": "Manchester City gagne",
-        "cote": 1.67,
+        "cote": 1.65,
         "confidence": 81,
         "reasoning": "Manchester City : 4V/1N/0D sur 5 matchs · #2 au classement · H2H: 1V/0N/0D · Note Sofa: 6.5/10",
         "stats": {
@@ -190,7 +190,7 @@
       "direction": "away_dc",
       "type": "Double chance",
       "label": "Nul ou Manchester City (X2)",
-      "cote": 1.2,
+      "cote": 1.18,
       "confidence": 97,
       "reasoning": "Manchester City invaincu 100% sur 5 derniers matchs · H2H: 1/1 matchs sans défaite",
       "stats": {
@@ -325,6 +325,25 @@
     ],
     "away_players": [
       {
+        "player": "Emiliano Buendía",
+        "position": "F",
+        "is_sub": false,
+        "type": "Joueur décisif",
+        "label": "Emiliano Buendía but ou passe décisive",
+        "cote": null,
+        "confidence": 40,
+        "reasoning": "3 buts + 5 passes décisives en 14 matchs (57.1% de chance/match) · xG+xA: 0.41/match · défense correcte",
+        "context": {
+          "weakness": 0.36
+        },
+        "stats": {
+          "goals": 3,
+          "assists": 5,
+          "apps": 14
+        },
+        "team": "away"
+      },
+      {
         "player": "Ollie Watkins",
         "position": "F",
         "is_sub": false,
@@ -341,25 +360,6 @@
           "apps": 14,
           "gpm": 0.357,
           "xgpm": 0.386
-        },
-        "team": "away"
-      },
-      {
-        "player": "Emiliano Buendía",
-        "position": "F",
-        "is_sub": false,
-        "type": "Joueur décisif",
-        "label": "Emiliano Buendía but ou passe décisive",
-        "cote": null,
-        "confidence": 34,
-        "reasoning": "⚠️ Emiliano Buendía INCERTAIN · 3 buts + 5 passes décisives en 14 matchs (57.1% de chance/match) · xG+xA: 0.41/match · défense correcte",
-        "context": {
-          "weakness": 0.36
-        },
-        "stats": {
-          "goals": 3,
-          "assists": 5,
-          "apps": 14
         },
         "team": "away"
       }
