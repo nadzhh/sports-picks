@@ -186,10 +186,11 @@ def main():
         print(f"    Away roster top: {len(away_players)} joueurs")
 
         # Contexte equipe (pace, ratings, opp def stats)
-        home_ctx = team_adv.get(g["home_id"], {})
-        away_ctx = team_adv.get(g["away_id"], {})
-        home_def = team_opp.get(g["home_id"], {})
-        away_def = team_opp.get(g["away_id"], {})
+        # BR maps sont keyees par team name court (ESPN style) : "Knicks", "Thunder"...
+        home_ctx = team_adv.get(g["home"], {}) or team_adv.get(g["home_id"], {})
+        away_ctx = team_adv.get(g["away"], {}) or team_adv.get(g["away_id"], {})
+        home_def = team_opp.get(g["home"], {}) or team_opp.get(g["home_id"], {})
+        away_def = team_opp.get(g["away"], {}) or team_opp.get(g["away_id"], {})
 
         player_stats[gid] = {
             "home_team":    g["home"],

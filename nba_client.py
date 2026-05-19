@@ -362,16 +362,35 @@ def boxscore_players(game_id, force=False):
     return rows_out
 
 
-# ─── Stats avancees (pace, DvP) : ESPN ne les expose pas en free ──────────────
-# Les fonctions ci-dessous retournent des structures vides.
-# L'engine gere ce cas : les multipliers pace_mult / def_mult restent a 1.0.
+# ─── Stats avancees (pace, DvP, USG) : delegues a Basketball-Reference ────────
+# ESPN ne les expose pas, nba_bbref scrape BR pour les fournir.
+# Les noms d'equipes BR ("Oklahoma City Thunder") sont normalises vers le
+# format ESPN ("Thunder") afin que les lookups par team name fonctionnent.
+
+def _season_to_year(season):
+    """'2025-26' -> 2026."""
+    try: return int(str(season).split("-")[0]) + 1
+    except Exception: return 2026
+
 
 def team_advanced_stats(season="2025-26", season_type="Regular Season", ttl=12 * 3600):
-    return []
+    return []  # API list-format pas utilise
 
 
 def team_advanced_map(season="2025-26"):
-    return {}
+    """{team_short_name (ESPN style): {pace, off_rating, def_rating, ...}}"""
+    try:
+        from nba_bbref import team_advanced_map as bbref_adv, bbref_to_espn
+    except ImportError:
+        return {}
+    raw = bbref_adv(_season_to_year(season))
+    # Re-keye en utilisant noms courts ESPN + team_id integer (compat avec ancienne API)
+    out = {}
+    for full_name, data in raw.items():
+        short = bbref_to_espn(full_name)
+        out[short] = dict(data)
+        out[short]["team_name"] = short
+    return out
 
 
 def team_opponent_stats(season="2025-26", season_type="Regular Season", ttl=12 * 3600):
@@ -379,4 +398,24 @@ def team_opponent_stats(season="2025-26", season_type="Regular Season", ttl=12 *
 
 
 def team_opponent_map(season="2025-26"):
-    return {}
+    """{team_short_name: {opp_pts, opp_reb, opp_ast, opp_fg3m, rank_opp_*}}"""
+    try:
+        from nba_bbref import team_opponent_map as bbref_opp, bbref_to_espn
+    except ImportError:
+        return {}
+    raw = bbref_opp(_season_to_year(season))
+    out = {}
+    for full_name, data in raw.items():
+        short = bbref_to_espn(full_name)
+        out[short] = dict(data)
+        out[short]["team_name"] = short
+    return out
+
+
+def player_usage_map(season="2025-26"):
+    """{player_name: {usg_pct, gp, mp_per_g, team}}"""
+    try:
+        from nba_bbref import player_usage_map as bbref_usg
+    except ImportError:
+        return {}
+    return bbref_usg(_season_to_year(season))
