@@ -2484,11 +2484,10 @@ def build_html(matches, team_ai, player_ai, pstats_data, nba_picks=None, nba_his
 <div class="container">
   <h1>🎯 Sports Picks</h1>
   <div class="meta">Généré le {now} · ⚽ {len(matches)} matchs foot · 🏀 {len(nba_picks)} matchs NBA</div>
-  <!-- Banner : nouveaux picks depuis derniere visite (cache par defaut) -->
-  <div id="new-picks-banner" style="display:none;background:linear-gradient(90deg,#fb923c,#f97316);color:#0a1628;border-radius:10px;padding:12px 18px;margin-bottom:14px;font-weight:700;cursor:pointer;box-shadow:0 4px 12px rgba(251,146,60,0.3);justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px"
-       onclick="markAllPicksSeen()">
-    <span>🆕 <span id="new-picks-count">0</span> nouveau(x) pick(s) depuis ta derniere visite</span>
-    <span style="background:#0a1628;color:#fb923c;border-radius:14px;padding:4px 12px;font-size:12px">✓ Marquer comme vus</span>
+  <!-- Toast non-bloquant : signalement des nouveaux picks -->
+  <div id="new-picks-toast" style="display:none;position:fixed;top:18px;right:18px;z-index:9999;background:linear-gradient(90deg,#fb923c,#f97316);color:#0a1628;border-radius:10px;padding:10px 16px;font-weight:700;font-size:14px;box-shadow:0 4px 20px rgba(251,146,60,0.5);transition:opacity 0.5s ease-out;max-width:300px">
+    🆕 <span id="new-picks-count">0</span> nouveau(x) pick(s)
+    <div style="font-size:11px;font-weight:500;color:#1e293b;margin-top:2px">Repere les badges 🆕 sur les cartes</div>
   </div>
   <!-- Sport switcher -->
   <div style="display:flex;gap:10px;margin-bottom:18px;flex-wrap:wrap">
@@ -2695,9 +2694,11 @@ function resetTelegramCreds(){{
   alert('Credentials Telegram effaces. Le prochain push te demandera de les re-entrer.');
 }}
 
-// ── Detection des nouveaux picks depuis derniere visite ──
-// Stocke en localStorage la liste des pick_ids deja vus. Au chargement,
-// on compare aux picks affiches et on flag ceux qui sont nouveaux.
+// ── Detection auto des nouveaux picks depuis derniere visite ──
+// Au chargement : compare les pick_ids du DOM aux ids deja vus
+// (localStorage). Badges 🆕 + halo orange restent visibles toute la session.
+// Auto-marque comme vu immediatement => prochain refresh = nouveaux picks
+// reels uniquement. Toast en haut a droite, auto-fade en 6 secondes.
 function detectNewPicks(){{
   var seenRaw = localStorage.getItem('seen_picks');
   var seen = new Set();
@@ -2708,15 +2709,13 @@ function detectNewPicks(){{
   var cards = document.querySelectorAll('[data-pick-id]');
   var newCount = 0;
   var isFirstVisit = !seenRaw;
+  var currentIds = [];
 
   cards.forEach(function(card){{
     var pid = card.getAttribute('data-pick-id');
     if(!pid) return;
-    if(isFirstVisit){{
-      // Premiere visite : on marque tout comme vu silencieusement
-      seen.add(pid);
-    }} else if(!seen.has(pid)){{
-      // Nouveau pick : afficher le badge
+    currentIds.push(pid);
+    if(!isFirstVisit && !seen.has(pid)){{
       var badge = card.querySelector('.new-badge');
       if(badge) badge.style.display = 'inline-block';
       card.style.boxShadow = '0 0 0 2px rgba(251,146,60,0.4)';
@@ -2724,35 +2723,30 @@ function detectNewPicks(){{
     }}
   }});
 
-  if(isFirstVisit){{
-    // Premier passage : on enregistre tout en silence
-    localStorage.setItem('seen_picks', JSON.stringify(Array.from(seen)));
-    return;
-  }}
+  // Auto-marque immediatement comme vu (pas besoin de clic)
+  localStorage.setItem('seen_picks', JSON.stringify(currentIds));
 
-  if(newCount > 0){{
-    var banner = document.getElementById('new-picks-banner');
+  // Toast non-bloquant uniquement si vraiment nouveau
+  if(!isFirstVisit && newCount > 0){{
+    var toast = document.getElementById('new-picks-toast');
     var cnt = document.getElementById('new-picks-count');
-    if(banner && cnt){{
+    if(toast && cnt){{
       cnt.textContent = newCount;
-      banner.style.display = 'flex';
+      toast.style.display = 'block';
+      toast.style.opacity = '1';
+      // Auto-fade apres 6 secondes
+      setTimeout(function(){{
+        toast.style.opacity = '0';
+        setTimeout(function(){{ toast.style.display = 'none'; }}, 600);
+      }}, 6000);
     }}
   }}
 }}
 
-function markAllPicksSeen(){{
-  var cards = document.querySelectorAll('[data-pick-id]');
-  var ids = [];
-  cards.forEach(function(card){{
-    var pid = card.getAttribute('data-pick-id');
-    if(pid) ids.push(pid);
-    var badge = card.querySelector('.new-badge');
-    if(badge) badge.style.display = 'none';
-    card.style.boxShadow = '';
-  }});
-  localStorage.setItem('seen_picks', JSON.stringify(ids));
-  var banner = document.getElementById('new-picks-banner');
-  if(banner) banner.style.display = 'none';
+// Reset manuel via console : resetSeenPicks()
+function resetSeenPicks(){{
+  localStorage.removeItem('seen_picks');
+  alert('Liste des picks vus effacee. Refresh la page pour voir tous les picks comme nouveaux.');
 }}
 
 // Lance la detection au chargement de la page
