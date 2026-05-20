@@ -7,55 +7,52 @@
     "status": "5/20 - 8:30 PM EDT",
     "home_picks": [
       {
-        "prop": "REB",
-        "label": "Isaiah Hartenstein plus de 4.5 rebonds",
-        "line": 4.5,
+        "prop": "PR",
+        "label": "Isaiah Hartenstein plus de 8.5 pts + reb",
+        "line": 8.5,
         "direction": "over",
-        "confidence": 83,
-        "cote_min": 1.21,
-        "real_cote": 2.02,
-        "book": "draftkings",
+        "confidence": 82,
+        "cote_min": 1.22,
+        "real_cote": 1.88,
+        "book": "fanduel",
         "books": [
           {
-            "book": "draftkings",
-            "cote": 2.02
-          },
-          {
             "book": "fanduel",
-            "cote": 1.98
+            "cote": 1.88
           },
           {
-            "book": "pinnacle",
-            "cote": 1.88
+            "book": "draftkings",
+            "cote": 1.79
           }
         ],
-        "edge": 66.9,
+        "edge": 54.1,
         "is_real_line": true,
         "value": [
           "🎯",
           "Real DK/FD",
           "#22c55e"
         ],
-        "hit_rate": "8/10",
-        "hit_pct": 80,
-        "hit_l10": "8/10",
-        "hit_l10_pct": 80,
-        "hit_l20": "18/20",
-        "hit_l20_pct": 90,
-        "trend": "cold",
-        "trend_delta": -10.0,
-        "trend_icon": "📉",
+        "hit_rate": "9/10",
+        "hit_pct": 90,
+        "hit_l10": "9/10",
+        "hit_l10_pct": 90,
+        "hit_l20": "17/20",
+        "hit_l20_pct": 85,
+        "trend": "stable",
+        "trend_delta": 5.0,
+        "trend_icon": "",
         "context": {
           "pace": 1.002,
-          "def": 0.973,
+          "vegas": 0.987,
+          "def": 0.965,
           "def_rank": 23,
-          "def_stat": "rebonds"
+          "def_stat": "points"
         },
-        "def_argument": "Adversaire solide vs rebonds (#23/30)",
+        "def_argument": "Adversaire solide vs points (#23/30)",
         "rotation_warning": null,
-        "h2h_avg": 2.0,
+        "h2h_avg": 4.0,
         "h2h_n": 1,
-        "venue_avg": 9.3,
+        "venue_avg": 15.9,
         "venue_n": 10,
         "venue": "domicile",
         "opp_abbr": "SA",
@@ -63,13 +60,13 @@
         "stake_units": 2.0,
         "stake_label": "2u 💪",
         "stats": {
-          "mu": 8.5,
-          "sigma": 4.2,
-          "L5": 7.8,
-          "L10": 7.9,
-          "Saison": 9.4
+          "mu": 14.7,
+          "sigma": 6.7,
+          "L5": 15.2,
+          "L10": 17.0,
+          "Saison": 18.6
         },
-        "reasoning": "L5 7.8 · L10 7.9 · Saison 9.4 → attendu 8.5 · pace×1.002 · def×0.973 · Domicile (n=10) : 9.3",
+        "reasoning": "L5 15.2 · L10 17.0 · Saison 18.6 → attendu 14.7 · pace×1.002 · vegas×0.987 · def×0.965 · Domicile (n=10) : 15.9",
         "player": "Isaiah Hartenstein",
         "team": "Thunder",
         "side": "home"
@@ -481,107 +478,39 @@
     ],
     "away_picks": [
       {
-        "prop": "AST",
-        "label": "Evan Mobley plus de 3.5 passes",
-        "line": 3.5,
-        "direction": "over",
-        "confidence": 64,
-        "cote_min": 1.57,
-        "real_cote": 2.3,
-        "book": "betmgm",
-        "books": [
-          {
-            "book": "betmgm",
-            "cote": 2.3
-          },
-          {
-            "book": "draftkings",
-            "cote": 2.12
-          },
-          {
-            "book": "fanduel",
-            "cote": 2.04
-          }
-        ],
-        "edge": 46.5,
-        "is_real_line": true,
-        "value": [
-          "🎯",
-          "Real DK/FD",
-          "#22c55e"
-        ],
-        "hit_rate": "7/10",
-        "hit_pct": 70,
-        "hit_l10": "7/10",
-        "hit_l10_pct": 70,
-        "hit_l20": "12/20",
-        "hit_l20_pct": 60,
-        "trend": "hot",
-        "trend_delta": 10.0,
-        "trend_icon": "📈",
-        "context": {
-          "pace": 0.99,
-          "def": 0.935,
-          "def_rank": 26,
-          "def_stat": "passes"
-        },
-        "def_argument": "Adversaire solide vs passes (#26/30)",
-        "rotation_warning": null,
-        "h2h_avg": 3.0,
-        "h2h_n": 1,
-        "venue_avg": 4.4,
-        "venue_n": 12,
-        "venue": "exterieur",
-        "opp_abbr": "NY",
-        "kelly_pct": 5.0,
-        "stake_units": 2.0,
-        "stake_label": "2u 💪",
-        "stats": {
-          "mu": 4.1,
-          "sigma": 1.7,
-          "L5": 4.8,
-          "L10": 4.4,
-          "Saison": 3.6
-        },
-        "reasoning": "L5 4.8 · L10 4.4 · Saison 3.6 → attendu 4.1 · pace×0.99 · def×0.935 · Exterieur (n=12) : 4.4",
-        "player": "Evan Mobley",
-        "team": "Cavaliers",
-        "side": "away"
-      },
-      {
-        "prop": "PTS",
-        "label": "Donovan Mitchell moins de 26.5 points",
-        "line": 26.5,
+        "prop": "PA",
+        "label": "Donovan Mitchell moins de 31.5 pts + ast",
+        "line": 31.5,
         "direction": "under",
-        "confidence": 72,
-        "cote_min": 1.4,
-        "real_cote": 1.98,
+        "confidence": 78,
+        "cote_min": 1.28,
+        "real_cote": 1.85,
         "book": "fanduel",
         "books": [
           {
             "book": "fanduel",
-            "cote": 1.98
+            "cote": 1.85
           },
           {
-            "book": "betmgm",
-            "cote": 1.95
+            "book": "draftkings",
+            "cote": 1.83
           }
         ],
-        "edge": 41.4,
+        "edge": 44.5,
         "is_real_line": true,
         "value": [
           "🎯",
           "Real DK/FD",
           "#22c55e"
         ],
-        "hit_rate": "6/10",
-        "hit_pct": 60,
-        "hit_l10": "6/10",
-        "hit_l10_pct": 60,
-        "hit_l20": "11/20",
-        "hit_l20_pct": 55,
+        "hit_rate": "5/10",
+        "hit_pct": 50,
+        "hit_l10": "5/10",
+        "hit_l10_pct": 50,
+        "hit_l20": "10/20",
+        "hit_l20_pct": 50,
         "trend": "stable",
-        "trend_delta": 5.0,
+        "trend_delta": 0.0,
         "trend_icon": "",
         "context": {
           "pace": 0.99,
@@ -592,9 +521,9 @@
         },
         "def_argument": "Adversaire solide vs points (#26/30)",
         "rotation_warning": null,
-        "h2h_avg": 29.0,
+        "h2h_avg": 32.0,
         "h2h_n": 1,
-        "venue_avg": 23.5,
+        "venue_avg": 27.2,
         "venue_n": 11,
         "venue": "exterieur",
         "opp_abbr": "NY",
@@ -602,13 +531,13 @@
         "stake_units": 2.0,
         "stake_label": "2u 💪",
         "stats": {
-          "mu": 22.1,
-          "sigma": 7.6,
-          "L5": 27.4,
-          "L10": 27.2,
-          "Saison": 27.9
+          "mu": 25.3,
+          "sigma": 7.9,
+          "L5": 31.2,
+          "L10": 30.3,
+          "Saison": 33.6
         },
-        "reasoning": "L5 27.4 · L10 27.2 · Saison 27.9 → attendu 22.1 · pace×0.99 · vegas×0.92 · def×0.952 · Exterieur (n=11) : 23.5",
+        "reasoning": "L5 31.2 · L10 30.3 · Saison 33.6 → attendu 25.3 · pace×0.99 · vegas×0.92 · def×0.952 · Exterieur (n=11) : 27.2",
         "player": "Donovan Mitchell",
         "team": "Cavaliers",
         "side": "away"
