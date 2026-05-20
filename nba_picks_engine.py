@@ -411,16 +411,16 @@ def player_props(player, ctx=None, real_lines=None, match_ctx=None):
             return
         allowed = ALLOWED_DIRECTIONS.get(prop_key, ("over", "under"))
 
-        # Si on a une vraie ligne bookmaker, on scanne TOUTES les alt-lines pour
-        # trouver celle avec le meilleur edge. Sinon : fallback heuristique.
+        # Si on a une vraie ligne bookmaker, on prend UNIQUEMENT la headline
+        # (= la ligne principale ~50/50). Les alt-lines bookmaker (juicees)
+        # sont rarement quotees par Betclic et donc non playables. On garde
+        # alt_lines_data uniquement pour collecter les autres books qui
+        # quotent CETTE meme headline (multi-book display).
         real = real_lines.get(prop_key)
         use_real = real and real.get("line") is not None
         alt_lines_data = (real or {}).get("all_lines") or []
         if use_real:
-            if alt_lines_data:
-                lines_to_check = [L["line"] for L in alt_lines_data]
-            else:
-                lines_to_check = [real["line"]]
+            lines_to_check = [real["line"]]
         elif has_any_real:
             return  # bookmaker n'a pas ce prop pour ce joueur -> skip
         else:

@@ -90,6 +90,10 @@ def _parse_score(score_str):
 
 def _resolve_team(pick, ev):
     direction = (pick.get("direction") or "").lower()
+    # Fun picks utilisent le prefixe "fun_" (fun_over35, fun_draw, fun_btts...).
+    # On strip le prefixe pour reutiliser la meme logique que les team picks.
+    if direction.startswith("fun_"):
+        direction = direction[4:]
     hs, as_ = _parse_score(ev.get("score"))
     if hs is None or as_ is None: return "UNKNOWN", None
     score_str = f"{hs}-{as_}"
@@ -250,9 +254,13 @@ def run():
 
     n_resolved, n_skipped = 0, 0
     for mid, mpicks in by_match.items():
+        # 1) snapshot scraper actuel  2) URL stockee dans le pick lui-meme
+        # (pour resoudre les picks passes une fois matches.json regenere)
         page_url = page_urls.get(mid) or page_urls.get(str(mid))
         if not page_url:
-            print(f"  [skip] match {mid} - pas de _page_url (snapshot trop ancien)")
+            page_url = mpicks[0].get("page_url")
+        if not page_url:
+            print(f"  [skip] match {mid} - pas de page_url (ni snapshot ni stocke dans pick)")
             n_skipped += len(mpicks)
             continue
         # Si la date du pick est passee, on FORCE le refetch (le cache pre-match pollue)

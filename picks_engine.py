@@ -1486,6 +1486,7 @@ def run():
                 "away":         match["away"],
                 "start_ts":     match.get("start_ts"),
                 "match_id":     match["id"],
+                "page_url":     match.get("_page_url"),  # garde l'URL pour le resolver futur
                 "picks":        team_picks,
                 "home_players": home_pp,
                 "away_players": away_pp,
@@ -1525,6 +1526,7 @@ def _save_to_history(matches):
 
     for m in matches:
         match_id = m.get("match_id")
+        page_url = m.get("page_url") or m.get("_page_url")  # pour resoudre quand matches.json a tourne
         matchup = f"{m.get('home','?')} vs {m.get('away','?')}"
         league = m.get("league", "")
         ts = m.get("start_ts")
@@ -1537,7 +1539,7 @@ def _save_to_history(matches):
         for pk in m.get("picks", []):
             pid = f"{date}_{match_id}_team_{pk.get('direction','?')}"
             if pid in existing_ids: continue
-            e = dict(pk); e.update({"id": pid, "date": date, "match_id": match_id,
+            e = dict(pk); e.update({"id": pid, "date": date, "match_id": match_id, "page_url": page_url,
                                      "matchup": matchup, "league": league, "category": "team",
                                      "result": "PENDING", "actual": None, "resolved_at": None})
             history["picks"].append(e); existing_ids.add(pid); n_added += 1
@@ -1546,7 +1548,7 @@ def _save_to_history(matches):
             for pk in plist:
                 pid = f"{date}_{match_id}_player_{pk.get('player','?')}_{pk.get('type','?')}"
                 if pid in existing_ids: continue
-                e = dict(pk); e.update({"id": pid, "date": date, "match_id": match_id,
+                e = dict(pk); e.update({"id": pid, "date": date, "match_id": match_id, "page_url": page_url,
                                          "matchup": matchup, "league": league, "category": "player",
                                          "side": side, "result": "PENDING", "actual": None, "resolved_at": None})
                 history["picks"].append(e); existing_ids.add(pid); n_added += 1
@@ -1554,7 +1556,7 @@ def _save_to_history(matches):
         for pk in m.get("fun_picks", []):
             pid = f"{date}_{match_id}_fun_{pk.get('type','?')}_{pk.get('label','?')[:30]}"
             if pid in existing_ids: continue
-            e = dict(pk); e.update({"id": pid, "date": date, "match_id": match_id,
+            e = dict(pk); e.update({"id": pid, "date": date, "match_id": match_id, "page_url": page_url,
                                      "matchup": matchup, "league": league, "category": "fun",
                                      "result": "PENDING", "actual": None, "resolved_at": None})
             history["picks"].append(e); existing_ids.add(pid); n_added += 1
