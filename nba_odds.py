@@ -32,10 +32,10 @@ except ImportError:
     ODDS_API_KEY = ""
     ODDS_API_BASE = "https://api.the-odds-api.com/v4"
 
-# Cache disque pour eviter de brule le quota (6h TTL)
+# Cache disque pour eviter de brule le quota (24h TTL)
 CACHE_DIR = Path("data/cache_odds")
 CACHE_DIR.mkdir(parents=True, exist_ok=True)
-CACHE_TTL = 6 * 3600   # 6h, les odds bougent peu intra-day
+CACHE_TTL = 24 * 3600   # 24h - les odds player props bougent peu une fois publiees
 
 # Markets supportes par Odds API (NBA)
 MARKETS = {
@@ -57,7 +57,7 @@ PREFERRED_BOOKS = [
     # EU sharps + matches Betclic
     "pinnacle", "unibet_eu", "unibet_uk", "betfair_ex_eu", "marathonbet", "betclic", "bwin",
 ]
-REGIONS = "us,eu"   # multi-regions : DK/FD + Pinnacle/Unibet/Betclic
+REGIONS = "us"   # quota-economique. Pour Pinnacle/Unibet/Betclic -> "us,eu" mais x2 quota
 
 # Affichage human-friendly des noms de books pour l'UI
 BOOK_DISPLAY = {
@@ -156,16 +156,14 @@ def event_props(event_id):
 
 
 def event_game_lines(event_id):
-    """
-    Recupere h2h / spreads / totals pour calculer les team totals implicites.
-    Le team total = (O/U + spread_team) / 2.
-    """
+    """LEGACY : The Odds API pour game lines. Garde au cas ou ESPN pickcenter
+    serait vide. Mais par defaut on utilise _espn_game_lines() (gratuit)."""
     if not ODDS_API_KEY:
         return None
     books = ",".join(PREFERRED_BOOKS)
     params = {
         "apiKey":     ODDS_API_KEY,
-        "regions":    REGIONS,           # us,eu
+        "regions":    REGIONS,
         "markets":    "h2h,spreads,totals",
         "bookmakers": books,
         "oddsFormat": "decimal",
@@ -173,6 +171,53 @@ def event_game_lines(event_id):
     url = f"{ODDS_API_BASE}/sports/basketball_nba/events/{event_id}/odds?" + urllib.parse.urlencode(params)
     data, _ = _get(url)
     return data
+
+
+def espn_game_lines(espn_game_id):
+    """
+    Recupere spread / total / moneyline directement depuis ESPN pickcenter
+    (gratuit, illimite, pas de quota). Format compatible avec _parse_game_lines.
+    Retourne dict {game_total, home_spread, away_spread, home_total, away_total, book}.
+    """
+    import urllib.request as _ur
+    espn_url = f"https://site.api.espn.com/apis/site/v2/sports/basketball/nba/summary?event={espn_game_id}"
+    req = _ur.Request(espn_url, headers={"User-Agent": HEADERS["User-Agent"]})
+    try:
+        r = _ur.urlopen(req, timeout=15)
+        raw = r.read()
+        if raw[:2] == b"\x1f\x8b":
+            raw = gzip.decompress(raw)
+        data = json.loads(raw)
+    except Exception as e:
+        print(f"  [espn lines err] {e}")
+        return {}
+    pc = data.get("pickcenter") or []
+    if not pc: return {}
+    # Prend le 1er provider (typiquement DraftKings)
+    p = pc[0]
+    spread = p.get("spread")
+    total = p.get("overUnder")
+    provider = (p.get("provider") or {}).get("name", "espn")
+    if spread is None or total is None: return {}
+    home_spread = spread  # spread est du POV de home (negatif si home favori)
+    away_spread = -spread
+    home_total = round((total - home_spread) / 2, 1)
+    away_total = round((total - away_spread) / 2, 1)
+    # Recupere noms equipes depuis ESPN
+    header = data.get("header", {})
+    teams_arr = (header.get("competitions") or [{}])[0].get("competitors", [])
+    home_team = next((c.get("team", {}).get("displayName", "") for c in teams_arr if c.get("homeAway") == "home"), "")
+    away_team = next((c.get("team", {}).get("displayName", "") for c in teams_arr if c.get("homeAway") == "away"), "")
+    return {
+        "home_team":   home_team,
+        "away_team":   away_team,
+        "book":        provider.lower(),
+        "game_total":  total,
+        "home_spread": home_spread,
+        "away_spread": away_spread,
+        "home_total":  home_total,
+        "away_total":  away_total,
+    }
 
 
 def _parse_game_lines(event_data):
@@ -314,36 +359,39 @@ def run():
         print("[X] data/nba_matches.json absent - lance nba_scraper.py d'abord.")
         return {}
 
-    print("=== Odds NBA player props (The Odds API) ===")
-    events = list_events()
-    print(f"  {len(events)} events NBA upcoming sur l'API")
-    if not events:
-        with open("data/nba_odds.json", "w", encoding="utf-8") as f:
-            json.dump({}, f)
-        return {}
-
-    # Filtre : on prend uniquement les events qui matchent un game NBA local
-    out, game_lines = {}, {}
-    for ev in events:
-        gid = _match_game(ev, nba_games)
-        if not gid:
-            continue
-        print(f"  {ev.get('away_team')} @ {ev.get('home_team')}  ->  game_id {gid}")
-        # 1) Player props
-        props_data = event_props(ev.get("id"))
-        players    = _parse_event_props(props_data)
-        if players:
-            out[str(gid)] = players
-            n_props = sum(len(v) for v in players.values())
-            print(f"    {len(players)} joueurs, {n_props} props")
-        time.sleep(0.4)
-        # 2) Game lines (h2h, spreads, totals) pour calculer team totals implicites
-        gl_data = event_game_lines(ev.get("id"))
-        gl      = _parse_game_lines(gl_data)
+    # ─── 1. GAME LINES via ESPN pickcenter (gratuit, illimite) ──────────────
+    # On itere directement sur nba_matches.json (ESPN game_ids) - independant
+    # du quota Odds API. Garantit qu'on a toujours spread/total meme si quota=0.
+    print("=== Game lines via ESPN pickcenter ===")
+    game_lines = {}
+    for g in nba_games:
+        gid = g.get("game_id")
+        if not gid: continue
+        gl = espn_game_lines(gid)
         if gl.get("game_total"):
             game_lines[str(gid)] = gl
-            print(f"    Total {gl['game_total']}  · home {gl['home_total']}  · away {gl['away_total']}  ({gl.get('book')})")
-        time.sleep(0.4)
+            print(f"  {g.get('away')} @ {g.get('home')}  ->  Total {gl['game_total']}  spread {gl['home_spread']}  [{gl.get('book')}]")
+
+    # ─── 2. PLAYER PROPS via The Odds API (premium, limite par quota) ──────
+    print("\n=== Odds NBA player props (The Odds API) ===")
+    events = list_events()
+    print(f"  {len(events)} events NBA upcoming sur l'API")
+    out = {}
+    if events:
+        for ev in events:
+            gid = _match_game(ev, nba_games)
+            if not gid:
+                continue
+            print(f"  {ev.get('away_team')} @ {ev.get('home_team')}  ->  game_id {gid}")
+            props_data = event_props(ev.get("id"))
+            players    = _parse_event_props(props_data)
+            if players:
+                out[str(gid)] = players
+                n_props = sum(len(v) for v in players.values())
+                print(f"    {len(players)} joueurs, {n_props} props")
+            time.sleep(0.4)
+    else:
+        print("  [!] Aucun event Odds API (quota epuise ou indispo) - mode degrade")
 
     with open("data/nba_odds.json", "w", encoding="utf-8") as f:
         json.dump(out, f, ensure_ascii=False, indent=2)
