@@ -52,18 +52,22 @@ HIGH_VALUE_MIN_COTE = 1.40
 # pas les matchs du 21/05 qui sont 2 nuits plus loin).
 HIGH_VALUE_NBA_MAX_HOURS_AHEAD = 30
 
+# Seuils generous : on envoie tout pick "interessant" dans la journee.
+# L'idee : recevoir un large panel de propositions sur Telegram, l'user
+# choisit ce qu'il joue. Le top 10/jour seulement est sauvegarde en
+# historique (pour le tracking WR/ROI propre).
 HIGH_VALUE_NBA = {
-    "confidence_min": 80,
-    "edge_min":       40,
-    "hit_l20_pct_min": 65,
+    "confidence_min":  65,
+    "edge_min":        15,
+    "hit_l20_pct_min": 55,
 }
 HIGH_VALUE_FOOT = {
-    "confidence_min": 85,
+    "confidence_min": 70,
 }
 
-# Throttle alertes HV : on collecte les picks pendant 1h, puis batch.
-# Permet de mettre le cron a 5 min pour data fresh sans spammer Telegram.
-HIGH_VALUE_THROTTLE_HOURS = 1
+# Throttle alertes HV : 30 min entre 2 batches (permet d'envoyer plusieurs
+# picks dans la journee sans spammer toutes les 10 min du cron).
+HIGH_VALUE_THROTTLE_HOURS = 0.5
 
 
 # ─── Telegram API ────────────────────────────────────────────────────────────
@@ -414,11 +418,16 @@ def _get_nba_picks(game_id):
 
 def _is_high_value_nba(pick):
     """Pick NBA qualifie pour alerte single-pick.
-    EXCLUT les picks avec :
-    - rotation_warning (joueur bench - cas Barnes)
-    - injury_warning (joueur blesse meme questionable - cas Joao Pedro)"""
-    if pick.get("rotation_warning"): return False
-    if pick.get("injury_warning"):   return False
+    EXCLUT les picks suspects (flags du moteur) :
+    - rotation_warning      : joueur sorti de rotation
+    - injury_warning        : Tank01 Day-to-Day / Questionable
+    - last_min_warning      : dernier match MIN<<mediane (rotation evolutive)
+    - book_divergence_warning : book line << notre mu (bookmaker voit autre chose)
+    Resultat : ne pousse que les picks "propres" (pas de piege detecte)."""
+    if pick.get("rotation_warning"):         return False
+    if pick.get("injury_warning"):           return False
+    if pick.get("last_min_warning"):         return False
+    if pick.get("book_divergence_warning"):  return False
     conf = pick.get("confidence", 0)
     edge = pick.get("edge") or 0
     hit_l20 = pick.get("hit_l20_pct", 0)

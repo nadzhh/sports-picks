@@ -902,7 +902,7 @@ def run():
     return out
 
 
-MAX_PICKS_PER_GAME_IN_HISTORY = 10  # cap pour eviter l'accumulation des reruns
+MAX_PICKS_PER_DAY_IN_HISTORY = 10   # top 10 du jour pour le tracking WR/ROI
 
 
 def _save_to_history(picks_data):
@@ -911,12 +911,11 @@ def _save_to_history(picks_data):
 
     Strategie anti-pollution :
     - On garde TOUS les picks DEJA RESOLUS (WIN / LOSS / PUSH / DNP) intacts.
-    - Pour les picks PENDING d'un game_id present dans le run courant, on
-      REMPLACE par les picks frais (ceux du run). Evite l'accumulation des
-      anciens picks qui ne sont plus dans la selection actuelle apres
-      changement de mu, line, threshold...
-    - Cap a MAX_PICKS_PER_GAME_IN_HISTORY (=10) par game pour les nouveaux
-      picks, sortes par quality_score desc (les meilleurs en priorite).
+    - Pour les picks PENDING du jour, on REMPLACE par les picks frais (ceux
+      du run). Evite l'accumulation des anciens picks devenus obsoletes.
+    - Cap TOP 10 PAR JOUR (toutes games confondues) par quality_score desc.
+      L'idee : Telegram envoie tout pick interessant dans la journee, mais
+      seuls les top 10 sont suivis en historique pour un ROI/WR propre.
     """
     from pathlib import Path
     hist_path = Path("data/nba_picks_history.json")
@@ -948,32 +947,44 @@ def _save_to_history(picks_data):
                 return candidate
         return fallback
 
-    n_added = 0
+    # ─── Aggrege TOUS les picks du jour (toutes games confondues) ─────
+    # puis cap au top 10 par quality_score. Les autres restent visibles
+    # sur le site (data/nba_picks.json) mais ne polluent pas le tracking.
+    all_picks_today = []
     for gid, game in picks_data.items():
         matchup = f"{game.get('away_team','?')} @ {game.get('home_team','?')}"
         date = _extract_game_date(game, today)
-        # Concat home + away, on cappe a MAX_PICKS_PER_GAME_IN_HISTORY en
-        # priorisant par quality_score desc (les meilleurs picks d'abord).
-        all_picks = list(game.get("home_picks", [])) + list(game.get("away_picks", []))
-        all_picks.sort(key=_quality_score, reverse=True)
-        all_picks = all_picks[:MAX_PICKS_PER_GAME_IN_HISTORY]
+        for pick in (list(game.get("home_picks", [])) + list(game.get("away_picks", []))):
+            # Penalise les picks avec warning pour le tracking (on veut le top
+            # 10 *propre*, pas celui avec les flags pieges)
+            penalty = 0
+            if pick.get("rotation_warning"):        penalty += 30
+            if pick.get("injury_warning"):          penalty += 30
+            if pick.get("last_min_warning"):        penalty += 20
+            if pick.get("book_divergence_warning"): penalty += 20
+            score = _quality_score(pick) - penalty
+            all_picks_today.append((score, gid, matchup, date, pick))
 
-        for pick in all_picks:
-            pick_id = f"{date}_{gid}_{pick.get('player','?')}_{pick.get('prop','?')}_{pick.get('direction','?')}_{pick.get('line','?')}"
-            entry = dict(pick)
-            entry["id"] = pick_id
-            entry["date"] = date
-            entry["game_id"] = gid
-            entry["matchup"] = matchup
-            entry["result"] = "PENDING"
-            entry["actual"] = None
-            entry["resolved_at"] = None
-            kept.append(entry)
-            n_added += 1
+    # Tri desc par score ajuste + cap au top 10
+    all_picks_today.sort(key=lambda x: x[0], reverse=True)
+    n_added = 0
+    for score, gid, matchup, date, pick in all_picks_today[:MAX_PICKS_PER_DAY_IN_HISTORY]:
+        pick_id = f"{date}_{gid}_{pick.get('player','?')}_{pick.get('prop','?')}_{pick.get('direction','?')}_{pick.get('line','?')}"
+        entry = dict(pick)
+        entry["id"] = pick_id
+        entry["date"] = date
+        entry["game_id"] = gid
+        entry["matchup"] = matchup
+        entry["result"] = "PENDING"
+        entry["actual"] = None
+        entry["resolved_at"] = None
+        kept.append(entry)
+        n_added += 1
 
+    n_pool = len(all_picks_today)
     history["picks"] = kept
     hist_path.write_text(json.dumps(history, ensure_ascii=False, indent=2), encoding="utf-8")
-    print(f"[history] {n_added} picks frais (-{n_dropped} anciens PENDING remplaces) - total {len(kept)}")
+    print(f"[history] top {n_added}/{n_pool} picks sauvegardes (-{n_dropped} anciens PENDING remplaces) - total {len(kept)}")
 
 
 if __name__ == "__main__":
