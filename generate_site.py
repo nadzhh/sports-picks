@@ -186,6 +186,81 @@ def cote_badge(cote):
             f'color:#60a5fa;border:1px solid #2563eb;border-radius:6px;padding:2px 8px;'
             f'font-size:12px;font-weight:700;margin-left:6px">📊 {cote:.2f}</span>')
 
+
+import html as _html
+
+def _push_button(text):
+    """Petit bouton 📲 qui envoie `text` au bot Telegram (token en localStorage)."""
+    if not text: return ""
+    esc = _html.escape(text, quote=True)
+    return (
+        f'<button class="tg-push-btn" type="button" data-text="{esc}" '
+        f'onclick="event.stopPropagation();pushTelegram(this)" '
+        f'title="Envoyer ce pick sur Telegram" '
+        f'style="background:#0088cc;color:#fff;border:none;border-radius:6px;'
+        f'padding:3px 8px;font-size:12px;font-weight:700;cursor:pointer;'
+        f'margin-left:6px;line-height:1">📲</button>'
+    )
+
+
+def _format_push_team(p, home, away, league=""):
+    """Texte HTML du push Telegram pour un team pick."""
+    cote = p.get("cote") or p.get("cote_min")
+    cote_str = f" @ <b>{cote:.2f}</b>" if cote else ""
+    lg = f" ({league})" if league else ""
+    reasoning = (p.get("reasoning") or "").replace("\n", " · ")[:200]
+    conf = p.get("confidence", "?")
+    return (
+        f"🎯 <b>PICK SPORT-PICKS</b>\n\n"
+        f"⚽ <b>{home}</b> vs <b>{away}</b>{lg}\n\n"
+        f"📌 <b>{p.get('label','?')}</b>{cote_str}\n"
+        f"📊 Confiance : <b>{conf}%</b>\n"
+        f"💡 {reasoning}"
+    )
+
+
+def _format_push_player_foot(p, home, away, league=""):
+    """Texte HTML du push Telegram pour un player pick foot."""
+    cote = p.get("cote")
+    book = (p.get("book") or "").upper()
+    cote_str = f" @ <b>{book} {cote:.2f}</b>" if cote else ""
+    lg = f" ({league})" if league else ""
+    reasoning = (p.get("reasoning") or "").replace("\n", " · ")[:200]
+    conf = p.get("confidence", "?")
+    type_ = p.get("type", "")
+    return (
+        f"🎯 <b>PICK SPORT-PICKS</b>\n\n"
+        f"⚽ <b>{home}</b> vs <b>{away}</b>{lg}\n\n"
+        f"📌 <b>{p.get('label','?')}</b> ({type_}){cote_str}\n"
+        f"📊 Confiance : <b>{conf}%</b>\n"
+        f"💡 {reasoning}"
+    )
+
+
+def _format_push_nba(p, game):
+    """Texte HTML du push Telegram pour un pick NBA."""
+    home = game.get("home_team", "?")
+    away = game.get("away_team", "?")
+    cote = p.get("real_cote") or p.get("cote_min")
+    book = (p.get("book") or "").upper() or ""
+    cote_str = f" @ <b>{book + ' ' if book else ''}{cote:.2f}</b>" if cote else ""
+    edge = p.get("edge")
+    edge_str = f" · edge <b>+{edge}%</b>" if edge else ""
+    conf = p.get("confidence", "?")
+    s = p.get("stats", {})
+    stats_line = ""
+    if s:
+        stats_line = f"📊 L5: {s.get('L5','?')} · L10: {s.get('L10','?')} · S: {s.get('Saison','?')} → attendu {s.get('mu','?')}"
+    hit_l10 = p.get("hit_l10")
+    hit_line = f"\n📈 L10 {hit_l10} ({p.get('hit_l10_pct','?')}%)" if hit_l10 else ""
+    return (
+        f"🎯 <b>PICK SPORT-PICKS NBA</b>\n\n"
+        f"🏀 <b>{away}</b> @ <b>{home}</b>\n\n"
+        f"📌 <b>{p.get('label','?')}</b>{cote_str}{edge_str}\n"
+        f"🎯 Confiance : <b>{conf}%</b>{hit_line}\n"
+        f"{stats_line}"
+    )
+
 def pos_badge(pos):
     c = {"F":"#ef4444","M":"#3b82f6","D":"#22c55e"}.get(pos,"#6b7280")
     l = {"F":"ATT","M":"MIL","D":"DEF"}.get(pos, pos)
@@ -1325,7 +1400,7 @@ def build_stats_panel(mid_safe, home, away, form_data, home_recent, away_recent,
 
 # ─── Picks cards ─────────────────────────────────────────────────────────────
 
-def build_team_pick(p, ai_txt=""):
+def build_team_pick(p, ai_txt="", match_ctx=None):
     c     = p["confidence"]
     color = conf_color(c)
     form  = form_badges(p.get("stats", {}).get("form"))
@@ -1334,6 +1409,12 @@ def build_team_pick(p, ai_txt=""):
     cote_real = p.get("cote")
     cote_min  = p.get("cote_min")
     value     = p.get("value")  # tuple (icon, label, color) ou None
+
+    # Bouton push Telegram
+    push_btn = ""
+    if match_ctx:
+        text = _format_push_team(p, match_ctx.get("home",""), match_ctx.get("away",""), match_ctx.get("league",""))
+        push_btn = _push_button(text)
 
     # Badge cote
     cote_block = ""
@@ -1373,7 +1454,10 @@ def build_team_pick(p, ai_txt=""):
         f'{cote_block}'
         f'<span style="color:#475569;font-size:12px;margin-left:6px">{p["type"]}</span>'
         f'</div>'
+        f'<div style="display:flex;align-items:center;gap:6px">'
         f'<div style="background:{color};color:#000;font-weight:bold;border-radius:20px;padding:4px 12px;font-size:14px">{c}%</div>'
+        f'{push_btn}'
+        f'</div>'
         f'</div>'
         f'<div style="color:#94a3b8;font-size:13px;margin-top:8px;line-height:1.55">{p["reasoning"].replace(chr(10), "<br>")}</div>'
         f'<div style="margin-top:6px">{form}</div>'
@@ -1382,7 +1466,7 @@ def build_team_pick(p, ai_txt=""):
         f'</div>'
     )
 
-def build_player_pick(p, ai_analyses=None):
+def build_player_pick(p, ai_analyses=None, match_ctx=None):
     c      = p["confidence"]
     color  = player_conf_color(c)
     type_  = p["type"]
@@ -1397,6 +1481,11 @@ def build_player_pick(p, ai_analyses=None):
               '🔄 Peut ne pas démarrer</span>') if is_sub else ""
     # Badge cote inline a cote du label (meme style que les team picks)
     cote_b = cote_badge(p.get("cote"))
+    # Bouton push Telegram
+    push_btn = ""
+    if match_ctx:
+        text = _format_push_player_foot(p, match_ctx.get("home",""), match_ctx.get("away",""), match_ctx.get("league",""))
+        push_btn = _push_button(text)
     return (
         f'<div style="background:#162032;border-radius:8px;padding:12px 14px;'
         f'margin-bottom:8px;border-left:3px solid {color}">'
@@ -1412,15 +1501,22 @@ def build_player_pick(p, ai_analyses=None):
         f'<div style="color:#64748b;font-size:12px;line-height:1.55">{p["reasoning"].replace(chr(10), "<br>")}</div>'
         f'{ai_bl}'
         f'</div>'
+        f'<div style="display:flex;align-items:center;gap:6px">'
         f'<div style="background:{color};color:#000;font-weight:bold;border-radius:16px;padding:3px 10px;font-size:13px">{c}%</div>'
+        f'{push_btn}'
+        f'</div>'
         f'</div>'
         f'</div>'
     )
 
-def build_fun_pick(p):
+def build_fun_pick(p, match_ctx=None):
     c     = p["confidence"]
     cote  = p.get("cote")
     cb    = cote_badge(cote) if cote else ""
+    push_btn = ""
+    if match_ctx:
+        text = _format_push_team(p, match_ctx.get("home",""), match_ctx.get("away",""), match_ctx.get("league",""))
+        push_btn = _push_button(text)
     return (
         f'<div style="background:#1a1a2e;border-radius:8px;padding:12px 14px;'
         f'margin-bottom:8px;border:1px solid #4c1d95">'
@@ -1432,7 +1528,10 @@ def build_fun_pick(p):
         f'</div>'
         f'<div style="color:#9f7aea;font-size:12px;font-style:italic">{p["reasoning"]}</div>'
         f'</div>'
+        f'<div style="display:flex;align-items:center;gap:6px">'
         f'<div style="background:#7c3aed;color:#fff;font-weight:bold;border-radius:16px;padding:3px 10px;font-size:13px">{c}%</div>'
+        f'{push_btn}'
+        f'</div>'
         f'</div>'
         f'</div>'
     )
@@ -1443,13 +1542,16 @@ def build_match_card(m, team_ai_map, player_ai_map, pstats=None):
     mid_safe  = str(m["match_id"]).replace("-","")
     dt        = format_datetime(m.get("start_ts"))
 
+    # Contexte commun pour les boutons push Telegram
+    match_ctx = {"home": home, "away": away, "league": m.get("league", "")}
+
     # Picks équipe
-    team_html = "".join(build_team_pick(p, team_ai_map.get(p["label"],"")) for p in m["picks"])
+    team_html = "".join(build_team_pick(p, team_ai_map.get(p["label"],""), match_ctx=match_ctx) for p in m["picks"])
 
     # Paris fun
     fun_html = ""
     if m.get("fun_picks"):
-        fun_cards = "".join(build_fun_pick(p) for p in m["fun_picks"])
+        fun_cards = "".join(build_fun_pick(p, match_ctx=match_ctx) for p in m["fun_picks"])
         fun_html  = (
             '<div style="margin-top:12px;padding-top:12px;border-top:1px solid #1e293b">'
             '<div style="color:#7c3aed;font-size:11px;font-weight:700;text-transform:uppercase;'
@@ -1464,7 +1566,7 @@ def build_match_card(m, team_ai_map, player_ai_map, pstats=None):
         sects = ""
         for tname, icon, pp in all_pp:
             if not pp: continue
-            cards = "".join(build_player_pick(p, player_ai_map) for p in pp)
+            cards = "".join(build_player_pick(p, player_ai_map, match_ctx=match_ctx) for p in pp)
             sects += (f'<div style="margin-bottom:12px">'
                       f'<div style="color:#475569;font-size:11px;font-weight:600;'
                       f'text-transform:uppercase;letter-spacing:1px;margin-bottom:6px">'
@@ -1721,6 +1823,7 @@ def build_nba_card(game):
             f'<div style="display:flex;align-items:center">'
             f'<span style="background:{conf_color};color:#0a1628;font-weight:800;border-radius:14px;padding:3px 10px;font-size:13px">{conf}%</span>'
             f'{stake_pill(p.get("stake_label"), p.get("kelly_pct"))}'
+            f'{_push_button(_format_push_nba(p, game))}'
             f'</div>'
             f'{cote_html}'
             f'</div>'
@@ -2521,6 +2624,64 @@ function togglePicks(id){{
     body.classList.add('show-picks');
     btn.classList.add('active');
   }}
+}}
+
+// ── Push Telegram (token + chat_id stockes en localStorage du navigateur) ──
+async function pushTelegram(btn){{
+  var token  = localStorage.getItem('tg_token');
+  var chatId = localStorage.getItem('tg_chat_id');
+  if(!token || !chatId){{
+    token = prompt('Bot token Telegram (stocke localement dans ton navigateur uniquement, jamais sur le serveur) :', token || '');
+    if(!token) return;
+    chatId = prompt('Chat ID (ton ID perso ou @ton_canal) :', chatId || '');
+    if(!chatId) return;
+    localStorage.setItem('tg_token',  token.trim());
+    localStorage.setItem('tg_chat_id', chatId.trim());
+  }}
+  var text = btn.dataset.text || '';
+  if(!text){{ alert('Pas de message a envoyer'); return; }}
+  var origBg = btn.style.background;
+  btn.disabled = true;
+  btn.innerText = '⏳';
+  try {{
+    var resp = await fetch('https://api.telegram.org/bot' + token + '/sendMessage', {{
+      method: 'POST',
+      headers: {{'Content-Type': 'application/json'}},
+      body: JSON.stringify({{
+        chat_id: chatId,
+        text: text,
+        parse_mode: 'HTML',
+        disable_web_page_preview: true
+      }})
+    }});
+    var j = await resp.json();
+    if(j.ok){{
+      btn.innerText = '✓';
+      btn.style.background = '#22c55e';
+    }} else {{
+      btn.innerText = '✗';
+      btn.style.background = '#ef4444';
+      alert('Erreur Telegram : ' + (j.description || 'inconnue'));
+      // Si auth fail, on reset le token pour reprompt
+      if(j.error_code === 401){{ localStorage.removeItem('tg_token'); localStorage.removeItem('tg_chat_id'); }}
+    }}
+  }} catch(e){{
+    btn.innerText = '✗';
+    btn.style.background = '#ef4444';
+    alert('Erreur reseau : ' + e.message);
+  }}
+  setTimeout(function(){{
+    btn.disabled = false;
+    btn.innerText = '📲';
+    btn.style.background = origBg || '#0088cc';
+  }}, 2500);
+}}
+
+// Bouton de reset des credentials Telegram (pour debug / changement de bot)
+function resetTelegramCreds(){{
+  localStorage.removeItem('tg_token');
+  localStorage.removeItem('tg_chat_id');
+  alert('Credentials Telegram effaces. Le prochain push te demandera de les re-entrer.');
 }}
 </script>
 </body>
