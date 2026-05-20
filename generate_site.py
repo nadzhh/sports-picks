@@ -1400,6 +1400,23 @@ def build_stats_panel(mid_safe, home, away, form_data, home_recent, away_recent,
 
 # ─── Picks cards ─────────────────────────────────────────────────────────────
 
+def _pick_id_foot_team(p, match_ctx):
+    mid = (match_ctx or {}).get("match_id") or (match_ctx or {}).get("home", "?")
+    return f"f_t_{mid}_{p.get('direction','?')}_{p.get('label','?')[:30]}"
+
+def _pick_id_foot_player(p, match_ctx):
+    mid = (match_ctx or {}).get("match_id") or (match_ctx or {}).get("home", "?")
+    return f"f_p_{mid}_{p.get('player','?')}_{p.get('type','?')}"
+
+def _pick_id_foot_fun(p, match_ctx):
+    mid = (match_ctx or {}).get("match_id") or (match_ctx or {}).get("home", "?")
+    return f"f_fun_{mid}_{p.get('direction','?')}_{p.get('label','?')[:30]}"
+
+def _pick_id_nba(p, game):
+    gid = (game or {}).get("game_id") or (game or {}).get("home_team","?")
+    return f"n_{gid}_{p.get('player','?')}_{p.get('prop','?')}_{p.get('direction','?')}_{p.get('line','?')}"
+
+
 def build_team_pick(p, ai_txt="", match_ctx=None):
     c     = p["confidence"]
     color = conf_color(c)
@@ -1445,13 +1462,15 @@ def build_team_pick(p, ai_txt="", match_ctx=None):
             f'</div>'
         )
 
+    pid = _pick_id_foot_team(p, match_ctx) if match_ctx else ""
     return (
-        f'<div style="background:#1e293b;border-radius:10px;padding:14px 16px;'
+        f'<div class="pick-card" data-pick-id="{pid}" style="background:#1e293b;border-radius:10px;padding:14px 16px;'
         f'margin-bottom:10px;border-left:4px solid {color}">'
         f'<div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px">'
         f'<div style="display:flex;align-items:center;flex-wrap:wrap;gap:4px">'
         f'<span style="color:{color};font-weight:700;font-size:15px">{p["label"]}</span>'
         f'{cote_block}'
+        f'<span class="new-badge" style="display:none;background:#fb923c;color:#0a1628;border-radius:4px;padding:1px 6px;font-size:10px;font-weight:800;margin-left:6px">🆕 NOUVEAU</span>'
         f'<span style="color:#475569;font-size:12px;margin-left:6px">{p["type"]}</span>'
         f'</div>'
         f'<div style="display:flex;align-items:center;gap:6px">'
@@ -1486,8 +1505,9 @@ def build_player_pick(p, ai_analyses=None, match_ctx=None):
     if match_ctx:
         text = _format_push_player_foot(p, match_ctx.get("home",""), match_ctx.get("away",""), match_ctx.get("league",""))
         push_btn = _push_button(text)
+    pid = _pick_id_foot_player(p, match_ctx) if match_ctx else ""
     return (
-        f'<div style="background:#162032;border-radius:8px;padding:12px 14px;'
+        f'<div class="pick-card" data-pick-id="{pid}" style="background:#162032;border-radius:8px;padding:12px 14px;'
         f'margin-bottom:8px;border-left:3px solid {color}">'
         f'<div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:8px">'
         f'<div style="flex:1">'
@@ -1495,6 +1515,7 @@ def build_player_pick(p, ai_analyses=None, match_ctx=None):
         f'<span>{icon}</span>{pos_b}'
         f'<span style="color:{color};font-weight:600;font-size:14px">{p["label"]}</span>'
         f'{cote_b}'
+        f'<span class="new-badge" style="display:none;background:#fb923c;color:#0a1628;border-radius:4px;padding:1px 6px;font-size:10px;font-weight:800;margin-left:6px">🆕</span>'
         f'<span style="color:#475569;font-size:12px;margin-left:4px">{type_}</span>'
         f'{sub_b}'
         f'</div>'
@@ -1517,14 +1538,15 @@ def build_fun_pick(p, match_ctx=None):
     if match_ctx:
         text = _format_push_team(p, match_ctx.get("home",""), match_ctx.get("away",""), match_ctx.get("league",""))
         push_btn = _push_button(text)
+    pid = _pick_id_foot_fun(p, match_ctx) if match_ctx else ""
     return (
-        f'<div style="background:#1a1a2e;border-radius:8px;padding:12px 14px;'
+        f'<div class="pick-card" data-pick-id="{pid}" style="background:#1a1a2e;border-radius:8px;padding:12px 14px;'
         f'margin-bottom:8px;border:1px solid #4c1d95">'
         f'<div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px">'
         f'<div style="flex:1">'
         f'<div style="display:flex;align-items:center;flex-wrap:wrap;gap:4px;margin-bottom:4px">'
         f'<span style="color:#a78bfa;font-weight:700;font-size:14px">{p["label"]}</span>'
-        f'{cb}<span style="color:#7c3aed;font-size:11px;margin-left:5px">Paris fun</span>'
+        f'{cb}<span class="new-badge" style="display:none;background:#fb923c;color:#0a1628;border-radius:4px;padding:1px 6px;font-size:10px;font-weight:800;margin-left:6px">🆕</span><span style="color:#7c3aed;font-size:11px;margin-left:5px">Paris fun</span>'
         f'</div>'
         f'<div style="color:#9f7aea;font-size:12px;font-style:italic">{p["reasoning"]}</div>'
         f'</div>'
@@ -1542,8 +1564,8 @@ def build_match_card(m, team_ai_map, player_ai_map, pstats=None):
     mid_safe  = str(m["match_id"]).replace("-","")
     dt        = format_datetime(m.get("start_ts"))
 
-    # Contexte commun pour les boutons push Telegram
-    match_ctx = {"home": home, "away": away, "league": m.get("league", "")}
+    # Contexte commun pour boutons push Telegram + pick_ids stables
+    match_ctx = {"home": home, "away": away, "league": m.get("league", ""), "match_id": m.get("match_id", mid_safe)}
 
     # Picks équipe
     team_html = "".join(build_team_pick(p, team_ai_map.get(p["label"],""), match_ctx=match_ctx) for p in m["picks"])
@@ -1786,14 +1808,16 @@ def build_nba_card(game):
                 f'<span style="color:#22c55e;font-size:11px;font-weight:700;margin-left:6px">'
                 f'+{edge}% edge</span>'
             )
+        pid = _pick_id_nba(p, game)
         return (
-            f'<div style="background:#0a1628;border-radius:8px;padding:10px 14px;margin-bottom:8px;'
+            f'<div class="pick-card" data-pick-id="{pid}" style="background:#0a1628;border-radius:8px;padding:10px 14px;margin-bottom:8px;'
             f'border-left:3px solid {conf_color}">'
             f'<div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:6px">'
             f'<div style="flex:1">'
             f'<div style="display:flex;align-items:center;flex-wrap:wrap;gap:3px">'
             f'<span style="color:#f1f5f9;font-weight:700;font-size:14px">{p.get("label","?")}</span>'
             f'{cote_inline}'
+            f'<span class="new-badge" style="display:none;background:#fb923c;color:#0a1628;border-radius:4px;padding:1px 6px;font-size:10px;font-weight:800;margin-left:6px">🆕</span>'
             f'{v_html}'
             f'{edge_hint}'
             f'</div>'
@@ -2460,6 +2484,12 @@ def build_html(matches, team_ai, player_ai, pstats_data, nba_picks=None, nba_his
 <div class="container">
   <h1>🎯 Sports Picks</h1>
   <div class="meta">Généré le {now} · ⚽ {len(matches)} matchs foot · 🏀 {len(nba_picks)} matchs NBA</div>
+  <!-- Banner : nouveaux picks depuis derniere visite (cache par defaut) -->
+  <div id="new-picks-banner" style="display:none;background:linear-gradient(90deg,#fb923c,#f97316);color:#0a1628;border-radius:10px;padding:12px 18px;margin-bottom:14px;font-weight:700;cursor:pointer;box-shadow:0 4px 12px rgba(251,146,60,0.3);justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px"
+       onclick="markAllPicksSeen()">
+    <span>🆕 <span id="new-picks-count">0</span> nouveau(x) pick(s) depuis ta derniere visite</span>
+    <span style="background:#0a1628;color:#fb923c;border-radius:14px;padding:4px 12px;font-size:12px">✓ Marquer comme vus</span>
+  </div>
   <!-- Sport switcher -->
   <div style="display:flex;gap:10px;margin-bottom:18px;flex-wrap:wrap">
     <button class="sport-btn active" onclick="showSport('football')" id="sport-btn-football">⚽ Football</button>
@@ -2664,6 +2694,69 @@ function resetTelegramCreds(){{
   localStorage.removeItem('tg_chat_id');
   alert('Credentials Telegram effaces. Le prochain push te demandera de les re-entrer.');
 }}
+
+// ── Detection des nouveaux picks depuis derniere visite ──
+// Stocke en localStorage la liste des pick_ids deja vus. Au chargement,
+// on compare aux picks affiches et on flag ceux qui sont nouveaux.
+function detectNewPicks(){{
+  var seenRaw = localStorage.getItem('seen_picks');
+  var seen = new Set();
+  try {{
+    if(seenRaw) seen = new Set(JSON.parse(seenRaw));
+  }} catch(e){{}}
+
+  var cards = document.querySelectorAll('[data-pick-id]');
+  var newCount = 0;
+  var isFirstVisit = !seenRaw;
+
+  cards.forEach(function(card){{
+    var pid = card.getAttribute('data-pick-id');
+    if(!pid) return;
+    if(isFirstVisit){{
+      // Premiere visite : on marque tout comme vu silencieusement
+      seen.add(pid);
+    }} else if(!seen.has(pid)){{
+      // Nouveau pick : afficher le badge
+      var badge = card.querySelector('.new-badge');
+      if(badge) badge.style.display = 'inline-block';
+      card.style.boxShadow = '0 0 0 2px rgba(251,146,60,0.4)';
+      newCount++;
+    }}
+  }});
+
+  if(isFirstVisit){{
+    // Premier passage : on enregistre tout en silence
+    localStorage.setItem('seen_picks', JSON.stringify(Array.from(seen)));
+    return;
+  }}
+
+  if(newCount > 0){{
+    var banner = document.getElementById('new-picks-banner');
+    var cnt = document.getElementById('new-picks-count');
+    if(banner && cnt){{
+      cnt.textContent = newCount;
+      banner.style.display = 'flex';
+    }}
+  }}
+}}
+
+function markAllPicksSeen(){{
+  var cards = document.querySelectorAll('[data-pick-id]');
+  var ids = [];
+  cards.forEach(function(card){{
+    var pid = card.getAttribute('data-pick-id');
+    if(pid) ids.push(pid);
+    var badge = card.querySelector('.new-badge');
+    if(badge) badge.style.display = 'none';
+    card.style.boxShadow = '';
+  }});
+  localStorage.setItem('seen_picks', JSON.stringify(ids));
+  var banner = document.getElementById('new-picks-banner');
+  if(banner) banner.style.display = 'none';
+}}
+
+// Lance la detection au chargement de la page
+window.addEventListener('DOMContentLoaded', detectNewPicks);
 </script>
 </body>
 </html>'''
