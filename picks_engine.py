@@ -742,7 +742,33 @@ def analyze_match(match, pstats_all):
             continue
         filtered.append(pk)
 
-    team_picks = sorted(filtered, key=lambda x: x["confidence"], reverse=True)[:5]
+    # ── Cohérence 1X2 / DC : un match a UN seul resultat. On ne peut pas ─────
+    # proposer "Freiburg gagne" + "Aston Villa gagne" + "Freiburg ou Nul". On
+    # garde le pick le + confiant et on ne conserve que les autres COMPATIBLES.
+    #
+    # Sets de "outcomes gagnants" pour chaque direction (H=home, D=draw, A=away):
+    OUTCOME_SETS = {
+        "home_win": {"H"},
+        "away_win": {"A"},
+        "draw":     {"D"},
+        "home_dc":  {"H", "D"},   # 1X
+        "away_dc":  {"D", "A"},   # X2
+        "no_draw":  {"H", "A"},   # 12
+    }
+    onextwo_picks = [p for p in filtered if p.get("direction") in OUTCOME_SETS]
+    other_picks   = [p for p in filtered if p.get("direction") not in OUTCOME_SETS]
+
+    # Greedy : tri par confidence desc, on garde un pick si compatible
+    # (intersection non vide) avec TOUS les deja-gardes.
+    onextwo_picks.sort(key=lambda x: x["confidence"], reverse=True)
+    kept_1x2 = []
+    for pk in onextwo_picks:
+        my_outcomes = OUTCOME_SETS[pk["direction"]]
+        ok = all(OUTCOME_SETS[k["direction"]] & my_outcomes for k in kept_1x2)
+        if ok:
+            kept_1x2.append(pk)
+
+    team_picks = sorted(kept_1x2 + other_picks, key=lambda x: x["confidence"], reverse=True)[:5]
 
     # ── Paris fun (cote >= 2.0, analyse sérieuse) ──────────────────────────
     fun_picks = []
