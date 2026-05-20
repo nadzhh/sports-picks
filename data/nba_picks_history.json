@@ -1963,6 +1963,84 @@
       "resolved_at": null
     },
     {
+      "prop": "PTS",
+      "label": "De'Aaron Fox plus de 14.5 points",
+      "line": 14.5,
+      "direction": "over",
+      "confidence": 66,
+      "cote_min": 1.53,
+      "real_cote": 1.98,
+      "book": "fanduel",
+      "books": [
+        {
+          "book": "fanduel",
+          "cote": 1.98
+        },
+        {
+          "book": "pinnacle",
+          "cote": 1.96
+        },
+        {
+          "book": "betmgm",
+          "cote": 1.91
+        }
+      ],
+      "edge": 29.4,
+      "is_real_line": true,
+      "value": [
+        "🎯",
+        "Real DK/FD",
+        "#22c55e"
+      ],
+      "hit_rate": "9/10",
+      "hit_pct": 90,
+      "hit_l10": "9/10",
+      "hit_l10_pct": 90,
+      "hit_l20": "14/20",
+      "hit_l20_pct": 70,
+      "trend": "hot",
+      "trend_delta": 20.0,
+      "trend_icon": "📈",
+      "context": {
+        "pace": 1.002,
+        "vegas": 0.929,
+        "def": 0.933,
+        "def_rank": 29,
+        "def_stat": "points"
+      },
+      "def_argument": "Adversaire solide vs points (#29/30)",
+      "rotation_warning": null,
+      "last_min_warning": null,
+      "book_divergence_warning": null,
+      "h2h_avg": null,
+      "h2h_n": 0,
+      "venue_avg": 18.6,
+      "venue_n": 9,
+      "venue": "exterieur",
+      "opp_abbr": "OKC",
+      "kelly_pct": 5.0,
+      "stake_units": 2.0,
+      "stake_label": "2u 💪",
+      "stats": {
+        "mu": 16.5,
+        "sigma": 5.1,
+        "L5": 19.2,
+        "L10": 19.0,
+        "Saison": 18.6
+      },
+      "reasoning": "L5 19.2 · L10 19.0 · Saison 18.6 → attendu 16.5 · pace×1.002 · vegas×0.929 · def×0.933 · Exterieur (n=9) : 18.6",
+      "player": "De'Aaron Fox",
+      "team": "Spurs",
+      "side": "away",
+      "id": "2026-05-21_401873198_De'Aaron Fox_PTS_over_14.5",
+      "date": "2026-05-21",
+      "game_id": "401873198",
+      "matchup": "Spurs @ Thunder",
+      "result": "PENDING",
+      "actual": null,
+      "resolved_at": null
+    },
+    {
       "prop": "PA",
       "label": "Shai Gilgeous-Alexander moins de 35.5 pts + ast",
       "line": 35.5,
@@ -2195,79 +2273,6 @@
       "date": "2026-05-21",
       "game_id": "401873198",
       "matchup": "Spurs @ Thunder",
-      "result": "PENDING",
-      "actual": null,
-      "resolved_at": null
-    },
-    {
-      "prop": "REB",
-      "label": "Dean Wade plus de 3.5 rebonds",
-      "line": 3.5,
-      "direction": "over",
-      "confidence": 75,
-      "cote_min": 1.33,
-      "real_cote": 1.67,
-      "book": "betmgm",
-      "books": [
-        {
-          "book": "betmgm",
-          "cote": 1.67
-        },
-        {
-          "book": "fanduel",
-          "cote": 1.66
-        }
-      ],
-      "edge": 25.6,
-      "is_real_line": true,
-      "value": [
-        "🎯",
-        "Real DK/FD",
-        "#22c55e"
-      ],
-      "hit_rate": "7/10",
-      "hit_pct": 70,
-      "hit_l10": "7/10",
-      "hit_l10_pct": 70,
-      "hit_l20": "13/20",
-      "hit_l20_pct": 65,
-      "trend": "stable",
-      "trend_delta": 5.0,
-      "trend_icon": "",
-      "context": {
-        "pace": 0.99,
-        "def": 0.925,
-        "def_rank": 28,
-        "def_stat": "rebonds"
-      },
-      "def_argument": "Adversaire solide vs rebonds (#28/30)",
-      "rotation_warning": null,
-      "last_min_warning": null,
-      "book_divergence_warning": null,
-      "h2h_avg": 5.0,
-      "h2h_n": 1,
-      "venue_avg": 5.0,
-      "venue_n": 11,
-      "venue": "exterieur",
-      "opp_abbr": "NY",
-      "kelly_pct": 5.0,
-      "stake_units": 2.0,
-      "stake_label": "2u 💪",
-      "stats": {
-        "mu": 4.5,
-        "sigma": 1.5,
-        "L5": 5.0,
-        "L10": 4.3,
-        "Saison": 4.2
-      },
-      "reasoning": "L5 5.0 · L10 4.3 · Saison 4.2 → attendu 4.5 · pace×0.99 · def×0.925 · Exterieur (n=11) : 5.0",
-      "player": "Dean Wade",
-      "team": "Cavaliers",
-      "side": "away",
-      "id": "2026-05-22_401873342_Dean Wade_REB_over_3.5",
-      "date": "2026-05-22",
-      "game_id": "401873342",
-      "matchup": "Cavaliers @ Knicks",
       "result": "PENDING",
       "actual": null,
       "resolved_at": null
