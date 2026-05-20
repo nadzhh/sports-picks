@@ -345,14 +345,44 @@ def player_picks_contextual(players, opp_pos, opp_rat, opp_conceded_pm=0, btts_p
     # Trier par confiance
     picks.sort(key=lambda x: x["confidence"], reverse=True)
 
-    # Déduplication : 1 seul pick par joueur (le meilleur type)
-    final, seen = [], set()
+    # ── Dedup : 1 SEUL pick par joueur (buteur OU decisif, pas les 2) ──
+    # Decisif est toujours >= buteur par construction (superset). Si on triait
+    # juste par confidence, on garderait toujours decisif -> pas ce que l'on
+    # veut. On privilegie buteur quand la confiance est assez haute (cote book
+    # plus interessante), sinon on fallback sur decisif (plus probable).
+    from collections import defaultdict
+    by_player = defaultdict(list)
     for pk in picks:
-        key = f"{pk['player']}_{pk['type']}"
-        if key not in seen:
-            seen.add(key)
-            final.append(pk)
+        by_player[pk.get("player", "")].append(pk)
 
+    final = []
+    for pname, ppicks in by_player.items():
+        if not pname:
+            final.extend(ppicks)
+            continue
+        types = {pk["type"]: pk for pk in ppicks}
+        buteur  = types.get("Buteur")
+        decisif = types.get("Joueur décisif")
+        passeur = types.get("Passeur décisif")
+        # 1) Buteur confiance >= 55% -> on parie sur le but (value bet)
+        if buteur and buteur["confidence"] >= 55:
+            chosen = buteur
+        # 2) Decisif confiance >= 55% -> safer bet (but ou passe)
+        elif decisif and decisif["confidence"] >= 55:
+            chosen = decisif
+        # 3) Passeur isole (defenseur/milieu sans buts)
+        elif passeur and passeur["confidence"] >= 50:
+            chosen = passeur
+        # 4) Aucun ne passe le seuil mais on garde le meilleur si conf>=45
+        elif ppicks:
+            best = max(ppicks, key=lambda x: x["confidence"])
+            chosen = best if best["confidence"] >= 45 else None
+        else:
+            chosen = None
+        if chosen:
+            final.append(chosen)
+
+    final.sort(key=lambda x: x["confidence"], reverse=True)
     return final
 
 # ─── Analyse équipe ──────────────────────────────────────────────────────────

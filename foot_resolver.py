@@ -283,7 +283,9 @@ def run():
         for p in mpicks:
             cat = p.get("category", "")
             status, actual = "UNKNOWN", None
-            if cat == "team":
+            # Fun picks (Plus 3.5 buts, Match nul, etc.) ont les memes directions
+            # que les team picks (over35, draw, ...) - on les traite pareil
+            if cat in ("team", "fun"):
                 status, actual = _resolve_team(p, ev)
                 if status == "UNKNOWN":
                     status, actual = _resolve_team_shots(p, ev)
