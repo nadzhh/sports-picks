@@ -469,13 +469,53 @@ def _parse_event_props(event_data):
     return players
 
 
-def run():
+# Freshness pour eviter de brule le quota sur chaque tick du cron CI.
+# Les player props changent peu apres publication. 4h = bon compromis :
+# meme si une blessure tombe, l'engine relancera dans <=4h.
+ODDS_REFRESH_MIN_AGE_SEC = 4 * 3600
+
+
+def _odds_file_age_seconds():
+    """Retourne l'age en secondes du _fetched_at stocke dans nba_odds.json,
+    ou None si fichier absent / sans timestamp."""
+    p = Path("data/nba_odds.json")
+    if not p.exists(): return None
+    try:
+        d = json.loads(p.read_text(encoding="utf-8"))
+        ts = d.get("_fetched_at")
+        if not ts: return None
+        dt = datetime.fromisoformat(ts.replace("Z", "+00:00").rstrip("+00:00"))
+        return (datetime.now() - dt).total_seconds()
+    except Exception:
+        return None
+
+
+def _strip_meta(data):
+    """Enleve les cles meta (_fetched_at) pour le retour fonctionnel."""
+    return {k: v for k, v in (data or {}).items() if not k.startswith("_")}
+
+
+def run(force=False):
     if not ODDS_API_KEYS:
         print("[!] Aucune cle ODDS_API_KEY/_KEY2 configuree - lignes heuristiques.")
         Path("data").mkdir(exist_ok=True)
         with open("data/nba_odds.json", "w", encoding="utf-8") as f:
             json.dump({}, f)
         return {}
+
+    # ─── Freshness skip : si data/nba_odds.json a <4h, on ne fetch pas ──────
+    # Critique pour le quota : le cron tourne toutes les 10 min mais l'API
+    # n'a besoin d'etre refresh que toutes les 4h (les lignes bougent peu).
+    if not force:
+        age = _odds_file_age_seconds()
+        if age is not None and age < ODDS_REFRESH_MIN_AGE_SEC:
+            mins = int(age / 60)
+            print(f"=== Odds API : skip (data/nba_odds.json a {mins} min, <4h) ===")
+            try:
+                data = json.load(open("data/nba_odds.json", encoding="utf-8"))
+                return _strip_meta(data)
+            except Exception:
+                pass  # fallback : refetch
 
     # Affiche l'etat des cles configurees
     state = _load_key_state()
@@ -528,8 +568,10 @@ def run():
     else:
         print("  [!] Aucun event Odds API (quota epuise ou indispo) - mode degrade")
 
+    out_with_meta = dict(out)
+    out_with_meta["_fetched_at"] = datetime.now().isoformat(timespec="seconds")
     with open("data/nba_odds.json", "w", encoding="utf-8") as f:
-        json.dump(out, f, ensure_ascii=False, indent=2)
+        json.dump(out_with_meta, f, ensure_ascii=False, indent=2)
     with open("data/nba_game_lines.json", "w", encoding="utf-8") as f:
         json.dump(game_lines, f, ensure_ascii=False, indent=2)
     print(f"\n[OK] {len(out)} matchs props + {len(game_lines)} game lines -> data/nba_odds.json, data/nba_game_lines.json")

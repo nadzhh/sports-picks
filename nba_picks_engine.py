@@ -816,6 +816,8 @@ def run():
     odds = {}
     try:
         odds = json.load(open("data/nba_odds.json", encoding="utf-8"))
+        # Strip meta keys (_fetched_at) avant d'iterer
+        odds = {k: v for k, v in odds.items() if not k.startswith("_")}
         if odds:
             n_props = sum(len(p) for g in odds.values() for p in g.values())
             print(f"  [odds] {len(odds)} matchs avec {n_props} props bookmaker")
