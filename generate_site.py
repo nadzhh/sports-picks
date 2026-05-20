@@ -1395,33 +1395,8 @@ def build_player_pick(p, ai_analyses=None):
     sub_b  = ('<span style="background:#78350f;color:#fbbf24;border:1px solid #f59e0b;'
               'border-radius:4px;padding:1px 6px;font-size:10px;font-weight:700;margin-left:5px">'
               '🔄 Peut ne pas démarrer</span>') if is_sub else ""
-    # Cote bookmaker reelle (anytime_scorer / assists) + multi-book si dispo
-    cote  = p.get("cote")
-    book  = p.get("book")
-    books_list = p.get("books") or []
-    BOOK_LABELS = {
-        "draftkings": "DK", "fanduel": "FD", "betmgm": "MGM", "caesars": "Caesars",
-        "pinnacle": "Pin", "unibet_eu": "Unibet", "unibet_uk": "UnibetUK",
-        "betfair_ex_eu": "Betfair", "marathonbet": "Marathon", "betclic": "Betclic", "bwin": "Bwin",
-    }
-    cote_html = ""
-    if cote:
-        book_label = BOOK_LABELS.get(book, (book or "").upper()[:8])
-        main = (f'<div style="background:#1e293b;color:#fb923c;border-radius:6px;padding:3px 8px;'
-                f'font-size:12px;font-weight:700;white-space:nowrap;text-align:right">'
-                f'<b>{book_label}</b> @ <b>{cote:.2f}</b></div>')
-        others = [b for b in books_list if b.get("book") != book][:3]
-        others_html = ""
-        if others:
-            rows = "".join(
-                f'<div style="display:flex;justify-content:flex-end;gap:6px;font-size:10px;color:#94a3b8;line-height:1.4">'
-                f'<span>{BOOK_LABELS.get(b["book"], b["book"][:8])}</span>'
-                f'<span style="color:#cbd5e1;font-weight:600">@ {b.get("cote", "?")}</span>'
-                f'</div>'
-                for b in others
-            )
-            others_html = f'<div style="margin-top:4px;border-top:1px solid #1e293b;padding-top:3px">{rows}</div>'
-        cote_html = main + others_html
+    # Badge cote inline a cote du label (meme style que les team picks)
+    cote_b = cote_badge(p.get("cote"))
     return (
         f'<div style="background:#162032;border-radius:8px;padding:12px 14px;'
         f'margin-bottom:8px;border-left:3px solid {color}">'
@@ -1430,16 +1405,14 @@ def build_player_pick(p, ai_analyses=None):
         f'<div style="display:flex;align-items:center;flex-wrap:wrap;gap:3px;margin-bottom:4px">'
         f'<span>{icon}</span>{pos_b}'
         f'<span style="color:{color};font-weight:600;font-size:14px">{p["label"]}</span>'
+        f'{cote_b}'
         f'<span style="color:#475569;font-size:12px;margin-left:4px">{type_}</span>'
         f'{sub_b}'
         f'</div>'
         f'<div style="color:#64748b;font-size:12px;line-height:1.55">{p["reasoning"].replace(chr(10), "<br>")}</div>'
         f'{ai_bl}'
         f'</div>'
-        f'<div style="display:flex;flex-direction:column;align-items:flex-end;gap:4px">'
         f'<div style="background:{color};color:#000;font-weight:bold;border-radius:16px;padding:3px 10px;font-size:13px">{c}%</div>'
-        f'{cote_html}'
-        f'</div>'
         f'</div>'
         f'</div>'
     )
