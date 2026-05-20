@@ -424,29 +424,28 @@ def player_props(player, ctx=None, real_lines=None, match_ctx=None):
         elif has_any_real:
             return  # bookmaker n'a pas ce prop pour ce joueur -> skip
         else:
-            # Mode heuristique : on genere 3 lignes autour de mu (mu_int-0.5,
-            # mu_int+0.5, mu_int+1.5). Le +1.5 est inclus car les bookmakers
-            # quotent souvent LEGEREMENT AU-DESSUS de mu pour balancer l'action
-            # sur les over (donc la ligne Betclic est souvent ~ mu_int+1.5).
-            # Distance max ligne<->mu = 1.5 -> respecte la regle "pick jouable
-            # sur Betclic a ±2 unites pres".
-            # PRA cas special : les bookmakers quotent par PAS DE 5
-            # (4.5, 9.5, 14.5, 19.5, ...). On snap sur la grille.
+            # Mode heuristique : SERRE max possible. On genere UNIQUEMENT
+            # les 2 lignes immediatement de part et d'autre de mu (mu_int +/- 0.5).
+            # Distance max ligne<->mu = 0.5. Si Betclic est a +/- 1 de mu
+            # (cas le plus courant), notre ligne sera a +/- 1.5 max de Betclic.
+            # PRA cas special : ladder step-5 (4.5, 9.5, 14.5...).
             if prop_key == "PRA":
                 ladder = [4.5, 9.5, 14.5, 19.5, 24.5, 29.5, 34.5, 39.5, 44.5, 49.5, 54.5]
-                # Garde uniquement les paliers a ±2.5 de mu (= moitie d'un pas
-                # de 5). Garantit que la ligne emise est celle que le bookmaker
-                # quote (le palier le + proche de mu). Tres souvent 1 seul.
-                lines_to_check = sorted([L for L in ladder if abs(L - mu) <= 2.5])
-                if not lines_to_check:
-                    # mu pile entre deux paliers (rare) : fallback au plus proche
-                    lines_to_check = [min(ladder, key=lambda L: abs(L - mu))]
+                # Garde UNIQUEMENT le palier le + proche de mu (1 ligne).
+                # Garantit le snap exact sur ce que Betclic quote.
+                closest = min(ladder, key=lambda L: abs(L - mu))
+                # Mais on n'emet le pick que si mu est a moins de 2.5 du palier.
+                # Sinon notre mu est trop loin de la grille bookmaker -> skip.
+                if abs(closest - mu) <= 2.5:
+                    lines_to_check = [closest]
+                else:
+                    lines_to_check = []
             else:
                 mu_int = int(round(mu))
-                lines_to_check = [mu_int - 0.5, mu_int + 0.5, mu_int + 1.5]
-                # Pour les props < 3 (3PM, AST tres faibles) : 1-2 lignes basses
-                if mu < 2:
-                    lines_to_check = [0.5, 1.5] if mu >= 1 else [0.5]
+                lines_to_check = [mu_int - 0.5, mu_int + 0.5]
+                # Pour mu tres faible (<2) : juste 0.5
+                if mu < 1.5:
+                    lines_to_check = [0.5]
             # Filtre lignes positives uniquement
             lines_to_check = [L for L in lines_to_check if L > 0]
 
