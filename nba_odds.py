@@ -41,7 +41,9 @@ CACHE_TTL = 24 * 3600   # 24h - les odds player props bougent peu une fois publi
 # ─── Key rotation state ──────────────────────────────────────────────────────
 # Persistance sur disque : on retient quelle cle a ete epuisee pour ne pas
 # retaper dessus a chaque run du jour.
-KEY_STATE_PATH = Path("data/odds_keys_state.json")
+# Prefixe dot pour ne PAS matcher le glob "data/*.json" du workflow CI
+# (sinon le cron force-add ce fichier malgre le .gitignore).
+KEY_STATE_PATH = Path("data/.odds_keys_state.json")
 
 
 def _key_hash(key):
