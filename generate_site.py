@@ -1709,6 +1709,47 @@ def build_nba_section(nba_picks_data):
     return meta + cards
 
 
+# ─── Filtre de date (commun foot + NBA history) ─────────────────────────────
+
+def _build_date_filter(dates, container_id, sport_label="picks"):
+    """
+    Genere un selecteur (dropdown + boutons periode) pour filtrer l'historique
+    par date. JS pure client-side qui toggle visibilite des <details data-date="...">.
+
+    Le container_id doit etre unique par section (foot vs nba).
+    """
+    if not dates: return ""
+    # Option de dropdown : toutes + chaque date
+    opts = ['<option value="all">📅 Toutes les dates</option>']
+    for d in dates:
+        try:
+            from datetime import datetime as _dt
+            dt = _dt.strptime(d, "%Y-%m-%d")
+            label = dt.strftime("%d/%m/%Y")
+        except Exception:
+            label = d
+        opts.append(f'<option value="{d}">{label}</option>')
+    options_html = "".join(opts)
+
+    return (
+        f'<div style="background:#0f172a;border-radius:10px;padding:12px 16px;margin-bottom:14px;'
+        f'display:flex;align-items:center;gap:10px;flex-wrap:wrap">'
+        f'<span style="color:#94a3b8;font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:1px">Filtrer :</span>'
+        # Boutons periode
+        f'<button onclick="filterHistory(\'{container_id}\',\'all\')" class="hist-btn" data-period="all" style="background:#3b82f6;color:#fff;border:none;border-radius:6px;padding:5px 12px;font-size:12px;font-weight:600;cursor:pointer">Tout</button>'
+        f'<button onclick="filterHistory(\'{container_id}\',\'1\')" class="hist-btn" data-period="1" style="background:#1e293b;color:#94a3b8;border:none;border-radius:6px;padding:5px 12px;font-size:12px;font-weight:600;cursor:pointer">Hier</button>'
+        f'<button onclick="filterHistory(\'{container_id}\',\'7\')" class="hist-btn" data-period="7" style="background:#1e293b;color:#94a3b8;border:none;border-radius:6px;padding:5px 12px;font-size:12px;font-weight:600;cursor:pointer">7 jours</button>'
+        f'<button onclick="filterHistory(\'{container_id}\',\'30\')" class="hist-btn" data-period="30" style="background:#1e293b;color:#94a3b8;border:none;border-radius:6px;padding:5px 12px;font-size:12px;font-weight:600;cursor:pointer">30 jours</button>'
+        # Dropdown date specifique
+        f'<select onchange="filterHistoryDate(\'{container_id}\',this.value)" '
+        f'style="background:#1e293b;color:#f1f5f9;border:1px solid #334155;border-radius:6px;padding:5px 10px;font-size:12px;cursor:pointer">'
+        f'{options_html}'
+        f'</select>'
+        f'<span style="color:#475569;font-size:11px;margin-left:auto">{len(dates)} jour(s) de {sport_label} archives</span>'
+        f'</div>'
+    )
+
+
 # ─── Historique Football ────────────────────────────────────────────────────
 
 def build_foot_history(history_data):
@@ -1756,7 +1797,7 @@ def build_foot_history(history_data):
     )
 
     date_html = ""
-    for date in dates[:30]:
+    for date in dates[:180]:  # 6 mois max (sinon la page devient lourde)
         day_picks = by_date[date]
         d_wins   = sum(1 for p in day_picks if p.get("result") == "WIN")
         d_losses = sum(1 for p in day_picks if p.get("result") == "LOSS")
@@ -1873,7 +1914,7 @@ def build_foot_history(history_data):
             date_fr = date
         pending_chip = f' · <span style="color:#fb923c">{d_pend} pending</span>' if d_pend else ""
         date_html += (
-            f'<details style="background:#0f172a;border-radius:10px;margin-bottom:10px;padding:0">'
+            f'<details data-date="{date}" style="background:#0f172a;border-radius:10px;margin-bottom:10px;padding:0">'
             f'<summary style="cursor:pointer;list-style:none;padding:14px 18px;display:flex;'
             f'justify-content:space-between;align-items:center;gap:10px">'
             f'<div>'
@@ -1887,7 +1928,9 @@ def build_foot_history(history_data):
             f'</details>'
         )
 
-    return summary + date_html
+    # Wrap dans un container avec id pour le filtre JS
+    filter_html = _build_date_filter(dates, "foothist-list", "foot")
+    return summary + filter_html + f'<div id="foothist-list">{date_html}</div>'
 
 
 # ─── Historique NBA ─────────────────────────────────────────────────────────
@@ -1952,7 +1995,7 @@ def build_nba_history(history_data):
 
     # Liste par date (collapsible)
     date_html = ""
-    for date in dates[:30]:  # max 30 dernieres dates
+    for date in dates[:180]:  # 6 mois max (sinon la page devient lourde)  # max 30 dernieres dates
         day_picks = by_date[date]
         d_wins   = sum(1 for p in day_picks if p.get("result") == "WIN")
         d_losses = sum(1 for p in day_picks if p.get("result") == "LOSS")
@@ -2147,7 +2190,7 @@ def build_nba_history(history_data):
 
         pending_chip = f' · <span style="color:#fb923c">{d_pend} pending</span>' if d_pend else ""
         date_html += (
-            f'<details style="background:#0f172a;border-radius:10px;margin-bottom:10px;padding:0">'
+            f'<details data-date="{date}" style="background:#0f172a;border-radius:10px;margin-bottom:10px;padding:0">'
             f'<summary style="cursor:pointer;list-style:none;padding:14px 18px;display:flex;'
             f'justify-content:space-between;align-items:center;gap:10px">'
             f'<div>'
@@ -2161,7 +2204,8 @@ def build_nba_history(history_data):
             f'</details>'
         )
 
-    return summary + date_html
+    filter_html = _build_date_filter(dates, "nbahist-list", "NBA")
+    return summary + filter_html + f'<div id="nbahist-list">{date_html}</div>'
 
 
 def build_html(matches, team_ai, player_ai, pstats_data, nba_picks=None, nba_history=None, foot_history=None):
@@ -2320,6 +2364,54 @@ function showSport(sport){{
   document.querySelectorAll('.sport-btn').forEach(b=>b.classList.remove('active'));
   var btn = document.getElementById('sport-btn-'+sport);
   if(btn) btn.classList.add('active');
+}}
+
+// ── Historique : filtrage par periode (boutons "Hier"/"7j"/"30j") ──
+function filterHistory(containerId, period){{
+  var container = document.getElementById(containerId);
+  if(!container) return;
+  var entries = container.querySelectorAll('details[data-date]');
+  var today = new Date(); today.setHours(0,0,0,0);
+  entries.forEach(function(el){{
+    var dStr = el.getAttribute('data-date');
+    if(period === 'all'){{ el.style.display = ''; return; }}
+    var dParts = dStr.split('-');
+    var dDate = new Date(parseInt(dParts[0]), parseInt(dParts[1])-1, parseInt(dParts[2]));
+    var diffDays = Math.floor((today - dDate) / (1000*60*60*24));
+    var n = parseInt(period);
+    el.style.display = (diffDays >= 0 && diffDays <= n) ? '' : 'none';
+  }});
+  // Met a jour les boutons actifs
+  // Container parent du filtre : on cherche le premier ancetre qui a des hist-btn
+  var section = container.previousElementSibling;
+  while(section && !section.querySelector){{ section = section.previousElementSibling; }}
+  if(section){{
+    var btns = section.querySelectorAll('button.hist-btn');
+    btns.forEach(function(b){{
+      var active = b.getAttribute('data-period') === period;
+      b.style.background = active ? '#3b82f6' : '#1e293b';
+      b.style.color = active ? '#fff' : '#94a3b8';
+    }});
+  }}
+}}
+
+// ── Historique : filtrage par date exacte (dropdown) ──
+function filterHistoryDate(containerId, dateValue){{
+  var container = document.getElementById(containerId);
+  if(!container) return;
+  var entries = container.querySelectorAll('details[data-date]');
+  entries.forEach(function(el){{
+    if(dateValue === 'all') {{ el.style.display = ''; return; }}
+    el.style.display = (el.getAttribute('data-date') === dateValue) ? '' : 'none';
+  }});
+  // Reset les boutons periode
+  var section = container.previousElementSibling;
+  while(section && !section.querySelector){{ section = section.previousElementSibling; }}
+  if(section){{
+    section.querySelectorAll('button.hist-btn').forEach(function(b){{
+      b.style.background = '#1e293b'; b.style.color = '#94a3b8';
+    }});
+  }}
 }}
 function showDay(id){{
   document.querySelectorAll('[id^="day"]').forEach(el=>el.style.display='none');
