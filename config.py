@@ -48,6 +48,12 @@ ODDS_API_BASE = "https://api.the-odds-api.com/v4"
 TELEGRAM_BOT_TOKEN = env_or("TELEGRAM_BOT_TOKEN")
 TELEGRAM_CHAT_ID   = env_or("TELEGRAM_CHAT_ID")
 
+# ─── RapidAPI - Tank01 Fantasy Stats (NBA injuries + DvP + projections) ─────
+# Free tier : 1000 req/mois. Cache agressif pour rester ~300/mois.
+RAPIDAPI_KEY    = env_or("RAPIDAPI_KEY")
+TANK01_API_HOST = "tank01-fantasy-stats.p.rapidapi.com"
+
+
 # ─── FotMob IDs ──────────────────────────────────────────────────────────────
 # league_id, season_id pour endpoint /stats/{lid}/season/{sid}/{stat}.json
 FOTMOB_LEAGUES = {

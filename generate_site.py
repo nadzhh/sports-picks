@@ -1562,6 +1562,15 @@ def build_nba_card(game):
                 f'⚠️ {rot_warning}'
                 f'</div>'
             )
+        # Warning blessure (Day-To-Day / Questionable - joueur peut ne pas jouer)
+        injury_warning = p.get("injury_warning", "")
+        if injury_warning:
+            rot_html += (
+                f'<div style="color:#fb923c;font-size:11px;font-weight:700;margin-top:3px;'
+                f'background:rgba(251,146,60,0.10);border-left:2px solid #fb923c;padding:3px 7px;border-radius:3px">'
+                f'🩹 Blessure : {injury_warning}'
+                f'</div>'
+            )
 
         # Argument defensif (faille/force de l'adversaire)
         def_argument = p.get("def_argument", "")

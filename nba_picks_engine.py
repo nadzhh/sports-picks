@@ -631,6 +631,41 @@ def analyze_match(match_data, odds_for_game=None, game_lines=None):
 
     home_picks = _filter_by_quality(home_picks)
     away_picks = _filter_by_quality(away_picks)
+
+    # ── Injury filter Tank01 (ne se declenche que si RAPIDAPI_KEY dispo) ──
+    # Pour chaque pick survivant, on check le statut blessure du joueur.
+    # - Out / Doubtful -> on DROP le pick (joueur ne joue pas)
+    # - Day-To-Day -> on flag injury_warning mais on garde
+    # API call par joueur unique (cache 12h Tank01), max ~10-20 calls/run.
+    try:
+        from nba_tank01 import is_player_out
+    except ImportError:
+        is_player_out = None
+
+    def _apply_injury_filter(picks):
+        if not is_player_out: return picks
+        out = []
+        checked = {}  # cache local par run : 1 call par joueur unique
+        for p in picks:
+            pname = p.get("player", "")
+            if not pname:
+                out.append(p); continue
+            if pname not in checked:
+                try:
+                    checked[pname] = is_player_out(pname)
+                except Exception:
+                    checked[pname] = (False, "", "")
+            is_out, status, ret_date = checked[pname]
+            if is_out:
+                print(f"  [INJURY OUT] skip pick {pname} ({status})")
+                continue
+            if status:  # Day-To-Day, Questionable etc.
+                p["injury_warning"] = f"{status}" + (f" (return {ret_date})" if ret_date else "")
+            out.append(p)
+        return out
+
+    home_picks = _apply_injury_filter(home_picks)
+    away_picks = _apply_injury_filter(away_picks)
     return home_picks, away_picks
 
 
