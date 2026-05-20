@@ -210,12 +210,13 @@ def _fetch_match_page(page_url, ttl=30 * 24 * 3600, force=False):
         return None
 
 
-def match_lineup(page_url, ttl=2 * 3600):
+def match_lineup(page_url, ttl=2 * 3600, force=False):
     """
     Recupere la lineup (11 probable + indisponibles) pour un match upcoming.
-    Cache 2h (donnees peuvent etre mises a jour avant le match).
+    Cache 2h par defaut (force=True pour bypass et avoir la derniere version,
+    utile pour la notif kickoff ou le lineup passe predicted -> standard).
     """
-    pp = _fetch_match_page(page_url, ttl=ttl)
+    pp = _fetch_match_page(page_url, ttl=ttl, force=force)
     if not pp:
         return None
     return pp.get("lineup")

@@ -38,13 +38,19 @@ except ImportError:
 NOTIF_LOG_FILE = Path("data/notif_log.json")
 
 # Fenetre de notification (en minutes avant kickoff)
-WINDOW_MIN_FROM = 15   # ne pas notifier si trop loin
-WINDOW_MIN_TO   = 60   # ne pas notifier si trop proche / passe
+# Le user veut attendre ~30 min avant kickoff pour avoir la compo OFFICIELLE
+# (probable XI -> officielle ~60 min avant). Fenetre 15-35 min cible bien ce moment.
+WINDOW_MIN_FROM = 15   # ne pas notifier si trop proche / passe
+WINDOW_MIN_TO   = 35   # ne pas notifier si trop loin
 
 # Seuils pour les alertes "high value" (immediat, hors fenetre kickoff)
 # Filtre commun : cote minimum 1.40 (les picks a @1.10 ne valent rien a parier
 # meme si la confiance est tres haute - mise inutile)
 HIGH_VALUE_MIN_COTE = 1.40
+# Pour la NBA : on alerte UNIQUEMENT sur les matchs jouables dans la nuit a venir
+# (ex: si on est le 19/05 a 12h, on alerte que les matchs jusqu'au 20/05 12h max,
+# pas les matchs du 21/05 qui sont 2 nuits plus loin).
+HIGH_VALUE_NBA_MAX_HOURS_AHEAD = 30
 
 HIGH_VALUE_NBA = {
     "confidence_min": 80,
@@ -187,27 +193,35 @@ def _upcoming_nba():
 
 def _refresh_lineup(page_url):
     """
-    Re-fetch la compo officielle FotMob 30min avant kickoff (force=True bypass cache).
-    Retourne dict {confirmed: bool, home_starters: [names], away_starters: [names],
-                    home_unavail: [], away_unavail: []}.
-    """
-    try:
-        from fotmob_client import match_lineup, _fetch_match_page_full
-    except ImportError:
-        return {"confirmed": False, "home_starters": [], "away_starters": [], "home_unavail": [], "away_unavail": []}
+    Re-fetch la compo FotMob (force=True bypass cache) au moment de la notif.
+    Compo type :
+      - 'standard' / 'confirmed' = OFFICIELLE (sortie ~60 min avant kickoff)
+      - 'predicted' = PROBABLE (XI suppose)
+    On veut envoyer la notif UNIQUEMENT quand confirmed - sinon on attend.
 
+    Retourne {confirmed, lineup_type, home_starters, away_starters,
+              home_unavail, away_unavail}.
+    """
+    empty = {"confirmed": False, "lineup_type": None, "home_starters": [],
+             "away_starters": [], "home_unavail": [], "away_unavail": []}
     try:
-        # On force le refresh pour la compo (cache 2h par defaut, on force pour avoir la derniere version)
-        page = _fetch_match_page_full(page_url) if False else None
-        ln = match_lineup(page_url)
+        from fotmob_client import match_lineup
+    except ImportError:
+        return empty
+    try:
+        # force=True : on veut TOUJOURS la derniere version (cache 30 min OK)
+        ln = match_lineup(page_url, ttl=30 * 60, force=True)
+    except TypeError:
+        # Fallback si signature sans force
+        try: ln = match_lineup(page_url)
+        except Exception: return empty
     except Exception as e:
         print(f"  [lineup err] {e}")
-        return {"confirmed": False, "home_starters": [], "away_starters": [], "home_unavail": [], "away_unavail": []}
-
+        return empty
     if not ln:
-        return {"confirmed": False, "home_starters": [], "away_starters": [], "home_unavail": [], "away_unavail": []}
+        return empty
 
-    # FotMob returns home/away with starters + bench + unavailable
+    lineup_type = (ln.get("type") or "").lower()
     home = ln.get("home", {}) or ln.get("homeLineup", {}) or {}
     away = ln.get("away", {}) or ln.get("awayLineup", {}) or {}
 
@@ -222,9 +236,13 @@ def _refresh_lineup(page_url):
     away_starters = _names(away.get("starters") or away.get("starting"))
     home_unavail  = _names(home.get("unavailable") or home.get("absent"))
     away_unavail  = _names(away.get("unavailable") or away.get("absent"))
-    confirmed = len(home_starters) >= 11 and len(away_starters) >= 11
+
+    # Compo officielle uniquement si FotMob indique 'standard' ou 'confirmed'
+    # (PAS de fallback "11 joueurs == confirme" car les predicted XI ont aussi 11 joueurs)
+    confirmed = lineup_type in ("standard", "confirmed") and len(home_starters) >= 11 and len(away_starters) >= 11
     return {
         "confirmed":     confirmed,
+        "lineup_type":   lineup_type or "unknown",
         "home_starters": home_starters,
         "away_starters": away_starters,
         "home_unavail":  home_unavail,
@@ -249,62 +267,113 @@ def _player_in_lineup(player_name, lineup, side):
 
 # ─── Format messages ─────────────────────────────────────────────────────────
 
+def _player_unavailable(player_name, lineup):
+    """Verifie si player est dans la liste des indisponibles (blessure / suspendu)."""
+    if not lineup: return False
+    unavail = (lineup.get("home_unavail", []) or []) + (lineup.get("away_unavail", []) or [])
+    if not unavail: return False
+    pl = player_name.lower().strip()
+    for s in unavail:
+        sl = s.lower().strip()
+        if pl == sl or pl in sl or sl in pl: return True
+        if pl.split()[-1] == sl.split()[-1]: return True
+    return False
+
+
 def _format_foot(match, kickoff, picks_data, lineup):
+    """
+    Format Telegram foot. Retourne None si :
+     - lineup non confirmee (on attend la prochaine notif)
+     - aucun pick a envoyer (cotes manquantes ou joueurs indispos)
+    """
     home = match.get("home", "?"); away = match.get("away", "?")
     league = match.get("league", "")
     mins = max(0, int((kickoff - datetime.now(tz=timezone.utc)).total_seconds() / 60))
     confirmed = (lineup or {}).get("confirmed", False)
-    status_line = "✅ <b>COMPO OFFICIELLE</b>" if confirmed else "⚠️ Compo probable (officielle pas encore publiée)"
+    if not confirmed:
+        print(f"  [skip foot {home} vs {away}] lineup_type={(lineup or {}).get('lineup_type')} - on attend la compo officielle")
+        return None
+
+    # ── PICKS ÉQUIPE (uniquement avec cote dispo) ──
+    team_picks = (picks_data or {}).get("picks", []) or []
+    team_rows = []
+    for p in team_picks[:8]:
+        cote = p.get("cote")
+        if not cote: continue  # skip picks sans cote (non betable)
+        label = p.get("label", "?")
+        conf = p.get("confidence", 0)
+        reasoning = (p.get("reasoning") or "").strip()
+        # Reasoning court : on prend juste la 1ere ligne (avant le \n) ou tronque a 130 chars
+        first_line = reasoning.split("\n")[0][:160] if reasoning else ""
+        cote_str = f" @ <b>{cote:.2f}</b>"
+        row = f"• <b>{label}</b> ({conf}%){cote_str}"
+        if first_line:
+            row += f"\n  <i>{first_line}</i>"
+        team_rows.append(row)
+
+    # ── PICKS JOUEUR (skip indispos, skip si pas titulaire) ──
+    player_picks = ((picks_data or {}).get("home_players", []) or []) + ((picks_data or {}).get("away_players", []) or [])
+    player_rows = []
+    for p in player_picks[:12]:
+        player = p.get("player", "?")
+        side = p.get("team", "")
+        # Skip si dans la liste des indispos (blesse/suspendu)
+        if _player_unavailable(player, lineup):
+            continue
+        in_xi = _player_in_lineup(player, lineup, side)
+        # On garde uniquement les titulaires (le filtre principal de qualite)
+        if in_xi is not True:
+            continue
+        label = p.get("label", "?")
+        conf = p.get("confidence", 0)
+        cote = p.get("cote")
+        cote_str = f" @ <b>{cote:.2f}</b>" if cote else ""
+        reasoning = (p.get("reasoning") or "").strip()
+        first_line = reasoning.split("\n")[0][:160] if reasoning else ""
+        row = f"✅ <b>{label}</b> ({conf}%){cote_str}"
+        if first_line:
+            row += f"\n  <i>{first_line}</i>"
+        player_rows.append(row)
+
+    # Si rien d'envoyable -> skip toute la notif
+    if not team_rows and not player_rows:
+        return None
 
     lines = [
         f"⚽ <b>{home}</b> vs <b>{away}</b>",
         f"🕐 Coup d'envoi dans <b>{mins} min</b> · {league}",
-        status_line,
+        f"✅ <b>COMPO OFFICIELLE</b>",
         "",
     ]
-
-    team_picks = (picks_data or {}).get("picks", []) or []
-    if team_picks:
+    if team_rows:
         lines.append("<b>━━ PICKS ÉQUIPE ━━</b>")
-        for p in team_picks[:6]:
-            label = p.get("label", "?")
-            conf = p.get("confidence", 0)
-            cote = p.get("cote")
-            cote_str = f"  @ <b>{cote:.2f}</b>" if cote else ""
-            lines.append(f"• {label} <b>({conf}%)</b>{cote_str}")
+        lines.extend(team_rows)
         lines.append("")
-
-    player_picks = ((picks_data or {}).get("home_players", []) or []) + ((picks_data or {}).get("away_players", []) or [])
-    if player_picks:
+    if player_rows:
         lines.append("<b>━━ PICKS JOUEUR ━━</b>")
-        for p in player_picks[:10]:
-            player = p.get("player", "?")
-            label = p.get("label", "?")
-            conf = p.get("confidence", 0)
-            side = p.get("team", "")  # "home" ou "away"
-            in_xi = _player_in_lineup(player, lineup, side)
-            if in_xi is True:    marker, note = "✅", " <i>titulaire</i>"
-            elif in_xi is False: marker, note = "⚠️", " <i>REMPLAÇANT</i>"
-            else:                marker, note = "·",  ""
-            lines.append(f"{marker} {label} <b>({conf}%)</b>{note}")
-
+        lines.extend(player_rows)
     return "\n".join(lines)
 
 
 def _format_nba(game, tipoff, picks_data):
+    """Format NBA. Retourne None si aucun pick a envoyer (evite messages vides)."""
     home = game.get("home", "?"); away = game.get("away", "?")
     mins = max(0, int((tipoff - datetime.now(tz=timezone.utc)).total_seconds() / 60))
+
+    home_picks = (picks_data or {}).get("home_picks", []) or []
+    away_picks = (picks_data or {}).get("away_picks", []) or []
+    # Skip rotation_warning (joueurs hors rotation) sur l'alerte Telegram
+    home_picks = [p for p in home_picks if not p.get("rotation_warning")]
+    away_picks = [p for p in away_picks if not p.get("rotation_warning")]
+    if not home_picks and not away_picks:
+        return None
+
     lines = [
         f"🏀 <b>{away}</b> @ <b>{home}</b>",
         f"🕐 Tip-off dans <b>{mins} min</b> · NBA",
         "",
     ]
-    if not picks_data:
-        lines.append("<i>Aucun pick disponible</i>")
-        return "\n".join(lines)
-
-    for team_label, picks in [(home, picks_data.get("home_picks", [])),
-                              (away, picks_data.get("away_picks", []))]:
+    for team_label, picks in [(home, home_picks), (away, away_picks)]:
         if not picks: continue
         lines.append(f"<b>━━ {team_label} ━━</b>")
         for p in picks:
@@ -463,11 +532,25 @@ def send_high_value_alerts():
     sent_ids = set(log.get("high_value_sent", []))
     new_count = 0
 
-    # ─── NBA picks ──────────────────────────────────────────────────────────
+    # ─── NBA picks (uniquement matchs <= 30h ahead) ────────────────────────
     try:
         nba = json.load(open("data/nba_picks.json", encoding="utf-8"))
+        now = datetime.now(tz=timezone.utc)
         for gid, game in nba.items():
-            date_part = (game.get("date") or "")[:10]
+            # Skip si match trop loin (eviter d'alerter sur matchs de demain+1)
+            game_date = game.get("date") or ""
+            try:
+                ko = datetime.fromisoformat(game_date.replace("Z", "+00:00"))
+                if ko.tzinfo is None: ko = ko.replace(tzinfo=timezone.utc)
+                hours_ahead = (ko - now).total_seconds() / 3600
+                if hours_ahead > HIGH_VALUE_NBA_MAX_HOURS_AHEAD:
+                    print(f"  [HV-NBA skip] {game.get('away_team')} @ {game.get('home_team')} dans {hours_ahead:.1f}h (>30h)")
+                    continue
+                if hours_ahead < 0:
+                    continue  # match passe
+            except Exception:
+                pass
+            date_part = game_date[:10]
             for pk in (game.get("home_picks", []) + game.get("away_picks", [])):
                 pid = f"nba_{date_part}_{gid}_{pk.get('player','?')}_{pk.get('prop','?')}_{pk.get('direction','?')}_{pk.get('line','?')}"
                 if pid in sent_ids: continue
@@ -552,6 +635,10 @@ def run_notifications():
         # Picks
         picks = _get_foot_picks(mid)
         text = _format_foot(match, ko, picks, lineup)
+        if text is None:
+            # Compo pas encore officielle OU rien d'envoyable - on attend la prochaine notif
+            # On NE marque PAS comme notified pour retenter au prochain cron
+            continue
         ok = tg_send(text)
         if ok:
             notified[key] = datetime.now(timezone.utc).isoformat()
@@ -568,6 +655,9 @@ def run_notifications():
             continue
         picks = _get_nba_picks(gid)
         text = _format_nba(game, tip, picks)
+        if text is None:
+            print(f"  [skip {game.get('away')} @ {game.get('home')}] aucun pick a notifier")
+            continue
         ok = tg_send(text)
         if ok:
             notified[key] = datetime.now(timezone.utc).isoformat()
