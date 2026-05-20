@@ -71,9 +71,9 @@
           "Value serrée",
           "#f59e0b"
         ],
-        "confidence": 77,
+        "confidence": 78,
         "edge": null,
-        "reasoning": "Aston Villa prend 6.3/m [pondere vs opp #7] · adv. concède 3.8/m → attendu ~5.3 (Aston Villa favori (#2 vs #7))",
+        "reasoning": "Aston Villa prend 6.4/m [pondere vs opp #7] · adv. concède 3.8/m → attendu ~5.3 (Aston Villa favori (#2 vs #7))",
         "stats": {
           "expected": 5.3
         }
@@ -82,40 +82,25 @@
     "home_players": [],
     "away_players": [
       {
-        "player": "Ollie Watkins",
+        "player": "Emiliano Buendía",
         "position": "F",
         "is_sub": false,
-        "type": "Buteur",
-        "label": "Ollie Watkins marque",
-        "team": "away",
-        "cote": 2.55,
-        "book": "pinnacle",
-        "books": [
-          {
-            "book": "pinnacle",
-            "cote": 2.55,
-            "side": "over"
-          },
-          {
-            "book": "draftkings",
-            "cote": 2.55,
-            "side": "over"
-          },
-          {
-            "book": "fanduel",
-            "cote": 2.3,
-            "side": "over"
-          }
-        ],
-        "confidence": 41,
-        "reasoning": "5G en 14 matchs (35.7%/match) · xG: 0.42/match",
+        "type": "Joueur décisif",
+        "label": "Emiliano Buendía but ou passe décisive",
+        "cote": null,
+        "book": null,
+        "books": [],
+        "confidence": 45,
+        "reasoning": "4 buts + 6 passes décisives en 14 matchs (71.4% de chance/match) · xG+xA: 0.45/match · défense correcte",
         "context": {
-          "weakness": 0.34
+          "weakness": 0.38
         },
         "stats": {
-          "goals": 5,
+          "goals": 4,
+          "assists": 6,
           "apps": 14
-        }
+        },
+        "team": "away"
       }
     ],
     "fun_picks": [],
