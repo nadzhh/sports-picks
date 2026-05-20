@@ -61,6 +61,10 @@ HIGH_VALUE_FOOT = {
     "confidence_min": 85,
 }
 
+# Throttle alertes HV : on collecte les picks pendant 1h, puis batch.
+# Permet de mettre le cron a 5 min pour data fresh sans spammer Telegram.
+HIGH_VALUE_THROTTLE_HOURS = 1
+
 
 # ─── Telegram API ────────────────────────────────────────────────────────────
 
@@ -523,7 +527,9 @@ def _format_hv_foot(pick, match):
 def send_high_value_alerts():
     """
     Scan tous les picks (NBA + foot), envoie une alerte Telegram pour CHAQUE
-    pick high-value pas encore notifie. Anti-doublon perpetuel via notif_log.
+    pick high-value pas encore notifie. Throttle : pas plus de 1 batch par
+    HIGH_VALUE_THROTTLE_HOURS (default 1h) pour permettre un cron toutes les
+    5 min sans spammer le mobile.
     """
     if not TELEGRAM_CHAT_ID:
         return
@@ -531,6 +537,19 @@ def send_high_value_alerts():
     log = _load_notif_log()
     sent_ids = set(log.get("high_value_sent", []))
     new_count = 0
+
+    # Throttle : check timestamp du dernier batch HV
+    last_batch = log.get("last_hv_batch_at")
+    if last_batch:
+        try:
+            last_dt = datetime.fromisoformat(last_batch)
+            if last_dt.tzinfo is None: last_dt = last_dt.replace(tzinfo=timezone.utc)
+            elapsed_h = (datetime.now(tz=timezone.utc) - last_dt).total_seconds() / 3600
+            if elapsed_h < HIGH_VALUE_THROTTLE_HOURS:
+                print(f"  [throttle HV] {elapsed_h:.2f}h depuis dernier batch (min {HIGH_VALUE_THROTTLE_HOURS}h) - on attend")
+                return
+        except Exception:
+            pass
 
     # ─── NBA picks (uniquement matchs <= 30h ahead) ────────────────────────
     try:
@@ -596,9 +615,13 @@ def send_high_value_alerts():
         print(f"  [hv-foot err] {e}")
 
     log["high_value_sent"] = sorted(sent_ids)
+    if new_count > 0:
+        # On marque le timestamp uniquement si on a effectivement envoye -> evite
+        # de bloquer le throttle inutilement si pas de pick HV ce run.
+        log["last_hv_batch_at"] = datetime.now(tz=timezone.utc).isoformat()
     _save_notif_log(log)
     if new_count:
-        print(f"[HV] {new_count} alerte(s) high-value envoyee(s)")
+        print(f"[HV] {new_count} alerte(s) high-value envoyee(s) - throttle {HIGH_VALUE_THROTTLE_HOURS}h activee")
     else:
         print(f"[HV] Aucune nouvelle alerte (deja {len(sent_ids)} pick(s) high-value envoyes au total)")
 
