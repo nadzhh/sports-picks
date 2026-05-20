@@ -1774,58 +1774,39 @@ def build_nba_card(game):
         edge = p.get("edge")
         is_real = p.get("is_real_line")
 
-        # Bloc cote a droite : badge principal = meilleur book/cote, puis liste autres books en dessous
-        BOOK_LABELS = {
-            "draftkings": "DK", "fanduel": "FD", "betmgm": "MGM", "caesars": "Caesars",
-            "pointsbetus": "PointsBet", "pinnacle": "Pin", "unibet_eu": "Unibet",
-            "unibet_uk": "UnibetUK", "betfair_ex_eu": "Betfair", "marathonbet": "Marathon",
-            "betclic": "Betclic", "bwin": "Bwin",
-        }
-        cote_html = ""
-        if real_cote:
-            book_label = BOOK_LABELS.get(book, (book or "").upper()[:8])
-            edge_color = "#22c55e" if (edge or 0) >= 5 else ("#84cc16" if (edge or 0) > 0 else "#94a3b8")
-            edge_text = f'<div style="color:{edge_color};font-size:11px;font-weight:700;text-align:right">{"+" if (edge or 0)>0 else ""}{edge}% edge</div>' if edge is not None else ""
-            # Badge principal : best book + cote + edge
-            main_badge = (
-                f'<div style="background:#1e293b;color:#fb923c;border-radius:6px;padding:3px 8px;font-size:12px;font-weight:700;white-space:nowrap;text-align:right">'
-                f'<b>{book_label}</b> @ <b>{real_cote}</b></div>'
-                f'{edge_text}'
+        # Cote inline a cote du label (meme style que les picks foot).
+        # On garde le badge `cote_badge` minimaliste. real_cote en priorite,
+        # sinon cote_min (heuristique).
+        cote_to_show = real_cote if real_cote else cote_min
+        cote_inline  = cote_badge(cote_to_show)
+        # Petit hint texte pour l'edge (utile pour value bets)
+        edge_hint = ""
+        if edge is not None and edge >= 3:
+            edge_hint = (
+                f'<span style="color:#22c55e;font-size:11px;font-weight:700;margin-left:6px">'
+                f'+{edge}% edge</span>'
             )
-            # Liste des autres books (skip celui du badge principal)
-            others = [b for b in books_list if b.get("book") != book][:5]
-            others_html = ""
-            if others:
-                rows = "".join(
-                    f'<div style="display:flex;justify-content:flex-end;gap:6px;font-size:10px;color:#94a3b8;line-height:1.4">'
-                    f'<span>{BOOK_LABELS.get(b["book"], b["book"][:8])}</span>'
-                    f'<span style="color:#cbd5e1;font-weight:600">@ {b["cote"]}</span>'
-                    f'</div>'
-                    for b in others
-                )
-                others_html = f'<div style="margin-top:4px;border-top:1px solid #1e293b;padding-top:3px">{rows}</div>'
-            cote_html = main_badge + others_html
-        elif cote_min:
-            cote_html = f'<span style="color:#94a3b8;font-size:11px">cote≥{cote_min}</span>'
         return (
             f'<div style="background:#0a1628;border-radius:8px;padding:10px 14px;margin-bottom:8px;'
             f'border-left:3px solid {conf_color}">'
             f'<div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:6px">'
             f'<div style="flex:1">'
-            f'<div style="color:#f1f5f9;font-weight:700;font-size:14px">{p.get("label","?")}{v_html}</div>'
+            f'<div style="display:flex;align-items:center;flex-wrap:wrap;gap:3px">'
+            f'<span style="color:#f1f5f9;font-weight:700;font-size:14px">{p.get("label","?")}</span>'
+            f'{cote_inline}'
+            f'{v_html}'
+            f'{edge_hint}'
+            f'</div>'
             f'{stats_html}'
             f'{hit_html}'
             f'{splits_html}'
             f'{def_html}'
             f'{ctx_html}'
             f'</div>'
-            f'<div style="display:flex;flex-direction:column;align-items:flex-end;gap:3px">'
-            f'<div style="display:flex;align-items:center">'
+            f'<div style="display:flex;align-items:center;gap:6px">'
             f'<span style="background:{conf_color};color:#0a1628;font-weight:800;border-radius:14px;padding:3px 10px;font-size:13px">{conf}%</span>'
             f'{stake_pill(p.get("stake_label"), p.get("kelly_pct"))}'
             f'{_push_button(_format_push_nba(p, game))}'
-            f'</div>'
-            f'{cote_html}'
             f'</div>'
             f'</div>'
             f'</div>'
