@@ -81,6 +81,53 @@ def player_conf_color(c):
     if c >= 50: return "#84cc16"
     return "#f59e0b"
 
+
+def hit_rate_color(pct):
+    """Traffic-light Outlier-style pour les hit rates L10/L20."""
+    if pct >= 80: return "#4ade80"   # vert vif
+    if pct >= 65: return "#22c55e"   # vert
+    if pct >= 51: return "#84cc16"   # vert-jaune
+    if pct >= 50: return "#94a3b8"   # neutre
+    if pct >= 30: return "#f59e0b"   # orange
+    if pct >= 15: return "#ef4444"   # rouge
+    return "#dc2626"                  # rouge fonce
+
+
+def stake_pill(stake_label, kelly_pct):
+    """Pastille Kelly sizing affichee pres de la cote."""
+    if not stake_label:
+        return ""
+    color = "#22c55e"
+    if "0.25" in stake_label or "0.5" in stake_label: color = "#94a3b8"
+    elif "1.5" in stake_label or "2" in stake_label:  color = "#4ade80"
+    title = f"Kelly fractional 1/4 - {kelly_pct} pct bankroll"
+    return (
+        f'<span title="{title}" '
+        f'style="background:{color};color:#fff;font-size:10px;font-weight:700;'
+        f'padding:2px 6px;border-radius:10px;margin-left:6px">{stake_label}</span>'
+    )
+
+
+def splits_chip(p):
+    """Affiche H2H + Venue stats (style Outlier) sous le pick."""
+    parts = []
+    if p.get("h2h_avg") is not None and (p.get("h2h_n") or 0) >= 3:
+        parts.append(
+            f'<span style="background:#1e293b;color:#94a3b8;font-size:11px;'
+            f'padding:2px 6px;border-radius:4px">vs {p.get("opp_abbr","?")} '
+            f'(n={p["h2h_n"]}): <b style="color:#e2e8f0">{p["h2h_avg"]}</b></span>'
+        )
+    if p.get("venue_avg") is not None and (p.get("venue_n") or 0) >= 5:
+        venue = p.get("venue", "")
+        icon = "🏠" if venue == "domicile" else "✈️"
+        parts.append(
+            f'<span style="background:#1e293b;color:#94a3b8;font-size:11px;'
+            f'padding:2px 6px;border-radius:4px">{icon} {venue} '
+            f'(n={p["venue_n"]}): <b style="color:#e2e8f0">{p["venue_avg"]}</b></span>'
+        )
+    if not parts: return ""
+    return f'<div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:4px">{"".join(parts)}</div>'
+
 def form_badges(results, details=None):
     html = ""
     for i, r in enumerate(results or []):
@@ -1530,8 +1577,8 @@ def build_nba_card(game):
         trend_icon  = p.get("trend_icon", "")
         hit_html = ""
         if hit_l10 and hit_l20:
-            c10 = "#22c55e" if hit_l10_pct >= 70 else ("#84cc16" if hit_l10_pct >= 50 else "#f59e0b")
-            c20 = "#22c55e" if hit_l20_pct >= 70 else ("#84cc16" if hit_l20_pct >= 50 else "#f59e0b")
+            c10 = hit_rate_color(hit_l10_pct)
+            c20 = hit_rate_color(hit_l20_pct)
             # Couleur du trend
             if   trend == "hot":  trend_color, trend_txt = "#22c55e", f"+{trend_delta:.0f}pp"
             elif trend == "cold": trend_color, trend_txt = "#ef4444", f"{trend_delta:.0f}pp"
@@ -1539,19 +1586,20 @@ def build_nba_card(game):
             trend_html = f'<span style="color:{trend_color};font-weight:700;margin-left:4px">{trend_icon} {trend_txt}</span>' if trend != "stable" else ""
             hit_html = (
                 f'<div style="font-size:11px;margin-top:3px;display:flex;gap:8px;align-items:center;flex-wrap:wrap">'
-                f'<span style="color:{c10};font-weight:600">L10 {hit_l10} ({hit_l10_pct}%)</span>'
-                f'<span style="color:#475569">·</span>'
-                f'<span style="color:{c20};font-weight:600">L20 {hit_l20} ({hit_l20_pct}%)</span>'
+                f'<span style="background:{c10};color:#fff;font-weight:700;padding:2px 6px;border-radius:4px">L10 {hit_l10} ({hit_l10_pct}%)</span>'
+                f'<span style="background:{c20};color:#fff;font-weight:700;padding:2px 6px;border-radius:4px">L20 {hit_l20} ({hit_l20_pct}%)</span>'
                 f'{trend_html}'
                 f'</div>'
             )
         elif hit_l10:
-            c10 = "#22c55e" if hit_l10_pct >= 70 else ("#84cc16" if hit_l10_pct >= 50 else "#f59e0b")
+            c10 = hit_rate_color(hit_l10_pct)
             hit_html = (
-                f'<div style="color:{c10};font-size:11px;font-weight:600;margin-top:3px">'
-                f'L10 {hit_l10} ({hit_l10_pct}%)'
-                f'</div>'
+                f'<div style="margin-top:3px"><span style="background:{c10};color:#fff;'
+                f'font-size:11px;font-weight:700;padding:2px 6px;border-radius:4px">'
+                f'L10 {hit_l10} ({hit_l10_pct}%)</span></div>'
             )
+        # Splits Outlier-style : H2H + Venue
+        splits_html = splits_chip(p)
         # Warning rotation reduite (joueur passe au bench - stats L10/L20 biaisees)
         rot_warning = p.get("rotation_warning", "")
         rot_html = ""
@@ -1653,11 +1701,15 @@ def build_nba_card(game):
             f'<div style="color:#f1f5f9;font-weight:700;font-size:14px">{p.get("label","?")}{v_html}</div>'
             f'{stats_html}'
             f'{hit_html}'
+            f'{splits_html}'
             f'{def_html}'
             f'{ctx_html}'
             f'</div>'
             f'<div style="display:flex;flex-direction:column;align-items:flex-end;gap:3px">'
+            f'<div style="display:flex;align-items:center">'
             f'<span style="background:{conf_color};color:#0a1628;font-weight:800;border-radius:14px;padding:3px 10px;font-size:13px">{conf}%</span>'
+            f'{stake_pill(p.get("stake_label"), p.get("kelly_pct"))}'
+            f'</div>'
             f'{cote_html}'
             f'</div>'
             f'</div>'
@@ -2064,16 +2116,16 @@ def build_nba_history(history_data):
                 pct10 = p.get("hit_l10_pct", 0); pct20 = p.get("hit_l20_pct", 0)
                 td = p.get("trend_delta", 0)
                 trend = p.get("trend", "stable"); trend_icon = p.get("trend_icon","")
-                c10 = "#22c55e" if pct10 >= 70 else ("#84cc16" if pct10 >= 50 else "#f59e0b")
-                c20 = "#22c55e" if pct20 >= 70 else ("#84cc16" if pct20 >= 50 else "#f59e0b")
+                c10 = hit_rate_color(pct10)
+                c20 = hit_rate_color(pct20)
                 if   trend == "hot":  tc, tt = "#22c55e", f"+{td:.0f}pp"
                 elif trend == "cold": tc, tt = "#ef4444", f"{td:.0f}pp"
                 else:                 tc, tt = "#94a3b8", ""
                 trend_chip = f'<span style="color:{tc};font-weight:700">{trend_icon}{tt}</span>' if trend != "stable" else ""
                 hit_html = (
                     f'<div style="font-size:12px;margin-top:3px;display:flex;gap:7px;flex-wrap:wrap;align-items:center;line-height:1.45">'
-                    f'<span style="color:{c10};font-weight:600">L10 {hit_l10} ({pct10}%)</span>'
-                    f'<span style="color:{c20};font-weight:600">L20 {hit_l20} ({pct20}%)</span>'
+                    f'<span style="background:{c10};color:#fff;font-weight:700;padding:2px 6px;border-radius:4px">L10 {hit_l10} ({pct10}%)</span>'
+                    f'<span style="background:{c20};color:#fff;font-weight:700;padding:2px 6px;border-radius:4px">L20 {hit_l20} ({pct20}%)</span>'
                     f'{trend_chip}'
                     f'</div>'
                 )

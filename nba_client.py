@@ -258,10 +258,15 @@ def player_gamelog(player_id, season="2025-26", season_type="Regular Season", tt
                 fga = 0
                 try: fga = float(fg_str.split("-")[-1]) if "-" in fg_str else 0
                 except Exception: fga = 0
+                opp_dict = meta.get("opponent") if isinstance(meta.get("opponent"), dict) else {}
+                at_vs = (meta.get("atVs") or "").lower()  # "vs" = home, "@" = away
+                is_home = at_vs == "vs"
                 out.append({
                     "GAME_ID":   evid,
                     "GAME_DATE": date_raw,
-                    "MATCHUP":   meta.get("opponent", {}).get("displayName", "") if isinstance(meta.get("opponent"), dict) else "",
+                    "MATCHUP":   opp_dict.get("displayName", ""),
+                    "OPP_ABBR":  opp_dict.get("abbreviation", ""),
+                    "IS_HOME":   is_home,
                     "WL":        meta.get("gameResult", ""),
                     "MIN":       _parse_split_stat(d.get("MIN", 0)),
                     "PTS":       _parse_split_stat(d.get("PTS", 0)),

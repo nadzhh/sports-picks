@@ -285,6 +285,13 @@ def player_props(player, ctx=None, real_lines=None, match_ctx=None):
     l10 = games[:10]
     l5  = games[:5]
 
+    # ─── H2H + Home/Away splits (style Outlier) ─────────────────────────────
+    # On separe les games en : vs CET adversaire, et a domicile/exterieur,
+    # pour affiner mu et offrir un signal supplementaire dans le reasoning.
+    opp_abbr_for_h2h = (match_ctx.get("away_abbr") if is_home else match_ctx.get("home_abbr")) or ""
+    h2h_games = [g for g in games if opp_abbr_for_h2h and g.get("opp", "").upper() == opp_abbr_for_h2h.upper()]
+    venue_games = [g for g in games if bool(g.get("is_home")) == is_home]
+
     def stats_for(extractor, season_value, prop_key=None):
         l5_vals  = [extractor(g) for g in l5]
         l10_vals = [extractor(g) for g in l10]
@@ -300,27 +307,67 @@ def player_props(player, ctx=None, real_lines=None, match_ctx=None):
         sigma = max(sigma, 0.5)  # floor absolu
 
         mu_base = _weighted_avg(l5_mean, l10_mean, season_value)
-        # Ajuste mu par les multiplicateurs contextuels
+
+        # ─── H2H + Venue adjustments (style Outlier) ────────────────────────
+        # On compute des moyennes sur sous-echantillons. Si echantillon assez
+        # grand on applique un ratio multiplicatif borne a ±10% sur mu, sinon
+        # on ne fait qu'exposer la stat dans le reasoning (display only).
+        h2h_vals   = [extractor(g) for g in h2h_games]
+        venue_vals = [extractor(g) for g in venue_games]
+        h2h_mean   = mean(h2h_vals)   if h2h_vals   else None
+        venue_mean = mean(venue_vals) if venue_vals else None
+        global_mean_for_ratio = l10_mean if l10_mean else mu_base
+
+        # Ajuste mu par les multiplicateurs contextuels (pace/vegas/def/B2B/blowout)
+        mu = mu_base
         if mu_base is not None and prop_key:
             mult, _ = _compute_multipliers(match_ctx, prop_key, is_home)
             mu = mu_base * mult
             # Sigma s'ajuste proportionnellement (variance scale avec volume)
             sigma = sigma * (0.5 + 0.5 * mult)  # damp un peu
-        else:
-            mu = mu_base
-        # Hit rate sur L20 brut (non-ajuste) pour blending
-        return mu, sigma, l5_mean, l10_mean, l20_vals
 
-    pts_mu, pts_sd, pts_l5, pts_l10, pts_vals  = stats_for(lambda g: g.get("PTS",0) or 0,  season.get("PTS"),  "PTS")
-    reb_mu, reb_sd, reb_l5, reb_l10, reb_vals  = stats_for(lambda g: g.get("REB",0) or 0,  season.get("REB"),  "REB")
-    ast_mu, ast_sd, ast_l5, ast_l10, ast_vals  = stats_for(lambda g: g.get("AST",0) or 0,  season.get("AST"),  "AST")
-    fg3_mu, fg3_sd, fg3_l5, fg3_l10, fg3_vals  = stats_for(lambda g: g.get("FG3M",0) or 0, season.get("FG3M"), "FG3M")
+        # Venue adjustment : si on a >=5 matchs au meme venue ET le venue_mean
+        # diverge >5% du global, applique un ratio borne a [0.93, 1.07].
+        if mu is not None and venue_mean is not None and global_mean_for_ratio:
+            if len(venue_vals) >= 5 and global_mean_for_ratio > 0:
+                ratio = venue_mean / global_mean_for_ratio
+                if abs(ratio - 1.0) > 0.05:
+                    ratio = max(0.93, min(1.07, ratio))
+                    mu = mu * ratio
+
+        # H2H adjustment : si on a >=3 matchs vs ce meme adversaire ET
+        # le h2h_mean diverge >10% du global, applique un ratio borne a [0.92, 1.08].
+        if mu is not None and h2h_mean is not None and global_mean_for_ratio:
+            if len(h2h_vals) >= 3 and global_mean_for_ratio > 0:
+                ratio = h2h_mean / global_mean_for_ratio
+                if abs(ratio - 1.0) > 0.10:
+                    ratio = max(0.92, min(1.08, ratio))
+                    mu = mu * ratio
+
+        # Hit rate sur L20 brut (non-ajuste) pour blending
+        return mu, sigma, l5_mean, l10_mean, l20_vals, h2h_mean, venue_mean, len(h2h_vals), len(venue_vals)
+
+    pts_mu, pts_sd, pts_l5, pts_l10, pts_vals, pts_h2h, pts_ven, pts_nh, pts_nv  = stats_for(lambda g: g.get("PTS",0) or 0,  season.get("PTS"),  "PTS")
+    reb_mu, reb_sd, reb_l5, reb_l10, reb_vals, reb_h2h, reb_ven, reb_nh, reb_nv  = stats_for(lambda g: g.get("REB",0) or 0,  season.get("REB"),  "REB")
+    ast_mu, ast_sd, ast_l5, ast_l10, ast_vals, ast_h2h, ast_ven, ast_nh, ast_nv  = stats_for(lambda g: g.get("AST",0) or 0,  season.get("AST"),  "AST")
+    fg3_mu, fg3_sd, fg3_l5, fg3_l10, fg3_vals, fg3_h2h, fg3_ven, fg3_nh, fg3_nv  = stats_for(lambda g: g.get("FG3M",0) or 0, season.get("FG3M"), "FG3M")
     pra_season = (season.get("PTS",0) or 0) + (season.get("REB",0) or 0) + (season.get("AST",0) or 0)
-    pra_mu, pra_sd, pra_l5, pra_l10, pra_vals = stats_for(_compose_pra, pra_season, "PRA")
+    pra_mu, pra_sd, pra_l5, pra_l10, pra_vals, pra_h2h, pra_ven, pra_nh, pra_nv = stats_for(_compose_pra, pra_season, "PRA")
     pr_season  = (season.get("PTS",0) or 0) + (season.get("REB",0) or 0)
-    pr_mu,  pr_sd,  pr_l5,  pr_l10,  pr_vals  = stats_for(_compose_pr,  pr_season,  "PR")
+    pr_mu,  pr_sd,  pr_l5,  pr_l10,  pr_vals,  pr_h2h,  pr_ven,  pr_nh,  pr_nv  = stats_for(_compose_pr,  pr_season,  "PR")
     pa_season  = (season.get("PTS",0) or 0) + (season.get("AST",0) or 0)
-    pa_mu,  pa_sd,  pa_l5,  pa_l10,  pa_vals  = stats_for(_compose_pa,  pa_season,  "PA")
+    pa_mu,  pa_sd,  pa_l5,  pa_l10,  pa_vals,  pa_h2h,  pa_ven,  pa_nh,  pa_nv  = stats_for(_compose_pa,  pa_season,  "PA")
+
+    # Lookup pour passer h2h/venue/n a gen_picks selon prop_key
+    SPLITS = {
+        "PTS":  (pts_h2h, pts_ven, pts_nh, pts_nv),
+        "REB":  (reb_h2h, reb_ven, reb_nh, reb_nv),
+        "AST":  (ast_h2h, ast_ven, ast_nh, ast_nv),
+        "FG3M": (fg3_h2h, fg3_ven, fg3_nh, fg3_nv),
+        "PRA":  (pra_h2h, pra_ven, pra_nh, pra_nv),
+        "PR":   (pr_h2h,  pr_ven,  pr_nh,  pr_nv),
+        "PA":   (pa_h2h,  pa_ven,  pa_nh,  pa_nv),
+    }
 
     candidates = []
 
@@ -461,6 +508,39 @@ def player_props(player, ctx=None, real_lines=None, match_ctx=None):
                             books_for_pick.append({"book": L["book"], "cote": L[direction]})
                     # Tri par cote decroissante (meilleure d'abord)
                     books_for_pick.sort(key=lambda b: b["cote"], reverse=True)
+                # H2H + Venue stats (style Outlier) pour ce prop
+                h2h_mean, venue_mean, n_h2h, n_ven = SPLITS.get(prop_key, (None, None, 0, 0))
+                split_parts = []
+                if n_h2h >= 3 and h2h_mean is not None:
+                    split_parts.append(f"H2H vs {opp_abbr_for_h2h} (n={n_h2h}) : {round(h2h_mean,1)}")
+                venue_label = "domicile" if is_home else "exterieur"
+                if n_ven >= 5 and venue_mean is not None:
+                    split_parts.append(f"{venue_label.capitalize()} (n={n_ven}) : {round(venue_mean,1)}")
+                splits_str = (" · " + " · ".join(split_parts)) if split_parts else ""
+
+                # Kelly Criterion : f* = (b*p - q)/b avec b = cote-1, p = prob, q = 1-p.
+                # Capped a 5% bankroll (fractional Kelly 1/4 pour reduire variance).
+                # Si pas de cote reelle, on utilise cote_min (fair value, donc f=0).
+                effective_cote = real_cote or cm
+                kelly_pct = None
+                stake_units = None
+                stake_label = None
+                if effective_cote and effective_cote > 1.0 and 0 < p_pct < 100:
+                    p_prob = p_pct / 100.0
+                    b = effective_cote - 1.0
+                    q = 1.0 - p_prob
+                    f_full = (b * p_prob - q) / b
+                    if f_full > 0:
+                        f_frac = f_full * 0.25       # fractional Kelly 1/4
+                        f_capped = min(f_frac, 0.05)  # max 5% bankroll
+                        kelly_pct = round(f_capped * 100, 2)
+                        # Bucketise en unites pour l'UI (1u = 1% bankroll par convention)
+                        if   kelly_pct >= 2.5: stake_units, stake_label = 2.0, "2u 💪"
+                        elif kelly_pct >= 1.5: stake_units, stake_label = 1.5, "1.5u"
+                        elif kelly_pct >= 0.8: stake_units, stake_label = 1.0, "1u"
+                        elif kelly_pct >= 0.3: stake_units, stake_label = 0.5, "0.5u"
+                        else:                  stake_units, stake_label = 0.25, "0.25u"
+
                 candidates.append({
                     "prop": prop_key,
                     "label": f"{name} {prefix} {line} {label_str}",
@@ -486,10 +566,21 @@ def player_props(player, ctx=None, real_lines=None, match_ctx=None):
                     "context": mult_bd,
                     "def_argument": def_argument,
                     "rotation_warning": rotation_warning,  # flag si joueur passe bench
+                    # H2H + Venue (style Outlier)
+                    "h2h_avg":  round(h2h_mean, 1)   if h2h_mean   is not None else None,
+                    "h2h_n":    n_h2h,
+                    "venue_avg": round(venue_mean, 1) if venue_mean is not None else None,
+                    "venue_n":  n_ven,
+                    "venue":    venue_label,
+                    "opp_abbr": opp_abbr_for_h2h,
+                    # Kelly sizing
+                    "kelly_pct":  kelly_pct,
+                    "stake_units": stake_units,
+                    "stake_label": stake_label,
                     "stats": {"mu": round(mu, 1), "sigma": round(sigma, 1),
                               "L5": round(l5_v or 0, 1), "L10": round(l10_v or 0, 1),
                               "Saison": round(season_v or 0, 1)},
-                    "reasoning": f"L5 {round(l5_v or 0,1)} · L10 {round(l10_v or 0,1)} · Saison {round(season_v or 0,1)} → attendu {round(mu,1)}{ctx_str}",
+                    "reasoning": f"L5 {round(l5_v or 0,1)} · L10 {round(l10_v or 0,1)} · Saison {round(season_v or 0,1)} → attendu {round(mu,1)}{ctx_str}{splits_str}",
                 })
 
     gen_picks("PTS",  "points",       pts_mu, pts_sd, BOOKMAKER_LINES["PTS"],  season.get("PTS"), pts_l5, pts_l10, pts_vals)
@@ -566,6 +657,8 @@ def analyze_match(match_data, odds_for_game=None, game_lines=None):
     base_ctx = {
         "home_team":       home_team,
         "away_team":       away_team,
+        "home_abbr":       match_data.get("home_abbr", ""),
+        "away_abbr":       match_data.get("away_abbr", ""),
         "home_pace":       match_data.get("home_pace"),
         "away_pace":       match_data.get("away_pace"),
         "league_avg_pace": match_data.get("league_avg_pace") or LEAGUE_AVG_PACE_DEFAULT,

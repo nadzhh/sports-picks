@@ -42,6 +42,15 @@
         },
         "def_argument": "Adversaire solide vs points (#29/30)",
         "rotation_warning": null,
+        "h2h_avg": null,
+        "h2h_n": 0,
+        "venue_avg": 14.8,
+        "venue_n": 20,
+        "venue": "exterieur",
+        "opp_abbr": "",
+        "kelly_pct": null,
+        "stake_units": null,
+        "stake_label": null,
         "stats": {
           "mu": 13.3,
           "sigma": 3.1,
@@ -49,7 +58,7 @@
           "L10": 14.8,
           "Saison": 16.4
         },
-        "reasoning": "L5 15.4 · L10 14.8 · Saison 16.4 → attendu 13.3 · pace×1.002 · vegas×0.925 · def×0.933",
+        "reasoning": "L5 15.4 · L10 14.8 · Saison 16.4 → attendu 13.3 · pace×1.002 · vegas×0.925 · def×0.933 · Exterieur (n=20) : 14.8",
         "player": "Devin Vassell",
         "team": "Spurs",
         "side": "away"
@@ -88,6 +97,15 @@
         },
         "def_argument": "Adversaire solide vs passes (#25/30)",
         "rotation_warning": null,
+        "h2h_avg": null,
+        "h2h_n": 0,
+        "venue_avg": 5.8,
+        "venue_n": 20,
+        "venue": "exterieur",
+        "opp_abbr": "",
+        "kelly_pct": null,
+        "stake_units": null,
+        "stake_label": null,
         "stats": {
           "mu": 5.0,
           "sigma": 2.0,
@@ -95,7 +113,7 @@
           "L10": 5.6,
           "Saison": 6.2
         },
-        "reasoning": "L5 4.8 · L10 5.6 · Saison 6.2 → attendu 5.0 · pace×1.002 · def×0.935",
+        "reasoning": "L5 4.8 · L10 5.6 · Saison 6.2 → attendu 5.0 · pace×1.002 · def×0.935 · Exterieur (n=20) : 5.8",
         "player": "De'Aaron Fox",
         "team": "Spurs",
         "side": "away",
@@ -110,6 +128,62 @@
     "date": "2026-05-22T00:00Z",
     "status": "5/21 - 8:00 PM EDT",
     "home_picks": [],
-    "away_picks": []
+    "away_picks": [
+      {
+        "prop": "AST",
+        "label": "Evan Mobley plus de 2.5 passes",
+        "line": 2.5,
+        "direction": "over",
+        "confidence": 78,
+        "cote_min": 1.29,
+        "real_cote": null,
+        "book": null,
+        "books": [],
+        "edge": null,
+        "is_real_line": false,
+        "value": [
+          "⚠️",
+          "Value serrée",
+          "#f59e0b"
+        ],
+        "hit_rate": "9/10",
+        "hit_pct": 90,
+        "hit_l10": "9/10",
+        "hit_l10_pct": 90,
+        "hit_l20": "16/20",
+        "hit_l20_pct": 80,
+        "trend": "hot",
+        "trend_delta": 10.0,
+        "trend_icon": "📈",
+        "context": {
+          "pace": 0.99,
+          "def": 0.935,
+          "def_rank": 26,
+          "def_stat": "passes"
+        },
+        "def_argument": "Adversaire solide vs passes (#26/30)",
+        "rotation_warning": null,
+        "h2h_avg": null,
+        "h2h_n": 0,
+        "venue_avg": 3.9,
+        "venue_n": 20,
+        "venue": "exterieur",
+        "opp_abbr": "",
+        "kelly_pct": 0.2,
+        "stake_units": 0.25,
+        "stake_label": "0.25u",
+        "stats": {
+          "mu": 3.8,
+          "sigma": 1.7,
+          "L5": 4.8,
+          "L10": 4.4,
+          "Saison": 3.6
+        },
+        "reasoning": "L5 4.8 · L10 4.4 · Saison 3.6 → attendu 3.8 · pace×0.99 · def×0.935 · Exterieur (n=20) : 3.9",
+        "player": "Evan Mobley",
+        "team": "Cavaliers",
+        "side": "away"
+      }
+    ]
   }
 }

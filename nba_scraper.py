@@ -57,20 +57,22 @@ def _player_summary(p_avg, l10_games, season=CURRENT_SEASON):
             d_iso = d_obj.strftime("%Y-%m-%d")
         except: d_iso = d_str
 
-        # Matchup parsing (e.g., "OKC @ LAL" or "OKC vs. LAL")
-        matchup = g.get("MATCHUP", "")
-        is_home = "vs." in matchup
-        # Opponent extraction
-        opp = ""
-        if "@" in matchup:
-            opp = matchup.split("@")[-1].strip()
-        elif "vs." in matchup:
-            opp = matchup.split("vs.")[-1].strip()
+        # ESPN gamelog expose IS_HOME et OPP_ABBR directement (cf nba_client.py).
+        # Fallback : parser MATCHUP si format ancien.
+        is_home = g.get("IS_HOME")
+        opp = g.get("OPP_ABBR") or ""
+        if is_home is None:
+            matchup = g.get("MATCHUP", "")
+            is_home = "vs." in matchup
+            if "@" in matchup:
+                opp = matchup.split("@")[-1].strip()
+            elif "vs." in matchup:
+                opp = matchup.split("vs.")[-1].strip()
 
         games.append({
             "date":   d_iso,
             "opp":    opp,
-            "is_home": is_home,
+            "is_home": bool(is_home),
             "result": g.get("WL", ""),
             "MIN":    g.get("MIN", 0),
             "PTS":    g.get("PTS", 0),
@@ -197,6 +199,8 @@ def main():
             "away_team":    g["away"],
             "home_id":      g["home_id"],
             "away_id":      g["away_id"],
+            "home_abbr":    g.get("home_tricode", ""),
+            "away_abbr":    g.get("away_tricode", ""),
             "home_players": home_players,
             "away_players": away_players,
             "home_pace":    home_ctx.get("pace", league_avg_pace),
