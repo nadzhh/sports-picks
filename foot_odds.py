@@ -63,8 +63,10 @@ MARKETS = {
 
 REGIONS = "us"   # seules region qui expose les player props soccer
 
-# Freshness pour skip le fetch si data fresh
-ODDS_REFRESH_MIN_AGE_SEC = 8 * 3600
+# Freshness 12h pour economiser le quota (aligne avec nba_odds).
+# 2 refresh/jour x ~17 credits = ~34/jour = ~1020/mois foot. Cumul avec NBA
+# ~1920/mois -> 3 cles Odds API recommandees pour la marge.
+ODDS_REFRESH_MIN_AGE_SEC = 12 * 3600
 
 OUTPUT_PATH = Path("data/foot_player_odds.json")
 
@@ -195,7 +197,8 @@ def run(force=False):
     if not force:
         age = _file_age_seconds(OUTPUT_PATH)
         if age is not None and age < ODDS_REFRESH_MIN_AGE_SEC:
-            print(f"=== Foot odds : skip (data a {int(age/60)} min, <8h) ===")
+            ttl_h = int(ODDS_REFRESH_MIN_AGE_SEC / 3600)
+            print(f"=== Foot odds : skip (data a {int(age/60)} min, <{ttl_h}h) ===")
             try:
                 return _strip_meta(json.loads(OUTPUT_PATH.read_text(encoding="utf-8")))
             except Exception:
