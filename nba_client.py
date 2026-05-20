@@ -297,10 +297,41 @@ def player_recent_form(player_id, season="2025-26", n=5):
     return games[:n]
 
 
+def _is_box_complete(summary):
+    """
+    Verifie que le match est REELLEMENT termine (state='post').
+    ESPN expose le state dans header.competitions[0].status.type.{state, completed}.
+    Si pre/in (avant match ou en cours), on ne cache PAS de stats partielles.
+    """
+    if not summary: return False
+    header = summary.get("header") or {}
+    comps = header.get("competitions") or []
+    if not comps: return False
+    status = (comps[0].get("status") or {}).get("type") or {}
+    state = status.get("state", "")
+    completed = status.get("completed")
+    if completed is True: return True
+    if state == "post": return True
+    return False
+
+
 def boxscore_traditional(game_id, ttl=14 * 24 * 3600, force=False):
-    """Compat: pour le resolver, retourne l'event summary ESPN."""
+    """
+    Compat: pour le resolver, retourne l'event summary ESPN.
+    Si le match n'est pas termine, on purge le cache et on force un refetch
+    a la prochaine resolution (evite de figer des stats partielles).
+    """
     url = f"{BASE_SITE}/summary?event={game_id}"
-    return _fetch(url, ttl=ttl, force=force)
+    data = _fetch(url, ttl=ttl, force=force)
+    # Garde-fou : si le match n'est pas termine, on PURGE le cache et on
+    # ne retourne pas les stats partielles (sinon resolver marque LOSS a tort).
+    if data and not _is_box_complete(data):
+        try:
+            path = _cache_path(url)
+            if path.exists(): path.unlink()
+        except Exception: pass
+        return None
+    return data
 
 
 def boxscore_players(game_id, force=False):

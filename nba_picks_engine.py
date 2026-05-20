@@ -54,9 +54,9 @@ MAX_PICKS_PER_PLAYER = 2
 # Filtre qualite : nombre de picks par equipe est VARIABLE selon la qualite des
 # signaux alignes. On garde tout ce qui passe le quality_score min, plus un
 # hard cap pour eviter le spam (10/equipe max).
-QUALITY_SCORE_MIN_WITH_ODDS    = 50   # avec odds reelles (edge calcule)
-QUALITY_SCORE_MIN_HEURISTIC    = 30   # sans odds (mode degrade)
-HARD_CAP_PER_TEAM = 10
+QUALITY_SCORE_MIN_WITH_ODDS    = 55   # avec odds reelles (edge calcule)
+QUALITY_SCORE_MIN_HEURISTIC    = 45   # sans odds (mode degrade)
+HARD_CAP_PER_TEAM = 5
 
 
 def _quality_score(p):
@@ -372,7 +372,19 @@ def player_props(player, ctx=None, real_lines=None, match_ctx=None):
         elif has_any_real:
             return  # bookmaker n'a pas ce prop pour ce joueur -> skip
         else:
-            lines_to_check = lines
+            # Mode heuristique : on genere des lignes AUTOUR de mu pour matcher
+            # les vraies lignes bookmaker (qui sont tjrs proches de l'attendu).
+            # Cason Wallace mu=9.3 PR -> lignes [7.5, 8.5, 9.5, 10.5, 11.5]
+            # au lieu de la fixed list BOOKMAKER_LINES qui partait de 12.5.
+            mu_int = int(round(mu))
+            # Increment 0.5 standard bookmaker, range ±2 autour de mu
+            lines_to_check = [mu_int - 1.5, mu_int - 0.5, mu_int + 0.5, mu_int + 1.5]
+            # Pour les props < 5 (ex 3PM, AST faibles), on garde une plage plus
+            # serree mais on inclut 0.5 si pertinent (ex: 0.5 3PM = "marque au moins 1")
+            if mu < 3:
+                lines_to_check = [0.5, 1.5, 2.5] if mu >= 1 else [0.5]
+            # Filtre lignes positives uniquement
+            lines_to_check = [L for L in lines_to_check if L > 0]
 
         for line in lines_to_check:
             p_over_pct = round((1 - _normal_cdf(line, mu, sigma)) * 100, 1)
