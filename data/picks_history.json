@@ -601,9 +601,9 @@
       "matchup": "Freiburg vs Aston Villa",
       "league": "Europa League",
       "category": "team",
-      "result": "PENDING",
-      "actual": null,
-      "resolved_at": null
+      "result": "LOSS",
+      "actual": "0-3",
+      "resolved_at": "2026-05-20 21:00"
     },
     {
       "direction": "away_win",
@@ -628,9 +628,9 @@
       "matchup": "Freiburg vs Aston Villa",
       "league": "Europa League",
       "category": "team",
-      "result": "PENDING",
-      "actual": null,
-      "resolved_at": null
+      "result": "WIN",
+      "actual": "0-3",
+      "resolved_at": "2026-05-20 21:00"
     },
     {
       "direction": "home_win",
@@ -655,9 +655,9 @@
       "matchup": "Freiburg vs Aston Villa",
       "league": "Europa League",
       "category": "team",
-      "result": "PENDING",
-      "actual": null,
-      "resolved_at": null
+      "result": "LOSS",
+      "actual": "0-3",
+      "resolved_at": "2026-05-20 21:00"
     },
     {
       "direction": "shots_under_28.5",
@@ -681,9 +681,9 @@
       "matchup": "Freiburg vs Aston Villa",
       "league": "Europa League",
       "category": "team",
-      "result": "PENDING",
-      "actual": null,
-      "resolved_at": null
+      "result": "WIN",
+      "actual": "21 tirs",
+      "resolved_at": "2026-05-20 21:00"
     },
     {
       "direction": "tirs_cadrés_(aston_villa)_over_3.5",
@@ -708,9 +708,9 @@
       "matchup": "Freiburg vs Aston Villa",
       "league": "Europa League",
       "category": "team",
-      "result": "PENDING",
-      "actual": null,
-      "resolved_at": null
+      "result": "WIN",
+      "actual": "6 tirs cadrés (Aston Villa)",
+      "resolved_at": "2026-05-20 21:00"
     },
     {
       "player": "Vincenzo Grifo",
@@ -737,9 +737,12 @@
       "league": "Europa League",
       "category": "player",
       "side": "home",
-      "result": "PENDING",
-      "actual": null,
-      "resolved_at": null
+      "result": "LOSS",
+      "actual": {
+        "goals": 0,
+        "assists": 0
+      },
+      "resolved_at": "2026-05-20 21:00"
     },
     {
       "player": "Ollie Watkins",
@@ -767,9 +770,12 @@
       "league": "Europa League",
       "category": "player",
       "side": "away",
-      "result": "PENDING",
-      "actual": null,
-      "resolved_at": null
+      "result": "LOSS",
+      "actual": {
+        "goals": 0,
+        "assists": 0
+      },
+      "resolved_at": "2026-05-20 21:00"
     },
     {
       "player": "Emiliano Buendía",
@@ -796,9 +802,12 @@
       "league": "Europa League",
       "category": "player",
       "side": "away",
-      "result": "PENDING",
-      "actual": null,
-      "resolved_at": null
+      "result": "WIN",
+      "actual": {
+        "goals": 1,
+        "assists": 1
+      },
+      "resolved_at": "2026-05-20 21:00"
     },
     {
       "direction": "btts_yes",
@@ -1209,6 +1218,61 @@
         "assists": 0
       },
       "resolved_at": "2026-05-19 21:30"
+    },
+    {
+      "direction": "shots_over_19.5",
+      "type": "Tirs (total match)",
+      "label": "Plus de 19.5 tirs total",
+      "cote": null,
+      "cote_min": 1.25,
+      "value": [
+        "⚠️",
+        "Value serrée",
+        "#f59e0b"
+      ],
+      "confidence": 80,
+      "reasoning": "📊 Brut : Freiburg L10 14.3 (L5 10.7) tirs/m · Aston Villa L10 12.7 (L5 16.0) tirs/m\n🛡️ Défenses : Freiburg concède 12.0/m · Aston Villa concède 8.2/m\n🎯 Attendu : Freiburg ~10.0 · Aston Villa ~13.7 → total ~23.6\n⚖️ Aston Villa favori (#2 vs #7) · Freiburg forme : W-L-W-W-W · Aston Villa forme : W-L-W-W-W",
+      "stats": {
+        "expected_total": 23.6
+      },
+      "id": "2026-05-20_5206177_team_shots_over_19.5",
+      "date": "2026-05-20",
+      "match_id": "5206177",
+      "page_url": "/matches/freiburg-vs-aston-villa/2v3xep#5206177",
+      "matchup": "Freiburg vs Aston Villa",
+      "league": "Europa League",
+      "category": "team",
+      "result": "PENDING",
+      "actual": null,
+      "resolved_at": null
+    },
+    {
+      "direction": "tirs_(freiburg)_under_12.5",
+      "type": "Tirs (Freiburg)",
+      "label": "Moins de 12.5 tirs Freiburg",
+      "cote": null,
+      "cote_min": 1.26,
+      "value": [
+        "⚠️",
+        "Value serrée",
+        "#f59e0b"
+      ],
+      "confidence": 80,
+      "edge": null,
+      "reasoning": "Freiburg prend 13.0/m [pondere vs opp #2] · adv. concède 8.2/m → attendu ~10.0 (Aston Villa favori (#2 vs #7))",
+      "stats": {
+        "expected": 10.0
+      },
+      "id": "2026-05-20_5206177_team_tirs_(freiburg)_under_12.5",
+      "date": "2026-05-20",
+      "match_id": "5206177",
+      "page_url": "/matches/freiburg-vs-aston-villa/2v3xep#5206177",
+      "matchup": "Freiburg vs Aston Villa",
+      "league": "Europa League",
+      "category": "team",
+      "result": "PENDING",
+      "actual": null,
+      "resolved_at": null
     }
   ]
 }

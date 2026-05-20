@@ -44,9 +44,9 @@
         "is_fun": false
       },
       {
-        "direction": "shots_under_28.5",
+        "direction": "shots_over_19.5",
         "type": "Tirs (total match)",
-        "label": "Moins de 28.5 tirs total",
+        "label": "Plus de 19.5 tirs total",
         "cote": null,
         "cote_min": 1.25,
         "value": [
@@ -55,52 +55,67 @@
           "#f59e0b"
         ],
         "confidence": 80,
-        "reasoning": "📊 Brut : Freiburg L10 15.1 (L5 14.3) tirs/m · Aston Villa L10 13.0 (L5 13.0) tirs/m\n🛡️ Défenses : Freiburg concède 10.8/m · Aston Villa concède 9.2/m\n🎯 Attendu : Freiburg ~11.7 · Aston Villa ~12.8 → total ~24.4\n⚖️ Aston Villa favori (#2 vs #7) · Freiburg forme : W-L-W-W-W · Aston Villa forme : W-L-W-W-W",
+        "reasoning": "📊 Brut : Freiburg L10 14.3 (L5 10.7) tirs/m · Aston Villa L10 12.7 (L5 16.0) tirs/m\n🛡️ Défenses : Freiburg concède 12.0/m · Aston Villa concède 8.2/m\n🎯 Attendu : Freiburg ~10.0 · Aston Villa ~13.7 → total ~23.6\n⚖️ Aston Villa favori (#2 vs #7) · Freiburg forme : W-L-W-W-W · Aston Villa forme : W-L-W-W-W",
         "stats": {
-          "expected_total": 24.4
+          "expected_total": 23.6
         }
       },
       {
-        "direction": "tirs_cadrés_(aston_villa)_over_3.5",
-        "type": "Tirs cadrés (Aston Villa)",
-        "label": "Plus de 3.5 tirs cadrés Aston Villa",
+        "direction": "tirs_(freiburg)_under_12.5",
+        "type": "Tirs (Freiburg)",
+        "label": "Moins de 12.5 tirs Freiburg",
         "cote": null,
-        "cote_min": 1.29,
+        "cote_min": 1.26,
         "value": [
           "⚠️",
           "Value serrée",
           "#f59e0b"
         ],
-        "confidence": 78,
+        "confidence": 80,
         "edge": null,
-        "reasoning": "Aston Villa prend 6.4/m [pondere vs opp #7] · adv. concède 3.8/m → attendu ~5.3 (Aston Villa favori (#2 vs #7))",
+        "reasoning": "Freiburg prend 13.0/m [pondere vs opp #2] · adv. concède 8.2/m → attendu ~10.0 (Aston Villa favori (#2 vs #7))",
         "stats": {
-          "expected": 5.3
+          "expected": 10.0
         }
       }
     ],
     "home_players": [],
     "away_players": [
       {
-        "player": "Emiliano Buendía",
+        "player": "Ollie Watkins",
         "position": "F",
         "is_sub": false,
-        "type": "Joueur décisif",
-        "label": "Emiliano Buendía but ou passe décisive",
-        "cote": null,
-        "book": null,
-        "books": [],
-        "confidence": 45,
-        "reasoning": "4 buts + 6 passes décisives en 14 matchs (71.4% de chance/match) · xG+xA: 0.45/match · défense correcte",
+        "type": "Buteur",
+        "label": "Ollie Watkins marque",
+        "team": "away",
+        "cote": 2.55,
+        "book": "pinnacle",
+        "books": [
+          {
+            "book": "pinnacle",
+            "cote": 2.55,
+            "side": "over"
+          },
+          {
+            "book": "draftkings",
+            "cote": 2.55,
+            "side": "over"
+          },
+          {
+            "book": "fanduel",
+            "cote": 2.3,
+            "side": "over"
+          }
+        ],
+        "confidence": 39,
+        "reasoning": "5G en 15 matchs (33.3%/match) · xG: 0.39/match",
         "context": {
-          "weakness": 0.38
+          "weakness": 0.34
         },
         "stats": {
-          "goals": 4,
-          "assists": 6,
-          "apps": 14
-        },
-        "team": "away"
+          "goals": 5,
+          "apps": 15
+        }
       }
     ],
     "fun_picks": [],
