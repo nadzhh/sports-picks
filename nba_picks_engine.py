@@ -61,7 +61,7 @@ QUALITY_SCORE_MIN_WITH_ODDS    = 60   # avec odds reelles (edge calcule)
 # les conf sont naturellement plus basses (55-72%). 30 = juste assez restrictif
 # sans tuer les picks playable.
 QUALITY_SCORE_MIN_HEURISTIC    = 30   # sans odds (mode degrade)
-HARD_CAP_PER_TEAM = 3                 # ~6 picks/game max (au lieu de 10)
+HARD_CAP_PER_TEAM = 5                 # ~10 picks/game max - meilleure couverture
 
 
 def _quality_score(p):
