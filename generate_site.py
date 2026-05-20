@@ -1755,6 +1755,24 @@ def build_nba_card(game):
                 f'🩹 Blessure : {injury_warning}'
                 f'</div>'
             )
+        # Warning "last game MIN crash" : dernier match temps de jeu reduit
+        last_min_warning = p.get("last_min_warning", "")
+        if last_min_warning:
+            rot_html += (
+                f'<div style="color:#fbbf24;font-size:11px;font-weight:700;margin-top:3px;'
+                f'background:rgba(251,191,36,0.10);border-left:2px solid #fbbf24;padding:3px 7px;border-radius:3px">'
+                f'⏱️ {last_min_warning}'
+                f'</div>'
+            )
+        # Warning divergence book : le bookmaker quote tres en-dessous de notre mu
+        book_div_warning = p.get("book_divergence_warning", "")
+        if book_div_warning:
+            rot_html += (
+                f'<div style="color:#a78bfa;font-size:11px;font-weight:700;margin-top:3px;'
+                f'background:rgba(167,139,250,0.10);border-left:2px solid #a78bfa;padding:3px 7px;border-radius:3px">'
+                f'🤔 {book_div_warning}'
+                f'</div>'
+            )
 
         # Argument defensif (faille/force de l'adversaire)
         def_argument = p.get("def_argument", "")
@@ -1824,6 +1842,7 @@ def build_nba_card(game):
             f'{stats_html}'
             f'{hit_html}'
             f'{splits_html}'
+            f'{rot_html}'
             f'{def_html}'
             f'{ctx_html}'
             f'</div>'

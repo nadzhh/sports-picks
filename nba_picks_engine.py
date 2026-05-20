@@ -274,6 +274,22 @@ def player_props(player, ctx=None, real_lines=None, match_ctx=None):
             f"(derniers 5 : {'/'.join(str(m) for m in recent_mins)} min)"
         )
 
+    # ─── Detection "last game MIN crash" (cas Hartenstein) ──────────────────
+    # Si le dernier match le joueur a joue < 50% de la mediane des 4 matchs
+    # precedents, on flag : ca peut etre une rotation evolutive (peut continuer
+    # ou non - on ne presage pas, on signale). Pas un blocant pour le pick,
+    # juste un avertissement visuel.
+    last_min_warning = None
+    if len(last10_raw) >= 5:
+        last_min = (last10_raw[0].get("MIN") or 0)
+        prev_mins = sorted((g.get("MIN") or 0) for g in last10_raw[1:5])
+        median_prev = prev_mins[len(prev_mins)//2] if prev_mins else 0
+        if last_min > 0 and median_prev > 0 and last_min < 0.5 * median_prev:
+            last_min_warning = (
+                f"Dernier match {int(last_min)} min (vs mediane {int(median_prev)} "
+                f"des 4 precedents) - attention au temps de jeu du match a venir"
+            )
+
     # ─── Filtre minimum : seulement les VRAIS DNP (MIN=0, blesse/scratch) ──
     # On garde TOUS les autres matchs (bench, garbage, etc.) pour avoir un L10/L20
     # honnete representant la production actuelle du joueur.
@@ -566,6 +582,25 @@ def player_props(player, ctx=None, real_lines=None, match_ctx=None):
                         elif kelly_pct >= 0.3: stake_units, stake_label = 0.5, "0.5u"
                         else:                  stake_units, stake_label = 0.25, "0.25u"
 
+                # Detection book divergence : si le book quote une ligne << notre mu
+                # (ex Hartenstein book=4.5, notre mu=9.3 -> ratio 2.07), c'est suspect.
+                # On flag SANS filtrer (le user decide). Seuil 1.5x.
+                book_divergence_warning = None
+                if use_real and real and mu and real.get("line"):
+                    book_line = real["line"]
+                    if direction == "over" and mu > book_line * 1.5:
+                        ratio = round(mu / book_line, 2)
+                        book_divergence_warning = (
+                            f"Book quote ligne {book_line} alors qu'on estime mu={round(mu,1)} "
+                            f"(divergence x{ratio}) - le bookmaker peut avoir vu un changement (rotation/blessure)"
+                        )
+                    elif direction == "under" and mu < book_line * 0.67:
+                        ratio = round(book_line / mu, 2) if mu > 0 else 0
+                        book_divergence_warning = (
+                            f"Book quote ligne {book_line} alors qu'on estime mu={round(mu,1)} "
+                            f"(divergence x{ratio}) - cote sous-estimee suspecte"
+                        )
+
                 candidates.append({
                     "prop": prop_key,
                     "label": f"{name} {prefix} {line} {label_str}",
@@ -591,6 +626,8 @@ def player_props(player, ctx=None, real_lines=None, match_ctx=None):
                     "context": mult_bd,
                     "def_argument": def_argument,
                     "rotation_warning": rotation_warning,  # flag si joueur passe bench
+                    "last_min_warning": last_min_warning,  # dernier match MIN<<mediane
+                    "book_divergence_warning": book_divergence_warning,  # book line << notre mu
                     # H2H + Venue (style Outlier)
                     "h2h_avg":  round(h2h_mean, 1)   if h2h_mean   is not None else None,
                     "h2h_n":    n_h2h,
