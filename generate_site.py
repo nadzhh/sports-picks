@@ -108,22 +108,31 @@ def stake_pill(stake_label, kelly_pct):
     )
 
 
+_PROP_UNIT = {"PTS":"pts", "REB":"reb", "AST":"ast", "FG3M":"3PM",
+              "PRA":"PRA", "PR":"pts+reb", "PA":"pts+ast"}
+
 def splits_chip(p):
-    """Affiche H2H + Venue stats (style Outlier) sous le pick."""
+    """Affiche H2H + Venue stats (style Outlier) avec label explicite."""
     parts = []
+    unit = _PROP_UNIT.get(p.get("prop", ""), "")
     if p.get("h2h_avg") is not None and (p.get("h2h_n") or 0) >= 3:
+        opp = p.get("opp_abbr", "?")
         parts.append(
-            f'<span style="background:#1e293b;color:#94a3b8;font-size:11px;'
-            f'padding:2px 6px;border-radius:4px">vs {p.get("opp_abbr","?")} '
-            f'(n={p["h2h_n"]}): <b style="color:#e2e8f0">{p["h2h_avg"]}</b></span>'
+            f'<span title="Moyenne du joueur sur ses {p["h2h_n"]} derniers matchs '
+            f'face a cette equipe ({opp})" style="background:#1e293b;color:#94a3b8;'
+            f'font-size:11px;padding:2px 6px;border-radius:4px">'
+            f'Moy. vs {opp} ({p["h2h_n"]} matchs) : <b style="color:#e2e8f0">{p["h2h_avg"]} {unit}</b></span>'
         )
     if p.get("venue_avg") is not None and (p.get("venue_n") or 0) >= 5:
         venue = p.get("venue", "")
         icon = "🏠" if venue == "domicile" else "✈️"
+        venue_label = "a domicile" if venue == "domicile" else "a l'exterieur"
         parts.append(
-            f'<span style="background:#1e293b;color:#94a3b8;font-size:11px;'
-            f'padding:2px 6px;border-radius:4px">{icon} {venue} '
-            f'(n={p["venue_n"]}): <b style="color:#e2e8f0">{p["venue_avg"]}</b></span>'
+            f'<span title="Moyenne du joueur sur ses {p["venue_n"]} derniers matchs '
+            f'joues {venue_label}" style="background:#1e293b;color:#94a3b8;font-size:11px;'
+            f'padding:2px 6px;border-radius:4px">'
+            f'{icon} Moy. {venue_label} ({p["venue_n"]} matchs) : '
+            f'<b style="color:#e2e8f0">{p["venue_avg"]} {unit}</b></span>'
         )
     if not parts: return ""
     return f'<div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:4px">{"".join(parts)}</div>'

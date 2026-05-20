@@ -258,10 +258,22 @@ def _get(url_with_placeholder, use_cache=True):
 
 
 def list_events():
-    """Liste des matchs NBA upcoming. Pas de cache (toujours frais)."""
+    """Liste des matchs NBA upcoming. Cache 4h pour economiser le quota :
+    les events publies bougent peu une fois en place. Le cron tourne souvent
+    (10-15 min) donc sans cache on bruleait 144 calls/jour = quota mort en
+    3 jours. Avec cache 4h : 6 calls/jour = 180/mois (sur 500)."""
     if not ODDS_API_KEYS: return []
     url = f"{ODDS_API_BASE}/sports/basketball_nba/events?apiKey={{APIKEY}}"
-    data, hdr = _get(url, use_cache=False)
+    cache_path = _cache_path(url)
+    cached = _cache_get(cache_path, ttl=4 * 3600)
+    if cached is not None:
+        return cached["data"] or []
+    # Cache expire/absent : force refetch (supprime l'ancien fichier pour
+    # eviter que _get hit le cache 24h existant)
+    if cache_path.exists():
+        try: cache_path.unlink()
+        except Exception: pass
+    data, hdr = _get(url, use_cache=True)
     remaining = hdr.get("x-requests-remaining") or hdr.get("X-Requests-Remaining")
     if remaining:
         print(f"  [odds-api] requetes restantes sur la cle active : {remaining}")
