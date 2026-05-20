@@ -131,15 +131,15 @@ def _update_key_remaining(key, remaining):
     state[h] = info
     _save_key_state(state)
 
-# Markets supportes par Odds API (NBA)
+# Markets supportes par Odds API (NBA).
+# On garde uniquement les 4 props elementaires - les combos PRA/PR/PA sont
+# generes en HEURISTIQUE par picks_engine (snap step-5 pour PRA). Reduit le
+# cout d'1 event_props de 7 credits a 4 credits (-43% sur le quota NBA).
 MARKETS = {
-    "player_points":                  "PTS",
-    "player_rebounds":                "REB",
-    "player_assists":                 "AST",
-    "player_threes":                  "FG3M",
-    "player_points_rebounds_assists": "PRA",
-    "player_points_rebounds":         "PR",
-    "player_points_assists":          "PA",
+    "player_points":   "PTS",
+    "player_rebounds": "REB",
+    "player_assists":  "AST",
+    "player_threes":   "FG3M",
 }
 
 # Bookmakers fetched (regions us + eu)
@@ -470,9 +470,10 @@ def _parse_event_props(event_data):
 
 
 # Freshness pour eviter de brule le quota sur chaque tick du cron CI.
-# Les player props changent peu apres publication. 4h = bon compromis :
-# meme si une blessure tombe, l'engine relancera dans <=4h.
-ODDS_REFRESH_MIN_AGE_SEC = 4 * 3600
+# 8h = bon compromis : les lignes player props bougent peu apres publication
+# (la cote initiale tient en general toute la journee, sauf injury de derniere
+# minute). Avec 8h on a 3 refresh/jour = ~12 credits NBA/jour.
+ODDS_REFRESH_MIN_AGE_SEC = 8 * 3600
 
 
 def _odds_file_age_seconds():

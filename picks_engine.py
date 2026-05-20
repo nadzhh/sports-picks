@@ -205,16 +205,56 @@ def defense_label(w):
 
 # ─── Props joueurs ───────────────────────────────────────────────────────────
 
-def player_picks_contextual(players, opp_pos, opp_rat, opp_conceded_pm=0, btts_prob=50, min_apps=5):
+def _lookup_player_cote(odds_for_player, market_key):
+    """Helper : retourne (cote, book, all_books_list) pour le marche demande."""
+    if not odds_for_player: return None, None, []
+    m = odds_for_player.get(market_key)
+    if not m: return None, None, []
+    cote = m.get("over")  # "Yes" pour anytime, "Over X.5" pour assists/shots
+    book = m.get("book")
+    books_list = [b for b in (m.get("books") or []) if b.get("side") == "over"]
+    return cote, book, books_list
+
+
+def _match_odds_name(target, odds_keys):
+    """Match fuzzy d'un nom de joueur entre stats scraper et The Odds API."""
+    import unicodedata
+    def _clean(s):
+        s = unicodedata.normalize("NFD", s or "")
+        return "".join(c for c in s if unicodedata.category(c) != "Mn").lower().strip()
+    t = _clean(target)
+    if not t or not odds_keys: return None
+    # 1) exact
+    for k in odds_keys:
+        if _clean(k) == t: return k
+    # 2) substring (utile pour "Ollie Watkins" vs "Watkins")
+    for k in odds_keys:
+        kc = _clean(k)
+        if t in kc or kc in t: return k
+    # 3) lastname
+    t_last = t.split()[-1] if t else ""
+    if t_last:
+        for k in odds_keys:
+            k_last = _clean(k).split()[-1]
+            if k_last and k_last == t_last: return k
+    return None
+
+
+def player_picks_contextual(players, opp_pos, opp_rat, opp_conceded_pm=0, btts_prob=50, min_apps=5, match_odds=None):
     """
     Analyse contextuelle enrichie avec forme récente joueur.
     Forme récente (xG, buts récents) prime sur les stats saison brutes.
+
+    match_odds : dict {player_name: {market_key: {over, under, book, books, line}}}
+                 issu de foot_odds.json pour ce match. Permet d'attacher la
+                 VRAIE cote bookmaker aux picks (au lieu de cote=None).
     """
     if not players: return []
 
     weakness  = defense_weakness(opp_pos, opp_rat, opp_conceded_pm)
     def_label = defense_label(weakness)
     picks     = []
+    odds_keys = list((match_odds or {}).keys())
 
     for p in players:
         apps   = p.get("appearances", 0)
@@ -288,10 +328,15 @@ def player_picks_contextual(players, opp_pos, opp_rat, opp_conceded_pm=0, btts_p
             )
 
             if ctx_conf >= 35:
+                # Recherche cote reelle "anytime scorer"
+                odds_key = _match_odds_name(name, odds_keys)
+                player_odds = (match_odds or {}).get(odds_key) if odds_key else None
+                cote, book, books_list = _lookup_player_cote(player_odds, "anytime_scorer")
                 picks.append({
                     "player": name, "position": pos, "is_sub": is_sub,
                     "type": "Buteur", "label": f"{name} marque",
-                    "cote": None, "confidence": ctx_conf,
+                    "cote": cote, "book": book, "books": books_list,
+                    "confidence": ctx_conf,
                     "reasoning": reasoning,
                     "context": {"weakness": weakness},
                     "stats": {"goals": goals, "apps": apps, "gpm": gpm, "xgpm": xgpm}
@@ -304,10 +349,14 @@ def player_picks_contextual(players, opp_pos, opp_rat, opp_conceded_pm=0, btts_p
             lam_ass_ctx = lam_ass * (1 + weakness * 0.15) * sub_penalty
             ctx_conf    = round(poisson_at_least(lam_ass_ctx, 1))
             if ctx_conf >= 30:
+                odds_key = _match_odds_name(name, odds_keys)
+                player_odds = (match_odds or {}).get(odds_key) if odds_key else None
+                cote, book, books_list = _lookup_player_cote(player_odds, "assists")
                 picks.append({
                     "player": name, "position": pos, "is_sub": is_sub,
                     "type": "Passeur décisif", "label": f"{name} fait une passe décisive",
-                    "cote": None, "confidence": ctx_conf,
+                    "cote": cote, "book": book, "books": books_list,
+                    "confidence": ctx_conf,
                     "reasoning": (f"{assists} passes décisives en {apps} matchs ({round(apm*100,1)}% de chance/match)"
                                   f" · xA moyen {xapm:.2f}/match · {def_label}{sub_tag}"),
                     "context": {"weakness": weakness},
@@ -331,10 +380,19 @@ def player_picks_contextual(players, opp_pos, opp_rat, opp_conceded_pm=0, btts_p
             if _buteur_picks:
                 ctx_conf = max(ctx_conf, _buteur_picks[0]["confidence"] + 1)
             if ctx_conf >= 40:
+                # Pas de market combine "but ou passe" chez Odds API.
+                # On utilise la cote anytime_scorer comme proxy minimum
+                # (mais notre proba est superieure car ya aussi les passes).
+                odds_key = _match_odds_name(name, odds_keys)
+                player_odds = (match_odds or {}).get(odds_key) if odds_key else None
+                cote, book, books_list = _lookup_player_cote(player_odds, "anytime_scorer")
+                # Note : cote affichee est juste une reference. Le pick reel
+                # serait "but OU passe" qui n'existe pas chez Odds API.
                 picks.append({
                     "player": name, "position": pos, "is_sub": is_sub,
                     "type": "Joueur décisif", "label": f"{name} but ou passe décisive",
-                    "cote": None, "confidence": ctx_conf,
+                    "cote": cote, "book": book, "books": books_list,
+                    "confidence": ctx_conf,
                     "reasoning": (f"{goals} buts + {assists} passes décisives en {apps} matchs"
                                   f" ({round(gapm*100,1)}% de chance/match) · xG+xA: {round(xgpm+xapm,2)}/match"
                                   f" · {def_label}{sub_tag}"),
@@ -387,13 +445,15 @@ def player_picks_contextual(players, opp_pos, opp_rat, opp_conceded_pm=0, btts_p
 
 # ─── Analyse équipe ──────────────────────────────────────────────────────────
 
-def analyze_match(match, pstats_all):
+def analyze_match(match, pstats_all, player_odds_all=None):
     form = match.get("pre_match_form") or {}
     h2h  = match.get("h2h") or {}
     odds = match.get("match_odds") or {}
     home = match["home"]
     away = match["away"]
     mid  = str(match["id"])
+    # Odds joueurs reelles pour CE match (anytime_scorer, assists, shots_on_target).
+    match_player_odds = (player_odds_all or {}).get(mid, {})
 
     hf = get_form(form,"homeTeam"); af = get_form(form,"awayTeam")
     hp = get_pos(form,"homeTeam");  ap = get_pos(form,"awayTeam")
@@ -881,8 +941,8 @@ def analyze_match(match, pstats_all):
     home_conceded = away_ts_data.get("conceded_pm", 0) if away_ts_data else 0
     away_conceded = home_ts_data.get("conceded_pm", 0) if home_ts_data else 0
 
-    home_pp_raw = player_picks_contextual(home_players_filt, ap, ar, home_conceded, btts_p)
-    away_pp_raw = player_picks_contextual(away_players_filt, hp, hr, away_conceded, btts_p)
+    home_pp_raw = player_picks_contextual(home_players_filt, ap, ar, home_conceded, btts_p, match_odds=match_player_odds)
+    away_pp_raw = player_picks_contextual(away_players_filt, hp, hr, away_conceded, btts_p, match_odds=match_player_odds)
 
     # Marquer les picks de joueurs doubtful (confidence x0.85)
     for pk in home_pp_raw + away_pp_raw:
@@ -941,10 +1001,16 @@ def analyze_match(match, pstats_all):
             lam    = (xgpm+gpm)/2 if xgpm else gpm
             lam_c  = lam * (1+weak*0.5) * {"F":1.15,"M":1.0}.get(pos,0.9)
             conf   = max(20, round(poisson_at_least(lam_c, 1)))
+            # Lookup cote anytime_scorer reelle (meme pour le fallback)
+            _odds_keys = list((match_player_odds or {}).keys())
+            _odds_key = _match_odds_name(name, _odds_keys)
+            _player_odds = (match_player_odds or {}).get(_odds_key) if _odds_key else None
+            _cote, _book, _books_list = _lookup_player_cote(_player_odds, "anytime_scorer")
             fb_pk  = {
                 "player": name, "position": pos, "is_sub": is_sub,
                 "type": "Buteur", "label": f"{name} marque",
-                "team": side_key, "cote": None, "confidence": conf,
+                "team": side_key, "cote": _cote, "book": _book, "books": _books_list,
+                "confidence": conf,
                 "reasoning": f"{goals}G en {apps} matchs ({round(gpm*100,1)}%/match) · xG: {xgpm:.2f}/match",
                 "context": {"weakness": weak}, "stats": {"goals": goals, "apps": apps}
             }
@@ -1502,8 +1568,22 @@ def run():
     player_stats = load_player_stats()
     output       = []
 
+    # Cotes joueurs reelles (anytime_scorer, assists, shots_on_target) generees
+    # par foot_odds.py. Mapping {match_id: {player_name: {market: {data}}}}.
+    player_odds_all = {}
+    try:
+        import json as _json
+        po = _json.load(open("data/foot_player_odds.json", encoding="utf-8"))
+        # Strip meta key
+        player_odds_all = {k: v for k, v in po.items() if not k.startswith("_")}
+        if player_odds_all:
+            n_players = sum(len(v) for v in player_odds_all.values())
+            print(f"  [foot_odds] {len(player_odds_all)} matchs avec {n_players} joueurs cotes")
+    except Exception:
+        pass
+
     for match in matches:
-        team_picks, home_pp, away_pp, fun_picks = analyze_match(match, player_stats)
+        team_picks, home_pp, away_pp, fun_picks = analyze_match(match, player_stats, player_odds_all)
         if team_picks or home_pp or away_pp:
             top = team_picks[0] if team_picks else (home_pp[0] if home_pp else away_pp[0] if away_pp else None)
             output.append({
