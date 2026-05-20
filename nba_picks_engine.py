@@ -56,12 +56,12 @@ MAX_PICKS_PER_PLAYER = 2
 # Filtre qualite : nombre de picks par equipe est VARIABLE selon la qualite des
 # signaux alignes. On garde tout ce qui passe le quality_score min, plus un
 # hard cap pour eviter le spam (10/equipe max).
-QUALITY_SCORE_MIN_WITH_ODDS    = 55   # avec odds reelles (edge calcule)
+QUALITY_SCORE_MIN_WITH_ODDS    = 60   # avec odds reelles (edge calcule)
 # 30 en heuristique : avec lignes resserrees autour de mu (mu_int +/-0.5/+1.5),
 # les conf sont naturellement plus basses (55-72%). 30 = juste assez restrictif
 # sans tuer les picks playable.
 QUALITY_SCORE_MIN_HEURISTIC    = 30   # sans odds (mode degrade)
-HARD_CAP_PER_TEAM = 5
+HARD_CAP_PER_TEAM = 3                 # ~6 picks/game max (au lieu de 10)
 
 
 def _quality_score(p):
