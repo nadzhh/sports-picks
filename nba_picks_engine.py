@@ -411,42 +411,51 @@ def player_props(player, ctx=None, real_lines=None, match_ctx=None):
             return
         allowed = ALLOWED_DIRECTIONS.get(prop_key, ("over", "under"))
 
-        # Si on a une vraie ligne bookmaker, on prend UNIQUEMENT la headline
-        # (= la ligne principale ~50/50). Les alt-lines bookmaker (juicees)
-        # sont rarement quotees par Betclic et donc non playables. On garde
-        # alt_lines_data uniquement pour collecter les autres books qui
-        # quotent CETTE meme headline (multi-book display).
+        # ─── Determine lines_to_check + use_real ─────────────────────────
+        # Cas 1 : vraies odds dispo -> headline UNIQUEMENT (la ligne ~50/50
+        #         que tous les books quotent). Pas d'alt-lines juicees, non
+        #         playables sur Betclic.
+        # Cas 2 : PRA -> Betclic quote step-5 uniquement (4.5, 9.5, 14.5...).
+        #         Si le bookmaker n'offre pas un palier step-5, on bascule
+        #         en heuristique pour PRA (snap mu au palier le + proche).
+        # Cas 3 : pas d'odds reelles -> heuristique mu_int +/- 0.5.
+        PRA_LADDER = {4.5, 9.5, 14.5, 19.5, 24.5, 29.5, 34.5, 39.5, 44.5, 49.5, 54.5}
         real = real_lines.get(prop_key)
-        use_real = real and real.get("line") is not None
+        use_real = bool(real and real.get("line") is not None)
         alt_lines_data = (real or {}).get("all_lines") or []
-        if use_real:
+        lines_to_check = []
+
+        if use_real and prop_key == "PRA":
+            # Cherche un palier step-5 quote par le bookmaker
+            ladder_in_book = sorted({L["line"] for L in alt_lines_data if L["line"] in PRA_LADDER})
+            if real["line"] in PRA_LADDER:
+                lines_to_check = [real["line"]]
+            elif ladder_in_book:
+                lines_to_check = [min(ladder_in_book, key=lambda L: abs(L - mu))]
+            else:
+                # Pas de palier step-5 chez le book -> heuristique pour PRA
+                use_real = False
+                alt_lines_data = []
+
+        if use_real and prop_key != "PRA":
             lines_to_check = [real["line"]]
-        elif has_any_real:
-            return  # bookmaker n'a pas ce prop pour ce joueur -> skip
-        else:
-            # Mode heuristique : SERRE max possible. On genere UNIQUEMENT
-            # les 2 lignes immediatement de part et d'autre de mu (mu_int +/- 0.5).
-            # Distance max ligne<->mu = 0.5. Si Betclic est a +/- 1 de mu
-            # (cas le plus courant), notre ligne sera a +/- 1.5 max de Betclic.
-            # PRA cas special : ladder step-5 (4.5, 9.5, 14.5...).
+
+        if not use_real:
+            # Strict mode : si le joueur a au moins 1 vraie ligne pour un AUTRE
+            # prop, on skip ce prop ici (sauf PRA qui a sa logique propre).
+            if has_any_real and prop_key != "PRA":
+                return
+            # Heuristique : lignes serrees autour de mu
             if prop_key == "PRA":
-                ladder = [4.5, 9.5, 14.5, 19.5, 24.5, 29.5, 34.5, 39.5, 44.5, 49.5, 54.5]
-                # Garde UNIQUEMENT le palier le + proche de mu (1 ligne).
-                # Garantit le snap exact sur ce que Betclic quote.
-                closest = min(ladder, key=lambda L: abs(L - mu))
-                # Mais on n'emet le pick que si mu est a moins de 2.5 du palier.
-                # Sinon notre mu est trop loin de la grille bookmaker -> skip.
+                ladder_sorted = sorted(PRA_LADDER)
+                closest = min(ladder_sorted, key=lambda L: abs(L - mu))
                 if abs(closest - mu) <= 2.5:
                     lines_to_check = [closest]
-                else:
-                    lines_to_check = []
             else:
                 mu_int = int(round(mu))
                 lines_to_check = [mu_int - 0.5, mu_int + 0.5]
-                # Pour mu tres faible (<2) : juste 0.5
                 if mu < 1.5:
                     lines_to_check = [0.5]
-            # Filtre lignes positives uniquement
             lines_to_check = [L for L in lines_to_check if L > 0]
 
         for line in lines_to_check:
@@ -726,9 +735,14 @@ def analyze_match(match_data, odds_for_game=None, game_lines=None):
         - Mode heuristique (aucun pick avec odds reelles) -> QUALITY_SCORE_MIN_HEURISTIC=30
           (quota odds API epuise par ex.)
         """
-        has_real_odds = any(p.get("is_real_line") for p in picks)
-        threshold = QUALITY_SCORE_MIN_WITH_ODDS if has_real_odds else QUALITY_SCORE_MIN_HEURISTIC
-        eligible = [p for p in picks if _quality_score(p) >= threshold]
+        # Seuil ajuste PAR PICK : un pick avec is_real_line=True doit passer
+        # QUALITY_SCORE_MIN_WITH_ODDS (edge dispo). Un pick heuristique passe
+        # QUALITY_SCORE_MIN_HEURISTIC (pas d'edge calcule). Permet de melanger
+        # picks bookmaker et heuristique (cas PRA quand bookmaker quote 10.5
+        # mais Betclic veut 14.5 -> heuristique pour PRA).
+        def _pick_threshold(p):
+            return QUALITY_SCORE_MIN_WITH_ODDS if p.get("is_real_line") else QUALITY_SCORE_MIN_HEURISTIC
+        eligible = [p for p in picks if _quality_score(p) >= _pick_threshold(p)]
         eligible.sort(key=_quality_score, reverse=True)
 
         selected, per_player = [], {}
