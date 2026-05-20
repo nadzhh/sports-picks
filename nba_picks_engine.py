@@ -46,8 +46,10 @@ ALLOWED_DIRECTIONS = {
     "PA":   ("over", "under"),
 }
 
-# Sweet spot heuristique (fallback si pas de book reel)
-SWEET_LOW, SWEET_HIGH = 60, 78
+# Sweet spot heuristique (fallback si pas de book reel).
+# 55% bas : permet de capturer les picks pres de mu (line=mu+/-0.5).
+# 78% haut : evite les picks "trop safe" (line trop loin de mu => non playable).
+SWEET_LOW, SWEET_HIGH = 55, 78
 MIN_CONF = 60
 MAX_PICKS_PER_PLAYER = 2
 
@@ -55,7 +57,10 @@ MAX_PICKS_PER_PLAYER = 2
 # signaux alignes. On garde tout ce qui passe le quality_score min, plus un
 # hard cap pour eviter le spam (10/equipe max).
 QUALITY_SCORE_MIN_WITH_ODDS    = 55   # avec odds reelles (edge calcule)
-QUALITY_SCORE_MIN_HEURISTIC    = 45   # sans odds (mode degrade)
+# 30 en heuristique : avec lignes resserrees autour de mu (mu_int +/-0.5/+1.5),
+# les conf sont naturellement plus basses (55-72%). 30 = juste assez restrictif
+# sans tuer les picks playable.
+QUALITY_SCORE_MIN_HEURISTIC    = 30   # sans odds (mode degrade)
 HARD_CAP_PER_TEAM = 5
 
 
@@ -419,17 +424,29 @@ def player_props(player, ctx=None, real_lines=None, match_ctx=None):
         elif has_any_real:
             return  # bookmaker n'a pas ce prop pour ce joueur -> skip
         else:
-            # Mode heuristique : on genere des lignes AUTOUR de mu pour matcher
-            # les vraies lignes bookmaker (qui sont tjrs proches de l'attendu).
-            # Cason Wallace mu=9.3 PR -> lignes [7.5, 8.5, 9.5, 10.5, 11.5]
-            # au lieu de la fixed list BOOKMAKER_LINES qui partait de 12.5.
-            mu_int = int(round(mu))
-            # Increment 0.5 standard bookmaker, range ±2 autour de mu
-            lines_to_check = [mu_int - 1.5, mu_int - 0.5, mu_int + 0.5, mu_int + 1.5]
-            # Pour les props < 5 (ex 3PM, AST faibles), on garde une plage plus
-            # serree mais on inclut 0.5 si pertinent (ex: 0.5 3PM = "marque au moins 1")
-            if mu < 3:
-                lines_to_check = [0.5, 1.5, 2.5] if mu >= 1 else [0.5]
+            # Mode heuristique : on genere 3 lignes autour de mu (mu_int-0.5,
+            # mu_int+0.5, mu_int+1.5). Le +1.5 est inclus car les bookmakers
+            # quotent souvent LEGEREMENT AU-DESSUS de mu pour balancer l'action
+            # sur les over (donc la ligne Betclic est souvent ~ mu_int+1.5).
+            # Distance max ligne<->mu = 1.5 -> respecte la regle "pick jouable
+            # sur Betclic a ±2 unites pres".
+            # PRA cas special : les bookmakers quotent par PAS DE 5
+            # (4.5, 9.5, 14.5, 19.5, ...). On snap sur la grille.
+            if prop_key == "PRA":
+                ladder = [4.5, 9.5, 14.5, 19.5, 24.5, 29.5, 34.5, 39.5, 44.5, 49.5, 54.5]
+                # Garde uniquement les paliers a ±2.5 de mu (= moitie d'un pas
+                # de 5). Garantit que la ligne emise est celle que le bookmaker
+                # quote (le palier le + proche de mu). Tres souvent 1 seul.
+                lines_to_check = sorted([L for L in ladder if abs(L - mu) <= 2.5])
+                if not lines_to_check:
+                    # mu pile entre deux paliers (rare) : fallback au plus proche
+                    lines_to_check = [min(ladder, key=lambda L: abs(L - mu))]
+            else:
+                mu_int = int(round(mu))
+                lines_to_check = [mu_int - 0.5, mu_int + 0.5, mu_int + 1.5]
+                # Pour les props < 3 (3PM, AST tres faibles) : 1-2 lignes basses
+                if mu < 2:
+                    lines_to_check = [0.5, 1.5] if mu >= 1 else [0.5]
             # Filtre lignes positives uniquement
             lines_to_check = [L for L in lines_to_check if L > 0]
 
@@ -833,10 +850,21 @@ def run():
     return out
 
 
+MAX_PICKS_PER_GAME_IN_HISTORY = 10  # cap pour eviter l'accumulation des reruns
+
+
 def _save_to_history(picks_data):
     """
-    Ajoute les picks du jour dans data/nba_picks_history.json (sans ecraser les existants).
-    Format flat list : chaque pick a un `id` unique pour permettre la deduplication.
+    Sauvegarde les picks du jour dans data/nba_picks_history.json.
+
+    Strategie anti-pollution :
+    - On garde TOUS les picks DEJA RESOLUS (WIN / LOSS / PUSH / DNP) intacts.
+    - Pour les picks PENDING d'un game_id present dans le run courant, on
+      REMPLACE par les picks frais (ceux du run). Evite l'accumulation des
+      anciens picks qui ne sont plus dans la selection actuelle apres
+      changement de mu, line, threshold...
+    - Cap a MAX_PICKS_PER_GAME_IN_HISTORY (=10) par game pour les nouveaux
+      picks, sortes par quality_score desc (les meilleurs en priorite).
     """
     from pathlib import Path
     hist_path = Path("data/nba_picks_history.json")
@@ -848,27 +876,38 @@ def _save_to_history(picks_data):
     else:
         history = {"picks": []}
 
-    existing_ids = {p.get("id") for p in history.get("picks", [])}
     today = datetime.now().strftime("%Y-%m-%d")
-    n_added = 0
+    current_game_ids = set(picks_data.keys())
+
+    # Retire les PENDING dont le game_id est dans le run courant (on va les remplacer)
+    kept = []
+    n_dropped = 0
+    for p in history.get("picks", []):
+        if p.get("result") == "PENDING" and p.get("game_id") in current_game_ids:
+            n_dropped += 1
+            continue
+        kept.append(p)
 
     def _extract_game_date(game_data, fallback):
-        """Retourne YYYY-MM-DD a partir de la date NBA (gameEt / gameTimeUTC), sinon fallback."""
         raw = game_data.get("date") or ""
         if isinstance(raw, str) and len(raw) >= 10:
-            # Format ISO : "2026-05-19T20:00:00..." ou similaire
             candidate = raw[:10]
-            # Validation rapide
             if candidate.count("-") == 2 and candidate[4] == "-" and candidate[7] == "-":
                 return candidate
         return fallback
 
+    n_added = 0
     for gid, game in picks_data.items():
         matchup = f"{game.get('away_team','?')} @ {game.get('home_team','?')}"
         date = _extract_game_date(game, today)
-        for pick in (game.get("home_picks", []) + game.get("away_picks", [])):
+        # Concat home + away, on cappe a MAX_PICKS_PER_GAME_IN_HISTORY en
+        # priorisant par quality_score desc (les meilleurs picks d'abord).
+        all_picks = list(game.get("home_picks", [])) + list(game.get("away_picks", []))
+        all_picks.sort(key=_quality_score, reverse=True)
+        all_picks = all_picks[:MAX_PICKS_PER_GAME_IN_HISTORY]
+
+        for pick in all_picks:
             pick_id = f"{date}_{gid}_{pick.get('player','?')}_{pick.get('prop','?')}_{pick.get('direction','?')}_{pick.get('line','?')}"
-            if pick_id in existing_ids: continue
             entry = dict(pick)
             entry["id"] = pick_id
             entry["date"] = date
@@ -877,12 +916,12 @@ def _save_to_history(picks_data):
             entry["result"] = "PENDING"
             entry["actual"] = None
             entry["resolved_at"] = None
-            history["picks"].append(entry)
-            existing_ids.add(pick_id)
+            kept.append(entry)
             n_added += 1
 
+    history["picks"] = kept
     hist_path.write_text(json.dumps(history, ensure_ascii=False, indent=2), encoding="utf-8")
-    print(f"[history] {n_added} picks ajoutes (total: {len(history['picks'])})")
+    print(f"[history] {n_added} picks frais (-{n_dropped} anciens PENDING remplaces) - total {len(kept)}")
 
 
 if __name__ == "__main__":
