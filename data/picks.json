@@ -96,66 +96,25 @@
         }
       }
     ],
-    "home_players": [
-      {
-        "player": "Vincenzo Grifo",
-        "position": "F",
-        "is_sub": false,
-        "type": "Joueur décisif",
-        "label": "Vincenzo Grifo but ou passe décisive",
-        "cote": null,
-        "confidence": 40,
-        "reasoning": "5 buts + 4 passes décisives en 14 matchs (64.3% de chance/match) · xG+xA: 0.35/match · défense solide",
-        "context": {
-          "weakness": 0.25
-        },
-        "stats": {
-          "goals": 5,
-          "assists": 4,
-          "apps": 14
-        },
-        "team": "home"
-      }
-    ],
+    "home_players": [],
     "away_players": [
-      {
-        "player": "Emiliano Buendía",
-        "position": "F",
-        "is_sub": false,
-        "type": "Joueur décisif",
-        "label": "Emiliano Buendía but ou passe décisive",
-        "cote": null,
-        "confidence": 40,
-        "reasoning": "3 buts + 5 passes décisives en 14 matchs (57.1% de chance/match) · xG+xA: 0.41/match · défense correcte",
-        "context": {
-          "weakness": 0.36
-        },
-        "stats": {
-          "goals": 3,
-          "assists": 5,
-          "apps": 14
-        },
-        "team": "away"
-      },
       {
         "player": "Ollie Watkins",
         "position": "F",
         "is_sub": false,
         "type": "Buteur",
         "label": "Ollie Watkins marque",
+        "team": "away",
         "cote": null,
-        "confidence": 38,
-        "reasoning": "5 buts en 14 matchs cette saison (35.7% de chance/match) · xG moyen 0.39/match · défense correcte",
+        "confidence": 40,
+        "reasoning": "5G en 14 matchs (35.7%/match) · xG: 0.39/match",
         "context": {
-          "weakness": 0.36
+          "weakness": 0.35
         },
         "stats": {
           "goals": 5,
-          "apps": 14,
-          "gpm": 0.357,
-          "xgpm": 0.386
-        },
-        "team": "away"
+          "apps": 14
+        }
       }
     ],
     "fun_picks": [],
