@@ -438,6 +438,149 @@ def convert_odds(odds_payload, home_name, away_name):
     return {"markets": markets} if markets else None
 
 
+# ─── ESPN Soccer Odds Fallback (free, all leagues) ────────────────────────────
+
+# Mapping notre nom de ligue -> ESPN soccer league id
+ESPN_SOCCER_LEAGUES = {
+    "Premier League":      "eng.1",
+    "La Liga":             "esp.1",
+    "Bundesliga":          "ger.1",
+    "Serie A":             "ita.1",
+    "Ligue 1":             "fra.1",
+    "Champions League":    "uefa.champions",
+    "Europa League":       "uefa.europa",
+    "Conference League":   "uefa.europa.conf",
+}
+
+
+def _espn_soccer_scoreboard(league_key, ttl=4 * 3600):
+    """Cache 4h scoreboard ESPN par ligue."""
+    import urllib.request as _ur, urllib.error as _ue, gzip as _gz, hashlib as _h
+    from pathlib import Path as _P
+    cache_dir = _P("data/cache_espn_soccer")
+    cache_dir.mkdir(parents=True, exist_ok=True)
+    cache = cache_dir / f"{league_key.replace('.','_')}.json"
+    import time as _t
+    if cache.exists() and (_t.time() - cache.stat().st_mtime) < ttl:
+        try: return json.loads(cache.read_text(encoding="utf-8"))
+        except Exception: pass
+    url = f"https://site.api.espn.com/apis/site/v2/sports/soccer/{league_key}/scoreboard"
+    try:
+        r = _ur.urlopen(_ur.Request(url, headers={"User-Agent": "Mozilla/5.0"}), timeout=15)
+        raw = r.read()
+        if raw[:2] == b"\x1f\x8b": raw = _gz.decompress(raw)
+        data = json.loads(raw)
+        cache.write_text(json.dumps(data, ensure_ascii=False), encoding="utf-8")
+        return data
+    except Exception as e:
+        print(f"  [espn-soccer err {league_key}] {e}")
+        return None
+
+
+def _ml_to_decimal(ml):
+    """Convertit American moneyline -> decimal cote. +150 -> 2.50, -200 -> 1.50."""
+    if ml is None: return None
+    try: ml = int(ml)
+    except Exception: return None
+    if ml > 0: return round(1 + ml / 100, 2)
+    if ml < 0: return round(1 + 100 / abs(ml), 2)
+    return None
+
+
+def _build_espn_soccer_odds(home_name, away_name, league_name):
+    """
+    Fallback ESPN pour les matchs hors couverture api-football.
+    Retourne markets au format compatible (Full time 1X2 + Match goals).
+    """
+    league_key = ESPN_SOCCER_LEAGUES.get(league_name)
+    if not league_key: return None
+    data = _espn_soccer_scoreboard(league_key)
+    if not data: return None
+    events = data.get("events", []) or []
+    target = None
+    for ev in events:
+        comp = (ev.get("competitions") or [{}])[0]
+        teams = comp.get("competitors", [])
+        h_name = next((c.get("team", {}).get("displayName", "") for c in teams if c.get("homeAway") == "home"), "")
+        a_name = next((c.get("team", {}).get("displayName", "") for c in teams if c.get("homeAway") == "away"), "")
+        # Match fuzzy
+        if (_norm(home_name) in _norm(h_name) or _norm(h_name) in _norm(home_name)) and \
+           (_norm(away_name) in _norm(a_name) or _norm(a_name) in _norm(away_name)):
+            target = comp; break
+    if not target: return None
+
+    odds_list = target.get("odds", []) or []
+    if not odds_list: return None
+    odds = odds_list[0]   # premier provider (typiquement DraftKings)
+
+    markets = []
+    def to_frac(decimal_cote):
+        try: return f"{float(decimal_cote) - 1:.4f}"
+        except Exception: return None
+
+    def _ml_path(odds_dict, side):
+        """Recupere moneyline['side']['close']['odds'] avec fallback 'open'."""
+        d = (odds_dict.get("moneyline") or {}).get(side) or {}
+        v = (d.get("close") or {}).get("odds") or (d.get("open") or {}).get("odds")
+        return v
+
+    # 1X2 via moneyline.{home,away,draw}.close.odds (format ESPN soccer)
+    home_ml = _ml_path(odds, "home")
+    away_ml = _ml_path(odds, "away")
+    draw_ml = _ml_path(odds, "draw")
+    # Fallback : ancien format homeTeamOdds.moneyLine
+    if home_ml is None: home_ml = (odds.get("homeTeamOdds") or {}).get("moneyLine")
+    if away_ml is None: away_ml = (odds.get("awayTeamOdds") or {}).get("moneyLine")
+    if draw_ml is None: draw_ml = (odds.get("drawOdds") or {}).get("moneyLine")
+    c1 = _ml_to_decimal(home_ml)
+    c2 = _ml_to_decimal(away_ml)
+    cx = _ml_to_decimal(draw_ml)
+    if c1 and c2 and cx:
+        markets.append({
+            "marketName": "Full time", "choiceGroup": None,
+            "choices": [
+                {"name": "1", "fractionalValue": to_frac(c1)},
+                {"name": "X", "fractionalValue": to_frac(cx)},
+                {"name": "2", "fractionalValue": to_frac(c2)},
+            ]
+        })
+        # Double chance derivee : prob 1X = 1/c1 + 1/cx (no-vig), cote = 1/prob
+        # Simplifie : 1X = (c1*cx)/(c1+cx), X2 = (c2*cx)/(c2+cx), 12 = (c1*c2)/(c1+c2)
+        c_1x = round((c1 * cx) / (c1 + cx), 2)
+        c_12 = round((c1 * c2) / (c1 + c2), 2)
+        c_x2 = round((cx * c2) / (cx + c2), 2)
+        markets.append({
+            "marketName": "Double chance", "choiceGroup": None,
+            "choices": [
+                {"name": "1X", "fractionalValue": to_frac(c_1x)},
+                {"name": "12", "fractionalValue": to_frac(c_12)},
+                {"name": "X2", "fractionalValue": to_frac(c_x2)},
+            ]
+        })
+
+    # Over/Under buts via total.{over,under}.close.odds
+    ou_line = odds.get("overUnder")
+    total_dict = odds.get("total") or {}
+    over_ml = ((total_dict.get("over") or {}).get("close") or {}).get("odds") \
+              or ((total_dict.get("over") or {}).get("open") or {}).get("odds")
+    under_ml = ((total_dict.get("under") or {}).get("close") or {}).get("odds") \
+              or ((total_dict.get("under") or {}).get("open") or {}).get("odds")
+    # Si pas dispo, on derive a partir de overUnder (ligne) sans cote -> on skip
+    if ou_line and over_ml and under_ml:
+        c_o = _ml_to_decimal(over_ml)
+        c_u = _ml_to_decimal(under_ml)
+        if c_o and c_u:
+            markets.append({
+                "marketName": "Match goals", "choiceGroup": str(ou_line),
+                "choices": [
+                    {"name": "Over",  "fractionalValue": to_frac(c_o)},
+                    {"name": "Under", "fractionalValue": to_frac(c_u)},
+                ]
+            })
+
+    return {"markets": markets, "_source": "espn"} if markets else None
+
+
 # ─── Step 4: BUILD ─────────────────────────────────────────────────────────────
 
 def build_match(fm_match, lname, fm_lid, standings, league_data, odds_idx):
@@ -466,13 +609,10 @@ def build_match(fm_match, lname, fm_lid, standings, league_data, odds_idx):
     away_rank = standings.get(int(home_id) if False else int(away_id) if away_id.isdigit() else away_id, {}).get("rank")
     hw, dr, aw = _compute_h2h(league_data, home_id, away_id)
 
-    # Odds via api-football (matching par nom + date)
+    # Odds via api-football (matching par nom + date) - PRIMARY
     date_iso = utc[:10]
     n_home, n_away = _norm(home_name), _norm(away_name)
     odd_payload = odds_idx.get((n_home, n_away, date_iso))
-    # Fallback fuzzy : api-football utilise parfois des noms courts
-    # ('bournemouth' au lieu de 'afcbournemouth', 'tottenham' au lieu de 'tottenhamhotspur')
-    # On accepte le match par substring containment.
     if not odd_payload:
         for (k_home, k_away, k_date), v in odds_idx.items():
             if k_date != date_iso: continue
@@ -482,6 +622,14 @@ def build_match(fm_match, lname, fm_lid, standings, league_data, odds_idx):
                 odd_payload = v
                 break
     match_odds = convert_odds(odd_payload, home_name, away_name)
+
+    # FALLBACK ESPN : si api-football n'a rien (Europa/CL/etc.), on essaie ESPN
+    # ESPN couvre toutes les competitions soccer avec markets 1X2 + DC + O/U buts
+    if not match_odds:
+        espn_odds = _build_espn_soccer_odds(home_name, away_name, lname)
+        if espn_odds:
+            match_odds = espn_odds
+            print(f"      [ESPN fallback] {len(espn_odds.get('markets',[]))} markets recuperes pour {home_name} vs {away_name}")
 
     return {
         "id": fid,
