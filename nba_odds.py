@@ -27,15 +27,107 @@ from datetime import datetime
 from pathlib import Path
 
 try:
-    from config import ODDS_API_KEY, ODDS_API_BASE
+    from config import ODDS_API_KEY, ODDS_API_KEYS, ODDS_API_BASE
 except ImportError:
     ODDS_API_KEY = ""
+    ODDS_API_KEYS = []
     ODDS_API_BASE = "https://api.the-odds-api.com/v4"
 
 # Cache disque pour eviter de brule le quota (24h TTL)
 CACHE_DIR = Path("data/cache_odds")
 CACHE_DIR.mkdir(parents=True, exist_ok=True)
 CACHE_TTL = 24 * 3600   # 24h - les odds player props bougent peu une fois publiees
+
+# ─── Key rotation state ──────────────────────────────────────────────────────
+# Persistance sur disque : on retient quelle cle a ete epuisee pour ne pas
+# retaper dessus a chaque run du jour.
+KEY_STATE_PATH = Path("data/odds_keys_state.json")
+
+
+def _key_hash(key):
+    """SHA-256 short hash (12 chars) - utilise comme cle dans le state pour
+    ne JAMAIS persister la cle API en clair sur disque."""
+    if not key: return ""
+    return hashlib.sha256(key.encode()).hexdigest()[:12]
+
+
+def _key_id(k):
+    """ID court anonyme pour logs (4 derniers chars masques)."""
+    if not k: return "?"
+    return f"...{k[-4:]}" if len(k) >= 4 else "...?"
+
+
+def _load_key_state():
+    """Format : {key_hash_sha256_12char: {'remaining': int, 'exhausted_at': iso_date, ...}}
+    NE STOCKE JAMAIS la cle reelle, seulement son hash."""
+    if not KEY_STATE_PATH.exists(): return {}
+    try: return json.loads(KEY_STATE_PATH.read_text(encoding="utf-8"))
+    except Exception: return {}
+
+
+def _save_key_state(state):
+    try: KEY_STATE_PATH.write_text(json.dumps(state, ensure_ascii=False, indent=2), encoding="utf-8")
+    except Exception: pass
+
+
+def _select_active_key():
+    """
+    Selectionne la 1ere cle non epuisee. Une cle est consideree epuisee si :
+    - son champ 'remaining' (header x-requests-remaining) est <= 1, OU
+    - elle a recu un 401/429 dans les dernieres 24h.
+    Retourne (key, idx) ou (None, -1) si toutes epuisees.
+    """
+    state = _load_key_state()
+    now = datetime.now()
+    for idx, k in enumerate(ODDS_API_KEYS):
+        if not k: continue
+        info = state.get(_key_hash(k), {})
+        # Reset auto si le quota a passe 1er du mois suivant l'epuisement
+        exh = info.get("exhausted_at", "")
+        if exh:
+            try:
+                exh_dt = datetime.fromisoformat(exh)
+                # Le quota The Odds API se reset le 1er de chaque mois UTC
+                if (now.month != exh_dt.month or now.year != exh_dt.year):
+                    info = {}  # reset auto
+            except Exception: pass
+        if info.get("exhausted_at"): continue
+        remaining = info.get("remaining")
+        if remaining is not None and remaining <= 0: continue
+        return k, idx
+    return None, -1
+
+
+def _mark_key_exhausted(key, reason=""):
+    """Marque une cle comme epuisee pour ne plus l'utiliser ce mois-ci."""
+    if not key: return
+    state = _load_key_state()
+    state[_key_hash(key)] = {
+        "remaining":    0,
+        "exhausted_at": datetime.now().isoformat(timespec="seconds"),
+        "reason":       reason,
+        "id_hint":      _key_id(key),
+    }
+    _save_key_state(state)
+    print(f"  [odds-api] cle {_key_id(key)} marquee EPUISEE ({reason})")
+
+
+def _update_key_remaining(key, remaining):
+    """Met a jour le compteur 'remaining' apres un appel reussi."""
+    if not key: return
+    state = _load_key_state()
+    h = _key_hash(key)
+    info = state.get(h, {})
+    try: rem = int(remaining)
+    except Exception: return
+    info["remaining"]  = rem
+    info["last_check"] = datetime.now().isoformat(timespec="seconds")
+    info["id_hint"]    = _key_id(key)
+    if rem <= 0 and "exhausted_at" not in info:
+        info["exhausted_at"] = info["last_check"]
+        info["reason"]       = "remaining=0"
+    state[h] = info
+    _save_key_state(state)
 
 # Markets supportes par Odds API (NBA)
 MARKETS = {
@@ -98,14 +190,20 @@ def _cache_set(path, data):
     except Exception: pass
 
 
-def _get(url, use_cache=True):
-    """Fetch + cache 6h (sauf list_events qui doit etre frais)."""
+def _fetch_with_key(url_with_placeholder, key, use_cache=True):
+    """
+    Fait l'appel HTTP avec une cle precise. url_with_placeholder doit contenir
+    le token {APIKEY} qu'on remplace par la cle reelle (cache anonyme : la cle
+    n'apparait pas dans le nom du fichier cache).
+    """
+    cache_url = url_with_placeholder  # cle anonyme dans le hash
+    real_url  = url_with_placeholder.replace("{APIKEY}", key)
     if use_cache:
-        path = _cache_path(url)
+        path = _cache_path(cache_url)
         cached = _cache_get(path)
         if cached is not None:
-            return cached["data"], cached.get("headers", {})
-    req = urllib.request.Request(url, headers=HEADERS)
+            return cached["data"], cached.get("headers", {}), None
+    req = urllib.request.Request(real_url, headers=HEADERS)
     try:
         r = urllib.request.urlopen(req, timeout=20)
         raw = r.read()
@@ -115,60 +213,74 @@ def _get(url, use_cache=True):
         headers = dict(r.headers)
     except urllib.error.HTTPError as e:
         body = e.read().decode("utf-8", "ignore")[:200]
-        print(f"  [odds {e.code}] {body}")
-        return None, {}
+        return None, {}, (e.code, body)
     except Exception as e:
-        print(f"  [odds err] {e}")
-        return None, {}
+        return None, {}, (0, str(e))
     if use_cache:
         _cache_set(path, {"data": data, "headers": headers})
-    return data, headers
+    return data, headers, None
+
+
+def _get(url_with_placeholder, use_cache=True):
+    """
+    Fetch + cache + rotation auto des cles.
+    url_with_placeholder doit contenir {APIKEY} qu'on substitue.
+    Si la cle active recoit 401/422/429 ou remaining<=0, on bascule sur
+    la suivante et on retry une fois.
+    """
+    if not ODDS_API_KEYS: return None, {}
+
+    tried = set()
+    while True:
+        key, idx = _select_active_key()
+        if not key or key in tried:
+            print(f"  [odds-api] toutes les cles sont epuisees (essayees: {len(tried)})")
+            return None, {}
+        tried.add(key)
+
+        data, hdr, err = _fetch_with_key(url_with_placeholder, key, use_cache=use_cache)
+        if err is None:
+            # Succes : update remaining
+            remaining = hdr.get("x-requests-remaining") or hdr.get("X-Requests-Remaining")
+            if remaining is not None:
+                _update_key_remaining(key, remaining)
+            return data, hdr
+
+        code, body = err
+        # 401 = invalid/expired key, 422/429 = quota epuise
+        if code in (401, 422, 429) or "quota" in (body or "").lower() or "exceeded" in (body or "").lower():
+            print(f"  [odds-api] cle {_key_id(key)} -> HTTP {code} : {body[:100]}")
+            _mark_key_exhausted(key, f"HTTP {code}")
+            continue  # essaye la suivante
+        # Autre erreur : pas de rotation, on remonte
+        print(f"  [odds-api HTTP {code}] {body[:150]}")
+        return None, {}
 
 
 def list_events():
     """Liste des matchs NBA upcoming. Pas de cache (toujours frais)."""
-    if not ODDS_API_KEY:
-        return []
-    url = f"{ODDS_API_BASE}/sports/basketball_nba/events?apiKey={ODDS_API_KEY}"
+    if not ODDS_API_KEYS: return []
+    url = f"{ODDS_API_BASE}/sports/basketball_nba/events?apiKey={{APIKEY}}"
     data, hdr = _get(url, use_cache=False)
     remaining = hdr.get("x-requests-remaining") or hdr.get("X-Requests-Remaining")
     if remaining:
-        print(f"  [odds-api] requetes restantes : {remaining}")
+        print(f"  [odds-api] requetes restantes sur la cle active : {remaining}")
     return data or []
 
 
 def event_props(event_id):
     """Recupere tous les markets player props pour un event (us + eu)."""
-    if not ODDS_API_KEY:
-        return None
+    if not ODDS_API_KEYS: return None
     markets = ",".join(MARKETS.keys())
     books   = ",".join(PREFERRED_BOOKS)
     params = {
-        "apiKey":     ODDS_API_KEY,
-        "regions":    REGIONS,           # us,eu
+        "apiKey":     "{APIKEY}",
+        "regions":    REGIONS,
         "markets":    markets,
         "bookmakers": books,
         "oddsFormat": "decimal",
     }
-    url = f"{ODDS_API_BASE}/sports/basketball_nba/events/{event_id}/odds?" + urllib.parse.urlencode(params)
-    data, _ = _get(url)
-    return data
-
-
-def event_game_lines(event_id):
-    """LEGACY : The Odds API pour game lines. Garde au cas ou ESPN pickcenter
-    serait vide. Mais par defaut on utilise _espn_game_lines() (gratuit)."""
-    if not ODDS_API_KEY:
-        return None
-    books = ",".join(PREFERRED_BOOKS)
-    params = {
-        "apiKey":     ODDS_API_KEY,
-        "regions":    REGIONS,
-        "markets":    "h2h,spreads,totals",
-        "bookmakers": books,
-        "oddsFormat": "decimal",
-    }
-    url = f"{ODDS_API_BASE}/sports/basketball_nba/events/{event_id}/odds?" + urllib.parse.urlencode(params)
+    url = f"{ODDS_API_BASE}/sports/basketball_nba/events/{event_id}/odds?" + urllib.parse.urlencode(params, safe="{}")
     data, _ = _get(url)
     return data
 
@@ -344,13 +456,22 @@ def _parse_event_props(event_data):
 
 
 def run():
-    if not ODDS_API_KEY:
-        print("[!] Pas de cle ODDS_API_KEY (config.py) - lignes heuristiques utilisees.")
-        # Ecrit un fichier vide pour clarifier
+    if not ODDS_API_KEYS:
+        print("[!] Aucune cle ODDS_API_KEY/_KEY2 configuree - lignes heuristiques.")
         Path("data").mkdir(exist_ok=True)
         with open("data/nba_odds.json", "w", encoding="utf-8") as f:
             json.dump({}, f)
         return {}
+
+    # Affiche l'etat des cles configurees
+    state = _load_key_state()
+    print(f"=== Odds API : {len(ODDS_API_KEYS)} cle(s) configuree(s) ===")
+    for i, k in enumerate(ODDS_API_KEYS, 1):
+        info = state.get(_key_hash(k), {})
+        rem = info.get("remaining", "?")
+        exh = info.get("exhausted_at")
+        label = "EPUISEE" if exh else f"remaining={rem}"
+        print(f"  cle #{i} {_key_id(k)} : {label}")
 
     # Charge les matchs NBA pour mapper
     try:

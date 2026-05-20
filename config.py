@@ -40,9 +40,14 @@ API_KEY  = env_or("API_KEY")
 API_BASE = "https://v3.football.api-sports.io"
 
 # ─── The Odds API (https://the-odds-api.com) — lignes NBA player props ───────
-# Gratuit 500 req/mois.
+# Gratuit 500 req/mois par cle. On peut chainer plusieurs cles pour doubler le
+# quota effectif : si la #1 est epuisee on bascule auto sur la #2.
 ODDS_API_KEY  = env_or("ODDS_API_KEY")
+ODDS_API_KEY2 = env_or("ODDS_API_KEY2")
 ODDS_API_BASE = "https://api.the-odds-api.com/v4"
+
+# Liste ordonnee (la 1ere est essayee en priorite). Les vides sont filtrees.
+ODDS_API_KEYS = [k for k in [ODDS_API_KEY, ODDS_API_KEY2] if k]
 
 # ─── Telegram bot (notifications) ─────────────────────────────────────────────
 TELEGRAM_BOT_TOKEN = env_or("TELEGRAM_BOT_TOKEN")

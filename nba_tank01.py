@@ -4,19 +4,12 @@ nba_tank01.py — Wrapper Tank01 Fantasy Stats NBA (RapidAPI).
 Source : https://rapidapi.com/tank01/api/tank01-fantasy-stats
 Free tier : 1000 req/mois.
 
-Endpoints utilises :
-- getNBAInjuryList : statuts blessures (le + critique)
-- getNBADFS         : projections DFS (cross-check algo)
-- getNBATeams       : DvP / team advanced stats
-- getNBAPlayerInfo  : USG% / position / role
+UTILISATION dans le projet (uniquement) :
+- get_player_info(name) + is_player_out(name) -> filtre blessures
+  utilise par nba_picks_engine pour drop les picks Out/Doubtful.
 
-Strategie quota (~290 req/mois cible) :
-- Injuries : cache 30 min   (~150 req/mois en periode active)
-- DvP / Teams : cache 24h   (~30 req/mois)
-- Projections : cache 6h    (~60 req/mois)
-- PlayerInfo : cache 7 jours (~50 req/mois)
-
-Si quota epuise -> fallback gracieux a {} (l'engine continue sans).
+Cache PlayerInfo : 12h. Budget estime : ~100-200 calls/mois (1 call par
+joueur unique apparaissant dans nos picks, max 20/run * 2 runs/jour).
 """
 import hashlib, json, time, urllib.parse, urllib.request, urllib.error, gzip
 from pathlib import Path
@@ -105,70 +98,6 @@ def _get(endpoint, params=None, ttl=24 * 3600, force=False):
 
 # ─── API conviviale ─────────────────────────────────────────────────────────
 
-import re as _re
-
-def _extract_name_from_desc(desc):
-    """
-    Format Tank01 description : 'May 7: Hart (thumb) is questionable for Friday...'
-    On extrait le nom apres le ': ' jusqu'a '('. Si echec, premiere capitalisee.
-    """
-    if not desc: return None
-    m = _re.search(r":\s*([A-Z][a-zA-Z\.\-'\s]+?)\s*\(", desc)
-    if m: return m.group(1).strip()
-    # fallback : premier mot capitalise apres ':'
-    m = _re.search(r":\s*([A-Z][a-zA-Z\.\-']+)", desc)
-    return m.group(1).strip() if m else None
-
-
-def get_injuries(ttl=30 * 60):
-    """
-    Liste des joueurs blesses / questionables (status, return date).
-    Cache 30 min (critique en jour de match).
-    Retourne liste de dicts avec extracted_name (nom parse depuis description),
-    designation, description, injReturnDate, playerID.
-    """
-    data = _get("getNBAInjuryList", ttl=ttl)
-    if not data: return []
-    body = data.get("body") or []
-    raw_list = body if isinstance(body, list) else (
-        body.get("injuries") if isinstance(body, dict) else list(body.values()) if isinstance(body, dict) else []
-    )
-    # Enrichit avec le nom extrait
-    out = []
-    for inj in raw_list:
-        if not isinstance(inj, dict): continue
-        extracted = inj.get("longName") or inj.get("name") or _extract_name_from_desc(inj.get("description", ""))
-        out.append({
-            "extracted_name": extracted,
-            "playerID":       inj.get("playerID"),
-            "designation":    inj.get("designation", ""),
-            "description":    inj.get("description", ""),
-            "injReturnDate":  inj.get("injReturnDate", ""),
-            "injDate":        inj.get("injDate", ""),
-        })
-    return out
-
-
-def get_player_injury_status(player_name, injuries=None):
-    """
-    Retourne le statut blessure d'un joueur, ou None si pas blesse.
-    Match par dernier nom (lastname) car les descriptions Tank01 utilisent
-    souvent juste le lastname (ex: 'Hart' pour Josh Hart).
-    """
-    if injuries is None: injuries = get_injuries()
-    if not injuries or not player_name: return None
-    target_full = player_name.lower().strip()
-    target_last = target_full.split()[-1] if target_full else ""
-    for inj in injuries:
-        name = (inj.get("extracted_name") or "").lower().strip()
-        if not name: continue
-        if name == target_full: return inj
-        if target_last and (name == target_last or target_last in name.split()):
-            return inj
-        if target_full and target_full in name: return inj
-        if name in target_full: return inj
-    return None
-
 
 def get_player_info(player_name, ttl=12 * 3600):
     """
@@ -208,59 +137,9 @@ def is_player_out(player_name, ttl=12 * 3600):
     return is_out, designation, return_date
 
 
-def get_dfs_projections(date_str=None, ttl=6 * 3600):
-    """
-    Projections DFS Tank01 pour une date (YYYYMMDD).
-    Si pas de date, prend aujourd'hui.
-    Retourne dict {player_name: {pts, reb, ast, ...}}.
-    """
-    if not date_str:
-        from datetime import date as _d
-        date_str = _d.today().strftime("%Y%m%d")
-    data = _get("getNBADFS", {"date": date_str}, ttl=ttl)
-    if not data: return {}
-    body = data.get("body") or {}
-    out = {}
-    # Structure : body[teamId][playerId] = {projections}
-    if isinstance(body, dict):
-        for team_data in body.values():
-            if not isinstance(team_data, dict): continue
-            for p_data in team_data.values():
-                if not isinstance(p_data, dict): continue
-                name = p_data.get("longName") or p_data.get("playerName") or ""
-                if not name: continue
-                out[name] = {
-                    "pts": float(p_data.get("pts", 0) or 0),
-                    "reb": float(p_data.get("reb", 0) or 0),
-                    "ast": float(p_data.get("ast", 0) or 0),
-                    "fg3m": float(p_data.get("tptfgm", 0) or 0),
-                    "min": float(p_data.get("mins", 0) or 0),
-                }
-    return out
-
-
-def get_teams(ttl=24 * 3600):
-    """
-    Liste des equipes NBA + leur DvP (defense vs position).
-    Cache 24h (donnees stables).
-    """
-    data = _get("getNBATeams", ttl=ttl)
-    if not data: return []
-    body = data.get("body") or []
-    return body if isinstance(body, list) else []
-
-
-def quota_status():
-    """Retourne quota info si dispo (header X-RateLimit-...)."""
-    # Tank01 ne retourne pas toujours ces headers - on tente un appel leger
-    return {"key_set": bool(RAPIDAPI_KEY)}
-
-
 if __name__ == "__main__":
-    # Test rapide
     print(f"RAPIDAPI_KEY set : {bool(RAPIDAPI_KEY)} (len {len(RAPIDAPI_KEY)})")
-    print("\n=== Injuries ===")
-    inj = get_injuries()
-    print(f"{len(inj)} injury entries")
-    for i in inj[:5]:
-        print(f"  {i.get('longName') or i.get('name')}: {i.get('designation') or i.get('injReturnDate')} ({i.get('description') or i.get('injury')})")
+    # Smoke test : check le status d'un joueur connu
+    for name in ["LeBron James", "Stephen Curry"]:
+        is_out, status, ret = is_player_out(name)
+        print(f"  {name}: is_out={is_out} status='{status}' return='{ret}'")
