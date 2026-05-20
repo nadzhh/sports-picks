@@ -54,7 +54,8 @@ MAX_PICKS_PER_PLAYER = 2
 # Filtre qualite : nombre de picks par equipe est VARIABLE selon la qualite des
 # signaux alignes. On garde tout ce qui passe le quality_score min, plus un
 # hard cap pour eviter le spam (10/equipe max).
-QUALITY_SCORE_MIN = 50
+QUALITY_SCORE_MIN_WITH_ODDS    = 50   # avec odds reelles (edge calcule)
+QUALITY_SCORE_MIN_HEURISTIC    = 30   # sans odds (mode degrade)
 HARD_CAP_PER_TEAM = 10
 
 
@@ -599,15 +600,14 @@ def analyze_match(match_data, odds_for_game=None, game_lines=None):
 
     def _filter_by_quality(picks, max_per_player=1, hard_cap=HARD_CAP_PER_TEAM):
         """
-        Selection par QUALITY_SCORE (alignment de signaux) plutot que par count fixe.
-        - On garde tous les picks avec quality_score >= QUALITY_SCORE_MIN
-        - Diversifie par joueur (max 1 par joueur en priorite, 2 si pas plein)
-        - Cap absolu HARD_CAP_PER_TEAM par equipe pour eviter spam
-        Le nombre de picks par equipe est donc VARIABLE (0 si rien de bon, 1-10 sinon).
+        Selection par QUALITY_SCORE. Seuil adaptatif :
+        - Mode bookmaker (>=1 pick avec is_real_line=True) -> QUALITY_SCORE_MIN_WITH_ODDS=50
+        - Mode heuristique (aucun pick avec odds reelles) -> QUALITY_SCORE_MIN_HEURISTIC=30
+          (quota odds API epuise par ex.)
         """
-        # Filtre seuil qualite
-        eligible = [p for p in picks if _quality_score(p) >= QUALITY_SCORE_MIN]
-        # Tri par quality_score desc
+        has_real_odds = any(p.get("is_real_line") for p in picks)
+        threshold = QUALITY_SCORE_MIN_WITH_ODDS if has_real_odds else QUALITY_SCORE_MIN_HEURISTIC
+        eligible = [p for p in picks if _quality_score(p) >= threshold]
         eligible.sort(key=_quality_score, reverse=True)
 
         selected, per_player = [], {}
