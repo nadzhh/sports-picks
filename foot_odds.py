@@ -37,9 +37,14 @@ from nba_odds import (
     _cache_path,
     _cache_get,
     ODDS_API_KEYS,
+    ODDS_API_KEYS_NBA,
+    ODDS_API_KEYS_FOOT,
     ODDS_API_BASE,
     PREFERRED_BOOKS,
     _norm_name,
+    _load_key_state,
+    _key_hash,
+    _key_id,
 )
 
 
@@ -91,7 +96,8 @@ def _strip_meta(data):
 
 
 def _list_events(sport_key):
-    """Liste des events upcoming pour un sport. Cache 4h pour eviter le burn."""
+    """Liste des events upcoming pour un sport. Cache 4h pour eviter le burn.
+    Utilise pool FOOT en priorite, fallback NBA si epuise."""
     url = f"{ODDS_API_BASE}/sports/{sport_key}/events?apiKey={{APIKEY}}"
     cache_path = _cache_path(url)
     cached = _cache_get(cache_path, ttl=4 * 3600)
@@ -100,12 +106,14 @@ def _list_events(sport_key):
     if cache_path.exists():
         try: cache_path.unlink()
         except Exception: pass
-    data, _hdr = _get(url, use_cache=True)
+    data, _hdr = _get(url, use_cache=True,
+                      pool=ODDS_API_KEYS_FOOT, fallback_pool=ODDS_API_KEYS_NBA)
     return data or []
 
 
 def _event_props(sport_key, event_id):
-    """Recupere les markets player props pour un event. Cache 24h."""
+    """Recupere les markets player props pour un event. Cache 24h.
+    Utilise pool FOOT en priorite, fallback NBA si epuise."""
     markets = ",".join(MARKETS.keys())
     books   = ",".join(PREFERRED_BOOKS)
     params = {
@@ -116,7 +124,8 @@ def _event_props(sport_key, event_id):
         "oddsFormat": "decimal",
     }
     url = f"{ODDS_API_BASE}/sports/{sport_key}/events/{event_id}/odds?" + urllib.parse.urlencode(params, safe="{}")
-    data, _hdr = _get(url, use_cache=True)
+    data, _hdr = _get(url, use_cache=True,
+                      pool=ODDS_API_KEYS_FOOT, fallback_pool=ODDS_API_KEYS_NBA)
     return data
 
 
@@ -203,6 +212,17 @@ def run(force=False):
                 return _strip_meta(json.loads(OUTPUT_PATH.read_text(encoding="utf-8")))
             except Exception:
                 pass
+
+    # Affiche etat des cles (pool FOOT + fallback NBA)
+    state = _load_key_state()
+    print(f"=== Odds API FOOT : pool dedie {len(ODDS_API_KEYS_FOOT)} cle(s), fallback {len(ODDS_API_KEYS_NBA)} cle(s) ===")
+    for label, pool in [("FOOT-dedicated", ODDS_API_KEYS_FOOT), ("NBA-fallback", ODDS_API_KEYS_NBA)]:
+        for i, k in enumerate(pool, 1):
+            info = state.get(_key_hash(k), {})
+            rem = info.get("remaining", "?")
+            exh = info.get("exhausted_at")
+            status = "EPUISEE" if exh else f"remaining={rem}"
+            print(f"  [{label}] cle #{i} {_key_id(k)} : {status}")
 
     # Lit matches scrapes -> determine quelles leagues sont actives
     try:

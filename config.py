@@ -40,14 +40,22 @@ API_KEY  = env_or("API_KEY")
 API_BASE = "https://v3.football.api-sports.io"
 
 # ─── The Odds API (https://the-odds-api.com) — lignes NBA player props ───────
-# Gratuit 500 req/mois par cle. On peut chainer plusieurs cles pour multiplier
-# le quota : si la #1 est epuisee on bascule auto sur la #2, puis la #3.
+# Gratuit 500 req/mois par cle. On separe les pools par sport pour eviter
+# qu'un module bouffe le quota de l'autre :
+#   - NBA   : clefs #1 et #2 (ODDS_API_KEY, ODDS_API_KEY2)
+#   - Foot  : clef #3 (ODDS_API_KEY3)
+# En cas d'epuisement d'un pool, on fallback transparent sur l'autre pool
+# (rotation gracieuse pour ne pas tomber en heuristique trop vite).
 ODDS_API_KEY  = env_or("ODDS_API_KEY")
 ODDS_API_KEY2 = env_or("ODDS_API_KEY2")
-ODDS_API_KEY3 = env_or("ODDS_API_KEY3")   # optionnel - cree pour absorber le foot
+ODDS_API_KEY3 = env_or("ODDS_API_KEY3")
 ODDS_API_BASE = "https://api.the-odds-api.com/v4"
 
-# Liste ordonnee (la 1ere est essayee en priorite). Les vides sont filtrees.
+# Pools dedies par sport
+ODDS_API_KEYS_NBA  = [k for k in [ODDS_API_KEY, ODDS_API_KEY2] if k]
+ODDS_API_KEYS_FOOT = [k for k in [ODDS_API_KEY3] if k]
+
+# Legacy : liste totale (utilisee si appel sans pool explicite)
 ODDS_API_KEYS = [k for k in [ODDS_API_KEY, ODDS_API_KEY2, ODDS_API_KEY3] if k]
 
 # ─── Telegram bot (notifications) ─────────────────────────────────────────────

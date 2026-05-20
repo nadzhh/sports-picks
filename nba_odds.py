@@ -27,10 +27,15 @@ from datetime import datetime
 from pathlib import Path
 
 try:
-    from config import ODDS_API_KEY, ODDS_API_KEYS, ODDS_API_BASE
+    from config import (
+        ODDS_API_KEY, ODDS_API_KEYS, ODDS_API_BASE,
+        ODDS_API_KEYS_NBA, ODDS_API_KEYS_FOOT,
+    )
 except ImportError:
     ODDS_API_KEY = ""
     ODDS_API_KEYS = []
+    ODDS_API_KEYS_NBA = []
+    ODDS_API_KEYS_FOOT = []
     ODDS_API_BASE = "https://api.the-odds-api.com/v4"
 
 # Cache disque pour eviter de brule le quota (24h TTL)
@@ -72,31 +77,45 @@ def _save_key_state(state):
     except Exception: pass
 
 
-def _select_active_key():
+def _is_key_usable(key, state, now):
+    """True si la cle n'est pas epuisee (ou si l'epuisement date d'un mois precedent)."""
+    if not key: return False
+    info = state.get(_key_hash(key), {})
+    # Reset auto si le quota a passe 1er du mois suivant l'epuisement
+    exh = info.get("exhausted_at", "")
+    if exh:
+        try:
+            exh_dt = datetime.fromisoformat(exh)
+            if (now.month != exh_dt.month or now.year != exh_dt.year):
+                return True  # reset mensuel auto
+        except Exception: pass
+    if info.get("exhausted_at"): return False
+    remaining = info.get("remaining")
+    if remaining is not None and remaining <= 0: return False
+    return True
+
+
+def _select_active_key(pool=None, fallback_pool=None):
     """
-    Selectionne la 1ere cle non epuisee. Une cle est consideree epuisee si :
-    - son champ 'remaining' (header x-requests-remaining) est <= 1, OU
-    - elle a recu un 401/429 dans les dernieres 24h.
+    Selectionne la 1ere cle non epuisee. Cherche d'abord dans `pool` (pool
+    dedie au sport), puis dans `fallback_pool` (pool de l'autre sport) en
+    cas d'epuisement.
+
+    Si pool=None, utilise la liste globale ODDS_API_KEYS (compat legacy).
     Retourne (key, idx) ou (None, -1) si toutes epuisees.
     """
     state = _load_key_state()
     now = datetime.now()
-    for idx, k in enumerate(ODDS_API_KEYS):
-        if not k: continue
-        info = state.get(_key_hash(k), {})
-        # Reset auto si le quota a passe 1er du mois suivant l'epuisement
-        exh = info.get("exhausted_at", "")
-        if exh:
-            try:
-                exh_dt = datetime.fromisoformat(exh)
-                # Le quota The Odds API se reset le 1er de chaque mois UTC
-                if (now.month != exh_dt.month or now.year != exh_dt.year):
-                    info = {}  # reset auto
-            except Exception: pass
-        if info.get("exhausted_at"): continue
-        remaining = info.get("remaining")
-        if remaining is not None and remaining <= 0: continue
-        return k, idx
+    primary = pool if pool is not None else ODDS_API_KEYS
+    fallback = fallback_pool or []
+    # 1) cherche dans le pool dedie
+    for idx, k in enumerate(primary):
+        if _is_key_usable(k, state, now):
+            return k, idx
+    # 2) fallback : pool de l'autre sport (gracious degradation)
+    for idx, k in enumerate(fallback):
+        if _is_key_usable(k, state, now):
+            return k, 100 + idx   # idx >= 100 signale fallback
     return None, -1
 
 
@@ -225,59 +244,59 @@ def _fetch_with_key(url_with_placeholder, key, use_cache=True):
     return data, headers, None
 
 
-def _get(url_with_placeholder, use_cache=True):
+def _get(url_with_placeholder, use_cache=True, pool=None, fallback_pool=None):
     """
     Fetch + cache + rotation auto des cles.
     url_with_placeholder doit contenir {APIKEY} qu'on substitue.
     Si la cle active recoit 401/422/429 ou remaining<=0, on bascule sur
-    la suivante et on retry une fois.
+    la suivante (dans le pool dedie, puis fallback_pool) et on retry.
+
+    Si pool=None, utilise la liste globale ODDS_API_KEYS (compat legacy).
     """
-    if not ODDS_API_KEYS: return None, {}
+    available = (pool or []) + (fallback_pool or []) if (pool is not None or fallback_pool) else ODDS_API_KEYS
+    if not available: return None, {}
 
     tried = set()
     while True:
-        key, idx = _select_active_key()
+        key, idx = _select_active_key(pool=pool, fallback_pool=fallback_pool)
         if not key or key in tried:
-            print(f"  [odds-api] toutes les cles sont epuisees (essayees: {len(tried)})")
+            print(f"  [odds-api] toutes les cles disponibles sont epuisees (essayees: {len(tried)})")
             return None, {}
         tried.add(key)
+        # Log si on est en mode fallback (idx >= 100)
+        if idx >= 100:
+            print(f"  [odds-api] pool dedie epuise, fallback sur cle {_key_id(key)}")
 
         data, hdr, err = _fetch_with_key(url_with_placeholder, key, use_cache=use_cache)
         if err is None:
-            # Succes : update remaining
             remaining = hdr.get("x-requests-remaining") or hdr.get("X-Requests-Remaining")
             if remaining is not None:
                 _update_key_remaining(key, remaining)
             return data, hdr
 
         code, body = err
-        # 401 = invalid/expired key, 422/429 = quota epuise
         if code in (401, 422, 429) or "quota" in (body or "").lower() or "exceeded" in (body or "").lower():
             print(f"  [odds-api] cle {_key_id(key)} -> HTTP {code} : {body[:100]}")
             _mark_key_exhausted(key, f"HTTP {code}")
-            continue  # essaye la suivante
-        # Autre erreur : pas de rotation, on remonte
+            continue
         print(f"  [odds-api HTTP {code}] {body[:150]}")
         return None, {}
 
 
 def list_events():
-    """Liste des matchs NBA upcoming. Cache 4h pour economiser le quota :
-    les events publies bougent peu une fois en place. Le cron tourne souvent
-    (10-15 min) donc sans cache on bruleait 144 calls/jour = quota mort en
-    3 jours. Avec cache 4h : 6 calls/jour = 180/mois (sur 500)."""
+    """Liste des matchs NBA upcoming. Utilise le pool NBA (cles 1+2),
+    fallback sur foot si toutes epuisees."""
     if not ODDS_API_KEYS: return []
     url = f"{ODDS_API_BASE}/sports/basketball_nba/events?apiKey={{APIKEY}}"
     cache_path = _cache_path(url)
     cached = _cache_get(cache_path, ttl=4 * 3600)
     if cached is not None:
         return cached["data"] or []
-    # Cache expire/absent : force refetch (supprime l'ancien fichier pour
-    # eviter que _get hit le cache 24h existant)
     if cache_path.exists():
         try: cache_path.unlink()
         except Exception: pass
-    data, hdr = _get(url, use_cache=True)
+    data, hdr = _get(url, use_cache=True,
+                     pool=ODDS_API_KEYS_NBA, fallback_pool=ODDS_API_KEYS_FOOT)
     remaining = hdr.get("x-requests-remaining") or hdr.get("X-Requests-Remaining")
     if remaining:
         print(f"  [odds-api] requetes restantes sur la cle active : {remaining}")
@@ -285,7 +304,7 @@ def list_events():
 
 
 def event_props(event_id):
-    """Recupere tous les markets player props pour un event (us + eu)."""
+    """Recupere tous les markets player props pour un event NBA."""
     if not ODDS_API_KEYS: return None
     markets = ",".join(MARKETS.keys())
     books   = ",".join(PREFERRED_BOOKS)
@@ -297,7 +316,7 @@ def event_props(event_id):
         "oddsFormat": "decimal",
     }
     url = f"{ODDS_API_BASE}/sports/basketball_nba/events/{event_id}/odds?" + urllib.parse.urlencode(params, safe="{}")
-    data, _ = _get(url)
+    data, _ = _get(url, pool=ODDS_API_KEYS_NBA, fallback_pool=ODDS_API_KEYS_FOOT)
     return data
 
 
@@ -521,15 +540,16 @@ def run(force=False):
             except Exception:
                 pass  # fallback : refetch
 
-    # Affiche l'etat des cles configurees
+    # Affiche l'etat des cles configurees (pool NBA + fallback foot)
     state = _load_key_state()
-    print(f"=== Odds API : {len(ODDS_API_KEYS)} cle(s) configuree(s) ===")
-    for i, k in enumerate(ODDS_API_KEYS, 1):
-        info = state.get(_key_hash(k), {})
-        rem = info.get("remaining", "?")
-        exh = info.get("exhausted_at")
-        label = "EPUISEE" if exh else f"remaining={rem}"
-        print(f"  cle #{i} {_key_id(k)} : {label}")
+    print(f"=== Odds API NBA : pool dedie {len(ODDS_API_KEYS_NBA)} cle(s), fallback {len(ODDS_API_KEYS_FOOT)} cle(s) ===")
+    for label, pool in [("NBA-dedicated", ODDS_API_KEYS_NBA), ("FOOT-fallback", ODDS_API_KEYS_FOOT)]:
+        for i, k in enumerate(pool, 1):
+            info = state.get(_key_hash(k), {})
+            rem = info.get("remaining", "?")
+            exh = info.get("exhausted_at")
+            status = "EPUISEE" if exh else f"remaining={rem}"
+            print(f"  [{label}] cle #{i} {_key_id(k)} : {status}")
 
     # Charge les matchs NBA pour mapper
     try:
