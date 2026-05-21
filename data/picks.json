@@ -24,10 +24,112 @@
           ]
         },
         "is_fun": false
+      },
+      {
+        "direction": "tirs_(nice)_over_8.5",
+        "type": "Tirs (Nice)",
+        "label": "Plus de 8.5 tirs Nice",
+        "cote": null,
+        "cote_min": 1.27,
+        "value": [
+          "⚠️",
+          "Value serrée",
+          "#f59e0b"
+        ],
+        "confidence": 79,
+        "edge": null,
+        "reasoning": "Nice prend 13.7/m [pondere vs opp #None] · adv. concède 8.8/m → attendu ~11.2 (équipes proches au classement)",
+        "stats": {
+          "expected": 11.2
+        }
+      },
+      {
+        "direction": "shots_over_23.5",
+        "type": "Tirs (total match)",
+        "label": "Plus de 23.5 tirs total",
+        "cote": null,
+        "cote_min": 1.29,
+        "value": [
+          "⚠️",
+          "Value serrée",
+          "#f59e0b"
+        ],
+        "confidence": 77,
+        "reasoning": "📊 Brut : Lens L10 19.5 (L5 19.5) tirs/m · Nice L10 13.7 (L5 13.7) tirs/m\n🛡️ Défenses : Lens concède 8.8/m · Nice concède 13.0/m\n🎯 Attendu : Lens ~16.2 · Nice ~11.2 → total ~27.5\n⚖️ équipes proches au classement · Lens forme : W-D-W-W-W · Nice forme : W-D-W-D-W",
+        "stats": {
+          "expected_total": 27.5
+        }
       }
     ],
-    "home_players": [],
-    "away_players": [],
+    "home_players": [
+      {
+        "player": "Abdallah Sima",
+        "position": "F",
+        "is_sub": false,
+        "type": "Buteur",
+        "label": "Abdallah Sima marque",
+        "cote": null,
+        "book": null,
+        "books": [],
+        "confidence": 57,
+        "reasoning": "4 buts en 5 matchs cette saison (80.0% de chance/match) · finisseur efficace (14% de conv.) · xG moyen 0.44/match · défense fragile",
+        "context": {
+          "weakness": 0.63
+        },
+        "stats": {
+          "goals": 4,
+          "apps": 5,
+          "gpm": 0.8,
+          "xgpm": 0.44
+        },
+        "team": "home"
+      },
+      {
+        "player": "Matthieu Udol",
+        "position": "M",
+        "is_sub": false,
+        "type": "Joueur décisif",
+        "label": "Matthieu Udol but ou passe décisive",
+        "cote": null,
+        "book": null,
+        "books": [],
+        "confidence": 52,
+        "reasoning": "2 buts + 2 passes décisives en 5 matchs (80.0% de chance/match) · xG+xA: 0.6/match · défense fragile",
+        "context": {
+          "weakness": 0.63
+        },
+        "stats": {
+          "goals": 2,
+          "assists": 2,
+          "apps": 5
+        },
+        "team": "home"
+      }
+    ],
+    "away_players": [
+      {
+        "player": "Jonathan Clauss",
+        "position": "M",
+        "is_sub": false,
+        "type": "Passeur décisif",
+        "label": "Jonathan Clauss fait une passe décisive",
+        "cote": null,
+        "book": null,
+        "books": [],
+        "confidence": 49,
+        "reasoning": "4 passes décisives en 5 matchs (80.0% de chance/match) · xA moyen 0.42/match · défense fragile",
+        "context": {
+          "weakness": 0.67
+        },
+        "stats": {
+          "assists": 4,
+          "apps": 5,
+          "apm": 0.8,
+          "xapm": 0.42
+        },
+        "team": "away"
+      }
+    ],
     "fun_picks": [],
     "top_pick": {
       "direction": "home_dc",
