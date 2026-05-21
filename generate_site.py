@@ -1849,6 +1849,10 @@ def build_nba_card(game):
             f'<div style="display:flex;align-items:center;gap:6px">'
             f'<span style="background:{conf_color};color:#0a1628;font-weight:800;border-radius:14px;padding:3px 10px;font-size:13px">{conf}%</span>'
             f'{stake_pill(p.get("stake_label"), p.get("kelly_pct"))}'
+            f'<button onclick="event.stopPropagation();goToAnalyse({_html.escape(p.get("player","?"), quote=True)!r}, {_html.escape(p.get("prop","?"), quote=True)!r})" '
+            f'title="Voir l\'analyse complete du joueur" '
+            f'style="background:#1e3a8a;color:#bfdbfe;border:1px solid #3b82f6;border-radius:6px;'
+            f'padding:3px 8px;font-size:12px;font-weight:700;cursor:pointer">🔍</button>'
             f'{_push_button(_format_push_nba(p, game))}'
             f'</div>'
             f'</div>'
@@ -2147,7 +2151,9 @@ def _build_player_analyse_card(player, opp_abbr, odds_for_player, side_label, is
     starter_badge = '<span style="background:#16a34a;color:#fff;border-radius:3px;padding:1px 5px;font-size:9px;font-weight:800;margin-left:4px">TITULAIRE</span>' if is_starter else ""
 
     return (
-        f'<div class="player-analyse" style="background:#162032;border-radius:10px;padding:10px 14px;margin-bottom:8px;'
+        f'<div class="player-analyse" data-player-name="{_html.escape(name, quote=True)}" '
+        f'data-is-starter="{1 if is_starter else 0}" '
+        f'style="background:#162032;border-radius:10px;padding:10px 14px;margin-bottom:8px;'
         f'border-left:3px solid {"#3b82f6" if is_starter else "#475569"}">'
         # Header (cliquable pour toggle expand)
         f'<div class="player-header" onclick="togglePlayerExpand(this)" '
@@ -2894,9 +2900,14 @@ def build_html(matches, team_ai, player_ai, pstats_data, nba_picks=None, nba_his
   <!-- Section Analyse NBA -->
   <div id="sport-analyse" style="display:none">
     <div class="legend">
-      <b>🔍 Analyse joueur</b> — Selectionne un prop (PTS / REB / AST / 3PM / PR / PA / PRA) pour
+      <b>🔍 Analyse joueur</b> — Selectionne un prop (PTS / REB / AST / 3PM / REB+AST / PR / PA / PRA) pour
       visualiser la perf du joueur sur ses 5 derniers matchs · L10/L20/H2H hit rates · médiane/moyenne ·
       <span style="color:#fb923c">ligne pointillée = ligne bookmaker</span> (ou médiane si pas dispo)
+    </div>
+    <div style="display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap">
+      <button onclick="collapseAllAnalyse()" style="background:#1e293b;color:#94a3b8;border:1px solid #334155;border-radius:8px;padding:8px 14px;font-size:12px;font-weight:700;cursor:pointer">📕 Tout fermer</button>
+      <button onclick="expandAllAnalyse()" style="background:#1e293b;color:#94a3b8;border:1px solid #334155;border-radius:8px;padding:8px 14px;font-size:12px;font-weight:700;cursor:pointer">📖 Tout ouvrir</button>
+      <button onclick="expandStartersAnalyse()" style="background:#1e3a8a;color:#bfdbfe;border:1px solid #3b82f6;border-radius:8px;padding:8px 14px;font-size:12px;font-weight:700;cursor:pointer">⭐ Titulaires seulement</button>
     </div>
     {nba_analyse_html}
   </div>
@@ -2980,6 +2991,71 @@ function togglePlayerExpand(headerEl){{
   var isHidden = content.style.display === 'none';
   content.style.display = isHidden ? 'block' : 'none';
   if(arrow) arrow.textContent = isHidden ? '▼' : '▶';
+}}
+
+// ── Actions globales : tout fermer / tout ouvrir / titulaires seuls ──
+function _setExpanded(card, expanded){{
+  var content = card.querySelector('.player-content');
+  var arrow = card.querySelector('.expand-arrow');
+  if(!content) return;
+  content.style.display = expanded ? 'block' : 'none';
+  if(arrow) arrow.textContent = expanded ? '▼' : '▶';
+}}
+function collapseAllAnalyse(){{
+  document.querySelectorAll('#sport-analyse .player-analyse').forEach(function(c){{
+    _setExpanded(c, false);
+  }});
+}}
+function expandAllAnalyse(){{
+  document.querySelectorAll('#sport-analyse .player-analyse').forEach(function(c){{
+    _setExpanded(c, true);
+  }});
+}}
+function expandStartersAnalyse(){{
+  document.querySelectorAll('#sport-analyse .player-analyse').forEach(function(c){{
+    var isStarter = c.getAttribute('data-is-starter') === '1';
+    _setExpanded(c, isStarter);
+  }});
+}}
+
+// ── Lien picks NBA -> Analyse : ouvre le tab Analyse + scroll au joueur ──
+function goToAnalyse(playerName, prop){{
+  showSport('analyse');
+  // Petit delai pour laisser le tab s'afficher
+  setTimeout(function(){{
+    var cards = document.querySelectorAll('#sport-analyse .player-analyse');
+    var target = null;
+    cards.forEach(function(c){{
+      if(target) return;
+      var n = (c.getAttribute('data-player-name') || '').trim();
+      if(n === playerName) target = c;
+    }});
+    if(!target){{
+      // Fallback : match partiel par nom de famille
+      var lastName = playerName.split(' ').pop();
+      cards.forEach(function(c){{
+        if(target) return;
+        var n = (c.getAttribute('data-player-name') || '').trim();
+        if(n.indexOf(lastName) !== -1) target = c;
+      }});
+    }}
+    if(!target) return;
+    // Expand
+    _setExpanded(target, true);
+    // Selectionne la prop demandee
+    var propBtn = target.querySelector('.tg-prop-btn[data-prop="' + prop + '"]');
+    if(propBtn) selectPropChart(propBtn);
+    // Scroll + highlight
+    target.scrollIntoView({{behavior:'smooth', block:'center'}});
+    var origOutline = target.style.outline;
+    var origShadow  = target.style.boxShadow;
+    target.style.outline = '3px solid #fb923c';
+    target.style.boxShadow = '0 0 24px rgba(251,146,60,0.6)';
+    setTimeout(function(){{
+      target.style.outline = origOutline;
+      target.style.boxShadow = origShadow;
+    }}, 2500);
+  }}, 80);
 }}
 
 // Init : applique le style actif sur les boutons par defaut
