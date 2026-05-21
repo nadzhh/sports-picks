@@ -3673,32 +3673,71 @@ function renderUserPicks(){{
   else if(curL > 0) currentStreak = 'L' + curL;
   var streakColor = curW > 0 ? '#22c55e' : (curL > 0 ? '#ef4444' : '#94a3b8');
 
-  // ── Card bankroll header ──
-  var bkCard = '<div style="background:linear-gradient(135deg,#0a1628,#1e3a5f);border-radius:14px;padding:18px 22px;margin-bottom:16px;border:1px solid #334155">'
-    + '<div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:14px">'
-    + '<div>'
-    + '<div style="color:#64748b;font-size:11px;text-transform:uppercase;letter-spacing:1px;font-weight:700">💰 Bankroll</div>'
-    + '<div style="color:#f1f5f9;font-size:28px;font-weight:800;margin-top:3px">' + bkCurrent.toFixed(2) + 'u <span style="color:#64748b;font-size:14px;font-weight:500">/ ' + bk.toFixed(0) + 'u</span></div>'
-    + '<div style="color:' + bkColor + ';font-size:14px;font-weight:700">' + profitSign + totalProfit.toFixed(2) + 'u <span style="color:#64748b;font-weight:500">(' + profitSign + bkPct.toFixed(2) + '%)</span></div>'
-    + '<button onclick="editBankroll()" style="background:transparent;color:#94a3b8;border:1px solid #475569;border-radius:6px;padding:3px 10px;font-size:11px;font-weight:700;cursor:pointer;margin-top:8px">⚙ Modifier bankroll initial</button>'
+  // ── Card bankroll header (grid layout polished) ──
+  // Progress bar : remplissage proportionnel au profit (max ±50%)
+  var bkProgress = Math.max(-50, Math.min(50, bkPct));
+  var progressLeft = bkProgress >= 0 ? 50 : (50 + bkProgress);
+  var progressWidth = Math.abs(bkProgress);
+  var progressColor = bkProgress >= 0 ? '#22c55e' : '#ef4444';
+  var bkCard = '<div style="background:linear-gradient(135deg,#0c1c30 0%,#1e3a5f 100%);border-radius:16px;padding:22px 26px;margin-bottom:18px;border:1px solid #334155;box-shadow:0 4px 24px rgba(0,0,0,0.4)">'
+    // Top row : titre + actions
+    + '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px">'
+    + '<div style="display:flex;align-items:center;gap:10px"><span style="font-size:22px">💰</span><span style="color:#94a3b8;font-size:13px;text-transform:uppercase;letter-spacing:1.5px;font-weight:800">Bankroll</span></div>'
+    + '<button onclick="editBankroll()" style="background:rgba(255,255,255,0.05);color:#cbd5e1;border:1px solid #475569;border-radius:6px;padding:5px 12px;font-size:11px;font-weight:700;cursor:pointer;transition:all 0.15s" onmouseover="this.style.background=\\'rgba(255,255,255,0.1)\\'" onmouseout="this.style.background=\\'rgba(255,255,255,0.05)\\'">⚙ Bankroll initial</button>'
     + '</div>'
-    + '<div style="display:flex;gap:18px;flex-wrap:wrap;align-items:center">'
-    + '<div><div style="color:#64748b;font-size:11px">WIN RATE</div><div style="color:' + wrColor + ';font-size:22px;font-weight:800">' + wr + '%</div><div style="color:#64748b;font-size:10px">' + wins + 'W / ' + losses + 'L' + (pushes ? ' / ' + pushes + 'P' : '') + '</div></div>'
-    + '<div><div style="color:#64748b;font-size:11px">YIELD</div><div style="color:' + profitColor + ';font-size:22px;font-weight:800">' + profitSign + yieldPct.toFixed(2) + '%</div><div style="color:#64748b;font-size:10px">profit / mise</div></div>'
-    + '<div><div style="color:#64748b;font-size:11px">PENDING</div><div style="color:#fb923c;font-size:22px;font-weight:800">' + pending + '</div></div>'
-    + '<div><div style="color:#64748b;font-size:11px">STREAK</div><div style="color:' + streakColor + ';font-size:22px;font-weight:800">' + currentStreak + '</div><div style="color:#64748b;font-size:10px">max W' + maxWStreak + ' / L' + maxLStreak + '</div></div>'
+    // Big bankroll display
+    + '<div style="display:flex;align-items:baseline;gap:12px;margin-bottom:6px;flex-wrap:wrap">'
+    + '<span style="color:#f1f5f9;font-size:38px;font-weight:800;line-height:1">' + bkCurrent.toFixed(2) + 'u</span>'
+    + '<span style="color:#64748b;font-size:15px">sur ' + bk.toFixed(0) + 'u initial</span>'
+    + '</div>'
+    + '<div style="display:flex;align-items:center;gap:8px;margin-bottom:14px">'
+    + '<span style="color:' + bkColor + ';font-size:16px;font-weight:800">' + profitSign + totalProfit.toFixed(2) + 'u</span>'
+    + '<span style="background:' + bkColor + '22;color:' + bkColor + ';border:1px solid ' + bkColor + ';border-radius:14px;padding:2px 10px;font-size:12px;font-weight:800">' + profitSign + bkPct.toFixed(2) + '%</span>'
+    + '</div>'
+    // Progress bar (centred at 50%, grows L or R)
+    + '<div style="position:relative;height:6px;background:rgba(255,255,255,0.06);border-radius:3px;margin-bottom:18px;overflow:hidden">'
+    + '<div style="position:absolute;left:50%;top:0;bottom:0;width:1px;background:rgba(255,255,255,0.2)"></div>'
+    + '<div style="position:absolute;left:' + progressLeft + '%;top:0;bottom:0;width:' + progressWidth + '%;background:linear-gradient(90deg,' + progressColor + '88,' + progressColor + ');border-radius:3px"></div>'
+    + '</div>'
+    // KPI grid (4 columns)
+    + '<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:14px">'
+    + '<div style="background:rgba(255,255,255,0.03);border-radius:10px;padding:12px 14px;border-left:3px solid ' + wrColor + '">'
+    + '<div style="color:#64748b;font-size:10px;text-transform:uppercase;letter-spacing:1px;font-weight:700">🎯 WIN RATE</div>'
+    + '<div style="color:' + wrColor + ';font-size:24px;font-weight:800;margin-top:2px">' + wr + '%</div>'
+    + '<div style="color:#64748b;font-size:11px">' + wins + 'W · ' + losses + 'L' + (pushes ? ' · ' + pushes + 'P' : '') + '</div>'
+    + '</div>'
+    + '<div style="background:rgba(255,255,255,0.03);border-radius:10px;padding:12px 14px;border-left:3px solid ' + profitColor + '">'
+    + '<div style="color:#64748b;font-size:10px;text-transform:uppercase;letter-spacing:1px;font-weight:700">📈 YIELD</div>'
+    + '<div style="color:' + profitColor + ';font-size:24px;font-weight:800;margin-top:2px">' + profitSign + yieldPct.toFixed(2) + '%</div>'
+    + '<div style="color:#64748b;font-size:11px">profit / mise totale</div>'
+    + '</div>'
+    + '<div style="background:rgba(255,255,255,0.03);border-radius:10px;padding:12px 14px;border-left:3px solid #fb923c">'
+    + '<div style="color:#64748b;font-size:10px;text-transform:uppercase;letter-spacing:1px;font-weight:700">⏳ PENDING</div>'
+    + '<div style="color:#fb923c;font-size:24px;font-weight:800;margin-top:2px">' + pending + '</div>'
+    + '<div style="color:#64748b;font-size:11px">a resoudre</div>'
+    + '</div>'
+    + '<div style="background:rgba(255,255,255,0.03);border-radius:10px;padding:12px 14px;border-left:3px solid ' + streakColor + '">'
+    + '<div style="color:#64748b;font-size:10px;text-transform:uppercase;letter-spacing:1px;font-weight:700">' + (curW > 0 ? '🔥' : (curL > 0 ? '❄️' : '⚪')) + ' STREAK</div>'
+    + '<div style="color:' + streakColor + ';font-size:24px;font-weight:800;margin-top:2px">' + currentStreak + '</div>'
+    + '<div style="color:#64748b;font-size:11px">max W' + maxWStreak + ' · L' + maxLStreak + '</div>'
     + '</div>'
     + '</div>'
     + '</div>';
 
-  // ── Stats moyennes ──
+  // ── Stats moyennes (mini cards) ──
   var statsRow = '';
   if(resolvedNonPush.length > 0){{
-    statsRow = '<div style="background:#0f172a;border-radius:10px;padding:12px 16px;margin-bottom:14px;display:flex;gap:18px;flex-wrap:wrap;font-size:12px">'
-      + '<div><span style="color:#64748b">Cote moy. : </span><span style="color:#f1f5f9;font-weight:700">' + avgCote.toFixed(2) + '</span></div>'
-      + '<div><span style="color:#64748b">Mise moy. : </span><span style="color:#f1f5f9;font-weight:700">' + avgStake.toFixed(2) + 'u</span></div>'
-      + '<div><span style="color:#64748b">Mise totale : </span><span style="color:#f1f5f9;font-weight:700">' + totalStake.toFixed(1) + 'u</span></div>'
-      + '<div><span style="color:#64748b">Bets resolus : </span><span style="color:#f1f5f9;font-weight:700">' + resolvedNonPush.length + '</span></div>'
+    function _miniStat(label, value, icon){{
+      return '<div style="background:#0f172a;border:1px solid #1e293b;border-radius:10px;padding:10px 14px;flex:1;min-width:120px">'
+        + '<div style="color:#64748b;font-size:10px;text-transform:uppercase;letter-spacing:0.8px;font-weight:700">' + icon + ' ' + label + '</div>'
+        + '<div style="color:#f1f5f9;font-size:18px;font-weight:800;margin-top:2px">' + value + '</div>'
+        + '</div>';
+    }}
+    statsRow = '<div style="display:flex;gap:10px;margin-bottom:14px;flex-wrap:wrap">'
+      + _miniStat('Cote moy.', avgCote.toFixed(2), '📊')
+      + _miniStat('Mise moy.', avgStake.toFixed(2) + 'u', '💵')
+      + _miniStat('Mise totale', totalStake.toFixed(1) + 'u', '🎰')
+      + _miniStat('Bets résolus', resolvedNonPush.length, '✓')
       + '</div>';
   }}
 
@@ -3716,20 +3755,30 @@ function renderUserPicks(){{
   var propRows = '';
   Object.keys(byProp).sort().forEach(function(k){{
     var b = byProp[k];
-    var bwr = (b.w + b.l) > 0 ? Math.round(b.w / (b.w + b.l) * 100) : 0;
-    var bColor = bwr >= 55 ? '#22c55e' : (bwr >= 50 ? '#84cc16' : '#ef4444');
+    var bn = b.w + b.l;
+    var bwr = bn > 0 ? Math.round(b.w / bn * 100) : 0;
+    var bColor = bwr >= 55 ? '#22c55e' : (bwr >= 50 ? '#84cc16' : (bwr >= 40 ? '#f59e0b' : '#ef4444'));
     var bPColor = b.profit > 0 ? '#22c55e' : (b.profit < 0 ? '#ef4444' : '#94a3b8');
     var bSign = b.profit >= 0 ? '+' : '';
-    propRows += '<div style="display:flex;justify-content:space-between;align-items:center;padding:6px 10px;border-bottom:1px solid #1e293b;font-size:12px">'
-      + '<span style="color:#f1f5f9;font-weight:700;min-width:60px">' + k + '</span>'
-      + '<span style="color:' + bColor + ';font-weight:700">' + bwr + '% <span style="color:#64748b;font-weight:400">(' + b.w + 'W/' + b.l + 'L)</span></span>'
-      + '<span style="color:' + bPColor + ';font-weight:700">' + bSign + b.profit.toFixed(2) + 'u</span>'
+    var propIcon = ({{PTS:'🎯', REB:'🛟', AST:'🎁', FG3M:'🏹', PR:'🎯+🛟', PA:'🎯+🎁', PRA:'🌟', RA:'🛟+🎁'}})[k] || '📊';
+    var propLabelFr = ({{PTS:'Points', REB:'Rebonds', AST:'Passes', FG3M:'3-points', PR:'Pts+Reb', PA:'Pts+Pas', PRA:'Pts+Reb+Pas', RA:'Reb+Pas'}})[k] || k;
+    propRows += '<div style="display:grid;grid-template-columns:140px 1fr auto auto;gap:12px;align-items:center;padding:10px 14px;border-bottom:1px solid #1e293b;font-size:13px">'
+      // Marche
+      + '<div style="display:flex;align-items:center;gap:6px"><span style="font-size:14px">' + propIcon + '</span><span style="color:#f1f5f9;font-weight:700">' + propLabelFr + '</span></div>'
+      // Progress bar
+      + '<div style="background:rgba(255,255,255,0.04);border-radius:4px;height:8px;position:relative;overflow:hidden">'
+      + '<div style="position:absolute;left:0;top:0;bottom:0;width:' + bwr + '%;background:linear-gradient(90deg,' + bColor + '99,' + bColor + ');border-radius:4px"></div>'
+      + '</div>'
+      // WR
+      + '<span style="color:' + bColor + ';font-weight:800;min-width:54px;text-align:right">' + bwr + '%<span style="color:#64748b;font-weight:400;font-size:11px"> (' + b.w + '/' + bn + ')</span></span>'
+      // Profit
+      + '<span style="color:' + bPColor + ';font-weight:800;min-width:64px;text-align:right">' + bSign + b.profit.toFixed(2) + 'u</span>'
       + '</div>';
   }});
   var breakdownCard = '';
   if(propRows){{
-    breakdownCard = '<div style="background:#0f172a;border-radius:10px;padding:12px 14px;margin-bottom:14px">'
-      + '<div style="color:#94a3b8;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:8px">🎯 Par marche</div>'
+    breakdownCard = '<div style="background:#0f172a;border:1px solid #1e293b;border-radius:12px;padding:14px 4px 4px;margin-bottom:14px">'
+      + '<div style="color:#94a3b8;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1.2px;margin:0 14px 10px;display:flex;align-items:center;gap:6px">🎯 Performance par marché</div>'
       + propRows
       + '</div>';
   }}
@@ -3777,10 +3826,14 @@ function renderUserPicks(){{
   var adviceCard = '';
   if(advice.length){{
     var rows = advice.map(function(a){{
-      return '<div style="padding:8px 12px;background:rgba(' + (a.color === '#22c55e' ? '34,197,94' : (a.color === '#ef4444' ? '239,68,68' : (a.color === '#fb923c' ? '251,146,60' : '148,163,184'))) + ',0.10);border-left:3px solid ' + a.color + ';border-radius:4px;margin-bottom:6px;color:#cbd5e1;font-size:12px;line-height:1.5">' + a.icon + ' ' + a.text + '</div>';
+      var rgb = (a.color === '#22c55e' ? '34,197,94' : (a.color === '#ef4444' ? '239,68,68' : (a.color === '#fb923c' ? '251,146,60' : '148,163,184')));
+      return '<div style="padding:10px 14px;background:linear-gradient(90deg,rgba(' + rgb + ',0.12) 0%,rgba(' + rgb + ',0.04) 100%);border-left:3px solid ' + a.color + ';border-radius:6px;margin-bottom:8px;color:#e2e8f0;font-size:13px;line-height:1.55;display:flex;gap:10px;align-items:flex-start">'
+        + '<span style="font-size:18px;flex-shrink:0">' + a.icon + '</span>'
+        + '<span style="flex:1">' + a.text + '</span>'
+        + '</div>';
     }}).join('');
-    adviceCard = '<div style="background:#0f172a;border-radius:10px;padding:12px 14px;margin-bottom:14px">'
-      + '<div style="color:#94a3b8;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:8px">💡 Conseils</div>'
+    adviceCard = '<div style="background:#0f172a;border:1px solid #1e293b;border-radius:12px;padding:14px;margin-bottom:14px">'
+      + '<div style="color:#94a3b8;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1.2px;margin-bottom:10px;display:flex;align-items:center;gap:6px">💡 Conseils & insights</div>'
       + rows
       + '</div>';
   }}
@@ -3798,9 +3851,9 @@ function renderUserPicks(){{
       resultBadge = '<span style="background:#94a3b8;color:#0a1628;border-radius:4px;padding:2px 8px;font-size:11px;font-weight:800">= PUSH</span>';
     }} else {{
       resultBadge = '<span style="background:#fb923c;color:#0a1628;border-radius:4px;padding:2px 8px;font-size:11px;font-weight:800">... PENDING</span>';
-      resultActions = '<button onclick="markUserPickResult(\\'' + p.id + '\\', \\'WIN\\')" style="background:#16a34a;color:#fff;border:none;border-radius:5px;padding:4px 9px;font-size:11px;font-weight:700;cursor:pointer;margin-right:4px">✓ Win</button>'
-        + '<button onclick="markUserPickResult(\\'' + p.id + '\\', \\'LOSS\\')" style="background:#dc2626;color:#fff;border:none;border-radius:5px;padding:4px 9px;font-size:11px;font-weight:700;cursor:pointer;margin-right:4px">✗ Loss</button>'
-        + '<button onclick="markUserPickResult(\\'' + p.id + '\\', \\'PUSH\\')" style="background:#475569;color:#fff;border:none;border-radius:5px;padding:4px 9px;font-size:11px;font-weight:700;cursor:pointer">= Push</button>';
+      resultActions = '<button onclick="markUserPickResult(\\'' + p.id + '\\', \\'WIN\\')" title="Marquer comme gagne" style="background:#16a34a;color:#fff;border:none;border-radius:6px;padding:6px 11px;font-size:11px;font-weight:700;cursor:pointer;margin-right:4px">✓ Gagné</button>'
+        + '<button onclick="markUserPickResult(\\'' + p.id + '\\', \\'LOSS\\')" title="Marquer comme perdu" style="background:#dc2626;color:#fff;border:none;border-radius:6px;padding:6px 11px;font-size:11px;font-weight:700;cursor:pointer;margin-right:4px">✗ Perdu</button>'
+        + '<button onclick="markUserPickResult(\\'' + p.id + '\\', \\'PUSH\\')" title="Push = ligne tied, mise remboursee" style="background:#475569;color:#fff;border:none;border-radius:6px;padding:6px 11px;font-size:11px;font-weight:700;cursor:pointer">= Annulé</button>';
     }}
     var dir = p.direction === 'over' ? 'plus de' : 'moins de';
     var propLabel = ({{PTS:'pts',REB:'reb',AST:'pas',FG3M:'3PM',RA:'reb+pas',PR:'pts+reb',PA:'pts+ast',PRA:'PRA'}})[p.prop] || p.prop;
@@ -3847,10 +3900,10 @@ function renderUserPicks(){{
       + '<div style="display:flex;flex-direction:column;align-items:flex-end;gap:6px">'
       + '<div style="display:flex;gap:4px">'
       + resultActions
-      + '<button onclick="pushUserPick(this, \\'' + p.id + '\\')" '
-      + 'style="background:#0088cc;color:#fff;border:none;border-radius:5px;padding:4px 9px;font-size:11px;font-weight:700;cursor:pointer">📲 Push</button>'
-      + '<button onclick="deleteUserPick(\\'' + p.id + '\\')" '
-      + 'style="background:#475569;color:#fff;border:none;border-radius:5px;padding:4px 9px;font-size:11px;font-weight:700;cursor:pointer">🗑</button>'
+      + '<button onclick="pushUserPick(this, \\'' + p.id + '\\')" title="Envoyer sur Telegram" '
+      + 'style="background:#0088cc;color:#fff;border:none;border-radius:6px;padding:6px 11px;font-size:11px;font-weight:700;cursor:pointer">📲 Telegram</button>'
+      + '<button onclick="deleteUserPick(\\'' + p.id + '\\')" title="Supprimer" '
+      + 'style="background:#1e293b;color:#94a3b8;border:1px solid #334155;border-radius:6px;padding:6px 10px;font-size:11px;font-weight:700;cursor:pointer">🗑</button>'
       + '</div>'
       + '</div>'
       + '</div>'
