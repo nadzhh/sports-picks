@@ -1925,6 +1925,13 @@ def _build_prop_chart_bars(games_window, ref_line, chart_max, with_labels=True):
         date_short = (g.get("date","")[:10][-5:] or "?").replace("-","/")
         opp = (g.get("opp","?") or "?")[:4]
         loc = "vs" if g.get("is_home") else "@"
+        mins = int(g.get("MIN") or 0)
+        # Couleur MIN : rouge si < 15 (joueur a peine joue, performance pas
+        # representative), orange si 15-25, gris sinon.
+        if   mins < 15: min_color = "#ef4444"
+        elif mins < 25: min_color = "#f59e0b"
+        else:           min_color = "#94a3b8"
+        min_suffix = "min" if n <= 5 else "m"
         bars_html += (
             f'<div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;min-width:0">'
             f'<div style="color:#f1f5f9;font-size:{font_val}px;font-weight:700;margin-bottom:3px">{int(val)}</div>'
@@ -1932,7 +1939,21 @@ def _build_prop_chart_bars(games_window, ref_line, chart_max, with_labels=True):
             f'</div>'
         )
         if with_labels:
-            label_text = f'{date_short}<br>{loc} {opp}' if n <= 10 else f'{loc}{opp}'
+            if n <= 5:
+                label_text = (
+                    f'{date_short}<br>{loc} {opp}<br>'
+                    f'<span style="color:{min_color};font-weight:700">{mins} {min_suffix}</span>'
+                )
+            elif n <= 10:
+                label_text = (
+                    f'{date_short}<br>{loc} {opp}<br>'
+                    f'<span style="color:{min_color};font-weight:700">{mins}{min_suffix}</span>'
+                )
+            else:
+                label_text = (
+                    f'{loc}{opp}<br>'
+                    f'<span style="color:{min_color};font-weight:700">{mins}{min_suffix}</span>'
+                )
             labels_html += (
                 f'<div style="flex:1;color:#475569;font-size:{font_lbl}px;text-align:center;line-height:1.3;padding-top:5px;min-width:0;overflow:hidden">'
                 f'{label_text}</div>'
