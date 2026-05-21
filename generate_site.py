@@ -2935,7 +2935,7 @@ def build_html(matches, team_ai, player_ai, pstats_data, nba_picks=None, nba_his
     <button class="sport-btn active" onclick="showSport('football')" id="sport-btn-football">⚽ Football</button>
     <button class="sport-btn" onclick="showSport('nba')"     id="sport-btn-nba">🏀 Basketball NBA</button>
     <button class="sport-btn" onclick="showSport('analyse')" id="sport-btn-analyse">🔍 Analyse NBA</button>
-    <button class="sport-btn" onclick="showSport('userpicks')" id="sport-btn-userpicks">📌 Mes picks <span id="userpicks-count" style="background:rgba(255,255,255,0.2);border-radius:10px;padding:1px 7px;font-size:11px;margin-left:4px;display:none">0</span></button>
+    <button class="sport-btn" onclick="showSport('userpicks')" id="sport-btn-userpicks">💰 Bankroll <span id="userpicks-count" style="background:rgba(255,255,255,0.2);border-radius:10px;padding:1px 7px;font-size:11px;margin-left:4px;display:none">0</span></button>
     <button class="sport-btn" onclick="showSport('foothist')" id="sport-btn-foothist">🏆 Historique Foot</button>
     <button class="sport-btn" onclick="showSport('nbahist')"  id="sport-btn-nbahist">🏆 Historique NBA</button>
   </div>
@@ -2964,17 +2964,17 @@ def build_html(matches, team_ai, player_ai, pstats_data, nba_picks=None, nba_his
     {nba_section}
   </div>
 
-  <!-- Section Mes picks (user-sent, render JS) -->
+  <!-- Section Bankroll (gestion + tracking) -->
   <div id="sport-userpicks" style="display:none">
     <div class="legend">
-      <b>📌 Mes picks perso</b> — Bets que TU as identifies depuis l'Analyse (pas l'algo).
-      Stockes dans ton navigateur. Tu peux les pousser sur Telegram, les marquer
-      gagnes/perdus, ou les supprimer.
+      <b>💰 Gestion de bankroll</b> — Tracking de tes paris perso (ajoutes depuis Analyse).
+      Stats, ROI, mise moyenne, breakdown par marche, conseils strategiques.
+      Donnees stockees dans ton navigateur (localStorage).
     </div>
     <div id="user-picks-list" style="margin-top:14px">
       <div style="text-align:center;padding:40px;color:#64748b">
-        Aucun pick perso pour l'instant. Va dans l'onglet <b>🔍 Analyse NBA</b> et clique
-        sur <b>📌 Add OVER / UNDER</b> sur un chart pour ajouter ton premier pick.
+        Aucun pari pour l'instant. Va dans l'onglet <b>🔍 Analyse NBA</b> et clique
+        sur <b>📌 Add OVER / UNDER</b> sur un chart pour ajouter ton premier pari.
       </div>
     </div>
   </div>
@@ -3577,12 +3577,46 @@ function markUserPickResult(id, result){{
   renderUserPicks();
 }}
 
+// Edit stake (mise) sur un pick
+function editUserPickStake(id){{
+  var arr = _loadUserPicks();
+  var idx = arr.findIndex(p => p.id === id);
+  if(idx < 0) return;
+  var p = arr[idx];
+  var current = (p.stake != null) ? p.stake : 1;
+  var s = prompt('Mise en unites (1u = 1% de ton bankroll en gestion conservative) :', String(current));
+  if(s === null) return;
+  var sNum = parseFloat(s);
+  if(isNaN(sNum) || sNum <= 0){{ alert('Mise invalide'); return; }}
+  arr[idx].stake = sNum;
+  _saveUserPicks(arr);
+  renderUserPicks();
+}}
+
+// Bankroll initial (localStorage)
+function _getBankroll(){{
+  var v = parseFloat(localStorage.getItem('user_bankroll_units') || '100');
+  return isNaN(v) ? 100 : v;
+}}
+function _setBankroll(v){{
+  localStorage.setItem('user_bankroll_units', String(v));
+}}
+function editBankroll(){{
+  var current = _getBankroll();
+  var v = prompt('Bankroll initial en unites (ex 100u) :', String(current));
+  if(v === null) return;
+  var n = parseFloat(v);
+  if(isNaN(n) || n <= 0){{ alert('Valeur invalide'); return; }}
+  _setBankroll(n);
+  renderUserPicks();
+}}
+
 function renderUserPicks(){{
   var arr = _loadUserPicks();
   var container = document.getElementById('user-picks-list');
   if(!container) return;
   if(!arr.length){{
-    container.innerHTML = '<div style="text-align:center;padding:40px;color:#64748b">Aucun pick perso pour l\\'instant. Va dans l\\'onglet <b>🔍 Analyse NBA</b> et clique sur <b>📌 Add OVER / UNDER</b> sur un chart pour ajouter ton premier pick.</div>';
+    container.innerHTML = '<div style="text-align:center;padding:40px;color:#64748b">Aucun pari pour l\\'instant. Va dans l\\'onglet <b>🔍 Analyse NBA</b> et clique sur <b>📌 Add OVER / UNDER</b> sur un chart pour ajouter ton premier pari.</div>';
     return;
   }}
   // Sort : pending d'abord (recent en haut), puis resolus
@@ -3591,52 +3625,195 @@ function renderUserPicks(){{
     if(a.result && !b.result) return 1;
     return (b.created || '').localeCompare(a.created || '');
   }});
-  // Stats : WR + ROI sur les resolus (ROI calcule avec la cote saisie par l'user)
-  var resolved = arr.filter(p => p.result === 'WIN' || p.result === 'LOSS');
+
+  // ── Bankroll + stats globales ──────────────────────────────────────
+  var resolved = arr.filter(p => p.result === 'WIN' || p.result === 'LOSS' || p.result === 'PUSH');
+  var resolvedNonPush = resolved.filter(p => p.result !== 'PUSH');
   var wins = resolved.filter(p => p.result === 'WIN').length;
   var losses = resolved.filter(p => p.result === 'LOSS').length;
+  var pushes = resolved.filter(p => p.result === 'PUSH').length;
+  var pending = arr.filter(p => !p.result || p.result === 'PENDING').length;
   var wr = (wins + losses) > 0 ? Math.round(wins / (wins + losses) * 100) : 0;
   var wrColor = wr >= 55 ? '#22c55e' : (wr >= 50 ? '#84cc16' : '#ef4444');
-  var roiUnits = 0;
-  resolved.forEach(function(p){{
-    if(p.result === 'WIN' && p.cote){{ roiUnits += (p.cote - 1); }}
-    else if(p.result === 'LOSS'){{ roiUnits -= 1; }}
+
+  // ROI base sur la STAKE de chaque pari (default 1u si pas saisi)
+  var totalStake = 0;
+  var totalProfit = 0;
+  resolvedNonPush.forEach(function(p){{
+    var stake = (p.stake != null) ? p.stake : 1;
+    totalStake += stake;
+    if(p.result === 'WIN' && p.cote){{ totalProfit += stake * (p.cote - 1); }}
+    else if(p.result === 'LOSS'){{ totalProfit -= stake; }}
   }});
-  var roiPct = resolved.length > 0 ? (roiUnits / resolved.length * 100) : 0;
-  var roiColor = roiUnits > 0 ? '#22c55e' : (roiUnits < 0 ? '#ef4444' : '#94a3b8');
-  var roiSign = roiUnits >= 0 ? '+' : '';
-  var summary = '';
-  if(resolved.length > 0){{
-    summary = '<div style="background:#0f172a;border-radius:10px;padding:14px;margin-bottom:14px;display:flex;gap:18px;flex-wrap:wrap;align-items:center">'
-      + '<div><div style="color:#64748b;font-size:11px">RESOLUS</div><div style="color:#f1f5f9;font-size:20px;font-weight:800">' + resolved.length + '</div></div>'
-      + '<div><div style="color:#64748b;font-size:11px">WIN RATE</div><div style="color:' + wrColor + ';font-size:20px;font-weight:800">' + wr + '%</div><div style="color:#64748b;font-size:10px">' + wins + 'W / ' + losses + 'L</div></div>'
-      + '<div><div style="color:#64748b;font-size:11px">ROI</div><div style="color:' + roiColor + ';font-size:20px;font-weight:800">' + roiSign + roiUnits.toFixed(2) + 'u</div><div style="color:#64748b;font-size:10px">' + roiSign + roiPct.toFixed(1) + '%</div></div>'
-      + '<div><div style="color:#64748b;font-size:11px">PENDING</div><div style="color:#fb923c;font-size:20px;font-weight:800">' + (arr.length - resolved.length) + '</div></div>'
+  var yieldPct = totalStake > 0 ? (totalProfit / totalStake * 100) : 0;
+  var profitColor = totalProfit > 0 ? '#22c55e' : (totalProfit < 0 ? '#ef4444' : '#94a3b8');
+  var profitSign = totalProfit >= 0 ? '+' : '';
+
+  // Bankroll
+  var bk = _getBankroll();
+  var bkCurrent = bk + totalProfit;
+  var bkPct = bk > 0 ? (totalProfit / bk * 100) : 0;
+  var bkColor = bkCurrent >= bk ? '#22c55e' : '#ef4444';
+
+  // Stats moyennes
+  var totalCotes = 0, nCotes = 0;
+  resolvedNonPush.forEach(function(p){{ if(p.cote){{ totalCotes += p.cote; nCotes++; }} }});
+  var avgCote = nCotes > 0 ? (totalCotes / nCotes) : 0;
+  var avgStake = totalStake > 0 && resolvedNonPush.length > 0 ? (totalStake / resolvedNonPush.length) : 0;
+
+  // Streak actuel + max streak
+  var currentStreak = '-', maxWStreak = 0, maxLStreak = 0;
+  var seq = resolvedNonPush.slice().sort((a,b)=>(a.resolved_at||'').localeCompare(b.resolved_at||''));
+  var curW = 0, curL = 0;
+  seq.forEach(function(p){{
+    if(p.result === 'WIN'){{ curW++; if(curW > maxWStreak) maxWStreak = curW; curL = 0; }}
+    else if(p.result === 'LOSS'){{ curL++; if(curL > maxLStreak) maxLStreak = curL; curW = 0; }}
+  }});
+  if(curW > 0) currentStreak = 'W' + curW;
+  else if(curL > 0) currentStreak = 'L' + curL;
+  var streakColor = curW > 0 ? '#22c55e' : (curL > 0 ? '#ef4444' : '#94a3b8');
+
+  // ── Card bankroll header ──
+  var bkCard = '<div style="background:linear-gradient(135deg,#0a1628,#1e3a5f);border-radius:14px;padding:18px 22px;margin-bottom:16px;border:1px solid #334155">'
+    + '<div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:14px">'
+    + '<div>'
+    + '<div style="color:#64748b;font-size:11px;text-transform:uppercase;letter-spacing:1px;font-weight:700">💰 Bankroll</div>'
+    + '<div style="color:#f1f5f9;font-size:28px;font-weight:800;margin-top:3px">' + bkCurrent.toFixed(2) + 'u <span style="color:#64748b;font-size:14px;font-weight:500">/ ' + bk.toFixed(0) + 'u</span></div>'
+    + '<div style="color:' + bkColor + ';font-size:14px;font-weight:700">' + profitSign + totalProfit.toFixed(2) + 'u <span style="color:#64748b;font-weight:500">(' + profitSign + bkPct.toFixed(2) + '%)</span></div>'
+    + '<button onclick="editBankroll()" style="background:transparent;color:#94a3b8;border:1px solid #475569;border-radius:6px;padding:3px 10px;font-size:11px;font-weight:700;cursor:pointer;margin-top:8px">⚙ Modifier bankroll initial</button>'
+    + '</div>'
+    + '<div style="display:flex;gap:18px;flex-wrap:wrap;align-items:center">'
+    + '<div><div style="color:#64748b;font-size:11px">WIN RATE</div><div style="color:' + wrColor + ';font-size:22px;font-weight:800">' + wr + '%</div><div style="color:#64748b;font-size:10px">' + wins + 'W / ' + losses + 'L' + (pushes ? ' / ' + pushes + 'P' : '') + '</div></div>'
+    + '<div><div style="color:#64748b;font-size:11px">YIELD</div><div style="color:' + profitColor + ';font-size:22px;font-weight:800">' + profitSign + yieldPct.toFixed(2) + '%</div><div style="color:#64748b;font-size:10px">profit / mise</div></div>'
+    + '<div><div style="color:#64748b;font-size:11px">PENDING</div><div style="color:#fb923c;font-size:22px;font-weight:800">' + pending + '</div></div>'
+    + '<div><div style="color:#64748b;font-size:11px">STREAK</div><div style="color:' + streakColor + ';font-size:22px;font-weight:800">' + currentStreak + '</div><div style="color:#64748b;font-size:10px">max W' + maxWStreak + ' / L' + maxLStreak + '</div></div>'
+    + '</div>'
+    + '</div>'
+    + '</div>';
+
+  // ── Stats moyennes ──
+  var statsRow = '';
+  if(resolvedNonPush.length > 0){{
+    statsRow = '<div style="background:#0f172a;border-radius:10px;padding:12px 16px;margin-bottom:14px;display:flex;gap:18px;flex-wrap:wrap;font-size:12px">'
+      + '<div><span style="color:#64748b">Cote moy. : </span><span style="color:#f1f5f9;font-weight:700">' + avgCote.toFixed(2) + '</span></div>'
+      + '<div><span style="color:#64748b">Mise moy. : </span><span style="color:#f1f5f9;font-weight:700">' + avgStake.toFixed(2) + 'u</span></div>'
+      + '<div><span style="color:#64748b">Mise totale : </span><span style="color:#f1f5f9;font-weight:700">' + totalStake.toFixed(1) + 'u</span></div>'
+      + '<div><span style="color:#64748b">Bets resolus : </span><span style="color:#f1f5f9;font-weight:700">' + resolvedNonPush.length + '</span></div>'
       + '</div>';
   }}
+
+  // ── Breakdown par prop type ──
+  var byProp = {{}};
+  resolvedNonPush.forEach(function(p){{
+    var k = p.prop || '?';
+    if(!byProp[k]) byProp[k] = {{w:0, l:0, profit:0, stake:0, n:0}};
+    byProp[k].n++;
+    var stake = (p.stake != null) ? p.stake : 1;
+    byProp[k].stake += stake;
+    if(p.result === 'WIN'){{ byProp[k].w++; if(p.cote) byProp[k].profit += stake * (p.cote - 1); }}
+    else if(p.result === 'LOSS'){{ byProp[k].l++; byProp[k].profit -= stake; }}
+  }});
+  var propRows = '';
+  Object.keys(byProp).sort().forEach(function(k){{
+    var b = byProp[k];
+    var bwr = (b.w + b.l) > 0 ? Math.round(b.w / (b.w + b.l) * 100) : 0;
+    var bColor = bwr >= 55 ? '#22c55e' : (bwr >= 50 ? '#84cc16' : '#ef4444');
+    var bPColor = b.profit > 0 ? '#22c55e' : (b.profit < 0 ? '#ef4444' : '#94a3b8');
+    var bSign = b.profit >= 0 ? '+' : '';
+    propRows += '<div style="display:flex;justify-content:space-between;align-items:center;padding:6px 10px;border-bottom:1px solid #1e293b;font-size:12px">'
+      + '<span style="color:#f1f5f9;font-weight:700;min-width:60px">' + k + '</span>'
+      + '<span style="color:' + bColor + ';font-weight:700">' + bwr + '% <span style="color:#64748b;font-weight:400">(' + b.w + 'W/' + b.l + 'L)</span></span>'
+      + '<span style="color:' + bPColor + ';font-weight:700">' + bSign + b.profit.toFixed(2) + 'u</span>'
+      + '</div>';
+  }});
+  var breakdownCard = '';
+  if(propRows){{
+    breakdownCard = '<div style="background:#0f172a;border-radius:10px;padding:12px 14px;margin-bottom:14px">'
+      + '<div style="color:#94a3b8;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:8px">🎯 Par marche</div>'
+      + propRows
+      + '</div>';
+  }}
+
+  // ── Conseils ──
+  var advice = [];
+  // 1. Best/worst prop
+  var propKeys = Object.keys(byProp).filter(k => (byProp[k].w + byProp[k].l) >= 3);
+  if(propKeys.length > 0){{
+    propKeys.sort((a,b) => (byProp[b].w/(byProp[b].w+byProp[b].l||1)) - (byProp[a].w/(byProp[a].w+byProp[a].l||1)));
+    var bestK = propKeys[0];
+    var worstK = propKeys[propKeys.length-1];
+    var bestWR = Math.round(byProp[bestK].w/(byProp[bestK].w+byProp[bestK].l)*100);
+    var worstWR = Math.round(byProp[worstK].w/(byProp[worstK].w+byProp[worstK].l)*100);
+    if(bestWR >= 60){{
+      advice.push({{icon:'✅', color:'#22c55e', text:'Tes paris <b>' + bestK + '</b> performent (' + bestWR + '% WR sur ' + (byProp[bestK].w+byProp[bestK].l) + ' bets) - continue cette voie'}});
+    }}
+    if(worstWR < 45 && bestK !== worstK){{
+      advice.push({{icon:'⚠️', color:'#ef4444', text:'Tes paris <b>' + worstK + '</b> sous-performent (' + worstWR + '% WR sur ' + (byProp[worstK].w+byProp[worstK].l) + ') - revoir la selection ou skipper ce marche'}});
+    }}
+  }}
+  // 2. Streak active
+  if(curL >= 3){{
+    advice.push({{icon:'🔻', color:'#ef4444', text:'Streak <b>' + curL + ' defaites consecutives</b> - baisse temporairement les mises ou prends une pause analytique'}});
+  }} else if(curW >= 4){{
+    advice.push({{icon:'🔥', color:'#22c55e', text:'Streak <b>' + curW + ' victoires consecutives</b> - mais attention au biais hot hand, ne monte pas trop les mises'}});
+  }}
+  // 3. Average cote vs WR alignment
+  if(resolvedNonPush.length >= 5 && nCotes > 0){{
+    var breakEvenWR = 100 / avgCote;
+    if(wr > breakEvenWR + 5){{
+      advice.push({{icon:'💎', color:'#22c55e', text:'Tes ' + wr + '% WR sont au-dessus du break-even theorique (' + breakEvenWR.toFixed(0) + '% a cote ' + avgCote.toFixed(2) + ') - tu joues +EV sur le long terme'}});
+    }} else if(wr < breakEvenWR - 5){{
+      advice.push({{icon:'📉', color:'#fb923c', text:'WR ' + wr + '% en dessous du break-even (' + breakEvenWR.toFixed(0) + '% requis a cote ' + avgCote.toFixed(2) + ') - selection a affiner ou prendre cotes + elevees'}});
+    }}
+  }}
+  // 4. Bankroll management
+  if(avgStake > 5){{
+    advice.push({{icon:'⚠️', color:'#fb923c', text:'Mise moyenne ' + avgStake.toFixed(1) + 'u tres elevee - convention Kelly recommande 1-3% du bankroll par bet (' + (bk*0.02).toFixed(1) + 'u suggere ici)'}});
+  }}
+  // 5. Pending overload
+  if(pending > 10){{
+    advice.push({{icon:'📋', color:'#94a3b8', text:'<b>' + pending + ' paris pending</b> - resous les anciens (boutons Win/Loss) pour avoir des stats a jour'}});
+  }}
+  var adviceCard = '';
+  if(advice.length){{
+    var rows = advice.map(function(a){{
+      return '<div style="padding:8px 12px;background:rgba(' + (a.color === '#22c55e' ? '34,197,94' : (a.color === '#ef4444' ? '239,68,68' : (a.color === '#fb923c' ? '251,146,60' : '148,163,184'))) + ',0.10);border-left:3px solid ' + a.color + ';border-radius:4px;margin-bottom:6px;color:#cbd5e1;font-size:12px;line-height:1.5">' + a.icon + ' ' + a.text + '</div>';
+    }}).join('');
+    adviceCard = '<div style="background:#0f172a;border-radius:10px;padding:12px 14px;margin-bottom:14px">'
+      + '<div style="color:#94a3b8;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:8px">💡 Conseils</div>'
+      + rows
+      + '</div>';
+  }}
+
+  var summary = bkCard + statsRow + breakdownCard + adviceCard;
   var cards = arr.map(function(p){{
+    var stake = (p.stake != null) ? p.stake : 1;
     var resultBadge = '';
     var resultActions = '';
     if(p.result === 'WIN'){{
       resultBadge = '<span style="background:#22c55e;color:#0a1628;border-radius:4px;padding:2px 8px;font-size:11px;font-weight:800">✓ GAGNE</span>';
     }} else if(p.result === 'LOSS'){{
       resultBadge = '<span style="background:#ef4444;color:#fff;border-radius:4px;padding:2px 8px;font-size:11px;font-weight:800">✗ PERDU</span>';
+    }} else if(p.result === 'PUSH'){{
+      resultBadge = '<span style="background:#94a3b8;color:#0a1628;border-radius:4px;padding:2px 8px;font-size:11px;font-weight:800">= PUSH</span>';
     }} else {{
       resultBadge = '<span style="background:#fb923c;color:#0a1628;border-radius:4px;padding:2px 8px;font-size:11px;font-weight:800">... PENDING</span>';
       resultActions = '<button onclick="markUserPickResult(\\'' + p.id + '\\', \\'WIN\\')" style="background:#16a34a;color:#fff;border:none;border-radius:5px;padding:4px 9px;font-size:11px;font-weight:700;cursor:pointer;margin-right:4px">✓ Win</button>'
-        + '<button onclick="markUserPickResult(\\'' + p.id + '\\', \\'LOSS\\')" style="background:#dc2626;color:#fff;border:none;border-radius:5px;padding:4px 9px;font-size:11px;font-weight:700;cursor:pointer">✗ Loss</button>';
+        + '<button onclick="markUserPickResult(\\'' + p.id + '\\', \\'LOSS\\')" style="background:#dc2626;color:#fff;border:none;border-radius:5px;padding:4px 9px;font-size:11px;font-weight:700;cursor:pointer;margin-right:4px">✗ Loss</button>'
+        + '<button onclick="markUserPickResult(\\'' + p.id + '\\', \\'PUSH\\')" style="background:#475569;color:#fff;border:none;border-radius:5px;padding:4px 9px;font-size:11px;font-weight:700;cursor:pointer">= Push</button>';
     }}
     var dir = p.direction === 'over' ? 'plus de' : 'moins de';
     var propLabel = ({{PTS:'pts',REB:'reb',AST:'pas',FG3M:'3PM',RA:'reb+pas',PR:'pts+reb',PA:'pts+ast',PRA:'PRA'}})[p.prop] || p.prop;
     var label = p.player + ' ' + dir + ' ' + p.line + ' ' + propLabel;
     // Badge cote (toujours present si cote saisie)
     var coteBadge = p.cote ? '<span style="background:#1e3a5f;color:#60a5fa;border:1px solid #2563eb;border-radius:6px;padding:2px 8px;font-size:12px;font-weight:700;margin-left:6px">📊 ' + p.cote.toFixed(2) + '</span>' : '<span style="background:#7c2d12;color:#fdba74;border:1px solid #fb923c;border-radius:6px;padding:2px 8px;font-size:11px;font-weight:700;margin-left:6px;cursor:pointer" onclick="editUserPickCote(\\'' + p.id + '\\')" title="Cliquer pour saisir la cote">⚠️ pas de cote</span>';
-    // Gain/perte si resolu
+    // Gain/perte si resolu (calcule a partir de la STAKE saisie, pas 1u fixe)
     var deltaInfo = '';
     if(p.result === 'WIN' && p.cote){{
-      deltaInfo = '<span style="color:#22c55e;font-weight:700">+' + (p.cote - 1).toFixed(2) + 'u</span>';
+      var gain = stake * (p.cote - 1);
+      deltaInfo = '<span style="color:#22c55e;font-weight:700">+' + gain.toFixed(2) + 'u</span>';
     }} else if(p.result === 'LOSS'){{
-      deltaInfo = '<span style="color:#ef4444;font-weight:700">-1u</span>';
+      deltaInfo = '<span style="color:#ef4444;font-weight:700">-' + stake.toFixed(2) + 'u</span>';
     }}
     // Build telegram text avec cote BIEN visible sur sa propre ligne
     var coteLine = p.cote
@@ -3660,9 +3837,11 @@ function renderUserPicks(){{
       + coteBadge
       + (deltaInfo ? ' &nbsp;' + deltaInfo : '')
       + '</div>'
-      + '<div style="color:#64748b;font-size:12px">'
-      + p.away + ' @ ' + p.home + ' · Méd ' + p.median + ' · Moy ' + p.mean
-      + (p.book_line ? ' · Ligne book ' + p.book_line : '')
+      + '<div style="color:#64748b;font-size:12px;display:flex;flex-wrap:wrap;gap:8px;align-items:center">'
+      + '<span>' + p.away + ' @ ' + p.home + '</span>'
+      + '<span style="color:#94a3b8">Méd ' + p.median + ' · Moy ' + p.mean + '</span>'
+      + (p.book_line ? '<span style="color:#94a3b8">Ligne book ' + p.book_line + '</span>' : '')
+      + '<span onclick="editUserPickStake(\\'' + p.id + '\\')" style="background:#1e293b;color:#fbbf24;border:1px solid #f59e0b;border-radius:4px;padding:1px 7px;font-size:11px;font-weight:700;cursor:pointer" title="Cliquer pour modifier la mise">Mise: ' + stake + 'u</span>'
       + '</div>'
       + '</div>'
       + '<div style="display:flex;flex-direction:column;align-items:flex-end;gap:6px">'
@@ -3678,7 +3857,9 @@ function renderUserPicks(){{
       + '</div>'
     );
   }}).join('');
-  container.innerHTML = summary + cards;
+  // Header de la liste des paris
+  var picksHeader = '<div style="color:#94a3b8;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;margin:14px 0 10px">📋 Mes paris (' + arr.length + ')</div>';
+  container.innerHTML = summary + picksHeader + cards;
 }}
 
 // Refresh count badge on page load + render
