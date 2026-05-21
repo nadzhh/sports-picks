@@ -1888,7 +1888,7 @@ def build_nba_card(game):
 
 
 def _compose_prop_value(g, prop):
-    """Calcule la valeur du stat pour 1 game donne (PTS, REB, AST, FG3M, PR, PA, PRA)."""
+    """Calcule la valeur du stat pour 1 game donne (PTS, REB, AST, FG3M, RA, PR, PA, PRA)."""
     pts = g.get("PTS", 0) or 0
     reb = g.get("REB", 0) or 0
     ast = g.get("AST", 0) or 0
@@ -1898,6 +1898,7 @@ def _compose_prop_value(g, prop):
         "REB":  reb,
         "AST":  ast,
         "FG3M": fg3,
+        "RA":   reb + ast,
         "PR":   pts + reb,
         "PA":   pts + ast,
         "PRA":  pts + reb + ast,
@@ -2099,8 +2100,9 @@ def _build_player_analyse_card(player, opp_abbr, odds_for_player, side_label, is
     pos_b = pos_badge(pos) if pos else ""
     safe_id = "".join(c for c in name if c.isalnum())
 
-    PROPS = ["PTS", "REB", "AST", "FG3M", "PR", "PA", "PRA"]
-    prop_labels = {"PTS":"PTS","REB":"REB","AST":"AST","FG3M":"3PM","PR":"PTS+REB","PA":"PTS+AST","PRA":"PTS+REB+AST"}
+    PROPS = ["PTS", "REB", "AST", "FG3M", "RA", "PR", "PA", "PRA"]
+    prop_labels = {"PTS":"PTS","REB":"REB","AST":"AST","FG3M":"3PM",
+                   "RA":"REB+AST","PR":"PTS+REB","PA":"PTS+AST","PRA":"PTS+REB+AST"}
 
     # Boutons prop
     prop_btns = ""
@@ -3330,7 +3332,7 @@ function renderUserPicks(){{
         + '<button onclick="markUserPickResult(\\'' + p.id + '\\', \\'LOSS\\')" style="background:#dc2626;color:#fff;border:none;border-radius:5px;padding:4px 9px;font-size:11px;font-weight:700;cursor:pointer">✗ Loss</button>';
     }}
     var dir = p.direction === 'over' ? 'plus de' : 'moins de';
-    var propLabel = ({{PTS:'pts',REB:'reb',AST:'pas',FG3M:'3PM',PR:'pts+reb',PA:'pts+ast',PRA:'PRA'}})[p.prop] || p.prop;
+    var propLabel = ({{PTS:'pts',REB:'reb',AST:'pas',FG3M:'3PM',RA:'reb+pas',PR:'pts+reb',PA:'pts+ast',PRA:'PRA'}})[p.prop] || p.prop;
     var label = p.player + ' ' + dir + ' ' + p.line + ' ' + propLabel;
     // Badge cote
     var coteBadge = p.cote ? '<span style="background:#1e3a5f;color:#60a5fa;border:1px solid #2563eb;border-radius:6px;padding:2px 8px;font-size:12px;font-weight:700;margin-left:6px">📊 ' + p.cote.toFixed(2) + '</span>' : '';
