@@ -1887,6 +1887,207 @@ def build_nba_card(game):
     )
 
 
+def _compose_prop_value(g, prop):
+    """Calcule la valeur du stat pour 1 game donne (PTS, REB, AST, FG3M, PR, PA, PRA)."""
+    pts = g.get("PTS", 0) or 0
+    reb = g.get("REB", 0) or 0
+    ast = g.get("AST", 0) or 0
+    fg3 = g.get("FG3M", 0) or 0
+    return {
+        "PTS":  pts,
+        "REB":  reb,
+        "AST":  ast,
+        "FG3M": fg3,
+        "PR":   pts + reb,
+        "PA":   pts + ast,
+        "PRA":  pts + reb + ast,
+    }.get(prop, 0)
+
+
+def _build_prop_chart(player, prop, opp_abbr, book_line=None):
+    """Construit le HTML d'une vue prop (bar chart L5 + stats badges + lignes ref)."""
+    games = player.get("l10_games", [])
+    if not games:
+        return '<div style="color:#475569;font-size:12px;padding:10px">Pas de stats dispo</div>'
+
+    # Series de valeurs
+    l20_vals = [_compose_prop_value(g, prop) for g in games[:20] if (g.get("MIN") or 0) > 0]
+    l10_vals = l20_vals[:10]
+    l5_vals  = l20_vals[:5]
+    # H2H (matchs vs cet adversaire dans le L20)
+    h2h_vals = [_compose_prop_value(g, prop)
+                for g in games[:20]
+                if opp_abbr and (g.get("opp","") or "").upper() == opp_abbr.upper() and (g.get("MIN") or 0) > 0]
+    # Mediane + moyenne
+    median = sorted(l20_vals)[len(l20_vals)//2] if l20_vals else 0
+    mean   = round(sum(l20_vals)/len(l20_vals), 1) if l20_vals else 0
+
+    # Reference line : book line si dispo, sinon mediane
+    ref_line = book_line if book_line is not None else median
+
+    # Hit rates : % au-dessus de la ref_line
+    def _hr(vals):
+        if not vals: return None, 0, 0
+        hits = sum(1 for v in vals if v > ref_line)
+        return round(hits/len(vals)*100), hits, len(vals)
+    hr10 = _hr(l10_vals)
+    hr20 = _hr(l20_vals)
+    hr_h2h = _hr(h2h_vals)
+
+    # Bar chart : on prend les 5 derniers
+    if not l5_vals:
+        return '<div style="color:#475569;font-size:12px;padding:10px">Pas assez de games</div>'
+    chart_max = max(l5_vals + [ref_line])
+    if chart_max <= 0: chart_max = 1
+    # Build bars : recents a droite
+    bars_html = ""
+    games_show = games[:5]
+    for i, g in enumerate(games_show):
+        val = _compose_prop_value(g, prop)
+        pct_h = (val / chart_max) * 100 if chart_max else 0
+        is_hit = val > ref_line
+        color = "#22c55e" if is_hit else "#ef4444"
+        date_short = (g.get("date","")[:10][-5:] or "?").replace("-","/")
+        opp = g.get("opp","?") or "?"
+        loc = "vs" if g.get("is_home") else "@"
+        bars_html += (
+            f'<div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;height:140px;justify-content:flex-end">'
+            f'<div style="color:#f1f5f9;font-size:13px;font-weight:700">{int(val)}</div>'
+            f'<div style="width:100%;background:{color};height:{pct_h:.0f}%;min-height:6px;border-radius:4px 4px 0 0"></div>'
+            f'<div style="color:#475569;font-size:10px;text-align:center;line-height:1.3">{date_short}<br>{loc} {opp}</div>'
+            f'</div>'
+        )
+
+    # Ligne de reference horizontale (en pourcentage)
+    ref_pct = (ref_line / chart_max) * 100 if chart_max else 0
+    line_label = f"Ligne {ref_line}" if book_line is not None else f"Médiane {ref_line}"
+
+    # Badges hit rates
+    def _badge(label, hr_tuple, target=70):
+        if hr_tuple[0] is None:
+            return f'<span style="color:#475569;font-size:11px;margin-right:8px">{label}: —</span>'
+        pct, w, n = hr_tuple
+        color = "#22c55e" if pct >= target else ("#f59e0b" if pct >= 50 else "#ef4444")
+        return f'<span style="color:{color};font-size:11px;font-weight:700;margin-right:8px">{label}: {pct}%<span style="color:#64748b;font-weight:400"> ({w}/{n})</span></span>'
+
+    badges = (
+        _badge("L10", hr10) +
+        _badge("L20", hr20) +
+        (_badge(f"H2H {opp_abbr}", hr_h2h) if opp_abbr else "") +
+        f'<span style="color:#94a3b8;font-size:11px">Médiane <b>{median}</b> · Moyenne <b>{mean}</b></span>'
+    )
+
+    return (
+        f'<div style="padding:8px 4px">'
+        # Badges en haut
+        f'<div style="margin-bottom:8px;display:flex;flex-wrap:wrap;gap:4px;align-items:center">{badges}</div>'
+        # Bar chart container avec ligne de ref
+        f'<div style="position:relative;background:#0a1628;border-radius:8px;padding:14px 12px 8px">'
+        f'<div style="display:flex;gap:6px;align-items:flex-end;position:relative">'
+        f'{bars_html}'
+        # Ligne horizontale ref
+        f'<div style="position:absolute;left:0;right:0;bottom:{max(15, ref_pct * 1.14):.0f}px;border-top:2px dashed #fb923c;pointer-events:none">'
+        f'<span style="position:absolute;right:0;top:-10px;background:#fb923c;color:#0a1628;font-size:10px;font-weight:700;padding:1px 6px;border-radius:3px">{line_label}</span>'
+        f'</div>'
+        f'</div>'
+        f'</div>'
+        f'</div>'
+    )
+
+
+def _build_player_analyse_card(player, opp_abbr, odds_for_player, side_label):
+    """Card d'analyse joueur : selecteur de prop + bar chart visible (1 seul a la fois)."""
+    name = player.get("name", "?")
+    pos = player.get("position", "")
+    season = player.get("season_avg", {}) or {}
+    mins = season.get("MIN", 0)
+    pos_b = pos_badge(pos) if pos else ""
+    safe_id = "".join(c for c in name if c.isalnum())
+
+    # Pour chaque prop, recupere la ligne bookmaker si dispo
+    PROPS = ["PTS", "REB", "AST", "FG3M", "PR", "PA", "PRA"]
+    prop_labels = {"PTS":"PTS","REB":"REB","AST":"AST","FG3M":"3PM","PR":"PTS+REB","PA":"PTS+AST","PRA":"PTS+REB+AST"}
+
+    # Boutons prop
+    btns = ""
+    for i, pr in enumerate(PROPS):
+        active = "tg-prop-active" if i == 0 else ""
+        btns += (
+            f'<button class="tg-prop-btn {active}" data-target="prop-{safe_id}-{pr}" '
+            f'onclick="selectPropChart(this)" '
+            f'style="background:#1e293b;color:#94a3b8;border:1px solid #334155;border-radius:6px;padding:4px 10px;'
+            f'font-size:11px;font-weight:700;cursor:pointer;margin-right:4px">{prop_labels[pr]}</button>'
+        )
+
+    # Contenu de chaque prop
+    contents = ""
+    for i, pr in enumerate(PROPS):
+        book_data = (odds_for_player or {}).get(pr)
+        book_line = book_data.get("line") if book_data else None
+        chart_html = _build_prop_chart(player, pr, opp_abbr, book_line)
+        display = "block" if i == 0 else "none"
+        contents += f'<div id="prop-{safe_id}-{pr}" class="tg-prop-content" style="display:{display}">{chart_html}</div>'
+
+    return (
+        f'<div class="player-analyse" style="background:#162032;border-radius:10px;padding:12px 14px;margin-bottom:10px;border-left:3px solid #3b82f6">'
+        f'<div style="display:flex;align-items:center;flex-wrap:wrap;gap:6px;margin-bottom:8px">'
+        f'<span style="font-size:11px;color:#475569;font-weight:700">{side_label}</span>'
+        f'{pos_b}'
+        f'<span style="color:#f1f5f9;font-weight:700;font-size:15px">{name}</span>'
+        f'<span style="color:#64748b;font-size:12px">· {round(mins,1) if mins else "?"} min/match</span>'
+        f'</div>'
+        f'<div style="margin-bottom:8px;display:flex;flex-wrap:wrap;gap:4px">{btns}</div>'
+        f'{contents}'
+        f'</div>'
+    )
+
+
+def build_nba_analyse_section(nba_picks_data, nba_player_stats, nba_odds):
+    """Section Analyse : pour chaque match a venir, panneau de joueurs avec
+    bar chart selectable par prop (PTS/REB/AST/3PM/PR/PA/PRA)."""
+    if not nba_player_stats:
+        return (
+            '<div style="text-align:center;padding:40px;color:#64748b">'
+            'Pas de stats joueurs NBA disponibles. Lance nba_scraper.py d\'abord.'
+            '</div>'
+        )
+    cards = ""
+    for gid, mdata in nba_player_stats.items():
+        if gid.startswith("_"): continue
+        home = mdata.get("home_team", "?")
+        away = mdata.get("away_team", "?")
+        home_abbr = mdata.get("home_abbr") or ""
+        away_abbr = mdata.get("away_abbr") or ""
+        # Top 8 joueurs par minutes/cote
+        home_players = sorted(mdata.get("home_players", []),
+                              key=lambda p: (p.get("season_avg",{}) or {}).get("MIN", 0), reverse=True)[:8]
+        away_players = sorted(mdata.get("away_players", []),
+                              key=lambda p: (p.get("season_avg",{}) or {}).get("MIN", 0), reverse=True)[:8]
+        odds_for_game = nba_odds.get(gid) or nba_odds.get(str(gid)) or {}
+
+        home_cards = "".join(
+            _build_player_analyse_card(p, opp_abbr=away_abbr, odds_for_player=odds_for_game.get(p.get("name","")), side_label=f"🏠 {home}")
+            for p in home_players
+        )
+        away_cards = "".join(
+            _build_player_analyse_card(p, opp_abbr=home_abbr, odds_for_player=odds_for_game.get(p.get("name","")), side_label=f"✈️ {away}")
+            for p in away_players
+        )
+        cards += (
+            f'<div style="background:#0f172a;border-radius:14px;margin-bottom:18px;padding:14px 18px;box-shadow:0 4px 20px rgba(0,0,0,0.4)">'
+            f'<div style="color:#fb923c;font-size:11px;text-transform:uppercase;letter-spacing:1px;font-weight:700;margin-bottom:4px">🏀 NBA</div>'
+            f'<div style="color:#f1f5f9;font-size:18px;font-weight:700;margin-bottom:14px">{away} <span style="color:#334155">@</span> {home}</div>'
+            f'<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">'
+            f'<div><div style="color:#3b82f6;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:8px">🏠 {home}</div>{home_cards or "Pas de joueurs"}</div>'
+            f'<div><div style="color:#3b82f6;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:8px">✈️ {away}</div>{away_cards or "Pas de joueurs"}</div>'
+            f'</div>'
+            f'</div>'
+        )
+    if not cards:
+        return '<div style="text-align:center;padding:40px;color:#64748b">Aucun match NBA a venir.</div>'
+    return cards
+
+
 def build_nba_section(nba_picks_data):
     """Section NBA : liste des matchs avec leurs picks."""
     if not nba_picks_data:
@@ -2408,12 +2609,14 @@ def build_nba_history(history_data):
     return summary + filter_html + f'<div id="nbahist-list">{date_html}</div>'
 
 
-def build_html(matches, team_ai, player_ai, pstats_data, nba_picks=None, nba_history=None, foot_history=None):
+def build_html(matches, team_ai, player_ai, pstats_data, nba_picks=None, nba_history=None, foot_history=None, nba_player_stats=None, nba_odds=None):
     team_ai_map = {item.get("pick",""):item.get("analyse","") for item in (team_ai or [])}
     now         = _now_paris().strftime("%d/%m/%Y %H:%M")
     nba_picks = nba_picks or {}
     nba_history = nba_history or {"picks": []}
     foot_history = foot_history or {"picks": []}
+    nba_player_stats = nba_player_stats or {}
+    nba_odds = nba_odds or {}
 
     days = {}
     for m in matches:
@@ -2436,9 +2639,10 @@ def build_html(matches, team_ai, player_ai, pstats_data, nba_picks=None, nba_his
         tab_contents += f'<div id="{sid}" style="display:{active_div}">{cards}</div>'
 
     # Section NBA
-    nba_section  = build_nba_section(nba_picks)
+    nba_section    = build_nba_section(nba_picks)
     nba_hist_html  = build_nba_history(nba_history)
     foot_hist_html = build_foot_history(foot_history)
+    nba_analyse_html = build_nba_analyse_section(nba_picks, nba_player_stats, nba_odds)
 
     total_t = sum(len(m["picks"]) for m in matches)
     total_p = sum(len(m.get("home_players",[])) + len(m.get("away_players",[])) for m in matches)
@@ -2512,6 +2716,7 @@ def build_html(matches, team_ai, player_ai, pstats_data, nba_picks=None, nba_his
   <div style="display:flex;gap:10px;margin-bottom:18px;flex-wrap:wrap">
     <button class="sport-btn active" onclick="showSport('football')" id="sport-btn-football">⚽ Football</button>
     <button class="sport-btn" onclick="showSport('nba')"     id="sport-btn-nba">🏀 Basketball NBA</button>
+    <button class="sport-btn" onclick="showSport('analyse')" id="sport-btn-analyse">🔍 Analyse NBA</button>
     <button class="sport-btn" onclick="showSport('foothist')" id="sport-btn-foothist">🏆 Historique Foot</button>
     <button class="sport-btn" onclick="showSport('nbahist')"  id="sport-btn-nbahist">🏆 Historique NBA</button>
   </div>
@@ -2540,6 +2745,16 @@ def build_html(matches, team_ai, player_ai, pstats_data, nba_picks=None, nba_his
     {nba_section}
   </div>
 
+  <!-- Section Analyse NBA -->
+  <div id="sport-analyse" style="display:none">
+    <div class="legend">
+      <b>🔍 Analyse joueur</b> — Selectionne un prop (PTS / REB / AST / 3PM / PR / PA / PRA) pour
+      visualiser la perf du joueur sur ses 5 derniers matchs · L10/L20/H2H hit rates · médiane/moyenne ·
+      <span style="color:#fb923c">ligne pointillée = ligne bookmaker</span> (ou médiane si pas dispo)
+    </div>
+    {nba_analyse_html}
+  </div>
+
   <!-- Section Historique Foot -->
   <div id="sport-foothist" style="display:none">
     <div class="legend">
@@ -2562,7 +2777,7 @@ def build_html(matches, team_ai, player_ai, pstats_data, nba_picks=None, nba_his
 </div>
 <script>
 function showSport(sport){{
-  ['football','nba','foothist','nbahist'].forEach(s=>{{
+  ['football','nba','analyse','foothist','nbahist'].forEach(s=>{{
     var el = document.getElementById('sport-'+s);
     if(el) el.style.display = (s===sport) ? 'block' : 'none';
   }});
@@ -2570,6 +2785,38 @@ function showSport(sport){{
   var btn = document.getElementById('sport-btn-'+sport);
   if(btn) btn.classList.add('active');
 }}
+
+// ── Section Analyse : switch entre PTS/REB/AST/3PM/PR/PA/PRA pour 1 joueur ──
+function selectPropChart(btn){{
+  var card = btn.closest('.player-analyse');
+  if(!card) return;
+  // Reset tous les boutons
+  card.querySelectorAll('.tg-prop-btn').forEach(b=>{{
+    b.classList.remove('tg-prop-active');
+    b.style.background = '#1e293b';
+    b.style.color = '#94a3b8';
+    b.style.borderColor = '#334155';
+  }});
+  // Active le clique
+  btn.classList.add('tg-prop-active');
+  btn.style.background = '#3b82f6';
+  btn.style.color = '#fff';
+  btn.style.borderColor = '#3b82f6';
+  // Hide tous les contenus
+  card.querySelectorAll('.tg-prop-content').forEach(c=>c.style.display='none');
+  // Show le target
+  var target = document.getElementById(btn.dataset.target);
+  if(target) target.style.display = 'block';
+}}
+
+// Init : les boutons "tg-prop-active" au chargement ont leur style applique
+window.addEventListener('DOMContentLoaded', function(){{
+  document.querySelectorAll('.tg-prop-btn.tg-prop-active').forEach(b=>{{
+    b.style.background = '#3b82f6';
+    b.style.color = '#fff';
+    b.style.borderColor = '#3b82f6';
+  }});
+}});
 
 // ── Historique : filtrage par periode (boutons "Hier"/"7j"/"30j") ──
 function filterHistory(containerId, period){{
@@ -2897,6 +3144,23 @@ def main():
     except Exception:
         pass
 
+    # Charge stats joueurs NBA (L20 games) pour la section Analyse
+    nba_player_stats_data = {}
+    try:
+        with open("data/nba_player_stats.json", encoding="utf-8") as f:
+            nba_player_stats_data = json.load(f)
+    except Exception:
+        pass
+
+    # Charge cotes NBA pour les references de bar chart (ligne bookmaker)
+    nba_odds_data = {}
+    try:
+        with open("data/nba_odds.json", encoding="utf-8") as f:
+            raw = json.load(f)
+            nba_odds_data = {k: v for k, v in raw.items() if not k.startswith("_")}
+    except Exception:
+        pass
+
     # Charge l'historique NBA + Foot
     nba_history = {"picks": []}
     foot_history = {"picks": []}
@@ -2912,7 +3176,7 @@ def main():
         pass
 
     print("\n🌐 Génération du site...")
-    html = build_html(matches, team_ai, player_ai, pstats_data, nba_picks=nba_picks, nba_history=nba_history, foot_history=foot_history)
+    html = build_html(matches, team_ai, player_ai, pstats_data, nba_picks=nba_picks, nba_history=nba_history, foot_history=foot_history, nba_player_stats=nba_player_stats_data, nba_odds=nba_odds_data)
     with open("index.html", "w", encoding="utf-8") as f:
         f.write(html)
     print(f"✅ index.html prêt — ⚽ {len(matches)} foot · 🏀 {len(nba_picks)} NBA")
