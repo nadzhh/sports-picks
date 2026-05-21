@@ -904,6 +904,12 @@ def run():
 
 MAX_PICKS_PER_DAY_IN_HISTORY = 10   # top 10 du jour pour le tracking WR/ROI
 
+# Fenetre de "freeze" pour l'historique : on n'enregistre que les picks
+# qui sont a moins de HISTORY_FREEZE_HOURS du kickoff. Garantit que
+# l'historique reflete les picks FINAUX (apres tous les filtres, blessures,
+# compos confirmees), pas les versions intermediaires generees a l'avance.
+HISTORY_FREEZE_HOURS = 3
+
 
 def _save_to_history(picks_data):
     """
@@ -928,13 +934,33 @@ def _save_to_history(picks_data):
         history = {"picks": []}
 
     today = datetime.now().strftime("%Y-%m-%d")
-    current_game_ids = set(picks_data.keys())
 
-    # Retire les PENDING dont le game_id est dans le run courant (on va les remplacer)
+    # ─── Freeze : on snapshot UNIQUEMENT les games qui kick-off dans 0-3h ──
+    # - Games > 3h : trop loin, picks pas finalises (pas encore d'info blessure
+    #   ou de compo officielle), on attend pour les mettre en historique.
+    # - Games < 0h : deja en cours ou passes, on ne touche PAS aux PENDING
+    #   existants (le resolver s'en chargera).
+    # - Games 0-3h : snapshot final, c'est ca qu'on track en WR/ROI.
+    from datetime import timezone, timedelta
+    now_utc = datetime.now(tz=timezone.utc)
+    freezable_game_ids = set()
+    for gid, game in picks_data.items():
+        raw_date = game.get("date") or ""
+        try:
+            ko = datetime.fromisoformat(raw_date.replace("Z", "+00:00"))
+            if ko.tzinfo is None:
+                ko = ko.replace(tzinfo=timezone.utc)
+            hours_to_ko = (ko - now_utc).total_seconds() / 3600
+            if 0 <= hours_to_ko <= HISTORY_FREEZE_HOURS:
+                freezable_game_ids.add(gid)
+        except Exception:
+            pass  # date non parsable : on ne freeze pas par securite
+
+    # Retire les PENDING uniquement pour les games qu'on va re-snapshoter
     kept = []
     n_dropped = 0
     for p in history.get("picks", []):
-        if p.get("result") == "PENDING" and p.get("game_id") in current_game_ids:
+        if p.get("result") == "PENDING" and p.get("game_id") in freezable_game_ids:
             n_dropped += 1
             continue
         kept.append(p)
@@ -947,11 +973,13 @@ def _save_to_history(picks_data):
                 return candidate
         return fallback
 
-    # ─── Aggrege TOUS les picks du jour (toutes games confondues) ─────
+    # ─── Aggrege TOUS les picks du jour FREEZABLES (dans la fenetre) ─────
     # puis cap au top 10 par quality_score. Les autres restent visibles
     # sur le site (data/nba_picks.json) mais ne polluent pas le tracking.
     all_picks_today = []
     for gid, game in picks_data.items():
+        if gid not in freezable_game_ids:
+            continue  # game trop loin du kickoff -> pas dans l'historique pour l'instant
         matchup = f"{game.get('away_team','?')} @ {game.get('home_team','?')}"
         date = _extract_game_date(game, today)
         for pick in (list(game.get("home_picks", [])) + list(game.get("away_picks", []))):

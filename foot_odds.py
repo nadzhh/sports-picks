@@ -49,6 +49,9 @@ from nba_odds import (
 
 
 # Mapping internal league name -> Odds API sport key
+# Note : The Odds API ne couvre PAS toutes les coupes nationales en player
+# props. Pour les coupes pas couvertes, le module se rabat sur l'heuristique
+# (pas de "real_cote" mais le pick reste genere).
 LEAGUE_TO_SPORT = {
     "Premier League":    "soccer_epl",
     "La Liga":           "soccer_spain_la_liga",
@@ -58,6 +61,12 @@ LEAGUE_TO_SPORT = {
     "Champions League":  "soccer_uefa_champs_league",
     "Europa League":     "soccer_uefa_europa_league",
     "Conference League": "soccer_uefa_europa_conference_lge",
+    # Coupes nationales (couverture variable selon The Odds API)
+    "FA Cup":            "soccer_fa_cup",
+    "Coupe de France":   "soccer_france_coupe_de_france",
+    "Copa del Rey":      "soccer_spain_copa_del_rey",
+    "Coppa Italia":      "soccer_italy_coppa_italia",
+    "DFB Pokal":         "soccer_germany_dfb_pokal",
 }
 
 MARKETS = {

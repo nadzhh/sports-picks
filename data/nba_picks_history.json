@@ -1586,9 +1586,9 @@
       "date": "2026-05-21",
       "game_id": "401873198",
       "matchup": "Spurs @ Thunder",
-      "result": "PENDING",
-      "actual": null,
-      "resolved_at": null
+      "result": "WIN",
+      "actual": 13.0,
+      "resolved_at": "2026-05-21 08:29"
     },
     {
       "prop": "AST",
@@ -1736,9 +1736,9 @@
       "date": "2026-05-21",
       "game_id": "401873198",
       "matchup": "Spurs @ Thunder",
-      "result": "PENDING",
-      "actual": null,
-      "resolved_at": null
+      "result": "LOSS",
+      "actual": 2.0,
+      "resolved_at": "2026-05-21 08:29"
     },
     {
       "prop": "PA",
@@ -1884,9 +1884,9 @@
       "date": "2026-05-21",
       "game_id": "401873198",
       "matchup": "Spurs @ Thunder",
-      "result": "PENDING",
-      "actual": null,
-      "resolved_at": null
+      "result": "WIN",
+      "actual": 10.0,
+      "resolved_at": "2026-05-21 08:29"
     },
     {
       "prop": "PTS",
@@ -1958,6 +1958,618 @@
       "date": "2026-05-22",
       "game_id": "401873342",
       "matchup": "Cavaliers @ Knicks",
+      "result": "PENDING",
+      "actual": null,
+      "resolved_at": null
+    },
+    {
+      "prop": "PA",
+      "label": "Shai Gilgeous-Alexander moins de 35.5 pts + ast",
+      "line": 35.5,
+      "direction": "under",
+      "confidence": 71,
+      "cote_min": 1.4,
+      "real_cote": 1.9,
+      "book": "draftkings",
+      "books": [
+        {
+          "book": "draftkings",
+          "cote": 1.9
+        },
+        {
+          "book": "fanduel",
+          "cote": 1.89
+        },
+        {
+          "book": "betmgm",
+          "cote": 1.87
+        }
+      ],
+      "edge": 35.7,
+      "is_real_line": true,
+      "value": [
+        "🎯",
+        "Real DK/FD",
+        "#22c55e"
+      ],
+      "hit_rate": "5/10",
+      "hit_pct": 50,
+      "hit_l10": "5/10",
+      "hit_l10_pct": 50,
+      "hit_l20": "12/20",
+      "hit_l20_pct": 60,
+      "trend": "cold",
+      "trend_delta": -10.0,
+      "trend_icon": "📉",
+      "context": {
+        "pace": 1.002,
+        "vegas": 0.987,
+        "def": 0.965,
+        "def_rank": 23,
+        "def_stat": "points"
+      },
+      "def_argument": "Adversaire solide vs points (#23/30)",
+      "rotation_warning": null,
+      "last_min_warning": null,
+      "book_divergence_warning": null,
+      "h2h_avg": 36.0,
+      "h2h_n": 1,
+      "venue_avg": 33.8,
+      "venue_n": 10,
+      "venue": "domicile",
+      "opp_abbr": "SA",
+      "kelly_pct": 5.0,
+      "stake_units": 2.0,
+      "stake_label": "2u 💪",
+      "stats": {
+        "mu": 30.8,
+        "sigma": 8.2,
+        "L5": 31.8,
+        "L10": 35.7,
+        "Saison": 37.7
+      },
+      "reasoning": "L5 31.8 · L10 35.7 · Saison 37.7 → attendu 30.8 · pace×1.002 · vegas×0.987 · def×0.965 · Domicile (n=10) : 33.8",
+      "player": "Shai Gilgeous-Alexander",
+      "team": "Thunder",
+      "side": "home",
+      "id": "2026-05-21_401873198_Shai Gilgeous-Alexander_PA_under_35.5",
+      "date": "2026-05-21",
+      "game_id": "401873198",
+      "matchup": "Spurs @ Thunder",
+      "result": "LOSS",
+      "actual": 39.0,
+      "resolved_at": "2026-05-21 08:29"
+    },
+    {
+      "prop": "REB",
+      "label": "Julian Champagnie plus de 4.5 rebonds",
+      "line": 4.5,
+      "direction": "over",
+      "confidence": 82,
+      "cote_min": 1.23,
+      "real_cote": 1.64,
+      "book": "draftkings",
+      "books": [
+        {
+          "book": "draftkings",
+          "cote": 1.64
+        },
+        {
+          "book": "fanduel",
+          "cote": 1.63
+        },
+        {
+          "book": "pinnacle",
+          "cote": 1.63
+        }
+      ],
+      "edge": 33.3,
+      "is_real_line": true,
+      "value": [
+        "🎯",
+        "Real DK/FD",
+        "#22c55e"
+      ],
+      "hit_rate": "7/10",
+      "hit_pct": 70,
+      "hit_l10": "7/10",
+      "hit_l10_pct": 70,
+      "hit_l20": "13/20",
+      "hit_l20_pct": 65,
+      "trend": "stable",
+      "trend_delta": 5.0,
+      "trend_icon": "",
+      "context": {
+        "pace": 1.002,
+        "def": 1.033,
+        "def_rank": 10,
+        "def_stat": "rebonds"
+      },
+      "def_argument": "",
+      "rotation_warning": null,
+      "last_min_warning": null,
+      "book_divergence_warning": null,
+      "h2h_avg": 9.0,
+      "h2h_n": 1,
+      "venue_avg": 6.2,
+      "venue_n": 9,
+      "venue": "exterieur",
+      "opp_abbr": "OKC",
+      "kelly_pct": 5.0,
+      "stake_units": 2.0,
+      "stake_label": "2u 💪",
+      "stats": {
+        "mu": 6.7,
+        "sigma": 2.5,
+        "L5": 7.0,
+        "L10": 6.1,
+        "Saison": 5.8
+      },
+      "reasoning": "L5 7.0 · L10 6.1 · Saison 5.8 → attendu 6.7 · pace×1.002 · def×1.033 · Exterieur (n=9) : 6.2",
+      "player": "Julian Champagnie",
+      "team": "Spurs",
+      "side": "away",
+      "id": "2026-05-21_401873198_Julian Champagnie_REB_over_4.5",
+      "date": "2026-05-21",
+      "game_id": "401873198",
+      "matchup": "Spurs @ Thunder",
+      "result": "WIN",
+      "actual": 5.0,
+      "resolved_at": "2026-05-21 08:29"
+    },
+    {
+      "prop": "PTS",
+      "label": "Chet Holmgren plus de 13.5 points",
+      "line": 13.5,
+      "direction": "over",
+      "confidence": 66,
+      "cote_min": 1.52,
+      "real_cote": 1.91,
+      "book": "betmgm",
+      "books": [
+        {
+          "book": "betmgm",
+          "cote": 1.91
+        },
+        {
+          "book": "draftkings",
+          "cote": 1.88
+        },
+        {
+          "book": "fanduel",
+          "cote": 1.85
+        },
+        {
+          "book": "pinnacle",
+          "cote": 1.78
+        }
+      ],
+      "edge": 25.7,
+      "is_real_line": true,
+      "value": [
+        "🎯",
+        "Real DK/FD",
+        "#22c55e"
+      ],
+      "hit_rate": "8/10",
+      "hit_pct": 80,
+      "hit_l10": "8/10",
+      "hit_l10_pct": 80,
+      "hit_l20": "14/20",
+      "hit_l20_pct": 70,
+      "trend": "hot",
+      "trend_delta": 10.0,
+      "trend_icon": "📈",
+      "context": {
+        "pace": 1.002,
+        "vegas": 0.987,
+        "def": 0.965,
+        "def_rank": 23,
+        "def_stat": "points"
+      },
+      "def_argument": "Adversaire solide vs points (#23/30)",
+      "rotation_warning": null,
+      "last_min_warning": null,
+      "book_divergence_warning": null,
+      "h2h_avg": 8.0,
+      "h2h_n": 1,
+      "venue_avg": 16.2,
+      "venue_n": 9,
+      "venue": "domicile",
+      "opp_abbr": "SA",
+      "kelly_pct": 5.0,
+      "stake_units": 2.0,
+      "stake_label": "2u 💪",
+      "stats": {
+        "mu": 15.8,
+        "sigma": 5.8,
+        "L5": 17.6,
+        "L10": 18.7,
+        "Saison": 17.1
+      },
+      "reasoning": "L5 17.6 · L10 18.7 · Saison 17.1 → attendu 15.8 · pace×1.002 · vegas×0.987 · def×0.965 · Domicile (n=9) : 16.2",
+      "player": "Chet Holmgren",
+      "team": "Thunder",
+      "side": "home",
+      "id": "2026-05-21_401873198_Chet Holmgren_PTS_over_13.5",
+      "date": "2026-05-21",
+      "game_id": "401873198",
+      "matchup": "Spurs @ Thunder",
+      "result": "LOSS",
+      "actual": 13.0,
+      "resolved_at": "2026-05-21 08:29"
+    },
+    {
+      "prop": "REB",
+      "label": "Dean Wade plus de 3.5 rebonds",
+      "line": 3.5,
+      "direction": "over",
+      "confidence": 75,
+      "cote_min": 1.33,
+      "real_cote": 1.67,
+      "book": "betmgm",
+      "books": [
+        {
+          "book": "betmgm",
+          "cote": 1.67
+        },
+        {
+          "book": "fanduel",
+          "cote": 1.66
+        }
+      ],
+      "edge": 25.6,
+      "is_real_line": true,
+      "value": [
+        "🎯",
+        "Real DK/FD",
+        "#22c55e"
+      ],
+      "hit_rate": "7/10",
+      "hit_pct": 70,
+      "hit_l10": "7/10",
+      "hit_l10_pct": 70,
+      "hit_l20": "13/20",
+      "hit_l20_pct": 65,
+      "trend": "stable",
+      "trend_delta": 5.0,
+      "trend_icon": "",
+      "context": {
+        "pace": 0.99,
+        "def": 0.925,
+        "def_rank": 28,
+        "def_stat": "rebonds"
+      },
+      "def_argument": "Adversaire solide vs rebonds (#28/30)",
+      "rotation_warning": null,
+      "last_min_warning": null,
+      "book_divergence_warning": null,
+      "h2h_avg": 5.0,
+      "h2h_n": 1,
+      "venue_avg": 5.0,
+      "venue_n": 11,
+      "venue": "exterieur",
+      "opp_abbr": "NY",
+      "kelly_pct": 5.0,
+      "stake_units": 2.0,
+      "stake_label": "2u 💪",
+      "stats": {
+        "mu": 4.5,
+        "sigma": 1.5,
+        "L5": 5.0,
+        "L10": 4.3,
+        "Saison": 4.2
+      },
+      "reasoning": "L5 5.0 · L10 4.3 · Saison 4.2 → attendu 4.5 · pace×0.99 · def×0.925 · Exterieur (n=11) : 5.0",
+      "player": "Dean Wade",
+      "team": "Cavaliers",
+      "side": "away",
+      "id": "2026-05-22_401873342_Dean Wade_REB_over_3.5",
+      "date": "2026-05-22",
+      "game_id": "401873342",
+      "matchup": "Cavaliers @ Knicks",
+      "result": "PENDING",
+      "actual": null,
+      "resolved_at": null
+    },
+    {
+      "prop": "REB",
+      "label": "Isaiah Hartenstein plus de 4.5 rebonds",
+      "line": 4.5,
+      "direction": "over",
+      "confidence": 83,
+      "cote_min": 1.21,
+      "real_cote": 2.02,
+      "book": "draftkings",
+      "books": [
+        {
+          "book": "draftkings",
+          "cote": 2.02
+        },
+        {
+          "book": "fanduel",
+          "cote": 1.98
+        },
+        {
+          "book": "pinnacle",
+          "cote": 1.88
+        }
+      ],
+      "edge": 66.9,
+      "is_real_line": true,
+      "value": [
+        "🎯",
+        "Real DK/FD",
+        "#22c55e"
+      ],
+      "hit_rate": "8/10",
+      "hit_pct": 80,
+      "hit_l10": "8/10",
+      "hit_l10_pct": 80,
+      "hit_l20": "18/20",
+      "hit_l20_pct": 90,
+      "trend": "cold",
+      "trend_delta": -10.0,
+      "trend_icon": "📉",
+      "context": {
+        "pace": 1.002,
+        "def": 0.973,
+        "def_rank": 23,
+        "def_stat": "rebonds"
+      },
+      "def_argument": "Adversaire solide vs rebonds (#23/30)",
+      "rotation_warning": null,
+      "last_min_warning": "Dernier match 12 min (vs mediane 28 des 4 precedents) - attention au temps de jeu du match a venir",
+      "book_divergence_warning": "Book quote ligne 4.5 alors qu'on estime mu=8.5 (divergence x1.89) - le bookmaker peut avoir vu un changement (rotation/blessure)",
+      "h2h_avg": 2.0,
+      "h2h_n": 1,
+      "venue_avg": 9.3,
+      "venue_n": 10,
+      "venue": "domicile",
+      "opp_abbr": "SA",
+      "kelly_pct": 5.0,
+      "stake_units": 2.0,
+      "stake_label": "2u 💪",
+      "stats": {
+        "mu": 8.5,
+        "sigma": 4.2,
+        "L5": 7.8,
+        "L10": 7.9,
+        "Saison": 9.4
+      },
+      "reasoning": "L5 7.8 · L10 7.9 · Saison 9.4 → attendu 8.5 · pace×1.002 · def×0.973 · Domicile (n=10) : 9.3",
+      "player": "Isaiah Hartenstein",
+      "team": "Thunder",
+      "side": "home",
+      "id": "2026-05-21_401873198_Isaiah Hartenstein_REB_over_4.5",
+      "date": "2026-05-21",
+      "game_id": "401873198",
+      "matchup": "Spurs @ Thunder",
+      "result": "PENDING",
+      "actual": null,
+      "resolved_at": null
+    },
+    {
+      "prop": "REB",
+      "label": "Dylan Harper plus de 4.5 rebonds",
+      "line": 4.5,
+      "direction": "over",
+      "confidence": 70,
+      "cote_min": 1.44,
+      "real_cote": 2.2,
+      "book": "draftkings",
+      "books": [
+        {
+          "book": "draftkings",
+          "cote": 2.2
+        },
+        {
+          "book": "betmgm",
+          "cote": 2.05
+        }
+      ],
+      "edge": 52.8,
+      "is_real_line": true,
+      "value": [
+        "🎯",
+        "Real DK/FD",
+        "#22c55e"
+      ],
+      "hit_rate": "6/10",
+      "hit_pct": 60,
+      "hit_l10": "6/10",
+      "hit_l10_pct": 60,
+      "hit_l20": "8/20",
+      "hit_l20_pct": 40,
+      "trend": "hot",
+      "trend_delta": 20.0,
+      "trend_icon": "📈",
+      "context": {
+        "pace": 1.002,
+        "def": 1.033,
+        "def_rank": 10,
+        "def_stat": "rebonds"
+      },
+      "def_argument": "",
+      "rotation_warning": null,
+      "last_min_warning": null,
+      "book_divergence_warning": null,
+      "h2h_avg": 11.0,
+      "h2h_n": 1,
+      "venue_avg": 5.1,
+      "venue_n": 9,
+      "venue": "exterieur",
+      "opp_abbr": "OKC",
+      "kelly_pct": 5.0,
+      "stake_units": 2.0,
+      "stake_label": "2u 💪",
+      "stats": {
+        "mu": 6.0,
+        "sigma": 3.0,
+        "L5": 7.4,
+        "L10": 6.3,
+        "Saison": 3.4
+      },
+      "reasoning": "L5 7.4 · L10 6.3 · Saison 3.4 → attendu 6.0 · pace×1.002 · def×1.033 · Exterieur (n=9) : 5.1",
+      "player": "Dylan Harper",
+      "team": "Spurs",
+      "side": "away",
+      "id": "2026-05-21_401873198_Dylan Harper_REB_over_4.5",
+      "date": "2026-05-21",
+      "game_id": "401873198",
+      "matchup": "Spurs @ Thunder",
+      "result": "PENDING",
+      "actual": null,
+      "resolved_at": null
+    },
+    {
+      "prop": "PTS",
+      "label": "Ajay Mitchell plus de 9.5 points",
+      "line": 9.5,
+      "direction": "over",
+      "confidence": 81,
+      "cote_min": 1.23,
+      "real_cote": 1.83,
+      "book": "betmgm",
+      "books": [
+        {
+          "book": "betmgm",
+          "cote": 1.83
+        },
+        {
+          "book": "betmgm",
+          "cote": 1.77
+        }
+      ],
+      "edge": 48.8,
+      "is_real_line": true,
+      "value": [
+        "🎯",
+        "Real DK/FD",
+        "#22c55e"
+      ],
+      "hit_rate": "7/10",
+      "hit_pct": 70,
+      "hit_l10": "7/10",
+      "hit_l10_pct": 70,
+      "hit_l20": "13/20",
+      "hit_l20_pct": 65,
+      "trend": "stable",
+      "trend_delta": 5.0,
+      "trend_icon": "",
+      "context": {
+        "pace": 1.002,
+        "vegas": 0.987,
+        "def": 0.965,
+        "def_rank": 23,
+        "def_stat": "points"
+      },
+      "def_argument": "Adversaire solide vs points (#23/30)",
+      "rotation_warning": null,
+      "last_min_warning": null,
+      "book_divergence_warning": "Book quote ligne 9.5 alors qu'on estime mu=15.0 (divergence x1.58) - le bookmaker peut avoir vu un changement (rotation/blessure)",
+      "h2h_avg": 4.0,
+      "h2h_n": 1,
+      "venue_avg": 11.9,
+      "venue_n": 10,
+      "venue": "domicile",
+      "opp_abbr": "SA",
+      "kelly_pct": 5.0,
+      "stake_units": 2.0,
+      "stake_label": "2u 💪",
+      "stats": {
+        "mu": 15.0,
+        "sigma": 6.2,
+        "L5": 18.8,
+        "L10": 16.1,
+        "Saison": 13.6
+      },
+      "reasoning": "L5 18.8 · L10 16.1 · Saison 13.6 → attendu 15.0 · pace×1.002 · vegas×0.987 · def×0.965 · Domicile (n=10) : 11.9",
+      "player": "Ajay Mitchell",
+      "team": "Thunder",
+      "side": "home",
+      "id": "2026-05-21_401873198_Ajay Mitchell_PTS_over_9.5",
+      "date": "2026-05-21",
+      "game_id": "401873198",
+      "matchup": "Spurs @ Thunder",
+      "result": "PENDING",
+      "actual": null,
+      "resolved_at": null
+    },
+    {
+      "prop": "PTS",
+      "label": "De'Aaron Fox plus de 14.5 points",
+      "line": 14.5,
+      "direction": "over",
+      "confidence": 66,
+      "cote_min": 1.53,
+      "real_cote": 1.98,
+      "book": "fanduel",
+      "books": [
+        {
+          "book": "fanduel",
+          "cote": 1.98
+        },
+        {
+          "book": "pinnacle",
+          "cote": 1.96
+        },
+        {
+          "book": "betmgm",
+          "cote": 1.91
+        }
+      ],
+      "edge": 29.4,
+      "is_real_line": true,
+      "value": [
+        "🎯",
+        "Real DK/FD",
+        "#22c55e"
+      ],
+      "hit_rate": "9/10",
+      "hit_pct": 90,
+      "hit_l10": "9/10",
+      "hit_l10_pct": 90,
+      "hit_l20": "14/20",
+      "hit_l20_pct": 70,
+      "trend": "hot",
+      "trend_delta": 20.0,
+      "trend_icon": "📈",
+      "context": {
+        "pace": 1.002,
+        "vegas": 0.929,
+        "def": 0.933,
+        "def_rank": 29,
+        "def_stat": "points"
+      },
+      "def_argument": "Adversaire solide vs points (#29/30)",
+      "rotation_warning": null,
+      "last_min_warning": null,
+      "book_divergence_warning": null,
+      "h2h_avg": null,
+      "h2h_n": 0,
+      "venue_avg": 18.6,
+      "venue_n": 9,
+      "venue": "exterieur",
+      "opp_abbr": "OKC",
+      "kelly_pct": 5.0,
+      "stake_units": 2.0,
+      "stake_label": "2u 💪",
+      "stats": {
+        "mu": 16.5,
+        "sigma": 5.1,
+        "L5": 19.2,
+        "L10": 19.0,
+        "Saison": 18.6
+      },
+      "reasoning": "L5 19.2 · L10 19.0 · Saison 18.6 → attendu 16.5 · pace×1.002 · vegas×0.929 · def×0.933 · Exterieur (n=9) : 18.6",
+      "player": "De'Aaron Fox",
+      "team": "Spurs",
+      "side": "away",
+      "id": "2026-05-21_401873198_De'Aaron Fox_PTS_over_14.5",
+      "date": "2026-05-21",
+      "game_id": "401873198",
+      "matchup": "Spurs @ Thunder",
       "result": "PENDING",
       "actual": null,
       "resolved_at": null
@@ -2200,74 +2812,224 @@
       "resolved_at": null
     },
     {
-      "prop": "REB",
-      "label": "Dean Wade plus de 3.5 rebonds",
-      "line": 3.5,
+      "prop": "AST",
+      "label": "Luguentz Dort plus de 0.5 passes",
+      "line": 0.5,
       "direction": "over",
-      "confidence": 75,
-      "cote_min": 1.33,
+      "confidence": 79,
+      "cote_min": 1.26,
       "real_cote": 1.67,
-      "book": "betmgm",
+      "book": "draftkings",
       "books": [
         {
-          "book": "betmgm",
+          "book": "draftkings",
           "cote": 1.67
         },
         {
-          "book": "fanduel",
-          "cote": 1.66
+          "book": "betmgm",
+          "cote": 1.65
         }
       ],
-      "edge": 25.6,
+      "edge": 32.5,
       "is_real_line": true,
       "value": [
         "🎯",
         "Real DK/FD",
         "#22c55e"
       ],
-      "hit_rate": "7/10",
-      "hit_pct": 70,
-      "hit_l10": "7/10",
-      "hit_l10_pct": 70,
-      "hit_l20": "13/20",
-      "hit_l20_pct": 65,
-      "trend": "stable",
-      "trend_delta": 5.0,
-      "trend_icon": "",
+      "hit_rate": "6/10",
+      "hit_pct": 60,
+      "hit_l10": "6/10",
+      "hit_l10_pct": 60,
+      "hit_l20": "14/20",
+      "hit_l20_pct": 70,
+      "trend": "cold",
+      "trend_delta": -10.0,
+      "trend_icon": "📉",
       "context": {
-        "pace": 0.99,
-        "def": 0.925,
-        "def_rank": 28,
-        "def_stat": "rebonds"
+        "pace": 1.002,
+        "def": 0.98,
+        "def_rank": 19,
+        "def_stat": "passes"
       },
-      "def_argument": "Adversaire solide vs rebonds (#28/30)",
+      "def_argument": "",
       "rotation_warning": null,
       "last_min_warning": null,
-      "book_divergence_warning": null,
-      "h2h_avg": 5.0,
+      "book_divergence_warning": "Book quote ligne 0.5 alors qu'on estime mu=1.4 (divergence x2.8) - le bookmaker peut avoir vu un changement (rotation/blessure)",
+      "h2h_avg": 1.0,
       "h2h_n": 1,
-      "venue_avg": 5.0,
+      "venue_avg": 1.5,
       "venue_n": 11,
-      "venue": "exterieur",
-      "opp_abbr": "NY",
+      "venue": "domicile",
+      "opp_abbr": "SA",
       "kelly_pct": 5.0,
       "stake_units": 2.0,
       "stake_label": "2u 💪",
       "stats": {
-        "mu": 4.5,
-        "sigma": 1.5,
-        "L5": 5.0,
-        "L10": 4.3,
-        "Saison": 4.2
+        "mu": 1.4,
+        "sigma": 1.1,
+        "L5": 1.4,
+        "L10": 1.3,
+        "Saison": 1.2
       },
-      "reasoning": "L5 5.0 · L10 4.3 · Saison 4.2 → attendu 4.5 · pace×0.99 · def×0.925 · Exterieur (n=11) : 5.0",
-      "player": "Dean Wade",
-      "team": "Cavaliers",
+      "reasoning": "L5 1.4 · L10 1.3 · Saison 1.2 → attendu 1.4 · pace×1.002 · def×0.98 · Domicile (n=11) : 1.5",
+      "player": "Luguentz Dort",
+      "team": "Thunder",
+      "side": "home",
+      "id": "2026-05-21_401873198_Luguentz Dort_AST_over_0.5",
+      "date": "2026-05-21",
+      "game_id": "401873198",
+      "matchup": "Spurs @ Thunder",
+      "result": "PENDING",
+      "actual": null,
+      "resolved_at": null
+    },
+    {
+      "prop": "FG3M",
+      "label": "Keldon Johnson plus de 0.5 3-points",
+      "line": 0.5,
+      "direction": "over",
+      "confidence": 81,
+      "cote_min": 1.24,
+      "real_cote": 1.52,
+      "book": "draftkings",
+      "books": [
+        {
+          "book": "draftkings",
+          "cote": 1.52
+        },
+        {
+          "book": "betmgm",
+          "cote": 1.5
+        }
+      ],
+      "edge": 22.6,
+      "is_real_line": true,
+      "value": [
+        "🎯",
+        "Real DK/FD",
+        "#22c55e"
+      ],
+      "hit_rate": "6/10",
+      "hit_pct": 60,
+      "hit_l10": "6/10",
+      "hit_l10_pct": 60,
+      "hit_l20": "14/20",
+      "hit_l20_pct": 70,
+      "trend": "cold",
+      "trend_delta": -10.0,
+      "trend_icon": "📉",
+      "context": {
+        "pace": 1.002,
+        "def": 1.075,
+        "def_rank": 3,
+        "def_stat": "3-points"
+      },
+      "def_argument": "Adversaire encaisse beaucoup de 3-points (#3/30)",
+      "rotation_warning": null,
+      "last_min_warning": null,
+      "book_divergence_warning": "Book quote ligne 0.5 alors qu'on estime mu=1.3 (divergence x2.56) - le bookmaker peut avoir vu un changement (rotation/blessure)",
+      "h2h_avg": 3.0,
+      "h2h_n": 1,
+      "venue_avg": 1.1,
+      "venue_n": 9,
+      "venue": "exterieur",
+      "opp_abbr": "OKC",
+      "kelly_pct": 5.0,
+      "stake_units": 2.0,
+      "stake_label": "2u 💪",
+      "stats": {
+        "mu": 1.3,
+        "sigma": 0.9,
+        "L5": 1.2,
+        "L10": 0.9,
+        "Saison": 1.2
+      },
+      "reasoning": "L5 1.2 · L10 0.9 · Saison 1.2 → attendu 1.3 · pace×1.002 · def×1.075 · Exterieur (n=9) : 1.1",
+      "player": "Keldon Johnson",
+      "team": "Spurs",
       "side": "away",
-      "id": "2026-05-22_401873342_Dean Wade_REB_over_3.5",
-      "date": "2026-05-22",
-      "game_id": "401873342",
-      "matchup": "Cavaliers @ Knicks",
+      "id": "2026-05-21_401873198_Keldon Johnson_FG3M_over_0.5",
+      "date": "2026-05-21",
+      "game_id": "401873198",
+      "matchup": "Spurs @ Thunder",
+      "result": "PENDING",
+      "actual": null,
+      "resolved_at": null
+    },
+    {
+      "prop": "AST",
+      "label": "Keldon Johnson plus de 0.5 passes",
+      "line": 0.5,
+      "direction": "over",
+      "confidence": 75,
+      "cote_min": 1.34,
+      "real_cote": 1.56,
+      "book": "pinnacle",
+      "books": [
+        {
+          "book": "pinnacle",
+          "cote": 1.56
+        },
+        {
+          "book": "draftkings",
+          "cote": 1.47
+        },
+        {
+          "book": "betmgm",
+          "cote": 1.44
+        }
+      ],
+      "edge": 16.4,
+      "is_real_line": true,
+      "value": [
+        "🎯",
+        "Real DK/FD",
+        "#22c55e"
+      ],
+      "hit_rate": "8/10",
+      "hit_pct": 80,
+      "hit_l10": "8/10",
+      "hit_l10_pct": 80,
+      "hit_l20": "17/20",
+      "hit_l20_pct": 85,
+      "trend": "stable",
+      "trend_delta": -5.0,
+      "trend_icon": "",
+      "context": {
+        "pace": 1.002,
+        "def": 0.935,
+        "def_rank": 25,
+        "def_stat": "passes"
+      },
+      "def_argument": "Adversaire solide vs passes (#25/30)",
+      "rotation_warning": null,
+      "last_min_warning": null,
+      "book_divergence_warning": "Book quote ligne 0.5 alors qu'on estime mu=0.9 (divergence x1.89) - le bookmaker peut avoir vu un changement (rotation/blessure)",
+      "h2h_avg": 0,
+      "h2h_n": 1,
+      "venue_avg": 1.1,
+      "venue_n": 9,
+      "venue": "exterieur",
+      "opp_abbr": "OKC",
+      "kelly_pct": 5.0,
+      "stake_units": 2.0,
+      "stake_label": "2u 💪",
+      "stats": {
+        "mu": 0.9,
+        "sigma": 0.7,
+        "L5": 0.8,
+        "L10": 1.1,
+        "Saison": 1.4
+      },
+      "reasoning": "L5 0.8 · L10 1.1 · Saison 1.4 → attendu 0.9 · pace×1.002 · def×0.935 · Exterieur (n=9) : 1.1",
+      "player": "Keldon Johnson",
+      "team": "Spurs",
+      "side": "away",
+      "id": "2026-05-21_401873198_Keldon Johnson_AST_over_0.5",
+      "date": "2026-05-21",
+      "game_id": "401873198",
+      "matchup": "Spurs @ Thunder",
       "result": "PENDING",
       "actual": null,
       "resolved_at": null

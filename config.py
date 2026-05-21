@@ -79,6 +79,13 @@ FOTMOB_LEAGUES = {
     "Champions League":    {"id": 42,    "name_match": "Champions League"},
     "Europa League":       {"id": 73,    "name_match": "Europa League"},
     "Conference League":   {"id": 10216, "name_match": "Conference League"},
+    # Coupes nationales (FotMob ids - "stats" pas dispo pour les coupes,
+    # mais les fixtures+events restent accessibles via match_events)
+    "FA Cup":              {"id": 132,   "name_match": "FA Cup"},
+    "Coupe de France":     {"id": 154,   "name_match": "Coupe de France"},
+    "Copa del Rey":        {"id": 213,   "name_match": "Copa del Rey"},
+    "Coppa Italia":        {"id": 141,   "name_match": "Coppa Italia"},
+    "DFB Pokal":           {"id": 209,   "name_match": "DFB-Pokal"},
 }
 
 # Pour mapper FotMob league id -> "internal id" picks_engine (utilise CUP_LEAGUES)
@@ -91,8 +98,14 @@ INTERNAL_LEAGUE_IDS = {
     "Champions League":  7,
     "Europa League":     679,
     "Conference League": 17015,
+    "FA Cup":            45,
+    "Coupe de France":   66,
+    "Copa del Rey":      143,
+    "Coppa Italia":      137,
+    "DFB Pokal":         81,
 }
-CUP_LEAGUES = {7, 679, 17015}
+# Toutes les coupes (matchs a elimination - traitement special : pas de classement utile)
+CUP_LEAGUES = {7, 679, 17015, 45, 66, 143, 137, 81}
 
 # IDs api-football (pour endpoint odds) — saison 2025
 APIFOOTBALL_LEAGUES = {
@@ -104,6 +117,11 @@ APIFOOTBALL_LEAGUES = {
     "Champions League":  2,
     "Europa League":     3,
     "Conference League": 848,
+    "FA Cup":            45,
+    "Coupe de France":   66,
+    "Copa del Rey":      143,
+    "Coppa Italia":      137,
+    "DFB Pokal":         81,
 }
 
 # ─── TTL cache (secondes) ────────────────────────────────────────────────────

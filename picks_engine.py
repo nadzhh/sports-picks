@@ -1617,8 +1617,17 @@ def run():
     return output
 
 
+HISTORY_FREEZE_HOURS_FOOT = 3   # snapshot picks dans la fenetre [-3h, kickoff]
+
+
 def _save_to_history(matches):
-    """Sauvegarde les picks foot dans data/picks_history.json (PENDING - resolu plus tard)."""
+    """Sauvegarde les picks foot dans data/picks_history.json.
+
+    Strategie : on snapshot UNIQUEMENT les picks dans la fenetre 3h avant
+    kickoff. Pour ces matchs, on REMPLACE les PENDING existants par les
+    picks frais (donc si un pick a ete filtre entre temps - coherence,
+    blessure, etc. - il disparait proprement de l'historique).
+    """
     from pathlib import Path
     from datetime import datetime, timezone
     hist_path = Path("data/picks_history.json")
@@ -1626,13 +1635,41 @@ def _save_to_history(matches):
     if hist_path.exists():
         try: history = json.loads(hist_path.read_text(encoding="utf-8"))
         except Exception: history = {"picks": []}
-    existing_ids = {p.get("id") for p in history.get("picks", [])}
     today = datetime.now().strftime("%Y-%m-%d")
+    now_utc = datetime.now(tz=timezone.utc)
+
+    # Determine quels matchs sont dans la fenetre [0h, FREEZE_HOURS] avant kickoff.
+    # Pas les matchs passes (resolver), pas les matchs trop loin (pas finalises).
+    freezable_ids = set()
+    for m in matches:
+        ts = m.get("start_ts")
+        if not ts: continue
+        try:
+            ko = datetime.fromtimestamp(int(ts), tz=timezone.utc)
+            hours_to_ko = (ko - now_utc).total_seconds() / 3600
+            if 0 <= hours_to_ko <= HISTORY_FREEZE_HOURS_FOOT:
+                freezable_ids.add(m.get("match_id"))
+        except Exception:
+            pass
+
+    # Drop tous les PENDING des matchs qu'on va re-snapshoter
+    kept = []
+    n_dropped = 0
+    for p in history.get("picks", []):
+        if p.get("result") in (None, "PENDING") and p.get("match_id") in freezable_ids:
+            n_dropped += 1
+            continue
+        kept.append(p)
+    history["picks"] = kept
+
+    existing_ids = {p.get("id") for p in history.get("picks", [])}
     n_added = 0
 
     for m in matches:
         match_id = m.get("match_id")
-        page_url = m.get("page_url") or m.get("_page_url")  # pour resoudre quand matches.json a tourne
+        if match_id not in freezable_ids:
+            continue  # trop loin du kickoff, pas dans l'historique
+        page_url = m.get("page_url") or m.get("_page_url")
         matchup = f"{m.get('home','?')} vs {m.get('away','?')}"
         league = m.get("league", "")
         ts = m.get("start_ts")
@@ -1668,7 +1705,7 @@ def _save_to_history(matches):
             history["picks"].append(e); existing_ids.add(pid); n_added += 1
 
     hist_path.write_text(json.dumps(history, ensure_ascii=False, indent=2), encoding="utf-8")
-    print(f"[history] {n_added} picks foot ajoutes (total: {len(history['picks'])})")
+    print(f"[history] {n_added} picks foot ajoutes (-{n_dropped} anciens remplaces, freeze {HISTORY_FREEZE_HOURS_FOOT}h)")
 
 
 if __name__ == "__main__":
