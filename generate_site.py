@@ -2869,6 +2869,25 @@ def build_html(matches, team_ai, player_ai, pstats_data, nba_picks=None, nba_his
     foot_hist_html = build_foot_history(foot_history)
     nba_analyse_html = build_nba_analyse_section(nba_picks, nba_player_stats, nba_odds)
 
+    # Embed minimal nba_history pour resolution auto JS des user picks.
+    # On garde uniquement les fields necessaires : game_id, player, prop, line,
+    # direction, result, actual, date.
+    import json as _json
+    nba_hist_min = []
+    for p in (nba_history or {}).get("picks", []):
+        if p.get("result") not in ("WIN", "LOSS", "PUSH", "DNP"): continue
+        nba_hist_min.append({
+            "game_id":   p.get("game_id"),
+            "player":    p.get("player"),
+            "prop":      p.get("prop"),
+            "line":      p.get("line"),
+            "direction": p.get("direction"),
+            "result":    p.get("result"),
+            "actual":    p.get("actual"),
+            "date":      p.get("date"),
+        })
+    nba_history_json = _json.dumps(nba_hist_min, ensure_ascii=False).replace("</", "<\\/")
+
     total_t = sum(len(m["picks"]) for m in matches)
     total_p = sum(len(m.get("home_players",[])) + len(m.get("away_players",[])) for m in matches)
 
@@ -2925,6 +2944,21 @@ def build_html(matches, team_ai, player_ai, pstats_data, nba_picks=None, nba_his
   }}
   .picks-btn.active {{
     background:#3b82f6; color:#fff; box-shadow:0 4px 14px rgba(59,130,246,0.55);
+  }}
+
+  /* Pulse animation pour badge EN COURS */
+  @keyframes pulse {{
+    0%, 100% {{ opacity: 1; }}
+    50% {{ opacity: 0.65; }}
+  }}
+
+  /* User pick card hover */
+  .user-pick-card {{
+    transition: all 0.2s ease;
+  }}
+  .user-pick-card:hover {{
+    transform: translateY(-1px);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.4);
   }}
 </style>
 </head>
@@ -3021,6 +3055,9 @@ def build_html(matches, team_ai, player_ai, pstats_data, nba_picks=None, nba_his
   </div>
   <footer>⚽ FotMob + api-football · 🏀 stats.nba.com + The Odds API · Algorithme + IA · À titre informatif uniquement</footer>
 </div>
+<script>
+window.NBA_HISTORY = {nba_history_json};
+</script>
 <script>
 function showSport(sport){{
   ['football','nba','analyse','userpicks','foothist','nbahist'].forEach(s=>{{
@@ -3584,6 +3621,100 @@ function markUserPickResult(id, result){{
   renderUserPicks();
 }}
 
+// ── Auto-resolution des user picks via NBA_HISTORY (resolus par l'algo) ──
+// Pour chaque user pick PENDING, on cherche un pick algo sur le meme
+// (game_id, player, prop) deja resolu (a une autre ligne potentiellement),
+// on extrait sa valeur 'actual' (= la stat reelle du joueur), puis on
+// applique la regle OVER/UNDER selon la ligne saisie par l'user.
+function autoResolveUserPicks(){{
+  var hist = window.NBA_HISTORY || [];
+  if(!hist.length) return 0;
+  // Build lookup map : "{{game_id}}|{{player}}|{{prop}}" -> actual
+  var actualMap = {{}};
+  hist.forEach(function(h){{
+    if(h.actual === null || h.actual === undefined) return;
+    var key = (h.game_id || '') + '|' + (h.player || '') + '|' + (h.prop || '');
+    if(actualMap[key] === undefined) actualMap[key] = h.actual;
+  }});
+  var arr = _loadUserPicks();
+  var nResolved = 0;
+  arr.forEach(function(p){{
+    if(p.result && p.result !== 'PENDING') return;  // skip si deja resolu ou cashout
+    if(p.manual_override) return;                   // l'user a force un resultat
+    var key = (p.game_id || '') + '|' + (p.player || '') + '|' + (p.prop || '');
+    var actual = actualMap[key];
+    if(actual === undefined) return;  // pas encore resolu cote algo
+    var line = parseFloat(p.line);
+    actual = parseFloat(actual);
+    if(isNaN(line) || isNaN(actual)) return;
+    var result;
+    if(p.direction === 'over'){{
+      result = actual > line ? 'WIN' : (actual < line ? 'LOSS' : 'PUSH');
+    }} else {{  // under
+      result = actual < line ? 'WIN' : (actual > line ? 'LOSS' : 'PUSH');
+    }}
+    p.result = result;
+    p.actual = actual;
+    p.resolved_at = new Date().toISOString();
+    p.auto_resolved = true;
+    nResolved++;
+  }});
+  if(nResolved > 0) _saveUserPicks(arr);
+  return nResolved;
+}}
+
+// Modification manuelle (cashout, annulation, override)
+function modifyUserPick(id){{
+  var arr = _loadUserPicks();
+  var idx = arr.findIndex(p => p.id === id);
+  if(idx < 0) return;
+  var p = arr[idx];
+  var choice = prompt(
+    'Statut du pari ? Tape un numero :\\n' +
+    '  1 = Gagné\\n' +
+    '  2 = Perdu\\n' +
+    '  3 = Annulé (PUSH ou cashout neutre)\\n' +
+    '  4 = Cashout partiel (saisir gain en €)\\n' +
+    '  5 = Remettre en pending (annule override)',
+    p.result === 'WIN' ? '1' : (p.result === 'LOSS' ? '2' : (p.result === 'PUSH' ? '3' : '1'))
+  );
+  if(choice === null) return;
+  if(choice === '1'){{
+    p.result = 'WIN';
+    p.manual_override = true;
+    p.cashout_amount = null;
+  }} else if(choice === '2'){{
+    p.result = 'LOSS';
+    p.manual_override = true;
+    p.cashout_amount = null;
+  }} else if(choice === '3'){{
+    p.result = 'PUSH';
+    p.manual_override = true;
+    p.cashout_amount = null;
+  }} else if(choice === '4'){{
+    var stake = (p.stake != null) ? p.stake : 1;
+    var cashStr = prompt('Montant net du cashout en € (mise initiale ' + stake + ' €). Ex : +3.20 pour un gain ou -2 pour une perte partielle :', '0');
+    if(cashStr === null) return;
+    var cash = parseFloat(cashStr);
+    if(isNaN(cash)){{ alert('Montant invalide'); return; }}
+    p.result = cash > 0 ? 'WIN' : (cash < 0 ? 'LOSS' : 'PUSH');
+    p.cashout_amount = cash;
+    p.manual_override = true;
+  }} else if(choice === '5'){{
+    p.result = null;
+    p.actual = null;
+    p.resolved_at = null;
+    p.manual_override = false;
+    p.cashout_amount = null;
+    p.auto_resolved = false;
+  }} else {{
+    return;
+  }}
+  if(p.result){{ p.resolved_at = new Date().toISOString(); }}
+  _saveUserPicks(arr);
+  renderUserPicks();
+}}
+
 // Edit stake (mise) sur un pick
 function editUserPickStake(id){{
   var arr = _loadUserPicks();
@@ -3634,11 +3765,17 @@ function refreshStakePills(){{
 window.addEventListener('DOMContentLoaded', refreshStakePills);
 
 function renderUserPicks(){{
+  // Auto-resolve d'abord (les bets terminés se transforment en W/L/PUSH)
+  autoResolveUserPicks();
   var arr = _loadUserPicks();
   var container = document.getElementById('user-picks-list');
   if(!container) return;
   if(!arr.length){{
-    container.innerHTML = '<div style="text-align:center;padding:40px;color:#64748b">Aucun pari pour l\\'instant. Va dans l\\'onglet <b>🔍 Analyse NBA</b> et clique sur <b>📌 Add OVER / UNDER</b> sur un chart pour ajouter ton premier pari.</div>';
+    container.innerHTML = '<div style="text-align:center;padding:60px 20px;color:#64748b;background:#0f172a;border-radius:14px;border:1px dashed #334155">'
+      + '<div style="font-size:48px;margin-bottom:14px">💸</div>'
+      + '<div style="font-size:16px;color:#cbd5e1;font-weight:700;margin-bottom:6px">Bankroll en attente de paris</div>'
+      + '<div style="font-size:13px;line-height:1.6">Va dans l\\'onglet <b style="color:#60a5fa">🔍 Analyse NBA</b>, choisis un joueur, clique sur <b style="color:#22c55e">📌 Add OVER</b> ou <b style="color:#ef4444">📌 Add UNDER</b> sur un chart.</div>'
+      + '</div>';
     return;
   }}
   // Sort : pending d'abord (recent en haut), puis resolus
@@ -3658,13 +3795,15 @@ function renderUserPicks(){{
   var wr = (wins + losses) > 0 ? Math.round(wins / (wins + losses) * 100) : 0;
   var wrColor = wr >= 55 ? '#22c55e' : (wr >= 50 ? '#84cc16' : '#ef4444');
 
-  // ROI base sur la STAKE de chaque pari (default 1u si pas saisi)
+  // ROI base sur la STAKE de chaque pari (default 1€ si pas saisi).
+  // Si cashout_amount existe (override partiel), il prime sur le calcul cote.
   var totalStake = 0;
   var totalProfit = 0;
   resolvedNonPush.forEach(function(p){{
     var stake = (p.stake != null) ? p.stake : 1;
     totalStake += stake;
-    if(p.result === 'WIN' && p.cote){{ totalProfit += stake * (p.cote - 1); }}
+    if(p.cashout_amount != null){{ totalProfit += p.cashout_amount; }}
+    else if(p.result === 'WIN' && p.cote){{ totalProfit += stake * (p.cote - 1); }}
     else if(p.result === 'LOSS'){{ totalProfit -= stake; }}
   }});
   var yieldPct = totalStake > 0 ? (totalProfit / totalStake * 100) : 0;
@@ -3763,7 +3902,7 @@ function renderUserPicks(){{
       + '</div>';
   }}
 
-  // ── Breakdown par prop type ──
+  // ── Breakdown par prop type (gere les cashout/override partiels) ──
   var byProp = {{}};
   resolvedNonPush.forEach(function(p){{
     var k = p.prop || '?';
@@ -3771,8 +3910,11 @@ function renderUserPicks(){{
     byProp[k].n++;
     var stake = (p.stake != null) ? p.stake : 1;
     byProp[k].stake += stake;
-    if(p.result === 'WIN'){{ byProp[k].w++; if(p.cote) byProp[k].profit += stake * (p.cote - 1); }}
-    else if(p.result === 'LOSS'){{ byProp[k].l++; byProp[k].profit -= stake; }}
+    if(p.result === 'WIN') byProp[k].w++;
+    if(p.result === 'LOSS') byProp[k].l++;
+    if(p.cashout_amount != null) byProp[k].profit += p.cashout_amount;
+    else if(p.result === 'WIN' && p.cote) byProp[k].profit += stake * (p.cote - 1);
+    else if(p.result === 'LOSS') byProp[k].profit -= stake;
   }});
   var propRows = '';
   Object.keys(byProp).sort().forEach(function(k){{
@@ -3866,16 +4008,16 @@ function renderUserPicks(){{
     var resultBadge = '';
     var resultActions = '';
     if(p.result === 'WIN'){{
-      resultBadge = '<span style="background:#22c55e;color:#0a1628;border-radius:4px;padding:2px 8px;font-size:11px;font-weight:800">✓ GAGNE</span>';
+      var overrideTag = p.cashout_amount != null ? ' 💵' : (p.manual_override ? ' ✏' : '');
+      resultBadge = '<span style="background:linear-gradient(135deg,#16a34a,#22c55e);color:#fff;border-radius:6px;padding:3px 10px;font-size:11px;font-weight:800;box-shadow:0 2px 6px rgba(34,197,94,0.4)">✓ GAGNÉ' + overrideTag + '</span>';
     }} else if(p.result === 'LOSS'){{
-      resultBadge = '<span style="background:#ef4444;color:#fff;border-radius:4px;padding:2px 8px;font-size:11px;font-weight:800">✗ PERDU</span>';
+      var overrideTag = p.cashout_amount != null ? ' 💵' : (p.manual_override ? ' ✏' : '');
+      resultBadge = '<span style="background:linear-gradient(135deg,#dc2626,#ef4444);color:#fff;border-radius:6px;padding:3px 10px;font-size:11px;font-weight:800;box-shadow:0 2px 6px rgba(239,68,68,0.4)">✗ PERDU' + overrideTag + '</span>';
     }} else if(p.result === 'PUSH'){{
-      resultBadge = '<span style="background:#94a3b8;color:#0a1628;border-radius:4px;padding:2px 8px;font-size:11px;font-weight:800">= PUSH</span>';
+      var overrideTag = p.manual_override ? ' ✏' : '';
+      resultBadge = '<span style="background:linear-gradient(135deg,#64748b,#94a3b8);color:#0a1628;border-radius:6px;padding:3px 10px;font-size:11px;font-weight:800">= ANNULÉ' + overrideTag + '</span>';
     }} else {{
-      resultBadge = '<span style="background:#fb923c;color:#0a1628;border-radius:4px;padding:2px 8px;font-size:11px;font-weight:800">... PENDING</span>';
-      resultActions = '<button onclick="markUserPickResult(\\'' + p.id + '\\', \\'WIN\\')" title="Marquer comme gagne" style="background:#16a34a;color:#fff;border:none;border-radius:6px;padding:6px 11px;font-size:11px;font-weight:700;cursor:pointer;margin-right:4px">✓ Gagné</button>'
-        + '<button onclick="markUserPickResult(\\'' + p.id + '\\', \\'LOSS\\')" title="Marquer comme perdu" style="background:#dc2626;color:#fff;border:none;border-radius:6px;padding:6px 11px;font-size:11px;font-weight:700;cursor:pointer;margin-right:4px">✗ Perdu</button>'
-        + '<button onclick="markUserPickResult(\\'' + p.id + '\\', \\'PUSH\\')" title="Push = ligne tied, mise remboursee" style="background:#475569;color:#fff;border:none;border-radius:6px;padding:6px 11px;font-size:11px;font-weight:700;cursor:pointer">= Annulé</button>';
+      resultBadge = '<span style="background:linear-gradient(135deg,#f97316,#fb923c);color:#0a1628;border-radius:6px;padding:3px 10px;font-size:11px;font-weight:800;animation:pulse 2s infinite">⏳ EN COURS</span>';
     }}
     var dir = p.direction === 'over' ? 'plus de' : 'moins de';
     var propLabel = ({{PTS:'pts',REB:'reb',AST:'pas',FG3M:'3PM',RA:'reb+pas',PR:'pts+reb',PA:'pts+ast',PRA:'PRA'}})[p.prop] || p.prop;
@@ -3901,16 +4043,21 @@ function renderUserPicks(){{
                  '📊 Médiane L20 : ' + p.median + ' · Moyenne : ' + p.mean;
     if(p.book_line !== null && p.book_line !== undefined) tgText += '\\n📐 Ligne book US : ' + p.book_line;
     var tgEsc = tgText.replace(/"/g, '&quot;');
+    // Couleur de gauche selon le statut
+    var borderColor = '#fb923c';  // pending = orange
+    var bgGradient = 'linear-gradient(135deg,#162032,#1a2842)';
+    if(p.result === 'WIN'){{ borderColor = '#22c55e'; bgGradient = 'linear-gradient(135deg,#0f1d18,#162032)'; }}
+    else if(p.result === 'LOSS'){{ borderColor = '#ef4444'; bgGradient = 'linear-gradient(135deg,#1d1416,#162032)'; }}
+    else if(p.result === 'PUSH'){{ borderColor = '#94a3b8'; bgGradient = 'linear-gradient(135deg,#161d28,#162032)'; }}
     return (
-      '<div style="background:#162032;border-radius:10px;padding:12px 14px;margin-bottom:10px;border-left:4px solid #fb923c">'
-      + '<div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:8px">'
-      + '<div style="flex:1">'
-      + '<div style="display:flex;align-items:center;flex-wrap:wrap;gap:6px;margin-bottom:4px">'
-      + '<span style="background:#fb923c;color:#0a1628;border-radius:4px;padding:2px 6px;font-size:10px;font-weight:800">🧑 USER</span>'
+      '<div class="user-pick-card" style="background:' + bgGradient + ';border-radius:12px;padding:14px 16px;margin-bottom:10px;border-left:4px solid ' + borderColor + ';box-shadow:0 2px 12px rgba(0,0,0,0.25)">'
+      + '<div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:10px">'
+      + '<div style="flex:1;min-width:0">'
+      + '<div style="display:flex;align-items:center;flex-wrap:wrap;gap:8px;margin-bottom:6px">'
       + resultBadge
-      + '<span style="color:#f1f5f9;font-weight:700;font-size:14px">' + label + '</span>'
+      + '<span style="color:#f1f5f9;font-weight:700;font-size:15px">' + label + '</span>'
       + coteBadge
-      + (deltaInfo ? ' &nbsp;' + deltaInfo : '')
+      + (deltaInfo ? '<span style="font-size:15px">' + deltaInfo + '</span>' : '')
       + '</div>'
       + '<div style="color:#64748b;font-size:12px;display:flex;flex-wrap:wrap;gap:8px;align-items:center">'
       + '<span>' + p.away + ' @ ' + p.home + '</span>'
@@ -3920,8 +4067,9 @@ function renderUserPicks(){{
       + '</div>'
       + '</div>'
       + '<div style="display:flex;flex-direction:column;align-items:flex-end;gap:6px">'
-      + '<div style="display:flex;gap:4px">'
-      + resultActions
+      + '<div style="display:flex;gap:4px;flex-wrap:wrap;justify-content:flex-end">'
+      + '<button onclick="modifyUserPick(\\'' + p.id + '\\')" title="Cashout / annulation / forcer un resultat" '
+      + 'style="background:#1e3a8a;color:#bfdbfe;border:1px solid #3b82f6;border-radius:6px;padding:6px 11px;font-size:11px;font-weight:700;cursor:pointer">✏ Modifier</button>'
       + '<button onclick="pushUserPick(this, \\'' + p.id + '\\')" title="Envoyer sur Telegram" '
       + 'style="background:#0088cc;color:#fff;border:none;border-radius:6px;padding:6px 11px;font-size:11px;font-weight:700;cursor:pointer">📲 Telegram</button>'
       + '<button onclick="deleteUserPick(\\'' + p.id + '\\')" title="Supprimer" '
