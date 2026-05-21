@@ -94,15 +94,22 @@ def hit_rate_color(pct):
 
 
 def stake_pill(stake_label, kelly_pct):
-    """Pastille Kelly sizing affichee pres de la cote."""
+    """Pastille Kelly sizing affichee pres de la cote.
+    Le label initial est en 'u' (unite Kelly = % bankroll). JS au runtime
+    convertit en € en lisant localStorage.user_bankroll_units."""
     if not stake_label:
         return ""
     color = "#22c55e"
-    if "0.25" in stake_label or "0.5" in stake_label: color = "#94a3b8"
-    elif "1.5" in stake_label or "2" in stake_label:  color = "#4ade80"
-    title = f"Kelly fractional 1/4 - {kelly_pct} pct bankroll"
+    # Extrait la valeur unitaire pour data-units (pour conversion JS en €)
+    units_value = 0
+    if "0.25" in stake_label: units_value, color = 0.25, "#94a3b8"
+    elif "0.5" in stake_label: units_value, color = 0.5, "#94a3b8"
+    elif "1.5" in stake_label: units_value, color = 1.5, "#4ade80"
+    elif "2"   in stake_label: units_value, color = 2.0, "#4ade80"
+    elif "1"   in stake_label: units_value, color = 1.0, "#22c55e"
+    title = f"Kelly fractional 1/4 - {kelly_pct}% du bankroll"
     return (
-        f'<span title="{title}" '
+        f'<span class="tg-stake-pill" data-units="{units_value}" title="{title}" '
         f'style="background:{color};color:#fff;font-size:10px;font-weight:700;'
         f'padding:2px 6px;border-radius:10px;margin-left:6px">{stake_label}</span>'
     )
@@ -3584,7 +3591,7 @@ function editUserPickStake(id){{
   if(idx < 0) return;
   var p = arr[idx];
   var current = (p.stake != null) ? p.stake : 1;
-  var s = prompt('Mise en unites (1u = 1% de ton bankroll en gestion conservative) :', String(current));
+  var s = prompt('Mise en € (ex 5, 10, 25...) :', String(current));
   if(s === null) return;
   var sNum = parseFloat(s);
   if(isNaN(sNum) || sNum <= 0){{ alert('Mise invalide'); return; }}
@@ -3593,7 +3600,7 @@ function editUserPickStake(id){{
   renderUserPicks();
 }}
 
-// Bankroll initial (localStorage)
+// Bankroll initial (localStorage). Stocke en €.
 function _getBankroll(){{
   var v = parseFloat(localStorage.getItem('user_bankroll_units') || '100');
   return isNaN(v) ? 100 : v;
@@ -3603,13 +3610,28 @@ function _setBankroll(v){{
 }}
 function editBankroll(){{
   var current = _getBankroll();
-  var v = prompt('Bankroll initial en unites (ex 100u) :', String(current));
+  var v = prompt('Bankroll initial en € (ex 100, 500, 1000) :', String(current));
   if(v === null) return;
   var n = parseFloat(v);
   if(isNaN(n) || n <= 0){{ alert('Valeur invalide'); return; }}
   _setBankroll(n);
   renderUserPicks();
+  refreshStakePills();
 }}
+
+// ── Conversion stake_pill (u Kelly -> € selon bankroll user) ──
+function refreshStakePills(){{
+  var bk = _getBankroll();
+  document.querySelectorAll('.tg-stake-pill').forEach(function(p){{
+    var u = parseFloat(p.getAttribute('data-units')) || 0;
+    if(u <= 0) return;
+    // 1u Kelly = 1% du bankroll par convention
+    var eur = (u / 100) * bk;
+    var label = eur < 10 ? eur.toFixed(2) : eur.toFixed(0);
+    p.textContent = '💪 ' + label + ' €';
+  }});
+}}
+window.addEventListener('DOMContentLoaded', refreshStakePills);
 
 function renderUserPicks(){{
   var arr = _loadUserPicks();
@@ -3687,11 +3709,11 @@ function renderUserPicks(){{
     + '</div>'
     // Big bankroll display
     + '<div style="display:flex;align-items:baseline;gap:12px;margin-bottom:6px;flex-wrap:wrap">'
-    + '<span style="color:#f1f5f9;font-size:38px;font-weight:800;line-height:1">' + bkCurrent.toFixed(2) + 'u</span>'
-    + '<span style="color:#64748b;font-size:15px">sur ' + bk.toFixed(0) + 'u initial</span>'
+    + '<span style="color:#f1f5f9;font-size:38px;font-weight:800;line-height:1">' + bkCurrent.toFixed(2) + ' €</span>'
+    + '<span style="color:#64748b;font-size:15px">sur ' + bk.toFixed(0) + ' € initial</span>'
     + '</div>'
     + '<div style="display:flex;align-items:center;gap:8px;margin-bottom:14px">'
-    + '<span style="color:' + bkColor + ';font-size:16px;font-weight:800">' + profitSign + totalProfit.toFixed(2) + 'u</span>'
+    + '<span style="color:' + bkColor + ';font-size:16px;font-weight:800">' + profitSign + totalProfit.toFixed(2) + ' €</span>'
     + '<span style="background:' + bkColor + '22;color:' + bkColor + ';border:1px solid ' + bkColor + ';border-radius:14px;padding:2px 10px;font-size:12px;font-weight:800">' + profitSign + bkPct.toFixed(2) + '%</span>'
     + '</div>'
     // Progress bar (centred at 50%, grows L or R)
@@ -3735,8 +3757,8 @@ function renderUserPicks(){{
     }}
     statsRow = '<div style="display:flex;gap:10px;margin-bottom:14px;flex-wrap:wrap">'
       + _miniStat('Cote moy.', avgCote.toFixed(2), '📊')
-      + _miniStat('Mise moy.', avgStake.toFixed(2) + 'u', '💵')
-      + _miniStat('Mise totale', totalStake.toFixed(1) + 'u', '🎰')
+      + _miniStat('Mise moy.', avgStake.toFixed(2) + ' €', '💵')
+      + _miniStat('Mise totale', totalStake.toFixed(2) + ' €', '🎰')
       + _miniStat('Bets résolus', resolvedNonPush.length, '✓')
       + '</div>';
   }}
@@ -3772,7 +3794,7 @@ function renderUserPicks(){{
       // WR
       + '<span style="color:' + bColor + ';font-weight:800;min-width:54px;text-align:right">' + bwr + '%<span style="color:#64748b;font-weight:400;font-size:11px"> (' + b.w + '/' + bn + ')</span></span>'
       // Profit
-      + '<span style="color:' + bPColor + ';font-weight:800;min-width:64px;text-align:right">' + bSign + b.profit.toFixed(2) + 'u</span>'
+      + '<span style="color:' + bPColor + ';font-weight:800;min-width:74px;text-align:right">' + bSign + b.profit.toFixed(2) + ' €</span>'
       + '</div>';
   }});
   var breakdownCard = '';
@@ -3815,9 +3837,9 @@ function renderUserPicks(){{
       advice.push({{icon:'📉', color:'#fb923c', text:'WR ' + wr + '% en dessous du break-even (' + breakEvenWR.toFixed(0) + '% requis a cote ' + avgCote.toFixed(2) + ') - selection a affiner ou prendre cotes + elevees'}});
     }}
   }}
-  // 4. Bankroll management
-  if(avgStake > 5){{
-    advice.push({{icon:'⚠️', color:'#fb923c', text:'Mise moyenne ' + avgStake.toFixed(1) + 'u tres elevee - convention Kelly recommande 1-3% du bankroll par bet (' + (bk*0.02).toFixed(1) + 'u suggere ici)'}});
+  // 4. Bankroll management : alerte si mise moy > 5% du bankroll initial
+  if(avgStake > bk * 0.05 && bk > 0){{
+    advice.push({{icon:'⚠️', color:'#fb923c', text:'Mise moyenne ' + avgStake.toFixed(2) + ' € tres elevee (' + Math.round(avgStake/bk*100) + '% du bankroll) - convention Kelly recommande 1-3% par bet (' + (bk*0.02).toFixed(2) + ' € suggere ici)'}});
   }}
   // 5. Pending overload
   if(pending > 10){{
@@ -3864,9 +3886,9 @@ function renderUserPicks(){{
     var deltaInfo = '';
     if(p.result === 'WIN' && p.cote){{
       var gain = stake * (p.cote - 1);
-      deltaInfo = '<span style="color:#22c55e;font-weight:700">+' + gain.toFixed(2) + 'u</span>';
+      deltaInfo = '<span style="color:#22c55e;font-weight:700">+' + gain.toFixed(2) + ' €</span>';
     }} else if(p.result === 'LOSS'){{
-      deltaInfo = '<span style="color:#ef4444;font-weight:700">-' + stake.toFixed(2) + 'u</span>';
+      deltaInfo = '<span style="color:#ef4444;font-weight:700">-' + stake.toFixed(2) + ' €</span>';
     }}
     // Build telegram text avec cote BIEN visible sur sa propre ligne
     var coteLine = p.cote
@@ -3894,7 +3916,7 @@ function renderUserPicks(){{
       + '<span>' + p.away + ' @ ' + p.home + '</span>'
       + '<span style="color:#94a3b8">Méd ' + p.median + ' · Moy ' + p.mean + '</span>'
       + (p.book_line ? '<span style="color:#94a3b8">Ligne book ' + p.book_line + '</span>' : '')
-      + '<span onclick="editUserPickStake(\\'' + p.id + '\\')" style="background:#1e293b;color:#fbbf24;border:1px solid #f59e0b;border-radius:4px;padding:1px 7px;font-size:11px;font-weight:700;cursor:pointer" title="Cliquer pour modifier la mise">Mise: ' + stake + 'u</span>'
+      + '<span onclick="editUserPickStake(\\'' + p.id + '\\')" style="background:#1e293b;color:#fbbf24;border:1px solid #f59e0b;border-radius:4px;padding:1px 7px;font-size:11px;font-weight:700;cursor:pointer" title="Cliquer pour modifier la mise">💵 ' + stake + ' €</span>'
       + '</div>'
       + '</div>'
       + '<div style="display:flex;flex-direction:column;align-items:flex-end;gap:6px">'
