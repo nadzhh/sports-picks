@@ -3374,6 +3374,52 @@ function deleteUserPick(id){{
   renderUserPicks();
 }}
 
+function editUserPickCote(id){{
+  var arr = _loadUserPicks();
+  var idx = arr.findIndex(p => p.id === id);
+  if(idx < 0) return;
+  var p = arr[idx];
+  var currentCote = p.cote || (p.direction === 'over' ? p.book_over : p.book_under) || 1.90;
+  var c = prompt('Cote (saisie ou modification) :', String(currentCote));
+  if(c === null) return;
+  var cNum = parseFloat(c);
+  if(isNaN(cNum) || cNum <= 1.0){{ alert('Cote invalide (> 1.0)'); return; }}
+  arr[idx].cote = cNum;
+  _saveUserPicks(arr);
+  renderUserPicks();
+}}
+
+// Push d'un user pick : si pas de cote, prompt avant d'envoyer
+function pushUserPick(btn, id){{
+  var arr = _loadUserPicks();
+  var p = arr.find(x => x.id === id);
+  if(!p){{ alert('Pick introuvable'); return; }}
+  if(!p.cote){{
+    var defaultCote = (p.direction === 'over' ? p.book_over : p.book_under) || 1.90;
+    var c = prompt('Cote a laquelle tu joues ? (requis pour push)', String(defaultCote));
+    if(c === null) return;
+    var cNum = parseFloat(c);
+    if(isNaN(cNum) || cNum <= 1.0){{ alert('Cote invalide (> 1.0)'); return; }}
+    var idx = arr.findIndex(x => x.id === id);
+    arr[idx].cote = cNum;
+    _saveUserPicks(arr);
+    p = arr[idx];
+  }}
+  // Construit le texte avec cote garantie + parse_mode HTML
+  var dir = p.direction === 'over' ? 'plus de' : 'moins de';
+  var propLabel = ({{PTS:'pts',REB:'reb',AST:'pas',FG3M:'3PM',RA:'reb+pas',PR:'pts+reb',PA:'pts+ast',PRA:'PRA'}})[p.prop] || p.prop;
+  var label = p.player + ' ' + dir + ' ' + p.line + ' ' + propLabel;
+  var text = '🎯 <b>PICK PERSO</b>\\n\\n' +
+             '🏀 ' + p.away + ' @ ' + p.home + '\\n\\n' +
+             '📌 <b>' + label + '</b>\\n' +
+             '💰 <b>Cote : ' + p.cote.toFixed(2) + '</b>\\n' +
+             '📊 Médiane L20 : ' + p.median + ' · Moyenne : ' + p.mean;
+  if(p.book_line !== null && p.book_line !== undefined) text += '\\n📐 Ligne book US : ' + p.book_line;
+  btn.dataset.text = text;
+  pushTelegram(btn);
+  renderUserPicks();   // refresh display avec la nouvelle cote
+}}
+
 function markUserPickResult(id, result){{
   var arr = _loadUserPicks();
   var idx = arr.findIndex(p => p.id === id);
@@ -3436,8 +3482,8 @@ function renderUserPicks(){{
     var dir = p.direction === 'over' ? 'plus de' : 'moins de';
     var propLabel = ({{PTS:'pts',REB:'reb',AST:'pas',FG3M:'3PM',RA:'reb+pas',PR:'pts+reb',PA:'pts+ast',PRA:'PRA'}})[p.prop] || p.prop;
     var label = p.player + ' ' + dir + ' ' + p.line + ' ' + propLabel;
-    // Badge cote
-    var coteBadge = p.cote ? '<span style="background:#1e3a5f;color:#60a5fa;border:1px solid #2563eb;border-radius:6px;padding:2px 8px;font-size:12px;font-weight:700;margin-left:6px">📊 ' + p.cote.toFixed(2) + '</span>' : '';
+    // Badge cote (toujours present si cote saisie)
+    var coteBadge = p.cote ? '<span style="background:#1e3a5f;color:#60a5fa;border:1px solid #2563eb;border-radius:6px;padding:2px 8px;font-size:12px;font-weight:700;margin-left:6px">📊 ' + p.cote.toFixed(2) + '</span>' : '<span style="background:#7c2d12;color:#fdba74;border:1px solid #fb923c;border-radius:6px;padding:2px 8px;font-size:11px;font-weight:700;margin-left:6px;cursor:pointer" onclick="editUserPickCote(\\'' + p.id + '\\')" title="Cliquer pour saisir la cote">⚠️ pas de cote</span>';
     // Gain/perte si resolu
     var deltaInfo = '';
     if(p.result === 'WIN' && p.cote){{
@@ -3445,13 +3491,16 @@ function renderUserPicks(){{
     }} else if(p.result === 'LOSS'){{
       deltaInfo = '<span style="color:#ef4444;font-weight:700">-1u</span>';
     }}
-    // Build telegram text
-    var tgText = '🎯 PICK PERSO\\n\\n' +
+    // Build telegram text avec cote BIEN visible sur sa propre ligne
+    var coteLine = p.cote
+      ? '💰 <b>Cote : ' + p.cote.toFixed(2) + '</b>'
+      : '⚠️ <i>Cote non saisie - clique sur la pastille pour ajouter</i>';
+    var tgText = '🎯 <b>PICK PERSO</b>\\n\\n' +
                  '🏀 ' + p.away + ' @ ' + p.home + '\\n\\n' +
-                 '📌 ' + label;
-    if(p.cote) tgText += ' @ ' + p.cote.toFixed(2);
-    tgText += '\\n📊 Mediane L20 : ' + p.median + ' · Moyenne : ' + p.mean;
-    if(p.book_line !== null && p.book_line !== undefined) tgText += '\\n💰 Ligne book : ' + p.book_line;
+                 '📌 <b>' + label + '</b>\\n' +
+                 coteLine + '\\n' +
+                 '📊 Médiane L20 : ' + p.median + ' · Moyenne : ' + p.mean;
+    if(p.book_line !== null && p.book_line !== undefined) tgText += '\\n📐 Ligne book US : ' + p.book_line;
     var tgEsc = tgText.replace(/"/g, '&quot;');
     return (
       '<div style="background:#162032;border-radius:10px;padding:12px 14px;margin-bottom:10px;border-left:4px solid #fb923c">'
@@ -3472,7 +3521,7 @@ function renderUserPicks(){{
       + '<div style="display:flex;flex-direction:column;align-items:flex-end;gap:6px">'
       + '<div style="display:flex;gap:4px">'
       + resultActions
-      + '<button data-text="' + tgEsc + '" onclick="pushTelegram(this)" '
+      + '<button onclick="pushUserPick(this, \\'' + p.id + '\\')" '
       + 'style="background:#0088cc;color:#fff;border:none;border-radius:5px;padding:4px 9px;font-size:11px;font-weight:700;cursor:pointer">📲 Push</button>'
       + '<button onclick="deleteUserPick(\\'' + p.id + '\\')" '
       + 'style="background:#475569;color:#fff;border:none;border-radius:5px;padding:4px 9px;font-size:11px;font-weight:700;cursor:pointer">🗑</button>'

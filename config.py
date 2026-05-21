@@ -79,11 +79,11 @@ FOTMOB_LEAGUES = {
     "Champions League":    {"id": 42,    "name_match": "Champions League"},
     "Europa League":       {"id": 73,    "name_match": "Europa League"},
     "Conference League":   {"id": 10216, "name_match": "Conference League"},
-    # Coupes nationales (FotMob ids - "stats" pas dispo pour les coupes,
-    # mais les fixtures+events restent accessibles via match_events)
+    # Coupes nationales (FotMob ids verifies via API). Les coupes n'ont pas
+    # de "stats" mais les fixtures+events restent accessibles.
     "FA Cup":              {"id": 132,   "name_match": "FA Cup"},
-    "Coupe de France":     {"id": 154,   "name_match": "Coupe de France"},
-    "Copa del Rey":        {"id": 213,   "name_match": "Copa del Rey"},
+    "Coupe de France":     {"id": 134,   "name_match": "Coupe de France"},
+    "Copa del Rey":        {"id": 138,   "name_match": "Copa del Rey"},
     "Coppa Italia":        {"id": 141,   "name_match": "Coppa Italia"},
     "DFB Pokal":           {"id": 209,   "name_match": "DFB-Pokal"},
 }
