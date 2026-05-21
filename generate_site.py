@@ -1971,9 +1971,10 @@ def _build_prop_chart_bars(games_window, ref_line, chart_max, with_labels=True):
     )
 
 
-def _build_prop_chart(player, prop, opp_abbr, book_line=None):
+def _build_prop_chart(player, prop, opp_abbr, book_line=None, match_ctx=None):
     """Construit le HTML d'une vue prop : badges hit rates + 3 bar charts
-    (L5/L10/L20) selectionnables. Affiche L5 par defaut."""
+    (L5/L10/L20) selectionnables. Affiche L5 par defaut.
+    match_ctx (optionnel): {home, away, game_id} pour les boutons 'add user pick'."""
     games = player.get("l10_games", [])
     games = [g for g in games if (g.get("MIN") or 0) > 0]
     if not games:
@@ -2035,6 +2036,37 @@ def _build_prop_chart(player, prop, opp_abbr, book_line=None):
             f'<div class="tg-window-block" data-window="{window_key}" style="display:{display}">{content}</div>'
         )
 
+    # Boutons "Add to picks" : OVER / UNDER avec la ligne courante (book ou mediane)
+    import json as _json
+    player_name = player.get("name", "?")
+    ctx = match_ctx or {}
+    payload = _json.dumps({
+        "sport":   "NBA",
+        "player":  player_name,
+        "prop":    prop,
+        "line":    ref_line,
+        "home":    ctx.get("home", ""),
+        "away":    ctx.get("away", ""),
+        "game_id": ctx.get("game_id", ""),
+        "opp":     opp_abbr or "",
+        "median":  median,
+        "mean":    mean,
+        "book_line": book_line,
+    }, ensure_ascii=False)
+    payload_esc = _html.escape(payload, quote=True)
+    add_buttons = (
+        f'<div style="display:flex;gap:6px;margin-top:8px;padding-top:8px;border-top:1px solid #1e293b">'
+        f'<button class="tg-userpick-btn" data-direction="over" data-payload="{payload_esc}" '
+        f'onclick="addUserPick(this)" '
+        f'style="flex:1;background:#16a34a;color:#fff;border:none;border-radius:6px;padding:5px 10px;'
+        f'font-size:11px;font-weight:700;cursor:pointer">📌 Add OVER {ref_line}</button>'
+        f'<button class="tg-userpick-btn" data-direction="under" data-payload="{payload_esc}" '
+        f'onclick="addUserPick(this)" '
+        f'style="flex:1;background:#dc2626;color:#fff;border:none;border-radius:6px;padding:5px 10px;'
+        f'font-size:11px;font-weight:700;cursor:pointer">📌 Add UNDER {ref_line}</button>'
+        f'</div>'
+    )
+
     return (
         f'<div style="padding:6px 4px">'
         # Badges en haut
@@ -2043,11 +2075,13 @@ def _build_prop_chart(player, prop, opp_abbr, book_line=None):
         f'<div style="background:#0a1628;border-radius:8px;padding:10px 12px 6px">'
         f'{chart_blocks}'
         f'</div>'
+        # Boutons add to picks
+        f'{add_buttons}'
         f'</div>'
     )
 
 
-def _build_player_analyse_card(player, opp_abbr, odds_for_player, side_label, is_starter=True):
+def _build_player_analyse_card(player, opp_abbr, odds_for_player, side_label, is_starter=True, match_ctx=None):
     """Card d'analyse joueur. Starters : expanded par defaut. Bench : collapsed
     (juste le nom + min). Clic sur header = toggle expand."""
     name = player.get("name", "?")
@@ -2088,7 +2122,7 @@ def _build_player_analyse_card(player, opp_abbr, odds_for_player, side_label, is
     for i, pr in enumerate(PROPS):
         book_data = (odds_for_player or {}).get(pr)
         book_line = book_data.get("line") if book_data else None
-        chart_html = _build_prop_chart(player, pr, opp_abbr, book_line)
+        chart_html = _build_prop_chart(player, pr, opp_abbr, book_line, match_ctx=match_ctx)
         prop_display = "block" if i == 0 else "none"
         contents += (
             f'<div class="tg-prop-content" data-prop="{pr}" style="display:{prop_display}">{chart_html}</div>'
@@ -2143,15 +2177,16 @@ def build_nba_analyse_section(nba_picks_data, nba_player_stats, nba_odds):
         away_players = sorted(mdata.get("away_players", []),
                               key=lambda p: (p.get("season_avg",{}) or {}).get("MIN", 0), reverse=True)[:12]
         odds_for_game = nba_odds.get(gid) or nba_odds.get(str(gid)) or {}
+        match_ctx = {"home": home, "away": away, "game_id": gid}
 
         home_cards = "".join(
             _build_player_analyse_card(p, opp_abbr=away_abbr, odds_for_player=odds_for_game.get(p.get("name","")),
-                                       side_label=f"🏠 {home}", is_starter=(i < 5))
+                                       side_label=f"🏠 {home}", is_starter=(i < 5), match_ctx=match_ctx)
             for i, p in enumerate(home_players)
         )
         away_cards = "".join(
             _build_player_analyse_card(p, opp_abbr=home_abbr, odds_for_player=odds_for_game.get(p.get("name","")),
-                                       side_label=f"✈️ {away}", is_starter=(i < 5))
+                                       side_label=f"✈️ {away}", is_starter=(i < 5), match_ctx=match_ctx)
             for i, p in enumerate(away_players)
         )
         cards += (
@@ -2798,6 +2833,7 @@ def build_html(matches, team_ai, player_ai, pstats_data, nba_picks=None, nba_his
     <button class="sport-btn active" onclick="showSport('football')" id="sport-btn-football">⚽ Football</button>
     <button class="sport-btn" onclick="showSport('nba')"     id="sport-btn-nba">🏀 Basketball NBA</button>
     <button class="sport-btn" onclick="showSport('analyse')" id="sport-btn-analyse">🔍 Analyse NBA</button>
+    <button class="sport-btn" onclick="showSport('userpicks')" id="sport-btn-userpicks">📌 Mes picks <span id="userpicks-count" style="background:rgba(255,255,255,0.2);border-radius:10px;padding:1px 7px;font-size:11px;margin-left:4px;display:none">0</span></button>
     <button class="sport-btn" onclick="showSport('foothist')" id="sport-btn-foothist">🏆 Historique Foot</button>
     <button class="sport-btn" onclick="showSport('nbahist')"  id="sport-btn-nbahist">🏆 Historique NBA</button>
   </div>
@@ -2824,6 +2860,21 @@ def build_html(matches, team_ai, player_ai, pstats_data, nba_picks=None, nba_his
       🎯 faille adverse · 🛡️ défense solide
     </div>
     {nba_section}
+  </div>
+
+  <!-- Section Mes picks (user-sent, render JS) -->
+  <div id="sport-userpicks" style="display:none">
+    <div class="legend">
+      <b>📌 Mes picks perso</b> — Bets que TU as identifies depuis l'Analyse (pas l'algo).
+      Stockes dans ton navigateur. Tu peux les pousser sur Telegram, les marquer
+      gagnes/perdus, ou les supprimer.
+    </div>
+    <div id="user-picks-list" style="margin-top:14px">
+      <div style="text-align:center;padding:40px;color:#64748b">
+        Aucun pick perso pour l'instant. Va dans l'onglet <b>🔍 Analyse NBA</b> et clique
+        sur <b>📌 Add OVER / UNDER</b> sur un chart pour ajouter ton premier pick.
+      </div>
+    </div>
   </div>
 
   <!-- Section Analyse NBA -->
@@ -2858,13 +2909,15 @@ def build_html(matches, team_ai, player_ai, pstats_data, nba_picks=None, nba_his
 </div>
 <script>
 function showSport(sport){{
-  ['football','nba','analyse','foothist','nbahist'].forEach(s=>{{
+  ['football','nba','analyse','userpicks','foothist','nbahist'].forEach(s=>{{
     var el = document.getElementById('sport-'+s);
     if(el) el.style.display = (s===sport) ? 'block' : 'none';
   }});
   document.querySelectorAll('.sport-btn').forEach(b=>b.classList.remove('active'));
   var btn = document.getElementById('sport-btn-'+sport);
   if(btn) btn.classList.add('active');
+  // Refresh user picks list when entering the tab
+  if(sport === 'userpicks') renderUserPicks();
 }}
 
 // ── Section Analyse : selection prop (PTS/REB/...) + fenetre (L5/L10/L20) ──
@@ -3120,6 +3173,174 @@ function resetSeenPicks(){{
 
 // Lance la detection au chargement de la page
 window.addEventListener('DOMContentLoaded', detectNewPicks);
+
+// ── Mes picks perso (user-sent depuis Analyse) ──
+// Stockes dans localStorage.user_picks_v1 sous forme de liste de dicts.
+const USERPICKS_KEY = 'user_picks_v1';
+
+function _loadUserPicks(){{
+  try {{
+    var raw = localStorage.getItem(USERPICKS_KEY);
+    return raw ? JSON.parse(raw) : [];
+  }} catch(e) {{ return []; }}
+}}
+function _saveUserPicks(arr){{
+  localStorage.setItem(USERPICKS_KEY, JSON.stringify(arr));
+  _updateUserPicksCount();
+}}
+function _updateUserPicksCount(){{
+  var arr = _loadUserPicks();
+  var pending = arr.filter(p => !p.result).length;
+  var badge = document.getElementById('userpicks-count');
+  if(badge){{
+    badge.textContent = arr.length;
+    badge.style.display = arr.length > 0 ? 'inline-block' : 'none';
+  }}
+}}
+
+function addUserPick(btn){{
+  var direction = btn.dataset.direction;
+  var data;
+  try {{ data = JSON.parse(btn.dataset.payload); }} catch(e) {{ return alert('Erreur payload'); }}
+  // Confirm + ask user for desired line (prefilled)
+  var line = prompt('Ligne ? (defaut book/mediane)', String(data.line));
+  if(line === null) return;
+  var lineNum = parseFloat(line);
+  if(isNaN(lineNum)){{ alert('Ligne invalide'); return; }}
+  var pick = {{
+    id:        'user_' + Date.now() + '_' + Math.random().toString(36).slice(2, 8),
+    sport:     data.sport,
+    player:    data.player,
+    prop:      data.prop,
+    direction: direction,
+    line:      lineNum,
+    home:      data.home,
+    away:      data.away,
+    game_id:   data.game_id,
+    opp:       data.opp,
+    median:    data.median,
+    mean:      data.mean,
+    book_line: data.book_line,
+    created:   new Date().toISOString(),
+    result:    null,
+    actual:    null,
+    source:    'user',
+  }};
+  var arr = _loadUserPicks();
+  arr.push(pick);
+  _saveUserPicks(arr);
+  // Confirmation visuelle
+  var origBg = btn.style.background;
+  btn.style.background = '#0a1628';
+  btn.innerHTML = '✓ Ajoute !';
+  setTimeout(function(){{
+    btn.style.background = origBg;
+    btn.innerHTML = (direction === 'over' ? '📌 Add OVER ' : '📌 Add UNDER ') + lineNum;
+  }}, 1500);
+}}
+
+function deleteUserPick(id){{
+  if(!confirm('Supprimer ce pick ?')) return;
+  var arr = _loadUserPicks().filter(p => p.id !== id);
+  _saveUserPicks(arr);
+  renderUserPicks();
+}}
+
+function markUserPickResult(id, result){{
+  var arr = _loadUserPicks();
+  var idx = arr.findIndex(p => p.id === id);
+  if(idx < 0) return;
+  arr[idx].result = result;
+  arr[idx].resolved_at = new Date().toISOString();
+  _saveUserPicks(arr);
+  renderUserPicks();
+}}
+
+function renderUserPicks(){{
+  var arr = _loadUserPicks();
+  var container = document.getElementById('user-picks-list');
+  if(!container) return;
+  if(!arr.length){{
+    container.innerHTML = '<div style="text-align:center;padding:40px;color:#64748b">Aucun pick perso pour l\\'instant. Va dans l\\'onglet <b>🔍 Analyse NBA</b> et clique sur <b>📌 Add OVER / UNDER</b> sur un chart pour ajouter ton premier pick.</div>';
+    return;
+  }}
+  // Sort : pending d'abord (recent en haut), puis resolus
+  arr.sort(function(a, b){{
+    if(!a.result && b.result) return -1;
+    if(a.result && !b.result) return 1;
+    return (b.created || '').localeCompare(a.created || '');
+  }});
+  // Stats : WR + ROI sur les resolus
+  var resolved = arr.filter(p => p.result === 'WIN' || p.result === 'LOSS');
+  var wins = resolved.filter(p => p.result === 'WIN').length;
+  var losses = resolved.filter(p => p.result === 'LOSS').length;
+  var wr = (wins + losses) > 0 ? Math.round(wins / (wins + losses) * 100) : 0;
+  var wrColor = wr >= 55 ? '#22c55e' : (wr >= 50 ? '#84cc16' : '#ef4444');
+  var summary = '';
+  if(resolved.length > 0){{
+    summary = '<div style="background:#0f172a;border-radius:10px;padding:14px;margin-bottom:14px;display:flex;gap:18px;flex-wrap:wrap;align-items:center">'
+      + '<div><div style="color:#64748b;font-size:11px">RESOLUS</div><div style="color:#f1f5f9;font-size:20px;font-weight:800">' + resolved.length + '</div></div>'
+      + '<div><div style="color:#64748b;font-size:11px">WIN RATE</div><div style="color:' + wrColor + ';font-size:20px;font-weight:800">' + wr + '%</div><div style="color:#64748b;font-size:10px">' + wins + 'W / ' + losses + 'L</div></div>'
+      + '<div><div style="color:#64748b;font-size:11px">PENDING</div><div style="color:#fb923c;font-size:20px;font-weight:800">' + (arr.length - resolved.length) + '</div></div>'
+      + '</div>';
+  }}
+  var cards = arr.map(function(p){{
+    var resultBadge = '';
+    var resultActions = '';
+    if(p.result === 'WIN'){{
+      resultBadge = '<span style="background:#22c55e;color:#0a1628;border-radius:4px;padding:2px 8px;font-size:11px;font-weight:800">✓ GAGNE</span>';
+    }} else if(p.result === 'LOSS'){{
+      resultBadge = '<span style="background:#ef4444;color:#fff;border-radius:4px;padding:2px 8px;font-size:11px;font-weight:800">✗ PERDU</span>';
+    }} else {{
+      resultBadge = '<span style="background:#fb923c;color:#0a1628;border-radius:4px;padding:2px 8px;font-size:11px;font-weight:800">... PENDING</span>';
+      resultActions = '<button onclick="markUserPickResult(\\'' + p.id + '\\', \\'WIN\\')" style="background:#16a34a;color:#fff;border:none;border-radius:5px;padding:4px 9px;font-size:11px;font-weight:700;cursor:pointer;margin-right:4px">✓ Win</button>'
+        + '<button onclick="markUserPickResult(\\'' + p.id + '\\', \\'LOSS\\')" style="background:#dc2626;color:#fff;border:none;border-radius:5px;padding:4px 9px;font-size:11px;font-weight:700;cursor:pointer">✗ Loss</button>';
+    }}
+    var dir = p.direction === 'over' ? 'plus de' : 'moins de';
+    var propLabel = ({{PTS:'pts',REB:'reb',AST:'pas',FG3M:'3PM',PR:'pts+reb',PA:'pts+ast',PRA:'PRA'}})[p.prop] || p.prop;
+    var label = p.player + ' ' + dir + ' ' + p.line + ' ' + propLabel;
+    // Build telegram text
+    var tgText = '🎯 PICK PERSO\\n\\n' +
+                 '🏀 ' + p.away + ' @ ' + p.home + '\\n\\n' +
+                 '📌 ' + label + '\\n' +
+                 '📊 Mediane L20 : ' + p.median + ' · Moyenne : ' + p.mean;
+    if(p.book_line !== null && p.book_line !== undefined) tgText += '\\n💰 Ligne book : ' + p.book_line;
+    var tgEsc = tgText.replace(/"/g, '&quot;');
+    return (
+      '<div style="background:#162032;border-radius:10px;padding:12px 14px;margin-bottom:10px;border-left:4px solid #fb923c">'
+      + '<div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:8px">'
+      + '<div style="flex:1">'
+      + '<div style="display:flex;align-items:center;flex-wrap:wrap;gap:6px;margin-bottom:4px">'
+      + '<span style="background:#fb923c;color:#0a1628;border-radius:4px;padding:2px 6px;font-size:10px;font-weight:800">🧑 USER</span>'
+      + resultBadge
+      + '<span style="color:#f1f5f9;font-weight:700;font-size:14px">' + label + '</span>'
+      + '</div>'
+      + '<div style="color:#64748b;font-size:12px">'
+      + p.away + ' @ ' + p.home + ' · Méd ' + p.median + ' · Moy ' + p.mean
+      + (p.book_line ? ' · Ligne book ' + p.book_line : '')
+      + '</div>'
+      + '</div>'
+      + '<div style="display:flex;flex-direction:column;align-items:flex-end;gap:6px">'
+      + '<div style="display:flex;gap:4px">'
+      + resultActions
+      + '<button data-text="' + tgEsc + '" onclick="pushTelegram(this)" '
+      + 'style="background:#0088cc;color:#fff;border:none;border-radius:5px;padding:4px 9px;font-size:11px;font-weight:700;cursor:pointer">📲 Push</button>'
+      + '<button onclick="deleteUserPick(\\'' + p.id + '\\')" '
+      + 'style="background:#475569;color:#fff;border:none;border-radius:5px;padding:4px 9px;font-size:11px;font-weight:700;cursor:pointer">🗑</button>'
+      + '</div>'
+      + '</div>'
+      + '</div>'
+      + '</div>'
+    );
+  }}).join('');
+  container.innerHTML = summary + cards;
+}}
+
+// Refresh count badge on page load + render
+window.addEventListener('DOMContentLoaded', function(){{
+  _updateUserPicksCount();
+  renderUserPicks();
+}});
 </script>
 </body>
 </html>'''
