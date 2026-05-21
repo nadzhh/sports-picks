@@ -1939,27 +1939,39 @@ def _build_prop_chart(player, prop, opp_abbr, book_line=None):
         return '<div style="color:#475569;font-size:12px;padding:10px">Pas assez de games</div>'
     chart_max = max(l5_vals + [ref_line])
     if chart_max <= 0: chart_max = 1
-    # Build bars : recents a droite
+    # Hauteur fixe de la zone chart (en pixels). Les % de hauteur des bars
+    # seront calcules par rapport a cette zone (pas tout le container).
+    CHART_PX = 120
+
+    # Build bars : recents a gauche (du plus recent au plus ancien)
     bars_html = ""
+    labels_html = ""
     games_show = games[:5]
-    for i, g in enumerate(games_show):
+    for g in games_show:
         val = _compose_prop_value(g, prop)
         pct_h = (val / chart_max) * 100 if chart_max else 0
+        bar_px = max(8, round(pct_h * CHART_PX / 100))
         is_hit = val > ref_line
         color = "#22c55e" if is_hit else "#ef4444"
         date_short = (g.get("date","")[:10][-5:] or "?").replace("-","/")
         opp = g.get("opp","?") or "?"
         loc = "vs" if g.get("is_home") else "@"
+        # Une "colonne" : valeur au-dessus du bar, bar avec hauteur en px
         bars_html += (
-            f'<div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;height:140px;justify-content:flex-end">'
-            f'<div style="color:#f1f5f9;font-size:13px;font-weight:700">{int(val)}</div>'
-            f'<div style="width:100%;background:{color};height:{pct_h:.0f}%;min-height:6px;border-radius:4px 4px 0 0"></div>'
-            f'<div style="color:#475569;font-size:10px;text-align:center;line-height:1.3">{date_short}<br>{loc} {opp}</div>'
+            f'<div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end">'
+            f'<div style="color:#f1f5f9;font-size:13px;font-weight:700;margin-bottom:3px">{int(val)}</div>'
+            f'<div style="width:100%;background:{color};height:{bar_px}px;border-radius:4px 4px 0 0;'
+            f'box-shadow:0 -2px 8px rgba(0,0,0,0.2)"></div>'
+            f'</div>'
+        )
+        labels_html += (
+            f'<div style="flex:1;color:#475569;font-size:10px;text-align:center;line-height:1.3;padding-top:6px">'
+            f'{date_short}<br>{loc} {opp}'
             f'</div>'
         )
 
-    # Ligne de reference horizontale (en pourcentage)
-    ref_pct = (ref_line / chart_max) * 100 if chart_max else 0
+    # Ligne de reference horizontale (positionnement absolu, en px depuis le bas)
+    ref_px = round((ref_line / chart_max) * CHART_PX) if chart_max else 0
     line_label = f"Ligne {ref_line}" if book_line is not None else f"Médiane {ref_line}"
 
     # Badges hit rates
@@ -1981,15 +1993,20 @@ def _build_prop_chart(player, prop, opp_abbr, book_line=None):
         f'<div style="padding:8px 4px">'
         # Badges en haut
         f'<div style="margin-bottom:8px;display:flex;flex-wrap:wrap;gap:4px;align-items:center">{badges}</div>'
-        # Bar chart container avec ligne de ref
-        f'<div style="position:relative;background:#0a1628;border-radius:8px;padding:14px 12px 8px">'
-        f'<div style="display:flex;gap:6px;align-items:flex-end;position:relative">'
+        # Zone chart : container avec hauteur fixe + ligne ref en absolu
+        f'<div style="background:#0a1628;border-radius:8px;padding:10px 12px 4px">'
+        f'<div style="position:relative;height:{CHART_PX + 25}px">'
+        # Container des bars (hauteur exacte CHART_PX + 18px pour la valeur au-dessus)
+        f'<div style="display:flex;gap:6px;align-items:flex-end;height:{CHART_PX + 18}px">'
         f'{bars_html}'
-        # Ligne horizontale ref
-        f'<div style="position:absolute;left:0;right:0;bottom:{max(15, ref_pct * 1.14):.0f}px;border-top:2px dashed #fb923c;pointer-events:none">'
-        f'<span style="position:absolute;right:0;top:-10px;background:#fb923c;color:#0a1628;font-size:10px;font-weight:700;padding:1px 6px;border-radius:3px">{line_label}</span>'
+        f'</div>'
+        # Ligne de reference horizontale (positionnement absolu)
+        f'<div style="position:absolute;left:0;right:0;bottom:{ref_px}px;border-top:2px dashed #fb923c;pointer-events:none">'
+        f'<span style="position:absolute;right:0;top:-9px;background:#fb923c;color:#0a1628;font-size:10px;font-weight:700;padding:1px 6px;border-radius:3px">{line_label}</span>'
         f'</div>'
         f'</div>'
+        # Labels sous les bars
+        f'<div style="display:flex;gap:6px">{labels_html}</div>'
         f'</div>'
         f'</div>'
     )
