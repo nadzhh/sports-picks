@@ -1937,7 +1937,9 @@ def _compose_prop_value(g, prop):
 
 def _build_prop_chart_bars(games_window, ref_line, chart_max, with_labels=True):
     """Construit la zone bar-chart (bars + labels). Helper interne, factorise
-    pour pouvoir reutiliser sur L5/L10/L20."""
+    pour pouvoir reutiliser sur L5/L10/L20.
+    Les bars ont data-value pour permettre la recoloration JS quand l'user
+    deplace la ligne de reference."""
     CHART_PX = 120
     if not games_window or chart_max <= 0:
         return f'<div style="color:#475569;font-size:12px;padding:10px;text-align:center">Pas assez de games</div>'
@@ -1964,9 +1966,10 @@ def _build_prop_chart_bars(games_window, ref_line, chart_max, with_labels=True):
         else:           min_color = "#94a3b8"
         min_suffix = "min" if n <= 5 else "m"
         bars_html += (
-            f'<div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;min-width:0">'
+            f'<div class="tg-bar" data-value="{val}" '
+            f'style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;min-width:0">'
             f'<div style="color:#f1f5f9;font-size:{font_val}px;font-weight:700;margin-bottom:3px">{int(val)}</div>'
-            f'<div style="width:100%;background:{color};height:{bar_px}px;border-radius:3px 3px 0 0"></div>'
+            f'<div class="tg-bar-fill" style="width:100%;background:{color};height:{bar_px}px;border-radius:3px 3px 0 0"></div>'
             f'</div>'
         )
         if with_labels:
@@ -1992,10 +1995,11 @@ def _build_prop_chart_bars(games_window, ref_line, chart_max, with_labels=True):
     ref_px = round((ref_line / chart_max) * CHART_PX) if chart_max else 0
     labels_block = f'<div style="display:flex;gap:{gap}px">{labels_html}</div>' if with_labels else ''
     return (
-        f'<div style="position:relative;height:{CHART_PX + 22}px">'
+        f'<div class="tg-chart-area" data-chart-max="{chart_max}" data-chart-px="{CHART_PX}" '
+        f'style="position:relative;height:{CHART_PX + 22}px">'
         f'<div style="display:flex;gap:{gap}px;align-items:flex-end;height:{CHART_PX + 18}px">{bars_html}</div>'
-        f'<div style="position:absolute;left:0;right:0;bottom:{ref_px}px;border-top:2px dashed #fb923c;pointer-events:none">'
-        f'<span style="position:absolute;right:0;top:-9px;background:#fb923c;color:#0a1628;font-size:10px;font-weight:700;padding:1px 6px;border-radius:3px">{ref_line}</span>'
+        f'<div class="tg-ref-line" style="position:absolute;left:0;right:0;bottom:{ref_px}px;border-top:2px dashed #fb923c;pointer-events:none">'
+        f'<span class="tg-ref-label" style="position:absolute;right:0;top:-9px;background:#fb923c;color:#0a1628;font-size:10px;font-weight:700;padding:1px 6px;border-radius:3px">{ref_line}</span>'
         f'</div>'
         f'</div>'
         f'{labels_block}'
@@ -2039,20 +2043,35 @@ def _build_prop_chart(player, prop, opp_abbr, book_line=None, match_ctx=None, bo
     hr20 = _hr(l20_vals)
     hr_h2h = _hr(h2h_vals)
 
-    def _badge(label, hr_tuple, target=70):
+    def _badge_html(label, hr_tuple, target=70, data_key=""):
+        """Span avec classe tg-hr-badge pour pouvoir le mettre a jour en JS."""
         if hr_tuple[0] is None:
-            return f'<span style="color:#475569;font-size:11px;margin-right:8px">{label}: —</span>'
+            return f'<span class="tg-hr-badge" data-key="{data_key}" style="color:#475569;font-size:11px;margin-right:8px">{label}: —</span>'
         pct, w, n = hr_tuple
         color = "#22c55e" if pct >= target else ("#f59e0b" if pct >= 50 else "#ef4444")
-        return f'<span style="color:{color};font-size:11px;font-weight:700;margin-right:8px">{label}: {pct}%<span style="color:#64748b;font-weight:400"> ({w}/{n})</span></span>'
+        return (
+            f'<span class="tg-hr-badge" data-key="{data_key}" data-label="{label}" '
+            f'style="color:{color};font-size:11px;font-weight:700;margin-right:8px">'
+            f'{label}: {pct}%<span style="color:#64748b;font-weight:400"> ({w}/{n})</span></span>'
+        )
 
     badges = (
-        _badge("L5", hr5) +
-        _badge("L10", hr10) +
-        _badge("L20", hr20) +
-        (_badge(f"H2H {opp_abbr}", hr_h2h) if opp_abbr and hr_h2h[0] is not None else "") +
+        _badge_html("L5", hr5, data_key="l5") +
+        _badge_html("L10", hr10, data_key="l10") +
+        _badge_html("L20", hr20, data_key="l20") +
+        (_badge_html(f"H2H {opp_abbr}", hr_h2h, data_key="h2h") if opp_abbr and hr_h2h[0] is not None else "") +
         f'<span style="color:#94a3b8;font-size:11px">Méd. <b>{median}</b> · Moy. <b>{mean}</b></span>'
     )
+
+    # Stocke les valeurs JS pour pouvoir recalculer hit rates a la volee
+    import json as _json
+    vals_data = _json.dumps({
+        "l5":  [v for _, v in pairs_l5],
+        "l10": [v for _, v in pairs_l10],
+        "l20": [v for _, v in pairs_l20],
+        "h2h": [v for _, v in h2h_pairs],
+    })
+    vals_attr = _html.escape(vals_data, quote=True)
 
     # Build les 3 charts (L5/L10/L20) avec leur propre chart_max
     chart_blocks = ""
@@ -2106,10 +2125,40 @@ def _build_prop_chart(player, prop, opp_abbr, book_line=None, match_ctx=None, bo
         f'</div>'
     )
 
+    # Controle pour ajuster la ligne de reference
+    line_control = (
+        f'<div style="display:flex;align-items:center;gap:6px;margin-bottom:8px;flex-wrap:wrap">'
+        f'<span style="color:#94a3b8;font-size:11px;font-weight:700">Ligne :</span>'
+        f'<button onclick="adjustLine(this, -1)" '
+        f'style="background:#1e293b;color:#94a3b8;border:1px solid #334155;border-radius:5px;'
+        f'padding:2px 9px;font-size:13px;font-weight:700;cursor:pointer">−1</button>'
+        f'<button onclick="adjustLine(this, -0.5)" '
+        f'style="background:#1e293b;color:#94a3b8;border:1px solid #334155;border-radius:5px;'
+        f'padding:2px 9px;font-size:13px;font-weight:700;cursor:pointer">−0.5</button>'
+        f'<input class="tg-line-input" type="number" step="0.5" min="0" value="{ref_line}" '
+        f'onchange="onLineInputChange(this)" '
+        f'style="background:#0a1628;color:#fb923c;border:1px solid #fb923c;border-radius:5px;'
+        f'padding:2px 6px;font-size:13px;font-weight:700;width:64px;text-align:center">'
+        f'<button onclick="adjustLine(this, +0.5)" '
+        f'style="background:#1e293b;color:#94a3b8;border:1px solid #334155;border-radius:5px;'
+        f'padding:2px 9px;font-size:13px;font-weight:700;cursor:pointer">+0.5</button>'
+        f'<button onclick="adjustLine(this, +1)" '
+        f'style="background:#1e293b;color:#94a3b8;border:1px solid #334155;border-radius:5px;'
+        f'padding:2px 9px;font-size:13px;font-weight:700;cursor:pointer">+1</button>'
+        f'<button onclick="resetLine(this)" data-default="{ref_line}" '
+        f'style="background:#1e293b;color:#94a3b8;border:1px solid #334155;border-radius:5px;'
+        f'padding:2px 9px;font-size:11px;font-weight:700;cursor:pointer">↺ {("book" if book_line is not None else "med")}</button>'
+        f'</div>'
+    )
+
     return (
-        f'<div style="padding:6px 4px">'
-        # Badges en haut
-        f'<div style="margin-bottom:8px;display:flex;flex-wrap:wrap;gap:4px;align-items:center">{badges}</div>'
+        f'<div class="tg-prop-chart" data-vals="{vals_attr}" data-default-line="{ref_line}" '
+        f'data-book-line="{"" if book_line is None else book_line}" data-median="{median}" '
+        f'style="padding:6px 4px">'
+        # Controle ligne
+        f'{line_control}'
+        # Badges hit rates en haut
+        f'<div class="tg-badges-row" style="margin-bottom:8px;display:flex;flex-wrap:wrap;gap:4px;align-items:center">{badges}</div>'
         # Zone chart container
         f'<div style="background:#0a1628;border-radius:8px;padding:10px 12px 6px">'
         f'{chart_blocks}'
@@ -3007,6 +3056,90 @@ function selectWindow(btn){{
   card.querySelectorAll('.tg-window-block').forEach(b=>{{
     b.style.display = (b.dataset.window === win) ? 'block' : 'none';
   }});
+}}
+
+// ── Ajustement ligne de reference + recalcul live des hit rates / colors ──
+function _findPropChart(el){{ return el.closest('.tg-prop-chart'); }}
+function _computeHR(vals, line){{
+  if(!vals || !vals.length) return null;
+  var hits = vals.filter(function(v){{ return v > line; }}).length;
+  return {{pct: Math.round(hits/vals.length*100), w: hits, n: vals.length}};
+}}
+function _updateBadge(badge, hr){{
+  var lbl = badge.getAttribute('data-label') || '';
+  if(!hr){{ badge.innerHTML = lbl + ': —'; badge.style.color = '#475569'; return; }}
+  var color = hr.pct >= 70 ? '#22c55e' : (hr.pct >= 50 ? '#f59e0b' : '#ef4444');
+  badge.style.color = color;
+  badge.innerHTML = lbl + ': ' + hr.pct + '%<span style="color:#64748b;font-weight:400"> (' + hr.w + '/' + hr.n + ')</span>';
+}}
+function recalcChart(chart, newLine){{
+  var vals;
+  try {{ vals = JSON.parse(chart.getAttribute('data-vals') || '{{}}'); }} catch(e) {{ return; }}
+  // Update each window block
+  chart.querySelectorAll('.tg-window-block').forEach(function(block){{
+    var area = block.querySelector('.tg-chart-area');
+    if(!area) return;
+    var max = parseFloat(area.getAttribute('data-chart-max')) || 1;
+    var chartPx = parseFloat(area.getAttribute('data-chart-px')) || 120;
+    // Re-color bars
+    area.querySelectorAll('.tg-bar').forEach(function(bar){{
+      var val = parseFloat(bar.getAttribute('data-value')) || 0;
+      var fill = bar.querySelector('.tg-bar-fill');
+      if(fill) fill.style.background = (val > newLine) ? '#22c55e' : '#ef4444';
+    }});
+    // Reposition ref line + label
+    var refLine = area.querySelector('.tg-ref-line');
+    if(refLine){{
+      var refPx = Math.round((newLine / max) * chartPx);
+      refPx = Math.max(0, Math.min(chartPx, refPx));
+      refLine.style.bottom = refPx + 'px';
+      var lbl = refLine.querySelector('.tg-ref-label');
+      if(lbl) lbl.textContent = newLine;
+    }}
+  }});
+  // Update hit rate badges (L5/L10/L20/H2H)
+  chart.querySelectorAll('.tg-hr-badge').forEach(function(b){{
+    var key = b.getAttribute('data-key');
+    if(!key) return;
+    _updateBadge(b, _computeHR(vals[key], newLine));
+  }});
+  // Sync les boutons Add OVER/UNDER avec la nouvelle ligne + leur label
+  chart.querySelectorAll('.tg-userpick-btn').forEach(function(b){{
+    try {{
+      var p = JSON.parse(b.dataset.payload);
+      p.line = newLine;
+      b.dataset.payload = JSON.stringify(p);
+      var dir = b.dataset.direction === 'over' ? 'OVER' : 'UNDER';
+      var book = b.dataset.direction === 'over' ? p.book_over : p.book_under;
+      b.innerHTML = '📌 Add ' + dir + ' ' + newLine + (book ? ' @ ' + book : '');
+    }} catch(e) {{}}
+  }});
+}}
+function adjustLine(btn, delta){{
+  var chart = _findPropChart(btn);
+  if(!chart) return;
+  var input = chart.querySelector('.tg-line-input');
+  if(!input) return;
+  var v = parseFloat(input.value) || 0;
+  v = Math.max(0, v + delta);
+  v = Math.round(v * 2) / 2;  // snap a 0.5
+  input.value = v;
+  recalcChart(chart, v);
+}}
+function onLineInputChange(input){{
+  var chart = _findPropChart(input);
+  if(!chart) return;
+  var v = parseFloat(input.value);
+  if(isNaN(v) || v < 0) v = 0;
+  recalcChart(chart, v);
+}}
+function resetLine(btn){{
+  var chart = _findPropChart(btn);
+  if(!chart) return;
+  var def = parseFloat(btn.dataset.default) || 0;
+  var input = chart.querySelector('.tg-line-input');
+  if(input) input.value = def;
+  recalcChart(chart, def);
 }}
 
 function togglePlayerExpand(headerEl){{
