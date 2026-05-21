@@ -1,141 +1,89 @@
 [
   {
-    "league": "Europa League",
-    "home": "Freiburg",
-    "away": "Aston Villa",
-    "start_ts": 1779303600,
-    "match_id": "5206177",
-    "page_url": "/matches/freiburg-vs-aston-villa/2v3xep#5206177",
+    "league": "Serie A",
+    "home": "Fiorentina",
+    "away": "Atalanta",
+    "start_ts": 1779475500,
+    "match_id": "4803410",
+    "page_url": "/matches/atalanta-vs-fiorentina/2en1cd#4803410",
     "picks": [
       {
-        "direction": "home_dc",
-        "type": "Double chance",
-        "label": "Freiburg ou Nul (1X)",
-        "cote": 2.32,
-        "confidence": 76,
-        "reasoning": "Freiburg invaincu 80% sur 5 derniers matchs · H2H: 0/0 matchs sans défaite",
-        "stats": {
-          "form": [
-            "W",
-            "L",
-            "W",
-            "W",
-            "W"
-          ]
-        },
-        "is_fun": false
-      },
-      {
-        "direction": "home_win",
-        "type": "Victoire domicile",
-        "label": "Freiburg gagne",
-        "cote": 5.75,
-        "confidence": 64,
-        "reasoning": "Freiburg : 4V/0N/1D sur 5 matchs · #7 au classement · H2H: 0V/0N/0D · Note Sofa: 6.5/10",
-        "stats": {
-          "form": [
-            "W",
-            "L",
-            "W",
-            "W",
-            "W"
-          ]
-        },
-        "is_fun": false
-      },
-      {
-        "direction": "shots_under_28.5",
-        "type": "Tirs (total match)",
-        "label": "Moins de 28.5 tirs total",
+        "direction": "tirs_(fiorentina)_over_8.5",
+        "type": "Tirs (Fiorentina)",
+        "label": "Plus de 8.5 tirs Fiorentina",
         "cote": null,
-        "cote_min": 1.25,
+        "cote_min": 1.26,
         "value": [
           "⚠️",
           "Value serrée",
           "#f59e0b"
         ],
         "confidence": 80,
-        "reasoning": "📊 Brut : Freiburg L10 15.1 (L5 14.3) tirs/m · Aston Villa L10 13.0 (L5 13.0) tirs/m\n🛡️ Défenses : Freiburg concède 10.8/m · Aston Villa concède 9.2/m\n🎯 Attendu : Freiburg ~11.7 · Aston Villa ~12.8 → total ~24.4\n⚖️ Aston Villa favori (#2 vs #7) · Freiburg forme : W-L-W-W-W · Aston Villa forme : W-L-W-W-W",
+        "edge": null,
+        "reasoning": "Fiorentina prend 11.0/m [pondere vs opp #7] · adv. concède 14.0/m → attendu ~11.3 (Atalanta favori (#7 vs #15))",
         "stats": {
-          "expected_total": 24.4
+          "expected": 11.3
         }
       },
       {
-        "direction": "tirs_cadrés_(aston_villa)_over_3.5",
-        "type": "Tirs cadrés (Aston Villa)",
-        "label": "Plus de 3.5 tirs cadrés Aston Villa",
+        "direction": "sot_under_10.5",
+        "type": "Tirs cadrés (total)",
+        "label": "Moins de 10.5 tirs cadrés total",
         "cote": null,
-        "cote_min": 1.29,
+        "cote_min": 1.32,
         "value": [
-          "⚠️",
-          "Value serrée",
-          "#f59e0b"
+          "💎",
+          "Value correcte",
+          "#84cc16"
         ],
-        "confidence": 77,
-        "edge": null,
-        "reasoning": "Aston Villa prend 6.3/m [pondere vs opp #7] · adv. concède 3.8/m → attendu ~5.3 (Aston Villa favori (#2 vs #7))",
+        "confidence": 76,
+        "reasoning": "📊 Brut : Fiorentina L10 10.8 (L5 10.8) tirs cadrés/m · Atalanta L10 13.9 (L5 12.0) tirs cadrés/m\n🛡️ Défenses : Fiorentina concède 4.7/m · Atalanta concède 5.1/m\n🎯 Attendu : Fiorentina ~3.8 · Atalanta ~4.8 → total ~8.6\n⚖️ Atalanta favori (#7 vs #15) · Fiorentina forme : W-D-L-D-D · Atalanta forme : L-W-D-L-D",
         "stats": {
-          "expected": 5.3
+          "expected_total": 8.6
         }
       }
     ],
-    "home_players": [],
-    "away_players": [
+    "home_players": [
       {
-        "player": "Ollie Watkins",
+        "player": "Moise Kean",
         "position": "F",
         "is_sub": false,
         "type": "Buteur",
-        "label": "Ollie Watkins marque",
-        "team": "away",
-        "cote": 2.55,
-        "book": "pinnacle",
-        "books": [
-          {
-            "book": "pinnacle",
-            "cote": 2.55,
-            "side": "over"
-          },
-          {
-            "book": "draftkings",
-            "cote": 2.55,
-            "side": "over"
-          },
-          {
-            "book": "fanduel",
-            "cote": 2.3,
-            "side": "over"
-          }
-        ],
-        "confidence": 40,
-        "reasoning": "5G en 14 matchs (35.7%/match) · xG: 0.39/match",
+        "label": "Moise Kean marque",
+        "team": "home",
+        "cote": null,
+        "book": null,
+        "books": [],
+        "confidence": 46,
+        "reasoning": "8G en 26 matchs (30.8%/match) · xG: 0.58/match",
         "context": {
-          "weakness": 0.35
+          "weakness": 0.42
         },
         "stats": {
-          "goals": 5,
-          "apps": 14
+          "goals": 8,
+          "apps": 26
         }
       }
     ],
+    "away_players": [],
     "fun_picks": [],
     "top_pick": {
-      "direction": "home_dc",
-      "type": "Double chance",
-      "label": "Freiburg ou Nul (1X)",
-      "cote": 2.32,
-      "confidence": 76,
-      "reasoning": "Freiburg invaincu 80% sur 5 derniers matchs · H2H: 0/0 matchs sans défaite",
+      "direction": "tirs_(fiorentina)_over_8.5",
+      "type": "Tirs (Fiorentina)",
+      "label": "Plus de 8.5 tirs Fiorentina",
+      "cote": null,
+      "cote_min": 1.26,
+      "value": [
+        "⚠️",
+        "Value serrée",
+        "#f59e0b"
+      ],
+      "confidence": 80,
+      "edge": null,
+      "reasoning": "Fiorentina prend 11.0/m [pondere vs opp #7] · adv. concède 14.0/m → attendu ~11.3 (Atalanta favori (#7 vs #15))",
       "stats": {
-        "form": [
-          "W",
-          "L",
-          "W",
-          "W",
-          "W"
-        ]
-      },
-      "is_fun": false
+        "expected": 11.3
+      }
     }
   }
 ]
