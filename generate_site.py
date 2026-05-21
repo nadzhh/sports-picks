@@ -1938,6 +1938,7 @@ def _build_prop_chart_bars(games_window, ref_line, chart_max, with_labels=True):
                 f'{label_text}</div>'
             )
     ref_px = round((ref_line / chart_max) * CHART_PX) if chart_max else 0
+    labels_block = f'<div style="display:flex;gap:{gap}px">{labels_html}</div>' if with_labels else ''
     return (
         f'<div style="position:relative;height:{CHART_PX + 22}px">'
         f'<div style="display:flex;gap:{gap}px;align-items:flex-end;height:{CHART_PX + 18}px">{bars_html}</div>'
@@ -1945,7 +1946,7 @@ def _build_prop_chart_bars(games_window, ref_line, chart_max, with_labels=True):
         f'<span style="position:absolute;right:0;top:-9px;background:#fb923c;color:#0a1628;font-size:10px;font-weight:700;padding:1px 6px;border-radius:3px">{ref_line}</span>'
         f'</div>'
         f'</div>'
-        f'<div style="display:flex;gap:{gap}px">{labels_html}</div>' if with_labels else ''
+        f'{labels_block}'
     )
 
 
@@ -2000,7 +2001,7 @@ def _build_prop_chart(player, prop, opp_abbr, book_line=None):
 
     # Build les 3 charts (L5/L10/L20) avec leur propre chart_max
     chart_blocks = ""
-    for window_key, pairs, with_lbl in [("L5", pairs_l5, True), ("L10", pairs_l10, True), ("L20", pairs_l20, False)]:
+    for window_key, pairs, with_lbl in [("L5", pairs_l5, True), ("L10", pairs_l10, True), ("L20", pairs_l20, True)]:
         if not pairs:
             content = '<div style="color:#475569;font-size:12px;padding:10px;text-align:center">Pas assez de games</div>'
         else:
