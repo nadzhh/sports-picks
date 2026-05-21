@@ -143,11 +143,45 @@ def collect_fotmob_data(dates):
 
 # ─── Step 2: FORME W/D/L (depuis les fixtures finis) ──────────────────────────
 
-def _compute_form(league_data, team_id_str, n=5):
-    """Retourne liste W/D/L des n derniers matchs FT de l'equipe."""
-    all_matches = league_data.get("fixtures", {}).get("allMatches", []) or []
+def _build_team_match_index(league_data_cache):
+    """Construit {team_id_str: [matches FT sorted desc by date]} TOUTES competitions
+    confondues (Top 5 + UEFA + Coupes nationales). Permet d'avoir un L5 forme
+    representatif quand un match de coupe est joue entre 2 matchs de championnat
+    (ex: Nice a fait W en Coupe de France mais notre L5 ne le voyait pas)."""
+    by_team = {}
+    for fm_id, ldata in (league_data_cache or {}).items():
+        if not ldata: continue
+        all_matches = ldata.get("fixtures", {}).get("allMatches", []) or []
+        for m in all_matches:
+            if not m.get("status", {}).get("finished"): continue
+            h_id = str(m.get("home", {}).get("id", ""))
+            a_id = str(m.get("away", {}).get("id", ""))
+            for tid in (h_id, a_id):
+                if not tid: continue
+                # Evite les doublons (meme match dans 2 leagues, peu probable mais possible)
+                key = m.get("id") or (m.get("status", {}).get("utcTime","") + tid)
+                bucket = by_team.setdefault(tid, [])
+                if not any((x.get("id") == m.get("id")) for x in bucket if m.get("id")):
+                    bucket.append(m)
+    # Tri par date desc une seule fois
+    for tid in by_team:
+        by_team[tid].sort(key=lambda m: m.get("status", {}).get("utcTime", ""), reverse=True)
+    return by_team
+
+
+def _compute_form(league_data, team_id_str, n=5, team_match_index=None):
+    """Retourne liste W/D/L des n derniers matchs FT de l'equipe.
+
+    Si team_match_index est fourni (= cross-competitions), on prend les matchs
+    de TOUTES competitions confondues (championnat + coupes + UEFA). Sinon
+    fallback sur league_data uniquement (legacy)."""
+    if team_match_index is not None and team_id_str in team_match_index:
+        matches = team_match_index[team_id_str]
+    else:
+        matches = league_data.get("fixtures", {}).get("allMatches", []) or []
+
     played = []
-    for m in all_matches:
+    for m in matches:
         if not m.get("status", {}).get("finished"):
             continue
         h_id = str(m.get("home", {}).get("id"))
@@ -583,7 +617,7 @@ def _build_espn_soccer_odds(home_name, away_name, league_name):
 
 # ─── Step 4: BUILD ─────────────────────────────────────────────────────────────
 
-def build_match(fm_match, lname, fm_lid, standings, league_data, odds_idx):
+def build_match(fm_match, lname, fm_lid, standings, league_data, odds_idx, team_match_index=None):
     fid = fm_match.get("id")
     h = fm_match.get("home", {})
     a = fm_match.get("away", {})
@@ -602,9 +636,10 @@ def build_match(fm_match, lname, fm_lid, standings, league_data, odds_idx):
 
     internal_lid = INTERNAL_LEAGUE_IDS.get(lname, 0)
 
-    # Forme + standings + h2h
-    home_form = _compute_form(league_data, home_id, n=5)
-    away_form = _compute_form(league_data, away_id, n=5)
+    # Forme : utilise l'index cross-competitions si dispo (recommande), sinon
+    # fallback sur la league seule (legacy / si l'index n'a pas ete construit).
+    home_form = _compute_form(league_data, home_id, n=5, team_match_index=team_match_index)
+    away_form = _compute_form(league_data, away_id, n=5, team_match_index=team_match_index)
     home_rank = standings.get(int(home_id) if home_id.isdigit() else home_id, {}).get("rank")
     away_rank = standings.get(int(home_id) if False else int(away_id) if away_id.isdigit() else away_id, {}).get("rank")
     hw, dr, aw = _compute_h2h(league_data, home_id, away_id)
@@ -677,12 +712,23 @@ def main():
 
     # Step 3: build
     print(f"\n[3/3] Construction des matchs...")
+    # Index toutes competitions confondues : permet de calculer une forme L5
+    # representative meme quand une equipe joue Coupe/Europa entre 2 matchs de
+    # championnat (cas Nice : 17/05 Metz D, 10/05 Auxerre L, 02/05 Lens D,
+    # 26/04 Marseille D, 22/04 Strasbourg W en Coupe de France -> W manquait
+    # avant si on ne regardait que la Ligue 1).
+    team_match_idx = _build_team_match_index(league_data_cache)
+    n_indexed = sum(len(v) for v in team_match_idx.values())
+    print(f"  -> Index forme cross-competitions : {len(team_match_idx)} equipes, {n_indexed} matchs FT")
+
     all_matches = []
     for i, (lname, fm_lid, fm_m) in enumerate(fm_matches, 1):
         h = fm_m.get("home", {}).get("name", "?")
         a = fm_m.get("away", {}).get("name", "?")
         try:
-            data = build_match(fm_m, lname, fm_lid, standings_by_league.get(fm_lid, {}), league_data_cache.get(fm_lid, {}), odds_idx)
+            data = build_match(fm_m, lname, fm_lid, standings_by_league.get(fm_lid, {}),
+                                league_data_cache.get(fm_lid, {}), odds_idx,
+                                team_match_index=team_match_idx)
             all_matches.append(data)
             has_odds = "+odds" if data["match_odds"] else "(no odds)"
             print(f"  [{i}/{len(fm_matches)}] {lname}: {h} vs {a} {has_odds}")
