@@ -4013,10 +4013,12 @@ function editUserPickCote(id){{
 }}
 
 // Push d'un user pick : si pas de cote, prompt avant d'envoyer
-function pushUserPick(btn, id){{
+// async + await pour eviter que renderUserPicks() ne detache le btn avant la fin du fetch
+async function pushUserPick(btn, id){{
   var arr = _loadUserPicks();
   var p = arr.find(x => x.id === id);
   if(!p){{ alert('Pick introuvable'); return; }}
+  var coteJustAdded = false;
   if(!p.cote){{
     var defaultCote = (p.direction === 'over' ? p.book_over : p.book_under) || 1.90;
     var c = prompt('Cote a laquelle tu joues ? (requis pour push)', String(defaultCote));
@@ -4027,20 +4029,30 @@ function pushUserPick(btn, id){{
     arr[idx].cote = cNum;
     _saveUserPicks(arr);
     p = arr[idx];
+    coteJustAdded = true;
   }}
   // Construit le texte avec cote garantie + parse_mode HTML
   var dir = p.direction === 'over' ? 'plus de' : 'moins de';
   var propLabel = ({{PTS:'pts',REB:'reb',AST:'pas',FG3M:'3PM',RA:'reb+pas',PR:'pts+reb',PA:'pts+ast',PRA:'PRA'}})[p.prop] || p.prop;
   var label = p.player + ' ' + dir + ' ' + p.line + ' ' + propLabel;
-  var text = '🎯 <b>PICK PERSO</b>\\n\\n' +
-             '🏀 ' + p.away + ' @ ' + p.home + '\\n\\n' +
-             '📌 <b>' + label + '</b>\\n' +
-             '💰 <b>Cote : ' + p.cote.toFixed(2) + '</b>\\n' +
-             '📊 Médiane L20 : ' + p.median + ' · Moyenne : ' + p.mean;
-  if(p.book_line !== null && p.book_line !== undefined) text += '\\n📐 Ligne book US : ' + p.book_line;
-  btn.dataset.text = text;
-  pushTelegram(btn);
-  renderUserPicks();   // refresh display avec la nouvelle cote
+  var lines = [
+    '🎯 <b>PICK PERSO</b>',
+    '',
+    '🏀 ' + (p.away || '') + ' @ ' + (p.home || ''),
+    '',
+    '📌 <b>' + label + '</b>',
+    '💰 <b>Cote : ' + p.cote.toFixed(2) + '</b>',
+  ];
+  if(p.stake != null) lines.push('💵 Mise : ' + p.stake + ' €');
+  if(p.median !== undefined && p.median !== null) lines.push('📊 Médiane L20 : ' + p.median + ' · Moyenne : ' + p.mean);
+  if(p.book_line !== null && p.book_line !== undefined) lines.push('📐 Ligne book US : ' + p.book_line);
+  if(p.tipster) lines.push('👤 Tipster : ' + p.tipster);
+  if(p.note) lines.push('📝 ' + p.note);
+  btn.dataset.text = lines.join('\\n');
+  // ATTENDRE la fin du push avant tout re-render, sinon le btn est detache pendant le fetch
+  await pushTelegram(btn);
+  // Refresh seulement si la cote vient d'etre ajoutee (sinon le re-render est inutile et detache le btn)
+  if(coteJustAdded) renderUserPicks();
 }}
 
 function markUserPickResult(id, result){{
