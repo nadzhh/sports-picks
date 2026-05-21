@@ -2030,9 +2030,15 @@ def _build_prop_chart(player, prop, opp_abbr, book_line=None, match_ctx=None, bo
                  if opp_abbr and (g.get("opp","") or "").upper() == opp_abbr.upper()]
     h2h_vals = [v for _, v in h2h_pairs]
 
+    import math as _math
     median = sorted(l20_vals)[len(l20_vals)//2] if l20_vals else 0
     mean   = round(sum(l20_vals)/len(l20_vals), 1) if l20_vals else 0
-    ref_line = book_line if book_line is not None else median
+    # Snap au demi-point le + proche (.5) car les bookmakers quotent toujours
+    # par x.5 pour eviter les pushes. Ex: mediane 10 -> ligne 10.5, mediane
+    # 7.3 -> ligne 7.5, mediane 11 -> ligne 11.5.
+    def _to_half_step(v):
+        return _math.floor(v) + 0.5
+    ref_line = book_line if book_line is not None else _to_half_step(median)
 
     def _hr(vals):
         if not vals: return None, 0, 0
@@ -2125,26 +2131,27 @@ def _build_prop_chart(player, prop, opp_abbr, book_line=None, match_ctx=None, bo
         f'</div>'
     )
 
-    # Controle pour ajuster la ligne de reference
+    # Controle pour ajuster la ligne de reference (bookmakers quotent en x.5
+    # uniquement, donc on bouge par pas de 1 sur la grille x.5)
     line_control = (
         f'<div style="display:flex;align-items:center;gap:6px;margin-bottom:8px;flex-wrap:wrap">'
         f'<span style="color:#94a3b8;font-size:11px;font-weight:700">Ligne :</span>'
+        f'<button onclick="adjustLine(this, -2)" '
+        f'style="background:#1e293b;color:#94a3b8;border:1px solid #334155;border-radius:5px;'
+        f'padding:2px 9px;font-size:13px;font-weight:700;cursor:pointer">−2</button>'
         f'<button onclick="adjustLine(this, -1)" '
         f'style="background:#1e293b;color:#94a3b8;border:1px solid #334155;border-radius:5px;'
         f'padding:2px 9px;font-size:13px;font-weight:700;cursor:pointer">−1</button>'
-        f'<button onclick="adjustLine(this, -0.5)" '
-        f'style="background:#1e293b;color:#94a3b8;border:1px solid #334155;border-radius:5px;'
-        f'padding:2px 9px;font-size:13px;font-weight:700;cursor:pointer">−0.5</button>'
-        f'<input class="tg-line-input" type="number" step="0.5" min="0" value="{ref_line}" '
+        f'<input class="tg-line-input" type="number" step="1" min="0.5" value="{ref_line}" '
         f'onchange="onLineInputChange(this)" '
         f'style="background:#0a1628;color:#fb923c;border:1px solid #fb923c;border-radius:5px;'
         f'padding:2px 6px;font-size:13px;font-weight:700;width:64px;text-align:center">'
-        f'<button onclick="adjustLine(this, +0.5)" '
-        f'style="background:#1e293b;color:#94a3b8;border:1px solid #334155;border-radius:5px;'
-        f'padding:2px 9px;font-size:13px;font-weight:700;cursor:pointer">+0.5</button>'
         f'<button onclick="adjustLine(this, +1)" '
         f'style="background:#1e293b;color:#94a3b8;border:1px solid #334155;border-radius:5px;'
         f'padding:2px 9px;font-size:13px;font-weight:700;cursor:pointer">+1</button>'
+        f'<button onclick="adjustLine(this, +2)" '
+        f'style="background:#1e293b;color:#94a3b8;border:1px solid #334155;border-radius:5px;'
+        f'padding:2px 9px;font-size:13px;font-weight:700;cursor:pointer">+2</button>'
         f'<button onclick="resetLine(this)" data-default="{ref_line}" '
         f'style="background:#1e293b;color:#94a3b8;border:1px solid #334155;border-radius:5px;'
         f'padding:2px 9px;font-size:11px;font-weight:700;cursor:pointer">↺ {("book" if book_line is not None else "med")}</button>'
@@ -3115,14 +3122,19 @@ function recalcChart(chart, newLine){{
     }} catch(e) {{}}
   }});
 }}
+// Snap a la grille bookmaker (x.5) : 0.5, 1.5, 2.5, ...
+// floor(v) + 0.5 donne toujours le x.5 le plus proche (cf math).
+function _snapToHalf(v){{
+  if(v < 0.5) return 0.5;
+  return Math.floor(v) + 0.5;
+}}
 function adjustLine(btn, delta){{
   var chart = _findPropChart(btn);
   if(!chart) return;
   var input = chart.querySelector('.tg-line-input');
   if(!input) return;
-  var v = parseFloat(input.value) || 0;
-  v = Math.max(0, v + delta);
-  v = Math.round(v * 2) / 2;  // snap a 0.5
+  var v = parseFloat(input.value) || 0.5;
+  v = _snapToHalf(v + delta);
   input.value = v;
   recalcChart(chart, v);
 }}
@@ -3130,7 +3142,9 @@ function onLineInputChange(input){{
   var chart = _findPropChart(input);
   if(!chart) return;
   var v = parseFloat(input.value);
-  if(isNaN(v) || v < 0) v = 0;
+  if(isNaN(v) || v < 0.5) v = 0.5;
+  v = _snapToHalf(v);
+  input.value = v;
   recalcChart(chart, v);
 }}
 function resetLine(btn){{
