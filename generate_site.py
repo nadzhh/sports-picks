@@ -3114,6 +3114,126 @@ def build_html(matches, team_ai, player_ai, pstats_data, nba_picks=None, nba_his
 
   /* Chart period selector spacing */
   .bk-period-label {{ color: var(--bk-text-muted); font-size: 12px; font-weight: 600; }}
+
+  /* ── Filter chips (Historique) ─────────────────────── */
+  #sport-userpicks .bk-filter-row {{ display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 12px; }}
+  #sport-userpicks .bk-filter-chip {{ display: inline-flex; align-items: center; gap: 7px; padding: 7px 12px; border-radius: 999px; background: var(--bk-surface); border: 1px solid var(--bk-border); color: var(--bk-text-muted); font-size: 12.5px; font-weight: 600; cursor: pointer; transition: all 180ms ease; }}
+  #sport-userpicks .bk-filter-chip:hover {{ color: var(--bk-text); }}
+  #sport-userpicks .bk-filter-chip.active {{ background: var(--bk-pill-active); border-color: var(--bk-border-strong); color: var(--bk-text); }}
+  #sport-userpicks .bk-filter-chip .dot {{ width: 7px; height: 7px; border-radius: 999px; flex-shrink: 0; }}
+  #sport-userpicks .bk-filter-chip .count {{ padding: 1px 7px; border-radius: 999px; font-size: 10.5px; font-weight: 700; background: var(--bk-text-soft); color: var(--bk-text-muted); font-variant-numeric: tabular-nums; }}
+  #sport-userpicks .bk-filter-chip.active .count {{ background: rgba(255,255,255,0.10); color: var(--bk-text); }}
+  #sport-userpicks .bk-filter-reset {{ background: transparent; border: none; color: #34D399; font-size: 12px; font-weight: 600; cursor: pointer; padding: 0 4px; }}
+  #sport-userpicks .bk-filter-empty {{ padding: 30px 14px; text-align: center; color: var(--bk-text-muted); font-size: 13px; }}
+
+  /* ── Modal Nouveau Pari (overlay global, ouvert depuis Analyse NBA) ──── */
+  #bk-modal-root {{
+    position: fixed; inset: 0; z-index: 9999;
+    display: none; align-items: center; justify-content: center;
+    pointer-events: none;
+    font-family: 'Geist', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  }}
+  #bk-modal-root.open {{ display: flex; pointer-events: auto; }}
+  #bk-modal-root .bk-modal-bd {{
+    position: absolute; inset: 0;
+    background: rgba(0,0,0,0.55);
+    backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px);
+    opacity: 0; transition: opacity 220ms ease;
+  }}
+  #bk-modal-root.open .bk-modal-bd {{ opacity: 1; }}
+  #bk-modal-root .bk-modal-card {{
+    position: relative; z-index: 1;
+    background: #0F1115; border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 22px; width: min(540px, 92vw); max-height: 88vh;
+    display: flex; flex-direction: column;
+    box-shadow: 0 24px 60px rgba(0,0,0,0.6);
+    opacity: 0; transform: translateY(20px) scale(0.97);
+    transition: opacity 220ms ease, transform 280ms cubic-bezier(.22,.85,.3,1);
+    color: #fff;
+  }}
+  #bk-modal-root.open .bk-modal-card {{ opacity: 1; transform: translateY(0) scale(1); }}
+  #bk-modal-root .bk-m-hd {{
+    padding: 16px 22px; display: flex; align-items: center; justify-content: space-between; gap: 12px;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+  }}
+  #bk-modal-root .bk-m-title {{ color: #fff; font-weight: 600; font-size: 17px; }}
+  #bk-modal-root .bk-m-cancel {{
+    background: transparent; border: none; color: #8B8D98;
+    font-size: 14px; font-weight: 600; cursor: pointer; padding: 6px 10px;
+    font-family: inherit;
+  }}
+  #bk-modal-root .bk-m-cancel:hover {{ color: #fff; }}
+  #bk-modal-root .bk-m-body {{ padding: 22px 22px 12px; overflow-y: auto; flex: 1; }}
+  #bk-modal-root .bk-m-ft {{
+    padding: 14px 22px 18px; border-top: 1px solid rgba(255,255,255,0.04);
+    background: #0B0D11;
+    border-bottom-left-radius: 22px; border-bottom-right-radius: 22px;
+  }}
+  #bk-modal-root .bk-m-context {{
+    background: #14161B; border: 1px solid rgba(255,255,255,0.05);
+    border-radius: 14px; padding: 14px;
+    display: flex; gap: 12px; align-items: center; margin-bottom: 18px;
+  }}
+  #bk-modal-root .bk-m-icon {{
+    width: 42px; height: 42px; border-radius: 12px;
+    background: rgba(251,146,60,0.15); border: 1px solid rgba(251,146,60,0.30);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 22px; flex-shrink: 0;
+  }}
+  #bk-modal-root .bk-m-ctx-title {{ color: #fff; font-weight: 600; font-size: 15px; margin-bottom: 3px; }}
+  #bk-modal-root .bk-m-ctx-sub {{ color: #8B8D98; font-size: 12.5px; display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }}
+  #bk-modal-root .bk-m-ctx-sub .sep {{ opacity: 0.5; }}
+  #bk-modal-root .bk-dir-chip {{ padding: 3px 9px; border-radius: 999px; font-size: 11px; font-weight: 700; letter-spacing: 0.3px; }}
+  #bk-modal-root .bk-dir-chip.over {{ background: rgba(52,211,153,0.14); color: #34D399; }}
+  #bk-modal-root .bk-dir-chip.under {{ background: rgba(248,113,113,0.10); color: #F87171; }}
+  #bk-modal-root .bk-m-label {{
+    color: #8B8D98; font-size: 11.5px; font-weight: 600;
+    text-transform: uppercase; letter-spacing: 0.4px; margin-bottom: 6px; display: block;
+  }}
+  #bk-modal-root .bk-m-label .opt {{ color: #8B8D98; font-weight: 500; text-transform: none; letter-spacing: 0; opacity: 0.6; margin-left: 4px; }}
+  #bk-modal-root .bk-m-input {{
+    width: 100%; padding: 12px 14px; border-radius: 14px;
+    background: #14161B; border: 1px solid rgba(255,255,255,0.06);
+    color: #fff; font-size: 15px; font-weight: 500; outline: none;
+    font-family: inherit; box-sizing: border-box; font-variant-numeric: tabular-nums;
+  }}
+  #bk-modal-root .bk-m-input:focus {{ border-color: rgba(52,211,153,0.5); box-shadow: 0 0 0 3px rgba(52,211,153,0.12); }}
+  #bk-modal-root textarea.bk-m-input {{ resize: none; line-height: 1.5; font-size: 14px; }}
+  #bk-modal-root .bk-m-grp + .bk-m-grp {{ margin-top: 14px; }}
+  #bk-modal-root .bk-m-row2 {{ display: flex; gap: 12px; }}
+  #bk-modal-root .bk-m-row2 > div {{ flex: 1; }}
+  #bk-modal-root .bk-m-stake-suffix {{ position: relative; }}
+  #bk-modal-root .bk-m-stake-suffix > span {{
+    position: absolute; right: 14px; top: 50%; transform: translateY(-50%);
+    color: #8B8D98; font-weight: 600; pointer-events: none;
+  }}
+  #bk-modal-root .bk-m-quick {{ display: flex; gap: 6px; margin-top: 8px; }}
+  #bk-modal-root .bk-m-quick button {{
+    flex: 1; padding: 8px 0; background: #14161B;
+    border: 1px solid rgba(255,255,255,0.06); border-radius: 12px;
+    color: #fff; font-weight: 600; font-size: 13px; cursor: pointer;
+    font-variant-numeric: tabular-nums; font-family: inherit; transition: all 180ms;
+  }}
+  #bk-modal-root .bk-m-quick button:hover {{ background: rgba(255,255,255,0.04); }}
+  #bk-modal-root .bk-m-quick button.active {{ background: rgba(52,211,153,0.12); border-color: rgba(52,211,153,0.30); color: #34D399; }}
+  #bk-modal-root .bk-m-potential {{
+    margin-top: 22px; padding: 16px; border-radius: 18px;
+    background: linear-gradient(135deg, rgba(52,211,153,0.14), rgba(52,211,153,0.02));
+    border: 1px solid rgba(52,211,153,0.22);
+    display: flex; align-items: center; justify-content: space-between;
+  }}
+  #bk-modal-root .bk-m-pot-l {{ color: #8B8D98; font-size: 12px; }}
+  #bk-modal-root .bk-m-pot-big {{ display: block; color: #fff; font-weight: 700; font-size: 22px; font-variant-numeric: tabular-nums; margin-top: 4px; letter-spacing: -0.3px; }}
+  #bk-modal-root .bk-m-pot-prof {{ display: block; color: #34D399; font-weight: 700; font-size: 18px; font-variant-numeric: tabular-nums; margin-top: 4px; }}
+  #bk-modal-root .bk-m-hint {{ color: #8B8D98; font-size: 11.5px; margin-top: 6px; font-weight: 500; }}
+  #bk-modal-root .bk-m-cta {{
+    width: 100%; padding: 15px; border-radius: 14px;
+    background: linear-gradient(180deg, #34D399, #10B981);
+    border: none; color: #06120E; font-weight: 700; font-size: 16px;
+    letter-spacing: 0.2px; cursor: pointer; transition: all 200ms ease;
+    box-shadow: 0 6px 20px rgba(52,211,153,0.35); font-family: inherit;
+  }}
+  #bk-modal-root .bk-m-cta:disabled {{ background: #1F232C; color: #8B8D98; cursor: default; box-shadow: none; }}
 </style>
 </head>
 <body>
@@ -3649,57 +3769,225 @@ function _updateUserPicksCount(){{
   }}
 }}
 
+// ── Formulaire Nouveau Pari (modal centré, ouvert depuis Analyse NBA) ────
+function _bkEnsureModalRoot(){{
+  var root = document.getElementById('bk-modal-root');
+  if(!root){{
+    root = document.createElement('div');
+    root.id = 'bk-modal-root';
+    document.body.appendChild(root);
+  }}
+  return root;
+}}
+function _bkCloseForm(){{
+  var root = document.getElementById('bk-modal-root');
+  if(!root) return;
+  root.classList.remove('open');
+  setTimeout(function(){{ if(root) root.innerHTML = ''; }}, 280);
+  if(window._bkFormEscHandler){{
+    document.removeEventListener('keydown', window._bkFormEscHandler);
+    window._bkFormEscHandler = null;
+  }}
+  window._bkFormState = null;
+}}
+function _bkFormUpdateCalc(){{
+  var st = window._bkFormState;
+  if(!st) return;
+  var c = parseFloat(String(st.cote).replace(',', '.')) || 0;
+  var s = parseFloat(String(st.stake).replace(',', '.')) || 0;
+  var l = parseFloat(String(st.line).replace(',', '.'));
+  var pot = s * c;
+  var prof = Math.max(0, pot - s);
+  var canSubmit = !isNaN(l) && c > 1 && s > 0;
+  var potEl = document.getElementById('bk-m-pot');
+  var profEl = document.getElementById('bk-m-prof');
+  var btn = document.getElementById('bk-m-submit');
+  if(potEl) potEl.textContent = '€' + pot.toFixed(2);
+  if(profEl) profEl.textContent = '+€' + prof.toFixed(2);
+  if(btn) btn.disabled = !canSubmit;
+  // Highlight quick stake button if match
+  document.querySelectorAll('#bk-modal-root .bk-m-quick button').forEach(function(b){{
+    var v = parseFloat(b.dataset.v);
+    b.classList.toggle('active', v === s);
+  }});
+}}
+function _bkSetStake(v){{
+  var st = window._bkFormState;
+  if(!st) return;
+  st.stake = String(v);
+  var el = document.getElementById('bk-m-stake');
+  if(el) el.value = String(v);
+  _bkFormUpdateCalc();
+}}
+function _bkOpenForm(opts){{
+  // opts = {{ direction, payload, onSubmit }}
+  var root = _bkEnsureModalRoot();
+  var p = opts.payload;
+  var dir = opts.direction;
+  var defLine = p.line !== undefined && p.line !== null ? String(p.line) : '';
+  var defCoteRaw = dir === 'over' ? p.book_over : p.book_under;
+  var defCote = defCoteRaw ? String(defCoteRaw) : '1.90';
+  var defStake = String(window._bkLastStake || 2);
+  var defTipster = window._bkLastTipster || '';
+  window._bkFormState = {{
+    opts: opts,
+    line: defLine, cote: defCote, stake: defStake,
+    tipster: defTipster, note: '',
+  }};
+  var propLabel = ({{PTS:'pts',REB:'reb',AST:'pas',FG3M:'3PM',RA:'reb+pas',PR:'pts+reb',PA:'pts+ast',PRA:'PRA'}})[p.prop] || p.prop;
+  var dirLabel = dir === 'over' ? 'OVER' : 'UNDER';
+  var dirCls = dir === 'over' ? 'over' : 'under';
+  var bookHint = [];
+  if(p.book_line !== undefined && p.book_line !== null) bookHint.push('Ligne book : ' + p.book_line);
+  if(defCoteRaw) bookHint.push('Cote book : ' + defCoteRaw);
+  if(p.median !== undefined && p.median !== null) bookHint.push('Méd L20 : ' + p.median);
+  var hintLine = bookHint.length ? '<div class="bk-m-hint">' + bookHint.join(' · ') + '</div>' : '';
+
+  var html =
+    '<div class="bk-modal-bd" onclick="_bkCloseForm()"></div>'
+    + '<div class="bk-modal-card" role="dialog" aria-modal="true">'
+    +   '<div class="bk-m-hd">'
+    +     '<button class="bk-m-cancel" onclick="_bkCloseForm()">Annuler</button>'
+    +     '<div class="bk-m-title">Nouveau pari</div>'
+    +     '<div style="width:64px"></div>'
+    +   '</div>'
+    +   '<div class="bk-m-body">'
+    +     '<div class="bk-m-context">'
+    +       '<div class="bk-m-icon">🏀</div>'
+    +       '<div style="flex:1;min-width:0">'
+    +         '<div class="bk-m-ctx-title">' + p.player + '</div>'
+    +         '<div class="bk-m-ctx-sub">'
+    +           '<span class="bk-dir-chip ' + dirCls + '">' + dirLabel + '</span>'
+    +           '<span>' + propLabel + '</span>'
+    +           '<span class="sep">·</span>'
+    +           '<span>' + (p.away || '') + ' @ ' + (p.home || '') + '</span>'
+    +         '</div>'
+    +       '</div>'
+    +     '</div>'
+    +     '<div class="bk-m-row2">'
+    +       '<div class="bk-m-grp">'
+    +         '<label class="bk-m-label">Ligne</label>'
+    +         '<input class="bk-m-input" id="bk-m-line" inputmode="decimal" value="' + defLine + '" placeholder="9.5">'
+    +       '</div>'
+    +       '<div class="bk-m-grp">'
+    +         '<label class="bk-m-label">Cote</label>'
+    +         '<input class="bk-m-input" id="bk-m-cote" inputmode="decimal" value="' + defCote + '" placeholder="1.90">'
+    +       '</div>'
+    +     '</div>'
+    +     hintLine
+    +     '<div class="bk-m-grp" style="margin-top:14px">'
+    +       '<label class="bk-m-label">Mise</label>'
+    +       '<div class="bk-m-stake-suffix">'
+    +         '<input class="bk-m-input" id="bk-m-stake" inputmode="decimal" value="' + defStake + '" style="padding-right:32px">'
+    +         '<span>€</span>'
+    +       '</div>'
+    +       '<div class="bk-m-quick">'
+    +         [1, 2, 5, 10, 25].map(function(v){{ return '<button type="button" data-v="' + v + '" onclick="_bkSetStake(' + v + ')">' + v + '€</button>'; }}).join('')
+    +       '</div>'
+    +     '</div>'
+    +     '<div class="bk-m-grp" style="margin-top:14px">'
+    +       '<label class="bk-m-label">Tipster<span class="opt">· facultatif</span></label>'
+    +       '<input class="bk-m-input" id="bk-m-tipster" value="' + defTipster.replace(/"/g, '&quot;') + '" placeholder="Algo, @PronoKing, instinct...">'
+    +     '</div>'
+    +     '<div class="bk-m-grp" style="margin-top:14px">'
+    +       '<label class="bk-m-label">Note d\\'analyse<span class="opt">· facultatif</span></label>'
+    +       '<textarea class="bk-m-input" id="bk-m-note" rows="3" placeholder="Pourquoi ce pari ? Forme, blessures, value..."></textarea>'
+    +     '</div>'
+    +     '<div class="bk-m-potential">'
+    +       '<div>'
+    +         '<div class="bk-m-pot-l">Gain potentiel</div>'
+    +         '<span class="bk-m-pot-big" id="bk-m-pot">€0.00</span>'
+    +       '</div>'
+    +       '<div style="text-align:right">'
+    +         '<div class="bk-m-pot-l">Bénéfice</div>'
+    +         '<span class="bk-m-pot-prof" id="bk-m-prof">+€0.00</span>'
+    +       '</div>'
+    +     '</div>'
+    +   '</div>'
+    +   '<div class="bk-m-ft">'
+    +     '<button class="bk-m-cta" id="bk-m-submit">Placer le pari</button>'
+    +   '</div>'
+    + '</div>';
+  root.innerHTML = html;
+  // Open with anim
+  setTimeout(function(){{ root.classList.add('open'); }}, 10);
+  // Wire inputs
+  var byId = function(id){{ return document.getElementById(id); }};
+  byId('bk-m-line').addEventListener('input',    function(e){{ window._bkFormState.line    = e.target.value; _bkFormUpdateCalc(); }});
+  byId('bk-m-cote').addEventListener('input',    function(e){{ window._bkFormState.cote    = e.target.value; _bkFormUpdateCalc(); }});
+  byId('bk-m-stake').addEventListener('input',   function(e){{ window._bkFormState.stake   = e.target.value; _bkFormUpdateCalc(); }});
+  byId('bk-m-tipster').addEventListener('input', function(e){{ window._bkFormState.tipster = e.target.value; }});
+  byId('bk-m-note').addEventListener('input',    function(e){{ window._bkFormState.note    = e.target.value; }});
+  byId('bk-m-submit').addEventListener('click', function(){{
+    var st = window._bkFormState;
+    if(!st) return;
+    var l = parseFloat(String(st.line).replace(',', '.'));
+    var c = parseFloat(String(st.cote).replace(',', '.'));
+    var s = parseFloat(String(st.stake).replace(',', '.'));
+    if(isNaN(l)){{ alert('Ligne invalide'); return; }}
+    if(isNaN(c) || c <= 1){{ alert('Cote invalide (doit etre > 1.0)'); return; }}
+    if(isNaN(s) || s <= 0){{ alert('Mise invalide'); return; }}
+    var tipster = st.tipster.trim();
+    var note = st.note.trim();
+    window._bkLastStake = s;
+    window._bkLastTipster = tipster;
+    opts.onSubmit({{ line: l, cote: c, stake: s, tipster: tipster || null, note: note || null }});
+    _bkCloseForm();
+  }});
+  _bkFormUpdateCalc();
+  // ESC + initial focus
+  window._bkFormEscHandler = function(e){{ if(e.key === 'Escape') _bkCloseForm(); }};
+  document.addEventListener('keydown', window._bkFormEscHandler);
+  setTimeout(function(){{ var el = byId('bk-m-line'); if(el && !el.value) el.focus(); else if(el) el.select(); }}, 120);
+}}
+
 function addUserPick(btn){{
   var direction = btn.dataset.direction;
   var data;
   try {{ data = JSON.parse(btn.dataset.payload); }} catch(e) {{ return alert('Erreur payload'); }}
-  // Prompt 1 : ligne (default book/mediane)
-  var line = prompt('Ligne ? (defaut : book ou mediane)', String(data.line));
-  if(line === null) return;
-  var lineNum = parseFloat(line);
-  if(isNaN(lineNum)){{ alert('Ligne invalide'); return; }}
-  // Prompt 2 : cote a laquelle TU vas le jouer (defaut : cote book US si dispo)
-  var defaultCote = direction === 'over' ? data.book_over : data.book_under;
-  var cotePrompt = 'Cote a laquelle tu vas le jouer ?' +
-                   (defaultCote ? ' (book US affiche : ' + defaultCote + ')' : '');
-  var cote = prompt(cotePrompt, defaultCote ? String(defaultCote) : '1.90');
-  if(cote === null) return;
-  var coteNum = parseFloat(cote);
-  if(isNaN(coteNum) || coteNum <= 1.0){{ alert('Cote invalide (doit etre > 1.0)'); return; }}
-  var pick = {{
-    id:        'user_' + Date.now() + '_' + Math.random().toString(36).slice(2, 8),
-    sport:     data.sport,
-    player:    data.player,
-    prop:      data.prop,
+  _bkOpenForm({{
     direction: direction,
-    line:      lineNum,
-    cote:      coteNum,
-    home:      data.home,
-    away:      data.away,
-    game_id:   data.game_id,
-    opp:       data.opp,
-    median:    data.median,
-    mean:      data.mean,
-    book_line: data.book_line,
-    book_over: data.book_over,
-    book_under:data.book_under,
-    created:   new Date().toISOString(),
-    result:    null,
-    actual:    null,
-    source:    'user',
-  }};
-  var arr = _loadUserPicks();
-  arr.push(pick);
-  _saveUserPicks(arr);
-  // Confirmation visuelle
-  var origBg = btn.style.background;
-  var origHTML = btn.innerHTML;
-  btn.style.background = '#0a1628';
-  btn.innerHTML = '✓ @ ' + coteNum + ' ajoute !';
-  setTimeout(function(){{
-    btn.style.background = origBg;
-    btn.innerHTML = origHTML;
-  }}, 1800);
+    payload: data,
+    onSubmit: function(r){{
+      var pick = {{
+        id:        'user_' + Date.now() + '_' + Math.random().toString(36).slice(2, 8),
+        sport:     data.sport,
+        player:    data.player,
+        prop:      data.prop,
+        direction: direction,
+        line:      r.line,
+        cote:      r.cote,
+        stake:     r.stake,
+        tipster:   r.tipster,
+        note:      r.note,
+        home:      data.home,
+        away:      data.away,
+        game_id:   data.game_id,
+        opp:       data.opp,
+        median:    data.median,
+        mean:      data.mean,
+        book_line: data.book_line,
+        book_over: data.book_over,
+        book_under:data.book_under,
+        created:   new Date().toISOString(),
+        result:    null,
+        actual:    null,
+        source:    'user',
+      }};
+      var arr = _loadUserPicks();
+      arr.push(pick);
+      _saveUserPicks(arr);
+      // Confirmation visuelle
+      var origBg = btn.style.background;
+      var origHTML = btn.innerHTML;
+      btn.style.background = '#0a1628';
+      btn.innerHTML = '✓ @ ' + r.cote + ' ajouté !';
+      setTimeout(function(){{
+        btn.style.background = origBg;
+        btn.innerHTML = origHTML;
+      }}, 1800);
+    }},
+  }});
 }}
 
 function deleteUserPick(id){{
@@ -4019,12 +4307,23 @@ function _bkRowHtml(p){{
     + '<button class="bk-mini-btn tg" data-text="" onclick="pushUserPick(this, \\'' + p.id + '\\')" title="Envoyer sur Telegram">📲</button>'
     + '<button class="bk-mini-btn del" onclick="deleteUserPick(\\'' + p.id + '\\')" title="Supprimer">🗑</button>'
     + '</div>';
+  var tipsterHtml = '';
+  if(p.tipster && p.tipster.trim()){{
+    var tEsc = p.tipster.replace(/</g, '&lt;');
+    tipsterHtml = '<span class="dot">·</span><span style="color:#c4b5fd" title="Tipster">👤 ' + tEsc + '</span>';
+  }}
+  var noteHtml = '';
+  if(p.note && p.note.trim()){{
+    var nEsc = p.note.replace(/"/g, '&quot;').replace(/</g, '&lt;');
+    noteHtml = '<span class="dot">·</span><span style="color:#7dd3fc;cursor:help" title="' + nEsc + '">📝</span>';
+  }}
   return '<div class="bk-row">'
     + '<div class="bk-row-icon">🏀</div>'
     + '<div class="bk-row-main">'
     + '<div class="bk-row-title">' + title + '</div>'
     + '<div class="bk-row-sub"><span>' + match + '</span><span class="dot">·</span>' + coteChip
     + '<span class="dot">·</span><span>' + _bkFmt(stake) + ' € misés</span>'
+    + tipsterHtml + noteHtml
     + '</div>'
     + '</div>'
     + '<div class="bk-row-side">'
@@ -4036,6 +4335,15 @@ function _bkRowHtml(p){{
 }}
 function setBkPeriod(p){{
   window._bkPeriod = p;
+  renderUserPicks();
+}}
+function setBkFilter(kind, value){{
+  window._bkFilters = window._bkFilters || {{status:'all', tipster:'all'}};
+  window._bkFilters[kind] = value;
+  renderUserPicks();
+}}
+function resetBkFilters(){{
+  window._bkFilters = {{status:'all', tipster:'all'}};
   renderUserPicks();
 }}
 
@@ -4190,17 +4498,88 @@ function renderUserPicks(){{
       + '</div>';
   }}
 
-  // ── Activité récente ────────────────────────────────
+  // ── Historique (avec filtres status + tipster) ──────
+  window._bkFilters = window._bkFilters || {{status:'all', tipster:'all'}};
+  var fStatus = window._bkFilters.status;
+  var fTipster = window._bkFilters.tipster;
+  // Tous les paris (pending inclus) pour filtrage
+  var allForFilter = arr.slice();
+  // Counts par status
+  var cntAll     = allForFilter.length;
+  var cntPending = pending.length;
+  var cntWon     = wins;
+  var cntLost    = losses;
+  var cntPush    = resolved.filter(function(p){{ return p.result === 'PUSH'; }}).length;
+  // Tipsters uniques
+  var tipsterCounts = {{}};
+  allForFilter.forEach(function(p){{
+    var t = (p.tipster && p.tipster.trim()) ? p.tipster.trim() : '∅ Sans tipster';
+    tipsterCounts[t] = (tipsterCounts[t] || 0) + 1;
+  }});
+  var tipsterList = Object.keys(tipsterCounts).sort(function(a, b){{ return tipsterCounts[b] - tipsterCounts[a]; }});
+  // Apply filters
+  var filteredArr = allForFilter.filter(function(p){{
+    if(fStatus !== 'all'){{
+      var st = !p.result || p.result === 'PENDING' ? 'pending' : (
+        p.result === 'WIN' ? 'won' : (p.result === 'LOSS' ? 'lost' : 'push')
+      );
+      if(st !== fStatus) return false;
+    }}
+    if(fTipster !== 'all'){{
+      var t = (p.tipster && p.tipster.trim()) ? p.tipster.trim() : '∅ Sans tipster';
+      if(t !== fTipster) return false;
+    }}
+    return true;
+  }});
+  // Build status filter chips
+  var statusDefs = [
+    {{id:'all',     label:'Tous',     count:cntAll}},
+    {{id:'pending', label:'En cours', count:cntPending, color:'#FBBF24'}},
+    {{id:'won',     label:'Gagnés',   count:cntWon,     color:'#34D399'}},
+    {{id:'lost',    label:'Perdus',   count:cntLost,    color:'#F87171'}},
+    {{id:'push',    label:'Annulés',  count:cntPush,    color:'#94A3B8'}},
+  ];
+  var statusChips = statusDefs.map(function(f){{
+    var active = fStatus === f.id;
+    return '<button class="bk-filter-chip ' + (active ? 'active' : '') + '" onclick="setBkFilter(\\'status\\', \\'' + f.id + '\\')">'
+      + (f.color ? '<span class="dot" style="background:' + f.color + '"></span>' : '')
+      + f.label
+      + '<span class="count">' + f.count + '</span>'
+      + '</button>';
+  }}).join('');
+  // Build tipster filter chips
+  var tipsterChips = '<button class="bk-filter-chip ' + (fTipster === 'all' ? 'active' : '') + '" onclick="setBkFilter(\\'tipster\\', \\'all\\')">'
+    + '<span style="font-size:13px">👥</span>Tous tipsters<span class="count">' + tipsterList.length + '</span>'
+    + '</button>';
+  tipsterChips += tipsterList.map(function(t){{
+    var active = fTipster === t;
+    var isNone = t === '∅ Sans tipster';
+    var ic = isNone ? '∅' : '👤';
+    var tEsc = t.replace(/'/g, "\\\\'").replace(/"/g, '&quot;');
+    return '<button class="bk-filter-chip ' + (active ? 'active' : '') + '" onclick="setBkFilter(\\'tipster\\', \\'' + tEsc + '\\')" title="' + t + '">'
+      + '<span style="font-size:13px">' + ic + '</span>'
+      + '<span style="max-width:120px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">' + (isNone ? 'Sans tipster' : t) + '</span>'
+      + '<span class="count">' + tipsterCounts[t] + '</span>'
+      + '</button>';
+  }}).join('');
+  var resetBtn = (fStatus !== 'all' || fTipster !== 'all')
+    ? '<button class="bk-filter-reset" onclick="resetBkFilters()">Réinitialiser ✕</button>'
+    : '';
+
   var recentCard = '';
-  if(resolved.length > 0){{
-    var recentRows = resolved.slice(0, 10).map(_bkRowHtml).join('');
+  if(allForFilter.length > 0){{
+    var filteredRows = filteredArr.length > 0
+      ? filteredArr.slice(0, 30).map(_bkRowHtml).join('')
+      : '<div class="bk-filter-empty">🔍 Aucun pari ne correspond aux filtres.</div>';
     recentCard =
       '<div class="bk-card">'
       + '<div class="bk-card-hd">'
-      +   '<div class="bk-card-title">Activité récente</div>'
-      +   '<span class="bk-eyebrow">' + resolved.length + ' résolus</span>'
+      +   '<div class="bk-card-title">Historique <span style="padding:2px 9px;border-radius:999px;background:var(--bk-text-soft);color:var(--bk-text-muted);font-size:11px;font-weight:700">' + filteredArr.length + '</span></div>'
+      +   resetBtn
       + '</div>'
-      + '<div class="bk-rows">' + recentRows + '</div>'
+      + '<div class="bk-filter-row">' + statusChips + '</div>'
+      + (tipsterList.length > 0 ? '<div class="bk-filter-row">' + tipsterChips + '</div>' : '')
+      + '<div class="bk-rows">' + filteredRows + '</div>'
       + '</div>';
   }}
 
