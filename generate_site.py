@@ -1971,10 +1971,12 @@ def _build_prop_chart_bars(games_window, ref_line, chart_max, with_labels=True):
     )
 
 
-def _build_prop_chart(player, prop, opp_abbr, book_line=None, match_ctx=None):
+def _build_prop_chart(player, prop, opp_abbr, book_line=None, match_ctx=None, book_over=None, book_under=None):
     """Construit le HTML d'une vue prop : badges hit rates + 3 bar charts
     (L5/L10/L20) selectionnables. Affiche L5 par defaut.
-    match_ctx (optionnel): {home, away, game_id} pour les boutons 'add user pick'."""
+    match_ctx (optionnel): {home, away, game_id} pour les boutons 'add user pick'.
+    book_over/book_under (optionnel): cotes proposees par le bookmaker, pre-remplies
+    quand on ajoute un user pick."""
     games = player.get("l10_games", [])
     games = [g for g in games if (g.get("MIN") or 0) > 0]
     if not games:
@@ -2036,34 +2038,40 @@ def _build_prop_chart(player, prop, opp_abbr, book_line=None, match_ctx=None):
             f'<div class="tg-window-block" data-window="{window_key}" style="display:{display}">{content}</div>'
         )
 
-    # Boutons "Add to picks" : OVER / UNDER avec la ligne courante (book ou mediane)
+    # Boutons "Add to picks" : OVER / UNDER avec la ligne courante (book ou mediane).
+    # Inclut les cotes du book (si dispo) pour les pre-remplir au moment du add.
     import json as _json
     player_name = player.get("name", "?")
     ctx = match_ctx or {}
     payload = _json.dumps({
-        "sport":   "NBA",
-        "player":  player_name,
-        "prop":    prop,
-        "line":    ref_line,
-        "home":    ctx.get("home", ""),
-        "away":    ctx.get("away", ""),
-        "game_id": ctx.get("game_id", ""),
-        "opp":     opp_abbr or "",
-        "median":  median,
-        "mean":    mean,
-        "book_line": book_line,
+        "sport":      "NBA",
+        "player":     player_name,
+        "prop":       prop,
+        "line":       ref_line,
+        "home":       ctx.get("home", ""),
+        "away":       ctx.get("away", ""),
+        "game_id":    ctx.get("game_id", ""),
+        "opp":        opp_abbr or "",
+        "median":     median,
+        "mean":       mean,
+        "book_line":  book_line,
+        "book_over":  book_over,
+        "book_under": book_under,
     }, ensure_ascii=False)
     payload_esc = _html.escape(payload, quote=True)
+    # Affichage des cotes book sur les boutons si dispo
+    over_label  = f"📌 Add OVER {ref_line}"  + (f" @ {book_over}"  if book_over  else "")
+    under_label = f"📌 Add UNDER {ref_line}" + (f" @ {book_under}" if book_under else "")
     add_buttons = (
         f'<div style="display:flex;gap:6px;margin-top:8px;padding-top:8px;border-top:1px solid #1e293b">'
         f'<button class="tg-userpick-btn" data-direction="over" data-payload="{payload_esc}" '
         f'onclick="addUserPick(this)" '
         f'style="flex:1;background:#16a34a;color:#fff;border:none;border-radius:6px;padding:5px 10px;'
-        f'font-size:11px;font-weight:700;cursor:pointer">📌 Add OVER {ref_line}</button>'
+        f'font-size:11px;font-weight:700;cursor:pointer">{over_label}</button>'
         f'<button class="tg-userpick-btn" data-direction="under" data-payload="{payload_esc}" '
         f'onclick="addUserPick(this)" '
         f'style="flex:1;background:#dc2626;color:#fff;border:none;border-radius:6px;padding:5px 10px;'
-        f'font-size:11px;font-weight:700;cursor:pointer">📌 Add UNDER {ref_line}</button>'
+        f'font-size:11px;font-weight:700;cursor:pointer">{under_label}</button>'
         f'</div>'
     )
 
@@ -2121,8 +2129,12 @@ def _build_player_analyse_card(player, opp_abbr, odds_for_player, side_label, is
     contents = ""
     for i, pr in enumerate(PROPS):
         book_data = (odds_for_player or {}).get(pr)
-        book_line = book_data.get("line") if book_data else None
-        chart_html = _build_prop_chart(player, pr, opp_abbr, book_line, match_ctx=match_ctx)
+        book_line = book_data.get("line")  if book_data else None
+        book_over  = book_data.get("over")  if book_data else None
+        book_under = book_data.get("under") if book_data else None
+        chart_html = _build_prop_chart(player, pr, opp_abbr, book_line,
+                                       match_ctx=match_ctx,
+                                       book_over=book_over, book_under=book_under)
         prop_display = "block" if i == 0 else "none"
         contents += (
             f'<div class="tg-prop-content" data-prop="{pr}" style="display:{prop_display}">{chart_html}</div>'
@@ -3202,11 +3214,19 @@ function addUserPick(btn){{
   var direction = btn.dataset.direction;
   var data;
   try {{ data = JSON.parse(btn.dataset.payload); }} catch(e) {{ return alert('Erreur payload'); }}
-  // Confirm + ask user for desired line (prefilled)
-  var line = prompt('Ligne ? (defaut book/mediane)', String(data.line));
+  // Prompt 1 : ligne (default book/mediane)
+  var line = prompt('Ligne ? (defaut : book ou mediane)', String(data.line));
   if(line === null) return;
   var lineNum = parseFloat(line);
   if(isNaN(lineNum)){{ alert('Ligne invalide'); return; }}
+  // Prompt 2 : cote a laquelle TU vas le jouer (defaut : cote book US si dispo)
+  var defaultCote = direction === 'over' ? data.book_over : data.book_under;
+  var cotePrompt = 'Cote a laquelle tu vas le jouer ?' +
+                   (defaultCote ? ' (book US affiche : ' + defaultCote + ')' : '');
+  var cote = prompt(cotePrompt, defaultCote ? String(defaultCote) : '1.90');
+  if(cote === null) return;
+  var coteNum = parseFloat(cote);
+  if(isNaN(coteNum) || coteNum <= 1.0){{ alert('Cote invalide (doit etre > 1.0)'); return; }}
   var pick = {{
     id:        'user_' + Date.now() + '_' + Math.random().toString(36).slice(2, 8),
     sport:     data.sport,
@@ -3214,6 +3234,7 @@ function addUserPick(btn){{
     prop:      data.prop,
     direction: direction,
     line:      lineNum,
+    cote:      coteNum,
     home:      data.home,
     away:      data.away,
     game_id:   data.game_id,
@@ -3221,6 +3242,8 @@ function addUserPick(btn){{
     median:    data.median,
     mean:      data.mean,
     book_line: data.book_line,
+    book_over: data.book_over,
+    book_under:data.book_under,
     created:   new Date().toISOString(),
     result:    null,
     actual:    null,
@@ -3231,12 +3254,13 @@ function addUserPick(btn){{
   _saveUserPicks(arr);
   // Confirmation visuelle
   var origBg = btn.style.background;
+  var origHTML = btn.innerHTML;
   btn.style.background = '#0a1628';
-  btn.innerHTML = '✓ Ajoute !';
+  btn.innerHTML = '✓ @ ' + coteNum + ' ajoute !';
   setTimeout(function(){{
     btn.style.background = origBg;
-    btn.innerHTML = (direction === 'over' ? '📌 Add OVER ' : '📌 Add UNDER ') + lineNum;
-  }}, 1500);
+    btn.innerHTML = origHTML;
+  }}, 1800);
 }}
 
 function deleteUserPick(id){{
@@ -3270,17 +3294,26 @@ function renderUserPicks(){{
     if(a.result && !b.result) return 1;
     return (b.created || '').localeCompare(a.created || '');
   }});
-  // Stats : WR + ROI sur les resolus
+  // Stats : WR + ROI sur les resolus (ROI calcule avec la cote saisie par l'user)
   var resolved = arr.filter(p => p.result === 'WIN' || p.result === 'LOSS');
   var wins = resolved.filter(p => p.result === 'WIN').length;
   var losses = resolved.filter(p => p.result === 'LOSS').length;
   var wr = (wins + losses) > 0 ? Math.round(wins / (wins + losses) * 100) : 0;
   var wrColor = wr >= 55 ? '#22c55e' : (wr >= 50 ? '#84cc16' : '#ef4444');
+  var roiUnits = 0;
+  resolved.forEach(function(p){{
+    if(p.result === 'WIN' && p.cote){{ roiUnits += (p.cote - 1); }}
+    else if(p.result === 'LOSS'){{ roiUnits -= 1; }}
+  }});
+  var roiPct = resolved.length > 0 ? (roiUnits / resolved.length * 100) : 0;
+  var roiColor = roiUnits > 0 ? '#22c55e' : (roiUnits < 0 ? '#ef4444' : '#94a3b8');
+  var roiSign = roiUnits >= 0 ? '+' : '';
   var summary = '';
   if(resolved.length > 0){{
     summary = '<div style="background:#0f172a;border-radius:10px;padding:14px;margin-bottom:14px;display:flex;gap:18px;flex-wrap:wrap;align-items:center">'
       + '<div><div style="color:#64748b;font-size:11px">RESOLUS</div><div style="color:#f1f5f9;font-size:20px;font-weight:800">' + resolved.length + '</div></div>'
       + '<div><div style="color:#64748b;font-size:11px">WIN RATE</div><div style="color:' + wrColor + ';font-size:20px;font-weight:800">' + wr + '%</div><div style="color:#64748b;font-size:10px">' + wins + 'W / ' + losses + 'L</div></div>'
+      + '<div><div style="color:#64748b;font-size:11px">ROI</div><div style="color:' + roiColor + ';font-size:20px;font-weight:800">' + roiSign + roiUnits.toFixed(2) + 'u</div><div style="color:#64748b;font-size:10px">' + roiSign + roiPct.toFixed(1) + '%</div></div>'
       + '<div><div style="color:#64748b;font-size:11px">PENDING</div><div style="color:#fb923c;font-size:20px;font-weight:800">' + (arr.length - resolved.length) + '</div></div>'
       + '</div>';
   }}
@@ -3299,11 +3332,21 @@ function renderUserPicks(){{
     var dir = p.direction === 'over' ? 'plus de' : 'moins de';
     var propLabel = ({{PTS:'pts',REB:'reb',AST:'pas',FG3M:'3PM',PR:'pts+reb',PA:'pts+ast',PRA:'PRA'}})[p.prop] || p.prop;
     var label = p.player + ' ' + dir + ' ' + p.line + ' ' + propLabel;
+    // Badge cote
+    var coteBadge = p.cote ? '<span style="background:#1e3a5f;color:#60a5fa;border:1px solid #2563eb;border-radius:6px;padding:2px 8px;font-size:12px;font-weight:700;margin-left:6px">📊 ' + p.cote.toFixed(2) + '</span>' : '';
+    // Gain/perte si resolu
+    var deltaInfo = '';
+    if(p.result === 'WIN' && p.cote){{
+      deltaInfo = '<span style="color:#22c55e;font-weight:700">+' + (p.cote - 1).toFixed(2) + 'u</span>';
+    }} else if(p.result === 'LOSS'){{
+      deltaInfo = '<span style="color:#ef4444;font-weight:700">-1u</span>';
+    }}
     // Build telegram text
     var tgText = '🎯 PICK PERSO\\n\\n' +
                  '🏀 ' + p.away + ' @ ' + p.home + '\\n\\n' +
-                 '📌 ' + label + '\\n' +
-                 '📊 Mediane L20 : ' + p.median + ' · Moyenne : ' + p.mean;
+                 '📌 ' + label;
+    if(p.cote) tgText += ' @ ' + p.cote.toFixed(2);
+    tgText += '\\n📊 Mediane L20 : ' + p.median + ' · Moyenne : ' + p.mean;
     if(p.book_line !== null && p.book_line !== undefined) tgText += '\\n💰 Ligne book : ' + p.book_line;
     var tgEsc = tgText.replace(/"/g, '&quot;');
     return (
@@ -3314,6 +3357,8 @@ function renderUserPicks(){{
       + '<span style="background:#fb923c;color:#0a1628;border-radius:4px;padding:2px 6px;font-size:10px;font-weight:800">🧑 USER</span>'
       + resultBadge
       + '<span style="color:#f1f5f9;font-weight:700;font-size:14px">' + label + '</span>'
+      + coteBadge
+      + (deltaInfo ? ' &nbsp;' + deltaInfo : '')
       + '</div>'
       + '<div style="color:#64748b;font-size:12px">'
       + p.away + ' @ ' + p.home + ' · Méd ' + p.median + ' · Moy ' + p.mean
