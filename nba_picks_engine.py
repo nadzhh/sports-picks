@@ -313,10 +313,34 @@ def player_props(player, ctx=None, real_lines=None, match_ctx=None):
     h2h_games = [g for g in games if opp_abbr_for_h2h and g.get("opp", "").upper() == opp_abbr_for_h2h.upper()]
     venue_games = [g for g in games if bool(g.get("is_home")) == is_home]
 
+    # ─── Detection contexte playoff series (inspire analyse Twitter Harden) ──
+    # Si on a >=2 matchs vs ce meme adversaire dans les 7 derniers matchs du
+    # joueur, c'est probablement une serie en cours. Dans ce cas :
+    # - H2H devient TRES significatif (memes joueurs, memes systemes)
+    # - On regarde l'etat de la serie : si l'equipe du joueur est down
+    #   (plus de defaites que de victoires recentes), URGENCE -> star
+    #   usage etend.
+    recent_h2h = [g for g in games[:7] if opp_abbr_for_h2h and g.get("opp","").upper() == opp_abbr_for_h2h.upper()]
+    is_series = len(recent_h2h) >= 2
+    series_state = None   # 'down' / 'tied' / 'up' / None
+    series_urgency = False
+    if is_series:
+        wins_in_series = sum(1 for g in recent_h2h if (g.get("result") or "") == "W")
+        losses_in_series = sum(1 for g in recent_h2h if (g.get("result") or "") == "L")
+        if losses_in_series > wins_in_series:
+            series_state = "down"
+            series_urgency = True
+        elif wins_in_series > losses_in_series:
+            series_state = "up"
+        else:
+            series_state = "tied"
+
     def stats_for(extractor, season_value, prop_key=None):
+        l3_vals  = [extractor(g) for g in games[:3]]
         l5_vals  = [extractor(g) for g in l5]
         l10_vals = [extractor(g) for g in l10]
         l20_vals = [extractor(g) for g in l20]
+        l3_mean  = mean(l3_vals) if l3_vals else None
         l5_mean  = mean(l5_vals) if l5_vals else None
         l10_mean = mean(l10_vals) if l10_vals else None
         # Sigma : stdev sur L20 (plus stable), floor 15% du mean (anti-overconfidence)
@@ -356,14 +380,38 @@ def player_props(player, ctx=None, real_lines=None, match_ctx=None):
                     ratio = max(0.93, min(1.07, ratio))
                     mu = mu * ratio
 
-        # H2H adjustment : si on a >=3 matchs vs ce meme adversaire ET
-        # le h2h_mean diverge >10% du global, applique un ratio borne a [0.92, 1.08].
+        # H2H adjustment : en serie playoff (>=2 matchs vs cet adversaire dans
+        # les 7 derniers), H2H tres significatif -> seuil baisse a 2 matchs et
+        # cap a [0.90, 1.10]. Sinon, seuil >=3 et cap a [0.92, 1.08].
         if mu is not None and h2h_mean is not None and global_mean_for_ratio:
-            if len(h2h_vals) >= 3 and global_mean_for_ratio > 0:
+            min_h2h = 2 if is_series else 3
+            cap_lo, cap_hi = (0.90, 1.10) if is_series else (0.92, 1.08)
+            if len(h2h_vals) >= min_h2h and global_mean_for_ratio > 0:
                 ratio = h2h_mean / global_mean_for_ratio
                 if abs(ratio - 1.0) > 0.10:
-                    ratio = max(0.92, min(1.08, ratio))
+                    ratio = max(cap_lo, min(cap_hi, ratio))
                     mu = mu * ratio
+
+        # ─── Bounce back : si L3 << season_mean (slump recent), regression a ──
+        # la moyenne attendue. Cas Harden : 9 puis 15 pts vs saison 20. L3
+        # bien sous le season -> on boost mu vers la saison.
+        # Seuils : L3 < 70% du season AND season > 0 AND assez de games saison.
+        gp = (player.get("season_avg") or {}).get("GP", 0) or 0
+        if (mu is not None and l3_mean is not None and season_value
+                and gp >= 8 and season_value > 0):
+            if l3_mean < season_value * 0.70:
+                # Boost mu vers la moyenne saison (5-8% selon severity)
+                severity = max(0, (0.70 - l3_mean/season_value))  # 0 a 0.70
+                bounce_boost = min(0.08, severity * 0.15)  # cap 8%
+                mu = mu * (1 + bounce_boost)
+
+        # ─── Series urgency : team de l'user down -> star usage etend ────────
+        # Cas Cavs 0-1 -> coach va plus utiliser ses stars. On boost mu 3-5%
+        # mais SEULEMENT pour les players a fort usage (>= 25 min/match saison).
+        if mu is not None and series_urgency:
+            mins_per_game = (player.get("season_avg") or {}).get("MIN", 0) or 0
+            if mins_per_game >= 25:
+                mu = mu * 1.04  # 4% boost
 
         # Hit rate sur L20 brut (non-ajuste) pour blending
         return mu, sigma, l5_mean, l10_mean, l20_vals, h2h_mean, venue_mean, len(h2h_vals), len(venue_vals)
@@ -552,12 +600,28 @@ def player_props(player, ctx=None, real_lines=None, match_ctx=None):
                 # H2H + Venue stats (style Outlier) pour ce prop
                 h2h_mean, venue_mean, n_h2h, n_ven = SPLITS.get(prop_key, (None, None, 0, 0))
                 split_parts = []
-                if n_h2h >= 3 and h2h_mean is not None:
-                    split_parts.append(f"H2H vs {opp_abbr_for_h2h} (n={n_h2h}) : {round(h2h_mean,1)}")
+                # Seuil H2H plus permissif en contexte playoff serie
+                min_h2h_display = 2 if is_series else 3
+                if n_h2h >= min_h2h_display and h2h_mean is not None:
+                    h2h_label = f"H2H vs {opp_abbr_for_h2h}"
+                    if is_series: h2h_label += f" (série {series_state})" if series_state else " (série)"
+                    split_parts.append(f"{h2h_label} (n={n_h2h}) : {round(h2h_mean,1)}")
                 venue_label = "domicile" if is_home else "exterieur"
                 if n_ven >= 5 and venue_mean is not None:
                     split_parts.append(f"{venue_label.capitalize()} (n={n_ven}) : {round(venue_mean,1)}")
                 splits_str = (" · " + " · ".join(split_parts)) if split_parts else ""
+
+                # ─── Bounce back signal (per prop) : L3 << season pour CE prop ──
+                l3_for_prop = vals[:3]
+                l3_mean_prop = sum(l3_for_prop) / len(l3_for_prop) if l3_for_prop else 0
+                bounce_back = None
+                if season_v and season_v > 0 and l3_mean_prop > 0:
+                    if l3_mean_prop < season_v * 0.70:
+                        slump_pct = round((1 - l3_mean_prop / season_v) * 100)
+                        bounce_back = (
+                            f"L3 {round(l3_mean_prop,1)} vs saison {round(season_v,1)} "
+                            f"(-{slump_pct}%) → bounce back attendu"
+                        )
 
                 # Kelly Criterion : f* = (b*p - q)/b avec b = cote-1, p = prob, q = 1-p.
                 # Capped a 5% bankroll (fractional Kelly 1/4 pour reduire variance).
@@ -628,6 +692,11 @@ def player_props(player, ctx=None, real_lines=None, match_ctx=None):
                     "rotation_warning": rotation_warning,  # flag si joueur passe bench
                     "last_min_warning": last_min_warning,  # dernier match MIN<<mediane
                     "book_divergence_warning": book_divergence_warning,  # book line << notre mu
+                    # Signaux positifs inspires de l'analyse Twitter Harden
+                    "bounce_back":   bounce_back,        # L3 << saison, mean reversion
+                    "is_series":     is_series,          # match en serie playoff
+                    "series_state":  series_state,       # "down" / "tied" / "up"
+                    "series_urgency": series_urgency,    # team down -> star usage etend
                     # H2H + Venue (style Outlier)
                     "h2h_avg":  round(h2h_mean, 1)   if h2h_mean   is not None else None,
                     "h2h_n":    n_h2h,

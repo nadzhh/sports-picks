@@ -1773,6 +1773,32 @@ def build_nba_card(game):
                 f'🤔 {book_div_warning}'
                 f'</div>'
             )
+        # Signal POSITIF : bounce back attendu (L3 << saison)
+        bounce_back = p.get("bounce_back", "")
+        if bounce_back:
+            rot_html += (
+                f'<div style="color:#22d3ee;font-size:11px;font-weight:700;margin-top:3px;'
+                f'background:rgba(34,211,238,0.10);border-left:2px solid #22d3ee;padding:3px 7px;border-radius:3px">'
+                f'🔥 Bounce back : {bounce_back}'
+                f'</div>'
+            )
+        # Signal POSITIF : serie playoff en cours
+        if p.get("is_series"):
+            ss = p.get("series_state", "")
+            urgency = p.get("series_urgency", False)
+            if urgency:
+                rot_html += (
+                    f'<div style="color:#f97316;font-size:11px;font-weight:700;margin-top:3px;'
+                    f'background:rgba(249,115,22,0.10);border-left:2px solid #f97316;padding:3px 7px;border-radius:3px">'
+                    f'⚡ Série {ss} : équipe doit step up, star usage probablement étendu'
+                    f'</div>'
+                )
+            elif ss == "up":
+                rot_html += (
+                    f'<div style="color:#94a3b8;font-size:11px;font-weight:600;margin-top:3px">'
+                    f'🏆 Série {ss} (avantage)'
+                    f'</div>'
+                )
 
         # Argument defensif (faille/force de l'adversaire)
         def_argument = p.get("def_argument", "")
