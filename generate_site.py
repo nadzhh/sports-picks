@@ -1904,77 +1904,85 @@ def _compose_prop_value(g, prop):
     }.get(prop, 0)
 
 
+def _build_prop_chart_bars(games_window, ref_line, chart_max, with_labels=True):
+    """Construit la zone bar-chart (bars + labels). Helper interne, factorise
+    pour pouvoir reutiliser sur L5/L10/L20."""
+    CHART_PX = 120
+    if not games_window or chart_max <= 0:
+        return f'<div style="color:#475569;font-size:12px;padding:10px;text-align:center">Pas assez de games</div>'
+    n = len(games_window)
+    # Adapte gap et font selon la densite
+    gap = 6 if n <= 5 else (3 if n <= 10 else 2)
+    font_val = 13 if n <= 5 else (11 if n <= 10 else 9)
+    font_lbl = 10 if n <= 5 else (9 if n <= 10 else 8)
+    bars_html = ""
+    labels_html = ""
+    for g, val in games_window:
+        pct_h = (val / chart_max) * 100 if chart_max else 0
+        bar_px = max(4, round(pct_h * CHART_PX / 100))
+        is_hit = val > ref_line
+        color = "#22c55e" if is_hit else "#ef4444"
+        date_short = (g.get("date","")[:10][-5:] or "?").replace("-","/")
+        opp = (g.get("opp","?") or "?")[:4]
+        loc = "vs" if g.get("is_home") else "@"
+        bars_html += (
+            f'<div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;min-width:0">'
+            f'<div style="color:#f1f5f9;font-size:{font_val}px;font-weight:700;margin-bottom:3px">{int(val)}</div>'
+            f'<div style="width:100%;background:{color};height:{bar_px}px;border-radius:3px 3px 0 0"></div>'
+            f'</div>'
+        )
+        if with_labels:
+            label_text = f'{date_short}<br>{loc} {opp}' if n <= 10 else f'{loc}{opp}'
+            labels_html += (
+                f'<div style="flex:1;color:#475569;font-size:{font_lbl}px;text-align:center;line-height:1.3;padding-top:5px;min-width:0;overflow:hidden">'
+                f'{label_text}</div>'
+            )
+    ref_px = round((ref_line / chart_max) * CHART_PX) if chart_max else 0
+    return (
+        f'<div style="position:relative;height:{CHART_PX + 22}px">'
+        f'<div style="display:flex;gap:{gap}px;align-items:flex-end;height:{CHART_PX + 18}px">{bars_html}</div>'
+        f'<div style="position:absolute;left:0;right:0;bottom:{ref_px}px;border-top:2px dashed #fb923c;pointer-events:none">'
+        f'<span style="position:absolute;right:0;top:-9px;background:#fb923c;color:#0a1628;font-size:10px;font-weight:700;padding:1px 6px;border-radius:3px">{ref_line}</span>'
+        f'</div>'
+        f'</div>'
+        f'<div style="display:flex;gap:{gap}px">{labels_html}</div>' if with_labels else ''
+    )
+
+
 def _build_prop_chart(player, prop, opp_abbr, book_line=None):
-    """Construit le HTML d'une vue prop (bar chart L5 + stats badges + lignes ref)."""
+    """Construit le HTML d'une vue prop : badges hit rates + 3 bar charts
+    (L5/L10/L20) selectionnables. Affiche L5 par defaut."""
     games = player.get("l10_games", [])
+    games = [g for g in games if (g.get("MIN") or 0) > 0]
     if not games:
         return '<div style="color:#475569;font-size:12px;padding:10px">Pas de stats dispo</div>'
 
-    # Series de valeurs
-    l20_vals = [_compose_prop_value(g, prop) for g in games[:20] if (g.get("MIN") or 0) > 0]
-    l10_vals = l20_vals[:10]
-    l5_vals  = l20_vals[:5]
-    # H2H (matchs vs cet adversaire dans le L20)
-    h2h_vals = [_compose_prop_value(g, prop)
-                for g in games[:20]
-                if opp_abbr and (g.get("opp","") or "").upper() == opp_abbr.upper() and (g.get("MIN") or 0) > 0]
-    # Mediane + moyenne
+    # Series de valeurs (avec games associes)
+    pairs_l20 = [(g, _compose_prop_value(g, prop)) for g in games[:20]]
+    pairs_l10 = pairs_l20[:10]
+    pairs_l5  = pairs_l20[:5]
+    l20_vals = [v for _, v in pairs_l20]
+    l10_vals = [v for _, v in pairs_l10]
+    l5_vals  = [v for _, v in pairs_l5]
+
+    h2h_pairs = [(g, _compose_prop_value(g, prop))
+                 for g in games[:20]
+                 if opp_abbr and (g.get("opp","") or "").upper() == opp_abbr.upper()]
+    h2h_vals = [v for _, v in h2h_pairs]
+
     median = sorted(l20_vals)[len(l20_vals)//2] if l20_vals else 0
     mean   = round(sum(l20_vals)/len(l20_vals), 1) if l20_vals else 0
-
-    # Reference line : book line si dispo, sinon mediane
     ref_line = book_line if book_line is not None else median
 
-    # Hit rates : % au-dessus de la ref_line
     def _hr(vals):
         if not vals: return None, 0, 0
         hits = sum(1 for v in vals if v > ref_line)
         return round(hits/len(vals)*100), hits, len(vals)
+    hr5  = _hr(l5_vals)
     hr10 = _hr(l10_vals)
     hr20 = _hr(l20_vals)
     hr_h2h = _hr(h2h_vals)
 
-    # Bar chart : on prend les 5 derniers
-    if not l5_vals:
-        return '<div style="color:#475569;font-size:12px;padding:10px">Pas assez de games</div>'
-    chart_max = max(l5_vals + [ref_line])
-    if chart_max <= 0: chart_max = 1
-    # Hauteur fixe de la zone chart (en pixels). Les % de hauteur des bars
-    # seront calcules par rapport a cette zone (pas tout le container).
-    CHART_PX = 120
-
-    # Build bars : recents a gauche (du plus recent au plus ancien)
-    bars_html = ""
-    labels_html = ""
-    games_show = games[:5]
-    for g in games_show:
-        val = _compose_prop_value(g, prop)
-        pct_h = (val / chart_max) * 100 if chart_max else 0
-        bar_px = max(8, round(pct_h * CHART_PX / 100))
-        is_hit = val > ref_line
-        color = "#22c55e" if is_hit else "#ef4444"
-        date_short = (g.get("date","")[:10][-5:] or "?").replace("-","/")
-        opp = g.get("opp","?") or "?"
-        loc = "vs" if g.get("is_home") else "@"
-        # Une "colonne" : valeur au-dessus du bar, bar avec hauteur en px
-        bars_html += (
-            f'<div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end">'
-            f'<div style="color:#f1f5f9;font-size:13px;font-weight:700;margin-bottom:3px">{int(val)}</div>'
-            f'<div style="width:100%;background:{color};height:{bar_px}px;border-radius:4px 4px 0 0;'
-            f'box-shadow:0 -2px 8px rgba(0,0,0,0.2)"></div>'
-            f'</div>'
-        )
-        labels_html += (
-            f'<div style="flex:1;color:#475569;font-size:10px;text-align:center;line-height:1.3;padding-top:6px">'
-            f'{date_short}<br>{loc} {opp}'
-            f'</div>'
-        )
-
-    # Ligne de reference horizontale (positionnement absolu, en px depuis le bas)
-    ref_px = round((ref_line / chart_max) * CHART_PX) if chart_max else 0
-    line_label = f"Ligne {ref_line}" if book_line is not None else f"Médiane {ref_line}"
-
-    # Badges hit rates
     def _badge(label, hr_tuple, target=70):
         if hr_tuple[0] is None:
             return f'<span style="color:#475569;font-size:11px;margin-right:8px">{label}: —</span>'
@@ -1983,37 +1991,43 @@ def _build_prop_chart(player, prop, opp_abbr, book_line=None):
         return f'<span style="color:{color};font-size:11px;font-weight:700;margin-right:8px">{label}: {pct}%<span style="color:#64748b;font-weight:400"> ({w}/{n})</span></span>'
 
     badges = (
+        _badge("L5", hr5) +
         _badge("L10", hr10) +
         _badge("L20", hr20) +
-        (_badge(f"H2H {opp_abbr}", hr_h2h) if opp_abbr else "") +
-        f'<span style="color:#94a3b8;font-size:11px">Médiane <b>{median}</b> · Moyenne <b>{mean}</b></span>'
+        (_badge(f"H2H {opp_abbr}", hr_h2h) if opp_abbr and hr_h2h[0] is not None else "") +
+        f'<span style="color:#94a3b8;font-size:11px">Méd. <b>{median}</b> · Moy. <b>{mean}</b></span>'
     )
+
+    # Build les 3 charts (L5/L10/L20) avec leur propre chart_max
+    chart_blocks = ""
+    for window_key, pairs, with_lbl in [("L5", pairs_l5, True), ("L10", pairs_l10, True), ("L20", pairs_l20, False)]:
+        if not pairs:
+            content = '<div style="color:#475569;font-size:12px;padding:10px;text-align:center">Pas assez de games</div>'
+        else:
+            window_vals = [v for _, v in pairs]
+            cmax = max(window_vals + [ref_line])
+            if cmax <= 0: cmax = 1
+            content = _build_prop_chart_bars(pairs, ref_line, cmax, with_labels=with_lbl)
+        display = "block" if window_key == "L5" else "none"
+        chart_blocks += (
+            f'<div class="tg-window-block" data-window="{window_key}" style="display:{display}">{content}</div>'
+        )
 
     return (
-        f'<div style="padding:8px 4px">'
+        f'<div style="padding:6px 4px">'
         # Badges en haut
         f'<div style="margin-bottom:8px;display:flex;flex-wrap:wrap;gap:4px;align-items:center">{badges}</div>'
-        # Zone chart : container avec hauteur fixe + ligne ref en absolu
-        f'<div style="background:#0a1628;border-radius:8px;padding:10px 12px 4px">'
-        f'<div style="position:relative;height:{CHART_PX + 25}px">'
-        # Container des bars (hauteur exacte CHART_PX + 18px pour la valeur au-dessus)
-        f'<div style="display:flex;gap:6px;align-items:flex-end;height:{CHART_PX + 18}px">'
-        f'{bars_html}'
-        f'</div>'
-        # Ligne de reference horizontale (positionnement absolu)
-        f'<div style="position:absolute;left:0;right:0;bottom:{ref_px}px;border-top:2px dashed #fb923c;pointer-events:none">'
-        f'<span style="position:absolute;right:0;top:-9px;background:#fb923c;color:#0a1628;font-size:10px;font-weight:700;padding:1px 6px;border-radius:3px">{line_label}</span>'
-        f'</div>'
-        f'</div>'
-        # Labels sous les bars
-        f'<div style="display:flex;gap:6px">{labels_html}</div>'
+        # Zone chart container
+        f'<div style="background:#0a1628;border-radius:8px;padding:10px 12px 6px">'
+        f'{chart_blocks}'
         f'</div>'
         f'</div>'
     )
 
 
-def _build_player_analyse_card(player, opp_abbr, odds_for_player, side_label):
-    """Card d'analyse joueur : selecteur de prop + bar chart visible (1 seul a la fois)."""
+def _build_player_analyse_card(player, opp_abbr, odds_for_player, side_label, is_starter=True):
+    """Card d'analyse joueur. Starters : expanded par defaut. Bench : collapsed
+    (juste le nom + min). Clic sur header = toggle expand."""
     name = player.get("name", "?")
     pos = player.get("position", "")
     season = player.get("season_avg", {}) or {}
@@ -2021,40 +2035,66 @@ def _build_player_analyse_card(player, opp_abbr, odds_for_player, side_label):
     pos_b = pos_badge(pos) if pos else ""
     safe_id = "".join(c for c in name if c.isalnum())
 
-    # Pour chaque prop, recupere la ligne bookmaker si dispo
     PROPS = ["PTS", "REB", "AST", "FG3M", "PR", "PA", "PRA"]
     prop_labels = {"PTS":"PTS","REB":"REB","AST":"AST","FG3M":"3PM","PR":"PTS+REB","PA":"PTS+AST","PRA":"PTS+REB+AST"}
 
     # Boutons prop
-    btns = ""
+    prop_btns = ""
     for i, pr in enumerate(PROPS):
         active = "tg-prop-active" if i == 0 else ""
-        btns += (
-            f'<button class="tg-prop-btn {active}" data-target="prop-{safe_id}-{pr}" '
+        prop_btns += (
+            f'<button class="tg-prop-btn {active}" data-prop="{pr}" '
             f'onclick="selectPropChart(this)" '
             f'style="background:#1e293b;color:#94a3b8;border:1px solid #334155;border-radius:6px;padding:4px 10px;'
-            f'font-size:11px;font-weight:700;cursor:pointer;margin-right:4px">{prop_labels[pr]}</button>'
+            f'font-size:11px;font-weight:700;cursor:pointer">{prop_labels[pr]}</button>'
         )
 
-    # Contenu de chaque prop
+    # Boutons fenetre L5/L10/L20
+    window_btns = ""
+    for w in ["L5", "L10", "L20"]:
+        active = "tg-window-active" if w == "L5" else ""
+        window_btns += (
+            f'<button class="tg-window-btn {active}" data-window="{w}" '
+            f'onclick="selectWindow(this)" '
+            f'style="background:#1e293b;color:#94a3b8;border:1px solid #334155;border-radius:6px;padding:4px 10px;'
+            f'font-size:11px;font-weight:700;cursor:pointer">{w}</button>'
+        )
+
+    # Contenus : pour chaque prop, on inclut les 3 windows (L5/L10/L20).
+    # Affichage controle par le combo data-prop + data-window.
     contents = ""
     for i, pr in enumerate(PROPS):
         book_data = (odds_for_player or {}).get(pr)
         book_line = book_data.get("line") if book_data else None
         chart_html = _build_prop_chart(player, pr, opp_abbr, book_line)
-        display = "block" if i == 0 else "none"
-        contents += f'<div id="prop-{safe_id}-{pr}" class="tg-prop-content" style="display:{display}">{chart_html}</div>'
+        prop_display = "block" if i == 0 else "none"
+        contents += (
+            f'<div class="tg-prop-content" data-prop="{pr}" style="display:{prop_display}">{chart_html}</div>'
+        )
+
+    content_display = "block" if is_starter else "none"
+    arrow = "▼" if is_starter else "▶"
+    starter_badge = '<span style="background:#16a34a;color:#fff;border-radius:3px;padding:1px 5px;font-size:9px;font-weight:800;margin-left:4px">TITULAIRE</span>' if is_starter else ""
 
     return (
-        f'<div class="player-analyse" style="background:#162032;border-radius:10px;padding:12px 14px;margin-bottom:10px;border-left:3px solid #3b82f6">'
-        f'<div style="display:flex;align-items:center;flex-wrap:wrap;gap:6px;margin-bottom:8px">'
-        f'<span style="font-size:11px;color:#475569;font-weight:700">{side_label}</span>'
+        f'<div class="player-analyse" style="background:#162032;border-radius:10px;padding:10px 14px;margin-bottom:8px;'
+        f'border-left:3px solid {"#3b82f6" if is_starter else "#475569"}">'
+        # Header (cliquable pour toggle expand)
+        f'<div class="player-header" onclick="togglePlayerExpand(this)" '
+        f'style="display:flex;align-items:center;flex-wrap:wrap;gap:6px;cursor:pointer;user-select:none">'
+        f'<span class="expand-arrow" style="color:#64748b;font-size:11px;width:14px">{arrow}</span>'
+        f'<span style="font-size:10px;color:#475569;font-weight:700">{side_label}</span>'
         f'{pos_b}'
-        f'<span style="color:#f1f5f9;font-weight:700;font-size:15px">{name}</span>'
-        f'<span style="color:#64748b;font-size:12px">· {round(mins,1) if mins else "?"} min/match</span>'
+        f'<span style="color:#f1f5f9;font-weight:700;font-size:14px">{name}</span>'
+        f'{starter_badge}'
+        f'<span style="color:#64748b;font-size:11px;margin-left:auto">{round(mins,1) if mins else "?"} min</span>'
         f'</div>'
-        f'<div style="margin-bottom:8px;display:flex;flex-wrap:wrap;gap:4px">{btns}</div>'
+        # Bloc expandable
+        f'<div class="player-content" style="display:{content_display};margin-top:10px">'
+        f'<div style="display:flex;flex-wrap:wrap;gap:4px;margin-bottom:6px">{prop_btns}</div>'
+        f'<div style="display:flex;flex-wrap:wrap;gap:4px;margin-bottom:8px">{window_btns}</div>'
         f'{contents}'
+        f'</div>'
         f'</div>'
     )
 
@@ -2075,20 +2115,22 @@ def build_nba_analyse_section(nba_picks_data, nba_player_stats, nba_odds):
         away = mdata.get("away_team", "?")
         home_abbr = mdata.get("home_abbr") or ""
         away_abbr = mdata.get("away_abbr") or ""
-        # Top 8 joueurs par minutes/cote
+        # Top 12 joueurs par minutes : 5 premiers expanded (starters), reste collapsed
         home_players = sorted(mdata.get("home_players", []),
-                              key=lambda p: (p.get("season_avg",{}) or {}).get("MIN", 0), reverse=True)[:8]
+                              key=lambda p: (p.get("season_avg",{}) or {}).get("MIN", 0), reverse=True)[:12]
         away_players = sorted(mdata.get("away_players", []),
-                              key=lambda p: (p.get("season_avg",{}) or {}).get("MIN", 0), reverse=True)[:8]
+                              key=lambda p: (p.get("season_avg",{}) or {}).get("MIN", 0), reverse=True)[:12]
         odds_for_game = nba_odds.get(gid) or nba_odds.get(str(gid)) or {}
 
         home_cards = "".join(
-            _build_player_analyse_card(p, opp_abbr=away_abbr, odds_for_player=odds_for_game.get(p.get("name","")), side_label=f"🏠 {home}")
-            for p in home_players
+            _build_player_analyse_card(p, opp_abbr=away_abbr, odds_for_player=odds_for_game.get(p.get("name","")),
+                                       side_label=f"🏠 {home}", is_starter=(i < 5))
+            for i, p in enumerate(home_players)
         )
         away_cards = "".join(
-            _build_player_analyse_card(p, opp_abbr=home_abbr, odds_for_player=odds_for_game.get(p.get("name","")), side_label=f"✈️ {away}")
-            for p in away_players
+            _build_player_analyse_card(p, opp_abbr=home_abbr, odds_for_player=odds_for_game.get(p.get("name","")),
+                                       side_label=f"✈️ {away}", is_starter=(i < 5))
+            for i, p in enumerate(away_players)
         )
         cards += (
             f'<div style="background:#0f172a;border-radius:14px;margin-bottom:18px;padding:14px 18px;box-shadow:0 4px 20px rgba(0,0,0,0.4)">'
@@ -2803,36 +2845,58 @@ function showSport(sport){{
   if(btn) btn.classList.add('active');
 }}
 
-// ── Section Analyse : switch entre PTS/REB/AST/3PM/PR/PA/PRA pour 1 joueur ──
+// ── Section Analyse : selection prop (PTS/REB/...) + fenetre (L5/L10/L20) ──
+function _stylePropBtn(btn, active){{
+  btn.style.background = active ? '#3b82f6' : '#1e293b';
+  btn.style.color      = active ? '#fff'    : '#94a3b8';
+  btn.style.borderColor= active ? '#3b82f6' : '#334155';
+  btn.classList.toggle('tg-prop-active', active);
+}}
+function _styleWindowBtn(btn, active){{
+  btn.style.background = active ? '#fb923c' : '#1e293b';
+  btn.style.color      = active ? '#0a1628' : '#94a3b8';
+  btn.style.borderColor= active ? '#fb923c' : '#334155';
+  btn.classList.toggle('tg-window-active', active);
+}}
+
 function selectPropChart(btn){{
   var card = btn.closest('.player-analyse');
   if(!card) return;
-  // Reset tous les boutons
-  card.querySelectorAll('.tg-prop-btn').forEach(b=>{{
-    b.classList.remove('tg-prop-active');
-    b.style.background = '#1e293b';
-    b.style.color = '#94a3b8';
-    b.style.borderColor = '#334155';
+  card.querySelectorAll('.tg-prop-btn').forEach(b=>_stylePropBtn(b, false));
+  _stylePropBtn(btn, true);
+  // Affiche le content du prop selectionne
+  var prop = btn.dataset.prop;
+  card.querySelectorAll('.tg-prop-content').forEach(c=>{{
+    c.style.display = (c.dataset.prop === prop) ? 'block' : 'none';
   }});
-  // Active le clique
-  btn.classList.add('tg-prop-active');
-  btn.style.background = '#3b82f6';
-  btn.style.color = '#fff';
-  btn.style.borderColor = '#3b82f6';
-  // Hide tous les contenus
-  card.querySelectorAll('.tg-prop-content').forEach(c=>c.style.display='none');
-  // Show le target
-  var target = document.getElementById(btn.dataset.target);
-  if(target) target.style.display = 'block';
 }}
 
-// Init : les boutons "tg-prop-active" au chargement ont leur style applique
-window.addEventListener('DOMContentLoaded', function(){{
-  document.querySelectorAll('.tg-prop-btn.tg-prop-active').forEach(b=>{{
-    b.style.background = '#3b82f6';
-    b.style.color = '#fff';
-    b.style.borderColor = '#3b82f6';
+function selectWindow(btn){{
+  var card = btn.closest('.player-analyse');
+  if(!card) return;
+  card.querySelectorAll('.tg-window-btn').forEach(b=>_styleWindowBtn(b, false));
+  _styleWindowBtn(btn, true);
+  // Affiche les blocs du window selectionne (toutes props confondues)
+  var win = btn.dataset.window;
+  card.querySelectorAll('.tg-window-block').forEach(b=>{{
+    b.style.display = (b.dataset.window === win) ? 'block' : 'none';
   }});
+}}
+
+function togglePlayerExpand(headerEl){{
+  var card = headerEl.parentElement;
+  var content = card.querySelector('.player-content');
+  var arrow = headerEl.querySelector('.expand-arrow');
+  if(!content) return;
+  var isHidden = content.style.display === 'none';
+  content.style.display = isHidden ? 'block' : 'none';
+  if(arrow) arrow.textContent = isHidden ? '▼' : '▶';
+}}
+
+// Init : applique le style actif sur les boutons par defaut
+window.addEventListener('DOMContentLoaded', function(){{
+  document.querySelectorAll('.tg-prop-btn.tg-prop-active').forEach(b=>_stylePropBtn(b, true));
+  document.querySelectorAll('.tg-window-btn.tg-window-active').forEach(b=>_styleWindowBtn(b, true));
 }});
 
 // ── Historique : filtrage par periode (boutons "Hier"/"7j"/"30j") ──
