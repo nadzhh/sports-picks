@@ -939,93 +939,6 @@
     }
   },
   {
-    "league": "Serie A",
-    "home": "Fiorentina",
-    "away": "Atalanta",
-    "start_ts": 1779475500,
-    "match_id": "4803410",
-    "page_url": "/matches/atalanta-vs-fiorentina/2en1cd#4803410",
-    "picks": [
-      {
-        "direction": "tirs_(atalanta)_over_11.5",
-        "type": "Tirs (Atalanta)",
-        "label": "Plus de 11.5 tirs Atalanta",
-        "cote": null,
-        "cote_min": 1.27,
-        "value": [
-          "⚠️",
-          "Value serrée",
-          "#f59e0b"
-        ],
-        "confidence": 79,
-        "edge": null,
-        "reasoning": "Atalanta prend 14.8/m [pondere vs opp #14] · adv. concède 12.2/m → attendu ~14.6 (Atalanta favori (#7 vs #14))",
-        "stats": {
-          "expected": 14.6
-        }
-      },
-      {
-        "direction": "sot_under_10.5",
-        "type": "Tirs cadrés (total)",
-        "label": "Moins de 10.5 tirs cadrés total",
-        "cote": null,
-        "cote_min": 1.32,
-        "value": [
-          "💎",
-          "Value correcte",
-          "#84cc16"
-        ],
-        "confidence": 76,
-        "reasoning": "📊 Brut : Fiorentina L10 10.8 (L5 10.8) tirs cadrés/m · Atalanta L10 13.9 (L5 12.0) tirs cadrés/m\n🛡️ Défenses : Fiorentina concède 4.7/m · Atalanta concède 5.1/m\n🎯 Attendu : Fiorentina ~3.8 · Atalanta ~4.8 → total ~8.6\n⚖️ Atalanta favori (#7 vs #14) · Fiorentina forme : W-D-L-D-D · Atalanta forme : L-W-D-L-D",
-        "stats": {
-          "expected_total": 8.6
-        }
-      }
-    ],
-    "home_players": [
-      {
-        "player": "Moise Kean",
-        "position": "F",
-        "is_sub": false,
-        "type": "Buteur",
-        "label": "Moise Kean marque",
-        "team": "home",
-        "cote": null,
-        "book": null,
-        "books": [],
-        "confidence": 46,
-        "reasoning": "8G en 26 matchs (30.8%/match) · xG: 0.58/match",
-        "context": {
-          "weakness": 0.42
-        },
-        "stats": {
-          "goals": 8,
-          "apps": 26
-        }
-      }
-    ],
-    "away_players": [],
-    "fun_picks": [],
-    "top_pick": {
-      "direction": "tirs_(atalanta)_over_11.5",
-      "type": "Tirs (Atalanta)",
-      "label": "Plus de 11.5 tirs Atalanta",
-      "cote": null,
-      "cote_min": 1.27,
-      "value": [
-        "⚠️",
-        "Value serrée",
-        "#f59e0b"
-      ],
-      "confidence": 79,
-      "edge": null,
-      "reasoning": "Atalanta prend 14.8/m [pondere vs opp #14] · adv. concède 12.2/m → attendu ~14.6 (Atalanta favori (#7 vs #14))",
-      "stats": {
-        "expected": 14.6
-      }
-    }
-  },
-  {
     "league": "Coupe de France",
     "home": "Lens",
     "away": "Nice",
@@ -1137,21 +1050,20 @@
         "player": "Jonathan Clauss",
         "position": "M",
         "is_sub": false,
-        "type": "Passeur décisif",
-        "label": "Jonathan Clauss fait une passe décisive",
+        "type": "Joueur décisif",
+        "label": "Jonathan Clauss but ou passe décisive",
         "cote": null,
         "book": null,
         "books": [],
         "confidence": 55,
-        "reasoning": "5 passes décisives en 5 matchs (100.0% de chance/match) · xA moyen 0.46/match · défense fragile",
+        "reasoning": "0 buts + 5 passes décisives en 5 matchs (100.0% de chance/match) · xG+xA: 0.52/match · défense fragile",
         "context": {
           "weakness": 0.67
         },
         "stats": {
+          "goals": 0,
           "assists": 5,
-          "apps": 5,
-          "apm": 1.0,
-          "xapm": 0.46
+          "apps": 5
         },
         "team": "away"
       }
