@@ -2118,19 +2118,20 @@ def _build_prop_chart(player, prop, opp_abbr, book_line=None, match_ctx=None, bo
     player_name = player.get("name", "?")
     ctx = match_ctx or {}
     payload = _json.dumps({
-        "sport":      "NBA",
-        "player":     player_name,
-        "prop":       prop,
-        "line":       ref_line,
-        "home":       ctx.get("home", ""),
-        "away":       ctx.get("away", ""),
-        "game_id":    ctx.get("game_id", ""),
-        "opp":        opp_abbr or "",
-        "median":     median,
-        "mean":       mean,
-        "book_line":  book_line,
-        "book_over":  book_over,
-        "book_under": book_under,
+        "sport":       "NBA",
+        "player":      player_name,
+        "prop":        prop,
+        "line":        ref_line,
+        "home":        ctx.get("home", ""),
+        "away":        ctx.get("away", ""),
+        "game_id":     ctx.get("game_id", ""),
+        "match_date":  ctx.get("match_date", ""),  # CRITIQUE en playoffs (meme matchup multiple)
+        "opp":         opp_abbr or "",
+        "median":      median,
+        "mean":        mean,
+        "book_line":   book_line,
+        "book_over":   book_over,
+        "book_under":  book_under,
     }, ensure_ascii=False)
     payload_esc = _html.escape(payload, quote=True)
     # Affichage des cotes book sur les boutons si dispo
@@ -2339,6 +2340,17 @@ def build_nba_analyse_section(nba_picks_data, nba_player_stats, nba_odds):
             'Pas de stats joueurs NBA disponibles. Lance nba_scraper.py d\'abord.'
             '</div>'
         )
+    # Map game_id -> date YYYY-MM-DD (critique en playoffs : meme matchup tous les 2 jours,
+    # le pick doit etre lie a la BONNE date sinon les stats du mauvais match s'appliquent).
+    import json as _json2
+    _date_by_gid = {}
+    try:
+        with open("data/nba_matches.json", encoding="utf-8") as _mf:
+            for _m in _json2.load(_mf):
+                _gid = _m.get("game_id")
+                _dt  = (_m.get("date") or "")[:10]
+                if _gid: _date_by_gid[str(_gid)] = _dt
+    except Exception: pass
     cards = ""
     for gid, mdata in nba_player_stats.items():
         if gid.startswith("_"): continue
@@ -2354,7 +2366,8 @@ def build_nba_analyse_section(nba_picks_data, nba_player_stats, nba_odds):
         # Enrichissement statut blessure (Tank01) - cache 12h, max ~50 calls/run
         _enrich_players_injury(home_players + away_players)
         odds_for_game = nba_odds.get(gid) or nba_odds.get(str(gid)) or {}
-        match_ctx = {"home": home, "away": away, "game_id": gid}
+        match_date = _date_by_gid.get(str(gid), "")
+        match_ctx = {"home": home, "away": away, "game_id": gid, "match_date": match_date}
 
         home_cards = "".join(
             _build_player_analyse_card(p, opp_abbr=away_abbr, odds_for_player=odds_for_game.get(p.get("name","")),
@@ -4217,29 +4230,30 @@ function addUserPick(btn){{
     payload: data,
     onSubmit: function(r){{
       var pick = {{
-        id:        'user_' + Date.now() + '_' + Math.random().toString(36).slice(2, 8),
-        sport:     data.sport,
-        player:    data.player,
-        prop:      data.prop,
-        direction: direction,
-        line:      r.line,
-        cote:      r.cote,
-        stake:     r.stake,
-        tipster:   r.tipster,
-        note:      r.note,
-        home:      data.home,
-        away:      data.away,
-        game_id:   data.game_id,
-        opp:       data.opp,
-        median:    data.median,
-        mean:      data.mean,
-        book_line: data.book_line,
-        book_over: data.book_over,
-        book_under:data.book_under,
-        created:   new Date().toISOString(),
-        result:    null,
-        actual:    null,
-        source:    'user',
+        id:         'user_' + Date.now() + '_' + Math.random().toString(36).slice(2, 8),
+        sport:      data.sport,
+        player:     data.player,
+        prop:       data.prop,
+        direction:  direction,
+        line:       r.line,
+        cote:       r.cote,
+        stake:      r.stake,
+        tipster:    r.tipster,
+        note:       r.note,
+        home:       data.home,
+        away:       data.away,
+        game_id:    data.game_id,
+        match_date: data.match_date || null,   // critique en playoffs (meme matchup tous les 2j)
+        opp:        data.opp,
+        median:     data.median,
+        mean:       data.mean,
+        book_line:  data.book_line,
+        book_over:  data.book_over,
+        book_under: data.book_under,
+        created:    new Date().toISOString(),
+        result:     null,
+        actual:     null,
+        source:     'user',
       }};
       var arr = _loadUserPicks();
       arr.push(pick);
@@ -4368,73 +4382,100 @@ function _bkFindPlayerBox(byPlayer, playerName){{
   }}
   return undefined;
 }}
+// IMPORTANT (playoffs) : on n'a JAMAIS de fallback "player+prop sans game_id".
+// En playoffs les memes equipes s'affrontent tous les 2 jours → utiliser une cle
+// sans gid resolverait avec les stats du MAUVAIS match. Toujours exact gid match.
 function autoResolveUserPicks(){{
   var hist = window.NBA_HISTORY || [];
   var boxScores = window.NBA_BOX_SCORES || {{}};
   if(!hist.length && !Object.keys(boxScores).length) return 0;
-  // Build lookup map "{{game_id}}|{{player}}|{{prop}}" -> actual + variante player-only
-  var actualMap = {{}};      // key complete (gid|player|prop)
-  var actualMapPP = {{}};    // fallback (player|prop) — si game_id ne matche pas
+  // Map gid -> date (yyyy-mm-dd) pour backfill et verification visuelle
+  var dateByGid = {{}};
+  hist.forEach(function(h){{
+    var gid = _bkNorm(h.game_id);
+    if(gid && h.date && !dateByGid[gid]) dateByGid[gid] = String(h.date).slice(0,10);
+  }});
+  // actualMap : exact (gid|player|prop)
+  var actualMap = {{}};
   hist.forEach(function(h){{
     if(h.actual === null || h.actual === undefined) return;
     var gid = _bkNorm(h.game_id);
     var pl  = _bkNorm(h.player);
     var pr  = _bkNorm(h.prop);
-    var key  = gid + '|' + pl + '|' + pr;
-    var keyP = pl + '|' + pr;
-    if(actualMap[key] === undefined)    actualMap[key]    = h.actual;
-    if(actualMapPP[keyP] === undefined) actualMapPP[keyP] = h.actual;
+    var key = gid + '|' + pl + '|' + pr;
+    if(actualMap[key] === undefined) actualMap[key] = h.actual;
   }});
-  // Box scores normalise : {{normGid: {{normName: box}}}}
   var boxByGid = {{}};
-  Object.keys(boxScores).forEach(function(gid){{
-    boxByGid[_bkNorm(gid)] = boxScores[gid] || {{}};
-  }});
-  var arr = _loadUserPicks();
-  var nResolved = 0;
-  var debug = [];
-  arr.forEach(function(p){{
-    if(p.result && p.result !== 'PENDING') return;
-    if(p.manual_override) return;
+  Object.keys(boxScores).forEach(function(gid){{ boxByGid[_bkNorm(gid)] = boxScores[gid] || {{}}; }});
+  // Helper : tente de retrouver l'actual via gid exact (history) puis box score
+  function _lookupActual(p){{
     var gid = _bkNorm(p.game_id);
     var pl  = _bkNorm(p.player);
     var pr  = _bkNorm(p.prop);
-    var key  = gid + '|' + pl + '|' + pr;
-    var keyP = pl + '|' + pr;
-    // 1. Lookup direct dans l'historique (algo a tracke ce prop)
-    var actual = actualMap[key];
-    // 2. Fallback player+prop (mismatch gid)
-    if(actual === undefined) actual = actualMapPP[keyP];
-    // 3. Fallback box score : derive a partir de PTS/REB/AST/FG3M
-    if(actual === undefined){{
-      var byPlayer = boxByGid[gid];
-      var box = _bkFindPlayerBox(byPlayer, p.player);
-      if(box){{
-        var v = _bkComputePropFromBox(box, p.prop);
-        if(v !== undefined) actual = v;
-      }}
+    var key = gid + '|' + pl + '|' + pr;
+    var a = actualMap[key];
+    if(a !== undefined) return a;
+    var byPlayer = boxByGid[gid];
+    var box = _bkFindPlayerBox(byPlayer, p.player);
+    if(box){{
+      var v = _bkComputePropFromBox(box, p.prop);
+      if(v !== undefined) return v;
     }}
+    return undefined;
+  }}
+  var arr = _loadUserPicks();
+  var nResolved = 0;
+  var nInvalidated = 0;
+  var debug = [];
+  // ── PASSE 1 : re-validation des picks deja auto-resolus avec ancienne logique ──
+  // Si l'actual qu'on retrouve aujourd'hui via gid exact differe de p.actual, on
+  // dévalide (= remet en pending). Couvre les anciens picks resolus avec le
+  // mauvais match en playoffs.
+  arr.forEach(function(p){{
+    if(!p.auto_resolved) return;
+    if(p.manual_override) return;
+    var newActual = _lookupActual(p);
+    if(newActual === undefined){{
+      // Plus moyen de retrouver l'actual via gid exact → l'ancienne resolution etait
+      // probablement basee sur la fallback player+prop dangereuse. On dévalide.
+      p.result = null; p.actual = null; p.resolved_at = null; p.auto_resolved = false;
+      nInvalidated++;
+    }} else if(parseFloat(newActual) !== parseFloat(p.actual)){{
+      // Valeur differente → ancienne resolution sur le mauvais match. On dévalide.
+      p.result = null; p.actual = null; p.resolved_at = null; p.auto_resolved = false;
+      nInvalidated++;
+    }}
+  }});
+  // ── PASSE 2 : resolution normale (gid exact uniquement) + backfill match_date ──
+  arr.forEach(function(p){{
+    if(p.result && p.result !== 'PENDING') return;
+    if(p.manual_override) return;
+    // Backfill match_date depuis history si manquant
+    if(!p.match_date){{
+      var d = dateByGid[_bkNorm(p.game_id)];
+      if(d) p.match_date = d;
+    }}
+    var actual = _lookupActual(p);
     if(actual === undefined){{
-      debug.push({{id: p.id, player: p.player, prop: p.prop, gid: p.game_id}});
+      debug.push({{id: p.id, player: p.player, prop: p.prop, gid: p.game_id, date: p.match_date}});
       return;
     }}
     var line = parseFloat(p.line);
     actual = parseFloat(actual);
     if(isNaN(line) || isNaN(actual)) return;
     var result;
-    if(p.direction === 'over'){{
-      result = actual > line ? 'WIN' : (actual < line ? 'LOSS' : 'PUSH');
-    }} else {{
-      result = actual < line ? 'WIN' : (actual > line ? 'LOSS' : 'PUSH');
-    }}
+    if(p.direction === 'over') result = actual > line ? 'WIN' : (actual < line ? 'LOSS' : 'PUSH');
+    else                       result = actual < line ? 'WIN' : (actual > line ? 'LOSS' : 'PUSH');
     p.result = result;
     p.actual = actual;
     p.resolved_at = new Date().toISOString();
     p.auto_resolved = true;
     nResolved++;
   }});
-  if(nResolved > 0) _saveUserPicks(arr);
-  if(window._bkDebug && debug.length) console.log('[bk] unresolved picks:', debug, 'hist:', hist.length, 'boxes:', Object.keys(boxScores).length);
+  if(nResolved > 0 || nInvalidated > 0) _saveUserPicks(arr);
+  if(window._bkDebug && (debug.length || nInvalidated)){{
+    console.log('[bk] resolved:', nResolved, '/ invalidated:', nInvalidated, '/ unresolved:', debug);
+  }}
   return nResolved;
 }}
 
@@ -4723,11 +4764,21 @@ function _bkRowHtml(p){{
     var nEsc = p.note.replace(/"/g, '&quot;').replace(/</g, '&lt;');
     noteHtml = '<span class="dot">·</span><span style="color:#7dd3fc;cursor:help" title="' + nEsc + '">📝</span>';
   }}
+  // Date du match (critique en playoffs : memes equipes tous les 2j → on doit voir
+  // visuellement de quel match il s'agit)
+  var dateHtml = '';
+  if(p.match_date){{
+    var d = String(p.match_date);
+    // Format compact JJ/MM si on a un YYYY-MM-DD
+    var mm = d.match(/^(\\d{{4}})-(\\d{{2}})-(\\d{{2}})/);
+    var pretty = mm ? (mm[3] + '/' + mm[2]) : d;
+    dateHtml = '<span class="dot">·</span><span style="color:#fbbf24;font-weight:600" title="Date du match">📅 ' + pretty + '</span>';
+  }}
   return '<div class="bk-row">'
     + '<div class="bk-row-icon">🏀</div>'
     + '<div class="bk-row-main">'
     + '<div class="bk-row-title">' + title + '</div>'
-    + '<div class="bk-row-sub"><span>' + match + '</span><span class="dot">·</span>' + coteChip
+    + '<div class="bk-row-sub"><span>' + match + '</span>' + dateHtml + '<span class="dot">·</span>' + coteChip
     + '<span class="dot">·</span><span>' + _bkFmt(stake) + ' € misés</span>'
     + tipsterHtml + noteHtml
     + '</div>'
