@@ -1895,21 +1895,31 @@ def build_nba_card(game):
     home_html = "".join(render_pick(p) for p in home_picks) or '<div style="color:#475569;font-size:12px;padding:6px">Aucun pick avec value suffisante</div>'
     away_html = "".join(render_pick(p) for p in away_picks) or '<div style="color:#475569;font-size:12px;padding:6px">Aucun pick avec value suffisante</div>'
 
+    # Compte total de picks pour afficher dans le bouton header
+    n_picks = len(home_picks) + len(away_picks)
+    picks_label = f"🎯 {n_picks} picks" if n_picks else "Aucun pick"
+    gid_safe = str(gid).replace("'", "")
+
     return (
         f'<div style="background:#0f172a;border-radius:14px;margin-bottom:18px;'
         f'box-shadow:0 4px 20px rgba(0,0,0,0.4);overflow:hidden">'
-        # Header
-        f'<div style="padding:16px 20px;background:#0d1b2e;border-bottom:1px solid #1e293b">'
+        # Header cliquable -> toggle body
+        f'<div class="nba-match-header" onclick="toggleNbaMatch(\'{gid_safe}\')">'
         f'<div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px">'
         f'<div>'
         f'<div style="color:#fb923c;font-size:11px;text-transform:uppercase;letter-spacing:1px;font-weight:700">🏀 NBA</div>'
         f'<div style="color:#f1f5f9;font-size:19px;font-weight:700;margin-top:3px">'
         f'{away} <span style="color:#334155">@</span> {home}</div>'
         f'</div>'
+        f'<div style="display:flex;align-items:center;gap:12px">'
         f'<div style="color:#475569;font-size:13px">🕐 {date} · {status}</div>'
+        f'<span style="background:#1e3a8a;color:#bfdbfe;border:1px solid #3b82f6;border-radius:6px;padding:3px 10px;font-size:12px;font-weight:700">{picks_label}</span>'
+        f'<div id="nba-arrow-{gid_safe}" style="color:#475569;font-size:14px;transition:transform .2s">▼</div>'
         f'</div>'
         f'</div>'
-        # Picks 2 colonnes
+        f'</div>'
+        # Body : 2 colonnes, masque par defaut
+        f'<div id="nba-body-{gid_safe}" class="nba-match-body">'
         f'<div style="display:grid;grid-template-columns:1fr 1fr;gap:1px;background:#1e293b">'
         f'<div style="background:#0f172a;padding:14px">'
         f'<div style="color:#3b82f6;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:10px">🏠 {home}</div>'
@@ -1918,6 +1928,7 @@ def build_nba_card(game):
         f'<div style="background:#0f172a;padding:14px">'
         f'<div style="color:#3b82f6;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:10px">✈️ {away}</div>'
         f'{away_html}'
+        f'</div>'
         f'</div>'
         f'</div>'
         f'</div>'
@@ -2942,6 +2953,18 @@ def build_html(matches, team_ai, player_ai, pstats_data, nba_picks=None, nba_his
   .match-header {{ cursor:pointer; padding:18px 20px 14px; transition:background .15s; user-select:none; }}
   .match-header:hover {{ background:#1e293b; }}
 
+  /* NBA match : header cliquable + body deroulable (style identique au Foot) */
+  .nba-match-header {{
+    cursor: pointer; padding: 16px 20px;
+    background: #0d1b2e; border-bottom: 1px solid #1e293b;
+    transition: background .15s; user-select: none;
+  }}
+  .nba-match-header:hover {{ background: #122538; }}
+  .nba-match-body {{ display: none; }}
+  .nba-match-body.show {{ display: block; }}
+  .nba-match-header.expanded #nba-arrow,
+  .nba-match-header.expanded [id^="nba-arrow-"] {{ transform: rotate(180deg); }}
+
   /* Bouton picks dans le header */
   .picks-btn {{
     background:#1e3a8a; color:#bfdbfe; border:1px solid #3b82f6;
@@ -3284,6 +3307,10 @@ def build_html(matches, team_ai, player_ai, pstats_data, nba_picks=None, nba_his
       📈 hot streak (L10 &gt; L20) · 📉 cold streak ·
       🎯 faille adverse · 🛡️ défense solide
     </div>
+    <div style="display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap">
+      <button onclick="collapseAllNba()" style="background:#1e293b;color:#94a3b8;border:1px solid #334155;border-radius:8px;padding:8px 14px;font-size:12px;font-weight:700;cursor:pointer">📕 Tout fermer</button>
+      <button onclick="expandAllNba()" style="background:#1e293b;color:#94a3b8;border:1px solid #334155;border-radius:8px;padding:8px 14px;font-size:12px;font-weight:700;cursor:pointer">📖 Tout ouvrir</button>
+    </div>
     {nba_section}
   </div>
 
@@ -3505,6 +3532,23 @@ function expandStartersAnalyse(){{
     var isStarter = c.getAttribute('data-is-starter') === '1';
     _setExpanded(c, isStarter);
   }});
+}}
+
+// ── Toggle expand/collapse des cartes NBA (comme le Foot) ──
+function toggleNbaMatch(gid){{
+  var body = document.getElementById('nba-body-' + gid);
+  var arrow = document.getElementById('nba-arrow-' + gid);
+  if(!body) return;
+  var expanded = body.classList.toggle('show');
+  if(arrow) arrow.style.transform = expanded ? 'rotate(180deg)' : 'rotate(0deg)';
+}}
+function collapseAllNba(){{
+  document.querySelectorAll('#sport-nba .nba-match-body').forEach(function(b){{ b.classList.remove('show'); }});
+  document.querySelectorAll('#sport-nba [id^="nba-arrow-"]').forEach(function(a){{ a.style.transform = 'rotate(0deg)'; }});
+}}
+function expandAllNba(){{
+  document.querySelectorAll('#sport-nba .nba-match-body').forEach(function(b){{ b.classList.add('show'); }});
+  document.querySelectorAll('#sport-nba [id^="nba-arrow-"]').forEach(function(a){{ a.style.transform = 'rotate(180deg)'; }});
 }}
 
 // ── Lien picks NBA -> Analyse : ouvre le tab Analyse + scroll au joueur ──
@@ -4078,24 +4122,45 @@ function markUserPickResult(id, result){{
 // (game_id, player, prop) deja resolu (a une autre ligne potentiellement),
 // on extrait sa valeur 'actual' (= la stat reelle du joueur), puis on
 // applique la regle OVER/UNDER selon la ligne saisie par l'user.
+function _bkNorm(s){{
+  // Normalisation pour matching tolerant : strip + lowercase + retire les diacritiques
+  return String(s == null ? '' : s).trim().toLowerCase()
+    .normalize('NFD').replace(/[\\u0300-\\u036f]/g, '');
+}}
 function autoResolveUserPicks(){{
   var hist = window.NBA_HISTORY || [];
   if(!hist.length) return 0;
-  // Build lookup map : "{{game_id}}|{{player}}|{{prop}}" -> actual
-  var actualMap = {{}};
+  // Build lookup map "{{game_id}}|{{player}}|{{prop}}" -> actual + variante player-only
+  // pour absorber les ecarts gid string/number, casse, diacritiques.
+  var actualMap = {{}};      // key complete (gid|player|prop)
+  var actualMapPP = {{}};    // fallback (player|prop) — si game_id ne matche pas
   hist.forEach(function(h){{
     if(h.actual === null || h.actual === undefined) return;
-    var key = (h.game_id || '') + '|' + (h.player || '') + '|' + (h.prop || '');
-    if(actualMap[key] === undefined) actualMap[key] = h.actual;
+    var gid = _bkNorm(h.game_id);
+    var pl  = _bkNorm(h.player);
+    var pr  = _bkNorm(h.prop);
+    var key  = gid + '|' + pl + '|' + pr;
+    var keyP = pl + '|' + pr;
+    if(actualMap[key] === undefined)    actualMap[key]    = h.actual;
+    if(actualMapPP[keyP] === undefined) actualMapPP[keyP] = h.actual;
   }});
   var arr = _loadUserPicks();
   var nResolved = 0;
+  var debug = [];
   arr.forEach(function(p){{
     if(p.result && p.result !== 'PENDING') return;  // skip si deja resolu ou cashout
     if(p.manual_override) return;                   // l'user a force un resultat
-    var key = (p.game_id || '') + '|' + (p.player || '') + '|' + (p.prop || '');
+    var gid = _bkNorm(p.game_id);
+    var pl  = _bkNorm(p.player);
+    var pr  = _bkNorm(p.prop);
+    var key  = gid + '|' + pl + '|' + pr;
+    var keyP = pl + '|' + pr;
     var actual = actualMap[key];
-    if(actual === undefined) return;  // pas encore resolu cote algo
+    if(actual === undefined) actual = actualMapPP[keyP];  // fallback player+prop
+    if(actual === undefined){{
+      debug.push({{id: p.id, player: p.player, prop: p.prop, gid: p.game_id, key: key, found: false}});
+      return;
+    }}
     var line = parseFloat(p.line);
     actual = parseFloat(actual);
     if(isNaN(line) || isNaN(actual)) return;
@@ -4112,6 +4177,7 @@ function autoResolveUserPicks(){{
     nResolved++;
   }});
   if(nResolved > 0) _saveUserPicks(arr);
+  if(window._bkDebug && debug.length) console.log('[bk] unresolved picks:', debug, 'hist size:', hist.length);
   return nResolved;
 }}
 
