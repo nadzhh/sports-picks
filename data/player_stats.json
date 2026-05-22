@@ -6127,31 +6127,31 @@
       "cup_gf_pm": 0,
       "cup_ga_pm": 0,
       "cup_n": 0,
-      "shots_pm": 11.8,
-      "shots_l5": 12.0,
-      "shots_l10": 11.8,
+      "shots_pm": 11.3,
+      "shots_l5": 11.0,
+      "shots_l10": 11.3,
       "shots_season": null,
-      "opp_shots_l5": 14.0,
-      "opp_shots_l10": 16.4,
+      "opp_shots_l5": 16.0,
+      "opp_shots_l10": 17.2,
       "sot_pm": 4.1,
-      "sot_l5": 4.0,
+      "sot_l5": 3.8,
       "sot_l10": 3.3,
       "sot_season": 4.1,
-      "opp_sot_l5": 4.8,
-      "opp_sot_l10": 6.4,
+      "opp_sot_l5": 5.4,
+      "opp_sot_l10": 6.6,
       "xg_pm": 1.26,
       "xg_l5": 0.82,
-      "xg_l10": 1.07,
+      "xg_l10": 1.04,
       "xg_season": 1.26,
-      "opp_xg_l5": 1.35,
-      "opp_xg_l10": 1.65,
-      "shots_n_l5": 4,
-      "shots_n_l10": 9,
-      "shots_weighted": 11.9,
+      "opp_xg_l5": 1.43,
+      "opp_xg_l10": 1.66,
+      "shots_n_l5": 5,
+      "shots_n_l10": 10,
+      "shots_weighted": 11.4,
       "sot_weighted": 3.5,
-      "xg_weighted": 1.08,
-      "opp_shots_weighted": 15.9,
-      "opp_sot_weighted": 6.1,
+      "xg_weighted": 1.05,
+      "opp_shots_weighted": 16.7,
+      "opp_sot_weighted": 6.3,
       "avg_opp_rank_l10": 9.8,
       "target_opp_rank": 10,
       "all_comp_n_l5": 5,
@@ -6170,14 +6170,14 @@
       "opp_shots_l10_all": 17.2,
       "shots_home": 13.2,
       "shots_home_n": 4,
-      "shots_away": 10.6,
-      "shots_away_n": 5,
+      "shots_away": 10.0,
+      "shots_away_n": 6,
       "sot_home": 4.0,
       "sot_away": 2.8,
       "xg_home": 1.11,
-      "xg_away": 1.04,
+      "xg_away": 1.0,
       "opp_shots_home": 11.2,
-      "opp_shots_away": 20.6,
+      "opp_shots_away": 21.2,
       "shots_trend": "",
       "xg_conc_pm": 1.46,
       "corners_pm": 4.73,
@@ -6289,18 +6289,38 @@
         "gf": 2,
         "ga": 1,
         "result": "W",
-        "data_valid": false,
+        "data_valid": true,
         "match_id": "4837478",
         "page_url": "/matches/osasuna-vs-espanyol/2dbonz#4837478",
         "team_id_str": "8558",
-        "team_shots": null,
-        "opp_shots": null,
-        "team_sot": null,
-        "opp_sot": null,
-        "team_xg": null,
-        "opp_xg": null,
-        "goals": [],
-        "opp_goals": []
+        "team_shots": 7.0,
+        "opp_shots": 24.0,
+        "team_sot": 3.0,
+        "opp_sot": 8.0,
+        "team_xg": 0.79,
+        "opp_xg": 1.72,
+        "goals": [
+          {
+            "scorer": "Carlos Romero",
+            "assist": null,
+            "minute": 27,
+            "ownGoal": false
+          },
+          {
+            "scorer": "Kike García",
+            "assist": "Tyrhys Dolan",
+            "minute": 53,
+            "ownGoal": false
+          }
+        ],
+        "opp_goals": [
+          {
+            "scorer": "Víctor Muñoz",
+            "assist": "Flavien Boyomo",
+            "minute": 49,
+            "ownGoal": false
+          }
+        ]
       },
       {
         "date": "2026-05-13T17:00:00Z",
@@ -6689,23 +6709,31 @@
     ],
     "home_decisive_l5": [
       {
-        "name": "Pere Milla",
-        "goals": 1,
-        "assists": 0,
-        "decisive": 1,
-        "matches_decisive": 1,
-        "n_matches": 5
-      },
-      {
         "name": "Carlos Romero",
-        "goals": 0,
+        "goals": 1,
         "assists": 1,
-        "decisive": 1,
-        "matches_decisive": 1,
+        "decisive": 2,
+        "matches_decisive": 2,
         "n_matches": 5
       },
       {
         "name": "Kike García",
+        "goals": 2,
+        "assists": 0,
+        "decisive": 2,
+        "matches_decisive": 2,
+        "n_matches": 5
+      },
+      {
+        "name": "Tyrhys Dolan",
+        "goals": 1,
+        "assists": 1,
+        "decisive": 2,
+        "matches_decisive": 2,
+        "n_matches": 5
+      },
+      {
+        "name": "Pere Milla",
         "goals": 1,
         "assists": 0,
         "decisive": 1,
@@ -6719,21 +6747,29 @@
         "decisive": 1,
         "matches_decisive": 1,
         "n_matches": 5
-      },
-      {
-        "name": "Tyrhys Dolan",
-        "goals": 1,
-        "assists": 0,
-        "decisive": 1,
-        "matches_decisive": 1,
-        "n_matches": 5
       }
     ],
     "home_decisive_l10": [
       {
         "name": "Tyrhys Dolan",
         "goals": 1,
+        "assists": 2,
+        "decisive": 3,
+        "matches_decisive": 3,
+        "n_matches": 10
+      },
+      {
+        "name": "Carlos Romero",
+        "goals": 1,
         "assists": 1,
+        "decisive": 2,
+        "matches_decisive": 2,
+        "n_matches": 10
+      },
+      {
+        "name": "Kike García",
+        "goals": 2,
+        "assists": 0,
         "decisive": 2,
         "matches_decisive": 2,
         "n_matches": 10
@@ -6748,22 +6784,6 @@
       },
       {
         "name": "Pere Milla",
-        "goals": 1,
-        "assists": 0,
-        "decisive": 1,
-        "matches_decisive": 1,
-        "n_matches": 10
-      },
-      {
-        "name": "Carlos Romero",
-        "goals": 0,
-        "assists": 1,
-        "decisive": 1,
-        "matches_decisive": 1,
-        "n_matches": 10
-      },
-      {
-        "name": "Kike García",
         "goals": 1,
         "assists": 0,
         "decisive": 1,
