@@ -49,6 +49,10 @@ def main():
         print("[!] Le pipeline s'arrete ici. Tes donnees existantes sont preservees.")
         sys.exit(1)
 
+    # 1.5 Cotes joueurs foot (The Odds API, freshness 24h pour menager le quota).
+    # Critique : sans ca, les picks foot n'ont pas de "real_cote" -> pastilles absentes.
+    run("foot_odds.py", "Cotes joueurs foot (Odds API, cache 24h)")
+
     # 2. Stats joueurs (backup avant ecrasement)
     if ps_path.exists():
         backup_path = ps_path.with_suffix(".backup.json")

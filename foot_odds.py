@@ -77,10 +77,10 @@ MARKETS = {
 
 REGIONS = "us"   # seules region qui expose les player props soccer
 
-# Freshness 12h pour economiser le quota (aligne avec nba_odds).
-# 2 refresh/jour x ~17 credits = ~34/jour = ~1020/mois foot. Cumul avec NBA
-# ~1920/mois -> 3 cles Odds API recommandees pour la marge.
-ODDS_REFRESH_MIN_AGE_SEC = 12 * 3600
+# Freshness 24h pour tenir 1 mois avec 3 cles (1000 credits/mois/cle, 3000 total).
+# 1 refresh/jour x ~17 credits = ~510/mois foot. NBA prend le reste (~2000/mois).
+# Marge de securite ~500 credits/mois.
+ODDS_REFRESH_MIN_AGE_SEC = 24 * 3600
 
 OUTPUT_PATH = Path("data/foot_player_odds.json")
 
