@@ -711,19 +711,34 @@ def build_stats_panel(mid_safe, home, away, form_data, home_recent, away_recent,
     h_l5 = home_l5 or []
     a_l5 = away_l5 or []
 
-    def match_rows_l5(l5_list, side):
+    def match_rows_l5(l5_list, side, team_name=""):
         if not l5_list:
             return '<span style="color:#475569">—</span>'
         html = '<div style="font-size:13px">'
         for d in l5_list:
-            r       = d.get("result", "?")
-            col     = {"W": "#22c55e", "D": "#f59e0b", "L": "#ef4444"}.get(r, "#6b7280")
-            loc     = "🏠" if d.get("is_home") else "✈️"
-            opp     = d.get("opponent", "?")
+            opp      = d.get("opponent", "?")
             opp_rank = d.get("opp_rank")  # rang de l'adversaire dans son championnat
-            score   = d.get("score", "")
-            gf      = d.get("gf"); ga = d.get("ga")
-            score_txt = f"{gf}-{ga}" if gf is not None and ga is not None else score
+            gf       = d.get("gf"); ga = d.get("ga")
+            is_home_match = bool(d.get("is_home"))
+            # Format scoreboard standard "Domicile X - Y Exterieur" en mettant
+            # notre equipe a sa vraie position (home ou away dans ce match-la)
+            if gf is not None and ga is not None:
+                if is_home_match:
+                    left_team, right_team = team_name or "Notre équipe", opp
+                    left_score, right_score = gf, ga
+                else:
+                    left_team, right_team = opp, team_name or "Notre équipe"
+                    left_score, right_score = ga, gf
+                # Highlight notre equipe en gras (le reste plus discret)
+                left_html  = f'<b style="color:#f1f5f9">{left_team}</b>'  if is_home_match else f'<span style="color:#cbd5e1">{left_team}</span>'
+                right_html = f'<span style="color:#cbd5e1">{right_team}</span>' if is_home_match else f'<b style="color:#f1f5f9">{right_team}</b>'
+                score_line = (
+                    f'{left_html} '
+                    f'<span style="color:#f1f5f9;font-weight:800;font-size:15px;padding:0 4px">{left_score} - {right_score}</span> '
+                    f'{right_html}'
+                )
+            else:
+                score_line = f'<span style="color:#cbd5e1">{team_name or "Notre équipe"} vs {opp} ({d.get("score","?")})</span>'
             # Date formatee
             date_iso = d.get("date", "")
             date_str = ""
@@ -800,20 +815,15 @@ def build_stats_panel(mid_safe, home, away, form_data, home_recent, away_recent,
                     + '</div>'
                 )
 
-            # Ligne header du mini-match
-            ta = "right" if side == "home" else "left"
-            flex_dir = "row-reverse" if side == "home" else "row"
-            date_html = f'<span style="color:#94a3b8;font-size:12px;font-weight:500">{date_str}</span>' if date_str else ""
+            # Ligne header du mini-match : format scoreboard standard
+            # (sans W/L/D — l'utilisateur peut lire le score directement)
+            date_html = f'<span style="color:#94a3b8;font-size:11.5px;font-weight:500;min-width:38px">{date_str}</span>' if date_str else ""
             html += (
                 f'<div style="padding:10px 4px 8px;border-bottom:1px solid #1e2940">'
-                f'<div style="display:flex;flex-direction:{flex_dir};align-items:center;gap:8px">'
-                f'<span style="background:{col};color:#fff;border-radius:4px;padding:3px 9px;'
-                f'font-size:13px;font-weight:bold;min-width:22px;text-align:center">{r}</span>'
+                f'<div style="display:flex;align-items:center;gap:8px;font-size:13.5px">'
                 f'{date_html}'
-                f'<span style="color:#94a3b8;font-size:14px">{loc}</span>'
-                f'<span style="color:#e2e8f0;font-size:14px;font-weight:600;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;text-align:{ta}">'
-                f'{opp}{opp_rank_badge}</span>'
-                f'<span style="color:#f1f5f9;font-weight:800;font-size:15px">{score_txt}</span>'
+                f'<span style="flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">{score_line}</span>'
+                f'{opp_rank_badge}'
                 f'</div>'
                 + stats_line +
                 scorers_html +
@@ -831,8 +841,8 @@ def build_stats_panel(mid_safe, home, away, form_data, home_recent, away_recent,
         rows += (
             f'<div style="display:grid;grid-template-columns:1fr 1fr;gap:1px;'
             f'background:#1e293b;padding:1px">'
-            f'<div style="background:#0a1628;padding:10px 12px">{match_rows_l5(h_l5, "home")}</div>'
-            f'<div style="background:#0a1628;padding:10px 12px">{match_rows_l5(a_l5, "away")}</div>'
+            f'<div style="background:#0a1628;padding:10px 12px">{match_rows_l5(h_l5, "home", home)}</div>'
+            f'<div style="background:#0a1628;padding:10px 12px">{match_rows_l5(a_l5, "away", away)}</div>'
             f'</div>'
         )
 
@@ -988,8 +998,6 @@ def build_stats_panel(mid_safe, home, away, form_data, home_recent, away_recent,
     if h2h_details:
         h2h_html = ""
         for h in h2h_details[:5]:
-            res = h.get("result_for_home", "?")
-            col = {"W":"#22c55e","D":"#f59e0b","L":"#ef4444"}.get(res, "#6b7280")
             date_str = ""
             d = h.get("date","")
             if d:
@@ -999,9 +1007,15 @@ def build_stats_panel(mid_safe, home, away, form_data, home_recent, away_recent,
                 except: date_str = d[:10]
             score = h.get("score", "?")
             league = h.get("league", "")
-            # Du POV de l'equipe home aujourd'hui
             h_team = h.get("home_team","")
             a_team = h.get("away_team","")
+            # Decoupe le score "2-1" en deux nombres
+            gf_g = ga_g = None
+            try:
+                if "-" in score:
+                    parts = score.split("-")
+                    gf_g = int(parts[0].strip()); ga_g = int(parts[1].strip())
+            except: pass
             # Tirs (si dispo)
             h_shots = h.get("home_shots"); a_shots = h.get("away_shots")
             h_sot = h.get("home_sot"); a_sot = h.get("away_sot")
@@ -1016,14 +1030,33 @@ def build_stats_panel(mid_safe, home, away, form_data, home_recent, away_recent,
                     f'🎯 {_fmt(h_shots)}-{_fmt(a_shots)} tirs · {_fmt(h_sot)}-{_fmt(a_sot)} cadrés'
                     f'</div>'
                 )
+            # Highlight l'equipe qui correspond au home du match a venir (POV)
+            h_bold = "f1f5f9"  # blanc franc
+            a_bold = "cbd5e1"  # un poil plus discret
+            if h_team and a_team and h_team.lower() == home.lower():
+                h_html = f'<b style="color:#{h_bold}">{h_team}</b>'
+                a_html = f'<span style="color:#{a_bold}">{a_team}</span>'
+            elif a_team and h_team and a_team.lower() == home.lower():
+                h_html = f'<span style="color:#{a_bold}">{h_team}</span>'
+                a_html = f'<b style="color:#{h_bold}">{a_team}</b>'
+            else:
+                h_html = f'<span style="color:#{h_bold}">{h_team}</span>'
+                a_html = f'<span style="color:#{h_bold}">{a_team}</span>'
+            if gf_g is not None and ga_g is not None:
+                score_block = (
+                    f'<span style="flex:1;font-size:13.5px">'
+                    f'{h_html} '
+                    f'<span style="color:#f1f5f9;font-weight:800;font-size:15px;padding:0 4px">{gf_g} - {ga_g}</span> '
+                    f'{a_html}'
+                    f'</span>'
+                )
+            else:
+                score_block = f'<span style="flex:1;font-size:13.5px">{h_html} <span style="color:#64748b">vs</span> {a_html} <span style="color:#94a3b8">{score}</span></span>'
             h2h_html += (
                 f'<div style="padding:10px 14px;border-bottom:1px solid #1a2540">'
                 f'<div style="display:flex;align-items:center;gap:10px">'
-                f'<span style="background:{col};color:#fff;border-radius:4px;padding:3px 9px;'
-                f'font-size:13px;font-weight:bold;min-width:22px;text-align:center">{res}</span>'
                 f'<span style="color:#94a3b8;font-size:12px;font-weight:500;min-width:80px">{date_str}</span>'
-                f'<span style="color:#e2e8f0;font-size:13px;flex:1">{h_team} <span style="color:#64748b">vs</span> {a_team}</span>'
-                f'<span style="color:#f1f5f9;font-weight:800;font-size:15px">{score}</span>'
+                f'{score_block}'
                 f'</div>'
                 f'{shots_line}'
                 f'{f"<div style=\"font-size:10px;color:#64748b;margin-top:2px\">{league}</div>" if league else ""}'
