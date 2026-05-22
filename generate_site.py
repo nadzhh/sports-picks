@@ -3328,8 +3328,21 @@ def build_html(matches, team_ai, player_ai, pstats_data, nba_picks=None, nba_his
 
   /* Chart */
   .bk-chart-wrap {{ width: 100%; }}
+  .bk-chart-stage {{ width: 100%; position: relative; }}
   .bk-chart-line {{ stroke-dasharray: 3000; stroke-dashoffset: 3000; animation: bk-draw 1100ms cubic-bezier(.4,.0,.2,1) forwards; }}
   @keyframes bk-draw {{ to {{ stroke-dashoffset: 0; }} }}
+  /* Labels axes Y et X overlay sur le SVG stretche */
+  .bk-chart-ylabel {{
+    position: absolute; left: 0; width: 46px; text-align: right;
+    color: var(--bk-text-muted); font-size: 11px; font-weight: 500;
+    line-height: 1; transform: translateY(-50%); pointer-events: none;
+    font-variant-numeric: tabular-nums;
+  }}
+  .bk-chart-xlabel {{
+    position: absolute; bottom: 4px; color: var(--bk-text-muted);
+    font-size: 10.5px; font-weight: 500; white-space: nowrap;
+    pointer-events: none; font-variant-numeric: tabular-nums;
+  }}
 
   /* Prop / market breakdown */
   .bk-prop-row {{ display: grid; grid-template-columns: 130px 1fr 64px 80px; gap: 12px; align-items: center; padding: 10px 4px; }}
@@ -4834,7 +4847,6 @@ function _bkFmtDateShort(iso){{
   return m ? (m[3] + '/' + m[2]) : d;
 }}
 function _bkRenderChart(series, accent, hasResolved){{
-  // Accepte soit l'ancien format (array) soit le nouveau {{pts, dates}}
   var pts, dates;
   if(Array.isArray(series)){{ pts = series; dates = []; }}
   else {{ pts = (series && series.pts) || []; dates = (series && series.dates) || []; }}
@@ -4844,11 +4856,13 @@ function _bkRenderChart(series, accent, hasResolved){{
       : "Pas encore d'historique — résous quelques paris pour voir ta courbe ✨";
     return '<div style="display:flex;align-items:center;justify-content:center;height:220px;color:var(--bk-text-muted);font-size:13px;text-align:center;padding:0 20px">' + msg + '</div>';
   }}
+  // Le chart utilise un viewBox SVG "stretche" (preserveAspectRatio=none) pour
+  // remplir tout l'espace horizontal. Les LABELS sont rendus en HTML overlay
+  // (positionnes en %) pour ne pas etre deformes par le stretch.
   var W = 800, H = 220;
-  var padT = 12, padB = 26, padL = 48, padR = 6;
+  var padT = 12, padB = 26, padL = 52, padR = 10;
   var iw = W - padL - padR, ih = H - padT - padB;
   var minV = Math.min.apply(null, pts), maxV = Math.max.apply(null, pts);
-  // Nice rounding pour axe Y : on etend les bornes a des multiples du step
   var step = _bkNiceStep(maxV - minV, 4);
   var gridMin = Math.floor(minV / step) * step;
   var gridMax = Math.ceil(maxV / step) * step;
@@ -4863,47 +4877,55 @@ function _bkRenderChart(series, accent, hasResolved){{
   var areaPath = linePath + ' L' + coords[n-1][0].toFixed(1) + ',' + baseY.toFixed(1) + ' L' + coords[0][0].toFixed(1) + ',' + baseY.toFixed(1) + ' Z';
   var endP = coords[n-1];
   var uid = 'bk' + Math.random().toString(36).slice(2, 8);
-  // Axe Y : lignes de graduation + labels (€)
-  var gridLines = '', yLabels = '';
+  // Gridlines SVG (stretchent avec le chart)
+  var gridLines = '';
   for(var v = gridMin; v <= gridMax + 0.001; v += step){{
     var yy = y(v);
-    gridLines += '<line x1="' + padL + '" x2="' + (W - padR) + '" y1="' + yy.toFixed(1) + '" y2="' + yy.toFixed(1) + '" stroke="rgba(255,255,255,0.05)" stroke-dasharray="2,4"/>';
-    var label = (Math.abs(v) >= 1000 ? (v / 1000).toFixed(v < 10000 ? 1 : 0) + 'k' : Math.round(v).toString()) + '€';
-    yLabels += '<text x="' + (padL - 6) + '" y="' + (yy + 3.5).toFixed(1) + '" text-anchor="end" fill="#8B8D98" font-size="11" font-family="Geist,system-ui,sans-serif" font-weight="500">' + label + '</text>';
+    gridLines += '<line x1="' + padL + '" x2="' + (W - padR) + '" y1="' + yy.toFixed(1) + '" y2="' + yy.toFixed(1) + '" stroke="rgba(255,255,255,0.05)" stroke-dasharray="2,4" vector-effect="non-scaling-stroke"/>';
   }}
-  // Axe X : dates (jusqu'a 5 labels evenly spaced)
-  var xLabels = '';
+  // Labels Y en HTML (en % de la hauteur, taille pixel constante)
+  var yLabelsHtml = '';
+  for(var v2 = gridMin; v2 <= gridMax + 0.001; v2 += step){{
+    var yy2 = y(v2);
+    var topPct = (yy2 / H) * 100;
+    var label = (Math.abs(v2) >= 1000 ? (v2 / 1000).toFixed(v2 < 10000 ? 1 : 0) + 'k' : Math.round(v2).toString()) + '€';
+    yLabelsHtml += '<div class="bk-chart-ylabel" style="top:' + topPct.toFixed(2) + '%">' + label + '</div>';
+  }}
+  // Labels X en HTML (en % de la largeur)
+  var xLabelsHtml = '';
   if(dates.length === n && n >= 2){{
     var nLabels = Math.min(5, n);
-    var yAxis = baseY + 16;
     for(var k = 0; k < nLabels; k++){{
       var idx = Math.round((k / Math.max(1, nLabels - 1)) * (n - 1));
       var xx = x(idx);
+      var xPct = (xx / W) * 100;
       var lbl = _bkFmtDateShort(dates[idx]);
-      var anchor = (k === 0) ? 'start' : (k === nLabels - 1 ? 'end' : 'middle');
-      xLabels += '<text x="' + xx.toFixed(1) + '" y="' + yAxis + '" text-anchor="' + anchor + '" fill="#8B8D98" font-size="10.5" font-family="Geist,system-ui,sans-serif" font-weight="500">' + lbl + '</text>';
+      var transform = (k === 0) ? 'transform:translateX(0)' : (k === nLabels - 1 ? 'transform:translateX(-100%)' : 'transform:translateX(-50%)');
+      xLabelsHtml += '<div class="bk-chart-xlabel" style="left:' + xPct.toFixed(2) + '%;' + transform + '">' + lbl + '</div>';
     }}
   }}
-  return '<svg viewBox="0 0 ' + W + ' ' + H + '" preserveAspectRatio="xMidYMid meet" style="width:100%;height:220px;overflow:visible">'
-    + '<defs>'
-    + '<linearGradient id="' + uid + '-f" x1="0" x2="0" y1="0" y2="1">'
-    + '<stop offset="0%" stop-color="' + accent + '" stop-opacity="0.35"/>'
-    + '<stop offset="60%" stop-color="' + accent + '" stop-opacity="0.06"/>'
-    + '<stop offset="100%" stop-color="' + accent + '" stop-opacity="0"/>'
-    + '</linearGradient>'
-    + '<linearGradient id="' + uid + '-s" x1="0" x2="1" y1="0" y2="0">'
-    + '<stop offset="0%" stop-color="' + accent + '" stop-opacity="0.55"/>'
-    + '<stop offset="100%" stop-color="' + accent + '" stop-opacity="1"/>'
-    + '</linearGradient>'
-    + '</defs>'
-    + gridLines
-    + yLabels
-    + xLabels
-    + '<path d="' + areaPath + '" fill="url(#' + uid + '-f)"/>'
-    + '<path d="' + linePath + '" fill="none" stroke="url(#' + uid + '-s)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" class="bk-chart-line"/>'
-    + '<circle cx="' + endP[0].toFixed(1) + '" cy="' + endP[1].toFixed(1) + '" r="6" fill="' + accent + '" fill-opacity="0.25"/>'
-    + '<circle cx="' + endP[0].toFixed(1) + '" cy="' + endP[1].toFixed(1) + '" r="3.5" fill="' + accent + '"/>'
-    + '</svg>';
+  return '<div class="bk-chart-stage" style="position:relative;height:220px;width:100%">'
+    + '<svg viewBox="0 0 ' + W + ' ' + H + '" preserveAspectRatio="none" style="position:absolute;inset:0;width:100%;height:100%;overflow:visible">'
+    +   '<defs>'
+    +     '<linearGradient id="' + uid + '-f" x1="0" x2="0" y1="0" y2="1">'
+    +       '<stop offset="0%" stop-color="' + accent + '" stop-opacity="0.35"/>'
+    +       '<stop offset="60%" stop-color="' + accent + '" stop-opacity="0.06"/>'
+    +       '<stop offset="100%" stop-color="' + accent + '" stop-opacity="0"/>'
+    +     '</linearGradient>'
+    +     '<linearGradient id="' + uid + '-s" x1="0" x2="1" y1="0" y2="0">'
+    +       '<stop offset="0%" stop-color="' + accent + '" stop-opacity="0.55"/>'
+    +       '<stop offset="100%" stop-color="' + accent + '" stop-opacity="1"/>'
+    +     '</linearGradient>'
+    +   '</defs>'
+    +   gridLines
+    +   '<path d="' + areaPath + '" fill="url(#' + uid + '-f)"/>'
+    +   '<path d="' + linePath + '" fill="none" stroke="url(#' + uid + '-s)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" class="bk-chart-line" vector-effect="non-scaling-stroke"/>'
+    +   '<circle cx="' + endP[0].toFixed(1) + '" cy="' + endP[1].toFixed(1) + '" r="6" fill="' + accent + '" fill-opacity="0.25" vector-effect="non-scaling-stroke"/>'
+    +   '<circle cx="' + endP[0].toFixed(1) + '" cy="' + endP[1].toFixed(1) + '" r="3.5" fill="' + accent + '" vector-effect="non-scaling-stroke"/>'
+    + '</svg>'
+    + yLabelsHtml
+    + xLabelsHtml
+    + '</div>';
 }}
 function _bkStat(label, value, sub, accent){{
   var subHtml = sub ? '<div class="bk-stat-sub" style="color:' + (accent || 'var(--bk-text-muted)') + '">' + sub + '</div>' : '';
