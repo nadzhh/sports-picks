@@ -675,7 +675,7 @@
         "direction": "away_dc",
         "type": "Double chance",
         "label": "Nul ou Levante (X2)",
-        "cote": 1.61,
+        "cote": 1.65,
         "confidence": 80,
         "reasoning": "Levante invaincu 80% sur 5 derniers matchs · H2H: 1/1 matchs sans défaite",
         "stats": {
@@ -765,7 +765,7 @@
       "direction": "away_dc",
       "type": "Double chance",
       "label": "Nul ou Levante (X2)",
-      "cote": 1.61,
+      "cote": 1.65,
       "confidence": 80,
       "reasoning": "Levante invaincu 80% sur 5 derniers matchs · H2H: 1/1 matchs sans défaite",
       "stats": {
@@ -1052,6 +1052,23 @@
         "is_fun": false
       },
       {
+        "direction": "sot_over_5.5",
+        "type": "Tirs cadrés (total)",
+        "label": "Plus de 5.5 tirs cadrés total",
+        "cote": null,
+        "cote_min": 1.26,
+        "value": [
+          "⚠️",
+          "Value serrée",
+          "#f59e0b"
+        ],
+        "confidence": 80,
+        "reasoning": "📊 Brut : Lens L10 19.5 (L5 19.5) tirs cadrés/m · Nice L10 13.7 (L5 13.7) tirs cadrés/m\n🛡️ Défenses : Lens concède 2.8/m · Nice concède 1.7/m\n🎯 Attendu : Lens ~5.0 · Nice ~2.8 → total ~7.8\n⚖️ équipes proches au classement · Lens forme : W-L-W-D-D · Nice forme : D-L-D-D-W",
+        "stats": {
+          "expected_total": 7.8
+        }
+      },
+      {
         "direction": "tirs_(nice)_over_8.5",
         "type": "Tirs (Nice)",
         "label": "Plus de 8.5 tirs Nice",
@@ -1068,23 +1085,6 @@
         "stats": {
           "expected": 11.2
         }
-      },
-      {
-        "direction": "sot_over_5.5",
-        "type": "Tirs cadrés (total)",
-        "label": "Plus de 5.5 tirs cadrés total",
-        "cote": null,
-        "cote_min": 1.26,
-        "value": [
-          "⚠️",
-          "Value serrée",
-          "#f59e0b"
-        ],
-        "confidence": 79,
-        "reasoning": "📊 Brut : Lens L10 19.5 (L5 19.5) tirs cadrés/m · Nice L10 13.7 (L5 13.7) tirs cadrés/m\n🛡️ Défenses : Lens concède 2.8/m · Nice concède 1.7/m\n🎯 Attendu : Lens ~5.0 · Nice ~2.8 → total ~7.8\n⚖️ équipes proches au classement · Lens forme : W-L-W-D-D · Nice forme : D-L-D-D-W",
-        "stats": {
-          "expected_total": 7.8
-        }
       }
     ],
     "home_players": [
@@ -1100,7 +1100,7 @@
         "confidence": 57,
         "reasoning": "4 buts en 5 matchs cette saison (80.0% de chance/match) · finisseur efficace (14% de conv.) · xG moyen 0.44/match · défense fragile",
         "context": {
-          "weakness": 0.62
+          "weakness": 0.63
         },
         "stats": {
           "goals": 4,
@@ -1119,14 +1119,14 @@
         "cote": null,
         "book": null,
         "books": [],
-        "confidence": 52,
-        "reasoning": "2 buts + 2 passes décisives en 5 matchs (80.0% de chance/match) · xG+xA: 0.6/match · défense fragile",
+        "confidence": 57,
+        "reasoning": "2 buts + 3 passes décisives en 5 matchs (100.0% de chance/match) · xG+xA: 0.62/match · défense fragile",
         "context": {
-          "weakness": 0.62
+          "weakness": 0.63
         },
         "stats": {
           "goals": 2,
-          "assists": 2,
+          "assists": 3,
           "apps": 5
         },
         "team": "home"
@@ -1143,7 +1143,7 @@
         "book": null,
         "books": [],
         "confidence": 49,
-        "reasoning": "4 passes décisives en 5 matchs (80.0% de chance/match) · xA moyen 0.44/match · défense fragile",
+        "reasoning": "4 passes décisives en 5 matchs (80.0% de chance/match) · xA moyen 0.42/match · défense fragile",
         "context": {
           "weakness": 0.65
         },
@@ -1151,7 +1151,7 @@
           "assists": 4,
           "apps": 5,
           "apm": 0.8,
-          "xapm": 0.44
+          "xapm": 0.42
         },
         "team": "away"
       }
