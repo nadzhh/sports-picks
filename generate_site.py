@@ -2907,6 +2907,21 @@ def build_html(matches, team_ai, player_ai, pstats_data, nba_picks=None, nba_his
     except Exception as _e:
         print(f"  ⚠️ Impossible d'ecrire nba_history_min.json: {_e}")
 
+    # Box scores complets par game_id (PTS/REB/AST/FG3M par joueur) pour resoudre
+    # cote client n'importe quel prop user, meme ceux que l'algo n'a pas trackes.
+    nba_box_scores = {}
+    try:
+        with open("data/nba_box_scores.json", encoding="utf-8") as _bf:
+            nba_box_scores = _json.load(_bf)
+    except Exception:
+        nba_box_scores = {}
+    nba_box_scores_json = _json.dumps(nba_box_scores, ensure_ascii=False).replace("</", "<\\/")
+    try:
+        with open("data/nba_box_scores_min.json", "w", encoding="utf-8") as _bf:
+            _json.dump(nba_box_scores, _bf, ensure_ascii=False)
+    except Exception as _e:
+        print(f"  ⚠️ Impossible d'ecrire nba_box_scores_min.json: {_e}")
+
     total_t = sum(len(m["picks"]) for m in matches)
     total_p = sum(len(m.get("home_players",[])) + len(m.get("away_players",[])) for m in matches)
 
@@ -3356,6 +3371,7 @@ def build_html(matches, team_ai, player_ai, pstats_data, nba_picks=None, nba_his
 </div>
 <script>
 window.NBA_HISTORY = {nba_history_json};
+window.NBA_BOX_SCORES = {nba_box_scores_json};
 </script>
 <script>
 function showSport(sport){{
@@ -4127,11 +4143,37 @@ function _bkNorm(s){{
   return String(s == null ? '' : s).trim().toLowerCase()
     .normalize('NFD').replace(/[\\u0300-\\u036f]/g, '');
 }}
+// Calcule la valeur du prop a partir des stats brutes du joueur (PTS/REB/AST/FG3M)
+function _bkComputePropFromBox(box, prop){{
+  if(!box) return undefined;
+  var P = +box.PTS || 0, R = +box.REB || 0, A = +box.AST || 0, F = +box.FG3M || 0;
+  switch(String(prop || '').toUpperCase()){{
+    case 'PTS':  return P;
+    case 'REB':  return R;
+    case 'AST':  return A;
+    case 'FG3M': return F;
+    case 'RA':   return R + A;
+    case 'PR':   return P + R;
+    case 'PA':   return P + A;
+    case 'PRA':  return P + R + A;
+    default:     return undefined;
+  }}
+}}
+// Cherche le joueur dans un dict {{playerName: box}} avec matching tolerant
+function _bkFindPlayerBox(byPlayer, playerName){{
+  if(!byPlayer) return undefined;
+  if(byPlayer[playerName]) return byPlayer[playerName];
+  var target = _bkNorm(playerName);
+  for(var k in byPlayer){{
+    if(_bkNorm(k) === target) return byPlayer[k];
+  }}
+  return undefined;
+}}
 function autoResolveUserPicks(){{
   var hist = window.NBA_HISTORY || [];
-  if(!hist.length) return 0;
+  var boxScores = window.NBA_BOX_SCORES || {{}};
+  if(!hist.length && !Object.keys(boxScores).length) return 0;
   // Build lookup map "{{game_id}}|{{player}}|{{prop}}" -> actual + variante player-only
-  // pour absorber les ecarts gid string/number, casse, diacritiques.
   var actualMap = {{}};      // key complete (gid|player|prop)
   var actualMapPP = {{}};    // fallback (player|prop) — si game_id ne matche pas
   hist.forEach(function(h){{
@@ -4144,21 +4186,37 @@ function autoResolveUserPicks(){{
     if(actualMap[key] === undefined)    actualMap[key]    = h.actual;
     if(actualMapPP[keyP] === undefined) actualMapPP[keyP] = h.actual;
   }});
+  // Box scores normalise : {{normGid: {{normName: box}}}}
+  var boxByGid = {{}};
+  Object.keys(boxScores).forEach(function(gid){{
+    boxByGid[_bkNorm(gid)] = boxScores[gid] || {{}};
+  }});
   var arr = _loadUserPicks();
   var nResolved = 0;
   var debug = [];
   arr.forEach(function(p){{
-    if(p.result && p.result !== 'PENDING') return;  // skip si deja resolu ou cashout
-    if(p.manual_override) return;                   // l'user a force un resultat
+    if(p.result && p.result !== 'PENDING') return;
+    if(p.manual_override) return;
     var gid = _bkNorm(p.game_id);
     var pl  = _bkNorm(p.player);
     var pr  = _bkNorm(p.prop);
     var key  = gid + '|' + pl + '|' + pr;
     var keyP = pl + '|' + pr;
+    // 1. Lookup direct dans l'historique (algo a tracke ce prop)
     var actual = actualMap[key];
-    if(actual === undefined) actual = actualMapPP[keyP];  // fallback player+prop
+    // 2. Fallback player+prop (mismatch gid)
+    if(actual === undefined) actual = actualMapPP[keyP];
+    // 3. Fallback box score : derive a partir de PTS/REB/AST/FG3M
     if(actual === undefined){{
-      debug.push({{id: p.id, player: p.player, prop: p.prop, gid: p.game_id, key: key, found: false}});
+      var byPlayer = boxByGid[gid];
+      var box = _bkFindPlayerBox(byPlayer, p.player);
+      if(box){{
+        var v = _bkComputePropFromBox(box, p.prop);
+        if(v !== undefined) actual = v;
+      }}
+    }}
+    if(actual === undefined){{
+      debug.push({{id: p.id, player: p.player, prop: p.prop, gid: p.game_id}});
       return;
     }}
     var line = parseFloat(p.line);
@@ -4167,7 +4225,7 @@ function autoResolveUserPicks(){{
     var result;
     if(p.direction === 'over'){{
       result = actual > line ? 'WIN' : (actual < line ? 'LOSS' : 'PUSH');
-    }} else {{  // under
+    }} else {{
       result = actual < line ? 'WIN' : (actual > line ? 'LOSS' : 'PUSH');
     }}
     p.result = result;
@@ -4177,37 +4235,51 @@ function autoResolveUserPicks(){{
     nResolved++;
   }});
   if(nResolved > 0) _saveUserPicks(arr);
-  if(window._bkDebug && debug.length) console.log('[bk] unresolved picks:', debug, 'hist size:', hist.length);
+  if(window._bkDebug && debug.length) console.log('[bk] unresolved picks:', debug, 'hist:', hist.length, 'boxes:', Object.keys(boxScores).length);
   return nResolved;
 }}
 
-// ── Auto-refresh : poll data/nba_history_min.json toutes les 60s ─────────────
+// ── Auto-refresh : poll history + box_scores toutes les 60s ──────────────────
 // Cron regenere le site toutes les 10 min cote serveur. Cote client, on
-// recupere la version a jour de NBA_HISTORY sans avoir a recharger la page.
+// recupere les versions a jour sans avoir a recharger la page.
 async function _bkPollHistory(){{
+  var changed = false;
+  // Fetch history
   try {{
     var resp = await fetch('data/nba_history_min.json?t=' + Date.now(), {{cache: 'no-store'}});
-    if(!resp.ok) return;
-    var hist = await resp.json();
-    if(!Array.isArray(hist)) return;
-    // Detect change : si meme longueur ET meme dernier resolved key, skip
-    var prev = window.NBA_HISTORY || [];
-    var sameLen = prev.length === hist.length;
-    var sameLast = sameLen && prev.length > 0
-      && (prev[prev.length-1].game_id === hist[hist.length-1].game_id)
-      && (prev[prev.length-1].player === hist[hist.length-1].player)
-      && (prev[prev.length-1].actual === hist[hist.length-1].actual);
-    window.NBA_HISTORY = hist;
-    if(sameLen && sameLast) return;  // rien de neuf, pas de re-render
-    // Tente de resoudre les pending avec la nouvelle data
-    var n = autoResolveUserPicks();
-    _updateUserPicksCount();
-    // Re-render uniquement si on est sur la section bankroll
-    var bkTab = document.getElementById('sport-userpicks');
-    if(bkTab && bkTab.style.display !== 'none' && n > 0){{
-      renderUserPicks();
+    if(resp.ok){{
+      var hist = await resp.json();
+      if(Array.isArray(hist)){{
+        var prev = window.NBA_HISTORY || [];
+        var same = prev.length === hist.length && prev.length > 0
+          && prev[prev.length-1].game_id === hist[hist.length-1].game_id
+          && prev[prev.length-1].player === hist[hist.length-1].player
+          && prev[prev.length-1].actual === hist[hist.length-1].actual;
+        if(!same) changed = true;
+        window.NBA_HISTORY = hist;
+      }}
     }}
-  }} catch(e){{ /* network error, on retentera plus tard */ }}
+  }} catch(e){{}}
+  // Fetch box scores (donnees brutes par game_id pour resolution de tout prop)
+  try {{
+    var rb = await fetch('data/nba_box_scores_min.json?t=' + Date.now(), {{cache: 'no-store'}});
+    if(rb.ok){{
+      var box = await rb.json();
+      if(box && typeof box === 'object'){{
+        var prevKeys = Object.keys(window.NBA_BOX_SCORES || {{}}).length;
+        var newKeys  = Object.keys(box).length;
+        if(newKeys !== prevKeys) changed = true;
+        window.NBA_BOX_SCORES = box;
+      }}
+    }}
+  }} catch(e){{}}
+  if(!changed) return;
+  var n = autoResolveUserPicks();
+  _updateUserPicksCount();
+  var bkTab = document.getElementById('sport-userpicks');
+  if(bkTab && bkTab.style.display !== 'none' && n > 0){{
+    renderUserPicks();
+  }}
 }}
 // Init poll au chargement + tick toutes les 60s + reload quand l'onglet redevient visible
 window.addEventListener('DOMContentLoaded', function(){{
@@ -4403,6 +4475,13 @@ function _bkRowHtml(p){{
   var propLabel = ({{PTS:'pts',REB:'reb',AST:'pas',FG3M:'3PM',RA:'reb+pas',PR:'pts+reb',PA:'pts+ast',PRA:'PRA'}})[p.prop] || p.prop;
   var dir = p.direction === 'over' ? 'plus de' : 'moins de';
   var title = p.player + ' ' + dir + ' ' + p.line + ' ' + propLabel;
+  // Affiche la stat reelle si dispo (apres resolution) — ex "→ réel 17"
+  if(p.actual !== null && p.actual !== undefined){{
+    var actNum = parseFloat(p.actual);
+    var actStr = isNaN(actNum) ? p.actual : (Math.abs(actNum % 1) < 0.05 ? actNum.toFixed(0) : actNum.toFixed(1));
+    var actClr = p.result === 'WIN' ? '#34D399' : (p.result === 'LOSS' ? '#F87171' : '#94A3B8');
+    title += ' <span style="color:' + actClr + ';font-weight:700">→ réel ' + actStr + '</span>';
+  }}
   var match = (p.away || '') + ' @ ' + (p.home || '');
   var badge = '';
   if(!p.result || p.result === 'PENDING'){{
@@ -4842,13 +4921,14 @@ def push_to_github():
 
         # Force l'ajout même si dans .gitignore
         subprocess.run(["git", "add", "-f", "index.html"], check=True, timeout=10)
-        # Egalement le fichier d'historique minimal pour le polling JS du bankroll
+        # Egalement les fichiers d'historique + box scores pour le polling JS du bankroll
         import os as _os_p
-        if _os_p.path.exists("data/nba_history_min.json"):
-            try:
-                subprocess.run(["git", "add", "-f", "data/nba_history_min.json"], check=True, timeout=10)
-            except Exception:
-                pass
+        for _df in ("data/nba_history_min.json", "data/nba_box_scores_min.json"):
+            if _os_p.path.exists(_df):
+                try:
+                    subprocess.run(["git", "add", "-f", _df], check=True, timeout=10)
+                except Exception:
+                    pass
 
         # Vérifie s'il y a des changements
         result = subprocess.run(
