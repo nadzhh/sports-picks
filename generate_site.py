@@ -195,6 +195,15 @@ def cote_badge(cote):
 
 
 import html as _html
+import json as _json_jsattr
+
+def _js_attr_str(s):
+    """Produit un literal JS valide a embarquer dans onclick=\"...\".
+    Utilise une chaine JS double-quote avec encodage HTML des " (&quot;), ce
+    qui survit au double decodage HTML puis JS du navigateur. Gere correctement
+    les apostrophes (ex: De'Aaron Fox) que _html.escape(quote=True) cassait."""
+    return _json_jsattr.dumps("" if s is None else str(s)).replace('"', '&quot;')
+
 
 def _push_button(text):
     """Petit bouton 📲 qui envoie `text` au bot Telegram (token en localStorage)."""
@@ -1915,7 +1924,7 @@ def build_nba_card(game):
             f'<div style="display:flex;align-items:center;gap:6px">'
             f'<span style="background:{conf_color};color:#0a1628;font-weight:800;border-radius:14px;padding:3px 10px;font-size:13px">{conf}%</span>'
             f'{stake_pill(p.get("stake_label"), p.get("kelly_pct"))}'
-            f'<button onclick="event.stopPropagation();goToAnalyse({_html.escape(p.get("player","?"), quote=True)!r}, {_html.escape(p.get("prop","?"), quote=True)!r})" '
+            f'<button onclick="event.stopPropagation();goToAnalyse({_js_attr_str(p.get("player","?"))}, {_js_attr_str(p.get("prop","?"))})" '
             f'title="Voir l\'analyse complete du joueur" '
             f'style="background:#1e3a8a;color:#bfdbfe;border:1px solid #3b82f6;border-radius:6px;'
             f'padding:3px 8px;font-size:12px;font-weight:700;cursor:pointer">🔍</button>'
