@@ -3829,11 +3829,11 @@ function _saveUserPicks(arr){{
 }}
 function _updateUserPicksCount(){{
   var arr = _loadUserPicks();
-  var pending = arr.filter(p => !p.result).length;
+  var pending = arr.filter(function(p){{ return !p.result || p.result === 'PENDING'; }}).length;
   var badge = document.getElementById('userpicks-count');
   if(badge){{
-    badge.textContent = arr.length;
-    badge.style.display = arr.length > 0 ? 'inline-block' : 'none';
+    badge.textContent = pending;
+    badge.style.display = pending > 0 ? 'inline-block' : 'none';
   }}
 }}
 
