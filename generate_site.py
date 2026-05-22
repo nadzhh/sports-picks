@@ -3242,6 +3242,20 @@ def build_html(matches, team_ai, player_ai, pstats_data, nba_picks=None, nba_his
   #sport-userpicks .bk-filter-reset {{ background: transparent; border: none; color: #34D399; font-size: 12px; font-weight: 600; cursor: pointer; padding: 0 4px; }}
   #sport-userpicks .bk-filter-empty {{ padding: 30px 14px; text-align: center; color: var(--bk-text-muted); font-size: 13px; }}
 
+  /* Show more / show less */
+  #sport-userpicks .bk-more-rows {{ display: none; }}
+  #sport-userpicks .bk-more-rows.open {{ display: block; }}
+  #sport-userpicks .bk-more-btn {{
+    width: 100%; padding: 10px 14px; margin-top: 8px;
+    background: var(--bk-surface); border: 1px solid var(--bk-border-strong);
+    color: var(--bk-text-muted); font-weight: 600; font-size: 12.5px;
+    border-radius: 12px; cursor: pointer; transition: all 150ms ease;
+    font-family: inherit; display: flex; align-items: center; justify-content: center; gap: 6px;
+  }}
+  #sport-userpicks .bk-more-btn:hover {{ background: var(--bk-text-soft); color: var(--bk-text); }}
+  #sport-userpicks .bk-filter-section {{ margin-bottom: 6px; }}
+  #sport-userpicks .bk-filter-section + .bk-filter-section {{ margin-top: 4px; }}
+
   /* ── Modal Nouveau Pari (overlay global, ouvert depuis Analyse NBA) ──── */
   #bk-modal-root {{
     position: fixed; inset: 0; z-index: 9999;
@@ -4795,13 +4809,49 @@ function setBkPeriod(p){{
   renderUserPicks();
 }}
 function setBkFilter(kind, value){{
-  window._bkFilters = window._bkFilters || {{status:'all', tipster:'all'}};
+  window._bkFilters = window._bkFilters || {{status:'all', tipster:'all', date:'all'}};
   window._bkFilters[kind] = value;
   renderUserPicks();
 }}
 function resetBkFilters(){{
-  window._bkFilters = {{status:'all', tipster:'all'}};
+  window._bkFilters = {{status:'all', tipster:'all', date:'all'}};
   renderUserPicks();
+}}
+// Toggle expand/collapse de listes ("Paris en cours" / "Historique")
+function _bkToggleMore(prefix){{
+  window._bkExpanded = window._bkExpanded || {{}};
+  window._bkExpanded[prefix] = !window._bkExpanded[prefix];
+  var rowsEl = document.getElementById('bk-more-' + prefix);
+  var btn    = document.getElementById('bk-more-btn-' + prefix);
+  if(!rowsEl || !btn) return;
+  var open = window._bkExpanded[prefix];
+  rowsEl.classList.toggle('open', open);
+  var n = parseInt(btn.dataset.hidden || '0', 10);
+  btn.innerHTML = open ? '▲ Réduire' : ('▼ Afficher les ' + n + ' autres');
+}}
+// Filtre date : retourne la date YYYY-MM-DD pertinente du pick (resolved_at sinon match_date sinon created)
+function _bkPickDay(p){{
+  var d = p.resolved_at || p.match_date || p.created || '';
+  return String(d).slice(0, 10);
+}}
+function _bkPickInDateRange(p, kind){{
+  if(!kind || kind === 'all') return true;
+  var day = _bkPickDay(p);
+  if(!day) return false;
+  var now = new Date();
+  var pad = function(n){{ return n < 10 ? '0' + n : '' + n; }};
+  var fmt = function(d){{ return d.getFullYear() + '-' + pad(d.getMonth() + 1) + '-' + pad(d.getDate()); }};
+  var today = fmt(now);
+  if(kind === 'today') return day === today;
+  if(kind === 'yesterday'){{
+    var y = new Date(now); y.setDate(y.getDate() - 1);
+    return day === fmt(y);
+  }}
+  var dt = new Date(day + 'T12:00:00');
+  var diffDays = (now - dt) / 86400000;
+  if(kind === '7d')  return diffDays <= 7  && diffDays >= -1;
+  if(kind === '30d') return diffDays <= 30 && diffDays >= -1;
+  return true;
 }}
 
 function renderUserPicks(){{
@@ -4942,31 +4992,48 @@ function renderUserPicks(){{
       + '</div>';
   }}
 
-  // ── Paris en cours ──────────────────────────────────
+  // ── Paris en cours (premiers 5 visibles, reste deroulable) ─────
+  window._bkExpanded = window._bkExpanded || {{pending:false, history:false}};
+  var PENDING_LIMIT = 5;
   var pendingCard = '';
   if(pending.length > 0){{
-    var pendingRows = pending.map(_bkRowHtml).join('');
+    var visibleP = pending.slice(0, PENDING_LIMIT).map(_bkRowHtml).join('');
+    var hiddenP  = pending.slice(PENDING_LIMIT);
+    var hiddenPHtml = hiddenP.length
+      ? '<div class="bk-more-rows ' + (window._bkExpanded.pending ? 'open' : '') + '" id="bk-more-pending">' + hiddenP.map(_bkRowHtml).join('') + '</div>'
+        + '<button class="bk-more-btn" id="bk-more-btn-pending" data-hidden="' + hiddenP.length + '" onclick="_bkToggleMore(\\'pending\\')">'
+        + (window._bkExpanded.pending ? '▲ Réduire' : '▼ Afficher les ' + hiddenP.length + ' autres')
+        + '</button>'
+      : '';
     pendingCard =
       '<div class="bk-card">'
       + '<div class="bk-card-hd">'
       +   '<div class="bk-card-title">Paris en cours <span style="padding:2px 9px;border-radius:999px;background:rgba(251,191,36,0.14);color:#FBBF24;font-size:11px;font-weight:700">' + pending.length + '</span></div>'
       + '</div>'
-      + '<div class="bk-rows">' + pendingRows + '</div>'
+      + '<div class="bk-rows">' + visibleP + '</div>'
+      + hiddenPHtml
       + '</div>';
   }}
 
-  // ── Historique (avec filtres status + tipster) ──────
-  window._bkFilters = window._bkFilters || {{status:'all', tipster:'all'}};
-  var fStatus = window._bkFilters.status;
+  // ── Historique (filtres status + tipster + date + collapse) ─────────
+  window._bkFilters = window._bkFilters || {{status:'all', tipster:'all', date:'all'}};
+  if(!window._bkFilters.date) window._bkFilters.date = 'all';
+  var fStatus  = window._bkFilters.status;
   var fTipster = window._bkFilters.tipster;
+  var fDate    = window._bkFilters.date;
   // Tous les paris (pending inclus) pour filtrage
   var allForFilter = arr.slice();
-  // Counts par status
+  // Counts par status (sur la base globale)
   var cntAll     = allForFilter.length;
   var cntPending = pending.length;
   var cntWon     = wins;
   var cntLost    = losses;
   var cntPush    = resolved.filter(function(p){{ return p.result === 'PUSH'; }}).length;
+  // Counts par date (sur la base globale)
+  var cntToday     = allForFilter.filter(function(p){{ return _bkPickInDateRange(p, 'today'); }}).length;
+  var cntYesterday = allForFilter.filter(function(p){{ return _bkPickInDateRange(p, 'yesterday'); }}).length;
+  var cnt7d        = allForFilter.filter(function(p){{ return _bkPickInDateRange(p, '7d'); }}).length;
+  var cnt30d       = allForFilter.filter(function(p){{ return _bkPickInDateRange(p, '30d'); }}).length;
   // Tipsters uniques
   var tipsterCounts = {{}};
   allForFilter.forEach(function(p){{
@@ -4986,6 +5053,7 @@ function renderUserPicks(){{
       var t = (p.tipster && p.tipster.trim()) ? p.tipster.trim() : '∅ Sans tipster';
       if(t !== fTipster) return false;
     }}
+    if(!_bkPickInDateRange(p, fDate)) return false;
     return true;
   }});
   // Build status filter chips
@@ -5000,6 +5068,22 @@ function renderUserPicks(){{
     var active = fStatus === f.id;
     return '<button class="bk-filter-chip ' + (active ? 'active' : '') + '" onclick="setBkFilter(\\'status\\', \\'' + f.id + '\\')">'
       + (f.color ? '<span class="dot" style="background:' + f.color + '"></span>' : '')
+      + f.label
+      + '<span class="count">' + f.count + '</span>'
+      + '</button>';
+  }}).join('');
+  // Build date filter chips
+  var dateDefs = [
+    {{id:'all',       label:'Toutes dates',  count:cntAll,       ic:'📅'}},
+    {{id:'today',     label:"Aujourd'hui",   count:cntToday,     ic:'🟢'}},
+    {{id:'yesterday', label:'Hier',          count:cntYesterday, ic:'🟡'}},
+    {{id:'7d',        label:'7 derniers j.', count:cnt7d,        ic:'📆'}},
+    {{id:'30d',       label:'30 derniers j.',count:cnt30d,       ic:'📚'}},
+  ];
+  var dateChips = dateDefs.map(function(f){{
+    var active = fDate === f.id;
+    return '<button class="bk-filter-chip ' + (active ? 'active' : '') + '" onclick="setBkFilter(\\'date\\', \\'' + f.id + '\\')">'
+      + '<span style="font-size:13px">' + f.ic + '</span>'
       + f.label
       + '<span class="count">' + f.count + '</span>'
       + '</button>';
@@ -5019,15 +5103,27 @@ function renderUserPicks(){{
       + '<span class="count">' + tipsterCounts[t] + '</span>'
       + '</button>';
   }}).join('');
-  var resetBtn = (fStatus !== 'all' || fTipster !== 'all')
+  var resetBtn = (fStatus !== 'all' || fTipster !== 'all' || fDate !== 'all')
     ? '<button class="bk-filter-reset" onclick="resetBkFilters()">Réinitialiser ✕</button>'
     : '';
 
   var recentCard = '';
   if(allForFilter.length > 0){{
-    var filteredRows = filteredArr.length > 0
-      ? filteredArr.slice(0, 30).map(_bkRowHtml).join('')
-      : '<div class="bk-filter-empty">🔍 Aucun pari ne correspond aux filtres.</div>';
+    var HISTORY_LIMIT = 5;
+    var hiddenH = filteredArr.slice(HISTORY_LIMIT);
+    var rowsBlock;
+    if(filteredArr.length === 0){{
+      rowsBlock = '<div class="bk-filter-empty">🔍 Aucun pari ne correspond aux filtres.</div>';
+    }} else {{
+      var visibleH = filteredArr.slice(0, HISTORY_LIMIT).map(_bkRowHtml).join('');
+      var hiddenHtml = hiddenH.length
+        ? '<div class="bk-more-rows ' + (window._bkExpanded.history ? 'open' : '') + '" id="bk-more-history">' + hiddenH.map(_bkRowHtml).join('') + '</div>'
+          + '<button class="bk-more-btn" id="bk-more-btn-history" data-hidden="' + hiddenH.length + '" onclick="_bkToggleMore(\\'history\\')">'
+          + (window._bkExpanded.history ? '▲ Réduire' : '▼ Afficher les ' + hiddenH.length + ' autres')
+          + '</button>'
+        : '';
+      rowsBlock = '<div class="bk-rows">' + visibleH + '</div>' + hiddenHtml;
+    }}
     recentCard =
       '<div class="bk-card">'
       + '<div class="bk-card-hd">'
@@ -5035,8 +5131,9 @@ function renderUserPicks(){{
       +   resetBtn
       + '</div>'
       + '<div class="bk-filter-row">' + statusChips + '</div>'
+      + '<div class="bk-filter-row">' + dateChips + '</div>'
       + (tipsterList.length > 0 ? '<div class="bk-filter-row">' + tipsterChips + '</div>' : '')
-      + '<div class="bk-rows">' + filteredRows + '</div>'
+      + rowsBlock
       + '</div>';
   }}
 
