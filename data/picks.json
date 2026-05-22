@@ -1052,23 +1052,6 @@
         "is_fun": false
       },
       {
-        "direction": "sot_over_5.5",
-        "type": "Tirs cadrés (total)",
-        "label": "Plus de 5.5 tirs cadrés total",
-        "cote": null,
-        "cote_min": 1.25,
-        "value": [
-          "⚠️",
-          "Value serrée",
-          "#f59e0b"
-        ],
-        "confidence": 80,
-        "reasoning": "📊 Brut : Lens L10 19.5 (L5 19.5) tirs cadrés/m · Nice L10 13.7 (L5 13.7) tirs cadrés/m\n🛡️ Défenses : Lens concède 2.8/m · Nice concède 1.7/m\n🎯 Attendu : Lens ~5.1 · Nice ~2.8 → total ~7.9\n⚖️ équipes proches au classement · Lens forme : W-L-W-D-D · Nice forme : D-L-D-D-W",
-        "stats": {
-          "expected_total": 7.9
-        }
-      },
-      {
         "direction": "tirs_(nice)_over_8.5",
         "type": "Tirs (Nice)",
         "label": "Plus de 8.5 tirs Nice",
@@ -1084,6 +1067,23 @@
         "reasoning": "Nice prend 13.7/m [pondere vs opp #None] · adv. concède 8.8/m → attendu ~11.2 (équipes proches au classement)",
         "stats": {
           "expected": 11.2
+        }
+      },
+      {
+        "direction": "shots_over_23.5",
+        "type": "Tirs (total match)",
+        "label": "Plus de 23.5 tirs total",
+        "cote": null,
+        "cote_min": 1.29,
+        "value": [
+          "⚠️",
+          "Value serrée",
+          "#f59e0b"
+        ],
+        "confidence": 77,
+        "reasoning": "📊 Brut : Lens L10 19.5 (L5 19.5) tirs/m · Nice L10 13.7 (L5 13.7) tirs/m\n🛡️ Défenses : Lens concède 8.8/m · Nice concède 13.0/m\n🎯 Attendu : Lens ~16.2 · Nice ~11.2 → total ~27.5\n⚖️ équipes proches au classement · Lens forme : W-L-W-D-D · Nice forme : D-L-D-D-W",
+        "stats": {
+          "expected_total": 27.5
         }
       }
     ],
