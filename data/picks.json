@@ -167,6 +167,23 @@
         "is_fun": false
       },
       {
+        "direction": "shots_under_27.5",
+        "type": "Tirs (total match)",
+        "label": "Moins de 27.5 tirs total",
+        "cote": null,
+        "cote_min": 1.25,
+        "value": [
+          "⚠️",
+          "Value serrée",
+          "#f59e0b"
+        ],
+        "confidence": 80,
+        "reasoning": "📊 Brut : Bologna L10 12.6 (L5 10.0) tirs/m · Inter L10 15.1 (L5 15.2) tirs/m\n🛡️ Défenses : Bologna concède 9.6/m · Inter concède 10.6/m\n🎯 Attendu : Bologna ~10.2 · Inter ~13.4 → total ~23.5\n⚖️ Inter favori (#1 vs #8) · Bologna forme : W-W-D-L-L · Inter forme : D-W-W-W-D",
+        "stats": {
+          "expected_total": 23.5
+        }
+      },
+      {
         "direction": "tirs_(bologna)_over_7.5",
         "type": "Tirs (Bologna)",
         "label": "Plus de 7.5 tirs Bologna",
@@ -179,26 +196,9 @@
         ],
         "confidence": 79,
         "edge": null,
-        "reasoning": "Bologna prend 11.6/m [pondere vs opp #1] · adv. concède 10.5/m → attendu ~10.1 (Inter favori (#1 vs #8))",
+        "reasoning": "Bologna prend 11.6/m [pondere vs opp #1] · adv. concède 10.6/m → attendu ~10.2 (Inter favori (#1 vs #8))",
         "stats": {
-          "expected": 10.1
-        }
-      },
-      {
-        "direction": "shots_over_19.5",
-        "type": "Tirs (total match)",
-        "label": "Plus de 19.5 tirs total",
-        "cote": null,
-        "cote_min": 1.29,
-        "value": [
-          "⚠️",
-          "Value serrée",
-          "#f59e0b"
-        ],
-        "confidence": 77,
-        "reasoning": "📊 Brut : Bologna L10 12.6 (L5 10.0) tirs/m · Inter L10 14.6 (L5 15.2) tirs/m\n🛡️ Défenses : Bologna concède 9.6/m · Inter concède 10.5/m\n🎯 Attendu : Bologna ~10.1 · Inter ~13.0 → total ~23.2\n⚖️ Inter favori (#1 vs #8) · Bologna forme : W-W-D-L-L · Inter forme : D-W-W-W-D",
-        "stats": {
-          "expected_total": 23.2
+          "expected": 10.2
         }
       }
     ],
