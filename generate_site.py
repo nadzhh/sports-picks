@@ -5057,10 +5057,23 @@ function renderUserPicks(){{
   else if(curW >= 4) advice.push({{ic:'🔥', clr:'#34D399', t:'Streak <b>' + curW + ' victoires consécutives</b> — attention au biais hot hand, ne monte pas les mises.'}});
   if(settled.length >= 5 && nCotes > 0){{
     var be = 100 / avgCote;
-    if(wr > be + 5)      advice.push({{ic:'💎', clr:'#34D399', t:'Tes ' + wr.toFixed(0) + '% WR sont au-dessus du break-even (' + be.toFixed(0) + '% à cote ' + avgCote.toFixed(2) + ') — tu joues +EV.'}});
-    else if(wr < be - 5) advice.push({{ic:'📉', clr:'#FBBF24', t:'WR ' + wr.toFixed(0) + '% sous le break-even (' + be.toFixed(0) + '% requis à cote ' + avgCote.toFixed(2) + ') — sélection à affiner.'}});
+    if(wr > be + 5){{
+      advice.push({{ic:'💎', clr:'#34D399',
+        t:'À cote moyenne <b>' + avgCote.toFixed(2) + '</b>, il faut gagner <b>' + be.toFixed(0) + '%</b> des paris pour être à l\\'équilibre. '
+          + 'Toi tu en gagnes <b>' + wr.toFixed(0) + '%</b> → tu es <b>+' + (wr - be).toFixed(0) + ' pts</b> au-dessus du seuil de rentabilité. '
+          + 'En clair : tu fais du profit sur la durée 💰'}});
+    }} else if(wr < be - 5){{
+      advice.push({{ic:'📉', clr:'#FBBF24',
+        t:'À cote moyenne <b>' + avgCote.toFixed(2) + '</b>, le bookmaker te paye ' + (avgCote - 1).toFixed(2) + ' € par 1 € misé sur un pari gagné. '
+          + 'Pour ne PAS perdre d\\'argent sur la durée, il faudrait gagner au moins <b>' + be.toFixed(0) + '%</b> du temps (= seuil de rentabilité = 1/cote). '
+          + 'Toi tu gagnes <b>' + wr.toFixed(0) + '%</b>, soit <b>' + (be - wr).toFixed(0) + ' pts sous le seuil</b> → tu perds en moyenne. '
+          + 'Pistes : prends des cotes plus élevées (mais bien valuées) ou trie plus strictement tes picks.'}});
+    }}
   }}
-  if(avgStake > bk * 0.05 && bk > 0) advice.push({{ic:'⚠️', clr:'#FBBF24', t:'Mise moy. ' + _bkFmt(avgStake) + ' € élevée (' + Math.round(avgStake / bk * 100) + '% du bankroll) — Kelly recommande 1-3% (' + _bkFmt(bk * 0.02) + ' € suggéré).'}});
+  if(avgStake > bk * 0.05 && bk > 0) advice.push({{ic:'⚠️', clr:'#FBBF24',
+    t:'Ta mise moyenne est <b>' + _bkFmt(avgStake) + ' €</b>, soit <b>' + Math.round(avgStake / bk * 100) + '% de ton bankroll</b>. '
+      + 'C\\'est trop : la gestion saine en pari sportif recommande <b>1 à 3 % par pari</b> '
+      + '(~' + _bkFmt(bk * 0.02) + ' € sur ton bankroll). Une mauvaise série peut sinon te ruiner vite.'}});
   if(pending.length > 10) advice.push({{ic:'📋', clr:'#94A3B8', t:'<b>' + pending.length + ' paris pending</b> — résous les anciens pour des stats à jour.'}});
 
   var adviceCard = '';
