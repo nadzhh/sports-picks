@@ -4795,33 +4795,96 @@ function _bkBuildSeries(arr, bk, period){{
     var ms = days * 86400000;
     bets = bets.filter(function(b){{ return now - new Date(b.resolved_at).getTime() <= ms; }});
   }}
+  // 1er point = bankroll initial avant le premier pari ; les suivants = apres chaque resolution
   var pts = [bk];
+  var dates = [];
+  // Premiere date : si on a au moins un pari, la date 1 jour avant le 1er pari ; sinon aujourd'hui
+  if(bets.length > 0){{
+    var first = new Date(bets[0].resolved_at);
+    first.setDate(first.getDate() - 1);
+    dates.push(first.toISOString());
+  }} else {{
+    dates.push(new Date().toISOString());
+  }}
   var v = bk;
-  bets.forEach(function(b){{ v += _bkBetDelta(b); pts.push(v); }});
-  return pts;
+  bets.forEach(function(b){{
+    v += _bkBetDelta(b);
+    pts.push(v);
+    dates.push(b.resolved_at);
+  }});
+  return {{pts: pts, dates: dates}};
 }}
-function _bkRenderChart(pts, accent, hasResolved){{
+// Step "rond" pour graduation Y-axis (1, 2, 5, 10, 20, 50, 100...)
+function _bkNiceStep(range, target){{
+  if(range <= 0) return 1;
+  var rough = range / Math.max(1, target);
+  var pow = Math.pow(10, Math.floor(Math.log10(rough)));
+  var n = rough / pow;
+  var nice;
+  if(n < 1.5) nice = 1;
+  else if(n < 3) nice = 2;
+  else if(n < 7) nice = 5;
+  else nice = 10;
+  return nice * pow;
+}}
+function _bkFmtDateShort(iso){{
+  if(!iso) return '';
+  var d = String(iso).slice(0, 10);
+  var m = d.match(/^(\\d{{4}})-(\\d{{2}})-(\\d{{2}})/);
+  return m ? (m[3] + '/' + m[2]) : d;
+}}
+function _bkRenderChart(series, accent, hasResolved){{
+  // Accepte soit l'ancien format (array) soit le nouveau {{pts, dates}}
+  var pts, dates;
+  if(Array.isArray(series)){{ pts = series; dates = []; }}
+  else {{ pts = (series && series.pts) || []; dates = (series && series.dates) || []; }}
   if(!pts || pts.length < 2){{
     var msg = hasResolved
       ? "Aucun pari résolu sur cette période — change l'intervalle pour voir ta courbe ✨"
       : "Pas encore d'historique — résous quelques paris pour voir ta courbe ✨";
-    return '<div style="display:flex;align-items:center;justify-content:center;height:200px;color:var(--bk-text-muted);font-size:13px;text-align:center;padding:0 20px">' + msg + '</div>';
+    return '<div style="display:flex;align-items:center;justify-content:center;height:220px;color:var(--bk-text-muted);font-size:13px;text-align:center;padding:0 20px">' + msg + '</div>';
   }}
-  var W = 800, H = 200, padT = 18, padB = 14, padL = 8, padR = 8;
+  var W = 800, H = 220;
+  var padT = 12, padB = 26, padL = 48, padR = 6;
   var iw = W - padL - padR, ih = H - padT - padB;
-  var min = Math.min.apply(null, pts), max = Math.max.apply(null, pts);
-  var range = Math.max(0.01, max - min);
+  var minV = Math.min.apply(null, pts), maxV = Math.max.apply(null, pts);
+  // Nice rounding pour axe Y : on etend les bornes a des multiples du step
+  var step = _bkNiceStep(maxV - minV, 4);
+  var gridMin = Math.floor(minV / step) * step;
+  var gridMax = Math.ceil(maxV / step) * step;
+  if(gridMax <= gridMin) gridMax = gridMin + step;
+  var range = gridMax - gridMin;
   var n = pts.length;
-  var coords = pts.map(function(v, i){{
-    var x = padL + (i / Math.max(1, n - 1)) * iw;
-    var y = padT + (1 - (v - min) / range) * ih;
-    return [x, y];
-  }});
+  var x = function(i){{ return padL + (i / Math.max(1, n - 1)) * iw; }};
+  var y = function(v){{ return padT + (1 - (v - gridMin) / range) * ih; }};
+  var coords = pts.map(function(v, i){{ return [x(i), y(v)]; }});
   var linePath = coords.map(function(p, i){{ return (i === 0 ? 'M' : 'L') + p[0].toFixed(1) + ',' + p[1].toFixed(1); }}).join(' ');
-  var areaPath = linePath + ' L' + coords[n-1][0].toFixed(1) + ',' + H + ' L' + coords[0][0].toFixed(1) + ',' + H + ' Z';
+  var baseY = padT + ih;
+  var areaPath = linePath + ' L' + coords[n-1][0].toFixed(1) + ',' + baseY.toFixed(1) + ' L' + coords[0][0].toFixed(1) + ',' + baseY.toFixed(1) + ' Z';
   var endP = coords[n-1];
   var uid = 'bk' + Math.random().toString(36).slice(2, 8);
-  return '<svg viewBox="0 0 ' + W + ' ' + H + '" preserveAspectRatio="none" style="width:100%;height:200px;overflow:visible">'
+  // Axe Y : lignes de graduation + labels (€)
+  var gridLines = '', yLabels = '';
+  for(var v = gridMin; v <= gridMax + 0.001; v += step){{
+    var yy = y(v);
+    gridLines += '<line x1="' + padL + '" x2="' + (W - padR) + '" y1="' + yy.toFixed(1) + '" y2="' + yy.toFixed(1) + '" stroke="rgba(255,255,255,0.05)" stroke-dasharray="2,4"/>';
+    var label = (Math.abs(v) >= 1000 ? (v / 1000).toFixed(v < 10000 ? 1 : 0) + 'k' : Math.round(v).toString()) + '€';
+    yLabels += '<text x="' + (padL - 6) + '" y="' + (yy + 3.5).toFixed(1) + '" text-anchor="end" fill="#8B8D98" font-size="11" font-family="Geist,system-ui,sans-serif" font-weight="500">' + label + '</text>';
+  }}
+  // Axe X : dates (jusqu'a 5 labels evenly spaced)
+  var xLabels = '';
+  if(dates.length === n && n >= 2){{
+    var nLabels = Math.min(5, n);
+    var yAxis = baseY + 16;
+    for(var k = 0; k < nLabels; k++){{
+      var idx = Math.round((k / Math.max(1, nLabels - 1)) * (n - 1));
+      var xx = x(idx);
+      var lbl = _bkFmtDateShort(dates[idx]);
+      var anchor = (k === 0) ? 'start' : (k === nLabels - 1 ? 'end' : 'middle');
+      xLabels += '<text x="' + xx.toFixed(1) + '" y="' + yAxis + '" text-anchor="' + anchor + '" fill="#8B8D98" font-size="10.5" font-family="Geist,system-ui,sans-serif" font-weight="500">' + lbl + '</text>';
+    }}
+  }}
+  return '<svg viewBox="0 0 ' + W + ' ' + H + '" preserveAspectRatio="xMidYMid meet" style="width:100%;height:220px;overflow:visible">'
     + '<defs>'
     + '<linearGradient id="' + uid + '-f" x1="0" x2="0" y1="0" y2="1">'
     + '<stop offset="0%" stop-color="' + accent + '" stop-opacity="0.35"/>'
@@ -4833,7 +4896,9 @@ function _bkRenderChart(pts, accent, hasResolved){{
     + '<stop offset="100%" stop-color="' + accent + '" stop-opacity="1"/>'
     + '</linearGradient>'
     + '</defs>'
-    + '<line x1="0" y1="' + (H - 0.5) + '" x2="' + W + '" y2="' + (H - 0.5) + '" stroke="rgba(255,255,255,0.04)"/>'
+    + gridLines
+    + yLabels
+    + xLabels
     + '<path d="' + areaPath + '" fill="url(#' + uid + '-f)"/>'
     + '<path d="' + linePath + '" fill="none" stroke="url(#' + uid + '-s)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" class="bk-chart-line"/>'
     + '<circle cx="' + endP[0].toFixed(1) + '" cy="' + endP[1].toFixed(1) + '" r="6" fill="' + accent + '" fill-opacity="0.25"/>'
