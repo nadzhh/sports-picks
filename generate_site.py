@@ -2887,6 +2887,14 @@ def build_html(matches, team_ai, player_ai, pstats_data, nba_picks=None, nba_his
             "date":      p.get("date"),
         })
     nba_history_json = _json.dumps(nba_hist_min, ensure_ascii=False).replace("</", "<\\/")
+    # Egalement ecrit sur disque pour polling cote client (auto-refresh statut bets)
+    try:
+        import os as _os
+        _os.makedirs("data", exist_ok=True)
+        with open("data/nba_history_min.json", "w", encoding="utf-8") as _hf:
+            _json.dump(nba_hist_min, _hf, ensure_ascii=False)
+    except Exception as _e:
+        print(f"  ⚠️ Impossible d'ecrire nba_history_min.json: {_e}")
 
     total_t = sum(len(m["picks"]) for m in matches)
     total_p = sum(len(m.get("home_players",[])) + len(m.get("away_players",[])) for m in matches)
@@ -4107,6 +4115,48 @@ function autoResolveUserPicks(){{
   return nResolved;
 }}
 
+// ── Auto-refresh : poll data/nba_history_min.json toutes les 60s ─────────────
+// Cron regenere le site toutes les 10 min cote serveur. Cote client, on
+// recupere la version a jour de NBA_HISTORY sans avoir a recharger la page.
+async function _bkPollHistory(){{
+  try {{
+    var resp = await fetch('data/nba_history_min.json?t=' + Date.now(), {{cache: 'no-store'}});
+    if(!resp.ok) return;
+    var hist = await resp.json();
+    if(!Array.isArray(hist)) return;
+    // Detect change : si meme longueur ET meme dernier resolved key, skip
+    var prev = window.NBA_HISTORY || [];
+    var sameLen = prev.length === hist.length;
+    var sameLast = sameLen && prev.length > 0
+      && (prev[prev.length-1].game_id === hist[hist.length-1].game_id)
+      && (prev[prev.length-1].player === hist[hist.length-1].player)
+      && (prev[prev.length-1].actual === hist[hist.length-1].actual);
+    window.NBA_HISTORY = hist;
+    if(sameLen && sameLast) return;  // rien de neuf, pas de re-render
+    // Tente de resoudre les pending avec la nouvelle data
+    var n = autoResolveUserPicks();
+    _updateUserPicksCount();
+    // Re-render uniquement si on est sur la section bankroll
+    var bkTab = document.getElementById('sport-userpicks');
+    if(bkTab && bkTab.style.display !== 'none' && n > 0){{
+      renderUserPicks();
+    }}
+  }} catch(e){{ /* network error, on retentera plus tard */ }}
+}}
+// Init poll au chargement + tick toutes les 60s + reload quand l'onglet redevient visible
+window.addEventListener('DOMContentLoaded', function(){{
+  if(window._bkPollInitDone) return;
+  window._bkPollInitDone = true;
+  // Premiere passe rapide apres 5s (donne le temps au reste de la page de charger)
+  setTimeout(_bkPollHistory, 5000);
+  // Tick recurrent
+  setInterval(_bkPollHistory, 60000);
+  // Quand l'user revient sur l'onglet apres une longue absence
+  document.addEventListener('visibilitychange', function(){{
+    if(document.visibilityState === 'visible') _bkPollHistory();
+  }});
+}});
+
 // Modification manuelle (cashout, annulation, override)
 function modifyUserPick(id){{
   var arr = _loadUserPicks();
@@ -4726,6 +4776,13 @@ def push_to_github():
 
         # Force l'ajout même si dans .gitignore
         subprocess.run(["git", "add", "-f", "index.html"], check=True, timeout=10)
+        # Egalement le fichier d'historique minimal pour le polling JS du bankroll
+        import os as _os_p
+        if _os_p.path.exists("data/nba_history_min.json"):
+            try:
+                subprocess.run(["git", "add", "-f", "data/nba_history_min.json"], check=True, timeout=10)
+            except Exception:
+                pass
 
         # Vérifie s'il y a des changements
         result = subprocess.run(
