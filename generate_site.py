@@ -2238,30 +2238,42 @@ def _build_prop_chart(player, prop, opp_abbr, book_line=None, match_ctx=None, bo
 
 
 def _enrich_players_injury(players):
-    """Annote chaque joueur avec injury_status (designation) et injury_return
-    via Tank01 (cache 12h). Silencieux si RAPIDAPI_KEY absent."""
+    """Annote chaque joueur avec injury_status (designation) et injury_return.
+    Source principale : ESPN (gratuit, pas de quota). Fallback : Tank01 si dispo."""
     try:
-        from nba_tank01 import get_player_info
+        from nba_espn_injuries import get_player_injury as _espn_inj
     except ImportError:
-        return
+        _espn_inj = None
+    try:
+        from nba_tank01 import get_player_info as _tank01_info
+    except ImportError:
+        _tank01_info = None
     for p in players:
-        if "injury_status" in p:  # deja annote
+        if "injury_status" in p:
             continue
         name = p.get("name", "")
         if not name:
             continue
-        try:
-            info = get_player_info(name) or {}
-        except Exception:
-            info = {}
-        inj = (info.get("injury") or {}) if isinstance(info, dict) else {}
-        desig = (inj.get("designation") or "").strip()
-        ret_date = (inj.get("injReturnDate") or "").strip()
-        desc = (inj.get("description") or "").strip()
-        if desig:
-            p["injury_status"]      = desig
-            p["injury_return"]      = ret_date
-            p["injury_description"] = desc
+        # 1. ESPN (gratuit) en priorite
+        if _espn_inj:
+            info = _espn_inj(name)
+            if info and info.get("designation"):
+                p["injury_status"]      = info["designation"]
+                p["injury_return"]      = info.get("return_date", "")
+                p["injury_description"] = info.get("description", "")
+                continue
+        # 2. Fallback Tank01 (RapidAPI, quota)
+        if _tank01_info:
+            try:
+                tk = _tank01_info(name) or {}
+            except Exception:
+                tk = {}
+            inj = (tk.get("injury") or {}) if isinstance(tk, dict) else {}
+            desig = (inj.get("designation") or "").strip()
+            if desig:
+                p["injury_status"]      = desig
+                p["injury_return"]      = (inj.get("injReturnDate") or "").strip()
+                p["injury_description"] = (inj.get("description") or "").strip()
 
 
 def _injury_badge_html(player):
@@ -2288,6 +2300,73 @@ def _injury_badge_html(player):
         f'<span title="{tip}" style="background:{bg};color:{fg};border-radius:999px;'
         f'padding:2px 8px;font-size:10px;font-weight:700;letter-spacing:0.3px;'
         f'margin-left:4px;cursor:help">{ic} {status}</span>'
+    )
+
+
+def _build_injuries_card(home_team, away_team, home_abbr="", away_abbr=""):
+    """Card recap 'Blessures et suspensions' par match. Source : ESPN (gratuit).
+    Renvoie '' si aucun blesse dans les 2 equipes."""
+    try:
+        from nba_espn_injuries import get_team_injuries
+    except ImportError:
+        return ""
+
+    def _by_team(team_name, abbr):
+        items = get_team_injuries(team_name) or []
+        if not items and abbr:
+            items = get_team_injuries(abbr) or []
+        return items
+
+    home_inj = _by_team(home_team, home_abbr)
+    away_inj = _by_team(away_team, away_abbr)
+    if not home_inj and not away_inj:
+        return ""
+
+    def _chip(i):
+        status = (i.get("designation") or "").strip()
+        low = status.lower()
+        if any(k in low for k in ("out", "ruled out")):
+            bg, fg, ic, lbl = "rgba(239,68,68,0.16)", "#fca5a5", "❌", "Blessé"
+        elif "doubtful" in low:
+            bg, fg, ic, lbl = "rgba(239,68,68,0.12)", "#fda4af", "⚠", "Doubtful"
+        elif "questionable" in low or "day-to-day" in low or "day to day" in low:
+            bg, fg, ic, lbl = "rgba(251,191,36,0.16)", "#fde68a", "🩹", "Incertain"
+        else:
+            bg, fg, ic, lbl = "rgba(168,85,247,0.16)", "#c4b5fd", "ℹ", status
+        desc = _html.escape(i.get("description") or "", quote=True)
+        return (
+            f'<div title="{desc}" style="display:flex;align-items:center;gap:8px;padding:6px 10px;'
+            f'background:{bg};border:1px solid {fg}44;border-radius:10px;font-size:12.5px;cursor:help">'
+            f'<span style="font-size:14px">{ic}</span>'
+            f'<span style="color:#f1f5f9;font-weight:600">{i.get("name","?")}</span>'
+            f'<span style="color:{fg};font-weight:700;margin-left:auto">{lbl}</span>'
+            f'</div>'
+        )
+
+    def _col(label, items):
+        if not items:
+            return (
+                f'<div>'
+                f'<div style="color:#64748b;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.6px;margin-bottom:6px">{label}</div>'
+                f'<div style="color:#475569;font-size:12px;padding:8px 10px;border:1px dashed #1e293b;border-radius:10px">Aucun joueur indisponible signalé</div>'
+                f'</div>'
+            )
+        rows = "".join(_chip(i) for i in items)
+        return (
+            f'<div>'
+            f'<div style="color:#64748b;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.6px;margin-bottom:6px">{label} <span style="color:#94a3b8;font-weight:600">({len(items)})</span></div>'
+            f'<div style="display:flex;flex-direction:column;gap:5px">{rows}</div>'
+            f'</div>'
+        )
+
+    return (
+        f'<div style="background:#0a1628;border:1px solid #1e293b;border-radius:12px;padding:12px 14px;margin-bottom:14px">'
+        f'<div style="text-align:center;color:#cbd5e1;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:10px">🩹 Blessures et suspensions</div>'
+        f'<div style="display:grid;grid-template-columns:1fr 1fr;gap:14px">'
+        f'{_col(f"🏠 {home_team}", home_inj)}'
+        f'{_col(f"✈️ {away_team}", away_inj)}'
+        f'</div>'
+        f'</div>'
     )
 
 
@@ -2421,10 +2500,13 @@ def build_nba_analyse_section(nba_picks_data, nba_player_stats, nba_odds):
                                        side_label=f"✈️ {away}", is_starter=(i < 5), match_ctx=match_ctx)
             for i, p in enumerate(away_players)
         )
+        # Recap blessures par equipe (source ESPN, gratuit)
+        injuries_block = _build_injuries_card(home, away, home_abbr, away_abbr)
         cards += (
             f'<div style="background:#0f172a;border-radius:14px;margin-bottom:18px;padding:14px 18px;box-shadow:0 4px 20px rgba(0,0,0,0.4)">'
             f'<div style="color:#fb923c;font-size:11px;text-transform:uppercase;letter-spacing:1px;font-weight:700;margin-bottom:4px">🏀 NBA</div>'
             f'<div style="color:#f1f5f9;font-size:18px;font-weight:700;margin-bottom:14px">{away} <span style="color:#334155">@</span> {home}</div>'
+            f'{injuries_block}'
             f'<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">'
             f'<div><div style="color:#3b82f6;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:8px">🏠 {home}</div>{home_cards or "Pas de joueurs"}</div>'
             f'<div><div style="color:#3b82f6;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:8px">✈️ {away}</div>{away_cards or "Pas de joueurs"}</div>'
