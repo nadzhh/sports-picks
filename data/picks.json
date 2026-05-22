@@ -828,7 +828,7 @@
         "direction": "under35",
         "type": "Under 3.5 buts",
         "label": "Moins de 3.5 buts",
-        "cote": 1.65,
+        "cote": 1.67,
         "confidence": 63,
         "reasoning": "Défenses solides — Real Madrid concède 0.8/L10, Athletic Club concède 1.8/L10 · Total attendu: ~3.0 buts (P Under=64.7%)",
         "stats": {
@@ -894,6 +894,27 @@
           "xgpm": 0.79
         },
         "team": "home"
+      },
+      {
+        "player": "Vinícius Júnior",
+        "position": "F",
+        "is_sub": false,
+        "type": "Joueur décisif",
+        "label": "Vinícius Júnior but ou passe décisive",
+        "cote": null,
+        "book": null,
+        "books": [],
+        "confidence": 45,
+        "reasoning": "16 buts + 5 passes décisives en 36 matchs (58.3% de chance/match) · xG+xA: 0.53/match · défense fragile",
+        "context": {
+          "weakness": 0.54
+        },
+        "stats": {
+          "goals": 16,
+          "assists": 5,
+          "apps": 36
+        },
+        "team": "home"
       }
     ],
     "away_players": [],
@@ -926,11 +947,11 @@
     "page_url": "/matches/atalanta-vs-fiorentina/2en1cd#4803410",
     "picks": [
       {
-        "direction": "tirs_(atalanta)_over_11.5",
-        "type": "Tirs (Atalanta)",
-        "label": "Plus de 11.5 tirs Atalanta",
+        "direction": "tirs_(fiorentina)_under_14.5",
+        "type": "Tirs (Fiorentina)",
+        "label": "Moins de 14.5 tirs Fiorentina",
         "cote": null,
-        "cote_min": 1.27,
+        "cote_min": 1.26,
         "value": [
           "⚠️",
           "Value serrée",
@@ -938,9 +959,9 @@
         ],
         "confidence": 79,
         "edge": null,
-        "reasoning": "Atalanta prend 14.8/m [pondere vs opp #14] · adv. concède 12.2/m → attendu ~14.6 (Atalanta favori (#7 vs #14))",
+        "reasoning": "Fiorentina prend 11.0/m [pondere vs opp #7] · adv. concède 14.0/m → attendu ~11.8 (Atalanta favori (#7 vs #12))",
         "stats": {
-          "expected": 14.6
+          "expected": 11.8
         }
       },
       {
@@ -955,7 +976,7 @@
           "#84cc16"
         ],
         "confidence": 76,
-        "reasoning": "📊 Brut : Fiorentina L10 10.8 (L5 10.8) tirs cadrés/m · Atalanta L10 13.9 (L5 12.0) tirs cadrés/m\n🛡️ Défenses : Fiorentina concède 4.7/m · Atalanta concède 5.1/m\n🎯 Attendu : Fiorentina ~3.8 · Atalanta ~4.8 → total ~8.6\n⚖️ Atalanta favori (#7 vs #14) · Fiorentina forme : W-D-L-D-D · Atalanta forme : L-W-D-L-D",
+        "reasoning": "📊 Brut : Fiorentina L10 10.8 (L5 10.8) tirs cadrés/m · Atalanta L10 13.9 (L5 12.0) tirs cadrés/m\n🛡️ Défenses : Fiorentina concède 4.7/m · Atalanta concède 5.1/m\n🎯 Attendu : Fiorentina ~3.9 · Atalanta ~4.7 → total ~8.6\n⚖️ Atalanta favori (#7 vs #12) · Fiorentina forme : W-D-L-D-D · Atalanta forme : L-W-D-L-D",
         "stats": {
           "expected_total": 8.6
         }
@@ -986,11 +1007,11 @@
     "away_players": [],
     "fun_picks": [],
     "top_pick": {
-      "direction": "tirs_(atalanta)_over_11.5",
-      "type": "Tirs (Atalanta)",
-      "label": "Plus de 11.5 tirs Atalanta",
+      "direction": "tirs_(fiorentina)_under_14.5",
+      "type": "Tirs (Fiorentina)",
+      "label": "Moins de 14.5 tirs Fiorentina",
       "cote": null,
-      "cote_min": 1.27,
+      "cote_min": 1.26,
       "value": [
         "⚠️",
         "Value serrée",
@@ -998,9 +1019,9 @@
       ],
       "confidence": 79,
       "edge": null,
-      "reasoning": "Atalanta prend 14.8/m [pondere vs opp #14] · adv. concède 12.2/m → attendu ~14.6 (Atalanta favori (#7 vs #14))",
+      "reasoning": "Fiorentina prend 11.0/m [pondere vs opp #7] · adv. concède 14.0/m → attendu ~11.8 (Atalanta favori (#7 vs #12))",
       "stats": {
-        "expected": 14.6
+        "expected": 11.8
       }
     }
   },
@@ -1053,7 +1074,7 @@
         "type": "Tirs cadrés (total)",
         "label": "Plus de 5.5 tirs cadrés total",
         "cote": null,
-        "cote_min": 1.27,
+        "cote_min": 1.26,
         "value": [
           "⚠️",
           "Value serrée",
@@ -1122,7 +1143,7 @@
         "book": null,
         "books": [],
         "confidence": 49,
-        "reasoning": "4 passes décisives en 5 matchs (80.0% de chance/match) · xA moyen 0.42/match · défense fragile",
+        "reasoning": "4 passes décisives en 5 matchs (80.0% de chance/match) · xA moyen 0.44/match · défense fragile",
         "context": {
           "weakness": 0.65
         },
@@ -1130,7 +1151,7 @@
           "assists": 4,
           "apps": 5,
           "apm": 0.8,
-          "xapm": 0.42
+          "xapm": 0.44
         },
         "team": "away"
       }
@@ -1204,16 +1225,16 @@
         "type": "Tirs (total match)",
         "label": "Moins de 25.5 tirs total",
         "cote": null,
-        "cote_min": 1.32,
+        "cote_min": 1.31,
         "value": [
           "💎",
           "Value correcte",
           "#84cc16"
         ],
         "confidence": 76,
-        "reasoning": "📊 Brut : Lazio L10 10.0 (L5 10.2) tirs/m · Pisa L10 8.5 (L5 9.0) tirs/m\n🛡️ Défenses : Lazio concède 12.5/m · Pisa concède 13.3/m\n🎯 Attendu : Lazio ~13.2 · Pisa ~9.1 → total ~22.3\n⚖️ Lazio favori (#9 vs #20) · Lazio forme : L-L-L-W-D · Pisa forme : L-L-L-L-L",
+        "reasoning": "📊 Brut : Lazio L10 10.0 (L5 10.2) tirs/m · Pisa L10 8.5 (L5 9.0) tirs/m\n🛡️ Défenses : Lazio concède 12.5/m · Pisa concède 13.3/m\n🎯 Attendu : Lazio ~13.1 · Pisa ~9.1 → total ~22.2\n⚖️ Lazio favori (#9 vs #20) · Lazio forme : L-L-L-W-D · Pisa forme : L-L-L-L-L",
         "stats": {
-          "expected_total": 22.3
+          "expected_total": 22.2
         }
       }
     ],
