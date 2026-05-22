@@ -2194,6 +2194,60 @@ def _build_prop_chart(player, prop, opp_abbr, book_line=None, match_ctx=None, bo
     )
 
 
+def _enrich_players_injury(players):
+    """Annote chaque joueur avec injury_status (designation) et injury_return
+    via Tank01 (cache 12h). Silencieux si RAPIDAPI_KEY absent."""
+    try:
+        from nba_tank01 import get_player_info
+    except ImportError:
+        return
+    for p in players:
+        if "injury_status" in p:  # deja annote
+            continue
+        name = p.get("name", "")
+        if not name:
+            continue
+        try:
+            info = get_player_info(name) or {}
+        except Exception:
+            info = {}
+        inj = (info.get("injury") or {}) if isinstance(info, dict) else {}
+        desig = (inj.get("designation") or "").strip()
+        ret_date = (inj.get("injReturnDate") or "").strip()
+        desc = (inj.get("description") or "").strip()
+        if desig:
+            p["injury_status"]      = desig
+            p["injury_return"]      = ret_date
+            p["injury_description"] = desc
+
+
+def _injury_badge_html(player):
+    """Petite pastille indiquant le statut blessure (incertain/out/etc)."""
+    status = (player.get("injury_status") or "").strip()
+    if not status:
+        return ""
+    low = status.lower()
+    if any(k in low for k in ("out", "ruled out")):
+        bg, fg, ic = "rgba(239,68,68,0.18)", "#f87171", "❌"
+    elif "doubtful" in low:
+        bg, fg, ic = "rgba(239,68,68,0.15)", "#fca5a5", "⚠"
+    elif "questionable" in low or "day-to-day" in low or "day to day" in low:
+        bg, fg, ic = "rgba(251,191,36,0.18)", "#fbbf24", "🩹"
+    else:
+        bg, fg, ic = "rgba(168,85,247,0.18)", "#c4b5fd", "ℹ"
+    ret  = player.get("injury_return", "")
+    desc = player.get("injury_description", "")
+    tip_parts = []
+    if desc: tip_parts.append(desc)
+    if ret:  tip_parts.append(f"Retour estime : {ret}")
+    tip = _html.escape(" · ".join(tip_parts), quote=True)
+    return (
+        f'<span title="{tip}" style="background:{bg};color:{fg};border-radius:999px;'
+        f'padding:2px 8px;font-size:10px;font-weight:700;letter-spacing:0.3px;'
+        f'margin-left:4px;cursor:help">{ic} {status}</span>'
+    )
+
+
 def _build_player_analyse_card(player, opp_abbr, odds_for_player, side_label, is_starter=True, match_ctx=None):
     """Card d'analyse joueur. Starters : expanded par defaut. Bench : collapsed
     (juste le nom + min). Clic sur header = toggle expand."""
@@ -2263,6 +2317,7 @@ def _build_player_analyse_card(player, opp_abbr, odds_for_player, side_label, is
         f'{pos_b}'
         f'<span style="color:#f1f5f9;font-weight:700;font-size:14px">{name}</span>'
         f'{starter_badge}'
+        f'{_injury_badge_html(player)}'
         f'<span style="color:#64748b;font-size:11px;margin-left:auto">{round(mins,1) if mins else "?"} min</span>'
         f'</div>'
         # Bloc expandable
@@ -2296,6 +2351,8 @@ def build_nba_analyse_section(nba_picks_data, nba_player_stats, nba_odds):
                               key=lambda p: (p.get("season_avg",{}) or {}).get("MIN", 0), reverse=True)[:12]
         away_players = sorted(mdata.get("away_players", []),
                               key=lambda p: (p.get("season_avg",{}) or {}).get("MIN", 0), reverse=True)[:12]
+        # Enrichissement statut blessure (Tank01) - cache 12h, max ~50 calls/run
+        _enrich_players_injury(home_players + away_players)
         odds_for_game = nba_odds.get(gid) or nba_odds.get(str(gid)) or {}
         match_ctx = {"home": home, "away": away, "game_id": gid}
 
@@ -3280,6 +3337,43 @@ def build_html(matches, team_ai, player_ai, pstats_data, nba_picks=None, nba_his
     box-shadow: 0 6px 20px rgba(52,211,153,0.35); font-family: inherit;
   }}
   #bk-modal-root .bk-m-cta:disabled {{ background: #1F232C; color: #8B8D98; cursor: default; box-shadow: none; }}
+
+  /* Tipster dropdown (autocomplete a partir des tipsters deja saisis) */
+  #bk-modal-root .bk-tipster-wrap {{ position: relative; }}
+  #bk-modal-root .bk-tipster-wrap .bk-m-input {{ padding-right: 38px; }}
+  #bk-modal-root .bk-tipster-chevron {{
+    position: absolute; right: 6px; top: 50%; transform: translateY(-50%);
+    background: transparent; border: none; color: #8B8D98; cursor: pointer;
+    padding: 6px 8px; border-radius: 8px; font-size: 11px; font-family: inherit;
+    transition: all 150ms;
+  }}
+  #bk-modal-root .bk-tipster-chevron:hover {{ color: #fff; background: rgba(255,255,255,0.05); }}
+  #bk-modal-root .bk-tipster-dd {{
+    position: absolute; left: 0; right: 0; top: calc(100% + 6px);
+    background: #14161B; border: 1px solid rgba(255,255,255,0.10);
+    border-radius: 12px; max-height: 220px; overflow-y: auto;
+    z-index: 10; display: none;
+    box-shadow: 0 10px 28px rgba(0,0,0,0.5);
+  }}
+  #bk-modal-root .bk-tipster-dd.open {{ display: block; }}
+  #bk-modal-root .bk-tipster-item {{
+    padding: 10px 14px; cursor: pointer; color: #fff;
+    font-size: 14px; display: flex; align-items: center; gap: 10px;
+    transition: background 120ms;
+  }}
+  #bk-modal-root .bk-tipster-item:hover, #bk-modal-root .bk-tipster-item.focus {{ background: rgba(255,255,255,0.05); }}
+  #bk-modal-root .bk-tipster-item .name {{ flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }}
+  #bk-modal-root .bk-tipster-item .count {{
+    padding: 1px 7px; border-radius: 999px; background: rgba(168,85,247,0.12); color: #c4b5fd;
+    font-size: 10px; font-weight: 700;
+  }}
+  #bk-modal-root .bk-tipster-item .del {{
+    background: transparent; border: none; color: #F87171; opacity: 0.4;
+    font-size: 14px; cursor: pointer; padding: 4px 8px; border-radius: 6px;
+    font-family: inherit;
+  }}
+  #bk-modal-root .bk-tipster-item .del:hover {{ opacity: 1; background: rgba(248,113,113,0.10); }}
+  #bk-modal-root .bk-tipster-empty {{ padding: 14px; color: #8B8D98; font-size: 13px; text-align: center; }}
 </style>
 </head>
 <body>
@@ -3837,6 +3931,46 @@ function _updateUserPicksCount(){{
   }}
 }}
 
+// ── Store de tipsters (autocomplete dans le formulaire) ─────────────────
+var BK_TIPSTERS_KEY = 'bk_tipsters_v1';
+function _bkLoadTipstersStore(){{
+  try {{ var raw = localStorage.getItem(BK_TIPSTERS_KEY); return raw ? JSON.parse(raw) : []; }}
+  catch(e){{ return []; }}
+}}
+function _bkSaveTipstersStore(arr){{
+  try {{ localStorage.setItem(BK_TIPSTERS_KEY, JSON.stringify(arr)); }} catch(e){{}}
+}}
+// Liste merge : store explicite + tipsters extraits des picks existants
+function _bkAllTipsters(){{
+  var store = _bkLoadTipstersStore();
+  var picks = _loadUserPicks();
+  var counts = {{}};
+  picks.forEach(function(p){{
+    var t = p.tipster && p.tipster.trim();
+    if(!t) return;
+    counts[t] = (counts[t] || 0) + 1;
+  }});
+  // Ajoute store entries (count = 0 si jamais utilise)
+  store.forEach(function(t){{ if(t && !(t in counts)) counts[t] = 0; }});
+  var list = Object.keys(counts).map(function(t){{ return {{name: t, count: counts[t]}}; }});
+  // Tri : count desc, puis alphabetique
+  list.sort(function(a, b){{ return (b.count - a.count) || a.name.localeCompare(b.name); }});
+  return list;
+}}
+function _bkAddTipster(name){{
+  if(!name) return;
+  var store = _bkLoadTipstersStore();
+  var norm = name.trim();
+  if(!norm) return;
+  // dedup case-insensitive
+  var exists = store.some(function(t){{ return t.toLowerCase() === norm.toLowerCase(); }});
+  if(!exists){{ store.push(norm); _bkSaveTipstersStore(store); }}
+}}
+function _bkRemoveTipster(name){{
+  var store = _bkLoadTipstersStore().filter(function(t){{ return t.toLowerCase() !== name.toLowerCase(); }});
+  _bkSaveTipstersStore(store);
+}}
+
 // ── Formulaire Nouveau Pari (modal centré, ouvert depuis Analyse NBA) ────
 function _bkEnsureModalRoot(){{
   var root = document.getElementById('bk-modal-root');
@@ -3955,7 +4089,11 @@ function _bkOpenForm(opts){{
     +     '</div>'
     +     '<div class="bk-m-grp" style="margin-top:14px">'
     +       '<label class="bk-m-label">Tipster<span class="opt">· facultatif</span></label>'
-    +       '<input class="bk-m-input" id="bk-m-tipster" value="' + defTipster.replace(/"/g, '&quot;') + '" placeholder="Algo, @PronoKing, instinct...">'
+    +       '<div class="bk-tipster-wrap">'
+    +         '<input class="bk-m-input" id="bk-m-tipster" value="' + defTipster.replace(/"/g, '&quot;') + '" placeholder="Algo, @PronoKing, instinct..." autocomplete="off">'
+    +         '<button type="button" class="bk-tipster-chevron" id="bk-m-tipster-chevron" title="Voir les tipsters enregistres">▼</button>'
+    +         '<div class="bk-tipster-dd" id="bk-m-tipster-dd"></div>'
+    +       '</div>'
     +     '</div>'
     +     '<div class="bk-m-grp" style="margin-top:14px">'
     +       '<label class="bk-m-label">Note d\\'analyse<span class="opt">· facultatif</span></label>'
@@ -3984,7 +4122,67 @@ function _bkOpenForm(opts){{
   byId('bk-m-line').addEventListener('input',    function(e){{ window._bkFormState.line    = e.target.value; _bkFormUpdateCalc(); }});
   byId('bk-m-cote').addEventListener('input',    function(e){{ window._bkFormState.cote    = e.target.value; _bkFormUpdateCalc(); }});
   byId('bk-m-stake').addEventListener('input',   function(e){{ window._bkFormState.stake   = e.target.value; _bkFormUpdateCalc(); }});
-  byId('bk-m-tipster').addEventListener('input', function(e){{ window._bkFormState.tipster = e.target.value; }});
+  // Tipster input + autocomplete dropdown
+  var tipsterInput = byId('bk-m-tipster');
+  var tipsterDd    = byId('bk-m-tipster-dd');
+  var tipsterCh    = byId('bk-m-tipster-chevron');
+  function _bkRenderTipsterDd(filter){{
+    var list = _bkAllTipsters();
+    var q = (filter || '').trim().toLowerCase();
+    if(q){{ list = list.filter(function(t){{ return t.name.toLowerCase().indexOf(q) !== -1; }}); }}
+    if(!list.length){{
+      tipsterDd.innerHTML = '<div class="bk-tipster-empty">Aucun tipster enregistre — tape un nom et clique sur "Placer le pari" pour le sauvegarder.</div>';
+      return;
+    }}
+    tipsterDd.innerHTML = list.map(function(t){{
+      var esc = String(t.name).replace(/"/g, '&quot;').replace(/'/g, "&#39;").replace(/</g, '&lt;');
+      var countHtml = t.count > 0 ? '<span class="count">' + t.count + '</span>' : '';
+      return '<div class="bk-tipster-item" data-name="' + esc + '">'
+        + '<span class="name">' + esc + '</span>'
+        + countHtml
+        + '<button type="button" class="del" title="Retirer">✕</button>'
+        + '</div>';
+    }}).join('');
+  }}
+  function _bkOpenTipsterDd(){{
+    _bkRenderTipsterDd(tipsterInput.value);
+    tipsterDd.classList.add('open');
+  }}
+  function _bkCloseTipsterDd(){{ tipsterDd.classList.remove('open'); }}
+  tipsterInput.addEventListener('input', function(e){{
+    window._bkFormState.tipster = e.target.value;
+    if(tipsterDd.classList.contains('open')) _bkRenderTipsterDd(e.target.value);
+  }});
+  tipsterInput.addEventListener('focus', function(){{ _bkOpenTipsterDd(); }});
+  tipsterCh.addEventListener('click', function(e){{
+    e.preventDefault(); e.stopPropagation();
+    if(tipsterDd.classList.contains('open')) _bkCloseTipsterDd();
+    else {{ tipsterInput.focus(); _bkOpenTipsterDd(); }}
+  }});
+  tipsterDd.addEventListener('click', function(e){{
+    var del = e.target.closest('.del');
+    var item = e.target.closest('.bk-tipster-item');
+    if(!item) return;
+    var name = item.getAttribute('data-name');
+    if(del){{
+      e.stopPropagation();
+      if(confirm('Retirer "' + name + '" des tipsters enregistres ?')){{
+        _bkRemoveTipster(name);
+        _bkRenderTipsterDd(tipsterInput.value);
+      }}
+      return;
+    }}
+    tipsterInput.value = name;
+    window._bkFormState.tipster = name;
+    _bkCloseTipsterDd();
+    tipsterInput.focus();
+  }});
+  // Fermer la dd au clic en dehors (mais pas sur le chevron qui a son propre handler)
+  document.addEventListener('mousedown', function _bkOutside(e){{
+    if(!tipsterDd || !tipsterDd.classList.contains('open')) return;
+    if(tipsterInput.contains(e.target) || tipsterDd.contains(e.target) || tipsterCh.contains(e.target)) return;
+    _bkCloseTipsterDd();
+  }});
   byId('bk-m-note').addEventListener('input',    function(e){{ window._bkFormState.note    = e.target.value; }});
   byId('bk-m-submit').addEventListener('click', function(){{
     var st = window._bkFormState;
@@ -3999,6 +4197,7 @@ function _bkOpenForm(opts){{
     var note = st.note.trim();
     window._bkLastStake = s;
     window._bkLastTipster = tipster;
+    if(tipster) _bkAddTipster(tipster);  // memorise pour autocomplete futur
     opts.onSubmit({{ line: l, cote: c, stake: s, tipster: tipster || null, note: note || null }});
     _bkCloseForm();
   }});
