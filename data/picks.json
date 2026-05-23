@@ -575,7 +575,7 @@
         "direction": "away_win",
         "type": "Victoire extérieur",
         "label": "Rayo Vallecano gagne",
-        "cote": 3.25,
+        "cote": 3.3,
         "confidence": 67,
         "reasoning": "Rayo Vallecano : 3V/2N/0D sur 5 matchs · #8 au classement · H2H: 1V/0N/0D · Note Sofa: 6.5/10",
         "stats": {
@@ -639,7 +639,7 @@
         "confidence": 40,
         "reasoning": "11G en 28 matchs (39.3%/match) · xG: 0.33/match",
         "context": {
-          "weakness": 0.46
+          "weakness": 0.45
         },
         "stats": {
           "goals": 11,
@@ -786,8 +786,8 @@
         "cote": null,
         "book": null,
         "books": [],
-        "confidence": 65,
-        "reasoning": "3 buts + 2 passes décisives en 5 matchs (100.0% de chance/match) · xG+xA: 1.0/match · défense fragile",
+        "confidence": 66,
+        "reasoning": "3 buts + 2 passes décisives en 5 matchs (100.0% de chance/match) · xG+xA: 1.06/match · défense fragile",
         "context": {
           "weakness": 0.63
         },
@@ -867,8 +867,8 @@
         "direction": "under35",
         "type": "Under 3.5 buts",
         "label": "Moins de 3.5 buts",
-        "cote": 1.62,
-        "confidence": 64,
+        "cote": 1.71,
+        "confidence": 62,
         "reasoning": "Défenses solides — Valencia concède 1.2/L10, Barcelona concède 1.3/L10 · Total attendu: ~3.0 buts (P Under=64.7%)",
         "stats": {
           "form": []
@@ -914,27 +914,6 @@
     "home_players": [],
     "away_players": [
       {
-        "player": "Raphinha",
-        "position": "F",
-        "is_sub": false,
-        "type": "Joueur décisif",
-        "label": "Raphinha but ou passe décisive",
-        "cote": null,
-        "book": null,
-        "books": [],
-        "confidence": 54,
-        "reasoning": "13 buts + 3 passes décisives en 22 matchs (72.7% de chance/match) · xG+xA: 0.74/match · défense correcte",
-        "context": {
-          "weakness": 0.48
-        },
-        "stats": {
-          "goals": 13,
-          "assists": 3,
-          "apps": 22
-        },
-        "team": "away"
-      },
-      {
         "player": "Ferran Torres",
         "position": "F",
         "is_sub": false,
@@ -968,6 +947,43 @@
           "goals": 16,
           "assists": 1,
           "apps": 32
+        },
+        "team": "away"
+      },
+      {
+        "player": "Robert Lewandowski",
+        "position": "F",
+        "is_sub": false,
+        "type": "Joueur décisif",
+        "label": "Robert Lewandowski but ou passe décisive",
+        "cote": 2.35,
+        "book": "draftkings",
+        "books": [
+          {
+            "book": "fanduel",
+            "cote": 2.1,
+            "side": "over"
+          },
+          {
+            "book": "betmgm",
+            "cote": 2.1,
+            "side": "over"
+          },
+          {
+            "book": "draftkings",
+            "cote": 2.35,
+            "side": "over"
+          }
+        ],
+        "confidence": 48,
+        "reasoning": "13 buts + 2 passes décisives en 30 matchs (50.0% de chance/match) · xG+xA: 0.49/match · défense correcte",
+        "context": {
+          "weakness": 0.48
+        },
+        "stats": {
+          "goals": 13,
+          "assists": 2,
+          "apps": 30
         },
         "team": "away"
       }
@@ -1334,7 +1350,7 @@
         "confidence": 49,
         "reasoning": "15 buts + 4 passes décisives en 33 matchs (57.6% de chance/match) · xG+xA: 0.57/match · défense fragile",
         "context": {
-          "weakness": 0.52
+          "weakness": 0.51
         },
         "stats": {
           "goals": 15,
@@ -1452,7 +1468,7 @@
         "confidence": 41,
         "reasoning": "11G en 31 matchs (35.5%/match) · xG: 0.35/match",
         "context": {
-          "weakness": 0.58
+          "weakness": 0.57
         },
         "stats": {
           "goals": 11,
@@ -1493,7 +1509,7 @@
         "direction": "home_dc",
         "type": "Double chance",
         "label": "Real Madrid ou Nul (1X)",
-        "cote": 1.14,
+        "cote": 1.16,
         "confidence": 80,
         "reasoning": "Real Madrid invaincu 80% sur 5 derniers matchs · H2H: 1/1 matchs sans défaite",
         "stats": {
@@ -1511,7 +1527,7 @@
         "direction": "home_win",
         "type": "Victoire domicile",
         "label": "Real Madrid gagne",
-        "cote": 1.51,
+        "cote": 1.53,
         "confidence": 70,
         "reasoning": "Real Madrid : 3V/1N/1D sur 5 matchs · #2 au classement · H2H: 1V/0N/0D · Note Sofa: 6.5/10",
         "stats": {
@@ -1529,7 +1545,7 @@
         "direction": "under35",
         "type": "Under 3.5 buts",
         "label": "Moins de 3.5 buts",
-        "cote": 1.71,
+        "cote": 1.74,
         "confidence": 62,
         "reasoning": "Défenses solides — Real Madrid concède 0.8/L10, Athletic Club concède 1.8/L10 · Total attendu: ~3.0 buts (P Under=64.7%)",
         "stats": {
@@ -1560,13 +1576,13 @@
         "type": "Tirs cadrés (total)",
         "label": "Plus de 7.5 tirs cadrés total",
         "cote": null,
-        "cote_min": 1.32,
+        "cote_min": 1.33,
         "value": [
           "💎",
           "Value correcte",
           "#84cc16"
         ],
-        "confidence": 76,
+        "confidence": 75,
         "reasoning": "📊 Brut : Real Madrid L10 15.9 (L5 13.4) tirs cadrés/m · Athletic Club L10 13.4 (L5 14.6) tirs cadrés/m\n🛡️ Défenses : Real Madrid concède 4.0/m · Athletic Club concède 3.8/m\n🎯 Attendu : Real Madrid ~5.8 · Athletic Club ~3.9 → total ~9.7\n⚖️ Real Madrid favori (#2 vs #12) · Real Madrid forme : W-W-L-W-D · Athletic Club forme : D-L-L-W-L",
         "stats": {
           "expected_total": 9.7
@@ -1584,9 +1600,9 @@
         "book": null,
         "books": [],
         "confidence": 68,
-        "reasoning": "24 buts en 30 matchs cette saison (80.0% de chance/match) · xG moyen 0.79/match, défense adverse poreuse (1.5 buts concédés/match) · défense fragile",
+        "reasoning": "24 buts en 30 matchs cette saison (80.0% de chance/match) · xG moyen 0.79/match, défense adverse poreuse (1.4 buts concédés/match) · défense fragile",
         "context": {
-          "weakness": 0.54
+          "weakness": 0.53
         },
         "stats": {
           "goals": 24,
@@ -1608,7 +1624,7 @@
         "confidence": 45,
         "reasoning": "16 buts + 5 passes décisives en 36 matchs (58.3% de chance/match) · xG+xA: 0.53/match · défense fragile",
         "context": {
-          "weakness": 0.54
+          "weakness": 0.53
         },
         "stats": {
           "goals": 16,
@@ -1624,7 +1640,7 @@
       "direction": "home_dc",
       "type": "Double chance",
       "label": "Real Madrid ou Nul (1X)",
-      "cote": 1.14,
+      "cote": 1.16,
       "confidence": 80,
       "reasoning": "Real Madrid invaincu 80% sur 5 derniers matchs · H2H: 1/1 matchs sans défaite",
       "stats": {
@@ -2822,7 +2838,7 @@
         "direction": "home_win",
         "type": "Favori net",
         "label": "Lazio gagne",
-        "cote": 1.69,
+        "cote": 1.62,
         "confidence": 65,
         "reasoning": "11 places d'écart au classement (#9 vs #20) · 1V/1N/3D sur 5 matchs · Note Sofa: 6.5/10",
         "stats": {
@@ -2912,7 +2928,7 @@
       "direction": "home_win",
       "type": "Favori net",
       "label": "Lazio gagne",
-      "cote": 1.69,
+      "cote": 1.62,
       "confidence": 65,
       "reasoning": "11 places d'écart au classement (#9 vs #20) · 1V/1N/3D sur 5 matchs · Note Sofa: 6.5/10",
       "stats": {
@@ -3169,8 +3185,8 @@
         "direction": "over15",
         "type": "Over 1.5 buts",
         "label": "Plus de 1.5 buts",
-        "cote": 1.67,
-        "confidence": 60,
+        "cote": 1.69,
+        "confidence": 59,
         "reasoning": "Getafe: 0.9 buts/L10 · défense Osasuna concède 1.4/L10 → ~1.2 attendus · Osasuna: 0.7 buts/L10 · défense Getafe concède 0.9/L10 → ~0.8 attendus · Total: ~2.0 buts (P=59.4%)",
         "stats": {
           "form": []
@@ -3258,8 +3274,8 @@
       "direction": "over15",
       "type": "Over 1.5 buts",
       "label": "Plus de 1.5 buts",
-      "cote": 1.67,
-      "confidence": 60,
+      "cote": 1.69,
+      "confidence": 59,
       "reasoning": "Getafe: 0.9 buts/L10 · défense Osasuna concède 1.4/L10 → ~1.2 attendus · Osasuna: 0.7 buts/L10 · défense Getafe concède 0.9/L10 → ~0.8 attendus · Total: ~2.0 buts (P=59.4%)",
       "stats": {
         "form": []
@@ -3279,8 +3295,8 @@
         "direction": "over25",
         "type": "Over 2.5 buts",
         "label": "Plus de 2.5 buts",
-        "cote": 2.0,
-        "confidence": 56,
+        "cote": 2.1,
+        "confidence": 55,
         "reasoning": "Celta Vigo: 1.6 buts/L10 · défense Sevilla concède 1.9/L10 → ~1.7 attendus · Sevilla: 1.2 buts/L10 · défense Celta Vigo concède 1.6/L10 → ~1.4 attendus · Total: ~3.1 buts (P=59.9%)",
         "stats": {
           "form": []
@@ -3362,8 +3378,8 @@
       "direction": "over25",
       "type": "Over 2.5 buts",
       "label": "Plus de 2.5 buts",
-      "cote": 2.0,
-      "confidence": 56,
+      "cote": 2.1,
+      "confidence": 55,
       "reasoning": "Celta Vigo: 1.6 buts/L10 · défense Sevilla concède 1.9/L10 → ~1.7 attendus · Sevilla: 1.2 buts/L10 · défense Celta Vigo concède 1.6/L10 → ~1.4 attendus · Total: ~3.1 buts (P=59.9%)",
       "stats": {
         "form": []
@@ -3383,8 +3399,8 @@
         "direction": "over25",
         "type": "Over 2.5 buts",
         "label": "Plus de 2.5 buts",
-        "cote": 1.69,
-        "confidence": 56,
+        "cote": 1.74,
+        "confidence": 55,
         "reasoning": "Girona: 1.1 buts/L10 · défense Elche concède 2.1/L10 → ~1.6 attendus · Elche: 1.0 buts/L10 · défense Girona concède 1.4/L10 → ~1.2 attendus · Total: ~2.8 buts (P=53.1%)",
         "stats": {
           "form": []
@@ -3466,8 +3482,8 @@
       "direction": "over25",
       "type": "Over 2.5 buts",
       "label": "Plus de 2.5 buts",
-      "cote": 1.69,
-      "confidence": 56,
+      "cote": 1.74,
+      "confidence": 55,
       "reasoning": "Girona: 1.1 buts/L10 · défense Elche concède 2.1/L10 → ~1.6 attendus · Elche: 1.0 buts/L10 · défense Girona concède 1.4/L10 → ~1.2 attendus · Total: ~2.8 buts (P=53.1%)",
       "stats": {
         "form": []
