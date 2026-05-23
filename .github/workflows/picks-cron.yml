@@ -19,7 +19,7 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v4
         with:
-          fetch-depth: 1
+          fetch-depth: 0
           token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Setup Python
@@ -51,7 +51,6 @@ jobs:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHAT_ID:   ${{ secrets.TELEGRAM_CHAT_ID }}
           PYTHONIOENCODING:   utf-8
-
         run: |
           python foot_resolver.py         || echo "[!] foot_resolver KO"
           python nba_resolver.py          || echo "[!] nba_resolver KO"
@@ -67,30 +66,51 @@ jobs:
           echo "Pipeline termine"
 
       - name: Commit master + push gh-pages
+        shell: bash
         run: |
+          set +e
+          echo "=== Stage des fichiers data + index ==="
           git add -f data/*.json index.html 2>/dev/null || true
+          git status --short
+
           if git diff --cached --quiet; then
-            echo "No changes to commit"
-          else
-            git commit -m "Auto-update picks $(date -u +'%Y-%m-%d %H:%M UTC')"
-            # Retry avec rebase si push echoue (race condition concurrent push)
-            for i in 1 2 3 4 5; do
-              if git push origin master; then
-                echo "Push master OK (try $i)"
-                break
-              fi
-              echo "Push failed (try $i), rebasing on origin/master..."
-              git fetch origin master
-              git rebase origin/master || {
-                echo "Rebase conflit, abort + retry"
-                git rebase --abort || true
-                git reset --hard origin/master
-                # Re-apply local data changes
-                git add -f data/*.json index.html 2>/dev/null || true
-                git commit -m "Auto-update picks $(date -u +'%Y-%m-%d %H:%M UTC')" --allow-empty || true
-              }
-              sleep 3
-            done
-            git push origin master:gh-pages --force
-            echo "Pushed to master + gh-pages"
+            echo "No changes to commit, skipping push."
+            exit 0
           fi
+
+          git commit -m "Auto-update picks $(date -u +'%Y-%m-%d %H:%M UTC')"
+          echo "=== Tentative push master (avec retry) ==="
+
+          PUSH_OK=0
+          for i in 1 2 3 4 5; do
+            echo "--- Tentative $i ---"
+            git fetch origin master
+            # Pull rebase pour rattraper si origin/master a avance
+            git pull --rebase --autostash origin master
+            REBASE_RC=$?
+            if [ $REBASE_RC -ne 0 ]; then
+              echo "Rebase failed ($REBASE_RC), abort + reset"
+              git rebase --abort 2>/dev/null
+              git reset --hard origin/master
+              # Re-stage les fichiers
+              git add -f data/*.json index.html 2>/dev/null
+              git commit -m "Auto-update picks $(date -u +'%Y-%m-%d %H:%M UTC')" || true
+            fi
+            git push origin master
+            if [ $? -eq 0 ]; then
+              echo "Push master OK (tentative $i)"
+              PUSH_OK=1
+              break
+            fi
+            echo "Push echoue (tentative $i), retry dans 3s..."
+            sleep 3
+          done
+
+          if [ $PUSH_OK -eq 0 ]; then
+            echo "[X] Push master a echoue apres 5 tentatives"
+            exit 1
+          fi
+
+          echo "=== Push gh-pages (forced) ==="
+          git push origin master:gh-pages --force
+          echo "Done"
