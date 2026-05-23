@@ -3128,6 +3128,46 @@ def build_html(matches, team_ai, player_ai, pstats_data, nba_picks=None, nba_his
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<!-- Firebase (Auth + Firestore) pour la sync multi-device des picks bankroll -->
+<script type="module">
+  import {{ initializeApp }} from "https://www.gstatic.com/firebasejs/10.13.0/firebase-app.js";
+  import {{ getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword,
+           signOut, onAuthStateChanged, sendPasswordResetEmail }} from "https://www.gstatic.com/firebasejs/10.13.0/firebase-auth.js";
+  import {{ getFirestore, doc, setDoc, getDoc }} from "https://www.gstatic.com/firebasejs/10.13.0/firebase-firestore.js";
+
+  const firebaseConfig = {{
+    apiKey: "AIzaSyAdZ3GvbYVapF0gqyh5O7mN1xC0sTT1yJo",
+    authDomain: "sportspick-c6955.firebaseapp.com",
+    projectId: "sportspick-c6955",
+    storageBucket: "sportspick-c6955.firebasestorage.app",
+    messagingSenderId: "1027893046012",
+    appId: "1:1027893046012:web:135ce6b516fcfba5a34579"
+  }};
+
+  const app  = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+  const db   = getFirestore(app);
+
+  // Expose au reste du code (modules + scripts classiques)
+  window._fb = {{
+    auth, db,
+    signUp:  (email, pw) => createUserWithEmailAndPassword(auth, email, pw),
+    signIn:  (email, pw) => signInWithEmailAndPassword(auth, email, pw),
+    signOut: () => signOut(auth),
+    resetPw: (email) => sendPasswordResetEmail(auth, email),
+    setUserDoc: (uid, data) => setDoc(doc(db, "users", uid, "state", "main"), data, {{merge: true}}),
+    getUserDoc: (uid) => getDoc(doc(db, "users", uid, "state", "main")),
+  }};
+  window._fbReady = true;
+
+  onAuthStateChanged(auth, (user) => {{
+    window._fbUser = user;
+    if(typeof _bkOnAuthChanged === 'function') {{
+      _bkOnAuthChanged(user);
+    }}
+  }});
+</script>
 <style>
   *{{box-sizing:border-box;margin:0;padding:0}}
   body{{background:#020617;color:#f1f5f9;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;padding:20px 24px}}
@@ -3538,6 +3578,48 @@ def build_html(matches, team_ai, player_ai, pstats_data, nba_picks=None, nba_his
   }}
   #bk-modal-root .bk-tipster-item .del:hover {{ opacity: 1; background: rgba(248,113,113,0.10); }}
   #bk-modal-root .bk-tipster-empty {{ padding: 14px; color: #8B8D98; font-size: 13px; text-align: center; }}
+
+  /* ── Account bar (synchronisation Firebase) ────────────────────────── */
+  #sport-userpicks .bk-account-bar {{
+    display: flex; align-items: center; gap: 12px;
+    padding: 10px 14px; border-radius: 14px;
+    background: var(--bk-surface); border: 1px solid var(--bk-border);
+    margin-bottom: 14px;
+  }}
+  #sport-userpicks .bk-account-bar.signed-in {{
+    background: linear-gradient(135deg, rgba(52,211,153,0.08), rgba(52,211,153,0.02));
+    border-color: rgba(52,211,153,0.22);
+  }}
+  #sport-userpicks .bk-account-bar .bk-acct-status {{ flex: 1; color: var(--bk-text-muted); font-size: 13px; min-width: 0; }}
+  #sport-userpicks .bk-account-bar .bk-acct-status b {{ color: var(--bk-text); font-weight: 600; }}
+  #sport-userpicks .bk-acct-sync {{ color: var(--bk-text-muted); font-size: 11.5px; font-weight: 500; display: inline-flex; align-items: center; gap: 5px; }}
+  #sport-userpicks .bk-acct-sync.ok {{ color: #34D399; }}
+  #sport-userpicks .bk-acct-sync.pending {{ color: #FBBF24; }}
+  #sport-userpicks .bk-acct-sync.err {{ color: #F87171; }}
+
+  /* Auth modal (reutilise #bk-modal-root) */
+  #bk-modal-root .bk-auth-tabs {{
+    display: flex; gap: 4px; padding: 4px; background: #14161B;
+    border-radius: 12px; margin-bottom: 18px; border: 1px solid rgba(255,255,255,0.05);
+  }}
+  #bk-modal-root .bk-auth-tab {{
+    flex: 1; padding: 9px 12px; border-radius: 9px; border: none;
+    background: transparent; color: #8B8D98; font-weight: 600; font-size: 13.5px;
+    cursor: pointer; font-family: inherit; transition: all 180ms;
+  }}
+  #bk-modal-root .bk-auth-tab.active {{ background: #1F232C; color: #fff; }}
+  #bk-modal-root .bk-auth-err {{
+    margin-top: 10px; padding: 9px 12px; border-radius: 10px;
+    background: rgba(248,113,113,0.10); border: 1px solid rgba(248,113,113,0.22);
+    color: #fca5a5; font-size: 12.5px; min-height: 18px; display: none;
+  }}
+  #bk-modal-root .bk-auth-err.show {{ display: block; }}
+  #bk-modal-root .bk-auth-hint {{ color: #64748b; font-size: 11.5px; margin-top: 8px; line-height: 1.5; }}
+  #bk-modal-root .bk-auth-link {{
+    background: transparent; border: none; color: #34D399;
+    font-size: 12.5px; font-weight: 600; cursor: pointer; padding: 6px 0;
+    font-family: inherit; text-decoration: underline;
+  }}
 
   /* ── Mobile (smartphone, max-width 720px) ────────────────────────────── */
   /* IMPORTANT : ne s'applique QU'aux ecrans <= 720px. L'interface PC reste intacte. */
@@ -4197,6 +4279,7 @@ function _loadUserPicks(){{
 function _saveUserPicks(arr){{
   localStorage.setItem(USERPICKS_KEY, JSON.stringify(arr));
   _updateUserPicksCount();
+  if(typeof _bkSchedulePush === 'function') _bkSchedulePush();
 }}
 function _updateUserPicksCount(){{
   var arr = _loadUserPicks();
@@ -4216,6 +4299,7 @@ function _bkLoadTipstersStore(){{
 }}
 function _bkSaveTipstersStore(arr){{
   try {{ localStorage.setItem(BK_TIPSTERS_KEY, JSON.stringify(arr)); }} catch(e){{}}
+  if(typeof _bkSchedulePush === 'function') _bkSchedulePush();
 }}
 // Liste merge : store explicite + tipsters extraits des picks existants
 function _bkAllTipsters(){{
@@ -4246,6 +4330,230 @@ function _bkAddTipster(name){{
 function _bkRemoveTipster(name){{
   var store = _bkLoadTipstersStore().filter(function(t){{ return t.toLowerCase() !== name.toLowerCase(); }});
   _bkSaveTipstersStore(store);
+}}
+
+// ── Sync Firebase (Auth Email/Password + Firestore) ─────────────────────
+// State machine cote client. window._fb est expose par le module Firebase
+// charge dans le HEAD ; il fournit signUp/signIn/signOut/setUserDoc/getUserDoc.
+window._bkSyncState = window._bkSyncState || 'idle'; // idle | pending | ok | err
+
+function _bkSetSyncState(state){{
+  window._bkSyncState = state;
+  // Re-render uniquement la badge sans recharger toute la page
+  var el = document.getElementById('bk-acct-sync-badge');
+  if(!el) return;
+  el.className = 'bk-acct-sync ' + state;
+  el.innerHTML = ({{
+    idle:    '',
+    pending: '⏳ Sync...',
+    ok:      '✓ Sync',
+    err:     '⚠ Erreur sync',
+  }})[state] || '';
+}}
+
+// Push debounce 1.5s : evite de spammer Firestore quand on edite plusieurs picks
+var _bkPushTimer = null;
+function _bkSchedulePush(){{
+  if(!window._fbUser) return;
+  if(_bkPushTimer) clearTimeout(_bkPushTimer);
+  _bkPushTimer = setTimeout(_bkPushToServer, 1500);
+}}
+
+async function _bkPushToServer(){{
+  if(!window._fb || !window._fbUser) return;
+  _bkSetSyncState('pending');
+  try {{
+    var data = {{
+      picks:    _loadUserPicks(),
+      bankroll: parseFloat(localStorage.getItem('user_bankroll_units') || '100'),
+      tipsters: _bkLoadTipstersStore(),
+      updated_at: new Date().toISOString(),
+    }};
+    await window._fb.setUserDoc(window._fbUser.uid, data);
+    _bkSetSyncState('ok');
+  }} catch(e){{
+    console.error('[bk push err]', e);
+    _bkSetSyncState('err');
+  }}
+}}
+
+async function _bkPullFromServer(){{
+  if(!window._fb || !window._fbUser) return;
+  _bkSetSyncState('pending');
+  try {{
+    var snap = await window._fb.getUserDoc(window._fbUser.uid);
+    if(snap.exists()){{
+      var data = snap.data() || {{}};
+      // Merge des picks : serveur prioritaire, mais on uploade les picks locaux
+      // qui n'existent pas encore cote serveur (cas : 1ere connexion).
+      if(Array.isArray(data.picks)){{
+        var local = _loadUserPicks();
+        var serverIds = new Set(data.picks.map(function(p){{ return p.id; }}));
+        var localOnly = local.filter(function(p){{ return !serverIds.has(p.id); }});
+        var merged = data.picks.slice().concat(localOnly);
+        localStorage.setItem(USERPICKS_KEY, JSON.stringify(merged));
+        if(localOnly.length > 0){{
+          // Push immediat pour pousser les nouveaux picks locaux
+          await _bkPushToServer();
+        }}
+      }}
+      if(data.bankroll != null && !isNaN(parseFloat(data.bankroll))){{
+        localStorage.setItem('user_bankroll_units', String(data.bankroll));
+      }}
+      if(Array.isArray(data.tipsters)){{
+        localStorage.setItem(BK_TIPSTERS_KEY, JSON.stringify(data.tipsters));
+      }}
+    }} else {{
+      // Pas de doc cote serveur (premier login depuis ce compte) -> on push notre state
+      await _bkPushToServer();
+    }}
+    _bkSetSyncState('ok');
+  }} catch(e){{
+    console.error('[bk pull err]', e);
+    _bkSetSyncState('err');
+  }}
+}}
+
+// Hook appele par le listener onAuthStateChanged du module Firebase
+async function _bkOnAuthChanged(user){{
+  if(user){{
+    await _bkPullFromServer();
+  }} else {{
+    _bkSetSyncState('idle');
+  }}
+  _updateUserPicksCount();
+  // Re-render si on est sur le tab bankroll
+  var bkTab = document.getElementById('sport-userpicks');
+  if(bkTab && bkTab.style.display !== 'none'){{
+    if(typeof renderUserPicks === 'function') renderUserPicks();
+  }}
+}}
+
+async function _bkSignOut(){{
+  if(!window._fb) return;
+  await window._fb.signOut();
+  // On garde les picks locaux pour que le mode anonyme continue de marcher
+}}
+
+function _bkAccountBarHtml(){{
+  var u = window._fbUser;
+  var syncBadge = '<span id="bk-acct-sync-badge" class="bk-acct-sync ' + (window._bkSyncState || '') + '"></span>';
+  if(u){{
+    var emailEsc = (u.email || '?').replace(/</g, '&lt;');
+    return '<div class="bk-account-bar signed-in">'
+      + '<span style="font-size:16px">👤</span>'
+      + '<div class="bk-acct-status">Connecté : <b>' + emailEsc + '</b></div>'
+      + syncBadge
+      + '<button class="bk-btn bk-btn-ghost" onclick="_bkSignOut()" style="padding:6px 11px;font-size:12px">Déconnexion</button>'
+      + '</div>';
+  }}
+  // Si Firebase n'est pas encore charge, on affiche un placeholder discret
+  if(!window._fbReady){{
+    return '<div class="bk-account-bar"><span style="font-size:14px">⏳</span><div class="bk-acct-status">Chargement de la sync...</div></div>';
+  }}
+  return '<div class="bk-account-bar">'
+    + '<span style="font-size:16px">🔐</span>'
+    + '<div class="bk-acct-status">Connecte-toi pour synchroniser tes paris sur tous tes appareils</div>'
+    + '<button class="bk-btn" onclick="_bkOpenAuthModal()" style="background:linear-gradient(180deg,#34D399,#10B981);color:#06120E;border:none;padding:7px 14px;font-size:12.5px;font-weight:700;box-shadow:0 4px 12px rgba(52,211,153,0.25)">Se connecter</button>'
+    + '</div>';
+}}
+
+function _bkOpenAuthModal(){{
+  if(!window._fb){{ alert('Firebase pas encore chargé, réessaie dans 2 secondes.'); return; }}
+  var root = _bkEnsureModalRoot();
+  window._bkAuthMode = 'signin'; // signin | signup
+  function render(){{
+    var mode = window._bkAuthMode;
+    var html =
+      '<div class="bk-modal-bd" onclick="_bkCloseForm()"></div>'
+      + '<div class="bk-modal-card" role="dialog" aria-modal="true">'
+      +   '<div class="bk-m-hd">'
+      +     '<button class="bk-m-cancel" onclick="_bkCloseForm()">Annuler</button>'
+      +     '<div class="bk-m-title">' + (mode === 'signup' ? 'Créer un compte' : 'Connexion') + '</div>'
+      +     '<div style="width:64px"></div>'
+      +   '</div>'
+      +   '<div class="bk-m-body">'
+      +     '<div class="bk-auth-tabs">'
+      +       '<button class="bk-auth-tab ' + (mode === 'signin' ? 'active' : '') + '" onclick="_bkAuthSwitchTab(\\'signin\\')">Se connecter</button>'
+      +       '<button class="bk-auth-tab ' + (mode === 'signup' ? 'active' : '') + '" onclick="_bkAuthSwitchTab(\\'signup\\')">Créer un compte</button>'
+      +     '</div>'
+      +     '<form id="bk-auth-form" autocomplete="on">'
+      +       '<div class="bk-m-grp">'
+      +         '<label class="bk-m-label">Email</label>'
+      +         '<input class="bk-m-input" type="email" id="bk-auth-email" autocomplete="email" required placeholder="ton@email.com">'
+      +       '</div>'
+      +       '<div class="bk-m-grp" style="margin-top:14px">'
+      +         '<label class="bk-m-label">Mot de passe</label>'
+      +         '<input class="bk-m-input" type="password" id="bk-auth-pw" autocomplete="' + (mode === 'signup' ? 'new-password' : 'current-password') + '" required minlength="6" placeholder="' + (mode === 'signup' ? 'minimum 6 caractères' : 'ton mot de passe') + '">'
+      +       '</div>'
+      +       '<div class="bk-auth-err" id="bk-auth-err"></div>'
+      +       (mode === 'signin'
+        ? '<div style="margin-top:10px;text-align:right"><button type="button" class="bk-auth-link" onclick="_bkAuthForgotPw()">Mot de passe oublié ?</button></div>'
+        : '<div class="bk-auth-hint">Tes paris locaux seront automatiquement synchronisés vers ton compte après la création.</div>')
+      +     '</form>'
+      +   '</div>'
+      +   '<div class="bk-m-ft">'
+      +     '<button class="bk-m-cta" id="bk-auth-submit" onclick="_bkAuthSubmit()">' + (mode === 'signup' ? 'Créer le compte' : 'Se connecter') + '</button>'
+      +   '</div>'
+      + '</div>';
+    root.innerHTML = html;
+    // Soumission par Enter dans le form
+    var form = document.getElementById('bk-auth-form');
+    if(form) form.addEventListener('submit', function(e){{ e.preventDefault(); _bkAuthSubmit(); }});
+    setTimeout(function(){{ var el = document.getElementById('bk-auth-email'); if(el) el.focus(); }}, 100);
+  }}
+  window._bkAuthRender = render;
+  render();
+  setTimeout(function(){{ root.classList.add('open'); }}, 10);
+  // ESC pour fermer
+  window._bkFormEscHandler = function(e){{ if(e.key === 'Escape') _bkCloseForm(); }};
+  document.addEventListener('keydown', window._bkFormEscHandler);
+}}
+
+function _bkAuthSwitchTab(mode){{
+  window._bkAuthMode = mode;
+  if(window._bkAuthRender) window._bkAuthRender();
+}}
+
+async function _bkAuthSubmit(){{
+  var mode = window._bkAuthMode || 'signin';
+  var email = (document.getElementById('bk-auth-email').value || '').trim();
+  var pw = document.getElementById('bk-auth-pw').value || '';
+  var errEl = document.getElementById('bk-auth-err');
+  var submitBtn = document.getElementById('bk-auth-submit');
+  errEl.classList.remove('show');
+  errEl.textContent = '';
+  if(!email || !pw){{ errEl.textContent = 'Email et mot de passe requis.'; errEl.classList.add('show'); return; }}
+  if(mode === 'signup' && pw.length < 6){{ errEl.textContent = 'Le mot de passe doit faire au moins 6 caractères.'; errEl.classList.add('show'); return; }}
+  submitBtn.disabled = true;
+  submitBtn.textContent = (mode === 'signup' ? 'Création...' : 'Connexion...');
+  try {{
+    if(mode === 'signup') await window._fb.signUp(email, pw);
+    else                  await window._fb.signIn(email, pw);
+    _bkCloseForm();
+  }} catch(err){{
+    var msg = (err && err.message) || 'Erreur inconnue';
+    // Messages Firebase plus lisibles
+    if(/auth\\/email-already-in-use/.test(msg))   msg = 'Cet email a déjà un compte. Connecte-toi à la place.';
+    else if(/auth\\/invalid-email/.test(msg))     msg = "Email invalide.";
+    else if(/auth\\/weak-password/.test(msg))     msg = 'Mot de passe trop court (min 6 caractères).';
+    else if(/auth\\/invalid-credential/.test(msg) || /wrong-password|user-not-found/.test(msg)) msg = "Email ou mot de passe incorrect.";
+    else if(/auth\\/too-many-requests/.test(msg)) msg = "Trop de tentatives. Réessaie dans quelques minutes.";
+    else if(/auth\\/network-request-failed/.test(msg)) msg = "Pas de connexion réseau.";
+    errEl.textContent = msg;
+    errEl.classList.add('show');
+    submitBtn.disabled = false;
+    submitBtn.textContent = (mode === 'signup' ? 'Créer le compte' : 'Se connecter');
+  }}
+}}
+
+async function _bkAuthForgotPw(){{
+  var email = (document.getElementById('bk-auth-email').value || '').trim();
+  if(!email){{ alert('Saisis ton email d\\'abord dans le champ ci-dessus.'); return; }}
+  try {{
+    await window._fb.resetPw(email);
+    alert('Email de réinitialisation envoyé à ' + email + '. Vérifie ta boîte mail (et le spam).');
+  }} catch(e){{ alert('Erreur : ' + (e.message || e)); }}
 }}
 
 // ── Formulaire Nouveau Pari (modal centré, ouvert depuis Analyse NBA) ────
@@ -4874,6 +5182,7 @@ function _getBankroll(){{
 }}
 function _setBankroll(v){{
   localStorage.setItem('user_bankroll_units', String(v));
+  if(typeof _bkSchedulePush === 'function') _bkSchedulePush();
 }}
 function editBankroll(){{
   var current = _getBankroll();
@@ -5560,8 +5869,9 @@ function renderUserPicks(){{
       + '</div>';
   }}
 
-  // ── Compose 2-col layout ────────────────────────────
-  var html = hero + chartCard + stats + streakHtml
+  // ── Compose layout : bandeau account en tete, puis sections ────────────
+  var accountBar = (typeof _bkAccountBarHtml === 'function') ? _bkAccountBarHtml() : '';
+  var html = accountBar + hero + chartCard + stats + streakHtml
     + '<div class="bk-cols">'
     +   '<div class="bk-col">' + pendingCard + recentCard + '</div>'
     +   '<div class="bk-col">' + propCard + avgCard + adviceCard + '</div>'
