@@ -699,7 +699,7 @@
         "type": "Tirs cadrés (total)",
         "label": "Plus de 7.5 tirs cadrés total",
         "cote": null,
-        "cote_min": 1.26,
+        "cote_min": 1.25,
         "value": [
           "⚠️",
           "Value serrée",
@@ -722,7 +722,7 @@
           "Value serrée",
           "#f59e0b"
         ],
-        "confidence": 79,
+        "confidence": 80,
         "edge": null,
         "reasoning": "Bayern München prend 8.8/m [pondere vs opp #None] · adv. concède 4.5/m → attendu ~6.7 (équipes proches au classement)",
         "stats": {
@@ -831,7 +831,7 @@
         "direction": "away_dc",
         "type": "Double chance",
         "label": "Nul ou Barcelona (X2)",
-        "cote": 1.33,
+        "cote": 1.31,
         "confidence": 83,
         "reasoning": "Barcelona invaincu 80% sur 5 derniers matchs · H2H: 1/1 matchs sans défaite",
         "stats": {
@@ -849,7 +849,7 @@
         "direction": "away_win",
         "type": "Victoire extérieur",
         "label": "Barcelona gagne",
-        "cote": 2.0,
+        "cote": 1.95,
         "confidence": 78,
         "reasoning": "Barcelona : 4V/0N/1D sur 5 matchs · #1 au classement · H2H: 1V/0N/0D · Note Sofa: 6.5/10",
         "stats": {
@@ -993,7 +993,7 @@
       "direction": "away_dc",
       "type": "Double chance",
       "label": "Nul ou Barcelona (X2)",
-      "cote": 1.33,
+      "cote": 1.31,
       "confidence": 83,
       "reasoning": "Barcelona invaincu 80% sur 5 derniers matchs · H2H: 1/1 matchs sans défaite",
       "stats": {
@@ -1283,6 +1283,104 @@
   },
   {
     "league": "La Liga",
+    "home": "Celta Vigo",
+    "away": "Sevilla",
+    "start_ts": 1779562800,
+    "match_id": "4837482",
+    "page_url": "/matches/sevilla-vs-celta-vigo/2qqwgg#4837482",
+    "picks": [
+      {
+        "direction": "tirs_(sevilla)_over_9.5",
+        "type": "Tirs (Sevilla)",
+        "label": "Plus de 9.5 tirs Sevilla",
+        "cote": null,
+        "cote_min": 1.25,
+        "value": [
+          "⚠️",
+          "Value serrée",
+          "#f59e0b"
+        ],
+        "confidence": 80,
+        "edge": null,
+        "reasoning": "Sevilla prend 12.9/m [pondere vs opp #6] · adv. concède 14.4/m → attendu ~12.5 (Celta Vigo favori (#6 vs #13))",
+        "stats": {
+          "expected": 12.5
+        }
+      },
+      {
+        "direction": "sot_under_10.5",
+        "type": "Tirs cadrés (total)",
+        "label": "Moins de 10.5 tirs cadrés total",
+        "cote": null,
+        "cote_min": 1.25,
+        "value": [
+          "⚠️",
+          "Value serrée",
+          "#f59e0b"
+        ],
+        "confidence": 80,
+        "reasoning": "📊 Brut : Celta Vigo L10 7.5 (L5 6.4) tirs cadrés/m · Sevilla L10 12.3 (L5 15.0) tirs cadrés/m\n🛡️ Défenses : Celta Vigo concède 5.3/m · Sevilla concède 3.5/m\n🎯 Attendu : Celta Vigo ~4.3 · Sevilla ~3.9 → total ~8.2\n⚖️ Celta Vigo favori (#6 vs #13) · Celta Vigo forme : D-L-W-W-L · Sevilla forme : L-W-W-W-L",
+        "stats": {
+          "expected_total": 8.2
+        }
+      }
+    ],
+    "home_players": [
+      {
+        "player": "Borja Iglesias",
+        "position": "F",
+        "is_sub": false,
+        "type": "Buteur",
+        "label": "Borja Iglesias marque",
+        "team": "home",
+        "cote": 2.3,
+        "book": "fanduel",
+        "books": [
+          {
+            "book": "fanduel",
+            "cote": 2.3,
+            "side": "over"
+          },
+          {
+            "book": "draftkings",
+            "cote": 2.15,
+            "side": "over"
+          }
+        ],
+        "confidence": 41,
+        "reasoning": "14G en 34 matchs (41.2%/match) · xG: 0.31/match",
+        "context": {
+          "weakness": 0.54
+        },
+        "stats": {
+          "goals": 14,
+          "apps": 34
+        }
+      }
+    ],
+    "away_players": [],
+    "fun_picks": [],
+    "top_pick": {
+      "direction": "tirs_(sevilla)_over_9.5",
+      "type": "Tirs (Sevilla)",
+      "label": "Plus de 9.5 tirs Sevilla",
+      "cote": null,
+      "cote_min": 1.25,
+      "value": [
+        "⚠️",
+        "Value serrée",
+        "#f59e0b"
+      ],
+      "confidence": 80,
+      "edge": null,
+      "reasoning": "Sevilla prend 12.9/m [pondere vs opp #6] · adv. concède 14.4/m → attendu ~12.5 (Celta Vigo favori (#6 vs #13))",
+      "stats": {
+        "expected": 12.5
+      }
+    }
+  },
+  {
+    "league": "La Liga",
     "home": "Espanyol",
     "away": "Real Sociedad",
     "start_ts": 1779562800,
@@ -1410,7 +1508,7 @@
         "direction": "over25",
         "type": "Over 2.5 buts",
         "label": "Plus de 2.5 buts",
-        "cote": 1.59,
+        "cote": 1.61,
         "confidence": 57,
         "reasoning": "Real Betis: 1.8 buts/L10 · défense Levante concède 1.7/L10 → ~1.8 attendus · Levante: 1.1 buts/L10 · défense Real Betis concède 1.0/L10 → ~1.1 attendus · Total: ~2.8 buts (P=53.1%)",
         "stats": {
@@ -3277,110 +3375,6 @@
       "cote": 1.74,
       "confidence": 59,
       "reasoning": "Getafe: 0.9 buts/L10 · défense Osasuna concède 1.4/L10 → ~1.2 attendus · Osasuna: 0.7 buts/L10 · défense Getafe concède 0.9/L10 → ~0.8 attendus · Total: ~2.0 buts (P=59.4%)",
-      "stats": {
-        "form": []
-      },
-      "is_fun": false
-    }
-  },
-  {
-    "league": "La Liga",
-    "home": "Celta Vigo",
-    "away": "Sevilla",
-    "start_ts": 1779562800,
-    "match_id": "4837482",
-    "page_url": "/matches/sevilla-vs-celta-vigo/2qqwgg#4837482",
-    "picks": [
-      {
-        "direction": "over25",
-        "type": "Over 2.5 buts",
-        "label": "Plus de 2.5 buts",
-        "cote": 2.15,
-        "confidence": 55,
-        "reasoning": "Celta Vigo: 1.6 buts/L10 · défense Sevilla concède 1.9/L10 → ~1.7 attendus · Sevilla: 1.2 buts/L10 · défense Celta Vigo concède 1.6/L10 → ~1.4 attendus · Total: ~3.1 buts (P=59.9%)",
-        "stats": {
-          "form": []
-        },
-        "is_fun": false
-      },
-      {
-        "direction": "tirs_(sevilla)_over_9.5",
-        "type": "Tirs (Sevilla)",
-        "label": "Plus de 9.5 tirs Sevilla",
-        "cote": null,
-        "cote_min": 1.25,
-        "value": [
-          "⚠️",
-          "Value serrée",
-          "#f59e0b"
-        ],
-        "confidence": 80,
-        "edge": null,
-        "reasoning": "Sevilla prend 12.9/m [pondere vs opp #6] · adv. concède 14.4/m → attendu ~12.5 (Celta Vigo favori (#6 vs #13))",
-        "stats": {
-          "expected": 12.5
-        }
-      },
-      {
-        "direction": "sot_under_10.5",
-        "type": "Tirs cadrés (total)",
-        "label": "Moins de 10.5 tirs cadrés total",
-        "cote": null,
-        "cote_min": 1.25,
-        "value": [
-          "⚠️",
-          "Value serrée",
-          "#f59e0b"
-        ],
-        "confidence": 80,
-        "reasoning": "📊 Brut : Celta Vigo L10 7.5 (L5 6.4) tirs cadrés/m · Sevilla L10 12.3 (L5 15.0) tirs cadrés/m\n🛡️ Défenses : Celta Vigo concède 5.3/m · Sevilla concède 3.5/m\n🎯 Attendu : Celta Vigo ~4.3 · Sevilla ~3.9 → total ~8.2\n⚖️ Celta Vigo favori (#6 vs #13) · Celta Vigo forme : D-L-W-W-L · Sevilla forme : L-W-W-W-L",
-        "stats": {
-          "expected_total": 8.2
-        }
-      }
-    ],
-    "home_players": [
-      {
-        "player": "Borja Iglesias",
-        "position": "F",
-        "is_sub": false,
-        "type": "Buteur",
-        "label": "Borja Iglesias marque",
-        "team": "home",
-        "cote": 2.3,
-        "book": "fanduel",
-        "books": [
-          {
-            "book": "fanduel",
-            "cote": 2.3,
-            "side": "over"
-          },
-          {
-            "book": "draftkings",
-            "cote": 2.15,
-            "side": "over"
-          }
-        ],
-        "confidence": 41,
-        "reasoning": "14G en 34 matchs (41.2%/match) · xG: 0.31/match",
-        "context": {
-          "weakness": 0.54
-        },
-        "stats": {
-          "goals": 14,
-          "apps": 34
-        }
-      }
-    ],
-    "away_players": [],
-    "fun_picks": [],
-    "top_pick": {
-      "direction": "over25",
-      "type": "Over 2.5 buts",
-      "label": "Plus de 2.5 buts",
-      "cote": 2.15,
-      "confidence": 55,
-      "reasoning": "Celta Vigo: 1.6 buts/L10 · défense Sevilla concède 1.9/L10 → ~1.7 attendus · Sevilla: 1.2 buts/L10 · défense Celta Vigo concède 1.6/L10 → ~1.4 attendus · Total: ~3.1 buts (P=59.9%)",
       "stats": {
         "form": []
       },
