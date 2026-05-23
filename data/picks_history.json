@@ -1577,9 +1577,9 @@
       "matchup": "Bologna vs Inter",
       "league": "Serie A",
       "category": "team",
-      "result": "PENDING",
-      "actual": null,
-      "resolved_at": null
+      "result": "WIN",
+      "actual": "3-3",
+      "resolved_at": "2026-05-23 18:00"
     },
     {
       "direction": "away_win",
@@ -1605,9 +1605,9 @@
       "matchup": "Bologna vs Inter",
       "league": "Serie A",
       "category": "team",
-      "result": "PENDING",
-      "actual": null,
-      "resolved_at": null
+      "result": "LOSS",
+      "actual": "3-3",
+      "resolved_at": "2026-05-23 18:00"
     },
     {
       "direction": "shots_under_27.5",
@@ -1632,9 +1632,9 @@
       "matchup": "Bologna vs Inter",
       "league": "Serie A",
       "category": "team",
-      "result": "PENDING",
-      "actual": null,
-      "resolved_at": null
+      "result": "WIN",
+      "actual": "22 tirs",
+      "resolved_at": "2026-05-23 18:00"
     },
     {
       "direction": "tirs_(bologna)_over_7.5",
@@ -1660,9 +1660,9 @@
       "matchup": "Bologna vs Inter",
       "league": "Serie A",
       "category": "team",
-      "result": "PENDING",
-      "actual": null,
-      "resolved_at": null
+      "result": "WIN",
+      "actual": "11 tirs (Bologna)",
+      "resolved_at": "2026-05-23 18:00"
     },
     {
       "player": "Lautaro Martínez",
@@ -1703,9 +1703,12 @@
       "league": "Serie A",
       "category": "player",
       "side": "away",
-      "result": "PENDING",
-      "actual": null,
-      "resolved_at": null
+      "result": "LOSS",
+      "actual": {
+        "goals": 0,
+        "assists": 0
+      },
+      "resolved_at": "2026-05-23 18:00"
     },
     {
       "player": "Federico Dimarco",
@@ -1746,151 +1749,12 @@
       "league": "Serie A",
       "category": "player",
       "side": "away",
-      "result": "PENDING",
-      "actual": null,
-      "resolved_at": null
-    },
-    {
-      "direction": "away_dc",
-      "type": "Double chance",
-      "label": "Nul ou Rayo Vallecano (X2)",
-      "cote": 1.6,
-      "confidence": 95,
-      "reasoning": "Rayo Vallecano invaincu 100% sur 5 derniers matchs · H2H: 1/1 matchs sans défaite",
-      "stats": {
-        "form": [
-          "W",
-          "D",
-          "D",
-          "W",
-          "W"
-        ]
+      "result": "WIN",
+      "actual": {
+        "goals": 1,
+        "assists": 0
       },
-      "is_fun": false,
-      "id": "2026-05-23_4837480_team_away_dc",
-      "date": "2026-05-23",
-      "match_id": "4837480",
-      "page_url": "/matches/rayo-vallecano-vs-deportivo-alaves/2r09ww#4837480",
-      "matchup": "Deportivo Alaves vs Rayo Vallecano",
-      "league": "La Liga",
-      "category": "team",
-      "result": "PENDING",
-      "actual": null,
-      "resolved_at": null
-    },
-    {
-      "direction": "away_win",
-      "type": "Victoire extérieur",
-      "label": "Rayo Vallecano gagne",
-      "cote": 3.15,
-      "confidence": 67,
-      "reasoning": "Rayo Vallecano : 3V/2N/0D sur 5 matchs · #8 au classement · H2H: 1V/0N/0D · Note Sofa: 6.5/10",
-      "stats": {
-        "form": [
-          "W",
-          "D",
-          "D",
-          "W",
-          "W"
-        ]
-      },
-      "is_fun": false,
-      "id": "2026-05-23_4837480_team_away_win",
-      "date": "2026-05-23",
-      "match_id": "4837480",
-      "page_url": "/matches/rayo-vallecano-vs-deportivo-alaves/2r09ww#4837480",
-      "matchup": "Deportivo Alaves vs Rayo Vallecano",
-      "league": "La Liga",
-      "category": "team",
-      "result": "PENDING",
-      "actual": null,
-      "resolved_at": null
-    },
-    {
-      "direction": "shots_under_28.5",
-      "type": "Tirs (total match)",
-      "label": "Moins de 28.5 tirs total",
-      "cote": null,
-      "cote_min": 1.29,
-      "value": [
-        "⚠️",
-        "Value serrée",
-        "#f59e0b"
-      ],
-      "confidence": 78,
-      "reasoning": "📊 Brut : Deportivo Alaves L10 12.1 (L5 10.0) tirs/m · Rayo Vallecano L10 15.4 (L5 14.6) tirs/m\n🛡️ Défenses : Deportivo Alaves concède 8.6/m · Rayo Vallecano concède 12.6/m\n🎯 Attendu : Deportivo Alaves ~11.5 · Rayo Vallecano ~13.3 → total ~24.8\n⚖️ Rayo Vallecano favori (#8 vs #14) · Deportivo Alaves forme : W-W-D-L-W · Rayo Vallecano forme : W-D-D-W-W",
-      "stats": {
-        "expected_total": 24.8
-      },
-      "id": "2026-05-23_4837480_team_shots_under_28.5",
-      "date": "2026-05-23",
-      "match_id": "4837480",
-      "page_url": "/matches/rayo-vallecano-vs-deportivo-alaves/2r09ww#4837480",
-      "matchup": "Deportivo Alaves vs Rayo Vallecano",
-      "league": "La Liga",
-      "category": "team",
-      "result": "PENDING",
-      "actual": null,
-      "resolved_at": null
-    },
-    {
-      "direction": "tirs_(rayo_vallecano)_over_10.5",
-      "type": "Tirs (Rayo Vallecano)",
-      "label": "Plus de 10.5 tirs Rayo Vallecano",
-      "cote": null,
-      "cote_min": 1.3,
-      "value": [
-        "💎",
-        "Value correcte",
-        "#84cc16"
-      ],
-      "confidence": 77,
-      "edge": null,
-      "reasoning": "Rayo Vallecano prend 16.2/m [pondere vs opp #14] · adv. concède 8.6/m → attendu ~13.3 (Rayo Vallecano favori (#8 vs #14))",
-      "stats": {
-        "expected": 13.3
-      },
-      "id": "2026-05-23_4837480_team_tirs_(rayo_vallecano)_over_10.5",
-      "date": "2026-05-23",
-      "match_id": "4837480",
-      "page_url": "/matches/rayo-vallecano-vs-deportivo-alaves/2r09ww#4837480",
-      "matchup": "Deportivo Alaves vs Rayo Vallecano",
-      "league": "La Liga",
-      "category": "team",
-      "result": "PENDING",
-      "actual": null,
-      "resolved_at": null
-    },
-    {
-      "player": "Lucas Boyé",
-      "position": "F",
-      "is_sub": false,
-      "type": "Buteur",
-      "label": "Lucas Boyé marque",
-      "team": "home",
-      "cote": null,
-      "book": null,
-      "books": [],
-      "confidence": 40,
-      "reasoning": "11G en 28 matchs (39.3%/match) · xG: 0.33/match",
-      "context": {
-        "weakness": 0.46
-      },
-      "stats": {
-        "goals": 11,
-        "apps": 28
-      },
-      "id": "2026-05-23_4837480_player_Lucas Boyé_Buteur",
-      "date": "2026-05-23",
-      "match_id": "4837480",
-      "page_url": "/matches/rayo-vallecano-vs-deportivo-alaves/2r09ww#4837480",
-      "matchup": "Deportivo Alaves vs Rayo Vallecano",
-      "league": "La Liga",
-      "category": "player",
-      "side": "home",
-      "result": "PENDING",
-      "actual": null,
-      "resolved_at": null
+      "resolved_at": "2026-05-23 18:00"
     },
     {
       "direction": "away_dc",
@@ -2069,6 +1933,148 @@
       "league": "DFB Pokal",
       "category": "player",
       "side": "away",
+      "result": "PENDING",
+      "actual": null,
+      "resolved_at": null
+    },
+    {
+      "direction": "away_dc",
+      "type": "Double chance",
+      "label": "Nul ou Rayo Vallecano (X2)",
+      "cote": 1.64,
+      "confidence": 95,
+      "reasoning": "Rayo Vallecano invaincu 100% sur 5 derniers matchs · H2H: 1/1 matchs sans défaite",
+      "stats": {
+        "form": [
+          "W",
+          "D",
+          "D",
+          "W",
+          "W"
+        ]
+      },
+      "is_fun": false,
+      "id": "2026-05-23_4837480_team_away_dc",
+      "date": "2026-05-23",
+      "match_id": "4837480",
+      "page_url": "/matches/rayo-vallecano-vs-deportivo-alaves/2r09ww#4837480",
+      "matchup": "Deportivo Alaves vs Rayo Vallecano",
+      "league": "La Liga",
+      "category": "team",
+      "result": "PENDING",
+      "actual": null,
+      "resolved_at": null
+    },
+    {
+      "direction": "away_win",
+      "type": "Victoire extérieur",
+      "label": "Rayo Vallecano gagne",
+      "cote": 3.25,
+      "confidence": 67,
+      "reasoning": "Rayo Vallecano : 3V/2N/0D sur 5 matchs · #8 au classement · H2H: 1V/0N/0D · Note Sofa: 6.5/10",
+      "stats": {
+        "form": [
+          "W",
+          "D",
+          "D",
+          "W",
+          "W"
+        ]
+      },
+      "is_fun": false,
+      "id": "2026-05-23_4837480_team_away_win",
+      "date": "2026-05-23",
+      "match_id": "4837480",
+      "page_url": "/matches/rayo-vallecano-vs-deportivo-alaves/2r09ww#4837480",
+      "matchup": "Deportivo Alaves vs Rayo Vallecano",
+      "league": "La Liga",
+      "category": "team",
+      "result": "PENDING",
+      "actual": null,
+      "resolved_at": null
+    },
+    {
+      "direction": "shots_under_28.5",
+      "type": "Tirs (total match)",
+      "label": "Moins de 28.5 tirs total",
+      "cote": null,
+      "cote_min": 1.29,
+      "value": [
+        "⚠️",
+        "Value serrée",
+        "#f59e0b"
+      ],
+      "confidence": 78,
+      "reasoning": "📊 Brut : Deportivo Alaves L10 12.1 (L5 10.0) tirs/m · Rayo Vallecano L10 15.4 (L5 14.6) tirs/m\n🛡️ Défenses : Deportivo Alaves concède 8.6/m · Rayo Vallecano concède 12.6/m\n🎯 Attendu : Deportivo Alaves ~11.5 · Rayo Vallecano ~13.3 → total ~24.8\n⚖️ Rayo Vallecano favori (#8 vs #14) · Deportivo Alaves forme : W-W-D-L-W · Rayo Vallecano forme : W-D-D-W-W",
+      "stats": {
+        "expected_total": 24.8
+      },
+      "id": "2026-05-23_4837480_team_shots_under_28.5",
+      "date": "2026-05-23",
+      "match_id": "4837480",
+      "page_url": "/matches/rayo-vallecano-vs-deportivo-alaves/2r09ww#4837480",
+      "matchup": "Deportivo Alaves vs Rayo Vallecano",
+      "league": "La Liga",
+      "category": "team",
+      "result": "PENDING",
+      "actual": null,
+      "resolved_at": null
+    },
+    {
+      "direction": "tirs_(rayo_vallecano)_over_10.5",
+      "type": "Tirs (Rayo Vallecano)",
+      "label": "Plus de 10.5 tirs Rayo Vallecano",
+      "cote": null,
+      "cote_min": 1.3,
+      "value": [
+        "💎",
+        "Value correcte",
+        "#84cc16"
+      ],
+      "confidence": 77,
+      "edge": null,
+      "reasoning": "Rayo Vallecano prend 16.2/m [pondere vs opp #14] · adv. concède 8.6/m → attendu ~13.3 (Rayo Vallecano favori (#8 vs #14))",
+      "stats": {
+        "expected": 13.3
+      },
+      "id": "2026-05-23_4837480_team_tirs_(rayo_vallecano)_over_10.5",
+      "date": "2026-05-23",
+      "match_id": "4837480",
+      "page_url": "/matches/rayo-vallecano-vs-deportivo-alaves/2r09ww#4837480",
+      "matchup": "Deportivo Alaves vs Rayo Vallecano",
+      "league": "La Liga",
+      "category": "team",
+      "result": "PENDING",
+      "actual": null,
+      "resolved_at": null
+    },
+    {
+      "player": "Lucas Boyé",
+      "position": "F",
+      "is_sub": false,
+      "type": "Buteur",
+      "label": "Lucas Boyé marque",
+      "team": "home",
+      "cote": null,
+      "book": null,
+      "books": [],
+      "confidence": 40,
+      "reasoning": "11G en 28 matchs (39.3%/match) · xG: 0.33/match",
+      "context": {
+        "weakness": 0.46
+      },
+      "stats": {
+        "goals": 11,
+        "apps": 28
+      },
+      "id": "2026-05-23_4837480_player_Lucas Boyé_Buteur",
+      "date": "2026-05-23",
+      "match_id": "4837480",
+      "page_url": "/matches/rayo-vallecano-vs-deportivo-alaves/2r09ww#4837480",
+      "matchup": "Deportivo Alaves vs Rayo Vallecano",
+      "league": "La Liga",
+      "category": "player",
+      "side": "home",
       "result": "PENDING",
       "actual": null,
       "resolved_at": null
@@ -2580,8 +2586,8 @@
       "direction": "under35",
       "type": "Under 3.5 buts",
       "label": "Moins de 3.5 buts",
-      "cote": 1.62,
-      "confidence": 64,
+      "cote": 1.71,
+      "confidence": 62,
       "reasoning": "Défenses solides — Real Madrid concède 0.8/L10, Athletic Club concède 1.8/L10 · Total attendu: ~3.0 buts (P Under=64.7%)",
       "stats": {
         "form": []
