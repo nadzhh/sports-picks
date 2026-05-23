@@ -1754,7 +1754,7 @@
       "direction": "away_dc",
       "type": "Double chance",
       "label": "Nul ou Rayo Vallecano (X2)",
-      "cote": 1.54,
+      "cote": 1.52,
       "confidence": 95,
       "reasoning": "Rayo Vallecano invaincu 100% sur 5 derniers matchs · H2H: 1/1 matchs sans défaite",
       "stats": {
@@ -2380,6 +2380,105 @@
       "league": "La Liga",
       "category": "player",
       "side": "away",
+      "result": "PENDING",
+      "actual": null,
+      "resolved_at": null
+    },
+    {
+      "direction": "shots_over_19.5",
+      "type": "Tirs (total match)",
+      "label": "Plus de 19.5 tirs total",
+      "cote": null,
+      "cote_min": 1.25,
+      "value": [
+        "⚠️",
+        "Value serrée",
+        "#f59e0b"
+      ],
+      "confidence": 80,
+      "reasoning": "📊 Brut : Mallorca L10 12.3 (L5 9.6) tirs/m · Real Oviedo L10 10.5 (L5 10.8) tirs/m\n🛡️ Défenses : Mallorca concède 11.8/m · Real Oviedo concède 13.6/m\n🎯 Attendu : Mallorca ~12.6 · Real Oviedo ~10.9 → total ~23.6\n⚖️ équipes proches au classement · Mallorca forme : L-L-D-W-L · Real Oviedo forme : L-L-D-L-L",
+      "stats": {
+        "expected_total": 23.6
+      },
+      "id": "2026-05-23_4837485_team_shots_over_19.5",
+      "date": "2026-05-23",
+      "match_id": "4837485",
+      "page_url": "/matches/mallorca-vs-real-oviedo/2hfado#4837485",
+      "matchup": "Mallorca vs Real Oviedo",
+      "league": "La Liga",
+      "category": "team",
+      "result": "PENDING",
+      "actual": null,
+      "resolved_at": null
+    },
+    {
+      "direction": "tirs_(mallorca)_under_15.5",
+      "type": "Tirs (Mallorca)",
+      "label": "Moins de 15.5 tirs Mallorca",
+      "cote": null,
+      "cote_min": 1.26,
+      "value": [
+        "⚠️",
+        "Value serrée",
+        "#f59e0b"
+      ],
+      "confidence": 79,
+      "edge": null,
+      "reasoning": "Mallorca prend 11.7/m [pondere vs opp #20] · adv. concède 13.6/m → attendu ~12.6 (équipes proches au classement)",
+      "stats": {
+        "expected": 12.6
+      },
+      "id": "2026-05-23_4837485_team_tirs_(mallorca)_under_15.5",
+      "date": "2026-05-23",
+      "match_id": "4837485",
+      "page_url": "/matches/mallorca-vs-real-oviedo/2hfado#4837485",
+      "matchup": "Mallorca vs Real Oviedo",
+      "league": "La Liga",
+      "category": "team",
+      "result": "PENDING",
+      "actual": null,
+      "resolved_at": null
+    },
+    {
+      "player": "Vedat Muriqi",
+      "position": "F",
+      "is_sub": false,
+      "type": "Buteur",
+      "label": "Vedat Muriqi marque",
+      "cote": 1.65,
+      "book": "fanduel",
+      "books": [
+        {
+          "book": "fanduel",
+          "cote": 1.65,
+          "side": "over"
+        },
+        {
+          "book": "draftkings",
+          "cote": 1.65,
+          "side": "over"
+        }
+      ],
+      "confidence": 55,
+      "reasoning": "22 buts en 36 matchs cette saison (61.1% de chance/match) · finisseur efficace (20% de conv.) · xG moyen 0.48/match, défense adverse poreuse (1.5 buts concédés/match) · défense très vulnérable",
+      "context": {
+        "weakness": 0.7
+      },
+      "stats": {
+        "goals": 22,
+        "apps": 36,
+        "gpm": 0.611,
+        "xgpm": 0.478
+      },
+      "team": "home",
+      "id": "2026-05-23_4837485_player_Vedat Muriqi_Buteur",
+      "date": "2026-05-23",
+      "match_id": "4837485",
+      "page_url": "/matches/mallorca-vs-real-oviedo/2hfado#4837485",
+      "matchup": "Mallorca vs Real Oviedo",
+      "league": "La Liga",
+      "category": "player",
+      "side": "home",
       "result": "PENDING",
       "actual": null,
       "resolved_at": null
@@ -3213,127 +3312,6 @@
       "league": "La Liga",
       "category": "player",
       "side": "away",
-      "result": "PENDING",
-      "actual": null,
-      "resolved_at": null
-    },
-    {
-      "direction": "over25",
-      "type": "Over 2.5 buts",
-      "label": "Plus de 2.5 buts",
-      "cote": 1.87,
-      "confidence": 55,
-      "reasoning": "Mallorca: 1.6 buts/L10 · défense Real Oviedo concède 2.2/L10 → ~1.9 attendus · Real Oviedo: 0.9 buts/L10 · défense Mallorca concède 1.2/L10 → ~1.1 attendus · Total: ~2.9 buts (P=55.4%)",
-      "stats": {
-        "form": []
-      },
-      "is_fun": false,
-      "id": "2026-05-23_4837485_team_over25",
-      "date": "2026-05-23",
-      "match_id": "4837485",
-      "page_url": "/matches/mallorca-vs-real-oviedo/2hfado#4837485",
-      "matchup": "Mallorca vs Real Oviedo",
-      "league": "La Liga",
-      "category": "team",
-      "result": "PENDING",
-      "actual": null,
-      "resolved_at": null
-    },
-    {
-      "direction": "shots_over_19.5",
-      "type": "Tirs (total match)",
-      "label": "Plus de 19.5 tirs total",
-      "cote": null,
-      "cote_min": 1.25,
-      "value": [
-        "⚠️",
-        "Value serrée",
-        "#f59e0b"
-      ],
-      "confidence": 80,
-      "reasoning": "📊 Brut : Mallorca L10 12.3 (L5 9.6) tirs/m · Real Oviedo L10 10.5 (L5 10.8) tirs/m\n🛡️ Défenses : Mallorca concède 11.8/m · Real Oviedo concède 13.6/m\n🎯 Attendu : Mallorca ~12.6 · Real Oviedo ~10.9 → total ~23.6\n⚖️ équipes proches au classement · Mallorca forme : L-L-D-W-L · Real Oviedo forme : L-L-D-L-L",
-      "stats": {
-        "expected_total": 23.6
-      },
-      "id": "2026-05-23_4837485_team_shots_over_19.5",
-      "date": "2026-05-23",
-      "match_id": "4837485",
-      "page_url": "/matches/mallorca-vs-real-oviedo/2hfado#4837485",
-      "matchup": "Mallorca vs Real Oviedo",
-      "league": "La Liga",
-      "category": "team",
-      "result": "PENDING",
-      "actual": null,
-      "resolved_at": null
-    },
-    {
-      "direction": "tirs_(mallorca)_under_15.5",
-      "type": "Tirs (Mallorca)",
-      "label": "Moins de 15.5 tirs Mallorca",
-      "cote": null,
-      "cote_min": 1.26,
-      "value": [
-        "⚠️",
-        "Value serrée",
-        "#f59e0b"
-      ],
-      "confidence": 79,
-      "edge": null,
-      "reasoning": "Mallorca prend 11.7/m [pondere vs opp #20] · adv. concède 13.6/m → attendu ~12.6 (équipes proches au classement)",
-      "stats": {
-        "expected": 12.6
-      },
-      "id": "2026-05-23_4837485_team_tirs_(mallorca)_under_15.5",
-      "date": "2026-05-23",
-      "match_id": "4837485",
-      "page_url": "/matches/mallorca-vs-real-oviedo/2hfado#4837485",
-      "matchup": "Mallorca vs Real Oviedo",
-      "league": "La Liga",
-      "category": "team",
-      "result": "PENDING",
-      "actual": null,
-      "resolved_at": null
-    },
-    {
-      "player": "Vedat Muriqi",
-      "position": "F",
-      "is_sub": false,
-      "type": "Buteur",
-      "label": "Vedat Muriqi marque",
-      "cote": 1.65,
-      "book": "fanduel",
-      "books": [
-        {
-          "book": "fanduel",
-          "cote": 1.65,
-          "side": "over"
-        },
-        {
-          "book": "draftkings",
-          "cote": 1.65,
-          "side": "over"
-        }
-      ],
-      "confidence": 55,
-      "reasoning": "22 buts en 36 matchs cette saison (61.1% de chance/match) · finisseur efficace (20% de conv.) · xG moyen 0.48/match, défense adverse poreuse (1.5 buts concédés/match) · défense très vulnérable",
-      "context": {
-        "weakness": 0.7
-      },
-      "stats": {
-        "goals": 22,
-        "apps": 36,
-        "gpm": 0.611,
-        "xgpm": 0.478
-      },
-      "team": "home",
-      "id": "2026-05-23_4837485_player_Vedat Muriqi_Buteur",
-      "date": "2026-05-23",
-      "match_id": "4837485",
-      "page_url": "/matches/mallorca-vs-real-oviedo/2hfado#4837485",
-      "matchup": "Mallorca vs Real Oviedo",
-      "league": "La Liga",
-      "category": "player",
-      "side": "home",
       "result": "PENDING",
       "actual": null,
       "resolved_at": null
