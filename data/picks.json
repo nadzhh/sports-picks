@@ -594,34 +594,34 @@
         "type": "Tirs (total match)",
         "label": "Moins de 28.5 tirs total",
         "cote": null,
-        "cote_min": 1.27,
+        "cote_min": 1.26,
         "value": [
           "⚠️",
           "Value serrée",
           "#f59e0b"
         ],
-        "confidence": 78,
-        "reasoning": "📊 Brut : Deportivo Alaves L10 12.1 (L5 10.0) tirs/m · Rayo Vallecano L10 15.4 (L5 14.6) tirs/m\n🛡️ Défenses : Deportivo Alaves concède 8.6/m · Rayo Vallecano concède 12.6/m\n🎯 Attendu : Deportivo Alaves ~11.6 · Rayo Vallecano ~13.0 → total ~24.7\n⚖️ Rayo Vallecano favori (#8 vs #13) · Deportivo Alaves forme : W-W-D-L-W · Rayo Vallecano forme : W-D-D-W-W",
+        "confidence": 79,
+        "reasoning": "📊 Brut : Deportivo Alaves L10 12.1 (L5 10.0) tirs/m · Rayo Vallecano L10 15.4 (L5 14.6) tirs/m\n🛡️ Défenses : Deportivo Alaves concède 8.6/m · Rayo Vallecano concède 12.6/m\n🎯 Attendu : Deportivo Alaves ~12.4 · Rayo Vallecano ~12.1 → total ~24.5\n⚖️ équipes proches au classement · Deportivo Alaves forme : W-W-D-L-W · Rayo Vallecano forme : W-D-D-W-W",
         "stats": {
-          "expected_total": 24.7
+          "expected_total": 24.5
         }
       },
       {
-        "direction": "tirs_(rayo_vallecano)_over_10.5",
-        "type": "Tirs (Rayo Vallecano)",
-        "label": "Plus de 10.5 tirs Rayo Vallecano",
+        "direction": "tirs_(deportivo_alaves)_over_9.5",
+        "type": "Tirs (Deportivo Alaves)",
+        "label": "Plus de 9.5 tirs Deportivo Alaves",
         "cote": null,
-        "cote_min": 1.33,
+        "cote_min": 1.26,
         "value": [
-          "💎",
-          "Value correcte",
-          "#84cc16"
+          "⚠️",
+          "Value serrée",
+          "#f59e0b"
         ],
-        "confidence": 75,
+        "confidence": 79,
         "edge": null,
-        "reasoning": "Rayo Vallecano prend 16.0/m [pondere vs opp #13] · adv. concède 8.6/m → attendu ~13.0 (Rayo Vallecano favori (#8 vs #13))",
+        "reasoning": "Deportivo Alaves prend 12.2/m [pondere vs opp #8] · adv. concède 12.6/m → attendu ~12.4 (équipes proches au classement)",
         "stats": {
-          "expected": 13.0
+          "expected": 12.4
         }
       }
     ],
@@ -648,7 +648,26 @@
       }
     ],
     "away_players": [],
-    "fun_picks": [],
+    "fun_picks": [
+      {
+        "direction": "fun_draw",
+        "type": "🎲 Paris fun",
+        "label": "Match nul",
+        "cote": 3.35,
+        "confidence": 40,
+        "is_fun": true,
+        "stats": {
+          "form": [
+            "W",
+            "W",
+            "D",
+            "L",
+            "W"
+          ]
+        },
+        "reasoning": "Deux équipes au niveau similaire (#11 vs #8), forme équilibrée des deux côtés — nul logique à 3.35"
+      }
+    ],
     "top_pick": {
       "direction": "away_dc",
       "type": "Double chance",
@@ -695,28 +714,11 @@
         "is_fun": false
       },
       {
-        "direction": "sot_over_7.5",
-        "type": "Tirs cadrés (total)",
-        "label": "Plus de 7.5 tirs cadrés total",
-        "cote": null,
-        "cote_min": 1.25,
-        "value": [
-          "⚠️",
-          "Value serrée",
-          "#f59e0b"
-        ],
-        "confidence": 80,
-        "reasoning": "📊 Brut : Bayern München L10 16.0 (L5 16.0) tirs cadrés/m · VfB Stuttgart L10 19.0 (L5 19.0) tirs cadrés/m\n🛡️ Défenses : Bayern München concède 1.0/m · VfB Stuttgart concède 4.5/m\n🎯 Attendu : Bayern München ~6.7 · VfB Stuttgart ~3.5 → total ~10.2\n⚖️ équipes proches au classement · Bayern München forme : W-W-D-D-L · VfB Stuttgart forme : D-W-D-D-W",
-        "stats": {
-          "expected_total": 10.2
-        }
-      },
-      {
         "direction": "tirs_cadrés_(bayern_münchen)_over_4.5",
         "type": "Tirs cadrés (Bayern München)",
         "label": "Plus de 4.5 tirs cadrés Bayern München",
         "cote": null,
-        "cote_min": 1.26,
+        "cote_min": 1.25,
         "value": [
           "⚠️",
           "Value serrée",
@@ -727,6 +729,23 @@
         "reasoning": "Bayern München prend 8.9/m [pondere vs opp #None] · adv. concède 4.5/m → attendu ~6.7 (équipes proches au classement)",
         "stats": {
           "expected": 6.7
+        }
+      },
+      {
+        "direction": "shots_over_24.5",
+        "type": "Tirs (total match)",
+        "label": "Plus de 24.5 tirs total",
+        "cote": null,
+        "cote_min": 1.3,
+        "value": [
+          "💎",
+          "Value correcte",
+          "#84cc16"
+        ],
+        "confidence": 77,
+        "reasoning": "📊 Brut : Bayern München L10 16.0 (L5 16.0) tirs/m · VfB Stuttgart L10 19.0 (L5 19.0) tirs/m\n🛡️ Défenses : Bayern München concède 5.5/m · VfB Stuttgart concède 16.5/m\n🎯 Attendu : Bayern München ~16.2 · VfB Stuttgart ~12.2 → total ~28.5\n⚖️ équipes proches au classement · Bayern München forme : W-W-D-D-L · VfB Stuttgart forme : D-W-D-D-W",
+        "stats": {
+          "expected_total": 28.5
         }
       }
     ],
@@ -740,16 +759,16 @@
         "cote": null,
         "book": null,
         "books": [],
-        "confidence": 84,
-        "reasoning": "7 buts en 5 matchs cette saison (140.0% de chance/match) · bonne efficacité (27% conv.) · xG moyen 1.32/match · défense fragile",
+        "confidence": 88,
+        "reasoning": "8 buts en 5 matchs cette saison (160.0% de chance/match) · bonne efficacité (30% conv.) · xG moyen 1.42/match · défense fragile",
         "context": {
-          "weakness": 0.63
+          "weakness": 0.65
         },
         "stats": {
-          "goals": 7,
+          "goals": 8,
           "apps": 5,
-          "gpm": 1.4,
-          "xgpm": 1.32
+          "gpm": 1.6,
+          "xgpm": 1.42
         },
         "team": "home"
       },
@@ -765,7 +784,7 @@
         "confidence": 68,
         "reasoning": "3 buts en 5 matchs cette saison (60.0% de chance/match) · xG moyen 1.04/match · défense fragile",
         "context": {
-          "weakness": 0.63
+          "weakness": 0.65
         },
         "stats": {
           "goals": 3,
@@ -1447,7 +1466,7 @@
         "confidence": 49,
         "reasoning": "15 buts + 4 passes décisives en 33 matchs (57.6% de chance/match) · xG+xA: 0.57/match · défense fragile",
         "context": {
-          "weakness": 0.51
+          "weakness": 0.53
         },
         "stats": {
           "goals": 15,
@@ -1474,6 +1493,104 @@
       "reasoning": "Espanyol prend 3.9/m [pondere vs opp #10] · adv. concède 5.7/m → attendu ~4.8 (équipes proches au classement)",
       "stats": {
         "expected": 4.8
+      }
+    }
+  },
+  {
+    "league": "La Liga",
+    "home": "Girona",
+    "away": "Elche",
+    "start_ts": 1779562800,
+    "match_id": "4837489",
+    "page_url": "/matches/girona-vs-elche/2ogkws#4837489",
+    "picks": [
+      {
+        "direction": "tirs_(elche)_under_13.5",
+        "type": "Tirs (Elche)",
+        "label": "Moins de 13.5 tirs Elche",
+        "cote": null,
+        "cote_min": 1.26,
+        "value": [
+          "⚠️",
+          "Value serrée",
+          "#f59e0b"
+        ],
+        "confidence": 80,
+        "edge": null,
+        "reasoning": "Elche prend 10.4/m [pondere vs opp #18] · adv. concède 11.3/m → attendu ~10.9 (équipes proches au classement)",
+        "stats": {
+          "expected": 10.9
+        }
+      },
+      {
+        "direction": "shots_under_27.5",
+        "type": "Tirs (total match)",
+        "label": "Moins de 27.5 tirs total",
+        "cote": null,
+        "cote_min": 1.27,
+        "value": [
+          "⚠️",
+          "Value serrée",
+          "#f59e0b"
+        ],
+        "confidence": 79,
+        "reasoning": "📊 Brut : Girona L10 13.2 (L5 16.8) tirs/m · Elche L10 10.7 (L5 10.6) tirs/m\n🛡️ Défenses : Girona concède 11.3/m · Elche concède 12.6/m\n🎯 Attendu : Girona ~12.8 · Elche ~10.9 → total ~23.7\n⚖️ équipes proches au classement · Girona forme : L-D-D-L-L · Elche forme : W-L-D-L-W",
+        "stats": {
+          "expected_total": 23.7
+        }
+      }
+    ],
+    "home_players": [],
+    "away_players": [
+      {
+        "player": "André Silva",
+        "position": "F",
+        "is_sub": false,
+        "type": "Buteur",
+        "label": "André Silva marque",
+        "team": "away",
+        "cote": 3.15,
+        "book": "draftkings",
+        "books": [
+          {
+            "book": "fanduel",
+            "cote": 2.9,
+            "side": "over"
+          },
+          {
+            "book": "draftkings",
+            "cote": 3.15,
+            "side": "over"
+          }
+        ],
+        "confidence": 41,
+        "reasoning": "10G en 30 matchs (33.3%/match) · xG: 0.35/match",
+        "context": {
+          "weakness": 0.66
+        },
+        "stats": {
+          "goals": 10,
+          "apps": 30
+        }
+      }
+    ],
+    "fun_picks": [],
+    "top_pick": {
+      "direction": "tirs_(elche)_under_13.5",
+      "type": "Tirs (Elche)",
+      "label": "Moins de 13.5 tirs Elche",
+      "cote": null,
+      "cote_min": 1.26,
+      "value": [
+        "⚠️",
+        "Value serrée",
+        "#f59e0b"
+      ],
+      "confidence": 80,
+      "edge": null,
+      "reasoning": "Elche prend 10.4/m [pondere vs opp #18] · adv. concède 11.3/m → attendu ~10.9 (équipes proches au classement)",
+      "stats": {
+        "expected": 10.9
       }
     }
   },
@@ -1516,38 +1633,38 @@
         "is_fun": false
       },
       {
-        "direction": "tirs_(real_betis)_over_11.5",
-        "type": "Tirs (Real Betis)",
-        "label": "Plus de 11.5 tirs Real Betis",
+        "direction": "shots_under_30.5",
+        "type": "Tirs (total match)",
+        "label": "Moins de 30.5 tirs total",
         "cote": null,
-        "cote_min": 1.25,
+        "cote_min": 1.26,
         "value": [
           "⚠️",
           "Value serrée",
           "#f59e0b"
         ],
         "confidence": 80,
-        "edge": null,
-        "reasoning": "Real Betis prend 12.4/m [pondere vs opp #17] · adv. concède 13.4/m → attendu ~14.8 (Real Betis favori (#5 vs #17))",
+        "reasoning": "📊 Brut : Real Betis L10 13.0 (L5 13.2) tirs/m · Levante L10 16.1 (L5 16.8) tirs/m\n🛡️ Défenses : Real Betis concède 11.2/m · Levante concède 13.4/m\n🎯 Attendu : Real Betis ~14.8 · Levante ~11.5 → total ~26.3\n⚖️ Real Betis favori (#5 vs #17) · Real Betis forme : L-W-D-W-D · Levante forme : W-W-W-L-D",
         "stats": {
-          "expected": 14.8
+          "expected_total": 26.3
         }
       },
       {
-        "direction": "shots_over_22.5",
-        "type": "Tirs (total match)",
-        "label": "Plus de 22.5 tirs total",
+        "direction": "tirs_cadrés_(real_betis)_over_3.5",
+        "type": "Tirs cadrés (Real Betis)",
+        "label": "Plus de 3.5 tirs cadrés Real Betis",
         "cote": null,
-        "cote_min": 1.31,
+        "cote_min": 1.32,
         "value": [
           "💎",
           "Value correcte",
           "#84cc16"
         ],
         "confidence": 76,
-        "reasoning": "📊 Brut : Real Betis L10 13.0 (L5 13.2) tirs/m · Levante L10 16.1 (L5 16.8) tirs/m\n🛡️ Défenses : Real Betis concède 11.2/m · Levante concède 13.4/m\n🎯 Attendu : Real Betis ~14.8 · Levante ~11.4 → total ~26.2\n⚖️ Real Betis favori (#5 vs #17) · Real Betis forme : L-W-D-W-D · Levante forme : W-W-W-L-D",
+        "edge": null,
+        "reasoning": "Real Betis prend 5.2/m [pondere vs opp #17] · adv. concède 4.2/m → attendu ~5.2 (Real Betis favori (#5 vs #17))",
         "stats": {
-          "expected_total": 26.2
+          "expected": 5.2
         }
       }
     ],
@@ -1651,9 +1768,9 @@
         "is_fun": false
       },
       {
-        "direction": "tirs_(athletic_club)_under_14.5",
-        "type": "Tirs (Athletic Club)",
-        "label": "Moins de 14.5 tirs Athletic Club",
+        "direction": "shots_over_21.5",
+        "type": "Tirs (total match)",
+        "label": "Plus de 21.5 tirs total",
         "cote": null,
         "cote_min": 1.25,
         "value": [
@@ -1662,27 +1779,27 @@
           "#f59e0b"
         ],
         "confidence": 80,
-        "edge": null,
-        "reasoning": "Athletic Club prend 13.8/m [pondere vs opp #2] · adv. concède 12.8/m → attendu ~11.7 (Real Madrid favori (#2 vs #12))",
+        "reasoning": "📊 Brut : Real Madrid L10 15.9 (L5 13.4) tirs/m · Athletic Club L10 13.4 (L5 14.6) tirs/m\n🛡️ Défenses : Real Madrid concède 12.8/m · Athletic Club concède 9.0/m\n🎯 Attendu : Real Madrid ~14.3 · Athletic Club ~11.5 → total ~25.8\n⚖️ Real Madrid favori (#2 vs #13) · Real Madrid forme : W-W-L-W-D · Athletic Club forme : D-L-L-W-L",
         "stats": {
-          "expected": 11.7
+          "expected_total": 25.8
         }
       },
       {
-        "direction": "sot_over_7.5",
-        "type": "Tirs cadrés (total)",
-        "label": "Plus de 7.5 tirs cadrés total",
+        "direction": "tirs_(real_madrid)_over_11.5",
+        "type": "Tirs (Real Madrid)",
+        "label": "Plus de 11.5 tirs Real Madrid",
         "cote": null,
-        "cote_min": 1.33,
+        "cote_min": 1.31,
         "value": [
           "💎",
           "Value correcte",
           "#84cc16"
         ],
-        "confidence": 75,
-        "reasoning": "📊 Brut : Real Madrid L10 15.9 (L5 13.4) tirs cadrés/m · Athletic Club L10 13.4 (L5 14.6) tirs cadrés/m\n🛡️ Défenses : Real Madrid concède 4.0/m · Athletic Club concède 3.8/m\n🎯 Attendu : Real Madrid ~5.8 · Athletic Club ~3.9 → total ~9.7\n⚖️ Real Madrid favori (#2 vs #12) · Real Madrid forme : W-W-L-W-D · Athletic Club forme : D-L-L-W-L",
+        "confidence": 76,
+        "edge": null,
+        "reasoning": "Real Madrid prend 16.3/m [pondere vs opp #13] · adv. concède 9.0/m → attendu ~14.3 (Real Madrid favori (#2 vs #13))",
         "stats": {
-          "expected_total": 9.7
+          "expected": 14.3
         }
       }
     ],
@@ -1699,7 +1816,7 @@
         "confidence": 68,
         "reasoning": "24 buts en 30 matchs cette saison (80.0% de chance/match) · xG moyen 0.79/match, défense adverse poreuse (1.4 buts concédés/match) · défense fragile",
         "context": {
-          "weakness": 0.53
+          "weakness": 0.55
         },
         "stats": {
           "goals": 24,
@@ -1721,7 +1838,7 @@
         "confidence": 45,
         "reasoning": "16 buts + 5 passes décisives en 36 matchs (58.3% de chance/match) · xG+xA: 0.53/match · défense fragile",
         "context": {
-          "weakness": 0.53
+          "weakness": 0.55
         },
         "stats": {
           "goals": 16,
@@ -2097,104 +2214,6 @@
       "reasoning": "📊 Brut : Burnley L10 9.3 (L5 8.4) tirs/m · Wolverhampton Wanderers L10 11.3 (L5 10.8) tirs/m\n🛡️ Défenses : Burnley concède 18.6/m · Wolverhampton Wanderers concède 14.0/m\n🎯 Attendu : Burnley ~11.3 · Wolverhampton Wanderers ~15.1 → total ~26.4\n⚖️ équipes proches au classement · Burnley forme : L-D-L-L-L · Wolverhampton Wanderers forme : D-L-D-L-L",
       "stats": {
         "expected_total": 26.4
-      }
-    }
-  },
-  {
-    "league": "La Liga",
-    "home": "Girona",
-    "away": "Elche",
-    "start_ts": 1779562800,
-    "match_id": "4837489",
-    "page_url": "/matches/girona-vs-elche/2ogkws#4837489",
-    "picks": [
-      {
-        "direction": "tirs_(elche)_under_13.5",
-        "type": "Tirs (Elche)",
-        "label": "Moins de 13.5 tirs Elche",
-        "cote": null,
-        "cote_min": 1.27,
-        "value": [
-          "⚠️",
-          "Value serrée",
-          "#f59e0b"
-        ],
-        "confidence": 79,
-        "edge": null,
-        "reasoning": "Elche prend 10.5/m [pondere vs opp #18] · adv. concède 11.3/m → attendu ~10.9 (équipes proches au classement)",
-        "stats": {
-          "expected": 10.9
-        }
-      },
-      {
-        "direction": "shots_under_27.5",
-        "type": "Tirs (total match)",
-        "label": "Moins de 27.5 tirs total",
-        "cote": null,
-        "cote_min": 1.27,
-        "value": [
-          "⚠️",
-          "Value serrée",
-          "#f59e0b"
-        ],
-        "confidence": 78,
-        "reasoning": "📊 Brut : Girona L10 13.2 (L5 16.8) tirs/m · Elche L10 10.7 (L5 10.6) tirs/m\n🛡️ Défenses : Girona concède 11.3/m · Elche concède 12.6/m\n🎯 Attendu : Girona ~12.8 · Elche ~10.9 → total ~23.7\n⚖️ équipes proches au classement · Girona forme : L-D-D-L-L · Elche forme : W-L-D-L-W",
-        "stats": {
-          "expected_total": 23.7
-        }
-      }
-    ],
-    "home_players": [],
-    "away_players": [
-      {
-        "player": "André Silva",
-        "position": "F",
-        "is_sub": false,
-        "type": "Buteur",
-        "label": "André Silva marque",
-        "team": "away",
-        "cote": 3.15,
-        "book": "draftkings",
-        "books": [
-          {
-            "book": "fanduel",
-            "cote": 2.9,
-            "side": "over"
-          },
-          {
-            "book": "draftkings",
-            "cote": 3.15,
-            "side": "over"
-          }
-        ],
-        "confidence": 41,
-        "reasoning": "10G en 30 matchs (33.3%/match) · xG: 0.35/match",
-        "context": {
-          "weakness": 0.66
-        },
-        "stats": {
-          "goals": 10,
-          "apps": 30
-        }
-      }
-    ],
-    "fun_picks": [],
-    "top_pick": {
-      "direction": "tirs_(elche)_under_13.5",
-      "type": "Tirs (Elche)",
-      "label": "Moins de 13.5 tirs Elche",
-      "cote": null,
-      "cote_min": 1.27,
-      "value": [
-        "⚠️",
-        "Value serrée",
-        "#f59e0b"
-      ],
-      "confidence": 79,
-      "edge": null,
-      "reasoning": "Elche prend 10.5/m [pondere vs opp #18] · adv. concède 11.3/m → attendu ~10.9 (équipes proches au classement)",
-      "stats": {
-        "expected": 10.9
       }
     }
   },
@@ -3312,7 +3331,7 @@
         "type": "Tirs (total match)",
         "label": "Plus de 22.5 tirs total",
         "cote": null,
-        "cote_min": 1.28,
+        "cote_min": 1.27,
         "value": [
           "⚠️",
           "Value serrée",
@@ -3389,9 +3408,9 @@
         "is_fun": false
       },
       {
-        "direction": "shots_under_28.5",
-        "type": "Tirs (total match)",
-        "label": "Moins de 28.5 tirs total",
+        "direction": "sot_over_5.5",
+        "type": "Tirs cadrés (total)",
+        "label": "Plus de 5.5 tirs cadrés total",
         "cote": null,
         "cote_min": 1.25,
         "value": [
@@ -3400,9 +3419,9 @@
           "#f59e0b"
         ],
         "confidence": 80,
-        "reasoning": "📊 Brut : Getafe L10 8.6 (L5 9.8) tirs/m · Osasuna L10 13.6 (L5 15.2) tirs/m\n🛡️ Défenses : Getafe concède 9.8/m · Osasuna concède 16.3/m\n🎯 Attendu : Getafe ~13.7 · Osasuna ~10.7 → total ~24.4\n⚖️ Getafe favori (#7 vs #15) · Getafe forme : L-W-D-L-L · Osasuna forme : L-L-L-L-W",
+        "reasoning": "📊 Brut : Getafe L10 8.6 (L5 9.8) tirs cadrés/m · Osasuna L10 13.6 (L5 15.2) tirs cadrés/m\n🛡️ Défenses : Getafe concède 3.8/m · Osasuna concède 4.7/m\n🎯 Attendu : Getafe ~4.1 · Osasuna ~3.8 → total ~7.9\n⚖️ Getafe favori (#7 vs #15) · Getafe forme : L-W-D-L-L · Osasuna forme : L-L-L-L-W",
         "stats": {
-          "expected_total": 24.4
+          "expected_total": 7.9
         }
       },
       {
@@ -3499,28 +3518,28 @@
         "is_fun": false
       },
       {
-        "direction": "shots_over_19.5",
+        "direction": "shots_under_27.5",
         "type": "Tirs (total match)",
-        "label": "Plus de 19.5 tirs total",
+        "label": "Moins de 27.5 tirs total",
         "cote": null,
-        "cote_min": 1.25,
+        "cote_min": 1.27,
         "value": [
           "⚠️",
           "Value serrée",
           "#f59e0b"
         ],
-        "confidence": 80,
-        "reasoning": "📊 Brut : Mallorca L10 12.3 (L5 9.6) tirs/m · Real Oviedo L10 10.5 (L5 10.8) tirs/m\n🛡️ Défenses : Mallorca concède 11.8/m · Real Oviedo concède 13.6/m\n🎯 Attendu : Mallorca ~12.6 · Real Oviedo ~10.9 → total ~23.6\n⚖️ équipes proches au classement · Mallorca forme : L-L-D-W-L · Real Oviedo forme : L-L-D-L-L",
+        "confidence": 79,
+        "reasoning": "📊 Brut : Mallorca L10 12.3 (L5 9.6) tirs/m · Real Oviedo L10 10.5 (L5 10.8) tirs/m\n🛡️ Défenses : Mallorca concède 11.8/m · Real Oviedo concède 13.6/m\n🎯 Attendu : Mallorca ~12.8 · Real Oviedo ~10.9 → total ~23.7\n⚖️ équipes proches au classement · Mallorca forme : L-L-D-W-L · Real Oviedo forme : L-L-D-L-L",
         "stats": {
-          "expected_total": 23.6
+          "expected_total": 23.7
         }
       },
       {
-        "direction": "tirs_(mallorca)_under_15.5",
-        "type": "Tirs (Mallorca)",
-        "label": "Moins de 15.5 tirs Mallorca",
+        "direction": "tirs_(real_oviedo)_under_13.5",
+        "type": "Tirs (Real Oviedo)",
+        "label": "Moins de 13.5 tirs Real Oviedo",
         "cote": null,
-        "cote_min": 1.26,
+        "cote_min": 1.27,
         "value": [
           "⚠️",
           "Value serrée",
@@ -3528,9 +3547,9 @@
         ],
         "confidence": 79,
         "edge": null,
-        "reasoning": "Mallorca prend 11.7/m [pondere vs opp #20] · adv. concède 13.6/m → attendu ~12.6 (équipes proches au classement)",
+        "reasoning": "Real Oviedo prend 10.1/m [pondere vs opp #19] · adv. concède 11.8/m → attendu ~10.9 (équipes proches au classement)",
         "stats": {
-          "expected": 12.6
+          "expected": 10.9
         }
       }
     ],
