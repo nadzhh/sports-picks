@@ -3538,6 +3538,119 @@ def build_html(matches, team_ai, player_ai, pstats_data, nba_picks=None, nba_his
   }}
   #bk-modal-root .bk-tipster-item .del:hover {{ opacity: 1; background: rgba(248,113,113,0.10); }}
   #bk-modal-root .bk-tipster-empty {{ padding: 14px; color: #8B8D98; font-size: 13px; text-align: center; }}
+
+  /* ── Mobile (smartphone, max-width 720px) ────────────────────────────── */
+  /* IMPORTANT : ne s'applique QU'aux ecrans <= 720px. L'interface PC reste intacte. */
+  @media (max-width: 720px) {{
+    body {{ padding: 10px 10px !important; }}
+    .container {{ max-width: 100% !important; }}
+    h1 {{ font-size: 22px !important; }}
+    .meta {{ font-size: 11.5px !important; }}
+    .legend {{ font-size: 11px !important; padding: 9px 12px !important; line-height: 1.7 !important; }}
+
+    /* Sport switcher : chips plus compacts, defilent horizontalement si overflow */
+    .sport-btn {{ padding: 9px 13px !important; font-size: 13px !important; }}
+    /* Footer */
+    footer {{ font-size: 10px !important; }}
+
+    /* ── Foot match cards ── */
+    .match-header {{ padding: 14px 14px 12px !important; }}
+    .match-body {{ padding: 0 10px 14px !important; }}
+    .picks-btn {{ padding: 8px 12px !important; font-size: 12.5px !important; }}
+
+    /* ── NBA picks (home/away 2-col -> stack) ── */
+    #sport-nba .nba-match-header {{ padding: 14px 14px !important; }}
+    #sport-nba .nba-match-body > div[style*="grid-template-columns"] {{
+      grid-template-columns: 1fr !important;
+      gap: 1px !important;
+    }}
+
+    /* ── Analyse NBA : grilles 2-col en stack ── */
+    #sport-analyse > div[style*="grid-template-columns:1fr 1fr"],
+    #sport-analyse div[style*="grid-template-columns:1fr 1fr"] {{
+      grid-template-columns: 1fr !important;
+      gap: 10px !important;
+    }}
+    #sport-analyse .player-analyse {{ padding: 9px 11px !important; }}
+
+    /* ── Bankroll : version mobile compactée ── */
+    #sport-userpicks {{
+      padding: 16px 14px 30px !important;
+      border-radius: 18px !important;
+      margin-top: 0 !important;
+    }}
+    #sport-userpicks .bk-hero {{ gap: 14px !important; padding: 0 !important; }}
+    #sport-userpicks .bk-hero-left {{ width: 100%; }}
+    #sport-userpicks .bk-hero-amount {{ font-size: 40px !important; letter-spacing: -1.5px !important; }}
+    #sport-userpicks .bk-hero-amount .bk-cur {{ font-size: 22px !important; }}
+    #sport-userpicks .bk-hero-right {{
+      flex-direction: row; align-items: center; gap: 10px;
+      width: 100%; justify-content: space-between; flex-wrap: wrap;
+    }}
+    #sport-userpicks .bk-stats {{ grid-template-columns: 1fr 1fr !important; gap: 8px !important; }}
+    #sport-userpicks .bk-stats .bk-stat:nth-child(3) {{ grid-column: 1 / -1; }}
+    #sport-userpicks .bk-stat {{ padding: 11px 13px !important; border-radius: 14px !important; }}
+    #sport-userpicks .bk-stat-value {{ font-size: 19px !important; }}
+    #sport-userpicks .bk-stat-label {{ font-size: 10.5px !important; }}
+    #sport-userpicks .bk-card {{ padding: 13px !important; border-radius: 16px !important; }}
+    #sport-userpicks .bk-card-title {{ font-size: 14.5px !important; }}
+    #sport-userpicks .bk-eyebrow {{ font-size: 10.5px !important; }}
+    /* 2-col grid Paris en cours / Historique -> stack (deja a 1024 mais on confirme) */
+    #sport-userpicks .bk-cols {{ grid-template-columns: 1fr !important; gap: 14px !important; }}
+    /* Rows */
+    #sport-userpicks .bk-row {{ padding: 10px 8px !important; gap: 10px !important; }}
+    #sport-userpicks .bk-row-icon {{ width: 34px !important; height: 34px !important; font-size: 17px !important; border-radius: 10px !important; }}
+    #sport-userpicks .bk-row-title {{ font-size: 13px !important; white-space: normal !important; max-width: none !important; }}
+    #sport-userpicks .bk-row-sub {{ font-size: 11.5px !important; gap: 6px !important; }}
+    #sport-userpicks .bk-row-side {{ gap: 4px !important; }}
+    #sport-userpicks .bk-row-amt {{ font-size: 13px !important; }}
+    #sport-userpicks .bk-row-actions {{ gap: 3px !important; }}
+    #sport-userpicks .bk-mini-btn {{ padding: 4px 7px !important; font-size: 11px !important; }}
+    /* Filter chips */
+    #sport-userpicks .bk-filter-chip {{ padding: 6px 10px !important; font-size: 11.5px !important; }}
+    #sport-userpicks .bk-segment button {{ padding: 5px 10px !important; font-size: 11px !important; }}
+    /* Chart : hauteur reduite + padding gauche reduit pour les labels Y */
+    #sport-userpicks .bk-chart-stage {{ height: 170px !important; }}
+    #sport-userpicks .bk-chart-ylabel {{ font-size: 10px !important; width: 38px !important; }}
+    #sport-userpicks .bk-chart-xlabel {{ font-size: 10px !important; }}
+    /* Prop breakdown : colonnes plus etroites */
+    #sport-userpicks .bk-prop-row {{
+      grid-template-columns: 100px 1fr 54px 70px !important;
+      gap: 8px !important; font-size: 12px !important;
+    }}
+    #sport-userpicks .bk-prop-name {{ font-size: 12px !important; }}
+
+    /* ── Modal Nouveau Pari ── */
+    #bk-modal-root .bk-modal-card {{ width: 96vw !important; max-height: 92vh !important; border-radius: 18px !important; }}
+    #bk-modal-root .bk-m-hd {{ padding: 12px 16px !important; }}
+    #bk-modal-root .bk-m-title {{ font-size: 15px !important; }}
+    #bk-modal-root .bk-m-body {{ padding: 16px 14px 8px !important; }}
+    #bk-modal-root .bk-m-ft {{ padding: 12px 14px 16px !important; }}
+    #bk-modal-root .bk-m-context {{ padding: 11px !important; gap: 10px !important; }}
+    #bk-modal-root .bk-m-icon {{ width: 36px !important; height: 36px !important; font-size: 18px !important; }}
+    #bk-modal-root .bk-m-ctx-title {{ font-size: 14px !important; }}
+    #bk-modal-root .bk-m-input {{ padding: 11px 12px !important; font-size: 14px !important; }}
+    #bk-modal-root .bk-m-pot-big {{ font-size: 20px !important; }}
+    #bk-modal-root .bk-m-cta {{ padding: 13px !important; font-size: 15px !important; }}
+
+    /* ── Card "Blessures et suspensions" en Analyse NBA -> stack ── */
+    #sport-analyse div[style*="grid-template-columns:1fr 1fr"] {{
+      grid-template-columns: 1fr !important;
+    }}
+  }}
+  /* Tres petits ecrans (< 420px) : un cran de plus */
+  @media (max-width: 420px) {{
+    body {{ padding: 8px 8px !important; }}
+    h1 {{ font-size: 19px !important; }}
+    .sport-btn {{ padding: 8px 11px !important; font-size: 12px !important; }}
+    #sport-userpicks .bk-hero-amount {{ font-size: 34px !important; }}
+    #sport-userpicks .bk-stats {{ grid-template-columns: 1fr !important; }}
+    #sport-userpicks .bk-stats .bk-stat:nth-child(3) {{ grid-column: auto; }}
+    #sport-userpicks .bk-prop-row {{
+      grid-template-columns: 80px 1fr 48px 64px !important;
+      font-size: 11px !important;
+    }}
+  }}
 </style>
 </head>
 <body>
