@@ -1754,7 +1754,7 @@
       "direction": "away_dc",
       "type": "Double chance",
       "label": "Nul ou Rayo Vallecano (X2)",
-      "cote": 1.52,
+      "cote": 1.6,
       "confidence": 95,
       "reasoning": "Rayo Vallecano invaincu 100% sur 5 derniers matchs · H2H: 1/1 matchs sans défaite",
       "stats": {
@@ -1782,7 +1782,7 @@
       "direction": "away_win",
       "type": "Victoire extérieur",
       "label": "Rayo Vallecano gagne",
-      "cote": 2.9,
+      "cote": 3.15,
       "confidence": 67,
       "reasoning": "Rayo Vallecano : 3V/2N/0D sur 5 matchs · #8 au classement · H2H: 1V/0N/0D · Note Sofa: 6.5/10",
       "stats": {
@@ -1921,23 +1921,22 @@
       "resolved_at": null
     },
     {
-      "direction": "tirs_(vfb_stuttgart)_over_9.5",
-      "type": "Tirs (VfB Stuttgart)",
-      "label": "Plus de 9.5 tirs VfB Stuttgart",
+      "direction": "sot_over_7.5",
+      "type": "Tirs cadrés (total)",
+      "label": "Plus de 7.5 tirs cadrés total",
       "cote": null,
-      "cote_min": 1.28,
+      "cote_min": 1.26,
       "value": [
         "⚠️",
         "Value serrée",
         "#f59e0b"
       ],
-      "confidence": 78,
-      "edge": null,
-      "reasoning": "VfB Stuttgart prend 19.0/m [pondere vs opp #None] · adv. concède 5.5/m → attendu ~12.2 (équipes proches au classement)",
+      "confidence": 79,
+      "reasoning": "📊 Brut : Bayern München L10 16.0 (L5 16.0) tirs cadrés/m · VfB Stuttgart L10 19.0 (L5 19.0) tirs cadrés/m\n🛡️ Défenses : Bayern München concède 1.0/m · VfB Stuttgart concède 4.5/m\n🎯 Attendu : Bayern München ~6.7 · VfB Stuttgart ~3.5 → total ~10.2\n⚖️ équipes proches au classement · Bayern München forme : W-W-D-D-L · VfB Stuttgart forme : D-W-D-D-W",
       "stats": {
-        "expected": 12.2
+        "expected_total": 10.2
       },
-      "id": "2026-05-23_5197845_team_tirs_(vfb_stuttgart)_over_9.5",
+      "id": "2026-05-23_5197845_team_sot_over_7.5",
       "date": "2026-05-23",
       "match_id": "5197845",
       "page_url": "/matches/bayern-munchen-vs-vfb-stuttgart/3c6nc5#5197845",
@@ -1949,22 +1948,23 @@
       "resolved_at": null
     },
     {
-      "direction": "shots_over_24.5",
-      "type": "Tirs (total match)",
-      "label": "Plus de 24.5 tirs total",
+      "direction": "tirs_cadrés_(bayern_münchen)_over_4.5",
+      "type": "Tirs cadrés (Bayern München)",
+      "label": "Plus de 4.5 tirs cadrés Bayern München",
       "cote": null,
-      "cote_min": 1.3,
+      "cote_min": 1.26,
       "value": [
-        "💎",
-        "Value correcte",
-        "#84cc16"
+        "⚠️",
+        "Value serrée",
+        "#f59e0b"
       ],
-      "confidence": 77,
-      "reasoning": "📊 Brut : Bayern München L10 16.0 (L5 16.0) tirs/m · VfB Stuttgart L10 19.0 (L5 19.0) tirs/m\n🛡️ Défenses : Bayern München concède 5.5/m · VfB Stuttgart concède 16.5/m\n🎯 Attendu : Bayern München ~16.2 · VfB Stuttgart ~12.2 → total ~28.5\n⚖️ équipes proches au classement · Bayern München forme : W-W-D-D-L · VfB Stuttgart forme : D-W-D-D-W",
+      "confidence": 79,
+      "edge": null,
+      "reasoning": "Bayern München prend 8.8/m [pondere vs opp #None] · adv. concède 4.5/m → attendu ~6.7 (équipes proches au classement)",
       "stats": {
-        "expected_total": 28.5
+        "expected": 6.7
       },
-      "id": "2026-05-23_5197845_team_shots_over_24.5",
+      "id": "2026-05-23_5197845_team_tirs_cadrés_(bayern_münchen)_over_4.5",
       "date": "2026-05-23",
       "match_id": "5197845",
       "page_url": "/matches/bayern-munchen-vs-vfb-stuttgart/3c6nc5#5197845",
@@ -1984,10 +1984,10 @@
       "cote": null,
       "book": null,
       "books": [],
-      "confidence": 85,
+      "confidence": 84,
       "reasoning": "7 buts en 5 matchs cette saison (140.0% de chance/match) · bonne efficacité (28% conv.) · xG moyen 1.30/match · défense fragile",
       "context": {
-        "weakness": 0.65
+        "weakness": 0.63
       },
       "stats": {
         "goals": 7,
@@ -2020,7 +2020,7 @@
       "confidence": 68,
       "reasoning": "3 buts en 5 matchs cette saison (60.0% de chance/match) · xG moyen 1.04/match · défense fragile",
       "context": {
-        "weakness": 0.65
+        "weakness": 0.63
       },
       "stats": {
         "goals": 3,
@@ -2053,7 +2053,7 @@
       "confidence": 65,
       "reasoning": "3 buts + 2 passes décisives en 5 matchs (100.0% de chance/match) · xG+xA: 1.0/match · défense fragile",
       "context": {
-        "weakness": 0.65
+        "weakness": 0.63
       },
       "stats": {
         "goals": 3,
@@ -2133,8 +2133,8 @@
       "direction": "under35",
       "type": "Under 3.5 buts",
       "label": "Moins de 3.5 buts",
-      "cote": 1.65,
-      "confidence": 63,
+      "cote": 1.62,
+      "confidence": 64,
       "reasoning": "Défenses solides — Valencia concède 1.2/L10, Barcelona concède 1.3/L10 · Total attendu: ~3.0 buts (P Under=64.7%)",
       "stats": {
         "form": []
@@ -2385,109 +2385,10 @@
       "resolved_at": null
     },
     {
-      "direction": "shots_over_19.5",
-      "type": "Tirs (total match)",
-      "label": "Plus de 19.5 tirs total",
-      "cote": null,
-      "cote_min": 1.25,
-      "value": [
-        "⚠️",
-        "Value serrée",
-        "#f59e0b"
-      ],
-      "confidence": 80,
-      "reasoning": "📊 Brut : Mallorca L10 12.3 (L5 9.6) tirs/m · Real Oviedo L10 10.5 (L5 10.8) tirs/m\n🛡️ Défenses : Mallorca concède 11.8/m · Real Oviedo concède 13.6/m\n🎯 Attendu : Mallorca ~12.6 · Real Oviedo ~10.9 → total ~23.6\n⚖️ équipes proches au classement · Mallorca forme : L-L-D-W-L · Real Oviedo forme : L-L-D-L-L",
-      "stats": {
-        "expected_total": 23.6
-      },
-      "id": "2026-05-23_4837485_team_shots_over_19.5",
-      "date": "2026-05-23",
-      "match_id": "4837485",
-      "page_url": "/matches/mallorca-vs-real-oviedo/2hfado#4837485",
-      "matchup": "Mallorca vs Real Oviedo",
-      "league": "La Liga",
-      "category": "team",
-      "result": "PENDING",
-      "actual": null,
-      "resolved_at": null
-    },
-    {
-      "direction": "tirs_(mallorca)_under_15.5",
-      "type": "Tirs (Mallorca)",
-      "label": "Moins de 15.5 tirs Mallorca",
-      "cote": null,
-      "cote_min": 1.26,
-      "value": [
-        "⚠️",
-        "Value serrée",
-        "#f59e0b"
-      ],
-      "confidence": 79,
-      "edge": null,
-      "reasoning": "Mallorca prend 11.7/m [pondere vs opp #20] · adv. concède 13.6/m → attendu ~12.6 (équipes proches au classement)",
-      "stats": {
-        "expected": 12.6
-      },
-      "id": "2026-05-23_4837485_team_tirs_(mallorca)_under_15.5",
-      "date": "2026-05-23",
-      "match_id": "4837485",
-      "page_url": "/matches/mallorca-vs-real-oviedo/2hfado#4837485",
-      "matchup": "Mallorca vs Real Oviedo",
-      "league": "La Liga",
-      "category": "team",
-      "result": "PENDING",
-      "actual": null,
-      "resolved_at": null
-    },
-    {
-      "player": "Vedat Muriqi",
-      "position": "F",
-      "is_sub": false,
-      "type": "Buteur",
-      "label": "Vedat Muriqi marque",
-      "cote": 1.65,
-      "book": "fanduel",
-      "books": [
-        {
-          "book": "fanduel",
-          "cote": 1.65,
-          "side": "over"
-        },
-        {
-          "book": "draftkings",
-          "cote": 1.65,
-          "side": "over"
-        }
-      ],
-      "confidence": 55,
-      "reasoning": "22 buts en 36 matchs cette saison (61.1% de chance/match) · finisseur efficace (20% de conv.) · xG moyen 0.48/match, défense adverse poreuse (1.5 buts concédés/match) · défense très vulnérable",
-      "context": {
-        "weakness": 0.7
-      },
-      "stats": {
-        "goals": 22,
-        "apps": 36,
-        "gpm": 0.611,
-        "xgpm": 0.478
-      },
-      "team": "home",
-      "id": "2026-05-23_4837485_player_Vedat Muriqi_Buteur",
-      "date": "2026-05-23",
-      "match_id": "4837485",
-      "page_url": "/matches/mallorca-vs-real-oviedo/2hfado#4837485",
-      "matchup": "Mallorca vs Real Oviedo",
-      "league": "La Liga",
-      "category": "player",
-      "side": "home",
-      "result": "PENDING",
-      "actual": null,
-      "resolved_at": null
-    },
-    {
       "direction": "away_dc",
       "type": "Double chance",
       "label": "Nul ou Levante (X2)",
-      "cote": 1.57,
+      "cote": 1.6,
       "confidence": 80,
       "reasoning": "Levante invaincu 80% sur 5 derniers matchs · H2H: 1/1 matchs sans défaite",
       "stats": {
@@ -2821,7 +2722,7 @@
       "direction": "home_win",
       "type": "Favori net",
       "label": "Lazio gagne",
-      "cote": 1.71,
+      "cote": 1.69,
       "confidence": 65,
       "reasoning": "11 places d'écart au classement (#9 vs #20) · 1V/1N/3D sur 5 matchs · Note Sofa: 6.5/10",
       "stats": {
@@ -2849,7 +2750,7 @@
       "direction": "over25",
       "type": "Over 2.5 buts",
       "label": "Plus de 2.5 buts",
-      "cote": 1.91,
+      "cote": 1.87,
       "confidence": 56,
       "reasoning": "Lazio: 1.4 buts/L10 · défense Pisa concède 2.4/L10 → ~1.9 attendus · Pisa: 0.9 buts/L10 · défense Lazio concède 1.3/L10 → ~1.1 attendus · Total: ~3.0 buts (P=57.7%)",
       "stats": {
@@ -3312,6 +3213,127 @@
       "league": "La Liga",
       "category": "player",
       "side": "away",
+      "result": "PENDING",
+      "actual": null,
+      "resolved_at": null
+    },
+    {
+      "direction": "over25",
+      "type": "Over 2.5 buts",
+      "label": "Plus de 2.5 buts",
+      "cote": 1.87,
+      "confidence": 55,
+      "reasoning": "Mallorca: 1.6 buts/L10 · défense Real Oviedo concède 2.2/L10 → ~1.9 attendus · Real Oviedo: 0.9 buts/L10 · défense Mallorca concède 1.2/L10 → ~1.1 attendus · Total: ~2.9 buts (P=55.4%)",
+      "stats": {
+        "form": []
+      },
+      "is_fun": false,
+      "id": "2026-05-23_4837485_team_over25",
+      "date": "2026-05-23",
+      "match_id": "4837485",
+      "page_url": "/matches/mallorca-vs-real-oviedo/2hfado#4837485",
+      "matchup": "Mallorca vs Real Oviedo",
+      "league": "La Liga",
+      "category": "team",
+      "result": "PENDING",
+      "actual": null,
+      "resolved_at": null
+    },
+    {
+      "direction": "shots_over_19.5",
+      "type": "Tirs (total match)",
+      "label": "Plus de 19.5 tirs total",
+      "cote": null,
+      "cote_min": 1.25,
+      "value": [
+        "⚠️",
+        "Value serrée",
+        "#f59e0b"
+      ],
+      "confidence": 80,
+      "reasoning": "📊 Brut : Mallorca L10 12.3 (L5 9.6) tirs/m · Real Oviedo L10 10.5 (L5 10.8) tirs/m\n🛡️ Défenses : Mallorca concède 11.8/m · Real Oviedo concède 13.6/m\n🎯 Attendu : Mallorca ~12.6 · Real Oviedo ~10.9 → total ~23.6\n⚖️ équipes proches au classement · Mallorca forme : L-L-D-W-L · Real Oviedo forme : L-L-D-L-L",
+      "stats": {
+        "expected_total": 23.6
+      },
+      "id": "2026-05-23_4837485_team_shots_over_19.5",
+      "date": "2026-05-23",
+      "match_id": "4837485",
+      "page_url": "/matches/mallorca-vs-real-oviedo/2hfado#4837485",
+      "matchup": "Mallorca vs Real Oviedo",
+      "league": "La Liga",
+      "category": "team",
+      "result": "PENDING",
+      "actual": null,
+      "resolved_at": null
+    },
+    {
+      "direction": "tirs_(mallorca)_under_15.5",
+      "type": "Tirs (Mallorca)",
+      "label": "Moins de 15.5 tirs Mallorca",
+      "cote": null,
+      "cote_min": 1.26,
+      "value": [
+        "⚠️",
+        "Value serrée",
+        "#f59e0b"
+      ],
+      "confidence": 79,
+      "edge": null,
+      "reasoning": "Mallorca prend 11.7/m [pondere vs opp #20] · adv. concède 13.6/m → attendu ~12.6 (équipes proches au classement)",
+      "stats": {
+        "expected": 12.6
+      },
+      "id": "2026-05-23_4837485_team_tirs_(mallorca)_under_15.5",
+      "date": "2026-05-23",
+      "match_id": "4837485",
+      "page_url": "/matches/mallorca-vs-real-oviedo/2hfado#4837485",
+      "matchup": "Mallorca vs Real Oviedo",
+      "league": "La Liga",
+      "category": "team",
+      "result": "PENDING",
+      "actual": null,
+      "resolved_at": null
+    },
+    {
+      "player": "Vedat Muriqi",
+      "position": "F",
+      "is_sub": false,
+      "type": "Buteur",
+      "label": "Vedat Muriqi marque",
+      "cote": 1.65,
+      "book": "fanduel",
+      "books": [
+        {
+          "book": "fanduel",
+          "cote": 1.65,
+          "side": "over"
+        },
+        {
+          "book": "draftkings",
+          "cote": 1.65,
+          "side": "over"
+        }
+      ],
+      "confidence": 55,
+      "reasoning": "22 buts en 36 matchs cette saison (61.1% de chance/match) · finisseur efficace (20% de conv.) · xG moyen 0.48/match, défense adverse poreuse (1.5 buts concédés/match) · défense très vulnérable",
+      "context": {
+        "weakness": 0.7
+      },
+      "stats": {
+        "goals": 22,
+        "apps": 36,
+        "gpm": 0.611,
+        "xgpm": 0.478
+      },
+      "team": "home",
+      "id": "2026-05-23_4837485_player_Vedat Muriqi_Buteur",
+      "date": "2026-05-23",
+      "match_id": "4837485",
+      "page_url": "/matches/mallorca-vs-real-oviedo/2hfado#4837485",
+      "matchup": "Mallorca vs Real Oviedo",
+      "league": "La Liga",
+      "category": "player",
+      "side": "home",
       "result": "PENDING",
       "actual": null,
       "resolved_at": null
