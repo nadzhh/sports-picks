@@ -3719,6 +3719,26 @@ def build_html(matches, team_ai, player_ai, pstats_data, nba_picks=None, nba_his
     #sport-analyse div[style*="grid-template-columns:1fr 1fr"] {{
       grid-template-columns: 1fr !important;
     }}
+
+    /* ── Account bar (sync Firebase) : wrap pour que le bouton reste visible ── */
+    #sport-userpicks .bk-account-bar {{
+      flex-wrap: wrap !important;
+      gap: 10px !important;
+      padding: 11px 13px !important;
+    }}
+    #sport-userpicks .bk-account-bar .bk-acct-status {{
+      width: 100%;
+      font-size: 12.5px !important;
+      line-height: 1.45 !important;
+    }}
+    #sport-userpicks .bk-account-bar > button {{
+      width: 100% !important;
+      padding: 11px 14px !important;
+      font-size: 13px !important;
+      text-align: center;
+    }}
+    /* La sync-badge reste a sa place (petit chip) */
+    #sport-userpicks .bk-acct-sync {{ flex: 0 0 auto; }}
   }}
   /* Tres petits ecrans (< 420px) : un cran de plus */
   @media (max-width: 420px) {{
