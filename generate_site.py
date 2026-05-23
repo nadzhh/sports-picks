@@ -3624,6 +3624,98 @@ def build_html(matches, team_ai, player_ai, pstats_data, nba_picks=None, nba_his
     font-family: inherit; text-decoration: underline;
   }}
 
+  /* ── Auth Gate (page connexion forcee avant acces au site) ──────────── */
+  #auth-gate {{
+    position: fixed; inset: 0; z-index: 99999;
+    background:
+      radial-gradient(circle at 20% 0%,  rgba(52,211,153,0.07), transparent 55%),
+      radial-gradient(circle at 80% 100%, rgba(251,191,36,0.05), transparent 55%),
+      #08090D;
+    display: flex; align-items: center; justify-content: center;
+    padding: 20px; overflow-y: auto;
+    font-family: 'Geist', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  }}
+  #auth-gate.hidden {{ display: none; }}
+  #auth-gate .gate-card {{
+    width: min(440px, 92vw);
+    background: #14161B;
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 22px;
+    padding: 32px 26px 28px;
+    box-shadow: 0 24px 60px rgba(0,0,0,0.6);
+    color: #fff;
+  }}
+  #auth-gate .gate-logo {{
+    text-align: center; margin-bottom: 24px;
+  }}
+  #auth-gate .gate-logo .emoji {{ font-size: 38px; line-height: 1; margin-bottom: 8px; }}
+  #auth-gate .gate-logo h1 {{
+    font-size: 26px; font-weight: 800; letter-spacing: -0.8px;
+    margin: 0 0 6px; color: #fff;
+  }}
+  #auth-gate .gate-logo p {{
+    color: #8B8D98; font-size: 13px; margin: 0; line-height: 1.5;
+  }}
+  #auth-gate .bk-auth-tabs {{
+    display: flex; gap: 4px; padding: 4px; background: #0F1115;
+    border-radius: 12px; margin-bottom: 20px; border: 1px solid rgba(255,255,255,0.05);
+  }}
+  #auth-gate .bk-auth-tab {{
+    flex: 1; padding: 10px 12px; border-radius: 9px; border: none;
+    background: transparent; color: #8B8D98; font-weight: 600; font-size: 13.5px;
+    cursor: pointer; font-family: inherit; transition: all 180ms;
+  }}
+  #auth-gate .bk-auth-tab.active {{ background: #1F232C; color: #fff; }}
+  #auth-gate label.bk-m-label {{
+    color: #8B8D98; font-size: 11.5px; font-weight: 600;
+    text-transform: uppercase; letter-spacing: 0.4px; margin-bottom: 6px; display: block;
+  }}
+  #auth-gate input.bk-m-input {{
+    width: 100%; padding: 12px 14px; border-radius: 14px;
+    background: #0F1115; border: 1px solid rgba(255,255,255,0.07);
+    color: #fff; font-size: 15px; font-weight: 500; outline: none;
+    font-family: inherit; box-sizing: border-box;
+  }}
+  #auth-gate input.bk-m-input:focus {{ border-color: rgba(52,211,153,0.5); box-shadow: 0 0 0 3px rgba(52,211,153,0.12); }}
+  #auth-gate .bk-m-cta {{
+    width: 100%; padding: 14px; border-radius: 14px; margin-top: 18px;
+    background: linear-gradient(180deg, #34D399, #10B981);
+    border: none; color: #06120E; font-weight: 700; font-size: 15.5px;
+    cursor: pointer; transition: all 200ms; box-shadow: 0 6px 20px rgba(52,211,153,0.35);
+    font-family: inherit;
+  }}
+  #auth-gate .bk-m-cta:disabled {{ background: #1F232C; color: #8B8D98; cursor: default; box-shadow: none; }}
+  #auth-gate .bk-auth-err {{
+    margin-top: 12px; padding: 10px 13px; border-radius: 10px;
+    background: rgba(248,113,113,0.10); border: 1px solid rgba(248,113,113,0.22);
+    color: #fca5a5; font-size: 12.5px; min-height: 18px; display: none;
+  }}
+  #auth-gate .bk-auth-err.show {{ display: block; }}
+  #auth-gate .bk-auth-link {{
+    background: transparent; border: none; color: #34D399;
+    font-size: 12.5px; font-weight: 600; cursor: pointer; padding: 8px;
+    font-family: inherit; text-decoration: underline; display: block;
+    margin: 14px auto 0; text-align: center; width: 100%;
+  }}
+  #auth-gate .gate-signup-hint {{
+    margin-top: 10px; padding: 10px 13px; border-radius: 10px;
+    background: rgba(52,211,153,0.08); border: 1px solid rgba(52,211,153,0.20);
+    color: #86efac; font-size: 12px; line-height: 1.5; display: none;
+  }}
+  #auth-gate .gate-loading {{
+    text-align: center; color: #8B8D98; font-size: 13px; margin-top: 16px;
+  }}
+  #auth-gate.ready .gate-loading {{ display: none; }}
+  /* Tant que Firebase n'est pas charge, on grise le formulaire */
+  #auth-gate form {{ opacity: 0.45; pointer-events: none; transition: opacity 200ms ease; }}
+  #auth-gate.ready form {{ opacity: 1; pointer-events: auto; }}
+  /* Mobile : padding plus serre */
+  @media (max-width: 460px) {{
+    #auth-gate .gate-card {{ padding: 24px 18px 22px; border-radius: 18px; }}
+    #auth-gate .gate-logo h1 {{ font-size: 22px; }}
+    #auth-gate .gate-logo .emoji {{ font-size: 32px; }}
+  }}
+
   /* ── Bouton flottant refresh (mobile + PWA standalone) ─────────────── */
   .bk-refresh-fab {{
     position: fixed; bottom: 18px; right: 18px; z-index: 10000;
@@ -3780,6 +3872,37 @@ def build_html(matches, team_ai, player_ai, pstats_data, nba_picks=None, nba_his
 </style>
 </head>
 <body>
+
+<!-- Gate : page de connexion plein-ecran, obligatoire avant d'acceder au site.
+     Visible par defaut (avant que Firebase ne confirme l'auth state).
+     Cachee par _bkUpdateGate(user) une fois que l'user est connecte. -->
+<div id="auth-gate">
+  <div class="gate-card">
+    <div class="gate-logo">
+      <div class="emoji">🎯</div>
+      <h1>Sports Picks</h1>
+      <p>Connecte-toi pour accéder à tes paris et ton historique</p>
+    </div>
+    <div class="bk-auth-tabs">
+      <button type="button" class="bk-auth-tab active" id="gate-tab-signin" onclick="_bkGateSwitchTab('signin')">Se connecter</button>
+      <button type="button" class="bk-auth-tab" id="gate-tab-signup" onclick="_bkGateSwitchTab('signup')">Créer un compte</button>
+    </div>
+    <form id="bk-gate-form" autocomplete="on" onsubmit="event.preventDefault(); _bkGateSubmit();">
+      <label class="bk-m-label" for="bk-gate-email">Email</label>
+      <input class="bk-m-input" type="email" id="bk-gate-email" autocomplete="email" required placeholder="ton@email.com">
+      <label class="bk-m-label" for="bk-gate-pw" style="margin-top:14px">Mot de passe</label>
+      <input class="bk-m-input" type="password" id="bk-gate-pw" autocomplete="current-password" required minlength="6" placeholder="ton mot de passe">
+      <div class="gate-signup-hint" id="gate-signup-hint">
+        🛡️ Tes données (picks, bankroll, tipsters) sont stockées sur ton compte et accessibles depuis n'importe quel appareil.
+      </div>
+      <div class="bk-auth-err" id="bk-gate-err"></div>
+      <button type="submit" class="bk-m-cta" id="bk-gate-submit">Se connecter</button>
+      <button type="button" class="bk-auth-link" onclick="_bkGateForgotPw()">Mot de passe oublié ?</button>
+    </form>
+    <div class="gate-loading">⏳ Chargement de l'authentification...</div>
+  </div>
+</div>
+
 <div class="container">
   <h1>🎯 Sports Picks</h1>
   <div class="meta">Généré le {now} · ⚽ {len(matches)} matchs foot · 🏀 {len(nba_picks)} matchs NBA</div>
@@ -4428,27 +4551,27 @@ async function _bkPullFromServer(){{
     var snap = await window._fb.getUserDoc(window._fbUser.uid);
     if(snap.exists()){{
       var data = snap.data() || {{}};
-      // Merge des picks : serveur prioritaire, mais on uploade les picks locaux
-      // qui n'existent pas encore cote serveur (cas : 1ere connexion).
+      // Server est source de verite : on REMPLACE le localStorage entierement
+      // (evite que les picks d'un user precedent leak vers un autre compte sur
+      // le meme browser).
       if(Array.isArray(data.picks)){{
-        var local = _loadUserPicks();
-        var serverIds = new Set(data.picks.map(function(p){{ return p.id; }}));
-        var localOnly = local.filter(function(p){{ return !serverIds.has(p.id); }});
-        var merged = data.picks.slice().concat(localOnly);
-        localStorage.setItem(USERPICKS_KEY, JSON.stringify(merged));
-        if(localOnly.length > 0){{
-          // Push immediat pour pousser les nouveaux picks locaux
-          await _bkPushToServer();
-        }}
+        localStorage.setItem(USERPICKS_KEY, JSON.stringify(data.picks));
+      }} else {{
+        localStorage.removeItem(USERPICKS_KEY);
       }}
       if(data.bankroll != null && !isNaN(parseFloat(data.bankroll))){{
         localStorage.setItem('user_bankroll_units', String(data.bankroll));
+      }} else {{
+        localStorage.removeItem('user_bankroll_units');
       }}
       if(Array.isArray(data.tipsters)){{
         localStorage.setItem(BK_TIPSTERS_KEY, JSON.stringify(data.tipsters));
+      }} else {{
+        localStorage.removeItem(BK_TIPSTERS_KEY);
       }}
     }} else {{
-      // Pas de doc cote serveur (premier login depuis ce compte) -> on push notre state
+      // Doc serveur inexistant -> 1er login (cas signup avec data locale pre-existante)
+      // On push la state locale pour la sauver
       await _bkPushToServer();
     }}
     _bkSetSyncState('ok');
@@ -4462,8 +4585,10 @@ async function _bkPullFromServer(){{
 async function _bkOnAuthChanged(user){{
   if(user){{
     await _bkPullFromServer();
+    _bkUpdateGate(user);  // cache la gate
   }} else {{
     _bkSetSyncState('idle');
+    _bkUpdateGate(null);  // affiche la gate (page connexion)
   }}
   _updateUserPicksCount();
   // Re-render si on est sur le tab bankroll
@@ -4475,31 +4600,103 @@ async function _bkOnAuthChanged(user){{
 
 async function _bkSignOut(){{
   if(!window._fb) return;
+  // Vide les donnees locales AVANT de signer out pour eviter qu'un autre user
+  // sur le meme browser voie les picks du precedent.
+  try {{
+    localStorage.removeItem(USERPICKS_KEY);
+    localStorage.removeItem('user_bankroll_units');
+    localStorage.removeItem(BK_TIPSTERS_KEY);
+  }} catch(e){{}}
   await window._fb.signOut();
-  // On garde les picks locaux pour que le mode anonyme continue de marcher
 }}
 
 function _bkAccountBarHtml(){{
+  // L'auth est gere par la GATE en pleine page, donc on n'affiche cette barre
+  // QUE quand l'user est connecte (info + bouton deconnexion).
   var u = window._fbUser;
+  if(!u) return '';
   var syncBadge = '<span id="bk-acct-sync-badge" class="bk-acct-sync ' + (window._bkSyncState || '') + '"></span>';
-  if(u){{
-    var emailEsc = (u.email || '?').replace(/</g, '&lt;');
-    return '<div class="bk-account-bar signed-in">'
-      + '<span style="font-size:16px">👤</span>'
-      + '<div class="bk-acct-status">Connecté : <b>' + emailEsc + '</b></div>'
-      + syncBadge
-      + '<button class="bk-btn bk-btn-ghost" onclick="_bkSignOut()" style="padding:6px 11px;font-size:12px">Déconnexion</button>'
-      + '</div>';
-  }}
-  // Si Firebase n'est pas encore charge, on affiche un placeholder discret
-  if(!window._fbReady){{
-    return '<div class="bk-account-bar"><span style="font-size:14px">⏳</span><div class="bk-acct-status">Chargement de la sync...</div></div>';
-  }}
-  return '<div class="bk-account-bar">'
-    + '<span style="font-size:16px">🔐</span>'
-    + '<div class="bk-acct-status">Connecte-toi pour synchroniser tes paris sur tous tes appareils</div>'
-    + '<button class="bk-btn" onclick="_bkOpenAuthModal()" style="background:linear-gradient(180deg,#34D399,#10B981);color:#06120E;border:none;padding:7px 14px;font-size:12.5px;font-weight:700;box-shadow:0 4px 12px rgba(52,211,153,0.25)">Se connecter</button>'
+  var emailEsc = (u.email || '?').replace(/</g, '&lt;');
+  return '<div class="bk-account-bar signed-in">'
+    + '<span style="font-size:16px">👤</span>'
+    + '<div class="bk-acct-status">Connecté : <b>' + emailEsc + '</b></div>'
+    + syncBadge
+    + '<button class="bk-btn bk-btn-ghost" onclick="_bkSignOut()" style="padding:6px 11px;font-size:12px">Déconnexion</button>'
     + '</div>';
+}}
+
+// ── Gate plein-ecran (force la connexion avant d'acceder au site) ────────
+function _bkUpdateGate(user){{
+  var gate = document.getElementById('auth-gate');
+  if(!gate) return;
+  gate.classList.add('ready');  // Firebase est charge
+  if(user){{
+    gate.classList.add('hidden');
+  }} else {{
+    gate.classList.remove('hidden');
+    setTimeout(function(){{ var el = document.getElementById('bk-gate-email'); if(el) el.focus(); }}, 200);
+  }}
+}}
+
+window._bkGateMode = 'signin';
+function _bkGateSwitchTab(mode){{
+  window._bkGateMode = mode;
+  var s = document.getElementById('gate-tab-signin');
+  var u = document.getElementById('gate-tab-signup');
+  if(s) s.classList.toggle('active', mode === 'signin');
+  if(u) u.classList.toggle('active', mode === 'signup');
+  var btn = document.getElementById('bk-gate-submit');
+  if(btn) btn.textContent = (mode === 'signup' ? 'Créer le compte' : 'Se connecter');
+  var pwInput = document.getElementById('bk-gate-pw');
+  if(pwInput){{
+    pwInput.autocomplete = (mode === 'signup' ? 'new-password' : 'current-password');
+    pwInput.placeholder  = (mode === 'signup' ? 'minimum 6 caractères' : 'ton mot de passe');
+  }}
+  var hint = document.getElementById('gate-signup-hint');
+  if(hint) hint.style.display = (mode === 'signup') ? 'block' : 'none';
+  var errEl = document.getElementById('bk-gate-err');
+  if(errEl){{ errEl.classList.remove('show'); errEl.textContent = ''; }}
+}}
+
+async function _bkGateSubmit(){{
+  if(!window._fb){{ alert('Auth pas encore chargée, attends 2 secondes.'); return; }}
+  var mode = window._bkGateMode || 'signin';
+  var email = (document.getElementById('bk-gate-email').value || '').trim();
+  var pw = document.getElementById('bk-gate-pw').value || '';
+  var errEl = document.getElementById('bk-gate-err');
+  var btn = document.getElementById('bk-gate-submit');
+  errEl.classList.remove('show'); errEl.textContent = '';
+  if(!email || !pw){{ errEl.textContent = 'Email et mot de passe requis.'; errEl.classList.add('show'); return; }}
+  if(mode === 'signup' && pw.length < 6){{ errEl.textContent = 'Mot de passe min 6 caractères.'; errEl.classList.add('show'); return; }}
+  btn.disabled = true;
+  btn.textContent = (mode === 'signup' ? 'Création...' : 'Connexion...');
+  try {{
+    if(mode === 'signup') await window._fb.signUp(email, pw);
+    else                  await window._fb.signIn(email, pw);
+    // La gate sera cachee par _bkOnAuthChanged
+  }} catch(err){{
+    var msg = (err && err.message) || 'Erreur inconnue';
+    if(/auth\\/email-already-in-use/.test(msg))    msg = 'Cet email a déjà un compte. Connecte-toi à la place.';
+    else if(/auth\\/invalid-email/.test(msg))     msg = "Email invalide.";
+    else if(/auth\\/weak-password/.test(msg))     msg = 'Mot de passe trop court (min 6 caractères).';
+    else if(/auth\\/invalid-credential/.test(msg) || /wrong-password|user-not-found/.test(msg)) msg = "Email ou mot de passe incorrect.";
+    else if(/auth\\/too-many-requests/.test(msg)) msg = "Trop de tentatives. Réessaie dans quelques minutes.";
+    else if(/auth\\/network-request-failed/.test(msg)) msg = "Pas de connexion réseau.";
+    errEl.textContent = msg;
+    errEl.classList.add('show');
+    btn.disabled = false;
+    btn.textContent = (mode === 'signup' ? 'Créer le compte' : 'Se connecter');
+  }}
+}}
+
+async function _bkGateForgotPw(){{
+  var email = (document.getElementById('bk-gate-email').value || '').trim();
+  if(!email){{ alert('Saisis ton email d\\'abord dans le champ ci-dessus.'); return; }}
+  if(!window._fb){{ alert('Auth non chargée.'); return; }}
+  try {{
+    await window._fb.resetPw(email);
+    alert('Email de réinitialisation envoyé à ' + email + '. Vérifie ta boîte mail (et le spam).');
+  }} catch(e){{ alert('Erreur : ' + (e.message || e)); }}
 }}
 
 function _bkOpenAuthModal(){{
