@@ -3128,6 +3128,15 @@ def build_html(matches, team_ai, player_ai, pstats_data, nba_picks=None, nba_his
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <title>Sports Picks — {now}</title>
+
+<!-- Anti-flash gate : si on etait deja connecte la derniere fois, on cache
+     la gate AVANT meme le rendu (sync, depuis localStorage). Firebase
+     confirmera l'auth state en async ensuite. -->
+<script>
+  if(localStorage.getItem('bk_was_signed_in') === '1'){{
+    document.documentElement.classList.add('bk-prelogged');
+  }}
+</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -3624,7 +3633,90 @@ def build_html(matches, team_ai, player_ai, pstats_data, nba_picks=None, nba_his
     font-family: inherit; text-decoration: underline;
   }}
 
+  /* ── Menu compte global (haut droit, sticky sur tout le site) ─────── */
+  #global-account-menu {{
+    position: fixed; top: 14px; right: 14px; z-index: 9000;
+    font-family: 'Geist', system-ui, sans-serif;
+  }}
+  #global-account-menu.unauth {{ display: none; }}
+  #global-account-menu .acct-btn {{
+    display: flex; align-items: center; gap: 8px;
+    background: rgba(20,22,27,0.92); backdrop-filter: blur(12px) saturate(180%);
+    -webkit-backdrop-filter: blur(12px) saturate(180%);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 999px; padding: 5px 14px 5px 5px;
+    color: #f1f5f9; font-size: 13px; font-weight: 600;
+    cursor: pointer; transition: all 180ms;
+    font-family: inherit;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.3);
+  }}
+  #global-account-menu .acct-btn:hover {{ background: rgba(31,35,44,0.95); border-color: rgba(255,255,255,0.18); }}
+  #global-account-menu .acct-btn .avatar {{
+    width: 30px; height: 30px; border-radius: 999px;
+    background: linear-gradient(135deg, #34D399, #0EA5E9);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 14px; color: #0A0B0F; font-weight: 800; flex-shrink: 0;
+  }}
+  #global-account-menu .acct-btn .email {{
+    max-width: 200px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+  }}
+  #global-account-menu .acct-btn .caret {{
+    color: #8B8D98; font-size: 9px; margin-left: -2px;
+    transition: transform 200ms;
+  }}
+  #global-account-menu.open .acct-btn .caret {{ transform: rotate(180deg); }}
+  #global-account-menu .acct-dropdown {{
+    position: absolute; top: calc(100% + 8px); right: 0;
+    width: 290px;
+    background: #14161B; border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 16px; padding: 10px;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.55);
+    display: none;
+    font-family: inherit;
+  }}
+  #global-account-menu.open .acct-dropdown {{ display: block; }}
+  #global-account-menu .acct-dd-header {{
+    display: flex; align-items: center; gap: 12px;
+    padding: 10px 8px 14px; border-bottom: 1px solid rgba(255,255,255,0.05); margin-bottom: 6px;
+  }}
+  #global-account-menu .acct-dd-header .avatar-big {{
+    width: 44px; height: 44px; border-radius: 999px;
+    background: linear-gradient(135deg, #34D399, #0EA5E9);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 20px; color: #0A0B0F; font-weight: 800; flex-shrink: 0;
+  }}
+  #global-account-menu .acct-dd-info {{ flex: 1; min-width: 0; }}
+  #global-account-menu .acct-dd-email {{
+    color: #fff; font-weight: 600; font-size: 14px;
+    overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+  }}
+  #global-account-menu .acct-dd-sync {{
+    color: #34D399; font-size: 11.5px; font-weight: 500; margin-top: 3px;
+  }}
+  #global-account-menu .acct-dd-item {{
+    display: flex; align-items: center; gap: 10px;
+    width: 100%; padding: 11px 12px; border-radius: 10px;
+    background: transparent; border: none; color: #f1f5f9;
+    font-size: 13.5px; font-weight: 500; cursor: pointer; text-align: left;
+    font-family: inherit; transition: background 150ms;
+  }}
+  #global-account-menu .acct-dd-item:hover {{ background: rgba(255,255,255,0.05); }}
+  #global-account-menu .acct-dd-item .ic {{ font-size: 16px; width: 22px; text-align: center; }}
+  #global-account-menu .acct-dd-item.danger {{ color: #fca5a5; }}
+  #global-account-menu .acct-dd-item.danger:hover {{ background: rgba(248,113,113,0.10); color: #fff; }}
+  /* Mobile : avatar only, email + caret caches */
+  @media (max-width: 720px) {{
+    #global-account-menu {{ top: 10px; right: 10px; }}
+    #global-account-menu .acct-btn .email {{ display: none; }}
+    #global-account-menu .acct-btn .caret {{ display: none; }}
+    #global-account-menu .acct-btn {{ padding: 5px; }}
+    #global-account-menu .acct-dropdown {{ width: min(290px, calc(100vw - 20px)); }}
+  }}
+
   /* ── Auth Gate (page connexion forcee avant acces au site) ──────────── */
+  /* Anti-flash : si on etait deja connecte, on cache la gate avant meme
+     que Firebase ne confirme l'auth state */
+  html.bk-prelogged #auth-gate {{ display: none; }}
   #auth-gate {{
     position: fixed; inset: 0; z-index: 99999;
     background:
@@ -3900,6 +3992,30 @@ def build_html(matches, team_ai, player_ai, pstats_data, nba_picks=None, nba_his
       <button type="button" class="bk-auth-link" onclick="_bkGateForgotPw()">Mot de passe oublié ?</button>
     </form>
     <div class="gate-loading">⏳ Chargement de l'authentification...</div>
+  </div>
+</div>
+
+<!-- Menu compte global (haut droit, visible sur toutes les sections) -->
+<div id="global-account-menu" class="unauth">
+  <button type="button" class="acct-btn" onclick="_bkToggleAccountMenu(event)" aria-label="Menu compte">
+    <span class="avatar" id="acct-avatar">?</span>
+    <span class="email" id="acct-email"></span>
+    <span class="caret">▾</span>
+  </button>
+  <div class="acct-dropdown">
+    <div class="acct-dd-header">
+      <div class="avatar-big" id="acct-dd-avatar">?</div>
+      <div class="acct-dd-info">
+        <div class="acct-dd-email" id="acct-dd-email"></div>
+        <div class="acct-dd-sync" id="acct-dd-sync">✓ Synchronisé</div>
+      </div>
+    </div>
+    <button type="button" class="acct-dd-item" onclick="showSport('userpicks');_bkCloseAccountMenu()">
+      <span class="ic">💰</span><span>Ma bankroll</span>
+    </button>
+    <button type="button" class="acct-dd-item danger" onclick="_bkSignOut();_bkCloseAccountMenu()">
+      <span class="ic">🚪</span><span>Se déconnecter</span>
+    </button>
   </div>
 </div>
 
@@ -4506,16 +4622,20 @@ window._bkSyncState = window._bkSyncState || 'idle'; // idle | pending | ok | er
 
 function _bkSetSyncState(state){{
   window._bkSyncState = state;
-  // Re-render uniquement la badge sans recharger toute la page
+  var labelMap = {{ idle: 'Pas de sync', pending: '⏳ Sync en cours...', ok: '✓ Synchronisé', err: '⚠ Erreur sync' }};
+  var colorMap = {{ idle: '#8B8D98', pending: '#FBBF24', ok: '#34D399', err: '#F87171' }};
+  // Sync indicator dans le dropdown du menu compte global
+  var dd = document.getElementById('acct-dd-sync');
+  if(dd){{
+    dd.textContent = labelMap[state] || '';
+    dd.style.color = colorMap[state] || '#8B8D98';
+  }}
+  // Compat : badge dans la card bankroll si elle l'affiche encore
   var el = document.getElementById('bk-acct-sync-badge');
-  if(!el) return;
-  el.className = 'bk-acct-sync ' + state;
-  el.innerHTML = ({{
-    idle:    '',
-    pending: '⏳ Sync...',
-    ok:      '✓ Sync',
-    err:     '⚠ Erreur sync',
-  }})[state] || '';
+  if(el){{
+    el.className = 'bk-acct-sync ' + state;
+    el.innerHTML = ({{ idle: '', pending: '⏳ Sync...', ok: '✓ Sync', err: '⚠ Erreur sync' }})[state] || '';
+  }}
 }}
 
 // Push debounce 1.5s : evite de spammer Firestore quand on edite plusieurs picks
@@ -4584,14 +4704,19 @@ async function _bkPullFromServer(){{
 // Hook appele par le listener onAuthStateChanged du module Firebase
 async function _bkOnAuthChanged(user){{
   if(user){{
+    // Marque le flag pour anti-flash au prochain refresh
+    try {{ localStorage.setItem('bk_was_signed_in', '1'); }} catch(e){{}}
     await _bkPullFromServer();
-    _bkUpdateGate(user);  // cache la gate
+    _bkUpdateGate(user);
   }} else {{
+    // Session perdue ou pas connecte : on retire le flag et la classe pre-hide
+    try {{ localStorage.removeItem('bk_was_signed_in'); }} catch(e){{}}
+    document.documentElement.classList.remove('bk-prelogged');
     _bkSetSyncState('idle');
-    _bkUpdateGate(null);  // affiche la gate (page connexion)
+    _bkUpdateGate(null);
   }}
+  _bkUpdateAccountMenu(user);
   _updateUserPicksCount();
-  // Re-render si on est sur le tab bankroll
   var bkTab = document.getElementById('sport-userpicks');
   if(bkTab && bkTab.style.display !== 'none'){{
     if(typeof renderUserPicks === 'function') renderUserPicks();
@@ -4600,15 +4725,52 @@ async function _bkOnAuthChanged(user){{
 
 async function _bkSignOut(){{
   if(!window._fb) return;
-  // Vide les donnees locales AVANT de signer out pour eviter qu'un autre user
-  // sur le meme browser voie les picks du precedent.
   try {{
     localStorage.removeItem(USERPICKS_KEY);
     localStorage.removeItem('user_bankroll_units');
     localStorage.removeItem(BK_TIPSTERS_KEY);
+    localStorage.removeItem('bk_was_signed_in');
   }} catch(e){{}}
+  document.documentElement.classList.remove('bk-prelogged');
   await window._fb.signOut();
 }}
+
+// ── Menu compte global (haut droit) ──────────────────────────────────────
+function _bkToggleAccountMenu(ev){{
+  if(ev){{ ev.stopPropagation(); }}
+  var menu = document.getElementById('global-account-menu');
+  if(menu) menu.classList.toggle('open');
+}}
+function _bkCloseAccountMenu(){{
+  var menu = document.getElementById('global-account-menu');
+  if(menu) menu.classList.remove('open');
+}}
+function _bkUpdateAccountMenu(user){{
+  var menu = document.getElementById('global-account-menu');
+  if(!menu) return;
+  if(!user){{
+    menu.classList.add('unauth');
+    menu.classList.remove('open');
+    return;
+  }}
+  menu.classList.remove('unauth');
+  var email = user.email || '?';
+  var initial = (email.charAt(0) || '?').toUpperCase();
+  var avatarEl   = document.getElementById('acct-avatar');
+  var emailEl    = document.getElementById('acct-email');
+  var ddAvatarEl = document.getElementById('acct-dd-avatar');
+  var ddEmailEl  = document.getElementById('acct-dd-email');
+  if(avatarEl)   avatarEl.textContent = initial;
+  if(ddAvatarEl) ddAvatarEl.textContent = initial;
+  if(emailEl)    emailEl.textContent = email;
+  if(ddEmailEl)  ddEmailEl.textContent = email;
+}}
+// Ferme le menu si on clique en dehors
+document.addEventListener('click', function(e){{
+  var menu = document.getElementById('global-account-menu');
+  if(!menu || !menu.classList.contains('open')) return;
+  if(!menu.contains(e.target)) menu.classList.remove('open');
+}});
 
 function _bkAccountBarHtml(){{
   // L'auth est gere par la GATE en pleine page, donc on n'affiche cette barre
