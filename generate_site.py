@@ -3124,6 +3124,9 @@ def build_html(matches, team_ai, player_ai, pstats_data, nba_picks=None, nba_his
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta http-equiv="Cache-Control" content="no-cache, must-revalidate">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <title>Sports Picks — {now}</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -3619,6 +3622,27 @@ def build_html(matches, team_ai, player_ai, pstats_data, nba_picks=None, nba_his
     background: transparent; border: none; color: #34D399;
     font-size: 12.5px; font-weight: 600; cursor: pointer; padding: 6px 0;
     font-family: inherit; text-decoration: underline;
+  }}
+
+  /* ── Bouton flottant refresh (mobile + PWA standalone) ─────────────── */
+  .bk-refresh-fab {{
+    position: fixed; bottom: 18px; right: 18px; z-index: 10000;
+    width: 50px; height: 50px; border-radius: 999px;
+    background: linear-gradient(135deg, #34D399, #10B981);
+    border: none; color: #06120E; font-size: 22px; cursor: pointer;
+    box-shadow: 0 6px 22px rgba(52,211,153,0.5), 0 0 0 4px rgba(8,9,13,0.85);
+    display: none; align-items: center; justify-content: center;
+    transition: transform 180ms ease, box-shadow 180ms ease;
+    -webkit-tap-highlight-color: transparent;
+    font-family: inherit;
+  }}
+  .bk-refresh-fab:active {{ transform: scale(0.92); }}
+  /* Visible : (1) mode standalone PWA  (2) ecran mobile */
+  @media (display-mode: standalone) {{ .bk-refresh-fab {{ display: flex; }} }}
+  @media (max-width: 720px) {{ .bk-refresh-fab {{ display: flex; }} }}
+  /* Sur iOS PWA standalone, on remonte le bouton au-dessus de la safe area */
+  @supports (padding: max(0px)) {{
+    .bk-refresh-fab {{ bottom: max(18px, calc(env(safe-area-inset-bottom, 0px) + 8px)); }}
   }}
 
   /* ── Mobile (smartphone, max-width 720px) ────────────────────────────── */
@@ -5905,6 +5929,9 @@ window.addEventListener('DOMContentLoaded', function(){{
   renderUserPicks();
 }});
 </script>
+
+<!-- Bouton flottant refresh (mobile / PWA standalone) -->
+<button class="bk-refresh-fab" onclick="location.reload(true)" aria-label="Recharger la page" title="Recharger">🔄</button>
 </body>
 </html>'''
 
