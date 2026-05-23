@@ -688,157 +688,6 @@
     }
   },
   {
-    "league": "DFB Pokal",
-    "home": "Bayern München",
-    "away": "VfB Stuttgart",
-    "start_ts": 1779559200,
-    "match_id": "5197845",
-    "page_url": "/matches/bayern-munchen-vs-vfb-stuttgart/3c6nc5#5197845",
-    "picks": [
-      {
-        "direction": "away_dc",
-        "type": "Double chance",
-        "label": "Nul ou VfB Stuttgart (X2)",
-        "cote": null,
-        "confidence": 84,
-        "reasoning": "VfB Stuttgart invaincu 100% sur 5 derniers matchs · H2H: 0/0 matchs sans défaite",
-        "stats": {
-          "form": [
-            "D",
-            "W",
-            "D",
-            "D",
-            "W"
-          ]
-        },
-        "is_fun": false
-      },
-      {
-        "direction": "tirs_(vfb_stuttgart)_over_9.5",
-        "type": "Tirs (VfB Stuttgart)",
-        "label": "Plus de 9.5 tirs VfB Stuttgart",
-        "cote": null,
-        "cote_min": 1.28,
-        "value": [
-          "⚠️",
-          "Value serrée",
-          "#f59e0b"
-        ],
-        "confidence": 78,
-        "edge": null,
-        "reasoning": "VfB Stuttgart prend 19.0/m [pondere vs opp #None] · adv. concède 5.5/m → attendu ~12.2 (équipes proches au classement)",
-        "stats": {
-          "expected": 12.2
-        }
-      },
-      {
-        "direction": "shots_over_24.5",
-        "type": "Tirs (total match)",
-        "label": "Plus de 24.5 tirs total",
-        "cote": null,
-        "cote_min": 1.3,
-        "value": [
-          "💎",
-          "Value correcte",
-          "#84cc16"
-        ],
-        "confidence": 77,
-        "reasoning": "📊 Brut : Bayern München L10 16.0 (L5 16.0) tirs/m · VfB Stuttgart L10 19.0 (L5 19.0) tirs/m\n🛡️ Défenses : Bayern München concède 5.5/m · VfB Stuttgart concède 16.5/m\n🎯 Attendu : Bayern München ~16.2 · VfB Stuttgart ~12.2 → total ~28.5\n⚖️ équipes proches au classement · Bayern München forme : W-W-D-D-L · VfB Stuttgart forme : D-W-D-D-W",
-        "stats": {
-          "expected_total": 28.5
-        }
-      }
-    ],
-    "home_players": [
-      {
-        "player": "Harry Kane",
-        "position": "F",
-        "is_sub": false,
-        "type": "Buteur",
-        "label": "Harry Kane marque",
-        "cote": null,
-        "book": null,
-        "books": [],
-        "confidence": 90,
-        "reasoning": "9 buts en 5 matchs cette saison (180.0% de chance/match) · finisseur efficace (31% de conv.) · xG moyen 1.42/match · défense fragile",
-        "context": {
-          "weakness": 0.67
-        },
-        "stats": {
-          "goals": 9,
-          "apps": 5,
-          "gpm": 1.8,
-          "xgpm": 1.42
-        },
-        "team": "home"
-      },
-      {
-        "player": "Luis Díaz",
-        "position": "F",
-        "is_sub": false,
-        "type": "Buteur",
-        "label": "Luis Díaz marque",
-        "cote": null,
-        "book": null,
-        "books": [],
-        "confidence": 69,
-        "reasoning": "3 buts en 5 matchs cette saison (60.0% de chance/match) · xG moyen 1.06/match · défense fragile",
-        "context": {
-          "weakness": 0.67
-        },
-        "stats": {
-          "goals": 3,
-          "apps": 5,
-          "gpm": 0.6,
-          "xgpm": 1.06
-        },
-        "team": "home"
-      }
-    ],
-    "away_players": [
-      {
-        "player": "Deniz Undav",
-        "position": "F",
-        "is_sub": false,
-        "type": "Joueur décisif",
-        "label": "Deniz Undav but ou passe décisive",
-        "cote": null,
-        "book": null,
-        "books": [],
-        "confidence": 66,
-        "reasoning": "3 buts + 2 passes décisives en 5 matchs (100.0% de chance/match) · xG+xA: 1.06/match · défense fragile",
-        "context": {
-          "weakness": 0.63
-        },
-        "stats": {
-          "goals": 3,
-          "assists": 2,
-          "apps": 5
-        },
-        "team": "away"
-      }
-    ],
-    "fun_picks": [],
-    "top_pick": {
-      "direction": "away_dc",
-      "type": "Double chance",
-      "label": "Nul ou VfB Stuttgart (X2)",
-      "cote": null,
-      "confidence": 84,
-      "reasoning": "VfB Stuttgart invaincu 100% sur 5 derniers matchs · H2H: 0/0 matchs sans défaite",
-      "stats": {
-        "form": [
-          "D",
-          "W",
-          "D",
-          "D",
-          "W"
-        ]
-      },
-      "is_fun": false
-    }
-  },
-  {
     "league": "La Liga",
     "home": "Valencia",
     "away": "Barcelona",
@@ -994,8 +843,8 @@
             "side": "over"
           }
         ],
-        "confidence": 47,
-        "reasoning": "13 buts + 2 passes décisives en 30 matchs (50.0% de chance/match) · xG+xA: 0.49/match · défense correcte",
+        "confidence": 48,
+        "reasoning": "13 buts + 2 passes décisives en 30 matchs (50.0% de chance/match) · xG+xA: 0.5/match · défense correcte",
         "context": {
           "weakness": 0.49
         },
@@ -1471,29 +1320,40 @@
         }
       }
     ],
-    "home_players": [
+    "home_players": [],
+    "away_players": [
       {
-        "player": "Juan Hernández",
+        "player": "Carlos Espí",
         "position": "F",
         "is_sub": false,
         "type": "Buteur",
-        "label": "Juan Hernández marque",
-        "team": "home",
-        "cote": null,
-        "book": null,
-        "books": [],
+        "label": "Carlos Espí marque",
+        "team": "away",
+        "cote": 2.65,
+        "book": "fanduel",
+        "books": [
+          {
+            "book": "fanduel",
+            "cote": 2.65,
+            "side": "over"
+          },
+          {
+            "book": "draftkings",
+            "cote": 2.2,
+            "side": "over"
+          }
+        ],
         "confidence": 41,
-        "reasoning": "11G en 31 matchs (35.5%/match) · xG: 0.35/match",
+        "reasoning": "11G en 24 matchs (45.8%/match) · xG: 0.31/match",
         "context": {
-          "weakness": 0.61
+          "weakness": 0.41
         },
         "stats": {
           "goals": 11,
-          "apps": 31
+          "apps": 24
         }
       }
     ],
-    "away_players": [],
     "fun_picks": [],
     "top_pick": {
       "direction": "away_dc",
@@ -1617,9 +1477,9 @@
         "book": null,
         "books": [],
         "confidence": 68,
-        "reasoning": "24 buts en 30 matchs cette saison (80.0% de chance/match) · xG moyen 0.79/match, défense adverse poreuse (1.4 buts concédés/match) · défense fragile",
+        "reasoning": "24 buts en 30 matchs cette saison (80.0% de chance/match) · xG moyen 0.79/match, défense adverse poreuse (1.5 buts concédés/match) · défense fragile",
         "context": {
-          "weakness": 0.57
+          "weakness": 0.58
         },
         "stats": {
           "goals": 24,
@@ -1638,10 +1498,10 @@
         "cote": null,
         "book": null,
         "books": [],
-        "confidence": 45,
+        "confidence": 46,
         "reasoning": "16 buts + 5 passes décisives en 36 matchs (58.3% de chance/match) · xG+xA: 0.53/match · défense fragile",
         "context": {
-          "weakness": 0.57
+          "weakness": 0.58
         },
         "stats": {
           "goals": 16,
@@ -2263,7 +2123,7 @@
         "direction": "over25",
         "type": "Over 2.5 buts",
         "label": "Plus de 2.5 buts",
-        "cote": 1.77,
+        "cote": 1.74,
         "confidence": 57,
         "reasoning": "Tottenham Hotspur: 1.2 buts/L10 · défense Everton concède 1.2/L10 → ~1.2 attendus · Everton: 1.2 buts/L10 · défense Tottenham Hotspur concède 1.7/L10 → ~1.4 attendus · Total: ~2.6 buts (P=48.2%)",
         "stats": {
@@ -3581,7 +3441,7 @@
           "goals": 22,
           "apps": 36,
           "gpm": 0.611,
-          "xgpm": 0.489
+          "xgpm": 0.494
         },
         "team": "home"
       }
