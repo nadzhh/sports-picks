@@ -26,38 +26,38 @@
         "is_fun": false
       },
       {
-        "direction": "shots_over_23.5",
-        "type": "Tirs (total match)",
-        "label": "Plus de 23.5 tirs total",
+        "direction": "tirs_(torino)_under_13.5",
+        "type": "Tirs (Torino)",
+        "label": "Moins de 13.5 tirs Torino",
         "cote": null,
-        "cote_min": 1.26,
+        "cote_min": 1.25,
         "value": [
           "⚠️",
           "Value serrée",
           "#f59e0b"
         ],
         "confidence": 80,
-        "reasoning": "📊 Brut : Torino L10 12.0 (L5 11.0) tirs/m · Juventus L10 18.2 (L5 18.8) tirs/m\n🛡️ Défenses : Torino concède 13.3/m · Juventus concède 10.7/m\n🎯 Attendu : Torino ~10.5 · Juventus ~17.4 → total ~27.9\n⚖️ Juventus favori (#5 vs #13) · Torino forme : L-W-L-D-D · Juventus forme : L-W-D-D-W",
+        "edge": null,
+        "reasoning": "Torino prend 12.6/m [pondere vs opp #6] · adv. concède 10.7/m → attendu ~10.8 (Juventus favori (#6 vs #12))",
         "stats": {
-          "expected_total": 27.9
+          "expected": 10.8
         }
       },
       {
-        "direction": "tirs_(juventus)_over_14.5",
-        "type": "Tirs (Juventus)",
-        "label": "Plus de 14.5 tirs Juventus",
+        "direction": "shots_over_23.5",
+        "type": "Tirs (total match)",
+        "label": "Plus de 23.5 tirs total",
         "cote": null,
-        "cote_min": 1.34,
+        "cote_min": 1.28,
         "value": [
-          "💎",
-          "Value correcte",
-          "#84cc16"
+          "⚠️",
+          "Value serrée",
+          "#f59e0b"
         ],
-        "confidence": 75,
-        "edge": null,
-        "reasoning": "Juventus prend 18.4/m [pondere vs opp #13] · adv. concède 13.3/m → attendu ~17.4 (Juventus favori (#5 vs #13))",
+        "confidence": 78,
+        "reasoning": "📊 Brut : Torino L10 12.0 (L5 11.0) tirs/m · Juventus L10 18.2 (L5 18.8) tirs/m\n🛡️ Défenses : Torino concède 13.3/m · Juventus concède 10.7/m\n🎯 Attendu : Torino ~10.8 · Juventus ~16.9 → total ~27.7\n⚖️ Juventus favori (#6 vs #12) · Torino forme : L-W-L-D-D · Juventus forme : L-W-D-D-W",
         "stats": {
-          "expected": 17.4
+          "expected_total": 27.7
         }
       }
     ],
@@ -86,7 +86,7 @@
         "confidence": 45,
         "reasoning": "7 buts + 1 passes décisives en 18 matchs (44.4% de chance/match) · xG+xA: 0.47/match · défense fragile",
         "context": {
-          "weakness": 0.58
+          "weakness": 0.56
         },
         "stats": {
           "goals": 7,
