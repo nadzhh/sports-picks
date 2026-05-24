@@ -3362,10 +3362,140 @@
       "resolved_at": "2026-05-23 21:00"
     },
     {
+      "direction": "sot_over_5.5",
+      "type": "Tirs cadrés (total)",
+      "label": "Plus de 5.5 tirs cadrés total",
+      "cote": null,
+      "cote_min": 1.28,
+      "value": [
+        "⚠️",
+        "Value serrée",
+        "#f59e0b"
+      ],
+      "confidence": 78,
+      "reasoning": "📊 Brut : Parma L10 7.4 (L5 8.4) tirs cadrés/m · Sassuolo L10 11.0 (L5 12.6) tirs cadrés/m\n🛡️ Défenses : Parma concède 4.8/m · Sassuolo concède 4.1/m\n🎯 Attendu : Parma ~3.3 · Sassuolo ~4.4 → total ~7.7\n⚖️ équipes proches au classement · Parma forme : L-L-L-W-W · Sassuolo forme : L-L-W-D-W",
+      "stats": {
+        "expected_total": 7.7
+      },
+      "id": "2026-05-24_4803415_team_sot_over_5.5",
+      "date": "2026-05-24",
+      "match_id": "4803415",
+      "page_url": "/matches/sassuolo-vs-parma/2pn5k8#4803415",
+      "matchup": "Parma vs Sassuolo",
+      "league": "Serie A",
+      "category": "team",
+      "result": "PENDING",
+      "actual": null,
+      "resolved_at": null
+    },
+    {
+      "direction": "tirs_cadrés_(parma)_under_4.5",
+      "type": "Tirs cadrés (Parma)",
+      "label": "Moins de 4.5 tirs cadrés Parma",
+      "cote": null,
+      "cote_min": 1.32,
+      "value": [
+        "💎",
+        "Value correcte",
+        "#84cc16"
+      ],
+      "confidence": 76,
+      "edge": null,
+      "reasoning": "Parma prend 2.6/m [pondere vs opp #11] · adv. concède 4.1/m → attendu ~3.3 (équipes proches au classement)",
+      "stats": {
+        "expected": 3.3
+      },
+      "id": "2026-05-24_4803415_team_tirs_cadrés_(parma)_under_4.5",
+      "date": "2026-05-24",
+      "match_id": "4803415",
+      "page_url": "/matches/sassuolo-vs-parma/2pn5k8#4803415",
+      "matchup": "Parma vs Sassuolo",
+      "league": "Serie A",
+      "category": "team",
+      "result": "PENDING",
+      "actual": null,
+      "resolved_at": null
+    },
+    {
+      "player": "Domenico Berardi",
+      "position": "F",
+      "is_sub": false,
+      "type": "Buteur",
+      "label": "Domenico Berardi marque",
+      "team": "away",
+      "cote": 3.55,
+      "book": "draftkings",
+      "books": [
+        {
+          "book": "fanduel",
+          "cote": 2.8,
+          "side": "over"
+        },
+        {
+          "book": "draftkings",
+          "cote": 3.55,
+          "side": "over"
+        },
+        {
+          "book": "betmgm",
+          "cote": 3.1,
+          "side": "over"
+        }
+      ],
+      "confidence": 33,
+      "reasoning": "8G en 25 matchs (32.0%/match) · xG: 0.23/match",
+      "context": {
+        "weakness": 0.54
+      },
+      "stats": {
+        "goals": 8,
+        "apps": 25
+      },
+      "id": "2026-05-24_4803415_player_Domenico Berardi_Buteur",
+      "date": "2026-05-24",
+      "match_id": "4803415",
+      "page_url": "/matches/sassuolo-vs-parma/2pn5k8#4803415",
+      "matchup": "Parma vs Sassuolo",
+      "league": "Serie A",
+      "category": "player",
+      "side": "away",
+      "result": "PENDING",
+      "actual": null,
+      "resolved_at": null
+    },
+    {
+      "direction": "fun_draw",
+      "type": "🎲 Paris fun",
+      "label": "Match nul",
+      "cote": 3.2,
+      "confidence": 65,
+      "is_fun": true,
+      "stats": {
+        "form": [
+          "L",
+          "L",
+          "L",
+          "W",
+          "W"
+        ]
+      },
+      "reasoning": "Deux équipes au niveau similaire (#13 vs #11), forme équilibrée des deux côtés — nul logique à 3.2",
+      "id": "2026-05-24_4803415_fun_🎲 Paris fun_Match nul",
+      "date": "2026-05-24",
+      "match_id": "4803415",
+      "page_url": "/matches/sassuolo-vs-parma/2pn5k8#4803415",
+      "matchup": "Parma vs Sassuolo",
+      "league": "Serie A",
+      "category": "fun",
+      "result": "PENDING",
+      "actual": null,
+      "resolved_at": null
+    },
+    {
       "direction": "away_dc",
       "type": "Double chance",
       "label": "Nul ou Manchester United (X2)",
-      "cote": 1.97,
+      "cote": 1.94,
       "confidence": 97,
       "reasoning": "Manchester United invaincu 100% sur 5 derniers matchs · H2H: 1/1 matchs sans défaite",
       "stats": {
@@ -3393,7 +3523,7 @@
       "direction": "away_win",
       "type": "Victoire extérieur",
       "label": "Manchester United gagne",
-      "cote": 3.8,
+      "cote": 3.7,
       "confidence": 80,
       "reasoning": "Manchester United : 4V/1N/0D sur 5 matchs · #3 au classement · H2H: 1V/0N/0D · Note Sofa: 6.5/10",
       "stats": {
@@ -4631,140 +4761,10 @@
       "resolved_at": null
     },
     {
-      "direction": "sot_over_5.5",
-      "type": "Tirs cadrés (total)",
-      "label": "Plus de 5.5 tirs cadrés total",
-      "cote": null,
-      "cote_min": 1.28,
-      "value": [
-        "⚠️",
-        "Value serrée",
-        "#f59e0b"
-      ],
-      "confidence": 78,
-      "reasoning": "📊 Brut : Parma L10 7.4 (L5 8.4) tirs cadrés/m · Sassuolo L10 11.0 (L5 12.6) tirs cadrés/m\n🛡️ Défenses : Parma concède 4.8/m · Sassuolo concède 4.1/m\n🎯 Attendu : Parma ~3.3 · Sassuolo ~4.4 → total ~7.7\n⚖️ équipes proches au classement · Parma forme : L-L-L-W-W · Sassuolo forme : L-L-W-D-W",
-      "stats": {
-        "expected_total": 7.7
-      },
-      "id": "2026-05-24_4803415_team_sot_over_5.5",
-      "date": "2026-05-24",
-      "match_id": "4803415",
-      "page_url": "/matches/sassuolo-vs-parma/2pn5k8#4803415",
-      "matchup": "Parma vs Sassuolo",
-      "league": "Serie A",
-      "category": "team",
-      "result": "PENDING",
-      "actual": null,
-      "resolved_at": null
-    },
-    {
-      "direction": "tirs_cadrés_(parma)_under_4.5",
-      "type": "Tirs cadrés (Parma)",
-      "label": "Moins de 4.5 tirs cadrés Parma",
-      "cote": null,
-      "cote_min": 1.32,
-      "value": [
-        "💎",
-        "Value correcte",
-        "#84cc16"
-      ],
-      "confidence": 76,
-      "edge": null,
-      "reasoning": "Parma prend 2.6/m [pondere vs opp #11] · adv. concède 4.1/m → attendu ~3.3 (équipes proches au classement)",
-      "stats": {
-        "expected": 3.3
-      },
-      "id": "2026-05-24_4803415_team_tirs_cadrés_(parma)_under_4.5",
-      "date": "2026-05-24",
-      "match_id": "4803415",
-      "page_url": "/matches/sassuolo-vs-parma/2pn5k8#4803415",
-      "matchup": "Parma vs Sassuolo",
-      "league": "Serie A",
-      "category": "team",
-      "result": "PENDING",
-      "actual": null,
-      "resolved_at": null
-    },
-    {
-      "player": "Domenico Berardi",
-      "position": "F",
-      "is_sub": false,
-      "type": "Buteur",
-      "label": "Domenico Berardi marque",
-      "team": "away",
-      "cote": 3.55,
-      "book": "draftkings",
-      "books": [
-        {
-          "book": "fanduel",
-          "cote": 2.8,
-          "side": "over"
-        },
-        {
-          "book": "draftkings",
-          "cote": 3.55,
-          "side": "over"
-        },
-        {
-          "book": "betmgm",
-          "cote": 3.1,
-          "side": "over"
-        }
-      ],
-      "confidence": 33,
-      "reasoning": "8G en 25 matchs (32.0%/match) · xG: 0.23/match",
-      "context": {
-        "weakness": 0.54
-      },
-      "stats": {
-        "goals": 8,
-        "apps": 25
-      },
-      "id": "2026-05-24_4803415_player_Domenico Berardi_Buteur",
-      "date": "2026-05-24",
-      "match_id": "4803415",
-      "page_url": "/matches/sassuolo-vs-parma/2pn5k8#4803415",
-      "matchup": "Parma vs Sassuolo",
-      "league": "Serie A",
-      "category": "player",
-      "side": "away",
-      "result": "PENDING",
-      "actual": null,
-      "resolved_at": null
-    },
-    {
-      "direction": "fun_draw",
-      "type": "🎲 Paris fun",
-      "label": "Match nul",
-      "cote": 3.2,
-      "confidence": 65,
-      "is_fun": true,
-      "stats": {
-        "form": [
-          "L",
-          "L",
-          "L",
-          "W",
-          "W"
-        ]
-      },
-      "reasoning": "Deux équipes au niveau similaire (#13 vs #11), forme équilibrée des deux côtés — nul logique à 3.2",
-      "id": "2026-05-24_4803415_fun_🎲 Paris fun_Match nul",
-      "date": "2026-05-24",
-      "match_id": "4803415",
-      "page_url": "/matches/sassuolo-vs-parma/2pn5k8#4803415",
-      "matchup": "Parma vs Sassuolo",
-      "league": "Serie A",
-      "category": "fun",
-      "result": "PENDING",
-      "actual": null,
-      "resolved_at": null
-    },
-    {
       "direction": "under35",
       "type": "Under 3.5 buts",
       "label": "Moins de 3.5 buts",
-      "cote": 1.62,
+      "cote": 1.67,
       "confidence": 71,
       "reasoning": "Défenses solides — Fulham concède 1.1/L10, Newcastle United concède 1.3/L10 · Total attendu: ~2.4 buts (P Under=77.9%)",
       "stats": {
@@ -5057,6 +5057,125 @@
       "matchup": "Liverpool vs Brentford",
       "league": "Premier League",
       "category": "fun",
+      "result": "PENDING",
+      "actual": null,
+      "resolved_at": null
+    },
+    {
+      "direction": "over25",
+      "type": "Over 2.5 buts",
+      "label": "Plus de 2.5 buts",
+      "cote": 1.8,
+      "confidence": 55,
+      "reasoning": "Napoli: 1.8 buts/L10 · défense Udinese concède 1.4/L10 → ~1.6 attendus · Udinese: 1.5 buts/L10 · défense Napoli concède 1.0/L10 → ~1.2 attendus · Total: ~2.9 buts (P=55.4%)",
+      "stats": {
+        "form": []
+      },
+      "is_fun": false,
+      "id": "2026-05-24_4803414_team_over25",
+      "date": "2026-05-24",
+      "match_id": "4803414",
+      "page_url": "/matches/udinese-vs-napoli/2tmb0l#4803414",
+      "matchup": "Napoli vs Udinese",
+      "league": "Serie A",
+      "category": "team",
+      "result": "PENDING",
+      "actual": null,
+      "resolved_at": null
+    },
+    {
+      "direction": "tirs_(napoli)_over_13.5",
+      "type": "Tirs (Napoli)",
+      "label": "Plus de 13.5 tirs Napoli",
+      "cote": null,
+      "cote_min": 1.25,
+      "value": [
+        "⚠️",
+        "Value serrée",
+        "#f59e0b"
+      ],
+      "confidence": 80,
+      "edge": null,
+      "reasoning": "Napoli prend 14.2/m [pondere vs opp #10] · adv. concède 16.8/m → attendu ~17.0 (Napoli favori (#2 vs #10))",
+      "stats": {
+        "expected": 17.0
+      },
+      "id": "2026-05-24_4803414_team_tirs_(napoli)_over_13.5",
+      "date": "2026-05-24",
+      "match_id": "4803414",
+      "page_url": "/matches/udinese-vs-napoli/2tmb0l#4803414",
+      "matchup": "Napoli vs Udinese",
+      "league": "Serie A",
+      "category": "team",
+      "result": "PENDING",
+      "actual": null,
+      "resolved_at": null
+    },
+    {
+      "direction": "shots_over_22.5",
+      "type": "Tirs (total match)",
+      "label": "Plus de 22.5 tirs total",
+      "cote": null,
+      "cote_min": 1.26,
+      "value": [
+        "⚠️",
+        "Value serrée",
+        "#f59e0b"
+      ],
+      "confidence": 79,
+      "reasoning": "📊 Brut : Napoli L10 14.2 (L5 13.8) tirs/m · Udinese L10 12.0 (L5 14.0) tirs/m\n🛡️ Défenses : Napoli concède 9.5/m · Udinese concède 16.8/m\n🎯 Attendu : Napoli ~17.0 · Udinese ~9.8 → total ~26.8\n⚖️ Napoli favori (#2 vs #10) · Napoli forme : W-L-D-W-L · Udinese forme : L-W-W-D-L",
+      "stats": {
+        "expected_total": 26.8
+      },
+      "id": "2026-05-24_4803414_team_shots_over_22.5",
+      "date": "2026-05-24",
+      "match_id": "4803414",
+      "page_url": "/matches/udinese-vs-napoli/2tmb0l#4803414",
+      "matchup": "Napoli vs Udinese",
+      "league": "Serie A",
+      "category": "team",
+      "result": "PENDING",
+      "actual": null,
+      "resolved_at": null
+    },
+    {
+      "player": "Keinan Davis",
+      "position": "F",
+      "is_sub": false,
+      "type": "Buteur",
+      "label": "Keinan Davis marque",
+      "team": "away",
+      "cote": 4.7,
+      "book": "draftkings",
+      "books": [
+        {
+          "book": "fanduel",
+          "cote": 3.7,
+          "side": "over"
+        },
+        {
+          "book": "draftkings",
+          "cote": 4.7,
+          "side": "over"
+        }
+      ],
+      "confidence": 37,
+      "reasoning": "10G en 29 matchs (34.5%/match) · xG: 0.34/match",
+      "context": {
+        "weakness": 0.32
+      },
+      "stats": {
+        "goals": 10,
+        "apps": 29
+      },
+      "id": "2026-05-24_4803414_player_Keinan Davis_Buteur",
+      "date": "2026-05-24",
+      "match_id": "4803414",
+      "page_url": "/matches/udinese-vs-napoli/2tmb0l#4803414",
+      "matchup": "Napoli vs Udinese",
+      "league": "Serie A",
+      "category": "player",
+      "side": "away",
       "result": "PENDING",
       "actual": null,
       "resolved_at": null
