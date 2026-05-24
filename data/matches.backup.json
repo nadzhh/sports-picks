@@ -251,15 +251,15 @@
           "choices": [
             {
               "name": "1",
-              "fractionalValue": "2.8000"
-            },
-            {
-              "name": "X",
               "fractionalValue": "2.7500"
             },
             {
+              "name": "X",
+              "fractionalValue": "2.6500"
+            },
+            {
               "name": "2",
-              "fractionalValue": "0.9500"
+              "fractionalValue": "1.0000"
             }
           ]
         },
@@ -269,15 +269,15 @@
           "choices": [
             {
               "name": "1X",
-              "fractionalValue": "0.8900"
+              "fractionalValue": "0.8500"
             },
             {
               "name": "12",
-              "fractionalValue": "0.2900"
+              "fractionalValue": "0.3000"
             },
             {
               "name": "X2",
-              "fractionalValue": "0.2800"
+              "fractionalValue": "0.2900"
             }
           ]
         },
@@ -1051,7 +1051,61 @@
         "avgRating": null
       }
     },
-    "match_odds": null,
+    "match_odds": {
+      "markets": [
+        {
+          "marketName": "Full time",
+          "choiceGroup": null,
+          "choices": [
+            {
+              "name": "1",
+              "fractionalValue": "1.5000"
+            },
+            {
+              "name": "X",
+              "fractionalValue": "2.8000"
+            },
+            {
+              "name": "2",
+              "fractionalValue": "1.6000"
+            }
+          ]
+        },
+        {
+          "marketName": "Double chance",
+          "choiceGroup": null,
+          "choices": [
+            {
+              "name": "1X",
+              "fractionalValue": "0.5100"
+            },
+            {
+              "name": "12",
+              "fractionalValue": "0.2700"
+            },
+            {
+              "name": "X2",
+              "fractionalValue": "0.5400"
+            }
+          ]
+        },
+        {
+          "marketName": "Match goals",
+          "choiceGroup": "3.5",
+          "choices": [
+            {
+              "name": "Over",
+              "fractionalValue": "1.0500"
+            },
+            {
+              "name": "Under",
+              "fractionalValue": "0.7400"
+            }
+          ]
+        }
+      ],
+      "_source": "espn"
+    },
     "lineups_home": null,
     "lineups_away": null,
     "team_streaks": null
