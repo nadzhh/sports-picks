@@ -26,9 +26,9 @@
         "is_fun": false
       },
       {
-        "direction": "tirs_(torino)_under_13.5",
-        "type": "Tirs (Torino)",
-        "label": "Moins de 13.5 tirs Torino",
+        "direction": "tirs_cadrés_(torino)_under_4.5",
+        "type": "Tirs cadrés (Torino)",
+        "label": "Moins de 4.5 tirs cadrés Torino",
         "cote": null,
         "cote_min": 1.25,
         "value": [
@@ -38,26 +38,26 @@
         ],
         "confidence": 80,
         "edge": null,
-        "reasoning": "Torino prend 12.6/m [pondere vs opp #6] · adv. concède 10.7/m → attendu ~10.8 (Juventus favori (#6 vs #12))",
+        "reasoning": "Torino prend 3.6/m [pondere vs opp #6] · adv. concède 2.9/m → attendu ~3.1 (Juventus favori (#6 vs #12))",
         "stats": {
-          "expected": 10.8
+          "expected": 3.1
         }
       },
       {
-        "direction": "shots_over_23.5",
-        "type": "Tirs (total match)",
-        "label": "Plus de 23.5 tirs total",
+        "direction": "sot_over_6.5",
+        "type": "Tirs cadrés (total)",
+        "label": "Plus de 6.5 tirs cadrés total",
         "cote": null,
-        "cote_min": 1.28,
+        "cote_min": 1.31,
         "value": [
-          "⚠️",
-          "Value serrée",
-          "#f59e0b"
+          "💎",
+          "Value correcte",
+          "#84cc16"
         ],
-        "confidence": 78,
-        "reasoning": "📊 Brut : Torino L10 12.0 (L5 11.0) tirs/m · Juventus L10 18.2 (L5 18.8) tirs/m\n🛡️ Défenses : Torino concède 13.3/m · Juventus concède 10.7/m\n🎯 Attendu : Torino ~10.8 · Juventus ~16.9 → total ~27.7\n⚖️ Juventus favori (#6 vs #12) · Torino forme : L-W-L-D-D · Juventus forme : L-W-D-D-W",
+        "confidence": 76,
+        "reasoning": "📊 Brut : Torino L10 12.5 (L5 12.6) tirs cadrés/m · Juventus L10 17.4 (L5 19.4) tirs cadrés/m\n🛡️ Défenses : Torino concède 5.2/m · Juventus concède 2.9/m\n🎯 Attendu : Torino ~3.1 · Juventus ~5.6 → total ~8.7\n⚖️ Juventus favori (#6 vs #12) · Torino forme : L-W-L-D-D · Juventus forme : L-W-D-D-W",
         "stats": {
-          "expected_total": 27.7
+          "expected_total": 8.7
         }
       }
     ],
@@ -67,8 +67,9 @@
         "player": "Dusan Vlahovic",
         "position": "F",
         "is_sub": false,
-        "type": "Joueur décisif",
-        "label": "Dusan Vlahovic but ou passe décisive",
+        "type": "Buteur",
+        "label": "Dusan Vlahovic marque",
+        "team": "away",
         "cote": 2.4,
         "book": "draftkings",
         "books": [
@@ -83,17 +84,15 @@
             "side": "over"
           }
         ],
-        "confidence": 45,
-        "reasoning": "7 buts + 1 passes décisives en 18 matchs (44.4% de chance/match) · xG+xA: 0.47/match · défense fragile",
+        "confidence": 41,
+        "reasoning": "7G en 19 matchs (36.8%/match) · xG: 0.38/match",
         "context": {
-          "weakness": 0.56
+          "weakness": 0.48
         },
         "stats": {
           "goals": 7,
-          "assists": 1,
-          "apps": 18
-        },
-        "team": "away"
+          "apps": 19
+        }
       }
     ],
     "fun_picks": [],
