@@ -44,20 +44,20 @@
         "is_fun": false
       },
       {
-        "direction": "shots_over_19.5",
+        "direction": "shots_under_27.5",
         "type": "Tirs (total match)",
-        "label": "Plus de 19.5 tirs total",
+        "label": "Moins de 27.5 tirs total",
         "cote": null,
-        "cote_min": 1.27,
+        "cote_min": 1.25,
         "value": [
           "⚠️",
           "Value serrée",
           "#f59e0b"
         ],
-        "confidence": 79,
-        "reasoning": "📊 Brut : Hellas Verona L10 12.5 (L5 10.2) tirs/m · Roma L10 11.3 (L5 14.2) tirs/m\n🛡️ Défenses : Hellas Verona concède 11.1/m · Roma concède 12.1/m\n🎯 Attendu : Hellas Verona ~10.1 · Roma ~13.4 → total ~23.4\n⚖️ Roma favori (#4 vs #19) · Hellas Verona forme : D-L-D-D-L · Roma forme : W-W-W-W-D",
+        "confidence": 80,
+        "reasoning": "📊 Brut : Hellas Verona L10 12.5 (L5 10.2) tirs/m · Roma L10 11.3 (L5 14.2) tirs/m\n🛡️ Défenses : Hellas Verona concède 11.1/m · Roma concède 12.1/m\n🎯 Attendu : Hellas Verona ~10.1 · Roma ~13.4 → total ~23.5\n⚖️ Roma favori (#4 vs #19) · Hellas Verona forme : D-L-D-D-L · Roma forme : W-W-W-W-D",
         "stats": {
-          "expected_total": 23.4
+          "expected_total": 23.5
         }
       },
       {
@@ -173,7 +173,7 @@
         "type": "Tirs (Como)",
         "label": "Plus de 9.5 tirs Como",
         "cote": null,
-        "cote_min": 1.26,
+        "cote_min": 1.25,
         "value": [
           "⚠️",
           "Value serrée",
@@ -181,7 +181,7 @@
         ],
         "confidence": 80,
         "edge": null,
-        "reasoning": "Como prend 12.9/m [pondere vs opp #18] · adv. concède 8.7/m → attendu ~12.5 (Como favori (#5 vs #18))",
+        "reasoning": "Como prend 13.0/m [pondere vs opp #18] · adv. concède 8.7/m → attendu ~12.5 (Como favori (#5 vs #18))",
         "stats": {
           "expected": 12.5
         }
@@ -398,7 +398,7 @@
         "direction": "away_dc",
         "type": "Double chance",
         "label": "Nul ou Juventus (X2)",
-        "cote": null,
+        "cote": 1.1,
         "confidence": 78,
         "reasoning": "Juventus invaincu 80% sur 5 derniers matchs · H2H: 1/1 matchs sans défaite",
         "stats": {
@@ -413,9 +413,9 @@
         "is_fun": false
       },
       {
-        "direction": "shots_over_23.5",
-        "type": "Tirs (total match)",
-        "label": "Plus de 23.5 tirs total",
+        "direction": "tirs_(juventus)_over_13.5",
+        "type": "Tirs (Juventus)",
+        "label": "Plus de 13.5 tirs Juventus",
         "cote": null,
         "cote_min": 1.26,
         "value": [
@@ -424,27 +424,27 @@
           "#f59e0b"
         ],
         "confidence": 80,
-        "reasoning": "📊 Brut : Torino L10 12.0 (L5 11.0) tirs/m · Juventus L10 18.2 (L5 18.8) tirs/m\n🛡️ Défenses : Torino concède 13.3/m · Juventus concède 10.7/m\n🎯 Attendu : Torino ~10.6 · Juventus ~17.3 → total ~27.9\n⚖️ Juventus favori (#6 vs #13) · Torino forme : L-W-L-D-D · Juventus forme : L-W-D-D-W",
+        "edge": null,
+        "reasoning": "Juventus prend 18.3/m [pondere vs opp #12] · adv. concède 13.3/m → attendu ~17.0 (Juventus favori (#6 vs #12))",
         "stats": {
-          "expected_total": 27.9
+          "expected": 17.0
         }
       },
       {
-        "direction": "tirs_cadrés_(torino)_under_3.5",
-        "type": "Tirs cadrés (Torino)",
-        "label": "Moins de 3.5 tirs cadrés Torino",
+        "direction": "shots_over_23.5",
+        "type": "Tirs (total match)",
+        "label": "Plus de 23.5 tirs total",
         "cote": null,
-        "cote_min": 1.34,
+        "cote_min": 1.28,
         "value": [
-          "💎",
-          "Value correcte",
-          "#84cc16"
+          "⚠️",
+          "Value serrée",
+          "#f59e0b"
         ],
-        "confidence": 75,
-        "edge": null,
-        "reasoning": "Torino prend 3.2/m [pondere vs opp #6] · adv. concède 2.2/m → attendu ~2.6 (Juventus favori (#6 vs #13))",
+        "confidence": 78,
+        "reasoning": "📊 Brut : Torino L10 12.0 (L5 11.0) tirs/m · Juventus L10 18.2 (L5 18.8) tirs/m\n🛡️ Défenses : Torino concède 13.3/m · Juventus concède 10.7/m\n🎯 Attendu : Torino ~10.8 · Juventus ~17.0 → total ~27.7\n⚖️ Juventus favori (#6 vs #12) · Torino forme : L-W-L-D-D · Juventus forme : L-W-D-D-W",
         "stats": {
-          "expected": 2.6
+          "expected_total": 27.7
         }
       }
     ],
@@ -487,7 +487,7 @@
       "direction": "away_dc",
       "type": "Double chance",
       "label": "Nul ou Juventus (X2)",
-      "cote": null,
+      "cote": 1.1,
       "confidence": 78,
       "reasoning": "Juventus invaincu 80% sur 5 derniers matchs · H2H: 1/1 matchs sans défaite",
       "stats": {
