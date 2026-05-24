@@ -102,13 +102,13 @@
         "cote": null,
         "book": null,
         "books": [],
-        "confidence": 55,
-        "reasoning": "8 buts + 21 passes décisives en 34 matchs (85.3% de chance/match) · xG+xA: 0.68/match · défense correcte",
+        "confidence": 56,
+        "reasoning": "9 buts + 21 passes décisives en 34 matchs (88.2% de chance/match) · xG+xA: 0.68/match · défense correcte",
         "context": {
           "weakness": 0.43
         },
         "stats": {
-          "goals": 8,
+          "goals": 9,
           "assists": 21,
           "apps": 34
         },
@@ -180,27 +180,9 @@
         "is_fun": false
       },
       {
-        "direction": "tirs_(arsenal)_over_12.5",
-        "type": "Tirs (Arsenal)",
-        "label": "Plus de 12.5 tirs Arsenal",
-        "cote": null,
-        "cote_min": 1.29,
-        "value": [
-          "⚠️",
-          "Value serrée",
-          "#f59e0b"
-        ],
-        "confidence": 78,
-        "edge": null,
-        "reasoning": "Arsenal prend 15.3/m [pondere vs opp #16] · adv. concède 11.1/m → attendu ~15.6 (Arsenal favori (#1 vs #16))",
-        "stats": {
-          "expected": 15.6
-        }
-      },
-      {
-        "direction": "sot_over_5.5",
-        "type": "Tirs cadrés (total)",
-        "label": "Plus de 5.5 tirs cadrés total",
+        "direction": "shots_under_27.5",
+        "type": "Tirs (total match)",
+        "label": "Moins de 27.5 tirs total",
         "cote": null,
         "cote_min": 1.3,
         "value": [
@@ -209,9 +191,27 @@
           "#84cc16"
         ],
         "confidence": 77,
-        "reasoning": "📊 Brut : Crystal Palace L10 11.3 (L5 12.8) tirs cadrés/m · Arsenal L10 14.5 (L5 13.2) tirs cadrés/m\n🛡️ Défenses : Crystal Palace concède 4.3/m · Arsenal concède 2.6/m\n🎯 Attendu : Crystal Palace ~2.8 · Arsenal ~4.9 → total ~7.6\n⚖️ Arsenal favori (#1 vs #16) · Crystal Palace forme : D-L-D-W-L · Arsenal forme : W-W-W-W-D",
+        "reasoning": "📊 Brut : Crystal Palace L10 11.3 (L5 12.8) tirs/m · Arsenal L10 14.5 (L5 13.2) tirs/m\n🛡️ Défenses : Crystal Palace concède 11.1/m · Arsenal concède 10.1/m\n🎯 Attendu : Crystal Palace ~8.6 · Arsenal ~15.4 → total ~24.0\n⚖️ Arsenal favori (#1 vs #15) · Crystal Palace forme : D-L-D-W-L · Arsenal forme : W-W-W-W-D",
         "stats": {
-          "expected_total": 7.6
+          "expected_total": 24.0
+        }
+      },
+      {
+        "direction": "tirs_cadrés_(crystal_palace)_over_1.5",
+        "type": "Tirs cadrés (Crystal Palace)",
+        "label": "Plus de 1.5 tirs cadrés Crystal Palace",
+        "cote": null,
+        "cote_min": 1.3,
+        "value": [
+          "💎",
+          "Value correcte",
+          "#84cc16"
+        ],
+        "confidence": 77,
+        "edge": null,
+        "reasoning": "Crystal Palace prend 3.7/m [pondere vs opp #1] · adv. concède 2.6/m → attendu ~2.8 (Arsenal favori (#1 vs #15))",
+        "stats": {
+          "expected": 2.8
         }
       }
     ],
@@ -460,34 +460,34 @@
         "type": "Tirs (total match)",
         "label": "Plus de 23.5 tirs total",
         "cote": null,
-        "cote_min": 1.26,
+        "cote_min": 1.25,
         "value": [
           "⚠️",
           "Value serrée",
           "#f59e0b"
         ],
-        "confidence": 79,
-        "reasoning": "📊 Brut : Nottingham Forest L10 10.6 (L5 10.8) tirs/m · AFC Bournemouth L10 14.5 (L5 13.0) tirs/m\n🛡️ Défenses : Nottingham Forest concède 16.3/m · AFC Bournemouth concède 13.0/m\n🎯 Attendu : Nottingham Forest ~10.6 · AFC Bournemouth ~17.3 → total ~27.9\n⚖️ AFC Bournemouth favori (#6 vs #15) · Nottingham Forest forme : L-D-L-W-W · AFC Bournemouth forme : D-W-W-D-W",
+        "confidence": 80,
+        "reasoning": "📊 Brut : Nottingham Forest L10 10.6 (L5 10.8) tirs/m · AFC Bournemouth L10 14.5 (L5 13.0) tirs/m\n🛡️ Défenses : Nottingham Forest concède 16.3/m · AFC Bournemouth concède 13.0/m\n🎯 Attendu : Nottingham Forest ~10.4 · AFC Bournemouth ~17.6 → total ~28.0\n⚖️ AFC Bournemouth favori (#6 vs #16) · Nottingham Forest forme : L-D-L-W-W · AFC Bournemouth forme : D-W-W-D-W",
         "stats": {
-          "expected_total": 27.9
+          "expected_total": 28.0
         }
       },
       {
-        "direction": "tirs_(nottingham_forest)_under_12.5",
-        "type": "Tirs (Nottingham Forest)",
-        "label": "Moins de 12.5 tirs Nottingham Forest",
+        "direction": "tirs_(afc_bournemouth)_over_14.5",
+        "type": "Tirs (AFC Bournemouth)",
+        "label": "Plus de 14.5 tirs AFC Bournemouth",
         "cote": null,
-        "cote_min": 1.36,
+        "cote_min": 1.31,
         "value": [
           "💎",
           "Value correcte",
           "#84cc16"
         ],
-        "confidence": 74,
+        "confidence": 77,
         "edge": null,
-        "reasoning": "Nottingham Forest prend 10.7/m [pondere vs opp #6] · adv. concède 13.0/m → attendu ~10.6 (AFC Bournemouth favori (#6 vs #15))",
+        "reasoning": "AFC Bournemouth prend 15.2/m [pondere vs opp #16] · adv. concède 16.3/m → attendu ~17.6 (AFC Bournemouth favori (#6 vs #16))",
         "stats": {
-          "expected": 10.6
+          "expected": 17.6
         }
       }
     ],
@@ -570,7 +570,7 @@
           "#f59e0b"
         ],
         "confidence": 80,
-        "reasoning": "📊 Brut : Burnley L10 9.3 (L5 8.4) tirs/m · Wolverhampton Wanderers L10 11.3 (L5 10.8) tirs/m\n🛡️ Défenses : Burnley concède 18.6/m · Wolverhampton Wanderers concède 14.0/m\n🎯 Attendu : Burnley ~11.3 · Wolverhampton Wanderers ~14.9 → total ~26.3\n⚖️ équipes proches au classement · Burnley forme : L-D-L-L-L · Wolverhampton Wanderers forme : D-L-D-L-L",
+        "reasoning": "📊 Brut : Burnley L10 9.3 (L5 8.4) tirs/m · Wolverhampton Wanderers L10 11.3 (L5 10.8) tirs/m\n🛡️ Défenses : Burnley concède 18.6/m · Wolverhampton Wanderers concède 14.0/m\n🎯 Attendu : Burnley ~11.3 · Wolverhampton Wanderers ~15.0 → total ~26.3\n⚖️ équipes proches au classement · Burnley forme : L-D-L-L-L · Wolverhampton Wanderers forme : D-L-D-L-L",
         "stats": {
           "expected_total": 26.3
         }
@@ -580,7 +580,7 @@
         "type": "Tirs (Burnley)",
         "label": "Plus de 8.5 tirs Burnley",
         "cote": null,
-        "cote_min": 1.26,
+        "cote_min": 1.27,
         "value": [
           "⚠️",
           "Value serrée",
@@ -588,7 +588,7 @@
         ],
         "confidence": 79,
         "edge": null,
-        "reasoning": "Burnley prend 8.6/m [pondere vs opp #19] · adv. concède 14.0/m → attendu ~11.3 (équipes proches au classement)",
+        "reasoning": "Burnley prend 8.5/m [pondere vs opp #20] · adv. concède 14.0/m → attendu ~11.3 (équipes proches au classement)",
         "stats": {
           "expected": 11.3
         }
@@ -616,13 +616,13 @@
             "side": "over"
           }
         ],
-        "confidence": 39,
-        "reasoning": "10G en 28 matchs (35.7%/match) · xG: 0.28/match",
+        "confidence": 41,
+        "reasoning": "11G en 28 matchs (39.3%/match) · xG: 0.28/match",
         "context": {
-          "weakness": 0.73
+          "weakness": 0.75
         },
         "stats": {
-          "goals": 10,
+          "goals": 11,
           "apps": 28
         }
       }
@@ -645,7 +645,7 @@
             "L"
           ]
         },
-        "reasoning": "Deux équipes au niveau similaire (#20 vs #19), forme équilibrée des deux côtés — nul logique à 3.5"
+        "reasoning": "Deux équipes au niveau similaire (#19 vs #20), forme équilibrée des deux côtés — nul logique à 3.5"
       }
     ],
     "top_pick": {
@@ -660,7 +660,7 @@
         "#f59e0b"
       ],
       "confidence": 80,
-      "reasoning": "📊 Brut : Burnley L10 9.3 (L5 8.4) tirs/m · Wolverhampton Wanderers L10 11.3 (L5 10.8) tirs/m\n🛡️ Défenses : Burnley concède 18.6/m · Wolverhampton Wanderers concède 14.0/m\n🎯 Attendu : Burnley ~11.3 · Wolverhampton Wanderers ~14.9 → total ~26.3\n⚖️ équipes proches au classement · Burnley forme : L-D-L-L-L · Wolverhampton Wanderers forme : D-L-D-L-L",
+      "reasoning": "📊 Brut : Burnley L10 9.3 (L5 8.4) tirs/m · Wolverhampton Wanderers L10 11.3 (L5 10.8) tirs/m\n🛡️ Défenses : Burnley concède 18.6/m · Wolverhampton Wanderers concède 14.0/m\n🎯 Attendu : Burnley ~11.3 · Wolverhampton Wanderers ~15.0 → total ~26.3\n⚖️ équipes proches au classement · Burnley forme : L-D-L-L-L · Wolverhampton Wanderers forme : D-L-D-L-L",
       "stats": {
         "expected_total": 26.3
       }
@@ -723,9 +723,9 @@
         "is_fun": false
       },
       {
-        "direction": "tirs_(manchester_city)_over_12.5",
-        "type": "Tirs (Manchester City)",
-        "label": "Plus de 12.5 tirs Manchester City",
+        "direction": "shots_over_21.5",
+        "type": "Tirs (total match)",
+        "label": "Plus de 21.5 tirs total",
         "cote": null,
         "cote_min": 1.25,
         "value": [
@@ -734,27 +734,27 @@
           "#f59e0b"
         ],
         "confidence": 80,
-        "edge": null,
-        "reasoning": "Manchester City prend 18.7/m [pondere vs opp #4] · adv. concède 13.0/m → attendu ~15.9 (équipes proches au classement)",
+        "reasoning": "📊 Brut : Manchester City L10 19.7 (L5 20.6) tirs/m · Aston Villa L10 13.0 (L5 12.4) tirs/m\n🛡️ Défenses : Manchester City concède 7.6/m · Aston Villa concède 13.0/m\n🎯 Attendu : Manchester City ~15.8 · Aston Villa ~10.0 → total ~25.8\n⚖️ équipes proches au classement · Manchester City forme : D-W-W-W-D · Aston Villa forme : W-W-D-W-L",
         "stats": {
-          "expected": 15.9
+          "expected_total": 25.8
         }
       },
       {
-        "direction": "sot_under_11.5",
-        "type": "Tirs cadrés (total)",
-        "label": "Moins de 11.5 tirs cadrés total",
+        "direction": "tirs_(aston_villa)_under_12.5",
+        "type": "Tirs (Aston Villa)",
+        "label": "Moins de 12.5 tirs Aston Villa",
         "cote": null,
-        "cote_min": 1.3,
+        "cote_min": 1.26,
         "value": [
-          "💎",
-          "Value correcte",
-          "#84cc16"
+          "⚠️",
+          "Value serrée",
+          "#f59e0b"
         ],
-        "confidence": 77,
-        "reasoning": "📊 Brut : Manchester City L10 19.7 (L5 20.6) tirs cadrés/m · Aston Villa L10 13.0 (L5 12.4) tirs cadrés/m\n🛡️ Défenses : Manchester City concède 2.6/m · Aston Villa concède 5.5/m\n🎯 Attendu : Manchester City ~5.9 · Aston Villa ~3.4 → total ~9.3\n⚖️ équipes proches au classement · Manchester City forme : D-W-W-W-D · Aston Villa forme : W-W-D-W-L",
+        "confidence": 80,
+        "edge": null,
+        "reasoning": "Aston Villa prend 12.3/m [pondere vs opp #2] · adv. concède 7.6/m → attendu ~10.0 (équipes proches au classement)",
         "stats": {
-          "expected_total": 9.3
+          "expected": 10.0
         }
       }
     ],
@@ -904,10 +904,10 @@
             "side": "over"
           }
         ],
-        "confidence": 46,
+        "confidence": 47,
         "reasoning": "15 buts + 5 passes décisives en 34 matchs (58.8% de chance/match) · xG+xA: 0.5/match · défense correcte",
         "context": {
-          "weakness": 0.41
+          "weakness": 0.42
         },
         "stats": {
           "goals": 15,
@@ -934,7 +934,7 @@
             "L"
           ]
         },
-        "reasoning": "Deux équipes au niveau similaire (#7 vs #10), forme équilibrée des deux côtés — nul logique à 3.7"
+        "reasoning": "Deux équipes au niveau similaire (#7 vs #9), forme équilibrée des deux côtés — nul logique à 3.7"
       }
     ],
     "top_pick": {
@@ -1622,7 +1622,7 @@
         ],
         "confidence": 78,
         "edge": null,
-        "reasoning": "Newcastle United prend 12.8/m [pondere vs opp #11] · adv. concède 11.0/m → attendu ~11.9 (équipes proches au classement)",
+        "reasoning": "Newcastle United prend 12.7/m [pondere vs opp #11] · adv. concède 11.0/m → attendu ~11.9 (équipes proches au classement)",
         "stats": {
           "expected": 11.9
         }
@@ -1985,11 +1985,11 @@
         "is_fun": false
       },
       {
-        "direction": "tirs_(brentford)_under_13.5",
-        "type": "Tirs (Brentford)",
-        "label": "Moins de 13.5 tirs Brentford",
+        "direction": "tirs_cadrés_(liverpool)_under_6.5",
+        "type": "Tirs cadrés (Liverpool)",
+        "label": "Moins de 6.5 tirs cadrés Liverpool",
         "cote": null,
-        "cote_min": 1.26,
+        "cote_min": 1.27,
         "value": [
           "⚠️",
           "Value serrée",
@@ -1997,9 +1997,9 @@
         ],
         "confidence": 79,
         "edge": null,
-        "reasoning": "Brentford prend 10.2/m [pondere vs opp #5] · adv. concède 12.7/m → attendu ~10.9 (Liverpool favori (#5 vs #9))",
+        "reasoning": "Liverpool prend 4.5/m [pondere vs opp #10] · adv. concède 4.8/m → attendu ~4.8 (Liverpool favori (#5 vs #10))",
         "stats": {
-          "expected": 10.9
+          "expected": 4.8
         }
       },
       {
@@ -2014,7 +2014,7 @@
           "#f59e0b"
         ],
         "confidence": 77,
-        "reasoning": "📊 Brut : Liverpool L10 13.9 (L5 12.0) tirs cadrés/m · Brentford L10 11.1 (L5 11.4) tirs cadrés/m\n🛡️ Défenses : Liverpool concède 5.8/m · Brentford concède 4.8/m\n🎯 Attendu : Liverpool ~4.8 · Brentford ~4.5 → total ~9.3\n⚖️ Liverpool favori (#5 vs #9) · Liverpool forme : L-D-L-W-W · Brentford forme : D-L-W-L-D",
+        "reasoning": "📊 Brut : Liverpool L10 13.9 (L5 12.0) tirs cadrés/m · Brentford L10 11.1 (L5 11.4) tirs cadrés/m\n🛡️ Défenses : Liverpool concède 5.8/m · Brentford concède 4.8/m\n🎯 Attendu : Liverpool ~4.8 · Brentford ~4.5 → total ~9.3\n⚖️ Liverpool favori (#5 vs #10) · Liverpool forme : L-D-L-W-W · Brentford forme : D-L-W-L-D",
         "stats": {
           "expected_total": 9.3
         }
@@ -2061,26 +2061,7 @@
         "team": "away"
       }
     ],
-    "fun_picks": [
-      {
-        "direction": "fun_draw",
-        "type": "🎲 Paris fun",
-        "label": "Match nul",
-        "cote": 4.2,
-        "confidence": 40,
-        "is_fun": true,
-        "stats": {
-          "form": [
-            "L",
-            "D",
-            "L",
-            "W",
-            "W"
-          ]
-        },
-        "reasoning": "Deux équipes au niveau similaire (#5 vs #9), forme équilibrée des deux côtés — nul logique à 4.2"
-      }
-    ],
+    "fun_picks": [],
     "top_pick": {
       "direction": "under35",
       "type": "Under 3.5 buts",
@@ -2174,7 +2155,7 @@
           }
         ],
         "confidence": 37,
-        "reasoning": "10G en 29 matchs (34.5%/match) · xG: 0.34/match",
+        "reasoning": "10G en 29 matchs (34.5%/match) · xG: 0.35/match",
         "context": {
           "weakness": 0.31
         },
