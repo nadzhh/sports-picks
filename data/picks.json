@@ -67,9 +67,8 @@
         "player": "Dusan Vlahovic",
         "position": "F",
         "is_sub": false,
-        "type": "Buteur",
-        "label": "Dusan Vlahovic marque",
-        "team": "away",
+        "type": "Joueur décisif",
+        "label": "Dusan Vlahovic but ou passe décisive",
         "cote": 2.4,
         "book": "draftkings",
         "books": [
@@ -84,15 +83,17 @@
             "side": "over"
           }
         ],
-        "confidence": 40,
-        "reasoning": "6G en 18 matchs (33.3%/match) · xG: 0.39/match",
+        "confidence": 45,
+        "reasoning": "7 buts + 1 passes décisives en 18 matchs (44.4% de chance/match) · xG+xA: 0.47/match · défense fragile",
         "context": {
-          "weakness": 0.49
+          "weakness": 0.58
         },
         "stats": {
-          "goals": 6,
+          "goals": 7,
+          "assists": 1,
           "apps": 18
-        }
+        },
+        "team": "away"
       }
     ],
     "fun_picks": [],
