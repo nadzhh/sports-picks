@@ -47,7 +47,7 @@
         "direction": "under35",
         "type": "Under 3.5 buts",
         "label": "Moins de 3.5 buts",
-        "cote": 1.67,
+        "cote": 1.69,
         "confidence": 65,
         "reasoning": "Défenses solides — Brighton & Hove Albion concède 0.9/L10, Manchester United concède 1.4/L10 · Total attendu: ~2.8 buts (P Under=69.2%)",
         "stats": {
@@ -319,20 +319,20 @@
         "is_fun": false
       },
       {
-        "direction": "shots_under_27.5",
+        "direction": "shots_over_19.5",
         "type": "Tirs (total match)",
-        "label": "Moins de 27.5 tirs total",
+        "label": "Plus de 19.5 tirs total",
         "cote": null,
-        "cote_min": 1.25,
+        "cote_min": 1.27,
         "value": [
           "⚠️",
           "Value serrée",
           "#f59e0b"
         ],
-        "confidence": 80,
-        "reasoning": "📊 Brut : Hellas Verona L10 12.5 (L5 10.2) tirs/m · Roma L10 11.3 (L5 14.2) tirs/m\n🛡️ Défenses : Hellas Verona concède 11.1/m · Roma concède 12.1/m\n🎯 Attendu : Hellas Verona ~10.1 · Roma ~13.4 → total ~23.5\n⚖️ Roma favori (#4 vs #19) · Hellas Verona forme : D-L-D-D-L · Roma forme : W-W-W-W-D",
+        "confidence": 79,
+        "reasoning": "📊 Brut : Hellas Verona L10 12.5 (L5 10.2) tirs/m · Roma L10 11.3 (L5 14.2) tirs/m\n🛡️ Défenses : Hellas Verona concède 11.1/m · Roma concède 12.1/m\n🎯 Attendu : Hellas Verona ~10.1 · Roma ~13.4 → total ~23.4\n⚖️ Roma favori (#4 vs #19) · Hellas Verona forme : D-L-D-D-L · Roma forme : W-W-W-W-D",
         "stats": {
-          "expected_total": 23.5
+          "expected_total": 23.4
         }
       },
       {
@@ -806,7 +806,7 @@
         "direction": "fun_draw",
         "type": "🎲 Paris fun",
         "label": "Match nul",
-        "cote": 3.65,
+        "cote": 3.7,
         "confidence": 40,
         "is_fun": true,
         "stats": {
@@ -818,7 +818,7 @@
             "L"
           ]
         },
-        "reasoning": "Deux équipes au niveau similaire (#10 vs #8), forme équilibrée des deux côtés — nul logique à 3.65"
+        "reasoning": "Deux équipes au niveau similaire (#10 vs #8), forme équilibrée des deux côtés — nul logique à 3.7"
       }
     ],
     "top_pick": {
@@ -889,7 +889,7 @@
         "type": "Tirs (Como)",
         "label": "Plus de 9.5 tirs Como",
         "cote": null,
-        "cote_min": 1.25,
+        "cote_min": 1.26,
         "value": [
           "⚠️",
           "Value serrée",
@@ -897,7 +897,7 @@
         ],
         "confidence": 80,
         "edge": null,
-        "reasoning": "Como prend 13.0/m [pondere vs opp #18] · adv. concède 8.7/m → attendu ~12.5 (Como favori (#5 vs #18))",
+        "reasoning": "Como prend 12.9/m [pondere vs opp #18] · adv. concède 8.7/m → attendu ~12.5 (Como favori (#5 vs #18))",
         "stats": {
           "expected": 12.5
         }
@@ -1383,7 +1383,7 @@
         ],
         "confidence": 76,
         "edge": null,
-        "reasoning": "Parma prend 2.6/m [pondere vs opp #10] · adv. concède 4.1/m → attendu ~3.3 (équipes proches au classement)",
+        "reasoning": "Parma prend 2.6/m [pondere vs opp #11] · adv. concède 4.1/m → attendu ~3.3 (équipes proches au classement)",
         "stats": {
           "expected": 3.3
         }
@@ -1420,7 +1420,7 @@
         "confidence": 33,
         "reasoning": "8G en 25 matchs (32.0%/match) · xG: 0.23/match",
         "context": {
-          "weakness": 0.54
+          "weakness": 0.52
         },
         "stats": {
           "goals": 8,
@@ -1445,7 +1445,7 @@
             "W"
           ]
         },
-        "reasoning": "Deux équipes au niveau similaire (#13 vs #10), forme équilibrée des deux côtés — nul logique à 3.2"
+        "reasoning": "Deux équipes au niveau similaire (#12 vs #11), forme équilibrée des deux côtés — nul logique à 3.2"
       }
     ],
     "top_pick": {
@@ -1505,24 +1505,6 @@
         "is_fun": false
       },
       {
-        "direction": "tirs_(genoa)_under_14.5",
-        "type": "Tirs (Genoa)",
-        "label": "Moins de 14.5 tirs Genoa",
-        "cote": null,
-        "cote_min": 1.25,
-        "value": [
-          "⚠️",
-          "Value serrée",
-          "#f59e0b"
-        ],
-        "confidence": 80,
-        "edge": null,
-        "reasoning": "Genoa prend 11.8/m [pondere vs opp #17] · adv. concède 11.6/m → attendu ~11.7 (équipes proches au classement)",
-        "stats": {
-          "expected": 11.7
-        }
-      },
-      {
         "direction": "sot_under_9.5",
         "type": "Tirs cadrés (total)",
         "label": "Moins de 9.5 tirs cadrés total",
@@ -1537,6 +1519,24 @@
         "reasoning": "📊 Brut : Lecce L10 9.8 (L5 10.4) tirs cadrés/m · Genoa L10 11.5 (L5 9.8) tirs cadrés/m\n🛡️ Défenses : Lecce concède 4.8/m · Genoa concède 3.9/m\n🎯 Attendu : Lecce ~3.3 · Genoa ~4.0 → total ~7.3\n⚖️ équipes proches au classement · Lecce forme : W-L-W-D-D · Genoa forme : L-D-D-L-W",
         "stats": {
           "expected_total": 7.3
+        }
+      },
+      {
+        "direction": "tirs_cadrés_(genoa)_under_5.5",
+        "type": "Tirs cadrés (Genoa)",
+        "label": "Moins de 5.5 tirs cadrés Genoa",
+        "cote": null,
+        "cote_min": 1.27,
+        "value": [
+          "⚠️",
+          "Value serrée",
+          "#f59e0b"
+        ],
+        "confidence": 79,
+        "edge": null,
+        "reasoning": "Genoa prend 3.1/m [pondere vs opp #17] · adv. concède 4.8/m → attendu ~4.0 (équipes proches au classement)",
+        "stats": {
+          "expected": 4.0
         }
       }
     ],
@@ -1621,38 +1621,38 @@
         "is_fun": false
       },
       {
-        "direction": "tirs_(torino)_under_13.5",
-        "type": "Tirs (Torino)",
-        "label": "Moins de 13.5 tirs Torino",
+        "direction": "shots_over_23.5",
+        "type": "Tirs (total match)",
+        "label": "Plus de 23.5 tirs total",
         "cote": null,
-        "cote_min": 1.25,
+        "cote_min": 1.26,
         "value": [
           "⚠️",
           "Value serrée",
           "#f59e0b"
         ],
         "confidence": 80,
-        "edge": null,
-        "reasoning": "Torino prend 12.6/m [pondere vs opp #6] · adv. concède 10.7/m → attendu ~10.8 (Juventus favori (#6 vs #12))",
+        "reasoning": "📊 Brut : Torino L10 12.0 (L5 11.0) tirs/m · Juventus L10 18.2 (L5 18.8) tirs/m\n🛡️ Défenses : Torino concède 13.3/m · Juventus concède 10.7/m\n🎯 Attendu : Torino ~10.6 · Juventus ~17.3 → total ~27.9\n⚖️ Juventus favori (#6 vs #13) · Torino forme : L-W-L-D-D · Juventus forme : L-W-D-D-W",
         "stats": {
-          "expected": 10.8
+          "expected_total": 27.9
         }
       },
       {
-        "direction": "shots_over_23.5",
-        "type": "Tirs (total match)",
-        "label": "Plus de 23.5 tirs total",
+        "direction": "tirs_(juventus)_over_14.5",
+        "type": "Tirs (Juventus)",
+        "label": "Plus de 14.5 tirs Juventus",
         "cote": null,
-        "cote_min": 1.27,
+        "cote_min": 1.35,
         "value": [
-          "⚠️",
-          "Value serrée",
-          "#f59e0b"
+          "💎",
+          "Value correcte",
+          "#84cc16"
         ],
-        "confidence": 79,
-        "reasoning": "📊 Brut : Torino L10 12.0 (L5 11.0) tirs/m · Juventus L10 18.2 (L5 18.8) tirs/m\n🛡️ Défenses : Torino concède 13.3/m · Juventus concède 10.7/m\n🎯 Attendu : Torino ~10.8 · Juventus ~17.0 → total ~27.7\n⚖️ Juventus favori (#6 vs #12) · Torino forme : L-W-L-D-D · Juventus forme : L-W-D-D-W",
+        "confidence": 74,
+        "edge": null,
+        "reasoning": "Juventus prend 18.6/m [pondere vs opp #13] · adv. concède 13.3/m → attendu ~17.3 (Juventus favori (#6 vs #13))",
         "stats": {
-          "expected_total": 27.7
+          "expected": 17.3
         }
       }
     ],
@@ -1961,8 +1961,8 @@
         "direction": "under35",
         "type": "Under 3.5 buts",
         "label": "Moins de 3.5 buts",
-        "cote": 1.62,
-        "confidence": 65,
+        "cote": 1.69,
+        "confidence": 64,
         "reasoning": "Défenses solides — Liverpool concède 1.1/L10, Brentford concède 1.7/L10 · Total attendu: ~2.9 buts (P Under=67.0%)",
         "stats": {
           "form": []
@@ -2070,8 +2070,8 @@
       "direction": "under35",
       "type": "Under 3.5 buts",
       "label": "Moins de 3.5 buts",
-      "cote": 1.62,
-      "confidence": 65,
+      "cote": 1.69,
+      "confidence": 64,
       "reasoning": "Défenses solides — Liverpool concède 1.1/L10, Brentford concède 1.7/L10 · Total attendu: ~2.9 buts (P Under=67.0%)",
       "stats": {
         "form": []
@@ -2236,38 +2236,38 @@
         "is_fun": false
       },
       {
-        "direction": "tirs_cadrés_(udinese)_under_5.5",
-        "type": "Tirs cadrés (Udinese)",
-        "label": "Moins de 5.5 tirs cadrés Udinese",
+        "direction": "tirs_(napoli)_over_13.5",
+        "type": "Tirs (Napoli)",
+        "label": "Plus de 13.5 tirs Napoli",
         "cote": null,
-        "cote_min": 1.29,
+        "cote_min": 1.25,
         "value": [
           "⚠️",
           "Value serrée",
           "#f59e0b"
         ],
-        "confidence": 78,
+        "confidence": 80,
         "edge": null,
-        "reasoning": "Udinese prend 4.9/m [pondere vs opp #2] · adv. concède 3.9/m → attendu ~4.1 (Napoli favori (#2 vs #11))",
+        "reasoning": "Napoli prend 14.2/m [pondere vs opp #10] · adv. concède 16.8/m → attendu ~17.0 (Napoli favori (#2 vs #10))",
         "stats": {
-          "expected": 4.1
+          "expected": 17.0
         }
       },
       {
-        "direction": "shots_under_30.5",
+        "direction": "shots_over_22.5",
         "type": "Tirs (total match)",
-        "label": "Moins de 30.5 tirs total",
+        "label": "Plus de 22.5 tirs total",
         "cote": null,
-        "cote_min": 1.32,
+        "cote_min": 1.26,
         "value": [
-          "💎",
-          "Value correcte",
-          "#84cc16"
+          "⚠️",
+          "Value serrée",
+          "#f59e0b"
         ],
-        "confidence": 76,
-        "reasoning": "📊 Brut : Napoli L10 14.2 (L5 13.8) tirs/m · Udinese L10 12.0 (L5 14.0) tirs/m\n🛡️ Défenses : Napoli concède 9.5/m · Udinese concède 16.8/m\n🎯 Attendu : Napoli ~17.3 · Udinese ~9.7 → total ~27.0\n⚖️ Napoli favori (#2 vs #11) · Napoli forme : W-L-D-W-L · Udinese forme : L-W-W-D-L",
+        "confidence": 79,
+        "reasoning": "📊 Brut : Napoli L10 14.2 (L5 13.8) tirs/m · Udinese L10 12.0 (L5 14.0) tirs/m\n🛡️ Défenses : Napoli concède 9.5/m · Udinese concède 16.8/m\n🎯 Attendu : Napoli ~17.0 · Udinese ~9.8 → total ~26.8\n⚖️ Napoli favori (#2 vs #10) · Napoli forme : W-L-D-W-L · Udinese forme : L-W-W-D-L",
         "stats": {
-          "expected_total": 27.0
+          "expected_total": 26.8
         }
       }
     ],
