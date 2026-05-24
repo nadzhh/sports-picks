@@ -227,8 +227,8 @@
             "side": "over"
           }
         ],
-        "confidence": 38,
-        "reasoning": "13G en 37 matchs (35.1%/match) · xG: 0.29/match",
+        "confidence": 39,
+        "reasoning": "13G en 37 matchs (35.1%/match) · xG: 0.31/match",
         "context": {
           "weakness": 0.58
         },
@@ -390,7 +390,7 @@
     "league": "Serie A",
     "home": "Torino",
     "away": "Juventus",
-    "start_ts": 1779648300,
+    "start_ts": 1779651900,
     "match_id": "4803416",
     "page_url": "/matches/torino-vs-juventus/37eu56#4803416",
     "picks": [
@@ -631,8 +631,8 @@
         "type": "Victoire extérieur",
         "label": "Atletico Madrid gagne",
         "cote": 2.55,
-        "confidence": 65,
-        "reasoning": "Atletico Madrid : 3V/0N/2D sur 5 matchs · #3 au classement · H2H: 1V/0N/0D · Note Sofa: 6.5/10",
+        "confidence": 64,
+        "reasoning": "Atletico Madrid : 3V/0N/2D sur 5 matchs · #4 au classement · H2H: 1V/0N/0D · Note Sofa: 6.5/10",
         "stats": {
           "form": [
             "W",
@@ -657,27 +657,26 @@
         "is_fun": false
       },
       {
-        "direction": "tirs_(villarreal)_over_10.5",
-        "type": "Tirs (Villarreal)",
-        "label": "Plus de 10.5 tirs Villarreal",
+        "direction": "shots_over_22.5",
+        "type": "Tirs (total match)",
+        "label": "Plus de 22.5 tirs total",
         "cote": null,
-        "cote_min": 1.25,
+        "cote_min": 1.27,
         "value": [
           "⚠️",
           "Value serrée",
           "#f59e0b"
         ],
-        "confidence": 80,
-        "edge": null,
-        "reasoning": "Villarreal prend 12.2/m [pondere vs opp #3] · adv. concède 15.1/m → attendu ~13.6 (équipes proches au classement)",
+        "confidence": 79,
+        "reasoning": "📊 Brut : Villarreal L10 11.6 (L5 11.4) tirs/m · Atletico Madrid L10 12.9 (L5 13.6) tirs/m\n🛡️ Défenses : Villarreal concède 12.0/m · Atletico Madrid concède 15.1/m\n🎯 Attendu : Villarreal ~13.7 · Atletico Madrid ~13.0 → total ~26.7\n⚖️ équipes proches au classement · Villarreal forme : L-L-D-W-W · Atletico Madrid forme : W-W-L-L-W",
         "stats": {
-          "expected": 13.6
+          "expected_total": 26.7
         }
       },
       {
-        "direction": "shots_over_22.5",
-        "type": "Tirs (total match)",
-        "label": "Plus de 22.5 tirs total",
+        "direction": "tirs_(villarreal)_under_16.5",
+        "type": "Tirs (Villarreal)",
+        "label": "Moins de 16.5 tirs Villarreal",
         "cote": null,
         "cote_min": 1.28,
         "value": [
@@ -686,9 +685,10 @@
           "#f59e0b"
         ],
         "confidence": 78,
-        "reasoning": "📊 Brut : Villarreal L10 11.6 (L5 11.4) tirs/m · Atletico Madrid L10 12.9 (L5 13.6) tirs/m\n🛡️ Défenses : Villarreal concède 12.0/m · Atletico Madrid concède 15.1/m\n🎯 Attendu : Villarreal ~13.6 · Atletico Madrid ~13.0 → total ~26.6\n⚖️ équipes proches au classement · Villarreal forme : L-L-D-W-W · Atletico Madrid forme : W-W-L-L-W",
+        "edge": null,
+        "reasoning": "Villarreal prend 12.3/m [pondere vs opp #4] · adv. concède 15.1/m → attendu ~13.7 (équipes proches au classement)",
         "stats": {
-          "expected_total": 26.6
+          "expected": 13.7
         }
       }
     ],
@@ -707,7 +707,7 @@
         "confidence": 35,
         "reasoning": "4G en 11 matchs (36.4%/match) · xG: 0.38/match",
         "context": {
-          "weakness": 0.33
+          "weakness": 0.32
         },
         "stats": {
           "goals": 4,
@@ -732,7 +732,7 @@
             "W"
           ]
         },
-        "reasoning": "Deux équipes au niveau similaire (#4 vs #3), forme équilibrée des deux côtés — nul logique à 3.9"
+        "reasoning": "Deux équipes au niveau similaire (#3 vs #4), forme équilibrée des deux côtés — nul logique à 3.9"
       }
     ],
     "top_pick": {
@@ -740,8 +740,8 @@
       "type": "Victoire extérieur",
       "label": "Atletico Madrid gagne",
       "cote": 2.55,
-      "confidence": 65,
-      "reasoning": "Atletico Madrid : 3V/0N/2D sur 5 matchs · #3 au classement · H2H: 1V/0N/0D · Note Sofa: 6.5/10",
+      "confidence": 64,
+      "reasoning": "Atletico Madrid : 3V/0N/2D sur 5 matchs · #4 au classement · H2H: 1V/0N/0D · Note Sofa: 6.5/10",
       "stats": {
         "form": [
           "W",
