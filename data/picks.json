@@ -30,8 +30,8 @@
         "type": "Victoire extérieur",
         "label": "Roma gagne",
         "cote": 1.32,
-        "confidence": 79,
-        "reasoning": "Roma : 4V/1N/0D sur 5 matchs · #4 au classement · H2H: 1V/0N/0D · Note Sofa: 6.5/10",
+        "confidence": 80,
+        "reasoning": "Roma : 4V/1N/0D sur 5 matchs · #3 au classement · H2H: 1V/0N/0D · Note Sofa: 6.5/10",
         "stats": {
           "form": [
             "W",
@@ -44,26 +44,9 @@
         "is_fun": false
       },
       {
-        "direction": "shots_under_27.5",
-        "type": "Tirs (total match)",
-        "label": "Moins de 27.5 tirs total",
-        "cote": null,
-        "cote_min": 1.25,
-        "value": [
-          "⚠️",
-          "Value serrée",
-          "#f59e0b"
-        ],
-        "confidence": 80,
-        "reasoning": "📊 Brut : Hellas Verona L10 12.5 (L5 10.2) tirs/m · Roma L10 11.3 (L5 14.2) tirs/m\n🛡️ Défenses : Hellas Verona concède 11.1/m · Roma concède 12.1/m\n🎯 Attendu : Hellas Verona ~10.1 · Roma ~13.4 → total ~23.5\n⚖️ Roma favori (#4 vs #19) · Hellas Verona forme : D-L-D-D-L · Roma forme : W-W-W-W-D",
-        "stats": {
-          "expected_total": 23.5
-        }
-      },
-      {
-        "direction": "tirs_(hellas_verona)_over_7.5",
-        "type": "Tirs (Hellas Verona)",
-        "label": "Plus de 7.5 tirs Hellas Verona",
+        "direction": "tirs_(roma)_over_10.5",
+        "type": "Tirs (Roma)",
+        "label": "Plus de 10.5 tirs Roma",
         "cote": null,
         "cote_min": 1.27,
         "value": [
@@ -73,9 +56,26 @@
         ],
         "confidence": 79,
         "edge": null,
-        "reasoning": "Hellas Verona prend 12.5/m [pondere vs opp #4] · adv. concède 12.1/m → attendu ~10.1 (Roma favori (#4 vs #19))",
+        "reasoning": "Roma prend 11.5/m [pondere vs opp #19] · adv. concède 11.1/m → attendu ~13.5 (Roma favori (#3 vs #19))",
         "stats": {
-          "expected": 10.1
+          "expected": 13.5
+        }
+      },
+      {
+        "direction": "shots_over_19.5",
+        "type": "Tirs (total match)",
+        "label": "Plus de 19.5 tirs total",
+        "cote": null,
+        "cote_min": 1.27,
+        "value": [
+          "⚠️",
+          "Value serrée",
+          "#f59e0b"
+        ],
+        "confidence": 78,
+        "reasoning": "📊 Brut : Hellas Verona L10 12.5 (L5 10.2) tirs/m · Roma L10 11.3 (L5 14.2) tirs/m\n🛡️ Défenses : Hellas Verona concède 11.1/m · Roma concède 12.1/m\n🎯 Attendu : Hellas Verona ~9.9 · Roma ~13.5 → total ~23.4\n⚖️ Roma favori (#3 vs #19) · Hellas Verona forme : D-L-D-D-L · Roma forme : W-W-W-W-D",
+        "stats": {
+          "expected_total": 23.4
         }
       }
     ],
@@ -90,16 +90,16 @@
         "cote": null,
         "book": null,
         "books": [],
-        "confidence": 67,
-        "reasoning": "13 buts en 17 matchs cette saison (76.5% de chance/match) · xG moyen 0.74/match, défense adverse poreuse (1.6 buts concédés/match) · défense fragile",
+        "confidence": 70,
+        "reasoning": "14 buts en 17 matchs cette saison (82.4% de chance/match) · xG moyen 0.79/match, défense adverse poreuse (1.6 buts concédés/match) · défense fragile",
         "context": {
           "weakness": 0.69
         },
         "stats": {
-          "goals": 13,
+          "goals": 14,
           "apps": 17,
-          "gpm": 0.765,
-          "xgpm": 0.741
+          "gpm": 0.824,
+          "xgpm": 0.794
         },
         "team": "away"
       }
@@ -122,6 +122,103 @@
         ]
       },
       "is_fun": false
+    }
+  },
+  {
+    "league": "Serie A",
+    "home": "Milan",
+    "away": "Cagliari",
+    "start_ts": 1779648300,
+    "match_id": "4803413",
+    "page_url": "/matches/cagliari-vs-milan/2ezhcz#4803413",
+    "picks": [
+      {
+        "direction": "sot_over_5.5",
+        "type": "Tirs cadrés (total)",
+        "label": "Plus de 5.5 tirs cadrés total",
+        "cote": null,
+        "cote_min": 1.26,
+        "value": [
+          "⚠️",
+          "Value serrée",
+          "#f59e0b"
+        ],
+        "confidence": 80,
+        "reasoning": "📊 Brut : Milan L10 12.0 (L5 9.8) tirs cadrés/m · Cagliari L10 11.9 (L5 12.4) tirs cadrés/m\n🛡️ Défenses : Milan concède 3.8/m · Cagliari concède 4.5/m\n🎯 Attendu : Milan ~4.8 · Cagliari ~3.0 → total ~7.9\n⚖️ Milan favori (#6 vs #14) · Milan forme : W-L-L-D-W · Cagliari forme : W-L-D-W-L",
+        "stats": {
+          "expected_total": 7.9
+        }
+      },
+      {
+        "direction": "tirs_cadrés_(milan)_under_6.5",
+        "type": "Tirs cadrés (Milan)",
+        "label": "Moins de 6.5 tirs cadrés Milan",
+        "cote": null,
+        "cote_min": 1.27,
+        "value": [
+          "⚠️",
+          "Value serrée",
+          "#f59e0b"
+        ],
+        "confidence": 79,
+        "edge": null,
+        "reasoning": "Milan prend 4.5/m [pondere vs opp #14] · adv. concède 4.5/m → attendu ~4.8 (Milan favori (#6 vs #14))",
+        "stats": {
+          "expected": 4.8
+        }
+      }
+    ],
+    "home_players": [
+      {
+        "player": "Rafael Leão",
+        "position": "F",
+        "is_sub": false,
+        "type": "Buteur",
+        "label": "Rafael Leão marque",
+        "team": "home",
+        "cote": 2.2,
+        "book": "draftkings",
+        "books": [
+          {
+            "book": "fanduel",
+            "cote": 1.74,
+            "side": "over"
+          },
+          {
+            "book": "draftkings",
+            "cote": 2.2,
+            "side": "over"
+          }
+        ],
+        "confidence": 39,
+        "reasoning": "9G en 28 matchs (32.1%/match) · xG: 0.35/match",
+        "context": {
+          "weakness": 0.52
+        },
+        "stats": {
+          "goals": 9,
+          "apps": 28
+        }
+      }
+    ],
+    "away_players": [],
+    "fun_picks": [],
+    "top_pick": {
+      "direction": "sot_over_5.5",
+      "type": "Tirs cadrés (total)",
+      "label": "Plus de 5.5 tirs cadrés total",
+      "cote": null,
+      "cote_min": 1.26,
+      "value": [
+        "⚠️",
+        "Value serrée",
+        "#f59e0b"
+      ],
+      "confidence": 80,
+      "reasoning": "📊 Brut : Milan L10 12.0 (L5 9.8) tirs cadrés/m · Cagliari L10 11.9 (L5 12.4) tirs cadrés/m\n🛡️ Défenses : Milan concède 3.8/m · Cagliari concède 4.5/m\n🎯 Attendu : Milan ~4.8 · Cagliari ~3.0 → total ~7.9\n⚖️ Milan favori (#6 vs #14) · Milan forme : W-L-L-D-W · Cagliari forme : W-L-D-W-L",
+      "stats": {
+        "expected_total": 7.9
+      }
     }
   },
   {
@@ -155,8 +252,8 @@
         "type": "Favori net",
         "label": "Como gagne",
         "cote": 1.53,
-        "confidence": 68,
-        "reasoning": "13 places d'écart au classement (#5 vs #18) · 3V/1N/1D sur 5 matchs · Note Sofa: 6.5/10",
+        "confidence": 70,
+        "reasoning": "14 places d'écart au classement (#4 vs #18) · 3V/1N/1D sur 5 matchs · Note Sofa: 6.5/10",
         "stats": {
           "form": [
             "W",
@@ -167,24 +264,6 @@
           ]
         },
         "is_fun": false
-      },
-      {
-        "direction": "tirs_(como)_over_9.5",
-        "type": "Tirs (Como)",
-        "label": "Plus de 9.5 tirs Como",
-        "cote": null,
-        "cote_min": 1.25,
-        "value": [
-          "⚠️",
-          "Value serrée",
-          "#f59e0b"
-        ],
-        "confidence": 80,
-        "edge": null,
-        "reasoning": "Como prend 13.0/m [pondere vs opp #18] · adv. concède 8.7/m → attendu ~12.5 (Como favori (#5 vs #18))",
-        "stats": {
-          "expected": 12.5
-        }
       },
       {
         "direction": "sot_under_8.5",
@@ -198,9 +277,27 @@
           "#f59e0b"
         ],
         "confidence": 78,
-        "reasoning": "📊 Brut : Cremonese L10 9.5 (L5 10.2) tirs cadrés/m · Como L10 14.0 (L5 14.0) tirs cadrés/m\n🛡️ Défenses : Cremonese concède 3.3/m · Como concède 2.2/m\n🎯 Attendu : Cremonese ~2.8 · Como ~3.8 → total ~6.6\n⚖️ Como favori (#5 vs #18) · Cremonese forme : W-W-L-L-D · Como forme : W-W-D-W-L",
+        "reasoning": "📊 Brut : Cremonese L10 9.5 (L5 10.2) tirs cadrés/m · Como L10 14.0 (L5 14.0) tirs cadrés/m\n🛡️ Défenses : Cremonese concède 3.3/m · Como concède 2.2/m\n🎯 Attendu : Cremonese ~2.8 · Como ~3.8 → total ~6.6\n⚖️ Como favori (#4 vs #18) · Cremonese forme : W-W-L-L-D · Como forme : W-W-D-W-L",
         "stats": {
           "expected_total": 6.6
+        }
+      },
+      {
+        "direction": "tirs_cadrés_(cremonese)_over_1.5",
+        "type": "Tirs cadrés (Cremonese)",
+        "label": "Plus de 1.5 tirs cadrés Cremonese",
+        "cote": null,
+        "cote_min": 1.3,
+        "value": [
+          "💎",
+          "Value correcte",
+          "#84cc16"
+        ],
+        "confidence": 77,
+        "edge": null,
+        "reasoning": "Cremonese prend 4.2/m [pondere vs opp #4] · adv. concède 2.2/m → attendu ~2.8 (Como favori (#4 vs #18))",
+        "stats": {
+          "expected": 2.8
         }
       }
     ],
@@ -307,7 +404,7 @@
           "Value serrée",
           "#f59e0b"
         ],
-        "confidence": 80,
+        "confidence": 79,
         "reasoning": "📊 Brut : Lecce L10 9.8 (L5 10.4) tirs cadrés/m · Genoa L10 11.5 (L5 9.8) tirs cadrés/m\n🛡️ Défenses : Lecce concède 4.8/m · Genoa concède 3.9/m\n🎯 Attendu : Lecce ~3.3 · Genoa ~4.0 → total ~7.3\n⚖️ équipes proches au classement · Lecce forme : W-L-W-D-D · Genoa forme : L-D-D-L-W",
         "stats": {
           "expected_total": 7.3
@@ -413,9 +510,9 @@
         "is_fun": false
       },
       {
-        "direction": "tirs_(juventus)_over_13.5",
-        "type": "Tirs (Juventus)",
-        "label": "Plus de 13.5 tirs Juventus",
+        "direction": "shots_over_23.5",
+        "type": "Tirs (total match)",
+        "label": "Plus de 23.5 tirs total",
         "cote": null,
         "cote_min": 1.26,
         "value": [
@@ -424,64 +521,64 @@
           "#f59e0b"
         ],
         "confidence": 80,
-        "edge": null,
-        "reasoning": "Juventus prend 18.3/m [pondere vs opp #12] · adv. concède 13.3/m → attendu ~17.0 (Juventus favori (#6 vs #12))",
+        "reasoning": "📊 Brut : Torino L10 12.0 (L5 11.0) tirs/m · Juventus L10 18.2 (L5 18.8) tirs/m\n🛡️ Défenses : Torino concède 13.3/m · Juventus concède 10.7/m\n🎯 Attendu : Torino ~10.5 · Juventus ~17.4 → total ~27.9\n⚖️ Juventus favori (#5 vs #13) · Torino forme : L-W-L-D-D · Juventus forme : L-W-D-D-W",
         "stats": {
-          "expected": 17.0
+          "expected_total": 27.9
         }
       },
       {
-        "direction": "shots_over_23.5",
-        "type": "Tirs (total match)",
-        "label": "Plus de 23.5 tirs total",
+        "direction": "tirs_(juventus)_over_14.5",
+        "type": "Tirs (Juventus)",
+        "label": "Plus de 14.5 tirs Juventus",
         "cote": null,
-        "cote_min": 1.28,
+        "cote_min": 1.34,
         "value": [
-          "⚠️",
-          "Value serrée",
-          "#f59e0b"
+          "💎",
+          "Value correcte",
+          "#84cc16"
         ],
-        "confidence": 78,
-        "reasoning": "📊 Brut : Torino L10 12.0 (L5 11.0) tirs/m · Juventus L10 18.2 (L5 18.8) tirs/m\n🛡️ Défenses : Torino concède 13.3/m · Juventus concède 10.7/m\n🎯 Attendu : Torino ~10.8 · Juventus ~17.0 → total ~27.7\n⚖️ Juventus favori (#6 vs #12) · Torino forme : L-W-L-D-D · Juventus forme : L-W-D-D-W",
+        "confidence": 75,
+        "edge": null,
+        "reasoning": "Juventus prend 18.4/m [pondere vs opp #13] · adv. concède 13.3/m → attendu ~17.4 (Juventus favori (#5 vs #13))",
         "stats": {
-          "expected_total": 27.7
+          "expected": 17.4
         }
       }
     ],
-    "home_players": [
+    "home_players": [],
+    "away_players": [
       {
-        "player": "Giovanni Simeone",
+        "player": "Dusan Vlahovic",
         "position": "F",
         "is_sub": false,
         "type": "Buteur",
-        "label": "Giovanni Simeone marque",
-        "team": "home",
-        "cote": 4.4,
+        "label": "Dusan Vlahovic marque",
+        "team": "away",
+        "cote": 2.4,
         "book": "draftkings",
         "books": [
           {
             "book": "fanduel",
-            "cote": 3.7,
+            "cote": 1.83,
             "side": "over"
           },
           {
             "book": "draftkings",
-            "cote": 4.4,
+            "cote": 2.4,
             "side": "over"
           }
         ],
-        "confidence": 38,
-        "reasoning": "11G en 31 matchs (35.5%/match) · xG: 0.32/match",
+        "confidence": 40,
+        "reasoning": "6G en 18 matchs (33.3%/match) · xG: 0.38/match",
         "context": {
-          "weakness": 0.43
+          "weakness": 0.49
         },
         "stats": {
-          "goals": 11,
-          "apps": 31
+          "goals": 6,
+          "apps": 18
         }
       }
     ],
-    "away_players": [],
     "fun_picks": [],
     "top_pick": {
       "direction": "away_dc",
@@ -495,122 +592,6 @@
           "L",
           "W",
           "D",
-          "D",
-          "W"
-        ]
-      },
-      "is_fun": false
-    }
-  },
-  {
-    "league": "Serie A",
-    "home": "Milan",
-    "away": "Cagliari",
-    "start_ts": 1779648300,
-    "match_id": "4803413",
-    "page_url": "/matches/cagliari-vs-milan/2ezhcz#4803413",
-    "picks": [
-      {
-        "direction": "home_win",
-        "type": "Favori net",
-        "label": "Milan gagne",
-        "cote": 1.35,
-        "confidence": 68,
-        "reasoning": "13 places d'écart au classement (#3 vs #16) · 2V/1N/2D sur 5 matchs · Note Sofa: 6.5/10",
-        "stats": {
-          "form": [
-            "W",
-            "L",
-            "L",
-            "D",
-            "W"
-          ]
-        },
-        "is_fun": false
-      },
-      {
-        "direction": "sot_over_5.5",
-        "type": "Tirs cadrés (total)",
-        "label": "Plus de 5.5 tirs cadrés total",
-        "cote": null,
-        "cote_min": 1.25,
-        "value": [
-          "⚠️",
-          "Value serrée",
-          "#f59e0b"
-        ],
-        "confidence": 80,
-        "reasoning": "📊 Brut : Milan L10 12.0 (L5 9.8) tirs cadrés/m · Cagliari L10 11.9 (L5 12.4) tirs cadrés/m\n🛡️ Défenses : Milan concède 3.8/m · Cagliari concède 4.5/m\n🎯 Attendu : Milan ~5.0 · Cagliari ~2.9 → total ~7.9\n⚖️ Milan favori (#3 vs #16) · Milan forme : W-L-L-D-W · Cagliari forme : W-L-D-W-L",
-        "stats": {
-          "expected_total": 7.9
-        }
-      },
-      {
-        "direction": "tirs_cadrés_(cagliari)_over_1.5",
-        "type": "Tirs cadrés (Cagliari)",
-        "label": "Plus de 1.5 tirs cadrés Cagliari",
-        "cote": null,
-        "cote_min": 1.27,
-        "value": [
-          "⚠️",
-          "Value serrée",
-          "#f59e0b"
-        ],
-        "confidence": 79,
-        "edge": null,
-        "reasoning": "Cagliari prend 2.8/m [pondere vs opp #3] · adv. concède 3.8/m → attendu ~2.9 (Milan favori (#3 vs #16))",
-        "stats": {
-          "expected": 2.9
-        }
-      }
-    ],
-    "home_players": [
-      {
-        "player": "Rafael Leão",
-        "position": "F",
-        "is_sub": false,
-        "type": "Buteur",
-        "label": "Rafael Leão marque",
-        "team": "home",
-        "cote": 2.2,
-        "book": "draftkings",
-        "books": [
-          {
-            "book": "fanduel",
-            "cote": 1.74,
-            "side": "over"
-          },
-          {
-            "book": "draftkings",
-            "cote": 2.2,
-            "side": "over"
-          }
-        ],
-        "confidence": 39,
-        "reasoning": "9G en 28 matchs (32.1%/match) · xG: 0.35/match",
-        "context": {
-          "weakness": 0.56
-        },
-        "stats": {
-          "goals": 9,
-          "apps": 28
-        }
-      }
-    ],
-    "away_players": [],
-    "fun_picks": [],
-    "top_pick": {
-      "direction": "home_win",
-      "type": "Favori net",
-      "label": "Milan gagne",
-      "cote": 1.35,
-      "confidence": 68,
-      "reasoning": "13 places d'écart au classement (#3 vs #16) · 2V/1N/2D sur 5 matchs · Note Sofa: 6.5/10",
-      "stats": {
-        "form": [
-          "W",
-          "L",
-          "L",
           "D",
           "W"
         ]
