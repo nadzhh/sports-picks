@@ -7,29 +7,99 @@
     "status": "5/24 - 8:00 PM EDT",
     "home_picks": [
       {
+        "prop": "FG3M",
+        "label": "Keldon Johnson plus de 0.5 3-points",
+        "line": 0.5,
+        "direction": "over",
+        "confidence": 84,
+        "cote_min": 1.18,
+        "real_cote": 1.6,
+        "book": "draftkings",
+        "books": [
+          {
+            "book": "draftkings",
+            "cote": 1.6
+          }
+        ],
+        "edge": 35.6,
+        "is_real_line": true,
+        "value": [
+          "🎯",
+          "Real DK/FD",
+          "#22c55e"
+        ],
+        "hit_rate": "6/10",
+        "hit_pct": 60,
+        "hit_l10": "6/10",
+        "hit_l10_pct": 60,
+        "hit_l20": "14/20",
+        "hit_l20_pct": 70,
+        "trend": "cold",
+        "trend_delta": -10.0,
+        "trend_icon": "📉",
+        "context": {
+          "pace": 1.002,
+          "def": 1.075,
+          "def_rank": 3,
+          "def_stat": "3-points"
+        },
+        "def_argument": "Adversaire encaisse beaucoup de 3-points (#3/30)",
+        "rotation_warning": null,
+        "last_min_warning": null,
+        "book_divergence_warning": "Book quote ligne 0.5 alors qu'on estime mu=1.4 (divergence x2.74) - le bookmaker peut avoir vu un changement (rotation/blessure)",
+        "bounce_back": null,
+        "is_series": true,
+        "series_state": "down",
+        "series_urgency": true,
+        "h2h_avg": 2.0,
+        "h2h_n": 3,
+        "venue_avg": 0.8,
+        "venue_n": 11,
+        "venue": "domicile",
+        "opp_abbr": "OKC",
+        "kelly_pct": 5.0,
+        "stake_units": 2.0,
+        "stake_label": "2u 💪",
+        "stats": {
+          "mu": 1.4,
+          "sigma": 0.9,
+          "L5": 1.4,
+          "L10": 1.0,
+          "Saison": 1.2
+        },
+        "reasoning": "L5 1.4 · L10 1.0 · Saison 1.2 → attendu 1.4 · pace×1.002 · def×1.075 · H2H vs OKC (série down) (n=3) : 2.0 · Domicile (n=11) : 0.8",
+        "player": "Keldon Johnson",
+        "team": "Spurs",
+        "side": "home"
+      },
+      {
         "prop": "REB",
         "label": "Devin Vassell plus de 4.5 rebonds",
         "line": 4.5,
         "direction": "over",
         "confidence": 68,
         "cote_min": 1.47,
-        "real_cote": 2.28,
+        "real_cote": 2.22,
         "book": "fanduel",
         "books": [
           {
             "book": "fanduel",
-            "cote": 2.28
+            "cote": 2.22
+          },
+          {
+            "book": "pinnacle",
+            "cote": 2.14
           },
           {
             "book": "draftkings",
-            "cote": 2.12
+            "cote": 2.03
           },
           {
             "book": "betmgm",
             "cote": 2.0
           }
         ],
-        "edge": 55.1,
+        "edge": 51.0,
         "is_real_line": true,
         "value": [
           "🎯",
@@ -95,12 +165,16 @@
             "cote": 2.22
           },
           {
+            "book": "pinnacle",
+            "cote": 2.16
+          },
+          {
             "book": "draftkings",
-            "cote": 2.09
+            "cote": 2.07
           },
           {
             "book": "betmgm",
-            "cote": 1.95
+            "cote": 2.05
           }
         ],
         "edge": 46.1,
@@ -161,19 +235,23 @@
         "direction": "over",
         "confidence": 62,
         "cote_min": 1.62,
-        "real_cote": 1.95,
+        "real_cote": 1.91,
         "book": "draftkings",
         "books": [
           {
             "book": "draftkings",
-            "cote": 1.95
+            "cote": 1.91
+          },
+          {
+            "book": "fanduel",
+            "cote": 1.89
           },
           {
             "book": "betmgm",
-            "cote": 1.8
+            "cote": 1.74
           }
         ],
-        "edge": 20.4,
+        "edge": 17.9,
         "is_real_line": true,
         "value": [
           "🎯",
@@ -226,103 +304,29 @@
         "side": "home"
       },
       {
-        "prop": "AST",
-        "label": "Stephon Castle plus de 6.5 passes",
-        "line": 6.5,
-        "direction": "over",
-        "confidence": 69,
-        "cote_min": 1.45,
-        "real_cote": 1.95,
-        "book": "draftkings",
-        "books": [
-          {
-            "book": "draftkings",
-            "cote": 1.95
-          },
-          {
-            "book": "fanduel",
-            "cote": 1.74
-          },
-          {
-            "book": "betmgm",
-            "cote": 1.67
-          }
-        ],
-        "edge": 34.5,
-        "is_real_line": true,
-        "value": [
-          "🎯",
-          "Real DK/FD",
-          "#22c55e"
-        ],
-        "hit_rate": "4/10",
-        "hit_pct": 40,
-        "hit_l10": "4/10",
-        "hit_l10_pct": 40,
-        "hit_l20": "11/20",
-        "hit_l20_pct": 55,
-        "trend": "cold",
-        "trend_delta": -15.0,
-        "trend_icon": "📉",
-        "context": {
-          "pace": 1.002,
-          "def": 0.935,
-          "def_rank": 25,
-          "def_stat": "passes"
-        },
-        "def_argument": "Adversaire solide vs passes (#25/30)",
-        "rotation_warning": null,
-        "last_min_warning": null,
-        "book_divergence_warning": null,
-        "bounce_back": null,
-        "is_series": true,
-        "series_state": "down",
-        "series_urgency": true,
-        "h2h_avg": 8.7,
-        "h2h_n": 3,
-        "venue_avg": 7.1,
-        "venue_n": 10,
-        "venue": "domicile",
-        "opp_abbr": "OKC",
-        "kelly_pct": 5.0,
-        "stake_units": 2.0,
-        "stake_label": "2u 💪",
-        "stats": {
-          "mu": 7.8,
-          "sigma": 2.7,
-          "L5": 7.6,
-          "L10": 6.8,
-          "Saison": 7.4
-        },
-        "reasoning": "L5 7.6 · L10 6.8 · Saison 7.4 → attendu 7.8 · pace×1.002 · def×0.935 · H2H vs OKC (série down) (n=3) : 8.7 · Domicile (n=10) : 7.1",
-        "player": "Stephon Castle",
-        "team": "Spurs",
-        "side": "home"
-      },
-      {
         "prop": "FG3M",
         "label": "Devin Vassell plus de 2.5 3-points",
         "line": 2.5,
         "direction": "over",
         "confidence": 73,
         "cote_min": 1.38,
-        "real_cote": 1.83,
-        "book": "betmgm",
+        "real_cote": 1.88,
+        "book": "fanduel",
         "books": [
           {
-            "book": "betmgm",
-            "cote": 1.83
-          },
-          {
             "book": "fanduel",
-            "cote": 1.78
+            "cote": 1.88
           },
           {
             "book": "draftkings",
-            "cote": 1.75
+            "cote": 1.83
+          },
+          {
+            "book": "betmgm",
+            "cote": 1.8
           }
         ],
-        "edge": 32.6,
+        "edge": 36.2,
         "is_real_line": true,
         "value": [
           "🎯",
@@ -376,58 +380,65 @@
     ],
     "away_picks": [
       {
-        "prop": "PR",
-        "label": "Jaylin Williams moins de 17.5 pts + reb",
-        "line": 17.5,
-        "direction": "under",
-        "confidence": 86,
-        "cote_min": 1.17,
-        "real_cote": 1.94,
-        "book": "fanduel",
+        "prop": "AST",
+        "label": "Shai Gilgeous-Alexander plus de 7.5 passes",
+        "line": 7.5,
+        "direction": "over",
+        "confidence": 77,
+        "cote_min": 1.29,
+        "real_cote": 2.07,
+        "book": "draftkings",
         "books": [
           {
-            "book": "fanduel",
-            "cote": 1.94
+            "book": "draftkings",
+            "cote": 2.07
           },
           {
-            "book": "draftkings",
-            "cote": 1.88
+            "book": "fanduel",
+            "cote": 2.06
+          },
+          {
+            "book": "betmgm",
+            "cote": 1.95
+          },
+          {
+            "book": "pinnacle",
+            "cote": 1.94
           }
         ],
-        "edge": 65.8,
+        "edge": 60.5,
         "is_real_line": true,
         "value": [
           "🎯",
           "Real DK/FD",
           "#22c55e"
         ],
-        "hit_rate": "9/10",
-        "hit_pct": 90,
-        "hit_l10": "9/10",
-        "hit_l10_pct": 90,
-        "hit_l20": "17/20",
-        "hit_l20_pct": 85,
-        "trend": "stable",
-        "trend_delta": 5.0,
-        "trend_icon": "",
+        "hit_rate": "8/10",
+        "hit_pct": 80,
+        "hit_l10": "8/10",
+        "hit_l10_pct": 80,
+        "hit_l20": "11/20",
+        "hit_l20_pct": 55,
+        "trend": "hot",
+        "trend_delta": 25.0,
+        "trend_icon": "📈",
         "context": {
           "pace": 1.002,
-          "vegas": 0.965,
-          "def": 0.965,
-          "def_rank": 23,
-          "def_stat": "points"
+          "def": 0.98,
+          "def_rank": 19,
+          "def_stat": "passes"
         },
-        "def_argument": "Adversaire solide vs points (#23/30)",
-        "rotation_warning": "Rotation reduite : 6/10 derniers matchs <15 min (derniers 5 : 22/10/10/9/13 min)",
+        "def_argument": "",
+        "rotation_warning": null,
         "last_min_warning": null,
-        "book_divergence_warning": "Book quote ligne 17.5 alors qu'on estime mu=10.1 (divergence x1.73) - cote sous-estimee suspecte",
+        "book_divergence_warning": null,
         "bounce_back": null,
         "is_series": true,
         "series_state": "up",
         "series_urgency": false,
-        "h2h_avg": 11.7,
+        "h2h_avg": 11.0,
         "h2h_n": 3,
-        "venue_avg": 10.6,
+        "venue_avg": 8.6,
         "venue_n": 9,
         "venue": "exterieur",
         "opp_abbr": "SA",
@@ -435,14 +446,14 @@
         "stake_units": 2.0,
         "stake_label": "2u 💪",
         "stats": {
-          "mu": 10.1,
-          "sigma": 6.9,
-          "L5": 8.6,
-          "L10": 8.0,
-          "Saison": 12.7
+          "mu": 9.5,
+          "sigma": 2.7,
+          "L5": 10.0,
+          "L10": 8.3,
+          "Saison": 6.6
         },
-        "reasoning": "L5 8.6 · L10 8.0 · Saison 12.7 → attendu 10.1 · pace×1.002 · vegas×0.965 · def×0.965 · H2H vs SA (série up) (n=3) : 11.7 · Exterieur (n=9) : 10.6",
-        "player": "Jaylin Williams",
+        "reasoning": "L5 10.0 · L10 8.3 · Saison 6.6 → attendu 9.5 · pace×1.002 · def×0.98 · H2H vs SA (série up) (n=3) : 11.0 · Exterieur (n=9) : 8.6",
+        "player": "Shai Gilgeous-Alexander",
         "team": "Thunder",
         "side": "away"
       },
@@ -453,19 +464,19 @@
         "direction": "over",
         "confidence": 68,
         "cote_min": 1.47,
-        "real_cote": 2.4,
-        "book": "betmgm",
+        "real_cote": 2.26,
+        "book": "draftkings",
         "books": [
           {
-            "book": "betmgm",
-            "cote": 2.4
+            "book": "draftkings",
+            "cote": 2.26
           },
           {
-            "book": "draftkings",
-            "cote": 2.34
+            "book": "betmgm",
+            "cote": 2.15
           }
         ],
-        "edge": 63.3,
+        "edge": 53.7,
         "is_real_line": true,
         "value": [
           "🎯",
@@ -518,102 +529,28 @@
       },
       {
         "prop": "AST",
-        "label": "Shai Gilgeous-Alexander plus de 7.5 passes",
-        "line": 7.5,
-        "direction": "over",
-        "confidence": 77,
-        "cote_min": 1.29,
-        "real_cote": 1.98,
-        "book": "fanduel",
-        "books": [
-          {
-            "book": "fanduel",
-            "cote": 1.98
-          },
-          {
-            "book": "betmgm",
-            "cote": 1.95
-          },
-          {
-            "book": "draftkings",
-            "cote": 1.77
-          }
-        ],
-        "edge": 53.5,
-        "is_real_line": true,
-        "value": [
-          "🎯",
-          "Real DK/FD",
-          "#22c55e"
-        ],
-        "hit_rate": "8/10",
-        "hit_pct": 80,
-        "hit_l10": "8/10",
-        "hit_l10_pct": 80,
-        "hit_l20": "11/20",
-        "hit_l20_pct": 55,
-        "trend": "hot",
-        "trend_delta": 25.0,
-        "trend_icon": "📈",
-        "context": {
-          "pace": 1.002,
-          "def": 0.98,
-          "def_rank": 19,
-          "def_stat": "passes"
-        },
-        "def_argument": "",
-        "rotation_warning": null,
-        "last_min_warning": null,
-        "book_divergence_warning": null,
-        "bounce_back": null,
-        "is_series": true,
-        "series_state": "up",
-        "series_urgency": false,
-        "h2h_avg": 11.0,
-        "h2h_n": 3,
-        "venue_avg": 8.6,
-        "venue_n": 9,
-        "venue": "exterieur",
-        "opp_abbr": "SA",
-        "kelly_pct": 5.0,
-        "stake_units": 2.0,
-        "stake_label": "2u 💪",
-        "stats": {
-          "mu": 9.5,
-          "sigma": 2.7,
-          "L5": 10.0,
-          "L10": 8.3,
-          "Saison": 6.6
-        },
-        "reasoning": "L5 10.0 · L10 8.3 · Saison 6.6 → attendu 9.5 · pace×1.002 · def×0.98 · H2H vs SA (série up) (n=3) : 11.0 · Exterieur (n=9) : 8.6",
-        "player": "Shai Gilgeous-Alexander",
-        "team": "Thunder",
-        "side": "away"
-      },
-      {
-        "prop": "AST",
         "label": "Isaiah Hartenstein plus de 2.5 passes",
         "line": 2.5,
         "direction": "over",
         "confidence": 70,
         "cote_min": 1.42,
-        "real_cote": 2.1,
+        "real_cote": 2.2,
         "book": "betmgm",
         "books": [
           {
             "book": "betmgm",
+            "cote": 2.2
+          },
+          {
+            "book": "fanduel",
             "cote": 2.1
           },
           {
             "book": "draftkings",
-            "cote": 2.05
-          },
-          {
-            "book": "fanduel",
-            "cote": 1.98
+            "cote": 2.07
           }
         ],
-        "edge": 47.9,
+        "edge": 54.9,
         "is_real_line": true,
         "value": [
           "🎯",
@@ -671,23 +608,27 @@
         "direction": "over",
         "confidence": 73,
         "cote_min": 1.37,
-        "real_cote": 1.78,
-        "book": "fanduel",
+        "real_cote": 1.74,
+        "book": "pinnacle",
         "books": [
           {
+            "book": "pinnacle",
+            "cote": 1.74
+          },
+          {
             "book": "fanduel",
-            "cote": 1.78
+            "cote": 1.71
           },
           {
             "book": "draftkings",
-            "cote": 1.76
+            "cote": 1.69
           },
           {
             "book": "betmgm",
-            "cote": 1.69
+            "cote": 1.65
           }
         ],
-        "edge": 29.9,
+        "edge": 27.0,
         "is_real_line": true,
         "value": [
           "🎯",
@@ -737,6 +678,80 @@
         "player": "Luguentz Dort",
         "team": "Thunder",
         "side": "away"
+      },
+      {
+        "prop": "REB",
+        "label": "Isaiah Hartenstein plus de 7.5 rebonds",
+        "line": 7.5,
+        "direction": "over",
+        "confidence": 64,
+        "cote_min": 1.57,
+        "real_cote": 2.14,
+        "book": "fanduel",
+        "books": [
+          {
+            "book": "fanduel",
+            "cote": 2.14
+          },
+          {
+            "book": "draftkings",
+            "cote": 1.98
+          },
+          {
+            "book": "betmgm",
+            "cote": 1.91
+          }
+        ],
+        "edge": 36.3,
+        "is_real_line": true,
+        "value": [
+          "🎯",
+          "Real DK/FD",
+          "#22c55e"
+        ],
+        "hit_rate": "8/10",
+        "hit_pct": 80,
+        "hit_l10": "8/10",
+        "hit_l10_pct": 80,
+        "hit_l20": "14/20",
+        "hit_l20_pct": 70,
+        "trend": "hot",
+        "trend_delta": 10.0,
+        "trend_icon": "📈",
+        "context": {
+          "pace": 1.002,
+          "def": 0.973,
+          "def_rank": 23,
+          "def_stat": "rebonds"
+        },
+        "def_argument": "Adversaire solide vs rebonds (#23/30)",
+        "rotation_warning": null,
+        "last_min_warning": null,
+        "book_divergence_warning": null,
+        "bounce_back": null,
+        "is_series": true,
+        "series_state": "up",
+        "series_urgency": false,
+        "h2h_avg": 7.7,
+        "h2h_n": 3,
+        "venue_avg": 9.1,
+        "venue_n": 10,
+        "venue": "exterieur",
+        "opp_abbr": "SA",
+        "kelly_pct": 5.0,
+        "stake_units": 2.0,
+        "stake_label": "2u 💪",
+        "stats": {
+          "mu": 9.0,
+          "sigma": 4.3,
+          "L5": 8.4,
+          "L10": 8.5,
+          "Saison": 9.4
+        },
+        "reasoning": "L5 8.4 · L10 8.5 · Saison 9.4 → attendu 9.0 · pace×1.002 · def×0.973 · H2H vs SA (série up) (n=3) : 7.7 · Exterieur (n=10) : 9.1",
+        "player": "Isaiah Hartenstein",
+        "team": "Thunder",
+        "side": "away"
       }
     ]
   },
@@ -748,89 +763,37 @@
     "status": "5/25 - 8:00 PM EDT",
     "home_picks": [
       {
-        "prop": "REB",
-        "label": "Donovan Mitchell plus de 3.5 rebonds",
-        "line": 3.5,
-        "direction": "over",
-        "confidence": 70,
-        "cote_min": 1.43,
-        "real_cote": null,
-        "book": null,
-        "books": [],
-        "edge": null,
-        "is_real_line": false,
-        "value": [
-          "💎",
-          "Value correcte",
-          "#84cc16"
-        ],
-        "hit_rate": "9/10",
-        "hit_pct": 90,
-        "hit_l10": "9/10",
-        "hit_l10_pct": 90,
-        "hit_l20": "17/20",
-        "hit_l20_pct": 85,
-        "trend": "stable",
-        "trend_delta": 5.0,
-        "trend_icon": "",
-        "context": {
-          "pace": 0.99,
-          "def": 0.925,
-          "def_rank": 28,
-          "def_stat": "rebonds"
-        },
-        "def_argument": "Adversaire solide vs rebonds (#28/30)",
-        "rotation_warning": null,
-        "last_min_warning": null,
-        "book_divergence_warning": null,
-        "bounce_back": null,
-        "is_series": true,
-        "series_state": "down",
-        "series_urgency": true,
-        "h2h_avg": 4.5,
-        "h2h_n": 2,
-        "venue_avg": 5.6,
-        "venue_n": 9,
-        "venue": "domicile",
-        "opp_abbr": "NY",
-        "kelly_pct": 0.06,
-        "stake_units": 0.25,
-        "stake_label": "0.25u",
-        "stats": {
-          "mu": 4.3,
-          "sigma": 1.6,
-          "L5": 4.6,
-          "L10": 5.1,
-          "Saison": 4.5
-        },
-        "reasoning": "L5 4.6 · L10 5.1 · Saison 4.5 → attendu 4.3 · pace×0.99 · def×0.925 · H2H vs NY (série down) (n=2) : 4.5 · Domicile (n=9) : 5.6",
-        "player": "Donovan Mitchell",
-        "team": "Cavaliers",
-        "side": "home"
-      },
-      {
         "prop": "AST",
-        "label": "Evan Mobley plus de 2.5 passes",
-        "line": 2.5,
+        "label": "Evan Mobley plus de 1.5 passes",
+        "line": 1.5,
         "direction": "over",
-        "confidence": 70,
-        "cote_min": 1.43,
-        "real_cote": null,
-        "book": null,
-        "books": [],
-        "edge": null,
-        "is_real_line": false,
-        "value": [
-          "💎",
-          "Value correcte",
-          "#84cc16"
+        "confidence": 86,
+        "cote_min": 1.16,
+        "real_cote": 2.14,
+        "book": "draftkings",
+        "books": [
+          {
+            "book": "draftkings",
+            "cote": 2.14
+          },
+          {
+            "book": "betmgm",
+            "cote": 1.8
+          }
         ],
-        "hit_rate": "9/10",
-        "hit_pct": 90,
-        "hit_l10": "9/10",
-        "hit_l10_pct": 90,
-        "hit_l20": "16/20",
-        "hit_l20_pct": 80,
+        "edge": 84.5,
+        "is_real_line": true,
+        "value": [
+          "🎯",
+          "Real DK/FD",
+          "#22c55e"
+        ],
+        "hit_rate": "10/10",
+        "hit_pct": 100,
+        "hit_l10": "10/10",
+        "hit_l10_pct": 100,
+        "hit_l20": "18/20",
+        "hit_l20_pct": 90,
         "trend": "hot",
         "trend_delta": 10.0,
         "trend_icon": "📈",
@@ -843,7 +806,7 @@
         "def_argument": "Adversaire solide vs passes (#26/30)",
         "rotation_warning": null,
         "last_min_warning": null,
-        "book_divergence_warning": null,
+        "book_divergence_warning": "Book quote ligne 1.5 alors qu'on estime mu=3.4 (divergence x2.28) - le bookmaker peut avoir vu un changement (rotation/blessure)",
         "bounce_back": null,
         "is_series": true,
         "series_state": "down",
@@ -854,9 +817,9 @@
         "venue_n": 8,
         "venue": "domicile",
         "opp_abbr": "NY",
-        "kelly_pct": 0.06,
-        "stake_units": 0.25,
-        "stake_label": "0.25u",
+        "kelly_pct": 5.0,
+        "stake_units": 2.0,
+        "stake_label": "2u 💪",
         "stats": {
           "mu": 3.4,
           "sigma": 1.7,
@@ -870,142 +833,25 @@
         "side": "home"
       },
       {
-        "prop": "AST",
-        "label": "Sam Merrill plus de 0.5 passes",
-        "line": 0.5,
-        "direction": "over",
+        "prop": "PR",
+        "label": "James Harden moins de 28.5 pts + reb",
+        "line": 28.5,
+        "direction": "under",
         "confidence": 75,
         "cote_min": 1.34,
-        "real_cote": null,
-        "book": null,
-        "books": [],
-        "edge": null,
-        "is_real_line": false,
-        "value": [
-          "⚠️",
-          "Value serrée",
-          "#f59e0b"
+        "real_cote": 2.0,
+        "book": "draftkings",
+        "books": [
+          {
+            "book": "draftkings",
+            "cote": 2.0
+          }
         ],
-        "hit_rate": "8/10",
-        "hit_pct": 80,
-        "hit_l10": "8/10",
-        "hit_l10_pct": 80,
-        "hit_l20": "16/20",
-        "hit_l20_pct": 80,
-        "trend": "stable",
-        "trend_delta": 0.0,
-        "trend_icon": "",
-        "context": {
-          "pace": 0.99,
-          "def": 0.935,
-          "def_rank": 26,
-          "def_stat": "passes"
-        },
-        "def_argument": "Adversaire solide vs passes (#26/30)",
-        "rotation_warning": null,
-        "last_min_warning": null,
-        "book_divergence_warning": null,
-        "bounce_back": "L3 1.3 vs saison 2.4 (-44%) → bounce back attendu",
-        "is_series": true,
-        "series_state": "down",
-        "series_urgency": true,
-        "h2h_avg": 1.0,
-        "h2h_n": 2,
-        "venue_avg": 1.9,
-        "venue_n": 9,
-        "venue": "domicile",
-        "opp_abbr": "NY",
-        "kelly_pct": 0.17,
-        "stake_units": 0.25,
-        "stake_label": "0.25u",
-        "stats": {
-          "mu": 1.4,
-          "sigma": 1.3,
-          "L5": 1.2,
-          "L10": 1.2,
-          "Saison": 2.4
-        },
-        "reasoning": "L5 1.2 · L10 1.2 · Saison 2.4 → attendu 1.4 · pace×0.99 · def×0.935 · H2H vs NY (série down) (n=2) : 1.0 · Domicile (n=9) : 1.9",
-        "player": "Sam Merrill",
-        "team": "Cavaliers",
-        "side": "home"
-      },
-      {
-        "prop": "PTS",
-        "label": "Dean Wade moins de 5.5 points",
-        "line": 5.5,
-        "direction": "under",
-        "confidence": 61,
-        "cote_min": 1.63,
-        "real_cote": null,
-        "book": null,
-        "books": [],
-        "edge": null,
-        "is_real_line": false,
+        "edge": 49.3,
+        "is_real_line": true,
         "value": [
           "🎯",
-          "Bonne value",
-          "#22c55e"
-        ],
-        "hit_rate": "8/10",
-        "hit_pct": 80,
-        "hit_l10": "8/10",
-        "hit_l10_pct": 80,
-        "hit_l20": "13/20",
-        "hit_l20_pct": 65,
-        "trend": "hot",
-        "trend_delta": 15.0,
-        "trend_icon": "📈",
-        "context": {
-          "pace": 0.99,
-          "def": 0.952,
-          "def_rank": 26,
-          "def_stat": "points"
-        },
-        "def_argument": "Adversaire solide vs points (#26/30)",
-        "rotation_warning": null,
-        "last_min_warning": null,
-        "book_divergence_warning": null,
-        "bounce_back": null,
-        "is_series": true,
-        "series_state": "down",
-        "series_urgency": true,
-        "h2h_avg": 6.5,
-        "h2h_n": 2,
-        "venue_avg": 4.0,
-        "venue_n": 9,
-        "venue": "domicile",
-        "opp_abbr": "NY",
-        "kelly_pct": 0.03,
-        "stake_units": 0.25,
-        "stake_label": "0.25u",
-        "stats": {
-          "mu": 4.7,
-          "sigma": 2.8,
-          "L5": 4.2,
-          "L10": 4.2,
-          "Saison": 5.8
-        },
-        "reasoning": "L5 4.2 · L10 4.2 · Saison 5.8 → attendu 4.7 · pace×0.99 · def×0.952 · H2H vs NY (série down) (n=2) : 6.5 · Domicile (n=9) : 4.0",
-        "player": "Dean Wade",
-        "team": "Cavaliers",
-        "side": "home"
-      },
-      {
-        "prop": "REB",
-        "label": "Max Strus plus de 3.5 rebonds",
-        "line": 3.5,
-        "direction": "over",
-        "confidence": 66,
-        "cote_min": 1.51,
-        "real_cote": null,
-        "book": null,
-        "books": [],
-        "edge": null,
-        "is_real_line": false,
-        "value": [
-          "🎯",
-          "Bonne value",
+          "Real DK/FD",
           "#22c55e"
         ],
         "hit_rate": "7/10",
@@ -1019,36 +865,246 @@
         "trend_icon": "",
         "context": {
           "pace": 0.99,
-          "def": 0.925,
-          "def_rank": 28,
-          "def_stat": "rebonds"
+          "def": 0.952,
+          "def_rank": 26,
+          "def_stat": "points"
         },
-        "def_argument": "Adversaire solide vs rebonds (#28/30)",
+        "def_argument": "Adversaire solide vs points (#26/30)",
         "rotation_warning": null,
         "last_min_warning": null,
         "book_divergence_warning": null,
-        "bounce_back": "L3 3.0 vs saison 5.4 (-44%) → bounce back attendu",
+        "bounce_back": "L3 19.0 vs saison 30.2 (-37%) → bounce back attendu",
+        "is_series": true,
+        "series_state": "down",
+        "series_urgency": true,
+        "h2h_avg": 21.5,
+        "h2h_n": 2,
+        "venue_avg": 27.3,
+        "venue_n": 9,
+        "venue": "domicile",
+        "opp_abbr": "NY",
+        "kelly_pct": 5.0,
+        "stake_units": 2.0,
+        "stake_label": "2u 💪",
+        "stats": {
+          "mu": 24.6,
+          "sigma": 5.9,
+          "L5": 25.0,
+          "L10": 24.0,
+          "Saison": 30.2
+        },
+        "reasoning": "L5 25.0 · L10 24.0 · Saison 30.2 → attendu 24.6 · pace×0.99 · def×0.952 · H2H vs NY (série down) (n=2) : 21.5 · Domicile (n=9) : 27.3",
+        "player": "James Harden",
+        "team": "Cavaliers",
+        "side": "home"
+      },
+      {
+        "prop": "PTS",
+        "label": "Sam Merrill plus de 6.5 points",
+        "line": 6.5,
+        "direction": "over",
+        "confidence": 75,
+        "cote_min": 1.34,
+        "real_cote": 1.91,
+        "book": "draftkings",
+        "books": [
+          {
+            "book": "draftkings",
+            "cote": 1.91
+          },
+          {
+            "book": "fanduel",
+            "cote": 1.88
+          }
+        ],
+        "edge": 42.5,
+        "is_real_line": true,
+        "value": [
+          "🎯",
+          "Real DK/FD",
+          "#22c55e"
+        ],
+        "hit_rate": "5/10",
+        "hit_pct": 50,
+        "hit_l10": "5/10",
+        "hit_l10_pct": 50,
+        "hit_l20": "11/20",
+        "hit_l20_pct": 55,
+        "trend": "stable",
+        "trend_delta": -5.0,
+        "trend_icon": "",
+        "context": {
+          "pace": 0.99,
+          "def": 0.952,
+          "def_rank": 26,
+          "def_stat": "points"
+        },
+        "def_argument": "Adversaire solide vs points (#26/30)",
+        "rotation_warning": null,
+        "last_min_warning": null,
+        "book_divergence_warning": "Book quote ligne 6.5 alors qu'on estime mu=10.3 (divergence x1.59) - le bookmaker peut avoir vu un changement (rotation/blessure)",
+        "bounce_back": null,
+        "is_series": true,
+        "series_state": "down",
+        "series_urgency": true,
+        "h2h_avg": 8.0,
+        "h2h_n": 2,
+        "venue_avg": 8.1,
+        "venue_n": 9,
+        "venue": "domicile",
+        "opp_abbr": "NY",
+        "kelly_pct": 5.0,
+        "stake_units": 2.0,
+        "stake_label": "2u 💪",
+        "stats": {
+          "mu": 10.3,
+          "sigma": 5.7,
+          "L5": 11.0,
+          "L10": 8.3,
+          "Saison": 12.8
+        },
+        "reasoning": "L5 11.0 · L10 8.3 · Saison 12.8 → attendu 10.3 · pace×0.99 · def×0.952 · H2H vs NY (série down) (n=2) : 8.0 · Domicile (n=9) : 8.1",
+        "player": "Sam Merrill",
+        "team": "Cavaliers",
+        "side": "home"
+      },
+      {
+        "prop": "PRA",
+        "label": "Max Strus moins de 19.5 PRA",
+        "line": 19.5,
+        "direction": "under",
+        "confidence": 79,
+        "cote_min": 1.27,
+        "real_cote": 1.69,
+        "book": "draftkings",
+        "books": [
+          {
+            "book": "draftkings",
+            "cote": 1.69
+          }
+        ],
+        "edge": 33.1,
+        "is_real_line": true,
+        "value": [
+          "🎯",
+          "Real DK/FD",
+          "#22c55e"
+        ],
+        "hit_rate": "7/10",
+        "hit_pct": 70,
+        "hit_l10": "7/10",
+        "hit_l10_pct": 70,
+        "hit_l20": "15/20",
+        "hit_l20_pct": 75,
+        "trend": "stable",
+        "trend_delta": -5.0,
+        "trend_icon": "",
+        "context": {
+          "pace": 0.99,
+          "def": 0.952,
+          "def_rank": 26,
+          "def_stat": "points"
+        },
+        "def_argument": "Adversaire solide vs points (#26/30)",
+        "rotation_warning": null,
+        "last_min_warning": null,
+        "book_divergence_warning": null,
+        "bounce_back": "L3 12.3 vs saison 18.6 (-34%) → bounce back attendu",
+        "is_series": true,
+        "series_state": "down",
+        "series_urgency": true,
+        "h2h_avg": 11.5,
+        "h2h_n": 2,
+        "venue_avg": 16.2,
+        "venue_n": 10,
+        "venue": "domicile",
+        "opp_abbr": "NY",
+        "kelly_pct": 5.0,
+        "stake_units": 2.0,
+        "stake_label": "2u 💪",
+        "stats": {
+          "mu": 14.2,
+          "sigma": 6.7,
+          "L5": 16.0,
+          "L10": 16.3,
+          "Saison": 18.6
+        },
+        "reasoning": "L5 16.0 · L10 16.3 · Saison 18.6 → attendu 14.2 · pace×0.99 · def×0.952 · H2H vs NY (série down) (n=2) : 11.5 · Domicile (n=10) : 16.2",
+        "player": "Max Strus",
+        "team": "Cavaliers",
+        "side": "home"
+      },
+      {
+        "prop": "FG3M",
+        "label": "Donovan Mitchell plus de 2.5 3-points",
+        "line": 2.5,
+        "direction": "over",
+        "confidence": 69,
+        "cote_min": 1.45,
+        "real_cote": 2.1,
+        "book": "draftkings",
+        "books": [
+          {
+            "book": "draftkings",
+            "cote": 2.1
+          },
+          {
+            "book": "fanduel",
+            "cote": 2.1
+          },
+          {
+            "book": "betmgm",
+            "cote": 1.83
+          }
+        ],
+        "edge": 44.8,
+        "is_real_line": true,
+        "value": [
+          "🎯",
+          "Real DK/FD",
+          "#22c55e"
+        ],
+        "hit_rate": "3/10",
+        "hit_pct": 30,
+        "hit_l10": "3/10",
+        "hit_l10_pct": 30,
+        "hit_l20": "8/20",
+        "hit_l20_pct": 40,
+        "trend": "cold",
+        "trend_delta": -10.0,
+        "trend_icon": "📉",
+        "context": {
+          "pace": 0.99,
+          "def": 1.045,
+          "def_rank": 10,
+          "def_stat": "3-points"
+        },
+        "def_argument": "",
+        "rotation_warning": null,
+        "last_min_warning": null,
+        "book_divergence_warning": null,
+        "bounce_back": null,
         "is_series": true,
         "series_state": "down",
         "series_urgency": true,
         "h2h_avg": 3.0,
         "h2h_n": 2,
-        "venue_avg": 4.9,
-        "venue_n": 10,
+        "venue_avg": 2.7,
+        "venue_n": 9,
         "venue": "domicile",
         "opp_abbr": "NY",
-        "kelly_pct": null,
-        "stake_units": null,
-        "stake_label": null,
+        "kelly_pct": 5.0,
+        "stake_units": 2.0,
+        "stake_label": "2u 💪",
         "stats": {
-          "mu": 4.3,
-          "sigma": 1.9,
-          "L5": 5.0,
-          "L10": 5.0,
-          "Saison": 5.4
+          "mu": 3.1,
+          "sigma": 1.3,
+          "L5": 2.2,
+          "L10": 2.5,
+          "Saison": 3.2
         },
-        "reasoning": "L5 5.0 · L10 5.0 · Saison 5.4 → attendu 4.3 · pace×0.99 · def×0.925 · H2H vs NY (série down) (n=2) : 3.0 · Domicile (n=10) : 4.9",
-        "player": "Max Strus",
+        "reasoning": "L5 2.2 · L10 2.5 · Saison 3.2 → attendu 3.1 · pace×0.99 · def×1.045 · H2H vs NY (série down) (n=2) : 3.0 · Domicile (n=9) : 2.7",
+        "player": "Donovan Mitchell",
         "team": "Cavaliers",
         "side": "home"
       }
@@ -1056,29 +1112,42 @@
     "away_picks": [
       {
         "prop": "FG3M",
-        "label": "OG Anunoby plus de 1.5 3-points",
-        "line": 1.5,
+        "label": "Mikal Bridges plus de 0.5 3-points",
+        "line": 0.5,
         "direction": "over",
-        "confidence": 68,
-        "cote_min": 1.46,
-        "real_cote": null,
-        "book": null,
-        "books": [],
-        "edge": null,
-        "is_real_line": false,
-        "value": [
-          "💎",
-          "Value correcte",
-          "#84cc16"
+        "confidence": 81,
+        "cote_min": 1.23,
+        "real_cote": 4.0,
+        "book": "fanduel",
+        "books": [
+          {
+            "book": "fanduel",
+            "cote": 4.0
+          },
+          {
+            "book": "draftkings",
+            "cote": 3.3
+          },
+          {
+            "book": "betmgm",
+            "cote": 3.1
+          }
         ],
-        "hit_rate": "9/10",
-        "hit_pct": 90,
-        "hit_l10": "9/10",
-        "hit_l10_pct": 90,
-        "hit_l20": "17/20",
-        "hit_l20_pct": 85,
+        "edge": 225.2,
+        "is_real_line": true,
+        "value": [
+          "🎯",
+          "Real DK/FD",
+          "#22c55e"
+        ],
+        "hit_rate": "6/10",
+        "hit_pct": 60,
+        "hit_l10": "6/10",
+        "hit_l10_pct": 60,
+        "hit_l20": "13/19",
+        "hit_l20_pct": 68,
         "trend": "stable",
-        "trend_delta": 5.0,
+        "trend_delta": -8.4,
         "trend_icon": "",
         "context": {
           "pace": 0.99,
@@ -1089,29 +1158,313 @@
         "def_argument": "Adversaire encaisse beaucoup de 3-points (#4/30)",
         "rotation_warning": null,
         "last_min_warning": null,
-        "book_divergence_warning": null,
-        "bounce_back": null,
+        "book_divergence_warning": "Book quote ligne 0.5 alors qu'on estime mu=1.4 (divergence x2.89) - le bookmaker peut avoir vu un changement (rotation/blessure)",
+        "bounce_back": "L3 1.0 vs saison 1.9 (-47%) → bounce back attendu",
         "is_series": true,
         "series_state": "up",
         "series_urgency": false,
         "h2h_avg": 1.5,
         "h2h_n": 2,
-        "venue_avg": 3.5,
+        "venue_avg": 1.1,
+        "venue_n": 9,
+        "venue": "exterieur",
+        "opp_abbr": "CLE",
+        "kelly_pct": 5.0,
+        "stake_units": 2.0,
+        "stake_label": "2u 💪",
+        "stats": {
+          "mu": 1.4,
+          "sigma": 1.1,
+          "L5": 1.0,
+          "L10": 1.1,
+          "Saison": 1.9
+        },
+        "reasoning": "L5 1.0 · L10 1.1 · Saison 1.9 → attendu 1.4 · pace×0.99 · def×1.068 · H2H vs CLE (série up) (n=2) : 1.5 · Exterieur (n=9) : 1.1",
+        "player": "Mikal Bridges",
+        "team": "Knicks",
+        "side": "away"
+      },
+      {
+        "prop": "AST",
+        "label": "Jalen Brunson plus de 5.5 passes",
+        "line": 5.5,
+        "direction": "over",
+        "confidence": 83,
+        "cote_min": 1.2,
+        "real_cote": 2.74,
+        "book": "fanduel",
+        "books": [
+          {
+            "book": "fanduel",
+            "cote": 2.74
+          },
+          {
+            "book": "betmgm",
+            "cote": 2.65
+          },
+          {
+            "book": "draftkings",
+            "cote": 2.6
+          }
+        ],
+        "edge": 128.3,
+        "is_real_line": true,
+        "value": [
+          "🎯",
+          "Real DK/FD",
+          "#22c55e"
+        ],
+        "hit_rate": "7/10",
+        "hit_pct": 70,
+        "hit_l10": "7/10",
+        "hit_l10_pct": 70,
+        "hit_l20": "15/20",
+        "hit_l20_pct": 75,
+        "trend": "stable",
+        "trend_delta": -5.0,
+        "trend_icon": "",
+        "context": {
+          "pace": 0.99,
+          "def": 1.006,
+          "def_rank": 15,
+          "def_stat": "passes"
+        },
+        "def_argument": "",
+        "rotation_warning": null,
+        "last_min_warning": null,
+        "book_divergence_warning": "Book quote ligne 5.5 alors qu'on estime mu=8.8 (divergence x1.59) - le bookmaker peut avoir vu un changement (rotation/blessure)",
+        "bounce_back": null,
+        "is_series": true,
+        "series_state": "up",
+        "series_urgency": false,
+        "h2h_avg": 10.0,
+        "h2h_n": 2,
+        "venue_avg": 7.7,
+        "venue_n": 9,
+        "venue": "exterieur",
+        "opp_abbr": "CLE",
+        "kelly_pct": 5.0,
+        "stake_units": 2.0,
+        "stake_label": "2u 💪",
+        "stats": {
+          "mu": 8.8,
+          "sigma": 3.4,
+          "L5": 8.2,
+          "L10": 6.7,
+          "Saison": 6.8
+        },
+        "reasoning": "L5 8.2 · L10 6.7 · Saison 6.8 → attendu 8.8 · pace×0.99 · def×1.006 · H2H vs CLE (série up) (n=2) : 10.0 · Exterieur (n=9) : 7.7",
+        "player": "Jalen Brunson",
+        "team": "Knicks",
+        "side": "away"
+      },
+      {
+        "prop": "PA",
+        "label": "OG Anunoby moins de 24.5 pts + ast",
+        "line": 24.5,
+        "direction": "under",
+        "confidence": 77,
+        "cote_min": 1.29,
+        "real_cote": 2.05,
+        "book": "draftkings",
+        "books": [
+          {
+            "book": "draftkings",
+            "cote": 2.05
+          }
+        ],
+        "edge": 58.9,
+        "is_real_line": true,
+        "value": [
+          "🎯",
+          "Real DK/FD",
+          "#22c55e"
+        ],
+        "hit_rate": "7/10",
+        "hit_pct": 70,
+        "hit_l10": "7/10",
+        "hit_l10_pct": 70,
+        "hit_l20": "14/20",
+        "hit_l20_pct": 70,
+        "trend": "stable",
+        "trend_delta": 0.0,
+        "trend_icon": "",
+        "context": {
+          "pace": 0.99,
+          "def": 0.998,
+          "def_rank": 16,
+          "def_stat": "points"
+        },
+        "def_argument": "",
+        "rotation_warning": null,
+        "last_min_warning": null,
+        "book_divergence_warning": null,
+        "bounce_back": null,
+        "is_series": true,
+        "series_state": "up",
+        "series_urgency": false,
+        "h2h_avg": 16.0,
+        "h2h_n": 2,
+        "venue_avg": 21.9,
         "venue_n": 8,
         "venue": "exterieur",
         "opp_abbr": "CLE",
-        "kelly_pct": null,
-        "stake_units": null,
-        "stake_label": null,
+        "kelly_pct": 5.0,
+        "stake_units": 2.0,
+        "stake_label": "2u 💪",
         "stats": {
-          "mu": 2.3,
-          "sigma": 1.7,
-          "L5": 2.2,
-          "L10": 2.4,
-          "Saison": 2.3
+          "mu": 18.7,
+          "sigma": 7.8,
+          "L5": 21.6,
+          "L10": 21.3,
+          "Saison": 18.9
         },
-        "reasoning": "L5 2.2 · L10 2.4 · Saison 2.3 → attendu 2.3 · pace×0.99 · def×1.068 · H2H vs CLE (série up) (n=2) : 1.5 · Exterieur (n=8) : 3.5",
+        "reasoning": "L5 21.6 · L10 21.3 · Saison 18.9 → attendu 18.7 · pace×0.99 · def×0.998 · H2H vs CLE (série up) (n=2) : 16.0 · Exterieur (n=8) : 21.9",
         "player": "OG Anunoby",
+        "team": "Knicks",
+        "side": "away"
+      },
+      {
+        "prop": "PA",
+        "label": "Karl-Anthony Towns moins de 24.5 pts + ast",
+        "line": 24.5,
+        "direction": "under",
+        "confidence": 84,
+        "cote_min": 1.18,
+        "real_cote": 1.89,
+        "book": "fanduel",
+        "books": [
+          {
+            "book": "fanduel",
+            "cote": 1.89
+          },
+          {
+            "book": "draftkings",
+            "cote": 1.74
+          }
+        ],
+        "edge": 60.2,
+        "is_real_line": true,
+        "value": [
+          "🎯",
+          "Real DK/FD",
+          "#22c55e"
+        ],
+        "hit_rate": "6/10",
+        "hit_pct": 60,
+        "hit_l10": "6/10",
+        "hit_l10_pct": 60,
+        "hit_l20": "11/20",
+        "hit_l20_pct": 55,
+        "trend": "stable",
+        "trend_delta": 5.0,
+        "trend_icon": "",
+        "context": {
+          "pace": 0.99,
+          "def": 0.998,
+          "def_rank": 16,
+          "def_stat": "points"
+        },
+        "def_argument": "",
+        "rotation_warning": null,
+        "last_min_warning": null,
+        "book_divergence_warning": null,
+        "bounce_back": null,
+        "is_series": true,
+        "series_state": "up",
+        "series_urgency": false,
+        "h2h_avg": 18.5,
+        "h2h_n": 2,
+        "venue_avg": 23.4,
+        "venue_n": 10,
+        "venue": "exterieur",
+        "opp_abbr": "CLE",
+        "kelly_pct": 5.0,
+        "stake_units": 2.0,
+        "stake_label": "2u 💪",
+        "stats": {
+          "mu": 19.6,
+          "sigma": 4.8,
+          "L5": 21.2,
+          "L10": 22.8,
+          "Saison": 23.1
+        },
+        "reasoning": "L5 21.2 · L10 22.8 · Saison 23.1 → attendu 19.6 · pace×0.99 · def×0.998 · H2H vs CLE (série up) (n=2) : 18.5 · Exterieur (n=10) : 23.4",
+        "player": "Karl-Anthony Towns",
+        "team": "Knicks",
+        "side": "away"
+      },
+      {
+        "prop": "PTS",
+        "label": "Mikal Bridges moins de 22.5 points",
+        "line": 22.5,
+        "direction": "under",
+        "confidence": 78,
+        "cote_min": 1.29,
+        "real_cote": 1.74,
+        "book": "draftkings",
+        "books": [
+          {
+            "book": "draftkings",
+            "cote": 1.74
+          },
+          {
+            "book": "betmgm",
+            "cote": 1.71
+          },
+          {
+            "book": "fanduel",
+            "cote": 1.54
+          }
+        ],
+        "edge": 34.9,
+        "is_real_line": true,
+        "value": [
+          "🎯",
+          "Real DK/FD",
+          "#22c55e"
+        ],
+        "hit_rate": "8/10",
+        "hit_pct": 80,
+        "hit_l10": "8/10",
+        "hit_l10_pct": 80,
+        "hit_l20": "16/19",
+        "hit_l20_pct": 84,
+        "trend": "stable",
+        "trend_delta": -4.2,
+        "trend_icon": "",
+        "context": {
+          "pace": 0.99,
+          "def": 0.998,
+          "def_rank": 16,
+          "def_stat": "points"
+        },
+        "def_argument": "",
+        "rotation_warning": null,
+        "last_min_warning": null,
+        "book_divergence_warning": null,
+        "bounce_back": null,
+        "is_series": true,
+        "series_state": "up",
+        "series_urgency": false,
+        "h2h_avg": 18.5,
+        "h2h_n": 2,
+        "venue_avg": 14.2,
+        "venue_n": 9,
+        "venue": "exterieur",
+        "opp_abbr": "CLE",
+        "kelly_pct": 5.0,
+        "stake_units": 2.0,
+        "stake_label": "2u 💪",
+        "stats": {
+          "mu": 17.7,
+          "sigma": 6.3,
+          "L5": 18.0,
+          "L10": 14.6,
+          "Saison": 14.4
+        },
+        "reasoning": "L5 18.0 · L10 14.6 · Saison 14.4 → attendu 17.7 · pace×0.99 · def×0.998 · H2H vs CLE (série up) (n=2) : 18.5 · Exterieur (n=9) : 14.2",
+        "player": "Mikal Bridges",
         "team": "Knicks",
         "side": "away"
       }
