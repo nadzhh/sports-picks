@@ -11,7 +11,7 @@
         "direction": "away_dc",
         "type": "Double chance",
         "label": "Nul ou Manchester United (X2)",
-        "cote": null,
+        "cote": 1.94,
         "confidence": 97,
         "reasoning": "Manchester United invaincu 100% sur 5 derniers matchs · H2H: 1/1 matchs sans défaite",
         "stats": {
@@ -29,7 +29,7 @@
         "direction": "away_win",
         "type": "Victoire extérieur",
         "label": "Manchester United gagne",
-        "cote": null,
+        "cote": 3.55,
         "confidence": 80,
         "reasoning": "Manchester United : 4V/1N/0D sur 5 matchs · #3 au classement · H2H: 1V/0N/0D · Note Sofa: 6.5/10",
         "stats": {
@@ -40,6 +40,18 @@
             "W",
             "W"
           ]
+        },
+        "is_fun": false
+      },
+      {
+        "direction": "under35",
+        "type": "Under 3.5 buts",
+        "label": "Moins de 3.5 buts",
+        "cote": 1.69,
+        "confidence": 65,
+        "reasoning": "Défenses solides — Brighton & Hove Albion concède 0.9/L10, Manchester United concède 1.4/L10 · Total attendu: ~2.8 buts (P Under=69.2%)",
+        "stats": {
+          "form": []
         },
         "is_fun": false
       },
@@ -108,7 +120,7 @@
       "direction": "away_dc",
       "type": "Double chance",
       "label": "Nul ou Manchester United (X2)",
-      "cote": null,
+      "cote": 1.94,
       "confidence": 97,
       "reasoning": "Manchester United invaincu 100% sur 5 derniers matchs · H2H: 1/1 matchs sans défaite",
       "stats": {
@@ -135,7 +147,7 @@
         "direction": "away_dc",
         "type": "Double chance",
         "label": "Nul ou Arsenal (X2)",
-        "cote": null,
+        "cote": 1.24,
         "confidence": 97,
         "reasoning": "Arsenal invaincu 100% sur 5 derniers matchs · H2H: 1/1 matchs sans défaite",
         "stats": {
@@ -153,7 +165,7 @@
         "direction": "away_win",
         "type": "Victoire extérieur",
         "label": "Arsenal gagne",
-        "cote": null,
+        "cote": 1.87,
         "confidence": 82,
         "reasoning": "Arsenal : 4V/1N/0D sur 5 matchs · #1 au classement · H2H: 1V/0N/0D · Note Sofa: 6.5/10",
         "stats": {
@@ -247,7 +259,7 @@
       "direction": "away_dc",
       "type": "Double chance",
       "label": "Nul ou Arsenal (X2)",
-      "cote": null,
+      "cote": 1.24,
       "confidence": 97,
       "reasoning": "Arsenal invaincu 100% sur 5 derniers matchs · H2H: 1/1 matchs sans défaite",
       "stats": {
@@ -465,7 +477,7 @@
         "type": "Tirs (AFC Bournemouth)",
         "label": "Plus de 14.5 tirs AFC Bournemouth",
         "cote": null,
-        "cote_min": 1.3,
+        "cote_min": 1.31,
         "value": [
           "💎",
           "Value correcte",
@@ -473,9 +485,9 @@
         ],
         "confidence": 77,
         "edge": null,
-        "reasoning": "AFC Bournemouth prend 15.3/m [pondere vs opp #16] · adv. concède 16.3/m → attendu ~17.7 (AFC Bournemouth favori (#6 vs #16))",
+        "reasoning": "AFC Bournemouth prend 15.2/m [pondere vs opp #16] · adv. concède 16.3/m → attendu ~17.6 (AFC Bournemouth favori (#6 vs #16))",
         "stats": {
-          "expected": 17.7
+          "expected": 17.6
         }
       }
     ],
@@ -550,7 +562,7 @@
         "direction": "home_dc",
         "type": "Double chance",
         "label": "Manchester City ou Nul (1X)",
-        "cote": null,
+        "cote": 1.1,
         "confidence": 80,
         "reasoning": "Manchester City invaincu 100% sur 5 derniers matchs · H2H: 0/1 matchs sans défaite",
         "stats": {
@@ -565,10 +577,22 @@
         "is_fun": false
       },
       {
+        "direction": "under35",
+        "type": "Under 3.5 buts",
+        "label": "Moins de 3.5 buts",
+        "cote": 1.83,
+        "confidence": 62,
+        "reasoning": "Défenses solides — Manchester City concède 0.7/L10, Aston Villa concède 1.4/L10 · Total attendu: ~2.9 buts (P Under=67.0%)",
+        "stats": {
+          "form": []
+        },
+        "is_fun": false
+      },
+      {
         "direction": "home_win",
         "type": "Victoire domicile",
         "label": "Manchester City gagne",
-        "cote": null,
+        "cote": 1.41,
         "confidence": 58,
         "reasoning": "Manchester City : 3V/2N/0D sur 5 matchs · #2 au classement · H2H: 0V/0N/1D · Note Sofa: 6.5/10",
         "stats": {
@@ -659,12 +683,31 @@
       }
     ],
     "away_players": [],
-    "fun_picks": [],
+    "fun_picks": [
+      {
+        "direction": "fun_draw",
+        "type": "🎲 Paris fun",
+        "label": "Match nul",
+        "cote": 5.0,
+        "confidence": 40,
+        "is_fun": true,
+        "stats": {
+          "form": [
+            "D",
+            "W",
+            "W",
+            "W",
+            "D"
+          ]
+        },
+        "reasoning": "Deux équipes au niveau similaire (#2 vs #4), forme équilibrée des deux côtés — nul logique à 5.0"
+      }
+    ],
     "top_pick": {
       "direction": "home_dc",
       "type": "Double chance",
       "label": "Manchester City ou Nul (1X)",
-      "cote": null,
+      "cote": 1.1,
       "confidence": 80,
       "reasoning": "Manchester City invaincu 100% sur 5 derniers matchs · H2H: 0/1 matchs sans défaite",
       "stats": {
@@ -706,20 +749,20 @@
         }
       },
       {
-        "direction": "shots_over_19.5",
-        "type": "Tirs (total match)",
-        "label": "Plus de 19.5 tirs total",
+        "direction": "sot_under_10.5",
+        "type": "Tirs cadrés (total)",
+        "label": "Moins de 10.5 tirs cadrés total",
         "cote": null,
-        "cote_min": 1.27,
+        "cote_min": 1.26,
         "value": [
           "⚠️",
           "Value serrée",
           "#f59e0b"
         ],
         "confidence": 79,
-        "reasoning": "📊 Brut : Sunderland L10 11.1 (L5 11.2) tirs/m · Chelsea L10 13.4 (L5 12.6) tirs/m\n🛡️ Défenses : Sunderland concède 12.1/m · Chelsea concède 9.9/m\n🎯 Attendu : Sunderland ~10.6 · Chelsea ~12.8 → total ~23.4\n⚖️ équipes proches au classement · Sunderland forme : W-D-D-L-L · Chelsea forme : W-L-D-L-W",
+        "reasoning": "📊 Brut : Sunderland L10 11.1 (L5 11.2) tirs cadrés/m · Chelsea L10 13.4 (L5 12.6) tirs cadrés/m\n🛡️ Défenses : Sunderland concède 5.0/m · Chelsea concède 4.3/m\n🎯 Attendu : Sunderland ~4.0 · Chelsea ~4.3 → total ~8.2\n⚖️ équipes proches au classement · Sunderland forme : W-D-D-L-L · Chelsea forme : W-L-D-L-W",
         "stats": {
-          "expected_total": 23.4
+          "expected_total": 8.2
         }
       }
     ],
@@ -758,7 +801,26 @@
         "team": "away"
       }
     ],
-    "fun_picks": [],
+    "fun_picks": [
+      {
+        "direction": "fun_draw",
+        "type": "🎲 Paris fun",
+        "label": "Match nul",
+        "cote": 3.7,
+        "confidence": 40,
+        "is_fun": true,
+        "stats": {
+          "form": [
+            "W",
+            "D",
+            "D",
+            "L",
+            "L"
+          ]
+        },
+        "reasoning": "Deux équipes au niveau similaire (#10 vs #8), forme équilibrée des deux côtés — nul logique à 3.7"
+      }
+    ],
     "top_pick": {
       "direction": "tirs_cadrés_(chelsea)_over_2.5",
       "type": "Tirs cadrés (Chelsea)",
@@ -942,7 +1004,7 @@
         "type": "Tirs (Burnley)",
         "label": "Plus de 8.5 tirs Burnley",
         "cote": null,
-        "cote_min": 1.27,
+        "cote_min": 1.26,
         "value": [
           "⚠️",
           "Value serrée",
@@ -950,7 +1012,7 @@
         ],
         "confidence": 79,
         "edge": null,
-        "reasoning": "Burnley prend 8.5/m [pondere vs opp #20] · adv. concède 14.0/m → attendu ~11.3 (équipes proches au classement)",
+        "reasoning": "Burnley prend 8.6/m [pondere vs opp #19] · adv. concède 14.0/m → attendu ~11.3 (équipes proches au classement)",
         "stats": {
           "expected": 11.3
         }
@@ -981,7 +1043,7 @@
         "confidence": 39,
         "reasoning": "10G en 28 matchs (35.7%/match) · xG: 0.28/match",
         "context": {
-          "weakness": 0.74
+          "weakness": 0.73
         },
         "stats": {
           "goals": 10,
@@ -990,7 +1052,26 @@
       }
     ],
     "away_players": [],
-    "fun_picks": [],
+    "fun_picks": [
+      {
+        "direction": "fun_draw",
+        "type": "🎲 Paris fun",
+        "label": "Match nul",
+        "cote": 3.5,
+        "confidence": 40,
+        "is_fun": true,
+        "stats": {
+          "form": [
+            "L",
+            "D",
+            "L",
+            "L",
+            "L"
+          ]
+        },
+        "reasoning": "Deux équipes au niveau similaire (#20 vs #19), forme équilibrée des deux côtés — nul logique à 3.5"
+      }
+    ],
     "top_pick": {
       "direction": "shots_under_30.5",
       "type": "Tirs (total match)",
@@ -1021,7 +1102,7 @@
         "direction": "home_dc",
         "type": "Double chance",
         "label": "Tottenham Hotspur ou Nul (1X)",
-        "cote": null,
+        "cote": 1.24,
         "confidence": 78,
         "reasoning": "Tottenham Hotspur invaincu 80% sur 5 derniers matchs · H2H: 1/1 matchs sans défaite",
         "stats": {
@@ -1115,7 +1196,7 @@
       "direction": "home_dc",
       "type": "Double chance",
       "label": "Tottenham Hotspur ou Nul (1X)",
-      "cote": null,
+      "cote": 1.24,
       "confidence": 78,
       "reasoning": "Tottenham Hotspur invaincu 80% sur 5 derniers matchs · H2H: 1/1 matchs sans défaite",
       "stats": {
@@ -1142,7 +1223,7 @@
         "direction": "away_dc",
         "type": "Double chance",
         "label": "Nul ou Leeds United (X2)",
-        "cote": null,
+        "cote": 2.15,
         "confidence": 78,
         "reasoning": "Leeds United invaincu 80% sur 5 derniers matchs · H2H: 1/1 matchs sans défaite",
         "stats": {
@@ -1153,6 +1234,18 @@
             "L",
             "D"
           ]
+        },
+        "is_fun": false
+      },
+      {
+        "direction": "over25",
+        "type": "Over 2.5 buts",
+        "label": "Plus de 2.5 buts",
+        "cote": 1.57,
+        "confidence": 60,
+        "reasoning": "West Ham United: 1.3 buts/L10 · défense Leeds United concède 1.8/L10 → ~1.6 attendus · Leeds United: 1.1 buts/L10 · défense West Ham United concède 1.7/L10 → ~1.4 attendus · Total: ~3.0 buts (P=57.7%)",
+        "stats": {
+          "form": []
         },
         "is_fun": false
       },
@@ -1237,7 +1330,7 @@
       "direction": "away_dc",
       "type": "Double chance",
       "label": "Nul ou Leeds United (X2)",
-      "cote": null,
+      "cote": 2.15,
       "confidence": 78,
       "reasoning": "Leeds United invaincu 80% sur 5 derniers matchs · H2H: 1/1 matchs sans défaite",
       "stats": {
@@ -2013,7 +2106,7 @@
         "direction": "over25",
         "type": "Over 2.5 buts",
         "label": "Plus de 2.5 buts",
-        "cote": 1.8,
+        "cote": 1.83,
         "confidence": 55,
         "reasoning": "Napoli: 1.8 buts/L10 · défense Udinese concède 1.4/L10 → ~1.6 attendus · Udinese: 1.5 buts/L10 · défense Napoli concède 1.0/L10 → ~1.2 attendus · Total: ~2.9 buts (P=55.4%)",
         "stats": {
@@ -2096,7 +2189,7 @@
       "direction": "over25",
       "type": "Over 2.5 buts",
       "label": "Plus de 2.5 buts",
-      "cote": 1.8,
+      "cote": 1.83,
       "confidence": 55,
       "reasoning": "Napoli: 1.8 buts/L10 · défense Udinese concède 1.4/L10 → ~1.6 attendus · Udinese: 1.5 buts/L10 · défense Napoli concède 1.0/L10 → ~1.2 attendus · Total: ~2.9 buts (P=55.4%)",
       "stats": {
