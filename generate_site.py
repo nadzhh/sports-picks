@@ -6439,7 +6439,7 @@ function renderUserPicks(){{
   window._bkFilterExpand = window._bkFilterExpand || {{status:false, date:false, tipster:false}};
   // Build chip generique : peut avoir une fleche de collapse a gauche (si c'est la summary)
   function _chip(args){{
-    // {id, label, count, color (opt), ic (opt), kind, active, isToggle}
+    // args = id, label, count, color (opt), ic (opt), kind, active, isToggle
     var caret = args.isToggle
       ? '<span style="font-size:9px;opacity:0.8;margin-right:2px">' + (window._bkFilterExpand[args.kind] ? '▴' : '▾') + '</span>'
       : '';
