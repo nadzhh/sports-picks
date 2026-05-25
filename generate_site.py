@@ -5020,6 +5020,9 @@ function _bkOpenManualBetForm(prefill){{
     sport:     prefill.sport     || 'foot',
     event:     prefill.event     || '',
     market:    prefill.market    || '',
+    player:    prefill.player    || '',
+    prop:      prefill.prop      || 'PTS',
+    direction: prefill.direction || 'over',
     line:      prefill.line != null ? String(prefill.line) : '',
     cote:      prefill.cote != null ? String(prefill.cote) : '',
     stake:     prefill.stake != null ? String(prefill.stake) : String(window._bkLastStake || 2),
@@ -5042,9 +5045,16 @@ function _bkOpenManualBetForm(prefill){{
     var st = window._bkManualState;
     var c = parseFloat(String(st.cote).replace(',', '.')) || 0;
     var s = parseFloat(String(st.stake).replace(',', '.')) || 0;
+    var l = parseFloat(String(st.line).replace(',', '.'));
     var pot = s * c;
     var prof = Math.max(0, pot - s);
-    var canSubmit = st.event.trim().length > 0 && st.market.trim().length > 0 && c > 1 && s > 0;
+    var isNba = st.sport === 'nba';
+    var canSubmit;
+    if(isNba){{
+      canSubmit = st.event.trim().length > 0 && st.player.trim().length > 0 && !isNaN(l) && c > 1 && s > 0;
+    }} else {{
+      canSubmit = st.event.trim().length > 0 && st.market.trim().length > 0 && c > 1 && s > 0;
+    }}
 
     var sportChips = SPORTS_LIST.map(function(sp){{
       var active = st.sport === sp.id;
@@ -5070,6 +5080,84 @@ function _bkOpenManualBetForm(prefill){{
         + 'font-weight:700;font-size:12px;cursor:pointer;font-family:inherit">' + o.label + '</button>';
     }}).join('');
 
+    // Champs specifiques selon sport
+    var sportFields = '';
+    if(isNba){{
+      var NBA_PROPS = [
+        {{id:'PTS',  label:'Points'}},
+        {{id:'REB',  label:'Rebonds'}},
+        {{id:'AST',  label:'Passes'}},
+        {{id:'FG3M', label:'3-points'}},
+        {{id:'RA',   label:'Rebonds + Passes'}},
+        {{id:'PR',   label:'Points + Rebonds'}},
+        {{id:'PA',   label:'Points + Passes'}},
+        {{id:'PRA',  label:'Points + Rebonds + Passes'}},
+      ];
+      var propOptions = NBA_PROPS.map(function(p){{
+        var sel = st.prop === p.id ? ' selected' : '';
+        return '<option value="' + p.id + '"' + sel + '>' + p.label + ' (' + p.id + ')</option>';
+      }}).join('');
+      var dirChip = function(id, label, bg, fg){{
+        var active = st.direction === id;
+        return '<button type="button" onclick="_bkManualSet(\\'direction\\', \\'' + id + '\\')" style="'
+          + 'flex:1;padding:10px 0;border-radius:11px;border:1px solid ' + (active ? fg + '88' : 'rgba(255,255,255,0.06)') + ';'
+          + 'background:' + (active ? bg : '#14161B') + ';color:' + (active ? fg : '#94A3B8') + ';'
+          + 'font-weight:700;font-size:13px;cursor:pointer;font-family:inherit">' + label + '</button>';
+      }};
+      sportFields =
+        '<div class="bk-m-grp">'
+        +   '<label class="bk-m-label">Match</label>'
+        +   '<input class="bk-m-input" id="bk-mb-event" value="' + st.event.replace(/"/g, '&quot;') + '" placeholder="Cavaliers @ Knicks">'
+        + '</div>'
+        + '<div class="bk-m-grp" style="margin-top:14px">'
+        +   '<label class="bk-m-label">Joueur</label>'
+        +   '<input class="bk-m-input" id="bk-mb-player" value="' + st.player.replace(/"/g, '&quot;') + '" placeholder="Karl-Anthony Towns">'
+        + '</div>'
+        + '<div class="bk-m-grp" style="margin-top:14px">'
+        +   '<label class="bk-m-label">Type de prop</label>'
+        +   '<select class="bk-m-input" id="bk-mb-prop" style="cursor:pointer">' + propOptions + '</select>'
+        + '</div>'
+        + '<div class="bk-m-grp" style="margin-top:14px">'
+        +   '<label class="bk-m-label">Direction</label>'
+        +   '<div style="display:flex;gap:8px">'
+        +     dirChip('over',  '↑ Plus de',  'rgba(52,211,153,0.16)', '#34D399')
+        +     + dirChip('under', '↓ Moins de', 'rgba(248,113,113,0.16)', '#F87171')
+        +   '</div>'
+        + '</div>'
+        + '<div class="bk-m-row2" style="margin-top:14px">'
+        +   '<div><label class="bk-m-label">Ligne</label>'
+        +     '<input class="bk-m-input" id="bk-mb-line" inputmode="decimal" value="' + st.line + '" placeholder="14.5"></div>'
+        +   '<div><label class="bk-m-label">Cote</label>'
+        +     '<input class="bk-m-input" id="bk-mb-cote" inputmode="decimal" value="' + st.cote + '" placeholder="1.85"></div>'
+        + '</div>'
+        + '<div class="bk-m-grp" style="margin-top:14px">'
+        +   '<label class="bk-m-label">Mise (€)</label>'
+        +   '<input class="bk-m-input" id="bk-mb-stake" inputmode="decimal" value="' + st.stake + '" placeholder="10">'
+        +   '<div class="bk-m-quick">'
+        +     [1, 2, 5, 10, 25].map(function(v){{ return '<button type="button" onclick="_bkManualSetStake(' + v + ')">' + v + '€</button>'; }}).join('')
+        +   '</div>'
+        + '</div>';
+    }} else {{
+      sportFields =
+        '<div class="bk-m-grp">'
+        +   '<label class="bk-m-label">Événement</label>'
+        +   '<input class="bk-m-input" id="bk-mb-event" value="' + st.event.replace(/"/g, '&quot;') + '" placeholder="PSG vs OM, Lakers vs Celtics...">'
+        + '</div>'
+        + '<div class="bk-m-grp" style="margin-top:14px">'
+        +   '<label class="bk-m-label">Type de pari</label>'
+        +   '<input class="bk-m-input" id="bk-mb-market" value="' + st.market.replace(/"/g, '&quot;') + '" placeholder="PSG vainqueur, Over 2.5 buts...">'
+        + '</div>'
+        + '<div class="bk-m-row2" style="margin-top:14px">'
+        +   '<div><label class="bk-m-label">Cote</label>'
+        +     '<input class="bk-m-input" id="bk-mb-cote" inputmode="decimal" value="' + st.cote + '" placeholder="1.85"></div>'
+        +   '<div><label class="bk-m-label">Mise (€)</label>'
+        +     '<input class="bk-m-input" id="bk-mb-stake" inputmode="decimal" value="' + st.stake + '" placeholder="10"></div>'
+        + '</div>'
+        + '<div class="bk-m-quick">'
+        +   [1, 2, 5, 10, 25].map(function(v){{ return '<button type="button" onclick="_bkManualSetStake(' + v + ')">' + v + '€</button>'; }}).join('')
+        + '</div>';
+    }}
+
     var html =
       '<div class="bk-modal-bd" onclick="_bkCloseForm()"></div>'
       + '<div class="bk-modal-card" role="dialog" aria-modal="true">'
@@ -5081,23 +5169,7 @@ function _bkOpenManualBetForm(prefill){{
       +   '<div class="bk-m-body">'
       +     '<label class="bk-m-label">Sport</label>'
       +     '<div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px">' + sportChips + '</div>'
-      +     '<div class="bk-m-grp">'
-      +       '<label class="bk-m-label">Événement</label>'
-      +       '<input class="bk-m-input" id="bk-mb-event" value="' + st.event.replace(/"/g, '&quot;') + '" placeholder="PSG vs OM, Lakers vs Celtics...">'
-      +     '</div>'
-      +     '<div class="bk-m-grp" style="margin-top:14px">'
-      +       '<label class="bk-m-label">Type de pari</label>'
-      +       '<input class="bk-m-input" id="bk-mb-market" value="' + st.market.replace(/"/g, '&quot;') + '" placeholder="PSG vainqueur, Over 2.5 buts, Brunson +25 pts...">'
-      +     '</div>'
-      +     '<div class="bk-m-row2" style="margin-top:14px">'
-      +       '<div><label class="bk-m-label">Cote</label>'
-      +         '<input class="bk-m-input" id="bk-mb-cote" inputmode="decimal" value="' + st.cote + '" placeholder="1.85"></div>'
-      +       '<div><label class="bk-m-label">Mise (€)</label>'
-      +         '<input class="bk-m-input" id="bk-mb-stake" inputmode="decimal" value="' + st.stake + '" placeholder="10"></div>'
-      +     '</div>'
-      +     '<div class="bk-m-quick">'
-      +       [1, 2, 5, 10, 25].map(function(v){{ return '<button type="button" onclick="_bkManualSetStake(' + v + ')">' + v + '€</button>'; }}).join('')
-      +     '</div>'
+      +     sportFields
       +     '<div class="bk-m-grp" style="margin-top:14px">'
       +       '<label class="bk-m-label">Date du match</label>'
       +       '<input class="bk-m-input" id="bk-mb-date" type="date" value="' + st.matchDate + '" max="' + todayStr + '">'
@@ -5143,11 +5215,15 @@ function _bkOpenManualBetForm(prefill){{
     }}
     wire('bk-mb-event', 'event');
     wire('bk-mb-market', 'market');
+    wire('bk-mb-player', 'player');
+    wire('bk-mb-line', 'line');
     wire('bk-mb-cote', 'cote');
     wire('bk-mb-stake', 'stake');
     wire('bk-mb-date', 'matchDate');
     wire('bk-mb-tipster', 'tipster');
     wire('bk-mb-note', 'note');
+    var propSel = byId('bk-mb-prop');
+    if(propSel){{ propSel.addEventListener('change', function(e){{ window._bkManualState.prop = e.target.value; }}); }}
     byId('bk-mb-submit').addEventListener('click', function(){{ _bkManualSubmit(); }});
     setTimeout(function(){{ var el = byId('bk-mb-event'); if(el && !el.value) el.focus(); }}, 120);
   }}
@@ -5186,13 +5262,11 @@ function _bkManualUpdateCalc(){{
 function _bkManualSubmit(){{
   var st = window._bkManualState;
   if(!st) return;
+  var isNba = st.sport === 'nba';
   var event = st.event.trim();
-  var market = st.market.trim();
   var cote = parseFloat(String(st.cote).replace(',', '.'));
   var stake = parseFloat(String(st.stake).replace(',', '.'));
-  var line = st.line ? parseFloat(String(st.line).replace(',', '.')) : null;
-  if(!event){{ alert('Événement requis (ex: PSG vs OM)'); return; }}
-  if(!market){{ alert('Type de pari requis (ex: PSG vainqueur)'); return; }}
+  if(!event){{ alert(isNba ? 'Match requis (ex: Cavaliers @ Knicks)' : 'Événement requis (ex: PSG vs OM)'); return; }}
   if(isNaN(cote) || cote <= 1){{ alert('Cote invalide (> 1.0)'); return; }}
   if(isNaN(stake) || stake <= 0){{ alert('Mise invalide'); return; }}
   var sportCode = String(st.sport || 'OTHER').toUpperCase();
@@ -5201,9 +5275,6 @@ function _bkManualSubmit(){{
     id:          'user_' + Date.now() + '_' + Math.random().toString(36).slice(2, 8),
     sport:       sportCode,
     source:      'manual',
-    event:       event,
-    market:      market,
-    line:        line,
     cote:        cote,
     stake:       stake,
     match_date:  st.matchDate || null,
@@ -5212,9 +5283,36 @@ function _bkManualSubmit(){{
     created:     new Date().toISOString(),
     result:      isResolved ? st.status : null,
     resolved_at: isResolved ? new Date().toISOString() : null,
-    manual_override: isResolved,   // skip auto-resolve
+    manual_override: isResolved,
     actual:      null,
   }};
+  if(isNba){{
+    // Pick NBA structure (player/prop/direction/line) compatible avec _bkRowHtml
+    var player = st.player.trim();
+    var line = parseFloat(String(st.line).replace(',', '.'));
+    if(!player){{ alert('Joueur requis (ex: Karl-Anthony Towns)'); return; }}
+    if(isNaN(line)){{ alert('Ligne invalide (ex: 14.5)'); return; }}
+    // Parse "Cavaliers @ Knicks" -> away="Cavaliers", home="Knicks"
+    var away = '', home = '';
+    var m = event.match(/^(.+?)\\s*@\\s*(.+)$/);
+    if(m){{ away = m[1].trim(); home = m[2].trim(); }}
+    else  {{ home = event; }}
+    pick.player    = player;
+    pick.prop      = st.prop || 'PTS';
+    pick.direction = st.direction || 'over';
+    pick.line      = line;
+    pick.home      = home;
+    pick.away      = away;
+    pick.event     = event;
+  }} else {{
+    // Pick generique (foot/tennis/etc) : event + market texte libre
+    var market = st.market.trim();
+    var lineGen = st.line ? parseFloat(String(st.line).replace(',', '.')) : null;
+    if(!market){{ alert('Type de pari requis (ex: PSG vainqueur)'); return; }}
+    pick.event  = event;
+    pick.market = market;
+    pick.line   = lineGen;
+  }}
   var arr = _loadUserPicks();
   arr.push(pick);
   _saveUserPicks(arr);
@@ -5981,7 +6079,10 @@ function _bkStat(label, value, sub, accent){{
 function _bkRowHtml(p){{
   var stake = (p.stake != null) ? p.stake : 1;
   // Detection : pick manuel (event/market) vs pick NBA (player/prop/direction/line)
-  var isManual = p.source === 'manual' || (!!p.event && !!p.market && !p.player);
+  // Manual = pick generique (foot/tennis/etc avec market texte libre) SAUF si NBA-shape
+  // detecte (player + prop). Les picks NBA manuels gardent le rendu NBA-style.
+  var hasNbaShape = !!(p.player && p.prop && p.direction);
+  var isManual = !hasNbaShape && (p.source === 'manual' || (!!p.event && !!p.market));
   var title, match, sportIcon;
   if(isManual){{
     title = (p.market || '?').replace(/</g, '&lt;');
@@ -6077,10 +6178,19 @@ function setBkPeriod(p){{
 function setBkFilter(kind, value){{
   window._bkFilters = window._bkFilters || {{status:'all', tipster:'all', date:'all'}};
   window._bkFilters[kind] = value;
+  // Garde la section depliee quand on selectionne un filtre non-default
+  window._bkFilterExpand = window._bkFilterExpand || {{status:false, date:false, tipster:false}};
+  if(value !== 'all') window._bkFilterExpand[kind] = true;
+  renderUserPicks();
+}}
+function _bkToggleFilterExpand(kind){{
+  window._bkFilterExpand = window._bkFilterExpand || {{status:false, date:false, tipster:false}};
+  window._bkFilterExpand[kind] = !window._bkFilterExpand[kind];
   renderUserPicks();
 }}
 function resetBkFilters(){{
   window._bkFilters = {{status:'all', tipster:'all', date:'all'}};
+  window._bkFilterExpand = {{status:false, date:false, tipster:false}};
   renderUserPicks();
 }}
 // Toggle expand/collapse de listes ("Paris en cours" / "Historique")
@@ -6325,7 +6435,53 @@ function renderUserPicks(){{
     if(!_bkPickInDateRange(p, fDate)) return false;
     return true;
   }});
-  // Build status filter chips
+  // State expand/collapse des 3 sections de filtres (par defaut collapsed)
+  window._bkFilterExpand = window._bkFilterExpand || {{status:false, date:false, tipster:false}};
+  // Build chip generique : peut avoir une fleche de collapse a gauche (si c'est la summary)
+  function _chip(args){{
+    // {id, label, count, color (opt), ic (opt), kind, active, isToggle}
+    var caret = args.isToggle
+      ? '<span style="font-size:9px;opacity:0.8;margin-right:2px">' + (window._bkFilterExpand[args.kind] ? '▴' : '▾') + '</span>'
+      : '';
+    var dot = args.color ? '<span class="dot" style="background:' + args.color + '"></span>' : '';
+    var ic = args.ic ? '<span style="font-size:13px">' + args.ic + '</span>' : '';
+    var labelHtml = args.maxWidth
+      ? '<span style="max-width:' + args.maxWidth + 'px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">' + args.label + '</span>'
+      : args.label;
+    var onclick = args.isToggle
+      ? '_bkToggleFilterExpand(\\'' + args.kind + '\\')'
+      : 'setBkFilter(\\'' + args.kind + '\\', \\'' + String(args.id).replace(/'/g, "\\\\'") + '\\')';
+    var title = args.title ? ' title="' + args.title + '"' : '';
+    return '<button class="bk-filter-chip ' + (args.active ? 'active' : '') + '" onclick="' + onclick + '"' + title + '>'
+      + caret + dot + ic + labelHtml
+      + (args.count != null ? '<span class="count">' + args.count + '</span>' : '')
+      + '</button>';
+  }}
+  function _buildFilterRow(defs, kind, currentFilter){{
+    var expanded = window._bkFilterExpand[kind];
+    var activeDef = null;
+    for(var i = 0; i < defs.length; i++){{ if(defs[i].id === currentFilter){{ activeDef = defs[i]; break; }} }}
+    if(!activeDef) activeDef = defs[0];
+    if(!expanded){{
+      // Collapsed : montre uniquement la chip active avec fleche ▾
+      return _chip({{
+        id: activeDef.id, label: activeDef.label, count: activeDef.count,
+        color: activeDef.color, ic: activeDef.ic, kind: kind,
+        active: true, isToggle: true, maxWidth: activeDef.maxWidth, title: activeDef.title
+      }});
+    }}
+    // Expanded : montre toutes les chips, l'active a la fleche pour collapse
+    return defs.map(function(d){{
+      var isActive = d.id === currentFilter;
+      return _chip({{
+        id: d.id, label: d.label, count: d.count,
+        color: d.color, ic: d.ic, kind: kind,
+        active: isActive, isToggle: isActive, maxWidth: d.maxWidth, title: d.title
+      }});
+    }}).join('');
+  }}
+
+  // Status defs
   var statusDefs = [
     {{id:'all',     label:'Tous',     count:cntAll}},
     {{id:'pending', label:'En cours', count:cntPending, color:'#FBBF24'}},
@@ -6333,15 +6489,9 @@ function renderUserPicks(){{
     {{id:'lost',    label:'Perdus',   count:cntLost,    color:'#F87171'}},
     {{id:'push',    label:'Annulés',  count:cntPush,    color:'#94A3B8'}},
   ];
-  var statusChips = statusDefs.map(function(f){{
-    var active = fStatus === f.id;
-    return '<button class="bk-filter-chip ' + (active ? 'active' : '') + '" onclick="setBkFilter(\\'status\\', \\'' + f.id + '\\')">'
-      + (f.color ? '<span class="dot" style="background:' + f.color + '"></span>' : '')
-      + f.label
-      + '<span class="count">' + f.count + '</span>'
-      + '</button>';
-  }}).join('');
-  // Build date filter chips
+  var statusChips = _buildFilterRow(statusDefs, 'status', fStatus);
+
+  // Date defs
   var dateDefs = [
     {{id:'all',       label:'Toutes dates',  count:cntAll,       ic:'📅'}},
     {{id:'today',     label:"Aujourd'hui",   count:cntToday,     ic:'🟢'}},
@@ -6349,29 +6499,22 @@ function renderUserPicks(){{
     {{id:'7d',        label:'7 derniers j.', count:cnt7d,        ic:'📆'}},
     {{id:'30d',       label:'30 derniers j.',count:cnt30d,       ic:'📚'}},
   ];
-  var dateChips = dateDefs.map(function(f){{
-    var active = fDate === f.id;
-    return '<button class="bk-filter-chip ' + (active ? 'active' : '') + '" onclick="setBkFilter(\\'date\\', \\'' + f.id + '\\')">'
-      + '<span style="font-size:13px">' + f.ic + '</span>'
-      + f.label
-      + '<span class="count">' + f.count + '</span>'
-      + '</button>';
-  }}).join('');
-  // Build tipster filter chips
-  var tipsterChips = '<button class="bk-filter-chip ' + (fTipster === 'all' ? 'active' : '') + '" onclick="setBkFilter(\\'tipster\\', \\'all\\')">'
-    + '<span style="font-size:13px">👥</span>Tous tipsters<span class="count">' + tipsterList.length + '</span>'
-    + '</button>';
-  tipsterChips += tipsterList.map(function(t){{
-    var active = fTipster === t;
+  var dateChips = _buildFilterRow(dateDefs, 'date', fDate);
+
+  // Tipster defs (avec virtual "all" + chaque tipster)
+  var tipsterDefs = [{{id:'all', label:'Tous tipsters', count:tipsterList.length, ic:'👥'}}];
+  tipsterList.forEach(function(t){{
     var isNone = t === '∅ Sans tipster';
-    var ic = isNone ? '∅' : '👤';
-    var tEsc = t.replace(/'/g, "\\\\'").replace(/"/g, '&quot;');
-    return '<button class="bk-filter-chip ' + (active ? 'active' : '') + '" onclick="setBkFilter(\\'tipster\\', \\'' + tEsc + '\\')" title="' + t + '">'
-      + '<span style="font-size:13px">' + ic + '</span>'
-      + '<span style="max-width:120px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">' + (isNone ? 'Sans tipster' : t) + '</span>'
-      + '<span class="count">' + tipsterCounts[t] + '</span>'
-      + '</button>';
-  }}).join('');
+    tipsterDefs.push({{
+      id: t,
+      label: isNone ? 'Sans tipster' : t,
+      count: tipsterCounts[t],
+      ic: isNone ? '∅' : '👤',
+      maxWidth: 120,
+      title: t,
+    }});
+  }});
+  var tipsterChips = _buildFilterRow(tipsterDefs, 'tipster', fTipster);
   var resetBtn = (fStatus !== 'all' || fTipster !== 'all' || fDate !== 'all')
     ? '<button class="bk-filter-reset" onclick="resetBkFilters()">Réinitialiser ✕</button>'
     : '';
