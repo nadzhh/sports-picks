@@ -3116,49 +3116,49 @@ def build_html(matches, team_ai, player_ai, pstats_data, nba_picks=None, nba_his
     except Exception as _e:
         print(f"  ⚠️ Impossible d'ecrire nba_box_scores_min.json: {_e}")
 
-    # NBA recent games (matchs finis depuis 1 a 3 jours, heure Paris) pour
-    # le formulaire manuel d'ajout de pari NBA. On compare l'heure de fin de
-    # match (resolved_at, en UTC server) convertie en Paris vs la date Paris
-    # actuelle. Un match d'hier nuit Paris (qui finit 02h UTC) reste exclu jusqu'a
-    # minuit Paris ; il apparait le lendemain.
+    # NBA recent games pour le wizard d'ajout de pari NBA.
+    # Filtre base sur les HEURES ECOULEES depuis la fin du match :
+    #   - >= 30 min apres fin (le temps que les box scores se stabilisent)
+    #   - <= 60 h (2.5 jours, on ne montre pas les matchs trop vieux)
+    # On envoie aussi end_iso au client pour qu'il calcule "Il y a Xh" / "Hier" /
+    # "Avant-hier" precisemment selon son fuseau horaire local.
     from datetime import datetime as _dt2, timezone as _tz2, timedelta as _td2
     try:
         from zoneinfo import ZoneInfo as _ZI2
         _PARIS_TZ = _ZI2("Europe/Paris")
     except ImportError:
         _PARIS_TZ = _tz2(_td2(hours=2))   # fallback CEST approx
-    _paris_now = _dt2.now(_tz2.utc).astimezone(_PARIS_TZ)
-    _paris_today = _paris_now.date()
+    _now_utc = _dt2.now(_tz2.utc)
     nba_recent = {}
     for _p in (nba_history or {}).get("picks", []):
         _gid = str(_p.get("game_id") or "")
         if not _gid or _gid in nba_recent: continue
         # Heure de fin du match : resolved_at (UTC server time) en priorite
         _ra = _p.get("resolved_at") or ""
-        _end_paris = None
+        _end_utc = None
         if _ra:
             try:
                 _end_utc = _dt2.strptime(_ra, "%Y-%m-%d %H:%M").replace(tzinfo=_tz2.utc)
-                _end_paris = _end_utc.astimezone(_PARIS_TZ)
             except Exception:
                 pass
-        if _end_paris is None:
-            # Fallback : date du match en Paris (fin de journee 23:59)
+        if _end_utc is None:
+            # Fallback : date du match (assume fin de journee 23:00 UTC)
             _ds = (_p.get("date") or "")[:10]
             if not _ds: continue
             try:
-                _end_paris = _dt2.fromisoformat(_ds).replace(tzinfo=_PARIS_TZ, hour=23, minute=59)
+                _end_utc = _dt2.fromisoformat(_ds).replace(tzinfo=_tz2.utc, hour=23, minute=0)
             except Exception:
                 continue
-        _end_date_paris = _end_paris.date()
-        _age_days = (_paris_today - _end_date_paris).days
-        # Uniquement HIER (age=1) et AVANT-HIER (age=2) — exclus aujourd'hui (0)
-        # et tout ce qui est plus vieux que 2 jours (= trop tard pour ajouter retro).
-        if _age_days < 1 or _age_days > 2: continue
+        _hours_ago = (_now_utc - _end_utc).total_seconds() / 3600.0
+        # 30 min minimum (laisser le temps au resolver), 60h max (2.5 jours)
+        if _hours_ago < 0.5 or _hours_ago > 60.0:
+            continue
+        _end_paris = _end_utc.astimezone(_PARIS_TZ)
         nba_recent[_gid] = {
-            "date":    _end_date_paris.isoformat(),
-            "matchup": _p.get("matchup") or "",
-            "players": nba_box_scores.get(_gid, {}) or {},
+            "date":      _end_paris.date().isoformat(),
+            "end_iso":   _end_utc.isoformat(),    # ISO UTC, le client calcule "Il y a Xh"
+            "matchup":   _p.get("matchup") or "",
+            "players":   nba_box_scores.get(_gid, {}) or {},
         }
     # Drop games sans box score (impossible auto-detect dessus)
     nba_recent = {_k: _v for _k, _v in nba_recent.items() if _v.get("players")}
@@ -5145,29 +5145,45 @@ function _bkOpenManualBetForm(prefill){{
           + 'Aucun match récent disponible (les box scores des matchs des 48 dernières heures se mettent à jour automatiquement après chaque cron run).'
           + '</div>';
       }} else {{
-        // Aujourd'hui Paris pour calculer "Hier / Avant-hier" cote client
-        var _todayP = new Date();
-        var _yyyymmddP = function(d){{ return d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0') + '-' + String(d.getDate()).padStart(2,'0'); }};
-        var _todayStr2 = _yyyymmddP(_todayP);
-        var _yest = new Date(_todayP); _yest.setDate(_yest.getDate() - 1);
-        var _yestStr = _yyyymmddP(_yest);
-        var _bef = new Date(_todayP); _bef.setDate(_bef.getDate() - 2);
-        var _befStr = _yyyymmddP(_bef);
+        // Label relatif depuis l'heure de fin (heure locale du browser)
+        var _nowMs = Date.now();
+        var _zPad = function(n){{ return String(n).padStart(2, '0'); }};
+        var _localDayStr = function(d){{ return d.getFullYear() + '-' + _zPad(d.getMonth()+1) + '-' + _zPad(d.getDate()); }};
+        var _todayLocal = new Date();
+        var _yestLocal = new Date(_todayLocal); _yestLocal.setDate(_yestLocal.getDate() - 1);
+        var _befLocal  = new Date(_todayLocal); _befLocal.setDate(_befLocal.getDate() - 2);
+        var _todayKey = _localDayStr(_todayLocal);
+        var _yestKey  = _localDayStr(_yestLocal);
+        var _befKey   = _localDayStr(_befLocal);
+        function _matchLabel(endIso, dateFallback){{
+          if(endIso){{
+            var endDate = new Date(endIso);
+            if(!isNaN(endDate.getTime())){{
+              var hoursAgo = (_nowMs - endDate.getTime()) / 3600000;
+              var dayKey = _localDayStr(endDate);
+              if(dayKey === _todayKey){{
+                if(hoursAgo < 12) return 'Cette nuit (il y a ' + Math.floor(Math.max(1, hoursAgo)) + 'h)';
+                return 'Ce matin (il y a ' + Math.floor(hoursAgo) + 'h)';
+              }}
+              if(dayKey === _yestKey) return 'Hier (il y a ' + Math.floor(hoursAgo) + 'h)';
+              if(dayKey === _befKey)  return 'Avant-hier (il y a ' + Math.floor(hoursAgo) + 'h)';
+              return _bkFmtDateShort(dayKey);
+            }}
+          }}
+          return _bkFmtDateShort(dateFallback || '');
+        }}
         matchCards = '<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:8px;margin-bottom:6px">'
           + gameIds.map(function(gid){{
               var g = games[gid];
               var active = st.selectedGameId === gid;
-              var dateRaw = g.date || '';
-              var dayLabel = dateRaw === _yestStr ? 'Hier'
-                           : dateRaw === _befStr ? 'Avant-hier'
-                           : _bkFmtDateShort(dateRaw);
+              var dayLabel = _matchLabel(g.end_iso, g.date);
               var nPlayers = Object.keys(g.players || {{}}).length;
               return '<button type="button" onclick="_bkManualPickGame(\\'' + gid + '\\')" style="'
                 + 'display:flex;flex-direction:column;gap:4px;padding:11px 13px;border-radius:12px;'
                 + 'border:1px solid ' + (active ? '#34D399' : 'rgba(255,255,255,0.07)') + ';'
                 + 'background:' + (active ? 'rgba(52,211,153,0.10)' : '#14161B') + ';'
                 + 'color:#fff;cursor:pointer;font-family:inherit;text-align:left;font-size:13px">'
-                + '<div style="font-size:11px;color:#FBBF24;font-weight:700">📅 ' + dayLabel + ' <span style="color:#94A3B8;font-weight:500">' + _bkFmtDateShort(dateRaw) + '</span></div>'
+                + '<div style="font-size:11px;color:#FBBF24;font-weight:700">📅 ' + dayLabel + '</div>'
                 + '<div style="font-weight:600">' + (g.matchup || '?') + '</div>'
                 + '<div style="font-size:11px;color:#94A3B8">' + nPlayers + ' joueurs</div>'
                 + '</button>';
@@ -5274,7 +5290,7 @@ function _bkOpenManualBetForm(prefill){{
         }}
       }}
       sportFields =
-        '<label class="bk-m-label">Match (hier ou avant-hier)</label>'
+        '<label class="bk-m-label">Match (matchs terminés depuis &lt; 60h)</label>'
         + matchCards
         + playerStepHtml
         + pickStepHtml
