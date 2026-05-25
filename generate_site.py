@@ -5009,6 +5009,224 @@ function _bkSetStake(v){{
   if(el) el.value = String(v);
   _bkFormUpdateCalc();
 }}
+// ── Formulaire "Ajouter un pari manuel" (sport libre, date au choix) ────
+// Pour les paris places sur le bookmaker en dehors de l'algo : foot, NBA,
+// tennis... peu importe la date du match (jusqu'a plusieurs jours en arriere).
+function _bkOpenManualBetForm(prefill){{
+  prefill = prefill || {{}};
+  var root = _bkEnsureModalRoot();
+  var todayStr = new Date().toISOString().slice(0, 10);
+  window._bkManualState = {{
+    sport:     prefill.sport     || 'foot',
+    event:     prefill.event     || '',
+    market:    prefill.market    || '',
+    line:      prefill.line != null ? String(prefill.line) : '',
+    cote:      prefill.cote != null ? String(prefill.cote) : '',
+    stake:     prefill.stake != null ? String(prefill.stake) : String(window._bkLastStake || 2),
+    matchDate: prefill.matchDate || todayStr,
+    status:    prefill.status    || 'PENDING',
+    tipster:   prefill.tipster   || (window._bkLastTipster || ''),
+    note:      prefill.note      || '',
+  }};
+  var SPORTS_LIST = [
+    {{id:'foot',   label:'Football', emoji:'⚽'}},
+    {{id:'nba',    label:'Basket',   emoji:'🏀'}},
+    {{id:'tennis', label:'Tennis',   emoji:'🎾'}},
+    {{id:'rugby',  label:'Rugby',    emoji:'🏉'}},
+    {{id:'mma',    label:'MMA',      emoji:'🥊'}},
+    {{id:'nfl',    label:'NFL',      emoji:'🏈'}},
+    {{id:'f1',     label:'F1',       emoji:'🏎️'}},
+    {{id:'other',  label:'Autre',    emoji:'🎲'}},
+  ];
+  function render(){{
+    var st = window._bkManualState;
+    var c = parseFloat(String(st.cote).replace(',', '.')) || 0;
+    var s = parseFloat(String(st.stake).replace(',', '.')) || 0;
+    var pot = s * c;
+    var prof = Math.max(0, pot - s);
+    var canSubmit = st.event.trim().length > 0 && st.market.trim().length > 0 && c > 1 && s > 0;
+
+    var sportChips = SPORTS_LIST.map(function(sp){{
+      var active = st.sport === sp.id;
+      return '<button type="button" onclick="_bkManualSet(\\'sport\\', \\'' + sp.id + '\\')" style="'
+        + 'display:inline-flex;align-items:center;gap:6px;padding:7px 12px;border-radius:999px;'
+        + 'background:' + (active ? 'rgba(52,211,153,0.16)' : '#14161B') + ';'
+        + 'border:1px solid ' + (active ? 'rgba(52,211,153,0.4)' : 'rgba(255,255,255,0.08)') + ';'
+        + 'color:' + (active ? '#34D399' : '#cbd5e1') + ';font-size:12.5px;font-weight:600;cursor:pointer;font-family:inherit">'
+        + '<span style="font-size:14px">' + sp.emoji + '</span>' + sp.label + '</button>';
+    }}).join('');
+
+    var STATUSES = [
+      {{id:'PENDING', label:'⏱ En cours',  bg:'rgba(251,191,36,0.16)', fg:'#FBBF24'}},
+      {{id:'WIN',     label:'✓ Gagné',     bg:'rgba(52,211,153,0.16)', fg:'#34D399'}},
+      {{id:'LOSS',    label:'✕ Perdu',     bg:'rgba(248,113,113,0.16)', fg:'#F87171'}},
+      {{id:'PUSH',    label:'↻ Annulé',    bg:'rgba(148,163,184,0.16)', fg:'#94A3B8'}},
+    ];
+    var statusBtns = STATUSES.map(function(o){{
+      var active = st.status === o.id;
+      return '<button type="button" onclick="_bkManualSet(\\'status\\', \\'' + o.id + '\\')" style="'
+        + 'padding:9px 4px;border-radius:11px;border:1px solid ' + (active ? o.fg + '88' : 'rgba(255,255,255,0.06)') + ';'
+        + 'background:' + (active ? o.bg : '#14161B') + ';color:' + (active ? o.fg : '#94A3B8') + ';'
+        + 'font-weight:700;font-size:12px;cursor:pointer;font-family:inherit">' + o.label + '</button>';
+    }}).join('');
+
+    var html =
+      '<div class="bk-modal-bd" onclick="_bkCloseForm()"></div>'
+      + '<div class="bk-modal-card" role="dialog" aria-modal="true">'
+      +   '<div class="bk-m-hd">'
+      +     '<button class="bk-m-cancel" onclick="_bkCloseForm()">Annuler</button>'
+      +     '<div class="bk-m-title">Ajouter un pari</div>'
+      +     '<div style="width:64px"></div>'
+      +   '</div>'
+      +   '<div class="bk-m-body">'
+      +     '<label class="bk-m-label">Sport</label>'
+      +     '<div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px">' + sportChips + '</div>'
+      +     '<div class="bk-m-grp">'
+      +       '<label class="bk-m-label">Événement</label>'
+      +       '<input class="bk-m-input" id="bk-mb-event" value="' + st.event.replace(/"/g, '&quot;') + '" placeholder="PSG vs OM, Lakers vs Celtics...">'
+      +     '</div>'
+      +     '<div class="bk-m-grp" style="margin-top:14px">'
+      +       '<label class="bk-m-label">Type de pari</label>'
+      +       '<input class="bk-m-input" id="bk-mb-market" value="' + st.market.replace(/"/g, '&quot;') + '" placeholder="PSG vainqueur, Over 2.5 buts, Brunson +25 pts...">'
+      +     '</div>'
+      +     '<div class="bk-m-row2" style="margin-top:14px">'
+      +       '<div><label class="bk-m-label">Cote</label>'
+      +         '<input class="bk-m-input" id="bk-mb-cote" inputmode="decimal" value="' + st.cote + '" placeholder="1.85"></div>'
+      +       '<div><label class="bk-m-label">Mise (€)</label>'
+      +         '<input class="bk-m-input" id="bk-mb-stake" inputmode="decimal" value="' + st.stake + '" placeholder="10"></div>'
+      +     '</div>'
+      +     '<div class="bk-m-quick">'
+      +       [1, 2, 5, 10, 25].map(function(v){{ return '<button type="button" onclick="_bkManualSetStake(' + v + ')">' + v + '€</button>'; }}).join('')
+      +     '</div>'
+      +     '<div class="bk-m-grp" style="margin-top:14px">'
+      +       '<label class="bk-m-label">Date du match</label>'
+      +       '<input class="bk-m-input" id="bk-mb-date" type="date" value="' + st.matchDate + '" max="' + todayStr + '">'
+      +       '<div style="color:#8B8D98;font-size:11px;margin-top:4px">Tu peux saisir un pari pour un match passé (jusqu\\'à plusieurs jours en arrière).</div>'
+      +     '</div>'
+      +     '<div class="bk-m-grp" style="margin-top:14px">'
+      +       '<label class="bk-m-label">Statut</label>'
+      +       '<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:6px">' + statusBtns + '</div>'
+      +     '</div>'
+      +     '<div class="bk-m-grp" style="margin-top:14px">'
+      +       '<label class="bk-m-label">Tipster<span class="opt">· facultatif</span></label>'
+      +       '<input class="bk-m-input" id="bk-mb-tipster" value="' + st.tipster.replace(/"/g, '&quot;') + '" placeholder="@PronoKing, instinct, Algo...">'
+      +     '</div>'
+      +     '<div class="bk-m-grp" style="margin-top:14px">'
+      +       '<label class="bk-m-label">Note<span class="opt">· facultatif</span></label>'
+      +       '<textarea class="bk-m-input" id="bk-mb-note" rows="2" placeholder="Pourquoi ce pari ?">' + st.note.replace(/</g, '&lt;') + '</textarea>'
+      +     '</div>'
+      +     '<div class="bk-m-potential">'
+      +       '<div>'
+      +         '<div class="bk-m-pot-l">Gain potentiel</div>'
+      +         '<span class="bk-m-pot-big" id="bk-mb-pot">€' + pot.toFixed(2) + '</span>'
+      +       '</div>'
+      +       '<div style="text-align:right">'
+      +         '<div class="bk-m-pot-l">Bénéfice</div>'
+      +         '<span class="bk-m-pot-prof" id="bk-mb-prof">+€' + prof.toFixed(2) + '</span>'
+      +       '</div>'
+      +     '</div>'
+      +   '</div>'
+      +   '<div class="bk-m-ft">'
+      +     '<button class="bk-m-cta" id="bk-mb-submit"' + (canSubmit ? '' : ' disabled') + '>Enregistrer le pari</button>'
+      +   '</div>'
+      + '</div>';
+    root.innerHTML = html;
+    setTimeout(function(){{ root.classList.add('open'); }}, 10);
+    // Wire les inputs (sans re-render pour ne pas perdre le focus)
+    var byId = function(id){{ return document.getElementById(id); }};
+    function wire(id, key){{
+      var el = byId(id); if(!el) return;
+      el.addEventListener('input', function(e){{
+        window._bkManualState[key] = e.target.value;
+        if(key === 'cote' || key === 'stake') _bkManualUpdateCalc();
+      }});
+    }}
+    wire('bk-mb-event', 'event');
+    wire('bk-mb-market', 'market');
+    wire('bk-mb-cote', 'cote');
+    wire('bk-mb-stake', 'stake');
+    wire('bk-mb-date', 'matchDate');
+    wire('bk-mb-tipster', 'tipster');
+    wire('bk-mb-note', 'note');
+    byId('bk-mb-submit').addEventListener('click', function(){{ _bkManualSubmit(); }});
+    setTimeout(function(){{ var el = byId('bk-mb-event'); if(el && !el.value) el.focus(); }}, 120);
+  }}
+  window._bkManualRender = render;
+  render();
+  window._bkFormEscHandler = function(e){{ if(e.key === 'Escape') _bkCloseForm(); }};
+  document.addEventListener('keydown', window._bkFormEscHandler);
+}}
+function _bkManualSet(key, val){{
+  if(!window._bkManualState) return;
+  window._bkManualState[key] = val;
+  if(window._bkManualRender) window._bkManualRender();
+}}
+function _bkManualSetStake(v){{
+  if(!window._bkManualState) return;
+  window._bkManualState.stake = String(v);
+  var el = document.getElementById('bk-mb-stake');
+  if(el) el.value = String(v);
+  _bkManualUpdateCalc();
+}}
+function _bkManualUpdateCalc(){{
+  var st = window._bkManualState;
+  if(!st) return;
+  var c = parseFloat(String(st.cote).replace(',', '.')) || 0;
+  var s = parseFloat(String(st.stake).replace(',', '.')) || 0;
+  var pot = s * c;
+  var prof = Math.max(0, pot - s);
+  var canSubmit = st.event.trim().length > 0 && st.market.trim().length > 0 && c > 1 && s > 0;
+  var potEl  = document.getElementById('bk-mb-pot');
+  var profEl = document.getElementById('bk-mb-prof');
+  var btn    = document.getElementById('bk-mb-submit');
+  if(potEl)  potEl.textContent = '€' + pot.toFixed(2);
+  if(profEl) profEl.textContent = '+€' + prof.toFixed(2);
+  if(btn) btn.disabled = !canSubmit;
+}}
+function _bkManualSubmit(){{
+  var st = window._bkManualState;
+  if(!st) return;
+  var event = st.event.trim();
+  var market = st.market.trim();
+  var cote = parseFloat(String(st.cote).replace(',', '.'));
+  var stake = parseFloat(String(st.stake).replace(',', '.'));
+  var line = st.line ? parseFloat(String(st.line).replace(',', '.')) : null;
+  if(!event){{ alert('Événement requis (ex: PSG vs OM)'); return; }}
+  if(!market){{ alert('Type de pari requis (ex: PSG vainqueur)'); return; }}
+  if(isNaN(cote) || cote <= 1){{ alert('Cote invalide (> 1.0)'); return; }}
+  if(isNaN(stake) || stake <= 0){{ alert('Mise invalide'); return; }}
+  var sportCode = String(st.sport || 'OTHER').toUpperCase();
+  var isResolved = st.status === 'WIN' || st.status === 'LOSS' || st.status === 'PUSH';
+  var pick = {{
+    id:          'user_' + Date.now() + '_' + Math.random().toString(36).slice(2, 8),
+    sport:       sportCode,
+    source:      'manual',
+    event:       event,
+    market:      market,
+    line:        line,
+    cote:        cote,
+    stake:       stake,
+    match_date:  st.matchDate || null,
+    tipster:     st.tipster.trim() || null,
+    note:        st.note.trim() || null,
+    created:     new Date().toISOString(),
+    result:      isResolved ? st.status : null,
+    resolved_at: isResolved ? new Date().toISOString() : null,
+    manual_override: isResolved,   // skip auto-resolve
+    actual:      null,
+  }};
+  var arr = _loadUserPicks();
+  arr.push(pick);
+  _saveUserPicks(arr);
+  if(stake) window._bkLastStake = stake;
+  if(st.tipster.trim()){{
+    window._bkLastTipster = st.tipster.trim();
+    _bkAddTipster(st.tipster.trim());
+  }}
+  _bkCloseForm();
+  if(typeof renderUserPicks === 'function') renderUserPicks();
+}}
+
 function _bkOpenForm(opts){{
   // opts = {{ direction, payload, onSubmit }}
   var root = _bkEnsureModalRoot();
@@ -5762,9 +5980,22 @@ function _bkStat(label, value, sub, accent){{
 }}
 function _bkRowHtml(p){{
   var stake = (p.stake != null) ? p.stake : 1;
-  var propLabel = ({{PTS:'pts',REB:'reb',AST:'pas',FG3M:'3PM',RA:'reb+pas',PR:'pts+reb',PA:'pts+ast',PRA:'PRA'}})[p.prop] || p.prop;
-  var dir = p.direction === 'over' ? 'plus de' : 'moins de';
-  var title = p.player + ' ' + dir + ' ' + p.line + ' ' + propLabel;
+  // Detection : pick manuel (event/market) vs pick NBA (player/prop/direction/line)
+  var isManual = p.source === 'manual' || (!!p.event && !!p.market && !p.player);
+  var title, match, sportIcon;
+  if(isManual){{
+    title = (p.market || '?').replace(/</g, '&lt;');
+    if(p.line != null && p.line !== '') title += ' ' + p.line;
+    match = (p.event || '').replace(/</g, '&lt;');
+    var SPORT_EMOJI = {{FOOT:'⚽', NBA:'🏀', TENNIS:'🎾', RUGBY:'🏉', MMA:'🥊', NFL:'🏈', F1:'🏎️', OTHER:'🎲'}};
+    sportIcon = SPORT_EMOJI[(p.sport || 'OTHER').toUpperCase()] || '🎲';
+  }} else {{
+    var propLabel = ({{PTS:'pts',REB:'reb',AST:'pas',FG3M:'3PM',RA:'reb+pas',PR:'pts+reb',PA:'pts+ast',PRA:'PRA'}})[p.prop] || p.prop;
+    var dir = p.direction === 'over' ? 'plus de' : 'moins de';
+    title = (p.player || '?') + ' ' + dir + ' ' + p.line + ' ' + propLabel;
+    match = (p.away || '') + ' @ ' + (p.home || '');
+    sportIcon = '🏀';
+  }}
   // Affiche la stat reelle si dispo (apres resolution) — ex "→ réel 17"
   if(p.actual !== null && p.actual !== undefined){{
     var actNum = parseFloat(p.actual);
@@ -5772,7 +6003,6 @@ function _bkRowHtml(p){{
     var actClr = p.result === 'WIN' ? '#34D399' : (p.result === 'LOSS' ? '#F87171' : '#94A3B8');
     title += ' <span style="color:' + actClr + ';font-weight:700">→ réel ' + actStr + '</span>';
   }}
-  var match = (p.away || '') + ' @ ' + (p.home || '');
   var badge = '';
   if(!p.result || p.result === 'PENDING'){{
     badge = '<span class="bk-badge pending"><span class="dot"></span>En cours</span>';
@@ -5825,7 +6055,7 @@ function _bkRowHtml(p){{
     dateHtml = '<span class="dot">·</span><span style="color:#fbbf24;font-weight:600" title="Date du match">📅 ' + pretty + '</span>';
   }}
   return '<div class="bk-row">'
-    + '<div class="bk-row-icon">🏀</div>'
+    + '<div class="bk-row-icon">' + sportIcon + '</div>'
     + '<div class="bk-row-main">'
     + '<div class="bk-row-title">' + title + '</div>'
     + '<div class="bk-row-sub"><span>' + match + '</span>' + dateHtml + '<span class="dot">·</span>' + coteChip
@@ -5977,8 +6207,11 @@ function renderUserPicks(){{
     +   '<div class="bk-hero-meta">' + todayHtml + '</div>'
     + '</div>'
     + '<div class="bk-hero-right">'
-    +   '<button class="bk-btn bk-btn-ghost" onclick="editBankroll()" title="Modifier le bankroll initial">⚙ ' + bk.toFixed(0) + ' € initial</button>'
-    +   '<div style="font-size:12px;font-variant-numeric:tabular-nums;color:' + totalCls + ';font-weight:600">'
+    +   '<div style="display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end">'
+    +     '<button class="bk-btn" onclick="_bkOpenManualBetForm()" title="Ajouter un pari manuellement (passe ou recent)" style="background:linear-gradient(180deg,#34D399,#10B981);color:#06120E;border:none;font-weight:700;box-shadow:0 4px 12px rgba(52,211,153,0.25)">➕ Ajouter un pari</button>'
+    +     '<button class="bk-btn bk-btn-ghost" onclick="editBankroll()" title="Modifier le bankroll initial">⚙ ' + bk.toFixed(0) + ' € initial</button>'
+    +   '</div>'
+    +   '<div style="font-size:12px;font-variant-numeric:tabular-nums;color:' + totalCls + ';font-weight:600;margin-top:6px">'
     +     totalSign + _bkFmt(Math.abs(totalProfit)) + ' € · ' + (bkPct >= 0 ? '+' : '−') + Math.abs(bkPct).toFixed(2) + '% au total'
     +   '</div>'
     + '</div>'
