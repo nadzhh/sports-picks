@@ -414,28 +414,32 @@ def player_props(player, ctx=None, real_lines=None, match_ctx=None):
                 mu = mu * 1.04  # 4% boost
 
         # Hit rate sur L20 brut (non-ajuste) pour blending
-        return mu, sigma, l5_mean, l10_mean, l20_vals, h2h_mean, venue_mean, len(h2h_vals), len(venue_vals)
+        # On retourne aussi h2h_vals/venue_vals pour pouvoir calculer le hit rate
+        # AU NIVEAU DE LA LIGNE plus tard (signal venue/H2H, inspire analyse Twitter pro)
+        return mu, sigma, l5_mean, l10_mean, l20_vals, h2h_mean, venue_mean, len(h2h_vals), len(venue_vals), h2h_vals, venue_vals
 
-    pts_mu, pts_sd, pts_l5, pts_l10, pts_vals, pts_h2h, pts_ven, pts_nh, pts_nv  = stats_for(lambda g: g.get("PTS",0) or 0,  season.get("PTS"),  "PTS")
-    reb_mu, reb_sd, reb_l5, reb_l10, reb_vals, reb_h2h, reb_ven, reb_nh, reb_nv  = stats_for(lambda g: g.get("REB",0) or 0,  season.get("REB"),  "REB")
-    ast_mu, ast_sd, ast_l5, ast_l10, ast_vals, ast_h2h, ast_ven, ast_nh, ast_nv  = stats_for(lambda g: g.get("AST",0) or 0,  season.get("AST"),  "AST")
-    fg3_mu, fg3_sd, fg3_l5, fg3_l10, fg3_vals, fg3_h2h, fg3_ven, fg3_nh, fg3_nv  = stats_for(lambda g: g.get("FG3M",0) or 0, season.get("FG3M"), "FG3M")
+    pts_mu, pts_sd, pts_l5, pts_l10, pts_vals, pts_h2h, pts_ven, pts_nh, pts_nv, pts_h2h_v, pts_ven_v  = stats_for(lambda g: g.get("PTS",0) or 0,  season.get("PTS"),  "PTS")
+    reb_mu, reb_sd, reb_l5, reb_l10, reb_vals, reb_h2h, reb_ven, reb_nh, reb_nv, reb_h2h_v, reb_ven_v  = stats_for(lambda g: g.get("REB",0) or 0,  season.get("REB"),  "REB")
+    ast_mu, ast_sd, ast_l5, ast_l10, ast_vals, ast_h2h, ast_ven, ast_nh, ast_nv, ast_h2h_v, ast_ven_v  = stats_for(lambda g: g.get("AST",0) or 0,  season.get("AST"),  "AST")
+    fg3_mu, fg3_sd, fg3_l5, fg3_l10, fg3_vals, fg3_h2h, fg3_ven, fg3_nh, fg3_nv, fg3_h2h_v, fg3_ven_v  = stats_for(lambda g: g.get("FG3M",0) or 0, season.get("FG3M"), "FG3M")
     pra_season = (season.get("PTS",0) or 0) + (season.get("REB",0) or 0) + (season.get("AST",0) or 0)
-    pra_mu, pra_sd, pra_l5, pra_l10, pra_vals, pra_h2h, pra_ven, pra_nh, pra_nv = stats_for(_compose_pra, pra_season, "PRA")
+    pra_mu, pra_sd, pra_l5, pra_l10, pra_vals, pra_h2h, pra_ven, pra_nh, pra_nv, pra_h2h_v, pra_ven_v = stats_for(_compose_pra, pra_season, "PRA")
     pr_season  = (season.get("PTS",0) or 0) + (season.get("REB",0) or 0)
-    pr_mu,  pr_sd,  pr_l5,  pr_l10,  pr_vals,  pr_h2h,  pr_ven,  pr_nh,  pr_nv  = stats_for(_compose_pr,  pr_season,  "PR")
+    pr_mu,  pr_sd,  pr_l5,  pr_l10,  pr_vals,  pr_h2h,  pr_ven,  pr_nh,  pr_nv, pr_h2h_v, pr_ven_v   = stats_for(_compose_pr,  pr_season,  "PR")
     pa_season  = (season.get("PTS",0) or 0) + (season.get("AST",0) or 0)
-    pa_mu,  pa_sd,  pa_l5,  pa_l10,  pa_vals,  pa_h2h,  pa_ven,  pa_nh,  pa_nv  = stats_for(_compose_pa,  pa_season,  "PA")
+    pa_mu,  pa_sd,  pa_l5,  pa_l10,  pa_vals,  pa_h2h,  pa_ven,  pa_nh,  pa_nv, pa_h2h_v, pa_ven_v   = stats_for(_compose_pa,  pa_season,  "PA")
 
-    # Lookup pour passer h2h/venue/n a gen_picks selon prop_key
+    # Lookup pour passer h2h/venue/n + arrays bruts a gen_picks selon prop_key
+    # Les arrays bruts permettent de calculer le HIT RATE au niveau de la LIGNE
+    # specifique (signal pondere venue/H2H, inspire analyse Twitter pro Brunson).
     SPLITS = {
-        "PTS":  (pts_h2h, pts_ven, pts_nh, pts_nv),
-        "REB":  (reb_h2h, reb_ven, reb_nh, reb_nv),
-        "AST":  (ast_h2h, ast_ven, ast_nh, ast_nv),
-        "FG3M": (fg3_h2h, fg3_ven, fg3_nh, fg3_nv),
-        "PRA":  (pra_h2h, pra_ven, pra_nh, pra_nv),
-        "PR":   (pr_h2h,  pr_ven,  pr_nh,  pr_nv),
-        "PA":   (pa_h2h,  pa_ven,  pa_nh,  pa_nv),
+        "PTS":  (pts_h2h, pts_ven, pts_nh, pts_nv, pts_h2h_v, pts_ven_v),
+        "REB":  (reb_h2h, reb_ven, reb_nh, reb_nv, reb_h2h_v, reb_ven_v),
+        "AST":  (ast_h2h, ast_ven, ast_nh, ast_nv, ast_h2h_v, ast_ven_v),
+        "FG3M": (fg3_h2h, fg3_ven, fg3_nh, fg3_nv, fg3_h2h_v, fg3_ven_v),
+        "PRA":  (pra_h2h, pra_ven, pra_nh, pra_nv, pra_h2h_v, pra_ven_v),
+        "PR":   (pr_h2h,  pr_ven,  pr_nh,  pr_nv,  pr_h2h_v,  pr_ven_v),
+        "PA":   (pa_h2h,  pa_ven,  pa_nh,  pa_nv,  pa_h2h_v,  pa_ven_v),
     }
 
     candidates = []
@@ -598,7 +602,9 @@ def player_props(player, ctx=None, real_lines=None, match_ctx=None):
                     # Tri par cote decroissante (meilleure d'abord)
                     books_for_pick.sort(key=lambda b: b["cote"], reverse=True)
                 # H2H + Venue stats (style Outlier) pour ce prop
-                h2h_mean, venue_mean, n_h2h, n_ven = SPLITS.get(prop_key, (None, None, 0, 0))
+                h2h_mean, venue_mean, n_h2h, n_ven, h2h_vals_raw, venue_vals_raw = SPLITS.get(
+                    prop_key, (None, None, 0, 0, [], [])
+                )
                 split_parts = []
                 # Seuil H2H plus permissif en contexte playoff serie
                 min_h2h_display = 2 if is_series else 3
@@ -610,6 +616,46 @@ def player_props(player, ctx=None, real_lines=None, match_ctx=None):
                 if n_ven >= 5 and venue_mean is not None:
                     split_parts.append(f"{venue_label.capitalize()} (n={n_ven}) : {round(venue_mean,1)}")
                 splits_str = (" · " + " · ".join(split_parts)) if split_parts else ""
+
+                # ─── Signal pondere venue/H2H au niveau de la LIGNE ──────────
+                # Inspire analyse Twitter pro : "Brunson n'a depasse cette ligne
+                # qu'une seule fois @ Cleveland" → 1/5 = 20% sur l'OVER. Si la
+                # direction generee est OVER mais hit rate venue tres faible,
+                # on SKIP la pick (contradiction forte). Si hit rate eleve sur
+                # la direction du pick, on BOOST la confidence +5pp.
+                def _hits_on_line(arr, line, direction):
+                    if direction == "over":
+                        return sum(1 for v in arr if v > line)
+                    return sum(1 for v in arr if v < line)
+                venue_hits = _hits_on_line(venue_vals_raw or [], line, direction) if n_ven else 0
+                h2h_hits   = _hits_on_line(h2h_vals_raw or [], line, direction) if n_h2h else 0
+                venue_pct  = round(venue_hits / n_ven * 100) if n_ven >= 4 else None
+                h2h_pct    = round(h2h_hits / n_h2h * 100) if n_h2h >= 3 else None
+                signal_bonus = 0
+                signal_warning = ""    # message si on a un signal contradictoire
+                signal_confirm = ""    # message si on a une confirmation forte
+                # Venue contradiction tres forte (hit pct sur la direction <=30%) → SKIP
+                if venue_pct is not None and venue_pct <= 30 and n_ven >= 4:
+                    # Skip cette pick : direction contredite par historique au lieu
+                    continue
+                # H2H contradiction tres forte (<=25% sur sample >=4) → SKIP en serie
+                if h2h_pct is not None and h2h_pct <= 25 and n_h2h >= 4:
+                    continue
+                # Venue confirmation forte (>=70%) → boost +5pp
+                if venue_pct is not None and venue_pct >= 70:
+                    signal_bonus += 5
+                    v_loc = "domicile" if is_home else "extérieur"
+                    signal_confirm = f"📍 {direction.upper()} hit rate {venue_hits}/{n_ven} à {v_loc}"
+                # H2H confirmation forte (>=70%) → boost +5pp (cumulable avec venue)
+                if h2h_pct is not None and h2h_pct >= 70:
+                    signal_bonus += 5
+                    h_msg = f"🆚 {direction.upper()} hit rate {h2h_hits}/{n_h2h} vs {opp_abbr_for_h2h}"
+                    signal_confirm = signal_confirm + " · " + h_msg if signal_confirm else h_msg
+                # Venue ou H2H "tiede negatif" (31-45%) → warning mais on garde
+                if venue_pct is not None and 31 <= venue_pct <= 45 and n_ven >= 5:
+                    signal_warning = f"⚠️ {direction.upper()} faible au lieu ({venue_hits}/{n_ven})"
+                # Applique le bonus a la confidence (cap [40, 95])
+                final_conf = max(40, min(95, round(p_pct) + signal_bonus))
 
                 # ─── Bounce back signal (per prop) : L3 << season pour CE prop ──
                 l3_for_prop = vals[:3]
@@ -670,7 +716,15 @@ def player_props(player, ctx=None, real_lines=None, match_ctx=None):
                     "label": f"{name} {prefix} {line} {label_str}",
                     "line": line,
                     "direction": direction,
-                    "confidence": round(p_pct),
+                    "confidence": final_conf,
+                    "confidence_base": round(p_pct),  # avant bonus signal
+                    "signal_bonus": signal_bonus,
+                    "signal_confirm": signal_confirm,
+                    "signal_warning": signal_warning,
+                    "venue_hit": f"{venue_hits}/{n_ven}" if n_ven else None,
+                    "venue_hit_pct": venue_pct,
+                    "h2h_hit": f"{h2h_hits}/{n_h2h}" if n_h2h else None,
+                    "h2h_hit_pct": h2h_pct,
                     "cote_min": cm,
                     "real_cote": real_cote,
                     "book": best_book if use_real else None,

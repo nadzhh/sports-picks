@@ -1848,6 +1848,25 @@ def build_nba_card(game):
                     f'🏆 Série {ss} (avantage)'
                     f'</div>'
                 )
+        # Signal POSITIF venue/H2H : confirmation forte (>=70% hit rate sur direction)
+        sig_confirm = p.get("signal_confirm", "")
+        if sig_confirm:
+            sig_bonus = p.get("signal_bonus", 0)
+            rot_html += (
+                f'<div style="color:#34d399;font-size:11px;font-weight:700;margin-top:3px;'
+                f'background:rgba(52,211,153,0.10);border-left:2px solid #34d399;padding:3px 7px;border-radius:3px">'
+                f'✅ {sig_confirm} (+{sig_bonus}pp confiance)'
+                f'</div>'
+            )
+        # Signal warning venue tiede (31-45% hit rate)
+        sig_warn = p.get("signal_warning", "")
+        if sig_warn:
+            rot_html += (
+                f'<div style="color:#fbbf24;font-size:11px;font-weight:600;margin-top:3px;'
+                f'background:rgba(251,191,36,0.08);border-left:2px solid #fbbf24;padding:3px 7px;border-radius:3px">'
+                f'{sig_warn}'
+                f'</div>'
+            )
 
         # Argument defensif (faille/force de l'adversaire)
         def_argument = p.get("def_argument", "")
@@ -3150,8 +3169,9 @@ def build_html(matches, team_ai, player_ai, pstats_data, nba_picks=None, nba_his
             except Exception:
                 continue
         _hours_ago = (_now_utc - _end_utc).total_seconds() / 3600.0
-        # 30 min minimum (laisser le temps au resolver), 60h max (2.5 jours)
-        if _hours_ago < 0.5 or _hours_ago > 60.0:
+        # Fenetre 2h-48h : match fini il y a au moins 2h (resolver stabilise) et
+        # au plus 48h (= cette nuit + nuit precedente, pas plus).
+        if _hours_ago < 2.0 or _hours_ago > 48.0:
             continue
         _end_paris = _end_utc.astimezone(_PARIS_TZ)
         nba_recent[_gid] = {
@@ -5374,8 +5394,32 @@ function _bkOpenManualBetForm(prefill){{
       +     '<button class="bk-m-cta" id="bk-mb-submit"' + (canSubmit ? '' : ' disabled') + '>Enregistrer le pari</button>'
       +   '</div>'
       + '</div>';
+    // Capture le scroll + focus AVANT le re-render pour les restaurer apres
+    var _prevBody = root.querySelector('.bk-m-body');
+    var _prevScroll = _prevBody ? _prevBody.scrollTop : 0;
+    var _prevFocusId = (document.activeElement && document.activeElement.id) || null;
+    var _prevSelStart = null, _prevSelEnd = null;
+    if(_prevFocusId && document.activeElement && document.activeElement.selectionStart != null){{
+      try {{ _prevSelStart = document.activeElement.selectionStart; _prevSelEnd = document.activeElement.selectionEnd; }} catch(e){{}}
+    }}
     root.innerHTML = html;
     setTimeout(function(){{ root.classList.add('open'); }}, 10);
+    // Restaure scroll + focus + position curseur apres re-render
+    setTimeout(function(){{
+      var newBody = root.querySelector('.bk-m-body');
+      if(newBody && _prevScroll > 0) newBody.scrollTop = _prevScroll;
+      if(_prevFocusId){{
+        var fEl = document.getElementById(_prevFocusId);
+        if(fEl){{
+          try {{
+            fEl.focus({{preventScroll: true}});
+            if(_prevSelStart != null && fEl.setSelectionRange){{
+              fEl.setSelectionRange(_prevSelStart, _prevSelEnd);
+            }}
+          }} catch(e){{}}
+        }}
+      }}
+    }}, 0);
     // Wire les inputs (sans re-render pour ne pas perdre le focus)
     var byId = function(id){{ return document.getElementById(id); }};
     function wire(id, key){{
