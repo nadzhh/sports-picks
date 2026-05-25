@@ -6634,12 +6634,26 @@ function setBkPeriod(p){{
   renderUserPicks();
 }}
 function setBkFilter(kind, value){{
-  window._bkFilters = window._bkFilters || {{status:'all', tipster:'all', date:'all'}};
+  window._bkFilters = window._bkFilters || {{status:'all', tipster:'all', date:'all', prop:'all'}};
   window._bkFilters[kind] = value;
   // Garde la section depliee quand on selectionne un filtre non-default
   window._bkFilterExpand = window._bkFilterExpand || {{status:false, date:false, tipster:false}};
-  if(value !== 'all') window._bkFilterExpand[kind] = true;
+  if(value !== 'all' && kind !== 'prop') window._bkFilterExpand[kind] = true;
   renderUserPicks();
+  // Scroll vers l'historique quand on clique sur un prop (UX : on voit direct le filtre)
+  if(kind === 'prop' && value !== 'all'){{
+    setTimeout(function(){{
+      var el = document.querySelector('#sport-userpicks .bk-card .bk-card-title');
+      // Trouve la card Historique
+      var cards = document.querySelectorAll('#sport-userpicks .bk-card');
+      for(var i = 0; i < cards.length; i++){{
+        if(cards[i].textContent.indexOf('Historique') === 0){{
+          cards[i].scrollIntoView({{behavior:'smooth', block:'start'}});
+          break;
+        }}
+      }}
+    }}, 50);
+  }}
 }}
 function _bkToggleFilterExpand(kind){{
   window._bkFilterExpand = window._bkFilterExpand || {{status:false, date:false, tipster:false}};
@@ -6647,7 +6661,7 @@ function _bkToggleFilterExpand(kind){{
   renderUserPicks();
 }}
 function resetBkFilters(){{
-  window._bkFilters = {{status:'all', tipster:'all', date:'all'}};
+  window._bkFilters = {{status:'all', tipster:'all', date:'all', prop:'all'}};
   window._bkFilterExpand = {{status:false, date:false, tipster:false}};
   renderUserPicks();
 }}
@@ -6852,12 +6866,14 @@ function renderUserPicks(){{
       + '</div>';
   }}
 
-  // ── Historique (filtres status + tipster + date + collapse) ─────────
-  window._bkFilters = window._bkFilters || {{status:'all', tipster:'all', date:'all'}};
+  // ── Historique (filtres status + tipster + date + prop + collapse) ─────────
+  window._bkFilters = window._bkFilters || {{status:'all', tipster:'all', date:'all', prop:'all'}};
   if(!window._bkFilters.date) window._bkFilters.date = 'all';
+  if(!window._bkFilters.prop) window._bkFilters.prop = 'all';
   var fStatus  = window._bkFilters.status;
   var fTipster = window._bkFilters.tipster;
   var fDate    = window._bkFilters.date;
+  var fPropFilter = window._bkFilters.prop;
   // Tous les paris (pending inclus) pour filtrage
   var allForFilter = arr.slice();
   // Counts par status (sur la base globale)
@@ -6891,6 +6907,10 @@ function renderUserPicks(){{
       if(t !== fTipster) return false;
     }}
     if(!_bkPickInDateRange(p, fDate)) return false;
+    if(fPropFilter !== 'all'){{
+      var propP = String(p.prop || '').toUpperCase();
+      if(propP !== fPropFilter) return false;
+    }}
     return true;
   }});
   // State expand/collapse des 3 sections de filtres (par defaut collapsed)
@@ -6973,9 +6993,16 @@ function renderUserPicks(){{
     }});
   }});
   var tipsterChips = _buildFilterRow(tipsterDefs, 'tipster', fTipster);
-  var resetBtn = (fStatus !== 'all' || fTipster !== 'all' || fDate !== 'all')
+  var resetBtn = (fStatus !== 'all' || fTipster !== 'all' || fDate !== 'all' || fPropFilter !== 'all')
     ? '<button class="bk-filter-reset" onclick="resetBkFilters()">Réinitialiser ✕</button>'
     : '';
+  // Chip "Filtré par prop" affichée a cote du titre Historique si un prop filter est actif
+  var propFilterChip = '';
+  if(fPropFilter !== 'all'){{
+    var fpLabel = ({{PTS:'Points', REB:'Rebonds', AST:'Passes', FG3M:'3-points', PR:'Pts+Reb', PA:'Pts+Pas', PRA:'PRA', RA:'Reb+Pas'}})[fPropFilter] || fPropFilter;
+    var fpIcon  = ({{PTS:'🎯', REB:'🛟', AST:'🎁', FG3M:'🏹', PR:'🎯', PA:'🎁', PRA:'🌟', RA:'🛟'}})[fPropFilter] || '📊';
+    propFilterChip = '<span style="display:inline-flex;align-items:center;gap:6px;margin-left:10px;padding:3px 10px;border-radius:999px;background:rgba(52,211,153,0.14);color:#34D399;font-size:11.5px;font-weight:700;cursor:pointer" onclick="setBkFilter(\\'prop\\', \\'all\\')" title="Cliquer pour retirer ce filtre">' + fpIcon + ' ' + fpLabel + ' ✕</span>';
+  }}
 
   var recentCard = '';
   if(allForFilter.length > 0){{
@@ -6997,7 +7024,7 @@ function renderUserPicks(){{
     recentCard =
       '<div class="bk-card">'
       + '<div class="bk-card-hd">'
-      +   '<div class="bk-card-title">Historique <span style="padding:2px 9px;border-radius:999px;background:var(--bk-text-soft);color:var(--bk-text-muted);font-size:11px;font-weight:700">' + filteredArr.length + '</span></div>'
+      +   '<div class="bk-card-title">Historique <span style="padding:2px 9px;border-radius:999px;background:var(--bk-text-soft);color:var(--bk-text-muted);font-size:11px;font-weight:700">' + filteredArr.length + '</span>' + propFilterChip + '</div>'
       +   resetBtn
       + '</div>'
       + '<div class="bk-filter-row">' + statusChips + '</div>'
@@ -7017,6 +7044,7 @@ function renderUserPicks(){{
     byProp[k].profit += _bkBetDelta(p);
   }});
   var propEntries = Object.keys(byProp).sort(function(a, b){{ return byProp[b].profit - byProp[a].profit; }});
+  var fProp = (window._bkFilters && window._bkFilters.prop) || 'all';
   var propRows = propEntries.map(function(k){{
     var b = byProp[k];
     var bn = b.w + b.l;
@@ -7026,8 +7054,15 @@ function renderUserPicks(){{
     var pSign  = b.profit > 0 ? '+' : (b.profit < 0 ? '−' : '');
     var propIcon  = ({{PTS:'🎯', REB:'🛟', AST:'🎁', FG3M:'🏹', PR:'🎯', PA:'🎁', PRA:'🌟', RA:'🛟'}})[k] || '📊';
     var propLabel = ({{PTS:'Points', REB:'Rebonds', AST:'Passes', FG3M:'3-points', PR:'Pts+Reb', PA:'Pts+Pas', PRA:'PRA', RA:'Reb+Pas'}})[k] || k;
-    return '<div class="bk-prop-row">'
-      + '<div class="bk-prop-name"><span>' + propIcon + '</span><span>' + propLabel + '</span></div>'
+    var isActive = fProp === k;
+    var nextVal = isActive ? 'all' : k;   // click sur active = unselect
+    var activeStyle = isActive
+      ? 'background:rgba(52,211,153,0.10);border:1px solid rgba(52,211,153,0.35);border-radius:10px;padding:8px 6px;'
+      : '';
+    return '<div class="bk-prop-row" onclick="setBkFilter(\\'prop\\', \\'' + nextVal + '\\')" '
+      + 'style="cursor:pointer;' + activeStyle + '" '
+      + 'title="' + (isActive ? 'Cliquer pour retirer le filtre' : 'Cliquer pour filtrer l\\'historique sur ' + propLabel) + '">'
+      + '<div class="bk-prop-name"><span>' + propIcon + '</span><span>' + propLabel + '</span>' + (isActive ? ' <span style="color:#34D399;font-size:11px">✓</span>' : '') + '</div>'
       + '<div class="bk-prop-bar"><div style="width:' + bwr + '%;background:linear-gradient(90deg,' + barColor + '88,' + barColor + ')"></div></div>'
       + '<div class="bk-prop-wr" style="color:' + barColor + '">' + bwr.toFixed(0) + '%<span style="color:var(--bk-text-muted);font-weight:500;font-size:11px"> (' + b.w + '/' + bn + ')</span></div>'
       + '<div class="bk-prop-profit" style="color:' + pColor + '">' + pSign + _bkFmt(Math.abs(b.profit)) + ' €</div>'
