@@ -2471,6 +2471,161 @@ def _build_player_analyse_card(player, opp_abbr, odds_for_player, side_label, is
     )
 
 
+def build_nba_history_section(nba_history, nba_box_scores, nba_player_stats, nba_odds):
+    """Section Historique NBA (sous-section de Analyse NBA) : matchs joués
+    entre 2h et 48h ago, avec les MEMES cards joueur que la section Analyse.
+    Permet d'ajouter retroactivement un pari a la bankroll via les boutons
+    "📌 Add OVER / UNDER" existants — le match_date du passé est embarqué
+    dans le payload donc auto-resolve via box_scores en arriere-plan.
+    """
+    if not nba_history or not nba_history.get("picks") or not nba_box_scores:
+        return ""
+    from datetime import datetime as _dt3, timezone as _tz3, timedelta as _td3
+    import re as _re3
+    _now_utc3 = _dt3.now(_tz3.utc)
+
+    # Filter past games (2h-48h ago, sample par game_id, pas par pick)
+    past_games = []
+    seen = set()
+    for _p in nba_history.get("picks", []):
+        _gid = str(_p.get("game_id") or "")
+        if not _gid or _gid in seen: continue
+        _ra = _p.get("resolved_at") or ""
+        if not _ra: continue
+        try:
+            _end_utc = _dt3.strptime(_ra, "%Y-%m-%d %H:%M").replace(tzinfo=_tz3.utc)
+        except Exception:
+            continue
+        _hours_ago = (_now_utc3 - _end_utc).total_seconds() / 3600.0
+        if _hours_ago < 2.0 or _hours_ago > 48.0: continue
+        if _gid not in nba_box_scores: continue
+        # Parse matchup "Away @ Home"
+        _matchup = _p.get("matchup", "") or ""
+        _m = _re3.match(r'^(.+?)\s*@\s*(.+)$', _matchup)
+        if not _m: continue
+        _away, _home = _m.group(1).strip(), _m.group(2).strip()
+        past_games.append({
+            "game_id": _gid,
+            "date":     _p.get("date", ""),
+            "matchup":  _matchup,
+            "home":     _home,
+            "away":     _away,
+            "end_utc":  _end_utc.isoformat(),
+            "hours_ago": _hours_ago,
+            "box":      nba_box_scores[_gid] or {},
+        })
+        seen.add(_gid)
+    if not past_games:
+        return ""
+
+    # Build player_lookup depuis nba_player_stats actuel (donne acces aux
+    # l10_games + season_avg + position pour chaque joueur present aujourd'hui)
+    player_lookup = {}
+    for _gid2, _md in (nba_player_stats or {}).items():
+        if _gid2.startswith("_"): continue
+        _h_name = _md.get("home_team", ""); _h_abbr = _md.get("home_abbr", "") or ""
+        _a_name = _md.get("away_team", ""); _a_abbr = _md.get("away_abbr", "") or ""
+        for _pl in _md.get("home_players", []) or []:
+            _n = _pl.get("name", "")
+            if _n and _n not in player_lookup:
+                player_lookup[_n] = {"team_name": _h_name, "team_abbr": _h_abbr, "data": _pl}
+        for _pl in _md.get("away_players", []) or []:
+            _n = _pl.get("name", "")
+            if _n and _n not in player_lookup:
+                player_lookup[_n] = {"team_name": _a_name, "team_abbr": _a_abbr, "data": _pl}
+
+    # Sort past games par hours_ago croissant (le plus recent en haut)
+    past_games.sort(key=lambda g: g["hours_ago"])
+
+    cards = ""
+    for game in past_games:
+        gid = game["game_id"]
+        home = game["home"]; away = game["away"]
+        # Repartit les joueurs du box score entre home et away en utilisant
+        # le player_lookup (qui connait l'equipe actuelle de chaque joueur)
+        home_players_list = []
+        away_players_list = []
+        for pname in game["box"].keys():
+            lk = player_lookup.get(pname)
+            if not lk: continue   # joueur pas dans le lookup actuel, skip (limite acceptable)
+            tn = lk["team_name"] or ""
+            if tn == home or (lk["team_abbr"] and lk["team_abbr"] in home.upper()):
+                home_players_list.append(lk["data"])
+            elif tn == away or (lk["team_abbr"] and lk["team_abbr"] in away.upper()):
+                away_players_list.append(lk["data"])
+            else:
+                # Si le team_name ne match pas exactement (ex "Knicks" vs "New York Knicks"), fallback par token
+                _tn_low = tn.lower()
+                _home_low = home.lower()
+                _away_low = away.lower()
+                if any(tok in _home_low for tok in _tn_low.split() if len(tok) >= 4):
+                    home_players_list.append(lk["data"])
+                elif any(tok in _away_low for tok in _tn_low.split() if len(tok) >= 4):
+                    away_players_list.append(lk["data"])
+        # Tri par minutes saison + cap 12
+        home_players_list.sort(key=lambda p: (p.get("season_avg",{}) or {}).get("MIN", 0), reverse=True)
+        away_players_list.sort(key=lambda p: (p.get("season_avg",{}) or {}).get("MIN", 0), reverse=True)
+        home_players_list = home_players_list[:12]
+        away_players_list = away_players_list[:12]
+        # Abbreviations a partir du player_lookup
+        home_abbr = (player_lookup.get(home_players_list[0]["name"], {}).get("team_abbr", "") if home_players_list else "")
+        away_abbr = (player_lookup.get(away_players_list[0]["name"], {}).get("team_abbr", "") if away_players_list else "")
+        # Enrichissement statut blessure (mais cache 3h depuis ESPN)
+        _enrich_players_injury(home_players_list + away_players_list)
+        # match_ctx avec la DATE DU PASSE → les boutons Add OVER/UNDER embarquent
+        # cette date dans le payload → le pick stocke est lie au bon match
+        match_ctx = {"home": home, "away": away, "game_id": gid, "match_date": game["date"]}
+        odds_for_game = {}   # pas de cotes book pour matchs passes
+        home_cards = "".join(
+            _build_player_analyse_card(p, opp_abbr=away_abbr, odds_for_player=None,
+                                       side_label=f"🏠 {home}", is_starter=(i < 5), match_ctx=match_ctx)
+            for i, p in enumerate(home_players_list)
+        )
+        away_cards = "".join(
+            _build_player_analyse_card(p, opp_abbr=home_abbr, odds_for_player=None,
+                                       side_label=f"✈️ {away}", is_starter=(i < 5), match_ctx=match_ctx)
+            for i, p in enumerate(away_players_list)
+        )
+        # Time label
+        h_ago = int(game["hours_ago"])
+        if h_ago < 12:    time_label = f"Cette nuit (il y a {h_ago}h)"
+        elif h_ago < 24:  time_label = f"Aujourd'hui (il y a {h_ago}h)"
+        elif h_ago < 36:  time_label = f"Hier soir (il y a {h_ago}h)"
+        elif h_ago < 48:  time_label = f"Hier (il y a {h_ago}h)"
+        else:             time_label = f"Avant-hier (il y a {h_ago}h)"
+        gid_safe = str(gid).replace("'", "")
+        # Recap blessures (meme card que la section Analyse principale)
+        injuries_block = _build_injuries_card(home, away, home_abbr, away_abbr)
+        cards += (
+            f'<div style="background:#0f172a;border-radius:14px;margin-bottom:18px;'
+            f'box-shadow:0 4px 20px rgba(0,0,0,0.4);overflow:hidden;border-left:3px solid #fbbf24">'
+            # Header cliquable -> toggle body (reuse logique NBA)
+            f'<div class="nba-match-header" onclick="toggleNbaMatch(\'hist-{gid_safe}\')">'
+            f'<div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px">'
+            f'<div>'
+            f'<div style="color:#fbbf24;font-size:11px;text-transform:uppercase;letter-spacing:1px;font-weight:700">📅 {time_label}</div>'
+            f'<div style="color:#f1f5f9;font-size:19px;font-weight:700;margin-top:3px">'
+            f'{away} <span style="color:#334155">@</span> {home}</div>'
+            f'</div>'
+            f'<div style="display:flex;align-items:center;gap:12px">'
+            f'<div style="color:#475569;font-size:13px">{game.get("date","")}</div>'
+            f'<div id="nba-arrow-hist-{gid_safe}" style="color:#475569;font-size:14px;transition:transform .2s">▼</div>'
+            f'</div>'
+            f'</div>'
+            f'</div>'
+            # Body deroulable
+            f'<div id="nba-body-hist-{gid_safe}" class="nba-match-body" style="padding:14px 18px">'
+            f'{injuries_block}'
+            f'<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">'
+            f'<div><div style="color:#3b82f6;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:8px">🏠 {home}</div>{home_cards or "Pas de joueurs"}</div>'
+            f'<div><div style="color:#3b82f6;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:8px">✈️ {away}</div>{away_cards or "Pas de joueurs"}</div>'
+            f'</div>'
+            f'</div>'
+            f'</div>'
+        )
+    return cards
+
+
 def build_nba_analyse_section(nba_picks_data, nba_player_stats, nba_odds):
     """Section Analyse : pour chaque match a venir, panneau de joueurs avec
     bar chart selectable par prop (PTS/REB/AST/3PM/PR/PA/PRA)."""
@@ -3092,6 +3247,16 @@ def build_html(matches, team_ai, player_ai, pstats_data, nba_picks=None, nba_his
     nba_hist_html  = build_nba_history(nba_history)
     foot_hist_html = build_foot_history(foot_history)
     nba_analyse_html = build_nba_analyse_section(nba_picks, nba_player_stats, nba_odds)
+    # Charge nba_box_scores ICI (avant la section historique) car build_nba_history_section
+    # en a besoin. Sera reutilise plus bas pour l'embed window.NBA_BOX_SCORES.
+    nba_box_scores = {}
+    try:
+        with open("data/nba_box_scores.json", encoding="utf-8") as _bf_early:
+            import json as _json_early
+            nba_box_scores = _json_early.load(_bf_early)
+    except Exception:
+        nba_box_scores = {}
+    nba_history_section_html = build_nba_history_section(nba_history, nba_box_scores, nba_player_stats, nba_odds)
 
     # Embed minimal nba_history pour resolution auto JS des user picks.
     # On garde uniquement les fields necessaires : game_id, player, prop, line,
@@ -3120,14 +3285,7 @@ def build_html(matches, team_ai, player_ai, pstats_data, nba_picks=None, nba_his
     except Exception as _e:
         print(f"  ⚠️ Impossible d'ecrire nba_history_min.json: {_e}")
 
-    # Box scores complets par game_id (PTS/REB/AST/FG3M par joueur) pour resoudre
-    # cote client n'importe quel prop user, meme ceux que l'algo n'a pas trackes.
-    nba_box_scores = {}
-    try:
-        with open("data/nba_box_scores.json", encoding="utf-8") as _bf:
-            nba_box_scores = _json.load(_bf)
-    except Exception:
-        nba_box_scores = {}
+    # Box scores : deja charges plus haut (avant build_nba_history_section)
     nba_box_scores_json = _json.dumps(nba_box_scores, ensure_ascii=False).replace("</", "<\\/")
     try:
         with open("data/nba_box_scores_min.json", "w", encoding="utf-8") as _bf:
@@ -4149,6 +4307,14 @@ def build_html(matches, team_ai, player_ai, pstats_data, nba_picks=None, nba_his
       <button onclick="collapseAllAnalyse()" style="background:#1e293b;color:#94a3b8;border:1px solid #334155;border-radius:8px;padding:8px 14px;font-size:12px;font-weight:700;cursor:pointer">📕 Tout fermer</button>
       <button onclick="expandAllAnalyse()" style="background:#1e293b;color:#94a3b8;border:1px solid #334155;border-radius:8px;padding:8px 14px;font-size:12px;font-weight:700;cursor:pointer">📖 Tout ouvrir</button>
       <button onclick="expandStartersAnalyse()" style="background:#1e3a8a;color:#bfdbfe;border:1px solid #3b82f6;border-radius:8px;padding:8px 14px;font-size:12px;font-weight:700;cursor:pointer">⭐ Titulaires seulement</button>
+      <button onclick="toggleNbaHistorySection()" id="nba-hist-toggle-btn" style="background:#1c1917;color:#fbbf24;border:1px solid #fbbf24;border-radius:8px;padding:8px 14px;font-size:12px;font-weight:700;cursor:pointer;margin-left:auto">📅 Historique 48h</button>
+    </div>
+    <!-- Section Historique (matchs récents 2h-48h ago) — masquée par défaut -->
+    <div id="nba-history-block" style="display:none;margin-bottom:18px">
+      <div style="color:#fbbf24;font-size:13px;font-weight:700;margin-bottom:10px;padding:8px 12px;background:rgba(251,191,36,0.06);border-left:3px solid #fbbf24;border-radius:4px;line-height:1.5">
+        📅 <b>Historique NBA (48h)</b> — Matchs joués entre 2h et 48h ago. Clique sur un match → ouvre les cards joueur identiques à Analyse → utilise <b style="color:#22c55e">📌 Add OVER</b> ou <b style="color:#ef4444">📌 Add UNDER</b> pour ajouter retroactivement un pari à ta bankroll (le match_date du passé est embarqué, et l'auto-resolve via box scores fera le reste).
+      </div>
+      {nba_history_section_html}
     </div>
     {nba_analyse_html}
   </div>
@@ -4353,6 +4519,21 @@ function expandStartersAnalyse(){{
     var isStarter = c.getAttribute('data-is-starter') === '1';
     _setExpanded(c, isStarter);
   }});
+}}
+// Toggle section Historique NBA (matchs joues 2h-48h ago)
+function toggleNbaHistorySection(){{
+  var block = document.getElementById('nba-history-block');
+  var btn = document.getElementById('nba-hist-toggle-btn');
+  if(!block) return;
+  var opened = block.style.display !== 'none';
+  if(opened){{
+    block.style.display = 'none';
+    if(btn){{ btn.style.background = '#1c1917'; btn.style.color = '#fbbf24'; btn.innerHTML = '📅 Historique 48h'; }}
+  }} else {{
+    block.style.display = 'block';
+    if(btn){{ btn.style.background = '#fbbf24'; btn.style.color = '#0a1628'; btn.innerHTML = '📅 Historique 48h ✕'; }}
+    setTimeout(function(){{ block.scrollIntoView({{behavior:'smooth', block:'start'}}); }}, 50);
+  }}
 }}
 
 // ── Toggle expand/collapse des cartes NBA (comme le Foot) ──
