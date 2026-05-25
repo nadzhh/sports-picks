@@ -3222,6 +3222,28 @@ def build_html(matches, team_ai, player_ai, pstats_data, nba_picks=None, nba_his
     nba_player_stats = nba_player_stats or {}
     nba_odds = nba_odds or {}
 
+    # Filtre defensive : si data/matches.json a des matchs deja termines
+    # (parce que le scraper a fait sys.exit(1) sur un jour sans match et a
+    # conserve le fichier de la veille), on les exclut de l'affichage Football.
+    # Un match est considere termine 4h apres son start_ts (kickoff + ~2h jeu
+    # + buffer pour les prolongations / tirs au but).
+    import time as _time_filter
+    _now_ts = _time_filter.time()
+    _MATCH_DURATION_S = 4 * 3600   # 4h apres kickoff = match termine
+    _kept = []
+    _dropped = 0
+    for _m in (matches or []):
+        _ts = _m.get("start_ts")
+        if _ts is None:
+            _kept.append(_m); continue  # garde si pas d'heure (rare)
+        if _ts + _MATCH_DURATION_S < _now_ts:
+            _dropped += 1
+            continue   # match termine -> on l'exclut
+        _kept.append(_m)
+    if _dropped:
+        print(f"  [filter] {_dropped} match(s) deja termine(s) exclu(s) de la section Football (data/matches.json stale)")
+    matches = _kept
+
     days = {}
     for m in matches:
         days.setdefault(day_label(m.get("start_ts")), []).append(m)
