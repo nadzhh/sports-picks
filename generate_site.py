@@ -3116,6 +3116,33 @@ def build_html(matches, team_ai, player_ai, pstats_data, nba_picks=None, nba_his
     except Exception as _e:
         print(f"  ⚠️ Impossible d'ecrire nba_box_scores_min.json: {_e}")
 
+    # NBA recent games (1-3 jours en arriere) pour le formulaire manuel d'ajout
+    # de pari NBA. Combine date+matchup (depuis l'historique algo) et roster
+    # complet + stats (depuis box scores). Permet auto-detect WIN/LOSS apres
+    # selection player+prop+ligne par l'user.
+    from datetime import datetime as _dt2
+    nba_recent = {}
+    _today = _dt2.now().date()
+    for _p in (nba_history or {}).get("picks", []):
+        _gid = str(_p.get("game_id") or "")
+        if not _gid or _gid in nba_recent: continue
+        _ds = (_p.get("date") or "")[:10]
+        if not _ds: continue
+        try:
+            _d = _dt2.fromisoformat(_ds).date()
+        except Exception:
+            continue
+        _age = (_today - _d).days
+        if _age < 1 or _age > 3: continue   # 1 a 3 jours en arriere uniquement
+        nba_recent[_gid] = {
+            "date":    _ds,
+            "matchup": _p.get("matchup") or "",
+            "players": nba_box_scores.get(_gid, {}) or {},
+        }
+    # Drop games sans box score (impossible de poser un pari + auto-detect dessus)
+    nba_recent = {_k: _v for _k, _v in nba_recent.items() if _v.get("players")}
+    nba_recent_json = _json.dumps(nba_recent, ensure_ascii=False).replace("</", "<\\/")
+
     total_t = sum(len(m["picks"]) for m in matches)
     total_p = sum(len(m.get("home_players",[])) + len(m.get("away_players",[])) for m in matches)
 
@@ -4108,6 +4135,7 @@ def build_html(matches, team_ai, player_ai, pstats_data, nba_picks=None, nba_his
 <script>
 window.NBA_HISTORY = {nba_history_json};
 window.NBA_BOX_SCORES = {nba_box_scores_json};
+window.NBA_RECENT_GAMES = {nba_recent_json};
 </script>
 <script>
 function showSport(sport){{
@@ -5017,9 +5045,10 @@ function _bkOpenManualBetForm(prefill){{
   var root = _bkEnsureModalRoot();
   var todayStr = new Date().toISOString().slice(0, 10);
   window._bkManualState = {{
-    sport:     prefill.sport     || 'foot',
+    sport:     prefill.sport     || 'nba',         // default = basket maintenant
     event:     prefill.event     || '',
     market:    prefill.market    || '',
+    selectedGameId: prefill.selectedGameId || null,
     player:    prefill.player    || '',
     prop:      prefill.prop      || 'PTS',
     direction: prefill.direction || 'over',
@@ -5083,60 +5112,155 @@ function _bkOpenManualBetForm(prefill){{
     // Champs specifiques selon sport
     var sportFields = '';
     if(isNba){{
-      var NBA_PROPS = [
-        {{id:'PTS',  label:'Points'}},
-        {{id:'REB',  label:'Rebonds'}},
-        {{id:'AST',  label:'Passes'}},
-        {{id:'FG3M', label:'3-points'}},
-        {{id:'RA',   label:'Rebonds + Passes'}},
-        {{id:'PR',   label:'Points + Rebonds'}},
-        {{id:'PA',   label:'Points + Passes'}},
-        {{id:'PRA',  label:'Points + Rebonds + Passes'}},
-      ];
-      var propOptions = NBA_PROPS.map(function(p){{
-        var sel = st.prop === p.id ? ' selected' : '';
-        return '<option value="' + p.id + '"' + sel + '>' + p.label + ' (' + p.id + ')</option>';
-      }}).join('');
-      var dirChip = function(id, label, bg, fg){{
-        var active = st.direction === id;
-        return '<button type="button" onclick="_bkManualSet(\\'direction\\', \\'' + id + '\\')" style="'
-          + 'flex:1;padding:10px 0;border-radius:11px;border:1px solid ' + (active ? fg + '88' : 'rgba(255,255,255,0.06)') + ';'
-          + 'background:' + (active ? bg : '#14161B') + ';color:' + (active ? fg : '#94A3B8') + ';'
-          + 'font-weight:700;font-size:13px;cursor:pointer;font-family:inherit">' + label + '</button>';
-      }};
+      // ─── Wizard NBA : Match (48h) → Joueur → Prop+Direction+Ligne ───
+      var games = window.NBA_RECENT_GAMES || {{}};
+      var gameIds = Object.keys(games).sort(function(a, b){{
+        return (games[b].date || '').localeCompare(games[a].date || '');
+      }});
+      // Etape 1 : selection match
+      var matchCards;
+      if(gameIds.length === 0){{
+        matchCards = '<div style="padding:14px;text-align:center;color:#94A3B8;font-size:13px;border:1px dashed rgba(255,255,255,0.10);border-radius:12px">'
+          + 'Aucun match récent disponible (les box scores des matchs des 48 dernières heures se mettent à jour automatiquement après chaque cron run).'
+          + '</div>';
+      }} else {{
+        matchCards = '<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:8px;margin-bottom:6px">'
+          + gameIds.map(function(gid){{
+              var g = games[gid];
+              var active = st.selectedGameId === gid;
+              var dateLabel = _bkFmtDateShort(g.date);
+              var nPlayers = Object.keys(g.players || {{}}).length;
+              return '<button type="button" onclick="_bkManualPickGame(\\'' + gid + '\\')" style="'
+                + 'display:flex;flex-direction:column;gap:4px;padding:11px 13px;border-radius:12px;'
+                + 'border:1px solid ' + (active ? '#34D399' : 'rgba(255,255,255,0.07)') + ';'
+                + 'background:' + (active ? 'rgba(52,211,153,0.10)' : '#14161B') + ';'
+                + 'color:#fff;cursor:pointer;font-family:inherit;text-align:left;font-size:13px">'
+                + '<div style="font-size:11px;color:#FBBF24;font-weight:700">📅 ' + dateLabel + '</div>'
+                + '<div style="font-weight:600">' + (g.matchup || '?') + '</div>'
+                + '<div style="font-size:11px;color:#94A3B8">' + nPlayers + ' joueurs</div>'
+                + '</button>';
+          }}).join('') + '</div>';
+      }}
+      // Resolu : Joueur + Prop + Direction + Ligne
+      var playerStepHtml = '';
+      var pickStepHtml = '';
+      var autoResultHtml = '';
+      if(st.selectedGameId){{
+        var game = games[st.selectedGameId];
+        var players = game ? (game.players || {{}}) : {{}};
+        var playerNames = Object.keys(players).sort();
+        // Etape 2 : selection joueur (avec mini-stats du match)
+        var playerOptions = playerNames.map(function(n){{
+          var stats = players[n];
+          var pts = stats.PTS != null ? stats.PTS : 0;
+          var reb = stats.REB != null ? stats.REB : 0;
+          var ast = stats.AST != null ? stats.AST : 0;
+          var f3m = stats.FG3M != null ? stats.FG3M : 0;
+          var active = st.player === n;
+          var nameEsc = n.replace(/'/g, "\\\\'").replace(/"/g, '&quot;');
+          return '<button type="button" onclick="_bkManualPickPlayer(\\'' + nameEsc + '\\')" style="'
+            + 'display:flex;justify-content:space-between;align-items:center;gap:8px;padding:9px 12px;border-radius:10px;'
+            + 'border:1px solid ' + (active ? '#34D399' : 'rgba(255,255,255,0.06)') + ';'
+            + 'background:' + (active ? 'rgba(52,211,153,0.10)' : '#0F1115') + ';'
+            + 'color:#fff;cursor:pointer;font-family:inherit;font-size:12.5px;text-align:left">'
+            + '<span style="font-weight:600;flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">' + n + '</span>'
+            + '<span style="color:#94A3B8;font-size:11px;font-variant-numeric:tabular-nums;flex-shrink:0">' + pts + 'pts ' + reb + 'rb ' + ast + 'pa ' + f3m + '3pm</span>'
+            + '</button>';
+        }}).join('');
+        playerStepHtml = '<div class="bk-m-grp" style="margin-top:16px">'
+          + '<label class="bk-m-label">Joueur (' + playerNames.length + ')</label>'
+          + '<div style="max-height:260px;overflow-y:auto;display:flex;flex-direction:column;gap:5px;padding:2px;border:1px solid rgba(255,255,255,0.05);border-radius:12px">'
+          + playerOptions
+          + '</div></div>';
+        // Etape 3 : Prop / Direction / Ligne (apparait apres player choisi)
+        if(st.player){{
+          var NBA_PROPS = [
+            {{id:'PTS',  label:'Points'}},
+            {{id:'REB',  label:'Rebonds'}},
+            {{id:'AST',  label:'Passes'}},
+            {{id:'FG3M', label:'3-points'}},
+            {{id:'RA',   label:'Rebonds + Passes'}},
+            {{id:'PR',   label:'Points + Rebonds'}},
+            {{id:'PA',   label:'Points + Passes'}},
+            {{id:'PRA',  label:'Points + Rebonds + Passes'}},
+          ];
+          var propOptions = NBA_PROPS.map(function(p){{
+            var sel = st.prop === p.id ? ' selected' : '';
+            return '<option value="' + p.id + '"' + sel + '>' + p.label + ' (' + p.id + ')</option>';
+          }}).join('');
+          var dirChip = function(id, lbl, bg, fg){{
+            var active = st.direction === id;
+            return '<button type="button" onclick="_bkManualSet(\\'direction\\', \\'' + id + '\\')" style="'
+              + 'flex:1;padding:10px 0;border-radius:11px;border:1px solid ' + (active ? fg + '88' : 'rgba(255,255,255,0.06)') + ';'
+              + 'background:' + (active ? bg : '#14161B') + ';color:' + (active ? fg : '#94A3B8') + ';'
+              + 'font-weight:700;font-size:13px;cursor:pointer;font-family:inherit">' + lbl + '</button>';
+          }};
+          pickStepHtml =
+            '<div class="bk-m-grp" style="margin-top:16px">'
+            +   '<label class="bk-m-label">Type de prop</label>'
+            +   '<select class="bk-m-input" id="bk-mb-prop" style="cursor:pointer">' + propOptions + '</select>'
+            + '</div>'
+            + '<div class="bk-m-grp" style="margin-top:14px">'
+            +   '<label class="bk-m-label">Direction</label>'
+            +   '<div style="display:flex;gap:8px">'
+            +     dirChip('over',  '↑ Plus de',  'rgba(52,211,153,0.16)', '#34D399')
+            +     dirChip('under', '↓ Moins de', 'rgba(248,113,113,0.16)', '#F87171')
+            +   '</div>'
+            + '</div>'
+            + '<div class="bk-m-grp" style="margin-top:14px">'
+            +   '<label class="bk-m-label">Ligne</label>'
+            +   '<input class="bk-m-input" id="bk-mb-line" inputmode="decimal" value="' + st.line + '" placeholder="14.5">'
+            + '</div>';
+          // Auto-detect WIN/LOSS si tous les champs sont remplis
+          var box = players[st.player];
+          var actual = _bkComputePropFromBox(box, st.prop);
+          if(actual !== undefined && st.line !== ''){{
+            var lineN = parseFloat(String(st.line).replace(',', '.'));
+            if(!isNaN(lineN)){{
+              var actualResult;
+              if(st.direction === 'over') actualResult = actual > lineN ? 'WIN' : (actual < lineN ? 'LOSS' : 'PUSH');
+              else                        actualResult = actual < lineN ? 'WIN' : (actual > lineN ? 'LOSS' : 'PUSH');
+              var rColor = actualResult === 'WIN' ? '#34D399' : (actualResult === 'LOSS' ? '#F87171' : '#94A3B8');
+              var rIcon  = actualResult === 'WIN' ? '✓' : (actualResult === 'LOSS' ? '✕' : '↻');
+              var rLabel = actualResult === 'WIN' ? 'GAGNÉ' : (actualResult === 'LOSS' ? 'PERDU' : 'PUSH');
+              var dirLabel = st.direction === 'over' ? 'plus de' : 'moins de';
+              autoResultHtml =
+                '<div style="margin-top:14px;padding:14px;border-radius:14px;background:rgba(255,255,255,0.03);border:1px solid ' + rColor + '44">'
+                + '<div style="color:#94A3B8;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.4px;margin-bottom:6px">📊 Résultat auto-detecté</div>'
+                + '<div style="display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap">'
+                +   '<div style="color:#fff;font-size:13px"><b>' + st.player + '</b>: <b style="color:#fff">' + actual + '</b> ' + st.prop + ' (' + dirLabel + ' ' + lineN + ')</div>'
+                +   '<div style="font-size:14px;font-weight:800;color:' + rColor + '">' + rIcon + ' ' + rLabel + '</div>'
+                + '</div>'
+                + '<div style="color:#94A3B8;font-size:11px;margin-top:4px">Tu peux quand même override en bas avec le sélecteur Statut.</div>'
+                + '</div>';
+              // Auto-set status si pas encore override
+              if(!window._bkManualUserSetStatus){{
+                st.status = actualResult;
+              }}
+            }}
+          }}
+        }}
+      }}
       sportFields =
-        '<div class="bk-m-grp">'
-        +   '<label class="bk-m-label">Match</label>'
-        +   '<input class="bk-m-input" id="bk-mb-event" value="' + st.event.replace(/"/g, '&quot;') + '" placeholder="Cavaliers @ Knicks">'
-        + '</div>'
-        + '<div class="bk-m-grp" style="margin-top:14px">'
-        +   '<label class="bk-m-label">Joueur</label>'
-        +   '<input class="bk-m-input" id="bk-mb-player" value="' + st.player.replace(/"/g, '&quot;') + '" placeholder="Karl-Anthony Towns">'
-        + '</div>'
-        + '<div class="bk-m-grp" style="margin-top:14px">'
-        +   '<label class="bk-m-label">Type de prop</label>'
-        +   '<select class="bk-m-input" id="bk-mb-prop" style="cursor:pointer">' + propOptions + '</select>'
-        + '</div>'
-        + '<div class="bk-m-grp" style="margin-top:14px">'
-        +   '<label class="bk-m-label">Direction</label>'
-        +   '<div style="display:flex;gap:8px">'
-        +     dirChip('over',  '↑ Plus de',  'rgba(52,211,153,0.16)', '#34D399')
-        +     + dirChip('under', '↓ Moins de', 'rgba(248,113,113,0.16)', '#F87171')
-        +   '</div>'
-        + '</div>'
+        '<label class="bk-m-label">Match (depuis 48h)</label>'
+        + matchCards
+        + playerStepHtml
+        + pickStepHtml
+        + autoResultHtml
         + '<div class="bk-m-row2" style="margin-top:14px">'
-        +   '<div><label class="bk-m-label">Ligne</label>'
-        +     '<input class="bk-m-input" id="bk-mb-line" inputmode="decimal" value="' + st.line + '" placeholder="14.5"></div>'
         +   '<div><label class="bk-m-label">Cote</label>'
         +     '<input class="bk-m-input" id="bk-mb-cote" inputmode="decimal" value="' + st.cote + '" placeholder="1.85"></div>'
+        +   '<div><label class="bk-m-label">Mise (€)</label>'
+        +     '<input class="bk-m-input" id="bk-mb-stake" inputmode="decimal" value="' + st.stake + '" placeholder="10"></div>'
         + '</div>'
-        + '<div class="bk-m-grp" style="margin-top:14px">'
-        +   '<label class="bk-m-label">Mise (€)</label>'
-        +   '<input class="bk-m-input" id="bk-mb-stake" inputmode="decimal" value="' + st.stake + '" placeholder="10">'
-        +   '<div class="bk-m-quick">'
-        +     [1, 2, 5, 10, 25].map(function(v){{ return '<button type="button" onclick="_bkManualSetStake(' + v + ')">' + v + '€</button>'; }}).join('')
-        +   '</div>'
+        + '<div class="bk-m-quick">'
+        +   [1, 2, 5, 10, 25].map(function(v){{ return '<button type="button" onclick="_bkManualSetStake(' + v + ')">' + v + '€</button>'; }}).join('')
         + '</div>';
+      // Force "match" et "event" depuis le game selectionne (pour pick storage)
+      if(st.selectedGameId && games[st.selectedGameId]){{
+        st.event = games[st.selectedGameId].matchup || st.event;
+        st.matchDate = games[st.selectedGameId].date || st.matchDate;
+      }}
     }} else {{
       sportFields =
         '<div class="bk-m-grp">'
@@ -5216,17 +5340,35 @@ function _bkOpenManualBetForm(prefill){{
     wire('bk-mb-event', 'event');
     wire('bk-mb-market', 'market');
     wire('bk-mb-player', 'player');
-    wire('bk-mb-line', 'line');
     wire('bk-mb-cote', 'cote');
     wire('bk-mb-stake', 'stake');
     wire('bk-mb-date', 'matchDate');
     wire('bk-mb-tipster', 'tipster');
     wire('bk-mb-note', 'note');
+    // Line: re-render apres delay pour mettre a jour l'auto-detect WIN/LOSS
+    var lineEl = byId('bk-mb-line');
+    if(lineEl){{
+      lineEl.addEventListener('input', function(e){{
+        window._bkManualState.line = e.target.value;
+        clearTimeout(window._bkManualLineDebounce);
+        window._bkManualLineDebounce = setTimeout(function(){{
+          if(window._bkManualRender) window._bkManualRender();
+        }}, 350);
+      }});
+    }}
     var propSel = byId('bk-mb-prop');
-    if(propSel){{ propSel.addEventListener('change', function(e){{ window._bkManualState.prop = e.target.value; }}); }}
+    if(propSel){{ propSel.addEventListener('change', function(e){{
+      window._bkManualState.prop = e.target.value;
+      if(window._bkManualRender) window._bkManualRender();
+    }}); }}
     byId('bk-mb-submit').addEventListener('click', function(){{ _bkManualSubmit(); }});
-    setTimeout(function(){{ var el = byId('bk-mb-event'); if(el && !el.value) el.focus(); }}, 120);
+    setTimeout(function(){{
+      var firstEmpty = byId('bk-mb-line') || byId('bk-mb-event');
+      if(firstEmpty && !firstEmpty.value) firstEmpty.focus();
+    }}, 120);
   }}
+  // Reset le flag user-override pour que l'auto-detect s'applique au 1er render
+  window._bkManualUserSetStatus = false;
   window._bkManualRender = render;
   render();
   window._bkFormEscHandler = function(e){{ if(e.key === 'Escape') _bkCloseForm(); }};
@@ -5235,6 +5377,27 @@ function _bkOpenManualBetForm(prefill){{
 function _bkManualSet(key, val){{
   if(!window._bkManualState) return;
   window._bkManualState[key] = val;
+  // Si l'user change manuellement le statut, on memorise ce override pour ne pas
+  // que l'auto-detect ecrase a chaque re-render
+  if(key === 'status') window._bkManualUserSetStatus = true;
+  // Si l'user change de sport, reset wizard NBA
+  if(key === 'sport'){{
+    window._bkManualState.selectedGameId = null;
+    window._bkManualState.player = '';
+  }}
+  if(window._bkManualRender) window._bkManualRender();
+}}
+function _bkManualPickGame(gid){{
+  if(!window._bkManualState) return;
+  window._bkManualState.selectedGameId = gid;
+  window._bkManualState.player = '';   // reset player choice when game changes
+  window._bkManualUserSetStatus = false;
+  if(window._bkManualRender) window._bkManualRender();
+}}
+function _bkManualPickPlayer(name){{
+  if(!window._bkManualState) return;
+  window._bkManualState.player = name;
+  window._bkManualUserSetStatus = false;
   if(window._bkManualRender) window._bkManualRender();
 }}
 function _bkManualSetStake(v){{
