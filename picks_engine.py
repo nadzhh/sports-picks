@@ -1322,8 +1322,13 @@ def team_shots_props(home_ts, away_ts, home_recent, away_recent, h2h_shots, home
         Format : stats brutes L10/L5 -> defenses adverses -> attendu match -> forme.
         L'utilisateur veut voir les VRAIES stats pour pouvoir verifier.
         """
-        h_l10 = hr.get("shots_l10"); h_l5 = hr.get("shots_l5")
-        a_l10 = ar.get("shots_l10"); a_l5 = ar.get("shots_l5")
+        # Choisit les bonnes cles selon le stat affiche : tirs total vs tirs cadres (SOT)
+        if stat_label == "tirs cadrés" or stat_label == "tirs cadres":
+            h_l10 = hr.get("sot_l10"); h_l5 = hr.get("sot_l5")
+            a_l10 = ar.get("sot_l10"); a_l5 = ar.get("sot_l5")
+        else:
+            h_l10 = hr.get("shots_l10"); h_l5 = hr.get("shots_l5")
+            a_l10 = ar.get("shots_l10"); a_l5 = ar.get("shots_l5")
         # Ligne 1 : stats brutes
         def _stat_str(l10, l5):
             if l10 is None and l5 is None: return "?"
