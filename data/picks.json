@@ -1,22 +1,22 @@
 [
   {
-    "league": "Serie A",
-    "home": "Torino",
-    "away": "Juventus",
-    "start_ts": 1779651900,
-    "match_id": "4803416",
-    "page_url": "/matches/torino-vs-juventus/37eu56#4803416",
+    "league": "Conference League",
+    "home": "Crystal Palace",
+    "away": "Rayo Vallecano",
+    "start_ts": 1779908400,
+    "match_id": "5206271",
+    "page_url": "/matches/rayo-vallecano-vs-crystal-palace/2qknn8#5206271",
     "picks": [
       {
         "direction": "away_dc",
         "type": "Double chance",
-        "label": "Nul ou Juventus (X2)",
-        "cote": 1.1,
-        "confidence": 78,
-        "reasoning": "Juventus invaincu 80% sur 5 derniers matchs · H2H: 1/1 matchs sans défaite",
+        "label": "Nul ou Rayo Vallecano (X2)",
+        "cote": 1.91,
+        "confidence": 87,
+        "reasoning": "Rayo Vallecano invaincu 100% sur 5 derniers matchs · H2H: 0/0 matchs sans défaite",
         "stats": {
           "form": [
-            "L",
+            "W",
             "W",
             "D",
             "D",
@@ -26,27 +26,27 @@
         "is_fun": false
       },
       {
-        "direction": "tirs_cadrés_(torino)_under_4.5",
-        "type": "Tirs cadrés (Torino)",
-        "label": "Moins de 4.5 tirs cadrés Torino",
-        "cote": null,
-        "cote_min": 1.25,
-        "value": [
-          "⚠️",
-          "Value serrée",
-          "#f59e0b"
-        ],
-        "confidence": 80,
-        "edge": null,
-        "reasoning": "Torino prend 3.6/m [pondere vs opp #6] · adv. concède 2.9/m → attendu ~3.1 (Juventus favori (#6 vs #12))",
+        "direction": "away_win",
+        "type": "Victoire extérieur",
+        "label": "Rayo Vallecano gagne",
+        "cote": 4.2,
+        "confidence": 62,
+        "reasoning": "Rayo Vallecano : 3V/2N/0D sur 5 matchs · #5 au classement · H2H: 0V/0N/0D · Note Sofa: 6.5/10",
         "stats": {
-          "expected": 3.1
-        }
+          "form": [
+            "W",
+            "W",
+            "D",
+            "D",
+            "W"
+          ]
+        },
+        "is_fun": false
       },
       {
-        "direction": "sot_over_6.5",
-        "type": "Tirs cadrés (total)",
-        "label": "Plus de 6.5 tirs cadrés total",
+        "direction": "tirs_(crystal_palace)_over_11.5",
+        "type": "Tirs (Crystal Palace)",
+        "label": "Plus de 11.5 tirs Crystal Palace",
         "cote": null,
         "cote_min": 1.31,
         "value": [
@@ -55,46 +55,66 @@
           "#84cc16"
         ],
         "confidence": 76,
-        "reasoning": "📊 Brut : Torino L10 12.5 (L5 12.6) tirs cadrés/m · Juventus L10 17.4 (L5 19.4) tirs cadrés/m\n🛡️ Défenses : Torino concède 5.2/m · Juventus concède 2.9/m\n🎯 Attendu : Torino ~3.1 · Juventus ~5.6 → total ~8.7\n⚖️ Juventus favori (#6 vs #12) · Torino forme : L-W-L-D-D · Juventus forme : L-W-D-D-W",
+        "edge": null,
+        "reasoning": "Crystal Palace prend 17.3/m [pondere vs opp #5] · adv. concède 13.0/m → attendu ~14.3 (Rayo Vallecano favori (#5 vs #10))",
         "stats": {
-          "expected_total": 8.7
+          "expected": 14.3
+        }
+      },
+      {
+        "direction": "sot_over_7.5",
+        "type": "Tirs cadrés (total)",
+        "label": "Plus de 7.5 tirs cadrés total",
+        "cote": null,
+        "cote_min": 1.32,
+        "value": [
+          "💎",
+          "Value correcte",
+          "#84cc16"
+        ],
+        "confidence": 76,
+        "reasoning": "📊 Brut : Crystal Palace L10 17.2 (L5 16.0) tirs cadrés/m · Rayo Vallecano L10 18.7 (L5 17.0) tirs cadrés/m\n🛡️ Défenses : Crystal Palace concède 4.2/m · Rayo Vallecano concède 4.2/m\n🎯 Attendu : Crystal Palace ~4.6 · Rayo Vallecano ~5.2 → total ~9.8\n⚖️ Rayo Vallecano favori (#5 vs #10) · Crystal Palace forme : L-D-L-D-W · Rayo Vallecano forme : W-W-D-D-W",
+        "stats": {
+          "expected_total": 9.8
         }
       }
     ],
-    "home_players": [],
-    "away_players": [
+    "home_players": [
       {
-        "player": "Dusan Vlahovic",
+        "player": "Ismaïla Sarr",
         "position": "F",
         "is_sub": false,
         "type": "Buteur",
-        "label": "Dusan Vlahovic marque",
-        "team": "away",
+        "label": "Ismaïla Sarr marque",
         "cote": null,
         "book": null,
         "books": [],
-        "confidence": 41,
-        "reasoning": "7G en 19 matchs (36.8%/match) · xG: 0.37/match",
+        "confidence": 61,
+        "reasoning": "9 buts en 12 matchs cette saison (75.0% de chance/match) · bonne efficacité (20% conv.) · xG moyen 0.67/match · défense correcte",
         "context": {
-          "weakness": 0.48
+          "weakness": 0.35
         },
         "stats": {
-          "goals": 7,
-          "apps": 19
-        }
+          "goals": 9,
+          "apps": 12,
+          "gpm": 0.75,
+          "xgpm": 0.667
+        },
+        "team": "home"
       }
     ],
+    "away_players": [],
     "fun_picks": [],
     "top_pick": {
       "direction": "away_dc",
       "type": "Double chance",
-      "label": "Nul ou Juventus (X2)",
-      "cote": 1.1,
-      "confidence": 78,
-      "reasoning": "Juventus invaincu 80% sur 5 derniers matchs · H2H: 1/1 matchs sans défaite",
+      "label": "Nul ou Rayo Vallecano (X2)",
+      "cote": 1.91,
+      "confidence": 87,
+      "reasoning": "Rayo Vallecano invaincu 100% sur 5 derniers matchs · H2H: 0/0 matchs sans défaite",
       "stats": {
         "form": [
-          "L",
+          "W",
           "W",
           "D",
           "D",
