@@ -2693,16 +2693,34 @@ def build_nba_analyse_section(nba_picks_data, nba_player_stats, nba_odds):
 
 
 def build_nba_section(nba_picks_data):
-    """Section NBA : liste des matchs avec leurs picks."""
+    """Section NBA : liste des matchs avec leurs picks, tries par confiance."""
     if not nba_picks_data:
         return (
             '<div style="text-align:center;padding:40px;color:#64748b">'
             'Aucun match NBA aujourd\'hui ou demain.'
             '</div>'
         )
+    # Tri des picks PAR confidence DESC dans chaque match + tri des matchs
+    # par max(confidence) DESC. Le pick le + propice remonte en haut.
+    def _max_conf(_g):
+        _m = 0
+        for _p in (_g.get("home_picks", []) or []) + (_g.get("away_picks", []) or []):
+            _c = _p.get("confidence", 0) or 0
+            if _c > _m: _m = _c
+        return _m
+    sorted_games = sorted(
+        nba_picks_data.items(),
+        key=lambda kv: _max_conf(kv[1]),
+        reverse=True,
+    )
+    for _gid, _g in sorted_games:
+        if _g.get("home_picks"):
+            _g["home_picks"].sort(key=lambda p: (p.get("confidence", 0) or 0), reverse=True)
+        if _g.get("away_picks"):
+            _g["away_picks"].sort(key=lambda p: (p.get("confidence", 0) or 0), reverse=True)
     cards = ""
     n_picks = 0
-    for gid, game in nba_picks_data.items():
+    for gid, game in sorted_games:
         cards += build_nba_card(game)
         n_picks += len(game.get("home_picks", [])) + len(game.get("away_picks", []))
     meta = (
@@ -3243,6 +3261,33 @@ def build_html(matches, team_ai, player_ai, pstats_data, nba_picks=None, nba_his
     if _dropped:
         print(f"  [filter] {_dropped} match(s) deja termine(s) exclu(s) de la section Football (data/matches.json stale)")
     matches = _kept
+
+    # Tri par confiance MAX du match (le pick le plus propice au top).
+    # Pour chaque match, on calcule max(confidence) across team_picks + fun_picks
+    # + player_picks. Les matchs avec un pick haute confiance remontent.
+    def _match_max_confidence(_m):
+        _max = 0
+        for _p in (_m.get("picks") or []):
+            _c = _p.get("confidence", 0) or 0
+            if _c > _max: _max = _c
+        for _p in (_m.get("fun_picks") or []):
+            _c = _p.get("confidence", 0) or 0
+            if _c > _max: _max = _c
+        for _player in (_m.get("home_players") or []) + (_m.get("away_players") or []):
+            for _p in (_player.get("picks") or []):
+                _c = _p.get("confidence", 0) or 0
+                if _c > _max: _max = _c
+        return _max
+    matches.sort(key=_match_max_confidence, reverse=True)
+    # Aussi : pour chaque match, tri INTERNE des picks par confidence DESC
+    for _m in matches:
+        if _m.get("picks"):
+            _m["picks"].sort(key=lambda p: (p.get("confidence", 0) or 0), reverse=True)
+        if _m.get("fun_picks"):
+            _m["fun_picks"].sort(key=lambda p: (p.get("confidence", 0) or 0), reverse=True)
+        for _player in (_m.get("home_players") or []) + (_m.get("away_players") or []):
+            if _player.get("picks"):
+                _player["picks"].sort(key=lambda p: (p.get("confidence", 0) or 0), reverse=True)
 
     days = {}
     for m in matches:
@@ -6996,6 +7041,51 @@ function renderUserPicks(){{
   var resetBtn = (fStatus !== 'all' || fTipster !== 'all' || fDate !== 'all' || fPropFilter !== 'all')
     ? '<button class="bk-filter-reset" onclick="resetBkFilters()">Réinitialiser ✕</button>'
     : '';
+  // ── P&L pour le filtre actif ──────────────────────────
+  // Quand un filtre est actif, on affiche le profit/perte cumule sur les picks
+  // resolus dans le subset filtre (utile pour voir "bilan du jour" / "bilan
+  // vs PronoKing" / "bilan Reb+Pas" etc en un coup d'oeil).
+  var anyFilterActive = (fStatus !== 'all' || fTipster !== 'all' || fDate !== 'all' || fPropFilter !== 'all');
+  var filterPnlChip = '';
+  if(anyFilterActive){{
+    var fSettled = filteredArr.filter(function(p){{
+      return p.result && p.result !== 'PENDING' && p.result !== 'PUSH';
+    }});
+    var fProfit = 0;
+    var fStake  = 0;
+    var fWins = 0, fLosses = 0;
+    fSettled.forEach(function(p){{
+      var st = (p.stake != null) ? p.stake : 1;
+      fStake += st;
+      fProfit += _bkBetDelta(p);
+      if(p.result === 'WIN')  fWins++;
+      if(p.result === 'LOSS') fLosses++;
+    }});
+    var fPushes = filteredArr.filter(function(p){{ return p.result === 'PUSH'; }}).length;
+    var fPending = filteredArr.filter(function(p){{ return !p.result || p.result === 'PENDING'; }}).length;
+    if(fSettled.length > 0 || fPending > 0){{
+      var clr = fProfit > 0 ? '#34D399' : (fProfit < 0 ? '#F87171' : '#94A3B8');
+      var sign = fProfit > 0 ? '+' : (fProfit < 0 ? '−' : '');
+      var roi = fStake > 0 ? (fProfit / fStake * 100) : 0;
+      var roiSign = roi > 0 ? '+' : (roi < 0 ? '−' : '');
+      var pendingChip = fPending > 0
+        ? '<span style="margin-left:8px;color:#FBBF24;font-weight:500;font-size:11.5px">· ⏱ ' + fPending + ' en cours</span>'
+        : '';
+      filterPnlChip =
+        '<div style="margin:2px 0 12px;padding:10px 14px;border-radius:12px;'
+        + 'background:linear-gradient(90deg, ' + clr + '14 0%, ' + clr + '04 100%);'
+        + 'border:1px solid ' + clr + '38;display:flex;align-items:center;gap:12px;flex-wrap:wrap">'
+        +   '<div style="font-size:11.5px;font-weight:700;color:#94A3B8;text-transform:uppercase;letter-spacing:0.4px">📊 Bilan du filtre</div>'
+        +   '<div style="font-size:18px;font-weight:800;color:' + clr + ';font-variant-numeric:tabular-nums">' + sign + _bkFmt(Math.abs(fProfit)) + ' €</div>'
+        +   '<div style="font-size:11.5px;color:#94A3B8;font-weight:600">'
+        +     'ROI <span style="color:' + clr + ';font-weight:700">' + roiSign + Math.abs(roi).toFixed(1) + '%</span>'
+        +     ' · ' + fSettled.length + ' resolus (' + fWins + 'W·' + fLosses + 'L'
+        +     (fPushes > 0 ? '·' + fPushes + 'P' : '') + ')'
+        +   '</div>'
+        +   pendingChip
+        + '</div>';
+    }}
+  }}
   // Chip "Filtré par prop" affichée a cote du titre Historique si un prop filter est actif
   var propFilterChip = '';
   if(fPropFilter !== 'all'){{
@@ -7030,6 +7120,7 @@ function renderUserPicks(){{
       + '<div class="bk-filter-row">' + statusChips + '</div>'
       + '<div class="bk-filter-row">' + dateChips + '</div>'
       + (tipsterList.length > 0 ? '<div class="bk-filter-row">' + tipsterChips + '</div>' : '')
+      + filterPnlChip
       + rowsBlock
       + '</div>';
   }}
