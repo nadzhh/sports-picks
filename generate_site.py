@@ -5828,6 +5828,297 @@ function _bkManualSubmit(){{
   if(typeof renderUserPicks === 'function') renderUserPicks();
 }}
 
+// ── Modal "Modifier le pari" (ouvre form pre-remplie pour un pick existant) ──
+function _bkEditSet(key, val){{
+  if(!window._bkEditState) return;
+  window._bkEditState[key] = val;
+  if(window._bkEditRender) window._bkEditRender();
+}}
+function _bkEditSetStake(v){{
+  if(!window._bkEditState) return;
+  window._bkEditState.stake = String(v);
+  var el = document.getElementById('bk-edit-stake');
+  if(el) el.value = String(v);
+  _bkEditUpdateCalc();
+}}
+function _bkEditUpdateCalc(){{
+  var st = window._bkEditState;
+  if(!st) return;
+  var c = parseFloat(String(st.cote).replace(',', '.')) || 0;
+  var s = parseFloat(String(st.stake).replace(',', '.')) || 0;
+  var pot = s * c;
+  var prof = Math.max(0, pot - s);
+  var canSubmit = c > 1 && s > 0;
+  var potEl  = document.getElementById('bk-edit-pot');
+  var profEl = document.getElementById('bk-edit-prof');
+  var btn    = document.getElementById('bk-edit-submit');
+  if(potEl)  potEl.textContent = '€' + pot.toFixed(2);
+  if(profEl) profEl.textContent = '+€' + prof.toFixed(2);
+  if(btn) btn.disabled = !canSubmit;
+}}
+function _bkEditDelete(){{
+  if(!window._bkEditState) return;
+  var pid = window._bkEditState.pickId;
+  if(!confirm('Supprimer définitivement ce pari ?')) return;
+  var arr = _loadUserPicks().filter(function(x){{ return x.id !== pid; }});
+  _saveUserPicks(arr);
+  _bkCloseForm();
+  if(typeof renderUserPicks === 'function') renderUserPicks();
+}}
+function _bkEditSubmit(){{
+  var st = window._bkEditState;
+  if(!st) return;
+  var arr = _loadUserPicks();
+  var idx = arr.findIndex(function(p){{ return p.id === st.pickId; }});
+  if(idx < 0){{ alert('Pick introuvable'); _bkCloseForm(); return; }}
+  var p = arr[idx];
+  var cote  = parseFloat(String(st.cote).replace(',', '.'));
+  var stake = parseFloat(String(st.stake).replace(',', '.'));
+  if(isNaN(cote) || cote <= 1){{ alert('Cote invalide (> 1.0)'); return; }}
+  if(isNaN(stake) || stake <= 0){{ alert('Mise invalide'); return; }}
+  p.cote       = cote;
+  p.stake      = stake;
+  p.match_date = st.matchDate || null;
+  p.tipster    = (st.tipster||'').trim() || null;
+  p.note       = (st.note||'').trim() || null;
+  if(st.status === 'PENDING'){{
+    p.result = null; p.actual = null; p.resolved_at = null;
+    p.manual_override = false; p.cashout_amount = null;
+  }} else if(st.status === 'CASHOUT'){{
+    var cash = parseFloat(String(st.cashoutAmount).replace(',', '.'));
+    if(isNaN(cash)){{ alert('Montant cashout invalide (ex: +3.20 ou -2.00)'); return; }}
+    p.result          = cash > 0 ? 'WIN' : (cash < 0 ? 'LOSS' : 'PUSH');
+    p.cashout_amount  = cash;
+    p.manual_override = true;
+    p.resolved_at     = new Date().toISOString();
+  }} else {{
+    p.result          = st.status;
+    p.cashout_amount  = null;
+    p.manual_override = true;
+    p.resolved_at     = new Date().toISOString();
+  }}
+  if(p.tipster){{
+    window._bkLastTipster = p.tipster;
+    _bkAddTipster(p.tipster);
+  }}
+  arr[idx] = p;
+  _saveUserPicks(arr);
+  _bkCloseForm();
+  if(typeof renderUserPicks === 'function') renderUserPicks();
+}}
+function _bkOpenEditForm(pickId){{
+  var arr0 = _loadUserPicks();
+  var p = arr0.find(function(x){{ return x.id === pickId; }});
+  if(!p){{ alert('Pick introuvable'); return; }}
+  var root = _bkEnsureModalRoot();
+  var initStatus = p.result;
+  if(p.cashout_amount != null) initStatus = 'CASHOUT';
+  if(!initStatus || initStatus === 'PENDING') initStatus = 'PENDING';
+  window._bkEditState = {{
+    pickId:        pickId,
+    cote:          p.cote != null ? String(p.cote) : '',
+    stake:         p.stake != null ? String(p.stake) : '',
+    matchDate:     (p.match_date || '').slice(0, 10),
+    status:        initStatus,
+    cashoutAmount: p.cashout_amount != null ? String(p.cashout_amount) : '',
+    tipster:       p.tipster || '',
+    note:          p.note || '',
+  }};
+  function render(){{
+    var st = window._bkEditState;
+    var pCur = _loadUserPicks().find(function(x){{ return x.id === pickId; }});
+    if(!pCur){{ _bkCloseForm(); return; }}
+    var isManual = pCur.source === 'manual' || (!!pCur.event && !!pCur.market && !pCur.player);
+    var idTitle, idSub, sportIcon;
+    if(isManual){{
+      idTitle = (pCur.market || '?').replace(/</g, '&lt;');
+      if(pCur.line != null && pCur.line !== '') idTitle += ' ' + pCur.line;
+      idSub = (pCur.event || '').replace(/</g, '&lt;');
+      var SPORT_EMOJI = {{FOOT:'⚽', NBA:'🏀', TENNIS:'🎾', RUGBY:'🏉', MMA:'🥊', NFL:'🏈', F1:'🏎️', OTHER:'🎲'}};
+      sportIcon = SPORT_EMOJI[(pCur.sport || 'OTHER').toUpperCase()] || '🎲';
+    }} else {{
+      var propLabel = ({{PTS:'pts',REB:'reb',AST:'pas',FG3M:'3PM',RA:'reb+pas',PR:'pts+reb',PA:'pts+ast',PRA:'PRA'}})[pCur.prop] || pCur.prop;
+      var dir = pCur.direction === 'over' ? 'plus de' : 'moins de';
+      idTitle = (pCur.player || '?') + ' ' + dir + ' ' + pCur.line + ' ' + propLabel;
+      idSub = (pCur.away || '') + ' @ ' + (pCur.home || '');
+      sportIcon = '🏀';
+    }}
+    var c = parseFloat(String(st.cote).replace(',', '.')) || 0;
+    var s = parseFloat(String(st.stake).replace(',', '.')) || 0;
+    var pot = s * c;
+    var prof = Math.max(0, pot - s);
+    var canSubmit = c > 1 && s > 0;
+    var STATUSES = [
+      {{id:'PENDING', label:'⏱ En cours', bg:'rgba(251,191,36,0.16)', fg:'#FBBF24'}},
+      {{id:'WIN',     label:'✓ Gagné',    bg:'rgba(52,211,153,0.16)', fg:'#34D399'}},
+      {{id:'LOSS',    label:'✕ Perdu',    bg:'rgba(248,113,113,0.16)', fg:'#F87171'}},
+      {{id:'PUSH',    label:'↻ Annulé',   bg:'rgba(148,163,184,0.16)', fg:'#94A3B8'}},
+      {{id:'CASHOUT', label:'💵 Cashout', bg:'rgba(56,189,248,0.16)',  fg:'#38BDF8'}},
+    ];
+    var statusBtns = STATUSES.map(function(o){{
+      var active = st.status === o.id;
+      return '<button type="button" onclick="_bkEditSet(\\'status\\', \\'' + o.id + '\\')" style="'
+        + 'padding:9px 4px;border-radius:11px;border:1px solid ' + (active ? o.fg + '88' : 'rgba(255,255,255,0.06)') + ';'
+        + 'background:' + (active ? o.bg : '#14161B') + ';color:' + (active ? o.fg : '#94A3B8') + ';'
+        + 'font-weight:700;font-size:11.5px;cursor:pointer;font-family:inherit">' + o.label + '</button>';
+    }}).join('');
+    var cashoutInput = '';
+    if(st.status === 'CASHOUT'){{
+      cashoutInput = '<div class="bk-m-grp" style="margin-top:14px">'
+        + '<label class="bk-m-label">Montant net du cashout (€)</label>'
+        + '<input class="bk-m-input" id="bk-edit-cashout" inputmode="decimal" value="' + st.cashoutAmount + '" placeholder="+3.20 (gain) ou -2.00 (perte)">'
+        + '<div style="color:#8B8D98;font-size:11px;margin-top:4px">Net du cashout. Ex: mise 5€, recu 8.20€ → tape +3.20</div>'
+        + '</div>';
+    }}
+    // Capture scroll/focus avant re-render
+    var _prevBody = root.querySelector('.bk-m-body');
+    var _prevScroll = _prevBody ? _prevBody.scrollTop : 0;
+    var _prevFocusId = (document.activeElement && document.activeElement.id) || null;
+    var _prevSelStart = null, _prevSelEnd = null;
+    if(_prevFocusId && document.activeElement && document.activeElement.selectionStart != null){{
+      try {{ _prevSelStart = document.activeElement.selectionStart; _prevSelEnd = document.activeElement.selectionEnd; }} catch(e){{}}
+    }}
+    var html =
+      '<div class="bk-modal-bd" onclick="_bkCloseForm()"></div>'
+      + '<div class="bk-modal-card" role="dialog">'
+      +   '<div class="bk-m-hd">'
+      +     '<button class="bk-m-cancel" onclick="_bkCloseForm()">Annuler</button>'
+      +     '<div class="bk-m-title">Modifier le pari</div>'
+      +     '<div style="width:64px"></div>'
+      +   '</div>'
+      +   '<div class="bk-m-body">'
+      +     '<div class="bk-m-context">'
+      +       '<div class="bk-m-icon">' + sportIcon + '</div>'
+      +       '<div style="flex:1;min-width:0">'
+      +         '<div class="bk-m-ctx-title">' + idTitle + '</div>'
+      +         '<div class="bk-m-ctx-sub"><span>' + idSub + '</span></div>'
+      +       '</div>'
+      +     '</div>'
+      +     '<div class="bk-m-row2">'
+      +       '<div><label class="bk-m-label">Cote</label>'
+      +         '<input class="bk-m-input" id="bk-edit-cote" inputmode="decimal" value="' + st.cote + '" placeholder="1.85"></div>'
+      +       '<div><label class="bk-m-label">Mise (€)</label>'
+      +         '<input class="bk-m-input" id="bk-edit-stake" inputmode="decimal" value="' + st.stake + '" placeholder="10"></div>'
+      +     '</div>'
+      +     '<div class="bk-m-quick">'
+      +       [1, 2, 5, 10, 25].map(function(v){{ return '<button type="button" onclick="_bkEditSetStake(' + v + ')">' + v + '€</button>'; }}).join('')
+      +     '</div>'
+      +     '<div class="bk-m-grp" style="margin-top:14px">'
+      +       '<label class="bk-m-label">Date du match</label>'
+      +       '<input class="bk-m-input" id="bk-edit-date" type="date" value="' + st.matchDate + '">'
+      +     '</div>'
+      +     '<div class="bk-m-grp" style="margin-top:14px">'
+      +       '<label class="bk-m-label">Statut</label>'
+      +       '<div style="display:grid;grid-template-columns:repeat(5,1fr);gap:5px">' + statusBtns + '</div>'
+      +       cashoutInput
+      +     '</div>'
+      +     '<div class="bk-m-grp" style="margin-top:14px">'
+      +       '<label class="bk-m-label">Tipster<span class="opt">· facultatif</span></label>'
+      +       '<div class="bk-tipster-wrap">'
+      +         '<input class="bk-m-input" id="bk-edit-tipster" value="' + (st.tipster||'').replace(/"/g, '&quot;') + '" placeholder="@PronoKing, Algo, instinct..." autocomplete="off">'
+      +         '<button type="button" class="bk-tipster-chevron" id="bk-edit-tipster-chevron" title="Voir les tipsters enregistres">▼</button>'
+      +         '<div class="bk-tipster-dd" id="bk-edit-tipster-dd"></div>'
+      +       '</div>'
+      +     '</div>'
+      +     '<div class="bk-m-grp" style="margin-top:14px">'
+      +       '<label class="bk-m-label">Note<span class="opt">· facultatif</span></label>'
+      +       '<textarea class="bk-m-input" id="bk-edit-note" rows="2" placeholder="Pourquoi ce pari ?">' + (st.note||'').replace(/</g, '&lt;') + '</textarea>'
+      +     '</div>'
+      +     '<div class="bk-m-potential">'
+      +       '<div><div class="bk-m-pot-l">Gain potentiel</div>'
+      +         '<span class="bk-m-pot-big" id="bk-edit-pot">€' + pot.toFixed(2) + '</span></div>'
+      +       '<div style="text-align:right"><div class="bk-m-pot-l">Bénéfice</div>'
+      +         '<span class="bk-m-pot-prof" id="bk-edit-prof">+€' + prof.toFixed(2) + '</span></div>'
+      +     '</div>'
+      +     '<button type="button" onclick="_bkEditDelete()" style="margin-top:16px;width:100%;padding:11px;border-radius:12px;background:transparent;border:1px solid rgba(248,113,113,0.25);color:#F87171;font-weight:600;font-size:14px;cursor:pointer;font-family:inherit">🗑 Supprimer ce pari</button>'
+      +   '</div>'
+      +   '<div class="bk-m-ft">'
+      +     '<button class="bk-m-cta" id="bk-edit-submit"' + (canSubmit ? '' : ' disabled') + '>💾 Enregistrer</button>'
+      +   '</div>'
+      + '</div>';
+    root.innerHTML = html;
+    setTimeout(function(){{ root.classList.add('open'); }}, 10);
+    // Restaure scroll + focus + selection
+    setTimeout(function(){{
+      var newBody = root.querySelector('.bk-m-body');
+      if(newBody && _prevScroll > 0) newBody.scrollTop = _prevScroll;
+      if(_prevFocusId){{
+        var fEl = document.getElementById(_prevFocusId);
+        if(fEl){{
+          try {{
+            fEl.focus({{preventScroll: true}});
+            if(_prevSelStart != null && fEl.setSelectionRange) fEl.setSelectionRange(_prevSelStart, _prevSelEnd);
+          }} catch(e){{}}
+        }}
+      }}
+    }}, 0);
+    // Wire les inputs
+    var byId = function(id){{ return document.getElementById(id); }};
+    function wire(id, key){{
+      var el = byId(id); if(!el) return;
+      el.addEventListener('input', function(e){{
+        window._bkEditState[key] = e.target.value;
+        if(key === 'cote' || key === 'stake') _bkEditUpdateCalc();
+      }});
+    }}
+    wire('bk-edit-cote', 'cote');
+    wire('bk-edit-stake', 'stake');
+    wire('bk-edit-date', 'matchDate');
+    wire('bk-edit-tipster', 'tipster');
+    wire('bk-edit-note', 'note');
+    var cashEl = byId('bk-edit-cashout');
+    if(cashEl) cashEl.addEventListener('input', function(e){{ window._bkEditState.cashoutAmount = e.target.value; }});
+    byId('bk-edit-submit').addEventListener('click', _bkEditSubmit);
+    // Tipster dropdown (reuse pattern existant)
+    var tipsterInput = byId('bk-edit-tipster');
+    var tipsterDd    = byId('bk-edit-tipster-dd');
+    var tipsterCh    = byId('bk-edit-tipster-chevron');
+    function _renderTipsterDdE(filter){{
+      var list = _bkAllTipsters();
+      var q = (filter || '').trim().toLowerCase();
+      if(q){{ list = list.filter(function(t){{ return t.name.toLowerCase().indexOf(q) !== -1; }}); }}
+      if(!list.length){{
+        tipsterDd.innerHTML = '<div class="bk-tipster-empty">Aucun tipster enregistre.</div>';
+        return;
+      }}
+      tipsterDd.innerHTML = list.map(function(t){{
+        var esc = String(t.name).replace(/"/g, '&quot;').replace(/'/g, "&#39;").replace(/</g, '&lt;');
+        return '<div class="bk-tipster-item" data-name="' + esc + '"><span class="name">' + esc + '</span>'
+          + (t.count > 0 ? '<span class="count">' + t.count + '</span>' : '') + '</div>';
+      }}).join('');
+    }}
+    if(tipsterInput){{
+      tipsterInput.addEventListener('focus', function(){{ _renderTipsterDdE(tipsterInput.value); tipsterDd.classList.add('open'); }});
+      tipsterInput.addEventListener('input', function(e){{
+        window._bkEditState.tipster = e.target.value;
+        if(tipsterDd.classList.contains('open')) _renderTipsterDdE(e.target.value);
+      }});
+    }}
+    if(tipsterCh){{
+      tipsterCh.addEventListener('click', function(e){{
+        e.preventDefault(); e.stopPropagation();
+        if(tipsterDd.classList.contains('open')) tipsterDd.classList.remove('open');
+        else {{ _renderTipsterDdE(tipsterInput.value); tipsterInput.focus(); tipsterDd.classList.add('open'); }}
+      }});
+    }}
+    if(tipsterDd){{
+      tipsterDd.addEventListener('click', function(e){{
+        var item = e.target.closest('.bk-tipster-item');
+        if(!item) return;
+        var name = item.getAttribute('data-name');
+        tipsterInput.value = name;
+        window._bkEditState.tipster = name;
+        tipsterDd.classList.remove('open');
+        tipsterInput.focus();
+      }});
+    }}
+  }}
+  window._bkEditRender = render;
+  render();
+  window._bkFormEscHandler = function(e){{ if(e.key === 'Escape') _bkCloseForm(); }};
+  document.addEventListener('keydown', window._bkFormEscHandler);
+}}
+
 function _bkOpenForm(opts){{
   // opts = {{ direction, payload, onSubmit }}
   var root = _bkEnsureModalRoot();
@@ -6633,8 +6924,7 @@ function _bkRowHtml(p){{
     ? '<span class="bk-cote">@' + p.cote.toFixed(2) + '</span>'
     : '<span class="bk-cote warn" onclick="editUserPickCote(\\'' + p.id + '\\')">⚠️ cote</span>';
   var actions = '<div class="bk-row-actions">'
-    + '<button class="bk-mini-btn edit" onclick="modifyUserPick(\\'' + p.id + '\\')" title="Modifier statut">✏</button>'
-    + '<button class="bk-mini-btn" onclick="editUserPickStake(\\'' + p.id + '\\')" title="Modifier mise">💵</button>'
+    + '<button class="bk-mini-btn edit" onclick="_bkOpenEditForm(\\'' + p.id + '\\')" title="Modifier le pari (cote, mise, date, statut, tipster, note...)">✏</button>'
     + '<button class="bk-mini-btn tg" data-text="" onclick="pushUserPick(this, \\'' + p.id + '\\')" title="Envoyer sur Telegram">📲</button>'
     + '<button class="bk-mini-btn del" onclick="deleteUserPick(\\'' + p.id + '\\')" title="Supprimer">🗑</button>'
     + '</div>';
