@@ -4376,6 +4376,30 @@ def build_html(matches, team_ai, player_ai, pstats_data, nba_picks=None, nba_his
       <button onclick="expandStartersAnalyse()" style="background:#1e3a8a;color:#bfdbfe;border:1px solid #3b82f6;border-radius:8px;padding:8px 14px;font-size:12px;font-weight:700;cursor:pointer">⭐ Titulaires seulement</button>
       <button onclick="toggleNbaHistorySection()" id="nba-hist-toggle-btn" style="background:#1c1917;color:#fbbf24;border:1px solid #fbbf24;border-radius:8px;padding:8px 14px;font-size:12px;font-weight:700;cursor:pointer;margin-left:auto">📅 Historique 48h</button>
     </div>
+    <!-- Selectors globaux : applique le prop/fenetre choisi a TOUTES les cards joueur en 1 click -->
+    <div style="background:#0f172a;border:1px solid #1e293b;border-radius:10px;padding:10px 12px;margin-bottom:14px">
+      <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:8px">
+        <span style="color:#94a3b8;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.6px;min-width:75px">🌐 Prop pour tous</span>
+        <div id="analyse-global-prop" style="display:flex;gap:4px;flex-wrap:wrap;flex:1">
+          <button class="tg-global-prop-btn" data-prop="PTS"  onclick="setAnalyseGlobalProp('PTS')"  style="background:#1e293b;color:#94a3b8;border:1px solid #334155;border-radius:6px;padding:5px 11px;font-size:11.5px;font-weight:700;cursor:pointer">PTS</button>
+          <button class="tg-global-prop-btn" data-prop="REB"  onclick="setAnalyseGlobalProp('REB')"  style="background:#1e293b;color:#94a3b8;border:1px solid #334155;border-radius:6px;padding:5px 11px;font-size:11.5px;font-weight:700;cursor:pointer">REB</button>
+          <button class="tg-global-prop-btn" data-prop="AST"  onclick="setAnalyseGlobalProp('AST')"  style="background:#1e293b;color:#94a3b8;border:1px solid #334155;border-radius:6px;padding:5px 11px;font-size:11.5px;font-weight:700;cursor:pointer">AST</button>
+          <button class="tg-global-prop-btn" data-prop="FG3M" onclick="setAnalyseGlobalProp('FG3M')" style="background:#1e293b;color:#94a3b8;border:1px solid #334155;border-radius:6px;padding:5px 11px;font-size:11.5px;font-weight:700;cursor:pointer">3PM</button>
+          <button class="tg-global-prop-btn" data-prop="RA"   onclick="setAnalyseGlobalProp('RA')"   style="background:#1e293b;color:#94a3b8;border:1px solid #334155;border-radius:6px;padding:5px 11px;font-size:11.5px;font-weight:700;cursor:pointer">REB+AST</button>
+          <button class="tg-global-prop-btn" data-prop="PR"   onclick="setAnalyseGlobalProp('PR')"   style="background:#1e293b;color:#94a3b8;border:1px solid #334155;border-radius:6px;padding:5px 11px;font-size:11.5px;font-weight:700;cursor:pointer">PTS+REB</button>
+          <button class="tg-global-prop-btn" data-prop="PA"   onclick="setAnalyseGlobalProp('PA')"   style="background:#1e293b;color:#94a3b8;border:1px solid #334155;border-radius:6px;padding:5px 11px;font-size:11.5px;font-weight:700;cursor:pointer">PTS+AST</button>
+          <button class="tg-global-prop-btn" data-prop="PRA"  onclick="setAnalyseGlobalProp('PRA')"  style="background:#1e293b;color:#94a3b8;border:1px solid #334155;border-radius:6px;padding:5px 11px;font-size:11.5px;font-weight:700;cursor:pointer">PRA</button>
+        </div>
+      </div>
+      <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap">
+        <span style="color:#94a3b8;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.6px;min-width:75px">🌐 Fenêtre</span>
+        <div id="analyse-global-window" style="display:flex;gap:4px;flex-wrap:wrap;flex:1">
+          <button class="tg-global-window-btn" data-window="L5"  onclick="setAnalyseGlobalWindow('L5')"  style="background:#1e293b;color:#94a3b8;border:1px solid #334155;border-radius:6px;padding:5px 11px;font-size:11.5px;font-weight:700;cursor:pointer">L5</button>
+          <button class="tg-global-window-btn" data-window="L10" onclick="setAnalyseGlobalWindow('L10')" style="background:#1e293b;color:#94a3b8;border:1px solid #334155;border-radius:6px;padding:5px 11px;font-size:11.5px;font-weight:700;cursor:pointer">L10</button>
+          <button class="tg-global-window-btn" data-window="L20" onclick="setAnalyseGlobalWindow('L20')" style="background:#1e293b;color:#94a3b8;border:1px solid #334155;border-radius:6px;padding:5px 11px;font-size:11.5px;font-weight:700;cursor:pointer">L20</button>
+        </div>
+      </div>
+    </div>
     <!-- Section Historique (matchs récents 2h-48h ago) — masquée par défaut -->
     <div id="nba-history-block" style="display:none;margin-bottom:18px">
       <div style="color:#fbbf24;font-size:13px;font-weight:700;margin-bottom:10px;padding:8px 12px;background:rgba(251,191,36,0.06);border-left:3px solid #fbbf24;border-radius:4px;line-height:1.5">
@@ -4459,6 +4483,34 @@ function selectWindow(btn){{
   var win = btn.dataset.window;
   card.querySelectorAll('.tg-window-block').forEach(b=>{{
     b.style.display = (b.dataset.window === win) ? 'block' : 'none';
+  }});
+}}
+
+// ── Global prop/window selectors : applique a TOUTES les cards joueur ─────
+function setAnalyseGlobalProp(prop){{
+  // Met a jour le state visuel des boutons globaux
+  document.querySelectorAll('#analyse-global-prop .tg-global-prop-btn').forEach(function(b){{
+    var active = b.dataset.prop === prop;
+    b.style.background = active ? '#3b82f6' : '#1e293b';
+    b.style.color      = active ? '#fff'    : '#94a3b8';
+    b.style.borderColor= active ? '#3b82f6' : '#334155';
+  }});
+  // Applique le prop a chaque card visible (y compris dans Historique 48h)
+  document.querySelectorAll('#sport-analyse .player-analyse').forEach(function(c){{
+    var btn = c.querySelector('.tg-prop-btn[data-prop="' + prop + '"]');
+    if(btn) selectPropChart(btn);
+  }});
+}}
+function setAnalyseGlobalWindow(win){{
+  document.querySelectorAll('#analyse-global-window .tg-global-window-btn').forEach(function(b){{
+    var active = b.dataset.window === win;
+    b.style.background = active ? '#fb923c' : '#1e293b';
+    b.style.color      = active ? '#0a1628' : '#94a3b8';
+    b.style.borderColor= active ? '#fb923c' : '#334155';
+  }});
+  document.querySelectorAll('#sport-analyse .player-analyse').forEach(function(c){{
+    var btn = c.querySelector('.tg-window-btn[data-window="' + win + '"]');
+    if(btn) selectWindow(btn);
   }});
 }}
 
