@@ -1538,25 +1538,51 @@ def build_team_pick(p, ai_txt="", match_ctx=None):
     )
 
 
+_FOOT_LABEL_RE = __import__("re").compile(r"^(Plus de|Moins de)\s+([\d.,]+)\s+(.+)$", __import__("re").IGNORECASE)
+
+
+def _parse_foot_label(label):
+    """Extrait (direction, line) d'un label foot.
+
+    'Plus de 22.5 tirs total match' -> ('over', 22.5)
+    'Moins de 2.5 buts'             -> ('under', 2.5)
+    'Buteur : Mbappé'               -> (None, None)
+    'Double chance X2'              -> (None, None)
+    """
+    if not label:
+        return None, None
+    m = _FOOT_LABEL_RE.match(label)
+    if not m:
+        return None, None
+    direction = "over" if m.group(1).lower().startswith("plus") else "under"
+    try:
+        line = float(m.group(2).replace(",", "."))
+    except ValueError:
+        return None, None
+    return direction, line
+
+
 def _build_foot_add_btn(p, match_ctx, kind="team"):
     """Bouton Add bankroll pour un pick foot (team/player/fun).
 
-    Payload structure : sport=foot, label, real_cote, matchup, match_id, player.
+    Parse le label ("Plus de 22.5 tirs total" -> line=22.5, direction='over')
+    pour permettre la modification de la ligne dans le modal.
     """
-    import json as _json, html as _html
+    import json as _json
     if match_ctx is None: match_ctx = {}
     home = match_ctx.get("home", ""); away = match_ctx.get("away", "")
-    matchup = (away + " @ " + home) if (home and away) else ""
-    player = p.get("player") if kind == "player" else home  # team pick = home team
+    matchup = (away + " vs " + home) if (home and away) else ""
+    player = p.get("player") if kind == "player" else (home or "")
     real_cote = p.get("cote") or p.get("cote_min")
+    label = p.get("label", "")
+    direction, line = _parse_foot_label(label)
     payload = {
         "sport":      "foot",
-        "prop":       f"FOOT_{kind.upper()}",
-        "label":      p.get("label", ""),
-        "direction":  None,
-        "line":       None,
+        "label":      label,
+        "direction":  direction,        # over/under si label parsable, sinon None
+        "line":       line,              # numerique si label parsable, sinon None
         "real_cote":  real_cote,
-        "player":     player or "",
+        "player":     player,
         "matchup":    matchup,
         "home":       home,
         "away":       away,
@@ -4923,34 +4949,86 @@ function addAnyPick(payload){{
     direction: direction,
     payload:   payload,
     onSubmit:  function(r){{
-      var pick = {{
-        id:         'user_' + Date.now() + '_' + Math.random().toString(36).slice(2, 8),
-        sport:      payload.sport || 'unknown',
-        player:     payload.player || payload.label || '?',
-        prop:       payload.prop || 'CUSTOM',
-        direction:  direction || 'over',  // requis pour _bkBetDelta
-        line:       (r.line !== '' && r.line !== null && r.line !== undefined) ? parseFloat(r.line) : (payload.line || null),
-        cote:       parseFloat(r.cote),
-        stake:      parseFloat(r.stake),
-        tipster:    r.tipster,
-        note:       r.note,
-        label:      payload.label || null,
-        matchup:    payload.matchup || (payload.away ? payload.away + ' vs ' + payload.home : ''),
-        home:       payload.home || '',
-        away:       payload.away || '',
-        match_id:   payload.match_id || payload.game_id || '',
-        game_id:    payload.game_id || payload.match_id || '',
-        match_date: payload.match_date || null,
-        kind:       payload.kind || null,
-        created:    new Date().toISOString(),
-        result:     null,
-        actual:     null,
-        source:     'user',
-      }};
+      var newLine = (r.line !== '' && r.line != null && !isNaN(parseFloat(r.line)))
+                      ? parseFloat(r.line)
+                      : (payload.line != null ? parseFloat(payload.line) : null);
+      var cote = parseFloat(r.cote);
+      var stake = parseFloat(r.stake);
+      var sport = (payload.sport || 'other').toLowerCase();
+      var isNba = (sport === 'nba');
+      var pick;
+      if(isNba && payload.player && payload.prop){{
+        // NBA-shape : player/prop/direction/line (compat avec _bkRowHtml NBA renderer)
+        pick = {{
+          id:          'user_' + Date.now() + '_' + Math.random().toString(36).slice(2, 8),
+          sport:       'NBA',
+          source:      'algo',
+          player:      payload.player,
+          prop:        payload.prop,
+          direction:   direction || 'over',
+          line:        newLine,
+          cote:        cote,
+          stake:       stake,
+          tipster:     r.tipster,
+          note:        r.note,
+          home:        payload.home || '',
+          away:        payload.away || '',
+          event:       payload.matchup || ((payload.away || '') + ' @ ' + (payload.home || '')),
+          game_id:     payload.game_id || payload.match_id || '',
+          match_date:  payload.match_date || null,
+          median:      payload.median,
+          mean:        payload.mean,
+          book_line:   payload.book_line,
+          book_over:   payload.book_over,
+          book_under:  payload.book_under,
+          created:     new Date().toISOString(),
+          result:      null,
+          actual:      null,
+        }};
+      }} else {{
+        // Manual-shape (foot/tennis) : event + market texte libre + line.
+        // Si l'user a change la ligne et que le label contient "Plus de X" / "Moins de X",
+        // on regenere le market avec la nouvelle ligne pour rester coherent.
+        var market = payload.label || ((direction === 'under' ? 'Moins de ' : 'Plus de ') + (newLine != null ? newLine : ''));
+        var origLine = payload.line != null ? parseFloat(payload.line) : null;
+        if(payload.label && newLine != null && newLine !== origLine){{
+          var re = /(Plus de|Moins de)\\s+[\\d.,]+/;
+          if(re.test(payload.label)){{
+            market = payload.label.replace(re, function(_, prefix){{ return prefix + ' ' + newLine; }});
+          }}
+        }}
+        pick = {{
+          id:          'user_' + Date.now() + '_' + Math.random().toString(36).slice(2, 8),
+          sport:       (payload.sport || 'other').toUpperCase(),
+          source:      'manual',
+          event:       payload.matchup || ((payload.away || '') + ' vs ' + (payload.home || '')),
+          market:      market,
+          line:        newLine,
+          direction:   direction,
+          cote:        cote,
+          stake:       stake,
+          tipster:     r.tipster,
+          note:        r.note,
+          home:        payload.home || '',
+          away:        payload.away || '',
+          match_id:    payload.match_id || payload.game_id || '',
+          match_date:  payload.match_date || null,
+          kind:        payload.kind || null,
+          label:       market,
+          created:     new Date().toISOString(),
+          result:      null,
+          actual:      null,
+        }};
+      }}
       var arr = _loadUserPicks();
       arr.push(pick);
       _saveUserPicks(arr);
-      // Notif visuelle : toast en haut a droite
+      if(stake) window._bkLastStake = stake;
+      if(r.tipster && r.tipster.trim()){{
+        window._bkLastTipster = r.tipster.trim();
+        if(typeof _bkAddTipster === 'function') _bkAddTipster(r.tipster.trim());
+      }}
+      // Toast vert top-right
       var toast = document.createElement('div');
       toast.style.cssText = 'position:fixed;top:20px;right:20px;z-index:99999;background:#16a34a;color:#fff;padding:12px 18px;border-radius:8px;font-weight:700;box-shadow:0 6px 24px rgba(0,0,0,0.4);opacity:0;transition:opacity 0.2s';
       toast.innerHTML = '✓ Pari ajouté à la bankroll';
@@ -6727,11 +6805,14 @@ function _bkOpenForm(opts){{
   var root = _bkEnsureModalRoot();
   var p = opts.payload;
   var dir = opts.direction;
-  // Mode "simple" : pick avec libelle fixe (ex: "Vainqueur Pablo Carreno Busta",
-  // "Buteur : Mbappé", "Plus de 22.5 tirs total"). Pas de ligne editable.
-  var simpleMode = !!p.label;
+  // Mode rendu : si p.label fourni -> on l'utilise comme titre (foot/tennis "Plus
+  // de 22.5 tirs total", "Buteur : Mbappé", "Vainqueur Pablo Carreno Busta").
+  // Le line input est affiche separement DES QUE p.line est numerique, peu importe
+  // le mode -> permet de modifier la ligne meme sur un pick algo predefini.
+  var labelMode = !!p.label;
   var hasOU = (dir === 'over' || dir === 'under');
-  var defLine = (p.line !== undefined && p.line !== null) ? String(p.line) : '';
+  var hasLine = (p.line !== undefined && p.line !== null && !isNaN(parseFloat(p.line)));
+  var defLine = hasLine ? String(p.line) : '';
   var defCoteRaw = p.real_cote
     || (dir === 'over'  ? p.book_over  : null)
     || (dir === 'under' ? p.book_under : null);
@@ -6749,14 +6830,14 @@ function _bkOpenForm(opts){{
   if(sport === 'foot' || sport === 'football') sportIcon = '⚽';
   else if(sport === 'tennis') sportIcon = '🎾';
   // Titre + sous-titre
-  var titleText = simpleMode ? (p.label || p.player || '?') : (p.player || '?');
+  var titleText = labelMode ? (p.label || p.player || '?') : (p.player || '?');
   var subParts = [];
   if(hasOU){{
     var dirCls = dir === 'over' ? 'over' : 'under';
     var dirLabel = dir === 'over' ? 'OVER' : 'UNDER';
     subParts.push('<span class="bk-dir-chip ' + dirCls + '">' + dirLabel + '</span>');
   }}
-  if(!simpleMode){{
+  if(!labelMode){{
     var propLabel = ({{PTS:'pts',REB:'reb',AST:'pas',FG3M:'3PM',RA:'reb+pas',PR:'pts+reb',PA:'pts+ast',PRA:'PRA'}})[p.prop] || p.prop || '';
     if(propLabel) subParts.push('<span>' + propLabel + '</span>');
   }}
@@ -6766,7 +6847,7 @@ function _bkOpenForm(opts){{
     subParts.push('<span>' + matchup + '</span>');
   }}
   var bookHint = [];
-  if(!simpleMode){{
+  if(!labelMode){{
     if(p.book_line !== undefined && p.book_line !== null) bookHint.push('Ligne book : ' + p.book_line);
     if(defCoteRaw && !p.real_cote) bookHint.push('Cote book : ' + defCoteRaw);
     if(p.median !== undefined && p.median !== null) bookHint.push('Méd L20 : ' + p.median);
@@ -6774,17 +6855,10 @@ function _bkOpenForm(opts){{
     bookHint.push('Cote algo : ' + p.real_cote);
   }}
   var hintLine = bookHint.length ? '<div class="bk-m-hint">' + bookHint.join(' · ') + '</div>' : '';
-  // Ligne + cote : si simpleMode, on cache la ligne (pas pertinent), juste cote
+  // Ligne + cote : si pas de ligne pour ce pick (winner/score sec/buteur/etc),
+  // on cache l'input ligne. Sinon ligne editable (foot/tennis modifiables).
   var lineRow;
-  if(simpleMode){{
-    lineRow = (
-      '<div class="bk-m-grp">'
-      + '<label class="bk-m-label">Cote</label>'
-      + '<input class="bk-m-input" id="bk-m-cote" inputmode="decimal" value="' + defCote + '" placeholder="1.90">'
-      + '<input type="hidden" id="bk-m-line" value="' + defLine + '">'
-      + '</div>'
-    );
-  }} else {{
+  if(hasLine){{
     lineRow = (
       '<div class="bk-m-row2">'
       + '<div>'
@@ -6795,6 +6869,14 @@ function _bkOpenForm(opts){{
       +   '<label class="bk-m-label">Cote</label>'
       +   '<input class="bk-m-input" id="bk-m-cote" inputmode="decimal" value="' + defCote + '" placeholder="1.90">'
       + '</div>'
+      + '</div>'
+    );
+  }} else {{
+    lineRow = (
+      '<div class="bk-m-grp">'
+      + '<label class="bk-m-label">Cote</label>'
+      + '<input class="bk-m-input" id="bk-m-cote" inputmode="decimal" value="' + defCote + '" placeholder="1.90">'
+      + '<input type="hidden" id="bk-m-line" value="' + defLine + '">'
       + '</div>'
     );
   }}
