@@ -44,9 +44,9 @@
         "is_fun": false
       },
       {
-        "direction": "shots_over_27.5",
-        "type": "Tirs (total match)",
-        "label": "Plus de 27.5 tirs total",
+        "direction": "tirs_(rayo_vallecano)_over_10.5",
+        "type": "Tirs (Rayo Vallecano)",
+        "label": "Plus de 10.5 tirs Rayo Vallecano",
         "cote": null,
         "cote_min": 1.26,
         "value": [
@@ -54,28 +54,28 @@
           "Value serrée",
           "#f59e0b"
         ],
-        "confidence": 80,
-        "reasoning": "📊 Brut : Crystal Palace L10 TCC 11.2 (L5 TCC 12.4) tirs/m · Rayo Vallecano L10 TCC 15.2 (L5 TCC 15.2) tirs/m\n🛡️ Défenses : Crystal Palace concède 14.8/m · Rayo Vallecano concède 13.1/m\n🎯 Attendu : Crystal Palace ~14.3 · Rayo Vallecano ~17.9 → total ~32.2\n⚖️ Rayo Vallecano favori (#5 vs #10) · Crystal Palace forme : L-D-L-D-W · Rayo Vallecano forme : W-W-D-D-W",
+        "confidence": 79,
+        "edge": null,
+        "reasoning": "Rayo Vallecano prend 15.0/m [pondere vs opp #10] · adv. concède 10.5/m → attendu ~13.5 (Rayo Vallecano favori (#5 vs #10))",
         "stats": {
-          "expected_total": 32.2
+          "expected": 13.5
         }
       },
       {
-        "direction": "tirs_(rayo_vallecano)_over_14.5",
-        "type": "Tirs (Rayo Vallecano)",
-        "label": "Plus de 14.5 tirs Rayo Vallecano",
+        "direction": "sot_over_7.5",
+        "type": "Tirs cadrés (total)",
+        "label": "Plus de 7.5 tirs cadrés total",
         "cote": null,
-        "cote_min": 1.27,
+        "cote_min": 1.37,
         "value": [
-          "⚠️",
-          "Value serrée",
-          "#f59e0b"
+          "💎",
+          "Value correcte",
+          "#84cc16"
         ],
-        "confidence": 79,
-        "edge": null,
-        "reasoning": "Rayo Vallecano prend 19.1/m [pondere vs opp #10] · adv. concède 14.8/m → attendu ~17.9 (Rayo Vallecano favori (#5 vs #10))",
+        "confidence": 73,
+        "reasoning": "📊 Brut : Crystal Palace L10 TCC 3.9 (L5 TCC 4.2) tirs cadrés/m · Rayo Vallecano L10 TCC 6.1 (L5 TCC 6.0) tirs cadrés/m\n🛡️ Défenses : Crystal Palace concède 4.2/m · Rayo Vallecano concède 5.0/m\n🎯 Attendu : Crystal Palace ~4.6 · Rayo Vallecano ~4.9 → total ~9.5\n⚖️ Rayo Vallecano favori (#5 vs #10) · Crystal Palace forme : L-D-L-D-W · Rayo Vallecano forme : W-W-D-D-W",
         "stats": {
-          "expected": 17.9
+          "expected_total": 9.5
         }
       }
     ],
@@ -89,37 +89,16 @@
         "cote": null,
         "book": null,
         "books": [],
-        "confidence": 61,
-        "reasoning": "9 buts en 12 matchs cette saison (75.0% de chance/match) · bonne efficacité (19% conv.) · xG moyen 0.68/match · défense correcte",
+        "confidence": 58,
+        "reasoning": "9 buts en 13 matchs cette saison (69.2% de chance/match) · bonne efficacité (19% conv.) · xG moyen 0.62/match · défense correcte",
         "context": {
           "weakness": 0.35
         },
         "stats": {
           "goals": 9,
-          "apps": 12,
-          "gpm": 0.75,
-          "xgpm": 0.675
-        },
-        "team": "home"
-      },
-      {
-        "player": "Jean-Philippe Mateta",
-        "position": "F",
-        "is_sub": false,
-        "type": "Joueur décisif",
-        "label": "Jean-Philippe Mateta but ou passe décisive",
-        "cote": null,
-        "book": null,
-        "books": [],
-        "confidence": 45,
-        "reasoning": "2 buts + 3 passes décisives en 11 matchs (45.5% de chance/match) · xG+xA: 0.7/match · défense correcte",
-        "context": {
-          "weakness": 0.35
-        },
-        "stats": {
-          "goals": 2,
-          "assists": 3,
-          "apps": 11
+          "apps": 13,
+          "gpm": 0.692,
+          "xgpm": 0.623
         },
         "team": "home"
       }
