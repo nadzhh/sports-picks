@@ -3729,14 +3729,19 @@ def build_html(matches, team_ai, player_ai, pstats_data, nba_picks=None, nba_his
   .sub-tg:hover{{color:#cbd5e1;background:#1e293b}}
   .sub-tg.active{{background:#1e293b;color:#f1f5f9;box-shadow:inset 0 0 0 1px #334155}}
 
-  /* Tennis grid : 2 colonnes sur large, 1 sur mobile */
+  /* Tennis grid : 2 colonnes independantes (column-count = flow par colonne,
+     pas par ligne, donc expand a gauche n'affecte pas la colonne de droite). */
   .tennis-grid{{
-    display:grid;grid-template-columns:repeat(2, minmax(0, 1fr));gap:10px;
+    column-count:2;column-gap:10px;
+  }}
+  .tennis-grid > .tennis-match-card{{
+    display:inline-block;width:100%;margin-bottom:10px;
+    break-inside:avoid;-webkit-column-break-inside:avoid;page-break-inside:avoid;
   }}
   .tennis-match-card:hover{{border-color:#334155 !important;}}
   .tennis-match-card.open .tennis-chevron{{transform:rotate(180deg);}}
   @media (max-width: 900px){{
-    .tennis-grid{{grid-template-columns:1fr !important;}}
+    .tennis-grid{{column-count:1 !important;}}
   }}
 
   /* Match card body : stats full-width, picks toggleable separement */

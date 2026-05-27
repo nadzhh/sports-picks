@@ -189,26 +189,63 @@ def _winner_pick(match):
     other  = away if best_side == "home" else home
     real_cote = (player.get("best_odd") or 0) or (player.get("consensus_odd") or 0)
     cote_min = round(1 / best_model, 2) if best_model > 0 else None
-    reasoning_parts = [
-        f"📊 Cote {real_cote:.2f} (book : {match.get('best_book') or 'consensus'}) → implied {best_impl*100:.1f}%",
-        f"🎯 Modèle : {best_model*100:.1f}% (edge +{best_edge*100:.1f} pts)",
-    ]
-    # Detail des composantes
+
+    # ── Narrative : explication simple en francais ────────────────────────
+    # Niveau de favoritisme
+    if best_model >= 0.85:
+        verdict = "très grand favori"
+    elif best_model >= 0.70:
+        verdict = "favori net"
+    elif best_model >= 0.60:
+        verdict = "favori léger"
+    else:
+        verdict = "favori contesté"
+
+    parts = []
+    parts.append(
+        f"🏆 <b>Verdict</b> : {player['name']} {verdict} — modèle <b>{best_model*100:.0f}%</b> vs book <b>{best_impl*100:.0f}%</b> "
+        f"(edge <b>+{best_edge*100:.0f} pts</b>, cote {real_cote:.2f})"
+    )
+    # Raison principale : ranking
     if player.get("rank") and other.get("rank"):
-        reasoning_parts.append(f"📈 Ranks : #{player['rank']} vs #{other['rank']}")
-    if player.get("l10_n", 0) >= 3:
-        reasoning_parts.append(f"🔥 Forme {player['name']} : L10 {player['l10_w']}-{player['l10_l']}")
-    if other.get("l10_n", 0) >= 3:
-        reasoning_parts.append(f"🔥 Forme {other['name']} : L10 {other['l10_w']}-{other['l10_l']}")
-    if player.get("surface_n", 0) >= 3 or other.get("surface_n", 0) >= 3:
-        reasoning_parts.append(
-            f"🌍 {match['surface']} : "
-            f"{player['name']} {player.get('surface_w',0)}-{player.get('surface_l',0)} · "
-            f"{other['name']} {other.get('surface_w',0)}-{other.get('surface_l',0)}"
-        )
+        gap = abs(other['rank'] - player['rank'])
+        if gap >= 100:
+            rank_text = f"écart de classement <b>énorme</b> ({gap} places)"
+        elif gap >= 30:
+            rank_text = f"écart de classement <b>significatif</b> ({gap} places)"
+        else:
+            rank_text = f"classements proches (écart {gap} places)"
+        parts.append(f"📈 <b>Pourquoi</b> : {rank_text} → #{player['rank']} contre #{other['rank']}")
+    # Forme : compare et commente
+    p_l10n = player.get("l10_n", 0); o_l10n = other.get("l10_n", 0)
+    if p_l10n >= 5 and o_l10n >= 5:
+        p_wr = player['l10_w'] / p_l10n
+        o_wr = other['l10_w'] / o_l10n
+        if p_wr > o_wr + 0.15:
+            note = f"<b>{player['name']} en bien meilleure forme</b> ({player['l10_w']}-{player['l10_l']} vs {other['l10_w']}-{other['l10_l']})"
+        elif o_wr > p_wr + 0.15:
+            note = f"⚠️ <b>{other['name']} en meilleure forme</b> ({other['l10_w']}-{other['l10_l']} vs {player['l10_w']}-{player['l10_l']}) — bémol mais le classement compense"
+        else:
+            note = f"forme similaire ({player['l10_w']}-{player['l10_l']} vs {other['l10_w']}-{other['l10_l']})"
+        parts.append(f"🔥 <b>Forme L10</b> : {note}")
+    # Surface
+    p_sn = player.get("surface_n", 0); o_sn = other.get("surface_n", 0)
+    if p_sn >= 3 or o_sn >= 3:
+        p_surf = f"{player.get('surface_w',0)}W-{player.get('surface_l',0)}L" if p_sn >= 3 else "peu de données"
+        o_surf = f"{other.get('surface_w',0)}W-{other.get('surface_l',0)}L" if o_sn >= 3 else "peu de données"
+        parts.append(f"🌍 <b>{match['surface']}</b> : {player['name']} {p_surf} · {other['name']} {o_surf}")
+    # H2H
     h2h = match.get("h2h") or {}
     if h2h.get("total", 0) >= 1:
-        reasoning_parts.append(f"🤝 H2H : {player['name']} mène {h2h.get('home_wins' if best_side=='home' else 'away_wins',0)}-{h2h.get('away_wins' if best_side=='home' else 'home_wins',0)}")
+        p_w = h2h.get('home_wins' if best_side=='home' else 'away_wins', 0)
+        o_w = h2h.get('away_wins' if best_side=='home' else 'home_wins', 0)
+        if p_w > o_w:
+            parts.append(f"🤝 <b>H2H</b> : {player['name']} mène <b>{p_w}-{o_w}</b> sur les confrontations passées")
+        elif o_w > p_w:
+            parts.append(f"⚠️ <b>H2H</b> : {other['name']} mène <b>{o_w}-{p_w}</b> — joue contre notre pick")
+        else:
+            parts.append(f"🤝 H2H équilibré ({p_w}-{o_w})")
+
     return {
         "kind":       "tennis_winner",
         "label":      f"Vainqueur : {player['name']}",
@@ -218,7 +255,7 @@ def _winner_pick(match):
         "real_cote":  round(real_cote, 2) if real_cote else None,
         "cote_min":   cote_min,
         "value":      _value_tier(cote_min),
-        "reasoning":  "\n".join(reasoning_parts),
+        "reasoning":  "\n".join(parts),
     }
 
 
@@ -276,16 +313,36 @@ def _total_games_pick(match, p_match):
     line, direction, conf, expected = best_pick
     cote_min = round(100 / conf, 2) if conf > 0 else None
     label = f"{'Plus de' if direction == 'over' else 'Moins de'} {line} jeux"
-    reasoning = (
-        f"📊 Moyenne jeux/match : {home['name']} ~{t_a:.1f} · {away['name']} ~{t_b:.1f}"
-        + (f"\n🎾 Ajustement {match['surface']} : "
-           + ("+1.0 (terre battue, matchs plus longs)" if surface == "clay"
-              else "-1.0 (gazon, matchs plus courts)" if surface == "grass"
-              else "neutre")
-           if surface in ("clay","grass") else "")
-        + (f"\n🏆 Best of 5 (Grand Slam H) → x1.45" if is_bo5 else "")
-        + f"\n🎯 Total attendu ~{expected:.1f} jeux → ligne {line} {direction} ({conf:.0f}%)"
+
+    # Narrative simple
+    dir_text = "plutôt long" if direction == "over" else "plutôt court"
+    diff = abs(expected - line)
+    margin_text = "largement" if diff >= 4 else ("nettement" if diff >= 2.5 else "légèrement")
+    parts = []
+    parts.append(
+        f"📊 <b>Verdict</b> : match {dir_text} → <b>{'Plus' if direction=='over' else 'Moins'} de {line} jeux</b> "
+        f"({conf:.0f}% selon notre modèle)"
     )
+    parts.append(
+        f"📐 Moyenne jeux/match des 2 joueurs : <b>{(t_a+t_b)/2:.1f}</b> "
+        f"({home['name']} ~{t_a:.1f}, {away['name']} ~{t_b:.1f})"
+    )
+    adjustments = []
+    if surface == "clay":
+        adjustments.append("terre battue (+1 jeu typique, matchs plus longs)")
+    elif surface == "grass":
+        adjustments.append("gazon (-1 jeu typique, matchs plus courts)")
+    if is_bo5:
+        adjustments.append("Grand Slam H (Best of 5) → +30%")
+    if lopsidedness >= 0.4:
+        adjustments.append(f"match déséquilibré ({lopsidedness*100:.0f}% d'écart) → -{lopsidedness*10:.0f}%")
+    if adjustments:
+        parts.append("🔧 <b>Ajustements appliqués</b> : " + " · ".join(adjustments))
+    parts.append(
+        f"🎯 <b>Total attendu</b> : ~{expected:.1f} jeux, soit {margin_text} "
+        f"{'au-dessus' if direction == 'over' else 'en-dessous'} de la ligne {line}"
+    )
+    reasoning = "\n".join(parts)
     return {
         "kind":       "tennis_total_games",
         "label":      label,
@@ -318,12 +375,43 @@ def _set_score_pick(match, p_match):
     home = match["home"]; away = match["away"]
     a_sets, b_sets = best_score.split("-")
     winner = home if int(a_sets) > int(b_sets) else away
-    label = f"Score sets : {winner['name']} {best_score.replace('-', '-')}"
-    reasoning = (
-        f"📊 P(match) modèle : {p_match*100:.1f}% pour {home['name']}\n"
-        f"📐 P(set) déduit : {p_set*100:.1f}% (BO{best_of})\n"
-        f"🎯 Score le plus probable : {best_score} ({conf:.1f}%)"
+    loser  = away if int(a_sets) > int(b_sets) else home
+    # Pour l'affichage : score du point de vue du vainqueur (3-0 plutot que 0-3)
+    if int(a_sets) > int(b_sets):
+        score_display = best_score
+    else:
+        score_display = f"{b_sets}-{a_sets}"
+    label = f"Score sets : {winner['name']} {score_display}"
+
+    # Narrative simple
+    parts = []
+    # Niveau de favoritisme
+    p_winner = p_match if winner is home else (1 - p_match)
+    sets_won = int(score_display.split("-")[0])
+    sets_lost = int(score_display.split("-")[1])
+    if sets_lost == 0:
+        score_type = "score sec (sans concéder de set)"
+    elif sets_lost == 1:
+        score_type = "victoire avec 1 set concédé"
+    else:
+        score_type = "victoire serrée en 5 sets"
+    parts.append(
+        f"🎯 <b>Verdict</b> : {winner['name']} l'emporte <b>{score_display}</b> — {score_type} "
+        f"({conf:.0f}% selon notre modèle)"
     )
+    parts.append(
+        f"📊 Le modèle voit {winner['name']} favori à <b>{p_winner*100:.0f}%</b> sur le match"
+    )
+    if p_winner >= 0.80:
+        explain = f"Quand un joueur est si écrasant, le {score_display} sec est statistiquement le plus probable."
+    elif p_winner >= 0.65:
+        explain = f"Avec un favori net, le {score_display} reste l'issue la plus probable mais reste à risque."
+    else:
+        explain = f"Match plus équilibré que la moyenne — proba modeste sur le score exact."
+    parts.append(f"📐 <b>Pourquoi {score_display}</b> : {explain}")
+    if conf < 50:
+        parts.append(f"⚠️ <b>Attention</b> : {conf:.0f}% reste une proba modérée, à jouer avec une mise réduite.")
+    reasoning = "\n".join(parts)
     return {
         "kind":       "tennis_set_score",
         "label":      label,
