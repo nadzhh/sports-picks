@@ -38,9 +38,16 @@ OUT_PATH = DATA / "algo_analysis.json"
 
 # Constantes
 MIN_N_BUCKET    = 10      # taille mini pour reporter un bucket
-KILLER_WR       = 45.0    # WR sous ce seuil = "killer" market
-SWEET_WR        = 70.0    # WR au-dessus = sweet spot
-CALIBRATION_GAP = 10.0    # pp d'ecart pour flagger une miscalibration
+# IMPORTANT : comparer WR brute entre markets est trompeur car les cotes varient.
+# Ex : pick "Plus de 7.5 tirs cadres" a cote 1.3 -> il faut 77% WR pour break-even.
+# Pick "Buteur" a cote 2.5 -> il faut 40% WR pour break-even.
+# Donc on utilise principalement ROI (qui tient compte de la cote) pour juger
+# un market. WR sert uniquement pour la calibration (predit vs reel).
+KILLER_ROI      = -10.0   # ROI < -10% sur >=10 picks = vrai loser, a refondre
+WARNING_ROI     = -3.0    # ROI entre -10% et -3% = marginal, a surveiller
+SWEET_ROI       = 15.0    # ROI > +15% sur >=10 picks = a renforcer
+WR_VS_BE_GAP    = 5.0     # WR vs break-even gap pour flagger calibration
+CALIBRATION_GAP = 10.0    # pp d'ecart pour flagger une miscalibration confiance
 
 
 def _bucket(conf):
@@ -69,7 +76,11 @@ def _profit(pick, unit=1.0):
 
 
 def _summarize_group(picks):
-    """Retourne dict {n, w, l, push, wr, roi, profit, avg_cote}."""
+    """Retourne dict {n, w, l, push, wr, roi, profit, avg_cote, break_even_wr, wr_vs_be}.
+
+    break_even_wr : WR minimum requis pour ne pas perdre d'argent a la cote moyenne.
+    wr_vs_be      : WR reel - break_even_wr (>0 = profitable structurellement).
+    """
     n = len(picks)
     w = sum(1 for p in picks if p.get("result") == "WIN")
     l = sum(1 for p in picks if p.get("result") == "LOSS")
@@ -80,12 +91,16 @@ def _summarize_group(picks):
     roi = (profit / n * 100) if n > 0 else None
     cotes = [p["cote"] for p in picks if p.get("cote")]
     avg_cote = (sum(cotes) / len(cotes)) if cotes else None
+    break_even_wr = (100.0 / avg_cote) if (avg_cote and avg_cote > 1) else None
+    wr_vs_be = (wr - break_even_wr) if (wr is not None and break_even_wr is not None) else None
     return {
         "n": n, "w": w, "l": l, "push": push,
-        "wr":      round(wr, 1)     if wr     is not None else None,
-        "roi":     round(roi, 1)    if roi    is not None else None,
-        "profit":  round(profit, 2),
-        "avg_cote":round(avg_cote, 2) if avg_cote is not None else None,
+        "wr":            round(wr, 1)            if wr            is not None else None,
+        "roi":           round(roi, 1)           if roi           is not None else None,
+        "profit":        round(profit, 2),
+        "avg_cote":      round(avg_cote, 2)      if avg_cote      is not None else None,
+        "break_even_wr": round(break_even_wr, 1) if break_even_wr is not None else None,
+        "wr_vs_be":      round(wr_vs_be, 1)      if wr_vs_be      is not None else None,
     }
 
 
@@ -219,26 +234,41 @@ def analyze():
 
     # ── 5. Recommandations ───────────────────────────────────────────────
     recos = []
-    # 5a. Killer markets (WR < 45% sur n >= 10)
+    # 5a. Killer markets : ROI < -10% sur n >= 10
+    # (WR brut trompeur : ex pick cote 2.5 a 40% WR = break-even ; ex pick cote 1.3
+    # a 70% WR perd de l'argent. ROI tient compte de la cote.)
     for sport, mks in by_market.items():
         for mk, s in mks.items():
-            if s["n"] >= MIN_N_BUCKET and s["wr"] is not None and s["wr"] < KILLER_WR:
+            if s["n"] < MIN_N_BUCKET or s["roi"] is None: continue
+            be_str = f" (break-even @ {s['break_even_wr']}% WR)" if s.get("break_even_wr") else ""
+            cote_str = f", cote moy. {s['avg_cote']:.2f}" if s.get("avg_cote") else ""
+            if s["roi"] < KILLER_ROI:
                 recos.append({
                     "severity": "high",
                     "type":     "skip_market",
                     "scope":    f"{sport} · {mk}",
-                    "message":  f"Market <b>{mk}</b> ({sport}) sous-performe : WR {s['wr']}% sur {s['n']} picks (ROI {s['roi']}%). À skipper ou refondre la formule.",
+                    "message":  f"Market <b>{mk}</b> ({sport}) : ROI <b>{s['roi']:+.1f}%</b> sur {s['n']} picks (WR {s['wr']}%{be_str}{cote_str}). À skipper ou refondre la formule.",
                     "stats":    s,
                 })
-    # 5b. Sweet spots a renforcer
+            elif s["roi"] < WARNING_ROI:
+                recos.append({
+                    "severity": "medium",
+                    "type":     "watch_market",
+                    "scope":    f"{sport} · {mk}",
+                    "message":  f"Market <b>{mk}</b> ({sport}) : ROI <b>{s['roi']:+.1f}%</b> sur {s['n']} picks (WR {s['wr']}%{be_str}{cote_str}). Marginalement non-rentable, à surveiller.",
+                    "stats":    s,
+                })
+    # 5b. Sweet spots : ROI > +15% sur n >= 10
     for sport, mks in by_market.items():
         for mk, s in mks.items():
-            if s["n"] >= MIN_N_BUCKET and s["wr"] is not None and s["wr"] >= SWEET_WR:
+            if s["n"] < MIN_N_BUCKET or s["roi"] is None: continue
+            if s["roi"] >= SWEET_ROI:
+                be_str = f" vs break-even {s['break_even_wr']}%" if s.get("break_even_wr") else ""
                 recos.append({
                     "severity": "info",
                     "type":     "keep_market",
                     "scope":    f"{sport} · {mk}",
-                    "message":  f"Market <b>{mk}</b> ({sport}) performe : WR {s['wr']}% sur {s['n']} picks (ROI {s['roi']}%). Continuer.",
+                    "message":  f"Market <b>{mk}</b> ({sport}) : ROI <b>{s['roi']:+.1f}%</b> sur {s['n']} picks (WR {s['wr']}%{be_str}). Continuer.",
                     "stats":    s,
                 })
     # 5c. Calibration : flag buckets miscalibres
@@ -323,15 +353,26 @@ def print_summary(payload):
             wr_str = f"{s['wr']:.1f}%" if s['wr'] is not None else "N/A"
             print(f"    {flag}{b:7s} : n={s['n']:3d}  WR={wr_str:7s}  attendu={s['expected_wr']}%  gap={gap_str}")
     print()
-    print("── Markets : Top + Flops (n>=10) ──────────────────────────────")
+    print("── Markets : Top + Flops (n>=10), trié par ROI ────────────────")
+    print("    Format : market  n=N  WR=X% (vs break-even Y%)  cote=Z  ROI=±%  profit=±u")
     for sport, mks in payload["by_market"].items():
         print(f"  [{sport}]")
-        for mk, s in list(mks.items())[:8]:
-            if s["n"] < 10: continue
-            wr_str = f"{s['wr']:5.1f}%" if s['wr'] is not None else "  N/A"
-            roi_str = f"{s['roi']:+5.1f}%" if s['roi'] is not None else "  N/A"
-            flag = "🚨" if (s["wr"] is not None and s["wr"] < 45) else ("🎯" if (s["wr"] is not None and s["wr"] >= 70) else "  ")
-            print(f"    {flag} {mk:20s} n={s['n']:3d}  WR={wr_str}  ROI={roi_str}  profit={s['profit']:+6.2f}u")
+        # Filter + sort par ROI desc
+        rows = [(mk, s) for mk, s in mks.items() if s["n"] >= 10]
+        rows.sort(key=lambda kv: kv[1].get("roi") if kv[1].get("roi") is not None else -999, reverse=True)
+        for mk, s in rows[:10]:
+            wr_str   = f"{s['wr']:5.1f}%" if s['wr']  is not None else "  N/A"
+            be_str   = f"vs BE {s['break_even_wr']:4.1f}%" if s.get('break_even_wr') is not None else "vs BE   N/A"
+            cote_str = f"@{s['avg_cote']:4.2f}" if s.get('avg_cote') is not None else "@ N/A"
+            roi_str  = f"{s['roi']:+5.1f}%" if s['roi'] is not None else "  N/A"
+            # Flag base sur ROI (pas WR brute)
+            if s["roi"] is not None:
+                if s["roi"] < -10:  flag = "🚨"
+                elif s["roi"] < -3: flag = "⚠️"
+                elif s["roi"] >= 15: flag = "🎯"
+                else:               flag = "  "
+            else:                   flag = "  "
+            print(f"    {flag} {mk:24s} n={s['n']:3d}  WR={wr_str} {be_str}  cote={cote_str}  ROI={roi_str}  profit={s['profit']:+6.2f}u")
     print()
     print("── Recommandations algo ───────────────────────────────────────")
     recos = payload.get("recommendations", [])

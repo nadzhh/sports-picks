@@ -1059,15 +1059,43 @@ def _generate_lines(expected, n_lines=3, spread=3.0):
     return sorted({to_half(expected - spread + i * (2 * spread / (n_lines - 1))) for i in range(n_lines)})
 
 
-# Lignes bookmaker reelles (basees sur observations Betclic/Bet365/Unibet)
-BOOKMAKER_LINES = {
-    "total_shots":  [19.5, 21.5, 22.5, 23.5, 24.5, 25.5, 26.5, 27.5, 28.5, 30.5],
-    "home_shots":   [7.5, 8.5, 9.5, 10.5, 11.5, 12.5, 13.5, 14.5, 15.5, 16.5],
-    "away_shots":   [6.5, 7.5, 8.5, 9.5, 10.5, 11.5, 12.5, 13.5, 14.5],
-    "total_sot":    [5.5, 6.5, 7.5, 8.5, 9.5, 10.5, 11.5],
-    "home_sot":     [1.5, 2.5, 3.5, 4.5, 5.5, 6.5],
-    "away_sot":     [1.5, 2.5, 3.5, 4.5, 5.5],
+# Plages de lignes autorisees pour les picks tirs (user spec).
+# Hors plage = on n'emet PAS de pick (eviter les Plus de 19.5/Moins de 30.5
+# qui correspondent a des cotes trop basses ou trop hautes pour avoir de la
+# value reelle). Les bookmakers proposent souvent ces lignes mais notre
+# modele est trop bruite aux extremes.
+SHOTS_LINE_RANGES = {
+    "total_shots":  (24.5, 29.5),
+    "home_shots":   (10.5, 16.5),
+    "away_shots":   (10.5, 16.5),
+    "total_sot":    (7.5,  10.5),
+    "home_sot":     (2.5,  6.5),
+    "away_sot":     (2.5,  6.5),
 }
+
+# Lignes heuristiques (utilisees quand pas de cote bookmaker reelle dispo)
+# Restreintes aux plages SHOTS_LINE_RANGES pour eviter les picks aberrants.
+BOOKMAKER_LINES = {
+    "total_shots":  [24.5, 25.5, 26.5, 27.5, 28.5, 29.5],
+    "home_shots":   [10.5, 11.5, 12.5, 13.5, 14.5, 15.5, 16.5],
+    "away_shots":   [10.5, 11.5, 12.5, 13.5, 14.5, 15.5, 16.5],
+    "total_sot":    [7.5, 8.5, 9.5, 10.5],
+    "home_sot":     [2.5, 3.5, 4.5, 5.5, 6.5],
+    "away_sot":     [2.5, 3.5, 4.5, 5.5, 6.5],
+}
+
+
+def _filter_shot_lines_in_range(lines, market_key):
+    """Filtre une liste de lignes pour ne garder que celles dans SHOTS_LINE_RANGES.
+
+    Sert pour les lignes reelles bookmaker (FotMob) ET les lignes heuristiques :
+    on n'emet jamais de pick sur une ligne hors plage, quelle que soit la source.
+    """
+    rng = SHOTS_LINE_RANGES.get(market_key)
+    if not rng:
+        return lines
+    lo, hi = rng
+    return [ln for ln in lines if lo <= ln <= hi]
 
 
 def _fair_cote(probability):
@@ -1393,6 +1421,15 @@ def team_shots_props(home_ts, away_ts, home_recent, away_recent, h2h_shots, home
 
     # ── Recupere lignes bookmaker reelles si dispo ────────────────────────
     bm_lines = _extract_bookmaker_shot_lines(match_odds)
+    # Applique le filtre de plage (SHOTS_LINE_RANGES) sur les lignes reelles aussi :
+    # meme si le bookmaker propose "Plus de 19.5 tirs", on ne joue pas dans cette
+    # zone (cote trop basse, model trop bruite aux extremes).
+    for _mk in ("total_shots", "home_shots", "away_shots", "total_sot", "home_sot", "away_sot"):
+        if bm_lines.get(_mk):
+            _rng = SHOTS_LINE_RANGES.get(_mk)
+            if _rng:
+                _lo, _hi = _rng
+                bm_lines[_mk] = [(ln, o, u) for (ln, o, u) in bm_lines[_mk] if _lo <= ln <= _hi]
 
     def _best_real_line(expected, bm_data, kind):
         """
