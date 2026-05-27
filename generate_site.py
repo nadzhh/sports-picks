@@ -7174,14 +7174,29 @@ async function pushUserPick(btn, id){{
     p = arr[idx];
     coteJustAdded = true;
   }}
-  // Construit le texte avec cote garantie + parse_mode HTML
-  var dir = p.direction === 'over' ? 'plus de' : 'moins de';
-  var propLabel = ({{PTS:'pts',REB:'reb',AST:'pas',FG3M:'3PM',RA:'reb+pas',PR:'pts+reb',PA:'pts+ast',PRA:'PRA'}})[p.prop] || p.prop;
-  var label = p.player + ' ' + dir + ' ' + p.line + ' ' + propLabel;
+  // Construit le texte selon la shape du pick :
+  //   - NBA shape (player + prop + direction + line) -> rendu joueur/prop/over-under
+  //   - Manual shape (foot/tennis/etc : event + market) -> rendu market + line si dispo
+  var hasNbaShape = !!(p.player && p.prop && p.direction);
+  var sportCode = String(p.sport || '').toUpperCase();
+  var SPORT_EMOJI = {{FOOT:'⚽', NBA:'🏀', TENNIS:'🎾', RUGBY:'🏉', MMA:'🥊', NFL:'🏈', F1:'🏎️', OTHER:'🎲'}};
+  var sportIcon = SPORT_EMOJI[sportCode] || (hasNbaShape ? '🏀' : '🎲');
+  var label, matchup;
+  if(hasNbaShape){{
+    var dir = p.direction === 'over' ? 'plus de' : 'moins de';
+    var propLabel = ({{PTS:'pts',REB:'reb',AST:'pas',FG3M:'3PM',RA:'reb+pas',PR:'pts+reb',PA:'pts+ast',PRA:'PRA'}})[p.prop] || p.prop;
+    label = (p.player || '?') + ' ' + dir + ' ' + p.line + ' ' + propLabel;
+    matchup = (p.away || '') + ' @ ' + (p.home || '');
+  }} else {{
+    // Manual : utilise market (deja sous forme "Plus de X foo") ou label en fallback.
+    // On n'append PAS p.line car le market contient deja la ligne (ex: "Plus de 11.5 tirs Rayo Vallecano").
+    label = (p.market || p.label || '?');
+    matchup = p.event || ((p.away || '') + ' vs ' + (p.home || ''));
+  }}
   var lines = [
     '🎯 <b>PICK PERSO</b>',
     '',
-    '🏀 ' + (p.away || '') + ' @ ' + (p.home || ''),
+    sportIcon + ' ' + matchup,
     '',
     '📌 <b>' + label + '</b>',
     '💰 <b>Cote : ' + p.cote.toFixed(2) + '</b>',
@@ -7192,9 +7207,7 @@ async function pushUserPick(btn, id){{
   if(p.tipster) lines.push('👤 Tipster : ' + p.tipster);
   if(p.note) lines.push('📝 ' + p.note);
   btn.dataset.text = lines.join('\\n');
-  // ATTENDRE la fin du push avant tout re-render, sinon le btn est detache pendant le fetch
   await pushTelegram(btn);
-  // Refresh seulement si la cote vient d'etre ajoutee (sinon le re-render est inutile et detache le btn)
   if(coteJustAdded) renderUserPicks();
 }}
 
@@ -7657,7 +7670,11 @@ function _bkRowHtml(p){{
   var title, match, sportIcon;
   if(isManual){{
     title = (p.market || '?').replace(/</g, '&lt;');
-    if(p.line != null && p.line !== '') title += ' ' + p.line;
+    // N'append la ligne QUE si le market ne la contient pas deja
+    // (ex algo : market="Plus de 11.5 tirs Rayo Vallecano" + line=11.5 -> pas de double).
+    if(p.line != null && p.line !== '' && title.indexOf(String(p.line)) === -1){{
+      title += ' ' + p.line;
+    }}
     match = (p.event || '').replace(/</g, '&lt;');
     var SPORT_EMOJI = {{FOOT:'⚽', NBA:'🏀', TENNIS:'🎾', RUGBY:'🏉', MMA:'🥊', NFL:'🏈', F1:'🏎️', OTHER:'🎲'}};
     sportIcon = SPORT_EMOJI[(p.sport || 'OTHER').toUpperCase()] || '🎲';
