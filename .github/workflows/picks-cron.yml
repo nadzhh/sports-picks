@@ -60,8 +60,13 @@ jobs:
           python nba_scraper.py           || echo "[!] nba_scraper KO"
           python nba_odds.py              || echo "[!] nba_odds KO"
           python nba_picks_engine.py      || echo "[!] nba_picks_engine KO"
+          python tennis_scraper.py        || echo "[!] tennis_scraper KO"
+          python tennis_picks_engine.py   || echo "[!] tennis_picks_engine KO"
+          python tennis_resolver.py       || echo "[!] tennis_resolver KO"
           python picks_engine.py          || echo "[!] picks_engine KO"
           python generate_site.py         || echo "[!] generate_site KO"
+          python picks_history_dump.py    || echo "[!] picks_history_dump KO"
+          python analyze_picks.py         || echo "[!] analyze_picks KO"
           python notify.py                || echo "[!] notify KO"
           echo "Pipeline termine"
 
