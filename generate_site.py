@@ -1481,6 +1481,8 @@ def build_team_pick(p, ai_txt="", match_ctx=None):
     if match_ctx:
         text = _format_push_team(p, match_ctx.get("home",""), match_ctx.get("away",""), match_ctx.get("league",""))
         push_btn = _push_button(text)
+    # Bouton Add bankroll universel
+    add_btn = _build_foot_add_btn(p, match_ctx, kind="team")
 
     # Badge cote
     cote_block = ""
@@ -1525,6 +1527,7 @@ def build_team_pick(p, ai_txt="", match_ctx=None):
         f'<div style="display:flex;align-items:center;gap:6px">'
         f'<div style="background:{color};color:#000;font-weight:bold;border-radius:20px;padding:4px 12px;font-size:14px">{c}%</div>'
         f'{push_btn}'
+        f'{add_btn}'
         f'</div>'
         f'</div>'
         f'<div style="color:#94a3b8;font-size:13px;margin-top:8px;line-height:1.55">{p["reasoning"].replace(chr(10), "<br>")}</div>'
@@ -1533,6 +1536,43 @@ def build_team_pick(p, ai_txt="", match_ctx=None):
         f'{ai_bl}'
         f'</div>'
     )
+
+
+def _build_foot_add_btn(p, match_ctx, kind="team"):
+    """Bouton Add bankroll pour un pick foot (team/player/fun).
+
+    Payload structure : sport=foot, label, real_cote, matchup, match_id, player.
+    """
+    import json as _json, html as _html
+    if match_ctx is None: match_ctx = {}
+    home = match_ctx.get("home", ""); away = match_ctx.get("away", "")
+    matchup = (away + " @ " + home) if (home and away) else ""
+    player = p.get("player") if kind == "player" else home  # team pick = home team
+    real_cote = p.get("cote") or p.get("cote_min")
+    payload = {
+        "sport":      "foot",
+        "prop":       f"FOOT_{kind.upper()}",
+        "label":      p.get("label", ""),
+        "direction":  None,
+        "line":       None,
+        "real_cote":  real_cote,
+        "player":     player or "",
+        "matchup":    matchup,
+        "home":       home,
+        "away":       away,
+        "match_id":   str(match_ctx.get("match_id", "")),
+        "match_date": match_ctx.get("date") or match_ctx.get("match_date"),
+        "kind":       p.get("type", ""),
+    }
+    attr = _json.dumps(payload, ensure_ascii=False).replace('"', '&quot;')
+    return (
+        '<button onclick="event.stopPropagation();addAnyPick(JSON.parse(this.dataset.p))" '
+        f'data-p="{attr}" '
+        'style="background:#1e3a8a;color:#bfdbfe;border:1px solid #3b82f6;border-radius:6px;'
+        'padding:3px 10px;font-size:11px;font-weight:700;cursor:pointer;white-space:nowrap">'
+        '📌 Add</button>'
+    )
+
 
 def build_player_pick(p, ai_analyses=None, match_ctx=None):
     c      = p["confidence"]
@@ -1554,6 +1594,7 @@ def build_player_pick(p, ai_analyses=None, match_ctx=None):
     if match_ctx:
         text = _format_push_player_foot(p, match_ctx.get("home",""), match_ctx.get("away",""), match_ctx.get("league",""))
         push_btn = _push_button(text)
+    add_btn = _build_foot_add_btn(p, match_ctx, kind="player")
     pid = _pick_id_foot_player(p, match_ctx) if match_ctx else ""
     return (
         f'<div class="pick-card" data-pick-id="{pid}" style="background:#162032;border-radius:8px;padding:12px 14px;'
@@ -1574,6 +1615,7 @@ def build_player_pick(p, ai_analyses=None, match_ctx=None):
         f'<div style="display:flex;align-items:center;gap:6px">'
         f'<div style="background:{color};color:#000;font-weight:bold;border-radius:16px;padding:3px 10px;font-size:13px">{c}%</div>'
         f'{push_btn}'
+        f'{add_btn}'
         f'</div>'
         f'</div>'
         f'</div>'
@@ -1587,6 +1629,7 @@ def build_fun_pick(p, match_ctx=None):
     if match_ctx:
         text = _format_push_team(p, match_ctx.get("home",""), match_ctx.get("away",""), match_ctx.get("league",""))
         push_btn = _push_button(text)
+    add_btn = _build_foot_add_btn(p, match_ctx, kind="fun")
     pid = _pick_id_foot_fun(p, match_ctx) if match_ctx else ""
     return (
         f'<div class="pick-card" data-pick-id="{pid}" style="background:#1a1a2e;border-radius:8px;padding:12px 14px;'
@@ -1602,6 +1645,7 @@ def build_fun_pick(p, match_ctx=None):
         f'<div style="display:flex;align-items:center;gap:6px">'
         f'<div style="background:#7c3aed;color:#fff;font-weight:bold;border-radius:16px;padding:3px 10px;font-size:13px">{c}%</div>'
         f'{push_btn}'
+        f'{add_btn}'
         f'</div>'
         f'</div>'
         f'</div>'
@@ -1921,6 +1965,32 @@ def build_nba_card(game):
                 f'+{edge}% edge</span>'
             )
         pid = _pick_id_nba(p, game)
+        # Bouton Add bankroll
+        import json as _json
+        nba_payload = {
+            "sport":      "nba",
+            "prop":       p.get("prop", ""),
+            "label":      p.get("label", ""),
+            "direction":  p.get("direction", "over"),
+            "line":       p.get("line"),
+            "real_cote":  real_cote or cote_min,
+            "book_over":  p.get("book_over"),
+            "book_under": p.get("book_under"),
+            "book_line":  p.get("line"),
+            "player":     p.get("player", "?"),
+            "matchup":    f"{away} @ {home}",
+            "home":       home,
+            "away":       away,
+            "game_id":    str(gid),
+            "match_date": date,
+        }
+        nba_attr = _json.dumps(nba_payload, ensure_ascii=False).replace('"', '&quot;')
+        nba_add_btn = (
+            f'<button onclick="event.stopPropagation();addAnyPick(JSON.parse(this.dataset.p))" '
+            f'data-p="{nba_attr}" title="Ajouter ce pari à la bankroll" '
+            f'style="background:#1e3a8a;color:#bfdbfe;border:1px solid #3b82f6;border-radius:6px;'
+            f'padding:3px 8px;font-size:12px;font-weight:700;cursor:pointer">📌</button>'
+        )
         return (
             f'<div class="pick-card" data-pick-id="{pid}" style="background:#0a1628;border-radius:8px;padding:10px 14px;margin-bottom:8px;'
             f'border-left:3px solid {conf_color}">'
@@ -1947,6 +2017,7 @@ def build_nba_card(game):
             f'title="Voir l\'analyse complete du joueur" '
             f'style="background:#1e3a8a;color:#bfdbfe;border:1px solid #3b82f6;border-radius:6px;'
             f'padding:3px 8px;font-size:12px;font-weight:700;cursor:pointer">🔍</button>'
+            f'{nba_add_btn}'
             f'{_push_button(_format_push_nba(p, game))}'
             f'</div>'
             f'</div>'
@@ -2823,20 +2894,47 @@ def _build_tennis_card(match, idx=0):
         cote_min = p.get("cote_min")
         cote_str = f"@{cote_min:.2f}" if cote_min else ""
         reasoning = (p.get("reasoning") or "").replace("\n", "<br>")
-        add_btn = ""
-        if p.get("kind") == "tennis_winner":
+        # Bouton Add bankroll universel (winner / total_games / set_score)
+        kind = p.get("kind", "")
+        if kind == "tennis_winner":
             payload_player = home.get("name") if p.get("selection") == "home" else away.get("name")
-            real_cote = p.get("real_cote") or 0
-            label = p.get("label","")
-            js_label   = _h.escape(json.dumps(label),  quote=True)
-            js_player  = _h.escape(json.dumps(payload_player), quote=True)
-            js_matchup = _h.escape(json.dumps(f"{h_name} vs {a_name}"), quote=True)
-            add_btn = (
-                f'<button onclick="event.stopPropagation();_bkAddTennisPick({js_player},{js_label},{real_cote},{js_matchup},\'{match.get("event_id","")}\')" '
-                f'style="background:#1e3a8a;color:#bfdbfe;border:1px solid #3b82f6;border-radius:6px;'
-                f'padding:3px 9px;font-size:10.5px;font-weight:700;cursor:pointer;margin-left:6px">'
-                f'📌 Add</button>'
-            )
+            payload_direction = "over"
+            payload_line = None
+        elif kind == "tennis_total_games":
+            payload_player = f"{h_name} vs {a_name}"
+            payload_direction = p.get("direction")
+            payload_line = p.get("line")
+        elif kind == "tennis_set_score":
+            payload_player = f"{h_name} vs {a_name}"
+            payload_direction = "over"
+            payload_line = None
+        else:
+            payload_player = f"{h_name} vs {a_name}"
+            payload_direction = "over"
+            payload_line = None
+        add_payload = {
+            "sport":     "tennis",
+            "prop":      kind.upper(),
+            "label":     p.get("label", ""),
+            "direction": payload_direction,
+            "line":      payload_line,
+            "real_cote": p.get("real_cote") or p.get("cote_min"),
+            "player":    payload_player,
+            "matchup":   f"{h_name} vs {a_name}",
+            "home":      h_name,
+            "away":      a_name,
+            "match_id":  f"tennis_{match.get('event_id','')}",
+            "kind":      kind,
+        }
+        # JSON-escape pour attribut HTML : remplace " par &quot; (safe dans data-attr)
+        payload_attr = json.dumps(add_payload).replace('"', '&quot;')
+        add_btn = (
+            f'<button onclick="event.stopPropagation();addAnyPick(JSON.parse(this.dataset.p))" '
+            f'data-p="{payload_attr}" '
+            f'style="background:#1e3a8a;color:#bfdbfe;border:1px solid #3b82f6;border-radius:6px;'
+            f'padding:3px 9px;font-size:10.5px;font-weight:700;cursor:pointer;margin-left:6px">'
+            f'📌 Add</button>'
+        )
         picks_html += (
             f'<div style="background:#0c1525;border-left:3px solid {conf_color};padding:8px 10px;border-radius:6px;margin-top:6px">'
             f'<div style="display:flex;align-items:center;flex-wrap:wrap;gap:3px">'
@@ -4814,23 +4912,65 @@ function showSubHist(which){{
   if(btn) btn.classList.add('active');
 }}
 
-// Ajoute un pick tennis vainqueur au bankroll (analogue _bkAddPickFromAnalyse)
-function _bkAddTennisPick(player, label, real_cote, matchup, event_id){{
-  if(typeof openAddPickModal !== 'function'){{
-    alert('Module bankroll pas charge.');
-    return;
-  }}
-  openAddPickModal({{
-    player:   player,
-    prop:     'TENNIS_WINNER',
-    line:     null,
-    direction:'over',
-    label:    label,
-    real_cote: real_cote || null,
-    matchup:  matchup,
-    match_id: 'tennis_' + event_id,
-    sport:    'tennis',
+// Add to bankroll - generique pour tous sports/markets (replace l'ancien
+// _bkAddTennisPick qui appelait une fonction inexistante).
+// Le bouton declenche addAnyPick(payload) ou payload contient :
+//   sport, label, prop, direction, line, real_cote, player, matchup, match_id...
+// Le payload est dispatche dans _bkOpenForm via onSubmit -> push user_picks.
+function addAnyPick(payload){{
+  var direction = payload.direction || null;
+  _bkOpenForm({{
+    direction: direction,
+    payload:   payload,
+    onSubmit:  function(r){{
+      var pick = {{
+        id:         'user_' + Date.now() + '_' + Math.random().toString(36).slice(2, 8),
+        sport:      payload.sport || 'unknown',
+        player:     payload.player || payload.label || '?',
+        prop:       payload.prop || 'CUSTOM',
+        direction:  direction || 'over',  // requis pour _bkBetDelta
+        line:       (r.line !== '' && r.line !== null && r.line !== undefined) ? parseFloat(r.line) : (payload.line || null),
+        cote:       parseFloat(r.cote),
+        stake:      parseFloat(r.stake),
+        tipster:    r.tipster,
+        note:       r.note,
+        label:      payload.label || null,
+        matchup:    payload.matchup || (payload.away ? payload.away + ' vs ' + payload.home : ''),
+        home:       payload.home || '',
+        away:       payload.away || '',
+        match_id:   payload.match_id || payload.game_id || '',
+        game_id:    payload.game_id || payload.match_id || '',
+        match_date: payload.match_date || null,
+        kind:       payload.kind || null,
+        created:    new Date().toISOString(),
+        result:     null,
+        actual:     null,
+        source:     'user',
+      }};
+      var arr = _loadUserPicks();
+      arr.push(pick);
+      _saveUserPicks(arr);
+      // Notif visuelle : toast en haut a droite
+      var toast = document.createElement('div');
+      toast.style.cssText = 'position:fixed;top:20px;right:20px;z-index:99999;background:#16a34a;color:#fff;padding:12px 18px;border-radius:8px;font-weight:700;box-shadow:0 6px 24px rgba(0,0,0,0.4);opacity:0;transition:opacity 0.2s';
+      toast.innerHTML = '✓ Pari ajouté à la bankroll';
+      document.body.appendChild(toast);
+      setTimeout(function(){{ toast.style.opacity = '1'; }}, 10);
+      setTimeout(function(){{ toast.style.opacity = '0'; setTimeout(function(){{ toast.remove(); }}, 250); }}, 1800);
+    }},
   }});
+}}
+// Helper : construit le HTML d'un bouton Add a partir d'un payload (JSON-esc).
+// Utilise par foot/tennis/nba renderers.
+function _addPickBtnHtml(payload, style){{
+  var s = style || '';
+  var p = JSON.stringify(payload).replace(/'/g, "\\\\'").replace(/"/g, '&quot;');
+  return '<button onclick="event.stopPropagation();addAnyPick(JSON.parse(this.dataset.p))" '
+    + 'data-p="' + p + '" '
+    + 'class="bk-add-btn" '
+    + 'style="background:#1e3a8a;color:#bfdbfe;border:1px solid #3b82f6;border-radius:6px;'
+    + 'padding:4px 10px;font-size:11px;font-weight:700;cursor:pointer;white-space:nowrap;' + s + '">'
+    + '📌 Add</button>';
 }}
 
 // ── Section Analyse : selection prop (PTS/REB/...) + fenetre (L5/L10/L20) ──
@@ -6577,11 +6717,24 @@ function _bkOpenEditForm(pickId){{
 
 function _bkOpenForm(opts){{
   // opts = {{ direction, payload, onSubmit }}
+  // payload supporte plusieurs formes :
+  //   - NBA Analyse : {{player, prop, line, home, away, book_over, book_under, median, ...}}
+  //   - Foot pick   : {{sport:'foot', label, matchup, real_cote, ...}}
+  //   - Tennis pick : {{sport:'tennis', label, matchup, real_cote, line?, ...}}
+  // Quand p.label est fourni, on l'utilise comme titre principal et on cache la
+  // ligne input + le chip direction (pick a "ligne fixe", typiquement winner /
+  // score sets / buteur / pari ferme avec libelle deja construit).
   var root = _bkEnsureModalRoot();
   var p = opts.payload;
   var dir = opts.direction;
-  var defLine = p.line !== undefined && p.line !== null ? String(p.line) : '';
-  var defCoteRaw = dir === 'over' ? p.book_over : p.book_under;
+  // Mode "simple" : pick avec libelle fixe (ex: "Vainqueur Pablo Carreno Busta",
+  // "Buteur : Mbappé", "Plus de 22.5 tirs total"). Pas de ligne editable.
+  var simpleMode = !!p.label;
+  var hasOU = (dir === 'over' || dir === 'under');
+  var defLine = (p.line !== undefined && p.line !== null) ? String(p.line) : '';
+  var defCoteRaw = p.real_cote
+    || (dir === 'over'  ? p.book_over  : null)
+    || (dir === 'under' ? p.book_under : null);
   var defCote = defCoteRaw ? String(defCoteRaw) : '1.90';
   var defStake = String(window._bkLastStake || 2);
   var defTipster = window._bkLastTipster || '';
@@ -6590,14 +6743,61 @@ function _bkOpenForm(opts){{
     line: defLine, cote: defCote, stake: defStake,
     tipster: defTipster, note: '',
   }};
-  var propLabel = ({{PTS:'pts',REB:'reb',AST:'pas',FG3M:'3PM',RA:'reb+pas',PR:'pts+reb',PA:'pts+ast',PRA:'PRA'}})[p.prop] || p.prop;
-  var dirLabel = dir === 'over' ? 'OVER' : 'UNDER';
-  var dirCls = dir === 'over' ? 'over' : 'under';
+  // Icone sport + couleur direction chip
+  var sportIcon = '🏀';
+  var sport = (p.sport || '').toLowerCase();
+  if(sport === 'foot' || sport === 'football') sportIcon = '⚽';
+  else if(sport === 'tennis') sportIcon = '🎾';
+  // Titre + sous-titre
+  var titleText = simpleMode ? (p.label || p.player || '?') : (p.player || '?');
+  var subParts = [];
+  if(hasOU){{
+    var dirCls = dir === 'over' ? 'over' : 'under';
+    var dirLabel = dir === 'over' ? 'OVER' : 'UNDER';
+    subParts.push('<span class="bk-dir-chip ' + dirCls + '">' + dirLabel + '</span>');
+  }}
+  if(!simpleMode){{
+    var propLabel = ({{PTS:'pts',REB:'reb',AST:'pas',FG3M:'3PM',RA:'reb+pas',PR:'pts+reb',PA:'pts+ast',PRA:'PRA'}})[p.prop] || p.prop || '';
+    if(propLabel) subParts.push('<span>' + propLabel + '</span>');
+  }}
+  var matchup = p.matchup || ((p.away ? p.away + ' @ ' : '') + (p.home || ''));
+  if(matchup){{
+    if(subParts.length) subParts.push('<span class="sep">·</span>');
+    subParts.push('<span>' + matchup + '</span>');
+  }}
   var bookHint = [];
-  if(p.book_line !== undefined && p.book_line !== null) bookHint.push('Ligne book : ' + p.book_line);
-  if(defCoteRaw) bookHint.push('Cote book : ' + defCoteRaw);
-  if(p.median !== undefined && p.median !== null) bookHint.push('Méd L20 : ' + p.median);
+  if(!simpleMode){{
+    if(p.book_line !== undefined && p.book_line !== null) bookHint.push('Ligne book : ' + p.book_line);
+    if(defCoteRaw && !p.real_cote) bookHint.push('Cote book : ' + defCoteRaw);
+    if(p.median !== undefined && p.median !== null) bookHint.push('Méd L20 : ' + p.median);
+  }} else if(p.real_cote){{
+    bookHint.push('Cote algo : ' + p.real_cote);
+  }}
   var hintLine = bookHint.length ? '<div class="bk-m-hint">' + bookHint.join(' · ') + '</div>' : '';
+  // Ligne + cote : si simpleMode, on cache la ligne (pas pertinent), juste cote
+  var lineRow;
+  if(simpleMode){{
+    lineRow = (
+      '<div class="bk-m-grp">'
+      + '<label class="bk-m-label">Cote</label>'
+      + '<input class="bk-m-input" id="bk-m-cote" inputmode="decimal" value="' + defCote + '" placeholder="1.90">'
+      + '<input type="hidden" id="bk-m-line" value="' + defLine + '">'
+      + '</div>'
+    );
+  }} else {{
+    lineRow = (
+      '<div class="bk-m-row2">'
+      + '<div>'
+      +   '<label class="bk-m-label">Ligne</label>'
+      +   '<input class="bk-m-input" id="bk-m-line" inputmode="decimal" value="' + defLine + '" placeholder="9.5">'
+      + '</div>'
+      + '<div>'
+      +   '<label class="bk-m-label">Cote</label>'
+      +   '<input class="bk-m-input" id="bk-m-cote" inputmode="decimal" value="' + defCote + '" placeholder="1.90">'
+      + '</div>'
+      + '</div>'
+    );
+  }}
 
   var html =
     '<div class="bk-modal-bd" onclick="_bkCloseForm()"></div>'
@@ -6609,27 +6809,13 @@ function _bkOpenForm(opts){{
     +   '</div>'
     +   '<div class="bk-m-body">'
     +     '<div class="bk-m-context">'
-    +       '<div class="bk-m-icon">🏀</div>'
+    +       '<div class="bk-m-icon">' + sportIcon + '</div>'
     +       '<div style="flex:1;min-width:0">'
-    +         '<div class="bk-m-ctx-title">' + p.player + '</div>'
-    +         '<div class="bk-m-ctx-sub">'
-    +           '<span class="bk-dir-chip ' + dirCls + '">' + dirLabel + '</span>'
-    +           '<span>' + propLabel + '</span>'
-    +           '<span class="sep">·</span>'
-    +           '<span>' + (p.away || '') + ' @ ' + (p.home || '') + '</span>'
-    +         '</div>'
+    +         '<div class="bk-m-ctx-title">' + titleText + '</div>'
+    +         '<div class="bk-m-ctx-sub">' + subParts.join('') + '</div>'
     +       '</div>'
     +     '</div>'
-    +     '<div class="bk-m-row2">'
-    +       '<div>'
-    +         '<label class="bk-m-label">Ligne</label>'
-    +         '<input class="bk-m-input" id="bk-m-line" inputmode="decimal" value="' + defLine + '" placeholder="9.5">'
-    +       '</div>'
-    +       '<div>'
-    +         '<label class="bk-m-label">Cote</label>'
-    +         '<input class="bk-m-input" id="bk-m-cote" inputmode="decimal" value="' + defCote + '" placeholder="1.90">'
-    +       '</div>'
-    +     '</div>'
+    +     lineRow
     +     hintLine
     +     '<div class="bk-m-grp" style="margin-top:14px">'
     +       '<label class="bk-m-label">Mise</label>'
