@@ -225,6 +225,22 @@ def build_team_recent(team_metrics, fixture_metrics, l10_matches, form_list, pos
     g5  = aggregate_goals_from_matches(l5)
     g10 = aggregate_goals_from_matches(l10)
 
+    # ── REGLE TCC (Toutes Competitions Confondues) ───────────────────────────
+    # Pour les stats RECENTES (L5/L10), on prefere TCC pour eviter le biais
+    # "competition unique" : un match de coupe joue entre deux matchs de championnat
+    # est plus representatif de la forme que ne pas le compter.
+    # Fallback sur championnat-seul si TCC a moins de min_n matchs (echantillon trop maigre).
+    _MIN_TCC_N = 3
+    def _pick_tcc(all_val, all_n, lg_val, min_n=_MIN_TCC_N):
+        if all_val is not None and (all_n or 0) >= min_n:
+            return all_val
+        return lg_val
+
+    n_all_5  = s5_all.get("n", 0)
+    n_all_10 = s10_all.get("n", 0)
+    n_g_all_5  = g5_all.get("n", 0)
+    n_g_all_10 = g10_all.get("n", 0)
+
     # Saison
     season_gf  = fm.get("goals_for_pm", _f(tm.get("goals_pm")))
     season_ga  = fm.get("goals_ag_pm",  _f(tm.get("conceded_pm")))
@@ -244,11 +260,16 @@ def build_team_recent(team_metrics, fixture_metrics, l10_matches, form_list, pos
         "goals_ag_pm":    season_ga,
         "total_goals_pm": fm.get("total_goals_pm", 0),
 
-        # Tri-period buts (nouvelles cles pour UI)
-        "goals_for_l5":  g5.get("goals_for_pm"),
-        "goals_for_l10": g10.get("goals_for_pm"),
-        "goals_ag_l5":   g5.get("goals_ag_pm"),
-        "goals_ag_l10":  g10.get("goals_ag_pm"),
+        # Tri-period buts (TCC prefere si >=3 matchs, sinon championnat seul)
+        "goals_for_l5":  _pick_tcc(g5_all.get("goals_for_pm"),  n_g_all_5,  g5.get("goals_for_pm")),
+        "goals_for_l10": _pick_tcc(g10_all.get("goals_for_pm"), n_g_all_10, g10.get("goals_for_pm")),
+        "goals_ag_l5":   _pick_tcc(g5_all.get("goals_ag_pm"),   n_g_all_5,  g5.get("goals_ag_pm")),
+        "goals_ag_l10":  _pick_tcc(g10_all.get("goals_ag_pm"),  n_g_all_10, g10.get("goals_ag_pm")),
+        # Conserve aussi versions championnat-seul (pour comparaison/debug si besoin)
+        "goals_for_l5_lg":  g5.get("goals_for_pm"),
+        "goals_for_l10_lg": g10.get("goals_for_pm"),
+        "goals_ag_l5_lg":   g5.get("goals_ag_pm"),
+        "goals_ag_l10_lg":  g10.get("goals_ag_pm"),
         "goals_for_season":  season_gf,
         "goals_ag_season":   season_ga,
 
@@ -272,30 +293,45 @@ def build_team_recent(team_metrics, fixture_metrics, l10_matches, form_list, pos
         "l10_n":     fm.get("l10_n", 0),
         "cup_gf_pm": 0, "cup_ga_pm": 0, "cup_n": 0,
 
-        # ── TIRS / SoT / xG : tri-period ─────────────────────────────────
+        # ── TIRS / SoT / xG : tri-period (TCC prefere) ───────────────────
         "shots_pm":       season_shots or s10.get("shots_pm"),  # compat
-        "shots_l5":       s5.get("shots_pm"),
-        "shots_l10":      s10.get("shots_pm"),
+        "shots_l5":       _pick_tcc(s5_all.get("shots_pm"),  n_all_5,  s5.get("shots_pm")),
+        "shots_l10":      _pick_tcc(s10_all.get("shots_pm"), n_all_10, s10.get("shots_pm")),
         "shots_season":   None,  # FotMob ne donne pas total shots/match saison
-        "opp_shots_l5":   s5.get("opp_shots_pm"),
-        "opp_shots_l10":  s10.get("opp_shots_pm"),
+        "opp_shots_l5":   _pick_tcc(s5_all.get("opp_shots_pm"),  n_all_5,  s5.get("opp_shots_pm")),
+        "opp_shots_l10":  _pick_tcc(s10_all.get("opp_shots_pm"), n_all_10, s10.get("opp_shots_pm")),
+        # Versions championnat-seul (acces explicite)
+        "shots_l5_lg":    s5.get("shots_pm"),
+        "shots_l10_lg":   s10.get("shots_pm"),
+        "opp_shots_l5_lg":  s5.get("opp_shots_pm"),
+        "opp_shots_l10_lg": s10.get("opp_shots_pm"),
 
         "sot_pm":         season_sot,  # compat
-        "sot_l5":         s5.get("sot_pm"),
-        "sot_l10":        s10.get("sot_pm"),
+        "sot_l5":         _pick_tcc(s5_all.get("sot_pm"),  n_all_5,  s5.get("sot_pm")),
+        "sot_l10":        _pick_tcc(s10_all.get("sot_pm"), n_all_10, s10.get("sot_pm")),
         "sot_season":     season_sot,
-        "opp_sot_l5":     s5.get("opp_sot_pm"),
-        "opp_sot_l10":    s10.get("opp_sot_pm"),
+        "opp_sot_l5":     _pick_tcc(s5_all.get("opp_sot_pm"),  n_all_5,  s5.get("opp_sot_pm")),
+        "opp_sot_l10":    _pick_tcc(s10_all.get("opp_sot_pm"), n_all_10, s10.get("opp_sot_pm")),
+        "sot_l5_lg":      s5.get("sot_pm"),
+        "sot_l10_lg":     s10.get("sot_pm"),
+        "opp_sot_l5_lg":  s5.get("opp_sot_pm"),
+        "opp_sot_l10_lg": s10.get("opp_sot_pm"),
 
         "xg_pm":          season_xg,  # compat
-        "xg_l5":          s5.get("xg_pm"),
-        "xg_l10":         s10.get("xg_pm"),
+        "xg_l5":          _pick_tcc(s5_all.get("xg_pm"),  n_all_5,  s5.get("xg_pm")),
+        "xg_l10":         _pick_tcc(s10_all.get("xg_pm"), n_all_10, s10.get("xg_pm")),
         "xg_season":      season_xg,
-        "opp_xg_l5":      s5.get("opp_xg_pm"),
-        "opp_xg_l10":     s10.get("opp_xg_pm"),
+        "opp_xg_l5":      _pick_tcc(s5_all.get("opp_xg_pm"),  n_all_5,  s5.get("opp_xg_pm")),
+        "opp_xg_l10":     _pick_tcc(s10_all.get("opp_xg_pm"), n_all_10, s10.get("opp_xg_pm")),
+        "xg_l5_lg":       s5.get("xg_pm"),
+        "xg_l10_lg":      s10.get("xg_pm"),
 
-        "shots_n_l5":     s5.get("n", 0),
-        "shots_n_l10":    s10.get("n", 0),
+        # Sample size : indique l'echantillon effectivement utilise (TCC si choisi, sinon championnat)
+        "shots_n_l5":     n_all_5  if (s5_all.get("shots_pm")  is not None and n_all_5  >= _MIN_TCC_N) else s5.get("n", 0),
+        "shots_n_l10":    n_all_10 if (s10_all.get("shots_pm") is not None and n_all_10 >= _MIN_TCC_N) else s10.get("n", 0),
+        "shots_n_l5_lg":  s5.get("n", 0),
+        "shots_n_l10_lg": s10.get("n", 0),
+        "shots_source":   "tcc" if (s10_all.get("shots_pm") is not None and n_all_10 >= _MIN_TCC_N) else "championnat",
 
         # ── PONDERES par qualite adversaire (target_opp_rank = adv. d'aujourd'hui) ─
         "shots_weighted":  s10_weighted.get("shots_pm"),
@@ -321,6 +357,10 @@ def build_team_recent(team_metrics, fixture_metrics, l10_matches, form_list, pos
         "goals_ag_l10_all":      g10_all.get("goals_ag_pm"),
         "opp_shots_l5_all":      s5_all.get("opp_shots_pm"),
         "opp_shots_l10_all":     s10_all.get("opp_shots_pm"),
+        "opp_sot_l5_all":        s5_all.get("opp_sot_pm"),
+        "opp_sot_l10_all":       s10_all.get("opp_sot_pm"),
+        "opp_xg_l5_all":         s5_all.get("opp_xg_pm"),
+        "opp_xg_l10_all":        s10_all.get("opp_xg_pm"),
 
         # ── Splits Domicile / Exterieur (depuis L10) ────────────────────────
         "shots_home":     s10_home.get("shots_pm"),

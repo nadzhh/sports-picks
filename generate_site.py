@@ -3494,6 +3494,19 @@ def build_html(matches, team_ai, player_ai, pstats_data, nba_picks=None, nba_his
   .sport-btn:hover{{background:#334155;color:#f1f5f9}}
   .sport-btn.active{{background:#3b82f6;color:#fff;border-color:#3b82f6;box-shadow:0 4px 14px rgba(59,130,246,0.45)}}
 
+  /* Sub-toggle (Picks: Football/NBA, Historique: Foot/NBA) */
+  .sub-tg-bar{{
+    display:flex;gap:6px;margin-bottom:14px;background:#0f172a;border:1px solid #1e293b;
+    border-radius:10px;padding:5px;width:fit-content;max-width:100%;flex-wrap:wrap;
+  }}
+  .sub-tg{{
+    background:transparent;color:#64748b;border:none;border-radius:7px;
+    padding:8px 18px;font-size:13px;font-weight:600;cursor:pointer;transition:all .15s;
+    letter-spacing:0.2px;
+  }}
+  .sub-tg:hover{{color:#cbd5e1;background:#1e293b}}
+  .sub-tg.active{{background:#1e293b;color:#f1f5f9;box-shadow:inset 0 0 0 1px #334155}}
+
   /* Match card body : stats full-width, picks toggleable separement */
   .match-body {{
     padding: 0 16px 16px;
@@ -4346,14 +4359,23 @@ def build_html(matches, team_ai, player_ai, pstats_data, nba_picks=None, nba_his
     🆕 <span id="new-picks-count">0</span> nouveau(x) pick(s)
     <div style="font-size:11px;font-weight:500;color:#1e293b;margin-top:2px">Repere les badges 🆕 sur les cartes</div>
   </div>
-  <!-- Sport switcher -->
-  <div style="display:flex;gap:10px;margin-bottom:18px;flex-wrap:wrap">
-    <button class="sport-btn active" onclick="showSport('football')" id="sport-btn-football">⚽ Football</button>
-    <button class="sport-btn" onclick="showSport('nba')"     id="sport-btn-nba">🏀 Basketball NBA</button>
-    <button class="sport-btn" onclick="showSport('analyse')" id="sport-btn-analyse">🔍 Analyse NBA</button>
-    <button class="sport-btn" onclick="showSport('userpicks')" id="sport-btn-userpicks">💰 Bankroll <span id="userpicks-count" style="background:rgba(255,255,255,0.2);border-radius:10px;padding:1px 7px;font-size:11px;margin-left:4px;display:none">0</span></button>
-    <button class="sport-btn" onclick="showSport('foothist')" id="sport-btn-foothist">🏆 Historique Foot</button>
-    <button class="sport-btn" onclick="showSport('nbahist')"  id="sport-btn-nbahist">🏆 Historique NBA</button>
+  <!-- Sport switcher (4 menus : Picks | Analyse NBA | Bankroll | Historique) -->
+  <div style="display:flex;gap:10px;margin-bottom:14px;flex-wrap:wrap">
+    <button class="sport-btn active" onclick="showSport('picks')"     id="sport-btn-picks">📌 Picks</button>
+    <button class="sport-btn" onclick="showSport('analyse')"          id="sport-btn-analyse">🔍 Analyse NBA</button>
+    <button class="sport-btn" onclick="showSport('userpicks')"        id="sport-btn-userpicks">💰 Bankroll <span id="userpicks-count" style="background:rgba(255,255,255,0.2);border-radius:10px;padding:1px 7px;font-size:11px;margin-left:4px;display:none">0</span></button>
+    <button class="sport-btn" onclick="showSport('history')"          id="sport-btn-history">🏆 Historique</button>
+  </div>
+
+  <!-- Sub-toggle Picks (Football <-> Basketball NBA) -->
+  <div id="picks-subtoggle" class="sub-tg-bar">
+    <button class="sub-tg active" onclick="showSubPicks('football')" id="sub-tg-picks-football">⚽ Football</button>
+    <button class="sub-tg"        onclick="showSubPicks('nba')"      id="sub-tg-picks-nba">🏀 Basketball NBA</button>
+  </div>
+  <!-- Sub-toggle Historique (Foot <-> NBA) -->
+  <div id="hist-subtoggle" class="sub-tg-bar" style="display:none">
+    <button class="sub-tg active" onclick="showSubHist('foot')" id="sub-tg-hist-foot">⚽ Historique Foot</button>
+    <button class="sub-tg"        onclick="showSubHist('nba')"  id="sub-tg-hist-nba">🏀 Historique NBA</button>
   </div>
 
   <!-- Section Football -->
@@ -4462,16 +4484,72 @@ window.NBA_BOX_SCORES = {nba_box_scores_json};
 window.NBA_RECENT_GAMES = {nba_recent_json};
 </script>
 <script>
-function showSport(sport){{
-  ['football','nba','analyse','userpicks','foothist','nbahist'].forEach(s=>{{
+// ── Navigation : 4 menus principaux + 2 sous-toggles ─────────────────────
+// Tabs principaux : picks | analyse | userpicks | history
+// Sub-toggles    : picks -> football / nba ; history -> foot / nba
+window._currentTab     = window._currentTab     || 'picks';
+window._currentSubPick = window._currentSubPick || 'football';
+window._currentSubHist = window._currentSubHist || 'foot';
+
+function _hideAllSportSections(){{
+  ['football','nba','analyse','userpicks','foothist','nbahist'].forEach(function(s){{
     var el = document.getElementById('sport-'+s);
-    if(el) el.style.display = (s===sport) ? 'block' : 'none';
+    if(el) el.style.display = 'none';
   }});
-  document.querySelectorAll('.sport-btn').forEach(b=>b.classList.remove('active'));
-  var btn = document.getElementById('sport-btn-'+sport);
+  var pst = document.getElementById('picks-subtoggle'); if(pst) pst.style.display = 'none';
+  var hst = document.getElementById('hist-subtoggle');  if(hst) hst.style.display = 'none';
+}}
+
+function _setMainBtnActive(tab){{
+  document.querySelectorAll('.sport-btn').forEach(function(b){{ b.classList.remove('active'); }});
+  var btn = document.getElementById('sport-btn-' + tab);
   if(btn) btn.classList.add('active');
-  // Refresh user picks list when entering the tab
-  if(sport === 'userpicks') renderUserPicks();
+}}
+
+function showSport(sport){{
+  // Compat : accepte les anciens noms (football/nba -> picks ; foothist/nbahist -> history)
+  if(sport === 'football'){{ window._currentSubPick = 'football'; sport = 'picks'; }}
+  else if(sport === 'nba'){{ window._currentSubPick = 'nba';      sport = 'picks'; }}
+  else if(sport === 'foothist'){{ window._currentSubHist = 'foot'; sport = 'history'; }}
+  else if(sport === 'nbahist'){{  window._currentSubHist = 'nba';  sport = 'history'; }}
+
+  _hideAllSportSections();
+  window._currentTab = sport;
+
+  if(sport === 'picks'){{
+    var st = document.getElementById('picks-subtoggle'); if(st) st.style.display = 'flex';
+    showSubPicks(window._currentSubPick);
+    _setMainBtnActive('picks');
+  }} else if(sport === 'history'){{
+    var st = document.getElementById('hist-subtoggle');  if(st) st.style.display = 'flex';
+    showSubHist(window._currentSubHist);
+    _setMainBtnActive('history');
+  }} else if(sport === 'analyse'){{
+    var el = document.getElementById('sport-analyse'); if(el) el.style.display = 'block';
+    _setMainBtnActive('analyse');
+  }} else if(sport === 'userpicks'){{
+    var el = document.getElementById('sport-userpicks'); if(el) el.style.display = 'block';
+    _setMainBtnActive('userpicks');
+    renderUserPicks();
+  }}
+}}
+
+function showSubPicks(which){{
+  window._currentSubPick = which;
+  var f = document.getElementById('sport-football'); if(f) f.style.display = (which === 'football') ? 'block' : 'none';
+  var n = document.getElementById('sport-nba');      if(n) n.style.display = (which === 'nba')      ? 'block' : 'none';
+  document.querySelectorAll('#picks-subtoggle .sub-tg').forEach(function(b){{ b.classList.remove('active'); }});
+  var btn = document.getElementById('sub-tg-picks-' + which);
+  if(btn) btn.classList.add('active');
+}}
+
+function showSubHist(which){{
+  window._currentSubHist = which;
+  var f = document.getElementById('sport-foothist'); if(f) f.style.display = (which === 'foot') ? 'block' : 'none';
+  var n = document.getElementById('sport-nbahist');  if(n) n.style.display = (which === 'nba')  ? 'block' : 'none';
+  document.querySelectorAll('#hist-subtoggle .sub-tg').forEach(function(b){{ b.classList.remove('active'); }});
+  var btn = document.getElementById('sub-tg-hist-' + which);
+  if(btn) btn.classList.add('active');
 }}
 
 // ── Section Analyse : selection prop (PTS/REB/...) + fenetre (L5/L10/L20) ──

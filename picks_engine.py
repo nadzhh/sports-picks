@@ -1329,14 +1329,18 @@ def team_shots_props(home_ts, away_ts, home_recent, away_recent, h2h_shots, home
         else:
             h_l10 = hr.get("shots_l10"); h_l5 = hr.get("shots_l5")
             a_l10 = ar.get("shots_l10"); a_l5 = ar.get("shots_l5")
-        # Ligne 1 : stats brutes
-        def _stat_str(l10, l5):
+        # Ligne 1 : stats brutes (L5/L10 = TCC quand >=3 matchs TCC, sinon championnat-seul)
+        h_src = hr.get("shots_source", "championnat")
+        a_src = ar.get("shots_source", "championnat")
+        h_tag = " TCC" if h_src == "tcc" else ""
+        a_tag = " TCC" if a_src == "tcc" else ""
+        def _stat_str(l10, l5, tag=""):
             if l10 is None and l5 is None: return "?"
             parts = []
-            if l10 is not None: parts.append(f"L10 {l10:.1f}")
-            if l5 is not None: parts.append(f"L5 {l5:.1f}")
+            if l10 is not None: parts.append(f"L10{tag} {l10:.1f}")
+            if l5 is not None: parts.append(f"L5{tag} {l5:.1f}")
             return " (".join(parts) + (")" if l5 is not None else "")
-        l1 = f"📊 Brut : {home_name} {_stat_str(h_l10, h_l5)} {stat_label}/m · {away_name} {_stat_str(a_l10, a_l5)} {stat_label}/m"
+        l1 = f"📊 Brut : {home_name} {_stat_str(h_l10, h_l5, h_tag)} {stat_label}/m · {away_name} {_stat_str(a_l10, a_l5, a_tag)} {stat_label}/m"
         # Ligne 2 : defenses adverses
         h_def_v = h_shots_def if stat_label == "tirs" else h_sot_def
         a_def_v = a_shots_def if stat_label == "tirs" else a_sot_def
