@@ -3690,13 +3690,25 @@ def build_html(matches, team_ai, player_ai, pstats_data, nba_picks=None, nba_his
   }}
 
   /* Prop / market breakdown */
-  .bk-prop-row {{ display: grid; grid-template-columns: 130px 1fr 64px 80px; gap: 12px; align-items: center; padding: 10px 4px; }}
+  .bk-prop-row {{ display: grid; grid-template-columns: 130px 1fr 60px 70px 80px; gap: 12px; align-items: center; padding: 10px 4px; }}
   .bk-prop-row + .bk-prop-row {{ border-top: 1px solid var(--bk-hairline); }}
   .bk-prop-name {{ display: flex; align-items: center; gap: 8px; color: var(--bk-text); font-weight: 600; font-size: 13px; }}
   .bk-prop-bar {{ height: 6px; background: var(--bk-text-soft); border-radius: 999px; overflow: hidden; }}
   .bk-prop-bar > div {{ height: 100%; border-radius: 999px; }}
   .bk-prop-wr {{ text-align: right; font-weight: 700; font-size: 12.5px; font-variant-numeric: tabular-nums; }}
+  .bk-prop-cote {{ text-align: right; font-weight: 600; font-size: 12px; font-variant-numeric: tabular-nums; color: var(--bk-text-muted); }}
   .bk-prop-profit {{ text-align: right; font-weight: 700; font-size: 13px; font-variant-numeric: tabular-nums; }}
+
+  /* Analyse aggregee (par tipster / par date) */
+  .bk-analyse-wrap {{ display: flex; flex-direction: column; gap: 14px; margin-bottom: 18px; }}
+  .bk-analyse-row {{ display: grid; grid-template-columns: 1.4fr 70px 90px 70px 70px 90px; gap: 10px; align-items: center; padding: 10px 6px; font-size: 13px; }}
+  .bk-analyse-row + .bk-analyse-row {{ border-top: 1px solid var(--bk-hairline); }}
+  .bk-analyse-hd {{ font-size: 10.5px; color: var(--bk-text-muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.4px; padding: 6px 6px 8px; }}
+  .bk-analyse-name {{ display: flex; align-items: center; gap: 8px; color: var(--bk-text); font-weight: 600; min-width: 0; }}
+  .bk-analyse-name > span:last-child {{ overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }}
+  .bk-analyse-num {{ text-align: right; font-variant-numeric: tabular-nums; }}
+  .bk-card-close {{ background: transparent; border: 1px solid var(--bk-hairline); color: var(--bk-text-muted); width: 28px; height: 28px; border-radius: 8px; cursor: pointer; font-size: 13px; line-height: 1; display: inline-flex; align-items: center; justify-content: center; }}
+  .bk-card-close:hover {{ background: rgba(255,255,255,0.05); color: var(--bk-text); }}
 
   /* Advice rows */
   .bk-advice {{ display: flex; flex-direction: column; gap: 8px; }}
@@ -4198,10 +4210,17 @@ def build_html(matches, team_ai, player_ai, pstats_data, nba_picks=None, nba_his
     #sport-userpicks .bk-chart-xlabel {{ font-size: 10px !important; }}
     /* Prop breakdown : colonnes plus etroites */
     #sport-userpicks .bk-prop-row {{
-      grid-template-columns: 100px 1fr 54px 70px !important;
-      gap: 8px !important; font-size: 12px !important;
+      grid-template-columns: 92px 1fr 50px 56px 64px !important;
+      gap: 7px !important; font-size: 12px !important;
     }}
     #sport-userpicks .bk-prop-name {{ font-size: 12px !important; }}
+    #sport-userpicks .bk-prop-cote {{ font-size: 11px !important; }}
+    /* Analyse rows : compact mobile */
+    #sport-userpicks .bk-analyse-row {{
+      grid-template-columns: 1fr 50px 78px 56px 56px 72px !important;
+      gap: 6px !important; font-size: 11.5px !important;
+    }}
+    #sport-userpicks .bk-analyse-hd {{ font-size: 9.5px !important; }}
 
     /* ── Modal Nouveau Pari ── */
     #bk-modal-root .bk-modal-card {{ width: 96vw !important; max-height: 92vh !important; border-radius: 18px !important; }}
@@ -4250,8 +4269,15 @@ def build_html(matches, team_ai, player_ai, pstats_data, nba_picks=None, nba_his
     #sport-userpicks .bk-stats {{ grid-template-columns: 1fr !important; }}
     #sport-userpicks .bk-stats .bk-stat:nth-child(3) {{ grid-column: auto; }}
     #sport-userpicks .bk-prop-row {{
-      grid-template-columns: 80px 1fr 48px 64px !important;
+      grid-template-columns: 76px 1fr 42px 48px 56px !important;
       font-size: 11px !important;
+      gap: 6px !important;
+    }}
+    #sport-userpicks .bk-prop-cote {{ font-size: 10.5px !important; }}
+    /* Analyse rows : encore plus compact */
+    #sport-userpicks .bk-analyse-row {{
+      grid-template-columns: 1fr 38px 64px 48px 48px 60px !important;
+      gap: 4px !important; font-size: 10.5px !important;
     }}
   }}
 </style>
@@ -7047,6 +7073,26 @@ function _bkToggleFilterExpand(kind){{
   window._bkFilterExpand[kind] = !window._bkFilterExpand[kind];
   renderUserPicks();
 }}
+// Toggle l'analyse aggregee (par tipster / par date) quand l'user clique sur
+// la chip "Tous X" deja active
+function _bkToggleAnalyse(kind){{
+  window._bkAnalyseOpen = window._bkAnalyseOpen || {{tipster:false, date:false}};
+  window._bkAnalyseOpen[kind] = !window._bkAnalyseOpen[kind];
+  // Synchronise l'etat collapse/expand des chips : ouvert quand l'analyse est ouverte
+  window._bkFilterExpand = window._bkFilterExpand || {{status:false, date:false, tipster:false}};
+  window._bkFilterExpand[kind] = window._bkAnalyseOpen[kind];
+  // Reset le filtre actif vers 'all' (l'analyse couvre l'ensemble)
+  window._bkFilters = window._bkFilters || {{status:'all', tipster:'all', date:'all', prop:'all'}};
+  window._bkFilters[kind] = 'all';
+  renderUserPicks();
+  if(window._bkAnalyseOpen[kind]){{
+    setTimeout(function(){{
+      var id = 'bk-analyse-' + kind;
+      var el = document.getElementById(id);
+      if(el) el.scrollIntoView({{behavior:'smooth', block:'start'}});
+    }}, 50);
+  }}
+}}
 function resetBkFilters(){{
   window._bkFilters = {{status:'all', tipster:'all', date:'all', prop:'all'}};
   window._bkFilterExpand = {{status:false, date:false, tipster:false}};
@@ -7305,19 +7351,34 @@ function renderUserPicks(){{
   // Build chip generique : peut avoir une fleche de collapse a gauche (si c'est la summary)
   function _chip(args){{
     // args = id, label, count, color (opt), ic (opt), kind, active, isToggle
-    var caret = args.isToggle
-      ? '<span style="font-size:9px;opacity:0.8;margin-right:2px">' + (window._bkFilterExpand[args.kind] ? '▴' : '▾') + '</span>'
-      : '';
+    // Le chip "Tous X" pour tipster/date est special : il ouvre l'analyse aggregee
+    var isAllAnalyse = args.id === 'all' && (args.kind === 'tipster' || args.kind === 'date');
+    var analyseOpen  = isAllAnalyse && window._bkAnalyseOpen && window._bkAnalyseOpen[args.kind];
+    var caret = '';
+    if(isAllAnalyse){{
+      caret = '<span style="font-size:11px;margin-right:2px">' + (analyseOpen ? '📊' : '▾') + '</span>';
+    }} else if(args.isToggle){{
+      caret = '<span style="font-size:9px;opacity:0.8;margin-right:2px">' + (window._bkFilterExpand[args.kind] ? '▴' : '▾') + '</span>';
+    }}
     var dot = args.color ? '<span class="dot" style="background:' + args.color + '"></span>' : '';
     var ic = args.ic ? '<span style="font-size:13px">' + args.ic + '</span>' : '';
     var labelHtml = args.maxWidth
       ? '<span style="max-width:' + args.maxWidth + 'px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">' + args.label + '</span>'
       : args.label;
-    var onclick = args.isToggle
-      ? '_bkToggleFilterExpand(\\'' + args.kind + '\\')'
-      : 'setBkFilter(\\'' + args.kind + '\\', \\'' + String(args.id).replace(/'/g, "\\\\'") + '\\')';
-    var title = args.title ? ' title="' + args.title + '"' : '';
-    return '<button class="bk-filter-chip ' + (args.active ? 'active' : '') + '" onclick="' + onclick + '"' + title + '>'
+    var onclick;
+    if(isAllAnalyse){{
+      onclick = '_bkToggleAnalyse(\\'' + args.kind + '\\')';
+    }} else if(args.isToggle){{
+      onclick = '_bkToggleFilterExpand(\\'' + args.kind + '\\')';
+    }} else {{
+      onclick = 'setBkFilter(\\'' + args.kind + '\\', \\'' + String(args.id).replace(/'/g, "\\\\'") + '\\')';
+    }}
+    var title = args.title
+      ? ' title="' + args.title + '"'
+      : (isAllAnalyse ? ' title="Voir l\\'analyse détaillée par ' + args.kind + '"' : '');
+    var activeClass = (args.active || analyseOpen) ? 'active' : '';
+    var extraStyle = analyseOpen ? ' style="background:rgba(52,211,153,0.18);border-color:rgba(52,211,153,0.55)"' : '';
+    return '<button class="bk-filter-chip ' + activeClass + '" onclick="' + onclick + '"' + title + extraStyle + '>'
       + caret + dot + ic + labelHtml
       + (args.count != null ? '<span class="count">' + args.count + '</span>' : '')
       + '</button>';
@@ -7471,10 +7532,11 @@ function renderUserPicks(){{
   var byProp = {{}};
   settled.forEach(function(p){{
     var k = p.prop || '?';
-    if(!byProp[k]) byProp[k] = {{w: 0, l: 0, profit: 0}};
+    if(!byProp[k]) byProp[k] = {{w: 0, l: 0, profit: 0, cotes: 0, nCotes: 0}};
     if(p.result === 'WIN')  byProp[k].w++;
     if(p.result === 'LOSS') byProp[k].l++;
     byProp[k].profit += _bkBetDelta(p);
+    if(p.cote){{ byProp[k].cotes += p.cote; byProp[k].nCotes++; }}
   }});
   var propEntries = Object.keys(byProp).sort(function(a, b){{ return byProp[b].profit - byProp[a].profit; }});
   var fProp = (window._bkFilters && window._bkFilters.prop) || 'all';
@@ -7482,6 +7544,7 @@ function renderUserPicks(){{
     var b = byProp[k];
     var bn = b.w + b.l;
     var bwr = bn > 0 ? (b.w / bn * 100) : 0;
+    var avgCoteK = b.nCotes > 0 ? (b.cotes / b.nCotes) : 0;
     var barColor = bwr >= 55 ? '#34D399' : (bwr >= 50 ? '#86efac' : (bwr >= 40 ? '#FBBF24' : '#F87171'));
     var pColor = b.profit > 0 ? '#34D399' : (b.profit < 0 ? '#F87171' : '#94A3B8');
     var pSign  = b.profit > 0 ? '+' : (b.profit < 0 ? '−' : '');
@@ -7498,15 +7561,133 @@ function renderUserPicks(){{
       + '<div class="bk-prop-name"><span>' + propIcon + '</span><span>' + propLabel + '</span>' + (isActive ? ' <span style="color:#34D399;font-size:11px">✓</span>' : '') + '</div>'
       + '<div class="bk-prop-bar"><div style="width:' + bwr + '%;background:linear-gradient(90deg,' + barColor + '88,' + barColor + ')"></div></div>'
       + '<div class="bk-prop-wr" style="color:' + barColor + '">' + bwr.toFixed(0) + '%<span style="color:var(--bk-text-muted);font-weight:500;font-size:11px"> (' + b.w + '/' + bn + ')</span></div>'
+      + '<div class="bk-prop-cote" title="Cote moyenne">' + (avgCoteK > 0 ? '@' + avgCoteK.toFixed(2) : '—') + '</div>'
       + '<div class="bk-prop-profit" style="color:' + pColor + '">' + pSign + _bkFmt(Math.abs(b.profit)) + ' €</div>'
       + '</div>';
   }}).join('');
+  // Header row
+  var propHeader = '<div class="bk-prop-row" style="padding:4px 4px 6px;border-bottom:1px solid var(--bk-hairline);font-size:10.5px;color:var(--bk-text-muted);font-weight:600;text-transform:uppercase;letter-spacing:0.4px">'
+    + '<div>Marché</div>'
+    + '<div></div>'
+    + '<div style="text-align:right">WR</div>'
+    + '<div style="text-align:right">Cote</div>'
+    + '<div style="text-align:right">Profit</div>'
+    + '</div>';
   var propCard = '';
   if(propRows){{
     propCard =
       '<div class="bk-card">'
       + '<div class="bk-card-hd"><div class="bk-card-title">📊 Performance par marché</div></div>'
+      + propHeader
       + propRows
+      + '</div>';
+  }}
+
+  // ── Helpers analyse aggregee (tipster / date) ──────────────
+  window._bkAnalyseOpen = window._bkAnalyseOpen || {{tipster:false, date:false}};
+  function _bkBuildAnalyseRows(buckets, totalLabel){{
+    // buckets : array de {{label, ic, picks: [...], color (opt)}}
+    var allRows = buckets.map(function(b){{
+      var s = {{w:0, l:0, push:0, pending:0, profit:0, stake:0, cotes:0, nCotes:0}};
+      b.picks.forEach(function(p){{
+        if(!p.result || p.result === 'PENDING'){{ s.pending++; return; }}
+        if(p.result === 'PUSH'){{ s.push++; return; }}
+        if(p.result === 'WIN')  s.w++;
+        if(p.result === 'LOSS') s.l++;
+        s.profit += _bkBetDelta(p);
+        s.stake  += (p.stake != null ? p.stake : 1);
+        if(p.cote){{ s.cotes += p.cote; s.nCotes++; }}
+      }});
+      s.label = b.label; s.ic = b.ic || ''; s.color = b.color || '';
+      s.n = s.w + s.l;
+      s.wr = s.n > 0 ? (s.w / s.n * 100) : 0;
+      s.roi = s.stake > 0 ? (s.profit / s.stake * 100) : 0;
+      s.avgCote = s.nCotes > 0 ? (s.cotes / s.nCotes) : 0;
+      s.total = b.picks.length;
+      return s;
+    }});
+    // Sort par profit decroissant (mais on garde ordre pour buckets de date qui sont ordonnes)
+    return allRows;
+  }}
+  function _bkAnalyseHeader(label1){{
+    return '<div class="bk-analyse-row bk-analyse-hd">'
+      + '<div>' + label1 + '</div>'
+      + '<div style="text-align:right">Picks</div>'
+      + '<div style="text-align:right">WR</div>'
+      + '<div style="text-align:right">Cote</div>'
+      + '<div style="text-align:right">ROI</div>'
+      + '<div style="text-align:right">Profit</div>'
+      + '</div>';
+  }}
+  function _bkAnalyseRow(s){{
+    var barColor = s.wr >= 55 ? '#34D399' : (s.wr >= 50 ? '#86efac' : (s.wr >= 40 ? '#FBBF24' : (s.n > 0 ? '#F87171' : '#94A3B8')));
+    var pColor   = s.profit > 0 ? '#34D399' : (s.profit < 0 ? '#F87171' : '#94A3B8');
+    var pSign    = s.profit > 0 ? '+' : (s.profit < 0 ? '−' : '');
+    var rColor   = s.roi > 0 ? '#34D399' : (s.roi < 0 ? '#F87171' : '#94A3B8');
+    var rSign    = s.roi > 0 ? '+' : (s.roi < 0 ? '−' : '');
+    var wrCell   = s.n > 0
+      ? '<span style="color:' + barColor + '">' + s.wr.toFixed(0) + '%</span><span style="color:var(--bk-text-muted);font-weight:500;font-size:11px"> (' + s.w + '/' + s.n + ')</span>'
+      : '<span style="color:var(--bk-text-muted)">—</span>';
+    return '<div class="bk-analyse-row">'
+      + '<div class="bk-analyse-name">' + (s.ic ? '<span style="font-size:13px">' + s.ic + '</span>' : '') + '<span>' + s.label + '</span></div>'
+      + '<div class="bk-analyse-num" style="color:var(--bk-text-muted)">' + s.total + (s.pending > 0 ? ' <span style="color:#FBBF24;font-size:10.5px">(' + s.pending + ' en cours)</span>' : '') + '</div>'
+      + '<div class="bk-analyse-num">' + wrCell + '</div>'
+      + '<div class="bk-analyse-num" style="color:var(--bk-text-muted)">' + (s.avgCote > 0 ? '@' + s.avgCote.toFixed(2) : '—') + '</div>'
+      + '<div class="bk-analyse-num" style="color:' + rColor + '">' + (s.n > 0 ? rSign + Math.abs(s.roi).toFixed(1) + '%' : '—') + '</div>'
+      + '<div class="bk-analyse-num" style="color:' + pColor + ';font-weight:700">' + (s.n > 0 ? pSign + _bkFmt(Math.abs(s.profit)) + ' €' : '—') + '</div>'
+      + '</div>';
+  }}
+
+  // ── Analyse par tipster (visible uniquement si toggle ON) ──
+  var tipsterAnalyseCard = '';
+  if(window._bkAnalyseOpen.tipster){{
+    var tipBuckets = tipsterList.map(function(t){{
+      var picks = allForFilter.filter(function(p){{
+        var tt = (p.tipster && p.tipster.trim()) ? p.tipster.trim() : '∅ Sans tipster';
+        return tt === t;
+      }});
+      var isNone = t === '∅ Sans tipster';
+      return {{label: isNone ? 'Sans tipster' : t, ic: isNone ? '∅' : '👤', picks: picks}};
+    }});
+    var tipRows = _bkBuildAnalyseRows(tipBuckets, 'Total');
+    // Sort : profit desc, puis n picks desc
+    tipRows.sort(function(a, b){{
+      if(b.profit !== a.profit) return b.profit - a.profit;
+      return b.total - a.total;
+    }});
+    var tipBody = tipRows.map(_bkAnalyseRow).join('');
+    tipsterAnalyseCard =
+      '<div class="bk-card" id="bk-analyse-tipster">'
+      + '<div class="bk-card-hd">'
+      +   '<div class="bk-card-title">👥 Performance par tipster</div>'
+      +   '<button class="bk-card-close" onclick="_bkToggleAnalyse(\\'tipster\\')" title="Fermer">✕</button>'
+      + '</div>'
+      + (tipBody
+          ? _bkAnalyseHeader('Tipster') + tipBody
+          : '<div style="padding:16px;color:var(--bk-text-muted);text-align:center;font-size:13px">Aucun tipster enregistré.</div>')
+      + '</div>';
+  }}
+
+  // ── Analyse par date (visible uniquement si toggle ON) ─────
+  var dateAnalyseCard = '';
+  if(window._bkAnalyseOpen.date){{
+    var dateBuckets = [
+      {{label:"Aujourd'hui",     ic:'🟢', picks: allForFilter.filter(function(p){{ return _bkPickInDateRange(p, 'today'); }})}},
+      {{label:'Hier',            ic:'🟡', picks: allForFilter.filter(function(p){{ return _bkPickInDateRange(p, 'yesterday'); }})}},
+      {{label:'7 derniers j.',   ic:'📆', picks: allForFilter.filter(function(p){{ return _bkPickInDateRange(p, '7d'); }})}},
+      {{label:'30 derniers j.',  ic:'📚', picks: allForFilter.filter(function(p){{ return _bkPickInDateRange(p, '30d'); }})}},
+      {{label:'Total',           ic:'📅', picks: allForFilter}},
+    ];
+    var dateRows = _bkBuildAnalyseRows(dateBuckets, 'Période');
+    var dateBody = dateRows.map(_bkAnalyseRow).join('');
+    dateAnalyseCard =
+      '<div class="bk-card" id="bk-analyse-date">'
+      + '<div class="bk-card-hd">'
+      +   '<div class="bk-card-title">📅 Performance par période</div>'
+      +   '<button class="bk-card-close" onclick="_bkToggleAnalyse(\\'date\\')" title="Fermer">✕</button>'
+      + '</div>'
+      + _bkAnalyseHeader('Période')
+      + dateBody
       + '</div>';
   }}
 
@@ -7576,7 +7757,13 @@ function renderUserPicks(){{
 
   // ── Compose layout : bandeau account en tete, puis sections ────────────
   var accountBar = (typeof _bkAccountBarHtml === 'function') ? _bkAccountBarHtml() : '';
+  // L'analyse aggregee, si ouverte, prend la pleine largeur en haut des deux colonnes
+  var analyseBlock = '';
+  if(tipsterAnalyseCard || dateAnalyseCard){{
+    analyseBlock = '<div class="bk-analyse-wrap">' + tipsterAnalyseCard + dateAnalyseCard + '</div>';
+  }}
   var html = accountBar + hero + chartCard + stats + streakHtml
+    + analyseBlock
     + '<div class="bk-cols">'
     +   '<div class="bk-col">' + pendingCard + recentCard + '</div>'
     +   '<div class="bk-col">' + propCard + avgCard + adviceCard + '</div>'
