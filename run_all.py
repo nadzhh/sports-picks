@@ -76,6 +76,13 @@ def main():
         run("nba_odds.py", "NBA odds bookmaker (DK/FD via Odds API)")
         run("nba_picks_engine.py", "NBA picks engine")
 
+    # 3.5 Tennis (Sackmann stats + Odds API)
+    # Best effort : si rien d'actif (entre tournois) ou pas de cle dispo,
+    # tennis_matches.json contiendra 0 match et la section UI affichera un message.
+    run("tennis_scraper.py",      "Tennis scraper (Sackmann + Odds API)")
+    run("tennis_picks_engine.py", "Tennis picks engine")
+    run("tennis_resolver.py",     "Tennis resolver (scores Odds API)")
+
     # 4. Genere le site + push GitHub
     if not run("generate_site.py", "Generation du site"):
         sys.exit(1)

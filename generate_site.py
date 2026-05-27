@@ -2692,6 +2692,162 @@ def build_nba_analyse_section(nba_picks_data, nba_player_stats, nba_odds):
     return cards
 
 
+def build_tennis_section(tennis_picks_data):
+    """Section Tennis : liste des matchs avec leurs picks (v1 minimal).
+
+    tennis_picks_data : dict {"matches":[{event_id, tournament, surface,
+    home:{...stats...,picks?}, away:{...}, picks:[...]}, ...]}.
+    """
+    if not tennis_picks_data:
+        return ('<div style="text-align:center;padding:40px;color:#64748b">'
+                'Pas de tournoi ATP/WTA actif aujourd\'hui.</div>')
+    matches = tennis_picks_data.get("matches", [])
+    if not matches:
+        return ('<div style="text-align:center;padding:40px;color:#64748b">'
+                'Aucun pick tennis intéressant détecté pour aujourd\'hui (algo strict).</div>')
+    # Tri : matchs avec pick le + confiant en premier
+    def _max_conf(m):
+        return max((p.get("confidence", 0) or 0) for p in m.get("picks", [])) if m.get("picks") else 0
+    matches = sorted(matches, key=_max_conf, reverse=True)
+    cards = []
+    for m in matches:
+        cards.append(_build_tennis_card(m))
+    return "\n".join(cards)
+
+
+def _build_tennis_card(match):
+    """Render 1 carte match tennis avec stats + picks."""
+    home = match.get("home", {}); away = match.get("away", {})
+    tournament = match.get("tournament", "?")
+    surface    = match.get("surface", "?")
+    tour       = match.get("tour", "ATP")
+    start_iso  = match.get("start_iso") or ""
+    # Couleur surface
+    surf_color = {"Clay":"#c2410c","Hard":"#1d4ed8","Grass":"#15803d"}.get(surface, "#64748b")
+    surf_emoji = {"Clay":"🟧","Hard":"🟦","Grass":"🟩"}.get(surface, "🎾")
+    tour_emoji = "♂️" if tour == "ATP" else "♀️"
+
+    # Heure locale
+    when_label = ""
+    if start_iso:
+        try:
+            from datetime import datetime as _dt, timezone as _tz, timedelta as _td
+            try:
+                from zoneinfo import ZoneInfo as _ZI
+                paris = _ZI("Europe/Paris")
+            except ImportError:
+                paris = _tz(_td(hours=2))
+            dt = _dt.fromisoformat(start_iso.replace("Z","+00:00")).astimezone(paris)
+            when_label = dt.strftime("%H:%M")
+        except Exception:
+            pass
+
+    def _player_block(side, side_label):
+        rank   = side.get("rank")
+        rk_str = f"#{rank}" if rank else "—"
+        odd    = side.get("best_odd") or side.get("consensus_odd")
+        odd_str= f"@{odd:.2f}" if odd else ""
+        l10_w  = side.get("l10_w", 0); l10_l = side.get("l10_l", 0); l10_n = side.get("l10_n", 0)
+        l10    = f"{l10_w}-{l10_l}" if l10_n else "—"
+        sw     = side.get("surface_w", 0); sl = side.get("surface_l", 0); sn = side.get("surface_n", 0)
+        surf   = f"{sw}-{sl}" if sn else "—"
+        gf     = side.get("avg_games_for"); ga = side.get("avg_games_against")
+        games  = f"{gf:.1f}/{ga:.1f}" if (gf is not None and ga is not None) else "—"
+        return (
+            f'<div style="flex:1;min-width:0">'
+            f'<div style="display:flex;align-items:center;gap:8px;margin-bottom:6px">'
+            f'<span style="font-size:14px;font-weight:700;color:#f1f5f9">{side.get("name","?")}</span>'
+            f'<span style="font-size:11px;color:#64748b;font-weight:600">{rk_str}</span>'
+            f'{("<span style=\"font-size:12px;color:#34d399;font-weight:700;margin-left:auto\">"+odd_str+"</span>") if odd_str else ""}'
+            f'</div>'
+            f'<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;font-size:11px;color:#94a3b8">'
+            f'<div><span style="color:#64748b">L10</span> <b style="color:#cbd5e1">{l10}</b></div>'
+            f'<div><span style="color:#64748b">{surface}</span> <b style="color:#cbd5e1">{surf}</b></div>'
+            f'<div><span style="color:#64748b">Jeux</span> <b style="color:#cbd5e1">{games}</b></div>'
+            f'</div>'
+            f'</div>'
+        )
+
+    # H2H summary
+    h2h = match.get("h2h") or {}
+    h2h_str = ""
+    if h2h.get("total", 0) > 0:
+        h2h_str = f'<div style="font-size:11px;color:#64748b;margin-top:6px">🤝 H2H : {home.get("name","")} {h2h.get("home_wins",0)} — {h2h.get("away_wins",0)} {away.get("name","")}</div>'
+
+    # Picks
+    picks = match.get("picks") or []
+    picks_html = ""
+    for p in picks:
+        conf = p.get("confidence", 0)
+        conf_color = "#22c55e" if conf >= 65 else ("#84cc16" if conf >= 55 else "#f59e0b")
+        value = p.get("value")
+        value_chip = ""
+        if value:
+            ic, lbl, clr = value
+            value_chip = f'<span style="background:{clr}20;color:{clr};padding:2px 8px;border-radius:999px;font-size:10.5px;font-weight:700;margin-left:6px">{ic} {lbl}</span>'
+        cote_min = p.get("cote_min")
+        cote_str = f" · cote min @{cote_min:.2f}" if cote_min else ""
+        reasoning = (p.get("reasoning") or "").replace("\n", "<br>")
+        # Bouton ajout au bankroll (pour les picks tennis_winner uniquement v1)
+        add_btn = ""
+        if p.get("kind") == "tennis_winner":
+            import html as _h
+            payload_player = home.get("name") if p.get("selection") == "home" else away.get("name")
+            real_cote = p.get("real_cote") or 0
+            label = p.get("label","")
+            # JS-safe params
+            js_label   = _h.escape(json.dumps(label),  quote=True)
+            js_player  = _h.escape(json.dumps(payload_player), quote=True)
+            js_matchup = _h.escape(json.dumps(f"{home.get('name','')} vs {away.get('name','')}"), quote=True)
+            add_btn = (
+                f'<button onclick="_bkAddTennisPick({js_player},{js_label},{real_cote},{js_matchup},\'{match.get("event_id","")}\')" '
+                f'style="background:#1e3a8a;color:#bfdbfe;border:1px solid #3b82f6;border-radius:6px;'
+                f'padding:4px 10px;font-size:11px;font-weight:700;cursor:pointer;margin-left:8px">'
+                f'📌 Add</button>'
+            )
+        picks_html += (
+            f'<div style="background:#0c1525;border-left:3px solid {conf_color};padding:10px 12px;border-radius:6px;margin-top:8px">'
+            f'<div style="display:flex;align-items:center;flex-wrap:wrap;gap:4px">'
+            f'<span style="font-size:13px;font-weight:700;color:#f1f5f9">{p.get("label","")}</span>'
+            f'<span style="font-size:12px;font-weight:700;color:{conf_color};margin-left:8px">{conf}%</span>'
+            f'{value_chip}'
+            f'<span style="font-size:11px;color:#64748b;margin-left:auto">{cote_str}</span>'
+            f'{add_btn}'
+            f'</div>'
+            f'<div style="font-size:11.5px;color:#94a3b8;margin-top:6px;line-height:1.55">{reasoning}</div>'
+            f'</div>'
+        )
+    if not picks_html:
+        picks_html = '<div style="font-size:11px;color:#475569;margin-top:8px;font-style:italic">Pas de pick intéressant détecté pour ce match.</div>'
+
+    return (
+        f'<div style="background:#0f172a;border:1px solid #1e293b;border-radius:12px;padding:14px;margin-bottom:12px">'
+        # Header : tournoi + surface + heure
+        f'<div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;font-size:11px;color:#64748b;font-weight:600;text-transform:uppercase;letter-spacing:0.6px">'
+        f'<span>{tour_emoji} {tour} · {tournament}</span>'
+        f'<span style="color:{surf_color}">{surf_emoji} {surface}</span>'
+        f'<span style="margin-left:auto;color:#94a3b8;text-transform:none">⏰ {when_label}</span>'
+        f'</div>'
+        # Bloc joueurs (cote a cote)
+        f'<div style="display:flex;gap:18px;align-items:flex-start">'
+        f'  {_player_block(home, "home")}'
+        f'  <div style="color:#475569;font-size:14px;font-weight:700;padding-top:4px">VS</div>'
+        f'  {_player_block(away, "away")}'
+        f'</div>'
+        f'{h2h_str}'
+        f'{picks_html}'
+        f'</div>'
+    )
+
+
+def build_tennis_history(history_data):
+    """V1 : pas encore de tennis history. Placeholder."""
+    return ('<div style="text-align:center;padding:40px;color:#64748b;font-size:13px;line-height:1.7">'
+            '🚧 <b>Historique Tennis</b> bientôt disponible<br>'
+            '<span style="color:#475569">Les picks tennis seront résolus automatiquement '
+            'via The Odds API /scores après FT.</span></div>')
+
+
 def build_nba_section(nba_picks_data):
     """Section NBA : liste des matchs avec leurs picks, tries par confiance."""
     if not nba_picks_data:
@@ -3313,6 +3469,15 @@ def build_html(matches, team_ai, player_ai, pstats_data, nba_picks=None, nba_his
     nba_section    = build_nba_section(nba_picks)
     nba_hist_html  = build_nba_history(nba_history)
     foot_hist_html = build_foot_history(foot_history)
+    # Section Tennis (v1 minimal : matchs ATP/WTA + picks filtres par edge)
+    try:
+        with open("data/tennis_picks.json", encoding="utf-8") as _tf:
+            import json as _jt
+            tennis_picks_data = _jt.load(_tf)
+    except Exception:
+        tennis_picks_data = {"matches": []}
+    tennis_section  = build_tennis_section(tennis_picks_data)
+    tennis_hist_html = build_tennis_history(None)
     nba_analyse_html = build_nba_analyse_section(nba_picks, nba_player_stats, nba_odds)
     # Charge nba_box_scores ICI (avant la section historique) car build_nba_history_section
     # en a besoin. Sera reutilise plus bas pour l'embed window.NBA_BOX_SCORES.
@@ -4367,15 +4532,17 @@ def build_html(matches, team_ai, player_ai, pstats_data, nba_picks=None, nba_his
     <button class="sport-btn" onclick="showSport('history')"          id="sport-btn-history">🏆 Historique</button>
   </div>
 
-  <!-- Sub-toggle Picks (Football <-> Basketball NBA) -->
+  <!-- Sub-toggle Picks (Football <-> Basketball NBA <-> Tennis) -->
   <div id="picks-subtoggle" class="sub-tg-bar">
     <button class="sub-tg active" onclick="showSubPicks('football')" id="sub-tg-picks-football">⚽ Football</button>
     <button class="sub-tg"        onclick="showSubPicks('nba')"      id="sub-tg-picks-nba">🏀 Basketball NBA</button>
+    <button class="sub-tg"        onclick="showSubPicks('tennis')"   id="sub-tg-picks-tennis">🎾 Tennis</button>
   </div>
-  <!-- Sub-toggle Historique (Foot <-> NBA) -->
+  <!-- Sub-toggle Historique (Foot <-> NBA <-> Tennis) -->
   <div id="hist-subtoggle" class="sub-tg-bar" style="display:none">
-    <button class="sub-tg active" onclick="showSubHist('foot')" id="sub-tg-hist-foot">⚽ Historique Foot</button>
-    <button class="sub-tg"        onclick="showSubHist('nba')"  id="sub-tg-hist-nba">🏀 Historique NBA</button>
+    <button class="sub-tg active" onclick="showSubHist('foot')"   id="sub-tg-hist-foot">⚽ Historique Foot</button>
+    <button class="sub-tg"        onclick="showSubHist('nba')"    id="sub-tg-hist-nba">🏀 Historique NBA</button>
+    <button class="sub-tg"        onclick="showSubHist('tennis')" id="sub-tg-hist-tennis">🎾 Historique Tennis</button>
   </div>
 
   <!-- Section Football -->
@@ -4404,6 +4571,16 @@ def build_html(matches, team_ai, player_ai, pstats_data, nba_picks=None, nba_his
       <button onclick="expandAllNba()" style="background:#1e293b;color:#94a3b8;border:1px solid #334155;border-radius:8px;padding:8px 14px;font-size:12px;font-weight:700;cursor:pointer">📖 Tout ouvrir</button>
     </div>
     {nba_section}
+  </div>
+
+  <!-- Section Tennis -->
+  <div id="sport-tennis" style="display:none">
+    <div class="legend">
+      <b>🎾 Picks Tennis ATP/WTA</b> — Données Sackmann (rank + L10 + surface + H2H) ·
+      Cotes The Odds API · 3 marchés : <b>Vainqueur</b> (edge ≥5%), <b>Total jeux</b> O/U, <b>Score sets exact</b> ·
+      Affiche uniquement les matchs avec pick(s) intéressant(s)
+    </div>
+    {tennis_section}
   </div>
 
   <!-- Section Bankroll (gestion + tracking) — design adapté du prototype mobile -->
@@ -4476,7 +4653,16 @@ def build_html(matches, team_ai, player_ai, pstats_data, nba_picks=None, nba_his
     </div>
     {nba_hist_html}
   </div>
-  <footer>⚽ FotMob + api-football · 🏀 stats.nba.com + The Odds API · Algorithme + IA · À titre informatif uniquement</footer>
+
+  <!-- Section Historique Tennis -->
+  <div id="sport-tennishist" style="display:none">
+    <div class="legend">
+      <b>🎾 Historique Tennis</b> — Picks tennis résolus automatiquement via The Odds API /scores après FT ·
+      <span style="color:#22c55e">✓</span> gagné · <span style="color:#ef4444">✗</span> perdu
+    </div>
+    {tennis_hist_html}
+  </div>
+  <footer>⚽ FotMob + api-football · 🏀 stats.nba.com + The Odds API · 🎾 Sackmann + The Odds API · Algorithme + IA · À titre informatif uniquement</footer>
 </div>
 <script>
 window.NBA_HISTORY = {nba_history_json};
@@ -4492,7 +4678,7 @@ window._currentSubPick = window._currentSubPick || 'football';
 window._currentSubHist = window._currentSubHist || 'foot';
 
 function _hideAllSportSections(){{
-  ['football','nba','analyse','userpicks','foothist','nbahist'].forEach(function(s){{
+  ['football','nba','tennis','analyse','userpicks','foothist','nbahist','tennishist'].forEach(function(s){{
     var el = document.getElementById('sport-'+s);
     if(el) el.style.display = 'none';
   }});
@@ -4507,11 +4693,13 @@ function _setMainBtnActive(tab){{
 }}
 
 function showSport(sport){{
-  // Compat : accepte les anciens noms (football/nba -> picks ; foothist/nbahist -> history)
+  // Compat : accepte les anciens noms (football/nba/tennis -> picks ; foothist/nbahist/tennishist -> history)
   if(sport === 'football'){{ window._currentSubPick = 'football'; sport = 'picks'; }}
   else if(sport === 'nba'){{ window._currentSubPick = 'nba';      sport = 'picks'; }}
+  else if(sport === 'tennis'){{ window._currentSubPick = 'tennis'; sport = 'picks'; }}
   else if(sport === 'foothist'){{ window._currentSubHist = 'foot'; sport = 'history'; }}
   else if(sport === 'nbahist'){{  window._currentSubHist = 'nba';  sport = 'history'; }}
+  else if(sport === 'tennishist'){{ window._currentSubHist = 'tennis'; sport = 'history'; }}
 
   _hideAllSportSections();
   window._currentTab = sport;
@@ -4538,6 +4726,7 @@ function showSubPicks(which){{
   window._currentSubPick = which;
   var f = document.getElementById('sport-football'); if(f) f.style.display = (which === 'football') ? 'block' : 'none';
   var n = document.getElementById('sport-nba');      if(n) n.style.display = (which === 'nba')      ? 'block' : 'none';
+  var t = document.getElementById('sport-tennis');   if(t) t.style.display = (which === 'tennis')   ? 'block' : 'none';
   document.querySelectorAll('#picks-subtoggle .sub-tg').forEach(function(b){{ b.classList.remove('active'); }});
   var btn = document.getElementById('sub-tg-picks-' + which);
   if(btn) btn.classList.add('active');
@@ -4545,11 +4734,31 @@ function showSubPicks(which){{
 
 function showSubHist(which){{
   window._currentSubHist = which;
-  var f = document.getElementById('sport-foothist'); if(f) f.style.display = (which === 'foot') ? 'block' : 'none';
-  var n = document.getElementById('sport-nbahist');  if(n) n.style.display = (which === 'nba')  ? 'block' : 'none';
+  var f = document.getElementById('sport-foothist');    if(f) f.style.display = (which === 'foot')   ? 'block' : 'none';
+  var n = document.getElementById('sport-nbahist');     if(n) n.style.display = (which === 'nba')    ? 'block' : 'none';
+  var t = document.getElementById('sport-tennishist'); if(t) t.style.display = (which === 'tennis') ? 'block' : 'none';
   document.querySelectorAll('#hist-subtoggle .sub-tg').forEach(function(b){{ b.classList.remove('active'); }});
   var btn = document.getElementById('sub-tg-hist-' + which);
   if(btn) btn.classList.add('active');
+}}
+
+// Ajoute un pick tennis vainqueur au bankroll (analogue _bkAddPickFromAnalyse)
+function _bkAddTennisPick(player, label, real_cote, matchup, event_id){{
+  if(typeof openAddPickModal !== 'function'){{
+    alert('Module bankroll pas charge.');
+    return;
+  }}
+  openAddPickModal({{
+    player:   player,
+    prop:     'TENNIS_WINNER',
+    line:     null,
+    direction:'over',
+    label:    label,
+    real_cote: real_cote || null,
+    matchup:  matchup,
+    match_id: 'tennis_' + event_id,
+    sport:    'tennis',
+  }});
 }}
 
 // ── Section Analyse : selection prop (PTS/REB/...) + fenetre (L5/L10/L20) ──
