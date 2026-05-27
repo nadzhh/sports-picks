@@ -282,6 +282,18 @@ def fetch_all():
 def main():
     print(f"Tennis scraper -> {datetime.now().strftime('%Y-%m-%d %H:%M')}")
     payload = fetch_all()
+    # Preserve-on-failure : si on a 0 matchs ET qu'un fichier existe deja avec
+    # des matchs encore d'actualite (start_ts > now - 6h), on garde l'ancien.
+    if payload.get("n_matches", 0) == 0 and OUT_PATH.exists():
+        try:
+            old = json.loads(OUT_PATH.read_text(encoding="utf-8"))
+            cutoff = datetime.now(timezone.utc).timestamp() - 6 * 3600
+            still_fresh = [m for m in old.get("matches", []) if (m.get("start_ts") or 0) > cutoff]
+            if still_fresh:
+                print(f"  [tennis] 0 nouveaux matchs - on preserve {len(still_fresh)} matchs encore d'actualite de l'ancien fichier")
+                payload = {**old, "matches": still_fresh, "n_matches": len(still_fresh), "preserved": True}
+        except Exception as e:
+            print(f"  [tennis preserve err] {e}")
     OUT_PATH.write_text(json.dumps(payload, ensure_ascii=False, indent=2), encoding="utf-8")
     print(f"  -> {OUT_PATH} ({payload['n_matches']} matchs)")
     return 0

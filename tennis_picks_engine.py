@@ -377,8 +377,18 @@ def main():
         "n_picks":      n_picks,
         "matches":      out_matches,
     }
+    # Preserve-on-empty : si rien a sortir mais qu'un ancien fichier existait, on garde
+    if n_picks == 0 and OUT_PATH.exists():
+        try:
+            old = json.loads(OUT_PATH.read_text(encoding="utf-8"))
+            if old.get("n_picks", 0) > 0:
+                print(f"  [tennis engine] 0 picks generes - on preserve l'ancien ({old.get('n_picks')} picks)")
+                old["preserved"] = True
+                payload = old
+        except Exception as e:
+            print(f"  [tennis engine preserve err] {e}")
     OUT_PATH.write_text(json.dumps(payload, ensure_ascii=False, indent=2), encoding="utf-8")
-    print(f"  -> {OUT_PATH} ({len(out_matches)} matchs, {n_picks} picks)")
+    print(f"  -> {OUT_PATH} ({payload.get('n_matches', 0)} matchs, {payload.get('n_picks', 0)} picks)")
     # Resume console
     for m in out_matches[:10]:
         labels = " · ".join(p["label"] + f" ({p['confidence']}%)" for p in m["picks"])

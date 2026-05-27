@@ -87,6 +87,11 @@ def main():
     if not run("generate_site.py", "Generation du site"):
         sys.exit(1)
 
+    # 5. Dump consolide + analyse algo (apres resolution + generation)
+    # Best effort : si echec, le pipeline a deja produit le site
+    run("picks_history_dump.py", "Dump historique consolide (foot + NBA + tennis)")
+    run("analyze_picks.py",      "Analyse algorithmique (WR + calibration + recos)")
+
     elapsed = (datetime.now() - start).seconds
     print(f"\nPipeline OK en {elapsed//60}m{elapsed%60}s")
     print(f"Site local: {DIR / 'index.html'}")
