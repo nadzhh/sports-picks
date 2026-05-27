@@ -2693,11 +2693,7 @@ def build_nba_analyse_section(nba_picks_data, nba_player_stats, nba_odds):
 
 
 def build_tennis_section(tennis_picks_data):
-    """Section Tennis : liste des matchs avec leurs picks (v1 minimal).
-
-    tennis_picks_data : dict {"matches":[{event_id, tournament, surface,
-    home:{...stats...,picks?}, away:{...}, picks:[...]}, ...]}.
-    """
+    """Section Tennis : grid 2-col de cartes collapsibles triees par confiance."""
     if not tennis_picks_data:
         return ('<div style="text-align:center;padding:40px;color:#64748b">'
                 'Pas de tournoi ATP/WTA actif aujourd\'hui.</div>')
@@ -2709,25 +2705,38 @@ def build_tennis_section(tennis_picks_data):
     def _max_conf(m):
         return max((p.get("confidence", 0) or 0) for p in m.get("picks", [])) if m.get("picks") else 0
     matches = sorted(matches, key=_max_conf, reverse=True)
-    cards = []
-    for m in matches:
-        cards.append(_build_tennis_card(m))
-    return "\n".join(cards)
+    cards = [_build_tennis_card(m, idx) for idx, m in enumerate(matches)]
+    # Toolbar : tout ouvrir/fermer
+    toolbar = (
+        '<div style="display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap;align-items:center">'
+        '  <button onclick="collapseAllTennis()" style="background:#1e293b;color:#94a3b8;border:1px solid #334155;border-radius:8px;padding:8px 14px;font-size:12px;font-weight:700;cursor:pointer">📕 Tout fermer</button>'
+        '  <button onclick="expandAllTennis()" style="background:#1e293b;color:#94a3b8;border:1px solid #334155;border-radius:8px;padding:8px 14px;font-size:12px;font-weight:700;cursor:pointer">📖 Tout ouvrir</button>'
+        f'  <span style="margin-left:auto;color:#64748b;font-size:12px">{len(matches)} match(s) · triés par confiance algo</span>'
+        '</div>'
+    )
+    grid = '<div class="tennis-grid">' + "\n".join(cards) + '</div>'
+    return toolbar + grid
 
 
-def _build_tennis_card(match):
-    """Render 1 carte match tennis avec stats + picks."""
+def _build_tennis_card(match, idx=0):
+    """Render 1 carte match tennis collapsible. Body cache par defaut.
+
+    Layout :
+      - Header (toujours visible) : tournoi + surface + heure · joueurs + cotes
+        + chip "meilleur pick" + chevron expand
+      - Body (cache) : stats detaillees joueurs + tous les picks avec reasoning
+    """
+    import html as _h
     home = match.get("home", {}); away = match.get("away", {})
     tournament = match.get("tournament", "?")
     surface    = match.get("surface", "?")
     tour       = match.get("tour", "ATP")
     start_iso  = match.get("start_iso") or ""
-    # Couleur surface
+    card_id    = f"tennis-card-{idx}"
     surf_color = {"Clay":"#c2410c","Hard":"#1d4ed8","Grass":"#15803d"}.get(surface, "#64748b")
     surf_emoji = {"Clay":"🟧","Hard":"🟦","Grass":"🟩"}.get(surface, "🎾")
     tour_emoji = "♂️" if tour == "ATP" else "♀️"
 
-    # Heure locale
     when_label = ""
     if start_iso:
         try:
@@ -2742,7 +2751,36 @@ def _build_tennis_card(match):
         except Exception:
             pass
 
-    def _player_block(side, side_label):
+    h_name = home.get("name","?"); a_name = away.get("name","?")
+    h_rank = home.get("rank"); a_rank = away.get("rank")
+    h_odd  = home.get("best_odd") or home.get("consensus_odd")
+    a_odd  = away.get("best_odd") or away.get("consensus_odd")
+    h_rk_str = f"#{h_rank}" if h_rank else ""
+    a_rk_str = f"#{a_rank}" if a_rank else ""
+    h_odd_str = f"@{h_odd:.2f}" if h_odd else ""
+    a_odd_str = f"@{a_odd:.2f}" if a_odd else ""
+
+    picks = match.get("picks") or []
+    # Picks tries par confidence DESC (deja fait dans engine mais on s'assure)
+    picks = sorted(picks, key=lambda p: p.get("confidence", 0) or 0, reverse=True)
+    best_pick = picks[0] if picks else None
+    best_chip = ""
+    if best_pick:
+        c = best_pick.get("confidence", 0)
+        clr = "#22c55e" if c >= 65 else ("#84cc16" if c >= 55 else "#f59e0b")
+        kind = best_pick.get("kind","")
+        kind_ic = {"tennis_winner":"🏆","tennis_total_games":"📊","tennis_set_score":"🎯"}.get(kind,"📌")
+        best_chip = (
+            f'<span style="display:inline-flex;align-items:center;gap:5px;'
+            f'background:{clr}1f;color:{clr};border:1px solid {clr}66;'
+            f'padding:3px 9px;border-radius:999px;font-size:11px;font-weight:700">'
+            f'{kind_ic} {c}%</span>'
+        )
+        if len(picks) > 1:
+            best_chip += f'<span style="color:#475569;font-size:11px;font-weight:600;margin-left:6px">+{len(picks)-1}</span>'
+
+    # ── BODY : stats detaillees + tous les picks ────────────────────────────
+    def _player_full(side):
         rank   = side.get("rank")
         rk_str = f"#{rank}" if rank else "—"
         odd    = side.get("best_odd") or side.get("consensus_odd")
@@ -2755,12 +2793,12 @@ def _build_tennis_card(match):
         games  = f"{gf:.1f}/{ga:.1f}" if (gf is not None and ga is not None) else "—"
         return (
             f'<div style="flex:1;min-width:0">'
-            f'<div style="display:flex;align-items:center;gap:8px;margin-bottom:6px">'
-            f'<span style="font-size:14px;font-weight:700;color:#f1f5f9">{side.get("name","?")}</span>'
-            f'<span style="font-size:11px;color:#64748b;font-weight:600">{rk_str}</span>'
-            f'{("<span style=\"font-size:12px;color:#34d399;font-weight:700;margin-left:auto\">"+odd_str+"</span>") if odd_str else ""}'
+            f'<div style="display:flex;align-items:center;gap:6px;margin-bottom:4px">'
+            f'<span style="font-size:13px;font-weight:700;color:#f1f5f9;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{side.get("name","?")}</span>'
+            f'<span style="font-size:10.5px;color:#64748b;font-weight:600">{rk_str}</span>'
+            f'{("<span style=\"font-size:11.5px;color:#34d399;font-weight:700;margin-left:auto\">"+odd_str+"</span>") if odd_str else ""}'
             f'</div>'
-            f'<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;font-size:11px;color:#94a3b8">'
+            f'<div style="display:grid;grid-template-columns:auto auto auto;gap:4px 10px;font-size:10.5px;color:#94a3b8">'
             f'<div><span style="color:#64748b">L10</span> <b style="color:#cbd5e1">{l10}</b></div>'
             f'<div><span style="color:#64748b">{surface}</span> <b style="color:#cbd5e1">{surf}</b></div>'
             f'<div><span style="color:#64748b">Jeux</span> <b style="color:#cbd5e1">{games}</b></div>'
@@ -2768,14 +2806,11 @@ def _build_tennis_card(match):
             f'</div>'
         )
 
-    # H2H summary
     h2h = match.get("h2h") or {}
     h2h_str = ""
     if h2h.get("total", 0) > 0:
-        h2h_str = f'<div style="font-size:11px;color:#64748b;margin-top:6px">🤝 H2H : {home.get("name","")} {h2h.get("home_wins",0)} — {h2h.get("away_wins",0)} {away.get("name","")}</div>'
+        h2h_str = f'<div style="font-size:10.5px;color:#64748b;margin-top:6px">🤝 H2H : {h_name} {h2h.get("home_wins",0)} — {h2h.get("away_wins",0)} {a_name}</div>'
 
-    # Picks
-    picks = match.get("picks") or []
     picks_html = ""
     for p in picks:
         conf = p.get("confidence", 0)
@@ -2784,58 +2819,80 @@ def _build_tennis_card(match):
         value_chip = ""
         if value:
             ic, lbl, clr = value
-            value_chip = f'<span style="background:{clr}20;color:{clr};padding:2px 8px;border-radius:999px;font-size:10.5px;font-weight:700;margin-left:6px">{ic} {lbl}</span>'
+            value_chip = f'<span style="background:{clr}20;color:{clr};padding:2px 7px;border-radius:999px;font-size:10px;font-weight:700;margin-left:5px">{ic} {lbl}</span>'
         cote_min = p.get("cote_min")
-        cote_str = f" · cote min @{cote_min:.2f}" if cote_min else ""
+        cote_str = f"@{cote_min:.2f}" if cote_min else ""
         reasoning = (p.get("reasoning") or "").replace("\n", "<br>")
-        # Bouton ajout au bankroll (pour les picks tennis_winner uniquement v1)
         add_btn = ""
         if p.get("kind") == "tennis_winner":
-            import html as _h
             payload_player = home.get("name") if p.get("selection") == "home" else away.get("name")
             real_cote = p.get("real_cote") or 0
             label = p.get("label","")
-            # JS-safe params
             js_label   = _h.escape(json.dumps(label),  quote=True)
             js_player  = _h.escape(json.dumps(payload_player), quote=True)
-            js_matchup = _h.escape(json.dumps(f"{home.get('name','')} vs {away.get('name','')}"), quote=True)
+            js_matchup = _h.escape(json.dumps(f"{h_name} vs {a_name}"), quote=True)
             add_btn = (
-                f'<button onclick="_bkAddTennisPick({js_player},{js_label},{real_cote},{js_matchup},\'{match.get("event_id","")}\')" '
+                f'<button onclick="event.stopPropagation();_bkAddTennisPick({js_player},{js_label},{real_cote},{js_matchup},\'{match.get("event_id","")}\')" '
                 f'style="background:#1e3a8a;color:#bfdbfe;border:1px solid #3b82f6;border-radius:6px;'
-                f'padding:4px 10px;font-size:11px;font-weight:700;cursor:pointer;margin-left:8px">'
+                f'padding:3px 9px;font-size:10.5px;font-weight:700;cursor:pointer;margin-left:6px">'
                 f'📌 Add</button>'
             )
         picks_html += (
-            f'<div style="background:#0c1525;border-left:3px solid {conf_color};padding:10px 12px;border-radius:6px;margin-top:8px">'
-            f'<div style="display:flex;align-items:center;flex-wrap:wrap;gap:4px">'
-            f'<span style="font-size:13px;font-weight:700;color:#f1f5f9">{p.get("label","")}</span>'
-            f'<span style="font-size:12px;font-weight:700;color:{conf_color};margin-left:8px">{conf}%</span>'
+            f'<div style="background:#0c1525;border-left:3px solid {conf_color};padding:8px 10px;border-radius:6px;margin-top:6px">'
+            f'<div style="display:flex;align-items:center;flex-wrap:wrap;gap:3px">'
+            f'<span style="font-size:12.5px;font-weight:700;color:#f1f5f9">{p.get("label","")}</span>'
+            f'<span style="font-size:11.5px;font-weight:700;color:{conf_color};margin-left:6px">{conf}%</span>'
             f'{value_chip}'
-            f'<span style="font-size:11px;color:#64748b;margin-left:auto">{cote_str}</span>'
+            f'<span style="font-size:10.5px;color:#64748b;margin-left:auto">{cote_str}</span>'
             f'{add_btn}'
             f'</div>'
-            f'<div style="font-size:11.5px;color:#94a3b8;margin-top:6px;line-height:1.55">{reasoning}</div>'
+            f'<div style="font-size:11px;color:#94a3b8;margin-top:5px;line-height:1.5">{reasoning}</div>'
             f'</div>'
         )
     if not picks_html:
         picks_html = '<div style="font-size:11px;color:#475569;margin-top:8px;font-style:italic">Pas de pick intéressant détecté pour ce match.</div>'
 
-    return (
-        f'<div style="background:#0f172a;border:1px solid #1e293b;border-radius:12px;padding:14px;margin-bottom:12px">'
-        # Header : tournoi + surface + heure
-        f'<div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;font-size:11px;color:#64748b;font-weight:600;text-transform:uppercase;letter-spacing:0.6px">'
+    # ── HEADER (toujours visible, cliquable) ────────────────────────────────
+    header_top = (
+        f'<div style="display:flex;align-items:center;gap:6px;font-size:10.5px;color:#64748b;font-weight:600;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:6px;flex-wrap:wrap">'
         f'<span>{tour_emoji} {tour} · {tournament}</span>'
         f'<span style="color:{surf_color}">{surf_emoji} {surface}</span>'
-        f'<span style="margin-left:auto;color:#94a3b8;text-transform:none">⏰ {when_label}</span>'
+        f'<span style="margin-left:auto;color:#94a3b8;text-transform:none;font-weight:700">⏰ {when_label}</span>'
         f'</div>'
-        # Bloc joueurs (cote a cote)
-        f'<div style="display:flex;gap:18px;align-items:flex-start">'
-        f'  {_player_block(home, "home")}'
-        f'  <div style="color:#475569;font-size:14px;font-weight:700;padding-top:4px">VS</div>'
-        f'  {_player_block(away, "away")}'
+    )
+    header_players = (
+        f'<div style="display:flex;align-items:center;gap:8px;font-size:12.5px;flex-wrap:wrap">'
+        f'<span style="font-weight:700;color:#f1f5f9">{h_name}</span>'
+        f'<span style="color:#64748b;font-size:10.5px">{h_rk_str}</span>'
+        f'<span style="color:#34d399;font-weight:700">{h_odd_str}</span>'
+        f'<span style="color:#475569;font-size:11px;margin:0 4px">vs</span>'
+        f'<span style="font-weight:700;color:#f1f5f9">{a_name}</span>'
+        f'<span style="color:#64748b;font-size:10.5px">{a_rk_str}</span>'
+        f'<span style="color:#34d399;font-weight:700">{a_odd_str}</span>'
+        f'<span style="margin-left:auto;display:inline-flex;align-items:center;gap:4px">{best_chip}<span class="tennis-chevron" style="color:#475569;font-size:14px;transition:transform 0.2s">▾</span></span>'
+        f'</div>'
+    )
+    header = (
+        f'<div onclick="toggleTennisMatch(\'{card_id}\')" style="cursor:pointer;padding:10px 12px">'
+        f'{header_top}{header_players}'
+        f'</div>'
+    )
+    body = (
+        f'<div class="tennis-match-body" id="{card_id}-body" style="display:none;padding:0 12px 12px 12px;border-top:1px solid #1e293b">'
+        f'<div style="display:flex;gap:14px;align-items:flex-start;padding:10px 0 8px">'
+        f'  {_player_full(home)}'
+        f'  <div style="color:#475569;font-size:12px;font-weight:700;padding-top:2px">vs</div>'
+        f'  {_player_full(away)}'
         f'</div>'
         f'{h2h_str}'
         f'{picks_html}'
+        f'</div>'
+    )
+
+    return (
+        f'<div class="tennis-match-card" id="{card_id}" '
+        f'style="background:#0f172a;border:1px solid #1e293b;border-radius:10px;overflow:hidden">'
+        f'{header}{body}'
         f'</div>'
     )
 
@@ -3671,6 +3728,16 @@ def build_html(matches, team_ai, player_ai, pstats_data, nba_picks=None, nba_his
   }}
   .sub-tg:hover{{color:#cbd5e1;background:#1e293b}}
   .sub-tg.active{{background:#1e293b;color:#f1f5f9;box-shadow:inset 0 0 0 1px #334155}}
+
+  /* Tennis grid : 2 colonnes sur large, 1 sur mobile */
+  .tennis-grid{{
+    display:grid;grid-template-columns:repeat(2, minmax(0, 1fr));gap:10px;
+  }}
+  .tennis-match-card:hover{{border-color:#334155 !important;}}
+  .tennis-match-card.open .tennis-chevron{{transform:rotate(180deg);}}
+  @media (max-width: 900px){{
+    .tennis-grid{{grid-template-columns:1fr !important;}}
+  }}
 
   /* Match card body : stats full-width, picks toggleable separement */
   .match-body {{
@@ -4980,6 +5047,25 @@ function collapseAllNba(){{
   document.querySelectorAll('#sport-nba .nba-match-body').forEach(function(b){{ b.classList.remove('show'); }});
   document.querySelectorAll('#sport-nba [id^="nba-arrow-"]').forEach(function(a){{ a.style.transform = 'rotate(0deg)'; }});
 }}
+// ── Toggle expand/collapse des cartes Tennis ──
+function toggleTennisMatch(cardId){{
+  var card = document.getElementById(cardId);
+  if(!card) return;
+  var body = document.getElementById(cardId + '-body');
+  if(!body) return;
+  var open = body.style.display !== 'none';
+  body.style.display = open ? 'none' : 'block';
+  card.classList.toggle('open', !open);
+}}
+function collapseAllTennis(){{
+  document.querySelectorAll('#sport-tennis .tennis-match-body').forEach(function(b){{ b.style.display = 'none'; }});
+  document.querySelectorAll('#sport-tennis .tennis-match-card').forEach(function(c){{ c.classList.remove('open'); }});
+}}
+function expandAllTennis(){{
+  document.querySelectorAll('#sport-tennis .tennis-match-body').forEach(function(b){{ b.style.display = 'block'; }});
+  document.querySelectorAll('#sport-tennis .tennis-match-card').forEach(function(c){{ c.classList.add('open'); }});
+}}
+
 function expandAllNba(){{
   document.querySelectorAll('#sport-nba .nba-match-body').forEach(function(b){{ b.classList.add('show'); }});
   document.querySelectorAll('#sport-nba [id^="nba-arrow-"]').forEach(function(a){{ a.style.transform = 'rotate(180deg)'; }});
