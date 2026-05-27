@@ -260,7 +260,11 @@ def fetch_all():
                 ct = datetime.fromisoformat(ev["commence_time"].replace("Z","+00:00"))
             except Exception:
                 continue
-            if ct < now - timedelta(hours=3): continue   # match passe il y a > 3h
+            # Strict : on n'expose plus les matchs deja commences. Une fois l'heure
+            # de debut atteinte, le match disparait du picks tennis (cote serveur).
+            # Cote client, un timer JS rafraichit toutes les 60s pour aussi cacher
+            # les matchs qui passent l'heure entre 2 cron runs.
+            if ct < now: continue
             if ct > now + timedelta(hours=48): continue  # > 48h trop loin
             kept.append(ev)
         for ev in kept:

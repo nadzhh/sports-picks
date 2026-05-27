@@ -2803,12 +2803,13 @@ def build_tennis_section(tennis_picks_data):
         return max((p.get("confidence", 0) or 0) for p in m.get("picks", [])) if m.get("picks") else 0
     matches = sorted(matches, key=_max_conf, reverse=True)
     cards = [_build_tennis_card(m, idx) for idx, m in enumerate(matches)]
-    # Toolbar : tout ouvrir/fermer
+    # Toolbar : tout ouvrir/fermer + compteur dynamique (mis a jour par JS quand
+    # des cards passent l'heure de debut)
     toolbar = (
         '<div style="display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap;align-items:center">'
         '  <button onclick="collapseAllTennis()" style="background:#1e293b;color:#94a3b8;border:1px solid #334155;border-radius:8px;padding:8px 14px;font-size:12px;font-weight:700;cursor:pointer">📕 Tout fermer</button>'
         '  <button onclick="expandAllTennis()" style="background:#1e293b;color:#94a3b8;border:1px solid #334155;border-radius:8px;padding:8px 14px;font-size:12px;font-weight:700;cursor:pointer">📖 Tout ouvrir</button>'
-        f'  <span style="margin-left:auto;color:#64748b;font-size:12px">{len(matches)} match(s) · triés par confiance algo</span>'
+        f'  <span style="margin-left:auto;color:#64748b;font-size:12px"><span id="tennis-visible-count">{len(matches)}</span> match(s) · triés par confiance algo</span>'
         '</div>'
     )
     grid = '<div class="tennis-grid">' + "\n".join(cards) + '</div>'
@@ -2844,7 +2845,17 @@ def _build_tennis_card(match, idx=0):
             except ImportError:
                 paris = _tz(_td(hours=2))
             dt = _dt.fromisoformat(start_iso.replace("Z","+00:00")).astimezone(paris)
-            when_label = dt.strftime("%H:%M")
+            now_p = _dt.now(paris)
+            days_diff = (dt.date() - now_p.date()).days
+            hhmm = dt.strftime("%H:%M")
+            if days_diff == 0:
+                when_label = f"Aujourd'hui {hhmm}"
+            elif days_diff == 1:
+                when_label = f"Demain {hhmm}"
+            elif days_diff == -1:
+                when_label = f"Hier {hhmm}"
+            else:
+                when_label = dt.strftime("%d/%m %H:%M")
         except Exception:
             pass
 
@@ -3013,8 +3024,15 @@ def _build_tennis_card(match, idx=0):
         f'</div>'
     )
 
+    start_ts_attr = ""
+    try:
+        ts_int = int(match.get("start_ts") or 0)
+        if ts_int > 0:
+            start_ts_attr = f' data-start-ts="{ts_int}"'
+    except Exception:
+        pass
     return (
-        f'<div class="tennis-match-card" id="{card_id}" '
+        f'<div class="tennis-match-card" id="{card_id}"{start_ts_attr} '
         f'style="background:#0f172a;border:1px solid #1e293b;border-radius:10px;overflow:hidden">'
         f'{header}{body}'
         f'</div>'
@@ -4926,6 +4944,11 @@ function showSubPicks(which){{
   document.querySelectorAll('#picks-subtoggle .sub-tg').forEach(function(b){{ b.classList.remove('active'); }});
   var btn = document.getElementById('sub-tg-picks-' + which);
   if(btn) btn.classList.add('active');
+  // Quand on entre dans la section tennis, on rafraichit pour cacher les matchs
+  // qui ont passe l'heure de debut depuis le chargement de la page.
+  if(which === 'tennis' && typeof _hideExpiredTennisCards === 'function'){{
+    _hideExpiredTennisCards();
+  }}
 }}
 
 function showSubHist(which){{
@@ -5270,6 +5293,36 @@ function collapseAllNba(){{
   document.querySelectorAll('#sport-nba .nba-match-body').forEach(function(b){{ b.classList.remove('show'); }});
   document.querySelectorAll('#sport-nba [id^="nba-arrow-"]').forEach(function(a){{ a.style.transform = 'rotate(0deg)'; }});
 }}
+// ── Tennis : cache automatiquement les cards dont l'heure de debut est passee ──
+// Refresh toutes les 60s + au chargement de la page + au changement de tab.
+function _hideExpiredTennisCards(){{
+  var nowSec = Math.floor(Date.now() / 1000);
+  var cards = document.querySelectorAll('#sport-tennis .tennis-match-card[data-start-ts]');
+  var visibleCount = 0;
+  cards.forEach(function(c){{
+    var ts = parseInt(c.getAttribute('data-start-ts'), 10);
+    if(!isNaN(ts) && ts <= nowSec){{
+      c.style.display = 'none';
+    }} else {{
+      // Reaffiche au cas ou (mais ne touche pas les cards sans start_ts qui restent visibles)
+      if(c.style.display === 'none') c.style.display = '';
+      visibleCount++;
+    }}
+  }});
+  // Cards sans data-start-ts -> visibles par defaut
+  var noTs = document.querySelectorAll('#sport-tennis .tennis-match-card:not([data-start-ts])');
+  noTs.forEach(function(c){{ if(c.style.display === '') visibleCount++; }});
+  // Met a jour le compteur
+  var counter = document.getElementById('tennis-visible-count');
+  if(counter) counter.textContent = String(visibleCount);
+}}
+window.addEventListener('DOMContentLoaded', function(){{
+  _hideExpiredTennisCards();
+  // Refresh toutes les 60s pour cacher les matchs qui passent l'heure pendant
+  // que l'user est sur la page (entre 2 cron runs).
+  setInterval(_hideExpiredTennisCards, 60000);
+}});
+
 // ── Toggle expand/collapse des cartes Tennis ──
 function toggleTennisMatch(cardId){{
   var card = document.getElementById(cardId);
