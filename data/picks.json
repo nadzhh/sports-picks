@@ -44,38 +44,38 @@
         "is_fun": false
       },
       {
+        "direction": "tirs_(rayo_vallecano)_over_10.5",
+        "type": "Tirs (Rayo Vallecano)",
+        "label": "Plus de 10.5 tirs Rayo Vallecano",
+        "cote": null,
+        "cote_min": 1.26,
+        "value": [
+          "⚠️",
+          "Value serrée",
+          "#f59e0b"
+        ],
+        "confidence": 79,
+        "edge": null,
+        "reasoning": "Rayo Vallecano prend 15.0/m [pondere vs opp #10] · adv. concède 10.5/m → attendu ~13.5 (Rayo Vallecano favori (#5 vs #10))",
+        "stats": {
+          "expected": 13.5
+        }
+      },
+      {
         "direction": "shots_under_29.5",
         "type": "Tirs (total match)",
         "label": "Moins de 29.5 tirs total",
         "cote": null,
-        "cote_min": 1.25,
+        "cote_min": 1.37,
         "value": [
-          "⚠️",
-          "Value serrée",
-          "#f59e0b"
+          "💎",
+          "Value correcte",
+          "#84cc16"
         ],
-        "confidence": 80,
-        "reasoning": "📊 Brut : Crystal Palace L10 TCC 11.4 (L5 TCC 12.4) tirs/m · Rayo Vallecano L10 TCC 15.2 (L5 TCC 12.8) tirs/m\n🛡️ Défenses : Crystal Palace concède 8.6/m · Rayo Vallecano concède 12.7/m\n🎯 Attendu : Crystal Palace ~12.9 · Rayo Vallecano ~12.5 → total ~25.4\n⚖️ Rayo Vallecano favori (#5 vs #10) · Crystal Palace forme : L-D-L-D-W · Rayo Vallecano forme : W-W-D-D-W",
+        "confidence": 73,
+        "reasoning": "📊 Brut : Crystal Palace L10 TCC 11.4 (L5 TCC 12.4) tirs/m · Rayo Vallecano L10 TCC 15.2 (L5 TCC 12.8) tirs/m\n🛡️ Défenses : Crystal Palace concède 10.5/m · Rayo Vallecano concède 12.7/m\n🎯 Attendu : Crystal Palace ~12.9 · Rayo Vallecano ~13.5 → total ~26.5\n⚖️ Rayo Vallecano favori (#5 vs #10) · Crystal Palace forme : L-D-L-D-W · Rayo Vallecano forme : W-W-D-D-W",
         "stats": {
-          "expected_total": 25.4
-        }
-      },
-      {
-        "direction": "tirs_(crystal_palace)_under_15.5",
-        "type": "Tirs (Crystal Palace)",
-        "label": "Moins de 15.5 tirs Crystal Palace",
-        "cote": null,
-        "cote_min": 1.29,
-        "value": [
-          "⚠️",
-          "Value serrée",
-          "#f59e0b"
-        ],
-        "confidence": 78,
-        "edge": null,
-        "reasoning": "Crystal Palace prend 14.7/m [pondere vs opp #5] · adv. concède 12.7/m → attendu ~12.9 (Rayo Vallecano favori (#5 vs #10))",
-        "stats": {
-          "expected": 12.9
+          "expected_total": 26.5
         }
       }
     ],
