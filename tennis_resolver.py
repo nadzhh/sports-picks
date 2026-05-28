@@ -1,26 +1,22 @@
 """
-tennis_resolver.py - Recupere les scores finaux des matchs tennis via The Odds
-API /scores endpoint et produit data/tennis_results.json pour permettre
-l'auto-resolve cote front (similaire au pattern NBA_BOX_SCORES).
+tennis_resolver.py - Recupere les scores finaux des matchs tennis.
 
-Structure de sortie :
-{
-  "<event_id>": {
-    "completed": true,
-    "winner":    "home" | "away",
-    "home_name": "...",
-    "away_name": "...",
-    "score":     "6-4 6-2",        # si dispo
-    "total_games": 18,             # si parsable
-    "set_score": "2-0",            # 2-0/2-1/0-2/1-2/3-0/3-1/3-2/0-3/1-3/2-3
-  }
-}
+Source principale : Sofascore via Camoufox (browser stealth, robuste long terme).
+Fallback : The Odds API /scores endpoint (decevant sur tennis, retourne rarement
+les matchs completed).
 
-Quota : 1 call par tournoi actif (cache 30min).
+Produit :
+- data/tennis_results.json : par Odds API event_id, pour auto-resolve user picks
+  cote client (via window.TENNIS_RESULTS).
+- data/tennis_picks_history.json : algo picks resolus pour l'historique tennis.
+
+Strategie matching : on combine algo picks (qui ont les noms joueurs + Odds API
+event_id) et events Sofascore (qui ont les noms + scores). Match par paire
+normalisee de noms joueurs sur la meme date.
 """
-import json, sys, urllib.request, urllib.error
+import json, sys, unicodedata
 from pathlib import Path
-from datetime import datetime, timezone
+from datetime import datetime, timezone, timedelta
 
 try:
     from config import ODDS_API_KEYS, ODDS_API_BASE
@@ -29,6 +25,12 @@ except Exception:
     ODDS_API_BASE = "https://api.the-odds-api.com/v4"
 
 import tennis_scraper  # pour get_active_tennis_sports + _try_keys
+try:
+    import tennis_browser
+    BROWSER_AVAILABLE = True
+except Exception as _e:
+    print(f"  [tennis_resolver] tennis_browser indispo : {_e}")
+    BROWSER_AVAILABLE = False
 
 DATA = Path("data")
 OUT_PATH      = DATA / "tennis_results.json"
@@ -101,15 +103,74 @@ def _parse_score_string(scores_array, home_name, away_name):
     return h_total, a_total, set_score
 
 
-def fetch_all():
-    cached = _read_cache()
-    if cached is not None:
-        return cached
+def _norm_name(s):
+    """Normalisation tolerante pour match noms joueurs Odds API vs Sofascore."""
+    if not s: return ""
+    s = unicodedata.normalize("NFD", str(s))
+    s = "".join(c for c in s if unicodedata.category(c) != "Mn")
+    return s.strip().lower()
+
+
+def _fetch_sofascore_dates(dates):
+    """Fetch Sofascore events pour une liste de dates (YYYY-MM-DD).
+
+    Retourne {date_str: [event_slim, ...]}.
+    """
+    if not BROWSER_AVAILABLE:
+        return {}
+    out = {}
+    for d in dates:
+        try:
+            evs = tennis_browser.fetch_sofascore_events_sync(d)
+            out[d] = evs or []
+        except Exception as e:
+            print(f"  [tennis_resolver sofascore err {d}] {e}")
+            out[d] = []
+    return out
+
+
+def _build_sofascore_index(by_date):
+    """Indexe les events par (date, pair_normalisee_de_noms) pour matching rapide.
+
+    Renvoie dict { (date, frozenset({norm_home, norm_away})) : event_slim }.
+    """
+    index = {}
+    for d, events in (by_date or {}).items():
+        for ev in events:
+            h = _norm_name(ev.get("home"))
+            a = _norm_name(ev.get("away"))
+            if not h or not a: continue
+            key = (d, frozenset({h, a}))
+            # Si plusieurs events sur la meme paire le meme jour (peu probable),
+            # on garde le completed en priorite
+            existing = index.get(key)
+            if not existing or (ev.get("completed") and not existing.get("completed")):
+                index[key] = ev
+    return index
+
+
+def _lookup_sofascore(index, date_str, home_name, away_name):
+    """Cherche l'event Sofascore correspondant a (date, home, away)."""
+    if not date_str or not home_name or not away_name: return None
+    pair = frozenset({_norm_name(home_name), _norm_name(away_name)})
+    # Essai date exacte d'abord, puis +/- 1 jour (decalages timezone)
+    try:
+        d0 = datetime.strptime(date_str, "%Y-%m-%d").date()
+    except Exception:
+        return index.get((date_str, pair))
+    for delta in (0, -1, 1):
+        d = (d0 + timedelta(days=delta)).strftime("%Y-%m-%d")
+        ev = index.get((d, pair))
+        if ev: return ev
+    return None
+
+
+def _fetch_odds_api_fallback():
+    """Fallback : Odds API /scores. Souvent vide pour tennis mais on tente."""
     sports = tennis_scraper.get_active_tennis_sports()
     out = {}
     for sk in sports:
         events = _fetch_scores(sk)
-        print(f"  [tennis scores {sk}] {len(events)} events")
         for ev in events:
             if not ev.get("completed"):
                 continue
@@ -118,7 +179,6 @@ def fetch_all():
             away = ev.get("away_team") or ""
             scores = ev.get("scores") or []
             h_total, a_total, set_score = _parse_score_string(scores, home, away)
-            # Determine winner via set count
             winner = None
             if set_score and "-" in set_score:
                 hs, as_ = set_score.split("-")
@@ -133,7 +193,101 @@ def fetch_all():
                 "away_name":   away,
                 "set_score":   set_score,
                 "total_games": (h_total + a_total) if (h_total is not None and a_total is not None) else None,
+                "source":      "odds_api",
             }
+    return out
+
+
+def fetch_all():
+    """Combine Sofascore (primary) + Odds API (fallback) -> tennis_results.json.
+
+    Pour chaque algo pick connu (tennis_picks.json), on cherche le score Sofascore
+    par paire de noms + date. Le tennis_results.json final est keye par Odds API
+    event_id (pour compat front).
+    """
+    cached = _read_cache()
+    if cached is not None:
+        return cached
+    # 1. Charge algo picks pour connaitre les events a resoudre
+    algo = {}
+    if PICKS_PATH.exists():
+        try:
+            algo = json.loads(PICKS_PATH.read_text(encoding="utf-8"))
+        except Exception:
+            algo = {}
+    algo_matches = algo.get("matches", []) or []
+    # On charge aussi tennis_picks_history.json pour reresoudre des picks deja
+    # historises en cas de fix (cas user pick d'il y a 2 jours non resolus).
+    # 2. Liste les dates de matchs (-1j, 0, +1) pour Sofascore
+    dates_to_fetch = set()
+    today = datetime.now(timezone.utc).date()
+    for delta in (-2, -1, 0):
+        dates_to_fetch.add((today + timedelta(days=delta)).strftime("%Y-%m-%d"))
+    # Ajoute les dates des algo picks (cas pick + ancien)
+    for m in algo_matches:
+        d = (m.get("start_iso") or "")[:10]
+        if d: dates_to_fetch.add(d)
+    print(f"  [tennis_resolver] dates a fetch via Sofascore : {sorted(dates_to_fetch)}")
+    by_date = _fetch_sofascore_dates(sorted(dates_to_fetch))
+    sofa_index = _build_sofascore_index(by_date)
+    print(f"  [tennis_resolver] Sofascore : {sum(len(v) for v in by_date.values())} events indexes")
+    # 3. Pour chaque algo match, lookup Sofascore par (date, paire de noms)
+    out = {}
+    matched = 0
+    for m in algo_matches:
+        eid = m.get("event_id")
+        if not eid: continue
+        h_name = (m.get("home") or {}).get("name", "")
+        a_name = (m.get("away") or {}).get("name", "")
+        date_str = (m.get("start_iso") or "")[:10]
+        ev = _lookup_sofascore(sofa_index, date_str, h_name, a_name)
+        if not ev or not ev.get("completed"):
+            continue
+        # Map Sofascore winner (home/away cote Sofascore) vers home/away cote algo.
+        # Si l'algo home == Sofascore home (apres norm), winner inchange ; sinon
+        # on swap.
+        sofa_home_norm = _norm_name(ev.get("home"))
+        algo_home_norm = _norm_name(h_name)
+        if sofa_home_norm == algo_home_norm:
+            winner = ev.get("winner")
+            home_name_out = h_name
+            away_name_out = a_name
+        else:
+            # Sofascore home = algo away (swap)
+            winner = {"home": "away", "away": "home"}.get(ev.get("winner")) or ev.get("winner")
+            home_name_out = h_name
+            away_name_out = a_name
+            # set_score : si on a "h_won-a_won" en POV sofascore, et qu'on swap,
+            # on inverse le score
+            ss = ev.get("set_score")
+            if ss and "-" in ss:
+                parts = ss.split("-")
+                if len(parts) == 2:
+                    ss = f"{parts[1]}-{parts[0]}"
+            ev = dict(ev)
+            ev["set_score"] = ss
+        out[eid] = {
+            "completed":     True,
+            "winner":        winner,
+            "home_name":     home_name_out,
+            "away_name":     away_name_out,
+            "set_score":     ev.get("set_score"),
+            "total_games":   ev.get("total_games"),
+            "source":        "sofascore",
+            "sofascore_id":  ev.get("id"),
+        }
+        matched += 1
+    print(f"  [tennis_resolver] {matched}/{len(algo_matches)} algo picks resolus via Sofascore")
+    # 4. Fallback Odds API pour les events restants (pas matches via Sofascore)
+    try:
+        fallback = _fetch_odds_api_fallback()
+        for eid, r in fallback.items():
+            if eid not in out:
+                out[eid] = r
+        if fallback:
+            print(f"  [tennis_resolver] +{len(fallback)} via Odds API fallback")
+    except Exception as e:
+        print(f"  [tennis_resolver odds fallback err] {e}")
     _write_cache(out)
     return out
 
