@@ -423,13 +423,51 @@ def resolve_algo_picks(results):
     return n_new + n_updated
 
 
+DIAG_PATH = DATA / "tennis_resolver_diag.json"
+
+
 def main():
     print(f"Tennis resolver -> {datetime.now().strftime('%Y-%m-%d %H:%M')}")
-    results = fetch_all()
+    diag = {
+        "started_at":   datetime.now(timezone.utc).isoformat(),
+        "browser_available": BROWSER_AVAILABLE,
+        "camoufox_installed": False,
+        "sofascore_events_by_date": {},
+        "algo_picks_total":    0,
+        "algo_picks_matched":  0,
+        "results_count":       0,
+        "history_added":       0,
+        "errors":              [],
+    }
+    # Diagnostic camoufox install
+    try:
+        import camoufox  # noqa
+        diag["camoufox_installed"] = True
+    except Exception as e:
+        diag["errors"].append(f"camoufox import : {e}")
+    try:
+        results = fetch_all()
+        diag["results_count"] = len(results)
+    except Exception as e:
+        diag["errors"].append(f"fetch_all : {e}")
+        results = {}
     OUT_PATH.write_text(json.dumps(results, ensure_ascii=False, indent=2), encoding="utf-8")
     print(f"  -> {OUT_PATH} ({len(results)} matchs termines)")
     # Resout les picks algo + maintient l'historique
-    resolve_algo_picks(results)
+    try:
+        diag["history_added"] = resolve_algo_picks(results) or 0
+    except Exception as e:
+        diag["errors"].append(f"resolve_algo_picks : {e}")
+    diag["finished_at"] = datetime.now(timezone.utc).isoformat()
+    # Ecrit aussi un fichier diag pour debug post-mortem (visible dans gh-pages)
+    try:
+        DIAG_PATH.write_text(json.dumps(diag, ensure_ascii=False, indent=2), encoding="utf-8")
+    except Exception:
+        pass
+    # S'assure que tennis_picks_history.json existe meme vide
+    if not HISTORY_PATH.exists():
+        HISTORY_PATH.write_text(json.dumps({"picks": []}, ensure_ascii=False, indent=2), encoding="utf-8")
+        print(f"  [tennis] tennis_picks_history.json cree (vide)")
     return 0
 
 
