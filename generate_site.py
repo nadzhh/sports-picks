@@ -3040,11 +3040,104 @@ def _build_tennis_card(match, idx=0):
 
 
 def build_tennis_history(history_data):
-    """V1 : pas encore de tennis history. Placeholder."""
-    return ('<div style="text-align:center;padding:40px;color:#64748b;font-size:13px;line-height:1.7">'
-            '🚧 <b>Historique Tennis</b> bientôt disponible<br>'
-            '<span style="color:#475569">Les picks tennis seront résolus automatiquement '
-            'via The Odds API /scores après FT.</span></div>')
+    """Historique tennis : picks resolus groupes par date avec WR + ROI."""
+    if not history_data or not history_data.get("picks"):
+        return ('<div style="text-align:center;padding:40px;color:#64748b;font-size:13px;line-height:1.7">'
+                'Aucun historique tennis pour le moment.<br>'
+                '<span style="color:#475569">Les picks se resolvent automatiquement après FT '
+                'via The Odds API /scores.</span></div>')
+    picks = history_data["picks"]
+    from collections import defaultdict
+    by_date = defaultdict(list)
+    for p in picks:
+        by_date[p.get("date", "?")].append(p)
+    dates = sorted(by_date.keys(), reverse=True)
+
+    resolved = [p for p in picks if p.get("result") in ("WIN", "LOSS", "PUSH")]
+    wins   = sum(1 for p in resolved if p.get("result") == "WIN")
+    losses = sum(1 for p in resolved if p.get("result") == "LOSS")
+    pushes = sum(1 for p in resolved if p.get("result") == "PUSH")
+    wr = (wins / (wins + losses) * 100) if (wins + losses) else 0
+    roi_units, n_betted = 0.0, 0
+    for p in resolved:
+        cote = p.get("real_cote") or p.get("cote_min") or 0
+        if not cote or p.get("result") == "PUSH": continue
+        n_betted += 1
+        roi_units += (cote - 1) if p.get("result") == "WIN" else -1
+    roi_pct = (roi_units / n_betted * 100) if n_betted else 0
+
+    wr_color  = "#22c55e" if wr >= 55 else ("#84cc16" if wr >= 50 else "#ef4444")
+    roi_color = "#22c55e" if roi_units > 0 else "#ef4444"
+    summary = (
+        f'<div style="background:#0f172a;border-radius:12px;padding:16px 20px;margin-bottom:18px;'
+        f'display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:14px">'
+        f'<div><div style="color:#64748b;font-size:11px;text-transform:uppercase;letter-spacing:1px">Résolus</div>'
+        f'<div style="color:#f1f5f9;font-size:22px;font-weight:800">{wins+losses+pushes}</div></div>'
+        f'<div><div style="color:#64748b;font-size:11px;text-transform:uppercase;letter-spacing:1px">Win Rate</div>'
+        f'<div style="color:{wr_color};font-size:22px;font-weight:800">{wr:.0f}%</div>'
+        f'<div style="color:#64748b;font-size:10px">{wins}W · {losses}L · {pushes}P</div></div>'
+        f'<div><div style="color:#64748b;font-size:11px;text-transform:uppercase;letter-spacing:1px">ROI (1u/pick)</div>'
+        f'<div style="color:{roi_color};font-size:22px;font-weight:800">{roi_units:+.2f}u</div>'
+        f'<div style="color:#64748b;font-size:10px">{roi_pct:+.1f}% sur {n_betted}</div></div>'
+        f'</div>'
+    )
+
+    sections = []
+    for d in dates:
+        d_picks = by_date[d]
+        d_picks.sort(key=lambda p: -(p.get("confidence") or 0))
+        try:
+            from datetime import datetime as _dt
+            d_label = _dt.strptime(d, "%Y-%m-%d").strftime("%d/%m/%Y")
+        except Exception:
+            d_label = d
+        rows = []
+        for p in d_picks:
+            r = p.get("result", "?")
+            res_color = {"WIN":"#22c55e","LOSS":"#ef4444","PUSH":"#94a3b8"}.get(r, "#64748b")
+            res_icon  = {"WIN":"✓","LOSS":"✗","PUSH":"="}.get(r, "?")
+            kind_ic   = {"tennis_winner":"🏆","tennis_total_games":"📊","tennis_set_score":"🎯"}.get(p.get("kind",""), "📌")
+            cote_str  = f"@{p.get('real_cote') or p.get('cote_min'):.2f}" if (p.get('real_cote') or p.get('cote_min')) else ""
+            actual = p.get("actual")
+            actual_str = ""
+            if actual is not None:
+                if isinstance(actual, (int, float)):
+                    actual_str = f" → {actual}"
+                else:
+                    actual_str = f" → {actual}"
+            tour_emoji = "♂️" if p.get("tour") == "ATP" else "♀️"
+            surface = p.get("surface", "")
+            surf_ic = {"Clay":"🟧","Hard":"🟦","Grass":"🟩"}.get(surface, "🎾")
+            rows.append(
+                f'<div style="display:grid;grid-template-columns:auto 1fr auto auto auto;gap:10px;'
+                f'align-items:center;padding:9px 12px;border-radius:8px;background:#0a1628;border-left:3px solid {res_color}">'
+                f'<span style="font-size:14px">{kind_ic}</span>'
+                f'<div style="min-width:0">'
+                f'  <div style="color:#f1f5f9;font-size:13px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{p.get("label","?")}{actual_str}</div>'
+                f'  <div style="color:#64748b;font-size:11px;margin-top:2px">{tour_emoji} {p.get("tour","")} · {surf_ic} {surface} · {p.get("matchup","")}</div>'
+                f'</div>'
+                f'<span style="color:#cbd5e1;font-size:12px;font-weight:600">{p.get("confidence","?")}%</span>'
+                f'<span style="color:#7dd3fc;font-size:11px;font-variant-numeric:tabular-nums">{cote_str}</span>'
+                f'<span style="background:{res_color};color:#0a1628;font-weight:800;border-radius:14px;padding:3px 10px;font-size:12px">{res_icon} {r}</span>'
+                f'</div>'
+            )
+        sections.append(
+            f'<details data-date="{d}" open style="margin-bottom:14px;background:#0f172a;border-radius:12px;padding:12px 16px">'
+            f'<summary style="color:#cbd5e1;font-size:14px;font-weight:700;cursor:pointer;padding:4px 0">'
+            f'📅 {d_label} · {len(d_picks)} pick(s)</summary>'
+            f'<div style="display:flex;flex-direction:column;gap:6px;margin-top:10px">{"".join(rows)}</div>'
+            f'</details>'
+        )
+
+    # Filtre de date (reutilise le pattern foot/NBA)
+    date_filter = _build_date_filter(dates, "tennishist-container", sport_label="tennis")
+    return (
+        summary
+        + date_filter
+        + '<div id="tennishist-container">'
+        +   "".join(sections)
+        + '</div>'
+    )
 
 
 def build_nba_section(nba_picks_data):
@@ -3676,7 +3769,7 @@ def build_html(matches, team_ai, player_ai, pstats_data, nba_picks=None, nba_his
     except Exception:
         tennis_picks_data = {"matches": []}
     tennis_section  = build_tennis_section(tennis_picks_data)
-    tennis_hist_html = build_tennis_history(None)
+    # tennis_hist_html sera defini plus bas apres lecture de tennis_picks_history.json
     nba_analyse_html = build_nba_analyse_section(nba_picks, nba_player_stats, nba_odds)
     # Charge nba_box_scores ICI (avant la section historique) car build_nba_history_section
     # en a besoin. Sera reutilise plus bas pour l'embed window.NBA_BOX_SCORES.
@@ -3723,6 +3816,39 @@ def build_html(matches, team_ai, player_ai, pstats_data, nba_picks=None, nba_his
             _json.dump(nba_box_scores, _bf, ensure_ascii=False)
     except Exception as _e:
         print(f"  ⚠️ Impossible d'ecrire nba_box_scores_min.json: {_e}")
+
+    # ── Embed FOOT history slim (pour auto-resolve user picks foot cote client) ─
+    # Keys necessaires pour matcher un user pick : match_id + label/market + result.
+    foot_hist_min = []
+    for p in (foot_history or {}).get("picks", []):
+        if p.get("result") not in ("WIN", "LOSS", "PUSH"): continue
+        foot_hist_min.append({
+            "match_id":  str(p.get("match_id", "")),
+            "type":      p.get("type", ""),
+            "label":     p.get("label", ""),
+            "direction": p.get("direction"),
+            "result":    p.get("result"),
+            "date":      p.get("date"),
+            "player":    p.get("player"),       # pour player picks (Buteur/etc)
+            "matchup":   p.get("matchup", ""),
+        })
+    foot_history_json = _json.dumps(foot_hist_min, ensure_ascii=False).replace("</", "<\\/")
+
+    # ── Embed TENNIS results + history pour auto-resolve user picks tennis ────
+    tennis_results = {}
+    try:
+        with open("data/tennis_results.json", encoding="utf-8") as _tf:
+            tennis_results = _json.load(_tf)
+    except Exception:
+        tennis_results = {}
+    tennis_results_json = _json.dumps(tennis_results, ensure_ascii=False).replace("</", "<\\/")
+    tennis_history_data = {"picks": []}
+    try:
+        with open("data/tennis_picks_history.json", encoding="utf-8") as _thf:
+            tennis_history_data = _json.load(_thf)
+    except Exception:
+        tennis_history_data = {"picks": []}
+    tennis_hist_html = build_tennis_history(tennis_history_data)
 
     # NBA recent games pour le wizard d'ajout de pari NBA.
     # Filtre base sur les HEURES ECOULEES depuis la fin du match :
@@ -4882,6 +5008,8 @@ def build_html(matches, team_ai, player_ai, pstats_data, nba_picks=None, nba_his
 window.NBA_HISTORY = {nba_history_json};
 window.NBA_BOX_SCORES = {nba_box_scores_json};
 window.NBA_RECENT_GAMES = {nba_recent_json};
+window.FOOT_HISTORY = {foot_history_json};
+window.TENNIS_RESULTS = {tennis_results_json};
 </script>
 <script>
 // ── Navigation : 4 menus principaux + 2 sous-toggles ─────────────────────
@@ -7351,7 +7479,120 @@ function autoResolveUserPicks(){{
   if(window._bkDebug && (debug.length || nInvalidated)){{
     console.log('[bk] resolved:', nResolved, '/ invalidated:', nInvalidated, '/ unresolved:', debug);
   }}
-  return nResolved;
+  // ── PASSE 3 : auto-resolve picks FOOT et TENNIS (shape manual) ────────────
+  var nFoot   = _autoResolveFootPicks(arr);
+  var nTennis = _autoResolveTennisPicks(arr);
+  if(nFoot > 0 || nTennis > 0) _saveUserPicks(arr);
+  return nResolved + nFoot + nTennis;
+}}
+
+// ── Auto-resolve FOOT user picks ────────────────────────────────────────────
+// Match user pick par (match_id + label normalise) contre window.FOOT_HISTORY.
+// Si match trouve : applique le result du pick algo a notre pick user.
+function _autoResolveFootPicks(arr){{
+  var foot = window.FOOT_HISTORY || [];
+  if(!foot.length) return 0;
+  // Index match_id -> label_norm -> entry
+  var byMatchAndLabel = {{}};
+  foot.forEach(function(h){{
+    var mid = String(h.match_id || '');
+    if(!mid) return;
+    var lbl = _bkNorm(h.label || '');
+    if(!byMatchAndLabel[mid]) byMatchAndLabel[mid] = {{}};
+    if(!byMatchAndLabel[mid][lbl]) byMatchAndLabel[mid][lbl] = h;
+  }});
+  var n = 0;
+  arr.forEach(function(p){{
+    if(p.result && p.result !== 'PENDING') return;
+    if(p.manual_override) return;
+    if(String(p.sport || '').toUpperCase() !== 'FOOT') return;
+    var mid = String(p.match_id || '');
+    if(!mid) return;
+    var matchEntries = byMatchAndLabel[mid];
+    if(!matchEntries) return;
+    // Match exact d'abord (label normalise)
+    var market = _bkNorm(p.market || p.label || '');
+    var h = matchEntries[market];
+    if(!h){{
+      // Match partiel : market contient le label algo ou vice-versa
+      var keys = Object.keys(matchEntries);
+      for(var i = 0; i < keys.length; i++){{
+        if(market.indexOf(keys[i]) !== -1 || keys[i].indexOf(market) !== -1){{
+          h = matchEntries[keys[i]]; break;
+        }}
+      }}
+    }}
+    if(!h || !h.result) return;
+    p.result = h.result;
+    p.resolved_at = new Date().toISOString();
+    p.auto_resolved = true;
+    n++;
+  }});
+  return n;
+}}
+
+// ── Auto-resolve TENNIS user picks ──────────────────────────────────────────
+// match_id user = "tennis_<event_id>" -> on regarde window.TENNIS_RESULTS[event_id].
+// Applique la regle selon kind du pick (winner / total_games / set_score).
+function _autoResolveTennisPicks(arr){{
+  var results = window.TENNIS_RESULTS || {{}};
+  if(!Object.keys(results).length) return 0;
+  var n = 0;
+  arr.forEach(function(p){{
+    if(p.result && p.result !== 'PENDING') return;
+    if(p.manual_override) return;
+    if(String(p.sport || '').toUpperCase() !== 'TENNIS') return;
+    var mid = String(p.match_id || '');
+    if(!mid.indexOf) return;
+    var eid = mid.replace(/^tennis_/, '');
+    var res = results[eid];
+    if(!res || !res.completed) return;
+    var kind = String(p.kind || '').toLowerCase();
+    var market = String(p.market || p.label || '');
+    var marketNorm = _bkNorm(market);
+    var result = null, actual = null;
+    if(kind === 'tennis_winner' || marketNorm.indexOf('vainqueur') !== -1){{
+      // On compare le nom du winner (home_name/away_name) au nom dans le market
+      if(!res.winner) return;
+      var winnerName = res[res.winner + '_name'] || '';
+      var winnerNorm = _bkNorm(winnerName);
+      // Le market est de la forme "Vainqueur : Pablo Carreno Busta" -> extrait apres ":"
+      var pickName = market.split(':').slice(1).join(':').trim() || market;
+      var pickNorm = _bkNorm(pickName);
+      var ok = pickNorm && winnerNorm && (pickNorm === winnerNorm || pickNorm.indexOf(winnerNorm) !== -1 || winnerNorm.indexOf(pickNorm) !== -1);
+      result = ok ? 'WIN' : 'LOSS';
+      actual = winnerName;
+    }} else if(kind === 'tennis_total_games' || (p.line != null && p.direction)){{
+      if(res.total_games == null) return;
+      var line = parseFloat(p.line);
+      var total = parseFloat(res.total_games);
+      if(isNaN(line) || isNaN(total)) return;
+      if(total === line) result = 'PUSH';
+      else if(p.direction === 'over')  result = total > line ? 'WIN' : 'LOSS';
+      else                             result = total < line ? 'WIN' : 'LOSS';
+      actual = total;
+    }} else if(kind === 'tennis_set_score' || marketNorm.indexOf('score sets') !== -1){{
+      if(!res.set_score) return;
+      // Extrait "0-3" / "2-0" / "3-1" / ... du market
+      var m = market.match(/(\\d+)-(\\d+)/);
+      if(!m) return;
+      var pickScore = m[1] + '-' + m[2];
+      // Note : set_score dans TENNIS_RESULTS est home-away. Si dans le market
+      // le score est POV joueur favori (peut etre away), on essaie les 2 sens.
+      var revScore = m[2] + '-' + m[1];
+      var ok = res.set_score === pickScore || res.set_score === revScore;
+      result = ok ? 'WIN' : 'LOSS';
+      actual = res.set_score;
+    }}
+    if(result){{
+      p.result = result;
+      p.actual = actual;
+      p.resolved_at = new Date().toISOString();
+      p.auto_resolved = true;
+      n++;
+    }}
+  }});
+  return n;
 }}
 
 // ── Auto-refresh : poll history + box_scores toutes les 60s ──────────────────
