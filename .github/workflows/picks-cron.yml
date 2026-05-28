@@ -13,7 +13,7 @@ concurrency:
 jobs:
   run:
     runs-on: ubuntu-latest
-    timeout-minutes: 25
+    timeout-minutes: 35
 
     steps:
       - name: Checkout repo
@@ -40,6 +40,10 @@ jobs:
           else
             echo "Pas de requirements.txt - stdlib seulement"
           fi
+
+      - name: Install Camoufox browser
+        run: |
+          python -m camoufox fetch || echo "[!] camoufox fetch KO (le tennis_resolver tombera en fallback Odds API)"
 
       - name: Pipeline complet
         env:
