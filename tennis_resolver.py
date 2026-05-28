@@ -45,7 +45,13 @@ def _read_cache():
     age = datetime.now().timestamp() - CACHE.stat().st_mtime
     if age > CACHE_TTL: return None
     try:
-        return json.loads(CACHE.read_text(encoding="utf-8"))
+        d = json.loads(CACHE.read_text(encoding="utf-8"))
+        # IMPORTANT : si le cache est vide (echec precedent : Camoufox KO,
+        # 0 picks resolus), on le considere comme stale -> on retry.
+        # Sinon on reste bloque sur 0 resultats pendant 30 min.
+        if not d:
+            return None
+        return d
     except Exception:
         return None
 

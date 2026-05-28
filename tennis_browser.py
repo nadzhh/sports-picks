@@ -19,7 +19,11 @@ from pathlib import Path
 try:
     from camoufox.async_api import AsyncCamoufox
     CAMOUFOX_AVAILABLE = True
-except ImportError:
+except ImportError as _e:
+    print(f"  [tennis_browser] camoufox non importable : {_e}")
+    CAMOUFOX_AVAILABLE = False
+except Exception as _e:
+    print(f"  [tennis_browser] camoufox erreur import : {_e}")
     CAMOUFOX_AVAILABLE = False
 
 CACHE_DIR = Path("data/cache_sofascore_browser")
@@ -115,47 +119,58 @@ def _parse_event(ev):
 async def _fetch_async(date_str, timeout_s=30):
     """Fetch via Camoufox : load Sofascore tennis page + intercept XHR scheduled-events."""
     if not CAMOUFOX_AVAILABLE:
-        print("  [tennis_browser] camoufox non installe - skip")
+        print("  [tennis_browser] camoufox non installe - skip (utilise pip install camoufox)")
         return None
+    print(f"  [tennis_browser] launching Camoufox for {date_str}...")
     captured = []
-    async with AsyncCamoufox(headless=True) as browser:
-        page = await browser.new_page()
-        async def on_response(resp):
-            url = resp.url
-            if "scheduled-events" in url and date_str in url and "tennis" in url:
-                if resp.status == 200:
-                    try:
-                        d = await resp.json()
-                        if d and d.get("events"):
-                            captured.append(d)
-                    except Exception:
-                        pass
-        page.on("response", on_response)
-        # Warmup -> obtient les cookies CF
-        try:
-            await page.goto("https://www.sofascore.com/tennis", wait_until="domcontentloaded", timeout=timeout_s * 1000)
-            await asyncio.sleep(2)
-        except Exception as e:
-            print(f"  [tennis_browser warmup err] {e}")
-            return None
-        # Navigation directe sur l'API : avec les cookies CF en place, la requete passe
-        api_url = f"https://www.sofascore.com/api/v1/sport/tennis/scheduled-events/{date_str}"
-        try:
-            await page.goto(api_url, wait_until="domcontentloaded", timeout=timeout_s * 1000)
-            await asyncio.sleep(1.5)
-        except Exception as e:
-            print(f"  [tennis_browser api err] {e}")
-        # Si l'XHR n'a pas ete intercepte (cas direct goto), on lit le body JSON de la page
-        if not captured:
+    try:
+        async with AsyncCamoufox(headless=True) as browser:
             try:
-                body_text = await page.evaluate("document.body.innerText")
-                if body_text and body_text.lstrip().startswith("{"):
-                    d = json.loads(body_text)
-                    if d.get("events"):
-                        captured.append(d)
+                page = await browser.new_page()
             except Exception as e:
-                print(f"  [tennis_browser body parse err] {e}")
+                print(f"  [tennis_browser] echec new_page : {e}")
+                return None
+            async def on_response(resp):
+                url = resp.url
+                if "scheduled-events" in url and date_str in url and "tennis" in url:
+                    if resp.status == 200:
+                        try:
+                            d = await resp.json()
+                            if d and d.get("events"):
+                                captured.append(d)
+                        except Exception:
+                            pass
+            page.on("response", on_response)
+            # Warmup -> obtient les cookies CF
+            try:
+                await page.goto("https://www.sofascore.com/tennis",
+                                wait_until="domcontentloaded", timeout=timeout_s * 1000)
+                await asyncio.sleep(2)
+            except Exception as e:
+                print(f"  [tennis_browser] warmup err : {e}")
+                return None
+            # Navigation directe sur l'API : avec les cookies CF en place, requete passe
+            api_url = f"https://www.sofascore.com/api/v1/sport/tennis/scheduled-events/{date_str}"
+            try:
+                await page.goto(api_url, wait_until="domcontentloaded", timeout=timeout_s * 1000)
+                await asyncio.sleep(1.5)
+            except Exception as e:
+                print(f"  [tennis_browser] api goto err : {e}")
+            # Fallback : lit le body JSON si l'XHR n'a pas ete intercepte
+            if not captured:
+                try:
+                    body_text = await page.evaluate("document.body.innerText")
+                    if body_text and body_text.lstrip().startswith("{"):
+                        d = json.loads(body_text)
+                        if d.get("events"):
+                            captured.append(d)
+                except Exception as e:
+                    print(f"  [tennis_browser] body parse err : {e}")
+    except Exception as e:
+        print(f"  [tennis_browser] Camoufox crash : {e}")
+        return None
     if not captured:
+        print(f"  [tennis_browser] {date_str} : 0 events captures (page chargee mais pas de JSON)")
         return None
     return captured[0]
 
