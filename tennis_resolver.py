@@ -117,21 +117,29 @@ def _norm_name(s):
     return s.strip().lower()
 
 
+_SOFA_DIAG = {"by_date": {}, "errors": []}
+
+
 def _fetch_sofascore_dates(dates):
     """Fetch Sofascore events pour une liste de dates (YYYY-MM-DD).
 
     Retourne {date_str: [event_slim, ...]}.
     """
     if not BROWSER_AVAILABLE:
+        _SOFA_DIAG["errors"].append("BROWSER_AVAILABLE=False")
         return {}
     out = {}
     for d in dates:
         try:
             evs = tennis_browser.fetch_sofascore_events_sync(d)
             out[d] = evs or []
+            _SOFA_DIAG["by_date"][d] = len(evs or [])
         except Exception as e:
-            print(f"  [tennis_resolver sofascore err {d}] {e}")
+            err = f"sofascore_err[{d}] : {type(e).__name__} {e}"
+            print(f"  [tennis_resolver {err}]")
+            _SOFA_DIAG["errors"].append(err)
             out[d] = []
+            _SOFA_DIAG["by_date"][d] = -1  # marqueur erreur
     return out
 
 
@@ -222,6 +230,8 @@ def fetch_all():
         except Exception:
             algo = {}
     algo_matches = algo.get("matches", []) or []
+    _SOFA_DIAG["algo_picks_total"] = sum(len(m.get("picks", []) or []) for m in algo_matches)
+    _SOFA_DIAG["algo_matches_total"] = len(algo_matches)
     # On charge aussi tennis_picks_history.json pour reresoudre des picks deja
     # historises en cas de fix (cas user pick d'il y a 2 jours non resolus).
     # 2. Liste les dates de matchs (-1j, 0, +1) pour Sofascore
@@ -283,6 +293,7 @@ def fetch_all():
             "sofascore_id":  ev.get("id"),
         }
         matched += 1
+    _SOFA_DIAG["algo_picks_matched"] = matched
     print(f"  [tennis_resolver] {matched}/{len(algo_matches)} algo picks resolus via Sofascore")
     # 4. Fallback Odds API pour les events restants (pas matches via Sofascore)
     try:
@@ -428,10 +439,30 @@ DIAG_PATH = DATA / "tennis_resolver_diag.json"
 
 def main():
     print(f"Tennis resolver -> {datetime.now().strftime('%Y-%m-%d %H:%M')}")
+    # Test camoufox launch directement
+    camoufox_launch_ok = False
+    camoufox_launch_err = None
+    try:
+        import camoufox  # noqa
+        # Tente un launch de test : si Firefox lib manque, on aura l'erreur ici
+        try:
+            from camoufox.async_api import AsyncCamoufox
+            import asyncio as _asyncio
+            async def _smoke():
+                async with AsyncCamoufox(headless=True) as br:
+                    p = await br.new_page()
+                    return True
+            camoufox_launch_ok = _asyncio.run(_asyncio.wait_for(_smoke(), timeout=20))
+        except Exception as e:
+            camoufox_launch_err = f"{type(e).__name__}: {e}"
+    except Exception as e:
+        camoufox_launch_err = f"import: {type(e).__name__}: {e}"
     diag = {
         "started_at":   datetime.now(timezone.utc).isoformat(),
         "browser_available": BROWSER_AVAILABLE,
         "camoufox_installed": False,
+        "camoufox_launch_ok": camoufox_launch_ok,
+        "camoufox_launch_err": camoufox_launch_err,
         "sofascore_events_by_date": {},
         "algo_picks_total":    0,
         "algo_picks_matched":  0,
@@ -458,6 +489,12 @@ def main():
         diag["history_added"] = resolve_algo_picks(results) or 0
     except Exception as e:
         diag["errors"].append(f"resolve_algo_picks : {e}")
+    # Merge sofa diag (rempli dans _fetch_sofascore_dates)
+    diag["sofascore_events_by_date"] = _SOFA_DIAG.get("by_date", {})
+    diag["algo_picks_total"]    = _SOFA_DIAG.get("algo_picks_total", 0)
+    diag["algo_matches_total"]  = _SOFA_DIAG.get("algo_matches_total", 0)
+    diag["algo_picks_matched"]  = _SOFA_DIAG.get("algo_picks_matched", 0)
+    diag["errors"].extend(_SOFA_DIAG.get("errors", []))
     diag["finished_at"] = datetime.now(timezone.utc).isoformat()
     # Ecrit aussi un fichier diag pour debug post-mortem (visible dans gh-pages)
     try:
