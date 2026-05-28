@@ -3818,7 +3818,9 @@ def build_html(matches, team_ai, player_ai, pstats_data, nba_picks=None, nba_his
         print(f"  ⚠️ Impossible d'ecrire nba_box_scores_min.json: {_e}")
 
     # ── Embed FOOT history slim (pour auto-resolve user picks foot cote client) ─
-    # Keys necessaires pour matcher un user pick : match_id + label/market + result.
+    # Keys necessaires : match_id + label/market + result + actual (pour resoudre
+    # un user pick a ligne differente : ex algo "Plus de 14.5 tirs", user "Plus de
+    # 11.5 tirs" -> on parse actual et on recompute le result).
     foot_hist_min = []
     for p in (foot_history or {}).get("picks", []):
         if p.get("result") not in ("WIN", "LOSS", "PUSH"): continue
@@ -3828,6 +3830,7 @@ def build_html(matches, team_ai, player_ai, pstats_data, nba_picks=None, nba_his
             "label":     p.get("label", ""),
             "direction": p.get("direction"),
             "result":    p.get("result"),
+            "actual":    p.get("actual"),       # ex "10 tirs (Rayo Vallecano)" / "1-0"
             "date":      p.get("date"),
             "player":    p.get("player"),       # pour player picks (Buteur/etc)
             "matchup":   p.get("matchup", ""),
@@ -7489,17 +7492,34 @@ function autoResolveUserPicks(){{
 // ── Auto-resolve FOOT user picks ────────────────────────────────────────────
 // Match user pick par (match_id + label normalise) contre window.FOOT_HISTORY.
 // Si match trouve : applique le result du pick algo a notre pick user.
+// Helper foot : strip "Plus de X" / "Moins de X" du debut du label pour
+// extraire la "base" du prop (ex: "Plus de 14.5 tirs Rayo Vallecano" -> "tirs Rayo Vallecano")
+function _footStripDirLine(label){{
+  if(!label) return '';
+  return _bkNorm(label).replace(/^(plus de|moins de)\\s+[\\d.,]+\\s+/i, '').trim();
+}}
+// Parse le 1er nombre dans une string actual ("10 tirs (Rayo)" -> 10, "1-0" -> 1)
+function _footParseActualNum(actualStr){{
+  if(actualStr == null) return null;
+  var m = String(actualStr).match(/^\\s*(\\d+(?:[.,]\\d+)?)/);
+  return m ? parseFloat(m[1].replace(',', '.')) : null;
+}}
+
 function _autoResolveFootPicks(arr){{
   var foot = window.FOOT_HISTORY || [];
   if(!foot.length) return 0;
-  // Index match_id -> label_norm -> entry
+  // Index match_id -> label_norm -> entry  ET  match_id -> base_norm -> entry
   var byMatchAndLabel = {{}};
+  var byMatchAndBase  = {{}};
   foot.forEach(function(h){{
     var mid = String(h.match_id || '');
     if(!mid) return;
-    var lbl = _bkNorm(h.label || '');
+    var lbl  = _bkNorm(h.label || '');
+    var base = _footStripDirLine(h.label || '');
     if(!byMatchAndLabel[mid]) byMatchAndLabel[mid] = {{}};
     if(!byMatchAndLabel[mid][lbl]) byMatchAndLabel[mid][lbl] = h;
+    if(!byMatchAndBase[mid])  byMatchAndBase[mid]  = {{}};
+    if(base && !byMatchAndBase[mid][base]) byMatchAndBase[mid][base] = h;
   }});
   var n = 0;
   arr.forEach(function(p){{
@@ -7510,23 +7530,54 @@ function _autoResolveFootPicks(arr){{
     if(!mid) return;
     var matchEntries = byMatchAndLabel[mid];
     if(!matchEntries) return;
-    // Match exact d'abord (label normalise)
     var market = _bkNorm(p.market || p.label || '');
+    // ── 1. Match exact (label normalise) ───────────────────────────────────
     var h = matchEntries[market];
-    if(!h){{
-      // Match partiel : market contient le label algo ou vice-versa
-      var keys = Object.keys(matchEntries);
-      for(var i = 0; i < keys.length; i++){{
-        if(market.indexOf(keys[i]) !== -1 || keys[i].indexOf(market) !== -1){{
-          h = matchEntries[keys[i]]; break;
-        }}
+    if(h && h.result){{
+      p.result = h.result;
+      p.actual = h.actual || null;
+      p.resolved_at = new Date().toISOString();
+      p.auto_resolved = true;
+      n++;
+      return;
+    }}
+    // ── 2. Match "base" (meme prop, ligne potentiellement differente) ──────
+    // Ex: user "Plus de 11.5 tirs Rayo Vallecano", algo "Plus de 14.5 tirs Rayo Vallecano"
+    // -> on parse l'actual de l'algo et on applique la direction+line du user.
+    var userBase = _footStripDirLine(p.market || p.label || '');
+    var baseEntries = byMatchAndBase[mid];
+    if(baseEntries && userBase && baseEntries[userBase]){{
+      var algoEntry = baseEntries[userBase];
+      var actualNum = _footParseActualNum(algoEntry.actual);
+      var userLine = parseFloat(p.line);
+      if(actualNum != null && !isNaN(userLine) && (p.direction === 'over' || p.direction === 'under')){{
+        var newResult;
+        if(actualNum === userLine) newResult = 'PUSH';
+        else if(p.direction === 'over')  newResult = actualNum > userLine ? 'WIN' : 'LOSS';
+        else                             newResult = actualNum < userLine ? 'WIN' : 'LOSS';
+        p.result = newResult;
+        p.actual = actualNum;
+        p.resolved_at = new Date().toISOString();
+        p.auto_resolved = true;
+        n++;
+        return;
       }}
     }}
-    if(!h || !h.result) return;
-    p.result = h.result;
-    p.resolved_at = new Date().toISOString();
-    p.auto_resolved = true;
-    n++;
+    // ── 3. Fallback : match partiel (substring) ────────────────────────────
+    var keys = Object.keys(matchEntries);
+    for(var i = 0; i < keys.length; i++){{
+      if(market.indexOf(keys[i]) !== -1 || keys[i].indexOf(market) !== -1){{
+        var h2 = matchEntries[keys[i]];
+        if(h2 && h2.result){{
+          p.result = h2.result;
+          p.actual = h2.actual || null;
+          p.resolved_at = new Date().toISOString();
+          p.auto_resolved = true;
+          n++;
+        }}
+        break;
+      }}
+    }}
   }});
   return n;
 }}
