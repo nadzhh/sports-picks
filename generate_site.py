@@ -7383,8 +7383,25 @@ function _bkFindPlayerBox(byPlayer, playerName){{
   if(!byPlayer) return undefined;
   if(byPlayer[playerName]) return byPlayer[playerName];
   var target = _bkNorm(playerName);
+  // 1. Match strict normalise
   for(var k in byPlayer){{
     if(_bkNorm(k) === target) return byPlayer[k];
+  }}
+  // 2. Fuzzy : meme last name + first name 1ere lettre identique
+  // Couvre "AJ Mitchell" <-> "Ajay Mitchell", "L. Doncic" <-> "Luka Doncic", etc.
+  var parts = target.split(/\\s+/).filter(function(x){{ return x; }});
+  if(parts.length >= 2){{
+    var lastName = parts[parts.length - 1];
+    var firstInitial = parts[0].charAt(0);
+    var candidates = [];
+    for(var k2 in byPlayer){{
+      var kp = _bkNorm(k2).split(/\\s+/).filter(function(x){{ return x; }});
+      if(kp.length >= 2 && kp[kp.length - 1] === lastName
+         && kp[0].charAt(0) === firstInitial){{
+        candidates.push(k2);
+      }}
+    }}
+    if(candidates.length === 1) return byPlayer[candidates[0]];
   }}
   return undefined;
 }}
@@ -7986,7 +8003,18 @@ function _bkRowHtml(p){{
   }}
   var badge = '';
   if(!p.result || p.result === 'PENDING'){{
-    badge = '<span class="bk-badge pending"><span class="dot"></span>En cours</span>';
+    // Date-aware : "A venir" si match futur, "En cours" si aujourd'hui,
+    // "En attente" si match passe mais pas encore resolu (cron pas encore tourne)
+    var pendingLabel = 'En cours';
+    if(p.match_date){{
+      var today = new Date();
+      var pad = function(n){{ return n < 10 ? '0' + n : '' + n; }};
+      var todayStr = today.getFullYear() + '-' + pad(today.getMonth()+1) + '-' + pad(today.getDate());
+      var md = String(p.match_date).slice(0, 10);
+      if(md > todayStr)      pendingLabel = '⏳ À venir';
+      else if(md < todayStr) pendingLabel = '⏱ En attente';
+    }}
+    badge = '<span class="bk-badge pending"><span class="dot"></span>' + pendingLabel + '</span>';
   }} else if(p.result === 'WIN'){{
     var tag = p.cashout_amount != null ? ' 💵' : (p.manual_override ? ' ✏' : '');
     badge = '<span class="bk-badge won"><span class="dot"></span>Gagné' + tag + '</span>';
