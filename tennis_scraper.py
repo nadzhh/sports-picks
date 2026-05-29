@@ -236,11 +236,19 @@ def _build_match(odds_match, sport_key):
 
 
 def fetch_all():
-    """Recupere tous les matchs des tournois ATP/WTA actifs."""
+    """Recupere tous les matchs des tournois ATP/WTA actifs.
+
+    Cache valide uniquement si au moins 1 match futur dedans (sinon refetch).
+    """
     cached = _read_cache(CACHE_TENNIS, ODDS_TTL)
     if cached:
-        print(f"  [tennis] cache frais ({CACHE_TENNIS}) : {len(cached.get('matches',[]))} matchs")
-        return cached
+        now_ts = datetime.now(timezone.utc).timestamp()
+        futures = [m for m in cached.get("matches", []) if (m.get("start_ts") or 0) > now_ts]
+        if futures:
+            print(f"  [tennis] cache frais : {len(futures)} matchs futurs (sur {len(cached.get('matches',[]))} total)")
+            return {**cached, "matches": futures, "n_matches": len(futures)}
+        else:
+            print(f"  [tennis] cache stale (tous matchs passes, {len(cached.get('matches',[]))} dans cache) -> refetch")
     sports = get_active_tennis_sports()
     if not sports:
         print("  [tennis] aucun tournoi ATP/WTA actif")

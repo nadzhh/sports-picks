@@ -7420,29 +7420,84 @@ function autoResolveUserPicks(){{
   }});
   // actualMap : exact (gid|player|prop)
   var actualMap = {{}};
+  // dnpMap : (gid|player) -> true si le joueur n'a pas joue (DNP / blesse / etc.)
+  // L'algo marque DNP quand un de ses picks est sur un joueur qui n'a pas joue.
+  var dnpMap = {{}};
   hist.forEach(function(h){{
-    if(h.actual === null || h.actual === undefined) return;
     var gid = _bkNorm(h.game_id);
     var pl  = _bkNorm(h.player);
+    if(h.result === 'DNP'){{
+      dnpMap[gid + '|' + pl] = true;
+      return;
+    }}
+    if(h.actual === null || h.actual === undefined) return;
     var pr  = _bkNorm(h.prop);
     var key = gid + '|' + pl + '|' + pr;
     if(actualMap[key] === undefined) actualMap[key] = h.actual;
   }});
   var boxByGid = {{}};
   Object.keys(boxScores).forEach(function(gid){{ boxByGid[_bkNorm(gid)] = boxScores[gid] || {{}}; }});
-  // Helper : tente de retrouver l'actual via gid exact (history) puis box score
+  // Helper : check si un joueur est DNP pour ce game (exact ou via fuzzy date)
+  function _isDnp(p){{
+    var gid = _bkNorm(p.game_id);
+    var pl  = _bkNorm(p.player);
+    if(dnpMap[gid + '|' + pl]) return true;
+    // Fuzzy : si une autre entry history meme date+joueur dit DNP -> applique
+    if(p.match_date){{
+      var targetDate = String(p.match_date).slice(0, 10);
+      for(var k in dnpMap){{
+        var parts = k.split('|');
+        var dnpGid = parts[0], dnpPl = parts[1];
+        if(dnpPl !== pl) continue;
+        var d = dateByGid[dnpGid];
+        if(d && d.slice(0,10) === targetDate) return true;
+      }}
+    }}
+    return false;
+  }}
+  // Helper : tente de retrouver l'actual via gid exact (history) puis box score.
+  // 3 strategies en cascade :
+  //   1. actualMap[gid|player|prop] : algo a deja resolu ce prop sur ce game
+  //   2. boxScores[gid] + computeProp : on a la box du game, on calcule le prop
+  //   3. Fallback fuzzy : si match_date connu, on cherche dans TOUS les games de
+  //      cette date un player matching. Si EXACTEMENT UN game contient ce
+  //      joueur ce jour-la -> on resout via cette box. Couvre le cas ou
+  //      l'user a ajoute le pick avec un game_id different (ex: ancien
+  //      game_id du jour avant que la box du jour soit dispo).
   function _lookupActual(p){{
     var gid = _bkNorm(p.game_id);
     var pl  = _bkNorm(p.player);
     var pr  = _bkNorm(p.prop);
+    // Strategie 1 : exact match dans nba_history
     var key = gid + '|' + pl + '|' + pr;
     var a = actualMap[key];
     if(a !== undefined) return a;
+    // Strategie 2 : exact game_id + lookup box score
     var byPlayer = boxByGid[gid];
     var box = _bkFindPlayerBox(byPlayer, p.player);
     if(box){{
       var v = _bkComputePropFromBox(box, p.prop);
       if(v !== undefined) return v;
+    }}
+    // Strategie 3 : fuzzy date+player (game_id mismatch, mais on a une box
+    // pour ce joueur a la bonne date). Safe : on n'accepte que si UN SEUL
+    // game ce jour-la contient ce joueur (sinon ambiguite).
+    if(p.match_date && p.player){{
+      var targetDate = String(p.match_date).slice(0, 10);
+      var candidates = [];
+      Object.keys(boxByGid).forEach(function(g){{
+        var gameDate = dateByGid[g];
+        if(!gameDate || gameDate.slice(0, 10) !== targetDate) return;
+        var b = _bkFindPlayerBox(boxByGid[g], p.player);
+        if(b) candidates.push({{ gid: g, box: b }});
+      }});
+      if(candidates.length === 1){{
+        var v2 = _bkComputePropFromBox(candidates[0].box, p.prop);
+        if(v2 !== undefined){{
+          if(window._bkDebug) console.log('[bk] fuzzy resolve : pick gid=' + p.game_id + ' resolu via gid=' + candidates[0].gid + ' (date+player match)');
+          return v2;
+        }}
+      }}
     }}
     return undefined;
   }}
@@ -7473,6 +7528,16 @@ function autoResolveUserPicks(){{
   arr.forEach(function(p){{
     if(p.result && p.result !== 'PENDING') return;
     if(p.manual_override) return;
+    // PUSH auto si joueur DNP (= n'a pas joue, blesse, etc.) -> rembourse
+    if(_isDnp(p)){{
+      p.result = 'PUSH';
+      p.actual = 'DNP';
+      p.resolved_at = new Date().toISOString();
+      p.auto_resolved = true;
+      p.dnp = true;
+      nResolved++;
+      return;
+    }}
     // Backfill match_date depuis history si manquant
     if(!p.match_date){{
       var d = dateByGid[_bkNorm(p.game_id)];
