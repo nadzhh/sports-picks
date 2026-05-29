@@ -116,11 +116,22 @@ def _parse_event(ev):
     }
 
 
-# Mode headless : sur Linux on utilise 'virtual' (Xvfb), recommande par la doc
-# Camoufox pour reduire la detection en CI (https://camoufox.com/python/virtual-display/).
-# Sur Windows/Mac on garde True (le mode virtual n'est dispo que sur Linux).
+# Mode headless :
+# - Linux avec DISPLAY env defini (= Xvfb deja lance par le workflow ou
+#   environnement desktop) : headless=False -> Camoufox utilise le vrai display,
+#   beaucoup moins detectable par Cloudflare que --headless.
+# - Linux sans DISPLAY : headless='virtual' (Camoufox cense spawn Xvfb, mais
+#   en pratique buggy sur ubuntu-latest, doc Camoufox issue #458).
+# - Windows/Mac : headless=True (mode 'virtual' Linux-only).
+import os as _os
 import sys as _sys
-_HEADLESS_MODE = "virtual" if _sys.platform.startswith("linux") else True
+if _sys.platform.startswith("linux"):
+    if _os.environ.get("DISPLAY"):
+        _HEADLESS_MODE = False  # Utilise le display Xvfb externe
+    else:
+        _HEADLESS_MODE = "virtual"  # Fallback : tente le mode auto-Xvfb
+else:
+    _HEADLESS_MODE = True
 
 
 async def _fetch_async(date_str, timeout_s=30):

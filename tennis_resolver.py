@@ -446,8 +446,13 @@ def main():
         import camoufox  # noqa
         try:
             from camoufox.async_api import AsyncCamoufox
-            import asyncio as _asyncio, sys as _sys2
-            _hl = "virtual" if _sys2.platform.startswith("linux") else True
+            import asyncio as _asyncio, sys as _sys2, os as _os2
+            # Mirror la logique de tennis_browser : si DISPLAY est set on
+            # utilise headless=False (vrai display Xvfb externe).
+            if _sys2.platform.startswith("linux"):
+                _hl = False if _os2.environ.get("DISPLAY") else "virtual"
+            else:
+                _hl = True
             async def _smoke():
                 async with AsyncCamoufox(headless=_hl) as br:
                     p = await br.new_page()
