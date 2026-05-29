@@ -15,6 +15,9 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 35
 
+    env:
+      DISPLAY: ":99"
+
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
@@ -32,26 +35,81 @@ jobs:
           git config --global user.name  "sport-picks-bot"
           git config --global user.email "actions@github.com"
 
-      - name: Install dependencies
+      - name: Install system deps (Xvfb + Firefox libs)
+        run: |
+          sudo apt-get update -qq
+          # Xvfb pour le display virtuel + utilitaires de test
+          sudo apt-get install -y -qq xvfb x11-utils || echo "[!] xvfb install KO"
+          # Libs Firefox - on tente les 2 noms (Noble 24.04 vs Jammy 22.04)
+          sudo apt-get install -y -qq \
+            libgtk-3-0 libdbus-glib-1-2 libgbm1 libxss1 libxtst6 \
+            libnss3 libxrandr2 libpangocairo-1.0-0 libatk1.0-0 \
+            libcups2 libxcomposite1 libxdamage1 libxshmfence1 \
+            libasound2t64 2>/dev/null || \
+          sudo apt-get install -y -qq \
+            libgtk-3-0 libdbus-glib-1-2 libgbm1 libxss1 libxtst6 \
+            libnss3 libxrandr2 libpangocairo-1.0-0 libatk1.0-0 \
+            libcups2 libxcomposite1 libxdamage1 libxshmfence1 \
+            libasound2 || echo "[!] apt-get install partial KO"
+
+      - name: Install Python deps
         run: |
           if [ -f requirements.txt ]; then
             python -m pip install --upgrade pip
             pip install -r requirements.txt
-          else
-            echo "Pas de requirements.txt - stdlib seulement"
           fi
 
-      - name: Install Camoufox browser + Xvfb
+      - name: Install Camoufox browser binary
         run: |
-          # Xvfb pour le mode headless='virtual' de Camoufox (plus furtif que --headless)
-          sudo apt-get update -qq
-          sudo apt-get install -y xvfb libgtk-3-0 libdbus-glib-1-2 libgbm1 libxss1 libxtst6 libasound2t64 || \
-          sudo apt-get install -y xvfb libgtk-3-0 libdbus-glib-1-2 libgbm1 libxss1 libxtst6 libasound2 || \
-          echo "[!] apt-get install partial KO"
-          # Telecharge le binaire Firefox stealth
           python -m camoufox fetch || echo "[!] camoufox fetch KO"
-          # Installe les libs systeme Firefox (libgbm, libgtk, libnss, ...)
+          # En plus : Playwright install-deps pour completer les libs systeme
           sudo python -m playwright install-deps firefox || echo "[!] playwright install-deps KO"
+
+      - name: Start Xvfb + verify display
+        run: |
+          # Tue tout Xvfb residuel
+          pkill -f "Xvfb :99" 2>/dev/null || true
+          sleep 0.5
+          # Lance Xvfb sur :99 avec config OpenGL pour Firefox
+          Xvfb :99 -screen 0 1920x1080x24 -ac +extension GLX +render -noreset > /tmp/xvfb.log 2>&1 &
+          XVFB_PID=$!
+          echo "Xvfb PID=$XVFB_PID"
+          # Attend que le display soit pret (max 5s)
+          for i in 1 2 3 4 5 6 7 8 9 10; do
+            if xdpyinfo -display :99 > /dev/null 2>&1; then
+              echo "✓ Xvfb pret sur :99 (apres ${i}x 500ms)"
+              break
+            fi
+            sleep 0.5
+          done
+          # Verif finale : si Xvfb pas pret, log + abort
+          if ! xdpyinfo -display :99 > /dev/null 2>&1; then
+            echo "[X] Xvfb pas pret apres 5s. Log :"
+            cat /tmp/xvfb.log || true
+            exit 1
+          fi
+          # DISPLAY=:99 deja exporte globalement via env: en haut du job
+
+      - name: Smoke test Camoufox launch (fail fast)
+        run: |
+          python - <<'PY'
+          import asyncio, sys
+          try:
+              from camoufox.async_api import AsyncCamoufox
+          except Exception as e:
+              print(f"[X] camoufox import : {e}")
+              sys.exit(0)  # Non-bloquant : on continue avec fallback Odds API
+          async def smoke():
+              async with AsyncCamoufox(headless=False) as br:
+                  page = await br.new_page()
+                  await page.goto("about:blank", timeout=15000)
+                  print(f"✓ Camoufox launch OK : {await page.evaluate('navigator.userAgent')[:60]}...")
+          try:
+              asyncio.run(asyncio.wait_for(smoke(), timeout=25))
+          except Exception as e:
+              print(f"[X] Camoufox smoke fail : {type(e).__name__}: {e}")
+              # Non-bloquant : pipeline continue, tennis_resolver fallback Odds API
+          PY
 
       - name: Pipeline complet
         env:
@@ -81,6 +139,11 @@ jobs:
           python analyze_picks.py         || echo "[!] analyze_picks KO"
           python notify.py                || echo "[!] notify KO"
           echo "Pipeline termine"
+
+      - name: Stop Xvfb
+        if: always()
+        run: |
+          pkill -f "Xvfb :99" 2>/dev/null || true
 
       - name: Commit master + push gh-pages
         shell: bash
