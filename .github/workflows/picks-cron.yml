@@ -41,12 +41,16 @@ jobs:
             echo "Pas de requirements.txt - stdlib seulement"
           fi
 
-      - name: Install Camoufox browser
+      - name: Install Camoufox browser + Xvfb
         run: |
+          # Xvfb pour le mode headless='virtual' de Camoufox (plus furtif que --headless)
+          sudo apt-get update -qq
+          sudo apt-get install -y xvfb libgtk-3-0 libdbus-glib-1-2 libgbm1 libxss1 libxtst6 libasound2t64 || \
+          sudo apt-get install -y xvfb libgtk-3-0 libdbus-glib-1-2 libgbm1 libxss1 libxtst6 libasound2 || \
+          echo "[!] apt-get install partial KO"
           # Telecharge le binaire Firefox stealth
           python -m camoufox fetch || echo "[!] camoufox fetch KO"
           # Installe les libs systeme Firefox (libgbm, libgtk, libnss, ...)
-          # via playwright (sait quoi installer pour Firefox sur Ubuntu).
           sudo python -m playwright install-deps firefox || echo "[!] playwright install-deps KO"
 
       - name: Pipeline complet
@@ -98,14 +102,12 @@ jobs:
           for i in 1 2 3 4 5; do
             echo "--- Tentative $i ---"
             git fetch origin master
-            # Pull rebase pour rattraper si origin/master a avance
             git pull --rebase --autostash origin master
             REBASE_RC=$?
             if [ $REBASE_RC -ne 0 ]; then
               echo "Rebase failed ($REBASE_RC), abort + reset"
               git rebase --abort 2>/dev/null
               git reset --hard origin/master
-              # Re-stage les fichiers
               git add -f data/*.json index.html 2>/dev/null
               git commit -m "Auto-update picks $(date -u +'%Y-%m-%d %H:%M UTC')" || true
             fi
