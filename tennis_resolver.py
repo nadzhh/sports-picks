@@ -25,6 +25,7 @@ except Exception:
     ODDS_API_BASE = "https://api.the-odds-api.com/v4"
 
 import tennis_scraper  # pour get_active_tennis_sports + _try_keys
+import tennis_espn      # source primaire : ESPN public API, pas de Cloudflare
 try:
     import tennis_browser
     BROWSER_AVAILABLE = True
@@ -117,64 +118,98 @@ def _norm_name(s):
     return s.strip().lower()
 
 
-_SOFA_DIAG = {"by_date": {}, "errors": []}
+_SOFA_DIAG = {"by_date": {}, "errors": [], "source": "espn"}
 
 
-def _fetch_sofascore_dates(dates):
-    """Fetch Sofascore events pour une liste de dates (YYYY-MM-DD).
+def _fetch_espn_dates(dates):
+    """Fetch ESPN tennis events pour une liste de dates.
 
-    Retourne {date_str: [event_slim, ...]}.
+    Renvoie {date_str: [event_slim, ...]}.
+    Plus rapide et plus fiable que Sofascore (pas de Cloudflare, direct HTTP).
     """
+    out = {}
+    for d in dates:
+        try:
+            evs = tennis_espn.fetch_events_for_date(d)
+            singles = [e for e in (evs or []) if not e.get("is_doubles")]
+            out[d] = singles
+            _SOFA_DIAG["by_date"][d] = len(singles)
+        except Exception as e:
+            err = f"espn_err[{d}] : {type(e).__name__} {e}"
+            print(f"  [tennis_resolver {err}]")
+            _SOFA_DIAG["errors"].append(err)
+            out[d] = []
+            _SOFA_DIAG["by_date"][d] = -1
+    return out
+
+
+# Conserve l'ancienne fonction (utilisable comme fallback Camoufox/Sofascore si besoin)
+def _fetch_sofascore_dates(dates):
     if not BROWSER_AVAILABLE:
-        _SOFA_DIAG["errors"].append("BROWSER_AVAILABLE=False")
         return {}
     out = {}
     for d in dates:
         try:
             evs = tennis_browser.fetch_sofascore_events_sync(d)
             out[d] = evs or []
-            _SOFA_DIAG["by_date"][d] = len(evs or [])
-        except Exception as e:
-            err = f"sofascore_err[{d}] : {type(e).__name__} {e}"
-            print(f"  [tennis_resolver {err}]")
-            _SOFA_DIAG["errors"].append(err)
+        except Exception:
             out[d] = []
-            _SOFA_DIAG["by_date"][d] = -1  # marqueur erreur
     return out
 
 
-def _build_sofascore_index(by_date):
-    """Indexe les events par (date, pair_normalisee_de_noms) pour matching rapide.
+def _name_words(s):
+    """Renvoie frozenset des mots normalises d'un nom (ignore l'ordre)."""
+    n = _norm_name(s)
+    return frozenset(w for w in n.split() if w)
 
-    Renvoie dict { (date, frozenset({norm_home, norm_away})) : event_slim }.
+
+def _build_sofascore_index(by_date):
+    """Indexe events par (date, set_de_mots_des_2_noms).
+
+    Renvoie 2 dicts :
+    - exact : { (date, frozenset({norm_home, norm_away})) : event } pour match strict
+    - words : { (date, frozenset({mot1, mot2, ...})) : event } pour match tolerant
+              a l'ordre nom-prenom (ex: "Wang Xiyu" vs "Xiyu Wang")
     """
-    index = {}
+    exact = {}
+    words = {}
     for d, events in (by_date or {}).items():
         for ev in events:
             h = _norm_name(ev.get("home"))
             a = _norm_name(ev.get("away"))
             if not h or not a: continue
-            key = (d, frozenset({h, a}))
-            # Si plusieurs events sur la meme paire le meme jour (peu probable),
-            # on garde le completed en priorite
-            existing = index.get(key)
-            if not existing or (ev.get("completed") and not existing.get("completed")):
-                index[key] = ev
-    return index
+            key_exact = (d, frozenset({h, a}))
+            if not exact.get(key_exact):
+                exact[key_exact] = ev
+            # Mots combines des 2 joueurs (capture ordre inverse)
+            combined = _name_words(ev.get("home")) | _name_words(ev.get("away"))
+            if len(combined) >= 2:
+                key_w = (d, combined)
+                if not words.get(key_w):
+                    words[key_w] = ev
+    return {"exact": exact, "words": words}
 
 
 def _lookup_sofascore(index, date_str, home_name, away_name):
-    """Cherche l'event Sofascore correspondant a (date, home, away)."""
+    """Cherche l'event correspondant a (date, home, away). Tolerant a :
+    - decalages timezone (J-1, J, J+1)
+    - inversion ordre nom/prenom (matching par set de mots)
+    """
     if not date_str or not home_name or not away_name: return None
     pair = frozenset({_norm_name(home_name), _norm_name(away_name)})
-    # Essai date exacte d'abord, puis +/- 1 jour (decalages timezone)
+    combined = _name_words(home_name) | _name_words(away_name)
     try:
         d0 = datetime.strptime(date_str, "%Y-%m-%d").date()
     except Exception:
-        return index.get((date_str, pair))
+        return index["exact"].get((date_str, pair)) or index["words"].get((date_str, combined))
     for delta in (0, -1, 1):
         d = (d0 + timedelta(days=delta)).strftime("%Y-%m-%d")
-        ev = index.get((d, pair))
+        ev = index["exact"].get((d, pair))
+        if ev: return ev
+    # Fallback : match par mots (couvre inversion nom/prenom)
+    for delta in (0, -1, 1):
+        d = (d0 + timedelta(days=delta)).strftime("%Y-%m-%d")
+        ev = index["words"].get((d, combined))
         if ev: return ev
     return None
 
@@ -243,10 +278,15 @@ def fetch_all():
     for m in algo_matches:
         d = (m.get("start_iso") or "")[:10]
         if d: dates_to_fetch.add(d)
-    print(f"  [tennis_resolver] dates a fetch via Sofascore : {sorted(dates_to_fetch)}")
-    by_date = _fetch_sofascore_dates(sorted(dates_to_fetch))
+    print(f"  [tennis_resolver] dates a fetch via ESPN : {sorted(dates_to_fetch)}")
+    by_date = _fetch_espn_dates(sorted(dates_to_fetch))
+    # Fallback Sofascore via Camoufox si ESPN renvoie 0 events (peu probable)
+    if all(len(v) == 0 for v in by_date.values()) and BROWSER_AVAILABLE:
+        print(f"  [tennis_resolver] ESPN vide -> fallback Sofascore via Camoufox")
+        by_date = _fetch_sofascore_dates(sorted(dates_to_fetch))
+        _SOFA_DIAG["source"] = "sofascore_fallback"
     sofa_index = _build_sofascore_index(by_date)
-    print(f"  [tennis_resolver] Sofascore : {sum(len(v) for v in by_date.values())} events indexes")
+    print(f"  [tennis_resolver] {_SOFA_DIAG['source']} : {sum(len(v) for v in by_date.values())} events indexes")
     # 3. Pour chaque algo match, lookup Sofascore par (date, paire de noms)
     out = {}
     matched = 0
@@ -294,7 +334,7 @@ def fetch_all():
         }
         matched += 1
     _SOFA_DIAG["algo_picks_matched"] = matched
-    print(f"  [tennis_resolver] {matched}/{len(algo_matches)} algo picks resolus via Sofascore")
+    print(f"  [tennis_resolver] {matched}/{len(algo_matches)} algo picks resolus via {_SOFA_DIAG['source']}")
     # 4. Fallback Odds API pour les events restants (pas matches via Sofascore)
     try:
         fallback = _fetch_odds_api_fallback()
