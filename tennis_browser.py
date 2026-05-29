@@ -116,15 +116,22 @@ def _parse_event(ev):
     }
 
 
+# Mode headless : sur Linux on utilise 'virtual' (Xvfb), recommande par la doc
+# Camoufox pour reduire la detection en CI (https://camoufox.com/python/virtual-display/).
+# Sur Windows/Mac on garde True (le mode virtual n'est dispo que sur Linux).
+import sys as _sys
+_HEADLESS_MODE = "virtual" if _sys.platform.startswith("linux") else True
+
+
 async def _fetch_async(date_str, timeout_s=30):
     """Fetch via Camoufox : load Sofascore tennis page + intercept XHR scheduled-events."""
     if not CAMOUFOX_AVAILABLE:
         print("  [tennis_browser] camoufox non installe - skip (utilise pip install camoufox)")
         return None
-    print(f"  [tennis_browser] launching Camoufox for {date_str}...")
+    print(f"  [tennis_browser] launching Camoufox for {date_str} (headless={_HEADLESS_MODE!r})...")
     captured = []
     try:
-        async with AsyncCamoufox(headless=True) as browser:
+        async with AsyncCamoufox(headless=_HEADLESS_MODE) as browser:
             try:
                 page = await browser.new_page()
             except Exception as e:

@@ -439,20 +439,20 @@ DIAG_PATH = DATA / "tennis_resolver_diag.json"
 
 def main():
     print(f"Tennis resolver -> {datetime.now().strftime('%Y-%m-%d %H:%M')}")
-    # Test camoufox launch directement
+    # Test camoufox launch directement (avec le meme mode headless qu'en prod)
     camoufox_launch_ok = False
     camoufox_launch_err = None
     try:
         import camoufox  # noqa
-        # Tente un launch de test : si Firefox lib manque, on aura l'erreur ici
         try:
             from camoufox.async_api import AsyncCamoufox
-            import asyncio as _asyncio
+            import asyncio as _asyncio, sys as _sys2
+            _hl = "virtual" if _sys2.platform.startswith("linux") else True
             async def _smoke():
-                async with AsyncCamoufox(headless=True) as br:
+                async with AsyncCamoufox(headless=_hl) as br:
                     p = await br.new_page()
                     return True
-            camoufox_launch_ok = _asyncio.run(_asyncio.wait_for(_smoke(), timeout=20))
+            camoufox_launch_ok = _asyncio.run(_asyncio.wait_for(_smoke(), timeout=30))
         except Exception as e:
             camoufox_launch_err = f"{type(e).__name__}: {e}"
     except Exception as e:
