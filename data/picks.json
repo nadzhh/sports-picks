@@ -56,38 +56,38 @@
         "is_fun": false
       },
       {
-        "direction": "tirs_(paris_saint-germain)_under_13.5",
-        "type": "Tirs (Paris Saint-Germain)",
-        "label": "Moins de 13.5 tirs Paris Saint-Germain",
-        "cote": null,
-        "cote_min": 1.26,
-        "value": [
-          "⚠️",
-          "Value serrée",
-          "#f59e0b"
-        ],
-        "confidence": 80,
-        "edge": null,
-        "reasoning": "Paris Saint-Germain prend 16.0/m [pondere vs opp #1] · adv. concède 8.6/m → attendu ~10.8 (Arsenal favori (#1 vs #11))",
-        "stats": {
-          "expected": 10.8
-        }
-      },
-      {
-        "direction": "shots_over_24.5",
+        "direction": "shots_under_29.5",
         "type": "Tirs (total match)",
-        "label": "Plus de 24.5 tirs total",
+        "label": "Moins de 29.5 tirs total",
         "cote": null,
-        "cote_min": 1.39,
+        "cote_min": 1.3,
         "value": [
           "💎",
           "Value correcte",
           "#84cc16"
         ],
-        "confidence": 72,
-        "reasoning": "📊 Brut : Paris Saint-Germain L10 TCC 15.9 (L5 TCC 16.2) tirs/m · Arsenal L10 TCC 14.0 (L5 TCC 15.2) tirs/m\n🛡️ Défenses : Paris Saint-Germain concède 13.1/m · Arsenal concède 8.6/m\n🎯 Attendu : Paris Saint-Germain ~10.8 · Arsenal ~16.8 → total ~27.7\n⚖️ Arsenal favori (#1 vs #11) · Paris Saint-Germain forme : L-W-W-D-D · Arsenal forme : W-W-W-W-W",
+        "confidence": 77,
+        "reasoning": "📊 Brut : Paris Saint-Germain L10 TCC 15.9 (L5 TCC 16.2) tirs/m · Arsenal L10 TCC 14.0 (L5 TCC 15.2) tirs/m\n🛡️ Défenses : Paris Saint-Germain concède 10.3/m · Arsenal concède 8.6/m\n🎯 Attendu : Paris Saint-Germain ~10.6 · Arsenal ~15.3 → total ~25.9\n⚖️ Arsenal favori (#1 vs #11) · Paris Saint-Germain forme : L-W-W-D-D · Arsenal forme : W-W-W-W-W",
         "stats": {
-          "expected_total": 27.7
+          "expected_total": 25.9
+        }
+      },
+      {
+        "direction": "tirs_(arsenal)_over_12.5",
+        "type": "Tirs (Arsenal)",
+        "label": "Plus de 12.5 tirs Arsenal",
+        "cote": null,
+        "cote_min": 1.33,
+        "value": [
+          "💎",
+          "Value correcte",
+          "#84cc16"
+        ],
+        "confidence": 75,
+        "edge": null,
+        "reasoning": "Arsenal prend 17.0/m [pondere vs opp #11] · adv. concède 10.3/m → attendu ~15.3 (Arsenal favori (#1 vs #11))",
+        "stats": {
+          "expected": 15.3
         }
       }
     ],
