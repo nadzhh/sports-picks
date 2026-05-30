@@ -48,46 +48,46 @@
         "type": "Over 2.5 buts",
         "label": "Plus de 2.5 buts",
         "cote": 2.15,
-        "confidence": 62,
-        "reasoning": "Paris Saint-Germain: 3.1 buts/L10 · défense Arsenal concède 0.4/L10 → ~1.8 attendus · Arsenal: 2.0 buts/L10 · défense Paris Saint-Germain concède 1.8/L10 → ~1.9 attendus · Total: ~3.7 buts (P=71.5% · contexte LDC (domicile/extérieur))",
+        "confidence": 59,
+        "reasoning": "Paris Saint-Germain: 2.9 buts/L10 · défense Arsenal concède 0.5/L10 → ~1.7 attendus · Arsenal: 1.9 buts/L10 · défense Paris Saint-Germain concède 1.7/L10 → ~1.8 attendus · Total: ~3.5 buts (P=67.9% · contexte LDC (domicile/extérieur))",
         "stats": {
           "form": []
         },
         "is_fun": false
       },
       {
-        "direction": "tirs_(arsenal)_over_13.5",
-        "type": "Tirs (Arsenal)",
-        "label": "Plus de 13.5 tirs Arsenal",
+        "direction": "tirs_cadrés_(paris_saint-germain)_under_4.5",
+        "type": "Tirs cadrés (Paris Saint-Germain)",
+        "label": "Moins de 4.5 tirs cadrés Paris Saint-Germain",
         "cote": null,
-        "cote_min": 1.27,
+        "cote_min": 1.36,
         "value": [
-          "⚠️",
-          "Value serrée",
-          "#f59e0b"
+          "💎",
+          "Value correcte",
+          "#84cc16"
         ],
-        "confidence": 79,
+        "confidence": 74,
         "edge": null,
-        "reasoning": "Arsenal prend 17.0/m [pondere vs opp #11] · adv. concède 13.1/m → attendu ~16.8 (Arsenal favori (#1 vs #11))",
+        "reasoning": "Paris Saint-Germain prend 5.5/m [pondere vs opp #1] · adv. concède 2.0/m → attendu ~3.4 (Arsenal favori (#1 vs #11))",
         "stats": {
-          "expected": 16.8
+          "expected": 3.4
         }
       },
       {
-        "direction": "shots_over_24.5",
+        "direction": "shots_under_29.5",
         "type": "Tirs (total match)",
-        "label": "Plus de 24.5 tirs total",
+        "label": "Moins de 29.5 tirs total",
         "cote": null,
-        "cote_min": 1.41,
+        "cote_min": 1.4,
         "value": [
           "💎",
           "Value correcte",
           "#84cc16"
         ],
         "confidence": 71,
-        "reasoning": "📊 Brut : Paris Saint-Germain L10 TCC 15.9 (L5 TCC 16.2) tirs/m · Arsenal L10 TCC 14.0 (L5 TCC 15.2) tirs/m\n🛡️ Défenses : Paris Saint-Germain concède 13.1/m · Arsenal concède 8.6/m\n🎯 Attendu : Paris Saint-Germain ~10.7 · Arsenal ~16.8 → total ~27.5\n⚖️ Arsenal favori (#1 vs #11) · Paris Saint-Germain forme : L-W-W-D-D · Arsenal forme : W-W-W-W-W",
+        "reasoning": "📊 Brut : Paris Saint-Germain L10 TCC 16.3 (L5 TCC 16.2) tirs/m · Arsenal L10 TCC 14.0 (L5 TCC 15.2) tirs/m\n🛡️ Défenses : Paris Saint-Germain concède 13.1/m · Arsenal concède 8.6/m\n🎯 Attendu : Paris Saint-Germain ~10.7 · Arsenal ~16.0 → total ~26.7\n⚖️ Arsenal favori (#1 vs #11) · Paris Saint-Germain forme : L-W-W-D-D · Arsenal forme : W-W-W-W-W",
         "stats": {
-          "expected_total": 27.5
+          "expected_total": 26.7
         }
       }
     ],
