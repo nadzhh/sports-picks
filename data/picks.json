@@ -56,9 +56,27 @@
         "is_fun": false
       },
       {
-        "direction": "tirs_(arsenal)_under_16.5",
+        "direction": "tirs_(arsenal)_over_12.5",
         "type": "Tirs (Arsenal)",
-        "label": "Moins de 16.5 tirs Arsenal",
+        "label": "Plus de 12.5 tirs Arsenal",
+        "cote": null,
+        "cote_min": 1.25,
+        "value": [
+          "⚠️",
+          "Value serrée",
+          "#f59e0b"
+        ],
+        "confidence": 80,
+        "edge": null,
+        "reasoning": "Arsenal prend 15.5/m [pondere vs opp #11] · adv. concède 12.8/m → attendu ~15.8 (Arsenal favori (#1 vs #11))",
+        "stats": {
+          "expected": 15.8
+        }
+      },
+      {
+        "direction": "sot_under_10.5",
+        "type": "Tirs cadrés (total)",
+        "label": "Moins de 10.5 tirs cadrés total",
         "cote": null,
         "cote_min": 1.32,
         "value": [
@@ -67,27 +85,9 @@
           "#84cc16"
         ],
         "confidence": 76,
-        "edge": null,
-        "reasoning": "Arsenal prend 15.5/m [pondere vs opp #11] · adv. concède 9.5/m → attendu ~14.0 (Arsenal favori (#1 vs #11))",
+        "reasoning": "📊 Brut : Paris Saint-Germain L10 TCC 5.5 (L5 TCC 4.4) tirs cadrés/m · Arsenal L10 TCC 3.8 (L5 TCC 3.4) tirs cadrés/m\n🛡️ Défenses : Paris Saint-Germain concède 5.3/m · Arsenal concède 2.4/m\n🎯 Attendu : Paris Saint-Germain ~3.5 · Arsenal ~5.1 → total ~8.6\n⚖️ Arsenal favori (#1 vs #11) · Paris Saint-Germain forme : L-W-W-D-D · Arsenal forme : W-W-W-W-W",
         "stats": {
-          "expected": 14.0
-        }
-      },
-      {
-        "direction": "shots_under_28.5",
-        "type": "Tirs (total match)",
-        "label": "Moins de 28.5 tirs total",
-        "cote": null,
-        "cote_min": 1.34,
-        "value": [
-          "💎",
-          "Value correcte",
-          "#84cc16"
-        ],
-        "confidence": 75,
-        "reasoning": "📊 Brut : Paris Saint-Germain L10 TCC 17.3 (L5 TCC 15.6) tirs/m · Arsenal L10 TCC 13.1 (L5 TCC 13.0) tirs/m\n🛡️ Défenses : Paris Saint-Germain concède 9.5/m · Arsenal concède 10.6/m\n🎯 Attendu : Paris Saint-Germain ~11.3 · Arsenal ~14.0 → total ~25.3\n⚖️ Arsenal favori (#1 vs #11) · Paris Saint-Germain forme : L-W-W-D-D · Arsenal forme : W-W-W-W-W",
-        "stats": {
-          "expected_total": 25.3
+          "expected_total": 8.6
         }
       }
     ],
