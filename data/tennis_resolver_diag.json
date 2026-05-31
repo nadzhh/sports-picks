@@ -1,9 +1,9 @@
 {
-  "started_at": "2026-05-31T21:04:26.132632+00:00",
+  "started_at": "2026-05-31T21:14:25.923073+00:00",
   "browser_available": true,
   "camoufox_installed": true,
-  "camoufox_launch_ok": true,
-  "camoufox_launch_err": null,
+  "camoufox_launch_ok": false,
+  "camoufox_launch_err": "Error: BrowserType.launch: Failed to launch the browser process.\nBrowser logs:\n\n<launching> /home/runner/.cache/camoufox/camoufox-bin -no-remote -wait-for-browser -foreground -profile /tmp/playwright_firefoxdev_profile-HRJnSg -juggler-pipe -silent\n<launched> pid=2763\n[pid=2763][err] Error: cannot open display: :99\n[pid=2763] <process did exit: exitCode=1, signal=null>\n[pid=2763] starting temporary directories cleanup\nCall log:\n  - <launching> /home/runner/.cache/camoufox/camoufox-bin -no-remote -wait-for-browser -foreground -profile /tmp/playwright_firefoxdev_profile-HRJnSg -juggler-pipe -silent\n  - <launched> pid=2763\n  - [pid=2763][err] Error: cannot open display: :99\n  - [pid=2763] <process did exit: exitCode=1, signal=null>\n  - [pid=2763] starting temporary directories cleanup\n  - [pid=2763] <gracefully close start>\n  - [pid=2763] <kill>\n  - [pid=2763] <skipped force kill spawnedProcess.killed=false processClosed=true>\n  - [pid=2763] finished temporary directories cleanup\n  - [pid=2763] <gracefully close end>\n",
   "sofascore_events_by_date": {},
   "algo_picks_total": 0,
   "algo_picks_matched": 0,
@@ -11,5 +11,5 @@
   "history_added": 0,
   "errors": [],
   "algo_matches_total": 0,
-  "finished_at": "2026-05-31T21:04:26.134372+00:00"
+  "finished_at": "2026-05-31T21:14:25.925088+00:00"
 }
