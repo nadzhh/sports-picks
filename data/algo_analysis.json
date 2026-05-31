@@ -1,7 +1,19 @@
 {
-  "generated_at": "2026-05-31T02:44:29.458813",
-  "n_total": 410,
+  "generated_at": "2026-05-31T02:54:16.725663",
+  "n_total": 419,
   "globals": {
+    "nba": {
+      "n": 106,
+      "w": 59,
+      "l": 47,
+      "push": 0,
+      "wr": 55.7,
+      "roi": 3.3,
+      "profit": 3.52,
+      "avg_cote": 1.9,
+      "break_even_wr": 52.6,
+      "wr_vs_be": 3.1
+    },
     "foot": {
       "n": 215,
       "w": 129,
@@ -13,18 +25,6 @@
       "avg_cote": 2.3,
       "break_even_wr": 43.5,
       "wr_vs_be": 16.5
-    },
-    "nba": {
-      "n": 97,
-      "w": 54,
-      "l": 43,
-      "push": 0,
-      "wr": 55.7,
-      "roi": 3.6,
-      "profit": 3.52,
-      "avg_cote": 1.9,
-      "break_even_wr": 52.6,
-      "wr_vs_be": 3.1
     },
     "tennis": {
       "n": 98,
@@ -40,6 +40,78 @@
     }
   },
   "calibration": {
+    "nba": {
+      "50-59": {
+        "n": 2,
+        "w": 1,
+        "l": 1,
+        "push": 0,
+        "wr": 50.0,
+        "roi": 3.5,
+        "profit": 0.07,
+        "avg_cote": 2.07,
+        "break_even_wr": 48.3,
+        "wr_vs_be": 1.7,
+        "expected_wr": 54.5,
+        "calibration_gap": -4.5
+      },
+      "60-69": {
+        "n": 37,
+        "w": 19,
+        "l": 18,
+        "push": 0,
+        "wr": 51.4,
+        "roi": -0.5,
+        "profit": -0.2,
+        "avg_cote": 2.04,
+        "break_even_wr": 49.0,
+        "wr_vs_be": 2.4,
+        "expected_wr": 64.5,
+        "calibration_gap": -13.1
+      },
+      "70-79": {
+        "n": 45,
+        "w": 26,
+        "l": 19,
+        "push": 0,
+        "wr": 57.8,
+        "roi": 6.0,
+        "profit": 2.68,
+        "avg_cote": 1.89,
+        "break_even_wr": 53.0,
+        "wr_vs_be": 4.7,
+        "expected_wr": 74.5,
+        "calibration_gap": -16.7
+      },
+      "80-89": {
+        "n": 19,
+        "w": 11,
+        "l": 8,
+        "push": 0,
+        "wr": 57.9,
+        "roi": 4.0,
+        "profit": 0.76,
+        "avg_cote": 1.77,
+        "break_even_wr": 56.6,
+        "wr_vs_be": 1.3,
+        "expected_wr": 84.5,
+        "calibration_gap": -26.6
+      },
+      "90-100": {
+        "n": 3,
+        "w": 2,
+        "l": 1,
+        "push": 0,
+        "wr": 66.7,
+        "roi": 7.0,
+        "profit": 0.21,
+        "avg_cote": 1.61,
+        "break_even_wr": 62.2,
+        "wr_vs_be": 4.4,
+        "expected_wr": 95.0,
+        "calibration_gap": -28.3
+      }
+    },
     "foot": {
       "50-59": {
         "n": 16,
@@ -110,78 +182,6 @@
         "wr_vs_be": 31.8,
         "expected_wr": 95.0,
         "calibration_gap": 5.0
-      }
-    },
-    "nba": {
-      "50-59": {
-        "n": 2,
-        "w": 1,
-        "l": 1,
-        "push": 0,
-        "wr": 50.0,
-        "roi": 3.5,
-        "profit": 0.07,
-        "avg_cote": 2.07,
-        "break_even_wr": 48.3,
-        "wr_vs_be": 1.7,
-        "expected_wr": 54.5,
-        "calibration_gap": -4.5
-      },
-      "60-69": {
-        "n": 33,
-        "w": 17,
-        "l": 16,
-        "push": 0,
-        "wr": 51.5,
-        "roi": 0.6,
-        "profit": 0.2,
-        "avg_cote": 2.04,
-        "break_even_wr": 49.0,
-        "wr_vs_be": 2.5,
-        "expected_wr": 64.5,
-        "calibration_gap": -13.0
-      },
-      "70-79": {
-        "n": 41,
-        "w": 23,
-        "l": 18,
-        "push": 0,
-        "wr": 56.1,
-        "roi": 3.1,
-        "profit": 1.28,
-        "avg_cote": 1.89,
-        "break_even_wr": 53.0,
-        "wr_vs_be": 3.1,
-        "expected_wr": 74.5,
-        "calibration_gap": -18.4
-      },
-      "80-89": {
-        "n": 18,
-        "w": 11,
-        "l": 7,
-        "push": 0,
-        "wr": 61.1,
-        "roi": 9.8,
-        "profit": 1.76,
-        "avg_cote": 1.77,
-        "break_even_wr": 56.6,
-        "wr_vs_be": 4.5,
-        "expected_wr": 84.5,
-        "calibration_gap": -23.4
-      },
-      "90-100": {
-        "n": 3,
-        "w": 2,
-        "l": 1,
-        "push": 0,
-        "wr": 66.7,
-        "roi": 7.0,
-        "profit": 0.21,
-        "avg_cote": 1.61,
-        "break_even_wr": 62.2,
-        "wr_vs_be": 4.4,
-        "expected_wr": 95.0,
-        "calibration_gap": -28.3
       }
     },
     "tennis": {
@@ -258,6 +258,92 @@
     }
   },
   "by_market": {
+    "nba": {
+      "PRA": {
+        "n": 13,
+        "w": 9,
+        "l": 4,
+        "push": 0,
+        "wr": 69.2,
+        "roi": 24.7,
+        "profit": 3.21,
+        "avg_cote": 1.84,
+        "break_even_wr": 54.2,
+        "wr_vs_be": 15.0
+      },
+      "AST": {
+        "n": 16,
+        "w": 10,
+        "l": 6,
+        "push": 0,
+        "wr": 62.5,
+        "roi": 12.6,
+        "profit": 2.01,
+        "avg_cote": 1.86,
+        "break_even_wr": 53.8,
+        "wr_vs_be": 8.7
+      },
+      "REB": {
+        "n": 25,
+        "w": 14,
+        "l": 11,
+        "push": 0,
+        "wr": 56.0,
+        "roi": 8.0,
+        "profit": 2.0,
+        "avg_cote": 1.96,
+        "break_even_wr": 51.0,
+        "wr_vs_be": 5.0
+      },
+      "PR": {
+        "n": 4,
+        "w": 3,
+        "l": 1,
+        "push": 0,
+        "wr": 75.0,
+        "roi": 41.2,
+        "profit": 1.65,
+        "avg_cote": 1.9,
+        "break_even_wr": 52.7,
+        "wr_vs_be": 22.3
+      },
+      "PA": {
+        "n": 12,
+        "w": 7,
+        "l": 5,
+        "push": 0,
+        "wr": 58.3,
+        "roi": 11.5,
+        "profit": 1.38,
+        "avg_cote": 1.94,
+        "break_even_wr": 51.5,
+        "wr_vs_be": 6.8
+      },
+      "FG3M": {
+        "n": 23,
+        "w": 11,
+        "l": 12,
+        "push": 0,
+        "wr": 47.8,
+        "roi": -13.0,
+        "profit": -2.99,
+        "avg_cote": 1.85,
+        "break_even_wr": 54.0,
+        "wr_vs_be": -6.2
+      },
+      "PTS": {
+        "n": 13,
+        "w": 5,
+        "l": 8,
+        "push": 0,
+        "wr": 38.5,
+        "roi": -28.8,
+        "profit": -3.74,
+        "avg_cote": 1.93,
+        "break_even_wr": 51.9,
+        "wr_vs_be": -13.4
+      }
+    },
     "foot": {
       "Tirs cadrés (total)": {
         "n": 19,
@@ -404,92 +490,6 @@
         "wr_vs_be": 1.5
       }
     },
-    "nba": {
-      "REB": {
-        "n": 23,
-        "w": 14,
-        "l": 9,
-        "push": 0,
-        "wr": 60.9,
-        "roi": 17.4,
-        "profit": 4.0,
-        "avg_cote": 1.96,
-        "break_even_wr": 51.0,
-        "wr_vs_be": 9.9
-      },
-      "PR": {
-        "n": 4,
-        "w": 3,
-        "l": 1,
-        "push": 0,
-        "wr": 75.0,
-        "roi": 41.2,
-        "profit": 1.65,
-        "avg_cote": 1.9,
-        "break_even_wr": 52.7,
-        "wr_vs_be": 22.3
-      },
-      "PRA": {
-        "n": 11,
-        "w": 7,
-        "l": 4,
-        "push": 0,
-        "wr": 63.6,
-        "roi": 14.6,
-        "profit": 1.61,
-        "avg_cote": 1.84,
-        "break_even_wr": 54.2,
-        "wr_vs_be": 9.4
-      },
-      "AST": {
-        "n": 15,
-        "w": 9,
-        "l": 6,
-        "push": 0,
-        "wr": 60.0,
-        "roi": 8.1,
-        "profit": 1.21,
-        "avg_cote": 1.86,
-        "break_even_wr": 53.8,
-        "wr_vs_be": 6.2
-      },
-      "PA": {
-        "n": 11,
-        "w": 6,
-        "l": 5,
-        "push": 0,
-        "wr": 54.5,
-        "roi": 5.3,
-        "profit": 0.58,
-        "avg_cote": 1.94,
-        "break_even_wr": 51.5,
-        "wr_vs_be": 3.0
-      },
-      "PTS": {
-        "n": 12,
-        "w": 5,
-        "l": 7,
-        "push": 0,
-        "wr": 41.7,
-        "roi": -22.8,
-        "profit": -2.74,
-        "avg_cote": 1.93,
-        "break_even_wr": 51.9,
-        "wr_vs_be": -10.2
-      },
-      "FG3M": {
-        "n": 21,
-        "w": 10,
-        "l": 11,
-        "push": 0,
-        "wr": 47.6,
-        "roi": -13.3,
-        "profit": -2.79,
-        "avg_cote": 1.85,
-        "break_even_wr": 54.0,
-        "wr_vs_be": -6.4
-      }
-    },
     "tennis": {
       "tennis_total_games": {
         "n": 54,
@@ -533,12 +533,12 @@
     "nba": {
       "is_real_line": {
         "False": {
-          "n": 11,
-          "w": 8,
-          "l": 3,
+          "n": 20,
+          "w": 13,
+          "l": 7,
           "push": 0,
-          "wr": 72.7,
-          "roi": 30.9,
+          "wr": 65.0,
+          "roi": 17.0,
           "profit": 3.4,
           "avg_cote": null,
           "break_even_wr": null,
@@ -558,64 +558,64 @@
         }
       },
       "side": {
-        "home": {
-          "n": 51,
-          "w": 24,
-          "l": 27,
-          "push": 0,
-          "wr": 47.1,
-          "roi": -11.8,
-          "profit": -6.02,
-          "avg_cote": 1.9,
-          "break_even_wr": 52.7,
-          "wr_vs_be": -5.6
-        },
         "away": {
-          "n": 46,
-          "w": 30,
-          "l": 16,
+          "n": 51,
+          "w": 34,
+          "l": 17,
           "push": 0,
-          "wr": 65.2,
-          "roi": 20.7,
-          "profit": 9.54,
+          "wr": 66.7,
+          "roi": 23.0,
+          "profit": 11.74,
           "avg_cote": 1.91,
           "break_even_wr": 52.4,
-          "wr_vs_be": 12.8
+          "wr_vs_be": 14.2
+        },
+        "home": {
+          "n": 55,
+          "w": 25,
+          "l": 30,
+          "push": 0,
+          "wr": 45.5,
+          "roi": -14.9,
+          "profit": -8.22,
+          "avg_cote": 1.9,
+          "break_even_wr": 52.7,
+          "wr_vs_be": -7.2
         }
       },
       "trend": {
         "stable": {
-          "n": 47,
-          "w": 29,
-          "l": 18,
+          "n": 51,
+          "w": 31,
+          "l": 20,
           "push": 0,
-          "wr": 61.7,
-          "roi": 13.8,
-          "profit": 6.5,
+          "wr": 60.8,
+          "roi": 12.0,
+          "profit": 6.1,
           "avg_cote": 1.87,
           "break_even_wr": 53.4,
-          "wr_vs_be": 8.3
+          "wr_vs_be": 7.4
         },
         "cold": {
-          "n": 18,
-          "w": 9,
-          "l": 9,
+          "n": 21,
+          "w": 11,
+          "l": 10,
           "push": 0,
-          "wr": 50.0,
-          "roi": -6.4,
-          "profit": -1.15,
+          "wr": 52.4,
+          "roi": -2.6,
+          "profit": -0.55,
           "avg_cote": 1.89,
           "break_even_wr": 52.8,
-          "wr_vs_be": -2.8
+          "wr_vs_be": -0.4
         },
         "hot": {
-          "n": 32,
-          "w": 16,
-          "l": 16,
+          "n": 34,
+          "w": 17,
+          "l": 17,
           "push": 0,
           "wr": 50.0,
-          "roi": -5.7,
-          "profit": -1.83,
+          "roi": -6.0,
+          "profit": -2.03,
           "avg_cote": 1.95,
           "break_even_wr": 51.3,
           "wr_vs_be": -1.3
@@ -623,16 +623,16 @@
       },
       "direction": {
         "over": {
-          "n": 81,
-          "w": 44,
-          "l": 37,
+          "n": 90,
+          "w": 49,
+          "l": 41,
           "push": 0,
-          "wr": 54.3,
-          "roi": 1.0,
+          "wr": 54.4,
+          "roi": 0.9,
           "profit": 0.8,
           "avg_cote": 1.9,
           "break_even_wr": 52.6,
-          "wr_vs_be": 1.8
+          "wr_vs_be": 1.9
         },
         "under": {
           "n": 16,
@@ -968,18 +968,18 @@
       "severity": "high",
       "type": "skip_market",
       "scope": "nba · FG3M",
-      "message": "Market <b>FG3M</b> (nba) : ROI <b>-13.3%</b> sur 21 picks (WR 47.6% (break-even @ 54.0% WR), cote moy. 1.85). À skipper ou refondre la formule.",
+      "message": "Market <b>FG3M</b> (nba) : ROI <b>-13.0%</b> sur 23 picks (WR 47.8% (break-even @ 54.0% WR), cote moy. 1.85). À skipper ou refondre la formule.",
       "stats": {
-        "n": 21,
-        "w": 10,
-        "l": 11,
+        "n": 23,
+        "w": 11,
+        "l": 12,
         "push": 0,
-        "wr": 47.6,
-        "roi": -13.3,
-        "profit": -2.79,
+        "wr": 47.8,
+        "roi": -13.0,
+        "profit": -2.99,
         "avg_cote": 1.85,
         "break_even_wr": 54.0,
-        "wr_vs_be": -6.4
+        "wr_vs_be": -6.2
       }
     },
     {
@@ -1004,38 +1004,38 @@
       "severity": "high",
       "type": "skip_market",
       "scope": "nba · PTS",
-      "message": "Market <b>PTS</b> (nba) : ROI <b>-22.8%</b> sur 12 picks (WR 41.7% (break-even @ 51.9% WR), cote moy. 1.93). À skipper ou refondre la formule.",
+      "message": "Market <b>PTS</b> (nba) : ROI <b>-28.8%</b> sur 13 picks (WR 38.5% (break-even @ 51.9% WR), cote moy. 1.93). À skipper ou refondre la formule.",
       "stats": {
-        "n": 12,
+        "n": 13,
         "w": 5,
-        "l": 7,
+        "l": 8,
         "push": 0,
-        "wr": 41.7,
-        "roi": -22.8,
-        "profit": -2.74,
+        "wr": 38.5,
+        "roi": -28.8,
+        "profit": -3.74,
         "avg_cote": 1.93,
         "break_even_wr": 51.9,
-        "wr_vs_be": -10.2
+        "wr_vs_be": -13.4
       }
     },
     {
       "severity": "medium",
       "type": "miscalibrated_overconfident",
       "scope": "nba · conf 70-79",
-      "message": "Bucket conf <b>70-79</b> (nba) : modèle annonce ~74.5% mais WR réel = 56.1% (gap -18.4pp sur 41 picks). Modèle trop confiant → relever MIN_CONF ou ajuster formule.",
+      "message": "Bucket conf <b>70-79</b> (nba) : modèle annonce ~74.5% mais WR réel = 57.8% (gap -16.7pp sur 45 picks). Modèle trop confiant → relever MIN_CONF ou ajuster formule.",
       "stats": {
-        "n": 41,
-        "w": 23,
-        "l": 18,
+        "n": 45,
+        "w": 26,
+        "l": 19,
         "push": 0,
-        "wr": 56.1,
-        "roi": 3.1,
-        "profit": 1.28,
+        "wr": 57.8,
+        "roi": 6.0,
+        "profit": 2.68,
         "avg_cote": 1.89,
         "break_even_wr": 53.0,
-        "wr_vs_be": 3.1,
+        "wr_vs_be": 4.7,
         "expected_wr": 74.5,
-        "calibration_gap": -18.4
+        "calibration_gap": -16.7
       }
     },
     {
@@ -1056,6 +1056,26 @@
         "wr_vs_be": 9.7,
         "expected_wr": 84.5,
         "calibration_gap": -17.8
+      }
+    },
+    {
+      "severity": "medium",
+      "type": "miscalibrated_overconfident",
+      "scope": "nba · conf 60-69",
+      "message": "Bucket conf <b>60-69</b> (nba) : modèle annonce ~64.5% mais WR réel = 51.4% (gap -13.1pp sur 37 picks). Modèle trop confiant → relever MIN_CONF ou ajuster formule.",
+      "stats": {
+        "n": 37,
+        "w": 19,
+        "l": 18,
+        "push": 0,
+        "wr": 51.4,
+        "roi": -0.5,
+        "profit": -0.2,
+        "avg_cote": 2.04,
+        "break_even_wr": 49.0,
+        "wr_vs_be": 2.4,
+        "expected_wr": 64.5,
+        "calibration_gap": -13.1
       }
     },
     {
@@ -1101,41 +1121,21 @@
     {
       "severity": "medium",
       "type": "miscalibrated_overconfident",
-      "scope": "nba · conf 60-69",
-      "message": "Bucket conf <b>60-69</b> (nba) : modèle annonce ~64.5% mais WR réel = 51.5% (gap -13.0pp sur 33 picks). Modèle trop confiant → relever MIN_CONF ou ajuster formule.",
-      "stats": {
-        "n": 33,
-        "w": 17,
-        "l": 16,
-        "push": 0,
-        "wr": 51.5,
-        "roi": 0.6,
-        "profit": 0.2,
-        "avg_cote": 2.04,
-        "break_even_wr": 49.0,
-        "wr_vs_be": 2.5,
-        "expected_wr": 64.5,
-        "calibration_gap": -13.0
-      }
-    },
-    {
-      "severity": "medium",
-      "type": "miscalibrated_overconfident",
       "scope": "nba · conf 80-89",
-      "message": "Bucket conf <b>80-89</b> (nba) : modèle annonce ~84.5% mais WR réel = 61.1% (gap -23.4pp sur 18 picks). Modèle trop confiant → relever MIN_CONF ou ajuster formule.",
+      "message": "Bucket conf <b>80-89</b> (nba) : modèle annonce ~84.5% mais WR réel = 57.9% (gap -26.6pp sur 19 picks). Modèle trop confiant → relever MIN_CONF ou ajuster formule.",
       "stats": {
-        "n": 18,
+        "n": 19,
         "w": 11,
-        "l": 7,
+        "l": 8,
         "push": 0,
-        "wr": 61.1,
-        "roi": 9.8,
-        "profit": 1.76,
+        "wr": 57.9,
+        "roi": 4.0,
+        "profit": 0.76,
         "avg_cote": 1.77,
         "break_even_wr": 56.6,
-        "wr_vs_be": 4.5,
+        "wr_vs_be": 1.3,
         "expected_wr": 84.5,
-        "calibration_gap": -23.4
+        "calibration_gap": -26.6
       }
     },
     {
@@ -1161,71 +1161,35 @@
     {
       "severity": "medium",
       "type": "context_signal",
-      "scope": "nba · is_real_line",
-      "message": "Signal contexte <b>is_real_line</b> (nba) : is_real_line=True → WR 53.5% (86 picks) vs is_real_line=False → WR 72.7% (11). Filtrer/ponderer.",
-      "stats": {
-        "worst": {
-          "True": {
-            "n": 86,
-            "w": 46,
-            "l": 40,
-            "push": 0,
-            "wr": 53.5,
-            "roi": 0.1,
-            "profit": 0.12,
-            "avg_cote": 1.9,
-            "break_even_wr": 52.6,
-            "wr_vs_be": 0.9
-          }
-        },
-        "best": {
-          "False": {
-            "n": 11,
-            "w": 8,
-            "l": 3,
-            "push": 0,
-            "wr": 72.7,
-            "roi": 30.9,
-            "profit": 3.4,
-            "avg_cote": null,
-            "break_even_wr": null,
-            "wr_vs_be": null
-          }
-        }
-      }
-    },
-    {
-      "severity": "medium",
-      "type": "context_signal",
       "scope": "nba · side",
-      "message": "Signal contexte <b>side</b> (nba) : side=home → WR 47.1% (51 picks) vs side=away → WR 65.2% (46). Filtrer/ponderer.",
+      "message": "Signal contexte <b>side</b> (nba) : side=home → WR 45.5% (55 picks) vs side=away → WR 66.7% (51). Filtrer/ponderer.",
       "stats": {
         "worst": {
           "home": {
-            "n": 51,
-            "w": 24,
-            "l": 27,
+            "n": 55,
+            "w": 25,
+            "l": 30,
             "push": 0,
-            "wr": 47.1,
-            "roi": -11.8,
-            "profit": -6.02,
+            "wr": 45.5,
+            "roi": -14.9,
+            "profit": -8.22,
             "avg_cote": 1.9,
             "break_even_wr": 52.7,
-            "wr_vs_be": -5.6
+            "wr_vs_be": -7.2
           }
         },
         "best": {
           "away": {
-            "n": 46,
-            "w": 30,
-            "l": 16,
+            "n": 51,
+            "w": 34,
+            "l": 17,
             "push": 0,
-            "wr": 65.2,
-            "roi": 20.7,
-            "profit": 9.54,
+            "wr": 66.7,
+            "roi": 23.0,
+            "profit": 11.74,
             "avg_cote": 1.91,
             "break_even_wr": 52.4,
-            "wr_vs_be": 12.8
+            "wr_vs_be": 14.2
           }
         }
       }
@@ -1397,24 +1361,6 @@
     {
       "severity": "info",
       "type": "keep_market",
-      "scope": "nba · REB",
-      "message": "Market <b>REB</b> (nba) : ROI <b>+17.4%</b> sur 23 picks (WR 60.9% vs break-even 51.0%). Continuer.",
-      "stats": {
-        "n": 23,
-        "w": 14,
-        "l": 9,
-        "push": 0,
-        "wr": 60.9,
-        "roi": 17.4,
-        "profit": 4.0,
-        "avg_cote": 1.96,
-        "break_even_wr": 51.0,
-        "wr_vs_be": 9.9
-      }
-    },
-    {
-      "severity": "info",
-      "type": "keep_market",
       "scope": "foot · Tirs cadrés (total)",
       "message": "Market <b>Tirs cadrés (total)</b> (foot) : ROI <b>+51.6%</b> sur 19 picks (WR 84.2%). Continuer.",
       "stats": {
@@ -1428,6 +1374,24 @@
         "avg_cote": null,
         "break_even_wr": null,
         "wr_vs_be": null
+      }
+    },
+    {
+      "severity": "info",
+      "type": "keep_market",
+      "scope": "nba · PRA",
+      "message": "Market <b>PRA</b> (nba) : ROI <b>+24.7%</b> sur 13 picks (WR 69.2% vs break-even 54.2%). Continuer.",
+      "stats": {
+        "n": 13,
+        "w": 9,
+        "l": 4,
+        "push": 0,
+        "wr": 69.2,
+        "roi": 24.7,
+        "profit": 3.21,
+        "avg_cote": 1.84,
+        "break_even_wr": 54.2,
+        "wr_vs_be": 15.0
       }
     }
   ]
