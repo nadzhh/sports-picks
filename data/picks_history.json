@@ -6454,6 +6454,127 @@
         "assists": 0
       },
       "resolved_at": "2026-05-30 18:01"
+    },
+    {
+      "direction": "tirs_(liverpool_fc)_over_16.5",
+      "type": "Tirs (Liverpool FC)",
+      "label": "Plus de 16.5 tirs Liverpool FC",
+      "cote": null,
+      "cote_min": 1.22,
+      "value": [
+        "⚠️",
+        "Value serrée",
+        "#f59e0b"
+      ],
+      "confidence": 82,
+      "edge": null,
+      "reasoning": "Liverpool FC prend ?/m [overall] · adv. concède 20.7/m → attendu ~20.7 (équipes proches au classement)",
+      "stats": {
+        "expected": 20.7
+      },
+      "id": "2026-06-01_5670398_team_tirs_(liverpool_fc)_over_16.5",
+      "date": "2026-06-01",
+      "match_id": "5670398",
+      "page_url": "/matches/liverpool-fc-vs-boston-river/8c6trdh#5670398",
+      "matchup": "Boston River vs Liverpool FC",
+      "league": "Uruguay Primera",
+      "category": "team",
+      "result": "PENDING",
+      "actual": null,
+      "resolved_at": null
+    },
+    {
+      "direction": "sot_under_7.5",
+      "type": "Tirs cadrés (total)",
+      "label": "Moins de 7.5 tirs cadrés total",
+      "cote": null,
+      "cote_min": 1.28,
+      "value": [
+        "⚠️",
+        "Value serrée",
+        "#f59e0b"
+      ],
+      "confidence": 78,
+      "reasoning": "📊 Brut : Boston River L10 TCC 3.7 tirs cadrés/m · Liverpool FC ? tirs cadrés/m\n🛡️ Défenses : Boston River concède 7.0/m\n🎯 Attendu : Boston River ~2.2 · Liverpool FC ~3.5 → total ~5.7\n⚖️ équipes proches au classement · Boston River forme : L-W-L-W-L · Liverpool FC forme : D-L-L-W-D",
+      "stats": {
+        "expected_total": 5.7
+      },
+      "id": "2026-06-01_5670398_team_sot_under_7.5",
+      "date": "2026-06-01",
+      "match_id": "5670398",
+      "page_url": "/matches/liverpool-fc-vs-boston-river/8c6trdh#5670398",
+      "matchup": "Boston River vs Liverpool FC",
+      "league": "Uruguay Primera",
+      "category": "team",
+      "result": "PENDING",
+      "actual": null,
+      "resolved_at": null
+    },
+    {
+      "player": "Federico Martinez / Ruben Bentancourt",
+      "position": "",
+      "is_sub": false,
+      "type": "Double Chance Buteur",
+      "label": "Federico Martinez ou Ruben Bentancourt marque",
+      "cote": null,
+      "book": null,
+      "books": [],
+      "confidence": 91,
+      "cote_min": 1.1,
+      "reasoning": "📈 P(Federico Martinez marque) ≈ 80% · P(Ruben Bentancourt marque) ≈ 54%\n🎯 P(au moins un marque) = 91% (calculée par 1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.1 - chercher ≥1.1 chez le bookmaker",
+      "context": {},
+      "stats": {
+        "p_a": 0.795,
+        "p_b": 0.54,
+        "p_or": 0.906,
+        "player_a": "Federico Martinez",
+        "player_b": "Ruben Bentancourt"
+      },
+      "team": "away",
+      "id": "2026-06-01_5670398_player_Federico Martinez / Ruben Bentancourt_Double Chance Buteur",
+      "date": "2026-06-01",
+      "match_id": "5670398",
+      "page_url": "/matches/liverpool-fc-vs-boston-river/8c6trdh#5670398",
+      "matchup": "Boston River vs Liverpool FC",
+      "league": "Uruguay Primera",
+      "category": "player",
+      "side": "away",
+      "result": "PENDING",
+      "actual": null,
+      "resolved_at": null
+    },
+    {
+      "player": "Federico Martinez",
+      "position": "F",
+      "is_sub": false,
+      "type": "Buteur",
+      "label": "Federico Martinez marque",
+      "cote": null,
+      "book": null,
+      "books": [],
+      "confidence": 80,
+      "reasoning": "7 buts en 5 matchs cette saison (140.0% de chance/match) · xG moyen 0.00/match, défense adverse poreuse (1.4 buts concédés/match) · défense correcte",
+      "context": {
+        "weakness": 0.37
+      },
+      "stats": {
+        "goals": 7,
+        "apps": 5,
+        "gpm": 1.4,
+        "xgpm": 0
+      },
+      "team": "away",
+      "id": "2026-06-01_5670398_player_Federico Martinez_Buteur",
+      "date": "2026-06-01",
+      "match_id": "5670398",
+      "page_url": "/matches/liverpool-fc-vs-boston-river/8c6trdh#5670398",
+      "matchup": "Boston River vs Liverpool FC",
+      "league": "Uruguay Primera",
+      "category": "player",
+      "side": "away",
+      "result": "PENDING",
+      "actual": null,
+      "resolved_at": null
     }
   ]
 }
