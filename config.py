@@ -86,6 +86,12 @@ FOTMOB_LEAGUES = {
     "Copa del Rey":        {"id": 138,   "name_match": "Copa del Rey"},
     "Coppa Italia":        {"id": 141,   "name_match": "Coppa Italia"},
     "DFB Pokal":           {"id": 209,   "name_match": "DFB-Pokal"},
+    # Amerique du Sud + USA + competitions continentales (verifies via FotMob 2026)
+    "Brasileirao":         {"id": 268,   "name_match": "Serie A"},        # 380 fixtures/saison
+    "Argentina Primera":   {"id": 112,   "name_match": "Liga Profesional"},
+    "Colombia Primera A":  {"id": 274,   "name_match": "Primera A"},
+    "Copa Libertadores":   {"id": 45,    "name_match": "Copa Libertadores"},
+    "MLS":                 {"id": 130,   "name_match": "MLS"},
 }
 
 # Pour mapper FotMob league id -> "internal id" picks_engine (utilise CUP_LEAGUES)
@@ -103,9 +109,15 @@ INTERNAL_LEAGUE_IDS = {
     "Copa del Rey":      143,
     "Coppa Italia":      137,
     "DFB Pokal":         81,
+    # SA + MLS + Libertadores (internal id = api-football id pour simplicite)
+    "Brasileirao":       71,
+    "Argentina Primera": 128,
+    "Colombia Primera A":239,
+    "Copa Libertadores": 13,
+    "MLS":               253,
 }
 # Toutes les coupes (matchs a elimination - traitement special : pas de classement utile)
-CUP_LEAGUES = {7, 679, 17015, 45, 66, 143, 137, 81}
+CUP_LEAGUES = {7, 679, 17015, 45, 66, 143, 137, 81, 13}
 
 # IDs api-football (pour endpoint odds) — saison 2025
 APIFOOTBALL_LEAGUES = {
@@ -122,6 +134,12 @@ APIFOOTBALL_LEAGUES = {
     "Copa del Rey":      143,
     "Coppa Italia":      137,
     "DFB Pokal":         81,
+    # SA + MLS + Libertadores (IDs api-football reels)
+    "Brasileirao":       71,
+    "Argentina Primera": 128,
+    "Colombia Primera A":239,
+    "Copa Libertadores": 13,
+    "MLS":               253,
 }
 
 # ─── TTL cache (secondes) ────────────────────────────────────────────────────

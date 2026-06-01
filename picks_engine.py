@@ -250,6 +250,7 @@ def player_picks_contextual(players, opp_pos, opp_rat, opp_conceded_pm=0, btts_p
                  VRAIE cote bookmaker aux picks (au lieu de cote=None).
     """
     if not players: return []
+    _buteur_data_local = []  # capture proba calibree par joueur (pour DC Buteur)
 
     weakness  = defense_weakness(opp_pos, opp_rat, opp_conceded_pm)
     def_label = defense_label(weakness)
@@ -332,6 +333,16 @@ def player_picks_contextual(players, opp_pos, opp_rat, opp_conceded_pm=0, btts_p
             #    cote bookmaker >= 2.4 si dispo (sinon on garde sur conf seule).
             #    Plus shrinkage pour aligner predicted vs observed.
             ctx_conf_cal = _foot_calibrate(ctx_conf)
+            # Capture proba calibree par joueur (utilise par DC Buteur en aval)
+            _buteur_data_local.append({
+                "player":     name,
+                "position":   pos,
+                "is_sub":     is_sub,
+                "conf_cal":   ctx_conf_cal if ctx_conf_cal is not None else 0,
+                "raw_conf":   ctx_conf,
+                "gpm":        gpm, "xgpm": xgpm, "goals": goals, "apps": apps,
+                "reasoning":  reasoning,
+            })
             if ctx_conf_cal is not None and ctx_conf_cal >= 50:
                 # Recherche cote reelle "anytime scorer"
                 odds_key = _match_odds_name(name, odds_keys)
@@ -451,6 +462,52 @@ def player_picks_contextual(players, opp_pos, opp_rat, opp_conceded_pm=0, btts_p
             final.append(chosen)
 
     final.sort(key=lambda x: x["confidence"], reverse=True)
+
+    # ── Double Chance Buteur : appairer 2 joueurs (l'un OU l'autre marque) ──
+    # Market populaire (Betclic/Bwin) avec cotes interessantes (1.40-1.80 pour
+    # 2 top buteurs meme equipe). P(A ou B) = 1 - (1-pA)(1-pB) avec independance
+    # approximee (legere sous-estimation due a la correlation positive).
+    # On utilise _buteur_data_local (proba calibree par joueur, capturee meme si
+    # individuellement sous le seuil d'emit).
+    if len(_buteur_data_local) >= 2:
+        _buteur_data_local.sort(key=lambda x: x.get("conf_cal", 0), reverse=True)
+        a, b = _buteur_data_local[0], _buteur_data_local[1]
+        pa = float(a.get("conf_cal", 0)) / 100.0
+        pb = float(b.get("conf_cal", 0)) / 100.0
+        p_or = 1 - (1 - pa) * (1 - pb)
+        conf_combined = round(p_or * 100)
+        # Seuil 65% : correspond cote min ~1.54 (cote book typique 1.50-1.80)
+        if conf_combined >= 65:
+            label = f"{a['player']} ou {b['player']} marque"
+            cote_min = _fair_cote(conf_combined)
+            reasoning = (
+                f"📈 P({a['player']} marque) ≈ {round(pa*100)}% · "
+                f"P({b['player']} marque) ≈ {round(pb*100)}%\n"
+                f"🎯 P(au moins un marque) = {conf_combined}% (calculée par 1 - (1-pA)(1-pB))\n"
+                f"💎 Cote min équilibre = {cote_min} - chercher ≥{cote_min} chez le bookmaker"
+            )
+            final.append({
+                "player":      f"{a['player']} / {b['player']}",
+                "position":    "",
+                "is_sub":      False,
+                "type":        "Double Chance Buteur",
+                "label":       label,
+                "cote":        None,
+                "book":        None,
+                "books":       [],
+                "confidence":  conf_combined,
+                "cote_min":    cote_min,
+                "reasoning":   reasoning,
+                "context":     {},
+                "stats":       {
+                    "p_a":      round(pa, 3),
+                    "p_b":      round(pb, 3),
+                    "p_or":     round(p_or, 3),
+                    "player_a": a["player"],
+                    "player_b": b["player"],
+                },
+            })
+
     return final
 
 # ─── Analyse équipe ──────────────────────────────────────────────────────────
