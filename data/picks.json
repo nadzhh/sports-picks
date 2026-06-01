@@ -93,6 +93,28 @@
     ],
     "home_players": [
       {
+        "player": "Ousmane Dembélé / Khvicha Kvaratskhelia",
+        "position": "",
+        "is_sub": false,
+        "type": "Double Chance Buteur",
+        "label": "Ousmane Dembélé ou Khvicha Kvaratskhelia marque",
+        "cote": null,
+        "book": null,
+        "books": [],
+        "confidence": 75,
+        "cote_min": 1.33,
+        "reasoning": "📈 P(Ousmane Dembélé marque) ≈ 52% · P(Khvicha Kvaratskhelia marque) ≈ 47%\n🎯 P(au moins un marque) = 75% (calculée par 1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.33 - chercher ≥1.33 chez le bookmaker",
+        "context": {},
+        "stats": {
+          "p_a": 0.525,
+          "p_b": 0.472,
+          "p_or": 0.749,
+          "player_a": "Ousmane Dembélé",
+          "player_b": "Khvicha Kvaratskhelia"
+        },
+        "team": "home"
+      },
+      {
         "player": "Ousmane Dembélé",
         "position": "F",
         "is_sub": false,
@@ -112,48 +134,28 @@
           "apps": 13
         },
         "team": "home"
-      },
-      {
-        "player": "Khvicha Kvaratskhelia",
-        "position": "F",
-        "is_sub": false,
-        "type": "Joueur décisif",
-        "label": "Khvicha Kvaratskhelia but ou passe décisive",
-        "cote": null,
-        "book": null,
-        "books": [],
-        "confidence": 51,
-        "reasoning": "10 buts + 6 passes décisives en 16 matchs (100.0% de chance/match) · xG+xA: 0.39/match · défense solide",
-        "context": {
-          "weakness": 0.22
-        },
-        "stats": {
-          "goals": 10,
-          "assists": 6,
-          "apps": 16
-        },
-        "team": "home"
       }
     ],
     "away_players": [
       {
-        "player": "Kai Havertz",
-        "position": "M",
+        "player": "Kai Havertz / Viktor Gyökeres",
+        "position": "",
         "is_sub": false,
-        "type": "Joueur décisif",
-        "label": "Kai Havertz but ou passe décisive",
+        "type": "Double Chance Buteur",
+        "label": "Kai Havertz ou Viktor Gyökeres marque",
         "cote": null,
         "book": null,
         "books": [],
-        "confidence": 50,
-        "reasoning": "4 buts + 1 passes décisives en 6 matchs (83.3% de chance/match) · xG+xA: 0.5/match · défense fragile",
-        "context": {
-          "weakness": 0.51
-        },
+        "confidence": 74,
+        "cote_min": 1.35,
+        "reasoning": "📈 P(Kai Havertz marque) ≈ 50% · P(Viktor Gyökeres marque) ≈ 50%\n🎯 P(au moins un marque) = 74% (calculée par 1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.35 - chercher ≥1.35 chez le bookmaker",
+        "context": {},
         "stats": {
-          "goals": 4,
-          "assists": 1,
-          "apps": 6
+          "p_a": 0.495,
+          "p_b": 0.495,
+          "p_or": 0.745,
+          "player_a": "Kai Havertz",
+          "player_b": "Viktor Gyökeres"
         },
         "team": "away"
       }
