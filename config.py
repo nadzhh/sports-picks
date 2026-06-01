@@ -92,6 +92,32 @@ FOTMOB_LEAGUES = {
     "Colombia Primera A":  {"id": 274,   "name_match": "Primera A"},
     "Copa Libertadores":   {"id": 45,    "name_match": "Copa Libertadores"},
     "MLS":                 {"id": 130,   "name_match": "MLS"},
+    # Europe : ligues secondaires + Scandinavie + Europe de l'Est (verifies live 2026)
+    # Volume eleve, value souvent meilleure (bookmakers moins efficacement priced)
+    "Eredivisie":              {"id": 57,    "name_match": "Eredivisie"},        # NED, 309 fix
+    "Liga Portugal":           {"id": 61,    "name_match": "Liga Portugal"},     # POR, 306 fix
+    "Belgium Pro":             {"id": 40,    "name_match": "First Division A"},  # BEL, 313 fix
+    "Super Lig":               {"id": 71,    "name_match": "Super Lig"},         # TUR, 306 fix
+    "Russia Premier":          {"id": 63,    "name_match": "Premier League"},    # RUS, 270 fix
+    "Swiss Super":             {"id": 69,    "name_match": "Super League"},      # SUI, 229 fix
+    "Greek Super":             {"id": 135,   "name_match": "Super League 1"},    # GRE, 236 fix
+    "Polish Ekstraklasa":      {"id": 196,   "name_match": "Ekstraklasa"},       # POL, 306 fix
+    # Scandinavie
+    "Swedish Allsvenskan":     {"id": 67,    "name_match": "Allsvenskan"},       # SWE, 240
+    "Norwegian Eliteserien":   {"id": 59,    "name_match": "Eliteserien"},       # NOR, 240
+    "Danish Superligaen":      {"id": 46,    "name_match": "Superligaen"},       # DEN, 193
+    "Finnish Veikkausliiga":   {"id": 51,    "name_match": "Veikkausliiga"},     # FIN, 132
+    # Petits championnats (volume, value)
+    "Hungarian NB I":          {"id": 212,   "name_match": "NB I"},              # HUN, 198
+    "Icelandic Besta":         {"id": 215,   "name_match": "Besta deildin"},     # ISL, 132
+    "Estonian Meistriliiga":   {"id": 248,   "name_match": "Premium liiga"},     # EST, 180
+    "Czech 1 Liga":            {"id": 122,   "name_match": "1. Liga"},           # CZE, 276
+    "Croatian HNL":            {"id": 252,   "name_match": "HNL"},               # CRO, 180
+    "Israeli Ligat":           {"id": 127,   "name_match": "Ligat ha'Al"},       # ISR, 240
+    "Scottish Premiership":    {"id": 64,    "name_match": "Premiership"},       # SCO, 228
+    "Bulgarian First":         {"id": 270,   "name_match": "First Professional League"}, # BUL, 293
+    "Macedonian Prva":         {"id": 249,   "name_match": "Prva Liga"},         # MKD, 198
+    "Bosnia Premier":          {"id": 267,   "name_match": "Premier League"},    # BIH, 180
 }
 
 # Pour mapper FotMob league id -> "internal id" picks_engine (utilise CUP_LEAGUES)
@@ -115,6 +141,30 @@ INTERNAL_LEAGUE_IDS = {
     "Colombia Primera A":239,
     "Copa Libertadores": 13,
     "MLS":               253,
+    # Europe : secondaires + Scandinavie + petits championnats
+    # (internal id = api-football id quand connu, sinon fotmob id en repli)
+    "Eredivisie":            88,
+    "Liga Portugal":         94,
+    "Belgium Pro":           144,
+    "Super Lig":             203,    # Turkey
+    "Russia Premier":        235,
+    "Swiss Super":           207,
+    "Greek Super":           197,
+    "Polish Ekstraklasa":    106,
+    "Swedish Allsvenskan":   113,
+    "Norwegian Eliteserien": 103,
+    "Danish Superligaen":    119,
+    "Finnish Veikkausliiga": 244,
+    "Hungarian NB I":        271,
+    "Icelandic Besta":       164,
+    "Estonian Meistriliiga": 327,
+    "Czech 1 Liga":          345,
+    "Croatian HNL":          210,
+    "Israeli Ligat":         383,
+    "Scottish Premiership":  179,
+    "Bulgarian First":       172,
+    "Macedonian Prva":       388,    # incertain api-football
+    "Bosnia Premier":        315,    # incertain api-football
 }
 # Toutes les coupes (matchs a elimination - traitement special : pas de classement utile)
 CUP_LEAGUES = {7, 679, 17015, 45, 66, 143, 137, 81, 13}
