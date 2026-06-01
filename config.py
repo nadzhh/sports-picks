@@ -92,6 +92,13 @@ FOTMOB_LEAGUES = {
     "Colombia Primera A":  {"id": 274,   "name_match": "Primera A"},
     "Copa Libertadores":   {"id": 45,    "name_match": "Copa Libertadores"},
     "MLS":                 {"id": 130,   "name_match": "MLS"},
+    # SA suite (ids confirmes via /api/data/matches?date=YYYYMMDD)
+    "Ecuador LigaPro":     {"id": 246,   "name_match": "Serie A"},        # ECU, 240 fixtures
+    "Chile Primera":       {"id": 273,   "name_match": "Liga de Primera"},# CHI, 240 fixtures
+    "Peru Liga 1":         {"id": 131,   "name_match": "Liga 1"},         # PER, 153 fixtures
+    "Bolivia Primera":     {"id": 144,   "name_match": "Primera Division"},# BOL, 104
+    "Uruguay Primera":     {"id": 161,   "name_match": "Primera Division"},# URU, 151
+    "Paraguay Profesional":{"id": 199,   "name_match": "Division Profesional"}, # PAR, 138
     # Europe : ligues secondaires + Scandinavie + Europe de l'Est (verifies live 2026)
     # Volume eleve, value souvent meilleure (bookmakers moins efficacement priced)
     "Eredivisie":              {"id": 57,    "name_match": "Eredivisie"},        # NED, 309 fix
@@ -141,6 +148,13 @@ INTERNAL_LEAGUE_IDS = {
     "Colombia Primera A":239,
     "Copa Libertadores": 13,
     "MLS":               253,
+    # SA suite
+    "Ecuador LigaPro":   240,    # api-football ID
+    "Chile Primera":     265,
+    "Peru Liga 1":       281,
+    "Bolivia Primera":   344,
+    "Uruguay Primera":   268,    # api-football
+    "Paraguay Profesional": 277,
     # Europe : secondaires + Scandinavie + petits championnats
     # (internal id = api-football id quand connu, sinon fotmob id en repli)
     "Eredivisie":            88,
