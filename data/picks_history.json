@@ -6878,6 +6878,126 @@
       "resolved_at": null
     },
     {
+      "direction": "tirs_(tecnico_universitario)_over_11.5",
+      "type": "Tirs (Tecnico Universitario)",
+      "label": "Plus de 11.5 tirs Tecnico Universitario",
+      "cote": null,
+      "cote_min": 1.29,
+      "value": [
+        "⚠️",
+        "Value serrée",
+        "#f59e0b"
+      ],
+      "confidence": 78,
+      "edge": null,
+      "reasoning": "Tecnico Universitario prend 16.6/m [pondere vs opp #4] · adv. concède 15.3/m → attendu ~14.4 (Barcelona SC favori (#4 vs #12))",
+      "stats": {
+        "expected": 14.4
+      },
+      "id": "2026-06-02_1000008993_team_tirs_(tecnico_universitario)_over_11.5",
+      "date": "2026-06-02",
+      "match_id": "1000008993",
+      "page_url": "/matches/barcelona-sc-vs-tecnico-universitario/3a3l09f#1000008993",
+      "matchup": "Tecnico Universitario vs Barcelona SC",
+      "league": "Ecuador LigaPro",
+      "category": "team",
+      "result": "PENDING",
+      "actual": null,
+      "resolved_at": null
+    },
+    {
+      "direction": "shots_over_24.5",
+      "type": "Tirs (total match)",
+      "label": "Plus de 24.5 tirs total",
+      "cote": null,
+      "cote_min": 1.39,
+      "value": [
+        "💎",
+        "Value correcte",
+        "#84cc16"
+      ],
+      "confidence": 72,
+      "reasoning": "📊 Brut : Tecnico Universitario L10 TCC 16.5 (L5 TCC 15.6) tirs/m · Barcelona SC L10 TCC 12.0 (L5 TCC 11.4) tirs/m\n🛡️ Défenses : Tecnico Universitario concède 9.1/m · Barcelona SC concède 15.3/m\n🎯 Attendu : Tecnico Universitario ~14.4 · Barcelona SC ~13.2 → total ~27.6\n⚖️ Barcelona SC favori (#4 vs #12) · Tecnico Universitario forme : W-L-W-L-L · Barcelona SC forme : L-W-L-W-L",
+      "stats": {
+        "expected_total": 27.6
+      },
+      "id": "2026-06-02_1000008993_team_shots_over_24.5",
+      "date": "2026-06-02",
+      "match_id": "1000008993",
+      "page_url": "/matches/barcelona-sc-vs-tecnico-universitario/3a3l09f#1000008993",
+      "matchup": "Tecnico Universitario vs Barcelona SC",
+      "league": "Ecuador LigaPro",
+      "category": "team",
+      "result": "PENDING",
+      "actual": null,
+      "resolved_at": null
+    },
+    {
+      "player": "Darío Benedetto / Jhonny Quiñónez",
+      "position": "",
+      "is_sub": false,
+      "type": "Double Chance Buteur",
+      "label": "Darío Benedetto ou Jhonny Quiñónez marque",
+      "cote": null,
+      "book": null,
+      "books": [],
+      "confidence": 67,
+      "cote_min": 1.49,
+      "reasoning": "📈 P(Darío Benedetto marque) ≈ 48% · P(Jhonny Quiñónez marque) ≈ 37%\n🎯 P(au moins un marque) = 67% (calculée par 1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.49 - chercher ≥1.49 chez le bookmaker",
+      "context": {},
+      "stats": {
+        "p_a": 0.48,
+        "p_b": 0.368,
+        "p_or": 0.671,
+        "player_a": "Darío Benedetto",
+        "player_b": "Jhonny Quiñónez"
+      },
+      "team": "away",
+      "id": "2026-06-02_1000008993_player_Darío Benedetto / Jhonny Quiñónez_Double Chance Buteur",
+      "date": "2026-06-02",
+      "match_id": "1000008993",
+      "page_url": "/matches/barcelona-sc-vs-tecnico-universitario/3a3l09f#1000008993",
+      "matchup": "Tecnico Universitario vs Barcelona SC",
+      "league": "Ecuador LigaPro",
+      "category": "player",
+      "side": "away",
+      "result": "PENDING",
+      "actual": null,
+      "resolved_at": null
+    },
+    {
+      "player": "Darío Benedetto",
+      "position": "F",
+      "is_sub": false,
+      "type": "Joueur décisif",
+      "label": "Darío Benedetto but ou passe décisive",
+      "cote": null,
+      "book": null,
+      "books": [],
+      "confidence": 46,
+      "reasoning": "5 buts + 2 passes décisives en 12 matchs (58.3% de chance/match) · xG+xA: 0/match · défense fragile",
+      "context": {
+        "weakness": 0.5
+      },
+      "stats": {
+        "goals": 5,
+        "assists": 2,
+        "apps": 12
+      },
+      "team": "away",
+      "id": "2026-06-02_1000008993_player_Darío Benedetto_Joueur décisif",
+      "date": "2026-06-02",
+      "match_id": "1000008993",
+      "page_url": "/matches/barcelona-sc-vs-tecnico-universitario/3a3l09f#1000008993",
+      "matchup": "Tecnico Universitario vs Barcelona SC",
+      "league": "Ecuador LigaPro",
+      "category": "player",
+      "side": "away",
+      "result": "PENDING",
+      "actual": null,
+      "resolved_at": null
+    },
+    {
       "direction": "away_win",
       "type": "Victoire extérieur",
       "label": "Central Espanol gagne",
