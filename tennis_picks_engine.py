@@ -30,12 +30,29 @@ DATA = Path("data")
 IN_PATH  = DATA / "tennis_matches.json"
 OUT_PATH = DATA / "tennis_picks.json"
 
-# Tuning thresholds
-MIN_EDGE_WIN   = 0.05      # 5% d'edge mini pour vainqueur
-MIN_CONF_WIN   = 55        # 55% mini de proba modele
-MIN_CONF_TOTAL = 60        # 60% mini pour O/U jeux
+# Tuning thresholds (analyse historique 98 picks)
+# - tennis_winner    : 18 picks, WR 44%, ROI -29% (cote moy 2.75) -> trop large
+# - tennis_set_score : 26 picks, WR 42%, ROI -24% -> markets killer, on SKIP
+# - tennis_total_games : 54 picks, WR 68%, ROI +23% -> sweet spot, on garde
+MIN_EDGE_WIN    = 0.10     # exige edge >= 10pp (avant 5%)
+MIN_CONF_WIN    = 62       # 62% mini (avant 55%) - shrinkage prend en compte
+MIN_CONF_TOTAL  = 60       # 60% mini pour O/U jeux (inchange : market profitable)
 MIN_DELTA_GAMES = 1.5      # ecart mini expected vs line
-MIN_CONF_SET   = 35        # 35% mini pour score exact (rare donc seuil bas)
+MIN_CONF_SET    = 60       # 60% (avant 35%) - rare, mais reduit drastiquement le bruit
+# Calibration : modele systematiquement trop confiant (-17pp gap a 70-79%)
+TENNIS_CAL_BASELINE = 57   # WR moyen tennis observe
+TENNIS_CAL_ALPHA    = 0.70 # final = 0.70 * model + 0.30 * 57
+
+
+def _tennis_calibrate(conf):
+    """Shrinkage pour compenser overconfidence (gap -17pp sur bucket 70-79%)."""
+    if conf is None: return None
+    return round(TENNIS_CAL_ALPHA * float(conf) + (1 - TENNIS_CAL_ALPHA) * TENNIS_CAL_BASELINE, 1)
+
+
+# Markets a SKIP totalement (ROI fortement negatif sur >= 20 picks historiques).
+# Re-active possible si on ameliore l'algo specifique.
+TENNIS_SKIP_KINDS = {"tennis_set_score"}
 
 
 def _implied_devigged(odd_a, odd_b):
@@ -424,23 +441,34 @@ def _set_score_pick(match, p_match):
 
 
 def generate_for_match(match):
-    """Genere la liste des picks pour 1 match. Retourne [] si rien d'interessant."""
+    """Genere la liste des picks pour 1 match. Retourne [] si rien d'interessant.
+
+    Strategie : MOINS de picks, MIEUX qualifies (consigne user 2026-05-29).
+    On applique :
+    - Filtre skip kinds (tennis_set_score = ROI -24% sur 26 picks historiques)
+    - Calibration shrinkage sur confiance (modele trop confiant)
+    """
     picks = []
-    # 1. Vainqueur
+    # 1. Vainqueur (edge >= 10pp + conf >= 62%)
     win_pick = _winner_pick(match)
     if win_pick:
+        # Calibration shrinkage
+        win_pick["confidence"] = max(40, min(95, round(_tennis_calibrate(win_pick["confidence"]))))
         picks.append(win_pick)
     # On a besoin de p_match pour les autres calculs
     p_match = _model_prob(match["home"], match["away"], match.get("h2h"))
-    # 2. Total jeux
+    # 2. Total jeux (le seul market profitable : WR 68%, ROI +23%)
     tg_pick = _total_games_pick(match, p_match)
     if tg_pick:
+        tg_pick["confidence"] = max(40, min(95, round(_tennis_calibrate(tg_pick["confidence"]))))
         picks.append(tg_pick)
-    # 3. Score sets (seulement si forte confiance sur le match)
-    if max(p_match, 1 - p_match) >= 0.65:
-        ss_pick = _set_score_pick(match, p_match)
-        if ss_pick:
-            picks.append(ss_pick)
+    # 3. Score sets : SKIP entierement par defaut (market killer historiquement)
+    if "tennis_set_score" not in TENNIS_SKIP_KINDS:
+        if max(p_match, 1 - p_match) >= 0.70:  # avant 0.65, on resserre
+            ss_pick = _set_score_pick(match, p_match)
+            if ss_pick:
+                ss_pick["confidence"] = max(40, min(95, round(_tennis_calibrate(ss_pick["confidence"]))))
+                picks.append(ss_pick)
     return picks
 
 

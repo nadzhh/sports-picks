@@ -53,6 +53,40 @@ SWEET_LOW, SWEET_HIGH = 55, 78
 MIN_CONF = 60
 MAX_PICKS_PER_PLAYER = 2
 
+# ── CALIBRATION & FILTRES PAR MARKET (analyse historique 97 picks) ────────────
+# Le modele est systematiquement trop confiant. WR reel par bucket conf :
+#   80-89% conf -> 61% WR (gap -23pp), 70-79% -> 56% WR (gap -18pp).
+# Solution : shrinkage vers une baseline + filtres par market.
+NBA_CALIBRATION_BASELINE = 55   # WR moyen NBA observe
+NBA_CALIBRATION_ALPHA    = 0.6  # final_conf = 0.6 * model + 0.4 * 55
+# Markets a edge minimum eleve (ROI < -10% en historique : algo casse)
+NBA_KILLER_MARKETS = {"PTS", "FG3M"}        # WR < break-even meme avec cote 1.85
+NBA_KILLER_MIN_EDGE = 10                     # exige edge >= 10pp post-vig pour emettre
+# Sur/sous-performance home vs away (-18pp d'ecart observe) :
+#   side=home -> WR 47%, side=away -> WR 65%
+# On compense en favorisant les picks away et en penalisant les picks home.
+NBA_HOME_PENALTY_PP = 4
+NBA_AWAY_BONUS_PP   = 4
+
+
+def _nba_apply_calibration(confidence, market, side, edge_pp=None, is_real_line=False):
+    """Applique shrinkage + bonus/malus contextuels a la confiance modele.
+
+    Renvoie (final_conf, should_emit, reason).
+    """
+    if confidence is None: return None, False, "no_conf"
+    c = float(confidence)
+    # 1. Shrinkage vers baseline (compense l'overconfidence du modele)
+    c = NBA_CALIBRATION_ALPHA * c + (1 - NBA_CALIBRATION_ALPHA) * NBA_CALIBRATION_BASELINE
+    # 2. Bonus/malus side home/away
+    if side == "home":   c -= NBA_HOME_PENALTY_PP
+    elif side == "away": c += NBA_AWAY_BONUS_PP
+    # 3. Markets killers : exige edge minimum
+    if market in NBA_KILLER_MARKETS:
+        if edge_pp is None or edge_pp < NBA_KILLER_MIN_EDGE:
+            return round(c, 1), False, f"killer_market_{market}_edge_{edge_pp}"
+    return round(c, 1), True, None
+
 # Filtre qualite : nombre de picks par equipe est VARIABLE selon la qualite des
 # signaux alignes. On garde tout ce qui passe le quality_score min, plus un
 # hard cap pour eviter le spam (10/equipe max).
@@ -656,6 +690,17 @@ def player_props(player, ctx=None, real_lines=None, match_ctx=None):
                     signal_warning = f"⚠️ {direction.upper()} faible au lieu ({venue_hits}/{n_ven})"
                 # Applique le bonus a la confidence (cap [40, 95])
                 final_conf = max(40, min(95, round(p_pct) + signal_bonus))
+                # ── CALIBRATION post-bonus (analyse historique 97 picks) ──
+                # Shrinkage + bonus/malus home/away + filtre markets killers (PTS/FG3M).
+                _side_for_calib = "home" if is_home else "away"
+                final_conf, should_emit_calib, calib_reason = _nba_apply_calibration(
+                    final_conf, prop_key, _side_for_calib,
+                    edge_pp=edge, is_real_line=use_real
+                )
+                if not should_emit_calib:
+                    # Killer market sans edge suffisant : skip
+                    continue
+                final_conf = max(40, min(95, round(final_conf)))
 
                 # ─── Bounce back signal (per prop) : L3 << season pour CE prop ──
                 l3_for_prop = vals[:3]

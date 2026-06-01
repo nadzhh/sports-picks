@@ -327,20 +327,30 @@ def player_picks_contextual(players, opp_pos, opp_rat, opp_conceded_pm=0, btts_p
                 f"{opp_conc_txt} · {def_label}{sub_tag}"
             )
 
-            if ctx_conf >= 35:
+            # Buteur : analyse historique (34 picks, WR 35%, ROI -25%, cote moy 2.96)
+            # -> algo emet trop large. On exige conf >= 50% (au lieu de 35%) ET
+            #    cote bookmaker >= 2.4 si dispo (sinon on garde sur conf seule).
+            #    Plus shrinkage pour aligner predicted vs observed.
+            ctx_conf_cal = _foot_calibrate(ctx_conf)
+            if ctx_conf_cal is not None and ctx_conf_cal >= 50:
                 # Recherche cote reelle "anytime scorer"
                 odds_key = _match_odds_name(name, odds_keys)
                 player_odds = (match_odds or {}).get(odds_key) if odds_key else None
                 cote, book, books_list = _lookup_player_cote(player_odds, "anytime_scorer")
-                picks.append({
-                    "player": name, "position": pos, "is_sub": is_sub,
-                    "type": "Buteur", "label": f"{name} marque",
-                    "cote": cote, "book": book, "books": books_list,
-                    "confidence": ctx_conf,
-                    "reasoning": reasoning,
-                    "context": {"weakness": weakness},
-                    "stats": {"goals": goals, "apps": apps, "gpm": gpm, "xgpm": xgpm}
-                })
+                # Filtre cote : si on connait la cote book ET qu'elle est < 2.4,
+                # le profit attendu est trop maigre vu notre WR reel observe (35%).
+                if cote is not None and cote < 2.4:
+                    pass  # skip pick
+                else:
+                    picks.append({
+                        "player": name, "position": pos, "is_sub": is_sub,
+                        "type": "Buteur", "label": f"{name} marque",
+                        "cote": cote, "book": book, "books": books_list,
+                        "confidence": round(ctx_conf_cal),
+                        "reasoning": reasoning,
+                        "context": {"weakness": weakness},
+                        "stats": {"goals": goals, "apps": apps, "gpm": gpm, "xgpm": xgpm}
+                    })
 
         # ── Passeur décisif ─────────────────────────────────────────
         if apm >= 0.15:
@@ -568,24 +578,28 @@ def analyze_match(match, pstats_all, player_odds_all=None):
                         f"{trend_txt} · {form_summary(fav_f)} · Note Sofa: {fav_rat:.1f}/10",fav_f)
 
     # ── Double chance — une seule (la meilleure) ────────────────────────────
+    # Analyse historique (20 picks, WR 65%, ROI -4.3%, cote moy 1.42, break-even 70.6%)
+    # -> seuil 70 trop bas (cote serre, marginalement non rentable).
+    # Nouveau seuil : conf >= 80 ET cote >= 1.45 pour assurer +EV.
     dc_cands = []
     if hf:
         ub   = unbeaten(hf)
         h2h_ = (hw+dn)/h2ht if h2ht else 0.5
-        # Forme récente pondérée davantage
         conf = round(ub * 65 + h_form_score * 0.2 + h2h_ * 15)
-        if conf >= 70:
+        conf_cal = _foot_calibrate(conf)
+        if conf_cal is not None and conf_cal >= 80 and (c1x is None or c1x >= 1.45):
             trend_txt = f", {h_trend}" if h_trend not in ("stable","en légère baisse") else ""
-            dc_cands.append(("home_dc","Double chance",f"{home} ou Nul (1X)",c1x,conf,
+            dc_cands.append(("home_dc","Double chance",f"{home} ou Nul (1X)",c1x,round(conf_cal),
                 f"{home} invaincu {round(ub*100)}% sur {len(hf)} derniers matchs{trend_txt} · "
                 f"H2H: {hw+dn}/{h2ht} matchs sans défaite",hf))
     if af:
         ub   = unbeaten(af)
         h2h_ = (aw+dn)/h2ht if h2ht else 0.5
         conf = round(ub * 65 + a_form_score * 0.2 + h2h_ * 15)
-        if conf >= 70:
+        conf_cal = _foot_calibrate(conf)
+        if conf_cal is not None and conf_cal >= 80 and (cx2 is None or cx2 >= 1.45):
             trend_txt = f", {a_trend}" if a_trend not in ("stable","en légère baisse") else ""
-            dc_cands.append(("away_dc","Double chance",f"Nul ou {away} (X2)",cx2,conf,
+            dc_cands.append(("away_dc","Double chance",f"Nul ou {away} (X2)",cx2,round(conf_cal),
                 f"{away} invaincu {round(ub*100)}% sur {len(af)} derniers matchs{trend_txt} · "
                 f"H2H: {aw+dn}/{h2ht} matchs sans défaite",af))
     if dc_cands:
@@ -1107,6 +1121,20 @@ def _fair_cote(probability):
     if not probability or probability <= 0 or probability >= 100:
         return None
     return round(1 / (probability / 100), 2)
+
+
+# ── CALIBRATION FOOT (basee sur analyse historique 207 picks) ────────────────
+# Le modele foot est trop confiant sur les buckets hauts :
+#   80-89% conf -> 68% WR (gap -16pp), 60-69% conf -> 48% WR (gap -16pp)
+# Sweet spot 70-79% conf est OK (78% WR, +4pp). Solution : shrinkage doux.
+FOOT_CAL_BASELINE = 60   # WR moyen foot observe
+FOOT_CAL_ALPHA    = 0.75 # final = 0.75 * model + 0.25 * 60 (shrinkage doux)
+
+
+def _foot_calibrate(conf):
+    """Applique shrinkage doux pour compenser l'overconfidence du modele."""
+    if conf is None: return None
+    return round(FOOT_CAL_ALPHA * float(conf) + (1 - FOOT_CAL_ALPHA) * FOOT_CAL_BASELINE, 1)
 
 
 def _value_tier(cote_min):
