@@ -1090,11 +1090,26 @@ def analyze_match(match, pstats_all, player_odds_all=None):
             else:
                 away_pp = [fb_pk]
 
-    # ── Tirs équipe ─────────────────────────────────────────────────────────
-    shots_props = team_shots_props(home_ts_data, away_ts_data, home_rec, away_rec,
-                                   h2h_shots_d, home, away, hp, ap, match_odds=odds,
-                                   home_form=hf, away_form=af)
-    team_picks.extend(shots_props)
+    # ── Tirs équipe (TOP-5 europeens + UEFA uniquement) ─────────────────────
+    # Les stats tirs/SoT ne sont pas fiables pour les championnats secondaires
+    # ou hors Europe (FotMob ne les expose pas, ou de maniere incomplete).
+    # Symptome user : "Boston River vs Liverpool FC (Uruguay Primera) -> ? tirs cadres".
+    # Pour ces ligues on emet uniquement : Resultat/DC, Buteur/DC Buteur, Over/Under buts.
+    SHOTS_RELIABLE_LEAGUES = {
+        17,    # Premier League
+        8,     # La Liga
+        35,    # Bundesliga
+        23,    # Serie A
+        34,    # Ligue 1
+        7,     # Champions League
+        679,   # Europa League
+        17015, # Conference League
+    }
+    if league_id in SHOTS_RELIABLE_LEAGUES:
+        shots_props = team_shots_props(home_ts_data, away_ts_data, home_rec, away_rec,
+                                       h2h_shots_d, home, away, hp, ap, match_odds=odds,
+                                       home_form=hf, away_form=af)
+        team_picks.extend(shots_props)
 
     return team_picks, home_pp, away_pp, fun_picks
 
