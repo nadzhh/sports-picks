@@ -140,8 +140,8 @@
         "type": "Victoire extérieur",
         "label": "Aurora gagne",
         "cote": null,
-        "confidence": 63,
-        "reasoning": "Aurora : 3V/2N/0D sur 5 matchs · #4 au classement · H2H: 0V/0N/0D · Note Sofa: 6.5/10",
+        "confidence": 64,
+        "reasoning": "Aurora : 3V/2N/0D sur 5 matchs · #3 au classement · H2H: 0V/0N/0D · Note Sofa: 6.5/10",
         "stats": {
           "form": [
             "W",
@@ -154,38 +154,38 @@
         "is_fun": false
       },
       {
-        "direction": "tirs_(aurora)_over_10.5",
-        "type": "Tirs (Aurora)",
-        "label": "Plus de 10.5 tirs Aurora",
-        "cote": null,
-        "cote_min": 1.29,
-        "value": [
-          "⚠️",
-          "Value serrée",
-          "#f59e0b"
-        ],
-        "confidence": 78,
-        "edge": null,
-        "reasoning": "Aurora prend 13.3/m [pondere vs opp #7] · adv. concède 13.3/m → attendu ~13.3 (équipes proches au classement)",
-        "stats": {
-          "expected": 13.3
-        }
-      },
-      {
         "direction": "shots_over_24.5",
         "type": "Tirs (total match)",
         "label": "Plus de 24.5 tirs total",
         "cote": null,
-        "cote_min": 1.31,
+        "cote_min": 1.33,
         "value": [
           "💎",
           "Value correcte",
           "#84cc16"
         ],
-        "confidence": 76,
-        "reasoning": "📊 Brut : Universitario de Vinto L10 TCC 18.6 (L5 TCC 20.8) tirs/m · Aurora L10 TCC 12.0 (L5 TCC 14.4) tirs/m\n🛡️ Défenses : Universitario de Vinto concède 13.3/m · Aurora concède 11.5/m\n🎯 Attendu : Universitario de Vinto ~15.1 · Aurora ~13.3 → total ~28.4\n⚖️ équipes proches au classement · Universitario de Vinto forme : W-W-D-L-W · Aurora forme : W-D-W-W-D",
+        "confidence": 75,
+        "reasoning": "📊 Brut : Universitario de Vinto L10 TCC 18.6 (L5 TCC 20.8) tirs/m · Aurora L10 TCC 12.0 (L5 TCC 14.4) tirs/m\n🛡️ Défenses : Universitario de Vinto concède 13.3/m · Aurora concède 11.5/m\n🎯 Attendu : Universitario de Vinto ~14.2 · Aurora ~14.1 → total ~28.2\n⚖️ Aurora favori (#3 vs #8) · Universitario de Vinto forme : W-W-D-L-W · Aurora forme : W-D-W-W-D",
         "stats": {
-          "expected_total": 28.4
+          "expected_total": 28.2
+        }
+      },
+      {
+        "direction": "tirs_(universitario_de_vinto)_over_11.5",
+        "type": "Tirs (Universitario de Vinto)",
+        "label": "Plus de 11.5 tirs Universitario de Vinto",
+        "cote": null,
+        "cote_min": 1.33,
+        "value": [
+          "💎",
+          "Value correcte",
+          "#84cc16"
+        ],
+        "confidence": 75,
+        "edge": null,
+        "reasoning": "Universitario de Vinto prend 18.6/m [pondere vs opp #3] · adv. concède 11.5/m → attendu ~14.2 (Aurora favori (#3 vs #8))",
+        "stats": {
+          "expected": 14.2
         }
       }
     ],
@@ -215,24 +215,24 @@
     ],
     "away_players": [
       {
-        "player": "Leonardo Viviani / Rodrigo Ramallo",
+        "player": "Rodrigo Ramallo / Leonardo Viviani",
         "position": "",
         "is_sub": false,
         "type": "Double Chance Buteur",
-        "label": "Leonardo Viviani ou Rodrigo Ramallo marque",
+        "label": "Rodrigo Ramallo ou Leonardo Viviani marque",
         "cote": null,
         "book": null,
         "books": [],
-        "confidence": 71,
-        "cote_min": 1.41,
-        "reasoning": "📈 P(Leonardo Viviani marque) ≈ 49% · P(Rodrigo Ramallo marque) ≈ 43%\n🎯 P(au moins un marque) = 71% (calculée par 1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.41 - chercher ≥1.41 chez le bookmaker",
+        "confidence": 76,
+        "cote_min": 1.32,
+        "reasoning": "📈 P(Rodrigo Ramallo marque) ≈ 53% · P(Leonardo Viviani marque) ≈ 50%\n🎯 P(au moins un marque) = 76% (calculée par 1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.32 - chercher ≥1.32 chez le bookmaker",
         "context": {},
         "stats": {
-          "p_a": 0.488,
-          "p_b": 0.428,
-          "p_or": 0.707,
-          "player_a": "Leonardo Viviani",
-          "player_b": "Rodrigo Ramallo"
+          "p_a": 0.532,
+          "p_b": 0.495,
+          "p_or": 0.764,
+          "player_a": "Rodrigo Ramallo",
+          "player_b": "Leonardo Viviani"
         },
         "team": "away"
       },
@@ -245,13 +245,13 @@
         "cote": null,
         "book": null,
         "books": [],
-        "confidence": 58,
-        "reasoning": "2 buts + 3 passes décisives en 6 matchs (83.3% de chance/match) · xG+xA: 0/match · défense correcte",
+        "confidence": 65,
+        "reasoning": "3 buts + 3 passes décisives en 6 matchs (100.0% de chance/match) · xG+xA: 0/match · défense correcte",
         "context": {
-          "weakness": 0.43
+          "weakness": 0.46
         },
         "stats": {
-          "goals": 2,
+          "goals": 3,
           "assists": 3,
           "apps": 6
         },
@@ -287,9 +287,9 @@
     "page_url": "/matches/real-tomayapo-vs-gv-san-jose/16g8g700y#1000010857",
     "picks": [
       {
-        "direction": "tirs_(real_tomayapo)_under_14.5",
-        "type": "Tirs (Real Tomayapo)",
-        "label": "Moins de 14.5 tirs Real Tomayapo",
+        "direction": "tirs_cadrés_(real_tomayapo)_over_2.5",
+        "type": "Tirs cadrés (Real Tomayapo)",
+        "label": "Plus de 2.5 tirs cadrés Real Tomayapo",
         "cote": null,
         "cote_min": 1.26,
         "value": [
@@ -299,9 +299,9 @@
         ],
         "confidence": 80,
         "edge": null,
-        "reasoning": "Real Tomayapo prend 8.7/m [pondere vs opp #16] · adv. concède 14.8/m → attendu ~11.7 (équipes proches au classement)",
+        "reasoning": "Real Tomayapo prend 3.0/m [pondere vs opp #16] · adv. concède 5.5/m → attendu ~4.2 (équipes proches au classement)",
         "stats": {
-          "expected": 11.7
+          "expected": 4.2
         }
       },
       {
@@ -371,9 +371,9 @@
     "away_players": [],
     "fun_picks": [],
     "top_pick": {
-      "direction": "tirs_(real_tomayapo)_under_14.5",
-      "type": "Tirs (Real Tomayapo)",
-      "label": "Moins de 14.5 tirs Real Tomayapo",
+      "direction": "tirs_cadrés_(real_tomayapo)_over_2.5",
+      "type": "Tirs cadrés (Real Tomayapo)",
+      "label": "Plus de 2.5 tirs cadrés Real Tomayapo",
       "cote": null,
       "cote_min": 1.26,
       "value": [
@@ -383,9 +383,9 @@
       ],
       "confidence": 80,
       "edge": null,
-      "reasoning": "Real Tomayapo prend 8.7/m [pondere vs opp #16] · adv. concède 14.8/m → attendu ~11.7 (équipes proches au classement)",
+      "reasoning": "Real Tomayapo prend 3.0/m [pondere vs opp #16] · adv. concède 5.5/m → attendu ~4.2 (équipes proches au classement)",
       "stats": {
-        "expected": 11.7
+        "expected": 4.2
       }
     }
   },
