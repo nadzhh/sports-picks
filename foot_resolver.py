@@ -151,6 +151,14 @@ def _resolve_team_shots(pick, ev):
     if "tir" not in label and "shot" not in label and "shot" not in direction:
         return "UNKNOWN", None
 
+    # Garde : si la ligue n'est pas top-5 europeen + UEFA, les stats tirs ne sont
+    # pas fiables (FotMob n'expose pas ces stats pour les championnats secondaires
+    # ou hors Europe). On marque PUSH (rembourse) au lieu de laisser PENDING.
+    SHOTS_RELIABLE_LEAGUES = {17, 8, 35, 23, 34, 7, 679, 17015}
+    lid = pick.get("league_id") or 0
+    if lid and lid not in SHOTS_RELIABLE_LEAGUES:
+        return "PUSH", "Stats tirs non disponibles pour ce championnat"
+
     is_sot = ("cadr" in label) or ("sot" in direction)
 
     # IMPORTANT : utilise les noms d'equipe REELS de FotMob (pas le matchup label
