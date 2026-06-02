@@ -37,6 +37,7 @@ DATA = Path("data")
 OUT_PATH      = DATA / "tennis_results.json"
 PICKS_PATH    = DATA / "tennis_picks.json"
 HISTORY_PATH  = DATA / "tennis_picks_history.json"
+PENDING_PATH  = DATA / "tennis_pending_picks.json"  # accumule picks generes non-resolus
 CACHE = DATA / "cache_tennis_scores.json"
 CACHE_TTL = 30 * 60  # 30 min
 
@@ -265,17 +266,20 @@ def fetch_all():
         except Exception:
             algo = {}
     algo_matches = algo.get("matches", []) or []
-    _SOFA_DIAG["algo_picks_total"] = sum(len(m.get("picks", []) or []) for m in algo_matches)
-    _SOFA_DIAG["algo_matches_total"] = len(algo_matches)
-    # On charge aussi tennis_picks_history.json pour reresoudre des picks deja
-    # historises en cas de fix (cas user pick d'il y a 2 jours non resolus).
-    # 2. Liste les dates de matchs (-1j, 0, +1) pour Sofascore
+    # On combine aussi avec les picks PENDING (generes ces derniers jours mais
+    # pas encore resolus) -> permet a un pick J-3 dont le match est maintenant
+    # fini de se resoudre meme si tennis_picks.json ne le contient plus.
+    pending_for_dates = _load_pending().get("matches", []) or []
+    combined_matches = algo_matches + pending_for_dates
+    _SOFA_DIAG["algo_picks_total"] = sum(len(m.get("picks", []) or []) for m in combined_matches)
+    _SOFA_DIAG["algo_matches_total"] = len(combined_matches)
+    # 2. Liste les dates de matchs (-7j a +1j) pour ESPN
     dates_to_fetch = set()
     today = datetime.now(timezone.utc).date()
-    for delta in (-2, -1, 0):
+    for delta in range(-7, 1):
         dates_to_fetch.add((today + timedelta(days=delta)).strftime("%Y-%m-%d"))
-    # Ajoute les dates des algo picks (cas pick + ancien)
-    for m in algo_matches:
+    # Ajoute les dates de tous les matchs algo+pending (deduplique automatiquement)
+    for m in combined_matches:
         d = (m.get("start_iso") or "")[:10]
         if d: dates_to_fetch.add(d)
     print(f"  [tennis_resolver] dates a fetch via ESPN : {sorted(dates_to_fetch)}")
@@ -290,9 +294,11 @@ def fetch_all():
     # 3. Pour chaque algo match, lookup Sofascore par (date, paire de noms)
     out = {}
     matched = 0
-    for m in algo_matches:
+    seen_eids = set()
+    for m in combined_matches:
         eid = m.get("event_id")
-        if not eid: continue
+        if not eid or eid in seen_eids: continue
+        seen_eids.add(eid)
         h_name = (m.get("home") or {}).get("name", "")
         a_name = (m.get("away") or {}).get("name", "")
         date_str = (m.get("start_iso") or "")[:10]
@@ -399,19 +405,62 @@ def _save_history(hist):
     HISTORY_PATH.write_text(json.dumps(hist, ensure_ascii=False, indent=2), encoding="utf-8")
 
 
+def _load_pending():
+    if PENDING_PATH.exists():
+        try:
+            return json.loads(PENDING_PATH.read_text(encoding="utf-8"))
+        except Exception:
+            pass
+    return {"matches": []}
+
+
+def _save_pending(pending):
+    try:
+        PENDING_PATH.write_text(json.dumps(pending, ensure_ascii=False, indent=2), encoding="utf-8")
+    except Exception as e:
+        print(f"  [tennis pending] save err : {e}")
+
+
+def _ingest_current_picks_into_pending():
+    """Accumule les picks de tennis_picks.json dans tennis_pending_picks.json
+    pour qu'ils survivent meme si tennis_picks.json est ecrase par le prochain
+    run du scraper. Dedup par event_id.
+    """
+    if not PICKS_PATH.exists():
+        return
+    try:
+        algo = json.loads(PICKS_PATH.read_text(encoding="utf-8"))
+    except Exception:
+        return
+    pending = _load_pending()
+    existing_ids = {m.get("event_id") for m in pending.get("matches", [])}
+    n_added = 0
+    for m in algo.get("matches", []) or []:
+        eid = m.get("event_id")
+        if not eid or eid in existing_ids: continue
+        pending["matches"].append(m)
+        existing_ids.add(eid)
+        n_added += 1
+    if n_added:
+        _save_pending(pending)
+        print(f"  [tennis pending] +{n_added} matchs ingerees (total {len(pending['matches'])})")
+
+
 def resolve_algo_picks(results):
     """Pour chaque pick algo des matchs termines, calcule le resultat et
     l'ajoute a tennis_picks_history.json (deduplique par pick_id).
+
+    Iterre sur tennis_pending_picks.json (= accumule depuis tennis_picks.json
+    au fil des runs cron). Garantit qu'un pick genere J0 puisse etre resolu
+    a J+1, J+2 quand le match ESPN est finalement marque completed.
     """
-    if not PICKS_PATH.exists():
-        print("  [tennis hist] pas de tennis_picks.json -> skip")
+    # Ingere d'abord les picks d'aujourd'hui dans le pending file
+    _ingest_current_picks_into_pending()
+    pending = _load_pending()
+    matches = pending.get("matches", []) or []
+    if not matches:
+        print("  [tennis hist] aucun pick pending -> skip")
         return 0
-    try:
-        algo = json.loads(PICKS_PATH.read_text(encoding="utf-8"))
-    except Exception as e:
-        print(f"  [tennis hist] read err : {e}")
-        return 0
-    matches = algo.get("matches", []) or []
     hist = _load_history()
     existing = {p.get("id"): i for i, p in enumerate(hist.get("picks", []))}
     n_new = n_updated = 0
@@ -471,6 +520,33 @@ def resolve_algo_picks(results):
         hist["picks"].sort(key=lambda p: p.get("date") or "", reverse=True)
         _save_history(hist)
     print(f"  [tennis hist] +{n_new} nouveaux, {n_updated} mis a jour -> {HISTORY_PATH} ({len(hist['picks'])} total)")
+    # Nettoyage : retire de pending les events resolus + ceux trop vieux (>7j)
+    from datetime import datetime as _dt, timezone as _tz, timedelta as _td
+    resolved_eids = {p.get("event_id") for p in hist.get("picks", []) if p.get("result")}
+    cutoff = _dt.now(_tz.utc) - _td(days=7)
+    new_pending_matches = []
+    n_pruned = 0
+    for m in matches:
+        eid = m.get("event_id")
+        # Resolu : on retire
+        if eid in resolved_eids:
+            n_pruned += 1
+            continue
+        # Trop vieux : on retire
+        try:
+            start_iso = m.get("start_iso") or ""
+            if start_iso:
+                start_dt = _dt.fromisoformat(start_iso.replace("Z", "+00:00"))
+                if start_dt < cutoff:
+                    n_pruned += 1
+                    continue
+        except Exception:
+            pass
+        new_pending_matches.append(m)
+    if n_pruned:
+        pending["matches"] = new_pending_matches
+        _save_pending(pending)
+        print(f"  [tennis pending] -{n_pruned} matchs purges (resolus ou >7j), reste {len(new_pending_matches)}")
     return n_new + n_updated
 
 
