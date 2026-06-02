@@ -140,8 +140,8 @@
         "type": "Victoire extérieur",
         "label": "Aurora gagne",
         "cote": null,
-        "confidence": 64,
-        "reasoning": "Aurora : 3V/2N/0D sur 5 matchs · #3 au classement · H2H: 0V/0N/0D · Note Sofa: 6.5/10",
+        "confidence": 63,
+        "reasoning": "Aurora : 3V/2N/0D sur 5 matchs · #4 au classement · H2H: 0V/0N/0D · Note Sofa: 6.5/10",
         "stats": {
           "form": [
             "W",
@@ -154,28 +154,11 @@
         "is_fun": false
       },
       {
-        "direction": "sot_over_8.5",
-        "type": "Tirs cadrés (total)",
-        "label": "Plus de 8.5 tirs cadrés total",
+        "direction": "tirs_(aurora)_over_10.5",
+        "type": "Tirs (Aurora)",
+        "label": "Plus de 10.5 tirs Aurora",
         "cote": null,
-        "cote_min": 1.26,
-        "value": [
-          "⚠️",
-          "Value serrée",
-          "#f59e0b"
-        ],
-        "confidence": 79,
-        "reasoning": "📊 Brut : Universitario de Vinto L10 TCC 7.9 (L5 TCC 9.6) tirs cadrés/m · Aurora L10 TCC 4.7 (L5 TCC 7.0) tirs cadrés/m\n🛡️ Défenses : Universitario de Vinto concède 4.4/m · Aurora concède 4.0/m\n🎯 Attendu : Universitario de Vinto ~5.9 · Aurora ~5.4 → total ~11.3\n⚖️ Aurora favori (#3 vs #8) · Universitario de Vinto forme : W-W-D-L-W · Aurora forme : W-D-W-W-D",
-        "stats": {
-          "expected_total": 11.3
-        }
-      },
-      {
-        "direction": "tirs_cadrés_(aurora)_over_3.5",
-        "type": "Tirs cadrés (Aurora)",
-        "label": "Plus de 3.5 tirs cadrés Aurora",
-        "cote": null,
-        "cote_min": 1.27,
+        "cote_min": 1.29,
         "value": [
           "⚠️",
           "Value serrée",
@@ -183,32 +166,49 @@
         ],
         "confidence": 78,
         "edge": null,
-        "reasoning": "Aurora prend 5.9/m [pondere vs opp #8] · adv. concède 4.4/m → attendu ~5.4 (Aurora favori (#3 vs #8))",
+        "reasoning": "Aurora prend 13.3/m [pondere vs opp #7] · adv. concède 13.3/m → attendu ~13.3 (équipes proches au classement)",
         "stats": {
-          "expected": 5.4
+          "expected": 13.3
+        }
+      },
+      {
+        "direction": "shots_over_24.5",
+        "type": "Tirs (total match)",
+        "label": "Plus de 24.5 tirs total",
+        "cote": null,
+        "cote_min": 1.31,
+        "value": [
+          "💎",
+          "Value correcte",
+          "#84cc16"
+        ],
+        "confidence": 76,
+        "reasoning": "📊 Brut : Universitario de Vinto L10 TCC 18.6 (L5 TCC 20.8) tirs/m · Aurora L10 TCC 12.0 (L5 TCC 14.4) tirs/m\n🛡️ Défenses : Universitario de Vinto concède 13.3/m · Aurora concède 11.5/m\n🎯 Attendu : Universitario de Vinto ~15.1 · Aurora ~13.3 → total ~28.4\n⚖️ équipes proches au classement · Universitario de Vinto forme : W-W-D-L-W · Aurora forme : W-D-W-W-D",
+        "stats": {
+          "expected_total": 28.4
         }
       }
     ],
     "home_players": [
       {
-        "player": "Hernán Rodríguez / Rodrigo Llano",
+        "player": "Hernán Rodríguez / Agustín Jara",
         "position": "",
         "is_sub": false,
         "type": "Double Chance Buteur",
-        "label": "Hernán Rodríguez ou Rodrigo Llano marque",
+        "label": "Hernán Rodríguez ou Agustín Jara marque",
         "cote": null,
         "book": null,
         "books": [],
-        "confidence": 67,
-        "cote_min": 1.49,
-        "reasoning": "📈 P(Hernán Rodríguez marque) ≈ 47% · P(Rodrigo Llano marque) ≈ 38%\n🎯 P(au moins un marque) = 67% (calculée par 1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.49 - chercher ≥1.49 chez le bookmaker",
+        "confidence": 68,
+        "cote_min": 1.47,
+        "reasoning": "📈 P(Hernán Rodríguez marque) ≈ 47% · P(Agustín Jara marque) ≈ 39%\n🎯 P(au moins un marque) = 68% (calculée par 1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.47 - chercher ≥1.47 chez le bookmaker",
         "context": {},
         "stats": {
           "p_a": 0.472,
-          "p_b": 0.382,
-          "p_or": 0.674,
+          "p_b": 0.39,
+          "p_or": 0.678,
           "player_a": "Hernán Rodríguez",
-          "player_b": "Rodrigo Llano"
+          "player_b": "Agustín Jara"
         },
         "team": "home"
       }
@@ -248,7 +248,7 @@
         "confidence": 58,
         "reasoning": "2 buts + 3 passes décisives en 6 matchs (83.3% de chance/match) · xG+xA: 0/match · défense correcte",
         "context": {
-          "weakness": 0.45
+          "weakness": 0.43
         },
         "stats": {
           "goals": 2,
@@ -287,9 +287,9 @@
     "page_url": "/matches/real-tomayapo-vs-gv-san-jose/16g8g700y#1000010857",
     "picks": [
       {
-        "direction": "tirs_cadrés_(real_tomayapo)_over_2.5",
-        "type": "Tirs cadrés (Real Tomayapo)",
-        "label": "Plus de 2.5 tirs cadrés Real Tomayapo",
+        "direction": "tirs_(real_tomayapo)_under_14.5",
+        "type": "Tirs (Real Tomayapo)",
+        "label": "Moins de 14.5 tirs Real Tomayapo",
         "cote": null,
         "cote_min": 1.26,
         "value": [
@@ -299,9 +299,9 @@
         ],
         "confidence": 80,
         "edge": null,
-        "reasoning": "Real Tomayapo prend 3.0/m [pondere vs opp #16] · adv. concède 5.5/m → attendu ~4.2 (équipes proches au classement)",
+        "reasoning": "Real Tomayapo prend 8.7/m [pondere vs opp #16] · adv. concède 14.8/m → attendu ~11.7 (équipes proches au classement)",
         "stats": {
-          "expected": 4.2
+          "expected": 11.7
         }
       },
       {
@@ -371,9 +371,9 @@
     "away_players": [],
     "fun_picks": [],
     "top_pick": {
-      "direction": "tirs_cadrés_(real_tomayapo)_over_2.5",
-      "type": "Tirs cadrés (Real Tomayapo)",
-      "label": "Plus de 2.5 tirs cadrés Real Tomayapo",
+      "direction": "tirs_(real_tomayapo)_under_14.5",
+      "type": "Tirs (Real Tomayapo)",
+      "label": "Moins de 14.5 tirs Real Tomayapo",
       "cote": null,
       "cote_min": 1.26,
       "value": [
@@ -383,9 +383,9 @@
       ],
       "confidence": 80,
       "edge": null,
-      "reasoning": "Real Tomayapo prend 3.0/m [pondere vs opp #16] · adv. concède 5.5/m → attendu ~4.2 (équipes proches au classement)",
+      "reasoning": "Real Tomayapo prend 8.7/m [pondere vs opp #16] · adv. concède 14.8/m → attendu ~11.7 (équipes proches au classement)",
       "stats": {
-        "expected": 4.2
+        "expected": 11.7
       }
     }
   },
