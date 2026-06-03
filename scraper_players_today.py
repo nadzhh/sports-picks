@@ -751,7 +751,16 @@ async def patch_invalid_matches(all_l10_lists):
     Trouve les matchs ou data_valid=False et fetch leurs vraies donnees via Camoufox.
     all_l10_lists: liste de listes [l10_for_team_A, l10_for_team_B, ...]
     Modifie les entries in-place.
+
+    Cap a 30 matchs max pour eviter de bloquer le cron quand des leagues
+    massives (Friendlies internationaux, qualifs WC avec amicaux) generent
+    des centaines de "conflits". Au-dela, on accepte les donnees imparfaites.
+    Plus skip si CAMOUFOX_DISABLE env var est set (GH Actions).
     """
+    import os as _os
+    if _os.environ.get("CAMOUFOX_DISABLE") == "1":
+        print(f"\n[browser fallback] CAMOUFOX_DISABLE=1 -> skip")
+        return 0
     from fotmob_browser import FotMobBrowser, slim_to_match_events
 
     # Collecte tous les matchs invalides (deduplique par match_id)
@@ -771,6 +780,12 @@ async def patch_invalid_matches(all_l10_lists):
     if not invalid_by_id:
         return 0
 
+    # Cap pour eviter le hang sur Friendlies & cie (118 matchs vu en prod)
+    MAX_BROWSER_PATCH = 30
+    if len(invalid_by_id) > MAX_BROWSER_PATCH:
+        print(f"\n[browser fallback] {len(invalid_by_id)} matchs invalides -> cap a {MAX_BROWSER_PATCH} pour eviter le hang")
+        # Garde les premiers (la plupart sont des amicaux internationaux secondaires)
+        invalid_by_id = dict(list(invalid_by_id.items())[:MAX_BROWSER_PATCH])
     print(f"\n[browser fallback] {len(invalid_by_id)} match(s) en conflit a fetch via Camoufox...")
 
     fetched = 0
