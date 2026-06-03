@@ -125,6 +125,23 @@ FOTMOB_LEAGUES = {
     "Bulgarian First":         {"id": 270,   "name_match": "First Professional League"}, # BUL, 293
     "Macedonian Prva":         {"id": 249,   "name_match": "Prva Liga"},         # MKD, 198
     "Bosnia Premier":          {"id": 267,   "name_match": "Premier League"},    # BIH, 180
+    # ── Competitions internationales (selections nationales + amicaux) ───────
+    # IDs verifies live via /api/data/leagues?id=X (2026)
+    "Friendlies":              {"id": 114,   "name_match": "Friendlies"},        # INT, amicaux 292
+    "World Cup":               {"id": 77,    "name_match": "World Cup"},         # INT, 104
+    "EURO":                    {"id": 50,    "name_match": "EURO"},              # INT, 51
+    "Copa America":            {"id": 44,    "name_match": "Copa America"},      # INT, 32
+    "Africa Cup of Nations":   {"id": 289,   "name_match": "Africa Cup of Nations"}, # INT, 52
+    "Asian Cup":               {"id": 290,   "name_match": "Asian Cup"},         # INT, 51
+    "WC Qualif UEFA":          {"id": 10195, "name_match": "World Cup Qualification UEFA"},     # 204
+    "WC Qualif CONMEBOL":      {"id": 10199, "name_match": "World Cup Qualification CONMEBOL"}, # 90
+    "WC Qualif CONCACAF":      {"id": 10198, "name_match": "World Cup Qualification CONCACAF"}, # 100
+    "WC Qualif CAF":           {"id": 10196, "name_match": "World Cup Qualification CAF"},      # 263
+    "WC Qualif AFC":           {"id": 10197, "name_match": "World Cup Qualification AFC"},      # 226
+    "UEFA Nations League A":   {"id": 9806,  "name_match": "UEFA Nations League A"},            # 48
+    "UEFA Nations League B":   {"id": 9807,  "name_match": "UEFA Nations League B"},            # 48
+    "UEFA Nations League C":   {"id": 9808,  "name_match": "UEFA Nations League C"},            # 48
+    "UEFA Nations League D":   {"id": 9809,  "name_match": "UEFA Nations League D"},            # 12
 }
 
 # Pour mapper FotMob league id -> "internal id" picks_engine (utilise CUP_LEAGUES)
@@ -179,6 +196,22 @@ INTERNAL_LEAGUE_IDS = {
     "Bulgarian First":       172,
     "Macedonian Prva":       388,    # incertain api-football
     "Bosnia Premier":        315,    # incertain api-football
+    # Competitions internationales (id = fotmob id, pas toujours dans api-football)
+    "Friendlies":            114,
+    "World Cup":             77,
+    "EURO":                  50,
+    "Copa America":          44,
+    "Africa Cup of Nations": 289,
+    "Asian Cup":             290,
+    "WC Qualif UEFA":        10195,
+    "WC Qualif CONMEBOL":    10199,
+    "WC Qualif CONCACAF":    10198,
+    "WC Qualif CAF":         10196,
+    "WC Qualif AFC":         10197,
+    "UEFA Nations League A": 9806,
+    "UEFA Nations League B": 9807,
+    "UEFA Nations League C": 9808,
+    "UEFA Nations League D": 9809,
 }
 # Toutes les coupes (matchs a elimination - traitement special : pas de classement utile)
 CUP_LEAGUES = {7, 679, 17015, 45, 66, 143, 137, 81, 13}
