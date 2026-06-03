@@ -1,18 +1,18 @@
 {
-  "generated_at": "2026-06-03T02:26:59.643524",
-  "n_total": 443,
+  "generated_at": "2026-06-03T02:37:03.360163",
+  "n_total": 444,
   "globals": {
     "foot": {
-      "n": 239,
+      "n": 240,
       "w": 136,
-      "l": 99,
+      "l": 100,
       "push": 4,
-      "wr": 57.9,
-      "roi": 9.1,
-      "profit": 21.85,
+      "wr": 57.6,
+      "roi": 8.7,
+      "profit": 20.85,
       "avg_cote": 2.3,
       "break_even_wr": 43.5,
-      "wr_vs_be": 14.3
+      "wr_vs_be": 14.1
     },
     "nba": {
       "n": 106,
@@ -70,18 +70,18 @@
         "calibration_gap": -19.8
       },
       "70-79": {
-        "n": 84,
+        "n": 85,
         "w": 61,
-        "l": 20,
+        "l": 21,
         "push": 3,
-        "wr": 75.3,
-        "roi": 30.1,
-        "profit": 25.32,
+        "wr": 74.4,
+        "roi": 28.6,
+        "profit": 24.32,
         "avg_cote": 1.53,
         "break_even_wr": 65.6,
-        "wr_vs_be": 9.8,
+        "wr_vs_be": 8.8,
         "expected_wr": 74.5,
-        "calibration_gap": 0.8
+        "calibration_gap": -0.1
       },
       "80-89": {
         "n": 43,
@@ -343,18 +343,6 @@
         "break_even_wr": 29.9,
         "wr_vs_be": 9.3
       },
-      "Victoire extérieur": {
-        "n": 14,
-        "w": 6,
-        "l": 8,
-        "push": 0,
-        "wr": 42.9,
-        "roi": 0.2,
-        "profit": 0.03,
-        "avg_cote": 2.63,
-        "break_even_wr": 38.0,
-        "wr_vs_be": 4.9
-      },
       "1ère équipe à marquer": {
         "n": 3,
         "w": 2,
@@ -366,6 +354,18 @@
         "avg_cote": 1.46,
         "break_even_wr": 68.6,
         "wr_vs_be": -2.0
+      },
+      "Victoire extérieur": {
+        "n": 15,
+        "w": 6,
+        "l": 9,
+        "push": 0,
+        "wr": 40.0,
+        "roi": -6.5,
+        "profit": -0.97,
+        "avg_cote": 2.63,
+        "break_even_wr": 38.0,
+        "wr_vs_be": 2.0
       },
       "Over 2.5 buts": {
         "n": 8,
@@ -796,6 +796,18 @@
         }
       },
       "direction": {
+        "away_win": {
+          "n": 16,
+          "w": 7,
+          "l": 9,
+          "push": 0,
+          "wr": 43.8,
+          "roi": -2.7,
+          "profit": -0.44,
+          "avg_cote": 2.52,
+          "break_even_wr": 39.7,
+          "wr_vs_be": 4.1
+        },
         "away_dc": {
           "n": 16,
           "w": 11,
@@ -807,18 +819,6 @@
           "avg_cote": 1.52,
           "break_even_wr": 65.8,
           "wr_vs_be": 2.9
-        },
-        "away_win": {
-          "n": 15,
-          "w": 7,
-          "l": 8,
-          "push": 0,
-          "wr": 46.7,
-          "roi": 3.7,
-          "profit": 0.56,
-          "avg_cote": 2.52,
-          "break_even_wr": 39.7,
-          "wr_vs_be": 7.0
         },
         "sot_under_10.5": {
           "n": 8,
@@ -907,16 +907,16 @@
       },
       "is_fun": {
         "False": {
-          "n": 230,
+          "n": 231,
           "w": 133,
-          "l": 93,
+          "l": 94,
           "push": 4,
-          "wr": 58.8,
-          "roi": 8.2,
-          "profit": 18.92,
+          "wr": 58.6,
+          "roi": 7.8,
+          "profit": 17.92,
           "avg_cote": 2.14,
           "break_even_wr": 46.8,
-          "wr_vs_be": 12.1
+          "wr_vs_be": 11.8
         },
         "True": {
           "n": 9,
@@ -1188,6 +1188,24 @@
     },
     {
       "severity": "medium",
+      "type": "watch_market",
+      "scope": "foot · Victoire extérieur",
+      "message": "Market <b>Victoire extérieur</b> (foot) : ROI <b>-6.5%</b> sur 15 picks (WR 40.0% (break-even @ 38.0% WR), cote moy. 2.63). Marginalement non-rentable, à surveiller.",
+      "stats": {
+        "n": 15,
+        "w": 6,
+        "l": 9,
+        "push": 0,
+        "wr": 40.0,
+        "roi": -6.5,
+        "profit": -0.97,
+        "avg_cote": 2.63,
+        "break_even_wr": 38.0,
+        "wr_vs_be": 2.0
+      }
+    },
+    {
+      "severity": "medium",
       "type": "miscalibrated_overconfident",
       "scope": "tennis · conf 50-59",
       "message": "Bucket conf <b>50-59</b> (tennis) : modèle annonce ~54.5% mais WR réel = 33.3% (gap -21.2pp sur 12 picks). Modèle trop confiant → relever MIN_CONF ou ajuster formule.",
@@ -1282,20 +1300,20 @@
       "severity": "medium",
       "type": "context_signal",
       "scope": "foot · direction",
-      "message": "Signal contexte <b>direction</b> (foot) : direction=away_win → WR 46.7% (15 picks) vs direction=away_dc → WR 68.8% (16). Filtrer/ponderer.",
+      "message": "Signal contexte <b>direction</b> (foot) : direction=away_win → WR 43.8% (16 picks) vs direction=away_dc → WR 68.8% (16). Filtrer/ponderer.",
       "stats": {
         "worst": {
           "away_win": {
-            "n": 15,
+            "n": 16,
             "w": 7,
-            "l": 8,
+            "l": 9,
             "push": 0,
-            "wr": 46.7,
-            "roi": 3.7,
-            "profit": 0.56,
+            "wr": 43.8,
+            "roi": -2.7,
+            "profit": -0.44,
             "avg_cote": 2.52,
             "break_even_wr": 39.7,
-            "wr_vs_be": 7.0
+            "wr_vs_be": 4.1
           }
         },
         "best": {
