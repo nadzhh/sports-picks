@@ -7762,6 +7762,70 @@ async function _bkPollHistory(){{
       }}
     }}
   }} catch(e){{}}
+  // ── Tennis live scores via ESPN (no Cloudflare, public API) ────────────
+  // Fetch direct cote client : resout les paris tennis en temps reel sans
+  // attendre le prochain cron. ATP + WTA en 1-2 calls.
+  try {{
+    var today = new Date();
+    var yyyymmdd = today.getFullYear() + ('0'+(today.getMonth()+1)).slice(-2) + ('0'+today.getDate()).slice(-2);
+    var yday = new Date(today.getTime() - 86400000);
+    var yymd = yday.getFullYear() + ('0'+(yday.getMonth()+1)).slice(-2) + ('0'+yday.getDate()).slice(-2);
+    var newResults = Object.assign({{}}, window.TENNIS_RESULTS || {{}});
+    var addedAny = false;
+    for(var li = 0; li < 2; li++){{
+      var league = li === 0 ? 'atp' : 'wta';
+      for(var di = 0; di < 2; di++){{
+        var d = di === 0 ? yyyymmdd : yymd;
+        var url = 'https://site.api.espn.com/apis/site/v2/sports/tennis/' + league + '/scoreboard?dates=' + d;
+        try {{
+          var r = await fetch(url, {{cache: 'no-store'}});
+          if(!r.ok) continue;
+          var espn = await r.json();
+          var events = espn.events || [];
+          for(var e of events){{
+            for(var g of (e.groupings || [])){{
+              for(var c of (g.competitions || [])){{
+                var status = (c.status || {{}}).type || {{}};
+                if(!status.completed) continue;
+                var comps = c.competitors || [];
+                if(comps.length !== 2) continue;
+                var home = comps.find(function(x){{ return x.homeAway === 'home'; }}) || comps[0];
+                var away = comps.find(function(x){{ return x.homeAway === 'away'; }}) || comps[1];
+                var hs = (home.linescores || []).map(function(x){{ return parseInt(x.value || 0); }});
+                var as = (away.linescores || []).map(function(x){{ return parseInt(x.value || 0); }});
+                var hWon = 0, aWon = 0;
+                for(var i = 0; i < Math.min(hs.length, as.length); i++){{
+                  if(hs[i] > as[i]) hWon++;
+                  else if(as[i] > hs[i]) aWon++;
+                }}
+                var winner = home.winner ? 'home' : (away.winner ? 'away' : null);
+                // Construction d'un eid synthetique (ESPN id different de Odds API)
+                // On match aussi via le nom des players dans autoResolveTennisPicks
+                var eid = c.id;
+                if(!newResults[eid]){{
+                  newResults[eid] = {{
+                    completed: true,
+                    winner: winner,
+                    home_name: (home.athlete || {{}}).displayName || '',
+                    away_name: (away.athlete || {{}}).displayName || '',
+                    set_score: hWon + '-' + aWon,
+                    total_games: hs.reduce(function(a,b){{ return a+b; }}, 0) + as.reduce(function(a,b){{ return a+b; }}, 0),
+                    source: 'espn_live',
+                  }};
+                  addedAny = true;
+                }}
+              }}
+            }}
+          }}
+        }} catch(_e){{}}
+      }}
+    }}
+    if(addedAny){{
+      window.TENNIS_RESULTS = newResults;
+      changed = true;
+    }}
+  }} catch(e){{}}
+
   if(!changed) return;
   var n = autoResolveUserPicks();
   _updateUserPicksCount();

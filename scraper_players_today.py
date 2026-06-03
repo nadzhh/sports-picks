@@ -988,25 +988,35 @@ def main():
             leagues_in_play.add(fm_lid)
 
     # 2. Pour chaque ligue, charge season_id puis tous les stats
+    #    PARALLELISE (8 workers) : gain ~6-8x sur la phase de chargement.
     print(f"\n[1/3] Chargement stats team+player ({len(leagues_in_play)} ligues)...")
     league_stats = {}  # fm_lid -> {team_data, player_data}
     league_data_cache = {}  # fm_lid -> raw league data (for season_id, fixtures)
 
-    for fm_lid in leagues_in_play:
+    from concurrent.futures import ThreadPoolExecutor
+
+    def _load_league(fm_lid):
         ld = fm_league(fm_lid)
-        league_data_cache[fm_lid] = ld
-        # season_id depuis fetchAllUrl
         sid = None
         pl = (ld or {}).get("stats", {}).get("players", [])
         if pl and pl[0].get("fetchAllUrl"):
             m_re = re.search(r"/season/(\d+)/", pl[0]["fetchAllUrl"])
             if m_re: sid = m_re.group(1)
         if not sid:
+            return fm_lid, ld, None, None
+        team_data, player_data = collect_league_stats(fm_lid, sid)
+        return fm_lid, ld, team_data, player_data
+
+    with ThreadPoolExecutor(max_workers=8) as ex:
+        results = list(ex.map(_load_league, leagues_in_play))
+
+    for fm_lid, ld, team_data, player_data in results:
+        league_data_cache[fm_lid] = ld
+        if team_data is None:
             print(f"  [!] season_id introuvable pour ligue {fm_lid}")
             continue
         name = next((n for n, info in FOTMOB_LEAGUES.items() if info["id"] == fm_lid), str(fm_lid))
-        print(f"  - {name} (season {sid})")
-        team_data, player_data = collect_league_stats(fm_lid, sid)
+        print(f"  - {name}")
         league_stats[fm_lid] = {"team": team_data, "player": player_data}
 
     # ─── PHASE A: collecte L10 brut (championnat + toutes comp) ───────────
