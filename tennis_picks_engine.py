@@ -484,8 +484,9 @@ def main():
     n_picks = 0
     for m in matches:
         picks = generate_for_match(m)
-        if not picks: continue
-        out_matches.append({**m, "picks": picks})
+        # On inclut TOUS les matchs (transparence), avec picks=[] si aucun
+        # pick interessant detecte par l'algo. Flag no_picks pour l'UI.
+        out_matches.append({**m, "picks": picks, "no_picks": not picks})
         n_picks += len(picks)
     payload = {
         "generated_at": datetime.now().isoformat(),

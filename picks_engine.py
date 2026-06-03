@@ -1730,23 +1730,30 @@ def run():
 
     for match in matches:
         team_picks, home_pp, away_pp, fun_picks = analyze_match(match, player_stats, player_odds_all)
-        if team_picks or home_pp or away_pp:
-            top = team_picks[0] if team_picks else (home_pp[0] if home_pp else away_pp[0] if away_pp else None)
-            output.append({
-                "league":       match["league"],
-                "home":         match["home"],
-                "away":         match["away"],
-                "start_ts":     match.get("start_ts"),
-                "match_id":     match["id"],
-                "page_url":     match.get("_page_url"),  # garde l'URL pour le resolver futur
-                "picks":        team_picks,
-                "home_players": home_pp,
-                "away_players": away_pp,
-                "fun_picks":    fun_picks,
-                "top_pick":     top,
-            })
+        # IMPORTANT : on inclut TOUS les matchs scrapes, meme sans picks, pour
+        # que l'user voie qu'on les a bien recuperes (transparence). Les matchs
+        # sans pick auront top_pick=None et seront badges "Pas de pick" dans l'UI.
+        top = team_picks[0] if team_picks else (home_pp[0] if home_pp else away_pp[0] if away_pp else None)
+        output.append({
+            "league":       match["league"],
+            "home":         match["home"],
+            "away":         match["away"],
+            "start_ts":     match.get("start_ts"),
+            "match_id":     match["id"],
+            "page_url":     match.get("_page_url"),
+            "picks":        team_picks,
+            "home_players": home_pp,
+            "away_players": away_pp,
+            "fun_picks":    fun_picks,
+            "top_pick":     top,
+            "no_picks":     not (team_picks or home_pp or away_pp),
+        })
 
-    output.sort(key=lambda x: x["top_pick"]["confidence"] if x["top_pick"] else 0, reverse=True)
+    # Tri : matchs avec picks (confiance desc), puis matchs sans picks (par heure)
+    output.sort(key=lambda x: (
+        0 if x.get("no_picks") else 1,                                # matchs AVEC picks en premier
+        x["top_pick"]["confidence"] if x.get("top_pick") else 0       # puis par confiance
+    ), reverse=True)
 
     with open("data/picks.json","w",encoding="utf-8") as f:
         json.dump(output,f,ensure_ascii=False,indent=2)

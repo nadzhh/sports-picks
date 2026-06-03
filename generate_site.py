@@ -1761,8 +1761,11 @@ def build_match_card(m, team_ai_map, player_ai_map, pstats=None):
     # Compte total picks pour badge
     n_picks = len(m.get("picks", [])) + len(m.get("fun_picks", []))
     n_players = len(m.get("home_players", [])) + len(m.get("away_players", []))
-    picks_label = f"🎯 {n_picks} picks"
-    if n_players: picks_label += f" · {n_players} joueurs"
+    if n_picks == 0 and n_players == 0:
+        picks_label = "💤 Pas de pick"
+    else:
+        picks_label = f"🎯 {n_picks} picks"
+        if n_players: picks_label += f" · {n_players} joueurs"
 
     return (
         f'<div style="background:#0f172a;border-radius:14px;margin-bottom:18px;'
@@ -2798,10 +2801,12 @@ def build_tennis_section(tennis_picks_data):
     if not matches:
         return ('<div style="text-align:center;padding:40px;color:#64748b">'
                 'Aucun pick tennis intéressant détecté pour aujourd\'hui (algo strict).</div>')
-    # Tri : matchs avec pick le + confiant en premier
-    def _max_conf(m):
-        return max((p.get("confidence", 0) or 0) for p in m.get("picks", [])) if m.get("picks") else 0
-    matches = sorted(matches, key=_max_conf, reverse=True)
+    # Tri : matchs AVEC picks (confiance desc) en premier, puis matchs sans picks
+    def _sort_key(m):
+        has_picks = 1 if m.get("picks") else 0
+        max_conf = max((p.get("confidence", 0) or 0) for p in m.get("picks", [])) if m.get("picks") else 0
+        return (has_picks, max_conf)
+    matches = sorted(matches, key=_sort_key, reverse=True)
     cards = [_build_tennis_card(m, idx) for idx, m in enumerate(matches)]
     # Toolbar : tout ouvrir/fermer + compteur dynamique (mis a jour par JS quand
     # des cards passent l'heure de debut)

@@ -171,15 +171,44 @@ def collect_fotmob_data(dates):
             except Exception as e:
                 print(f"  [!] standings {lname}: {e}")
 
+        # Filtre des "mini-friendlies" : si la ligue est Friendlies (id 114),
+        # on skip les matchs entre micro-selections (FIFA rank tres bas) :
+        # Gibraltar, Iles Vierges, San Marino, Liechtenstein, Bhutan, Maldives,
+        # Cambodia, Guam, etc. Garde les matchs ou au moins UNE equipe est
+        # une selection notable.
+        MINOR_NATIONS = {
+            "Gibraltar", "British Virgin Islands", "Guam", "Maldives", "Pakistan",
+            "Cambodia", "Bhutan", "Andorra", "Liechtenstein", "San Marino",
+            "Faroe Islands", "Lesotho", "Burundi", "Equatorial Guinea",
+            "Belize", "Aruba", "Curacao", "Suriname", "Anguilla",
+            "Cayman Islands", "Turks and Caicos Islands", "Sint Maarten",
+            "Lesotho", "Dominica", "Saint Lucia", "Saint Vincent and the Grenadines",
+            "Grenada", "Saint Kitts and Nevis", "British Antarctic Territory",
+            "American Samoa", "Cook Islands", "Tonga", "Vanuatu", "Samoa",
+            "Tahiti", "Solomon Islands", "Brunei", "Timor-Leste", "Macau",
+            "Northern Mariana Islands", "Mongolia",
+        }
+        is_friendly = (fm_id == 114)
+
         # Fixtures
         all_matches = d.get("fixtures", {}).get("allMatches", []) or []
+        n_filtered = 0
         for m in all_matches:
             utc = (m.get("status", {}).get("utcTime") or "")[:10]
             if utc not in dates:
                 continue
             if m.get("status", {}).get("finished"):
                 continue
+            # Filtre mini-amicaux
+            if is_friendly:
+                hn = (m.get("home") or {}).get("name", "")
+                an = (m.get("away") or {}).get("name", "")
+                if hn in MINOR_NATIONS and an in MINOR_NATIONS:
+                    n_filtered += 1
+                    continue  # skip Gibraltar vs Iles Vierges
             matches.append((lname, fm_id, m))
+        if is_friendly and n_filtered:
+            print(f"  [i] Filtre {n_filtered} mini-amicaux (Gibraltar/BVI/etc.)")
 
     return matches, standings_by_league, league_data_cache
 
