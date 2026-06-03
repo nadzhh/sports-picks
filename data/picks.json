@@ -168,12 +168,12 @@
         "books": [],
         "confidence": 91,
         "cote_min": 1.1,
-        "reasoning": "📈 P(Youssef Mehri marque) ≈ 72% · P(Mounir Chouiar marque) ≈ 68%\n🎯 P(au moins un marque) = 91% (calculée par 1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.1 - chercher ≥1.1 chez le bookmaker",
+        "reasoning": "📈 P(Youssef Mehri marque) ≈ 73% · P(Mounir Chouiar marque) ≈ 68%\n🎯 P(au moins un marque) = 91% (calculée par 1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.1 - chercher ≥1.1 chez le bookmaker",
         "context": {},
         "stats": {
-          "p_a": 0.72,
+          "p_a": 0.728,
           "p_b": 0.682,
-          "p_or": 0.911,
+          "p_or": 0.914,
           "player_a": "Youssef Mehri",
           "player_b": "Mounir Chouiar"
         },
@@ -610,6 +610,100 @@
   },
   {
     "league": "Morocco Botola Pro",
+    "home": "Ittihad Tanger",
+    "away": "Wydad Casablanca",
+    "start_ts": 1780509600,
+    "match_id": "5658897",
+    "page_url": "/matches/wydad-casablanca-vs-ittihad-tanger/149phmnj#5658897",
+    "picks": [
+      {
+        "direction": "away_win",
+        "type": "Victoire extérieur",
+        "label": "Wydad Casablanca gagne",
+        "cote": null,
+        "confidence": 66,
+        "reasoning": "Wydad Casablanca : 3V/0N/2D sur 5 matchs · #2 au classement · H2H: 1V/0N/0D · Note Sofa: 6.5/10",
+        "stats": {
+          "form": [
+            "W",
+            "W",
+            "W",
+            "L",
+            "L"
+          ]
+        },
+        "is_fun": false
+      }
+    ],
+    "home_players": [
+      {
+        "player": "Haitam El Bahja / Jawad Ghabra",
+        "position": "",
+        "is_sub": false,
+        "type": "Double Chance Buteur",
+        "label": "Haitam El Bahja ou Jawad Ghabra marque",
+        "cote": null,
+        "book": null,
+        "books": [],
+        "confidence": 71,
+        "cote_min": 1.41,
+        "reasoning": "📈 P(Haitam El Bahja marque) ≈ 59% · P(Jawad Ghabra marque) ≈ 30%\n🎯 P(au moins un marque) = 71% (calculée par 1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.41 - chercher ≥1.41 chez le bookmaker",
+        "context": {},
+        "stats": {
+          "p_a": 0.592,
+          "p_b": 0.3,
+          "p_or": 0.714,
+          "player_a": "Haitam El Bahja",
+          "player_b": "Jawad Ghabra"
+        },
+        "team": "home"
+      },
+      {
+        "player": "Abdelhamid Maali",
+        "position": "M",
+        "is_sub": false,
+        "type": "Joueur décisif",
+        "label": "Abdelhamid Maali but ou passe décisive",
+        "cote": null,
+        "book": null,
+        "books": [],
+        "confidence": 64,
+        "reasoning": "0 buts + 6 passes décisives en 6 matchs (100.0% de chance/match) · xG+xA: 0/match · défense solide",
+        "context": {
+          "weakness": 0.27
+        },
+        "stats": {
+          "goals": 0,
+          "assists": 6,
+          "apps": 6
+        },
+        "team": "home"
+      }
+    ],
+    "away_players": [],
+    "fun_picks": [],
+    "top_pick": {
+      "direction": "away_win",
+      "type": "Victoire extérieur",
+      "label": "Wydad Casablanca gagne",
+      "cote": null,
+      "confidence": 66,
+      "reasoning": "Wydad Casablanca : 3V/0N/2D sur 5 matchs · #2 au classement · H2H: 1V/0N/0D · Note Sofa: 6.5/10",
+      "stats": {
+        "form": [
+          "W",
+          "W",
+          "W",
+          "L",
+          "L"
+        ]
+      },
+      "is_fun": false
+    },
+    "no_picks": false
+  },
+  {
+    "league": "Morocco Botola Pro",
     "home": "FAR Rabat",
     "away": "Difaa El Jadida",
     "start_ts": 1780603200,
@@ -621,8 +715,8 @@
         "type": "Victoire domicile",
         "label": "FAR Rabat gagne",
         "cote": null,
-        "confidence": 65,
-        "reasoning": "FAR Rabat : 2V/3N/0D sur 5 matchs · #3 au classement · H2H: 1V/0N/0D · Note Sofa: 6.5/10",
+        "confidence": 64,
+        "reasoning": "FAR Rabat : 2V/3N/0D sur 5 matchs · #4 au classement · H2H: 1V/0N/0D · Note Sofa: 6.5/10",
         "stats": {
           "form": [
             "D",
@@ -666,8 +760,8 @@
       "type": "Victoire domicile",
       "label": "FAR Rabat gagne",
       "cote": null,
-      "confidence": 65,
-      "reasoning": "FAR Rabat : 2V/3N/0D sur 5 matchs · #3 au classement · H2H: 1V/0N/0D · Note Sofa: 6.5/10",
+      "confidence": 64,
+      "reasoning": "FAR Rabat : 2V/3N/0D sur 5 matchs · #4 au classement · H2H: 1V/0N/0D · Note Sofa: 6.5/10",
       "stats": {
         "form": [
           "D",
@@ -675,100 +769,6 @@
           "D",
           "D",
           "W"
-        ]
-      },
-      "is_fun": false
-    },
-    "no_picks": false
-  },
-  {
-    "league": "Morocco Botola Pro",
-    "home": "Ittihad Tanger",
-    "away": "Wydad Casablanca",
-    "start_ts": 1780509600,
-    "match_id": "5658897",
-    "page_url": "/matches/wydad-casablanca-vs-ittihad-tanger/149phmnj#5658897",
-    "picks": [
-      {
-        "direction": "away_win",
-        "type": "Victoire extérieur",
-        "label": "Wydad Casablanca gagne",
-        "cote": null,
-        "confidence": 64,
-        "reasoning": "Wydad Casablanca : 3V/0N/2D sur 5 matchs · #4 au classement · H2H: 1V/0N/0D · Note Sofa: 6.5/10",
-        "stats": {
-          "form": [
-            "W",
-            "W",
-            "W",
-            "L",
-            "L"
-          ]
-        },
-        "is_fun": false
-      }
-    ],
-    "home_players": [
-      {
-        "player": "Haitam El Bahja / Jawad Ghabra",
-        "position": "",
-        "is_sub": false,
-        "type": "Double Chance Buteur",
-        "label": "Haitam El Bahja ou Jawad Ghabra marque",
-        "cote": null,
-        "book": null,
-        "books": [],
-        "confidence": 72,
-        "cote_min": 1.39,
-        "reasoning": "📈 P(Haitam El Bahja marque) ≈ 60% · P(Jawad Ghabra marque) ≈ 30%\n🎯 P(au moins un marque) = 72% (calculée par 1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.39 - chercher ≥1.39 chez le bookmaker",
-        "context": {},
-        "stats": {
-          "p_a": 0.6,
-          "p_b": 0.3,
-          "p_or": 0.72,
-          "player_a": "Haitam El Bahja",
-          "player_b": "Jawad Ghabra"
-        },
-        "team": "home"
-      },
-      {
-        "player": "Abdelhamid Maali",
-        "position": "M",
-        "is_sub": false,
-        "type": "Joueur décisif",
-        "label": "Abdelhamid Maali but ou passe décisive",
-        "cote": null,
-        "book": null,
-        "books": [],
-        "confidence": 64,
-        "reasoning": "0 buts + 6 passes décisives en 6 matchs (100.0% de chance/match) · xG+xA: 0/match · défense correcte",
-        "context": {
-          "weakness": 0.31
-        },
-        "stats": {
-          "goals": 0,
-          "assists": 6,
-          "apps": 6
-        },
-        "team": "home"
-      }
-    ],
-    "away_players": [],
-    "fun_picks": [],
-    "top_pick": {
-      "direction": "away_win",
-      "type": "Victoire extérieur",
-      "label": "Wydad Casablanca gagne",
-      "cote": null,
-      "confidence": 64,
-      "reasoning": "Wydad Casablanca : 3V/0N/2D sur 5 matchs · #4 au classement · H2H: 1V/0N/0D · Note Sofa: 6.5/10",
-      "stats": {
-        "form": [
-          "W",
-          "W",
-          "W",
-          "L",
-          "L"
         ]
       },
       "is_fun": false
