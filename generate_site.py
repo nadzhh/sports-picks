@@ -1149,7 +1149,7 @@ def build_stats_panel(mid_safe, home, away, form_data, home_recent, away_recent,
             f'padding:3px 8px;font-size:11px;font-weight:700">{pos_l}</span>'
             f'<span style="color:#f1f5f9;font-weight:700;font-size:15px">{name}{sub_tag}</span>'
             f'</div>'
-            f'<span style="color:#94a3b8;font-size:12px;font-weight:600">{apps} matchs</span>'
+            f'<span style="color:#94a3b8;font-size:12px;font-weight:600" title="Stats cumulées sur la saison (toutes competitions)">Saison · {apps} m</span>'
             f'</div>'
             f'<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;font-size:13px">'
             f'<div>'
@@ -1258,7 +1258,7 @@ def build_stats_panel(mid_safe, home, away, form_data, home_recent, away_recent,
         rows += (
             f'<div style="text-align:center;color:#94a3b8;font-size:11px;'
             f'padding:5px 0 3px;text-transform:uppercase;letter-spacing:1px;'
-            f'background:#0d1b2e;margin-top:2px">⭐ JOUEURS DÉCISIFS</div>'
+            f'background:#0d1b2e;margin-top:2px">⭐ JOUEURS DÉCISIFS (SAISON)</div>'
         )
         rows += (
             f'<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:10px;background:#0d1b2e">'
