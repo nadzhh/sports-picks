@@ -618,16 +618,25 @@ def analyze_match(match, pstats_all, player_odds_all=None):
 
     # ── 1X2 — forme récente pondérée davantage que H2H ────────────────────
     # Poids : forme récente 55%, classement 20%, H2H 15%, rating 10%
-    # Skip pour amicaux internationaux (league_id 114) : pas de classement
-    # fiable + adversaires L5 trop heterogenes pour predire.
-    if league_id != 114:
+    # Pour les amicaux internationaux (league_id 114) : on autorise quand on
+    # a une asymetrie nette via la forme SoS-ponderee (au moins 3 rangs adv.
+    # connus dans L5). Sinon (ex: Gibraltar vs BVI) : skip.
+    IS_INTL_FRIENDLY = (league_id == 114)
+    h_opp_ranks_pre = get_form_opp_ranks(form, "homeTeam")
+    a_opp_ranks_pre = get_form_opp_ranks(form, "awayTeam")
+    h_sos_ok = sum(1 for r in h_opp_ranks_pre if r is not None) >= 3
+    a_sos_ok = sum(1 for r in a_opp_ranks_pre if r is not None) >= 3
+    can_1x2 = (not IS_INTL_FRIENDLY) or (h_sos_ok and a_sos_ok)
+    if can_1x2:
         if hf:
             form_c = h_form_score * 0.55
             pos_c  = max(0, (20-hp)/20*20) if hp < 20 else 0
             h2h_c  = (hw/h2ht*15) if h2ht else 7
             rat_c  = min(10, (hr-6.5)*15) if hr > 6.5 else 0
             conf   = round(min(94, form_c + pos_c + h2h_c + rat_c))
-            if conf >= 58:
+            # Pour les amicaux : seuil plus eleve (65 vs 58)
+            min_conf = 65 if IS_INTL_FRIENDLY else 58
+            if conf >= min_conf:
                 trend_txt = f" ({h_trend})" if h_trend != "stable" else ""
                 add("home_win","Victoire domicile",f"{home} gagne",c1,conf,
                     f"{home} : {form_summary(hf)}{trend_txt} · #{hp} au classement · "
@@ -639,7 +648,8 @@ def analyze_match(match, pstats_all, player_odds_all=None):
             h2h_c  = (aw/h2ht*15) if h2ht else 7
             rat_c  = min(10, (ar-6.5)*15) if ar > 6.5 else 0
             conf   = round(min(94, form_c + pos_c + h2h_c + rat_c))
-            if conf >= 58:
+            min_conf = 65 if IS_INTL_FRIENDLY else 58
+            if conf >= min_conf:
                 trend_txt = f" ({a_trend})" if a_trend != "stable" else ""
                 add("away_win","Victoire extérieur",f"{away} gagne",c2,conf,
                     f"{away} : {form_summary(af)}{trend_txt} · #{ap} au classement · "
@@ -680,12 +690,15 @@ def analyze_match(match, pstats_all, player_odds_all=None):
     # - Petit echantillon (4-6 matchs sur 12 mois)
     # - Aucun classement disponible pour ponderer
     # On SKIP DC pour les amicaux internationaux.
-    IS_INTL_FRIENDLY = (league_id == 114)
     dc_cands = []
     # Strength-of-Schedule : pondere le L5 selon le rang des adversaires
     h_opp_ranks = get_form_opp_ranks(form, "homeTeam")
     a_opp_ranks = get_form_opp_ranks(form, "awayTeam")
-    if not IS_INTL_FRIENDLY and hf:
+    # Pour les amicaux : DC autorise UNIQUEMENT si SoS dispo des 2 cotes
+    # (>=3 rangs adv. connus). Sinon : trop random (Gibraltar vs BVI).
+    can_dc_h = (not IS_INTL_FRIENDLY) or h_sos_ok
+    can_dc_a = (not IS_INTL_FRIENDLY) or a_sos_ok
+    if can_dc_h and hf:
         ub_raw = unbeaten(hf)
         ub_sos = sos_unbeaten(hf, h_opp_ranks)
         # On utilise SoS si on a au moins 3 ranks valides, sinon unbeaten brut
@@ -710,7 +723,7 @@ def analyze_match(match, pstats_all, player_odds_all=None):
                 reasoning += f" · Classement: #{hp} vs #{ap}"
             dc_cands.append(("home_dc","Double chance",f"{home} ou Nul (1X)",c1x,round(conf_cal),
                 reasoning, hf))
-    if not IS_INTL_FRIENDLY and af:
+    if can_dc_a and af:
         ub_raw = unbeaten(af)
         ub_sos = sos_unbeaten(af, a_opp_ranks)
         n_valid = sum(1 for r in a_opp_ranks if r is not None)

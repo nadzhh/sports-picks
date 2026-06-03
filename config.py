@@ -96,7 +96,6 @@ FOTMOB_LEAGUES = {
     "Ecuador LigaPro":     {"id": 246,   "name_match": "Serie A"},        # ECU, 240 fixtures
     "Chile Primera":       {"id": 273,   "name_match": "Liga de Primera"},# CHI, 240 fixtures
     "Peru Liga 1":         {"id": 131,   "name_match": "Liga 1"},         # PER, 153 fixtures
-    "Bolivia Primera":     {"id": 144,   "name_match": "Primera Division"},# BOL, 104
     "Uruguay Primera":     {"id": 161,   "name_match": "Primera Division"},# URU, 151
     "Paraguay Profesional":{"id": 199,   "name_match": "Division Profesional"}, # PAR, 138
     # Europe : ligues secondaires + Scandinavie + Europe de l'Est (verifies live 2026)
@@ -125,6 +124,9 @@ FOTMOB_LEAGUES = {
     "Bulgarian First":         {"id": 270,   "name_match": "First Professional League"}, # BUL, 293
     "Macedonian Prva":         {"id": 249,   "name_match": "Prva Liga"},         # MKD, 198
     "Bosnia Premier":          {"id": 267,   "name_match": "Premier League"},    # BIH, 180
+    # Afrique du Nord
+    "Morocco Botola Pro":      {"id": 530,   "name_match": "Botola Pro"},        # MAR
+    "Algeria Ligue 1":         {"id": 516,   "name_match": "Ligue 1"},           # ALG
     # ── Competitions internationales (selections nationales + amicaux) ───────
     # IDs verifies live via /api/data/leagues?id=X (2026)
     "Friendlies":              {"id": 114,   "name_match": "Friendlies"},        # INT, amicaux 292
@@ -169,7 +171,6 @@ INTERNAL_LEAGUE_IDS = {
     "Ecuador LigaPro":   240,    # api-football ID
     "Chile Primera":     265,
     "Peru Liga 1":       281,
-    "Bolivia Primera":   344,
     "Uruguay Primera":   268,    # api-football
     "Paraguay Profesional": 277,
     # Europe : secondaires + Scandinavie + petits championnats
@@ -196,6 +197,9 @@ INTERNAL_LEAGUE_IDS = {
     "Bulgarian First":       172,
     "Macedonian Prva":       388,    # incertain api-football
     "Bosnia Premier":        315,    # incertain api-football
+    # Afrique du Nord (id = fotmob id, mapping api-football optionnel)
+    "Morocco Botola Pro":    530,
+    "Algeria Ligue 1":       516,
     # Competitions internationales (id = fotmob id, pas toujours dans api-football)
     "Friendlies":            114,
     "World Cup":             77,
