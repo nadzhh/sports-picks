@@ -1,53 +1,417 @@
 [
   {
-    "league": "Bolivia Primera",
-    "home": "GV San Jose",
-    "away": "Real Tomayapo",
-    "start_ts": 1780524000,
-    "match_id": "1000010857",
-    "page_url": "/matches/real-tomayapo-vs-gv-san-jose/16g8g700y#1000010857",
+    "league": "Algeria Ligue 1",
+    "home": "ES Ben Aknoun",
+    "away": "USM Alger",
+    "start_ts": 1780588800,
+    "match_id": "5156424",
+    "page_url": "/matches/usm-alger-vs-es-ben-aknoun/h0ia5bmi#5156424",
     "picks": [],
     "home_players": [
       {
-        "player": "Alex Cáceres / Santiago Pinto",
+        "player": "Adil Djabout / Abdeljalil Saad",
         "position": "",
         "is_sub": false,
         "type": "Double Chance Buteur",
-        "label": "Alex Cáceres ou Santiago Pinto marque",
+        "label": "Adil Djabout ou Abdeljalil Saad marque",
         "cote": null,
         "book": null,
         "books": [],
-        "confidence": 71,
-        "cote_min": 1.41,
-        "reasoning": "📈 P(Alex Cáceres marque) ≈ 56% · P(Santiago Pinto marque) ≈ 35%\n🎯 P(au moins un marque) = 71% (calculée par 1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.41 - chercher ≥1.41 chez le bookmaker",
+        "confidence": 91,
+        "cote_min": 1.1,
+        "reasoning": "📈 P(Adil Djabout marque) ≈ 70% · P(Abdeljalil Saad marque) ≈ 70%\n🎯 P(au moins un marque) = 91% (calculée par 1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.1 - chercher ≥1.1 chez le bookmaker",
         "context": {},
         "stats": {
-          "p_a": 0.555,
-          "p_b": 0.352,
-          "p_or": 0.712,
-          "player_a": "Alex Cáceres",
-          "player_b": "Santiago Pinto"
+          "p_a": 0.705,
+          "p_b": 0.705,
+          "p_or": 0.913,
+          "player_a": "Adil Djabout",
+          "player_b": "Abdeljalil Saad"
         },
         "team": "home"
       },
       {
-        "player": "Alex Cáceres",
+        "player": "Adil Djabout",
         "position": "F",
         "is_sub": false,
         "type": "Buteur",
-        "label": "Alex Cáceres marque",
+        "label": "Adil Djabout marque",
         "cote": null,
         "book": null,
         "books": [],
-        "confidence": 56,
-        "reasoning": "3 buts en 6 matchs cette saison (50.0% de chance/match) · xG moyen 0.00/match, face à une défense qui concède 2.3 buts/match · défense fragile",
+        "confidence": 70,
+        "reasoning": "7 buts en 7 matchs cette saison (100.0% de chance/match) · xG moyen 0.00/match · défense correcte",
         "context": {
-          "weakness": 0.68
+          "weakness": 0.44
         },
         "stats": {
-          "goals": 3,
+          "goals": 7,
+          "apps": 7,
+          "gpm": 1.0,
+          "xgpm": 0
+        },
+        "team": "home"
+      }
+    ],
+    "away_players": [
+      {
+        "player": "Ahmed Khaldi",
+        "position": "F",
+        "is_sub": false,
+        "type": "Buteur",
+        "label": "Ahmed Khaldi marque",
+        "cote": null,
+        "book": null,
+        "books": [],
+        "confidence": 71,
+        "reasoning": "7 buts en 7 matchs cette saison (100.0% de chance/match) · xG moyen 0.00/match, défense adverse poreuse (1.3 buts concédés/match) · défense correcte",
+        "context": {
+          "weakness": 0.44
+        },
+        "stats": {
+          "goals": 7,
+          "apps": 7,
+          "gpm": 1.0,
+          "xgpm": 0
+        },
+        "team": "away"
+      }
+    ],
+    "fun_picks": [],
+    "top_pick": {
+      "player": "Adil Djabout / Abdeljalil Saad",
+      "position": "",
+      "is_sub": false,
+      "type": "Double Chance Buteur",
+      "label": "Adil Djabout ou Abdeljalil Saad marque",
+      "cote": null,
+      "book": null,
+      "books": [],
+      "confidence": 91,
+      "cote_min": 1.1,
+      "reasoning": "📈 P(Adil Djabout marque) ≈ 70% · P(Abdeljalil Saad marque) ≈ 70%\n🎯 P(au moins un marque) = 91% (calculée par 1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.1 - chercher ≥1.1 chez le bookmaker",
+      "context": {},
+      "stats": {
+        "p_a": 0.705,
+        "p_b": 0.705,
+        "p_or": 0.913,
+        "player_a": "Adil Djabout",
+        "player_b": "Abdeljalil Saad"
+      },
+      "team": "home"
+    },
+    "no_picks": false
+  },
+  {
+    "league": "Morocco Botola Pro",
+    "home": "Raja Casablanca",
+    "away": "RSB Berkane",
+    "start_ts": 1780516800,
+    "match_id": "5658898",
+    "page_url": "/matches/raja-casablanca-vs-rsb-berkane/149nzs7b#5658898",
+    "picks": [],
+    "home_players": [
+      {
+        "player": "Adam Ennaffati / Abdellah Khafifi",
+        "position": "",
+        "is_sub": false,
+        "type": "Double Chance Buteur",
+        "label": "Adam Ennaffati ou Abdellah Khafifi marque",
+        "cote": null,
+        "book": null,
+        "books": [],
+        "confidence": 87,
+        "cote_min": 1.15,
+        "reasoning": "📈 P(Adam Ennaffati marque) ≈ 75% · P(Abdellah Khafifi marque) ≈ 48%\n🎯 P(au moins un marque) = 87% (calculée par 1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.15 - chercher ≥1.15 chez le bookmaker",
+        "context": {},
+        "stats": {
+          "p_a": 0.75,
+          "p_b": 0.48,
+          "p_or": 0.87,
+          "player_a": "Adam Ennaffati",
+          "player_b": "Abdellah Khafifi"
+        },
+        "team": "home"
+      },
+      {
+        "player": "Adam Ennaffati",
+        "position": "F",
+        "is_sub": false,
+        "type": "Buteur",
+        "label": "Adam Ennaffati marque",
+        "cote": null,
+        "book": null,
+        "books": [],
+        "confidence": 75,
+        "reasoning": "6 buts en 5 matchs cette saison (120.0% de chance/match) · xG moyen 0.00/match · défense correcte",
+        "context": {
+          "weakness": 0.35
+        },
+        "stats": {
+          "goals": 6,
+          "apps": 5,
+          "gpm": 1.2,
+          "xgpm": 0
+        },
+        "team": "home"
+      }
+    ],
+    "away_players": [
+      {
+        "player": "Youssef Mehri / Mounir Chouiar",
+        "position": "",
+        "is_sub": false,
+        "type": "Double Chance Buteur",
+        "label": "Youssef Mehri ou Mounir Chouiar marque",
+        "cote": null,
+        "book": null,
+        "books": [],
+        "confidence": 91,
+        "cote_min": 1.1,
+        "reasoning": "📈 P(Youssef Mehri marque) ≈ 72% · P(Mounir Chouiar marque) ≈ 68%\n🎯 P(au moins un marque) = 91% (calculée par 1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.1 - chercher ≥1.1 chez le bookmaker",
+        "context": {},
+        "stats": {
+          "p_a": 0.72,
+          "p_b": 0.682,
+          "p_or": 0.911,
+          "player_a": "Youssef Mehri",
+          "player_b": "Mounir Chouiar"
+        },
+        "team": "away"
+      }
+    ],
+    "fun_picks": [],
+    "top_pick": {
+      "player": "Adam Ennaffati / Abdellah Khafifi",
+      "position": "",
+      "is_sub": false,
+      "type": "Double Chance Buteur",
+      "label": "Adam Ennaffati ou Abdellah Khafifi marque",
+      "cote": null,
+      "book": null,
+      "books": [],
+      "confidence": 87,
+      "cote_min": 1.15,
+      "reasoning": "📈 P(Adam Ennaffati marque) ≈ 75% · P(Abdellah Khafifi marque) ≈ 48%\n🎯 P(au moins un marque) = 87% (calculée par 1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.15 - chercher ≥1.15 chez le bookmaker",
+      "context": {},
+      "stats": {
+        "p_a": 0.75,
+        "p_b": 0.48,
+        "p_or": 0.87,
+        "player_a": "Adam Ennaffati",
+        "player_b": "Abdellah Khafifi"
+      },
+      "team": "home"
+    },
+    "no_picks": false
+  },
+  {
+    "league": "Morocco Botola Pro",
+    "home": "Hassania Agadir",
+    "away": "FUS Rabat",
+    "start_ts": 1780596000,
+    "match_id": "5658899",
+    "page_url": "/matches/fus-rabat-vs-hassania-agadir/9kdj9te#5658899",
+    "picks": [],
+    "home_players": [
+      {
+        "player": "Baba Bello Ilou",
+        "position": "F",
+        "is_sub": false,
+        "type": "Buteur",
+        "label": "Baba Bello Ilou marque",
+        "cote": null,
+        "book": null,
+        "books": [],
+        "confidence": 78,
+        "reasoning": "12 buts en 9 matchs cette saison (133.3% de chance/match) · xG moyen 0.00/match, défense adverse poreuse (1.3 buts concédés/match) · défense correcte",
+        "context": {
+          "weakness": 0.46
+        },
+        "stats": {
+          "goals": 12,
+          "apps": 9,
+          "gpm": 1.333,
+          "xgpm": 0
+        },
+        "team": "home"
+      }
+    ],
+    "away_players": [
+      {
+        "player": "Ayoub Mouloua / Salaheddine Benyachou",
+        "position": "",
+        "is_sub": false,
+        "type": "Double Chance Buteur",
+        "label": "Ayoub Mouloua ou Salaheddine Benyachou marque",
+        "cote": null,
+        "book": null,
+        "books": [],
+        "confidence": 93,
+        "cote_min": 1.08,
+        "reasoning": "📈 P(Ayoub Mouloua marque) ≈ 76% · P(Salaheddine Benyachou marque) ≈ 69%\n🎯 P(au moins un marque) = 93% (calculée par 1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.08 - chercher ≥1.08 chez le bookmaker",
+        "context": {},
+        "stats": {
+          "p_a": 0.765,
+          "p_b": 0.69,
+          "p_or": 0.927,
+          "player_a": "Ayoub Mouloua",
+          "player_b": "Salaheddine Benyachou"
+        },
+        "team": "away"
+      },
+      {
+        "player": "Ayoub Mouloua",
+        "position": "F",
+        "is_sub": false,
+        "type": "Buteur",
+        "label": "Ayoub Mouloua marque",
+        "cote": null,
+        "book": null,
+        "books": [],
+        "confidence": 76,
+        "reasoning": "7 buts en 6 matchs cette saison (116.7% de chance/match) · xG moyen 0.00/match, défense adverse poreuse (1.6 buts concédés/match) · défense fragile",
+        "context": {
+          "weakness": 0.55
+        },
+        "stats": {
+          "goals": 7,
           "apps": 6,
-          "gpm": 0.5,
+          "gpm": 1.167,
+          "xgpm": 0
+        },
+        "team": "away"
+      }
+    ],
+    "fun_picks": [],
+    "top_pick": {
+      "player": "Baba Bello Ilou",
+      "position": "F",
+      "is_sub": false,
+      "type": "Buteur",
+      "label": "Baba Bello Ilou marque",
+      "cote": null,
+      "book": null,
+      "books": [],
+      "confidence": 78,
+      "reasoning": "12 buts en 9 matchs cette saison (133.3% de chance/match) · xG moyen 0.00/match, défense adverse poreuse (1.3 buts concédés/match) · défense correcte",
+      "context": {
+        "weakness": 0.46
+      },
+      "stats": {
+        "goals": 12,
+        "apps": 9,
+        "gpm": 1.333,
+        "xgpm": 0
+      },
+      "team": "home"
+    },
+    "no_picks": false
+  },
+  {
+    "league": "Morocco Botola Pro",
+    "home": "Renaissance Club Zemamra",
+    "away": "Union Yacoub El-Mansour",
+    "start_ts": 1780502400,
+    "match_id": "5658896",
+    "page_url": "/matches/renaissance-club-zemamra-vs-union-yacoub-el-mansour/1bsfdpt6m#5658896",
+    "picks": [],
+    "home_players": [],
+    "away_players": [
+      {
+        "player": "Mehdi Balouk",
+        "position": "F",
+        "is_sub": false,
+        "type": "Buteur",
+        "label": "Mehdi Balouk marque",
+        "cote": null,
+        "book": null,
+        "books": [],
+        "confidence": 75,
+        "reasoning": "7 buts en 6 matchs cette saison (116.7% de chance/match) · xG moyen 0.00/match · défense correcte",
+        "context": {
+          "weakness": 0.49
+        },
+        "stats": {
+          "goals": 7,
+          "apps": 6,
+          "gpm": 1.167,
+          "xgpm": 0
+        },
+        "team": "away"
+      }
+    ],
+    "fun_picks": [],
+    "top_pick": {
+      "player": "Mehdi Balouk",
+      "position": "F",
+      "is_sub": false,
+      "type": "Buteur",
+      "label": "Mehdi Balouk marque",
+      "cote": null,
+      "book": null,
+      "books": [],
+      "confidence": 75,
+      "reasoning": "7 buts en 6 matchs cette saison (116.7% de chance/match) · xG moyen 0.00/match · défense correcte",
+      "context": {
+        "weakness": 0.49
+      },
+      "stats": {
+        "goals": 7,
+        "apps": 6,
+        "gpm": 1.167,
+        "xgpm": 0
+      },
+      "team": "away"
+    },
+    "no_picks": false
+  },
+  {
+    "league": "Morocco Botola Pro",
+    "home": "FAR Rabat",
+    "away": "Difaa El Jadida",
+    "start_ts": 1780603200,
+    "match_id": "5658900",
+    "page_url": "/matches/difaa-el-jadida-vs-far-rabat/9kcxei5#5658900",
+    "picks": [
+      {
+        "direction": "home_win",
+        "type": "Victoire domicile",
+        "label": "FAR Rabat gagne",
+        "cote": null,
+        "confidence": 65,
+        "reasoning": "FAR Rabat : 2V/3N/0D sur 5 matchs · #3 au classement · H2H: 1V/0N/0D · Note Sofa: 6.5/10",
+        "stats": {
+          "form": [
+            "D",
+            "W",
+            "D",
+            "D",
+            "W"
+          ]
+        },
+        "is_fun": false
+      }
+    ],
+    "home_players": [
+      {
+        "player": "Jalal-Eddine El Khfiyef",
+        "position": "M",
+        "is_sub": false,
+        "type": "Buteur",
+        "label": "Jalal-Eddine El Khfiyef marque",
+        "cote": null,
+        "book": null,
+        "books": [],
+        "confidence": 61,
+        "reasoning": "4 buts en 5 matchs cette saison (80.0% de chance/match) · xG moyen 0.00/match · défense correcte",
+        "context": {
+          "weakness": 0.37
+        },
+        "stats": {
+          "goals": 4,
+          "apps": 5,
+          "gpm": 0.8,
           "xgpm": 0
         },
         "team": "home"
@@ -56,129 +420,94 @@
     "away_players": [],
     "fun_picks": [],
     "top_pick": {
-      "player": "Alex Cáceres / Santiago Pinto",
-      "position": "",
-      "is_sub": false,
-      "type": "Double Chance Buteur",
-      "label": "Alex Cáceres ou Santiago Pinto marque",
+      "direction": "home_win",
+      "type": "Victoire domicile",
+      "label": "FAR Rabat gagne",
       "cote": null,
-      "book": null,
-      "books": [],
-      "confidence": 71,
-      "cote_min": 1.41,
-      "reasoning": "📈 P(Alex Cáceres marque) ≈ 56% · P(Santiago Pinto marque) ≈ 35%\n🎯 P(au moins un marque) = 71% (calculée par 1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.41 - chercher ≥1.41 chez le bookmaker",
-      "context": {},
+      "confidence": 65,
+      "reasoning": "FAR Rabat : 2V/3N/0D sur 5 matchs · #3 au classement · H2H: 1V/0N/0D · Note Sofa: 6.5/10",
       "stats": {
-        "p_a": 0.555,
-        "p_b": 0.352,
-        "p_or": 0.712,
-        "player_a": "Alex Cáceres",
-        "player_b": "Santiago Pinto"
+        "form": [
+          "D",
+          "W",
+          "D",
+          "D",
+          "W"
+        ]
       },
-      "team": "home"
+      "is_fun": false
     },
     "no_picks": false
   },
   {
-    "league": "Bolivia Primera",
-    "home": "Real Potosi",
-    "away": "ABB",
-    "start_ts": 1780531200,
-    "match_id": "1000010862",
-    "page_url": "/matches/real-potosi-vs-abb/arpedtjm#1000010862",
-    "picks": [],
+    "league": "Morocco Botola Pro",
+    "home": "Ittihad Tanger",
+    "away": "Wydad Casablanca",
+    "start_ts": 1780509600,
+    "match_id": "5658897",
+    "page_url": "/matches/wydad-casablanca-vs-ittihad-tanger/149phmnj#5658897",
+    "picks": [
+      {
+        "direction": "away_win",
+        "type": "Victoire extérieur",
+        "label": "Wydad Casablanca gagne",
+        "cote": null,
+        "confidence": 64,
+        "reasoning": "Wydad Casablanca : 3V/0N/2D sur 5 matchs · #4 au classement · H2H: 1V/0N/0D · Note Sofa: 6.5/10",
+        "stats": {
+          "form": [
+            "W",
+            "W",
+            "W",
+            "L",
+            "L"
+          ]
+        },
+        "is_fun": false
+      }
+    ],
     "home_players": [
       {
-        "player": "Jeferson Rivas / Gonzalo Añasgo",
-        "position": "",
+        "player": "Abdelhamid Maali",
+        "position": "M",
         "is_sub": false,
-        "type": "Double Chance Buteur",
-        "label": "Jeferson Rivas ou Gonzalo Añasgo marque",
+        "type": "Joueur décisif",
+        "label": "Abdelhamid Maali but ou passe décisive",
         "cote": null,
         "book": null,
         "books": [],
-        "confidence": 66,
-        "cote_min": 1.52,
-        "reasoning": "📈 P(Jeferson Rivas marque) ≈ 50% · P(Gonzalo Añasgo marque) ≈ 32%\n🎯 P(au moins un marque) = 66% (calculée par 1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.52 - chercher ≥1.52 chez le bookmaker",
-        "context": {},
+        "confidence": 64,
+        "reasoning": "0 buts + 6 passes décisives en 6 matchs (100.0% de chance/match) · xG+xA: 0/match · défense correcte",
+        "context": {
+          "weakness": 0.32
+        },
         "stats": {
-          "p_a": 0.495,
-          "p_b": 0.322,
-          "p_or": 0.658,
-          "player_a": "Jeferson Rivas",
-          "player_b": "Gonzalo Añasgo"
+          "goals": 0,
+          "assists": 6,
+          "apps": 6
         },
         "team": "home"
       }
     ],
-    "away_players": [
-      {
-        "player": "Rodderyck Perozo / Juan Fajardo",
-        "position": "",
-        "is_sub": false,
-        "type": "Double Chance Buteur",
-        "label": "Rodderyck Perozo ou Juan Fajardo marque",
-        "cote": null,
-        "book": null,
-        "books": [],
-        "confidence": 79,
-        "cote_min": 1.27,
-        "reasoning": "📈 P(Rodderyck Perozo marque) ≈ 56% · P(Juan Fajardo marque) ≈ 52%\n🎯 P(au moins un marque) = 79% (calculée par 1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.27 - chercher ≥1.27 chez le bookmaker",
-        "context": {},
-        "stats": {
-          "p_a": 0.555,
-          "p_b": 0.518,
-          "p_or": 0.786,
-          "player_a": "Rodderyck Perozo",
-          "player_b": "Juan Fajardo"
-        },
-        "team": "away"
-      },
-      {
-        "player": "Rodderyck Perozo",
-        "position": "F",
-        "is_sub": false,
-        "type": "Buteur",
-        "label": "Rodderyck Perozo marque",
-        "cote": null,
-        "book": null,
-        "books": [],
-        "confidence": 56,
-        "reasoning": "4 buts en 7 matchs cette saison (57.1% de chance/match) · xG moyen 0.00/match · défense correcte",
-        "context": {
-          "weakness": 0.49
-        },
-        "stats": {
-          "goals": 4,
-          "apps": 7,
-          "gpm": 0.571,
-          "xgpm": 0
-        },
-        "team": "away"
-      }
-    ],
+    "away_players": [],
     "fun_picks": [],
     "top_pick": {
-      "player": "Jeferson Rivas / Gonzalo Añasgo",
-      "position": "",
-      "is_sub": false,
-      "type": "Double Chance Buteur",
-      "label": "Jeferson Rivas ou Gonzalo Añasgo marque",
+      "direction": "away_win",
+      "type": "Victoire extérieur",
+      "label": "Wydad Casablanca gagne",
       "cote": null,
-      "book": null,
-      "books": [],
-      "confidence": 66,
-      "cote_min": 1.52,
-      "reasoning": "📈 P(Jeferson Rivas marque) ≈ 50% · P(Gonzalo Añasgo marque) ≈ 32%\n🎯 P(au moins un marque) = 66% (calculée par 1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.52 - chercher ≥1.52 chez le bookmaker",
-      "context": {},
+      "confidence": 64,
+      "reasoning": "Wydad Casablanca : 3V/0N/2D sur 5 matchs · #4 au classement · H2H: 1V/0N/0D · Note Sofa: 6.5/10",
       "stats": {
-        "p_a": 0.495,
-        "p_b": 0.322,
-        "p_or": 0.658,
-        "player_a": "Jeferson Rivas",
-        "player_b": "Gonzalo Añasgo"
+        "form": [
+          "W",
+          "W",
+          "W",
+          "L",
+          "L"
+        ]
       },
-      "team": "home"
+      "is_fun": false
     },
     "no_picks": false
   },
