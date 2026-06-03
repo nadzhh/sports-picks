@@ -629,17 +629,31 @@ def analyze_match(match, pstats_all, player_odds_all=None):
     a_sos_ok = sum(1 for r in a_opp_ranks_pre if r is not None) >= 3
     h_l5_ok = len(hf) >= 4
     a_l5_ok = len(af) >= 4
-    can_1x2 = (not IS_INTL_FRIENDLY) or (h_l5_ok and a_l5_ok)
-    if can_1x2:
+    if IS_INTL_FRIENDLY and h_l5_ok and a_l5_ok:
+        # ── 1X2 amicaux : asymetrie de forme (pas de classement/rating fiable)
+        # Confiance basee sur le DELTA de form_score (et non l'absolu) :
+        # deux equipes 5W vs 5W = pas de pick. Equipe en feu vs equipe en
+        # crise = pick fort. Seuil delta=15 pour eviter les 5W vs 4W+1D.
+        delta = h_form_score - a_form_score
+        if delta >= 15:
+            conf = round(min(85, 55 + delta * 0.6))
+            add("home_win","Forme superieure",f"{home} gagne",c1,conf,
+                f"{home} : {form_summary(hf)} vs {away} : {form_summary(af)} "
+                f"(L5 toutes competitions)",hf)
+        elif delta <= -15:
+            conf = round(min(85, 55 + abs(delta) * 0.6))
+            add("away_win","Forme superieure",f"{away} gagne",c2,conf,
+                f"{away} : {form_summary(af)} vs {home} : {form_summary(hf)} "
+                f"(L5 toutes competitions)",af)
+    else:
+        # ── 1X2 standard : forme + classement + H2H + rating Sofa ─────────────
         if hf:
             form_c = h_form_score * 0.55
             pos_c  = max(0, (20-hp)/20*20) if hp < 20 else 0
             h2h_c  = (hw/h2ht*15) if h2ht else 7
             rat_c  = min(10, (hr-6.5)*15) if hr > 6.5 else 0
             conf   = round(min(94, form_c + pos_c + h2h_c + rat_c))
-            # Pour les amicaux : seuil plus eleve (65 vs 58)
-            min_conf = 65 if IS_INTL_FRIENDLY else 58
-            if conf >= min_conf:
+            if conf >= 58:
                 trend_txt = f" ({h_trend})" if h_trend != "stable" else ""
                 add("home_win","Victoire domicile",f"{home} gagne",c1,conf,
                     f"{home} : {form_summary(hf)}{trend_txt} · #{hp} au classement · "
@@ -651,8 +665,7 @@ def analyze_match(match, pstats_all, player_odds_all=None):
             h2h_c  = (aw/h2ht*15) if h2ht else 7
             rat_c  = min(10, (ar-6.5)*15) if ar > 6.5 else 0
             conf   = round(min(94, form_c + pos_c + h2h_c + rat_c))
-            min_conf = 65 if IS_INTL_FRIENDLY else 58
-            if conf >= min_conf:
+            if conf >= 58:
                 trend_txt = f" ({a_trend})" if a_trend != "stable" else ""
                 add("away_win","Victoire extérieur",f"{away} gagne",c2,conf,
                     f"{away} : {form_summary(af)}{trend_txt} · #{ap} au classement · "
