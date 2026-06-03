@@ -273,6 +273,12 @@ def _compute_form(league_data, team_id_str, n=5, team_match_index=None, with_opp
     else:
         matches = league_data.get("fixtures", {}).get("allMatches", []) or []
 
+    def _norm_utc(u):
+        """Normalise le format utc (FotMob varie : '...Z' vs '...000Z')."""
+        if not u: return ""
+        # Strip milliseconds : '2026-03-26T20:00:00.000Z' -> '2026-03-26T20:00:00Z'
+        return u.replace(".000Z", "Z").replace(".000", "")
+
     played = []
     seen_utc = set()
     for m in matches:
@@ -291,7 +297,7 @@ def _compute_form(league_data, team_id_str, n=5, team_match_index=None, with_opp
         gn = ga if is_home else gh
         res = "W" if gf > gn else ("D" if gf == gn else "L")
         opp_id = a_id if is_home else h_id
-        utc = m.get("status", {}).get("utcTime", "") or ""
+        utc = _norm_utc(m.get("status", {}).get("utcTime", "") or "")
         if utc in seen_utc:
             continue
         seen_utc.add(utc)
@@ -314,7 +320,7 @@ def _compute_form(league_data, team_id_str, n=5, team_match_index=None, with_opp
             gn = ga if is_home else gh
             res = "W" if gf > gn else ("D" if gf == gn else "L")
             opp_id = a_id if is_home else h_id
-            utc = m.get("status", {}).get("utcTime", "") or ""
+            utc = _norm_utc(m.get("status", {}).get("utcTime", "") or "")
             if utc in seen_utc:
                 continue
             seen_utc.add(utc)
