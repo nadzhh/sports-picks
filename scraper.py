@@ -101,10 +101,40 @@ def collect_fotmob_data(dates):
     standings_by_league = {}
     league_data_cache = {}
 
-    # ── Parallelisation FotMob fetch (gain ~5-10x sur 61 ligues) ───────────
-    # Avant : sequentiel 60-120s. Apres : 10-15s avec 10 workers.
-    # FotMob est gratuit + sans rate limit officiel ; tester avec 10 puis
-    # ajuster si on observe des 429.
+    # ── Pre-filtre : ne charge QUE les ligues avec matchs J/J+1 ──────────────
+    # Avant : on fetchait les 61 ligues meme si 90% sont en pause estivale
+    # (dont les massives Friendlies/WC Qualif CAF avec 200-300 fixtures chacune).
+    # Maintenant : un seul call /matches?date=X par jour (2 calls total) donne
+    # la liste des ligues avec activite -> on filtre FOTMOB_LEAGUES sur ces IDs.
+    # Gain : ~50 fetches FotMob evites quand peu de ligues actives.
+    import urllib.request, gzip
+    active_league_ids = set()
+    for d in dates:
+        url = f"https://www.fotmob.com/api/data/matches?date={d.replace('-','')}"
+        try:
+            req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0"})
+            with urllib.request.urlopen(req, timeout=15) as r:
+                raw = r.read()
+                if raw[:2] == b"\x1f\x8b": raw = gzip.decompress(raw)
+                payload = json.loads(raw)
+            for l in payload.get("leagues", []) or []:
+                lid = l.get("primaryId") or l.get("id")
+                if lid and l.get("matches"): active_league_ids.add(lid)
+        except Exception as e:
+            print(f"  [!] FotMob matches-by-date {d}: {e}")
+    # Si la pre-filtration a echoue, on retombe sur toutes les ligues (safe).
+    if not active_league_ids:
+        print("  [!] pre-filtration vide -> fallback toutes ligues")
+        leagues_to_fetch = list(FOTMOB_LEAGUES.items())
+    else:
+        leagues_to_fetch = [(n, info) for n, info in FOTMOB_LEAGUES.items()
+                            if info["id"] in active_league_ids]
+        skipped = len(FOTMOB_LEAGUES) - len(leagues_to_fetch)
+        print(f"  [i] Pre-filtration : {len(leagues_to_fetch)} ligues actives J/J+1 "
+              f"(skip {skipped} en pause)")
+
+    # ── Parallelisation FotMob fetch ─────────────────────────────────────────
+    # 5 workers (au lieu de 10) pour eviter d'hammer FotMob et causer des timeouts.
     from concurrent.futures import ThreadPoolExecutor
     def _fetch_one(lname_info):
         lname, info = lname_info
@@ -112,8 +142,8 @@ def collect_fotmob_data(dates):
             return (lname, info["id"], fm_league(info["id"]))
         except Exception as e:
             return (lname, info["id"], None)
-    with ThreadPoolExecutor(max_workers=10) as ex:
-        fetch_results = list(ex.map(_fetch_one, FOTMOB_LEAGUES.items()))
+    with ThreadPoolExecutor(max_workers=5) as ex:
+        fetch_results = list(ex.map(_fetch_one, leagues_to_fetch))
 
     for lname, fm_id, d in fetch_results:
         if not d:
