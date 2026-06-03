@@ -49,6 +49,7 @@ jobs:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHAT_ID:   ${{ secrets.TELEGRAM_CHAT_ID }}
           PYTHONIOENCODING:   utf-8
+          CAMOUFOX_DISABLE:   "1" 
         run: |
           python foot_resolver.py         || echo "[!] foot_resolver KO"
           python nba_resolver.py          || echo "[!] nba_resolver KO"
