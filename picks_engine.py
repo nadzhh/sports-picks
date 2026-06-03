@@ -618,15 +618,18 @@ def analyze_match(match, pstats_all, player_odds_all=None):
 
     # ── 1X2 — forme récente pondérée davantage que H2H ────────────────────
     # Poids : forme récente 55%, classement 20%, H2H 15%, rating 10%
-    # Pour les amicaux internationaux (league_id 114) : on autorise quand on
-    # a une asymetrie nette via la forme SoS-ponderee (au moins 3 rangs adv.
-    # connus dans L5). Sinon (ex: Gibraltar vs BVI) : skip.
+    # Pour les amicaux internationaux (league_id 114) : on accepte quand on a
+    # un L5 complet (>=4 matchs) des 2 cotes - le team endpoint fallback fournit
+    # le L5 TCC (toutes competitions confondues). Skip uniquement quand L5 trop
+    # courte (Gibraltar vs BVI : peu de matchs records).
     IS_INTL_FRIENDLY = (league_id == 114)
     h_opp_ranks_pre = get_form_opp_ranks(form, "homeTeam")
     a_opp_ranks_pre = get_form_opp_ranks(form, "awayTeam")
     h_sos_ok = sum(1 for r in h_opp_ranks_pre if r is not None) >= 3
     a_sos_ok = sum(1 for r in a_opp_ranks_pre if r is not None) >= 3
-    can_1x2 = (not IS_INTL_FRIENDLY) or (h_sos_ok and a_sos_ok)
+    h_l5_ok = len(hf) >= 4
+    a_l5_ok = len(af) >= 4
+    can_1x2 = (not IS_INTL_FRIENDLY) or (h_l5_ok and a_l5_ok)
     if can_1x2:
         if hf:
             form_c = h_form_score * 0.55
@@ -694,10 +697,10 @@ def analyze_match(match, pstats_all, player_odds_all=None):
     # Strength-of-Schedule : pondere le L5 selon le rang des adversaires
     h_opp_ranks = get_form_opp_ranks(form, "homeTeam")
     a_opp_ranks = get_form_opp_ranks(form, "awayTeam")
-    # Pour les amicaux : DC autorise UNIQUEMENT si SoS dispo des 2 cotes
-    # (>=3 rangs adv. connus). Sinon : trop random (Gibraltar vs BVI).
-    can_dc_h = (not IS_INTL_FRIENDLY) or h_sos_ok
-    can_dc_a = (not IS_INTL_FRIENDLY) or a_sos_ok
+    # Pour les amicaux : DC autorise si L5 >=4 matchs des 2 cotes (TCC).
+    # Si SoS dispo on l'utilise en bonus (cf ub_sos plus bas).
+    can_dc_h = (not IS_INTL_FRIENDLY) or (h_l5_ok and a_l5_ok)
+    can_dc_a = (not IS_INTL_FRIENDLY) or (h_l5_ok and a_l5_ok)
     if can_dc_h and hf:
         ub_raw = unbeaten(hf)
         ub_sos = sos_unbeaten(hf, h_opp_ranks)

@@ -14,7 +14,7 @@ Produit data/matches.json compatible avec picks_engine.py.
 """
 import json, os, re, shutil, sys
 from datetime import date, timedelta, datetime
-from fotmob_client import league as fm_league, stat as fm_stat, session_calls as fm_calls, reset_session as fm_reset
+from fotmob_client import league as fm_league, team as fm_team, stat as fm_stat, session_calls as fm_calls, reset_session as fm_reset
 from api_client import get as af_get, quota_today, session_calls as af_calls, reset_session as af_reset
 from config import FOTMOB_LEAGUES, INTERNAL_LEAGUE_IDS, APIFOOTBALL_LEAGUES, CUP_LEAGUES
 
@@ -241,15 +241,32 @@ def _build_team_match_index(league_data_cache):
     return by_team
 
 
-def _compute_form(league_data, team_id_str, n=5, team_match_index=None, with_opps=False):
+def _team_recent_finished(team_id_str, n=5):
+    """Fetch les n derniers matchs finis d'une equipe via /api/data/teams.
+    Retourne liste de matchs au format compatible avec _compute_form.
+    Toutes competitions confondues (TCC).
+    """
+    if not team_id_str or not str(team_id_str).isdigit():
+        return []
+    data = fm_team(int(team_id_str))
+    if not data:
+        return []
+    all_fix = data.get("fixtures", {}).get("allFixtures", {}).get("fixtures", []) or []
+    finished = [m for m in all_fix if m.get("status", {}).get("finished")]
+    finished.sort(key=lambda m: m.get("status", {}).get("utcTime", "") or "", reverse=True)
+    return finished[:n]
+
+
+def _compute_form(league_data, team_id_str, n=5, team_match_index=None, with_opps=False, team_endpoint_fallback=True):
     """Retourne liste W/D/L des n derniers matchs FT de l'equipe.
 
-    Si team_match_index est fourni (= cross-competitions), on prend les matchs
-    de TOUTES competitions confondues (championnat + coupes + UEFA). Sinon
-    fallback sur league_data uniquement (legacy).
+    Strategie (toutes competitions confondues) :
+    1. Prefere team_match_index si dispo (= aggregat cross-leagues du scrape jour)
+    2. Sinon fallback sur league_data (matches de la ligue courante)
+    3. Si on a < n matchs ET team_endpoint_fallback=True : appel /api/data/teams
+       (donne le vrai L5 TCC pour selections nationales / matchs amicaux)
 
-    Si with_opps=True, retourne aussi liste parallele [opp_id_str, ...] pour
-    permettre la ponderation Strength-of-Schedule cote picks_engine.
+    Si with_opps=True, retourne aussi liste [opp_id_str, ...] pour SoS.
     """
     if team_match_index is not None and team_id_str in team_match_index:
         matches = team_match_index[team_id_str]
@@ -257,6 +274,7 @@ def _compute_form(league_data, team_id_str, n=5, team_match_index=None, with_opp
         matches = league_data.get("fixtures", {}).get("allMatches", []) or []
 
     played = []
+    seen_utc = set()
     for m in matches:
         if not m.get("status", {}).get("finished"):
             continue
@@ -273,7 +291,35 @@ def _compute_form(league_data, team_id_str, n=5, team_match_index=None, with_opp
         gn = ga if is_home else gh
         res = "W" if gf > gn else ("D" if gf == gn else "L")
         opp_id = a_id if is_home else h_id
-        played.append((m.get("status", {}).get("utcTime", ""), res, opp_id))
+        utc = m.get("status", {}).get("utcTime", "") or ""
+        if utc in seen_utc:
+            continue
+        seen_utc.add(utc)
+        played.append((utc, res, opp_id))
+
+    # Fallback team endpoint : crucial pour selections nationales (Friendlies,
+    # WC Qualif, EURO, Nations League) ou un seul scrape ne donne pas le L5 complet
+    if team_endpoint_fallback and len(played) < n:
+        for m in _team_recent_finished(team_id_str, n=n * 2):
+            h_id = str(m.get("home", {}).get("id"))
+            a_id = str(m.get("away", {}).get("id"))
+            if team_id_str not in (h_id, a_id):
+                continue
+            score = _parse_score(m.get("status", {}).get("scoreStr"))
+            if not score:
+                continue
+            gh, ga = score
+            is_home = team_id_str == h_id
+            gf = gh if is_home else ga
+            gn = ga if is_home else gh
+            res = "W" if gf > gn else ("D" if gf == gn else "L")
+            opp_id = a_id if is_home else h_id
+            utc = m.get("status", {}).get("utcTime", "") or ""
+            if utc in seen_utc:
+                continue
+            seen_utc.add(utc)
+            played.append((utc, res, opp_id))
+
     played.sort(key=lambda x: x[0], reverse=True)
     if with_opps:
         return [p[1] for p in played[:n]], [p[2] for p in played[:n]]
