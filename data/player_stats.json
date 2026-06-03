@@ -156,28 +156,6 @@
         "rating": null
       },
       {
-        "id": 1134301,
-        "name": "Jawad Ghabra",
-        "shortName": "Jawad Ghabra",
-        "position": "M",
-        "team_id": 316657,
-        "appearances": 4,
-        "is_sub": false,
-        "minutes": 0,
-        "goals": 1,
-        "assists": 2,
-        "shots": 0,
-        "shots_on": 0,
-        "goals_pm": 0.25,
-        "assists_pm": 0.5,
-        "g_a_pm": 0.75,
-        "shots_pm": 0,
-        "sot_pm": 0,
-        "xG_pm": 0,
-        "xA_pm": 0,
-        "rating": null
-      },
-      {
         "id": 1403643,
         "name": "Mohamed Saoud",
         "shortName": "Mohamed Saoud",
@@ -193,6 +171,28 @@
         "goals_pm": 0.667,
         "assists_pm": 0.0,
         "g_a_pm": 0.667,
+        "shots_pm": 0,
+        "sot_pm": 0,
+        "xG_pm": 0,
+        "xA_pm": 0,
+        "rating": null
+      },
+      {
+        "id": 1134301,
+        "name": "Jawad Ghabra",
+        "shortName": "Jawad Ghabra",
+        "position": "M",
+        "team_id": 316657,
+        "appearances": 5,
+        "is_sub": false,
+        "minutes": 0,
+        "goals": 1,
+        "assists": 2,
+        "shots": 0,
+        "shots_on": 0,
+        "goals_pm": 0.2,
+        "assists_pm": 0.4,
+        "g_a_pm": 0.6,
         "shots_pm": 0,
         "sot_pm": 0,
         "xG_pm": 0,
@@ -1399,8 +1399,8 @@
             "rating": null
           },
           {
-            "id": 818196,
-            "name": "Anass Mrabet",
+            "id": 604546,
+            "name": "Anas Lamrabat",
             "shirt": "23",
             "pos_id": 68,
             "rating": null
@@ -9800,12 +9800,12 @@
       "n_matches": 0
     },
     "lineup": {
-      "type": "predicted",
+      "type": "standard",
       "source": "enetpulse",
       "home": {
         "name": "Luxembourg",
         "id": 5792,
-        "formation": "4-2-3-1",
+        "formation": "4-5-1",
         "coach": "Jeff Strasser",
         "starters": [
           {
@@ -9837,45 +9837,45 @@
             "rating": null
           },
           {
-            "id": 625581,
-            "name": "Florian Bohnert",
-            "shirt": "4",
+            "id": 361317,
+            "name": "Michael Pinto",
+            "shirt": "17",
             "pos_id": 38,
-            "rating": null
-          },
-          {
-            "id": 561200,
-            "name": "Christopher Martins",
-            "shirt": "8",
-            "pos_id": 64,
-            "rating": null
-          },
-          {
-            "id": 1089478,
-            "name": "Mathias Olesen",
-            "shirt": "19",
-            "pos_id": 66,
             "rating": null
           },
           {
             "id": 736173,
             "name": "Vincent Thill",
             "shirt": "15",
-            "pos_id": 83,
+            "pos_id": 71,
             "rating": null
           },
           {
-            "id": 642598,
-            "name": "Sébastien Thill",
-            "shirt": "21",
-            "pos_id": 85,
+            "id": 561200,
+            "name": "Christopher Martins",
+            "shirt": "8",
+            "pos_id": 73,
             "rating": null
           },
           {
-            "id": 1536762,
-            "name": "Aiman Dardari",
-            "shirt": "9",
-            "pos_id": 87,
+            "id": 1089478,
+            "name": "Mathias Olesen",
+            "shirt": "19",
+            "pos_id": 75,
+            "rating": null
+          },
+          {
+            "id": 1670232,
+            "name": "Tomás Cruz",
+            "shirt": "6",
+            "pos_id": 77,
+            "rating": null
+          },
+          {
+            "id": 625581,
+            "name": "Florian Bohnert",
+            "shirt": "7",
+            "pos_id": 79,
             "rating": null
           },
           {
@@ -9909,16 +9909,16 @@
             "rating": null
           },
           {
-            "id": 1276331,
-            "name": "Fabio Chiarodia",
-            "shirt": "4",
+            "id": 1529222,
+            "name": "Pietro Comuzzo",
+            "shirt": "15",
             "pos_id": 34,
             "rating": null
           },
           {
-            "id": 1529222,
-            "name": "Pietro Comuzzo",
-            "shirt": "15",
+            "id": 1276331,
+            "name": "Fabio Chiarodia",
+            "shirt": "4",
             "pos_id": 36,
             "rating": null
           },
@@ -9930,9 +9930,9 @@
             "rating": null
           },
           {
-            "id": 1246009,
-            "name": "Cher Ndour",
-            "shirt": "10",
+            "id": 1451196,
+            "name": "Niccolò Pisilli",
+            "shirt": "21",
             "pos_id": 73,
             "rating": null
           },
@@ -9944,9 +9944,9 @@
             "rating": null
           },
           {
-            "id": 1451196,
-            "name": "Niccolò Pisilli",
-            "shirt": "21",
+            "id": 1246009,
+            "name": "Cher Ndour",
+            "shirt": "10",
             "pos_id": 77,
             "rating": null
           },
@@ -11251,8 +11251,8 @@
       "n_matches": 0
     },
     "lineup": {
-      "type": "lastStarting11",
-      "source": "lastStartingLineups",
+      "type": "standard",
+      "source": "enetpulse",
       "home": {
         "name": "Poland",
         "id": 8568,
@@ -11260,9 +11260,9 @@
         "coach": null,
         "starters": [
           {
-            "id": 863455,
-            "name": "Marcin Bulka",
-            "shirt": "12",
+            "id": 760722,
+            "name": "Kamil Grabara",
+            "shirt": "1",
             "pos_id": 11,
             "rating": null
           },
@@ -11274,37 +11274,37 @@
             "rating": null
           },
           {
-            "id": 306174,
-            "name": "Tomasz Kedziora",
-            "shirt": "4",
+            "id": 490868,
+            "name": "Jan Bednarek",
+            "shirt": "5",
             "pos_id": 35,
             "rating": null
           },
           {
-            "id": 1021834,
-            "name": "Jakub Kiwior",
-            "shirt": "14",
+            "id": 1800401,
+            "name": "Kacper Potulski",
+            "shirt": "25",
             "pos_id": 37,
             "rating": null
           },
           {
-            "id": 1112702,
-            "name": "Arkadiusz Pyrka",
-            "shirt": "15",
+            "id": 1067260,
+            "name": "Jakub Kaminski",
+            "shirt": "7",
             "pos_id": 72,
+            "rating": null
+          },
+          {
+            "id": 742332,
+            "name": "Bartosz Slisz",
+            "shirt": "6",
+            "pos_id": 74,
             "rating": null
           },
           {
             "id": 362212,
             "name": "Piotr Zielinski",
             "shirt": "10",
-            "pos_id": 74,
-            "rating": null
-          },
-          {
-            "id": 689987,
-            "name": "Jakub Piotrowski",
-            "shirt": "16",
             "pos_id": 76,
             "rating": null
           },
@@ -11330,9 +11330,9 @@
             "rating": null
           },
           {
-            "id": 1647807,
-            "name": "Oskar Pietuszewski",
-            "shirt": "17",
+            "id": 558136,
+            "name": "Karol Swiderski",
+            "shirt": "11",
             "pos_id": 107,
             "rating": null
           }
@@ -11342,84 +11342,84 @@
       "away": {
         "name": "Nigeria",
         "id": 6346,
-        "formation": "4-3-3",
+        "formation": "4-4-2",
         "coach": null,
         "starters": [
           {
-            "id": 961994,
-            "name": "Arthur Okonkwo",
-            "shirt": "16",
+            "id": 1091193,
+            "name": "Maduka Okoye",
+            "shirt": "23",
             "pos_id": 11,
             "rating": null
           },
           {
-            "id": 2007823,
-            "name": "Chibueze Oputa",
+            "id": 1791349,
+            "name": "Abdullahi Bewene",
             "shirt": "2",
             "pos_id": 32,
-            "rating": null
-          },
-          {
-            "id": 1435397,
-            "name": "Chibuike Nwaiwu",
-            "shirt": "6",
-            "pos_id": 34,
             "rating": null
           },
           {
             "id": 928122,
             "name": "Igoh Ogbu",
             "shirt": "5",
+            "pos_id": 34,
+            "rating": null
+          },
+          {
+            "id": 1273270,
+            "name": "Emmanuel Fernandez",
+            "shirt": "18",
             "pos_id": 36,
             "rating": null
           },
           {
-            "id": 1463624,
-            "name": "Kenneth Igboke",
-            "shirt": "3",
+            "id": 1287837,
+            "name": "Bruno Onyemaechi",
+            "shirt": "13",
             "pos_id": 38,
             "rating": null
           },
           {
-            "id": 955195,
-            "name": "Alhassan Yusuf",
+            "id": 533228,
+            "name": "Wilfred Ndidi",
             "shirt": "4",
-            "pos_id": 73,
+            "pos_id": 72,
+            "rating": null
+          },
+          {
+            "id": 856685,
+            "name": "Frank Onyeka",
+            "shirt": "8",
+            "pos_id": 74,
             "rating": null
           },
           {
             "id": 1353104,
             "name": "Tochukwu Nnadi",
-            "shirt": "8",
-            "pos_id": 75,
+            "shirt": "12",
+            "pos_id": 76,
             "rating": null
           },
           {
-            "id": 1106905,
-            "name": "Samson Tijani",
-            "shirt": "14",
-            "pos_id": 77,
+            "id": 467486,
+            "name": "Moses Simon",
+            "shirt": "15",
+            "pos_id": 78,
             "rating": null
           },
           {
-            "id": 1083185,
-            "name": "Femi Azeez",
-            "shirt": "7",
-            "pos_id": 103,
+            "id": 958640,
+            "name": "Akor Adams",
+            "shirt": "22",
+            "pos_id": 104,
             "rating": null
           },
           {
             "id": 885005,
             "name": "Terem Moffi",
             "shirt": "9",
-            "pos_id": 105,
-            "rating": null
-          },
-          {
-            "id": 1305763,
-            "name": "Rafiu Durosinmi",
-            "shirt": "17",
-            "pos_id": 107,
+            "pos_id": 106,
             "rating": null
           }
         ],
