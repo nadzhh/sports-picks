@@ -241,12 +241,16 @@ def _build_team_match_index(league_data_cache):
     return by_team
 
 
-def _compute_form(league_data, team_id_str, n=5, team_match_index=None):
+def _compute_form(league_data, team_id_str, n=5, team_match_index=None, with_opps=False):
     """Retourne liste W/D/L des n derniers matchs FT de l'equipe.
 
     Si team_match_index est fourni (= cross-competitions), on prend les matchs
     de TOUTES competitions confondues (championnat + coupes + UEFA). Sinon
-    fallback sur league_data uniquement (legacy)."""
+    fallback sur league_data uniquement (legacy).
+
+    Si with_opps=True, retourne aussi liste parallele [opp_id_str, ...] pour
+    permettre la ponderation Strength-of-Schedule cote picks_engine.
+    """
     if team_match_index is not None and team_id_str in team_match_index:
         matches = team_match_index[team_id_str]
     else:
@@ -268,8 +272,11 @@ def _compute_form(league_data, team_id_str, n=5, team_match_index=None):
         gf = gh if is_home else ga
         gn = ga if is_home else gh
         res = "W" if gf > gn else ("D" if gf == gn else "L")
-        played.append((m.get("status", {}).get("utcTime", ""), res))
+        opp_id = a_id if is_home else h_id
+        played.append((m.get("status", {}).get("utcTime", ""), res, opp_id))
     played.sort(key=lambda x: x[0], reverse=True)
+    if with_opps:
+        return [p[1] for p in played[:n]], [p[2] for p in played[:n]]
     return [p[1] for p in played[:n]]
 
 
@@ -689,7 +696,7 @@ def _build_espn_soccer_odds(home_name, away_name, league_name):
 
 # ─── Step 4: BUILD ─────────────────────────────────────────────────────────────
 
-def build_match(fm_match, lname, fm_lid, standings, league_data, odds_idx, team_match_index=None):
+def build_match(fm_match, lname, fm_lid, standings, league_data, odds_idx, team_match_index=None, global_rank_idx=None):
     fid = fm_match.get("id")
     h = fm_match.get("home", {})
     a = fm_match.get("away", {})
@@ -710,8 +717,8 @@ def build_match(fm_match, lname, fm_lid, standings, league_data, odds_idx, team_
 
     # Forme : utilise l'index cross-competitions si dispo (recommande), sinon
     # fallback sur la league seule (legacy / si l'index n'a pas ete construit).
-    home_form = _compute_form(league_data, home_id, n=5, team_match_index=team_match_index)
-    away_form = _compute_form(league_data, away_id, n=5, team_match_index=team_match_index)
+    home_form, home_opps = _compute_form(league_data, home_id, n=5, team_match_index=team_match_index, with_opps=True)
+    away_form, away_opps = _compute_form(league_data, away_id, n=5, team_match_index=team_match_index, with_opps=True)
     home_rank = standings.get(int(home_id) if home_id.isdigit() else home_id, {}).get("rank")
     away_rank = standings.get(int(home_id) if False else int(away_id) if away_id.isdigit() else away_id, {}).get("rank")
     hw, dr, aw = _compute_h2h(league_data, home_id, away_id)
@@ -749,8 +756,12 @@ def build_match(fm_match, lname, fm_lid, standings, league_data, odds_idx, team_
         "league": lname,
         "h2h": {"teamDuel": {"homeWins": hw, "draws": dr, "awayWins": aw}},
         "pre_match_form": {
-            "homeTeam": {"form": home_form, "position": home_rank, "avgRating": None},
-            "awayTeam": {"form": away_form, "position": away_rank, "avgRating": None},
+            "homeTeam": {"form": home_form, "form_opps": home_opps,
+                         "form_opp_ranks": [(global_rank_idx or {}).get(o) for o in home_opps],
+                         "position": home_rank, "avgRating": None},
+            "awayTeam": {"form": away_form, "form_opps": away_opps,
+                         "form_opp_ranks": [(global_rank_idx or {}).get(o) for o in away_opps],
+                         "position": away_rank, "avgRating": None},
         },
         "match_odds": match_odds,
         "lineups_home": None,
@@ -793,6 +804,14 @@ def main():
     n_indexed = sum(len(v) for v in team_match_idx.values())
     print(f"  -> Index forme cross-competitions : {len(team_match_idx)} equipes, {n_indexed} matchs FT")
 
+    # Index global team_id -> rank (toutes ligues confondues) pour SoS
+    global_rank_idx = {}
+    for fm_lid, st in standings_by_league.items():
+        for tid, info in st.items():
+            r = info.get("rank")
+            if r is not None:
+                global_rank_idx[str(tid)] = r
+
     all_matches = []
     for i, (lname, fm_lid, fm_m) in enumerate(fm_matches, 1):
         h = fm_m.get("home", {}).get("name", "?")
@@ -800,7 +819,8 @@ def main():
         try:
             data = build_match(fm_m, lname, fm_lid, standings_by_league.get(fm_lid, {}),
                                 league_data_cache.get(fm_lid, {}), odds_idx,
-                                team_match_index=team_match_idx)
+                                team_match_index=team_match_idx,
+                                global_rank_idx=global_rank_idx)
             all_matches.append(data)
             has_odds = "+odds" if data["match_odds"] else "(no odds)"
             print(f"  [{i}/{len(fm_matches)}] {lname}: {h} vs {a} {has_odds}")

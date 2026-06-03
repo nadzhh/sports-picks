@@ -29,6 +29,37 @@ def win_rate(f):   return f.count("W") / len(f) if f else 0
 def unbeaten(f):   return (f.count("W") + f.count("D")) / len(f) if f else 0
 def loss_rate(f):  return f.count("L") / len(f) if f else 0
 
+def _sos_weight(opp_rank):
+    """Poids Strength-of-Schedule selon rank adversaire.
+    Top 4 -> 1.5x · top 10 -> 1.2x · 11-15 -> 1.0x · 16-18 -> 0.8x · 19+ -> 0.6x.
+    Inconnu -> 1.0x (neutre)."""
+    if opp_rank is None:
+        return 1.0
+    if opp_rank <= 4:  return 1.5
+    if opp_rank <= 10: return 1.2
+    if opp_rank <= 15: return 1.0
+    if opp_rank <= 18: return 0.8
+    return 0.6
+
+def sos_unbeaten(f, opp_ranks):
+    """Unbeaten% pondere par la qualite des adversaires.
+    Une victoire vs top-4 vaut 1.5x ; un nul vs bottom-3 vaut 0.6x.
+    Si opp_ranks absent / vide -> fallback sur unbeaten() simple."""
+    if not f or not opp_ranks or len(opp_ranks) != len(f):
+        return unbeaten(f)
+    total_w = 0.0
+    pts_w = 0.0
+    for res, opp_r in zip(f, opp_ranks):
+        w = _sos_weight(opp_r)
+        total_w += w
+        if res in ("W", "D"):
+            pts_w += w
+    return (pts_w / total_w) if total_w else unbeaten(f)
+
+def get_form_opp_ranks(fd, side):
+    try: return fd.get(side, {}).get("form_opp_ranks", []) or []
+    except: return []
+
 def get_pos(fd, s):
     pos = (fd or {}).get(s, {}).get("position", None)
     return pos if pos is not None else 20
@@ -587,32 +618,36 @@ def analyze_match(match, pstats_all, player_odds_all=None):
 
     # ── 1X2 — forme récente pondérée davantage que H2H ────────────────────
     # Poids : forme récente 55%, classement 20%, H2H 15%, rating 10%
-    if hf:
-        form_c = h_form_score * 0.55
-        pos_c  = max(0, (20-hp)/20*20) if hp < 20 else 0
-        h2h_c  = (hw/h2ht*15) if h2ht else 7
-        rat_c  = min(10, (hr-6.5)*15) if hr > 6.5 else 0
-        conf   = round(min(94, form_c + pos_c + h2h_c + rat_c))
-        if conf >= 58:
-            trend_txt = f" ({h_trend})" if h_trend != "stable" else ""
-            add("home_win","Victoire domicile",f"{home} gagne",c1,conf,
-                f"{home} : {form_summary(hf)}{trend_txt} · #{hp} au classement · "
-                f"H2H: {hw}V/{dn}N/{aw}D · Note Sofa: {hr:.1f}/10",hf)
+    # Skip pour amicaux internationaux (league_id 114) : pas de classement
+    # fiable + adversaires L5 trop heterogenes pour predire.
+    if league_id != 114:
+        if hf:
+            form_c = h_form_score * 0.55
+            pos_c  = max(0, (20-hp)/20*20) if hp < 20 else 0
+            h2h_c  = (hw/h2ht*15) if h2ht else 7
+            rat_c  = min(10, (hr-6.5)*15) if hr > 6.5 else 0
+            conf   = round(min(94, form_c + pos_c + h2h_c + rat_c))
+            if conf >= 58:
+                trend_txt = f" ({h_trend})" if h_trend != "stable" else ""
+                add("home_win","Victoire domicile",f"{home} gagne",c1,conf,
+                    f"{home} : {form_summary(hf)}{trend_txt} · #{hp} au classement · "
+                    f"H2H: {hw}V/{dn}N/{aw}D · Note Sofa: {hr:.1f}/10",hf)
 
-    if af:
-        form_c = a_form_score * 0.55
-        pos_c  = max(0, (20-ap)/20*20) if ap < 20 else 0
-        h2h_c  = (aw/h2ht*15) if h2ht else 7
-        rat_c  = min(10, (ar-6.5)*15) if ar > 6.5 else 0
-        conf   = round(min(94, form_c + pos_c + h2h_c + rat_c))
-        if conf >= 58:
-            trend_txt = f" ({a_trend})" if a_trend != "stable" else ""
-            add("away_win","Victoire extérieur",f"{away} gagne",c2,conf,
-                f"{away} : {form_summary(af)}{trend_txt} · #{ap} au classement · "
-                f"H2H: {aw}V/{dn}N/{hw}D · Note Sofa: {ar:.1f}/10",af)
+        if af:
+            form_c = a_form_score * 0.55
+            pos_c  = max(0, (20-ap)/20*20) if ap < 20 else 0
+            h2h_c  = (aw/h2ht*15) if h2ht else 7
+            rat_c  = min(10, (ar-6.5)*15) if ar > 6.5 else 0
+            conf   = round(min(94, form_c + pos_c + h2h_c + rat_c))
+            if conf >= 58:
+                trend_txt = f" ({a_trend})" if a_trend != "stable" else ""
+                add("away_win","Victoire extérieur",f"{away} gagne",c2,conf,
+                    f"{away} : {form_summary(af)}{trend_txt} · #{ap} au classement · "
+                    f"H2H: {aw}V/{dn}N/{hw}D · Note Sofa: {ar:.1f}/10",af)
 
     # ── Favori net ─────────────────────────────────────────────────────────
-    if hf and af:
+    # Skip "Favori net" pour amicaux internationaux (pas de classement fiable)
+    if hf and af and league_id != 114:
         pd = ap - hp
         if abs(pd) >= 6:
             fav    = home if pd > 0 else away
@@ -638,27 +673,67 @@ def analyze_match(match, pstats_all, player_odds_all=None):
     # Analyse historique (20 picks, WR 65%, ROI -4.3%, cote moy 1.42, break-even 70.6%)
     # -> seuil 70 trop bas (cote serre, marginalement non rentable).
     # Nouveau seuil : conf >= 80 ET cote >= 1.45 pour assurer +EV.
+    #
+    # IMPORTANT : pour les amicaux internationaux (Friendlies = league_id 114),
+    # le "L5 invaincu" est inutilisable :
+    # - Adversaires de niveau tres heterogene (rang FIFA 30 vs 150)
+    # - Petit echantillon (4-6 matchs sur 12 mois)
+    # - Aucun classement disponible pour ponderer
+    # On SKIP DC pour les amicaux internationaux.
+    IS_INTL_FRIENDLY = (league_id == 114)
     dc_cands = []
-    if hf:
-        ub   = unbeaten(hf)
+    # Strength-of-Schedule : pondere le L5 selon le rang des adversaires
+    h_opp_ranks = get_form_opp_ranks(form, "homeTeam")
+    a_opp_ranks = get_form_opp_ranks(form, "awayTeam")
+    if not IS_INTL_FRIENDLY and hf:
+        ub_raw = unbeaten(hf)
+        ub_sos = sos_unbeaten(hf, h_opp_ranks)
+        # On utilise SoS si on a au moins 3 ranks valides, sinon unbeaten brut
+        n_valid = sum(1 for r in h_opp_ranks if r is not None)
+        ub = ub_sos if n_valid >= 3 else ub_raw
         h2h_ = (hw+dn)/h2ht if h2ht else 0.5
-        conf = round(ub * 65 + h_form_score * 0.2 + h2h_ * 15)
+        rank_advantage_h = 0
+        if hp and ap:
+            rank_advantage_h = max(0, min(15, (ap - hp) * 1.0))
+        conf = round(ub * 40 + h_form_score * 0.3 + h2h_ * 20 + rank_advantage_h * 1.5)
         conf_cal = _foot_calibrate(conf)
         if conf_cal is not None and conf_cal >= 80 and (c1x is None or c1x >= 1.45):
             trend_txt = f", {h_trend}" if h_trend not in ("stable","en légère baisse") else ""
+            sos_tag = ""
+            if n_valid >= 3 and abs(ub_sos - ub_raw) >= 0.05:
+                sos_tag = " (pondéré qualité adv.)"
+            reasoning = (
+                f"{home} invaincu {round(ub*100)}%{sos_tag} sur {len(hf)} derniers matchs{trend_txt}"
+                f" · H2H: {hw+dn}/{h2ht} matchs sans défaite"
+            )
+            if hp and ap:
+                reasoning += f" · Classement: #{hp} vs #{ap}"
             dc_cands.append(("home_dc","Double chance",f"{home} ou Nul (1X)",c1x,round(conf_cal),
-                f"{home} invaincu {round(ub*100)}% sur {len(hf)} derniers matchs{trend_txt} · "
-                f"H2H: {hw+dn}/{h2ht} matchs sans défaite",hf))
-    if af:
-        ub   = unbeaten(af)
+                reasoning, hf))
+    if not IS_INTL_FRIENDLY and af:
+        ub_raw = unbeaten(af)
+        ub_sos = sos_unbeaten(af, a_opp_ranks)
+        n_valid = sum(1 for r in a_opp_ranks if r is not None)
+        ub = ub_sos if n_valid >= 3 else ub_raw
         h2h_ = (aw+dn)/h2ht if h2ht else 0.5
-        conf = round(ub * 65 + a_form_score * 0.2 + h2h_ * 15)
+        rank_advantage_a = 0
+        if hp and ap:
+            rank_advantage_a = max(0, min(15, (hp - ap) * 1.0))
+        conf = round(ub * 40 + a_form_score * 0.3 + h2h_ * 20 + rank_advantage_a * 1.5)
         conf_cal = _foot_calibrate(conf)
         if conf_cal is not None and conf_cal >= 80 and (cx2 is None or cx2 >= 1.45):
             trend_txt = f", {a_trend}" if a_trend not in ("stable","en légère baisse") else ""
+            sos_tag = ""
+            if n_valid >= 3 and abs(ub_sos - ub_raw) >= 0.05:
+                sos_tag = " (pondéré qualité adv.)"
+            reasoning = (
+                f"{away} invaincu {round(ub*100)}%{sos_tag} sur {len(af)} derniers matchs{trend_txt}"
+                f" · H2H: {aw+dn}/{h2ht} matchs sans défaite"
+            )
+            if hp and ap:
+                reasoning += f" · Classement: #{ap} (away) vs #{hp} (home)"
             dc_cands.append(("away_dc","Double chance",f"Nul ou {away} (X2)",cx2,round(conf_cal),
-                f"{away} invaincu {round(ub*100)}% sur {len(af)} derniers matchs{trend_txt} · "
-                f"H2H: {aw+dn}/{h2ht} matchs sans défaite",af))
+                reasoning, af))
     if dc_cands:
         add(*max(dc_cands, key=lambda x: x[4]))
 
@@ -1760,10 +1835,13 @@ def run():
 
     print(f"✅ {len(output)} matchs → data/picks.json")
     for m in output[:5]:
-        tp  = m["top_pick"]
-        c   = f" @ {tp['cote']:.2f}" if tp.get("cote") else ""
+        tp  = m.get("top_pick")
         nb  = len(m["home_players"]) + len(m["away_players"])
         fun = len(m.get("fun_picks",[]))
+        if not tp:
+            print(f"  {m['home']} vs {m['away']} → (no pick) · {nb} props joueurs · {fun} fun picks")
+            continue
+        c   = f" @ {tp['cote']:.2f}" if tp.get("cote") else ""
         print(f"  {m['home']} vs {m['away']} → {tp['label']} ({tp['confidence']}%){c} · {nb} props joueurs · {fun} fun picks")
 
     _save_to_history(output)
