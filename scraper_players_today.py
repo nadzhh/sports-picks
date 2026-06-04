@@ -462,19 +462,28 @@ def _strip_assist(s):
 
 def collect_team_l5_all_comp(team_id, n=10, skip_friendlies=True):
     """
-    Recupere les n derniers matchs TOUTES COMPETITIONS de l'equipe via team.overviewFixtures.
-    Inclut: championnat, Coupe d'Europe (CL/EL/EC), coupes domestiques.
-    Exclut: matchs amicaux (par defaut).
+    Recupere les n derniers matchs TOUTES COMPETITIONS de l'equipe via
+    team.fixtures.allFixtures (et fallback overview.overviewFixtures si vide).
+    Inclut: championnat, coupes d'Europe (CL/EL/EC), coupes domestiques,
+    qualifs FIFA, EURO, Nations League, etc.
+
+    skip_friendlies : on exclut UNIQUEMENT 'Club Friendlies' (matchs de
+    preparation des clubs), pas les amicaux internationaux des selections
+    nationales qu'on veut justement comparer pour les nat teams.
     """
     td = fm_team(team_id)
     if not td: return []
-    ovf = td.get("overview", {}).get("overviewFixtures", []) or []
+    # allFixtures contient TOUS les matchs (passes + futurs, toutes competitions)
+    # alors que overviewFixtures est tres limite (3-5 matchs).
+    all_fix = td.get("fixtures", {}).get("allFixtures", {}).get("fixtures", []) or []
+    if not all_fix:
+        all_fix = td.get("overview", {}).get("overviewFixtures", []) or []
 
     EXCLUDED = {"Club Friendlies"} if skip_friendlies else set()
     team_id_str = str(team_id)
 
     played = []
-    for m in ovf:
+    for m in all_fix:
         if not m.get("status", {}).get("finished"):
             continue
         tname = m.get("tournament", {}).get("name", "")
@@ -482,7 +491,7 @@ def collect_team_l5_all_comp(team_id, n=10, skip_friendlies=True):
             continue
         played.append(m)
 
-    played.sort(key=lambda x: x.get("status", {}).get("utcTime", ""), reverse=True)
+    played.sort(key=lambda x: x.get("status", {}).get("utcTime", "") or "", reverse=True)
     recent = played[:n]
 
     out = []
