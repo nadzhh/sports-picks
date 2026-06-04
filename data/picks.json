@@ -1333,7 +1333,56 @@
         "tier": "safe"
       }
     ],
-    "home_players": [],
+    "home_players": [
+      {
+        "player": "Marcus Thuram",
+        "position": "F",
+        "is_sub": false,
+        "type": "Buteur",
+        "label": "Marcus Thuram marque",
+        "cote": 1.7,
+        "book": null,
+        "books": [],
+        "confidence": 59,
+        "reasoning": "Marcus Thuram : 7G en 10 matchs club (0.70 buts/m, source: L10 Serie A). Avec un attendu de 1.9 buts pour France, sa probabilite de marquer est ~59%.",
+        "context": {
+          "source": "lineup",
+          "lam": 0.89
+        },
+        "stats": {
+          "goals": null,
+          "apps": null,
+          "gpm": 0.887,
+          "xgpm": null
+        },
+        "team": "home",
+        "tier": "ok"
+      },
+      {
+        "player": "Marcus Thuram",
+        "position": "F",
+        "is_sub": false,
+        "type": "Double buteur",
+        "label": "Marcus Thuram marque 2+ buts",
+        "cote": 4.49,
+        "book": null,
+        "books": [],
+        "confidence": 32,
+        "reasoning": "Marcus Thuram : 7G en 10 matchs club (0.70/m, source: L10 Serie A). Attendu ~0.9 buts ce match - P(2+ buts) ~22% (cote interessante).",
+        "context": {
+          "source": "lineup",
+          "lam": 0.89
+        },
+        "stats": {
+          "goals": null,
+          "apps": null,
+          "gpm": 0.887,
+          "xgpm": null
+        },
+        "team": "home",
+        "tier": "fun"
+      }
+    ],
     "away_players": [],
     "fun_picks": [],
     "top_pick": {
@@ -2257,7 +2306,32 @@
       }
     ],
     "home_players": [],
-    "away_players": [],
+    "away_players": [
+      {
+        "player": "Christos Tzolis",
+        "position": "F",
+        "is_sub": false,
+        "type": "Buteur",
+        "label": "Christos Tzolis marque",
+        "cote": 1.82,
+        "book": null,
+        "books": [],
+        "confidence": 55,
+        "reasoning": "Christos Tzolis : 8G en 10 matchs club (0.80 buts/m, source: L10 Belgian Pro League). Avec un attendu de 1.5 buts pour Greece, sa probabilite de marquer est ~55%.",
+        "context": {
+          "source": "lineup",
+          "lam": 0.8
+        },
+        "stats": {
+          "goals": null,
+          "apps": null,
+          "gpm": 0.8,
+          "xgpm": null
+        },
+        "team": "away",
+        "tier": "ok"
+      }
+    ],
     "fun_picks": [],
     "top_pick": {
       "direction": "btts_yes",
