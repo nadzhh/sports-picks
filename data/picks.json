@@ -436,6 +436,42 @@
           ]
         },
         "is_fun": false
+      },
+      {
+        "direction": "home_over_15",
+        "type": "Buteur equipe",
+        "label": "Thailand marque plus de 1.5 buts",
+        "cote": null,
+        "confidence": 78,
+        "reasoning": "Thailand attendu a ~2.8 buts (marque 3.4/m sur L5, Kuwait encaisse 2.2/m) - P(2+ buts) ~77%",
+        "stats": {
+          "form": [
+            "W",
+            "W",
+            "W",
+            "W",
+            "W"
+          ]
+        },
+        "is_fun": false
+      },
+      {
+        "direction": "over25",
+        "type": "Total buts",
+        "label": "Plus de 2.5 buts",
+        "cote": null,
+        "confidence": 71,
+        "reasoning": "Attendu 3.7 buts au total (Thailand ~2.8, Kuwait ~0.9) - P(>2.5) ~71%",
+        "stats": {
+          "form": [
+            "W",
+            "W",
+            "W",
+            "W",
+            "W"
+          ]
+        },
+        "is_fun": false
       }
     ],
     "home_players": [],
@@ -476,6 +512,24 @@
         "cote": null,
         "confidence": 85,
         "reasoning": "Tajikistan : 3V/2N/0D sur 5 matchs vs India : 1V/0N/4D sur 5 matchs (L5 toutes competitions)",
+        "stats": {
+          "form": [
+            "D",
+            "W",
+            "W",
+            "W",
+            "D"
+          ]
+        },
+        "is_fun": false
+      },
+      {
+        "direction": "home_over_15",
+        "type": "Buteur equipe",
+        "label": "Tajikistan marque plus de 1.5 buts",
+        "cote": null,
+        "confidence": 64,
+        "reasoning": "Tajikistan attendu a ~2.0 buts (marque 2.6/m sur L5, India encaisse 1.4/m) - P(2+ buts) ~59%",
         "stats": {
           "form": [
             "D",
@@ -536,6 +590,42 @@
           ]
         },
         "is_fun": false
+      },
+      {
+        "direction": "away_over_15",
+        "type": "Buteur equipe",
+        "label": "Bulgaria marque plus de 1.5 buts",
+        "cote": null,
+        "confidence": 76,
+        "reasoning": "Bulgaria attendu a ~2.5 buts (marque 2.6/m sur L5, Moldova encaisse 2.4/m) - P(2+ buts) ~71%",
+        "stats": {
+          "form": [
+            "L",
+            "W",
+            "W",
+            "W",
+            "L"
+          ]
+        },
+        "is_fun": false
+      },
+      {
+        "direction": "over25",
+        "type": "Total buts",
+        "label": "Plus de 2.5 buts",
+        "cote": null,
+        "confidence": 68,
+        "reasoning": "Attendu 3.5 buts au total (Moldova ~1.0, Bulgaria ~2.5) - P(>2.5) ~68%",
+        "stats": {
+          "form": [
+            "L",
+            "L",
+            "L",
+            "L",
+            "D"
+          ]
+        },
+        "is_fun": false
       }
     ],
     "home_players": [],
@@ -576,6 +666,24 @@
         "cote": null,
         "confidence": 85,
         "reasoning": "Puerto Rico : 3V/0N/2D sur 5 matchs vs Saudi Arabia : 0V/1N/4D sur 5 matchs (L5 toutes competitions)",
+        "stats": {
+          "form": [
+            "W",
+            "W",
+            "L",
+            "W",
+            "L"
+          ]
+        },
+        "is_fun": false
+      },
+      {
+        "direction": "home_over_15",
+        "type": "Buteur equipe",
+        "label": "Puerto Rico marque plus de 1.5 buts",
+        "cote": null,
+        "confidence": 56,
+        "reasoning": "Puerto Rico attendu a ~1.7 buts (marque 1.6/m sur L5, Saudi Arabia encaisse 1.8/m) - P(2+ buts) ~51%",
         "stats": {
           "form": [
             "W",
@@ -770,12 +878,98 @@
   },
   {
     "league": "Friendlies",
+    "home": "Iran",
+    "away": "Mali",
+    "start_ts": 1780590600,
+    "match_id": "5739432",
+    "page_url": "/matches/mali-vs-iran/1apqog#5739432",
+    "picks": [
+      {
+        "direction": "under25",
+        "type": "Total buts",
+        "label": "Moins de 2.5 buts",
+        "cote": null,
+        "confidence": 76,
+        "reasoning": "Attendu seulement 1.7 buts au total (Iran ~1.2, Mali ~0.5) - P(<2.5) ~76%",
+        "stats": {
+          "form": [
+            "W",
+            "W",
+            "L",
+            "D",
+            "D"
+          ]
+        },
+        "is_fun": false
+      },
+      {
+        "direction": "home_win",
+        "type": "Forme superieure",
+        "label": "Iran gagne",
+        "cote": null,
+        "confidence": 71,
+        "reasoning": "Iran : 2V/2N/1D sur 5 matchs vs Mali : 0V/4N/1D sur 5 matchs (L5 toutes competitions)",
+        "stats": {
+          "form": [
+            "W",
+            "W",
+            "L",
+            "D",
+            "D"
+          ]
+        },
+        "is_fun": false
+      }
+    ],
+    "home_players": [],
+    "away_players": [],
+    "fun_picks": [],
+    "top_pick": {
+      "direction": "under25",
+      "type": "Total buts",
+      "label": "Moins de 2.5 buts",
+      "cote": null,
+      "confidence": 76,
+      "reasoning": "Attendu seulement 1.7 buts au total (Iran ~1.2, Mali ~0.5) - P(<2.5) ~76%",
+      "stats": {
+        "form": [
+          "W",
+          "W",
+          "L",
+          "D",
+          "D"
+        ]
+      },
+      "is_fun": false
+    },
+    "no_picks": false
+  },
+  {
+    "league": "Friendlies",
     "home": "Czechia",
     "away": "Guatemala",
     "start_ts": 1780617600,
     "match_id": "5406267",
     "page_url": "/matches/guatemala-vs-czechia/1pcdsr#5406267",
     "picks": [
+      {
+        "direction": "home_over_15",
+        "type": "Buteur equipe",
+        "label": "Czechia marque plus de 1.5 buts",
+        "cote": null,
+        "confidence": 76,
+        "reasoning": "Czechia attendu a ~2.5 buts (marque 2.6/m sur L5, Guatemala encaisse 2.4/m) - P(2+ buts) ~71%",
+        "stats": {
+          "form": [
+            "W",
+            "D",
+            "D",
+            "W",
+            "W"
+          ]
+        },
+        "is_fun": false
+      },
       {
         "direction": "home_win",
         "type": "Forme superieure",
@@ -793,18 +987,36 @@
           ]
         },
         "is_fun": false
+      },
+      {
+        "direction": "over25",
+        "type": "Total buts",
+        "label": "Plus de 2.5 buts",
+        "cote": null,
+        "confidence": 70,
+        "reasoning": "Attendu 3.6 buts au total (Czechia ~2.5, Guatemala ~1.1) - P(>2.5) ~70%",
+        "stats": {
+          "form": [
+            "W",
+            "D",
+            "D",
+            "W",
+            "W"
+          ]
+        },
+        "is_fun": false
       }
     ],
     "home_players": [],
     "away_players": [],
     "fun_picks": [],
     "top_pick": {
-      "direction": "home_win",
-      "type": "Forme superieure",
-      "label": "Czechia gagne",
+      "direction": "home_over_15",
+      "type": "Buteur equipe",
+      "label": "Czechia marque plus de 1.5 buts",
       "cote": null,
-      "confidence": 75,
-      "reasoning": "Czechia : 3V/2N/0D sur 5 matchs vs Guatemala : 2V/0N/3D sur 5 matchs (L5 toutes competitions)",
+      "confidence": 76,
+      "reasoning": "Czechia attendu a ~2.5 buts (marque 2.6/m sur L5, Guatemala encaisse 2.4/m) - P(2+ buts) ~71%",
       "stats": {
         "form": [
           "W",
@@ -833,6 +1045,42 @@
         "cote": null,
         "confidence": 75,
         "reasoning": "Mexico : 3V/2N/0D sur 5 matchs vs Serbia : 2V/0N/3D sur 5 matchs (L5 toutes competitions)",
+        "stats": {
+          "form": [
+            "W",
+            "W",
+            "D",
+            "D",
+            "W"
+          ]
+        },
+        "is_fun": false
+      },
+      {
+        "direction": "under25",
+        "type": "Total buts",
+        "label": "Moins de 2.5 buts",
+        "cote": null,
+        "confidence": 60,
+        "reasoning": "Attendu seulement 2.3 buts au total (Mexico ~1.8, Serbia ~0.5) - P(<2.5) ~60%",
+        "stats": {
+          "form": [
+            "W",
+            "W",
+            "D",
+            "D",
+            "W"
+          ]
+        },
+        "is_fun": false
+      },
+      {
+        "direction": "home_over_15",
+        "type": "Buteur equipe",
+        "label": "Mexico marque plus de 1.5 buts",
+        "cote": null,
+        "confidence": 59,
+        "reasoning": "Mexico attendu a ~1.8 buts (marque 1.6/m sur L5, Serbia encaisse 2.0/m) - P(2+ buts) ~54%",
         "stats": {
           "form": [
             "W",
@@ -893,6 +1141,24 @@
           ]
         },
         "is_fun": false
+      },
+      {
+        "direction": "home_over_15",
+        "type": "Buteur equipe",
+        "label": "Singapore marque plus de 1.5 buts",
+        "cote": null,
+        "confidence": 53,
+        "reasoning": "Singapore attendu a ~1.6 buts (marque 2.2/m sur L5, China encaisse 1.0/m) - P(2+ buts) ~48%",
+        "stats": {
+          "form": [
+            "W",
+            "W",
+            "W",
+            "L",
+            "W"
+          ]
+        },
+        "is_fun": false
       }
     ],
     "home_players": [],
@@ -912,106 +1178,6 @@
           "W",
           "L",
           "W"
-        ]
-      },
-      "is_fun": false
-    },
-    "no_picks": false
-  },
-  {
-    "league": "Friendlies",
-    "home": "Sweden",
-    "away": "Greece",
-    "start_ts": 1780592400,
-    "match_id": "5418296",
-    "page_url": "/matches/greece-vs-sweden/1u4ito#5418296",
-    "picks": [
-      {
-        "direction": "home_dc",
-        "type": "Double chance",
-        "label": "Sweden ou Nul (1X)",
-        "cote": null,
-        "confidence": 72,
-        "reasoning": "Sweden legerement favori : 2V/1N/2D sur 5 matchs vs 1V/2N/2D sur 5 matchs - on couvre le nul (amical, pas de classement FIFA)",
-        "stats": {
-          "form": [
-            "L",
-            "W",
-            "W",
-            "D",
-            "L"
-          ]
-        },
-        "is_fun": false
-      }
-    ],
-    "home_players": [],
-    "away_players": [],
-    "fun_picks": [],
-    "top_pick": {
-      "direction": "home_dc",
-      "type": "Double chance",
-      "label": "Sweden ou Nul (1X)",
-      "cote": null,
-      "confidence": 72,
-      "reasoning": "Sweden legerement favori : 2V/1N/2D sur 5 matchs vs 1V/2N/2D sur 5 matchs - on couvre le nul (amical, pas de classement FIFA)",
-      "stats": {
-        "form": [
-          "L",
-          "W",
-          "W",
-          "D",
-          "L"
-        ]
-      },
-      "is_fun": false
-    },
-    "no_picks": false
-  },
-  {
-    "league": "Friendlies",
-    "home": "Russia",
-    "away": "Burkina Faso",
-    "start_ts": 1780678800,
-    "match_id": "5451191",
-    "page_url": "/matches/burkina-faso-vs-russia/1vb78v#5451191",
-    "picks": [
-      {
-        "direction": "away_dc",
-        "type": "Double chance",
-        "label": "Nul ou Burkina Faso (X2)",
-        "cote": null,
-        "confidence": 72,
-        "reasoning": "Burkina Faso legerement favori : 2V/1N/2D sur 5 matchs vs 1V/2N/2D sur 5 matchs - on couvre le nul (amical, pas de classement FIFA)",
-        "stats": {
-          "form": [
-            "D",
-            "W",
-            "L",
-            "W",
-            "L"
-          ]
-        },
-        "is_fun": false
-      }
-    ],
-    "home_players": [],
-    "away_players": [],
-    "fun_picks": [],
-    "top_pick": {
-      "direction": "away_dc",
-      "type": "Double chance",
-      "label": "Nul ou Burkina Faso (X2)",
-      "cote": null,
-      "confidence": 72,
-      "reasoning": "Burkina Faso legerement favori : 2V/1N/2D sur 5 matchs vs 1V/2N/2D sur 5 matchs - on couvre le nul (amical, pas de classement FIFA)",
-      "stats": {
-        "form": [
-          "D",
-          "W",
-          "L",
-          "W",
-          "L"
         ]
       },
       "is_fun": false
@@ -1043,6 +1209,24 @@
           ]
         },
         "is_fun": false
+      },
+      {
+        "direction": "under25",
+        "type": "Total buts",
+        "label": "Moins de 2.5 buts",
+        "cote": null,
+        "confidence": 65,
+        "reasoning": "Attendu seulement 2.1 buts au total (Northern Ireland ~0.8, Guinea ~1.3) - P(<2.5) ~65%",
+        "stats": {
+          "form": [
+            "D",
+            "L",
+            "W",
+            "L",
+            "L"
+          ]
+        },
+        "is_fun": false
       }
     ],
     "home_players": [],
@@ -1070,25 +1254,25 @@
   },
   {
     "league": "Friendlies",
-    "home": "Iran",
-    "away": "Mali",
-    "start_ts": 1780590600,
-    "match_id": "5739432",
-    "page_url": "/matches/mali-vs-iran/1apqog#5739432",
+    "home": "France",
+    "away": "Ivory Coast",
+    "start_ts": 1780600200,
+    "match_id": "5246832",
+    "page_url": "/matches/ivory-coast-vs-france/1hpsbj#5246832",
     "picks": [
       {
-        "direction": "home_win",
-        "type": "Forme superieure",
-        "label": "Iran gagne",
+        "direction": "over25",
+        "type": "Total buts",
+        "label": "Plus de 2.5 buts",
         "cote": null,
         "confidence": 71,
-        "reasoning": "Iran : 2V/2N/1D sur 5 matchs vs Mali : 0V/4N/1D sur 5 matchs (L5 toutes competitions)",
+        "reasoning": "Attendu 3.7 buts au total (France ~1.9, Ivory Coast ~1.8) - P(>2.5) ~71%",
         "stats": {
           "form": [
             "W",
             "W",
-            "L",
-            "D",
+            "W",
+            "W",
             "D"
           ]
         },
@@ -1099,69 +1283,19 @@
     "away_players": [],
     "fun_picks": [],
     "top_pick": {
-      "direction": "home_win",
-      "type": "Forme superieure",
-      "label": "Iran gagne",
+      "direction": "over25",
+      "type": "Total buts",
+      "label": "Plus de 2.5 buts",
       "cote": null,
       "confidence": 71,
-      "reasoning": "Iran : 2V/2N/1D sur 5 matchs vs Mali : 0V/4N/1D sur 5 matchs (L5 toutes competitions)",
+      "reasoning": "Attendu 3.7 buts au total (France ~1.9, Ivory Coast ~1.8) - P(>2.5) ~71%",
       "stats": {
         "form": [
           "W",
           "W",
-          "L",
-          "D",
+          "W",
+          "W",
           "D"
-        ]
-      },
-      "is_fun": false
-    },
-    "no_picks": false
-  },
-  {
-    "league": "Friendlies",
-    "home": "Spain",
-    "away": "Iraq",
-    "start_ts": 1780599600,
-    "match_id": "5451161",
-    "page_url": "/matches/iraq-vs-spain/1at8ei#5451161",
-    "picks": [
-      {
-        "direction": "home_dc",
-        "type": "Double chance",
-        "label": "Spain ou Nul (1X)",
-        "cote": null,
-        "confidence": 71,
-        "reasoning": "Spain legerement favori : 3V/2N/0D sur 5 matchs vs 3V/0N/2D sur 5 matchs - on couvre le nul (amical, pas de classement FIFA)",
-        "stats": {
-          "form": [
-            "D",
-            "W",
-            "D",
-            "W",
-            "W"
-          ]
-        },
-        "is_fun": false
-      }
-    ],
-    "home_players": [],
-    "away_players": [],
-    "fun_picks": [],
-    "top_pick": {
-      "direction": "home_dc",
-      "type": "Double chance",
-      "label": "Spain ou Nul (1X)",
-      "cote": null,
-      "confidence": 71,
-      "reasoning": "Spain legerement favori : 3V/2N/0D sur 5 matchs vs 3V/0N/2D sur 5 matchs - on couvre le nul (amical, pas de classement FIFA)",
-      "stats": {
-        "form": [
-          "D",
-          "W",
-          "D",
-          "W",
-          "W"
         ]
       },
       "is_fun": false
@@ -1190,6 +1324,24 @@
             "D",
             "L",
             "W"
+          ]
+        },
+        "is_fun": false
+      },
+      {
+        "direction": "under25",
+        "type": "Total buts",
+        "label": "Moins de 2.5 buts",
+        "cote": null,
+        "confidence": 65,
+        "reasoning": "Attendu seulement 2.1 buts au total (Central African Republic ~0.6, Togo ~1.5) - P(<2.5) ~65%",
+        "stats": {
+          "form": [
+            "W",
+            "L",
+            "L",
+            "L",
+            "D"
           ]
         },
         "is_fun": false
@@ -1233,6 +1385,24 @@
         "cote": null,
         "confidence": 71,
         "reasoning": "Tanzania : 1V/2N/2D sur 5 matchs vs Uganda : 0V/1N/4D sur 5 matchs (L5 toutes competitions)",
+        "stats": {
+          "form": [
+            "W",
+            "L",
+            "L",
+            "D",
+            "D"
+          ]
+        },
+        "is_fun": false
+      },
+      {
+        "direction": "home_over_15",
+        "type": "Buteur equipe",
+        "label": "Tanzania marque plus de 1.5 buts",
+        "cote": null,
+        "confidence": 67,
+        "reasoning": "Tanzania attendu a ~2.1 buts (marque 1.6/m sur L5, Uganda encaisse 2.6/m) - P(2+ buts) ~62%",
         "stats": {
           "form": [
             "W",
@@ -1293,6 +1463,24 @@
           ]
         },
         "is_fun": false
+      },
+      {
+        "direction": "away_over_15",
+        "type": "Buteur equipe",
+        "label": "Bangladesh marque plus de 1.5 buts",
+        "cote": null,
+        "confidence": 59,
+        "reasoning": "Bangladesh attendu a ~1.8 buts (marque 0.8/m sur L5, San Marino encaisse 2.8/m) - P(2+ buts) ~54%",
+        "stats": {
+          "form": [
+            "L",
+            "L",
+            "W",
+            "D",
+            "D"
+          ]
+        },
+        "is_fun": false
       }
     ],
     "home_players": [],
@@ -1320,26 +1508,26 @@
   },
   {
     "league": "Friendlies",
-    "home": "Paraguay",
-    "away": "Nicaragua",
-    "start_ts": 1780697700,
-    "match_id": "5729928",
-    "page_url": "/matches/nicaragua-vs-paraguay/1ar30y#5729928",
+    "home": "Indonesia",
+    "away": "Oman",
+    "start_ts": 1780664400,
+    "match_id": "5737469",
+    "page_url": "/matches/oman-vs-indonesia/17xrxy#5737469",
     "picks": [
       {
-        "direction": "home_dc",
-        "type": "Double chance",
-        "label": "Paraguay ou Nul (1X)",
+        "direction": "under25",
+        "type": "Total buts",
+        "label": "Moins de 2.5 buts",
         "cote": null,
-        "confidence": 71,
-        "reasoning": "Paraguay legerement favori : 2V/0N/3D sur 5 matchs vs 1V/1N/3D sur 5 matchs - on couvre le nul (amical, pas de classement FIFA)",
+        "confidence": 70,
+        "reasoning": "Attendu seulement 1.9 buts au total (Indonesia ~1.1, Oman ~0.8) - P(<2.5) ~70%",
         "stats": {
           "form": [
             "L",
             "W",
-            "W",
             "L",
-            "L"
+            "L",
+            "D"
           ]
         },
         "is_fun": false
@@ -1349,19 +1537,69 @@
     "away_players": [],
     "fun_picks": [],
     "top_pick": {
-      "direction": "home_dc",
-      "type": "Double chance",
-      "label": "Paraguay ou Nul (1X)",
+      "direction": "under25",
+      "type": "Total buts",
+      "label": "Moins de 2.5 buts",
       "cote": null,
-      "confidence": 71,
-      "reasoning": "Paraguay legerement favori : 2V/0N/3D sur 5 matchs vs 1V/1N/3D sur 5 matchs - on couvre le nul (amical, pas de classement FIFA)",
+      "confidence": 70,
+      "reasoning": "Attendu seulement 1.9 buts au total (Indonesia ~1.1, Oman ~0.8) - P(<2.5) ~70%",
       "stats": {
         "form": [
           "L",
           "W",
+          "L",
+          "L",
+          "D"
+        ]
+      },
+      "is_fun": false
+    },
+    "no_picks": false
+  },
+  {
+    "league": "Friendlies",
+    "home": "Slovakia",
+    "away": "Montenegro",
+    "start_ts": 1780677000,
+    "match_id": "5477266",
+    "page_url": "/matches/slovakia-vs-montenegro/rr5we2#5477266",
+    "picks": [
+      {
+        "direction": "over25",
+        "type": "Total buts",
+        "label": "Plus de 2.5 buts",
+        "cote": null,
+        "confidence": 68,
+        "reasoning": "Attendu 3.5 buts au total (Slovakia ~1.5, Montenegro ~2.0) - P(>2.5) ~68%",
+        "stats": {
+          "form": [
+            "W",
+            "W",
+            "L",
+            "L",
+            "W"
+          ]
+        },
+        "is_fun": false
+      }
+    ],
+    "home_players": [],
+    "away_players": [],
+    "fun_picks": [],
+    "top_pick": {
+      "direction": "over25",
+      "type": "Total buts",
+      "label": "Plus de 2.5 buts",
+      "cote": null,
+      "confidence": 68,
+      "reasoning": "Attendu 3.5 buts au total (Slovakia ~1.5, Montenegro ~2.0) - P(>2.5) ~68%",
+      "stats": {
+        "form": [
+          "W",
           "W",
           "L",
-          "L"
+          "L",
+          "W"
         ]
       },
       "is_fun": false
@@ -1561,6 +1799,24 @@
           ]
         },
         "is_fun": false
+      },
+      {
+        "direction": "under25",
+        "type": "Total buts",
+        "label": "Moins de 2.5 buts",
+        "cote": null,
+        "confidence": 60,
+        "reasoning": "Attendu seulement 2.3 buts au total (Angola ~1.4, Mauritania ~0.9) - P(<2.5) ~60%",
+        "stats": {
+          "form": [
+            "D",
+            "D",
+            "L",
+            "W",
+            "L"
+          ]
+        },
+        "is_fun": false
       }
     ],
     "home_players": [],
@@ -1588,175 +1844,25 @@
   },
   {
     "league": "Friendlies",
-    "home": "Slovenia",
-    "away": "Cyprus",
-    "start_ts": 1780588800,
-    "match_id": "5418295",
-    "page_url": "/matches/slovenia-vs-cyprus/13xbnr#5418295",
-    "picks": [
-      {
-        "direction": "away_dc",
-        "type": "Double chance",
-        "label": "Nul ou Cyprus (X2)",
-        "cote": null,
-        "confidence": 65,
-        "reasoning": "Cyprus legerement favori : 2V/0N/3D sur 5 matchs vs 1V/2N/2D sur 5 matchs - on couvre le nul (amical, pas de classement FIFA)",
-        "stats": {
-          "form": [
-            "W",
-            "L",
-            "L",
-            "L",
-            "W"
-          ]
-        },
-        "is_fun": false
-      }
-    ],
-    "home_players": [],
-    "away_players": [],
-    "fun_picks": [],
-    "top_pick": {
-      "direction": "away_dc",
-      "type": "Double chance",
-      "label": "Nul ou Cyprus (X2)",
-      "cote": null,
-      "confidence": 65,
-      "reasoning": "Cyprus legerement favori : 2V/0N/3D sur 5 matchs vs 1V/2N/2D sur 5 matchs - on couvre le nul (amical, pas de classement FIFA)",
-      "stats": {
-        "form": [
-          "W",
-          "L",
-          "L",
-          "L",
-          "W"
-        ]
-      },
-      "is_fun": false
-    },
-    "no_picks": false
-  },
-  {
-    "league": "Friendlies",
-    "home": "France",
-    "away": "Ivory Coast",
-    "start_ts": 1780600200,
-    "match_id": "5246832",
-    "page_url": "/matches/ivory-coast-vs-france/1hpsbj#5246832",
-    "picks": [
-      {
-        "direction": "home_dc",
-        "type": "Double chance",
-        "label": "France ou Nul (1X)",
-        "cote": null,
-        "confidence": 65,
-        "reasoning": "France legerement favori : 4V/1N/0D sur 5 matchs vs 4V/0N/1D sur 5 matchs - on couvre le nul (amical, pas de classement FIFA)",
-        "stats": {
-          "form": [
-            "W",
-            "W",
-            "W",
-            "W",
-            "D"
-          ]
-        },
-        "is_fun": false
-      }
-    ],
-    "home_players": [],
-    "away_players": [],
-    "fun_picks": [],
-    "top_pick": {
-      "direction": "home_dc",
-      "type": "Double chance",
-      "label": "France ou Nul (1X)",
-      "cote": null,
-      "confidence": 65,
-      "reasoning": "France legerement favori : 4V/1N/0D sur 5 matchs vs 4V/0N/1D sur 5 matchs - on couvre le nul (amical, pas de classement FIFA)",
-      "stats": {
-        "form": [
-          "W",
-          "W",
-          "W",
-          "W",
-          "D"
-        ]
-      },
-      "is_fun": false
-    },
-    "no_picks": false
-  },
-  {
-    "league": "Friendlies",
-    "home": "Georgia",
-    "away": "Bahrain",
+    "home": "Belarus",
+    "away": "Syria",
     "start_ts": 1780675200,
-    "match_id": "5418298",
-    "page_url": "/matches/bahrain-vs-georgia/1nrtrl#5418298",
+    "match_id": "5648188",
+    "page_url": "/matches/syria-vs-belarus/27uls5#5648188",
     "picks": [
       {
-        "direction": "away_dc",
-        "type": "Double chance",
-        "label": "Nul ou Bahrain (X2)",
+        "direction": "under25",
+        "type": "Total buts",
+        "label": "Moins de 2.5 buts",
         "cote": null,
         "confidence": 65,
-        "reasoning": "Bahrain legerement favori : 2V/0N/3D sur 5 matchs vs 1V/2N/2D sur 5 matchs - on couvre le nul (amical, pas de classement FIFA)",
+        "reasoning": "Attendu seulement 2.1 buts au total (Belarus ~0.9, Syria ~1.2) - P(<2.5) ~65%",
         "stats": {
           "form": [
             "W",
-            "L",
-            "L",
             "W",
-            "L"
-          ]
-        },
-        "is_fun": false
-      }
-    ],
-    "home_players": [],
-    "away_players": [],
-    "fun_picks": [],
-    "top_pick": {
-      "direction": "away_dc",
-      "type": "Double chance",
-      "label": "Nul ou Bahrain (X2)",
-      "cote": null,
-      "confidence": 65,
-      "reasoning": "Bahrain legerement favori : 2V/0N/3D sur 5 matchs vs 1V/2N/2D sur 5 matchs - on couvre le nul (amical, pas de classement FIFA)",
-      "stats": {
-        "form": [
-          "W",
-          "L",
-          "L",
-          "W",
-          "L"
-        ]
-      },
-      "is_fun": false
-    },
-    "no_picks": false
-  },
-  {
-    "league": "Friendlies",
-    "home": "Azerbaijan",
-    "away": "Malta",
-    "start_ts": 1780682400,
-    "match_id": "5477268",
-    "page_url": "/matches/malta-vs-azerbaijan/2enrp1#5477268",
-    "picks": [
-      {
-        "direction": "home_dc",
-        "type": "Double chance",
-        "label": "Azerbaijan ou Nul (1X)",
-        "cote": null,
-        "confidence": 65,
-        "reasoning": "Azerbaijan legerement favori : 1V/1N/3D sur 5 matchs vs 1V/0N/4D sur 5 matchs - on couvre le nul (amical, pas de classement FIFA)",
-        "stats": {
-          "form": [
             "D",
-            "W",
-            "L",
-            "L",
+            "D",
             "L"
           ]
         },
@@ -1767,18 +1873,18 @@
     "away_players": [],
     "fun_picks": [],
     "top_pick": {
-      "direction": "home_dc",
-      "type": "Double chance",
-      "label": "Azerbaijan ou Nul (1X)",
+      "direction": "under25",
+      "type": "Total buts",
+      "label": "Moins de 2.5 buts",
       "cote": null,
       "confidence": 65,
-      "reasoning": "Azerbaijan legerement favori : 1V/1N/3D sur 5 matchs vs 1V/0N/4D sur 5 matchs - on couvre le nul (amical, pas de classement FIFA)",
+      "reasoning": "Attendu seulement 2.1 buts au total (Belarus ~0.9, Syria ~1.2) - P(<2.5) ~65%",
       "stats": {
         "form": [
-          "D",
           "W",
-          "L",
-          "L",
+          "W",
+          "D",
+          "D",
           "L"
         ]
       },
@@ -1861,75 +1967,25 @@
   },
   {
     "league": "Friendlies",
-    "home": "Indonesia",
-    "away": "Oman",
-    "start_ts": 1780664400,
-    "match_id": "5737469",
-    "page_url": "/matches/oman-vs-indonesia/17xrxy#5737469",
+    "home": "Russia",
+    "away": "Burkina Faso",
+    "start_ts": 1780678800,
+    "match_id": "5451191",
+    "page_url": "/matches/burkina-faso-vs-russia/1vb78v#5451191",
     "picks": [
       {
-        "direction": "away_dc",
-        "type": "Double chance",
-        "label": "Nul ou Oman (X2)",
+        "direction": "under25",
+        "type": "Total buts",
+        "label": "Moins de 2.5 buts",
         "cote": null,
-        "confidence": 64,
-        "reasoning": "Oman legerement favori : 1V/2N/2D sur 5 matchs vs 1V/1N/3D sur 5 matchs - on couvre le nul (amical, pas de classement FIFA)",
+        "confidence": 62,
+        "reasoning": "Attendu seulement 2.2 buts au total (Russia ~0.9, Burkina Faso ~1.3) - P(<2.5) ~62%",
         "stats": {
           "form": [
-            "W",
-            "D",
             "L",
-            "D",
-            "L"
-          ]
-        },
-        "is_fun": false
-      }
-    ],
-    "home_players": [],
-    "away_players": [],
-    "fun_picks": [],
-    "top_pick": {
-      "direction": "away_dc",
-      "type": "Double chance",
-      "label": "Nul ou Oman (X2)",
-      "cote": null,
-      "confidence": 64,
-      "reasoning": "Oman legerement favori : 1V/2N/2D sur 5 matchs vs 1V/1N/3D sur 5 matchs - on couvre le nul (amical, pas de classement FIFA)",
-      "stats": {
-        "form": [
-          "W",
-          "D",
-          "L",
-          "D",
-          "L"
-        ]
-      },
-      "is_fun": false
-    },
-    "no_picks": false
-  },
-  {
-    "league": "Friendlies",
-    "home": "Hungary",
-    "away": "Finland",
-    "start_ts": 1780681500,
-    "match_id": "5418299",
-    "page_url": "/matches/finland-vs-hungary/28fefr#5418299",
-    "picks": [
-      {
-        "direction": "home_dc",
-        "type": "Double chance",
-        "label": "Hungary ou Nul (1X)",
-        "cote": null,
-        "confidence": 64,
-        "reasoning": "Hungary legerement favori : 2V/2N/1D sur 5 matchs vs 2V/1N/2D sur 5 matchs - on couvre le nul (amical, pas de classement FIFA)",
-        "stats": {
-          "form": [
             "D",
             "W",
             "L",
-            "W",
             "D"
           ]
         },
@@ -1940,19 +1996,69 @@
     "away_players": [],
     "fun_picks": [],
     "top_pick": {
-      "direction": "home_dc",
-      "type": "Double chance",
-      "label": "Hungary ou Nul (1X)",
+      "direction": "under25",
+      "type": "Total buts",
+      "label": "Moins de 2.5 buts",
       "cote": null,
-      "confidence": 64,
-      "reasoning": "Hungary legerement favori : 2V/2N/1D sur 5 matchs vs 2V/1N/2D sur 5 matchs - on couvre le nul (amical, pas de classement FIFA)",
+      "confidence": 62,
+      "reasoning": "Attendu seulement 2.2 buts au total (Russia ~0.9, Burkina Faso ~1.3) - P(<2.5) ~62%",
+      "stats": {
+        "form": [
+          "L",
+          "D",
+          "W",
+          "L",
+          "D"
+        ]
+      },
+      "is_fun": false
+    },
+    "no_picks": false
+  },
+  {
+    "league": "Friendlies",
+    "home": "Azerbaijan",
+    "away": "Malta",
+    "start_ts": 1780682400,
+    "match_id": "5477268",
+    "page_url": "/matches/malta-vs-azerbaijan/2enrp1#5477268",
+    "picks": [
+      {
+        "direction": "over25",
+        "type": "Total buts",
+        "label": "Plus de 2.5 buts",
+        "cote": null,
+        "confidence": 62,
+        "reasoning": "Attendu 3.2 buts au total (Azerbaijan ~1.9, Malta ~1.3) - P(>2.5) ~62%",
+        "stats": {
+          "form": [
+            "D",
+            "W",
+            "L",
+            "L",
+            "L"
+          ]
+        },
+        "is_fun": false
+      }
+    ],
+    "home_players": [],
+    "away_players": [],
+    "fun_picks": [],
+    "top_pick": {
+      "direction": "over25",
+      "type": "Total buts",
+      "label": "Plus de 2.5 buts",
+      "cote": null,
+      "confidence": 62,
+      "reasoning": "Attendu 3.2 buts au total (Azerbaijan ~1.9, Malta ~1.3) - P(>2.5) ~62%",
       "stats": {
         "form": [
           "D",
           "W",
           "L",
-          "W",
-          "D"
+          "L",
+          "L"
         ]
       },
       "is_fun": false
@@ -2025,6 +2131,106 @@
           "D",
           "D",
           "W",
+          "L"
+        ]
+      },
+      "is_fun": false
+    },
+    "no_picks": false
+  },
+  {
+    "league": "Friendlies",
+    "home": "Sweden",
+    "away": "Greece",
+    "start_ts": 1780592400,
+    "match_id": "5418296",
+    "page_url": "/matches/greece-vs-sweden/1u4ito#5418296",
+    "picks": [
+      {
+        "direction": "btts_yes",
+        "type": "BTTS",
+        "label": "Les 2 equipes marquent",
+        "cote": null,
+        "confidence": 60,
+        "reasoning": "P(Sweden marque) 78% x P(Greece marque) 78% = ~60%",
+        "stats": {
+          "form": [
+            "L",
+            "W",
+            "W",
+            "D",
+            "L"
+          ]
+        },
+        "is_fun": false
+      }
+    ],
+    "home_players": [],
+    "away_players": [],
+    "fun_picks": [],
+    "top_pick": {
+      "direction": "btts_yes",
+      "type": "BTTS",
+      "label": "Les 2 equipes marquent",
+      "cote": null,
+      "confidence": 60,
+      "reasoning": "P(Sweden marque) 78% x P(Greece marque) 78% = ~60%",
+      "stats": {
+        "form": [
+          "L",
+          "W",
+          "W",
+          "D",
+          "L"
+        ]
+      },
+      "is_fun": false
+    },
+    "no_picks": false
+  },
+  {
+    "league": "Friendlies",
+    "home": "Georgia",
+    "away": "Bahrain",
+    "start_ts": 1780675200,
+    "match_id": "5418298",
+    "page_url": "/matches/bahrain-vs-georgia/1nrtrl#5418298",
+    "picks": [
+      {
+        "direction": "btts_yes",
+        "type": "BTTS",
+        "label": "Les 2 equipes marquent",
+        "cote": null,
+        "confidence": 60,
+        "reasoning": "P(Georgia marque) 78% x P(Bahrain marque) 78% = ~60%",
+        "stats": {
+          "form": [
+            "D",
+            "W",
+            "D",
+            "L",
+            "L"
+          ]
+        },
+        "is_fun": false
+      }
+    ],
+    "home_players": [],
+    "away_players": [],
+    "fun_picks": [],
+    "top_pick": {
+      "direction": "btts_yes",
+      "type": "BTTS",
+      "label": "Les 2 equipes marquent",
+      "cote": null,
+      "confidence": 60,
+      "reasoning": "P(Georgia marque) 78% x P(Bahrain marque) 78% = ~60%",
+      "stats": {
+        "form": [
+          "D",
+          "W",
+          "D",
+          "L",
           "L"
         ]
       },
@@ -2152,6 +2358,70 @@
   },
   {
     "league": "Friendlies",
+    "home": "Spain",
+    "away": "Iraq",
+    "start_ts": 1780599600,
+    "match_id": "5451161",
+    "page_url": "/matches/iraq-vs-spain/1at8ei#5451161",
+    "picks": [
+      {
+        "direction": "home_over_15",
+        "type": "Buteur equipe",
+        "label": "Spain marque plus de 1.5 buts",
+        "cote": null,
+        "confidence": 56,
+        "reasoning": "Spain attendu a ~1.7 buts (marque 2.6/m sur L5, Iraq encaisse 0.8/m) - P(2+ buts) ~51%",
+        "stats": {
+          "form": [
+            "D",
+            "W",
+            "D",
+            "W",
+            "W"
+          ]
+        },
+        "is_fun": false
+      }
+    ],
+    "home_players": [],
+    "away_players": [],
+    "fun_picks": [],
+    "top_pick": {
+      "direction": "home_over_15",
+      "type": "Buteur equipe",
+      "label": "Spain marque plus de 1.5 buts",
+      "cote": null,
+      "confidence": 56,
+      "reasoning": "Spain attendu a ~1.7 buts (marque 2.6/m sur L5, Iraq encaisse 0.8/m) - P(2+ buts) ~51%",
+      "stats": {
+        "form": [
+          "D",
+          "W",
+          "D",
+          "W",
+          "W"
+        ]
+      },
+      "is_fun": false
+    },
+    "no_picks": false
+  },
+  {
+    "league": "Friendlies",
+    "home": "Slovenia",
+    "away": "Cyprus",
+    "start_ts": 1780588800,
+    "match_id": "5418295",
+    "page_url": "/matches/slovenia-vs-cyprus/13xbnr#5418295",
+    "picks": [],
+    "home_players": [],
+    "away_players": [],
+    "fun_picks": [],
+    "top_pick": null,
+    "no_picks": true
+  },
+  {
+    "league": "Friendlies",
     "home": "Hong Kong",
     "away": "Mongolia",
     "start_ts": 1780660800,
@@ -2166,11 +2436,11 @@
   },
   {
     "league": "Friendlies",
-    "home": "Belarus",
-    "away": "Syria",
-    "start_ts": 1780675200,
-    "match_id": "5648188",
-    "page_url": "/matches/syria-vs-belarus/27uls5#5648188",
+    "home": "Hungary",
+    "away": "Finland",
+    "start_ts": 1780681500,
+    "match_id": "5418299",
+    "page_url": "/matches/finland-vs-hungary/28fefr#5418299",
     "picks": [],
     "home_players": [],
     "away_players": [],
@@ -2180,11 +2450,11 @@
   },
   {
     "league": "Friendlies",
-    "home": "Slovakia",
-    "away": "Montenegro",
-    "start_ts": 1780677000,
-    "match_id": "5477266",
-    "page_url": "/matches/slovakia-vs-montenegro/rr5we2#5477266",
+    "home": "Paraguay",
+    "away": "Nicaragua",
+    "start_ts": 1780697700,
+    "match_id": "5729928",
+    "page_url": "/matches/nicaragua-vs-paraguay/1ar30y#5729928",
     "picks": [],
     "home_players": [],
     "away_players": [],
