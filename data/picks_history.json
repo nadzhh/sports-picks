@@ -8045,9 +8045,12 @@
       "league": "Morocco Botola Pro",
       "category": "player",
       "side": "home",
-      "result": "PENDING",
-      "actual": null,
-      "resolved_at": null
+      "result": "LOSS",
+      "actual": {
+        "goals": 0,
+        "assists": 0
+      },
+      "resolved_at": "2026-06-04 20:01"
     },
     {
       "player": "Ayoub Mouloua / Salaheddine Benyachou",
@@ -8079,9 +8082,12 @@
       "league": "Morocco Botola Pro",
       "category": "player",
       "side": "away",
-      "result": "PENDING",
-      "actual": null,
-      "resolved_at": null
+      "result": "LOSS",
+      "actual": {
+        "goals": 0,
+        "assists": 0
+      },
+      "resolved_at": "2026-06-04 20:01"
     },
     {
       "player": "Ayoub Mouloua",
@@ -8113,9 +8119,12 @@
       "league": "Morocco Botola Pro",
       "category": "player",
       "side": "away",
-      "result": "PENDING",
-      "actual": null,
-      "resolved_at": null
+      "result": "LOSS",
+      "actual": {
+        "goals": 0,
+        "assists": 0
+      },
+      "resolved_at": "2026-06-04 20:01"
     },
     {
       "type": "🎰 Combo",
@@ -8304,28 +8313,62 @@
       "resolved_at": null
     },
     {
-      "player": "Jalal-Eddine El Khfiyef",
-      "position": "M",
+      "player": "Mohamed Rabie Hrimat / Youssef El Fahli",
+      "position": "",
       "is_sub": false,
-      "type": "Buteur",
-      "label": "Jalal-Eddine El Khfiyef marque",
+      "type": "Double Chance Buteur",
+      "label": "Mohamed Rabie Hrimat ou Youssef El Fahli marque",
       "cote": null,
       "book": null,
       "books": [],
-      "confidence": 61,
-      "reasoning": "4 buts en 5 matchs cette saison (80.0% de chance/match) · xG moyen 0.00/match · défense correcte",
+      "confidence": 94,
+      "cote_min": 1.06,
+      "reasoning": "📈 P(Mohamed Rabie Hrimat marque) ≈ 77% · P(Youssef El Fahli marque) ≈ 74%\n🎯 P(au moins un marque) = 94% (calculée par 1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.06 - chercher ≥1.06 chez le bookmaker",
+      "context": {},
+      "stats": {
+        "p_a": 0.772,
+        "p_b": 0.742,
+        "p_or": 0.941,
+        "player_a": "Mohamed Rabie Hrimat",
+        "player_b": "Youssef El Fahli"
+      },
+      "team": "home",
+      "tier": "safe",
+      "id": "2026-06-04_5658900_player_Mohamed Rabie Hrimat / Youssef El Fahli_Double Chance Buteur",
+      "date": "2026-06-04",
+      "match_id": "5658900",
+      "page_url": "/matches/difaa-el-jadida-vs-far-rabat/9kcxei5#5658900",
+      "matchup": "FAR Rabat vs Difaa El Jadida",
+      "league": "Morocco Botola Pro",
+      "category": "player",
+      "side": "home",
+      "result": "PENDING",
+      "actual": null,
+      "resolved_at": null
+    },
+    {
+      "player": "Mohamed Rabie Hrimat",
+      "position": "F",
+      "is_sub": false,
+      "type": "Buteur",
+      "label": "Mohamed Rabie Hrimat marque",
+      "cote": null,
+      "book": null,
+      "books": [],
+      "confidence": 85,
+      "reasoning": "⚽ Penaltyman · 8 buts en 6 matchs cette saison (133.3% de chance/match) · xG moyen 0.00/match · défense correcte",
       "context": {
         "weakness": 0.37
       },
       "stats": {
-        "goals": 4,
-        "apps": 5,
-        "gpm": 0.8,
+        "goals": 8,
+        "apps": 6,
+        "gpm": 1.333,
         "xgpm": 0
       },
       "team": "home",
-      "tier": "ok",
-      "id": "2026-06-04_5658900_player_Jalal-Eddine El Khfiyef_Buteur",
+      "tier": "safe",
+      "id": "2026-06-04_5658900_player_Mohamed Rabie Hrimat_Buteur",
       "date": "2026-06-04",
       "match_id": "5658900",
       "page_url": "/matches/difaa-el-jadida-vs-far-rabat/9kcxei5#5658900",
@@ -8339,22 +8382,22 @@
     },
     {
       "type": "🎰 Combo",
-      "label": "FAR Rabat gagne + Jalal-Eddine El Khfiyef marque",
-      "confidence": 41,
+      "label": "Mohamed Rabie Hrimat ou Youssef El Fahli marque + FAR Rabat gagne",
+      "confidence": 63,
       "cote": null,
-      "reasoning": "Combine 2 picks : « FAR Rabat gagne » (64%) + « Jalal-Eddine El Khfiyef marque » (61%). Proba combinee ~41% (cote a verifier)",
-      "tier": "fun",
+      "reasoning": "Combine 2 picks : « Mohamed Rabie Hrimat ou Youssef El Fahli marque » (94%) + « FAR Rabat gagne » (64%). Proba combinee ~63% (cote a verifier)",
+      "tier": "ok",
       "stats": {
         "form": []
       },
       "is_fun": false,
-      "direction": "combo_home_win_",
+      "direction": "combo__home_win",
       "components": [
-        "home_win",
-        null
+        null,
+        "home_win"
       ],
       "is_combo": true,
-      "id": "2026-06-04_5658900_fun_🎰 Combo_FAR Rabat gagne + Jalal-Eddine",
+      "id": "2026-06-04_5658900_fun_🎰 Combo_Mohamed Rabie Hrimat ou Yousse",
       "date": "2026-06-04",
       "match_id": "5658900",
       "page_url": "/matches/difaa-el-jadida-vs-far-rabat/9kcxei5#5658900",
