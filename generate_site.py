@@ -1497,6 +1497,32 @@ def tier_badge(pick):
     )
 
 
+def edge_badge(pick):
+    """Badge edge en % - couleur selon le signe.
+    edge > +5 : vert (vraie value), 0 a +5 : bleu (marginal), <0 : rouge (-EV)."""
+    edge = pick.get("edge_pp")
+    if edge is None: return ""
+    try:
+        e = float(edge)
+    except Exception:
+        return ""
+    if e >= 5:
+        color = "#22c55e"; tip = f"Value forte : notre modele estime {e:+.1f} pts de + que le book"
+        sign = "+"
+    elif e >= 0:
+        color = "#3b82f6"; tip = f"Edge marginal ({e:+.1f}pp) - prend si conviction forte"
+        sign = "+"
+    else:
+        color = "#ef4444"; tip = f"Le book a une meilleure proba que notre modele ({e:+.1f}pp) - skip"
+        sign = ""
+    return (
+        f'<span title="{tip}" style="display:inline-block;background:{color}1f;'
+        f'color:{color};border:1px solid {color};border-radius:4px;'
+        f'padding:1px 6px;font-size:10px;font-weight:700;margin-left:6px;vertical-align:middle">'
+        f'📐 {sign}{e:.1f}%</span>'
+    )
+
+
 def build_team_pick(p, ai_txt="", match_ctx=None):
     c     = p["confidence"]
     color = conf_color(c)
@@ -1553,6 +1579,7 @@ def build_team_pick(p, ai_txt="", match_ctx=None):
         f'<span style="color:{color};font-weight:700;font-size:15px">{p["label"]}</span>'
         f'{cote_block}'
         f'{tier_badge(p)}'
+        f'{edge_badge(p)}'
         f'<span class="new-badge" style="display:none;background:#fb923c;color:#0a1628;border-radius:4px;padding:1px 6px;font-size:10px;font-weight:800;margin-left:6px">🆕 NOUVEAU</span>'
         f'<span style="color:#475569;font-size:12px;margin-left:6px">{p["type"]}</span>'
         f'</div>'
@@ -1664,6 +1691,7 @@ def build_player_pick(p, ai_analyses=None, match_ctx=None):
         f'<span style="color:{color};font-weight:600;font-size:14px">{p["label"]}</span>'
         f'{cote_b}'
         f'{tier_badge(p)}'
+        f'{edge_badge(p)}'
         f'<span class="new-badge" style="display:none;background:#fb923c;color:#0a1628;border-radius:4px;padding:1px 6px;font-size:10px;font-weight:800;margin-left:6px">🆕</span>'
         f'<span style="color:#475569;font-size:12px;margin-left:4px">{type_}</span>'
         f'{sub_b}'

@@ -60,6 +60,71 @@ def get_form_opp_ranks(fd, side):
     try: return fd.get(side, {}).get("form_opp_ranks", []) or []
     except: return []
 
+
+# ─── Signaux squad : penaltyman, top scorers, taux penaltys ──────────────────
+
+def team_squad_signals(team_id):
+    """Lit le squad d'une equipe via fm_team et extrait :
+    - penaltyman : joueur avec le + de pens marques (>=2 pour etre fiable)
+    - top_scorers : top 5 buteurs saison
+    - total_penalties : somme des pens marques par l'equipe (proxy : taux/m)
+    - matches_played : nombre de matchs joues par l'equipe
+    """
+    out = {"penaltyman": None, "top_scorers": [], "total_penalties": 0,
+           "matches_played": None, "team_pen_pm": None}
+    if not team_id: return out
+    try:
+        from fotmob_client import team as fm_team
+        td = fm_team(int(team_id)) or {}
+    except Exception:
+        return out
+    groups = td.get("squad", {}).get("squad", []) or []
+    all_players = []
+    matches_max = 0
+    for g in groups:
+        if g.get("title") in ("keepers", "coach"): continue
+        for p in (g.get("members") or []):
+            all_players.append({
+                "id":        p.get("id"),
+                "name":      (p.get("name") or "").strip(),
+                "goals":     p.get("goals") or 0,
+                "penalties": p.get("penalties") or 0,
+            })
+    # Approx team matches : max apparaissant dans les membres du squad
+    # (le top scorer/penaltyman est typiquement un titulaire)
+    for p in all_players:
+        # Pas de "apps" dans squad, on prend les matchs equipe via league
+        pass
+    if all_players:
+        top_p = max(all_players, key=lambda x: x["penalties"])
+        if top_p["penalties"] >= 2:
+            out["penaltyman"] = top_p
+        out["top_scorers"] = sorted([p for p in all_players if p["goals"] >= 5],
+                                     key=lambda x: x["goals"], reverse=True)[:5]
+        out["total_penalties"] = sum(p["penalties"] for p in all_players)
+    return out
+
+
+def formation_adjust(formation_str):
+    """Renvoie un multiplicateur sur le λ adverse selon la formation.
+    5+ defenseurs : -10% (defense fermee)
+    3 defenseurs  : +10% (defense ouverte)
+    4 (defaut)    : pas de changement
+    """
+    if not formation_str:
+        return 1.0, ""
+    try:
+        # Format type "4-3-3", "5-3-2", "3-4-3" etc.
+        parts = str(formation_str).split("-")
+        n_def = int(parts[0])
+        if n_def >= 5:
+            return 0.90, f"defense fermee ({formation_str})"
+        if n_def == 3:
+            return 1.10, f"defense ouverte ({formation_str})"
+        return 1.0, ""
+    except Exception:
+        return 1.0, ""
+
 def get_pos(fd, s):
     pos = (fd or {}).get(s, {}).get("position", None)
     return pos if pos is not None else 20
@@ -1174,6 +1239,28 @@ def analyze_match(match, pstats_all, player_odds_all=None):
     # championnat (ils jouent dans des clubs differents). On utilise les
     # seasonGoals/seasonAppearances integrees dans la lineup pour calculer
     # P(joueur marque) via Poisson individuel.
+    # ── Signaux squad universels (utilises pour amicaux ET championnats) ───
+    # Calcule penaltyman + top scorers pour les 2 equipes, et applique
+    # formation/absences/penalties partout ou pertinent.
+    h_team_id = match.get("home_id")
+    a_team_id = match.get("away_id")
+    h_sig = team_squad_signals(h_team_id)
+    a_sig = team_squad_signals(a_team_id)
+
+    def _unavailable_names(side):
+        t = lineup.get(side) or {}
+        out_a = set()
+        for u in (t.get("unavailable") or []):
+            nm = (u.get("name") or "").strip().lower()
+            if nm:
+                ret = (u.get("return") or "").lower()
+                if "doubt" not in ret:
+                    out_a.add(nm)
+        return out_a
+
+    h_unavailable = _unavailable_names("home") if lineup else set()
+    a_unavailable = _unavailable_names("away") if lineup else set()
+
     if IS_INTL_FRIENDLY and lineup:
         import math as _math_p
         h_team_data = form.get("homeTeam") or {}
@@ -1186,64 +1273,12 @@ def analyze_match(match, pstats_all, player_odds_all=None):
         lam_h_match = max(0.2, ((h_gf_l5 or 1.5) + (a_ga_l5 or 1.5)) / 2)
         lam_a_match = max(0.2, ((a_gf_l5 or 1.5) + (h_ga_l5 or 1.5)) / 2)
 
-        # ── Signaux squad (top scorers + penaltyman) pour ajustements ────────
-        # Pour les selections, on lit le squad via fm_team(team_id). Donne :
-        # 1. Le penaltyman (joueur avec le + de penaltys marques)
-        # 2. Les top scorers (utilise pour detecter absences sensibles)
-        try:
-            from fotmob_client import team as fm_team
-        except Exception:
-            fm_team = None
-
-        def _team_signals(team_id):
-            if not team_id or not fm_team:
-                return {"penaltyman": None, "top_scorers": []}
-            try:
-                td = fm_team(int(team_id)) or {}
-            except Exception:
-                return {"penaltyman": None, "top_scorers": []}
-            groups = td.get("squad", {}).get("squad", []) or []
-            all_players = []
-            for g in groups:
-                if g.get("title") in ("keepers", "coach"): continue
-                for p in (g.get("members") or []):
-                    all_players.append({
-                        "name":      (p.get("name") or "").strip(),
-                        "goals":     p.get("goals") or 0,
-                        "penalties": p.get("penalties") or 0,
-                    })
-            # Penaltyman : top en penalties, mini 2 pour etre fiable
-            pman = None
-            if all_players:
-                top_p = max(all_players, key=lambda x: x["penalties"])
-                if top_p["penalties"] >= 2:
-                    pman = top_p
-            # Top scorers : joueurs avec >=5 buts cette saison
-            top_s = sorted([p for p in all_players if p["goals"] >= 5],
-                           key=lambda x: x["goals"], reverse=True)[:5]
-            return {"penaltyman": pman, "top_scorers": top_s}
-
-        h_team_id = match.get("home_id")
-        a_team_id = match.get("away_id")
-        h_sig = _team_signals(h_team_id)
-        a_sig = _team_signals(a_team_id)
-
-        # ── Ajustement λ equipe selon absences sensibles ─────────────────────
-        # Si un top scorer est dans lineup.unavailable, on reduit λ
-        def _unavailable_names(side):
-            t = lineup.get(side) or {}
-            out = set()
-            for u in (t.get("unavailable") or []):
-                nm = (u.get("name") or "").strip().lower()
-                if nm:
-                    # Si pas vraiment absent (doubtful), on l'inclut pas
-                    ret = (u.get("return") or "").lower()
-                    if "doubt" not in ret:
-                        out.add(nm)
-            return out
-
-        h_unavailable = _unavailable_names("home")
-        a_unavailable = _unavailable_names("away")
+        # ── Ajustement formation : +/- 10% sur λ adverse selon la formation ──
+        h_form_mult, h_form_descr = formation_adjust((lineup.get("home") or {}).get("formation"))
+        a_form_mult, a_form_descr = formation_adjust((lineup.get("away") or {}).get("formation"))
+        # La formation home affecte le λ adverse (away)
+        lam_a_match *= h_form_mult
+        lam_h_match *= a_form_mult
 
         def _adjust_lambda_for_absences(lam_team, sig, unavailable_names):
             """Reduit λ si top scorers manquent. Penalty max : -30%."""
@@ -1256,8 +1291,6 @@ def analyze_match(match, pstats_all, player_odds_all=None):
                 if p["name"].lower() in unavailable_names:
                     absent_share += p["goals"] / total_goals
                     absent_names.append(p["name"])
-            # Reduction λ : 50% de la part des absents (les remplacants
-            # compensent partiellement)
             reduction = min(0.3, absent_share * 0.5)
             return lam_team * (1 - reduction), absent_names
 
@@ -1374,6 +1407,30 @@ def analyze_match(match, pstats_all, player_odds_all=None):
         # (qui sont vides pour les nat teams)
         friendly_picks = sorted(h_friendly_picks + a_friendly_picks,
                                 key=lambda x: x["conf"], reverse=True)[:4]
+
+        # ── Pick team : "1+ penalty marque dans le match" ───────────────────
+        # Si une des 2 equipes a un taux de penaltys/match eleve ET un
+        # penaltyman fiable titulaire, on propose ce pick.
+        for sig, side_starters_team, side_label in [
+            (h_sig, lineup.get("home"), home),
+            (a_sig, lineup.get("away"), away),
+        ]:
+            pman = sig.get("penaltyman")
+            if not pman: continue
+            # Verifie que le penaltyman est titulaire (sinon perte de signal)
+            starters_names = {(s.get("name") or "").lower()
+                              for s in ((side_starters_team or {}).get("starters") or [])}
+            if pman["name"].lower() not in starters_names: continue
+            # Heuristique : >=3 pens marques sur la saison = haute probabilite
+            # qu'il y ait des penaltys siffles. P(>=1 penalty marque) ~50-65%.
+            if pman["penalties"] >= 4:
+                conf = min(72, 55 + pman["penalties"] * 2)
+                add("team_penalty", "Penalty",
+                    f"1+ penalty marque dans le match", None, conf,
+                    f"{side_label} a marque {pman['penalties']} penaltys cette saison "
+                    f"(penaltyman titulaire : {pman['name']}). Forte probabilite "
+                    f"qu'un penalty soit siffle.", hf)
+                break  # on en propose un seul max
     else:
         friendly_picks = []
     def _names_unavailable(side):
@@ -1432,6 +1489,22 @@ def analyze_match(match, pstats_all, player_odds_all=None):
         if pname in h_doubt or pname in a_doubt:
             pk["confidence"] = round(pk["confidence"] * 0.85)
             pk["reasoning"] = f"⚠️ {pname.title()} INCERTAIN · " + pk.get("reasoning", "")
+
+    # Boost penaltyman + reduction pour star absent (championnats et amicaux)
+    def _is_penaltyman_pick(pk, sig):
+        pman = (sig or {}).get("penaltyman")
+        if not pman: return False
+        pname = (pk.get("player") or "").strip().lower()
+        if pname != pman["name"].lower(): return False
+        return pman["penalties"] >= 2
+    for pk in home_pp_raw:
+        if _is_penaltyman_pick(pk, h_sig) and pk.get("type") in ("Buteur","Joueur décisif"):
+            pk["confidence"] = min(95, round(pk["confidence"] * 1.10))
+            pk["reasoning"] = f"⚽ Penaltyman · " + pk.get("reasoning", "")
+    for pk in away_pp_raw:
+        if _is_penaltyman_pick(pk, a_sig) and pk.get("type") in ("Buteur","Joueur décisif"):
+            pk["confidence"] = min(95, round(pk["confidence"] * 1.10))
+            pk["reasoning"] = f"⚽ Penaltyman · " + pk.get("reasoning", "")
 
     # ── Max 3 props joueurs PAR MATCH (pas par équipe) ──────────────────────
     # Mélange les deux listes, trie par confiance, garde les 3 meilleurs
@@ -1568,6 +1641,113 @@ def analyze_match(match, pstats_all, player_odds_all=None):
     _tag_tier(home_pp)
     _tag_tier(away_pp)
     _tag_tier(fun_picks)
+
+    # ── Edge : compare conf_modele a la cote book quand dispo ───────────────
+    # edge_pp = (P_modele - P_book) * 100. > 0 = value pick, < 0 = arnaque.
+    def _tag_edge(lst):
+        for p in lst or []:
+            cote = p.get("cote")
+            conf = p.get("confidence")
+            if cote and conf:
+                try:
+                    p_book = 1.0 / float(cote)
+                    edge_pp = round((conf / 100.0 - p_book) * 100, 1)
+                    p["edge_pp"] = edge_pp
+                except Exception:
+                    pass
+    _tag_edge(team_picks)
+    _tag_edge(home_pp)
+    _tag_edge(away_pp)
+    _tag_edge(fun_picks)
+
+    # ── Combos : si 2-3 picks SAFE non-conflictuels, on suggere le combo ────
+    # Approximation : on multiplie les probas (assume independance, ce qui est
+    # FAUX pour des picks correles - on plafonne la conf combinee a 65%).
+    def _build_combos():
+        # Pool : picks safe ou ok dans team_picks + home_pp + away_pp
+        pool = [p for p in (team_picks + home_pp + away_pp)
+                if p.get("tier") in ("safe", "ok") and p.get("confidence")]
+        if len(pool) < 2: return []
+        # Conflits : ne combine pas 1X2 opposes (home_win + away_win) ou
+        # over/under sur la meme ligne. Heuristique simple : direction differente.
+        def _conflict(a, b):
+            da = a.get("direction") or ""
+            db = b.get("direction") or ""
+            # Resultats opposes
+            if {da, db} == {"home_win", "away_win"}: return True
+            if {da, db} == {"home_dc", "away_dc"}:  return True
+            if {da, db} == {"over25", "under25"}:   return True
+            if {da, db} == {"btts_yes", "btts_no"}: return True
+            # Player picks : si meme joueur ou nom partage dans label, on
+            # combine pas (overlap d'information).
+            la = (a.get("label") or "").lower()
+            lb = (b.get("label") or "").lower()
+            pa = (a.get("player") or "").lower()
+            pb = (b.get("player") or "").lower()
+            if pa and pa in lb: return True
+            if pb and pb in la: return True
+            # 2 picks "marque" du meme joueur (ou paire qui se recoupe)
+            if a.get("type") == b.get("type") == "Buteur" and pa == pb and pa:
+                return True
+            return False
+
+        def _diversify_types(a, b):
+            """Bonus = on prefere combiner des types differents
+            (team_pick + player_pick, ou Buteur + Joueur decisif)."""
+            ta = a.get("type") or ""
+            tb = b.get("type") or ""
+            return ta != tb
+
+        combos = []
+        pool.sort(key=lambda x: -x.get("confidence", 0))
+        for diversify_only in (True, False):
+            for i in range(len(pool)):
+                if len(combos) >= 2: break
+                for j in range(i + 1, len(pool)):
+                    if len(combos) >= 2: break
+                    a, b = pool[i], pool[j]
+                    if _conflict(a, b): continue
+                    if diversify_only and not _diversify_types(a, b): continue
+                    sig = tuple(sorted([a.get("direction") or "", b.get("direction") or ""]))
+                    if any(tuple(sorted([x or "" for x in c.get("components", [])])) == sig for c in combos):
+                        continue
+                    p_a = a.get("confidence", 0) / 100.0
+                    p_b = b.get("confidence", 0) / 100.0
+                    p_combo = min(0.75, p_a * p_b * 1.05)
+                    if p_combo < 0.40:
+                        continue
+                    cote_a = a.get("cote")
+                    cote_b = b.get("cote")
+                    cote_combo = round(cote_a * cote_b, 2) if (cote_a and cote_b) else None
+                    combos.append({
+                        "type":       "🎰 Combo",
+                        "label":      f"{a['label']} + {b['label']}",
+                        "confidence": round(p_combo * 100),
+                        "cote":       cote_combo,
+                        "reasoning":  (
+                            f"Combine 2 picks : "
+                            f"« {a['label']} » ({a.get('confidence')}%) + "
+                            f"« {b['label']} » ({b.get('confidence')}%). "
+                            f"Proba combinee ~{round(p_combo*100)}% "
+                            + (f"@ cote ~{cote_combo}" if cote_combo else "(cote a verifier)")
+                        ),
+                        "tier":       _classify_tier(round(p_combo * 100), cote_combo),
+                        "stats":      {"form": []},
+                        "is_fun":     False,
+                        "direction":  f"combo_{a.get('direction','')}_{b.get('direction','')}",
+                        "components": [a.get("direction"), b.get("direction")],
+                    })
+            if len(combos) >= 2: break
+        return combos
+
+    combos = _build_combos()
+    # Les combos vivent dans fun_picks (categorie speciale "combo")
+    for c in combos:
+        c["is_combo"] = True
+    if combos:
+        fun_picks = (fun_picks or []) + combos
+        # Re-tag tier (deja fait au build du combo mais par securite)
+        _tag_tier(fun_picks)
 
     return team_picks, home_pp, away_pp, fun_picks
 
