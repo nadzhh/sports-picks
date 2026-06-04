@@ -8155,6 +8155,150 @@
       "resolved_at": null
     },
     {
+      "direction": "home_over_15",
+      "type": "Buteur equipe",
+      "label": "Spain marque plus de 1.5 buts",
+      "cote": null,
+      "confidence": 56,
+      "reasoning": "Spain attendu a ~1.7 buts (marque 2.6/m sur L5, Iraq encaisse 0.8/m) - P(2+ buts) ~51%",
+      "stats": {
+        "form": [
+          "D",
+          "W",
+          "D",
+          "W",
+          "W"
+        ]
+      },
+      "is_fun": false,
+      "tier": "ok",
+      "id": "2026-06-04_5451161_team_home_over_15",
+      "date": "2026-06-04",
+      "match_id": "5451161",
+      "page_url": "/matches/iraq-vs-spain/1at8ei#5451161",
+      "matchup": "Spain vs Iraq",
+      "league": "Friendlies",
+      "category": "team",
+      "result": "PENDING",
+      "actual": null,
+      "resolved_at": null
+    },
+    {
+      "direction": "home_over_15",
+      "type": "Buteur equipe",
+      "label": "Czechia marque plus de 1.5 buts",
+      "cote": null,
+      "confidence": 76,
+      "reasoning": "Czechia attendu a ~2.5 buts (marque 2.6/m sur L5, Guatemala encaisse 2.4/m) - P(2+ buts) ~71%",
+      "stats": {
+        "form": [
+          "W",
+          "D",
+          "D",
+          "W",
+          "W"
+        ]
+      },
+      "is_fun": false,
+      "tier": "safe",
+      "id": "2026-06-05_5406267_team_home_over_15",
+      "date": "2026-06-05",
+      "match_id": "5406267",
+      "page_url": "/matches/guatemala-vs-czechia/1pcdsr#5406267",
+      "matchup": "Czechia vs Guatemala",
+      "league": "Friendlies",
+      "category": "team",
+      "result": "PENDING",
+      "actual": null,
+      "resolved_at": null
+    },
+    {
+      "direction": "home_win",
+      "type": "Forme superieure",
+      "label": "Czechia gagne",
+      "cote": null,
+      "confidence": 75,
+      "reasoning": "Czechia : 3V/2N/0D sur 5 matchs vs Guatemala : 2V/0N/3D sur 5 matchs (L5 toutes competitions)",
+      "stats": {
+        "form": [
+          "W",
+          "D",
+          "D",
+          "W",
+          "W"
+        ]
+      },
+      "is_fun": false,
+      "tier": "safe",
+      "id": "2026-06-05_5406267_team_home_win",
+      "date": "2026-06-05",
+      "match_id": "5406267",
+      "page_url": "/matches/guatemala-vs-czechia/1pcdsr#5406267",
+      "matchup": "Czechia vs Guatemala",
+      "league": "Friendlies",
+      "category": "team",
+      "result": "PENDING",
+      "actual": null,
+      "resolved_at": null
+    },
+    {
+      "direction": "over25",
+      "type": "Total buts",
+      "label": "Plus de 2.5 buts",
+      "cote": null,
+      "confidence": 70,
+      "reasoning": "Attendu 3.6 buts au total (Czechia ~2.5, Guatemala ~1.1) - P(>2.5) ~70%",
+      "stats": {
+        "form": [
+          "W",
+          "D",
+          "D",
+          "W",
+          "W"
+        ]
+      },
+      "is_fun": false,
+      "tier": "safe",
+      "id": "2026-06-05_5406267_team_over25",
+      "date": "2026-06-05",
+      "match_id": "5406267",
+      "page_url": "/matches/guatemala-vs-czechia/1pcdsr#5406267",
+      "matchup": "Czechia vs Guatemala",
+      "league": "Friendlies",
+      "category": "team",
+      "result": "PENDING",
+      "actual": null,
+      "resolved_at": null
+    },
+    {
+      "type": "🎰 Combo",
+      "label": "Czechia marque plus de 1.5 buts + Czechia gagne",
+      "confidence": 60,
+      "cote": null,
+      "reasoning": "Combine 2 picks : « Czechia marque plus de 1.5 buts » (76%) + « Czechia gagne » (75%). Proba combinee ~60% (cote a verifier)",
+      "tier": "ok",
+      "stats": {
+        "form": []
+      },
+      "is_fun": false,
+      "direction": "combo_home_over_15_home_win",
+      "components": [
+        "home_over_15",
+        "home_win"
+      ],
+      "is_combo": true,
+      "id": "2026-06-05_5406267_fun_🎰 Combo_Czechia marque plus de 1.5 but",
+      "date": "2026-06-05",
+      "match_id": "5406267",
+      "page_url": "/matches/guatemala-vs-czechia/1pcdsr#5406267",
+      "matchup": "Czechia vs Guatemala",
+      "league": "Friendlies",
+      "category": "fun",
+      "result": "PENDING",
+      "actual": null,
+      "resolved_at": null
+    },
+    {
       "direction": "over25",
       "type": "Total buts",
       "label": "Plus de 2.5 buts",
@@ -8288,8 +8432,8 @@
       "type": "Victoire domicile",
       "label": "FAR Rabat gagne",
       "cote": null,
-      "confidence": 65,
-      "reasoning": "FAR Rabat : 2V/3N/0D sur 5 matchs · #3 au classement · H2H: 1V/0N/0D · Note Sofa: 6.5/10",
+      "confidence": 67,
+      "reasoning": "FAR Rabat : 2V/3N/0D sur 5 matchs · #1 au classement · H2H: 1V/0N/0D · Note Sofa: 6.5/10",
       "stats": {
         "form": [
           "D",
@@ -8383,9 +8527,9 @@
     {
       "type": "🎰 Combo",
       "label": "Mohamed Rabie Hrimat ou Youssef El Fahli marque + FAR Rabat gagne",
-      "confidence": 64,
+      "confidence": 66,
       "cote": null,
-      "reasoning": "Combine 2 picks : « Mohamed Rabie Hrimat ou Youssef El Fahli marque » (94%) + « FAR Rabat gagne » (65%). Proba combinee ~64% (cote a verifier)",
+      "reasoning": "Combine 2 picks : « Mohamed Rabie Hrimat ou Youssef El Fahli marque » (94%) + « FAR Rabat gagne » (67%). Proba combinee ~66% (cote a verifier)",
       "tier": "ok",
       "stats": {
         "form": []
@@ -8404,35 +8548,6 @@
       "matchup": "FAR Rabat vs Difaa El Jadida",
       "league": "Morocco Botola Pro",
       "category": "fun",
-      "result": "PENDING",
-      "actual": null,
-      "resolved_at": null
-    },
-    {
-      "direction": "home_over_15",
-      "type": "Buteur equipe",
-      "label": "Spain marque plus de 1.5 buts",
-      "cote": null,
-      "confidence": 56,
-      "reasoning": "Spain attendu a ~1.7 buts (marque 2.6/m sur L5, Iraq encaisse 0.8/m) - P(2+ buts) ~51%",
-      "stats": {
-        "form": [
-          "D",
-          "W",
-          "D",
-          "W",
-          "W"
-        ]
-      },
-      "is_fun": false,
-      "tier": "ok",
-      "id": "2026-06-04_5451161_team_home_over_15",
-      "date": "2026-06-04",
-      "match_id": "5451161",
-      "page_url": "/matches/iraq-vs-spain/1at8ei#5451161",
-      "matchup": "Spain vs Iraq",
-      "league": "Friendlies",
-      "category": "team",
       "result": "PENDING",
       "actual": null,
       "resolved_at": null
