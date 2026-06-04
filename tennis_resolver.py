@@ -254,10 +254,15 @@ def fetch_all():
     Pour chaque algo pick connu (tennis_picks.json), on cherche le score Sofascore
     par paire de noms + date. Le tennis_results.json final est keye par Odds API
     event_id (pour compat front).
+
+    Note : on n'utilise PAS de cache read ici. Le cron checkout pose un mtime
+    recent sur cache_tennis_scores.json -> cache toujours "fresh" -> retournait
+    indefiniment des resultats stale (event_ids des picks d'il y a une semaine).
+    On _write_ toujours le cache pour usage local/debug, mais on ne lit jamais.
     """
-    cached = _read_cache()
-    if cached is not None:
-        return cached
+    # cached = _read_cache()  # DESACTIVE : voir docstring
+    # if cached is not None:
+    #     return cached
     # 1. Charge algo picks pour connaitre les events a resoudre
     algo = {}
     if PICKS_PATH.exists():

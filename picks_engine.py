@@ -1877,16 +1877,20 @@ def run():
     return output
 
 
-HISTORY_FREEZE_HOURS_FOOT = 3   # snapshot picks dans la fenetre [-3h, kickoff]
+HISTORY_FREEZE_HOURS_FOOT = 3       # snapshot picks dans la fenetre 3h avant kickoff
+HISTORY_RECOVER_HOURS_FOOT = 24     # rattrape aussi les picks dont le KO est passe
+                                    # depuis moins de 24h (couvre les trous de cron)
 
 
 def _save_to_history(matches):
     """Sauvegarde les picks foot dans data/picks_history.json.
 
-    Strategie : on snapshot UNIQUEMENT les picks dans la fenetre 3h avant
-    kickoff. Pour ces matchs, on REMPLACE les PENDING existants par les
-    picks frais (donc si un pick a ete filtre entre temps - coherence,
-    blessure, etc. - il disparait proprement de l'historique).
+    Strategie : on snapshot les picks dans la fenetre :
+    - [-24h, kickoff] : couvre les pannes de cron pendant la freeze window
+    - [0h, +3h avant kickoff] : snapshot final juste avant le coup d'envoi
+
+    On REMPLACE uniquement les PENDING existants par les picks frais (les
+    picks deja resolus WIN/LOSS ne sont jamais ecrases).
     """
     from pathlib import Path
     from datetime import datetime, timezone
@@ -1898,8 +1902,11 @@ def _save_to_history(matches):
     today = datetime.now().strftime("%Y-%m-%d")
     now_utc = datetime.now(tz=timezone.utc)
 
-    # Determine quels matchs sont dans la fenetre [0h, FREEZE_HOURS] avant kickoff.
-    # Pas les matchs passes (resolver), pas les matchs trop loin (pas finalises).
+    # Determine quels matchs sont a snapshoter dans l'historique :
+    # - Fenetre standard : kickoff a moins de FREEZE_HOURS dans le futur
+    # - Fenetre de rattrapage : kickoff il y a moins de RECOVER_HOURS
+    #   (couvre les trous de cron : si le cron n'a pas tourne pendant la
+    #   freeze window, on capture quand meme le pick au prochain run).
     freezable_ids = set()
     for m in matches:
         ts = m.get("start_ts")
@@ -1907,7 +1914,7 @@ def _save_to_history(matches):
         try:
             ko = datetime.fromtimestamp(int(ts), tz=timezone.utc)
             hours_to_ko = (ko - now_utc).total_seconds() / 3600
-            if 0 <= hours_to_ko <= HISTORY_FREEZE_HOURS_FOOT:
+            if -HISTORY_RECOVER_HOURS_FOOT <= hours_to_ko <= HISTORY_FREEZE_HOURS_FOOT:
                 freezable_ids.add(m.get("match_id"))
         except Exception:
             pass
