@@ -173,18 +173,32 @@ def form_badges(results, details=None):
             )
     return html
 
+def _ts_to_paris(ts):
+    """Convertit un Unix timestamp en datetime aware Europe/Paris.
+
+    Important : `datetime.fromtimestamp(ts)` (sans tz) renvoie l'heure du
+    fuseau systeme. Sur GH Actions (UTC), ca affichait UTC au lieu de Paris.
+    On utilise timezone fixe CEST (UTC+2) pour l'ete (toujours +2 entre fin
+    mars et fin oct, qui couvre toute la saison de matchs).
+    """
+    from datetime import timezone as _tz, timedelta as _td
+    paris = _tz(_td(hours=2))  # CEST
+    return datetime.fromtimestamp(ts, tz=paris)
+
 def format_datetime(ts):
-    try: return datetime.fromtimestamp(ts).strftime("%d/%m %H:%M")
+    try: return _ts_to_paris(ts).strftime("%d/%m %H:%M")
     except: return "?"
 
 def day_label(ts):
     try:
-        d = datetime.fromtimestamp(ts).date()
-        today = datetime.now().date()
+        from datetime import timezone as _tz, timedelta as _td
+        paris = _tz(_td(hours=2))
+        d = _ts_to_paris(ts).date()
+        today = datetime.now(paris).date()
         if d == today: return "Aujourd'hui"
         if d == today + timedelta(1): return "Demain"
         if d == today + timedelta(2): return "Après-demain"
-        return datetime.fromtimestamp(ts).strftime("%A %d/%m").capitalize()
+        return _ts_to_paris(ts).strftime("%A %d/%m").capitalize()
     except: return "Autre"
 
 def cote_badge(cote):

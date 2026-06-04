@@ -632,8 +632,9 @@ def analyze_match(match, pstats_all, player_odds_all=None):
     if IS_INTL_FRIENDLY and h_l5_ok and a_l5_ok:
         # ── 1X2 amicaux : asymetrie de forme (pas de classement/rating fiable)
         # Confiance basee sur le DELTA de form_score (et non l'absolu) :
-        # deux equipes 5W vs 5W = pas de pick. Equipe en feu vs equipe en
-        # crise = pick fort. Seuil delta=15 pour eviter les 5W vs 4W+1D.
+        # - delta >= 15 : 1X2 plein (Vainqueur du favori)
+        # - 5 <= delta < 15 : Double chance (favori + nul)
+        # - delta < 5 : pas de pick (vraiment equilibre)
         delta = h_form_score - a_form_score
         if delta >= 15:
             conf = round(min(85, 55 + delta * 0.6))
@@ -645,6 +646,16 @@ def analyze_match(match, pstats_all, player_odds_all=None):
             add("away_win","Forme superieure",f"{away} gagne",c2,conf,
                 f"{away} : {form_summary(af)} vs {home} : {form_summary(hf)} "
                 f"(L5 toutes competitions)",af)
+        elif delta >= 5:
+            conf = round(min(75, 58 + delta * 1.0))
+            add("home_dc","Double chance",f"{home} ou Nul (1X)",c1x,conf,
+                f"{home} legerement favori : {form_summary(hf)} vs {form_summary(af)} "
+                f"- on couvre le nul (amical, pas de classement FIFA)",hf)
+        elif delta <= -5:
+            conf = round(min(75, 58 + abs(delta) * 1.0))
+            add("away_dc","Double chance",f"Nul ou {away} (X2)",cx2,conf,
+                f"{away} legerement favori : {form_summary(af)} vs {form_summary(hf)} "
+                f"- on couvre le nul (amical, pas de classement FIFA)",af)
     else:
         # ── 1X2 standard : forme + classement + H2H + rating Sofa ─────────────
         if hf:
