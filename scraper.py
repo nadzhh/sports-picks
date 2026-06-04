@@ -257,6 +257,71 @@ def _team_recent_finished(team_id_str, n=5):
     return finished[:n]
 
 
+def _l5_goal_stats(league_data, team_id_str, n=5, team_match_index=None):
+    """Retourne {gf_pm, ga_pm, n} : moyenne buts marques/encaisses sur L5 TCC.
+    Reutilise la meme logique que _compute_form mais cumule les buts au lieu
+    des W/D/L."""
+    if not team_id_str:
+        return {"gf_pm": None, "ga_pm": None, "n": 0}
+    if team_match_index is not None and team_id_str in team_match_index:
+        src = team_match_index[team_id_str]
+    else:
+        src = league_data.get("fixtures", {}).get("allMatches", []) or []
+
+    def _norm_utc(u):
+        if not u: return ""
+        return u.replace(".000Z", "Z").replace(".000", "")
+
+    played = []
+    seen = set()
+    for m in src:
+        if not m.get("status", {}).get("finished"):
+            continue
+        h_id = str(m.get("home", {}).get("id"))
+        a_id = str(m.get("away", {}).get("id"))
+        if team_id_str not in (h_id, a_id):
+            continue
+        score = _parse_score(m.get("status", {}).get("scoreStr"))
+        if not score:
+            continue
+        utc = _norm_utc(m.get("status", {}).get("utcTime", "") or "")
+        if utc in seen: continue
+        seen.add(utc)
+        gh, ga = score
+        is_home = team_id_str == h_id
+        gf = gh if is_home else ga
+        gn = ga if is_home else gh
+        played.append((utc, gf, gn))
+
+    if len(played) < n:
+        for m in _team_recent_finished(team_id_str, n=n * 2):
+            h_id = str(m.get("home", {}).get("id"))
+            a_id = str(m.get("away", {}).get("id"))
+            if team_id_str not in (h_id, a_id):
+                continue
+            score = _parse_score(m.get("status", {}).get("scoreStr"))
+            if not score:
+                continue
+            utc = _norm_utc(m.get("status", {}).get("utcTime", "") or "")
+            if utc in seen: continue
+            seen.add(utc)
+            gh, ga = score
+            is_home = team_id_str == h_id
+            gf = gh if is_home else ga
+            gn = ga if is_home else gh
+            played.append((utc, gf, gn))
+
+    played.sort(key=lambda x: x[0], reverse=True)
+    top = played[:n]
+    if not top:
+        return {"gf_pm": None, "ga_pm": None, "n": 0}
+    return {
+        "gf_pm": round(sum(p[1] for p in top) / len(top), 2),
+        "ga_pm": round(sum(p[2] for p in top) / len(top), 2),
+        "n":     len(top),
+    }
+
+
 def _compute_form(league_data, team_id_str, n=5, team_match_index=None, with_opps=False, team_endpoint_fallback=True):
     """Retourne liste W/D/L des n derniers matchs FT de l'equipe.
 
@@ -771,6 +836,8 @@ def build_match(fm_match, lname, fm_lid, standings, league_data, odds_idx, team_
     # fallback sur la league seule (legacy / si l'index n'a pas ete construit).
     home_form, home_opps = _compute_form(league_data, home_id, n=5, team_match_index=team_match_index, with_opps=True)
     away_form, away_opps = _compute_form(league_data, away_id, n=5, team_match_index=team_match_index, with_opps=True)
+    home_l5_goals = _l5_goal_stats(league_data, home_id, n=5, team_match_index=team_match_index)
+    away_l5_goals = _l5_goal_stats(league_data, away_id, n=5, team_match_index=team_match_index)
     home_rank = standings.get(int(home_id) if home_id.isdigit() else home_id, {}).get("rank")
     away_rank = standings.get(int(home_id) if False else int(away_id) if away_id.isdigit() else away_id, {}).get("rank")
     hw, dr, aw = _compute_h2h(league_data, home_id, away_id)
@@ -810,10 +877,16 @@ def build_match(fm_match, lname, fm_lid, standings, league_data, odds_idx, team_
         "pre_match_form": {
             "homeTeam": {"form": home_form, "form_opps": home_opps,
                          "form_opp_ranks": [(global_rank_idx or {}).get(o) for o in home_opps],
-                         "position": home_rank, "avgRating": None},
+                         "position": home_rank, "avgRating": None,
+                         "l5_gf_pm": home_l5_goals["gf_pm"],
+                         "l5_ga_pm": home_l5_goals["ga_pm"],
+                         "l5_goals_n": home_l5_goals["n"]},
             "awayTeam": {"form": away_form, "form_opps": away_opps,
                          "form_opp_ranks": [(global_rank_idx or {}).get(o) for o in away_opps],
-                         "position": away_rank, "avgRating": None},
+                         "position": away_rank, "avgRating": None,
+                         "l5_gf_pm": away_l5_goals["gf_pm"],
+                         "l5_ga_pm": away_l5_goals["ga_pm"],
+                         "l5_goals_n": away_l5_goals["n"]},
         },
         "match_odds": match_odds,
         "lineups_home": None,

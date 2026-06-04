@@ -630,32 +630,101 @@ def analyze_match(match, pstats_all, player_odds_all=None):
     h_l5_ok = len(hf) >= 4
     a_l5_ok = len(af) >= 4
     if IS_INTL_FRIENDLY and h_l5_ok and a_l5_ok:
-        # ── 1X2 amicaux : asymetrie de forme (pas de classement/rating fiable)
-        # Confiance basee sur le DELTA de form_score (et non l'absolu) :
-        # - delta >= 15 : 1X2 plein (Vainqueur du favori)
-        # - 5 <= delta < 15 : Double chance (favori + nul)
-        # - delta < 5 : pas de pick (vraiment equilibre)
+        # ── Amicaux : strategie multi-marche basee sur la forme + buts L5 ─
+        # Plutot que des DC sur favoris ecrasants (cote 1.10-1.15 = ridicule),
+        # on propose des picks plus interessants :
+        #   - 1X2 si asymetrie nette (delta form >= 18)
+        #   - "Favori marque 1.5+" sur asymetrie + attaque solide (Poisson)
+        #   - Over/Under 2.5 selon attendu Poisson total
+        import math as _math
         delta = h_form_score - a_form_score
-        if delta >= 15:
+        h_team = form.get("homeTeam") or {}
+        a_team = form.get("awayTeam") or {}
+        h_gf = h_team.get("l5_gf_pm")
+        h_ga = h_team.get("l5_ga_pm")
+        a_gf = a_team.get("l5_gf_pm")
+        a_ga = a_team.get("l5_ga_pm")
+
+        if delta >= 18:
             conf = round(min(85, 55 + delta * 0.6))
             add("home_win","Forme superieure",f"{home} gagne",c1,conf,
                 f"{home} : {form_summary(hf)} vs {away} : {form_summary(af)} "
                 f"(L5 toutes competitions)",hf)
-        elif delta <= -15:
+        elif delta <= -18:
             conf = round(min(85, 55 + abs(delta) * 0.6))
             add("away_win","Forme superieure",f"{away} gagne",c2,conf,
                 f"{away} : {form_summary(af)} vs {home} : {form_summary(hf)} "
                 f"(L5 toutes competitions)",af)
-        elif delta >= 5:
-            conf = round(min(75, 58 + delta * 1.0))
-            add("home_dc","Double chance",f"{home} ou Nul (1X)",c1x,conf,
-                f"{home} legerement favori : {form_summary(hf)} vs {form_summary(af)} "
-                f"- on couvre le nul (amical, pas de classement FIFA)",hf)
-        elif delta <= -5:
-            conf = round(min(75, 58 + abs(delta) * 1.0))
-            add("away_dc","Double chance",f"Nul ou {away} (X2)",cx2,conf,
-                f"{away} legerement favori : {form_summary(af)} vs {form_summary(hf)} "
-                f"- on couvre le nul (amical, pas de classement FIFA)",af)
+
+        if h_gf is not None and h_ga is not None and a_gf is not None and a_ga is not None:
+            lambda_h = max(0.2, (h_gf + a_ga) / 2)
+            lambda_a = max(0.2, (a_gf + h_ga) / 2)
+            lambda_total = lambda_h + lambda_a
+
+            def _p_at_least_2(lam):
+                return 1 - _math.exp(-lam) * (1 + lam)
+
+            # "Favori marque 1.5+" pour asymetrie + attaque forte
+            if delta >= 8 and lambda_h >= 1.3:
+                p2 = _p_at_least_2(lambda_h)
+                conf = round(min(78, p2 * 100 + 5))
+                if conf >= 52:
+                    add("home_over_15", "Buteur equipe",
+                        f"{home} marque plus de 1.5 buts", None, conf,
+                        f"{home} attendu a ~{lambda_h:.1f} buts "
+                        f"(marque {h_gf:.1f}/m sur L5, {away} encaisse {a_ga:.1f}/m) - "
+                        f"P(2+ buts) ~{round(p2*100)}%", hf)
+            if delta <= -8 and lambda_a >= 1.3:
+                p2 = _p_at_least_2(lambda_a)
+                conf = round(min(78, p2 * 100 + 5))
+                if conf >= 52:
+                    add("away_over_15", "Buteur equipe",
+                        f"{away} marque plus de 1.5 buts", None, conf,
+                        f"{away} attendu a ~{lambda_a:.1f} buts "
+                        f"(marque {a_gf:.1f}/m sur L5, {home} encaisse {h_ga:.1f}/m) - "
+                        f"P(2+ buts) ~{round(p2*100)}%", af)
+
+            # Over/Under 2.5 buts si l'attendu total est franchement loin de 2.5
+            p0 = _math.exp(-lambda_total)
+            p1 = p0 * lambda_total
+            p2t = p1 * lambda_total / 2
+            p_over25 = 1 - p0 - p1 - p2t
+            p_under25 = 1 - p_over25
+            if p_over25 >= 0.58:
+                conf = round(min(78, p_over25 * 100))
+                add("over25", "Total buts",
+                    f"Plus de 2.5 buts", None, conf,
+                    f"Attendu {lambda_total:.1f} buts au total "
+                    f"({home} ~{lambda_h:.1f}, {away} ~{lambda_a:.1f}) - "
+                    f"P(>2.5) ~{round(p_over25*100)}%", hf)
+            elif p_under25 >= 0.58:
+                conf = round(min(78, p_under25 * 100))
+                add("under25", "Total buts",
+                    f"Moins de 2.5 buts", None, conf,
+                    f"Attendu seulement {lambda_total:.1f} buts au total "
+                    f"({home} ~{lambda_h:.1f}, {away} ~{lambda_a:.1f}) - "
+                    f"P(<2.5) ~{round(p_under25*100)}%", hf)
+
+            # BTTS Oui : les 2 attaques ~1.0+ buts attendus
+            p_h_score = 1 - _math.exp(-lambda_h)
+            p_a_score = 1 - _math.exp(-lambda_a)
+            p_btts_yes = p_h_score * p_a_score
+            p_btts_no = 1 - p_btts_yes
+            # On n'ajoute pas si on a deja un Over (les 2 sont correles)
+            already_over = any(c.get("direction") == "over25" for c in candidates)
+            already_under = any(c.get("direction") == "under25" for c in candidates)
+            if not already_over and p_btts_yes >= 0.58 and lambda_h >= 1.0 and lambda_a >= 1.0:
+                conf = round(min(75, p_btts_yes * 100))
+                add("btts_yes", "BTTS",
+                    f"Les 2 equipes marquent", None, conf,
+                    f"P({home} marque) {round(p_h_score*100)}% x P({away} marque) {round(p_a_score*100)}% "
+                    f"= ~{round(p_btts_yes*100)}%", hf)
+            elif not already_under and p_btts_no >= 0.62:
+                conf = round(min(75, p_btts_no * 100))
+                add("btts_no", "BTTS",
+                    f"Au moins 1 equipe ne marque pas", None, conf,
+                    f"Attaque faible d'un cote : {home} ~{lambda_h:.1f} buts, {away} ~{lambda_a:.1f} buts - "
+                    f"P(BTTS Non) ~{round(p_btts_no*100)}%", hf)
     else:
         # ── 1X2 standard : forme + classement + H2H + rating Sofa ─────────────
         if hf:
