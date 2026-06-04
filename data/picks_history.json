@@ -8600,6 +8600,149 @@
       "result": "PENDING",
       "actual": null,
       "resolved_at": null
+    },
+    {
+      "direction": "home_win",
+      "type": "Forme superieure",
+      "label": "Mexico gagne",
+      "cote": null,
+      "confidence": 75,
+      "reasoning": "Mexico : 3V/2N/0D sur 5 matchs vs Serbia : 2V/0N/3D sur 5 matchs (L5 toutes competitions)",
+      "stats": {
+        "form": [
+          "W",
+          "W",
+          "D",
+          "D",
+          "W"
+        ]
+      },
+      "is_fun": false,
+      "tier": "safe",
+      "id": "2026-06-05_5217286_team_home_win",
+      "date": "2026-06-05",
+      "match_id": "5217286",
+      "page_url": "/matches/mexico-vs-serbia/1u8cmr#5217286",
+      "matchup": "Mexico vs Serbia",
+      "league": "Friendlies",
+      "category": "team",
+      "result": "PENDING",
+      "actual": null,
+      "resolved_at": null
+    },
+    {
+      "direction": "under25",
+      "type": "Total buts",
+      "label": "Moins de 2.5 buts",
+      "cote": null,
+      "confidence": 60,
+      "reasoning": "Attendu seulement 2.3 buts au total (Mexico ~1.8, Serbia ~0.5) - P(<2.5) ~60%",
+      "stats": {
+        "form": [
+          "W",
+          "W",
+          "D",
+          "D",
+          "W"
+        ]
+      },
+      "is_fun": false,
+      "tier": "ok",
+      "id": "2026-06-05_5217286_team_under25",
+      "date": "2026-06-05",
+      "match_id": "5217286",
+      "page_url": "/matches/mexico-vs-serbia/1u8cmr#5217286",
+      "matchup": "Mexico vs Serbia",
+      "league": "Friendlies",
+      "category": "team",
+      "result": "PENDING",
+      "actual": null,
+      "resolved_at": null
+    },
+    {
+      "direction": "home_over_15",
+      "type": "Buteur equipe",
+      "label": "Mexico marque plus de 1.5 buts",
+      "cote": null,
+      "confidence": 59,
+      "reasoning": "Mexico attendu a ~1.8 buts (marque 1.6/m sur L5, Serbia encaisse 2.0/m) - P(2+ buts) ~54%",
+      "stats": {
+        "form": [
+          "W",
+          "W",
+          "D",
+          "D",
+          "W"
+        ]
+      },
+      "is_fun": false,
+      "tier": "ok",
+      "id": "2026-06-05_5217286_team_home_over_15",
+      "date": "2026-06-05",
+      "match_id": "5217286",
+      "page_url": "/matches/mexico-vs-serbia/1u8cmr#5217286",
+      "matchup": "Mexico vs Serbia",
+      "league": "Friendlies",
+      "category": "team",
+      "result": "PENDING",
+      "actual": null,
+      "resolved_at": null
+    },
+    {
+      "type": "🎰 Combo",
+      "label": "Mexico gagne + Moins de 2.5 buts",
+      "confidence": 47,
+      "cote": null,
+      "reasoning": "Combine 2 picks : « Mexico gagne » (75%) + « Moins de 2.5 buts » (60%). Proba combinee ~47% (cote a verifier)",
+      "tier": "fun",
+      "stats": {
+        "form": []
+      },
+      "is_fun": false,
+      "direction": "combo_home_win_under25",
+      "components": [
+        "home_win",
+        "under25"
+      ],
+      "is_combo": true,
+      "id": "2026-06-05_5217286_fun_🎰 Combo_Mexico gagne + Moins de 2.5 bu",
+      "date": "2026-06-05",
+      "match_id": "5217286",
+      "page_url": "/matches/mexico-vs-serbia/1u8cmr#5217286",
+      "matchup": "Mexico vs Serbia",
+      "league": "Friendlies",
+      "category": "fun",
+      "result": "PENDING",
+      "actual": null,
+      "resolved_at": null
+    },
+    {
+      "type": "🎰 Combo",
+      "label": "Mexico gagne + Mexico marque plus de 1.5 buts",
+      "confidence": 46,
+      "cote": null,
+      "reasoning": "Combine 2 picks : « Mexico gagne » (75%) + « Mexico marque plus de 1.5 buts » (59%). Proba combinee ~46% (cote a verifier)",
+      "tier": "fun",
+      "stats": {
+        "form": []
+      },
+      "is_fun": false,
+      "direction": "combo_home_win_home_over_15",
+      "components": [
+        "home_win",
+        "home_over_15"
+      ],
+      "is_combo": true,
+      "id": "2026-06-05_5217286_fun_🎰 Combo_Mexico gagne + Mexico marque p",
+      "date": "2026-06-05",
+      "match_id": "5217286",
+      "page_url": "/matches/mexico-vs-serbia/1u8cmr#5217286",
+      "matchup": "Mexico vs Serbia",
+      "league": "Friendlies",
+      "category": "fun",
+      "result": "PENDING",
+      "actual": null,
+      "resolved_at": null
     }
   ]
 }
