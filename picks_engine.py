@@ -608,12 +608,31 @@ def analyze_match(match, pstats_all, player_odds_all=None):
 
     candidates = []
 
+    def _classify_tier(conf, cote=None, is_fun=False):
+        """Classifie un pick en safe / ok / fun.
+
+        Regles :
+        - 'safe' : conf >= 70 et cote <= 1.85 (forte proba, cote raisonnable)
+        - 'fun'  : is_fun=True OU conf < 55 OU cote >= 2.6 (long shot)
+        - 'ok'   : entre les deux (le ventre mou - value picks)
+        """
+        if is_fun:
+            return "fun"
+        if conf is None:
+            return "ok"
+        if conf >= 70 and (cote is None or cote <= 1.85):
+            return "safe"
+        if conf < 55 or (cote is not None and cote >= 2.6):
+            return "fun"
+        return "ok"
+
     def add(direction, type_, label, cote, conf, reasoning, form_data=None, is_fun=False):
         candidates.append({
             "direction": direction, "type": type_, "label": label,
             "cote": cote, "confidence": conf, "reasoning": reasoning,
             "stats": {"form": form_data or []},
-            "is_fun": is_fun
+            "is_fun": is_fun,
+            "tier": _classify_tier(conf, cote, is_fun),
         })
 
     # ── 1X2 — forme récente pondérée davantage que H2H ────────────────────
@@ -1149,6 +1168,96 @@ def analyze_match(match, pstats_all, player_odds_all=None):
 
     # Filtre joueurs absents/blesses (depuis lineup.unavailable)
     lineup = pstats.get("lineup") or {}
+
+    # ── Picks buteur AMICAUX : utilise la lineup probable ────────────────────
+    # Pour les selections nationales, on n'a pas de player_stats de
+    # championnat (ils jouent dans des clubs differents). On utilise les
+    # seasonGoals/seasonAppearances integrees dans la lineup pour calculer
+    # P(joueur marque) via Poisson individuel.
+    if IS_INTL_FRIENDLY and lineup:
+        import math as _math_p
+        h_team_data = form.get("homeTeam") or {}
+        a_team_data = form.get("awayTeam") or {}
+        h_gf_l5 = h_team_data.get("l5_gf_pm")
+        h_ga_l5 = h_team_data.get("l5_ga_pm")
+        a_gf_l5 = a_team_data.get("l5_gf_pm")
+        a_ga_l5 = a_team_data.get("l5_ga_pm")
+        # Attendu buts par equipe ce match
+        lam_h_match = max(0.2, ((h_gf_l5 or 1.5) + (a_ga_l5 or 1.5)) / 2)
+        lam_a_match = max(0.2, ((a_gf_l5 or 1.5) + (h_ga_l5 or 1.5)) / 2)
+
+        def _friendly_player_picks(side, team_name, lam_team_match, side_absent):
+            picks_out = []
+            t = lineup.get(side) or {}
+            for s in (t.get("starters") or []):
+                name = s.get("name") or ""
+                gls  = s.get("goals")
+                apps = s.get("apps")
+                pos_id = s.get("pos_id") or 0
+                if not name or gls is None or apps is None or apps < 5:
+                    continue
+                # Skip gardiens (pos_id 1) et defenseurs centraux probables
+                # FotMob positionId : 1=GK, 2-5=DEF, 6-9=MID, 10-12=ATT (approx)
+                if pos_id in (1,):
+                    continue
+                # Filtre absents
+                if name.lower() in side_absent:
+                    continue
+                # λ joueur par match = goals / apps (saison club)
+                lam_player = gls / apps
+                if lam_player < 0.15:  # < ~1 but tous les 6-7 matchs, pas interessant
+                    continue
+                # Ajuste λ selon attendu de l'equipe ce match
+                # (calibration : equipe joue typiquement ~1.5 buts/m en club)
+                lam_p_match = lam_player * (lam_team_match / 1.5)
+                p_scores = 1 - _math_p.exp(-lam_p_match)
+                p_scores_2 = 1 - _math_p.exp(-lam_p_match) * (1 + lam_p_match)
+
+                # Pick "marque 1+" : 65%+ proba = safe ; 50%+ = ok
+                conf_scores = round(p_scores * 100)
+                if conf_scores >= 55:
+                    picks_out.append({
+                        "kind": "marque",
+                        "name": name,
+                        "side": side,
+                        "team": team_name,
+                        "lam":  lam_p_match,
+                        "conf": min(82, conf_scores),
+                        "p":    p_scores,
+                        "reasoning": (
+                            f"{name} : {gls} buts en {apps} apparitions cette saison "
+                            f"({lam_player:.2f} buts/m). Avec un attendu de "
+                            f"{lam_team_match:.1f} buts pour {team_name}, sa probabilite "
+                            f"de marquer est ~{conf_scores}%."
+                        ),
+                    })
+                # Pick "marque 2+" (double buteur) : reserve aux gros attaquants
+                conf_double = round(p_scores_2 * 100)
+                if conf_double >= 25 and lam_p_match >= 0.7:
+                    picks_out.append({
+                        "kind": "double_buteur",
+                        "name": name,
+                        "side": side,
+                        "team": team_name,
+                        "lam":  lam_p_match,
+                        "conf": min(60, conf_double + 10),  # bonus calib (cote elevee)
+                        "p":    p_scores_2,
+                        "reasoning": (
+                            f"{name} : {gls} buts en {apps} apparitions ({lam_player:.2f}/m). "
+                            f"Attendu ~{lam_p_match:.1f} buts ce match - "
+                            f"P(2+ buts) ~{conf_double}% (cote interessante)."
+                        ),
+                    })
+            return picks_out
+
+        h_friendly_picks = _friendly_player_picks("home", home, lam_h_match, set())
+        a_friendly_picks = _friendly_player_picks("away", away, lam_a_match, set())
+        # On stocke pour merger plus bas avec home_players/away_players
+        # (qui sont vides pour les nat teams)
+        friendly_picks = sorted(h_friendly_picks + a_friendly_picks,
+                                key=lambda x: x["conf"], reverse=True)[:4]
+    else:
+        friendly_picks = []
     def _names_unavailable(side):
         t = lineup.get(side) or {}
         out_absent = set()
@@ -1294,6 +1403,53 @@ def analyze_match(match, pstats_all, player_odds_all=None):
                                        h2h_shots_d, home, away, hp, ap, match_odds=odds,
                                        home_form=hf, away_form=af)
         team_picks.extend(shots_props)
+
+    # ── Inject friendly player picks (lineup-based) ─────────────────────────
+    # Pour les amicaux, on construit les picks buteur via lineup.starters
+    # (utilise les seasonGoals du club du joueur) au lieu des stats championnat.
+    if friendly_picks:
+        for fp in friendly_picks:
+            cote_est = round(1 / max(0.01, fp["p"]), 2) if fp["p"] > 0 else None
+            if fp["kind"] == "marque":
+                label = f"{fp['name']} marque"
+                ptype = "Buteur"
+            else:  # double_buteur
+                label = f"{fp['name']} marque 2+ buts"
+                ptype = "Double buteur"
+            pick = {
+                "player":     fp["name"],
+                "position":   "F",
+                "is_sub":     False,
+                "type":       ptype,
+                "label":      label,
+                "cote":       cote_est,
+                "book":       None,
+                "books":      [],
+                "confidence": int(fp["conf"]),
+                "reasoning":  fp["reasoning"],
+                "context":    {"source": "lineup", "lam": round(fp["lam"], 2)},
+                "stats":      {"goals": None, "apps": None, "gpm": round(fp["lam"], 3),
+                               "xgpm": None},
+                "team":       fp["side"],
+            }
+            if fp["side"] == "home":
+                home_pp.append(pick)
+            else:
+                away_pp.append(pick)
+        # Tri par confiance
+        home_pp.sort(key=lambda x: x.get("confidence", 0), reverse=True)
+        away_pp.sort(key=lambda x: x.get("confidence", 0), reverse=True)
+
+    # ── Tag tier (safe/ok/fun) sur tous les picks finaux ────────────────────
+    def _tag_tier(lst):
+        for p in lst or []:
+            if "tier" in p: continue
+            p["tier"] = _classify_tier(p.get("confidence"), p.get("cote"),
+                                       p.get("is_fun", False))
+    _tag_tier(team_picks)
+    _tag_tier(home_pp)
+    _tag_tier(away_pp)
+    _tag_tier(fun_picks)
 
     return team_picks, home_pp, away_pp, fun_picks
 

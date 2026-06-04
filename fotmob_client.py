@@ -176,6 +176,9 @@ def _fetch_match_page(page_url, ttl=30 * 24 * 3600, force=False):
                             "shirt":   p.get("shirtNumber"),
                             "pos_id":  p.get("positionId"),
                             "rating":  (p.get("performance") or {}).get("seasonRating"),
+                            "goals":   (p.get("performance") or {}).get("seasonGoals"),
+                            "assists": (p.get("performance") or {}).get("seasonAssists"),
+                            "apps":    (p.get("performance") or {}).get("seasonAppearances"),
                         } for p in (t.get("starters") or [])
                     ],
                     "unavailable": [
