@@ -7823,6 +7823,199 @@
       "resolved_at": "2026-06-04 18:01"
     },
     {
+      "direction": "under25",
+      "type": "Total buts",
+      "label": "Moins de 2.5 buts",
+      "cote": null,
+      "confidence": 76,
+      "reasoning": "Attendu seulement 1.7 buts au total (Iran ~1.2, Mali ~0.5) - P(<2.5) ~76%",
+      "stats": {
+        "form": [
+          "W",
+          "W",
+          "L",
+          "D",
+          "D"
+        ]
+      },
+      "is_fun": false,
+      "tier": "safe",
+      "id": "2026-06-04_5739432_team_under25",
+      "date": "2026-06-04",
+      "match_id": "5739432",
+      "page_url": "/matches/mali-vs-iran/1apqog#5739432",
+      "matchup": "Iran vs Mali",
+      "league": "Friendlies",
+      "category": "team",
+      "result": "PENDING",
+      "actual": null,
+      "resolved_at": null
+    },
+    {
+      "direction": "home_win",
+      "type": "Forme superieure",
+      "label": "Iran gagne",
+      "cote": null,
+      "confidence": 71,
+      "reasoning": "Iran : 2V/2N/1D sur 5 matchs vs Mali : 0V/4N/1D sur 5 matchs (L5 toutes competitions)",
+      "stats": {
+        "form": [
+          "W",
+          "W",
+          "L",
+          "D",
+          "D"
+        ]
+      },
+      "is_fun": false,
+      "tier": "safe",
+      "id": "2026-06-04_5739432_team_home_win",
+      "date": "2026-06-04",
+      "match_id": "5739432",
+      "page_url": "/matches/mali-vs-iran/1apqog#5739432",
+      "matchup": "Iran vs Mali",
+      "league": "Friendlies",
+      "category": "team",
+      "result": "PENDING",
+      "actual": null,
+      "resolved_at": null
+    },
+    {
+      "type": "🎰 Combo",
+      "label": "Moins de 2.5 buts + Iran gagne",
+      "confidence": 57,
+      "cote": null,
+      "reasoning": "Combine 2 picks : « Moins de 2.5 buts » (76%) + « Iran gagne » (71%). Proba combinee ~57% (cote a verifier)",
+      "tier": "ok",
+      "stats": {
+        "form": []
+      },
+      "is_fun": false,
+      "direction": "combo_under25_home_win",
+      "components": [
+        "under25",
+        "home_win"
+      ],
+      "is_combo": true,
+      "id": "2026-06-04_5739432_fun_🎰 Combo_Moins de 2.5 buts + Iran gagne",
+      "date": "2026-06-04",
+      "match_id": "5739432",
+      "page_url": "/matches/mali-vs-iran/1apqog#5739432",
+      "matchup": "Iran vs Mali",
+      "league": "Friendlies",
+      "category": "fun",
+      "result": "PENDING",
+      "actual": null,
+      "resolved_at": null
+    },
+    {
+      "direction": "btts_yes",
+      "type": "BTTS",
+      "label": "Les 2 equipes marquent",
+      "cote": null,
+      "confidence": 60,
+      "reasoning": "P(Sweden marque) 78% x P(Greece marque) 78% = ~60%",
+      "stats": {
+        "form": [
+          "L",
+          "W",
+          "W",
+          "D",
+          "L"
+        ]
+      },
+      "is_fun": false,
+      "tier": "ok",
+      "id": "2026-06-04_5418296_team_btts_yes",
+      "date": "2026-06-04",
+      "match_id": "5418296",
+      "page_url": "/matches/greece-vs-sweden/1u4ito#5418296",
+      "matchup": "Sweden vs Greece",
+      "league": "Friendlies",
+      "category": "team",
+      "result": "WIN",
+      "actual": "2-2",
+      "resolved_at": "2026-06-04 19:01"
+    },
+    {
+      "player": "Christos Tzolis",
+      "position": "F",
+      "is_sub": false,
+      "type": "Buteur",
+      "label": "Christos Tzolis marque",
+      "cote": 1.71,
+      "book": null,
+      "books": [],
+      "confidence": 59,
+      "reasoning": "Christos Tzolis : 8G en 10 matchs club (0.80 buts/m, source: L10 Belgian Pro League). Avec un attendu de 1.7 buts pour Greece, sa probabilite de marquer est ~59%.",
+      "context": {
+        "source": "lineup",
+        "lam": 0.88
+      },
+      "stats": {
+        "goals": null,
+        "apps": null,
+        "gpm": 0.88,
+        "xgpm": null
+      },
+      "team": "away",
+      "tier": "ok",
+      "edge_pp": 0.5,
+      "id": "2026-06-04_5418296_player_Christos Tzolis_Buteur",
+      "date": "2026-06-04",
+      "match_id": "5418296",
+      "page_url": "/matches/greece-vs-sweden/1u4ito#5418296",
+      "matchup": "Sweden vs Greece",
+      "league": "Friendlies",
+      "category": "player",
+      "side": "away",
+      "result": "LOSS",
+      "actual": {
+        "goals": 0,
+        "assists": 1
+      },
+      "resolved_at": "2026-06-04 19:01"
+    },
+    {
+      "player": "Christos Tzolis",
+      "position": "F",
+      "is_sub": false,
+      "type": "Double buteur",
+      "label": "Christos Tzolis marque 2+ buts",
+      "cote": 4.54,
+      "book": null,
+      "books": [],
+      "confidence": 32,
+      "reasoning": "Christos Tzolis : 8G en 10 matchs club (0.80/m, source: L10 Belgian Pro League). Attendu ~0.9 buts ce match - P(2+ buts) ~22% (cote interessante).",
+      "context": {
+        "source": "lineup",
+        "lam": 0.88
+      },
+      "stats": {
+        "goals": null,
+        "apps": null,
+        "gpm": 0.88,
+        "xgpm": null
+      },
+      "team": "away",
+      "tier": "fun",
+      "edge_pp": 10.0,
+      "id": "2026-06-04_5418296_player_Christos Tzolis_Double buteur",
+      "date": "2026-06-04",
+      "match_id": "5418296",
+      "page_url": "/matches/greece-vs-sweden/1u4ito#5418296",
+      "matchup": "Sweden vs Greece",
+      "league": "Friendlies",
+      "category": "player",
+      "side": "away",
+      "result": "LOSS",
+      "actual": {
+        "goals": 0,
+        "assists": 1
+      },
+      "resolved_at": "2026-06-04 19:01"
+    },
+    {
       "player": "Baba Bello Ilou",
       "position": "F",
       "is_sub": false,
@@ -7947,92 +8140,6 @@
       "page_url": "/matches/fus-rabat-vs-hassania-agadir/9kdj9te#5658899",
       "matchup": "Hassania Agadir vs FUS Rabat",
       "league": "Morocco Botola Pro",
-      "category": "fun",
-      "result": "PENDING",
-      "actual": null,
-      "resolved_at": null
-    },
-    {
-      "direction": "under25",
-      "type": "Total buts",
-      "label": "Moins de 2.5 buts",
-      "cote": null,
-      "confidence": 76,
-      "reasoning": "Attendu seulement 1.7 buts au total (Iran ~1.2, Mali ~0.5) - P(<2.5) ~76%",
-      "stats": {
-        "form": [
-          "W",
-          "W",
-          "L",
-          "D",
-          "D"
-        ]
-      },
-      "is_fun": false,
-      "tier": "safe",
-      "id": "2026-06-04_5739432_team_under25",
-      "date": "2026-06-04",
-      "match_id": "5739432",
-      "page_url": "/matches/mali-vs-iran/1apqog#5739432",
-      "matchup": "Iran vs Mali",
-      "league": "Friendlies",
-      "category": "team",
-      "result": "PENDING",
-      "actual": null,
-      "resolved_at": null
-    },
-    {
-      "direction": "home_win",
-      "type": "Forme superieure",
-      "label": "Iran gagne",
-      "cote": null,
-      "confidence": 71,
-      "reasoning": "Iran : 2V/2N/1D sur 5 matchs vs Mali : 0V/4N/1D sur 5 matchs (L5 toutes competitions)",
-      "stats": {
-        "form": [
-          "W",
-          "W",
-          "L",
-          "D",
-          "D"
-        ]
-      },
-      "is_fun": false,
-      "tier": "safe",
-      "id": "2026-06-04_5739432_team_home_win",
-      "date": "2026-06-04",
-      "match_id": "5739432",
-      "page_url": "/matches/mali-vs-iran/1apqog#5739432",
-      "matchup": "Iran vs Mali",
-      "league": "Friendlies",
-      "category": "team",
-      "result": "PENDING",
-      "actual": null,
-      "resolved_at": null
-    },
-    {
-      "type": "🎰 Combo",
-      "label": "Moins de 2.5 buts + Iran gagne",
-      "confidence": 57,
-      "cote": null,
-      "reasoning": "Combine 2 picks : « Moins de 2.5 buts » (76%) + « Iran gagne » (71%). Proba combinee ~57% (cote a verifier)",
-      "tier": "ok",
-      "stats": {
-        "form": []
-      },
-      "is_fun": false,
-      "direction": "combo_under25_home_win",
-      "components": [
-        "under25",
-        "home_win"
-      ],
-      "is_combo": true,
-      "id": "2026-06-04_5739432_fun_🎰 Combo_Moins de 2.5 buts + Iran gagne",
-      "date": "2026-06-04",
-      "match_id": "5739432",
-      "page_url": "/matches/mali-vs-iran/1apqog#5739432",
-      "matchup": "Iran vs Mali",
-      "league": "Friendlies",
       "category": "fun",
       "result": "PENDING",
       "actual": null,
@@ -8254,107 +8361,6 @@
       "matchup": "FAR Rabat vs Difaa El Jadida",
       "league": "Morocco Botola Pro",
       "category": "fun",
-      "result": "PENDING",
-      "actual": null,
-      "resolved_at": null
-    },
-    {
-      "direction": "btts_yes",
-      "type": "BTTS",
-      "label": "Les 2 equipes marquent",
-      "cote": null,
-      "confidence": 60,
-      "reasoning": "P(Sweden marque) 78% x P(Greece marque) 78% = ~60%",
-      "stats": {
-        "form": [
-          "L",
-          "W",
-          "W",
-          "D",
-          "L"
-        ]
-      },
-      "is_fun": false,
-      "tier": "ok",
-      "id": "2026-06-04_5418296_team_btts_yes",
-      "date": "2026-06-04",
-      "match_id": "5418296",
-      "page_url": "/matches/greece-vs-sweden/1u4ito#5418296",
-      "matchup": "Sweden vs Greece",
-      "league": "Friendlies",
-      "category": "team",
-      "result": "PENDING",
-      "actual": null,
-      "resolved_at": null
-    },
-    {
-      "player": "Christos Tzolis",
-      "position": "F",
-      "is_sub": false,
-      "type": "Buteur",
-      "label": "Christos Tzolis marque",
-      "cote": 1.71,
-      "book": null,
-      "books": [],
-      "confidence": 59,
-      "reasoning": "Christos Tzolis : 8G en 10 matchs club (0.80 buts/m, source: L10 Belgian Pro League). Avec un attendu de 1.7 buts pour Greece, sa probabilite de marquer est ~59%.",
-      "context": {
-        "source": "lineup",
-        "lam": 0.88
-      },
-      "stats": {
-        "goals": null,
-        "apps": null,
-        "gpm": 0.88,
-        "xgpm": null
-      },
-      "team": "away",
-      "tier": "ok",
-      "edge_pp": 0.5,
-      "id": "2026-06-04_5418296_player_Christos Tzolis_Buteur",
-      "date": "2026-06-04",
-      "match_id": "5418296",
-      "page_url": "/matches/greece-vs-sweden/1u4ito#5418296",
-      "matchup": "Sweden vs Greece",
-      "league": "Friendlies",
-      "category": "player",
-      "side": "away",
-      "result": "PENDING",
-      "actual": null,
-      "resolved_at": null
-    },
-    {
-      "player": "Christos Tzolis",
-      "position": "F",
-      "is_sub": false,
-      "type": "Double buteur",
-      "label": "Christos Tzolis marque 2+ buts",
-      "cote": 4.54,
-      "book": null,
-      "books": [],
-      "confidence": 32,
-      "reasoning": "Christos Tzolis : 8G en 10 matchs club (0.80/m, source: L10 Belgian Pro League). Attendu ~0.9 buts ce match - P(2+ buts) ~22% (cote interessante).",
-      "context": {
-        "source": "lineup",
-        "lam": 0.88
-      },
-      "stats": {
-        "goals": null,
-        "apps": null,
-        "gpm": 0.88,
-        "xgpm": null
-      },
-      "team": "away",
-      "tier": "fun",
-      "edge_pp": 10.0,
-      "id": "2026-06-04_5418296_player_Christos Tzolis_Double buteur",
-      "date": "2026-06-04",
-      "match_id": "5418296",
-      "page_url": "/matches/greece-vs-sweden/1u4ito#5418296",
-      "matchup": "Sweden vs Greece",
-      "league": "Friendlies",
-      "category": "player",
-      "side": "away",
       "result": "PENDING",
       "actual": null,
       "resolved_at": null
