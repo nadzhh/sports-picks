@@ -7632,6 +7632,34 @@
       "resolved_at": null
     },
     {
+      "type": "🎰 Combo",
+      "label": "Adil Djabout ou Abdeljalil Saad marque + Ahmed Khaldi marque",
+      "confidence": 68,
+      "cote": null,
+      "reasoning": "Combine 2 picks : « Adil Djabout ou Abdeljalil Saad marque » (91%) + « Ahmed Khaldi marque » (71%). Proba combinee ~68% (cote a verifier)",
+      "tier": "ok",
+      "stats": {
+        "form": []
+      },
+      "is_fun": false,
+      "direction": "combo__",
+      "components": [
+        null,
+        null
+      ],
+      "is_combo": true,
+      "id": "2026-06-04_5156424_fun_🎰 Combo_Adil Djabout ou Abdeljalil Saa",
+      "date": "2026-06-04",
+      "match_id": "5156424",
+      "page_url": "/matches/usm-alger-vs-es-ben-aknoun/h0ia5bmi#5156424",
+      "matchup": "ES Ben Aknoun vs USM Alger",
+      "league": "Algeria Ligue 1",
+      "category": "fun",
+      "result": "PENDING",
+      "actual": null,
+      "resolved_at": null
+    },
+    {
       "direction": "under25",
       "type": "Total buts",
       "label": "Moins de 2.5 buts",
@@ -7690,6 +7718,34 @@
       "resolved_at": null
     },
     {
+      "type": "🎰 Combo",
+      "label": "Moins de 2.5 buts + Iran gagne",
+      "confidence": 57,
+      "cote": null,
+      "reasoning": "Combine 2 picks : « Moins de 2.5 buts » (76%) + « Iran gagne » (71%). Proba combinee ~57% (cote a verifier)",
+      "tier": "ok",
+      "stats": {
+        "form": []
+      },
+      "is_fun": false,
+      "direction": "combo_under25_home_win",
+      "components": [
+        "under25",
+        "home_win"
+      ],
+      "is_combo": true,
+      "id": "2026-06-04_5739432_fun_🎰 Combo_Moins de 2.5 buts + Iran gagne",
+      "date": "2026-06-04",
+      "match_id": "5739432",
+      "page_url": "/matches/mali-vs-iran/1apqog#5739432",
+      "matchup": "Iran vs Mali",
+      "league": "Friendlies",
+      "category": "fun",
+      "result": "PENDING",
+      "actual": null,
+      "resolved_at": null
+    },
+    {
       "direction": "away_win",
       "type": "Forme superieure",
       "label": "Guinea gagne",
@@ -7743,6 +7799,34 @@
       "matchup": "Northern Ireland vs Guinea",
       "league": "Friendlies",
       "category": "team",
+      "result": "PENDING",
+      "actual": null,
+      "resolved_at": null
+    },
+    {
+      "type": "🎰 Combo",
+      "label": "Guinea gagne + Moins de 2.5 buts",
+      "confidence": 48,
+      "cote": null,
+      "reasoning": "Combine 2 picks : « Guinea gagne » (71%) + « Moins de 2.5 buts » (65%). Proba combinee ~48% (cote a verifier)",
+      "tier": "fun",
+      "stats": {
+        "form": []
+      },
+      "is_fun": false,
+      "direction": "combo_away_win_under25",
+      "components": [
+        "away_win",
+        "under25"
+      ],
+      "is_combo": true,
+      "id": "2026-06-04_5451162_fun_🎰 Combo_Guinea gagne + Moins de 2.5 bu",
+      "date": "2026-06-04",
+      "match_id": "5451162",
+      "page_url": "/matches/guinea-vs-northern-ireland/29ixyj#5451162",
+      "matchup": "Northern Ireland vs Guinea",
+      "league": "Friendlies",
+      "category": "fun",
       "result": "PENDING",
       "actual": null,
       "resolved_at": null
@@ -7811,24 +7895,61 @@
       "is_sub": false,
       "type": "Buteur",
       "label": "Christos Tzolis marque",
-      "cote": 1.82,
+      "cote": 1.71,
       "book": null,
       "books": [],
-      "confidence": 55,
-      "reasoning": "Christos Tzolis : 8G en 10 matchs club (0.80 buts/m, source: L10 Belgian Pro League). Avec un attendu de 1.5 buts pour Greece, sa probabilite de marquer est ~55%.",
+      "confidence": 59,
+      "reasoning": "Christos Tzolis : 8G en 10 matchs club (0.80 buts/m, source: L10 Belgian Pro League). Avec un attendu de 1.7 buts pour Greece, sa probabilite de marquer est ~59%.",
       "context": {
         "source": "lineup",
-        "lam": 0.8
+        "lam": 0.88
       },
       "stats": {
         "goals": null,
         "apps": null,
-        "gpm": 0.8,
+        "gpm": 0.88,
         "xgpm": null
       },
       "team": "away",
       "tier": "ok",
+      "edge_pp": 0.5,
       "id": "2026-06-04_5418296_player_Christos Tzolis_Buteur",
+      "date": "2026-06-04",
+      "match_id": "5418296",
+      "page_url": "/matches/greece-vs-sweden/1u4ito#5418296",
+      "matchup": "Sweden vs Greece",
+      "league": "Friendlies",
+      "category": "player",
+      "side": "away",
+      "result": "PENDING",
+      "actual": null,
+      "resolved_at": null
+    },
+    {
+      "player": "Christos Tzolis",
+      "position": "F",
+      "is_sub": false,
+      "type": "Double buteur",
+      "label": "Christos Tzolis marque 2+ buts",
+      "cote": 4.54,
+      "book": null,
+      "books": [],
+      "confidence": 32,
+      "reasoning": "Christos Tzolis : 8G en 10 matchs club (0.80/m, source: L10 Belgian Pro League). Attendu ~0.9 buts ce match - P(2+ buts) ~22% (cote interessante).",
+      "context": {
+        "source": "lineup",
+        "lam": 0.88
+      },
+      "stats": {
+        "goals": null,
+        "apps": null,
+        "gpm": 0.88,
+        "xgpm": null
+      },
+      "team": "away",
+      "tier": "fun",
+      "edge_pp": 10.0,
+      "id": "2026-06-04_5418296_player_Christos Tzolis_Double buteur",
       "date": "2026-06-04",
       "match_id": "5418296",
       "page_url": "/matches/greece-vs-sweden/1u4ito#5418296",

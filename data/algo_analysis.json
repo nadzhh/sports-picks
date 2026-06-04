@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-06-04T14:15:04.355365",
-  "n_total": 469,
+  "generated_at": "2026-06-04T14:42:44.035003",
+  "n_total": 470,
   "globals": {
     "foot": {
       "n": 249,
@@ -27,16 +27,16 @@
       "wr_vs_be": 3.1
     },
     "tennis": {
-      "n": 105,
+      "n": 106,
       "w": 60,
-      "l": 45,
+      "l": 46,
       "push": 0,
-      "wr": 57.1,
-      "roi": 1.3,
-      "profit": 1.4,
+      "wr": 56.6,
+      "roi": 0.4,
+      "profit": 0.4,
       "avg_cote": 2.71,
       "break_even_wr": 36.9,
-      "wr_vs_be": 20.2
+      "wr_vs_be": 19.7
     }
   },
   "calibration": {
@@ -186,18 +186,18 @@
     },
     "tennis": {
       "50-59": {
-        "n": 12,
+        "n": 13,
         "w": 4,
-        "l": 8,
+        "l": 9,
         "push": 0,
-        "wr": 33.3,
-        "roi": -40.0,
-        "profit": -4.8,
+        "wr": 30.8,
+        "roi": -44.6,
+        "profit": -5.8,
         "avg_cote": 8.52,
         "break_even_wr": 11.7,
-        "wr_vs_be": 21.6,
+        "wr_vs_be": 19.0,
         "expected_wr": 54.5,
-        "calibration_gap": -21.2
+        "calibration_gap": -23.7
       },
       "60-69": {
         "n": 34,
@@ -516,13 +516,13 @@
     },
     "tennis": {
       "tennis_total_games": {
-        "n": 60,
+        "n": 61,
         "w": 41,
-        "l": 19,
+        "l": 20,
         "push": 0,
-        "wr": 68.3,
-        "roi": 23.0,
-        "profit": 13.8,
+        "wr": 67.2,
+        "roi": 21.0,
+        "profit": 12.8,
         "avg_cote": null,
         "break_even_wr": null,
         "wr_vs_be": null
@@ -959,19 +959,31 @@
     "tennis": {
       "surface": {
         "Clay": {
-          "n": 105,
+          "n": 106,
           "w": 60,
-          "l": 45,
+          "l": 46,
           "push": 0,
-          "wr": 57.1,
-          "roi": 1.3,
-          "profit": 1.4,
+          "wr": 56.6,
+          "roi": 0.4,
+          "profit": 0.4,
           "avg_cote": 2.71,
           "break_even_wr": 36.9,
-          "wr_vs_be": 20.2
+          "wr_vs_be": 19.7
         }
       },
       "tour": {
+        "WTA": {
+          "n": 62,
+          "w": 38,
+          "l": 24,
+          "push": 0,
+          "wr": 61.3,
+          "roi": 8.3,
+          "profit": 5.14,
+          "avg_cote": 1.54,
+          "break_even_wr": 64.9,
+          "wr_vs_be": -3.6
+        },
         "ATP": {
           "n": 44,
           "w": 22,
@@ -983,18 +995,6 @@
           "avg_cote": 3.39,
           "break_even_wr": 29.5,
           "wr_vs_be": 20.5
-        },
-        "WTA": {
-          "n": 61,
-          "w": 38,
-          "l": 23,
-          "push": 0,
-          "wr": 62.3,
-          "roi": 10.1,
-          "profit": 6.14,
-          "avg_cote": 1.54,
-          "break_even_wr": 64.9,
-          "wr_vs_be": -2.6
         }
       }
     }
@@ -1250,20 +1250,20 @@
       "severity": "medium",
       "type": "miscalibrated_overconfident",
       "scope": "tennis · conf 50-59",
-      "message": "Bucket conf <b>50-59</b> (tennis) : modèle annonce ~54.5% mais WR réel = 33.3% (gap -21.2pp sur 12 picks). Modèle trop confiant → relever MIN_CONF ou ajuster formule.",
+      "message": "Bucket conf <b>50-59</b> (tennis) : modèle annonce ~54.5% mais WR réel = 30.8% (gap -23.7pp sur 13 picks). Modèle trop confiant → relever MIN_CONF ou ajuster formule.",
       "stats": {
-        "n": 12,
+        "n": 13,
         "w": 4,
-        "l": 8,
+        "l": 9,
         "push": 0,
-        "wr": 33.3,
-        "roi": -40.0,
-        "profit": -4.8,
+        "wr": 30.8,
+        "roi": -44.6,
+        "profit": -5.8,
         "avg_cote": 8.52,
         "break_even_wr": 11.7,
-        "wr_vs_be": 21.6,
+        "wr_vs_be": 19.0,
         "expected_wr": 54.5,
-        "calibration_gap": -21.2
+        "calibration_gap": -23.7
       }
     },
     {
@@ -1434,15 +1434,15 @@
       "severity": "info",
       "type": "keep_market",
       "scope": "tennis · tennis_total_games",
-      "message": "Market <b>tennis_total_games</b> (tennis) : ROI <b>+23.0%</b> sur 60 picks (WR 68.3%). Continuer.",
+      "message": "Market <b>tennis_total_games</b> (tennis) : ROI <b>+21.0%</b> sur 61 picks (WR 67.2%). Continuer.",
       "stats": {
-        "n": 60,
+        "n": 61,
         "w": 41,
-        "l": 19,
+        "l": 20,
         "push": 0,
-        "wr": 68.3,
-        "roi": 23.0,
-        "profit": 13.8,
+        "wr": 67.2,
+        "roi": 21.0,
+        "profit": 12.8,
         "avg_cote": null,
         "break_even_wr": null,
         "wr_vs_be": null
