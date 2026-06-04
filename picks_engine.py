@@ -1186,26 +1186,58 @@ def analyze_match(match, pstats_all, player_odds_all=None):
         lam_h_match = max(0.2, ((h_gf_l5 or 1.5) + (a_ga_l5 or 1.5)) / 2)
         lam_a_match = max(0.2, ((a_gf_l5 or 1.5) + (h_ga_l5 or 1.5)) / 2)
 
+        # Pour les amicaux internationaux, on enrichit avec les stats CLUB
+        # des joueurs (via fotmob_client.player()). Les seasonGoals/Apps de la
+        # lineup sont les stats NAT TEAM (souvent 0-3 buts en 5 apps), donc
+        # tres peu predictifs. Le club_stats (LaLiga, PL, Serie A) + L10
+        # donnent un signal vraiment exploitable.
+        try:
+            from fotmob_client import player as fm_player
+        except Exception:
+            fm_player = None
+
+        def _player_lambda(starter):
+            """Renvoie (lambda_per_match, source, descr) en preferant le L10
+            club puis les stats club saison, puis fallback nat team."""
+            pid = starter.get("id")
+            nat_g = starter.get("goals")
+            nat_a = starter.get("apps")
+            if fm_player and pid:
+                try:
+                    pdata = fm_player(pid) or {}
+                except Exception:
+                    pdata = {}
+                l10 = pdata.get("l10") or {}
+                club = pdata.get("club_stats") or {}
+                # L10 club : signal le + recent et le + predictif si on en a
+                if l10.get("n", 0) >= 5 and l10.get("goals_pm") is not None:
+                    return (l10["goals_pm"],
+                            f"L10 {club.get('league','club')}",
+                            f"{l10['goals']}G en {l10['n']} matchs club")
+                # Stats saison club : signal solide sur une saison complete
+                if club.get("matches") and club.get("goals") is not None:
+                    g, m = club["goals"], club["matches"]
+                    if m >= 5:
+                        return (g / m,
+                                f"Saison {club.get('league','club')}",
+                                f"{g}G en {m} matchs {club.get('league','club')}")
+            # Fallback : stats nat team de la lineup
+            if nat_g is not None and nat_a and nat_a >= 5:
+                return (nat_g / nat_a, "nat team",
+                        f"{nat_g}G en {nat_a} matchs selection")
+            return (None, None, None)
+
         def _friendly_player_picks(side, team_name, lam_team_match, side_absent):
             picks_out = []
             t = lineup.get(side) or {}
             for s in (t.get("starters") or []):
                 name = s.get("name") or ""
-                gls  = s.get("goals")
-                apps = s.get("apps")
                 pos_id = s.get("pos_id") or 0
-                if not name or gls is None or apps is None or apps < 5:
-                    continue
-                # Skip gardiens (pos_id 1) et defenseurs centraux probables
-                # FotMob positionId : 1=GK, 2-5=DEF, 6-9=MID, 10-12=ATT (approx)
-                if pos_id in (1,):
-                    continue
-                # Filtre absents
-                if name.lower() in side_absent:
-                    continue
-                # λ joueur par match = goals / apps (saison club)
-                lam_player = gls / apps
-                if lam_player < 0.15:  # < ~1 but tous les 6-7 matchs, pas interessant
+                if not name: continue
+                if pos_id in (1,): continue  # skip gardien
+                if name.lower() in side_absent: continue
+                lam_player, source, descr = _player_lambda(s)
+                if lam_player is None or lam_player < 0.15:
                     continue
                 # Ajuste λ selon attendu de l'equipe ce match
                 # (calibration : equipe joue typiquement ~1.5 buts/m en club)
@@ -1213,9 +1245,8 @@ def analyze_match(match, pstats_all, player_odds_all=None):
                 p_scores = 1 - _math_p.exp(-lam_p_match)
                 p_scores_2 = 1 - _math_p.exp(-lam_p_match) * (1 + lam_p_match)
 
-                # Pick "marque 1+" : 65%+ proba = safe ; 50%+ = ok
                 conf_scores = round(p_scores * 100)
-                if conf_scores >= 55:
+                if conf_scores >= 50:
                     picks_out.append({
                         "kind": "marque",
                         "name": name,
@@ -1225,25 +1256,23 @@ def analyze_match(match, pstats_all, player_odds_all=None):
                         "conf": min(82, conf_scores),
                         "p":    p_scores,
                         "reasoning": (
-                            f"{name} : {gls} buts en {apps} apparitions cette saison "
-                            f"({lam_player:.2f} buts/m). Avec un attendu de "
-                            f"{lam_team_match:.1f} buts pour {team_name}, sa probabilite "
-                            f"de marquer est ~{conf_scores}%."
+                            f"{name} : {descr} ({lam_player:.2f} buts/m, source: {source}). "
+                            f"Avec un attendu de {lam_team_match:.1f} buts pour {team_name}, "
+                            f"sa probabilite de marquer est ~{conf_scores}%."
                         ),
                     })
-                # Pick "marque 2+" (double buteur) : reserve aux gros attaquants
                 conf_double = round(p_scores_2 * 100)
-                if conf_double >= 25 and lam_p_match >= 0.7:
+                if conf_double >= 22 and lam_p_match >= 0.65:
                     picks_out.append({
                         "kind": "double_buteur",
                         "name": name,
                         "side": side,
                         "team": team_name,
                         "lam":  lam_p_match,
-                        "conf": min(60, conf_double + 10),  # bonus calib (cote elevee)
+                        "conf": min(60, conf_double + 10),
                         "p":    p_scores_2,
                         "reasoning": (
-                            f"{name} : {gls} buts en {apps} apparitions ({lam_player:.2f}/m). "
+                            f"{name} : {descr} ({lam_player:.2f}/m, source: {source}). "
                             f"Attendu ~{lam_p_match:.1f} buts ce match - "
                             f"P(2+ buts) ~{conf_double}% (cote interessante)."
                         ),

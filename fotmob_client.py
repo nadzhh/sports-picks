@@ -98,6 +98,106 @@ def team(team_id, ttl=24 * 3600):
     return fetch(f"https://www.fotmob.com/api/data/teams?id={team_id}", ttl=ttl)
 
 
+def player(player_id, ttl=24 * 3600):
+    """Stats d'un joueur via la page HTML FotMob (pas d'endpoint API direct).
+
+    Retourne un dict slim :
+    {
+      "id": int, "name": str,
+      "club_stats": {league, season, goals, assists, matches, minutes, rating},
+      "l10": {n, goals, assists, minutes, goals_pm, assists_pm}
+      "recent": [last 10 matches summary]
+    }
+    Cache 24h.
+    """
+    if not player_id: return None
+    import re as _re
+    full_url = f"https://www.fotmob.com/players/{player_id}/x"
+    path = _cache_path(full_url + "_slim")
+    cached = _cache_get(path, ttl)
+    if cached is not None:
+        return cached
+    _throttle()
+    req = urllib.request.Request(full_url, headers=HEADERS)
+    try:
+        r = urllib.request.urlopen(req, timeout=20)
+        raw = r.read()
+        if raw[:2] == b"\x1f\x8b":
+            raw = gzip.decompress(raw)
+        html = raw.decode("utf-8", errors="ignore")
+    except Exception:
+        return None
+    global _session_calls
+    _session_calls += 1
+    m = _re.search(r'<script id="__NEXT_DATA__"[^>]*>(.+?)</script>', html, _re.DOTALL)
+    if not m:
+        return None
+    try:
+        nd = json.loads(m.group(1))
+        data = nd.get("props", {}).get("pageProps", {}).get("data", {}) or {}
+    except Exception:
+        return None
+
+    # mainLeague stats : transforme {title->value} en dict propre
+    ml = data.get("mainLeague") or {}
+    ml_stats = {}
+    for s in ml.get("stats") or []:
+        if not isinstance(s, dict): continue
+        title = (s.get("title") or "").lower()
+        val = s.get("value")
+        if title in ("goals","assists","started","matches","minutes played","rating",
+                      "yellow cards","red cards"):
+            ml_stats[title.replace(" ", "_")] = val
+    club_stats = {
+        "league":   ml.get("leagueName"),
+        "season":   ml.get("season"),
+        "goals":    ml_stats.get("goals"),
+        "assists":  ml_stats.get("assists"),
+        "matches":  ml_stats.get("matches"),
+        "minutes":  ml_stats.get("minutes_played"),
+        "rating":   ml_stats.get("rating"),
+    }
+
+    # L10 a partir de recentMatches : on prend les 10 derniers (deja tries desc)
+    rm = data.get("recentMatches") or []
+    l10 = rm[:10]
+    n10 = len(l10)
+    g10 = sum((x.get("goals") or 0) for x in l10)
+    a10 = sum((x.get("assists") or 0) for x in l10)
+    mins10 = sum((x.get("minutesPlayed") or 0) for x in l10)
+    l10_summary = {
+        "n":           n10,
+        "goals":       g10,
+        "assists":     a10,
+        "minutes":     mins10,
+        "goals_pm":    round(g10 / n10, 3) if n10 else 0,
+        "assists_pm":  round(a10 / n10, 3) if n10 else 0,
+        "minutes_pm":  round(mins10 / n10, 1) if n10 else 0,
+    }
+    recent_slim = [
+        {
+            "date":     (x.get("matchDate") or {}).get("utcTime"),
+            "team":     x.get("teamName"),
+            "opp":      x.get("opponentTeamName"),
+            "is_home":  x.get("isHomeTeam"),
+            "league":   x.get("leagueName"),
+            "goals":    x.get("goals"),
+            "assists":  x.get("assists"),
+            "minutes":  x.get("minutesPlayed"),
+            "rating":   ((x.get("ratingProps") or {}).get("rating")),
+        } for x in l10
+    ]
+    out = {
+        "id":         player_id,
+        "name":       data.get("name"),
+        "club_stats": club_stats,
+        "l10":        l10_summary,
+        "recent":     recent_slim,
+    }
+    _cache_set(path, out)
+    return out
+
+
 def stat(league_id, season_id, stat_name, ttl=24 * 3600):
     """Stat file (data.fotmob.com)."""
     url = f"https://data.fotmob.com/stats/{league_id}/season/{season_id}/{stat_name}.json"
