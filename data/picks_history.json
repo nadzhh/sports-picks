@@ -8184,6 +8184,141 @@
       "resolved_at": null
     },
     {
+      "direction": "over25",
+      "type": "Total buts",
+      "label": "Plus de 2.5 buts",
+      "cote": null,
+      "confidence": 71,
+      "reasoning": "Attendu 3.7 buts au total (France ~1.9, Ivory Coast ~1.8) - P(>2.5) ~71%",
+      "stats": {
+        "form": [
+          "W",
+          "W",
+          "W",
+          "W",
+          "D"
+        ]
+      },
+      "is_fun": false,
+      "tier": "safe",
+      "id": "2026-06-04_5246832_team_over25",
+      "date": "2026-06-04",
+      "match_id": "5246832",
+      "page_url": "/matches/ivory-coast-vs-france/1hpsbj#5246832",
+      "matchup": "France vs Ivory Coast",
+      "league": "Friendlies",
+      "category": "team",
+      "result": "WIN",
+      "actual": "1-2 (3 buts)",
+      "resolved_at": "2026-06-04 21:31"
+    },
+    {
+      "player": "Marcus Thuram",
+      "position": "F",
+      "is_sub": false,
+      "type": "Buteur",
+      "label": "Marcus Thuram marque",
+      "cote": 1.7,
+      "book": null,
+      "books": [],
+      "confidence": 59,
+      "reasoning": "Marcus Thuram : 7G en 10 matchs club (0.70 buts/m, source: L10 Serie A). Avec un attendu de 1.9 buts pour France, sa probabilite de marquer est ~59%.",
+      "context": {
+        "source": "lineup",
+        "lam": 0.89
+      },
+      "stats": {
+        "goals": null,
+        "apps": null,
+        "gpm": 0.887,
+        "xgpm": null
+      },
+      "team": "home",
+      "tier": "ok",
+      "edge_pp": 0.2,
+      "id": "2026-06-04_5246832_player_Marcus Thuram_Buteur",
+      "date": "2026-06-04",
+      "match_id": "5246832",
+      "page_url": "/matches/ivory-coast-vs-france/1hpsbj#5246832",
+      "matchup": "France vs Ivory Coast",
+      "league": "Friendlies",
+      "category": "player",
+      "side": "home",
+      "result": "LOSS",
+      "actual": {
+        "goals": 0,
+        "assists": 0
+      },
+      "resolved_at": "2026-06-04 21:31"
+    },
+    {
+      "player": "Marcus Thuram",
+      "position": "F",
+      "is_sub": false,
+      "type": "Double buteur",
+      "label": "Marcus Thuram marque 2+ buts",
+      "cote": 4.49,
+      "book": null,
+      "books": [],
+      "confidence": 32,
+      "reasoning": "Marcus Thuram : 7G en 10 matchs club (0.70/m, source: L10 Serie A). Attendu ~0.9 buts ce match - P(2+ buts) ~22% (cote interessante).",
+      "context": {
+        "source": "lineup",
+        "lam": 0.89
+      },
+      "stats": {
+        "goals": null,
+        "apps": null,
+        "gpm": 0.887,
+        "xgpm": null
+      },
+      "team": "home",
+      "tier": "fun",
+      "edge_pp": 9.7,
+      "id": "2026-06-04_5246832_player_Marcus Thuram_Double buteur",
+      "date": "2026-06-04",
+      "match_id": "5246832",
+      "page_url": "/matches/ivory-coast-vs-france/1hpsbj#5246832",
+      "matchup": "France vs Ivory Coast",
+      "league": "Friendlies",
+      "category": "player",
+      "side": "home",
+      "result": "LOSS",
+      "actual": {
+        "goals": 0,
+        "assists": 0
+      },
+      "resolved_at": "2026-06-04 21:31"
+    },
+    {
+      "type": "🎰 Combo",
+      "label": "Plus de 2.5 buts + Marcus Thuram marque",
+      "confidence": 44,
+      "cote": null,
+      "reasoning": "Combine 2 picks : « Plus de 2.5 buts » (71%) + « Marcus Thuram marque » (59%). Proba combinee ~44% (cote a verifier)",
+      "tier": "fun",
+      "stats": {
+        "form": []
+      },
+      "is_fun": false,
+      "direction": "combo_over25_",
+      "components": [
+        "over25",
+        null
+      ],
+      "is_combo": true,
+      "id": "2026-06-04_5246832_fun_🎰 Combo_Plus de 2.5 buts + Marcus Thur",
+      "date": "2026-06-04",
+      "match_id": "5246832",
+      "page_url": "/matches/ivory-coast-vs-france/1hpsbj#5246832",
+      "matchup": "France vs Ivory Coast",
+      "league": "Friendlies",
+      "category": "fun",
+      "result": "PENDING",
+      "actual": null,
+      "resolved_at": null
+    },
+    {
       "direction": "home_over_15",
       "type": "Buteur equipe",
       "label": "Czechia marque plus de 1.5 buts",
@@ -8299,141 +8434,12 @@
       "resolved_at": null
     },
     {
-      "direction": "over25",
-      "type": "Total buts",
-      "label": "Plus de 2.5 buts",
-      "cote": null,
-      "confidence": 71,
-      "reasoning": "Attendu 3.7 buts au total (France ~1.9, Ivory Coast ~1.8) - P(>2.5) ~71%",
-      "stats": {
-        "form": [
-          "W",
-          "W",
-          "W",
-          "W",
-          "D"
-        ]
-      },
-      "is_fun": false,
-      "tier": "safe",
-      "id": "2026-06-04_5246832_team_over25",
-      "date": "2026-06-04",
-      "match_id": "5246832",
-      "page_url": "/matches/ivory-coast-vs-france/1hpsbj#5246832",
-      "matchup": "France vs Ivory Coast",
-      "league": "Friendlies",
-      "category": "team",
-      "result": "PENDING",
-      "actual": null,
-      "resolved_at": null
-    },
-    {
-      "player": "Marcus Thuram",
-      "position": "F",
-      "is_sub": false,
-      "type": "Buteur",
-      "label": "Marcus Thuram marque",
-      "cote": 1.7,
-      "book": null,
-      "books": [],
-      "confidence": 59,
-      "reasoning": "Marcus Thuram : 7G en 10 matchs club (0.70 buts/m, source: L10 Serie A). Avec un attendu de 1.9 buts pour France, sa probabilite de marquer est ~59%.",
-      "context": {
-        "source": "lineup",
-        "lam": 0.89
-      },
-      "stats": {
-        "goals": null,
-        "apps": null,
-        "gpm": 0.887,
-        "xgpm": null
-      },
-      "team": "home",
-      "tier": "ok",
-      "edge_pp": 0.2,
-      "id": "2026-06-04_5246832_player_Marcus Thuram_Buteur",
-      "date": "2026-06-04",
-      "match_id": "5246832",
-      "page_url": "/matches/ivory-coast-vs-france/1hpsbj#5246832",
-      "matchup": "France vs Ivory Coast",
-      "league": "Friendlies",
-      "category": "player",
-      "side": "home",
-      "result": "PENDING",
-      "actual": null,
-      "resolved_at": null
-    },
-    {
-      "player": "Marcus Thuram",
-      "position": "F",
-      "is_sub": false,
-      "type": "Double buteur",
-      "label": "Marcus Thuram marque 2+ buts",
-      "cote": 4.49,
-      "book": null,
-      "books": [],
-      "confidence": 32,
-      "reasoning": "Marcus Thuram : 7G en 10 matchs club (0.70/m, source: L10 Serie A). Attendu ~0.9 buts ce match - P(2+ buts) ~22% (cote interessante).",
-      "context": {
-        "source": "lineup",
-        "lam": 0.89
-      },
-      "stats": {
-        "goals": null,
-        "apps": null,
-        "gpm": 0.887,
-        "xgpm": null
-      },
-      "team": "home",
-      "tier": "fun",
-      "edge_pp": 9.7,
-      "id": "2026-06-04_5246832_player_Marcus Thuram_Double buteur",
-      "date": "2026-06-04",
-      "match_id": "5246832",
-      "page_url": "/matches/ivory-coast-vs-france/1hpsbj#5246832",
-      "matchup": "France vs Ivory Coast",
-      "league": "Friendlies",
-      "category": "player",
-      "side": "home",
-      "result": "PENDING",
-      "actual": null,
-      "resolved_at": null
-    },
-    {
-      "type": "🎰 Combo",
-      "label": "Plus de 2.5 buts + Marcus Thuram marque",
-      "confidence": 44,
-      "cote": null,
-      "reasoning": "Combine 2 picks : « Plus de 2.5 buts » (71%) + « Marcus Thuram marque » (59%). Proba combinee ~44% (cote a verifier)",
-      "tier": "fun",
-      "stats": {
-        "form": []
-      },
-      "is_fun": false,
-      "direction": "combo_over25_",
-      "components": [
-        "over25",
-        null
-      ],
-      "is_combo": true,
-      "id": "2026-06-04_5246832_fun_🎰 Combo_Plus de 2.5 buts + Marcus Thur",
-      "date": "2026-06-04",
-      "match_id": "5246832",
-      "page_url": "/matches/ivory-coast-vs-france/1hpsbj#5246832",
-      "matchup": "France vs Ivory Coast",
-      "league": "Friendlies",
-      "category": "fun",
-      "result": "PENDING",
-      "actual": null,
-      "resolved_at": null
-    },
-    {
       "direction": "home_win",
       "type": "Victoire domicile",
       "label": "FAR Rabat gagne",
       "cote": null,
-      "confidence": 67,
-      "reasoning": "FAR Rabat : 2V/3N/0D sur 5 matchs · #1 au classement · H2H: 1V/0N/0D · Note Sofa: 6.5/10",
+      "confidence": 65,
+      "reasoning": "FAR Rabat : 2V/3N/0D sur 5 matchs · #3 au classement · H2H: 1V/0N/0D · Note Sofa: 6.5/10",
       "stats": {
         "form": [
           "D",
@@ -8525,20 +8531,54 @@
       "resolved_at": null
     },
     {
-      "type": "🎰 Combo",
-      "label": "Mohamed Rabie Hrimat ou Youssef El Fahli marque + FAR Rabat gagne",
-      "confidence": 66,
+      "player": "Abdellah Ziani",
+      "position": "F",
+      "is_sub": false,
+      "type": "Buteur",
+      "label": "Abdellah Ziani marque",
       "cote": null,
-      "reasoning": "Combine 2 picks : « Mohamed Rabie Hrimat ou Youssef El Fahli marque » (94%) + « FAR Rabat gagne » (67%). Proba combinee ~66% (cote a verifier)",
-      "tier": "ok",
+      "book": null,
+      "books": [],
+      "confidence": 74,
+      "reasoning": "6 buts en 5 matchs cette saison (120.0% de chance/match) · xG moyen 0.00/match · défense solide",
+      "context": {
+        "weakness": 0.26
+      },
+      "stats": {
+        "goals": 6,
+        "apps": 5,
+        "gpm": 1.2,
+        "xgpm": 0
+      },
+      "team": "away",
+      "tier": "safe",
+      "id": "2026-06-04_5658900_player_Abdellah Ziani_Buteur",
+      "date": "2026-06-04",
+      "match_id": "5658900",
+      "page_url": "/matches/difaa-el-jadida-vs-far-rabat/9kcxei5#5658900",
+      "matchup": "FAR Rabat vs Difaa El Jadida",
+      "league": "Morocco Botola Pro",
+      "category": "player",
+      "side": "away",
+      "result": "PENDING",
+      "actual": null,
+      "resolved_at": null
+    },
+    {
+      "type": "🎰 Combo",
+      "label": "Mohamed Rabie Hrimat ou Youssef El Fahli marque + Abdellah Ziani marque",
+      "confidence": 73,
+      "cote": null,
+      "reasoning": "Combine 2 picks : « Mohamed Rabie Hrimat ou Youssef El Fahli marque » (94%) + « Abdellah Ziani marque » (74%). Proba combinee ~73% (cote a verifier)",
+      "tier": "safe",
       "stats": {
         "form": []
       },
       "is_fun": false,
-      "direction": "combo__home_win",
+      "direction": "combo__",
       "components": [
         null,
-        "home_win"
+        null
       ],
       "is_combo": true,
       "id": "2026-06-04_5658900_fun_🎰 Combo_Mohamed Rabie Hrimat ou Yousse",
