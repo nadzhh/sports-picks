@@ -5781,13 +5781,13 @@
       }
     ],
     "home_team_stats": {
-      "goals_pm": 1.4,
-      "conceded_pm": 1.3,
+      "goals_pm": 1.3,
+      "conceded_pm": 1.2,
       "shots_pm": 0,
       "sot_pm": 0
     },
     "away_team_stats": {
-      "goals_pm": 1.1,
+      "goals_pm": 1.0,
       "conceded_pm": 0.9,
       "shots_pm": 0,
       "sot_pm": 0
@@ -5904,7 +5904,7 @@
       "corners_pm": 0,
       "big_chance_pm": 0,
       "possession_pct": 0,
-      "clean_sheet_pm": 0.25
+      "clean_sheet_pm": 0.28
     },
     "away_recent": {
       "form": [
@@ -6018,7 +6018,7 @@
       "corners_pm": 0,
       "big_chance_pm": 0,
       "possession_pct": 0,
-      "clean_sheet_pm": 0.32
+      "clean_sheet_pm": 0.34
     },
     "home_l5": [
       {
@@ -17074,22 +17074,244 @@
       "n_matches": 0
     },
     "lineup": {
-      "type": "unavailable",
-      "source": "enetpulse",
+      "type": "simple",
+      "source": "optaSdapiLegacyIntegration",
       "home": {
         "name": "Iran",
         "id": 6711,
-        "formation": "",
+        "formation": null,
         "coach": null,
-        "starters": [],
+        "starters": [
+          {
+            "id": 505313,
+            "name": "Alireza Beiranvand",
+            "shirt": "1",
+            "pos_id": null,
+            "rating": null,
+            "goals": null,
+            "assists": null,
+            "apps": null
+          },
+          {
+            "id": 872575,
+            "name": "Ali Nemati",
+            "shirt": "19",
+            "pos_id": 1,
+            "rating": null,
+            "goals": null,
+            "assists": null,
+            "apps": null
+          },
+          {
+            "id": 511397,
+            "name": "Shoja Khalilzadeh",
+            "shirt": "4",
+            "pos_id": 1,
+            "rating": null,
+            "goals": null,
+            "assists": null,
+            "apps": null
+          },
+          {
+            "id": 1350138,
+            "name": "Aria Yousefi",
+            "shirt": "17",
+            "pos_id": 1,
+            "rating": null,
+            "goals": null,
+            "assists": null,
+            "apps": null
+          },
+          {
+            "id": 1221526,
+            "name": "Saleh Hardani",
+            "shirt": "2",
+            "pos_id": 1,
+            "rating": null,
+            "goals": null,
+            "assists": null,
+            "apps": null
+          },
+          {
+            "id": 630459,
+            "name": "Milad Mohammadi",
+            "shirt": "5",
+            "pos_id": 1,
+            "rating": null,
+            "goals": null,
+            "assists": null,
+            "apps": null
+          },
+          {
+            "id": 532220,
+            "name": "Saman Ghoddos",
+            "shirt": "14",
+            "pos_id": 2,
+            "rating": null,
+            "goals": null,
+            "assists": null,
+            "apps": null
+          },
+          {
+            "id": 505281,
+            "name": "Saeid Ezatolahi",
+            "shirt": "6",
+            "pos_id": 2,
+            "rating": null,
+            "goals": null,
+            "assists": null,
+            "apps": null
+          },
+          {
+            "id": 641121,
+            "name": "Shahriar Moghanlou",
+            "shirt": "20",
+            "pos_id": 3,
+            "rating": null,
+            "goals": null,
+            "assists": null,
+            "apps": null
+          },
+          {
+            "id": 619506,
+            "name": "Mehdi Taremi",
+            "shirt": "9",
+            "pos_id": 3,
+            "rating": null,
+            "goals": null,
+            "assists": null,
+            "apps": null
+          },
+          {
+            "id": 848314,
+            "name": "Mehdi Ghayedi",
+            "shirt": "10",
+            "pos_id": 3,
+            "rating": null,
+            "goals": null,
+            "assists": null,
+            "apps": null
+          }
+        ],
         "unavailable": []
       },
       "away": {
         "name": "Mali",
         "id": 5815,
-        "formation": "",
+        "formation": null,
         "coach": null,
-        "starters": [],
+        "starters": [
+          {
+            "id": 643651,
+            "name": "Djigui Diarra",
+            "shirt": "16",
+            "pos_id": null,
+            "rating": null,
+            "goals": null,
+            "assists": null,
+            "apps": null
+          },
+          {
+            "id": 1344655,
+            "name": "Nathan Gassama",
+            "shirt": "4",
+            "pos_id": 1,
+            "rating": null,
+            "goals": null,
+            "assists": null,
+            "apps": null
+          },
+          {
+            "id": 1074476,
+            "name": "Woyo Coulibaly",
+            "shirt": "26",
+            "pos_id": 1,
+            "rating": null,
+            "goals": null,
+            "assists": null,
+            "apps": null
+          },
+          {
+            "id": 1178325,
+            "name": "Ousmane Camara",
+            "shirt": "5",
+            "pos_id": 1,
+            "rating": null,
+            "goals": null,
+            "assists": null,
+            "apps": null
+          },
+          {
+            "id": 723148,
+            "name": "Aliou Dieng",
+            "shirt": "23",
+            "pos_id": 2,
+            "rating": null,
+            "goals": null,
+            "assists": null,
+            "apps": null
+          },
+          {
+            "id": 664587,
+            "name": "Lassana Coulibaly",
+            "shirt": "11",
+            "pos_id": 2,
+            "rating": null,
+            "goals": null,
+            "assists": null,
+            "apps": null
+          },
+          {
+            "id": 972117,
+            "name": "Kalidou Sidibé",
+            "shirt": "6",
+            "pos_id": 2,
+            "rating": null,
+            "goals": null,
+            "assists": null,
+            "apps": null
+          },
+          {
+            "id": 1185211,
+            "name": "Mamadou Sangaré",
+            "shirt": "8",
+            "pos_id": 2,
+            "rating": null,
+            "goals": null,
+            "assists": null,
+            "apps": null
+          },
+          {
+            "id": 1675966,
+            "name": "Gaoussou Diarra",
+            "shirt": "21",
+            "pos_id": 3,
+            "rating": null,
+            "goals": null,
+            "assists": null,
+            "apps": null
+          },
+          {
+            "id": 1579845,
+            "name": "Mamadou Doumbia",
+            "shirt": "18",
+            "pos_id": 3,
+            "rating": null,
+            "goals": null,
+            "assists": null,
+            "apps": null
+          },
+          {
+            "id": 1607324,
+            "name": "Gaoussou Diakite",
+            "shirt": "17",
+            "pos_id": 3,
+            "rating": null,
+            "goals": null,
+            "assists": null,
+            "apps": null
+          }
+        ],
         "unavailable": [
           {
             "id": 1230287,

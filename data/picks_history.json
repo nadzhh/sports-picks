@@ -7636,9 +7636,9 @@
       "book": null,
       "books": [],
       "confidence": 71,
-      "reasoning": "7 buts en 7 matchs cette saison (100.0% de chance/match) · xG moyen 0.00/match, défense adverse poreuse (1.3 buts concédés/match) · défense correcte",
+      "reasoning": "7 buts en 7 matchs cette saison (100.0% de chance/match) · xG moyen 0.00/match · défense correcte",
       "context": {
-        "weakness": 0.44
+        "weakness": 0.43
       },
       "stats": {
         "goals": 7,
@@ -7984,6 +7984,135 @@
       "match_id": "5451162",
       "page_url": "/matches/guinea-vs-northern-ireland/29ixyj#5451162",
       "matchup": "Northern Ireland vs Guinea",
+      "league": "Friendlies",
+      "category": "fun",
+      "result": "PENDING",
+      "actual": null,
+      "resolved_at": null
+    },
+    {
+      "direction": "over25",
+      "type": "Total buts",
+      "label": "Plus de 2.5 buts",
+      "cote": null,
+      "confidence": 71,
+      "reasoning": "Attendu 3.7 buts au total (France ~1.9, Ivory Coast ~1.8) - P(>2.5) ~71%",
+      "stats": {
+        "form": [
+          "W",
+          "W",
+          "W",
+          "W",
+          "D"
+        ]
+      },
+      "is_fun": false,
+      "tier": "safe",
+      "id": "2026-06-04_5246832_team_over25",
+      "date": "2026-06-04",
+      "match_id": "5246832",
+      "page_url": "/matches/ivory-coast-vs-france/1hpsbj#5246832",
+      "matchup": "France vs Ivory Coast",
+      "league": "Friendlies",
+      "category": "team",
+      "result": "PENDING",
+      "actual": null,
+      "resolved_at": null
+    },
+    {
+      "player": "Marcus Thuram",
+      "position": "F",
+      "is_sub": false,
+      "type": "Buteur",
+      "label": "Marcus Thuram marque",
+      "cote": 1.7,
+      "book": null,
+      "books": [],
+      "confidence": 59,
+      "reasoning": "Marcus Thuram : 7G en 10 matchs club (0.70 buts/m, source: L10 Serie A). Avec un attendu de 1.9 buts pour France, sa probabilite de marquer est ~59%.",
+      "context": {
+        "source": "lineup",
+        "lam": 0.89
+      },
+      "stats": {
+        "goals": null,
+        "apps": null,
+        "gpm": 0.887,
+        "xgpm": null
+      },
+      "team": "home",
+      "tier": "ok",
+      "edge_pp": 0.2,
+      "id": "2026-06-04_5246832_player_Marcus Thuram_Buteur",
+      "date": "2026-06-04",
+      "match_id": "5246832",
+      "page_url": "/matches/ivory-coast-vs-france/1hpsbj#5246832",
+      "matchup": "France vs Ivory Coast",
+      "league": "Friendlies",
+      "category": "player",
+      "side": "home",
+      "result": "PENDING",
+      "actual": null,
+      "resolved_at": null
+    },
+    {
+      "player": "Marcus Thuram",
+      "position": "F",
+      "is_sub": false,
+      "type": "Double buteur",
+      "label": "Marcus Thuram marque 2+ buts",
+      "cote": 4.49,
+      "book": null,
+      "books": [],
+      "confidence": 32,
+      "reasoning": "Marcus Thuram : 7G en 10 matchs club (0.70/m, source: L10 Serie A). Attendu ~0.9 buts ce match - P(2+ buts) ~22% (cote interessante).",
+      "context": {
+        "source": "lineup",
+        "lam": 0.89
+      },
+      "stats": {
+        "goals": null,
+        "apps": null,
+        "gpm": 0.887,
+        "xgpm": null
+      },
+      "team": "home",
+      "tier": "fun",
+      "edge_pp": 9.7,
+      "id": "2026-06-04_5246832_player_Marcus Thuram_Double buteur",
+      "date": "2026-06-04",
+      "match_id": "5246832",
+      "page_url": "/matches/ivory-coast-vs-france/1hpsbj#5246832",
+      "matchup": "France vs Ivory Coast",
+      "league": "Friendlies",
+      "category": "player",
+      "side": "home",
+      "result": "PENDING",
+      "actual": null,
+      "resolved_at": null
+    },
+    {
+      "type": "🎰 Combo",
+      "label": "Plus de 2.5 buts + Marcus Thuram marque",
+      "confidence": 44,
+      "cote": null,
+      "reasoning": "Combine 2 picks : « Plus de 2.5 buts » (71%) + « Marcus Thuram marque » (59%). Proba combinee ~44% (cote a verifier)",
+      "tier": "fun",
+      "stats": {
+        "form": []
+      },
+      "is_fun": false,
+      "direction": "combo_over25_",
+      "components": [
+        "over25",
+        null
+      ],
+      "is_combo": true,
+      "id": "2026-06-04_5246832_fun_🎰 Combo_Plus de 2.5 buts + Marcus Thur",
+      "date": "2026-06-04",
+      "match_id": "5246832",
+      "page_url": "/matches/ivory-coast-vs-france/1hpsbj#5246832",
+      "matchup": "France vs Ivory Coast",
       "league": "Friendlies",
       "category": "fun",
       "result": "PENDING",
