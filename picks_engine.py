@@ -1186,6 +1186,84 @@ def analyze_match(match, pstats_all, player_odds_all=None):
         lam_h_match = max(0.2, ((h_gf_l5 or 1.5) + (a_ga_l5 or 1.5)) / 2)
         lam_a_match = max(0.2, ((a_gf_l5 or 1.5) + (h_ga_l5 or 1.5)) / 2)
 
+        # ── Signaux squad (top scorers + penaltyman) pour ajustements ────────
+        # Pour les selections, on lit le squad via fm_team(team_id). Donne :
+        # 1. Le penaltyman (joueur avec le + de penaltys marques)
+        # 2. Les top scorers (utilise pour detecter absences sensibles)
+        try:
+            from fotmob_client import team as fm_team
+        except Exception:
+            fm_team = None
+
+        def _team_signals(team_id):
+            if not team_id or not fm_team:
+                return {"penaltyman": None, "top_scorers": []}
+            try:
+                td = fm_team(int(team_id)) or {}
+            except Exception:
+                return {"penaltyman": None, "top_scorers": []}
+            groups = td.get("squad", {}).get("squad", []) or []
+            all_players = []
+            for g in groups:
+                if g.get("title") in ("keepers", "coach"): continue
+                for p in (g.get("members") or []):
+                    all_players.append({
+                        "name":      (p.get("name") or "").strip(),
+                        "goals":     p.get("goals") or 0,
+                        "penalties": p.get("penalties") or 0,
+                    })
+            # Penaltyman : top en penalties, mini 2 pour etre fiable
+            pman = None
+            if all_players:
+                top_p = max(all_players, key=lambda x: x["penalties"])
+                if top_p["penalties"] >= 2:
+                    pman = top_p
+            # Top scorers : joueurs avec >=5 buts cette saison
+            top_s = sorted([p for p in all_players if p["goals"] >= 5],
+                           key=lambda x: x["goals"], reverse=True)[:5]
+            return {"penaltyman": pman, "top_scorers": top_s}
+
+        h_team_id = match.get("home_id")
+        a_team_id = match.get("away_id")
+        h_sig = _team_signals(h_team_id)
+        a_sig = _team_signals(a_team_id)
+
+        # ── Ajustement λ equipe selon absences sensibles ─────────────────────
+        # Si un top scorer est dans lineup.unavailable, on reduit λ
+        def _unavailable_names(side):
+            t = lineup.get(side) or {}
+            out = set()
+            for u in (t.get("unavailable") or []):
+                nm = (u.get("name") or "").strip().lower()
+                if nm:
+                    # Si pas vraiment absent (doubtful), on l'inclut pas
+                    ret = (u.get("return") or "").lower()
+                    if "doubt" not in ret:
+                        out.add(nm)
+            return out
+
+        h_unavailable = _unavailable_names("home")
+        a_unavailable = _unavailable_names("away")
+
+        def _adjust_lambda_for_absences(lam_team, sig, unavailable_names):
+            """Reduit λ si top scorers manquent. Penalty max : -30%."""
+            if not sig.get("top_scorers"): return lam_team, []
+            total_goals = sum(p["goals"] for p in sig["top_scorers"])
+            if total_goals == 0: return lam_team, []
+            absent_share = 0
+            absent_names = []
+            for p in sig["top_scorers"]:
+                if p["name"].lower() in unavailable_names:
+                    absent_share += p["goals"] / total_goals
+                    absent_names.append(p["name"])
+            # Reduction λ : 50% de la part des absents (les remplacants
+            # compensent partiellement)
+            reduction = min(0.3, absent_share * 0.5)
+            return lam_team * (1 - reduction), absent_names
+
+        lam_h_match, h_absent_stars = _adjust_lambda_for_absences(lam_h_match, h_sig, h_unavailable)
+        lam_a_match, a_absent_stars = _adjust_lambda_for_absences(lam_a_match, a_sig, a_unavailable)
+
         # Pour les amicaux internationaux, on enrichit avec les stats CLUB
         # des joueurs (via fotmob_client.player()). Les seasonGoals/Apps de la
         # lineup sont les stats NAT TEAM (souvent 0-3 buts en 5 apps), donc
@@ -1227,9 +1305,12 @@ def analyze_match(match, pstats_all, player_odds_all=None):
                         f"{nat_g}G en {nat_a} matchs selection")
             return (None, None, None)
 
-        def _friendly_player_picks(side, team_name, lam_team_match, side_absent):
+        def _friendly_player_picks(side, team_name, lam_team_match, side_absent, sig):
             picks_out = []
             t = lineup.get(side) or {}
+            pman = (sig or {}).get("penaltyman")
+            pman_name = (pman or {}).get("name", "").lower() if pman else ""
+            pman_pen = (pman or {}).get("penalties", 0) if pman else 0
             for s in (t.get("starters") or []):
                 name = s.get("name") or ""
                 pos_id = s.get("pos_id") or 0
@@ -1239,6 +1320,13 @@ def analyze_match(match, pstats_all, player_odds_all=None):
                 lam_player, source, descr = _player_lambda(s)
                 if lam_player is None or lam_player < 0.15:
                     continue
+                # Boost si penaltyman attitre (>=2 penalties tires cette saison) :
+                # un buteur designe sur penalty a ~15% de chance de marquer un
+                # penalty / match en plus d'un but normal -> boost λ de 15%.
+                is_penaltyman = (name.lower() == pman_name and pman_pen >= 2)
+                if is_penaltyman:
+                    lam_player = lam_player * 1.15
+                    descr = f"{descr} + penaltyman ({pman_pen} pens cette saison)"
                 # Ajuste λ selon attendu de l'equipe ce match
                 # (calibration : equipe joue typiquement ~1.5 buts/m en club)
                 lam_p_match = lam_player * (lam_team_match / 1.5)
@@ -1247,6 +1335,7 @@ def analyze_match(match, pstats_all, player_odds_all=None):
 
                 conf_scores = round(p_scores * 100)
                 if conf_scores >= 50:
+                    pen_tag = " (penaltyman)" if is_penaltyman else ""
                     picks_out.append({
                         "kind": "marque",
                         "name": name,
@@ -1256,7 +1345,7 @@ def analyze_match(match, pstats_all, player_odds_all=None):
                         "conf": min(82, conf_scores),
                         "p":    p_scores,
                         "reasoning": (
-                            f"{name} : {descr} ({lam_player:.2f} buts/m, source: {source}). "
+                            f"{name}{pen_tag} : {descr} ({lam_player:.2f} buts/m, source: {source}). "
                             f"Avec un attendu de {lam_team_match:.1f} buts pour {team_name}, "
                             f"sa probabilite de marquer est ~{conf_scores}%."
                         ),
@@ -1279,8 +1368,8 @@ def analyze_match(match, pstats_all, player_odds_all=None):
                     })
             return picks_out
 
-        h_friendly_picks = _friendly_player_picks("home", home, lam_h_match, set())
-        a_friendly_picks = _friendly_player_picks("away", away, lam_a_match, set())
+        h_friendly_picks = _friendly_player_picks("home", home, lam_h_match, h_unavailable, h_sig)
+        a_friendly_picks = _friendly_player_picks("away", away, lam_a_match, a_unavailable, a_sig)
         # On stocke pour merger plus bas avec home_players/away_players
         # (qui sont vides pour les nat teams)
         friendly_picks = sorted(h_friendly_picks + a_friendly_picks,

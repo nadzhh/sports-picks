@@ -1480,6 +1480,23 @@ def _pick_id_nba(p, game):
     return f"n_{gid}_{p.get('player','?')}_{p.get('prop','?')}_{p.get('direction','?')}_{p.get('line','?')}"
 
 
+_TIER_BADGE = {
+    "safe": ("🛡️ SAFE",  "#22c55e", "Forte proba (≥70%) ET cote contenue (≤1.85). Le coeur d'une bankroll."),
+    "ok":   ("🎯 OK",     "#3b82f6", "Value pick : conf 55-70%, cote moyenne 1.80-2.50. Ratio risque/rendement equilibre."),
+    "fun":  ("🎲 FUN",    "#f97316", "Long shot. Cote >=2.6 OU conf <55. A doser sur la bankroll."),
+}
+
+def tier_badge(pick):
+    tier = pick.get("tier")
+    if not tier or tier not in _TIER_BADGE: return ""
+    txt, color, tip = _TIER_BADGE[tier]
+    return (
+        f'<span title="{tip}" style="display:inline-block;background:{color}1f;'
+        f'color:{color};border:1px solid {color};border-radius:4px;'
+        f'padding:1px 6px;font-size:10px;font-weight:700;margin-left:6px;vertical-align:middle">{txt}</span>'
+    )
+
+
 def build_team_pick(p, ai_txt="", match_ctx=None):
     c     = p["confidence"]
     color = conf_color(c)
@@ -1535,6 +1552,7 @@ def build_team_pick(p, ai_txt="", match_ctx=None):
         f'<div style="display:flex;align-items:center;flex-wrap:wrap;gap:4px">'
         f'<span style="color:{color};font-weight:700;font-size:15px">{p["label"]}</span>'
         f'{cote_block}'
+        f'{tier_badge(p)}'
         f'<span class="new-badge" style="display:none;background:#fb923c;color:#0a1628;border-radius:4px;padding:1px 6px;font-size:10px;font-weight:800;margin-left:6px">🆕 NOUVEAU</span>'
         f'<span style="color:#475569;font-size:12px;margin-left:6px">{p["type"]}</span>'
         f'</div>'
@@ -1645,6 +1663,7 @@ def build_player_pick(p, ai_analyses=None, match_ctx=None):
         f'<span>{icon}</span>{pos_b}'
         f'<span style="color:{color};font-weight:600;font-size:14px">{p["label"]}</span>'
         f'{cote_b}'
+        f'{tier_badge(p)}'
         f'<span class="new-badge" style="display:none;background:#fb923c;color:#0a1628;border-radius:4px;padding:1px 6px;font-size:10px;font-weight:800;margin-left:6px">🆕</span>'
         f'<span style="color:#475569;font-size:12px;margin-left:4px">{type_}</span>'
         f'{sub_b}'
