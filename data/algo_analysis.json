@@ -1,18 +1,18 @@
 {
-  "generated_at": "2026-06-05T07:17:25.534383",
-  "n_total": 478,
+  "generated_at": "2026-06-05T07:39:40.045555",
+  "n_total": 479,
   "globals": {
     "foot": {
-      "n": 255,
+      "n": 256,
       "w": 143,
-      "l": 108,
+      "l": 109,
       "push": 4,
-      "wr": 57.0,
-      "roi": 7.2,
-      "profit": 18.45,
+      "wr": 56.7,
+      "roi": 6.8,
+      "profit": 17.45,
       "avg_cote": 2.3,
       "break_even_wr": 43.5,
-      "wr_vs_be": 13.4
+      "wr_vs_be": 13.2
     },
     "nba": {
       "n": 115,
@@ -70,18 +70,18 @@
         "calibration_gap": -21.6
       },
       "70-79": {
-        "n": 93,
+        "n": 94,
         "w": 66,
-        "l": 24,
+        "l": 25,
         "push": 3,
-        "wr": 73.3,
-        "roi": 27.2,
-        "profit": 25.32,
+        "wr": 72.5,
+        "roi": 25.9,
+        "profit": 24.32,
         "avg_cote": 1.53,
         "break_even_wr": 65.6,
-        "wr_vs_be": 7.8,
+        "wr_vs_be": 7.0,
         "expected_wr": 74.5,
-        "calibration_gap": -1.2
+        "calibration_gap": -2.0
       },
       "80-89": {
         "n": 44,
@@ -367,18 +367,6 @@
         "break_even_wr": 58.0,
         "wr_vs_be": -8.0
       },
-      "Forme superieure": {
-        "n": 5,
-        "w": 2,
-        "l": 3,
-        "push": 0,
-        "wr": 40.0,
-        "roi": -28.0,
-        "profit": -1.4,
-        "avg_cote": null,
-        "break_even_wr": null,
-        "wr_vs_be": null
-      },
       "Victoire extérieur": {
         "n": 16,
         "w": 6,
@@ -390,6 +378,18 @@
         "avg_cote": 2.63,
         "break_even_wr": 38.0,
         "wr_vs_be": -0.5
+      },
+      "Forme superieure": {
+        "n": 6,
+        "w": 2,
+        "l": 4,
+        "push": 0,
+        "wr": 33.3,
+        "roi": -40.0,
+        "profit": -2.4,
+        "avg_cote": null,
+        "break_even_wr": null,
+        "wr_vs_be": null
       },
       "Victoire domicile": {
         "n": 4,
@@ -675,13 +675,13 @@
     "foot": {
       "league": {
         "Friendlies": {
-          "n": 6,
+          "n": 7,
           "w": 3,
-          "l": 3,
+          "l": 4,
           "push": 0,
-          "wr": 50.0,
-          "roi": -10.0,
-          "profit": -0.6,
+          "wr": 42.9,
+          "roi": -22.9,
+          "profit": -1.6,
           "avg_cote": null,
           "break_even_wr": null,
           "wr_vs_be": null
@@ -833,16 +833,16 @@
       },
       "direction": {
         "home_win": {
-          "n": 9,
+          "n": 10,
           "w": 4,
-          "l": 5,
+          "l": 6,
           "push": 0,
-          "wr": 44.4,
-          "roi": -32.7,
-          "profit": -2.94,
+          "wr": 40.0,
+          "roi": -39.4,
+          "profit": -3.94,
           "avg_cote": 1.4,
           "break_even_wr": 71.2,
-          "wr_vs_be": -26.8
+          "wr_vs_be": -31.2
         },
         "away_win": {
           "n": 20,
@@ -943,16 +943,16 @@
       },
       "is_fun": {
         "False": {
-          "n": 246,
+          "n": 247,
           "w": 140,
-          "l": 102,
+          "l": 103,
           "push": 4,
-          "wr": 57.9,
-          "roi": 6.3,
-          "profit": 15.52,
+          "wr": 57.6,
+          "roi": 5.9,
+          "profit": 14.52,
           "avg_cote": 2.14,
           "break_even_wr": 46.8,
-          "wr_vs_be": 11.1
+          "wr_vs_be": 10.8
         },
         "True": {
           "n": 9,
@@ -1410,20 +1410,20 @@
       "severity": "medium",
       "type": "context_signal",
       "scope": "foot · direction",
-      "message": "Signal contexte <b>direction</b> (foot) : direction=away_win → WR 40.0% (20 picks) vs direction=away_dc → WR 68.8% (16). Filtrer/ponderer.",
+      "message": "Signal contexte <b>direction</b> (foot) : direction=home_win → WR 40.0% (10 picks) vs direction=away_dc → WR 68.8% (16). Filtrer/ponderer.",
       "stats": {
         "worst": {
-          "away_win": {
-            "n": 20,
-            "w": 8,
-            "l": 12,
+          "home_win": {
+            "n": 10,
+            "w": 4,
+            "l": 6,
             "push": 0,
             "wr": 40.0,
-            "roi": -13.2,
-            "profit": -2.64,
-            "avg_cote": 2.52,
-            "break_even_wr": 39.7,
-            "wr_vs_be": 0.3
+            "roi": -39.4,
+            "profit": -3.94,
+            "avg_cote": 1.4,
+            "break_even_wr": 71.2,
+            "wr_vs_be": -31.2
           }
         },
         "best": {
