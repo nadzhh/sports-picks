@@ -2917,6 +2917,96 @@
   },
   {
     "league": "Friendlies",
+    "home": "Jamaica",
+    "away": "South Africa",
+    "start_ts": 1780740000,
+    "match_id": "5745231",
+    "page_url": "/matches/jamaica-vs-south-africa/17r0h7#5745231",
+    "picks": [
+      {
+        "direction": "home_win",
+        "type": "Forme superieure",
+        "label": "Jamaica gagne",
+        "cote": null,
+        "confidence": 71,
+        "reasoning": "Jamaica : 3V/0N/2D sur 5 matchs vs South Africa : 1V/2N/2D sur 5 matchs (L5 toutes competitions)",
+        "stats": {
+          "form": [
+            "L",
+            "W",
+            "L",
+            "W",
+            "W"
+          ]
+        },
+        "is_fun": false,
+        "tier": "safe"
+      },
+      {
+        "direction": "under25",
+        "type": "Total buts",
+        "label": "Moins de 2.5 buts",
+        "cote": null,
+        "confidence": 65,
+        "reasoning": "Attendu seulement 2.1 buts au total (Jamaica ~1.1, South Africa ~1.0) - P(<2.5) ~65%",
+        "stats": {
+          "form": [
+            "L",
+            "W",
+            "L",
+            "W",
+            "W"
+          ]
+        },
+        "is_fun": false,
+        "tier": "ok"
+      }
+    ],
+    "home_players": [],
+    "away_players": [],
+    "fun_picks": [
+      {
+        "type": "🎰 Combo",
+        "label": "Jamaica gagne + Moins de 2.5 buts",
+        "confidence": 48,
+        "cote": null,
+        "reasoning": "Combine 2 picks : « Jamaica gagne » (71%) + « Moins de 2.5 buts » (65%). Proba combinee ~48% (cote a verifier)",
+        "tier": "fun",
+        "stats": {
+          "form": []
+        },
+        "is_fun": false,
+        "direction": "combo_home_win_under25",
+        "components": [
+          "home_win",
+          "under25"
+        ],
+        "is_combo": true
+      }
+    ],
+    "top_pick": {
+      "direction": "home_win",
+      "type": "Forme superieure",
+      "label": "Jamaica gagne",
+      "cote": null,
+      "confidence": 71,
+      "reasoning": "Jamaica : 3V/0N/2D sur 5 matchs vs South Africa : 1V/2N/2D sur 5 matchs (L5 toutes competitions)",
+      "stats": {
+        "form": [
+          "L",
+          "W",
+          "L",
+          "W",
+          "W"
+        ]
+      },
+      "is_fun": false,
+      "tier": "safe"
+    },
+    "no_picks": false
+  },
+  {
+    "league": "Friendlies",
     "home": "Portugal",
     "away": "Chile",
     "start_ts": 1780767900,
