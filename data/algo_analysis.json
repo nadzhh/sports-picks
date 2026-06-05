@@ -1,18 +1,18 @@
 {
-  "generated_at": "2026-06-05T19:47:25.193144",
-  "n_total": 516,
+  "generated_at": "2026-06-05T20:07:13.119286",
+  "n_total": 517,
   "globals": {
     "foot": {
-      "n": 292,
+      "n": 293,
       "w": 155,
-      "l": 123,
+      "l": 124,
       "push": 14,
-      "wr": 55.8,
-      "roi": 5.3,
-      "profit": 15.54,
+      "wr": 55.6,
+      "roi": 5.0,
+      "profit": 14.54,
       "avg_cote": 2.31,
       "break_even_wr": 43.2,
-      "wr_vs_be": 12.5
+      "wr_vs_be": 12.3
     },
     "tennis": {
       "n": 109,
@@ -56,18 +56,18 @@
         "calibration_gap": -4.5
       },
       "60-69": {
-        "n": 53,
+        "n": 54,
         "w": 22,
-        "l": 28,
+        "l": 29,
         "push": 3,
-        "wr": 44.0,
-        "roi": -18.8,
-        "profit": -9.98,
+        "wr": 43.1,
+        "roi": -20.3,
+        "profit": -10.98,
         "avg_cote": 1.94,
         "break_even_wr": 51.6,
-        "wr_vs_be": -7.6,
+        "wr_vs_be": -8.5,
         "expected_wr": 64.5,
-        "calibration_gap": -20.5
+        "calibration_gap": -21.4
       },
       "70-79": {
         "n": 105,
@@ -343,18 +343,6 @@
         "break_even_wr": 70.1,
         "wr_vs_be": -1.9
       },
-      "Total buts": {
-        "n": 10,
-        "w": 3,
-        "l": 2,
-        "push": 5,
-        "wr": 60.0,
-        "roi": 4.0,
-        "profit": 0.4,
-        "avg_cote": null,
-        "break_even_wr": null,
-        "wr_vs_be": null
-      },
       "BTTS": {
         "n": 3,
         "w": 2,
@@ -378,6 +366,18 @@
         "avg_cote": 1.46,
         "break_even_wr": 68.6,
         "wr_vs_be": -2.0
+      },
+      "Total buts": {
+        "n": 11,
+        "w": 3,
+        "l": 3,
+        "push": 5,
+        "wr": 50.0,
+        "roi": -5.5,
+        "profit": -0.6,
+        "avg_cote": null,
+        "break_even_wr": null,
+        "wr_vs_be": null
       },
       "Joueur décisif": {
         "n": 24,
@@ -711,16 +711,16 @@
     "foot": {
       "league": {
         "Friendlies": {
-          "n": 32,
+          "n": 33,
           "w": 12,
-          "l": 10,
+          "l": 11,
           "push": 10,
-          "wr": 54.5,
-          "roi": 6.5,
-          "profit": 2.09,
+          "wr": 52.2,
+          "roi": 3.3,
+          "profit": 1.09,
           "avg_cote": 3.04,
           "break_even_wr": 32.8,
-          "wr_vs_be": 21.7
+          "wr_vs_be": 19.3
         },
         "Algeria Ligue 1": {
           "n": 14,
@@ -893,16 +893,16 @@
           "wr_vs_be": -25.1
         },
         "over25": {
-          "n": 11,
+          "n": 12,
           "w": 6,
-          "l": 4,
+          "l": 5,
           "push": 1,
-          "wr": 60.0,
-          "roi": 5.1,
-          "profit": 0.56,
+          "wr": 54.5,
+          "roi": -3.7,
+          "profit": -0.44,
           "avg_cote": 1.72,
           "break_even_wr": 58.0,
-          "wr_vs_be": 2.0
+          "wr_vs_be": -3.5
         },
         "under25": {
           "n": 7,
@@ -1003,16 +1003,16 @@
       },
       "is_fun": {
         "False": {
-          "n": 283,
+          "n": 284,
           "w": 152,
-          "l": 117,
+          "l": 118,
           "push": 14,
-          "wr": 56.5,
-          "roi": 4.5,
-          "profit": 12.61,
+          "wr": 56.3,
+          "roi": 4.1,
+          "profit": 11.61,
           "avg_cote": 2.16,
           "break_even_wr": 46.3,
-          "wr_vs_be": 10.2
+          "wr_vs_be": 10.0
         },
         "True": {
           "n": 9,
@@ -1220,20 +1220,20 @@
       "severity": "medium",
       "type": "miscalibrated_overconfident",
       "scope": "foot · conf 60-69",
-      "message": "Bucket conf <b>60-69</b> (foot) : modèle annonce ~64.5% mais WR réel = 44.0% (gap -20.5pp sur 53 picks). Modèle trop confiant → relever MIN_CONF ou ajuster formule.",
+      "message": "Bucket conf <b>60-69</b> (foot) : modèle annonce ~64.5% mais WR réel = 43.1% (gap -21.4pp sur 54 picks). Modèle trop confiant → relever MIN_CONF ou ajuster formule.",
       "stats": {
-        "n": 53,
+        "n": 54,
         "w": 22,
-        "l": 28,
+        "l": 29,
         "push": 3,
-        "wr": 44.0,
-        "roi": -18.8,
-        "profit": -9.98,
+        "wr": 43.1,
+        "roi": -20.3,
+        "profit": -10.98,
         "avg_cote": 1.94,
         "break_even_wr": 51.6,
-        "wr_vs_be": -7.6,
+        "wr_vs_be": -8.5,
         "expected_wr": 64.5,
-        "calibration_gap": -20.5
+        "calibration_gap": -21.4
       }
     },
     {
@@ -1392,6 +1392,24 @@
         "wr_vs_be": 19.0,
         "expected_wr": 54.5,
         "calibration_gap": -23.7
+      }
+    },
+    {
+      "severity": "medium",
+      "type": "watch_market",
+      "scope": "foot · Total buts",
+      "message": "Market <b>Total buts</b> (foot) : ROI <b>-5.5%</b> sur 11 picks (WR 50.0%). Marginalement non-rentable, à surveiller.",
+      "stats": {
+        "n": 11,
+        "w": 3,
+        "l": 3,
+        "push": 5,
+        "wr": 50.0,
+        "roi": -5.5,
+        "profit": -0.6,
+        "avg_cote": null,
+        "break_even_wr": null,
+        "wr_vs_be": null
       }
     },
     {
