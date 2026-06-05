@@ -96,6 +96,35 @@ def _resolve_team(pick, ev):
         direction = direction[4:]
     hs, as_ = _parse_score(ev.get("score"))
     if hs is None or as_ is None: return "UNKNOWN", None
+
+    # IMPORTANT : FotMob peut inverser home/away (ex: page_url "mali-vs-iran"
+    # alors que matches.json a Iran en home). On detecte le swap en comparant
+    # le nom dans le matchup du pick avec ev.home_name / ev.away_name.
+    matchup = (pick.get("matchup") or "").lower()
+    ev_home = (ev.get("home") or "").lower()
+    ev_away = (ev.get("away") or "").lower()
+    pick_home = matchup.split(" vs ")[0].strip() if " vs " in matchup else ""
+    pick_away = matchup.split(" vs ")[1].strip() if " vs " in matchup else ""
+
+    def _norm(s):
+        return "".join(c for c in (s or "").lower() if c.isalnum())
+
+    swapped = False
+    if pick_home and pick_away and ev_home and ev_away:
+        ph, pa = _norm(pick_home), _norm(pick_away)
+        eh, ea = _norm(ev_home), _norm(ev_away)
+        # Match exact ou inclusion
+        home_match = ph and (ph == eh or ph in eh or eh in ph)
+        away_match = pa and (pa == ea or pa in ea or ea in pa)
+        # Swap detection : pick home matche ev away
+        home_swap_match = ph and (ph == ea or ph in ea or ea in ph)
+        away_swap_match = pa and (pa == eh or pa in eh or eh in pa)
+        if (home_swap_match and away_swap_match) and not (home_match and away_match):
+            swapped = True
+
+    if swapped:
+        hs, as_ = as_, hs
+
     score_str = f"{hs}-{as_}"
 
     if direction == "home_win":  return ("WIN" if hs >  as_ else "LOSS"), score_str
@@ -116,6 +145,20 @@ def _resolve_team(pick, ev):
     if direction in ("under25","under_25","under2.5"):return ("WIN" if total < 2.5 else "LOSS"), f"{score_str} ({total} buts)"
     if direction in ("over35","over_35","over3.5"):  return ("WIN" if total > 3.5 else "LOSS"), f"{score_str} ({total} buts)"
     if direction in ("under35","under_35","under3.5"):return ("WIN" if total < 3.5 else "LOSS"), f"{score_str} ({total} buts)"
+
+    # "X marque plus de 1.5 buts" : 'home_over_15' = home team scored >=2
+    if direction in ("home_over_15", "home_over15"):
+        return ("WIN" if hs >= 2 else "LOSS"), f"{score_str} ({hs} buts home)"
+    if direction in ("away_over_15", "away_over15"):
+        return ("WIN" if as_ >= 2 else "LOSS"), f"{score_str} ({as_} buts away)"
+
+    # Penalty equipe : "1+ penalty marque dans le match" - on detecte via
+    # les events goals.description ou label="Penalty" dans home_goals/away_goals
+    if direction == "team_penalty":
+        all_goals = (ev.get("home_goals") or []) + (ev.get("away_goals") or [])
+        n_pens = sum(1 for g in all_goals
+                     if "penalty" in ((g.get("description") or "") + " " + (g.get("type") or "")).lower())
+        return ("WIN" if n_pens >= 1 else "LOSS"), f"{score_str} ({n_pens} penalty(s))"
 
     # First team to score (fts_home / fts_away)
     if direction in ("fts_home", "fts_away"):
@@ -287,6 +330,32 @@ def run():
             print(f"  [pending] match {mid} - pas de data FotMob")
             n_skipped += len(mpicks)
             continue
+
+        # Verification cle : la date du match retourne par FotMob doit
+        # coller au pick_date. Si FotMob renvoie un match d'une autre date
+        # (bug slug FotMob qui pointe sur un ancien match du meme matchup),
+        # on PUSH (remboursement) le pick.
+        pick_date_str = (pick_date or "")[:10]
+        ev_date_str = (ev.get("utcTime") or "")[:10]
+        if pick_date_str and ev_date_str and pick_date_str != ev_date_str:
+            # Tolere +/- 1 jour pour les decalages timezone
+            from datetime import datetime as _dt, timedelta as _td
+            try:
+                pd = _dt.strptime(pick_date_str, "%Y-%m-%d")
+                ed = _dt.strptime(ev_date_str, "%Y-%m-%d")
+                if abs((pd - ed).days) > 1:
+                    print(f"  [PUSH] match {mid} - FotMob renvoie une AUTRE date "
+                          f"(pick={pick_date_str} vs FotMob={ev_date_str}) - "
+                          f"bug slug FotMob, on rembourse")
+                    for p in mpicks:
+                        p["result"] = "PUSH"
+                        p["actual"] = f"FotMob slug pointe sur match {ev_date_str} (mauvaise data)"
+                        p["resolved_at"] = datetime.now().strftime("%Y-%m-%d %H:%M")
+                        n_resolved += 1
+                    continue
+            except Exception:
+                pass
+
         if not _is_finished(ev):
             print(f"  [pending] match {mid} - pas encore termine (score={ev.get('score')})")
             n_skipped += len(mpicks)
