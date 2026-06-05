@@ -1,18 +1,18 @@
 {
-  "generated_at": "2026-06-05T18:09:12.233078",
-  "n_total": 503,
+  "generated_at": "2026-06-05T18:38:55.207699",
+  "n_total": 504,
   "globals": {
     "foot": {
-      "n": 279,
-      "w": 145,
+      "n": 280,
+      "w": 146,
       "l": 120,
       "push": 14,
-      "wr": 54.7,
-      "roi": 2.9,
-      "profit": 8.05,
+      "wr": 54.9,
+      "roi": 3.2,
+      "profit": 8.85,
       "avg_cote": 2.3,
       "break_even_wr": 43.5,
-      "wr_vs_be": 11.2
+      "wr_vs_be": 11.4
     },
     "tennis": {
       "n": 109,
@@ -56,18 +56,18 @@
         "calibration_gap": -10.1
       },
       "60-69": {
-        "n": 48,
-        "w": 19,
+        "n": 49,
+        "w": 20,
         "l": 26,
         "push": 3,
-        "wr": 42.2,
-        "roi": -21.6,
-        "profit": -10.38,
+        "wr": 43.5,
+        "roi": -19.6,
+        "profit": -9.58,
         "avg_cote": 1.94,
         "break_even_wr": 51.6,
-        "wr_vs_be": -9.4,
+        "wr_vs_be": -8.1,
         "expected_wr": 64.5,
-        "calibration_gap": -22.3
+        "calibration_gap": -21.0
       },
       "70-79": {
         "n": 103,
@@ -307,6 +307,18 @@
         "break_even_wr": 58.6,
         "wr_vs_be": 8.0
       },
+      "Total buts": {
+        "n": 8,
+        "w": 2,
+        "l": 1,
+        "push": 5,
+        "wr": 66.7,
+        "roi": 7.5,
+        "profit": 0.6,
+        "avg_cote": null,
+        "break_even_wr": null,
+        "wr_vs_be": null
+      },
       "Double chance": {
         "n": 22,
         "w": 15,
@@ -362,18 +374,6 @@
         "push": 2,
         "wr": 50.0,
         "roi": -5.0,
-        "profit": -0.2,
-        "avg_cote": null,
-        "break_even_wr": null,
-        "wr_vs_be": null
-      },
-      "Total buts": {
-        "n": 7,
-        "w": 1,
-        "l": 1,
-        "push": 5,
-        "wr": 50.0,
-        "roi": -2.9,
         "profit": -0.2,
         "avg_cote": null,
         "break_even_wr": null,
@@ -711,13 +711,13 @@
     "foot": {
       "league": {
         "Friendlies": {
-          "n": 23,
-          "w": 5,
+          "n": 24,
+          "w": 6,
           "l": 8,
           "push": 10,
-          "wr": 38.5,
-          "roi": -17.4,
-          "profit": -4.0,
+          "wr": 42.9,
+          "roi": -13.3,
+          "profit": -3.2,
           "avg_cote": null,
           "break_even_wr": null,
           "wr_vs_be": null
@@ -893,16 +893,16 @@
           "wr_vs_be": -29.6
         },
         "over25": {
-          "n": 9,
-          "w": 4,
+          "n": 10,
+          "w": 5,
           "l": 4,
           "push": 1,
-          "wr": 50.0,
-          "roi": -11.6,
-          "profit": -1.04,
+          "wr": 55.6,
+          "roi": -2.4,
+          "profit": -0.24,
           "avg_cote": 1.72,
           "break_even_wr": 58.0,
-          "wr_vs_be": -8.0
+          "wr_vs_be": -2.5
         },
         "under25": {
           "n": 6,
@@ -1003,16 +1003,16 @@
       },
       "is_fun": {
         "False": {
-          "n": 270,
-          "w": 142,
+          "n": 271,
+          "w": 143,
           "l": 114,
           "push": 14,
-          "wr": 55.5,
-          "roi": 1.9,
-          "profit": 5.12,
+          "wr": 55.6,
+          "roi": 2.2,
+          "profit": 5.92,
           "avg_cote": 2.14,
           "break_even_wr": 46.8,
-          "wr_vs_be": 8.7
+          "wr_vs_be": 8.9
         },
         "True": {
           "n": 9,
@@ -1220,20 +1220,20 @@
       "severity": "medium",
       "type": "miscalibrated_overconfident",
       "scope": "foot · conf 60-69",
-      "message": "Bucket conf <b>60-69</b> (foot) : modèle annonce ~64.5% mais WR réel = 42.2% (gap -22.3pp sur 48 picks). Modèle trop confiant → relever MIN_CONF ou ajuster formule.",
+      "message": "Bucket conf <b>60-69</b> (foot) : modèle annonce ~64.5% mais WR réel = 43.5% (gap -21.0pp sur 49 picks). Modèle trop confiant → relever MIN_CONF ou ajuster formule.",
       "stats": {
-        "n": 48,
-        "w": 19,
+        "n": 49,
+        "w": 20,
         "l": 26,
         "push": 3,
-        "wr": 42.2,
-        "roi": -21.6,
-        "profit": -10.38,
+        "wr": 43.5,
+        "roi": -19.6,
+        "profit": -9.58,
         "avg_cote": 1.94,
         "break_even_wr": 51.6,
-        "wr_vs_be": -9.4,
+        "wr_vs_be": -8.1,
         "expected_wr": 64.5,
-        "calibration_gap": -22.3
+        "calibration_gap": -21.0
       }
     },
     {
