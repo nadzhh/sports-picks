@@ -41,9 +41,9 @@
         "book": null,
         "books": [],
         "confidence": 80,
-        "reasoning": "10 buts en 7 matchs cette saison (142.9% de chance/match) · xG moyen 0.00/match · défense fragile",
+        "reasoning": "10 buts en 7 matchs cette saison (142.9% de chance/match) · xG moyen 0.00/match · défense correcte",
         "context": {
-          "weakness": 0.51
+          "weakness": 0.47
         },
         "stats": {
           "goals": 10,
@@ -66,9 +66,9 @@
         "book": null,
         "books": [],
         "confidence": 79,
-        "reasoning": "9 buts en 7 matchs cette saison (128.6% de chance/match) · xG moyen 0.00/match, face à une défense qui concède 1.8 buts/match · défense fragile",
+        "reasoning": "9 buts en 7 matchs cette saison (128.6% de chance/match) · xG moyen 0.00/match, défense adverse poreuse (1.7 buts concédés/match) · défense fragile",
         "context": {
-          "weakness": 0.61
+          "weakness": 0.6
         },
         "stats": {
           "goals": 9,
@@ -173,9 +173,9 @@
         "book": null,
         "books": [],
         "confidence": 78,
-        "reasoning": "8 buts en 6 matchs cette saison (133.3% de chance/match) · xG moyen 0.00/match, défense adverse poreuse (1.3 buts concédés/match) · défense correcte",
+        "reasoning": "8 buts en 6 matchs cette saison (133.3% de chance/match) · xG moyen 0.00/match · défense correcte",
         "context": {
-          "weakness": 0.46
+          "weakness": 0.45
         },
         "stats": {
           "goals": 8,
@@ -471,7 +471,7 @@
         "confidence": 74,
         "reasoning": "⚽ Penaltyman · 5 buts en 5 matchs cette saison (100.0% de chance/match) · xG moyen 0.00/match · défense correcte",
         "context": {
-          "weakness": 0.44
+          "weakness": 0.46
         },
         "stats": {
           "goals": 5,
@@ -530,77 +530,6 @@
         "player_b": "Ahmed Kerroum"
       },
       "team": "home",
-      "tier": "safe"
-    },
-    "no_picks": false
-  },
-  {
-    "league": "Friendlies",
-    "home": "Tajikistan",
-    "away": "India",
-    "start_ts": 1780671600,
-    "match_id": "5737470",
-    "page_url": "/matches/tajikistan-vs-india/18ievz#5737470",
-    "picks": [
-      {
-        "direction": "home_win",
-        "type": "Forme superieure",
-        "label": "Tajikistan gagne",
-        "cote": null,
-        "confidence": 85,
-        "reasoning": "Tajikistan : 3V/2N/0D sur 5 matchs vs India : 1V/0N/4D sur 5 matchs (L5 toutes competitions)",
-        "stats": {
-          "form": [
-            "D",
-            "W",
-            "W",
-            "W",
-            "D"
-          ]
-        },
-        "is_fun": false,
-        "tier": "safe"
-      },
-      {
-        "direction": "home_over_15",
-        "type": "Buteur equipe",
-        "label": "Tajikistan marque plus de 1.5 buts",
-        "cote": null,
-        "confidence": 64,
-        "reasoning": "Tajikistan attendu a ~2.0 buts (marque 2.6/m sur L5, India encaisse 1.4/m) - P(2+ buts) ~59%",
-        "stats": {
-          "form": [
-            "D",
-            "W",
-            "W",
-            "W",
-            "D"
-          ]
-        },
-        "is_fun": false,
-        "tier": "ok"
-      }
-    ],
-    "home_players": [],
-    "away_players": [],
-    "fun_picks": [],
-    "top_pick": {
-      "direction": "home_win",
-      "type": "Forme superieure",
-      "label": "Tajikistan gagne",
-      "cote": null,
-      "confidence": 85,
-      "reasoning": "Tajikistan : 3V/2N/0D sur 5 matchs vs India : 1V/0N/4D sur 5 matchs (L5 toutes competitions)",
-      "stats": {
-        "form": [
-          "D",
-          "W",
-          "W",
-          "W",
-          "D"
-        ]
-      },
-      "is_fun": false,
       "tier": "safe"
     },
     "no_picks": false
@@ -672,7 +601,58 @@
       }
     ],
     "home_players": [],
-    "away_players": [],
+    "away_players": [
+      {
+        "player": "Lukas Petkov",
+        "position": "F",
+        "is_sub": false,
+        "type": "Buteur",
+        "label": "Lukas Petkov marque",
+        "cote": 1.5,
+        "book": null,
+        "books": [],
+        "confidence": 67,
+        "reasoning": "Lukas Petkov : 6G en 10 matchs club (0.60 buts/m, source: L10 2. Bundesliga). Avec un attendu de 2.8 buts pour Bulgaria, sa probabilite de marquer est ~67%.",
+        "context": {
+          "source": "lineup",
+          "lam": 1.1
+        },
+        "stats": {
+          "goals": null,
+          "apps": null,
+          "gpm": 1.1,
+          "xgpm": null
+        },
+        "team": "away",
+        "tier": "ok",
+        "edge_pp": 0.3
+      },
+      {
+        "player": "Lukas Petkov",
+        "position": "F",
+        "is_sub": false,
+        "type": "Double buteur",
+        "label": "Lukas Petkov marque 2+ buts",
+        "cote": 3.32,
+        "book": null,
+        "books": [],
+        "confidence": 40,
+        "reasoning": "Lukas Petkov : 6G en 10 matchs club (0.60/m, source: L10 2. Bundesliga). Attendu ~1.1 buts ce match - P(2+ buts) ~30% (cote interessante).",
+        "context": {
+          "source": "lineup",
+          "lam": 1.1
+        },
+        "stats": {
+          "goals": null,
+          "apps": null,
+          "gpm": 1.1,
+          "xgpm": null
+        },
+        "team": "away",
+        "tier": "fun",
+        "edge_pp": 9.9
+      }
+    ],
     "fun_picks": [],
     "top_pick": {
       "direction": "away_win",
