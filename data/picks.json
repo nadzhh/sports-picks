@@ -1083,7 +1083,58 @@
         "tier": "ok"
       }
     ],
-    "home_players": [],
+    "home_players": [
+      {
+        "player": "Harry Kane",
+        "position": "F",
+        "is_sub": false,
+        "type": "Buteur",
+        "label": "Harry Kane marque",
+        "cote": 1.23,
+        "book": null,
+        "books": [],
+        "confidence": 81,
+        "reasoning": "Harry Kane : 12G en 10 matchs club (1.20 buts/m, source: L10 Bundesliga). Avec un attendu de 2.1 buts pour England, sa probabilite de marquer est ~81%.",
+        "context": {
+          "source": "lineup",
+          "lam": 1.68
+        },
+        "stats": {
+          "goals": null,
+          "apps": null,
+          "gpm": 1.68,
+          "xgpm": null
+        },
+        "team": "home",
+        "tier": "safe",
+        "edge_pp": -0.3
+      },
+      {
+        "player": "Harry Kane",
+        "position": "F",
+        "is_sub": false,
+        "type": "Double buteur",
+        "label": "Harry Kane marque 2+ buts",
+        "cote": 2.0,
+        "book": null,
+        "books": [],
+        "confidence": 60,
+        "reasoning": "Harry Kane : 12G en 10 matchs club (1.20/m, source: L10 Bundesliga). Attendu ~1.7 buts ce match - P(2+ buts) ~50% (cote interessante).",
+        "context": {
+          "source": "lineup",
+          "lam": 1.68
+        },
+        "stats": {
+          "goals": null,
+          "apps": null,
+          "gpm": 1.68,
+          "xgpm": null
+        },
+        "team": "home",
+        "tier": "ok",
+        "edge_pp": 10.0
+      }
+    ],
     "away_players": [],
     "fun_picks": [],
     "top_pick": {
@@ -1445,54 +1496,29 @@
     "home_players": [],
     "away_players": [
       {
-        "player": "Deniz Undav",
+        "player": "Kai Havertz",
         "position": "F",
         "is_sub": false,
         "type": "Buteur",
-        "label": "Deniz Undav marque",
-        "cote": 1.53,
+        "label": "Kai Havertz marque",
+        "cote": 1.75,
         "book": null,
         "books": [],
-        "confidence": 65,
-        "reasoning": "Deniz Undav : 5G en 10 matchs club (0.50 buts/m, source: L10 Bundesliga). Avec un attendu de 3.2 buts pour Germany, sa probabilite de marquer est ~65%.",
+        "confidence": 57,
+        "reasoning": "Kai Havertz : 4G en 10 matchs club (0.40 buts/m, source: L10 Premier League). Avec un attendu de 3.2 buts pour Germany, sa probabilite de marquer est ~57%.",
         "context": {
           "source": "lineup",
-          "lam": 1.06
+          "lam": 0.85
         },
         "stats": {
           "goals": null,
           "apps": null,
-          "gpm": 1.063,
+          "gpm": 0.851,
           "xgpm": null
         },
         "team": "away",
         "tier": "ok",
-        "edge_pp": -0.4
-      },
-      {
-        "player": "Deniz Undav",
-        "position": "F",
-        "is_sub": false,
-        "type": "Double buteur",
-        "label": "Deniz Undav marque 2+ buts",
-        "cote": 3.48,
-        "book": null,
-        "books": [],
-        "confidence": 39,
-        "reasoning": "Deniz Undav : 5G en 10 matchs club (0.50/m, source: L10 Bundesliga). Attendu ~1.1 buts ce match - P(2+ buts) ~29% (cote interessante).",
-        "context": {
-          "source": "lineup",
-          "lam": 1.06
-        },
-        "stats": {
-          "goals": null,
-          "apps": null,
-          "gpm": 1.063,
-          "xgpm": null
-        },
-        "team": "away",
-        "tier": "fun",
-        "edge_pp": 10.3
+        "edge_pp": -0.1
       }
     ],
     "fun_picks": [],
@@ -3979,7 +4005,7 @@
     "league": "Friendlies",
     "home": "Vanuatu",
     "away": "Fiji",
-    "start_ts": 1780740000,
+    "start_ts": 1780718400,
     "match_id": "5737560",
     "page_url": "/matches/fiji-vs-vanuatu/15tdmw#5737560",
     "picks": [],
