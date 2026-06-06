@@ -107,6 +107,89 @@
     "no_picks": false
   },
   {
+    "league": "Uruguay Primera",
+    "home": "Club Atlético Progreso",
+    "away": "Albion",
+    "start_ts": 1780837200,
+    "match_id": "5670412",
+    "page_url": "/matches/club-atletico-progreso-vs-albion/5hae5lyg#5670412",
+    "picks": [],
+    "home_players": [],
+    "away_players": [
+      {
+        "player": "Alvaro Lopez / Carlos Airala",
+        "position": "",
+        "is_sub": false,
+        "type": "Double Chance Buteur",
+        "label": "Alvaro Lopez ou Carlos Airala marque",
+        "cote": null,
+        "book": null,
+        "books": [],
+        "confidence": 91,
+        "cote_min": 1.1,
+        "reasoning": "📈 P(Alvaro Lopez marque) ≈ 76% · P(Carlos Airala marque) ≈ 62%\n🎯 P(au moins un marque) = 91% (calculée par 1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.1 - chercher ≥1.1 chez le bookmaker",
+        "context": {},
+        "stats": {
+          "p_a": 0.765,
+          "p_b": 0.622,
+          "p_or": 0.911,
+          "player_a": "Alvaro Lopez",
+          "player_b": "Carlos Airala"
+        },
+        "team": "away",
+        "tier": "safe"
+      },
+      {
+        "player": "Alvaro Lopez",
+        "position": "F",
+        "is_sub": false,
+        "type": "Buteur",
+        "label": "Alvaro Lopez marque",
+        "cote": null,
+        "book": null,
+        "books": [],
+        "confidence": 76,
+        "reasoning": "11 buts en 9 matchs cette saison (122.2% de chance/match) · xG moyen 0.00/match, défense adverse poreuse (1.6 buts concédés/match) · défense correcte",
+        "context": {
+          "weakness": 0.43
+        },
+        "stats": {
+          "goals": 11,
+          "apps": 9,
+          "gpm": 1.222,
+          "xgpm": 0
+        },
+        "team": "away",
+        "tier": "safe"
+      }
+    ],
+    "fun_picks": [],
+    "top_pick": {
+      "player": "Alvaro Lopez / Carlos Airala",
+      "position": "",
+      "is_sub": false,
+      "type": "Double Chance Buteur",
+      "label": "Alvaro Lopez ou Carlos Airala marque",
+      "cote": null,
+      "book": null,
+      "books": [],
+      "confidence": 91,
+      "cote_min": 1.1,
+      "reasoning": "📈 P(Alvaro Lopez marque) ≈ 76% · P(Carlos Airala marque) ≈ 62%\n🎯 P(au moins un marque) = 91% (calculée par 1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.1 - chercher ≥1.1 chez le bookmaker",
+      "context": {},
+      "stats": {
+        "p_a": 0.765,
+        "p_b": 0.622,
+        "p_or": 0.911,
+        "player_a": "Alvaro Lopez",
+        "player_b": "Carlos Airala"
+      },
+      "team": "away",
+      "tier": "safe"
+    },
+    "no_picks": false
+  },
+  {
     "league": "Algeria Ligue 1",
     "home": "MC Oran",
     "away": "USM Alger",
@@ -215,77 +298,6 @@
   },
   {
     "league": "Friendlies",
-    "home": "Puerto Rico",
-    "away": "Saudi Arabia",
-    "start_ts": 1780700400,
-    "match_id": "5737559",
-    "page_url": "/matches/puerto-rico-vs-saudi-arabia/1io7zv#5737559",
-    "picks": [
-      {
-        "direction": "home_win",
-        "type": "Forme superieure",
-        "label": "Puerto Rico gagne",
-        "cote": null,
-        "confidence": 85,
-        "reasoning": "Puerto Rico : 3V/0N/2D sur 5 matchs vs Saudi Arabia : 0V/1N/4D sur 5 matchs (L5 toutes competitions)",
-        "stats": {
-          "form": [
-            "W",
-            "W",
-            "L",
-            "W",
-            "L"
-          ]
-        },
-        "is_fun": false,
-        "tier": "safe"
-      },
-      {
-        "direction": "home_over_15",
-        "type": "Buteur equipe",
-        "label": "Puerto Rico marque plus de 1.5 buts",
-        "cote": null,
-        "confidence": 56,
-        "reasoning": "Puerto Rico attendu a ~1.7 buts (marque 1.6/m sur L5, Saudi Arabia encaisse 1.8/m) - P(2+ buts) ~51%",
-        "stats": {
-          "form": [
-            "W",
-            "W",
-            "L",
-            "W",
-            "L"
-          ]
-        },
-        "is_fun": false,
-        "tier": "ok"
-      }
-    ],
-    "home_players": [],
-    "away_players": [],
-    "fun_picks": [],
-    "top_pick": {
-      "direction": "home_win",
-      "type": "Forme superieure",
-      "label": "Puerto Rico gagne",
-      "cote": null,
-      "confidence": 85,
-      "reasoning": "Puerto Rico : 3V/0N/2D sur 5 matchs vs Saudi Arabia : 0V/1N/4D sur 5 matchs (L5 toutes competitions)",
-      "stats": {
-        "form": [
-          "W",
-          "W",
-          "L",
-          "W",
-          "L"
-        ]
-      },
-      "is_fun": false,
-      "tier": "safe"
-    },
-    "no_picks": false
-  },
-  {
-    "league": "Friendlies",
     "home": "Armenia",
     "away": "Kazakhstan",
     "start_ts": 1780754400,
@@ -367,6 +379,77 @@
           "L",
           "D",
           "D"
+        ]
+      },
+      "is_fun": false,
+      "tier": "safe"
+    },
+    "no_picks": false
+  },
+  {
+    "league": "Friendlies",
+    "home": "Argentina",
+    "away": "Honduras",
+    "start_ts": 1780790400,
+    "match_id": "5656195",
+    "page_url": "/matches/honduras-vs-argentina/1amiqt#5656195",
+    "picks": [
+      {
+        "direction": "home_win",
+        "type": "Forme superieure",
+        "label": "Argentina gagne",
+        "cote": null,
+        "confidence": 85,
+        "reasoning": "Argentina : 5V/0N/0D sur 5 matchs vs Honduras : 1V/3N/1D sur 5 matchs (L5 toutes competitions)",
+        "stats": {
+          "form": [
+            "W",
+            "W",
+            "W",
+            "W",
+            "W"
+          ]
+        },
+        "is_fun": false,
+        "tier": "safe"
+      },
+      {
+        "direction": "home_over_15",
+        "type": "Buteur equipe",
+        "label": "Argentina marque plus de 1.5 buts",
+        "cote": null,
+        "confidence": 64,
+        "reasoning": "Argentina attendu a ~2.0 buts (marque 3.2/m sur L5, Honduras encaisse 0.8/m) - P(2+ buts) ~59%",
+        "stats": {
+          "form": [
+            "W",
+            "W",
+            "W",
+            "W",
+            "W"
+          ]
+        },
+        "is_fun": false,
+        "tier": "ok"
+      }
+    ],
+    "home_players": [],
+    "away_players": [],
+    "fun_picks": [],
+    "top_pick": {
+      "direction": "home_win",
+      "type": "Forme superieure",
+      "label": "Argentina gagne",
+      "cote": null,
+      "confidence": 85,
+      "reasoning": "Argentina : 5V/0N/0D sur 5 matchs vs Honduras : 1V/3N/1D sur 5 matchs (L5 toutes competitions)",
+      "stats": {
+        "form": [
+          "W",
+          "W",
+          "W",
+          "W",
+          "W"
         ]
       },
       "is_fun": false,
@@ -988,6 +1071,77 @@
   },
   {
     "league": "Friendlies",
+    "home": "Ecuador",
+    "away": "Guatemala",
+    "start_ts": 1780862400,
+    "match_id": "5349852",
+    "page_url": "/matches/guatemala-vs-ecuador/1b087u#5349852",
+    "picks": [
+      {
+        "direction": "home_win",
+        "type": "Forme superieure",
+        "label": "Ecuador gagne",
+        "cote": null,
+        "confidence": 79,
+        "reasoning": "Ecuador : 2V/3N/0D sur 5 matchs vs Guatemala : 1V/0N/4D sur 5 matchs (L5 toutes competitions)",
+        "stats": {
+          "form": [
+            "W",
+            "D",
+            "D",
+            "W",
+            "D"
+          ]
+        },
+        "is_fun": false,
+        "tier": "safe"
+      },
+      {
+        "direction": "home_over_15",
+        "type": "Buteur equipe",
+        "label": "Ecuador marque plus de 1.5 buts",
+        "cote": null,
+        "confidence": 67,
+        "reasoning": "Ecuador attendu a ~2.1 buts (marque 1.2/m sur L5, Guatemala encaisse 3.0/m) - P(2+ buts) ~62%",
+        "stats": {
+          "form": [
+            "W",
+            "D",
+            "D",
+            "W",
+            "D"
+          ]
+        },
+        "is_fun": false,
+        "tier": "ok"
+      }
+    ],
+    "home_players": [],
+    "away_players": [],
+    "fun_picks": [],
+    "top_pick": {
+      "direction": "home_win",
+      "type": "Forme superieure",
+      "label": "Ecuador gagne",
+      "cote": null,
+      "confidence": 79,
+      "reasoning": "Ecuador : 2V/3N/0D sur 5 matchs vs Guatemala : 1V/0N/4D sur 5 matchs (L5 toutes competitions)",
+      "stats": {
+        "form": [
+          "W",
+          "D",
+          "D",
+          "W",
+          "D"
+        ]
+      },
+      "is_fun": false,
+      "tier": "safe"
+    },
+    "no_picks": false
+  },
+  {
+    "league": "Friendlies",
     "home": "Ethiopia",
     "away": "Malawi",
     "start_ts": 1780747200,
@@ -1430,72 +1584,61 @@
     "no_picks": false
   },
   {
-    "league": "Friendlies",
-    "home": "Tanzania",
-    "away": "Uganda",
-    "start_ts": 1780653600,
-    "match_id": "5737599",
-    "page_url": "/matches/uganda-vs-tanzania/1kye5d#5737599",
-    "picks": [
+    "league": "Uruguay Primera",
+    "home": "Defensor Sporting",
+    "away": "Boston River",
+    "start_ts": 1780867800,
+    "match_id": "5670403",
+    "page_url": "/matches/defensor-sporting-vs-boston-river/8u0qehb#5670403",
+    "picks": [],
+    "home_players": [
       {
-        "direction": "home_win",
-        "type": "Forme superieure",
-        "label": "Tanzania gagne",
+        "player": "Brian Montenegro",
+        "position": "F",
+        "is_sub": false,
+        "type": "Buteur",
+        "label": "Brian Montenegro marque",
         "cote": null,
+        "book": null,
+        "books": [],
         "confidence": 71,
-        "reasoning": "Tanzania : 1V/2N/2D sur 5 matchs vs Uganda : 0V/1N/4D sur 5 matchs (L5 toutes competitions)",
-        "stats": {
-          "form": [
-            "W",
-            "L",
-            "L",
-            "D",
-            "D"
-          ]
+        "reasoning": "6 buts en 6 matchs cette saison (100.0% de chance/match) · xG moyen 0.00/match, défense adverse poreuse (1.4 buts concédés/match) · défense correcte",
+        "context": {
+          "weakness": 0.41
         },
-        "is_fun": false,
+        "stats": {
+          "goals": 6,
+          "apps": 6,
+          "gpm": 1.0,
+          "xgpm": 0
+        },
+        "team": "home",
         "tier": "safe"
-      },
-      {
-        "direction": "home_over_15",
-        "type": "Buteur equipe",
-        "label": "Tanzania marque plus de 1.5 buts",
-        "cote": null,
-        "confidence": 67,
-        "reasoning": "Tanzania attendu a ~2.1 buts (marque 1.6/m sur L5, Uganda encaisse 2.6/m) - P(2+ buts) ~62%",
-        "stats": {
-          "form": [
-            "W",
-            "L",
-            "L",
-            "D",
-            "D"
-          ]
-        },
-        "is_fun": false,
-        "tier": "ok"
       }
     ],
-    "home_players": [],
     "away_players": [],
     "fun_picks": [],
     "top_pick": {
-      "direction": "home_win",
-      "type": "Forme superieure",
-      "label": "Tanzania gagne",
+      "player": "Brian Montenegro",
+      "position": "F",
+      "is_sub": false,
+      "type": "Buteur",
+      "label": "Brian Montenegro marque",
       "cote": null,
+      "book": null,
+      "books": [],
       "confidence": 71,
-      "reasoning": "Tanzania : 1V/2N/2D sur 5 matchs vs Uganda : 0V/1N/4D sur 5 matchs (L5 toutes competitions)",
-      "stats": {
-        "form": [
-          "W",
-          "L",
-          "L",
-          "D",
-          "D"
-        ]
+      "reasoning": "6 buts en 6 matchs cette saison (100.0% de chance/match) · xG moyen 0.00/match, défense adverse poreuse (1.4 buts concédés/match) · défense correcte",
+      "context": {
+        "weakness": 0.41
       },
-      "is_fun": false,
+      "stats": {
+        "goals": 6,
+        "apps": 6,
+        "gpm": 1.0,
+        "xgpm": 0
+      },
+      "team": "home",
       "tier": "safe"
     },
     "no_picks": false
@@ -1654,6 +1797,385 @@
           "W",
           "W",
           "W"
+        ]
+      },
+      "is_fun": false,
+      "tier": "safe"
+    },
+    "no_picks": false
+  },
+  {
+    "league": "Friendlies",
+    "home": "Croatia",
+    "away": "Slovenia",
+    "start_ts": 1780857900,
+    "match_id": "5159769",
+    "page_url": "/matches/slovenia-vs-croatia/23nxao#5159769",
+    "picks": [
+      {
+        "direction": "home_win",
+        "type": "Forme superieure",
+        "label": "Croatia gagne",
+        "cote": null,
+        "confidence": 71,
+        "reasoning": "Croatia : 3V/0N/2D sur 5 matchs vs Slovenia : 1V/2N/2D sur 5 matchs (L5 toutes competitions)",
+        "stats": {
+          "form": [
+            "L",
+            "L",
+            "W",
+            "W",
+            "W"
+          ]
+        },
+        "is_fun": false,
+        "tier": "safe"
+      },
+      {
+        "direction": "btts_yes",
+        "type": "BTTS",
+        "label": "Les 2 equipes marquent",
+        "cote": null,
+        "confidence": 60,
+        "reasoning": "P(Croatia marque) 80% x P(Slovenia marque) 75% = ~60%",
+        "stats": {
+          "form": [
+            "L",
+            "L",
+            "W",
+            "W",
+            "W"
+          ]
+        },
+        "is_fun": false,
+        "tier": "ok"
+      },
+      {
+        "direction": "home_over_15",
+        "type": "Buteur equipe",
+        "label": "Croatia marque plus de 1.5 buts",
+        "cote": null,
+        "confidence": 53,
+        "reasoning": "Croatia attendu a ~1.6 buts (marque 1.8/m sur L5, Slovenia encaisse 1.4/m) - P(2+ buts) ~48%",
+        "stats": {
+          "form": [
+            "L",
+            "L",
+            "W",
+            "W",
+            "W"
+          ]
+        },
+        "is_fun": false,
+        "tier": "fun"
+      }
+    ],
+    "home_players": [],
+    "away_players": [
+      {
+        "player": "Zan Vipotnik",
+        "position": "F",
+        "is_sub": false,
+        "type": "Buteur",
+        "label": "Zan Vipotnik marque",
+        "cote": 1.79,
+        "book": null,
+        "books": [],
+        "confidence": 56,
+        "reasoning": "Zan Vipotnik : 8G en 10 matchs club (0.80 buts/m, source: L10 Championship). Avec un attendu de 1.5 buts pour Slovenia, sa probabilite de marquer est ~56%.",
+        "context": {
+          "source": "lineup",
+          "lam": 0.82
+        },
+        "stats": {
+          "goals": null,
+          "apps": null,
+          "gpm": 0.821,
+          "xgpm": null
+        },
+        "team": "away",
+        "tier": "ok",
+        "edge_pp": 0.1
+      }
+    ],
+    "fun_picks": [],
+    "top_pick": {
+      "direction": "home_win",
+      "type": "Forme superieure",
+      "label": "Croatia gagne",
+      "cote": null,
+      "confidence": 71,
+      "reasoning": "Croatia : 3V/0N/2D sur 5 matchs vs Slovenia : 1V/2N/2D sur 5 matchs (L5 toutes competitions)",
+      "stats": {
+        "form": [
+          "L",
+          "L",
+          "W",
+          "W",
+          "W"
+        ]
+      },
+      "is_fun": false,
+      "tier": "safe"
+    },
+    "no_picks": false
+  },
+  {
+    "league": "Friendlies",
+    "home": "Greece",
+    "away": "Italy",
+    "start_ts": 1780858800,
+    "match_id": "5477270",
+    "page_url": "/matches/greece-vs-italy/1rcn86#5477270",
+    "picks": [
+      {
+        "direction": "away_win",
+        "type": "Forme superieure",
+        "label": "Italy gagne",
+        "cote": null,
+        "confidence": 71,
+        "reasoning": "Italy : 3V/1N/1D sur 5 matchs vs Greece : 1V/3N/1D sur 5 matchs (L5 toutes competitions)",
+        "stats": {
+          "form": [
+            "W",
+            "D",
+            "W",
+            "L",
+            "W"
+          ]
+        },
+        "is_fun": false,
+        "tier": "safe"
+      },
+      {
+        "direction": "under25",
+        "type": "Total buts",
+        "label": "Moins de 2.5 buts",
+        "cote": null,
+        "confidence": 62,
+        "reasoning": "Attendu seulement 2.2 buts au total (Greece ~1.0, Italy ~1.2) - P(<2.5) ~62%",
+        "stats": {
+          "form": [
+            "D",
+            "D",
+            "L",
+            "D",
+            "W"
+          ]
+        },
+        "is_fun": false,
+        "tier": "ok"
+      }
+    ],
+    "home_players": [],
+    "away_players": [],
+    "fun_picks": [],
+    "top_pick": {
+      "direction": "away_win",
+      "type": "Forme superieure",
+      "label": "Italy gagne",
+      "cote": null,
+      "confidence": 71,
+      "reasoning": "Italy : 3V/1N/1D sur 5 matchs vs Greece : 1V/3N/1D sur 5 matchs (L5 toutes competitions)",
+      "stats": {
+        "form": [
+          "W",
+          "D",
+          "W",
+          "L",
+          "W"
+        ]
+      },
+      "is_fun": false,
+      "tier": "safe"
+    },
+    "no_picks": false
+  },
+  {
+    "league": "Friendlies",
+    "home": "Colombia",
+    "away": "Jordan",
+    "start_ts": 1780873200,
+    "match_id": "5629009",
+    "page_url": "/matches/jordan-vs-colombia/1mz2kx#5629009",
+    "picks": [
+      {
+        "direction": "home_win",
+        "type": "Forme superieure",
+        "label": "Colombia gagne",
+        "cote": null,
+        "confidence": 71,
+        "reasoning": "Colombia : 3V/0N/2D sur 5 matchs vs Jordan : 1V/2N/2D sur 5 matchs (L5 toutes competitions)",
+        "stats": {
+          "form": [
+            "W",
+            "L",
+            "L",
+            "W",
+            "W"
+          ]
+        },
+        "is_fun": false,
+        "tier": "safe"
+      },
+      {
+        "direction": "over25",
+        "type": "Total buts",
+        "label": "Plus de 2.5 buts",
+        "cote": null,
+        "confidence": 70,
+        "reasoning": "Attendu 3.6 buts au total (Colombia ~2.1, Jordan ~1.5) - P(>2.5) ~70%",
+        "stats": {
+          "form": [
+            "W",
+            "L",
+            "L",
+            "W",
+            "W"
+          ]
+        },
+        "is_fun": false,
+        "tier": "safe"
+      },
+      {
+        "direction": "home_over_15",
+        "type": "Buteur equipe",
+        "label": "Colombia marque plus de 1.5 buts",
+        "cote": null,
+        "confidence": 67,
+        "reasoning": "Colombia attendu a ~2.1 buts (marque 2.0/m sur L5, Jordan encaisse 2.2/m) - P(2+ buts) ~62%",
+        "stats": {
+          "form": [
+            "W",
+            "L",
+            "L",
+            "W",
+            "W"
+          ]
+        },
+        "is_fun": false,
+        "tier": "ok"
+      }
+    ],
+    "home_players": [],
+    "away_players": [
+      {
+        "player": "Ali Iyad Olwan",
+        "position": "F",
+        "is_sub": false,
+        "type": "Buteur",
+        "label": "Ali Iyad Olwan marque",
+        "cote": 1.99,
+        "book": null,
+        "books": [],
+        "confidence": 50,
+        "reasoning": "Ali Iyad Olwan : 7G en 10 matchs club (0.70 buts/m, source: L10 None). Avec un attendu de 1.5 buts pour Jordan, sa probabilite de marquer est ~50%.",
+        "context": {
+          "source": "lineup",
+          "lam": 0.7
+        },
+        "stats": {
+          "goals": null,
+          "apps": null,
+          "gpm": 0.7,
+          "xgpm": null
+        },
+        "team": "away",
+        "tier": "fun",
+        "edge_pp": -0.3
+      }
+    ],
+    "fun_picks": [],
+    "top_pick": {
+      "direction": "home_win",
+      "type": "Forme superieure",
+      "label": "Colombia gagne",
+      "cote": null,
+      "confidence": 71,
+      "reasoning": "Colombia : 3V/0N/2D sur 5 matchs vs Jordan : 1V/2N/2D sur 5 matchs (L5 toutes competitions)",
+      "stats": {
+        "form": [
+          "W",
+          "L",
+          "L",
+          "W",
+          "W"
+        ]
+      },
+      "is_fun": false,
+      "tier": "safe"
+    },
+    "no_picks": false
+  },
+  {
+    "league": "Uruguay Primera",
+    "home": "Cerro",
+    "away": "Club Atletico Penarol",
+    "start_ts": 1780855200,
+    "match_id": "5670402",
+    "page_url": "/matches/cerro-vs-club-atletico-penarol/vi52z#5670402",
+    "picks": [
+      {
+        "direction": "away_win",
+        "type": "Victoire extérieur",
+        "label": "Club Atletico Penarol gagne",
+        "cote": null,
+        "confidence": 70,
+        "reasoning": "Club Atletico Penarol : 3V/1N/1D sur 5 matchs · #2 au classement · H2H: 1V/0N/0D · Note Sofa: 6.5/10",
+        "stats": {
+          "form": [
+            "L",
+            "W",
+            "W",
+            "W",
+            "D"
+          ]
+        },
+        "is_fun": false,
+        "tier": "safe"
+      }
+    ],
+    "home_players": [],
+    "away_players": [
+      {
+        "player": "Matias Arezo",
+        "position": "F",
+        "is_sub": false,
+        "type": "Buteur",
+        "label": "Matias Arezo marque",
+        "cote": null,
+        "book": null,
+        "books": [],
+        "confidence": 72,
+        "reasoning": "7 buts en 7 matchs cette saison (100.0% de chance/match) · xG moyen 0.00/match, défense adverse poreuse (1.7 buts concédés/match) · défense correcte",
+        "context": {
+          "weakness": 0.46
+        },
+        "stats": {
+          "goals": 7,
+          "apps": 7,
+          "gpm": 1.0,
+          "xgpm": 0
+        },
+        "team": "away",
+        "tier": "safe"
+      }
+    ],
+    "fun_picks": [],
+    "top_pick": {
+      "direction": "away_win",
+      "type": "Victoire extérieur",
+      "label": "Club Atletico Penarol gagne",
+      "cote": null,
+      "confidence": 70,
+      "reasoning": "Club Atletico Penarol : 3V/1N/1D sur 5 matchs · #2 au classement · H2H: 1V/0N/0D · Note Sofa: 6.5/10",
+      "stats": {
+        "form": [
+          "L",
+          "W",
+          "W",
+          "W",
+          "D"
         ]
       },
       "is_fun": false,
@@ -2050,6 +2572,295 @@
     "no_picks": false
   },
   {
+    "league": "Friendlies",
+    "home": "Denmark",
+    "away": "Ukraine",
+    "start_ts": 1780849800,
+    "match_id": "5425679",
+    "page_url": "/matches/ukraine-vs-denmark/1ulh64#5425679",
+    "picks": [
+      {
+        "direction": "away_win",
+        "type": "Forme superieure",
+        "label": "Ukraine gagne",
+        "cote": null,
+        "confidence": 67,
+        "reasoning": "Ukraine : 3V/0N/2D sur 5 matchs vs Denmark : 1V/3N/1D sur 5 matchs (L5 toutes competitions)",
+        "stats": {
+          "form": [
+            "W",
+            "W",
+            "L",
+            "W",
+            "L"
+          ]
+        },
+        "is_fun": false,
+        "tier": "ok"
+      },
+      {
+        "direction": "over25",
+        "type": "Total buts",
+        "label": "Plus de 2.5 buts",
+        "cote": null,
+        "confidence": 60,
+        "reasoning": "Attendu 3.1 buts au total (Denmark ~1.7, Ukraine ~1.4) - P(>2.5) ~60%",
+        "stats": {
+          "form": [
+            "D",
+            "D",
+            "W",
+            "L",
+            "D"
+          ]
+        },
+        "is_fun": false,
+        "tier": "ok"
+      }
+    ],
+    "home_players": [],
+    "away_players": [],
+    "fun_picks": [],
+    "top_pick": {
+      "direction": "away_win",
+      "type": "Forme superieure",
+      "label": "Ukraine gagne",
+      "cote": null,
+      "confidence": 67,
+      "reasoning": "Ukraine : 3V/0N/2D sur 5 matchs vs Denmark : 1V/3N/1D sur 5 matchs (L5 toutes competitions)",
+      "stats": {
+        "form": [
+          "W",
+          "W",
+          "L",
+          "W",
+          "L"
+        ]
+      },
+      "is_fun": false,
+      "tier": "ok"
+    },
+    "no_picks": false
+  },
+  {
+    "league": "Friendlies",
+    "home": "Kosovo",
+    "away": "Andorra",
+    "start_ts": 1780855200,
+    "match_id": "5662444",
+    "page_url": "/matches/andorra-vs-kosovo/18id9w3d#5662444",
+    "picks": [
+      {
+        "direction": "home_win",
+        "type": "Forme superieure",
+        "label": "Kosovo gagne",
+        "cote": null,
+        "confidence": 67,
+        "reasoning": "Kosovo : 2V/1N/2D sur 5 matchs vs Andorra : 1V/1N/3D sur 5 matchs (L5 toutes competitions)",
+        "stats": {
+          "form": [
+            "L",
+            "L",
+            "W",
+            "D",
+            "W"
+          ]
+        },
+        "is_fun": false,
+        "tier": "ok"
+      }
+    ],
+    "home_players": [],
+    "away_players": [],
+    "fun_picks": [],
+    "top_pick": {
+      "direction": "home_win",
+      "type": "Forme superieure",
+      "label": "Kosovo gagne",
+      "cote": null,
+      "confidence": 67,
+      "reasoning": "Kosovo : 2V/1N/2D sur 5 matchs vs Andorra : 1V/1N/3D sur 5 matchs (L5 toutes competitions)",
+      "stats": {
+        "form": [
+          "L",
+          "L",
+          "W",
+          "D",
+          "W"
+        ]
+      },
+      "is_fun": false,
+      "tier": "ok"
+    },
+    "no_picks": false
+  },
+  {
+    "league": "Friendlies",
+    "home": "Morocco",
+    "away": "Norway",
+    "start_ts": 1780858800,
+    "match_id": "5333656",
+    "page_url": "/matches/morocco-vs-norway/1st5xb#5333656",
+    "picks": [
+      {
+        "direction": "home_win",
+        "type": "Forme superieure",
+        "label": "Morocco gagne",
+        "cote": null,
+        "confidence": 67,
+        "reasoning": "Morocco : 4V/1N/0D sur 5 matchs vs Norway : 3V/1N/1D sur 5 matchs (L5 toutes competitions)",
+        "stats": {
+          "form": [
+            "W",
+            "W",
+            "W",
+            "D",
+            "W"
+          ]
+        },
+        "is_fun": false,
+        "tier": "ok"
+      },
+      {
+        "direction": "over25",
+        "type": "Total buts",
+        "label": "Plus de 2.5 buts",
+        "cote": null,
+        "confidence": 66,
+        "reasoning": "Attendu 3.4 buts au total (Morocco ~2.0, Norway ~1.4) - P(>2.5) ~66%",
+        "stats": {
+          "form": [
+            "W",
+            "W",
+            "W",
+            "D",
+            "W"
+          ]
+        },
+        "is_fun": false,
+        "tier": "ok"
+      },
+      {
+        "direction": "home_over_15",
+        "type": "Buteur equipe",
+        "label": "Morocco marque plus de 1.5 buts",
+        "cote": null,
+        "confidence": 64,
+        "reasoning": "Morocco attendu a ~2.0 buts (marque 3.0/m sur L5, Norway encaisse 1.0/m) - P(2+ buts) ~59%",
+        "stats": {
+          "form": [
+            "W",
+            "W",
+            "W",
+            "D",
+            "W"
+          ]
+        },
+        "is_fun": false,
+        "tier": "ok"
+      }
+    ],
+    "home_players": [
+      {
+        "player": "Ismael Saibari",
+        "position": "F",
+        "is_sub": false,
+        "type": "Buteur",
+        "label": "Ismael Saibari marque",
+        "cote": 1.65,
+        "book": null,
+        "books": [],
+        "confidence": 61,
+        "reasoning": "Ismael Saibari : 7G en 10 matchs club (0.70 buts/m, source: L10 Eredivisie). Avec un attendu de 2.0 buts pour Morocco, sa probabilite de marquer est ~61%.",
+        "context": {
+          "source": "lineup",
+          "lam": 0.93
+        },
+        "stats": {
+          "goals": null,
+          "apps": null,
+          "gpm": 0.933,
+          "xgpm": null
+        },
+        "team": "home",
+        "tier": "ok",
+        "edge_pp": 0.4
+      },
+      {
+        "player": "Abdessamad Ezzalzouli",
+        "position": "F",
+        "is_sub": false,
+        "type": "Buteur",
+        "label": "Abdessamad Ezzalzouli marque",
+        "cote": 1.82,
+        "book": null,
+        "books": [],
+        "confidence": 55,
+        "reasoning": "Abdessamad Ezzalzouli : 6G en 10 matchs club (0.60 buts/m, source: L10 LaLiga). Avec un attendu de 2.0 buts pour Morocco, sa probabilite de marquer est ~55%.",
+        "context": {
+          "source": "lineup",
+          "lam": 0.8
+        },
+        "stats": {
+          "goals": null,
+          "apps": null,
+          "gpm": 0.8,
+          "xgpm": null
+        },
+        "team": "home",
+        "tier": "ok",
+        "edge_pp": 0.1
+      },
+      {
+        "player": "Ismael Saibari",
+        "position": "F",
+        "is_sub": false,
+        "type": "Double buteur",
+        "label": "Ismael Saibari marque 2+ buts",
+        "cote": 4.17,
+        "book": null,
+        "books": [],
+        "confidence": 34,
+        "reasoning": "Ismael Saibari : 7G en 10 matchs club (0.70/m, source: L10 Eredivisie). Attendu ~0.9 buts ce match - P(2+ buts) ~24% (cote interessante).",
+        "context": {
+          "source": "lineup",
+          "lam": 0.93
+        },
+        "stats": {
+          "goals": null,
+          "apps": null,
+          "gpm": 0.933,
+          "xgpm": null
+        },
+        "team": "home",
+        "tier": "fun",
+        "edge_pp": 10.0
+      }
+    ],
+    "away_players": [],
+    "fun_picks": [],
+    "top_pick": {
+      "direction": "home_win",
+      "type": "Forme superieure",
+      "label": "Morocco gagne",
+      "cote": null,
+      "confidence": 67,
+      "reasoning": "Morocco : 4V/1N/0D sur 5 matchs vs Norway : 3V/1N/1D sur 5 matchs (L5 toutes competitions)",
+      "stats": {
+        "form": [
+          "W",
+          "W",
+          "W",
+          "D",
+          "W"
+        ]
+      },
+      "is_fun": false,
+      "tier": "ok"
+    },
+    "no_picks": false
+  },
+  {
     "league": "Uruguay Primera",
     "home": "Central Espanol",
     "away": "Racing",
@@ -2173,26 +2984,26 @@
     "no_picks": false
   },
   {
-    "league": "Uruguay Primera",
-    "home": "Montevideo Wanderers",
-    "away": "Danubio",
-    "start_ts": 1780696800,
-    "match_id": "5670409",
-    "page_url": "/matches/montevideo-wanderers-vs-danubio/28biz3#5670409",
+    "league": "Friendlies",
+    "home": "Liechtenstein",
+    "away": "Cyprus",
+    "start_ts": 1780837200,
+    "match_id": "5648190",
+    "page_url": "/matches/cyprus-vs-liechtenstein/140ay3#5648190",
     "picks": [
       {
-        "direction": "home_win",
-        "type": "Victoire domicile",
-        "label": "Montevideo Wanderers gagne",
+        "direction": "over25",
+        "type": "Total buts",
+        "label": "Plus de 2.5 buts",
         "cote": null,
         "confidence": 62,
-        "reasoning": "Montevideo Wanderers : 2V/2N/1D sur 5 matchs · #2 au classement · H2H: 1V/0N/0D · Note Sofa: 6.5/10",
+        "reasoning": "Attendu 3.2 buts au total (Liechtenstein ~1.2, Cyprus ~2.0) - P(>2.5) ~62%",
         "stats": {
           "form": [
+            "L",
+            "L",
             "W",
-            "D",
-            "D",
-            "W",
+            "L",
             "L"
           ]
         },
@@ -2201,45 +3012,21 @@
       }
     ],
     "home_players": [],
-    "away_players": [
-      {
-        "player": "Enzo Cabrera",
-        "position": "M",
-        "is_sub": false,
-        "type": "Buteur",
-        "label": "Enzo Cabrera marque",
-        "cote": null,
-        "book": null,
-        "books": [],
-        "confidence": 68,
-        "reasoning": "5 buts en 5 matchs cette saison (100.0% de chance/match) · xG moyen 0.00/match, défense adverse poreuse (1.3 buts concédés/match) · défense correcte",
-        "context": {
-          "weakness": 0.32
-        },
-        "stats": {
-          "goals": 5,
-          "apps": 5,
-          "gpm": 1.0,
-          "xgpm": 0
-        },
-        "team": "away",
-        "tier": "ok"
-      }
-    ],
+    "away_players": [],
     "fun_picks": [],
     "top_pick": {
-      "direction": "home_win",
-      "type": "Victoire domicile",
-      "label": "Montevideo Wanderers gagne",
+      "direction": "over25",
+      "type": "Total buts",
+      "label": "Plus de 2.5 buts",
       "cote": null,
       "confidence": 62,
-      "reasoning": "Montevideo Wanderers : 2V/2N/1D sur 5 matchs · #2 au classement · H2H: 1V/0N/0D · Note Sofa: 6.5/10",
+      "reasoning": "Attendu 3.2 buts au total (Liechtenstein ~1.2, Cyprus ~2.0) - P(>2.5) ~62%",
       "stats": {
         "form": [
+          "L",
+          "L",
           "W",
-          "D",
-          "D",
-          "W",
+          "L",
           "L"
         ]
       },
@@ -2425,34 +3212,6 @@
   },
   {
     "league": "Friendlies",
-    "home": "Paraguay",
-    "away": "Nicaragua",
-    "start_ts": 1780699500,
-    "match_id": "5729928",
-    "page_url": "/matches/nicaragua-vs-paraguay/1ar30y#5729928",
-    "picks": [],
-    "home_players": [],
-    "away_players": [],
-    "fun_picks": [],
-    "top_pick": null,
-    "no_picks": true
-  },
-  {
-    "league": "Friendlies",
-    "home": "Canada",
-    "away": "Ireland",
-    "start_ts": 1780703100,
-    "match_id": "5418305",
-    "page_url": "/matches/ireland-vs-canada/142jhn#5418305",
-    "picks": [],
-    "home_players": [],
-    "away_players": [],
-    "fun_picks": [],
-    "top_pick": null,
-    "no_picks": true
-  },
-  {
-    "league": "Friendlies",
     "home": "Vanuatu",
     "away": "Fiji",
     "start_ts": 1780718400,
@@ -2486,6 +3245,48 @@
     "start_ts": 1780783200,
     "match_id": "5667813",
     "page_url": "/matches/brazil-vs-egypt/2u0jh4#5667813",
+    "picks": [],
+    "home_players": [],
+    "away_players": [],
+    "fun_picks": [],
+    "top_pick": null,
+    "no_picks": true
+  },
+  {
+    "league": "Friendlies",
+    "home": "Oman",
+    "away": "Mozambique",
+    "start_ts": 1780826400,
+    "match_id": "5737597",
+    "page_url": "/matches/oman-vs-mozambique/15do6g#5737597",
+    "picks": [],
+    "home_players": [],
+    "away_players": [],
+    "fun_picks": [],
+    "top_pick": null,
+    "no_picks": true
+  },
+  {
+    "league": "Friendlies",
+    "home": "Afghanistan",
+    "away": "Pakistan",
+    "start_ts": 1780830000,
+    "match_id": "5729579",
+    "page_url": "/matches/pakistan-vs-afghanistan/2dje8i3#5729579",
+    "picks": [],
+    "home_players": [],
+    "away_players": [],
+    "fun_picks": [],
+    "top_pick": null,
+    "no_picks": true
+  },
+  {
+    "league": "Friendlies",
+    "home": "Kenya",
+    "away": "Lesotho",
+    "start_ts": 1780837200,
+    "match_id": "5729610",
+    "page_url": "/matches/lesotho-vs-kenya/u2v6q#5729610",
     "picks": [],
     "home_players": [],
     "away_players": [],
