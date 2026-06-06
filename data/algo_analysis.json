@@ -1,12 +1,12 @@
 {
-  "generated_at": "2026-06-06T07:08:42.246725",
-  "n_total": 542,
+  "generated_at": "2026-06-06T07:49:37.973140",
+  "n_total": 544,
   "globals": {
     "foot": {
-      "n": 308,
+      "n": 310,
       "w": 158,
       "l": 136,
-      "push": 14,
+      "push": 16,
       "wr": 53.7,
       "roi": 1.6,
       "profit": 4.94,
@@ -56,12 +56,12 @@
         "calibration_gap": -9.0
       },
       "60-69": {
-        "n": 60,
+        "n": 61,
         "w": 23,
         "l": 34,
-        "push": 3,
+        "push": 4,
         "wr": 40.4,
-        "roi": -25.3,
+        "roi": -24.9,
         "profit": -15.18,
         "avg_cote": 1.94,
         "break_even_wr": 51.6,
@@ -70,12 +70,12 @@
         "calibration_gap": -24.1
       },
       "70-79": {
-        "n": 107,
+        "n": 108,
         "w": 69,
         "l": 29,
-        "push": 9,
+        "push": 10,
         "wr": 70.4,
-        "roi": 21.2,
+        "roi": 21.0,
         "profit": 22.72,
         "avg_cote": 1.53,
         "break_even_wr": 65.6,
@@ -368,12 +368,12 @@
         "wr_vs_be": -2.0
       },
       "Total buts": {
-        "n": 13,
+        "n": 14,
         "w": 4,
         "l": 4,
-        "push": 5,
+        "push": 6,
         "wr": 50.0,
-        "roi": -6.2,
+        "roi": -5.7,
         "profit": -0.8,
         "avg_cote": null,
         "break_even_wr": null,
@@ -428,12 +428,12 @@
         "wr_vs_be": -51.1
       },
       "Forme superieure": {
-        "n": 16,
+        "n": 17,
         "w": 4,
         "l": 9,
-        "push": 3,
+        "push": 4,
         "wr": 30.8,
-        "roi": -36.2,
+        "roi": -34.1,
         "profit": -5.8,
         "avg_cote": null,
         "break_even_wr": null,
@@ -711,12 +711,12 @@
     "foot": {
       "league": {
         "Friendlies": {
-          "n": 39,
+          "n": 41,
           "w": 13,
           "l": 16,
-          "push": 10,
+          "push": 12,
           "wr": 44.8,
-          "roi": -8.0,
+          "roi": -7.6,
           "profit": -3.11,
           "avg_cote": 3.04,
           "break_even_wr": 32.8,
@@ -881,24 +881,24 @@
       },
       "direction": {
         "home_win": {
-          "n": 20,
+          "n": 21,
           "w": 6,
           "l": 12,
-          "push": 2,
+          "push": 3,
           "wr": 33.3,
-          "roi": -41.7,
+          "roi": -39.7,
           "profit": -8.34,
           "avg_cote": 1.4,
           "break_even_wr": 71.2,
           "wr_vs_be": -37.9
         },
         "under25": {
-          "n": 9,
+          "n": 10,
           "w": 2,
           "l": 3,
-          "push": 4,
+          "push": 5,
           "wr": 40.0,
-          "roi": -15.6,
+          "roi": -14.0,
           "profit": -1.4,
           "avg_cote": null,
           "break_even_wr": null,
@@ -1015,10 +1015,10 @@
       },
       "is_fun": {
         "False": {
-          "n": 299,
+          "n": 301,
           "w": 155,
           "l": 130,
-          "push": 14,
+          "push": 16,
           "wr": 54.4,
           "roi": 0.7,
           "profit": 2.01,
@@ -1159,6 +1159,24 @@
     {
       "severity": "high",
       "type": "skip_market",
+      "scope": "foot · Forme superieure",
+      "message": "Market <b>Forme superieure</b> (foot) : ROI <b>-34.1%</b> sur 17 picks (WR 30.8%). À skipper ou refondre la formule.",
+      "stats": {
+        "n": 17,
+        "w": 4,
+        "l": 9,
+        "push": 4,
+        "wr": 30.8,
+        "roi": -34.1,
+        "profit": -5.8,
+        "avg_cote": null,
+        "break_even_wr": null,
+        "wr_vs_be": null
+      }
+    },
+    {
+      "severity": "high",
+      "type": "skip_market",
       "scope": "foot · Victoire extérieur",
       "message": "Market <b>Victoire extérieur</b> (foot) : ROI <b>-12.3%</b> sur 16 picks (WR 37.5% (break-even @ 38.0% WR), cote moy. 2.63). À skipper ou refondre la formule.",
       "stats": {
@@ -1172,24 +1190,6 @@
         "avg_cote": 2.63,
         "break_even_wr": 38.0,
         "wr_vs_be": -0.5
-      }
-    },
-    {
-      "severity": "high",
-      "type": "skip_market",
-      "scope": "foot · Forme superieure",
-      "message": "Market <b>Forme superieure</b> (foot) : ROI <b>-36.2%</b> sur 16 picks (WR 30.8%). À skipper ou refondre la formule.",
-      "stats": {
-        "n": 16,
-        "w": 4,
-        "l": 9,
-        "push": 3,
-        "wr": 30.8,
-        "roi": -36.2,
-        "profit": -5.8,
-        "avg_cote": null,
-        "break_even_wr": null,
-        "wr_vs_be": null
       }
     },
     {
@@ -1232,14 +1232,14 @@
       "severity": "medium",
       "type": "miscalibrated_overconfident",
       "scope": "foot · conf 60-69",
-      "message": "Bucket conf <b>60-69</b> (foot) : modèle annonce ~64.5% mais WR réel = 40.4% (gap -24.1pp sur 60 picks). Modèle trop confiant → relever MIN_CONF ou ajuster formule.",
+      "message": "Bucket conf <b>60-69</b> (foot) : modèle annonce ~64.5% mais WR réel = 40.4% (gap -24.1pp sur 61 picks). Modèle trop confiant → relever MIN_CONF ou ajuster formule.",
       "stats": {
-        "n": 60,
+        "n": 61,
         "w": 23,
         "l": 34,
-        "push": 3,
+        "push": 4,
         "wr": 40.4,
-        "roi": -25.3,
+        "roi": -24.9,
         "profit": -15.18,
         "avg_cote": 1.94,
         "break_even_wr": 51.6,
@@ -1390,14 +1390,14 @@
       "severity": "medium",
       "type": "watch_market",
       "scope": "foot · Total buts",
-      "message": "Market <b>Total buts</b> (foot) : ROI <b>-6.2%</b> sur 13 picks (WR 50.0%). Marginalement non-rentable, à surveiller.",
+      "message": "Market <b>Total buts</b> (foot) : ROI <b>-5.7%</b> sur 14 picks (WR 50.0%). Marginalement non-rentable, à surveiller.",
       "stats": {
-        "n": 13,
+        "n": 14,
         "w": 4,
         "l": 4,
-        "push": 5,
+        "push": 6,
         "wr": 50.0,
-        "roi": -6.2,
+        "roi": -5.7,
         "profit": -0.8,
         "avg_cote": null,
         "break_even_wr": null,
@@ -1500,16 +1500,16 @@
       "severity": "medium",
       "type": "context_signal",
       "scope": "foot · direction",
-      "message": "Signal contexte <b>direction</b> (foot) : direction=home_win → WR 33.3% (20 picks) vs direction=away_dc → WR 68.8% (16). Filtrer/ponderer.",
+      "message": "Signal contexte <b>direction</b> (foot) : direction=home_win → WR 33.3% (21 picks) vs direction=away_dc → WR 68.8% (16). Filtrer/ponderer.",
       "stats": {
         "worst": {
           "home_win": {
-            "n": 20,
+            "n": 21,
             "w": 6,
             "l": 12,
-            "push": 2,
+            "push": 3,
             "wr": 33.3,
-            "roi": -41.7,
+            "roi": -39.7,
             "profit": -8.34,
             "avg_cote": 1.4,
             "break_even_wr": 71.2,
