@@ -83,113 +83,6 @@
     "no_picks": false
   },
   {
-    "league": "Algeria Ligue 1",
-    "home": "MC Oran",
-    "away": "USM Alger",
-    "start_ts": 1780765200,
-    "match_id": "5156445",
-    "page_url": "/matches/usm-alger-vs-mc-oran/9hnfpj8#5156445",
-    "picks": [],
-    "home_players": [
-      {
-        "player": "Chakib Aoudjane / Ahmed Kerroum",
-        "position": "",
-        "is_sub": false,
-        "type": "Double Chance Buteur",
-        "label": "Chakib Aoudjane ou Ahmed Kerroum marque",
-        "cote": null,
-        "book": null,
-        "books": [],
-        "confidence": 89,
-        "cote_min": 1.12,
-        "reasoning": "📈 P(Chakib Aoudjane marque) ≈ 67% · P(Ahmed Kerroum marque) ≈ 67%\n🎯 P(au moins un marque) = 89% (calculée par 1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.12 - chercher ≥1.12 chez le bookmaker",
-        "context": {},
-        "stats": {
-          "p_a": 0.668,
-          "p_b": 0.668,
-          "p_or": 0.89,
-          "player_a": "Chakib Aoudjane",
-          "player_b": "Ahmed Kerroum"
-        },
-        "team": "home",
-        "tier": "safe"
-      },
-      {
-        "player": "Ahmed Kerroum",
-        "position": "M",
-        "is_sub": false,
-        "type": "Buteur",
-        "label": "Ahmed Kerroum marque",
-        "cote": null,
-        "book": null,
-        "books": [],
-        "confidence": 74,
-        "reasoning": "⚽ Penaltyman · 5 buts en 5 matchs cette saison (100.0% de chance/match) · xG moyen 0.00/match · défense correcte",
-        "context": {
-          "weakness": 0.44
-        },
-        "stats": {
-          "goals": 5,
-          "apps": 5,
-          "gpm": 1.0,
-          "xgpm": 0
-        },
-        "team": "home",
-        "tier": "safe"
-      }
-    ],
-    "away_players": [
-      {
-        "player": "Ahmed Khaldi",
-        "position": "F",
-        "is_sub": false,
-        "type": "Buteur",
-        "label": "Ahmed Khaldi marque",
-        "cote": null,
-        "book": null,
-        "books": [],
-        "confidence": 70,
-        "reasoning": "8 buts en 8 matchs cette saison (100.0% de chance/match) · xG moyen 0.00/match · défense correcte",
-        "context": {
-          "weakness": 0.33
-        },
-        "stats": {
-          "goals": 8,
-          "apps": 8,
-          "gpm": 1.0,
-          "xgpm": 0
-        },
-        "team": "away",
-        "tier": "safe"
-      }
-    ],
-    "fun_picks": [],
-    "top_pick": {
-      "player": "Chakib Aoudjane / Ahmed Kerroum",
-      "position": "",
-      "is_sub": false,
-      "type": "Double Chance Buteur",
-      "label": "Chakib Aoudjane ou Ahmed Kerroum marque",
-      "cote": null,
-      "book": null,
-      "books": [],
-      "confidence": 89,
-      "cote_min": 1.12,
-      "reasoning": "📈 P(Chakib Aoudjane marque) ≈ 67% · P(Ahmed Kerroum marque) ≈ 67%\n🎯 P(au moins un marque) = 89% (calculée par 1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.12 - chercher ≥1.12 chez le bookmaker",
-      "context": {},
-      "stats": {
-        "p_a": 0.668,
-        "p_b": 0.668,
-        "p_or": 0.89,
-        "player_a": "Chakib Aoudjane",
-        "player_b": "Ahmed Kerroum"
-      },
-      "team": "home",
-      "tier": "safe"
-    },
-    "no_picks": false
-  },
-  {
     "league": "Friendlies",
     "home": "Argentina",
     "away": "Honduras",
@@ -250,6 +143,148 @@
         "form": [
           "W",
           "W",
+          "W",
+          "W",
+          "W"
+        ]
+      },
+      "is_fun": false,
+      "tier": "safe"
+    },
+    "no_picks": false
+  },
+  {
+    "league": "Uruguay Primera",
+    "home": "Montevideo City Torque",
+    "away": "Deportivo Maldonado",
+    "start_ts": 1780768800,
+    "match_id": "5670410",
+    "page_url": "/matches/deportivo-maldonado-vs-montevideo-city-torque/10a7zulu#5670410",
+    "picks": [
+      {
+        "direction": "away_dc",
+        "type": "Double chance",
+        "label": "Nul ou Deportivo Maldonado (X2)",
+        "cote": null,
+        "confidence": 83,
+        "reasoning": "Deportivo Maldonado invaincu 100% sur 5 derniers matchs · H2H: 1/1 matchs sans défaite · Classement: #1 (away) vs #4 (home)",
+        "stats": {
+          "form": [
+            "W",
+            "D",
+            "W",
+            "W",
+            "W"
+          ]
+        },
+        "is_fun": false,
+        "tier": "safe"
+      },
+      {
+        "direction": "away_win",
+        "type": "Victoire extérieur",
+        "label": "Deportivo Maldonado gagne",
+        "cote": null,
+        "confidence": 82,
+        "reasoning": "Deportivo Maldonado : 4V/1N/0D sur 5 matchs · #1 au classement · H2H: 1V/0N/0D · Note Sofa: 6.5/10",
+        "stats": {
+          "form": [
+            "W",
+            "D",
+            "W",
+            "W",
+            "W"
+          ]
+        },
+        "is_fun": false,
+        "tier": "safe"
+      }
+    ],
+    "home_players": [
+      {
+        "player": "Salomon Rodriguez / Facundo Silvera",
+        "position": "",
+        "is_sub": false,
+        "type": "Double Chance Buteur",
+        "label": "Salomon Rodriguez ou Facundo Silvera marque",
+        "cote": null,
+        "book": null,
+        "books": [],
+        "confidence": 83,
+        "cote_min": 1.2,
+        "reasoning": "📈 P(Salomon Rodriguez marque) ≈ 73% · P(Facundo Silvera marque) ≈ 36%\n🎯 P(au moins un marque) = 83% (calculée par 1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.2 - chercher ≥1.2 chez le bookmaker",
+        "context": {},
+        "stats": {
+          "p_a": 0.728,
+          "p_b": 0.36,
+          "p_or": 0.826,
+          "player_a": "Salomon Rodriguez",
+          "player_b": "Facundo Silvera"
+        },
+        "team": "home",
+        "tier": "safe"
+      }
+    ],
+    "away_players": [
+      {
+        "player": "Maximiliano Noble / Cristian Tabo",
+        "position": "",
+        "is_sub": false,
+        "type": "Double Chance Buteur",
+        "label": "Maximiliano Noble ou Cristian Tabo marque",
+        "cote": null,
+        "book": null,
+        "books": [],
+        "confidence": 93,
+        "cote_min": 1.08,
+        "reasoning": "📈 P(Maximiliano Noble marque) ≈ 75% · P(Cristian Tabo marque) ≈ 70%\n🎯 P(au moins un marque) = 93% (calculée par 1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.08 - chercher ≥1.08 chez le bookmaker",
+        "context": {},
+        "stats": {
+          "p_a": 0.75,
+          "p_b": 0.705,
+          "p_or": 0.926,
+          "player_a": "Maximiliano Noble",
+          "player_b": "Cristian Tabo"
+        },
+        "team": "away",
+        "tier": "safe"
+      },
+      {
+        "player": "Maximiliano Noble",
+        "position": "F",
+        "is_sub": false,
+        "type": "Buteur",
+        "label": "Maximiliano Noble marque",
+        "cote": null,
+        "book": null,
+        "books": [],
+        "confidence": 75,
+        "reasoning": "6 buts en 5 matchs cette saison (120.0% de chance/match) · xG moyen 0.00/match · défense correcte",
+        "context": {
+          "weakness": 0.34
+        },
+        "stats": {
+          "goals": 6,
+          "apps": 5,
+          "gpm": 1.2,
+          "xgpm": 0
+        },
+        "team": "away",
+        "tier": "safe"
+      }
+    ],
+    "fun_picks": [],
+    "top_pick": {
+      "direction": "away_dc",
+      "type": "Double chance",
+      "label": "Nul ou Deportivo Maldonado (X2)",
+      "cote": null,
+      "confidence": 83,
+      "reasoning": "Deportivo Maldonado invaincu 100% sur 5 derniers matchs · H2H: 1/1 matchs sans défaite · Classement: #1 (away) vs #4 (home)",
+      "stats": {
+        "form": [
+          "W",
+          "D",
           "W",
           "W",
           "W"
@@ -334,6 +369,31 @@
         "edge_pp": -0.3
       },
       {
+        "player": "Ollie Watkins",
+        "position": "F",
+        "is_sub": false,
+        "type": "Buteur",
+        "label": "Ollie Watkins marque",
+        "cote": 1.4,
+        "book": null,
+        "books": [],
+        "confidence": 72,
+        "reasoning": "Ollie Watkins : 9G en 10 matchs club (0.90 buts/m, source: L10 Premier League). Avec un attendu de 2.1 buts pour England, sa probabilite de marquer est ~72%.",
+        "context": {
+          "source": "lineup",
+          "lam": 1.26
+        },
+        "stats": {
+          "goals": null,
+          "apps": null,
+          "gpm": 1.26,
+          "xgpm": null
+        },
+        "team": "home",
+        "tier": "safe",
+        "edge_pp": 0.6
+      },
+      {
         "player": "Harry Kane",
         "position": "F",
         "is_sub": false,
@@ -357,6 +417,31 @@
         "team": "home",
         "tier": "ok",
         "edge_pp": 10.0
+      },
+      {
+        "player": "Ollie Watkins",
+        "position": "F",
+        "is_sub": false,
+        "type": "Double buteur",
+        "label": "Ollie Watkins marque 2+ buts",
+        "cote": 2.79,
+        "book": null,
+        "books": [],
+        "confidence": 46,
+        "reasoning": "Ollie Watkins : 9G en 10 matchs club (0.90/m, source: L10 Premier League). Attendu ~1.3 buts ce match - P(2+ buts) ~36% (cote interessante).",
+        "context": {
+          "source": "lineup",
+          "lam": 1.26
+        },
+        "stats": {
+          "goals": null,
+          "apps": null,
+          "gpm": 1.26,
+          "xgpm": null
+        },
+        "team": "home",
+        "tier": "fun",
+        "edge_pp": 10.2
       }
     ],
     "away_players": [],
@@ -371,148 +456,6 @@
       "stats": {
         "form": [
           "L",
-          "D",
-          "W",
-          "W",
-          "W"
-        ]
-      },
-      "is_fun": false,
-      "tier": "safe"
-    },
-    "no_picks": false
-  },
-  {
-    "league": "Uruguay Primera",
-    "home": "Montevideo City Torque",
-    "away": "Deportivo Maldonado",
-    "start_ts": 1780768800,
-    "match_id": "5670410",
-    "page_url": "/matches/deportivo-maldonado-vs-montevideo-city-torque/10a7zulu#5670410",
-    "picks": [
-      {
-        "direction": "away_win",
-        "type": "Victoire extérieur",
-        "label": "Deportivo Maldonado gagne",
-        "cote": null,
-        "confidence": 82,
-        "reasoning": "Deportivo Maldonado : 4V/1N/0D sur 5 matchs · #1 au classement · H2H: 1V/0N/0D · Note Sofa: 6.5/10",
-        "stats": {
-          "form": [
-            "W",
-            "D",
-            "W",
-            "W",
-            "W"
-          ]
-        },
-        "is_fun": false,
-        "tier": "safe"
-      },
-      {
-        "direction": "away_dc",
-        "type": "Double chance",
-        "label": "Nul ou Deportivo Maldonado (X2)",
-        "cote": null,
-        "confidence": 81,
-        "reasoning": "Deportivo Maldonado invaincu 100% sur 5 derniers matchs · H2H: 1/1 matchs sans défaite · Classement: #1 (away) vs #2 (home)",
-        "stats": {
-          "form": [
-            "W",
-            "D",
-            "W",
-            "W",
-            "W"
-          ]
-        },
-        "is_fun": false,
-        "tier": "safe"
-      }
-    ],
-    "home_players": [
-      {
-        "player": "Salomon Rodriguez / Facundo Silvera",
-        "position": "",
-        "is_sub": false,
-        "type": "Double Chance Buteur",
-        "label": "Salomon Rodriguez ou Facundo Silvera marque",
-        "cote": null,
-        "book": null,
-        "books": [],
-        "confidence": 83,
-        "cote_min": 1.2,
-        "reasoning": "📈 P(Salomon Rodriguez marque) ≈ 73% · P(Facundo Silvera marque) ≈ 39%\n🎯 P(au moins un marque) = 83% (calculée par 1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.2 - chercher ≥1.2 chez le bookmaker",
-        "context": {},
-        "stats": {
-          "p_a": 0.728,
-          "p_b": 0.39,
-          "p_or": 0.834,
-          "player_a": "Salomon Rodriguez",
-          "player_b": "Facundo Silvera"
-        },
-        "team": "home",
-        "tier": "safe"
-      }
-    ],
-    "away_players": [
-      {
-        "player": "Maximiliano Noble / Cristian Tabo",
-        "position": "",
-        "is_sub": false,
-        "type": "Double Chance Buteur",
-        "label": "Maximiliano Noble ou Cristian Tabo marque",
-        "cote": null,
-        "book": null,
-        "books": [],
-        "confidence": 93,
-        "cote_min": 1.08,
-        "reasoning": "📈 P(Maximiliano Noble marque) ≈ 75% · P(Cristian Tabo marque) ≈ 70%\n🎯 P(au moins un marque) = 93% (calculée par 1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.08 - chercher ≥1.08 chez le bookmaker",
-        "context": {},
-        "stats": {
-          "p_a": 0.75,
-          "p_b": 0.705,
-          "p_or": 0.926,
-          "player_a": "Maximiliano Noble",
-          "player_b": "Cristian Tabo"
-        },
-        "team": "away",
-        "tier": "safe"
-      },
-      {
-        "player": "Maximiliano Noble",
-        "position": "F",
-        "is_sub": false,
-        "type": "Buteur",
-        "label": "Maximiliano Noble marque",
-        "cote": null,
-        "book": null,
-        "books": [],
-        "confidence": 75,
-        "reasoning": "6 buts en 5 matchs cette saison (120.0% de chance/match) · xG moyen 0.00/match · défense correcte",
-        "context": {
-          "weakness": 0.3
-        },
-        "stats": {
-          "goals": 6,
-          "apps": 5,
-          "gpm": 1.2,
-          "xgpm": 0
-        },
-        "team": "away",
-        "tier": "safe"
-      }
-    ],
-    "fun_picks": [],
-    "top_pick": {
-      "direction": "away_win",
-      "type": "Victoire extérieur",
-      "label": "Deportivo Maldonado gagne",
-      "cote": null,
-      "confidence": 82,
-      "reasoning": "Deportivo Maldonado : 4V/1N/0D sur 5 matchs · #1 au classement · H2H: 1V/0N/0D · Note Sofa: 6.5/10",
-      "stats": {
-        "form": [
-          "W",
           "D",
           "W",
           "W",
@@ -669,24 +612,24 @@
         "is_sub": false,
         "type": "Buteur",
         "label": "Kai Havertz marque",
-        "cote": 1.75,
+        "cote": 1.86,
         "book": null,
         "books": [],
-        "confidence": 57,
-        "reasoning": "Kai Havertz : 4G en 10 matchs club (0.40 buts/m, source: L10 Premier League). Avec un attendu de 3.2 buts pour Germany, sa probabilite de marquer est ~57%.",
+        "confidence": 54,
+        "reasoning": "Kai Havertz : 4G en 10 matchs club (0.40 buts/m, source: L10 Premier League). Avec un attendu de 2.9 buts pour Germany, sa probabilite de marquer est ~54%.",
         "context": {
           "source": "lineup",
-          "lam": 0.85
+          "lam": 0.77
         },
         "stats": {
           "goals": null,
           "apps": null,
-          "gpm": 0.851,
+          "gpm": 0.773,
           "xgpm": null
         },
         "team": "away",
-        "tier": "ok",
-        "edge_pp": -0.1
+        "tier": "fun",
+        "edge_pp": 0.2
       }
     ],
     "fun_picks": [],
@@ -1819,7 +1762,7 @@
         "confidence": 71,
         "reasoning": "6 buts en 6 matchs cette saison (100.0% de chance/match) · xG moyen 0.00/match, défense adverse poreuse (1.4 buts concédés/match) · défense correcte",
         "context": {
-          "weakness": 0.37
+          "weakness": 0.35
         },
         "stats": {
           "goals": 6,
@@ -2462,7 +2405,33 @@
       }
     ],
     "home_players": [],
-    "away_players": [],
+    "away_players": [
+      {
+        "player": "Lawrence Shankland",
+        "position": "F",
+        "is_sub": false,
+        "type": "Buteur",
+        "label": "Lawrence Shankland marque",
+        "cote": 1.82,
+        "book": null,
+        "books": [],
+        "confidence": 55,
+        "reasoning": "Lawrence Shankland : 8G en 10 matchs club (0.80 buts/m, source: L10 Premiership). Avec un attendu de 1.5 buts pour Scotland, sa probabilite de marquer est ~55%.",
+        "context": {
+          "source": "lineup",
+          "lam": 0.8
+        },
+        "stats": {
+          "goals": null,
+          "apps": null,
+          "gpm": 0.8,
+          "xgpm": null
+        },
+        "team": "away",
+        "tier": "ok",
+        "edge_pp": 0.1
+      }
+    ],
     "fun_picks": [],
     "top_pick": {
       "direction": "btts_yes",
