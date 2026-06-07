@@ -11638,9 +11638,12 @@
       "league": "Uruguay Primera",
       "category": "player",
       "side": "away",
-      "result": "PENDING",
-      "actual": null,
-      "resolved_at": null
+      "result": "WIN",
+      "actual": {
+        "goals": 1,
+        "assists": 0
+      },
+      "resolved_at": "2026-06-07 15:01"
     },
     {
       "player": "Alvaro Lopez",
@@ -11669,6 +11672,101 @@
       "match_id": "5670412",
       "page_url": "/matches/club-atletico-progreso-vs-albion/5hae5lyg#5670412",
       "matchup": "Club Atlético Progreso vs Albion",
+      "league": "Uruguay Primera",
+      "category": "player",
+      "side": "away",
+      "result": "LOSS",
+      "actual": {
+        "goals": 0,
+        "assists": 0
+      },
+      "resolved_at": "2026-06-07 15:01"
+    },
+    {
+      "direction": "over25",
+      "type": "Total buts",
+      "label": "Plus de 2.5 buts",
+      "cote": null,
+      "confidence": 62,
+      "reasoning": "Attendu 3.2 buts au total (Liechtenstein ~1.2, Cyprus ~2.0) - P(>2.5) ~62%",
+      "stats": {
+        "form": [
+          "L",
+          "L",
+          "W",
+          "L",
+          "L"
+        ]
+      },
+      "is_fun": false,
+      "tier": "ok",
+      "id": "2026-06-07_5648190_team_over25",
+      "date": "2026-06-07",
+      "match_id": "5648190",
+      "page_url": "/matches/cyprus-vs-liechtenstein/140ay3#5648190",
+      "matchup": "Liechtenstein vs Cyprus",
+      "league": "Friendlies",
+      "category": "team",
+      "result": "LOSS",
+      "actual": "0-2 (2 buts)",
+      "resolved_at": "2026-06-07 15:01"
+    },
+    {
+      "direction": "away_win",
+      "type": "Victoire extérieur",
+      "label": "Club Atletico Penarol gagne",
+      "cote": null,
+      "confidence": 69,
+      "reasoning": "Club Atletico Penarol : 3V/1N/1D sur 5 matchs · #3 au classement · H2H: 1V/0N/0D · Note Sofa: 6.5/10",
+      "stats": {
+        "form": [
+          "L",
+          "W",
+          "W",
+          "W",
+          "D"
+        ]
+      },
+      "is_fun": false,
+      "tier": "ok",
+      "id": "2026-06-07_5670402_team_away_win",
+      "date": "2026-06-07",
+      "match_id": "5670402",
+      "page_url": "/matches/cerro-vs-club-atletico-penarol/vi52z#5670402",
+      "matchup": "Cerro vs Club Atletico Penarol",
+      "league": "Uruguay Primera",
+      "category": "team",
+      "result": "PENDING",
+      "actual": null,
+      "resolved_at": null
+    },
+    {
+      "player": "Matias Arezo",
+      "position": "F",
+      "is_sub": false,
+      "type": "Buteur",
+      "label": "Matias Arezo marque",
+      "cote": null,
+      "book": null,
+      "books": [],
+      "confidence": 72,
+      "reasoning": "7 buts en 7 matchs cette saison (100.0% de chance/match) · xG moyen 0.00/match, défense adverse poreuse (1.7 buts concédés/match) · défense correcte",
+      "context": {
+        "weakness": 0.46
+      },
+      "stats": {
+        "goals": 7,
+        "apps": 7,
+        "gpm": 1.0,
+        "xgpm": 0
+      },
+      "team": "away",
+      "tier": "safe",
+      "id": "2026-06-07_5670402_player_Matias Arezo_Buteur",
+      "date": "2026-06-07",
+      "match_id": "5670402",
+      "page_url": "/matches/cerro-vs-club-atletico-penarol/vi52z#5670402",
+      "matchup": "Cerro vs Club Atletico Penarol",
       "league": "Uruguay Primera",
       "category": "player",
       "side": "away",
@@ -11735,28 +11833,28 @@
       "resolved_at": null
     },
     {
-      "direction": "over25",
-      "type": "Total buts",
-      "label": "Plus de 2.5 buts",
+      "direction": "home_win",
+      "type": "Forme superieure",
+      "label": "Kosovo gagne",
       "cote": null,
-      "confidence": 62,
-      "reasoning": "Attendu 3.2 buts au total (Liechtenstein ~1.2, Cyprus ~2.0) - P(>2.5) ~62%",
+      "confidence": 67,
+      "reasoning": "Kosovo : 2V/1N/2D sur 5 matchs vs Andorra : 1V/1N/3D sur 5 matchs (L5 toutes competitions)",
       "stats": {
         "form": [
           "L",
           "L",
           "W",
-          "L",
-          "L"
+          "D",
+          "W"
         ]
       },
       "is_fun": false,
       "tier": "ok",
-      "id": "2026-06-07_5648190_team_over25",
+      "id": "2026-06-07_5662444_team_home_win",
       "date": "2026-06-07",
-      "match_id": "5648190",
-      "page_url": "/matches/cyprus-vs-liechtenstein/140ay3#5648190",
-      "matchup": "Liechtenstein vs Cyprus",
+      "match_id": "5662444",
+      "page_url": "/matches/andorra-vs-kosovo/18id9w3d#5662444",
+      "matchup": "Kosovo vs Andorra",
       "league": "Friendlies",
       "category": "team",
       "result": "PENDING",
