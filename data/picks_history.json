@@ -11607,6 +11607,103 @@
       "result": "WIN",
       "actual": "2-0 (2 buts home)",
       "resolved_at": "2026-06-07 02:01"
+    },
+    {
+      "player": "Alvaro Lopez / Carlos Airala",
+      "position": "",
+      "is_sub": false,
+      "type": "Double Chance Buteur",
+      "label": "Alvaro Lopez ou Carlos Airala marque",
+      "cote": null,
+      "book": null,
+      "books": [],
+      "confidence": 91,
+      "cote_min": 1.1,
+      "reasoning": "📈 P(Alvaro Lopez marque) ≈ 76% · P(Carlos Airala marque) ≈ 62%\n🎯 P(au moins un marque) = 91% (calculée par 1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.1 - chercher ≥1.1 chez le bookmaker",
+      "context": {},
+      "stats": {
+        "p_a": 0.765,
+        "p_b": 0.622,
+        "p_or": 0.911,
+        "player_a": "Alvaro Lopez",
+        "player_b": "Carlos Airala"
+      },
+      "team": "away",
+      "tier": "safe",
+      "id": "2026-06-07_5670412_player_Alvaro Lopez / Carlos Airala_Double Chance Buteur",
+      "date": "2026-06-07",
+      "match_id": "5670412",
+      "page_url": "/matches/club-atletico-progreso-vs-albion/5hae5lyg#5670412",
+      "matchup": "Club Atlético Progreso vs Albion",
+      "league": "Uruguay Primera",
+      "category": "player",
+      "side": "away",
+      "result": "PENDING",
+      "actual": null,
+      "resolved_at": null
+    },
+    {
+      "player": "Alvaro Lopez",
+      "position": "F",
+      "is_sub": false,
+      "type": "Buteur",
+      "label": "Alvaro Lopez marque",
+      "cote": null,
+      "book": null,
+      "books": [],
+      "confidence": 76,
+      "reasoning": "11 buts en 9 matchs cette saison (122.2% de chance/match) · xG moyen 0.00/match, défense adverse poreuse (1.6 buts concédés/match) · défense correcte",
+      "context": {
+        "weakness": 0.43
+      },
+      "stats": {
+        "goals": 11,
+        "apps": 9,
+        "gpm": 1.222,
+        "xgpm": 0
+      },
+      "team": "away",
+      "tier": "safe",
+      "id": "2026-06-07_5670412_player_Alvaro Lopez_Buteur",
+      "date": "2026-06-07",
+      "match_id": "5670412",
+      "page_url": "/matches/club-atletico-progreso-vs-albion/5hae5lyg#5670412",
+      "matchup": "Club Atlético Progreso vs Albion",
+      "league": "Uruguay Primera",
+      "category": "player",
+      "side": "away",
+      "result": "PENDING",
+      "actual": null,
+      "resolved_at": null
+    },
+    {
+      "direction": "over25",
+      "type": "Total buts",
+      "label": "Plus de 2.5 buts",
+      "cote": null,
+      "confidence": 62,
+      "reasoning": "Attendu 3.2 buts au total (Liechtenstein ~1.2, Cyprus ~2.0) - P(>2.5) ~62%",
+      "stats": {
+        "form": [
+          "L",
+          "L",
+          "W",
+          "L",
+          "L"
+        ]
+      },
+      "is_fun": false,
+      "tier": "ok",
+      "id": "2026-06-07_5648190_team_over25",
+      "date": "2026-06-07",
+      "match_id": "5648190",
+      "page_url": "/matches/cyprus-vs-liechtenstein/140ay3#5648190",
+      "matchup": "Liechtenstein vs Cyprus",
+      "league": "Friendlies",
+      "category": "team",
+      "result": "PENDING",
+      "actual": null,
+      "resolved_at": null
     }
   ]
 }
