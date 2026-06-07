@@ -1069,7 +1069,58 @@
         "tier": "ok"
       }
     ],
-    "home_players": [],
+    "home_players": [
+      {
+        "player": "Kasper Waarts Høgh",
+        "position": "F",
+        "is_sub": false,
+        "type": "Buteur",
+        "label": "Kasper Waarts Høgh marque",
+        "cote": 1.72,
+        "book": null,
+        "books": [],
+        "confidence": 58,
+        "reasoning": "Kasper Waarts Høgh : 7G en 10 matchs club (0.70 buts/m, source: L10 Eliteserien). Avec un attendu de 1.9 buts pour Denmark, sa probabilite de marquer est ~58%.",
+        "context": {
+          "source": "lineup",
+          "lam": 0.87
+        },
+        "stats": {
+          "goals": null,
+          "apps": null,
+          "gpm": 0.873,
+          "xgpm": null
+        },
+        "team": "home",
+        "tier": "ok",
+        "edge_pp": -0.1
+      },
+      {
+        "player": "Kasper Waarts Høgh",
+        "position": "F",
+        "is_sub": false,
+        "type": "Double buteur",
+        "label": "Kasper Waarts Høgh marque 2+ buts",
+        "cote": 4.6,
+        "book": null,
+        "books": [],
+        "confidence": 32,
+        "reasoning": "Kasper Waarts Høgh : 7G en 10 matchs club (0.70/m, source: L10 Eliteserien). Attendu ~0.9 buts ce match - P(2+ buts) ~22% (cote interessante).",
+        "context": {
+          "source": "lineup",
+          "lam": 0.87
+        },
+        "stats": {
+          "goals": null,
+          "apps": null,
+          "gpm": 0.873,
+          "xgpm": null
+        },
+        "team": "home",
+        "tier": "fun",
+        "edge_pp": 10.3
+      }
+    ],
     "away_players": [],
     "fun_picks": [],
     "top_pick": {
@@ -1704,20 +1755,6 @@
       "tier": "ok"
     },
     "no_picks": false
-  },
-  {
-    "league": "Friendlies",
-    "home": "Afghanistan",
-    "away": "Pakistan",
-    "start_ts": 1780830000,
-    "match_id": "5729579",
-    "page_url": "/matches/pakistan-vs-afghanistan/2dje8i3#5729579",
-    "picks": [],
-    "home_players": [],
-    "away_players": [],
-    "fun_picks": [],
-    "top_pick": null,
-    "no_picks": true
   },
   {
     "league": "Friendlies",
