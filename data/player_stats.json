@@ -1631,14 +1631,14 @@
       }
     ],
     "home_team_stats": {
-      "goals_pm": 0.6,
-      "conceded_pm": 1.7,
+      "goals_pm": 0.5,
+      "conceded_pm": 1.6,
       "shots_pm": 0,
       "sot_pm": 0
     },
     "away_team_stats": {
-      "goals_pm": 1.5,
-      "conceded_pm": 1.0,
+      "goals_pm": 1.4,
+      "conceded_pm": 0.9,
       "shots_pm": 0,
       "sot_pm": 0
     },
@@ -1650,7 +1650,7 @@
         "L",
         "L"
       ],
-      "position": 7,
+      "position": 6,
       "avgRating": null,
       "goals_for_pm": 0.56,
       "goals_ag_pm": 1.67,
@@ -1719,8 +1719,8 @@
       "xg_weighted": null,
       "opp_shots_weighted": null,
       "opp_sot_weighted": null,
-      "avg_opp_rank_l10": 3.0,
-      "target_opp_rank": 3,
+      "avg_opp_rank_l10": 3.5,
+      "target_opp_rank": 1,
       "all_comp_n_l5": 0,
       "all_comp_n_l10": 0,
       "shots_l5_all": null,
@@ -1754,7 +1754,7 @@
       "corners_pm": 0,
       "big_chance_pm": 0,
       "possession_pct": 0,
-      "clean_sheet_pm": 0.17
+      "clean_sheet_pm": 0.21
     },
     "away_recent": {
       "form": [
@@ -1764,7 +1764,7 @@
         "W",
         "D"
       ],
-      "position": 3,
+      "position": 1,
       "avgRating": null,
       "goals_for_pm": 1.5,
       "goals_ag_pm": 1.0,
@@ -1833,8 +1833,8 @@
       "xg_weighted": null,
       "opp_shots_weighted": null,
       "opp_sot_weighted": null,
-      "avg_opp_rank_l10": 4.9,
-      "target_opp_rank": 7,
+      "avg_opp_rank_l10": 5.1,
+      "target_opp_rank": 6,
       "all_comp_n_l5": 2,
       "all_comp_n_l10": 3,
       "shots_l5_all": 19.0,
@@ -1868,13 +1868,13 @@
       "corners_pm": 0,
       "big_chance_pm": 0,
       "possession_pct": 0,
-      "clean_sheet_pm": 0.28
+      "clean_sheet_pm": 0.32
     },
     "home_l5": [
       {
         "date": "2026-05-29T22:30:00Z",
         "opponent": "Cerro Largo",
-        "opp_rank": 2,
+        "opp_rank": 3,
         "opp_id": "148967",
         "is_home": false,
         "score": "2 - 0",
@@ -1910,7 +1910,7 @@
       {
         "date": "2026-05-24T13:00:00Z",
         "opponent": "Central Espanol",
-        "opp_rank": 1,
+        "opp_rank": 2,
         "opp_id": "1834",
         "is_home": true,
         "score": "1 - 0",
@@ -1940,7 +1940,7 @@
       {
         "date": "2026-05-16T15:00:00Z",
         "opponent": "Boston River",
-        "opp_rank": 6,
+        "opp_rank": 7,
         "opp_id": "188313",
         "is_home": false,
         "score": "4 - 1",
@@ -2075,7 +2075,7 @@
       {
         "date": "2026-06-01T23:00:00Z",
         "opponent": "Central Espanol",
-        "opp_rank": 1,
+        "opp_rank": 2,
         "opp_id": "1834",
         "is_home": true,
         "score": "0 - 1",
@@ -2184,7 +2184,7 @@
       {
         "date": "2026-05-11T23:30:00Z",
         "opponent": "Cerro Largo",
-        "opp_rank": 2,
+        "opp_rank": 3,
         "opp_id": "148967",
         "is_home": false,
         "score": "2 - 3",
@@ -2401,39 +2401,19 @@
       "n_matches": 0
     },
     "lineup": {
-      "type": "simple",
+      "type": "standard",
       "source": "enetpulse",
       "home": {
         "name": "Cerro",
         "id": 1836,
-        "formation": null,
+        "formation": "4-1-4-1",
         "coach": "Alejandro Cappuccio",
         "starters": [
           {
             "id": 206581,
             "name": "Yonatan Irrazábal",
             "shirt": "12",
-            "pos_id": null,
-            "rating": null,
-            "goals": null,
-            "assists": null,
-            "apps": null
-          },
-          {
-            "id": 1266889,
-            "name": "Alejo Macelli",
-            "shirt": "5",
-            "pos_id": 1,
-            "rating": null,
-            "goals": null,
-            "assists": null,
-            "apps": null
-          },
-          {
-            "id": 1531886,
-            "name": "Francisco Bregante",
-            "shirt": "6",
-            "pos_id": 1,
+            "pos_id": 11,
             "rating": null,
             "goals": null,
             "assists": null,
@@ -2443,7 +2423,17 @@
             "id": 1279887,
             "name": "Iván Valenzuela",
             "shirt": "24",
-            "pos_id": 1,
+            "pos_id": 32,
+            "rating": null,
+            "goals": null,
+            "assists": null,
+            "apps": null
+          },
+          {
+            "id": 1266889,
+            "name": "Alejo Macelli",
+            "shirt": "5",
+            "pos_id": 34,
             "rating": null,
             "goals": null,
             "assists": null,
@@ -2453,17 +2443,17 @@
             "id": 1203234,
             "name": "Juan Guasone",
             "shirt": "16",
-            "pos_id": 1,
+            "pos_id": 36,
             "rating": null,
             "goals": null,
             "assists": null,
             "apps": null
           },
           {
-            "id": 245345,
-            "name": "Brahian Alemán",
-            "shirt": "10",
-            "pos_id": 2,
+            "id": 1531886,
+            "name": "Francisco Bregante",
+            "shirt": "6",
+            "pos_id": 38,
             "rating": null,
             "goals": null,
             "assists": null,
@@ -2473,37 +2463,7 @@
             "id": 1683557,
             "name": "Jairo Amaro",
             "shirt": "31",
-            "pos_id": 2,
-            "rating": null,
-            "goals": null,
-            "assists": null,
-            "apps": null
-          },
-          {
-            "id": 1442317,
-            "name": "Augusto Cambón",
-            "shirt": "28",
-            "pos_id": 3,
-            "rating": null,
-            "goals": null,
-            "assists": null,
-            "apps": null
-          },
-          {
-            "id": 1105287,
-            "name": "Cristian Barros",
-            "shirt": "27",
-            "pos_id": 3,
-            "rating": null,
-            "goals": null,
-            "assists": null,
-            "apps": null
-          },
-          {
-            "id": 1229357,
-            "name": "Matías Ocampo",
-            "shirt": "77",
-            "pos_id": 3,
+            "pos_id": 65,
             "rating": null,
             "goals": null,
             "assists": null,
@@ -2513,7 +2473,47 @@
             "id": 1916428,
             "name": "Tiago Rijo",
             "shirt": "33",
-            "pos_id": 3,
+            "pos_id": 82,
+            "rating": null,
+            "goals": null,
+            "assists": null,
+            "apps": null
+          },
+          {
+            "id": 1105287,
+            "name": "Cristian Barros",
+            "shirt": "27",
+            "pos_id": 84,
+            "rating": null,
+            "goals": null,
+            "assists": null,
+            "apps": null
+          },
+          {
+            "id": 245345,
+            "name": "Brahian Alemán",
+            "shirt": "10",
+            "pos_id": 86,
+            "rating": null,
+            "goals": null,
+            "assists": null,
+            "apps": null
+          },
+          {
+            "id": 1229357,
+            "name": "Matías Ocampo",
+            "shirt": "77",
+            "pos_id": 88,
+            "rating": null,
+            "goals": null,
+            "assists": null,
+            "apps": null
+          },
+          {
+            "id": 1442317,
+            "name": "Augusto Cambón",
+            "shirt": "28",
+            "pos_id": 115,
             "rating": null,
             "goals": null,
             "assists": null,
@@ -2525,14 +2525,14 @@
       "away": {
         "name": "Club Atletico Penarol",
         "id": 8450,
-        "formation": null,
+        "formation": "4-2-3-1",
         "coach": "Diego Aguirre",
         "starters": [
           {
             "id": 521632,
             "name": "Washington Aguerre",
             "shirt": "29",
-            "pos_id": null,
+            "pos_id": 11,
             "rating": null,
             "goals": null,
             "assists": null,
@@ -2542,17 +2542,7 @@
             "id": 1975229,
             "name": "Brian Barboza",
             "shirt": "36",
-            "pos_id": 1,
-            "rating": null,
-            "goals": null,
-            "assists": null,
-            "apps": null
-          },
-          {
-            "id": 848035,
-            "name": "Emanuel Gularte",
-            "shirt": "4",
-            "pos_id": 1,
+            "pos_id": 32,
             "rating": null,
             "goals": null,
             "assists": null,
@@ -2562,7 +2552,17 @@
             "id": 643570,
             "name": "Mauricio Lemos",
             "shirt": "3",
-            "pos_id": 1,
+            "pos_id": 34,
+            "rating": null,
+            "goals": null,
+            "assists": null,
+            "apps": null
+          },
+          {
+            "id": 848035,
+            "name": "Emanuel Gularte",
+            "shirt": "4",
+            "pos_id": 36,
             "rating": null,
             "goals": null,
             "assists": null,
@@ -2572,17 +2572,7 @@
             "id": 281238,
             "name": "Maximiliano Olivera",
             "shirt": "15",
-            "pos_id": 1,
-            "rating": null,
-            "goals": null,
-            "assists": null,
-            "apps": null
-          },
-          {
-            "id": 1226771,
-            "name": "Eduardo Darias",
-            "shirt": "13",
-            "pos_id": 2,
+            "pos_id": 38,
             "rating": null,
             "goals": null,
             "assists": null,
@@ -2592,17 +2582,7 @@
             "id": 495445,
             "name": "Jesús Trindade",
             "shirt": "21",
-            "pos_id": 2,
-            "rating": null,
-            "goals": null,
-            "assists": null,
-            "apps": null
-          },
-          {
-            "id": 1714925,
-            "name": "Leandro Umpiérrez",
-            "shirt": "32",
-            "pos_id": 2,
+            "pos_id": 64,
             "rating": null,
             "goals": null,
             "assists": null,
@@ -2612,17 +2592,7 @@
             "id": 889729,
             "name": "Nicolás Fernández",
             "shirt": "8",
-            "pos_id": 2,
-            "rating": null,
-            "goals": null,
-            "assists": null,
-            "apps": null
-          },
-          {
-            "id": 976444,
-            "name": "Facundo Batista",
-            "shirt": "9",
-            "pos_id": 3,
+            "pos_id": 66,
             "rating": null,
             "goals": null,
             "assists": null,
@@ -2632,7 +2602,37 @@
             "id": 210469,
             "name": "Javier Cabrera",
             "shirt": "7",
-            "pos_id": 3,
+            "pos_id": 83,
+            "rating": null,
+            "goals": null,
+            "assists": null,
+            "apps": null
+          },
+          {
+            "id": 1226771,
+            "name": "Eduardo Darias",
+            "shirt": "13",
+            "pos_id": 85,
+            "rating": null,
+            "goals": null,
+            "assists": null,
+            "apps": null
+          },
+          {
+            "id": 1714925,
+            "name": "Leandro Umpiérrez",
+            "shirt": "32",
+            "pos_id": 87,
+            "rating": null,
+            "goals": null,
+            "assists": null,
+            "apps": null
+          },
+          {
+            "id": 976444,
+            "name": "Facundo Batista",
+            "shirt": "9",
+            "pos_id": 115,
             "rating": null,
             "goals": null,
             "assists": null,
@@ -3248,8 +3248,8 @@
       "xg_weighted": null,
       "opp_shots_weighted": null,
       "opp_sot_weighted": null,
-      "avg_opp_rank_l10": 4.6,
-      "target_opp_rank": 6,
+      "avg_opp_rank_l10": 4.3,
+      "target_opp_rank": 7,
       "all_comp_n_l5": 0,
       "all_comp_n_l10": 0,
       "shots_l5_all": null,
@@ -3293,7 +3293,7 @@
         "L",
         "W"
       ],
-      "position": 6,
+      "position": 7,
       "avgRating": null,
       "goals_for_pm": 1.0,
       "goals_ag_pm": 1.39,
@@ -3362,7 +3362,7 @@
       "xg_weighted": null,
       "opp_shots_weighted": null,
       "opp_sot_weighted": null,
-      "avg_opp_rank_l10": 3.9,
+      "avg_opp_rank_l10": 4.1,
       "target_opp_rank": 8,
       "all_comp_n_l5": 2,
       "all_comp_n_l10": 3,
@@ -3426,7 +3426,7 @@
       {
         "date": "2026-05-24T21:30:00Z",
         "opponent": "Club Atletico Penarol",
-        "opp_rank": 3,
+        "opp_rank": 1,
         "opp_id": "8450",
         "is_home": true,
         "score": "0 - 2",
@@ -3462,7 +3462,7 @@
       {
         "date": "2026-05-17T13:00:00Z",
         "opponent": "Central Espanol",
-        "opp_rank": 1,
+        "opp_rank": 2,
         "opp_id": "1834",
         "is_home": false,
         "score": "2 - 1",
@@ -3548,7 +3548,7 @@
       {
         "date": "2026-05-04T22:30:00Z",
         "opponent": "Club Atletico Penarol",
-        "opp_rank": 3,
+        "opp_rank": 1,
         "opp_id": "8450",
         "is_home": false,
         "score": "1 - 1",
@@ -3603,7 +3603,7 @@
       {
         "date": "2026-05-23T18:00:00Z",
         "opponent": "Cerro Largo",
-        "opp_rank": 2,
+        "opp_rank": 3,
         "opp_id": "148967",
         "is_home": false,
         "score": "3 - 0",
@@ -3645,7 +3645,7 @@
       {
         "date": "2026-05-16T15:00:00Z",
         "opponent": "Cerro",
-        "opp_rank": 7,
+        "opp_rank": 6,
         "opp_id": "1836",
         "is_home": true,
         "score": "4 - 1",
@@ -3743,7 +3743,7 @@
       {
         "date": "2026-05-03T15:00:00Z",
         "opponent": "Central Espanol",
-        "opp_rank": 1,
+        "opp_rank": 2,
         "opp_id": "1834",
         "is_home": true,
         "score": "2 - 1",
@@ -4886,8 +4886,8 @@
       "xg_weighted": null,
       "opp_shots_weighted": null,
       "opp_sot_weighted": null,
-      "avg_opp_rank_l10": 4.3,
-      "target_opp_rank": 2,
+      "avg_opp_rank_l10": 4.0,
+      "target_opp_rank": 3,
       "all_comp_n_l5": 0,
       "all_comp_n_l10": 0,
       "shots_l5_all": null,
@@ -4931,7 +4931,7 @@
         "L",
         "W"
       ],
-      "position": 2,
+      "position": 3,
       "avgRating": null,
       "goals_for_pm": 1.17,
       "goals_ag_pm": 1.11,
@@ -5000,7 +5000,7 @@
       "xg_weighted": null,
       "opp_shots_weighted": null,
       "opp_sot_weighted": null,
-      "avg_opp_rank_l10": 5.7,
+      "avg_opp_rank_l10": 5.5,
       "target_opp_rank": 5,
       "all_comp_n_l5": 0,
       "all_comp_n_l10": 0,
@@ -5041,7 +5041,7 @@
       {
         "date": "2026-06-01T18:00:00Z",
         "opponent": "Boston River",
-        "opp_rank": 6,
+        "opp_rank": 7,
         "opp_id": "188313",
         "is_home": false,
         "score": "0 - 1",
@@ -5094,7 +5094,7 @@
       {
         "date": "2026-05-16T21:30:00Z",
         "opponent": "Club Atletico Penarol",
-        "opp_rank": 3,
+        "opp_rank": 1,
         "opp_id": "8450",
         "is_home": false,
         "score": "2 - 1",
@@ -5211,7 +5211,7 @@
       {
         "date": "2026-05-29T22:30:00Z",
         "opponent": "Cerro",
-        "opp_rank": 7,
+        "opp_rank": 6,
         "opp_id": "1836",
         "is_home": true,
         "score": "2 - 0",
@@ -5247,7 +5247,7 @@
       {
         "date": "2026-05-23T18:00:00Z",
         "opponent": "Boston River",
-        "opp_rank": 6,
+        "opp_rank": 7,
         "opp_id": "188313",
         "is_home": true,
         "score": "3 - 0",
@@ -5319,7 +5319,7 @@
       {
         "date": "2026-05-11T23:30:00Z",
         "opponent": "Club Atletico Penarol",
-        "opp_rank": 3,
+        "opp_rank": 1,
         "opp_id": "8450",
         "is_home": true,
         "score": "2 - 3",
@@ -14838,12 +14838,12 @@
       "n_matches": 0
     },
     "lineup": {
-      "type": "lastStarting11",
-      "source": "lastStartingLineups",
+      "type": "standard",
+      "source": "enetpulse",
       "home": {
         "name": "Croatia",
         "id": 10155,
-        "formation": "3-4-2-1",
+        "formation": "4-2-3-1",
         "coach": null,
         "starters": [
           {
@@ -14857,20 +14857,30 @@
             "apps": null
           },
           {
-            "id": 1186228,
-            "name": "Josip Sutalo",
-            "shirt": "6",
-            "pos_id": 33,
+            "id": 950824,
+            "name": "Josip Stanisic",
+            "shirt": "2",
+            "pos_id": 32,
             "rating": null,
             "goals": null,
             "assists": null,
             "apps": null
           },
           {
-            "id": 1413996,
-            "name": "Luka Vuskovic",
-            "shirt": "22",
-            "pos_id": 35,
+            "id": 616170,
+            "name": "Martin Erlic",
+            "shirt": "25",
+            "pos_id": 34,
+            "rating": null,
+            "goals": null,
+            "assists": null,
+            "apps": null
+          },
+          {
+            "id": 831474,
+            "name": "Marin Pongracic",
+            "shirt": "3",
+            "pos_id": 36,
             "rating": null,
             "goals": null,
             "assists": null,
@@ -14880,17 +14890,7 @@
             "id": 1070712,
             "name": "Josko Gvardiol",
             "shirt": "4",
-            "pos_id": 37,
-            "rating": null,
-            "goals": null,
-            "assists": null,
-            "apps": null
-          },
-          {
-            "id": 950824,
-            "name": "Josip Stanisic",
-            "shirt": "2",
-            "pos_id": 62,
+            "pos_id": 38,
             "rating": null,
             "goals": null,
             "assists": null,
@@ -14917,40 +14917,40 @@
             "apps": null
           },
           {
+            "id": 1199714,
+            "name": "Marco Pasalic",
+            "shirt": "24",
+            "pos_id": 83,
+            "rating": null,
+            "goals": null,
+            "assists": null,
+            "apps": null
+          },
+          {
+            "id": 173461,
+            "name": "Andrej Kramaric",
+            "shirt": "9",
+            "pos_id": 85,
+            "rating": null,
+            "goals": null,
+            "assists": null,
+            "apps": null
+          },
+          {
             "id": 163670,
             "name": "Ivan Perisic",
             "shirt": "14",
-            "pos_id": 68,
+            "pos_id": 87,
             "rating": null,
             "goals": null,
             "assists": null,
             "apps": null
           },
           {
-            "id": 1382000,
-            "name": "Petar Sucic",
-            "shirt": "17",
-            "pos_id": 84,
-            "rating": null,
-            "goals": null,
-            "assists": null,
-            "apps": null
-          },
-          {
-            "id": 1215064,
-            "name": "Martin Baturina",
-            "shirt": "16",
-            "pos_id": 86,
-            "rating": null,
-            "goals": null,
-            "assists": null,
-            "apps": null
-          },
-          {
-            "id": 709796,
-            "name": "Petar Musa",
-            "shirt": "26",
-            "pos_id": 105,
+            "id": 251269,
+            "name": "Ante Budimir",
+            "shirt": "11",
+            "pos_id": 115,
             "rating": null,
             "goals": null,
             "assists": null,
@@ -14976,9 +14976,9 @@
             "apps": null
           },
           {
-            "id": 1382364,
-            "name": "Srdjan Kuzmic",
-            "shirt": "5",
+            "id": 1284503,
+            "name": "Marcel Ratnik",
+            "shirt": "4",
             "pos_id": 32,
             "rating": null,
             "goals": null,
@@ -14996,9 +14996,9 @@
             "apps": null
           },
           {
-            "id": 1110819,
-            "name": "David Brekalo",
-            "shirt": "23",
+            "id": 955204,
+            "name": "Vanja Drkusic",
+            "shirt": "21",
             "pos_id": 36,
             "rating": null,
             "goals": null,
@@ -15016,10 +15016,20 @@
             "apps": null
           },
           {
-            "id": 1284555,
-            "name": "Svit Seslar",
-            "shirt": "10",
+            "id": 1172405,
+            "name": "Tjas Begic",
+            "shirt": "11",
             "pos_id": 72,
+            "rating": null,
+            "goals": null,
+            "assists": null,
+            "apps": null
+          },
+          {
+            "id": 846739,
+            "name": "Zan Karnicnik",
+            "shirt": "2",
+            "pos_id": 74,
             "rating": null,
             "goals": null,
             "assists": null,
@@ -15029,16 +15039,6 @@
             "id": 863156,
             "name": "Adam Gnezda Cerin",
             "shirt": "22",
-            "pos_id": 74,
-            "rating": null,
-            "goals": null,
-            "assists": null,
-            "apps": null
-          },
-          {
-            "id": 941535,
-            "name": "Tamar Svetlin",
-            "shirt": "14",
             "pos_id": 76,
             "rating": null,
             "goals": null,
@@ -15046,9 +15046,9 @@
             "apps": null
           },
           {
-            "id": 266992,
-            "name": "Benjamin Verbic",
-            "shirt": "7",
+            "id": 557346,
+            "name": "Sandi Lovric",
+            "shirt": "8",
             "pos_id": 78,
             "rating": null,
             "goals": null,
@@ -15076,17 +15076,7 @@
             "apps": null
           }
         ],
-        "unavailable": [
-          {
-            "id": 338136,
-            "name": "Andraz Sporar",
-            "type": "injury",
-            "return": "About a week",
-            "rating": null,
-            "goals": null,
-            "assists": null
-          }
-        ]
+        "unavailable": []
       }
     },
     "h2h_details": [
@@ -15645,7 +15635,7 @@
       "n_matches": 0
     },
     "lineup": {
-      "type": "predicted",
+      "type": "standard",
       "source": "enetpulse",
       "home": {
         "name": "Greece",
@@ -15654,9 +15644,9 @@
         "coach": "Ivan Jovanovic",
         "starters": [
           {
-            "id": 1072068,
-            "name": "Konstantinos Tzolakis",
-            "shirt": "12",
+            "id": 304355,
+            "name": "Odysseas Vlachodimos",
+            "shirt": "1",
             "pos_id": 11,
             "rating": null,
             "goals": null,
@@ -15674,9 +15664,9 @@
             "apps": null
           },
           {
-            "id": 719219,
-            "name": "Konstantinos Mavropanos",
-            "shirt": "4",
+            "id": 660132,
+            "name": "Pantelis Hatzidiakos",
+            "shirt": "17",
             "pos_id": 35,
             "rating": null,
             "goals": null,
@@ -15694,9 +15684,9 @@
             "apps": null
           },
           {
-            "id": 949866,
-            "name": "Lazaros Rota",
-            "shirt": "15",
+            "id": 1119687,
+            "name": "Georgios Vagiannidis",
+            "shirt": "2",
             "pos_id": 62,
             "rating": null,
             "goals": null,
@@ -15704,9 +15694,9 @@
             "apps": null
           },
           {
-            "id": 260750,
-            "name": "Dimitrios Kourbelis",
-            "shirt": "6",
+            "id": 1338086,
+            "name": "Nectarios Triantis",
+            "shirt": "23",
             "pos_id": 64,
             "rating": null,
             "goals": null,
@@ -15714,9 +15704,9 @@
             "apps": null
           },
           {
-            "id": 1124529,
-            "name": "Christos Zafeiris",
-            "shirt": "20",
+            "id": 1574198,
+            "name": "Christos Mouzakitis",
+            "shirt": "8",
             "pos_id": 66,
             "rating": null,
             "goals": null,
@@ -15724,9 +15714,9 @@
             "apps": null
           },
           {
-            "id": 671529,
-            "name": "Konstantinos Tsimikas",
-            "shirt": "21",
+            "id": 518633,
+            "name": "Giorgos Kyriakopoulos",
+            "shirt": "19",
             "pos_id": 68,
             "rating": null,
             "goals": null,
@@ -15744,9 +15734,9 @@
             "apps": null
           },
           {
-            "id": 873270,
-            "name": "Anastasios Douvikas",
-            "shirt": "9",
+            "id": 575227,
+            "name": "Giorgos Masouras",
+            "shirt": "7",
             "pos_id": 104,
             "rating": null,
             "goals": null,
@@ -15754,9 +15744,9 @@
             "apps": null
           },
           {
-            "id": 637749,
-            "name": "Vangelis Pavlidis",
-            "shirt": "14",
+            "id": 873270,
+            "name": "Anastasios Douvikas",
+            "shirt": "9",
             "pos_id": 106,
             "rating": null,
             "goals": null,
@@ -15783,9 +15773,9 @@
             "apps": null
           },
           {
-            "id": 1403328,
-            "name": "Costantino Favasuli",
-            "shirt": "22",
+            "id": 1669629,
+            "name": "Honest Ahanor",
+            "shirt": "24",
             "pos_id": 32,
             "rating": null,
             "goals": null,
@@ -15853,9 +15843,9 @@
             "apps": null
           },
           {
-            "id": 1445163,
-            "name": "Seydou Fini",
-            "shirt": "17",
+            "id": 1368318,
+            "name": "Luca Koleosho",
+            "shirt": "11",
             "pos_id": 103,
             "rating": null,
             "goals": null,
@@ -15873,9 +15863,9 @@
             "apps": null
           },
           {
-            "id": 1368318,
-            "name": "Luca Koleosho",
-            "shirt": "11",
+            "id": 1669628,
+            "name": "Jeff Ekhator",
+            "shirt": "18",
             "pos_id": 107,
             "rating": null,
             "goals": null,
@@ -16654,9 +16644,9 @@
             "apps": null
           },
           {
-            "id": 617310,
-            "name": "Nayef Aguerd",
-            "shirt": "5",
+            "id": 1187506,
+            "name": "Chadi Riad",
+            "shirt": "18",
             "pos_id": 36,
             "rating": null,
             "goals": null,
@@ -16674,9 +16664,9 @@
             "apps": null
           },
           {
-            "id": 1340895,
-            "name": "Bilal El Khannouss",
-            "shirt": "23",
+            "id": 1561552,
+            "name": "Ayyoub Bouaddi",
+            "shirt": "6",
             "pos_id": 73,
             "rating": null,
             "goals": null,
@@ -16694,10 +16684,20 @@
             "apps": null
           },
           {
+            "id": 1073143,
+            "name": "Azzedine Ounahi",
+            "shirt": "8",
+            "pos_id": 77,
+            "rating": null,
+            "goals": null,
+            "assists": null,
+            "apps": null
+          },
+          {
             "id": 1180288,
             "name": "Ismael Saibari",
             "shirt": "11",
-            "pos_id": 77,
+            "pos_id": 103,
             "rating": null,
             "goals": null,
             "assists": null,
@@ -16707,16 +16707,6 @@
             "id": 750027,
             "name": "Brahim Díaz",
             "shirt": "10",
-            "pos_id": 103,
-            "rating": null,
-            "goals": null,
-            "assists": null,
-            "apps": null
-          },
-          {
-            "id": 884382,
-            "name": "Ayoub El Kaabi",
-            "shirt": "20",
             "pos_id": 105,
             "rating": null,
             "goals": null,
