@@ -5721,7 +5721,7 @@ function updateHistChart(containerId){{
   // Dimensions
   var W = chartHost.clientWidth || 600;
   var H = 230;
-  var padL = 36, padR = 16, padT = 18, padB = 38;
+  var padL = 36, padR = 22, padT = 28, padB = 38;
   var plotW = W - padL - padR;
   var plotH = H - padT - padB;
   var n = data.length;
@@ -5757,8 +5757,13 @@ function updateHistChart(containerId){{
     + ' L ' + xPos(n-1).toFixed(1) + ' ' + (padT+plotH).toFixed(1)
     + ' L ' + xPos(0).toFixed(1)   + ' ' + (padT+plotH).toFixed(1) + ' Z';
 
-  // 3) Dots colores par WR du jour (clickables avec tooltip)
+  // 3) Dots colores par WR du jour + labels % au-dessus
+  // Densite labels : si beaucoup de points, on saute pour eviter le chevauchement
+  var labelStep = 1;
+  if(n > 25) labelStep = Math.ceil(n / 18);
+  else if(n > 15) labelStep = 2;
   var dots = '';
+  var dotLabels = '';
   for(var i=0; i<n; i++){{
     var d = data[i];
     var x = xPos(i), y = yPos(d.cumWR);
@@ -5766,6 +5771,21 @@ function updateHistChart(containerId){{
     var tip = d.date+' · jour: '+d.w+'W-'+d.l+'L ('+d.wr.toFixed(0)+'%) · cumul: '+d.cumWR.toFixed(0)+'%';
     dots += '<circle cx="'+x.toFixed(1)+'" cy="'+y.toFixed(1)+'" r="5" fill="'+col+'" stroke="#0f172a" stroke-width="2" '
          +  'style="cursor:pointer" data-tip="'+tip+'" onmouseover="histChartTip(this)" onmouseout="histChartTipHide()"><title>'+tip+'</title></circle>';
+    // Label % au-dessus du dot (forcement premier et dernier, sinon selon step)
+    var showLabel = (i === 0 || i === n-1 || i % labelStep === 0);
+    if(showLabel){{
+      var labelY = y - 10;
+      // Si le dot est trop haut (proche du top), on met le label en dessous
+      if(y < padT + 18) labelY = y + 16;
+      var labelCol = colorWR(d.cumWR);
+      // Background semi-transparent pour la lisibilite
+      var labelTxt = d.cumWR.toFixed(0)+'%';
+      var labelW = labelTxt.length * 6 + 6;
+      dotLabels += '<rect x="'+(x-labelW/2).toFixed(1)+'" y="'+(labelY-9)+'" width="'+labelW+'" height="13" '
+                +  'rx="3" fill="#0a1628" stroke="'+labelCol+'" stroke-width="1" opacity="0.95"/>';
+      dotLabels += '<text x="'+x.toFixed(1)+'" y="'+(labelY+1)+'" text-anchor="middle" fill="'+labelCol+'" '
+                +  'font-size="9.5" font-weight="700" font-family="ui-sans-serif,system-ui">'+labelTxt+'</text>';
+    }}
   }}
 
   // 4) Labels X : densite intelligente selon n
@@ -5818,6 +5838,7 @@ function updateHistChart(containerId){{
     + '<path d="'+areaPath+'" fill="url(#hcgrad_'+chartId+')"/>'
     + '<path d="'+linePath+'" fill="none" stroke="#3b82f6" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>'
     + dots
+    + dotLabels
     + xLabels
     + statsFooter
     + '</svg>'
