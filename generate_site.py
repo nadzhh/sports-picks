@@ -3207,7 +3207,7 @@ def build_tennis_history(history_data):
         f'padding:14px 16px;margin-bottom:14px">'
         f'<div style="color:#94a3b8;font-size:11px;text-transform:uppercase;letter-spacing:1px;'
         f'margin-bottom:8px">📈 Win Rate sur la periode</div>'
-        f'<div id="tennishist-chart" style="width:100%;height:160px"></div>'
+        f'<div id="tennishist-chart" style="width:100%;height:230px;position:relative"></div>'
         f'</div>'
     )
     return (
@@ -3488,7 +3488,7 @@ def build_foot_history(history_data):
         f'padding:14px 16px;margin-bottom:14px">'
         f'<div style="color:#94a3b8;font-size:11px;text-transform:uppercase;letter-spacing:1px;'
         f'margin-bottom:8px">📈 Win Rate sur la periode</div>'
-        f'<div id="foothist-chart" style="width:100%;height:160px"></div>'
+        f'<div id="foothist-chart" style="width:100%;height:230px;position:relative"></div>'
         f'</div>'
     )
     return summary + filter_html + chart_html + f'<div id="foothist-list">{date_html}</div>'
@@ -3773,7 +3773,7 @@ def build_nba_history(history_data):
         f'padding:14px 16px;margin-bottom:14px">'
         f'<div style="color:#94a3b8;font-size:11px;text-transform:uppercase;letter-spacing:1px;'
         f'margin-bottom:8px">📈 Win Rate sur la periode</div>'
-        f'<div id="nbahist-chart" style="width:100%;height:160px"></div>'
+        f'<div id="nbahist-chart" style="width:100%;height:230px;position:relative"></div>'
         f'</div>'
     )
     return summary + filter_html + chart_html + f'<div id="nbahist-list">{date_html}</div>'
@@ -5674,9 +5674,8 @@ function filterHistoryDate(containerId, dateValue){{
   updateHistChart(containerId);
 }}
 
-// ── Dessine le chart WR par jour (bar chart) + ligne WR cumulee ──
+// ── Chart WR : aire cumulee bleue + dots colores par jour ──
 function updateHistChart(containerId){{
-  // Mapping : containerId -> chartId
   var chartMap = {{
     'foothist-list': 'foothist-chart',
     'nbahist-list':  'nbahist-chart',
@@ -5686,22 +5685,18 @@ function updateHistChart(containerId){{
   if(!chartId) return;
   var chartHost = document.getElementById(chartId);
   if(!chartHost) return;
-
   var container = document.getElementById(containerId);
   if(!container) return;
-  // Collecte uniquement les details VISIBLES (apres filtrage)
+
+  // Collecte les details VISIBLES (apres filtrage)
   var entries = Array.prototype.slice.call(container.querySelectorAll('details[data-date]'))
     .filter(function(el){{ return el.style.display !== 'none'; }});
   if(!entries.length){{
-    chartHost.innerHTML = '<div style="color:#475569;text-align:center;padding:40px 0;font-size:12px">Aucune donnee pour cette periode</div>';
+    chartHost.innerHTML = '<div style="color:#475569;text-align:center;padding:60px 0;font-size:12px">Aucune donnee pour cette periode</div>';
     return;
   }}
-  // Tri par date asc
-  entries.sort(function(a,b){{
-    return a.getAttribute('data-date').localeCompare(b.getAttribute('data-date'));
-  }});
+  entries.sort(function(a,b){{ return a.getAttribute('data-date').localeCompare(b.getAttribute('data-date')); }});
 
-  // Donnees par jour
   var data = entries.map(function(el){{
     var d = el.getAttribute('data-date');
     var w = parseInt(el.getAttribute('data-wins')) || 0;
@@ -5713,88 +5708,137 @@ function updateHistChart(containerId){{
   }}).filter(function(x){{ return x.resolved > 0; }});
 
   if(!data.length){{
-    chartHost.innerHTML = '<div style="color:#475569;text-align:center;padding:40px 0;font-size:12px">Aucun pick resolu sur la periode</div>';
+    chartHost.innerHTML = '<div style="color:#475569;text-align:center;padding:60px 0;font-size:12px">Aucun pick resolu sur la periode</div>';
     return;
   }}
 
-  // WR cumule
   var cumW=0, cumL=0;
   data.forEach(function(d){{
     cumW += d.w; cumL += d.l;
-    d.cumWR = (cumW+cumL) ? cumW/(cumW+cumL)*100 : null;
+    d.cumWR = cumW/(cumW+cumL)*100;
   }});
 
   // Dimensions
   var W = chartHost.clientWidth || 600;
-  var H = 160;
-  var padL = 32, padR = 12, padT = 10, padB = 26;
+  var H = 230;
+  var padL = 36, padR = 16, padT = 18, padB = 38;
   var plotW = W - padL - padR;
   var plotH = H - padT - padB;
   var n = data.length;
-  var barW = Math.max(4, plotW / n - 2);
-  var barGap = plotW / n - barW;
 
   function yPos(v){{ return padT + (1 - v/100) * plotH; }}
-  function xPos(i){{ return padL + (i + 0.5) * (plotW / n); }}
-
-  // Bars colored by WR
-  var bars = '';
-  for(var i=0; i<n; i++){{
-    var d = data[i];
-    if(d.wr === null) continue;
-    var color = d.wr >= 60 ? '#22c55e' : (d.wr >= 50 ? '#84cc16' : (d.wr >= 40 ? '#eab308' : '#ef4444'));
-    var x = padL + i * (plotW / n) + (plotW/n - barW)/2;
-    var y = yPos(d.wr);
-    var h = (plotH * d.wr / 100);
-    bars += '<rect x="'+x+'" y="'+y+'" width="'+barW+'" height="'+h+'" rx="2" fill="'+color+'" opacity="0.7"><title>'+d.date+': '+d.w+'W/'+d.l+'L = '+d.wr.toFixed(0)+'%</title></rect>';
+  function xPos(i){{ return n <= 1 ? padL + plotW/2 : padL + (i / (n-1)) * plotW; }}
+  function colorWR(v){{
+    if(v >= 60) return '#22c55e';
+    if(v >= 50) return '#84cc16';
+    if(v >= 40) return '#eab308';
+    return '#ef4444';
   }}
 
-  // Cumulative WR line
-  var pathD = '';
-  var dotsHtml = '';
-  for(var i=0; i<n; i++){{
-    var d = data[i];
-    if(d.cumWR === null) continue;
-    var x = xPos(i);
-    var y = yPos(d.cumWR);
-    pathD += (pathD ? ' L ' : 'M ') + x.toFixed(1) + ' ' + y.toFixed(1);
-    dotsHtml += '<circle cx="'+x.toFixed(1)+'" cy="'+y.toFixed(1)+'" r="3" fill="#3b82f6"><title>cumul '+d.cumWR.toFixed(0)+'%</title></circle>';
-  }}
-
-  // Y axis lines
+  // 1) Grille horizontale + labels Y discrets
   var grid = '';
   [0, 25, 50, 75, 100].forEach(function(v){{
     var y = yPos(v);
-    grid += '<line x1="'+padL+'" y1="'+y+'" x2="'+(W-padR)+'" y2="'+y+'" stroke="#1e293b" stroke-width="1" stroke-dasharray="2,2"/>';
-    grid += '<text x="'+(padL-4)+'" y="'+(y+3)+'" text-anchor="end" fill="#475569" font-size="9">'+v+'</text>';
+    var isMid = (v === 50);
+    grid += '<line x1="'+padL+'" y1="'+y.toFixed(1)+'" x2="'+(W-padR)+'" y2="'+y.toFixed(1)+'" '
+         +  'stroke="'+(isMid ? '#334155' : '#1e293b')+'" stroke-width="1" '
+         +  'stroke-dasharray="'+(isMid ? '4,3' : '2,3')+'"/>';
+    grid += '<text x="'+(padL-6)+'" y="'+(y+3.5)+'" text-anchor="end" fill="#475569" font-size="10" font-family="ui-sans-serif,system-ui">'+v+'%</text>';
   }});
 
-  // X labels : show first, mid, last
-  var xLabels = '';
+  // 2) Area chart cumulee avec gradient
+  var areaPath = '';
+  var linePath = '';
+  for(var i=0; i<n; i++){{
+    var x = xPos(i), y = yPos(data[i].cumWR);
+    linePath += (i===0 ? 'M ' : ' L ') + x.toFixed(1) + ' ' + y.toFixed(1);
+  }}
+  areaPath = linePath
+    + ' L ' + xPos(n-1).toFixed(1) + ' ' + (padT+plotH).toFixed(1)
+    + ' L ' + xPos(0).toFixed(1)   + ' ' + (padT+plotH).toFixed(1) + ' Z';
+
+  // 3) Dots colores par WR du jour (clickables avec tooltip)
+  var dots = '';
+  for(var i=0; i<n; i++){{
+    var d = data[i];
+    var x = xPos(i), y = yPos(d.cumWR);
+    var col = colorWR(d.wr);
+    var tip = d.date+' · jour: '+d.w+'W-'+d.l+'L ('+d.wr.toFixed(0)+'%) · cumul: '+d.cumWR.toFixed(0)+'%';
+    dots += '<circle cx="'+x.toFixed(1)+'" cy="'+y.toFixed(1)+'" r="5" fill="'+col+'" stroke="#0f172a" stroke-width="2" '
+         +  'style="cursor:pointer" data-tip="'+tip+'" onmouseover="histChartTip(this)" onmouseout="histChartTipHide()"><title>'+tip+'</title></circle>';
+  }}
+
+  // 4) Labels X : densite intelligente selon n
   function _shortDate(s){{ var p=s.split('-'); return p[2]+'/'+p[1]; }}
-  var labelIdxs = n > 1 ? [0, Math.floor(n/2), n-1] : [0];
+  var labelIdxs = [];
+  if(n <= 10) {{
+    for(var i=0; i<n; i++) labelIdxs.push(i);
+  }} else if(n <= 20) {{
+    for(var i=0; i<n; i+=2) labelIdxs.push(i);
+    if(labelIdxs[labelIdxs.length-1] !== n-1) labelIdxs.push(n-1);
+  }} else {{
+    var step = Math.ceil(n/8);
+    for(var i=0; i<n; i+=step) labelIdxs.push(i);
+    if(labelIdxs[labelIdxs.length-1] !== n-1) labelIdxs.push(n-1);
+  }}
+  var xLabels = '';
   labelIdxs.forEach(function(i){{
-    if(i < 0 || i >= n) return;
     var x = xPos(i);
-    xLabels += '<text x="'+x.toFixed(1)+'" y="'+(H-8)+'" text-anchor="middle" fill="#64748b" font-size="10">'+_shortDate(data[i].date)+'</text>';
+    xLabels += '<text x="'+x.toFixed(1)+'" y="'+(H-18)+'" text-anchor="middle" fill="#64748b" font-size="10" font-family="ui-sans-serif,system-ui">'+_shortDate(data[i].date)+'</text>';
   }});
 
-  // Title with total
+  // 5) Stats globales en footer
   var totalW = cumW, totalL = cumL;
-  var totalWR = totalW+totalL ? (totalW/(totalW+totalL)*100) : 0;
-  var titleCol = totalWR >= 55 ? '#22c55e' : (totalWR >= 50 ? '#84cc16' : '#ef4444');
-  var legend = '<text x="'+(padL)+'" y="'+(padT+8)+'" fill="'+titleCol+'" font-size="11" font-weight="700">Cumul : '+totalW+'W · '+totalL+'L · '+totalWR.toFixed(1)+'%</text>';
+  var totalWR = totalW/(totalW+totalL)*100;
+  var totalCol = colorWR(totalWR);
+  var statsFooter = '<g transform="translate('+padL+', '+(H-3)+')">'
+    + '<text x="0" y="0" fill="#94a3b8" font-size="10.5" font-family="ui-sans-serif,system-ui">'
+    +   '<tspan>'+n+' jour'+(n>1?'s':'')+' · </tspan>'
+    +   '<tspan fill="#22c55e" font-weight="700">'+totalW+'W</tspan>'
+    +   '<tspan> · </tspan>'
+    +   '<tspan fill="#ef4444" font-weight="700">'+totalL+'L</tspan>'
+    +   '<tspan> · </tspan>'
+    +   '<tspan fill="'+totalCol+'" font-weight="700">WR '+totalWR.toFixed(1)+'%</tspan>'
+    + '</text>'
+    + '</g>';
+
+  // 6) Definitions du gradient + assemblage
+  var defs = ''
+    + '<defs>'
+    +   '<linearGradient id="hcgrad_'+chartId+'" x1="0" y1="0" x2="0" y2="1">'
+    +     '<stop offset="0%" stop-color="#3b82f6" stop-opacity="0.5"/>'
+    +     '<stop offset="100%" stop-color="#3b82f6" stop-opacity="0"/>'
+    +   '</linearGradient>'
+    + '</defs>';
 
   chartHost.innerHTML = (
-    '<svg viewBox="0 0 '+W+' '+H+'" preserveAspectRatio="none" style="width:100%;height:'+H+'px">'
+    '<svg viewBox="0 0 '+W+' '+H+'" preserveAspectRatio="xMidYMid meet" style="width:100%;height:'+H+'px;display:block">'
+    + defs
     + grid
-    + bars
-    + (pathD ? '<path d="'+pathD+'" fill="none" stroke="#3b82f6" stroke-width="2"/>' : '')
-    + dotsHtml
+    + '<path d="'+areaPath+'" fill="url(#hcgrad_'+chartId+')"/>'
+    + '<path d="'+linePath+'" fill="none" stroke="#3b82f6" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>'
+    + dots
     + xLabels
-    + legend
+    + statsFooter
     + '</svg>'
+    + '<div id="histChartTipBox" style="position:absolute;background:#0a1628;color:#f1f5f9;border:1px solid #334155;border-radius:6px;padding:6px 10px;font-size:11px;pointer-events:none;display:none;z-index:9999;box-shadow:0 4px 12px rgba(0,0,0,0.5)"></div>'
   );
+}}
+
+// Tooltip handlers pour les dots du chart
+function histChartTip(circle){{
+  var box = document.getElementById('histChartTipBox');
+  if(!box) return;
+  var tip = circle.getAttribute('data-tip');
+  box.innerHTML = tip;
+  var rect = circle.getBoundingClientRect();
+  box.style.display = 'block';
+  box.style.left = (rect.left + window.scrollX + rect.width/2 - box.offsetWidth/2) + 'px';
+  box.style.top  = (rect.top  + window.scrollY - box.offsetHeight - 8) + 'px';
+}}
+function histChartTipHide(){{
+  var box = document.getElementById('histChartTipBox');
+  if(box) box.style.display = 'none';
 }}
 
 // Initialise les charts au chargement
