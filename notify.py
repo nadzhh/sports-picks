@@ -65,6 +65,16 @@ HIGH_VALUE_FOOT = {
     "confidence_min": 70,
 }
 
+# Edge minimum (en pp) pour pousser un pick foot Telegram, par categorie.
+# L'edge_pp est calcule par picks_engine quand on a la cote book :
+# edge_pp = (P_modele - 1/cote_book) * 100
+HIGH_VALUE_FOOT_EDGE_TEAM   = 5    # team picks : >=5pp d'edge suffit
+HIGH_VALUE_FOOT_EDGE_PLAYER = 7    # player picks : seuil + strict (compo incertaine)
+
+# Fenetre kickoff pour push de picks joueur : doit etre dans les 4h pour que
+# la compo officielle soit dispo (sort generalement 1h avant le KO)
+PUSH_PLAYER_KICKOFF_WINDOW_HOURS = 4
+
 # Throttle alertes HV : 30 min entre 2 batches (permet d'envoyer plusieurs
 # picks dans la journee sans spammer toutes les 10 min du cron).
 HIGH_VALUE_THROTTLE_HOURS = 0.5
@@ -450,6 +460,73 @@ def _is_high_value_foot(pick):
     return True
 
 
+def _is_push_eligible_team(pick):
+    """Critere stricte pour push Telegram d'un team pick :
+    - cote >= 1.40 (sinon pas de mise interessante)
+    - confiance >= 65 ET edge_pp >= 5 (si edge dispo)
+    - OU confiance >= 75 (fallback sans cote)
+    Retourne (eligible_bool, reason_str)."""
+    conf = pick.get("confidence", 0)
+    cote = pick.get("cote")
+    edge = pick.get("edge_pp")
+
+    if cote is None:
+        # Pas de cote book -> juge sur conf seule (seuil + strict)
+        if conf >= 75:
+            return True, f"conf {conf}% (cote inconnue)"
+        return False, "pas de cote book"
+    if cote < HIGH_VALUE_MIN_COTE:
+        return False, f"cote {cote} trop basse"
+    if edge is not None and edge >= HIGH_VALUE_FOOT_EDGE_TEAM and conf >= 65:
+        return True, f"edge +{edge}pp, conf {conf}% @ cote {cote}"
+    if conf >= 75:
+        return True, f"conf {conf}% @ cote {cote}"
+    return False, f"conf {conf}% edge {edge}pp - en dessous"
+
+
+def _is_push_eligible_player(pick, lineup_state):
+    """Critere stricte pour push Telegram d'un player pick :
+    - cote >= 1.40
+    - confiance >= 65 ET edge_pp >= 7 (si edge dispo)
+    - lineup CONFIRMED (sinon on ne sait pas s'il sera titulaire)
+    - joueur EFFECTIVEMENT dans le XI confirme (re-verif)
+    - joueur PAS dans la liste des indisponibles
+    Retourne (eligible_bool, reason_str)."""
+    conf = pick.get("confidence", 0)
+    cote = pick.get("cote")
+    edge = pick.get("edge_pp")
+    player = pick.get("player", "")
+    team_side = pick.get("team") or pick.get("side") or "home"
+
+    # 1) Compo confirmee obligatoire
+    if not lineup_state or not lineup_state.get("confirmed"):
+        return False, "compo non confirmee"
+
+    # 2) Joueur titulaire dans la compo officielle (re-verif)
+    in_xi = _player_in_lineup(player, lineup_state, team_side)
+    if in_xi is False:
+        return False, f"{player} pas dans le XI confirme"
+    if in_xi is None:
+        return False, "compo dispo mais XI inconnu"
+
+    # 3) Joueur pas blesse / suspendu
+    if _player_unavailable(player, lineup_state):
+        return False, f"{player} dans la liste des indisponibles"
+
+    # 4) Cote book + edge
+    if cote is None:
+        if conf >= 78:
+            return True, f"conf {conf}% (cote inconnue) - compo confirmee"
+        return False, "pas de cote book"
+    if cote < HIGH_VALUE_MIN_COTE:
+        return False, f"cote {cote} trop basse"
+    if edge is not None and edge >= HIGH_VALUE_FOOT_EDGE_PLAYER and conf >= 65:
+        return True, f"edge +{edge}pp, conf {conf}% @ cote {cote} - compo confirmee"
+    if conf >= 75:
+        return True, f"conf {conf}% @ cote {cote} - compo confirmee"
+    return False, f"conf {conf}% edge {edge}pp - en dessous"
+
+
 BOOK_LABELS = {
     "draftkings": "DK", "fanduel": "FanDuel", "betmgm": "BetMGM", "caesars": "Caesars",
     "pointsbetus": "PointsBet", "pinnacle": "Pinnacle", "unibet_eu": "Unibet",
@@ -515,8 +592,13 @@ def _format_hv_foot(pick, match):
     away = match.get("away", "?")
     league = match.get("league", "")
     cote = pick.get("cote")
+    edge = pick.get("edge_pp")
+    tier = pick.get("tier", "")
+    lineup_status = pick.get("lineup_status") or (pick.get("context") or {}).get("lineup_status", "")
+    is_player = bool(pick.get("player"))
+    tier_emoji = {"safe": "🛡️", "ok": "🎯", "fun": "🎲"}.get(tier, "🚨")
     lines = [
-        "🚨 <b>PICK HIGH VALUE FOOT</b> 🚨",
+        f"{tier_emoji} <b>PICK HIGH VALUE FOOT</b> {tier_emoji}",
         "",
         f"⚽ <b>{home}</b> vs <b>{away}</b>",
         f"<i>{league}</i>",
@@ -525,8 +607,16 @@ def _format_hv_foot(pick, match):
         "",
     ]
     if cote:
-        lines.append(f"💰 Cote <b>@ {cote:.2f}</b>")
+        line = f"💰 Cote <b>@ {cote:.2f}</b>"
+        if edge is not None:
+            color = "🟢" if edge >= 5 else ("🔵" if edge >= 0 else "🔴")
+            line += f" · {color} edge <b>{edge:+.1f}pp</b>"
+        lines.append(line)
     lines.append(f"🎯 Confidence <b>{pick.get('confidence', 0)}%</b>")
+    if is_player and lineup_status == "confirmed":
+        lines.append("✅ <b>Compo officielle - titulaire verifie</b>")
+    elif is_player and lineup_status == "predicted":
+        lines.append("⚠️ Compo PROBABLE (a re-confirmer 1h avant)")
     reasoning = pick.get("reasoning", "")
     if reasoning:
         lines.append("")
@@ -595,30 +685,72 @@ def send_high_value_alerts():
         print(f"  [hv-nba err] {e}")
 
     # ─── Foot picks ─────────────────────────────────────────────────────────
+    # Strategie : 2 critere distincts
+    #  - team picks   : edge_pp >= 5 (ou conf >= 75) - pas besoin de lineup
+    #  - player picks : compo CONFIRMEE + joueur dans le XI + edge_pp >= 7
+    #                   (on refetch la compo en force)
     try:
         foot = json.load(open("data/picks.json", encoding="utf-8"))
+        now = datetime.now(tz=timezone.utc)
+        # Cache lineup re-fetched par match (1 call par match max)
+        lineup_cache = {}
+        def _get_lineup_state(match):
+            mid = match.get("match_id")
+            if mid in lineup_cache: return lineup_cache[mid]
+            url = match.get("page_url") or match.get("_page_url")
+            if not url:
+                lineup_cache[mid] = None
+                return None
+            state = _refresh_lineup(url)
+            lineup_cache[mid] = state
+            return state
+
         for m in foot:
             mid = m.get("match_id")
-            # Team picks
+            ko_ts = m.get("start_ts")
+            hours_to_ko = None
+            if ko_ts:
+                try:
+                    ko_dt = datetime.fromtimestamp(int(ko_ts), tz=timezone.utc)
+                    hours_to_ko = (ko_dt - now).total_seconds() / 3600
+                    if hours_to_ko < -2:  # match deja joue depuis 2h+
+                        continue
+                except Exception:
+                    pass
+
+            # ── Team picks ──────────────────────────────────────────────────
             for pk in m.get("picks", []):
                 pid = f"foot_{mid}_team_{pk.get('direction','?')}"
                 if pid in sent_ids: continue
-                if not _is_high_value_foot(pk): continue
+                eligible, reason = _is_push_eligible_team(pk)
+                if not eligible: continue
                 text = _format_hv_foot(pk, m)
                 if tg_send(text):
                     sent_ids.add(pid)
                     new_count += 1
-                    print(f"  [HV-FOOT-TEAM] {pk.get('label','?')[:60]} (conf {pk.get('confidence')}%)")
-            # Player picks
+                    print(f"  [HV-FOOT-TEAM] {pk.get('label','?')[:60]} - {reason}")
+
+            # ── Player picks (lineup confirmee + dans XI) ──────────────────
+            # Seulement si kickoff est dans la fenetre (compo confirmee
+            # generalement 1h avant -> on regarde 0-4h avant le KO)
+            if hours_to_ko is not None and hours_to_ko > PUSH_PLAYER_KICKOFF_WINDOW_HOURS:
+                continue  # trop tot - lineup encore predicted
+
+            ln_state = _get_lineup_state(m)
             for pk in (m.get("home_players", []) + m.get("away_players", [])):
                 pid = f"foot_{mid}_player_{pk.get('player','?')}_{pk.get('type','?')}"
                 if pid in sent_ids: continue
-                if not _is_high_value_foot(pk): continue
+                eligible, reason = _is_push_eligible_player(pk, ln_state)
+                if not eligible:
+                    # Log soft les skip pour debug
+                    if pk.get("confidence", 0) >= 70:
+                        print(f"  [skip player] {pk.get('player','?')} {pk.get('type','?')[:20]} : {reason}")
+                    continue
                 text = _format_hv_foot(pk, m)
                 if tg_send(text):
                     sent_ids.add(pid)
                     new_count += 1
-                    print(f"  [HV-FOOT-PLAYER] {pk.get('label','?')[:60]} (conf {pk.get('confidence')}%)")
+                    print(f"  [HV-FOOT-PLAYER] {pk.get('player','?')[:25]} {pk.get('label','?')[:40]} - {reason}")
     except FileNotFoundError:
         pass
     except Exception as e:

@@ -126,35 +126,72 @@ def formation_adjust(formation_str):
         return 1.0, ""
 
 
-# Top nations FIFA - pour filtrer les amicaux "petites equipes" (Ouganda
-# vs Madagascar, etc.). On accepte le match si AU MOINS UNE des 2 equipes
-# est une grosse selection internationale. Liste enrichie ~top 35 FIFA.
-TOP_INTL_TEAMS = {
-    # Europe top
+# ─── Tiers FIFA pour ajustement Strength-of-Schedule sur les buts ────────
+# Probleme : L5 GF/GA brut ne reflete pas le niveau des opposants. Le Pays-
+# Bas qui marque 1.6 b/m face a France/Allemagne n'est PAS la meme chose
+# qu'Uzbekistan qui marque 1.5 b/m face a Vietnam/Bhutan. Quand ces 2 equipes
+# se rencontrent, on doit ajuster les lambda Poisson :
+#   - top team marque PLUS qu'a son habitude (vs defense + faible)
+#   - weak team marque MOINS qu'a son habitude (vs defense + solide)
+#   - top team encaisse MOINS (vs attaque + faible)
+#   - weak team encaisse PLUS (vs attaque + solide)
+
+TIER_1_TEAMS = {  # top 12 FIFA (les "monstres")
     "argentina", "france", "spain", "england", "brazil", "portugal",
-    "netherlands", "belgium", "italy", "croatia", "germany", "switzerland",
-    "denmark", "austria", "sweden", "norway", "poland", "ukraine", "wales",
-    "serbia", "scotland", "turkiye", "turkey", "czechia", "czech republic",
-    "hungary", "romania",
-    # CONMEBOL
-    "colombia", "uruguay", "ecuador", "chile", "peru", "paraguay", "venezuela",
-    # CONCACAF
-    "usa", "united states", "mexico", "canada", "costa rica", "panama",
-    "jamaica", "honduras",
-    # AFC
-    "japan", "iran", "south korea", "korea republic", "australia",
-    "saudi arabia", "iraq", "qatar", "uzbekistan",
-    # CAF
-    "morocco", "senegal", "tunisia", "egypt", "algeria", "ivory coast",
-    "cote d'ivoire", "nigeria", "cameroon", "ghana", "south africa",
-    "dr congo", "mali",
+    "netherlands", "belgium", "italy", "germany", "croatia", "colombia",
 }
+TIER_2_TEAMS = {  # top 13-30 FIFA (solides)
+    "mexico", "switzerland", "uruguay", "usa", "united states", "morocco",
+    "japan", "senegal", "iran", "denmark", "norway", "sweden", "wales",
+    "turkiye", "turkey", "south korea", "korea republic", "egypt",
+    "ivory coast", "cote d'ivoire", "ecuador", "australia", "ukraine",
+    "poland", "serbia", "scotland", "austria",
+}
+TIER_3_TEAMS = {  # top 31-60 FIFA (mid-tier)
+    "czechia", "czech republic", "tunisia", "algeria", "nigeria", "cameroon",
+    "ghana", "saudi arabia", "south africa", "venezuela", "paraguay", "peru",
+    "chile", "bosnia and herzegovina", "bosnia", "ireland", "hungary",
+    "romania", "iraq", "qatar", "panama", "jamaica", "honduras",
+    "costa rica", "cape verde", "dr congo", "mali", "burkina faso",
+    "slovakia", "slovenia", "iceland", "finland", "greece", "albania",
+    "north macedonia", "uzbekistan", "georgia", "azerbaijan",
+    "canada", "haiti",
+}
+# Le reste (Bhutan, Cambodge, Andorra, San Marino, Iles Vierges, etc.) = tier 4
+
+
+def team_tier(name):
+    """Tier FIFA approxime de l'equipe (1 = top, 4 = micro nation)."""
+    if not name: return 4
+    n = str(name).strip().lower()
+    if n in TIER_1_TEAMS: return 1
+    if n in TIER_2_TEAMS: return 2
+    if n in TIER_3_TEAMS: return 3
+    return 4
 
 
 def is_top_intl_team(name):
-    """True si l'equipe est une grosse selection internationale."""
-    if not name: return False
-    return str(name).strip().lower() in TOP_INTL_TEAMS
+    """True si l'equipe est tier 1, 2 ou 3 (= grosse selection)."""
+    return team_tier(name) <= 3
+
+
+def tier_strength_adjustment(team_name, opp_name):
+    """Renvoie (mult_attack, mult_defense_concede) pour TEAM vs OPP.
+
+    - mult_attack > 1 si team mieux que opp (attaque + facile face a + faible)
+    - mult_attack < 1 si team moins bon que opp (attaque + dure face a + fort)
+    - mult_defense_concede < 1 si team mieux que opp (encaisse moins)
+    - mult_defense_concede > 1 si team moins bon que opp (encaisse plus)
+
+    Coefficient 0.18 par tier d'ecart, clamp [0.4, 1.7]. Avec un ecart
+    de 3 tiers (tier1 vs tier4), c'est +/- 54%.
+    """
+    t_team = team_tier(team_name)
+    t_opp  = team_tier(opp_name)
+    diff = t_opp - t_team  # positif si opp est plus faible
+    mult_attack = max(0.4, min(1.7, 1 + diff * 0.18))
+    mult_defense_concede = max(0.4, min(1.7, 1 - diff * 0.18))
+    return mult_attack, mult_defense_concede
 
 def get_pos(fd, s):
     pos = (fd or {}).get(s, {}).get("position", None)
@@ -763,7 +800,14 @@ def analyze_match(match, pstats_all, player_odds_all=None):
         #   - "Favori marque 1.5+" sur asymetrie + attaque solide (Poisson)
         #   - Over/Under 2.5 selon attendu Poisson total
         import math as _math
-        delta = h_form_score - a_form_score
+        # Delta forme L5 brut + bonus tier (l'ecart de niveau FIFA pondere).
+        # Sans bonus tier, Pays-Bas vs Uzbekistan donnait delta<0 (Uzb a + W
+        # face a equipes faibles) -> aucun pick. Avec bonus tier (+15/tier),
+        # le delta reflete vraiment l'asymetrie de niveau.
+        delta_raw = h_form_score - a_form_score
+        t_h = team_tier(home); t_a = team_tier(away)
+        tier_bonus = (t_a - t_h) * 15  # positif si home meilleur tier
+        delta = delta_raw + tier_bonus
         h_team = form.get("homeTeam") or {}
         a_team = form.get("awayTeam") or {}
         h_gf = h_team.get("l5_gf_pm")
@@ -771,20 +815,31 @@ def analyze_match(match, pstats_all, player_odds_all=None):
         a_gf = a_team.get("l5_gf_pm")
         a_ga = a_team.get("l5_ga_pm")
 
+        tier_descr = ""
+        if t_h != t_a:
+            tier_descr = f" · ecart de tier FIFA {t_h}vs{t_a}"
+
         if delta >= 18:
             conf = round(min(85, 55 + delta * 0.6))
             add("home_win","Forme superieure",f"{home} gagne",c1,conf,
                 f"{home} : {form_summary(hf)} vs {away} : {form_summary(af)} "
-                f"(L5 toutes competitions)",hf)
+                f"(L5 TCC{tier_descr})",hf)
         elif delta <= -18:
             conf = round(min(85, 55 + abs(delta) * 0.6))
             add("away_win","Forme superieure",f"{away} gagne",c2,conf,
                 f"{away} : {form_summary(af)} vs {home} : {form_summary(hf)} "
-                f"(L5 toutes competitions)",af)
+                f"(L5 TCC{tier_descr})",af)
 
         if h_gf is not None and h_ga is not None and a_gf is not None and a_ga is not None:
-            lambda_h = max(0.2, (h_gf + a_ga) / 2)
-            lambda_a = max(0.2, (a_gf + h_ga) / 2)
+            # Ajustement SoS sur les buts via les tiers FIFA
+            h_atk, h_def = tier_strength_adjustment(home, away)
+            a_atk, a_def = tier_strength_adjustment(away, home)
+            adj_h_gf = h_gf * h_atk
+            adj_h_ga = h_ga * h_def
+            adj_a_gf = a_gf * a_atk
+            adj_a_ga = a_ga * a_def
+            lambda_h = max(0.2, (adj_h_gf + adj_a_ga) / 2)
+            lambda_a = max(0.2, (adj_a_gf + adj_h_ga) / 2)
             lambda_total = lambda_h + lambda_a
 
             def _p_at_least_2(lam):
@@ -1311,9 +1366,25 @@ def analyze_match(match, pstats_all, player_odds_all=None):
         h_ga_l5 = h_team_data.get("l5_ga_pm")
         a_gf_l5 = a_team_data.get("l5_gf_pm")
         a_ga_l5 = a_team_data.get("l5_ga_pm")
-        # Attendu buts par equipe ce match
-        lam_h_match = max(0.2, ((h_gf_l5 or 1.5) + (a_ga_l5 or 1.5)) / 2)
-        lam_a_match = max(0.2, ((a_gf_l5 or 1.5) + (h_ga_l5 or 1.5)) / 2)
+
+        # ── Ajustement TIER (Strength-of-Schedule sur les buts) ─────────────
+        # Pays-Bas (tier 1) qui marque 1.6/m face a France/Allemagne != Uzbekistan
+        # (tier 3) qui marque 1.5/m face a Vietnam. Quand ils se rencontrent,
+        # on adjuste les L5 stats par le tier ecart.
+        h_atk_mult, h_def_mult = tier_strength_adjustment(home, away)
+        a_atk_mult, a_def_mult = tier_strength_adjustment(away, home)
+        adj_h_gf = (h_gf_l5 or 1.5) * h_atk_mult
+        adj_h_ga = (h_ga_l5 or 1.5) * h_def_mult
+        adj_a_gf = (a_gf_l5 or 1.5) * a_atk_mult
+        adj_a_ga = (a_ga_l5 or 1.5) * a_def_mult
+
+        # Attendu buts par equipe ce match (sur stats ajustees)
+        lam_h_match = max(0.2, (adj_h_gf + adj_a_ga) / 2)
+        lam_a_match = max(0.2, (adj_a_gf + adj_h_ga) / 2)
+
+        t_h = team_tier(home)
+        t_a = team_tier(away)
+        tier_descr = f"tier {home}={t_h} vs {away}={t_a}"
 
         # ── Ajustement formation : +/- 10% sur λ adverse selon la formation ──
         h_form_mult, h_form_descr = formation_adjust((lineup.get("home") or {}).get("formation"))
