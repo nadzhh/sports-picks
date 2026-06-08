@@ -357,6 +357,151 @@
     "no_picks": false
   },
   {
+    "league": "Friendlies",
+    "home": "France",
+    "away": "Northern Ireland",
+    "start_ts": 1780945800,
+    "match_id": "5344896",
+    "page_url": "/matches/france-vs-northern-ireland/2duwo0#5344896",
+    "picks": [
+      {
+        "direction": "home_win",
+        "type": "Forme superieure",
+        "label": "France gagne",
+        "cote": null,
+        "confidence": 85,
+        "reasoning": "France : 4V/0N/1D sur 5 matchs vs Northern Ireland : 2V/1N/2D sur 5 matchs (L5 TCC · ecart de tier FIFA 1vs4)",
+        "stats": {
+          "form": [
+            "L",
+            "W",
+            "W",
+            "W",
+            "W"
+          ]
+        },
+        "is_fun": false,
+        "tier": "safe"
+      },
+      {
+        "direction": "home_over_15",
+        "type": "Buteur equipe",
+        "label": "France marque plus de 1.5 buts",
+        "cote": null,
+        "confidence": 78,
+        "reasoning": "France attendu a ~2.6 buts (marque 2.6/m sur L5, Northern Ireland encaisse 0.8/m) - P(2+ buts) ~74%",
+        "stats": {
+          "form": [
+            "L",
+            "W",
+            "W",
+            "W",
+            "W"
+          ]
+        },
+        "is_fun": false,
+        "tier": "safe"
+      },
+      {
+        "direction": "btts_no",
+        "type": "BTTS",
+        "label": "Au moins 1 equipe ne marque pas",
+        "cote": null,
+        "confidence": 71,
+        "reasoning": "Attaque faible d'un cote : France ~2.6 buts, Northern Ireland ~0.4 buts - P(BTTS Non) ~71%",
+        "stats": {
+          "form": [
+            "L",
+            "W",
+            "W",
+            "W",
+            "W"
+          ]
+        },
+        "is_fun": false,
+        "tier": "safe"
+      }
+    ],
+    "home_players": [
+      {
+        "player": "Marcus Thuram",
+        "position": "F",
+        "is_sub": true,
+        "type": "Buteur",
+        "label": "Marcus Thuram marque",
+        "cote": 1.46,
+        "book": null,
+        "books": [],
+        "confidence": 63,
+        "reasoning": "⚠️ Compo PROBABLE (a confirmer 1h avant). Marcus Thuram : 6G en 10 matchs club (0.60 buts/m, source: L10 Serie A). Avec un attendu de 2.9 buts pour France, sa probabilite de marquer est ~63%.",
+        "context": {
+          "source": "lineup",
+          "lam": 1.15,
+          "lineup_status": "predicted"
+        },
+        "stats": {
+          "goals": null,
+          "apps": null,
+          "gpm": 1.152,
+          "xgpm": null
+        },
+        "team": "home",
+        "lineup_status": "predicted",
+        "tier": "ok",
+        "edge_pp": -5.5
+      },
+      {
+        "player": "Marcus Thuram",
+        "position": "F",
+        "is_sub": true,
+        "type": "Double buteur",
+        "label": "Marcus Thuram marque 2+ buts",
+        "cote": 3.13,
+        "book": null,
+        "books": [],
+        "confidence": 37,
+        "reasoning": "⚠️ Compo PROBABLE (a confirmer 1h avant). Marcus Thuram : 6G en 10 matchs club (0.60/m, source: L10 Serie A). Attendu ~1.2 buts ce match - P(2+ buts) ~27% (cote interessante).",
+        "context": {
+          "source": "lineup",
+          "lam": 1.15,
+          "lineup_status": "predicted"
+        },
+        "stats": {
+          "goals": null,
+          "apps": null,
+          "gpm": 1.152,
+          "xgpm": null
+        },
+        "team": "home",
+        "lineup_status": "predicted",
+        "tier": "fun",
+        "edge_pp": 5.1
+      }
+    ],
+    "away_players": [],
+    "fun_picks": [],
+    "top_pick": {
+      "direction": "home_win",
+      "type": "Forme superieure",
+      "label": "France gagne",
+      "cote": null,
+      "confidence": 85,
+      "reasoning": "France : 4V/0N/1D sur 5 matchs vs Northern Ireland : 2V/1N/2D sur 5 matchs (L5 TCC · ecart de tier FIFA 1vs4)",
+      "stats": {
+        "form": [
+          "L",
+          "W",
+          "W",
+          "W",
+          "W"
+        ]
+      },
+      "is_fun": false,
+      "tier": "safe"
+    },
+    "no_picks": false
+  },
+  {
     "league": "Morocco Botola Pro",
     "home": "MAS Fes",
     "away": "FAR Rabat",
@@ -465,77 +610,6 @@
   },
   {
     "league": "Friendlies",
-    "home": "France",
-    "away": "Northern Ireland",
-    "start_ts": 1780945800,
-    "match_id": "5344896",
-    "page_url": "/matches/france-vs-northern-ireland/2duwo0#5344896",
-    "picks": [
-      {
-        "direction": "home_win",
-        "type": "Forme superieure",
-        "label": "France gagne",
-        "cote": null,
-        "confidence": 75,
-        "reasoning": "France : 4V/0N/1D sur 5 matchs vs Northern Ireland : 2V/1N/2D sur 5 matchs (L5 toutes competitions)",
-        "stats": {
-          "form": [
-            "L",
-            "W",
-            "W",
-            "W",
-            "W"
-          ]
-        },
-        "is_fun": false,
-        "tier": "safe"
-      },
-      {
-        "direction": "home_over_15",
-        "type": "Buteur equipe",
-        "label": "France marque plus de 1.5 buts",
-        "cote": null,
-        "confidence": 56,
-        "reasoning": "France attendu a ~1.7 buts (marque 2.6/m sur L5, Northern Ireland encaisse 0.8/m) - P(2+ buts) ~51%",
-        "stats": {
-          "form": [
-            "L",
-            "W",
-            "W",
-            "W",
-            "W"
-          ]
-        },
-        "is_fun": false,
-        "tier": "ok"
-      }
-    ],
-    "home_players": [],
-    "away_players": [],
-    "fun_picks": [],
-    "top_pick": {
-      "direction": "home_win",
-      "type": "Forme superieure",
-      "label": "France gagne",
-      "cote": null,
-      "confidence": 75,
-      "reasoning": "France : 4V/0N/1D sur 5 matchs vs Northern Ireland : 2V/1N/2D sur 5 matchs (L5 toutes competitions)",
-      "stats": {
-        "form": [
-          "L",
-          "W",
-          "W",
-          "W",
-          "W"
-        ]
-      },
-      "is_fun": false,
-      "tier": "safe"
-    },
-    "no_picks": false
-  },
-  {
-    "league": "Friendlies",
     "home": "Senegal",
     "away": "Saudi Arabia",
     "start_ts": 1781046000,
@@ -547,8 +621,8 @@
         "type": "Forme superieure",
         "label": "Senegal gagne",
         "cote": null,
-        "confidence": 75,
-        "reasoning": "Senegal : 3V/0N/2D sur 5 matchs vs Saudi Arabia : 1V/1N/3D sur 5 matchs (L5 toutes competitions)",
+        "confidence": 84,
+        "reasoning": "Senegal : 3V/0N/2D sur 5 matchs vs Saudi Arabia : 1V/1N/3D sur 5 matchs (L5 TCC · ecart de tier FIFA 2vs3)",
         "stats": {
           "form": [
             "L",
@@ -566,8 +640,8 @@
         "type": "Buteur equipe",
         "label": "Senegal marque plus de 1.5 buts",
         "cote": null,
-        "confidence": 53,
-        "reasoning": "Senegal attendu a ~1.6 buts (marque 1.6/m sur L5, Saudi Arabia encaisse 1.6/m) - P(2+ buts) ~48%",
+        "confidence": 61,
+        "reasoning": "Senegal attendu a ~1.9 buts (marque 1.6/m sur L5, Saudi Arabia encaisse 1.6/m) - P(2+ buts) ~56%",
         "stats": {
           "form": [
             "L",
@@ -578,7 +652,7 @@
           ]
         },
         "is_fun": false,
-        "tier": "fun"
+        "tier": "ok"
       }
     ],
     "home_players": [],
@@ -589,8 +663,8 @@
       "type": "Forme superieure",
       "label": "Senegal gagne",
       "cote": null,
-      "confidence": 75,
-      "reasoning": "Senegal : 3V/0N/2D sur 5 matchs vs Saudi Arabia : 1V/1N/3D sur 5 matchs (L5 toutes competitions)",
+      "confidence": 84,
+      "reasoning": "Senegal : 3V/0N/2D sur 5 matchs vs Saudi Arabia : 1V/1N/3D sur 5 matchs (L5 TCC · ecart de tier FIFA 2vs3)",
       "stats": {
         "form": [
           "L",
@@ -598,6 +672,340 @@
           "W",
           "L",
           "W"
+        ]
+      },
+      "is_fun": false,
+      "tier": "safe"
+    },
+    "no_picks": false
+  },
+  {
+    "league": "Friendlies",
+    "home": "Netherlands",
+    "away": "Uzbekistan",
+    "start_ts": 1780944300,
+    "match_id": "5648191",
+    "page_url": "/matches/netherlands-vs-uzbekistan/1yokno#5648191",
+    "picks": [
+      {
+        "direction": "home_win",
+        "type": "Forme superieure",
+        "label": "Netherlands gagne",
+        "cote": null,
+        "confidence": 81,
+        "reasoning": "Netherlands : 2V/2N/1D sur 5 matchs vs Uzbekistan : 1V/3N/1D sur 5 matchs (L5 TCC · ecart de tier FIFA 1vs3)",
+        "stats": {
+          "form": [
+            "L",
+            "D",
+            "W",
+            "W",
+            "D"
+          ]
+        },
+        "is_fun": false,
+        "tier": "safe"
+      },
+      {
+        "direction": "home_over_15",
+        "type": "Buteur equipe",
+        "label": "Netherlands marque plus de 1.5 buts",
+        "cote": null,
+        "confidence": 58,
+        "reasoning": "Netherlands attendu a ~1.8 buts (marque 1.6/m sur L5, Uzbekistan encaisse 1.0/m) - P(2+ buts) ~53%",
+        "stats": {
+          "form": [
+            "L",
+            "D",
+            "W",
+            "W",
+            "D"
+          ]
+        },
+        "is_fun": false,
+        "tier": "ok"
+      },
+      {
+        "direction": "under25",
+        "type": "Total buts",
+        "label": "Moins de 2.5 buts",
+        "cote": null,
+        "confidence": 58,
+        "reasoning": "Attendu seulement 2.3 buts au total (Netherlands ~1.8, Uzbekistan ~0.6) - P(<2.5) ~58%",
+        "stats": {
+          "form": [
+            "L",
+            "D",
+            "W",
+            "W",
+            "D"
+          ]
+        },
+        "is_fun": false,
+        "tier": "ok"
+      }
+    ],
+    "home_players": [
+      {
+        "player": "Donyell Malen",
+        "position": "F",
+        "is_sub": false,
+        "type": "Buteur",
+        "label": "Donyell Malen marque",
+        "cote": 1.68,
+        "book": null,
+        "books": [],
+        "confidence": 60,
+        "reasoning": "Donyell Malen : 7G en 10 matchs club (0.70 buts/m, source: L10 Serie A). Avec un attendu de 1.9 buts pour Netherlands, sa probabilite de marquer est ~60%.",
+        "context": {
+          "source": "lineup",
+          "lam": 0.91,
+          "lineup_status": "confirmed"
+        },
+        "stats": {
+          "goals": null,
+          "apps": null,
+          "gpm": 0.908,
+          "xgpm": null
+        },
+        "team": "home",
+        "lineup_status": "confirmed",
+        "tier": "ok",
+        "edge_pp": 0.5
+      },
+      {
+        "player": "Donyell Malen",
+        "position": "F",
+        "is_sub": false,
+        "type": "Double buteur",
+        "label": "Donyell Malen marque 2+ buts",
+        "cote": 4.34,
+        "book": null,
+        "books": [],
+        "confidence": 33,
+        "reasoning": "Donyell Malen : 7G en 10 matchs club (0.70/m, source: L10 Serie A). Attendu ~0.9 buts ce match - P(2+ buts) ~23% (cote interessante).",
+        "context": {
+          "source": "lineup",
+          "lam": 0.91,
+          "lineup_status": "confirmed"
+        },
+        "stats": {
+          "goals": null,
+          "apps": null,
+          "gpm": 0.908,
+          "xgpm": null
+        },
+        "team": "home",
+        "lineup_status": "confirmed",
+        "tier": "fun",
+        "edge_pp": 10.0
+      }
+    ],
+    "away_players": [],
+    "fun_picks": [],
+    "top_pick": {
+      "direction": "home_win",
+      "type": "Forme superieure",
+      "label": "Netherlands gagne",
+      "cote": null,
+      "confidence": 81,
+      "reasoning": "Netherlands : 2V/2N/1D sur 5 matchs vs Uzbekistan : 1V/3N/1D sur 5 matchs (L5 TCC · ecart de tier FIFA 1vs3)",
+      "stats": {
+        "form": [
+          "L",
+          "D",
+          "W",
+          "W",
+          "D"
+        ]
+      },
+      "is_fun": false,
+      "tier": "safe"
+    },
+    "no_picks": false
+  },
+  {
+    "league": "Friendlies",
+    "home": "Peru",
+    "away": "Spain",
+    "start_ts": 1780970400,
+    "match_id": "5293453",
+    "page_url": "/matches/peru-vs-spain/1anldx#5293453",
+    "picks": [
+      {
+        "direction": "away_win",
+        "type": "Forme superieure",
+        "label": "Spain gagne",
+        "cote": null,
+        "confidence": 81,
+        "reasoning": "Spain : 2V/3N/0D sur 5 matchs vs Peru : 2V/1N/2D sur 5 matchs (L5 TCC · ecart de tier FIFA 3vs1)",
+        "stats": {
+          "form": [
+            "D",
+            "D",
+            "W",
+            "D",
+            "W"
+          ]
+        },
+        "is_fun": false,
+        "tier": "safe"
+      },
+      {
+        "direction": "away_over_15",
+        "type": "Buteur equipe",
+        "label": "Spain marque plus de 1.5 buts",
+        "cote": null,
+        "confidence": 72,
+        "reasoning": "Spain attendu a ~2.3 buts (marque 2.0/m sur L5, Peru encaisse 1.4/m) - P(2+ buts) ~67%",
+        "stats": {
+          "form": [
+            "D",
+            "D",
+            "W",
+            "D",
+            "W"
+          ]
+        },
+        "is_fun": false,
+        "tier": "safe"
+      }
+    ],
+    "home_players": [],
+    "away_players": [
+      {
+        "player": "Ferran Torres",
+        "position": "F",
+        "is_sub": true,
+        "type": "Buteur",
+        "label": "Ferran Torres marque",
+        "cote": 1.66,
+        "book": null,
+        "books": [],
+        "confidence": 55,
+        "reasoning": "⚠️ Compo PROBABLE (a confirmer 1h avant). Ferran Torres : 6G en 10 matchs club (0.60 buts/m, source: L10 LaLiga). Avec un attendu de 2.3 buts pour Spain, sa probabilite de marquer est ~55%.",
+        "context": {
+          "source": "lineup",
+          "lam": 0.92,
+          "lineup_status": "predicted"
+        },
+        "stats": {
+          "goals": null,
+          "apps": null,
+          "gpm": 0.925,
+          "xgpm": null
+        },
+        "team": "away",
+        "lineup_status": "predicted",
+        "tier": "ok",
+        "edge_pp": -5.2
+      }
+    ],
+    "fun_picks": [],
+    "top_pick": {
+      "direction": "away_win",
+      "type": "Forme superieure",
+      "label": "Spain gagne",
+      "cote": null,
+      "confidence": 81,
+      "reasoning": "Spain : 2V/3N/0D sur 5 matchs vs Peru : 2V/1N/2D sur 5 matchs (L5 TCC · ecart de tier FIFA 3vs1)",
+      "stats": {
+        "form": [
+          "D",
+          "D",
+          "W",
+          "D",
+          "W"
+        ]
+      },
+      "is_fun": false,
+      "tier": "safe"
+    },
+    "no_picks": false
+  },
+  {
+    "league": "Friendlies",
+    "home": "Azerbaijan",
+    "away": "San Marino",
+    "start_ts": 1781028000,
+    "match_id": "5477271",
+    "page_url": "/matches/san-marino-vs-azerbaijan/1rh15v#5477271",
+    "picks": [
+      {
+        "direction": "home_win",
+        "type": "Forme superieure",
+        "label": "Azerbaijan gagne",
+        "cote": null,
+        "confidence": 76,
+        "reasoning": "Azerbaijan : 1V/1N/3D sur 5 matchs vs San Marino : 0V/1N/4D sur 5 matchs (L5 TCC · ecart de tier FIFA 3vs4)",
+        "stats": {
+          "form": [
+            "L",
+            "D",
+            "W",
+            "L",
+            "L"
+          ]
+        },
+        "is_fun": false,
+        "tier": "safe"
+      },
+      {
+        "direction": "home_over_15",
+        "type": "Buteur equipe",
+        "label": "Azerbaijan marque plus de 1.5 buts",
+        "cote": null,
+        "confidence": 73,
+        "reasoning": "Azerbaijan attendu a ~2.4 buts (marque 1.6/m sur L5, San Marino encaisse 2.4/m) - P(2+ buts) ~68%",
+        "stats": {
+          "form": [
+            "L",
+            "D",
+            "W",
+            "L",
+            "L"
+          ]
+        },
+        "is_fun": false,
+        "tier": "safe"
+      },
+      {
+        "direction": "over25",
+        "type": "Total buts",
+        "label": "Plus de 2.5 buts",
+        "cote": null,
+        "confidence": 65,
+        "reasoning": "Attendu 3.3 buts au total (Azerbaijan ~2.4, San Marino ~1.0) - P(>2.5) ~65%",
+        "stats": {
+          "form": [
+            "L",
+            "D",
+            "W",
+            "L",
+            "L"
+          ]
+        },
+        "is_fun": false,
+        "tier": "ok"
+      }
+    ],
+    "home_players": [],
+    "away_players": [],
+    "fun_picks": [],
+    "top_pick": {
+      "direction": "home_win",
+      "type": "Forme superieure",
+      "label": "Azerbaijan gagne",
+      "cote": null,
+      "confidence": 76,
+      "reasoning": "Azerbaijan : 1V/1N/3D sur 5 matchs vs San Marino : 0V/1N/4D sur 5 matchs (L5 TCC · ecart de tier FIFA 3vs4)",
+      "stats": {
+        "form": [
+          "L",
+          "D",
+          "W",
+          "L",
+          "L"
         ]
       },
       "is_fun": false,
@@ -619,7 +1027,26 @@
         "label": "Moins de 2.5 buts",
         "cote": null,
         "confidence": 73,
-        "reasoning": "Attendu seulement 1.8 buts au total (Hungary ~0.9, Kazakhstan ~0.9) - P(<2.5) ~73%",
+        "reasoning": "Attendu seulement 1.8 buts au total (Hungary ~1.1, Kazakhstan ~0.7) - P(<2.5) ~73%",
+        "stats": {
+          "form": [
+            "W",
+            "D",
+            "W",
+            "L",
+            "W"
+          ]
+        },
+        "is_fun": false,
+        "tier": "safe"
+      },
+      {
+        "direction": "home_win",
+        "type": "Forme superieure",
+        "label": "Hungary gagne",
+        "cote": null,
+        "confidence": 72,
+        "reasoning": "Hungary : 3V/1N/1D sur 5 matchs vs Kazakhstan : 2V/2N/1D sur 5 matchs (L5 TCC · ecart de tier FIFA 3vs4)",
         "stats": {
           "form": [
             "W",
@@ -642,7 +1069,7 @@
       "label": "Moins de 2.5 buts",
       "cote": null,
       "confidence": 73,
-      "reasoning": "Attendu seulement 1.8 buts au total (Hungary ~0.9, Kazakhstan ~0.9) - P(<2.5) ~73%",
+      "reasoning": "Attendu seulement 1.8 buts au total (Hungary ~1.1, Kazakhstan ~0.7) - P(<2.5) ~73%",
       "stats": {
         "form": [
           "W",
@@ -1054,58 +1481,6 @@
     "no_picks": false
   },
   {
-    "league": "Friendlies",
-    "home": "Netherlands",
-    "away": "Uzbekistan",
-    "start_ts": 1780944300,
-    "match_id": "5648191",
-    "page_url": "/matches/netherlands-vs-uzbekistan/1yokno#5648191",
-    "picks": [
-      {
-        "direction": "under25",
-        "type": "Total buts",
-        "label": "Moins de 2.5 buts",
-        "cote": null,
-        "confidence": 62,
-        "reasoning": "Attendu seulement 2.2 buts au total (Netherlands ~1.3, Uzbekistan ~0.9) - P(<2.5) ~62%",
-        "stats": {
-          "form": [
-            "L",
-            "D",
-            "W",
-            "W",
-            "D"
-          ]
-        },
-        "is_fun": false,
-        "tier": "ok"
-      }
-    ],
-    "home_players": [],
-    "away_players": [],
-    "fun_picks": [],
-    "top_pick": {
-      "direction": "under25",
-      "type": "Total buts",
-      "label": "Moins de 2.5 buts",
-      "cote": null,
-      "confidence": 62,
-      "reasoning": "Attendu seulement 2.2 buts au total (Netherlands ~1.3, Uzbekistan ~0.9) - P(<2.5) ~62%",
-      "stats": {
-        "form": [
-          "L",
-          "D",
-          "W",
-          "W",
-          "D"
-        ]
-      },
-      "is_fun": false,
-      "tier": "ok"
-    },
-    "no_picks": false
-  },
-  {
     "league": "Morocco Botola Pro",
     "home": "Renaissance Club Zemamra",
     "away": "Union Touarga Sport",
@@ -1196,58 +1571,6 @@
           "L",
           "D",
           "W",
-          "W"
-        ]
-      },
-      "is_fun": false,
-      "tier": "ok"
-    },
-    "no_picks": false
-  },
-  {
-    "league": "Friendlies",
-    "home": "Peru",
-    "away": "Spain",
-    "start_ts": 1780970400,
-    "match_id": "5293453",
-    "page_url": "/matches/peru-vs-spain/1anldx#5293453",
-    "picks": [
-      {
-        "direction": "away_over_15",
-        "type": "Buteur equipe",
-        "label": "Spain marque plus de 1.5 buts",
-        "cote": null,
-        "confidence": 56,
-        "reasoning": "Spain attendu a ~1.7 buts (marque 2.0/m sur L5, Peru encaisse 1.4/m) - P(2+ buts) ~51%",
-        "stats": {
-          "form": [
-            "D",
-            "D",
-            "W",
-            "D",
-            "W"
-          ]
-        },
-        "is_fun": false,
-        "tier": "ok"
-      }
-    ],
-    "home_players": [],
-    "away_players": [],
-    "fun_picks": [],
-    "top_pick": {
-      "direction": "away_over_15",
-      "type": "Buteur equipe",
-      "label": "Spain marque plus de 1.5 buts",
-      "cote": null,
-      "confidence": 56,
-      "reasoning": "Spain attendu a ~1.7 buts (marque 2.0/m sur L5, Peru encaisse 1.4/m) - P(2+ buts) ~51%",
-      "stats": {
-        "form": [
-          "D",
-          "D",
-          "W",
-          "D",
           "W"
         ]
       },
@@ -1543,20 +1866,6 @@
     "start_ts": 1781022600,
     "match_id": "5662445",
     "page_url": "/matches/burkina-faso-vs-belarus/27vnp5#5662445",
-    "picks": [],
-    "home_players": [],
-    "away_players": [],
-    "fun_picks": [],
-    "top_pick": null,
-    "no_picks": true
-  },
-  {
-    "league": "Friendlies",
-    "home": "Azerbaijan",
-    "away": "San Marino",
-    "start_ts": 1781028000,
-    "match_id": "5477271",
-    "page_url": "/matches/san-marino-vs-azerbaijan/1rh15v#5477271",
     "picks": [],
     "home_players": [],
     "away_players": [],
