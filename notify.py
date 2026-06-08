@@ -44,9 +44,29 @@ WINDOW_MIN_FROM = 15   # ne pas notifier si trop proche / passe
 WINDOW_MIN_TO   = 35   # ne pas notifier si trop loin
 
 # Seuils pour les alertes "high value" (immediat, hors fenetre kickoff)
-# Filtre commun : cote minimum 1.40 (les picks a @1.10 ne valent rien a parier
-# meme si la confiance est tres haute - mise inutile)
-HIGH_VALUE_MIN_COTE = 1.40
+# Filtre commun : cote minimum 1.60 pour Telegram (les picks a @1.10 ne valent
+# rien a parier meme si la confiance est tres haute - mise inutile)
+HIGH_VALUE_MIN_COTE = 1.60
+
+# Marge bookmaker estimee : quand on n'a pas la cote book, on simule
+# cote_estimee = (1 / proba_modele) * (1 - MARGIN). Le book serre la cote
+# de ~8% vs la cote "juste" pour son benefice. Ex : conf 50% -> 2.00 juste
+# -> 1.84 chez le book.
+BOOK_MARGIN_ESTIMATE = 0.08
+
+
+def estimate_book_cote(confidence):
+    """Simule la cote book a partir de la confidence du modele.
+    cote_book ~= (1/proba) * (1 - margin)
+    confidence=50  -> 1.84
+    confidence=60  -> 1.53
+    confidence=65  -> 1.41
+    confidence=70  -> 1.31
+    """
+    if not confidence or confidence <= 0: return None
+    p = confidence / 100.0
+    fair = 1.0 / p
+    return round(fair * (1 - BOOK_MARGIN_ESTIMATE), 2)
 # Pour la NBA : on alerte UNIQUEMENT sur les matchs jouables dans la nuit a venir
 # (ex: si on est le 19/05 a 12h, on alerte que les matchs jusqu'au 20/05 12h max,
 # pas les matchs du 21/05 qui sont 2 nuits plus loin).
@@ -460,40 +480,53 @@ def _is_high_value_foot(pick):
     return True
 
 
+def _effective_cote(pick):
+    """Retourne (cote, source) ou cote = cote_book si dispo, sinon
+    estimation = (1/proba_modele)*(1-margin). source = 'book' ou 'simule'.
+    """
+    cote = pick.get("cote")
+    if cote and cote > 0:
+        return float(cote), "book"
+    conf = pick.get("confidence", 0)
+    sim = estimate_book_cote(conf)
+    return sim, "simule"
+
+
 def _is_push_eligible_team(pick):
     """Critere stricte pour push Telegram d'un team pick :
-    - cote >= 1.40 (sinon pas de mise interessante)
-    - confiance >= 65 ET edge_pp >= 5 (si edge dispo)
-    - OU confiance >= 75 (fallback sans cote)
+    - cote (book ou simulee) >= 1.60 sinon pas de mise interessante
+    - confiance >= 50 minimum (sinon trop random meme avec une bonne cote)
+    - bonus : edge_pp >= 5 si dispo
     Retourne (eligible_bool, reason_str)."""
     conf = pick.get("confidence", 0)
-    cote = pick.get("cote")
     edge = pick.get("edge_pp")
+    cote, src = _effective_cote(pick)
 
     if cote is None:
-        # Pas de cote book -> juge sur conf seule (seuil + strict)
-        if conf >= 75:
-            return True, f"conf {conf}% (cote inconnue)"
-        return False, "pas de cote book"
+        return False, "pas de cote ni de conf"
     if cote < HIGH_VALUE_MIN_COTE:
-        return False, f"cote {cote} trop basse"
-    if edge is not None and edge >= HIGH_VALUE_FOOT_EDGE_TEAM and conf >= 65:
-        return True, f"edge +{edge}pp, conf {conf}% @ cote {cote}"
-    if conf >= 75:
-        return True, f"conf {conf}% @ cote {cote}"
-    return False, f"conf {conf}% edge {edge}pp - en dessous"
+        return False, f"cote {cote:.2f} ({src}) < {HIGH_VALUE_MIN_COTE}"
+    if conf < 50:
+        return False, f"conf {conf}% trop basse (min 50)"
+    # OK : cote >= 1.60 et conf >= 50. On signale l'edge si pertinent.
+    extra = ""
+    if edge is not None:
+        if edge >= HIGH_VALUE_FOOT_EDGE_TEAM:
+            extra = f", edge +{edge}pp"
+        elif edge < 0:
+            return False, f"conf {conf}% mais edge {edge}pp negatif"
+    return True, f"conf {conf}% @ {cote:.2f} ({src}){extra}"
 
 
 def _is_push_eligible_player(pick, lineup_state):
     """Critere stricte pour push Telegram d'un player pick :
-    - cote >= 1.40
-    - confiance >= 65 ET edge_pp >= 7 (si edge dispo)
+    - cote (book ou simulee) >= 1.60
+    - confiance >= 60 ET edge_pp >= 7 (si edge dispo) OU conf >= 65
     - lineup CONFIRMED (sinon on ne sait pas s'il sera titulaire)
     - joueur EFFECTIVEMENT dans le XI confirme (re-verif)
     - joueur PAS dans la liste des indisponibles
     Retourne (eligible_bool, reason_str)."""
     conf = pick.get("confidence", 0)
-    cote = pick.get("cote")
     edge = pick.get("edge_pp")
     player = pick.get("player", "")
     team_side = pick.get("team") or pick.get("side") or "home"
@@ -513,18 +546,22 @@ def _is_push_eligible_player(pick, lineup_state):
     if _player_unavailable(player, lineup_state):
         return False, f"{player} dans la liste des indisponibles"
 
-    # 4) Cote book + edge
+    # 4) Cote (book ou simulee) + edge
+    cote, src = _effective_cote(pick)
     if cote is None:
-        if conf >= 78:
-            return True, f"conf {conf}% (cote inconnue) - compo confirmee"
-        return False, "pas de cote book"
+        return False, "pas de cote ni de conf"
     if cote < HIGH_VALUE_MIN_COTE:
-        return False, f"cote {cote} trop basse"
-    if edge is not None and edge >= HIGH_VALUE_FOOT_EDGE_PLAYER and conf >= 65:
-        return True, f"edge +{edge}pp, conf {conf}% @ cote {cote} - compo confirmee"
-    if conf >= 75:
-        return True, f"conf {conf}% @ cote {cote} - compo confirmee"
-    return False, f"conf {conf}% edge {edge}pp - en dessous"
+        return False, f"cote {cote:.2f} ({src}) < {HIGH_VALUE_MIN_COTE}"
+    if conf < 50:
+        return False, f"conf {conf}% trop basse (min 50)"
+    # OK : compo confirmee + titulaire + cote >= 1.60 + conf >= 50
+    extra = ""
+    if edge is not None:
+        if edge >= HIGH_VALUE_FOOT_EDGE_PLAYER:
+            extra = f", edge +{edge}pp"
+        elif edge < 0:
+            return False, f"conf {conf}% mais edge {edge}pp negatif"
+    return True, f"conf {conf}% @ {cote:.2f} ({src}) - compo confirmee{extra}"
 
 
 BOOK_LABELS = {
@@ -607,11 +644,16 @@ def _format_hv_foot(pick, match):
         "",
     ]
     if cote:
-        line = f"💰 Cote <b>@ {cote:.2f}</b>"
+        line = f"💰 Cote book <b>@ {cote:.2f}</b>"
         if edge is not None:
             color = "🟢" if edge >= 5 else ("🔵" if edge >= 0 else "🔴")
             line += f" · {color} edge <b>{edge:+.1f}pp</b>"
         lines.append(line)
+    else:
+        # Pas de cote book - on affiche la cote simulee comme reference
+        sim = estimate_book_cote(pick.get("confidence", 0))
+        if sim:
+            lines.append(f"💰 Cote estimee ~<b>{sim:.2f}</b> (book inconnu - cherche au moins {HIGH_VALUE_MIN_COTE})")
     lines.append(f"🎯 Confidence <b>{pick.get('confidence', 0)}%</b>")
     if is_player and lineup_status == "confirmed":
         lines.append("✅ <b>Compo officielle - titulaire verifie</b>")
