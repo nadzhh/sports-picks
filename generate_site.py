@@ -3207,7 +3207,7 @@ def build_tennis_history(history_data):
         f'padding:14px 16px;margin-bottom:14px">'
         f'<div style="color:#94a3b8;font-size:11px;text-transform:uppercase;letter-spacing:1px;'
         f'margin-bottom:8px">📈 Win Rate sur la periode</div>'
-        f'<div id="tennishist-chart" style="width:100%;height:230px;position:relative"></div>'
+        f'<div id="tennishist-chart" style="width:100%;height:360px;position:relative"></div>'
         f'</div>'
     )
     return (
@@ -3488,7 +3488,7 @@ def build_foot_history(history_data):
         f'padding:14px 16px;margin-bottom:14px">'
         f'<div style="color:#94a3b8;font-size:11px;text-transform:uppercase;letter-spacing:1px;'
         f'margin-bottom:8px">📈 Win Rate sur la periode</div>'
-        f'<div id="foothist-chart" style="width:100%;height:230px;position:relative"></div>'
+        f'<div id="foothist-chart" style="width:100%;height:360px;position:relative"></div>'
         f'</div>'
     )
     return summary + filter_html + chart_html + f'<div id="foothist-list">{date_html}</div>'
@@ -3773,7 +3773,7 @@ def build_nba_history(history_data):
         f'padding:14px 16px;margin-bottom:14px">'
         f'<div style="color:#94a3b8;font-size:11px;text-transform:uppercase;letter-spacing:1px;'
         f'margin-bottom:8px">📈 Win Rate sur la periode</div>'
-        f'<div id="nbahist-chart" style="width:100%;height:230px;position:relative"></div>'
+        f'<div id="nbahist-chart" style="width:100%;height:360px;position:relative"></div>'
         f'</div>'
     )
     return summary + filter_html + chart_html + f'<div id="nbahist-list">{date_html}</div>'
@@ -5718,10 +5718,11 @@ function updateHistChart(containerId){{
     d.cumWR = cumW/(cumW+cumL)*100;
   }});
 
-  // Dimensions
+  // Dimensions : on prend la largeur reelle du container pour que le SVG
+  // remplisse toute la place dispo, comme le graph bankroll.
   var W = chartHost.clientWidth || 600;
-  var H = 230;
-  var padL = 36, padR = 22, padT = 28, padB = 38;
+  var H = chartHost.clientHeight || 360;
+  var padL = 42, padR = 26, padT = 36, padB = 44;
   var plotW = W - padL - padR;
   var plotH = H - padT - padB;
   var n = data.length;
@@ -5743,7 +5744,7 @@ function updateHistChart(containerId){{
     grid += '<line x1="'+padL+'" y1="'+y.toFixed(1)+'" x2="'+(W-padR)+'" y2="'+y.toFixed(1)+'" '
          +  'stroke="'+(isMid ? '#334155' : '#1e293b')+'" stroke-width="1" '
          +  'stroke-dasharray="'+(isMid ? '4,3' : '2,3')+'"/>';
-    grid += '<text x="'+(padL-6)+'" y="'+(y+3.5)+'" text-anchor="end" fill="#475569" font-size="10" font-family="ui-sans-serif,system-ui">'+v+'%</text>';
+    grid += '<text x="'+(padL-8)+'" y="'+(y+4)+'" text-anchor="end" fill="#64748b" font-size="12" font-family="ui-sans-serif,system-ui">'+v+'%</text>';
   }});
 
   // 2) Area chart cumulee avec gradient
@@ -5769,22 +5770,19 @@ function updateHistChart(containerId){{
     var x = xPos(i), y = yPos(d.cumWR);
     var col = colorWR(d.wr);
     var tip = d.date+' · jour: '+d.w+'W-'+d.l+'L ('+d.wr.toFixed(0)+'%) · cumul: '+d.cumWR.toFixed(0)+'%';
-    dots += '<circle cx="'+x.toFixed(1)+'" cy="'+y.toFixed(1)+'" r="5" fill="'+col+'" stroke="#0f172a" stroke-width="2" '
+    dots += '<circle cx="'+x.toFixed(1)+'" cy="'+y.toFixed(1)+'" r="6" fill="'+col+'" stroke="#0f172a" stroke-width="2.5" '
          +  'style="cursor:pointer" data-tip="'+tip+'" onmouseover="histChartTip(this)" onmouseout="histChartTipHide()"><title>'+tip+'</title></circle>';
-    // Label % au-dessus du dot (forcement premier et dernier, sinon selon step)
     var showLabel = (i === 0 || i === n-1 || i % labelStep === 0);
     if(showLabel){{
-      var labelY = y - 10;
-      // Si le dot est trop haut (proche du top), on met le label en dessous
-      if(y < padT + 18) labelY = y + 16;
+      var labelY = y - 14;
+      if(y < padT + 24) labelY = y + 22;
       var labelCol = colorWR(d.cumWR);
-      // Background semi-transparent pour la lisibilite
       var labelTxt = d.cumWR.toFixed(0)+'%';
-      var labelW = labelTxt.length * 6 + 6;
-      dotLabels += '<rect x="'+(x-labelW/2).toFixed(1)+'" y="'+(labelY-9)+'" width="'+labelW+'" height="13" '
-                +  'rx="3" fill="#0a1628" stroke="'+labelCol+'" stroke-width="1" opacity="0.95"/>';
-      dotLabels += '<text x="'+x.toFixed(1)+'" y="'+(labelY+1)+'" text-anchor="middle" fill="'+labelCol+'" '
-                +  'font-size="9.5" font-weight="700" font-family="ui-sans-serif,system-ui">'+labelTxt+'</text>';
+      var labelW = labelTxt.length * 7.5 + 10;
+      dotLabels += '<rect x="'+(x-labelW/2).toFixed(1)+'" y="'+(labelY-11)+'" width="'+labelW+'" height="16" '
+                +  'rx="4" fill="#0a1628" stroke="'+labelCol+'" stroke-width="1.2" opacity="0.95"/>';
+      dotLabels += '<text x="'+x.toFixed(1)+'" y="'+(labelY+1.5)+'" text-anchor="middle" fill="'+labelCol+'" '
+                +  'font-size="11" font-weight="700" font-family="ui-sans-serif,system-ui">'+labelTxt+'</text>';
     }}
   }}
 
@@ -5804,21 +5802,21 @@ function updateHistChart(containerId){{
   var xLabels = '';
   labelIdxs.forEach(function(i){{
     var x = xPos(i);
-    xLabels += '<text x="'+x.toFixed(1)+'" y="'+(H-18)+'" text-anchor="middle" fill="#64748b" font-size="10" font-family="ui-sans-serif,system-ui">'+_shortDate(data[i].date)+'</text>';
+    xLabels += '<text x="'+x.toFixed(1)+'" y="'+(H-22)+'" text-anchor="middle" fill="#94a3b8" font-size="12" font-family="ui-sans-serif,system-ui">'+_shortDate(data[i].date)+'</text>';
   }});
 
   // 5) Stats globales en footer
   var totalW = cumW, totalL = cumL;
   var totalWR = totalW/(totalW+totalL)*100;
   var totalCol = colorWR(totalWR);
-  var statsFooter = '<g transform="translate('+padL+', '+(H-3)+')">'
-    + '<text x="0" y="0" fill="#94a3b8" font-size="10.5" font-family="ui-sans-serif,system-ui">'
+  var statsFooter = '<g transform="translate('+padL+', '+(H-4)+')">'
+    + '<text x="0" y="0" fill="#cbd5e1" font-size="12.5" font-family="ui-sans-serif,system-ui">'
     +   '<tspan>'+n+' jour'+(n>1?'s':'')+' · </tspan>'
     +   '<tspan fill="#22c55e" font-weight="700">'+totalW+'W</tspan>'
     +   '<tspan> · </tspan>'
     +   '<tspan fill="#ef4444" font-weight="700">'+totalL+'L</tspan>'
     +   '<tspan> · </tspan>'
-    +   '<tspan fill="'+totalCol+'" font-weight="700">WR '+totalWR.toFixed(1)+'%</tspan>'
+    +   '<tspan fill="'+totalCol+'" font-weight="800">WR '+totalWR.toFixed(1)+'%</tspan>'
     + '</text>'
     + '</g>';
 
@@ -5832,17 +5830,18 @@ function updateHistChart(containerId){{
     + '</defs>';
 
   chartHost.innerHTML = (
-    '<svg viewBox="0 0 '+W+' '+H+'" preserveAspectRatio="xMidYMid meet" style="width:100%;height:'+H+'px;display:block">'
+    '<svg viewBox="0 0 '+W+' '+H+'" preserveAspectRatio="none" '
+    + 'style="position:absolute;inset:0;width:100%;height:100%;overflow:visible">'
     + defs
     + grid
     + '<path d="'+areaPath+'" fill="url(#hcgrad_'+chartId+')"/>'
-    + '<path d="'+linePath+'" fill="none" stroke="#3b82f6" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>'
+    + '<path d="'+linePath+'" fill="none" stroke="#3b82f6" stroke-width="2.8" stroke-linejoin="round" stroke-linecap="round" vector-effect="non-scaling-stroke"/>'
     + dots
     + dotLabels
     + xLabels
     + statsFooter
     + '</svg>'
-    + '<div id="histChartTipBox" style="position:absolute;background:#0a1628;color:#f1f5f9;border:1px solid #334155;border-radius:6px;padding:6px 10px;font-size:11px;pointer-events:none;display:none;z-index:9999;box-shadow:0 4px 12px rgba(0,0,0,0.5)"></div>'
+    + '<div id="histChartTipBox" style="position:absolute;background:#0a1628;color:#f1f5f9;border:1px solid #334155;border-radius:6px;padding:6px 10px;font-size:12px;pointer-events:none;display:none;z-index:9999;box-shadow:0 4px 12px rgba(0,0,0,0.5)"></div>'
   );
 }}
 
