@@ -202,6 +202,30 @@ def get_rat(fd, s):
         return float(v) if v is not None else 6.5
     except: return 6.5
 
+# ─── World Cup 2026 : score exact via Poisson grid ──────────────────────────
+WC_LEAGUE_ID = 77  # FIFA World Cup, identifiant interne
+
+def predict_exact_score(lam_h, lam_a, max_g=5):
+    """Renvoie ((home, away), prob, top3) le score le plus probable + 3 alts.
+
+    Calcule P(home=i) x P(away=j) sur une grille [0..max_g] x [0..max_g]
+    via PMF de Poisson independantes.
+    """
+    import math as _m
+    def _pmf(k, lam):
+        return (lam ** k) * _m.exp(-lam) / _m.factorial(k)
+    grid = []
+    for i in range(max_g + 1):
+        ph = _pmf(i, lam_h)
+        for j in range(max_g + 1):
+            pa = _pmf(j, lam_a)
+            grid.append(((i, j), ph * pa))
+    grid.sort(key=lambda x: x[1], reverse=True)
+    best_score, best_p = grid[0]
+    top3 = grid[:3]
+    return best_score, best_p, top3
+
+
 def parse_h2h(h):
     try:
         d = h.get("teamDuel", {})
@@ -1321,6 +1345,47 @@ def analyze_match(match, pstats_all, player_odds_all=None):
     # Trier les fun picks par confiance et garder max 2
     fun_picks.sort(key=lambda x: x["confidence"], reverse=True)
     fun_picks = fun_picks[:2]
+
+    # ── Coupe du Monde 2026 : score exact fun (Poisson grid) ────────────────
+    # Pour CHAQUE match WC, ajoute en fun le score le plus probable +
+    # 2 alternatifs (au cas ou le user voudrait combiner).
+    # La confidence est P(exact) * 100 (typique 10-25%).
+    # is_fun=True donc tier=fun automatique.
+    if league_id == WC_LEAGUE_ID:
+        # On calcule lambda en utilisant les memes stats que pour Over/Under
+        # (recent_stats foot ou L5 form en fallback)
+        h_l5_gf = (form.get("homeTeam") or {}).get("l5_gf_pm")
+        h_l5_ga = (form.get("homeTeam") or {}).get("l5_ga_pm")
+        a_l5_gf = (form.get("awayTeam") or {}).get("l5_gf_pm")
+        a_l5_ga = (form.get("awayTeam") or {}).get("l5_ga_pm")
+        if h_l5_gf is not None and a_l5_ga is not None and a_l5_gf is not None and h_l5_ga is not None:
+            # Ajustement tier FIFA (les WC matchs opposent des niveaux varies)
+            h_atk_m, h_def_m = tier_strength_adjustment(home, away)
+            a_atk_m, a_def_m = tier_strength_adjustment(away, home)
+            lam_h_wc = max(0.2, ((h_l5_gf * h_atk_m) + (a_l5_ga * a_def_m)) / 2)
+            lam_a_wc = max(0.2, ((a_l5_gf * a_atk_m) + (h_l5_ga * h_def_m)) / 2)
+            (sh, sa), p_best, top3 = predict_exact_score(lam_h_wc, lam_a_wc)
+            # Liste top-3 lisible
+            alts = " · ".join(f"{i}-{j} ({round(p*100,1)}%)" for (i,j), p in top3)
+            wc_fun = {
+                "direction": f"wc_score_{sh}_{sa}",
+                "type": "🏆 Score exact WC",
+                "label": f"Score exact : {home} {sh}-{sa} {away}",
+                "cote": round(1 / max(0.01, p_best), 2),
+                "confidence": round(p_best * 100),
+                "is_fun": True,
+                "stats": {"lam_h": round(lam_h_wc, 2), "lam_a": round(lam_a_wc, 2)},
+                "reasoning": (
+                    f"🏆 Coupe du Monde 2026 - score exact (Poisson grid)\n"
+                    f"λ {home} = {lam_h_wc:.2f} buts, λ {away} = {lam_a_wc:.2f} buts "
+                    f"(ajusté tier FIFA)\n"
+                    f"Top 3 : {alts}\n"
+                    f"⚠️ Pari fun (cote élevée typique 4-8) - mise modeste"
+                ),
+                "exact_score": [sh, sa],
+                "wc_top3": [[list(s), round(p*100,1)] for s, p in top3],
+            }
+            fun_picks.append(wc_fun)
 
     # ── Props joueurs ───────────────────────────────────────────────────────
     home_players = pstats.get("home", [])

@@ -127,6 +127,15 @@ def _resolve_team(pick, ev):
 
     score_str = f"{hs}-{as_}"
 
+    # Score exact WC : direction='wc_score_H_A' -> verifie le score exact
+    if direction.startswith("wc_score_"):
+        try:
+            parts = direction.split("_")
+            target_h = int(parts[2]); target_a = int(parts[3])
+            return ("WIN" if (hs == target_h and as_ == target_a) else "LOSS"), f"{score_str} (cible {target_h}-{target_a})"
+        except Exception:
+            return "UNKNOWN", score_str
+
     if direction == "home_win":  return ("WIN" if hs >  as_ else "LOSS"), score_str
     if direction == "away_win":  return ("WIN" if as_ >  hs  else "LOSS"), score_str
     if direction == "draw":      return ("WIN" if hs == as_ else "LOSS"), score_str

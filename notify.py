@@ -793,6 +793,29 @@ def send_high_value_alerts():
                     sent_ids.add(pid)
                     new_count += 1
                     print(f"  [HV-FOOT-PLAYER] {pk.get('player','?')[:25]} {pk.get('label','?')[:40]} - {reason}")
+
+            # ── Pick score exact WC (fun) ──────────────────────────────────
+            # Push UNIQUEMENT si compo confirmee (= 30-60 min avant KO).
+            # Score exact = pari fun a cote elevee, c'est la valeur ajoutee
+            # par la confirmation tardive de la compo.
+            for pk in m.get("fun_picks", []):
+                dir_str = (pk.get("direction") or "")
+                if not dir_str.startswith("wc_score_"):
+                    continue
+                pid = f"foot_{mid}_wcscore_{dir_str}"
+                if pid in sent_ids: continue
+                # Compo doit etre confirmee
+                if ln_state is None or not ln_state.get("confirmed"):
+                    continue
+                # Cote >= 4.0 minimum (pour valoir la mise sur un fun pick)
+                cote = pk.get("cote") or 0
+                if cote < 4.0:
+                    continue
+                text = _format_hv_foot(pk, m)
+                if tg_send(text):
+                    sent_ids.add(pid)
+                    new_count += 1
+                    print(f"  [HV-FOOT-WC-EXACT] {pk.get('label','?')[:60]} @ {cote} - compo confirmee")
     except FileNotFoundError:
         pass
     except Exception as e:

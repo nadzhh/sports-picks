@@ -1146,11 +1146,29 @@ def main():
         a_dec_l10 = compute_decisive_players(a_l10)
 
         # Lineup (h2h_details deja collecté en phase A)
+        # IMPORTANT : pour les matchs WC (lid 77) et tout match proche du KO
+        # (< 60 min), on force le refetch pour capter la transition
+        # predicted -> confirmed (la compo officielle sort ~1h avant le KO).
         lineup = None
         page_url = m.get("_page_url")
         if page_url:
             try:
-                lineup = match_lineup(page_url)
+                from datetime import datetime as _dt, timezone as _tz
+                ts = m.get("start_ts")
+                force_refresh = False
+                if ts:
+                    try:
+                        ko = _dt.fromtimestamp(int(ts), tz=_tz.utc)
+                        mins_to_ko = (ko - _dt.now(_tz.utc)).total_seconds() / 60
+                        # WC : force refresh < 90 min du KO
+                        # Autres : force refresh < 60 min du KO
+                        is_wc = m.get("league_id") == 77
+                        threshold = 90 if is_wc else 60
+                        if 0 < mins_to_ko < threshold:
+                            force_refresh = True
+                    except Exception:
+                        pass
+                lineup = match_lineup(page_url, force=force_refresh)
             except Exception as e:
                 print(f"  [lineup err] {e}")
         h2h_details = h2h_d  # Reutilise les details deja collectes + patches
