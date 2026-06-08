@@ -1423,21 +1423,29 @@ def analyze_match(match, pstats_all, player_odds_all=None):
         def _player_lambda(starter):
             """Renvoie (lambda_per_match, source, descr).
 
-            IMPORTANT : on combine TOUJOURS le lambda club + lambda nat team
-            quand on a >=3 selections. Un Thuram qui marque a l'Inter mais
-            jamais en EDF doit voir son lambda baisser pour les amicaux.
+            IMPORTANT : pour un match en SELECTION, les stats nat team sont
+            BIEN plus predictives que les stats club. Marcus Thuram cartonne
+            a l'Inter (0.7 G/m club) mais marque jamais en EDF (0.20 G/m nat).
+            Pour France vs X, il faut utiliser 0.20 pas 0.7.
 
-            Formule : lambda = club_lambda * (1 - w_nat) + nat_lambda * w_nat
-            - w_nat = 0.4 si nat_apps >= 5
-            - w_nat = 0.25 si nat_apps in [3, 5]
-            - w_nat = 0 si nat_apps < 3 (echantillon trop petit)
+            Formule :
+            - w_nat = 0.70 si nat_n >= 5  (priorise nat)
+            - w_nat = 0.55 si nat_n in [3, 5]
+            - w_nat = 0    si nat_n < 3   (echantillon trop petit)
+            + boost recence : but(s) dans les 3 derniers nat -> +10% / but
             """
             pid = starter.get("id")
-            nat_g = starter.get("goals")
-            nat_a = starter.get("apps")
+            ln_nat_g = starter.get("goals")
+            ln_nat_a = starter.get("apps")
+
             club_lam = None
             club_src = None
             club_descr = None
+            nat_lam = None
+            nat_n = 0
+            nat_src = None
+            nat_descr = None
+            last3_goals = 0
 
             if fm_player and pid:
                 try:
@@ -1446,34 +1454,79 @@ def analyze_match(match, pstats_all, player_odds_all=None):
                     pdata = {}
                 l10 = pdata.get("l10") or {}
                 club = pdata.get("club_stats") or {}
+                ns = pdata.get("nat_stats") or {}
+
+                # Club lambda
                 if l10.get("n", 0) >= 5 and l10.get("goals_pm") is not None:
                     club_lam = l10["goals_pm"]
                     club_src = f"L10 {club.get('league','club')}"
-                    club_descr = f"{l10['goals']}G en {l10['n']} matchs club"
+                    club_descr = f"L10 club : {l10['goals']}G/{l10['n']}m"
                 elif club.get("matches") and club.get("goals") is not None:
                     g, m = club["goals"], club["matches"]
                     if m >= 5:
                         club_lam = g / m
                         club_src = f"Saison {club.get('league','club')}"
-                        club_descr = f"{g}G en {m} matchs {club.get('league','club')}"
+                        club_descr = f"Saison club : {g}G/{m}m"
 
-            # Pondération nat team
-            nat_lam = None
-            if nat_g is not None and nat_a and nat_a >= 3:
-                nat_lam = nat_g / nat_a
+                # Nat lambda via fm_player.nat_stats (carriere recente)
+                if ns.get("n", 0) >= 3 and ns.get("goals_pm") is not None:
+                    nat_lam = ns["goals_pm"]
+                    nat_n = ns["n"]
+                    nat_src = f"nat {ns.get('team','')}"
+                    nat_descr = f"selection {ns['goals']}G/{ns['n']}m ({nat_lam:.2f}/m)"
+                    last3_goals = ns.get("last3_goals", 0) or 0
+
+            # Fallback nat stats depuis la lineup (saison nat courante)
+            if nat_lam is None and ln_nat_g is not None and ln_nat_a and ln_nat_a >= 3:
+                nat_lam = ln_nat_g / ln_nat_a
+                nat_n = ln_nat_a
+                nat_src = "nat (lineup)"
+                nat_descr = f"selection {ln_nat_g}G/{ln_nat_a}m"
+
+            # Drought penalty : si pdata a drought_1_match/drought_2_matches
+            drought_1 = False
+            drought_2 = False
+            if fm_player and pid:
+                # Re-lit le cache (deja fetch plus haut, pas de cout)
+                try:
+                    pdata2 = fm_player(pid) or {}
+                    ns2 = pdata2.get("nat_stats") or {}
+                    drought_1 = bool(ns2.get("drought_1_match"))
+                    drought_2 = bool(ns2.get("drought_2_matches"))
+                except Exception:
+                    pass
 
             if club_lam is not None and nat_lam is not None:
-                w_nat = 0.4 if nat_a >= 5 else 0.25
+                # POIDS NAT ELEVE : pour selection, le passe nat prime sur club
+                w_nat = 0.70 if nat_n >= 5 else 0.55
                 final_lam = club_lam * (1 - w_nat) + nat_lam * w_nat
-                src = f"{club_src} pondéré nat"
-                descr = (f"{club_descr} · {nat_g}G en {nat_a} selections "
-                         f"({nat_lam:.2f}/m nat, pond. {int(w_nat*100)}%)")
+                recency_note = ""
+                if last3_goals >= 1:
+                    boost = 1.0 + 0.10 * min(2, last3_goals)
+                    final_lam *= boost
+                    recency_note = f", 🔥 {last3_goals}G/3 derniers nat (+{int((boost-1)*100)}%)"
+                if drought_2:
+                    final_lam *= 0.40
+                    recency_note += " · ⚠️ 2 derniers matchs nat 60+min 0G+0A (-60%)"
+                elif drought_1:
+                    final_lam *= 0.55
+                    recency_note += " · ⚠️ dernier match nat 60+min 0G+0A (-45%)"
+                src = f"nat-weighted (club {int((1-w_nat)*100)}%/nat {int(w_nat*100)}%)"
+                descr = f"{nat_descr} · {club_descr}{recency_note}"
                 return final_lam, src, descr
+            if nat_lam is not None and nat_n >= 5:
+                if last3_goals >= 1:
+                    nat_lam *= 1.0 + 0.10 * min(2, last3_goals)
+                if drought_2: nat_lam *= 0.40
+                elif drought_1: nat_lam *= 0.55
+                return nat_lam, nat_src, nat_descr
             if club_lam is not None:
-                return club_lam, club_src, club_descr
-            if nat_lam is not None and nat_a >= 5:
-                return (nat_lam, "nat team",
-                        f"{nat_g}G en {nat_a} matchs selection")
+                # Pas de data nat -> on amorti le club car le passe club ne
+                # se transpose pas tel quel en selection (different role,
+                # tactique, partenaires, niveau d'opposition).
+                amortized = club_lam * 0.65
+                return (amortized, f"{club_src} amorti -35%",
+                        f"{club_descr} (amorti car pas de stats nat dispo)")
             return (None, None, None)
 
         def _friendly_player_picks(side, team_name, lam_team_match, side_absent, sig):
@@ -1514,7 +1567,9 @@ def analyze_match(match, pstats_all, player_odds_all=None):
                 conf_penalty = 5 if is_predicted else 0
 
                 conf_scores = round(p_scores * 100) - conf_penalty
-                if conf_scores >= 50:
+                # Seuil 45 pour amicaux nat team (les EDF marquent moins
+                # qu'une attaque club ; un Mbappé à 50% est déjà très solide)
+                if conf_scores >= 45:
                     pen_tag = " (penaltyman)" if is_penaltyman else ""
                     picks_out.append({
                         "kind": "marque",
@@ -1526,9 +1581,9 @@ def analyze_match(match, pstats_all, player_odds_all=None):
                         "p":    p_scores,
                         "lineup_status": "predicted" if is_predicted else "confirmed",
                         "reasoning": (
-                            f"{lineup_warn}{name}{pen_tag} : {descr} ({lam_player:.2f} buts/m, source: {source}). "
-                            f"Avec un attendu de {lam_team_match:.1f} buts pour {team_name}, "
-                            f"sa probabilite de marquer est ~{conf_scores}%."
+                            f"{lineup_warn}{name}{pen_tag} : {descr}. "
+                            f"λ ajusté à {lam_p_match:.2f} ({team_name} attendu {lam_team_match:.1f} buts) "
+                            f"→ P(marque) ~{conf_scores}%."
                         ),
                     })
                 conf_double = round(p_scores_2 * 100) - conf_penalty
@@ -1543,11 +1598,64 @@ def analyze_match(match, pstats_all, player_odds_all=None):
                         "p":    p_scores_2,
                         "lineup_status": "predicted" if is_predicted else "confirmed",
                         "reasoning": (
-                            f"{lineup_warn}{name} : {descr} ({lam_player:.2f}/m, source: {source}). "
-                            f"Attendu ~{lam_p_match:.1f} buts ce match - "
-                            f"P(2+ buts) ~{conf_double}% (cote interessante)."
+                            f"{lineup_warn}{name} : {descr}. "
+                            f"Attendu ~{lam_p_match:.1f} buts ce match - P(2+) ~{conf_double}% (cote elevee)."
                         ),
                     })
+
+                # ── Pick DECISIF (but OU passe decisive) ────────────────────
+                # Capte les playmakers genre Olise/Cherki qui combinent G+A
+                # Lambda decisif = (G + A) / nat_n, ponderation similaire
+                pid_dec = s.get("id")
+                lam_decisif = None
+                dec_descr = None
+                if fm_player and pid_dec:
+                    try:
+                        pdata2 = fm_player(pid_dec) or {}
+                    except Exception:
+                        pdata2 = {}
+                    ns_dec = pdata2.get("nat_stats") or {}
+                    l10_dec = pdata2.get("l10") or {}
+                    if ns_dec.get("n", 0) >= 3:
+                        nat_dec = ns_dec.get("ga_pm", 0) or 0
+                        club_dec = ((l10_dec.get("goals_pm") or 0) + (l10_dec.get("assists_pm") or 0))
+                        # Nat weight plus haut pour decisif : 0.80 si n>=5
+                        # (le passe club inflate trop sinon)
+                        w_nat_dec = 0.80 if ns_dec.get("n", 0) >= 5 else 0.6
+                        lam_decisif = club_dec * (1 - w_nat_dec) + nat_dec * w_nat_dec
+                        l3 = ns_dec.get("last3_ga", 0) or 0
+                        # Boost recence : +5% par décisif dans last3 (cap +10%)
+                        if l3 >= 1:
+                            lam_decisif *= 1 + 0.05 * min(2, l3)
+                        # Drought penalty agressif (-45%/-60%) pour disette
+                        if ns_dec.get("drought_2_matches"):
+                            lam_decisif *= 0.40
+                        elif ns_dec.get("drought_1_match"):
+                            lam_decisif *= 0.55
+                        dec_descr = (f"selection {ns_dec.get('goals',0)}G+{ns_dec.get('assists',0)}A/{ns_dec.get('n',0)}m "
+                                     f"({nat_dec:.2f} G+A/m nat)")
+                        if ns_dec.get("drought_1_match") or ns_dec.get("drought_2_matches"):
+                            dec_descr += " · ⚠️ disette recente"
+                if lam_decisif and lam_decisif >= 0.30:
+                    lam_dec_match = lam_decisif * (lam_team_match / 1.5)
+                    p_decisif = 1 - _math_p.exp(-lam_dec_match)
+                    conf_dec = round(p_decisif * 100) - conf_penalty
+                    # Seuil 42 pour decisif (cote ~2.30 = tier fun OK)
+                    if conf_dec >= 42:
+                        picks_out.append({
+                            "kind": "decisif",
+                            "name": name,
+                            "side": side,
+                            "team": team_name,
+                            "lam":  lam_dec_match,
+                            "conf": min(80, conf_dec),
+                            "p":    p_decisif,
+                            "lineup_status": "predicted" if is_predicted else "confirmed",
+                            "reasoning": (
+                                f"{lineup_warn}{name} but ou passe decisive : {dec_descr}. "
+                                f"P(but ou passe) ~{conf_dec}%."
+                            ),
+                        })
             return picks_out
 
         h_friendly_picks = _friendly_player_picks("home", home, lam_h_match, h_unavailable, h_sig)
@@ -1753,6 +1861,9 @@ def analyze_match(match, pstats_all, player_odds_all=None):
             if fp["kind"] == "marque":
                 label = f"{fp['name']} marque"
                 ptype = "Buteur"
+            elif fp["kind"] == "decisif":
+                label = f"{fp['name']} but ou passe décisive"
+                ptype = "Joueur décisif"
             else:  # double_buteur
                 label = f"{fp['name']} marque 2+ buts"
                 ptype = "Double buteur"

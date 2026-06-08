@@ -187,12 +187,77 @@ def player(player_id, ttl=24 * 3600):
             "rating":   ((x.get("ratingProps") or {}).get("rating")),
         } for x in l10
     ]
+
+    # Stats NAT TEAM via filtre recentMatches par teamName == nat team courant.
+    # On detecte la nat team du joueur via primaryTeam (national team field
+    # ou via le ccode FIFA). Approche simple : on cherche dans recentMatches
+    # un teamName ayant un ccode different du club courant ET qui est
+    # une selection (heuristique : nom court, pas de "FC", "United", etc.).
+    primary = data.get("primaryTeam") or {}
+    primary_team = primary.get("teamName") or ""
+    # Heuristique nat team : on prend le teamName le PLUS FREQUENT dans
+    # recentMatches qui n'est PAS le club primaryTeam. Pour Mbappe ce sera
+    # 'France'. Pour Salah ce sera 'Egypt'.
+    from collections import Counter
+    team_counts = Counter()
+    for x in rm:
+        nm = x.get("teamName") or ""
+        if nm and nm != primary_team:
+            team_counts[nm] += 1
+    nat_team_name = team_counts.most_common(1)[0][0] if team_counts else None
+
+    nat_matches = [x for x in rm if (x.get("teamName") or "") == nat_team_name] if nat_team_name else []
+    # Filtre matchs joues (au moins 1 min)
+    nat_played = [x for x in nat_matches if (x.get("minutesPlayed") or 0) > 0]
+    n_nat = len(nat_played)
+    g_nat = sum((x.get("goals") or 0) for x in nat_played)
+    a_nat = sum((x.get("assists") or 0) for x in nat_played)
+    mins_nat = sum((x.get("minutesPlayed") or 0) for x in nat_played)
+    # Recent nat form : matchs nat dans les 3 derniers
+    last_3_nat = nat_played[:3]
+    recent_nat_goals = sum((x.get("goals") or 0) for x in last_3_nat)
+    recent_nat_ga = sum((x.get("goals") or 0) + (x.get("assists") or 0) for x in last_3_nat)
+    # Stats du dernier match nat (pour detection drought)
+    last_nat = nat_played[0] if nat_played else None
+    last_min = (last_nat or {}).get("minutesPlayed") or 0
+    last_g   = (last_nat or {}).get("goals") or 0
+    last_a   = (last_nat or {}).get("assists") or 0
+    # Drought : dernier match avec 60+ min et 0G+0A = pas de signal en nat team
+    drought_last_match = (last_min >= 60 and last_g == 0 and last_a == 0)
+    # Drought 2 matchs : enchaine 2 derniers avec 60+ min et 0G+0A
+    drought_2_matches = False
+    if drought_last_match and len(nat_played) >= 2:
+        m2 = nat_played[1]
+        if (m2.get("minutesPlayed") or 0) >= 60 and not (m2.get("goals") or m2.get("assists")):
+            drought_2_matches = True
+
+    nat_stats = {
+        "team":            nat_team_name,
+        "n":               n_nat,
+        "n_total":         len(nat_matches),  # incl. matches sans minutes
+        "goals":           g_nat,
+        "assists":         a_nat,
+        "minutes":         mins_nat,
+        "goals_pm":        round(g_nat / n_nat, 3) if n_nat else 0,
+        "assists_pm":      round(a_nat / n_nat, 3) if n_nat else 0,
+        "ga_pm":           round((g_nat + a_nat) / n_nat, 3) if n_nat else 0,
+        "minutes_pm":      round(mins_nat / n_nat, 1) if n_nat else 0,
+        "last3_goals":     recent_nat_goals,
+        "last3_ga":        recent_nat_ga,
+        "drought_1_match": drought_last_match,
+        "drought_2_matches": drought_2_matches,
+        "last_match_mins": last_min,
+        "last_match_g":    last_g,
+        "last_match_a":    last_a,
+    }
+
     out = {
         "id":         player_id,
         "name":       data.get("name"),
         "club_stats": club_stats,
         "l10":        l10_summary,
         "recent":     recent_slim,
+        "nat_stats":  nat_stats,
     }
     _cache_set(path, out)
     return out
