@@ -125,6 +125,37 @@ def formation_adjust(formation_str):
     except Exception:
         return 1.0, ""
 
+
+# Top nations FIFA - pour filtrer les amicaux "petites equipes" (Ouganda
+# vs Madagascar, etc.). On accepte le match si AU MOINS UNE des 2 equipes
+# est une grosse selection internationale. Liste enrichie ~top 35 FIFA.
+TOP_INTL_TEAMS = {
+    # Europe top
+    "argentina", "france", "spain", "england", "brazil", "portugal",
+    "netherlands", "belgium", "italy", "croatia", "germany", "switzerland",
+    "denmark", "austria", "sweden", "norway", "poland", "ukraine", "wales",
+    "serbia", "scotland", "turkiye", "turkey", "czechia", "czech republic",
+    "hungary", "romania",
+    # CONMEBOL
+    "colombia", "uruguay", "ecuador", "chile", "peru", "paraguay", "venezuela",
+    # CONCACAF
+    "usa", "united states", "mexico", "canada", "costa rica", "panama",
+    "jamaica", "honduras",
+    # AFC
+    "japan", "iran", "south korea", "korea republic", "australia",
+    "saudi arabia", "iraq", "qatar", "uzbekistan",
+    # CAF
+    "morocco", "senegal", "tunisia", "egypt", "algeria", "ivory coast",
+    "cote d'ivoire", "nigeria", "cameroon", "ghana", "south africa",
+    "dr congo", "mali",
+}
+
+
+def is_top_intl_team(name):
+    """True si l'equipe est une grosse selection internationale."""
+    if not name: return False
+    return str(name).strip().lower() in TOP_INTL_TEAMS
+
 def get_pos(fd, s):
     pos = (fd or {}).get(s, {}).get("position", None)
     return pos if pos is not None else 20
@@ -713,6 +744,17 @@ def analyze_match(match, pstats_all, player_odds_all=None):
     a_sos_ok = sum(1 for r in a_opp_ranks_pre if r is not None) >= 3
     h_l5_ok = len(hf) >= 4
     a_l5_ok = len(af) >= 4
+
+    # ── Filtre amicaux "petites equipes" ─────────────────────────────────
+    # Pour les Friendlies (league_id 114), au moins UNE des 2 equipes doit
+    # etre une grosse selection internationale (top 35 FIFA). Sinon on skip
+    # tous les picks - les matchs comme Ouganda vs Madagascar generent du
+    # bruit (data sparse, signal faible).
+    HAS_TOP_TEAM = (not IS_INTL_FRIENDLY) or is_top_intl_team(home) or is_top_intl_team(away)
+    if IS_INTL_FRIENDLY and not HAS_TOP_TEAM:
+        # Pas de pick, on retourne tot pour ces matchs sans interet
+        return [], [], [], []
+
     if IS_INTL_FRIENDLY and h_l5_ok and a_l5_ok:
         # ── Amicaux : strategie multi-marche basee sur la forme + buts L5 ─
         # Plutot que des DC sur favoris ecrasants (cote 1.10-1.15 = ridicule),
@@ -1308,11 +1350,24 @@ def analyze_match(match, pstats_all, player_odds_all=None):
             fm_player = None
 
         def _player_lambda(starter):
-            """Renvoie (lambda_per_match, source, descr) en preferant le L10
-            club puis les stats club saison, puis fallback nat team."""
+            """Renvoie (lambda_per_match, source, descr).
+
+            IMPORTANT : on combine TOUJOURS le lambda club + lambda nat team
+            quand on a >=3 selections. Un Thuram qui marque a l'Inter mais
+            jamais en EDF doit voir son lambda baisser pour les amicaux.
+
+            Formule : lambda = club_lambda * (1 - w_nat) + nat_lambda * w_nat
+            - w_nat = 0.4 si nat_apps >= 5
+            - w_nat = 0.25 si nat_apps in [3, 5]
+            - w_nat = 0 si nat_apps < 3 (echantillon trop petit)
+            """
             pid = starter.get("id")
             nat_g = starter.get("goals")
             nat_a = starter.get("apps")
+            club_lam = None
+            club_src = None
+            club_descr = None
+
             if fm_player and pid:
                 try:
                     pdata = fm_player(pid) or {}
@@ -1320,21 +1375,33 @@ def analyze_match(match, pstats_all, player_odds_all=None):
                     pdata = {}
                 l10 = pdata.get("l10") or {}
                 club = pdata.get("club_stats") or {}
-                # L10 club : signal le + recent et le + predictif si on en a
                 if l10.get("n", 0) >= 5 and l10.get("goals_pm") is not None:
-                    return (l10["goals_pm"],
-                            f"L10 {club.get('league','club')}",
-                            f"{l10['goals']}G en {l10['n']} matchs club")
-                # Stats saison club : signal solide sur une saison complete
-                if club.get("matches") and club.get("goals") is not None:
+                    club_lam = l10["goals_pm"]
+                    club_src = f"L10 {club.get('league','club')}"
+                    club_descr = f"{l10['goals']}G en {l10['n']} matchs club"
+                elif club.get("matches") and club.get("goals") is not None:
                     g, m = club["goals"], club["matches"]
                     if m >= 5:
-                        return (g / m,
-                                f"Saison {club.get('league','club')}",
-                                f"{g}G en {m} matchs {club.get('league','club')}")
-            # Fallback : stats nat team de la lineup
-            if nat_g is not None and nat_a and nat_a >= 5:
-                return (nat_g / nat_a, "nat team",
+                        club_lam = g / m
+                        club_src = f"Saison {club.get('league','club')}"
+                        club_descr = f"{g}G en {m} matchs {club.get('league','club')}"
+
+            # Pondération nat team
+            nat_lam = None
+            if nat_g is not None and nat_a and nat_a >= 3:
+                nat_lam = nat_g / nat_a
+
+            if club_lam is not None and nat_lam is not None:
+                w_nat = 0.4 if nat_a >= 5 else 0.25
+                final_lam = club_lam * (1 - w_nat) + nat_lam * w_nat
+                src = f"{club_src} pondéré nat"
+                descr = (f"{club_descr} · {nat_g}G en {nat_a} selections "
+                         f"({nat_lam:.2f}/m nat, pond. {int(w_nat*100)}%)")
+                return final_lam, src, descr
+            if club_lam is not None:
+                return club_lam, club_src, club_descr
+            if nat_lam is not None and nat_a >= 5:
+                return (nat_lam, "nat team",
                         f"{nat_g}G en {nat_a} matchs selection")
             return (None, None, None)
 
@@ -1366,7 +1433,16 @@ def analyze_match(match, pstats_all, player_odds_all=None):
                 p_scores = 1 - _math_p.exp(-lam_p_match)
                 p_scores_2 = 1 - _math_p.exp(-lam_p_match) * (1 + lam_p_match)
 
-                conf_scores = round(p_scores * 100)
+                # Statut compo : si predicted (et pas confirmed), on prefixe
+                # le reasoning avec un warning et on baisse la conf de 5pts.
+                lineup_type = (lineup.get("type") or "").lower()
+                is_predicted = lineup_type in ("predicted", "")  # vide = predicted par defaut
+                lineup_warn = ""
+                if is_predicted:
+                    lineup_warn = "⚠️ Compo PROBABLE (a confirmer 1h avant). "
+                conf_penalty = 5 if is_predicted else 0
+
+                conf_scores = round(p_scores * 100) - conf_penalty
                 if conf_scores >= 50:
                     pen_tag = " (penaltyman)" if is_penaltyman else ""
                     picks_out.append({
@@ -1377,13 +1453,14 @@ def analyze_match(match, pstats_all, player_odds_all=None):
                         "lam":  lam_p_match,
                         "conf": min(82, conf_scores),
                         "p":    p_scores,
+                        "lineup_status": "predicted" if is_predicted else "confirmed",
                         "reasoning": (
-                            f"{name}{pen_tag} : {descr} ({lam_player:.2f} buts/m, source: {source}). "
+                            f"{lineup_warn}{name}{pen_tag} : {descr} ({lam_player:.2f} buts/m, source: {source}). "
                             f"Avec un attendu de {lam_team_match:.1f} buts pour {team_name}, "
                             f"sa probabilite de marquer est ~{conf_scores}%."
                         ),
                     })
-                conf_double = round(p_scores_2 * 100)
+                conf_double = round(p_scores_2 * 100) - conf_penalty
                 if conf_double >= 22 and lam_p_match >= 0.65:
                     picks_out.append({
                         "kind": "double_buteur",
@@ -1393,8 +1470,9 @@ def analyze_match(match, pstats_all, player_odds_all=None):
                         "lam":  lam_p_match,
                         "conf": min(60, conf_double + 10),
                         "p":    p_scores_2,
+                        "lineup_status": "predicted" if is_predicted else "confirmed",
                         "reasoning": (
-                            f"{name} : {descr} ({lam_player:.2f}/m, source: {source}). "
+                            f"{lineup_warn}{name} : {descr} ({lam_player:.2f}/m, source: {source}). "
                             f"Attendu ~{lam_p_match:.1f} buts ce match - "
                             f"P(2+ buts) ~{conf_double}% (cote interessante)."
                         ),
@@ -1610,7 +1688,7 @@ def analyze_match(match, pstats_all, player_odds_all=None):
             pick = {
                 "player":     fp["name"],
                 "position":   "F",
-                "is_sub":     False,
+                "is_sub":     fp.get("lineup_status") == "predicted",
                 "type":       ptype,
                 "label":      label,
                 "cote":       cote_est,
@@ -1618,10 +1696,12 @@ def analyze_match(match, pstats_all, player_odds_all=None):
                 "books":      [],
                 "confidence": int(fp["conf"]),
                 "reasoning":  fp["reasoning"],
-                "context":    {"source": "lineup", "lam": round(fp["lam"], 2)},
+                "context":    {"source": "lineup", "lam": round(fp["lam"], 2),
+                               "lineup_status": fp.get("lineup_status", "predicted")},
                 "stats":      {"goals": None, "apps": None, "gpm": round(fp["lam"], 3),
                                "xgpm": None},
                 "team":       fp["side"],
+                "lineup_status": fp.get("lineup_status", "predicted"),
             }
             if fp["side"] == "home":
                 home_pp.append(pick)
