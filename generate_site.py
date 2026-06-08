@@ -3187,8 +3187,13 @@ def build_tennis_history(history_data):
                 f'<span style="background:{res_color};color:#0a1628;font-weight:800;border-radius:14px;padding:3px 10px;font-size:12px">{res_icon} {r}</span>'
                 f'</div>'
             )
+        d_wins = sum(1 for p in d_picks if p.get("result") == "WIN")
+        d_losses = sum(1 for p in d_picks if p.get("result") == "LOSS")
+        d_pushes = sum(1 for p in d_picks if p.get("result") == "PUSH")
         sections.append(
-            f'<details data-date="{d}" open style="margin-bottom:14px;background:#0f172a;border-radius:12px;padding:12px 16px">'
+            f'<details data-date="{d}" data-wins="{d_wins}" data-losses="{d_losses}" '
+            f'data-pushes="{d_pushes}" data-pending="0" open '
+            f'style="margin-bottom:14px;background:#0f172a;border-radius:12px;padding:12px 16px">'
             f'<summary style="color:#cbd5e1;font-size:14px;font-weight:700;cursor:pointer;padding:4px 0">'
             f'📅 {d_label} · {len(d_picks)} pick(s)</summary>'
             f'<div style="display:flex;flex-direction:column;gap:6px;margin-top:10px">{"".join(rows)}</div>'
@@ -3197,9 +3202,18 @@ def build_tennis_history(history_data):
 
     # Filtre de date (reutilise le pattern foot/NBA)
     date_filter = _build_date_filter(dates, "tennishist-container", sport_label="tennis")
+    chart_html = (
+        f'<div id="tennishist-chart-wrap" style="background:#0f172a;border-radius:10px;'
+        f'padding:14px 16px;margin-bottom:14px">'
+        f'<div style="color:#94a3b8;font-size:11px;text-transform:uppercase;letter-spacing:1px;'
+        f'margin-bottom:8px">📈 Win Rate sur la periode</div>'
+        f'<div id="tennishist-chart" style="width:100%;height:160px"></div>'
+        f'</div>'
+    )
     return (
         summary
         + date_filter
+        + chart_html
         + '<div id="tennishist-container">'
         +   "".join(sections)
         + '</div>'
@@ -3451,7 +3465,9 @@ def build_foot_history(history_data):
             date_fr = date
         pending_chip = f' · <span style="color:#fb923c">{d_pend} pending</span>' if d_pend else ""
         date_html += (
-            f'<details data-date="{date}" style="background:#0f172a;border-radius:10px;margin-bottom:10px;padding:0">'
+            f'<details data-date="{date}" data-wins="{d_wins}" data-losses="{d_losses}" '
+            f'data-pushes="{d_push}" data-pending="{d_pend}" '
+            f'style="background:#0f172a;border-radius:10px;margin-bottom:10px;padding:0">'
             f'<summary style="cursor:pointer;list-style:none;padding:14px 18px;display:flex;'
             f'justify-content:space-between;align-items:center;gap:10px">'
             f'<div>'
@@ -3467,7 +3483,15 @@ def build_foot_history(history_data):
 
     # Wrap dans un container avec id pour le filtre JS
     filter_html = _build_date_filter(dates, "foothist-list", "foot")
-    return summary + filter_html + f'<div id="foothist-list">{date_html}</div>'
+    chart_html = (
+        f'<div id="foothist-chart-wrap" style="background:#0f172a;border-radius:10px;'
+        f'padding:14px 16px;margin-bottom:14px">'
+        f'<div style="color:#94a3b8;font-size:11px;text-transform:uppercase;letter-spacing:1px;'
+        f'margin-bottom:8px">📈 Win Rate sur la periode</div>'
+        f'<div id="foothist-chart" style="width:100%;height:160px"></div>'
+        f'</div>'
+    )
+    return summary + filter_html + chart_html + f'<div id="foothist-list">{date_html}</div>'
 
 
 # ─── Historique NBA ─────────────────────────────────────────────────────────
@@ -3727,7 +3751,9 @@ def build_nba_history(history_data):
 
         pending_chip = f' · <span style="color:#fb923c">{d_pend} pending</span>' if d_pend else ""
         date_html += (
-            f'<details data-date="{date}" style="background:#0f172a;border-radius:10px;margin-bottom:10px;padding:0">'
+            f'<details data-date="{date}" data-wins="{d_wins}" data-losses="{d_losses}" '
+            f'data-pushes="{d_push}" data-pending="{d_pend}" data-dnp="{d_dnp}" '
+            f'style="background:#0f172a;border-radius:10px;margin-bottom:10px;padding:0">'
             f'<summary style="cursor:pointer;list-style:none;padding:14px 18px;display:flex;'
             f'justify-content:space-between;align-items:center;gap:10px">'
             f'<div>'
@@ -3742,7 +3768,15 @@ def build_nba_history(history_data):
         )
 
     filter_html = _build_date_filter(dates, "nbahist-list", "NBA")
-    return summary + filter_html + f'<div id="nbahist-list">{date_html}</div>'
+    chart_html = (
+        f'<div id="nbahist-chart-wrap" style="background:#0f172a;border-radius:10px;'
+        f'padding:14px 16px;margin-bottom:14px">'
+        f'<div style="color:#94a3b8;font-size:11px;text-transform:uppercase;letter-spacing:1px;'
+        f'margin-bottom:8px">📈 Win Rate sur la periode</div>'
+        f'<div id="nbahist-chart" style="width:100%;height:160px"></div>'
+        f'</div>'
+    )
+    return summary + filter_html + chart_html + f'<div id="nbahist-list">{date_html}</div>'
 
 
 def build_html(matches, team_ai, player_ai, pstats_data, nba_picks=None, nba_history=None, foot_history=None, nba_player_stats=None, nba_odds=None):
@@ -5606,7 +5640,6 @@ function filterHistory(containerId, period){{
     el.style.display = (diffDays >= 0 && diffDays <= n) ? '' : 'none';
   }});
   // Met a jour les boutons actifs
-  // Container parent du filtre : on cherche le premier ancetre qui a des hist-btn
   var section = container.previousElementSibling;
   while(section && !section.querySelector){{ section = section.previousElementSibling; }}
   if(section){{
@@ -5617,6 +5650,8 @@ function filterHistory(containerId, period){{
       b.style.color = active ? '#fff' : '#94a3b8';
     }});
   }}
+  // Redraw chart pour la periode
+  updateHistChart(containerId);
 }}
 
 // ── Historique : filtrage par date exacte (dropdown) ──
@@ -5636,7 +5671,138 @@ function filterHistoryDate(containerId, dateValue){{
       b.style.background = '#1e293b'; b.style.color = '#94a3b8';
     }});
   }}
+  updateHistChart(containerId);
 }}
+
+// ── Dessine le chart WR par jour (bar chart) + ligne WR cumulee ──
+function updateHistChart(containerId){{
+  // Mapping : containerId -> chartId
+  var chartMap = {{
+    'foothist-list': 'foothist-chart',
+    'nbahist-list':  'nbahist-chart',
+    'tennishist-container': 'tennishist-chart',
+  }};
+  var chartId = chartMap[containerId];
+  if(!chartId) return;
+  var chartHost = document.getElementById(chartId);
+  if(!chartHost) return;
+
+  var container = document.getElementById(containerId);
+  if(!container) return;
+  // Collecte uniquement les details VISIBLES (apres filtrage)
+  var entries = Array.prototype.slice.call(container.querySelectorAll('details[data-date]'))
+    .filter(function(el){{ return el.style.display !== 'none'; }});
+  if(!entries.length){{
+    chartHost.innerHTML = '<div style="color:#475569;text-align:center;padding:40px 0;font-size:12px">Aucune donnee pour cette periode</div>';
+    return;
+  }}
+  // Tri par date asc
+  entries.sort(function(a,b){{
+    return a.getAttribute('data-date').localeCompare(b.getAttribute('data-date'));
+  }});
+
+  // Donnees par jour
+  var data = entries.map(function(el){{
+    var d = el.getAttribute('data-date');
+    var w = parseInt(el.getAttribute('data-wins')) || 0;
+    var l = parseInt(el.getAttribute('data-losses')) || 0;
+    var p = parseInt(el.getAttribute('data-pushes')) || 0;
+    var resolved = w + l;
+    var wr = resolved ? (w / resolved * 100) : null;
+    return {{date:d, w:w, l:l, p:p, resolved:resolved, wr:wr}};
+  }}).filter(function(x){{ return x.resolved > 0; }});
+
+  if(!data.length){{
+    chartHost.innerHTML = '<div style="color:#475569;text-align:center;padding:40px 0;font-size:12px">Aucun pick resolu sur la periode</div>';
+    return;
+  }}
+
+  // WR cumule
+  var cumW=0, cumL=0;
+  data.forEach(function(d){{
+    cumW += d.w; cumL += d.l;
+    d.cumWR = (cumW+cumL) ? cumW/(cumW+cumL)*100 : null;
+  }});
+
+  // Dimensions
+  var W = chartHost.clientWidth || 600;
+  var H = 160;
+  var padL = 32, padR = 12, padT = 10, padB = 26;
+  var plotW = W - padL - padR;
+  var plotH = H - padT - padB;
+  var n = data.length;
+  var barW = Math.max(4, plotW / n - 2);
+  var barGap = plotW / n - barW;
+
+  function yPos(v){{ return padT + (1 - v/100) * plotH; }}
+  function xPos(i){{ return padL + (i + 0.5) * (plotW / n); }}
+
+  // Bars colored by WR
+  var bars = '';
+  for(var i=0; i<n; i++){{
+    var d = data[i];
+    if(d.wr === null) continue;
+    var color = d.wr >= 60 ? '#22c55e' : (d.wr >= 50 ? '#84cc16' : (d.wr >= 40 ? '#eab308' : '#ef4444'));
+    var x = padL + i * (plotW / n) + (plotW/n - barW)/2;
+    var y = yPos(d.wr);
+    var h = (plotH * d.wr / 100);
+    bars += '<rect x="'+x+'" y="'+y+'" width="'+barW+'" height="'+h+'" rx="2" fill="'+color+'" opacity="0.7"><title>'+d.date+': '+d.w+'W/'+d.l+'L = '+d.wr.toFixed(0)+'%</title></rect>';
+  }}
+
+  // Cumulative WR line
+  var pathD = '';
+  var dotsHtml = '';
+  for(var i=0; i<n; i++){{
+    var d = data[i];
+    if(d.cumWR === null) continue;
+    var x = xPos(i);
+    var y = yPos(d.cumWR);
+    pathD += (pathD ? ' L ' : 'M ') + x.toFixed(1) + ' ' + y.toFixed(1);
+    dotsHtml += '<circle cx="'+x.toFixed(1)+'" cy="'+y.toFixed(1)+'" r="3" fill="#3b82f6"><title>cumul '+d.cumWR.toFixed(0)+'%</title></circle>';
+  }}
+
+  // Y axis lines
+  var grid = '';
+  [0, 25, 50, 75, 100].forEach(function(v){{
+    var y = yPos(v);
+    grid += '<line x1="'+padL+'" y1="'+y+'" x2="'+(W-padR)+'" y2="'+y+'" stroke="#1e293b" stroke-width="1" stroke-dasharray="2,2"/>';
+    grid += '<text x="'+(padL-4)+'" y="'+(y+3)+'" text-anchor="end" fill="#475569" font-size="9">'+v+'</text>';
+  }});
+
+  // X labels : show first, mid, last
+  var xLabels = '';
+  function _shortDate(s){{ var p=s.split('-'); return p[2]+'/'+p[1]; }}
+  var labelIdxs = n > 1 ? [0, Math.floor(n/2), n-1] : [0];
+  labelIdxs.forEach(function(i){{
+    if(i < 0 || i >= n) return;
+    var x = xPos(i);
+    xLabels += '<text x="'+x.toFixed(1)+'" y="'+(H-8)+'" text-anchor="middle" fill="#64748b" font-size="10">'+_shortDate(data[i].date)+'</text>';
+  }});
+
+  // Title with total
+  var totalW = cumW, totalL = cumL;
+  var totalWR = totalW+totalL ? (totalW/(totalW+totalL)*100) : 0;
+  var titleCol = totalWR >= 55 ? '#22c55e' : (totalWR >= 50 ? '#84cc16' : '#ef4444');
+  var legend = '<text x="'+(padL)+'" y="'+(padT+8)+'" fill="'+titleCol+'" font-size="11" font-weight="700">Cumul : '+totalW+'W · '+totalL+'L · '+totalWR.toFixed(1)+'%</text>';
+
+  chartHost.innerHTML = (
+    '<svg viewBox="0 0 '+W+' '+H+'" preserveAspectRatio="none" style="width:100%;height:'+H+'px">'
+    + grid
+    + bars
+    + (pathD ? '<path d="'+pathD+'" fill="none" stroke="#3b82f6" stroke-width="2"/>' : '')
+    + dotsHtml
+    + xLabels
+    + legend
+    + '</svg>'
+  );
+}}
+
+// Initialise les charts au chargement
+document.addEventListener('DOMContentLoaded', function(){{
+  ['foothist-list','nbahist-list','tennishist-container'].forEach(function(id){{
+    if(document.getElementById(id)) updateHistChart(id);
+  }});
+}});
 function showDay(id){{
   document.querySelectorAll('[id^="day"]').forEach(el=>el.style.display='none');
   document.querySelectorAll('#sport-football .tab-btn').forEach(btn=>btn.classList.remove('active'));

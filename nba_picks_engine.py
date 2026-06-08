@@ -810,6 +810,8 @@ def player_props(player, ctx=None, real_lines=None, match_ctx=None):
                     "stats": {"mu": round(mu, 1), "sigma": round(sigma, 1),
                               "L5": round(l5_v or 0, 1), "L10": round(l10_v or 0, 1),
                               "Saison": round(season_v or 0, 1)},
+                    "last_played_date": games[0].get("date") if games else None,
+                    "last_min":         games[0].get("MIN")  if games else None,
                     "reasoning": f"L5 {round(l5_v or 0,1)} · L10 {round(l10_v or 0,1)} · Saison {round(season_v or 0,1)} → attendu {round(mu,1)}{ctx_str}{splits_str}",
                 })
 
@@ -986,6 +988,8 @@ def analyze_match(match_data, odds_for_game=None, game_lines=None):
         if not is_player_out: return picks
         out = []
         checked = {}  # cache local par run : 1 call par joueur unique
+        from datetime import datetime as _dt, timedelta as _td
+        today = _dt.now().date()
         for p in picks:
             pname = p.get("player", "")
             if not pname:
@@ -996,6 +1000,31 @@ def analyze_match(match_data, odds_for_game=None, game_lines=None):
                 except Exception:
                     checked[pname] = (False, "", "")
             is_out, status, ret_date = checked[pname]
+
+            # OVERRIDE : si le joueur a joue recemment avec un volume normal,
+            # on ignore le statut Tank01 (souvent obsolete : un Day-to-Day
+            # qui rejoue n'a plus besoin d'alerte). Critere :
+            # - last_played_date dans les 7 derniers jours
+            # - last_min >= 20 (vraie minutes, pas garbage)
+            recently_active = False
+            last_date_str = p.get("last_played_date")
+            last_min = p.get("last_min") or 0
+            if last_date_str:
+                try:
+                    last_date = _dt.strptime(last_date_str[:10], "%Y-%m-%d").date()
+                    days_since = (today - last_date).days
+                    if 0 <= days_since <= 7 and last_min >= 20:
+                        recently_active = True
+                except Exception:
+                    pass
+
+            if recently_active:
+                # On annule tout warning Tank01 - le joueur joue clairement
+                if status:
+                    print(f"  [INJURY OVERRIDE] {pname}: Tank01 '{status}' ignore (a joue le {last_date_str} {last_min}min)")
+                out.append(p)
+                continue
+
             if is_out:
                 print(f"  [INJURY OUT] skip pick {pname} ({status})")
                 continue
