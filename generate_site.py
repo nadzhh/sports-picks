@@ -5728,7 +5728,17 @@ function updateHistChart(containerId){{
   var n = data.length;
 
   function yPos(v){{ return padT + (1 - v/100) * plotH; }}
-  function xPos(i){{ return n <= 1 ? padL + plotW/2 : padL + (i / (n-1)) * plotW; }}
+  // Side-padding pour petites series : evite que les dots se collent
+  // aux bords du chart (cas NBA/tennis avec 2-3 jours)
+  var sidePad = 0;
+  if(n === 2) sidePad = plotW * 0.25;
+  else if(n === 3) sidePad = plotW * 0.18;
+  else if(n === 4) sidePad = plotW * 0.12;
+  else if(n === 5) sidePad = plotW * 0.08;
+  function xPos(i){{
+    if(n <= 1) return padL + plotW/2;
+    return padL + sidePad + (i / (n-1)) * (plotW - 2*sidePad);
+  }}
   function colorWR(v){{
     if(v >= 60) return '#22c55e';
     if(v >= 50) return '#84cc16';
@@ -5754,9 +5764,15 @@ function updateHistChart(containerId){{
     var x = xPos(i), y = yPos(data[i].cumWR);
     linePath += (i===0 ? 'M ' : ' L ') + x.toFixed(1) + ' ' + y.toFixed(1);
   }}
-  areaPath = linePath
-    + ' L ' + xPos(n-1).toFixed(1) + ' ' + (padT+plotH).toFixed(1)
-    + ' L ' + xPos(0).toFixed(1)   + ' ' + (padT+plotH).toFixed(1) + ' Z';
+  // Pour n>=2 : on construit l'area (descente jusqu'a la baseline)
+  // Pour n==1 : pas de line ni d'area, juste le dot central
+  if(n >= 2){{
+    areaPath = linePath
+      + ' L ' + xPos(n-1).toFixed(1) + ' ' + (padT+plotH).toFixed(1)
+      + ' L ' + xPos(0).toFixed(1)   + ' ' + (padT+plotH).toFixed(1) + ' Z';
+  }} else {{
+    linePath = '';  // pas de line si 1 seul point
+  }}
 
   // 3) Dots colores par WR du jour + labels % au-dessus
   // Densite labels : si beaucoup de points, on saute pour eviter le chevauchement

@@ -283,6 +283,21 @@ def _resolve_player(pick, ev):
         if assist and _name_match(player, assist): assists += 1
 
     actual = {"goals": goals, "assists": assists}
+    # IMPORTANT : 'marque 2+ buts' (Double buteur) DOIT etre detecte AVANT
+    # le 'buteur'/'marque' generique pour ne pas valider a tort un 2+ buts
+    # avec 1 seul but.
+    #
+    # DETECTION : on regarde UNIQUEMENT le label (et non le type, car
+    # 'Double Chance Buteur' = pick A OU B marque, et matchait aussi
+    # le check 'double in type and buteur in type' -> faux positifs).
+    # Pattern fiable : '2+' (ex: 'marque 2+ buts'), ou ' 2 buts' explicite.
+    label_low = _clean(pick.get("label") or "")
+    is_2plus_buts = (
+        "2+ buts" in label_low or "2+buts" in label_low
+        or " 2 buts" in label_low or "marque 2 buts" in label_low
+    )
+    if is_2plus_buts:
+        return ("WIN" if goals >= 2 else "LOSS"), actual
     if "buteur" in type_ or "marque" in type_:
         return ("WIN" if goals >= 1 else "LOSS"), actual
     if "decisif" in type_ or "decisive" in type_ or "passe" in type_:

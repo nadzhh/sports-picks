@@ -2704,6 +2704,40 @@ def _save_to_history(matches):
     existing_ids = {p.get("id") for p in history.get("picks", [])}
     n_added = 0
 
+    # ── Filtre historique : cote >= 1.60 + top 3 par match max ──────────
+    # User : 'dans l historique mets que les meilleurs paris (max 3 par
+    # match), cote 1.60 minimum (pas 1.15)'.
+    HIST_MIN_COTE = 1.60
+    HIST_MAX_PER_MATCH = 3
+
+    def _effective_cote(pk):
+        """Cote book si dispo, sinon cote simulee via (1/conf)*0.92."""
+        c = pk.get("cote")
+        if c and c > 0: return float(c)
+        conf = pk.get("confidence") or 0
+        if conf <= 0: return None
+        return round((1.0 / (conf/100.0)) * 0.92, 2)
+
+    def _pick_score(pk):
+        """Score pour ranker les picks : edge + bonus tier + conf normalisee.
+        L'edge prime sur la conf brute (value picks plutot que safe picks
+        a cote ridicule)."""
+        edge = pk.get("edge_pp") or 0
+        conf = pk.get("confidence") or 0
+        tier_bonus = {"safe": 12, "ok": 6, "fun": 0}.get(pk.get("tier", ""), 0)
+        return edge * 1.5 + conf * 0.3 + tier_bonus
+
+    def _filter_for_history(all_picks):
+        """Garde les top 3 picks avec cote effective >= 1.60."""
+        scored = []
+        for pk in all_picks:
+            ec = _effective_cote(pk)
+            if ec is None or ec < HIST_MIN_COTE:
+                continue
+            scored.append((pk, _pick_score(pk)))
+        scored.sort(key=lambda x: x[1], reverse=True)
+        return [x[0] for x in scored[:HIST_MAX_PER_MATCH]]
+
     for m in matches:
         match_id = m.get("match_id")
         if match_id not in freezable_ids:
@@ -2717,30 +2751,28 @@ def _save_to_history(matches):
         except Exception:
             date = today
 
-        # Team picks
-        for pk in m.get("picks", []):
-            pid = f"{date}_{match_id}_team_{pk.get('direction','?')}"
-            if pid in existing_ids: continue
-            e = dict(pk); e.update({"id": pid, "date": date, "match_id": match_id, "page_url": page_url,
-                                     "matchup": matchup, "league": league, "category": "team",
-                                     "result": "PENDING", "actual": None, "resolved_at": None})
-            history["picks"].append(e); existing_ids.add(pid); n_added += 1
-        # Player picks
-        for plist, side in [(m.get("home_players", []), "home"), (m.get("away_players", []), "away")]:
-            for pk in plist:
+        # On consolide team + players + fun pour ranker uniformement
+        team_pool = [dict(p, _cat="team", _side=None) for p in m.get("picks", [])]
+        home_pool = [dict(p, _cat="player", _side="home") for p in m.get("home_players", [])]
+        away_pool = [dict(p, _cat="player", _side="away") for p in m.get("away_players", [])]
+        fun_pool  = [dict(p, _cat="fun", _side=None) for p in m.get("fun_picks", [])]
+        all_pool = team_pool + home_pool + away_pool + fun_pool
+        kept = _filter_for_history(all_pool)
+
+        for pk in kept:
+            cat = pk.pop("_cat")
+            side = pk.pop("_side", None)
+            if cat == "team":
+                pid = f"{date}_{match_id}_team_{pk.get('direction','?')}"
+            elif cat == "player":
                 pid = f"{date}_{match_id}_player_{pk.get('player','?')}_{pk.get('type','?')}"
-                if pid in existing_ids: continue
-                e = dict(pk); e.update({"id": pid, "date": date, "match_id": match_id, "page_url": page_url,
-                                         "matchup": matchup, "league": league, "category": "player",
-                                         "side": side, "result": "PENDING", "actual": None, "resolved_at": None})
-                history["picks"].append(e); existing_ids.add(pid); n_added += 1
-        # Fun picks
-        for pk in m.get("fun_picks", []):
-            pid = f"{date}_{match_id}_fun_{pk.get('type','?')}_{pk.get('label','?')[:30]}"
+            else:
+                pid = f"{date}_{match_id}_fun_{pk.get('type','?')}_{pk.get('label','?')[:30]}"
             if pid in existing_ids: continue
             e = dict(pk); e.update({"id": pid, "date": date, "match_id": match_id, "page_url": page_url,
-                                     "matchup": matchup, "league": league, "category": "fun",
+                                     "matchup": matchup, "league": league, "category": cat,
                                      "result": "PENDING", "actual": None, "resolved_at": None})
+            if side: e["side"] = side
             history["picks"].append(e); existing_ids.add(pid); n_added += 1
 
     hist_path.write_text(json.dumps(history, ensure_ascii=False, indent=2), encoding="utf-8")
