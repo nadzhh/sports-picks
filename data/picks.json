@@ -1021,53 +1021,26 @@
         "is_sub": false,
         "type": "Buteur",
         "label": "Cristiano Ronaldo marque",
-        "cote": 1.3,
-        "book": null,
-        "books": [],
-        "confidence": 77,
-        "reasoning": "Cristiano Ronaldo : selection 6G/7m (0.86/m) · L10 club : 5G/10m, 🔥 2G/3 derniers nat (+19%). λ ajusté à 1.47 (Portugal attendu 2.4 buts) → P(marque) ~77%.",
-        "context": {
-          "source": "lineup",
-          "lam": 1.47,
-          "lineup_status": "confirmed"
-        },
-        "stats": {
-          "goals": null,
-          "apps": null,
-          "gpm": 1.469,
-          "xgpm": null
-        },
-        "team": "home",
-        "lineup_status": "confirmed",
-        "tier": "safe",
-        "edge_pp": 0.1
-      },
-      {
-        "player": "Cristiano Ronaldo",
-        "position": "F",
-        "is_sub": false,
-        "type": "Joueur décisif",
-        "label": "Cristiano Ronaldo but ou passe décisive",
-        "cote": 1.32,
+        "cote": 1.31,
         "book": null,
         "books": [],
         "confidence": 76,
-        "reasoning": "Cristiano Ronaldo but ou passe decisive : selection 6G+0A/7m (0.86 G+A/m nat). P(but ou passe) ~76%.",
+        "reasoning": "Cristiano Ronaldo : selection 5G/6m (0.83/m) · L10 club : 5G/10m, 🔥 2G/3 derniers nat (+19%). λ ajusté à 1.44 (Portugal attendu 2.4 buts) → P(marque) ~76%.",
         "context": {
           "source": "lineup",
-          "lam": 1.41,
+          "lam": 1.44,
           "lineup_status": "confirmed"
         },
         "stats": {
           "goals": null,
           "apps": null,
-          "gpm": 1.41,
+          "gpm": 1.436,
           "xgpm": null
         },
         "team": "home",
         "lineup_status": "confirmed",
         "tier": "safe",
-        "edge_pp": 0.2
+        "edge_pp": -0.3
       },
       {
         "player": "Bruno Fernandes",
@@ -1075,53 +1048,80 @@
         "is_sub": false,
         "type": "Joueur décisif",
         "label": "Bruno Fernandes but ou passe décisive",
-        "cote": 1.38,
+        "cote": 1.33,
         "book": null,
         "books": [],
-        "confidence": 72,
-        "reasoning": "Bruno Fernandes but ou passe decisive : selection 4G+2A/9m (0.67 G+A/m nat). P(but ou passe) ~72%.",
+        "confidence": 75,
+        "reasoning": "Bruno Fernandes but ou passe decisive : selection 4G+2A/8m (0.75 G+A/m nat). P(but ou passe) ~75%.",
         "context": {
           "source": "lineup",
-          "lam": 1.28,
+          "lam": 1.4,
           "lineup_status": "confirmed"
         },
         "stats": {
           "goals": null,
           "apps": null,
-          "gpm": 1.281,
+          "gpm": 1.4,
           "xgpm": null
         },
         "team": "home",
         "lineup_status": "confirmed",
         "tier": "safe",
-        "edge_pp": -0.5
+        "edge_pp": -0.2
       },
       {
         "player": "Cristiano Ronaldo",
         "position": "F",
         "is_sub": false,
-        "type": "Double buteur",
-        "label": "Cristiano Ronaldo marque 2+ buts",
-        "cote": 2.32,
+        "type": "Joueur décisif",
+        "label": "Cristiano Ronaldo but ou passe décisive",
+        "cote": 1.34,
         "book": null,
         "books": [],
-        "confidence": 53,
-        "reasoning": "Cristiano Ronaldo : selection 6G/7m (0.86/m) · L10 club : 5G/10m, 🔥 2G/3 derniers nat (+19%). Attendu ~1.5 buts ce match - P(2+) ~43% (cote elevee).",
+        "confidence": 75,
+        "reasoning": "Cristiano Ronaldo but ou passe decisive : selection 5G+0A/6m (0.83 G+A/m nat). P(but ou passe) ~75%.",
         "context": {
           "source": "lineup",
-          "lam": 1.47,
+          "lam": 1.38,
           "lineup_status": "confirmed"
         },
         "stats": {
           "goals": null,
           "apps": null,
-          "gpm": 1.469,
+          "gpm": 1.376,
+          "xgpm": null
+        },
+        "team": "home",
+        "lineup_status": "confirmed",
+        "tier": "safe",
+        "edge_pp": 0.4
+      },
+      {
+        "player": "Bruno Fernandes",
+        "position": "F",
+        "is_sub": false,
+        "type": "Buteur",
+        "label": "Bruno Fernandes marque",
+        "cote": 1.92,
+        "book": null,
+        "books": [],
+        "confidence": 52,
+        "reasoning": "Bruno Fernandes : selection 4G/8m (0.50/m) · L10 club : 2G/10m, 🔥 1G/3 derniers nat (+10%). λ ajusté à 0.74 (Portugal attendu 2.4 buts) → P(marque) ~52%.",
+        "context": {
+          "source": "lineup",
+          "lam": 0.74,
+          "lineup_status": "confirmed"
+        },
+        "stats": {
+          "goals": null,
+          "apps": null,
+          "gpm": 0.736,
           "xgpm": null
         },
         "team": "home",
         "lineup_status": "confirmed",
         "tier": "fun",
-        "edge_pp": 9.9
+        "edge_pp": -0.1
       }
     ],
     "away_players": [],
