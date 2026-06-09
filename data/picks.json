@@ -1,112 +1,5 @@
 [
   {
-    "league": "Uruguay Primera",
-    "home": "Liverpool FC",
-    "away": "Cerro Largo",
-    "start_ts": 1780956000,
-    "match_id": "5670404",
-    "page_url": "/matches/liverpool-fc-vs-cerro-largo/590cas6#5670404",
-    "picks": [],
-    "home_players": [
-      {
-        "player": "Federico Martinez / Ruben Bentancourt",
-        "position": "",
-        "is_sub": false,
-        "type": "Double Chance Buteur",
-        "label": "Federico Martinez ou Ruben Bentancourt marque",
-        "cote": null,
-        "book": null,
-        "books": [],
-        "confidence": 90,
-        "cote_min": 1.11,
-        "reasoning": "📈 P(Federico Martinez marque) ≈ 79% · P(Ruben Bentancourt marque) ≈ 52%\n🎯 P(au moins un marque) = 90% (calculée par 1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.11 - chercher ≥1.11 chez le bookmaker",
-        "context": {},
-        "stats": {
-          "p_a": 0.788,
-          "p_b": 0.525,
-          "p_or": 0.899,
-          "player_a": "Federico Martinez",
-          "player_b": "Ruben Bentancourt"
-        },
-        "team": "home",
-        "tier": "safe"
-      },
-      {
-        "player": "Federico Martinez",
-        "position": "F",
-        "is_sub": false,
-        "type": "Buteur",
-        "label": "Federico Martinez marque",
-        "cote": null,
-        "book": null,
-        "books": [],
-        "confidence": 79,
-        "reasoning": "7 buts en 5 matchs cette saison (140.0% de chance/match) · xG moyen 0.00/match · défense correcte",
-        "context": {
-          "weakness": 0.3
-        },
-        "stats": {
-          "goals": 7,
-          "apps": 5,
-          "gpm": 1.4,
-          "xgpm": 0
-        },
-        "team": "home",
-        "tier": "safe"
-      }
-    ],
-    "away_players": [
-      {
-        "player": "Tiziano Correa",
-        "position": "M",
-        "is_sub": false,
-        "type": "Buteur",
-        "label": "Tiziano Correa marque",
-        "cote": null,
-        "book": null,
-        "books": [],
-        "confidence": 67,
-        "reasoning": "5 buts en 5 matchs cette saison (100.0% de chance/match) · xG moyen 0.00/match · défense correcte",
-        "context": {
-          "weakness": 0.36
-        },
-        "stats": {
-          "goals": 5,
-          "apps": 5,
-          "gpm": 1.0,
-          "xgpm": 0
-        },
-        "team": "away",
-        "tier": "ok"
-      }
-    ],
-    "fun_picks": [],
-    "top_pick": {
-      "player": "Federico Martinez / Ruben Bentancourt",
-      "position": "",
-      "is_sub": false,
-      "type": "Double Chance Buteur",
-      "label": "Federico Martinez ou Ruben Bentancourt marque",
-      "cote": null,
-      "book": null,
-      "books": [],
-      "confidence": 90,
-      "cote_min": 1.11,
-      "reasoning": "📈 P(Federico Martinez marque) ≈ 79% · P(Ruben Bentancourt marque) ≈ 52%\n🎯 P(au moins un marque) = 90% (calculée par 1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.11 - chercher ≥1.11 chez le bookmaker",
-      "context": {},
-      "stats": {
-        "p_a": 0.788,
-        "p_b": 0.525,
-        "p_or": 0.899,
-        "player_a": "Federico Martinez",
-        "player_b": "Ruben Bentancourt"
-      },
-      "team": "home",
-      "tier": "safe"
-    },
-    "no_picks": false
-  },
-  {
     "league": "Morocco Botola Pro",
     "home": "Union Yacoub El-Mansour",
     "away": "CODM Meknes",
@@ -185,6 +78,396 @@
         "player_b": "Brahim Mansouri"
       },
       "team": "home",
+      "tier": "safe"
+    },
+    "no_picks": false
+  },
+  {
+    "league": "Friendlies",
+    "home": "Argentina",
+    "away": "Iceland",
+    "start_ts": 1781053200,
+    "match_id": "5418307",
+    "page_url": "/matches/argentina-vs-iceland/1x61jj#5418307",
+    "picks": [
+      {
+        "direction": "home_win",
+        "type": "Forme superieure",
+        "label": "Argentina gagne",
+        "cote": null,
+        "confidence": 85,
+        "reasoning": "Argentina : 5V/0N/0D sur 5 matchs vs Iceland : 0V/2N/3D sur 5 matchs (L5 TCC · ecart de tier FIFA 1vs3)",
+        "stats": {
+          "form": [
+            "W",
+            "W",
+            "W",
+            "W",
+            "W"
+          ]
+        },
+        "is_fun": false,
+        "tier": "safe"
+      },
+      {
+        "direction": "home_over_15",
+        "type": "Buteur equipe",
+        "label": "Argentina marque plus de 1.5 buts",
+        "cote": null,
+        "confidence": 78,
+        "reasoning": "Argentina attendu a ~3.7 buts (marque 3.4/m sur L5, Iceland encaisse 2.0/m) - P(2+ buts) ~88%",
+        "stats": {
+          "form": [
+            "W",
+            "W",
+            "W",
+            "W",
+            "W"
+          ]
+        },
+        "is_fun": false,
+        "tier": "safe"
+      },
+      {
+        "direction": "over25",
+        "type": "Total buts",
+        "label": "Plus de 2.5 buts",
+        "cote": null,
+        "confidence": 75,
+        "reasoning": "Attendu 3.9 buts au total (Argentina ~3.7, Iceland ~0.3) - P(>2.5) ~75%",
+        "stats": {
+          "form": [
+            "W",
+            "W",
+            "W",
+            "W",
+            "W"
+          ]
+        },
+        "is_fun": false,
+        "tier": "safe"
+      },
+      {
+        "direction": "btts_no",
+        "type": "BTTS",
+        "label": "Au moins 1 equipe ne marque pas",
+        "cote": null,
+        "confidence": 75,
+        "reasoning": "Attaque faible d'un cote : Argentina ~3.7 buts, Iceland ~0.3 buts - P(BTTS Non) ~78%",
+        "stats": {
+          "form": [
+            "W",
+            "W",
+            "W",
+            "W",
+            "W"
+          ]
+        },
+        "is_fun": false,
+        "tier": "safe"
+      }
+    ],
+    "home_players": [
+      {
+        "player": "Lautaro Martínez",
+        "position": "F",
+        "is_sub": false,
+        "type": "Buteur",
+        "label": "Lautaro Martínez marque",
+        "cote": 1.17,
+        "book": null,
+        "books": [],
+        "confidence": 82,
+        "reasoning": "Lautaro Martínez : selection 5G/6m (0.83/m) · L10 club : 5G/10m, 🔥 4G/3 derniers nat (+19%). λ ajusté à 1.94 (Argentina attendu 3.3 buts) → P(marque) ~86%.",
+        "context": {
+          "source": "lineup",
+          "lam": 1.94,
+          "lineup_status": "confirmed"
+        },
+        "stats": {
+          "goals": null,
+          "apps": null,
+          "gpm": 1.938,
+          "xgpm": null
+        },
+        "team": "home",
+        "lineup_status": "confirmed",
+        "tier": "safe",
+        "edge_pp": -3.5
+      },
+      {
+        "player": "Lautaro Martínez",
+        "position": "F",
+        "is_sub": false,
+        "type": "Joueur décisif",
+        "label": "Lautaro Martínez but ou passe décisive",
+        "cote": 1.05,
+        "book": null,
+        "books": [],
+        "confidence": 80,
+        "reasoning": "Lautaro Martínez but ou passe decisive : selection 5G+3A/6m (1.33 G+A/m nat). P(but ou passe) ~95%.",
+        "context": {
+          "source": "lineup",
+          "lam": 2.97,
+          "lineup_status": "confirmed"
+        },
+        "stats": {
+          "goals": null,
+          "apps": null,
+          "gpm": 2.972,
+          "xgpm": null
+        },
+        "team": "home",
+        "lineup_status": "confirmed",
+        "tier": "safe",
+        "edge_pp": -15.2
+      },
+      {
+        "player": "Lautaro Martínez",
+        "position": "F",
+        "is_sub": false,
+        "type": "Double buteur",
+        "label": "Lautaro Martínez marque 2+ buts",
+        "cote": 1.73,
+        "book": null,
+        "books": [],
+        "confidence": 60,
+        "reasoning": "Lautaro Martínez : selection 5G/6m (0.83/m) · L10 club : 5G/10m, 🔥 4G/3 derniers nat (+19%). Attendu ~1.9 buts ce match - P(2+) ~58% (cote elevee).",
+        "context": {
+          "source": "lineup",
+          "lam": 1.94,
+          "lineup_status": "confirmed"
+        },
+        "stats": {
+          "goals": null,
+          "apps": null,
+          "gpm": 1.938,
+          "xgpm": null
+        },
+        "team": "home",
+        "lineup_status": "confirmed",
+        "tier": "ok",
+        "edge_pp": 2.2
+      }
+    ],
+    "away_players": [],
+    "fun_picks": [],
+    "top_pick": {
+      "direction": "home_win",
+      "type": "Forme superieure",
+      "label": "Argentina gagne",
+      "cote": null,
+      "confidence": 85,
+      "reasoning": "Argentina : 5V/0N/0D sur 5 matchs vs Iceland : 0V/2N/3D sur 5 matchs (L5 TCC · ecart de tier FIFA 1vs3)",
+      "stats": {
+        "form": [
+          "W",
+          "W",
+          "W",
+          "W",
+          "W"
+        ]
+      },
+      "is_fun": false,
+      "tier": "safe"
+    },
+    "no_picks": false
+  },
+  {
+    "league": "Friendlies",
+    "home": "England",
+    "away": "Costa Rica",
+    "start_ts": 1781121600,
+    "match_id": "5213043",
+    "page_url": "/matches/costa-rica-vs-england/1wr1b5#5213043",
+    "picks": [
+      {
+        "direction": "home_win",
+        "type": "Forme superieure",
+        "label": "England gagne",
+        "cote": null,
+        "confidence": 85,
+        "reasoning": "England : 3V/1N/1D sur 5 matchs vs Costa Rica : 0V/2N/3D sur 5 matchs (L5 TCC · ecart de tier FIFA 1vs3)",
+        "stats": {
+          "form": [
+            "W",
+            "L",
+            "D",
+            "W",
+            "W"
+          ]
+        },
+        "is_fun": false,
+        "tier": "safe"
+      },
+      {
+        "direction": "btts_no",
+        "type": "BTTS",
+        "label": "Au moins 1 equipe ne marque pas",
+        "cote": null,
+        "confidence": 75,
+        "reasoning": "Attaque faible d'un cote : England ~2.3 buts, Costa Rica ~0.3 buts - P(BTTS Non) ~75%",
+        "stats": {
+          "form": [
+            "W",
+            "L",
+            "D",
+            "W",
+            "W"
+          ]
+        },
+        "is_fun": false,
+        "tier": "safe"
+      },
+      {
+        "direction": "home_over_15",
+        "type": "Buteur equipe",
+        "label": "England marque plus de 1.5 buts",
+        "cote": null,
+        "confidence": 72,
+        "reasoning": "England attendu a ~2.3 buts (marque 1.2/m sur L5, Costa Rica encaisse 2.2/m) - P(2+ buts) ~67%",
+        "stats": {
+          "form": [
+            "W",
+            "L",
+            "D",
+            "W",
+            "W"
+          ]
+        },
+        "is_fun": false,
+        "tier": "safe"
+      }
+    ],
+    "home_players": [
+      {
+        "player": "Harry Kane",
+        "position": "F",
+        "is_sub": false,
+        "type": "Buteur",
+        "label": "Harry Kane marque",
+        "cote": 1.16,
+        "book": null,
+        "books": [],
+        "confidence": 82,
+        "reasoning": "Harry Kane : selection 7G/7m (1.00/m) · L10 club : 12G/10m, 🔥 3G/3 derniers nat (+19%). λ ajusté à 1.96 (England attendu 2.3 buts) → P(marque) ~86%.",
+        "context": {
+          "source": "lineup",
+          "lam": 1.96,
+          "lineup_status": "confirmed"
+        },
+        "stats": {
+          "goals": null,
+          "apps": null,
+          "gpm": 1.961,
+          "xgpm": null
+        },
+        "team": "home",
+        "lineup_status": "confirmed",
+        "tier": "safe",
+        "edge_pp": -4.2
+      },
+      {
+        "player": "Harry Kane",
+        "position": "F",
+        "is_sub": false,
+        "type": "Joueur décisif",
+        "label": "Harry Kane but ou passe décisive",
+        "cote": 1.2,
+        "book": null,
+        "books": [],
+        "confidence": 80,
+        "reasoning": "Harry Kane but ou passe decisive : selection 7G+0A/7m (1.00 G+A/m nat). P(but ou passe) ~83%.",
+        "context": {
+          "source": "lineup",
+          "lam": 1.8,
+          "lineup_status": "confirmed"
+        },
+        "stats": {
+          "goals": null,
+          "apps": null,
+          "gpm": 1.797,
+          "xgpm": null
+        },
+        "team": "home",
+        "lineup_status": "confirmed",
+        "tier": "safe",
+        "edge_pp": -3.3
+      },
+      {
+        "player": "Ollie Watkins",
+        "position": "F",
+        "is_sub": false,
+        "type": "Joueur décisif",
+        "label": "Ollie Watkins but ou passe décisive",
+        "cote": 1.55,
+        "book": null,
+        "books": [],
+        "confidence": 64,
+        "reasoning": "Ollie Watkins but ou passe decisive : selection 1G+0A/3m (0.33 G+A/m nat). P(but ou passe) ~64%.",
+        "context": {
+          "source": "lineup",
+          "lam": 1.04,
+          "lineup_status": "confirmed"
+        },
+        "stats": {
+          "goals": null,
+          "apps": null,
+          "gpm": 1.035,
+          "xgpm": null
+        },
+        "team": "home",
+        "lineup_status": "confirmed",
+        "tier": "ok",
+        "edge_pp": -0.5
+      },
+      {
+        "player": "Ollie Watkins",
+        "position": "F",
+        "is_sub": false,
+        "type": "Buteur",
+        "label": "Ollie Watkins marque",
+        "cote": 1.66,
+        "book": null,
+        "books": [],
+        "confidence": 60,
+        "reasoning": "Ollie Watkins : selection 1G/3m (0.33/m) · L10 club : 8G/10m, 🔥 1G/3 derniers nat (+10%). λ ajusté à 0.92 (England attendu 2.3 buts) → P(marque) ~60%.",
+        "context": {
+          "source": "lineup",
+          "lam": 0.92,
+          "lineup_status": "confirmed"
+        },
+        "stats": {
+          "goals": null,
+          "apps": null,
+          "gpm": 0.921,
+          "xgpm": null
+        },
+        "team": "home",
+        "lineup_status": "confirmed",
+        "tier": "ok",
+        "edge_pp": -0.2
+      }
+    ],
+    "away_players": [],
+    "fun_picks": [],
+    "top_pick": {
+      "direction": "home_win",
+      "type": "Forme superieure",
+      "label": "England gagne",
+      "cote": null,
+      "confidence": 85,
+      "reasoning": "England : 3V/1N/1D sur 5 matchs vs Costa Rica : 0V/2N/3D sur 5 matchs (L5 TCC · ecart de tier FIFA 1vs3)",
+      "stats": {
+        "form": [
+          "W",
+          "L",
+          "D",
+          "W",
+          "W"
+        ]
+      },
+      "is_fun": false,
       "tier": "safe"
     },
     "no_picks": false
@@ -577,6 +860,132 @@
   },
   {
     "league": "Friendlies",
+    "home": "Bolivia",
+    "away": "Algeria",
+    "start_ts": 1781121600,
+    "match_id": "5736393",
+    "page_url": "/matches/bolivia-vs-algeria/17oxo8#5736393",
+    "picks": [
+      {
+        "direction": "away_win",
+        "type": "Forme superieure",
+        "label": "Algeria gagne",
+        "cote": null,
+        "confidence": 80,
+        "reasoning": "Algeria : 3V/1N/1D sur 5 matchs vs Bolivia : 2V/0N/3D sur 5 matchs (L5 TCC · ecart de tier FIFA 4vs3)",
+        "stats": {
+          "form": [
+            "W",
+            "D",
+            "W",
+            "L",
+            "W"
+          ]
+        },
+        "is_fun": false,
+        "tier": "safe"
+      },
+      {
+        "direction": "away_over_15",
+        "type": "Buteur equipe",
+        "label": "Algeria marque plus de 1.5 buts",
+        "cote": null,
+        "confidence": 65,
+        "reasoning": "Algeria attendu a ~2.0 buts (marque 1.8/m sur L5, Bolivia encaisse 1.6/m) - P(2+ buts) ~60%",
+        "stats": {
+          "form": [
+            "W",
+            "D",
+            "W",
+            "L",
+            "W"
+          ]
+        },
+        "is_fun": false,
+        "tier": "ok"
+      }
+    ],
+    "home_players": [],
+    "away_players": [
+      {
+        "player": "Riyad Mahrez",
+        "position": "F",
+        "is_sub": false,
+        "type": "Joueur décisif",
+        "label": "Riyad Mahrez but ou passe décisive",
+        "cote": 1.9,
+        "book": null,
+        "books": [],
+        "confidence": 53,
+        "reasoning": "Riyad Mahrez but ou passe decisive : selection 6G+2A/13m (0.61 G+A/m nat). P(but ou passe) ~53%.",
+        "context": {
+          "source": "lineup",
+          "lam": 0.75,
+          "lineup_status": "confirmed"
+        },
+        "stats": {
+          "goals": null,
+          "apps": null,
+          "gpm": 0.747,
+          "xgpm": null
+        },
+        "team": "away",
+        "lineup_status": "confirmed",
+        "tier": "fun",
+        "edge_pp": 0.4
+      },
+      {
+        "player": "Houssem Aouar",
+        "position": "F",
+        "is_sub": false,
+        "type": "Joueur décisif",
+        "label": "Houssem Aouar but ou passe décisive",
+        "cote": 2.39,
+        "book": null,
+        "books": [],
+        "confidence": 42,
+        "reasoning": "Houssem Aouar but ou passe decisive : selection 1G+1A/7m (0.29 G+A/m nat). P(but ou passe) ~42%.",
+        "context": {
+          "source": "lineup",
+          "lam": 0.54,
+          "lineup_status": "confirmed"
+        },
+        "stats": {
+          "goals": null,
+          "apps": null,
+          "gpm": 0.543,
+          "xgpm": null
+        },
+        "team": "away",
+        "lineup_status": "confirmed",
+        "tier": "fun",
+        "edge_pp": 0.2
+      }
+    ],
+    "fun_picks": [],
+    "top_pick": {
+      "direction": "away_win",
+      "type": "Forme superieure",
+      "label": "Algeria gagne",
+      "cote": null,
+      "confidence": 80,
+      "reasoning": "Algeria : 3V/1N/1D sur 5 matchs vs Bolivia : 2V/0N/3D sur 5 matchs (L5 TCC · ecart de tier FIFA 4vs3)",
+      "stats": {
+        "form": [
+          "W",
+          "D",
+          "W",
+          "L",
+          "W"
+        ]
+      },
+      "is_fun": false,
+      "tier": "safe"
+    },
+    "no_picks": false
+  },
+  {
+    "league": "Friendlies",
     "home": "Azerbaijan",
     "away": "San Marino",
     "start_ts": 1781028000,
@@ -667,6 +1076,205 @@
   },
   {
     "league": "Friendlies",
+    "home": "Portugal",
+    "away": "Nigeria",
+    "start_ts": 1781120700,
+    "match_id": "5293170",
+    "page_url": "/matches/nigeria-vs-portugal/1seblj#5293170",
+    "picks": [
+      {
+        "direction": "home_over_15",
+        "type": "Buteur equipe",
+        "label": "Portugal marque plus de 1.5 buts",
+        "cote": null,
+        "confidence": 75,
+        "reasoning": "Portugal attendu a ~2.4 buts (marque 2.6/m sur L5, Nigeria encaisse 1.0/m) - P(2+ buts) ~70%",
+        "stats": {
+          "form": [
+            "W",
+            "W",
+            "D",
+            "W",
+            "L"
+          ]
+        },
+        "is_fun": false,
+        "tier": "safe"
+      },
+      {
+        "direction": "home_win",
+        "type": "Forme superieure",
+        "label": "Portugal gagne",
+        "cote": null,
+        "confidence": 69,
+        "reasoning": "Portugal : 3V/1N/1D sur 5 matchs vs Nigeria : 3V/2N/0D sur 5 matchs (L5 TCC · ecart de tier FIFA 1vs3)",
+        "stats": {
+          "form": [
+            "W",
+            "W",
+            "D",
+            "W",
+            "L"
+          ]
+        },
+        "is_fun": false,
+        "tier": "ok"
+      },
+      {
+        "direction": "over25",
+        "type": "Total buts",
+        "label": "Plus de 2.5 buts",
+        "cote": null,
+        "confidence": 66,
+        "reasoning": "Attendu 3.4 buts au total (Portugal ~2.4, Nigeria ~1.0) - P(>2.5) ~66%",
+        "stats": {
+          "form": [
+            "W",
+            "W",
+            "D",
+            "W",
+            "L"
+          ]
+        },
+        "is_fun": false,
+        "tier": "ok"
+      }
+    ],
+    "home_players": [
+      {
+        "player": "Cristiano Ronaldo",
+        "position": "F",
+        "is_sub": false,
+        "type": "Buteur",
+        "label": "Cristiano Ronaldo marque",
+        "cote": 1.3,
+        "book": null,
+        "books": [],
+        "confidence": 77,
+        "reasoning": "Cristiano Ronaldo : selection 6G/7m (0.86/m) · L10 club : 5G/10m, 🔥 2G/3 derniers nat (+19%). λ ajusté à 1.47 (Portugal attendu 2.4 buts) → P(marque) ~77%.",
+        "context": {
+          "source": "lineup",
+          "lam": 1.47,
+          "lineup_status": "confirmed"
+        },
+        "stats": {
+          "goals": null,
+          "apps": null,
+          "gpm": 1.469,
+          "xgpm": null
+        },
+        "team": "home",
+        "lineup_status": "confirmed",
+        "tier": "safe",
+        "edge_pp": 0.1
+      },
+      {
+        "player": "Cristiano Ronaldo",
+        "position": "F",
+        "is_sub": false,
+        "type": "Joueur décisif",
+        "label": "Cristiano Ronaldo but ou passe décisive",
+        "cote": 1.32,
+        "book": null,
+        "books": [],
+        "confidence": 76,
+        "reasoning": "Cristiano Ronaldo but ou passe decisive : selection 6G+0A/7m (0.86 G+A/m nat). P(but ou passe) ~76%.",
+        "context": {
+          "source": "lineup",
+          "lam": 1.41,
+          "lineup_status": "confirmed"
+        },
+        "stats": {
+          "goals": null,
+          "apps": null,
+          "gpm": 1.41,
+          "xgpm": null
+        },
+        "team": "home",
+        "lineup_status": "confirmed",
+        "tier": "safe",
+        "edge_pp": 0.2
+      },
+      {
+        "player": "Bruno Fernandes",
+        "position": "F",
+        "is_sub": false,
+        "type": "Joueur décisif",
+        "label": "Bruno Fernandes but ou passe décisive",
+        "cote": 1.38,
+        "book": null,
+        "books": [],
+        "confidence": 72,
+        "reasoning": "Bruno Fernandes but ou passe decisive : selection 4G+2A/9m (0.67 G+A/m nat). P(but ou passe) ~72%.",
+        "context": {
+          "source": "lineup",
+          "lam": 1.28,
+          "lineup_status": "confirmed"
+        },
+        "stats": {
+          "goals": null,
+          "apps": null,
+          "gpm": 1.281,
+          "xgpm": null
+        },
+        "team": "home",
+        "lineup_status": "confirmed",
+        "tier": "safe",
+        "edge_pp": -0.5
+      },
+      {
+        "player": "Cristiano Ronaldo",
+        "position": "F",
+        "is_sub": false,
+        "type": "Double buteur",
+        "label": "Cristiano Ronaldo marque 2+ buts",
+        "cote": 2.32,
+        "book": null,
+        "books": [],
+        "confidence": 53,
+        "reasoning": "Cristiano Ronaldo : selection 6G/7m (0.86/m) · L10 club : 5G/10m, 🔥 2G/3 derniers nat (+19%). Attendu ~1.5 buts ce match - P(2+) ~43% (cote elevee).",
+        "context": {
+          "source": "lineup",
+          "lam": 1.47,
+          "lineup_status": "confirmed"
+        },
+        "stats": {
+          "goals": null,
+          "apps": null,
+          "gpm": 1.469,
+          "xgpm": null
+        },
+        "team": "home",
+        "lineup_status": "confirmed",
+        "tier": "fun",
+        "edge_pp": 9.9
+      }
+    ],
+    "away_players": [],
+    "fun_picks": [],
+    "top_pick": {
+      "direction": "home_over_15",
+      "type": "Buteur equipe",
+      "label": "Portugal marque plus de 1.5 buts",
+      "cote": null,
+      "confidence": 75,
+      "reasoning": "Portugal attendu a ~2.4 buts (marque 2.6/m sur L5, Nigeria encaisse 1.0/m) - P(2+ buts) ~70%",
+      "stats": {
+        "form": [
+          "W",
+          "W",
+          "D",
+          "W",
+          "L"
+        ]
+      },
+      "is_fun": false,
+      "tier": "safe"
+    },
+    "no_picks": false
+  },
+  {
+    "league": "Friendlies",
     "home": "Hungary",
     "away": "Kazakhstan",
     "start_ts": 1781024400,
@@ -737,54 +1345,54 @@
     "no_picks": false
   },
   {
-    "league": "Colombia Primera A",
-    "home": "Atletico Nacional",
-    "away": "Junior FC",
-    "start_ts": 1780956000,
-    "match_id": "5666847",
-    "page_url": "/matches/junior-fc-vs-atletico-nacional/m4wd5#5666847",
+    "league": "Friendlies",
+    "home": "Venezuela",
+    "away": "Iraq",
+    "start_ts": 1781053200,
+    "match_id": "5737640",
+    "page_url": "/matches/venezuela-vs-iraq/1470r5#5737640",
     "picks": [
       {
-        "direction": "home_win",
-        "type": "Victoire domicile",
-        "label": "Atletico Nacional gagne",
+        "direction": "under25",
+        "type": "Total buts",
+        "label": "Moins de 2.5 buts",
         "cote": null,
-        "confidence": 70,
-        "reasoning": "Atletico Nacional : 4V/0N/1D sur 5 matchs · #1 au classement · H2H: 1V/0N/1D · Note Sofa: 6.5/10",
+        "confidence": 68,
+        "reasoning": "Attendu seulement 2.0 buts au total (Venezuela ~1.1, Iraq ~0.9) - P(<2.5) ~68%",
         "stats": {
           "form": [
             "L",
+            "D",
             "W",
-            "W",
-            "W",
+            "L",
             "W"
           ]
         },
         "is_fun": false,
-        "tier": "safe"
+        "tier": "ok"
       }
     ],
     "home_players": [],
     "away_players": [],
     "fun_picks": [],
     "top_pick": {
-      "direction": "home_win",
-      "type": "Victoire domicile",
-      "label": "Atletico Nacional gagne",
+      "direction": "under25",
+      "type": "Total buts",
+      "label": "Moins de 2.5 buts",
       "cote": null,
-      "confidence": 70,
-      "reasoning": "Atletico Nacional : 4V/0N/1D sur 5 matchs · #1 au classement · H2H: 1V/0N/1D · Note Sofa: 6.5/10",
+      "confidence": 68,
+      "reasoning": "Attendu seulement 2.0 buts au total (Venezuela ~1.1, Iraq ~0.9) - P(<2.5) ~68%",
       "stats": {
         "form": [
           "L",
+          "D",
           "W",
-          "W",
-          "W",
+          "L",
           "W"
         ]
       },
       "is_fun": false,
-      "tier": "safe"
+      "tier": "ok"
     },
     "no_picks": false
   },
@@ -985,20 +1593,6 @@
       "tier": "ok"
     },
     "no_picks": false
-  },
-  {
-    "league": "Friendlies",
-    "home": "Uganda",
-    "away": "Madagascar",
-    "start_ts": 1780912800,
-    "match_id": "5737598",
-    "page_url": "/matches/madagascar-vs-uganda/14r0j4#5737598",
-    "picks": [],
-    "home_players": [],
-    "away_players": [],
-    "fun_picks": [],
-    "top_pick": null,
-    "no_picks": true
   },
   {
     "league": "Friendlies",
