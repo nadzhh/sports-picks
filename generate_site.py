@@ -3872,6 +3872,83 @@ def build_html(matches, team_ai, player_ai, pstats_data, nba_picks=None, nba_his
             cards += build_match_card(m, team_ai_map, player_ai, ps)
         tab_contents += f'<div id="{sid}" style="display:{active_div}">{cards}</div>'
 
+    # ─── Section PRONOSTIQUES V1 (style bookmaker) ──────────────────────────
+    from collections import defaultdict as _dd
+    leagues_foot = _dd(list)
+    for _m in (matches or []):
+        lname = _m.get("league") or "Autres"
+        leagues_foot[lname].append(_m)
+    nba_count = sum(1 for _ in (nba_picks or {}).values()) if nba_picks else 0
+    leagues_tennis = _dd(int)
+    try:
+        import json as _jt2
+        with open("data/tennis_picks.json", encoding="utf-8") as _tt:
+            _tdata = _jt2.load(_tt)
+        for _tm in _tdata.get("matches", []) or []:
+            leagues_tennis[_tm.get("tournament") or "ATP/WTA"] += 1
+    except Exception:
+        pass
+
+    def _bk_pronos():
+        foot_n = sum(len(v) for v in leagues_foot.values())
+        tennis_n = sum(leagues_tennis.values())
+        sports_list = [
+            {"id":"foot","icon":"⚽","label":"Football","color":"#22c55e","count":foot_n,
+             "leagues":[{"name":k,"count":len(v)} for k,v in sorted(leagues_foot.items(), key=lambda x:-len(x[1]))]},
+            {"id":"tennis","icon":"🎾","label":"Tennis","color":"#facc15","count":tennis_n,
+             "leagues":[{"name":k,"count":v} for k,v in sorted(leagues_tennis.items(), key=lambda x:-x[1])]},
+            {"id":"nba","icon":"🏀","label":"Basketball (NBA)","color":"#fb923c","count":nba_count,
+             "leagues":[{"name":"NBA","count":nba_count}] if nba_count else []},
+        ]
+        out = ['<div style="max-width:720px;margin:0 auto">']
+        out.append(
+            '<div style="background:#0f172a;border-radius:14px;padding:18px 22px;margin-bottom:16px;border:1px solid #1e293b">'
+            '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">'
+            '<h2 style="margin:0;color:#f1f5f9;font-size:22px;font-weight:800">Pronostiques</h2>'
+            '<span style="background:#1e293b;color:#94a3b8;border-radius:8px;padding:4px 10px;font-size:12px;font-weight:600">V1 · style bookmaker</span>'
+            '</div>'
+            '<p style="margin:6px 0 0 0;color:#94a3b8;font-size:13px">Choisis ton sport, puis ta ligue, puis les matchs.</p>'
+            '</div>'
+        )
+        out.append('<div style="background:#0f172a;border-radius:14px;border:1px solid #1e293b;overflow:hidden;margin-bottom:14px">')
+        out.append('<div style="padding:14px 22px 6px;color:#cbd5e1;font-size:14px;font-weight:700;letter-spacing:0.3px">Sports</div>')
+        for s in sports_list:
+            sid = s["id"]
+            opa = '' if s["count"]>0 else 'opacity:0.5;'
+            out.append(
+                f'<div onclick="bkToggleSport(\'{sid}\')" style="{opa}display:flex;align-items:center;gap:14px;padding:18px 22px;border-top:1px solid #1e293b;cursor:pointer">'
+                f'<div style="width:44px;height:44px;background:{s["color"]}1f;border:1px solid {s["color"]}80;'
+                f'border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:22px">{s["icon"]}</div>'
+                f'<div style="flex:1">'
+                f'<div style="color:#f1f5f9;font-size:16px;font-weight:700">{s["label"]}</div>'
+                f'<div style="color:#94a3b8;font-size:12px;margin-top:2px">{s["count"]} match(s) à venir · {len(s["leagues"])} ligue(s)</div>'
+                f'</div>'
+                f'<svg id="bk-arrow-{sid}" width="20" height="20" viewBox="0 0 24 24" fill="none" style="transition:transform 0.2s">'
+                f'<path d="M9 6l6 6-6 6" stroke="#64748b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>'
+                f'</div>'
+            )
+            out.append(f'<div id="bk-leagues-{sid}" style="display:none;padding:6px 22px 14px;background:#0a1628">')
+            if s["leagues"]:
+                for lg in s["leagues"][:20]:
+                    lg_name = lg["name"]; lg_cnt = lg["count"]
+                    lg_safe = lg_name.replace("'", "\\'")
+                    out.append(
+                        f'<div onclick="bkOpenLeague(\'{sid}\',\'{lg_safe}\')" style="display:flex;justify-content:space-between;align-items:center;padding:12px 16px;margin:6px 0;background:#0f1f3a;border:1px solid #1e293b;border-radius:10px;cursor:pointer">'
+                        f'<div style="color:#cbd5e1;font-size:14px;font-weight:600">{lg_name}</div>'
+                        f'<div style="display:flex;align-items:center;gap:8px">'
+                        f'<span style="background:{s["color"]}1f;color:{s["color"]};border-radius:12px;padding:2px 9px;font-size:11px;font-weight:700">{lg_cnt}</span>'
+                        f'<svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M9 6l6 6-6 6" stroke="#64748b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>'
+                        f'</div></div>'
+                    )
+            else:
+                out.append('<div style="color:#64748b;font-size:13px;text-align:center;padding:10px">Aucun match dispo</div>')
+            out.append('</div>')
+        out.append('</div>')
+        out.append('</div>')
+        return "".join(out)
+
+    pronos_html = _bk_pronos()
+
     # Section NBA
     nba_section    = build_nba_section(nba_picks)
     nba_hist_html  = build_nba_history(nba_history)
@@ -4985,6 +5062,7 @@ def build_html(matches, team_ai, player_ai, pstats_data, nba_picks=None, nba_his
   <!-- Sport switcher (4 menus : Picks | Analyse NBA | Bankroll | Historique) -->
   <div style="display:flex;gap:10px;margin-bottom:14px;flex-wrap:wrap">
     <button class="sport-btn active" onclick="showSport('picks')"     id="sport-btn-picks">📌 Picks</button>
+    <button class="sport-btn" onclick="showSport('pronos')"           id="sport-btn-pronos">🎯 Pronos <span style="background:#22c55e;color:#0a1628;border-radius:8px;padding:1px 5px;font-size:9px;margin-left:3px;font-weight:800">V1</span></button>
     <button class="sport-btn" onclick="showSport('analyse')"          id="sport-btn-analyse">🔍 Analyse NBA</button>
     <button class="sport-btn" onclick="showSport('userpicks')"        id="sport-btn-userpicks">💰 Bankroll <span id="userpicks-count" style="background:rgba(255,255,255,0.2);border-radius:10px;padding:1px 7px;font-size:11px;margin-left:4px;display:none">0</span></button>
     <button class="sport-btn" onclick="showSport('history')"          id="sport-btn-history">🏆 Historique</button>
@@ -5039,6 +5117,11 @@ def build_html(matches, team_ai, player_ai, pstats_data, nba_picks=None, nba_his
       Affiche uniquement les matchs avec pick(s) intéressant(s)
     </div>
     {tennis_section}
+  </div>
+
+  <!-- Section Pronostiques V1 (style bookmaker) -->
+  <div id="sport-pronos" style="display:none">
+    {pronos_html}
   </div>
 
   <!-- Section Bankroll (gestion + tracking) — design adapté du prototype mobile -->
@@ -5138,7 +5221,7 @@ window._currentSubPick = window._currentSubPick || 'football';
 window._currentSubHist = window._currentSubHist || 'foot';
 
 function _hideAllSportSections(){{
-  ['football','nba','tennis','analyse','userpicks','foothist','nbahist','tennishist'].forEach(function(s){{
+  ['football','nba','tennis','analyse','userpicks','foothist','nbahist','tennishist','pronos'].forEach(function(s){{
     var el = document.getElementById('sport-'+s);
     if(el) el.style.display = 'none';
   }});
@@ -5179,7 +5262,35 @@ function showSport(sport){{
     var el = document.getElementById('sport-userpicks'); if(el) el.style.display = 'block';
     _setMainBtnActive('userpicks');
     renderUserPicks();
+  }} else if(sport === 'pronos'){{
+    var el = document.getElementById('sport-pronos'); if(el) el.style.display = 'block';
+    _setMainBtnActive('pronos');
   }}
+}}
+
+// Pronos V1 : navigation Sport -> Ligue
+function bkToggleSport(sid){{
+  var box = document.getElementById('bk-leagues-' + sid);
+  var arrow = document.getElementById('bk-arrow-' + sid);
+  if(!box) return;
+  var open = box.style.display !== 'none';
+  ['foot','tennis','nba'].forEach(function(s){{
+    var b = document.getElementById('bk-leagues-' + s);
+    var a = document.getElementById('bk-arrow-' + s);
+    if(b) b.style.display = 'none';
+    if(a) a.style.transform = '';
+  }});
+  if(!open){{
+    box.style.display = 'block';
+    if(arrow) arrow.style.transform = 'rotate(90deg)';
+  }}
+}}
+function bkOpenLeague(sid, lgName){{
+  var sportMap = {{ 'foot': 'football', 'tennis': 'tennis', 'nba': 'nba' }};
+  var subPick = sportMap[sid] || 'football';
+  window._currentSubPick = subPick;
+  window._bkSelectedLeague = lgName;
+  showSport('picks');
 }}
 
 function showSubPicks(which){{
