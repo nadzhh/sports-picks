@@ -1548,16 +1548,31 @@ def analyze_match(match, pstats_all, player_odds_all=None):
                 nat_src = "nat (lineup)"
                 nat_descr = f"selection {ln_nat_g}G/{ln_nat_a}m"
 
-            # Drought penalty : si pdata a drought_1_match/drought_2_matches
+            # Drought penalty + meta nat (minutes/m, dernier match)
             drought_1 = False
             drought_2 = False
+            nat_meta = ""
             if fm_player and pid:
-                # Re-lit le cache (deja fetch plus haut, pas de cout)
                 try:
                     pdata2 = fm_player(pid) or {}
                     ns2 = pdata2.get("nat_stats") or {}
                     drought_1 = bool(ns2.get("drought_1_match"))
                     drought_2 = bool(ns2.get("drought_2_matches"))
+                    # Meta : minutes moyennes + dernier match nat
+                    mins_pm = ns2.get("minutes_pm")
+                    lm_mins = ns2.get("last_match_mins") or 0
+                    lm_g    = ns2.get("last_match_g") or 0
+                    lm_a    = ns2.get("last_match_a") or 0
+                    bits = []
+                    if mins_pm and mins_pm >= 60:
+                        bits.append(f"titu nat ({int(mins_pm)}min/m)")
+                    elif mins_pm and mins_pm >= 30:
+                        bits.append(f"rotatif nat ({int(mins_pm)}min/m)")
+                    if lm_mins:
+                        evt = f"{lm_g}G+{lm_a}A" if (lm_g or lm_a) else "0G+0A"
+                        bits.append(f"last match {lm_mins}min ({evt})")
+                    if bits:
+                        nat_meta = " | " + " · ".join(bits)
                 except Exception:
                     pass
 
@@ -1577,7 +1592,7 @@ def analyze_match(match, pstats_all, player_odds_all=None):
                     final_lam *= 0.55
                     recency_note += " · ⚠️ dernier match nat 60+min 0G+0A (-45%)"
                 src = f"nat-weighted (club {int((1-w_nat)*100)}%/nat {int(w_nat*100)}%)"
-                descr = f"{nat_descr} · {club_descr}{recency_note}"
+                descr = f"{nat_descr} · {club_descr}{recency_note}{nat_meta}"
                 return final_lam, src, descr
             if nat_lam is not None and nat_n >= 5:
                 if last3_goals >= 1:
@@ -1986,6 +2001,38 @@ def analyze_match(match, pstats_all, player_odds_all=None):
     _tag_edge(home_pp)
     _tag_edge(away_pp)
     _tag_edge(fun_picks)
+
+    # ── Marque les TOP 3 historises (meme score que _save_to_history) ─────
+    # Permet a l UI d afficher un badge sur les picks qui seront retenus
+    # dans le tracking historique (cote >= 1.60 + score combine).
+    HIST_MIN_COTE_DISPLAY = 1.60
+    HIST_MAX_PER_MATCH_DISPLAY = 3
+
+    def _eff_cote(pk):
+        c = pk.get("cote")
+        if c and c > 0: return float(c)
+        conf = pk.get("confidence") or 0
+        if conf <= 0: return None
+        return round((1.0 / (conf/100.0)) * 0.92, 2)
+
+    def _hist_score(pk):
+        edge = pk.get("edge_pp") or 0
+        conf = pk.get("confidence") or 0
+        tier_bonus = {"safe": 12, "ok": 6, "fun": 0}.get(pk.get("tier", ""), 0)
+        return edge * 1.5 + conf * 0.3 + tier_bonus
+
+    all_pool = (
+        [(p, "team")    for p in team_picks] +
+        [(p, "player")  for p in home_pp] +
+        [(p, "player")  for p in away_pp] +
+        [(p, "fun")     for p in fun_picks]
+    )
+    elig = [(p, c) for p, c in all_pool
+             if (_eff_cote(p) or 0) >= HIST_MIN_COTE_DISPLAY]
+    elig.sort(key=lambda x: _hist_score(x[0]), reverse=True)
+    top3_ids = set(id(p) for p, _ in elig[:HIST_MAX_PER_MATCH_DISPLAY])
+    for p, _ in all_pool:
+        p["history_top3"] = id(p) in top3_ids
 
     return team_picks, home_pp, away_pp, fun_picks
 

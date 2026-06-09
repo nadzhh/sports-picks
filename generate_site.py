@@ -1497,6 +1497,19 @@ def tier_badge(pick):
     )
 
 
+def history_top_badge(pick):
+    """Badge ⭐ TOP HIST si le pick fait partie des 3 retenus pour
+    l'historique de tracking. User : 'precise les en temps reel'."""
+    if not pick.get("history_top3"): return ""
+    return (
+        '<span title="Pick retenu dans l historique de tracking (top 3 par match)" '
+        'style="display:inline-block;background:linear-gradient(135deg,#facc15 0%,#f59e0b 100%);'
+        'color:#0a1628;border-radius:4px;padding:1.5px 7px;font-size:10px;font-weight:800;'
+        'margin-left:6px;vertical-align:middle;box-shadow:0 0 8px rgba(250,204,21,0.4)">'
+        '⭐ TOP HIST</span>'
+    )
+
+
 def edge_badge(pick):
     """Badge edge en % - couleur selon le signe.
     edge > +5 : vert (vraie value), 0 a +5 : bleu (marginal), <0 : rouge (-EV)."""
@@ -1580,6 +1593,7 @@ def build_team_pick(p, ai_txt="", match_ctx=None):
         f'{cote_block}'
         f'{tier_badge(p)}'
         f'{edge_badge(p)}'
+        f'{history_top_badge(p)}'
         f'<span class="new-badge" style="display:none;background:#fb923c;color:#0a1628;border-radius:4px;padding:1px 6px;font-size:10px;font-weight:800;margin-left:6px">🆕 NOUVEAU</span>'
         f'<span style="color:#475569;font-size:12px;margin-left:6px">{p["type"]}</span>'
         f'</div>'
@@ -1692,6 +1706,7 @@ def build_player_pick(p, ai_analyses=None, match_ctx=None):
         f'{cote_b}'
         f'{tier_badge(p)}'
         f'{edge_badge(p)}'
+        f'{history_top_badge(p)}'
         f'<span class="new-badge" style="display:none;background:#fb923c;color:#0a1628;border-radius:4px;padding:1px 6px;font-size:10px;font-weight:800;margin-left:6px">🆕</span>'
         f'<span style="color:#475569;font-size:12px;margin-left:4px">{type_}</span>'
         f'{sub_b}'
@@ -5757,48 +5772,78 @@ function updateHistChart(containerId){{
     grid += '<text x="'+(padL-8)+'" y="'+(y+4)+'" text-anchor="end" fill="#64748b" font-size="12" font-family="ui-sans-serif,system-ui">'+v+'%</text>';
   }});
 
-  // 2) Area chart cumulee avec gradient
-  var areaPath = '';
-  var linePath = '';
-  for(var i=0; i<n; i++){{
-    var x = xPos(i), y = yPos(data[i].cumWR);
-    linePath += (i===0 ? 'M ' : ' L ') + x.toFixed(1) + ' ' + y.toFixed(1);
+  // 2) Area chart avec courbe lissee (Catmull-Rom -> Bezier)
+  // Plus moderne qu'une succession de segments droits.
+  var pts = [];
+  for(var i=0; i<n; i++) pts.push([xPos(i), yPos(data[i].cumWR)]);
+  function _smoothPath(P){{
+    if(P.length < 2) return '';
+    if(P.length === 2) return 'M ' + P[0][0].toFixed(1)+' '+P[0][1].toFixed(1)
+                            + ' L ' + P[1][0].toFixed(1)+' '+P[1][1].toFixed(1);
+    var d = 'M ' + P[0][0].toFixed(1) + ' ' + P[0][1].toFixed(1);
+    var t = 0.18;  // tension de la courbe (plus haut = + courbe)
+    for(var i=0; i<P.length-1; i++){{
+      var p0 = P[i-1] || P[i];
+      var p1 = P[i];
+      var p2 = P[i+1];
+      var p3 = P[i+2] || P[i+1];
+      var c1x = p1[0] + (p2[0]-p0[0])*t;
+      var c1y = p1[1] + (p2[1]-p0[1])*t;
+      var c2x = p2[0] - (p3[0]-p1[0])*t;
+      var c2y = p2[1] - (p3[1]-p1[1])*t;
+      d += ' C ' + c1x.toFixed(1)+' '+c1y.toFixed(1)
+         + ' ' + c2x.toFixed(1)+' '+c2y.toFixed(1)
+         + ' ' + p2[0].toFixed(1)+' '+p2[1].toFixed(1);
+    }}
+    return d;
   }}
-  // Pour n>=2 : on construit l'area (descente jusqu'a la baseline)
-  // Pour n==1 : pas de line ni d'area, juste le dot central
+  var linePath = _smoothPath(pts);
+  var areaPath = '';
   if(n >= 2){{
     areaPath = linePath
-      + ' L ' + xPos(n-1).toFixed(1) + ' ' + (padT+plotH).toFixed(1)
-      + ' L ' + xPos(0).toFixed(1)   + ' ' + (padT+plotH).toFixed(1) + ' Z';
+      + ' L ' + pts[n-1][0].toFixed(1) + ' ' + (padT+plotH).toFixed(1)
+      + ' L ' + pts[0][0].toFixed(1)   + ' ' + (padT+plotH).toFixed(1) + ' Z';
   }} else {{
-    linePath = '';  // pas de line si 1 seul point
+    linePath = '';
   }}
 
-  // 3) Dots colores par WR du jour + labels % au-dessus
-  // Densite labels : si beaucoup de points, on saute pour eviter le chevauchement
+  // 3) Dots avec HALO + labels arrondis au-dessus
   var labelStep = 1;
   if(n > 25) labelStep = Math.ceil(n / 18);
   else if(n > 15) labelStep = 2;
-  var dots = '';
-  var dotLabels = '';
+  var halos = '', dots = '', dotLabels = '';
+  // Repere du plus haut / plus bas (subtle indicateurs)
+  var bestI = 0, worstI = 0;
+  for(var i=1; i<n; i++){{
+    if(data[i].cumWR > data[bestI].cumWR) bestI = i;
+    if(data[i].cumWR < data[worstI].cumWR) worstI = i;
+  }}
   for(var i=0; i<n; i++){{
     var d = data[i];
     var x = xPos(i), y = yPos(d.cumWR);
     var col = colorWR(d.wr);
     var tip = d.date+' · jour: '+d.w+'W-'+d.l+'L ('+d.wr.toFixed(0)+'%) · cumul: '+d.cumWR.toFixed(0)+'%';
-    dots += '<circle cx="'+x.toFixed(1)+'" cy="'+y.toFixed(1)+'" r="6" fill="'+col+'" stroke="#0f172a" stroke-width="2.5" '
-         +  'style="cursor:pointer" data-tip="'+tip+'" onmouseover="histChartTip(this)" onmouseout="histChartTipHide()"><title>'+tip+'</title></circle>';
-    var showLabel = (i === 0 || i === n-1 || i % labelStep === 0);
+    // Halo pulse semi-transparent (effet glow leger)
+    halos += '<circle cx="'+x.toFixed(1)+'" cy="'+y.toFixed(1)+'" r="11" fill="'+col+'" opacity="0.15"/>';
+    halos += '<circle cx="'+x.toFixed(1)+'" cy="'+y.toFixed(1)+'" r="7.5" fill="'+col+'" opacity="0.25"/>';
+    dots += '<circle cx="'+x.toFixed(1)+'" cy="'+y.toFixed(1)+'" r="5.5" fill="'+col+'" stroke="#0f172a" stroke-width="2.5" '
+         +  'style="cursor:pointer;transition:r 0.2s" data-tip="'+tip+'" '
+         +  'onmouseover="this.setAttribute(\'r\',7); histChartTip(this)" '
+         +  'onmouseout="this.setAttribute(\'r\',5.5); histChartTipHide()"><title>'+tip+'</title></circle>';
+    var showLabel = (i === 0 || i === n-1 || i % labelStep === 0 || i === bestI || i === worstI);
     if(showLabel){{
-      var labelY = y - 14;
-      if(y < padT + 24) labelY = y + 22;
+      var labelY = y - 16;
+      if(y < padT + 24) labelY = y + 26;
       var labelCol = colorWR(d.cumWR);
       var labelTxt = d.cumWR.toFixed(0)+'%';
-      var labelW = labelTxt.length * 7.5 + 10;
-      dotLabels += '<rect x="'+(x-labelW/2).toFixed(1)+'" y="'+(labelY-11)+'" width="'+labelW+'" height="16" '
-                +  'rx="4" fill="#0a1628" stroke="'+labelCol+'" stroke-width="1.2" opacity="0.95"/>';
-      dotLabels += '<text x="'+x.toFixed(1)+'" y="'+(labelY+1.5)+'" text-anchor="middle" fill="'+labelCol+'" '
-                +  'font-size="11" font-weight="700" font-family="ui-sans-serif,system-ui">'+labelTxt+'</text>';
+      var labelW = labelTxt.length * 7.5 + 12;
+      // Background avec ombre douce (drop-shadow via 2eme rect decalé)
+      dotLabels += '<rect x="'+(x-labelW/2+1).toFixed(1)+'" y="'+(labelY-10)+'" width="'+labelW+'" height="18" '
+                +  'rx="9" fill="#000" opacity="0.4"/>';
+      dotLabels += '<rect x="'+(x-labelW/2).toFixed(1)+'" y="'+(labelY-11)+'" width="'+labelW+'" height="18" '
+                +  'rx="9" fill="#0a1628" stroke="'+labelCol+'" stroke-width="1.5"/>';
+      dotLabels += '<text x="'+x.toFixed(1)+'" y="'+(labelY+2)+'" text-anchor="middle" fill="'+labelCol+'" '
+                +  'font-size="11" font-weight="800" font-family="ui-sans-serif,system-ui" letter-spacing="0.2">'+labelTxt+'</text>';
     }}
   }}
 
@@ -5845,15 +5890,34 @@ function updateHistChart(containerId){{
     +   '</linearGradient>'
     + '</defs>';
 
+  // Animation de tracage : stroke-dashoffset
+  var lineLen = 2400;  // approximation, le path se "draw" en 1.2s
+  var animStyle = ''
+    + '<style>'
+    +   '@keyframes histChartDraw_' + chartId + ' {{'
+    +     '0% {{ stroke-dashoffset: ' + lineLen + '; }}'
+    +     '100% {{ stroke-dashoffset: 0; }}'
+    +   '}}'
+    +   '@keyframes histChartFade_' + chartId + ' {{'
+    +     '0% {{ opacity: 0; }}'
+    +     '100% {{ opacity: 1; }}'
+    +   '}}'
+    +   '.hcline-' + chartId + ' {{ stroke-dasharray: ' + lineLen + '; stroke-dashoffset: ' + lineLen + '; animation: histChartDraw_' + chartId + ' 1100ms cubic-bezier(.4,0,.2,1) forwards; }}'
+    +   '.hcdot-' + chartId + ' {{ opacity: 0; animation: histChartFade_' + chartId + ' 500ms ease forwards; animation-delay: 800ms; }}'
+    + '</style>';
+
   chartHost.innerHTML = (
-    '<svg viewBox="0 0 '+W+' '+H+'" preserveAspectRatio="none" '
+    animStyle
+    + '<svg viewBox="0 0 '+W+' '+H+'" preserveAspectRatio="none" '
     + 'style="position:absolute;inset:0;width:100%;height:100%;overflow:visible">'
     + defs
     + grid
+    + '<g>' + halos + '</g>'
     + '<path d="'+areaPath+'" fill="url(#hcgrad_'+chartId+')"/>'
-    + '<path d="'+linePath+'" fill="none" stroke="#3b82f6" stroke-width="2.8" stroke-linejoin="round" stroke-linecap="round" vector-effect="non-scaling-stroke"/>'
-    + dots
-    + dotLabels
+    + '<path d="'+linePath+'" fill="none" stroke="#3b82f6" stroke-width="2.8" '
+    + 'stroke-linejoin="round" stroke-linecap="round" vector-effect="non-scaling-stroke" '
+    + 'class="hcline-' + chartId + '"/>'
+    + '<g class="hcdot-' + chartId + '">' + dots + dotLabels + '</g>'
     + xLabels
     + statsFooter
     + '</svg>'
