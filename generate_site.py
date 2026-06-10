@@ -5763,6 +5763,9 @@ function bk2ToggleSport(sid){{
   }}
 }}
 function bk2Filter(sport){{
+  // Toute action sidebar/pills sort du mode "detail match"
+  window._bk2State.detailMid = null;
+  window._bk2State.detailSport = null;
   window._bk2State.sport = sport;
   window._bk2State.comp = null;
   document.querySelectorAll('.bk2-pill').forEach(function(b){{
@@ -5777,6 +5780,9 @@ function bk2OpenSport(sport){{
   bk2Filter(sport);
 }}
 function bk2OpenComp(sport, comp){{
+  // Sortie systematique du mode "detail match" sur clic sidebar
+  window._bk2State.detailMid = null;
+  window._bk2State.detailSport = null;
   window._bk2State.sport = sport;
   window._bk2State.comp = comp;
   document.querySelectorAll('.bk2-pill').forEach(function(b){{
@@ -5788,6 +5794,9 @@ function bk2OpenComp(sport, comp){{
   bk2Render();
 }}
 function bk2Search(q){{
+  // La recherche aussi sort du detail
+  window._bk2State.detailMid = null;
+  window._bk2State.detailSport = null;
   window._bk2State.query = (q || '').toLowerCase();
   bk2Render();
 }}

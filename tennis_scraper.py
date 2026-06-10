@@ -94,7 +94,54 @@ TOURNAMENT_SURFACE = {
     "tennis_wta_nottingham":         ("Grass", "Nottingham"),
     "tennis_wta_bad_homburg":        ("Grass", "Bad Homburg"),
     "tennis_wta_hertogenbosch":      ("Grass", "'s-Hertogenbosch"),
+    "tennis_wta_queens_club_champ":  ("Grass", "Queen's Club (London)"),
+    "tennis_wta_queens_club":        ("Grass", "Queen's Club (London)"),
+    "tennis_atp_queens_club":        ("Grass", "Queen's Club (London)"),
+    "tennis_atp_halle_open":         ("Grass", "Halle (Terra Wortmann)"),
+    "tennis_atp_boss_open":          ("Grass", "Stuttgart (Boss Open)"),
+    "tennis_atp_libema_open":        ("Grass", "'s-Hertogenbosch (Libema)"),
+    "tennis_atp_mallorca_championships": ("Grass", "Mallorca"),
+    "tennis_wta_rothesay_classic":   ("Grass", "Birmingham (Rothesay)"),
+    "tennis_wta_rothesay_open":      ("Grass", "Nottingham (Rothesay)"),
 }
+
+# Inference fallback : si le sport_key contient un mot-cle on devine la surface
+SURFACE_KEYWORDS = [
+    ("grass", "Grass"),
+    ("queens", "Grass"),
+    ("queen_", "Grass"),
+    ("halle", "Grass"),
+    ("eastbourne", "Grass"),
+    ("hertogenbosch", "Grass"),
+    ("libema", "Grass"),
+    ("mallorca", "Grass"),
+    ("boss_open", "Grass"),
+    ("stuttgart_boss", "Grass"),
+    ("rothesay", "Grass"),
+    ("nottingham", "Grass"),
+    ("birmingham", "Grass"),
+    ("bad_homburg", "Grass"),
+    ("clay", "Clay"),
+    ("french_open", "Clay"),
+    ("roland", "Clay"),
+    ("monte_carlo", "Clay"),
+    ("rome", "Clay"),
+    ("madrid", "Clay"),
+    ("hamburg", "Clay"),
+    ("munich", "Clay"),
+    ("barcelona", "Clay"),
+    ("strasbourg", "Clay"),
+    ("charleston", "Clay"),
+    ("indoor", "Hard"),
+]
+
+
+def _infer_surface(sport_key):
+    key_lc = (sport_key or "").lower()
+    for kw, surf in SURFACE_KEYWORDS:
+        if kw in key_lc:
+            return surf
+    return "Hard"
 
 
 def _http_get(url, timeout=20):
@@ -235,7 +282,11 @@ def _build_match(odds_match, sport_key):
     except Exception:
         start_dt = None
         start_ts = 0
-    surface, label = TOURNAMENT_SURFACE.get(sport_key, ("Hard", sport_key.replace("tennis_","").replace("_"," ").title()))
+    if sport_key in TOURNAMENT_SURFACE:
+        surface, label = TOURNAMENT_SURFACE[sport_key]
+    else:
+        surface = _infer_surface(sport_key)
+        label = sport_key.replace("tennis_atp_","").replace("tennis_wta_","").replace("_"," ").title()
     tour = "ATP" if "_atp_" in sport_key else "WTA"
     print(f"    [{label}] {home} vs {away} ({surface}, {tour})")
     h_stats = ts.get_player(home, tour=tour, surface=surface)
