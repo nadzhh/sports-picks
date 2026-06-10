@@ -3889,62 +3889,171 @@ def build_html(matches, team_ai, player_ai, pstats_data, nba_picks=None, nba_his
     except Exception:
         pass
 
+    # Construit pool de "tous les matchs" pour la vue Pronos V2
+    def _safe_attr(s):
+        return (s or "").replace('"', '&quot;').replace("'", "&#39;")
+    pronos_match_list = []
+    # Foot
+    for _m in (matches or []):
+        pronos_match_list.append({
+            "sport": "foot", "league": _m.get("league") or "Autres",
+            "home": _m.get("home", "?"), "away": _m.get("away", "?"),
+            "start_ts": _m.get("start_ts"),
+            "mid": _m.get("match_id") or "",
+        })
+    # Tennis
+    try:
+        for _tm in _tdata.get("matches", []) or []:
+            pronos_match_list.append({
+                "sport": "tennis",
+                "league": _tm.get("tournament") or "ATP/WTA",
+                "home": (_tm.get("home") or {}).get("name") or _tm.get("home_name") or "?",
+                "away": (_tm.get("away") or {}).get("name") or _tm.get("away_name") or "?",
+                "start_ts": _tm.get("start_ts"),
+                "mid": _tm.get("event_id") or "",
+            })
+    except Exception:
+        pass
+    # NBA
+    if nba_picks:
+        for _gid, _g in nba_picks.items():
+            pronos_match_list.append({
+                "sport": "nba", "league": "NBA",
+                "home": _g.get("home_team","?"), "away": _g.get("away_team","?"),
+                "start_ts": None,
+                "mid": str(_gid),
+            })
+
+    # Embed en JS pour filtrage cote client
+    pronos_data_json = __import__("json").dumps(pronos_match_list, ensure_ascii=False)
+
     def _bk_pronos():
-        foot_n = sum(len(v) for v in leagues_foot.values())
-        tennis_n = sum(leagues_tennis.values())
-        sports_list = [
-            {"id":"foot","icon":"⚽","label":"Football","color":"#22c55e","count":foot_n,
-             "leagues":[{"name":k,"count":len(v)} for k,v in sorted(leagues_foot.items(), key=lambda x:-len(x[1]))]},
-            {"id":"tennis","icon":"🎾","label":"Tennis","color":"#facc15","count":tennis_n,
-             "leagues":[{"name":k,"count":v} for k,v in sorted(leagues_tennis.items(), key=lambda x:-x[1])]},
-            {"id":"nba","icon":"🏀","label":"Basketball (NBA)","color":"#fb923c","count":nba_count,
-             "leagues":[{"name":"NBA","count":nba_count}] if nba_count else []},
-        ]
-        out = ['<div style="max-width:720px;margin:0 auto">']
+        # Top compétitions = top 5 par volume (mix sports)
+        from collections import Counter as _C
+        comp_counts = _C()
+        comp_sport = {}
+        for m in pronos_match_list:
+            k = m["league"]
+            comp_counts[k] += 1
+            comp_sport[k] = m["sport"]
+        top_comps = comp_counts.most_common(6)
+        # Sports
+        foot_n = sum(1 for m in pronos_match_list if m["sport"]=="foot")
+        tennis_n = sum(1 for m in pronos_match_list if m["sport"]=="tennis")
+        nba_n = sum(1 for m in pronos_match_list if m["sport"]=="nba")
+        # Ligues par sport
+        leagues_by_sport = {"foot":[], "tennis":[], "nba":[]}
+        for sp in ("foot","tennis","nba"):
+            cc = _C()
+            for m in pronos_match_list:
+                if m["sport"] == sp: cc[m["league"]] += 1
+            leagues_by_sport[sp] = cc.most_common(20)
+
+        SP_ICON = {"foot":"⚽","tennis":"🎾","nba":"🏀"}
+        SP_COLOR = {"foot":"#22c55e","tennis":"#facc15","nba":"#fb923c"}
+        SP_LABEL = {"foot":"Football","tennis":"Tennis","nba":"Basketball NBA"}
+
+        # ─── Layout 2 cols ────────────────────────────────────────────────
+        out = ['<div class="bk2-wrap" style="display:grid;grid-template-columns:340px 1fr;gap:18px;max-width:1280px;margin:0 auto">']
+
+        # COL GAUCHE : nav
+        out.append('<div class="bk2-nav" style="display:flex;flex-direction:column;gap:14px">')
+
+        # Search
         out.append(
-            '<div style="background:#0f172a;border-radius:14px;padding:18px 22px;margin-bottom:16px;border:1px solid #1e293b">'
-            '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">'
-            '<h2 style="margin:0;color:#f1f5f9;font-size:22px;font-weight:800">Pronostiques</h2>'
-            '<span style="background:#1e293b;color:#94a3b8;border-radius:8px;padding:4px 10px;font-size:12px;font-weight:600">V1 · style bookmaker</span>'
-            '</div>'
-            '<p style="margin:6px 0 0 0;color:#94a3b8;font-size:13px">Choisis ton sport, puis ta ligue, puis les matchs.</p>'
+            '<div style="background:#0f172a;border:1px solid #1e293b;border-radius:12px;padding:10px 14px;display:flex;align-items:center;gap:10px">'
+            '<svg width="18" height="18" viewBox="0 0 24 24" fill="none">'
+            '<circle cx="11" cy="11" r="7" stroke="#ef4444" stroke-width="2.5"/>'
+            '<path d="M21 21l-4.3-4.3" stroke="#ef4444" stroke-width="2.5" stroke-linecap="round"/></svg>'
+            '<input type="text" oninput="bk2Search(this.value)" placeholder="Joueur, équipe, compétition ..." '
+            'style="flex:1;background:transparent;border:0;outline:none;color:#f1f5f9;font-size:14px"/>'
             '</div>'
         )
-        out.append('<div style="background:#0f172a;border-radius:14px;border:1px solid #1e293b;overflow:hidden;margin-bottom:14px">')
-        out.append('<div style="padding:14px 22px 6px;color:#cbd5e1;font-size:14px;font-weight:700;letter-spacing:0.3px">Sports</div>')
-        for s in sports_list:
-            sid = s["id"]
-            opa = '' if s["count"]>0 else 'opacity:0.5;'
+
+        # Top compétitions
+        out.append('<div style="background:#0f172a;border:1px solid #1e293b;border-radius:12px;overflow:hidden">')
+        out.append('<div style="padding:12px 16px;color:#cbd5e1;font-size:13px;font-weight:800;letter-spacing:0.3px">Top des compétitions</div>')
+        # WC 2026 spécial (toujours en tête si dans 2 jours)
+        wc_pin = '''
+        <div onclick="bk2OpenComp('foot','World Cup')" style="display:flex;align-items:center;gap:10px;padding:12px 16px;border-top:1px solid #1e293b;cursor:pointer">
+          <div style="width:30px;height:30px;background:#3b82f6;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px">🌍</div>
+          <div style="flex:1;color:#f1f5f9;font-size:13.5px;font-weight:700">Coupe du Monde 2026</div>
+          <span style="background:#ef4444;color:#fff;border-radius:6px;padding:2px 7px;font-size:11px;font-weight:800">J -1</span>
+        </div>'''
+        out.append(wc_pin)
+        for cname, cnt in top_comps:
+            sp = comp_sport.get(cname, "foot")
+            ic = SP_ICON[sp]
+            col = SP_COLOR[sp]
             out.append(
-                f'<div onclick="bkToggleSport(\'{sid}\')" style="{opa}display:flex;align-items:center;gap:14px;padding:18px 22px;border-top:1px solid #1e293b;cursor:pointer">'
-                f'<div style="width:44px;height:44px;background:{s["color"]}1f;border:1px solid {s["color"]}80;'
-                f'border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:22px">{s["icon"]}</div>'
-                f'<div style="flex:1">'
-                f'<div style="color:#f1f5f9;font-size:16px;font-weight:700">{s["label"]}</div>'
-                f'<div style="color:#94a3b8;font-size:12px;margin-top:2px">{s["count"]} match(s) à venir · {len(s["leagues"])} ligue(s)</div>'
-                f'</div>'
-                f'<svg id="bk-arrow-{sid}" width="20" height="20" viewBox="0 0 24 24" fill="none" style="transition:transform 0.2s">'
-                f'<path d="M9 6l6 6-6 6" stroke="#64748b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>'
+                f'<div onclick="bk2OpenComp(\'{sp}\',\'{_safe_attr(cname)}\')" style="display:flex;align-items:center;gap:10px;padding:12px 16px;border-top:1px solid #1e293b;cursor:pointer">'
+                f'<div style="width:30px;height:30px;background:{col}1f;border:1px solid {col}80;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px">{ic}</div>'
+                f'<div style="flex:1;color:#f1f5f9;font-size:13.5px;font-weight:600">{cname[:32]}</div>'
+                f'<span style="background:{col}1f;color:{col};border-radius:8px;padding:2px 7px;font-size:11px;font-weight:700">{cnt}</span>'
                 f'</div>'
             )
-            out.append(f'<div id="bk-leagues-{sid}" style="display:none;padding:6px 22px 14px;background:#0a1628">')
-            if s["leagues"]:
-                for lg in s["leagues"][:20]:
-                    lg_name = lg["name"]; lg_cnt = lg["count"]
-                    lg_safe = lg_name.replace("'", "\\'")
-                    out.append(
-                        f'<div onclick="bkOpenLeague(\'{sid}\',\'{lg_safe}\')" style="display:flex;justify-content:space-between;align-items:center;padding:12px 16px;margin:6px 0;background:#0f1f3a;border:1px solid #1e293b;border-radius:10px;cursor:pointer">'
-                        f'<div style="color:#cbd5e1;font-size:14px;font-weight:600">{lg_name}</div>'
-                        f'<div style="display:flex;align-items:center;gap:8px">'
-                        f'<span style="background:{s["color"]}1f;color:{s["color"]};border-radius:12px;padding:2px 9px;font-size:11px;font-weight:700">{lg_cnt}</span>'
-                        f'<svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M9 6l6 6-6 6" stroke="#64748b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>'
-                        f'</div></div>'
-                    )
-            else:
-                out.append('<div style="color:#64748b;font-size:13px;text-align:center;padding:10px">Aucun match dispo</div>')
+        out.append('</div>')
+
+        # Sports accordion
+        out.append('<div style="background:#0f172a;border:1px solid #1e293b;border-radius:12px;overflow:hidden">')
+        out.append('<div style="padding:12px 16px;color:#cbd5e1;font-size:13px;font-weight:800;letter-spacing:0.3px">Sports</div>')
+        for sp_id in ("foot","tennis","nba"):
+            ic = SP_ICON[sp_id]; col = SP_COLOR[sp_id]; lbl = SP_LABEL[sp_id]
+            n_sp = {"foot":foot_n, "tennis":tennis_n, "nba":nba_n}[sp_id]
+            opa = '' if n_sp > 0 else 'opacity:0.5;'
+            out.append(
+                f'<div onclick="bk2ToggleSport(\'{sp_id}\')" style="{opa}display:flex;align-items:center;gap:10px;padding:14px 16px;border-top:1px solid #1e293b;cursor:pointer">'
+                f'<div style="width:32px;height:32px;background:{col}1f;border:1px solid {col}80;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:16px">{ic}</div>'
+                f'<div style="flex:1;color:#f1f5f9;font-size:14px;font-weight:700">{lbl}</div>'
+                f'<svg id="bk2-arrow-{sp_id}" width="16" height="16" viewBox="0 0 24 24" fill="none" style="transition:transform 0.2s">'
+                f'<path d="M6 9l6 6 6-6" stroke="#64748b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>'
+                f'</div>'
+            )
+            # ligues
+            out.append(f'<div id="bk2-leagues-{sp_id}" style="display:none;background:#0a1628;padding:4px 16px 12px">')
+            # Toute l'offre
+            out.append(
+                f'<div onclick="bk2OpenSport(\'{sp_id}\')" style="display:flex;align-items:center;gap:8px;padding:10px 12px;margin:4px 0;background:#0f1f3a;border:1px solid #1e293b;border-radius:8px;cursor:pointer">'
+                f'<div style="width:22px;height:22px;background:{col}1f;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px">{ic}</div>'
+                f'<div style="color:#cbd5e1;font-size:13px;font-weight:600">Toute l\'offre</div>'
+                f'</div>'
+            )
+            for lg_name, lg_cnt in leagues_by_sport[sp_id]:
+                out.append(
+                    f'<div onclick="bk2OpenComp(\'{sp_id}\',\'{_safe_attr(lg_name)}\')" style="display:flex;align-items:center;gap:8px;padding:10px 12px;margin:4px 0;background:#0f1f3a;border:1px solid #1e293b;border-radius:8px;cursor:pointer">'
+                    f'<div style="width:22px;height:22px;background:{col}1f;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px">{ic}</div>'
+                    f'<div style="flex:1;color:#cbd5e1;font-size:13px;font-weight:600">{lg_name[:30]}</div>'
+                    f'<span style="background:{col}1f;color:{col};border-radius:8px;padding:1px 6px;font-size:11px;font-weight:700">{lg_cnt}</span>'
+                    f'</div>'
+                )
             out.append('</div>')
         out.append('</div>')
-        out.append('</div>')
+        out.append('</div>')  # close col gauche
+
+        # COL DROITE : pills + liste matchs
+        out.append('<div class="bk2-feed" style="display:flex;flex-direction:column;gap:14px">')
+        # Pills filter
+        out.append(
+            '<div id="bk2-pills" style="display:flex;gap:8px;flex-wrap:wrap;padding:4px 0">'
+            '<button class="bk2-pill active" data-filter="all" onclick="bk2Filter(\'all\')" style="background:#0f1f3a;color:#f1f5f9;border:1px solid #3b82f6;border-radius:18px;padding:6px 14px;font-size:13px;font-weight:700;cursor:pointer">Tout</button>'
+            '<button class="bk2-pill" data-filter="foot" onclick="bk2Filter(\'foot\')" style="background:#0f172a;color:#cbd5e1;border:1px solid #1e293b;border-radius:18px;padding:6px 14px;font-size:13px;font-weight:700;cursor:pointer">⚽ Football</button>'
+            '<button class="bk2-pill" data-filter="tennis" onclick="bk2Filter(\'tennis\')" style="background:#0f172a;color:#cbd5e1;border:1px solid #1e293b;border-radius:18px;padding:6px 14px;font-size:13px;font-weight:700;cursor:pointer">🎾 Tennis</button>'
+            '<button class="bk2-pill" data-filter="nba" onclick="bk2Filter(\'nba\')" style="background:#0f172a;color:#cbd5e1;border:1px solid #1e293b;border-radius:18px;padding:6px 14px;font-size:13px;font-weight:700;cursor:pointer">🏀 NBA</button>'
+            '</div>'
+        )
+        # Conteneur matchs (rempli en JS)
+        out.append('<div id="bk2-matches"></div>')
+        out.append('</div>')  # close col droite
+        out.append('</div>')  # close wrap
+
+        # Responsive (mobile single col)
+        out.append(
+            '<style>'
+            '@media (max-width: 900px) {'
+            '.bk2-wrap { grid-template-columns: 1fr !important; }'
+            '}'
+            '</style>'
+        )
         return "".join(out)
 
     pronos_html = _bk_pronos()
@@ -5265,31 +5374,114 @@ function showSport(sport){{
   }} else if(sport === 'pronos'){{
     var el = document.getElementById('sport-pronos'); if(el) el.style.display = 'block';
     _setMainBtnActive('pronos');
+    if(typeof bk2Render === 'function') bk2Render();
   }}
 }}
 
-// Pronos V1 : navigation Sport -> Ligue
-function bkToggleSport(sid){{
-  var box = document.getElementById('bk-leagues-' + sid);
-  var arrow = document.getElementById('bk-arrow-' + sid);
+// ─── Pronos V2 (Betclic-like) ───────────────────────────────────────
+window._BK2_DATA = {pronos_data_json};
+window._bk2State = {{ sport: 'all', comp: null, query: '' }};
+
+function bk2ToggleSport(sid){{
+  var box = document.getElementById('bk2-leagues-' + sid);
+  var arrow = document.getElementById('bk2-arrow-' + sid);
   if(!box) return;
   var open = box.style.display !== 'none';
   ['foot','tennis','nba'].forEach(function(s){{
-    var b = document.getElementById('bk-leagues-' + s);
-    var a = document.getElementById('bk-arrow-' + s);
+    var b = document.getElementById('bk2-leagues-' + s);
+    var a = document.getElementById('bk2-arrow-' + s);
     if(b) b.style.display = 'none';
     if(a) a.style.transform = '';
   }});
   if(!open){{
     box.style.display = 'block';
-    if(arrow) arrow.style.transform = 'rotate(90deg)';
+    if(arrow) arrow.style.transform = 'rotate(180deg)';
   }}
 }}
-function bkOpenLeague(sid, lgName){{
+function bk2Filter(sport){{
+  window._bk2State.sport = sport;
+  window._bk2State.comp = null;
+  document.querySelectorAll('.bk2-pill').forEach(function(b){{
+    var active = b.getAttribute('data-filter') === sport;
+    b.style.background = active ? '#0f1f3a' : '#0f172a';
+    b.style.color = active ? '#f1f5f9' : '#cbd5e1';
+    b.style.borderColor = active ? '#3b82f6' : '#1e293b';
+  }});
+  bk2Render();
+}}
+function bk2OpenSport(sport){{
+  bk2Filter(sport);
+}}
+function bk2OpenComp(sport, comp){{
+  window._bk2State.sport = sport;
+  window._bk2State.comp = comp;
+  document.querySelectorAll('.bk2-pill').forEach(function(b){{
+    var active = b.getAttribute('data-filter') === sport;
+    b.style.background = active ? '#0f1f3a' : '#0f172a';
+    b.style.color = active ? '#f1f5f9' : '#cbd5e1';
+    b.style.borderColor = active ? '#3b82f6' : '#1e293b';
+  }});
+  bk2Render();
+}}
+function bk2Search(q){{
+  window._bk2State.query = (q || '').toLowerCase();
+  bk2Render();
+}}
+function bk2Render(){{
+  var st = window._bk2State || {{}};
+  var data = window._BK2_DATA || [];
+  var filtered = data.filter(function(m){{
+    if(st.sport !== 'all' && m.sport !== st.sport) return false;
+    if(st.comp && m.league !== st.comp) return false;
+    if(st.query){{
+      var hay = (m.home + ' ' + m.away + ' ' + m.league).toLowerCase();
+      if(hay.indexOf(st.query) === -1) return false;
+    }}
+    return true;
+  }});
+  // Group by league
+  var groups = {{}};
+  filtered.forEach(function(m){{
+    if(!groups[m.league]) groups[m.league] = {{ sport: m.sport, matches: [] }};
+    groups[m.league].matches.push(m);
+  }});
+  var SP_ICON = {{'foot':'⚽','tennis':'🎾','nba':'🏀'}};
+  var SP_COLOR = {{'foot':'#22c55e','tennis':'#facc15','nba':'#fb923c'}};
+  var SP_LABEL = {{'foot':'Football','tennis':'Tennis','nba':'NBA'}};
+  var host = document.getElementById('bk2-matches');
+  if(!host) return;
+  if(filtered.length === 0){{
+    host.innerHTML = '<div style="background:#0f172a;border:1px solid #1e293b;border-radius:12px;padding:30px;text-align:center;color:#64748b;font-size:14px">Aucun match trouvé pour ce filtre.</div>';
+    return;
+  }}
+  var html = '';
+  Object.keys(groups).forEach(function(lg){{
+    var g = groups[lg];
+    var col = SP_COLOR[g.sport] || '#94a3b8';
+    var ic = SP_ICON[g.sport] || '·';
+    html += '<div style="background:#0f172a;border:1px solid #1e293b;border-radius:12px;overflow:hidden;margin-bottom:12px">';
+    html += '<div style="display:flex;align-items:center;gap:10px;padding:12px 16px;background:#0a1628;border-bottom:1px solid #1e293b">'
+         + '<div style="width:26px;height:26px;background:'+col+'1f;border:1px solid '+col+'80;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px">'+ic+'</div>'
+         + '<div style="color:#cbd5e1;font-size:13px;font-weight:700">'+lg+'</div>'
+         + '<div style="margin-left:auto;color:#64748b;font-size:11px">'+g.matches.length+' match(s)</div>'
+         + '</div>';
+    g.matches.slice(0, 12).forEach(function(m){{
+      html += '<div style="padding:14px 16px;border-top:1px solid #1e293b;cursor:pointer" onclick="bk2GoMatch(\\''+(m.mid||'')+'\\',\\''+(m.sport||'')+'\\')">'
+           + '<div style="color:#f1f5f9;font-size:15px;font-weight:700;line-height:1.3">'+m.home+'</div>'
+           + '<div style="color:#f1f5f9;font-size:15px;font-weight:700;line-height:1.3;margin-top:2px">'+m.away+'</div>'
+           + '</div>';
+    }});
+    if(g.matches.length > 12){{
+      html += '<div style="padding:8px 16px;color:#64748b;font-size:11px;font-style:italic">+ '+(g.matches.length-12)+' autres matchs</div>';
+    }}
+    html += '</div>';
+  }});
+  host.innerHTML = html;
+}}
+function bk2GoMatch(mid, sport){{
+  // V2 : redirige vers la vue Picks classique
   var sportMap = {{ 'foot': 'football', 'tennis': 'tennis', 'nba': 'nba' }};
-  var subPick = sportMap[sid] || 'football';
-  window._currentSubPick = subPick;
-  window._bkSelectedLeague = lgName;
+  window._currentSubPick = sportMap[sport] || 'football';
   showSport('picks');
 }}
 
