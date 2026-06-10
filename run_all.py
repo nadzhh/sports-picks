@@ -82,6 +82,10 @@ def main():
     run("tennis_scraper.py",      "Tennis scraper (Sackmann + Odds API)")
     run("tennis_picks_engine.py", "Tennis picks engine")
     run("tennis_resolver.py",     "Tennis resolver (scores Odds API)")
+    # 3.6 Tennis schedule complementaire (ESPN) : matchs des tournois non couverts
+    # par Odds API (grass season ATP 250 mens, etc.). Pas de cote → pas de pick,
+    # juste affichage dans la sidebar V1 pour completude.
+    run("tennis_schedule_scraper.py", "Tennis schedule (ESPN, no-odds)")
 
     # 3.7 Basketball Europe (Euroleague, ACB, LNB, Eurocup, etc) via Odds API.
     # On expose juste les matchs + cotes consensus dans Pronos V1 (pas de

@@ -3891,9 +3891,13 @@ def build_html(matches, team_ai, player_ai, pstats_data, nba_picks=None, nba_his
     except Exception:
         pass
 
-    # Construit pool de "tous les matchs" pour la vue Pronos V2
+    # Construit pool de "tous les matchs" pour la vue Pronos V2.
+    # On utilise ' pour l'apostrophe : HTML conserve la sequence
+    # litterale, et la JS la decode en ' a l'execution. &#39; ne marche pas
+    # car HTML decode AVANT que le JS engine voie la string -> apostrophe
+    # casse le string literal (cf. "Queen's Club (London)").
     def _safe_attr(s):
-        return (s or "").replace('"', '&quot;').replace("'", "&#39;")
+        return (s or "").replace("\\", "\\\\").replace('"', '&quot;').replace("'", "\\u0027")
     pronos_match_list = []
     # Foot — IMPORTANT : id sans tirets (cf. mid_safe dans build_match_card)
     for _m in (matches or []):
@@ -3903,19 +3907,56 @@ def build_html(matches, team_ai, player_ai, pstats_data, nba_picks=None, nba_his
             "start_ts": _m.get("start_ts"),
             "mid": str(_m.get("match_id") or "").replace("-",""),
         })
-    # Tennis
+    # Tennis (Odds API : matchs avec picks + cotes)
+    tennis_picks_eids = set()
     try:
         for _tm in _tdata.get("matches", []) or []:
+            eid = _tm.get("event_id") or ""
+            tennis_picks_eids.add(eid)
             pronos_match_list.append({
                 "sport": "tennis",
                 "league": _tm.get("tournament") or "ATP/WTA",
                 "home": (_tm.get("home") or {}).get("name") or _tm.get("home_name") or "?",
                 "away": (_tm.get("away") or {}).get("name") or _tm.get("away_name") or "?",
                 "start_ts": _tm.get("start_ts"),
-                "mid": _tm.get("event_id") or "",
+                "mid": eid,
             })
     except Exception:
         pass
+
+    # Tennis schedule (ESPN) : tournois NON suivis par Odds API
+    # On expose les matchs avec un tag "no-odds" pour que la carte detail
+    # affiche un message clair ("cotes non dispos"). On dedupe par
+    # (home_name, away_name, start_ts) avec les matchs deja dans tennis_picks.
+    tennis_schedule_data = {}
+    try:
+        with open("data/tennis_schedule.json", encoding="utf-8") as _sf:
+            tennis_schedule_data = __import__("json").load(_sf)
+        # Dedup set basé sur (home, away) normalisé (ESPN vs Odds API peuvent
+        # avoir le meme match avec des noms legerement differents)
+        def _norm(n):
+            return (n or "").lower().replace(".","").replace("-","").strip()
+        existing_pairs = set()
+        for _tm in _tdata.get("matches", []) or []:
+            h = _norm((_tm.get("home") or {}).get("name"))
+            a = _norm((_tm.get("away") or {}).get("name"))
+            existing_pairs.add(frozenset([h, a]))
+        for _sm in tennis_schedule_data.get("matches", []) or []:
+            pair = frozenset([_norm(_sm.get("home_name")), _norm(_sm.get("away_name"))])
+            if pair in existing_pairs: continue
+            pronos_match_list.append({
+                "sport": "tennis",
+                "league": _sm.get("tournament") or "ATP/WTA",
+                "home": _sm.get("home_name", "?"),
+                "away": _sm.get("away_name", "?"),
+                "start_ts": _sm.get("start_ts"),
+                "mid": _sm.get("event_id") or "",
+            })
+    except FileNotFoundError:
+        tennis_schedule_data = {"matches": []}
+    except Exception as _e:
+        print(f"  [tennis schedule load err] {_e}")
+        tennis_schedule_data = {"matches": []}
     # NBA
     if nba_picks:
         for _gid, _g in nba_picks.items():
@@ -4088,17 +4129,57 @@ def build_html(matches, team_ai, player_ai, pstats_data, nba_picks=None, nba_his
         h2h_h = h2h.get("home_wins", 0)
         h2h_a = h2h.get("away_wins", 0)
 
+        # Surface stats : si on a surface_n>=3 on inclut, sinon mention "trop peu de matchs"
+        h_surf_n = h.get("surface_n") or 0
+        a_surf_n = a.get("surface_n") or 0
+        h_surf_bilan = f"{h.get('surface_w',0)}V / {h.get('surface_l',0)}D" if h_surf_n else "N/A"
+        a_surf_bilan = f"{a.get('surface_w',0)}V / {a.get('surface_l',0)}D" if a_surf_n else "N/A"
+
+        # L10 detail bilan (V/D)
+        h_l10_bilan = f"{h.get('l10_w',0)}V / {h.get('l10_l',0)}D"
+        a_l10_bilan = f"{a.get('l10_w',0)}V / {a.get('l10_l',0)}D"
+
+        # En-tete avec les 2 noms (gauche / droite) — utilisé en haut de l'analyse
+        player_header = (
+            f'<div style="display:flex;align-items:center;gap:14px;margin-bottom:18px;padding:12px;background:#0a1628;border-radius:10px">'
+            f'<div style="flex:1;text-align:left">'
+            f'<div style="color:#64748b;font-size:10.5px;font-weight:700;letter-spacing:0.6px;margin-bottom:4px">◀ GAUCHE</div>'
+            f'<div style="color:#f1f5f9;font-size:15px;font-weight:800">{h.get("name","?")}</div>'
+            f'<div style="color:#94a3b8;font-size:11px;margin-top:2px">Rank #{h.get("rank") or "?"} · {h_style}</div>'
+            f'</div>'
+            f'<div style="color:#475569;font-size:24px;font-weight:800">VS</div>'
+            f'<div style="flex:1;text-align:right">'
+            f'<div style="color:#64748b;font-size:10.5px;font-weight:700;letter-spacing:0.6px;margin-bottom:4px">DROITE ▶</div>'
+            f'<div style="color:#f1f5f9;font-size:15px;font-weight:800">{a.get("name","?")}</div>'
+            f'<div style="color:#94a3b8;font-size:11px;margin-top:2px">Rank #{a.get("rank") or "?"} · {a_style}</div>'
+            f'</div>'
+            f'</div>'
+        )
+
         analyse_html = (
             f'<div id="bk2-tennis-analysis-{eid}" style="display:none;margin-top:18px">'
             f'<div style="background:#0f1f3a;border:1px solid #1e3a5f;border-radius:14px;padding:18px">'
-            # Sections
-            f'<div style="color:#22c55e;font-size:11px;font-weight:800;letter-spacing:0.8px;margin-bottom:14px">NIVEAU & FORME</div>'
-            + _bar_row("Classement ATP/WTA", h.get("rank_points") or 0, a.get("rank_points") or 0, fmt_pct=False, suffix=" pts")
-            + _bar_row("Forme récente L10", h_form, a_form, suffix="%")
-            + f'<div style="color:#22c55e;font-size:11px;font-weight:800;letter-spacing:0.8px;margin:20px 0 14px">CONDITIONS & CONTEXTE</div>'
-            + (_bar_row(f"% victoires sur {surf_lbl}", h_surf or 0, a_surf or 0, suffix="%") if h_surf is not None or a_surf is not None else "")
-            + _bar_row("Matchs joués cette saison", h.get("n_matches_year") or 0, a.get("n_matches_year") or 0, fmt_pct=False, suffix="")
-            + _bar_row("Jeux gagnés/match", h.get("avg_games_for") or 0, a.get("avg_games_for") or 0, fmt_pct=False)
+            + player_header
+            # NIVEAU & FORME
+            + f'<div style="color:#22c55e;font-size:11px;font-weight:800;letter-spacing:0.8px;margin-bottom:14px">NIVEAU & FORME</div>'
+            + _bar_row("Classement ATP/WTA (pts)", h.get("rank_points") or 0, a.get("rank_points") or 0, fmt_pct=False, suffix=" pts")
+            + _bar_row(f"Forme récente L10 — {h_l10_bilan} | {a_l10_bilan}", h_form, a_form, suffix="%")
+            # SURFACE (specifique au tournoi en cours)
+            + f'<div style="color:#22c55e;font-size:11px;font-weight:800;letter-spacing:0.8px;margin:20px 0 14px">SURFACE — {surf_lbl.upper()}</div>'
+            + (
+                _bar_row(f"% victoires sur {surf_lbl}", h_surf or 0, a_surf or 0, suffix="%")
+                + _bar_row(f"Bilan {surf_lbl} (matchs joués)",
+                           h_surf_n, a_surf_n, fmt_pct=False, suffix=f" matchs")
+                + f'<div style="display:flex;justify-content:space-between;color:#94a3b8;font-size:11px;padding:0 6px 8px"><span>Bilan : {h_surf_bilan}</span><span>Bilan : {a_surf_bilan}</span></div>'
+                if (h_surf_n + a_surf_n) > 0
+                else f'<div style="color:#64748b;font-size:12px;text-align:center;padding:8px;font-style:italic">Pas assez de matchs sur {surf_lbl} pour comparer (saison récente)</div>'
+            )
+            # ACTIVITE & STYLE
+            + f'<div style="color:#22c55e;font-size:11px;font-weight:800;letter-spacing:0.8px;margin:20px 0 14px">ACTIVITÉ & STYLE DE JEU</div>'
+            + _bar_row("Matchs joués cette saison", h.get("n_matches_year") or 0, a.get("n_matches_year") or 0, fmt_pct=False, suffix=" matchs")
+            + _bar_row("Jeux gagnés / match", h.get("avg_games_for") or 0, a.get("avg_games_for") or 0, fmt_pct=False)
+            + _bar_row("Jeux concédés / match", h.get("avg_games_against") or 0, a.get("avg_games_against") or 0, fmt_pct=False)
+            # H2H
             + f'<div style="color:#22c55e;font-size:11px;font-weight:800;letter-spacing:0.8px;margin:20px 0 14px">CONFRONTATIONS H2H</div>'
             + f'<div style="text-align:center;color:#94a3b8;font-size:13px">'
             + (f'{h.get("name","?")} <span style="color:#22c55e;font-weight:800">{h2h_h}V</span> · <span style="color:#94a3b8;font-weight:800">{h2h_a}V</span> {a.get("name","?")}' if h2h.get("total") else "Aucune confrontation passée")
@@ -4138,6 +4219,59 @@ def build_html(matches, team_ai, player_ai, pstats_data, nba_picks=None, nba_his
             tennis_details_map[eid] = build_tennis_pronos_card(_tm)
     except Exception as _e:
         print(f"  [tennis pronos card err] {_e}")
+
+    # Cards ESPN-schedule (no-odds, info match seulement)
+    def build_tennis_schedule_card(m):
+        eid = m.get("event_id", "")
+        surf = m.get("surface", "?")
+        surf_lbl = SURFACE_LABEL.get(surf, surf)
+        surf_col = SURFACE_COL.get(surf, "#64748b")
+        tour = m.get("tour", "ATP")
+        tour_emoji = "♂️" if tour == "ATP" else "♀️"
+        date_str = _format_date_fr(m.get("start_iso"))
+        rnd = m.get("round") or ""
+        home = m.get("home_name", "?")
+        away = m.get("away_name", "?")
+        h_country = m.get("home_country", "")
+        a_country = m.get("away_country", "")
+        round_html = f'<span style="background:#1e293b;color:#cbd5e1;border-radius:6px;padding:3px 9px;font-size:11px;font-weight:700">{rnd}</span>' if rnd else ""
+        return (
+            f'<div style="background:#0f172a;border:2px solid #facc15;border-radius:18px;padding:20px;margin-bottom:12px">'
+            f'<div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;margin-bottom:18px">'
+            f'<div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">'
+            f'<span style="background:rgba(34,197,94,0.15);border:1px solid {surf_col};color:{surf_col};border-radius:8px;padding:4px 10px;font-size:12px;font-weight:700">{surf_lbl}</span>'
+            f'{round_html}'
+            f'<span style="color:#64748b;font-size:13px">📅 {date_str}</span>'
+            f'</div>'
+            f'<div style="background:rgba(250,204,21,0.15);border:1px solid #facc15;color:#facc15;border-radius:8px;padding:4px 10px;font-size:11px;font-weight:700">SOURCE ESPN</div>'
+            f'</div>'
+            # Joueurs
+            f'<div style="display:grid;grid-template-columns:1fr auto 1fr;gap:14px;align-items:center;margin-bottom:14px">'
+            f'<div style="text-align:right">'
+            f'<div style="color:#f1f5f9;font-size:18px;font-weight:800">{home}</div>'
+            f'<div style="color:#64748b;font-size:11px;margin-top:4px">{tour_emoji} {tour}{(" · " + h_country) if h_country else ""}</div>'
+            f'</div>'
+            f'<div style="color:#475569;font-size:18px;font-weight:800">VS</div>'
+            f'<div style="text-align:left">'
+            f'<div style="color:#f1f5f9;font-size:18px;font-weight:800">{away}</div>'
+            f'<div style="color:#64748b;font-size:11px;margin-top:4px">{tour_emoji} {tour}{(" · " + a_country) if a_country else ""}</div>'
+            f'</div>'
+            f'</div>'
+            # Mention no-odds
+            '<div style="background:rgba(250,204,21,0.06);border-left:3px solid #facc15;padding:10px 14px;border-radius:4px;color:#cbd5e1;font-size:12.5px;line-height:1.5">'
+            f'<b style="color:#facc15">ℹ️ Cotes non disponibles</b> — Ce tournoi ({surf_lbl}) n\'est pas couvert par The Odds API. Le match est affiché à titre informatif (source ESPN).'
+            '</div>'
+            '</div>'
+        )
+
+    try:
+        for _sm in tennis_schedule_data.get("matches", []) or []:
+            eid = _sm.get("event_id")
+            if not eid: continue
+            if eid in tennis_details_map: continue  # déjà couvert par Odds API
+            tennis_details_map[eid] = build_tennis_schedule_card(_sm)
+    except Exception as _e:
+        print(f"  [tennis schedule card err] {_e}")
 
     tennis_details_json = __import__("json").dumps(tennis_details_map, ensure_ascii=False)
 
@@ -4281,7 +4415,9 @@ def build_html(matches, team_ai, player_ai, pstats_data, nba_picks=None, nba_his
         out = ['<div class="bk2-wrap" style="display:flex;gap:18px;align-items:flex-start;max-width:100%;margin:0">']
 
         # COL GAUCHE : sidebar sticky (suit le scroll proprement)
-        out.append('<div class="bk2-nav" style="position:sticky;top:14px;flex:0 0 320px;max-height:calc(100vh - 30px);overflow-y:auto;display:flex;flex-direction:column;gap:14px;padding-right:6px;align-self:flex-start">')
+        # overscroll-behavior:contain : evite que les wheel events au bord
+        # de la sidebar ne fassent sauter la page entiere.
+        out.append('<div class="bk2-nav" style="position:sticky;top:14px;flex:0 0 320px;max-height:calc(100vh - 30px);overflow-y:auto;overscroll-behavior:contain;scroll-behavior:smooth;display:flex;flex-direction:column;gap:14px;padding-right:6px;align-self:flex-start">')
 
         # Search
         out.append(
@@ -5983,33 +6119,33 @@ function bk2CloneCardInto(hostId, mid, sport){{
     host.innerHTML = '<div style="background:#0f172a;border:1px solid #1e293b;border-radius:12px;padding:30px;text-align:center;color:#64748b;font-size:13px">Fiche du match introuvable.</div>';
     return;
   }}
-  // Clone profond + retire les ids dupliqués pour eviter les conflits
-  var clone = src.cloneNode(true);
-  clone.id = '';  // libere l'id pour le original
-  // Foot/NBA : on retire/renomme les ids internes du clone (sinon toggleStats
-  // declenche sur l'element ORIGINAL, qui est dans sport-football/sport-nba
-  // et reste hidden). On expand tout par defaut et on neutralise les onclick.
+  // Foot/NBA : on duplique le card en renommant TOUS les IDs internes
+  // (body-XX, picks-btn-XX, arrow-XX, nba-body-XX, nba-arrow-XX) ET
+  // l'argument des onclick toggleStats/togglePicks/toggleNbaMatch/etc.
+  // Comme ca, dans la vue detail, les boutons agissent sur la copie clonee,
+  // pas sur la carte originale cachee dans sport-football.
   if(sport === 'foot' || sport === 'nba'){{
-    // 1) Retire tous les onclick pour eviter de toggle l'original
-    clone.querySelectorAll('[onclick]').forEach(function(el){{
-      // Garde les onclick qui ne pointent pas vers une autre carte (boutons
-      // Add Bankroll, push Telegram). Donc on neutralise seulement
-      // toggleStats / togglePicks / toggleNbaMatch / toggleNbaBody etc.
-      var oc = el.getAttribute('onclick') || '';
-      if(/^(toggle|show|hide)/.test(oc)){{
-        el.removeAttribute('onclick');
-        el.style.cursor = 'default';
-      }}
+    var rawHtml = src.outerHTML;
+    var prefix = 'cl' + Date.now().toString(36) + '_';
+    var newMid = prefix + mid;
+    var fns = ['toggleStats','togglePicks','toggleNbaMatch','toggleNbaBody','togglePlayerStats','toggleAnalyseLine','toggleAnalysePlayer','toggleAnalyseTeam','toggleAnalyseBody'];
+    fns.forEach(function(fn){{
+      var pat = new RegExp(fn + "\\\\('" + mid + "'\\\\)", 'g');
+      rawHtml = rawHtml.replace(pat, fn + "('" + newMid + "')");
     }});
-    // 2) Retire tous les ids internes pour pas court-circuiter le DOM original
-    clone.querySelectorAll('[id]').forEach(function(el){{ el.id = ''; }});
-    // 3) Expand le body : stats + picks visibles par defaut
-    clone.querySelectorAll('.match-body, .nba-match-body').forEach(function(el){{
-      el.classList.add('show-stats');
-      el.classList.add('show-picks');
-      el.style.display = 'block';
-    }});
+    rawHtml = rawHtml.split('-' + mid + '"').join('-' + newMid + '"');
+    rawHtml = rawHtml.split('id="bk2-card-' + sport + '-' + mid + '"').join('id="bk2-clone-' + newMid + '"');
+    host.innerHTML = rawHtml;
+    var body = document.getElementById('body-' + newMid) || document.getElementById('nba-body-' + newMid);
+    if(body){{
+      body.classList.add('show-stats');
+      body.classList.add('show-picks');
+    }}
+    return;
   }}
+  // Fallback generique (rare)
+  var clone = src.cloneNode(true);
+  clone.id = '';
   host.innerHTML = '';
   host.appendChild(clone);
 }}
