@@ -57,6 +57,21 @@ TOURNAMENT_SURFACE = {
     "tennis_atp_china_open":         ("Hard", "China Open"),
     "tennis_atp_dubai":              ("Hard", "Dubai"),
     "tennis_atp_qatar_open":         ("Hard", "Doha"),
+    "tennis_atp_acapulco":           ("Hard", "Acapulco"),
+    "tennis_atp_rotterdam":          ("Hard", "Rotterdam"),
+    "tennis_atp_marseille":          ("Hard", "Marseille"),
+    "tennis_atp_montpellier":        ("Hard", "Montpellier"),
+    "tennis_atp_basel":              ("Hard", "Basel"),
+    "tennis_atp_vienna":             ("Hard", "Vienna"),
+    "tennis_atp_tokyo":              ("Hard", "Tokyo"),
+    "tennis_atp_atp_finals":         ("Hard", "ATP Finals"),
+    # ATP grass season (juin-juillet)
+    "tennis_atp_stuttgart":          ("Grass", "Stuttgart (Boss Open)"),
+    "tennis_atp_halle":              ("Grass", "Halle (Terra Wortmann)"),
+    "tennis_atp_queens":             ("Grass", "Queen's Club (London)"),
+    "tennis_atp_eastbourne":         ("Grass", "Eastbourne"),
+    "tennis_atp_hertogenbosch":      ("Grass", "'s-Hertogenbosch (Libema)"),
+    "tennis_atp_mallorca":           ("Grass", "Mallorca"),
     # WTA equivalents
     "tennis_wta_madrid_open":        ("Clay", "Madrid"),
     "tennis_wta_italian_open":       ("Clay", "Rome"),
@@ -71,6 +86,14 @@ TOURNAMENT_SURFACE = {
     "tennis_wta_china_open":         ("Hard", "China Open"),
     "tennis_wta_dubai":              ("Hard", "Dubai"),
     "tennis_wta_qatar_open":         ("Hard", "Doha"),
+    "tennis_wta_finals":             ("Hard", "WTA Finals"),
+    # WTA grass season
+    "tennis_wta_berlin":             ("Grass", "Berlin"),
+    "tennis_wta_eastbourne":         ("Grass", "Eastbourne"),
+    "tennis_wta_birmingham":         ("Grass", "Birmingham"),
+    "tennis_wta_nottingham":         ("Grass", "Nottingham"),
+    "tennis_wta_bad_homburg":        ("Grass", "Bad Homburg"),
+    "tennis_wta_hertogenbosch":      ("Grass", "'s-Hertogenbosch"),
 }
 
 

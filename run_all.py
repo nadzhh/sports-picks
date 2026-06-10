@@ -83,6 +83,11 @@ def main():
     run("tennis_picks_engine.py", "Tennis picks engine")
     run("tennis_resolver.py",     "Tennis resolver (scores Odds API)")
 
+    # 3.7 Basketball Europe (Euroleague, ACB, LNB, Eurocup, etc) via Odds API.
+    # On expose juste les matchs + cotes consensus dans Pronos V1 (pas de
+    # picks engine player-level pour ces ligues — stats sources non integrees).
+    run("basketball_scraper.py", "Basketball Europe (Euroleague/ACB/LNB/Eurocup)")
+
     # 4. Genere le site + push GitHub
     if not run("generate_site.py", "Generation du site"):
         sys.exit(1)

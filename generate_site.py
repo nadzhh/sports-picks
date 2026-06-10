@@ -3895,13 +3895,13 @@ def build_html(matches, team_ai, player_ai, pstats_data, nba_picks=None, nba_his
     def _safe_attr(s):
         return (s or "").replace('"', '&quot;').replace("'", "&#39;")
     pronos_match_list = []
-    # Foot
+    # Foot — IMPORTANT : id sans tirets (cf. mid_safe dans build_match_card)
     for _m in (matches or []):
         pronos_match_list.append({
             "sport": "foot", "league": _m.get("league") or "Autres",
             "home": _m.get("home", "?"), "away": _m.get("away", "?"),
             "start_ts": _m.get("start_ts"),
-            "mid": _m.get("match_id") or "",
+            "mid": str(_m.get("match_id") or "").replace("-",""),
         })
     # Tennis
     try:
@@ -3923,8 +3923,22 @@ def build_html(matches, team_ai, player_ai, pstats_data, nba_picks=None, nba_his
                 "sport": "nba", "league": "NBA",
                 "home": _g.get("home_team","?"), "away": _g.get("away_team","?"),
                 "start_ts": None,
-                "mid": str(_gid),
+                "mid": str(_gid).replace("'", ""),
             })
+    # Basketball Europe (Euroleague, ACB, LNB, Eurocup, etc) — sans picks
+    try:
+        with open("data/basketball_matches.json", encoding="utf-8") as _bf:
+            _bdata = __import__("json").load(_bf)
+        for _bm in _bdata.get("matches", []) or []:
+            pronos_match_list.append({
+                "sport": "nba",  # On groupe avec NBA dans l'UI sidebar ("Basketball")
+                "league": _bm.get("league") or "Basketball EU",
+                "home": _bm.get("home", "?"), "away": _bm.get("away", "?"),
+                "start_ts": _bm.get("start_ts"),
+                "mid": (_bm.get("event_id") or "").replace("-",""),
+            })
+    except Exception as _e:
+        print(f"  [basketball-eu pronos err] {_e}")
 
     # Embed en JS pour filtrage cote client
     pronos_data_json = __import__("json").dumps(pronos_match_list, ensure_ascii=False)
@@ -4126,6 +4140,112 @@ def build_html(matches, team_ai, player_ai, pstats_data, nba_picks=None, nba_his
         print(f"  [tennis pronos card err] {_e}")
 
     tennis_details_json = __import__("json").dumps(tennis_details_map, ensure_ascii=False)
+
+    # ─── Cards basket Europe (Euroleague, ACB, LNB, Eurocup) ──────────
+    def _fmt_dt_basket(iso):
+        if not iso: return "?"
+        try:
+            from datetime import datetime as _dt, timezone as _tz, timedelta as _td
+            paris = _tz(_td(hours=2))
+            dt = _dt.fromisoformat(iso.replace("Z","+00:00")).astimezone(paris)
+            today = _dt.now(paris).date()
+            label = dt.strftime("%d/%m")
+            if dt.date() == today: label = "Aujourd'hui"
+            elif dt.date() == today + _td(days=1): label = "Demain"
+            return f"{label} · {dt.strftime('%H:%M')}"
+        except Exception:
+            return iso[:16].replace("T", " · ")
+
+    def build_basket_eu_card(m):
+        eid = (m.get("event_id") or "").replace("-","")
+        lg  = m.get("league", "?")
+        home = m.get("home", "?"); away = m.get("away", "?")
+        ch = m.get("consensus_odd_home"); ca = m.get("consensus_odd_away")
+        bh = m.get("best_odd_home");      ba = m.get("best_odd_away")
+        bk = m.get("best_book", "")
+        tot = m.get("total_points")
+        date_str = _fmt_dt_basket(m.get("start_iso"))
+        # Favorite suggestion : cote consensus la plus basse
+        fav_side = None
+        if ch and ca:
+            fav_side = "home" if ch < ca else "away"
+        def _odd_box(label, cons, best, is_fav=False):
+            if not cons:
+                return f'<div style="background:#0a1628;border:1px solid #1e293b;border-radius:10px;padding:10px 14px;min-width:90px;text-align:center;color:#475569"><div style="font-size:10px;font-weight:700">{label}</div><div style="font-size:14px">-</div></div>'
+            col = "#22c55e" if is_fav else "#94a3b8"
+            border = f"2px solid {col}" if is_fav else "1px solid #1e293b"
+            return (
+                f'<div style="background:#0a1628;border:{border};border-radius:10px;padding:10px 14px;min-width:90px;text-align:center">'
+                f'<div style="color:{col};font-size:10px;font-weight:700;letter-spacing:0.4px">{label}</div>'
+                f'<div style="color:{col};font-size:20px;font-weight:800;line-height:1.1;margin-top:2px">{cons:.2f}</div>'
+                + (f'<div style="color:#64748b;font-size:10px;margin-top:2px">best {best:.2f}</div>' if best else "")
+                + '</div>'
+            )
+        # H2H consensus bar
+        total_inv = (1/(ch or 1)) + (1/(ca or 1))
+        p_home = ((1/(ch or 1))/total_inv*100) if total_inv else 50
+        p_away = 100 - p_home if total_inv else 50
+        bar = (
+            '<div style="background:#0a1628;border:1px solid #1e293b;border-radius:10px;padding:14px;margin:12px 0">'
+            f'<div style="display:flex;justify-content:space-between;color:#94a3b8;font-size:11px;font-weight:700;margin-bottom:6px"><span>Cote-implied {home[:18]}</span><span>{home[:18]} {p_home:.0f}% · {p_away:.0f}% {away[:18]}</span></div>'
+            '<div style="display:flex;height:10px;background:#1e293b;border-radius:5px;overflow:hidden">'
+            f'<div style="background:#22c55e;width:{p_home:.1f}%"></div>'
+            f'<div style="background:#fb923c;width:{p_away:.1f}%"></div>'
+            '</div></div>'
+        )
+        total_html = ""
+        if tot:
+            total_html = (
+                '<div style="background:#0a1628;border:1px solid #1e293b;border-radius:10px;padding:10px 14px;text-align:center;margin-top:8px">'
+                f'<div style="color:#94a3b8;font-size:11px;font-weight:700">Total points (médiane consensus)</div>'
+                f'<div style="color:#f1f5f9;font-size:18px;font-weight:800">{tot:.1f}</div>'
+                '</div>'
+            )
+        book_html = f'<span style="color:#64748b;font-size:11px">best @ {bk}</span>' if bk else ""
+        return (
+            f'<div style="background:#0f172a;border:2px solid #fb923c;border-radius:18px;padding:20px;margin-bottom:12px">'
+            f'<div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;margin-bottom:14px">'
+            f'<div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">'
+            f'<span style="background:rgba(251,146,60,0.15);border:1px solid #fb923c;color:#fb923c;border-radius:8px;padding:4px 10px;font-size:12px;font-weight:700">🏀 {lg}</span>'
+            f'<span style="color:#64748b;font-size:13px">📅 {date_str}</span>'
+            f'</div>'
+            f'{book_html}'
+            f'</div>'
+            # Teams + cotes
+            f'<div style="display:grid;grid-template-columns:1fr auto 1fr;gap:14px;align-items:center">'
+            f'<div style="text-align:right">'
+            f'<div style="color:#f1f5f9;font-size:18px;font-weight:800">{home}</div>'
+            f'<div style="color:#64748b;font-size:11px;margin-top:4px">Domicile</div>'
+            f'</div>'
+            f'<div style="color:#475569;font-size:18px;font-weight:800">vs</div>'
+            f'<div style="text-align:left">'
+            f'<div style="color:#f1f5f9;font-size:18px;font-weight:800">{away}</div>'
+            f'<div style="color:#64748b;font-size:11px;margin-top:4px">Extérieur</div>'
+            f'</div>'
+            f'</div>'
+            # Cotes consensus
+            f'<div style="display:flex;gap:12px;justify-content:center;margin-top:14px;flex-wrap:wrap">'
+            + _odd_box("VAINQUEUR DOM", ch, bh, fav_side == "home")
+            + _odd_box("VAINQUEUR EXT", ca, ba, fav_side == "away")
+            + '</div>'
+            + bar
+            + total_html
+            + '<div style="color:#64748b;font-size:11px;text-align:center;margin-top:10px;font-style:italic">Pas d\'analyse player-level — championnat européen sans data joueur intégrée. Consensus marché ci-dessus.</div>'
+            + '</div>'
+        )
+
+    basket_eu_details_map = {}
+    try:
+        with open("data/basketball_matches.json", encoding="utf-8") as _bf:
+            _bdata2 = __import__("json").load(_bf)
+        for _bm in _bdata2.get("matches", []) or []:
+            eid = (_bm.get("event_id") or "").replace("-","")
+            if not eid: continue
+            basket_eu_details_map[eid] = build_basket_eu_card(_bm)
+    except Exception as _e:
+        print(f"  [basket-eu pronos card err] {_e}")
+
+    basket_eu_details_json = __import__("json").dumps(basket_eu_details_map, ensure_ascii=False)
 
     def _bk_pronos():
         # Top compétitions = top 5 par volume (mix sports)
@@ -5617,6 +5737,7 @@ function showSport(sport){{
 // ─── Pronos V2 (Betclic-like) ───────────────────────────────────────
 window._BK2_DATA = {pronos_data_json};
 window._BK2_TENNIS_DETAILS = {tennis_details_json};
+window._BK2_BASKET_EU_DETAILS = {basket_eu_details_json};
 window._bk2State = {{ sport: 'all', comp: null, query: '' }};
 
 function bk2ToggleTennisAnalysis(eid){{
@@ -5801,7 +5922,10 @@ function bk2RenderDetail(mid, sport){{
   // Sous-tabs
   var tabs = '<div style="display:flex;gap:6px;background:#0f172a;border:1px solid #1e293b;border-radius:12px;padding:6px;margin-bottom:14px">'
            + '<button class="bk2-subtab active" data-tab="picks" onclick="bk2SubTab(\\'picks\\')" style="flex:1;background:#0f1f3a;color:#f1f5f9;border:1px solid #3b82f6;border-radius:8px;padding:8px 14px;font-size:13px;font-weight:700;cursor:pointer">📌 Pronostics</button>';
-  if(sport === 'nba'){{
+  // Analyse approfondie : NBA US uniquement (player props). Basket-EU n'a pas
+  // de data joueurs — on cache l'onglet pour ces matchs.
+  var isBasketEu = (window._BK2_BASKET_EU_DETAILS && window._BK2_BASKET_EU_DETAILS[mid]);
+  if(sport === 'nba' && !isBasketEu){{
     tabs += '<button class="bk2-subtab" data-tab="analyse" onclick="bk2SubTab(\\'analyse\\')" style="flex:1;background:#0a1628;color:#cbd5e1;border:1px solid #1e293b;border-radius:8px;padding:8px 14px;font-size:13px;font-weight:700;cursor:pointer">🔍 Analyse approfondie</button>';
   }}
   tabs += '</div>';
@@ -5815,12 +5939,12 @@ function bk2RenderDetail(mid, sport){{
              + '</div></div></div>';
   // Conteneurs picks + analyse vides, remplis ensuite via clonage du DOM
   var picksBox = '<div id="bk2-detail-picks"></div>';
-  var analyseBox = (sport === 'nba') ? '<div id="bk2-detail-analyse" style="display:none"></div>' : '';
+  var analyseBox = (sport === 'nba' && !isBasketEu) ? '<div id="bk2-detail-analyse" style="display:none"></div>' : '';
   host.innerHTML = header + tabs + picksBox + analyseBox;
   // Clone la card du match dans le panel Pronostics
   bk2CloneCardInto('bk2-detail-picks', mid, sport);
-  // Pour NBA : clone la section Analyse dans le panel Analyse
-  if(sport === 'nba'){{
+  // Pour NBA US : clone la section Analyse dans le panel Analyse
+  if(sport === 'nba' && !isBasketEu){{
     bk2CloneAnalyseInto('bk2-detail-analyse', mid);
   }}
 }}
@@ -5832,6 +5956,11 @@ function bk2CloneCardInto(hostId, mid, sport){{
   // Tennis : utilise la card dediee "Pronos detail" (mockup Boss Open)
   if(sport === 'tennis' && window._BK2_TENNIS_DETAILS && window._BK2_TENNIS_DETAILS[mid]){{
     host.innerHTML = window._BK2_TENNIS_DETAILS[mid];
+    return;
+  }}
+  // Basket Europe (Euroleague/ACB/LNB/Eurocup) : card dediee market-only
+  if(sport === 'nba' && window._BK2_BASKET_EU_DETAILS && window._BK2_BASKET_EU_DETAILS[mid]){{
+    host.innerHTML = window._BK2_BASKET_EU_DETAILS[mid];
     return;
   }}
   var srcId = 'bk2-card-' + sport + '-' + mid;
@@ -5848,7 +5977,30 @@ function bk2CloneCardInto(hostId, mid, sport){{
   // Clone profond + retire les ids dupliqués pour eviter les conflits
   var clone = src.cloneNode(true);
   clone.id = '';  // libere l'id pour le original
-  // Wrap dans un div pour conserver les ids internes (toggle stats/picks fonctionnel)
+  // Foot/NBA : on retire/renomme les ids internes du clone (sinon toggleStats
+  // declenche sur l'element ORIGINAL, qui est dans sport-football/sport-nba
+  // et reste hidden). On expand tout par defaut et on neutralise les onclick.
+  if(sport === 'foot' || sport === 'nba'){{
+    // 1) Retire tous les onclick pour eviter de toggle l'original
+    clone.querySelectorAll('[onclick]').forEach(function(el){{
+      // Garde les onclick qui ne pointent pas vers une autre carte (boutons
+      // Add Bankroll, push Telegram). Donc on neutralise seulement
+      // toggleStats / togglePicks / toggleNbaMatch / toggleNbaBody etc.
+      var oc = el.getAttribute('onclick') || '';
+      if(/^(toggle|show|hide)/.test(oc)){{
+        el.removeAttribute('onclick');
+        el.style.cursor = 'default';
+      }}
+    }});
+    // 2) Retire tous les ids internes pour pas court-circuiter le DOM original
+    clone.querySelectorAll('[id]').forEach(function(el){{ el.id = ''; }});
+    // 3) Expand le body : stats + picks visibles par defaut
+    clone.querySelectorAll('.match-body, .nba-match-body').forEach(function(el){{
+      el.classList.add('show-stats');
+      el.classList.add('show-picks');
+      el.style.display = 'block';
+    }});
+  }}
   host.innerHTML = '';
   host.appendChild(clone);
 }}
