@@ -1844,7 +1844,7 @@ def build_match_card(m, team_ai_map, player_ai_map, pstats=None):
         if n_players: picks_label += f" · {n_players} joueurs"
 
     return (
-        f'<div style="background:#0f172a;border-radius:14px;margin-bottom:18px;'
+        f'<div id="bk2-card-foot-{mid_safe}" style="background:#0f172a;border-radius:14px;margin-bottom:18px;'
         f'box-shadow:0 4px 20px rgba(0,0,0,0.4);overflow:hidden">'
         # Header : click pour stats, bouton separe pour picks
         f'<div class="match-header" onclick="toggleStats(\'{mid_safe}\')">'
@@ -2138,7 +2138,7 @@ def build_nba_card(game):
     gid_safe = str(gid).replace("'", "")
 
     return (
-        f'<div style="background:#0f172a;border-radius:14px;margin-bottom:18px;'
+        f'<div id="bk2-card-nba-{gid_safe}" style="background:#0f172a;border-radius:14px;margin-bottom:18px;'
         f'box-shadow:0 4px 20px rgba(0,0,0,0.4);overflow:hidden">'
         # Header cliquable -> toggle body
         f'<div class="nba-match-header" onclick="toggleNbaMatch(\'{gid_safe}\')">'
@@ -2912,6 +2912,7 @@ def _build_tennis_card(match, idx=0):
     tour       = match.get("tour", "ATP")
     start_iso  = match.get("start_iso") or ""
     card_id    = f"tennis-card-{idx}"
+    event_id   = match.get("event_id") or ""
     surf_color = {"Clay":"#c2410c","Hard":"#1d4ed8","Grass":"#15803d"}.get(surface, "#64748b")
     surf_emoji = {"Clay":"🟧","Hard":"🟦","Grass":"🟩"}.get(surface, "🎾")
     tour_emoji = "♂️" if tour == "ATP" else "♀️"
@@ -3112,8 +3113,9 @@ def _build_tennis_card(match, idx=0):
             start_ts_attr = f' data-start-ts="{ts_int}"'
     except Exception:
         pass
+    bk2_id_attr = f' data-bk2-id="bk2-card-tennis-{event_id}"' if event_id else ""
     return (
-        f'<div class="tennis-match-card" id="{card_id}"{start_ts_attr} '
+        f'<div class="tennis-match-card" id="{card_id}"{start_ts_attr}{bk2_id_attr} '
         f'style="background:#0f172a;border:1px solid #1e293b;border-radius:10px;overflow:hidden">'
         f'{header}{body}'
         f'</div>'
@@ -3957,11 +3959,11 @@ def build_html(matches, team_ai, player_ai, pstats_data, nba_picks=None, nba_his
             if m["sport"] == "nba" or (ts and now_ts - 7200 < ts < today_end_ts):
                 matches_today_by_sport[m["sport"]].append(m)
 
-        # ─── Layout 2 cols ────────────────────────────────────────────────
-        out = ['<div class="bk2-wrap" style="display:grid;grid-template-columns:340px 1fr;gap:18px;max-width:1280px;margin:0 auto">']
+        # ─── Layout sidebar fixed à GAUCHE de l écran + main décalé ──────
+        out = ['<div class="bk2-wrap" style="position:relative">']
 
-        # COL GAUCHE : nav
-        out.append('<div class="bk2-nav" style="display:flex;flex-direction:column;gap:14px">')
+        # COL GAUCHE : sidebar fixed (position:fixed left:0 top:offset)
+        out.append('<div class="bk2-nav" style="position:fixed;left:18px;top:130px;bottom:18px;width:320px;display:flex;flex-direction:column;gap:14px;overflow-y:auto;padding-right:4px;z-index:50">')
 
         # Search
         out.append(
@@ -4057,10 +4059,10 @@ def build_html(matches, team_ai, player_ai, pstats_data, nba_picks=None, nba_his
                 out.append('<div style="padding:14px 16px;color:#64748b;font-size:12px;text-align:center;border-top:1px solid #1e293b">Aucune compétition J/J+1</div>')
             out.append('</div></div>')
 
-        out.append('</div>')  # close col gauche
+        out.append('</div>')  # close col gauche (fixed)
 
-        # COL DROITE : pills + liste matchs
-        out.append('<div class="bk2-feed" style="display:flex;flex-direction:column;gap:14px">')
+        # MAIN : margin-left pour décaler du sidebar fixed
+        out.append('<div class="bk2-feed" style="margin-left:358px;display:flex;flex-direction:column;gap:14px">')
         # Pills filter
         out.append(
             '<div id="bk2-pills" style="display:flex;gap:8px;flex-wrap:wrap;padding:4px 0">'
@@ -4075,12 +4077,17 @@ def build_html(matches, team_ai, player_ai, pstats_data, nba_picks=None, nba_his
         out.append('</div>')  # close col droite
         out.append('</div>')  # close wrap
 
-        # Responsive (mobile single col)
+        # Responsive (mobile : sidebar passe en haut)
         out.append(
             '<style>'
             '@media (max-width: 900px) {'
-            '.bk2-wrap { grid-template-columns: 1fr !important; }'
+            '.bk2-nav { position: static !important; width: 100% !important; height: auto !important; }'
+            '.bk2-feed { margin-left: 0 !important; }'
             '}'
+            '/* Scrollbar discrete pour la sidebar */'
+            '.bk2-nav::-webkit-scrollbar { width: 6px; }'
+            '.bk2-nav::-webkit-scrollbar-track { background: transparent; }'
+            '.bk2-nav::-webkit-scrollbar-thumb { background: #1e293b; border-radius: 3px; }'
             '</style>'
         )
         return "".join(out)
@@ -5257,8 +5264,8 @@ def build_html(matches, team_ai, player_ai, pstats_data, nba_picks=None, nba_his
     {tennis_section}
   </div>
 
-  <!-- Section Pronostiques V1 (style bookmaker) -->
-  <div id="sport-pronos" style="display:none">
+  <!-- Section Pronostiques V3 (sidebar fixed à gauche) -->
+  <div id="sport-pronos" style="display:none;position:relative">
     {pronos_html}
   </div>
 
@@ -5472,6 +5479,12 @@ function bk2Render(){{
     }}
     return true;
   }});
+  // Tri chronologique : start_ts ASC. Matches sans start_ts -> à la fin.
+  filtered.sort(function(a, b){{
+    var ta = a.start_ts || Infinity;
+    var tb = b.start_ts || Infinity;
+    return ta - tb;
+  }});
   var SP_ICON = {{'foot':'⚽','tennis':'🎾','nba':'🏀'}};
   var SP_COLOR = {{'foot':'#22c55e','tennis':'#facc15','nba':'#fb923c'}};
   var host = document.getElementById('bk2-matches');
@@ -5500,6 +5513,14 @@ function bk2Render(){{
     arr.forEach(function(m){{
       if(!g[m.league]) g[m.league] = {{ sport: m.sport, matches: [] }};
       g[m.league].matches.push(m);
+    }});
+    // Tri intra-compet par start_ts ASC
+    Object.keys(g).forEach(function(lg){{
+      g[lg].matches.sort(function(a,b){{
+        var ta = a.start_ts || Infinity;
+        var tb = b.start_ts || Infinity;
+        return ta - tb;
+      }});
     }});
     return g;
   }}
@@ -5559,7 +5580,7 @@ function bk2Render(){{
   host.innerHTML = html;
 }}
 
-// ─── Vue detail match avec sous-tabs ────────────────────────────────
+// ─── Vue detail match avec sous-tabs (Pronostics intégré + Analyse) ──
 function bk2RenderDetail(mid, sport){{
   var host = document.getElementById('bk2-matches');
   if(!host) return;
@@ -5577,26 +5598,61 @@ function bk2RenderDetail(mid, sport){{
     tabs += '<button class="bk2-subtab" data-tab="analyse" onclick="bk2SubTab(\\'analyse\\')" style="flex:1;background:#0a1628;color:#cbd5e1;border:1px solid #1e293b;border-radius:8px;padding:8px 14px;font-size:13px;font-weight:700;cursor:pointer">🔍 Analyse approfondie</button>';
   }}
   tabs += '</div>';
-  var picksContent = '<div id="bk2-detail-picks" style="background:#0f172a;border:1px solid #1e293b;border-radius:12px;padding:18px;color:#cbd5e1;font-size:13px;text-align:center">'
-                  + '<div style="margin-bottom:14px">Cliquez pour ouvrir la fiche complète dans l\\'onglet Picks classique.</div>'
-                  + '<button onclick="bk2OpenInPicks()" style="background:#3b82f6;color:#fff;border:0;border-radius:8px;padding:10px 18px;font-size:13px;font-weight:700;cursor:pointer">📌 Ouvrir dans Picks</button>'
-                  + '</div>';
-  var analyseContent = '';
-  if(sport === 'nba'){{
-    analyseContent = '<div id="bk2-detail-analyse" style="display:none;background:#0f172a;border:1px solid #1e293b;border-radius:12px;padding:18px;color:#cbd5e1;font-size:13px;text-align:center">'
-                   + '<div style="margin-bottom:14px">L\\'analyse approfondie (props, hit rates L10/L20, splits) est disponible dans l\\'onglet dédié.</div>'
-                   + '<button onclick="showSport(\\'analyse\\')" style="background:#3b82f6;color:#fff;border:0;border-radius:8px;padding:10px 18px;font-size:13px;font-weight:700;cursor:pointer">🔍 Ouvrir l\\'analyse NBA</button>'
-                   + '</div>';
-  }}
   var header = '<div style="background:#0f172a;border:1px solid #1e293b;border-radius:12px;padding:14px 18px;margin-bottom:14px">'
-             + '<button onclick="bk2BackToFeed()" style="background:#1e293b;color:#cbd5e1;border:0;border-radius:8px;padding:6px 10px;font-size:12px;font-weight:700;cursor:pointer">← Retour</button>'
+             + '<button onclick="bk2BackToFeed()" style="background:#1e293b;color:#cbd5e1;border:0;border-radius:8px;padding:6px 12px;font-size:13px;font-weight:700;cursor:pointer">← Retour</button>'
              + '<div style="display:flex;align-items:center;gap:12px;margin-top:10px">'
              + '<div style="width:36px;height:36px;background:'+col+'1f;border:1px solid '+col+'80;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:18px">'+ic+'</div>'
              + '<div>'
              + '<div style="color:#94a3b8;font-size:11px;text-transform:uppercase;letter-spacing:0.6px">'+league+'</div>'
              + '<div style="color:#f1f5f9;font-size:18px;font-weight:800">'+title+'</div>'
              + '</div></div></div>';
-  host.innerHTML = header + tabs + picksContent + analyseContent;
+  // Conteneurs picks + analyse vides, remplis ensuite via clonage du DOM
+  var picksBox = '<div id="bk2-detail-picks"></div>';
+  var analyseBox = (sport === 'nba') ? '<div id="bk2-detail-analyse" style="display:none"></div>' : '';
+  host.innerHTML = header + tabs + picksBox + analyseBox;
+  // Clone la card du match dans le panel Pronostics
+  bk2CloneCardInto('bk2-detail-picks', mid, sport);
+  // Pour NBA : clone la section Analyse dans le panel Analyse
+  if(sport === 'nba'){{
+    bk2CloneAnalyseInto('bk2-detail-analyse', mid);
+  }}
+}}
+
+// Clone la card foot/nba/tennis correspondante au mid+sport dans le host
+function bk2CloneCardInto(hostId, mid, sport){{
+  var host = document.getElementById(hostId);
+  if(!host) return;
+  var srcId = 'bk2-card-' + sport + '-' + mid;
+  var src = document.getElementById(srcId);
+  // Tennis : fallback sur data-bk2-id attribute (id direct interdit car
+  // tennis-match-card a deja un id 'tennis-card-N')
+  if(!src){{
+    src = document.querySelector('[data-bk2-id="' + srcId + '"]');
+  }}
+  if(!src){{
+    host.innerHTML = '<div style="background:#0f172a;border:1px solid #1e293b;border-radius:12px;padding:30px;text-align:center;color:#64748b;font-size:13px">Fiche du match introuvable.</div>';
+    return;
+  }}
+  // Clone profond + retire les ids dupliqués pour eviter les conflits
+  var clone = src.cloneNode(true);
+  clone.id = '';  // libere l'id pour le original
+  // Wrap dans un div pour conserver les ids internes (toggle stats/picks fonctionnel)
+  host.innerHTML = '';
+  host.appendChild(clone);
+}}
+
+// Clone la section Analyse NBA dans le host (avec un message d intro)
+function bk2CloneAnalyseInto(hostId, mid){{
+  var host = document.getElementById(hostId);
+  if(!host) return;
+  var src = document.getElementById('sport-analyse');
+  if(!src){{
+    host.innerHTML = '<div style="background:#0f172a;border:1px solid #1e293b;border-radius:12px;padding:30px;text-align:center;color:#64748b;font-size:13px">Section Analyse NBA introuvable.</div>';
+    return;
+  }}
+  // On clone le contenu (innerHTML)
+  host.innerHTML = '<div style="margin-bottom:10px;color:#94a3b8;font-size:12px">📊 Analyse complète des joueurs (props, hit rates L10/L20, splits)</div>'
+                 + src.innerHTML;
 }}
 function bk2SubTab(t){{
   document.querySelectorAll('.bk2-subtab').forEach(function(b){{
