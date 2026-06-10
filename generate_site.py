@@ -3959,11 +3959,11 @@ def build_html(matches, team_ai, player_ai, pstats_data, nba_picks=None, nba_his
             if m["sport"] == "nba" or (ts and now_ts - 7200 < ts < today_end_ts):
                 matches_today_by_sport[m["sport"]].append(m)
 
-        # ─── Layout sidebar fixed à GAUCHE de l écran + main décalé ──────
-        out = ['<div class="bk2-wrap" style="position:relative">']
+        # ─── Layout flex avec sidebar STICKY (scroll OK, pas d'overlap) ─
+        out = ['<div class="bk2-wrap" style="display:flex;gap:18px;align-items:flex-start;max-width:100%;margin:0">']
 
-        # COL GAUCHE : sidebar fixed (position:fixed left:0 top:offset)
-        out.append('<div class="bk2-nav" style="position:fixed;left:18px;top:130px;bottom:18px;width:320px;display:flex;flex-direction:column;gap:14px;overflow-y:auto;padding-right:4px;z-index:50">')
+        # COL GAUCHE : sidebar sticky (suit le scroll proprement)
+        out.append('<div class="bk2-nav" style="position:sticky;top:14px;flex:0 0 320px;max-height:calc(100vh - 30px);overflow-y:auto;display:flex;flex-direction:column;gap:14px;padding-right:6px;align-self:flex-start">')
 
         # Search
         out.append(
@@ -4059,10 +4059,10 @@ def build_html(matches, team_ai, player_ai, pstats_data, nba_picks=None, nba_his
                 out.append('<div style="padding:14px 16px;color:#64748b;font-size:12px;text-align:center;border-top:1px solid #1e293b">Aucune compétition J/J+1</div>')
             out.append('</div></div>')
 
-        out.append('</div>')  # close col gauche (fixed)
+        out.append('</div>')  # close col gauche (sticky)
 
-        # MAIN : margin-left pour décaler du sidebar fixed
-        out.append('<div class="bk2-feed" style="margin-left:358px;display:flex;flex-direction:column;gap:14px">')
+        # MAIN : flex:1 (prend l'espace restant)
+        out.append('<div class="bk2-feed" style="flex:1;min-width:0;display:flex;flex-direction:column;gap:14px">')
         # Pills filter
         out.append(
             '<div id="bk2-pills" style="display:flex;gap:8px;flex-wrap:wrap;padding:4px 0">'
@@ -4077,17 +4077,19 @@ def build_html(matches, team_ai, player_ai, pstats_data, nba_picks=None, nba_his
         out.append('</div>')  # close col droite
         out.append('</div>')  # close wrap
 
-        # Responsive (mobile : sidebar passe en haut)
+        # Responsive (mobile : sidebar passe en haut, scroll page)
         out.append(
             '<style>'
             '@media (max-width: 900px) {'
-            '.bk2-nav { position: static !important; width: 100% !important; height: auto !important; }'
-            '.bk2-feed { margin-left: 0 !important; }'
+            '  .bk2-wrap { flex-direction: column !important; }'
+            '  .bk2-nav { position: static !important; flex: none !important; max-height: none !important; width: 100% !important; }'
+            '  .bk2-feed { width: 100% !important; }'
             '}'
-            '/* Scrollbar discrete pour la sidebar */'
+            '/* Scrollbar discrete sur la sidebar */'
             '.bk2-nav::-webkit-scrollbar { width: 6px; }'
             '.bk2-nav::-webkit-scrollbar-track { background: transparent; }'
             '.bk2-nav::-webkit-scrollbar-thumb { background: #1e293b; border-radius: 3px; }'
+            '.bk2-nav::-webkit-scrollbar-thumb:hover { background: #334155; }'
             '</style>'
         )
         return "".join(out)
