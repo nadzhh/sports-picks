@@ -3929,6 +3929,204 @@ def build_html(matches, team_ai, player_ai, pstats_data, nba_picks=None, nba_his
     # Embed en JS pour filtrage cote client
     pronos_data_json = __import__("json").dumps(pronos_match_list, ensure_ascii=False)
 
+    # ─── Cards tennis style "Pronos detail" (Boss Open mockup) ──────────
+    SURFACE_COL = {"Clay": "#f97316", "Hard": "#2563eb", "Grass": "#22c55e", "Carpet": "#a855f7"}
+    SURFACE_LABEL = {"Clay": "Terre battue", "Hard": "Dur", "Grass": "Gazon", "Carpet": "Carpet"}
+
+    def _infer_style(avg_for, avg_against):
+        if not avg_for or not avg_against: return "Style inconnu"
+        if avg_for >= 12 and avg_against <= 10: return "Big Server"
+        if avg_for >= 12 and avg_against > 10: return "Server + Baseliner"
+        if avg_for < 10 and avg_against >= 11: return "Counter Puncher"
+        if avg_for < 11 and avg_against < 10: return "Solide défenseur"
+        return "Baseliner polyvalent"
+
+    def _format_date_fr(iso):
+        if not iso: return "?"
+        try:
+            from datetime import datetime as _dt, timezone as _tz, timedelta as _td
+            paris = _tz(_td(hours=2))
+            dt = _dt.fromisoformat(iso.replace("Z","+00:00")).astimezone(paris)
+            today = _dt.now(paris).date()
+            label = dt.strftime("%d/%m")
+            if dt.date() == today: label = "Aujourd'hui"
+            elif dt.date() == today + _td(days=1): label = "Demain"
+            return f"{label} · {dt.strftime('%H:%M')}"
+        except Exception:
+            return iso[:16].replace("T", " · ")
+
+    def _badge_value(edge_pp):
+        # edge_pp en points de %
+        if edge_pp is None: return ("", "")
+        if edge_pp >= 10: return ("✓ Value Forte", "#22c55e")
+        if edge_pp >= 4:  return ("✓ Value", "#84cc16")
+        if edge_pp >= -2: return ("• Neutre", "#94a3b8")
+        return ("✗ Pas de value", "#ef4444")
+
+    def build_tennis_pronos_card(m):
+        eid = m.get("event_id", "")
+        tour = m.get("tour", "ATP")
+        tour_emoji = "♂️" if tour == "ATP" else "♀️"
+        tournament = m.get("tournament", "?")
+        surface = m.get("surface", "?")
+        surf_col = SURFACE_COL.get(surface, "#64748b")
+        surf_lbl = SURFACE_LABEL.get(surface, surface)
+        date_str = _format_date_fr(m.get("start_iso"))
+        h = m.get("home", {}) or {}
+        a = m.get("away", {}) or {}
+
+        # Cotes consensus
+        h_cote = h.get("consensus_odd") or h.get("best_odd") or 2.0
+        a_cote = a.get("consensus_odd") or a.get("best_odd") or 2.0
+        # Calcul value : on prend le pick le + edge si dispo
+        best_edge = None
+        best_side = None
+        for p in (m.get("picks") or []):
+            if p.get("kind") == "tennis_winner":
+                ed = p.get("edge_pp")
+                if ed is not None and (best_edge is None or ed > best_edge):
+                    best_edge = ed
+                    best_side = p.get("selection")
+        # Forme L10 (% wins)
+        def _form_pct(p):
+            n = p.get("l10_n") or 0
+            if n == 0: return 0
+            return round(p.get("l10_w", 0) / n * 100)
+        h_form = _form_pct(h)
+        a_form = _form_pct(a)
+        def _surf_pct(p):
+            n = p.get("surface_n") or 0
+            if n == 0: return None
+            return round(p.get("surface_w", 0) / n * 100)
+        h_surf = _surf_pct(h)
+        a_surf = _surf_pct(a)
+        h_style = _infer_style(h.get("avg_games_for"), h.get("avg_games_against"))
+        a_style = _infer_style(a.get("avg_games_for"), a.get("avg_games_against"))
+
+        # Badge value
+        vt, vc = _badge_value(best_edge)
+        v_badge = ""
+        if vt:
+            v_badge = (
+                f'<div style="background:{vc};color:#0a1628;border-radius:18px;padding:8px 16px;'
+                f'font-size:13px;font-weight:800">{vt}</div>'
+            )
+
+        def _player_card(p, cote, form_pct, surf_pct, style, is_pick=False):
+            border = "1px solid #1e3a5f" if not is_pick else "2px solid #22c55e"
+            bg = "#0f1f3a" if not is_pick else "rgba(34,197,94,0.06)"
+            rank_txt = f"Rank #{p.get('rank') or '?'}"
+            elo_txt = f"Pts {p.get('rank_points') or '?'}"
+            form_color = "#22c55e" if form_pct >= 60 else ("#facc15" if form_pct >= 40 else "#ef4444")
+            cote_label = "VALUE" if is_pick else "COTE"
+            cote_color = "#22c55e" if is_pick else "#94a3b8"
+            return (
+                f'<div style="background:{bg};border:{border};border-radius:14px;padding:18px;'
+                f'display:flex;align-items:center;gap:18px;margin-bottom:10px">'
+                f'<div style="font-size:34px">{tour_emoji}</div>'
+                f'<div style="flex:1;min-width:0">'
+                f'<div style="color:#f1f5f9;font-size:20px;font-weight:800;line-height:1.2">{p.get("name", "?")}</div>'
+                f'<div style="display:flex;align-items:center;gap:8px;margin-top:6px">'
+                f'<span style="color:#64748b;font-size:12px;font-weight:600">{rank_txt}</span>'
+                f'<span style="background:rgba(251,146,60,0.15);color:#fb923c;border-radius:6px;padding:2px 8px;font-size:11px;font-weight:700">⚡ {form_pct}%</span>'
+                f'</div>'
+                f'<div style="color:#94a3b8;font-size:13px;margin-top:8px;font-weight:500">{style}</div>'
+                f'</div>'
+                f'<div style="text-align:center;background:rgba(0,0,0,0.2);border:1.5px solid {cote_color};'
+                f'border-radius:12px;padding:10px 14px;min-width:80px">'
+                f'<div style="color:{cote_color};font-size:10.5px;font-weight:700;letter-spacing:0.5px">{cote_label}</div>'
+                f'<div style="color:{cote_color};font-size:22px;font-weight:800;line-height:1;margin-top:2px">{cote:.2f}</div>'
+                f'</div>'
+                f'</div>'
+            )
+
+        h_is_pick = (best_side == "home")
+        a_is_pick = (best_side == "away")
+
+        # Analyse section : 3 sections (Style, Niveau & Forme, Conditions)
+        def _bar_row(label, hv, av, fmt_pct=True, suffix=""):
+            # hv et av = valeurs comparatives
+            if hv is None: hv = 0
+            if av is None: av = 0
+            total = max(1, hv + av)
+            h_pct = hv / total * 100
+            a_pct = av / total * 100
+            h_color = "#22c55e" if hv >= av else "#94a3b8"
+            a_color = "#22c55e" if av > hv else "#94a3b8"
+            h_disp = f"{round(hv)}{suffix}" if fmt_pct else f"{hv:.1f}{suffix}"
+            a_disp = f"{round(av)}{suffix}" if fmt_pct else f"{av:.1f}{suffix}"
+            return (
+                f'<div style="margin-bottom:14px">'
+                f'<div style="text-align:center;color:#94a3b8;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:6px">{label}</div>'
+                f'<div style="display:flex;align-items:center;gap:10px">'
+                f'<div style="color:{h_color};font-size:18px;font-weight:800;width:60px;text-align:right">{h_disp}</div>'
+                f'<div style="flex:1;display:flex;background:#1e293b;border-radius:6px;overflow:hidden;height:10px">'
+                f'<div style="background:{h_color};width:{h_pct:.1f}%;transition:width 0.5s"></div>'
+                f'<div style="background:{a_color};width:{a_pct:.1f}%;opacity:0.6;transition:width 0.5s"></div>'
+                f'</div>'
+                f'<div style="color:{a_color};font-size:18px;font-weight:800;width:60px">{a_disp}</div>'
+                f'</div>'
+                f'</div>'
+            )
+
+        # H2H
+        h2h = m.get("h2h") or {}
+        h2h_h = h2h.get("home_wins", 0)
+        h2h_a = h2h.get("away_wins", 0)
+
+        analyse_html = (
+            f'<div id="bk2-tennis-analysis-{eid}" style="display:none;margin-top:18px">'
+            f'<div style="background:#0f1f3a;border:1px solid #1e3a5f;border-radius:14px;padding:18px">'
+            # Sections
+            f'<div style="color:#22c55e;font-size:11px;font-weight:800;letter-spacing:0.8px;margin-bottom:14px">NIVEAU & FORME</div>'
+            + _bar_row("Classement ATP/WTA", h.get("rank_points") or 0, a.get("rank_points") or 0, fmt_pct=False, suffix=" pts")
+            + _bar_row("Forme récente L10", h_form, a_form, suffix="%")
+            + f'<div style="color:#22c55e;font-size:11px;font-weight:800;letter-spacing:0.8px;margin:20px 0 14px">CONDITIONS & CONTEXTE</div>'
+            + (_bar_row(f"% victoires sur {surf_lbl}", h_surf or 0, a_surf or 0, suffix="%") if h_surf is not None or a_surf is not None else "")
+            + _bar_row("Matchs joués cette saison", h.get("n_matches_year") or 0, a.get("n_matches_year") or 0, fmt_pct=False, suffix="")
+            + _bar_row("Jeux gagnés/match", h.get("avg_games_for") or 0, a.get("avg_games_for") or 0, fmt_pct=False)
+            + f'<div style="color:#22c55e;font-size:11px;font-weight:800;letter-spacing:0.8px;margin:20px 0 14px">CONFRONTATIONS H2H</div>'
+            + f'<div style="text-align:center;color:#94a3b8;font-size:13px">'
+            + (f'{h.get("name","?")} <span style="color:#22c55e;font-weight:800">{h2h_h}V</span> · <span style="color:#94a3b8;font-weight:800">{h2h_a}V</span> {a.get("name","?")}' if h2h.get("total") else "Aucune confrontation passée")
+            + '</div>'
+            + '</div></div>'
+        )
+
+        # Header card
+        header_html = (
+            f'<div style="background:#0f172a;border:2px solid #22c55e;border-radius:18px;padding:20px;margin-bottom:12px">'
+            # Top : surface + round + date + value badge
+            f'<div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;margin-bottom:18px">'
+            f'<div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">'
+            f'<span style="background:rgba(34,197,94,0.15);border:1px solid #22c55e;color:#22c55e;border-radius:8px;padding:4px 10px;font-size:12px;font-weight:700">{surf_lbl}</span>'
+            f'<span style="color:#64748b;font-size:13px">📅 {date_str}</span>'
+            f'</div>'
+            f'{v_badge}'
+            f'</div>'
+            # Players
+            + _player_card(h, h_cote, h_form, h_surf, h_style, is_pick=h_is_pick)
+            + _player_card(a, a_cote, a_form, a_surf, a_style, is_pick=a_is_pick)
+            # Voir analyse btn
+            + f'<div style="text-align:right;margin-top:8px">'
+            + f'<button onclick="bk2ToggleTennisAnalysis(\'{eid}\')" style="background:transparent;color:#22c55e;border:0;font-size:14px;font-weight:700;cursor:pointer;padding:6px 0">Voir l\'analyse →</button>'
+            + '</div>'
+            + '</div>'
+        )
+
+        return header_html + analyse_html
+
+    # Construit le dict { event_id: html } pour le tennis
+    tennis_details_map = {}
+    try:
+        for _tm in _tdata.get("matches", []) or []:
+            eid = _tm.get("event_id")
+            if not eid: continue
+            tennis_details_map[eid] = build_tennis_pronos_card(_tm)
+    except Exception as _e:
+        print(f"  [tennis pronos card err] {_e}")
+
+    tennis_details_json = __import__("json").dumps(tennis_details_map, ensure_ascii=False)
+
     def _bk_pronos():
         # Top compétitions = top 5 par volume (mix sports)
         from collections import Counter as _C
@@ -5418,7 +5616,14 @@ function showSport(sport){{
 
 // ─── Pronos V2 (Betclic-like) ───────────────────────────────────────
 window._BK2_DATA = {pronos_data_json};
+window._BK2_TENNIS_DETAILS = {tennis_details_json};
 window._bk2State = {{ sport: 'all', comp: null, query: '' }};
+
+function bk2ToggleTennisAnalysis(eid){{
+  var box = document.getElementById('bk2-tennis-analysis-' + eid);
+  if(!box) return;
+  box.style.display = (box.style.display === 'none' || !box.style.display) ? 'block' : 'none';
+}}
 
 function bk2ToggleSport(sid){{
   var box = document.getElementById('bk2-leagues-' + sid);
@@ -5624,6 +5829,11 @@ function bk2RenderDetail(mid, sport){{
 function bk2CloneCardInto(hostId, mid, sport){{
   var host = document.getElementById(hostId);
   if(!host) return;
+  // Tennis : utilise la card dediee "Pronos detail" (mockup Boss Open)
+  if(sport === 'tennis' && window._BK2_TENNIS_DETAILS && window._BK2_TENNIS_DETAILS[mid]){{
+    host.innerHTML = window._BK2_TENNIS_DETAILS[mid];
+    return;
+  }}
   var srcId = 'bk2-card-' + sport + '-' + mid;
   var src = document.getElementById(srcId);
   // Tennis : fallback sur data-bk2-id attribute (id direct interdit car
