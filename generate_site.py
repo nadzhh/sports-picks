@@ -5938,9 +5938,9 @@ function updateHistChart(containerId){{
     halos += '<circle cx="'+x.toFixed(1)+'" cy="'+y.toFixed(1)+'" r="11" fill="'+col+'" opacity="0.15"/>';
     halos += '<circle cx="'+x.toFixed(1)+'" cy="'+y.toFixed(1)+'" r="7.5" fill="'+col+'" opacity="0.25"/>';
     dots += '<circle cx="'+x.toFixed(1)+'" cy="'+y.toFixed(1)+'" r="5.5" fill="'+col+'" stroke="#0f172a" stroke-width="2.5" '
-         +  'style="cursor:pointer;transition:r 0.2s" data-tip="'+tip+'" '
-         +  'onmouseover="this.setAttribute(\'r\',7); histChartTip(this)" '
-         +  'onmouseout="this.setAttribute(\'r\',5.5); histChartTipHide()"><title>'+tip+'</title></circle>';
+         +  'style="cursor:pointer" data-tip="'+tip+'" '
+         +  'onmouseover="histChartTip(this)" '
+         +  'onmouseout="histChartTipHide()"><title>'+tip+'</title></circle>';
     var showLabel = (i === 0 || i === n-1 || i % labelStep === 0 || i === bestI || i === worstI);
     if(showLabel){{
       var labelY = y - 16;
