@@ -6282,9 +6282,70 @@ function bk2BackToFeed(){{
   bk2Render();
 }}
 function bk2GoMatch(mid, sport){{
+  // Strategie : si le match a une vraie carte dans la section Picks
+  // (sport-football / sport-nba / sport-tennis), on redirige directement
+  // l'utilisateur la-bas avec scroll + expand. C'est 100% fiable car on
+  // utilise le DOM original sans clonage.
+  // Sinon (matchs schedule ESPN tennis / TheSportsDB basket / basket-EU
+  // Odds API sans picks), on garde l'ancienne vue detail V1.
+  var hasSourceCard = !!(
+    document.getElementById('bk2-card-' + sport + '-' + mid) ||
+    document.querySelector('[data-bk2-id="bk2-card-' + sport + '-' + mid + '"]')
+  );
+  if(hasSourceCard){{
+    bk2RedirectToPicks(mid, sport);
+    return;
+  }}
   window._bk2State.detailMid = mid;
   window._bk2State.detailSport = sport;
   bk2Render();
+}}
+
+// Switch sur Picks + subtab + scroll vers la card + expand
+function bk2RedirectToPicks(mid, sport){{
+  // Sport -> subtab name
+  var subMap = {{ 'foot': 'football', 'nba': 'nba', 'tennis': 'tennis' }};
+  var subName = subMap[sport] || 'football';
+  // 1) Active l'onglet Picks
+  if(typeof showSport === 'function'){{
+    showSport('picks');
+  }}
+  // 2) Active le sous-toggle
+  if(typeof showSubPicks === 'function'){{
+    showSubPicks(subName);
+  }}
+  // 3) Scroll + expand apres un tick (le DOM doit etre visible)
+  setTimeout(function(){{
+    var card = document.getElementById('bk2-card-' + sport + '-' + mid)
+             || document.querySelector('[data-bk2-id="bk2-card-' + sport + '-' + mid + '"]');
+    if(!card){{
+      console.warn('[bk2 redirect] card introuvable pour', sport, mid);
+      return;
+    }}
+    // Scroll smooth + highlight visuel
+    card.scrollIntoView({{ behavior: 'smooth', block: 'start' }});
+    // Expand le body : pour foot/nba la classe est 'show-stats' + 'show-picks'
+    if(sport === 'foot'){{
+      var body = card.querySelector('.match-body');
+      if(body){{
+        body.classList.add('show-stats');
+        body.classList.add('show-picks');
+      }}
+      var picksBtn = card.querySelector('.picks-btn');
+      if(picksBtn) picksBtn.classList.add('active');
+    }} else if(sport === 'nba'){{
+      var body2 = card.querySelector('.nba-match-body');
+      if(body2){{
+        body2.classList.add('show-stats');
+        body2.classList.add('show-picks');
+      }}
+    }}
+    // Highlight temporaire : border vert pendant 2s
+    var oldBoxShadow = card.style.boxShadow;
+    card.style.transition = 'box-shadow 0.3s';
+    card.style.boxShadow = '0 0 0 3px #22c55e, 0 4px 20px rgba(34,197,94,0.4)';
+    setTimeout(function(){{ card.style.boxShadow = oldBoxShadow || ''; }}, 2000);
+  }}, 80);
 }}
 function bk2OpenInPicks(){{
   var sportMap = {{ 'foot': 'football', 'tennis': 'tennis', 'nba': 'nba' }};

@@ -494,14 +494,21 @@ def main():
         "n_picks":      n_picks,
         "matches":      out_matches,
     }
-    # Preserve-on-empty : si rien a sortir mais qu'un ancien fichier existait, on garde
+    # Preserve-on-empty : si rien a sortir mais qu'un ancien fichier existait,
+    # on garde UNIQUEMENT les matchs encore d'actualite (start_ts > now - 6h).
+    # Evite que des tournois finis (Roland-Garros) restent affiches.
     if n_picks == 0 and OUT_PATH.exists():
         try:
+            import time as _t_mod
             old = json.loads(OUT_PATH.read_text(encoding="utf-8"))
-            if old.get("n_picks", 0) > 0:
-                print(f"  [tennis engine] 0 picks generes - on preserve l'ancien ({old.get('n_picks')} picks)")
-                old["preserved"] = True
-                payload = old
+            cutoff = _t_mod.time() - 6 * 3600
+            still_fresh = [m for m in old.get("matches", []) if (m.get("start_ts") or 0) > cutoff]
+            n_pks_fresh = sum(len(m.get("picks") or []) for m in still_fresh)
+            if still_fresh and n_pks_fresh > 0:
+                print(f"  [tennis engine] 0 picks generes - preserve {len(still_fresh)} matchs frais ({n_pks_fresh} picks)")
+                payload = {**old, "matches": still_fresh, "n_matches": len(still_fresh), "n_picks": n_pks_fresh, "preserved": True}
+            elif old.get("matches"):
+                print(f"  [tennis engine] ancien fichier {len(old.get('matches',[]))} matchs mais tous passes -> dropped")
         except Exception as e:
             print(f"  [tennis engine preserve err] {e}")
     OUT_PATH.write_text(json.dumps(payload, ensure_ascii=False, indent=2), encoding="utf-8")
