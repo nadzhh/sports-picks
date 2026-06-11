@@ -91,6 +91,9 @@ def main():
     # On expose juste les matchs + cotes consensus dans Pronos V1 (pas de
     # picks engine player-level pour ces ligues — stats sources non integrees).
     run("basketball_scraper.py", "Basketball Europe (Euroleague/ACB/LNB/Eurocup)")
+    # 3.8 Basketball schedule (TheSportsDB) : LNB, ACB, Lega A, BBL, etc
+    # quand Odds API ne les expose pas. Sans cote -> affichage informatif.
+    run("basketball_schedule_scraper.py", "Basketball schedule (TheSportsDB)")
 
     # 4. Genere le site + push GitHub
     if not run("generate_site.py", "Generation du site"):

@@ -3901,11 +3901,18 @@ def build_html(matches, team_ai, player_ai, pstats_data, nba_picks=None, nba_his
     pronos_match_list = []
     # Foot — IMPORTANT : id sans tirets (cf. mid_safe dans build_match_card)
     for _m in (matches or []):
+        n_picks_foot = (
+            len(_m.get("picks") or []) +
+            len(_m.get("fun_picks") or []) +
+            len(_m.get("home_players") or []) +
+            len(_m.get("away_players") or [])
+        )
         pronos_match_list.append({
             "sport": "foot", "league": _m.get("league") or "Autres",
             "home": _m.get("home", "?"), "away": _m.get("away", "?"),
             "start_ts": _m.get("start_ts"),
             "mid": str(_m.get("match_id") or "").replace("-",""),
+            "n_picks": n_picks_foot,
         })
     # Tennis (Odds API : matchs avec picks + cotes)
     tennis_picks_eids = set()
@@ -3913,6 +3920,7 @@ def build_html(matches, team_ai, player_ai, pstats_data, nba_picks=None, nba_his
         for _tm in _tdata.get("matches", []) or []:
             eid = _tm.get("event_id") or ""
             tennis_picks_eids.add(eid)
+            n_picks_t = len(_tm.get("picks") or [])
             pronos_match_list.append({
                 "sport": "tennis",
                 "league": _tm.get("tournament") or "ATP/WTA",
@@ -3920,6 +3928,7 @@ def build_html(matches, team_ai, player_ai, pstats_data, nba_picks=None, nba_his
                 "away": (_tm.get("away") or {}).get("name") or _tm.get("away_name") or "?",
                 "start_ts": _tm.get("start_ts"),
                 "mid": eid,
+                "n_picks": n_picks_t,
             })
     except Exception:
         pass
@@ -3951,6 +3960,7 @@ def build_html(matches, team_ai, player_ai, pstats_data, nba_picks=None, nba_his
                 "away": _sm.get("away_name", "?"),
                 "start_ts": _sm.get("start_ts"),
                 "mid": _sm.get("event_id") or "",
+                "n_picks": 0,  # schedule ESPN sans cote = pas de pick
             })
     except FileNotFoundError:
         tennis_schedule_data = {"matches": []}
@@ -3960,11 +3970,13 @@ def build_html(matches, team_ai, player_ai, pstats_data, nba_picks=None, nba_his
     # NBA
     if nba_picks:
         for _gid, _g in nba_picks.items():
+            n_picks_nba = len(_g.get("home_picks") or []) + len(_g.get("away_picks") or [])
             pronos_match_list.append({
                 "sport": "nba", "league": "NBA",
                 "home": _g.get("home_team","?"), "away": _g.get("away_team","?"),
                 "start_ts": None,
                 "mid": str(_gid).replace("'", ""),
+                "n_picks": n_picks_nba,
             })
     # Basketball Europe (Euroleague, ACB, LNB, Eurocup, etc) — sans picks
     try:
@@ -3977,9 +3989,32 @@ def build_html(matches, team_ai, player_ai, pstats_data, nba_picks=None, nba_his
                 "home": _bm.get("home", "?"), "away": _bm.get("away", "?"),
                 "start_ts": _bm.get("start_ts"),
                 "mid": (_bm.get("event_id") or "").replace("-",""),
+                "n_picks": 0,  # basket Odds API : market consensus seul (pas de player picks)
             })
     except Exception as _e:
         print(f"  [basketball-eu pronos err] {_e}")
+
+    # Basketball Europe (TheSportsDB) : Liga ACB, Lega Basket, LNB Pro A, BBL,
+    # Greek Basket, Turkish BSL — sans cotes, juste schedule.
+    basket_schedule_data = {}
+    try:
+        with open("data/basketball_schedule.json", encoding="utf-8") as _bsf:
+            basket_schedule_data = __import__("json").load(_bsf)
+        for _bsm in basket_schedule_data.get("matches", []) or []:
+            pronos_match_list.append({
+                "sport": "nba",
+                "league": _bsm.get("league") or "Basketball EU",
+                "home": _bsm.get("home", "?"),
+                "away": _bsm.get("away", "?"),
+                "start_ts": _bsm.get("start_ts"),
+                "mid": _bsm.get("event_id") or "",
+                "n_picks": 0,  # schedule TheSportsDB sans cote
+            })
+    except FileNotFoundError:
+        basket_schedule_data = {"matches": []}
+    except Exception as _e:
+        print(f"  [basket schedule load err] {_e}")
+        basket_schedule_data = {"matches": []}
 
     # Embed en JS pour filtrage cote client
     pronos_data_json = __import__("json").dumps(pronos_match_list, ensure_ascii=False)
@@ -4379,14 +4414,70 @@ def build_html(matches, team_ai, player_ai, pstats_data, nba_picks=None, nba_his
     except Exception as _e:
         print(f"  [basket-eu pronos card err] {_e}")
 
+    # Card sans-cotes pour les matchs TheSportsDB (Liga ACB, Lega A, LNB, BBL...)
+    def build_basket_schedule_card(m):
+        lg = m.get("league", "?")
+        emoji = m.get("country_emoji", "🏀")
+        home = m.get("home", "?"); away = m.get("away", "?")
+        date_str = _fmt_dt_basket(m.get("start_iso"))
+        venue = m.get("venue", "")
+        rnd = m.get("round", "")
+        venue_html = f'<div style="color:#64748b;font-size:12px;margin-top:6px">📍 {venue}</div>' if venue else ""
+        round_html = f'<span style="background:#1e293b;color:#cbd5e1;border-radius:6px;padding:3px 9px;font-size:11px;font-weight:700">{rnd}</span>' if rnd else ""
+        return (
+            f'<div style="background:#0f172a;border:2px solid #fb923c;border-radius:18px;padding:20px;margin-bottom:12px">'
+            f'<div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;margin-bottom:18px">'
+            f'<div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">'
+            f'<span style="background:rgba(251,146,60,0.15);border:1px solid #fb923c;color:#fb923c;border-radius:8px;padding:4px 10px;font-size:12px;font-weight:700">{emoji} {lg}</span>'
+            f'{round_html}'
+            f'<span style="color:#64748b;font-size:13px">📅 {date_str}</span>'
+            f'</div>'
+            f'<div style="background:rgba(250,204,21,0.15);border:1px solid #facc15;color:#facc15;border-radius:8px;padding:4px 10px;font-size:11px;font-weight:700">SOURCE TheSportsDB</div>'
+            f'</div>'
+            f'<div style="display:grid;grid-template-columns:1fr auto 1fr;gap:14px;align-items:center;margin-bottom:14px">'
+            f'<div style="text-align:right">'
+            f'<div style="color:#f1f5f9;font-size:18px;font-weight:800">{home}</div>'
+            f'<div style="color:#64748b;font-size:11px;margin-top:4px">Domicile</div>'
+            f'</div>'
+            f'<div style="color:#475569;font-size:18px;font-weight:800">VS</div>'
+            f'<div style="text-align:left">'
+            f'<div style="color:#f1f5f9;font-size:18px;font-weight:800">{away}</div>'
+            f'<div style="color:#64748b;font-size:11px;margin-top:4px">Extérieur</div>'
+            f'</div>'
+            f'</div>'
+            f'{venue_html}'
+            '<div style="background:rgba(250,204,21,0.06);border-left:3px solid #facc15;padding:10px 14px;border-radius:4px;color:#cbd5e1;font-size:12.5px;line-height:1.5;margin-top:14px">'
+            '<b style="color:#facc15">ℹ️ Cotes non disponibles</b> — Ce championnat européen n\'est pas couvert par The Odds API. Le match est affiché à titre informatif (source TheSportsDB).'
+            '</div>'
+            '</div>'
+        )
+
+    try:
+        for _bsm in basket_schedule_data.get("matches", []) or []:
+            eid = _bsm.get("event_id")
+            if not eid: continue
+            if eid in basket_eu_details_map: continue
+            basket_eu_details_map[eid] = build_basket_schedule_card(_bsm)
+    except Exception as _e:
+        print(f"  [basket schedule card err] {_e}")
+
     basket_eu_details_json = __import__("json").dumps(basket_eu_details_map, ensure_ascii=False)
 
     def _bk_pronos():
-        # Top compétitions = top 5 par volume (mix sports)
+        # Top compétitions = top par volume — uniquement matchs FUTURS (sinon
+        # Roland-Garros terminé y restait).
+        import time as _tm0
         from collections import Counter as _C
+        _now0 = int(_tm0.time())
         comp_counts = _C()
         comp_sport = {}
         for m in pronos_match_list:
+            ts = m.get("start_ts")
+            # NBA US n'a pas start_ts -> on l'inclut toujours. Pour les autres
+            # sports, on garde uniquement matchs > now - 2h (en cours OK,
+            # terminés non).
+            if m["sport"] != "nba" and not (ts and ts > _now0 - 7200):
+                continue
             k = m["league"]
             comp_counts[k] += 1
             comp_sport[k] = m["sport"]
@@ -4400,10 +4491,10 @@ def build_html(matches, team_ai, player_ai, pstats_data, nba_picks=None, nba_his
         SP_COLOR = {"foot":"#22c55e","tennis":"#facc15","nba":"#fb923c"}
         SP_LABEL = {"foot":"Football","tennis":"Tennis","nba":"Basketball"}
 
-        # Match du jour (start_ts dans les 36h prochaines)
+        # Match du jour (start_ts dans les 72h prochaines)
         import time as _tm
         now_ts = int(_tm.time())
-        today_end_ts = now_ts + 36 * 3600
+        today_end_ts = now_ts + 72 * 3600
         matches_today_by_sport = {"foot":[], "tennis":[], "nba":[]}
         for m in pronos_match_list:
             ts = m.get("start_ts")
@@ -4459,12 +4550,12 @@ def build_html(matches, team_ai, player_ai, pstats_data, nba_picks=None, nba_his
             )
         out.append('</div></div>')
 
-        # Compétitions J / J+1 par sport
-        next_2d_ts = now_ts + 48 * 3600
+        # Compétitions J / J+1 / J+2 par sport (72h pour inclure ESPN schedule)
+        next_3d_ts = now_ts + 72 * 3600
         comps_by_sport = {"foot": _C(), "tennis": _C(), "nba": _C()}
         for m in pronos_match_list:
             ts = m.get("start_ts")
-            in_window = (m["sport"] == "nba") or (ts and now_ts - 7200 < ts < next_2d_ts)
+            in_window = (m["sport"] == "nba") or (ts and now_ts - 7200 < ts < next_3d_ts)
             if in_window:
                 comps_by_sport[m["sport"]][m["league"]] += 1
 
@@ -6034,12 +6125,22 @@ function bk2Render(){{
       g.matches.slice(0,15).forEach(function(m){{
         var t = fmtTime(m.start_ts);
         var tBadge = t ? '<span style="background:#1e293b;color:#cbd5e1;border-radius:6px;padding:2px 7px;font-size:11px;font-weight:700;margin-right:8px">'+t+'</span>' : '';
+        // Pick count badge : couleur graduee selon le nombre
+        var np = m.n_picks || 0;
+        var pickBadge = '';
+        if(np > 0){{
+          var pCol = (np >= 5) ? '#22c55e' : (np >= 2 ? '#3b82f6' : '#facc15');
+          pickBadge = '<span style="background:'+pCol+'1f;border:1px solid '+pCol+'80;color:'+pCol+';border-radius:8px;padding:2px 8px;font-size:11px;font-weight:800;margin-right:10px">🎯 '+np+'</span>';
+        }} else {{
+          pickBadge = '<span style="background:#1e293b;color:#475569;border-radius:8px;padding:2px 8px;font-size:11px;font-weight:600;margin-right:10px">— no pick</span>';
+        }}
         html += '<div style="padding:12px 14px;border-top:1px solid #1e293b;cursor:pointer;display:flex;align-items:center" onclick="bk2GoMatch(\\''+(m.mid||'')+'\\',\\''+(m.sport||'')+'\\')">'
              + tBadge
              + '<div style="flex:1">'
              + '<div style="color:#f1f5f9;font-size:14px;font-weight:700;line-height:1.3">'+m.home+'</div>'
              + '<div style="color:#cbd5e1;font-size:14px;font-weight:600;line-height:1.3;margin-top:2px">'+m.away+'</div>'
              + '</div>'
+             + pickBadge
              + '<svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M9 6l6 6-6 6" stroke="#475569" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>'
              + '</div>';
       }});
