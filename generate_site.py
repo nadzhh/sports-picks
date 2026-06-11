@@ -4463,6 +4463,50 @@ def build_html(matches, team_ai, player_ai, pstats_data, nba_picks=None, nba_his
 
     basket_eu_details_json = __import__("json").dumps(basket_eu_details_map, ensure_ascii=False)
 
+    # ─── Cards FOOT pour V1 (IDs préfixés v1_ pour ne pas entrer en
+    # collision avec la carte originale de sport-football). Rebuild full card
+    # pour V1, expansion par defaut + IDs uniques.
+    foot_details_map = {}
+    for _m in (matches or []):
+        try:
+            _mid = str(_m.get("match_id") or "").replace("-","")
+            if not _mid: continue
+            _mid_str = str(_m["match_id"])
+            _ps = pstats_data.get(_mid_str, {})
+            _raw = build_match_card(_m, team_ai_map, player_ai, _ps)
+            _new_mid = "v1_" + _mid
+            # Suffixe tous les IDs et toggle args pour eviter les collisions
+            _raw = _raw.replace(f'id="bk2-card-foot-{_mid}"', f'id="bk2-v1-card-foot-{_new_mid}"')
+            _raw = _raw.replace(f"toggleStats('{_mid}')",   f"toggleStats('{_new_mid}')")
+            _raw = _raw.replace(f"togglePicks('{_mid}')",   f"togglePicks('{_new_mid}')")
+            _raw = _raw.replace(f'id="picks-btn-{_mid}"',   f'id="picks-btn-{_new_mid}"')
+            _raw = _raw.replace(f'id="arrow-{_mid}"',       f'id="arrow-{_new_mid}"')
+            _raw = _raw.replace(f'id="body-{_mid}"',        f'id="body-{_new_mid}" class="match-body show-stats show-picks"')
+            # show-stats/show-picks reset (on a deja appliqué classes ci-dessus)
+            _raw = _raw.replace('class="match-body" class="match-body show-stats show-picks"', 'class="match-body show-stats show-picks"')
+            foot_details_map[_mid] = _raw
+        except Exception as _e:
+            print(f"  [foot v1 card err] {_m.get('home','?')} vs {_m.get('away','?')}: {_e}")
+    foot_details_json = __import__("json").dumps(foot_details_map, ensure_ascii=False)
+
+    # ─── Cards NBA pour V1 (IDs préfixés v1_)
+    nba_details_map = {}
+    if nba_picks:
+        for _gid, _game in nba_picks.items():
+            try:
+                _gid_safe = str(_gid).replace("'", "")
+                _raw = build_nba_card(_game)
+                _new_gid = "v1_" + _gid_safe
+                _raw = _raw.replace(f'id="bk2-card-nba-{_gid_safe}"', f'id="bk2-v1-card-nba-{_new_gid}"')
+                _raw = _raw.replace(f"toggleNbaMatch('{_gid_safe}')", f"toggleNbaMatch('{_new_gid}')")
+                _raw = _raw.replace(f'id="nba-arrow-{_gid_safe}"',    f'id="nba-arrow-{_new_gid}"')
+                _raw = _raw.replace(f'id="nba-body-{_gid_safe}"',     f'id="nba-body-{_new_gid}" class="nba-match-body show-stats show-picks"')
+                _raw = _raw.replace('class="nba-match-body" class="nba-match-body show-stats show-picks"', 'class="nba-match-body show-stats show-picks"')
+                nba_details_map[_gid_safe] = _raw
+            except Exception as _e:
+                print(f"  [nba v1 card err] gid={_gid}: {_e}")
+    nba_details_json = __import__("json").dumps(nba_details_map, ensure_ascii=False)
+
     def _bk_pronos():
         # Top compétitions = top par volume — uniquement matchs FUTURS (sinon
         # Roland-Garros terminé y restait).
@@ -5965,6 +6009,8 @@ function showSport(sport){{
 window._BK2_DATA = {pronos_data_json};
 window._BK2_TENNIS_DETAILS = {tennis_details_json};
 window._BK2_BASKET_EU_DETAILS = {basket_eu_details_json};
+window._BK2_FOOT_DETAILS = {foot_details_json};
+window._BK2_NBA_DETAILS = {nba_details_json};
 window._bk2State = {{ sport: 'all', comp: null, query: '' }};
 
 function bk2ToggleTennisAnalysis(eid){{
@@ -6165,16 +6211,11 @@ function bk2RenderDetail(mid, sport){{
   var ic = SP_ICON[sport] || '·';
   var title = data ? (data.home + ' vs ' + data.away) : 'Match';
   var league = data ? data.league : '';
-  // Sous-tabs
-  var tabs = '<div style="display:flex;gap:6px;background:#0f172a;border:1px solid #1e293b;border-radius:12px;padding:6px;margin-bottom:14px">'
-           + '<button class="bk2-subtab active" data-tab="picks" onclick="bk2SubTab(\\'picks\\')" style="flex:1;background:#0f1f3a;color:#f1f5f9;border:1px solid #3b82f6;border-radius:8px;padding:8px 14px;font-size:13px;font-weight:700;cursor:pointer">📌 Pronostics</button>';
-  // Analyse approfondie : NBA US uniquement (player props). Basket-EU n'a pas
-  // de data joueurs — on cache l'onglet pour ces matchs.
-  var isBasketEu = (window._BK2_BASKET_EU_DETAILS && window._BK2_BASKET_EU_DETAILS[mid]);
-  if(sport === 'nba' && !isBasketEu){{
-    tabs += '<button class="bk2-subtab" data-tab="analyse" onclick="bk2SubTab(\\'analyse\\')" style="flex:1;background:#0a1628;color:#cbd5e1;border:1px solid #1e293b;border-radius:8px;padding:8px 14px;font-size:13px;font-weight:700;cursor:pointer">🔍 Analyse approfondie</button>';
-  }}
-  tabs += '</div>';
+  // V1 = page autonome, pas de sous-onglet "Analyse approfondie" (qui
+  // referencerait sport-analyse). La carte foot/NBA ci-dessous contient deja
+  // toutes les stats + picks + analyse joueurs ; la carte tennis a son propre
+  // bouton "Voir l'analyse" qui toggle la section comparative.
+  var tabs = '';
   var header = '<div style="background:#0f172a;border:1px solid #1e293b;border-radius:12px;padding:14px 18px;margin-bottom:14px">'
              + '<button onclick="bk2BackToFeed()" style="background:#1e293b;color:#cbd5e1;border:0;border-radius:8px;padding:6px 12px;font-size:13px;font-weight:700;cursor:pointer">← Retour</button>'
              + '<div style="display:flex;align-items:center;gap:12px;margin-top:10px">'
@@ -6183,72 +6224,38 @@ function bk2RenderDetail(mid, sport){{
              + '<div style="color:#94a3b8;font-size:11px;text-transform:uppercase;letter-spacing:0.6px">'+league+'</div>'
              + '<div style="color:#f1f5f9;font-size:18px;font-weight:800">'+title+'</div>'
              + '</div></div></div>';
-  // Conteneurs picks + analyse vides, remplis ensuite via clonage du DOM
+  // Conteneur unique : la carte est injectee depuis _BK2_*_DETAILS maps
   var picksBox = '<div id="bk2-detail-picks"></div>';
-  var analyseBox = (sport === 'nba' && !isBasketEu) ? '<div id="bk2-detail-analyse" style="display:none"></div>' : '';
-  host.innerHTML = header + tabs + picksBox + analyseBox;
-  // Clone la card du match dans le panel Pronostics
+  host.innerHTML = header + picksBox;
   bk2CloneCardInto('bk2-detail-picks', mid, sport);
-  // Pour NBA US : clone la section Analyse dans le panel Analyse
-  if(sport === 'nba' && !isBasketEu){{
-    bk2CloneAnalyseInto('bk2-detail-analyse', mid);
-  }}
 }}
 
-// Clone la card foot/nba/tennis correspondante au mid+sport dans le host
+// Injecte la card pre-rendered V1 pour le match (mid+sport).
+// V1 est 100% INDÉPENDANT : aucune référence aux DOM des autres sections.
 function bk2CloneCardInto(hostId, mid, sport){{
   var host = document.getElementById(hostId);
   if(!host) return;
-  // Tennis : utilise la card dediee "Pronos detail" (mockup Boss Open)
+  // Tennis avec picks (Odds API) : card detaillee + analyse comparative
   if(sport === 'tennis' && window._BK2_TENNIS_DETAILS && window._BK2_TENNIS_DETAILS[mid]){{
     host.innerHTML = window._BK2_TENNIS_DETAILS[mid];
     return;
   }}
-  // Basket Europe (Euroleague/ACB/LNB/Eurocup) : card dediee market-only
+  // Basket Europe / WNBA / TheSportsDB : card market-only
   if(sport === 'nba' && window._BK2_BASKET_EU_DETAILS && window._BK2_BASKET_EU_DETAILS[mid]){{
     host.innerHTML = window._BK2_BASKET_EU_DETAILS[mid];
     return;
   }}
-  var srcId = 'bk2-card-' + sport + '-' + mid;
-  var src = document.getElementById(srcId);
-  // Tennis : fallback sur data-bk2-id attribute (id direct interdit car
-  // tennis-match-card a deja un id 'tennis-card-N')
-  if(!src){{
-    src = document.querySelector('[data-bk2-id="' + srcId + '"]');
-  }}
-  if(!src){{
-    host.innerHTML = '<div style="background:#0f172a;border:1px solid #1e293b;border-radius:12px;padding:30px;text-align:center;color:#64748b;font-size:13px">Fiche du match introuvable.</div>';
+  // Foot : card complete (stats + picks + joueurs) avec IDs prefixes v1_
+  if(sport === 'foot' && window._BK2_FOOT_DETAILS && window._BK2_FOOT_DETAILS[mid]){{
+    host.innerHTML = window._BK2_FOOT_DETAILS[mid];
     return;
   }}
-  // Foot/NBA : on duplique le card en renommant TOUS les IDs internes
-  // (body-XX, picks-btn-XX, arrow-XX, nba-body-XX, nba-arrow-XX) ET
-  // l'argument des onclick toggleStats/togglePicks/toggleNbaMatch/etc.
-  // Comme ca, dans la vue detail, les boutons agissent sur la copie clonee,
-  // pas sur la carte originale cachee dans sport-football.
-  if(sport === 'foot' || sport === 'nba'){{
-    var rawHtml = src.outerHTML;
-    var prefix = 'cl' + Date.now().toString(36) + '_';
-    var newMid = prefix + mid;
-    var fns = ['toggleStats','togglePicks','toggleNbaMatch','toggleNbaBody','togglePlayerStats','toggleAnalyseLine','toggleAnalysePlayer','toggleAnalyseTeam','toggleAnalyseBody'];
-    fns.forEach(function(fn){{
-      var pat = new RegExp(fn + "\\\\('" + mid + "'\\\\)", 'g');
-      rawHtml = rawHtml.replace(pat, fn + "('" + newMid + "')");
-    }});
-    rawHtml = rawHtml.split('-' + mid + '"').join('-' + newMid + '"');
-    rawHtml = rawHtml.split('id="bk2-card-' + sport + '-' + mid + '"').join('id="bk2-clone-' + newMid + '"');
-    host.innerHTML = rawHtml;
-    var body = document.getElementById('body-' + newMid) || document.getElementById('nba-body-' + newMid);
-    if(body){{
-      body.classList.add('show-stats');
-      body.classList.add('show-picks');
-    }}
+  // NBA US : card complete (props joueurs) avec IDs prefixes v1_
+  if(sport === 'nba' && window._BK2_NBA_DETAILS && window._BK2_NBA_DETAILS[mid]){{
+    host.innerHTML = window._BK2_NBA_DETAILS[mid];
     return;
   }}
-  // Fallback generique (rare)
-  var clone = src.cloneNode(true);
-  clone.id = '';
-  host.innerHTML = '';
-  host.appendChild(clone);
+  host.innerHTML = '<div style="background:#0f172a;border:1px solid #1e293b;border-radius:12px;padding:30px;text-align:center;color:#64748b;font-size:13px">Fiche du match introuvable dans Pronos V1.</div>';
 }}
 
 // Clone la section Analyse NBA dans le host (avec un message d intro)
@@ -6282,70 +6289,14 @@ function bk2BackToFeed(){{
   bk2Render();
 }}
 function bk2GoMatch(mid, sport){{
-  // Strategie : si le match a une vraie carte dans la section Picks
-  // (sport-football / sport-nba / sport-tennis), on redirige directement
-  // l'utilisateur la-bas avec scroll + expand. C'est 100% fiable car on
-  // utilise le DOM original sans clonage.
-  // Sinon (matchs schedule ESPN tennis / TheSportsDB basket / basket-EU
-  // Odds API sans picks), on garde l'ancienne vue detail V1.
-  var hasSourceCard = !!(
-    document.getElementById('bk2-card-' + sport + '-' + mid) ||
-    document.querySelector('[data-bk2-id="bk2-card-' + sport + '-' + mid + '"]')
-  );
-  if(hasSourceCard){{
-    bk2RedirectToPicks(mid, sport);
-    return;
-  }}
+  // V1 = page 100% INDÉPENDANTE des autres sections.
+  // Tous les details (foot/NBA/tennis/basket-EU) sont pre-rendered en HTML
+  // dans des maps dédiées, avec IDs préfixés v1_ pour éviter les collisions.
   window._bk2State.detailMid = mid;
   window._bk2State.detailSport = sport;
   bk2Render();
-}}
-
-// Switch sur Picks + subtab + scroll vers la card + expand
-function bk2RedirectToPicks(mid, sport){{
-  // Sport -> subtab name
-  var subMap = {{ 'foot': 'football', 'nba': 'nba', 'tennis': 'tennis' }};
-  var subName = subMap[sport] || 'football';
-  // 1) Active l'onglet Picks
-  if(typeof showSport === 'function'){{
-    showSport('picks');
-  }}
-  // 2) Active le sous-toggle
-  if(typeof showSubPicks === 'function'){{
-    showSubPicks(subName);
-  }}
-  // 3) Scroll + expand apres un tick (le DOM doit etre visible)
-  setTimeout(function(){{
-    var card = document.getElementById('bk2-card-' + sport + '-' + mid)
-             || document.querySelector('[data-bk2-id="bk2-card-' + sport + '-' + mid + '"]');
-    if(!card){{
-      console.warn('[bk2 redirect] card introuvable pour', sport, mid);
-      return;
-    }}
-    // Scroll smooth + highlight visuel
-    card.scrollIntoView({{ behavior: 'smooth', block: 'start' }});
-    // Expand le body : pour foot/nba la classe est 'show-stats' + 'show-picks'
-    if(sport === 'foot'){{
-      var body = card.querySelector('.match-body');
-      if(body){{
-        body.classList.add('show-stats');
-        body.classList.add('show-picks');
-      }}
-      var picksBtn = card.querySelector('.picks-btn');
-      if(picksBtn) picksBtn.classList.add('active');
-    }} else if(sport === 'nba'){{
-      var body2 = card.querySelector('.nba-match-body');
-      if(body2){{
-        body2.classList.add('show-stats');
-        body2.classList.add('show-picks');
-      }}
-    }}
-    // Highlight temporaire : border vert pendant 2s
-    var oldBoxShadow = card.style.boxShadow;
-    card.style.transition = 'box-shadow 0.3s';
-    card.style.boxShadow = '0 0 0 3px #22c55e, 0 4px 20px rgba(34,197,94,0.4)';
-    setTimeout(function(){{ card.style.boxShadow = oldBoxShadow || ''; }}, 2000);
-  }}, 80);
+  // Remonte en haut de la page pour ne pas rester scrolle au milieu
+  try {{ window.scrollTo({{ top: 0, behavior: 'smooth' }}); }} catch(e) {{}}
 }}
 function bk2OpenInPicks(){{
   var sportMap = {{ 'foot': 'football', 'tennis': 'tennis', 'nba': 'nba' }};
