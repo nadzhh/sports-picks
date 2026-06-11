@@ -1,18 +1,18 @@
 {
-  "generated_at": "2026-06-11T20:34:33.764496",
-  "n_total": 672,
+  "generated_at": "2026-06-11T21:06:17.312050",
+  "n_total": 673,
   "globals": {
     "foot": {
-      "n": 416,
+      "n": 417,
       "w": 192,
-      "l": 200,
+      "l": 201,
       "push": 24,
-      "wr": 49.0,
-      "roi": -8.4,
-      "profit": -34.95,
-      "avg_cote": 2.25,
-      "break_even_wr": 44.4,
-      "wr_vs_be": 4.6
+      "wr": 48.9,
+      "roi": -8.6,
+      "profit": -35.95,
+      "avg_cote": 2.28,
+      "break_even_wr": 43.9,
+      "wr_vs_be": 5.0
     },
     "nba": {
       "n": 145,
@@ -1063,16 +1063,16 @@
           "wr_vs_be": 2.3
         },
         "True": {
-          "n": 9,
+          "n": 10,
           "w": 3,
-          "l": 6,
+          "l": 7,
           "push": 0,
-          "wr": 33.3,
-          "roi": 32.6,
-          "profit": 2.93,
-          "avg_cote": 3.72,
-          "break_even_wr": 26.9,
-          "wr_vs_be": 6.5
+          "wr": 30.0,
+          "roi": 19.3,
+          "profit": 1.93,
+          "avg_cote": 3.86,
+          "break_even_wr": 25.9,
+          "wr_vs_be": 4.1
         }
       }
     },
@@ -1620,6 +1620,42 @@
             "avg_cote": 1.52,
             "break_even_wr": 65.8,
             "wr_vs_be": 4.8
+          }
+        }
+      }
+    },
+    {
+      "severity": "medium",
+      "type": "context_signal",
+      "scope": "foot · is_fun",
+      "message": "Signal contexte <b>is_fun</b> (foot) : is_fun=True → WR 30.0% (10 picks) vs is_fun=False → WR 49.3% (407). Filtrer/ponderer.",
+      "stats": {
+        "worst": {
+          "True": {
+            "n": 10,
+            "w": 3,
+            "l": 7,
+            "push": 0,
+            "wr": 30.0,
+            "roi": 19.3,
+            "profit": 1.93,
+            "avg_cote": 3.86,
+            "break_even_wr": 25.9,
+            "wr_vs_be": 4.1
+          }
+        },
+        "best": {
+          "False": {
+            "n": 407,
+            "w": 189,
+            "l": 194,
+            "push": 24,
+            "wr": 49.3,
+            "roi": -9.3,
+            "profit": -37.88,
+            "avg_cote": 2.13,
+            "break_even_wr": 47.1,
+            "wr_vs_be": 2.3
           }
         }
       }
