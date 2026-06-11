@@ -4191,6 +4191,33 @@ def build_html(matches, team_ai, player_ai, pstats_data, nba_picks=None, nba_his
             f'</div>'
         )
 
+        # Pour la section SURFACE : on rend liste des matchs récents par joueur
+        def _render_recent_surface(p, color):
+            recent = p.get("surface_recent") or []
+            if not recent:
+                return f'<div style="color:#64748b;font-size:11.5px;font-style:italic;padding:8px 0">Aucun match récent sur {surf_lbl}</div>'
+            rows = []
+            for m_ in recent[:6]:
+                tag = "✓" if m_.get("won") else "✗"
+                tag_col = "#22c55e" if m_.get("won") else "#ef4444"
+                opp = m_.get("opponent","?")
+                sc  = m_.get("score","")
+                tn  = m_.get("tournament","?")
+                rd  = m_.get("round","")
+                dt_ = m_.get("date","")
+                rows.append(
+                    f'<div style="display:flex;align-items:center;gap:8px;padding:6px 0;border-bottom:1px solid #1e3a5f;font-size:11.5px">'
+                    f'<span style="color:{tag_col};font-weight:800;width:14px">{tag}</span>'
+                    f'<span style="color:#64748b;width:75px;font-size:11px">{dt_}</span>'
+                    f'<span style="color:#f1f5f9;flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap" title="{tn} {rd}">{opp}</span>'
+                    f'<span style="color:#94a3b8;font-size:11px;font-family:monospace">{sc}</span>'
+                    f'</div>'
+                )
+            return f'<div style="margin-top:6px">{"".join(rows)}</div>'
+
+        h_surface_n_total = h.get("surface_n") or 0
+        a_surface_n_total = a.get("surface_n") or 0
+
         analyse_html = (
             f'<div id="bk2-tennis-analysis-{eid}" style="display:none;margin-top:18px">'
             f'<div style="background:#0f1f3a;border:1px solid #1e3a5f;border-radius:14px;padding:18px">'
@@ -4199,18 +4226,35 @@ def build_html(matches, team_ai, player_ai, pstats_data, nba_picks=None, nba_his
             + f'<div style="color:#22c55e;font-size:11px;font-weight:800;letter-spacing:0.8px;margin-bottom:14px">NIVEAU & FORME</div>'
             + _bar_row("Classement ATP/WTA (pts)", h.get("rank_points") or 0, a.get("rank_points") or 0, fmt_pct=False, suffix=" pts")
             + _bar_row(f"Forme récente L10 — {h_l10_bilan} | {a_l10_bilan}", h_form, a_form, suffix="%")
-            # SURFACE (specifique au tournoi en cours)
-            + f'<div style="color:#22c55e;font-size:11px;font-weight:800;letter-spacing:0.8px;margin:20px 0 14px">SURFACE — {surf_lbl.upper()}</div>'
+            # SURFACE — avec details des matchs recents par joueur
+            + f'<div style="color:#22c55e;font-size:11px;font-weight:800;letter-spacing:0.8px;margin:20px 0 14px">SURFACE — {surf_lbl.upper()} (3 dernières saisons)</div>'
             + (
                 _bar_row(f"% victoires sur {surf_lbl}", h_surf or 0, a_surf or 0, suffix="%")
-                + _bar_row(f"Bilan {surf_lbl} (matchs joués)",
-                           h_surf_n, a_surf_n, fmt_pct=False, suffix=f" matchs")
-                + f'<div style="display:flex;justify-content:space-between;color:#94a3b8;font-size:11px;padding:0 6px 8px"><span>Bilan : {h_surf_bilan}</span><span>Bilan : {a_surf_bilan}</span></div>'
-                if (h_surf_n + a_surf_n) > 0
-                else f'<div style="color:#64748b;font-size:12px;text-align:center;padding:8px;font-style:italic">Pas assez de matchs sur {surf_lbl} pour comparer (saison récente)</div>'
+                + _bar_row(f"Total matchs joués sur {surf_lbl}", h_surface_n_total, a_surface_n_total, fmt_pct=False, suffix=" matchs")
+                + _bar_row(f"Jeux gagnés / match sur {surf_lbl}",
+                           h.get("avg_games_for_surface") or 0,
+                           a.get("avg_games_for_surface") or 0,
+                           fmt_pct=False)
+                if (h_surface_n_total + a_surface_n_total) > 0
+                else f'<div style="color:#64748b;font-size:12px;text-align:center;padding:8px;font-style:italic">Pas assez de matchs sur {surf_lbl} pour comparer (3 saisons)</div>'
+            )
+            # Listes detaillees des derniers matchs surface par joueur
+            + (
+                f'<div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px">'
+                f'<div style="background:#0a1628;border:1px solid #1e3a5f;border-radius:10px;padding:12px">'
+                f'<div style="color:#cbd5e1;font-size:12px;font-weight:800;margin-bottom:8px">◀ {h.get("name","?")} — derniers {surf_lbl}</div>'
+                + _render_recent_surface(h, "#22c55e")
+                + '</div>'
+                f'<div style="background:#0a1628;border:1px solid #1e3a5f;border-radius:10px;padding:12px">'
+                f'<div style="color:#cbd5e1;font-size:12px;font-weight:800;margin-bottom:8px">{a.get("name","?")} — derniers {surf_lbl} ▶</div>'
+                + _render_recent_surface(a, "#22c55e")
+                + '</div>'
+                + '</div>'
+                if (h.get("surface_recent") or a.get("surface_recent"))
+                else ""
             )
             # ACTIVITE & STYLE
-            + f'<div style="color:#22c55e;font-size:11px;font-weight:800;letter-spacing:0.8px;margin:20px 0 14px">ACTIVITÉ & STYLE DE JEU</div>'
+            + f'<div style="color:#22c55e;font-size:11px;font-weight:800;letter-spacing:0.8px;margin:20px 0 14px">ACTIVITÉ & STYLE DE JEU (toutes surfaces)</div>'
             + _bar_row("Matchs joués cette saison", h.get("n_matches_year") or 0, a.get("n_matches_year") or 0, fmt_pct=False, suffix=" matchs")
             + _bar_row("Jeux gagnés / match", h.get("avg_games_for") or 0, a.get("avg_games_for") or 0, fmt_pct=False)
             + _bar_row("Jeux concédés / match", h.get("avg_games_against") or 0, a.get("avg_games_against") or 0, fmt_pct=False)

@@ -200,11 +200,39 @@ def find_player_id(name, tour="ATP"):
     return candidates[0][0]
 
 
-def get_player(name, tour="ATP", surface=None):
+def _resolve_opponent_name(row, pid, tour):
+    """Renvoie le nom de l'adversaire dans cette row Sackmann."""
+    try:
+        wid = int(row.get("winner_id") or 0)
+        lid = int(row.get("loser_id")  or 0)
+    except Exception:
+        return "?"
+    opp_id = lid if wid == pid else wid
+    if not opp_id: return "?"
+    # Sackmann inclut le nom directement
+    if wid == pid:
+        return (row.get("loser_name") or "?").strip()
+    else:
+        return (row.get("winner_name") or "?").strip()
+
+
+def _fmt_date(yyyymmdd):
+    s = str(yyyymmdd or "")
+    if len(s) == 8:
+        return f"{s[6:8]}/{s[4:6]}/{s[0:4]}"
+    return s
+
+
+def get_player(name, tour="ATP", surface=None, deep_surface_years=3):
     """Retourne dict joueur : rank, L10, surface_form, avg games, n_matches.
 
-    Si on ne trouve pas le joueur, retourne dict avec valeurs None mais structure
-    coherente pour eviter les KeyError downstream.
+    deep_surface_years : nombre d'années à charger pour le bilan surface
+    (par défaut 3 ans → permet d'avoir un échantillon décent sur gazon).
+
+    Champs ajoutés :
+      - surface_recent : liste des N derniers matchs sur la surface (max 8)
+        chaque entrée = {date, opponent, score, won, tournament, round}
+      - surface_w/l/n : agrégés sur TOUS les matchs surface des 3 ans
     """
     out = {
         "name": name,
@@ -214,9 +242,13 @@ def get_player(name, tour="ATP", surface=None):
         "rank_points": None,
         "l10_w": 0, "l10_l": 0, "l10_n": 0,
         "surface_w": 0, "surface_l": 0, "surface_n": 0,
+        "surface_recent": [],
         "avg_games_for": None,
         "avg_games_against": None,
+        "avg_games_for_surface": None,
+        "avg_games_against_surface": None,
         "n_matches_year": 0,
+        "n_matches_total": 0,
     }
     pid = find_player_id(name, tour)
     if not pid:
@@ -225,55 +257,108 @@ def get_player(name, tour="ATP", surface=None):
     rankings = _load_rankings(tour)
     if pid in rankings:
         out["rank"], out["rank_points"] = rankings[pid]
-    # Match history (annee en cours, fallback annee -1 si trop maigre)
+
     year = datetime.now().year
-    matches = _load_matches(tour, year)
-    rows = [r for r in matches
-            if int(r.get("winner_id") or 0) == pid or int(r.get("loser_id") or 0) == pid]
-    if len(rows) < 5:
+    # Matchs ANNEE EN COURS (pour L10 / n_matches_year)
+    rows_year = _load_matches(tour, year)
+    rows_year = [r for r in rows_year
+                 if int(r.get("winner_id") or 0) == pid or int(r.get("loser_id") or 0) == pid]
+    if len(rows_year) < 5:
+        # Si tres maigre, ajoute annee precedente pour le L10
         rows_prev = _load_matches(tour, year - 1)
         rows_prev = [r for r in rows_prev
                      if int(r.get("winner_id") or 0) == pid or int(r.get("loser_id") or 0) == pid]
-        # Concat : annee en cours d'abord (tri par date desc fait plus tard)
-        rows = rows + rows_prev
-    out["n_matches_year"] = len(rows)
-    # Tri par tourney_date desc (YYYYMMDD)
-    rows.sort(key=lambda r: r.get("tourney_date", "0"), reverse=True)
+        rows_year = rows_year + rows_prev
+    out["n_matches_year"] = len(rows_year)
+    rows_year.sort(key=lambda r: r.get("tourney_date","0"), reverse=True)
 
     # L10
-    last10 = rows[:10]
-    for r in last10:
+    for r in rows_year[:10]:
         try:
             wid = int(r.get("winner_id") or 0)
-            won = (wid == pid)
-            if won: out["l10_w"] += 1
-            else:   out["l10_l"] += 1
+            if wid == pid: out["l10_w"] += 1
+            else:           out["l10_l"] += 1
         except Exception:
             pass
     out["l10_n"] = out["l10_w"] + out["l10_l"]
 
-    # Surface form (sur derniers 20 matchs sur cette surface)
+    # SURFACE : on aggregate sur N annees (3 par defaut) pour avoir un
+    # echantillon decent. Les ATP/WTA grass season ne durent que 4 semaines/an
+    # donc 1 an = trop peu, 3 ans = ~10-20 matchs par joueur top 100.
+    surface_rows_all = []
     if surface:
-        surf_rows = [r for r in rows if (r.get("surface","") or "").lower() == surface.lower()][:20]
-        for r in surf_rows:
+        for yr_offset in range(0, deep_surface_years):
+            yr = year - yr_offset
+            ms = _load_matches(tour, yr)
+            for r in ms:
+                try:
+                    wid = int(r.get("winner_id") or 0)
+                    lid = int(r.get("loser_id") or 0)
+                except Exception:
+                    continue
+                if pid not in (wid, lid): continue
+                if (r.get("surface","") or "").lower() != surface.lower(): continue
+                surface_rows_all.append(r)
+        surface_rows_all.sort(key=lambda r: r.get("tourney_date","0"), reverse=True)
+
+        # Agrégat W/L
+        for r in surface_rows_all:
             try:
                 wid = int(r.get("winner_id") or 0)
                 if wid == pid: out["surface_w"] += 1
-                else:          out["surface_l"] += 1
+                else:           out["surface_l"] += 1
             except Exception:
                 pass
         out["surface_n"] = out["surface_w"] + out["surface_l"]
 
-    # Avg games per match (sur derniers 15 matchs surface si dispo, sinon all)
-    sample = [r for r in rows if (not surface or (r.get("surface","") or "").lower() == surface.lower())][:15]
-    if len(sample) < 8:
-        sample = rows[:15]
+        # Liste des 8 derniers matchs surface (pour affichage detaillé)
+        for r in surface_rows_all[:8]:
+            try:
+                wid = int(r.get("winner_id") or 0)
+                won = (wid == pid)
+                out["surface_recent"].append({
+                    "date":     _fmt_date(r.get("tourney_date")),
+                    "opponent": _resolve_opponent_name(r, pid, tour),
+                    "score":    (r.get("score") or "").strip(),
+                    "won":      won,
+                    "tournament": (r.get("tourney_name") or "?").strip(),
+                    "round":    (r.get("round") or "?").strip(),
+                })
+            except Exception:
+                continue
+
+        # Avg games sur la surface (sur les 15 derniers matchs surface)
+        gf_s = ga_s = n_s = 0
+        for r in surface_rows_all[:15]:
+            score = r.get("score") or ""
+            gw, gl = _parse_score_games(score)
+            if gw is None: continue
+            try:
+                wid = int(r.get("winner_id") or 0)
+            except Exception:
+                continue
+            if wid == pid:
+                gf_s += gw; ga_s += gl
+            else:
+                gf_s += gl; ga_s += gw
+            n_s += 1
+        if n_s > 0:
+            out["avg_games_for_surface"]     = round(gf_s / n_s, 1)
+            out["avg_games_against_surface"] = round(ga_s / n_s, 1)
+
+    out["n_matches_total"] = len(rows_year) + len(surface_rows_all)
+
+    # Avg games per match (15 derniers all-surface si surface_n trop faible)
+    sample = surface_rows_all[:15] if surface and len(surface_rows_all) >= 8 else rows_year[:15]
     gf_total = ga_total = n_score = 0
     for r in sample:
         score = r.get("score") or ""
         gw, gl = _parse_score_games(score)
         if gw is None: continue
-        wid = int(r.get("winner_id") or 0)
+        try:
+            wid = int(r.get("winner_id") or 0)
+        except Exception:
+            continue
         if wid == pid:
             gf_total += gw; ga_total += gl
         else:
