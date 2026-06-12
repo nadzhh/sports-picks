@@ -188,10 +188,45 @@ def _try_keys(url_template):
     return None, None
 
 
+# Tournois GRAND CHELEM avec date de FIN : on les exclut systématiquement après
+# leur date de fin pour éviter que l'Odds API retourne des matchs fantômes
+# (l'API laisse parfois `active=True` plusieurs jours après la finale).
+# Format : sport_key -> date de fin (YYYY-MM-DD).
+TOURNAMENT_END_DATE = {
+    "tennis_atp_french_open":   "2026-06-07",   # Roland-Garros 2026
+    "tennis_wta_french_open":   "2026-06-07",
+    "tennis_atp_aus_open_singles": "2026-02-01",  # Australian Open 2026
+    "tennis_wta_aus_open_singles": "2026-02-01",
+    "tennis_atp_wimbledon":     "2026-07-12",  # provisoire (à ajuster)
+    "tennis_wta_wimbledon":     "2026-07-12",
+    "tennis_atp_us_open":       "2026-09-13",  # provisoire
+    "tennis_wta_us_open":       "2026-09-13",
+}
+
+
+def _is_tournament_over(sport_key):
+    end_str = TOURNAMENT_END_DATE.get(sport_key)
+    if not end_str: return False
+    try:
+        end_dt = datetime.fromisoformat(end_str + "T23:59:59+00:00")
+        return datetime.now(timezone.utc) > end_dt
+    except Exception:
+        return False
+
+
 def get_active_tennis_sports():
-    """Liste sport_keys tennis actuellement actifs (refresh 12h)."""
+    """Liste sport_keys tennis actuellement actifs (refresh 12h).
+
+    On exclut DUR les sport_keys dont on sait qu'ils sont terminés
+    (TOURNAMENT_END_DATE) : Odds API laisse parfois `active=True` plusieurs
+    jours après la finale, et on se retrouve avec Roland-Garros qui revient
+    fantôme.
+    """
     cached = _read_cache(ACTIVE_CACHE, ACTIVE_TTL)
     if cached is not None:
+        # Re-filtre meme si cache : la date d'aujourd'hui peut avoir depassee
+        # la date de fin d'un tournoi mis en cache hier.
+        cached = [k for k in cached if not _is_tournament_over(k)]
         return cached
     if not ODDS_API_KEYS:
         return []
@@ -199,8 +234,18 @@ def get_active_tennis_sports():
     data, key_idx = _try_keys(url_tpl)
     if not data:
         return []
-    active = [s["key"] for s in data
-              if s.get("key","").startswith("tennis_") and s.get("active")]
+    active = []
+    skipped = []
+    for s in data:
+        k = s.get("key","")
+        if not k.startswith("tennis_"): continue
+        if not s.get("active"): continue
+        if _is_tournament_over(k):
+            skipped.append(k)
+            continue
+        active.append(k)
+    if skipped:
+        print(f"  [tennis] sport_keys actifs mais TERMINÉS (skip): {', '.join(skipped)}")
     print(f"  [tennis] {len(active)} tournoi(s) actif(s) : {', '.join(active)}")
     _write_cache(ACTIVE_CACHE, active)
     return active

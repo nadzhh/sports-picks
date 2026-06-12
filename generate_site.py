@@ -3915,9 +3915,20 @@ def build_html(matches, team_ai, player_ai, pstats_data, nba_picks=None, nba_his
             "n_picks": n_picks_foot,
         })
     # Tennis (Odds API : matchs avec picks + cotes)
+    # Blocklist tournois finis : Roland-Garros 2026 etait fini le 7 juin, mais
+    # l'Odds API laisse parfois `active=True` plusieurs jours apres → fantome.
+    _TENNIS_BLOCKED_KEYWORDS = ["roland", "french open", "garros"]
+    def _is_tennis_blocked(_tm):
+        sk = (_tm.get("sport_key") or "").lower()
+        if sk in {"tennis_atp_french_open", "tennis_wta_french_open"}: return True
+        tn = (_tm.get("tournament") or "").lower()
+        return any(kw in tn for kw in _TENNIS_BLOCKED_KEYWORDS)
     tennis_picks_eids = set()
     try:
         for _tm in _tdata.get("matches", []) or []:
+            if _is_tennis_blocked(_tm):
+                print(f"  [tennis V1] BLOCKED tournoi terminé : {_tm.get('tournament')!r}")
+                continue
             eid = _tm.get("event_id") or ""
             tennis_picks_eids.add(eid)
             n_picks_t = len(_tm.get("picks") or [])
@@ -4266,6 +4277,56 @@ def build_html(matches, team_ai, player_ai, pstats_data, nba_picks=None, nba_his
             + '</div></div>'
         )
 
+        # Section PRONOSTICS (les vrais picks générés par tennis_picks_engine)
+        picks_list = m.get("picks") or []
+        picks_html = ""
+        if picks_list:
+            rows = []
+            for p in picks_list:
+                kind = p.get("kind", "?")
+                label = p.get("label", "?")
+                conf = p.get("confidence", 0)
+                cote_min = p.get("cote_min")
+                reasoning = (p.get("reasoning") or "").replace("\n", " · ")
+                value = p.get("value") or []
+                v_icon, v_txt, v_col = (value + ["", "", "#94a3b8"])[:3] if value else ("", "", "#94a3b8")
+                # Couleur badge confiance
+                if   conf >= 70: conf_col = "#22c55e"
+                elif conf >= 60: conf_col = "#84cc16"
+                elif conf >= 50: conf_col = "#facc15"
+                else:            conf_col = "#94a3b8"
+                kind_icon = {"tennis_winner":"🏆", "tennis_total_games":"🎲", "tennis_score_sets":"🎯"}.get(kind, "📌")
+                cote_html = f'<span style="color:#22c55e;font-size:12px;font-weight:700">cote min {cote_min:.2f}</span>' if cote_min else ""
+                value_html = f'<span style="background:{v_col}1f;color:{v_col};border:1px solid {v_col}80;border-radius:6px;padding:2px 7px;font-size:10.5px;font-weight:800;margin-left:6px">{v_icon} {v_txt}</span>' if v_txt else ""
+                rows.append(
+                    f'<div style="background:#0a1628;border:1px solid #1e3a5f;border-radius:10px;padding:12px;margin-bottom:8px">'
+                    f'<div style="display:flex;align-items:center;gap:10px;margin-bottom:6px;flex-wrap:wrap">'
+                    f'<span style="font-size:18px">{kind_icon}</span>'
+                    f'<span style="color:#f1f5f9;font-size:14px;font-weight:800;flex:1;min-width:0">{label}</span>'
+                    f'<span style="background:{conf_col}1f;border:1px solid {conf_col};color:{conf_col};border-radius:8px;padding:3px 10px;font-size:12px;font-weight:800">{conf}%</span>'
+                    f'{value_html}'
+                    f'</div>'
+                    f'<div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:6px">'
+                    f'<span style="color:#94a3b8;font-size:11.5px;line-height:1.5;flex:1;min-width:0">{reasoning}</span>'
+                    f'{cote_html}'
+                    f'</div>'
+                    f'</div>'
+                )
+            picks_html = (
+                f'<div style="background:rgba(34,197,94,0.04);border:1px solid #22c55e;border-radius:12px;padding:14px;margin-top:14px">'
+                f'<div style="display:flex;align-items:center;gap:8px;margin-bottom:10px">'
+                f'<span style="color:#22c55e;font-size:11px;font-weight:800;letter-spacing:0.8px">📌 NOS PRONOSTICS ({len(picks_list)})</span>'
+                f'</div>'
+                f'{"".join(rows)}'
+                f'</div>'
+            )
+        else:
+            picks_html = (
+                '<div style="background:rgba(148,163,184,0.06);border:1px solid #334155;border-radius:12px;padding:14px;margin-top:14px;text-align:center">'
+                '<span style="color:#94a3b8;font-size:12.5px;font-style:italic">Aucun pronostic généré pour ce match (cotes insuffisantes ou edge trop faible)</span>'
+                '</div>'
+            )
+
         # Header card
         header_html = (
             f'<div style="background:#0f172a;border:2px solid #22c55e;border-radius:18px;padding:20px;margin-bottom:12px">'
@@ -4280,19 +4341,22 @@ def build_html(matches, team_ai, player_ai, pstats_data, nba_picks=None, nba_his
             # Players
             + _player_card(h, h_cote, h_form, h_surf, h_style, is_pick=h_is_pick)
             + _player_card(a, a_cote, a_form, a_surf, a_style, is_pick=a_is_pick)
+            # PRONOSTICS (picks)
+            + picks_html
             # Voir analyse btn
-            + f'<div style="text-align:right;margin-top:8px">'
-            + f'<button onclick="bk2ToggleTennisAnalysis(\'{eid}\')" style="background:transparent;color:#22c55e;border:0;font-size:14px;font-weight:700;cursor:pointer;padding:6px 0">Voir l\'analyse →</button>'
+            + f'<div style="text-align:right;margin-top:12px">'
+            + f'<button onclick="bk2ToggleTennisAnalysis(\'{eid}\')" style="background:transparent;color:#22c55e;border:0;font-size:14px;font-weight:700;cursor:pointer;padding:6px 0">Voir l\'analyse détaillée →</button>'
             + '</div>'
             + '</div>'
         )
 
         return header_html + analyse_html
 
-    # Construit le dict { event_id: html } pour le tennis
+    # Construit le dict { event_id: html } pour le tennis (skip tournois bloqués)
     tennis_details_map = {}
     try:
         for _tm in _tdata.get("matches", []) or []:
+            if _is_tennis_blocked(_tm): continue
             eid = _tm.get("event_id")
             if not eid: continue
             tennis_details_map[eid] = build_tennis_pronos_card(_tm)
@@ -4508,8 +4572,9 @@ def build_html(matches, team_ai, player_ai, pstats_data, nba_picks=None, nba_his
     basket_eu_details_json = __import__("json").dumps(basket_eu_details_map, ensure_ascii=False)
 
     # ─── Cards FOOT pour V1 (IDs préfixés v1_ pour ne pas entrer en
-    # collision avec la carte originale de sport-football). Rebuild full card
-    # pour V1, expansion par defaut + IDs uniques.
+    # collision avec la carte originale de sport-football).
+    # COLLAPSED par défaut : l'utilisateur clique le header pour
+    # toggleStats (analyse), clique "picks" pour togglePicks.
     foot_details_map = {}
     for _m in (matches or []):
         try:
@@ -4519,21 +4584,18 @@ def build_html(matches, team_ai, player_ai, pstats_data, nba_picks=None, nba_his
             _ps = pstats_data.get(_mid_str, {})
             _raw = build_match_card(_m, team_ai_map, player_ai, _ps)
             _new_mid = "v1_" + _mid
-            # Suffixe tous les IDs et toggle args pour eviter les collisions
             _raw = _raw.replace(f'id="bk2-card-foot-{_mid}"', f'id="bk2-v1-card-foot-{_new_mid}"')
             _raw = _raw.replace(f"toggleStats('{_mid}')",   f"toggleStats('{_new_mid}')")
             _raw = _raw.replace(f"togglePicks('{_mid}')",   f"togglePicks('{_new_mid}')")
             _raw = _raw.replace(f'id="picks-btn-{_mid}"',   f'id="picks-btn-{_new_mid}"')
             _raw = _raw.replace(f'id="arrow-{_mid}"',       f'id="arrow-{_new_mid}"')
-            _raw = _raw.replace(f'id="body-{_mid}"',        f'id="body-{_new_mid}" class="match-body show-stats show-picks"')
-            # show-stats/show-picks reset (on a deja appliqué classes ci-dessus)
-            _raw = _raw.replace('class="match-body" class="match-body show-stats show-picks"', 'class="match-body show-stats show-picks"')
+            _raw = _raw.replace(f'id="body-{_mid}"',        f'id="body-{_new_mid}"')
             foot_details_map[_mid] = _raw
         except Exception as _e:
             print(f"  [foot v1 card err] {_m.get('home','?')} vs {_m.get('away','?')}: {_e}")
     foot_details_json = __import__("json").dumps(foot_details_map, ensure_ascii=False)
 
-    # ─── Cards NBA pour V1 (IDs préfixés v1_)
+    # ─── Cards NBA pour V1 (IDs préfixés v1_, collapsed par défaut)
     nba_details_map = {}
     if nba_picks:
         for _gid, _game in nba_picks.items():
@@ -4544,8 +4606,7 @@ def build_html(matches, team_ai, player_ai, pstats_data, nba_picks=None, nba_his
                 _raw = _raw.replace(f'id="bk2-card-nba-{_gid_safe}"', f'id="bk2-v1-card-nba-{_new_gid}"')
                 _raw = _raw.replace(f"toggleNbaMatch('{_gid_safe}')", f"toggleNbaMatch('{_new_gid}')")
                 _raw = _raw.replace(f'id="nba-arrow-{_gid_safe}"',    f'id="nba-arrow-{_new_gid}"')
-                _raw = _raw.replace(f'id="nba-body-{_gid_safe}"',     f'id="nba-body-{_new_gid}" class="nba-match-body show-stats show-picks"')
-                _raw = _raw.replace('class="nba-match-body" class="nba-match-body show-stats show-picks"', 'class="nba-match-body show-stats show-picks"')
+                _raw = _raw.replace(f'id="nba-body-{_gid_safe}"',     f'id="nba-body-{_new_gid}"')
                 nba_details_map[_gid_safe] = _raw
             except Exception as _e:
                 print(f"  [nba v1 card err] gid={_gid}: {_e}")

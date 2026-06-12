@@ -495,22 +495,38 @@ def main():
         "matches":      out_matches,
     }
     # Preserve-on-empty : si rien a sortir mais qu'un ancien fichier existait,
-    # on garde UNIQUEMENT les matchs encore d'actualite (start_ts > now - 6h).
-    # Evite que des tournois finis (Roland-Garros) restent affiches.
+    # on garde UNIQUEMENT les matchs encore d'actualite (start_ts > now - 6h)
+    # ET dont le tournoi n'est pas terminé (blocklist tournament_raw / sport_key).
+    BLOCKED_TOURNAMENT_KEYWORDS = ["roland", "french open", "garros"]
+    BLOCKED_SPORT_KEYS = {"tennis_atp_french_open", "tennis_wta_french_open"}
+    def _is_blocked(m):
+        sk = (m.get("sport_key") or "").lower()
+        if sk in BLOCKED_SPORT_KEYS: return True
+        tn = (m.get("tournament") or "").lower()
+        for kw in BLOCKED_TOURNAMENT_KEYWORDS:
+            if kw in tn: return True
+        return False
     if n_picks == 0 and OUT_PATH.exists():
         try:
             import time as _t_mod
             old = json.loads(OUT_PATH.read_text(encoding="utf-8"))
             cutoff = _t_mod.time() - 6 * 3600
-            still_fresh = [m for m in old.get("matches", []) if (m.get("start_ts") or 0) > cutoff]
+            still_fresh = [
+                m for m in old.get("matches", [])
+                if (m.get("start_ts") or 0) > cutoff and not _is_blocked(m)
+            ]
             n_pks_fresh = sum(len(m.get("picks") or []) for m in still_fresh)
             if still_fresh and n_pks_fresh > 0:
                 print(f"  [tennis engine] 0 picks generes - preserve {len(still_fresh)} matchs frais ({n_pks_fresh} picks)")
                 payload = {**old, "matches": still_fresh, "n_matches": len(still_fresh), "n_picks": n_pks_fresh, "preserved": True}
             elif old.get("matches"):
-                print(f"  [tennis engine] ancien fichier {len(old.get('matches',[]))} matchs mais tous passes -> dropped")
+                print(f"  [tennis engine] ancien fichier {len(old.get('matches',[]))} matchs mais tous passes/bloques -> dropped")
         except Exception as e:
             print(f"  [tennis engine preserve err] {e}")
+    # Filtre final : exclut les matchs des tournois bloqués (même fraîchement scrapés)
+    payload["matches"] = [m for m in payload.get("matches", []) if not _is_blocked(m)]
+    payload["n_matches"] = len(payload["matches"])
+    payload["n_picks"] = sum(len(m.get("picks") or []) for m in payload["matches"])
     OUT_PATH.write_text(json.dumps(payload, ensure_ascii=False, indent=2), encoding="utf-8")
     print(f"  -> {OUT_PATH} ({payload.get('n_matches', 0)} matchs, {payload.get('n_picks', 0)} picks)")
     # Resume console
