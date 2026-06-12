@@ -1,18 +1,18 @@
 {
-  "generated_at": "2026-06-12T03:40:43.194949",
-  "n_total": 673,
+  "generated_at": "2026-06-12T04:04:34.449934",
+  "n_total": 674,
   "globals": {
     "foot": {
-      "n": 417,
+      "n": 418,
       "w": 192,
-      "l": 201,
+      "l": 202,
       "push": 24,
-      "wr": 48.9,
-      "roi": -8.6,
-      "profit": -35.95,
-      "avg_cote": 2.28,
-      "break_even_wr": 43.9,
-      "wr_vs_be": 5.0
+      "wr": 48.7,
+      "roi": -8.8,
+      "profit": -36.95,
+      "avg_cote": 2.34,
+      "break_even_wr": 42.7,
+      "wr_vs_be": 6.0
     },
     "nba": {
       "n": 145,
@@ -1050,6 +1050,18 @@
         }
       },
       "is_fun": {
+        "True": {
+          "n": 11,
+          "w": 3,
+          "l": 8,
+          "push": 0,
+          "wr": 27.3,
+          "roi": 8.5,
+          "profit": 0.93,
+          "avg_cote": 4.38,
+          "break_even_wr": 22.8,
+          "wr_vs_be": 4.4
+        },
         "False": {
           "n": 407,
           "w": 189,
@@ -1061,18 +1073,6 @@
           "avg_cote": 2.13,
           "break_even_wr": 47.1,
           "wr_vs_be": 2.3
-        },
-        "True": {
-          "n": 10,
-          "w": 3,
-          "l": 7,
-          "push": 0,
-          "wr": 30.0,
-          "roi": 19.3,
-          "profit": 1.93,
-          "avg_cote": 3.86,
-          "break_even_wr": 25.9,
-          "wr_vs_be": 4.1
         }
       }
     },
@@ -1628,20 +1628,20 @@
       "severity": "medium",
       "type": "context_signal",
       "scope": "foot · is_fun",
-      "message": "Signal contexte <b>is_fun</b> (foot) : is_fun=True → WR 30.0% (10 picks) vs is_fun=False → WR 49.3% (407). Filtrer/ponderer.",
+      "message": "Signal contexte <b>is_fun</b> (foot) : is_fun=True → WR 27.3% (11 picks) vs is_fun=False → WR 49.3% (407). Filtrer/ponderer.",
       "stats": {
         "worst": {
           "True": {
-            "n": 10,
+            "n": 11,
             "w": 3,
-            "l": 7,
+            "l": 8,
             "push": 0,
-            "wr": 30.0,
-            "roi": 19.3,
-            "profit": 1.93,
-            "avg_cote": 3.86,
-            "break_even_wr": 25.9,
-            "wr_vs_be": 4.1
+            "wr": 27.3,
+            "roi": 8.5,
+            "profit": 0.93,
+            "avg_cote": 4.38,
+            "break_even_wr": 22.8,
+            "wr_vs_be": 4.4
           }
         },
         "best": {
