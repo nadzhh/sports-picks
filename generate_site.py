@@ -1843,6 +1843,79 @@ def build_match_card(m, team_ai_map, player_ai_map, pstats=None):
         picks_label = f"🎯 {n_picks} picks"
         if n_players: picks_label += f" · {n_players} joueurs"
 
+    # ─── Section ANALYSE APPROFONDIE (contexte stade + météo + score exact)
+    # uniquement si on a un context enrichi (CdM 2026 et autres ligues majeures
+    # avec venue connu via FotMob).
+    context = m.get("context") or {}
+    context_html = ""
+    if context:
+        stadium = context.get("stadium") or {}
+        weather = context.get("weather") or {}
+        ctx_text = context.get("text") or ""
+        # Bloc météo
+        weather_html = ""
+        if weather:
+            w_emoji = weather.get("summary_fr","🌤️").split()[0] if weather.get("summary_fr") else "🌤️"
+            t_max = weather.get("temp_max")
+            t_min = weather.get("temp_min")
+            hum = weather.get("humidity")
+            psum = weather.get("precipitation_sum_mm") or 0
+            wind = weather.get("wind_max_kmh") or 0
+            wcode_label = (weather.get("summary_fr","").split("·")[0].strip() if weather.get("summary_fr") else "?").replace(w_emoji, "").strip()
+            metrics = []
+            if t_max is not None and t_min is not None:
+                metrics.append(f'<div style="text-align:center"><div style="color:#fb923c;font-size:22px;font-weight:800">{int(t_min)}–{int(t_max)}°</div><div style="color:#64748b;font-size:10.5px;font-weight:700;letter-spacing:0.4px">TEMP</div></div>')
+            if hum is not None:
+                metrics.append(f'<div style="text-align:center"><div style="color:#3b82f6;font-size:22px;font-weight:800">{hum}%</div><div style="color:#64748b;font-size:10.5px;font-weight:700;letter-spacing:0.4px">HUMIDITÉ</div></div>')
+            if psum >= 0.1:
+                metrics.append(f'<div style="text-align:center"><div style="color:#06b6d4;font-size:22px;font-weight:800">{psum:.1f}mm</div><div style="color:#64748b;font-size:10.5px;font-weight:700;letter-spacing:0.4px">PLUIE</div></div>')
+            if wind >= 10:
+                metrics.append(f'<div style="text-align:center"><div style="color:#a3a3a3;font-size:22px;font-weight:800">{int(wind)}km/h</div><div style="color:#64748b;font-size:10.5px;font-weight:700;letter-spacing:0.4px">VENT</div></div>')
+            weather_html = (
+                f'<div style="background:#0a1628;border:1px solid #1e3a5f;border-radius:10px;padding:12px 14px;margin-bottom:10px">'
+                f'<div style="display:flex;align-items:center;gap:8px;margin-bottom:8px"><span style="font-size:18px">{w_emoji}</span><span style="color:#cbd5e1;font-size:12.5px;font-weight:700">{wcode_label or "Conditions"}</span></div>'
+                f'<div style="display:flex;gap:18px;justify-content:space-around;flex-wrap:wrap">{"".join(metrics)}</div>'
+                f'</div>'
+            )
+        # Bloc stade
+        stadium_html = ""
+        if stadium:
+            sname = stadium.get("name","?")
+            city = stadium.get("city","")
+            cap = stadium.get("capacity")
+            alt = stadium.get("altitude_m")
+            climatized = stadium.get("climatized")
+            type_ = stadium.get("type","")
+            badges = []
+            if cap: badges.append(f'<span style="background:#1e293b;color:#cbd5e1;border-radius:6px;padding:3px 9px;font-size:11px;font-weight:700">🪑 {cap:,} places</span>'.replace(",", " "))
+            if alt and alt >= 1000:
+                col = "#ef4444" if alt >= 2000 else "#fb923c"
+                badges.append(f'<span style="background:rgba(239,68,68,0.15);border:1px solid {col};color:{col};border-radius:6px;padding:3px 9px;font-size:11px;font-weight:700">⛰️ {alt}m altitude</span>')
+            if climatized is True:
+                badges.append('<span style="background:rgba(59,130,246,0.15);border:1px solid #3b82f6;color:#3b82f6;border-radius:6px;padding:3px 9px;font-size:11px;font-weight:700">❄️ Climatisé</span>')
+            elif type_ == "indoor":
+                badges.append('<span style="background:#1e293b;color:#cbd5e1;border-radius:6px;padding:3px 9px;font-size:11px;font-weight:700">🏟️ Indoor</span>')
+            stadium_html = (
+                f'<div style="background:#0a1628;border:1px solid #1e3a5f;border-radius:10px;padding:12px 14px;margin-bottom:10px">'
+                f'<div style="color:#cbd5e1;font-size:13px;font-weight:800;margin-bottom:6px">🏟️ {sname}{(" · " + city) if city else ""}</div>'
+                f'<div style="display:flex;gap:6px;flex-wrap:wrap">{"".join(badges)}</div>'
+                f'</div>'
+            )
+        # Bloc texte contexte (paragraphe assemblé)
+        text_html = ""
+        if ctx_text:
+            text_html = (
+                f'<div style="background:rgba(139,92,246,0.06);border-left:3px solid #8b5cf6;border-radius:4px;padding:10px 14px;color:#cbd5e1;font-size:12.5px;line-height:1.7">'
+                f'{ctx_text}'
+                f'</div>'
+            )
+        context_html = (
+            f'<div style="margin-top:14px;padding-top:14px;border-top:1px solid #1e293b">'
+            f'<div style="color:#8b5cf6;font-size:11px;font-weight:800;letter-spacing:0.8px;margin-bottom:10px">🔍 ANALYSE APPROFONDIE — CONTEXTE TEMPS RÉEL</div>'
+            f'{weather_html}{stadium_html}{text_html}'
+            f'</div>'
+        )
+
     return (
         f'<div id="bk2-card-foot-{mid_safe}" style="background:#0f172a;border-radius:14px;margin-bottom:18px;'
         f'box-shadow:0 4px 20px rgba(0,0,0,0.4);overflow:hidden">'
@@ -1864,7 +1937,7 @@ def build_match_card(m, team_ai_map, player_ai_map, pstats=None):
         f'</div>'
         # Body : stats full-width quand expand-stats, picks toggle separe
         f'<div id="body-{mid_safe}" class="match-body">'
-        f'  <div class="stats-col">{stats_panel}</div>'
+        f'  <div class="stats-col">{stats_panel}{context_html}</div>'
         f'  <div class="picks-col">{team_html}{fun_html}{player_html}</div>'
         f'</div>'
         f'</div>'

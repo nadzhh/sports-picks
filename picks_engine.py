@@ -2651,6 +2651,23 @@ def run():
     except Exception:
         pass
 
+    # Enrichissement match avec contexte (stade, météo) — pour Coupe du Monde
+    # surtout, mais bénéfique partout (api FotMob donne le venue lat/lon).
+    try:
+        import foot_match_context as _ctx
+        n_enriched = 0
+        for _m in matches:
+            try:
+                _ctx.enrich_match(_m)
+                if _m.get("context"):
+                    n_enriched += 1
+            except Exception as _e:
+                print(f"  [ctx err] match {_m.get('id')}: {_e}")
+        if n_enriched:
+            print(f"  [ctx] {n_enriched}/{len(matches)} matchs enrichis (stade + météo)")
+    except ImportError:
+        pass
+
     for match in matches:
         team_picks, home_pp, away_pp, fun_picks = analyze_match(match, player_stats, player_odds_all)
         # IMPORTANT : on inclut TOUS les matchs scrapes, meme sans picks, pour
@@ -2670,6 +2687,8 @@ def run():
             "fun_picks":    fun_picks,
             "top_pick":     top,
             "no_picks":     not (team_picks or home_pp or away_pp),
+            # Contexte enrichi (stade + météo + texte) si dispo
+            "context":      match.get("context"),
         })
 
     # Tri : matchs avec picks (confiance desc), puis matchs sans picks (par heure)
