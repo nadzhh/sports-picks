@@ -1,18 +1,18 @@
 {
-  "generated_at": "2026-06-12T18:34:28.458255",
-  "n_total": 674,
+  "generated_at": "2026-06-12T19:08:35.332069",
+  "n_total": 675,
   "globals": {
     "foot": {
-      "n": 418,
+      "n": 419,
       "w": 192,
-      "l": 202,
+      "l": 203,
       "push": 24,
-      "wr": 48.7,
-      "roi": -8.8,
-      "profit": -36.95,
+      "wr": 48.6,
+      "roi": -9.1,
+      "profit": -37.95,
       "avg_cote": 2.34,
       "break_even_wr": 42.7,
-      "wr_vs_be": 6.0
+      "wr_vs_be": 5.9
     },
     "nba": {
       "n": 145,
@@ -42,18 +42,18 @@
   "calibration": {
     "foot": {
       "50-59": {
-        "n": 37,
+        "n": 38,
         "w": 14,
-        "l": 23,
+        "l": 24,
         "push": 0,
-        "wr": 37.8,
-        "roi": -32.5,
-        "profit": -12.01,
+        "wr": 36.8,
+        "roi": -34.2,
+        "profit": -13.01,
         "avg_cote": 1.86,
         "break_even_wr": 53.9,
-        "wr_vs_be": -16.0,
+        "wr_vs_be": -17.0,
         "expected_wr": 54.5,
-        "calibration_gap": -16.7
+        "calibration_gap": -17.7
       },
       "60-69": {
         "n": 98,
@@ -404,16 +404,16 @@
         "wr_vs_be": null
       },
       "Joueur décisif": {
-        "n": 26,
+        "n": 27,
         "w": 9,
-        "l": 17,
+        "l": 18,
         "push": 0,
-        "wr": 34.6,
-        "roi": -10.8,
-        "profit": -2.8,
+        "wr": 33.3,
+        "roi": -14.1,
+        "profit": -3.8,
         "avg_cote": 3.08,
         "break_even_wr": 32.5,
-        "wr_vs_be": 2.1
+        "wr_vs_be": 0.8
       },
       "Double buteur": {
         "n": 5,
@@ -722,6 +722,18 @@
     },
     "foot": {
       "league": {
+        "Morocco Botola Pro": {
+          "n": 10,
+          "w": 1,
+          "l": 9,
+          "push": 0,
+          "wr": 10.0,
+          "roi": -82.0,
+          "profit": -8.2,
+          "avg_cote": null,
+          "break_even_wr": null,
+          "wr_vs_be": null
+        },
         "Friendlies": {
           "n": 120,
           "w": 42,
@@ -733,18 +745,6 @@
           "avg_cote": 2.08,
           "break_even_wr": 48.0,
           "wr_vs_be": -6.0
-        },
-        "Morocco Botola Pro": {
-          "n": 9,
-          "w": 1,
-          "l": 8,
-          "push": 0,
-          "wr": 11.1,
-          "roi": -80.0,
-          "profit": -7.2,
-          "avg_cote": null,
-          "break_even_wr": null,
-          "wr_vs_be": null
         },
         "Uruguay Primera": {
           "n": 30,
@@ -1063,16 +1063,16 @@
           "wr_vs_be": 4.4
         },
         "False": {
-          "n": 407,
+          "n": 408,
           "w": 189,
-          "l": 194,
+          "l": 195,
           "push": 24,
-          "wr": 49.3,
-          "roi": -9.3,
-          "profit": -37.88,
+          "wr": 49.2,
+          "roi": -9.5,
+          "profit": -38.88,
           "avg_cote": 2.13,
           "break_even_wr": 47.1,
-          "wr_vs_be": 2.3
+          "wr_vs_be": 2.2
         }
       }
     },
@@ -1160,18 +1160,18 @@
       "severity": "high",
       "type": "skip_market",
       "scope": "foot · Joueur décisif",
-      "message": "Market <b>Joueur décisif</b> (foot) : ROI <b>-10.8%</b> sur 26 picks (WR 34.6% (break-even @ 32.5% WR), cote moy. 3.08). À skipper ou refondre la formule.",
+      "message": "Market <b>Joueur décisif</b> (foot) : ROI <b>-14.1%</b> sur 27 picks (WR 33.3% (break-even @ 32.5% WR), cote moy. 3.08). À skipper ou refondre la formule.",
       "stats": {
-        "n": 26,
+        "n": 27,
         "w": 9,
-        "l": 17,
+        "l": 18,
         "push": 0,
-        "wr": 34.6,
-        "roi": -10.8,
-        "profit": -2.8,
+        "wr": 33.3,
+        "roi": -14.1,
+        "profit": -3.8,
         "avg_cote": 3.08,
         "break_even_wr": 32.5,
-        "wr_vs_be": 2.1
+        "wr_vs_be": 0.8
       }
     },
     {
@@ -1368,20 +1368,20 @@
       "severity": "medium",
       "type": "miscalibrated_overconfident",
       "scope": "foot · conf 50-59",
-      "message": "Bucket conf <b>50-59</b> (foot) : modèle annonce ~54.5% mais WR réel = 37.8% (gap -16.7pp sur 37 picks). Modèle trop confiant → relever MIN_CONF ou ajuster formule.",
+      "message": "Bucket conf <b>50-59</b> (foot) : modèle annonce ~54.5% mais WR réel = 36.8% (gap -17.7pp sur 38 picks). Modèle trop confiant → relever MIN_CONF ou ajuster formule.",
       "stats": {
-        "n": 37,
+        "n": 38,
         "w": 14,
-        "l": 23,
+        "l": 24,
         "push": 0,
-        "wr": 37.8,
-        "roi": -32.5,
-        "profit": -12.01,
+        "wr": 36.8,
+        "roi": -34.2,
+        "profit": -13.01,
         "avg_cote": 1.86,
         "break_even_wr": 53.9,
-        "wr_vs_be": -16.0,
+        "wr_vs_be": -17.0,
         "expected_wr": 54.5,
-        "calibration_gap": -16.7
+        "calibration_gap": -17.7
       }
     },
     {
@@ -1556,17 +1556,17 @@
       "severity": "medium",
       "type": "context_signal",
       "scope": "foot · league",
-      "message": "Signal contexte <b>league</b> (foot) : league=Uruguay Primera → WR 19.2% (30 picks) vs league=Serie A → WR 66.7% (45). Filtrer/ponderer.",
+      "message": "Signal contexte <b>league</b> (foot) : league=Morocco Botola Pro → WR 10.0% (10 picks) vs league=Serie A → WR 66.7% (45). Filtrer/ponderer.",
       "stats": {
         "worst": {
-          "Uruguay Primera": {
-            "n": 30,
-            "w": 5,
-            "l": 21,
-            "push": 4,
-            "wr": 19.2,
-            "roi": -56.7,
-            "profit": -17.0,
+          "Morocco Botola Pro": {
+            "n": 10,
+            "w": 1,
+            "l": 9,
+            "push": 0,
+            "wr": 10.0,
+            "roi": -82.0,
+            "profit": -8.2,
             "avg_cote": null,
             "break_even_wr": null,
             "wr_vs_be": null
@@ -1628,7 +1628,7 @@
       "severity": "medium",
       "type": "context_signal",
       "scope": "foot · is_fun",
-      "message": "Signal contexte <b>is_fun</b> (foot) : is_fun=True → WR 27.3% (11 picks) vs is_fun=False → WR 49.3% (407). Filtrer/ponderer.",
+      "message": "Signal contexte <b>is_fun</b> (foot) : is_fun=True → WR 27.3% (11 picks) vs is_fun=False → WR 49.2% (408). Filtrer/ponderer.",
       "stats": {
         "worst": {
           "True": {
@@ -1646,16 +1646,16 @@
         },
         "best": {
           "False": {
-            "n": 407,
+            "n": 408,
             "w": 189,
-            "l": 194,
+            "l": 195,
             "push": 24,
-            "wr": 49.3,
-            "roi": -9.3,
-            "profit": -37.88,
+            "wr": 49.2,
+            "roi": -9.5,
+            "profit": -38.88,
             "avg_cote": 2.13,
             "break_even_wr": 47.1,
-            "wr_vs_be": 2.3
+            "wr_vs_be": 2.2
           }
         }
       }
