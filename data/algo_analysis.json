@@ -1,18 +1,18 @@
 {
-  "generated_at": "2026-06-13T17:42:41.121013",
-  "n_total": 683,
+  "generated_at": "2026-06-13T18:08:05.223822",
+  "n_total": 684,
   "globals": {
     "foot": {
-      "n": 427,
+      "n": 428,
       "w": 194,
-      "l": 209,
+      "l": 210,
       "push": 24,
-      "wr": 48.1,
-      "roi": -9.9,
-      "profit": -42.35,
+      "wr": 48.0,
+      "roi": -10.1,
+      "profit": -43.35,
       "avg_cote": 2.45,
       "break_even_wr": 40.9,
-      "wr_vs_be": 7.3
+      "wr_vs_be": 7.2
     },
     "nba": {
       "n": 145,
@@ -42,18 +42,18 @@
   "calibration": {
     "foot": {
       "50-59": {
-        "n": 40,
+        "n": 41,
         "w": 15,
-        "l": 25,
+        "l": 26,
         "push": 0,
-        "wr": 37.5,
-        "roi": -33.0,
-        "profit": -13.21,
+        "wr": 36.6,
+        "roi": -34.7,
+        "profit": -14.21,
         "avg_cote": 1.86,
         "break_even_wr": 53.9,
-        "wr_vs_be": -16.4,
+        "wr_vs_be": -17.3,
         "expected_wr": 54.5,
-        "calibration_gap": -17.0
+        "calibration_gap": -17.9
       },
       "60-69": {
         "n": 98,
@@ -476,16 +476,16 @@
         "wr_vs_be": null
       },
       "Buteur": {
-        "n": 83,
+        "n": 84,
         "w": 22,
-        "l": 61,
+        "l": 62,
         "push": 0,
-        "wr": 26.5,
-        "roi": -48.5,
-        "profit": -40.25,
+        "wr": 26.2,
+        "roi": -49.1,
+        "profit": -41.25,
         "avg_cote": 2.38,
         "break_even_wr": 42.0,
-        "wr_vs_be": -15.5
+        "wr_vs_be": -15.8
       }
     },
     "nba": {
@@ -1063,16 +1063,16 @@
       },
       "is_fun": {
         "False": {
-          "n": 414,
+          "n": 415,
           "w": 191,
-          "l": 199,
+          "l": 200,
           "push": 24,
-          "wr": 49.0,
-          "roi": -10.0,
-          "profit": -41.28,
+          "wr": 48.8,
+          "roi": -10.2,
+          "profit": -42.28,
           "avg_cote": 2.13,
           "break_even_wr": 47.1,
-          "wr_vs_be": 1.9
+          "wr_vs_be": 1.8
         },
         "True": {
           "n": 13,
@@ -1136,18 +1136,18 @@
       "severity": "high",
       "type": "skip_market",
       "scope": "foot · Buteur",
-      "message": "Market <b>Buteur</b> (foot) : ROI <b>-48.5%</b> sur 83 picks (WR 26.5% (break-even @ 42.0% WR), cote moy. 2.38). À skipper ou refondre la formule.",
+      "message": "Market <b>Buteur</b> (foot) : ROI <b>-49.1%</b> sur 84 picks (WR 26.2% (break-even @ 42.0% WR), cote moy. 2.38). À skipper ou refondre la formule.",
       "stats": {
-        "n": 83,
+        "n": 84,
         "w": 22,
-        "l": 61,
+        "l": 62,
         "push": 0,
-        "wr": 26.5,
-        "roi": -48.5,
-        "profit": -40.25,
+        "wr": 26.2,
+        "roi": -49.1,
+        "profit": -41.25,
         "avg_cote": 2.38,
         "break_even_wr": 42.0,
-        "wr_vs_be": -15.5
+        "wr_vs_be": -15.8
       }
     },
     {
@@ -1360,20 +1360,20 @@
       "severity": "medium",
       "type": "miscalibrated_overconfident",
       "scope": "foot · conf 50-59",
-      "message": "Bucket conf <b>50-59</b> (foot) : modèle annonce ~54.5% mais WR réel = 37.5% (gap -17.0pp sur 40 picks). Modèle trop confiant → relever MIN_CONF ou ajuster formule.",
+      "message": "Bucket conf <b>50-59</b> (foot) : modèle annonce ~54.5% mais WR réel = 36.6% (gap -17.9pp sur 41 picks). Modèle trop confiant → relever MIN_CONF ou ajuster formule.",
       "stats": {
-        "n": 40,
+        "n": 41,
         "w": 15,
-        "l": 25,
+        "l": 26,
         "push": 0,
-        "wr": 37.5,
-        "roi": -33.0,
-        "profit": -13.21,
+        "wr": 36.6,
+        "roi": -34.7,
+        "profit": -14.21,
         "avg_cote": 1.86,
         "break_even_wr": 53.9,
-        "wr_vs_be": -16.4,
+        "wr_vs_be": -17.3,
         "expected_wr": 54.5,
-        "calibration_gap": -17.0
+        "calibration_gap": -17.9
       }
     },
     {
@@ -1640,7 +1640,7 @@
       "severity": "medium",
       "type": "context_signal",
       "scope": "foot · is_fun",
-      "message": "Signal contexte <b>is_fun</b> (foot) : is_fun=True → WR 23.1% (13 picks) vs is_fun=False → WR 49.0% (414). Filtrer/ponderer.",
+      "message": "Signal contexte <b>is_fun</b> (foot) : is_fun=True → WR 23.1% (13 picks) vs is_fun=False → WR 48.8% (415). Filtrer/ponderer.",
       "stats": {
         "worst": {
           "True": {
@@ -1658,16 +1658,16 @@
         },
         "best": {
           "False": {
-            "n": 414,
+            "n": 415,
             "w": 191,
-            "l": 199,
+            "l": 200,
             "push": 24,
-            "wr": 49.0,
-            "roi": -10.0,
-            "profit": -41.28,
+            "wr": 48.8,
+            "roi": -10.2,
+            "profit": -42.28,
             "avg_cote": 2.13,
             "break_even_wr": 47.1,
-            "wr_vs_be": 1.9
+            "wr_vs_be": 1.8
           }
         }
       }
