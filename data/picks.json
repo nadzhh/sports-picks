@@ -862,8 +862,8 @@
         "type": "Victoire domicile",
         "label": "Germany gagne",
         "cote": null,
-        "confidence": 80,
-        "reasoning": "Germany : 5V/0N/0D sur 5 matchs · #2 au classement · H2H: 0V/0N/0D · Note Sofa: 6.5/10",
+        "confidence": 79,
+        "reasoning": "Germany : 5V/0N/0D sur 5 matchs · #3 au classement · H2H: 0V/0N/0D · Note Sofa: 6.5/10",
         "stats": {
           "form": [
             "W",
@@ -930,8 +930,8 @@
       "type": "Victoire domicile",
       "label": "Germany gagne",
       "cote": null,
-      "confidence": 80,
-      "reasoning": "Germany : 5V/0N/0D sur 5 matchs · #2 au classement · H2H: 0V/0N/0D · Note Sofa: 6.5/10",
+      "confidence": 79,
+      "reasoning": "Germany : 5V/0N/0D sur 5 matchs · #3 au classement · H2H: 0V/0N/0D · Note Sofa: 6.5/10",
       "stats": {
         "form": [
           "W",
@@ -1352,6 +1352,104 @@
         "player_b": "Viggó Valgeirsson"
       },
       "team": "away",
+      "tier": "safe",
+      "history_top3": false
+    },
+    "no_picks": false
+  },
+  {
+    "league": "World Cup",
+    "home": "Australia",
+    "away": "Turkiye",
+    "start_ts": 1781409600,
+    "match_id": "4667772",
+    "page_url": "/matches/turkiye-vs-australia/1gr3uk#4667772",
+    "picks": [
+      {
+        "direction": "away_win",
+        "type": "Victoire extérieur",
+        "label": "Turkiye gagne",
+        "cote": null,
+        "confidence": 72,
+        "reasoning": "Turkiye : 4V/1N/0D sur 5 matchs · #3 au classement · H2H: 0V/0N/0D · Note Sofa: 6.5/10",
+        "stats": {
+          "form": [
+            "W",
+            "W",
+            "W",
+            "W",
+            "D"
+          ]
+        },
+        "is_fun": false,
+        "tier": "safe",
+        "history_top3": false
+      }
+    ],
+    "home_players": [],
+    "away_players": [],
+    "fun_picks": [
+      {
+        "direction": "wc_score_0_1",
+        "type": "🏆 Score exact WC",
+        "label": "Score exact : Australia 0-1 Turkiye",
+        "cote": 8.41,
+        "confidence": 12,
+        "is_fun": true,
+        "stats": {
+          "lam_h": 1.0,
+          "lam_a": 1.6
+        },
+        "reasoning": "🏆 Coupe du Monde 2026 - score exact (Poisson grid)\nλ Australia = 1.00 buts, λ Turkiye = 1.60 buts (ajusté tier FIFA)\nTop 3 : 0-1 (11.9%) · 1-1 (11.9%) · 0-2 (9.5%)\n⚠️ Pari fun (cote élevée typique 4-8) - mise modeste",
+        "exact_score": [
+          0,
+          1
+        ],
+        "wc_top3": [
+          [
+            [
+              0,
+              1
+            ],
+            11.9
+          ],
+          [
+            [
+              1,
+              1
+            ],
+            11.9
+          ],
+          [
+            [
+              0,
+              2
+            ],
+            9.5
+          ]
+        ],
+        "tier": "fun",
+        "edge_pp": 0.1,
+        "history_top3": true
+      }
+    ],
+    "top_pick": {
+      "direction": "away_win",
+      "type": "Victoire extérieur",
+      "label": "Turkiye gagne",
+      "cote": null,
+      "confidence": 72,
+      "reasoning": "Turkiye : 4V/1N/0D sur 5 matchs · #3 au classement · H2H: 0V/0N/0D · Note Sofa: 6.5/10",
+      "stats": {
+        "form": [
+          "W",
+          "W",
+          "W",
+          "W",
+          "D"
+        ]
+      },
+      "is_fun": false,
       "tier": "safe",
       "history_top3": false
     },
@@ -2161,104 +2259,6 @@
     "no_picks": false
   },
   {
-    "league": "World Cup",
-    "home": "Australia",
-    "away": "Turkiye",
-    "start_ts": 1781409600,
-    "match_id": "4667772",
-    "page_url": "/matches/turkiye-vs-australia/1gr3uk#4667772",
-    "picks": [
-      {
-        "direction": "away_win",
-        "type": "Victoire extérieur",
-        "label": "Turkiye gagne",
-        "cote": null,
-        "confidence": 64,
-        "reasoning": "Turkiye : 4V/1N/0D sur 5 matchs · #11 au classement · H2H: 0V/0N/0D · Note Sofa: 6.5/10",
-        "stats": {
-          "form": [
-            "W",
-            "W",
-            "W",
-            "W",
-            "D"
-          ]
-        },
-        "is_fun": false,
-        "tier": "ok",
-        "history_top3": false
-      }
-    ],
-    "home_players": [],
-    "away_players": [],
-    "fun_picks": [
-      {
-        "direction": "wc_score_0_1",
-        "type": "🏆 Score exact WC",
-        "label": "Score exact : Australia 0-1 Turkiye",
-        "cote": 8.41,
-        "confidence": 12,
-        "is_fun": true,
-        "stats": {
-          "lam_h": 1.0,
-          "lam_a": 1.6
-        },
-        "reasoning": "🏆 Coupe du Monde 2026 - score exact (Poisson grid)\nλ Australia = 1.00 buts, λ Turkiye = 1.60 buts (ajusté tier FIFA)\nTop 3 : 0-1 (11.9%) · 1-1 (11.9%) · 0-2 (9.5%)\n⚠️ Pari fun (cote élevée typique 4-8) - mise modeste",
-        "exact_score": [
-          0,
-          1
-        ],
-        "wc_top3": [
-          [
-            [
-              0,
-              1
-            ],
-            11.9
-          ],
-          [
-            [
-              1,
-              1
-            ],
-            11.9
-          ],
-          [
-            [
-              0,
-              2
-            ],
-            9.5
-          ]
-        ],
-        "tier": "fun",
-        "edge_pp": 0.1,
-        "history_top3": true
-      }
-    ],
-    "top_pick": {
-      "direction": "away_win",
-      "type": "Victoire extérieur",
-      "label": "Turkiye gagne",
-      "cote": null,
-      "confidence": 64,
-      "reasoning": "Turkiye : 4V/1N/0D sur 5 matchs · #11 au classement · H2H: 0V/0N/0D · Note Sofa: 6.5/10",
-      "stats": {
-        "form": [
-          "W",
-          "W",
-          "W",
-          "W",
-          "D"
-        ]
-      },
-      "is_fun": false,
-      "tier": "ok",
-      "history_top3": false
-    },
-    "no_picks": false
-  },
-  {
     "league": "Chile Primera",
     "home": "Everton CD",
     "away": "Palestino",
@@ -2587,104 +2587,6 @@
     "no_picks": false
   },
   {
-    "league": "World Cup",
-    "home": "USA",
-    "away": "Paraguay",
-    "start_ts": 1781312400,
-    "match_id": "4667771",
-    "page_url": "/matches/usa-vs-paraguay/1hr85j#4667771",
-    "picks": [
-      {
-        "direction": "away_win",
-        "type": "Victoire extérieur",
-        "label": "Paraguay gagne",
-        "cote": null,
-        "confidence": 58,
-        "reasoning": "Paraguay : 3V/0N/2D sur 5 matchs · #2 au classement · H2H: 0V/0N/0D · Note Sofa: 6.5/10",
-        "stats": {
-          "form": [
-            "W",
-            "L",
-            "W",
-            "W",
-            "L"
-          ]
-        },
-        "is_fun": false,
-        "tier": "ok",
-        "history_top3": false
-      }
-    ],
-    "home_players": [],
-    "away_players": [],
-    "fun_picks": [
-      {
-        "direction": "wc_score_1_1",
-        "type": "🏆 Score exact WC",
-        "label": "Score exact : USA 1-1 Paraguay",
-        "cote": 11.37,
-        "confidence": 9,
-        "is_fun": true,
-        "stats": {
-          "lam_h": 1.89,
-          "lam_a": 1.72
-        },
-        "reasoning": "🏆 Coupe du Monde 2026 - score exact (Poisson grid)\nλ USA = 1.89 buts, λ Paraguay = 1.72 buts (ajusté tier FIFA)\nTop 3 : 1-1 (8.8%) · 2-1 (8.3%) · 1-2 (7.6%)\n⚠️ Pari fun (cote élevée typique 4-8) - mise modeste",
-        "exact_score": [
-          1,
-          1
-        ],
-        "wc_top3": [
-          [
-            [
-              1,
-              1
-            ],
-            8.8
-          ],
-          [
-            [
-              2,
-              1
-            ],
-            8.3
-          ],
-          [
-            [
-              1,
-              2
-            ],
-            7.6
-          ]
-        ],
-        "tier": "fun",
-        "edge_pp": 0.2,
-        "history_top3": true
-      }
-    ],
-    "top_pick": {
-      "direction": "away_win",
-      "type": "Victoire extérieur",
-      "label": "Paraguay gagne",
-      "cote": null,
-      "confidence": 58,
-      "reasoning": "Paraguay : 3V/0N/2D sur 5 matchs · #2 au classement · H2H: 0V/0N/0D · Note Sofa: 6.5/10",
-      "stats": {
-        "form": [
-          "W",
-          "L",
-          "W",
-          "W",
-          "L"
-        ]
-      },
-      "is_fun": false,
-      "tier": "ok",
-      "history_top3": false
-    },
-    "no_picks": false
-  },
-  {
     "league": "Chile Primera",
     "home": "Union La Calera",
     "away": "Universidad de Chile",
@@ -2973,6 +2875,64 @@
       "history_top3": true
     },
     "no_picks": false
+  },
+  {
+    "league": "World Cup",
+    "home": "USA",
+    "away": "Paraguay",
+    "start_ts": 1781312400,
+    "match_id": "4667771",
+    "page_url": "/matches/usa-vs-paraguay/1hr85j#4667771",
+    "picks": [],
+    "home_players": [],
+    "away_players": [],
+    "fun_picks": [
+      {
+        "direction": "wc_score_1_1",
+        "type": "🏆 Score exact WC",
+        "label": "Score exact : USA 1-1 Paraguay",
+        "cote": 11.37,
+        "confidence": 9,
+        "is_fun": true,
+        "stats": {
+          "lam_h": 1.89,
+          "lam_a": 1.72
+        },
+        "reasoning": "🏆 Coupe du Monde 2026 - score exact (Poisson grid)\nλ USA = 1.89 buts, λ Paraguay = 1.72 buts (ajusté tier FIFA)\nTop 3 : 1-1 (8.8%) · 2-1 (8.3%) · 1-2 (7.6%)\n⚠️ Pari fun (cote élevée typique 4-8) - mise modeste",
+        "exact_score": [
+          1,
+          1
+        ],
+        "wc_top3": [
+          [
+            [
+              1,
+              1
+            ],
+            8.8
+          ],
+          [
+            [
+              2,
+              1
+            ],
+            8.3
+          ],
+          [
+            [
+              1,
+              2
+            ],
+            7.6
+          ]
+        ],
+        "tier": "fun",
+        "edge_pp": 0.2,
+        "history_top3": true
+      }
+    ],
+    "top_pick": null,
+    "no_picks": true
   },
   {
     "league": "World Cup",
