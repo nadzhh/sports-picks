@@ -1,18 +1,18 @@
 {
-  "generated_at": "2026-06-13T18:08:05.223822",
-  "n_total": 684,
+  "generated_at": "2026-06-13T18:34:26.338694",
+  "n_total": 685,
   "globals": {
     "foot": {
-      "n": 428,
+      "n": 429,
       "w": 194,
-      "l": 210,
+      "l": 211,
       "push": 24,
-      "wr": 48.0,
-      "roi": -10.1,
-      "profit": -43.35,
+      "wr": 47.9,
+      "roi": -10.3,
+      "profit": -44.35,
       "avg_cote": 2.45,
       "break_even_wr": 40.9,
-      "wr_vs_be": 7.2
+      "wr_vs_be": 7.0
     },
     "nba": {
       "n": 145,
@@ -42,18 +42,18 @@
   "calibration": {
     "foot": {
       "50-59": {
-        "n": 41,
+        "n": 42,
         "w": 15,
-        "l": 26,
+        "l": 27,
         "push": 0,
-        "wr": 36.6,
-        "roi": -34.7,
-        "profit": -14.21,
+        "wr": 35.7,
+        "roi": -36.2,
+        "profit": -15.21,
         "avg_cote": 1.86,
         "break_even_wr": 53.9,
-        "wr_vs_be": -17.3,
+        "wr_vs_be": -18.2,
         "expected_wr": 54.5,
-        "calibration_gap": -17.9
+        "calibration_gap": -18.8
       },
       "60-69": {
         "n": 98,
@@ -1063,16 +1063,16 @@
       },
       "is_fun": {
         "False": {
-          "n": 415,
+          "n": 416,
           "w": 191,
-          "l": 200,
+          "l": 201,
           "push": 24,
-          "wr": 48.8,
-          "roi": -10.2,
-          "profit": -42.28,
+          "wr": 48.7,
+          "roi": -10.4,
+          "profit": -43.28,
           "avg_cote": 2.13,
           "break_even_wr": 47.1,
-          "wr_vs_be": 1.8
+          "wr_vs_be": 1.7
         },
         "True": {
           "n": 13,
@@ -1360,20 +1360,20 @@
       "severity": "medium",
       "type": "miscalibrated_overconfident",
       "scope": "foot · conf 50-59",
-      "message": "Bucket conf <b>50-59</b> (foot) : modèle annonce ~54.5% mais WR réel = 36.6% (gap -17.9pp sur 41 picks). Modèle trop confiant → relever MIN_CONF ou ajuster formule.",
+      "message": "Bucket conf <b>50-59</b> (foot) : modèle annonce ~54.5% mais WR réel = 35.7% (gap -18.8pp sur 42 picks). Modèle trop confiant → relever MIN_CONF ou ajuster formule.",
       "stats": {
-        "n": 41,
+        "n": 42,
         "w": 15,
-        "l": 26,
+        "l": 27,
         "push": 0,
-        "wr": 36.6,
-        "roi": -34.7,
-        "profit": -14.21,
+        "wr": 35.7,
+        "roi": -36.2,
+        "profit": -15.21,
         "avg_cote": 1.86,
         "break_even_wr": 53.9,
-        "wr_vs_be": -17.3,
+        "wr_vs_be": -18.2,
         "expected_wr": 54.5,
-        "calibration_gap": -17.9
+        "calibration_gap": -18.8
       }
     },
     {
@@ -1640,7 +1640,7 @@
       "severity": "medium",
       "type": "context_signal",
       "scope": "foot · is_fun",
-      "message": "Signal contexte <b>is_fun</b> (foot) : is_fun=True → WR 23.1% (13 picks) vs is_fun=False → WR 48.8% (415). Filtrer/ponderer.",
+      "message": "Signal contexte <b>is_fun</b> (foot) : is_fun=True → WR 23.1% (13 picks) vs is_fun=False → WR 48.7% (416). Filtrer/ponderer.",
       "stats": {
         "worst": {
           "True": {
@@ -1658,16 +1658,16 @@
         },
         "best": {
           "False": {
-            "n": 415,
+            "n": 416,
             "w": 191,
-            "l": 200,
+            "l": 201,
             "push": 24,
-            "wr": 48.8,
-            "roi": -10.2,
-            "profit": -42.28,
+            "wr": 48.7,
+            "roi": -10.4,
+            "profit": -43.28,
             "avg_cote": 2.13,
             "break_even_wr": 47.1,
-            "wr_vs_be": 1.8
+            "wr_vs_be": 1.7
           }
         }
       }
