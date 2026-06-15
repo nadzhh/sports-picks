@@ -1,9 +1,9 @@
 {
-  "started_at": "2026-06-15T13:06:44.009344+00:00",
+  "started_at": "2026-06-15T10:03:34.420959+00:00",
   "browser_available": true,
-  "camoufox_installed": true,
-  "camoufox_launch_ok": true,
-  "camoufox_launch_err": null,
+  "camoufox_installed": false,
+  "camoufox_launch_ok": false,
+  "camoufox_launch_err": "import: ModuleNotFoundError: No module named 'camoufox'",
   "sofascore_events_by_date": {
     "2026-06-03": 15,
     "2026-06-05": 14,
@@ -14,13 +14,16 @@
     "2026-06-12": 38,
     "2026-06-13": 45,
     "2026-06-14": 34,
-    "2026-06-15": 19
+    "2026-06-15": 3,
+    "2026-06-16": 0
   },
-  "algo_picks_total": 0,
+  "algo_picks_total": 43,
   "algo_picks_matched": 2,
   "results_count": 2,
   "history_added": 0,
-  "errors": [],
-  "algo_matches_total": 2,
-  "finished_at": "2026-06-15T13:06:45.944950+00:00"
+  "errors": [
+    "camoufox import : No module named 'camoufox'"
+  ],
+  "algo_matches_total": 42,
+  "finished_at": "2026-06-15T10:03:46.807298+00:00"
 }
