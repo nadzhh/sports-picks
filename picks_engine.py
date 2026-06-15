@@ -1903,26 +1903,49 @@ def analyze_match(match, pstats_all, player_odds_all=None):
                     if len(selected_for_match) >= 2: break
                     selected_for_match.append(cand)
 
-            # Ajoute les sélectionnés à fun_picks avec le reasoning complet
+            # Routing : cote_min < 2.0 → team_picks · cote_min ≥ 2.0 → fun_picks
+            # User : "cote fun obligé d'être à +2". Mes cotes sont des cote_min
+            # (estimation fair value du modèle), pas des cotes bookmaker réelles
+            # — on ne pollue pas le badge `cote`, on utilise `cote_min` qui
+            # affiche "✅ Prendre uniquement si cote ≥ X" côté UI.
+            # Tier assignment basé sur cote_min :
+            #   - cote_min ≤ 1.85 + conf ≥ 70 → safe
+            #   - cote_min ≥ 2.60 OU conf < 55 → fun
+            #   - sinon → ok
+            def _assign_tier(cote_min, conf):
+                if cote_min is None: return "ok"
+                if cote_min >= 2.60 or conf < 55: return "fun"
+                if cote_min <= 1.85 and conf >= 70: return "safe"
+                return "ok"
+
             for cand in selected_for_match:
                 full_reasoning = cand["reasoning"]
                 if ctx_descr_combined:
                     full_reasoning = f"{ctx_descr_combined}\n{full_reasoning}"
                 if level_block:
                     full_reasoning = f"{level_block}\n{full_reasoning}"
-                fun_picks.append({
+                cote_min = cand["_cote"]
+                conf = cand["_conf"]
+                final_tier = _assign_tier(cote_min, conf)
+                pick_dict = {
                     "direction": cand["direction"],
                     "type":      cand["type"],
                     "label":     cand["label"],
-                    "cote":      cand["_cote"],
-                    "confidence": cand["_conf"],
-                    "is_fun":    True,
+                    "cote_min":  cote_min,    # cote minimum recommandée (1/p)
+                    "confidence": conf,
+                    "tier":      final_tier,
                     "stats":     {"lam_h": round(lam_h_wc, 2), "lam_a": round(lam_a_wc, 2),
                                   "h_fifa_rank": h_rank, "a_fifa_rank": a_rank,
                                   "elo_gap": elo_gap, "wc_round": round_num,
-                                  "family": cand["_family"], "tier": cand["_tier"]},
+                                  "family": cand["_family"]},
                     "reasoning": full_reasoning,
-                })
+                }
+                # Routing fun (cote estimée >= 2.0) vs team (< 2.0)
+                if cote_min is not None and cote_min >= 2.0:
+                    pick_dict["is_fun"] = True
+                    fun_picks.append(pick_dict)
+                else:
+                    team_picks.append(pick_dict)
 
             # Score exact #1 : seulement si peu de picks sélectionnés OU si
             # le top score est vraiment marqué (>= 13%). Sinon c'est juste du
@@ -1946,8 +1969,9 @@ def analyze_match(match, pstats_all, player_odds_all=None):
                     "direction": f"wc_score_{sh}_{sa}",
                     "type":      "🏆 Score exact WC",
                     "label":     f"Score exact : {home} {sh}-{sa} {away}",
-                    "cote":      round(1 / max(0.01, p_best), 2),
+                    "cote_min":  round(1 / max(0.01, p_best), 2),
                     "confidence": round(p_best * 100),
+                    "tier":      "fun",
                     "is_fun":    True,
                     "stats":     {"lam_h": round(lam_h_wc, 2), "lam_a": round(lam_a_wc, 2),
                                   "h_fifa_rank": h_rank, "a_fifa_rank": a_rank, "elo_gap": elo_gap},

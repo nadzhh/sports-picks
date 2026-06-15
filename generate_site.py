@@ -1726,7 +1726,19 @@ def build_player_pick(p, ai_analyses=None, match_ctx=None):
 def build_fun_pick(p, match_ctx=None):
     c     = p["confidence"]
     cote  = p.get("cote")
+    cote_min = p.get("cote_min")
     cb    = cote_badge(cote) if cote else ""
+    # Si pas de cote réelle bookmaker mais qu'on a une cote_min recommandée
+    # (modèle), on affiche une indication "cote min X" pour que l'utilisateur
+    # ne croie pas que c'est la cote réelle. Cas typique des picks WC où on
+    # n'a pas de cote bookmaker pour BUT_TEAM / CLEAN_SHEET / DC 12.
+    if not cote and cote_min:
+        cb = (
+            f'<span title="Cote minimum recommandée par le modèle (1/p, sans marge bookmaker)" '
+            f'style="display:inline-flex;align-items:center;gap:4px;background:rgba(250,204,21,0.10);'
+            f'color:#facc15;border:1px solid rgba(250,204,21,0.30);padding:2px 8px;border-radius:999px;'
+            f'font-size:11.5px;font-weight:700;font-variant-numeric:tabular-nums">≥ {cote_min}</span>'
+        )
     push_btn = ""
     if match_ctx:
         text = _format_push_team(p, match_ctx.get("home",""), match_ctx.get("away",""), match_ctx.get("league",""))
