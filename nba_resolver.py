@@ -13,13 +13,18 @@ disponibles quand on affiche le site.
 """
 import json
 import unicodedata
-from datetime import datetime
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
-from nba_client import boxscore_players
+from nba_client import boxscore_players, games_on_date
 
 HISTORY_FILE    = Path("data/nba_picks_history.json")
 BOX_SCORES_FILE = Path("data/nba_box_scores.json")
+
+# Backfill systematique : on fetch les box scores de TOUS les games NBA des
+# N derniers jours, meme ceux que l'algo n'avait pas tracke. Couvre les picks
+# user ajoutes a la bankroll sur des matchs hors-algo (Summer League, etc.).
+BACKFILL_DAYS = 7
 
 
 # ─── helpers ─────────────────────────────────────────────────────────────────
@@ -128,14 +133,36 @@ def run():
     if backfill_gids:
         print(f"  [backfill] {len(backfill_gids)} games deja resolus sans box score -> fetch")
 
-    if not pending and not backfill_gids:
+    # Backfill systematique : tous les games NBA des BACKFILL_DAYS derniers jours
+    # qu'on n'a pas encore en box score (pour resoudre les picks user hors-algo
+    # ajoutes a la bankroll, ex: Knicks @ Spurs Summer League).
+    today = datetime.now(timezone.utc).date()
+    user_picks_gids = []
+    for i in range(BACKFILL_DAYS + 1):
+        d = today - timedelta(days=i)
+        try:
+            day_games = games_on_date(d.strftime("%Y-%m-%d")) or []
+        except Exception as e:
+            print(f"  [backfill scoreboard {d} err] {e}")
+            continue
+        for g in day_games:
+            gid = str(g.get("game_id") or "").strip()
+            if not gid: continue
+            if gid in box_scores_db_pre: continue
+            if g.get("status_code") != 3: continue  # uniquement matchs FINIS
+            if gid in user_picks_gids: continue
+            user_picks_gids.append(gid)
+    if user_picks_gids:
+        print(f"  [backfill scoreboard] {len(user_picks_gids)} games NBA finis sans box score sur {BACKFILL_DAYS}j -> fetch")
+
+    if not pending and not backfill_gids and not user_picks_gids:
         print("[OK] Aucun pick PENDING ni backfill necessaire")
         from collections import Counter
         c = Counter(p.get("result") for p in picks)
         print(f"  Etat : {dict(c)}")
         return
 
-    print(f"=== Resolveur NBA : {len(pending)} picks PENDING + {len(backfill_gids)} backfill ===")
+    print(f"=== Resolveur NBA : {len(pending)} picks PENDING + {len(backfill_gids)} backfill algo + {len(user_picks_gids)} backfill scoreboard ===")
 
     # Group by game_id pour ne fetch chaque boxscore qu'une fois
     by_game = {}
@@ -143,6 +170,8 @@ def run():
         by_game.setdefault(p["game_id"], []).append(p)
     # Ajoute les games en backfill (gpicks vide, on veut juste leur box score)
     for gid in backfill_gids:
+        by_game.setdefault(gid, [])
+    for gid in user_picks_gids:
         by_game.setdefault(gid, [])
 
     # Charge le fichier de box scores existant pour le mettre a jour

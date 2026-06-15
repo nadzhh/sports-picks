@@ -9202,21 +9202,17 @@ function autoResolveUserPicks(){{
   var nResolved = 0;
   var nInvalidated = 0;
   var debug = [];
-  // ── PASSE 1 : re-validation des picks deja auto-resolus avec ancienne logique ──
-  // Si l'actual qu'on retrouve aujourd'hui via gid exact differe de p.actual, on
-  // dévalide (= remet en pending). Couvre les anciens picks resolus avec le
-  // mauvais match en playoffs.
+  // ── PASSE 1 : re-validation des picks deja auto-resolus ──
+  // On dévalide UNIQUEMENT si on retrouve un actual qui DIFFÈRE de celui stocké
+  // (preuve qu'on s'était trompé). Si on ne retrouve plus l'actual (box score
+  // purgée, gid plus dans l'historique algo, etc.), on GARDE la résolution
+  // précédente — sinon on remet en pending des picks parfaitement résolus.
   arr.forEach(function(p){{
     if(!p.auto_resolved) return;
     if(p.manual_override) return;
     var newActual = _lookupActual(p);
-    if(newActual === undefined){{
-      // Plus moyen de retrouver l'actual via gid exact → l'ancienne resolution etait
-      // probablement basee sur la fallback player+prop dangereuse. On dévalide.
-      p.result = null; p.actual = null; p.resolved_at = null; p.auto_resolved = false;
-      nInvalidated++;
-    }} else if(parseFloat(newActual) !== parseFloat(p.actual)){{
-      // Valeur differente → ancienne resolution sur le mauvais match. On dévalide.
+    if(newActual === undefined) return;  // pas de nouvelle info, on garde
+    if(parseFloat(newActual) !== parseFloat(p.actual)){{
       p.result = null; p.actual = null; p.resolved_at = null; p.auto_resolved = false;
       nInvalidated++;
     }}

@@ -332,19 +332,32 @@ def _format_foot(match, kickoff, picks_data, lineup):
         print(f"  [skip foot {home} vs {away}] lineup_type={(lineup or {}).get('lineup_type')} - on attend la compo officielle")
         return None
 
-    # ── PICKS ÉQUIPE (uniquement avec cote dispo) ──
+    # ── PICKS ÉQUIPE ──
+    # On accepte aussi les picks sans cote book si on a une cote_min (estimation
+    # fair value du modèle, ex: WC où on n'a pas toujours de cote bookmaker).
+    # On affiche alors "≥ X.XX" pour signaler le seuil minimum.
     team_picks = (picks_data or {}).get("picks", []) or []
+    fun_picks  = (picks_data or {}).get("fun_picks", []) or []
+    # Pour la WC, on inclut aussi les fun picks (score exact + autres avec
+    # cote_min >= 2.0) car ils sont garantis par l'engine. Les autres sports
+    # ne touchent qu'aux team_picks ici.
+    all_picks = list(team_picks[:8]) + list(fun_picks[:6])
     team_rows = []
-    for p in team_picks[:8]:
+    for p in all_picks:
         cote = p.get("cote")
-        if not cote: continue  # skip picks sans cote (non betable)
+        cote_min = p.get("cote_min")
+        if not cote and not cote_min:
+            continue
         label = p.get("label", "?")
         conf = p.get("confidence", 0)
         reasoning = (p.get("reasoning") or "").strip()
-        # Reasoning court : on prend juste la 1ere ligne (avant le \n) ou tronque a 130 chars
         first_line = reasoning.split("\n")[0][:160] if reasoning else ""
-        cote_str = f" @ <b>{cote:.2f}</b>"
-        row = f"• <b>{label}</b> ({conf}%){cote_str}"
+        if cote:
+            cote_str = f" @ <b>{cote:.2f}</b>"
+        else:
+            cote_str = f" @ <b>≥ {float(cote_min):.2f}</b>"
+        prefix = "🎲" if p.get("is_fun") else "•"
+        row = f"{prefix} <b>{label}</b> ({conf}%){cote_str}"
         if first_line:
             row += f"\n  <i>{first_line}</i>"
         team_rows.append(row)
@@ -482,11 +495,15 @@ def _is_high_value_foot(pick):
 
 def _effective_cote(pick):
     """Retourne (cote, source) ou cote = cote_book si dispo, sinon
-    estimation = (1/proba_modele)*(1-margin). source = 'book' ou 'simule'.
+    cote_min (estimation fair value du modèle), sinon simulation via confidence.
+    source = 'book' | 'cote_min' | 'simule'.
     """
     cote = pick.get("cote")
     if cote and cote > 0:
         return float(cote), "book"
+    cote_min = pick.get("cote_min")
+    if cote_min and cote_min > 0:
+        return float(cote_min), "cote_min"
     conf = pick.get("confidence", 0)
     sim = estimate_book_cote(conf)
     return sim, "simule"
@@ -794,28 +811,39 @@ def send_high_value_alerts():
                     new_count += 1
                     print(f"  [HV-FOOT-PLAYER] {pk.get('player','?')[:25]} {pk.get('label','?')[:40]} - {reason}")
 
-            # ── Pick score exact WC (fun) ──────────────────────────────────
-            # Push UNIQUEMENT si compo confirmee (= 30-60 min avant KO).
-            # Score exact = pari fun a cote elevee, c'est la valeur ajoutee
-            # par la confirmation tardive de la compo.
+            # ── Fun picks WC (score exact + autres avec cote_min >= 2.0) ──
+            # On les pousse en HV dès qu'on a la cote_min (estimation modèle),
+            # sans attendre la cote book (souvent indispo sur WC). Le score
+            # exact spécifiquement attend la compo confirmée pour amplifier
+            # la confiance ; les autres fun_picks sont libérés tout de suite.
             for pk in m.get("fun_picks", []):
                 dir_str = (pk.get("direction") or "")
-                if not dir_str.startswith("wc_score_"):
-                    continue
-                pid = f"foot_{mid}_wcscore_{dir_str}"
+                is_score = dir_str.startswith("wc_score_")
+                tag = "wcscore" if is_score else "wcfun"
+                pid = f"foot_{mid}_{tag}_{dir_str}"
                 if pid in sent_ids: continue
-                # Compo doit etre confirmee
-                if ln_state is None or not ln_state.get("confirmed"):
+                # Pour score exact : attendre la compo confirmée (valeur ajoutée)
+                if is_score:
+                    if ln_state is None or not ln_state.get("confirmed"):
+                        continue
+                # Cote effective : book > cote_min > simulée
+                cote_eff, src = _effective_cote(pk)
+                if cote_eff is None:
                     continue
-                # Cote >= 4.0 minimum (pour valoir la mise sur un fun pick)
-                cote = pk.get("cote") or 0
-                if cote < 4.0:
-                    continue
+                # Pour le score exact : cote elevee attendue (>= 3.5 si cote_min, >= 4.0 si book)
+                if is_score:
+                    min_cote = 4.0 if src == "book" else 3.5
+                    if cote_eff < min_cote:
+                        continue
+                else:
+                    # Autres fun picks WC : cote >= 2.0 (par construction de l'engine)
+                    if cote_eff < 2.0:
+                        continue
                 text = _format_hv_foot(pk, m)
                 if tg_send(text):
                     sent_ids.add(pid)
                     new_count += 1
-                    print(f"  [HV-FOOT-WC-EXACT] {pk.get('label','?')[:60]} @ {cote} - compo confirmee")
+                    print(f"  [HV-FOOT-WC-{'EXACT' if is_score else 'FUN'}] {pk.get('label','?')[:60]} @ {cote_eff:.2f} ({src})")
     except FileNotFoundError:
         pass
     except Exception as e:

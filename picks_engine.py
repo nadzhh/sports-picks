@@ -1869,10 +1869,12 @@ def analyze_match(match, pstats_all, player_odds_all=None):
             # Tri par score descendant
             kept_candidates.sort(key=lambda c: c["_score"], reverse=True)
 
-            # Sélection : MAX 4 picks par match, MAX 1 par famille (sauf si
-            # le 2e du même famille a un score très différent → autorisé).
-            # Toujours essayer d'inclure : 1 safe + 1-2 value + (1 fun/score
-            # exact si elo gap > 300, sinon non).
+            # Sélection : MAX 3 picks "autres" (résultat/buteur/total/BTTS...) par match,
+            # MAX 1 par famille, MAX 1 safe et MAX 1 fun parmi ces 3.
+            # Le score exact est ajouté EN PLUS et géré séparément (4 picks max total).
+            # Contraintes garanties pour TOUS les matchs WC :
+            #   - 1 score exact (toujours)
+            #   - AU MOINS 1 autre pick (même en relaxant min_conf si nécessaire)
             selected_for_match = []
             families_used = set()
             tiers_used = []
@@ -1880,28 +1882,36 @@ def analyze_match(match, pstats_all, player_odds_all=None):
             for cand in kept_candidates:
                 fam = cand["_family"]
                 tier = cand["_tier"]
-                if len(selected_for_match) >= 4:
+                if len(selected_for_match) >= 3:
                     break
-                # Skip si famille déjà couverte (sauf si l'autre était significativement moins bon)
                 if fam in families_used:
                     continue
-                # Skip si 2 safes déjà (on veut diversité)
                 if tier == "safe" and tiers_used.count("safe") >= 1:
                     continue
-                # Skip si 2 funs déjà
                 if tier == "fun" and tiers_used.count("fun") >= 1:
                     continue
                 selected_for_match.append(cand)
                 families_used.add(fam)
                 tiers_used.append(tier)
 
-            # Si le match a vraiment peu de picks intéressants (< 2), on relaxe :
-            # autorise une seconde famille déjà prise pour atteindre 2 picks.
-            if len(selected_for_match) < 2 and len(kept_candidates) >= 2:
-                for cand in kept_candidates:
-                    if cand in selected_for_match: continue
-                    if len(selected_for_match) >= 2: break
-                    selected_for_match.append(cand)
+            # GARANTIE : au moins 1 pick "autre" doit être sélectionné pour chaque
+            # match WC. Si aucun n'a passé les seuils min_conf, on prend le meilleur
+            # candidat sur _interest_score parmi tous les wc_candidates (sans seuil).
+            if not selected_for_match:
+                all_wc = list(wc_candidates)
+                for cand in all_wc:
+                    if "_conf" not in cand:
+                        p = cand["p"]
+                        cand["_conf"] = round(p * 100)
+                        cand["_cote"] = _est_cote(p)
+                        cand["_family"] = FAMILY.get(cand["direction"], "OTHER")
+                        cand["_score"] = _interest_score(cand)
+                        cand["_tier"]  = _tier_pick(cand["_cote"], cand["_conf"])
+                all_wc.sort(key=lambda c: c["_score"], reverse=True)
+                if all_wc:
+                    selected_for_match.append(all_wc[0])
+                    families_used.add(all_wc[0]["_family"])
+                    tiers_used.append(all_wc[0]["_tier"])
 
             # Routing : cote_min < 2.0 → team_picks · cote_min ≥ 2.0 → fun_picks
             # User : "cote fun obligé d'être à +2". Mes cotes sont des cote_min
@@ -1947,16 +1957,13 @@ def analyze_match(match, pstats_all, player_odds_all=None):
                 else:
                     team_picks.append(pick_dict)
 
-            # Score exact #1 : seulement si peu de picks sélectionnés OU si
-            # le top score est vraiment marqué (>= 13%). Sinon c'est juste du
-            # bruit cote 7+ qui pollue la liste.
+            # Score exact #1 : TOUJOURS inclus pour les matchs WC, peu importe
+            # le seuil. C'est le pari fun signature du canal Telegram (cote 4-12
+            # typique) — on garantit qu'il est présent pour chaque match.
             (sh, sa), p_best, top3 = predict_exact_score(lam_h_wc, lam_a_wc)
             alts = " · ".join(f"{i}-{j} ({round(p*100,1)}%)" for (i,j), p in top3)
-            include_score = (p_best >= 0.13) or (len(selected_for_match) < 3)
-            if not include_score:
-                # On skip le score exact, déjà 3+ picks sélectionnés et top score peu marqué
-                pass
-            else:
+            include_score = True
+            if include_score:
                 score_reasoning_base = (
                     f"🏆 Coupe du Monde 2026 - score exact (Poisson grid, ajusté Elo FIFA)\n"
                     f"λ {home} = {lam_h_wc:.2f} buts, λ {away} = {lam_a_wc:.2f} buts\n"
