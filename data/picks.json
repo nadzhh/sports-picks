@@ -894,6 +894,155 @@
     }
   },
   {
+    "league": "Icelandic Besta",
+    "home": "KA Akureyri",
+    "away": "Fram Reykjavik",
+    "start_ts": 1781546400,
+    "match_id": "5225658",
+    "page_url": "/matches/ka-akureyri-vs-fram-reykjavik/laiif#5225658",
+    "picks": [
+      {
+        "direction": "away_win",
+        "type": "Victoire extérieur",
+        "label": "Fram Reykjavik gagne",
+        "cote": null,
+        "confidence": 72,
+        "reasoning": "Fram Reykjavik : 4V/1N/0D sur 5 matchs · #3 au classement · H2H: 0V/0N/0D · Note Sofa: 6.5/10",
+        "stats": {
+          "form": [
+            "W",
+            "W",
+            "D",
+            "W",
+            "W"
+          ]
+        },
+        "is_fun": false,
+        "tier": "safe",
+        "history_top3": true
+      }
+    ],
+    "home_players": [
+      {
+        "player": "Hallgrímur Steingrímsson / Jakob Snær Árnason",
+        "position": "",
+        "is_sub": false,
+        "type": "Double Chance Buteur",
+        "label": "Hallgrímur Steingrímsson ou Jakob Snær Árnason marque",
+        "cote": null,
+        "book": null,
+        "books": [],
+        "confidence": 74,
+        "cote_min": 1.35,
+        "reasoning": "📈 P(Hallgrímur Steingrímsson marque) ≈ 50% · P(Jakob Snær Árnason marque) ≈ 48%\n🎯 P(au moins un marque) = 74% (calculée par 1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.35 - chercher ≥1.35 chez le bookmaker",
+        "context": {},
+        "stats": {
+          "p_a": 0.495,
+          "p_b": 0.48,
+          "p_or": 0.737,
+          "player_a": "Hallgrímur Steingrímsson",
+          "player_b": "Jakob Snær Árnason"
+        },
+        "team": "home",
+        "tier": "safe",
+        "history_top3": true
+      }
+    ],
+    "away_players": [
+      {
+        "player": "Kennie Chopart / Atli Jónasson",
+        "position": "",
+        "is_sub": false,
+        "type": "Double Chance Buteur",
+        "label": "Kennie Chopart ou Atli Jónasson marque",
+        "cote": null,
+        "book": null,
+        "books": [],
+        "confidence": 85,
+        "cote_min": 1.18,
+        "reasoning": "📈 P(Kennie Chopart marque) ≈ 62% · P(Atli Jónasson marque) ≈ 60%\n🎯 P(au moins un marque) = 85% (calculée par 1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.18 - chercher ≥1.18 chez le bookmaker",
+        "context": {},
+        "stats": {
+          "p_a": 0.622,
+          "p_b": 0.6,
+          "p_or": 0.849,
+          "player_a": "Kennie Chopart",
+          "player_b": "Atli Jónasson"
+        },
+        "team": "away",
+        "tier": "safe",
+        "history_top3": false
+      },
+      {
+        "player": "Kennie Chopart",
+        "position": "F",
+        "is_sub": false,
+        "type": "Buteur",
+        "label": "Kennie Chopart marque",
+        "cote": null,
+        "book": null,
+        "books": [],
+        "confidence": 62,
+        "reasoning": "6 buts en 9 matchs cette saison (66.7% de chance/match) · bonne efficacité (19% conv.) · xG moyen 0.00/match, face à une défense qui concède 1.9 buts/match · défense fragile",
+        "context": {
+          "weakness": 0.52
+        },
+        "stats": {
+          "goals": 6,
+          "apps": 9,
+          "gpm": 0.667,
+          "xgpm": 0
+        },
+        "team": "away",
+        "tier": "ok",
+        "history_top3": true
+      }
+    ],
+    "fun_picks": [],
+    "top_pick": {
+      "direction": "away_win",
+      "type": "Victoire extérieur",
+      "label": "Fram Reykjavik gagne",
+      "cote": null,
+      "confidence": 72,
+      "reasoning": "Fram Reykjavik : 4V/1N/0D sur 5 matchs · #3 au classement · H2H: 0V/0N/0D · Note Sofa: 6.5/10",
+      "stats": {
+        "form": [
+          "W",
+          "W",
+          "D",
+          "W",
+          "W"
+        ]
+      },
+      "is_fun": false,
+      "tier": "safe",
+      "history_top3": true
+    },
+    "no_picks": false,
+    "context": {
+      "stadium": {
+        "name": "Greifavöllurinn",
+        "city": "Akureyri",
+        "country": "Iceland",
+        "lat": 65.676664255,
+        "lon": -18.11432002,
+        "capacity": 1500,
+        "surface": "artificial turf"
+      },
+      "weather": {
+        "temp_max": 18.0,
+        "temp_min": 9.4,
+        "humidity": 33,
+        "precipitation_sum_mm": 0.0,
+        "wind_max_kmh": 16.2,
+        "weather_code": 3,
+        "summary_fr": "☁️ couvert · 9–18°C · humidité 33%"
+      },
+      "text": "Conditions : ☁️ couvert · 9–18°C · humidité 33%. Stade : Greifavöllurinn · 1 500 places · plein air."
+    }
+  },
+  {
     "league": "World Cup",
     "home": "Belgium",
     "away": "Egypt",
@@ -906,8 +1055,8 @@
         "type": "Victoire domicile",
         "label": "Belgium gagne",
         "cote": null,
-        "confidence": 74,
-        "reasoning": "Belgium : 4V/1N/0D sur 5 matchs · #1 au classement · H2H: 0V/0N/0D · Note Sofa: 6.5/10",
+        "confidence": 71,
+        "reasoning": "Belgium : 4V/1N/0D sur 5 matchs · #4 au classement · H2H: 0V/0N/0D · Note Sofa: 6.5/10",
         "stats": {
           "form": [
             "W",
@@ -1033,8 +1182,8 @@
       "type": "Victoire domicile",
       "label": "Belgium gagne",
       "cote": null,
-      "confidence": 74,
-      "reasoning": "Belgium : 4V/1N/0D sur 5 matchs · #1 au classement · H2H: 0V/0N/0D · Note Sofa: 6.5/10",
+      "confidence": 71,
+      "reasoning": "Belgium : 4V/1N/0D sur 5 matchs · #4 au classement · H2H: 0V/0N/0D · Note Sofa: 6.5/10",
       "stats": {
         "form": [
           "W",
@@ -1073,155 +1222,6 @@
         "summary_fr": "☁️ couvert · 16–31°C · humidité 29%"
       },
       "text": "Conditions : ☁️ couvert · 16–31°C · humidité 29%. Stade : Lumen Field · altitude 17m · 68 740 places · plein air. Climat océanique tempéré. Juin 18-22°C, pluies possibles."
-    }
-  },
-  {
-    "league": "Icelandic Besta",
-    "home": "KA Akureyri",
-    "away": "Fram Reykjavik",
-    "start_ts": 1781546400,
-    "match_id": "5225658",
-    "page_url": "/matches/ka-akureyri-vs-fram-reykjavik/laiif#5225658",
-    "picks": [
-      {
-        "direction": "away_win",
-        "type": "Victoire extérieur",
-        "label": "Fram Reykjavik gagne",
-        "cote": null,
-        "confidence": 72,
-        "reasoning": "Fram Reykjavik : 4V/1N/0D sur 5 matchs · #3 au classement · H2H: 0V/0N/0D · Note Sofa: 6.5/10",
-        "stats": {
-          "form": [
-            "W",
-            "W",
-            "D",
-            "W",
-            "W"
-          ]
-        },
-        "is_fun": false,
-        "tier": "safe",
-        "history_top3": true
-      }
-    ],
-    "home_players": [
-      {
-        "player": "Hallgrímur Steingrímsson / Jakob Snær Árnason",
-        "position": "",
-        "is_sub": false,
-        "type": "Double Chance Buteur",
-        "label": "Hallgrímur Steingrímsson ou Jakob Snær Árnason marque",
-        "cote": null,
-        "book": null,
-        "books": [],
-        "confidence": 74,
-        "cote_min": 1.35,
-        "reasoning": "📈 P(Hallgrímur Steingrímsson marque) ≈ 50% · P(Jakob Snær Árnason marque) ≈ 48%\n🎯 P(au moins un marque) = 74% (calculée par 1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.35 - chercher ≥1.35 chez le bookmaker",
-        "context": {},
-        "stats": {
-          "p_a": 0.495,
-          "p_b": 0.48,
-          "p_or": 0.737,
-          "player_a": "Hallgrímur Steingrímsson",
-          "player_b": "Jakob Snær Árnason"
-        },
-        "team": "home",
-        "tier": "safe",
-        "history_top3": true
-      }
-    ],
-    "away_players": [
-      {
-        "player": "Kennie Chopart / Atli Jónasson",
-        "position": "",
-        "is_sub": false,
-        "type": "Double Chance Buteur",
-        "label": "Kennie Chopart ou Atli Jónasson marque",
-        "cote": null,
-        "book": null,
-        "books": [],
-        "confidence": 85,
-        "cote_min": 1.18,
-        "reasoning": "📈 P(Kennie Chopart marque) ≈ 62% · P(Atli Jónasson marque) ≈ 60%\n🎯 P(au moins un marque) = 85% (calculée par 1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.18 - chercher ≥1.18 chez le bookmaker",
-        "context": {},
-        "stats": {
-          "p_a": 0.615,
-          "p_b": 0.6,
-          "p_or": 0.846,
-          "player_a": "Kennie Chopart",
-          "player_b": "Atli Jónasson"
-        },
-        "team": "away",
-        "tier": "safe",
-        "history_top3": false
-      },
-      {
-        "player": "Kennie Chopart",
-        "position": "F",
-        "is_sub": false,
-        "type": "Buteur",
-        "label": "Kennie Chopart marque",
-        "cote": null,
-        "book": null,
-        "books": [],
-        "confidence": 62,
-        "reasoning": "6 buts en 9 matchs cette saison (66.7% de chance/match) · bonne efficacité (19% conv.) · xG moyen 0.00/match, face à une défense qui concède 1.8 buts/match · défense fragile",
-        "context": {
-          "weakness": 0.51
-        },
-        "stats": {
-          "goals": 6,
-          "apps": 9,
-          "gpm": 0.667,
-          "xgpm": 0
-        },
-        "team": "away",
-        "tier": "ok",
-        "history_top3": true
-      }
-    ],
-    "fun_picks": [],
-    "top_pick": {
-      "direction": "away_win",
-      "type": "Victoire extérieur",
-      "label": "Fram Reykjavik gagne",
-      "cote": null,
-      "confidence": 72,
-      "reasoning": "Fram Reykjavik : 4V/1N/0D sur 5 matchs · #3 au classement · H2H: 0V/0N/0D · Note Sofa: 6.5/10",
-      "stats": {
-        "form": [
-          "W",
-          "W",
-          "D",
-          "W",
-          "W"
-        ]
-      },
-      "is_fun": false,
-      "tier": "safe",
-      "history_top3": true
-    },
-    "no_picks": false,
-    "context": {
-      "stadium": {
-        "name": "Greifavöllurinn",
-        "city": "Akureyri",
-        "country": "Iceland",
-        "lat": 65.676664255,
-        "lon": -18.11432002,
-        "capacity": 1500,
-        "surface": "artificial turf"
-      },
-      "weather": {
-        "temp_max": 18.0,
-        "temp_min": 9.4,
-        "humidity": 33,
-        "precipitation_sum_mm": 0.0,
-        "wind_max_kmh": 16.2,
-        "weather_code": 3,
-        "summary_fr": "☁️ couvert · 9–18°C · humidité 33%"
-      },
-      "text": "Conditions : ☁️ couvert · 9–18°C · humidité 33%. Stade : Greifavöllurinn · 1 500 places · plein air."
     }
   },
   {
