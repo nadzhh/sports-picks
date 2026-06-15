@@ -835,6 +835,70 @@
     "away_players": [],
     "fun_picks": [
       {
+        "direction": "wc_home_win",
+        "type": "🏆 Vainqueur WC",
+        "label": "Mexico gagne",
+        "cote": 1.52,
+        "confidence": 66,
+        "is_fun": true,
+        "stats": {
+          "lam_h": 1.65,
+          "lam_a": 0.49
+        },
+        "reasoning": "🏆 Modèle Poisson CdM (tier FIFA ajusté)\nλ Mexico = 1.65 buts attendus, λ South Africa = 0.49\nP(Mexico gagne) = 66.0% · P(nul) = 23.4% · P(South Africa) = 10.6%",
+        "tier": "fun",
+        "edge_pp": 0.2,
+        "history_top3": false
+      },
+      {
+        "direction": "wc_dc_1x",
+        "type": "🏆 Double chance WC",
+        "label": "Mexico ou nul (1X)",
+        "cote": 1.12,
+        "confidence": 89,
+        "is_fun": true,
+        "stats": {
+          "lam_h": 1.65,
+          "lam_a": 0.49
+        },
+        "reasoning": "🛡️ Double chance : Mexico gagne (66.0%) OU match nul (23.4%)\nCombiné = 89.4% — option safe contre South Africa",
+        "tier": "fun",
+        "edge_pp": -0.3,
+        "history_top3": false
+      },
+      {
+        "direction": "wc_under_25",
+        "type": "⚽ Total buts WC",
+        "label": "Moins de 2.5 buts",
+        "cote": 1.57,
+        "confidence": 64,
+        "is_fun": true,
+        "stats": {
+          "lam_h": 1.65,
+          "lam_a": 0.49
+        },
+        "reasoning": "⚽ Modèle Poisson : λ total = 2.14\nP(moins de 2.5 buts) = 63.8%",
+        "tier": "fun",
+        "edge_pp": 0.3,
+        "history_top3": false
+      },
+      {
+        "direction": "wc_btts_no",
+        "type": "⚽ BTTS WC",
+        "label": "Une équipe ne marque pas (BTTS NO)",
+        "cote": 1.46,
+        "confidence": 69,
+        "is_fun": true,
+        "stats": {
+          "lam_h": 1.65,
+          "lam_a": 0.49
+        },
+        "reasoning": "⚽ BTTS NO : P(au moins une équipe blanchie) = 68.6%\nλ faibles côté South Africa (0.49) ou Mexico (1.65)",
+        "tier": "fun",
+        "edge_pp": 0.5,
+        "history_top3": false
+      },
+      {
         "direction": "wc_score_1_0",
         "type": "🏆 Score exact WC",
         "label": "Score exact : Mexico 1-0 South Africa",

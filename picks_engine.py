@@ -1346,46 +1346,214 @@ def analyze_match(match, pstats_all, player_odds_all=None):
     fun_picks.sort(key=lambda x: x["confidence"], reverse=True)
     fun_picks = fun_picks[:2]
 
-    # ── Coupe du Monde 2026 : score exact fun (Poisson grid) ────────────────
-    # Pour CHAQUE match WC, ajoute en fun le score le plus probable +
-    # 2 alternatifs (au cas ou le user voudrait combiner).
-    # La confidence est P(exact) * 100 (typique 10-25%).
-    # is_fun=True donc tier=fun automatique.
+    # ── Coupe du Monde 2026 : marchés multiples dérivés de la grille Poisson
+    # Au lieu de générer UNIQUEMENT le score exact (fun, cote 4-8), on dérive
+    # de la même paire (lam_h, lam_a) plusieurs marchés à confiance variable :
+    #   - Vainqueur 1X2 (home / draw / away)
+    #   - Double chance (1X, 12, X2)
+    #   - Over/Under 1.5, 2.5, 3.5
+    #   - BTTS (les 2 équipes marquent)
+    #   - Score exact #1
+    # Chaque marché passe via le seuil 50% de confiance (ou est exclu).
     if league_id == WC_LEAGUE_ID:
-        # On calcule lambda en utilisant les memes stats que pour Over/Under
-        # (recent_stats foot ou L5 form en fallback)
         h_l5_gf = (form.get("homeTeam") or {}).get("l5_gf_pm")
         h_l5_ga = (form.get("homeTeam") or {}).get("l5_ga_pm")
         a_l5_gf = (form.get("awayTeam") or {}).get("l5_gf_pm")
         a_l5_ga = (form.get("awayTeam") or {}).get("l5_ga_pm")
         if h_l5_gf is not None and a_l5_ga is not None and a_l5_gf is not None and h_l5_ga is not None:
-            # Ajustement tier FIFA (les WC matchs opposent des niveaux varies)
             h_atk_m, h_def_m = tier_strength_adjustment(home, away)
             a_atk_m, a_def_m = tier_strength_adjustment(away, home)
             lam_h_wc = max(0.2, ((h_l5_gf * h_atk_m) + (a_l5_ga * a_def_m)) / 2)
             lam_a_wc = max(0.2, ((a_l5_gf * a_atk_m) + (h_l5_ga * h_def_m)) / 2)
+
+            # Helpers Poisson
+            import math as _mwc
+            def _pmf(k, lam):
+                return (lam ** k) * _mwc.exp(-lam) / _mwc.factorial(k)
+
+            # Grille complète 0-7 pour 1X2 / Over+Under / BTTS / score exact
+            MAX_G = 7
+            grid_full = {}
+            for i in range(MAX_G + 1):
+                ph = _pmf(i, lam_h_wc)
+                for j in range(MAX_G + 1):
+                    pa = _pmf(j, lam_a_wc)
+                    grid_full[(i, j)] = ph * pa
+
+            p_home_win = sum(p for (i, j), p in grid_full.items() if i > j)
+            p_draw     = sum(p for (i, j), p in grid_full.items() if i == j)
+            p_away_win = sum(p for (i, j), p in grid_full.items() if i < j)
+            p_btts     = (1 - _mwc.exp(-lam_h_wc)) * (1 - _mwc.exp(-lam_a_wc))
+            # Totals
+            lam_total = lam_h_wc + lam_a_wc
+            def _p_total_under(k):
+                return sum(_pmf(i, lam_total) for i in range(k + 1))
+            p_under_15 = _p_total_under(1)  # P(total <= 1)
+            p_over_15  = 1 - p_under_15
+            p_under_25 = _p_total_under(2)
+            p_over_25  = 1 - p_under_25
+            p_under_35 = _p_total_under(3)
+            p_over_35  = 1 - p_under_35
+
+            # Cote estimée = 1/p (sans marge bookmaker). Pour info utilisateur.
+            def _est_cote(p):
+                if p <= 0: return None
+                return round(1 / p, 2)
+
+            # Helper : ajoute un pick s'il dépasse le seuil de confiance
+            wc_candidates = [
+                # 1X2 (vainqueur)
+                {
+                    "direction": "wc_home_win", "type": "🏆 Vainqueur WC",
+                    "label": f"{home} gagne",
+                    "p": p_home_win, "min_conf": 50,
+                    "reasoning": (
+                        f"🏆 Modèle Poisson CdM (tier FIFA ajusté)\n"
+                        f"λ {home} = {lam_h_wc:.2f} buts attendus, λ {away} = {lam_a_wc:.2f}\n"
+                        f"P({home} gagne) = {p_home_win*100:.1f}% · P(nul) = {p_draw*100:.1f}% · P({away}) = {p_away_win*100:.1f}%"
+                    ),
+                },
+                {
+                    "direction": "wc_away_win", "type": "🏆 Vainqueur WC",
+                    "label": f"{away} gagne",
+                    "p": p_away_win, "min_conf": 50,
+                    "reasoning": (
+                        f"🏆 Modèle Poisson CdM (tier FIFA ajusté)\n"
+                        f"λ {home} = {lam_h_wc:.2f}, λ {away} = {lam_a_wc:.2f}\n"
+                        f"P({home}) = {p_home_win*100:.1f}% · P(nul) = {p_draw*100:.1f}% · P({away} gagne) = {p_away_win*100:.1f}%"
+                    ),
+                },
+                {
+                    "direction": "wc_draw", "type": "🏆 Vainqueur WC",
+                    "label": "Match nul",
+                    "p": p_draw, "min_conf": 32,  # nul rare, seuil + bas
+                    "reasoning": (
+                        f"🏆 Modèle Poisson CdM\n"
+                        f"P(nul) = {p_draw*100:.1f}% — équipes équilibrées (λ {lam_h_wc:.2f} vs {lam_a_wc:.2f})"
+                    ),
+                },
+                # Double chance
+                {
+                    "direction": "wc_dc_1x", "type": "🏆 Double chance WC",
+                    "label": f"{home} ou nul (1X)",
+                    "p": p_home_win + p_draw, "min_conf": 65,
+                    "reasoning": (
+                        f"🛡️ Double chance : {home} gagne ({p_home_win*100:.1f}%) OU match nul ({p_draw*100:.1f}%)\n"
+                        f"Combiné = {(p_home_win + p_draw)*100:.1f}% — option safe contre {away}"
+                    ),
+                },
+                {
+                    "direction": "wc_dc_x2", "type": "🏆 Double chance WC",
+                    "label": f"{away} ou nul (X2)",
+                    "p": p_away_win + p_draw, "min_conf": 65,
+                    "reasoning": (
+                        f"🛡️ Double chance : {away} gagne ({p_away_win*100:.1f}%) OU match nul ({p_draw*100:.1f}%)\n"
+                        f"Combiné = {(p_away_win + p_draw)*100:.1f}%"
+                    ),
+                },
+                # Totals
+                {
+                    "direction": "wc_over_15", "type": "⚽ Total buts WC",
+                    "label": "Plus de 1.5 buts",
+                    "p": p_over_15, "min_conf": 70,
+                    "reasoning": (
+                        f"⚽ Modèle Poisson : λ total = {lam_total:.2f} buts attendus\n"
+                        f"P(plus de 1.5 buts) = {p_over_15*100:.1f}%"
+                    ),
+                },
+                {
+                    "direction": "wc_under_15", "type": "⚽ Total buts WC",
+                    "label": "Moins de 1.5 buts",
+                    "p": p_under_15, "min_conf": 50,
+                    "reasoning": (
+                        f"⚽ Modèle Poisson : λ total = {lam_total:.2f}\n"
+                        f"P(moins de 1.5 buts) = {p_under_15*100:.1f}% — match potentiellement fermé"
+                    ),
+                },
+                {
+                    "direction": "wc_over_25", "type": "⚽ Total buts WC",
+                    "label": "Plus de 2.5 buts",
+                    "p": p_over_25, "min_conf": 55,
+                    "reasoning": (
+                        f"⚽ Modèle Poisson : λ total = {lam_total:.2f}\n"
+                        f"P(plus de 2.5 buts) = {p_over_25*100:.1f}%"
+                    ),
+                },
+                {
+                    "direction": "wc_under_25", "type": "⚽ Total buts WC",
+                    "label": "Moins de 2.5 buts",
+                    "p": p_under_25, "min_conf": 55,
+                    "reasoning": (
+                        f"⚽ Modèle Poisson : λ total = {lam_total:.2f}\n"
+                        f"P(moins de 2.5 buts) = {p_under_25*100:.1f}%"
+                    ),
+                },
+                {
+                    "direction": "wc_over_35", "type": "⚽ Total buts WC",
+                    "label": "Plus de 3.5 buts",
+                    "p": p_over_35, "min_conf": 50,
+                    "reasoning": (
+                        f"⚽ Modèle Poisson : λ total = {lam_total:.2f}\n"
+                        f"P(plus de 3.5 buts) = {p_over_35*100:.1f}% — match ouvert prévu"
+                    ),
+                },
+                # BTTS
+                {
+                    "direction": "wc_btts_yes", "type": "⚽ BTTS WC",
+                    "label": "Les 2 équipes marquent",
+                    "p": p_btts, "min_conf": 55,
+                    "reasoning": (
+                        f"⚽ BTTS Poisson : P({home} ≥ 1) × P({away} ≥ 1) = "
+                        f"{(1-_mwc.exp(-lam_h_wc))*100:.0f}% × {(1-_mwc.exp(-lam_a_wc))*100:.0f}% = "
+                        f"{p_btts*100:.1f}%"
+                    ),
+                },
+                {
+                    "direction": "wc_btts_no", "type": "⚽ BTTS WC",
+                    "label": "Une équipe ne marque pas (BTTS NO)",
+                    "p": 1 - p_btts, "min_conf": 55,
+                    "reasoning": (
+                        f"⚽ BTTS NO : P(au moins une équipe blanchie) = {(1-p_btts)*100:.1f}%\n"
+                        f"λ faibles côté {away} ({lam_a_wc:.2f}) ou {home} ({lam_h_wc:.2f})"
+                    ),
+                },
+            ]
+            for cand in wc_candidates:
+                p = cand["p"]
+                conf = round(p * 100)
+                if conf < cand["min_conf"]:
+                    continue
+                fun_picks.append({
+                    "direction": cand["direction"],
+                    "type":      cand["type"],
+                    "label":     cand["label"],
+                    "cote":      _est_cote(p),
+                    "confidence": conf,
+                    "is_fun":    True,
+                    "stats":     {"lam_h": round(lam_h_wc, 2), "lam_a": round(lam_a_wc, 2)},
+                    "reasoning": cand["reasoning"],
+                })
+
+            # Score exact #1 (toujours en fun, cote haute)
             (sh, sa), p_best, top3 = predict_exact_score(lam_h_wc, lam_a_wc)
-            # Liste top-3 lisible
             alts = " · ".join(f"{i}-{j} ({round(p*100,1)}%)" for (i,j), p in top3)
-            wc_fun = {
+            fun_picks.append({
                 "direction": f"wc_score_{sh}_{sa}",
-                "type": "🏆 Score exact WC",
-                "label": f"Score exact : {home} {sh}-{sa} {away}",
-                "cote": round(1 / max(0.01, p_best), 2),
+                "type":      "🏆 Score exact WC",
+                "label":     f"Score exact : {home} {sh}-{sa} {away}",
+                "cote":      round(1 / max(0.01, p_best), 2),
                 "confidence": round(p_best * 100),
-                "is_fun": True,
-                "stats": {"lam_h": round(lam_h_wc, 2), "lam_a": round(lam_a_wc, 2)},
+                "is_fun":    True,
+                "stats":     {"lam_h": round(lam_h_wc, 2), "lam_a": round(lam_a_wc, 2)},
                 "reasoning": (
                     f"🏆 Coupe du Monde 2026 - score exact (Poisson grid)\n"
-                    f"λ {home} = {lam_h_wc:.2f} buts, λ {away} = {lam_a_wc:.2f} buts "
-                    f"(ajusté tier FIFA)\n"
+                    f"λ {home} = {lam_h_wc:.2f} buts, λ {away} = {lam_a_wc:.2f} buts (ajusté tier FIFA)\n"
                     f"Top 3 : {alts}\n"
                     f"⚠️ Pari fun (cote élevée typique 4-8) - mise modeste"
                 ),
                 "exact_score": [sh, sa],
-                "wc_top3": [[list(s), round(p*100,1)] for s, p in top3],
-            }
-            fun_picks.append(wc_fun)
+                "wc_top3":     [[list(s), round(p*100,1)] for s, p in top3],
+            })
 
     # ── Props joueurs ───────────────────────────────────────────────────────
     home_players = pstats.get("home", [])
