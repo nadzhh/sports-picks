@@ -1,29 +1,7 @@
 name: Sport-picks cron
 
-# Tourne toutes les 30 min pour :
-# 1. resoudre les picks d'hier (resolver foot + NBA + tennis)
-# 2. fetcher les fixtures upcoming + lineups + box scores
-# 3. generer les picks
-# 4. publier le site GitHub Pages
-# 5. envoyer les notifications Telegram 30 min avant chaque match
-#
-# Quota Github Actions free tier : 2000 min/mois. 48 runs/jour × ~5 min =
-# ~7200 min/mois -> au-dessus du free tier, possible overage selon plan.
-# Pour rester gratuit, passer a "0 6,12,18,23 * * *" (4 runs/jour).
-#
-# Secrets requis dans Settings -> Secrets and variables -> Actions :
-#   - API_KEY              : cle api-sports.io (football)
-#   - ODDS_API_KEY/2/3     : cles the-odds-api.com (NBA props / foot / tennis)
-#   - RAPIDAPI_KEY         : Tank01 fantasy stats (NBA injuries)
-#   - TELEGRAM_BOT_TOKEN   : token du bot @BotFather
-#   - TELEGRAM_CHAT_ID     : chat_id Telegram (notify.py)
-#
-# Pour declencher manuellement : onglet Actions -> Sport-picks cron -> Run workflow
-
 on:
-  schedule:
-    - cron: "*/30 * * * *"   # toutes les 30 minutes
-  workflow_dispatch:          # bouton "Run workflow" manuel dans l'UI
+  workflow_dispatch:
 
 permissions:
   contents: write
