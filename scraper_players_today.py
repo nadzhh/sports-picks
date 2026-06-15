@@ -101,11 +101,28 @@ def collect_league_stats(fm_lid, fm_sid):
                 "minutes": s.get("minutes"), "appearances": s.get("matches"),
             })
             player_data[pid][skey] = s.get("value")
-            # Track meta from each file
+            # Track meta from each file (1ère occurrence non-nulle)
             if s.get("minutes") and not player_data[pid].get("minutes"):
                 player_data[pid]["minutes"] = s.get("minutes")
             if s.get("matches") and not player_data[pid].get("appearances"):
                 player_data[pid]["appearances"] = s.get("matches")
+
+    # ── OVERRIDE appearances/minutes via stat file mins_played ──
+    # FotMob retourne dans CHAQUE stat file un `MatchesPlayed` qui ne signifie
+    # PAS le nombre de matchs joués mais le nombre de matchs où la stat a été
+    # observée. Ex : stat file `goals` -> MatchesPlayed = nombre de matchs où
+    # le joueur a marqué (4 pour Chopart) au lieu du total saison (9).
+    # Le stat file `mins_played` est le SEUL où MatchesPlayed correspond au
+    # nombre réel de matchs joués → on l'utilise comme source d'autorité.
+    mins_idx = _stat_index(fm_stat(fm_lid, fm_sid, PLAYER_STAT_FILES.get("mins", "mins_played")))
+    for pid, s in mins_idx.items():
+        if pid not in player_data: continue
+        real_apps = s.get("matches")
+        real_mins = s.get("minutes") or s.get("value")
+        if real_apps and real_apps > 0:
+            player_data[pid]["appearances"] = real_apps
+        if real_mins and real_mins > 0:
+            player_data[pid]["minutes"] = real_mins
 
     return team_data, player_data
 
