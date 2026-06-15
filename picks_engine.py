@@ -2595,15 +2595,16 @@ def analyze_match(match, pstats_all, player_odds_all=None):
     _tag_edge(away_pp)
     _tag_edge(fun_picks)
 
-    # ── Marque les TOP 3 historises (meme score que _save_to_history) ─────
-    # Permet a l UI d afficher un badge sur les picks qui seront retenus
-    # dans le tracking historique (cote >= 1.60 + score combine).
-    HIST_MIN_COTE_DISPLAY = 1.60
-    HIST_MAX_PER_MATCH_DISPLAY = 3
+    # ── Marque les TOP 5 historises (meme score que _save_to_history) ─────
+    # Aligné avec HIST_MIN_COTE = 1.30 et HIST_MAX_PER_MATCH = 5 en sortie.
+    HIST_MIN_COTE_DISPLAY = 1.30
+    HIST_MAX_PER_MATCH_DISPLAY = 5
 
     def _eff_cote(pk):
         c = pk.get("cote")
         if c and c > 0: return float(c)
+        cmin = pk.get("cote_min")
+        if cmin and cmin > 0: return float(cmin)
         conf = pk.get("confidence") or 0
         if conf <= 0: return None
         return round((1.0 / (conf/100.0)) * 0.92, 2)
@@ -3308,7 +3309,7 @@ def run():
     return output
 
 
-HISTORY_FREEZE_HOURS_FOOT = 3       # snapshot picks dans la fenetre 3h avant kickoff
+HISTORY_FREEZE_HOURS_FOOT = 18      # snapshot picks dans la fenetre 18h avant kickoff (au lieu de 3h trop tardif)
 HISTORY_RECOVER_HOURS_FOOT = 24     # rattrape aussi les picks dont le KO est passe
                                     # depuis moins de 24h (couvre les trous de cron)
 
@@ -3363,16 +3364,25 @@ def _save_to_history(matches):
     existing_ids = {p.get("id") for p in history.get("picks", [])}
     n_added = 0
 
-    # ── Filtre historique : cote >= 1.60 + top 3 par match max ──────────
-    # User : 'dans l historique mets que les meilleurs paris (max 3 par
-    # match), cote 1.60 minimum (pas 1.15)'.
-    HIST_MIN_COTE = 1.60
-    HIST_MAX_PER_MATCH = 3
+    # ── Filtre historique : cote >= 1.30 + top 5 par match max ──────────
+    # User original : 'cote 1.60 min (pas 1.15)' - mais avec les nouveaux
+    # picks Poisson safe (Belgium marque 2+ buts cote_min 1.25, Cape Verde
+    # ne marque pas 1.25, etc.) on filtrait TOUS les picks safe. Compromis :
+    # seuil à 1.30 (rejette les ultra-safe 1.15 anytime_scorer mais accepte
+    # les Poisson-derived safe picks > 1.25).
+    HIST_MIN_COTE = 1.30
+    HIST_MAX_PER_MATCH = 5   # 3 -> 5 pour exposer les 4-5 picks WC
 
     def _effective_cote(pk):
-        """Cote book si dispo, sinon cote simulee via (1/conf)*0.92."""
+        """Cote effective pour le filtre historique :
+        1. cote book réelle si dispo
+        2. cote_min du modèle (fair value 1/p sans marge)
+        3. Heuristique (1/conf)*0.92 en dernier recours
+        """
         c = pk.get("cote")
         if c and c > 0: return float(c)
+        cmin = pk.get("cote_min")
+        if cmin and cmin > 0: return float(cmin)
         conf = pk.get("confidence") or 0
         if conf <= 0: return None
         return round((1.0 / (conf/100.0)) * 0.92, 2)
