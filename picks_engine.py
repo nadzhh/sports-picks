@@ -2621,8 +2621,18 @@ def analyze_match(match, pstats_all, player_odds_all=None):
         [(p, "player")  for p in away_pp] +
         [(p, "fun")     for p in fun_picks]
     )
-    elig = [(p, c) for p, c in all_pool
-             if (_eff_cote(p) or 0) >= HIST_MIN_COTE_DISPLAY]
+    # Eligibilite : meme regle que _filter_for_history — un pick passe si
+    # sa cote connue (réelle OU modèle) >= seuil, ou s'il n'a aucune cote
+    # connue (pas de cote_min ni cote réelle → on ne bloque pas).
+    def _is_elig_display(pk):
+        c    = pk.get("cote")
+        cmin = pk.get("cote_min")
+        if c and c > 0:
+            return c >= HIST_MIN_COTE_DISPLAY
+        if cmin and cmin > 0:
+            return cmin >= HIST_MIN_COTE_DISPLAY
+        return True  # pas de cote connue → on garde
+    elig = [(p, c) for p, c in all_pool if _is_elig_display(p)]
     elig.sort(key=lambda x: _hist_score(x[0]), reverse=True)
     top3_ids = set(id(p) for p, _ in elig[:HIST_MAX_PER_MATCH_DISPLAY])
     for p, _ in all_pool:
@@ -3397,12 +3407,24 @@ def _save_to_history(matches):
         return edge * 1.5 + conf * 0.3 + tier_bonus
 
     def _filter_for_history(all_picks):
-        """Garde les top 3 picks avec cote effective >= 1.60."""
+        """Garde les top N picks. Logique : un pick PASSE si :
+          - Il a une cote réelle (bookmaker) >= seuil, OU
+          - Il a une cote_min (modèle) >= seuil, OU
+          - Il n'a NI cote NI cote_min (on ne peut pas juger → on garde)
+        Filtre seulement les picks dont la cote est CONNUE et < seuil
+        (= les picks sûrement à juice trop faible).
+        """
         scored = []
         for pk in all_picks:
-            ec = _effective_cote(pk)
-            if ec is None or ec < HIST_MIN_COTE:
-                continue
+            c    = pk.get("cote")
+            cmin = pk.get("cote_min")
+            # Si une cote (réelle ou modèle) est dispo, on la teste
+            if c and c > 0:
+                if c < HIST_MIN_COTE: continue
+            elif cmin and cmin > 0:
+                if cmin < HIST_MIN_COTE: continue
+            # Sinon : pas de cote connue → on garde (user : "si pas de cote
+            # ne veut pas dire que la cote est pas bonne")
             scored.append((pk, _pick_score(pk)))
         scored.sort(key=lambda x: x[1], reverse=True)
         return [x[0] for x in scored[:HIST_MAX_PER_MATCH]]
