@@ -1,18 +1,18 @@
 {
-  "generated_at": "2026-06-15T20:33:10.449769",
-  "n_total": 687,
+  "generated_at": "2026-06-15T21:03:03.419211",
+  "n_total": 689,
   "globals": {
     "foot": {
-      "n": 427,
+      "n": 429,
       "w": 197,
-      "l": 206,
+      "l": 208,
       "push": 24,
-      "wr": 48.9,
-      "roi": -8.7,
-      "profit": -37.25,
+      "wr": 48.6,
+      "roi": -9.1,
+      "profit": -39.25,
       "avg_cote": 2.26,
       "break_even_wr": 44.3,
-      "wr_vs_be": 4.6
+      "wr_vs_be": 4.3
     },
     "tennis": {
       "n": 125,
@@ -70,18 +70,18 @@
         "calibration_gap": -25.4
       },
       "70-79": {
-        "n": 141,
+        "n": 142,
         "w": 82,
-        "l": 44,
+        "l": 45,
         "push": 15,
-        "wr": 65.1,
-        "roi": 12.9,
-        "profit": 18.12,
+        "wr": 64.6,
+        "roi": 12.1,
+        "profit": 17.12,
         "avg_cote": 1.51,
         "break_even_wr": 66.0,
-        "wr_vs_be": -0.9,
+        "wr_vs_be": -1.4,
         "expected_wr": 74.5,
-        "calibration_gap": -9.4
+        "calibration_gap": -9.9
       },
       "80-89": {
         "n": 65,
@@ -415,6 +415,18 @@
         "break_even_wr": 37.8,
         "wr_vs_be": 0.9
       },
+      "🏆 Score exact WC": {
+        "n": 3,
+        "w": 0,
+        "l": 3,
+        "push": 0,
+        "wr": 0.0,
+        "roi": -100.0,
+        "profit": -3.0,
+        "avg_cote": 5.17,
+        "break_even_wr": 19.3,
+        "wr_vs_be": -19.3
+      },
       "Double buteur": {
         "n": 4,
         "w": 0,
@@ -440,16 +452,16 @@
         "wr_vs_be": null
       },
       "Victoire domicile": {
-        "n": 8,
+        "n": 9,
         "w": 1,
-        "l": 7,
+        "l": 8,
         "push": 0,
-        "wr": 12.5,
-        "roi": -80.8,
-        "profit": -6.46,
+        "wr": 11.1,
+        "roi": -82.9,
+        "profit": -7.46,
         "avg_cote": 1.48,
         "break_even_wr": 67.8,
-        "wr_vs_be": -55.3
+        "wr_vs_be": -56.7
       },
       "Double Chance Buteur": {
         "n": 26,
@@ -722,6 +734,18 @@
     },
     "foot": {
       "league": {
+        "World Cup": {
+          "n": 5,
+          "w": 0,
+          "l": 5,
+          "push": 0,
+          "wr": 0.0,
+          "roi": -100.0,
+          "profit": -5.0,
+          "avg_cote": 5.17,
+          "break_even_wr": 19.3,
+          "wr_vs_be": -19.3
+        },
         "Friendlies": {
           "n": 125,
           "w": 46,
@@ -893,16 +917,16 @@
       },
       "direction": {
         "home_win": {
-          "n": 34,
+          "n": 35,
           "w": 14,
-          "l": 15,
+          "l": 16,
           "push": 5,
-          "wr": 48.3,
-          "roi": -14.5,
-          "profit": -4.94,
+          "wr": 46.7,
+          "roi": -17.0,
+          "profit": -5.94,
           "avg_cote": 1.4,
           "break_even_wr": 71.2,
-          "wr_vs_be": -22.9
+          "wr_vs_be": -24.6
         },
         "away_win": {
           "n": 38,
@@ -1051,28 +1075,28 @@
       },
       "is_fun": {
         "False": {
-          "n": 416,
+          "n": 417,
           "w": 194,
-          "l": 198,
+          "l": 199,
           "push": 24,
-          "wr": 49.5,
-          "roi": -9.2,
-          "profit": -38.18,
+          "wr": 49.4,
+          "roi": -9.4,
+          "profit": -39.18,
           "avg_cote": 2.11,
           "break_even_wr": 47.5,
-          "wr_vs_be": 2.0
+          "wr_vs_be": 1.9
         },
         "True": {
-          "n": 11,
+          "n": 12,
           "w": 3,
-          "l": 8,
+          "l": 9,
           "push": 0,
-          "wr": 27.3,
-          "roi": 8.5,
-          "profit": 0.93,
+          "wr": 25.0,
+          "roi": -0.6,
+          "profit": -0.07,
           "avg_cote": 3.86,
           "break_even_wr": 25.9,
-          "wr_vs_be": 1.4
+          "wr_vs_be": -0.9
         }
       }
     },
@@ -1652,34 +1676,34 @@
       "severity": "medium",
       "type": "context_signal",
       "scope": "foot · is_fun",
-      "message": "Signal contexte <b>is_fun</b> (foot) : is_fun=True → WR 27.3% (11 picks) vs is_fun=False → WR 49.5% (416). Filtrer/ponderer.",
+      "message": "Signal contexte <b>is_fun</b> (foot) : is_fun=True → WR 25.0% (12 picks) vs is_fun=False → WR 49.4% (417). Filtrer/ponderer.",
       "stats": {
         "worst": {
           "True": {
-            "n": 11,
+            "n": 12,
             "w": 3,
-            "l": 8,
+            "l": 9,
             "push": 0,
-            "wr": 27.3,
-            "roi": 8.5,
-            "profit": 0.93,
+            "wr": 25.0,
+            "roi": -0.6,
+            "profit": -0.07,
             "avg_cote": 3.86,
             "break_even_wr": 25.9,
-            "wr_vs_be": 1.4
+            "wr_vs_be": -0.9
           }
         },
         "best": {
           "False": {
-            "n": 416,
+            "n": 417,
             "w": 194,
-            "l": 198,
+            "l": 199,
             "push": 24,
-            "wr": 49.5,
-            "roi": -9.2,
-            "profit": -38.18,
+            "wr": 49.4,
+            "roi": -9.4,
+            "profit": -39.18,
             "avg_cote": 2.11,
             "break_even_wr": 47.5,
-            "wr_vs_be": 2.0
+            "wr_vs_be": 1.9
           }
         }
       }

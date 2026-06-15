@@ -13466,6 +13466,149 @@
       "side": "away"
     },
     {
+      "direction": "home_win",
+      "type": "Victoire domicile",
+      "label": "Belgium gagne",
+      "cote": null,
+      "confidence": 74,
+      "reasoning": "Belgium : 4V/1N/0D sur 5 matchs · #1 au classement · H2H: 0V/0N/0D · Note Sofa: 6.5/10",
+      "stats": {
+        "form": [
+          "W",
+          "W",
+          "D",
+          "W",
+          "W"
+        ]
+      },
+      "is_fun": false,
+      "tier": "safe",
+      "history_top3": true,
+      "id": "2026-06-15_4667790_team_home_win",
+      "date": "2026-06-15",
+      "match_id": "4667790",
+      "page_url": "/matches/belgium-vs-egypt/2u3bhg#4667790",
+      "matchup": "Belgium vs Egypt",
+      "league": "World Cup",
+      "category": "team",
+      "result": "LOSS",
+      "actual": "1-1",
+      "resolved_at": "2026-06-15 21:01"
+    },
+    {
+      "direction": "wc_over_25",
+      "type": "⚽ Total buts WC",
+      "label": "Plus de 2.5 buts",
+      "cote_min": 1.44,
+      "confidence": 69,
+      "tier": "ok",
+      "stats": {
+        "lam_h": 3.01,
+        "lam_a": 0.57,
+        "h_fifa_rank": 8,
+        "a_fifa_rank": 30,
+        "elo_gap": 184,
+        "wc_round": null,
+        "family": "TOTAL"
+      },
+      "reasoning": "📊 Niveau équilibré : Belgium #8 vs Egypt #30 (gap +184 pts).\n🇪🇺 Belgium UEFA powerhouse\nL10 : Belgium 4V/1N/0D sur 5 · Egypt 2V/2N/1D sur 5\n⚽ Modèle Poisson : λ total = 3.58\nP(plus de 2.5 buts) = 69.3%",
+      "history_top3": true,
+      "id": "2026-06-15_4667790_team_wc_over_25",
+      "date": "2026-06-15",
+      "match_id": "4667790",
+      "page_url": "/matches/belgium-vs-egypt/2u3bhg#4667790",
+      "matchup": "Belgium vs Egypt",
+      "league": "World Cup",
+      "category": "team",
+      "result": "PENDING",
+      "actual": null,
+      "resolved_at": null
+    },
+    {
+      "direction": "wc_btts_no",
+      "type": "⚽ BTTS WC",
+      "label": "Une équipe ne marque pas (BTTS NO)",
+      "cote_min": 1.7,
+      "confidence": 59,
+      "tier": "ok",
+      "stats": {
+        "lam_h": 3.01,
+        "lam_a": 0.57,
+        "h_fifa_rank": 8,
+        "a_fifa_rank": 30,
+        "elo_gap": 184,
+        "wc_round": null,
+        "family": "BTTS"
+      },
+      "reasoning": "📊 Niveau équilibré : Belgium #8 vs Egypt #30 (gap +184 pts).\n🇪🇺 Belgium UEFA powerhouse\nL10 : Belgium 4V/1N/0D sur 5 · Egypt 2V/2N/1D sur 5\n⚽ BTTS NO : P(au moins une équipe blanchie) = 58.8%\nλ faibles côté Egypt (0.57) ou Belgium (3.01)",
+      "history_top3": true,
+      "id": "2026-06-15_4667790_team_wc_btts_no",
+      "date": "2026-06-15",
+      "match_id": "4667790",
+      "page_url": "/matches/belgium-vs-egypt/2u3bhg#4667790",
+      "matchup": "Belgium vs Egypt",
+      "league": "World Cup",
+      "category": "team",
+      "result": "PENDING",
+      "actual": null,
+      "resolved_at": null
+    },
+    {
+      "direction": "wc_score_3_0",
+      "type": "🏆 Score exact WC",
+      "label": "Score exact : Belgium 3-0 Egypt",
+      "cote_min": 7.88,
+      "confidence": 13,
+      "tier": "fun",
+      "is_fun": true,
+      "stats": {
+        "lam_h": 3.01,
+        "lam_a": 0.57,
+        "h_fifa_rank": 8,
+        "a_fifa_rank": 30,
+        "elo_gap": 184
+      },
+      "reasoning": "📊 Niveau équilibré : Belgium #8 vs Egypt #30 (gap +184 pts).\n🇪🇺 Belgium UEFA powerhouse\nL10 : Belgium 4V/1N/0D sur 5 · Egypt 2V/2N/1D sur 5\n🏆 Coupe du Monde 2026 - score exact (Poisson grid, ajusté Elo FIFA)\nλ Belgium = 3.01 buts, λ Egypt = 0.57 buts\nTop 3 : 3-0 (12.7%) · 2-0 (12.6%) · 4-0 (9.5%)\n⚠️ Pari fun (cote élevée typique 4-8) - mise modeste",
+      "exact_score": [
+        3,
+        0
+      ],
+      "wc_top3": [
+        [
+          [
+            3,
+            0
+          ],
+          12.7
+        ],
+        [
+          [
+            2,
+            0
+          ],
+          12.6
+        ],
+        [
+          [
+            4,
+            0
+          ],
+          9.5
+        ]
+      ],
+      "history_top3": true,
+      "id": "2026-06-15_4667790_fun_🏆 Score exact WC_Score exact : Belgium 3-0 Egyp",
+      "date": "2026-06-15",
+      "match_id": "4667790",
+      "page_url": "/matches/belgium-vs-egypt/2u3bhg#4667790",
+      "matchup": "Belgium vs Egypt",
+      "league": "World Cup",
+      "category": "fun",
+      "result": "LOSS",
+      "actual": "1-1 (cible 3-0)",
+      "resolved_at": "2026-06-15 21:01"
+    },
+    {
       "direction": "wc_over_25",
       "type": "⚽ Total buts WC",
       "label": "Plus de 2.5 buts",
@@ -13656,149 +13799,6 @@
       "match_id": "4667799",
       "page_url": "/matches/uruguay-vs-saudi-arabia/1izuvb#4667799",
       "matchup": "Saudi Arabia vs Uruguay",
-      "league": "World Cup",
-      "category": "fun",
-      "result": "PENDING",
-      "actual": null,
-      "resolved_at": null
-    },
-    {
-      "direction": "home_win",
-      "type": "Victoire domicile",
-      "label": "Belgium gagne",
-      "cote": null,
-      "confidence": 74,
-      "reasoning": "Belgium : 4V/1N/0D sur 5 matchs · #1 au classement · H2H: 0V/0N/0D · Note Sofa: 6.5/10",
-      "stats": {
-        "form": [
-          "W",
-          "W",
-          "D",
-          "W",
-          "W"
-        ]
-      },
-      "is_fun": false,
-      "tier": "safe",
-      "history_top3": true,
-      "id": "2026-06-15_4667790_team_home_win",
-      "date": "2026-06-15",
-      "match_id": "4667790",
-      "page_url": "/matches/belgium-vs-egypt/2u3bhg#4667790",
-      "matchup": "Belgium vs Egypt",
-      "league": "World Cup",
-      "category": "team",
-      "result": "PENDING",
-      "actual": null,
-      "resolved_at": null
-    },
-    {
-      "direction": "wc_over_25",
-      "type": "⚽ Total buts WC",
-      "label": "Plus de 2.5 buts",
-      "cote_min": 1.44,
-      "confidence": 69,
-      "tier": "ok",
-      "stats": {
-        "lam_h": 3.01,
-        "lam_a": 0.57,
-        "h_fifa_rank": 8,
-        "a_fifa_rank": 30,
-        "elo_gap": 184,
-        "wc_round": null,
-        "family": "TOTAL"
-      },
-      "reasoning": "📊 Niveau équilibré : Belgium #8 vs Egypt #30 (gap +184 pts).\n🇪🇺 Belgium UEFA powerhouse\nL10 : Belgium 4V/1N/0D sur 5 · Egypt 2V/2N/1D sur 5\n⚽ Modèle Poisson : λ total = 3.58\nP(plus de 2.5 buts) = 69.3%",
-      "history_top3": true,
-      "id": "2026-06-15_4667790_team_wc_over_25",
-      "date": "2026-06-15",
-      "match_id": "4667790",
-      "page_url": "/matches/belgium-vs-egypt/2u3bhg#4667790",
-      "matchup": "Belgium vs Egypt",
-      "league": "World Cup",
-      "category": "team",
-      "result": "PENDING",
-      "actual": null,
-      "resolved_at": null
-    },
-    {
-      "direction": "wc_btts_no",
-      "type": "⚽ BTTS WC",
-      "label": "Une équipe ne marque pas (BTTS NO)",
-      "cote_min": 1.7,
-      "confidence": 59,
-      "tier": "ok",
-      "stats": {
-        "lam_h": 3.01,
-        "lam_a": 0.57,
-        "h_fifa_rank": 8,
-        "a_fifa_rank": 30,
-        "elo_gap": 184,
-        "wc_round": null,
-        "family": "BTTS"
-      },
-      "reasoning": "📊 Niveau équilibré : Belgium #8 vs Egypt #30 (gap +184 pts).\n🇪🇺 Belgium UEFA powerhouse\nL10 : Belgium 4V/1N/0D sur 5 · Egypt 2V/2N/1D sur 5\n⚽ BTTS NO : P(au moins une équipe blanchie) = 58.8%\nλ faibles côté Egypt (0.57) ou Belgium (3.01)",
-      "history_top3": true,
-      "id": "2026-06-15_4667790_team_wc_btts_no",
-      "date": "2026-06-15",
-      "match_id": "4667790",
-      "page_url": "/matches/belgium-vs-egypt/2u3bhg#4667790",
-      "matchup": "Belgium vs Egypt",
-      "league": "World Cup",
-      "category": "team",
-      "result": "PENDING",
-      "actual": null,
-      "resolved_at": null
-    },
-    {
-      "direction": "wc_score_3_0",
-      "type": "🏆 Score exact WC",
-      "label": "Score exact : Belgium 3-0 Egypt",
-      "cote_min": 7.88,
-      "confidence": 13,
-      "tier": "fun",
-      "is_fun": true,
-      "stats": {
-        "lam_h": 3.01,
-        "lam_a": 0.57,
-        "h_fifa_rank": 8,
-        "a_fifa_rank": 30,
-        "elo_gap": 184
-      },
-      "reasoning": "📊 Niveau équilibré : Belgium #8 vs Egypt #30 (gap +184 pts).\n🇪🇺 Belgium UEFA powerhouse\nL10 : Belgium 4V/1N/0D sur 5 · Egypt 2V/2N/1D sur 5\n🏆 Coupe du Monde 2026 - score exact (Poisson grid, ajusté Elo FIFA)\nλ Belgium = 3.01 buts, λ Egypt = 0.57 buts\nTop 3 : 3-0 (12.7%) · 2-0 (12.6%) · 4-0 (9.5%)\n⚠️ Pari fun (cote élevée typique 4-8) - mise modeste",
-      "exact_score": [
-        3,
-        0
-      ],
-      "wc_top3": [
-        [
-          [
-            3,
-            0
-          ],
-          12.7
-        ],
-        [
-          [
-            2,
-            0
-          ],
-          12.6
-        ],
-        [
-          [
-            4,
-            0
-          ],
-          9.5
-        ]
-      ],
-      "history_top3": true,
-      "id": "2026-06-15_4667790_fun_🏆 Score exact WC_Score exact : Belgium 3-0 Egyp",
-      "date": "2026-06-15",
-      "match_id": "4667790",
-      "page_url": "/matches/belgium-vs-egypt/2u3bhg#4667790",
-      "matchup": "Belgium vs Egypt",
       "league": "World Cup",
       "category": "fun",
       "result": "PENDING",
