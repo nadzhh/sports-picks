@@ -413,66 +413,6 @@
     "away_players": [],
     "fun_picks": [
       {
-        "direction": "wc_home_win",
-        "type": "🏆 Vainqueur WC",
-        "label": "Belgium gagne",
-        "cote": 1.18,
-        "confidence": 84,
-        "is_fun": true,
-        "stats": {
-          "lam_h": 3.01,
-          "lam_a": 0.57,
-          "h_fifa_rank": 8,
-          "a_fifa_rank": 30,
-          "elo_gap": 184,
-          "wc_round": null
-        },
-        "reasoning": "📊 Niveau équilibré : Belgium #8 vs Egypt #30 (gap +184 pts).\n🇪🇺 Belgium UEFA powerhouse\nL10 : Belgium 4V/1N/0D sur 5 · Egypt 2V/2N/1D sur 5\n🏆 Modèle Poisson CdM (tier FIFA ajusté)\nλ Belgium = 3.01 buts attendus, λ Egypt = 0.57\nP(Belgium gagne) = 84.4% · P(nul) = 10.1% · P(Egypt) = 4.3%",
-        "tier": "fun",
-        "edge_pp": -0.7,
-        "history_top3": false
-      },
-      {
-        "direction": "wc_dc_1x",
-        "type": "🏆 Double chance WC",
-        "label": "Belgium ou nul (1X)",
-        "cote": 1.06,
-        "confidence": 94,
-        "is_fun": true,
-        "stats": {
-          "lam_h": 3.01,
-          "lam_a": 0.57,
-          "h_fifa_rank": 8,
-          "a_fifa_rank": 30,
-          "elo_gap": 184,
-          "wc_round": null
-        },
-        "reasoning": "📊 Niveau équilibré : Belgium #8 vs Egypt #30 (gap +184 pts).\n🇪🇺 Belgium UEFA powerhouse\nL10 : Belgium 4V/1N/0D sur 5 · Egypt 2V/2N/1D sur 5\n🛡️ Double chance : Belgium gagne (84.4%) OU match nul (10.1%)\nCombiné = 94.5% — option safe contre Egypt",
-        "tier": "fun",
-        "edge_pp": -0.3,
-        "history_top3": false
-      },
-      {
-        "direction": "wc_over_15",
-        "type": "⚽ Total buts WC",
-        "label": "Plus de 1.5 buts",
-        "cote": 1.15,
-        "confidence": 87,
-        "is_fun": true,
-        "stats": {
-          "lam_h": 3.01,
-          "lam_a": 0.57,
-          "h_fifa_rank": 8,
-          "a_fifa_rank": 30,
-          "elo_gap": 184,
-          "wc_round": null
-        },
-        "reasoning": "📊 Niveau équilibré : Belgium #8 vs Egypt #30 (gap +184 pts).\n🇪🇺 Belgium UEFA powerhouse\nL10 : Belgium 4V/1N/0D sur 5 · Egypt 2V/2N/1D sur 5\n⚽ Modèle Poisson : λ total = 3.58 buts attendus\nP(plus de 1.5 buts) = 87.2%",
-        "tier": "fun",
-        "edge_pp": 0.0,
-        "history_top3": false
-      },
-      {
         "direction": "wc_over_25",
         "type": "⚽ Total buts WC",
         "label": "Plus de 2.5 buts",
@@ -485,71 +425,13 @@
           "h_fifa_rank": 8,
           "a_fifa_rank": 30,
           "elo_gap": 184,
-          "wc_round": null
+          "wc_round": null,
+          "family": "TOTAL",
+          "tier": "value"
         },
         "reasoning": "📊 Niveau équilibré : Belgium #8 vs Egypt #30 (gap +184 pts).\n🇪🇺 Belgium UEFA powerhouse\nL10 : Belgium 4V/1N/0D sur 5 · Egypt 2V/2N/1D sur 5\n⚽ Modèle Poisson : λ total = 3.58\nP(plus de 2.5 buts) = 69.3%",
         "tier": "fun",
         "edge_pp": -0.4,
-        "history_top3": false
-      },
-      {
-        "direction": "wc_btts_no",
-        "type": "⚽ BTTS WC",
-        "label": "Une équipe ne marque pas (BTTS NO)",
-        "cote": 1.7,
-        "confidence": 59,
-        "is_fun": true,
-        "stats": {
-          "lam_h": 3.01,
-          "lam_a": 0.57,
-          "h_fifa_rank": 8,
-          "a_fifa_rank": 30,
-          "elo_gap": 184,
-          "wc_round": null
-        },
-        "reasoning": "📊 Niveau équilibré : Belgium #8 vs Egypt #30 (gap +184 pts).\n🇪🇺 Belgium UEFA powerhouse\nL10 : Belgium 4V/1N/0D sur 5 · Egypt 2V/2N/1D sur 5\n⚽ BTTS NO : P(au moins une équipe blanchie) = 58.8%\nλ faibles côté Egypt (0.57) ou Belgium (3.01)",
-        "tier": "fun",
-        "edge_pp": 0.2,
-        "history_top3": true
-      },
-      {
-        "direction": "wc_dc_12",
-        "type": "🏆 Double chance WC",
-        "label": "Belgium ou Egypt (12, pas de nul)",
-        "cote": 1.13,
-        "confidence": 89,
-        "is_fun": true,
-        "stats": {
-          "lam_h": 3.01,
-          "lam_a": 0.57,
-          "h_fifa_rank": 8,
-          "a_fifa_rank": 30,
-          "elo_gap": 184,
-          "wc_round": null
-        },
-        "reasoning": "📊 Niveau équilibré : Belgium #8 vs Egypt #30 (gap +184 pts).\n🇪🇺 Belgium UEFA powerhouse\nL10 : Belgium 4V/1N/0D sur 5 · Egypt 2V/2N/1D sur 5\n🛡️ Double chance 12 : Belgium (84.4%) OU Egypt (4.3%)\nCombiné = 88.7% — couvre tout sauf le nul",
-        "tier": "fun",
-        "edge_pp": 0.5,
-        "history_top3": false
-      },
-      {
-        "direction": "wc_home_scores_1",
-        "type": "⚽ Buteur équipe WC",
-        "label": "Belgium marque (≥1 but)",
-        "cote": 1.05,
-        "confidence": 95,
-        "is_fun": true,
-        "stats": {
-          "lam_h": 3.01,
-          "lam_a": 0.57,
-          "h_fifa_rank": 8,
-          "a_fifa_rank": 30,
-          "elo_gap": 184,
-          "wc_round": null
-        },
-        "reasoning": "📊 Niveau équilibré : Belgium #8 vs Egypt #30 (gap +184 pts).\n🇪🇺 Belgium UEFA powerhouse\nL10 : Belgium 4V/1N/0D sur 5 · Egypt 2V/2N/1D sur 5\n⚽ P(Belgium marque ≥1) = 95.1% — λ_Belgium = 3.01",
-        "tier": "fun",
-        "edge_pp": -0.2,
         "history_top3": false
       },
       {
@@ -565,7 +447,9 @@
           "h_fifa_rank": 8,
           "a_fifa_rank": 30,
           "elo_gap": 184,
-          "wc_round": null
+          "wc_round": null,
+          "family": "BUT_TEAM",
+          "tier": "safe"
         },
         "reasoning": "📊 Niveau équilibré : Belgium #8 vs Egypt #30 (gap +184 pts).\n🇪🇺 Belgium UEFA powerhouse\nL10 : Belgium 4V/1N/0D sur 5 · Egypt 2V/2N/1D sur 5\n⚽ P(Belgium marque 2+) = 80.2% (λ = 3.01)",
         "tier": "fun",
@@ -573,11 +457,11 @@
         "history_top3": false
       },
       {
-        "direction": "wc_home_scores_3",
-        "type": "⚽ Buteur équipe WC",
-        "label": "Belgium marque 3+ buts",
-        "cote": 1.73,
-        "confidence": 58,
+        "direction": "wc_btts_no",
+        "type": "⚽ BTTS WC",
+        "label": "Une équipe ne marque pas (BTTS NO)",
+        "cote": 1.7,
+        "confidence": 59,
         "is_fun": true,
         "stats": {
           "lam_h": 3.01,
@@ -585,9 +469,11 @@
           "h_fifa_rank": 8,
           "a_fifa_rank": 30,
           "elo_gap": 184,
-          "wc_round": null
+          "wc_round": null,
+          "family": "BTTS",
+          "tier": "value"
         },
-        "reasoning": "📊 Niveau équilibré : Belgium #8 vs Egypt #30 (gap +184 pts).\n🇪🇺 Belgium UEFA powerhouse\nL10 : Belgium 4V/1N/0D sur 5 · Egypt 2V/2N/1D sur 5\n⚽ P(Belgium marque 3+) = 57.9% — gros favori en mode steamroller",
+        "reasoning": "📊 Niveau équilibré : Belgium #8 vs Egypt #30 (gap +184 pts).\n🇪🇺 Belgium UEFA powerhouse\nL10 : Belgium 4V/1N/0D sur 5 · Egypt 2V/2N/1D sur 5\n⚽ BTTS NO : P(au moins une équipe blanchie) = 58.8%\nλ faibles côté Egypt (0.57) ou Belgium (3.01)",
         "tier": "fun",
         "edge_pp": 0.2,
         "history_top3": true
@@ -605,58 +491,14 @@
           "h_fifa_rank": 8,
           "a_fifa_rank": 30,
           "elo_gap": 184,
-          "wc_round": null
+          "wc_round": null,
+          "family": "CLEAN_SHEET",
+          "tier": "value"
         },
         "reasoning": "📊 Niveau équilibré : Belgium #8 vs Egypt #30 (gap +184 pts).\n🇪🇺 Belgium UEFA powerhouse\nL10 : Belgium 4V/1N/0D sur 5 · Egypt 2V/2N/1D sur 5\n🛡️ P(Egypt blanchi) = 56.6% — défense Belgium dominante (λ_Egypt = 0.57)",
         "tier": "fun",
         "edge_pp": 0.5,
         "history_top3": true
-      },
-      {
-        "direction": "wc_score_3_0",
-        "type": "🏆 Score exact WC",
-        "label": "Score exact : Belgium 3-0 Egypt",
-        "cote": 7.88,
-        "confidence": 13,
-        "is_fun": true,
-        "stats": {
-          "lam_h": 3.01,
-          "lam_a": 0.57,
-          "h_fifa_rank": 8,
-          "a_fifa_rank": 30,
-          "elo_gap": 184
-        },
-        "reasoning": "📊 Niveau équilibré : Belgium #8 vs Egypt #30 (gap +184 pts).\n🇪🇺 Belgium UEFA powerhouse\nL10 : Belgium 4V/1N/0D sur 5 · Egypt 2V/2N/1D sur 5\n🏆 Coupe du Monde 2026 - score exact (Poisson grid, ajusté Elo FIFA)\nλ Belgium = 3.01 buts, λ Egypt = 0.57 buts\nTop 3 : 3-0 (12.7%) · 2-0 (12.6%) · 4-0 (9.5%)\n⚠️ Pari fun (cote élevée typique 4-8) - mise modeste",
-        "exact_score": [
-          3,
-          0
-        ],
-        "wc_top3": [
-          [
-            [
-              3,
-              0
-            ],
-            12.7
-          ],
-          [
-            [
-              2,
-              0
-            ],
-            12.6
-          ],
-          [
-            [
-              4,
-              0
-            ],
-            9.5
-          ]
-        ],
-        "tier": "fun",
-        "edge_pp": 0.3,
-        "history_top3": false
       }
     ],
     "top_pick": {
@@ -837,66 +679,6 @@
     "away_players": [],
     "fun_picks": [
       {
-        "direction": "wc_home_win",
-        "type": "🏆 Vainqueur WC",
-        "label": "France gagne",
-        "cote": 1.2,
-        "confidence": 83,
-        "is_fun": true,
-        "stats": {
-          "lam_h": 2.98,
-          "lam_a": 0.62,
-          "h_fifa_rank": 2,
-          "a_fifa_rank": 21,
-          "elo_gap": 252,
-          "wc_round": null
-        },
-        "reasoning": "📊 Écart FIFA significatif : France #2 vs Senegal #21 (gap +252 pts, P favori ≈ 81%).\n⭐ France favori CdM 2026\nL10 : France 4V/0N/1D sur 5 · Senegal 2V/1N/2D sur 5\n🏆 Modèle Poisson CdM (tier FIFA ajusté)\nλ France = 2.98 buts attendus, λ Senegal = 0.62\nP(France gagne) = 83.2% · P(nul) = 10.7% · P(Senegal) = 5.0%",
-        "tier": "fun",
-        "edge_pp": -0.3,
-        "history_top3": false
-      },
-      {
-        "direction": "wc_dc_1x",
-        "type": "🏆 Double chance WC",
-        "label": "France ou nul (1X)",
-        "cote": 1.07,
-        "confidence": 94,
-        "is_fun": true,
-        "stats": {
-          "lam_h": 2.98,
-          "lam_a": 0.62,
-          "h_fifa_rank": 2,
-          "a_fifa_rank": 21,
-          "elo_gap": 252,
-          "wc_round": null
-        },
-        "reasoning": "📊 Écart FIFA significatif : France #2 vs Senegal #21 (gap +252 pts, P favori ≈ 81%).\n⭐ France favori CdM 2026\nL10 : France 4V/0N/1D sur 5 · Senegal 2V/1N/2D sur 5\n🛡️ Double chance : France gagne (83.2%) OU match nul (10.7%)\nCombiné = 93.9% — option safe contre Senegal",
-        "tier": "fun",
-        "edge_pp": 0.5,
-        "history_top3": false
-      },
-      {
-        "direction": "wc_over_15",
-        "type": "⚽ Total buts WC",
-        "label": "Plus de 1.5 buts",
-        "cote": 1.14,
-        "confidence": 88,
-        "is_fun": true,
-        "stats": {
-          "lam_h": 2.98,
-          "lam_a": 0.62,
-          "h_fifa_rank": 2,
-          "a_fifa_rank": 21,
-          "elo_gap": 252,
-          "wc_round": null
-        },
-        "reasoning": "📊 Écart FIFA significatif : France #2 vs Senegal #21 (gap +252 pts, P favori ≈ 81%).\n⭐ France favori CdM 2026\nL10 : France 4V/0N/1D sur 5 · Senegal 2V/1N/2D sur 5\n⚽ Modèle Poisson : λ total = 3.61 buts attendus\nP(plus de 1.5 buts) = 87.5%",
-        "tier": "fun",
-        "edge_pp": 0.3,
-        "history_top3": false
-      },
-      {
         "direction": "wc_over_25",
         "type": "⚽ Total buts WC",
         "label": "Plus de 2.5 buts",
@@ -909,71 +691,13 @@
           "h_fifa_rank": 2,
           "a_fifa_rank": 21,
           "elo_gap": 252,
-          "wc_round": null
+          "wc_round": null,
+          "family": "TOTAL",
+          "tier": "value"
         },
         "reasoning": "📊 Écart FIFA significatif : France #2 vs Senegal #21 (gap +252 pts, P favori ≈ 81%).\n⭐ France favori CdM 2026\nL10 : France 4V/0N/1D sur 5 · Senegal 2V/1N/2D sur 5\n⚽ Modèle Poisson : λ total = 3.61\nP(plus de 2.5 buts) = 69.9%",
         "tier": "fun",
         "edge_pp": 0.1,
-        "history_top3": false
-      },
-      {
-        "direction": "wc_btts_no",
-        "type": "⚽ BTTS WC",
-        "label": "Une équipe ne marque pas (BTTS NO)",
-        "cote": 1.79,
-        "confidence": 56,
-        "is_fun": true,
-        "stats": {
-          "lam_h": 2.98,
-          "lam_a": 0.62,
-          "h_fifa_rank": 2,
-          "a_fifa_rank": 21,
-          "elo_gap": 252,
-          "wc_round": null
-        },
-        "reasoning": "📊 Écart FIFA significatif : France #2 vs Senegal #21 (gap +252 pts, P favori ≈ 81%).\n⭐ France favori CdM 2026\nL10 : France 4V/0N/1D sur 5 · Senegal 2V/1N/2D sur 5\n⚽ BTTS NO : P(au moins une équipe blanchie) = 55.9%\nλ faibles côté Senegal (0.62) ou France (2.98)",
-        "tier": "fun",
-        "edge_pp": 0.1,
-        "history_top3": true
-      },
-      {
-        "direction": "wc_dc_12",
-        "type": "🏆 Double chance WC",
-        "label": "France ou Senegal (12, pas de nul)",
-        "cote": 1.13,
-        "confidence": 88,
-        "is_fun": true,
-        "stats": {
-          "lam_h": 2.98,
-          "lam_a": 0.62,
-          "h_fifa_rank": 2,
-          "a_fifa_rank": 21,
-          "elo_gap": 252,
-          "wc_round": null
-        },
-        "reasoning": "📊 Écart FIFA significatif : France #2 vs Senegal #21 (gap +252 pts, P favori ≈ 81%).\n⭐ France favori CdM 2026\nL10 : France 4V/0N/1D sur 5 · Senegal 2V/1N/2D sur 5\n🛡️ Double chance 12 : France (83.2%) OU Senegal (5.0%)\nCombiné = 88.2% — couvre tout sauf le nul",
-        "tier": "fun",
-        "edge_pp": -0.5,
-        "history_top3": false
-      },
-      {
-        "direction": "wc_home_scores_1",
-        "type": "⚽ Buteur équipe WC",
-        "label": "France marque (≥1 but)",
-        "cote": 1.05,
-        "confidence": 95,
-        "is_fun": true,
-        "stats": {
-          "lam_h": 2.98,
-          "lam_a": 0.62,
-          "h_fifa_rank": 2,
-          "a_fifa_rank": 21,
-          "elo_gap": 252,
-          "wc_round": null
-        },
-        "reasoning": "📊 Écart FIFA significatif : France #2 vs Senegal #21 (gap +252 pts, P favori ≈ 81%).\n⭐ France favori CdM 2026\nL10 : France 4V/0N/1D sur 5 · Senegal 2V/1N/2D sur 5\n⚽ P(France marque ≥1) = 94.9% — λ_France = 2.98",
-        "tier": "fun",
-        "edge_pp": -0.2,
         "history_top3": false
       },
       {
@@ -989,7 +713,9 @@
           "h_fifa_rank": 2,
           "a_fifa_rank": 21,
           "elo_gap": 252,
-          "wc_round": null
+          "wc_round": null,
+          "family": "BUT_TEAM",
+          "tier": "safe"
         },
         "reasoning": "📊 Écart FIFA significatif : France #2 vs Senegal #21 (gap +252 pts, P favori ≈ 81%).\n⭐ France favori CdM 2026\nL10 : France 4V/0N/1D sur 5 · Senegal 2V/1N/2D sur 5\n⚽ P(France marque 2+) = 79.8% (λ = 2.98)",
         "tier": "fun",
@@ -997,11 +723,11 @@
         "history_top3": false
       },
       {
-        "direction": "wc_home_scores_3",
-        "type": "⚽ Buteur équipe WC",
-        "label": "France marque 3+ buts",
-        "cote": 1.74,
-        "confidence": 57,
+        "direction": "wc_btts_no",
+        "type": "⚽ BTTS WC",
+        "label": "Une équipe ne marque pas (BTTS NO)",
+        "cote": 1.79,
+        "confidence": 56,
         "is_fun": true,
         "stats": {
           "lam_h": 2.98,
@@ -1009,57 +735,13 @@
           "h_fifa_rank": 2,
           "a_fifa_rank": 21,
           "elo_gap": 252,
-          "wc_round": null
+          "wc_round": null,
+          "family": "BTTS",
+          "tier": "value"
         },
-        "reasoning": "📊 Écart FIFA significatif : France #2 vs Senegal #21 (gap +252 pts, P favori ≈ 81%).\n⭐ France favori CdM 2026\nL10 : France 4V/0N/1D sur 5 · Senegal 2V/1N/2D sur 5\n⚽ P(France marque 3+) = 57.3% — gros favori en mode steamroller",
+        "reasoning": "📊 Écart FIFA significatif : France #2 vs Senegal #21 (gap +252 pts, P favori ≈ 81%).\n⭐ France favori CdM 2026\nL10 : France 4V/0N/1D sur 5 · Senegal 2V/1N/2D sur 5\n⚽ BTTS NO : P(au moins une équipe blanchie) = 55.9%\nλ faibles côté Senegal (0.62) ou France (2.98)",
         "tier": "fun",
-        "edge_pp": -0.5,
-        "history_top3": true
-      },
-      {
-        "direction": "wc_score_2_0",
-        "type": "🏆 Score exact WC",
-        "label": "Score exact : France 2-0 Senegal",
-        "cote": 8.29,
-        "confidence": 12,
-        "is_fun": true,
-        "stats": {
-          "lam_h": 2.98,
-          "lam_a": 0.62,
-          "h_fifa_rank": 2,
-          "a_fifa_rank": 21,
-          "elo_gap": 252
-        },
-        "reasoning": "📊 Écart FIFA significatif : France #2 vs Senegal #21 (gap +252 pts, P favori ≈ 81%).\n⭐ France favori CdM 2026\nL10 : France 4V/0N/1D sur 5 · Senegal 2V/1N/2D sur 5\n🏆 Coupe du Monde 2026 - score exact (Poisson grid, ajusté Elo FIFA)\nλ France = 2.98 buts, λ Senegal = 0.62 buts\nTop 3 : 2-0 (12.1%) · 3-0 (12.0%) · 4-0 (9.0%)\n⚠️ Pari fun (cote élevée typique 4-8) - mise modeste",
-        "exact_score": [
-          2,
-          0
-        ],
-        "wc_top3": [
-          [
-            [
-              2,
-              0
-            ],
-            12.1
-          ],
-          [
-            [
-              3,
-              0
-            ],
-            12.0
-          ],
-          [
-            [
-              4,
-              0
-            ],
-            9.0
-          ]
-        ],
-        "tier": "fun",
-        "edge_pp": -0.1,
+        "edge_pp": 0.1,
         "history_top3": true
       }
     ],
@@ -1301,186 +983,6 @@
     "away_players": [],
     "fun_picks": [
       {
-        "direction": "wc_home_win",
-        "type": "🏆 Vainqueur WC",
-        "label": "Spain gagne",
-        "cote": 1.09,
-        "confidence": 92,
-        "is_fun": true,
-        "stats": {
-          "lam_h": 3.69,
-          "lam_a": 0.22,
-          "h_fifa_rank": 3,
-          "a_fifa_rank": 65,
-          "elo_gap": 520,
-          "wc_round": null
-        },
-        "reasoning": "📊 Écart FIFA ÉNORME : Spain #3 (1854 pts) vs Cape Verde #65 (1334 pts) — gap Elo +520 pts → P(vainqueur favori) ≈ 95%.\n⭐ Spain favori CdM 2026\nL10 : Spain 2V/3N/0D sur 5 · Cape Verde 1V/3N/1D sur 5\n🚂 Mismatch significatif (Elo gap +520) : Spain pousse pour prendre le large.\n🏆 Modèle Poisson CdM (tier FIFA ajusté)\nλ Spain = 3.69 buts attendus, λ Cape Verde = 0.22\nP(Spain gagne) = 91.8% · P(nul) = 4.0% · P(Cape Verde) = 0.7%",
-        "tier": "fun",
-        "edge_pp": 0.3,
-        "history_top3": false
-      },
-      {
-        "direction": "wc_dc_1x",
-        "type": "🏆 Double chance WC",
-        "label": "Spain ou nul (1X)",
-        "cote": 1.04,
-        "confidence": 96,
-        "is_fun": true,
-        "stats": {
-          "lam_h": 3.69,
-          "lam_a": 0.22,
-          "h_fifa_rank": 3,
-          "a_fifa_rank": 65,
-          "elo_gap": 520,
-          "wc_round": null
-        },
-        "reasoning": "📊 Écart FIFA ÉNORME : Spain #3 (1854 pts) vs Cape Verde #65 (1334 pts) — gap Elo +520 pts → P(vainqueur favori) ≈ 95%.\n⭐ Spain favori CdM 2026\nL10 : Spain 2V/3N/0D sur 5 · Cape Verde 1V/3N/1D sur 5\n🚂 Mismatch significatif (Elo gap +520) : Spain pousse pour prendre le large.\n🛡️ Double chance : Spain gagne (91.8%) OU match nul (4.0%)\nCombiné = 95.8% — option safe contre Cape Verde",
-        "tier": "fun",
-        "edge_pp": -0.2,
-        "history_top3": false
-      },
-      {
-        "direction": "wc_over_15",
-        "type": "⚽ Total buts WC",
-        "label": "Plus de 1.5 buts",
-        "cote": 1.11,
-        "confidence": 90,
-        "is_fun": true,
-        "stats": {
-          "lam_h": 3.69,
-          "lam_a": 0.22,
-          "h_fifa_rank": 3,
-          "a_fifa_rank": 65,
-          "elo_gap": 520,
-          "wc_round": null
-        },
-        "reasoning": "📊 Écart FIFA ÉNORME : Spain #3 (1854 pts) vs Cape Verde #65 (1334 pts) — gap Elo +520 pts → P(vainqueur favori) ≈ 95%.\n⭐ Spain favori CdM 2026\nL10 : Spain 2V/3N/0D sur 5 · Cape Verde 1V/3N/1D sur 5\n🚂 Mismatch significatif (Elo gap +520) : Spain pousse pour prendre le large.\n⚽ Modèle Poisson : λ total = 3.91 buts attendus\nP(plus de 1.5 buts) = 90.2%",
-        "tier": "fun",
-        "edge_pp": -0.1,
-        "history_top3": false
-      },
-      {
-        "direction": "wc_over_25",
-        "type": "⚽ Total buts WC",
-        "label": "Plus de 2.5 buts",
-        "cote": 1.34,
-        "confidence": 75,
-        "is_fun": true,
-        "stats": {
-          "lam_h": 3.69,
-          "lam_a": 0.22,
-          "h_fifa_rank": 3,
-          "a_fifa_rank": 65,
-          "elo_gap": 520,
-          "wc_round": null
-        },
-        "reasoning": "📊 Écart FIFA ÉNORME : Spain #3 (1854 pts) vs Cape Verde #65 (1334 pts) — gap Elo +520 pts → P(vainqueur favori) ≈ 95%.\n⭐ Spain favori CdM 2026\nL10 : Spain 2V/3N/0D sur 5 · Cape Verde 1V/3N/1D sur 5\n🚂 Mismatch significatif (Elo gap +520) : Spain pousse pour prendre le large.\n⚽ Modèle Poisson : λ total = 3.91\nP(plus de 2.5 buts) = 74.8%",
-        "tier": "fun",
-        "edge_pp": 0.4,
-        "history_top3": false
-      },
-      {
-        "direction": "wc_over_35",
-        "type": "⚽ Total buts WC",
-        "label": "Plus de 3.5 buts",
-        "cote": 1.82,
-        "confidence": 55,
-        "is_fun": true,
-        "stats": {
-          "lam_h": 3.69,
-          "lam_a": 0.22,
-          "h_fifa_rank": 3,
-          "a_fifa_rank": 65,
-          "elo_gap": 520,
-          "wc_round": null
-        },
-        "reasoning": "📊 Écart FIFA ÉNORME : Spain #3 (1854 pts) vs Cape Verde #65 (1334 pts) — gap Elo +520 pts → P(vainqueur favori) ≈ 95%.\n⭐ Spain favori CdM 2026\nL10 : Spain 2V/3N/0D sur 5 · Cape Verde 1V/3N/1D sur 5\n🚂 Mismatch significatif (Elo gap +520) : Spain pousse pour prendre le large.\n⚽ Modèle Poisson : λ total = 3.91\nP(plus de 3.5 buts) = 54.9% — match ouvert prévu",
-        "tier": "fun",
-        "edge_pp": 0.1,
-        "history_top3": true
-      },
-      {
-        "direction": "wc_btts_no",
-        "type": "⚽ BTTS WC",
-        "label": "Une équipe ne marque pas (BTTS NO)",
-        "cote": 1.24,
-        "confidence": 81,
-        "is_fun": true,
-        "stats": {
-          "lam_h": 3.69,
-          "lam_a": 0.22,
-          "h_fifa_rank": 3,
-          "a_fifa_rank": 65,
-          "elo_gap": 520,
-          "wc_round": null
-        },
-        "reasoning": "📊 Écart FIFA ÉNORME : Spain #3 (1854 pts) vs Cape Verde #65 (1334 pts) — gap Elo +520 pts → P(vainqueur favori) ≈ 95%.\n⭐ Spain favori CdM 2026\nL10 : Spain 2V/3N/0D sur 5 · Cape Verde 1V/3N/1D sur 5\n🚂 Mismatch significatif (Elo gap +520) : Spain pousse pour prendre le large.\n⚽ BTTS NO : P(au moins une équipe blanchie) = 80.6%\nλ faibles côté Cape Verde (0.22) ou Spain (3.69)",
-        "tier": "fun",
-        "edge_pp": 0.4,
-        "history_top3": false
-      },
-      {
-        "direction": "wc_dc_12",
-        "type": "🏆 Double chance WC",
-        "label": "Spain ou Cape Verde (12, pas de nul)",
-        "cote": 1.08,
-        "confidence": 93,
-        "is_fun": true,
-        "stats": {
-          "lam_h": 3.69,
-          "lam_a": 0.22,
-          "h_fifa_rank": 3,
-          "a_fifa_rank": 65,
-          "elo_gap": 520,
-          "wc_round": null
-        },
-        "reasoning": "📊 Écart FIFA ÉNORME : Spain #3 (1854 pts) vs Cape Verde #65 (1334 pts) — gap Elo +520 pts → P(vainqueur favori) ≈ 95%.\n⭐ Spain favori CdM 2026\nL10 : Spain 2V/3N/0D sur 5 · Cape Verde 1V/3N/1D sur 5\n🚂 Mismatch significatif (Elo gap +520) : Spain pousse pour prendre le large.\n🛡️ Double chance 12 : Spain (91.8%) OU Cape Verde (0.7%)\nCombiné = 92.5% — couvre tout sauf le nul",
-        "tier": "fun",
-        "edge_pp": 0.4,
-        "history_top3": false
-      },
-      {
-        "direction": "wc_home_scores_1",
-        "type": "⚽ Buteur équipe WC",
-        "label": "Spain marque (≥1 but)",
-        "cote": 1.03,
-        "confidence": 97,
-        "is_fun": true,
-        "stats": {
-          "lam_h": 3.69,
-          "lam_a": 0.22,
-          "h_fifa_rank": 3,
-          "a_fifa_rank": 65,
-          "elo_gap": 520,
-          "wc_round": null
-        },
-        "reasoning": "📊 Écart FIFA ÉNORME : Spain #3 (1854 pts) vs Cape Verde #65 (1334 pts) — gap Elo +520 pts → P(vainqueur favori) ≈ 95%.\n⭐ Spain favori CdM 2026\nL10 : Spain 2V/3N/0D sur 5 · Cape Verde 1V/3N/1D sur 5\n🚂 Mismatch significatif (Elo gap +520) : Spain pousse pour prendre le large.\n⚽ P(Spain marque ≥1) = 97.5% — λ_Spain = 3.69",
-        "tier": "fun",
-        "edge_pp": -0.1,
-        "history_top3": false
-      },
-      {
-        "direction": "wc_home_scores_2",
-        "type": "⚽ Buteur équipe WC",
-        "label": "Spain marque 2+ buts",
-        "cote": 1.13,
-        "confidence": 88,
-        "is_fun": true,
-        "stats": {
-          "lam_h": 3.69,
-          "lam_a": 0.22,
-          "h_fifa_rank": 3,
-          "a_fifa_rank": 65,
-          "elo_gap": 520,
-          "wc_round": null
-        },
-        "reasoning": "📊 Écart FIFA ÉNORME : Spain #3 (1854 pts) vs Cape Verde #65 (1334 pts) — gap Elo +520 pts → P(vainqueur favori) ≈ 95%.\n⭐ Spain favori CdM 2026\nL10 : Spain 2V/3N/0D sur 5 · Cape Verde 1V/3N/1D sur 5\n🚂 Mismatch significatif (Elo gap +520) : Spain pousse pour prendre le large.\n⚽ P(Spain marque 2+) = 88.3% (λ = 3.69)",
-        "tier": "fun",
-        "edge_pp": -0.5,
-        "history_top3": false
-      },
-      {
         "direction": "wc_home_scores_3",
         "type": "⚽ Buteur équipe WC",
         "label": "Spain marque 3+ buts",
@@ -1493,7 +995,9 @@
           "h_fifa_rank": 3,
           "a_fifa_rank": 65,
           "elo_gap": 520,
-          "wc_round": null
+          "wc_round": null,
+          "family": "BUT_TEAM",
+          "tier": "value"
         },
         "reasoning": "📊 Écart FIFA ÉNORME : Spain #3 (1854 pts) vs Cape Verde #65 (1334 pts) — gap Elo +520 pts → P(vainqueur favori) ≈ 95%.\n⭐ Spain favori CdM 2026\nL10 : Spain 2V/3N/0D sur 5 · Cape Verde 1V/3N/1D sur 5\n🚂 Mismatch significatif (Elo gap +520) : Spain pousse pour prendre le large.\n⚽ P(Spain marque 3+) = 71.3% — gros favori en mode steamroller",
         "tier": "fun",
@@ -1513,11 +1017,35 @@
           "h_fifa_rank": 3,
           "a_fifa_rank": 65,
           "elo_gap": 520,
-          "wc_round": null
+          "wc_round": null,
+          "family": "CLEAN_SHEET",
+          "tier": "safe"
         },
         "reasoning": "📊 Écart FIFA ÉNORME : Spain #3 (1854 pts) vs Cape Verde #65 (1334 pts) — gap Elo +520 pts → P(vainqueur favori) ≈ 95%.\n⭐ Spain favori CdM 2026\nL10 : Spain 2V/3N/0D sur 5 · Cape Verde 1V/3N/1D sur 5\n🚂 Mismatch significatif (Elo gap +520) : Spain pousse pour prendre le large.\n🛡️ P(Cape Verde blanchi) = 80.1% — défense Spain dominante (λ_Cape Verde = 0.22)",
         "tier": "fun",
         "edge_pp": 0.0,
+        "history_top3": false
+      },
+      {
+        "direction": "wc_over_25",
+        "type": "⚽ Total buts WC",
+        "label": "Plus de 2.5 buts",
+        "cote": 1.34,
+        "confidence": 75,
+        "is_fun": true,
+        "stats": {
+          "lam_h": 3.69,
+          "lam_a": 0.22,
+          "h_fifa_rank": 3,
+          "a_fifa_rank": 65,
+          "elo_gap": 520,
+          "wc_round": null,
+          "family": "TOTAL",
+          "tier": "value"
+        },
+        "reasoning": "📊 Écart FIFA ÉNORME : Spain #3 (1854 pts) vs Cape Verde #65 (1334 pts) — gap Elo +520 pts → P(vainqueur favori) ≈ 95%.\n⭐ Spain favori CdM 2026\nL10 : Spain 2V/3N/0D sur 5 · Cape Verde 1V/3N/1D sur 5\n🚂 Mismatch significatif (Elo gap +520) : Spain pousse pour prendre le large.\n⚽ Modèle Poisson : λ total = 3.91\nP(plus de 2.5 buts) = 74.8%",
+        "tier": "fun",
+        "edge_pp": 0.4,
         "history_top3": false
       },
       {
@@ -1607,6 +1135,28 @@
     "away_players": [],
     "fun_picks": [
       {
+        "direction": "wc_dc_12",
+        "type": "🏆 Double chance WC",
+        "label": "Saudi Arabia ou Uruguay (12, pas de nul)",
+        "cote": 1.29,
+        "confidence": 77,
+        "is_fun": true,
+        "stats": {
+          "lam_h": 0.65,
+          "lam_a": 1.75,
+          "h_fifa_rank": 46,
+          "a_fifa_rank": 14,
+          "elo_gap": -231,
+          "wc_round": null,
+          "family": "DC",
+          "tier": "value"
+        },
+        "reasoning": "📊 Écart FIFA significatif : Saudi Arabia #46 vs Uruguay #14 (gap -231 pts, P favori ≈ 79%).\nL10 : Saudi Arabia 1V/1N/3D sur 5 · Uruguay 1V/3N/1D sur 5\n🛡️ Double chance 12 : Saudi Arabia (13.2%) OU Uruguay (64.1%)\nCombiné = 77.3% — couvre tout sauf le nul",
+        "tier": "fun",
+        "edge_pp": -0.5,
+        "history_top3": false
+      },
+      {
         "direction": "wc_away_win",
         "type": "🏆 Vainqueur WC",
         "label": "Uruguay gagne",
@@ -1619,52 +1169,14 @@
           "h_fifa_rank": 46,
           "a_fifa_rank": 14,
           "elo_gap": -231,
-          "wc_round": null
+          "wc_round": null,
+          "family": "1X2",
+          "tier": "value"
         },
         "reasoning": "📊 Écart FIFA significatif : Saudi Arabia #46 vs Uruguay #14 (gap -231 pts, P favori ≈ 79%).\nL10 : Saudi Arabia 1V/1N/3D sur 5 · Uruguay 1V/3N/1D sur 5\n🏆 Modèle Poisson CdM (tier FIFA ajusté)\nλ Saudi Arabia = 0.65, λ Uruguay = 1.75\nP(Saudi Arabia) = 13.2% · P(nul) = 22.6% · P(Uruguay gagne) = 64.1%",
         "tier": "fun",
         "edge_pp": -0.1,
         "history_top3": false
-      },
-      {
-        "direction": "wc_dc_x2",
-        "type": "🏆 Double chance WC",
-        "label": "Uruguay ou nul (X2)",
-        "cote": 1.15,
-        "confidence": 87,
-        "is_fun": true,
-        "stats": {
-          "lam_h": 0.65,
-          "lam_a": 1.75,
-          "h_fifa_rank": 46,
-          "a_fifa_rank": 14,
-          "elo_gap": -231,
-          "wc_round": null
-        },
-        "reasoning": "📊 Écart FIFA significatif : Saudi Arabia #46 vs Uruguay #14 (gap -231 pts, P favori ≈ 79%).\nL10 : Saudi Arabia 1V/1N/3D sur 5 · Uruguay 1V/3N/1D sur 5\n🛡️ Double chance : Uruguay gagne (64.1%) OU match nul (22.6%)\nCombiné = 86.7%",
-        "tier": "fun",
-        "edge_pp": 0.0,
-        "history_top3": false
-      },
-      {
-        "direction": "wc_under_25",
-        "type": "⚽ Total buts WC",
-        "label": "Moins de 2.5 buts",
-        "cote": 1.76,
-        "confidence": 57,
-        "is_fun": true,
-        "stats": {
-          "lam_h": 0.65,
-          "lam_a": 1.75,
-          "h_fifa_rank": 46,
-          "a_fifa_rank": 14,
-          "elo_gap": -231,
-          "wc_round": null
-        },
-        "reasoning": "📊 Écart FIFA significatif : Saudi Arabia #46 vs Uruguay #14 (gap -231 pts, P favori ≈ 79%).\nL10 : Saudi Arabia 1V/1N/3D sur 5 · Uruguay 1V/3N/1D sur 5\n⚽ Modèle Poisson : λ total = 2.40\nP(moins de 2.5 buts) = 57.0%",
-        "tier": "fun",
-        "edge_pp": 0.2,
-        "history_top3": true
       },
       {
         "direction": "wc_btts_no",
@@ -1679,7 +1191,9 @@
           "h_fifa_rank": 46,
           "a_fifa_rank": 14,
           "elo_gap": -231,
-          "wc_round": null
+          "wc_round": null,
+          "family": "BTTS",
+          "tier": "value"
         },
         "reasoning": "📊 Écart FIFA significatif : Saudi Arabia #46 vs Uruguay #14 (gap -231 pts, P favori ≈ 79%).\nL10 : Saudi Arabia 1V/1N/3D sur 5 · Uruguay 1V/3N/1D sur 5\n⚽ BTTS NO : P(au moins une équipe blanchie) = 60.7%\nλ faibles côté Uruguay (1.75) ou Saudi Arabia (0.65)",
         "tier": "fun",
@@ -1687,11 +1201,11 @@
         "history_top3": true
       },
       {
-        "direction": "wc_dc_12",
-        "type": "🏆 Double chance WC",
-        "label": "Saudi Arabia ou Uruguay (12, pas de nul)",
-        "cote": 1.29,
-        "confidence": 77,
+        "direction": "wc_under_25",
+        "type": "⚽ Total buts WC",
+        "label": "Moins de 2.5 buts",
+        "cote": 1.76,
+        "confidence": 57,
         "is_fun": true,
         "stats": {
           "lam_h": 0.65,
@@ -1699,51 +1213,13 @@
           "h_fifa_rank": 46,
           "a_fifa_rank": 14,
           "elo_gap": -231,
-          "wc_round": null
+          "wc_round": null,
+          "family": "TOTAL",
+          "tier": "value"
         },
-        "reasoning": "📊 Écart FIFA significatif : Saudi Arabia #46 vs Uruguay #14 (gap -231 pts, P favori ≈ 79%).\nL10 : Saudi Arabia 1V/1N/3D sur 5 · Uruguay 1V/3N/1D sur 5\n🛡️ Double chance 12 : Saudi Arabia (13.2%) OU Uruguay (64.1%)\nCombiné = 77.3% — couvre tout sauf le nul",
+        "reasoning": "📊 Écart FIFA significatif : Saudi Arabia #46 vs Uruguay #14 (gap -231 pts, P favori ≈ 79%).\nL10 : Saudi Arabia 1V/1N/3D sur 5 · Uruguay 1V/3N/1D sur 5\n⚽ Modèle Poisson : λ total = 2.40\nP(moins de 2.5 buts) = 57.0%",
         "tier": "fun",
-        "edge_pp": -0.5,
-        "history_top3": false
-      },
-      {
-        "direction": "wc_away_scores_1",
-        "type": "⚽ Buteur équipe WC",
-        "label": "Uruguay marque (≥1 but)",
-        "cote": 1.21,
-        "confidence": 83,
-        "is_fun": true,
-        "stats": {
-          "lam_h": 0.65,
-          "lam_a": 1.75,
-          "h_fifa_rank": 46,
-          "a_fifa_rank": 14,
-          "elo_gap": -231,
-          "wc_round": null
-        },
-        "reasoning": "📊 Écart FIFA significatif : Saudi Arabia #46 vs Uruguay #14 (gap -231 pts, P favori ≈ 79%).\nL10 : Saudi Arabia 1V/1N/3D sur 5 · Uruguay 1V/3N/1D sur 5\n⚽ P(Uruguay marque ≥1) = 82.7% — λ_Uruguay = 1.75",
-        "tier": "fun",
-        "edge_pp": 0.4,
-        "history_top3": false
-      },
-      {
-        "direction": "wc_away_scores_2",
-        "type": "⚽ Buteur équipe WC",
-        "label": "Uruguay marque 2+ buts",
-        "cote": 1.91,
-        "confidence": 52,
-        "is_fun": true,
-        "stats": {
-          "lam_h": 0.65,
-          "lam_a": 1.75,
-          "h_fifa_rank": 46,
-          "a_fifa_rank": 14,
-          "elo_gap": -231,
-          "wc_round": null
-        },
-        "reasoning": "📊 Écart FIFA significatif : Saudi Arabia #46 vs Uruguay #14 (gap -231 pts, P favori ≈ 79%).\nL10 : Saudi Arabia 1V/1N/3D sur 5 · Uruguay 1V/3N/1D sur 5\n⚽ P(Uruguay marque 2+) = 52.3% (λ = 1.75)",
-        "tier": "fun",
-        "edge_pp": -0.4,
+        "edge_pp": 0.2,
         "history_top3": true
       },
       {
@@ -1790,7 +1266,7 @@
         ],
         "tier": "fun",
         "edge_pp": 0.1,
-        "history_top3": false
+        "history_top3": true
       }
     ],
     "top_pick": null,
@@ -1833,11 +1309,11 @@
     "away_players": [],
     "fun_picks": [
       {
-        "direction": "wc_home_win",
-        "type": "🏆 Vainqueur WC",
-        "label": "Iran gagne",
-        "cote": 1.1,
-        "confidence": 91,
+        "direction": "wc_home_scores_2",
+        "type": "⚽ Buteur équipe WC",
+        "label": "Iran marque 2+ buts",
+        "cote": 1.25,
+        "confidence": 80,
         "is_fun": true,
         "stats": {
           "lam_h": 2.98,
@@ -1845,51 +1321,13 @@
           "h_fifa_rank": 19,
           "a_fifa_rank": "?",
           "elo_gap": null,
-          "wc_round": null
+          "wc_round": null,
+          "family": "BUT_TEAM",
+          "tier": "safe"
         },
-        "reasoning": "L10 : Iran 2V/2N/1D sur 5 · New Zealand 1V/0N/4D sur 5\n🚂 Gros mismatch (Elo gap +620) : Iran cherche à creuser tôt pour la diff de buts qualif. ⚠️ New Zealand hors top 100 FIFA — fallback Elo estimé, défense souvent perméable vs top.\n🏆 Modèle Poisson CdM (tier FIFA ajusté)\nλ Iran = 2.98 buts attendus, λ New Zealand = 0.20\nP(Iran gagne) = 90.6% · P(nul) = 7.0% · P(New Zealand) = 1.2%",
+        "reasoning": "L10 : Iran 2V/2N/1D sur 5 · New Zealand 1V/0N/4D sur 5\n🚂 Gros mismatch (Elo gap +620) : Iran cherche à creuser tôt pour la diff de buts qualif. ⚠️ New Zealand hors top 100 FIFA — fallback Elo estimé, défense souvent perméable vs top.\n⚽ P(Iran marque 2+) = 79.7% (λ = 2.98)",
         "tier": "fun",
-        "edge_pp": 0.1,
-        "history_top3": false
-      },
-      {
-        "direction": "wc_dc_1x",
-        "type": "🏆 Double chance WC",
-        "label": "Iran ou nul (1X)",
-        "cote": 1.02,
-        "confidence": 98,
-        "is_fun": true,
-        "stats": {
-          "lam_h": 2.98,
-          "lam_a": 0.2,
-          "h_fifa_rank": 19,
-          "a_fifa_rank": "?",
-          "elo_gap": null,
-          "wc_round": null
-        },
-        "reasoning": "L10 : Iran 2V/2N/1D sur 5 · New Zealand 1V/0N/4D sur 5\n🚂 Gros mismatch (Elo gap +620) : Iran cherche à creuser tôt pour la diff de buts qualif. ⚠️ New Zealand hors top 100 FIFA — fallback Elo estimé, défense souvent perméable vs top.\n🛡️ Double chance : Iran gagne (90.6%) OU match nul (7.0%)\nCombiné = 97.7% — option safe contre New Zealand",
-        "tier": "fun",
-        "edge_pp": -0.0,
-        "history_top3": false
-      },
-      {
-        "direction": "wc_over_15",
-        "type": "⚽ Total buts WC",
-        "label": "Plus de 1.5 buts",
-        "cote": 1.21,
-        "confidence": 83,
-        "is_fun": true,
-        "stats": {
-          "lam_h": 2.98,
-          "lam_a": 0.2,
-          "h_fifa_rank": 19,
-          "a_fifa_rank": "?",
-          "elo_gap": null,
-          "wc_round": null
-        },
-        "reasoning": "L10 : Iran 2V/2N/1D sur 5 · New Zealand 1V/0N/4D sur 5\n🚂 Gros mismatch (Elo gap +620) : Iran cherche à creuser tôt pour la diff de buts qualif. ⚠️ New Zealand hors top 100 FIFA — fallback Elo estimé, défense souvent perméable vs top.\n⚽ Modèle Poisson : λ total = 3.17 buts attendus\nP(plus de 1.5 buts) = 82.5%",
-        "tier": "fun",
-        "edge_pp": 0.4,
+        "edge_pp": 0.0,
         "history_top3": false
       },
       {
@@ -1905,132 +1343,14 @@
           "h_fifa_rank": 19,
           "a_fifa_rank": "?",
           "elo_gap": null,
-          "wc_round": null
+          "wc_round": null,
+          "family": "TOTAL",
+          "tier": "value"
         },
         "reasoning": "L10 : Iran 2V/2N/1D sur 5 · New Zealand 1V/0N/4D sur 5\n🚂 Gros mismatch (Elo gap +620) : Iran cherche à creuser tôt pour la diff de buts qualif. ⚠️ New Zealand hors top 100 FIFA — fallback Elo estimé, défense souvent perméable vs top.\n⚽ Modèle Poisson : λ total = 3.17\nP(plus de 2.5 buts) = 61.5%",
         "tier": "fun",
         "edge_pp": -0.3,
         "history_top3": true
-      },
-      {
-        "direction": "wc_btts_no",
-        "type": "⚽ BTTS WC",
-        "label": "Une équipe ne marque pas (BTTS NO)",
-        "cote": 1.21,
-        "confidence": 83,
-        "is_fun": true,
-        "stats": {
-          "lam_h": 2.98,
-          "lam_a": 0.2,
-          "h_fifa_rank": 19,
-          "a_fifa_rank": "?",
-          "elo_gap": null,
-          "wc_round": null
-        },
-        "reasoning": "L10 : Iran 2V/2N/1D sur 5 · New Zealand 1V/0N/4D sur 5\n🚂 Gros mismatch (Elo gap +620) : Iran cherche à creuser tôt pour la diff de buts qualif. ⚠️ New Zealand hors top 100 FIFA — fallback Elo estimé, défense souvent perméable vs top.\n⚽ BTTS NO : P(au moins une équipe blanchie) = 83.0%\nλ faibles côté New Zealand (0.20) ou Iran (2.98)",
-        "tier": "fun",
-        "edge_pp": 0.4,
-        "history_top3": false
-      },
-      {
-        "direction": "wc_dc_12",
-        "type": "🏆 Double chance WC",
-        "label": "Iran ou New Zealand (12, pas de nul)",
-        "cote": 1.09,
-        "confidence": 92,
-        "is_fun": true,
-        "stats": {
-          "lam_h": 2.98,
-          "lam_a": 0.2,
-          "h_fifa_rank": 19,
-          "a_fifa_rank": "?",
-          "elo_gap": null,
-          "wc_round": null
-        },
-        "reasoning": "L10 : Iran 2V/2N/1D sur 5 · New Zealand 1V/0N/4D sur 5\n🚂 Gros mismatch (Elo gap +620) : Iran cherche à creuser tôt pour la diff de buts qualif. ⚠️ New Zealand hors top 100 FIFA — fallback Elo estimé, défense souvent perméable vs top.\n🛡️ Double chance 12 : Iran (90.6%) OU New Zealand (1.2%)\nCombiné = 91.8% — couvre tout sauf le nul",
-        "tier": "fun",
-        "edge_pp": 0.3,
-        "history_top3": false
-      },
-      {
-        "direction": "wc_home_scores_1",
-        "type": "⚽ Buteur équipe WC",
-        "label": "Iran marque (≥1 but)",
-        "cote": 1.05,
-        "confidence": 95,
-        "is_fun": true,
-        "stats": {
-          "lam_h": 2.98,
-          "lam_a": 0.2,
-          "h_fifa_rank": 19,
-          "a_fifa_rank": "?",
-          "elo_gap": null,
-          "wc_round": null
-        },
-        "reasoning": "L10 : Iran 2V/2N/1D sur 5 · New Zealand 1V/0N/4D sur 5\n🚂 Gros mismatch (Elo gap +620) : Iran cherche à creuser tôt pour la diff de buts qualif. ⚠️ New Zealand hors top 100 FIFA — fallback Elo estimé, défense souvent perméable vs top.\n⚽ P(Iran marque ≥1) = 94.9% — λ_Iran = 2.98",
-        "tier": "fun",
-        "edge_pp": -0.2,
-        "history_top3": false
-      },
-      {
-        "direction": "wc_home_scores_2",
-        "type": "⚽ Buteur équipe WC",
-        "label": "Iran marque 2+ buts",
-        "cote": 1.25,
-        "confidence": 80,
-        "is_fun": true,
-        "stats": {
-          "lam_h": 2.98,
-          "lam_a": 0.2,
-          "h_fifa_rank": 19,
-          "a_fifa_rank": "?",
-          "elo_gap": null,
-          "wc_round": null
-        },
-        "reasoning": "L10 : Iran 2V/2N/1D sur 5 · New Zealand 1V/0N/4D sur 5\n🚂 Gros mismatch (Elo gap +620) : Iran cherche à creuser tôt pour la diff de buts qualif. ⚠️ New Zealand hors top 100 FIFA — fallback Elo estimé, défense souvent perméable vs top.\n⚽ P(Iran marque 2+) = 79.7% (λ = 2.98)",
-        "tier": "fun",
-        "edge_pp": 0.0,
-        "history_top3": false
-      },
-      {
-        "direction": "wc_home_scores_3",
-        "type": "⚽ Buteur équipe WC",
-        "label": "Iran marque 3+ buts",
-        "cote": 1.75,
-        "confidence": 57,
-        "is_fun": true,
-        "stats": {
-          "lam_h": 2.98,
-          "lam_a": 0.2,
-          "h_fifa_rank": 19,
-          "a_fifa_rank": "?",
-          "elo_gap": null,
-          "wc_round": null
-        },
-        "reasoning": "L10 : Iran 2V/2N/1D sur 5 · New Zealand 1V/0N/4D sur 5\n🚂 Gros mismatch (Elo gap +620) : Iran cherche à creuser tôt pour la diff de buts qualif. ⚠️ New Zealand hors top 100 FIFA — fallback Elo estimé, défense souvent perméable vs top.\n⚽ P(Iran marque 3+) = 57.1% — gros favori en mode steamroller",
-        "tier": "fun",
-        "edge_pp": -0.1,
-        "history_top3": true
-      },
-      {
-        "direction": "wc_away_no_score",
-        "type": "🛡️ Clean sheet WC",
-        "label": "New Zealand ne marque pas",
-        "cote": 1.22,
-        "confidence": 82,
-        "is_fun": true,
-        "stats": {
-          "lam_h": 2.98,
-          "lam_a": 0.2,
-          "h_fifa_rank": 19,
-          "a_fifa_rank": "?",
-          "elo_gap": null,
-          "wc_round": null
-        },
-        "reasoning": "L10 : Iran 2V/2N/1D sur 5 · New Zealand 1V/0N/4D sur 5\n🚂 Gros mismatch (Elo gap +620) : Iran cherche à creuser tôt pour la diff de buts qualif. ⚠️ New Zealand hors top 100 FIFA — fallback Elo estimé, défense souvent perméable vs top.\n🛡️ P(New Zealand blanchi) = 82.0% — défense Iran dominante (λ_New Zealand = 0.20)",
-        "tier": "fun",
-        "edge_pp": 0.0,
-        "history_top3": false
       },
       {
         "direction": "wc_score_2_0",
@@ -2119,6 +1439,28 @@
     "away_players": [],
     "fun_picks": [
       {
+        "direction": "wc_dc_12",
+        "type": "🏆 Double chance WC",
+        "label": "Iraq ou Norway (12, pas de nul)",
+        "cote": 1.31,
+        "confidence": 76,
+        "is_fun": true,
+        "stats": {
+          "lam_h": 0.7,
+          "lam_a": 1.71,
+          "h_fifa_rank": 51,
+          "a_fifa_rank": 34,
+          "elo_gap": -109,
+          "wc_round": null,
+          "family": "DC",
+          "tier": "value"
+        },
+        "reasoning": "📊 Niveau équilibré : Iraq #51 vs Norway #34 (gap -109 pts).\nL10 : Iraq 2V/1N/2D sur 5 · Norway 2V/2N/1D sur 5\n🛡️ Double chance 12 : Iraq (15.1%) OU Norway (61.4%)\nCombiné = 76.5% — couvre tout sauf le nul",
+        "tier": "fun",
+        "edge_pp": -0.3,
+        "history_top3": false
+      },
+      {
         "direction": "wc_away_win",
         "type": "🏆 Vainqueur WC",
         "label": "Norway gagne",
@@ -2131,51 +1473,13 @@
           "h_fifa_rank": 51,
           "a_fifa_rank": 34,
           "elo_gap": -109,
-          "wc_round": null
+          "wc_round": null,
+          "family": "1X2",
+          "tier": "value"
         },
         "reasoning": "📊 Niveau équilibré : Iraq #51 vs Norway #34 (gap -109 pts).\nL10 : Iraq 2V/1N/2D sur 5 · Norway 2V/2N/1D sur 5\n🏆 Modèle Poisson CdM (tier FIFA ajusté)\nλ Iraq = 0.70, λ Norway = 1.71\nP(Iraq) = 15.1% · P(nul) = 23.5% · P(Norway gagne) = 61.4%",
         "tier": "fun",
         "edge_pp": -0.3,
-        "history_top3": true
-      },
-      {
-        "direction": "wc_dc_x2",
-        "type": "🏆 Double chance WC",
-        "label": "Norway ou nul (X2)",
-        "cote": 1.18,
-        "confidence": 85,
-        "is_fun": true,
-        "stats": {
-          "lam_h": 0.7,
-          "lam_a": 1.71,
-          "h_fifa_rank": 51,
-          "a_fifa_rank": 34,
-          "elo_gap": -109,
-          "wc_round": null
-        },
-        "reasoning": "📊 Niveau équilibré : Iraq #51 vs Norway #34 (gap -109 pts).\nL10 : Iraq 2V/1N/2D sur 5 · Norway 2V/2N/1D sur 5\n🛡️ Double chance : Norway gagne (61.4%) OU match nul (23.5%)\nCombiné = 84.9%",
-        "tier": "fun",
-        "edge_pp": 0.3,
-        "history_top3": false
-      },
-      {
-        "direction": "wc_under_25",
-        "type": "⚽ Total buts WC",
-        "label": "Moins de 2.5 buts",
-        "cote": 1.76,
-        "confidence": 57,
-        "is_fun": true,
-        "stats": {
-          "lam_h": 0.7,
-          "lam_a": 1.71,
-          "h_fifa_rank": 51,
-          "a_fifa_rank": 34,
-          "elo_gap": -109,
-          "wc_round": null
-        },
-        "reasoning": "📊 Niveau équilibré : Iraq #51 vs Norway #34 (gap -109 pts).\nL10 : Iraq 2V/1N/2D sur 5 · Norway 2V/2N/1D sur 5\n⚽ Modèle Poisson : λ total = 2.41\nP(moins de 2.5 buts) = 56.7%",
-        "tier": "fun",
-        "edge_pp": 0.2,
         "history_top3": true
       },
       {
@@ -2191,7 +1495,9 @@
           "h_fifa_rank": 51,
           "a_fifa_rank": 34,
           "elo_gap": -109,
-          "wc_round": null
+          "wc_round": null,
+          "family": "BTTS",
+          "tier": "value"
         },
         "reasoning": "📊 Niveau équilibré : Iraq #51 vs Norway #34 (gap -109 pts).\nL10 : Iraq 2V/1N/2D sur 5 · Norway 2V/2N/1D sur 5\n⚽ BTTS NO : P(au moins une équipe blanchie) = 58.7%\nλ faibles côté Norway (1.71) ou Iraq (0.70)",
         "tier": "fun",
@@ -2199,11 +1505,11 @@
         "history_top3": true
       },
       {
-        "direction": "wc_dc_12",
-        "type": "🏆 Double chance WC",
-        "label": "Iraq ou Norway (12, pas de nul)",
-        "cote": 1.31,
-        "confidence": 76,
+        "direction": "wc_under_25",
+        "type": "⚽ Total buts WC",
+        "label": "Moins de 2.5 buts",
+        "cote": 1.76,
+        "confidence": 57,
         "is_fun": true,
         "stats": {
           "lam_h": 0.7,
@@ -2211,52 +1517,14 @@
           "h_fifa_rank": 51,
           "a_fifa_rank": 34,
           "elo_gap": -109,
-          "wc_round": null
+          "wc_round": null,
+          "family": "TOTAL",
+          "tier": "value"
         },
-        "reasoning": "📊 Niveau équilibré : Iraq #51 vs Norway #34 (gap -109 pts).\nL10 : Iraq 2V/1N/2D sur 5 · Norway 2V/2N/1D sur 5\n🛡️ Double chance 12 : Iraq (15.1%) OU Norway (61.4%)\nCombiné = 76.5% — couvre tout sauf le nul",
-        "tier": "fun",
-        "edge_pp": -0.3,
-        "history_top3": false
-      },
-      {
-        "direction": "wc_away_scores_1",
-        "type": "⚽ Buteur équipe WC",
-        "label": "Norway marque (≥1 but)",
-        "cote": 1.22,
-        "confidence": 82,
-        "is_fun": true,
-        "stats": {
-          "lam_h": 0.7,
-          "lam_a": 1.71,
-          "h_fifa_rank": 51,
-          "a_fifa_rank": 34,
-          "elo_gap": -109,
-          "wc_round": null
-        },
-        "reasoning": "📊 Niveau équilibré : Iraq #51 vs Norway #34 (gap -109 pts).\nL10 : Iraq 2V/1N/2D sur 5 · Norway 2V/2N/1D sur 5\n⚽ P(Norway marque ≥1) = 81.8% — λ_Norway = 1.71",
-        "tier": "fun",
-        "edge_pp": 0.0,
-        "history_top3": false
-      },
-      {
-        "direction": "wc_away_scores_2",
-        "type": "⚽ Buteur équipe WC",
-        "label": "Norway marque 2+ buts",
-        "cote": 1.97,
-        "confidence": 51,
-        "is_fun": true,
-        "stats": {
-          "lam_h": 0.7,
-          "lam_a": 1.71,
-          "h_fifa_rank": 51,
-          "a_fifa_rank": 34,
-          "elo_gap": -109,
-          "wc_round": null
-        },
-        "reasoning": "📊 Niveau équilibré : Iraq #51 vs Norway #34 (gap -109 pts).\nL10 : Iraq 2V/1N/2D sur 5 · Norway 2V/2N/1D sur 5\n⚽ P(Norway marque 2+) = 50.8% (λ = 1.71)",
+        "reasoning": "📊 Niveau équilibré : Iraq #51 vs Norway #34 (gap -109 pts).\nL10 : Iraq 2V/1N/2D sur 5 · Norway 2V/2N/1D sur 5\n⚽ Modèle Poisson : λ total = 2.41\nP(moins de 2.5 buts) = 56.7%",
         "tier": "fun",
         "edge_pp": 0.2,
-        "history_top3": false
+        "history_top3": true
       },
       {
         "direction": "wc_score_0_1",

@@ -1809,13 +1809,103 @@ def analyze_match(match, pstats_all, player_odds_all=None):
                     ),
                 },
             ]
+            # ─── SÉLECTION HUMAINE : on filtre/score/diversifie ───────────
+            # On a 17 candidats potentiels. Au lieu de tous les exposer, on
+            # se comporte comme un analyste : 3-4 picks pertinents max,
+            # diversifiés par famille de marché, mélangeant 1 safe + 1 value +
+            # 1 longshot/score si pertinent.
+
+            # Mapping direction -> famille de marché
+            FAMILY = {
+                "wc_home_win": "1X2", "wc_away_win": "1X2", "wc_draw": "1X2",
+                "wc_dc_1x": "DC", "wc_dc_x2": "DC", "wc_dc_12": "DC",
+                "wc_over_15": "TOTAL", "wc_under_15": "TOTAL",
+                "wc_over_25": "TOTAL", "wc_under_25": "TOTAL",
+                "wc_over_35": "TOTAL",
+                "wc_btts_yes": "BTTS", "wc_btts_no": "BTTS",
+                "wc_home_scores_1": "BUT_TEAM", "wc_home_scores_2": "BUT_TEAM",
+                "wc_home_scores_3": "BUT_TEAM",
+                "wc_away_scores_1": "BUT_TEAM", "wc_away_scores_2": "BUT_TEAM",
+                "wc_away_no_score": "CLEAN_SHEET", "wc_home_no_score": "CLEAN_SHEET",
+            }
+
+            def _tier_pick(cote, conf):
+                """Catégorise : safe (cote bas+conf haute), value (mid), fun (cote haut)."""
+                if cote is None: return "unknown"
+                if cote <= 1.25 and conf >= 80: return "safe"
+                if cote >= 2.50 or conf <= 35:  return "fun"
+                return "value"
+
+            def _interest_score(cand):
+                """Score d'intérêt : favorise les value picks (cote 1.4-2.0),
+                pénalise les ultra-safe (cote < 1.10 = pas de juice) et les
+                ultra-fun (cote > 4 sauf score exact spécial). Conf x cote.
+                """
+                p = cand["p"]
+                cote_est = _est_cote(p)
+                if cote_est is None: return 0
+                conf = p * 100
+                # Sweet spot : cote 1.4-2.0 → EV*1.3 bonus
+                if 1.4 <= cote_est <= 2.0: bonus = 1.3
+                elif 1.25 <= cote_est <= 2.5: bonus = 1.1
+                elif cote_est <= 1.15: bonus = 0.6  # juice trop faible
+                else: bonus = 0.8
+                return conf * bonus
+
+            # Filtre seuils, puis trie par interest_score
+            kept_candidates = []
             for cand in wc_candidates:
                 p = cand["p"]
                 conf = round(p * 100)
                 if conf < cand["min_conf"]:
                     continue
+                cand["_conf"] = conf
+                cand["_cote"] = _est_cote(p)
+                cand["_family"] = FAMILY.get(cand["direction"], "OTHER")
+                cand["_score"] = _interest_score(cand)
+                cand["_tier"]  = _tier_pick(cand["_cote"], conf)
+                kept_candidates.append(cand)
+
+            # Tri par score descendant
+            kept_candidates.sort(key=lambda c: c["_score"], reverse=True)
+
+            # Sélection : MAX 4 picks par match, MAX 1 par famille (sauf si
+            # le 2e du même famille a un score très différent → autorisé).
+            # Toujours essayer d'inclure : 1 safe + 1-2 value + (1 fun/score
+            # exact si elo gap > 300, sinon non).
+            selected_for_match = []
+            families_used = set()
+            tiers_used = []
+
+            for cand in kept_candidates:
+                fam = cand["_family"]
+                tier = cand["_tier"]
+                if len(selected_for_match) >= 4:
+                    break
+                # Skip si famille déjà couverte (sauf si l'autre était significativement moins bon)
+                if fam in families_used:
+                    continue
+                # Skip si 2 safes déjà (on veut diversité)
+                if tier == "safe" and tiers_used.count("safe") >= 1:
+                    continue
+                # Skip si 2 funs déjà
+                if tier == "fun" and tiers_used.count("fun") >= 1:
+                    continue
+                selected_for_match.append(cand)
+                families_used.add(fam)
+                tiers_used.append(tier)
+
+            # Si le match a vraiment peu de picks intéressants (< 2), on relaxe :
+            # autorise une seconde famille déjà prise pour atteindre 2 picks.
+            if len(selected_for_match) < 2 and len(kept_candidates) >= 2:
+                for cand in kept_candidates:
+                    if cand in selected_for_match: continue
+                    if len(selected_for_match) >= 2: break
+                    selected_for_match.append(cand)
+
+            # Ajoute les sélectionnés à fun_picks avec le reasoning complet
+            for cand in selected_for_match:
                 full_reasoning = cand["reasoning"]
-                # Ajoute préambule contextuel (FIFA gap, favoris, R1, mismatch)
                 if ctx_descr_combined:
                     full_reasoning = f"{ctx_descr_combined}\n{full_reasoning}"
                 if level_block:
@@ -1824,39 +1914,47 @@ def analyze_match(match, pstats_all, player_odds_all=None):
                     "direction": cand["direction"],
                     "type":      cand["type"],
                     "label":     cand["label"],
-                    "cote":      _est_cote(p),
-                    "confidence": conf,
+                    "cote":      cand["_cote"],
+                    "confidence": cand["_conf"],
                     "is_fun":    True,
                     "stats":     {"lam_h": round(lam_h_wc, 2), "lam_a": round(lam_a_wc, 2),
                                   "h_fifa_rank": h_rank, "a_fifa_rank": a_rank,
-                                  "elo_gap": elo_gap, "wc_round": round_num},
+                                  "elo_gap": elo_gap, "wc_round": round_num,
+                                  "family": cand["_family"], "tier": cand["_tier"]},
                     "reasoning": full_reasoning,
                 })
 
-            # Score exact #1 (toujours en fun, cote haute)
+            # Score exact #1 : seulement si peu de picks sélectionnés OU si
+            # le top score est vraiment marqué (>= 13%). Sinon c'est juste du
+            # bruit cote 7+ qui pollue la liste.
             (sh, sa), p_best, top3 = predict_exact_score(lam_h_wc, lam_a_wc)
             alts = " · ".join(f"{i}-{j} ({round(p*100,1)}%)" for (i,j), p in top3)
-            score_reasoning_base = (
-                f"🏆 Coupe du Monde 2026 - score exact (Poisson grid, ajusté Elo FIFA)\n"
-                f"λ {home} = {lam_h_wc:.2f} buts, λ {away} = {lam_a_wc:.2f} buts\n"
-                f"Top 3 : {alts}\n"
-                f"⚠️ Pari fun (cote élevée typique 4-8) - mise modeste"
-            )
-            if level_block:
-                score_reasoning_base = f"{level_block}\n{score_reasoning_base}"
-            fun_picks.append({
-                "direction": f"wc_score_{sh}_{sa}",
-                "type":      "🏆 Score exact WC",
-                "label":     f"Score exact : {home} {sh}-{sa} {away}",
-                "cote":      round(1 / max(0.01, p_best), 2),
-                "confidence": round(p_best * 100),
-                "is_fun":    True,
-                "stats":     {"lam_h": round(lam_h_wc, 2), "lam_a": round(lam_a_wc, 2),
-                              "h_fifa_rank": h_rank, "a_fifa_rank": a_rank, "elo_gap": elo_gap},
-                "reasoning": score_reasoning_base,
-                "exact_score": [sh, sa],
-                "wc_top3":     [[list(s), round(p*100,1)] for s, p in top3],
-            })
+            include_score = (p_best >= 0.13) or (len(selected_for_match) < 3)
+            if not include_score:
+                # On skip le score exact, déjà 3+ picks sélectionnés et top score peu marqué
+                pass
+            else:
+                score_reasoning_base = (
+                    f"🏆 Coupe du Monde 2026 - score exact (Poisson grid, ajusté Elo FIFA)\n"
+                    f"λ {home} = {lam_h_wc:.2f} buts, λ {away} = {lam_a_wc:.2f} buts\n"
+                    f"Top 3 : {alts}\n"
+                    f"⚠️ Pari fun (cote élevée typique 4-8) - mise modeste"
+                )
+                if level_block:
+                    score_reasoning_base = f"{level_block}\n{score_reasoning_base}"
+                fun_picks.append({
+                    "direction": f"wc_score_{sh}_{sa}",
+                    "type":      "🏆 Score exact WC",
+                    "label":     f"Score exact : {home} {sh}-{sa} {away}",
+                    "cote":      round(1 / max(0.01, p_best), 2),
+                    "confidence": round(p_best * 100),
+                    "is_fun":    True,
+                    "stats":     {"lam_h": round(lam_h_wc, 2), "lam_a": round(lam_a_wc, 2),
+                                  "h_fifa_rank": h_rank, "a_fifa_rank": a_rank, "elo_gap": elo_gap},
+                    "reasoning": score_reasoning_base,
+                    "exact_score": [sh, sa],
+                    "wc_top3":     [[list(s), round(p*100,1)] for s, p in top3],
+                })
 
     # ── Props joueurs ───────────────────────────────────────────────────────
     home_players = pstats.get("home", [])
