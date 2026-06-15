@@ -206,6 +206,92 @@ def get_fifa_data(team_name):
     return rk
 
 
+def get_fifa_data_or_default(team_name):
+    """Comme get_fifa_data mais avec un fallback estimé pour les minnows
+    pas dans notre liste (Curaçao, Bhutan, San Marino…) → tier 4 ~1000 pts.
+
+    Évite que ces équipes soient traitées comme "neutre" face à un top et
+    sous-estiment les buts du favori (cas Allemagne 7-1 Curaçao).
+    """
+    fd = get_fifa_data(team_name)
+    if fd is not None:
+        return fd, False  # vrai ranking
+    t = team_tier(team_name)
+    # Estime des pts en fonction du tier (4 = micro, valeur basse mais > 0)
+    pts_estimated = {1: 1700, 2: 1550, 3: 1400, 4: 1000}[t]
+    return {"rank": 130 if t == 4 else 100, "points": pts_estimated}, True
+
+
+# ─── Contexte CdM : round, mismatch, motivation ──────────────────────────
+
+def _normalize_round_label(label):
+    """'1' / 'Group A R1' / 'Matchday 1' → 1, etc. None si non group stage."""
+    if label is None: return None
+    s = str(label).strip().lower()
+    # Knockout phases : on ne boost pas
+    for ko in ("final", "semi", "quarter", "round of 16", "round of 32",
+              "playoff", "knockout"):
+        if ko in s: return None
+    # Cherche un chiffre 1/2/3 (matchday group)
+    import re as _re
+    m = _re.search(r"\b([123])\b", s)
+    if m: return int(m.group(1))
+    return None
+
+
+def wc_context_boost(team_name, opp_name, round_num=None, league_id=None):
+    """Boost λ ADDITIF (en buts) pour contexte CdM 2026.
+
+    Renvoie (boost_team, boost_opp). Cumulé avec tier_strength_adjustment.
+
+    Logique humaine :
+      1. WC R1 = motivation peak. Tous les top ont envie de bien démarrer.
+      2. Steamroller : gros favori (Elo gap ≥ 400) vs minnow → le favori
+         cherche à prendre le large tôt (différence de but qualif). +0.5 λ
+      3. Steamroller XL : gap ≥ 600 → +0.8 λ pour le favori, λ minnow -= 0.2
+    """
+    if league_id != WC_LEAGUE_ID:
+        return 0.0, 0.0
+    fd_t, _ = get_fifa_data_or_default(team_name)
+    fd_o, _ = get_fifa_data_or_default(opp_name)
+    elo_gap = fd_t["points"] - fd_o["points"]
+    boost_team = 0.0
+    boost_opp  = 0.0
+    # R1 motivation (premier match de poule)
+    if round_num == 1 and is_wc_favorite(team_name):
+        boost_team += 0.20  # +0.20 but : envie de pas mal démarrer
+    # Steamroller : gros favori vs minnow
+    if elo_gap >= 400:
+        boost_team += 0.50
+        boost_opp  -= 0.10
+    if elo_gap >= 600:
+        boost_team += 0.30  # cumulé avec le précédent → +0.80 total
+        boost_opp  -= 0.15  # cumulé → -0.25
+    # Si team est dans les UEFA powerhouses ET R1 → encore +0.10
+    if round_num == 1 and is_uefa_powerhouse(team_name):
+        boost_team += 0.10
+    return boost_team, boost_opp
+
+
+def wc_context_descr(team_name, opp_name, round_num=None, league_id=None):
+    """Renvoie une description humaine du contexte appliqué. '' si rien."""
+    if league_id != WC_LEAGUE_ID:
+        return ""
+    fd_t, est_t = get_fifa_data_or_default(team_name)
+    fd_o, est_o = get_fifa_data_or_default(opp_name)
+    elo_gap = fd_t["points"] - fd_o["points"]
+    parts = []
+    if round_num == 1:
+        parts.append(f"🎯 Premier match de poule : motivation peak pour {team_name}, envie de bien démarrer.")
+    if elo_gap >= 600:
+        parts.append(f"🚂 Gros mismatch (Elo gap +{elo_gap}) : {team_name} cherche à creuser tôt pour la diff de buts qualif.")
+    elif elo_gap >= 400:
+        parts.append(f"🚂 Mismatch significatif (Elo gap +{elo_gap}) : {team_name} pousse pour prendre le large.")
+    if est_o:
+        parts.append(f"⚠️ {opp_name} hors top 100 FIFA — fallback Elo estimé, défense souvent perméable vs top.")
+    return " ".join(parts)
+
+
 def is_wc_favorite(team_name):
     """True si l'equipe fait partie des favoris CdM 2026."""
     if not team_name: return False
@@ -1437,6 +1523,23 @@ def analyze_match(match, pstats_all, player_odds_all=None):
             lam_h_wc = max(0.2, ((h_l5_gf * h_atk_m) + (a_l5_ga * a_def_m)) / 2)
             lam_a_wc = max(0.2, ((a_l5_gf * a_atk_m) + (h_l5_ga * h_def_m)) / 2)
 
+            # ─── CONTEXT BOOSTERS CdM : R1, mismatch, motivation ─────────
+            # Détecte le round depuis match.json (fotmob expose
+            # league_round_name 1/2/3 pour la phase de poules).
+            round_num = _normalize_round_label(
+                match.get("league_round_name") or match.get("round_name")
+                or (form.get("leagueRoundName"))
+            )
+            # Côté home : son boost personnel + malus que lui inflige away
+            h_self_boost, h_opp_malus = wc_context_boost(home, away, round_num, league_id)
+            a_self_boost, a_opp_malus = wc_context_boost(away, home, round_num, league_id)
+            # Applique : λ_team += son_boost + malus_que_lui_inflige_l_opp
+            lam_h_wc = max(0.10, lam_h_wc + h_self_boost + a_opp_malus)
+            lam_a_wc = max(0.10, lam_a_wc + a_self_boost + h_opp_malus)
+            ctx_descr_h = wc_context_descr(home, away, round_num, league_id)
+            ctx_descr_a = wc_context_descr(away, home, round_num, league_id)
+            ctx_descr_combined = " ".join(d for d in [ctx_descr_h, ctx_descr_a] if d)
+
             # ANALYSE NIVEAU (FIFA / favoris / Elo) à exposer dans les reasonings
             _fh = get_fifa_data(home)
             _fa = get_fifa_data(away)
@@ -1634,6 +1737,77 @@ def analyze_match(match, pstats_all, player_odds_all=None):
                         f"λ faibles côté {away} ({lam_a_wc:.2f}) ou {home} ({lam_h_wc:.2f})"
                     ),
                 },
+                # Double chance 12 : pas de nul (un des deux gagne)
+                {
+                    "direction": "wc_dc_12", "type": "🏆 Double chance WC",
+                    "label": f"{home} ou {away} (12, pas de nul)",
+                    "p": p_home_win + p_away_win, "min_conf": 75,
+                    "reasoning": (
+                        f"🛡️ Double chance 12 : {home} ({p_home_win*100:.1f}%) OU {away} ({p_away_win*100:.1f}%)\n"
+                        f"Combiné = {(p_home_win + p_away_win)*100:.1f}% — couvre tout sauf le nul"
+                    ),
+                },
+                # Équipes marquent N+ buts (utile pour gros favoris)
+                {
+                    "direction": "wc_home_scores_1", "type": "⚽ Buteur équipe WC",
+                    "label": f"{home} marque (≥1 but)",
+                    "p": 1 - _mwc.exp(-lam_h_wc), "min_conf": 75,
+                    "reasoning": (
+                        f"⚽ P({home} marque ≥1) = {(1-_mwc.exp(-lam_h_wc))*100:.1f}% — λ_{home} = {lam_h_wc:.2f}"
+                    ),
+                },
+                {
+                    "direction": "wc_home_scores_2", "type": "⚽ Buteur équipe WC",
+                    "label": f"{home} marque 2+ buts",
+                    "p": 1 - _mwc.exp(-lam_h_wc) - lam_h_wc * _mwc.exp(-lam_h_wc),
+                    "min_conf": 55,
+                    "reasoning": (
+                        f"⚽ P({home} marque 2+) = {(1 - _mwc.exp(-lam_h_wc) - lam_h_wc*_mwc.exp(-lam_h_wc))*100:.1f}% (λ = {lam_h_wc:.2f})"
+                    ),
+                },
+                {
+                    "direction": "wc_home_scores_3", "type": "⚽ Buteur équipe WC",
+                    "label": f"{home} marque 3+ buts",
+                    "p": 1 - sum(_pmf(i, lam_h_wc) for i in range(3)),
+                    "min_conf": 45,
+                    "reasoning": (
+                        f"⚽ P({home} marque 3+) = {(1-sum(_pmf(i, lam_h_wc) for i in range(3)))*100:.1f}% — gros favori en mode steamroller"
+                    ),
+                },
+                {
+                    "direction": "wc_away_scores_1", "type": "⚽ Buteur équipe WC",
+                    "label": f"{away} marque (≥1 but)",
+                    "p": 1 - _mwc.exp(-lam_a_wc), "min_conf": 75,
+                    "reasoning": (
+                        f"⚽ P({away} marque ≥1) = {(1-_mwc.exp(-lam_a_wc))*100:.1f}% — λ_{away} = {lam_a_wc:.2f}"
+                    ),
+                },
+                {
+                    "direction": "wc_away_scores_2", "type": "⚽ Buteur équipe WC",
+                    "label": f"{away} marque 2+ buts",
+                    "p": 1 - _mwc.exp(-lam_a_wc) - lam_a_wc * _mwc.exp(-lam_a_wc),
+                    "min_conf": 50,
+                    "reasoning": (
+                        f"⚽ P({away} marque 2+) = {(1-_mwc.exp(-lam_a_wc) - lam_a_wc*_mwc.exp(-lam_a_wc))*100:.1f}% (λ = {lam_a_wc:.2f})"
+                    ),
+                },
+                # Équipes blanchies (utile pour favoris qui défendent bien)
+                {
+                    "direction": "wc_away_no_score", "type": "🛡️ Clean sheet WC",
+                    "label": f"{away} ne marque pas",
+                    "p": _mwc.exp(-lam_a_wc), "min_conf": 55,
+                    "reasoning": (
+                        f"🛡️ P({away} blanchi) = {_mwc.exp(-lam_a_wc)*100:.1f}% — défense {home} dominante (λ_{away} = {lam_a_wc:.2f})"
+                    ),
+                },
+                {
+                    "direction": "wc_home_no_score", "type": "🛡️ Clean sheet WC",
+                    "label": f"{home} ne marque pas",
+                    "p": _mwc.exp(-lam_h_wc), "min_conf": 55,
+                    "reasoning": (
+                        f"🛡️ P({home} blanchi) = {_mwc.exp(-lam_h_wc)*100:.1f}% (λ_{home} = {lam_h_wc:.2f})"
+                    ),
+                },
             ]
             for cand in wc_candidates:
                 p = cand["p"]
@@ -1641,6 +1815,9 @@ def analyze_match(match, pstats_all, player_odds_all=None):
                 if conf < cand["min_conf"]:
                     continue
                 full_reasoning = cand["reasoning"]
+                # Ajoute préambule contextuel (FIFA gap, favoris, R1, mismatch)
+                if ctx_descr_combined:
+                    full_reasoning = f"{ctx_descr_combined}\n{full_reasoning}"
                 if level_block:
                     full_reasoning = f"{level_block}\n{full_reasoning}"
                 fun_picks.append({
@@ -1652,7 +1829,7 @@ def analyze_match(match, pstats_all, player_odds_all=None):
                     "is_fun":    True,
                     "stats":     {"lam_h": round(lam_h_wc, 2), "lam_a": round(lam_a_wc, 2),
                                   "h_fifa_rank": h_rank, "a_fifa_rank": a_rank,
-                                  "elo_gap": elo_gap},
+                                  "elo_gap": elo_gap, "wc_round": round_num},
                     "reasoning": full_reasoning,
                 })
 
