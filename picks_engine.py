@@ -175,20 +175,91 @@ def is_top_intl_team(name):
     return team_tier(name) <= 3
 
 
+# ─── FIFA Elo + favoris CdM ─────────────────────────────────────────────
+# Charge le ranking depuis data/fifa_rankings.json (top 100 nations FIFA
+# avec points Elo). Permet un ajustement MUCH plus fin que les 4 tiers.
+# Spain (1854) vs Cape Verde (1334) = 520 pts d'écart → λ_spain ~2.7,
+# λ_cv ~0.4 au lieu de 2.04 vs 0.70 avec les tiers.
+
+_FIFA_RANK_CACHE = {"data": None}
+
+def _load_fifa_rankings():
+    if _FIFA_RANK_CACHE["data"] is not None:
+        return _FIFA_RANK_CACHE["data"]
+    try:
+        import json as _jrank
+        with open("data/fifa_rankings.json", encoding="utf-8") as f:
+            d = _jrank.load(f)
+        _FIFA_RANK_CACHE["data"] = d
+        return d
+    except Exception as e:
+        print(f"  [fifa rankings load err] {e}")
+        _FIFA_RANK_CACHE["data"] = {"rankings": {}, "_tournament_favorites": {}, "_uefa_powerhouses": []}
+        return _FIFA_RANK_CACHE["data"]
+
+
+def get_fifa_data(team_name):
+    """Renvoie {'rank': int, 'points': int} ou None si pas dans le ranking."""
+    if not team_name: return None
+    d = _load_fifa_rankings()
+    rk = d.get("rankings", {}).get(team_name.strip().lower())
+    return rk
+
+
+def is_wc_favorite(team_name):
+    """True si l'equipe fait partie des favoris CdM 2026."""
+    if not team_name: return False
+    d = _load_fifa_rankings()
+    favs = d.get("_tournament_favorites", {}).get("world_cup_2026", [])
+    return team_name.strip().lower() in favs
+
+
+def is_uefa_powerhouse(team_name):
+    if not team_name: return False
+    d = _load_fifa_rankings()
+    return team_name.strip().lower() in d.get("_uefa_powerhouses", [])
+
+
+def fifa_elo_expected(rating_team, rating_opp):
+    """Win probability ELO classique : 1 / (1 + 10^((R_opp - R_team)/400))."""
+    return 1 / (1 + 10 ** ((rating_opp - rating_team) / 400))
+
+
 def tier_strength_adjustment(team_name, opp_name):
     """Renvoie (mult_attack, mult_defense_concede) pour TEAM vs OPP.
 
-    - mult_attack > 1 si team mieux que opp (attaque + facile face a + faible)
-    - mult_attack < 1 si team moins bon que opp (attaque + dure face a + fort)
-    - mult_defense_concede < 1 si team mieux que opp (encaisse moins)
-    - mult_defense_concede > 1 si team moins bon que opp (encaisse plus)
-
-    Coefficient 0.18 par tier d'ecart, clamp [0.4, 1.7]. Avec un ecart
-    de 3 tiers (tier1 vs tier4), c'est +/- 54%.
+    Nouvelle implémentation basée sur l'Elo FIFA réel :
+    - Diff de 100 pts ≈ +0.4 but d'avantage pour le favori (~équivalent
+      à 1 tier dans l'ancien système, mais plus fin).
+    - Spain (1854) vs Cape Verde (1334) = 520 pts → mult attack 1.93,
+      mult defense 0.39 → λ_spain ~2.7, λ_cv ~0.4.
+    - Si l'équipe est un favori CdM 2026 face à une non-favorite : +5%
+      attack bonus (motivation / habitude des grandes compets).
+    - Si pas dans le ranking : fallback sur l'ancien système 4-tiers
+      (Bhutan, San Marino, etc. — tier 4 par défaut).
     """
+    fd_team = get_fifa_data(team_name)
+    fd_opp  = get_fifa_data(opp_name)
+
+    if fd_team and fd_opp:
+        gap = fd_team["points"] - fd_opp["points"]   # > 0 si team plus fort
+        # Chaque 100 pts ELO ≈ 0.40 but d'avantage. Mais plutôt que multiplier
+        # directement, on applique un facteur multiplicatif sur les λ qui
+        # tient compte aussi de la qualité absolue (un top contre top = pas
+        # d'avantage net même si gap 50).
+        # Mult attack = 1 + gap / 500 (clamp [0.30, 2.20])
+        mult_attack = max(0.30, min(2.20, 1 + gap / 500))
+        mult_defense_concede = max(0.30, min(2.20, 1 - gap / 500))
+        # Bonus favori CdM si team est dans la liste ET opp n'y est pas
+        if is_wc_favorite(team_name) and not is_wc_favorite(opp_name):
+            mult_attack *= 1.07
+            mult_defense_concede *= 0.93
+        return mult_attack, mult_defense_concede
+
+    # Fallback : ancien système tiers (équipes hors du top 100 FIFA)
     t_team = team_tier(team_name)
     t_opp  = team_tier(opp_name)
-    diff = t_opp - t_team  # positif si opp est plus faible
+    diff = t_opp - t_team
     mult_attack = max(0.4, min(1.7, 1 + diff * 0.18))
     mult_defense_concede = max(0.4, min(1.7, 1 - diff * 0.18))
     return mult_attack, mult_defense_concede
@@ -1366,6 +1437,52 @@ def analyze_match(match, pstats_all, player_odds_all=None):
             lam_h_wc = max(0.2, ((h_l5_gf * h_atk_m) + (a_l5_ga * a_def_m)) / 2)
             lam_a_wc = max(0.2, ((a_l5_gf * a_atk_m) + (h_l5_ga * h_def_m)) / 2)
 
+            # ANALYSE NIVEAU (FIFA / favoris / Elo) à exposer dans les reasonings
+            _fh = get_fifa_data(home)
+            _fa = get_fifa_data(away)
+            h_rank = _fh["rank"] if _fh else "?"
+            a_rank = _fa["rank"] if _fa else "?"
+            h_pts  = _fh["points"] if _fh else None
+            a_pts  = _fa["points"] if _fa else None
+            elo_gap = (h_pts - a_pts) if (h_pts is not None and a_pts is not None) else None
+            elo_p_home = fifa_elo_expected(h_pts, a_pts) if (h_pts and a_pts) else None
+            level_descr = ""
+            if elo_gap is not None:
+                if abs(elo_gap) >= 400:
+                    level_descr = (
+                        f"📊 Écart FIFA ÉNORME : {home} #{h_rank} ({h_pts} pts) vs {away} #{a_rank} ({a_pts} pts) "
+                        f"— gap Elo {elo_gap:+d} pts → P(vainqueur favori) ≈ {(max(elo_p_home, 1-elo_p_home))*100:.0f}%."
+                    )
+                elif abs(elo_gap) >= 200:
+                    level_descr = (
+                        f"📊 Écart FIFA significatif : {home} #{h_rank} vs {away} #{a_rank} "
+                        f"(gap {elo_gap:+d} pts, P favori ≈ {(max(elo_p_home, 1-elo_p_home))*100:.0f}%)."
+                    )
+                else:
+                    level_descr = (
+                        f"📊 Niveau équilibré : {home} #{h_rank} vs {away} #{a_rank} (gap {elo_gap:+d} pts)."
+                    )
+            # Annotation favoris
+            fav_tags = []
+            if is_wc_favorite(home): fav_tags.append(f"⭐ {home} favori CdM 2026")
+            if is_wc_favorite(away): fav_tags.append(f"⭐ {away} favori CdM 2026")
+            if is_uefa_powerhouse(home) and not is_wc_favorite(home): fav_tags.append(f"🇪🇺 {home} UEFA powerhouse")
+            if is_uefa_powerhouse(away) and not is_wc_favorite(away): fav_tags.append(f"🇪🇺 {away} UEFA powerhouse")
+            fav_descr = " · ".join(fav_tags)
+
+            # Forme L10 (utilisable depuis match["pre_match_form"])
+            h_form_arr = (form.get("homeTeam") or {}).get("form") or []
+            a_form_arr = (form.get("awayTeam") or {}).get("form") or []
+            def _form_summary(f):
+                if not f: return "?"
+                w = f.count("W"); d = f.count("D"); l = f.count("L")
+                return f"{w}V/{d}N/{l}D sur {len(f)}"
+            h_form_str = _form_summary(h_form_arr[:10])
+            a_form_str = _form_summary(a_form_arr[:10])
+            form_descr = f"L10 : {home} {h_form_str} · {away} {a_form_str}"
+
+            level_block = (level_descr + "\n" + (fav_descr + "\n" if fav_descr else "") + form_descr).strip()
+
             # Helpers Poisson
             import math as _mwc
             def _pmf(k, lam):
@@ -1523,6 +1640,9 @@ def analyze_match(match, pstats_all, player_odds_all=None):
                 conf = round(p * 100)
                 if conf < cand["min_conf"]:
                     continue
+                full_reasoning = cand["reasoning"]
+                if level_block:
+                    full_reasoning = f"{level_block}\n{full_reasoning}"
                 fun_picks.append({
                     "direction": cand["direction"],
                     "type":      cand["type"],
@@ -1530,13 +1650,23 @@ def analyze_match(match, pstats_all, player_odds_all=None):
                     "cote":      _est_cote(p),
                     "confidence": conf,
                     "is_fun":    True,
-                    "stats":     {"lam_h": round(lam_h_wc, 2), "lam_a": round(lam_a_wc, 2)},
-                    "reasoning": cand["reasoning"],
+                    "stats":     {"lam_h": round(lam_h_wc, 2), "lam_a": round(lam_a_wc, 2),
+                                  "h_fifa_rank": h_rank, "a_fifa_rank": a_rank,
+                                  "elo_gap": elo_gap},
+                    "reasoning": full_reasoning,
                 })
 
             # Score exact #1 (toujours en fun, cote haute)
             (sh, sa), p_best, top3 = predict_exact_score(lam_h_wc, lam_a_wc)
             alts = " · ".join(f"{i}-{j} ({round(p*100,1)}%)" for (i,j), p in top3)
+            score_reasoning_base = (
+                f"🏆 Coupe du Monde 2026 - score exact (Poisson grid, ajusté Elo FIFA)\n"
+                f"λ {home} = {lam_h_wc:.2f} buts, λ {away} = {lam_a_wc:.2f} buts\n"
+                f"Top 3 : {alts}\n"
+                f"⚠️ Pari fun (cote élevée typique 4-8) - mise modeste"
+            )
+            if level_block:
+                score_reasoning_base = f"{level_block}\n{score_reasoning_base}"
             fun_picks.append({
                 "direction": f"wc_score_{sh}_{sa}",
                 "type":      "🏆 Score exact WC",
@@ -1544,13 +1674,9 @@ def analyze_match(match, pstats_all, player_odds_all=None):
                 "cote":      round(1 / max(0.01, p_best), 2),
                 "confidence": round(p_best * 100),
                 "is_fun":    True,
-                "stats":     {"lam_h": round(lam_h_wc, 2), "lam_a": round(lam_a_wc, 2)},
-                "reasoning": (
-                    f"🏆 Coupe du Monde 2026 - score exact (Poisson grid)\n"
-                    f"λ {home} = {lam_h_wc:.2f} buts, λ {away} = {lam_a_wc:.2f} buts (ajusté tier FIFA)\n"
-                    f"Top 3 : {alts}\n"
-                    f"⚠️ Pari fun (cote élevée typique 4-8) - mise modeste"
-                ),
+                "stats":     {"lam_h": round(lam_h_wc, 2), "lam_a": round(lam_a_wc, 2),
+                              "h_fifa_rank": h_rank, "a_fifa_rank": a_rank, "elo_gap": elo_gap},
+                "reasoning": score_reasoning_base,
                 "exact_score": [sh, sa],
                 "wc_top3":     [[list(s), round(p*100,1)] for s, p in top3],
             })

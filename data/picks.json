@@ -28,12 +28,12 @@
         "history_top3": false
       },
       {
-        "direction": "btts_no",
-        "type": "BTTS",
-        "label": "Au moins 1 equipe ne marque pas",
+        "direction": "home_over_15",
+        "type": "Buteur equipe",
+        "label": "England marque plus de 1.5 buts",
         "cote": null,
-        "confidence": 75,
-        "reasoning": "Attaque faible d'un cote : England ~2.3 buts, Costa Rica ~0.3 buts - P(BTTS Non) ~75%",
+        "confidence": 78,
+        "reasoning": "England attendu a ~3.6 buts (marque 1.2/m sur L5, Costa Rica encaisse 2.2/m) - P(2+ buts) ~87%",
         "stats": {
           "form": [
             "W",
@@ -48,12 +48,32 @@
         "history_top3": false
       },
       {
-        "direction": "home_over_15",
-        "type": "Buteur equipe",
-        "label": "England marque plus de 1.5 buts",
+        "direction": "btts_no",
+        "type": "BTTS",
+        "label": "Au moins 1 equipe ne marque pas",
         "cote": null,
-        "confidence": 72,
-        "reasoning": "England attendu a ~2.3 buts (marque 1.2/m sur L5, Costa Rica encaisse 2.2/m) - P(2+ buts) ~67%",
+        "confidence": 75,
+        "reasoning": "Attaque faible d'un cote : England ~3.6 buts, Costa Rica ~0.2 buts - P(BTTS Non) ~82%",
+        "stats": {
+          "form": [
+            "W",
+            "L",
+            "D",
+            "W",
+            "W"
+          ]
+        },
+        "is_fun": false,
+        "tier": "safe",
+        "history_top3": false
+      },
+      {
+        "direction": "over25",
+        "type": "Total buts",
+        "label": "Plus de 2.5 buts",
+        "cote": null,
+        "confidence": 73,
+        "reasoning": "Attendu 3.8 buts au total (England ~3.6, Costa Rica ~0.2) - P(>2.5) ~73%",
         "stats": {
           "form": [
             "W",
@@ -75,27 +95,27 @@
         "is_sub": true,
         "type": "Buteur",
         "label": "Harry Kane marque",
-        "cote": 1.63,
+        "cote": 1.3,
         "book": null,
         "books": [],
-        "confidence": 56,
-        "reasoning": "⚠️ Compo PROBABLE (a confirmer 1h avant). Harry Kane : selection 6G/7m (0.86/m) · L10 club : 11G/10m, 🔥 3G/3 derniers nat (+19%) · ⚠️ dernier match nat 60+min 0G+0A (-45%) | titu nat (74min/m) · last match 63min (0G+0A). λ ajusté à 0.95 (England attendu 2.3 buts) → P(marque) ~56%.",
+        "confidence": 72,
+        "reasoning": "⚠️ Compo PROBABLE (a confirmer 1h avant). Harry Kane : selection 6G/7m (0.86/m) · L10 club : 11G/10m, 🔥 3G/3 derniers nat (+19%) · ⚠️ dernier match nat 60+min 0G+0A (-45%) | titu nat (74min/m) · last match 63min (0G+0A). λ ajusté à 1.47 (England attendu 3.6 buts) → P(marque) ~72%.",
         "context": {
           "source": "lineup",
-          "lam": 0.95,
+          "lam": 1.47,
           "lineup_status": "predicted"
         },
         "stats": {
           "goals": null,
           "apps": null,
-          "gpm": 0.946,
+          "gpm": 1.474,
           "xgpm": null
         },
         "team": "home",
         "lineup_status": "predicted",
-        "tier": "ok",
-        "edge_pp": -5.3,
-        "history_top3": true
+        "tier": "safe",
+        "edge_pp": -4.9,
+        "history_top3": false
       },
       {
         "player": "Bukayo Saka",
@@ -103,27 +123,27 @@
         "is_sub": true,
         "type": "Joueur décisif",
         "label": "Bukayo Saka but ou passe décisive",
-        "cote": 1.68,
+        "cote": 1.32,
         "book": null,
         "books": [],
-        "confidence": 55,
-        "reasoning": "⚠️ Compo PROBABLE (a confirmer 1h avant). Bukayo Saka but ou passe decisive : selection 2G+1A/5m (0.60 G+A/m nat). P(but ou passe) ~55%.",
+        "confidence": 71,
+        "reasoning": "⚠️ Compo PROBABLE (a confirmer 1h avant). Bukayo Saka but ou passe decisive : selection 2G+1A/5m (0.60 G+A/m nat). P(but ou passe) ~71%.",
         "context": {
           "source": "lineup",
-          "lam": 0.91,
+          "lam": 1.41,
           "lineup_status": "predicted"
         },
         "stats": {
           "goals": null,
           "apps": null,
-          "gpm": 0.906,
+          "gpm": 1.412,
           "xgpm": null
         },
         "team": "home",
         "lineup_status": "predicted",
-        "tier": "ok",
-        "edge_pp": -4.5,
-        "history_top3": true
+        "tier": "safe",
+        "edge_pp": -4.8,
+        "history_top3": false
       },
       {
         "player": "Harry Kane",
@@ -131,27 +151,27 @@
         "is_sub": true,
         "type": "Joueur décisif",
         "label": "Harry Kane but ou passe décisive",
-        "cote": 1.73,
+        "cote": 1.35,
         "book": null,
         "books": [],
-        "confidence": 53,
-        "reasoning": "⚠️ Compo PROBABLE (a confirmer 1h avant). Harry Kane but ou passe decisive : selection 6G+0A/7m (0.86 G+A/m nat) · ⚠️ disette recente. P(but ou passe) ~53%.",
+        "confidence": 69,
+        "reasoning": "⚠️ Compo PROBABLE (a confirmer 1h avant). Harry Kane but ou passe decisive : selection 6G+0A/7m (0.86 G+A/m nat) · ⚠️ disette recente. P(but ou passe) ~69%.",
         "context": {
           "source": "lineup",
-          "lam": 0.86,
+          "lam": 1.34,
           "lineup_status": "predicted"
         },
         "stats": {
           "goals": null,
           "apps": null,
-          "gpm": 0.863,
+          "gpm": 1.345,
           "xgpm": null
         },
         "team": "home",
         "lineup_status": "predicted",
-        "tier": "fun",
-        "edge_pp": -4.8,
-        "history_top3": true
+        "tier": "ok",
+        "edge_pp": -5.1,
+        "history_top3": false
       },
       {
         "player": "Declan Rice",
@@ -159,26 +179,26 @@
         "is_sub": true,
         "type": "Joueur décisif",
         "label": "Declan Rice but ou passe décisive",
-        "cote": 1.86,
+        "cote": 1.43,
         "book": null,
         "books": [],
-        "confidence": 49,
-        "reasoning": "⚠️ Compo PROBABLE (a confirmer 1h avant). Declan Rice but ou passe decisive : selection 2G+2A/7m (0.57 G+A/m nat). P(but ou passe) ~49%.",
+        "confidence": 65,
+        "reasoning": "⚠️ Compo PROBABLE (a confirmer 1h avant). Declan Rice but ou passe decisive : selection 2G+2A/7m (0.57 G+A/m nat). P(but ou passe) ~65%.",
         "context": {
           "source": "lineup",
-          "lam": 0.77,
+          "lam": 1.2,
           "lineup_status": "predicted"
         },
         "stats": {
           "goals": null,
           "apps": null,
-          "gpm": 0.772,
+          "gpm": 1.202,
           "xgpm": null
         },
         "team": "home",
         "lineup_status": "predicted",
-        "tier": "fun",
-        "edge_pp": -4.8,
+        "tier": "ok",
+        "edge_pp": -4.9,
         "history_top3": false
       }
     ],
@@ -261,7 +281,7 @@
         "label": "Austria marque plus de 1.5 buts",
         "cote": null,
         "confidence": 78,
-        "reasoning": "Austria attendu a ~3.4 buts (marque 2.0/m sur L5, Guatemala encaisse 3.0/m) - P(2+ buts) ~85%",
+        "reasoning": "Austria attendu a ~4.7 buts (marque 2.0/m sur L5, Guatemala encaisse 3.0/m) - P(2+ buts) ~95%",
         "stats": {
           "form": [
             "W",
@@ -280,8 +300,8 @@
         "type": "Total buts",
         "label": "Plus de 2.5 buts",
         "cote": null,
-        "confidence": 73,
-        "reasoning": "Attendu 3.8 buts au total (Austria ~3.4, Guatemala ~0.4) - P(>2.5) ~73%",
+        "confidence": 78,
+        "reasoning": "Attendu 4.9 buts au total (Austria ~4.7, Guatemala ~0.2) - P(>2.5) ~87%",
         "stats": {
           "form": [
             "W",
@@ -300,8 +320,8 @@
         "type": "BTTS",
         "label": "Au moins 1 equipe ne marque pas",
         "cote": null,
-        "confidence": 69,
-        "reasoning": "Attaque faible d'un cote : Austria ~3.4 buts, Guatemala ~0.4 buts - P(BTTS Non) ~69%",
+        "confidence": 75,
+        "reasoning": "Attaque faible d'un cote : Austria ~4.7 buts, Guatemala ~0.2 buts - P(BTTS Non) ~82%",
         "stats": {
           "form": [
             "W",
@@ -312,7 +332,7 @@
           ]
         },
         "is_fun": false,
-        "tier": "ok",
+        "tier": "safe",
         "history_top3": false
       }
     ],
@@ -587,8 +607,28 @@
         "type": "Buteur equipe",
         "label": "Portugal marque plus de 1.5 buts",
         "cote": null,
-        "confidence": 75,
-        "reasoning": "Portugal attendu a ~2.4 buts (marque 2.6/m sur L5, Nigeria encaisse 1.0/m) - P(2+ buts) ~70%",
+        "confidence": 78,
+        "reasoning": "Portugal attendu a ~2.9 buts (marque 2.6/m sur L5, Nigeria encaisse 1.0/m) - P(2+ buts) ~79%",
+        "stats": {
+          "form": [
+            "W",
+            "W",
+            "D",
+            "W",
+            "L"
+          ]
+        },
+        "is_fun": false,
+        "tier": "safe",
+        "history_top3": false
+      },
+      {
+        "direction": "over25",
+        "type": "Total buts",
+        "label": "Plus de 2.5 buts",
+        "cote": null,
+        "confidence": 70,
+        "reasoning": "Attendu 3.6 buts au total (Portugal ~2.9, Nigeria ~0.7) - P(>2.5) ~70%",
         "stats": {
           "form": [
             "W",
@@ -621,26 +661,6 @@
         "is_fun": false,
         "tier": "ok",
         "history_top3": false
-      },
-      {
-        "direction": "over25",
-        "type": "Total buts",
-        "label": "Plus de 2.5 buts",
-        "cote": null,
-        "confidence": 66,
-        "reasoning": "Attendu 3.4 buts au total (Portugal ~2.4, Nigeria ~1.0) - P(>2.5) ~66%",
-        "stats": {
-          "form": [
-            "W",
-            "W",
-            "D",
-            "W",
-            "L"
-          ]
-        },
-        "is_fun": false,
-        "tier": "ok",
-        "history_top3": false
       }
     ],
     "home_players": [
@@ -650,26 +670,26 @@
         "is_sub": false,
         "type": "Joueur décisif",
         "label": "Bruno Fernandes but ou passe décisive",
-        "cote": 1.38,
+        "cote": 1.27,
         "book": null,
         "books": [],
-        "confidence": 72,
-        "reasoning": "Bruno Fernandes but ou passe decisive : selection 4G+2A/9m (0.67 G+A/m nat). P(but ou passe) ~72%.",
+        "confidence": 79,
+        "reasoning": "Bruno Fernandes but ou passe decisive : selection 4G+2A/9m (0.67 G+A/m nat). P(but ou passe) ~79%.",
         "context": {
           "source": "lineup",
-          "lam": 1.28,
+          "lam": 1.54,
           "lineup_status": "confirmed"
         },
         "stats": {
           "goals": null,
           "apps": null,
-          "gpm": 1.281,
+          "gpm": 1.542,
           "xgpm": null
         },
         "team": "home",
         "lineup_status": "confirmed",
         "tier": "safe",
-        "edge_pp": -0.5,
+        "edge_pp": 0.3,
         "history_top3": false
       },
       {
@@ -678,27 +698,27 @@
         "is_sub": false,
         "type": "Joueur décisif",
         "label": "Francisco Conceição but ou passe décisive",
-        "cote": 1.73,
+        "cote": 1.55,
         "book": null,
         "books": [],
-        "confidence": 58,
-        "reasoning": "Francisco Conceição but ou passe decisive : selection 2G+1A/6m (0.50 G+A/m nat). P(but ou passe) ~58%.",
+        "confidence": 65,
+        "reasoning": "Francisco Conceição but ou passe decisive : selection 2G+1A/6m (0.50 G+A/m nat). P(but ou passe) ~65%.",
         "context": {
           "source": "lineup",
-          "lam": 0.86,
+          "lam": 1.04,
           "lineup_status": "confirmed"
         },
         "stats": {
           "goals": null,
           "apps": null,
-          "gpm": 0.862,
+          "gpm": 1.037,
           "xgpm": null
         },
         "team": "home",
         "lineup_status": "confirmed",
         "tier": "ok",
-        "edge_pp": 0.2,
-        "history_top3": true
+        "edge_pp": 0.5,
+        "history_top3": false
       },
       {
         "player": "Bruno Fernandes",
@@ -706,26 +726,26 @@
         "is_sub": false,
         "type": "Buteur",
         "label": "Bruno Fernandes marque",
-        "cote": 2.06,
+        "cote": 1.81,
         "book": null,
         "books": [],
-        "confidence": 49,
-        "reasoning": "Bruno Fernandes : selection 4G/9m (0.44/m) · L10 club : 2G/10m, 🔥 1G/3 derniers nat (+10%) | titu nat (77min/m) · last match 45min (0G+0A). λ ajusté à 0.67 (Portugal attendu 2.4 buts) → P(marque) ~49%.",
+        "confidence": 55,
+        "reasoning": "Bruno Fernandes : selection 4G/9m (0.44/m) · L10 club : 2G/10m, 🔥 1G/3 derniers nat (+10%) | titu nat (77min/m) · last match 45min (0G+0A). λ ajusté à 0.80 (Portugal attendu 2.9 buts) → P(marque) ~55%.",
         "context": {
           "source": "lineup",
-          "lam": 0.67,
+          "lam": 0.8,
           "lineup_status": "confirmed"
         },
         "stats": {
           "goals": null,
           "apps": null,
-          "gpm": 0.666,
+          "gpm": 0.801,
           "xgpm": null
         },
         "team": "home",
         "lineup_status": "confirmed",
-        "tier": "fun",
-        "edge_pp": 0.5,
+        "tier": "ok",
+        "edge_pp": -0.2,
         "history_top3": true
       },
       {
@@ -734,26 +754,26 @@
         "is_sub": false,
         "type": "Joueur décisif",
         "label": "Cristiano Ronaldo but ou passe décisive",
-        "cote": 2.21,
+        "cote": 1.94,
         "book": null,
         "books": [],
-        "confidence": 45,
-        "reasoning": "Cristiano Ronaldo but ou passe decisive : selection 5G+0A/7m (0.71 G+A/m nat) · ⚠️ disette recente. P(but ou passe) ~45%.",
+        "confidence": 52,
+        "reasoning": "Cristiano Ronaldo but ou passe decisive : selection 5G+0A/7m (0.71 G+A/m nat) · ⚠️ disette recente. P(but ou passe) ~52%.",
         "context": {
           "source": "lineup",
-          "lam": 0.6,
+          "lam": 0.73,
           "lineup_status": "confirmed"
         },
         "stats": {
           "goals": null,
           "apps": null,
-          "gpm": 0.602,
+          "gpm": 0.725,
           "xgpm": null
         },
         "team": "home",
         "lineup_status": "confirmed",
         "tier": "fun",
-        "edge_pp": -0.2,
+        "edge_pp": 0.5,
         "history_top3": true
       }
     ],
@@ -764,8 +784,8 @@
       "type": "Buteur equipe",
       "label": "Portugal marque plus de 1.5 buts",
       "cote": null,
-      "confidence": 75,
-      "reasoning": "Portugal attendu a ~2.4 buts (marque 2.6/m sur L5, Nigeria encaisse 1.0/m) - P(2+ buts) ~70%",
+      "confidence": 78,
+      "reasoning": "Portugal attendu a ~2.9 buts (marque 2.6/m sur L5, Nigeria encaisse 1.0/m) - P(2+ buts) ~79%",
       "stats": {
         "form": [
           "W",
@@ -838,107 +858,122 @@
         "direction": "wc_home_win",
         "type": "🏆 Vainqueur WC",
         "label": "Mexico gagne",
-        "cote": 1.52,
-        "confidence": 66,
+        "cote": 1.27,
+        "confidence": 79,
         "is_fun": true,
         "stats": {
-          "lam_h": 1.65,
-          "lam_a": 0.49
+          "lam_h": 2.05,
+          "lam_a": 0.32,
+          "h_fifa_rank": 17,
+          "a_fifa_rank": 54,
+          "elo_gap": 232
         },
-        "reasoning": "🏆 Modèle Poisson CdM (tier FIFA ajusté)\nλ Mexico = 1.65 buts attendus, λ South Africa = 0.49\nP(Mexico gagne) = 66.0% · P(nul) = 23.4% · P(South Africa) = 10.6%",
+        "reasoning": "📊 Écart FIFA significatif : Mexico #17 vs South Africa #54 (gap +232 pts, P favori ≈ 79%).\nL10 : Mexico 3V/2N/0D sur 5 · South Africa 1V/2N/2D sur 5\n🏆 Modèle Poisson CdM (tier FIFA ajusté)\nλ Mexico = 2.05 buts attendus, λ South Africa = 0.32\nP(Mexico gagne) = 78.5% · P(nul) = 16.6% · P(South Africa) = 4.8%",
         "tier": "fun",
-        "edge_pp": 0.2,
+        "edge_pp": 0.3,
         "history_top3": false
       },
       {
         "direction": "wc_dc_1x",
         "type": "🏆 Double chance WC",
         "label": "Mexico ou nul (1X)",
-        "cote": 1.12,
-        "confidence": 89,
+        "cote": 1.05,
+        "confidence": 95,
         "is_fun": true,
         "stats": {
-          "lam_h": 1.65,
-          "lam_a": 0.49
+          "lam_h": 2.05,
+          "lam_a": 0.32,
+          "h_fifa_rank": 17,
+          "a_fifa_rank": 54,
+          "elo_gap": 232
         },
-        "reasoning": "🛡️ Double chance : Mexico gagne (66.0%) OU match nul (23.4%)\nCombiné = 89.4% — option safe contre South Africa",
+        "reasoning": "📊 Écart FIFA significatif : Mexico #17 vs South Africa #54 (gap +232 pts, P favori ≈ 79%).\nL10 : Mexico 3V/2N/0D sur 5 · South Africa 1V/2N/2D sur 5\n🛡️ Double chance : Mexico gagne (78.5%) OU match nul (16.6%)\nCombiné = 95.1% — option safe contre South Africa",
         "tier": "fun",
-        "edge_pp": -0.3,
+        "edge_pp": -0.2,
         "history_top3": false
       },
       {
         "direction": "wc_under_25",
         "type": "⚽ Total buts WC",
         "label": "Moins de 2.5 buts",
-        "cote": 1.57,
-        "confidence": 64,
+        "cote": 1.73,
+        "confidence": 58,
         "is_fun": true,
         "stats": {
-          "lam_h": 1.65,
-          "lam_a": 0.49
+          "lam_h": 2.05,
+          "lam_a": 0.32,
+          "h_fifa_rank": 17,
+          "a_fifa_rank": 54,
+          "elo_gap": 232
         },
-        "reasoning": "⚽ Modèle Poisson : λ total = 2.14\nP(moins de 2.5 buts) = 63.8%",
+        "reasoning": "📊 Écart FIFA significatif : Mexico #17 vs South Africa #54 (gap +232 pts, P favori ≈ 79%).\nL10 : Mexico 3V/2N/0D sur 5 · South Africa 1V/2N/2D sur 5\n⚽ Modèle Poisson : λ total = 2.37\nP(moins de 2.5 buts) = 57.7%",
         "tier": "fun",
-        "edge_pp": 0.3,
-        "history_top3": false
+        "edge_pp": 0.2,
+        "history_top3": true
       },
       {
         "direction": "wc_btts_no",
         "type": "⚽ BTTS WC",
         "label": "Une équipe ne marque pas (BTTS NO)",
-        "cote": 1.46,
-        "confidence": 69,
+        "cote": 1.32,
+        "confidence": 76,
         "is_fun": true,
         "stats": {
-          "lam_h": 1.65,
-          "lam_a": 0.49
+          "lam_h": 2.05,
+          "lam_a": 0.32,
+          "h_fifa_rank": 17,
+          "a_fifa_rank": 54,
+          "elo_gap": 232
         },
-        "reasoning": "⚽ BTTS NO : P(au moins une équipe blanchie) = 68.6%\nλ faibles côté South Africa (0.49) ou Mexico (1.65)",
+        "reasoning": "📊 Écart FIFA significatif : Mexico #17 vs South Africa #54 (gap +232 pts, P favori ≈ 79%).\nL10 : Mexico 3V/2N/0D sur 5 · South Africa 1V/2N/2D sur 5\n⚽ BTTS NO : P(au moins une équipe blanchie) = 76.0%\nλ faibles côté South Africa (0.32) ou Mexico (2.05)",
         "tier": "fun",
-        "edge_pp": 0.5,
+        "edge_pp": 0.2,
         "history_top3": false
       },
       {
-        "direction": "wc_score_1_0",
+        "direction": "wc_score_2_0",
         "type": "🏆 Score exact WC",
-        "label": "Score exact : Mexico 1-0 South Africa",
-        "cote": 5.17,
-        "confidence": 19,
+        "label": "Score exact : Mexico 2-0 South Africa",
+        "cote": 5.1,
+        "confidence": 20,
         "is_fun": true,
         "stats": {
-          "lam_h": 1.65,
-          "lam_a": 0.49
+          "lam_h": 2.05,
+          "lam_a": 0.32,
+          "h_fifa_rank": 17,
+          "a_fifa_rank": 54,
+          "elo_gap": 232
         },
-        "reasoning": "🏆 Coupe du Monde 2026 - score exact (Poisson grid)\nλ Mexico = 1.65 buts, λ South Africa = 0.49 buts (ajusté tier FIFA)\nTop 3 : 1-0 (19.4%) · 2-0 (16.0%) · 0-0 (11.7%)\n⚠️ Pari fun (cote élevée typique 4-8) - mise modeste",
+        "reasoning": "📊 Écart FIFA significatif : Mexico #17 vs South Africa #54 (gap +232 pts, P favori ≈ 79%).\nL10 : Mexico 3V/2N/0D sur 5 · South Africa 1V/2N/2D sur 5\n🏆 Coupe du Monde 2026 - score exact (Poisson grid, ajusté Elo FIFA)\nλ Mexico = 2.05 buts, λ South Africa = 0.32 buts\nTop 3 : 2-0 (19.6%) · 1-0 (19.1%) · 3-0 (13.4%)\n⚠️ Pari fun (cote élevée typique 4-8) - mise modeste",
         "exact_score": [
-          1,
+          2,
           0
         ],
         "wc_top3": [
           [
             [
-              1,
-              0
-            ],
-            19.4
-          ],
-          [
-            [
               2,
               0
             ],
-            16.0
+            19.6
           ],
           [
             [
-              0,
+              1,
               0
             ],
-            11.7
+            19.1
+          ],
+          [
+            [
+              3,
+              0
+            ],
+            13.4
           ]
         ],
         "tier": "fun",
-        "edge_pp": -0.3,
+        "edge_pp": 0.4,
         "history_top3": true
       }
     ],
