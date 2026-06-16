@@ -1649,6 +1649,41 @@ def analyze_match(match, pstats_all, player_odds_all=None):
                     elif a_pscore - h_pscore >= 3:
                         lam_a_wc *= 1.05
 
+            # ─── IMPORTANCE MATCH (wc_match_importance.json) ──────────────
+            # Pour matchs 3 de poule : si déjà qualifié → rotation (λ ×0.85)
+            # si doit gagner → joue à fond (λ ×1.05), si éliminé → libre (λ ×0.92)
+            # 1er match du tournoi → cadenassé (λ ×0.95)
+            importance_descr = ""
+            try:
+                import json as _jimp
+                with open("data/wc_match_importance.json", encoding="utf-8") as _imp_f:
+                    _imp = _jimp.load(_imp_f)
+                _imp_teams = (_imp.get("teams") or {})
+                import unicodedata as _udimp, re as _reimp
+                def _slug_imp(nm):
+                    s = _udimp.normalize("NFD", nm or "")
+                    s = "".join(c for c in s if _udimp.category(c) != "Mn")
+                    return _reimp.sub(r"[^a-z0-9_]", "_", s.lower()).strip("_")
+                _h_imp = _imp_teams.get(_slug_imp(home), {})
+                _a_imp = _imp_teams.get(_slug_imp(away), {})
+                _h_mod = _h_imp.get("importance_modifier", 1.0)
+                _a_mod = _a_imp.get("importance_modifier", 1.0)
+                if _h_mod != 1.0:
+                    lam_h_wc *= _h_mod
+                if _a_mod != 1.0:
+                    lam_a_wc *= _a_mod
+                parts_imp = []
+                if _h_imp.get("status_fr"):
+                    parts_imp.append(f"{home} : {_h_imp['status_fr']}" +
+                                     (f" (λ ×{_h_mod:.2f})" if _h_mod != 1.0 else ""))
+                if _a_imp.get("status_fr"):
+                    parts_imp.append(f"{away} : {_a_imp['status_fr']}" +
+                                     (f" (λ ×{_a_mod:.2f})" if _a_mod != 1.0 else ""))
+                if parts_imp:
+                    importance_descr = "🎯 Importance : " + " · ".join(parts_imp)
+            except Exception:
+                pass
+
             # ─── MÉTÉO / ALTITUDE / STADE (foot_match_context) ────────────
             # Ajustement λ_total selon conditions :
             #  - pluie forte (>5mm) : -10% (jeu moins fluide)
@@ -1745,6 +1780,7 @@ def analyze_match(match, pstats_all, player_odds_all=None):
             ctx_descr_combined = "\n".join(d for d in [
                 ctx_descr_h, ctx_descr_a,
                 sheet_descr_h, sheet_descr_a,
+                importance_descr,
                 wx_descr, lineup_descr,
                 absent_descr_h, absent_descr_a,
             ] if d)
@@ -2232,7 +2268,12 @@ def analyze_match(match, pstats_all, player_odds_all=None):
     h_unavailable = _unavailable_names("home") if lineup else set()
     a_unavailable = _unavailable_names("away") if lineup else set()
 
-    if IS_INTL_FRIENDLY and lineup:
+    # Picks buteur "compo-based" : activé pour amicaux internationaux ET
+    # pour la Coupe du Monde (les 2 utilisent la lineup + nat_stats joueur).
+    # Pour WC, on hausse le seuil de confidence pour éviter le noise R1
+    # (peu de buts en phase de poules, beaucoup d'équipes défensives).
+    IS_INTL_NAT_MATCH = IS_INTL_FRIENDLY or (league_id == WC_LEAGUE_ID)
+    if IS_INTL_NAT_MATCH and lineup:
         import math as _math_p
         h_team_data = form.get("homeTeam") or {}
         a_team_data = form.get("awayTeam") or {}
