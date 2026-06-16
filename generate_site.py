@@ -3943,11 +3943,22 @@ def build_html(matches, team_ai, player_ai, pstats_data, nba_picks=None, nba_his
     for m in matches:
         days.setdefault(day_label(m.get("start_ts")), []).append(m)
 
+    # Force l'ordre : Aujourd'hui d'abord (toujours actif par défaut), puis
+    # Demain, Après-demain, puis le reste dans l'ordre alphabétique. Évite
+    # que "Demain" soit le tab actif quand on a aucun match aujourd'hui ou
+    # quand l'ordre d'insertion mettait Demain en premier.
+    _day_priority = {"Aujourd'hui": 0, "Demain": 1, "Après-demain": 2}
+    days = dict(sorted(days.items(),
+                       key=lambda kv: (_day_priority.get(kv[0], 99), kv[0])))
+
     tab_buttons = tab_contents = ""
     for i, (day, day_matches) in enumerate(days.items()):
         sid = f"day{i}"
-        active_btn = "active" if i == 0 else ""
-        active_div = "block"  if i == 0 else "none"
+        # On veut "Aujourd'hui" actif par défaut si elle existe.
+        # Sinon, le premier jour disponible.
+        is_default = (day == "Aujourd'hui") or (i == 0 and "Aujourd'hui" not in days)
+        active_btn = "active" if is_default else ""
+        active_div = "block"  if is_default else "none"
         tab_buttons += (
             f'<button class="tab-btn {active_btn}" onclick="showDay(\'{sid}\')" id="btn-{sid}">'
             f'{day} <span class="tab-count">{len(day_matches)}</span></button>'

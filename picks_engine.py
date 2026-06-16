@@ -894,9 +894,24 @@ def player_picks_contextual(players, opp_pos, opp_rat, opp_conceded_pm=0, btts_p
         p_or = 1 - (1 - pa) * (1 - pb)
         conf_combined = round(p_or * 100)
         # Seuil 65% : correspond cote min ~1.54 (cote book typique 1.50-1.80)
+        # Hard cap conf à 70% : au-dessus, cote_min = 1/0.70 = 1.43 (limite
+        # acceptable). Si 2 joueurs à 80%+ chacun → on plafonne pour ne pas
+        # afficher des cotes ridicules (1.11) et respecter la règle utilisateur
+        # "minimum 1.40 sur picks buteur".
+        if conf_combined > 70:
+            conf_combined = 70
+            p_or = 0.70
+        should_emit_dc = False
+        label = None
+        cote_min = None
         if conf_combined >= 65:
-            label = f"{a['player']} ou {b['player']} marque"
             cote_min = _fair_cote(conf_combined)
+            # Skip si cote_min < 1.40 (safety net, ne devrait pas arriver vu
+            # le cap conf à 70% au-dessus mais on garde la garde explicite)
+            if cote_min is not None and cote_min >= 1.40:
+                label = f"{a['player']} ou {b['player']} marque"
+                should_emit_dc = True
+        if should_emit_dc:
             reasoning = (
                 f"📈 P({a['player']} marque) ≈ {round(pa*100)}% · "
                 f"P({b['player']} marque) ≈ {round(pb*100)}%\n"
@@ -2830,9 +2845,17 @@ def analyze_match(match, pstats_all, player_odds_all=None):
     # ── Inject friendly player picks (lineup-based) ─────────────────────────
     # Pour les amicaux, on construit les picks buteur via lineup.starters
     # (utilise les seasonGoals du club du joueur) au lieu des stats championnat.
+    # Seuil cote minimum pour les picks buteur/joueur décisif : 1.40.
+    # Règle utilisateur : "pour un buteur même double chance c'est minimum
+    # une cote à 1.40, en dessous tu ne proposes pas". Les picks avec cote
+    # estimée < 1.40 sont skippés (l'edge est trop faible pour valoir la mise).
+    MIN_COTE_BUTEUR = 1.40
     if friendly_picks:
         for fp in friendly_picks:
             cote_est = round(1 / max(0.01, fp["p"]), 2) if fp["p"] > 0 else None
+            # Filtre cote min : si notre cote estimée < 1.40, on skippe ce pick
+            if cote_est is not None and cote_est < MIN_COTE_BUTEUR:
+                continue
             if fp["kind"] == "marque":
                 label = f"{fp['name']} marque"
                 ptype = "Buteur"
@@ -2848,7 +2871,8 @@ def analyze_match(match, pstats_all, player_odds_all=None):
                 "is_sub":     fp.get("lineup_status") == "predicted",
                 "type":       ptype,
                 "label":      label,
-                "cote":       cote_est,
+                "cote":       None,         # cote book (None tant qu'on n'a pas de bookmaker source)
+                "cote_min":   cote_est,     # estimation fair value du modèle (= 1/proba)
                 "book":       None,
                 "books":      [],
                 "confidence": int(fp["conf"]),
