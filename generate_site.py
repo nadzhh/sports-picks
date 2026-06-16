@@ -6201,7 +6201,20 @@ window._BK2_TENNIS_DETAILS = {tennis_details_json};
 window._BK2_BASKET_EU_DETAILS = {basket_eu_details_json};
 window._BK2_FOOT_DETAILS = {foot_details_json};
 window._BK2_NBA_DETAILS = {nba_details_json};
-window._bk2State = {{ sport: 'all', comp: null, query: '' }};
+window._bk2State = {{ sport: 'all', comp: null, query: '', dayFilter: 'today' }};
+
+function bk2FilterDay(dayKey){{
+  window._bk2State.detailMid = null;
+  window._bk2State.detailSport = null;
+  window._bk2State.dayFilter = dayKey;
+  document.querySelectorAll('.bk2-day-pill').forEach(function(b){{
+    var active = b.getAttribute('data-day') === dayKey;
+    b.style.background = active ? '#0f1f3a' : '#0f172a';
+    b.style.color = active ? '#f1f5f9' : '#94a3b8';
+    b.style.borderColor = active ? '#3b82f6' : '#1e293b';
+  }});
+  bk2Render();
+}}
 
 function bk2ToggleTennisAnalysis(eid){{
   var box = document.getElementById('bk2-tennis-analysis-' + eid);
@@ -6342,7 +6355,27 @@ function bk2Render(){{
   }}
   var html = header;
   var DAY_LABELS = {{ today: "Aujourd'hui", tomorrow: 'Demain', later: 'Plus tard' }};
+  // Barre de filtre jour (Aujourd'hui actif par défaut)
+  var activeDay = st.dayFilter || 'today';
+  function _pillStyle(active){{
+    return active
+      ? 'background:#0f1f3a;color:#f1f5f9;border:1px solid #3b82f6'
+      : 'background:#0f172a;color:#94a3b8;border:1px solid #1e293b';
+  }}
+  var dayPillsHtml = '<div style="display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap">';
+  [['today',"Aujourd'hui"],['tomorrow','Demain'],['later','Plus tard'],['all','Tout']].forEach(function(p){{
+    var k = p[0], lab = p[1];
+    var n = (k === 'all') ? filtered.length : byDay[k].length;
+    var active = (activeDay === k);
+    dayPillsHtml += '<button class="bk2-day-pill" data-day="' + k + '" onclick="bk2FilterDay(\\''+k+'\\')" '
+                 + 'style="' + _pillStyle(active) + ';border-radius:18px;padding:6px 14px;font-size:13px;font-weight:700;cursor:pointer">'
+                 + lab + ' <span style="opacity:0.7;margin-left:4px">' + n + '</span>'
+                 + '</button>';
+  }});
+  dayPillsHtml += '</div>';
+  html += dayPillsHtml;
   ['today','tomorrow','later'].forEach(function(dayKey){{
+    if(activeDay !== 'all' && activeDay !== dayKey) return;
     var arr = byDay[dayKey];
     if(arr.length === 0) return;
     html += '<div style="margin-bottom:14px">'

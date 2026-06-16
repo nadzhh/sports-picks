@@ -160,23 +160,35 @@ def _parse_score_games(score_str):
     Ex: '6-4 6-3' -> (12, 7)
         '7-6(3) 4-6 6-4' -> (17, 16)
     """
+    gw, gl, _ = _parse_score_games_with_sets(score_str)
+    if gw is None: return None, None
+    return gw, gl
+
+
+def _parse_score_games_with_sets(score_str):
+    """Score 'Sackmann' -> (gw, gl, n_sets).
+
+    Ex: '6-4 6-3'           -> (12, 7,  2)   # bo3 fini en 2 sets
+        '7-6(3) 4-6 6-4'    -> (17, 16, 3)   # bo3 fini en 3 sets
+        '6-4 7-5 6-3'       -> (19, 12, 3)   # bo5 fini en 3 sets
+        '4-6 6-4 6-3 7-6'   -> (23, 19, 4)   # bo5 fini en 4 sets
+    """
     if not score_str:
-        return None, None
-    gw = gl = 0
+        return None, None, None
+    gw = gl = n_sets = 0
     for token in score_str.split():
-        # Cas 'RET' 'W/O' 'DEF' -> skip
         if any(x in token.upper() for x in ("RET","W/O","DEF","ABN")):
             continue
-        # '7-6(3)' -> '7-6'
         token = token.split("(")[0].split("[")[0]
         if "-" in token:
             try:
                 a, b = token.split("-")
                 gw += int(a); gl += int(b)
+                n_sets += 1
             except Exception:
                 continue
-    if gw + gl == 0: return None, None
-    return gw, gl
+    if gw + gl == 0: return None, None, None
+    return gw, gl, n_sets
 
 
 def find_player_id(name, tour="ATP"):
@@ -328,10 +340,12 @@ def get_player(name, tour="ATP", surface=None, deep_surface_years=3):
                 continue
 
         # Avg games sur la surface (sur les 15 derniers matchs surface)
-        gf_s = ga_s = n_s = 0
+        # On track aussi le nombre de sets joués pour pouvoir calculer
+        # avg_games_per_set (indépendant du format bo3/bo5).
+        gf_s = ga_s = n_s = sets_s = 0
         for r in surface_rows_all[:15]:
             score = r.get("score") or ""
-            gw, gl = _parse_score_games(score)
+            gw, gl, ns = _parse_score_games_with_sets(score)
             if gw is None: continue
             try:
                 wid = int(r.get("winner_id") or 0)
@@ -342,18 +356,23 @@ def get_player(name, tour="ATP", surface=None, deep_surface_years=3):
             else:
                 gf_s += gl; ga_s += gw
             n_s += 1
+            sets_s += (ns or 0)
         if n_s > 0:
             out["avg_games_for_surface"]     = round(gf_s / n_s, 1)
             out["avg_games_against_surface"] = round(ga_s / n_s, 1)
+            if sets_s > 0:
+                out["avg_games_per_set_surface"] = round((gf_s + ga_s) / sets_s, 2)
+                out["avg_sets_per_match_surface"] = round(sets_s / n_s, 2)
 
     out["n_matches_total"] = len(rows_year) + len(surface_rows_all)
 
     # Avg games per match (15 derniers all-surface si surface_n trop faible)
+    # Track aussi le nombre de sets pour normalisation bo3/bo5.
     sample = surface_rows_all[:15] if surface and len(surface_rows_all) >= 8 else rows_year[:15]
-    gf_total = ga_total = n_score = 0
+    gf_total = ga_total = n_score = sets_total = 0
     for r in sample:
         score = r.get("score") or ""
-        gw, gl = _parse_score_games(score)
+        gw, gl, ns = _parse_score_games_with_sets(score)
         if gw is None: continue
         try:
             wid = int(r.get("winner_id") or 0)
@@ -364,9 +383,13 @@ def get_player(name, tour="ATP", surface=None, deep_surface_years=3):
         else:
             gf_total += gl; ga_total += gw
         n_score += 1
+        sets_total += (ns or 0)
     if n_score > 0:
         out["avg_games_for"]     = round(gf_total / n_score, 1)
         out["avg_games_against"] = round(ga_total / n_score, 1)
+        if sets_total > 0:
+            out["avg_games_per_set"]    = round((gf_total + ga_total) / sets_total, 2)
+            out["avg_sets_per_match"]   = round(sets_total / n_score, 2)
     return out
 
 

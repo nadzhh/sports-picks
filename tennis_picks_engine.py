@@ -277,33 +277,60 @@ def _winner_pick(match):
 
 
 def _total_games_pick(match, p_match):
-    """Pick O/U jeux. p_match = proba modele que home gagne (utile pour weighting des sets)."""
+    """Pick O/U jeux. p_match = proba modele que home gagne (utile pour weighting des sets).
+
+    IMPORTANT : on utilise avg_games_per_set (normalisé) * expected_sets(format)
+    pour ne pas confondre des stats issues de bo5 (Roland-Garros = ~32 jeux/match
+    en moyenne) avec un match actuel en bo3 (Queen's = ~22 jeux/match).
+    Fallback sur l'ancienne logique (avg_games_for+against) si pas de stats par set.
+    """
     home = match["home"]; away = match["away"]
-    # On a besoin des moyennes pour les 2 joueurs (games_for + games_against)
-    def avg_total(side):
-        gf = side.get("avg_games_for"); ga = side.get("avg_games_against")
-        if gf is None or ga is None: return None
-        return gf + ga
-    t_a = avg_total(home); t_b = avg_total(away)
-    if t_a is None or t_b is None:
-        return None
-    expected = (t_a + t_b) / 2
-    # Ajustement surface : terre battue = matchs plus longs (+1.5), gazon = plus courts (-1.5)
-    surface = (match.get("surface") or "").lower()
-    if surface == "clay":   expected += 1.0
-    elif surface == "grass": expected -= 1.0
-    # Best-of-5 (men's Grand Slam) -> on multiplie par ratio attendu (5 sets max vs 3)
     is_bo5 = ("french_open" in match.get("sport_key","") or
               "wimbledon"  in match.get("sport_key","") or
               "us_open"    in match.get("sport_key","") or
               "aus_open"   in match.get("sport_key","")) and match.get("tour") == "ATP"
-    # Ajustement quand un joueur est tres favori (match plus court)
-    # p_match passe en arg dans la fonction parente -> on l'utilise pour reduire expected
-    lopsidedness = abs(p_match - 0.5) * 2  # 0 = equilibre, 1 = ecrasement
-    expected *= (1 - lopsidedness * 0.10)  # jusqu'a -10% si total mismatch
+
+    # Expected sets dans le format actuel :
+    #   - bo3 : moyenne ~2.3 sets (70% en 2 sets, 30% en 3)
+    #   - bo5 : moyenne ~3.7 sets (50% en 3, 30% en 4, 20% en 5)
+    # Ces moyennes sont modulées par lopsidedness : un match déséquilibré
+    # se termine plus vite (moins de sets).
+    lopsidedness = abs(p_match - 0.5) * 2
     if is_bo5:
-        # BO5 typique : 28-38 jeux selon competitivite. Multiplier modere.
-        expected = expected * 1.30
+        expected_sets = 3.7 - lopsidedness * 0.5  # 3.7 -> 3.2 si écrasement
+    else:
+        expected_sets = 2.3 - lopsidedness * 0.2  # 2.3 -> 2.1 si écrasement
+
+    # 1) PRÉFÉRÉ : utiliser avg_games_per_set (normalisé bo3/bo5)
+    def per_set(side):
+        ps = side.get("avg_games_per_set_surface") or side.get("avg_games_per_set")
+        return ps
+    ps_a = per_set(home); ps_b = per_set(away)
+    fallback = (ps_a is None or ps_b is None)
+
+    surface = (match.get("surface") or "").lower()
+
+    if not fallback:
+        avg_games_per_set = (ps_a + ps_b) / 2
+        # Ajustement surface : terre = +0.3 jeu/set, gazon = -0.2 jeu/set
+        if surface == "clay":    avg_games_per_set += 0.3
+        elif surface == "grass": avg_games_per_set -= 0.2
+        expected = avg_games_per_set * expected_sets
+    else:
+        # 2) FALLBACK ancienne logique (matchs/games bruts) si pas de stats per set
+        def avg_total(side):
+            gf = side.get("avg_games_for"); ga = side.get("avg_games_against")
+            if gf is None or ga is None: return None
+            return gf + ga
+        t_a = avg_total(home); t_b = avg_total(away)
+        if t_a is None or t_b is None:
+            return None
+        expected = (t_a + t_b) / 2
+        if surface == "clay":   expected += 1.0
+        elif surface == "grass": expected -= 1.0
+        expected *= (1 - lopsidedness * 0.10)
+        if is_bo5:
+            expected = expected * 1.30
     # Lignes standard
     if is_bo5:
         lines = [30.5, 32.5, 34.5, 36.5, 38.5, 40.5]
@@ -340,19 +367,31 @@ def _total_games_pick(match, p_match):
         f"📊 <b>Verdict</b> : match {dir_text} → <b>{'Plus' if direction=='over' else 'Moins'} de {line} jeux</b> "
         f"({conf:.0f}% selon notre modèle)"
     )
-    parts.append(
-        f"📐 Moyenne jeux/match des 2 joueurs : <b>{(t_a+t_b)/2:.1f}</b> "
-        f"({home['name']} ~{t_a:.1f}, {away['name']} ~{t_b:.1f})"
-    )
+    format_lbl = "Best of 5 (Grand Slam H)" if is_bo5 else "Best of 3"
+    if not fallback:
+        parts.append(
+            f"📐 Moyenne jeux/SET des 2 joueurs : <b>{avg_games_per_set:.2f}</b> "
+            f"({home['name']} ~{ps_a:.2f}, {away['name']} ~{ps_b:.2f}) "
+            f"× {expected_sets:.1f} sets attendus ({format_lbl})"
+        )
+    else:
+        parts.append(
+            f"📐 Moyenne jeux/match des 2 joueurs : <b>{(t_a+t_b)/2:.1f}</b> "
+            f"({home['name']} ~{t_a:.1f}, {away['name']} ~{t_b:.1f}) — "
+            f"<i>fallback : stats par set non disponibles</i>"
+        )
     adjustments = []
     if surface == "clay":
-        adjustments.append("terre battue (+1 jeu typique, matchs plus longs)")
+        adjustments.append("terre battue (+0.3 jeu/set)" if not fallback else "terre battue (+1 jeu)")
     elif surface == "grass":
-        adjustments.append("gazon (-1 jeu typique, matchs plus courts)")
+        adjustments.append("gazon (-0.2 jeu/set)" if not fallback else "gazon (-1 jeu)")
     if is_bo5:
-        adjustments.append("Grand Slam H (Best of 5) → +30%")
+        adjustments.append("Best of 5 → ~3.7 sets attendus" if not fallback else "Best of 5 → +30%")
+    else:
+        adjustments.append("Best of 3 → ~2.3 sets attendus" if not fallback else "")
+    adjustments = [a for a in adjustments if a]
     if lopsidedness >= 0.4:
-        adjustments.append(f"match déséquilibré ({lopsidedness*100:.0f}% d'écart) → -{lopsidedness*10:.0f}%")
+        adjustments.append(f"match déséquilibré ({lopsidedness*100:.0f}% d'écart) → moins de sets")
     if adjustments:
         parts.append("🔧 <b>Ajustements appliqués</b> : " + " · ".join(adjustments))
     parts.append(
