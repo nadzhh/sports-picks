@@ -73,6 +73,7 @@ LEAGUE_TO_SPORT = {
 
 MARKETS = {
     "player_goal_scorer_anytime": "anytime_scorer",
+    "player_to_score_2_or_more":  "scorer_2_plus",   # NEW : marquer 2+ buts (cote ~6-10)
     "player_assists":             "assists",
     "player_shots_on_target":     "shots_on_target",
 }

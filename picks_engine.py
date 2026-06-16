@@ -2860,12 +2860,10 @@ def analyze_match(match, pstats_all, player_odds_all=None):
         for fp in friendly_picks:
             cote_est = round(1 / max(0.01, fp["p"]), 2) if fp["p"] > 0 else None
             # Lookup cote bookmaker depuis foot_player_odds.json
-            # IMPORTANT : anytime_scorer = "marque ≥ 1 but" UNIQUEMENT.
-            # Le pick "marque 2+ buts" (double_buteur) a un marché distinct
-            # ("to_score_2_or_more") qu'on ne récupère pas via The Odds API.
-            # Donc on n'attribue PAS la cote anytime_scorer au pick
-            # double_buteur (sinon Olise marque @ 3.35 = Olise marque 2+ @ 3.35
-            # ce qui est faux).
+            # Chaque kind utilise SON marché propre :
+            #   - "marque"        → anytime_scorer (marquer ≥ 1 but)
+            #   - "double_buteur" → scorer_2_plus  (marquer ≥ 2 buts, cote ~6-10)
+            # Sinon cote_book reste None et on affiche cote_min (estimation modèle).
             cote_book = None
             book = None
             if fp["kind"] == "marque":
@@ -2875,6 +2873,13 @@ def analyze_match(match, pstats_all, player_odds_all=None):
                     _scorer = _player_odds.get("anytime_scorer") or {}
                     cote_book = _scorer.get("over")
                     book = _scorer.get("book")
+            elif fp["kind"] == "double_buteur":
+                _ok = _match_odds_name(fp["name"], _po_keys)
+                if _ok:
+                    _player_odds = (match_player_odds or {}).get(_ok) or {}
+                    _scorer2 = _player_odds.get("scorer_2_plus") or {}
+                    cote_book = _scorer2.get("over")
+                    book = _scorer2.get("book")
             # Filtre cote min : utilise la cote book si dispo, sinon cote_est
             # Si cote book < 1.40 (Messi à 1.30 par ex), skip
             # Si cote book absente et cote_est < 1.40, skip
