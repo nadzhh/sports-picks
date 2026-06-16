@@ -13777,6 +13777,35 @@
       "resolved_at": "2026-06-16 03:01"
     },
     {
+      "direction": "wc_over_25",
+      "type": "⚽ Total buts WC",
+      "label": "Plus de 2.5 buts",
+      "cote_min": 1.63,
+      "confidence": 61,
+      "tier": "ok",
+      "stats": {
+        "lam_h": 2.98,
+        "lam_a": 0.2,
+        "h_fifa_rank": 19,
+        "a_fifa_rank": "?",
+        "elo_gap": null,
+        "wc_round": null,
+        "family": "TOTAL"
+      },
+      "reasoning": "L10 : Iran 2V/2N/1D sur 5 · New Zealand 1V/0N/4D sur 5\n🚂 Gros mismatch (Elo gap +620) : Iran cherche à creuser tôt pour la diff de buts qualif. ⚠️ New Zealand hors top 100 FIFA — fallback Elo estimé, défense souvent perméable vs top.\n⚽ Modèle Poisson : λ total = 3.17\nP(plus de 2.5 buts) = 61.5%",
+      "history_top3": true,
+      "id": "2026-06-16_4667791_team_wc_over_25",
+      "date": "2026-06-16",
+      "match_id": "4667791",
+      "page_url": "/matches/new-zealand-vs-iran/1ar30l#4667791",
+      "matchup": "Iran vs New Zealand",
+      "league": "World Cup",
+      "category": "team",
+      "result": "PENDING",
+      "actual": null,
+      "resolved_at": null
+    },
+    {
       "direction": "home_win",
       "type": "Victoire domicile",
       "label": "Vikingur Reykjavik gagne",
@@ -13840,35 +13869,6 @@
       "actual": null,
       "resolved_at": null,
       "side": "home"
-    },
-    {
-      "direction": "wc_over_25",
-      "type": "⚽ Total buts WC",
-      "label": "Plus de 2.5 buts",
-      "cote_min": 1.63,
-      "confidence": 61,
-      "tier": "ok",
-      "stats": {
-        "lam_h": 2.98,
-        "lam_a": 0.2,
-        "h_fifa_rank": 19,
-        "a_fifa_rank": "?",
-        "elo_gap": null,
-        "wc_round": null,
-        "family": "TOTAL"
-      },
-      "reasoning": "L10 : Iran 2V/2N/1D sur 5 · New Zealand 1V/0N/4D sur 5\n🚂 Gros mismatch (Elo gap +620) : Iran cherche à creuser tôt pour la diff de buts qualif. ⚠️ New Zealand hors top 100 FIFA — fallback Elo estimé, défense souvent perméable vs top.\n⚽ Modèle Poisson : λ total = 3.17\nP(plus de 2.5 buts) = 61.5%",
-      "history_top3": true,
-      "id": "2026-06-16_4667791_team_wc_over_25",
-      "date": "2026-06-16",
-      "match_id": "4667791",
-      "page_url": "/matches/new-zealand-vs-iran/1ar30l#4667791",
-      "matchup": "Iran vs New Zealand",
-      "league": "World Cup",
-      "category": "team",
-      "result": "PENDING",
-      "actual": null,
-      "resolved_at": null
     },
     {
       "player": "Kristófer Kristinsson",
