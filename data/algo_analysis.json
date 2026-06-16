@@ -1,18 +1,18 @@
 {
-  "generated_at": "2026-06-16T02:35:47.951659",
-  "n_total": 690,
+  "generated_at": "2026-06-16T03:07:21.711751",
+  "n_total": 691,
   "globals": {
     "foot": {
-      "n": 430,
+      "n": 431,
       "w": 197,
-      "l": 209,
+      "l": 210,
       "push": 24,
-      "wr": 48.5,
-      "roi": -9.4,
-      "profit": -40.25,
+      "wr": 48.4,
+      "roi": -9.6,
+      "profit": -41.25,
       "avg_cote": 2.26,
       "break_even_wr": 44.3,
-      "wr_vs_be": 4.2
+      "wr_vs_be": 4.1
     },
     "tennis": {
       "n": 125,
@@ -415,18 +415,6 @@
         "break_even_wr": 37.8,
         "wr_vs_be": 0.9
       },
-      "🏆 Score exact WC": {
-        "n": 4,
-        "w": 0,
-        "l": 4,
-        "push": 0,
-        "wr": 0.0,
-        "roi": -100.0,
-        "profit": -4.0,
-        "avg_cote": 5.17,
-        "break_even_wr": 19.3,
-        "wr_vs_be": -19.3
-      },
       "Double buteur": {
         "n": 4,
         "w": 0,
@@ -438,6 +426,18 @@
         "avg_cote": 3.34,
         "break_even_wr": 29.9,
         "wr_vs_be": -29.9
+      },
+      "🏆 Score exact WC": {
+        "n": 5,
+        "w": 0,
+        "l": 5,
+        "push": 0,
+        "wr": 0.0,
+        "roi": -100.0,
+        "profit": -5.0,
+        "avg_cote": 5.17,
+        "break_even_wr": 19.3,
+        "wr_vs_be": -19.3
       },
       "Forme superieure": {
         "n": 39,
@@ -735,13 +735,13 @@
     "foot": {
       "league": {
         "World Cup": {
-          "n": 6,
+          "n": 7,
           "w": 0,
-          "l": 6,
+          "l": 7,
           "push": 0,
           "wr": 0.0,
           "roi": -100.0,
-          "profit": -6.0,
+          "profit": -7.0,
           "avg_cote": 5.17,
           "break_even_wr": 19.3,
           "wr_vs_be": -19.3
@@ -1074,6 +1074,18 @@
         }
       },
       "is_fun": {
+        "True": {
+          "n": 14,
+          "w": 3,
+          "l": 11,
+          "push": 0,
+          "wr": 21.4,
+          "roi": -14.8,
+          "profit": -2.07,
+          "avg_cote": 3.86,
+          "break_even_wr": 25.9,
+          "wr_vs_be": -4.4
+        },
         "False": {
           "n": 417,
           "w": 194,
@@ -1085,18 +1097,6 @@
           "avg_cote": 2.11,
           "break_even_wr": 47.5,
           "wr_vs_be": 1.9
-        },
-        "True": {
-          "n": 13,
-          "w": 3,
-          "l": 10,
-          "push": 0,
-          "wr": 23.1,
-          "roi": -8.2,
-          "profit": -1.07,
-          "avg_cote": 3.86,
-          "break_even_wr": 25.9,
-          "wr_vs_be": -2.8
         }
       }
     },
@@ -1676,20 +1676,20 @@
       "severity": "medium",
       "type": "context_signal",
       "scope": "foot · is_fun",
-      "message": "Signal contexte <b>is_fun</b> (foot) : is_fun=True → WR 23.1% (13 picks) vs is_fun=False → WR 49.4% (417). Filtrer/ponderer.",
+      "message": "Signal contexte <b>is_fun</b> (foot) : is_fun=True → WR 21.4% (14 picks) vs is_fun=False → WR 49.4% (417). Filtrer/ponderer.",
       "stats": {
         "worst": {
           "True": {
-            "n": 13,
+            "n": 14,
             "w": 3,
-            "l": 10,
+            "l": 11,
             "push": 0,
-            "wr": 23.1,
-            "roi": -8.2,
-            "profit": -1.07,
+            "wr": 21.4,
+            "roi": -14.8,
+            "profit": -2.07,
             "avg_cote": 3.86,
             "break_even_wr": 25.9,
-            "wr_vs_be": -2.8
+            "wr_vs_be": -4.4
           }
         },
         "best": {
