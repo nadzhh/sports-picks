@@ -1,0 +1,306 @@
+"""
+intl_team_sheets.py — Construit/met à jour une fiche d'équipe nationale.
+
+Pour chaque équipe nationale qu'on a vue jouer (matches.json) ou qui est
+dans fifa_rankings.json, on récupère ses 10 derniers matchs internationaux
+via FotMob (qualifs + amicaux + tournoi en cours), on calcule :
+
+  - gf_pm / ga_pm sur L5 et L10
+  - clean_sheets, failed_to_score, btts
+  - off_score / def_score : performance vs attendu Elo (ce qu'on devrait
+    marquer/encaisser contre cet adversaire, déduit du gap FIFA points).
+    Échelle [-1, +1]. Positif = sur-performance.
+  - off_rating / def_rating : "bon" si score > +0.3, "nul" si < -0.3, sinon "moyen"
+  - form : string "WDLDW" (5 derniers résultats)
+  - notes_fr : observations textuelles utiles à l'algo + à l'humain
+
+Sortie : data/intl_team_sheets.json
+Consommé par : picks_engine.py (ajustement λ Poisson pour matchs WC)
+
+Pipeline : tourne 1x/jour (cron) après les matchs résolus.
+"""
+import json, re, unicodedata
+from datetime import datetime, timezone
+from pathlib import Path
+
+from fotmob_client import team as fm_team
+
+OUT_FILE   = Path("data/intl_team_sheets.json")
+FIFA_FILE  = Path("data/fifa_rankings.json")
+MATCHES    = Path("data/matches.json")
+
+# Fenêtres
+WINDOW_L5  = 5
+WINDOW_L10 = 10
+
+# Sensibilité du score off/def vs attendu Elo
+# Si l'écart observé/attendu = 0.5 but/match → score ≈ 0.5
+SCORE_SCALE = 1.0
+
+# Compétitions ignorées (pas représentatives du niveau "équipe nationale A")
+# - U17/U19/U21/U23 + W (women) traités séparément
+EXCLUDE_COMP_KEYWORDS = ("U17", "U19", "U21", "U23", "Women", "W ", "Olympic", "Nations League Group")
+# NB : on garde "Nations League" / "Friendlies" / "World Cup" / "Qualification" / "Euro" / "Copa America"
+
+
+# ─── Helpers ─────────────────────────────────────────────────────────────────
+
+def _slug(name):
+    """Normalise un nom d'équipe en slug ASCII."""
+    if not name: return ""
+    s = unicodedata.normalize("NFD", name)
+    s = "".join(c for c in s if unicodedata.category(c) != "Mn")
+    return re.sub(r"[^a-z0-9_]", "_", s.lower()).strip("_")
+
+
+def _load_json(path, default):
+    if not path.exists(): return default
+    try: return json.loads(path.read_text(encoding="utf-8"))
+    except Exception: return default
+
+
+def _save_json(path, data):
+    path.parent.mkdir(exist_ok=True)
+    path.write_text(json.dumps(data, ensure_ascii=False, indent=2), encoding="utf-8")
+
+
+def _is_intl_competition(comp_name):
+    """Garde uniquement les comp internationales seniors masc."""
+    if not comp_name: return False
+    for kw in EXCLUDE_COMP_KEYWORDS:
+        if kw in comp_name: return False
+    return True
+
+
+def _parse_score(score_str):
+    if not score_str: return None
+    m = re.match(r"\s*(\d+)\s*-\s*(\d+)", score_str)
+    if not m: return None
+    return int(m.group(1)), int(m.group(2))
+
+
+def _wlt(gf, ga):
+    if gf > ga: return "W"
+    if gf < ga: return "L"
+    return "D"
+
+
+# ─── Build team_ids mapping ──────────────────────────────────────────────────
+
+def _bootstrap_team_ids():
+    """Lit matches.json + fiches existantes pour récupérer le mapping
+    slug -> fotmob_team_id pour les ÉQUIPES NATIONALES uniquement.
+    Filtre : on ne garde que les équipes qui apparaissent dans une compétition
+    de sélections nationales (WC, qualifs, friendlies, Nations League...)."""
+    ids = {}
+    # 1) Depuis fiches existantes (persiste les IDs déjà connus, présumés
+    #    déjà filtrés comme équipes nationales)
+    existing = _load_json(OUT_FILE, {})
+    for slug, sheet in (existing.get("teams") or {}).items():
+        if sheet.get("fotmob_team_id"):
+            ids[slug] = sheet["fotmob_team_id"]
+    # 2) Depuis matches.json : ne garde que les matchs de compétitions
+    #    internationales de sélections (filtre par league name)
+    ms = _load_json(MATCHES, [])
+    intl_kw = ("World Cup", "Nations League", "UEFA Euro", "Copa America",
+               "Africa Cup", "Asian Cup", "Friendlies", "Qualification")
+    for m in ms:
+        league = m.get("league") or ""
+        if not any(kw in league for kw in intl_kw):
+            continue
+        for side in ("home", "away"):
+            name = m.get(side); tid = m.get(f"{side}_id")
+            if name and tid:
+                ids.setdefault(_slug(name), tid)
+    return ids
+
+
+# ─── Fetch + analyse fixtures ────────────────────────────────────────────────
+
+def _fetch_recent_intl_fixtures(team_id, n=12):
+    """Renvoie les N derniers matchs internationaux terminés (ordre du + récent au + ancien)."""
+    if not team_id: return []
+    try:
+        data = fm_team(team_id, ttl=12 * 3600)
+    except Exception as e:
+        print(f"  [fm err] team {team_id}: {e}")
+        return []
+    if not data: return []
+    fx_all = (((data.get("fixtures") or {}).get("allFixtures") or {}).get("fixtures") or [])
+    finished = []
+    for f in fx_all:
+        st = f.get("status") or {}
+        if not st.get("finished"): continue
+        comp = (f.get("tournament") or {}).get("name") or ""
+        if not _is_intl_competition(comp): continue
+        score = _parse_score(st.get("scoreStr"))
+        if not score: continue
+        h = f.get("home") or {}; a = f.get("away") or {}
+        is_home = (str(h.get("id") or "") == str(team_id))
+        gh, ga = score
+        gf, gc = (gh, ga) if is_home else (ga, gh)
+        opp_name = (a if is_home else h).get("name") or ""
+        finished.append({
+            "date":    (st.get("utcTime") or "")[:10],
+            "opp":     opp_name,
+            "opp_slug": _slug(opp_name),
+            "opp_id":  (a if is_home else h).get("id"),
+            "venue":   "home" if is_home else "away",
+            "gf":      gf, "ga": gc,
+            "result":  _wlt(gf, gc),
+            "comp":    comp,
+        })
+    finished.sort(key=lambda x: x["date"], reverse=True)
+    return finished[:n]
+
+
+def _expected_goals_for(team_pts, opp_pts):
+    """λ attendu pour 'team' vs 'opp' à partir du gap FIFA points.
+    Baseline 1.30 but/match en équipe nationale, ±0.4 but pour 100 pts d'écart.
+    """
+    base = 1.30
+    gap = (team_pts - opp_pts) / 100.0
+    return max(0.30, base + 0.40 * gap)
+
+
+def _compute_sheet(slug, team_id, fixtures, fifa_rankings):
+    """Calcule la fiche pour 1 équipe à partir de ses fixtures + son rank FIFA."""
+    own = fifa_rankings.get(slug, {}) or {}
+    own_pts = own.get("points") or 1200
+    own_rank = own.get("rank")
+
+    if not fixtures:
+        return {
+            "fotmob_team_id": team_id,
+            "fifa_rank": own_rank,
+            "fifa_points": own_pts,
+            "matches_n": 0,
+            "off_score": 0.0, "def_score": 0.0,
+            "off_rating": "moyen", "def_rating": "moyen",
+            "form": "",
+            "notes_fr": [],
+            "last_updated": datetime.now(timezone.utc).isoformat(timespec="seconds"),
+        }
+
+    l10 = fixtures[:WINDOW_L10]
+    l5  = fixtures[:WINDOW_L5]
+
+    def _stats(arr):
+        n = len(arr) or 1
+        return {
+            "n":              len(arr),
+            "gf_pm":          round(sum(f["gf"] for f in arr) / n, 2),
+            "ga_pm":          round(sum(f["ga"] for f in arr) / n, 2),
+            "clean_sheets":   sum(1 for f in arr if f["ga"] == 0),
+            "failed_to_score":sum(1 for f in arr if f["gf"] == 0),
+            "btts":           sum(1 for f in arr if f["gf"] > 0 and f["ga"] > 0),
+            "wins":           sum(1 for f in arr if f["result"] == "W"),
+            "draws":          sum(1 for f in arr if f["result"] == "D"),
+            "losses":         sum(1 for f in arr if f["result"] == "L"),
+        }
+
+    s10 = _stats(l10)
+    s5  = _stats(l5)
+
+    # Off / Def score : observé - attendu sur L10, avec attendu déduit du gap Elo
+    # vs chaque adversaire individuellement. Shrinkage par sqrt(N/10) pour éviter
+    # les conclusions hâtives quand peu de matchs.
+    expected_gf_total = 0.0; expected_ga_total = 0.0
+    for f in l10:
+        opp_pts = (fifa_rankings.get(f["opp_slug"]) or {}).get("points")
+        if not opp_pts:
+            # Pas de FIFA points pour l'adversaire : on suppose 1100 (faible)
+            opp_pts = 1100
+        expected_gf_total += _expected_goals_for(own_pts, opp_pts)
+        expected_ga_total += _expected_goals_for(opp_pts, own_pts)
+    n = max(1, len(l10))
+    exp_gf_pm = expected_gf_total / n
+    exp_ga_pm = expected_ga_total / n
+    raw_off = (s10["gf_pm"] - exp_gf_pm) / max(0.5, exp_gf_pm)  # ratio
+    raw_def = (exp_ga_pm - s10["ga_pm"]) / max(0.5, exp_ga_pm)
+    # Shrinkage : on multiplie par sqrt(N/10) → effet plein à 10 matchs, à 1 seul N=2 effet = 45%
+    shrink = (max(1, len(l10)) / 10.0) ** 0.5
+    off_score = max(-1.0, min(1.0, raw_off * SCORE_SCALE * shrink))
+    def_score = max(-1.0, min(1.0, raw_def * SCORE_SCALE * shrink))
+
+    def _rating(score):
+        if score > 0.3:  return "bon"
+        if score < -0.3: return "nul"
+        return "moyen"
+
+    form = "".join(f["result"] for f in l5)
+
+    # Notes auto : signaux saillants sur la forme
+    notes = []
+    if s5["wins"] >= 4:
+        notes.append(f"Forme exceptionnelle : {s5['wins']} victoires sur L5")
+    elif s5["losses"] >= 3:
+        notes.append(f"Forme inquiétante : {s5['losses']} défaites sur L5")
+    if s10["clean_sheets"] >= 5:
+        notes.append(f"Défense solide : {s10['clean_sheets']} clean sheets sur L10")
+    if s10["failed_to_score"] >= 4:
+        notes.append(f"Attaque en panne : {s10['failed_to_score']} blanchies sur L10")
+    if s10["gf_pm"] >= 2.5:
+        notes.append(f"Attaque prolifique : {s10['gf_pm']} buts/match sur L10")
+    if s10["ga_pm"] >= 1.8:
+        notes.append(f"Défense fragile : {s10['ga_pm']} buts encaissés/match sur L10")
+    # Sous-perf / sur-perf brute
+    diff_off = s10["gf_pm"] - exp_gf_pm
+    if abs(diff_off) >= 0.6:
+        sign = "+" if diff_off > 0 else ""
+        notes.append(f"Attaque {sign}{round(diff_off,1)} but/match vs attendu Elo")
+    diff_def = exp_ga_pm - s10["ga_pm"]
+    if abs(diff_def) >= 0.6:
+        sign = "+" if diff_def > 0 else ""
+        notes.append(f"Défense {sign}{round(diff_def,1)} but/match vs attendu Elo")
+
+    return {
+        "fotmob_team_id": team_id,
+        "fifa_rank":      own_rank,
+        "fifa_points":    own_pts,
+        "matches_n":      len(fixtures),
+        "off_score":      round(off_score, 2),
+        "def_score":      round(def_score, 2),
+        "off_rating":     _rating(off_score),
+        "def_rating":     _rating(def_score),
+        "form":           form,
+        "stats_l5":       s5,
+        "stats_l10":      {**s10, "gf_expected_pm": round(exp_gf_pm, 2),
+                                   "ga_expected_pm": round(exp_ga_pm, 2)},
+        "recent":         l10,
+        "notes_fr":       notes,
+        "last_updated":   datetime.now(timezone.utc).isoformat(timespec="seconds"),
+    }
+
+
+# ─── Main ────────────────────────────────────────────────────────────────────
+
+def run():
+    fifa = _load_json(FIFA_FILE, {})
+    rankings = fifa.get("rankings") or {}
+    team_ids = _bootstrap_team_ids()
+    print(f"=== Fiches équipes nationales : {len(team_ids)} équipes connues ===")
+
+    existing = _load_json(OUT_FILE, {})
+    teams_out = existing.get("teams") or {}
+
+    n_updated = 0
+    for slug, tid in team_ids.items():
+        fixtures = _fetch_recent_intl_fixtures(tid, n=WINDOW_L10 + 2)
+        sheet = _compute_sheet(slug, tid, fixtures, rankings)
+        teams_out[slug] = sheet
+        n_updated += 1
+        rating_str = f"off={sheet['off_rating']}({sheet['off_score']:+.2f}) def={sheet['def_rating']}({sheet['def_score']:+.2f})"
+        print(f"  [{slug:20s}] N={sheet['matches_n']:2d} {rating_str} form={sheet['form']}")
+
+    out = {
+        "_meta":   "Fiches équipes nationales : aisance off/def vs attendu Elo, forme L5/L10. Consommé par picks_engine pour ajuster λ Poisson WC.",
+        "_updated": datetime.now(timezone.utc).isoformat(timespec="seconds"),
+        "teams":   teams_out,
+    }
+    _save_json(OUT_FILE, out)
+    print(f"\n[OK] {n_updated} fiches mises à jour -> {OUT_FILE}")
+
+
+if __name__ == "__main__":
+    run()

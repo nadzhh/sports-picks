@@ -182,6 +182,52 @@ def is_top_intl_team(name):
 # λ_cv ~0.4 au lieu de 2.04 vs 0.70 avec les tiers.
 
 _FIFA_RANK_CACHE = {"data": None}
+_INTL_SHEETS_CACHE = {"data": None}
+
+
+def _load_intl_sheets():
+    """Charge data/intl_team_sheets.json (fiches équipes nationales :
+    off_rating, def_rating, off_score, def_score, etc.).
+    Cache process-level."""
+    if _INTL_SHEETS_CACHE["data"] is not None:
+        return _INTL_SHEETS_CACHE["data"]
+    try:
+        import json as _jsh
+        with open("data/intl_team_sheets.json", encoding="utf-8") as f:
+            d = _jsh.load(f)
+        _INTL_SHEETS_CACHE["data"] = d
+        return d
+    except Exception:
+        _INTL_SHEETS_CACHE["data"] = {"teams": {}}
+        return _INTL_SHEETS_CACHE["data"]
+
+
+def get_intl_sheet(team_name):
+    """Renvoie la fiche de l'équipe nationale ou None."""
+    if not team_name: return None
+    import unicodedata, re
+    s = unicodedata.normalize("NFD", team_name.strip())
+    s = "".join(c for c in s if unicodedata.category(c) != "Mn")
+    slug = re.sub(r"[^a-z0-9_]", "_", s.lower()).strip("_")
+    return ((_load_intl_sheets().get("teams") or {}).get(slug)) or None
+
+
+def intl_sheet_lambda_adjustment(team_off_score, team_def_score, opp_off_score, opp_def_score):
+    """Applique l'ajustement λ en fonction des fiches équipe.
+    Renvoie (factor_for_team_attack, factor_for_team_concedes).
+    Max ±15% par dimension → ±30% combiné (cap).
+
+    Logique :
+      - λ_team_attack ↑ si team off bon, ↓ si team off nul
+      - λ_team_attack ↓ si opp def bon, ↑ si opp def nul
+    """
+    SENSI = 0.15
+    factor_atk = (1.0 + SENSI * (team_off_score or 0.0)) * (1.0 - SENSI * (opp_def_score or 0.0))
+    factor_conc = (1.0 + SENSI * (opp_off_score or 0.0)) * (1.0 - SENSI * (team_def_score or 0.0))
+    # Cap [0.6, 1.4] pour éviter explosions
+    factor_atk = max(0.6, min(1.4, factor_atk))
+    factor_conc = max(0.6, min(1.4, factor_conc))
+    return factor_atk, factor_conc
 
 def _load_fifa_rankings():
     if _FIFA_RANK_CACHE["data"] is not None:
@@ -1536,9 +1582,47 @@ def analyze_match(match, pstats_all, player_odds_all=None):
             # Applique : λ_team += son_boost + malus_que_lui_inflige_l_opp
             lam_h_wc = max(0.10, lam_h_wc + h_self_boost + a_opp_malus)
             lam_a_wc = max(0.10, lam_a_wc + a_self_boost + h_opp_malus)
+
+            # ─── FICHES ÉQUIPES NATIONALES (intl_team_sheets.json) ────────
+            # Ajustement empirique basé sur perf récente vs attendu Elo.
+            # Ex : Spain off_score -0.20 + Cape Verde def_score +0.57 →
+            # réduit λ Spain (-3% * -8.55% ≈ -11%) car Spain sous-performe
+            # en attaque ET Cape Verde sur-performe en défense.
+            h_sheet = get_intl_sheet(home) or {}
+            a_sheet = get_intl_sheet(away) or {}
+            sheet_descr_h = ""; sheet_descr_a = ""
+            if h_sheet or a_sheet:
+                h_off = h_sheet.get("off_score", 0.0) if h_sheet else 0.0
+                h_def = h_sheet.get("def_score", 0.0) if h_sheet else 0.0
+                a_off = a_sheet.get("off_score", 0.0) if a_sheet else 0.0
+                a_def = a_sheet.get("def_score", 0.0) if a_sheet else 0.0
+                f_h_atk, f_h_conc = intl_sheet_lambda_adjustment(h_off, h_def, a_off, a_def)
+                f_a_atk, f_a_conc = intl_sheet_lambda_adjustment(a_off, a_def, h_off, h_def)
+                # λ_team_attack utilise f_team_atk + on borne
+                lam_h_wc = max(0.10, lam_h_wc * f_h_atk)
+                lam_a_wc = max(0.10, lam_a_wc * f_a_atk)
+                # Description pour reasoning
+                def _label(score, kind):
+                    if kind == "off":
+                        if score > 0.3: return "off solide"
+                        if score < -0.3: return "off en panne"
+                        return "off moyen"
+                    else:
+                        if score > 0.3: return "def solide"
+                        if score < -0.3: return "def fragile"
+                        return "def moyenne"
+                if h_sheet:
+                    sheet_descr_h = (f"📋 Fiche {home} : {_label(h_off,'off')} ({h_off:+.2f})"
+                                     f" · {_label(h_def,'def')} ({h_def:+.2f})"
+                                     f" · forme {h_sheet.get('form','')}")
+                if a_sheet:
+                    sheet_descr_a = (f"📋 Fiche {away} : {_label(a_off,'off')} ({a_off:+.2f})"
+                                     f" · {_label(a_def,'def')} ({a_def:+.2f})"
+                                     f" · forme {a_sheet.get('form','')}")
+
             ctx_descr_h = wc_context_descr(home, away, round_num, league_id)
             ctx_descr_a = wc_context_descr(away, home, round_num, league_id)
-            ctx_descr_combined = " ".join(d for d in [ctx_descr_h, ctx_descr_a] if d)
+            ctx_descr_combined = "\n".join(d for d in [ctx_descr_h, ctx_descr_a, sheet_descr_h, sheet_descr_a] if d)
 
             # ANALYSE NIVEAU (FIFA / favoris / Elo) à exposer dans les reasonings
             _fh = get_fifa_data(home)
