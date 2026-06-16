@@ -14041,6 +14041,148 @@
       "side": "away"
     },
     {
+      "direction": "wc_dc_12",
+      "type": "🏆 Double chance WC",
+      "label": "Iraq ou Norway (12, pas de nul)",
+      "cote_min": 1.31,
+      "confidence": 76,
+      "tier": "safe",
+      "stats": {
+        "lam_h": 0.7,
+        "lam_a": 1.71,
+        "h_fifa_rank": 51,
+        "a_fifa_rank": 34,
+        "elo_gap": -109,
+        "wc_round": null,
+        "family": "DC"
+      },
+      "reasoning": "📊 Niveau équilibré : Iraq #51 vs Norway #34 (gap -109 pts).\nL10 : Iraq 2V/1N/2D sur 5 · Norway 2V/2N/1D sur 5\n🛡️ Double chance 12 : Iraq (15.1%) OU Norway (61.4%)\nCombiné = 76.5% — couvre tout sauf le nul",
+      "history_top3": true,
+      "id": "2026-06-16_4667805_team_wc_dc_12",
+      "date": "2026-06-16",
+      "match_id": "4667805",
+      "page_url": "/matches/iraq-vs-norway/1oz68o#4667805",
+      "matchup": "Iraq vs Norway",
+      "league": "World Cup",
+      "category": "team",
+      "result": "PENDING",
+      "actual": null,
+      "resolved_at": null
+    },
+    {
+      "direction": "wc_away_win",
+      "type": "🏆 Vainqueur WC",
+      "label": "Norway gagne",
+      "cote_min": 1.63,
+      "confidence": 61,
+      "tier": "ok",
+      "stats": {
+        "lam_h": 0.7,
+        "lam_a": 1.71,
+        "h_fifa_rank": 51,
+        "a_fifa_rank": 34,
+        "elo_gap": -109,
+        "wc_round": null,
+        "family": "1X2"
+      },
+      "reasoning": "📊 Niveau équilibré : Iraq #51 vs Norway #34 (gap -109 pts).\nL10 : Iraq 2V/1N/2D sur 5 · Norway 2V/2N/1D sur 5\n🏆 Modèle Poisson CdM (tier FIFA ajusté)\nλ Iraq = 0.70, λ Norway = 1.71\nP(Iraq) = 15.1% · P(nul) = 23.5% · P(Norway gagne) = 61.4%",
+      "history_top3": true,
+      "id": "2026-06-16_4667805_team_wc_away_win",
+      "date": "2026-06-16",
+      "match_id": "4667805",
+      "page_url": "/matches/iraq-vs-norway/1oz68o#4667805",
+      "matchup": "Iraq vs Norway",
+      "league": "World Cup",
+      "category": "team",
+      "result": "PENDING",
+      "actual": null,
+      "resolved_at": null
+    },
+    {
+      "direction": "wc_btts_no",
+      "type": "⚽ BTTS WC",
+      "label": "Une équipe ne marque pas (BTTS NO)",
+      "cote_min": 1.7,
+      "confidence": 59,
+      "tier": "ok",
+      "stats": {
+        "lam_h": 0.7,
+        "lam_a": 1.71,
+        "h_fifa_rank": 51,
+        "a_fifa_rank": 34,
+        "elo_gap": -109,
+        "wc_round": null,
+        "family": "BTTS"
+      },
+      "reasoning": "📊 Niveau équilibré : Iraq #51 vs Norway #34 (gap -109 pts).\nL10 : Iraq 2V/1N/2D sur 5 · Norway 2V/2N/1D sur 5\n⚽ BTTS NO : P(au moins une équipe blanchie) = 58.7%\nλ faibles côté Norway (1.71) ou Iraq (0.70)",
+      "history_top3": true,
+      "id": "2026-06-16_4667805_team_wc_btts_no",
+      "date": "2026-06-16",
+      "match_id": "4667805",
+      "page_url": "/matches/iraq-vs-norway/1oz68o#4667805",
+      "matchup": "Iraq vs Norway",
+      "league": "World Cup",
+      "category": "team",
+      "result": "PENDING",
+      "actual": null,
+      "resolved_at": null
+    },
+    {
+      "direction": "wc_score_0_1",
+      "type": "🏆 Score exact WC",
+      "label": "Score exact : Iraq 0-1 Norway",
+      "cote_min": 6.52,
+      "confidence": 15,
+      "tier": "fun",
+      "is_fun": true,
+      "stats": {
+        "lam_h": 0.7,
+        "lam_a": 1.71,
+        "h_fifa_rank": 51,
+        "a_fifa_rank": 34,
+        "elo_gap": -109
+      },
+      "reasoning": "📊 Niveau équilibré : Iraq #51 vs Norway #34 (gap -109 pts).\nL10 : Iraq 2V/1N/2D sur 5 · Norway 2V/2N/1D sur 5\n🏆 Coupe du Monde 2026 - score exact (Poisson grid, ajusté Elo FIFA)\nλ Iraq = 0.70 buts, λ Norway = 1.71 buts\nTop 3 : 0-1 (15.3%) · 0-2 (13.1%) · 1-1 (10.8%)\n⚠️ Pari fun (cote élevée typique 4-8) - mise modeste",
+      "exact_score": [
+        0,
+        1
+      ],
+      "wc_top3": [
+        [
+          [
+            0,
+            1
+          ],
+          15.3
+        ],
+        [
+          [
+            0,
+            2
+          ],
+          13.1
+        ],
+        [
+          [
+            1,
+            1
+          ],
+          10.8
+        ]
+      ],
+      "history_top3": true,
+      "id": "2026-06-16_4667805_fun_🏆 Score exact WC_Score exact : Iraq 0-1 Norway",
+      "date": "2026-06-16",
+      "match_id": "4667805",
+      "page_url": "/matches/iraq-vs-norway/1oz68o#4667805",
+      "matchup": "Iraq vs Norway",
+      "league": "World Cup",
+      "category": "fun",
+      "result": "PENDING",
+      "actual": null,
+      "resolved_at": null
+    },
+    {
       "direction": "home_win",
       "type": "Victoire domicile",
       "label": "France gagne",
