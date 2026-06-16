@@ -2859,10 +2859,16 @@ def analyze_match(match, pstats_all, player_odds_all=None):
         _po_keys = list((match_player_odds or {}).keys())
         for fp in friendly_picks:
             cote_est = round(1 / max(0.01, fp["p"]), 2) if fp["p"] > 0 else None
-            # Lookup cote bookmaker depuis foot_player_odds.json (anytime_scorer)
+            # Lookup cote bookmaker depuis foot_player_odds.json
+            # IMPORTANT : anytime_scorer = "marque ≥ 1 but" UNIQUEMENT.
+            # Le pick "marque 2+ buts" (double_buteur) a un marché distinct
+            # ("to_score_2_or_more") qu'on ne récupère pas via The Odds API.
+            # Donc on n'attribue PAS la cote anytime_scorer au pick
+            # double_buteur (sinon Olise marque @ 3.35 = Olise marque 2+ @ 3.35
+            # ce qui est faux).
             cote_book = None
             book = None
-            if fp["kind"] in ("marque", "double_buteur"):
+            if fp["kind"] == "marque":
                 _ok = _match_odds_name(fp["name"], _po_keys)
                 if _ok:
                     _player_odds = (match_player_odds or {}).get(_ok) or {}
@@ -3032,6 +3038,52 @@ def analyze_match(match, pstats_all, player_odds_all=None):
     top3_ids = set(id(p) for p, _ in elig[:HIST_MAX_PER_MATCH_DISPLAY])
     for p, _ in all_pool:
         p["history_top3"] = id(p) in top3_ids
+
+    # ── Dédoublonnage : un même match peut générer 2 picks pour la même
+    # direction logique (branche standard 'home_win' + branche WC 'wc_home_win').
+    # Sur Telegram et le site, l'user voit 2 picks "France gagne" différents.
+    # On dédoublonne en gardant celui avec la confidence la plus haute.
+    DIR_CANONICAL = {
+        "wc_home_win": "h_win",   "home_win":   "h_win",
+        "wc_away_win": "a_win",   "away_win":   "a_win",
+        "wc_draw":     "draw",    "draw":       "draw",
+        "wc_dc_1x":    "dc_1x",   "home_dc":    "dc_1x",  "dc_1x": "dc_1x",
+        "wc_dc_x2":    "dc_x2",   "away_dc":    "dc_x2",  "dc_x2": "dc_x2",
+        "wc_dc_12":    "dc_12",   "no_draw":    "dc_12",  "12":    "dc_12",
+        "wc_over_15":  "o15",     "over_15":    "o15",    "over15": "o15",
+        "wc_under_15": "u15",     "under_15":   "u15",
+        "wc_over_25":  "o25",     "over_25":    "o25",    "over25": "o25",
+        "wc_under_25": "u25",     "under_25":   "u25",
+        "wc_over_35":  "o35",     "over_35":    "o35",    "over35": "o35",
+        "wc_btts_yes": "btts_y",  "btts_yes":   "btts_y", "btts":  "btts_y",
+        "wc_btts_no":  "btts_n",  "btts_no":    "btts_n",
+    }
+    def _dedup_by_direction(picks):
+        by_canonical = {}
+        passthrough = []
+        for pk in picks:
+            d = (pk.get("direction") or "").lower()
+            canon = DIR_CANONICAL.get(d)
+            if canon is None:
+                # Direction non gérée par dédup (ex: home_scores_2, score exact, etc.) → garde
+                passthrough.append(pk)
+                continue
+            cur = by_canonical.get(canon)
+            if cur is None:
+                by_canonical[canon] = pk
+            else:
+                # Garde celui avec la conf la plus haute (en cas d'égalité, préfère
+                # le wc_ qui a un reasoning plus riche)
+                cur_conf = cur.get("confidence") or 0
+                new_conf = pk.get("confidence") or 0
+                cur_wc = (cur.get("direction") or "").startswith("wc_")
+                new_wc = (pk.get("direction") or "").startswith("wc_")
+                if new_conf > cur_conf or (new_conf == cur_conf and new_wc and not cur_wc):
+                    by_canonical[canon] = pk
+        return list(by_canonical.values()) + passthrough
+
+    team_picks = _dedup_by_direction(team_picks)
+    fun_picks  = _dedup_by_direction(fun_picks)
 
     return team_picks, home_pp, away_pp, fun_picks
 
