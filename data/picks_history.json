@@ -13941,6 +13941,149 @@
       "side": "away"
     },
     {
+      "direction": "home_win",
+      "type": "Victoire domicile",
+      "label": "France gagne",
+      "cote": null,
+      "confidence": 70,
+      "reasoning": "France : 4V/0N/1D sur 5 matchs · #1 au classement · H2H: 0V/0N/0D · Note Sofa: 6.5/10",
+      "stats": {
+        "form": [
+          "W",
+          "L",
+          "W",
+          "W",
+          "W"
+        ]
+      },
+      "is_fun": false,
+      "tier": "safe",
+      "history_top3": true,
+      "id": "2026-06-16_4667804_team_home_win",
+      "date": "2026-06-16",
+      "match_id": "4667804",
+      "page_url": "/matches/senegal-vs-france/1f8fvo#4667804",
+      "matchup": "France vs Senegal",
+      "league": "World Cup",
+      "category": "team",
+      "result": "PENDING",
+      "actual": null,
+      "resolved_at": null
+    },
+    {
+      "direction": "wc_over_25",
+      "type": "⚽ Total buts WC",
+      "label": "Plus de 2.5 buts",
+      "cote_min": 1.43,
+      "confidence": 70,
+      "tier": "safe",
+      "stats": {
+        "lam_h": 2.98,
+        "lam_a": 0.62,
+        "h_fifa_rank": 2,
+        "a_fifa_rank": 21,
+        "elo_gap": 252,
+        "wc_round": null,
+        "family": "TOTAL"
+      },
+      "reasoning": "📊 Écart FIFA significatif : France #2 vs Senegal #21 (gap +252 pts, P favori ≈ 81%).\n⭐ France favori CdM 2026\nL10 : France 4V/0N/1D sur 5 · Senegal 2V/1N/2D sur 5\n⚽ Modèle Poisson : λ total = 3.61\nP(plus de 2.5 buts) = 69.9%",
+      "history_top3": true,
+      "id": "2026-06-16_4667804_team_wc_over_25",
+      "date": "2026-06-16",
+      "match_id": "4667804",
+      "page_url": "/matches/senegal-vs-france/1f8fvo#4667804",
+      "matchup": "France vs Senegal",
+      "league": "World Cup",
+      "category": "team",
+      "result": "PENDING",
+      "actual": null,
+      "resolved_at": null
+    },
+    {
+      "direction": "wc_btts_no",
+      "type": "⚽ BTTS WC",
+      "label": "Une équipe ne marque pas (BTTS NO)",
+      "cote_min": 1.79,
+      "confidence": 56,
+      "tier": "ok",
+      "stats": {
+        "lam_h": 2.98,
+        "lam_a": 0.62,
+        "h_fifa_rank": 2,
+        "a_fifa_rank": 21,
+        "elo_gap": 252,
+        "wc_round": null,
+        "family": "BTTS"
+      },
+      "reasoning": "📊 Écart FIFA significatif : France #2 vs Senegal #21 (gap +252 pts, P favori ≈ 81%).\n⭐ France favori CdM 2026\nL10 : France 4V/0N/1D sur 5 · Senegal 2V/1N/2D sur 5\n⚽ BTTS NO : P(au moins une équipe blanchie) = 55.9%\nλ faibles côté Senegal (0.62) ou France (2.98)",
+      "history_top3": true,
+      "id": "2026-06-16_4667804_team_wc_btts_no",
+      "date": "2026-06-16",
+      "match_id": "4667804",
+      "page_url": "/matches/senegal-vs-france/1f8fvo#4667804",
+      "matchup": "France vs Senegal",
+      "league": "World Cup",
+      "category": "team",
+      "result": "PENDING",
+      "actual": null,
+      "resolved_at": null
+    },
+    {
+      "direction": "wc_score_2_0",
+      "type": "🏆 Score exact WC",
+      "label": "Score exact : France 2-0 Senegal",
+      "cote_min": 8.29,
+      "confidence": 12,
+      "tier": "fun",
+      "is_fun": true,
+      "stats": {
+        "lam_h": 2.98,
+        "lam_a": 0.62,
+        "h_fifa_rank": 2,
+        "a_fifa_rank": 21,
+        "elo_gap": 252
+      },
+      "reasoning": "📊 Écart FIFA significatif : France #2 vs Senegal #21 (gap +252 pts, P favori ≈ 81%).\n⭐ France favori CdM 2026\nL10 : France 4V/0N/1D sur 5 · Senegal 2V/1N/2D sur 5\n🏆 Coupe du Monde 2026 - score exact (Poisson grid, ajusté Elo FIFA)\nλ France = 2.98 buts, λ Senegal = 0.62 buts\nTop 3 : 2-0 (12.1%) · 3-0 (12.0%) · 4-0 (9.0%)\n⚠️ Pari fun (cote élevée typique 4-8) - mise modeste",
+      "exact_score": [
+        2,
+        0
+      ],
+      "wc_top3": [
+        [
+          [
+            2,
+            0
+          ],
+          12.1
+        ],
+        [
+          [
+            3,
+            0
+          ],
+          12.0
+        ],
+        [
+          [
+            4,
+            0
+          ],
+          9.0
+        ]
+      ],
+      "history_top3": true,
+      "id": "2026-06-16_4667804_fun_🏆 Score exact WC_Score exact : France 2-0 Seneg",
+      "date": "2026-06-16",
+      "match_id": "4667804",
+      "page_url": "/matches/senegal-vs-france/1f8fvo#4667804",
+      "matchup": "France vs Senegal",
+      "league": "World Cup",
+      "category": "fun",
+      "result": "PENDING",
+      "actual": null,
+      "resolved_at": null
+    },
+    {
       "player": "Andero Kivi",
       "position": "F",
       "is_sub": false,
