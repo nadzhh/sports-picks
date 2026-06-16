@@ -277,6 +277,181 @@
     }
   },
   {
+    "league": "Latvian Virsliga",
+    "home": "Riga FC",
+    "away": "RFS",
+    "start_ts": 1781712000,
+    "match_id": "5162006",
+    "page_url": "/matches/rfs-vs-riga-fc/4vdlztz6#5162006",
+    "picks": [
+      {
+        "direction": "away_dc",
+        "type": "Double chance",
+        "label": "Nul ou RFS (X2)",
+        "cote": null,
+        "confidence": 84,
+        "reasoning": "RFS invaincu 100% sur 5 derniers matchs · H2H: 1/1 matchs sans défaite · Classement: #1 (away) vs #2 (home)\n📉 Calibration : bucket 80-89% historiquement à WR 56% (claim 82%, n=63) — sur-estimé de 26pp",
+        "stats": {
+          "form": [
+            "W",
+            "W",
+            "W",
+            "W",
+            "W"
+          ]
+        },
+        "is_fun": false,
+        "tier": "safe",
+        "calibration_delta": -26.0,
+        "history_top3": true
+      },
+      {
+        "direction": "away_win",
+        "type": "Victoire extérieur",
+        "label": "RFS gagne",
+        "cote": null,
+        "confidence": 74,
+        "reasoning": "RFS : 5V/0N/0D sur 5 matchs · #1 au classement · H2H: 0V/1N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+        "stats": {
+          "form": [
+            "W",
+            "W",
+            "W",
+            "W",
+            "W"
+          ]
+        },
+        "is_fun": false,
+        "tier": "safe",
+        "calibration_delta": -11.3,
+        "history_top3": true
+      }
+    ],
+    "home_players": [
+      {
+        "player": "Muhammed Badamosi / Iago Siqueira",
+        "position": "",
+        "is_sub": false,
+        "type": "Double Chance Buteur",
+        "label": "Muhammed Badamosi ou Iago Siqueira marque",
+        "cote": null,
+        "book": null,
+        "books": [],
+        "confidence": 70,
+        "cote_min": 1.43,
+        "reasoning": "📈 P(Muhammed Badamosi marque) ≈ 58% · P(Iago Siqueira marque) ≈ 49%\n🎯 P(au moins un marque) = 70% (calculée par 1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.43 - chercher ≥1.43 chez le bookmaker\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+        "context": {},
+        "stats": {
+          "p_a": 0.578,
+          "p_b": 0.488,
+          "p_or": 0.7,
+          "player_a": "Muhammed Badamosi",
+          "player_b": "Iago Siqueira"
+        },
+        "team": "home",
+        "tier": "safe",
+        "calibration_delta": -11.3,
+        "history_top3": true
+      },
+      {
+        "player": "Muhammed Badamosi",
+        "position": "F",
+        "is_sub": false,
+        "type": "Buteur",
+        "label": "Muhammed Badamosi marque",
+        "cote": null,
+        "book": null,
+        "books": [],
+        "confidence": 58,
+        "reasoning": "12 buts en 17 matchs cette saison (70.6% de chance/match) · xG moyen 0.00/match · défense solide\n📉 Calibration : bucket 50-59% historiquement à WR 42% (claim 55%, n=41) — sur-estimé de 14pp",
+        "context": {
+          "weakness": 0.17
+        },
+        "stats": {
+          "goals": 12,
+          "apps": 17,
+          "gpm": 0.706,
+          "xgpm": 0
+        },
+        "team": "home",
+        "tier": "ok",
+        "calibration_delta": -13.6,
+        "history_top3": true
+      }
+    ],
+    "away_players": [
+      {
+        "player": "Darko Lemajic / Stefan Panic",
+        "position": "",
+        "is_sub": false,
+        "type": "Double Chance Buteur",
+        "label": "Darko Lemajic ou Stefan Panic marque",
+        "cote": null,
+        "book": null,
+        "books": [],
+        "confidence": 70,
+        "cote_min": 1.43,
+        "reasoning": "📈 P(Darko Lemajic marque) ≈ 50% · P(Stefan Panic marque) ≈ 44%\n🎯 P(au moins un marque) = 70% (calculée par 1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.43 - chercher ≥1.43 chez le bookmaker\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+        "context": {},
+        "stats": {
+          "p_a": 0.502,
+          "p_b": 0.442,
+          "p_or": 0.7,
+          "player_a": "Darko Lemajic",
+          "player_b": "Stefan Panic"
+        },
+        "team": "away",
+        "tier": "safe",
+        "calibration_delta": -11.3,
+        "history_top3": true
+      }
+    ],
+    "fun_picks": [],
+    "top_pick": {
+      "direction": "away_dc",
+      "type": "Double chance",
+      "label": "Nul ou RFS (X2)",
+      "cote": null,
+      "confidence": 84,
+      "reasoning": "RFS invaincu 100% sur 5 derniers matchs · H2H: 1/1 matchs sans défaite · Classement: #1 (away) vs #2 (home)\n📉 Calibration : bucket 80-89% historiquement à WR 56% (claim 82%, n=63) — sur-estimé de 26pp",
+      "stats": {
+        "form": [
+          "W",
+          "W",
+          "W",
+          "W",
+          "W"
+        ]
+      },
+      "is_fun": false,
+      "tier": "safe",
+      "calibration_delta": -26.0,
+      "history_top3": true
+    },
+    "no_picks": false,
+    "context": {
+      "stadium": {
+        "name": "Stadions Skonto",
+        "city": "Rīga",
+        "country": "Latvia",
+        "lat": 56.961394151,
+        "lon": 24.116401076,
+        "capacity": null,
+        "surface": null
+      },
+      "weather": {
+        "temp_max": 19.7,
+        "temp_min": 13.3,
+        "humidity": 70,
+        "precipitation_sum_mm": 0.0,
+        "wind_max_kmh": 24.1,
+        "weather_code": 3,
+        "summary_fr": "☁️ couvert · 13–19°C · humidité 70%"
+      },
+      "text": "Conditions : ☁️ couvert · 13–19°C · humidité 70%. Stade : Stadions Skonto · plein air."
+    }
+  },
+  {
     "league": "Morocco Botola Pro",
     "home": "Renaissance Club Zemamra",
     "away": "Raja Casablanca",
@@ -412,7 +587,7 @@
         "direction": "wc_over_25",
         "type": "⚽ Total buts WC",
         "label": "Plus de 2.5 buts",
-        "cote": 1.77,
+        "cote": 1.74,
         "cote_min": 1.39,
         "confidence": 72,
         "tier": "safe",
@@ -427,7 +602,7 @@
         },
         "reasoning": "📊 Écart FIFA significatif : France #2 vs Senegal #21 (gap +252 pts, P favori ≈ 81%).\n⭐ France favori CdM 2026\nL10 : France 4V/0N/1D sur 5 · Senegal 2V/1N/2D sur 5\n📋 Fiche France : off moyen (-0.20) · def fragile (-1.00) · forme WLWWW · 🏆 élite mondiale\n   ↳ Historique : finaliste en 2022 · vainqueur en 2018 · quart de finale en 2014 · 2 titres (1998, 2018)\n📋 Fiche Senegal : off en panne (-0.35) · def fragile (-0.37) · forme DLWWL · 🏆 présence occasionnelle\n🌦️ ☁️ couvert · 13–26°C · humidité 35%\n⚠️ Compo PROBABLE (officielle à T-60min)\n⚽ Modèle Poisson : λ total = 3.73\nP(plus de 2.5 buts) = 72.0%\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
         "calibration_delta": -11.3,
-        "edge_pp": 15.5,
+        "edge_pp": 14.5,
         "history_top3": true
       },
       {
@@ -794,6 +969,136 @@
     }
   },
   {
+    "league": "Lithuanian Toplyga",
+    "home": "Hegelmann",
+    "away": "Dziugas Telsiai",
+    "start_ts": 1781710200,
+    "match_id": "5774048",
+    "page_url": "/matches/dziugas-telsiai-vs-hegelmann/btqblkje#5774048",
+    "picks": [
+      {
+        "direction": "away_dc",
+        "type": "Double chance",
+        "label": "Nul ou Dziugas Telsiai (X2)",
+        "cote": null,
+        "confidence": 80,
+        "reasoning": "Dziugas Telsiai invaincu 81% sur 5 derniers matchs · H2H: 2/2 matchs sans défaite · Classement: #1 (away) vs #8 (home)\n📉 Calibration : bucket 80-89% historiquement à WR 56% (claim 82%, n=63) — sur-estimé de 26pp",
+        "stats": {
+          "form": [
+            "W",
+            "W",
+            "W",
+            "L",
+            "W"
+          ]
+        },
+        "is_fun": false,
+        "tier": "safe",
+        "calibration_delta": -26.0,
+        "history_top3": true
+      },
+      {
+        "direction": "away_win",
+        "type": "Victoire extérieur",
+        "label": "Dziugas Telsiai gagne",
+        "cote": null,
+        "confidence": 70,
+        "reasoning": "Dziugas Telsiai : 4V/0N/1D sur 5 matchs · #1 au classement · H2H: 1V/1N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+        "stats": {
+          "form": [
+            "W",
+            "W",
+            "W",
+            "L",
+            "W"
+          ]
+        },
+        "is_fun": false,
+        "tier": "safe",
+        "calibration_delta": -11.3,
+        "history_top3": true
+      }
+    ],
+    "home_players": [
+      {
+        "player": "Njoya Kader",
+        "position": "F",
+        "is_sub": false,
+        "type": "Buteur",
+        "label": "Njoya Kader marque",
+        "cote": null,
+        "book": null,
+        "books": [],
+        "confidence": 74,
+        "reasoning": "8 buts en 7 matchs cette saison (114.3% de chance/match) · xG moyen 0.00/match · défense solide\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+        "context": {
+          "weakness": 0.28
+        },
+        "stats": {
+          "goals": 8,
+          "apps": 7,
+          "gpm": 1.143,
+          "xgpm": 0
+        },
+        "team": "home",
+        "tier": "safe",
+        "calibration_delta": -11.3,
+        "history_top3": true
+      }
+    ],
+    "away_players": [
+      {
+        "player": "Ronald Sobowale",
+        "position": "F",
+        "is_sub": false,
+        "type": "Buteur",
+        "label": "Ronald Sobowale marque",
+        "cote": null,
+        "book": null,
+        "books": [],
+        "confidence": 76,
+        "reasoning": "7 buts en 6 matchs cette saison (116.7% de chance/match) · xG moyen 0.00/match, défense adverse poreuse (1.5 buts concédés/match) · défense correcte\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+        "context": {
+          "weakness": 0.46
+        },
+        "stats": {
+          "goals": 7,
+          "apps": 6,
+          "gpm": 1.167,
+          "xgpm": 0
+        },
+        "team": "away",
+        "tier": "safe",
+        "calibration_delta": -11.3,
+        "history_top3": true
+      }
+    ],
+    "fun_picks": [],
+    "top_pick": {
+      "direction": "away_dc",
+      "type": "Double chance",
+      "label": "Nul ou Dziugas Telsiai (X2)",
+      "cote": null,
+      "confidence": 80,
+      "reasoning": "Dziugas Telsiai invaincu 81% sur 5 derniers matchs · H2H: 2/2 matchs sans défaite · Classement: #1 (away) vs #8 (home)\n📉 Calibration : bucket 80-89% historiquement à WR 56% (claim 82%, n=63) — sur-estimé de 26pp",
+      "stats": {
+        "form": [
+          "W",
+          "W",
+          "W",
+          "L",
+          "W"
+        ]
+      },
+      "is_fun": false,
+      "tier": "safe",
+      "calibration_delta": -26.0,
+      "history_top3": true
+    },
+    "no_picks": false,
+    "context": null
+  },
+  {
     "league": "World Cup",
     "home": "Argentina",
     "away": "Algeria",
@@ -805,7 +1110,7 @@
         "direction": "home_win",
         "type": "Victoire domicile",
         "label": "Argentina gagne",
-        "cote": 1.44,
+        "cote": 1.43,
         "confidence": 80,
         "reasoning": "Argentina : 5V/0N/0D sur 5 matchs · #2 au classement · H2H: 0V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 80-89% historiquement à WR 56% (claim 82%, n=63) — sur-estimé de 26pp",
         "stats": {
@@ -820,7 +1125,7 @@
         "is_fun": false,
         "tier": "safe",
         "calibration_delta": -26.0,
-        "edge_pp": 10.6,
+        "edge_pp": 10.1,
         "history_top3": true
       },
       {
@@ -940,7 +1245,7 @@
       "direction": "home_win",
       "type": "Victoire domicile",
       "label": "Argentina gagne",
-      "cote": 1.44,
+      "cote": 1.43,
       "confidence": 80,
       "reasoning": "Argentina : 5V/0N/0D sur 5 matchs · #2 au classement · H2H: 0V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 80-89% historiquement à WR 56% (claim 82%, n=63) — sur-estimé de 26pp",
       "stats": {
@@ -955,7 +1260,7 @@
       "is_fun": false,
       "tier": "safe",
       "calibration_delta": -26.0,
-      "edge_pp": 10.6,
+      "edge_pp": 10.1,
       "history_top3": true
     },
     "no_picks": false,
@@ -1624,6 +1929,122 @@
     }
   },
   {
+    "league": "Lithuanian Toplyga",
+    "home": "FK Kauno Zalgiris",
+    "away": "Banga Gargzdai",
+    "start_ts": 1781712000,
+    "match_id": "5774049",
+    "page_url": "/matches/banga-gargzdai-vs-fk-kauno-zalgiris/2czpa5xp#5774049",
+    "picks": [],
+    "home_players": [
+      {
+        "player": "Fabien Ourega",
+        "position": "F",
+        "is_sub": false,
+        "type": "Buteur",
+        "label": "Fabien Ourega marque",
+        "cote": null,
+        "book": null,
+        "books": [],
+        "confidence": 74,
+        "reasoning": "6 buts en 5 matchs cette saison (120.0% de chance/match) · xG moyen 0.00/match · défense correcte\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+        "context": {
+          "weakness": 0.35
+        },
+        "stats": {
+          "goals": 6,
+          "apps": 5,
+          "gpm": 1.2,
+          "xgpm": 0
+        },
+        "team": "home",
+        "tier": "safe",
+        "calibration_delta": -11.3,
+        "history_top3": true
+      },
+      {
+        "player": "Amine Benchaib",
+        "position": "F",
+        "is_sub": false,
+        "type": "Buteur",
+        "label": "Amine Benchaib marque",
+        "cote": null,
+        "book": null,
+        "books": [],
+        "confidence": 74,
+        "reasoning": "8 buts en 7 matchs cette saison (114.3% de chance/match) · xG moyen 0.00/match · défense correcte\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+        "context": {
+          "weakness": 0.35
+        },
+        "stats": {
+          "goals": 8,
+          "apps": 7,
+          "gpm": 1.143,
+          "xgpm": 0
+        },
+        "team": "home",
+        "tier": "safe",
+        "calibration_delta": -11.3,
+        "history_top3": true
+      }
+    ],
+    "away_players": [
+      {
+        "player": "Ignas Venckus",
+        "position": "M",
+        "is_sub": false,
+        "type": "Buteur",
+        "label": "Ignas Venckus marque",
+        "cote": null,
+        "book": null,
+        "books": [],
+        "confidence": 66,
+        "reasoning": "5 buts en 5 matchs cette saison (100.0% de chance/match) · xG moyen 0.00/match · défense solide\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
+        "context": {
+          "weakness": 0.29
+        },
+        "stats": {
+          "goals": 5,
+          "apps": 5,
+          "gpm": 1.0,
+          "xgpm": 0
+        },
+        "team": "away",
+        "tier": "ok",
+        "calibration_delta": -25.4,
+        "history_top3": true
+      }
+    ],
+    "fun_picks": [],
+    "top_pick": {
+      "player": "Fabien Ourega",
+      "position": "F",
+      "is_sub": false,
+      "type": "Buteur",
+      "label": "Fabien Ourega marque",
+      "cote": null,
+      "book": null,
+      "books": [],
+      "confidence": 74,
+      "reasoning": "6 buts en 5 matchs cette saison (120.0% de chance/match) · xG moyen 0.00/match · défense correcte\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+      "context": {
+        "weakness": 0.35
+      },
+      "stats": {
+        "goals": 6,
+        "apps": 5,
+        "gpm": 1.2,
+        "xgpm": 0
+      },
+      "team": "home",
+      "tier": "safe",
+      "calibration_delta": -11.3,
+      "history_top3": true
+    },
+    "no_picks": false,
+    "context": null
+  },
+  {
     "league": "World Cup",
     "home": "England",
     "away": "Croatia",
@@ -2041,6 +2462,258 @@
     }
   },
   {
+    "league": "Lithuanian Toplyga",
+    "home": "FK TransINVEST",
+    "away": "Riteriai",
+    "start_ts": 1781622000,
+    "match_id": "5774045",
+    "page_url": "/matches/riteriai-vs-fk-transinvest/ijjepqqv#5774045",
+    "picks": [
+      {
+        "direction": "home_win",
+        "type": "Victoire domicile",
+        "label": "FK TransINVEST gagne",
+        "cote": null,
+        "confidence": 70,
+        "reasoning": "FK TransINVEST : 3V/1N/1D sur 5 matchs · #2 au classement · H2H: 2V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+        "stats": {
+          "form": [
+            "W",
+            "W",
+            "L",
+            "W",
+            "D"
+          ]
+        },
+        "is_fun": false,
+        "tier": "safe",
+        "calibration_delta": -11.3,
+        "history_top3": true
+      }
+    ],
+    "home_players": [
+      {
+        "player": "Xabi Auzmendi",
+        "position": "F",
+        "is_sub": false,
+        "type": "Buteur",
+        "label": "Xabi Auzmendi marque",
+        "cote": null,
+        "book": null,
+        "books": [],
+        "confidence": 81,
+        "reasoning": "8 buts en 6 matchs cette saison (133.3% de chance/match) · xG moyen 0.00/match, face à une défense qui concède 2.6 buts/match · défense fragile\n📉 Calibration : bucket 80-89% historiquement à WR 56% (claim 82%, n=63) — sur-estimé de 26pp",
+        "context": {
+          "weakness": 0.61
+        },
+        "stats": {
+          "goals": 8,
+          "apps": 6,
+          "gpm": 1.333,
+          "xgpm": 0
+        },
+        "team": "home",
+        "tier": "safe",
+        "calibration_delta": -26.0,
+        "history_top3": true
+      },
+      {
+        "player": "Yegor Glushach",
+        "position": "F",
+        "is_sub": false,
+        "type": "Buteur",
+        "label": "Yegor Glushach marque",
+        "cote": null,
+        "book": null,
+        "books": [],
+        "confidence": 77,
+        "reasoning": "9 buts en 8 matchs cette saison (112.5% de chance/match) · xG moyen 0.00/match, face à une défense qui concède 2.6 buts/match · défense fragile\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+        "context": {
+          "weakness": 0.61
+        },
+        "stats": {
+          "goals": 9,
+          "apps": 8,
+          "gpm": 1.125,
+          "xgpm": 0
+        },
+        "team": "home",
+        "tier": "safe",
+        "calibration_delta": -11.3,
+        "history_top3": true
+      }
+    ],
+    "away_players": [],
+    "fun_picks": [],
+    "top_pick": {
+      "direction": "home_win",
+      "type": "Victoire domicile",
+      "label": "FK TransINVEST gagne",
+      "cote": null,
+      "confidence": 70,
+      "reasoning": "FK TransINVEST : 3V/1N/1D sur 5 matchs · #2 au classement · H2H: 2V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+      "stats": {
+        "form": [
+          "W",
+          "W",
+          "L",
+          "W",
+          "D"
+        ]
+      },
+      "is_fun": false,
+      "tier": "safe",
+      "calibration_delta": -11.3,
+      "history_top3": true
+    },
+    "no_picks": false,
+    "context": null
+  },
+  {
+    "league": "Georgian Erovnuli",
+    "home": "Dila Gori",
+    "away": "Spaeri",
+    "start_ts": 1781625600,
+    "match_id": "5165331",
+    "page_url": "/matches/dila-gori-vs-spaeri/barocowc#5165331",
+    "picks": [],
+    "home_players": [
+      {
+        "player": "Zurab Menteshashvili",
+        "position": "M",
+        "is_sub": false,
+        "type": "Buteur",
+        "label": "Zurab Menteshashvili marque",
+        "team": "home",
+        "cote": null,
+        "book": null,
+        "books": [],
+        "confidence": 70,
+        "reasoning": "4G en 4 matchs (100.0%/match) · xG: 0.00/match\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+        "context": {
+          "weakness": 0.4
+        },
+        "stats": {
+          "goals": 4,
+          "apps": 4
+        },
+        "tier": "safe",
+        "calibration_delta": -11.3,
+        "history_top3": true
+      }
+    ],
+    "away_players": [],
+    "fun_picks": [],
+    "top_pick": {
+      "player": "Zurab Menteshashvili",
+      "position": "M",
+      "is_sub": false,
+      "type": "Buteur",
+      "label": "Zurab Menteshashvili marque",
+      "team": "home",
+      "cote": null,
+      "book": null,
+      "books": [],
+      "confidence": 70,
+      "reasoning": "4G en 4 matchs (100.0%/match) · xG: 0.00/match\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+      "context": {
+        "weakness": 0.4
+      },
+      "stats": {
+        "goals": 4,
+        "apps": 4
+      },
+      "tier": "safe",
+      "calibration_delta": -11.3,
+      "history_top3": true
+    },
+    "no_picks": false,
+    "context": null
+  },
+  {
+    "league": "Georgian Erovnuli",
+    "home": "Iberia 1999",
+    "away": "FC Rustavi",
+    "start_ts": 1781708400,
+    "match_id": "5165329",
+    "page_url": "/matches/fc-rustavi-vs-iberia-1999/43rnye2f#5165329",
+    "picks": [
+      {
+        "direction": "away_win",
+        "type": "Victoire extérieur",
+        "label": "FC Rustavi gagne",
+        "cote": null,
+        "confidence": 70,
+        "reasoning": "FC Rustavi : 3V/1N/1D sur 5 matchs · #2 au classement · H2H: 1V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+        "stats": {
+          "form": [
+            "W",
+            "W",
+            "L",
+            "W",
+            "D"
+          ]
+        },
+        "is_fun": false,
+        "tier": "safe",
+        "calibration_delta": -11.3,
+        "history_top3": true
+      }
+    ],
+    "home_players": [],
+    "away_players": [
+      {
+        "player": "Jean Souza",
+        "position": "M",
+        "is_sub": false,
+        "type": "Buteur",
+        "label": "Jean Souza marque",
+        "cote": null,
+        "book": null,
+        "books": [],
+        "confidence": 66,
+        "reasoning": "5 buts en 5 matchs cette saison (100.0% de chance/match) · xG moyen 0.00/match · défense solide\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
+        "context": {
+          "weakness": 0.26
+        },
+        "stats": {
+          "goals": 5,
+          "apps": 5,
+          "gpm": 1.0,
+          "xgpm": 0
+        },
+        "team": "away",
+        "tier": "ok",
+        "calibration_delta": -25.4,
+        "history_top3": true
+      }
+    ],
+    "fun_picks": [],
+    "top_pick": {
+      "direction": "away_win",
+      "type": "Victoire extérieur",
+      "label": "FC Rustavi gagne",
+      "cote": null,
+      "confidence": 70,
+      "reasoning": "FC Rustavi : 3V/1N/1D sur 5 matchs · #2 au classement · H2H: 1V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+      "stats": {
+        "form": [
+          "W",
+          "W",
+          "L",
+          "W",
+          "D"
+        ]
+      },
+      "is_fun": false,
+      "tier": "safe",
+      "calibration_delta": -11.3,
+      "history_top3": true
+    },
+    "no_picks": false,
+    "context": null
+  },
+  {
     "league": "Finnish Veikkausliiga",
     "home": "SJK",
     "away": "VPS",
@@ -2147,6 +2820,134 @@
         "summary_fr": "🌦️ bruine légère · 11–16°C · humidité 66%"
       },
       "text": "Conditions : 🌦️ bruine légère · 11–16°C · humidité 66%. Stade : OmaSP Stadion · 6 075 places · plein air."
+    }
+  },
+  {
+    "league": "Latvian Virsliga",
+    "home": "FK Tukums 2000",
+    "away": "Auda",
+    "start_ts": 1781708400,
+    "match_id": "5162005",
+    "page_url": "/matches/auda-vs-fk-tukums-2000/96ooq26#5162005",
+    "picks": [
+      {
+        "direction": "away_win",
+        "type": "Victoire extérieur",
+        "label": "Auda gagne",
+        "cote": null,
+        "confidence": 69,
+        "reasoning": "Auda : 3V/1N/1D sur 5 matchs · #3 au classement · H2H: 1V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
+        "stats": {
+          "form": [
+            "D",
+            "W",
+            "W",
+            "W",
+            "L"
+          ]
+        },
+        "is_fun": false,
+        "tier": "ok",
+        "calibration_delta": -25.4,
+        "history_top3": true
+      }
+    ],
+    "home_players": [],
+    "away_players": [
+      {
+        "player": "Josué Vergara / Hussaini Ibrahim",
+        "position": "",
+        "is_sub": false,
+        "type": "Double Chance Buteur",
+        "label": "Josué Vergara ou Hussaini Ibrahim marque",
+        "cote": null,
+        "book": null,
+        "books": [],
+        "confidence": 70,
+        "cote_min": 1.43,
+        "reasoning": "📈 P(Josué Vergara marque) ≈ 60% · P(Hussaini Ibrahim marque) ≈ 39%\n🎯 P(au moins un marque) = 70% (calculée par 1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.43 - chercher ≥1.43 chez le bookmaker\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+        "context": {},
+        "stats": {
+          "p_a": 0.6,
+          "p_b": 0.39,
+          "p_or": 0.7,
+          "player_a": "Josué Vergara",
+          "player_b": "Hussaini Ibrahim"
+        },
+        "team": "away",
+        "tier": "safe",
+        "calibration_delta": -11.3,
+        "history_top3": true
+      },
+      {
+        "player": "Josué Vergara",
+        "position": "F",
+        "is_sub": false,
+        "type": "Buteur",
+        "label": "Josué Vergara marque",
+        "cote": null,
+        "book": null,
+        "books": [],
+        "confidence": 60,
+        "reasoning": "13 buts en 17 matchs cette saison (76.5% de chance/match) · xG moyen 0.00/match · défense correcte\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
+        "context": {
+          "weakness": 0.31
+        },
+        "stats": {
+          "goals": 13,
+          "apps": 17,
+          "gpm": 0.765,
+          "xgpm": 0
+        },
+        "team": "away",
+        "tier": "ok",
+        "calibration_delta": -25.4,
+        "history_top3": true
+      }
+    ],
+    "fun_picks": [],
+    "top_pick": {
+      "direction": "away_win",
+      "type": "Victoire extérieur",
+      "label": "Auda gagne",
+      "cote": null,
+      "confidence": 69,
+      "reasoning": "Auda : 3V/1N/1D sur 5 matchs · #3 au classement · H2H: 1V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
+      "stats": {
+        "form": [
+          "D",
+          "W",
+          "W",
+          "W",
+          "L"
+        ]
+      },
+      "is_fun": false,
+      "tier": "ok",
+      "calibration_delta": -25.4,
+      "history_top3": true
+    },
+    "no_picks": false,
+    "context": {
+      "stadium": {
+        "name": "Tukuma pilsētas stadions",
+        "city": "Tukums",
+        "country": "Latvia",
+        "lat": 56.951641918,
+        "lon": 23.118447661,
+        "capacity": null,
+        "surface": null
+      },
+      "weather": {
+        "temp_max": 19.0,
+        "temp_min": 11.6,
+        "humidity": 73,
+        "precipitation_sum_mm": 0.0,
+        "wind_max_kmh": 21.6,
+        "weather_code": 3,
+        "summary_fr": "☁️ couvert · 11–19°C · humidité 73%"
+      },
+      "text": "Conditions : ☁️ couvert · 11–19°C · humidité 73%. Stade : Tukuma pilsētas stadions · plein air."
     }
   },
   {
@@ -2426,6 +3227,245 @@
       },
       "text": "Conditions : 🌦️ bruine légère · 12–16°C · humidité 74%. Stade : Tammelan stadion · 8 017 places · plein air."
     }
+  },
+  {
+    "league": "Latvian Virsliga",
+    "home": "BFC Daugavpils",
+    "away": "SK Super Nova",
+    "start_ts": 1781622000,
+    "match_id": "5162002",
+    "page_url": "/matches/bfc-daugavpils-vs-sk-super-nova/8vbi7hea#5162002",
+    "picks": [],
+    "home_players": [
+      {
+        "player": "Rostand Ndjiki / Artem Garzha",
+        "position": "",
+        "is_sub": false,
+        "type": "Double Chance Buteur",
+        "label": "Rostand Ndjiki ou Artem Garzha marque",
+        "cote": null,
+        "book": null,
+        "books": [],
+        "confidence": 68,
+        "cote_min": 1.47,
+        "reasoning": "📈 P(Rostand Ndjiki marque) ≈ 51% · P(Artem Garzha marque) ≈ 34%\n🎯 P(au moins un marque) = 68% (calculée par 1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.47 - chercher ≥1.47 chez le bookmaker\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
+        "context": {},
+        "stats": {
+          "p_a": 0.51,
+          "p_b": 0.345,
+          "p_or": 0.679,
+          "player_a": "Rostand Ndjiki",
+          "player_b": "Artem Garzha"
+        },
+        "team": "home",
+        "tier": "ok",
+        "calibration_delta": -25.4,
+        "history_top3": true
+      },
+      {
+        "player": "Rostand Ndjiki",
+        "position": "F",
+        "is_sub": false,
+        "type": "Joueur décisif",
+        "label": "Rostand Ndjiki but ou passe décisive",
+        "cote": null,
+        "book": null,
+        "books": [],
+        "confidence": 58,
+        "reasoning": "7 buts + 4 passes décisives en 13 matchs (84.6% de chance/match) · xG+xA: 0/match · défense solide\n📉 Calibration : bucket 50-59% historiquement à WR 42% (claim 55%, n=41) — sur-estimé de 14pp",
+        "context": {
+          "weakness": 0.25
+        },
+        "stats": {
+          "goals": 7,
+          "assists": 4,
+          "apps": 13
+        },
+        "team": "home",
+        "tier": "ok",
+        "calibration_delta": -13.6,
+        "history_top3": true
+      }
+    ],
+    "away_players": [],
+    "fun_picks": [],
+    "top_pick": {
+      "player": "Rostand Ndjiki / Artem Garzha",
+      "position": "",
+      "is_sub": false,
+      "type": "Double Chance Buteur",
+      "label": "Rostand Ndjiki ou Artem Garzha marque",
+      "cote": null,
+      "book": null,
+      "books": [],
+      "confidence": 68,
+      "cote_min": 1.47,
+      "reasoning": "📈 P(Rostand Ndjiki marque) ≈ 51% · P(Artem Garzha marque) ≈ 34%\n🎯 P(au moins un marque) = 68% (calculée par 1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.47 - chercher ≥1.47 chez le bookmaker\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
+      "context": {},
+      "stats": {
+        "p_a": 0.51,
+        "p_b": 0.345,
+        "p_or": 0.679,
+        "player_a": "Rostand Ndjiki",
+        "player_b": "Artem Garzha"
+      },
+      "team": "home",
+      "tier": "ok",
+      "calibration_delta": -25.4,
+      "history_top3": true
+    },
+    "no_picks": false,
+    "context": {
+      "stadium": {
+        "name": "Stadionā Esplanāde",
+        "city": "Daugavpils",
+        "country": "Latvia",
+        "lat": 55.877832644,
+        "lon": 26.515384912,
+        "capacity": null,
+        "surface": null
+      },
+      "weather": {
+        "temp_max": 17.0,
+        "temp_min": 12.0,
+        "humidity": 83,
+        "precipitation_sum_mm": 8.3,
+        "wind_max_kmh": 16.9,
+        "weather_code": 63,
+        "summary_fr": "🌧️ pluie modérée · 12–17°C · humidité 83% · précipitations 8.3mm"
+      },
+      "text": "Conditions : 🌧️ pluie modérée · 12–17°C · humidité 83% · précipitations 8.3mm. Stade : Stadionā Esplanāde · plein air. ⚠️ Pluies prévues : terrain potentiellement lourd, jeu direct privilégié, plus d'erreurs techniques."
+    }
+  },
+  {
+    "league": "Lithuanian Toplyga",
+    "home": "Suduva",
+    "away": "FA Siauliai",
+    "start_ts": 1781623800,
+    "match_id": "5774046",
+    "page_url": "/matches/suduva-vs-fa-siauliai/7u4rgz4u#5774046",
+    "picks": [],
+    "home_players": [
+      {
+        "player": "Faustas Steponavicius",
+        "position": "M",
+        "is_sub": false,
+        "type": "Buteur",
+        "label": "Faustas Steponavicius marque",
+        "cote": null,
+        "book": null,
+        "books": [],
+        "confidence": 68,
+        "reasoning": "5 buts en 5 matchs cette saison (100.0% de chance/match) · xG moyen 0.00/match, défense adverse poreuse (1.6 buts concédés/match) · défense correcte\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
+        "context": {
+          "weakness": 0.49
+        },
+        "stats": {
+          "goals": 5,
+          "apps": 5,
+          "gpm": 1.0,
+          "xgpm": 0
+        },
+        "team": "home",
+        "tier": "ok",
+        "calibration_delta": -25.4,
+        "history_top3": true
+      }
+    ],
+    "away_players": [],
+    "fun_picks": [],
+    "top_pick": {
+      "player": "Faustas Steponavicius",
+      "position": "M",
+      "is_sub": false,
+      "type": "Buteur",
+      "label": "Faustas Steponavicius marque",
+      "cote": null,
+      "book": null,
+      "books": [],
+      "confidence": 68,
+      "reasoning": "5 buts en 5 matchs cette saison (100.0% de chance/match) · xG moyen 0.00/match, défense adverse poreuse (1.6 buts concédés/match) · défense correcte\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
+      "context": {
+        "weakness": 0.49
+      },
+      "stats": {
+        "goals": 5,
+        "apps": 5,
+        "gpm": 1.0,
+        "xgpm": 0
+      },
+      "team": "home",
+      "tier": "ok",
+      "calibration_delta": -25.4,
+      "history_top3": true
+    },
+    "no_picks": false,
+    "context": null
+  },
+  {
+    "league": "Lithuanian Toplyga",
+    "home": "Zalgiris Vilnius",
+    "away": "FK Panevezys",
+    "start_ts": 1781627400,
+    "match_id": "5774047",
+    "page_url": "/matches/zalgiris-vilnius-vs-fk-panevezys/1hr5zivj#5774047",
+    "picks": [],
+    "home_players": [
+      {
+        "player": "Nikola Petkovic",
+        "position": "M",
+        "is_sub": false,
+        "type": "Buteur",
+        "label": "Nikola Petkovic marque",
+        "cote": null,
+        "book": null,
+        "books": [],
+        "confidence": 68,
+        "reasoning": "5 buts en 5 matchs cette saison (100.0% de chance/match) · xG moyen 0.00/match, défense adverse poreuse (1.6 buts concédés/match) · défense correcte\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
+        "context": {
+          "weakness": 0.45
+        },
+        "stats": {
+          "goals": 5,
+          "apps": 5,
+          "gpm": 1.0,
+          "xgpm": 0
+        },
+        "team": "home",
+        "tier": "ok",
+        "calibration_delta": -25.4,
+        "history_top3": true
+      }
+    ],
+    "away_players": [],
+    "fun_picks": [],
+    "top_pick": {
+      "player": "Nikola Petkovic",
+      "position": "M",
+      "is_sub": false,
+      "type": "Buteur",
+      "label": "Nikola Petkovic marque",
+      "cote": null,
+      "book": null,
+      "books": [],
+      "confidence": 68,
+      "reasoning": "5 buts en 5 matchs cette saison (100.0% de chance/match) · xG moyen 0.00/match, défense adverse poreuse (1.6 buts concédés/match) · défense correcte\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
+      "context": {
+        "weakness": 0.45
+      },
+      "stats": {
+        "goals": 5,
+        "apps": 5,
+        "gpm": 1.0,
+        "xgpm": 0
+      },
+      "team": "home",
+      "tier": "ok",
+      "calibration_delta": -25.4,
+      "history_top3": true
+    },
+    "no_picks": false,
+    "context": null
   },
   {
     "league": "World Cup",
@@ -3107,6 +4147,115 @@
       },
       "text": "Conditions : ⛈️ orage · 24–29°C · humidité 84% · précipitations 2.9mm. Stade : NRG Stadium · altitude 18m · 72 220 places · climatisé. Toit retractable, climatisé. Houston chaud et humide en été."
     }
+  },
+  {
+    "league": "Georgian Erovnuli",
+    "home": "Torpedo Kutaisi",
+    "away": "Dinamo Batumi",
+    "start_ts": 1781715600,
+    "match_id": "5165327",
+    "page_url": "/matches/torpedo-kutaisi-vs-dinamo-batumi/l20ly#5165327",
+    "picks": [
+      {
+        "direction": "home_win",
+        "type": "Victoire domicile",
+        "label": "Torpedo Kutaisi gagne",
+        "cote": null,
+        "confidence": 65,
+        "reasoning": "Torpedo Kutaisi : 3V/0N/2D sur 5 matchs · #3 au classement · H2H: 1V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
+        "stats": {
+          "form": [
+            "L",
+            "L",
+            "W",
+            "W",
+            "W"
+          ]
+        },
+        "is_fun": false,
+        "tier": "ok",
+        "calibration_delta": -25.4,
+        "history_top3": true
+      }
+    ],
+    "home_players": [
+      {
+        "player": "Komnen Andric",
+        "position": "F",
+        "is_sub": false,
+        "type": "Buteur",
+        "label": "Komnen Andric marque",
+        "cote": null,
+        "book": null,
+        "books": [],
+        "confidence": 82,
+        "reasoning": "8 buts en 5 matchs cette saison (160.0% de chance/match) · xG moyen 0.00/match, défense adverse poreuse (1.5 buts concédés/match) · défense correcte\n📉 Calibration : bucket 80-89% historiquement à WR 56% (claim 82%, n=63) — sur-estimé de 26pp",
+        "context": {
+          "weakness": 0.4
+        },
+        "stats": {
+          "goals": 8,
+          "apps": 5,
+          "gpm": 1.6,
+          "xgpm": 0
+        },
+        "team": "home",
+        "tier": "safe",
+        "calibration_delta": -26.0,
+        "history_top3": true
+      }
+    ],
+    "away_players": [
+      {
+        "player": "Nika Kalandarishvili",
+        "position": "F",
+        "is_sub": false,
+        "type": "Buteur",
+        "label": "Nika Kalandarishvili marque",
+        "cote": null,
+        "book": null,
+        "books": [],
+        "confidence": 74,
+        "reasoning": "6 buts en 5 matchs cette saison (120.0% de chance/match) · xG moyen 0.00/match · défense correcte\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+        "context": {
+          "weakness": 0.3
+        },
+        "stats": {
+          "goals": 6,
+          "apps": 5,
+          "gpm": 1.2,
+          "xgpm": 0
+        },
+        "team": "away",
+        "tier": "safe",
+        "calibration_delta": -11.3,
+        "history_top3": true
+      }
+    ],
+    "fun_picks": [],
+    "top_pick": {
+      "direction": "home_win",
+      "type": "Victoire domicile",
+      "label": "Torpedo Kutaisi gagne",
+      "cote": null,
+      "confidence": 65,
+      "reasoning": "Torpedo Kutaisi : 3V/0N/2D sur 5 matchs · #3 au classement · H2H: 1V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
+      "stats": {
+        "form": [
+          "L",
+          "L",
+          "W",
+          "W",
+          "W"
+        ]
+      },
+      "is_fun": false,
+      "tier": "ok",
+      "calibration_delta": -25.4,
+      "history_top3": true
+    },
+    "no_picks": false,
+    "context": null
   },
   {
     "league": "Finnish Veikkausliiga",
@@ -3828,6 +4977,164 @@
         "summary_fr": "🌧️ pluie modérée · 11–17°C · humidité 95% · précipitations 12.9mm"
       },
       "text": "Conditions : 🌧️ pluie modérée · 11–17°C · humidité 95% · précipitations 12.9mm. Stade : Paide kunstmuruväljak · plein air. ⚠️ Pluies prévues : terrain potentiellement lourd, jeu direct privilégié, plus d'erreurs techniques."
+    }
+  },
+  {
+    "league": "Latvian Virsliga",
+    "home": "Grobina",
+    "away": "FK Liepaja",
+    "start_ts": 1781625600,
+    "match_id": "5162003",
+    "page_url": "/matches/fk-liepaja-vs-grobina/2vccvo2r#5162003",
+    "picks": [],
+    "home_players": [],
+    "away_players": [
+      {
+        "player": "Kyvon Leidsman",
+        "position": "M",
+        "is_sub": false,
+        "type": "Buteur",
+        "label": "Kyvon Leidsman marque",
+        "team": "away",
+        "cote": null,
+        "book": null,
+        "books": [],
+        "confidence": 34,
+        "reasoning": "5G en 14 matchs (35.7%/match) · xG: 0.00/match",
+        "context": {
+          "weakness": 0.33
+        },
+        "stats": {
+          "goals": 5,
+          "apps": 14
+        },
+        "tier": "fun",
+        "history_top3": true
+      }
+    ],
+    "fun_picks": [],
+    "top_pick": {
+      "player": "Kyvon Leidsman",
+      "position": "M",
+      "is_sub": false,
+      "type": "Buteur",
+      "label": "Kyvon Leidsman marque",
+      "team": "away",
+      "cote": null,
+      "book": null,
+      "books": [],
+      "confidence": 34,
+      "reasoning": "5G en 14 matchs (35.7%/match) · xG: 0.00/match",
+      "context": {
+        "weakness": 0.33
+      },
+      "stats": {
+        "goals": 5,
+        "apps": 14
+      },
+      "tier": "fun",
+      "history_top3": true
+    },
+    "no_picks": false,
+    "context": {
+      "stadium": {
+        "name": "Stadions Daugava",
+        "city": "Liepāja",
+        "country": "Latvia",
+        "lat": 56.502915227,
+        "lon": 20.995157361,
+        "capacity": null,
+        "surface": null
+      },
+      "weather": {
+        "temp_max": 15.2,
+        "temp_min": 13.4,
+        "humidity": 83,
+        "precipitation_sum_mm": 8.9,
+        "wind_max_kmh": 37.1,
+        "weather_code": 63,
+        "summary_fr": "🌧️ pluie modérée · 15°C · humidité 83% · précipitations 8.9mm"
+      },
+      "text": "Conditions : 🌧️ pluie modérée · 15°C · humidité 83% · précipitations 8.9mm. Stade : Stadions Daugava · plein air. ⚠️ Pluies prévues : terrain potentiellement lourd, jeu direct privilégié, plus d'erreurs techniques. ⚠️ Vent fort prévu : jeu aérien moins fiable, balles longues imprévisibles."
+    }
+  },
+  {
+    "league": "Latvian Virsliga",
+    "home": "FK Jelgava",
+    "away": "Ogre United",
+    "start_ts": 1781708400,
+    "match_id": "5162004",
+    "page_url": "/matches/fk-jelgava-vs-ogre-united/rxnxzmz5#5162004",
+    "picks": [],
+    "home_players": [
+      {
+        "player": "Filip Hasek",
+        "position": "M",
+        "is_sub": false,
+        "type": "Buteur",
+        "label": "Filip Hasek marque",
+        "team": "home",
+        "cote": null,
+        "book": null,
+        "books": [],
+        "confidence": 32,
+        "reasoning": "5G en 15 matchs (33.3%/match) · xG: 0.00/match",
+        "context": {
+          "weakness": 0.35
+        },
+        "stats": {
+          "goals": 5,
+          "apps": 15
+        },
+        "tier": "fun",
+        "history_top3": true
+      }
+    ],
+    "away_players": [],
+    "fun_picks": [],
+    "top_pick": {
+      "player": "Filip Hasek",
+      "position": "M",
+      "is_sub": false,
+      "type": "Buteur",
+      "label": "Filip Hasek marque",
+      "team": "home",
+      "cote": null,
+      "book": null,
+      "books": [],
+      "confidence": 32,
+      "reasoning": "5G en 15 matchs (33.3%/match) · xG: 0.00/match",
+      "context": {
+        "weakness": 0.35
+      },
+      "stats": {
+        "goals": 5,
+        "apps": 15
+      },
+      "tier": "fun",
+      "history_top3": true
+    },
+    "no_picks": false,
+    "context": {
+      "stadium": {
+        "name": "Zemgales Olimpiskā centra",
+        "city": "Jelgava",
+        "country": "Latvia",
+        "lat": 56.661138562,
+        "lon": 23.755638599,
+        "capacity": null,
+        "surface": null
+      },
+      "weather": {
+        "temp_max": 19.7,
+        "temp_min": 12.2,
+        "humidity": 72,
+        "precipitation_sum_mm": 0.0,
+        "wind_max_kmh": 19.8,
+        "weather_code": 3,
+        "summary_fr": "☁️ couvert · 12–19°C · humidité 72%"
+      },
+      "text": "Conditions : ☁️ couvert · 12–19°C · humidité 72%. Stade : Zemgales Olimpiskā centra · plein air."
     }
   }
 ]
