@@ -23,11 +23,14 @@ import json, re, unicodedata
 from datetime import datetime, timezone
 from pathlib import Path
 
-from fotmob_client import team as fm_team
+from fotmob_client import team as fm_team, league as fm_league
 
 OUT_FILE   = Path("data/intl_team_sheets.json")
 FIFA_FILE  = Path("data/fifa_rankings.json")
 MATCHES    = Path("data/matches.json")
+
+# League ID FotMob de la Coupe du Monde 2026
+WC_LEAGUE_ID = 77
 
 # Fenêtres
 WINDOW_L5  = 5
@@ -88,19 +91,42 @@ def _wlt(gf, ga):
 # ─── Build team_ids mapping ──────────────────────────────────────────────────
 
 def _bootstrap_team_ids():
-    """Lit matches.json + fiches existantes pour récupérer le mapping
-    slug -> fotmob_team_id pour les ÉQUIPES NATIONALES uniquement.
-    Filtre : on ne garde que les équipes qui apparaissent dans une compétition
-    de sélections nationales (WC, qualifs, friendlies, Nations League...)."""
+    """Récupère le mapping slug -> fotmob_team_id pour TOUTES les équipes
+    nationales pertinentes : participantes WC 2026 + équipes déjà vues dans
+    matches.json (qualifs/amicaux récents) + fiches déjà persistées.
+    """
     ids = {}
-    # 1) Depuis fiches existantes (persiste les IDs déjà connus, présumés
-    #    déjà filtrés comme équipes nationales)
+    # 1) Fiches existantes (persiste les IDs déjà connus)
     existing = _load_json(OUT_FILE, {})
     for slug, sheet in (existing.get("teams") or {}).items():
         if sheet.get("fotmob_team_id"):
             ids[slug] = sheet["fotmob_team_id"]
-    # 2) Depuis matches.json : ne garde que les matchs de compétitions
-    #    internationales de sélections (filtre par league name)
+
+    # 2) Toutes les équipes ayant joué (ou devant jouer) un match WC 2026,
+    #    fetched depuis le league endpoint FotMob. Couvre les 32 participantes
+    #    dès qu'elles ont au moins un fixture programmé.
+    try:
+        wc_data = fm_league(WC_LEAGUE_ID, ttl=12 * 3600)
+        wc_matches = ((wc_data or {}).get("overview") or {}).get("leagueOverviewMatches") or []
+        for m in wc_matches:
+            for side in ("home", "away"):
+                t = m.get(side) or {}
+                name = t.get("name"); tid = t.get("id")
+                if not (name and tid): continue
+                # Skip placeholders des phases finales : "1A", "2B", "3DEIJL",
+                # "1F_2C", "Winner of QF 1", "Loser of SF 1", etc.
+                # Heuristique : les vraies équipes commencent par une LETTRE,
+                # les placeholders commencent par un chiffre ou contiennent
+                # "winner"/"loser".
+                low = name.lower()
+                if not low or not low[0].isalpha(): continue
+                if "winner" in low or "loser" in low: continue
+                ids.setdefault(_slug(name), tid)
+    except Exception as e:
+        print(f"  [WC league bootstrap err] {e}")
+
+    # 3) Depuis matches.json : matchs d'amicaux / qualifs récents (utile pour
+    #    avoir aussi les équipes non-WC mais qui jouent en sélection)
     ms = _load_json(MATCHES, [])
     intl_kw = ("World Cup", "Nations League", "UEFA Euro", "Copa America",
                "Africa Cup", "Asian Cup", "Friendlies", "Qualification")
@@ -112,6 +138,7 @@ def _bootstrap_team_ids():
             name = m.get(side); tid = m.get(f"{side}_id")
             if name and tid:
                 ids.setdefault(_slug(name), tid)
+
     return ids
 
 
