@@ -440,15 +440,15 @@
         "surface": null
       },
       "weather": {
-        "temp_max": 19.7,
+        "temp_max": 18.6,
         "temp_min": 13.3,
-        "humidity": 70,
-        "precipitation_sum_mm": 0.0,
-        "wind_max_kmh": 24.1,
-        "weather_code": 3,
-        "summary_fr": "☁️ couvert · 13–19°C · humidité 70%"
+        "humidity": 71,
+        "precipitation_sum_mm": 0.4,
+        "wind_max_kmh": 23.8,
+        "weather_code": 51,
+        "summary_fr": "🌦️ bruine légère · 13–18°C · humidité 71%"
       },
-      "text": "Conditions : ☁️ couvert · 13–19°C · humidité 70%. Stade : Stadions Skonto · plein air."
+      "text": "Conditions : 🌦️ bruine légère · 13–18°C · humidité 71%. Stade : Stadions Skonto · plein air."
     }
   },
   {
@@ -629,92 +629,64 @@
     ],
     "home_players": [
       {
+        "player": "Kylian Mbappé",
+        "position": "F",
+        "is_sub": false,
+        "type": "Buteur",
+        "label": "Kylian Mbappé marque",
+        "cote": 2.05,
+        "cote_min": 1.19,
+        "book": "pinnacle",
+        "books": [],
+        "confidence": 82,
+        "reasoning": "Kylian Mbappé : selection 8G/9m (0.89/m) · L10 club : 5G/10m, 🔥 2G/3 derniers nat (+19%) | titu nat (72min/m) · last match 90min (2G+0A). λ ajusté à 1.84 (France attendu 3.0 buts) → P(marque) ~84%.\n📉 Calibration : bucket 80-89% historiquement à WR 56% (claim 82%, n=63) — sur-estimé de 26pp",
+        "context": {
+          "source": "lineup",
+          "lam": 1.84,
+          "lineup_status": "confirmed"
+        },
+        "stats": {
+          "goals": null,
+          "apps": null,
+          "gpm": 1.844,
+          "xgpm": null
+        },
+        "team": "home",
+        "lineup_status": "confirmed",
+        "tier": "ok",
+        "calibration_delta": -26.0,
+        "edge_pp": 33.2,
+        "history_top3": true
+      },
+      {
         "player": "Michael Olise",
         "position": "F",
         "is_sub": false,
         "type": "Buteur",
         "label": "Michael Olise marque",
         "cote": 3.35,
-        "cote_min": 1.31,
+        "cote_min": 1.36,
         "book": "draftkings",
         "books": [],
-        "confidence": 76,
-        "reasoning": "Michael Olise : selection 5G/9m (0.56/m) · L10 club : 7G/10m, 🔥 3G/3 derniers nat (+19%) | titu nat (72min/m) · last match 82min (3G+0A). λ ajusté à 1.43 (France attendu 3.0 buts) → P(marque) ~76%.\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+        "confidence": 74,
+        "reasoning": "Michael Olise : selection 5G/10m (0.50/m) · L10 club : 7G/10m, 🔥 3G/3 derniers nat (+19%) | titu nat (74min/m) · last match 90min (0G+1A). λ ajusté à 1.34 (France attendu 3.0 buts) → P(marque) ~74%.\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
         "context": {
           "source": "lineup",
-          "lam": 1.43,
+          "lam": 1.34,
           "lineup_status": "confirmed"
         },
         "stats": {
           "goals": null,
           "apps": null,
-          "gpm": 1.43,
+          "gpm": 1.337,
           "xgpm": null
         },
         "team": "home",
         "lineup_status": "confirmed",
         "tier": "fun",
         "calibration_delta": -11.3,
-        "edge_pp": 46.1,
+        "edge_pp": 44.1,
         "history_top3": true
-      },
-      {
-        "player": "Kylian Mbappé",
-        "position": "F",
-        "is_sub": false,
-        "type": "Joueur décisif",
-        "label": "Kylian Mbappé but ou passe décisive",
-        "cote": null,
-        "cote_min": 1.5,
-        "book": null,
-        "books": [],
-        "confidence": 67,
-        "reasoning": "Kylian Mbappé but ou passe decisive : selection 6G+3A/8m (1.12 G+A/m nat) · ⚠️ disette recente. P(but ou passe) ~67%.\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
-        "context": {
-          "source": "lineup",
-          "lam": 1.09,
-          "lineup_status": "confirmed"
-        },
-        "stats": {
-          "goals": null,
-          "apps": null,
-          "gpm": 1.094,
-          "xgpm": null
-        },
-        "team": "home",
-        "lineup_status": "confirmed",
-        "tier": "ok",
-        "calibration_delta": -25.4,
-        "history_top3": true
-      },
-      {
-        "player": "Michael Olise",
-        "position": "F",
-        "is_sub": false,
-        "type": "Double buteur",
-        "label": "Michael Olise marque 2+ buts",
-        "cote": null,
-        "cote_min": 2.39,
-        "book": null,
-        "books": [],
-        "confidence": 52,
-        "reasoning": "Michael Olise : selection 5G/9m (0.56/m) · L10 club : 7G/10m, 🔥 3G/3 derniers nat (+19%) | titu nat (72min/m) · last match 82min (3G+0A). Attendu ~1.4 buts ce match - P(2+) ~42% (cote elevee).\n📉 Calibration : bucket 50-59% historiquement à WR 42% (claim 55%, n=41) — sur-estimé de 14pp",
-        "context": {
-          "source": "lineup",
-          "lam": 1.43,
-          "lineup_status": "confirmed"
-        },
-        "stats": {
-          "goals": null,
-          "apps": null,
-          "gpm": 1.43,
-          "xgpm": null
-        },
-        "team": "home",
-        "lineup_status": "confirmed",
-        "tier": "fun",
-        "calibration_delta": -13.6,
-        "history_top3": false
       }
     ],
     "away_players": [],
@@ -846,18 +818,18 @@
     ],
     "home_players": [
       {
-        "player": "Elías Már Ómarsson",
+        "player": "Elias Mar Omarsson",
         "position": "F",
         "is_sub": false,
         "type": "Buteur",
-        "label": "Elías Már Ómarsson marque",
+        "label": "Elias Mar Omarsson marque",
         "cote": null,
         "book": null,
         "books": [],
         "confidence": 70,
-        "reasoning": "9 buts en 10 matchs cette saison (90.0% de chance/match) · bonne efficacité (26% conv.) · xG moyen 0.00/match, face à une défense qui concède 2.2 buts/match · défense correcte\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+        "reasoning": "9 buts en 10 matchs cette saison (90.0% de chance/match) · bonne efficacité (26% conv.) · xG moyen 0.00/match, face à une défense qui concède 2.3 buts/match · défense correcte\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
         "context": {
-          "weakness": 0.41
+          "weakness": 0.42
         },
         "stats": {
           "goals": 9,
@@ -871,24 +843,24 @@
         "history_top3": true
       },
       {
-        "player": "Elías Már Ómarsson / Óskar Borgthórsson",
+        "player": "Elias Mar Omarsson / Oskar Borgthorsson",
         "position": "",
         "is_sub": false,
         "type": "Double Chance Buteur",
-        "label": "Elías Már Ómarsson ou Óskar Borgthórsson marque",
+        "label": "Elias Mar Omarsson ou Oskar Borgthorsson marque",
         "cote": null,
         "book": null,
         "books": [],
         "confidence": 70,
         "cote_min": 1.43,
-        "reasoning": "📈 P(Elías Már Ómarsson marque) ≈ 70% · P(Óskar Borgthórsson marque) ≈ 68%\n🎯 P(au moins un marque) = 70% (calculée par 1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.43 - chercher ≥1.43 chez le bookmaker\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+        "reasoning": "📈 P(Elias Mar Omarsson marque) ≈ 70% · P(Oskar Borgthorsson marque) ≈ 68%\n🎯 P(au moins un marque) = 70% (calculée par 1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.43 - chercher ≥1.43 chez le bookmaker\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
         "context": {},
         "stats": {
           "p_a": 0.705,
           "p_b": 0.675,
           "p_or": 0.7,
-          "player_a": "Elías Már Ómarsson",
-          "player_b": "Óskar Borgthórsson"
+          "player_a": "Elias Mar Omarsson",
+          "player_b": "Oskar Borgthorsson"
         },
         "team": "home",
         "tier": "safe",
@@ -2181,24 +2153,24 @@
     "picks": [],
     "home_players": [
       {
-        "player": "Andri Bjarnason / Emil Atlason",
+        "player": "Andri Runar Bjarnason / Örvar Eggertsson",
         "position": "",
         "is_sub": false,
         "type": "Double Chance Buteur",
-        "label": "Andri Bjarnason ou Emil Atlason marque",
+        "label": "Andri Runar Bjarnason ou Örvar Eggertsson marque",
         "cote": null,
         "book": null,
         "books": [],
         "confidence": 70,
         "cote_min": 1.43,
-        "reasoning": "📈 P(Andri Bjarnason marque) ≈ 59% · P(Emil Atlason marque) ≈ 59%\n🎯 P(au moins un marque) = 70% (calculée par 1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.43 - chercher ≥1.43 chez le bookmaker\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+        "reasoning": "📈 P(Andri Runar Bjarnason marque) ≈ 60% · P(Örvar Eggertsson marque) ≈ 50%\n🎯 P(au moins un marque) = 70% (calculée par 1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.43 - chercher ≥1.43 chez le bookmaker\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
         "context": {},
         "stats": {
-          "p_a": 0.592,
-          "p_b": 0.592,
+          "p_a": 0.6,
+          "p_b": 0.495,
           "p_or": 0.7,
-          "player_a": "Andri Bjarnason",
-          "player_b": "Emil Atlason"
+          "player_a": "Andri Runar Bjarnason",
+          "player_b": "Örvar Eggertsson"
         },
         "team": "home",
         "tier": "safe",
@@ -2208,23 +2180,23 @@
     ],
     "away_players": [
       {
-        "player": "Kristófer Kristinsson",
+        "player": "Kristofer Ingi Kristinsson",
         "position": "F",
         "is_sub": false,
         "type": "Buteur",
-        "label": "Kristófer Kristinsson marque",
+        "label": "Kristofer Ingi Kristinsson marque",
         "cote": null,
         "book": null,
         "books": [],
-        "confidence": 74,
-        "reasoning": "9 buts en 9 matchs cette saison (100.0% de chance/match) · bonne efficacité (29% conv.) · xG moyen 0.00/match, face à une défense qui concède 2.4 buts/match · défense fragile\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+        "confidence": 70,
+        "reasoning": "8 buts en 9 matchs cette saison (88.9% de chance/match) · bonne efficacité (26% conv.) · xG moyen 0.00/match, face à une défense qui concède 2.4 buts/match · défense fragile\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
         "context": {
-          "weakness": 0.57
+          "weakness": 0.53
         },
         "stats": {
-          "goals": 9,
+          "goals": 8,
           "apps": 9,
-          "gpm": 1.0,
+          "gpm": 0.889,
           "xgpm": 0
         },
         "team": "away",
@@ -2233,24 +2205,24 @@
         "history_top3": true
       },
       {
-        "player": "Kristófer Kristinsson / Aron Bjarnason",
+        "player": "Kristofer Ingi Kristinsson / Anton Ludviksson",
         "position": "",
         "is_sub": false,
         "type": "Double Chance Buteur",
-        "label": "Kristófer Kristinsson ou Aron Bjarnason marque",
+        "label": "Kristofer Ingi Kristinsson ou Anton Ludviksson marque",
         "cote": null,
         "book": null,
         "books": [],
         "confidence": 70,
         "cote_min": 1.43,
-        "reasoning": "📈 P(Kristófer Kristinsson marque) ≈ 74% · P(Aron Bjarnason marque) ≈ 56%\n🎯 P(au moins un marque) = 70% (calculée par 1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.43 - chercher ≥1.43 chez le bookmaker\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+        "reasoning": "📈 P(Kristofer Ingi Kristinsson marque) ≈ 70% · P(Anton Ludviksson marque) ≈ 42%\n🎯 P(au moins un marque) = 70% (calculée par 1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.43 - chercher ≥1.43 chez le bookmaker\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
         "context": {},
         "stats": {
-          "p_a": 0.742,
-          "p_b": 0.555,
+          "p_a": 0.705,
+          "p_b": 0.42,
           "p_or": 0.7,
-          "player_a": "Kristófer Kristinsson",
-          "player_b": "Aron Bjarnason"
+          "player_a": "Kristofer Ingi Kristinsson",
+          "player_b": "Anton Ludviksson"
         },
         "team": "away",
         "tier": "safe",
@@ -2260,24 +2232,24 @@
     ],
     "fun_picks": [],
     "top_pick": {
-      "player": "Andri Bjarnason / Emil Atlason",
+      "player": "Andri Runar Bjarnason / Örvar Eggertsson",
       "position": "",
       "is_sub": false,
       "type": "Double Chance Buteur",
-      "label": "Andri Bjarnason ou Emil Atlason marque",
+      "label": "Andri Runar Bjarnason ou Örvar Eggertsson marque",
       "cote": null,
       "book": null,
       "books": [],
       "confidence": 70,
       "cote_min": 1.43,
-      "reasoning": "📈 P(Andri Bjarnason marque) ≈ 59% · P(Emil Atlason marque) ≈ 59%\n🎯 P(au moins un marque) = 70% (calculée par 1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.43 - chercher ≥1.43 chez le bookmaker\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+      "reasoning": "📈 P(Andri Runar Bjarnason marque) ≈ 60% · P(Örvar Eggertsson marque) ≈ 50%\n🎯 P(au moins un marque) = 70% (calculée par 1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.43 - chercher ≥1.43 chez le bookmaker\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
       "context": {},
       "stats": {
-        "p_a": 0.592,
-        "p_b": 0.592,
+        "p_a": 0.6,
+        "p_b": 0.495,
         "p_or": 0.7,
-        "player_a": "Andri Bjarnason",
-        "player_b": "Emil Atlason"
+        "player_a": "Andri Runar Bjarnason",
+        "player_b": "Örvar Eggertsson"
       },
       "team": "home",
       "tier": "safe",
@@ -2724,15 +2696,15 @@
         "surface": null
       },
       "weather": {
-        "temp_max": 19.0,
-        "temp_min": 11.6,
+        "temp_max": 18.5,
+        "temp_min": 11.8,
         "humidity": 73,
         "precipitation_sum_mm": 0.0,
         "wind_max_kmh": 21.6,
         "weather_code": 3,
-        "summary_fr": "☁️ couvert · 11–19°C · humidité 73%"
+        "summary_fr": "☁️ couvert · 11–18°C · humidité 73%"
       },
-      "text": "Conditions : ☁️ couvert · 11–19°C · humidité 73%. Stade : Tukuma pilsētas stadions · plein air."
+      "text": "Conditions : ☁️ couvert · 11–18°C · humidité 73%. Stade : Tukuma pilsētas stadions · plein air."
     }
   },
   {
@@ -3038,7 +3010,7 @@
           "wc_round": null,
           "family": "1X2"
         },
-        "reasoning": "📊 Niveau équilibré : Iraq #51 vs Norway #34 (gap -109 pts).\nL10 : Iraq 2V/1N/2D sur 5 · Norway 2V/2N/1D sur 5\n📋 Fiche Iraq : off en panne (-0.37) · def moyenne (+0.04) · forme LDWWL · 🏆 novice WC\n📋 Fiche Norway : off solide (+0.82) · def moyenne (+0.29) · forme DWDLW · 🏆 novice WC\n🌦️ ☁️ couvert · 13–24°C · humidité 34%\n⚠️ Compo PROBABLE (officielle à T-60min)\n🏆 Modèle Poisson CdM (tier FIFA ajusté)\nλ Iraq = 0.64, λ Norway = 1.90\nP(Iraq) = 11.6% · P(nul) = 20.8% · P(Norway gagne) = 67.6%\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
+        "reasoning": "📊 Niveau équilibré : Iraq #51 vs Norway #34 (gap -109 pts).\nL10 : Iraq 2V/1N/2D sur 5 · Norway 2V/2N/1D sur 5\n📋 Fiche Iraq : off en panne (-0.37) · def moyenne (+0.04) · forme LDWWL · 🏆 novice WC\n📋 Fiche Norway : off solide (+0.82) · def moyenne (+0.29) · forme DWDLW · 🏆 novice WC\n🌦️ ☁️ couvert · 13–24°C · humidité 34%\n✅ Compo OFFICIELLE\n🏆 Modèle Poisson CdM (tier FIFA ajusté)\nλ Iraq = 0.64, λ Norway = 1.90\nP(Iraq) = 11.6% · P(nul) = 20.8% · P(Norway gagne) = 67.6%\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
         "calibration_delta": -25.4,
         "edge_pp": -14.0,
         "history_top3": false
@@ -3060,7 +3032,7 @@
           "wc_round": null,
           "family": "DC"
         },
-        "reasoning": "📊 Niveau équilibré : Iraq #51 vs Norway #34 (gap -109 pts).\nL10 : Iraq 2V/1N/2D sur 5 · Norway 2V/2N/1D sur 5\n📋 Fiche Iraq : off en panne (-0.37) · def moyenne (+0.04) · forme LDWWL · 🏆 novice WC\n📋 Fiche Norway : off solide (+0.82) · def moyenne (+0.29) · forme DWDLW · 🏆 novice WC\n🌦️ ☁️ couvert · 13–24°C · humidité 34%\n⚠️ Compo PROBABLE (officielle à T-60min)\n🛡️ Double chance 12 : Iraq (11.6%) OU Norway (67.6%)\nCombiné = 79.2% — couvre tout sauf le nul\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+        "reasoning": "📊 Niveau équilibré : Iraq #51 vs Norway #34 (gap -109 pts).\nL10 : Iraq 2V/1N/2D sur 5 · Norway 2V/2N/1D sur 5\n📋 Fiche Iraq : off en panne (-0.37) · def moyenne (+0.04) · forme LDWWL · 🏆 novice WC\n📋 Fiche Norway : off solide (+0.82) · def moyenne (+0.29) · forme DWDLW · 🏆 novice WC\n🌦️ ☁️ couvert · 13–24°C · humidité 34%\n✅ Compo OFFICIELLE\n🛡️ Double chance 12 : Iraq (11.6%) OU Norway (67.6%)\nCombiné = 79.2% — couvre tout sauf le nul\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
         "calibration_delta": -11.3,
         "history_top3": false
       },
@@ -3081,7 +3053,7 @@
           "wc_round": null,
           "family": "TOTAL"
         },
-        "reasoning": "📊 Niveau équilibré : Iraq #51 vs Norway #34 (gap -109 pts).\nL10 : Iraq 2V/1N/2D sur 5 · Norway 2V/2N/1D sur 5\n📋 Fiche Iraq : off en panne (-0.37) · def moyenne (+0.04) · forme LDWWL · 🏆 novice WC\n📋 Fiche Norway : off solide (+0.82) · def moyenne (+0.29) · forme DWDLW · 🏆 novice WC\n🌦️ ☁️ couvert · 13–24°C · humidité 34%\n⚠️ Compo PROBABLE (officielle à T-60min)\n⚽ Modèle Poisson : λ total = 2.54 buts attendus\nP(plus de 1.5 buts) = 72.1%\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+        "reasoning": "📊 Niveau équilibré : Iraq #51 vs Norway #34 (gap -109 pts).\nL10 : Iraq 2V/1N/2D sur 5 · Norway 2V/2N/1D sur 5\n📋 Fiche Iraq : off en panne (-0.37) · def moyenne (+0.04) · forme LDWWL · 🏆 novice WC\n📋 Fiche Norway : off solide (+0.82) · def moyenne (+0.29) · forme DWDLW · 🏆 novice WC\n🌦️ ☁️ couvert · 13–24°C · humidité 34%\n✅ Compo OFFICIELLE\n⚽ Modèle Poisson : λ total = 2.54 buts attendus\nP(plus de 1.5 buts) = 72.1%\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
         "calibration_delta": -11.3,
         "history_top3": true
       }
@@ -3091,19 +3063,19 @@
       {
         "player": "Martin Ødegaard",
         "position": "F",
-        "is_sub": true,
+        "is_sub": false,
         "type": "Joueur décisif",
         "label": "Martin Ødegaard but ou passe décisive",
         "cote": null,
         "cote_min": 1.5,
         "book": null,
         "books": [],
-        "confidence": 62,
-        "reasoning": "⚠️ Compo PROBABLE (a confirmer 1h avant). Martin Ødegaard but ou passe decisive : selection 2G+2A/3m (1.33 G+A/m nat). P(but ou passe) ~62%.\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
+        "confidence": 67,
+        "reasoning": "Martin Ødegaard but ou passe decisive : selection 2G+2A/3m (1.33 G+A/m nat). P(but ou passe) ~67%.\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
         "context": {
           "source": "lineup",
           "lam": 1.1,
-          "lineup_status": "predicted"
+          "lineup_status": "confirmed"
         },
         "stats": {
           "goals": null,
@@ -3112,7 +3084,7 @@
           "xgpm": null
         },
         "team": "away",
-        "lineup_status": "predicted",
+        "lineup_status": "confirmed",
         "tier": "ok",
         "calibration_delta": -25.4,
         "history_top3": true
@@ -3120,19 +3092,19 @@
       {
         "player": "Erling Haaland",
         "position": "F",
-        "is_sub": true,
+        "is_sub": false,
         "type": "Joueur décisif",
         "label": "Erling Haaland but ou passe décisive",
         "cote": null,
         "cote_min": 1.65,
         "book": null,
         "books": [],
-        "confidence": 55,
-        "reasoning": "⚠️ Compo PROBABLE (a confirmer 1h avant). Erling Haaland but ou passe decisive : selection 13G+2A/7m (2.14 G+A/m nat) · ⚠️ disette recente. P(but ou passe) ~55%.\n📉 Calibration : bucket 50-59% historiquement à WR 42% (claim 55%, n=41) — sur-estimé de 14pp",
+        "confidence": 60,
+        "reasoning": "Erling Haaland but ou passe decisive : selection 13G+2A/7m (2.14 G+A/m nat) · ⚠️ disette recente. P(but ou passe) ~60%.\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
         "context": {
           "source": "lineup",
           "lam": 0.93,
-          "lineup_status": "predicted"
+          "lineup_status": "confirmed"
         },
         "stats": {
           "goals": null,
@@ -3141,27 +3113,27 @@
           "xgpm": null
         },
         "team": "away",
-        "lineup_status": "predicted",
+        "lineup_status": "confirmed",
         "tier": "ok",
-        "calibration_delta": -13.6,
+        "calibration_delta": -25.4,
         "history_top3": true
       },
       {
         "player": "Erling Haaland",
         "position": "F",
-        "is_sub": true,
+        "is_sub": false,
         "type": "Buteur",
         "label": "Erling Haaland marque",
         "cote": null,
         "cote_min": 1.83,
         "book": null,
         "books": [],
-        "confidence": 50,
-        "reasoning": "⚠️ Compo PROBABLE (a confirmer 1h avant). Erling Haaland : selection 13G/7m (1.86/m) · L10 club : 5G/10m, 🔥 2G/3 derniers nat (+19%) · ⚠️ 2 derniers matchs nat 60+min 0G+0A (-60%) | titu nat (76min/m) · last match 72min (0G+0A). λ ajusté à 0.79 (Norway attendu 1.7 buts) → P(marque) ~50%.\n📉 Calibration : bucket 50-59% historiquement à WR 42% (claim 55%, n=41) — sur-estimé de 14pp",
+        "confidence": 55,
+        "reasoning": "Erling Haaland : selection 13G/7m (1.86/m) · L10 club : 5G/10m, 🔥 2G/3 derniers nat (+19%) · ⚠️ 2 derniers matchs nat 60+min 0G+0A (-60%) | titu nat (76min/m) · last match 72min (0G+0A). λ ajusté à 0.79 (Norway attendu 1.7 buts) → P(marque) ~55%.\n📉 Calibration : bucket 50-59% historiquement à WR 42% (claim 55%, n=41) — sur-estimé de 14pp",
         "context": {
           "source": "lineup",
           "lam": 0.79,
-          "lineup_status": "predicted"
+          "lineup_status": "confirmed"
         },
         "stats": {
           "goals": null,
@@ -3170,27 +3142,27 @@
           "xgpm": null
         },
         "team": "away",
-        "lineup_status": "predicted",
-        "tier": "fun",
+        "lineup_status": "confirmed",
+        "tier": "ok",
         "calibration_delta": -13.6,
         "history_top3": true
       },
       {
         "player": "Antonio Nusa",
         "position": "F",
-        "is_sub": true,
+        "is_sub": false,
         "type": "Joueur décisif",
         "label": "Antonio Nusa but ou passe décisive",
         "cote": null,
         "cote_min": 2.15,
         "book": null,
         "books": [],
-        "confidence": 42,
-        "reasoning": "⚠️ Compo PROBABLE (a confirmer 1h avant). Antonio Nusa but ou passe decisive : selection 3G+2A/9m (0.56 G+A/m nat). P(but ou passe) ~42%.\n📉 Calibration : bucket 40-49% historiquement à WR 25% (claim 44%, n=36) — sur-estimé de 19pp",
+        "confidence": 47,
+        "reasoning": "Antonio Nusa but ou passe decisive : selection 3G+2A/9m (0.56 G+A/m nat). P(but ou passe) ~47%.\n📉 Calibration : bucket 40-49% historiquement à WR 25% (claim 44%, n=36) — sur-estimé de 19pp",
         "context": {
           "source": "lineup",
           "lam": 0.63,
-          "lineup_status": "predicted"
+          "lineup_status": "confirmed"
         },
         "stats": {
           "goals": null,
@@ -3199,7 +3171,7 @@
           "xgpm": null
         },
         "team": "away",
-        "lineup_status": "predicted",
+        "lineup_status": "confirmed",
         "tier": "fun",
         "calibration_delta": -19.4,
         "history_top3": true
@@ -3269,7 +3241,7 @@
         "wc_round": null,
         "family": "1X2"
       },
-      "reasoning": "📊 Niveau équilibré : Iraq #51 vs Norway #34 (gap -109 pts).\nL10 : Iraq 2V/1N/2D sur 5 · Norway 2V/2N/1D sur 5\n📋 Fiche Iraq : off en panne (-0.37) · def moyenne (+0.04) · forme LDWWL · 🏆 novice WC\n📋 Fiche Norway : off solide (+0.82) · def moyenne (+0.29) · forme DWDLW · 🏆 novice WC\n🌦️ ☁️ couvert · 13–24°C · humidité 34%\n⚠️ Compo PROBABLE (officielle à T-60min)\n🏆 Modèle Poisson CdM (tier FIFA ajusté)\nλ Iraq = 0.64, λ Norway = 1.90\nP(Iraq) = 11.6% · P(nul) = 20.8% · P(Norway gagne) = 67.6%\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
+      "reasoning": "📊 Niveau équilibré : Iraq #51 vs Norway #34 (gap -109 pts).\nL10 : Iraq 2V/1N/2D sur 5 · Norway 2V/2N/1D sur 5\n📋 Fiche Iraq : off en panne (-0.37) · def moyenne (+0.04) · forme LDWWL · 🏆 novice WC\n📋 Fiche Norway : off solide (+0.82) · def moyenne (+0.29) · forme DWDLW · 🏆 novice WC\n🌦️ ☁️ couvert · 13–24°C · humidité 34%\n✅ Compo OFFICIELLE\n🏆 Modèle Poisson CdM (tier FIFA ajusté)\nλ Iraq = 0.64, λ Norway = 1.90\nP(Iraq) = 11.6% · P(nul) = 20.8% · P(Norway gagne) = 67.6%\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
       "calibration_delta": -25.4,
       "edge_pp": -14.0,
       "history_top3": false
@@ -3988,24 +3960,24 @@
     ],
     "home_players": [
       {
-        "player": "Markús Ellertsson / Viktor Jónsson",
+        "player": "Markus Ellertsson / Viktor Jonsson",
         "position": "",
         "is_sub": false,
         "type": "Double Chance Buteur",
-        "label": "Markús Ellertsson ou Viktor Jónsson marque",
+        "label": "Markus Ellertsson ou Viktor Jonsson marque",
         "cote": null,
         "book": null,
         "books": [],
         "confidence": 70,
         "cote_min": 1.43,
-        "reasoning": "📈 P(Markús Ellertsson marque) ≈ 62% · P(Viktor Jónsson marque) ≈ 51%\n🎯 P(au moins un marque) = 70% (calculée par 1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.43 - chercher ≥1.43 chez le bookmaker\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+        "reasoning": "📈 P(Markus Ellertsson marque) ≈ 62% · P(Viktor Jonsson marque) ≈ 44%\n🎯 P(au moins un marque) = 70% (calculée par 1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.43 - chercher ≥1.43 chez le bookmaker\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
         "context": {},
         "stats": {
           "p_a": 0.622,
-          "p_b": 0.51,
+          "p_b": 0.442,
           "p_or": 0.7,
-          "player_a": "Markús Ellertsson",
-          "player_b": "Viktor Jónsson"
+          "player_a": "Markus Ellertsson",
+          "player_b": "Viktor Jonsson"
         },
         "team": "home",
         "tier": "safe",
@@ -4512,15 +4484,15 @@
         "surface": null
       },
       "weather": {
-        "temp_max": 19.7,
-        "temp_min": 12.2,
-        "humidity": 72,
-        "precipitation_sum_mm": 0.0,
+        "temp_max": 19.2,
+        "temp_min": 12.4,
+        "humidity": 73,
+        "precipitation_sum_mm": 0.1,
         "wind_max_kmh": 19.8,
-        "weather_code": 3,
-        "summary_fr": "☁️ couvert · 12–19°C · humidité 72%"
+        "weather_code": 51,
+        "summary_fr": "🌦️ bruine légère · 12–19°C · humidité 73%"
       },
-      "text": "Conditions : ☁️ couvert · 12–19°C · humidité 72%. Stade : Zemgales Olimpiskā centra · plein air."
+      "text": "Conditions : 🌦️ bruine légère · 12–19°C · humidité 73%. Stade : Zemgales Olimpiskā centra · plein air."
     }
   }
 ]
