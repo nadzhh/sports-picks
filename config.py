@@ -117,6 +117,9 @@ FOTMOB_LEAGUES = {
     "Hungarian NB I":          {"id": 212,   "name_match": "NB I"},              # HUN, 198
     "Icelandic Besta":         {"id": 215,   "name_match": "Besta deildin"},     # ISL, 132
     "Estonian Meistriliiga":   {"id": 248,   "name_match": "Premium liiga"},     # EST, 180
+    "Latvian Virsliga":        {"id": 226,   "name_match": "Virsliga"},          # LVA
+    "Lithuanian Toplyga":      {"id": 228,   "name_match": "Toplyga"},           # LTU (A Lyga = Toplyga)
+    "Georgian Erovnuli":       {"id": 439,   "name_match": "Erovnuli Liga"},     # GEO
     "Czech 1 Liga":            {"id": 122,   "name_match": "1. Liga"},           # CZE, 276
     "Croatian HNL":            {"id": 252,   "name_match": "HNL"},               # CRO, 180
     "Israeli Ligat":           {"id": 127,   "name_match": "Ligat ha'Al"},       # ISR, 240
@@ -190,6 +193,9 @@ INTERNAL_LEAGUE_IDS = {
     "Hungarian NB I":        271,
     "Icelandic Besta":       164,
     "Estonian Meistriliiga": 327,
+    "Latvian Virsliga":      365,
+    "Lithuanian Toplyga":    362,
+    "Georgian Erovnuli":     329,
     "Czech 1 Liga":          345,
     "Croatian HNL":          210,
     "Israeli Ligat":         383,
