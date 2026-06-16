@@ -27,6 +27,7 @@ from fotmob_client import team as fm_team, league as fm_league
 
 OUT_FILE   = Path("data/intl_team_sheets.json")
 FIFA_FILE  = Path("data/fifa_rankings.json")
+WC_HIST    = Path("data/wc_historical_records.json")
 MATCHES    = Path("data/matches.json")
 
 # League ID FotMob de la Coupe du Monde 2026
@@ -190,11 +191,65 @@ def _expected_goals_for(team_pts, opp_pts):
     return max(0.30, base + 0.40 * gap)
 
 
-def _compute_sheet(slug, team_id, fixtures, fifa_rankings):
+def _wc_pedigree(slug, wc_hist_data):
+    """Calcule le pédigrée WC d'une équipe depuis ses résultats 2014/2018/2022.
+    Renvoie {history: dict, score: float, label: str, summary_fr: str}."""
+    records = (wc_hist_data or {}).get("records") or {}
+    rec = records.get(slug)
+    if not rec:
+        return {
+            "history": {}, "score": 0.0, "label": "inconnu", "titles_count": 0,
+            "summary_fr": "Pas d'historique récent en Coupe du Monde",
+        }
+    scoring = wc_hist_data.get("_round_score", {})
+    thresholds = wc_hist_data.get("_label_thresholds", {})
+    rounds = ["2014", "2018", "2022"]
+    score = sum(scoring.get(rec.get(y, "none"), 0) for y in rounds) / len(rounds)
+    titles = rec.get("titles") or []
+    # Bonus pour titres (max +2)
+    titles_recent = [t for t in titles if t >= 1990]
+    bonus = min(2.0, len(titles_recent) * 0.5)
+    score = round(score + bonus, 2)
+
+    # Label
+    if score >= thresholds.get("elite", 6.0):       label = "élite mondiale"
+    elif score >= thresholds.get("regular", 3.0):    label = "régulière phase finale"
+    elif score >= thresholds.get("occasional", 1.5): label = "habituée du tournoi"
+    elif score > 0:                                   label = "présence occasionnelle"
+    else:                                             label = "novice / absent récent"
+
+    # Summary FR
+    parts = []
+    label_fr = {
+        "champion":"vainqueur", "final":"finaliste", "semi":"demi-finaliste",
+        "quarter":"quart de finale", "round_16":"1/8", "group":"phase de poules",
+        "none":"non qualifiée",
+    }
+    for y in ("2022", "2018", "2014"):
+        r = rec.get(y, "none")
+        if r != "none":
+            parts.append(f"{label_fr.get(r, r)} en {y}")
+    if titles_recent:
+        parts.append(f"{len(titles_recent)} titre{'s' if len(titles_recent)>1 else ''} ({', '.join(str(t) for t in titles_recent)})")
+    summary = " · ".join(parts) if parts else "Pas de phase finale récente"
+
+    return {
+        "history":      {y: rec.get(y, "none") for y in rounds},
+        "score":        score,
+        "label":        label,
+        "titles_count": len(titles),
+        "titles_recent": titles_recent,
+        "summary_fr":   summary,
+    }
+
+
+def _compute_sheet(slug, team_id, fixtures, fifa_rankings, wc_hist):
     """Calcule la fiche pour 1 équipe à partir de ses fixtures + son rank FIFA."""
     own = fifa_rankings.get(slug, {}) or {}
     own_pts = own.get("points") or 1200
     own_rank = own.get("rank")
+
+    pedigree = _wc_pedigree(slug, wc_hist)
 
     if not fixtures:
         return {
@@ -205,6 +260,7 @@ def _compute_sheet(slug, team_id, fixtures, fifa_rankings):
             "off_score": 0.0, "def_score": 0.0,
             "off_rating": "moyen", "def_rating": "moyen",
             "form": "",
+            "wc_pedigree": pedigree,
             "notes_fr": [],
             "last_updated": datetime.now(timezone.utc).isoformat(timespec="seconds"),
         }
@@ -281,6 +337,14 @@ def _compute_sheet(slug, team_id, fixtures, fifa_rankings):
         sign = "+" if diff_def > 0 else ""
         notes.append(f"Défense {sign}{round(diff_def,1)} but/match vs attendu Elo")
 
+    # Note pédigrée WC
+    if pedigree["score"] >= 6.0:
+        notes.append(f"Pédigrée WC élite : {pedigree['summary_fr']}")
+    elif pedigree["score"] >= 3.0:
+        notes.append(f"Habituée du tournoi : {pedigree['summary_fr']}")
+    elif pedigree["score"] == 0:
+        notes.append("Aucune phase finale WC sur les 3 dernières éditions")
+
     return {
         "fotmob_team_id": team_id,
         "fifa_rank":      own_rank,
@@ -295,6 +359,7 @@ def _compute_sheet(slug, team_id, fixtures, fifa_rankings):
         "stats_l10":      {**s10, "gf_expected_pm": round(exp_gf_pm, 2),
                                    "ga_expected_pm": round(exp_ga_pm, 2)},
         "recent":         l10,
+        "wc_pedigree":    pedigree,
         "notes_fr":       notes,
         "last_updated":   datetime.now(timezone.utc).isoformat(timespec="seconds"),
     }
@@ -305,6 +370,7 @@ def _compute_sheet(slug, team_id, fixtures, fifa_rankings):
 def run():
     fifa = _load_json(FIFA_FILE, {})
     rankings = fifa.get("rankings") or {}
+    wc_hist = _load_json(WC_HIST, {})
     team_ids = _bootstrap_team_ids()
     print(f"=== Fiches équipes nationales : {len(team_ids)} équipes connues ===")
 
@@ -314,11 +380,12 @@ def run():
     n_updated = 0
     for slug, tid in team_ids.items():
         fixtures = _fetch_recent_intl_fixtures(tid, n=WINDOW_L10 + 2)
-        sheet = _compute_sheet(slug, tid, fixtures, rankings)
+        sheet = _compute_sheet(slug, tid, fixtures, rankings, wc_hist)
         teams_out[slug] = sheet
         n_updated += 1
         rating_str = f"off={sheet['off_rating']}({sheet['off_score']:+.2f}) def={sheet['def_rating']}({sheet['def_score']:+.2f})"
-        print(f"  [{slug:20s}] N={sheet['matches_n']:2d} {rating_str} form={sheet['form']}")
+        ped = (sheet.get('wc_pedigree') or {}).get('label', '?')[:18]
+        print(f"  [{slug:22s}] N={sheet['matches_n']:2d} {rating_str} form={sheet['form']} WC={ped}")
 
     out = {
         "_meta":   "Fiches équipes nationales : aisance off/def vs attendu Elo, forme L5/L10. Consommé par picks_engine pour ajuster λ Poisson WC.",

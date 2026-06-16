@@ -1612,13 +1612,42 @@ def analyze_match(match, pstats_all, player_odds_all=None):
                         if score < -0.3: return "def fragile"
                         return "def moyenne"
                 if h_sheet:
+                    h_ped = h_sheet.get("wc_pedigree", {}) or {}
+                    ped_str = ""
+                    if h_ped.get("label") and h_ped.get("label") not in ("inconnu", "novice / absent récent"):
+                        ped_str = f" · 🏆 {h_ped.get('label')}"
+                    elif h_ped.get("label") == "novice / absent récent":
+                        ped_str = " · 🏆 novice WC"
                     sheet_descr_h = (f"📋 Fiche {home} : {_label(h_off,'off')} ({h_off:+.2f})"
                                      f" · {_label(h_def,'def')} ({h_def:+.2f})"
-                                     f" · forme {h_sheet.get('form','')}")
+                                     f" · forme {h_sheet.get('form','')}{ped_str}")
+                    if h_ped.get("summary_fr") and h_ped.get("score", 0) >= 3.0:
+                        sheet_descr_h += f"\n   ↳ Historique : {h_ped['summary_fr']}"
                 if a_sheet:
+                    a_ped = a_sheet.get("wc_pedigree", {}) or {}
+                    ped_str = ""
+                    if a_ped.get("label") and a_ped.get("label") not in ("inconnu", "novice / absent récent"):
+                        ped_str = f" · 🏆 {a_ped.get('label')}"
+                    elif a_ped.get("label") == "novice / absent récent":
+                        ped_str = " · 🏆 novice WC"
                     sheet_descr_a = (f"📋 Fiche {away} : {_label(a_off,'off')} ({a_off:+.2f})"
                                      f" · {_label(a_def,'def')} ({a_def:+.2f})"
-                                     f" · forme {a_sheet.get('form','')}")
+                                     f" · forme {a_sheet.get('form','')}{ped_str}")
+                    if a_ped.get("summary_fr") and a_ped.get("score", 0) >= 3.0:
+                        sheet_descr_a += f"\n   ↳ Historique : {a_ped['summary_fr']}"
+
+                # Petit booster pédigrée : équipe élite (score ≥6) en phase
+                # éliminatoire seulement (jamais en R1 où les surprises sont
+                # nombreuses). Modeste : ±5% sur λ_attaque.
+                # NB : on n'applique PAS au R1 — historique WC ne prédit pas
+                # bien le 1er match d'une équipe (Spain 0-0 vs Cap Vert hier).
+                if round_num and round_num > 1:
+                    h_pscore = (h_sheet.get("wc_pedigree") or {}).get("score", 0)
+                    a_pscore = (a_sheet.get("wc_pedigree") or {}).get("score", 0)
+                    if h_pscore - a_pscore >= 3:
+                        lam_h_wc *= 1.05
+                    elif a_pscore - h_pscore >= 3:
+                        lam_a_wc *= 1.05
 
             ctx_descr_h = wc_context_descr(home, away, round_num, league_id)
             ctx_descr_a = wc_context_descr(away, home, round_num, league_id)
