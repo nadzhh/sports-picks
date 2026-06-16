@@ -13609,90 +13609,6 @@
       "resolved_at": "2026-06-15 21:01"
     },
     {
-      "direction": "wc_over_25",
-      "type": "⚽ Total buts WC",
-      "label": "Plus de 2.5 buts",
-      "cote_min": 1.63,
-      "confidence": 61,
-      "tier": "ok",
-      "stats": {
-        "lam_h": 2.98,
-        "lam_a": 0.2,
-        "h_fifa_rank": 19,
-        "a_fifa_rank": "?",
-        "elo_gap": null,
-        "wc_round": null,
-        "family": "TOTAL"
-      },
-      "reasoning": "L10 : Iran 2V/2N/1D sur 5 · New Zealand 1V/0N/4D sur 5\n🚂 Gros mismatch (Elo gap +620) : Iran cherche à creuser tôt pour la diff de buts qualif. ⚠️ New Zealand hors top 100 FIFA — fallback Elo estimé, défense souvent perméable vs top.\n⚽ Modèle Poisson : λ total = 3.17\nP(plus de 2.5 buts) = 61.5%",
-      "history_top3": true,
-      "id": "2026-06-16_4667791_team_wc_over_25",
-      "date": "2026-06-16",
-      "match_id": "4667791",
-      "page_url": "/matches/new-zealand-vs-iran/1ar30l#4667791",
-      "matchup": "Iran vs New Zealand",
-      "league": "World Cup",
-      "category": "team",
-      "result": "PENDING",
-      "actual": null,
-      "resolved_at": null
-    },
-    {
-      "direction": "wc_score_2_0",
-      "type": "🏆 Score exact WC",
-      "label": "Score exact : Iran 2-0 New Zealand",
-      "cote_min": 5.4,
-      "confidence": 19,
-      "tier": "fun",
-      "is_fun": true,
-      "stats": {
-        "lam_h": 2.98,
-        "lam_a": 0.2,
-        "h_fifa_rank": 19,
-        "a_fifa_rank": "?",
-        "elo_gap": null
-      },
-      "reasoning": "L10 : Iran 2V/2N/1D sur 5 · New Zealand 1V/0N/4D sur 5\n🏆 Coupe du Monde 2026 - score exact (Poisson grid, ajusté Elo FIFA)\nλ Iran = 2.98 buts, λ New Zealand = 0.20 buts\nTop 3 : 2-0 (18.5%) · 3-0 (18.4%) · 4-0 (13.7%)\n⚠️ Pari fun (cote élevée typique 4-8) - mise modeste",
-      "exact_score": [
-        2,
-        0
-      ],
-      "wc_top3": [
-        [
-          [
-            2,
-            0
-          ],
-          18.5
-        ],
-        [
-          [
-            3,
-            0
-          ],
-          18.4
-        ],
-        [
-          [
-            4,
-            0
-          ],
-          13.7
-        ]
-      ],
-      "history_top3": true,
-      "id": "2026-06-16_4667791_fun_🏆 Score exact WC_Score exact : Iran 2-0 New Zea",
-      "date": "2026-06-16",
-      "match_id": "4667791",
-      "page_url": "/matches/new-zealand-vs-iran/1ar30l#4667791",
-      "matchup": "Iran vs New Zealand",
-      "league": "World Cup",
-      "category": "fun",
-      "result": "PENDING",
-      "actual": null,
-      "resolved_at": null
-    },
-    {
       "direction": "wc_away_win",
       "type": "🏆 Vainqueur WC",
       "label": "Uruguay gagne",
@@ -13799,6 +13715,90 @@
       "match_id": "4667799",
       "page_url": "/matches/uruguay-vs-saudi-arabia/1izuvb#4667799",
       "matchup": "Saudi Arabia vs Uruguay",
+      "league": "World Cup",
+      "category": "fun",
+      "result": "LOSS",
+      "actual": "1-1 (cible 0-1)",
+      "resolved_at": "2026-06-16 00:01"
+    },
+    {
+      "direction": "wc_over_25",
+      "type": "⚽ Total buts WC",
+      "label": "Plus de 2.5 buts",
+      "cote_min": 1.63,
+      "confidence": 61,
+      "tier": "ok",
+      "stats": {
+        "lam_h": 2.98,
+        "lam_a": 0.2,
+        "h_fifa_rank": 19,
+        "a_fifa_rank": "?",
+        "elo_gap": null,
+        "wc_round": null,
+        "family": "TOTAL"
+      },
+      "reasoning": "L10 : Iran 2V/2N/1D sur 5 · New Zealand 1V/0N/4D sur 5\n🚂 Gros mismatch (Elo gap +620) : Iran cherche à creuser tôt pour la diff de buts qualif. ⚠️ New Zealand hors top 100 FIFA — fallback Elo estimé, défense souvent perméable vs top.\n⚽ Modèle Poisson : λ total = 3.17\nP(plus de 2.5 buts) = 61.5%",
+      "history_top3": true,
+      "id": "2026-06-16_4667791_team_wc_over_25",
+      "date": "2026-06-16",
+      "match_id": "4667791",
+      "page_url": "/matches/new-zealand-vs-iran/1ar30l#4667791",
+      "matchup": "Iran vs New Zealand",
+      "league": "World Cup",
+      "category": "team",
+      "result": "PENDING",
+      "actual": null,
+      "resolved_at": null
+    },
+    {
+      "direction": "wc_score_2_0",
+      "type": "🏆 Score exact WC",
+      "label": "Score exact : Iran 2-0 New Zealand",
+      "cote_min": 5.4,
+      "confidence": 19,
+      "tier": "fun",
+      "is_fun": true,
+      "stats": {
+        "lam_h": 2.98,
+        "lam_a": 0.2,
+        "h_fifa_rank": 19,
+        "a_fifa_rank": "?",
+        "elo_gap": null
+      },
+      "reasoning": "L10 : Iran 2V/2N/1D sur 5 · New Zealand 1V/0N/4D sur 5\n🏆 Coupe du Monde 2026 - score exact (Poisson grid, ajusté Elo FIFA)\nλ Iran = 2.98 buts, λ New Zealand = 0.20 buts\nTop 3 : 2-0 (18.5%) · 3-0 (18.4%) · 4-0 (13.7%)\n⚠️ Pari fun (cote élevée typique 4-8) - mise modeste",
+      "exact_score": [
+        2,
+        0
+      ],
+      "wc_top3": [
+        [
+          [
+            2,
+            0
+          ],
+          18.5
+        ],
+        [
+          [
+            3,
+            0
+          ],
+          18.4
+        ],
+        [
+          [
+            4,
+            0
+          ],
+          13.7
+        ]
+      ],
+      "history_top3": true,
+      "id": "2026-06-16_4667791_fun_🏆 Score exact WC_Score exact : Iran 2-0 New Zea",
+      "date": "2026-06-16",
+      "match_id": "4667791",
+      "page_url": "/matches/new-zealand-vs-iran/1ar30l#4667791",
+      "matchup": "Iran vs New Zealand",
       "league": "World Cup",
       "category": "fun",
       "result": "PENDING",
