@@ -2851,10 +2851,29 @@ def analyze_match(match, pstats_all, player_odds_all=None):
     # estimée < 1.40 sont skippés (l'edge est trop faible pour valoir la mise).
     MIN_COTE_BUTEUR = 1.40
     if friendly_picks:
+        # Préchauffage du lookup des cotes anytime_scorer book (data/foot_player_odds.json
+        # via player_odds_all → match_player_odds). On lookup la vraie cote
+        # bookmaker pour chaque joueur, et c'est ELLE qui est filtrée sur 1.40
+        # (la cote_min calculée par le modèle est gardée comme fair value
+        # de référence mais n'est plus utilisée pour le filtre).
+        _po_keys = list((match_player_odds or {}).keys())
         for fp in friendly_picks:
             cote_est = round(1 / max(0.01, fp["p"]), 2) if fp["p"] > 0 else None
-            # Filtre cote min : si notre cote estimée < 1.40, on skippe ce pick
-            if cote_est is not None and cote_est < MIN_COTE_BUTEUR:
+            # Lookup cote bookmaker depuis foot_player_odds.json (anytime_scorer)
+            cote_book = None
+            book = None
+            if fp["kind"] in ("marque", "double_buteur"):
+                _ok = _match_odds_name(fp["name"], _po_keys)
+                if _ok:
+                    _player_odds = (match_player_odds or {}).get(_ok) or {}
+                    _scorer = _player_odds.get("anytime_scorer") or {}
+                    cote_book = _scorer.get("over")
+                    book = _scorer.get("book")
+            # Filtre cote min : utilise la cote book si dispo, sinon cote_est
+            # Si cote book < 1.40 (Messi à 1.30 par ex), skip
+            # Si cote book absente et cote_est < 1.40, skip
+            cote_for_filter = cote_book if cote_book is not None else cote_est
+            if cote_for_filter is not None and cote_for_filter < MIN_COTE_BUTEUR:
                 continue
             if fp["kind"] == "marque":
                 label = f"{fp['name']} marque"
@@ -2871,9 +2890,9 @@ def analyze_match(match, pstats_all, player_odds_all=None):
                 "is_sub":     fp.get("lineup_status") == "predicted",
                 "type":       ptype,
                 "label":      label,
-                "cote":       None,         # cote book (None tant qu'on n'a pas de bookmaker source)
+                "cote":       cote_book,    # vraie cote book si dispo, sinon None
                 "cote_min":   cote_est,     # estimation fair value du modèle (= 1/proba)
-                "book":       None,
+                "book":       book,
                 "books":      [],
                 "confidence": int(fp["conf"]),
                 "reasoning":  fp["reasoning"],

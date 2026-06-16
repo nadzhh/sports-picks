@@ -67,6 +67,8 @@ LEAGUE_TO_SPORT = {
     "Copa del Rey":      "soccer_spain_copa_del_rey",
     "Coppa Italia":      "soccer_italy_coppa_italia",
     "DFB Pokal":         "soccer_germany_dfb_pokal",
+    # Compétitions internationales
+    "World Cup":         "soccer_fifa_world_cup",
 }
 
 MARKETS = {
