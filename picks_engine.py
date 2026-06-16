@@ -1649,9 +1649,105 @@ def analyze_match(match, pstats_all, player_odds_all=None):
                     elif a_pscore - h_pscore >= 3:
                         lam_a_wc *= 1.05
 
+            # ─── MÉTÉO / ALTITUDE / STADE (foot_match_context) ────────────
+            # Ajustement λ_total selon conditions :
+            #  - pluie forte (>5mm) : -10% (jeu moins fluide)
+            #  - vent fort (>30 km/h) : -7% (passes imprécises)
+            #  - chaleur extrême (>32°C) : -10% (rythme baisse)
+            #  - altitude > 1500m : +5% (ballons trompeurs)
+            # Stade climatisé annule pluie/vent.
+            ctx_match = match.get("context") or {}
+            wx = ctx_match.get("weather") or {}
+            std = ctx_match.get("stadium") or {}
+            wx_factor = 1.0
+            wx_descr_parts = []
+            climatized = bool(std.get("climatized"))
+            if not climatized:
+                prec = wx.get("precipitation_sum_mm") or 0
+                wind = wx.get("wind_max_kmh") or 0
+                tmax = wx.get("temp_max") or 0
+                if prec >= 5:
+                    wx_factor *= 0.90; wx_descr_parts.append(f"pluie {prec}mm (-10%)")
+                if wind >= 30:
+                    wx_factor *= 0.93; wx_descr_parts.append(f"vent {wind}km/h (-7%)")
+                if tmax >= 32:
+                    wx_factor *= 0.90; wx_descr_parts.append(f"chaleur {tmax}°C (-10%)")
+            alt = std.get("altitude_m") or 0
+            if alt >= 1500:
+                wx_factor *= 1.05; wx_descr_parts.append(f"altitude {alt}m (+5%)")
+            if wx_factor != 1.0:
+                lam_h_wc *= wx_factor
+                lam_a_wc *= wx_factor
+            wx_descr = ""
+            if wx_descr_parts:
+                wx_descr = "🌦️ Conditions : " + " · ".join(wx_descr_parts)
+            elif wx.get("summary_fr"):
+                wx_descr = f"🌦️ {wx.get('summary_fr')}" + (f" · stade fermé" if climatized else "")
+
             ctx_descr_h = wc_context_descr(home, away, round_num, league_id)
             ctx_descr_a = wc_context_descr(away, home, round_num, league_id)
-            ctx_descr_combined = "\n".join(d for d in [ctx_descr_h, ctx_descr_a, sheet_descr_h, sheet_descr_a] if d)
+            # ─── ABSENCES BUTEURS CLÉS (lineup.unavailable) ────────────────
+            # Refresh lineup explicitement pour WC (besoin de la compo
+            # probable/officielle à T-90 min pour appliquer les malus
+            # d'absences sur les TOP buteurs).
+            try:
+                from fotmob_client import match_lineup as _ml
+                _ln = _ml(match.get("_page_url") or match.get("page_url"), ttl=30*60)
+            except Exception:
+                _ln = None
+            absent_descr_h = ""; absent_descr_a = ""
+            if _ln:
+                _h_tid = match.get("home_id"); _a_tid = match.get("away_id")
+                _h_sig = team_squad_signals(_h_tid) if _h_tid else {"top_scorers": []}
+                _a_sig = team_squad_signals(_a_tid) if _a_tid else {"top_scorers": []}
+                def _wc_unavail(side_key):
+                    t = (_ln.get(side_key) or {})
+                    out = set()
+                    for u in (t.get("unavailable") or []):
+                        nm = (u.get("name") or "").strip().lower()
+                        if nm and "doubt" not in (u.get("return") or "").lower():
+                            out.add(nm)
+                    return out
+                _h_unav = _wc_unavail("home")
+                _a_unav = _wc_unavail("away")
+                def _wc_absence_malus(sig, unav):
+                    if not sig.get("top_scorers"): return 1.0, []
+                    total_g = sum(p["goals"] for p in sig["top_scorers"])
+                    if total_g == 0: return 1.0, []
+                    absent_share = 0.0; absent_names = []
+                    for p in sig["top_scorers"]:
+                        if p["name"].lower() in unav:
+                            absent_share += p["goals"] / total_g
+                            absent_names.append(p["name"])
+                    reduction = min(0.30, absent_share * 0.5)
+                    return (1.0 - reduction), absent_names
+                _h_factor, _h_absents = _wc_absence_malus(_h_sig, _h_unav)
+                _a_factor, _a_absents = _wc_absence_malus(_a_sig, _a_unav)
+                lam_h_wc *= _h_factor
+                lam_a_wc *= _a_factor
+                if _h_absents:
+                    absent_descr_h = (f"⚠️ {home} : absent(s) buteur(s) clé(s) — "
+                                      f"{', '.join(_h_absents[:3])} ({int((1-_h_factor)*100)}% λ)")
+                if _a_absents:
+                    absent_descr_a = (f"⚠️ {away} : absent(s) buteur(s) clé(s) — "
+                                      f"{', '.join(_a_absents[:3])} ({int((1-_a_factor)*100)}% λ)")
+                # Statut lineup (predicted / standard) à exposer
+                lineup_type = (_ln.get("type") or "").lower()
+                if lineup_type == "standard":
+                    lineup_descr = "✅ Compo OFFICIELLE"
+                elif lineup_type == "predicted":
+                    lineup_descr = "⚠️ Compo PROBABLE (officielle à T-60min)"
+                else:
+                    lineup_descr = ""
+            else:
+                lineup_descr = ""
+
+            ctx_descr_combined = "\n".join(d for d in [
+                ctx_descr_h, ctx_descr_a,
+                sheet_descr_h, sheet_descr_a,
+                wx_descr, lineup_descr,
+                absent_descr_h, absent_descr_a,
+            ] if d)
 
             # ANALYSE NIVEAU (FIFA / favoris / Elo) à exposer dans les reasonings
             _fh = get_fifa_data(home)
@@ -2696,6 +2792,56 @@ def analyze_match(match, pstats_all, player_odds_all=None):
     _tag_tier(home_pp)
     _tag_tier(away_pp)
     _tag_tier(fun_picks)
+
+    # ── Calibration empirique : annote WR observée par bucket conf ──────────
+    # Lit data/learning_stats.json (calibration foot/foot_wc), trouve le bucket
+    # du pick et ajoute une note dans le reasoning si déviation significative
+    # (≥ 10pp d'écart entre claim et observé sur N ≥ 20 picks).
+    try:
+        import json as _jcal
+        with open("data/learning_stats.json", encoding="utf-8") as _cf:
+            _calib = _jcal.load(_cf)
+    except Exception:
+        _calib = None
+    if _calib:
+        # Pour WC : utilise foot_wc si bucket assez riche, sinon foot global.
+        # En début de tournoi, peu de samples WC → on retombe sur foot global.
+        is_wc_match = (league_id == WC_LEAGUE_ID)
+        cal_foot    = (_calib.get("calibration") or {}).get("foot") or {}
+        cal_wc      = (_calib.get("calibration") or {}).get("foot_wc") or {}
+        cal_table   = cal_foot
+        if is_wc_match:
+            # Si le bucket WC a ≥ 20 samples, on prend la version WC, sinon foot
+            cal_table = {b: (cal_wc.get(b) if (cal_wc.get(b, {}).get("n", 0) >= 20)
+                              else cal_foot.get(b, {}))
+                         for b in set(list(cal_foot.keys()) + list(cal_wc.keys()))}
+        def _bucket_for(conf):
+            if conf is None: return None
+            if conf < 40: return "<40"
+            if conf < 50: return "40-49"
+            if conf < 60: return "50-59"
+            if conf < 70: return "60-69"
+            if conf < 80: return "70-79"
+            if conf < 90: return "80-89"
+            return "90+"
+        def _tag_calibration(lst):
+            for p in lst or []:
+                b = _bucket_for(p.get("confidence"))
+                if not b: continue
+                t = cal_table.get(b)
+                if not t or t.get("n", 0) < 20: continue
+                obs = t.get("wr_observed", 0)
+                exp = t.get("expected_wr", 0)
+                delta = obs - exp
+                if abs(delta) >= 10:
+                    note = (f"📉 Calibration : bucket {b}% historiquement à WR {obs:.0f}% "
+                            f"(claim {exp:.0f}%, n={t['n']}) — sur-estimé de {abs(delta):.0f}pp")
+                    p["reasoning"] = (p.get("reasoning") or "") + "\n" + note
+                    p["calibration_delta"] = round(delta, 1)
+        _tag_calibration(team_picks)
+        _tag_calibration(home_pp)
+        _tag_calibration(away_pp)
+        _tag_calibration(fun_picks)
 
     # ── Edge : compare conf_modele a la cote book quand dispo ───────────────
     # edge_pp = (P_modele - P_book) * 100. > 0 = value pick, < 0 = arnaque.

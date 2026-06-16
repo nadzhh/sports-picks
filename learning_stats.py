@@ -115,8 +115,47 @@ def _report(by_profile, label, min_sample=3):
         print(f"{flag} {wr:>5.1f} {roi:>+7.1f} {n:>4} {w:>3} {l:>3}   {prof}")
 
 
+def _conf_bucket(conf):
+    """Bucket de confidence pour calibration bayésienne."""
+    if conf is None: return "?"
+    if conf < 40: return "<40"
+    if conf < 50: return "40-49"
+    if conf < 60: return "50-59"
+    if conf < 70: return "60-69"
+    if conf < 80: return "70-79"
+    if conf < 90: return "80-89"
+    return "90+"
+
+
+def _calibration_table(picks):
+    """Construit la table de calibration : pour chaque bucket conf, calcule
+    la WR observée. Le moteur peut s'en servir pour shrink la confidence
+    affichée vers la WR réelle si N suffisant.
+    Renvoie {bucket: {n, wins, losses, wr_observed, expected_wr}}."""
+    table = defaultdict(lambda: {"n": 0, "wins": 0, "losses": 0,
+                                  "wr_observed": 0.0, "expected_wr": 0.0,
+                                  "conf_sum": 0.0})
+    for p in picks:
+        result = (p.get("result") or "").upper()
+        if result not in ("WIN", "LOSS"): continue
+        conf = p.get("confidence", 0) or 0
+        b = _conf_bucket(conf)
+        t = table[b]
+        t["n"] += 1
+        t["conf_sum"] += conf
+        if result == "WIN":  t["wins"] += 1
+        if result == "LOSS": t["losses"] += 1
+    for b, t in table.items():
+        n = t["wins"] + t["losses"]
+        if n > 0:
+            t["wr_observed"] = round(t["wins"] / n * 100, 1)
+            t["expected_wr"] = round(t["conf_sum"] / n, 1)
+    return dict(table)
+
+
 def run():
-    out = {"generated_at": datetime.now().isoformat(timespec="seconds"), "nba": {}, "foot": {}}
+    out = {"generated_at": datetime.now().isoformat(timespec="seconds"), "nba": {}, "foot": {},
+           "calibration": {"foot": {}, "foot_wc": {}, "nba": {}}}
 
     # NBA
     nba_hist = Path("data/nba_picks_history.json")
@@ -127,6 +166,7 @@ def run():
             by_prof = _aggregate(picks, _nba_profile)
             _report(by_prof, "NBA")
             out["nba"] = {k: dict(v) for k, v in by_prof.items()}
+            out["calibration"]["nba"] = _calibration_table(picks)
         except Exception as e:
             print(f"[X] NBA stats err: {e}")
 
@@ -139,8 +179,25 @@ def run():
             by_prof = _aggregate(picks, _foot_profile)
             _report(by_prof, "FOOT")
             out["foot"] = {k: dict(v) for k, v in by_prof.items()}
+            out["calibration"]["foot"] = _calibration_table(picks)
+            # Calibration spécifique WC (séparée pour ne pas mélanger les ligues)
+            wc_picks = [p for p in picks
+                        if "world cup" in (p.get("league") or "").lower()
+                        or (p.get("direction") or "").lower().startswith("wc_")]
+            out["calibration"]["foot_wc"] = _calibration_table(wc_picks)
         except Exception as e:
             print(f"[X] Foot stats err: {e}")
+
+    # Affichage calibration
+    for sport, table in out["calibration"].items():
+        if not table: continue
+        print(f"\n=== Calibration {sport} : WR observée vs attendue par bucket ===")
+        for b in ["<40", "40-49", "50-59", "60-69", "70-79", "80-89", "90+"]:
+            t = table.get(b)
+            if not t or t["n"] < 3: continue
+            delta = t["wr_observed"] - t["expected_wr"]
+            sign = "+" if delta >= 0 else ""
+            print(f"  conf {b:6s} : claim ~{t['expected_wr']:.0f}% · observé {t['wr_observed']:.1f}% (n={t['n']}, {sign}{delta:.1f}pp)")
 
     # Sauvegarde
     Path("data").mkdir(exist_ok=True)

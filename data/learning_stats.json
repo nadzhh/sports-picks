@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-21T08:40:38",
+  "generated_at": "2026-06-16T09:15:39",
   "nba": {
     "conf=conf70-80 | cote=cote1.7-2.0 | direction=over | edge=edge25-35 | prop=FG3M | warn=clean": {
       "win": 1,
@@ -16,11 +16,11 @@
       "roi_units": 0.81
     },
     "conf=conf70-80 | cote=cote2.0+ | direction=over | edge=edge35+ | prop=PTS | warn=warn": {
-      "win": 0,
-      "loss": 1,
+      "win": 1,
+      "loss": 3,
       "push": 0,
       "dnp": 1,
-      "roi_units": -1
+      "roi_units": -2.0
     },
     "conf=conf60-70 | cote=cote1.7-2.0 | direction=over | edge=edge25-35 | prop=PR | warn=clean": {
       "win": 0,
@@ -44,18 +44,18 @@
       "roi_units": 0.8200000000000001
     },
     "conf=conf70-80 | cote=cote1.7-2.0 | direction=under | edge=edge25-35 | prop=PR | warn=clean": {
-      "win": 1,
+      "win": 2,
       "loss": 0,
       "push": 0,
       "dnp": 0,
-      "roi_units": 0.9099999999999999
+      "roi_units": 1.8199999999999998
     },
     "conf=conf70-80 | cote=cote1.4-1.7 | direction=over | edge=edge<15 | prop=FG3M | warn=clean": {
-      "win": 1,
+      "win": 2,
       "loss": 1,
       "push": 0,
       "dnp": 0,
-      "roi_units": -0.5700000000000001
+      "roi_units": -0.20999999999999996
     },
     "conf=conf70-80 | cote=cote1.7-2.0 | direction=over | edge=edge35+ | prop=PRA | warn=warn": {
       "win": 0,
@@ -93,18 +93,18 @@
       "roi_units": 0.6000000000000001
     },
     "conf=conf60-70 | cote=cote1.7-2.0 | direction=over | edge=edge15-25 | prop=PTS | warn=clean": {
-      "win": 1,
+      "win": 2,
       "loss": 0,
       "push": 0,
       "dnp": 0,
-      "roi_units": 0.8500000000000001
+      "roi_units": 1.6500000000000001
     },
     "conf=conf60-70 | cote=cote1.7-2.0 | direction=under | edge=edge25-35 | prop=PA | warn=clean": {
       "win": 1,
-      "loss": 0,
+      "loss": 2,
       "push": 0,
       "dnp": 0,
-      "roi_units": 0.95
+      "roi_units": -1.05
     },
     "conf=conf70-80 | cote=cote1.7-2.0 | direction=under | edge=edge25-35 | prop=PRA | warn=clean": {
       "win": 1,
@@ -121,18 +121,18 @@
       "roi_units": 1.0699999999999998
     },
     "conf=conf80+ | cote=cote1.7-2.0 | direction=over | edge=edge35+ | prop=PTS | warn=warn": {
-      "win": 1,
+      "win": 2,
       "loss": 0,
       "push": 0,
       "dnp": 1,
-      "roi_units": 0.8300000000000001
+      "roi_units": 1.6600000000000001
     },
     "conf=conf60-70 | cote=cote1.7-2.0 | direction=over | edge=edge25-35 | prop=PA | warn=clean": {
-      "win": 1,
-      "loss": 0,
+      "win": 2,
+      "loss": 1,
       "push": 0,
       "dnp": 0,
-      "roi_units": 0.99
+      "roi_units": 0.97
     },
     "conf=conf80+ | cote=cote1.7-2.0 | direction=over | edge=edge35+ | prop=PRA | warn=warn": {
       "win": 0,
@@ -149,34 +149,440 @@
       "roi_units": 0.8799999999999999
     },
     "conf=conf80+ | cote=cote2.0+ | direction=over | edge=edge35+ | prop=REB | warn=warn": {
+      "win": 2,
+      "loss": 0,
+      "push": 0,
+      "dnp": 0,
+      "roi_units": 2.04
+    },
+    "conf=conf70-80 | cote=cote2.0+ | direction=over | edge=edge35+ | prop=REB | warn=clean": {
+      "win": 1,
+      "loss": 3,
+      "push": 0,
+      "dnp": 0,
+      "roi_units": -1.92
+    },
+    "conf=conf60-70 | cote=cote1.7-2.0 | direction=over | edge=edge25-35 | prop=PTS | warn=clean": {
+      "win": 0,
+      "loss": 2,
+      "push": 0,
+      "dnp": 2,
+      "roi_units": -2
+    },
+    "conf=conf70-80 | cote=cote1.7-2.0 | direction=under | edge=edge35+ | prop=PA | warn=clean": {
+      "win": 2,
+      "loss": 3,
+      "push": 0,
+      "dnp": 0,
+      "roi_units": -1.22
+    },
+    "conf=conf80+ | cote=cote1.4-1.7 | direction=over | edge=edge25-35 | prop=REB | warn=clean": {
+      "win": 2,
+      "loss": 0,
+      "push": 0,
+      "dnp": 0,
+      "roi_units": 1.2799999999999998
+    },
+    "conf=conf70-80 | cote=cote1.4-1.7 | direction=over | edge=edge25-35 | prop=AST | warn=warn": {
       "win": 1,
       "loss": 0,
       "push": 0,
       "dnp": 0,
-      "roi_units": 1.02
+      "roi_units": 0.6699999999999999
     },
-    "conf=conf70-80 | cote=cote2.0+ | direction=over | edge=edge35+ | prop=REB | warn=clean": {
+    "conf=conf80+ | cote=cote1.4-1.7 | direction=over | edge=edge15-25 | prop=FG3M | warn=warn": {
+      "win": 1,
+      "loss": 1,
+      "push": 0,
+      "dnp": 0,
+      "roi_units": -0.48
+    },
+    "conf=conf70-80 | cote=cote1.4-1.7 | direction=over | edge=edge15-25 | prop=AST | warn=warn": {
+      "win": 1,
+      "loss": 0,
+      "push": 0,
+      "dnp": 0,
+      "roi_units": 0.56
+    },
+    "conf=conf60-70 | cote=cote2.0+ | direction=over | edge=edge35+ | prop=AST | warn=clean": {
+      "win": 2,
+      "loss": 2,
+      "push": 0,
+      "dnp": 1,
+      "roi_units": 0.5300000000000002
+    },
+    "conf=conf70-80 | cote=cote1.4-1.7 | direction=over | edge=edge25-35 | prop=REB | warn=clean": {
       "win": 0,
       "loss": 1,
       "push": 0,
       "dnp": 0,
       "roi_units": -1
     },
-    "conf=conf70-80 | cote=cote1.7-2.0 | direction=under | edge=edge35+ | prop=PA | warn=clean": {
+    "conf=conf60-70 | cote=cote1.4-1.7 | direction=over | edge=edge<15 | prop=PRA | warn=clean": {
+      "win": 5,
+      "loss": 0,
+      "push": 0,
+      "dnp": 0,
+      "roi_units": 2.9800000000000004
+    },
+    "conf=conf70-80 | cote=cote2.0+ | direction=over | edge=edge35+ | prop=PRA | warn=warn": {
       "win": 0,
       "loss": 1,
       "push": 0,
       "dnp": 0,
       "roi_units": -1
     },
-    "conf=conf80+ | cote=cote1.4-1.7 | direction=over | edge=edge25-35 | prop=REB | warn=clean": {
+    "conf=conf70-80 | cote=cote1.7-2.0 | direction=under | edge=edge35+ | prop=PR | warn=clean": {
+      "win": 1,
+      "loss": 0,
+      "push": 0,
+      "dnp": 0,
+      "roi_units": 0.8300000000000001
+    },
+    "conf=conf60-70 | cote=cote2.0+ | direction=over | edge=edge35+ | prop=FG3M | warn=clean": {
+      "win": 2,
+      "loss": 2,
+      "push": 0,
+      "dnp": 0,
+      "roi_units": 0.3500000000000001
+    },
+    "conf=conf60-70 | cote=cote2.0+ | direction=over | edge=edge25-35 | prop=REB | warn=clean": {
+      "win": 1,
+      "loss": 1,
+      "push": 0,
+      "dnp": 0,
+      "roi_units": 0.020000000000000018
+    },
+    "conf=conf60-70 | cote=cote2.0+ | direction=under | edge=edge25-35 | prop=PA | warn=clean": {
+      "win": 0,
+      "loss": 1,
+      "push": 0,
+      "dnp": 0,
+      "roi_units": -1
+    },
+    "conf=conf60-70 | cote=cote1.4-1.7 | direction=under | edge=edge<15 | prop=PRA | warn=clean": {
+      "win": 2,
+      "loss": 0,
+      "push": 0,
+      "dnp": 0,
+      "roi_units": 1.24
+    },
+    "conf=conf70-80 | cote=cote1.7-2.0 | direction=under | edge=edge35+ | prop=PTS | warn=clean": {
+      "win": 1,
+      "loss": 0,
+      "push": 0,
+      "dnp": 0,
+      "roi_units": 0.95
+    },
+    "conf=conf70-80 | cote=cote1.7-2.0 | direction=over | edge=edge35+ | prop=AST | warn=clean": {
+      "win": 1,
+      "loss": 2,
+      "push": 0,
+      "dnp": 0,
+      "roi_units": -1.1
+    },
+    "conf=conf70-80 | cote=cote1.7-2.0 | direction=over | edge=edge35+ | prop=AST | warn=warn": {
+      "win": 0,
+      "loss": 2,
+      "push": 0,
+      "dnp": 0,
+      "roi_units": -2
+    },
+    "conf=conf70-80 | cote=cote2.0+ | direction=over | edge=edge35+ | prop=AST | warn=clean": {
+      "win": 2,
+      "loss": 1,
+      "push": 0,
+      "dnp": 0,
+      "roi_units": 1.37
+    },
+    "conf=conf60-70 | cote=cote2.0+ | direction=over | edge=edge35+ | prop=REB | warn=clean": {
+      "win": 2,
+      "loss": 2,
+      "push": 0,
+      "dnp": 0,
+      "roi_units": 0.5
+    },
+    "conf=conf70-80 | cote=cote1.7-2.0 | direction=over | edge=edge35+ | prop=FG3M | warn=clean": {
+      "win": 0,
+      "loss": 1,
+      "push": 0,
+      "dnp": 0,
+      "roi_units": -1
+    },
+    "conf=conf80+ | cote=cote1.4-1.7 | direction=over | edge=edge35+ | prop=FG3M | warn=warn": {
+      "win": 0,
+      "loss": 2,
+      "push": 0,
+      "dnp": 0,
+      "roi_units": -2
+    },
+    "conf=conf70-80 | cote=cote1.7-2.0 | direction=over | edge=edge25-35 | prop=REB | warn=clean": {
+      "win": 1,
+      "loss": 0,
+      "push": 0,
+      "dnp": 0,
+      "roi_units": 0.76
+    },
+    "conf=conf70-80 | cote=cote1.7-2.0 | direction=over | edge=edge25-35 | prop=REB | warn=warn": {
+      "win": 1,
+      "loss": 0,
+      "push": 0,
+      "dnp": 0,
+      "roi_units": 0.77
+    },
+    "conf=conf80+ | cote=cote1.7-2.0 | direction=under | edge=edge35+ | prop=PRA | warn=clean": {
+      "win": 0,
+      "loss": 1,
+      "push": 0,
+      "dnp": 0,
+      "roi_units": -1
+    },
+    "conf=conf80+ | cote=cote2.0+ | direction=over | edge=edge35+ | prop=FG3M | warn=warn": {
+      "win": 1,
+      "loss": 0,
+      "push": 0,
+      "dnp": 0,
+      "roi_units": 1.1
+    },
+    "conf=conf80+ | cote=cote1.4-1.7 | direction=over | edge=edge25-35 | prop=REB | warn=warn": {
+      "win": 0,
+      "loss": 1,
+      "push": 0,
+      "dnp": 0,
+      "roi_units": -1
+    },
+    "conf=conf80+ | cote=cote1.4-1.7 | direction=over | edge=edge25-35 | prop=AST | warn=warn": {
+      "win": 1,
+      "loss": 0,
+      "push": 0,
+      "dnp": 0,
+      "roi_units": 0.6299999999999999
+    },
+    "conf=conf80+ | cote=cote1.4-1.7 | direction=over | edge=edge15-25 | prop=AST | warn=warn": {
+      "win": 1,
+      "loss": 0,
+      "push": 0,
+      "dnp": 0,
+      "roi_units": 0.47
+    },
+    "conf=conf70-80 | cote=cote1.4-1.7 | direction=under | edge=edge<15 | prop=PRA | warn=clean": {
+      "win": 1,
+      "loss": 0,
+      "push": 0,
+      "dnp": 0,
+      "roi_units": 0.6299999999999999
+    },
+    "conf=conf60-70 | cote=cote2.0+ | direction=over | edge=edge35+ | prop=PTS | warn=warn": {
+      "win": 0,
+      "loss": 1,
+      "push": 0,
+      "dnp": 0,
+      "roi_units": -1
+    },
+    "conf=conf80+ | cote=cote2.0+ | direction=over | edge=edge35+ | prop=FG3M | warn=clean": {
+      "win": 0,
+      "loss": 1,
+      "push": 0,
+      "dnp": 0,
+      "roi_units": -1
+    },
+    "conf=conf70-80 | cote=cote1.7-2.0 | direction=over | edge=edge35+ | prop=REB | warn=clean": {
+      "win": 1,
+      "loss": 0,
+      "push": 0,
+      "dnp": 0,
+      "roi_units": 0.95
+    },
+    "conf=conf80+ | cote=cote1.7-2.0 | direction=over | edge=edge35+ | prop=FG3M | warn=warn": {
+      "win": 1,
+      "loss": 0,
+      "push": 0,
+      "dnp": 0,
+      "roi_units": 0.74
+    },
+    "conf=conf70-80 | cote=cote1.7-2.0 | direction=under | edge=edge25-35 | prop=PTS | warn=clean": {
+      "win": 0,
+      "loss": 1,
+      "push": 0,
+      "dnp": 0,
+      "roi_units": -1
+    },
+    "conf=conf80+ | cote=cote1.7-2.0 | direction=over | edge=edge35+ | prop=REB | warn=warn": {
+      "win": 1,
+      "loss": 0,
+      "push": 0,
+      "dnp": 0,
+      "roi_units": 0.73
+    },
+    "conf=conf80+ | cote=cote1.4-1.7 | direction=over | edge=edge<15 | prop=AST | warn=clean": {
+      "win": 1,
+      "loss": 0,
+      "push": 0,
+      "dnp": 0,
+      "roi_units": 0.3600000000000001
+    },
+    "conf=conf80+ | cote=cote1.4-1.7 | direction=over | edge=edge<15 | prop=FG3M | warn=clean": {
+      "win": 0,
+      "loss": 2,
+      "push": 0,
+      "dnp": 0,
+      "roi_units": -2
+    },
+    "conf=conf60-70 | cote=cote1.4-1.7 | direction=over | edge=edge<15 | prop=AST | warn=clean": {
+      "win": 1,
+      "loss": 1,
+      "push": 0,
+      "dnp": 0,
+      "roi_units": -0.3899999999999999
+    },
+    "conf=conf60-70 | cote=cote1.7-2.0 | direction=over | edge=edge<15 | prop=REB | warn=clean": {
+      "win": 1,
+      "loss": 0,
+      "push": 0,
+      "dnp": 1,
+      "roi_units": 0.8
+    },
+    "conf=conf60-70 | cote=cote1.4-1.7 | direction=over | edge=edge<15 | prop=FG3M | warn=clean": {
+      "win": 1,
+      "loss": 0,
+      "push": 0,
+      "dnp": 0,
+      "roi_units": 0.44999999999999996
+    },
+    "conf=conf60-70 | cote=cote1.4-1.7 | direction=over | edge=edge<15 | prop=REB | warn=clean": {
+      "win": 0,
+      "loss": 2,
+      "push": 0,
+      "dnp": 0,
+      "roi_units": -2
+    },
+    "conf=conf70-80 | cote=cote1.4-1.7 | direction=over | edge=edge<15 | prop=PA | warn=clean": {
       "win": 1,
       "loss": 0,
       "push": 0,
       "dnp": 0,
       "roi_units": 0.6399999999999999
     },
-    "conf=conf60-70 | cote=cote1.7-2.0 | direction=over | edge=edge25-35 | prop=PTS | warn=clean": {
+    "conf=conf70-80 | cote=cote1.4-1.7 | direction=over | edge=edge<15 | prop=PRA | warn=clean": {
+      "win": 1,
+      "loss": 0,
+      "push": 0,
+      "dnp": 0,
+      "roi_units": 0.56
+    },
+    "conf=conf70-80 | cote=cote1.4-1.7 | direction=over | edge=edge<15 | prop=REB | warn=clean": {
+      "win": 0,
+      "loss": 1,
+      "push": 0,
+      "dnp": 0,
+      "roi_units": -1
+    },
+    "conf=conf60-70 | cote=cote1.7-2.0 | direction=over | edge=edge<15 | prop=PTS | warn=clean": {
+      "win": 0,
+      "loss": 1,
+      "push": 0,
+      "dnp": 0,
+      "roi_units": -1
+    },
+    "conf=conf60-70 | cote=cote1.4-1.7 | direction=over | edge=edge<15 | prop=PRA | warn=warn": {
+      "win": 1,
+      "loss": 0,
+      "push": 0,
+      "dnp": 0,
+      "roi_units": 0.69
+    },
+    "conf=conf60-70 | cote=cote1.7-2.0 | direction=under | edge=edge25-35 | prop=PR | warn=clean": {
+      "win": 1,
+      "loss": 2,
+      "push": 0,
+      "dnp": 0,
+      "roi_units": -1.15
+    },
+    "conf=conf60-70 | cote=cote2.0+ | direction=over | edge=edge25-35 | prop=PTS | warn=clean": {
+      "win": 0,
+      "loss": 1,
+      "push": 0,
+      "dnp": 0,
+      "roi_units": -1
+    },
+    "conf=conf60-70 | cote=cote1.7-2.0 | direction=under | edge=edge15-25 | prop=PR | warn=clean": {
+      "win": 0,
+      "loss": 1,
+      "push": 0,
+      "dnp": 0,
+      "roi_units": -1
+    },
+    "conf=conf60-70 | cote=cote1.7-2.0 | direction=over | edge=edge25-35 | prop=PTS | warn=warn": {
+      "win": 1,
+      "loss": 0,
+      "push": 0,
+      "dnp": 0,
+      "roi_units": 0.94
+    },
+    "conf=conf60-70 | cote=cote1.7-2.0 | direction=over | edge=edge<15 | prop=PRA | warn=clean": {
+      "win": 1,
+      "loss": 1,
+      "push": 0,
+      "dnp": 0,
+      "roi_units": -0.25
+    },
+    "conf=conf60-70 | cote=cote1.7-2.0 | direction=over | edge=edge35+ | prop=REB | warn=warn": {
+      "win": 0,
+      "loss": 1,
+      "push": 0,
+      "dnp": 0,
+      "roi_units": -1
+    },
+    "conf=conf70-80 | cote=cote2.0+ | direction=under | edge=edge35+ | prop=PRA | warn=clean": {
+      "win": 1,
+      "loss": 0,
+      "push": 0,
+      "dnp": 0,
+      "roi_units": 1.0
+    },
+    "conf=conf60-70 | cote=cote1.7-2.0 | direction=under | edge=edge35+ | prop=PR | warn=clean": {
+      "win": 1,
+      "loss": 0,
+      "push": 0,
+      "dnp": 0,
+      "roi_units": 0.8500000000000001
+    },
+    "conf=conf60-70 | cote=cote1.7-2.0 | direction=over | edge=edge35+ | prop=PRA | warn=warn": {
+      "win": 0,
+      "loss": 1,
+      "push": 0,
+      "dnp": 0,
+      "roi_units": -1
+    },
+    "conf=conf70-80 | cote=cote1.7-2.0 | direction=under | edge=edge35+ | prop=PRA | warn=clean": {
+      "win": 1,
+      "loss": 0,
+      "push": 0,
+      "dnp": 0,
+      "roi_units": 0.9099999999999999
+    },
+    "conf=conf60-70 | cote=cote1.7-2.0 | direction=over | edge=edge15-25 | prop=PA | warn=clean": {
+      "win": 1,
+      "loss": 0,
+      "push": 0,
+      "dnp": 0,
+      "roi_units": 0.95
+    },
+    "conf=conf60-70 | cote=cote2.0+ | direction=over | edge=edge35+ | prop=REB | warn=warn": {
+      "win": 1,
+      "loss": 0,
+      "push": 0,
+      "dnp": 0,
+      "roi_units": 1.2000000000000002
+    },
+    "conf=conf70-80 | cote=cote2.0+ | direction=over | edge=edge35+ | prop=FG3M | warn=clean": {
+      "win": 1,
+      "loss": 0,
+      "push": 0,
+      "dnp": 0,
+      "roi_units": 1.15
+    },
+    "conf=conf60-70 | cote=cote1.7-2.0 | direction=over | edge=edge35+ | prop=PR | warn=clean": {
       "win": 0,
       "loss": 1,
       "push": 0,
@@ -186,14 +592,14 @@
   },
   "foot": {
     "category=team | conf=conf80+ | cote=cote<1.4 | type=Double chance": {
-      "win": 1,
-      "loss": 0,
+      "win": 9,
+      "loss": 3,
       "push": 0,
       "dnp": 0,
-      "roi_units": 0
+      "roi_units": -2.1499999999999995
     },
     "category=team | conf=conf80+ | cote=cote<1.4 | type=Victoire extérieur": {
-      "win": 0,
+      "win": 1,
       "loss": 1,
       "push": 0,
       "dnp": 0,
@@ -201,38 +607,38 @@
     },
     "category=team | conf=conf<70 | cote=cote<1.4 | type=Victoire domicile": {
       "win": 0,
-      "loss": 2,
+      "loss": 5,
       "push": 0,
       "dnp": 0,
-      "roi_units": -2
+      "roi_units": -5
     },
     "category=team | conf=conf80+ | cote=cote<1.4 | type=Tirs cadrés (total)": {
-      "win": 1,
-      "loss": 0,
+      "win": 4,
+      "loss": 1,
       "push": 0,
       "dnp": 0,
-      "roi_units": 0.26
+      "roi_units": 0.020000000000000018
     },
     "category=team | conf=conf70-80 | cote=cote<1.4 | type=Tirs (AFC Bournemouth)": {
-      "win": 1,
+      "win": 2,
       "loss": 0,
       "push": 0,
       "dnp": 0,
-      "roi_units": 0.29000000000000004
+      "roi_units": 0.5900000000000001
     },
     "category=player | conf=conf<70 | cote=cote<1.4 | type=Joueur décisif": {
-      "win": 2,
-      "loss": 4,
+      "win": 6,
+      "loss": 10,
       "push": 0,
       "dnp": 0,
-      "roi_units": -4
+      "roi_units": -10
     },
     "category=player | conf=conf<70 | cote=cote<1.4 | type=Buteur": {
-      "win": 3,
-      "loss": 4,
+      "win": 6,
+      "loss": 16,
       "push": 0,
       "dnp": 0,
-      "roi_units": -4
+      "roi_units": -16
     },
     "category=team | conf=conf80+ | cote=cote<1.4 | type=1ère équipe à marquer": {
       "win": 1,
@@ -270,18 +676,18 @@
       "roi_units": -1
     },
     "category=team | conf=conf70-80 | cote=cote<1.4 | type=Tirs cadrés (total)": {
-      "win": 1,
-      "loss": 0,
-      "push": 0,
+      "win": 13,
+      "loss": 2,
+      "push": 1,
       "dnp": 0,
-      "roi_units": 0.31000000000000005
+      "roi_units": 1.7600000000000005
     },
     "category=team | conf=conf70-80 | cote=cote<1.4 | type=Tirs (total match)": {
-      "win": 1,
-      "loss": 1,
-      "push": 0,
+      "win": 11,
+      "loss": 3,
+      "push": 1,
       "dnp": 0,
-      "roi_units": -0.73
+      "roi_units": 0.2300000000000002
     },
     "category=team | conf=conf70-80 | cote=cote<1.4 | type=Tirs (Tottenham Hotspur)": {
       "win": 1,
@@ -298,25 +704,25 @@
       "roi_units": 0.27
     },
     "category=team | conf=conf70-80 | cote=cote<1.4 | type=Double chance": {
-      "win": 0,
+      "win": 4,
       "loss": 1,
       "push": 0,
       "dnp": 0,
-      "roi_units": -1
+      "roi_units": -0.5800000000000001
     },
     "category=team | conf=conf<70 | cote=cote<1.4 | type=Victoire extérieur": {
-      "win": 1,
-      "loss": 0,
+      "win": 2,
+      "loss": 3,
       "push": 0,
       "dnp": 0,
-      "roi_units": 0
+      "roi_units": -3
     },
     "category=team | conf=conf80+ | cote=cote<1.4 | type=Tirs (total match)": {
-      "win": 2,
-      "loss": 0,
+      "win": 8,
+      "loss": 2,
       "push": 0,
       "dnp": 0,
-      "roi_units": 0.5
+      "roi_units": 0.010000000000000009
     },
     "category=team | conf=conf70-80 | cote=cote<1.4 | type=Tirs cadrés (Aston Villa)": {
       "win": 1,
@@ -340,11 +746,11 @@
       "roi_units": -0.33000000000000007
     },
     "category=team | conf=conf<70 | cote=cote1.4-1.8 | type=Under 3.5 buts": {
-      "win": 1,
-      "loss": 0,
+      "win": 3,
+      "loss": 2,
       "push": 0,
       "dnp": 0,
-      "roi_units": 0.73
+      "roi_units": 0.1299999999999999
     },
     "category=fun | conf=conf<70 | cote=cote1.8-2.5 | type=🎲 Paris fun": {
       "win": 0,
@@ -354,18 +760,18 @@
       "roi_units": -1
     },
     "category=fun | conf=conf<70 | cote=cote2.5+ | type=🎲 Paris fun": {
-      "win": 1,
-      "loss": 0,
+      "win": 3,
+      "loss": 5,
       "push": 0,
       "dnp": 0,
-      "roi_units": 3.33
+      "roi_units": 3.9299999999999997
     },
     "category=team | conf=conf70-80 | cote=cote1.4-1.8 | type=Under 3.5 buts": {
-      "win": 1,
+      "win": 2,
       "loss": 0,
       "push": 0,
       "dnp": 0,
-      "roi_units": 0.43999999999999995
+      "roi_units": 1.1099999999999999
     },
     "category=team | conf=conf<70 | cote=cote1.4-1.8 | type=BTTS": {
       "win": 1,
@@ -394,6 +800,686 @@
       "push": 0,
       "dnp": 0,
       "roi_units": -1
+    },
+    "category=team | conf=conf80+ | cote=cote<1.4 | type=Tirs (Freiburg)": {
+      "win": 1,
+      "loss": 0,
+      "push": 0,
+      "dnp": 0,
+      "roi_units": 0.26
+    },
+    "category=team | conf=conf80+ | cote=cote<1.4 | type=Tirs (Fiorentina)": {
+      "win": 1,
+      "loss": 0,
+      "push": 0,
+      "dnp": 0,
+      "roi_units": 0.26
+    },
+    "category=team | conf=conf70-80 | cote=cote<1.4 | type=Tirs (Nice)": {
+      "win": 1,
+      "loss": 0,
+      "push": 0,
+      "dnp": 0,
+      "roi_units": 0.27
+    },
+    "category=player | conf=conf<70 | cote=cote<1.4 | type=Passeur décisif": {
+      "win": 1,
+      "loss": 0,
+      "push": 0,
+      "dnp": 0,
+      "roi_units": 0
+    },
+    "category=team | conf=conf70-80 | cote=cote<1.4 | type=Victoire extérieur": {
+      "win": 2,
+      "loss": 2,
+      "push": 0,
+      "dnp": 0,
+      "roi_units": -1.68
+    },
+    "category=team | conf=conf70-80 | cote=cote<1.4 | type=Tirs (Bologna)": {
+      "win": 1,
+      "loss": 0,
+      "push": 0,
+      "dnp": 0,
+      "roi_units": 0.26
+    },
+    "category=player | conf=conf<70 | cote=cote2.5+ | type=Joueur décisif": {
+      "win": 2,
+      "loss": 5,
+      "push": 0,
+      "dnp": 0,
+      "roi_units": 3.05
+    },
+    "category=team | conf=conf70-80 | cote=cote<1.4 | type=Tirs cadrés (Bayern München)": {
+      "win": 1,
+      "loss": 0,
+      "push": 0,
+      "dnp": 0,
+      "roi_units": 0.26
+    },
+    "category=player | conf=conf80+ | cote=cote<1.4 | type=Buteur": {
+      "win": 3,
+      "loss": 6,
+      "push": 0,
+      "dnp": 0,
+      "roi_units": -5.77
+    },
+    "category=team | conf=conf<70 | cote=cote1.4-1.8 | type=Favori net": {
+      "win": 2,
+      "loss": 0,
+      "push": 0,
+      "dnp": 0,
+      "roi_units": 1.1500000000000001
+    },
+    "category=team | conf=conf<70 | cote=cote1.8-2.5 | type=Over 2.5 buts": {
+      "win": 2,
+      "loss": 1,
+      "push": 0,
+      "dnp": 0,
+      "roi_units": 0.78
+    },
+    "category=team | conf=conf70-80 | cote=cote<1.4 | type=Tirs (Pisa)": {
+      "win": 1,
+      "loss": 0,
+      "push": 0,
+      "dnp": 0,
+      "roi_units": 0.26
+    },
+    "category=team | conf=conf80+ | cote=cote1.4-1.8 | type=Double chance": {
+      "win": 2,
+      "loss": 2,
+      "push": 0,
+      "dnp": 0,
+      "roi_units": -0.6799999999999999
+    },
+    "category=team | conf=conf<70 | cote=cote2.5+ | type=Victoire extérieur": {
+      "win": 1,
+      "loss": 2,
+      "push": 0,
+      "dnp": 0,
+      "roi_units": 0.7000000000000002
+    },
+    "category=team | conf=conf70-80 | cote=cote<1.4 | type=Tirs (Rayo Vallecano)": {
+      "win": 1,
+      "loss": 1,
+      "push": 0,
+      "dnp": 0,
+      "roi_units": -0.7
+    },
+    "category=team | conf=conf70-80 | cote=cote1.8-2.5 | type=Victoire extérieur": {
+      "win": 0,
+      "loss": 1,
+      "push": 0,
+      "dnp": 0,
+      "roi_units": -1
+    },
+    "category=team | conf=conf70-80 | cote=cote<1.4 | type=Tirs cadrés (Valencia)": {
+      "win": 0,
+      "loss": 1,
+      "push": 0,
+      "dnp": 0,
+      "roi_units": -1
+    },
+    "category=player | conf=conf<70 | cote=cote1.8-2.5 | type=Joueur décisif": {
+      "win": 2,
+      "loss": 2,
+      "push": 0,
+      "dnp": 0,
+      "roi_units": 0.17000000000000015
+    },
+    "category=team | conf=conf80+ | cote=cote<1.4 | type=Tirs (Sevilla)": {
+      "win": 0,
+      "loss": 1,
+      "push": 0,
+      "dnp": 0,
+      "roi_units": -1
+    },
+    "category=player | conf=conf<70 | cote=cote1.8-2.5 | type=Buteur": {
+      "win": 4,
+      "loss": 11,
+      "push": 0,
+      "dnp": 0,
+      "roi_units": -6.67
+    },
+    "category=team | conf=conf80+ | cote=cote<1.4 | type=Tirs cadrés (Espanyol)": {
+      "win": 0,
+      "loss": 1,
+      "push": 0,
+      "dnp": 0,
+      "roi_units": -1
+    },
+    "category=team | conf=conf<70 | cote=cote1.4-1.8 | type=Over 2.5 buts": {
+      "win": 2,
+      "loss": 2,
+      "push": 0,
+      "dnp": 0,
+      "roi_units": -0.8199999999999998
+    },
+    "category=team | conf=conf70-80 | cote=cote<1.4 | type=Tirs (Real Betis)": {
+      "win": 1,
+      "loss": 0,
+      "push": 0,
+      "dnp": 0,
+      "roi_units": 0.27
+    },
+    "category=team | conf=conf70-80 | cote=cote1.4-1.8 | type=Victoire domicile": {
+      "win": 1,
+      "loss": 0,
+      "push": 0,
+      "dnp": 0,
+      "roi_units": 0.54
+    },
+    "category=team | conf=conf80+ | cote=cote<1.4 | type=Tirs cadrés (Athletic Club)": {
+      "win": 1,
+      "loss": 0,
+      "push": 0,
+      "dnp": 0,
+      "roi_units": 0.25
+    },
+    "category=team | conf=conf70-80 | cote=cote<1.4 | type=Tirs (Elche)": {
+      "win": 1,
+      "loss": 0,
+      "push": 0,
+      "dnp": 0,
+      "roi_units": 0.27
+    },
+    "category=player | conf=conf<70 | cote=cote2.5+ | type=Buteur": {
+      "win": 2,
+      "loss": 7,
+      "push": 0,
+      "dnp": 0,
+      "roi_units": -2.55
+    },
+    "category=team | conf=conf<70 | cote=cote1.4-1.8 | type=Over 1.5 buts": {
+      "win": 0,
+      "loss": 2,
+      "push": 0,
+      "dnp": 0,
+      "roi_units": -2
+    },
+    "category=team | conf=conf70-80 | cote=cote<1.4 | type=Tirs cadrés (Getafe)": {
+      "win": 1,
+      "loss": 0,
+      "push": 0,
+      "dnp": 0,
+      "roi_units": 0.29000000000000004
+    },
+    "category=team | conf=conf70-80 | cote=cote<1.4 | type=Tirs (Mallorca)": {
+      "win": 0,
+      "loss": 1,
+      "push": 0,
+      "dnp": 0,
+      "roi_units": -1
+    },
+    "category=player | conf=conf<70 | cote=cote1.4-1.8 | type=Buteur": {
+      "win": 3,
+      "loss": 4,
+      "push": 0,
+      "dnp": 0,
+      "roi_units": -1.9100000000000001
+    },
+    "category=team | conf=conf70-80 | cote=cote<1.4 | type=Tirs cadrés (Parma)": {
+      "win": 1,
+      "loss": 0,
+      "push": 0,
+      "dnp": 0,
+      "roi_units": 0.32000000000000006
+    },
+    "category=team | conf=conf80+ | cote=cote1.8-2.5 | type=Double chance": {
+      "win": 1,
+      "loss": 0,
+      "push": 0,
+      "dnp": 0,
+      "roi_units": 0.9099999999999999
+    },
+    "category=team | conf=conf80+ | cote=cote2.5+ | type=Victoire extérieur": {
+      "win": 1,
+      "loss": 1,
+      "push": 0,
+      "dnp": 0,
+      "roi_units": 1.5
+    },
+    "category=team | conf=conf70-80 | cote=cote<1.4 | type=Tirs (Manchester United)": {
+      "win": 1,
+      "loss": 0,
+      "push": 0,
+      "dnp": 0,
+      "roi_units": 0.26
+    },
+    "category=team | conf=conf80+ | cote=cote1.8-2.5 | type=Victoire extérieur": {
+      "win": 1,
+      "loss": 0,
+      "push": 0,
+      "dnp": 0,
+      "roi_units": 0.9099999999999999
+    },
+    "category=team | conf=conf70-80 | cote=cote<1.4 | type=Tirs (Arsenal)": {
+      "win": 1,
+      "loss": 1,
+      "push": 0,
+      "dnp": 0,
+      "roi_units": -0.69
+    },
+    "category=team | conf=conf<70 | cote=cote1.8-2.5 | type=Victoire extérieur": {
+      "win": 0,
+      "loss": 1,
+      "push": 0,
+      "dnp": 0,
+      "roi_units": -1
+    },
+    "category=team | conf=conf<70 | cote=cote1.8-2.5 | type=Under 3.5 buts": {
+      "win": 1,
+      "loss": 1,
+      "push": 0,
+      "dnp": 0,
+      "roi_units": -0.16999999999999993
+    },
+    "category=team | conf=conf<70 | cote=cote1.4-1.8 | type=Victoire domicile": {
+      "win": 0,
+      "loss": 1,
+      "push": 0,
+      "dnp": 0,
+      "roi_units": -1
+    },
+    "category=team | conf=conf80+ | cote=cote<1.4 | type=Tirs (Manchester City)": {
+      "win": 1,
+      "loss": 0,
+      "push": 0,
+      "dnp": 0,
+      "roi_units": 0.25
+    },
+    "category=team | conf=conf80+ | cote=cote<1.4 | type=Tirs cadrés (Chelsea)": {
+      "win": 1,
+      "loss": 0,
+      "push": 0,
+      "dnp": 0,
+      "roi_units": 0.25
+    },
+    "category=team | conf=conf70-80 | cote=cote<1.4 | type=Tirs (Burnley)": {
+      "win": 1,
+      "loss": 0,
+      "push": 0,
+      "dnp": 0,
+      "roi_units": 0.27
+    },
+    "category=team | conf=conf80+ | cote=cote<1.4 | type=Tirs (Tottenham Hotspur)": {
+      "win": 1,
+      "loss": 0,
+      "push": 0,
+      "dnp": 0,
+      "roi_units": 0.25
+    },
+    "category=team | conf=conf70-80 | cote=cote1.8-2.5 | type=Double chance": {
+      "win": 0,
+      "loss": 1,
+      "push": 0,
+      "dnp": 0,
+      "roi_units": -1
+    },
+    "category=team | conf=conf80+ | cote=cote<1.4 | type=Tirs cadrés (West Ham United)": {
+      "win": 0,
+      "loss": 1,
+      "push": 0,
+      "dnp": 0,
+      "roi_units": -1
+    },
+    "category=team | conf=conf70-80 | cote=cote<1.4 | type=Tirs (Newcastle United)": {
+      "win": 1,
+      "loss": 0,
+      "push": 0,
+      "dnp": 0,
+      "roi_units": 0.29000000000000004
+    },
+    "category=team | conf=conf70-80 | cote=cote<1.4 | type=Tirs (Brentford)": {
+      "win": 1,
+      "loss": 0,
+      "push": 0,
+      "dnp": 0,
+      "roi_units": 0.26
+    },
+    "category=team | conf=conf80+ | cote=cote<1.4 | type=Tirs (Napoli)": {
+      "win": 1,
+      "loss": 0,
+      "push": 0,
+      "dnp": 0,
+      "roi_units": 0.25
+    },
+    "category=team | conf=conf70-80 | cote=cote<1.4 | type=Tirs (Hellas Verona)": {
+      "win": 1,
+      "loss": 0,
+      "push": 0,
+      "dnp": 0,
+      "roi_units": 0.27
+    },
+    "category=team | conf=conf80+ | cote=cote<1.4 | type=Tirs (Como)": {
+      "win": 1,
+      "loss": 0,
+      "push": 0,
+      "dnp": 0,
+      "roi_units": 0.26
+    },
+    "category=team | conf=conf70-80 | cote=cote<1.4 | type=Tirs cadrés (Genoa)": {
+      "win": 1,
+      "loss": 0,
+      "push": 0,
+      "dnp": 0,
+      "roi_units": 0.27
+    },
+    "category=team | conf=conf<70 | cote=cote<1.4 | type=Favori net": {
+      "win": 1,
+      "loss": 1,
+      "push": 0,
+      "dnp": 0,
+      "roi_units": -1
+    },
+    "category=team | conf=conf70-80 | cote=cote<1.4 | type=Tirs cadrés (Cagliari)": {
+      "win": 1,
+      "loss": 0,
+      "push": 0,
+      "dnp": 0,
+      "roi_units": 0.27
+    },
+    "category=team | conf=conf70-80 | cote=cote<1.4 | type=Tirs (Villarreal)": {
+      "win": 1,
+      "loss": 0,
+      "push": 0,
+      "dnp": 0,
+      "roi_units": 0.28
+    },
+    "category=team | conf=conf70-80 | cote=cote<1.4 | type=Tirs cadrés (Torino)": {
+      "win": 0,
+      "loss": 1,
+      "push": 0,
+      "dnp": 0,
+      "roi_units": -1
+    },
+    "category=team | conf=conf80+ | cote=cote<1.4 | type=Tirs (Liverpool FC)": {
+      "win": 0,
+      "loss": 0,
+      "push": 1,
+      "dnp": 0,
+      "roi_units": 0
+    },
+    "category=player | conf=conf80+ | cote=cote<1.4 | type=Double Chance Buteur": {
+      "win": 5,
+      "loss": 16,
+      "push": 0,
+      "dnp": 0,
+      "roi_units": -15.5
+    },
+    "category=team | conf=conf70-80 | cote=cote<1.4 | type=Tirs (CSD Macara)": {
+      "win": 0,
+      "loss": 1,
+      "push": 0,
+      "dnp": 0,
+      "roi_units": -1
+    },
+    "category=team | conf=conf70-80 | cote=cote<1.4 | type=Tirs cadrés (Central Espanol)": {
+      "win": 0,
+      "loss": 0,
+      "push": 1,
+      "dnp": 0,
+      "roi_units": 0
+    },
+    "category=player | conf=conf70-80 | cote=cote<1.4 | type=Buteur": {
+      "win": 4,
+      "loss": 15,
+      "push": 0,
+      "dnp": 0,
+      "roi_units": -15
+    },
+    "category=team | conf=conf70-80 | cote=cote<1.4 | type=Tirs (Universitario de Vinto)": {
+      "win": 1,
+      "loss": 0,
+      "push": 0,
+      "dnp": 0,
+      "roi_units": 0.30000000000000004
+    },
+    "category=player | conf=conf<70 | cote=cote<1.4 | type=Double Chance Buteur": {
+      "win": 0,
+      "loss": 3,
+      "push": 0,
+      "dnp": 0,
+      "roi_units": -3
+    },
+    "category=player | conf=conf70-80 | cote=cote<1.4 | type=Double Chance Buteur": {
+      "win": 1,
+      "loss": 1,
+      "push": 0,
+      "dnp": 0,
+      "roi_units": -0.5900000000000001
+    },
+    "category=team | conf=conf70-80 | cote=cote<1.4 | type=Tirs (Tecnico Universitario)": {
+      "win": 0,
+      "loss": 1,
+      "push": 0,
+      "dnp": 0,
+      "roi_units": -1
+    },
+    "category=team | conf=conf70-80 | cote=cote<1.4 | type=Forme superieure": {
+      "win": 10,
+      "loss": 7,
+      "push": 5,
+      "dnp": 0,
+      "roi_units": -7
+    },
+    "category=team | conf=conf70-80 | cote=cote<1.4 | type=Total buts": {
+      "win": 3,
+      "loss": 1,
+      "push": 5,
+      "dnp": 0,
+      "roi_units": -1
+    },
+    "category=team | conf=conf<70 | cote=cote<1.4 | type=Total buts": {
+      "win": 9,
+      "loss": 9,
+      "push": 5,
+      "dnp": 0,
+      "roi_units": -9
+    },
+    "category=team | conf=conf<70 | cote=cote<1.4 | type=Forme superieure": {
+      "win": 2,
+      "loss": 6,
+      "push": 1,
+      "dnp": 0,
+      "roi_units": -6
+    },
+    "category=team | conf=conf80+ | cote=cote<1.4 | type=Forme superieure": {
+      "win": 3,
+      "loss": 4,
+      "push": 1,
+      "dnp": 0,
+      "roi_units": -4
+    },
+    "category=team | conf=conf70-80 | cote=cote<1.4 | type=Buteur equipe": {
+      "win": 2,
+      "loss": 0,
+      "push": 2,
+      "dnp": 0,
+      "roi_units": 0
+    },
+    "category=team | conf=conf<70 | cote=cote<1.4 | type=Buteur equipe": {
+      "win": 7,
+      "loss": 9,
+      "push": 1,
+      "dnp": 0,
+      "roi_units": -9
+    },
+    "category=team | conf=conf<70 | cote=cote<1.4 | type=BTTS": {
+      "win": 2,
+      "loss": 3,
+      "push": 0,
+      "dnp": 0,
+      "roi_units": -3
+    },
+    "category=player | conf=conf<70 | cote=cote2.5+ | type=Double buteur": {
+      "win": 0,
+      "loss": 3,
+      "push": 0,
+      "dnp": 0,
+      "roi_units": -3
+    },
+    "category=player | conf=conf70-80 | cote=cote1.4-1.8 | type=Buteur": {
+      "win": 0,
+      "loss": 1,
+      "push": 0,
+      "dnp": 0,
+      "roi_units": -1
+    },
+    "category=player | conf=conf<70 | cote=cote1.8-2.5 | type=Double buteur": {
+      "win": 0,
+      "loss": 1,
+      "push": 0,
+      "dnp": 0,
+      "roi_units": -1
+    },
+    "category=player | conf=conf<70 | cote=cote1.4-1.8 | type=Joueur décisif": {
+      "win": 2,
+      "loss": 2,
+      "push": 0,
+      "dnp": 0,
+      "roi_units": -0.6699999999999999
+    },
+    "category=fun | conf=conf<70 | cote=cote2.5+ | type=🏆 Score exact WC": {
+      "win": 0,
+      "loss": 1,
+      "push": 0,
+      "dnp": 0,
+      "roi_units": -1
+    },
+    "category=fun | conf=conf<70 | cote=cote<1.4 | type=🏆 Score exact WC": {
+      "win": 0,
+      "loss": 7,
+      "push": 0,
+      "dnp": 0,
+      "roi_units": -7
+    },
+    "category=team | conf=conf70-80 | cote=cote<1.4 | type=Victoire domicile": {
+      "win": 1,
+      "loss": 1,
+      "push": 0,
+      "dnp": 0,
+      "roi_units": -1
+    }
+  },
+  "calibration": {
+    "foot": {
+      "90+": {
+        "n": 23,
+        "wins": 12,
+        "losses": 11,
+        "wr_observed": 52.2,
+        "expected_wr": 94.0,
+        "conf_sum": 2161.0
+      },
+      "80-89": {
+        "n": 63,
+        "wins": 35,
+        "losses": 28,
+        "wr_observed": 55.6,
+        "expected_wr": 81.6,
+        "conf_sum": 5141.0
+      },
+      "60-69": {
+        "n": 92,
+        "wins": 36,
+        "losses": 56,
+        "wr_observed": 39.1,
+        "expected_wr": 64.5,
+        "conf_sum": 5936.0
+      },
+      "70-79": {
+        "n": 127,
+        "wins": 82,
+        "losses": 45,
+        "wr_observed": 64.6,
+        "expected_wr": 75.9,
+        "conf_sum": 9639.0
+      },
+      "40-49": {
+        "n": 36,
+        "wins": 9,
+        "losses": 27,
+        "wr_observed": 25.0,
+        "expected_wr": 44.4,
+        "conf_sum": 1598.0
+      },
+      "<40": {
+        "n": 27,
+        "wins": 6,
+        "losses": 21,
+        "wr_observed": 22.2,
+        "expected_wr": 29.2,
+        "conf_sum": 788.0
+      },
+      "50-59": {
+        "n": 41,
+        "wins": 17,
+        "losses": 24,
+        "wr_observed": 41.5,
+        "expected_wr": 55.1,
+        "conf_sum": 2260.0
+      }
+    },
+    "foot_wc": {
+      "<40": {
+        "n": 8,
+        "wins": 0,
+        "losses": 8,
+        "wr_observed": 0.0,
+        "expected_wr": 15.6,
+        "conf_sum": 125.0
+      },
+      "70-79": {
+        "n": 2,
+        "wins": 1,
+        "losses": 1,
+        "wr_observed": 50.0,
+        "expected_wr": 72.0,
+        "conf_sum": 144.0
+      }
+    },
+    "nba": {
+      "70-79": {
+        "n": 52,
+        "wins": 30,
+        "losses": 22,
+        "wr_observed": 57.7,
+        "expected_wr": 73.2,
+        "conf_sum": 3806.0
+      },
+      "60-69": {
+        "n": 51,
+        "wins": 26,
+        "losses": 25,
+        "wr_observed": 51.0,
+        "expected_wr": 65.2,
+        "conf_sum": 3324.0
+      },
+      "50-59": {
+        "n": 10,
+        "wins": 5,
+        "losses": 5,
+        "wr_observed": 50.0,
+        "expected_wr": 57.6,
+        "conf_sum": 576.0
+      },
+      "80-89": {
+        "n": 19,
+        "wins": 11,
+        "losses": 8,
+        "wr_observed": 57.9,
+        "expected_wr": 83.1,
+        "conf_sum": 1579.0
+      },
+      "90+": {
+        "n": 3,
+        "wins": 2,
+        "losses": 1,
+        "wr_observed": 66.7,
+        "expected_wr": 91.0,
+        "conf_sum": 273.0
+      }
     }
   }
 }

@@ -38,10 +38,11 @@ except ImportError:
 NOTIF_LOG_FILE = Path("data/notif_log.json")
 
 # Fenetre de notification (en minutes avant kickoff)
-# Le user veut attendre ~30 min avant kickoff pour avoir la compo OFFICIELLE
-# (probable XI -> officielle ~60 min avant). Fenetre 15-35 min cible bien ce moment.
-WINDOW_MIN_FROM = 15   # ne pas notifier si trop proche / passe
-WINDOW_MIN_TO   = 35   # ne pas notifier si trop loin
+# La compo OFFICIELLE sort généralement 60 min avant le KO. On vise 45-75 min
+# pour avoir le maximum d'information utile (composition + absences) AVANT
+# d'envoyer les picks au canal.
+WINDOW_MIN_FROM = 45
+WINDOW_MIN_TO   = 75
 
 # Seuils pour les alertes "high value" (immediat, hors fenetre kickoff)
 # Filtre commun : cote minimum 1.60 pour Telegram (les picks a @1.10 ne valent
@@ -513,11 +514,17 @@ def _is_push_eligible_team(pick):
     """Critere stricte pour push Telegram d'un team pick :
     - cote (book ou simulee) >= 1.60 sinon pas de mise interessante
     - confiance >= 50 minimum (sinon trop random meme avec une bonne cote)
+    - edge_pp >= 2 minimum quand connu (sinon book a la même opinion que nous,
+      aucun edge → loterie)
     - bonus : edge_pp >= 5 si dispo
     Retourne (eligible_bool, reason_str)."""
     conf = pick.get("confidence", 0)
     edge = pick.get("edge_pp")
     cote, src = _effective_cote(pick)
+
+    # Edge minimum 2pp quand connu (book = nous → loterie)
+    if edge is not None and edge < 2:
+        return False, f"edge {edge}pp trop faible (min 2)"
 
     if cote is None:
         return False, "pas de cote ni de conf"
