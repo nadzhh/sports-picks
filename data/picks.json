@@ -2216,15 +2216,15 @@
         "cote": null,
         "book": null,
         "books": [],
-        "confidence": 70,
-        "reasoning": "8 buts en 9 matchs cette saison (88.9% de chance/match) · bonne efficacité (28% conv.) · xG moyen 0.00/match, face à une défense qui concède 2.3 buts/match · défense fragile\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+        "confidence": 74,
+        "reasoning": "9 buts en 9 matchs cette saison (100.0% de chance/match) · bonne efficacité (29% conv.) · xG moyen 0.00/match, face à une défense qui concède 2.4 buts/match · défense fragile\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
         "context": {
-          "weakness": 0.56
+          "weakness": 0.57
         },
         "stats": {
-          "goals": 8,
+          "goals": 9,
           "apps": 9,
-          "gpm": 0.889,
+          "gpm": 1.0,
           "xgpm": 0
         },
         "team": "away",
@@ -2243,11 +2243,11 @@
         "books": [],
         "confidence": 70,
         "cote_min": 1.43,
-        "reasoning": "📈 P(Kristófer Kristinsson marque) ≈ 70% · P(Aron Bjarnason marque) ≈ 55%\n🎯 P(au moins un marque) = 70% (calculée par 1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.43 - chercher ≥1.43 chez le bookmaker\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+        "reasoning": "📈 P(Kristófer Kristinsson marque) ≈ 74% · P(Aron Bjarnason marque) ≈ 56%\n🎯 P(au moins un marque) = 70% (calculée par 1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.43 - chercher ≥1.43 chez le bookmaker\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
         "context": {},
         "stats": {
-          "p_a": 0.705,
-          "p_b": 0.548,
+          "p_a": 0.742,
+          "p_b": 0.555,
           "p_or": 0.7,
           "player_a": "Kristófer Kristinsson",
           "player_b": "Aron Bjarnason"
@@ -3202,32 +3202,10 @@
         "lineup_status": "predicted",
         "tier": "fun",
         "calibration_delta": -19.4,
-        "history_top3": false
+        "history_top3": true
       }
     ],
     "fun_picks": [
-      {
-        "direction": "fun_draw",
-        "type": "🎲 Paris fun",
-        "label": "Match nul",
-        "cote": 6.5,
-        "confidence": 45,
-        "is_fun": true,
-        "stats": {
-          "form": [
-            "L",
-            "D",
-            "W",
-            "W",
-            "L"
-          ]
-        },
-        "reasoning": "Deux équipes au niveau similaire (#8 vs #4), forme équilibrée des deux côtés — nul logique à 6.5\n📉 Calibration : bucket 40-49% historiquement à WR 25% (claim 44%, n=36) — sur-estimé de 19pp",
-        "tier": "fun",
-        "calibration_delta": -19.4,
-        "edge_pp": 29.6,
-        "history_top3": true
-      },
       {
         "direction": "wc_score_0_1",
         "type": "🏆 Score exact WC",
