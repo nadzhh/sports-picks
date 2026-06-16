@@ -548,7 +548,33 @@ def get_odds(mkt, choice):
     if not mkt: return None
     for c in mkt.get("choices", []):
         if c.get("name") == choice:
-            return frac2dec(c.get("fractionalValue",""))
+            # Format Sofascore : fractionalValue (str "5/4")
+            fv = c.get("fractionalValue")
+            if fv:
+                d = frac2dec(fv)
+                if d: return d
+            # Format Odds API fallback (foot_wc_odds) : cote décimale directe
+            cote = c.get("cote")
+            if cote:
+                try: return float(cote)
+                except Exception: pass
+            # Fallback : side-based matching (utile pour 1X2 où name = home_team_name)
+            if isinstance(c.get("name"), str) and choice == c.get("side"):
+                cote = c.get("cote")
+                if cote:
+                    try: return float(cote)
+                    except Exception: pass
+    # Pour 1X2 via foot_wc_odds : choices.name = "France"/"Draw"/"Senegal"
+    # mais get_odds est appelé avec choice="1"/"X"/"2". On match via side.
+    if mkt and choice in ("1", "X", "2"):
+        side_map = {"1": "home", "X": "draw", "2": "away"}
+        target_side = side_map[choice]
+        for c in mkt.get("choices", []):
+            if c.get("side") == target_side:
+                cote = c.get("cote")
+                if cote:
+                    try: return float(cote)
+                    except Exception: pass
     return None
 
 def prob(cote):
@@ -2173,6 +2199,23 @@ def analyze_match(match, pstats_all, player_odds_all=None):
                 if cote_min <= 1.85 and conf >= 70: return "safe"
                 return "ok"
 
+            # Lookup cote bookmaker pour les picks WC depuis match_odds
+            # (alimenté par foot_wc_odds.py / The Odds API en fallback).
+            ft_wc  = get_mkt(odds, "Full time")
+            btt_wc = get_mkt(odds, "Both teams to score")
+            ou_wc  = get_mkt(odds, "Goals Over/Under (2.5)")
+            def _wc_book_cote(direction):
+                """Renvoie cote bookmaker WC pour une direction wc_*, ou None."""
+                d = (direction or "").lower()
+                if d == "wc_home_win":  return get_odds(ft_wc, "1")
+                if d == "wc_away_win":  return get_odds(ft_wc, "2")
+                if d == "wc_draw":      return get_odds(ft_wc, "X")
+                if d == "wc_btts_yes":  return get_odds(btt_wc, "Yes")
+                if d == "wc_btts_no":   return get_odds(btt_wc, "No")
+                if d == "wc_over_25":   return get_odds(ou_wc, "Over 2.5")
+                if d == "wc_under_25":  return get_odds(ou_wc, "Under 2.5")
+                return None
+
             for cand in selected_for_match:
                 full_reasoning = cand["reasoning"]
                 if ctx_descr_combined:
@@ -2182,10 +2225,12 @@ def analyze_match(match, pstats_all, player_odds_all=None):
                 cote_min = cand["_cote"]
                 conf = cand["_conf"]
                 final_tier = _assign_tier(cote_min, conf)
+                cote_book = _wc_book_cote(cand["direction"])
                 pick_dict = {
                     "direction": cand["direction"],
                     "type":      cand["type"],
                     "label":     cand["label"],
+                    "cote":      cote_book,   # cote bookmaker (None si pas dispo)
                     "cote_min":  cote_min,    # cote minimum recommandée (1/p)
                     "confidence": conf,
                     "tier":      final_tier,
