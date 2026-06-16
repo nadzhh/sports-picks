@@ -52,9 +52,11 @@ jobs:
           CAMOUFOX_DISABLE:   "1" 
         run: |
           python foot_resolver.py         || echo "[!] foot_resolver KO"
+          python intl_team_sheets.py      || echo "[!] intl_team_sheets KO"
+          python backtest_wc.py           || echo "[!] backtest_wc KO"
           python nba_resolver.py          || echo "[!] nba_resolver KO"
           python scraper.py               || echo "[!] scraper foot KO"
-          python foot_odds.py             || echo "[!] foot_odds KO"
+          python foot_odds.py             || echo "[!] foot_odds KO"  
           python scraper_players_today.py || echo "[!] scraper_players KO"
           python nba_scraper.py           || echo "[!] nba_scraper KO"
           python nba_odds.py              || echo "[!] nba_odds KO"
