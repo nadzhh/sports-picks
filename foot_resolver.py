@@ -91,9 +91,14 @@ def _parse_score(score_str):
 def _resolve_team(pick, ev):
     direction = (pick.get("direction") or "").lower()
     # Fun picks utilisent le prefixe "fun_" (fun_over35, fun_draw, fun_btts...).
+    # WC picks utilisent le prefixe "wc_" (wc_over_25, wc_btts_no, wc_home_win...).
     # On strip le prefixe pour reutiliser la meme logique que les team picks.
     if direction.startswith("fun_"):
         direction = direction[4:]
+    elif direction.startswith("wc_") and not direction.startswith("wc_score_"):
+        direction = direction[3:]
+    # Mapping spécifique WC : "home_scores_N" / "away_scores_N" (équipe marque N+ buts)
+    # et "home_no_score" / "away_no_score" (équipe ne marque pas)
     hs, as_ = _parse_score(ev.get("score"))
     if hs is None or as_ is None: return "UNKNOWN", None
 
@@ -160,6 +165,35 @@ def _resolve_team(pick, ev):
         return ("WIN" if hs >= 2 else "LOSS"), f"{score_str} ({hs} buts home)"
     if direction in ("away_over_15", "away_over15"):
         return ("WIN" if as_ >= 2 else "LOSS"), f"{score_str} ({as_} buts away)"
+
+    # WC team-specific scoring : "home_scores_N" = home équipe a marqué >= N buts
+    # "away_scores_N" = away équipe a marqué >= N buts (suit le swap si appliqué)
+    if direction.startswith("home_scores_"):
+        try:
+            n = int(direction.split("_")[-1])
+            return ("WIN" if hs >= n else "LOSS"), f"{score_str} ({hs} buts home, cible {n}+)"
+        except Exception:
+            return "UNKNOWN", None
+    if direction.startswith("away_scores_"):
+        try:
+            n = int(direction.split("_")[-1])
+            return ("WIN" if as_ >= n else "LOSS"), f"{score_str} ({as_} buts away, cible {n}+)"
+        except Exception:
+            return "UNKNOWN", None
+    # WC clean sheet : "home_no_score" = home équipe ne marque pas (clean sheet adverse)
+    if direction == "home_no_score":
+        return ("WIN" if hs == 0 else "LOSS"), f"{score_str} ({hs} but home)"
+    if direction == "away_no_score":
+        return ("WIN" if as_ == 0 else "LOSS"), f"{score_str} ({as_} but away)"
+    # WC double chance avec format spécifique : "dc_1x" / "dc_x2" / "dc_12"
+    if direction == "dc_1x":  return ("WIN" if hs >= as_ else "LOSS"), score_str
+    if direction == "dc_x2":  return ("WIN" if as_ >= hs else "LOSS"), score_str
+    if direction == "dc_12":  return ("WIN" if hs != as_ else "LOSS"), score_str
+    # WC over/under 1.5 et 3.5 sans underscore intermédiaire
+    if direction == "over_15":  return ("WIN" if (hs + as_) > 1.5 else "LOSS"), f"{score_str} ({hs+as_} buts)"
+    if direction == "under_15": return ("WIN" if (hs + as_) < 1.5 else "LOSS"), f"{score_str} ({hs+as_} buts)"
+    if direction == "over_35":  return ("WIN" if (hs + as_) > 3.5 else "LOSS"), f"{score_str} ({hs+as_} buts)"
+    if direction == "under_35": return ("WIN" if (hs + as_) < 3.5 else "LOSS"), f"{score_str} ({hs+as_} buts)"
 
     # Penalty equipe : "1+ penalty marque dans le match" - on detecte via
     # les events goals.description ou label="Penalty" dans home_goals/away_goals
@@ -376,6 +410,21 @@ def run():
                         p["actual"] = f"FotMob slug pointe sur match {ev_date_str} (mauvaise data)"
                         p["resolved_at"] = datetime.now().strftime("%Y-%m-%d %H:%M")
                         n_resolved += 1
+                    continue
+            except Exception:
+                pass
+
+        # Garde explicite : si kickoff dans le futur, NE PAS résoudre.
+        # Évite le bug "France gagne WIN=3-4" sur un match pas joué (cache
+        # FotMob pollué qui renvoie un score résiduel d'un autre match).
+        ev_utc = ev.get("utcTime")
+        if ev_utc:
+            try:
+                from datetime import timezone
+                ko = datetime.fromisoformat(ev_utc.replace("Z", "+00:00"))
+                if (ko - datetime.now(tz=timezone.utc)).total_seconds() > 0:
+                    print(f"  [pending] match {mid} - kickoff dans le futur ({ev_utc})")
+                    n_skipped += len(mpicks)
                     continue
             except Exception:
                 pass

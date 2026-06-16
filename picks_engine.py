@@ -3720,18 +3720,22 @@ def _save_to_history(matches):
           - Il n'a NI cote NI cote_min (on ne peut pas juger → on garde)
         Filtre seulement les picks dont la cote est CONNUE et < seuil
         (= les picks sûrement à juice trop faible).
+        EXCLUT systématiquement les picks "score exact" : leur WR est trop
+        bas (≤20%) et fausse les stats globales du tracking historique.
         """
         scored = []
         for pk in all_picks:
+            # Exclure les score exact (pollue les stats WR/ROI)
+            direction = (pk.get("direction") or "").lower()
+            label_lc  = (pk.get("label") or "").lower()
+            if direction.startswith("wc_score_") or "score exact" in label_lc:
+                continue
             c    = pk.get("cote")
             cmin = pk.get("cote_min")
-            # Si une cote (réelle ou modèle) est dispo, on la teste
             if c and c > 0:
                 if c < HIST_MIN_COTE: continue
             elif cmin and cmin > 0:
                 if cmin < HIST_MIN_COTE: continue
-            # Sinon : pas de cote connue → on garde (user : "si pas de cote
-            # ne veut pas dire que la cote est pas bonne")
             scored.append((pk, _pick_score(pk)))
         scored.sort(key=lambda x: x[1], reverse=True)
         return [x[0] for x in scored[:HIST_MAX_PER_MATCH]]
