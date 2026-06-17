@@ -780,10 +780,14 @@ def player_picks_contextual(players, opp_pos, opp_rat, opp_conceded_pm=0, btts_p
                         "stats": {"goals": goals, "apps": apps, "gpm": gpm, "xgpm": xgpm}
                     })
 
-        # ── Passeur décisif ─────────────────────────────────────────
+        # ── Passeur (passe décisive uniquement) ─────────────────────
+        # Règle user : on distingue clairement Buteur vs Passeur (2 paris
+        # bien différents). Le pari "but OU passe" (Joueur décisif) est
+        # supprimé car il mélangeait les 2 et n'avait pas de marché bookmaker
+        # dédié. Maintenant : "Passeur" = anytime assist UNIQUEMENT (cote
+        # book = market "player_assists").
         if apm >= 0.15:
             lam_ass  = (xapm + apm) / 2 if xapm > 0 else apm
-            p_assist = poisson_at_least(lam_ass, 1)
             lam_ass_ctx = lam_ass * (1 + weakness * 0.15) * sub_penalty
             ctx_conf    = round(poisson_at_least(lam_ass_ctx, 1))
             if ctx_conf >= 30:
@@ -792,7 +796,7 @@ def player_picks_contextual(players, opp_pos, opp_rat, opp_conceded_pm=0, btts_p
                 cote, book, books_list = _lookup_player_cote(player_odds, "assists")
                 picks.append({
                     "player": name, "position": pos, "is_sub": is_sub,
-                    "type": "Passeur décisif", "label": f"{name} fait une passe décisive",
+                    "type": "Passeur", "label": f"{name} délivre une passe décisive",
                     "cote": cote, "book": book, "books": books_list,
                     "confidence": ctx_conf,
                     "reasoning": (f"{assists} passes décisives en {apps} matchs ({round(apm*100,1)}% de chance/match)"
@@ -801,51 +805,13 @@ def player_picks_contextual(players, opp_pos, opp_rat, opp_conceded_pm=0, btts_p
                     "stats": {"assists": assists, "apps": apps, "apm": apm, "xapm": xapm}
                 })
 
-        # ── Joueur décisif ──────────────────────────────────────────
-        if gapm >= 0.28 and (goals + assists) >= 4:
-            # P(but OU passe) = 1 - P(pas de but ET pas de passe)
-            lam_g     = (xgpm + gpm) / 2 if xgpm > 0 else gpm
-            lam_a     = (xapm + apm) / 2 if xapm > 0 else apm
-            p_neither = math.exp(-lam_g) * math.exp(-lam_a)
-            p_dec     = round((1 - p_neither) * 100, 1)
-            lam_g_ctx = lam_g * (1 + ctx_bonus * 0.25) * sub_penalty
-            lam_a_ctx = lam_a * (1 + ctx_bonus * 0.25) * sub_penalty
-            p_neither_ctx = math.exp(-lam_g_ctx) * math.exp(-lam_a_ctx)
-            ctx_conf      = round((1 - p_neither_ctx) * 100)
-            # Garantie mathématique : décisif >= buteur (superset)
-            # Récupère le conf buteur depuis picks déjà calculés si dispo
-            _buteur_picks = [pk for pk in picks if pk.get("player")==name and pk.get("type")=="Buteur"]
-            if _buteur_picks:
-                ctx_conf = max(ctx_conf, _buteur_picks[0]["confidence"] + 1)
-            if ctx_conf >= 40:
-                # Pas de market combine "but ou passe" chez Odds API.
-                # On utilise la cote anytime_scorer comme proxy minimum
-                # (mais notre proba est superieure car ya aussi les passes).
-                odds_key = _match_odds_name(name, odds_keys)
-                player_odds = (match_odds or {}).get(odds_key) if odds_key else None
-                cote, book, books_list = _lookup_player_cote(player_odds, "anytime_scorer")
-                # Note : cote affichee est juste une reference. Le pick reel
-                # serait "but OU passe" qui n'existe pas chez Odds API.
-                picks.append({
-                    "player": name, "position": pos, "is_sub": is_sub,
-                    "type": "Joueur décisif", "label": f"{name} but ou passe décisive",
-                    "cote": cote, "book": book, "books": books_list,
-                    "confidence": ctx_conf,
-                    "reasoning": (f"{goals} buts + {assists} passes décisives en {apps} matchs"
-                                  f" ({round(gapm*100,1)}% de chance/match) · xG+xA: {round(xgpm+xapm,2)}/match"
-                                  f" · {def_label}{sub_tag}"),
-                    "context": {"weakness": weakness},
-                    "stats": {"goals": goals, "assists": assists, "apps": apps}
-                })
-
     # Trier par confiance
     picks.sort(key=lambda x: x["confidence"], reverse=True)
 
-    # ── Dedup : 1 SEUL pick par joueur (buteur OU decisif, pas les 2) ──
-    # Decisif est toujours >= buteur par construction (superset). Si on triait
-    # juste par confidence, on garderait toujours decisif -> pas ce que l'on
-    # veut. On privilegie buteur quand la confiance est assez haute (cote book
-    # plus interessante), sinon on fallback sur decisif (plus probable).
+    # ── Sélection : on autorise Buteur ET Passeur sur le même joueur ─────
+    # (règle user : "soit l'un soit l'autre soit les 2 si vraiment tu penses
+    # que le joueur peut marquer ET faire une passe"). On filtre juste sur
+    # la confidence minimum par type pour ne garder que les paris à valeur.
     from collections import defaultdict
     by_player = defaultdict(list)
     for pk in picks:
@@ -858,25 +824,13 @@ def player_picks_contextual(players, opp_pos, opp_rat, opp_conceded_pm=0, btts_p
             continue
         types = {pk["type"]: pk for pk in ppicks}
         buteur  = types.get("Buteur")
-        decisif = types.get("Joueur décisif")
-        passeur = types.get("Passeur décisif")
-        # 1) Buteur confiance >= 55% -> on parie sur le but (value bet)
-        if buteur and buteur["confidence"] >= 55:
-            chosen = buteur
-        # 2) Decisif confiance >= 55% -> safer bet (but ou passe)
-        elif decisif and decisif["confidence"] >= 55:
-            chosen = decisif
-        # 3) Passeur isole (defenseur/milieu sans buts)
-        elif passeur and passeur["confidence"] >= 50:
-            chosen = passeur
-        # 4) Aucun ne passe le seuil mais on garde le meilleur si conf>=45
-        elif ppicks:
-            best = max(ppicks, key=lambda x: x["confidence"])
-            chosen = best if best["confidence"] >= 45 else None
-        else:
-            chosen = None
-        if chosen:
-            final.append(chosen)
+        passeur = types.get("Passeur")
+        # Buteur : conf >= 50% pour être proposé
+        if buteur and buteur.get("confidence", 0) >= 50:
+            final.append(buteur)
+        # Passeur : conf >= 45% pour être proposé (indépendamment du Buteur)
+        if passeur and passeur.get("confidence", 0) >= 45:
+            final.append(passeur)
 
     final.sort(key=lambda x: x["confidence"], reverse=True)
 
@@ -2593,57 +2547,50 @@ def analyze_match(match, pstats_all, player_odds_all=None):
                         ),
                     })
 
-                # ── Pick DECISIF (but OU passe decisive) ────────────────────
-                # Capte les playmakers genre Olise/Cherki qui combinent G+A
-                # Lambda decisif = (G + A) / nat_n, ponderation similaire
-                pid_dec = s.get("id")
-                lam_decisif = None
-                dec_descr = None
-                if fm_player and pid_dec:
+                # ── Pick PASSEUR (passe décisive uniquement) ────────────────
+                # Règle user : distinction claire Buteur vs Passeur (2 paris
+                # bien différents). λ Passeur = uniquement les ASSISTS, pas
+                # G+A combinés. Marché bookmaker = player_assists.
+                pid_pas = s.get("id")
+                lam_passeur = None
+                pas_descr = None
+                if fm_player and pid_pas:
                     try:
-                        pdata2 = fm_player(pid_dec) or {}
+                        pdata2 = fm_player(pid_pas) or {}
                     except Exception:
                         pdata2 = {}
-                    ns_dec = pdata2.get("nat_stats") or {}
-                    l10_dec = pdata2.get("l10") or {}
-                    if ns_dec.get("n", 0) >= 3:
-                        nat_dec = ns_dec.get("ga_pm", 0) or 0
-                        club_dec = ((l10_dec.get("goals_pm") or 0) + (l10_dec.get("assists_pm") or 0))
-                        # Nat weight plus haut pour decisif : 0.80 si n>=5
-                        # (le passe club inflate trop sinon)
-                        w_nat_dec = 0.80 if ns_dec.get("n", 0) >= 5 else 0.6
-                        lam_decisif = club_dec * (1 - w_nat_dec) + nat_dec * w_nat_dec
-                        l3 = ns_dec.get("last3_ga", 0) or 0
-                        # Boost recence : +5% par décisif dans last3 (cap +10%)
-                        if l3 >= 1:
-                            lam_decisif *= 1 + 0.05 * min(2, l3)
-                        # Drought penalty agressif (-45%/-60%) pour disette
-                        if ns_dec.get("drought_2_matches"):
-                            lam_decisif *= 0.40
-                        elif ns_dec.get("drought_1_match"):
-                            lam_decisif *= 0.55
-                        dec_descr = (f"selection {ns_dec.get('goals',0)}G+{ns_dec.get('assists',0)}A/{ns_dec.get('n',0)}m "
-                                     f"({nat_dec:.2f} G+A/m nat)")
-                        if ns_dec.get("drought_1_match") or ns_dec.get("drought_2_matches"):
-                            dec_descr += " · ⚠️ disette recente"
-                if lam_decisif and lam_decisif >= 0.30:
-                    lam_dec_match = lam_decisif * (lam_team_match / 1.5)
-                    p_decisif = 1 - _math_p.exp(-lam_dec_match)
-                    conf_dec = round(p_decisif * 100) - conf_penalty
-                    # Seuil 42 pour decisif (cote ~2.30 = tier fun OK)
-                    if conf_dec >= 42:
+                    ns_pas = pdata2.get("nat_stats") or {}
+                    l10_pas = pdata2.get("l10") or {}
+                    if ns_pas.get("n", 0) >= 3:
+                        # On utilise les assists UNIQUEMENT (par-match)
+                        nat_a_pm = ns_pas.get("assists_pm", 0) or 0
+                        # Pour le club : assists/match L10
+                        club_a_pm = l10_pas.get("assists_pm") or 0
+                        w_nat_pas = 0.80 if ns_pas.get("n", 0) >= 5 else 0.6
+                        lam_passeur = club_a_pm * (1 - w_nat_pas) + nat_a_pm * w_nat_pas
+                        # Drought penalty (pas d'assists récentes)
+                        if ns_pas.get("drought_2_matches"):
+                            lam_passeur *= 0.50
+                        pas_descr = (f"selection {ns_pas.get('assists',0)}A/{ns_pas.get('n',0)}m "
+                                     f"({nat_a_pm:.2f} passes/m nat)")
+                if lam_passeur and lam_passeur >= 0.20:
+                    lam_pas_match = lam_passeur * (lam_team_match / 1.5)
+                    p_passeur = 1 - _math_p.exp(-lam_pas_match)
+                    conf_pas = round(p_passeur * 100) - conf_penalty
+                    # Seuil 35 pour passeur (cote ~2.85 = tier fun OK)
+                    if conf_pas >= 35:
                         picks_out.append({
-                            "kind": "decisif",
+                            "kind": "passeur",
                             "name": name,
                             "side": side,
                             "team": team_name,
-                            "lam":  lam_dec_match,
-                            "conf": min(80, conf_dec),
-                            "p":    p_decisif,
+                            "lam":  lam_pas_match,
+                            "conf": min(75, conf_pas),
+                            "p":    p_passeur,
                             "lineup_status": "predicted" if is_predicted else "confirmed",
                             "reasoning": (
-                                f"{lineup_warn}{name} but ou passe decisive : {dec_descr}. "
-                                f"P(but ou passe) ~{conf_dec}%."
+                                f"{lineup_warn}{name} délivre une passe décisive : {pas_descr}. "
+                                f"P(passe décisive) ~{conf_pas}%."
                             ),
                         })
             return picks_out
@@ -2880,18 +2827,24 @@ def analyze_match(match, pstats_all, player_odds_all=None):
                     _scorer2 = _player_odds.get("scorer_2_plus") or {}
                     cote_book = _scorer2.get("over")
                     book = _scorer2.get("book")
+            elif fp["kind"] == "passeur":
+                _ok = _match_odds_name(fp["name"], _po_keys)
+                if _ok:
+                    _player_odds = (match_player_odds or {}).get(_ok) or {}
+                    _ass = _player_odds.get("assists") or {}
+                    cote_book = _ass.get("over")
+                    book = _ass.get("book")
             # Filtre cote min : utilise la cote book si dispo, sinon cote_est
-            # Si cote book < 1.40 (Messi à 1.30 par ex), skip
-            # Si cote book absente et cote_est < 1.40, skip
+            # Si cote book < 1.40, skip
             cote_for_filter = cote_book if cote_book is not None else cote_est
             if cote_for_filter is not None and cote_for_filter < MIN_COTE_BUTEUR:
                 continue
             if fp["kind"] == "marque":
                 label = f"{fp['name']} marque"
                 ptype = "Buteur"
-            elif fp["kind"] == "decisif":
-                label = f"{fp['name']} but ou passe décisive"
-                ptype = "Joueur décisif"
+            elif fp["kind"] == "passeur":
+                label = f"{fp['name']} délivre une passe décisive"
+                ptype = "Passeur"
             else:  # double_buteur
                 label = f"{fp['name']} marque 2+ buts"
                 ptype = "Double buteur"
@@ -3089,37 +3042,6 @@ def analyze_match(match, pstats_all, player_odds_all=None):
 
     team_picks = _dedup_by_direction(team_picks)
     fun_picks  = _dedup_by_direction(fun_picks)
-
-    # ── Dédoublonnage joueur : 1 seul pick par joueur ────────────────────────
-    # Règle user : "je ne veux pas 2 paris pour un seul joueur (ex: buteur ET
-    # décisif), soit l'un soit l'autre selon le profil". Si plusieurs picks
-    # existent pour le même joueur, on garde celui avec la confidence la plus
-    # haute. En cas d'égalité, préférence Buteur > Décisif > Double buteur
-    # (pari + simple à gagner).
-    def _dedup_by_player(picks):
-        TYPE_PRIORITY = {"Buteur": 3, "Joueur décisif": 2, "Double buteur": 1}
-        by_player = {}
-        for pk in picks:
-            player = pk.get("player") or ""
-            if not player: continue
-            key = player.lower().strip()
-            cur = by_player.get(key)
-            if cur is None:
-                by_player[key] = pk
-                continue
-            cur_conf = cur.get("confidence") or 0
-            new_conf = pk.get("confidence") or 0
-            if new_conf > cur_conf:
-                by_player[key] = pk
-            elif new_conf == cur_conf:
-                cur_prio = TYPE_PRIORITY.get(cur.get("type",""), 0)
-                new_prio = TYPE_PRIORITY.get(pk.get("type",""), 0)
-                if new_prio > cur_prio:
-                    by_player[key] = pk
-        return list(by_player.values())
-
-    home_pp = _dedup_by_player(home_pp)
-    away_pp = _dedup_by_player(away_pp)
 
     # ── Cohérence Score exact vs totals Plus/Moins ──────────────────────────
     # Si on émet "Plus de 1.5 buts" / "Plus de 2.5 buts" en team pick et que
