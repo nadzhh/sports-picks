@@ -3090,6 +3090,128 @@ def analyze_match(match, pstats_all, player_odds_all=None):
     team_picks = _dedup_by_direction(team_picks)
     fun_picks  = _dedup_by_direction(fun_picks)
 
+    # ── Dédoublonnage joueur : 1 seul pick par joueur ────────────────────────
+    # Règle user : "je ne veux pas 2 paris pour un seul joueur (ex: buteur ET
+    # décisif), soit l'un soit l'autre selon le profil". Si plusieurs picks
+    # existent pour le même joueur, on garde celui avec la confidence la plus
+    # haute. En cas d'égalité, préférence Buteur > Décisif > Double buteur
+    # (pari + simple à gagner).
+    def _dedup_by_player(picks):
+        TYPE_PRIORITY = {"Buteur": 3, "Joueur décisif": 2, "Double buteur": 1}
+        by_player = {}
+        for pk in picks:
+            player = pk.get("player") or ""
+            if not player: continue
+            key = player.lower().strip()
+            cur = by_player.get(key)
+            if cur is None:
+                by_player[key] = pk
+                continue
+            cur_conf = cur.get("confidence") or 0
+            new_conf = pk.get("confidence") or 0
+            if new_conf > cur_conf:
+                by_player[key] = pk
+            elif new_conf == cur_conf:
+                cur_prio = TYPE_PRIORITY.get(cur.get("type",""), 0)
+                new_prio = TYPE_PRIORITY.get(pk.get("type",""), 0)
+                if new_prio > cur_prio:
+                    by_player[key] = pk
+        return list(by_player.values())
+
+    home_pp = _dedup_by_player(home_pp)
+    away_pp = _dedup_by_player(away_pp)
+
+    # ── Cohérence Score exact vs totals Plus/Moins ──────────────────────────
+    # Si on émet "Plus de 1.5 buts" / "Plus de 2.5 buts" en team pick et que
+    # le score exact propose un total qui contredit, on remplace le score
+    # exact par le plus probable qui RESPECTE le seuil.
+    has_over15 = any((p.get("direction") or "").lower() in ("over_15","wc_over_15") for p in team_picks)
+    has_over25 = any((p.get("direction") or "").lower() in ("over_25","wc_over_25") for p in team_picks)
+    has_under15 = any((p.get("direction") or "").lower() in ("under_15","wc_under_15") for p in team_picks)
+    has_under25 = any((p.get("direction") or "").lower() in ("under_25","wc_under_25") for p in team_picks)
+    min_total_required = None
+    max_total_allowed  = None
+    if has_over25: min_total_required = 3
+    elif has_over15: min_total_required = 2
+    if has_under15: max_total_allowed = 1
+    elif has_under25: max_total_allowed = 2
+
+    def _score_total(pk):
+        es = pk.get("exact_score")
+        if es and len(es) == 2:
+            try: return int(es[0]) + int(es[1])
+            except: pass
+        # Fallback : parse direction wc_score_H_A
+        d = (pk.get("direction") or "").lower()
+        if d.startswith("wc_score_"):
+            parts = d.split("_")
+            try: return int(parts[2]) + int(parts[3])
+            except: pass
+        return None
+
+    if min_total_required is not None or max_total_allowed is not None:
+        kept_fun = []
+        for pk in fun_picks:
+            d = (pk.get("direction") or "").lower()
+            if d.startswith("wc_score_"):
+                tot = _score_total(pk)
+                if tot is None:
+                    kept_fun.append(pk); continue
+                if min_total_required is not None and tot < min_total_required:
+                    # Cherche un meilleur score exact dans wc_top3
+                    top3 = pk.get("wc_top3") or []
+                    found = False
+                    for (sh, sa), p_pct in [((t[0][0], t[0][1]), t[1]) for t in top3]:
+                        if sh + sa >= min_total_required:
+                            pk["exact_score"] = [sh, sa]
+                            pk["direction"] = f"wc_score_{sh}_{sa}"
+                            import re
+                            m_lab = re.match(r"(.*?:\s*)(\S+)\s+(\d+-\d+)\s+(\S.*)", pk.get("label",""))
+                            if m_lab:
+                                pk["label"] = f"{m_lab.group(1)}{m_lab.group(2)} {sh}-{sa} {m_lab.group(4)}"
+                            # p_pct est déjà en pourcentage (0-100) dans wc_top3
+                            pk["confidence"] = max(5, round(p_pct))
+                            p_proba = max(0.01, p_pct / 100.0)
+                            pk["cote_min"] = round(1 / p_proba, 2)
+                            found = True
+                            break
+                    if not found:
+                        # Pas d'alternative cohérente → skip ce score exact
+                        continue
+                if max_total_allowed is not None and tot > max_total_allowed:
+                    # Pareil dans l'autre sens : cherche score ≤ max
+                    top3 = pk.get("wc_top3") or []
+                    found = False
+                    for (sh, sa), p_pct in [((t[0][0], t[0][1]), t[1]) for t in top3]:
+                        if sh + sa <= max_total_allowed:
+                            pk["exact_score"] = [sh, sa]
+                            pk["direction"] = f"wc_score_{sh}_{sa}"
+                            import re
+                            m_lab = re.match(r"(.*?:\s*)(\S+)\s+(\d+-\d+)\s+(\S.*)", pk.get("label",""))
+                            if m_lab:
+                                pk["label"] = f"{m_lab.group(1)}{m_lab.group(2)} {sh}-{sa} {m_lab.group(4)}"
+                            pk["confidence"] = max(5, round(p_pct))
+                            p_proba = max(0.01, p_pct / 100.0)
+                            pk["cote_min"] = round(1 / p_proba, 2)
+                            found = True
+                            break
+                    if not found:
+                        continue
+            kept_fun.append(pk)
+        fun_picks = kept_fun
+
+    # ── Cohérence Match nul (fun) vs DC 12 "pas de nul" ─────────────────────
+    # Si on a DC 12 (Iraq ou Norway, pas de nul) à conf ≥ 70% → ne pas
+    # proposer "Match nul" en fun (contradictoire).
+    has_dc12_strong = any(
+        ((p.get("direction") or "").lower() in ("no_draw","12","wc_dc_12"))
+        and (p.get("confidence") or 0) >= 70
+        for p in team_picks
+    )
+    if has_dc12_strong:
+        fun_picks = [p for p in fun_picks
+                     if (p.get("direction") or "").lower() not in ("draw","wc_draw")]
+
     return team_picks, home_pp, away_pp, fun_picks
 
 # ─── Tirs équipe ─────────────────────────────────────────────────────────────

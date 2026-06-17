@@ -690,6 +690,85 @@ def _format_hv_foot(pick, match):
     return "\n".join(lines)
 
 
+def _format_hv_match(match, hours_to_ko, lineup_state, team_picks, player_picks, fun_picks):
+    """Format Telegram REGROUPÉ : 1 message par match avec tous les picks HV.
+    User : "au lieu d'envoyer 6 messages, je veux 1 seul message avec tous
+    les picks du match"."""
+    home = match.get("home", "?")
+    away = match.get("away", "?")
+    league = match.get("league", "")
+    lines = [f"⚽ <b>{home}</b> vs <b>{away}</b>"]
+    if hours_to_ko is not None:
+        if hours_to_ko < 1:
+            ko_lbl = f"Coup d'envoi dans <b>{max(0, int(hours_to_ko * 60))} min</b>"
+        elif hours_to_ko < 24:
+            ko_lbl = f"Coup d'envoi dans <b>{hours_to_ko:.1f}h</b>"
+        else:
+            ko_lbl = f"Coup d'envoi dans <b>{int(hours_to_ko / 24)}j</b>"
+    else:
+        ko_lbl = "Match à venir"
+    lines.append(f"🕐 {ko_lbl} · {league}")
+    # Statut compo
+    if lineup_state and lineup_state.get("confirmed"):
+        lines.append("✅ <b>COMPO OFFICIELLE</b>")
+    elif lineup_state and lineup_state.get("lineup_type") == "predicted":
+        lines.append("⚠️ Compo PROBABLE (officielle à T-60min)")
+    lines.append("")
+
+    def _short_reason(pk):
+        r = (pk.get("reasoning") or "").strip()
+        if not r: return ""
+        # Prend la 1re ligne pertinente (skip 📉 calibration / ⚠ warning)
+        for line in r.split("\n"):
+            line = line.strip()
+            if line and not line.startswith(("📉", "✅ Prendre", "⚠️ Compo", "  ")):
+                return line[:180]
+        return ""
+
+    def _cote_str(pk):
+        c = pk.get("cote"); cm = pk.get("cote_min")
+        if c and c > 0: return f"@ <b>{float(c):.2f}</b>"
+        if cm and cm > 0: return f"@ <b>≥ {float(cm):.2f}</b>"
+        return ""
+
+    # ── PICKS ÉQUIPE ──
+    if team_picks:
+        lines.append("<b>━━ PICKS ÉQUIPE ━━</b>")
+        for pk in team_picks[:6]:
+            conf = pk.get("confidence", 0)
+            row = f"• <b>{pk.get('label','?')}</b> ({conf}%) {_cote_str(pk)}"
+            reason = _short_reason(pk)
+            if reason:
+                row += f"\n  <i>{reason}</i>"
+            lines.append(row)
+        lines.append("")
+
+    # ── FUN PICKS (score exact + autres) ──
+    if fun_picks:
+        for pk in fun_picks[:4]:
+            conf = pk.get("confidence", 0)
+            lines.append(f"🎲 <b>{pk.get('label','?')}</b> ({conf}%) {_cote_str(pk)}")
+            reason = _short_reason(pk)
+            if reason:
+                lines.append(f"  <i>{reason}</i>")
+        lines.append("")
+
+    # ── PICKS JOUEUR (uniquement si compo confirmée et titulaire vérifié) ──
+    if player_picks:
+        lines.append("<b>━━ PICKS JOUEUR ━━</b>")
+        for pk in player_picks[:8]:
+            conf = pk.get("confidence", 0)
+            player = pk.get("player", "?")
+            label = pk.get("label", "?")
+            cote_s = _cote_str(pk)
+            lines.append(f"✅ <b>{label}</b> ({conf}%) {cote_s}")
+            reason = _short_reason(pk)
+            if reason:
+                lines.append(f"  <i>{reason}</i>")
+
+    return "\n".join(lines).rstrip()
+
+
 def send_high_value_alerts():
     """
     Scan tous les picks (NBA + foot), envoie une alerte Telegram pour CHAQUE
@@ -750,15 +829,14 @@ def send_high_value_alerts():
     except Exception as e:
         print(f"  [hv-nba err] {e}")
 
-    # ─── Foot picks ─────────────────────────────────────────────────────────
-    # Strategie : 2 critere distincts
-    #  - team picks   : edge_pp >= 5 (ou conf >= 75) - pas besoin de lineup
-    #  - player picks : compo CONFIRMEE + joueur dans le XI + edge_pp >= 7
-    #                   (on refetch la compo en force)
+    # ─── Foot picks (1 message GROUPÉ par match) ────────────────────────────
+    # Regroupe TOUS les picks HV éligibles d'un match dans 1 SEUL message.
+    # User : "au lieu d'envoyer 12 push pour 1 match, je veux 1 message
+    # qui contient toutes les picks éligibles".
+    # Tracking par match_id (pas par pick_id) → 1 envoi par match max.
     try:
         foot = json.load(open("data/picks.json", encoding="utf-8"))
         now = datetime.now(tz=timezone.utc)
-        # Cache lineup re-fetched par match (1 call par match max)
         lineup_cache = {}
         def _get_lineup_state(match):
             mid = match.get("match_id")
@@ -779,78 +857,58 @@ def send_high_value_alerts():
                 try:
                     ko_dt = datetime.fromtimestamp(int(ko_ts), tz=timezone.utc)
                     hours_to_ko = (ko_dt - now).total_seconds() / 3600
-                    if hours_to_ko < -2:  # match deja joue depuis 2h+
+                    # Skip si match déjà joué (kickoff dépassé)
+                    # Avant : -2h tolérance → on enverait HV sur matchs en cours/finis
+                    # Fix user : Canada-Qatar reçu à 2h19 alors que joué depuis jours
+                    if hours_to_ko < 0:
                         continue
                 except Exception:
                     pass
 
-            # ── Team picks ──────────────────────────────────────────────────
-            for pk in m.get("picks", []):
-                pid = f"foot_{mid}_team_{pk.get('direction','?')}"
-                if pid in sent_ids: continue
-                eligible, reason = _is_push_eligible_team(pk)
-                if not eligible: continue
-                text = _format_hv_foot(pk, m)
-                if tg_send(text):
-                    sent_ids.add(pid)
-                    new_count += 1
-                    print(f"  [HV-FOOT-TEAM] {pk.get('label','?')[:60]} - {reason}")
+            # Match déjà notifié en HV global ? skip
+            match_hv_id = f"foot_hv_match_{mid}"
+            if match_hv_id in sent_ids: continue
 
-            # ── Player picks (lineup confirmee + dans XI) ──────────────────
-            # Seulement si kickoff est dans la fenetre (compo confirmee
-            # generalement 1h avant -> on regarde 0-4h avant le KO)
-            if hours_to_ko is not None and hours_to_ko > PUSH_PLAYER_KICKOFF_WINDOW_HOURS:
-                continue  # trop tot - lineup encore predicted
-
+            # ── Collecte tous les picks HV éligibles du match ────────────────
+            # Lineup state (compo officielle ou pas) — utile pour les player picks
             ln_state = _get_lineup_state(m)
-            for pk in (m.get("home_players", []) + m.get("away_players", [])):
-                pid = f"foot_{mid}_player_{pk.get('player','?')}_{pk.get('type','?')}"
-                if pid in sent_ids: continue
-                eligible, reason = _is_push_eligible_player(pk, ln_state)
-                if not eligible:
-                    # Log soft les skip pour debug
-                    if pk.get("confidence", 0) >= 70:
-                        print(f"  [skip player] {pk.get('player','?')} {pk.get('type','?')[:20]} : {reason}")
-                    continue
-                text = _format_hv_foot(pk, m)
-                if tg_send(text):
-                    sent_ids.add(pid)
-                    new_count += 1
-                    print(f"  [HV-FOOT-PLAYER] {pk.get('player','?')[:25]} {pk.get('label','?')[:40]} - {reason}")
-
-            # ── Fun picks WC (score exact + autres avec cote_min >= 2.0) ──
-            # On les pousse en HV dès qu'on a la cote_min (estimation modèle),
-            # sans attendre la cote book (souvent indispo sur WC). Le score
-            # exact spécifiquement attend la compo confirmée pour amplifier
-            # la confiance ; les autres fun_picks sont libérés tout de suite.
+            elig_team = []
+            for pk in m.get("picks", []):
+                ok, _r = _is_push_eligible_team(pk)
+                if ok: elig_team.append(pk)
+            elig_player = []
+            # Player picks : seulement si dans la fenêtre kickoff et compo confirmée
+            if hours_to_ko is None or hours_to_ko <= PUSH_PLAYER_KICKOFF_WINDOW_HOURS:
+                for pk in (m.get("home_players", []) + m.get("away_players", [])):
+                    ok, _r = _is_push_eligible_player(pk, ln_state)
+                    if ok: elig_player.append(pk)
+            elig_fun = []
             for pk in m.get("fun_picks", []):
                 dir_str = (pk.get("direction") or "")
                 is_score = dir_str.startswith("wc_score_")
-                tag = "wcscore" if is_score else "wcfun"
-                pid = f"foot_{mid}_{tag}_{dir_str}"
-                if pid in sent_ids: continue
-                # Pour score exact : attendre la compo confirmée (valeur ajoutée)
-                if is_score:
-                    if ln_state is None or not ln_state.get("confirmed"):
-                        continue
-                # Cote effective : book > cote_min > simulée
+                if is_score and (ln_state is None or not ln_state.get("confirmed")):
+                    continue  # score exact attend la compo confirmée
                 cote_eff, src = _effective_cote(pk)
-                if cote_eff is None:
-                    continue
-                # Pour le score exact : cote elevee attendue (>= 3.5 si cote_min, >= 4.0 si book)
+                if cote_eff is None: continue
                 if is_score:
                     min_cote = 4.0 if src == "book" else 3.5
-                    if cote_eff < min_cote:
-                        continue
+                    if cote_eff < min_cote: continue
                 else:
-                    # Autres fun picks WC : cote >= 2.0 (par construction de l'engine)
-                    if cote_eff < 2.0:
-                        continue
-                text = _format_hv_foot(pk, m)
-                if tg_send(text):
-                    sent_ids.add(pid)
-                    new_count += 1
-                    print(f"  [HV-FOOT-WC-{'EXACT' if is_score else 'FUN'}] {pk.get('label','?')[:60]} @ {cote_eff:.2f} ({src})")
+                    if cote_eff < 2.0: continue
+                elig_fun.append(pk)
+
+            # Skip si aucun pick éligible pour ce match
+            if not (elig_team or elig_player or elig_fun):
+                continue
+
+            # ── Construit 1 SEUL message regroupé pour ce match ──────────────
+            text = _format_hv_match(m, hours_to_ko, ln_state, elig_team, elig_player, elig_fun)
+            if not text: continue
+            if tg_send(text):
+                sent_ids.add(match_hv_id)
+                new_count += 1
+                print(f"  [HV-FOOT-MATCH] {m.get('home')} vs {m.get('away')} : "
+                      f"{len(elig_team)}T + {len(elig_player)}P + {len(elig_fun)}F")
     except FileNotFoundError:
         pass
     except Exception as e:
