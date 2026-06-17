@@ -3122,17 +3122,105 @@ def analyze_match(match, pstats_all, player_odds_all=None):
             kept_fun.append(pk)
         fun_picks = kept_fun
 
-    # ── Cohérence Match nul (fun) vs DC 12 "pas de nul" ─────────────────────
-    # Si on a DC 12 (Iraq ou Norway, pas de nul) à conf ≥ 70% → ne pas
-    # proposer "Match nul" en fun (contradictoire).
-    has_dc12_strong = any(
-        ((p.get("direction") or "").lower() in ("no_draw","12","wc_dc_12"))
-        and (p.get("confidence") or 0) >= 70
-        for p in team_picks
-    )
-    if has_dc12_strong:
-        fun_picks = [p for p in fun_picks
-                     if (p.get("direction") or "").lower() not in ("draw","wc_draw")]
+    # ── Cohérence GLOBALE : aucun pick ne peut contredire un autre ──────────
+    # Règle user : "sur un seul match les paris ne doivent jamais se contredire
+    # (exemple Plus de 2.5 buts ET les 2 équipes ne marquent pas, ou Match nul
+    # ET Score exact 2-0)". On supprime tout fun pick qui contredit un team
+    # pick déjà émis.
+    def _score_total_of(direction):
+        if not direction: return None
+        d = direction.lower()
+        if not d.startswith("wc_score_"): return None
+        parts = d.split("_")
+        try: return int(parts[2]), int(parts[3])
+        except: return None
+
+    def _contradicts(team_picks_list, fun_pick):
+        fdir = (fun_pick.get("direction") or "").lower()
+        # Strip préfixe 'fun_' pour reconnaitre fun_draw, fun_over25, etc.
+        if fdir.startswith("fun_"):
+            fdir_check = fdir[4:]
+        else:
+            fdir_check = fdir
+        # CAS A : fun = "Match nul"
+        if fdir_check in ("draw", "wc_draw"):
+            for tp in team_picks_list:
+                td = (tp.get("direction") or "").lower()
+                if td in ("home_win","wc_home_win","away_win","wc_away_win"):
+                    return f"contredit '{tp.get('label','')}'"
+                if td in ("no_draw","12","wc_dc_12"):
+                    return f"contredit '{tp.get('label','')}'"
+            return None
+        # CAS B : fun = "Score exact W-X"
+        score = _score_total_of(fdir_check) or _score_total_of(fdir)
+        if not score: return None
+        sh, sa = score
+        total = sh + sa
+        for tp in team_picks_list:
+            td = (tp.get("direction") or "").lower()
+            tlabel = tp.get("label","")
+            # 1X2 / DC
+            if td in ("draw","wc_draw") and sh != sa:
+                return f"contredit '{tlabel}' (score non nul)"
+            if td in ("home_win","wc_home_win") and sh <= sa:
+                return f"contredit '{tlabel}' (home n'a pas gagné)"
+            if td in ("away_win","wc_away_win") and sa <= sh:
+                return f"contredit '{tlabel}' (away n'a pas gagné)"
+            if td in ("home_dc","dc_1x","wc_dc_1x") and sa > sh:
+                return f"contredit '{tlabel}' (home perd)"
+            if td in ("away_dc","dc_x2","wc_dc_x2") and sh > sa:
+                return f"contredit '{tlabel}' (away perd)"
+            if td in ("no_draw","12","wc_dc_12") and sh == sa:
+                return f"contredit '{tlabel}' (match nul)"
+            # Over/Under
+            if td in ("over_15","over15","wc_over_15") and total < 2:
+                return f"contredit 'Plus de 1.5 buts' (total {total})"
+            if td in ("over_25","over25","wc_over_25") and total < 3:
+                return f"contredit 'Plus de 2.5 buts' (total {total})"
+            if td in ("over_35","over35","wc_over_35") and total < 4:
+                return f"contredit 'Plus de 3.5 buts' (total {total})"
+            if td in ("under_15","under15","wc_under_15") and total > 1:
+                return f"contredit 'Moins de 1.5 buts' (total {total})"
+            if td in ("under_25","under25","wc_under_25") and total > 2:
+                return f"contredit 'Moins de 2.5 buts' (total {total})"
+            if td in ("under_35","under35","wc_under_35") and total > 3:
+                return f"contredit 'Moins de 3.5 buts' (total {total})"
+            # BTTS
+            if td in ("btts","btts_yes","wc_btts_yes") and (sh == 0 or sa == 0):
+                return f"contredit 'BTTS YES' ({sh}-{sa})"
+            if td in ("btts_no","wc_btts_no") and (sh > 0 and sa > 0):
+                return f"contredit 'BTTS NO' ({sh}-{sa})"
+            # X marque N+ buts
+            if td.startswith(("home_scores_","wc_home_scores_")):
+                try:
+                    n = int(td.split("_")[-1])
+                    if sh < n: return f"contredit '{tlabel}' (home a marqué {sh})"
+                except: pass
+            if td.startswith(("away_scores_","wc_away_scores_")):
+                try:
+                    n = int(td.split("_")[-1])
+                    if sa < n: return f"contredit '{tlabel}' (away a marqué {sa})"
+                except: pass
+            # X ne marque pas
+            if td in ("home_no_score","wc_home_no_score") and sh > 0:
+                return f"contredit '{tlabel}' (home a marqué {sh})"
+            if td in ("away_no_score","wc_away_no_score") and sa > 0:
+                return f"contredit '{tlabel}' (away a marqué {sa})"
+        return None
+
+    # Applique : supprime tout fun pick qui contredit un team pick
+    cleaned_fun = []
+    for fp in fun_picks:
+        reason = _contradicts(team_picks, fp)
+        if reason:
+            continue  # skip silencieux
+        cleaned_fun.append(fp)
+    fun_picks = cleaned_fun
+
+    # Inverse aussi : un team pick "match nul" est-il cohérent avec les autres
+    # team picks (rare car le 1X2 est dédupliqué) ? Si "draw" team et "no_draw"
+    # team coexistent (impossible normalement post-dedup), on garde celui avec
+    # la plus haute conf — déjà fait dans _dedup_by_direction.
 
     return team_picks, home_pp, away_pp, fun_picks
 
