@@ -429,6 +429,25 @@ def run():
             except Exception:
                 pass
 
+        # Si match programmé > 12h passé ET FotMob ne donne pas de score :
+        # match probablement annulé/reporté/data foireux → PUSH (rembourse)
+        # plutôt que rester en PENDING éternel (vu sur FK TransINVEST).
+        if ev_utc:
+            try:
+                from datetime import timezone
+                ko = datetime.fromisoformat(ev_utc.replace("Z", "+00:00"))
+                hours_since = (datetime.now(tz=timezone.utc) - ko).total_seconds() / 3600
+                if hours_since > 12 and not ev.get("score"):
+                    print(f"  [PUSH] match {mid} - kickoff il y a {hours_since:.1f}h sans score (annulé/data foireuse)")
+                    for p in mpicks:
+                        p["result"] = "PUSH"
+                        p["actual"] = "Match data unavailable (likely cancelled/postponed)"
+                        p["resolved_at"] = datetime.now().strftime("%Y-%m-%d %H:%M")
+                        n_resolved += 1
+                    continue
+            except Exception:
+                pass
+
         if not _is_finished(ev):
             print(f"  [pending] match {mid} - pas encore termine (score={ev.get('score')})")
             n_skipped += len(mpicks)
