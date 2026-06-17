@@ -15126,6 +15126,80 @@
       "side": "home"
     },
     {
+      "direction": "home_dc",
+      "type": "Double chance",
+      "label": "Austria ou Nul (1X)",
+      "cote": null,
+      "confidence": 80,
+      "reasoning": "Austria invaincu 100% sur 5 derniers matchs · H2H: 0/0 matchs sans défaite · Classement: #2 vs #9\n📉 Calibration : bucket 80-89% historiquement à WR 56% (claim 82%, n=63) — sur-estimé de 26pp",
+      "stats": {
+        "form": [
+          "W",
+          "W",
+          "W",
+          "D",
+          "W"
+        ]
+      },
+      "is_fun": false,
+      "tier": "safe",
+      "calibration_delta": -26.0,
+      "history_top3": true,
+      "id": "2026-06-17_4667813_team_home_dc",
+      "date": "2026-06-17",
+      "match_id": "4667813",
+      "page_url": "/matches/jordan-vs-austria/1my603#4667813",
+      "matchup": "Austria vs Jordan",
+      "league": "World Cup",
+      "category": "team",
+      "result": "WIN",
+      "actual": "3-1",
+      "resolved_at": "2026-06-17 06:31"
+    },
+    {
+      "player": "Marcel Sabitzer",
+      "position": "F",
+      "is_sub": false,
+      "type": "Joueur décisif",
+      "label": "Marcel Sabitzer but ou passe décisive",
+      "cote": null,
+      "cote_min": 1.78,
+      "book": null,
+      "books": [],
+      "confidence": 56,
+      "reasoning": "Marcel Sabitzer but ou passe decisive : selection 5G+4A/10m (0.90 G+A/m nat) · ⚠️ disette recente. P(but ou passe) ~56%.\n📉 Calibration : bucket 50-59% historiquement à WR 42% (claim 55%, n=41) — sur-estimé de 14pp",
+      "context": {
+        "source": "lineup",
+        "lam": 0.83,
+        "lineup_status": "confirmed"
+      },
+      "stats": {
+        "goals": null,
+        "apps": null,
+        "gpm": 0.827,
+        "xgpm": null
+      },
+      "team": "home",
+      "lineup_status": "confirmed",
+      "tier": "ok",
+      "calibration_delta": -13.6,
+      "history_top3": true,
+      "id": "2026-06-17_4667813_player_Marcel Sabitzer_Joueur décisif",
+      "date": "2026-06-17",
+      "match_id": "4667813",
+      "page_url": "/matches/jordan-vs-austria/1my603#4667813",
+      "matchup": "Austria vs Jordan",
+      "league": "World Cup",
+      "category": "player",
+      "result": "LOSS",
+      "actual": {
+        "goals": 0,
+        "assists": 0
+      },
+      "resolved_at": "2026-06-17 06:31",
+      "side": "home"
+    },
+    {
       "direction": "away_dc",
       "type": "Double chance",
       "label": "Nul ou FCI Levadia (X2)",
@@ -15742,77 +15816,6 @@
       "result": "PENDING",
       "actual": null,
       "resolved_at": null
-    },
-    {
-      "direction": "home_dc",
-      "type": "Double chance",
-      "label": "Austria ou Nul (1X)",
-      "cote": null,
-      "confidence": 80,
-      "reasoning": "Austria invaincu 100% sur 5 derniers matchs · H2H: 0/0 matchs sans défaite · Classement: #2 vs #9\n📉 Calibration : bucket 80-89% historiquement à WR 56% (claim 82%, n=63) — sur-estimé de 26pp",
-      "stats": {
-        "form": [
-          "W",
-          "W",
-          "W",
-          "D",
-          "W"
-        ]
-      },
-      "is_fun": false,
-      "tier": "safe",
-      "calibration_delta": -26.0,
-      "history_top3": true,
-      "id": "2026-06-17_4667813_team_home_dc",
-      "date": "2026-06-17",
-      "match_id": "4667813",
-      "page_url": "/matches/jordan-vs-austria/1my603#4667813",
-      "matchup": "Austria vs Jordan",
-      "league": "World Cup",
-      "category": "team",
-      "result": "PENDING",
-      "actual": null,
-      "resolved_at": null
-    },
-    {
-      "player": "Marcel Sabitzer",
-      "position": "F",
-      "is_sub": false,
-      "type": "Joueur décisif",
-      "label": "Marcel Sabitzer but ou passe décisive",
-      "cote": null,
-      "cote_min": 1.78,
-      "book": null,
-      "books": [],
-      "confidence": 56,
-      "reasoning": "Marcel Sabitzer but ou passe decisive : selection 5G+4A/10m (0.90 G+A/m nat) · ⚠️ disette recente. P(but ou passe) ~56%.\n📉 Calibration : bucket 50-59% historiquement à WR 42% (claim 55%, n=41) — sur-estimé de 14pp",
-      "context": {
-        "source": "lineup",
-        "lam": 0.83,
-        "lineup_status": "confirmed"
-      },
-      "stats": {
-        "goals": null,
-        "apps": null,
-        "gpm": 0.827,
-        "xgpm": null
-      },
-      "team": "home",
-      "lineup_status": "confirmed",
-      "tier": "ok",
-      "calibration_delta": -13.6,
-      "history_top3": true,
-      "id": "2026-06-17_4667813_player_Marcel Sabitzer_Joueur décisif",
-      "date": "2026-06-17",
-      "match_id": "4667813",
-      "page_url": "/matches/jordan-vs-austria/1my603#4667813",
-      "matchup": "Austria vs Jordan",
-      "league": "World Cup",
-      "category": "player",
-      "result": "PENDING",
-      "actual": null,
-      "resolved_at": null,
-      "side": "home"
     },
     {
       "player": "Youness Dahmani",
