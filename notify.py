@@ -73,6 +73,11 @@ def estimate_book_cote(confidence):
 # pas les matchs du 21/05 qui sont 2 nuits plus loin).
 HIGH_VALUE_NBA_MAX_HOURS_AHEAD = 30
 
+# Pour le FOOT : on alerte UNIQUEMENT sur les matchs dans les 24h. Avant,
+# un match WC à J+1.5 (38h) pouvait être pushé alors que la compo n'est
+# pas confirmée et que l'user peut confondre avec un match passé.
+HIGH_VALUE_FOOT_MAX_HOURS_AHEAD = 24
+
 # Seuils generous : on envoie tout pick "interessant" dans la journee.
 # L'idee : recevoir un large panel de propositions sur Telegram, l'user
 # choisit ce qu'il joue. Le top 10/jour seulement est sauvegarde en
@@ -858,9 +863,11 @@ def send_high_value_alerts():
                     ko_dt = datetime.fromtimestamp(int(ko_ts), tz=timezone.utc)
                     hours_to_ko = (ko_dt - now).total_seconds() / 3600
                     # Skip si match déjà joué (kickoff dépassé)
-                    # Avant : -2h tolérance → on enverait HV sur matchs en cours/finis
-                    # Fix user : Canada-Qatar reçu à 2h19 alors que joué depuis jours
                     if hours_to_ko < 0:
+                        continue
+                    # Skip si match trop loin (compo pas confirmée, user
+                    # peut confondre avec un match passé)
+                    if hours_to_ko > HIGH_VALUE_FOOT_MAX_HOURS_AHEAD:
                         continue
                 except Exception:
                     pass
