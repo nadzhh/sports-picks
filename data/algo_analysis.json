@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-06-17T11:12:39.232003",
-  "n_total": 777,
+  "generated_at": "2026-06-17T11:48:02.486652",
+  "n_total": 778,
   "globals": {
     "foot": {
       "n": 493,
@@ -15,16 +15,16 @@
       "wr_vs_be": 4.4
     },
     "tennis": {
-      "n": 149,
-      "w": 89,
+      "n": 150,
+      "w": 90,
       "l": 60,
       "push": 0,
-      "wr": 59.7,
-      "roi": 6.8,
-      "profit": 10.18,
+      "wr": 60.0,
+      "roi": 7.3,
+      "profit": 10.98,
       "avg_cote": 2.41,
       "break_even_wr": 41.5,
-      "wr_vs_be": 18.2
+      "wr_vs_be": 18.5
     },
     "nba": {
       "n": 135,
@@ -128,18 +128,18 @@
         "calibration_gap": -23.7
       },
       "60-69": {
-        "n": 72,
-        "w": 51,
+        "n": 73,
+        "w": 52,
         "l": 21,
         "push": 0,
-        "wr": 70.8,
-        "roi": 29.6,
-        "profit": 21.29,
+        "wr": 71.2,
+        "roi": 30.3,
+        "profit": 22.09,
         "avg_cote": 1.99,
         "break_even_wr": 50.1,
-        "wr_vs_be": 20.7,
+        "wr_vs_be": 21.1,
         "expected_wr": 64.5,
-        "calibration_gap": 6.3
+        "calibration_gap": 6.7
       },
       "70-79": {
         "n": 43,
@@ -526,13 +526,13 @@
     },
     "tennis": {
       "tennis_total_games": {
-        "n": 94,
-        "w": 64,
+        "n": 95,
+        "w": 65,
         "l": 30,
         "push": 0,
-        "wr": 68.1,
-        "roi": 22.6,
-        "profit": 21.2,
+        "wr": 68.4,
+        "roi": 23.2,
+        "profit": 22.0,
         "avg_cote": null,
         "break_even_wr": null,
         "wr_vs_be": null
@@ -1199,16 +1199,16 @@
           "wr_vs_be": 12.5
         },
         "Hard": {
-          "n": 9,
-          "w": 7,
+          "n": 10,
+          "w": 8,
           "l": 2,
           "push": 0,
-          "wr": 77.8,
-          "roi": 45.1,
-          "profit": 4.06,
+          "wr": 80.0,
+          "roi": 48.6,
+          "profit": 4.86,
           "avg_cote": 2.03,
           "break_even_wr": 49.3,
-          "wr_vs_be": 28.5
+          "wr_vs_be": 30.7
         },
         "Clay": {
           "n": 111,
@@ -1237,16 +1237,16 @@
           "wr_vs_be": 20.5
         },
         "WTA": {
-          "n": 74,
-          "w": 47,
+          "n": 75,
+          "w": 48,
           "l": 27,
           "push": 0,
-          "wr": 63.5,
-          "roi": 13.2,
-          "profit": 9.8,
+          "wr": 64.0,
+          "roi": 14.1,
+          "profit": 10.6,
           "avg_cote": 1.64,
           "break_even_wr": 60.8,
-          "wr_vs_be": 2.7
+          "wr_vs_be": 3.2
         }
       }
     }
@@ -1795,18 +1795,54 @@
       }
     },
     {
+      "severity": "medium",
+      "type": "context_signal",
+      "scope": "tennis · surface",
+      "message": "Signal contexte <b>surface</b> (tennis) : surface=Clay → WR 56.8% (111 picks) vs surface=Hard → WR 80.0% (10). Filtrer/ponderer.",
+      "stats": {
+        "worst": {
+          "Clay": {
+            "n": 111,
+            "w": 63,
+            "l": 48,
+            "push": 0,
+            "wr": 56.8,
+            "roi": 0.4,
+            "profit": 0.47,
+            "avg_cote": 2.6,
+            "break_even_wr": 38.5,
+            "wr_vs_be": 18.3
+          }
+        },
+        "best": {
+          "Hard": {
+            "n": 10,
+            "w": 8,
+            "l": 2,
+            "push": 0,
+            "wr": 80.0,
+            "roi": 48.6,
+            "profit": 4.86,
+            "avg_cote": 2.03,
+            "break_even_wr": 49.3,
+            "wr_vs_be": 30.7
+          }
+        }
+      }
+    },
+    {
       "severity": "info",
       "type": "keep_market",
       "scope": "tennis · tennis_total_games",
-      "message": "Market <b>tennis_total_games</b> (tennis) : ROI <b>+22.6%</b> sur 94 picks (WR 68.1%). Continuer.",
+      "message": "Market <b>tennis_total_games</b> (tennis) : ROI <b>+23.2%</b> sur 95 picks (WR 68.4%). Continuer.",
       "stats": {
-        "n": 94,
-        "w": 64,
+        "n": 95,
+        "w": 65,
         "l": 30,
         "push": 0,
-        "wr": 68.1,
-        "roi": 22.6,
-        "profit": 21.2,
+        "wr": 68.4,
+        "roi": 23.2,
+        "profit": 22.0,
         "avg_cote": null,
         "break_even_wr": null,
         "wr_vs_be": null
