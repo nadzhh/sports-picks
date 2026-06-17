@@ -1249,6 +1249,278 @@
   },
   {
     "league": "World Cup",
+    "home": "Austria",
+    "away": "Jordan",
+    "start_ts": 1781668800,
+    "match_id": "4667813",
+    "page_url": "/matches/jordan-vs-austria/1my603#4667813",
+    "picks": [
+      {
+        "direction": "home_dc",
+        "type": "Double chance",
+        "label": "Austria ou Nul (1X)",
+        "cote": null,
+        "confidence": 80,
+        "reasoning": "Austria invaincu 100% sur 5 derniers matchs · H2H: 0/0 matchs sans défaite · Classement: #2 vs #9\n📉 Calibration : bucket 80-89% historiquement à WR 56% (claim 82%, n=63) — sur-estimé de 26pp",
+        "stats": {
+          "form": [
+            "W",
+            "W",
+            "W",
+            "D",
+            "W"
+          ]
+        },
+        "is_fun": false,
+        "tier": "safe",
+        "calibration_delta": -26.0,
+        "history_top3": true
+      },
+      {
+        "direction": "home_win",
+        "type": "Victoire domicile",
+        "label": "Austria gagne",
+        "cote": 1.39,
+        "confidence": 73,
+        "reasoning": "Austria : 4V/1N/0D sur 5 matchs · #2 au classement · H2H: 0V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+        "stats": {
+          "form": [
+            "W",
+            "W",
+            "W",
+            "D",
+            "W"
+          ]
+        },
+        "is_fun": false,
+        "tier": "safe",
+        "calibration_delta": -11.3,
+        "edge_pp": 1.1,
+        "history_top3": true
+      },
+      {
+        "direction": "wc_over_25",
+        "type": "⚽ Total buts WC",
+        "label": "Plus de 2.5 buts",
+        "cote": 1.91,
+        "cote_min": 1.52,
+        "confidence": 66,
+        "tier": "ok",
+        "stats": {
+          "lam_h": 2.92,
+          "lam_a": 0.47,
+          "h_fifa_rank": 26,
+          "a_fifa_rank": 60,
+          "elo_gap": 214,
+          "wc_round": null,
+          "family": "TOTAL"
+        },
+        "reasoning": "📊 Écart FIFA significatif : Austria #26 vs Jordan #60 (gap +214 pts, P favori ≈ 77%).\nL10 : Austria 4V/1N/0D sur 5 · Jordan 1V/1N/3D sur 5\n📋 Fiche Austria : off moyen (-0.06) · def moyenne (+0.07) · forme WWWDW · 🏆 novice WC\n📋 Fiche Jordan : off moyen (+0.21) · def moyenne (+0.11) · forme LLDLW · 🏆 novice WC\n🌦️ ☁️ couvert · 14–24°C · humidité 60%\n✅ Compo OFFICIELLE\n⚽ Modèle Poisson : λ total = 3.39\nP(plus de 2.5 buts) = 65.8%\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
+        "calibration_delta": -25.4,
+        "edge_pp": 13.6,
+        "history_top3": true
+      },
+      {
+        "direction": "wc_btts_no",
+        "type": "⚽ BTTS WC",
+        "label": "Une équipe ne marque pas (BTTS NO)",
+        "cote": null,
+        "cote_min": 1.55,
+        "confidence": 65,
+        "tier": "ok",
+        "stats": {
+          "lam_h": 2.92,
+          "lam_a": 0.47,
+          "h_fifa_rank": 26,
+          "a_fifa_rank": 60,
+          "elo_gap": 214,
+          "wc_round": null,
+          "family": "BTTS"
+        },
+        "reasoning": "📊 Écart FIFA significatif : Austria #26 vs Jordan #60 (gap +214 pts, P favori ≈ 77%).\nL10 : Austria 4V/1N/0D sur 5 · Jordan 1V/1N/3D sur 5\n📋 Fiche Austria : off moyen (-0.06) · def moyenne (+0.07) · forme WWWDW · 🏆 novice WC\n📋 Fiche Jordan : off moyen (+0.21) · def moyenne (+0.11) · forme LLDLW · 🏆 novice WC\n🌦️ ☁️ couvert · 14–24°C · humidité 60%\n✅ Compo OFFICIELLE\n⚽ BTTS NO : P(au moins une équipe blanchie) = 64.7%\nλ faibles côté Jordan (0.47) ou Austria (2.92)\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
+        "calibration_delta": -25.4,
+        "history_top3": true
+      },
+      {
+        "direction": "wc_home_scores_2",
+        "type": "⚽ Buteur équipe WC",
+        "label": "Austria marque 2+ buts",
+        "cote": null,
+        "cote_min": 1.27,
+        "confidence": 79,
+        "tier": "safe",
+        "stats": {
+          "lam_h": 2.92,
+          "lam_a": 0.47,
+          "h_fifa_rank": 26,
+          "a_fifa_rank": 60,
+          "elo_gap": 214,
+          "wc_round": null,
+          "family": "BUT_TEAM"
+        },
+        "reasoning": "📊 Écart FIFA significatif : Austria #26 vs Jordan #60 (gap +214 pts, P favori ≈ 77%).\nL10 : Austria 4V/1N/0D sur 5 · Jordan 1V/1N/3D sur 5\n📋 Fiche Austria : off moyen (-0.06) · def moyenne (+0.07) · forme WWWDW · 🏆 novice WC\n📋 Fiche Jordan : off moyen (+0.21) · def moyenne (+0.11) · forme LLDLW · 🏆 novice WC\n🌦️ ☁️ couvert · 14–24°C · humidité 60%\n✅ Compo OFFICIELLE\n⚽ P(Austria marque 2+) = 78.9% (λ = 2.92)\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+        "calibration_delta": -11.3,
+        "history_top3": false
+      }
+    ],
+    "home_players": [
+      {
+        "player": "Marcel Sabitzer",
+        "position": "F",
+        "is_sub": false,
+        "type": "Joueur décisif",
+        "label": "Marcel Sabitzer but ou passe décisive",
+        "cote": null,
+        "cote_min": 1.78,
+        "book": null,
+        "books": [],
+        "confidence": 56,
+        "reasoning": "Marcel Sabitzer but ou passe decisive : selection 5G+4A/10m (0.90 G+A/m nat) · ⚠️ disette recente. P(but ou passe) ~56%.\n📉 Calibration : bucket 50-59% historiquement à WR 42% (claim 55%, n=41) — sur-estimé de 14pp",
+        "context": {
+          "source": "lineup",
+          "lam": 0.83,
+          "lineup_status": "confirmed"
+        },
+        "stats": {
+          "goals": null,
+          "apps": null,
+          "gpm": 0.827,
+          "xgpm": null
+        },
+        "team": "home",
+        "lineup_status": "confirmed",
+        "tier": "ok",
+        "calibration_delta": -13.6,
+        "history_top3": true
+      },
+      {
+        "player": "Romano Schmid",
+        "position": "F",
+        "is_sub": false,
+        "type": "Joueur décisif",
+        "label": "Romano Schmid but ou passe décisive",
+        "cote": null,
+        "cote_min": 2.2,
+        "book": null,
+        "books": [],
+        "confidence": 45,
+        "reasoning": "Romano Schmid but ou passe decisive : selection 2G+1A/10m (0.30 G+A/m nat). P(but ou passe) ~45%.\n📉 Calibration : bucket 40-49% historiquement à WR 25% (claim 44%, n=36) — sur-estimé de 19pp",
+        "context": {
+          "source": "lineup",
+          "lam": 0.6,
+          "lineup_status": "confirmed"
+        },
+        "stats": {
+          "goals": null,
+          "apps": null,
+          "gpm": 0.605,
+          "xgpm": null
+        },
+        "team": "home",
+        "lineup_status": "confirmed",
+        "tier": "fun",
+        "calibration_delta": -19.4,
+        "history_top3": false
+      }
+    ],
+    "away_players": [],
+    "fun_picks": [
+      {
+        "direction": "wc_score_2_0",
+        "type": "🏆 Score exact WC",
+        "label": "Score exact : Austria 2-0 Jordan",
+        "cote_min": 6.94,
+        "confidence": 14,
+        "tier": "fun",
+        "is_fun": true,
+        "stats": {
+          "lam_h": 2.92,
+          "lam_a": 0.47,
+          "h_fifa_rank": 26,
+          "a_fifa_rank": 60,
+          "elo_gap": 214
+        },
+        "reasoning": "📊 Écart FIFA significatif : Austria #26 vs Jordan #60 (gap +214 pts, P favori ≈ 77%).\nL10 : Austria 4V/1N/0D sur 5 · Jordan 1V/1N/3D sur 5\n🏆 Coupe du Monde 2026 - score exact (Poisson grid, ajusté Elo FIFA)\nλ Austria = 2.92 buts, λ Jordan = 0.47 buts\nTop 3 : 2-0 (14.4%) · 3-0 (14.0%) · 4-0 (10.3%)\n⚠️ Pari fun (cote élevée typique 4-8) - mise modeste",
+        "exact_score": [
+          2,
+          0
+        ],
+        "wc_top3": [
+          [
+            [
+              2,
+              0
+            ],
+            14.4
+          ],
+          [
+            [
+              3,
+              0
+            ],
+            14.0
+          ],
+          [
+            [
+              4,
+              0
+            ],
+            10.3
+          ]
+        ],
+        "history_top3": false
+      }
+    ],
+    "top_pick": {
+      "direction": "home_dc",
+      "type": "Double chance",
+      "label": "Austria ou Nul (1X)",
+      "cote": null,
+      "confidence": 80,
+      "reasoning": "Austria invaincu 100% sur 5 derniers matchs · H2H: 0/0 matchs sans défaite · Classement: #2 vs #9\n📉 Calibration : bucket 80-89% historiquement à WR 56% (claim 82%, n=63) — sur-estimé de 26pp",
+      "stats": {
+        "form": [
+          "W",
+          "W",
+          "W",
+          "D",
+          "W"
+        ]
+      },
+      "is_fun": false,
+      "tier": "safe",
+      "calibration_delta": -26.0,
+      "history_top3": true
+    },
+    "no_picks": false,
+    "context": {
+      "stadium": {
+        "name": "Levi's Stadium",
+        "city": "Santa Clara (San Francisco Bay)",
+        "country": "USA",
+        "lat": 37.403,
+        "lon": -121.9698,
+        "capacity": 68500,
+        "surface": "Natural grass",
+        "altitude_m": 9,
+        "type": "outdoor",
+        "climatized": false,
+        "context_fr": "Climat méditerranéen côtier. Juin doux 18-24°C, faible humidité."
+      },
+      "weather": {
+        "temp_max": 24.8,
+        "temp_min": 14.5,
+        "humidity": 60,
+        "precipitation_sum_mm": 0.0,
+        "wind_max_kmh": 17.3,
+        "weather_code": 3,
+        "summary_fr": "☁️ couvert · 14–24°C · humidité 60%"
+      },
+      "text": "Conditions : ☁️ couvert · 14–24°C · humidité 60%. Stade : Levi's Stadium · altitude 9m · 68 500 places · plein air. Climat méditerranéen côtier. Juin doux 18-24°C, faible humidité."
+    }
+  },
+  {
+    "league": "World Cup",
     "home": "Canada",
     "away": "Qatar",
     "start_ts": 1781820000,
@@ -1272,7 +1544,7 @@
           "wc_round": null,
           "family": "TOTAL"
         },
-        "reasoning": "📊 Niveau équilibré : Canada #76 vs Qatar #53 (gap -138 pts).\nL10 : Canada 1V/4N/0D sur 5 · Qatar 0V/3N/2D sur 5\n📋 Fiche Canada : off moyen (+0.11) · def solide (+0.74) · forme DDWDD · 🏆 présence occasionnelle\n📋 Fiche Qatar : off en panne (-0.62) · def moyenne (-0.30) · forme DDLLD · 🏆 présence occasionnelle\n🎯 Importance : Canada : 1 match joué (1pts) · Qatar : 1 match joué (1pts)\n🌦️ ☁️ couvert · 13–23°C · humidité 49%\n⚽ Modèle Poisson : λ total = 1.54\nP(moins de 2.5 buts) = 79.9%\n📉 Calibration : bucket 80-89% historiquement à WR 56% (claim 82%, n=63) — sur-estimé de 26pp",
+        "reasoning": "📊 Niveau équilibré : Canada #76 vs Qatar #53 (gap -138 pts).\nL10 : Canada 1V/4N/0D sur 5 · Qatar 0V/3N/2D sur 5\n📋 Fiche Canada : off moyen (+0.11) · def solide (+0.74) · forme DDWDD · 🏆 présence occasionnelle\n📋 Fiche Qatar : off en panne (-0.62) · def moyenne (-0.30) · forme DDLLD · 🏆 présence occasionnelle\n🎯 Importance : Canada : 1 match joué (1pts) · Qatar : 1 match joué (1pts)\n🌦️ ☁️ couvert · 13–24°C · humidité 50%\n⚽ Modèle Poisson : λ total = 1.54\nP(moins de 2.5 buts) = 79.9%\n📉 Calibration : bucket 80-89% historiquement à WR 56% (claim 82%, n=63) — sur-estimé de 26pp",
         "calibration_delta": -26.0,
         "edge_pp": 31.2,
         "history_top3": true
@@ -1294,7 +1566,7 @@
           "wc_round": null,
           "family": "DC"
         },
-        "reasoning": "📊 Niveau équilibré : Canada #76 vs Qatar #53 (gap -138 pts).\nL10 : Canada 1V/4N/0D sur 5 · Qatar 0V/3N/2D sur 5\n📋 Fiche Canada : off moyen (+0.11) · def solide (+0.74) · forme DDWDD · 🏆 présence occasionnelle\n📋 Fiche Qatar : off en panne (-0.62) · def moyenne (-0.30) · forme DDLLD · 🏆 présence occasionnelle\n🎯 Importance : Canada : 1 match joué (1pts) · Qatar : 1 match joué (1pts)\n🌦️ ☁️ couvert · 13–23°C · humidité 49%\n🛡️ Double chance : Canada gagne (41.1%) OU match nul (35.5%)\nCombiné = 76.6% — option safe contre Qatar\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+        "reasoning": "📊 Niveau équilibré : Canada #76 vs Qatar #53 (gap -138 pts).\nL10 : Canada 1V/4N/0D sur 5 · Qatar 0V/3N/2D sur 5\n📋 Fiche Canada : off moyen (+0.11) · def solide (+0.74) · forme DDWDD · 🏆 présence occasionnelle\n📋 Fiche Qatar : off en panne (-0.62) · def moyenne (-0.30) · forme DDLLD · 🏆 présence occasionnelle\n🎯 Importance : Canada : 1 match joué (1pts) · Qatar : 1 match joué (1pts)\n🌦️ ☁️ couvert · 13–24°C · humidité 50%\n🛡️ Double chance : Canada gagne (41.1%) OU match nul (35.5%)\nCombiné = 76.6% — option safe contre Qatar\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
         "calibration_delta": -11.3,
         "history_top3": true
       },
@@ -1315,7 +1587,7 @@
           "wc_round": null,
           "family": "BTTS"
         },
-        "reasoning": "📊 Niveau équilibré : Canada #76 vs Qatar #53 (gap -138 pts).\nL10 : Canada 1V/4N/0D sur 5 · Qatar 0V/3N/2D sur 5\n📋 Fiche Canada : off moyen (+0.11) · def solide (+0.74) · forme DDWDD · 🏆 présence occasionnelle\n📋 Fiche Qatar : off en panne (-0.62) · def moyenne (-0.30) · forme DDLLD · 🏆 présence occasionnelle\n🎯 Importance : Canada : 1 match joué (1pts) · Qatar : 1 match joué (1pts)\n🌦️ ☁️ couvert · 13–23°C · humidité 49%\n⚽ BTTS NO : P(au moins une équipe blanchie) = 72.2%\nλ faibles côté Qatar (0.62) ou Canada (0.92)\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+        "reasoning": "📊 Niveau équilibré : Canada #76 vs Qatar #53 (gap -138 pts).\nL10 : Canada 1V/4N/0D sur 5 · Qatar 0V/3N/2D sur 5\n📋 Fiche Canada : off moyen (+0.11) · def solide (+0.74) · forme DDWDD · 🏆 présence occasionnelle\n📋 Fiche Qatar : off en panne (-0.62) · def moyenne (-0.30) · forme DDLLD · 🏆 présence occasionnelle\n🎯 Importance : Canada : 1 match joué (1pts) · Qatar : 1 match joué (1pts)\n🌦️ ☁️ couvert · 13–24°C · humidité 50%\n⚽ BTTS NO : P(au moins une équipe blanchie) = 72.2%\nλ faibles côté Qatar (0.62) ou Canada (0.92)\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
         "calibration_delta": -11.3,
         "history_top3": true
       }
@@ -1386,7 +1658,7 @@
         "wc_round": null,
         "family": "TOTAL"
       },
-      "reasoning": "📊 Niveau équilibré : Canada #76 vs Qatar #53 (gap -138 pts).\nL10 : Canada 1V/4N/0D sur 5 · Qatar 0V/3N/2D sur 5\n📋 Fiche Canada : off moyen (+0.11) · def solide (+0.74) · forme DDWDD · 🏆 présence occasionnelle\n📋 Fiche Qatar : off en panne (-0.62) · def moyenne (-0.30) · forme DDLLD · 🏆 présence occasionnelle\n🎯 Importance : Canada : 1 match joué (1pts) · Qatar : 1 match joué (1pts)\n🌦️ ☁️ couvert · 13–23°C · humidité 49%\n⚽ Modèle Poisson : λ total = 1.54\nP(moins de 2.5 buts) = 79.9%\n📉 Calibration : bucket 80-89% historiquement à WR 56% (claim 82%, n=63) — sur-estimé de 26pp",
+      "reasoning": "📊 Niveau équilibré : Canada #76 vs Qatar #53 (gap -138 pts).\nL10 : Canada 1V/4N/0D sur 5 · Qatar 0V/3N/2D sur 5\n📋 Fiche Canada : off moyen (+0.11) · def solide (+0.74) · forme DDWDD · 🏆 présence occasionnelle\n📋 Fiche Qatar : off en panne (-0.62) · def moyenne (-0.30) · forme DDLLD · 🏆 présence occasionnelle\n🎯 Importance : Canada : 1 match joué (1pts) · Qatar : 1 match joué (1pts)\n🌦️ ☁️ couvert · 13–24°C · humidité 50%\n⚽ Modèle Poisson : λ total = 1.54\nP(moins de 2.5 buts) = 79.9%\n📉 Calibration : bucket 80-89% historiquement à WR 56% (claim 82%, n=63) — sur-estimé de 26pp",
       "calibration_delta": -26.0,
       "edge_pp": 31.2,
       "history_top3": true
@@ -1407,15 +1679,15 @@
         "context_fr": "Toit rétractable. Climat océanique doux. Juin 15-20°C."
       },
       "weather": {
-        "temp_max": 23.5,
-        "temp_min": 13.0,
-        "humidity": 49,
+        "temp_max": 24.1,
+        "temp_min": 13.1,
+        "humidity": 50,
         "precipitation_sum_mm": 0.0,
-        "wind_max_kmh": 20.4,
+        "wind_max_kmh": 23.2,
         "weather_code": 3,
-        "summary_fr": "☁️ couvert · 13–23°C · humidité 49%"
+        "summary_fr": "☁️ couvert · 13–24°C · humidité 50%"
       },
-      "text": "Conditions : ☁️ couvert · 13–23°C · humidité 49%. Stade : BC Place · altitude 5m · 54 500 places · indoor. Toit rétractable. Climat océanique doux. Juin 15-20°C."
+      "text": "Conditions : ☁️ couvert · 13–24°C · humidité 50%. Stade : BC Place · altitude 5m · 54 500 places · indoor. Toit rétractable. Climat océanique doux. Juin 15-20°C."
     }
   },
   {
@@ -1443,7 +1715,7 @@
           "wc_round": null,
           "family": "1X2"
         },
-        "reasoning": "📊 Écart FIFA significatif : Uzbekistan #56 vs Colombia #13 (gap -297 pts, P favori ≈ 85%).\nL10 : Uzbekistan 1V/2N/2D sur 5 · Colombia 3V/0N/2D sur 5\n📋 Fiche Uzbekistan : off moyen (+0.05) · def solide (+0.36) · forme LLDWD · 🏆 novice WC\n📋 Fiche Colombia : off moyen (+0.05) · def fragile (-0.39) · forme WWLLW · 🏆 habituée du tournoi\n🌦️ Conditions : pluie 10.5mm (-10%) · altitude 2240m (+5%)\n⚠️ Compo PROBABLE (officielle à T-60min)\n🏆 Modèle Poisson CdM (tier FIFA ajusté)\nλ Uzbekistan = 0.41, λ Colombia = 2.15\nP(Uzbekistan) = 5.7% · P(nul) = 16.2% · P(Colombia gagne) = 77.9%\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+        "reasoning": "📊 Écart FIFA significatif : Uzbekistan #56 vs Colombia #13 (gap -297 pts, P favori ≈ 85%).\nL10 : Uzbekistan 1V/2N/2D sur 5 · Colombia 3V/0N/2D sur 5\n📋 Fiche Uzbekistan : off moyen (+0.05) · def solide (+0.36) · forme LLDWD · 🏆 novice WC\n📋 Fiche Colombia : off moyen (+0.05) · def fragile (-0.39) · forme WWLLW · 🏆 habituée du tournoi\n🌦️ Conditions : pluie 9.0mm (-10%) · altitude 2240m (+5%)\n⚠️ Compo PROBABLE (officielle à T-60min)\n🏆 Modèle Poisson CdM (tier FIFA ajusté)\nλ Uzbekistan = 0.41, λ Colombia = 2.15\nP(Uzbekistan) = 5.7% · P(nul) = 16.2% · P(Colombia gagne) = 77.9%\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
         "calibration_delta": -11.3,
         "edge_pp": 4.5,
         "history_top3": true
@@ -1465,7 +1737,7 @@
           "wc_round": null,
           "family": "BTTS"
         },
-        "reasoning": "📊 Écart FIFA significatif : Uzbekistan #56 vs Colombia #13 (gap -297 pts, P favori ≈ 85%).\nL10 : Uzbekistan 1V/2N/2D sur 5 · Colombia 3V/0N/2D sur 5\n📋 Fiche Uzbekistan : off moyen (+0.05) · def solide (+0.36) · forme LLDWD · 🏆 novice WC\n📋 Fiche Colombia : off moyen (+0.05) · def fragile (-0.39) · forme WWLLW · 🏆 habituée du tournoi\n🌦️ Conditions : pluie 10.5mm (-10%) · altitude 2240m (+5%)\n⚠️ Compo PROBABLE (officielle à T-60min)\n⚽ BTTS NO : P(au moins une équipe blanchie) = 70.3%\nλ faibles côté Colombia (2.15) ou Uzbekistan (0.41)\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+        "reasoning": "📊 Écart FIFA significatif : Uzbekistan #56 vs Colombia #13 (gap -297 pts, P favori ≈ 85%).\nL10 : Uzbekistan 1V/2N/2D sur 5 · Colombia 3V/0N/2D sur 5\n📋 Fiche Uzbekistan : off moyen (+0.05) · def solide (+0.36) · forme LLDWD · 🏆 novice WC\n📋 Fiche Colombia : off moyen (+0.05) · def fragile (-0.39) · forme WWLLW · 🏆 habituée du tournoi\n🌦️ Conditions : pluie 9.0mm (-10%) · altitude 2240m (+5%)\n⚠️ Compo PROBABLE (officielle à T-60min)\n⚽ BTTS NO : P(au moins une équipe blanchie) = 70.3%\nλ faibles côté Colombia (2.15) ou Uzbekistan (0.41)\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
         "calibration_delta": -11.3,
         "history_top3": true
       },
@@ -1486,7 +1758,7 @@
           "wc_round": null,
           "family": "CLEAN_SHEET"
         },
-        "reasoning": "📊 Écart FIFA significatif : Uzbekistan #56 vs Colombia #13 (gap -297 pts, P favori ≈ 85%).\nL10 : Uzbekistan 1V/2N/2D sur 5 · Colombia 3V/0N/2D sur 5\n📋 Fiche Uzbekistan : off moyen (+0.05) · def solide (+0.36) · forme LLDWD · 🏆 novice WC\n📋 Fiche Colombia : off moyen (+0.05) · def fragile (-0.39) · forme WWLLW · 🏆 habituée du tournoi\n🌦️ Conditions : pluie 10.5mm (-10%) · altitude 2240m (+5%)\n⚠️ Compo PROBABLE (officielle à T-60min)\n🛡️ P(Uzbekistan blanchi) = 66.4% (λ_Uzbekistan = 0.41)\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
+        "reasoning": "📊 Écart FIFA significatif : Uzbekistan #56 vs Colombia #13 (gap -297 pts, P favori ≈ 85%).\nL10 : Uzbekistan 1V/2N/2D sur 5 · Colombia 3V/0N/2D sur 5\n📋 Fiche Uzbekistan : off moyen (+0.05) · def solide (+0.36) · forme LLDWD · 🏆 novice WC\n📋 Fiche Colombia : off moyen (+0.05) · def fragile (-0.39) · forme WWLLW · 🏆 habituée du tournoi\n🌦️ Conditions : pluie 9.0mm (-10%) · altitude 2240m (+5%)\n⚠️ Compo PROBABLE (officielle à T-60min)\n🛡️ P(Uzbekistan blanchi) = 66.4% (λ_Uzbekistan = 0.41)\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
         "calibration_delta": -25.4,
         "history_top3": true
       }
@@ -1616,7 +1888,7 @@
         "wc_round": null,
         "family": "1X2"
       },
-      "reasoning": "📊 Écart FIFA significatif : Uzbekistan #56 vs Colombia #13 (gap -297 pts, P favori ≈ 85%).\nL10 : Uzbekistan 1V/2N/2D sur 5 · Colombia 3V/0N/2D sur 5\n📋 Fiche Uzbekistan : off moyen (+0.05) · def solide (+0.36) · forme LLDWD · 🏆 novice WC\n📋 Fiche Colombia : off moyen (+0.05) · def fragile (-0.39) · forme WWLLW · 🏆 habituée du tournoi\n🌦️ Conditions : pluie 10.5mm (-10%) · altitude 2240m (+5%)\n⚠️ Compo PROBABLE (officielle à T-60min)\n🏆 Modèle Poisson CdM (tier FIFA ajusté)\nλ Uzbekistan = 0.41, λ Colombia = 2.15\nP(Uzbekistan) = 5.7% · P(nul) = 16.2% · P(Colombia gagne) = 77.9%\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+      "reasoning": "📊 Écart FIFA significatif : Uzbekistan #56 vs Colombia #13 (gap -297 pts, P favori ≈ 85%).\nL10 : Uzbekistan 1V/2N/2D sur 5 · Colombia 3V/0N/2D sur 5\n📋 Fiche Uzbekistan : off moyen (+0.05) · def solide (+0.36) · forme LLDWD · 🏆 novice WC\n📋 Fiche Colombia : off moyen (+0.05) · def fragile (-0.39) · forme WWLLW · 🏆 habituée du tournoi\n🌦️ Conditions : pluie 9.0mm (-10%) · altitude 2240m (+5%)\n⚠️ Compo PROBABLE (officielle à T-60min)\n🏆 Modèle Poisson CdM (tier FIFA ajusté)\nλ Uzbekistan = 0.41, λ Colombia = 2.15\nP(Uzbekistan) = 5.7% · P(nul) = 16.2% · P(Colombia gagne) = 77.9%\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
       "calibration_delta": -11.3,
       "edge_pp": 4.5,
       "history_top3": true
@@ -1637,15 +1909,15 @@
         "context_fr": "Altitude 2240m : impact endurance fort. Saison des pluies en juin-juillet (humidité 60-75%). Mexique invaincu en CdM ici (7 matchs)."
       },
       "weather": {
-        "temp_max": 23.4,
-        "temp_min": 12.8,
-        "humidity": 70,
-        "precipitation_sum_mm": 10.5,
-        "wind_max_kmh": 6.1,
-        "weather_code": 96,
-        "summary_fr": "⛈️ orage + grêle légère · 12–23°C · humidité 70% · précipitations 10.5mm"
+        "temp_max": 22.7,
+        "temp_min": 14.0,
+        "humidity": 67,
+        "precipitation_sum_mm": 9.0,
+        "wind_max_kmh": 7.7,
+        "weather_code": 95,
+        "summary_fr": "⛈️ orage · 14–22°C · humidité 67% · précipitations 9.0mm"
       },
-      "text": "Conditions : ⛈️ orage + grêle légère · 12–23°C · humidité 70% · précipitations 10.5mm. Stade : Estadio Azteca · altitude 2240m · 87 000 places · plein air. Altitude 2240m : impact endurance fort. Saison des pluies en juin-juillet (humidité 60-75%). Mexique invaincu en CdM ici (7 matchs). ⚠️ Altitude 2240m : impact endurance significatif pour l'équipe non-acclimatée. ⚠️ Pluies prévues : terrain potentiellement lourd, jeu direct privilégié, plus d'erreurs techniques."
+      "text": "Conditions : ⛈️ orage · 14–22°C · humidité 67% · précipitations 9.0mm. Stade : Estadio Azteca · altitude 2240m · 87 000 places · plein air. Altitude 2240m : impact endurance fort. Saison des pluies en juin-juillet (humidité 60-75%). Mexique invaincu en CdM ici (7 matchs). ⚠️ Altitude 2240m : impact endurance significatif pour l'équipe non-acclimatée. ⚠️ Pluies prévues : terrain potentiellement lourd, jeu direct privilégié, plus d'erreurs techniques."
     }
   },
   {
@@ -1673,7 +1945,7 @@
           "wc_round": null,
           "family": "DC"
         },
-        "reasoning": "📊 Niveau équilibré : Czechia #41 vs South Africa #54 (gap +81 pts).\nL10 : Czechia 2V/2N/1D sur 5 · South Africa 0V/2N/3D sur 5\n📋 Fiche Czechia : off moyen (-0.13) · def fragile (-0.52) · forme LWWDD · 🏆 novice WC\n📋 Fiche South Africa : off solide (+0.39) · def solide (+0.35) · forme LDLDL · 🏆 novice WC\n🎯 Importance : Czechia : 1 match joué (0pts) · South Africa : 1 match joué (0pts)\n🌦️ ⛈️ orage · 20–27°C · humidité 91% · précipitations 14.7mm · stade fermé\n🛡️ Double chance : Czechia gagne (55.6%) OU match nul (22.8%)\nCombiné = 78.4% — option safe contre South Africa\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+        "reasoning": "📊 Niveau équilibré : Czechia #41 vs South Africa #54 (gap +81 pts).\nL10 : Czechia 2V/2N/1D sur 5 · South Africa 0V/2N/3D sur 5\n📋 Fiche Czechia : off moyen (-0.13) · def fragile (-0.52) · forme LWWDD · 🏆 novice WC\n📋 Fiche South Africa : off solide (+0.39) · def solide (+0.35) · forme LDLDL · 🏆 novice WC\n🎯 Importance : Czechia : 1 match joué (0pts) · South Africa : 1 match joué (0pts)\n🌦️ ⛈️ orage · 21–28°C · humidité 82% · précipitations 38.3mm · stade fermé\n🛡️ Double chance : Czechia gagne (55.6%) OU match nul (22.8%)\nCombiné = 78.4% — option safe contre South Africa\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
         "calibration_delta": -11.3,
         "history_top3": false
       },
@@ -1694,7 +1966,7 @@
           "wc_round": null,
           "family": "TOTAL"
         },
-        "reasoning": "📊 Niveau équilibré : Czechia #41 vs South Africa #54 (gap +81 pts).\nL10 : Czechia 2V/2N/1D sur 5 · South Africa 0V/2N/3D sur 5\n📋 Fiche Czechia : off moyen (-0.13) · def fragile (-0.52) · forme LWWDD · 🏆 novice WC\n📋 Fiche South Africa : off solide (+0.39) · def solide (+0.35) · forme LDLDL · 🏆 novice WC\n🎯 Importance : Czechia : 1 match joué (0pts) · South Africa : 1 match joué (0pts)\n🌦️ ⛈️ orage · 20–27°C · humidité 91% · précipitations 14.7mm · stade fermé\n⚽ Modèle Poisson : λ total = 2.89 buts attendus\nP(plus de 1.5 buts) = 78.3%\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+        "reasoning": "📊 Niveau équilibré : Czechia #41 vs South Africa #54 (gap +81 pts).\nL10 : Czechia 2V/2N/1D sur 5 · South Africa 0V/2N/3D sur 5\n📋 Fiche Czechia : off moyen (-0.13) · def fragile (-0.52) · forme LWWDD · 🏆 novice WC\n📋 Fiche South Africa : off solide (+0.39) · def solide (+0.35) · forme LDLDL · 🏆 novice WC\n🎯 Importance : Czechia : 1 match joué (0pts) · South Africa : 1 match joué (0pts)\n🌦️ ⛈️ orage · 21–28°C · humidité 82% · précipitations 38.3mm · stade fermé\n⚽ Modèle Poisson : λ total = 2.89 buts attendus\nP(plus de 1.5 buts) = 78.3%\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
         "calibration_delta": -11.3,
         "history_top3": false
       },
@@ -1715,7 +1987,7 @@
           "wc_round": null,
           "family": "1X2"
         },
-        "reasoning": "📊 Niveau équilibré : Czechia #41 vs South Africa #54 (gap +81 pts).\nL10 : Czechia 2V/2N/1D sur 5 · South Africa 0V/2N/3D sur 5\n📋 Fiche Czechia : off moyen (-0.13) · def fragile (-0.52) · forme LWWDD · 🏆 novice WC\n📋 Fiche South Africa : off solide (+0.39) · def solide (+0.35) · forme LDLDL · 🏆 novice WC\n🎯 Importance : Czechia : 1 match joué (0pts) · South Africa : 1 match joué (0pts)\n🌦️ ⛈️ orage · 20–27°C · humidité 91% · précipitations 14.7mm · stade fermé\n🏆 Modèle Poisson CdM (tier FIFA ajusté)\nλ Czechia = 1.84 buts attendus, λ South Africa = 1.05\nP(Czechia gagne) = 55.6% · P(nul) = 22.8% · P(South Africa) = 21.5%\n📉 Calibration : bucket 50-59% historiquement à WR 42% (claim 55%, n=41) — sur-estimé de 14pp",
+        "reasoning": "📊 Niveau équilibré : Czechia #41 vs South Africa #54 (gap +81 pts).\nL10 : Czechia 2V/2N/1D sur 5 · South Africa 0V/2N/3D sur 5\n📋 Fiche Czechia : off moyen (-0.13) · def fragile (-0.52) · forme LWWDD · 🏆 novice WC\n📋 Fiche South Africa : off solide (+0.39) · def solide (+0.35) · forme LDLDL · 🏆 novice WC\n🎯 Importance : Czechia : 1 match joué (0pts) · South Africa : 1 match joué (0pts)\n🌦️ ⛈️ orage · 21–28°C · humidité 82% · précipitations 38.3mm · stade fermé\n🏆 Modèle Poisson CdM (tier FIFA ajusté)\nλ Czechia = 1.84 buts attendus, λ South Africa = 1.05\nP(Czechia gagne) = 55.6% · P(nul) = 22.8% · P(South Africa) = 21.5%\n📉 Calibration : bucket 50-59% historiquement à WR 42% (claim 55%, n=41) — sur-estimé de 14pp",
         "calibration_delta": -13.6,
         "edge_pp": -0.5,
         "history_top3": true
@@ -1787,7 +2059,7 @@
         "wc_round": null,
         "family": "DC"
       },
-      "reasoning": "📊 Niveau équilibré : Czechia #41 vs South Africa #54 (gap +81 pts).\nL10 : Czechia 2V/2N/1D sur 5 · South Africa 0V/2N/3D sur 5\n📋 Fiche Czechia : off moyen (-0.13) · def fragile (-0.52) · forme LWWDD · 🏆 novice WC\n📋 Fiche South Africa : off solide (+0.39) · def solide (+0.35) · forme LDLDL · 🏆 novice WC\n🎯 Importance : Czechia : 1 match joué (0pts) · South Africa : 1 match joué (0pts)\n🌦️ ⛈️ orage · 20–27°C · humidité 91% · précipitations 14.7mm · stade fermé\n🛡️ Double chance : Czechia gagne (55.6%) OU match nul (22.8%)\nCombiné = 78.4% — option safe contre South Africa\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+      "reasoning": "📊 Niveau équilibré : Czechia #41 vs South Africa #54 (gap +81 pts).\nL10 : Czechia 2V/2N/1D sur 5 · South Africa 0V/2N/3D sur 5\n📋 Fiche Czechia : off moyen (-0.13) · def fragile (-0.52) · forme LWWDD · 🏆 novice WC\n📋 Fiche South Africa : off solide (+0.39) · def solide (+0.35) · forme LDLDL · 🏆 novice WC\n🎯 Importance : Czechia : 1 match joué (0pts) · South Africa : 1 match joué (0pts)\n🌦️ ⛈️ orage · 21–28°C · humidité 82% · précipitations 38.3mm · stade fermé\n🛡️ Double chance : Czechia gagne (55.6%) OU match nul (22.8%)\nCombiné = 78.4% — option safe contre South Africa\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
       "calibration_delta": -11.3,
       "history_top3": false
     },
@@ -1807,15 +2079,15 @@
         "context_fr": "Toit ouvrant, climatisé. Conditions stables ~22°C indoor."
       },
       "weather": {
-        "temp_max": 27.3,
-        "temp_min": 20.8,
-        "humidity": 91,
-        "precipitation_sum_mm": 14.68,
-        "wind_max_kmh": 19.7,
+        "temp_max": 28.2,
+        "temp_min": 21.2,
+        "humidity": 82,
+        "precipitation_sum_mm": 38.32,
+        "wind_max_kmh": 23.5,
         "weather_code": 95,
-        "summary_fr": "⛈️ orage · 20–27°C · humidité 91% · précipitations 14.7mm"
+        "summary_fr": "⛈️ orage · 21–28°C · humidité 82% · précipitations 38.3mm"
       },
-      "text": "Conditions : ⛈️ orage · 20–27°C · humidité 91% · précipitations 14.7mm. Stade : Mercedes-Benz Stadium · altitude 320m · 75 000 places · climatisé. Toit ouvrant, climatisé. Conditions stables ~22°C indoor. ⚠️ Pluies prévues : terrain potentiellement lourd, jeu direct privilégié, plus d'erreurs techniques."
+      "text": "Conditions : ⛈️ orage · 21–28°C · humidité 82% · précipitations 38.3mm. Stade : Mercedes-Benz Stadium · altitude 320m · 75 000 places · climatisé. Toit ouvrant, climatisé. Conditions stables ~22°C indoor. ⚠️ Pluies prévues : terrain potentiellement lourd, jeu direct privilégié, plus d'erreurs techniques."
     }
   },
   {
@@ -2280,257 +2552,6 @@
     "context": null
   },
   {
-    "league": "World Cup",
-    "home": "Austria",
-    "away": "Jordan",
-    "start_ts": 1781668800,
-    "match_id": "4667813",
-    "page_url": "/matches/jordan-vs-austria/1my603#4667813",
-    "picks": [
-      {
-        "direction": "home_win",
-        "type": "Victoire domicile",
-        "label": "Austria gagne",
-        "cote": 1.39,
-        "confidence": 73,
-        "reasoning": "Austria : 4V/1N/0D sur 5 matchs · #2 au classement · H2H: 0V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
-        "stats": {
-          "form": [
-            "W",
-            "W",
-            "W",
-            "D",
-            "W"
-          ]
-        },
-        "is_fun": false,
-        "tier": "safe",
-        "calibration_delta": -11.3,
-        "edge_pp": 1.1,
-        "history_top3": true
-      },
-      {
-        "direction": "wc_over_25",
-        "type": "⚽ Total buts WC",
-        "label": "Plus de 2.5 buts",
-        "cote": 1.91,
-        "cote_min": 1.52,
-        "confidence": 66,
-        "tier": "ok",
-        "stats": {
-          "lam_h": 2.92,
-          "lam_a": 0.47,
-          "h_fifa_rank": 26,
-          "a_fifa_rank": 60,
-          "elo_gap": 214,
-          "wc_round": null,
-          "family": "TOTAL"
-        },
-        "reasoning": "📊 Écart FIFA significatif : Austria #26 vs Jordan #60 (gap +214 pts, P favori ≈ 77%).\nL10 : Austria 4V/1N/0D sur 5 · Jordan 1V/1N/3D sur 5\n📋 Fiche Austria : off moyen (-0.06) · def moyenne (+0.07) · forme WWWDW · 🏆 novice WC\n📋 Fiche Jordan : off moyen (+0.21) · def moyenne (+0.11) · forme LLDLW · 🏆 novice WC\n🌦️ ☁️ couvert · 14–24°C · humidité 60%\n✅ Compo OFFICIELLE\n⚽ Modèle Poisson : λ total = 3.39\nP(plus de 2.5 buts) = 65.8%\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
-        "calibration_delta": -25.4,
-        "edge_pp": 13.6,
-        "history_top3": true
-      },
-      {
-        "direction": "wc_btts_no",
-        "type": "⚽ BTTS WC",
-        "label": "Une équipe ne marque pas (BTTS NO)",
-        "cote": null,
-        "cote_min": 1.55,
-        "confidence": 65,
-        "tier": "ok",
-        "stats": {
-          "lam_h": 2.92,
-          "lam_a": 0.47,
-          "h_fifa_rank": 26,
-          "a_fifa_rank": 60,
-          "elo_gap": 214,
-          "wc_round": null,
-          "family": "BTTS"
-        },
-        "reasoning": "📊 Écart FIFA significatif : Austria #26 vs Jordan #60 (gap +214 pts, P favori ≈ 77%).\nL10 : Austria 4V/1N/0D sur 5 · Jordan 1V/1N/3D sur 5\n📋 Fiche Austria : off moyen (-0.06) · def moyenne (+0.07) · forme WWWDW · 🏆 novice WC\n📋 Fiche Jordan : off moyen (+0.21) · def moyenne (+0.11) · forme LLDLW · 🏆 novice WC\n🌦️ ☁️ couvert · 14–24°C · humidité 60%\n✅ Compo OFFICIELLE\n⚽ BTTS NO : P(au moins une équipe blanchie) = 64.7%\nλ faibles côté Jordan (0.47) ou Austria (2.92)\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
-        "calibration_delta": -25.4,
-        "history_top3": true
-      },
-      {
-        "direction": "wc_home_scores_2",
-        "type": "⚽ Buteur équipe WC",
-        "label": "Austria marque 2+ buts",
-        "cote": null,
-        "cote_min": 1.27,
-        "confidence": 79,
-        "tier": "safe",
-        "stats": {
-          "lam_h": 2.92,
-          "lam_a": 0.47,
-          "h_fifa_rank": 26,
-          "a_fifa_rank": 60,
-          "elo_gap": 214,
-          "wc_round": null,
-          "family": "BUT_TEAM"
-        },
-        "reasoning": "📊 Écart FIFA significatif : Austria #26 vs Jordan #60 (gap +214 pts, P favori ≈ 77%).\nL10 : Austria 4V/1N/0D sur 5 · Jordan 1V/1N/3D sur 5\n📋 Fiche Austria : off moyen (-0.06) · def moyenne (+0.07) · forme WWWDW · 🏆 novice WC\n📋 Fiche Jordan : off moyen (+0.21) · def moyenne (+0.11) · forme LLDLW · 🏆 novice WC\n🌦️ ☁️ couvert · 14–24°C · humidité 60%\n✅ Compo OFFICIELLE\n⚽ P(Austria marque 2+) = 78.9% (λ = 2.92)\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
-        "calibration_delta": -11.3,
-        "history_top3": false
-      }
-    ],
-    "home_players": [
-      {
-        "player": "Marcel Sabitzer",
-        "position": "F",
-        "is_sub": false,
-        "type": "Buteur",
-        "label": "Marcel Sabitzer marque",
-        "cote": null,
-        "cote_min": 1.55,
-        "book": null,
-        "books": [],
-        "confidence": 64,
-        "reasoning": "Marcel Sabitzer : selection 5G/9m (0.56/m) · L10 club : 3G/10m, 🔥 3G/3 derniers nat (+19%) | titu nat (85min/m) · last match 90min (1G+0A). λ ajusté à 1.03 (Austria attendu 2.7 buts) → P(marque) ~64%.\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
-        "context": {
-          "source": "lineup",
-          "lam": 1.03,
-          "lineup_status": "confirmed"
-        },
-        "stats": {
-          "goals": null,
-          "apps": null,
-          "gpm": 1.035,
-          "xgpm": null
-        },
-        "team": "home",
-        "lineup_status": "confirmed",
-        "tier": "ok",
-        "calibration_delta": -25.4,
-        "history_top3": true
-      },
-      {
-        "player": "Marcel Sabitzer",
-        "position": "F",
-        "is_sub": false,
-        "type": "Double buteur",
-        "label": "Marcel Sabitzer marque 2+ buts",
-        "cote": null,
-        "cote_min": 3.61,
-        "book": null,
-        "books": [],
-        "confidence": 38,
-        "reasoning": "Marcel Sabitzer : selection 5G/9m (0.56/m) · L10 club : 3G/10m, 🔥 3G/3 derniers nat (+19%) | titu nat (85min/m) · last match 90min (1G+0A). Attendu ~1.0 buts ce match - P(2+) ~28% (cote elevee).",
-        "context": {
-          "source": "lineup",
-          "lam": 1.03,
-          "lineup_status": "confirmed"
-        },
-        "stats": {
-          "goals": null,
-          "apps": null,
-          "gpm": 1.035,
-          "xgpm": null
-        },
-        "team": "home",
-        "lineup_status": "confirmed",
-        "tier": "fun",
-        "history_top3": true
-      }
-    ],
-    "away_players": [],
-    "fun_picks": [
-      {
-        "direction": "wc_score_2_0",
-        "type": "🏆 Score exact WC",
-        "label": "Score exact : Austria 2-0 Jordan",
-        "cote_min": 6.94,
-        "confidence": 14,
-        "tier": "fun",
-        "is_fun": true,
-        "stats": {
-          "lam_h": 2.92,
-          "lam_a": 0.47,
-          "h_fifa_rank": 26,
-          "a_fifa_rank": 60,
-          "elo_gap": 214
-        },
-        "reasoning": "📊 Écart FIFA significatif : Austria #26 vs Jordan #60 (gap +214 pts, P favori ≈ 77%).\nL10 : Austria 4V/1N/0D sur 5 · Jordan 1V/1N/3D sur 5\n🏆 Coupe du Monde 2026 - score exact (Poisson grid, ajusté Elo FIFA)\nλ Austria = 2.92 buts, λ Jordan = 0.47 buts\nTop 3 : 2-0 (14.4%) · 3-0 (14.0%) · 4-0 (10.3%)\n⚠️ Pari fun (cote élevée typique 4-8) - mise modeste",
-        "exact_score": [
-          2,
-          0
-        ],
-        "wc_top3": [
-          [
-            [
-              2,
-              0
-            ],
-            14.4
-          ],
-          [
-            [
-              3,
-              0
-            ],
-            14.0
-          ],
-          [
-            [
-              4,
-              0
-            ],
-            10.3
-          ]
-        ],
-        "history_top3": false
-      }
-    ],
-    "top_pick": {
-      "direction": "home_win",
-      "type": "Victoire domicile",
-      "label": "Austria gagne",
-      "cote": 1.39,
-      "confidence": 73,
-      "reasoning": "Austria : 4V/1N/0D sur 5 matchs · #2 au classement · H2H: 0V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
-      "stats": {
-        "form": [
-          "W",
-          "W",
-          "W",
-          "D",
-          "W"
-        ]
-      },
-      "is_fun": false,
-      "tier": "safe",
-      "calibration_delta": -11.3,
-      "edge_pp": 1.1,
-      "history_top3": true
-    },
-    "no_picks": false,
-    "context": {
-      "stadium": {
-        "name": "Levi's Stadium",
-        "city": "Santa Clara (San Francisco Bay)",
-        "country": "USA",
-        "lat": 37.403,
-        "lon": -121.9698,
-        "capacity": 68500,
-        "surface": "Natural grass",
-        "altitude_m": 9,
-        "type": "outdoor",
-        "climatized": false,
-        "context_fr": "Climat méditerranéen côtier. Juin doux 18-24°C, faible humidité."
-      },
-      "weather": {
-        "temp_max": 24.8,
-        "temp_min": 14.5,
-        "humidity": 60,
-        "precipitation_sum_mm": 0.0,
-        "wind_max_kmh": 17.3,
-        "weather_code": 3,
-        "summary_fr": "☁️ couvert · 14–24°C · humidité 60%"
-      },
-      "text": "Conditions : ☁️ couvert · 14–24°C · humidité 60%. Stade : Levi's Stadium · altitude 9m · 68 500 places · plein air. Climat méditerranéen côtier. Juin doux 18-24°C, faible humidité."
-    }
-  },
-  {
     "league": "Georgian Erovnuli",
     "home": "FC Meshakhte Tkibuli",
     "away": "FC Gagra",
@@ -2616,7 +2637,7 @@
           "wc_round": null,
           "family": "BTTS"
         },
-        "reasoning": "📊 Écart FIFA significatif : Switzerland #15 vs Bosnia and Herzegovina #78 (gap +392 pts, P favori ≈ 91%).\nL10 : Switzerland 1V/3N/1D sur 5 · Bosnia and Herzegovina 0V/5N/0D sur 5\n📋 Fiche Switzerland : off moyen (-0.05) · def moyenne (-0.28) · forme DDWDL · 🏆 habituée du tournoi\n📋 Fiche Bosnia and Herzegovina : off solide (+0.89) · def solide (+0.47) · forme DDDDD · 🏆 présence occasionnelle\n🎯 Importance : Switzerland : 1 match joué (1pts) · Bosnia and Herzegovina : 1 match joué (1pts)\n🌦️ ☁️ couvert · 16–20°C · humidité 67% · stade fermé\n⚽ BTTS NO : P(au moins une équipe blanchie) = 71.5%\nλ faibles côté Bosnia and Herzegovina (0.39) ou Switzerland (2.14)\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+        "reasoning": "📊 Écart FIFA significatif : Switzerland #15 vs Bosnia and Herzegovina #78 (gap +392 pts, P favori ≈ 91%).\nL10 : Switzerland 1V/3N/1D sur 5 · Bosnia and Herzegovina 0V/5N/0D sur 5\n📋 Fiche Switzerland : off moyen (-0.05) · def moyenne (-0.28) · forme DDWDL · 🏆 habituée du tournoi\n📋 Fiche Bosnia and Herzegovina : off solide (+0.89) · def solide (+0.47) · forme DDDDD · 🏆 présence occasionnelle\n🎯 Importance : Switzerland : 1 match joué (1pts) · Bosnia and Herzegovina : 1 match joué (1pts)\n🌦️ ☁️ couvert · 16–20°C · humidité 72% · stade fermé\n⚽ BTTS NO : P(au moins une équipe blanchie) = 71.5%\nλ faibles côté Bosnia and Herzegovina (0.39) ou Switzerland (2.14)\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
         "calibration_delta": -11.3,
         "history_top3": true
       },
@@ -2637,7 +2658,7 @@
           "wc_round": null,
           "family": "1X2"
         },
-        "reasoning": "📊 Écart FIFA significatif : Switzerland #15 vs Bosnia and Herzegovina #78 (gap +392 pts, P favori ≈ 91%).\nL10 : Switzerland 1V/3N/1D sur 5 · Bosnia and Herzegovina 0V/5N/0D sur 5\n📋 Fiche Switzerland : off moyen (-0.05) · def moyenne (-0.28) · forme DDWDL · 🏆 habituée du tournoi\n📋 Fiche Bosnia and Herzegovina : off solide (+0.89) · def solide (+0.47) · forme DDDDD · 🏆 présence occasionnelle\n🎯 Importance : Switzerland : 1 match joué (1pts) · Bosnia and Herzegovina : 1 match joué (1pts)\n🌦️ ☁️ couvert · 16–20°C · humidité 67% · stade fermé\n🏆 Modèle Poisson CdM (tier FIFA ajusté)\nλ Switzerland = 2.14 buts attendus, λ Bosnia and Herzegovina = 0.39\nP(Switzerland gagne) = 78.2% · P(nul) = 16.1% · P(Bosnia and Herzegovina) = 5.5%\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+        "reasoning": "📊 Écart FIFA significatif : Switzerland #15 vs Bosnia and Herzegovina #78 (gap +392 pts, P favori ≈ 91%).\nL10 : Switzerland 1V/3N/1D sur 5 · Bosnia and Herzegovina 0V/5N/0D sur 5\n📋 Fiche Switzerland : off moyen (-0.05) · def moyenne (-0.28) · forme DDWDL · 🏆 habituée du tournoi\n📋 Fiche Bosnia and Herzegovina : off solide (+0.89) · def solide (+0.47) · forme DDDDD · 🏆 présence occasionnelle\n🎯 Importance : Switzerland : 1 match joué (1pts) · Bosnia and Herzegovina : 1 match joué (1pts)\n🌦️ ☁️ couvert · 16–20°C · humidité 72% · stade fermé\n🏆 Modèle Poisson CdM (tier FIFA ajusté)\nλ Switzerland = 2.14 buts attendus, λ Bosnia and Herzegovina = 0.39\nP(Switzerland gagne) = 78.2% · P(nul) = 16.1% · P(Bosnia and Herzegovina) = 5.5%\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
         "calibration_delta": -11.3,
         "history_top3": false
       },
@@ -2658,7 +2679,7 @@
           "wc_round": null,
           "family": "CLEAN_SHEET"
         },
-        "reasoning": "📊 Écart FIFA significatif : Switzerland #15 vs Bosnia and Herzegovina #78 (gap +392 pts, P favori ≈ 91%).\nL10 : Switzerland 1V/3N/1D sur 5 · Bosnia and Herzegovina 0V/5N/0D sur 5\n📋 Fiche Switzerland : off moyen (-0.05) · def moyenne (-0.28) · forme DDWDL · 🏆 habituée du tournoi\n📋 Fiche Bosnia and Herzegovina : off solide (+0.89) · def solide (+0.47) · forme DDDDD · 🏆 présence occasionnelle\n🎯 Importance : Switzerland : 1 match joué (1pts) · Bosnia and Herzegovina : 1 match joué (1pts)\n🌦️ ☁️ couvert · 16–20°C · humidité 67% · stade fermé\n🛡️ P(Bosnia and Herzegovina blanchi) = 67.7% — défense Switzerland dominante (λ_Bosnia and Herzegovina = 0.39)\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
+        "reasoning": "📊 Écart FIFA significatif : Switzerland #15 vs Bosnia and Herzegovina #78 (gap +392 pts, P favori ≈ 91%).\nL10 : Switzerland 1V/3N/1D sur 5 · Bosnia and Herzegovina 0V/5N/0D sur 5\n📋 Fiche Switzerland : off moyen (-0.05) · def moyenne (-0.28) · forme DDWDL · 🏆 habituée du tournoi\n📋 Fiche Bosnia and Herzegovina : off solide (+0.89) · def solide (+0.47) · forme DDDDD · 🏆 présence occasionnelle\n🎯 Importance : Switzerland : 1 match joué (1pts) · Bosnia and Herzegovina : 1 match joué (1pts)\n🌦️ ☁️ couvert · 16–20°C · humidité 72% · stade fermé\n🛡️ P(Bosnia and Herzegovina blanchi) = 67.7% — défense Switzerland dominante (λ_Bosnia and Herzegovina = 0.39)\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
         "calibration_delta": -25.4,
         "history_top3": true
       }
@@ -2846,7 +2867,7 @@
         "wc_round": null,
         "family": "BTTS"
       },
-      "reasoning": "📊 Écart FIFA significatif : Switzerland #15 vs Bosnia and Herzegovina #78 (gap +392 pts, P favori ≈ 91%).\nL10 : Switzerland 1V/3N/1D sur 5 · Bosnia and Herzegovina 0V/5N/0D sur 5\n📋 Fiche Switzerland : off moyen (-0.05) · def moyenne (-0.28) · forme DDWDL · 🏆 habituée du tournoi\n📋 Fiche Bosnia and Herzegovina : off solide (+0.89) · def solide (+0.47) · forme DDDDD · 🏆 présence occasionnelle\n🎯 Importance : Switzerland : 1 match joué (1pts) · Bosnia and Herzegovina : 1 match joué (1pts)\n🌦️ ☁️ couvert · 16–20°C · humidité 67% · stade fermé\n⚽ BTTS NO : P(au moins une équipe blanchie) = 71.5%\nλ faibles côté Bosnia and Herzegovina (0.39) ou Switzerland (2.14)\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+      "reasoning": "📊 Écart FIFA significatif : Switzerland #15 vs Bosnia and Herzegovina #78 (gap +392 pts, P favori ≈ 91%).\nL10 : Switzerland 1V/3N/1D sur 5 · Bosnia and Herzegovina 0V/5N/0D sur 5\n📋 Fiche Switzerland : off moyen (-0.05) · def moyenne (-0.28) · forme DDWDL · 🏆 habituée du tournoi\n📋 Fiche Bosnia and Herzegovina : off solide (+0.89) · def solide (+0.47) · forme DDDDD · 🏆 présence occasionnelle\n🎯 Importance : Switzerland : 1 match joué (1pts) · Bosnia and Herzegovina : 1 match joué (1pts)\n🌦️ ☁️ couvert · 16–20°C · humidité 72% · stade fermé\n⚽ BTTS NO : P(au moins une équipe blanchie) = 71.5%\nλ faibles côté Bosnia and Herzegovina (0.39) ou Switzerland (2.14)\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
       "calibration_delta": -11.3,
       "history_top3": true
     },
@@ -2866,15 +2887,15 @@
         "context_fr": "Toit fixe ouvert sur les côtés. Climat doux côte californienne."
       },
       "weather": {
-        "temp_max": 20.7,
-        "temp_min": 16.4,
-        "humidity": 67,
+        "temp_max": 20.8,
+        "temp_min": 16.5,
+        "humidity": 72,
         "precipitation_sum_mm": 0.0,
-        "wind_max_kmh": 20.7,
+        "wind_max_kmh": 18.8,
         "weather_code": 3,
-        "summary_fr": "☁️ couvert · 16–20°C · humidité 67%"
+        "summary_fr": "☁️ couvert · 16–20°C · humidité 72%"
       },
-      "text": "Conditions : ☁️ couvert · 16–20°C · humidité 67%. Stade : SoFi Stadium · altitude 50m · 70 240 places · climatisé. Toit fixe ouvert sur les côtés. Climat doux côte californienne."
+      "text": "Conditions : ☁️ couvert · 16–20°C · humidité 72%. Stade : SoFi Stadium · altitude 50m · 70 240 places · climatisé. Toit fixe ouvert sur les côtés. Climat doux côte californienne."
     }
   },
   {
@@ -3806,8 +3827,8 @@
         "type": "Victoire domicile",
         "label": "Portugal gagne",
         "cote": null,
-        "confidence": 67,
-        "reasoning": "Portugal : 4V/1N/0D sur 5 matchs · #8 au classement · H2H: 0V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
+        "confidence": 68,
+        "reasoning": "Portugal : 4V/1N/0D sur 5 matchs · #7 au classement · H2H: 0V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
         "stats": {
           "form": [
             "W",
@@ -4007,8 +4028,8 @@
       "type": "Victoire domicile",
       "label": "Portugal gagne",
       "cote": null,
-      "confidence": 67,
-      "reasoning": "Portugal : 4V/1N/0D sur 5 matchs · #8 au classement · H2H: 0V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
+      "confidence": 68,
+      "reasoning": "Portugal : 4V/1N/0D sur 5 matchs · #7 au classement · H2H: 0V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
       "stats": {
         "form": [
           "W",
@@ -4412,15 +4433,15 @@
         "surface": "grass"
       },
       "weather": {
-        "temp_max": 16.3,
-        "temp_min": 9.3,
-        "humidity": 56,
+        "temp_max": 16.4,
+        "temp_min": 10.0,
+        "humidity": 57,
         "precipitation_sum_mm": 0.0,
         "wind_max_kmh": 22.7,
         "weather_code": 3,
-        "summary_fr": "☁️ couvert · 9–16°C · humidité 56%"
+        "summary_fr": "☁️ couvert · 10–16°C · humidité 57%"
       },
-      "text": "Conditions : ☁️ couvert · 9–16°C · humidité 56%. Stade : Raatin stadion · 6 996 places · plein air."
+      "text": "Conditions : ☁️ couvert · 10–16°C · humidité 57%. Stade : Raatin stadion · 6 996 places · plein air."
     }
   },
   {
