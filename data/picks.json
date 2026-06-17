@@ -1118,6 +1118,277 @@
     }
   },
   {
+    "league": "World Cup",
+    "home": "Austria",
+    "away": "Jordan",
+    "start_ts": 1781668800,
+    "match_id": "4667813",
+    "page_url": "/matches/jordan-vs-austria/1my603#4667813",
+    "picks": [
+      {
+        "direction": "home_dc",
+        "type": "Double chance",
+        "label": "Austria ou Nul (1X)",
+        "cote": null,
+        "confidence": 81,
+        "reasoning": "Austria invaincu 100% sur 5 derniers matchs · H2H: 0/0 matchs sans défaite · Classement: #2 vs #10\n📉 Calibration : bucket 80-89% historiquement à WR 56% (claim 82%, n=63) — sur-estimé de 26pp",
+        "stats": {
+          "form": [
+            "W",
+            "W",
+            "W",
+            "D",
+            "W"
+          ]
+        },
+        "is_fun": false,
+        "tier": "safe",
+        "calibration_delta": -26.0,
+        "history_top3": true
+      },
+      {
+        "direction": "home_win",
+        "type": "Victoire domicile",
+        "label": "Austria gagne",
+        "cote": 1.39,
+        "confidence": 73,
+        "reasoning": "Austria : 4V/1N/0D sur 5 matchs · #2 au classement · H2H: 0V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+        "stats": {
+          "form": [
+            "W",
+            "W",
+            "W",
+            "D",
+            "W"
+          ]
+        },
+        "is_fun": false,
+        "tier": "safe",
+        "calibration_delta": -11.3,
+        "edge_pp": 1.1,
+        "history_top3": true
+      },
+      {
+        "direction": "wc_over_25",
+        "type": "⚽ Total buts WC",
+        "label": "Plus de 2.5 buts",
+        "cote": 1.91,
+        "cote_min": 1.52,
+        "confidence": 66,
+        "tier": "ok",
+        "stats": {
+          "lam_h": 2.92,
+          "lam_a": 0.47,
+          "h_fifa_rank": 26,
+          "a_fifa_rank": 60,
+          "elo_gap": 214,
+          "wc_round": null,
+          "family": "TOTAL"
+        },
+        "reasoning": "📊 Écart FIFA significatif : Austria #26 vs Jordan #60 (gap +214 pts, P favori ≈ 77%).\nL10 : Austria 4V/1N/0D sur 5 · Jordan 1V/1N/3D sur 5\n📋 Fiche Austria : off moyen (-0.06) · def moyenne (+0.07) · forme WWWDW · 🏆 novice WC\n📋 Fiche Jordan : off moyen (+0.21) · def moyenne (+0.11) · forme LLDLW · 🏆 novice WC\n🌦️ ☁️ couvert · 14–24°C · humidité 60%\n✅ Compo OFFICIELLE\n⚽ Modèle Poisson : λ total = 3.39\nP(plus de 2.5 buts) = 65.8%\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
+        "calibration_delta": -25.4,
+        "edge_pp": 13.6,
+        "history_top3": true
+      },
+      {
+        "direction": "wc_btts_no",
+        "type": "⚽ BTTS WC",
+        "label": "Une équipe ne marque pas (BTTS NO)",
+        "cote": null,
+        "cote_min": 1.55,
+        "confidence": 65,
+        "tier": "ok",
+        "stats": {
+          "lam_h": 2.92,
+          "lam_a": 0.47,
+          "h_fifa_rank": 26,
+          "a_fifa_rank": 60,
+          "elo_gap": 214,
+          "wc_round": null,
+          "family": "BTTS"
+        },
+        "reasoning": "📊 Écart FIFA significatif : Austria #26 vs Jordan #60 (gap +214 pts, P favori ≈ 77%).\nL10 : Austria 4V/1N/0D sur 5 · Jordan 1V/1N/3D sur 5\n📋 Fiche Austria : off moyen (-0.06) · def moyenne (+0.07) · forme WWWDW · 🏆 novice WC\n📋 Fiche Jordan : off moyen (+0.21) · def moyenne (+0.11) · forme LLDLW · 🏆 novice WC\n🌦️ ☁️ couvert · 14–24°C · humidité 60%\n✅ Compo OFFICIELLE\n⚽ BTTS NO : P(au moins une équipe blanchie) = 64.7%\nλ faibles côté Jordan (0.47) ou Austria (2.92)\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
+        "calibration_delta": -25.4,
+        "history_top3": true
+      },
+      {
+        "direction": "wc_home_scores_2",
+        "type": "⚽ Buteur équipe WC",
+        "label": "Austria marque 2+ buts",
+        "cote": null,
+        "cote_min": 1.27,
+        "confidence": 79,
+        "tier": "safe",
+        "stats": {
+          "lam_h": 2.92,
+          "lam_a": 0.47,
+          "h_fifa_rank": 26,
+          "a_fifa_rank": 60,
+          "elo_gap": 214,
+          "wc_round": null,
+          "family": "BUT_TEAM"
+        },
+        "reasoning": "📊 Écart FIFA significatif : Austria #26 vs Jordan #60 (gap +214 pts, P favori ≈ 77%).\nL10 : Austria 4V/1N/0D sur 5 · Jordan 1V/1N/3D sur 5\n📋 Fiche Austria : off moyen (-0.06) · def moyenne (+0.07) · forme WWWDW · 🏆 novice WC\n📋 Fiche Jordan : off moyen (+0.21) · def moyenne (+0.11) · forme LLDLW · 🏆 novice WC\n🌦️ ☁️ couvert · 14–24°C · humidité 60%\n✅ Compo OFFICIELLE\n⚽ P(Austria marque 2+) = 78.9% (λ = 2.92)\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+        "calibration_delta": -11.3,
+        "history_top3": false
+      }
+    ],
+    "home_players": [
+      {
+        "player": "Marcel Sabitzer",
+        "position": "F",
+        "is_sub": false,
+        "type": "Buteur",
+        "label": "Marcel Sabitzer marque",
+        "cote": null,
+        "cote_min": 1.55,
+        "book": null,
+        "books": [],
+        "confidence": 64,
+        "reasoning": "Marcel Sabitzer : selection 5G/9m (0.56/m) · L10 club : 3G/10m, 🔥 3G/3 derniers nat (+19%) | titu nat (85min/m) · last match 90min (1G+0A). λ ajusté à 1.03 (Austria attendu 2.7 buts) → P(marque) ~64%.\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
+        "context": {
+          "source": "lineup",
+          "lam": 1.03,
+          "lineup_status": "confirmed"
+        },
+        "stats": {
+          "goals": null,
+          "apps": null,
+          "gpm": 1.035,
+          "xgpm": null
+        },
+        "team": "home",
+        "lineup_status": "confirmed",
+        "tier": "ok",
+        "calibration_delta": -25.4,
+        "history_top3": true
+      },
+      {
+        "player": "Marcel Sabitzer",
+        "position": "F",
+        "is_sub": false,
+        "type": "Double buteur",
+        "label": "Marcel Sabitzer marque 2+ buts",
+        "cote": null,
+        "cote_min": 3.61,
+        "book": null,
+        "books": [],
+        "confidence": 38,
+        "reasoning": "Marcel Sabitzer : selection 5G/9m (0.56/m) · L10 club : 3G/10m, 🔥 3G/3 derniers nat (+19%) | titu nat (85min/m) · last match 90min (1G+0A). Attendu ~1.0 buts ce match - P(2+) ~28% (cote elevee).",
+        "context": {
+          "source": "lineup",
+          "lam": 1.03,
+          "lineup_status": "confirmed"
+        },
+        "stats": {
+          "goals": null,
+          "apps": null,
+          "gpm": 1.035,
+          "xgpm": null
+        },
+        "team": "home",
+        "lineup_status": "confirmed",
+        "tier": "fun",
+        "history_top3": false
+      }
+    ],
+    "away_players": [],
+    "fun_picks": [
+      {
+        "direction": "wc_score_2_0",
+        "type": "🏆 Score exact WC",
+        "label": "Score exact : Austria 2-0 Jordan",
+        "cote_min": 6.94,
+        "confidence": 14,
+        "tier": "fun",
+        "is_fun": true,
+        "stats": {
+          "lam_h": 2.92,
+          "lam_a": 0.47,
+          "h_fifa_rank": 26,
+          "a_fifa_rank": 60,
+          "elo_gap": 214
+        },
+        "reasoning": "📊 Écart FIFA significatif : Austria #26 vs Jordan #60 (gap +214 pts, P favori ≈ 77%).\nL10 : Austria 4V/1N/0D sur 5 · Jordan 1V/1N/3D sur 5\n🏆 Coupe du Monde 2026 - score exact (Poisson grid, ajusté Elo FIFA)\nλ Austria = 2.92 buts, λ Jordan = 0.47 buts\nTop 3 : 2-0 (14.4%) · 3-0 (14.0%) · 4-0 (10.3%)\n⚠️ Pari fun (cote élevée typique 4-8) - mise modeste",
+        "exact_score": [
+          2,
+          0
+        ],
+        "wc_top3": [
+          [
+            [
+              2,
+              0
+            ],
+            14.4
+          ],
+          [
+            [
+              3,
+              0
+            ],
+            14.0
+          ],
+          [
+            [
+              4,
+              0
+            ],
+            10.3
+          ]
+        ],
+        "history_top3": false
+      }
+    ],
+    "top_pick": {
+      "direction": "home_dc",
+      "type": "Double chance",
+      "label": "Austria ou Nul (1X)",
+      "cote": null,
+      "confidence": 81,
+      "reasoning": "Austria invaincu 100% sur 5 derniers matchs · H2H: 0/0 matchs sans défaite · Classement: #2 vs #10\n📉 Calibration : bucket 80-89% historiquement à WR 56% (claim 82%, n=63) — sur-estimé de 26pp",
+      "stats": {
+        "form": [
+          "W",
+          "W",
+          "W",
+          "D",
+          "W"
+        ]
+      },
+      "is_fun": false,
+      "tier": "safe",
+      "calibration_delta": -26.0,
+      "history_top3": true
+    },
+    "no_picks": false,
+    "context": {
+      "stadium": {
+        "name": "Levi's Stadium",
+        "city": "Santa Clara (San Francisco Bay)",
+        "country": "USA",
+        "lat": 37.403,
+        "lon": -121.9698,
+        "capacity": 68500,
+        "surface": "Natural grass",
+        "altitude_m": 9,
+        "type": "outdoor",
+        "climatized": false,
+        "context_fr": "Climat méditerranéen côtier. Juin doux 18-24°C, faible humidité."
+      },
+      "weather": {
+        "temp_max": 24.8,
+        "temp_min": 14.5,
+        "humidity": 60,
+        "precipitation_sum_mm": 0.0,
+        "wind_max_kmh": 17.3,
+        "weather_code": 3,
+        "summary_fr": "☁️ couvert · 14–24°C · humidité 60%"
+      },
+      "text": "Conditions : ☁️ couvert · 14–24°C · humidité 60%. Stade : Levi's Stadium · altitude 9m · 68 500 places · plein air. Climat méditerranéen côtier. Juin doux 18-24°C, faible humidité."
+    }
+  },
+  {
     "league": "Lithuanian Toplyga",
     "home": "Hegelmann",
     "away": "Dziugas Telsiai",
@@ -1430,7 +1701,7 @@
         "direction": "wc_away_win",
         "type": "🏆 Vainqueur WC",
         "label": "Colombia gagne",
-        "cote": 1.37,
+        "cote": 1.36,
         "cote_min": 1.28,
         "confidence": 78,
         "tier": "safe",
@@ -1445,7 +1716,7 @@
         },
         "reasoning": "📊 Écart FIFA significatif : Uzbekistan #56 vs Colombia #13 (gap -297 pts, P favori ≈ 85%).\nL10 : Uzbekistan 1V/2N/2D sur 5 · Colombia 3V/0N/2D sur 5\n📋 Fiche Uzbekistan : off moyen (+0.05) · def solide (+0.36) · forme LLDWD · 🏆 novice WC\n📋 Fiche Colombia : off moyen (+0.05) · def fragile (-0.39) · forme WWLLW · 🏆 habituée du tournoi\n🌦️ Conditions : pluie 10.5mm (-10%) · altitude 2240m (+5%)\n⚠️ Compo PROBABLE (officielle à T-60min)\n🏆 Modèle Poisson CdM (tier FIFA ajusté)\nλ Uzbekistan = 0.41, λ Colombia = 2.15\nP(Uzbekistan) = 5.7% · P(nul) = 16.2% · P(Colombia gagne) = 77.9%\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
         "calibration_delta": -11.3,
-        "edge_pp": 5.0,
+        "edge_pp": 4.5,
         "history_top3": true
       },
       {
@@ -1603,7 +1874,7 @@
       "direction": "wc_away_win",
       "type": "🏆 Vainqueur WC",
       "label": "Colombia gagne",
-      "cote": 1.37,
+      "cote": 1.36,
       "cote_min": 1.28,
       "confidence": 78,
       "tier": "safe",
@@ -1618,7 +1889,7 @@
       },
       "reasoning": "📊 Écart FIFA significatif : Uzbekistan #56 vs Colombia #13 (gap -297 pts, P favori ≈ 85%).\nL10 : Uzbekistan 1V/2N/2D sur 5 · Colombia 3V/0N/2D sur 5\n📋 Fiche Uzbekistan : off moyen (+0.05) · def solide (+0.36) · forme LLDWD · 🏆 novice WC\n📋 Fiche Colombia : off moyen (+0.05) · def fragile (-0.39) · forme WWLLW · 🏆 habituée du tournoi\n🌦️ Conditions : pluie 10.5mm (-10%) · altitude 2240m (+5%)\n⚠️ Compo PROBABLE (officielle à T-60min)\n🏆 Modèle Poisson CdM (tier FIFA ajusté)\nλ Uzbekistan = 0.41, λ Colombia = 2.15\nP(Uzbekistan) = 5.7% · P(nul) = 16.2% · P(Colombia gagne) = 77.9%\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
       "calibration_delta": -11.3,
-      "edge_pp": 5.0,
+      "edge_pp": 4.5,
       "history_top3": true
     },
     "no_picks": false,
@@ -2278,257 +2549,6 @@
     },
     "no_picks": false,
     "context": null
-  },
-  {
-    "league": "World Cup",
-    "home": "Austria",
-    "away": "Jordan",
-    "start_ts": 1781668800,
-    "match_id": "4667813",
-    "page_url": "/matches/jordan-vs-austria/1my603#4667813",
-    "picks": [
-      {
-        "direction": "home_win",
-        "type": "Victoire domicile",
-        "label": "Austria gagne",
-        "cote": 1.39,
-        "confidence": 73,
-        "reasoning": "Austria : 4V/1N/0D sur 5 matchs · #2 au classement · H2H: 0V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
-        "stats": {
-          "form": [
-            "W",
-            "W",
-            "W",
-            "D",
-            "W"
-          ]
-        },
-        "is_fun": false,
-        "tier": "safe",
-        "calibration_delta": -11.3,
-        "edge_pp": 1.1,
-        "history_top3": true
-      },
-      {
-        "direction": "wc_over_25",
-        "type": "⚽ Total buts WC",
-        "label": "Plus de 2.5 buts",
-        "cote": 1.87,
-        "cote_min": 1.52,
-        "confidence": 66,
-        "tier": "ok",
-        "stats": {
-          "lam_h": 2.92,
-          "lam_a": 0.47,
-          "h_fifa_rank": 26,
-          "a_fifa_rank": 60,
-          "elo_gap": 214,
-          "wc_round": null,
-          "family": "TOTAL"
-        },
-        "reasoning": "📊 Écart FIFA significatif : Austria #26 vs Jordan #60 (gap +214 pts, P favori ≈ 77%).\nL10 : Austria 4V/1N/0D sur 5 · Jordan 1V/1N/3D sur 5\n📋 Fiche Austria : off moyen (-0.06) · def moyenne (+0.07) · forme WWWDW · 🏆 novice WC\n📋 Fiche Jordan : off moyen (+0.21) · def moyenne (+0.11) · forme LLDLW · 🏆 novice WC\n🌦️ ☁️ couvert · 14–24°C · humidité 60%\n✅ Compo OFFICIELLE\n⚽ Modèle Poisson : λ total = 3.39\nP(plus de 2.5 buts) = 65.8%\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
-        "calibration_delta": -25.4,
-        "edge_pp": 12.5,
-        "history_top3": true
-      },
-      {
-        "direction": "wc_btts_no",
-        "type": "⚽ BTTS WC",
-        "label": "Une équipe ne marque pas (BTTS NO)",
-        "cote": null,
-        "cote_min": 1.55,
-        "confidence": 65,
-        "tier": "ok",
-        "stats": {
-          "lam_h": 2.92,
-          "lam_a": 0.47,
-          "h_fifa_rank": 26,
-          "a_fifa_rank": 60,
-          "elo_gap": 214,
-          "wc_round": null,
-          "family": "BTTS"
-        },
-        "reasoning": "📊 Écart FIFA significatif : Austria #26 vs Jordan #60 (gap +214 pts, P favori ≈ 77%).\nL10 : Austria 4V/1N/0D sur 5 · Jordan 1V/1N/3D sur 5\n📋 Fiche Austria : off moyen (-0.06) · def moyenne (+0.07) · forme WWWDW · 🏆 novice WC\n📋 Fiche Jordan : off moyen (+0.21) · def moyenne (+0.11) · forme LLDLW · 🏆 novice WC\n🌦️ ☁️ couvert · 14–24°C · humidité 60%\n✅ Compo OFFICIELLE\n⚽ BTTS NO : P(au moins une équipe blanchie) = 64.7%\nλ faibles côté Jordan (0.47) ou Austria (2.92)\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
-        "calibration_delta": -25.4,
-        "history_top3": true
-      },
-      {
-        "direction": "wc_home_scores_2",
-        "type": "⚽ Buteur équipe WC",
-        "label": "Austria marque 2+ buts",
-        "cote": null,
-        "cote_min": 1.27,
-        "confidence": 79,
-        "tier": "safe",
-        "stats": {
-          "lam_h": 2.92,
-          "lam_a": 0.47,
-          "h_fifa_rank": 26,
-          "a_fifa_rank": 60,
-          "elo_gap": 214,
-          "wc_round": null,
-          "family": "BUT_TEAM"
-        },
-        "reasoning": "📊 Écart FIFA significatif : Austria #26 vs Jordan #60 (gap +214 pts, P favori ≈ 77%).\nL10 : Austria 4V/1N/0D sur 5 · Jordan 1V/1N/3D sur 5\n📋 Fiche Austria : off moyen (-0.06) · def moyenne (+0.07) · forme WWWDW · 🏆 novice WC\n📋 Fiche Jordan : off moyen (+0.21) · def moyenne (+0.11) · forme LLDLW · 🏆 novice WC\n🌦️ ☁️ couvert · 14–24°C · humidité 60%\n✅ Compo OFFICIELLE\n⚽ P(Austria marque 2+) = 78.9% (λ = 2.92)\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
-        "calibration_delta": -11.3,
-        "history_top3": false
-      }
-    ],
-    "home_players": [
-      {
-        "player": "Marcel Sabitzer",
-        "position": "F",
-        "is_sub": false,
-        "type": "Buteur",
-        "label": "Marcel Sabitzer marque",
-        "cote": null,
-        "cote_min": 1.55,
-        "book": null,
-        "books": [],
-        "confidence": 64,
-        "reasoning": "Marcel Sabitzer : selection 5G/9m (0.56/m) · L10 club : 3G/10m, 🔥 3G/3 derniers nat (+19%) | titu nat (85min/m) · last match 90min (1G+0A). λ ajusté à 1.03 (Austria attendu 2.7 buts) → P(marque) ~64%.\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
-        "context": {
-          "source": "lineup",
-          "lam": 1.03,
-          "lineup_status": "confirmed"
-        },
-        "stats": {
-          "goals": null,
-          "apps": null,
-          "gpm": 1.035,
-          "xgpm": null
-        },
-        "team": "home",
-        "lineup_status": "confirmed",
-        "tier": "ok",
-        "calibration_delta": -25.4,
-        "history_top3": true
-      },
-      {
-        "player": "Marcel Sabitzer",
-        "position": "F",
-        "is_sub": false,
-        "type": "Double buteur",
-        "label": "Marcel Sabitzer marque 2+ buts",
-        "cote": null,
-        "cote_min": 3.61,
-        "book": null,
-        "books": [],
-        "confidence": 38,
-        "reasoning": "Marcel Sabitzer : selection 5G/9m (0.56/m) · L10 club : 3G/10m, 🔥 3G/3 derniers nat (+19%) | titu nat (85min/m) · last match 90min (1G+0A). Attendu ~1.0 buts ce match - P(2+) ~28% (cote elevee).",
-        "context": {
-          "source": "lineup",
-          "lam": 1.03,
-          "lineup_status": "confirmed"
-        },
-        "stats": {
-          "goals": null,
-          "apps": null,
-          "gpm": 1.035,
-          "xgpm": null
-        },
-        "team": "home",
-        "lineup_status": "confirmed",
-        "tier": "fun",
-        "history_top3": true
-      }
-    ],
-    "away_players": [],
-    "fun_picks": [
-      {
-        "direction": "wc_score_2_0",
-        "type": "🏆 Score exact WC",
-        "label": "Score exact : Austria 2-0 Jordan",
-        "cote_min": 6.94,
-        "confidence": 14,
-        "tier": "fun",
-        "is_fun": true,
-        "stats": {
-          "lam_h": 2.92,
-          "lam_a": 0.47,
-          "h_fifa_rank": 26,
-          "a_fifa_rank": 60,
-          "elo_gap": 214
-        },
-        "reasoning": "📊 Écart FIFA significatif : Austria #26 vs Jordan #60 (gap +214 pts, P favori ≈ 77%).\nL10 : Austria 4V/1N/0D sur 5 · Jordan 1V/1N/3D sur 5\n🏆 Coupe du Monde 2026 - score exact (Poisson grid, ajusté Elo FIFA)\nλ Austria = 2.92 buts, λ Jordan = 0.47 buts\nTop 3 : 2-0 (14.4%) · 3-0 (14.0%) · 4-0 (10.3%)\n⚠️ Pari fun (cote élevée typique 4-8) - mise modeste",
-        "exact_score": [
-          2,
-          0
-        ],
-        "wc_top3": [
-          [
-            [
-              2,
-              0
-            ],
-            14.4
-          ],
-          [
-            [
-              3,
-              0
-            ],
-            14.0
-          ],
-          [
-            [
-              4,
-              0
-            ],
-            10.3
-          ]
-        ],
-        "history_top3": false
-      }
-    ],
-    "top_pick": {
-      "direction": "home_win",
-      "type": "Victoire domicile",
-      "label": "Austria gagne",
-      "cote": 1.39,
-      "confidence": 73,
-      "reasoning": "Austria : 4V/1N/0D sur 5 matchs · #2 au classement · H2H: 0V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
-      "stats": {
-        "form": [
-          "W",
-          "W",
-          "W",
-          "D",
-          "W"
-        ]
-      },
-      "is_fun": false,
-      "tier": "safe",
-      "calibration_delta": -11.3,
-      "edge_pp": 1.1,
-      "history_top3": true
-    },
-    "no_picks": false,
-    "context": {
-      "stadium": {
-        "name": "Levi's Stadium",
-        "city": "Santa Clara (San Francisco Bay)",
-        "country": "USA",
-        "lat": 37.403,
-        "lon": -121.9698,
-        "capacity": 68500,
-        "surface": "Natural grass",
-        "altitude_m": 9,
-        "type": "outdoor",
-        "climatized": false,
-        "context_fr": "Climat méditerranéen côtier. Juin doux 18-24°C, faible humidité."
-      },
-      "weather": {
-        "temp_max": 24.8,
-        "temp_min": 14.5,
-        "humidity": 60,
-        "precipitation_sum_mm": 0.0,
-        "wind_max_kmh": 17.3,
-        "weather_code": 3,
-        "summary_fr": "☁️ couvert · 14–24°C · humidité 60%"
-      },
-      "text": "Conditions : ☁️ couvert · 14–24°C · humidité 60%. Stade : Levi's Stadium · altitude 9m · 68 500 places · plein air. Climat méditerranéen côtier. Juin doux 18-24°C, faible humidité."
-    }
   },
   {
     "league": "Georgian Erovnuli",
@@ -3806,8 +3826,8 @@
         "type": "Victoire domicile",
         "label": "Portugal gagne",
         "cote": null,
-        "confidence": 67,
-        "reasoning": "Portugal : 4V/1N/0D sur 5 matchs · #8 au classement · H2H: 0V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
+        "confidence": 68,
+        "reasoning": "Portugal : 4V/1N/0D sur 5 matchs · #7 au classement · H2H: 0V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
         "stats": {
           "form": [
             "W",
@@ -4007,8 +4027,8 @@
       "type": "Victoire domicile",
       "label": "Portugal gagne",
       "cote": null,
-      "confidence": 67,
-      "reasoning": "Portugal : 4V/1N/0D sur 5 matchs · #8 au classement · H2H: 0V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
+      "confidence": 68,
+      "reasoning": "Portugal : 4V/1N/0D sur 5 matchs · #7 au classement · H2H: 0V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
       "stats": {
         "form": [
           "W",
