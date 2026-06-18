@@ -1178,6 +1178,131 @@
     "context": null
   },
   {
+    "league": "World Cup",
+    "home": "Mexico",
+    "away": "South Korea",
+    "start_ts": 1781830800,
+    "match_id": "4667754",
+    "page_url": "/matches/mexico-vs-south-korea/1qpvav#4667754",
+    "picks": [
+      {
+        "direction": "home_win",
+        "type": "Victoire domicile",
+        "label": "Mexico gagne",
+        "cote": 2.05,
+        "confidence": 74,
+        "reasoning": "Mexico : 4V/1N/0D sur 5 matchs · #1 au classement · H2H: 0V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+        "stats": {
+          "form": [
+            "W",
+            "W",
+            "W",
+            "W",
+            "D"
+          ]
+        },
+        "is_fun": false,
+        "tier": "ok",
+        "calibration_delta": -11.3,
+        "edge_pp": 25.2,
+        "history_top3": true
+      },
+      {
+        "direction": "wc_over_15",
+        "type": "⚽ Total buts WC",
+        "label": "Plus de 1.5 buts",
+        "cote": null,
+        "cote_min": 1.4,
+        "confidence": 71,
+        "tier": "safe",
+        "stats": {
+          "lam_h": 1.64,
+          "lam_a": 0.88,
+          "h_fifa_rank": 17,
+          "a_fifa_rank": 25,
+          "elo_gap": 47,
+          "wc_round": null,
+          "family": "TOTAL"
+        },
+        "reasoning": "📊 Niveau équilibré : Mexico #17 vs South Korea #25 (gap +47 pts).\nL10 : Mexico 4V/1N/0D sur 5 · South Korea 3V/0N/2D sur 5\n📋 Fiche Mexico : off moyen (-0.13) · def solide (+0.49) · forme WWWWD · 🏆 habituée du tournoi\n📋 Fiche South Korea : off solide (+0.69) · def solide (+0.34) · forme WWWLL · 🏆 présence occasionnelle\n🎯 Importance : Mexico : 1 match joué (3pts) · South Korea : 1 match joué (3pts)\n🌦️ Conditions : pluie 6.4mm (-10%) · altitude 1542m (+5%)\n⚠️ Compo PROBABLE (officielle à T-60min)\n⚽ Modèle Poisson : λ total = 2.51 buts attendus\nP(plus de 1.5 buts) = 71.5%\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+        "calibration_delta": -11.3,
+        "history_top3": true
+      },
+      {
+        "direction": "wc_dc_1x",
+        "type": "🏆 Double chance WC",
+        "label": "Mexico ou nul (1X)",
+        "cote": null,
+        "cote_min": 1.25,
+        "confidence": 80,
+        "tier": "safe",
+        "stats": {
+          "lam_h": 1.64,
+          "lam_a": 0.88,
+          "h_fifa_rank": 17,
+          "a_fifa_rank": 25,
+          "elo_gap": 47,
+          "wc_round": null,
+          "family": "DC"
+        },
+        "reasoning": "📊 Niveau équilibré : Mexico #17 vs South Korea #25 (gap +47 pts).\nL10 : Mexico 4V/1N/0D sur 5 · South Korea 3V/0N/2D sur 5\n📋 Fiche Mexico : off moyen (-0.13) · def solide (+0.49) · forme WWWWD · 🏆 habituée du tournoi\n📋 Fiche South Korea : off solide (+0.69) · def solide (+0.34) · forme WWWLL · 🏆 présence occasionnelle\n🎯 Importance : Mexico : 1 match joué (3pts) · South Korea : 1 match joué (3pts)\n🌦️ Conditions : pluie 6.4mm (-10%) · altitude 1542m (+5%)\n⚠️ Compo PROBABLE (officielle à T-60min)\n🛡️ Double chance : Mexico gagne (55.3%) OU match nul (24.6%)\nCombiné = 79.9% — option safe contre South Korea\n📉 Calibration : bucket 80-89% historiquement à WR 56% (claim 82%, n=63) — sur-estimé de 26pp",
+        "calibration_delta": -26.0,
+        "history_top3": false
+      }
+    ],
+    "home_players": [],
+    "away_players": [],
+    "fun_picks": [],
+    "top_pick": {
+      "direction": "home_win",
+      "type": "Victoire domicile",
+      "label": "Mexico gagne",
+      "cote": 2.05,
+      "confidence": 74,
+      "reasoning": "Mexico : 4V/1N/0D sur 5 matchs · #1 au classement · H2H: 0V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+      "stats": {
+        "form": [
+          "W",
+          "W",
+          "W",
+          "W",
+          "D"
+        ]
+      },
+      "is_fun": false,
+      "tier": "ok",
+      "calibration_delta": -11.3,
+      "edge_pp": 25.2,
+      "history_top3": true
+    },
+    "no_picks": false,
+    "context": {
+      "stadium": {
+        "name": "Estadio Akron",
+        "city": "Guadalajara",
+        "country": "Mexique",
+        "lat": 20.6818,
+        "lon": -103.4621,
+        "capacity": 49850,
+        "surface": "Natural grass",
+        "altitude_m": 1542,
+        "type": "outdoor",
+        "climatized": false,
+        "context_fr": "Altitude 1542m. Climat subtropical, journées chaudes 28-30°C en juin."
+      },
+      "weather": {
+        "temp_max": 25.9,
+        "temp_min": 15.7,
+        "humidity": 62,
+        "precipitation_sum_mm": 6.4,
+        "wind_max_kmh": 10.4,
+        "weather_code": 95,
+        "summary_fr": "⛈️ orage · 15–25°C · humidité 62% · précipitations 6.4mm"
+      },
+      "text": "Conditions : ⛈️ orage · 15–25°C · humidité 62% · précipitations 6.4mm. Stade : Estadio Akron · altitude 1542m · 49 850 places · plein air. Altitude 1542m. Climat subtropical, journées chaudes 28-30°C en juin. ⚠️ Altitude 1542m : impact endurance significatif pour l'équipe non-acclimatée. ⚠️ Pluies prévues : terrain potentiellement lourd, jeu direct privilégié, plus d'erreurs techniques."
+    }
+  },
+  {
     "league": "Georgian Erovnuli",
     "home": "FC Meshakhte Tkibuli",
     "away": "FC Gagra",
@@ -1466,33 +1591,117 @@
     }
   },
   {
+    "league": "Chile Primera",
+    "home": "Universidad de Chile",
+    "away": "O'Higgins",
+    "start_ts": 1781827200,
+    "match_id": "5140520",
+    "page_url": "/matches/ohiggins-vs-universidad-de-chile/1bba2v#5140520",
+    "picks": [],
+    "home_players": [],
+    "away_players": [
+      {
+        "player": "Francisco González / Thiago Vecino",
+        "position": "",
+        "is_sub": false,
+        "type": "Double Chance Buteur",
+        "label": "Francisco González ou Thiago Vecino marque",
+        "cote": null,
+        "book": null,
+        "books": [],
+        "confidence": 66,
+        "cote_min": 1.52,
+        "reasoning": "📈 P(Francisco González marque) ≈ 43% · P(Thiago Vecino marque) ≈ 41%\n🎯 P(au moins un marque) = 66% (calculée par 1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.52 - chercher ≥1.52 chez le bookmaker\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
+        "context": {},
+        "stats": {
+          "p_a": 0.428,
+          "p_b": 0.412,
+          "p_or": 0.664,
+          "player_a": "Francisco González",
+          "player_b": "Thiago Vecino"
+        },
+        "team": "away",
+        "tier": "ok",
+        "calibration_delta": -25.4,
+        "history_top3": true
+      }
+    ],
+    "fun_picks": [],
+    "top_pick": {
+      "player": "Francisco González / Thiago Vecino",
+      "position": "",
+      "is_sub": false,
+      "type": "Double Chance Buteur",
+      "label": "Francisco González ou Thiago Vecino marque",
+      "cote": null,
+      "book": null,
+      "books": [],
+      "confidence": 66,
+      "cote_min": 1.52,
+      "reasoning": "📈 P(Francisco González marque) ≈ 43% · P(Thiago Vecino marque) ≈ 41%\n🎯 P(au moins un marque) = 66% (calculée par 1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.52 - chercher ≥1.52 chez le bookmaker\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
+      "context": {},
+      "stats": {
+        "p_a": 0.428,
+        "p_b": 0.412,
+        "p_or": 0.664,
+        "player_a": "Francisco González",
+        "player_b": "Thiago Vecino"
+      },
+      "team": "away",
+      "tier": "ok",
+      "calibration_delta": -25.4,
+      "history_top3": true
+    },
+    "no_picks": false,
+    "context": {
+      "stadium": {
+        "name": "Estadio Nacional Julio Martínez Prádanos",
+        "city": "Santiago de Chile",
+        "country": "Chile",
+        "lat": -33.464460787,
+        "lon": -70.610627532,
+        "capacity": null,
+        "surface": null
+      },
+      "weather": {
+        "temp_max": 18.2,
+        "temp_min": 6.4,
+        "humidity": 32,
+        "precipitation_sum_mm": 0.0,
+        "wind_max_kmh": 3.3,
+        "weather_code": 3,
+        "summary_fr": "☁️ couvert · 6–18°C · humidité 32%"
+      },
+      "text": "Conditions : ☁️ couvert · 6–18°C · humidité 32%. Stade : Estadio Nacional Julio Martínez Prádanos · plein air."
+    }
+  },
+  {
     "league": "World Cup",
-    "home": "Ghana",
-    "away": "Panama",
-    "start_ts": 1781737200,
-    "match_id": "4667826",
-    "page_url": "/matches/panama-vs-ghana/1bjek0#4667826",
+    "home": "USA",
+    "away": "Australia",
+    "start_ts": 1781895600,
+    "match_id": "4667774",
+    "page_url": "/matches/usa-vs-australia/1hox83#4667774",
     "picks": [
       {
-        "direction": "wc_over_25",
-        "type": "⚽ Total buts WC",
-        "label": "Plus de 2.5 buts",
-        "cote": 2.35,
-        "cote_min": 1.41,
-        "confidence": 71,
-        "tier": "safe",
+        "direction": "away_win",
+        "type": "Victoire extérieur",
+        "label": "Australia gagne",
+        "cote": null,
+        "confidence": 62,
+        "reasoning": "Australia : 3V/1N/1D sur 5 matchs · #2 au classement · H2H: 0V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
         "stats": {
-          "lam_h": 1.34,
-          "lam_a": 2.32,
-          "h_fifa_rank": 55,
-          "a_fifa_rank": 44,
-          "elo_gap": -68,
-          "wc_round": null,
-          "family": "TOTAL"
+          "form": [
+            "W",
+            "D",
+            "L",
+            "W",
+            "W"
+          ]
         },
-        "reasoning": "📊 Niveau équilibré : Ghana #55 vs Panama #44 (gap -68 pts).\nL10 : Ghana 0V/1N/4D sur 5 · Panama 2V/2N/1D sur 5\n📋 Fiche Ghana : off moyen (-0.26) · def moyenne (-0.04) · forme DLLLL · 🏆 présence occasionnelle\n📋 Fiche Panama : off moyen (-0.21) · def fragile (-1.00) · forme DWLWD · 🏆 présence occasionnelle\n🌦️ 🌦️ pluie légère · 12–19°C · humidité 79% · précipitations 3.0mm\n✅ Compo OFFICIELLE\n⚽ Modèle Poisson : λ total = 3.66\nP(plus de 2.5 buts) = 70.8%\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
-        "calibration_delta": -11.3,
-        "edge_pp": 28.4,
+        "is_fun": false,
+        "tier": "ok",
+        "calibration_delta": -25.4,
         "history_top3": true
       },
       {
@@ -1500,63 +1709,114 @@
         "type": "⚽ BTTS WC",
         "label": "Les 2 équipes marquent",
         "cote": null,
-        "cote_min": 1.5,
+        "cote_min": 1.49,
         "confidence": 67,
         "tier": "ok",
         "stats": {
-          "lam_h": 1.34,
-          "lam_a": 2.32,
-          "h_fifa_rank": 55,
-          "a_fifa_rank": 44,
-          "elo_gap": -68,
+          "lam_h": 1.58,
+          "lam_a": 1.88,
+          "h_fifa_rank": 18,
+          "a_fifa_rank": 27,
+          "elo_gap": 55,
           "wc_round": null,
           "family": "BTTS"
         },
-        "reasoning": "📊 Niveau équilibré : Ghana #55 vs Panama #44 (gap -68 pts).\nL10 : Ghana 0V/1N/4D sur 5 · Panama 2V/2N/1D sur 5\n📋 Fiche Ghana : off moyen (-0.26) · def moyenne (-0.04) · forme DLLLL · 🏆 présence occasionnelle\n📋 Fiche Panama : off moyen (-0.21) · def fragile (-1.00) · forme DWLWD · 🏆 présence occasionnelle\n🌦️ 🌦️ pluie légère · 12–19°C · humidité 79% · précipitations 3.0mm\n✅ Compo OFFICIELLE\n⚽ BTTS Poisson : P(Ghana ≥ 1) × P(Panama ≥ 1) = 74% × 90% = 66.5%\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
+        "reasoning": "📊 Niveau équilibré : USA #18 vs Australia #27 (gap +55 pts).\nL10 : USA 2V/0N/3D sur 5 · Australia 3V/1N/1D sur 5\n📋 Fiche USA : off solide (+0.65) · def moyenne (-0.26) · forme WLWLL · 🏆 présence occasionnelle\n📋 Fiche Australia : off moyen (-0.22) · def moyenne (+0.00) · forme WDLWW · 🏆 présence occasionnelle\n🎯 Importance : USA : 1 match joué (3pts) · Australia : 1 match joué (3pts)\n🌦️ ☁️ couvert · 13–28°C · humidité 29%\n⚽ BTTS Poisson : P(USA ≥ 1) × P(Australia ≥ 1) = 79% × 85% = 67.3%\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
         "calibration_delta": -25.4,
         "history_top3": true
       },
       {
-        "direction": "wc_away_scores_2",
-        "type": "⚽ Buteur équipe WC",
-        "label": "Panama marque 2+ buts",
+        "direction": "wc_over_25",
+        "type": "⚽ Total buts WC",
+        "label": "Plus de 2.5 buts",
         "cote": null,
-        "cote_min": 1.48,
+        "cote_min": 1.49,
         "confidence": 67,
         "tier": "ok",
         "stats": {
-          "lam_h": 1.34,
-          "lam_a": 2.32,
-          "h_fifa_rank": 55,
-          "a_fifa_rank": 44,
-          "elo_gap": -68,
+          "lam_h": 1.58,
+          "lam_a": 1.88,
+          "h_fifa_rank": 18,
+          "a_fifa_rank": 27,
+          "elo_gap": 55,
+          "wc_round": null,
+          "family": "TOTAL"
+        },
+        "reasoning": "📊 Niveau équilibré : USA #18 vs Australia #27 (gap +55 pts).\nL10 : USA 2V/0N/3D sur 5 · Australia 3V/1N/1D sur 5\n📋 Fiche USA : off solide (+0.65) · def moyenne (-0.26) · forme WLWLL · 🏆 présence occasionnelle\n📋 Fiche Australia : off moyen (-0.22) · def moyenne (+0.00) · forme WDLWW · 🏆 présence occasionnelle\n🎯 Importance : USA : 1 match joué (3pts) · Australia : 1 match joué (3pts)\n🌦️ ☁️ couvert · 13–28°C · humidité 29%\n⚽ Modèle Poisson : λ total = 3.46\nP(plus de 2.5 buts) = 67.2%\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
+        "calibration_delta": -25.4,
+        "history_top3": true
+      },
+      {
+        "direction": "wc_home_scores_1",
+        "type": "⚽ Buteur équipe WC",
+        "label": "USA marque (≥1 but)",
+        "cote": null,
+        "cote_min": 1.26,
+        "confidence": 79,
+        "tier": "safe",
+        "stats": {
+          "lam_h": 1.58,
+          "lam_a": 1.88,
+          "h_fifa_rank": 18,
+          "a_fifa_rank": 27,
+          "elo_gap": 55,
           "wc_round": null,
           "family": "BUT_TEAM"
         },
-        "reasoning": "📊 Niveau équilibré : Ghana #55 vs Panama #44 (gap -68 pts).\nL10 : Ghana 0V/1N/4D sur 5 · Panama 2V/2N/1D sur 5\n📋 Fiche Ghana : off moyen (-0.26) · def moyenne (-0.04) · forme DLLLL · 🏆 présence occasionnelle\n📋 Fiche Panama : off moyen (-0.21) · def fragile (-1.00) · forme DWLWD · 🏆 présence occasionnelle\n🌦️ 🌦️ pluie légère · 12–19°C · humidité 79% · précipitations 3.0mm\n✅ Compo OFFICIELLE\n⚽ P(Panama marque 2+) = 67.5% (λ = 2.32)\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
-        "calibration_delta": -25.4,
+        "reasoning": "📊 Niveau équilibré : USA #18 vs Australia #27 (gap +55 pts).\nL10 : USA 2V/0N/3D sur 5 · Australia 3V/1N/1D sur 5\n📋 Fiche USA : off solide (+0.65) · def moyenne (-0.26) · forme WLWLL · 🏆 présence occasionnelle\n📋 Fiche Australia : off moyen (-0.22) · def moyenne (+0.00) · forme WDLWW · 🏆 présence occasionnelle\n🎯 Importance : USA : 1 match joué (3pts) · Australia : 1 match joué (3pts)\n🌦️ ☁️ couvert · 13–28°C · humidité 29%\n⚽ P(USA marque ≥1) = 79.5% — λ_USA = 1.58\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+        "calibration_delta": -11.3,
+        "history_top3": false
+      }
+    ],
+    "home_players": [
+      {
+        "player": "Folarin Balogun",
+        "position": "F",
+        "is_sub": false,
+        "type": "Buteur",
+        "label": "Folarin Balogun marque",
+        "cote": null,
+        "cote_min": 2.18,
+        "book": null,
+        "books": [],
+        "confidence": 46,
+        "reasoning": "Folarin Balogun : selection 6G/11m (0.55/m) · L10 club : 7G/10m, 🔥 3G/3 derniers nat (+19%) | rotatif nat (54min/m) · last match 72min (2G+0A). λ ajusté à 0.61 (USA attendu 1.3 buts) → P(marque) ~46%.\n📉 Calibration : bucket 40-49% historiquement à WR 25% (claim 44%, n=36) — sur-estimé de 19pp",
+        "context": {
+          "source": "lineup",
+          "lam": 0.61,
+          "lineup_status": "confirmed"
+        },
+        "stats": {
+          "goals": null,
+          "apps": null,
+          "gpm": 0.615,
+          "xgpm": null
+        },
+        "team": "home",
+        "lineup_status": "confirmed",
+        "tier": "fun",
+        "calibration_delta": -19.4,
         "history_top3": true
       }
     ],
-    "home_players": [],
     "away_players": [],
     "fun_picks": [
       {
         "direction": "wc_score_1_2",
         "type": "🏆 Score exact WC",
-        "label": "Score exact : Ghana 1-2 Panama",
-        "cote_min": 10.77,
+        "label": "Score exact : USA 1-2 Australia",
+        "cote_min": 11.36,
         "confidence": 9,
         "tier": "fun",
         "is_fun": true,
         "stats": {
-          "lam_h": 1.34,
-          "lam_a": 2.32,
-          "h_fifa_rank": 55,
-          "a_fifa_rank": 44,
-          "elo_gap": -68
+          "lam_h": 1.58,
+          "lam_a": 1.88,
+          "h_fifa_rank": 18,
+          "a_fifa_rank": 27,
+          "elo_gap": 55
         },
-        "reasoning": "📊 Niveau équilibré : Ghana #55 vs Panama #44 (gap -68 pts).\nL10 : Ghana 0V/1N/4D sur 5 · Panama 2V/2N/1D sur 5\n🏆 Coupe du Monde 2026 - score exact (Poisson grid, ajusté Elo FIFA)\nλ Ghana = 1.34 buts, λ Panama = 2.32 buts\nTop 3 : 1-2 (9.3%) · 1-1 (8.0%) · 1-3 (7.2%)\n⚠️ Pari fun (cote élevée typique 4-8) - mise modeste",
+        "reasoning": "📊 Niveau équilibré : USA #18 vs Australia #27 (gap +55 pts).\nL10 : USA 2V/0N/3D sur 5 · Australia 3V/1N/1D sur 5\n🏆 Coupe du Monde 2026 - score exact (Poisson grid, ajusté Elo FIFA)\nλ USA = 1.58 buts, λ Australia = 1.88 buts\nTop 3 : 1-1 (9.3%) · 1-2 (8.8%) · 2-1 (7.4%)\n⚠️ Pari fun (cote élevée typique 4-8) - mise modeste",
         "exact_score": [
           1,
           2
@@ -1565,75 +1825,74 @@
           [
             [
               1,
-              2
+              1
             ],
             9.3
           ],
           [
             [
               1,
-              1
+              2
             ],
-            8.0
+            8.8
           ],
           [
             [
-              1,
-              3
+              2,
+              1
             ],
-            7.2
+            7.4
           ]
         ],
         "history_top3": true
       }
     ],
     "top_pick": {
-      "direction": "wc_over_25",
-      "type": "⚽ Total buts WC",
-      "label": "Plus de 2.5 buts",
-      "cote": 2.35,
-      "cote_min": 1.41,
-      "confidence": 71,
-      "tier": "safe",
+      "direction": "away_win",
+      "type": "Victoire extérieur",
+      "label": "Australia gagne",
+      "cote": null,
+      "confidence": 62,
+      "reasoning": "Australia : 3V/1N/1D sur 5 matchs · #2 au classement · H2H: 0V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
       "stats": {
-        "lam_h": 1.34,
-        "lam_a": 2.32,
-        "h_fifa_rank": 55,
-        "a_fifa_rank": 44,
-        "elo_gap": -68,
-        "wc_round": null,
-        "family": "TOTAL"
+        "form": [
+          "W",
+          "D",
+          "L",
+          "W",
+          "W"
+        ]
       },
-      "reasoning": "📊 Niveau équilibré : Ghana #55 vs Panama #44 (gap -68 pts).\nL10 : Ghana 0V/1N/4D sur 5 · Panama 2V/2N/1D sur 5\n📋 Fiche Ghana : off moyen (-0.26) · def moyenne (-0.04) · forme DLLLL · 🏆 présence occasionnelle\n📋 Fiche Panama : off moyen (-0.21) · def fragile (-1.00) · forme DWLWD · 🏆 présence occasionnelle\n🌦️ 🌦️ pluie légère · 12–19°C · humidité 79% · précipitations 3.0mm\n✅ Compo OFFICIELLE\n⚽ Modèle Poisson : λ total = 3.66\nP(plus de 2.5 buts) = 70.8%\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
-      "calibration_delta": -11.3,
-      "edge_pp": 28.4,
+      "is_fun": false,
+      "tier": "ok",
+      "calibration_delta": -25.4,
       "history_top3": true
     },
     "no_picks": false,
     "context": {
       "stadium": {
-        "name": "BMO Field",
-        "city": "Toronto",
-        "country": "Canada",
-        "lat": 43.6332,
-        "lon": -79.4185,
-        "capacity": 30000,
-        "surface": "Natural grass",
-        "altitude_m": 76,
+        "name": "Lumen Field",
+        "city": "Seattle",
+        "country": "USA",
+        "lat": 47.5952,
+        "lon": -122.3316,
+        "capacity": 68740,
+        "surface": "Artificial turf",
+        "altitude_m": 17,
         "type": "outdoor",
         "climatized": false,
-        "context_fr": "Plus petit stade de la CdM 2026. Climat continental. Juin 20-26°C."
+        "context_fr": "Climat océanique tempéré. Juin 18-22°C, pluies possibles."
       },
       "weather": {
-        "temp_max": 19.2,
-        "temp_min": 12.6,
-        "humidity": 79,
-        "precipitation_sum_mm": 3.0,
-        "wind_max_kmh": 22.7,
-        "weather_code": 61,
-        "summary_fr": "🌦️ pluie légère · 12–19°C · humidité 79% · précipitations 3.0mm"
+        "temp_max": 28.4,
+        "temp_min": 13.9,
+        "humidity": 29,
+        "precipitation_sum_mm": 0.0,
+        "wind_max_kmh": 13.7,
+        "weather_code": 3,
+        "summary_fr": "☁️ couvert · 13–28°C · humidité 29%"
       },
-      "text": "Conditions : 🌦️ pluie légère · 12–19°C · humidité 79% · précipitations 3.0mm. Stade : BMO Field · altitude 76m · 30 000 places · plein air. Plus petit stade de la CdM 2026. Climat continental. Juin 20-26°C."
+      "text": "Conditions : ☁️ couvert · 13–28°C · humidité 29%. Stade : Lumen Field · altitude 17m · 68 740 places · plein air. Climat océanique tempéré. Juin 18-22°C, pluies possibles."
     }
   },
   {
@@ -1762,6 +2021,183 @@
         "summary_fr": "☁️ couvert · 10–16°C · humidité 56%"
       },
       "text": "Conditions : ☁️ couvert · 10–16°C · humidité 56%. Stade : Raatin stadion · 6 996 places · plein air."
+    }
+  },
+  {
+    "league": "World Cup",
+    "home": "Scotland",
+    "away": "Morocco",
+    "start_ts": 1781906400,
+    "match_id": "4667766",
+    "page_url": "/matches/morocco-vs-scotland/1sv292#4667766",
+    "picks": [
+      {
+        "direction": "home_win",
+        "type": "Victoire domicile",
+        "label": "Scotland gagne",
+        "cote": 5.0,
+        "confidence": 59,
+        "reasoning": "Scotland : 3V/0N/2D sur 5 matchs · #1 au classement · H2H: 0V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 50-59% historiquement à WR 42% (claim 55%, n=41) — sur-estimé de 14pp",
+        "stats": {
+          "form": [
+            "W",
+            "W",
+            "W",
+            "L",
+            "L"
+          ]
+        },
+        "is_fun": false,
+        "tier": "fun",
+        "calibration_delta": -13.6,
+        "edge_pp": 39.0,
+        "history_top3": true
+      },
+      {
+        "direction": "wc_over_15",
+        "type": "⚽ Total buts WC",
+        "label": "Plus de 1.5 buts",
+        "cote": null,
+        "cote_min": 1.43,
+        "confidence": 70,
+        "tier": "safe",
+        "stats": {
+          "lam_h": 0.77,
+          "lam_a": 1.67,
+          "h_fifa_rank": 37,
+          "a_fifa_rank": 12,
+          "elo_gap": -189,
+          "wc_round": null,
+          "family": "TOTAL"
+        },
+        "reasoning": "📊 Niveau équilibré : Scotland #37 vs Morocco #12 (gap -189 pts).\nL10 : Scotland 3V/0N/2D sur 5 · Morocco 2V/3N/0D sur 5\n📋 Fiche Scotland : off moyen (+0.03) · def fragile (-0.31) · forme WWWLL · 🏆 novice WC\n📋 Fiche Morocco : off moyen (-0.25) · def solide (+0.35) · forme DDWWD · 🏆 habituée du tournoi\n🎯 Importance : Scotland : 1 match joué (3pts) · Morocco : 1 match joué (1pts)\n🌦️ ☁️ couvert · 17–28°C · humidité 36%\n⚽ Modèle Poisson : λ total = 2.44 buts attendus\nP(plus de 1.5 buts) = 69.9%\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+        "calibration_delta": -11.3,
+        "history_top3": true
+      },
+      {
+        "direction": "wc_dc_12",
+        "type": "🏆 Double chance WC",
+        "label": "Scotland ou Morocco (12, pas de nul)",
+        "cote": null,
+        "cote_min": 1.32,
+        "confidence": 76,
+        "tier": "safe",
+        "stats": {
+          "lam_h": 0.77,
+          "lam_a": 1.67,
+          "h_fifa_rank": 37,
+          "a_fifa_rank": 12,
+          "elo_gap": -189,
+          "wc_round": null,
+          "family": "DC"
+        },
+        "reasoning": "📊 Niveau équilibré : Scotland #37 vs Morocco #12 (gap -189 pts).\nL10 : Scotland 3V/0N/2D sur 5 · Morocco 2V/3N/0D sur 5\n📋 Fiche Scotland : off moyen (+0.03) · def fragile (-0.31) · forme WWWLL · 🏆 novice WC\n📋 Fiche Morocco : off moyen (-0.25) · def solide (+0.35) · forme DDWWD · 🏆 habituée du tournoi\n🎯 Importance : Scotland : 1 match joué (3pts) · Morocco : 1 match joué (1pts)\n🌦️ ☁️ couvert · 17–28°C · humidité 36%\n🛡️ Double chance 12 : Scotland (17.1%) OU Morocco (58.7%)\nCombiné = 75.8% — couvre tout sauf le nul\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+        "calibration_delta": -11.3,
+        "history_top3": true
+      },
+      {
+        "direction": "wc_away_win",
+        "type": "🏆 Vainqueur WC",
+        "label": "Morocco gagne",
+        "cote": 1.74,
+        "cote_min": 1.7,
+        "confidence": 59,
+        "tier": "ok",
+        "stats": {
+          "lam_h": 0.77,
+          "lam_a": 1.67,
+          "h_fifa_rank": 37,
+          "a_fifa_rank": 12,
+          "elo_gap": -189,
+          "wc_round": null,
+          "family": "1X2"
+        },
+        "reasoning": "📊 Niveau équilibré : Scotland #37 vs Morocco #12 (gap -189 pts).\nL10 : Scotland 3V/0N/2D sur 5 · Morocco 2V/3N/0D sur 5\n📋 Fiche Scotland : off moyen (+0.03) · def fragile (-0.31) · forme WWWLL · 🏆 novice WC\n📋 Fiche Morocco : off moyen (-0.25) · def solide (+0.35) · forme DDWWD · 🏆 habituée du tournoi\n🎯 Importance : Scotland : 1 match joué (3pts) · Morocco : 1 match joué (1pts)\n🌦️ ☁️ couvert · 17–28°C · humidité 36%\n🏆 Modèle Poisson CdM (tier FIFA ajusté)\nλ Scotland = 0.77, λ Morocco = 1.67\nP(Scotland) = 17.1% · P(nul) = 24.1% · P(Morocco gagne) = 58.7%\n📉 Calibration : bucket 50-59% historiquement à WR 42% (claim 55%, n=41) — sur-estimé de 14pp",
+        "calibration_delta": -13.6,
+        "edge_pp": 1.5,
+        "history_top3": true
+      }
+    ],
+    "home_players": [],
+    "away_players": [
+      {
+        "player": "Ismael Saibari",
+        "position": "F",
+        "is_sub": false,
+        "type": "Buteur",
+        "label": "Ismael Saibari marque",
+        "cote": null,
+        "cote_min": 2.17,
+        "book": null,
+        "books": [],
+        "confidence": 46,
+        "reasoning": "Ismael Saibari : selection 7G/17m (0.41/m) · L10 club : 6G/10m, 🔥 3G/3 derniers nat (+19%) | titu nat (70min/m) · last match 89min (1G+0A). λ ajusté à 0.62 (Morocco attendu 1.7 buts) → P(marque) ~46%.\n📉 Calibration : bucket 40-49% historiquement à WR 25% (claim 44%, n=36) — sur-estimé de 19pp",
+        "context": {
+          "source": "lineup",
+          "lam": 0.62,
+          "lineup_status": "confirmed"
+        },
+        "stats": {
+          "goals": null,
+          "apps": null,
+          "gpm": 0.62,
+          "xgpm": null
+        },
+        "team": "away",
+        "lineup_status": "confirmed",
+        "tier": "fun",
+        "calibration_delta": -19.4,
+        "history_top3": false
+      }
+    ],
+    "fun_picks": [],
+    "top_pick": {
+      "direction": "home_win",
+      "type": "Victoire domicile",
+      "label": "Scotland gagne",
+      "cote": 5.0,
+      "confidence": 59,
+      "reasoning": "Scotland : 3V/0N/2D sur 5 matchs · #1 au classement · H2H: 0V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 50-59% historiquement à WR 42% (claim 55%, n=41) — sur-estimé de 14pp",
+      "stats": {
+        "form": [
+          "W",
+          "W",
+          "W",
+          "L",
+          "L"
+        ]
+      },
+      "is_fun": false,
+      "tier": "fun",
+      "calibration_delta": -13.6,
+      "edge_pp": 39.0,
+      "history_top3": true
+    },
+    "no_picks": false,
+    "context": {
+      "stadium": {
+        "name": "Gillette Stadium",
+        "city": "Foxborough (Boston)",
+        "country": "USA",
+        "lat": 42.0909,
+        "lon": -71.2643,
+        "capacity": 65878,
+        "surface": "Natural grass",
+        "altitude_m": 100,
+        "type": "outdoor",
+        "climatized": false,
+        "context_fr": "Climat tempéré nord-est. Juin-juillet 20-26°C, humidité modérée."
+      },
+      "weather": {
+        "temp_max": 28.0,
+        "temp_min": 17.8,
+        "humidity": 36,
+        "precipitation_sum_mm": 0.0,
+        "wind_max_kmh": 23.8,
+        "weather_code": 3,
+        "summary_fr": "☁️ couvert · 17–28°C · humidité 36%"
+      },
+      "text": "Conditions : ☁️ couvert · 17–28°C · humidité 36%. Stade : Gillette Stadium · altitude 100m · 65 878 places · plein air. Climat tempéré nord-est. Juin-juillet 20-26°C, humidité modérée."
     }
   }
 ]
