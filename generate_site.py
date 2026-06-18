@@ -4691,21 +4691,6 @@ def build_html(matches, team_ai, player_ai, pstats_data, nba_picks=None, nba_his
             print(f"  [foot v1 card err] {_m.get('home','?')} vs {_m.get('away','?')}: {_e}")
     foot_details_json = __import__("json").dumps(foot_details_map, ensure_ascii=False)
 
-    # ─── Données analyse foot Datafoot-style ──────────────────────────────
-    foot_analyse_list = []
-    for _m in (matches or []):
-        ana = _m.get("analyse")
-        if not ana: continue
-        foot_analyse_list.append({
-            "mid":    str(_m.get("match_id") or ""),
-            "home":   _m.get("home"),
-            "away":   _m.get("away"),
-            "league": _m.get("league"),
-            "start_ts": _m.get("start_ts"),
-            "analyse": ana,
-        })
-    foot_analyse_json = __import__("json").dumps(foot_analyse_list, ensure_ascii=False)
-
     # ─── Cards NBA pour V1 (IDs préfixés v1_, collapsed par défaut)
     nba_details_map = {}
     if nba_picks:
@@ -6016,7 +6001,6 @@ def build_html(matches, team_ai, player_ai, pstats_data, nba_picks=None, nba_his
     <button class="sport-btn active" onclick="showSport('picks')"     id="sport-btn-picks">📌 Picks</button>
     <button class="sport-btn" onclick="showSport('pronos')"           id="sport-btn-pronos">🎯 Pronos <span style="background:#22c55e;color:#0a1628;border-radius:8px;padding:1px 5px;font-size:9px;margin-left:3px;font-weight:800">V1</span></button>
     <button class="sport-btn" onclick="showSport('analyse')"          id="sport-btn-analyse">🔍 Analyse NBA</button>
-    <button class="sport-btn" onclick="showSport('footanalyse')"      id="sport-btn-footanalyse">⚽ Analyse Foot</button>
     <button class="sport-btn" onclick="showSport('userpicks')"        id="sport-btn-userpicks">💰 Bankroll <span id="userpicks-count" style="background:rgba(255,255,255,0.2);border-radius:10px;padding:1px 7px;font-size:11px;margin-left:4px;display:none">0</span></button>
     <button class="sport-btn" onclick="showSport('history')"          id="sport-btn-history">🏆 Historique</button>
   </div>
@@ -6129,15 +6113,6 @@ def build_html(matches, team_ai, player_ai, pstats_data, nba_picks=None, nba_his
     {nba_analyse_html}
   </div>
 
-  <!-- Section Analyse Foot (Datafoot-style) -->
-  <div id="sport-footanalyse" style="display:none">
-    <div class="legend">
-      <b>⚽ Analyse Foot</b> — Modèle Poisson : 1X2 mi-temps + full match · Distribution buts · BTTS ·
-      Stats championnat · Top performeurs. Clique sur un match pour voir l'analyse complète.
-    </div>
-    <div id="footanalyse-list" style="display:flex;flex-direction:column;gap:14px;margin-top:14px"></div>
-  </div>
-
   <!-- Section Historique Foot -->
   <div id="sport-foothist" style="display:none">
     <div class="legend">
@@ -6228,10 +6203,6 @@ function showSport(sport){{
     var el = document.getElementById('sport-pronos'); if(el) el.style.display = 'block';
     _setMainBtnActive('pronos');
     if(typeof bk2Render === 'function') bk2Render();
-  }} else if(sport === 'footanalyse'){{
-    var el = document.getElementById('sport-footanalyse'); if(el) el.style.display = 'block';
-    _setMainBtnActive('footanalyse');
-    if(typeof renderFootAnalyse === 'function') renderFootAnalyse();
   }}
 }}
 
@@ -6241,150 +6212,6 @@ window._BK2_TENNIS_DETAILS = {tennis_details_json};
 window._BK2_BASKET_EU_DETAILS = {basket_eu_details_json};
 window._BK2_FOOT_DETAILS = {foot_details_json};
 window._BK2_NBA_DETAILS = {nba_details_json};
-window._FOOT_ANALYSE = {foot_analyse_json};
-
-function _moneyCote(c){{ return c ? c.toFixed(2) : '—'; }}
-function _pctBar(label, pct, color){{
-  pct = pct || 0;
-  return '<div style="display:flex;align-items:center;gap:8px;margin-bottom:4px">'
-       + '<div style="min-width:65px;color:#94a3b8;font-size:11px;font-weight:600">' + label + '</div>'
-       + '<div style="flex:1;background:#1e293b;border-radius:6px;overflow:hidden;height:18px">'
-       + '<div style="width:' + pct + '%;background:' + color + ';height:100%;display:flex;align-items:center;justify-content:flex-end;padding:0 6px;color:#fff;font-size:10px;font-weight:700">' + pct + '%</div>'
-       + '</div></div>';
-}}
-
-function _miniBar(pct, color){{
-  pct = pct || 0;
-  return '<div style="display:flex;flex-direction:column;align-items:center;gap:3px;flex:1">'
-       + '<div style="width:100%;height:55px;background:#1e293b;border-radius:6px;display:flex;align-items:flex-end;overflow:hidden">'
-       + '<div style="width:100%;background:' + color + ';height:' + pct + '%"></div>'
-       + '</div>'
-       + '<span style="font-size:11px;color:#cbd5e1;font-weight:700">' + pct + '%</span>'
-       + '</div>';
-}}
-
-function renderFootAnalyseMatch(m){{
-  var a = m.analyse;
-  var ft = a.ft_1x2, ht = a.ht_1x2;
-  var dtFmt = '';
-  try{{
-    if(m.start_ts){{
-      var dt = new Date(m.start_ts * 1000);
-      var dd = dt.getDate().toString().padStart(2,'0');
-      var mm = (dt.getMonth() + 1).toString().padStart(2,'0');
-      var hh = dt.getHours().toString().padStart(2,'0');
-      var mn = dt.getMinutes().toString().padStart(2,'0');
-      dtFmt = dd + '/' + mm + ' ' + hh + ':' + mn;
-    }}
-  }} catch(e){{}}
-
-  var html = ''
-    + '<details style="background:#0f172a;border:1px solid #1e293b;border-radius:12px;overflow:hidden">'
-    + '<summary style="padding:14px 18px;cursor:pointer;display:flex;align-items:center;gap:14px;list-style:none">'
-    + '<div style="flex:1">'
-    + '<div style="color:#94a3b8;font-size:11px;font-weight:600;text-transform:uppercase">' + (m.league || '?') + ' · ' + dtFmt + '</div>'
-    + '<div style="color:#f1f5f9;font-size:16px;font-weight:800;margin-top:2px">' + m.home + ' <span style="color:#475569">vs</span> ' + m.away + '</div>'
-    + '</div>'
-    + '<div style="display:flex;gap:5px">'
-    + '<div style="background:#1e3a5f;border-radius:6px;padding:3px 8px;color:#60a5fa;font-size:11px;font-weight:700">' + ft.home_pct + '%</div>'
-    + '<div style="background:#1e293b;border-radius:6px;padding:3px 8px;color:#94a3b8;font-size:11px;font-weight:700">' + ft.draw_pct + '%</div>'
-    + '<div style="background:#2c1e3a;border-radius:6px;padding:3px 8px;color:#a78bfa;font-size:11px;font-weight:700">' + ft.away_pct + '%</div>'
-    + '</div></summary>'
-    // Contenu de l'analyse
-    + '<div style="padding:0 18px 18px">'
-    // ── 90' Résultat et cotes ──
-    + '<div style="margin-top:10px;background:#0a1628;border-radius:10px;padding:12px 14px">'
-    + '<div style="display:flex;justify-content:space-between;color:#cbd5e1;font-size:13px;font-weight:700;margin-bottom:8px">'
-    + '<span>90\' Résultat et cotes</span>'
-    + '<span style="color:#64748b;font-size:11px">λ ' + ft.lam_h + ' / ' + ft.lam_a + '</span>'
-    + '</div>'
-    + _pctBar(m.home, ft.home_pct, '#3b82f6')
-    + _pctBar('Match nul', ft.draw_pct, '#64748b')
-    + _pctBar(m.away, ft.away_pct, '#a855f7')
-    + '<div style="display:flex;gap:8px;margin-top:8px;font-size:12px">'
-    + '<div style="flex:1;text-align:center;color:#94a3b8">Cote ' + m.home + ': <b style="color:#cbd5e1">' + _moneyCote(ft.home_cote) + '</b></div>'
-    + '<div style="flex:1;text-align:center;color:#94a3b8">Nul: <b style="color:#cbd5e1">' + _moneyCote(ft.draw_cote) + '</b></div>'
-    + '<div style="flex:1;text-align:center;color:#94a3b8">Cote ' + m.away + ': <b style="color:#cbd5e1">' + _moneyCote(ft.away_cote) + '</b></div>'
-    + '</div></div>'
-    // ── 45' Résultat ──
-    + '<div style="margin-top:10px;background:#0a1628;border-radius:10px;padding:12px 14px">'
-    + '<div style="display:flex;justify-content:space-between;color:#cbd5e1;font-size:13px;font-weight:700;margin-bottom:8px">'
-    + '<span>45\' Résultat (mi-temps)</span>'
-    + '<span style="color:#64748b;font-size:11px">λ ' + ht.lam_h + ' / ' + ht.lam_a + '</span>'
-    + '</div>'
-    + _pctBar(m.home, ht.home_pct, '#3b82f6')
-    + _pctBar('Match nul', ht.draw_pct, '#64748b')
-    + _pctBar(m.away, ht.away_pct, '#a855f7')
-    + '</div>'
-    // ── Distribution total buts FT ──
-    + '<div style="margin-top:10px;background:#0a1628;border-radius:10px;padding:12px 14px">'
-    + '<div style="color:#cbd5e1;font-size:13px;font-weight:700;margin-bottom:10px">⚽ Total buts (90 min)</div>'
-    + '<div style="display:flex;gap:8px">'
-    + (a.ft_total_buts || []).map(function(b){{ return '<div style="flex:1;text-align:center">'
-        + _miniBar(b.pct, '#22c55e')
-        + '<div style="font-size:10px;color:#94a3b8;margin-top:4px">' + b.label + '</div>'
-        + '</div>'; }}).join('')
-    + '</div></div>'
-    // ── Distribution total buts MT ──
-    + '<div style="margin-top:10px;background:#0a1628;border-radius:10px;padding:12px 14px">'
-    + '<div style="color:#cbd5e1;font-size:13px;font-weight:700;margin-bottom:10px">⏱️ Total buts (mi-temps)</div>'
-    + '<div style="display:flex;gap:8px">'
-    + (a.ht_total_buts || []).map(function(b){{ return '<div style="flex:1;text-align:center">'
-        + _miniBar(b.pct, '#06b6d4')
-        + '<div style="font-size:10px;color:#94a3b8;margin-top:4px">' + b.label + '</div>'
-        + '</div>'; }}).join('')
-    + '</div></div>'
-    // ── BTTS ──
-    + '<div style="margin-top:10px;background:#0a1628;border-radius:10px;padding:12px 14px">'
-    + '<div style="color:#cbd5e1;font-size:13px;font-weight:700;margin-bottom:10px">🎯 Les 2 équipes marquent (BTTS)</div>'
-    + _pctBar('Oui', a.btts.yes, '#f59e0b')
-    + _pctBar('Non', a.btts.no, '#71717a')
-    + '</div>'
-    // ── Stats championnat ──
-    + '<div style="margin-top:10px;background:#0a1628;border-radius:10px;padding:12px 14px">'
-    + '<div style="color:#cbd5e1;font-size:13px;font-weight:700;margin-bottom:10px">📊 Stats championnat <span style="color:#64748b;font-size:11px;font-weight:600">' + (a.league_name || '') + '</span></div>'
-    + '<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;text-align:center">'
-    + '<div style="background:#1e293b;border-radius:8px;padding:8px"><div style="color:#94a3b8;font-size:10px;font-weight:600">45\' +0.5</div><div style="color:#22c55e;font-size:16px;font-weight:800;margin-top:2px">' + a.league_stats.ht_over_05 + '%</div></div>'
-    + '<div style="background:#1e293b;border-radius:8px;padding:8px"><div style="color:#94a3b8;font-size:10px;font-weight:600">90\' +1.5</div><div style="color:#22c55e;font-size:16px;font-weight:800;margin-top:2px">' + a.league_stats.ft_over_15 + '%</div></div>'
-    + '<div style="background:#1e293b;border-radius:8px;padding:8px"><div style="color:#94a3b8;font-size:10px;font-weight:600">90\' +2.5</div><div style="color:#22c55e;font-size:16px;font-weight:800;margin-top:2px">' + a.league_stats.ft_over_25 + '%</div></div>'
-    + '<div style="background:#1e293b;border-radius:8px;padding:8px"><div style="color:#94a3b8;font-size:10px;font-weight:600">90\' BTTS</div><div style="color:#22c55e;font-size:16px;font-weight:800;margin-top:2px">' + a.league_stats.btts + '%</div></div>'
-    + '</div></div>'
-    // ── Top performeurs ──
-    + (function(){{
-      var th = a.top_buteurs_home || [], ta = a.top_buteurs_away || [];
-      var ph = a.top_passeurs_home || [], pa = a.top_passeurs_away || [];
-      if(th.length === 0 && ta.length === 0 && ph.length === 0 && pa.length === 0) return '';
-      var rowHtml = '';
-      function _list(arr){{
-        return arr.length === 0 ? '<span style="color:#64748b;font-size:11px;font-style:italic">—</span>'
-             : arr.map(function(p){{ return '<div style="color:#cbd5e1;font-size:12px;margin-bottom:2px"><b>' + p.player + '</b> · <span style="color:#22c55e">' + p.pct + '%</span></div>'; }}).join('');
-      }}
-      rowHtml += '<div style="margin-top:10px;background:#0a1628;border-radius:10px;padding:12px 14px">'
-              + '<div style="color:#cbd5e1;font-size:13px;font-weight:700;margin-bottom:10px">⚡ Top performeurs</div>'
-              + '<div style="display:grid;grid-template-columns:1fr 1fr;gap:14px">'
-              + '<div><div style="color:#3b82f6;font-size:11px;font-weight:700;margin-bottom:6px">🎯 Buteurs ' + m.home + '</div>' + _list(th) + '</div>'
-              + '<div><div style="color:#a855f7;font-size:11px;font-weight:700;margin-bottom:6px">🎯 Buteurs ' + m.away + '</div>' + _list(ta) + '</div>'
-              + '<div><div style="color:#3b82f6;font-size:11px;font-weight:700;margin-bottom:6px">🎁 Passeurs ' + m.home + '</div>' + _list(ph) + '</div>'
-              + '<div><div style="color:#a855f7;font-size:11px;font-weight:700;margin-bottom:6px">🎁 Passeurs ' + m.away + '</div>' + _list(pa) + '</div>'
-              + '</div></div>';
-      return rowHtml;
-    }})()
-    + '</div></details>';
-  return html;
-}}
-
-function renderFootAnalyse(){{
-  var host = document.getElementById('footanalyse-list');
-  if(!host) return;
-  var data = window._FOOT_ANALYSE || [];
-  if(data.length === 0){{
-    host.innerHTML = '<div style="color:#64748b;padding:40px 20px;text-align:center;background:#0f172a;border-radius:12px">Aucune analyse foot disponible. Lance picks_engine + foot_analyse pour générer.</div>';
-    return;
-  }}
-  // Tri par start_ts ASC
-  data.sort(function(a, b){{ return (a.start_ts || 0) - (b.start_ts || 0); }});
-  host.innerHTML = data.map(renderFootAnalyseMatch).join('');
-}}
 window._bk2State = {{ sport: 'all', comp: null, query: '', dayFilter: 'today' }};
 
 function bk2FilterDay(dayKey){{
