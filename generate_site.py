@@ -3573,9 +3573,52 @@ def build_foot_analyse_card(match):
             f'</div></div>'
         )
 
+    # Value bets : moyenne 3 sources × cote bookmaker
+    value_bets = a.get("value_bets") or []
+    value_block = ""
+    if value_bets:
+        rows_html = ""
+        for vb in value_bets[:8]:
+            val = vb.get("value", 0)
+            if val >= 110:
+                color = "#22c55e"; emoji = "💎"
+            elif val >= 100:
+                color = "#84cc16"; emoji = "✅"
+            elif val >= 90:
+                color = "#facc15"; emoji = "⚖️"
+            else:
+                color = "#ef4444"; emoji = "⚠️"
+            rows_html += (
+                f'<tr style="border-top:1px solid #1e293b">'
+                f'<td style="padding:8px 10px;color:#cbd5e1;font-size:12.5px"><b>{_html.escape(vb.get("marche",""))}</b></td>'
+                f'<td style="padding:8px 10px;color:#94a3b8;font-size:12px;text-align:center">{vb.get("cote","-")}</td>'
+                f'<td style="padding:8px 10px;color:#64748b;font-size:11px;text-align:center">{vb.get("p_ligue",0)}%</td>'
+                f'<td style="padding:8px 10px;color:#64748b;font-size:11px;text-align:center">{vb.get("p_modele",0)}%</td>'
+                f'<td style="padding:8px 10px;color:#64748b;font-size:11px;text-align:center">{vb.get("p_form",0)}%</td>'
+                f'<td style="padding:8px 10px;color:#cbd5e1;font-size:12px;text-align:center;font-weight:700">{vb.get("p_avg",0)}%</td>'
+                f'<td style="padding:8px 10px;color:{color};font-size:13px;text-align:right;font-weight:800">{emoji} {val}%</td>'
+                f'</tr>'
+            )
+        value_block = (
+            f'<div style="margin-top:10px;background:#0a1628;border-radius:10px;padding:12px 14px">'
+            f'<div style="color:#cbd5e1;font-size:13px;font-weight:700;margin-bottom:6px">💎 Value Bets <span style="color:#64748b;font-size:11px;font-weight:600">avg(P_ligue, P_modèle, P_forme) × cote</span></div>'
+            f'<div style="color:#64748b;font-size:10.5px;margin-bottom:8px">💎 ≥110% (jackpot) · ✅ ≥100% (value pos) · ⚖️ 90-100% (neutre) · ⚠️ &lt;90% (à éviter)</div>'
+            f'<table style="width:100%;border-collapse:collapse">'
+            f'<thead><tr style="color:#64748b;font-size:10px;text-transform:uppercase">'
+            f'<th style="padding:6px 10px;text-align:left">Marché</th>'
+            f'<th style="padding:6px 10px;text-align:center">Cote</th>'
+            f'<th style="padding:6px 10px;text-align:center" title="Probabilité moyenne du championnat">P ligue</th>'
+            f'<th style="padding:6px 10px;text-align:center" title="Notre modèle Poisson">P modèle</th>'
+            f'<th style="padding:6px 10px;text-align:center" title="Basé sur la forme L5">P forme</th>'
+            f'<th style="padding:6px 10px;text-align:center">P moy</th>'
+            f'<th style="padding:6px 10px;text-align:right">Value</th>'
+            f'</tr></thead>'
+            f'<tbody>{rows_html}</tbody></table></div>'
+        )
+
     body = (
         f'<div style="padding:0 18px 18px">'
-        + ft_block + ht_block + ft_buts_block + ht_buts_block + btts_block + league_block + perf_block
+        + value_block + ft_block + ht_block + ft_buts_block + ht_buts_block + btts_block + league_block + perf_block
         + f'</div>'
     )
 

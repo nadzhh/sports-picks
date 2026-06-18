@@ -126,6 +126,174 @@ def _btts_yes_no(lam_h, lam_a):
     return round(p_yes * 100), round((1 - p_yes) * 100)
 
 
+# ─── Value Bets : moyenne 3 sources × cote bookmaker ────────────────────────
+
+def _get_book_cote(markets, market_name, choice_name=None, side=None):
+    """Cherche la cote book pour un marché. Renvoie (cote, book) ou (None, None).
+    Match par marketName + (choice_name OU side)."""
+    for mk in (markets or []):
+        if mk.get("marketName") != market_name:
+            continue
+        for c in mk.get("choices", []):
+            if choice_name and c.get("name") == choice_name:
+                return c.get("cote"), c.get("book")
+            if side and c.get("side") == side:
+                return c.get("cote"), c.get("book")
+    return None, None
+
+
+def _compute_value_bets(match, league_stats, ph_ft, pd_ft, pa_ft,
+                         lam_h_ft, lam_a_ft, btts_y_pct,
+                         home_l5_gf, home_l5_ga, away_l5_gf, away_l5_ga):
+    """Calcule pour chaque marché disponible :
+       value = avg(P_ligue, P_modele, P_form_L5) × cote_book × 100
+
+       P_ligue       : stats championnat hardcodées (BTTS, +0.5 MT, +1.5/2.5 FT)
+                       Pour 1X2 : on prend P_avantage_home générique 45% / 27% nul / 28% away
+       P_modele      : notre Poisson (ph_ft, pd_ft, pa_ft, btts_y_pct, ft_total_buts)
+       P_form_L5     : basé sur la forme L5 (l5_gf_pm/l5_ga_pm des 2 équipes)
+
+       Renvoie liste [{marche, cote, p_ligue, p_modele, p_form, p_avg, value, source_book}]
+       triée par value DESC.
+    """
+    markets = (match.get("match_odds") or {}).get("markets") or []
+    if not markets: return []
+
+    home_name = match.get("home", "?")
+    away_name = match.get("away", "?")
+    bets = []
+
+    # ── Compute P_form basé sur L5 ──
+    # P_btts_form : 1 - exp(-l5_gf_home) * exp(-l5_ga_away) approximation
+    # Pour rester simple : moyennes des l5
+    expected_h = (home_l5_gf + away_l5_ga) / 2
+    expected_a = (away_l5_gf + home_l5_ga) / 2
+    # P(home marque) basé sur form
+    p_h_marque = 1 - math.exp(-expected_h)
+    p_a_marque = 1 - math.exp(-expected_a)
+    p_btts_form = p_h_marque * p_a_marque
+    p_over_25_form = 1 - sum(_poisson_pmf(k, expected_h + expected_a) for k in (0, 1, 2))
+    p_over_15_form = 1 - sum(_poisson_pmf(k, expected_h + expected_a) for k in (0, 1))
+    p_under_25_form = 1 - p_over_25_form
+    p_under_15_form = 1 - p_over_15_form
+    # 1X2 form : avantage home + classement L5
+    # Simple : si expected_h > expected_a, home plus probable
+    p_h_form = max(0.15, min(0.75, 0.40 + (expected_h - expected_a) * 0.15))
+    p_a_form = max(0.15, min(0.75, 0.30 + (expected_a - expected_h) * 0.15))
+    p_d_form = max(0.10, 1 - p_h_form - p_a_form)
+
+    def _value_pct(p_avg, cote):
+        if not cote or not p_avg: return None
+        return round(p_avg * float(cote) * 100, 1)
+
+    # ── 1X2 ──
+    home_cote, home_book = _get_book_cote(markets, "Full time", side="home")
+    if home_cote:
+        p_lig = 0.45  # avantage home moyen tous championnats
+        p_mod = ph_ft
+        p_form = p_h_form
+        p_avg = (p_lig + p_mod + p_form) / 3
+        bets.append({
+            "marche": f"{home_name} gagne (1X2)",
+            "cote": float(home_cote),
+            "book": home_book,
+            "p_ligue": round(p_lig * 100),
+            "p_modele": round(p_mod * 100),
+            "p_form": round(p_form * 100),
+            "p_avg": round(p_avg * 100),
+            "value": _value_pct(p_avg, home_cote),
+        })
+    draw_cote, draw_book = _get_book_cote(markets, "Full time", choice_name="Draw", side="draw")
+    if draw_cote:
+        p_lig = 0.27
+        p_mod = pd_ft
+        p_form = p_d_form
+        p_avg = (p_lig + p_mod + p_form) / 3
+        bets.append({
+            "marche": "Match nul (1X2)",
+            "cote": float(draw_cote), "book": draw_book,
+            "p_ligue": round(p_lig * 100), "p_modele": round(p_mod * 100),
+            "p_form": round(p_form * 100), "p_avg": round(p_avg * 100),
+            "value": _value_pct(p_avg, draw_cote),
+        })
+    away_cote, away_book = _get_book_cote(markets, "Full time", side="away")
+    if away_cote:
+        p_lig = 0.28
+        p_mod = pa_ft
+        p_form = p_a_form
+        p_avg = (p_lig + p_mod + p_form) / 3
+        bets.append({
+            "marche": f"{away_name} gagne (1X2)",
+            "cote": float(away_cote), "book": away_book,
+            "p_ligue": round(p_lig * 100), "p_modele": round(p_mod * 100),
+            "p_form": round(p_form * 100), "p_avg": round(p_avg * 100),
+            "value": _value_pct(p_avg, away_cote),
+        })
+
+    # ── BTTS ──
+    btts_yes_cote, btts_book = _get_book_cote(markets, "Both teams to score", choice_name="Yes")
+    if btts_yes_cote:
+        p_lig = league_stats.get("btts", 50) / 100.0
+        p_mod = btts_y_pct / 100.0
+        p_form = p_btts_form
+        p_avg = (p_lig + p_mod + p_form) / 3
+        bets.append({
+            "marche": "Les 2 équipes marquent (BTTS Oui)",
+            "cote": float(btts_yes_cote), "book": btts_book,
+            "p_ligue": round(p_lig * 100), "p_modele": round(p_mod * 100),
+            "p_form": round(p_form * 100), "p_avg": round(p_avg * 100),
+            "value": _value_pct(p_avg, btts_yes_cote),
+        })
+    btts_no_cote, btts_no_book = _get_book_cote(markets, "Both teams to score", choice_name="No")
+    if btts_no_cote:
+        p_lig = 1 - league_stats.get("btts", 50) / 100.0
+        p_mod = 1 - btts_y_pct / 100.0
+        p_form = 1 - p_btts_form
+        p_avg = (p_lig + p_mod + p_form) / 3
+        bets.append({
+            "marche": "BTTS Non",
+            "cote": float(btts_no_cote), "book": btts_no_book,
+            "p_ligue": round(p_lig * 100), "p_modele": round(p_mod * 100),
+            "p_form": round(p_form * 100), "p_avg": round(p_avg * 100),
+            "value": _value_pct(p_avg, btts_no_cote),
+        })
+
+    # ── Over/Under 2.5 ──
+    over25_cote, ou_book = _get_book_cote(markets, "Goals Over/Under (2.5)", choice_name="Over 2.5")
+    if over25_cote:
+        p_lig = league_stats.get("ft_over_25", 50) / 100.0
+        # P_modele : depuis ft_total_buts (somme buckets >=3)
+        # On utilise le calcul direct
+        p_mod = 1 - sum(_poisson_pmf(k, lam_h_ft + lam_a_ft) for k in (0, 1, 2))
+        p_form = p_over_25_form
+        p_avg = (p_lig + p_mod + p_form) / 3
+        bets.append({
+            "marche": "Plus de 2.5 buts",
+            "cote": float(over25_cote), "book": ou_book,
+            "p_ligue": round(p_lig * 100), "p_modele": round(p_mod * 100),
+            "p_form": round(p_form * 100), "p_avg": round(p_avg * 100),
+            "value": _value_pct(p_avg, over25_cote),
+        })
+    under25_cote, ou_no_book = _get_book_cote(markets, "Goals Over/Under (2.5)", choice_name="Under 2.5")
+    if under25_cote:
+        p_lig = 1 - league_stats.get("ft_over_25", 50) / 100.0
+        p_mod = sum(_poisson_pmf(k, lam_h_ft + lam_a_ft) for k in (0, 1, 2))
+        p_form = p_under_25_form
+        p_avg = (p_lig + p_mod + p_form) / 3
+        bets.append({
+            "marche": "Moins de 2.5 buts",
+            "cote": float(under25_cote), "book": ou_no_book,
+            "p_ligue": round(p_lig * 100), "p_modele": round(p_mod * 100),
+            "p_form": round(p_form * 100), "p_avg": round(p_avg * 100),
+            "value": _value_pct(p_avg, under25_cote),
+        })
+
+    # Tri par value DESC (ne garde QUE les bets avec value calculée)
+    bets = [b for b in bets if b.get("value") is not None]
+    bets.sort(key=lambda x: -x["value"])
+    return bets
+
+
 # ─── Analyse d'un match ──────────────────────────────────────────────────────
 
 def analyse_match(match):
@@ -186,6 +354,17 @@ def analyse_match(match):
     top_passeurs_h = _top_perf(home_players, "passeur")
     top_passeurs_a = _top_perf(away_players, "passeur")
 
+    # ── Value Bets : moyenne 3 sources × cote bookmaker ──
+    # Sources : P_ligue (stats championnat) + P_modele (Poisson) + P_form (L5)
+    # value = avg(3 sources) × cote_book × 100
+    # > 105 = value positif, < 95 = à éviter
+    value_bets = _compute_value_bets(match, league_stats,
+                                      ph_ft, pd_ft, pa_ft,
+                                      lam_h_ft, lam_a_ft,
+                                      btts_y_ft,
+                                      home_l5_gf, home_l5_ga,
+                                      away_l5_gf, away_l5_ga)
+
     return {
         # 1X2 mi-temps
         "ht_1x2": {
@@ -222,6 +401,8 @@ def analyse_match(match):
         "top_buteurs_away": top_buteurs_a,
         "top_passeurs_home": top_passeurs_h,
         "top_passeurs_away": top_passeurs_a,
+        # Value bets (triés par value DESC)
+        "value_bets": value_bets,
     }
 
 
