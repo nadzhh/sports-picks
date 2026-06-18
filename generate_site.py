@@ -3573,6 +3573,130 @@ def build_foot_analyse_card(match):
             f'</div></div>'
         )
 
+    # Tableau "Stats par marché" : championnat / saison home / saison away / dom-ext / cote
+    home_stats = match.get("home_season_stats") or {}
+    away_stats = match.get("away_season_stats") or {}
+    ls = a.get("league_stats") or {}
+
+    def _color_pct(pct):
+        """Couleur selon valeur : vert si haut, rouge si bas."""
+        if pct is None: return "#64748b"
+        if pct >= 60: return "#22c55e"
+        if pct >= 45: return "#84cc16"
+        if pct >= 30: return "#facc15"
+        return "#ef4444"
+
+    def _stats_row(label, lig_pct, h_overall_pct, h_home_pct, a_overall_pct, a_away_pct, cote):
+        """Une ligne du tableau stats."""
+        return (
+            f'<tr style="border-top:1px solid #1e293b">'
+            f'<td style="padding:8px 10px;color:#cbd5e1;font-size:12.5px;font-weight:600">{label}</td>'
+            f'<td style="padding:8px 10px;color:{_color_pct(lig_pct)};font-size:12px;text-align:center;font-weight:700">{lig_pct}%</td>'
+            f'<td style="padding:8px 10px;text-align:center">'
+            f'<div style="color:{_color_pct(h_overall_pct)};font-size:12px;font-weight:700">{h_overall_pct if h_overall_pct is not None else "-"}%</div>'
+            f'<div style="color:#64748b;font-size:10px">total saison</div></td>'
+            f'<td style="padding:8px 10px;text-align:center">'
+            f'<div style="color:{_color_pct(h_home_pct)};font-size:12px;font-weight:700">{h_home_pct if h_home_pct is not None else "-"}%</div>'
+            f'<div style="color:#64748b;font-size:10px">à domicile</div></td>'
+            f'<td style="padding:8px 10px;text-align:center">'
+            f'<div style="color:{_color_pct(a_overall_pct)};font-size:12px;font-weight:700">{a_overall_pct if a_overall_pct is not None else "-"}%</div>'
+            f'<div style="color:#64748b;font-size:10px">total saison</div></td>'
+            f'<td style="padding:8px 10px;text-align:center">'
+            f'<div style="color:{_color_pct(a_away_pct)};font-size:12px;font-weight:700">{a_away_pct if a_away_pct is not None else "-"}%</div>'
+            f'<div style="color:#64748b;font-size:10px">à l\'extérieur</div></td>'
+            f'<td style="padding:8px 10px;color:#cbd5e1;font-size:13px;text-align:right;font-weight:800">{cote if cote else "-"}</td>'
+            f'</tr>'
+        )
+
+    h_ov = home_stats.get("overall") or {}
+    h_hm = home_stats.get("home")    or {}
+    a_ov = away_stats.get("overall") or {}
+    a_aw = away_stats.get("away")    or {}
+
+    # Extract cotes book depuis match_odds
+    def _get_cote(mkt_name, sd=None, ch_name=None):
+        for mk in ((match.get("match_odds") or {}).get("markets") or []):
+            if mk.get("marketName") != mkt_name: continue
+            for c in mk.get("choices", []):
+                if (sd and c.get("side") == sd) or (ch_name and c.get("name") == ch_name):
+                    return c.get("cote")
+        return None
+
+    market_rows = ""
+    # Plus de 1.5 buts
+    market_rows += _stats_row(
+        "Plus de 1.5 buts (90')",
+        ls.get("ft_over_15"), h_ov.get("over_15"), h_hm.get("over_15"),
+        a_ov.get("over_15"), a_aw.get("over_15"),
+        None
+    )
+    # Plus de 2.5 buts
+    market_rows += _stats_row(
+        "Plus de 2.5 buts (90')",
+        ls.get("ft_over_25"), h_ov.get("over_25"), h_hm.get("over_25"),
+        a_ov.get("over_25"), a_aw.get("over_25"),
+        _get_cote("Goals Over/Under (2.5)", ch_name="Over 2.5")
+    )
+    # Plus de 3.5 buts
+    market_rows += _stats_row(
+        "Plus de 3.5 buts (90')",
+        None, h_ov.get("over_35"), h_hm.get("over_35"),
+        a_ov.get("over_35"), a_aw.get("over_35"),
+        None
+    )
+    # Moins de 2.5 buts
+    market_rows += _stats_row(
+        "Moins de 2.5 buts (90')",
+        100 - (ls.get("ft_over_25") or 50), h_ov.get("under_25"), h_hm.get("under_25"),
+        a_ov.get("under_25"), a_aw.get("under_25"),
+        _get_cote("Goals Over/Under (2.5)", ch_name="Under 2.5")
+    )
+    # BTTS Oui
+    market_rows += _stats_row(
+        "Les 2 équipes marquent (BTTS)",
+        ls.get("btts"), h_ov.get("btts_pct"), h_hm.get("btts_pct"),
+        a_ov.get("btts_pct"), a_aw.get("btts_pct"),
+        _get_cote("Both teams to score", ch_name="Yes")
+    )
+    # 1X2 home
+    market_rows += _stats_row(
+        f"{_html.escape(home)} gagne (1X2)",
+        45, h_ov.get("wins_pct"), h_hm.get("wins_pct"),
+        a_ov.get("losses_pct"), a_aw.get("losses_pct"),
+        _get_cote("Full time", sd="home")
+    )
+    # 1X2 draw
+    market_rows += _stats_row(
+        "Match nul (1X2)",
+        27, h_ov.get("draws_pct"), h_hm.get("draws_pct"),
+        a_ov.get("draws_pct"), a_aw.get("draws_pct"),
+        _get_cote("Full time", sd="draw")
+    )
+    # 1X2 away
+    market_rows += _stats_row(
+        f"{_html.escape(away)} gagne (1X2)",
+        28, h_ov.get("losses_pct"), h_hm.get("losses_pct"),
+        a_ov.get("wins_pct"), a_aw.get("wins_pct"),
+        _get_cote("Full time", sd="away")
+    )
+
+    nb_home = h_ov.get("n", 0)
+    nb_away = a_ov.get("n", 0)
+    stats_table = (
+        f'<div style="margin-top:10px;background:#0a1628;border-radius:10px;padding:12px 14px;overflow-x:auto">'
+        f'<div style="color:#cbd5e1;font-size:13px;font-weight:700;margin-bottom:6px">📊 Stats détaillées par marché</div>'
+        f'<div style="color:#64748b;font-size:11px;margin-bottom:8px">Saison {home} : {nb_home} matchs ({h_hm.get("n",0)} à domicile) · Saison {away} : {nb_away} matchs ({a_aw.get("n",0)} à l\'extérieur)</div>'
+        f'<table style="width:100%;border-collapse:collapse;min-width:700px">'
+        f'<thead><tr style="color:#64748b;font-size:10px;text-transform:uppercase">'
+        f'<th style="padding:6px 10px;text-align:left">Marché</th>'
+        f'<th style="padding:6px 10px;text-align:center">Championnat</th>'
+        f'<th style="padding:6px 10px;text-align:center" colspan="2">{_html.escape(home)}</th>'
+        f'<th style="padding:6px 10px;text-align:center" colspan="2">{_html.escape(away)}</th>'
+        f'<th style="padding:6px 10px;text-align:right">Cote</th>'
+        f'</tr></thead>'
+        f'<tbody>{market_rows}</tbody></table></div>'
+    )
+
     # Value bets : moyenne 3 sources × cote bookmaker
     value_bets = a.get("value_bets") or []
     value_block = ""
@@ -3618,7 +3742,7 @@ def build_foot_analyse_card(match):
 
     body = (
         f'<div style="padding:0 18px 18px">'
-        + value_block + ft_block + ht_block + ft_buts_block + ht_buts_block + btts_block + league_block + perf_block
+        + stats_table + value_block + ft_block + ht_block + ft_buts_block + ht_buts_block + btts_block + league_block + perf_block
         + f'</div>'
     )
 

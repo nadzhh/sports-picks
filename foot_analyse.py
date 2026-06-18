@@ -17,11 +17,12 @@ Pour chaque match, calcule :
 Sortie : enrichit data/picks.json en place : match["analyse"] = {...}
 À tourner après picks_engine.py et avant generate_site.py.
 """
-import json, math
+import json, math, re
 from pathlib import Path
 
 PICKS_FILE   = Path("data/picks.json")
 MATCHES_FILE = Path("data/matches.json")
+TEAM_STATS_FILE = Path("data/foot_team_season_stats.json")
 
 # Ratio MT/FT moyen : ~42% des buts sont marqués en première mi-temps
 # (moyenne grands championnats UEFA 2020-2025, source : worldfootball.net)
@@ -124,6 +125,124 @@ def _btts_yes_no(lam_h, lam_a):
     """P(BTTS yes) = (1 - P(home=0)) * (1 - P(away=0))."""
     p_yes = (1 - _poisson_pmf(0, lam_h)) * (1 - _poisson_pmf(0, lam_a))
     return round(p_yes * 100), round((1 - p_yes) * 100)
+
+
+# ─── Stats saison par équipe (depuis FotMob fixtures) ────────────────────────
+
+def _parse_score(s):
+    if not s: return None, None
+    m = re.match(r"\s*(\d+)\s*-\s*(\d+)", s)
+    if not m: return None, None
+    return int(m.group(1)), int(m.group(2))
+
+
+def fetch_team_season_stats(team_id):
+    """Récupère les fixtures saison d'une équipe et compute stats.
+    Renvoie dict avec stats globales + splits home/away."""
+    try:
+        from fotmob_client import team as fm_team
+    except ImportError:
+        return None
+    if not team_id: return None
+    try:
+        data = fm_team(team_id, ttl=12 * 3600)
+    except Exception:
+        return None
+    if not data: return None
+    fixtures = (((data.get("fixtures") or {}).get("allFixtures") or {}).get("fixtures") or [])
+    # Stats agrégées
+    overall = {"n": 0, "wins": 0, "draws": 0, "losses": 0,
+               "btts": 0, "no_btts": 0,
+               "over_15": 0, "over_25": 0, "over_35": 0,
+               "under_15": 0, "under_25": 0, "under_35": 0,
+               "gf_total": 0, "ga_total": 0}
+    home_stats = {**overall}
+    away_stats = {**overall}
+    overall = {k: 0 for k in overall}
+
+    for f in fixtures:
+        st = f.get("status") or {}
+        if not st.get("finished"): continue
+        score = _parse_score(st.get("scoreStr"))
+        if not score: continue
+        gh, ga = score
+        h_id = str((f.get("home") or {}).get("id") or "")
+        a_id = str((f.get("away") or {}).get("id") or "")
+        is_home = str(team_id) == h_id
+        is_away = str(team_id) == a_id
+        if not (is_home or is_away): continue
+
+        gf = gh if is_home else ga
+        gc = ga if is_home else gh
+        total = gh + ga
+
+        # Pour cette équipe : gf = buts marqués, gc = buts encaissés
+        target = home_stats if is_home else away_stats
+        for bucket in (overall, target):
+            bucket["n"] += 1
+            bucket["gf_total"] += gf
+            bucket["ga_total"] += gc
+            if gf > gc: bucket["wins"] += 1
+            elif gf < gc: bucket["losses"] += 1
+            else: bucket["draws"] += 1
+            if gf > 0 and gc > 0: bucket["btts"] += 1
+            else: bucket["no_btts"] += 1
+            if total >= 2: bucket["over_15"] += 1
+            else: bucket["under_15"] += 1
+            if total >= 3: bucket["over_25"] += 1
+            else: bucket["under_25"] += 1
+            if total >= 4: bucket["over_35"] += 1
+            else: bucket["under_35"] += 1
+
+    def _pct_dict(bucket):
+        n = max(1, bucket["n"])
+        return {
+            "n":         bucket["n"],
+            "wins_pct":  round(bucket["wins"] / n * 100),
+            "draws_pct": round(bucket["draws"] / n * 100),
+            "losses_pct":round(bucket["losses"] / n * 100),
+            "btts_pct":  round(bucket["btts"] / n * 100),
+            "over_15":   round(bucket["over_15"] / n * 100),
+            "over_25":   round(bucket["over_25"] / n * 100),
+            "over_35":   round(bucket["over_35"] / n * 100),
+            "under_15":  round(bucket["under_15"] / n * 100),
+            "under_25":  round(bucket["under_25"] / n * 100),
+            "under_35":  round(bucket["under_35"] / n * 100),
+            "gf_pm":     round(bucket["gf_total"] / n, 2),
+            "ga_pm":     round(bucket["ga_total"] / n, 2),
+        }
+
+    return {
+        "overall": _pct_dict(overall),
+        "home":    _pct_dict(home_stats),
+        "away":    _pct_dict(away_stats),
+    }
+
+
+def fetch_all_team_stats(matches):
+    """Pour chaque équipe unique des matchs, fetch stats saison.
+    Cache dans data/foot_team_season_stats.json."""
+    cache = {}
+    if TEAM_STATS_FILE.exists():
+        try: cache = json.loads(TEAM_STATS_FILE.read_text(encoding="utf-8"))
+        except: cache = {}
+
+    team_ids = set()
+    for m in matches:
+        for k in ("home_id", "away_id"):
+            tid = m.get(k)
+            if tid: team_ids.add(str(tid))
+
+    print(f"  [team stats] {len(team_ids)} équipes à analyser")
+    for tid in team_ids:
+        if tid in cache: continue
+        stats = fetch_team_season_stats(tid)
+        if stats: cache[tid] = stats
+
+    TEAM_STATS_FILE.parent.mkdir(exist_ok=True)
+    TEAM_STATS_FILE.write_text(json.dumps(cache, ensure_ascii=False, indent=2), encoding="utf-8")
+    print(f"  [team stats] {len(cache)} équipes en cache")
+    return cache
 
 
 # ─── Value Bets : moyenne 3 sources × cote bookmaker ────────────────────────
@@ -417,20 +536,27 @@ def run():
     matches = json.loads(MATCHES_FILE.read_text(encoding="utf-8"))
     # Index picks par match_id pour avoir home_players / away_players
     picks_by_mid = {str(p.get("match_id")): p for p in picks if p.get("match_id")}
+
+    # Fetch stats saison de toutes les équipes (avec cache disque)
+    team_stats_cache = fetch_all_team_stats(matches)
+
     n_ok = 0
     for m in matches:
         mid = str(m.get("id") or "")
         if not mid: continue
         p_data = picks_by_mid.get(mid, {})
-        # Merge : pre_match_form vient de matches.json,
-        # home_players/away_players viennent de picks.json
         merged = dict(m)
         merged["home_players"] = p_data.get("home_players") or []
         merged["away_players"] = p_data.get("away_players") or []
+        # Injecte stats saison home + away
+        merged["home_season_stats"] = team_stats_cache.get(str(m.get("home_id")) or "")
+        merged["away_season_stats"] = team_stats_cache.get(str(m.get("away_id")) or "")
         try:
             analyse = analyse_match(merged)
             if analyse:
                 m["analyse"] = analyse
+                m["home_season_stats"] = merged["home_season_stats"]
+                m["away_season_stats"] = merged["away_season_stats"]
                 n_ok += 1
         except Exception as e:
             print(f"  [analyse err] {m.get('home','?')} vs {m.get('away','?')} : {e}")
