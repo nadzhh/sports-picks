@@ -3586,25 +3586,29 @@ def build_foot_analyse_card(match):
         if pct >= 30: return "#facc15"
         return "#ef4444"
 
+    def _fmt_pct(v):
+        if v is None: return '<span style="color:#475569">—</span>'
+        return f'{int(v)}%'
+
     def _stats_row(label, lig_pct, h_overall_pct, h_home_pct, a_overall_pct, a_away_pct, cote):
         """Une ligne du tableau stats."""
         return (
             f'<tr style="border-top:1px solid #1e293b">'
             f'<td style="padding:8px 10px;color:#cbd5e1;font-size:12.5px;font-weight:600">{label}</td>'
-            f'<td style="padding:8px 10px;color:{_color_pct(lig_pct)};font-size:12px;text-align:center;font-weight:700">{lig_pct}%</td>'
+            f'<td style="padding:8px 10px;color:{_color_pct(lig_pct)};font-size:12px;text-align:center;font-weight:700">{_fmt_pct(lig_pct)}</td>'
             f'<td style="padding:8px 10px;text-align:center">'
-            f'<div style="color:{_color_pct(h_overall_pct)};font-size:12px;font-weight:700">{h_overall_pct if h_overall_pct is not None else "-"}%</div>'
+            f'<div style="color:{_color_pct(h_overall_pct)};font-size:12px;font-weight:700">{_fmt_pct(h_overall_pct)}</div>'
             f'<div style="color:#64748b;font-size:10px">total saison</div></td>'
             f'<td style="padding:8px 10px;text-align:center">'
-            f'<div style="color:{_color_pct(h_home_pct)};font-size:12px;font-weight:700">{h_home_pct if h_home_pct is not None else "-"}%</div>'
+            f'<div style="color:{_color_pct(h_home_pct)};font-size:12px;font-weight:700">{_fmt_pct(h_home_pct)}</div>'
             f'<div style="color:#64748b;font-size:10px">à domicile</div></td>'
             f'<td style="padding:8px 10px;text-align:center">'
-            f'<div style="color:{_color_pct(a_overall_pct)};font-size:12px;font-weight:700">{a_overall_pct if a_overall_pct is not None else "-"}%</div>'
+            f'<div style="color:{_color_pct(a_overall_pct)};font-size:12px;font-weight:700">{_fmt_pct(a_overall_pct)}</div>'
             f'<div style="color:#64748b;font-size:10px">total saison</div></td>'
             f'<td style="padding:8px 10px;text-align:center">'
-            f'<div style="color:{_color_pct(a_away_pct)};font-size:12px;font-weight:700">{a_away_pct if a_away_pct is not None else "-"}%</div>'
+            f'<div style="color:{_color_pct(a_away_pct)};font-size:12px;font-weight:700">{_fmt_pct(a_away_pct)}</div>'
             f'<div style="color:#64748b;font-size:10px">à l\'extérieur</div></td>'
-            f'<td style="padding:8px 10px;color:#cbd5e1;font-size:13px;text-align:right;font-weight:800">{cote if cote else "-"}</td>'
+            f'<td style="padding:8px 10px;color:#cbd5e1;font-size:13px;text-align:right;font-weight:800">{cote if cote else "—"}</td>'
             f'</tr>'
         )
 
@@ -5264,17 +5268,24 @@ def build_html(matches, team_ai, player_ai, pstats_data, nba_picks=None, nba_his
     # tennis_hist_html sera defini plus bas apres lecture de tennis_picks_history.json
     nba_analyse_html = build_nba_analyse_section(nba_picks, nba_player_stats, nba_odds)
 
-    # Recharge matches.json pour récupérer le champ "analyse" (foot_analyse.py
-    # l'écrit dans matches.json, mais picks_engine.run() ne le préserve pas
-    # dans le matches retourné). On index par match_id et merge dans `matches`.
+    # Recharge matches.json pour récupérer les champs "analyse",
+    # "home_season_stats" et "away_season_stats" (foot_analyse.py les écrit
+    # dans matches.json, mais picks_engine.run() ne les préserve pas dans
+    # le matches retourné). On index par match_id et merge dans `matches`.
     try:
         with open("data/matches.json", encoding="utf-8") as _maf:
             _matches_disk = json.load(_maf)
-        _ana_by_mid = {str(m.get("id")): m.get("analyse") for m in _matches_disk if m.get("analyse")}
+        _disk_by_mid = {str(m.get("id")): m for m in _matches_disk}
         for _m in (matches or []):
             _mid = str(_m.get("match_id") or _m.get("id") or "")
-            if _mid in _ana_by_mid:
-                _m["analyse"] = _ana_by_mid[_mid]
+            disk = _disk_by_mid.get(_mid)
+            if not disk: continue
+            if disk.get("analyse"):
+                _m["analyse"] = disk["analyse"]
+            if disk.get("home_season_stats"):
+                _m["home_season_stats"] = disk["home_season_stats"]
+            if disk.get("away_season_stats"):
+                _m["away_season_stats"] = disk["away_season_stats"]
     except Exception as _e:
         print(f"  ⚠️ Cannot merge foot analyses: {_e}")
     foot_analyse_section_html = build_foot_analyse_section(matches or [])
