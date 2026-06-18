@@ -417,7 +417,18 @@ def build_team_summary(team_metrics):
 # ─── Player records ──────────────────────────────────────────────────────────
 
 def build_player_record(p):
-    """Transforme stats brutes FotMob -> format picks_engine."""
+    """Transforme stats brutes FotMob -> format picks_engine.
+
+    IMPORTANT : pour les ligues secondaires (Botola Pro, Eesti...), FotMob
+    bloque le stat file `mins_played` (HTTP 403). Du coup `appearances` est
+    rempli par le 1er stat file dispo (souvent `goals`), qui retourne
+    MatchesPlayed = nb matchs où le joueur a MARQUÉ (pas nb matchs joués).
+
+    Symptôme : un joueur affiché "7 buts en 6 matchs (117% chance/match)"
+    alors qu'il a joué 18 matchs et marqué 7 (= 39%). Détection : si
+    `goals > apps` ou `goals_pm > 0.85` (= seuil élite mondiale Mbappé),
+    on plafonne et on flag les stats comme suspectes.
+    """
     name = p.get("name") or ""
     apps = p.get("appearances") or 0
     if apps < 1:
@@ -431,6 +442,24 @@ def build_player_record(p):
     sot90 = _f(p.get("sot_p90"))
     rating = p.get("rating")
 
+    # ── Sanity check stats FotMob ──
+    # Si `apps` ressemble à un compteur de matchs marqués (= proche du nb de
+    # goals), on corrige : apps réel = apps * 2.5 (heuristique : un buteur
+    # marque dans ~40% de ses matchs). Cap goals_pm à 0.85.
+    stats_suspect = False
+    if g > 0 and (g >= apps or (g / max(1, apps)) > 0.85):
+        # Stats clairement buggées (FotMob mins_played bloqué)
+        stats_suspect = True
+        apps_corrected = max(apps, int(round(g * 2.5)))  # 40% conversion rate
+    else:
+        apps_corrected = apps
+
+    # Plafond goals_pm
+    raw_gpm = g / apps_corrected if apps_corrected else 0
+    gpm = min(0.85, raw_gpm)
+    raw_apm = a / apps_corrected if apps_corrected else 0
+    apm = min(0.50, raw_apm)
+
     # Position depuis Positions? FotMob donne un code numerique (115=ATT, etc.)
     # On par defaut F si shots90 elevee, sinon M
     pos = "F" if shots90 > 1.5 or g > 5 else "M"
@@ -441,20 +470,22 @@ def build_player_record(p):
         "shortName": name,
         "position": pos,
         "team_id": p.get("team_id"),
-        "appearances": apps,
+        "appearances": apps_corrected,
+        "appearances_raw": apps,    # garde la valeur brute pour debug
+        "stats_suspect": stats_suspect,
         "is_sub": False,
         "minutes": mins,
         "goals": int(g),
         "assists": int(a),
-        "shots":     round(shots90 * apps, 0) if shots90 else 0,
-        "shots_on":  round(sot90 * apps, 0) if sot90 else 0,
-        "goals_pm":   round(g / apps, 3) if apps else 0,
-        "assists_pm": round(a / apps, 3) if apps else 0,
-        "g_a_pm":     round((g + a) / apps, 3) if apps else 0,
+        "shots":     round(shots90 * apps_corrected, 0) if shots90 else 0,
+        "shots_on":  round(sot90 * apps_corrected, 0) if sot90 else 0,
+        "goals_pm":   round(gpm, 3),
+        "assists_pm": round(apm, 3),
+        "g_a_pm":     round(min(1.0, gpm + apm), 3),
         "shots_pm":   round(shots90, 3),
         "sot_pm":     round(sot90, 3),
-        "xG_pm":      round(xg / apps, 3) if apps and xg else 0,
-        "xA_pm":      round(xa / apps, 3) if apps and xa else 0,
+        "xG_pm":      round(xg / apps_corrected, 3) if apps_corrected and xg else 0,
+        "xA_pm":      round(xa / apps_corrected, 3) if apps_corrected and xa else 0,
         "rating":     rating,
     }
 
