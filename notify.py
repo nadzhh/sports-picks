@@ -869,6 +869,14 @@ def send_high_value_alerts():
                     # peut confondre avec un match passé)
                     if hours_to_ko > HIGH_VALUE_FOOT_MAX_HOURS_AHEAD:
                         continue
+                    # IMPORTANT : dans la fenêtre kickoff (75 min < T < 75 min),
+                    # c'est run_notifications() qui envoie le summary complet
+                    # avec compo officielle. Si on push aussi le HV ici, l'user
+                    # reçoit 2 messages quasi-identiques (bug Portugal vu en prod).
+                    # Plage de la fenêtre kickoff : WINDOW_MIN_FROM=45 à WINDOW_MIN_TO=75 min
+                    # On skip si on est dans cette fenêtre OU plus proche.
+                    if hours_to_ko * 60 <= WINDOW_MIN_TO:
+                        continue
                 except Exception:
                     pass
 
