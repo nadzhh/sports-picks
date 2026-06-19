@@ -77,7 +77,7 @@ def _build_markets(event_data, home_name, away_name):
         return []
     # Collecte par outcome : liste de cotes (filtrées)
     h2h_by_outcome = {}     # outcome_name -> [(price, book), ...]
-    totals_by_outcome = {}  # outcome_name -> [(price, book), ...]
+    totals_by_outcome = {}  # (point, outcome_name) -> [(price, book), ...]
     btts_by_outcome = {}    # outcome_name -> [(price, book), ...]
 
     for book in event_data.get("bookmakers", []):
@@ -102,8 +102,9 @@ def _build_markets(event_data, home_name, away_name):
                 if not price: continue
                 if mkey == "h2h":
                     h2h_by_outcome.setdefault(name, []).append((float(price), bkey))
-                elif mkey == "totals" and point == 2.5:
-                    totals_by_outcome.setdefault(name, []).append((float(price), bkey))
+                elif mkey == "totals" and point in (0.5, 1.5, 2.5, 3.5, 4.5):
+                    # Cumule toutes les lignes O/U dispo (pas que 2.5)
+                    totals_by_outcome.setdefault((point, name), []).append((float(price), bkey))
                 elif mkey == "btts":
                     btts_by_outcome.setdefault(name, []).append((float(price), bkey))
 
@@ -114,9 +115,9 @@ def _build_markets(event_data, home_name, away_name):
         mid = sorted_arr[len(sorted_arr) // 2]
         return {"cote": mid[0], "book": mid[1]}
 
-    out_h2h       = {k: _median_pick(v) for k, v in h2h_by_outcome.items() if v}
-    out_totals_25 = {k: _median_pick(v) for k, v in totals_by_outcome.items() if v}
-    out_btts      = {k: _median_pick(v) for k, v in btts_by_outcome.items() if v}
+    out_h2h    = {k: _median_pick(v) for k, v in h2h_by_outcome.items() if v}
+    out_totals = {k: _median_pick(v) for k, v in totals_by_outcome.items() if v}
+    out_btts   = {k: _median_pick(v) for k, v in btts_by_outcome.items() if v}
 
     markets = []
     # 1X2 (h2h)
@@ -139,18 +140,20 @@ def _build_markets(event_data, home_name, away_name):
         if choices:
             markets.append({"marketName": "Full time", "choices": choices})
 
-    # Over/Under 2.5
-    if out_totals_25:
+    # Over/Under TOUTES les lignes (0.5, 1.5, 2.5, 3.5, 4.5) — chaque ligne = market séparé
+    # Pour rendre compatible avec get_odds() existant qui cherche "Over X.Y"
+    points_seen = sorted({k[0] for k in out_totals.keys()})
+    for point in points_seen:
         choices = []
         for outcome_name in ("Over", "Under"):
-            o = out_totals_25.get(outcome_name)
+            o = out_totals.get((point, outcome_name))
             if not o: continue
             choices.append({
-                "name": f"{outcome_name} 2.5",
+                "name": f"{outcome_name} {point}",
                 "cote": o["cote"], "book": o["book"],
             })
         if choices:
-            markets.append({"marketName": "Goals Over/Under (2.5)", "choices": choices})
+            markets.append({"marketName": f"Goals Over/Under ({point})", "choices": choices})
 
     # BTTS
     if out_btts:
