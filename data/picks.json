@@ -1,189 +1,22 @@
 [
   {
-    "league": "Morocco Botola Pro",
-    "home": "Olympique Dcheira",
-    "away": "FAR Rabat",
-    "start_ts": 1781791200,
-    "match_id": "5778520",
-    "page_url": "/matches/far-rabat-vs-olympique-dcheira/2vw071ny#5778520",
-    "picks": [
-      {
-        "direction": "away_dc",
-        "type": "Double chance",
-        "label": "Nul ou FAR Rabat (X2)",
-        "cote": null,
-        "confidence": 91,
-        "reasoning": "FAR Rabat invaincu 100% sur 5 derniers matchs · H2H: 1/1 matchs sans défaite · Classement: #2 (away) vs #15 (home)\n📉 Calibration : bucket 90+% historiquement à WR 52% (claim 94%, n=23) — sur-estimé de 42pp",
-        "stats": {
-          "form": [
-            "W",
-            "D",
-            "W",
-            "D",
-            "W"
-          ]
-        },
-        "is_fun": false,
-        "tier": "safe",
-        "calibration_delta": -41.8,
-        "history_top3": true
-      },
-      {
-        "direction": "away_win",
-        "type": "Victoire extérieur",
-        "label": "FAR Rabat gagne",
-        "cote": null,
-        "confidence": 73,
-        "reasoning": "FAR Rabat : 3V/2N/0D sur 5 matchs · #2 au classement · H2H: 1V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
-        "stats": {
-          "form": [
-            "W",
-            "D",
-            "W",
-            "D",
-            "W"
-          ]
-        },
-        "is_fun": false,
-        "tier": "safe",
-        "calibration_delta": -11.3,
-        "history_top3": true
-      }
-    ],
-    "home_players": [
-      {
-        "player": "Ayoub Benaadi / Reda Abardi",
-        "position": "",
-        "is_sub": false,
-        "type": "Double Chance Buteur",
-        "label": "Ayoub Benaadi ou Reda Abardi marque",
-        "cote": null,
-        "book": null,
-        "books": [],
-        "confidence": 65,
-        "cote_min": 1.54,
-        "reasoning": "📈 P(Ayoub Benaadi marque) ≈ 40% · P(Reda Abardi marque) ≈ 40%\n🎯 P(au moins un marque) = 65% (calculée par 1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.54 - chercher ≥1.54 chez le bookmaker\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
-        "context": {},
-        "stats": {
-          "p_a": 0.405,
-          "p_b": 0.405,
-          "p_or": 0.646,
-          "player_a": "Ayoub Benaadi",
-          "player_b": "Reda Abardi"
-        },
-        "team": "home",
-        "tier": "ok",
-        "calibration_delta": -25.4,
-        "history_top3": true
-      }
-    ],
-    "away_players": [
-      {
-        "player": "Jalal-Eddine El Khfiyef / Youssef El Fahli",
-        "position": "",
-        "is_sub": false,
-        "type": "Double Chance Buteur",
-        "label": "Jalal-Eddine El Khfiyef ou Youssef El Fahli marque",
-        "cote": null,
-        "book": null,
-        "books": [],
-        "confidence": 70,
-        "cote_min": 1.43,
-        "reasoning": "📈 P(Jalal-Eddine El Khfiyef marque) ≈ 62% · P(Youssef El Fahli marque) ≈ 48%\n🎯 P(au moins un marque) = 70% (calculée par 1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.43 - chercher ≥1.43 chez le bookmaker\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
-        "context": {},
-        "stats": {
-          "p_a": 0.622,
-          "p_b": 0.48,
-          "p_or": 0.7,
-          "player_a": "Jalal-Eddine El Khfiyef",
-          "player_b": "Youssef El Fahli"
-        },
-        "team": "away",
-        "tier": "safe",
-        "calibration_delta": -11.3,
-        "history_top3": true
-      },
-      {
-        "player": "Jalal-Eddine El Khfiyef",
-        "position": "M",
-        "is_sub": false,
-        "type": "Buteur",
-        "label": "Jalal-Eddine El Khfiyef marque",
-        "cote": null,
-        "book": null,
-        "books": [],
-        "confidence": 62,
-        "reasoning": "4 buts en 5 matchs cette saison (80.0% de chance/match) · xG moyen 0.00/match, défense adverse poreuse (1.5 buts concédés/match) · défense fragile\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
-        "context": {
-          "weakness": 0.6
-        },
-        "stats": {
-          "goals": 4,
-          "apps": 5,
-          "gpm": 0.8,
-          "xgpm": 0
-        },
-        "team": "away",
-        "tier": "ok",
-        "calibration_delta": -25.4,
-        "history_top3": true
-      }
-    ],
-    "fun_picks": [],
-    "top_pick": {
-      "direction": "away_dc",
-      "type": "Double chance",
-      "label": "Nul ou FAR Rabat (X2)",
-      "cote": null,
-      "confidence": 91,
-      "reasoning": "FAR Rabat invaincu 100% sur 5 derniers matchs · H2H: 1/1 matchs sans défaite · Classement: #2 (away) vs #15 (home)\n📉 Calibration : bucket 90+% historiquement à WR 52% (claim 94%, n=23) — sur-estimé de 42pp",
-      "stats": {
-        "form": [
-          "W",
-          "D",
-          "W",
-          "D",
-          "W"
-        ]
-      },
-      "is_fun": false,
-      "tier": "safe",
-      "calibration_delta": -41.8,
-      "history_top3": true
-    },
-    "no_picks": false,
-    "context": {
-      "stadium": {
-        "name": "Adrar Stadium",
-        "city": null,
-        "country": "",
-        "lat": null,
-        "lon": null,
-        "capacity": null,
-        "surface": null
-      },
-      "weather": null,
-      "text": "Stade : Adrar Stadium · plein air."
-    }
-  },
-  {
-    "league": "Morocco Botola Pro",
-    "home": "RSB Berkane",
-    "away": "Olympic Club de Safi",
-    "start_ts": 1781791200,
-    "match_id": "5778519",
-    "page_url": "/matches/olympic-club-de-safi-vs-rsb-berkane/149nhu26#5778519",
+    "league": "Estonian Meistriliiga",
+    "home": "FCI Levadia",
+    "away": "Nomme JK Kalju",
+    "start_ts": 1781964000,
+    "match_id": "1000007903",
+    "page_url": "/matches/fci-levadia-vs-nomme-jk-kalju/2zlnxgg#1000007903",
     "picks": [
       {
         "direction": "home_dc",
         "type": "Double chance",
-        "label": "RSB Berkane ou Nul (1X)",
+        "label": "FCI Levadia ou Nul (1X)",
         "cote": null,
-        "confidence": 86,
-        "reasoning": "RSB Berkane invaincu 83% sur 5 derniers matchs · H2H: 1/1 matchs sans défaite · Classement: #3 vs #14\n📉 Calibration : bucket 80-89% historiquement à WR 56% (claim 82%, n=63) — sur-estimé de 26pp",
+        "confidence": 85,
+        "reasoning": "FCI Levadia invaincu 100% sur 5 derniers matchs · H2H: 1/1 matchs sans défaite · Classement: #1 vs #3\n📉 Calibration : bucket 80-89% historiquement à WR 56% (claim 82%, n=63) — sur-estimé de 26pp",
         "stats": {
           "form": [
-            "L",
+            "W",
             "W",
             "W",
             "W",
@@ -197,14 +30,14 @@
       },
       {
         "direction": "home_win",
-        "type": "Favori net",
-        "label": "RSB Berkane gagne",
+        "type": "Victoire domicile",
+        "label": "FCI Levadia gagne",
         "cote": null,
-        "confidence": 65,
-        "reasoning": "11 places d'écart au classement (#3 vs #14) · 4V/0N/1D sur 5 matchs · Note Sofa: 6.5/10\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
+        "confidence": 74,
+        "reasoning": "FCI Levadia : 5V/0N/0D sur 5 matchs · #1 au classement · H2H: 0V/1N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
         "stats": {
           "form": [
-            "L",
+            "W",
             "W",
             "W",
             "W",
@@ -212,58 +45,83 @@
           ]
         },
         "is_fun": false,
-        "tier": "ok",
-        "calibration_delta": -25.4,
-        "history_top3": true
-      }
-    ],
-    "home_players": [
-      {
-        "player": "Paul Bassene / Oussama Lamlioui",
-        "position": "",
-        "is_sub": false,
-        "type": "Double Chance Buteur",
-        "label": "Paul Bassene ou Oussama Lamlioui marque",
-        "cote": null,
-        "book": null,
-        "books": [],
-        "confidence": 70,
-        "cote_min": 1.43,
-        "reasoning": "📈 P(Paul Bassene marque) ≈ 48% · P(Oussama Lamlioui marque) ≈ 48%\n🎯 P(au moins un marque) = 70% (calculée par 1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.43 - chercher ≥1.43 chez le bookmaker\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
-        "context": {},
-        "stats": {
-          "p_a": 0.48,
-          "p_b": 0.48,
-          "p_or": 0.7,
-          "player_a": "Paul Bassene",
-          "player_b": "Oussama Lamlioui"
-        },
-        "team": "home",
         "tier": "safe",
         "calibration_delta": -11.3,
         "history_top3": true
       }
     ],
-    "away_players": [
+    "home_players": [
       {
-        "player": "Moussa Koné / Faraji Karmoune",
+        "player": "Bubacarr Tambedou / Wendell Gabriel",
         "position": "",
         "is_sub": false,
         "type": "Double Chance Buteur",
-        "label": "Moussa Koné ou Faraji Karmoune marque",
+        "label": "Bubacarr Tambedou ou Wendell Gabriel marque",
         "cote": null,
         "book": null,
         "books": [],
-        "confidence": 69,
-        "cote_min": 1.45,
-        "reasoning": "📈 P(Moussa Koné marque) ≈ 46% · P(Faraji Karmoune marque) ≈ 44%\n🎯 P(au moins un marque) = 69% (calculée par 1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.45 - chercher ≥1.45 chez le bookmaker\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
+        "confidence": 70,
+        "cote_min": 1.43,
+        "reasoning": "📈 P(Bubacarr Tambedou marque) ≈ 58% · P(Wendell Gabriel marque) ≈ 54%\n🎯 P(au moins un marque) = 70% (calculée par 1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.43 - chercher ≥1.43 chez le bookmaker\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
         "context": {},
         "stats": {
-          "p_a": 0.458,
-          "p_b": 0.435,
-          "p_or": 0.694,
-          "player_a": "Moussa Koné",
-          "player_b": "Faraji Karmoune"
+          "p_a": 0.585,
+          "p_b": 0.54,
+          "p_or": 0.7,
+          "player_a": "Bubacarr Tambedou",
+          "player_b": "Wendell Gabriel"
+        },
+        "team": "home",
+        "tier": "safe",
+        "calibration_delta": -11.3,
+        "history_top3": true
+      },
+      {
+        "player": "Bubacarr Tambedou",
+        "position": "F",
+        "is_sub": false,
+        "type": "Buteur",
+        "label": "Bubacarr Tambedou marque",
+        "cote": null,
+        "book": null,
+        "books": [],
+        "confidence": 58,
+        "reasoning": "11 buts en 15 matchs cette saison (73.3% de chance/match) · xG moyen 0.00/match · défense solide\n📉 Calibration : bucket 50-59% historiquement à WR 42% (claim 55%, n=41) — sur-estimé de 14pp",
+        "context": {
+          "weakness": 0.21
+        },
+        "stats": {
+          "goals": 11,
+          "apps": 15,
+          "gpm": 0.733,
+          "xgpm": 0
+        },
+        "team": "home",
+        "tier": "ok",
+        "calibration_delta": -13.6,
+        "history_top3": true
+      }
+    ],
+    "away_players": [
+      {
+        "player": "Mattias Männilaan / Enrique Esono",
+        "position": "",
+        "is_sub": false,
+        "type": "Double Chance Buteur",
+        "label": "Mattias Männilaan ou Enrique Esono marque",
+        "cote": null,
+        "book": null,
+        "books": [],
+        "confidence": 66,
+        "cote_min": 1.52,
+        "reasoning": "📈 P(Mattias Männilaan marque) ≈ 46% · P(Enrique Esono marque) ≈ 37%\n🎯 P(au moins un marque) = 66% (calculée par 1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.52 - chercher ≥1.52 chez le bookmaker\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
+        "context": {},
+        "stats": {
+          "p_a": 0.465,
+          "p_b": 0.368,
+          "p_or": 0.662,
+          "player_a": "Mattias Männilaan",
+          "player_b": "Enrique Esono"
         },
         "team": "away",
         "tier": "ok",
@@ -275,13 +133,13 @@
     "top_pick": {
       "direction": "home_dc",
       "type": "Double chance",
-      "label": "RSB Berkane ou Nul (1X)",
+      "label": "FCI Levadia ou Nul (1X)",
       "cote": null,
-      "confidence": 86,
-      "reasoning": "RSB Berkane invaincu 83% sur 5 derniers matchs · H2H: 1/1 matchs sans défaite · Classement: #3 vs #14\n📉 Calibration : bucket 80-89% historiquement à WR 56% (claim 82%, n=63) — sur-estimé de 26pp",
+      "confidence": 85,
+      "reasoning": "FCI Levadia invaincu 100% sur 5 derniers matchs · H2H: 1/1 matchs sans défaite · Classement: #1 vs #3\n📉 Calibration : bucket 80-89% historiquement à WR 56% (claim 82%, n=63) — sur-estimé de 26pp",
       "stats": {
         "form": [
-          "L",
+          "W",
           "W",
           "W",
           "W",
@@ -296,11 +154,11 @@
     "no_picks": false,
     "context": {
       "stadium": {
-        "name": "Berkane Municipal Stadium",
-        "city": null,
-        "country": "",
-        "lat": null,
-        "lon": null,
+        "name": "A. Le Coq Arena",
+        "city": "Tallinn",
+        "country": "Estonia",
+        "lat": 59.421302996,
+        "lon": 24.732021689,
         "capacity": null,
         "surface": null
       },
@@ -624,7 +482,7 @@
             "W",
             "W",
             "W",
-            "D"
+            "W"
           ]
         },
         "is_fun": false,
@@ -737,19 +595,19 @@
     "page_url": "/matches/switzerland-vs-bosnia-herzegovina/2c9awx#4667759",
     "picks": [
       {
-        "direction": "wc_btts_no",
+        "direction": "wc_btts_yes",
         "type": "⚽ BTTS WC",
-        "label": "Une équipe ne marque pas (BTTS NO)",
+        "label": "Les 2 équipes marquent",
         "cote": null,
-        "cote_min": 1.4,
-        "confidence": 72,
-        "tier": "safe",
+        "cote_min": 1.46,
+        "confidence": 69,
+        "tier": "ok",
         "stats": {
-          "lam_h": 2.14,
-          "lam_a": 0.39,
-          "h_fifa_rank": 15,
-          "a_fifa_rank": 78,
-          "elo_gap": 392,
+          "lam_h": 3.04,
+          "lam_a": 1.27,
+          "h_fifa_rank": 10,
+          "a_fifa_rank": 31,
+          "elo_gap": 171,
           "wc_round": null,
           "family": "BTTS"
         },
@@ -758,9 +616,9 @@
         "history_top3": true
       },
       {
-        "direction": "wc_home_win",
-        "type": "🏆 Vainqueur WC",
-        "label": "Switzerland gagne",
+        "direction": "wc_over_35",
+        "type": "⚽ Total buts WC",
+        "label": "Plus de 3.5 buts",
         "cote": null,
         "cote_min": 1.28,
         "confidence": 78,
@@ -787,13 +645,13 @@
         "confidence": 68,
         "tier": "ok",
         "stats": {
-          "lam_h": 2.14,
-          "lam_a": 0.39,
-          "h_fifa_rank": 15,
-          "a_fifa_rank": 78,
-          "elo_gap": 392,
+          "lam_h": 3.04,
+          "lam_a": 1.27,
+          "h_fifa_rank": 10,
+          "a_fifa_rank": 31,
+          "elo_gap": 171,
           "wc_round": null,
-          "family": "CLEAN_SHEET"
+          "family": "TOTAL"
         },
         "reasoning": "📊 Écart FIFA significatif : Switzerland #15 vs Bosnia and Herzegovina #78 (gap +392 pts, P favori ≈ 91%).\nL10 : Switzerland 1V/3N/1D sur 5 · Bosnia and Herzegovina 0V/5N/0D sur 5\n📋 Fiche Switzerland : off moyen (-0.05) · def moyenne (-0.28) · forme DDWDL · 🏆 habituée du tournoi\n📋 Fiche Bosnia and Herzegovina : off solide (+0.89) · def solide (+0.47) · forme DDDDD · 🏆 présence occasionnelle\n🎯 Importance : Switzerland : 1 match joué (1pts) · Bosnia and Herzegovina : 1 match joué (1pts)\n🌦️ 🌫️ brouillard · 16–21°C · humidité 72% · stade fermé\n✅ Compo OFFICIELLE\n🛡️ P(Bosnia and Herzegovina blanchi) = 67.7% — défense Switzerland dominante (λ_Bosnia and Herzegovina = 0.39)\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
         "calibration_delta": -25.4,
@@ -802,127 +660,149 @@
     ],
     "home_players": [
       {
-        "player": "Breel Embolo",
+        "player": "Kai Havertz",
         "position": "F",
-        "is_sub": true,
-        "type": "Buteur",
-        "label": "Breel Embolo marque",
+        "is_sub": false,
+        "type": "Double buteur",
+        "label": "Kai Havertz marque 2+ buts",
         "cote": null,
-        "cote_min": 1.48,
+        "cote_min": 1.58,
         "book": null,
         "books": [],
-        "confidence": 63,
-        "reasoning": "⚠️ Compo PROBABLE (a confirmer 1h avant). Breel Embolo : selection 7G/10m (0.70/m) · L10 club : 4G/10m, 🔥 2G/3 derniers nat (+19%) | titu nat (77min/m) · last match 90min (1G+0A). λ ajusté à 1.13 (Switzerland attendu 2.3 buts) → P(marque) ~63%.\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
+        "confidence": 60,
+        "reasoning": "Kai Havertz : selection 4G/4m (1.00/m) · L10 club : 6G/10m, 🔥 4G/3 derniers nat (+19%) | titu nat (64min/m) · last match 90min (2G+0A). Attendu ~2.1 buts ce match - P(2+) ~63% (cote elevee).\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
         "context": {
           "source": "lineup",
-          "lam": 1.13,
-          "lineup_status": "predicted"
+          "lam": 2.14,
+          "lineup_status": "confirmed"
         },
         "stats": {
           "goals": null,
           "apps": null,
-          "gpm": 1.132,
+          "gpm": 2.142,
           "xgpm": null
         },
         "team": "home",
-        "lineup_status": "predicted",
+        "lineup_status": "confirmed",
         "tier": "ok",
         "calibration_delta": -25.4,
         "history_top3": true
       },
       {
-        "player": "Breel Embolo",
+        "player": "Florian Wirtz",
         "position": "F",
-        "is_sub": true,
-        "type": "Double buteur",
-        "label": "Breel Embolo marque 2+ buts",
+        "is_sub": false,
+        "type": "Passeur",
+        "label": "Florian Wirtz délivre une passe décisive",
         "cote": null,
-        "cote_min": 3.2,
+        "cote_min": 1.71,
         "book": null,
         "books": [],
-        "confidence": 36,
-        "reasoning": "⚠️ Compo PROBABLE (a confirmer 1h avant). Breel Embolo : selection 7G/10m (0.70/m) · L10 club : 4G/10m, 🔥 2G/3 derniers nat (+19%) | titu nat (77min/m) · last match 90min (1G+0A). Attendu ~1.1 buts ce match - P(2+) ~26% (cote elevee).",
+        "confidence": 58,
+        "reasoning": "Florian Wirtz délivre une passe décisive : selection 5A/11m (0.46 passes/m nat). P(passe décisive) ~58%.\n📉 Calibration : bucket 50-59% historiquement à WR 42% (claim 55%, n=41) — sur-estimé de 14pp",
         "context": {
           "source": "lineup",
-          "lam": 1.13,
-          "lineup_status": "predicted"
+          "lam": 0.88,
+          "lineup_status": "confirmed"
         },
         "stats": {
           "goals": null,
           "apps": null,
-          "gpm": 1.132,
+          "gpm": 0.879,
           "xgpm": null
         },
         "team": "home",
-        "lineup_status": "predicted",
+        "lineup_status": "confirmed",
+        "tier": "ok",
+        "calibration_delta": -13.6,
+        "history_top3": false
+      },
+      {
+        "player": "Kai Havertz",
+        "position": "F",
+        "is_sub": false,
+        "type": "Buteur",
+        "label": "Kai Havertz marque",
+        "team": "home",
+        "cote": null,
+        "book": null,
+        "books": [],
+        "confidence": 33,
+        "reasoning": "2G en 5 matchs (40.0%/match) · xG: 0.20/match",
+        "context": {
+          "weakness": 0.29
+        },
+        "stats": {
+          "goals": 2,
+          "apps": 5
+        },
         "tier": "fun",
-        "history_top3": true
+        "history_top3": false
       }
     ],
     "away_players": [],
     "fun_picks": [
       {
-        "direction": "wc_score_2_0",
+        "direction": "wc_score_3_1",
         "type": "🏆 Score exact WC",
-        "label": "Score exact : Switzerland 2-0 Bosnia and Herzegovina",
-        "cote_min": 5.48,
-        "confidence": 18,
+        "label": "Score exact : Germany 3-1 Ivory Coast",
+        "cote_min": 12.53,
+        "confidence": 8,
         "tier": "fun",
         "is_fun": true,
         "stats": {
-          "lam_h": 2.14,
-          "lam_a": 0.39,
-          "h_fifa_rank": 15,
-          "a_fifa_rank": 78,
-          "elo_gap": 392
+          "lam_h": 3.04,
+          "lam_a": 1.27,
+          "h_fifa_rank": 10,
+          "a_fifa_rank": 31,
+          "elo_gap": 171
         },
-        "reasoning": "📊 Écart FIFA significatif : Switzerland #15 vs Bosnia and Herzegovina #78 (gap +392 pts, P favori ≈ 91%).\nL10 : Switzerland 1V/3N/1D sur 5 · Bosnia and Herzegovina 0V/5N/0D sur 5\n🏆 Coupe du Monde 2026 - score exact (Poisson grid, ajusté Elo FIFA)\nλ Switzerland = 2.14 buts, λ Bosnia and Herzegovina = 0.39 buts\nTop 3 : 2-0 (18.2%) · 1-0 (17.1%) · 3-0 (13.0%)\n⚠️ Pari fun (cote élevée typique 4-8) - mise modeste",
+        "reasoning": "📊 Niveau équilibré : Germany #10 vs Ivory Coast #31 (gap +171 pts).\n⭐ Germany favori CdM 2026\nL10 : Germany 5V/0N/0D sur 5 · Ivory Coast 4V/0N/1D sur 5\n🏆 Coupe du Monde 2026 - score exact (Poisson grid, ajusté Elo FIFA)\nλ Germany = 3.04 buts, λ Ivory Coast = 1.27 buts\nTop 3 : 3-1 (8.0%) · 2-1 (7.9%) · 3-0 (6.3%)\n⚠️ Pari fun (cote élevée typique 4-8) - mise modeste",
         "exact_score": [
-          2,
-          0
+          3,
+          1
         ],
         "wc_top3": [
           [
             [
-              2,
-              0
+              3,
+              1
             ],
-            18.2
+            8.0
           ],
           [
             [
-              1,
-              0
+              2,
+              1
             ],
-            17.1
+            7.9
           ],
           [
             [
               3,
               0
             ],
-            13.0
+            6.3
           ]
         ],
-        "history_top3": true
+        "history_top3": false
       }
     ],
     "top_pick": {
-      "direction": "wc_btts_no",
-      "type": "⚽ BTTS WC",
-      "label": "Une équipe ne marque pas (BTTS NO)",
-      "cote": null,
-      "cote_min": 1.4,
-      "confidence": 72,
-      "tier": "safe",
+      "direction": "home_win",
+      "type": "Victoire domicile",
+      "label": "Germany gagne",
+      "cote": 1.54,
+      "confidence": 81,
+      "reasoning": "Germany : 5V/0N/0D sur 5 matchs · #1 au classement · H2H: 0V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 80-89% historiquement à WR 56% (claim 82%, n=63) — sur-estimé de 26pp",
       "stats": {
-        "lam_h": 2.14,
-        "lam_a": 0.39,
-        "h_fifa_rank": 15,
-        "a_fifa_rank": 78,
-        "elo_gap": 392,
-        "wc_round": null,
-        "family": "BTTS"
+        "form": [
+          "W",
+          "W",
+          "W",
+          "W",
+          "W"
+        ]
       },
       "reasoning": "📊 Écart FIFA significatif : Switzerland #15 vs Bosnia and Herzegovina #78 (gap +392 pts, P favori ≈ 91%).\nL10 : Switzerland 1V/3N/1D sur 5 · Bosnia and Herzegovina 0V/5N/0D sur 5\n📋 Fiche Switzerland : off moyen (-0.05) · def moyenne (-0.28) · forme DDWDL · 🏆 habituée du tournoi\n📋 Fiche Bosnia and Herzegovina : off solide (+0.89) · def solide (+0.47) · forme DDDDD · 🏆 présence occasionnelle\n🎯 Importance : Switzerland : 1 match joué (1pts) · Bosnia and Herzegovina : 1 match joué (1pts)\n🌦️ 🌫️ brouillard · 16–21°C · humidité 72% · stade fermé\n✅ Compo OFFICIELLE\n⚽ BTTS NO : P(au moins une équipe blanchie) = 71.5%\nλ faibles côté Bosnia and Herzegovina (0.39) ou Switzerland (2.14)\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
       "calibration_delta": -11.3,
@@ -931,17 +811,17 @@
     "no_picks": false,
     "context": {
       "stadium": {
-        "name": "SoFi Stadium",
-        "city": "Inglewood (Los Angeles)",
-        "country": "USA",
-        "lat": 33.9535,
-        "lon": -118.3392,
-        "capacity": 70240,
+        "name": "BMO Field",
+        "city": "Toronto",
+        "country": "Canada",
+        "lat": 43.6332,
+        "lon": -79.4185,
+        "capacity": 30000,
         "surface": "Natural grass",
-        "altitude_m": 50,
-        "type": "indoor",
-        "climatized": true,
-        "context_fr": "Toit fixe ouvert sur les côtés. Climat doux côte californienne."
+        "altitude_m": 76,
+        "type": "outdoor",
+        "climatized": false,
+        "context_fr": "Plus petit stade de la CdM 2026. Climat continental. Juin 20-26°C."
       },
       "weather": {
         "temp_max": 21.5,
@@ -956,292 +836,352 @@
     }
   },
   {
-    "league": "Morocco Botola Pro",
-    "home": "Union Yacoub El-Mansour",
-    "away": "Hassania Agadir",
-    "start_ts": 1781791200,
-    "match_id": "5778522",
-    "page_url": "/matches/hassania-agadir-vs-union-yacoub-el-mansour/mrf0p6ua#5778522",
-    "picks": [],
+    "league": "Lithuanian Toplyga",
+    "home": "FK TransINVEST",
+    "away": "FK Kauno Zalgiris",
+    "start_ts": 1781962200,
+    "match_id": "5185243",
+    "page_url": "/matches/fk-kauno-zalgiris-vs-fk-transinvest/mpchdn3m#5185243",
+    "picks": [
+      {
+        "direction": "home_win",
+        "type": "Victoire domicile",
+        "label": "FK TransINVEST gagne",
+        "cote": null,
+        "confidence": 70,
+        "reasoning": "FK TransINVEST : 3V/1N/1D sur 5 matchs · #2 au classement · H2H: 1V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+        "stats": {
+          "form": [
+            "W",
+            "W",
+            "L",
+            "W",
+            "D"
+          ]
+        },
+        "is_fun": false,
+        "tier": "safe",
+        "calibration_delta": -11.3,
+        "history_top3": true
+      }
+    ],
     "home_players": [
       {
-        "player": "Brahim Mansouri / Mehdi Balouk",
+        "player": "Yegor Glushach / Xabi Auzmendi",
         "position": "",
         "is_sub": false,
         "type": "Double Chance Buteur",
-        "label": "Brahim Mansouri ou Mehdi Balouk marque",
+        "label": "Yegor Glushach ou Xabi Auzmendi marque",
         "cote": null,
         "book": null,
         "books": [],
         "confidence": 70,
         "cote_min": 1.43,
-        "reasoning": "📈 P(Brahim Mansouri marque) ≈ 54% · P(Mehdi Balouk marque) ≈ 47%\n🎯 P(au moins un marque) = 70% (calculée par 1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.43 - chercher ≥1.43 chez le bookmaker\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+        "reasoning": "📈 P(Yegor Glushach marque) ≈ 46% · P(Xabi Auzmendi marque) ≈ 46%\n🎯 P(au moins un marque) = 70% (calculée par 1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.43 - chercher ≥1.43 chez le bookmaker\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
         "context": {},
         "stats": {
-          "p_a": 0.54,
-          "p_b": 0.472,
+          "p_a": 0.458,
+          "p_b": 0.458,
           "p_or": 0.7,
-          "player_a": "Brahim Mansouri",
-          "player_b": "Mehdi Balouk"
+          "player_a": "Yegor Glushach",
+          "player_b": "Xabi Auzmendi"
         },
         "team": "home",
         "tier": "safe",
         "calibration_delta": -11.3,
         "history_top3": true
-      },
+      }
+    ],
+    "away_players": [
       {
-        "player": "Brahim Mansouri",
-        "position": "M",
+        "player": "Amine Benchaib / Fabien Ourega",
+        "position": "",
         "is_sub": false,
-        "type": "Buteur",
-        "label": "Brahim Mansouri marque",
+        "type": "Double Chance Buteur",
+        "label": "Amine Benchaib ou Fabien Ourega marque",
         "cote": null,
         "book": null,
         "books": [],
-        "confidence": 54,
-        "reasoning": "3 buts en 5 matchs cette saison (60.0% de chance/match) · xG moyen 0.00/match, défense adverse poreuse (1.3 buts concédés/match) · défense fragile\n📉 Calibration : bucket 50-59% historiquement à WR 42% (claim 55%, n=41) — sur-estimé de 14pp",
-        "context": {
-          "weakness": 0.52
-        },
+        "confidence": 70,
+        "cote_min": 1.43,
+        "reasoning": "📈 P(Amine Benchaib marque) ≈ 46% · P(Fabien Ourega marque) ≈ 46%\n🎯 P(au moins un marque) = 70% (calculée par 1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.43 - chercher ≥1.43 chez le bookmaker\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+        "context": {},
         "stats": {
-          "goals": 3,
-          "apps": 5,
-          "gpm": 0.6,
-          "xgpm": 0
+          "p_a": 0.458,
+          "p_b": 0.458,
+          "p_or": 0.7,
+          "player_a": "Amine Benchaib",
+          "player_b": "Fabien Ourega"
+        },
+        "team": "away",
+        "tier": "safe",
+        "calibration_delta": -11.3,
+        "history_top3": true
+      }
+    ],
+    "fun_picks": [],
+    "top_pick": {
+      "direction": "home_win",
+      "type": "Victoire domicile",
+      "label": "FK TransINVEST gagne",
+      "cote": null,
+      "confidence": 70,
+      "reasoning": "FK TransINVEST : 3V/1N/1D sur 5 matchs · #2 au classement · H2H: 1V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+      "stats": {
+        "form": [
+          "W",
+          "W",
+          "L",
+          "W",
+          "D"
+        ]
+      },
+      "is_fun": false,
+      "tier": "safe",
+      "calibration_delta": -11.3,
+      "history_top3": true
+    },
+    "no_picks": false,
+    "context": null
+  },
+  {
+    "league": "Lithuanian Toplyga",
+    "home": "FK Panevezys",
+    "away": "FA Siauliai",
+    "start_ts": 1781954100,
+    "match_id": "5185242",
+    "page_url": "/matches/fk-panevezys-vs-fa-siauliai/fwr1du6t#5185242",
+    "picks": [],
+    "home_players": [
+      {
+        "player": "Rokas Rasimavicius / Elivelto",
+        "position": "",
+        "is_sub": false,
+        "type": "Double Chance Buteur",
+        "label": "Rokas Rasimavicius ou Elivelto marque",
+        "cote": null,
+        "book": null,
+        "books": [],
+        "confidence": 69,
+        "cote_min": 1.45,
+        "reasoning": "📈 P(Rokas Rasimavicius marque) ≈ 44% · P(Elivelto marque) ≈ 44%\n🎯 P(au moins un marque) = 69% (calculée par 1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.45 - chercher ≥1.45 chez le bookmaker\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
+        "context": {},
+        "stats": {
+          "p_a": 0.442,
+          "p_b": 0.442,
+          "p_or": 0.689,
+          "player_a": "Rokas Rasimavicius",
+          "player_b": "Elivelto"
         },
         "team": "home",
-        "tier": "fun",
-        "calibration_delta": -13.6,
+        "tier": "ok",
+        "calibration_delta": -25.4,
+        "history_top3": true
+      }
+    ],
+    "away_players": [
+      {
+        "player": "Nedas Garbaliauskas / Daniel Romanovskij",
+        "position": "",
+        "is_sub": false,
+        "type": "Double Chance Buteur",
+        "label": "Nedas Garbaliauskas ou Daniel Romanovskij marque",
+        "cote": null,
+        "book": null,
+        "books": [],
+        "confidence": 69,
+        "cote_min": 1.45,
+        "reasoning": "📈 P(Nedas Garbaliauskas marque) ≈ 44% · P(Daniel Romanovskij marque) ≈ 44%\n🎯 P(au moins un marque) = 69% (calculée par 1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.45 - chercher ≥1.45 chez le bookmaker\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
+        "context": {},
+        "stats": {
+          "p_a": 0.442,
+          "p_b": 0.442,
+          "p_or": 0.689,
+          "player_a": "Nedas Garbaliauskas",
+          "player_b": "Daniel Romanovskij"
+        },
+        "team": "away",
+        "tier": "ok",
+        "calibration_delta": -25.4,
+        "history_top3": true
+      }
+    ],
+    "fun_picks": [],
+    "top_pick": {
+      "player": "Rokas Rasimavicius / Elivelto",
+      "position": "",
+      "is_sub": false,
+      "type": "Double Chance Buteur",
+      "label": "Rokas Rasimavicius ou Elivelto marque",
+      "cote": null,
+      "book": null,
+      "books": [],
+      "confidence": 69,
+      "cote_min": 1.45,
+      "reasoning": "📈 P(Rokas Rasimavicius marque) ≈ 44% · P(Elivelto marque) ≈ 44%\n🎯 P(au moins un marque) = 69% (calculée par 1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.45 - chercher ≥1.45 chez le bookmaker\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
+      "context": {},
+      "stats": {
+        "p_a": 0.442,
+        "p_b": 0.442,
+        "p_or": 0.689,
+        "player_a": "Rokas Rasimavicius",
+        "player_b": "Elivelto"
+      },
+      "team": "home",
+      "tier": "ok",
+      "calibration_delta": -25.4,
+      "history_top3": true
+    },
+    "no_picks": false,
+    "context": null
+  },
+  {
+    "league": "Lithuanian Toplyga",
+    "home": "Banga Gargzdai",
+    "away": "Zalgiris Vilnius",
+    "start_ts": 1781969400,
+    "match_id": "5185244",
+    "page_url": "/matches/zalgiris-vilnius-vs-banga-gargzdai/6xpbt6r#5185244",
+    "picks": [],
+    "home_players": [
+      {
+        "player": "Ignas Venckus / Misaki Sato",
+        "position": "",
+        "is_sub": false,
+        "type": "Double Chance Buteur",
+        "label": "Ignas Venckus ou Misaki Sato marque",
+        "cote": null,
+        "book": null,
+        "books": [],
+        "confidence": 68,
+        "cote_min": 1.47,
+        "reasoning": "📈 P(Ignas Venckus marque) ≈ 44% · P(Misaki Sato marque) ≈ 43%\n🎯 P(au moins un marque) = 68% (calculée par 1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.47 - chercher ≥1.47 chez le bookmaker\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
+        "context": {},
+        "stats": {
+          "p_a": 0.442,
+          "p_b": 0.428,
+          "p_or": 0.681,
+          "player_a": "Ignas Venckus",
+          "player_b": "Misaki Sato"
+        },
+        "team": "home",
+        "tier": "ok",
+        "calibration_delta": -25.4,
+        "history_top3": true
+      }
+    ],
+    "away_players": [
+      {
+        "player": "Nikola Petkovic / Liviu Antal",
+        "position": "",
+        "is_sub": false,
+        "type": "Double Chance Buteur",
+        "label": "Nikola Petkovic ou Liviu Antal marque",
+        "cote": null,
+        "book": null,
+        "books": [],
+        "confidence": 69,
+        "cote_min": 1.45,
+        "reasoning": "📈 P(Nikola Petkovic marque) ≈ 45% · P(Liviu Antal marque) ≈ 44%\n🎯 P(au moins un marque) = 69% (calculée par 1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.45 - chercher ≥1.45 chez le bookmaker\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
+        "context": {},
+        "stats": {
+          "p_a": 0.45,
+          "p_b": 0.435,
+          "p_or": 0.689,
+          "player_a": "Nikola Petkovic",
+          "player_b": "Liviu Antal"
+        },
+        "team": "away",
+        "tier": "ok",
+        "calibration_delta": -25.4,
+        "history_top3": true
+      }
+    ],
+    "fun_picks": [],
+    "top_pick": {
+      "player": "Ignas Venckus / Misaki Sato",
+      "position": "",
+      "is_sub": false,
+      "type": "Double Chance Buteur",
+      "label": "Ignas Venckus ou Misaki Sato marque",
+      "cote": null,
+      "book": null,
+      "books": [],
+      "confidence": 68,
+      "cote_min": 1.47,
+      "reasoning": "📈 P(Ignas Venckus marque) ≈ 44% · P(Misaki Sato marque) ≈ 43%\n🎯 P(au moins un marque) = 68% (calculée par 1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.47 - chercher ≥1.47 chez le bookmaker\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
+      "context": {},
+      "stats": {
+        "p_a": 0.442,
+        "p_b": 0.428,
+        "p_or": 0.681,
+        "player_a": "Ignas Venckus",
+        "player_b": "Misaki Sato"
+      },
+      "team": "home",
+      "tier": "ok",
+      "calibration_delta": -25.4,
+      "history_top3": true
+    },
+    "no_picks": false,
+    "context": null
+  },
+  {
+    "league": "Latvian Virsliga",
+    "home": "BFC Daugavpils",
+    "away": "Grobina",
+    "start_ts": 1781960400,
+    "match_id": "5162007",
+    "page_url": "/matches/bfc-daugavpils-vs-grobina/4q4ed8ox#5162007",
+    "picks": [],
+    "home_players": [
+      {
+        "player": "Rostand Ndjiki / Artem Garzha",
+        "position": "",
+        "is_sub": false,
+        "type": "Double Chance Buteur",
+        "label": "Rostand Ndjiki ou Artem Garzha marque",
+        "cote": null,
+        "book": null,
+        "books": [],
+        "confidence": 67,
+        "cote_min": 1.49,
+        "reasoning": "📈 P(Rostand Ndjiki marque) ≈ 50% · P(Artem Garzha marque) ≈ 34%\n🎯 P(au moins un marque) = 67% (calculée par 1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.49 - chercher ≥1.49 chez le bookmaker\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
+        "context": {},
+        "stats": {
+          "p_a": 0.495,
+          "p_b": 0.338,
+          "p_or": 0.666,
+          "player_a": "Rostand Ndjiki",
+          "player_b": "Artem Garzha"
+        },
+        "team": "home",
+        "tier": "ok",
+        "calibration_delta": -25.4,
         "history_top3": true
       }
     ],
     "away_players": [],
     "fun_picks": [],
     "top_pick": {
-      "player": "Brahim Mansouri / Mehdi Balouk",
+      "player": "Rostand Ndjiki / Artem Garzha",
       "position": "",
       "is_sub": false,
       "type": "Double Chance Buteur",
-      "label": "Brahim Mansouri ou Mehdi Balouk marque",
+      "label": "Rostand Ndjiki ou Artem Garzha marque",
       "cote": null,
       "book": null,
       "books": [],
-      "confidence": 70,
-      "cote_min": 1.43,
-      "reasoning": "📈 P(Brahim Mansouri marque) ≈ 54% · P(Mehdi Balouk marque) ≈ 47%\n🎯 P(au moins un marque) = 70% (calculée par 1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.43 - chercher ≥1.43 chez le bookmaker\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+      "confidence": 67,
+      "cote_min": 1.49,
+      "reasoning": "📈 P(Rostand Ndjiki marque) ≈ 50% · P(Artem Garzha marque) ≈ 34%\n🎯 P(au moins un marque) = 67% (calculée par 1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.49 - chercher ≥1.49 chez le bookmaker\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
       "context": {},
       "stats": {
-        "p_a": 0.54,
-        "p_b": 0.472,
-        "p_or": 0.7,
-        "player_a": "Brahim Mansouri",
-        "player_b": "Mehdi Balouk"
-      },
-      "team": "home",
-      "tier": "safe",
-      "calibration_delta": -11.3,
-      "history_top3": true
-    },
-    "no_picks": false,
-    "context": {
-      "stadium": {
-        "name": "Prince Moulay Abdellah Olympic Annex Stadium",
-        "city": null,
-        "country": "",
-        "lat": null,
-        "lon": null,
-        "capacity": null,
-        "surface": null
-      },
-      "weather": null,
-      "text": "Stade : Prince Moulay Abdellah Olympic Annex Stadium · plein air."
-    }
-  },
-  {
-    "league": "Morocco Botola Pro",
-    "home": "Wydad Casablanca",
-    "away": "FUS Rabat",
-    "start_ts": 1781791200,
-    "match_id": "5778521",
-    "page_url": "/matches/fus-rabat-vs-wydad-casablanca/9kf44xb#5778521",
-    "picks": [],
-    "home_players": [
-      {
-        "player": "Hakim Ziyech / Hamza Hannouri",
-        "position": "",
-        "is_sub": false,
-        "type": "Double Chance Buteur",
-        "label": "Hakim Ziyech ou Hamza Hannouri marque",
-        "cote": null,
-        "book": null,
-        "books": [],
-        "confidence": 70,
-        "cote_min": 1.43,
-        "reasoning": "📈 P(Hakim Ziyech marque) ≈ 46% · P(Hamza Hannouri marque) ≈ 46%\n🎯 P(au moins un marque) = 70% (calculée par 1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.43 - chercher ≥1.43 chez le bookmaker\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
-        "context": {},
-        "stats": {
-          "p_a": 0.465,
-          "p_b": 0.465,
-          "p_or": 0.7,
-          "player_a": "Hakim Ziyech",
-          "player_b": "Hamza Hannouri"
-        },
-        "team": "home",
-        "tier": "safe",
-        "calibration_delta": -11.3,
-        "history_top3": true
-      }
-    ],
-    "away_players": [
-      {
-        "player": "Ayoub Mouloua / Salaheddine Benyachou",
-        "position": "",
-        "is_sub": false,
-        "type": "Double Chance Buteur",
-        "label": "Ayoub Mouloua ou Salaheddine Benyachou marque",
-        "cote": null,
-        "book": null,
-        "books": [],
-        "confidence": 69,
-        "cote_min": 1.45,
-        "reasoning": "📈 P(Ayoub Mouloua marque) ≈ 45% · P(Salaheddine Benyachou marque) ≈ 44%\n🎯 P(au moins un marque) = 69% (calculée par 1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.45 - chercher ≥1.45 chez le bookmaker\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
-        "context": {},
-        "stats": {
-          "p_a": 0.45,
-          "p_b": 0.435,
-          "p_or": 0.689,
-          "player_a": "Ayoub Mouloua",
-          "player_b": "Salaheddine Benyachou"
-        },
-        "team": "away",
-        "tier": "ok",
-        "calibration_delta": -25.4,
-        "history_top3": true
-      }
-    ],
-    "fun_picks": [],
-    "top_pick": {
-      "player": "Hakim Ziyech / Hamza Hannouri",
-      "position": "",
-      "is_sub": false,
-      "type": "Double Chance Buteur",
-      "label": "Hakim Ziyech ou Hamza Hannouri marque",
-      "cote": null,
-      "book": null,
-      "books": [],
-      "confidence": 70,
-      "cote_min": 1.43,
-      "reasoning": "📈 P(Hakim Ziyech marque) ≈ 46% · P(Hamza Hannouri marque) ≈ 46%\n🎯 P(au moins un marque) = 70% (calculée par 1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.43 - chercher ≥1.43 chez le bookmaker\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
-      "context": {},
-      "stats": {
-        "p_a": 0.465,
-        "p_b": 0.465,
-        "p_or": 0.7,
-        "player_a": "Hakim Ziyech",
-        "player_b": "Hamza Hannouri"
-      },
-      "team": "home",
-      "tier": "safe",
-      "calibration_delta": -11.3,
-      "history_top3": true
-    },
-    "no_picks": false,
-    "context": {
-      "stadium": {
-        "name": "Stade Mohamed V",
-        "city": null,
-        "country": "",
-        "lat": null,
-        "lon": null,
-        "capacity": null,
-        "surface": null
-      },
-      "weather": null,
-      "text": "Stade : Stade Mohamed V · plein air."
-    }
-  },
-  {
-    "league": "Georgian Erovnuli",
-    "home": "Dinamo Tbilisi",
-    "away": "FC Samgurali Tskhaltubo",
-    "start_ts": 1781798400,
-    "match_id": "5165330",
-    "page_url": "/matches/dinamo-tbilisi-vs-fc-samgurali-tskhaltubo/o526mjp#5165330",
-    "picks": [],
-    "home_players": [
-      {
-        "player": "Mate Vatsadze / Abdoulaye Yoro",
-        "position": "",
-        "is_sub": false,
-        "type": "Double Chance Buteur",
-        "label": "Mate Vatsadze ou Abdoulaye Yoro marque",
-        "cote": null,
-        "book": null,
-        "books": [],
-        "confidence": 69,
-        "cote_min": 1.45,
-        "reasoning": "📈 P(Mate Vatsadze marque) ≈ 45% · P(Abdoulaye Yoro marque) ≈ 44%\n🎯 P(au moins un marque) = 69% (calculée par 1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.45 - chercher ≥1.45 chez le bookmaker\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
-        "context": {},
-        "stats": {
-          "p_a": 0.45,
-          "p_b": 0.442,
-          "p_or": 0.693,
-          "player_a": "Mate Vatsadze",
-          "player_b": "Abdoulaye Yoro"
-        },
-        "team": "home",
-        "tier": "ok",
-        "calibration_delta": -25.4,
-        "history_top3": true
-      }
-    ],
-    "away_players": [
-      {
-        "player": "Wellissol / Cláudio",
-        "position": "",
-        "is_sub": false,
-        "type": "Double Chance Buteur",
-        "label": "Wellissol ou Cláudio marque",
-        "cote": null,
-        "book": null,
-        "books": [],
-        "confidence": 69,
-        "cote_min": 1.45,
-        "reasoning": "📈 P(Wellissol marque) ≈ 46% · P(Cláudio marque) ≈ 44%\n🎯 P(au moins un marque) = 69% (calculée par 1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.45 - chercher ≥1.45 chez le bookmaker\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
-        "context": {},
-        "stats": {
-          "p_a": 0.458,
-          "p_b": 0.435,
-          "p_or": 0.694,
-          "player_a": "Wellissol",
-          "player_b": "Cláudio"
-        },
-        "team": "away",
-        "tier": "ok",
-        "calibration_delta": -25.4,
-        "history_top3": true
-      }
-    ],
-    "fun_picks": [],
-    "top_pick": {
-      "player": "Mate Vatsadze / Abdoulaye Yoro",
-      "position": "",
-      "is_sub": false,
-      "type": "Double Chance Buteur",
-      "label": "Mate Vatsadze ou Abdoulaye Yoro marque",
-      "cote": null,
-      "book": null,
-      "books": [],
-      "confidence": 69,
-      "cote_min": 1.45,
-      "reasoning": "📈 P(Mate Vatsadze marque) ≈ 45% · P(Abdoulaye Yoro marque) ≈ 44%\n🎯 P(au moins un marque) = 69% (calculée par 1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.45 - chercher ≥1.45 chez le bookmaker\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
-      "context": {},
-      "stats": {
-        "p_a": 0.45,
-        "p_b": 0.442,
-        "p_or": 0.693,
-        "player_a": "Mate Vatsadze",
-        "player_b": "Abdoulaye Yoro"
+        "p_a": 0.495,
+        "p_b": 0.338,
+        "p_or": 0.666,
+        "player_a": "Rostand Ndjiki",
+        "player_b": "Artem Garzha"
       },
       "team": "home",
       "tier": "ok",
@@ -1249,169 +1189,13 @@
       "history_top3": true
     },
     "no_picks": false,
-    "context": null
-  },
-  {
-    "league": "Georgian Erovnuli",
-    "home": "FC Meshakhte Tkibuli",
-    "away": "FC Gagra",
-    "start_ts": 1781789400,
-    "match_id": "5165328",
-    "page_url": "/matches/fc-gagra-vs-fc-meshakhte-tkibuli/1evf1v82#5165328",
-    "picks": [],
-    "home_players": [
-      {
-        "player": "Irakli Sikharulidze / Tsotne Patsatsia",
-        "position": "",
-        "is_sub": false,
-        "type": "Double Chance Buteur",
-        "label": "Irakli Sikharulidze ou Tsotne Patsatsia marque",
-        "cote": null,
-        "book": null,
-        "books": [],
-        "confidence": 68,
-        "cote_min": 1.47,
-        "reasoning": "📈 P(Irakli Sikharulidze marque) ≈ 44% · P(Tsotne Patsatsia marque) ≈ 44%\n🎯 P(au moins un marque) = 68% (calculée par 1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.47 - chercher ≥1.47 chez le bookmaker\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
-        "context": {},
-        "stats": {
-          "p_a": 0.435,
-          "p_b": 0.435,
-          "p_or": 0.681,
-          "player_a": "Irakli Sikharulidze",
-          "player_b": "Tsotne Patsatsia"
-        },
-        "team": "home",
-        "tier": "ok",
-        "calibration_delta": -25.4,
-        "history_top3": true
-      }
-    ],
-    "away_players": [
-      {
-        "player": "Andrey Andreychuk / Davit Mujiri",
-        "position": "",
-        "is_sub": false,
-        "type": "Double Chance Buteur",
-        "label": "Andrey Andreychuk ou Davit Mujiri marque",
-        "cote": null,
-        "book": null,
-        "books": [],
-        "confidence": 69,
-        "cote_min": 1.45,
-        "reasoning": "📈 P(Andrey Andreychuk marque) ≈ 45% · P(Davit Mujiri marque) ≈ 44%\n🎯 P(au moins un marque) = 69% (calculée par 1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.45 - chercher ≥1.45 chez le bookmaker\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
-        "context": {},
-        "stats": {
-          "p_a": 0.45,
-          "p_b": 0.435,
-          "p_or": 0.689,
-          "player_a": "Andrey Andreychuk",
-          "player_b": "Davit Mujiri"
-        },
-        "team": "away",
-        "tier": "ok",
-        "calibration_delta": -25.4,
-        "history_top3": true
-      }
-    ],
-    "fun_picks": [],
-    "top_pick": {
-      "player": "Irakli Sikharulidze / Tsotne Patsatsia",
-      "position": "",
-      "is_sub": false,
-      "type": "Double Chance Buteur",
-      "label": "Irakli Sikharulidze ou Tsotne Patsatsia marque",
-      "cote": null,
-      "book": null,
-      "books": [],
-      "confidence": 68,
-      "cote_min": 1.47,
-      "reasoning": "📈 P(Irakli Sikharulidze marque) ≈ 44% · P(Tsotne Patsatsia marque) ≈ 44%\n🎯 P(au moins un marque) = 68% (calculée par 1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.47 - chercher ≥1.47 chez le bookmaker\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
-      "context": {},
-      "stats": {
-        "p_a": 0.435,
-        "p_b": 0.435,
-        "p_or": 0.681,
-        "player_a": "Irakli Sikharulidze",
-        "player_b": "Tsotne Patsatsia"
-      },
-      "team": "home",
-      "tier": "ok",
-      "calibration_delta": -25.4,
-      "history_top3": true
-    },
-    "no_picks": false,
-    "context": null
-  },
-  {
-    "league": "Chile Primera",
-    "home": "Universidad de Chile",
-    "away": "O'Higgins",
-    "start_ts": 1781827200,
-    "match_id": "5140520",
-    "page_url": "/matches/ohiggins-vs-universidad-de-chile/1bba2v#5140520",
-    "picks": [],
-    "home_players": [],
-    "away_players": [
-      {
-        "player": "Francisco González / Thiago Vecino",
-        "position": "",
-        "is_sub": false,
-        "type": "Double Chance Buteur",
-        "label": "Francisco González ou Thiago Vecino marque",
-        "cote": null,
-        "book": null,
-        "books": [],
-        "confidence": 66,
-        "cote_min": 1.52,
-        "reasoning": "📈 P(Francisco González marque) ≈ 43% · P(Thiago Vecino marque) ≈ 41%\n🎯 P(au moins un marque) = 66% (calculée par 1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.52 - chercher ≥1.52 chez le bookmaker\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
-        "context": {},
-        "stats": {
-          "p_a": 0.428,
-          "p_b": 0.412,
-          "p_or": 0.664,
-          "player_a": "Francisco González",
-          "player_b": "Thiago Vecino"
-        },
-        "team": "away",
-        "tier": "ok",
-        "calibration_delta": -25.4,
-        "history_top3": true
-      }
-    ],
-    "fun_picks": [],
-    "top_pick": {
-      "player": "Francisco González / Thiago Vecino",
-      "position": "",
-      "is_sub": false,
-      "type": "Double Chance Buteur",
-      "label": "Francisco González ou Thiago Vecino marque",
-      "cote": null,
-      "book": null,
-      "books": [],
-      "confidence": 66,
-      "cote_min": 1.52,
-      "reasoning": "📈 P(Francisco González marque) ≈ 43% · P(Thiago Vecino marque) ≈ 41%\n🎯 P(au moins un marque) = 66% (calculée par 1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.52 - chercher ≥1.52 chez le bookmaker\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
-      "context": {},
-      "stats": {
-        "p_a": 0.428,
-        "p_b": 0.412,
-        "p_or": 0.664,
-        "player_a": "Francisco González",
-        "player_b": "Thiago Vecino"
-      },
-      "team": "away",
-      "tier": "ok",
-      "calibration_delta": -25.4,
-      "history_top3": true
-    },
-    "no_picks": false,
     "context": {
       "stadium": {
-        "name": "Estadio Nacional Julio Martínez Prádanos",
-        "city": "Santiago de Chile",
-        "country": "Chile",
-        "lat": -33.464460787,
-        "lon": -70.610627532,
+        "name": "Stadionā Esplanāde",
+        "city": "Daugavpils",
+        "country": "Latvia",
+        "lat": 55.877832644,
+        "lon": 26.515384912,
         "capacity": null,
         "surface": null
       },
