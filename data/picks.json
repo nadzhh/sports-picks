@@ -1126,6 +1126,35 @@
     "home_players": [
       {
         "player": "Folarin Balogun",
+        "position": "F",
+        "is_sub": true,
+        "type": "Buteur",
+        "label": "Folarin Balogun marque",
+        "cote": null,
+        "cote_min": 1.89,
+        "book": null,
+        "books": [],
+        "confidence": 48,
+        "reasoning": "⚠️ Compo PROBABLE (a confirmer 1h avant). Folarin Balogun : selection 6G/11m (0.55/m) · L10 club : 7G/10m, 🔥 3G/3 derniers nat (+19%) | rotatif nat (54min/m) · last match 72min (2G+0A). λ ajusté à 0.75 (USA attendu 1.6 buts) → P(marque) ~48%.\n📉 Calibration : bucket 40-49% historiquement à WR 25% (claim 44%, n=36) — sur-estimé de 19pp",
+        "context": {
+          "source": "lineup",
+          "lam": 0.75,
+          "lineup_status": "predicted"
+        },
+        "stats": {
+          "goals": null,
+          "apps": null,
+          "gpm": 0.751,
+          "xgpm": null
+        },
+        "team": "home",
+        "lineup_status": "predicted",
+        "tier": "fun",
+        "calibration_delta": -19.4,
+        "history_top3": true
+      },
+      {
+        "player": "Folarin Balogun",
         "position": "M",
         "is_sub": false,
         "type": "Buteur",
@@ -1192,7 +1221,7 @@
             7.4
           ]
         ],
-        "history_top3": true
+        "history_top3": false
       }
     ],
     "top_pick": {

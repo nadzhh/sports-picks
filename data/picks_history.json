@@ -20683,24 +20683,31 @@
     },
     {
       "player": "Folarin Balogun",
-      "position": "M",
-      "is_sub": false,
+      "position": "F",
+      "is_sub": true,
       "type": "Buteur",
       "label": "Folarin Balogun marque",
-      "team": "home",
       "cote": null,
+      "cote_min": 1.89,
       "book": null,
       "books": [],
-      "confidence": 25,
-      "reasoning": "2G en 5 matchs (40.0%/match) · xG: 0.10/match",
+      "confidence": 48,
+      "reasoning": "⚠️ Compo PROBABLE (a confirmer 1h avant). Folarin Balogun : selection 6G/11m (0.55/m) · L10 club : 7G/10m, 🔥 3G/3 derniers nat (+19%) | rotatif nat (54min/m) · last match 72min (2G+0A). λ ajusté à 0.75 (USA attendu 1.6 buts) → P(marque) ~48%.\n📉 Calibration : bucket 40-49% historiquement à WR 25% (claim 44%, n=36) — sur-estimé de 19pp",
       "context": {
-        "weakness": 0.29
+        "source": "lineup",
+        "lam": 0.75,
+        "lineup_status": "predicted"
       },
       "stats": {
-        "goals": 2,
-        "apps": 5
+        "goals": null,
+        "apps": null,
+        "gpm": 0.751,
+        "xgpm": null
       },
+      "team": "home",
+      "lineup_status": "predicted",
       "tier": "fun",
+      "calibration_delta": -19.4,
       "history_top3": true,
       "id": "2026-06-19_4667774_player_Folarin Balogun_Buteur",
       "date": "2026-06-19",
@@ -21016,6 +21023,38 @@
       "match_id": "4667766",
       "page_url": "/matches/morocco-vs-scotland/1sv292#4667766",
       "matchup": "Scotland vs Morocco",
+      "league": "World Cup",
+      "category": "team",
+      "result": "PENDING",
+      "actual": null,
+      "resolved_at": null
+    },
+    {
+      "direction": "home_win",
+      "type": "Victoire domicile",
+      "label": "Turkiye gagne",
+      "cote": 2.05,
+      "confidence": 59,
+      "reasoning": "Turkiye : 4V/0N/1D sur 5 matchs · #12 au classement · H2H: 0V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 50-59% historiquement à WR 42% (claim 55%, n=41) — sur-estimé de 14pp",
+      "stats": {
+        "form": [
+          "L",
+          "W",
+          "W",
+          "W",
+          "W"
+        ]
+      },
+      "is_fun": false,
+      "tier": "ok",
+      "calibration_delta": -13.6,
+      "edge_pp": 10.2,
+      "history_top3": true,
+      "id": "2026-06-20_4667773_team_home_win",
+      "date": "2026-06-20",
+      "match_id": "4667773",
+      "page_url": "/matches/turkiye-vs-paraguay/1gte1s#4667773",
+      "matchup": "Turkiye vs Paraguay",
       "league": "World Cup",
       "category": "team",
       "result": "PENDING",
