@@ -1131,7 +1131,7 @@
         "direction": "wc_under_25",
         "type": "⚽ Total buts WC",
         "label": "Moins de 2.5 buts",
-        "cote": 1.62,
+        "cote": 1.65,
         "cote_min": 1.29,
         "confidence": 78,
         "tier": "safe",
@@ -1146,7 +1146,7 @@
         },
         "reasoning": "📊 Écart FIFA significatif : Uruguay #14 vs Cape Verde #65 (gap +346 pts, P favori ≈ 88%).\nL10 : Uruguay 0V/4N/1D sur 5 · Cape Verde 1V/3N/1D sur 5\n📋 Fiche Uruguay : off en panne (-0.52) · def moyenne (-0.28) · forme DDDLD · 🏆 habituée du tournoi\n📋 Fiche Cape Verde : off solide (+1.00) · def solide (+0.57) · forme DWDLD · 🏆 novice WC\n🎯 Importance : Uruguay : 1 match joué (1pts) · Cape Verde : 1 match joué (1pts)\n🌦️ Conditions : chaleur 32.1°C (-10%)\n⚽ Modèle Poisson : λ total = 1.62\nP(moins de 2.5 buts) = 77.8%\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
         "calibration_delta": -11.3,
-        "edge_pp": 16.3,
+        "edge_pp": 17.4,
         "history_top3": true
       },
       {
@@ -1267,7 +1267,7 @@
       "direction": "wc_under_25",
       "type": "⚽ Total buts WC",
       "label": "Moins de 2.5 buts",
-      "cote": 1.62,
+      "cote": 1.65,
       "cote_min": 1.29,
       "confidence": 78,
       "tier": "safe",
@@ -1282,7 +1282,7 @@
       },
       "reasoning": "📊 Écart FIFA significatif : Uruguay #14 vs Cape Verde #65 (gap +346 pts, P favori ≈ 88%).\nL10 : Uruguay 0V/4N/1D sur 5 · Cape Verde 1V/3N/1D sur 5\n📋 Fiche Uruguay : off en panne (-0.52) · def moyenne (-0.28) · forme DDDLD · 🏆 habituée du tournoi\n📋 Fiche Cape Verde : off solide (+1.00) · def solide (+0.57) · forme DWDLD · 🏆 novice WC\n🎯 Importance : Uruguay : 1 match joué (1pts) · Cape Verde : 1 match joué (1pts)\n🌦️ Conditions : chaleur 32.1°C (-10%)\n⚽ Modèle Poisson : λ total = 1.62\nP(moins de 2.5 buts) = 77.8%\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
       "calibration_delta": -11.3,
-      "edge_pp": 16.3,
+      "edge_pp": 17.4,
       "history_top3": true
     },
     "no_picks": false,
@@ -3940,206 +3940,6 @@
   },
   {
     "league": "World Cup",
-    "home": "Netherlands",
-    "away": "Sweden",
-    "start_ts": 1781974800,
-    "match_id": "4667786",
-    "page_url": "/matches/netherlands-vs-sweden/1x1gy6#4667786",
-    "picks": [
-      {
-        "direction": "away_win",
-        "type": "Victoire extérieur",
-        "label": "Sweden gagne",
-        "cote": 4.6,
-        "confidence": 63,
-        "reasoning": "Sweden : 3V/1N/1D sur 5 matchs · #1 au classement · H2H: 0V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
-        "stats": {
-          "form": [
-            "W",
-            "D",
-            "L",
-            "W",
-            "W"
-          ]
-        },
-        "is_fun": false,
-        "tier": "fun",
-        "calibration_delta": -25.4,
-        "edge_pp": 41.3,
-        "history_top3": true
-      },
-      {
-        "direction": "wc_btts_yes",
-        "type": "⚽ BTTS WC",
-        "label": "Les 2 équipes marquent",
-        "cote": null,
-        "cote_min": 1.42,
-        "confidence": 71,
-        "tier": "safe",
-        "stats": {
-          "lam_h": 2.47,
-          "lam_a": 1.47,
-          "h_fifa_rank": 7,
-          "a_fifa_rank": 24,
-          "elo_gap": 167,
-          "wc_round": null,
-          "family": "BTTS"
-        },
-        "reasoning": "📊 Niveau équilibré : Netherlands #7 vs Sweden #24 (gap +167 pts).\n⭐ Netherlands favori CdM 2026\nL10 : Netherlands 2V/2N/1D sur 5 · Sweden 3V/1N/1D sur 5\n📋 Fiche Netherlands : off moyen (-0.17) · def fragile (-0.95) · forme DWLDW · 🏆 régulière phase finale\n   ↳ Historique : quart de finale en 2022 · demi-finaliste en 2014\n📋 Fiche Sweden : off moyen (-0.08) · def fragile (-1.00) · forme WDLWW · 🏆 présence occasionnelle\n🎯 Importance : Netherlands : 1 match joué (1pts) · Sweden : 1 match joué (3pts)\n🌦️ ⛈️ orage · 24–30°C · humidité 87% · précipitations 9.8mm · stade fermé\n⚠️ Compo PROBABLE (officielle à T-60min)\n⚽ BTTS Poisson : P(Netherlands ≥ 1) × P(Sweden ≥ 1) = 92% × 77% = 70.5%\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
-        "calibration_delta": -11.3,
-        "history_top3": true
-      },
-      {
-        "direction": "wc_dc_1x",
-        "type": "🏆 Double chance WC",
-        "label": "Netherlands ou nul (1X)",
-        "cote": null,
-        "cote_min": 1.29,
-        "confidence": 78,
-        "tier": "safe",
-        "stats": {
-          "lam_h": 2.47,
-          "lam_a": 1.47,
-          "h_fifa_rank": 7,
-          "a_fifa_rank": 24,
-          "elo_gap": 167,
-          "wc_round": null,
-          "family": "DC"
-        },
-        "reasoning": "📊 Niveau équilibré : Netherlands #7 vs Sweden #24 (gap +167 pts).\n⭐ Netherlands favori CdM 2026\nL10 : Netherlands 2V/2N/1D sur 5 · Sweden 3V/1N/1D sur 5\n📋 Fiche Netherlands : off moyen (-0.17) · def fragile (-0.95) · forme DWLDW · 🏆 régulière phase finale\n   ↳ Historique : quart de finale en 2022 · demi-finaliste en 2014\n📋 Fiche Sweden : off moyen (-0.08) · def fragile (-1.00) · forme WDLWW · 🏆 présence occasionnelle\n🎯 Importance : Netherlands : 1 match joué (1pts) · Sweden : 1 match joué (3pts)\n🌦️ ⛈️ orage · 24–30°C · humidité 87% · précipitations 9.8mm · stade fermé\n⚠️ Compo PROBABLE (officielle à T-60min)\n🛡️ Double chance : Netherlands gagne (58.9%) OU match nul (18.7%)\nCombiné = 77.7% — option safe contre Sweden\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
-        "calibration_delta": -11.3,
-        "history_top3": false
-      },
-      {
-        "direction": "wc_home_scores_2",
-        "type": "⚽ Buteur équipe WC",
-        "label": "Netherlands marque 2+ buts",
-        "cote": null,
-        "cote_min": 1.42,
-        "confidence": 71,
-        "tier": "safe",
-        "stats": {
-          "lam_h": 2.47,
-          "lam_a": 1.47,
-          "h_fifa_rank": 7,
-          "a_fifa_rank": 24,
-          "elo_gap": 167,
-          "wc_round": null,
-          "family": "BUT_TEAM"
-        },
-        "reasoning": "📊 Niveau équilibré : Netherlands #7 vs Sweden #24 (gap +167 pts).\n⭐ Netherlands favori CdM 2026\nL10 : Netherlands 2V/2N/1D sur 5 · Sweden 3V/1N/1D sur 5\n📋 Fiche Netherlands : off moyen (-0.17) · def fragile (-0.95) · forme DWLDW · 🏆 régulière phase finale\n   ↳ Historique : quart de finale en 2022 · demi-finaliste en 2014\n📋 Fiche Sweden : off moyen (-0.08) · def fragile (-1.00) · forme WDLWW · 🏆 présence occasionnelle\n🎯 Importance : Netherlands : 1 match joué (1pts) · Sweden : 1 match joué (3pts)\n🌦️ ⛈️ orage · 24–30°C · humidité 87% · précipitations 9.8mm · stade fermé\n⚠️ Compo PROBABLE (officielle à T-60min)\n⚽ P(Netherlands marque 2+) = 70.5% (λ = 2.47)\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
-        "calibration_delta": -11.3,
-        "history_top3": true
-      }
-    ],
-    "home_players": [],
-    "away_players": [
-      {
-        "player": "Viktor Gyökeres",
-        "position": "F",
-        "is_sub": true,
-        "type": "Buteur",
-        "label": "Viktor Gyökeres marque",
-        "cote": 3.2,
-        "cote_min": 1.98,
-        "book": "bovada",
-        "books": [],
-        "confidence": 46,
-        "reasoning": "⚠️ Compo PROBABLE (a confirmer 1h avant). Viktor Gyökeres : selection 6G/8m (0.75/m) · L10 club : 5G/10m, 🔥 3G/3 derniers nat (+19%) | titu nat (86min/m) · last match 90min (1G+1A). λ ajusté à 0.70 (Sweden attendu 1.3 buts) → P(marque) ~46%.\n📉 Calibration : bucket 40-49% historiquement à WR 25% (claim 44%, n=36) — sur-estimé de 19pp",
-        "context": {
-          "source": "lineup",
-          "lam": 0.7,
-          "lineup_status": "predicted"
-        },
-        "stats": {
-          "goals": null,
-          "apps": null,
-          "gpm": 0.704,
-          "xgpm": null
-        },
-        "team": "away",
-        "lineup_status": "predicted",
-        "tier": "fun",
-        "calibration_delta": -19.4,
-        "edge_pp": 14.8,
-        "history_top3": true
-      },
-      {
-        "player": "Yasin Ayari",
-        "position": "F",
-        "is_sub": false,
-        "type": "Buteur",
-        "label": "Yasin Ayari marque",
-        "team": "away",
-        "cote": 9.0,
-        "book": "bovada",
-        "books": [],
-        "confidence": 24,
-        "reasoning": "2G en 5 matchs (40.0%/match) · xG: 0.02/match",
-        "context": {
-          "weakness": 0.27
-        },
-        "stats": {
-          "goals": 2,
-          "apps": 5
-        },
-        "tier": "fun",
-        "edge_pp": 12.9,
-        "history_top3": false
-      }
-    ],
-    "fun_picks": [],
-    "top_pick": {
-      "direction": "away_win",
-      "type": "Victoire extérieur",
-      "label": "Sweden gagne",
-      "cote": 4.6,
-      "confidence": 63,
-      "reasoning": "Sweden : 3V/1N/1D sur 5 matchs · #1 au classement · H2H: 0V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
-      "stats": {
-        "form": [
-          "W",
-          "D",
-          "L",
-          "W",
-          "W"
-        ]
-      },
-      "is_fun": false,
-      "tier": "fun",
-      "calibration_delta": -25.4,
-      "edge_pp": 41.3,
-      "history_top3": true
-    },
-    "no_picks": false,
-    "context": {
-      "stadium": {
-        "name": "NRG Stadium",
-        "city": "Houston",
-        "country": "USA",
-        "lat": 29.6847,
-        "lon": -95.4107,
-        "capacity": 72220,
-        "surface": "Natural grass",
-        "altitude_m": 18,
-        "type": "indoor",
-        "climatized": true,
-        "context_fr": "Toit retractable, climatisé. Houston chaud et humide en été."
-      },
-      "weather": {
-        "temp_max": 30.3,
-        "temp_min": 24.1,
-        "humidity": 87,
-        "precipitation_sum_mm": 9.8,
-        "wind_max_kmh": 17.6,
-        "weather_code": 95,
-        "summary_fr": "⛈️ orage · 24–30°C · humidité 87% · précipitations 9.8mm"
-      },
-      "text": "Conditions : ⛈️ orage · 24–30°C · humidité 87% · précipitations 9.8mm. Stade : NRG Stadium · altitude 18m · 72 220 places · climatisé. Toit retractable, climatisé. Houston chaud et humide en été. ⚠️ Pluies prévues : terrain potentiellement lourd, jeu direct privilégié, plus d'erreurs techniques."
-    }
-  },
-  {
-    "league": "World Cup",
     "home": "Brazil",
     "away": "Haiti",
     "start_ts": 1781915400,
@@ -4151,8 +3951,8 @@
         "type": "Victoire domicile",
         "label": "Brazil gagne",
         "cote": 1.11,
-        "confidence": 61,
-        "reasoning": "Brazil : 3V/1N/1D sur 5 matchs · #3 au classement · H2H: 0V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
+        "confidence": 63,
+        "reasoning": "Brazil : 3V/1N/1D sur 5 matchs · #1 au classement · H2H: 0V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
         "stats": {
           "form": [
             "D",
@@ -4165,7 +3965,7 @@
         "is_fun": false,
         "tier": "ok",
         "calibration_delta": -25.4,
-        "edge_pp": -29.1,
+        "edge_pp": -27.1,
         "history_top3": false
       },
       {
@@ -4407,8 +4207,8 @@
       "type": "Victoire domicile",
       "label": "Brazil gagne",
       "cote": 1.11,
-      "confidence": 61,
-      "reasoning": "Brazil : 3V/1N/1D sur 5 matchs · #3 au classement · H2H: 0V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
+      "confidence": 63,
+      "reasoning": "Brazil : 3V/1N/1D sur 5 matchs · #1 au classement · H2H: 0V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
       "stats": {
         "form": [
           "D",
@@ -4421,7 +4221,7 @@
       "is_fun": false,
       "tier": "ok",
       "calibration_delta": -25.4,
-      "edge_pp": -29.1,
+      "edge_pp": -27.1,
       "history_top3": false
     },
     "no_picks": false,
@@ -4449,6 +4249,206 @@
         "summary_fr": "☁️ couvert · 16–29°C · humidité 30%"
       },
       "text": "Conditions : ☁️ couvert · 16–29°C · humidité 30%. Stade : Lincoln Financial Field · altitude 12m · 67 594 places · plein air. Climat tempéré humide. Juin 24-29°C."
+    }
+  },
+  {
+    "league": "World Cup",
+    "home": "Netherlands",
+    "away": "Sweden",
+    "start_ts": 1781974800,
+    "match_id": "4667786",
+    "page_url": "/matches/netherlands-vs-sweden/1x1gy6#4667786",
+    "picks": [
+      {
+        "direction": "away_win",
+        "type": "Victoire extérieur",
+        "label": "Sweden gagne",
+        "cote": 4.6,
+        "confidence": 63,
+        "reasoning": "Sweden : 3V/1N/1D sur 5 matchs · #1 au classement · H2H: 0V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
+        "stats": {
+          "form": [
+            "W",
+            "D",
+            "L",
+            "W",
+            "W"
+          ]
+        },
+        "is_fun": false,
+        "tier": "fun",
+        "calibration_delta": -25.4,
+        "edge_pp": 41.3,
+        "history_top3": true
+      },
+      {
+        "direction": "wc_btts_yes",
+        "type": "⚽ BTTS WC",
+        "label": "Les 2 équipes marquent",
+        "cote": null,
+        "cote_min": 1.42,
+        "confidence": 71,
+        "tier": "safe",
+        "stats": {
+          "lam_h": 2.47,
+          "lam_a": 1.47,
+          "h_fifa_rank": 7,
+          "a_fifa_rank": 24,
+          "elo_gap": 167,
+          "wc_round": null,
+          "family": "BTTS"
+        },
+        "reasoning": "📊 Niveau équilibré : Netherlands #7 vs Sweden #24 (gap +167 pts).\n⭐ Netherlands favori CdM 2026\nL10 : Netherlands 2V/2N/1D sur 5 · Sweden 3V/1N/1D sur 5\n📋 Fiche Netherlands : off moyen (-0.17) · def fragile (-0.95) · forme DWLDW · 🏆 régulière phase finale\n   ↳ Historique : quart de finale en 2022 · demi-finaliste en 2014\n📋 Fiche Sweden : off moyen (-0.08) · def fragile (-1.00) · forme WDLWW · 🏆 présence occasionnelle\n🎯 Importance : Netherlands : 1 match joué (1pts) · Sweden : 1 match joué (3pts)\n🌦️ ⛈️ orage · 24–30°C · humidité 87% · précipitations 9.8mm · stade fermé\n⚠️ Compo PROBABLE (officielle à T-60min)\n⚽ BTTS Poisson : P(Netherlands ≥ 1) × P(Sweden ≥ 1) = 92% × 77% = 70.5%\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+        "calibration_delta": -11.3,
+        "history_top3": true
+      },
+      {
+        "direction": "wc_dc_1x",
+        "type": "🏆 Double chance WC",
+        "label": "Netherlands ou nul (1X)",
+        "cote": null,
+        "cote_min": 1.29,
+        "confidence": 78,
+        "tier": "safe",
+        "stats": {
+          "lam_h": 2.47,
+          "lam_a": 1.47,
+          "h_fifa_rank": 7,
+          "a_fifa_rank": 24,
+          "elo_gap": 167,
+          "wc_round": null,
+          "family": "DC"
+        },
+        "reasoning": "📊 Niveau équilibré : Netherlands #7 vs Sweden #24 (gap +167 pts).\n⭐ Netherlands favori CdM 2026\nL10 : Netherlands 2V/2N/1D sur 5 · Sweden 3V/1N/1D sur 5\n📋 Fiche Netherlands : off moyen (-0.17) · def fragile (-0.95) · forme DWLDW · 🏆 régulière phase finale\n   ↳ Historique : quart de finale en 2022 · demi-finaliste en 2014\n📋 Fiche Sweden : off moyen (-0.08) · def fragile (-1.00) · forme WDLWW · 🏆 présence occasionnelle\n🎯 Importance : Netherlands : 1 match joué (1pts) · Sweden : 1 match joué (3pts)\n🌦️ ⛈️ orage · 24–30°C · humidité 87% · précipitations 9.8mm · stade fermé\n⚠️ Compo PROBABLE (officielle à T-60min)\n🛡️ Double chance : Netherlands gagne (58.9%) OU match nul (18.7%)\nCombiné = 77.7% — option safe contre Sweden\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+        "calibration_delta": -11.3,
+        "history_top3": false
+      },
+      {
+        "direction": "wc_home_scores_2",
+        "type": "⚽ Buteur équipe WC",
+        "label": "Netherlands marque 2+ buts",
+        "cote": null,
+        "cote_min": 1.42,
+        "confidence": 71,
+        "tier": "safe",
+        "stats": {
+          "lam_h": 2.47,
+          "lam_a": 1.47,
+          "h_fifa_rank": 7,
+          "a_fifa_rank": 24,
+          "elo_gap": 167,
+          "wc_round": null,
+          "family": "BUT_TEAM"
+        },
+        "reasoning": "📊 Niveau équilibré : Netherlands #7 vs Sweden #24 (gap +167 pts).\n⭐ Netherlands favori CdM 2026\nL10 : Netherlands 2V/2N/1D sur 5 · Sweden 3V/1N/1D sur 5\n📋 Fiche Netherlands : off moyen (-0.17) · def fragile (-0.95) · forme DWLDW · 🏆 régulière phase finale\n   ↳ Historique : quart de finale en 2022 · demi-finaliste en 2014\n📋 Fiche Sweden : off moyen (-0.08) · def fragile (-1.00) · forme WDLWW · 🏆 présence occasionnelle\n🎯 Importance : Netherlands : 1 match joué (1pts) · Sweden : 1 match joué (3pts)\n🌦️ ⛈️ orage · 24–30°C · humidité 87% · précipitations 9.8mm · stade fermé\n⚠️ Compo PROBABLE (officielle à T-60min)\n⚽ P(Netherlands marque 2+) = 70.5% (λ = 2.47)\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+        "calibration_delta": -11.3,
+        "history_top3": true
+      }
+    ],
+    "home_players": [],
+    "away_players": [
+      {
+        "player": "Viktor Gyökeres",
+        "position": "F",
+        "is_sub": true,
+        "type": "Buteur",
+        "label": "Viktor Gyökeres marque",
+        "cote": 3.2,
+        "cote_min": 1.98,
+        "book": "bovada",
+        "books": [],
+        "confidence": 46,
+        "reasoning": "⚠️ Compo PROBABLE (a confirmer 1h avant). Viktor Gyökeres : selection 6G/8m (0.75/m) · L10 club : 5G/10m, 🔥 3G/3 derniers nat (+19%) | titu nat (86min/m) · last match 90min (1G+1A). λ ajusté à 0.70 (Sweden attendu 1.3 buts) → P(marque) ~46%.\n📉 Calibration : bucket 40-49% historiquement à WR 25% (claim 44%, n=36) — sur-estimé de 19pp",
+        "context": {
+          "source": "lineup",
+          "lam": 0.7,
+          "lineup_status": "predicted"
+        },
+        "stats": {
+          "goals": null,
+          "apps": null,
+          "gpm": 0.704,
+          "xgpm": null
+        },
+        "team": "away",
+        "lineup_status": "predicted",
+        "tier": "fun",
+        "calibration_delta": -19.4,
+        "edge_pp": 14.8,
+        "history_top3": true
+      },
+      {
+        "player": "Yasin Ayari",
+        "position": "F",
+        "is_sub": false,
+        "type": "Buteur",
+        "label": "Yasin Ayari marque",
+        "team": "away",
+        "cote": 9.0,
+        "book": "bovada",
+        "books": [],
+        "confidence": 24,
+        "reasoning": "2G en 5 matchs (40.0%/match) · xG: 0.02/match",
+        "context": {
+          "weakness": 0.29
+        },
+        "stats": {
+          "goals": 2,
+          "apps": 5
+        },
+        "tier": "fun",
+        "edge_pp": 12.9,
+        "history_top3": false
+      }
+    ],
+    "fun_picks": [],
+    "top_pick": {
+      "direction": "away_win",
+      "type": "Victoire extérieur",
+      "label": "Sweden gagne",
+      "cote": 4.6,
+      "confidence": 63,
+      "reasoning": "Sweden : 3V/1N/1D sur 5 matchs · #1 au classement · H2H: 0V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
+      "stats": {
+        "form": [
+          "W",
+          "D",
+          "L",
+          "W",
+          "W"
+        ]
+      },
+      "is_fun": false,
+      "tier": "fun",
+      "calibration_delta": -25.4,
+      "edge_pp": 41.3,
+      "history_top3": true
+    },
+    "no_picks": false,
+    "context": {
+      "stadium": {
+        "name": "NRG Stadium",
+        "city": "Houston",
+        "country": "USA",
+        "lat": 29.6847,
+        "lon": -95.4107,
+        "capacity": 72220,
+        "surface": "Natural grass",
+        "altitude_m": 18,
+        "type": "indoor",
+        "climatized": true,
+        "context_fr": "Toit retractable, climatisé. Houston chaud et humide en été."
+      },
+      "weather": {
+        "temp_max": 30.3,
+        "temp_min": 24.1,
+        "humidity": 87,
+        "precipitation_sum_mm": 9.8,
+        "wind_max_kmh": 17.6,
+        "weather_code": 95,
+        "summary_fr": "⛈️ orage · 24–30°C · humidité 87% · précipitations 9.8mm"
+      },
+      "text": "Conditions : ⛈️ orage · 24–30°C · humidité 87% · précipitations 9.8mm. Stade : NRG Stadium · altitude 18m · 72 220 places · climatisé. Toit retractable, climatisé. Houston chaud et humide en été. ⚠️ Pluies prévues : terrain potentiellement lourd, jeu direct privilégié, plus d'erreurs techniques."
     }
   },
   {
