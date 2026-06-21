@@ -68,11 +68,11 @@
         "books": [],
         "confidence": 70,
         "cote_min": 1.43,
-        "reasoning": "📈 P(Elias Mar Omarsson marque) ≈ 67% · P(Oskar Borgthorsson marque) ≈ 64%\n🎯 P(au moins un marque) = 70% (calculée par 1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.43 - chercher ≥1.43 chez le bookmaker\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+        "reasoning": "📈 P(Elias Mar Omarsson marque) ≈ 67% · P(Oskar Borgthorsson marque) ≈ 63%\n🎯 P(au moins un marque) = 70% (calculée par 1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.43 - chercher ≥1.43 chez le bookmaker\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
         "context": {},
         "stats": {
           "p_a": 0.668,
-          "p_b": 0.638,
+          "p_b": 0.63,
           "p_or": 0.7,
           "player_a": "Elias Mar Omarsson",
           "player_b": "Oskar Borgthorsson"
@@ -92,9 +92,9 @@
         "book": null,
         "books": [],
         "confidence": 67,
-        "reasoning": "9 buts en 11 matchs cette saison (81.8% de chance/match) · bonne efficacité (26% conv.) · xG moyen 0.00/match, face à une défense qui concède 1.9 buts/match · défense correcte\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
+        "reasoning": "9 buts en 11 matchs cette saison (81.8% de chance/match) · bonne efficacité (26% conv.) · xG moyen 0.00/match, défense adverse poreuse (1.7 buts concédés/match) · défense correcte\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
         "context": {
-          "weakness": 0.4
+          "weakness": 0.38
         },
         "stats": {
           "goals": 9,
@@ -165,7 +165,7 @@
         "direction": "home_win",
         "type": "Victoire domicile",
         "label": "Argentina gagne",
-        "cote": 1.54,
+        "cote": 1.53,
         "confidence": 81,
         "reasoning": "Argentina : 5V/0N/0D sur 5 matchs · #1 au classement · H2H: 0V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 80-89% historiquement à WR 56% (claim 82%, n=63) — sur-estimé de 26pp",
         "stats": {
@@ -180,7 +180,7 @@
         "is_fun": false,
         "tier": "safe",
         "calibration_delta": -26.0,
-        "edge_pp": 16.1,
+        "edge_pp": 15.6,
         "history_top3": true
       },
       {
@@ -382,7 +382,7 @@
       "direction": "home_win",
       "type": "Victoire domicile",
       "label": "Argentina gagne",
-      "cote": 1.54,
+      "cote": 1.53,
       "confidence": 81,
       "reasoning": "Argentina : 5V/0N/0D sur 5 matchs · #1 au classement · H2H: 0V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 80-89% historiquement à WR 56% (claim 82%, n=63) — sur-estimé de 26pp",
       "stats": {
@@ -397,7 +397,7 @@
       "is_fun": false,
       "tier": "safe",
       "calibration_delta": -26.0,
-      "edge_pp": 16.1,
+      "edge_pp": 15.6,
       "history_top3": true
     },
     "no_picks": false,
@@ -720,7 +720,7 @@
         "direction": "wc_under_25",
         "type": "⚽ Total buts WC",
         "label": "Moins de 2.5 buts",
-        "cote": 1.67,
+        "cote": 1.69,
         "cote_min": 1.29,
         "confidence": 78,
         "tier": "safe",
@@ -735,7 +735,7 @@
         },
         "reasoning": "📊 Écart FIFA significatif : Uruguay #14 vs Cape Verde #65 (gap +346 pts, P favori ≈ 88%).\nL10 : Uruguay 0V/4N/1D sur 5 · Cape Verde 1V/3N/1D sur 5\n📋 Fiche Uruguay : off en panne (-0.52) · def moyenne (-0.28) · forme DDDLD · 🏆 habituée du tournoi\n📋 Fiche Cape Verde : off solide (+1.00) · def solide (+0.57) · forme DWDLD · 🏆 novice WC\n🎯 Importance : Uruguay : 1 match joué (1pts) · Cape Verde : 1 match joué (1pts)\n🌦️ Conditions : chaleur 33.7°C (-10%)\n⚠️ Compo PROBABLE (officielle à T-60min)\n⚽ Modèle Poisson : λ total = 1.62\nP(moins de 2.5 buts) = 77.8%\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
         "calibration_delta": -11.3,
-        "edge_pp": 18.1,
+        "edge_pp": 18.8,
         "history_top3": true
       },
       {
@@ -856,7 +856,7 @@
       "direction": "wc_under_25",
       "type": "⚽ Total buts WC",
       "label": "Moins de 2.5 buts",
-      "cote": 1.67,
+      "cote": 1.69,
       "cote_min": 1.29,
       "confidence": 78,
       "tier": "safe",
@@ -871,7 +871,7 @@
       },
       "reasoning": "📊 Écart FIFA significatif : Uruguay #14 vs Cape Verde #65 (gap +346 pts, P favori ≈ 88%).\nL10 : Uruguay 0V/4N/1D sur 5 · Cape Verde 1V/3N/1D sur 5\n📋 Fiche Uruguay : off en panne (-0.52) · def moyenne (-0.28) · forme DDDLD · 🏆 habituée du tournoi\n📋 Fiche Cape Verde : off solide (+1.00) · def solide (+0.57) · forme DWDLD · 🏆 novice WC\n🎯 Importance : Uruguay : 1 match joué (1pts) · Cape Verde : 1 match joué (1pts)\n🌦️ Conditions : chaleur 33.7°C (-10%)\n⚠️ Compo PROBABLE (officielle à T-60min)\n⚽ Modèle Poisson : λ total = 1.62\nP(moins de 2.5 buts) = 77.8%\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
       "calibration_delta": -11.3,
-      "edge_pp": 18.1,
+      "edge_pp": 18.8,
       "history_top3": true
     },
     "no_picks": false,
