@@ -31,24 +31,24 @@
     ],
     "home_players": [
       {
-        "player": "Kennie Chopart / Atli Jonasson",
+        "player": "Kennie Chopart / Atli Jónasson",
         "position": "",
         "is_sub": false,
         "type": "Double Chance Buteur",
-        "label": "Kennie Chopart ou Atli Jonasson marque",
+        "label": "Kennie Chopart ou Atli Jónasson marque",
         "cote": null,
         "book": null,
         "books": [],
         "confidence": 70,
         "cote_min": 1.43,
-        "reasoning": "📈 P(Kennie Chopart marque) ≈ 55% · P(Atli Jonasson marque) ≈ 52%\n🎯 P(au moins un marque) = 70% (calculée par 1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.43 - chercher ≥1.43 chez le bookmaker\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+        "reasoning": "📈 P(Kennie Chopart marque) ≈ 55% · P(Atli Jónasson marque) ≈ 52%\n🎯 P(au moins un marque) = 70% (calculée par 1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.43 - chercher ≥1.43 chez le bookmaker\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
         "context": {},
         "stats": {
           "p_a": 0.548,
           "p_b": 0.525,
           "p_or": 0.7,
           "player_a": "Kennie Chopart",
-          "player_b": "Atli Jonasson"
+          "player_b": "Atli Jónasson"
         },
         "team": "home",
         "tier": "safe",
@@ -58,24 +58,24 @@
     ],
     "away_players": [
       {
-        "player": "Elias Mar Omarsson / Oskar Borgthorsson",
+        "player": "Óskar Borgthórsson / Gylfi Sigurdsson",
         "position": "",
         "is_sub": false,
         "type": "Double Chance Buteur",
-        "label": "Elias Mar Omarsson ou Oskar Borgthorsson marque",
+        "label": "Óskar Borgthórsson ou Gylfi Sigurdsson marque",
         "cote": null,
         "book": null,
         "books": [],
         "confidence": 70,
         "cote_min": 1.43,
-        "reasoning": "📈 P(Elias Mar Omarsson marque) ≈ 67% · P(Oskar Borgthorsson marque) ≈ 63%\n🎯 P(au moins un marque) = 70% (calculée par 1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.43 - chercher ≥1.43 chez le bookmaker\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+        "reasoning": "📈 P(Óskar Borgthórsson marque) ≈ 64% · P(Gylfi Sigurdsson marque) ≈ 56%\n🎯 P(au moins un marque) = 70% (calculée par 1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.43 - chercher ≥1.43 chez le bookmaker\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
         "context": {},
         "stats": {
-          "p_a": 0.668,
-          "p_b": 0.63,
+          "p_a": 0.638,
+          "p_b": 0.562,
           "p_or": 0.7,
-          "player_a": "Elias Mar Omarsson",
-          "player_b": "Oskar Borgthorsson"
+          "player_a": "Óskar Borgthórsson",
+          "player_b": "Gylfi Sigurdsson"
         },
         "team": "away",
         "tier": "safe",
@@ -83,23 +83,23 @@
         "history_top3": true
       },
       {
-        "player": "Elias Mar Omarsson",
+        "player": "Óskar Borgthórsson",
         "position": "F",
         "is_sub": false,
         "type": "Buteur",
-        "label": "Elias Mar Omarsson marque",
+        "label": "Óskar Borgthórsson marque",
         "cote": null,
         "book": null,
         "books": [],
-        "confidence": 67,
-        "reasoning": "9 buts en 11 matchs cette saison (81.8% de chance/match) · bonne efficacité (26% conv.) · xG moyen 0.00/match, défense adverse poreuse (1.7 buts concédés/match) · défense correcte\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
+        "confidence": 64,
+        "reasoning": "8 buts en 11 matchs cette saison (72.7% de chance/match) · bonne efficacité (20% conv.) · xG moyen 0.00/match, face à une défense qui concède 1.9 buts/match · défense correcte\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
         "context": {
-          "weakness": 0.38
+          "weakness": 0.4
         },
         "stats": {
-          "goals": 9,
+          "goals": 8,
           "apps": 11,
-          "gpm": 0.818,
+          "gpm": 0.727,
           "xgpm": 0
         },
         "team": "away",
@@ -538,178 +538,6 @@
   },
   {
     "league": "World Cup",
-    "home": "Belgium",
-    "away": "Iran",
-    "start_ts": 1782068400,
-    "match_id": "4667793",
-    "page_url": "/matches/iran-vs-belgium/1ur91k#4667793",
-    "picks": [
-      {
-        "direction": "wc_home_win",
-        "type": "🏆 Vainqueur WC",
-        "label": "Belgium gagne",
-        "cote": 1.43,
-        "cote_min": 1.27,
-        "confidence": 78,
-        "tier": "safe",
-        "stats": {
-          "lam_h": 2.75,
-          "lam_a": 0.74,
-          "h_fifa_rank": 8,
-          "a_fifa_rank": 19,
-          "elo_gap": 115,
-          "wc_round": null,
-          "family": "1X2"
-        },
-        "reasoning": "📊 Niveau équilibré : Belgium #8 vs Iran #19 (gap +115 pts).\n🇪🇺 Belgium UEFA powerhouse\nL10 : Belgium 3V/2N/0D sur 5 · Iran 1V/3N/1D sur 5\n📋 Fiche Belgium : off moyen (+0.26) · def moyenne (-0.23) · forme DWWDW · 🏆 régulière phase finale\n   ↳ Historique : phase de poules en 2022 · demi-finaliste en 2018 · quart de finale en 2014\n📋 Fiche Iran : off en panne (-0.44) · def fragile (-0.88) · forme DWLDD · 🏆 présence occasionnelle\n🎯 Importance : Belgium : 1 match joué (1pts) · Iran : 1 match joué (1pts)\n🌦️ ☁️ couvert · 13–22°C · humidité 73% · stade fermé\n✅ Compo OFFICIELLE\n🏆 Modèle Poisson CdM (tier FIFA ajusté)\nλ Belgium = 2.75 buts attendus, λ Iran = 0.74\nP(Belgium gagne) = 78.5% · P(nul) = 13.3% · P(Iran) = 7.5%\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
-        "calibration_delta": -11.3,
-        "edge_pp": 8.1,
-        "history_top3": true
-      },
-      {
-        "direction": "wc_over_25",
-        "type": "⚽ Total buts WC",
-        "label": "Plus de 2.5 buts",
-        "cote": 1.87,
-        "cote_min": 1.48,
-        "confidence": 68,
-        "tier": "ok",
-        "stats": {
-          "lam_h": 2.75,
-          "lam_a": 0.74,
-          "h_fifa_rank": 8,
-          "a_fifa_rank": 19,
-          "elo_gap": 115,
-          "wc_round": null,
-          "family": "TOTAL"
-        },
-        "reasoning": "📊 Niveau équilibré : Belgium #8 vs Iran #19 (gap +115 pts).\n🇪🇺 Belgium UEFA powerhouse\nL10 : Belgium 3V/2N/0D sur 5 · Iran 1V/3N/1D sur 5\n📋 Fiche Belgium : off moyen (+0.26) · def moyenne (-0.23) · forme DWWDW · 🏆 régulière phase finale\n   ↳ Historique : phase de poules en 2022 · demi-finaliste en 2018 · quart de finale en 2014\n📋 Fiche Iran : off en panne (-0.44) · def fragile (-0.88) · forme DWLDD · 🏆 présence occasionnelle\n🎯 Importance : Belgium : 1 match joué (1pts) · Iran : 1 match joué (1pts)\n🌦️ ☁️ couvert · 13–22°C · humidité 73% · stade fermé\n✅ Compo OFFICIELLE\n⚽ Modèle Poisson : λ total = 3.49\nP(plus de 2.5 buts) = 67.8%\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
-        "calibration_delta": -25.4,
-        "edge_pp": 14.5,
-        "history_top3": true
-      },
-      {
-        "direction": "wc_home_scores_2",
-        "type": "⚽ Buteur équipe WC",
-        "label": "Belgium marque 2+ buts",
-        "cote": null,
-        "cote_min": 1.32,
-        "confidence": 76,
-        "tier": "safe",
-        "stats": {
-          "lam_h": 2.75,
-          "lam_a": 0.74,
-          "h_fifa_rank": 8,
-          "a_fifa_rank": 19,
-          "elo_gap": 115,
-          "wc_round": null,
-          "family": "BUT_TEAM"
-        },
-        "reasoning": "📊 Niveau équilibré : Belgium #8 vs Iran #19 (gap +115 pts).\n🇪🇺 Belgium UEFA powerhouse\nL10 : Belgium 3V/2N/0D sur 5 · Iran 1V/3N/1D sur 5\n📋 Fiche Belgium : off moyen (+0.26) · def moyenne (-0.23) · forme DWWDW · 🏆 régulière phase finale\n   ↳ Historique : phase de poules en 2022 · demi-finaliste en 2018 · quart de finale en 2014\n📋 Fiche Iran : off en panne (-0.44) · def fragile (-0.88) · forme DWLDD · 🏆 présence occasionnelle\n🎯 Importance : Belgium : 1 match joué (1pts) · Iran : 1 match joué (1pts)\n🌦️ ☁️ couvert · 13–22°C · humidité 73% · stade fermé\n✅ Compo OFFICIELLE\n⚽ P(Belgium marque 2+) = 76.0% (λ = 2.75)\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
-        "calibration_delta": -11.3,
-        "history_top3": true
-      }
-    ],
-    "home_players": [],
-    "away_players": [],
-    "fun_picks": [
-      {
-        "direction": "wc_score_3_0",
-        "type": "🏆 Score exact WC",
-        "label": "Score exact : Belgium 3-0 Iran",
-        "cote_min": 9.52,
-        "confidence": 10,
-        "tier": "fun",
-        "is_fun": true,
-        "stats": {
-          "lam_h": 2.75,
-          "lam_a": 0.74,
-          "h_fifa_rank": 8,
-          "a_fifa_rank": 19,
-          "elo_gap": 115
-        },
-        "reasoning": "📊 Niveau équilibré : Belgium #8 vs Iran #19 (gap +115 pts).\n🇪🇺 Belgium UEFA powerhouse\nL10 : Belgium 3V/2N/0D sur 5 · Iran 1V/3N/1D sur 5\n🏆 Coupe du Monde 2026 - score exact (Poisson grid, ajusté Elo FIFA)\nλ Belgium = 2.75 buts, λ Iran = 0.74 buts\nTop 3 : 2-0 (11.5%) · 3-0 (10.5%) · 2-1 (8.5%)\n⚠️ Pari fun (cote élevée typique 4-8) - mise modeste",
-        "exact_score": [
-          3,
-          0
-        ],
-        "wc_top3": [
-          [
-            [
-              2,
-              0
-            ],
-            11.5
-          ],
-          [
-            [
-              3,
-              0
-            ],
-            10.5
-          ],
-          [
-            [
-              2,
-              1
-            ],
-            8.5
-          ]
-        ],
-        "history_top3": true
-      }
-    ],
-    "top_pick": {
-      "direction": "wc_home_win",
-      "type": "🏆 Vainqueur WC",
-      "label": "Belgium gagne",
-      "cote": 1.43,
-      "cote_min": 1.27,
-      "confidence": 78,
-      "tier": "safe",
-      "stats": {
-        "lam_h": 2.75,
-        "lam_a": 0.74,
-        "h_fifa_rank": 8,
-        "a_fifa_rank": 19,
-        "elo_gap": 115,
-        "wc_round": null,
-        "family": "1X2"
-      },
-      "reasoning": "📊 Niveau équilibré : Belgium #8 vs Iran #19 (gap +115 pts).\n🇪🇺 Belgium UEFA powerhouse\nL10 : Belgium 3V/2N/0D sur 5 · Iran 1V/3N/1D sur 5\n📋 Fiche Belgium : off moyen (+0.26) · def moyenne (-0.23) · forme DWWDW · 🏆 régulière phase finale\n   ↳ Historique : phase de poules en 2022 · demi-finaliste en 2018 · quart de finale en 2014\n📋 Fiche Iran : off en panne (-0.44) · def fragile (-0.88) · forme DWLDD · 🏆 présence occasionnelle\n🎯 Importance : Belgium : 1 match joué (1pts) · Iran : 1 match joué (1pts)\n🌦️ ☁️ couvert · 13–22°C · humidité 73% · stade fermé\n✅ Compo OFFICIELLE\n🏆 Modèle Poisson CdM (tier FIFA ajusté)\nλ Belgium = 2.75 buts attendus, λ Iran = 0.74\nP(Belgium gagne) = 78.5% · P(nul) = 13.3% · P(Iran) = 7.5%\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
-      "calibration_delta": -11.3,
-      "edge_pp": 8.1,
-      "history_top3": true
-    },
-    "no_picks": false,
-    "context": {
-      "stadium": {
-        "name": "SoFi Stadium",
-        "city": "Inglewood (Los Angeles)",
-        "country": "USA",
-        "lat": 33.9535,
-        "lon": -118.3392,
-        "capacity": 70240,
-        "surface": "Natural grass",
-        "altitude_m": 50,
-        "type": "indoor",
-        "climatized": true,
-        "context_fr": "Toit fixe ouvert sur les côtés. Climat doux côte californienne."
-      },
-      "weather": {
-        "temp_max": 22.1,
-        "temp_min": 13.8,
-        "humidity": 73,
-        "precipitation_sum_mm": 0.0,
-        "wind_max_kmh": 15.6,
-        "weather_code": 3,
-        "summary_fr": "☁️ couvert · 13–22°C · humidité 73%"
-      },
-      "text": "Conditions : ☁️ couvert · 13–22°C · humidité 73%. Stade : SoFi Stadium · altitude 50m · 70 240 places · climatisé. Toit fixe ouvert sur les côtés. Climat doux côte californienne."
-    }
-  },
-  {
-    "league": "World Cup",
     "home": "Uruguay",
     "away": "Cape Verde",
     "start_ts": 1782079200,
@@ -720,7 +548,7 @@
         "direction": "wc_under_25",
         "type": "⚽ Total buts WC",
         "label": "Moins de 2.5 buts",
-        "cote": 1.69,
+        "cote": 1.67,
         "cote_min": 1.29,
         "confidence": 78,
         "tier": "safe",
@@ -735,7 +563,7 @@
         },
         "reasoning": "📊 Écart FIFA significatif : Uruguay #14 vs Cape Verde #65 (gap +346 pts, P favori ≈ 88%).\nL10 : Uruguay 0V/4N/1D sur 5 · Cape Verde 1V/3N/1D sur 5\n📋 Fiche Uruguay : off en panne (-0.52) · def moyenne (-0.28) · forme DDDLD · 🏆 habituée du tournoi\n📋 Fiche Cape Verde : off solide (+1.00) · def solide (+0.57) · forme DWDLD · 🏆 novice WC\n🎯 Importance : Uruguay : 1 match joué (1pts) · Cape Verde : 1 match joué (1pts)\n🌦️ Conditions : chaleur 33.7°C (-10%)\n⚠️ Compo PROBABLE (officielle à T-60min)\n⚽ Modèle Poisson : λ total = 1.62\nP(moins de 2.5 buts) = 77.8%\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
         "calibration_delta": -11.3,
-        "edge_pp": 18.8,
+        "edge_pp": 18.1,
         "history_top3": true
       },
       {
@@ -856,7 +684,7 @@
       "direction": "wc_under_25",
       "type": "⚽ Total buts WC",
       "label": "Moins de 2.5 buts",
-      "cote": 1.69,
+      "cote": 1.67,
       "cote_min": 1.29,
       "confidence": 78,
       "tier": "safe",
@@ -871,7 +699,7 @@
       },
       "reasoning": "📊 Écart FIFA significatif : Uruguay #14 vs Cape Verde #65 (gap +346 pts, P favori ≈ 88%).\nL10 : Uruguay 0V/4N/1D sur 5 · Cape Verde 1V/3N/1D sur 5\n📋 Fiche Uruguay : off en panne (-0.52) · def moyenne (-0.28) · forme DDDLD · 🏆 habituée du tournoi\n📋 Fiche Cape Verde : off solide (+1.00) · def solide (+0.57) · forme DWDLD · 🏆 novice WC\n🎯 Importance : Uruguay : 1 match joué (1pts) · Cape Verde : 1 match joué (1pts)\n🌦️ Conditions : chaleur 33.7°C (-10%)\n⚠️ Compo PROBABLE (officielle à T-60min)\n⚽ Modèle Poisson : λ total = 1.62\nP(moins de 2.5 buts) = 77.8%\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
       "calibration_delta": -11.3,
-      "edge_pp": 18.8,
+      "edge_pp": 18.1,
       "history_top3": true
     },
     "no_picks": false,
@@ -1764,24 +1592,24 @@
     ],
     "away_players": [
       {
-        "player": "Markus Ellertsson / Viktor Jonsson",
+        "player": "Markús Ellertsson / Viktor Jónsson",
         "position": "",
         "is_sub": false,
         "type": "Double Chance Buteur",
-        "label": "Markus Ellertsson ou Viktor Jonsson marque",
+        "label": "Markús Ellertsson ou Viktor Jónsson marque",
         "cote": null,
         "book": null,
         "books": [],
         "confidence": 70,
         "cote_min": 1.43,
-        "reasoning": "📈 P(Markus Ellertsson marque) ≈ 59% · P(Viktor Jonsson marque) ≈ 49%\n🎯 P(au moins un marque) = 70% (calculée par 1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.43 - chercher ≥1.43 chez le bookmaker\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+        "reasoning": "📈 P(Markús Ellertsson marque) ≈ 59% · P(Viktor Jónsson marque) ≈ 49%\n🎯 P(au moins un marque) = 70% (calculée par 1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.43 - chercher ≥1.43 chez le bookmaker\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
         "context": {},
         "stats": {
           "p_a": 0.592,
           "p_b": 0.488,
           "p_or": 0.7,
-          "player_a": "Markus Ellertsson",
-          "player_b": "Viktor Jonsson"
+          "player_a": "Markús Ellertsson",
+          "player_b": "Viktor Jónsson"
         },
         "team": "away",
         "tier": "safe",
