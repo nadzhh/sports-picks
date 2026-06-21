@@ -23863,9 +23863,9 @@
       "book": null,
       "books": [],
       "confidence": 64,
-      "reasoning": "8 buts en 11 matchs cette saison (72.7% de chance/match) · bonne efficacité (19% conv.) · xG moyen 0.00/match, face à une défense qui concède 2.0 buts/match · défense correcte\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
+      "reasoning": "8 buts en 11 matchs cette saison (72.7% de chance/match) · bonne efficacité (19% conv.) · xG moyen 0.00/match, face à une défense qui concède 2.2 buts/match · défense correcte\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
       "context": {
-        "weakness": 0.41
+        "weakness": 0.43
       },
       "stats": {
         "goals": 8,
@@ -23996,7 +23996,7 @@
       "direction": "wc_under_25",
       "type": "⚽ Total buts WC",
       "label": "Moins de 2.5 buts",
-      "cote": 1.69,
+      "cote": 1.77,
       "cote_min": 1.29,
       "confidence": 78,
       "tier": "safe",
@@ -24011,7 +24011,7 @@
       },
       "reasoning": "📊 Écart FIFA significatif : Uruguay #14 vs Cape Verde #65 (gap +346 pts, P favori ≈ 88%).\nL10 : Uruguay 0V/4N/1D sur 5 · Cape Verde 1V/3N/1D sur 5\n📋 Fiche Uruguay : off en panne (-0.52) · def moyenne (-0.28) · forme DDDLD · 🏆 habituée du tournoi\n📋 Fiche Cape Verde : off solide (+1.00) · def solide (+0.57) · forme DWDLD · 🏆 novice WC\n🎯 Importance : Uruguay : 1 match joué (1pts) · Cape Verde : 1 match joué (1pts)\n🌦️ Conditions : chaleur 33.7°C (-10%)\n✅ Compo OFFICIELLE\n⚽ Modèle Poisson : λ total = 1.62\nP(moins de 2.5 buts) = 77.8%\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
       "calibration_delta": -11.3,
-      "edge_pp": 18.8,
+      "edge_pp": 21.5,
       "history_top3": true,
       "id": "2026-06-21_4667800_team_wc_under_25",
       "date": "2026-06-21",
@@ -24040,7 +24040,7 @@
           "D"
         ]
       },
-      "reasoning": "Deux équipes au niveau similaire (#2 vs #4), forme équilibrée des deux côtés — nul logique à 4.6\n📉 Calibration : bucket 40-49% historiquement à WR 25% (claim 44%, n=36) — sur-estimé de 19pp",
+      "reasoning": "Deux équipes au niveau similaire (#2 vs #3), forme équilibrée des deux côtés — nul logique à 4.6\n📉 Calibration : bucket 40-49% historiquement à WR 25% (claim 44%, n=36) — sur-estimé de 19pp",
       "tier": "fun",
       "calibration_delta": -19.4,
       "edge_pp": 23.3,
@@ -24184,6 +24184,78 @@
       "actual": null,
       "resolved_at": null,
       "side": "home"
+    },
+    {
+      "player": "Njoya Kader / Matijus Remeikis",
+      "position": "",
+      "is_sub": false,
+      "type": "Double Chance Buteur",
+      "label": "Njoya Kader ou Matijus Remeikis marque",
+      "cote": null,
+      "book": null,
+      "books": [],
+      "confidence": 70,
+      "cote_min": 1.43,
+      "reasoning": "📈 P(Njoya Kader marque) ≈ 50% · P(Matijus Remeikis marque) ≈ 46%\n🎯 P(au moins un marque) = 70% (calculée par 1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.43 - chercher ≥1.43 chez le bookmaker\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+      "context": {},
+      "stats": {
+        "p_a": 0.502,
+        "p_b": 0.465,
+        "p_or": 0.7,
+        "player_a": "Njoya Kader",
+        "player_b": "Matijus Remeikis"
+      },
+      "team": "away",
+      "tier": "safe",
+      "calibration_delta": -11.3,
+      "history_top3": true,
+      "id": "2026-06-22_5185241_player_Njoya Kader / Matijus Remeikis_Double Chance Buteur",
+      "date": "2026-06-22",
+      "match_id": "5185241",
+      "page_url": "/matches/riteriai-vs-hegelmann/6azdhzhs#5185241",
+      "matchup": "Riteriai vs Hegelmann",
+      "league": "Lithuanian Toplyga",
+      "category": "player",
+      "result": "PENDING",
+      "actual": null,
+      "resolved_at": null,
+      "side": "away"
+    },
+    {
+      "player": "Njoya Kader",
+      "position": "F",
+      "is_sub": false,
+      "type": "Buteur",
+      "label": "Njoya Kader marque",
+      "cote": null,
+      "book": null,
+      "books": [],
+      "confidence": 50,
+      "reasoning": "8 buts en 20 matchs cette saison (40.0% de chance/match) · xG moyen 0.00/match, face à une défense qui concède 2.6 buts/match · défense fragile\n📉 Calibration : bucket 50-59% historiquement à WR 42% (claim 55%, n=41) — sur-estimé de 14pp",
+      "context": {
+        "weakness": 0.61
+      },
+      "stats": {
+        "goals": 8,
+        "apps": 20,
+        "gpm": 0.4,
+        "xgpm": 0
+      },
+      "team": "away",
+      "tier": "fun",
+      "calibration_delta": -13.6,
+      "history_top3": true,
+      "id": "2026-06-22_5185241_player_Njoya Kader_Buteur",
+      "date": "2026-06-22",
+      "match_id": "5185241",
+      "page_url": "/matches/riteriai-vs-hegelmann/6azdhzhs#5185241",
+      "matchup": "Riteriai vs Hegelmann",
+      "league": "Lithuanian Toplyga",
+      "category": "player",
+      "result": "PENDING",
+      "actual": null,
+      "resolved_at": null,
+      "side": "away"
     },
     {
       "direction": "wc_away_scores_2",
