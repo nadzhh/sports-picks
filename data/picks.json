@@ -968,7 +968,7 @@
         "direction": "wc_over_25",
         "type": "⚽ Total buts WC",
         "label": "Plus de 2.5 buts",
-        "cote": 1.74,
+        "cote": 1.77,
         "cote_min": 1.48,
         "confidence": 68,
         "tier": "ok",
@@ -983,7 +983,7 @@
         },
         "reasoning": "📊 Niveau équilibré : Belgium #8 vs Iran #19 (gap +115 pts).\n🇪🇺 Belgium UEFA powerhouse\nL10 : Belgium 3V/2N/0D sur 5 · Iran 1V/3N/1D sur 5\n📋 Fiche Belgium : off moyen (+0.26) · def moyenne (-0.23) · forme DWWDW · 🏆 régulière phase finale\n   ↳ Historique : phase de poules en 2022 · demi-finaliste en 2018 · quart de finale en 2014\n📋 Fiche Iran : off en panne (-0.44) · def fragile (-0.88) · forme DWLDD · 🏆 présence occasionnelle\n🎯 Importance : Belgium : 1 match joué (1pts) · Iran : 1 match joué (1pts)\n🌦️ ☁️ couvert · 13–22°C · humidité 71% · stade fermé\n⚠️ Compo PROBABLE (officielle à T-60min)\n⚽ Modèle Poisson : λ total = 3.49\nP(plus de 2.5 buts) = 67.8%\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
         "calibration_delta": -25.4,
-        "edge_pp": 10.5,
+        "edge_pp": 11.5,
         "history_top3": true
       },
       {
@@ -1655,6 +1655,115 @@
     }
   },
   {
+    "league": "Lithuanian Toplyga",
+    "home": "Dziugas Telsiai",
+    "away": "Suduva",
+    "start_ts": 1782040500,
+    "match_id": "5185245",
+    "page_url": "/matches/suduva-vs-dziugas-telsiai/2k3dmy03#5185245",
+    "picks": [
+      {
+        "direction": "away_win",
+        "type": "Victoire extérieur",
+        "label": "Suduva gagne",
+        "cote": null,
+        "confidence": 72,
+        "reasoning": "Suduva : 3V/2N/0D sur 5 matchs · #3 au classement · H2H: 1V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+        "stats": {
+          "form": [
+            "W",
+            "D",
+            "W",
+            "W",
+            "D"
+          ]
+        },
+        "is_fun": false,
+        "tier": "safe",
+        "calibration_delta": -11.3,
+        "history_top3": true
+      }
+    ],
+    "home_players": [
+      {
+        "player": "Ronald Sobowale / Denis Zevzikovas",
+        "position": "",
+        "is_sub": false,
+        "type": "Double Chance Buteur",
+        "label": "Ronald Sobowale ou Denis Zevzikovas marque",
+        "cote": null,
+        "book": null,
+        "books": [],
+        "confidence": 68,
+        "cote_min": 1.47,
+        "reasoning": "📈 P(Ronald Sobowale marque) ≈ 45% · P(Denis Zevzikovas marque) ≈ 42%\n🎯 P(au moins un marque) = 68% (calculée par 1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.47 - chercher ≥1.47 chez le bookmaker\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
+        "context": {},
+        "stats": {
+          "p_a": 0.45,
+          "p_b": 0.42,
+          "p_or": 0.681,
+          "player_a": "Ronald Sobowale",
+          "player_b": "Denis Zevzikovas"
+        },
+        "team": "home",
+        "tier": "ok",
+        "calibration_delta": -25.4,
+        "history_top3": true
+      }
+    ],
+    "away_players": [
+      {
+        "player": "Faustas Steponavicius / Meinardas Mikulenas",
+        "position": "",
+        "is_sub": false,
+        "type": "Double Chance Buteur",
+        "label": "Faustas Steponavicius ou Meinardas Mikulenas marque",
+        "cote": null,
+        "book": null,
+        "books": [],
+        "confidence": 68,
+        "cote_min": 1.47,
+        "reasoning": "📈 P(Faustas Steponavicius marque) ≈ 44% · P(Meinardas Mikulenas marque) ≈ 43%\n🎯 P(au moins un marque) = 68% (calculée par 1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.47 - chercher ≥1.47 chez le bookmaker\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
+        "context": {},
+        "stats": {
+          "p_a": 0.435,
+          "p_b": 0.428,
+          "p_or": 0.677,
+          "player_a": "Faustas Steponavicius",
+          "player_b": "Meinardas Mikulenas"
+        },
+        "team": "away",
+        "tier": "ok",
+        "calibration_delta": -25.4,
+        "history_top3": true
+      }
+    ],
+    "fun_picks": [],
+    "top_pick": {
+      "direction": "away_win",
+      "type": "Victoire extérieur",
+      "label": "Suduva gagne",
+      "cote": null,
+      "confidence": 72,
+      "reasoning": "Suduva : 3V/2N/0D sur 5 matchs · #3 au classement · H2H: 1V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+      "stats": {
+        "form": [
+          "W",
+          "D",
+          "W",
+          "W",
+          "D"
+        ]
+      },
+      "is_fun": false,
+      "tier": "safe",
+      "calibration_delta": -11.3,
+      "history_top3": true
+    },
+    "no_picks": false,
+    "context": null
+  },
+  {
     "league": "Icelandic Besta",
     "home": "Breidablik",
     "away": "KA Akureyri",
@@ -2171,115 +2280,6 @@
       },
       "text": "Conditions : ☁️ couvert · 7–14°C · humidité 52%. Stade : N1-völlurinn Hlíðarenda · 2 489 places · plein air."
     }
-  },
-  {
-    "league": "Lithuanian Toplyga",
-    "home": "Dziugas Telsiai",
-    "away": "Suduva",
-    "start_ts": 1782040500,
-    "match_id": "5185245",
-    "page_url": "/matches/suduva-vs-dziugas-telsiai/2k3dmy03#5185245",
-    "picks": [
-      {
-        "direction": "away_win",
-        "type": "Victoire extérieur",
-        "label": "Suduva gagne",
-        "cote": null,
-        "confidence": 70,
-        "reasoning": "Suduva : 3V/2N/0D sur 5 matchs · #5 au classement · H2H: 1V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
-        "stats": {
-          "form": [
-            "W",
-            "D",
-            "W",
-            "W",
-            "D"
-          ]
-        },
-        "is_fun": false,
-        "tier": "safe",
-        "calibration_delta": -11.3,
-        "history_top3": true
-      }
-    ],
-    "home_players": [
-      {
-        "player": "Ronald Sobowale / Denis Zevzikovas",
-        "position": "",
-        "is_sub": false,
-        "type": "Double Chance Buteur",
-        "label": "Ronald Sobowale ou Denis Zevzikovas marque",
-        "cote": null,
-        "book": null,
-        "books": [],
-        "confidence": 69,
-        "cote_min": 1.45,
-        "reasoning": "📈 P(Ronald Sobowale marque) ≈ 46% · P(Denis Zevzikovas marque) ≈ 43%\n🎯 P(au moins un marque) = 69% (calculée par 1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.45 - chercher ≥1.45 chez le bookmaker\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
-        "context": {},
-        "stats": {
-          "p_a": 0.458,
-          "p_b": 0.428,
-          "p_or": 0.69,
-          "player_a": "Ronald Sobowale",
-          "player_b": "Denis Zevzikovas"
-        },
-        "team": "home",
-        "tier": "ok",
-        "calibration_delta": -25.4,
-        "history_top3": true
-      }
-    ],
-    "away_players": [
-      {
-        "player": "Faustas Steponavicius / Meinardas Mikulenas",
-        "position": "",
-        "is_sub": false,
-        "type": "Double Chance Buteur",
-        "label": "Faustas Steponavicius ou Meinardas Mikulenas marque",
-        "cote": null,
-        "book": null,
-        "books": [],
-        "confidence": 68,
-        "cote_min": 1.47,
-        "reasoning": "📈 P(Faustas Steponavicius marque) ≈ 44% · P(Meinardas Mikulenas marque) ≈ 43%\n🎯 P(au moins un marque) = 68% (calculée par 1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.47 - chercher ≥1.47 chez le bookmaker\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
-        "context": {},
-        "stats": {
-          "p_a": 0.435,
-          "p_b": 0.428,
-          "p_or": 0.677,
-          "player_a": "Faustas Steponavicius",
-          "player_b": "Meinardas Mikulenas"
-        },
-        "team": "away",
-        "tier": "ok",
-        "calibration_delta": -25.4,
-        "history_top3": true
-      }
-    ],
-    "fun_picks": [],
-    "top_pick": {
-      "direction": "away_win",
-      "type": "Victoire extérieur",
-      "label": "Suduva gagne",
-      "cote": null,
-      "confidence": 70,
-      "reasoning": "Suduva : 3V/2N/0D sur 5 matchs · #5 au classement · H2H: 1V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
-      "stats": {
-        "form": [
-          "W",
-          "D",
-          "W",
-          "W",
-          "D"
-        ]
-      },
-      "is_fun": false,
-      "tier": "safe",
-      "calibration_delta": -11.3,
-      "history_top3": true
-    },
-    "no_picks": false,
-    "context": null
   },
   {
     "league": "Lithuanian Toplyga",
