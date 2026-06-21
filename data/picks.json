@@ -455,31 +455,32 @@
         "history_top3": true
       }
     ],
-    "home_players": [],
+    "home_players": [
+      {
+        "player": "Maxi Araújo",
+        "position": "M",
+        "is_sub": false,
+        "type": "Buteur",
+        "label": "Maxi Araújo marque",
+        "team": "home",
+        "cote": null,
+        "book": null,
+        "books": [],
+        "confidence": 32,
+        "reasoning": "2G en 5 matchs (40.0%/match) · xG: 0.24/match",
+        "context": {
+          "weakness": 0.39
+        },
+        "stats": {
+          "goals": 2,
+          "apps": 5
+        },
+        "tier": "fun",
+        "history_top3": true
+      }
+    ],
     "away_players": [],
     "fun_picks": [
-      {
-        "direction": "fun_draw",
-        "type": "🎲 Paris fun",
-        "label": "Match nul",
-        "cote": 4.6,
-        "confidence": 45,
-        "is_fun": true,
-        "stats": {
-          "form": [
-            "D",
-            "D",
-            "D",
-            "L",
-            "D"
-          ]
-        },
-        "reasoning": "Deux équipes au niveau similaire (#3 vs #1), forme équilibrée des deux côtés — nul logique à 4.6\n📉 Calibration : bucket 40-49% historiquement à WR 25% (claim 44%, n=36) — sur-estimé de 19pp",
-        "tier": "fun",
-        "calibration_delta": -19.4,
-        "edge_pp": 23.3,
-        "history_top3": true
-      },
       {
         "direction": "wc_score_1_0",
         "type": "🏆 Score exact WC",
@@ -871,7 +872,7 @@
         "direction": "home_win",
         "type": "Victoire domicile",
         "label": "France gagne",
-        "cote": 1.07,
+        "cote": 1.08,
         "confidence": 69,
         "reasoning": "France : 4V/0N/1D sur 5 matchs · #2 au classement · H2H: 0V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
         "stats": {
@@ -886,7 +887,7 @@
         "is_fun": false,
         "tier": "ok",
         "calibration_delta": -25.4,
-        "edge_pp": -24.5,
+        "edge_pp": -23.6,
         "history_top3": false
       },
       {
@@ -1087,7 +1088,7 @@
       "direction": "home_win",
       "type": "Victoire domicile",
       "label": "France gagne",
-      "cote": 1.07,
+      "cote": 1.08,
       "confidence": 69,
       "reasoning": "France : 4V/0N/1D sur 5 matchs · #2 au classement · H2H: 0V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
       "stats": {
@@ -1102,7 +1103,7 @@
       "is_fun": false,
       "tier": "ok",
       "calibration_delta": -25.4,
-      "edge_pp": -24.5,
+      "edge_pp": -23.6,
       "history_top3": false
     },
     "no_picks": false,
