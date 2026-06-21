@@ -469,7 +469,7 @@
         "confidence": 32,
         "reasoning": "2G en 5 matchs (40.0%/match) · xG: 0.24/match",
         "context": {
-          "weakness": 0.39
+          "weakness": 0.38
         },
         "stats": {
           "goals": 2,
@@ -481,6 +481,28 @@
     ],
     "away_players": [],
     "fun_picks": [
+      {
+        "direction": "fun_draw",
+        "type": "🎲 Paris fun",
+        "label": "Match nul",
+        "cote": 4.6,
+        "confidence": 45,
+        "is_fun": true,
+        "stats": {
+          "form": [
+            "D",
+            "D",
+            "D",
+            "L",
+            "D"
+          ]
+        },
+        "reasoning": "Deux équipes au niveau similaire (#2 vs #4), forme équilibrée des deux côtés — nul logique à 4.6\n📉 Calibration : bucket 40-49% historiquement à WR 25% (claim 44%, n=36) — sur-estimé de 19pp",
+        "tier": "fun",
+        "calibration_delta": -19.4,
+        "edge_pp": 23.3,
+        "history_top3": true
+      },
       {
         "direction": "wc_score_1_0",
         "type": "🏆 Score exact WC",
@@ -524,7 +546,7 @@
             13.2
           ]
         ],
-        "history_top3": true
+        "history_top3": false
       }
     ],
     "top_pick": {
