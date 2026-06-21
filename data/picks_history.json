@@ -23828,11 +23828,11 @@
       "books": [],
       "confidence": 70,
       "cote_min": 1.43,
-      "reasoning": "📈 P(Óskar Borgthórsson marque) ≈ 64% · P(Gylfi Sigurdsson marque) ≈ 56%\n🎯 P(au moins un marque) = 70% (calculée par 1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.43 - chercher ≥1.43 chez le bookmaker\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+      "reasoning": "📈 P(Óskar Borgthórsson marque) ≈ 64% · P(Gylfi Sigurdsson marque) ≈ 57%\n🎯 P(au moins un marque) = 70% (calculée par 1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.43 - chercher ≥1.43 chez le bookmaker\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
       "context": {},
       "stats": {
-        "p_a": 0.638,
-        "p_b": 0.562,
+        "p_a": 0.645,
+        "p_b": 0.57,
         "p_or": 0.7,
         "player_a": "Óskar Borgthórsson",
         "player_b": "Gylfi Sigurdsson"
@@ -23863,9 +23863,9 @@
       "book": null,
       "books": [],
       "confidence": 64,
-      "reasoning": "8 buts en 11 matchs cette saison (72.7% de chance/match) · bonne efficacité (20% conv.) · xG moyen 0.00/match, face à une défense qui concède 1.9 buts/match · défense correcte\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
+      "reasoning": "8 buts en 11 matchs cette saison (72.7% de chance/match) · bonne efficacité (19% conv.) · xG moyen 0.00/match, face à une défense qui concède 2.0 buts/match · défense correcte\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
       "context": {
-        "weakness": 0.4
+        "weakness": 0.41
       },
       "stats": {
         "goals": 8,
@@ -23996,7 +23996,7 @@
       "direction": "wc_under_25",
       "type": "⚽ Total buts WC",
       "label": "Moins de 2.5 buts",
-      "cote": 1.67,
+      "cote": 1.69,
       "cote_min": 1.29,
       "confidence": 78,
       "tier": "safe",
@@ -24009,9 +24009,9 @@
         "wc_round": null,
         "family": "TOTAL"
       },
-      "reasoning": "📊 Écart FIFA significatif : Uruguay #14 vs Cape Verde #65 (gap +346 pts, P favori ≈ 88%).\nL10 : Uruguay 0V/4N/1D sur 5 · Cape Verde 1V/3N/1D sur 5\n📋 Fiche Uruguay : off en panne (-0.52) · def moyenne (-0.28) · forme DDDLD · 🏆 habituée du tournoi\n📋 Fiche Cape Verde : off solide (+1.00) · def solide (+0.57) · forme DWDLD · 🏆 novice WC\n🎯 Importance : Uruguay : 1 match joué (1pts) · Cape Verde : 1 match joué (1pts)\n🌦️ Conditions : chaleur 33.7°C (-10%)\n⚠️ Compo PROBABLE (officielle à T-60min)\n⚽ Modèle Poisson : λ total = 1.62\nP(moins de 2.5 buts) = 77.8%\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+      "reasoning": "📊 Écart FIFA significatif : Uruguay #14 vs Cape Verde #65 (gap +346 pts, P favori ≈ 88%).\nL10 : Uruguay 0V/4N/1D sur 5 · Cape Verde 1V/3N/1D sur 5\n📋 Fiche Uruguay : off en panne (-0.52) · def moyenne (-0.28) · forme DDDLD · 🏆 habituée du tournoi\n📋 Fiche Cape Verde : off solide (+1.00) · def solide (+0.57) · forme DWDLD · 🏆 novice WC\n🎯 Importance : Uruguay : 1 match joué (1pts) · Cape Verde : 1 match joué (1pts)\n🌦️ Conditions : chaleur 33.7°C (-10%)\n✅ Compo OFFICIELLE\n⚽ Modèle Poisson : λ total = 1.62\nP(moins de 2.5 buts) = 77.8%\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
       "calibration_delta": -11.3,
-      "edge_pp": 18.1,
+      "edge_pp": 18.8,
       "history_top3": true,
       "id": "2026-06-21_4667800_team_wc_under_25",
       "date": "2026-06-21",
@@ -24028,7 +24028,7 @@
       "direction": "fun_draw",
       "type": "🎲 Paris fun",
       "label": "Match nul",
-      "cote": 4.4,
+      "cote": 4.6,
       "confidence": 45,
       "is_fun": true,
       "stats": {
@@ -24040,10 +24040,10 @@
           "D"
         ]
       },
-      "reasoning": "Deux équipes au niveau similaire (#2 vs #4), forme équilibrée des deux côtés — nul logique à 4.4\n📉 Calibration : bucket 40-49% historiquement à WR 25% (claim 44%, n=36) — sur-estimé de 19pp",
+      "reasoning": "Deux équipes au niveau similaire (#2 vs #4), forme équilibrée des deux côtés — nul logique à 4.6\n📉 Calibration : bucket 40-49% historiquement à WR 25% (claim 44%, n=36) — sur-estimé de 19pp",
       "tier": "fun",
       "calibration_delta": -19.4,
-      "edge_pp": 22.3,
+      "edge_pp": 23.3,
       "history_top3": true,
       "id": "2026-06-21_4667800_fun_🎲 Paris fun_Match nul",
       "date": "2026-06-21",
@@ -24073,7 +24073,7 @@
         "wc_round": null,
         "family": "BTTS"
       },
-      "reasoning": "📊 Écart FIFA significatif : Uruguay #14 vs Cape Verde #65 (gap +346 pts, P favori ≈ 88%).\nL10 : Uruguay 0V/4N/1D sur 5 · Cape Verde 1V/3N/1D sur 5\n📋 Fiche Uruguay : off en panne (-0.52) · def moyenne (-0.28) · forme DDDLD · 🏆 habituée du tournoi\n📋 Fiche Cape Verde : off solide (+1.00) · def solide (+0.57) · forme DWDLD · 🏆 novice WC\n🎯 Importance : Uruguay : 1 match joué (1pts) · Cape Verde : 1 match joué (1pts)\n🌦️ Conditions : chaleur 33.7°C (-10%)\n⚠️ Compo PROBABLE (officielle à T-60min)\n⚽ BTTS NO : P(au moins une équipe blanchie) = 74.5%\nλ faibles côté Cape Verde (0.47) ou Uruguay (1.16)\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+      "reasoning": "📊 Écart FIFA significatif : Uruguay #14 vs Cape Verde #65 (gap +346 pts, P favori ≈ 88%).\nL10 : Uruguay 0V/4N/1D sur 5 · Cape Verde 1V/3N/1D sur 5\n📋 Fiche Uruguay : off en panne (-0.52) · def moyenne (-0.28) · forme DDDLD · 🏆 habituée du tournoi\n📋 Fiche Cape Verde : off solide (+1.00) · def solide (+0.57) · forme DWDLD · 🏆 novice WC\n🎯 Importance : Uruguay : 1 match joué (1pts) · Cape Verde : 1 match joué (1pts)\n🌦️ Conditions : chaleur 33.7°C (-10%)\n✅ Compo OFFICIELLE\n⚽ BTTS NO : P(au moins une équipe blanchie) = 74.5%\nλ faibles côté Cape Verde (0.47) ou Uruguay (1.16)\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
       "calibration_delta": -11.3,
       "history_top3": true,
       "id": "2026-06-21_4667800_team_wc_btts_no",
@@ -24104,7 +24104,7 @@
         "wc_round": null,
         "family": "CLEAN_SHEET"
       },
-      "reasoning": "📊 Écart FIFA significatif : Uruguay #14 vs Cape Verde #65 (gap +346 pts, P favori ≈ 88%).\nL10 : Uruguay 0V/4N/1D sur 5 · Cape Verde 1V/3N/1D sur 5\n📋 Fiche Uruguay : off en panne (-0.52) · def moyenne (-0.28) · forme DDDLD · 🏆 habituée du tournoi\n📋 Fiche Cape Verde : off solide (+1.00) · def solide (+0.57) · forme DWDLD · 🏆 novice WC\n🎯 Importance : Uruguay : 1 match joué (1pts) · Cape Verde : 1 match joué (1pts)\n🌦️ Conditions : chaleur 33.7°C (-10%)\n⚠️ Compo PROBABLE (officielle à T-60min)\n🛡️ P(Cape Verde blanchi) = 62.8% — défense Uruguay dominante (λ_Cape Verde = 0.47)\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
+      "reasoning": "📊 Écart FIFA significatif : Uruguay #14 vs Cape Verde #65 (gap +346 pts, P favori ≈ 88%).\nL10 : Uruguay 0V/4N/1D sur 5 · Cape Verde 1V/3N/1D sur 5\n📋 Fiche Uruguay : off en panne (-0.52) · def moyenne (-0.28) · forme DDDLD · 🏆 habituée du tournoi\n📋 Fiche Cape Verde : off solide (+1.00) · def solide (+0.57) · forme DWDLD · 🏆 novice WC\n🎯 Importance : Uruguay : 1 match joué (1pts) · Cape Verde : 1 match joué (1pts)\n🌦️ Conditions : chaleur 33.7°C (-10%)\n✅ Compo OFFICIELLE\n🛡️ P(Cape Verde blanchi) = 62.8% — défense Uruguay dominante (λ_Cape Verde = 0.47)\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
       "calibration_delta": -25.4,
       "history_top3": true,
       "id": "2026-06-21_4667800_team_wc_away_no_score",
