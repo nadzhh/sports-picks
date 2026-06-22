@@ -778,10 +778,10 @@
         "books": [],
         "confidence": 70,
         "cote_min": 1.43,
-        "reasoning": "📈 P(Darko Lemajic marque) ≈ 50% · P(Stefan Panic marque) ≈ 44%\n🎯 P(au moins un marque) = 70% (calculée par 1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.43 - chercher ≥1.43 chez le bookmaker\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+        "reasoning": "📈 P(Darko Lemajic marque) ≈ 52% · P(Stefan Panic marque) ≈ 44%\n🎯 P(au moins un marque) = 70% (calculée par 1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.43 - chercher ≥1.43 chez le bookmaker\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
         "context": {},
         "stats": {
-          "p_a": 0.495,
+          "p_a": 0.525,
           "p_b": 0.435,
           "p_or": 0.7,
           "player_a": "Darko Lemajic",
@@ -790,6 +790,31 @@
         "team": "home",
         "tier": "safe",
         "calibration_delta": -11.3,
+        "history_top3": true
+      },
+      {
+        "player": "Darko Lemajic",
+        "position": "F",
+        "is_sub": false,
+        "type": "Buteur",
+        "label": "Darko Lemajic marque",
+        "cote": null,
+        "book": null,
+        "books": [],
+        "confidence": 52,
+        "reasoning": "9 buts en 16 matchs cette saison (56.2% de chance/match) · xG moyen 0.00/match · défense correcte\n📉 Calibration : bucket 50-59% historiquement à WR 42% (claim 55%, n=41) — sur-estimé de 14pp",
+        "context": {
+          "weakness": 0.35
+        },
+        "stats": {
+          "goals": 9,
+          "apps": 16,
+          "gpm": 0.562,
+          "xgpm": 0
+        },
+        "team": "home",
+        "tier": "fun",
+        "calibration_delta": -13.6,
         "history_top3": true
       }
     ],
@@ -1623,96 +1648,6 @@
     }
   },
   {
-    "league": "Lithuanian Toplyga",
-    "home": "Riteriai",
-    "away": "Hegelmann",
-    "start_ts": 1782144000,
-    "match_id": "5185241",
-    "page_url": "/matches/riteriai-vs-hegelmann/6azdhzhs#5185241",
-    "picks": [],
-    "home_players": [],
-    "away_players": [
-      {
-        "player": "Njoya Kader / Matijus Remeikis",
-        "position": "",
-        "is_sub": false,
-        "type": "Double Chance Buteur",
-        "label": "Njoya Kader ou Matijus Remeikis marque",
-        "cote": null,
-        "book": null,
-        "books": [],
-        "confidence": 70,
-        "cote_min": 1.43,
-        "reasoning": "📈 P(Njoya Kader marque) ≈ 50% · P(Matijus Remeikis marque) ≈ 46%\n🎯 P(au moins un marque) = 70% (calculée par 1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.43 - chercher ≥1.43 chez le bookmaker\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
-        "context": {},
-        "stats": {
-          "p_a": 0.502,
-          "p_b": 0.465,
-          "p_or": 0.7,
-          "player_a": "Njoya Kader",
-          "player_b": "Matijus Remeikis"
-        },
-        "team": "away",
-        "tier": "safe",
-        "calibration_delta": -11.3,
-        "history_top3": true
-      },
-      {
-        "player": "Njoya Kader",
-        "position": "F",
-        "is_sub": false,
-        "type": "Buteur",
-        "label": "Njoya Kader marque",
-        "cote": null,
-        "book": null,
-        "books": [],
-        "confidence": 50,
-        "reasoning": "8 buts en 20 matchs cette saison (40.0% de chance/match) · xG moyen 0.00/match, face à une défense qui concède 2.6 buts/match · défense fragile\n📉 Calibration : bucket 50-59% historiquement à WR 42% (claim 55%, n=41) — sur-estimé de 14pp",
-        "context": {
-          "weakness": 0.61
-        },
-        "stats": {
-          "goals": 8,
-          "apps": 20,
-          "gpm": 0.4,
-          "xgpm": 0
-        },
-        "team": "away",
-        "tier": "fun",
-        "calibration_delta": -13.6,
-        "history_top3": true
-      }
-    ],
-    "fun_picks": [],
-    "top_pick": {
-      "player": "Njoya Kader / Matijus Remeikis",
-      "position": "",
-      "is_sub": false,
-      "type": "Double Chance Buteur",
-      "label": "Njoya Kader ou Matijus Remeikis marque",
-      "cote": null,
-      "book": null,
-      "books": [],
-      "confidence": 70,
-      "cote_min": 1.43,
-      "reasoning": "📈 P(Njoya Kader marque) ≈ 50% · P(Matijus Remeikis marque) ≈ 46%\n🎯 P(au moins un marque) = 70% (calculée par 1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.43 - chercher ≥1.43 chez le bookmaker\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
-      "context": {},
-      "stats": {
-        "p_a": 0.502,
-        "p_b": 0.465,
-        "p_or": 0.7,
-        "player_a": "Njoya Kader",
-        "player_b": "Matijus Remeikis"
-      },
-      "team": "away",
-      "tier": "safe",
-      "calibration_delta": -11.3,
-      "history_top3": true
-    },
-    "no_picks": false,
-    "context": null
-  },
-  {
     "league": "Georgian Erovnuli",
     "home": "Torpedo Kutaisi",
     "away": "Spaeri",
@@ -2297,6 +2232,89 @@
       },
       "text": "Conditions : ⛈️ orage · 19–33°C · humidité 45%. Stade : Lincoln Financial Field · altitude 12m · 67 594 places · plein air. Climat tempéré humide. Juin 24-29°C. ⚠️ Forte chaleur (>32°C) en plein air : impact endurance, plus de pauses hydratation."
     }
+  },
+  {
+    "league": "Lithuanian Toplyga",
+    "home": "Riteriai",
+    "away": "Hegelmann",
+    "start_ts": 1782144000,
+    "match_id": "5185241",
+    "page_url": "/matches/riteriai-vs-hegelmann/6azdhzhs#5185241",
+    "picks": [
+      {
+        "direction": "away_win",
+        "type": "Favori net",
+        "label": "Hegelmann gagne",
+        "cote": null,
+        "confidence": 68,
+        "reasoning": "13 places d'écart au classement (#7 vs #20) · 1V/3N/1D sur 5 matchs · Note Sofa: 6.5/10\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
+        "stats": {
+          "form": [
+            "D",
+            "D",
+            "L",
+            "W",
+            "D"
+          ]
+        },
+        "is_fun": false,
+        "tier": "ok",
+        "calibration_delta": -25.4,
+        "history_top3": true
+      }
+    ],
+    "home_players": [],
+    "away_players": [
+      {
+        "player": "Njoya Kader / Matijus Remeikis",
+        "position": "",
+        "is_sub": false,
+        "type": "Double Chance Buteur",
+        "label": "Njoya Kader ou Matijus Remeikis marque",
+        "cote": null,
+        "book": null,
+        "books": [],
+        "confidence": 68,
+        "cote_min": 1.47,
+        "reasoning": "📈 P(Njoya Kader marque) ≈ 45% · P(Matijus Remeikis marque) ≈ 42%\n🎯 P(au moins un marque) = 68% (calculée par 1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.47 - chercher ≥1.47 chez le bookmaker\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
+        "context": {},
+        "stats": {
+          "p_a": 0.45,
+          "p_b": 0.42,
+          "p_or": 0.681,
+          "player_a": "Njoya Kader",
+          "player_b": "Matijus Remeikis"
+        },
+        "team": "away",
+        "tier": "ok",
+        "calibration_delta": -25.4,
+        "history_top3": true
+      }
+    ],
+    "fun_picks": [],
+    "top_pick": {
+      "direction": "away_win",
+      "type": "Favori net",
+      "label": "Hegelmann gagne",
+      "cote": null,
+      "confidence": 68,
+      "reasoning": "13 places d'écart au classement (#7 vs #20) · 1V/3N/1D sur 5 matchs · Note Sofa: 6.5/10\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
+      "stats": {
+        "form": [
+          "D",
+          "D",
+          "L",
+          "W",
+          "D"
+        ]
+      },
+      "is_fun": false,
+      "tier": "ok",
+      "calibration_delta": -25.4,
+      "history_top3": true
+    },
+    "no_picks": false,
+    "context": null
   },
   {
     "league": "Finnish Veikkausliiga",
