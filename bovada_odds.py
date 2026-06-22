@@ -225,6 +225,59 @@ def _extract_team_markets(ev, home_name, away_name):
         if choices:
             markets.append({"marketName": "Double chance", "choices": choices, "_source": "bovada"})
 
+    # ── Total Shots + Total Shots On-Target (Game Stats / Shots groups) ──
+    # Bovada expose "Total Shots", "Total Shots On-Target" et leurs splits
+    # par équipe. Format Sofascore-compatible : marketName + choiceGroup (line)
+    seen_shots = set()  # dedup (internal_name, line) car Bovada expose
+                        # parfois le même market dans 2 groupes (Shots + Game Stats)
+    for shots_label, internal_name in [
+        ("Total Shots",                "Total shots"),
+        ("Total Shots - " + home_name, "Home team total shots"),
+        ("Total Shots - " + away_name, "Away team total shots"),
+        ("Total Shots On-Target",                "Total shots on target"),
+        ("Total Shots On-Target - " + home_name, "Home team total shots on target"),
+        ("Total Shots On-Target - " + away_name, "Away team total shots on target"),
+    ]:
+        for grp_name in ("Shots", "Game Stats"):
+            for m in by_desc.get((grp_name, shots_label), []):
+                outcomes = m.get("outcomes", [])
+                if not outcomes: continue
+                # 1H markets skip
+                if any("- 1H" in (o.get("description") or "") for o in outcomes):
+                    continue
+                # Extract line + over/under cotes
+                line = None
+                over_cote = under_cote = None
+                for o in outcomes:
+                    d = (o.get("description") or "").strip()
+                    cote = _to_decimal(o.get("price"))
+                    if not cote: continue
+                    # Try parse line depuis description "Over 23.5" / "Under 23.5"
+                    import re as _re
+                    m_line = _re.search(r"(\d+(?:\.\d+)?)", d)
+                    if m_line:
+                        try: line = float(m_line.group(1))
+                        except: pass
+                    # Side
+                    if "over" in d.lower():
+                        over_cote = cote
+                    elif "under" in d.lower():
+                        under_cote = cote
+                if line and over_cote and under_cote:
+                    key = (internal_name, line)
+                    if key in seen_shots:
+                        continue
+                    seen_shots.add(key)
+                    markets.append({
+                        "marketName":   internal_name,
+                        "choiceGroup":  str(line),
+                        "choices": [
+                            {"name": "Over",  "fractionalValue": f"{int((over_cote-1)*1000)}/1000",  "cote": over_cote, "book": "bovada"},
+                            {"name": "Under", "fractionalValue": f"{int((under_cote-1)*1000)}/1000", "cote": under_cote, "book": "bovada"},
+                        ],
+                        "_source": "bovada",
+                    })
+
     return markets
 
 

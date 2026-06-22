@@ -2789,6 +2789,15 @@ def analyze_match(match, pstats_all, player_odds_all=None):
                                        home_form=hf, away_form=af)
         team_picks.extend(shots_props)
 
+    # ── Picks tirs WC : utilise les vraies cotes Bovada (Total Shots /
+    # Total Shots On-Target) plutôt que les stats FotMob limitées en sélection.
+    # Génère un pick si la cote book est ≥ 1.50 ET P_modele >= 60%.
+    if league_id == WC_LEAGUE_ID:
+        wc_shots_picks = _wc_shots_picks_from_book(match, odds, home, away,
+                                                    lam_h_wc if 'lam_h_wc' in dir() else None,
+                                                    lam_a_wc if 'lam_a_wc' in dir() else None)
+        team_picks.extend(wc_shots_picks)
+
     # ── Inject friendly player picks (lineup-based) ─────────────────────────
     # Pour les amicaux, on construit les picks buteur via lineup.starters
     # (utilise les seasonGoals du club du joueur) au lieu des stats championnat.
@@ -3493,6 +3502,103 @@ def _extract_bookmaker_shot_lines(match_odds):
             elif name == "Home team total shots":
                 out["home_shots"].append((line, over_cote, under_cote))
     return out
+
+
+def _wc_shots_picks_from_book(match, odds, home_name, away_name, lam_h=None, lam_a=None):
+    """Génère picks tirs WC depuis les cotes Bovada Total Shots et SoT.
+
+    Stratégie : on lit la ligne du book (ex: Total Shots O/U 23.5), on estime
+    la proba via une approximation Poisson naïve basée sur expected_shots
+    moyen WC (~22 tirs/match, ~7 SoT/match) ajusté par λ buts. Si la cote
+    book est généreuse (≥ 1.50) ET notre P_modele >= 60%, on émet un pick.
+    """
+    if not odds: return []
+    markets = (odds.get("markets") or [])
+    if not markets: return []
+
+    picks = []
+    # Total expected shots = base 22 ± ajustement λ
+    # Plus de buts attendus = plus de tirs (corrélation positive)
+    base_total_shots = 22.0
+    base_total_sot   = 7.0
+    if lam_h is not None and lam_a is not None:
+        lam_total = lam_h + lam_a
+        # baseline λ ≈ 2.5 pour la WC. ±10% par 0.5 d'écart
+        factor = 1.0 + (lam_total - 2.5) * 0.08
+        factor = max(0.85, min(1.20, factor))
+        expected_total_shots = base_total_shots * factor
+        expected_total_sot   = base_total_sot   * factor
+    else:
+        expected_total_shots = base_total_shots
+        expected_total_sot   = base_total_sot
+
+    def _poisson_p_over(lam, line):
+        """P(X > line) pour X ~ Poisson(lam)."""
+        # Cap line à int
+        import math as _m
+        k = int(line)
+        p_at_most_k = 0.0
+        for i in range(k + 1):
+            p_at_most_k += (lam ** i) * _m.exp(-lam) / _m.factorial(i)
+        return 1 - p_at_most_k
+
+    # Cherche les markets tirs dans odds
+    SHOT_MARKETS = [
+        ("Total shots",                    expected_total_shots, "Total tirs"),
+        ("Total shots on target",          expected_total_sot,   "Total tirs cadrés"),
+    ]
+    for mkt_name, exp_val, label_prefix in SHOT_MARKETS:
+        for mk in markets:
+            if mk.get("marketName") != mkt_name: continue
+            try:
+                line = float(mk.get("choiceGroup", 0))
+            except: continue
+            if line <= 0: continue
+            # Cherche cote Over et Under
+            over_cote = under_cote = None
+            for c in mk.get("choices", []):
+                cn = (c.get("name") or "").lower()
+                if cn == "over":  over_cote = c.get("cote")
+                elif cn == "under": under_cote = c.get("cote")
+            if not (over_cote and under_cote): continue
+            # Calcule P_modele Over
+            p_over = _poisson_p_over(exp_val, line)
+            p_under = 1 - p_over
+            # Emit pick si P_modele >= 55% et cote >= 1.50
+            if p_over >= 0.55 and over_cote >= 1.50:
+                conf = round(p_over * 100)
+                picks.append({
+                    "direction": f"team_shots_over_{int(line*10)}",
+                    "type": "🎯 Tirs équipe",
+                    "label": f"Plus de {line} {label_prefix.lower()}",
+                    "cote": float(over_cote), "book": "bovada",
+                    "confidence": conf,
+                    "tier": "ok" if conf < 70 else "safe",
+                    "stats": {"expected": round(exp_val, 1), "line": line, "lam_total": (lam_h or 0) + (lam_a or 0)},
+                    "reasoning": (
+                        f"🎯 {label_prefix} attendu : {exp_val:.1f} (modèle Poisson) "
+                        f"vs ligne book {line} → P(over) = {conf}%. "
+                        f"Cote {over_cote} (bovada)."
+                    ),
+                })
+            elif p_under >= 0.55 and under_cote >= 1.50:
+                conf = round(p_under * 100)
+                picks.append({
+                    "direction": f"team_shots_under_{int(line*10)}",
+                    "type": "🎯 Tirs équipe",
+                    "label": f"Moins de {line} {label_prefix.lower()}",
+                    "cote": float(under_cote), "book": "bovada",
+                    "confidence": conf,
+                    "tier": "ok" if conf < 70 else "safe",
+                    "stats": {"expected": round(exp_val, 1), "line": line, "lam_total": (lam_h or 0) + (lam_a or 0)},
+                    "reasoning": (
+                        f"🎯 {label_prefix} attendu : {exp_val:.1f} (modèle Poisson) "
+                        f"vs ligne book {line} → P(under) = {conf}%. "
+                        f"Cote {under_cote} (bovada)."
+                    ),
+                })
+
+    return picks[:4]  # cap 4 picks tirs max par match
 
 
 def team_shots_props(home_ts, away_ts, home_recent, away_recent, h2h_shots, home_name, away_name, home_pos=10, away_pos=10, match_odds=None, home_form=None, away_form=None):
