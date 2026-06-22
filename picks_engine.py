@@ -3217,10 +3217,68 @@ def analyze_match(match, pstats_all, player_odds_all=None):
         cleaned_fun.append(fp)
     fun_picks = cleaned_fun
 
-    # Inverse aussi : un team pick "match nul" est-il cohérent avec les autres
-    # team picks (rare car le 1X2 est dédupliqué) ? Si "draw" team et "no_draw"
-    # team coexistent (impossible normalement post-dedup), on garde celui avec
-    # la plus haute conf — déjà fait dans _dedup_by_direction.
+    # ── Dédoublonnage REDONDANCE entre team picks ──────────────────────────
+    # User : "Une équipe ne marque pas (BTTS NO)" + "Tunisia ne marque pas"
+    # → 2 picks redondants (BTTS NO englobe le 2e). On garde le plus
+    # SPÉCIFIQUE (qui pointe l'équipe précise) car il porte plus d'info
+    # et a généralement une cote plus généreuse.
+    def _dir_of(pk):
+        return (pk.get("direction") or "").lower()
+
+    team_dirs = [_dir_of(p) for p in team_picks]
+    # Si home_no_score OU away_no_score présent → on supprime btts_no
+    has_specific_no_score = any(d in ("home_no_score", "away_no_score",
+                                       "wc_home_no_score", "wc_away_no_score")
+                                 for d in team_dirs)
+    if has_specific_no_score:
+        team_picks = [p for p in team_picks
+                      if _dir_of(p) not in ("btts_no", "wc_btts_no")]
+
+    # ── Dédoublonnage CONTRADICTION entre team picks ───────────────────────
+    # User : "Sweden gagne" (away_win) + "Netherlands ou nul (1X)" (home_dc)
+    # → Sweden gagne EXCLUT Netherlands ou nul. On garde le plus confiant.
+    HOME_WIN_DIRS = {"home_win", "wc_home_win"}
+    AWAY_WIN_DIRS = {"away_win", "wc_away_win"}
+    DRAW_DIRS     = {"draw", "wc_draw"}
+    HOME_DC_DIRS  = {"home_dc", "dc_1x", "wc_dc_1x"}  # 1X (home gagne ou nul)
+    AWAY_DC_DIRS  = {"away_dc", "dc_x2", "wc_dc_x2"}  # X2 (away gagne ou nul)
+    NO_DRAW_DIRS  = {"no_draw", "12", "wc_dc_12"}     # 12 (pas de nul)
+
+    # Tous les couples qui se contredisent : (set_A, set_B, exclusion_reason)
+    CONFLICTS = [
+        (HOME_WIN_DIRS, AWAY_DC_DIRS),  # home gagne ⇒ pas X2
+        (HOME_WIN_DIRS, DRAW_DIRS),     # home gagne ⇒ pas nul
+        (AWAY_WIN_DIRS, HOME_DC_DIRS),  # away gagne ⇒ pas 1X
+        (AWAY_WIN_DIRS, DRAW_DIRS),     # away gagne ⇒ pas nul
+        (DRAW_DIRS, HOME_WIN_DIRS),     # nul ⇒ pas home_win
+        (DRAW_DIRS, AWAY_WIN_DIRS),     # nul ⇒ pas away_win
+        (DRAW_DIRS, NO_DRAW_DIRS),      # nul ⇒ pas 12
+        (NO_DRAW_DIRS, DRAW_DIRS),
+    ]
+
+    def _resolve_conflicts(picks):
+        """Pour chaque paire conflictuelle, garde le plus confiant."""
+        to_remove = set()
+        for i, p in enumerate(picks):
+            if i in to_remove: continue
+            d_i = _dir_of(p)
+            conf_i = p.get("confidence", 0) or 0
+            for j, q in enumerate(picks):
+                if i == j or j in to_remove: continue
+                d_j = _dir_of(q)
+                conf_j = q.get("confidence", 0) or 0
+                # Test : (d_i ∈ A et d_j ∈ B) pour un conflict (A, B) ?
+                in_conflict = any(d_i in a and d_j in b for a, b in CONFLICTS)
+                if not in_conflict: continue
+                # Garde le plus confiant
+                if conf_i >= conf_j:
+                    to_remove.add(j)
+                else:
+                    to_remove.add(i)
+                    break
+        return [p for k, p in enumerate(picks) if k not in to_remove]
+
+    team_picks = _resolve_conflicts(team_picks)
 
     return team_picks, home_pp, away_pp, fun_picks
 

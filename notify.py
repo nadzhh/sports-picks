@@ -720,14 +720,45 @@ def _format_hv_match(match, hours_to_ko, lineup_state, team_picks, player_picks,
         lines.append("⚠️ Compo PROBABLE (officielle à T-60min)")
     lines.append("")
 
+    # Extrait UNE seule fois le bloc 'contexte du match' (FIFA gap, fiches, météo)
+    # pour le mettre EN TÊTE du message au lieu de répéter sur chaque pick.
+    shared_context_lines = []
+    if team_picks or fun_picks:
+        all_reasons = []
+        for pk in (team_picks + fun_picks):
+            all_reasons.append(pk.get("reasoning") or "")
+        # Détecte les lignes qui se répètent dans 2+ picks (= contexte partagé)
+        line_counts = {}
+        for r in all_reasons:
+            for ln in r.split("\n"):
+                ln = ln.strip()
+                if ln and not ln.startswith(("📉", "✅ Prendre", "⚠️ Compo")):
+                    line_counts[ln] = line_counts.get(ln, 0) + 1
+        # Garde les 3 premières lignes répétées ≥ 2 fois (signature contexte)
+        for ln, cnt in line_counts.items():
+            if cnt >= 2 and ln.startswith(("📊", "⭐", "🏆", "📋", "🌦", "🎯 Importance")):
+                shared_context_lines.append(ln)
+        shared_context_lines = shared_context_lines[:4]  # cap 4 lignes max
+
+    if shared_context_lines:
+        lines.append("<b>━━ CONTEXTE MATCH ━━</b>")
+        for ctx_ln in shared_context_lines:
+            lines.append(f"<i>{ctx_ln}</i>")
+        lines.append("")
+
+    _shared_set = set(shared_context_lines)
+
     def _short_reason(pk):
         r = (pk.get("reasoning") or "").strip()
         if not r: return ""
-        # Prend la 1re ligne pertinente (skip 📉 calibration / ⚠ warning)
+        # Prend la 1re ligne pertinente, en SKIPPANT les lignes déjà dans
+        # le bloc contexte partagé (pour éviter la répétition).
         for line in r.split("\n"):
             line = line.strip()
-            if line and not line.startswith(("📉", "✅ Prendre", "⚠️ Compo", "  ")):
-                return line[:180]
+            if not line: continue
+            if line in _shared_set: continue
+            if line.startswith(("📉", "✅ Prendre", "⚠️ Compo")): continue
+            return line[:180]
         return ""
 
     def _cote_str(pk):
@@ -756,6 +787,16 @@ def _format_hv_match(match, hours_to_ko, lineup_state, team_picks, player_picks,
             reason = _short_reason(pk)
             if reason:
                 lines.append(f"  <i>{reason}</i>")
+            # Pour les score exact WC : afficher le TOP 3 des alternatives
+            top3 = pk.get("wc_top3") or []
+            if top3 and (pk.get("direction") or "").startswith("wc_score_"):
+                alts_str = " · ".join(
+                    f"{t[0][0]}-{t[0][1]} ({t[1]:.1f}%)"
+                    for t in top3[:3]
+                    if isinstance(t, (list, tuple)) and len(t) >= 2
+                )
+                if alts_str:
+                    lines.append(f"  <i>📐 Top 3 scores : {alts_str}</i>")
         lines.append("")
 
     # ── PICKS JOUEUR (uniquement si compo confirmée et titulaire vérifié) ──
