@@ -716,155 +716,6 @@
     }
   },
   {
-    "league": "Latvian Virsliga",
-    "home": "RFS",
-    "away": "Ogre United",
-    "start_ts": 1782140400,
-    "match_id": "5162011",
-    "page_url": "/matches/rfs-vs-ogre-united/tg4ii2vi#5162011",
-    "picks": [
-      {
-        "direction": "home_dc",
-        "type": "Double chance",
-        "label": "RFS ou Nul (1X)",
-        "cote": null,
-        "confidence": 81,
-        "reasoning": "RFS invaincu 76% sur 5 derniers matchs · H2H: 2/2 matchs sans défaite · Classement: #1 vs #10\n📉 Calibration : bucket 80-89% historiquement à WR 56% (claim 82%, n=63) — sur-estimé de 26pp",
-        "stats": {
-          "form": [
-            "L",
-            "W",
-            "W",
-            "W",
-            "W"
-          ]
-        },
-        "is_fun": false,
-        "tier": "safe",
-        "calibration_delta": -26.0,
-        "history_top3": true
-      },
-      {
-        "direction": "home_win",
-        "type": "Victoire domicile",
-        "label": "RFS gagne",
-        "cote": null,
-        "confidence": 78,
-        "reasoning": "RFS : 4V/0N/1D sur 5 matchs · #1 au classement · H2H: 2V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
-        "stats": {
-          "form": [
-            "L",
-            "W",
-            "W",
-            "W",
-            "W"
-          ]
-        },
-        "is_fun": false,
-        "tier": "safe",
-        "calibration_delta": -11.3,
-        "history_top3": true
-      }
-    ],
-    "home_players": [
-      {
-        "player": "Darko Lemajic / Stefan Panic",
-        "position": "",
-        "is_sub": false,
-        "type": "Double Chance Buteur",
-        "label": "Darko Lemajic ou Stefan Panic marque",
-        "cote": null,
-        "book": null,
-        "books": [],
-        "confidence": 70,
-        "cote_min": 1.43,
-        "reasoning": "📈 P(Darko Lemajic marque) ≈ 55% · P(Stefan Panic marque) ≈ 44%\n🎯 P(au moins un marque) = 70% (calculée par 1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.43 - chercher ≥1.43 chez le bookmaker\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
-        "context": {},
-        "stats": {
-          "p_a": 0.548,
-          "p_b": 0.435,
-          "p_or": 0.7,
-          "player_a": "Darko Lemajic",
-          "player_b": "Stefan Panic"
-        },
-        "team": "home",
-        "tier": "safe",
-        "calibration_delta": -11.3,
-        "history_top3": true
-      },
-      {
-        "player": "Darko Lemajic",
-        "position": "F",
-        "is_sub": false,
-        "type": "Buteur",
-        "label": "Darko Lemajic marque",
-        "cote": null,
-        "book": null,
-        "books": [],
-        "confidence": 55,
-        "reasoning": "10 buts en 16 matchs cette saison (62.5% de chance/match) · xG moyen 0.00/match · défense correcte\n📉 Calibration : bucket 50-59% historiquement à WR 42% (claim 55%, n=41) — sur-estimé de 14pp",
-        "context": {
-          "weakness": 0.35
-        },
-        "stats": {
-          "goals": 10,
-          "apps": 16,
-          "gpm": 0.625,
-          "xgpm": 0
-        },
-        "team": "home",
-        "tier": "ok",
-        "calibration_delta": -13.6,
-        "history_top3": true
-      }
-    ],
-    "away_players": [],
-    "fun_picks": [],
-    "top_pick": {
-      "direction": "home_dc",
-      "type": "Double chance",
-      "label": "RFS ou Nul (1X)",
-      "cote": null,
-      "confidence": 81,
-      "reasoning": "RFS invaincu 76% sur 5 derniers matchs · H2H: 2/2 matchs sans défaite · Classement: #1 vs #10\n📉 Calibration : bucket 80-89% historiquement à WR 56% (claim 82%, n=63) — sur-estimé de 26pp",
-      "stats": {
-        "form": [
-          "L",
-          "W",
-          "W",
-          "W",
-          "W"
-        ]
-      },
-      "is_fun": false,
-      "tier": "safe",
-      "calibration_delta": -26.0,
-      "history_top3": true
-    },
-    "no_picks": false,
-    "context": {
-      "stadium": {
-        "name": "LNK Sporta Parks dabīgais",
-        "city": "Rīga",
-        "country": "Latvia",
-        "lat": 56.907960471,
-        "lon": 24.155300465,
-        "capacity": null,
-        "surface": null
-      },
-      "weather": {
-        "temp_max": 25.6,
-        "temp_min": 16.6,
-        "humidity": 45,
-        "precipitation_sum_mm": 0.0,
-        "wind_max_kmh": 17.6,
-        "weather_code": 3,
-        "summary_fr": "☁️ couvert · 16–25°C · humidité 45%"
-      },
-      "text": "Conditions : ☁️ couvert · 16–25°C · humidité 45%. Stade : LNK Sporta Parks dabīgais · plein air."
-    }
-  },
-  {
     "league": "World Cup",
     "home": "Argentina",
     "away": "Austria",
@@ -898,7 +749,7 @@
         "direction": "wc_over_25",
         "type": "⚽ Total buts WC",
         "label": "Plus de 2.5 buts",
-        "cote": 1.95,
+        "cote": 1.91,
         "cote_min": 1.5,
         "confidence": 67,
         "tier": "ok",
@@ -913,7 +764,7 @@
         },
         "reasoning": "📊 Écart FIFA significatif : Argentina #1 vs Austria #26 (gap +308 pts, P favori ≈ 85%).\n⭐ Argentina favori CdM 2026\nL10 : Argentina 5V/0N/0D sur 5 · Austria 4V/1N/0D sur 5\n📋 Fiche Argentina : off moyen (-0.25) · def moyenne (+0.20) · forme WWWWW · 🏆 élite mondiale\n   ↳ Historique : vainqueur en 2022 · 1/8 en 2018 · finaliste en 2014 · 1 titre (2022)\n📋 Fiche Austria : off moyen (-0.03) · def moyenne (-0.05) · forme WWWWD · 🏆 novice WC\n🌦️ ⛈️ orage · 25–35°C · humidité 56% · stade fermé\n✅ Compo OFFICIELLE\n⚽ Modèle Poisson : λ total = 3.43\nP(plus de 2.5 buts) = 66.6%\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
         "calibration_delta": -25.4,
-        "edge_pp": 15.7,
+        "edge_pp": 14.6,
         "history_top3": false
       },
       {
@@ -1179,115 +1030,6 @@
     }
   },
   {
-    "league": "Georgian Erovnuli",
-    "home": "Dila Gori",
-    "away": "FC Rustavi",
-    "start_ts": 1782140400,
-    "match_id": "5165335",
-    "page_url": "/matches/dila-gori-vs-fc-rustavi/o41pjaf#5165335",
-    "picks": [
-      {
-        "direction": "away_win",
-        "type": "Victoire extérieur",
-        "label": "FC Rustavi gagne",
-        "cote": null,
-        "confidence": 78,
-        "reasoning": "FC Rustavi : 4V/0N/1D sur 5 matchs · #1 au classement · H2H: 2V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
-        "stats": {
-          "form": [
-            "W",
-            "W",
-            "W",
-            "L",
-            "W"
-          ]
-        },
-        "is_fun": false,
-        "tier": "safe",
-        "calibration_delta": -11.3,
-        "history_top3": true
-      }
-    ],
-    "home_players": [
-      {
-        "player": "Shota Shekiladze / Zurab Menteshashvili",
-        "position": "",
-        "is_sub": false,
-        "type": "Double Chance Buteur",
-        "label": "Shota Shekiladze ou Zurab Menteshashvili marque",
-        "cote": null,
-        "book": null,
-        "books": [],
-        "confidence": 66,
-        "cote_min": 1.52,
-        "reasoning": "📈 P(Shota Shekiladze marque) ≈ 42% · P(Zurab Menteshashvili marque) ≈ 42%\n🎯 P(au moins un marque) = 66% (calculée par 1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.52 - chercher ≥1.52 chez le bookmaker\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
-        "context": {},
-        "stats": {
-          "p_a": 0.42,
-          "p_b": 0.42,
-          "p_or": 0.664,
-          "player_a": "Shota Shekiladze",
-          "player_b": "Zurab Menteshashvili"
-        },
-        "team": "home",
-        "tier": "ok",
-        "calibration_delta": -25.4,
-        "history_top3": true
-      }
-    ],
-    "away_players": [
-      {
-        "player": "Jean Souza / Avtandil Gujabidze",
-        "position": "",
-        "is_sub": false,
-        "type": "Double Chance Buteur",
-        "label": "Jean Souza ou Avtandil Gujabidze marque",
-        "cote": null,
-        "book": null,
-        "books": [],
-        "confidence": 68,
-        "cote_min": 1.47,
-        "reasoning": "📈 P(Jean Souza marque) ≈ 44% · P(Avtandil Gujabidze marque) ≈ 43%\n🎯 P(au moins un marque) = 68% (calculée par 1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.47 - chercher ≥1.47 chez le bookmaker\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
-        "context": {},
-        "stats": {
-          "p_a": 0.435,
-          "p_b": 0.428,
-          "p_or": 0.677,
-          "player_a": "Jean Souza",
-          "player_b": "Avtandil Gujabidze"
-        },
-        "team": "away",
-        "tier": "ok",
-        "calibration_delta": -25.4,
-        "history_top3": true
-      }
-    ],
-    "fun_picks": [],
-    "top_pick": {
-      "direction": "away_win",
-      "type": "Victoire extérieur",
-      "label": "FC Rustavi gagne",
-      "cote": null,
-      "confidence": 78,
-      "reasoning": "FC Rustavi : 4V/0N/1D sur 5 matchs · #1 au classement · H2H: 2V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
-      "stats": {
-        "form": [
-          "W",
-          "W",
-          "W",
-          "L",
-          "W"
-        ]
-      },
-      "is_fun": false,
-      "tier": "safe",
-      "calibration_delta": -11.3,
-      "history_top3": true
-    },
-    "no_picks": false,
-    "context": null
-  },
-  {
     "league": "World Cup",
     "home": "Panama",
     "away": "Croatia",
@@ -1299,7 +1041,7 @@
         "direction": "wc_over_25",
         "type": "⚽ Total buts WC",
         "label": "Plus de 2.5 buts",
-        "cote": 1.83,
+        "cote": 1.8,
         "cote_min": 1.29,
         "confidence": 78,
         "tier": "safe",
@@ -1314,7 +1056,7 @@
         },
         "reasoning": "📊 Écart FIFA significatif : Panama #44 vs Croatia #11 (gap -236 pts, P favori ≈ 80%).\n🇪🇺 Croatia UEFA powerhouse\nL10 : Panama 2V/1N/2D sur 5 · Croatia 2V/0N/3D sur 5\n📋 Fiche Panama : off moyen (-0.21) · def fragile (-1.00) · forme LDWLW · 🏆 présence occasionnelle\n📋 Fiche Croatia : off moyen (-0.16) · def fragile (-0.74) · forme LWLLW · 🏆 régulière phase finale\n   ↳ Historique : demi-finaliste en 2022 · finaliste en 2018 · phase de poules en 2014\n🌦️ 🌫️ brouillard · 11–20°C · humidité 72%\n⚠️ Compo PROBABLE (officielle à T-60min)\n⚽ Modèle Poisson : λ total = 4.11\nP(plus de 2.5 buts) = 77.8%\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
         "calibration_delta": -11.3,
-        "edge_pp": 23.4,
+        "edge_pp": 22.4,
         "history_top3": true
       },
       {
@@ -1474,7 +1216,7 @@
       "direction": "wc_over_25",
       "type": "⚽ Total buts WC",
       "label": "Plus de 2.5 buts",
-      "cote": 1.83,
+      "cote": 1.8,
       "cote_min": 1.29,
       "confidence": 78,
       "tier": "safe",
@@ -1489,7 +1231,7 @@
       },
       "reasoning": "📊 Écart FIFA significatif : Panama #44 vs Croatia #11 (gap -236 pts, P favori ≈ 80%).\n🇪🇺 Croatia UEFA powerhouse\nL10 : Panama 2V/1N/2D sur 5 · Croatia 2V/0N/3D sur 5\n📋 Fiche Panama : off moyen (-0.21) · def fragile (-1.00) · forme LDWLW · 🏆 présence occasionnelle\n📋 Fiche Croatia : off moyen (-0.16) · def fragile (-0.74) · forme LWLLW · 🏆 régulière phase finale\n   ↳ Historique : demi-finaliste en 2022 · finaliste en 2018 · phase de poules en 2014\n🌦️ 🌫️ brouillard · 11–20°C · humidité 72%\n⚠️ Compo PROBABLE (officielle à T-60min)\n⚽ Modèle Poisson : λ total = 4.11\nP(plus de 2.5 buts) = 77.8%\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
       "calibration_delta": -11.3,
-      "edge_pp": 23.4,
+      "edge_pp": 22.4,
       "history_top3": true
     },
     "no_picks": false,
@@ -1932,7 +1674,7 @@
         "direction": "home_win",
         "type": "Victoire domicile",
         "label": "France gagne",
-        "cote": 1.09,
+        "cote": 1.1,
         "confidence": 69,
         "reasoning": "France : 4V/0N/1D sur 5 matchs · #2 au classement · H2H: 0V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
         "stats": {
@@ -1947,7 +1689,7 @@
         "is_fun": false,
         "tier": "ok",
         "calibration_delta": -25.4,
-        "edge_pp": -22.7,
+        "edge_pp": -21.9,
         "history_top3": false
       },
       {
@@ -2188,7 +1930,7 @@
       "direction": "home_win",
       "type": "Victoire domicile",
       "label": "France gagne",
-      "cote": 1.09,
+      "cote": 1.1,
       "confidence": 69,
       "reasoning": "France : 4V/0N/1D sur 5 matchs · #2 au classement · H2H: 0V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
       "stats": {
@@ -2203,7 +1945,7 @@
       "is_fun": false,
       "tier": "ok",
       "calibration_delta": -25.4,
-      "edge_pp": -22.7,
+      "edge_pp": -21.9,
       "history_top3": false
     },
     "no_picks": false,
@@ -2395,7 +2137,7 @@
         "direction": "home_win",
         "type": "Favori net",
         "label": "Norway gagne",
-        "cote": 2.2,
+        "cote": 2.25,
         "confidence": 65,
         "reasoning": "11 places d'écart au classement (#1 vs #12) · 2V/2N/1D sur 5 matchs · Note Sofa: 6.5/10\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
         "stats": {
@@ -2410,7 +2152,7 @@
         "is_fun": false,
         "tier": "ok",
         "calibration_delta": -25.4,
-        "edge_pp": 19.5,
+        "edge_pp": 20.6,
         "history_top3": true
       },
       {
@@ -2545,7 +2287,7 @@
       "direction": "home_win",
       "type": "Favori net",
       "label": "Norway gagne",
-      "cote": 2.2,
+      "cote": 2.25,
       "confidence": 65,
       "reasoning": "11 places d'écart au classement (#1 vs #12) · 2V/2N/1D sur 5 matchs · Note Sofa: 6.5/10\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
       "stats": {
@@ -2560,7 +2302,7 @@
       "is_fun": false,
       "tier": "ok",
       "calibration_delta": -25.4,
-      "edge_pp": 19.5,
+      "edge_pp": 20.6,
       "history_top3": true
     },
     "no_picks": false,
@@ -2886,7 +2628,7 @@
         "direction": "home_win",
         "type": "Victoire domicile",
         "label": "Portugal gagne",
-        "cote": 1.19,
+        "cote": 1.18,
         "confidence": 61,
         "reasoning": "Portugal : 3V/2N/0D sur 5 matchs · #6 au classement · H2H: 0V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
         "stats": {
@@ -2901,7 +2643,7 @@
         "is_fun": false,
         "tier": "ok",
         "calibration_delta": -25.4,
-        "edge_pp": -23.0,
+        "edge_pp": -23.7,
         "history_top3": false
       },
       {
@@ -3089,7 +2831,7 @@
       "direction": "home_win",
       "type": "Victoire domicile",
       "label": "Portugal gagne",
-      "cote": 1.19,
+      "cote": 1.18,
       "confidence": 61,
       "reasoning": "Portugal : 3V/2N/0D sur 5 matchs · #6 au classement · H2H: 0V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
       "stats": {
@@ -3104,7 +2846,7 @@
       "is_fun": false,
       "tier": "ok",
       "calibration_delta": -25.4,
-      "edge_pp": -23.0,
+      "edge_pp": -23.7,
       "history_top3": false
     },
     "no_picks": false,
