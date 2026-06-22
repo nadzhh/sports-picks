@@ -2884,6 +2884,35 @@ def analyze_match(match, pstats_all, player_odds_all=None):
         home_pp.sort(key=lambda x: x.get("confidence", 0), reverse=True)
         away_pp.sort(key=lambda x: x.get("confidence", 0), reverse=True)
 
+    # ── Dédoublonnage joueur par (player, type) ─────────────────────────────
+    # User : "4 fois Messi c'est trop !!! 2 fois 'Messi marque' c'est un bug".
+    # Les picks player viennent de 2 sources distinctes :
+    #   - _friendly_player_picks (nat_stats, branche WC/amicaux)
+    #   - player_picks_contextual (stats club, tous matchs)
+    # Le même joueur peut sortir 2× pour le même type. Dedup : on garde le
+    # pick avec la confidence la PLUS HAUTE pour chaque (player, type).
+    import unicodedata as _ud
+    def _norm_player(name):
+        if not name: return ""
+        n = _ud.normalize("NFD", str(name))
+        return "".join(c for c in n if _ud.category(c) != "Mn").lower().strip()
+    def _dedup_by_player_type(picks_list):
+        by_key = {}
+        for pk in picks_list:
+            player = _norm_player(pk.get("player", ""))
+            ptype  = pk.get("type", "")
+            key = (player, ptype)
+            cur = by_key.get(key)
+            if cur is None or (pk.get("confidence", 0) or 0) > (cur.get("confidence", 0) or 0):
+                by_key[key] = pk
+        return list(by_key.values())
+    home_pp = _dedup_by_player_type(home_pp)
+    away_pp = _dedup_by_player_type(away_pp)
+    # Idem pour les fun picks player (Double buteur, Passeur)
+    fun_player_dedup = [p for p in fun_picks if p.get("player")]
+    fun_other        = [p for p in fun_picks if not p.get("player")]
+    fun_picks = _dedup_by_player_type(fun_player_dedup) + fun_other
+
     # ── Tag tier (safe/ok/fun) sur tous les picks finaux ────────────────────
     def _tag_tier(lst):
         for p in lst or []:
