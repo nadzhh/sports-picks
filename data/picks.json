@@ -11,7 +11,7 @@
         "direction": "wc_away_win",
         "type": "🏆 Vainqueur WC",
         "label": "Algeria gagne",
-        "cote": 1.56,
+        "cote": 1.53,
         "cote_min": 1.17,
         "confidence": 85,
         "tier": "safe",
@@ -196,7 +196,7 @@
       "direction": "wc_away_win",
       "type": "🏆 Vainqueur WC",
       "label": "Algeria gagne",
-      "cote": 1.56,
+      "cote": 1.53,
       "cote_min": 1.17,
       "confidence": 85,
       "tier": "safe",
@@ -211,7 +211,7 @@
       },
       "reasoning": "📊 Niveau équilibré : Jordan #60 vs Algeria #38 (gap -135 pts).\nL10 : Jordan 0V/1N/4D sur 5 · Algeria 3V/1N/1D sur 5\n📋 Fiche Jordan : off solide (+0.39) · def moyenne (-0.03) · forme LLLDL · 🏆 novice WC\n📋 Fiche Algeria : off moyen (+0.01) · def solide (+0.42) · forme LWWDW · 🏆 présence occasionnelle\n🌦️ 🌫️ brouillard · 12–21°C · humidité 62%\n⚠️ Compo PROBABLE (officielle à T-60min)\n🏆 Modèle Poisson CdM (tier FIFA ajusté)\nλ Jordan = 0.65, λ Algeria = 3.32\nP(Jordan) = 4.1% · P(nul) = 8.8% · P(Algeria gagne) = 85.1%\n📉 Calibration : bucket 80-89% historiquement à WR 56% (claim 82%, n=63) — sur-estimé de 26pp",
       "calibration_delta": -26.0,
-      "edge_pp": 20.9,
+      "edge_pp": 19.6,
       "history_top3": true
     },
     "no_picks": false,
@@ -749,7 +749,7 @@
         "direction": "wc_over_25",
         "type": "⚽ Total buts WC",
         "label": "Plus de 2.5 buts",
-        "cote": 1.87,
+        "cote": 1.91,
         "cote_min": 1.5,
         "confidence": 67,
         "tier": "ok",
@@ -1566,7 +1566,7 @@
         "direction": "wc_over_25",
         "type": "⚽ Total buts WC",
         "label": "Plus de 2.5 buts",
-        "cote": 1.87,
+        "cote": 1.83,
         "cote_min": 1.29,
         "confidence": 78,
         "tier": "safe",
@@ -1581,7 +1581,7 @@
         },
         "reasoning": "📊 Écart FIFA significatif : Panama #44 vs Croatia #11 (gap -236 pts, P favori ≈ 80%).\n🇪🇺 Croatia UEFA powerhouse\nL10 : Panama 2V/1N/2D sur 5 · Croatia 2V/0N/3D sur 5\n📋 Fiche Panama : off moyen (-0.21) · def fragile (-1.00) · forme LDWLW · 🏆 présence occasionnelle\n📋 Fiche Croatia : off moyen (-0.16) · def fragile (-0.74) · forme LWLLW · 🏆 régulière phase finale\n   ↳ Historique : demi-finaliste en 2022 · finaliste en 2018 · phase de poules en 2014\n🌦️ 🌫️ brouillard · 11–20°C · humidité 72%\n⚠️ Compo PROBABLE (officielle à T-60min)\n⚽ Modèle Poisson : λ total = 4.11\nP(plus de 2.5 buts) = 77.8%\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
         "calibration_delta": -11.3,
-        "edge_pp": 24.5,
+        "edge_pp": 23.4,
         "history_top3": true
       },
       {
@@ -1633,19 +1633,19 @@
       {
         "player": "Petar Musa",
         "position": "F",
-        "is_sub": false,
+        "is_sub": true,
         "type": "Buteur",
         "label": "Petar Musa marque",
         "cote": 2.4,
         "cote_min": 1.71,
         "book": "bovada",
         "books": [],
-        "confidence": 59,
-        "reasoning": "Petar Musa : selection 2G/6m (0.33/m) · L10 club : 6G/10m, 🔥 1G/3 derniers nat (+10%) | rotatif nat (50min/m) · last match 66min (1G+0A). λ ajusté à 0.88 (Croatia attendu 2.9 buts) → P(marque) ~59%.\n📉 Calibration : bucket 50-59% historiquement à WR 42% (claim 55%, n=41) — sur-estimé de 14pp",
+        "confidence": 54,
+        "reasoning": "⚠️ Compo PROBABLE (a confirmer 1h avant). Petar Musa : selection 2G/6m (0.33/m) · L10 club : 6G/10m, 🔥 1G/3 derniers nat (+10%) | rotatif nat (50min/m) · last match 66min (1G+0A). λ ajusté à 0.88 (Croatia attendu 2.9 buts) → P(marque) ~54%.\n📉 Calibration : bucket 50-59% historiquement à WR 42% (claim 55%, n=41) — sur-estimé de 14pp",
         "context": {
           "source": "lineup",
           "lam": 0.88,
-          "lineup_status": "confirmed"
+          "lineup_status": "predicted"
         },
         "stats": {
           "goals": null,
@@ -1654,8 +1654,8 @@
           "xgpm": null
         },
         "team": "away",
-        "lineup_status": "confirmed",
-        "tier": "ok",
+        "lineup_status": "predicted",
+        "tier": "fun",
         "calibration_delta": -13.6,
         "edge_pp": 17.3,
         "history_top3": true
@@ -1663,19 +1663,19 @@
       {
         "player": "Ivan Perisic",
         "position": "F",
-        "is_sub": false,
+        "is_sub": true,
         "type": "Passeur",
         "label": "Ivan Perisic délivre une passe décisive",
         "cote": 3.8,
         "cote_min": 2.17,
         "book": "bovada",
         "books": [],
-        "confidence": 46,
-        "reasoning": "Ivan Perisic délivre une passe décisive : selection 3A/11m (0.27 passes/m nat). P(passe décisive) ~46%.\n📉 Calibration : bucket 40-49% historiquement à WR 25% (claim 44%, n=36) — sur-estimé de 19pp",
+        "confidence": 41,
+        "reasoning": "⚠️ Compo PROBABLE (a confirmer 1h avant). Ivan Perisic délivre une passe décisive : selection 3A/11m (0.27 passes/m nat). P(passe décisive) ~41%.\n📉 Calibration : bucket 40-49% historiquement à WR 25% (claim 44%, n=36) — sur-estimé de 19pp",
         "context": {
           "source": "lineup",
           "lam": 0.62,
-          "lineup_status": "confirmed"
+          "lineup_status": "predicted"
         },
         "stats": {
           "goals": null,
@@ -1684,7 +1684,7 @@
           "xgpm": null
         },
         "team": "away",
-        "lineup_status": "confirmed",
+        "lineup_status": "predicted",
         "tier": "fun",
         "calibration_delta": -19.4,
         "edge_pp": 19.7,
@@ -1764,14 +1764,14 @@
             7.3
           ]
         ],
-        "history_top3": false
+        "history_top3": true
       }
     ],
     "top_pick": {
       "direction": "wc_over_25",
       "type": "⚽ Total buts WC",
       "label": "Plus de 2.5 buts",
-      "cote": 1.87,
+      "cote": 1.83,
       "cote_min": 1.29,
       "confidence": 78,
       "tier": "safe",
@@ -1786,7 +1786,7 @@
       },
       "reasoning": "📊 Écart FIFA significatif : Panama #44 vs Croatia #11 (gap -236 pts, P favori ≈ 80%).\n🇪🇺 Croatia UEFA powerhouse\nL10 : Panama 2V/1N/2D sur 5 · Croatia 2V/0N/3D sur 5\n📋 Fiche Panama : off moyen (-0.21) · def fragile (-1.00) · forme LDWLW · 🏆 présence occasionnelle\n📋 Fiche Croatia : off moyen (-0.16) · def fragile (-0.74) · forme LWLLW · 🏆 régulière phase finale\n   ↳ Historique : demi-finaliste en 2022 · finaliste en 2018 · phase de poules en 2014\n🌦️ 🌫️ brouillard · 11–20°C · humidité 72%\n⚠️ Compo PROBABLE (officielle à T-60min)\n⚽ Modèle Poisson : λ total = 4.11\nP(plus de 2.5 buts) = 77.8%\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
       "calibration_delta": -11.3,
-      "edge_pp": 24.5,
+      "edge_pp": 23.4,
       "history_top3": true
     },
     "no_picks": false,
