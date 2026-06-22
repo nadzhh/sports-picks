@@ -19795,10 +19795,10 @@
       "books": [],
       "confidence": 70,
       "cote_min": 1.43,
-      "reasoning": "📈 P(Darko Lemajic marque) ≈ 52% · P(Stefan Panic marque) ≈ 44%\n🎯 P(au moins un marque) = 70% (calculée par 1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.43 - chercher ≥1.43 chez le bookmaker\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+      "reasoning": "📈 P(Darko Lemajic marque) ≈ 55% · P(Stefan Panic marque) ≈ 44%\n🎯 P(au moins un marque) = 70% (calculée par 1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.43 - chercher ≥1.43 chez le bookmaker\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
       "context": {},
       "stats": {
-        "p_a": 0.525,
+        "p_a": 0.548,
         "p_b": 0.435,
         "p_or": 0.7,
         "player_a": "Darko Lemajic",
@@ -19829,19 +19829,19 @@
       "cote": null,
       "book": null,
       "books": [],
-      "confidence": 52,
-      "reasoning": "9 buts en 16 matchs cette saison (56.2% de chance/match) · xG moyen 0.00/match · défense correcte\n📉 Calibration : bucket 50-59% historiquement à WR 42% (claim 55%, n=41) — sur-estimé de 14pp",
+      "confidence": 55,
+      "reasoning": "10 buts en 16 matchs cette saison (62.5% de chance/match) · xG moyen 0.00/match · défense correcte\n📉 Calibration : bucket 50-59% historiquement à WR 42% (claim 55%, n=41) — sur-estimé de 14pp",
       "context": {
         "weakness": 0.35
       },
       "stats": {
-        "goals": 9,
+        "goals": 10,
         "apps": 16,
-        "gpm": 0.562,
+        "gpm": 0.625,
         "xgpm": 0
       },
       "team": "home",
-      "tier": "fun",
+      "tier": "ok",
       "calibration_delta": -13.6,
       "history_top3": true,
       "id": "2026-06-22_5162011_player_Darko Lemajic_Buteur",
@@ -19859,7 +19859,7 @@
     {
       "player": "Lionel Messi",
       "position": "F",
-      "is_sub": true,
+      "is_sub": false,
       "type": "Double buteur",
       "label": "Lionel Messi marque 2+ buts",
       "cote": 6.0,
@@ -19867,11 +19867,11 @@
       "book": "bovada",
       "books": [],
       "confidence": 60,
-      "reasoning": "⚠️ Compo PROBABLE (a confirmer 1h avant). Lionel Messi : selection 8G/7m (1.14/m) · L10 club : 9G/10m, 🔥 5G/3 derniers nat (+19%) | titu nat (71min/m) · last match 80min (3G+0A). Attendu ~2.6 buts ce match - P(2+) ~69% (cote elevee).\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
+      "reasoning": "Lionel Messi : selection 8G/7m (1.14/m) · L10 club : 9G/10m, 🔥 5G/3 derniers nat (+19%) | titu nat (71min/m) · last match 80min (3G+0A). Attendu ~2.6 buts ce match - P(2+) ~74% (cote elevee).\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
       "context": {
         "source": "lineup",
         "lam": 2.64,
-        "lineup_status": "predicted"
+        "lineup_status": "confirmed"
       },
       "stats": {
         "goals": null,
@@ -19880,7 +19880,7 @@
         "xgpm": null
       },
       "team": "home",
-      "lineup_status": "predicted",
+      "lineup_status": "confirmed",
       "tier": "fun",
       "calibration_delta": -25.4,
       "edge_pp": 43.3,
@@ -19900,7 +19900,7 @@
     {
       "player": "Lionel Messi",
       "position": "F",
-      "is_sub": true,
+      "is_sub": false,
       "type": "Buteur",
       "label": "Lionel Messi marque",
       "cote": 1.94,
@@ -19908,11 +19908,11 @@
       "book": "bovada",
       "books": [],
       "confidence": 82,
-      "reasoning": "⚠️ Compo PROBABLE (a confirmer 1h avant). Lionel Messi : selection 8G/7m (1.14/m) · L10 club : 9G/10m, 🔥 5G/3 derniers nat (+19%) | titu nat (71min/m) · last match 80min (3G+0A). λ ajusté à 2.64 (Argentina attendu 3.1 buts) → P(marque) ~88%.\n📉 Calibration : bucket 80-89% historiquement à WR 56% (claim 82%, n=63) — sur-estimé de 26pp",
+      "reasoning": "Lionel Messi : selection 8G/7m (1.14/m) · L10 club : 9G/10m, 🔥 5G/3 derniers nat (+19%) | titu nat (71min/m) · last match 80min (3G+0A). λ ajusté à 2.64 (Argentina attendu 3.1 buts) → P(marque) ~93%.\n📉 Calibration : bucket 80-89% historiquement à WR 56% (claim 82%, n=63) — sur-estimé de 26pp",
       "context": {
         "source": "lineup",
         "lam": 2.64,
-        "lineup_status": "predicted"
+        "lineup_status": "confirmed"
       },
       "stats": {
         "goals": null,
@@ -19921,7 +19921,7 @@
         "xgpm": null
       },
       "team": "home",
-      "lineup_status": "predicted",
+      "lineup_status": "confirmed",
       "tier": "ok",
       "calibration_delta": -26.0,
       "edge_pp": 30.5,
@@ -19941,19 +19941,19 @@
     {
       "player": "Lionel Messi",
       "position": "F",
-      "is_sub": true,
+      "is_sub": false,
       "type": "Passeur",
       "label": "Lionel Messi délivre une passe décisive",
       "cote": 3.8,
       "cote_min": 1.59,
       "book": "bovada",
       "books": [],
-      "confidence": 58,
-      "reasoning": "⚠️ Compo PROBABLE (a confirmer 1h avant). Lionel Messi délivre une passe décisive : selection 3A/7m (0.43 passes/m nat). P(passe décisive) ~58%.\n📉 Calibration : bucket 50-59% historiquement à WR 42% (claim 55%, n=41) — sur-estimé de 14pp",
+      "confidence": 63,
+      "reasoning": "Lionel Messi délivre une passe décisive : selection 3A/7m (0.43 passes/m nat). P(passe décisive) ~63%.\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
       "context": {
         "source": "lineup",
         "lam": 0.99,
-        "lineup_status": "predicted"
+        "lineup_status": "confirmed"
       },
       "stats": {
         "goals": null,
@@ -19962,10 +19962,10 @@
         "xgpm": null
       },
       "team": "home",
-      "lineup_status": "predicted",
+      "lineup_status": "confirmed",
       "tier": "fun",
-      "calibration_delta": -13.6,
-      "edge_pp": 31.7,
+      "calibration_delta": -25.4,
+      "edge_pp": 36.7,
       "history_top3": true,
       "id": "2026-06-22_4667815_player_Lionel Messi_Passeur",
       "date": "2026-06-22",
@@ -19982,19 +19982,19 @@
     {
       "player": "Lautaro Martínez",
       "position": "F",
-      "is_sub": true,
+      "is_sub": false,
       "type": "Buteur",
       "label": "Lautaro Martínez marque",
       "cote": 2.5,
       "cote_min": 1.44,
       "book": "bovada",
       "books": [],
-      "confidence": 65,
-      "reasoning": "⚠️ Compo PROBABLE (a confirmer 1h avant). Lautaro Martínez : selection 5G/8m (0.62/m) · L10 club : 3G/10m, 🔥 1G/3 derniers nat (+10%) | rotatif nat (55min/m) · last match 55min (0G+0A). λ ajusté à 1.19 (Argentina attendu 3.1 buts) → P(marque) ~65%.\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
+      "confidence": 70,
+      "reasoning": "Lautaro Martínez : selection 5G/8m (0.62/m) · L10 club : 3G/10m, 🔥 1G/3 derniers nat (+10%) | rotatif nat (55min/m) · last match 55min (0G+0A). λ ajusté à 1.19 (Argentina attendu 3.1 buts) → P(marque) ~70%.\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
       "context": {
         "source": "lineup",
         "lam": 1.19,
-        "lineup_status": "predicted"
+        "lineup_status": "confirmed"
       },
       "stats": {
         "goals": null,
@@ -20003,10 +20003,10 @@
         "xgpm": null
       },
       "team": "home",
-      "lineup_status": "predicted",
+      "lineup_status": "confirmed",
       "tier": "ok",
-      "calibration_delta": -25.4,
-      "edge_pp": 25.0,
+      "calibration_delta": -11.3,
+      "edge_pp": 30.0,
       "history_top3": true,
       "id": "2026-06-22_4667815_player_Lautaro Martínez_Buteur",
       "date": "2026-06-22",
@@ -20120,30 +20120,30 @@
       "side": "away"
     },
     {
-      "player": "Zurab Menteshashvili / Blankson Anoff",
+      "player": "Shota Shekiladze / Zurab Menteshashvili",
       "position": "",
       "is_sub": false,
       "type": "Double Chance Buteur",
-      "label": "Zurab Menteshashvili ou Blankson Anoff marque",
+      "label": "Shota Shekiladze ou Zurab Menteshashvili marque",
       "cote": null,
       "book": null,
       "books": [],
       "confidence": 66,
       "cote_min": 1.52,
-      "reasoning": "📈 P(Zurab Menteshashvili marque) ≈ 42% · P(Blankson Anoff marque) ≈ 42%\n🎯 P(au moins un marque) = 66% (calculée par 1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.52 - chercher ≥1.52 chez le bookmaker\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
+      "reasoning": "📈 P(Shota Shekiladze marque) ≈ 42% · P(Zurab Menteshashvili marque) ≈ 42%\n🎯 P(au moins un marque) = 66% (calculée par 1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.52 - chercher ≥1.52 chez le bookmaker\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
       "context": {},
       "stats": {
         "p_a": 0.42,
         "p_b": 0.42,
         "p_or": 0.664,
-        "player_a": "Zurab Menteshashvili",
-        "player_b": "Blankson Anoff"
+        "player_a": "Shota Shekiladze",
+        "player_b": "Zurab Menteshashvili"
       },
       "team": "home",
       "tier": "ok",
       "calibration_delta": -25.4,
       "history_top3": true,
-      "id": "2026-06-22_5165335_player_Zurab Menteshashvili / Blankson Anoff_Double Chance Buteur",
+      "id": "2026-06-22_5165335_player_Shota Shekiladze / Zurab Menteshashvili_Double Chance Buteur",
       "date": "2026-06-22",
       "match_id": "5165335",
       "page_url": "/matches/dila-gori-vs-fc-rustavi/o41pjaf#5165335",
@@ -20417,37 +20417,6 @@
       "page_url": "/matches/iraq-vs-france/1au1fo#4667807",
       "matchup": "France vs Iraq",
       "league": "World Cup",
-      "category": "team",
-      "result": "PENDING",
-      "actual": null,
-      "resolved_at": null
-    },
-    {
-      "direction": "away_win",
-      "type": "Favori net",
-      "label": "Hegelmann gagne",
-      "cote": null,
-      "confidence": 68,
-      "reasoning": "13 places d'écart au classement (#7 vs #20) · 1V/3N/1D sur 5 matchs · Note Sofa: 6.5/10\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
-      "stats": {
-        "form": [
-          "D",
-          "D",
-          "L",
-          "W",
-          "D"
-        ]
-      },
-      "is_fun": false,
-      "tier": "ok",
-      "calibration_delta": -25.4,
-      "history_top3": true,
-      "id": "2026-06-22_5185241_team_away_win",
-      "date": "2026-06-22",
-      "match_id": "5185241",
-      "page_url": "/matches/riteriai-vs-hegelmann/6azdhzhs#5185241",
-      "matchup": "Riteriai vs Hegelmann",
-      "league": "Lithuanian Toplyga",
       "category": "team",
       "result": "PENDING",
       "actual": null,
