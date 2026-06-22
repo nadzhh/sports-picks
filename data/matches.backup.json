@@ -3311,7 +3311,7 @@
             {
               "name": "Argentina",
               "side": "home",
-              "cote": 1.47,
+              "cote": 1.48,
               "book": "draftkings"
             },
             {
@@ -3333,203 +3333,18 @@
           "choices": [
             {
               "name": "Over 2.5",
-              "cote": 1.91,
+              "cote": 1.95,
               "book": "draftkings"
             },
             {
               "name": "Under 2.5",
-              "cote": 1.91,
+              "cote": 1.87,
               "book": "draftkings"
             }
           ]
-        },
-        {
-          "marketName": "Both teams to score",
-          "choices": [
-            {
-              "name": "Yes",
-              "cote": 2.1,
-              "book": "bovada"
-            },
-            {
-              "name": "No",
-              "cote": 1.69,
-              "book": "bovada"
-            }
-          ],
-          "_source": "bovada"
-        },
-        {
-          "marketName": "Goals Over/Under (1.5)",
-          "choices": [
-            {
-              "name": "Over 1.5",
-              "cote": 1.38,
-              "book": "bovada"
-            },
-            {
-              "name": "Under 1.5",
-              "cote": 3.1,
-              "book": "bovada"
-            }
-          ],
-          "_source": "bovada"
-        },
-        {
-          "marketName": "Goals Over/Under (3.5)",
-          "choices": [
-            {
-              "name": "Over 3.5",
-              "cote": 3.45,
-              "book": "bovada"
-            },
-            {
-              "name": "Under 3.5",
-              "cote": 1.33,
-              "book": "bovada"
-            }
-          ],
-          "_source": "bovada"
-        },
-        {
-          "marketName": "Double chance",
-          "choices": [
-            {
-              "name": "Argentina / Draw",
-              "side": "1X",
-              "cote": 1.08,
-              "book": "bovada"
-            },
-            {
-              "name": "Argentina / Austria",
-              "side": "12",
-              "cote": 1.22,
-              "book": "bovada"
-            },
-            {
-              "name": "Austria / Draw",
-              "side": "X2",
-              "cote": 2.62,
-              "book": "bovada"
-            }
-          ],
-          "_source": "bovada"
-        },
-        {
-          "marketName": "Total shots",
-          "choiceGroup": "21.5",
-          "choices": [
-            {
-              "name": "Over",
-              "fractionalValue": "740/1000",
-              "cote": 1.74,
-              "book": "bovada"
-            },
-            {
-              "name": "Under",
-              "fractionalValue": "1049/1000",
-              "cote": 2.05,
-              "book": "bovada"
-            }
-          ],
-          "_source": "bovada"
-        },
-        {
-          "marketName": "Home team total shots",
-          "choiceGroup": "13.5",
-          "choices": [
-            {
-              "name": "Over",
-              "fractionalValue": "800/1000",
-              "cote": 1.8,
-              "book": "bovada"
-            },
-            {
-              "name": "Under",
-              "fractionalValue": "950/1000",
-              "cote": 1.95,
-              "book": "bovada"
-            }
-          ],
-          "_source": "bovada"
-        },
-        {
-          "marketName": "Away team total shots",
-          "choiceGroup": "7.5",
-          "choices": [
-            {
-              "name": "Over",
-              "fractionalValue": "710/1000",
-              "cote": 1.71,
-              "book": "bovada"
-            },
-            {
-              "name": "Under",
-              "fractionalValue": "1080/1000",
-              "cote": 2.08,
-              "book": "bovada"
-            }
-          ],
-          "_source": "bovada"
-        },
-        {
-          "marketName": "Total shots on target",
-          "choiceGroup": "7.5",
-          "choices": [
-            {
-              "name": "Over",
-              "fractionalValue": "740/1000",
-              "cote": 1.74,
-              "book": "bovada"
-            },
-            {
-              "name": "Under",
-              "fractionalValue": "1049/1000",
-              "cote": 2.05,
-              "book": "bovada"
-            }
-          ],
-          "_source": "bovada"
-        },
-        {
-          "marketName": "Home team total shots on target",
-          "choiceGroup": "4.5",
-          "choices": [
-            {
-              "name": "Over",
-              "fractionalValue": "669/1000",
-              "cote": 1.67,
-              "book": "bovada"
-            },
-            {
-              "name": "Under",
-              "fractionalValue": "1150/1000",
-              "cote": 2.15,
-              "book": "bovada"
-            }
-          ],
-          "_source": "bovada"
-        },
-        {
-          "marketName": "Away team total shots on target",
-          "choiceGroup": "2.5",
-          "choices": [
-            {
-              "name": "Over",
-              "fractionalValue": "740/1000",
-              "cote": 1.74,
-              "book": "bovada"
-            },
-            {
-              "name": "Under",
-              "fractionalValue": "1049/1000",
-              "cote": 2.05,
-              "book": "bovada"
-            }
-          ],
-          "_source": "bovada"
         }
-      ]
+      ],
+      "_source": "espn"
     },
     "lineups_home": null,
     "lineups_away": null,
@@ -3601,6 +3416,10 @@
       "league_name": "World Cup",
       "top_buteurs_home": [
         {
+          "player": "Lionel Messi",
+          "pct": 82
+        },
+        {
           "player": "Lautaro Martínez",
           "pct": 65
         },
@@ -3640,33 +3459,33 @@
         },
         {
           "marche": "Plus de 2.5 buts",
-          "cote": 1.91,
+          "cote": 1.95,
           "book": "draftkings",
           "p_ligue": 41,
           "p_modele": 58,
           "p_form": 58,
           "p_avg": 52,
-          "value": 99.6
+          "value": 101.6
         },
         {
           "marche": "Moins de 2.5 buts",
-          "cote": 1.91,
+          "cote": 1.87,
           "book": "draftkings",
           "p_ligue": 59,
           "p_modele": 42,
           "p_form": 42,
           "p_avg": 48,
-          "value": 91.4
+          "value": 89.5
         },
         {
           "marche": "Argentina gagne (1X2)",
-          "cote": 1.47,
+          "cote": 1.48,
           "book": "draftkings",
           "p_ligue": 45,
           "p_modele": 51,
           "p_form": 49,
           "p_avg": 48,
-          "value": 71.3
+          "value": 71.7
         }
       ]
     },
@@ -3880,188 +3699,9 @@
               "book": "draftkings"
             }
           ]
-        },
-        {
-          "marketName": "Both teams to score",
-          "choices": [
-            {
-              "name": "Yes",
-              "cote": 2.6,
-              "book": "bovada"
-            },
-            {
-              "name": "No",
-              "cote": 1.47,
-              "book": "bovada"
-            }
-          ],
-          "_source": "bovada"
-        },
-        {
-          "marketName": "Goals Over/Under (2.5)",
-          "choices": [
-            {
-              "name": "Over 2.5",
-              "cote": 1.35,
-              "book": "bovada"
-            },
-            {
-              "name": "Under 2.5",
-              "cote": 3.25,
-              "book": "bovada"
-            }
-          ],
-          "_source": "bovada"
-        },
-        {
-          "marketName": "Goals Over/Under (4.5)",
-          "choices": [
-            {
-              "name": "Over 4.5",
-              "cote": 2.93,
-              "book": "bovada"
-            },
-            {
-              "name": "Under 4.5",
-              "cote": 1.42,
-              "book": "bovada"
-            }
-          ],
-          "_source": "bovada"
-        },
-        {
-          "marketName": "Double chance",
-          "choices": [
-            {
-              "name": "France / Iraq",
-              "side": "12",
-              "cote": 1.03,
-              "book": "bovada"
-            },
-            {
-              "name": "Iraq / Draw",
-              "side": "X2",
-              "cote": 7.25,
-              "book": "bovada"
-            }
-          ],
-          "_source": "bovada"
-        },
-        {
-          "marketName": "Total shots",
-          "choiceGroup": "26.5",
-          "choices": [
-            {
-              "name": "Over",
-              "fractionalValue": "1049/1000",
-              "cote": 2.05,
-              "book": "bovada"
-            },
-            {
-              "name": "Under",
-              "fractionalValue": "740/1000",
-              "cote": 1.74,
-              "book": "bovada"
-            }
-          ],
-          "_source": "bovada"
-        },
-        {
-          "marketName": "Home team total shots",
-          "choiceGroup": "20.5",
-          "choices": [
-            {
-              "name": "Over",
-              "fractionalValue": "909/1000",
-              "cote": 1.91,
-              "book": "bovada"
-            },
-            {
-              "name": "Under",
-              "fractionalValue": "830/1000",
-              "cote": 1.83,
-              "book": "bovada"
-            }
-          ],
-          "_source": "bovada"
-        },
-        {
-          "marketName": "Away team total shots",
-          "choiceGroup": "5.5",
-          "choices": [
-            {
-              "name": "Over",
-              "fractionalValue": "870/1000",
-              "cote": 1.87,
-              "book": "bovada"
-            },
-            {
-              "name": "Under",
-              "fractionalValue": "870/1000",
-              "cote": 1.87,
-              "book": "bovada"
-            }
-          ],
-          "_source": "bovada"
-        },
-        {
-          "marketName": "Total shots on target",
-          "choiceGroup": "9.5",
-          "choices": [
-            {
-              "name": "Over",
-              "fractionalValue": "1000/1000",
-              "cote": 2.0,
-              "book": "bovada"
-            },
-            {
-              "name": "Under",
-              "fractionalValue": "770/1000",
-              "cote": 1.77,
-              "book": "bovada"
-            }
-          ],
-          "_source": "bovada"
-        },
-        {
-          "marketName": "Home team total shots on target",
-          "choiceGroup": "8.5",
-          "choices": [
-            {
-              "name": "Over",
-              "fractionalValue": "1100/1000",
-              "cote": 2.1,
-              "book": "bovada"
-            },
-            {
-              "name": "Under",
-              "fractionalValue": "690/1000",
-              "cote": 1.69,
-              "book": "bovada"
-            }
-          ],
-          "_source": "bovada"
-        },
-        {
-          "marketName": "Away team total shots on target",
-          "choiceGroup": "1.5",
-          "choices": [
-            {
-              "name": "Over",
-              "fractionalValue": "1250/1000",
-              "cote": 2.25,
-              "book": "bovada"
-            },
-            {
-              "name": "Under",
-              "fractionalValue": "610/1000",
-              "cote": 1.61,
-              "book": "bovada"
-            }
-          ],
-          "_source": "bovada"
         }
-      ]
+      ],
+      "_source": "espn"
     },
     "lineups_home": null,
     "lineups_away": null,
@@ -4132,6 +3772,14 @@
       },
       "league_name": "World Cup",
       "top_buteurs_home": [
+        {
+          "player": "Kylian Mbappé",
+          "pct": 82
+        },
+        {
+          "player": "Michael Olise",
+          "pct": 78
+        },
         {
           "player": "Kylian Mbappé",
           "pct": 31
@@ -4383,194 +4031,9 @@
               "book": "draftkings"
             }
           ]
-        },
-        {
-          "marketName": "Both teams to score",
-          "choices": [
-            {
-              "name": "Yes",
-              "cote": 1.69,
-              "book": "bovada"
-            },
-            {
-              "name": "No",
-              "cote": 2.1,
-              "book": "bovada"
-            }
-          ],
-          "_source": "bovada"
-        },
-        {
-          "marketName": "Goals Over/Under (1.5)",
-          "choices": [
-            {
-              "name": "Over 1.5",
-              "cote": 1.34,
-              "book": "bovada"
-            },
-            {
-              "name": "Under 1.5",
-              "cote": 3.3,
-              "book": "bovada"
-            }
-          ],
-          "_source": "bovada"
-        },
-        {
-          "marketName": "Goals Over/Under (3.5)",
-          "choices": [
-            {
-              "name": "Over 3.5",
-              "cote": 3.2,
-              "book": "bovada"
-            },
-            {
-              "name": "Under 3.5",
-              "cote": 1.36,
-              "book": "bovada"
-            }
-          ],
-          "_source": "bovada"
-        },
-        {
-          "marketName": "Double chance",
-          "choices": [
-            {
-              "name": "Norway / Draw",
-              "side": "1X",
-              "cote": 1.32,
-              "book": "bovada"
-            },
-            {
-              "name": "Norway / Senegal",
-              "side": "12",
-              "cote": 1.31,
-              "book": "bovada"
-            },
-            {
-              "name": "Senegal / Draw",
-              "side": "X2",
-              "cote": 1.67,
-              "book": "bovada"
-            }
-          ],
-          "_source": "bovada"
-        },
-        {
-          "marketName": "Total shots",
-          "choiceGroup": "23.5",
-          "choices": [
-            {
-              "name": "Over",
-              "fractionalValue": "870/1000",
-              "cote": 1.87,
-              "book": "bovada"
-            },
-            {
-              "name": "Under",
-              "fractionalValue": "870/1000",
-              "cote": 1.87,
-              "book": "bovada"
-            }
-          ],
-          "_source": "bovada"
-        },
-        {
-          "marketName": "Home team total shots",
-          "choiceGroup": "12.5",
-          "choices": [
-            {
-              "name": "Over",
-              "fractionalValue": "870/1000",
-              "cote": 1.87,
-              "book": "bovada"
-            },
-            {
-              "name": "Under",
-              "fractionalValue": "870/1000",
-              "cote": 1.87,
-              "book": "bovada"
-            }
-          ],
-          "_source": "bovada"
-        },
-        {
-          "marketName": "Away team total shots",
-          "choiceGroup": "10.5",
-          "choices": [
-            {
-              "name": "Over",
-              "fractionalValue": "800/1000",
-              "cote": 1.8,
-              "book": "bovada"
-            },
-            {
-              "name": "Under",
-              "fractionalValue": "950/1000",
-              "cote": 1.95,
-              "book": "bovada"
-            }
-          ],
-          "_source": "bovada"
-        },
-        {
-          "marketName": "Total shots on target",
-          "choiceGroup": "8.5",
-          "choices": [
-            {
-              "name": "Over",
-              "fractionalValue": "909/1000",
-              "cote": 1.91,
-              "book": "bovada"
-            },
-            {
-              "name": "Under",
-              "fractionalValue": "830/1000",
-              "cote": 1.83,
-              "book": "bovada"
-            }
-          ],
-          "_source": "bovada"
-        },
-        {
-          "marketName": "Home team total shots on target",
-          "choiceGroup": "4.5",
-          "choices": [
-            {
-              "name": "Over",
-              "fractionalValue": "870/1000",
-              "cote": 1.87,
-              "book": "bovada"
-            },
-            {
-              "name": "Under",
-              "fractionalValue": "870/1000",
-              "cote": 1.87,
-              "book": "bovada"
-            }
-          ],
-          "_source": "bovada"
-        },
-        {
-          "marketName": "Away team total shots on target",
-          "choiceGroup": "3.5",
-          "choices": [
-            {
-              "name": "Over",
-              "fractionalValue": "870/1000",
-              "cote": 1.87,
-              "book": "bovada"
-            },
-            {
-              "name": "Under",
-              "fractionalValue": "870/1000",
-              "cote": 1.87,
-              "book": "bovada"
-            }
-          ],
-          "_source": "bovada"
         }
-      ]
+      ],
+      "_source": "espn"
     },
     "lineups_home": null,
     "lineups_away": null,
@@ -4641,6 +4104,10 @@
       },
       "league_name": "World Cup",
       "top_buteurs_home": [
+        {
+          "player": "Erling Haaland",
+          "pct": 76
+        },
         {
           "player": "Erling Haaland",
           "pct": 42
@@ -4908,84 +4375,13 @@
             },
             {
               "name": "Under 2.5",
-              "cote": 1.87,
+              "cote": 1.91,
               "book": "draftkings"
             }
           ]
-        },
-        {
-          "marketName": "Both teams to score",
-          "choices": [
-            {
-              "name": "Yes",
-              "cote": 2.02,
-              "book": "bovada"
-            },
-            {
-              "name": "No",
-              "cote": 1.76,
-              "book": "bovada"
-            }
-          ],
-          "_source": "bovada"
-        },
-        {
-          "marketName": "Goals Over/Under (1.5)",
-          "choices": [
-            {
-              "name": "Over 1.5",
-              "cote": 1.37,
-              "book": "bovada"
-            },
-            {
-              "name": "Under 1.5",
-              "cote": 3.15,
-              "book": "bovada"
-            }
-          ],
-          "_source": "bovada"
-        },
-        {
-          "marketName": "Goals Over/Under (3.5)",
-          "choices": [
-            {
-              "name": "Over 3.5",
-              "cote": 3.35,
-              "book": "bovada"
-            },
-            {
-              "name": "Under 3.5",
-              "cote": 1.33,
-              "book": "bovada"
-            }
-          ],
-          "_source": "bovada"
-        },
-        {
-          "marketName": "Double chance",
-          "choices": [
-            {
-              "name": "Jordan / Draw",
-              "side": "1X",
-              "cote": 2.48,
-              "book": "bovada"
-            },
-            {
-              "name": "Jordan / Algeria",
-              "side": "12",
-              "cote": 1.23,
-              "book": "bovada"
-            },
-            {
-              "name": "Algeria / Draw",
-              "side": "X2",
-              "cote": 1.1,
-              "book": "bovada"
-            }
-          ],
-          "_source": "bovada"
         }
-      ]
+      ],
+      "_source": "espn"
     },
     "lineups_home": null,
     "lineups_away": null,
@@ -5116,13 +4512,13 @@
         },
         {
           "marche": "Moins de 2.5 buts",
-          "cote": 1.87,
+          "cote": 1.91,
           "book": "draftkings",
           "p_ligue": 59,
           "p_modele": 32,
           "p_form": 32,
           "p_avg": 41,
-          "value": 76.8
+          "value": 78.4
         }
       ]
     },
@@ -5327,89 +4723,18 @@
           "choices": [
             {
               "name": "Over 2.5",
-              "cote": 1.57,
+              "cote": 1.59,
               "book": "draftkings"
             },
             {
               "name": "Under 2.5",
-              "cote": 2.4,
+              "cote": 2.35,
               "book": "draftkings"
             }
           ]
-        },
-        {
-          "marketName": "Both teams to score",
-          "choices": [
-            {
-              "name": "Yes",
-              "cote": 2.35,
-              "book": "bovada"
-            },
-            {
-              "name": "No",
-              "cote": 1.56,
-              "book": "bovada"
-            }
-          ],
-          "_source": "bovada"
-        },
-        {
-          "marketName": "Goals Over/Under (1.5)",
-          "choices": [
-            {
-              "name": "Over 1.5",
-              "cote": 1.15,
-              "book": "bovada"
-            },
-            {
-              "name": "Under 1.5",
-              "cote": 5.35,
-              "book": "bovada"
-            }
-          ],
-          "_source": "bovada"
-        },
-        {
-          "marketName": "Goals Over/Under (3.5)",
-          "choices": [
-            {
-              "name": "Over 3.5",
-              "cote": 3.0,
-              "book": "bovada"
-            },
-            {
-              "name": "Under 3.5",
-              "cote": 1.4,
-              "book": "bovada"
-            }
-          ],
-          "_source": "bovada"
-        },
-        {
-          "marketName": "Double chance",
-          "choices": [
-            {
-              "name": "Portugal / Draw",
-              "side": "1X",
-              "cote": 1.01,
-              "book": "bovada"
-            },
-            {
-              "name": "Portugal / Uzbekistan",
-              "side": "12",
-              "cote": 1.11,
-              "book": "bovada"
-            },
-            {
-              "name": "Uzbekistan / Draw",
-              "side": "X2",
-              "cote": 4.45,
-              "book": "bovada"
-            }
-          ],
-          "_source": "bovada"
         }
-      ]
+      ],
+      "_source": "espn"
     },
     "lineups_home": null,
     "lineups_away": null,
@@ -5516,23 +4841,23 @@
         },
         {
           "marche": "Moins de 2.5 buts",
-          "cote": 2.4,
+          "cote": 2.35,
           "book": "draftkings",
           "p_ligue": 59,
           "p_modele": 60,
           "p_form": 60,
           "p_avg": 59,
-          "value": 142.6
+          "value": 139.6
         },
         {
           "marche": "Plus de 2.5 buts",
-          "cote": 1.57,
+          "cote": 1.59,
           "book": "draftkings",
           "p_ligue": 41,
           "p_modele": 40,
           "p_form": 40,
           "p_avg": 41,
-          "value": 63.7
+          "value": 64.5
         },
         {
           "marche": "Portugal gagne (1X2)",
@@ -5756,96 +5081,9 @@
               "book": "draftkings"
             }
           ]
-        },
-        {
-          "marketName": "Both teams to score",
-          "choices": [
-            {
-              "name": "Yes",
-              "cote": 2.35,
-              "book": "bovada"
-            },
-            {
-              "name": "No",
-              "cote": 1.56,
-              "book": "bovada"
-            }
-          ],
-          "_source": "bovada"
-        },
-        {
-          "marketName": "Goals Over/Under (1.5)",
-          "choices": [
-            {
-              "name": "Over 1.5",
-              "cote": 1.23,
-              "book": "bovada"
-            },
-            {
-              "name": "Under 1.5",
-              "cote": 4.2,
-              "book": "bovada"
-            }
-          ],
-          "_source": "bovada"
-        },
-        {
-          "marketName": "Goals Over/Under (3.5)",
-          "choices": [
-            {
-              "name": "Over 3.5",
-              "cote": 3.2,
-              "book": "bovada"
-            },
-            {
-              "name": "Under 3.5",
-              "cote": 1.36,
-              "book": "bovada"
-            }
-          ],
-          "_source": "bovada"
-        },
-        {
-          "marketName": "Goals Over/Under (4.5)",
-          "choices": [
-            {
-              "name": "Over 4.5",
-              "cote": 5.0,
-              "book": "bovada"
-            },
-            {
-              "name": "Under 4.5",
-              "cote": 1.17,
-              "book": "bovada"
-            }
-          ],
-          "_source": "bovada"
-        },
-        {
-          "marketName": "Double chance",
-          "choices": [
-            {
-              "name": "England / Draw",
-              "side": "1X",
-              "cote": 1.01,
-              "book": "bovada"
-            },
-            {
-              "name": "England / Ghana",
-              "side": "12",
-              "cote": 1.12,
-              "book": "bovada"
-            },
-            {
-              "name": "Ghana / Draw",
-              "side": "X2",
-              "cote": 4.2,
-              "book": "bovada"
-            }
-          ],
-          "_source": "bovada"
         }
-      ]
+      ],
+      "_source": "espn"
     },
     "lineups_home": null,
     "lineups_away": null,
@@ -5916,6 +5154,10 @@
       },
       "league_name": "World Cup",
       "top_buteurs_home": [
+        {
+          "player": "Harry Kane",
+          "pct": 82
+        },
         {
           "player": "Harry Kane",
           "pct": 34
@@ -6192,96 +5434,9 @@
               "book": "draftkings"
             }
           ]
-        },
-        {
-          "marketName": "Both teams to score",
-          "choices": [
-            {
-              "name": "Yes",
-              "cote": 1.98,
-              "book": "bovada"
-            },
-            {
-              "name": "No",
-              "cote": 1.78,
-              "book": "bovada"
-            }
-          ],
-          "_source": "bovada"
-        },
-        {
-          "marketName": "Goals Over/Under (0.5)",
-          "choices": [
-            {
-              "name": "Over 0.5",
-              "cote": 1.06,
-              "book": "bovada"
-            },
-            {
-              "name": "Under 0.5",
-              "cote": 9.5,
-              "book": "bovada"
-            }
-          ],
-          "_source": "bovada"
-        },
-        {
-          "marketName": "Goals Over/Under (1.5)",
-          "choices": [
-            {
-              "name": "Over 1.5",
-              "cote": 1.33,
-              "book": "bovada"
-            },
-            {
-              "name": "Under 1.5",
-              "cote": 3.45,
-              "book": "bovada"
-            }
-          ],
-          "_source": "bovada"
-        },
-        {
-          "marketName": "Goals Over/Under (3.5)",
-          "choices": [
-            {
-              "name": "Over 3.5",
-              "cote": 3.12,
-              "book": "bovada"
-            },
-            {
-              "name": "Under 3.5",
-              "cote": 1.38,
-              "book": "bovada"
-            }
-          ],
-          "_source": "bovada"
-        },
-        {
-          "marketName": "Double chance",
-          "choices": [
-            {
-              "name": "Panama / Draw",
-              "side": "1X",
-              "cote": 2.48,
-              "book": "bovada"
-            },
-            {
-              "name": "Panama / Croatia",
-              "side": "12",
-              "cote": 1.23,
-              "book": "bovada"
-            },
-            {
-              "name": "Croatia / Draw",
-              "side": "X2",
-              "cote": 1.11,
-              "book": "bovada"
-            }
-          ],
-          "_source": "bovada"
         }
-      ]
+      ],
+      "_source": "espn"
     },
     "lineups_home": null,
     "lineups_away": null,
