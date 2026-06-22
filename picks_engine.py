@@ -4054,8 +4054,33 @@ def _save_to_history(matches):
             if side: e["side"] = side
             history["picks"].append(e); existing_ids.add(pid); n_added += 1
 
+    # ── Dédup finale par id : safeguard contre les runs concurrents qui
+    # auraient pu append le même pid deux fois (cron qui se chevauche). On
+    # garde la version résolue (WIN/LOSS/PUSH/DNP) en priorité sur PENDING.
+    by_id = {}
+    for p in history.get("picks", []):
+        pid = p.get("id")
+        if not pid:
+            # Pick sans id (legacy) : on garde tel quel via key composite
+            key = ("__noid__", p.get("date"), p.get("match_id"), p.get("label"), p.get("player",""))
+            by_id.setdefault(key, p)
+            continue
+        cur = by_id.get(pid)
+        if cur is None:
+            by_id[pid] = p
+            continue
+        # Préfère résolu sur PENDING
+        cur_resolved = cur.get("result") in ("WIN","LOSS","PUSH","DNP")
+        new_resolved = p.get("result") in ("WIN","LOSS","PUSH","DNP")
+        if new_resolved and not cur_resolved:
+            by_id[pid] = p
+    n_before = len(history.get("picks", []))
+    history["picks"] = list(by_id.values())
+    n_dedup_dropped = n_before - len(history["picks"])
+
     hist_path.write_text(json.dumps(history, ensure_ascii=False, indent=2), encoding="utf-8")
-    print(f"[history] {n_added} picks foot ajoutes (-{n_dropped} anciens remplaces, freeze {HISTORY_FREEZE_HOURS_FOOT}h)")
+    extra = f", -{n_dedup_dropped} doublons" if n_dedup_dropped else ""
+    print(f"[history] {n_added} picks foot ajoutes (-{n_dropped} anciens remplaces{extra}, freeze {HISTORY_FREEZE_HOURS_FOOT}h)")
 
 
 if __name__ == "__main__":
