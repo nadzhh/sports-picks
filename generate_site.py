@@ -3574,6 +3574,11 @@ def build_foot_analyse_card(match):
         )
 
     # Tableau "Stats par marché" : championnat / saison home / saison away / dom-ext / cote
+    # User : "sur la coupe du monde c'est un peu compliqué sachant qu'y a pas eu
+    # bcp de match pour cette CDM encore et donc ça ne vaut rien".
+    # → Sur WC : la col 'Championnat' est cachée (peu d'échantillon), et le bloc
+    #   'Value Bets' (basé sur P_ligue) est lui aussi caché.
+    is_wc = "World" in (match.get("league") or "")
     home_stats = match.get("home_season_stats") or {}
     away_stats = match.get("away_season_stats") or {}
     ls = a.get("league_stats") or {}
@@ -3591,11 +3596,14 @@ def build_foot_analyse_card(match):
         return f'{int(v)}%'
 
     def _stats_row(label, lig_pct, h_overall_pct, h_home_pct, a_overall_pct, a_away_pct, cote):
-        """Une ligne du tableau stats."""
+        """Une ligne du tableau stats. Skip col Championnat sur WC (échantillon trop court)."""
+        lig_cell = "" if is_wc else (
+            f'<td style="padding:8px 10px;color:{_color_pct(lig_pct)};font-size:12px;text-align:center;font-weight:700">{_fmt_pct(lig_pct)}</td>'
+        )
         return (
             f'<tr style="border-top:1px solid #1e293b">'
             f'<td style="padding:8px 10px;color:#cbd5e1;font-size:12.5px;font-weight:600">{label}</td>'
-            f'<td style="padding:8px 10px;color:{_color_pct(lig_pct)};font-size:12px;text-align:center;font-weight:700">{_fmt_pct(lig_pct)}</td>'
+            + lig_cell +
             f'<td style="padding:8px 10px;text-align:center">'
             f'<div style="color:{_color_pct(h_overall_pct)};font-size:12px;font-weight:700">{_fmt_pct(h_overall_pct)}</div>'
             f'<div style="color:#64748b;font-size:10px">total saison</div></td>'
@@ -3724,22 +3732,25 @@ def build_foot_analyse_card(match):
     stats_table = (
         f'<div style="margin-top:10px;background:#0a1628;border-radius:10px;padding:12px 14px;overflow-x:auto">'
         f'<div style="color:#cbd5e1;font-size:13px;font-weight:700;margin-bottom:6px">📊 Stats détaillées par marché</div>'
-        f'<div style="color:#94a3b8;font-size:11px;margin-bottom:4px"><b>Comment lire</b> : pour chaque pari, % du championnat (base) + % réel de l\'équipe sur sa saison + cote bookmaker. Compare le % équipe au % championnat → si l\'équipe est <span style="color:#22c55e">au-dessus de la moyenne</span> ET la cote book est généreuse → value bet.</div>'
-        f'<div style="color:#64748b;font-size:11px;margin-bottom:8px"><b>Couleur %</b> : 🟢 ≥60% (signal fort) · 🟡 45-60% (modéré) · 🟠 30-45% · 🔴 &lt;30% (signal faible)</div>'
-        f'<div style="color:#64748b;font-size:11px;margin-bottom:8px">Saison <b>{home}</b> : {nb_home} matchs ({h_hm.get("n",0)} à domicile) · Saison <b>{away}</b> : {nb_away} matchs ({a_aw.get("n",0)} à l\'extérieur)</div>'
-        f'<table style="width:100%;border-collapse:collapse;min-width:700px">'
-        f'<thead><tr style="color:#64748b;font-size:10px;text-transform:uppercase">'
-        f'<th style="padding:6px 10px;text-align:left">Marché</th>'
-        f'<th style="padding:6px 10px;text-align:center">Championnat</th>'
-        f'<th style="padding:6px 10px;text-align:center" colspan="2">{_html.escape(home)}</th>'
-        f'<th style="padding:6px 10px;text-align:center" colspan="2">{_html.escape(away)}</th>'
-        f'<th style="padding:6px 10px;text-align:right">Cote</th>'
-        f'</tr></thead>'
-        f'<tbody>{market_rows}</tbody></table></div>'
+        + ("" if is_wc else f'<div style="color:#94a3b8;font-size:11px;margin-bottom:4px"><b>Comment lire</b> : pour chaque pari, % du championnat (base) + % réel de l\'équipe sur sa saison + cote bookmaker. Compare le % équipe au % championnat → si l\'équipe est <span style="color:#22c55e">au-dessus de la moyenne</span> ET la cote book est généreuse → value bet.</div>')
+        + ("" if is_wc else f'<div style="color:#64748b;font-size:11px;margin-bottom:8px"><b>Couleur %</b> : 🟢 ≥60% (signal fort) · 🟡 45-60% (modéré) · 🟠 30-45% · 🔴 &lt;30% (signal faible)</div>')
+        + (f'<div style="color:#f59e0b;font-size:11px;margin-bottom:8px;padding:6px 10px;background:#1a1208;border-left:3px solid #f59e0b;border-radius:4px">⚠️ <b>Coupe du monde</b> : la colonne <i>Championnat</i> et le bloc <i>Value Bets</i> sont masqués (échantillon ligue WC trop court pour être significatif). Le tableau ci-dessous compare les stats <b>réelles de chaque sélection</b> sur ses derniers matchs (amicaux + qualifs).</div>' if is_wc else "")
+        + f'<div style="color:#64748b;font-size:11px;margin-bottom:8px">Saison <b>{home}</b> : {nb_home} matchs ({h_hm.get("n",0)} à domicile) · Saison <b>{away}</b> : {nb_away} matchs ({a_aw.get("n",0)} à l\'extérieur)</div>'
+        + f'<table style="width:100%;border-collapse:collapse;min-width:700px">'
+        + f'<thead><tr style="color:#64748b;font-size:10px;text-transform:uppercase">'
+        + f'<th style="padding:6px 10px;text-align:left">Marché</th>'
+        + ("" if is_wc else f'<th style="padding:6px 10px;text-align:center">Championnat</th>')
+        + f'<th style="padding:6px 10px;text-align:center" colspan="2">{_html.escape(home)}</th>'
+        + f'<th style="padding:6px 10px;text-align:center" colspan="2">{_html.escape(away)}</th>'
+        + f'<th style="padding:6px 10px;text-align:right">Cote</th>'
+        + f'</tr></thead>'
+        + f'<tbody>{market_rows}</tbody></table></div>'
     )
 
     # Value bets : moyenne 3 sources × cote bookmaker
-    value_bets = a.get("value_bets") or []
+    # Sur WC : caché car basé sur P_ligue (échantillon WC trop court).
+    # L'utilisateur a 'wc_analysis' à la place qui fait l'analyse contextuelle.
+    value_bets = [] if is_wc else (a.get("value_bets") or [])
     value_block = ""
     if value_bets:
         rows_html = ""
@@ -11304,11 +11315,20 @@ def main():
     except Exception:
         raw_matches = {}
 
-    # Injecte la form dans chaque match output
+    # Injecte la form + les cotes book + le contexte dans chaque match output
+    # picks_engine.run() retourne des objets épurés (juste picks/labels). On
+    # complète depuis matches.json brut pour que les sections d'analyse aient
+    # accès aux markets Bovada, à la météo/stade, et au statut WC.
     for m in matches:
         mid = str(m["match_id"])
         rm  = raw_matches.get(mid, {})
         m["_form"] = rm.get("pre_match_form") or {}
+        if rm.get("match_odds"):
+            m["match_odds"] = rm["match_odds"]
+        if rm.get("context"):
+            m["context"] = rm["context"]
+        if rm.get("wc_analysis"):
+            m["wc_analysis"] = rm["wc_analysis"]
 
     team_ai   = []
     player_ai = {}
