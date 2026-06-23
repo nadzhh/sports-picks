@@ -3627,7 +3627,10 @@ def _wc_shots_picks_from_book(match, odds, home_name, away_name, lam_h=None, lam
                     ),
                 })
 
-    return picks[:4]  # cap 4 picks tirs max par match
+    # User : "max 2 picks tirs par match (entre tirs cadrés totaux, tirs total,
+    # et splits par équipe)". On trie par confidence puis on garde top 2.
+    picks.sort(key=lambda p: -(p.get("confidence", 0) or 0))
+    return picks[:2]
 
 
 def team_shots_props(home_ts, away_ts, home_recent, away_recent, h2h_shots, home_name, away_name, home_pos=10, away_pos=10, match_odds=None, home_form=None, away_form=None):

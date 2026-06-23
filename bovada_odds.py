@@ -137,72 +137,98 @@ def _extract_team_markets(ev, home_name, away_name):
             md = m.get("description", "")
             by_desc.setdefault((gname, md), []).append(m)
 
-    # ── 3-Way Moneyline (1X2) ──
+    # ── 3-Way Moneyline (1X2) FT et 1H ──
     for m in by_desc.get(("Game Lines", "3-Way Moneyline"), []):
-        # Skip 1H markets (description différente)
         outcomes = m.get("outcomes", [])
         if not outcomes: continue
-        if any("- 1H" in (o.get("description") or "") for o in outcomes):
-            continue
+        is_1h = any("- 1H" in (o.get("description") or "") for o in outcomes)
+        mkt_name = "Half time" if is_1h else "Full time"
+        # Skip si déjà ajouté (Bovada peut exposer 2× le même market)
+        if any(mk.get("marketName") == mkt_name for mk in markets): continue
         choices = []
         for o in outcomes:
             d = o.get("description", "")
+            # Strip "- 1H" pour 1H markets
+            d_clean = d.replace(" - 1H", "").strip()
             cote = _to_decimal(o.get("price"))
             if not cote: continue
-            if d.lower() == "draw":
+            if d_clean.lower() == "draw":
                 side = "draw"; name = "Draw"
-            elif _norm(d) == _norm(home_name):
+            elif _norm(d_clean) == _norm(home_name):
                 side = "home"; name = home_name
-            elif _norm(d) == _norm(away_name):
+            elif _norm(d_clean) == _norm(away_name):
                 side = "away"; name = away_name
             else:
                 continue
             choices.append({"name": name, "side": side, "cote": cote, "book": "bovada"})
         if choices:
-            markets.append({"marketName": "Full time", "choices": choices, "_source": "bovada"})
+            markets.append({"marketName": mkt_name, "choices": choices, "_source": "bovada"})
 
-    # ── Both Teams To Score (FT) ──
+    # ── Both Teams To Score (FT, 1H, 2H) ──
+    seen_btts = set()
     for m in by_desc.get(("Game Props", "Both Teams To Score"), []):
         outcomes = m.get("outcomes", [])
         if not outcomes: continue
-        if any("- 1H" in (o.get("description") or "") or "- 2H" in (o.get("description") or "") for o in outcomes):
-            continue
+        is_1h = any("- 1H" in (o.get("description") or "") for o in outcomes)
+        is_2h = any("- 2H" in (o.get("description") or "") for o in outcomes)
+        if is_1h: mkt_name = "Half time both teams to score"
+        elif is_2h: continue  # skip 2H (rarely used)
+        else: mkt_name = "Both teams to score"
+        if mkt_name in seen_btts: continue
+        seen_btts.add(mkt_name)
         choices = []
         for o in outcomes:
             d = (o.get("description") or "").strip()
+            d_clean = d.replace(" - 1H", "").replace(" - 2H", "").strip()
             cote = _to_decimal(o.get("price"))
             if not cote: continue
-            choices.append({"name": d, "cote": cote, "book": "bovada"})
+            choices.append({"name": d_clean, "cote": cote, "book": "bovada"})
         if choices:
-            markets.append({"marketName": "Both teams to score", "choices": choices, "_source": "bovada"})
+            markets.append({"marketName": mkt_name, "choices": choices, "_source": "bovada"})
 
-    # ── Total Goals O/U toutes lignes (Game Lines "Total" + Alternate Lines) ──
-    totals_by_point = {}  # point → {"Over": cote, "Under": cote}
+    # ── Total Goals O/U toutes lignes FT + 1H (Game Lines "Total" + Alternate Lines) ──
+    # FT totals
+    totals_by_point_ft = {}  # point → {"Over": cote, "Under": cote}
+    totals_by_point_1h = {}
     for src_key in (("Game Lines", "Total"), ("Alternate Lines", "Total Goals O/U")):
         for m in by_desc.get(src_key, []):
             for o in m.get("outcomes", []):
                 d = (o.get("description") or "").strip()
-                # Skip 1H markets
-                if "- 1H" in d or "- 2H" in d: continue
-                # Parse "Over"/"Under" + handicap dans price.handicap
+                is_1h = "- 1H" in d
+                is_2h = "- 2H" in d
+                if is_2h: continue
                 hc = (o.get("price") or {}).get("handicap")
                 try: pt = float(hc) if hc else None
                 except: pt = None
-                if pt is None or pt not in (0.5, 1.5, 2.5, 3.5, 4.5):
-                    continue
+                if pt is None: continue
+                # FT : lignes 0.5 à 4.5. 1H : 0.5 et 1.5 (les + utiles)
+                if is_1h:
+                    if pt not in (0.5, 1.5): continue
+                    bucket = totals_by_point_1h
+                else:
+                    if pt not in (0.5, 1.5, 2.5, 3.5, 4.5): continue
+                    bucket = totals_by_point_ft
                 cote = _to_decimal(o.get("price"))
                 if not cote: continue
                 side = "Over" if "over" in d.lower() else ("Under" if "under" in d.lower() else None)
                 if not side: continue
-                totals_by_point.setdefault(pt, {})[side] = cote
+                bucket.setdefault(pt, {})[side] = cote
 
-    for pt, sides in sorted(totals_by_point.items()):
+    for pt, sides in sorted(totals_by_point_ft.items()):
         choices = []
         for s in ("Over", "Under"):
             if s in sides:
                 choices.append({"name": f"{s} {pt}", "cote": sides[s], "book": "bovada"})
         if choices:
             markets.append({"marketName": f"Goals Over/Under ({pt})", "choices": choices, "_source": "bovada"})
+
+    for pt, sides in sorted(totals_by_point_1h.items()):
+        choices = []
+        for s in ("Over", "Under"):
+            if s in sides:
+                choices.append({"name": f"{s} {pt}", "cote": sides[s], "book": "bovada"})
+        if choices:
+            markets.append({"marketName": f"Half time goals Over/Under ({pt})", "choices": choices, "_source": "bovada"})
 
     # ── Double Chance ──
     for m in by_desc.get(("Game Props", "Double Chance"), []):
