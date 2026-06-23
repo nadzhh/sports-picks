@@ -43,20 +43,31 @@ HEADERS = {
 
 # Mapping league name → Bovada path
 LEAGUE_TO_BOVADA = {
-    "World Cup":         "soccer/fifa-world-cup",
-    "Champions League":  "soccer/uefa-champions-league",
-    "Europa League":     "soccer/uefa-europa-league",
-    "Conference League": "soccer/uefa-europa-conference-league",
-    "Premier League":    "soccer/england/premier-league",
-    "La Liga":           "soccer/spain/la-liga",
-    "Bundesliga":        "soccer/germany/bundesliga",
-    "Serie A":           "soccer/italy/serie-a",
-    "Ligue 1":           "soccer/france/ligue-1",
-    "MLS":               "soccer/mls",
-    "Brasileirao":       "soccer/brazil/serie-a",
-    "Eredivisie":        "soccer/netherlands/eredivisie",
-    "Liga Portugal":     "soccer/portugal/primeira-liga",
-    "Friendlies":        "soccer/friendlies",
+    "World Cup":             "soccer/fifa-world-cup",
+    "Champions League":      "soccer/uefa-champions-league",
+    "Europa League":         "soccer/uefa-europa-league",
+    "Conference League":     "soccer/uefa-europa-conference-league",
+    "Premier League":        "soccer/england/premier-league",
+    "La Liga":               "soccer/spain/la-liga",
+    "Bundesliga":            "soccer/germany/bundesliga",
+    "Serie A":               "soccer/italy/serie-a",
+    "Ligue 1":               "soccer/france/ligue-1",
+    "MLS":                   "soccer/mls",
+    "Brasileirao":           "soccer/brazil/serie-a",
+    "Eredivisie":            "soccer/netherlands/eredivisie",
+    "Liga Portugal":         "soccer/portugal/primeira-liga",
+    "Friendlies":            "soccer/friendlies",
+    # ── Nordics (paths regroupés sous soccer/europe/<country>) ──
+    "Finnish Veikkausliiga": "soccer/europe/finland",
+    "Swedish Allsvenskan":   "soccer/europe/sweden",
+    "Norwegian Eliteserien": "soccer/europe/norway",
+    "Danish Superligaen":    "soccer/europe/denmark",
+    "Icelandic Besta":       "soccer/europe/iceland",
+    # ── Pays Baltes ──
+    "Estonian Meistriliiga": "soccer/europe/estonia",
+    "Latvian Virsliga":      "soccer/europe/latvia",
+    "Lithuanian Toplyga":    "soccer/europe/lithuania",
+    "Georgian Erovnuli":     "soccer/europe/georgia",
 }
 
 

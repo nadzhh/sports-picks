@@ -3608,7 +3608,9 @@ def build_foot_analyse_card(match):
             f'<td style="padding:8px 10px;text-align:center">'
             f'<div style="color:{_color_pct(a_away_pct)};font-size:12px;font-weight:700">{_fmt_pct(a_away_pct)}</div>'
             f'<div style="color:#64748b;font-size:10px">à l\'extérieur</div></td>'
-            f'<td style="padding:8px 10px;color:#cbd5e1;font-size:13px;text-align:right;font-weight:800">{cote if cote else "—"}</td>'
+            f'<td style="padding:8px 10px;text-align:right">'
+            + (f'<span style="background:#1e3a5f;color:#60a5fa;border-radius:6px;padding:3px 8px;font-size:13px;font-weight:800">{cote:.2f}</span>' if isinstance(cote, (int, float)) and cote else '<span style="color:#475569;font-size:11px">—</span>')
+            + f'</td>'
             f'</tr>'
         )
 
@@ -3627,61 +3629,94 @@ def build_foot_analyse_card(match):
         return None
 
     market_rows = ""
-    # Plus de 1.5 buts
+    # Plus de 1.5 buts FT
     market_rows += _stats_row(
         "Plus de 1.5 buts (90')",
         ls.get("ft_over_15"), h_ov.get("over_15"), h_hm.get("over_15"),
         a_ov.get("over_15"), a_aw.get("over_15"),
-        None
+        _get_cote("Goals Over/Under (1.5)", ch_name="Over 1.5")
     )
-    # Plus de 2.5 buts
+    # Plus de 2.5 buts FT
     market_rows += _stats_row(
         "Plus de 2.5 buts (90')",
         ls.get("ft_over_25"), h_ov.get("over_25"), h_hm.get("over_25"),
         a_ov.get("over_25"), a_aw.get("over_25"),
         _get_cote("Goals Over/Under (2.5)", ch_name="Over 2.5")
     )
-    # Plus de 3.5 buts
+    # Plus de 3.5 buts FT
     market_rows += _stats_row(
         "Plus de 3.5 buts (90')",
         None, h_ov.get("over_35"), h_hm.get("over_35"),
         a_ov.get("over_35"), a_aw.get("over_35"),
-        None
+        _get_cote("Goals Over/Under (3.5)", ch_name="Over 3.5")
     )
-    # Moins de 2.5 buts
+    # Moins de 2.5 buts FT
     market_rows += _stats_row(
         "Moins de 2.5 buts (90')",
         100 - (ls.get("ft_over_25") or 50), h_ov.get("under_25"), h_hm.get("under_25"),
         a_ov.get("under_25"), a_aw.get("under_25"),
         _get_cote("Goals Over/Under (2.5)", ch_name="Under 2.5")
     )
-    # BTTS Oui
+    # ── Mi-temps ──
+    # Plus de 0.5 but MT
+    market_rows += _stats_row(
+        "Plus de 0.5 but (mi-temps)",
+        None, None, None, None, None,
+        _get_cote("Half time goals Over/Under (0.5)", ch_name="Over 0.5")
+    )
+    # Plus de 1.5 buts MT
+    market_rows += _stats_row(
+        "Plus de 1.5 buts (mi-temps)",
+        None, None, None, None, None,
+        _get_cote("Half time goals Over/Under (1.5)", ch_name="Over 1.5")
+    )
+    # BTTS Oui FT
     market_rows += _stats_row(
         "Les 2 équipes marquent (BTTS)",
         ls.get("btts"), h_ov.get("btts_pct"), h_hm.get("btts_pct"),
         a_ov.get("btts_pct"), a_aw.get("btts_pct"),
         _get_cote("Both teams to score", ch_name="Yes")
     )
-    # 1X2 home
+    # BTTS Oui MT
+    market_rows += _stats_row(
+        "Les 2 équipes marquent (mi-temps)",
+        None, None, None, None, None,
+        _get_cote("Half time both teams to score", ch_name="Yes")
+    )
+    # ── 1X2 FT ──
     market_rows += _stats_row(
         f"{_html.escape(home)} gagne (1X2)",
         45, h_ov.get("wins_pct"), h_hm.get("wins_pct"),
         a_ov.get("losses_pct"), a_aw.get("losses_pct"),
         _get_cote("Full time", sd="home")
     )
-    # 1X2 draw
     market_rows += _stats_row(
         "Match nul (1X2)",
         27, h_ov.get("draws_pct"), h_hm.get("draws_pct"),
         a_ov.get("draws_pct"), a_aw.get("draws_pct"),
         _get_cote("Full time", sd="draw")
     )
-    # 1X2 away
     market_rows += _stats_row(
         f"{_html.escape(away)} gagne (1X2)",
         28, h_ov.get("losses_pct"), h_hm.get("losses_pct"),
         a_ov.get("wins_pct"), a_aw.get("wins_pct"),
         _get_cote("Full time", sd="away")
+    )
+    # ── 1X2 Mi-temps ──
+    market_rows += _stats_row(
+        f"{_html.escape(home)} mène à la mi-temps",
+        None, None, None, None, None,
+        _get_cote("Half time", sd="home")
+    )
+    market_rows += _stats_row(
+        "Nul à la mi-temps",
+        None, None, None, None, None,
+        _get_cote("Half time", sd="draw")
+    )
+    market_rows += _stats_row(
+        f"{_html.escape(away)} mène à la mi-temps",
+        None, None, None, None, None,
+        _get_cote("Half time", sd="away")
     )
 
     nb_home = h_ov.get("n", 0)
@@ -3689,7 +3724,9 @@ def build_foot_analyse_card(match):
     stats_table = (
         f'<div style="margin-top:10px;background:#0a1628;border-radius:10px;padding:12px 14px;overflow-x:auto">'
         f'<div style="color:#cbd5e1;font-size:13px;font-weight:700;margin-bottom:6px">📊 Stats détaillées par marché</div>'
-        f'<div style="color:#64748b;font-size:11px;margin-bottom:8px">Saison {home} : {nb_home} matchs ({h_hm.get("n",0)} à domicile) · Saison {away} : {nb_away} matchs ({a_aw.get("n",0)} à l\'extérieur)</div>'
+        f'<div style="color:#94a3b8;font-size:11px;margin-bottom:4px"><b>Comment lire</b> : pour chaque pari, % du championnat (base) + % réel de l\'équipe sur sa saison + cote bookmaker. Compare le % équipe au % championnat → si l\'équipe est <span style="color:#22c55e">au-dessus de la moyenne</span> ET la cote book est généreuse → value bet.</div>'
+        f'<div style="color:#64748b;font-size:11px;margin-bottom:8px"><b>Couleur %</b> : 🟢 ≥60% (signal fort) · 🟡 45-60% (modéré) · 🟠 30-45% · 🔴 &lt;30% (signal faible)</div>'
+        f'<div style="color:#64748b;font-size:11px;margin-bottom:8px">Saison <b>{home}</b> : {nb_home} matchs ({h_hm.get("n",0)} à domicile) · Saison <b>{away}</b> : {nb_away} matchs ({a_aw.get("n",0)} à l\'extérieur)</div>'
         f'<table style="width:100%;border-collapse:collapse;min-width:700px">'
         f'<thead><tr style="color:#64748b;font-size:10px;text-transform:uppercase">'
         f'<th style="padding:6px 10px;text-align:left">Marché</th>'
