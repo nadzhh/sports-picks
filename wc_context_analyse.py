@@ -650,6 +650,69 @@ def _build_top_bets(match, dyn, env, form, mkt):
             "risks": ["Un but rapide ouvre le match"],
         })
 
+    # ─── COUCHE VALUE CALIBRÉE (en COMPLÉMENT des patterns contextuels) ───
+    # User : 'il faut COMBINER ce que l'algo fait + les infos en plus, pas
+    # remplacer'. Cette couche réinjecte la value calibrée (Poisson × marché
+    # shrinké) UNIQUEMENT sur marchés stables (Over/Under, BTTS) et sans
+    # jamais sortir un outsider extrême. Elle s'ajoute aux patterns contextuels,
+    # et si elle confirme un pattern existant, on boost la confiance.
+
+    analyse = match.get("analyse") or {}
+
+    def _add_value_pick(market, selection, cote, p_final, source_label, base_conf=58):
+        """Ajoute un pick basé value calibrée. base_conf=58% (sans pattern fort)."""
+        if not cote or cote > 3.50: return  # exclut outsiders extrêmes
+        if p_final is None or p_final <= 0: return
+        val = round(p_final * cote * 100, 1)
+        if val < 102 or val > 130: return  # edge raisonnable uniquement
+        # Si une sélection identique existe (pattern contextuel), boost +5% conf
+        matching = next((p for p in picks if p.get("selection") == selection), None)
+        if matching:
+            matching["confidence"] = min(85, matching.get("confidence", 60) + 5)
+            matching["signals"].append(f"🔁 Confirmé par {source_label} (value {val}%)")
+            return
+        # Sinon, ajoute en complément (confiance plus modeste)
+        conf = base_conf + min(8, int((val - 100) / 3))
+        picks.append({
+            "market": market, "selection": selection, "cote": cote,
+            "confidence": conf,
+            "signals": [
+                f"💎 {source_label} : value calibrée {val}%",
+                f"📈 Proba shrinkée 25% Poisson + 75% marché",
+                "🛡️ Marché stable (Over/Under ou BTTS)",
+            ],
+            "risks": ["Pattern contextuel pur n'est pas activé pour ce pick"],
+        })
+
+    # Over/Under 2.5 buts (Poisson + devig book)
+    if mkt.get("over_25_cote") and mkt.get("under_25_cote"):
+        from_book_over = 1.0 / mkt["over_25_cote"]
+        from_book_under = 1.0 / mkt["under_25_cote"]
+        total_p = from_book_over + from_book_under
+        p_over_mkt = from_book_over / total_p
+        p_under_mkt = from_book_under / total_p
+        tot = analyse.get("total_buts") or {}
+        p_over_mod = (tot.get("over_25") or 0) / 100.0 if tot.get("over_25") else None
+        if p_over_mod is not None:
+            p_over_final = _shrink(p_over_mod, p_over_mkt)
+            p_under_final = 1.0 - p_over_final
+        else:
+            p_over_final = p_over_mkt
+            p_under_final = p_under_mkt
+        _add_value_pick("Total FT", "Plus de 2.5 buts", mkt["over_25_cote"], p_over_final,
+                        "Modèle Poisson calibré")
+        _add_value_pick("Total FT", "Moins de 2.5 buts", mkt["under_25_cote"], p_under_final,
+                        "Modèle Poisson calibré")
+
+    # BTTS Yes/No
+    if mkt.get("btts_yes_cote") and mkt.get("btts_no_cote"):
+        p_btts_y_final = mkt.get("btts_yes_p_final")
+        if p_btts_y_final:
+            _add_value_pick("BTTS", "Les 2 équipes marquent", mkt["btts_yes_cote"],
+                            p_btts_y_final, "Modèle BTTS calibré")
+            _add_value_pick("BTTS", "Une équipe ne marque pas", mkt["btts_no_cote"],
+                            1.0 - p_btts_y_final, "Modèle BTTS calibré")
+
     # ─── Dédup par selection ──────────────────────────────────────────────
     by_sel = {}
     for p in picks:
