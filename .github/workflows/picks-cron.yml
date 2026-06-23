@@ -67,6 +67,7 @@ jobs:
           python tennis_picks_engine.py   || echo "[!] tennis_picks_engine KO"
           python tennis_resolver.py       || echo "[!] tennis_resolver KO"
           python picks_engine.py          || echo "[!] picks_engine KO"
+          python wc_context_analyse.py    || echo "[!] wc_context_analyse KO"
           python foot_analyse.py          || echo "[!] foot_analyse KO"
           python generate_site.py         || echo "[!] generate_site KO"
           python picks_history_dump.py    || echo "[!] picks_history_dump KO"
