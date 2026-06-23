@@ -3819,23 +3819,41 @@ def build_foot_analyse_card(match):
         # Top bets recommandés
         top_bets_rows = ""
         for i, b in enumerate(wc_ana.get("top3_bets", []), start=1):
-            val = b.get("value", 0) or 0
+            conf = b.get("confidence", b.get("value", 0)) or 0
             cote = b.get("cote", "-")
-            sigs = " · ".join(b.get("signals", []))
-            badge_color = "#22c55e" if val >= 110 else ("#84cc16" if val >= 100 else "#facc15")
+            mkt_label = b.get("market", "")
+            signals = b.get("signals", []) or []
+            risks = b.get("risks", []) or []
+
+            badge_color = "#22c55e" if conf >= 70 else ("#84cc16" if conf >= 60 else "#facc15")
+            signals_html = "".join(
+                f'<li style="color:#94a3b8;font-size:11px;margin-bottom:2px">{_html.escape(s)}</li>'
+                for s in signals
+            )
+            risks_html = "".join(
+                f'<li style="color:#f87171;font-size:10.5px;margin-bottom:2px">{_html.escape(r)}</li>'
+                for r in risks
+            )
             top_bets_rows += (
-                f'<div style="padding:8px 12px;background:#0a1628;border-radius:6px;margin-bottom:6px">'
-                f'<div style="display:flex;align-items:center;gap:8px;margin-bottom:4px">'
+                f'<div style="padding:10px 12px;background:#0a1628;border-radius:6px;margin-bottom:8px;border-left:3px solid {badge_color}">'
+                f'<div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;flex-wrap:wrap">'
                 f'<span style="color:#3b82f6;font-size:11px;font-weight:800">#{i}</span>'
-                f'<span style="color:#cbd5e1;font-size:13px;font-weight:700">{_html.escape(b.get("selection",""))}</span>'
-                f'<span style="color:#94a3b8;font-size:12px">@ <b>{cote}</b></span>'
-                f'<span style="margin-left:auto;background:{badge_color}22;color:{badge_color};border:1px solid {badge_color}aa;border-radius:6px;padding:2px 6px;font-size:11px;font-weight:700">value {val}%</span>'
+                f'<span style="color:#64748b;font-size:10px;text-transform:uppercase;font-weight:700">{_html.escape(mkt_label)}</span>'
+                f'<span style="color:#cbd5e1;font-size:13.5px;font-weight:700">{_html.escape(b.get("selection",""))}</span>'
+                f'<span style="color:#94a3b8;font-size:12.5px">@ <b style="color:#60a5fa">{cote}</b></span>'
+                f'<span style="margin-left:auto;background:{badge_color}22;color:{badge_color};border:1px solid {badge_color}aa;border-radius:6px;padding:2px 8px;font-size:11px;font-weight:700">confiance {conf}%</span>'
                 f'</div>'
-                f'<div style="color:#64748b;font-size:10.5px">{_html.escape(sigs)}</div>'
-                f'</div>'
+                + (f'<div style="margin-top:4px"><div style="color:#22c55e;font-size:10px;font-weight:700;margin-bottom:3px">✓ Signaux justifiant ce pari</div><ul style="margin:0;padding-left:18px">{signals_html}</ul></div>' if signals_html else "")
+                + (f'<div style="margin-top:6px"><div style="color:#ef4444;font-size:10px;font-weight:700;margin-bottom:3px">⚠ Risques à considérer</div><ul style="margin:0;padding-left:18px">{risks_html}</ul></div>' if risks_html else "")
+                + f'</div>'
             )
         if not top_bets_rows:
-            top_bets_rows = '<div style="color:#64748b;font-size:11px;font-style:italic">Marché efficient — aucun edge clair</div>'
+            top_bets_rows = (
+                '<div style="padding:14px;background:#0a1628;border-radius:6px;text-align:center">'
+                '<div style="color:#94a3b8;font-size:12px;margin-bottom:4px"><b>🛑 Marché efficient — aucun pari recommandé</b></div>'
+                '<div style="color:#64748b;font-size:11px">Aucun pattern contextuel CDM fort détecté (1er match prudent / chaleur extrême / qualif acquise / outsider en crise / défenses faibles). Mieux vaut passer ce match plutôt que de forcer un pick faible.</div>'
+                '</div>'
+            )
 
         # Notes par axe
         def _axis_block(title, emoji, items):
