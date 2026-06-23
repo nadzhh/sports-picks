@@ -1,217 +1,5 @@
 [
   {
-    "league": "World Cup",
-    "home": "Jordan",
-    "away": "Algeria",
-    "start_ts": 1782183600,
-    "match_id": "4667814",
-    "page_url": "/matches/jordan-vs-algeria/17tvf0#4667814",
-    "picks": [
-      {
-        "direction": "wc_away_win",
-        "type": "🏆 Vainqueur WC",
-        "label": "Algeria gagne",
-        "cote": 1.48,
-        "cote_min": 1.17,
-        "confidence": 85,
-        "tier": "safe",
-        "stats": {
-          "lam_h": 0.65,
-          "lam_a": 3.32,
-          "h_fifa_rank": 60,
-          "a_fifa_rank": 38,
-          "elo_gap": -135,
-          "wc_round": null,
-          "family": "1X2"
-        },
-        "reasoning": "📊 Niveau équilibré : Jordan #60 vs Algeria #38 (gap -135 pts).\nL10 : Jordan 0V/1N/4D sur 5 · Algeria 3V/1N/1D sur 5\n📋 Fiche Jordan : off solide (+0.39) · def moyenne (-0.03) · forme LLLDL · 🏆 novice WC\n📋 Fiche Algeria : off moyen (+0.01) · def solide (+0.42) · forme LWWDW · 🏆 présence occasionnelle\n🌦️ 🌫️ brouillard · 13–21°C · humidité 65%\n✅ Compo OFFICIELLE\n🏆 Modèle Poisson CdM (tier FIFA ajusté)\nλ Jordan = 0.65, λ Algeria = 3.32\nP(Jordan) = 4.1% · P(nul) = 8.8% · P(Algeria gagne) = 85.1%\n📉 Calibration : bucket 80-89% historiquement à WR 56% (claim 82%, n=63) — sur-estimé de 26pp",
-        "calibration_delta": -26.0,
-        "edge_pp": 17.4,
-        "history_top3": true
-      },
-      {
-        "direction": "wc_over_25",
-        "type": "⚽ Total buts WC",
-        "label": "Plus de 2.5 buts",
-        "cote": 1.83,
-        "cote_min": 1.32,
-        "confidence": 76,
-        "tier": "safe",
-        "stats": {
-          "lam_h": 0.65,
-          "lam_a": 3.32,
-          "h_fifa_rank": 60,
-          "a_fifa_rank": 38,
-          "elo_gap": -135,
-          "wc_round": null,
-          "family": "TOTAL"
-        },
-        "reasoning": "📊 Niveau équilibré : Jordan #60 vs Algeria #38 (gap -135 pts).\nL10 : Jordan 0V/1N/4D sur 5 · Algeria 3V/1N/1D sur 5\n📋 Fiche Jordan : off solide (+0.39) · def moyenne (-0.03) · forme LLLDL · 🏆 novice WC\n📋 Fiche Algeria : off moyen (+0.01) · def solide (+0.42) · forme LWWDW · 🏆 présence occasionnelle\n🌦️ 🌫️ brouillard · 13–21°C · humidité 65%\n✅ Compo OFFICIELLE\n⚽ Modèle Poisson : λ total = 3.97\nP(plus de 2.5 buts) = 75.8%\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
-        "calibration_delta": -11.3,
-        "edge_pp": 21.4,
-        "history_top3": true
-      }
-    ],
-    "home_players": [],
-    "away_players": [
-      {
-        "player": "Riyad Mahrez",
-        "position": "F",
-        "is_sub": false,
-        "type": "Buteur",
-        "label": "Riyad Mahrez marque",
-        "cote": 2.65,
-        "cote_min": 1.94,
-        "book": "bovada",
-        "books": [],
-        "confidence": 52,
-        "reasoning": "Riyad Mahrez : selection 6G/14m (0.43/m) · L10 club : 0G/10m | rotatif nat (58min/m) · last match 26min (0G+0A). λ ajusté à 0.73 (Algeria attendu 3.6 buts) → P(marque) ~52%.\n📉 Calibration : bucket 50-59% historiquement à WR 42% (claim 55%, n=41) — sur-estimé de 14pp",
-        "context": {
-          "source": "lineup",
-          "lam": 0.73,
-          "lineup_status": "confirmed"
-        },
-        "stats": {
-          "goals": null,
-          "apps": null,
-          "gpm": 0.727,
-          "xgpm": null
-        },
-        "team": "away",
-        "lineup_status": "confirmed",
-        "tier": "fun",
-        "calibration_delta": -13.6,
-        "edge_pp": 14.3,
-        "history_top3": true
-      },
-      {
-        "player": "Amine Gouiri",
-        "position": "F",
-        "is_sub": false,
-        "type": "Buteur",
-        "label": "Amine Gouiri marque",
-        "cote": 2.65,
-        "cote_min": 2.01,
-        "book": "bovada",
-        "books": [],
-        "confidence": 50,
-        "reasoning": "Amine Gouiri : selection 4G/9m (0.44/m) · L10 club : 4G/10m, 🔥 2G/3 derniers nat (+19%) · ⚠️ dernier match nat 60+min 0G+0A (-45%) | rotatif nat (57min/m) · last match 64min (0G+0A). λ ajusté à 0.69 (Algeria attendu 3.6 buts) → P(marque) ~50%.\n📉 Calibration : bucket 50-59% historiquement à WR 42% (claim 55%, n=41) — sur-estimé de 14pp",
-        "context": {
-          "source": "lineup",
-          "lam": 0.69,
-          "lineup_status": "confirmed"
-        },
-        "stats": {
-          "goals": null,
-          "apps": null,
-          "gpm": 0.688,
-          "xgpm": null
-        },
-        "team": "away",
-        "lineup_status": "confirmed",
-        "tier": "fun",
-        "calibration_delta": -13.6,
-        "edge_pp": 12.3,
-        "history_top3": true
-      }
-    ],
-    "fun_picks": [
-      {
-        "direction": "wc_score_0_3",
-        "type": "🏆 Score exact WC",
-        "label": "Score exact : Jordan 0-3 Algeria",
-        "cote_min": 8.7,
-        "confidence": 11,
-        "tier": "fun",
-        "is_fun": true,
-        "stats": {
-          "lam_h": 0.65,
-          "lam_a": 3.32,
-          "h_fifa_rank": 60,
-          "a_fifa_rank": 38,
-          "elo_gap": -135
-        },
-        "reasoning": "📊 Niveau équilibré : Jordan #60 vs Algeria #38 (gap -135 pts).\nL10 : Jordan 0V/1N/4D sur 5 · Algeria 3V/1N/1D sur 5\n🏆 Coupe du Monde 2026 - score exact (Poisson grid, ajusté Elo FIFA)\nλ Jordan = 0.65 buts, λ Algeria = 3.32 buts\nTop 3 : 0-3 (11.5%) · 0-2 (10.4%) · 0-4 (9.5%)\n⚠️ Pari fun (cote élevée typique 4-8) - mise modeste",
-        "exact_score": [
-          0,
-          3
-        ],
-        "wc_top3": [
-          [
-            [
-              0,
-              3
-            ],
-            11.5
-          ],
-          [
-            [
-              0,
-              2
-            ],
-            10.4
-          ],
-          [
-            [
-              0,
-              4
-            ],
-            9.5
-          ]
-        ],
-        "history_top3": false
-      }
-    ],
-    "top_pick": {
-      "direction": "wc_away_win",
-      "type": "🏆 Vainqueur WC",
-      "label": "Algeria gagne",
-      "cote": 1.48,
-      "cote_min": 1.17,
-      "confidence": 85,
-      "tier": "safe",
-      "stats": {
-        "lam_h": 0.65,
-        "lam_a": 3.32,
-        "h_fifa_rank": 60,
-        "a_fifa_rank": 38,
-        "elo_gap": -135,
-        "wc_round": null,
-        "family": "1X2"
-      },
-      "reasoning": "📊 Niveau équilibré : Jordan #60 vs Algeria #38 (gap -135 pts).\nL10 : Jordan 0V/1N/4D sur 5 · Algeria 3V/1N/1D sur 5\n📋 Fiche Jordan : off solide (+0.39) · def moyenne (-0.03) · forme LLLDL · 🏆 novice WC\n📋 Fiche Algeria : off moyen (+0.01) · def solide (+0.42) · forme LWWDW · 🏆 présence occasionnelle\n🌦️ 🌫️ brouillard · 13–21°C · humidité 65%\n✅ Compo OFFICIELLE\n🏆 Modèle Poisson CdM (tier FIFA ajusté)\nλ Jordan = 0.65, λ Algeria = 3.32\nP(Jordan) = 4.1% · P(nul) = 8.8% · P(Algeria gagne) = 85.1%\n📉 Calibration : bucket 80-89% historiquement à WR 56% (claim 82%, n=63) — sur-estimé de 26pp",
-      "calibration_delta": -26.0,
-      "edge_pp": 17.4,
-      "history_top3": true
-    },
-    "no_picks": false,
-    "context": {
-      "stadium": {
-        "name": "Levi's Stadium",
-        "city": "Santa Clara (San Francisco Bay)",
-        "country": "USA",
-        "lat": 37.403,
-        "lon": -121.9698,
-        "capacity": 68500,
-        "surface": "Natural grass",
-        "altitude_m": 9,
-        "type": "outdoor",
-        "climatized": false,
-        "context_fr": "Climat méditerranéen côtier. Juin doux 18-24°C, faible humidité."
-      },
-      "weather": {
-        "temp_max": 21.9,
-        "temp_min": 13.2,
-        "humidity": 65,
-        "precipitation_sum_mm": 0.0,
-        "wind_max_kmh": 21.7,
-        "weather_code": 45,
-        "summary_fr": "🌫️ brouillard · 13–21°C · humidité 65%"
-      },
-      "text": "Conditions : 🌫️ brouillard · 13–21°C · humidité 65%. Stade : Levi's Stadium · altitude 9m · 68 500 places · plein air. Climat méditerranéen côtier. Juin doux 18-24°C, faible humidité."
-    }
-  },
-  {
     "league": "Finnish Veikkausliiga",
     "home": "VPS",
     "away": "AC Oulu",
@@ -697,7 +485,7 @@
         "direction": "wc_over_25",
         "type": "⚽ Total buts WC",
         "label": "Plus de 2.5 buts",
-        "cote": 1.74,
+        "cote": 1.71,
         "cote_min": 1.29,
         "confidence": 78,
         "tier": "safe",
@@ -712,7 +500,7 @@
         },
         "reasoning": "📊 Écart FIFA significatif : Panama #44 vs Croatia #11 (gap -236 pts, P favori ≈ 80%).\n🇪🇺 Croatia UEFA powerhouse\nL10 : Panama 2V/1N/2D sur 5 · Croatia 2V/0N/3D sur 5\n📋 Fiche Panama : off moyen (-0.21) · def fragile (-1.00) · forme LDWLW · 🏆 présence occasionnelle\n📋 Fiche Croatia : off moyen (-0.16) · def fragile (-0.74) · forme LWLLW · 🏆 régulière phase finale\n   ↳ Historique : demi-finaliste en 2022 · finaliste en 2018 · phase de poules en 2014\n🌦️ 🌫️ brouillard · 11–23°C · humidité 56%\n⚠️ Compo PROBABLE (officielle à T-60min)\n⚽ Modèle Poisson : λ total = 4.11\nP(plus de 2.5 buts) = 77.8%\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
         "calibration_delta": -11.3,
-        "edge_pp": 20.5,
+        "edge_pp": 19.5,
         "history_top3": true
       },
       {
@@ -872,7 +660,7 @@
       "direction": "wc_over_25",
       "type": "⚽ Total buts WC",
       "label": "Plus de 2.5 buts",
-      "cote": 1.74,
+      "cote": 1.71,
       "cote_min": 1.29,
       "confidence": 78,
       "tier": "safe",
@@ -887,7 +675,7 @@
       },
       "reasoning": "📊 Écart FIFA significatif : Panama #44 vs Croatia #11 (gap -236 pts, P favori ≈ 80%).\n🇪🇺 Croatia UEFA powerhouse\nL10 : Panama 2V/1N/2D sur 5 · Croatia 2V/0N/3D sur 5\n📋 Fiche Panama : off moyen (-0.21) · def fragile (-1.00) · forme LDWLW · 🏆 présence occasionnelle\n📋 Fiche Croatia : off moyen (-0.16) · def fragile (-0.74) · forme LWLLW · 🏆 régulière phase finale\n   ↳ Historique : demi-finaliste en 2022 · finaliste en 2018 · phase de poules en 2014\n🌦️ 🌫️ brouillard · 11–23°C · humidité 56%\n⚠️ Compo PROBABLE (officielle à T-60min)\n⚽ Modèle Poisson : λ total = 4.11\nP(plus de 2.5 buts) = 77.8%\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
       "calibration_delta": -11.3,
-      "edge_pp": 20.5,
+      "edge_pp": 19.5,
       "history_top3": true
     },
     "no_picks": false,
@@ -942,7 +730,7 @@
           "wc_round": null,
           "family": "DC"
         },
-        "reasoning": "📊 Niveau équilibré : Bosnia and Herzegovina #78 vs Qatar #53 (gap -150 pts).\nL10 : Bosnia and Herzegovina 0V/4N/1D sur 5 · Qatar 0V/2N/3D sur 5\n📋 Fiche Bosnia and Herzegovina : off solide (+0.89) · def solide (+0.38) · forme LDDDD · 🏆 présence occasionnelle\n📋 Fiche Qatar : off en panne (-0.70) · def fragile (-0.64) · forme LDDLL · 🏆 présence occasionnelle\n🎯 Importance : Bosnia and Herzegovina : 1 match joué (1pts) · Qatar : 1 match joué (1pts)\n🌦️ ☁️ couvert · 16–29°C · humidité 34%\n🛡️ Double chance : Bosnia and Herzegovina gagne (46.5%) OU match nul (28.4%)\nCombiné = 74.9% — option safe contre Qatar\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+        "reasoning": "📊 Niveau équilibré : Bosnia and Herzegovina #78 vs Qatar #53 (gap -150 pts).\nL10 : Bosnia and Herzegovina 0V/4N/1D sur 5 · Qatar 0V/2N/3D sur 5\n📋 Fiche Bosnia and Herzegovina : off solide (+0.89) · def solide (+0.38) · forme LDDDD · 🏆 présence occasionnelle\n📋 Fiche Qatar : off en panne (-0.70) · def fragile (-0.64) · forme LDDLL · 🏆 présence occasionnelle\n🎯 Importance : Bosnia and Herzegovina : 1 match joué (1pts) · Qatar : 1 match joué (1pts)\n🌦️ ☁️ couvert · 16–29°C · humidité 34%\n⚠️ Compo PROBABLE (officielle à T-60min)\n🛡️ Double chance : Bosnia and Herzegovina gagne (46.5%) OU match nul (28.4%)\nCombiné = 74.9% — option safe contre Qatar\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
         "calibration_delta": -11.3,
         "history_top3": true
       },
@@ -963,7 +751,7 @@
           "wc_round": null,
           "family": "TOTAL"
         },
-        "reasoning": "📊 Niveau équilibré : Bosnia and Herzegovina #78 vs Qatar #53 (gap -150 pts).\nL10 : Bosnia and Herzegovina 0V/4N/1D sur 5 · Qatar 0V/2N/3D sur 5\n📋 Fiche Bosnia and Herzegovina : off solide (+0.89) · def solide (+0.38) · forme LDDDD · 🏆 présence occasionnelle\n📋 Fiche Qatar : off en panne (-0.70) · def fragile (-0.64) · forme LDDLL · 🏆 présence occasionnelle\n🎯 Importance : Bosnia and Herzegovina : 1 match joué (1pts) · Qatar : 1 match joué (1pts)\n🌦️ ☁️ couvert · 16–29°C · humidité 34%\n⚽ Modèle Poisson : λ total = 2.18\nP(moins de 2.5 buts) = 62.7%\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
+        "reasoning": "📊 Niveau équilibré : Bosnia and Herzegovina #78 vs Qatar #53 (gap -150 pts).\nL10 : Bosnia and Herzegovina 0V/4N/1D sur 5 · Qatar 0V/2N/3D sur 5\n📋 Fiche Bosnia and Herzegovina : off solide (+0.89) · def solide (+0.38) · forme LDDDD · 🏆 présence occasionnelle\n📋 Fiche Qatar : off en panne (-0.70) · def fragile (-0.64) · forme LDDLL · 🏆 présence occasionnelle\n🎯 Importance : Bosnia and Herzegovina : 1 match joué (1pts) · Qatar : 1 match joué (1pts)\n🌦️ ☁️ couvert · 16–29°C · humidité 34%\n⚠️ Compo PROBABLE (officielle à T-60min)\n⚽ Modèle Poisson : λ total = 2.18\nP(moins de 2.5 buts) = 62.7%\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
         "calibration_delta": -25.4,
         "history_top3": true
       },
@@ -984,7 +772,7 @@
           "wc_round": null,
           "family": "BTTS"
         },
-        "reasoning": "📊 Niveau équilibré : Bosnia and Herzegovina #78 vs Qatar #53 (gap -150 pts).\nL10 : Bosnia and Herzegovina 0V/4N/1D sur 5 · Qatar 0V/2N/3D sur 5\n📋 Fiche Bosnia and Herzegovina : off solide (+0.89) · def solide (+0.38) · forme LDDDD · 🏆 présence occasionnelle\n📋 Fiche Qatar : off en panne (-0.70) · def fragile (-0.64) · forme LDDLL · 🏆 présence occasionnelle\n🎯 Importance : Bosnia and Herzegovina : 1 match joué (1pts) · Qatar : 1 match joué (1pts)\n🌦️ ☁️ couvert · 16–29°C · humidité 34%\n⚽ BTTS NO : P(au moins une équipe blanchie) = 57.4%\nλ faibles côté Qatar (0.88) ou Bosnia and Herzegovina (1.30)\n📉 Calibration : bucket 50-59% historiquement à WR 42% (claim 55%, n=41) — sur-estimé de 14pp",
+        "reasoning": "📊 Niveau équilibré : Bosnia and Herzegovina #78 vs Qatar #53 (gap -150 pts).\nL10 : Bosnia and Herzegovina 0V/4N/1D sur 5 · Qatar 0V/2N/3D sur 5\n📋 Fiche Bosnia and Herzegovina : off solide (+0.89) · def solide (+0.38) · forme LDDDD · 🏆 présence occasionnelle\n📋 Fiche Qatar : off en panne (-0.70) · def fragile (-0.64) · forme LDDLL · 🏆 présence occasionnelle\n🎯 Importance : Bosnia and Herzegovina : 1 match joué (1pts) · Qatar : 1 match joué (1pts)\n🌦️ ☁️ couvert · 16–29°C · humidité 34%\n⚠️ Compo PROBABLE (officielle à T-60min)\n⚽ BTTS NO : P(au moins une équipe blanchie) = 57.4%\nλ faibles côté Qatar (0.88) ou Bosnia and Herzegovina (1.30)\n📉 Calibration : bucket 50-59% historiquement à WR 42% (claim 55%, n=41) — sur-estimé de 14pp",
         "calibration_delta": -13.6,
         "history_top3": true
       }
@@ -1055,7 +843,7 @@
         "wc_round": null,
         "family": "DC"
       },
-      "reasoning": "📊 Niveau équilibré : Bosnia and Herzegovina #78 vs Qatar #53 (gap -150 pts).\nL10 : Bosnia and Herzegovina 0V/4N/1D sur 5 · Qatar 0V/2N/3D sur 5\n📋 Fiche Bosnia and Herzegovina : off solide (+0.89) · def solide (+0.38) · forme LDDDD · 🏆 présence occasionnelle\n📋 Fiche Qatar : off en panne (-0.70) · def fragile (-0.64) · forme LDDLL · 🏆 présence occasionnelle\n🎯 Importance : Bosnia and Herzegovina : 1 match joué (1pts) · Qatar : 1 match joué (1pts)\n🌦️ ☁️ couvert · 16–29°C · humidité 34%\n🛡️ Double chance : Bosnia and Herzegovina gagne (46.5%) OU match nul (28.4%)\nCombiné = 74.9% — option safe contre Qatar\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+      "reasoning": "📊 Niveau équilibré : Bosnia and Herzegovina #78 vs Qatar #53 (gap -150 pts).\nL10 : Bosnia and Herzegovina 0V/4N/1D sur 5 · Qatar 0V/2N/3D sur 5\n📋 Fiche Bosnia and Herzegovina : off solide (+0.89) · def solide (+0.38) · forme LDDDD · 🏆 présence occasionnelle\n📋 Fiche Qatar : off en panne (-0.70) · def fragile (-0.64) · forme LDDLL · 🏆 présence occasionnelle\n🎯 Importance : Bosnia and Herzegovina : 1 match joué (1pts) · Qatar : 1 match joué (1pts)\n🌦️ ☁️ couvert · 16–29°C · humidité 34%\n⚠️ Compo PROBABLE (officielle à T-60min)\n🛡️ Double chance : Bosnia and Herzegovina gagne (46.5%) OU match nul (28.4%)\nCombiné = 74.9% — option safe contre Qatar\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
       "calibration_delta": -11.3,
       "history_top3": true
     },
@@ -2437,6 +2225,134 @@
     "context": null
   },
   {
+    "league": "Finnish Veikkausliiga",
+    "home": "IFK Mariehamn",
+    "away": "HJK",
+    "start_ts": 1782234000,
+    "match_id": "5147582",
+    "page_url": "/matches/ifk-mariehamn-vs-hjk/29091p#5147582",
+    "picks": [
+      {
+        "direction": "away_win",
+        "type": "Victoire extérieur",
+        "label": "HJK gagne",
+        "cote": null,
+        "confidence": 60,
+        "reasoning": "HJK : 2V/2N/1D sur 5 matchs · #4 au classement · H2H: 1V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
+        "stats": {
+          "form": [
+            "D",
+            "W",
+            "W",
+            "L",
+            "D"
+          ]
+        },
+        "is_fun": false,
+        "tier": "ok",
+        "calibration_delta": -25.4,
+        "history_top3": true
+      }
+    ],
+    "home_players": [],
+    "away_players": [
+      {
+        "player": "Mads Borchers / Alexander Ring",
+        "position": "",
+        "is_sub": false,
+        "type": "Double Chance Buteur",
+        "label": "Mads Borchers ou Alexander Ring marque",
+        "cote": null,
+        "book": null,
+        "books": [],
+        "confidence": 70,
+        "cote_min": 1.43,
+        "reasoning": "📈 P(Mads Borchers marque) ≈ 54% · P(Alexander Ring marque) ≈ 40%\n🎯 P(au moins un marque) = 70% (calculée par 1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.43 - chercher ≥1.43 chez le bookmaker\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+        "context": {},
+        "stats": {
+          "p_a": 0.54,
+          "p_b": 0.405,
+          "p_or": 0.7,
+          "player_a": "Mads Borchers",
+          "player_b": "Alexander Ring"
+        },
+        "team": "away",
+        "tier": "safe",
+        "calibration_delta": -11.3,
+        "history_top3": true
+      },
+      {
+        "player": "Mads Borchers",
+        "position": "F",
+        "is_sub": false,
+        "type": "Buteur",
+        "label": "Mads Borchers marque",
+        "cote": null,
+        "book": null,
+        "books": [],
+        "confidence": 54,
+        "reasoning": "6 buts en 12 matchs cette saison (50.0% de chance/match) · xG moyen 0.00/match, défense adverse poreuse (1.7 buts concédés/match) · défense fragile\n📉 Calibration : bucket 50-59% historiquement à WR 42% (claim 55%, n=41) — sur-estimé de 14pp",
+        "context": {
+          "weakness": 0.56
+        },
+        "stats": {
+          "goals": 6,
+          "apps": 12,
+          "gpm": 0.5,
+          "xgpm": 0
+        },
+        "team": "away",
+        "tier": "fun",
+        "calibration_delta": -13.6,
+        "history_top3": true
+      }
+    ],
+    "fun_picks": [],
+    "top_pick": {
+      "direction": "away_win",
+      "type": "Victoire extérieur",
+      "label": "HJK gagne",
+      "cote": null,
+      "confidence": 60,
+      "reasoning": "HJK : 2V/2N/1D sur 5 matchs · #4 au classement · H2H: 1V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
+      "stats": {
+        "form": [
+          "D",
+          "W",
+          "W",
+          "L",
+          "D"
+        ]
+      },
+      "is_fun": false,
+      "tier": "ok",
+      "calibration_delta": -25.4,
+      "history_top3": true
+    },
+    "no_picks": false,
+    "context": {
+      "stadium": {
+        "name": "Wiklöf Holding Arena",
+        "city": "Maarianhamina (Mariehamn), Ahven",
+        "country": "Finland",
+        "lat": 60.102456912,
+        "lon": 19.93490696,
+        "capacity": 5637,
+        "surface": "artificial turf"
+      },
+      "weather": {
+        "temp_max": 17.7,
+        "temp_min": 10.1,
+        "humidity": 63,
+        "precipitation_sum_mm": 0.5,
+        "wind_max_kmh": 20.5,
+        "weather_code": 51,
+        "summary_fr": "🌦️ bruine légère · 10–17°C · humidité 63%"
+      },
+      "text": "Conditions : 🌦️ bruine légère · 10–17°C · humidité 63%. Stade : Wiklöf Holding Arena · 5 637 places · plein air."
+    }
+  },
+  {
     "league": "World Cup",
     "home": "Portugal",
     "away": "Uzbekistan",
@@ -2449,8 +2365,8 @@
         "type": "Victoire domicile",
         "label": "Portugal gagne",
         "cote": 1.15,
-        "confidence": 61,
-        "reasoning": "Portugal : 3V/2N/0D sur 5 matchs · #6 au classement · H2H: 0V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
+        "confidence": 60,
+        "reasoning": "Portugal : 3V/2N/0D sur 5 matchs · #7 au classement · H2H: 0V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
         "stats": {
           "form": [
             "D",
@@ -2463,7 +2379,7 @@
         "is_fun": false,
         "tier": "ok",
         "calibration_delta": -25.4,
-        "edge_pp": -26.0,
+        "edge_pp": -27.0,
         "history_top3": false
       },
       {
@@ -2652,8 +2568,8 @@
       "type": "Victoire domicile",
       "label": "Portugal gagne",
       "cote": 1.15,
-      "confidence": 61,
-      "reasoning": "Portugal : 3V/2N/0D sur 5 matchs · #6 au classement · H2H: 0V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
+      "confidence": 60,
+      "reasoning": "Portugal : 3V/2N/0D sur 5 matchs · #7 au classement · H2H: 0V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
       "stats": {
         "form": [
           "D",
@@ -2666,7 +2582,7 @@
       "is_fun": false,
       "tier": "ok",
       "calibration_delta": -25.4,
-      "edge_pp": -26.0,
+      "edge_pp": -27.0,
       "history_top3": false
     },
     "no_picks": false,
@@ -2694,134 +2610,6 @@
         "summary_fr": "⛈️ orage · 27–34°C · humidité 52%"
       },
       "text": "Conditions : ⛈️ orage · 27–34°C · humidité 52%. Stade : NRG Stadium · altitude 18m · 72 220 places · climatisé. Toit retractable, climatisé. Houston chaud et humide en été."
-    }
-  },
-  {
-    "league": "Finnish Veikkausliiga",
-    "home": "IFK Mariehamn",
-    "away": "HJK",
-    "start_ts": 1782234000,
-    "match_id": "5147582",
-    "page_url": "/matches/ifk-mariehamn-vs-hjk/29091p#5147582",
-    "picks": [
-      {
-        "direction": "away_win",
-        "type": "Victoire extérieur",
-        "label": "HJK gagne",
-        "cote": null,
-        "confidence": 60,
-        "reasoning": "HJK : 2V/2N/1D sur 5 matchs · #4 au classement · H2H: 1V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
-        "stats": {
-          "form": [
-            "D",
-            "W",
-            "W",
-            "L",
-            "D"
-          ]
-        },
-        "is_fun": false,
-        "tier": "ok",
-        "calibration_delta": -25.4,
-        "history_top3": true
-      }
-    ],
-    "home_players": [],
-    "away_players": [
-      {
-        "player": "Mads Borchers / Alexander Ring",
-        "position": "",
-        "is_sub": false,
-        "type": "Double Chance Buteur",
-        "label": "Mads Borchers ou Alexander Ring marque",
-        "cote": null,
-        "book": null,
-        "books": [],
-        "confidence": 70,
-        "cote_min": 1.43,
-        "reasoning": "📈 P(Mads Borchers marque) ≈ 54% · P(Alexander Ring marque) ≈ 40%\n🎯 P(au moins un marque) = 70% (calculée par 1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.43 - chercher ≥1.43 chez le bookmaker\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
-        "context": {},
-        "stats": {
-          "p_a": 0.54,
-          "p_b": 0.405,
-          "p_or": 0.7,
-          "player_a": "Mads Borchers",
-          "player_b": "Alexander Ring"
-        },
-        "team": "away",
-        "tier": "safe",
-        "calibration_delta": -11.3,
-        "history_top3": true
-      },
-      {
-        "player": "Mads Borchers",
-        "position": "F",
-        "is_sub": false,
-        "type": "Buteur",
-        "label": "Mads Borchers marque",
-        "cote": null,
-        "book": null,
-        "books": [],
-        "confidence": 54,
-        "reasoning": "6 buts en 12 matchs cette saison (50.0% de chance/match) · xG moyen 0.00/match, défense adverse poreuse (1.7 buts concédés/match) · défense fragile\n📉 Calibration : bucket 50-59% historiquement à WR 42% (claim 55%, n=41) — sur-estimé de 14pp",
-        "context": {
-          "weakness": 0.56
-        },
-        "stats": {
-          "goals": 6,
-          "apps": 12,
-          "gpm": 0.5,
-          "xgpm": 0
-        },
-        "team": "away",
-        "tier": "fun",
-        "calibration_delta": -13.6,
-        "history_top3": true
-      }
-    ],
-    "fun_picks": [],
-    "top_pick": {
-      "direction": "away_win",
-      "type": "Victoire extérieur",
-      "label": "HJK gagne",
-      "cote": null,
-      "confidence": 60,
-      "reasoning": "HJK : 2V/2N/1D sur 5 matchs · #4 au classement · H2H: 1V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
-      "stats": {
-        "form": [
-          "D",
-          "W",
-          "W",
-          "L",
-          "D"
-        ]
-      },
-      "is_fun": false,
-      "tier": "ok",
-      "calibration_delta": -25.4,
-      "history_top3": true
-    },
-    "no_picks": false,
-    "context": {
-      "stadium": {
-        "name": "Wiklöf Holding Arena",
-        "city": "Maarianhamina (Mariehamn), Ahven",
-        "country": "Finland",
-        "lat": 60.102456912,
-        "lon": 19.93490696,
-        "capacity": 5637,
-        "surface": "artificial turf"
-      },
-      "weather": {
-        "temp_max": 17.7,
-        "temp_min": 10.1,
-        "humidity": 63,
-        "precipitation_sum_mm": 0.5,
-        "wind_max_kmh": 20.5,
-        "weather_code": 51,
-        "summary_fr": "🌦️ bruine légère · 10–17°C · humidité 63%"
-      },
-      "text": "Conditions : 🌦️ bruine légère · 10–17°C · humidité 63%. Stade : Wiklöf Holding Arena · 5 637 places · plein air."
     }
   },
   {
@@ -3069,7 +2857,7 @@
           "wc_round": null,
           "family": "1X2"
         },
-        "reasoning": "📊 Écart FIFA significatif : Switzerland #15 vs Canada #76 (gap +380 pts, P favori ≈ 90%).\nL10 : Switzerland 2V/3N/0D sur 5 · Canada 2V/3N/0D sur 5\n📋 Fiche Switzerland : off moyen (-0.05) · def fragile (-0.42) · forme WDDWD · 🏆 habituée du tournoi\n📋 Fiche Canada : off solide (+0.76) · def solide (+0.78) · forme WDDWD · 🏆 présence occasionnelle\n🎯 Importance : Switzerland : 1 match joué (1pts) · Canada : 1 match joué (1pts)\n🌦️ ☁️ couvert · 16–23°C · humidité 45%\n🏆 Modèle Poisson CdM (tier FIFA ajusté)\nλ Switzerland = 1.85 buts attendus, λ Canada = 0.50\nP(Switzerland gagne) = 70.2% · P(nul) = 20.6% · P(Canada) = 9.2%\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+        "reasoning": "📊 Écart FIFA significatif : Switzerland #15 vs Canada #76 (gap +380 pts, P favori ≈ 90%).\nL10 : Switzerland 2V/3N/0D sur 5 · Canada 2V/3N/0D sur 5\n📋 Fiche Switzerland : off moyen (-0.05) · def fragile (-0.42) · forme WDDWD · 🏆 habituée du tournoi\n📋 Fiche Canada : off solide (+0.76) · def solide (+0.78) · forme WDDWD · 🏆 présence occasionnelle\n🎯 Importance : Switzerland : 1 match joué (1pts) · Canada : 1 match joué (1pts)\n🌦️ ☁️ couvert · 16–23°C · humidité 45%\n⚠️ Compo PROBABLE (officielle à T-60min)\n🏆 Modèle Poisson CdM (tier FIFA ajusté)\nλ Switzerland = 1.85 buts attendus, λ Canada = 0.50\nP(Switzerland gagne) = 70.2% · P(nul) = 20.6% · P(Canada) = 9.2%\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
         "calibration_delta": -11.3,
         "edge_pp": 28.3,
         "history_top3": true
@@ -3091,7 +2879,7 @@
           "wc_round": null,
           "family": "DC"
         },
-        "reasoning": "📊 Écart FIFA significatif : Switzerland #15 vs Canada #76 (gap +380 pts, P favori ≈ 90%).\nL10 : Switzerland 2V/3N/0D sur 5 · Canada 2V/3N/0D sur 5\n📋 Fiche Switzerland : off moyen (-0.05) · def fragile (-0.42) · forme WDDWD · 🏆 habituée du tournoi\n📋 Fiche Canada : off solide (+0.76) · def solide (+0.78) · forme WDDWD · 🏆 présence occasionnelle\n🎯 Importance : Switzerland : 1 match joué (1pts) · Canada : 1 match joué (1pts)\n🌦️ ☁️ couvert · 16–23°C · humidité 45%\n🛡️ Double chance 12 : Switzerland (70.2%) OU Canada (9.2%)\nCombiné = 79.3% — couvre tout sauf le nul\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+        "reasoning": "📊 Écart FIFA significatif : Switzerland #15 vs Canada #76 (gap +380 pts, P favori ≈ 90%).\nL10 : Switzerland 2V/3N/0D sur 5 · Canada 2V/3N/0D sur 5\n📋 Fiche Switzerland : off moyen (-0.05) · def fragile (-0.42) · forme WDDWD · 🏆 habituée du tournoi\n📋 Fiche Canada : off solide (+0.76) · def solide (+0.78) · forme WDDWD · 🏆 présence occasionnelle\n🎯 Importance : Switzerland : 1 match joué (1pts) · Canada : 1 match joué (1pts)\n🌦️ ☁️ couvert · 16–23°C · humidité 45%\n⚠️ Compo PROBABLE (officielle à T-60min)\n🛡️ Double chance 12 : Switzerland (70.2%) OU Canada (9.2%)\nCombiné = 79.3% — couvre tout sauf le nul\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
         "calibration_delta": -11.3,
         "history_top3": false
       },
@@ -3112,7 +2900,7 @@
           "wc_round": null,
           "family": "BTTS"
         },
-        "reasoning": "📊 Écart FIFA significatif : Switzerland #15 vs Canada #76 (gap +380 pts, P favori ≈ 90%).\nL10 : Switzerland 2V/3N/0D sur 5 · Canada 2V/3N/0D sur 5\n📋 Fiche Switzerland : off moyen (-0.05) · def fragile (-0.42) · forme WDDWD · 🏆 habituée du tournoi\n📋 Fiche Canada : off solide (+0.76) · def solide (+0.78) · forme WDDWD · 🏆 présence occasionnelle\n🎯 Importance : Switzerland : 1 match joué (1pts) · Canada : 1 match joué (1pts)\n🌦️ ☁️ couvert · 16–23°C · humidité 45%\n⚽ BTTS NO : P(au moins une équipe blanchie) = 67.0%\nλ faibles côté Canada (0.50) ou Switzerland (1.85)\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
+        "reasoning": "📊 Écart FIFA significatif : Switzerland #15 vs Canada #76 (gap +380 pts, P favori ≈ 90%).\nL10 : Switzerland 2V/3N/0D sur 5 · Canada 2V/3N/0D sur 5\n📋 Fiche Switzerland : off moyen (-0.05) · def fragile (-0.42) · forme WDDWD · 🏆 habituée du tournoi\n📋 Fiche Canada : off solide (+0.76) · def solide (+0.78) · forme WDDWD · 🏆 présence occasionnelle\n🎯 Importance : Switzerland : 1 match joué (1pts) · Canada : 1 match joué (1pts)\n🌦️ ☁️ couvert · 16–23°C · humidité 45%\n⚠️ Compo PROBABLE (officielle à T-60min)\n⚽ BTTS NO : P(au moins une équipe blanchie) = 67.0%\nλ faibles côté Canada (0.50) ou Switzerland (1.85)\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
         "calibration_delta": -25.4,
         "history_top3": true
       }
@@ -3121,19 +2909,19 @@
       {
         "player": "Breel Embolo",
         "position": "F",
-        "is_sub": false,
+        "is_sub": true,
         "type": "Buteur",
         "label": "Breel Embolo marque",
         "cote": null,
         "cote_min": 1.63,
         "book": null,
         "books": [],
-        "confidence": 62,
-        "reasoning": "Breel Embolo : selection 7G/11m (0.64/m) · L10 club : 4G/10m, 🔥 2G/3 derniers nat (+19%) | titu nat (78min/m) · last match 89min (0G+1A). λ ajusté à 0.95 (Switzerland attendu 2.1 buts) → P(marque) ~62%.\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
+        "confidence": 57,
+        "reasoning": "⚠️ Compo PROBABLE (a confirmer 1h avant). Breel Embolo : selection 7G/11m (0.64/m) · L10 club : 4G/10m, 🔥 2G/3 derniers nat (+19%) | titu nat (78min/m) · last match 89min (0G+1A). λ ajusté à 0.95 (Switzerland attendu 2.1 buts) → P(marque) ~57%.\n📉 Calibration : bucket 50-59% historiquement à WR 42% (claim 55%, n=41) — sur-estimé de 14pp",
         "context": {
           "source": "lineup",
           "lam": 0.95,
-          "lineup_status": "confirmed"
+          "lineup_status": "predicted"
         },
         "stats": {
           "goals": null,
@@ -3142,37 +2930,9 @@
           "xgpm": null
         },
         "team": "home",
-        "lineup_status": "confirmed",
+        "lineup_status": "predicted",
         "tier": "ok",
-        "calibration_delta": -25.4,
-        "history_top3": false
-      },
-      {
-        "player": "Breel Embolo",
-        "position": "F",
-        "is_sub": false,
-        "type": "Double buteur",
-        "label": "Breel Embolo marque 2+ buts",
-        "cote": null,
-        "cote_min": 4.04,
-        "book": null,
-        "books": [],
-        "confidence": 35,
-        "reasoning": "Breel Embolo : selection 7G/11m (0.64/m) · L10 club : 4G/10m, 🔥 2G/3 derniers nat (+19%) | titu nat (78min/m) · last match 89min (0G+1A). Attendu ~1.0 buts ce match - P(2+) ~25% (cote elevee).",
-        "context": {
-          "source": "lineup",
-          "lam": 0.95,
-          "lineup_status": "confirmed"
-        },
-        "stats": {
-          "goals": null,
-          "apps": null,
-          "gpm": 0.955,
-          "xgpm": null
-        },
-        "team": "home",
-        "lineup_status": "confirmed",
-        "tier": "fun",
+        "calibration_delta": -13.6,
         "history_top3": false
       }
     ],
