@@ -210,14 +210,50 @@ def _analyse_form_and_squad(match, sheets_data):
     }
 
 
+def _devig_1x2(home_cote, draw_cote, away_cote):
+    """Retire la marge bookmaker pour récupérer les vraies probas 'fair'.
+    Bovada marge typique 5-8%. Méthode : normalisation directe."""
+    if not (home_cote and draw_cote and away_cote): return None, None, None
+    p_h_raw = 1.0 / home_cote
+    p_d_raw = 1.0 / draw_cote
+    p_a_raw = 1.0 / away_cote
+    total = p_h_raw + p_d_raw + p_a_raw
+    if total <= 0: return None, None, None
+    return p_h_raw / total, p_d_raw / total, p_a_raw / total
+
+
+def _devig_binary(cote_yes, cote_no):
+    """Retire la marge bookmaker pour un marché binaire (BTTS, Over/Under)."""
+    if not (cote_yes and cote_no): return None, None
+    p_y_raw = 1.0 / cote_yes
+    p_n_raw = 1.0 / cote_no
+    total = p_y_raw + p_n_raw
+    if total <= 0: return None, None
+    return p_y_raw / total, p_n_raw / total
+
+
+def _shrink(p_model, p_market, alpha=0.75):
+    """Bayesian shrinkage : p_final = (1-alpha) × p_model + alpha × p_market.
+    alpha=0.75 → on fait confiance au marché 75% car peu de matchs WC pour
+    calibrer notre modèle Poisson. Évite les value 240% absurdes sur les
+    outsiders extrêmes (Ghana, Uzbekistan, Haïti, etc.)."""
+    if p_model is None or p_market is None: return p_model
+    return (1 - alpha) * p_model + alpha * p_market
+
+
 def _analyse_market(match):
-    """Compare cotes book à nos probas modèle pour spotter le value."""
+    """Compare cotes book à nos probas modèle pour spotter le value.
+
+    Sur WC : shrinkage Bayésien fort (alpha=0.75) vers le marché car :
+      - Peu de matchs WC pour calibrer notre Poisson
+      - Les modèles statistiques surestiment les outsiders extrêmes
+      - Le marché agrège plus d'info (forme, news, blessures) que notre code
+    """
     markets = (match.get("match_odds") or {}).get("markets") or []
     analyse = match.get("analyse") or {}
     ft1x2 = analyse.get("ft_1x2") or {}
     btts = analyse.get("btts") or {}
 
-    # Récupère cotes book
     home_cote = _get_cote(markets, "Full time", side="home")
     draw_cote = _get_cote(markets, "Full time", side="draw")
     away_cote = _get_cote(markets, "Full time", side="away")
@@ -226,30 +262,57 @@ def _analyse_market(match):
     over_25_cote  = _get_cote(markets, "Goals Over/Under (2.5)", choice_name="Over 2.5")
     under_25_cote = _get_cote(markets, "Goals Over/Under (2.5)", choice_name="Under 2.5")
 
-    # Probas modèle (en %)
-    p_h_mod = (ft1x2.get("home_pct") or 0) / 100.0
-    p_d_mod = (ft1x2.get("draw_pct") or 0) / 100.0
-    p_a_mod = (ft1x2.get("away_pct") or 0) / 100.0
-    p_btts_y_mod = (btts.get("yes") or 0) / 100.0
+    # Devig pour récupérer P_marché fair (sans marge book)
+    p_h_mkt, p_d_mkt, p_a_mkt = _devig_1x2(home_cote, draw_cote, away_cote)
+    p_btts_y_mkt, p_btts_n_mkt = _devig_binary(btts_yes_cote, btts_no_cote)
 
-    home_val   = _value_pct(p_h_mod, home_cote)
-    draw_val   = _value_pct(p_d_mod, draw_cote)
-    away_val   = _value_pct(p_a_mod, away_cote)
-    btts_y_val = _value_pct(p_btts_y_mod, btts_yes_cote)
+    # Probas modèle brut (Poisson)
+    p_h_mod_raw = (ft1x2.get("home_pct") or 0) / 100.0
+    p_d_mod_raw = (ft1x2.get("draw_pct") or 0) / 100.0
+    p_a_mod_raw = (ft1x2.get("away_pct") or 0) / 100.0
+    p_btts_y_mod_raw = (btts.get("yes") or 0) / 100.0
+
+    # Shrink vers le marché (alpha=0.75)
+    p_h_final = _shrink(p_h_mod_raw, p_h_mkt)
+    p_d_final = _shrink(p_d_mod_raw, p_d_mkt)
+    p_a_final = _shrink(p_a_mod_raw, p_a_mkt)
+    p_btts_y_final = _shrink(p_btts_y_mod_raw, p_btts_y_mkt)
+
+    home_val   = _value_pct(p_h_final, home_cote)
+    draw_val   = _value_pct(p_d_final, draw_cote)
+    away_val   = _value_pct(p_a_final, away_cote)
+    btts_y_val = _value_pct(p_btts_y_final, btts_yes_cote)
 
     notes = []
-    if home_cote:
-        notes.append(f"Cote {match.get('home','?')} {home_cote} (book P={_implied_p(home_cote)*100:.0f}%, modèle P={p_h_mod*100:.0f}%) → value {home_val}%")
-    if draw_cote:
-        notes.append(f"Cote nul {draw_cote} (book P={_implied_p(draw_cote)*100:.0f}%, modèle P={p_d_mod*100:.0f}%) → value {draw_val}%")
-    if away_cote:
-        notes.append(f"Cote {match.get('away','?')} {away_cote} (book P={_implied_p(away_cote)*100:.0f}%, modèle P={p_a_mod*100:.0f}%) → value {away_val}%")
+    if home_cote and p_h_mkt is not None:
+        notes.append(
+            f"Cote {match.get('home','?')} {home_cote} "
+            f"(book P={p_h_mkt*100:.0f}% · modèle P={p_h_mod_raw*100:.0f}% · "
+            f"calibré P={p_h_final*100:.0f}%) → value {home_val}%"
+        )
+    if draw_cote and p_d_mkt is not None:
+        notes.append(
+            f"Cote nul {draw_cote} "
+            f"(book P={p_d_mkt*100:.0f}% · modèle P={p_d_mod_raw*100:.0f}% · "
+            f"calibré P={p_d_final*100:.0f}%) → value {draw_val}%"
+        )
+    if away_cote and p_a_mkt is not None:
+        notes.append(
+            f"Cote {match.get('away','?')} {away_cote} "
+            f"(book P={p_a_mkt*100:.0f}% · modèle P={p_a_mod_raw*100:.0f}% · "
+            f"calibré P={p_a_final*100:.0f}%) → value {away_val}%"
+        )
+    notes.append(
+        "ℹ️ Probas calibrées = 25% modèle + 75% marché (shrinkage WC : "
+        "marché plus fiable que notre Poisson sur si peu de matchs)"
+    )
 
     return {
-        "home_cote": home_cote, "home_value": home_val,
-        "draw_cote": draw_cote, "draw_value": draw_val,
-        "away_cote": away_cote, "away_value": away_val,
+        "home_cote": home_cote, "home_value": home_val, "home_p_final": p_h_final,
+        "draw_cote": draw_cote, "draw_value": draw_val, "draw_p_final": p_d_final,
+        "away_cote": away_cote, "away_value": away_val, "away_p_final": p_a_final,
         "btts_yes_cote": btts_yes_cote, "btts_yes_value": btts_y_val,
+        "btts_yes_p_final": p_btts_y_final,
         "btts_no_cote":  btts_no_cote,
         "over_25_cote":  over_25_cote,
         "under_25_cote": under_25_cote,
@@ -304,67 +367,133 @@ def _build_top_signals(match, dyn, env, form, mkt):
 
 def _build_top_bets(match, dyn, env, form, mkt):
     """Identifie le top 3 picks par valeur attendue."""
-    bets = []
+    """Top bets WC : UNIQUEMENT marchés stables (Over/Under buts, BTTS, MT).
+    PAS de 1X2 outsider (cote > 4) ni de pari sur l'outsider extrême
+    (Ghana @16, Uzbekistan @19) — sur CDM avec si peu de matchs, le modèle ne
+    peut PAS identifier de la value sur les outsiders ; les seuls vrais edges
+    viennent des marchés totaux/BTTS où la statistique est plus stable."""
     home = match.get("home","?"); away = match.get("away","?")
+    markets = (match.get("match_odds") or {}).get("markets") or []
+    analyse = match.get("analyse") or {}
 
-    # Hypothèses :
-    # 1) Si value > 110% sur 1X2 → fort pick
-    # 2) BTTS / Over Under selon λ
-    # 3) Si qualif acquise + chaleur extrême → Under buts probable
     candidates = []
-    if mkt.get("home_value") and mkt["home_value"] >= 110 and mkt.get("home_cote"):
+    MAX_COTE = 3.50  # Exclut tous les outsiders extrêmes
+    MIN_VALUE = 102  # Edge raisonnable (pas extrême)
+    MAX_VALUE = 130  # Au-delà = bruit modèle, pas une vraie value
+
+    def _add(market, selection, cote, p_final, signals):
+        """Ajoute un candidat si cote raisonnable + value entre 102 et 130%."""
+        if not cote or cote > MAX_COTE: return
+        if p_final is None or p_final <= 0: return
+        val = round(p_final * cote * 100, 1)
+        if val < MIN_VALUE or val > MAX_VALUE: return
         candidates.append({
-            "market": "1X2",
-            "selection": f"{home} gagne",
-            "cote": mkt["home_cote"],
-            "model_p": (match.get("analyse", {}).get("ft_1x2", {}).get("home_pct", 0)) / 100,
-            "value": mkt["home_value"],
-            "signals": [f"value {mkt['home_value']}% vs marché"],
-        })
-    if mkt.get("away_value") and mkt["away_value"] >= 110 and mkt.get("away_cote"):
-        candidates.append({
-            "market": "1X2",
-            "selection": f"{away} gagne",
-            "cote": mkt["away_cote"],
-            "model_p": (match.get("analyse", {}).get("ft_1x2", {}).get("away_pct", 0)) / 100,
-            "value": mkt["away_value"],
-            "signals": [f"value {mkt['away_value']}% vs marché"],
-        })
-    if mkt.get("draw_value") and mkt["draw_value"] >= 105 and mkt.get("draw_cote"):
-        candidates.append({
-            "market": "1X2",
-            "selection": "Match nul",
-            "cote": mkt["draw_cote"],
-            "model_p": (match.get("analyse", {}).get("ft_1x2", {}).get("draw_pct", 0)) / 100,
-            "value": mkt["draw_value"],
-            "signals": [f"value {mkt['draw_value']}% vs marché"],
-        })
-    if mkt.get("btts_yes_value") and mkt["btts_yes_value"] >= 105 and mkt.get("btts_yes_cote"):
-        candidates.append({
-            "market": "BTTS",
-            "selection": "Les 2 équipes marquent",
-            "cote": mkt["btts_yes_cote"],
-            "model_p": (match.get("analyse", {}).get("btts", {}).get("yes", 0)) / 100,
-            "value": mkt["btts_yes_value"],
-            "signals": [f"value {mkt['btts_yes_value']}% vs marché"],
+            "market": market, "selection": selection, "cote": cote,
+            "model_p": p_final, "value": val, "signals": signals,
         })
 
-    # Si qualif acquise + chaleur → Under 2.5 forte hypothèse
-    if dyn.get("risk_score", 0) >= 2 and env.get("severity", 0) >= 2 and mkt.get("under_25_cote"):
-        u_cote = mkt["under_25_cote"]
-        candidates.append({
-            "market": "Total",
-            "selection": "Moins de 2.5 buts",
-            "cote": u_cote,
-            "model_p": 0.65,  # estimation upgrade
-            "value": _value_pct(0.65, u_cote),
-            "signals": ["Qualif acquise + chaleur → faible intensité",
-                        f"value estimée {_value_pct(0.65, u_cote)}%"],
-        })
+    # ── 1X2 : uniquement favori (cote ≤ 3.50) ──
+    _add("1X2", f"{home} gagne", mkt.get("home_cote"), mkt.get("home_p_final"),
+         [f"value {mkt.get('home_value','?')}% (proba calibrée 25% modèle + 75% marché)"])
+    _add("1X2", f"{away} gagne", mkt.get("away_cote"), mkt.get("away_p_final"),
+         [f"value {mkt.get('away_value','?')}% (proba calibrée 25% modèle + 75% marché)"])
+    _add("1X2", "Match nul", mkt.get("draw_cote"), mkt.get("draw_p_final"),
+         [f"value {mkt.get('draw_value','?')}% (proba calibrée)"])
 
-    # Tri par EV (model_p * cote) descendant
-    candidates.sort(key=lambda c: -(c["model_p"] * (c["cote"] or 0)))
-    return candidates[:3]
+    # ── BTTS Yes/No (plus stables sur WC) ──
+    btts_y = mkt.get("btts_yes_p_final")
+    if btts_y and mkt.get("btts_yes_cote"):
+        _add("BTTS", "Les 2 équipes marquent", mkt["btts_yes_cote"], btts_y,
+             [f"value {mkt.get('btts_yes_value','?')}% (BTTS plus stable que 1X2 sur peu de matchs)"])
+    if mkt.get("btts_no_cote") and btts_y:
+        # Devig binary derived: P(no) = 1 - P(yes_market). Combine with model 25/75.
+        # Si btts_y déjà shrinké, P(no) = 1 - btts_y
+        p_no_final = 1.0 - btts_y
+        _add("BTTS", "Une équipe ne marque pas", mkt["btts_no_cote"], p_no_final,
+             [f"BTTS NO calibré P={p_no_final*100:.0f}% (plus stable que 1X2)"])
+
+    # ── Over/Under 2.5 buts (très stables sur WC) ──
+    if mkt.get("over_25_cote") or mkt.get("under_25_cote"):
+        from_book_over = (1.0 / mkt["over_25_cote"]) if mkt.get("over_25_cote") else None
+        from_book_under = (1.0 / mkt["under_25_cote"]) if mkt.get("under_25_cote") else None
+        if from_book_over and from_book_under:
+            total_p = from_book_over + from_book_under
+            p_over_mkt = from_book_over / total_p
+            p_under_mkt = from_book_under / total_p
+            # Modèle Poisson : P(over 2.5)
+            tot = analyse.get("total_buts") or {}
+            p_over_mod = (tot.get("over_25") or 0) / 100.0 if tot.get("over_25") else None
+            if p_over_mod is not None:
+                p_over_final = _shrink(p_over_mod, p_over_mkt)
+                p_under_final = 1.0 - p_over_final
+            else:
+                p_over_final = p_over_mkt
+                p_under_final = p_under_mkt
+            if mkt.get("over_25_cote"):
+                _add("Total", "Plus de 2.5 buts", mkt["over_25_cote"], p_over_final,
+                     [f"Over 2.5 calibré P={p_over_final*100:.0f}%"])
+            if mkt.get("under_25_cote"):
+                _add("Total", "Moins de 2.5 buts", mkt["under_25_cote"], p_under_final,
+                     [f"Under 2.5 calibré P={p_under_final*100:.0f}%"])
+
+    # ── Autres totaux : 1.5 / 3.5 ──
+    for line, label_o, label_u in [(1.5, "Plus de 1.5 buts", "Moins de 1.5 buts"),
+                                     (3.5, "Plus de 3.5 buts", "Moins de 3.5 buts")]:
+        over_c = _get_cote(markets, f"Goals Over/Under ({line})", choice_name=f"Over {line}")
+        under_c = _get_cote(markets, f"Goals Over/Under ({line})", choice_name=f"Under {line}")
+        if over_c and under_c:
+            p_o_raw = 1.0 / over_c
+            p_u_raw = 1.0 / under_c
+            tot = p_o_raw + p_u_raw
+            p_over_mkt = p_o_raw / tot
+            p_under_mkt = p_u_raw / tot
+            _add("Total", label_o, over_c, p_over_mkt, [f"Cote book {over_c}"])
+            _add("Total", label_u, under_c, p_under_mkt, [f"Cote book {under_c}"])
+
+    # ── Mi-temps : Over 0.5 / Over 1.5 buts ──
+    for line, label_o, label_u in [(0.5, "Plus de 0.5 but (mi-temps)", "Moins de 0.5 but (mi-temps)"),
+                                     (1.5, "Plus de 1.5 buts (mi-temps)", "Moins de 1.5 buts (mi-temps)")]:
+        over_c = _get_cote(markets, f"Half time goals Over/Under ({line})", choice_name=f"Over {line}")
+        under_c = _get_cote(markets, f"Half time goals Over/Under ({line})", choice_name=f"Under {line}")
+        if over_c and under_c:
+            p_o_raw = 1.0 / over_c
+            p_u_raw = 1.0 / under_c
+            tot = p_o_raw + p_u_raw
+            _add("Mi-temps", label_o, over_c, p_o_raw / tot, [f"Cote book {over_c}"])
+            _add("Mi-temps", label_u, under_c, p_u_raw / tot, [f"Cote book {under_c}"])
+
+    # ── Double chance favori (cote 1.01-1.30 = filler de sécurité) ──
+    for mk_obj in markets:
+        if mk_obj.get("marketName") != "Double chance": continue
+        for c in mk_obj.get("choices", []):
+            cote_dc = c.get("cote")
+            if not cote_dc or cote_dc < 1.05 or cote_dc > 2.50: continue
+            sd = c.get("side") or ""
+            nm = c.get("name") or ""
+            if sd == "1X" or sd == "X2":
+                # Compose proba calibrée
+                if sd == "1X":
+                    p_dc = (mkt.get("home_p_final") or 0) + (mkt.get("draw_p_final") or 0)
+                else:
+                    p_dc = (mkt.get("away_p_final") or 0) + (mkt.get("draw_p_final") or 0)
+                if p_dc > 0:
+                    _add("Double chance", nm, cote_dc, p_dc,
+                         [f"DC calibré P={p_dc*100:.0f}%"])
+
+    # Dédup par selection (priorité au plus haut value)
+    by_sel = {}
+    for c in candidates:
+        key = c["selection"]
+        if key not in by_sel or c["value"] > by_sel[key]["value"]:
+            by_sel[key] = c
+    final = list(by_sel.values())
+
+    # Tri par value desc, mais aussi pondéré par stabilité (BTTS/Total > 1X2)
+    def _weight(c):
+        bonus = 1.05 if c["market"] in ("BTTS", "Total", "Mi-temps") else 1.0
+        return c["value"] * bonus
+    final.sort(key=lambda c: -_weight(c))
+    return final[:3]
 
 
 def _build_uncertainty(dyn, env, form, mkt):
