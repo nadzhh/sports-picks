@@ -2077,7 +2077,7 @@
         "direction": "wc_over_25",
         "type": "⚽ Total buts WC",
         "label": "Plus de 2.5 buts",
-        "cote": 1.61,
+        "cote": 1.59,
         "cote_min": 1.37,
         "confidence": 73,
         "tier": "safe",
@@ -2092,7 +2092,7 @@
         },
         "reasoning": "📊 Écart FIFA ÉNORME : England #4 (1820 pts) vs Ghana #55 (1394 pts) — gap Elo +426 pts → P(vainqueur favori) ≈ 92%.\n⭐ England favori CdM 2026\nL10 : England 3V/1N/1D sur 5 · Ghana 1V/1N/3D sur 5\n🚂 Mismatch significatif (Elo gap +426) : England pousse pour prendre le large.\n📋 Fiche England : off moyen (-0.09) · def moyenne (+0.05) · forme WWWLD · 🏆 régulière phase finale\n   ↳ Historique : quart de finale en 2022 · demi-finaliste en 2018 · phase de poules en 2014\n📋 Fiche Ghana : off moyen (-0.24) · def moyenne (-0.01) · forme WDLLL · 🏆 présence occasionnelle\n🌦️ Conditions : pluie 14.5mm (-10%)\n⚠️ Compo PROBABLE (officielle à T-60min)\n⚽ Modèle Poisson : λ total = 3.79\nP(plus de 2.5 buts) = 73.0%\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
         "calibration_delta": -11.3,
-        "edge_pp": 10.9,
+        "edge_pp": 10.1,
         "history_top3": true
       },
       {
@@ -2437,6 +2437,134 @@
     "context": null
   },
   {
+    "league": "Finnish Veikkausliiga",
+    "home": "IFK Mariehamn",
+    "away": "HJK",
+    "start_ts": 1782234000,
+    "match_id": "5147582",
+    "page_url": "/matches/ifk-mariehamn-vs-hjk/29091p#5147582",
+    "picks": [
+      {
+        "direction": "away_win",
+        "type": "Victoire extérieur",
+        "label": "HJK gagne",
+        "cote": null,
+        "confidence": 60,
+        "reasoning": "HJK : 2V/2N/1D sur 5 matchs · #4 au classement · H2H: 1V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
+        "stats": {
+          "form": [
+            "D",
+            "W",
+            "W",
+            "L",
+            "D"
+          ]
+        },
+        "is_fun": false,
+        "tier": "ok",
+        "calibration_delta": -25.4,
+        "history_top3": true
+      }
+    ],
+    "home_players": [],
+    "away_players": [
+      {
+        "player": "Mads Borchers / Alexander Ring",
+        "position": "",
+        "is_sub": false,
+        "type": "Double Chance Buteur",
+        "label": "Mads Borchers ou Alexander Ring marque",
+        "cote": null,
+        "book": null,
+        "books": [],
+        "confidence": 70,
+        "cote_min": 1.43,
+        "reasoning": "📈 P(Mads Borchers marque) ≈ 54% · P(Alexander Ring marque) ≈ 40%\n🎯 P(au moins un marque) = 70% (calculée par 1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.43 - chercher ≥1.43 chez le bookmaker\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+        "context": {},
+        "stats": {
+          "p_a": 0.54,
+          "p_b": 0.405,
+          "p_or": 0.7,
+          "player_a": "Mads Borchers",
+          "player_b": "Alexander Ring"
+        },
+        "team": "away",
+        "tier": "safe",
+        "calibration_delta": -11.3,
+        "history_top3": true
+      },
+      {
+        "player": "Mads Borchers",
+        "position": "F",
+        "is_sub": false,
+        "type": "Buteur",
+        "label": "Mads Borchers marque",
+        "cote": null,
+        "book": null,
+        "books": [],
+        "confidence": 54,
+        "reasoning": "6 buts en 12 matchs cette saison (50.0% de chance/match) · xG moyen 0.00/match, défense adverse poreuse (1.7 buts concédés/match) · défense fragile\n📉 Calibration : bucket 50-59% historiquement à WR 42% (claim 55%, n=41) — sur-estimé de 14pp",
+        "context": {
+          "weakness": 0.56
+        },
+        "stats": {
+          "goals": 6,
+          "apps": 12,
+          "gpm": 0.5,
+          "xgpm": 0
+        },
+        "team": "away",
+        "tier": "fun",
+        "calibration_delta": -13.6,
+        "history_top3": true
+      }
+    ],
+    "fun_picks": [],
+    "top_pick": {
+      "direction": "away_win",
+      "type": "Victoire extérieur",
+      "label": "HJK gagne",
+      "cote": null,
+      "confidence": 60,
+      "reasoning": "HJK : 2V/2N/1D sur 5 matchs · #4 au classement · H2H: 1V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
+      "stats": {
+        "form": [
+          "D",
+          "W",
+          "W",
+          "L",
+          "D"
+        ]
+      },
+      "is_fun": false,
+      "tier": "ok",
+      "calibration_delta": -25.4,
+      "history_top3": true
+    },
+    "no_picks": false,
+    "context": {
+      "stadium": {
+        "name": "Wiklöf Holding Arena",
+        "city": "Maarianhamina (Mariehamn), Ahven",
+        "country": "Finland",
+        "lat": 60.102456912,
+        "lon": 19.93490696,
+        "capacity": 5637,
+        "surface": "artificial turf"
+      },
+      "weather": {
+        "temp_max": 17.7,
+        "temp_min": 10.1,
+        "humidity": 63,
+        "precipitation_sum_mm": 0.5,
+        "wind_max_kmh": 20.5,
+        "weather_code": 51,
+        "summary_fr": "🌦️ bruine légère · 10–17°C · humidité 63%"
+      },
+      "text": "Conditions : 🌦️ bruine légère · 10–17°C · humidité 63%. Stade : Wiklöf Holding Arena · 5 637 places · plein air."
+    }
+  },
+  {
     "league": "World Cup",
     "home": "Portugal",
     "away": "Uzbekistan",
@@ -2449,8 +2577,8 @@
         "type": "Victoire domicile",
         "label": "Portugal gagne",
         "cote": 1.17,
-        "confidence": 61,
-        "reasoning": "Portugal : 3V/2N/0D sur 5 matchs · #6 au classement · H2H: 0V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
+        "confidence": 60,
+        "reasoning": "Portugal : 3V/2N/0D sur 5 matchs · #7 au classement · H2H: 0V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
         "stats": {
           "form": [
             "D",
@@ -2463,7 +2591,7 @@
         "is_fun": false,
         "tier": "ok",
         "calibration_delta": -25.4,
-        "edge_pp": -24.5,
+        "edge_pp": -25.5,
         "history_top3": false
       },
       {
@@ -2652,8 +2780,8 @@
       "type": "Victoire domicile",
       "label": "Portugal gagne",
       "cote": 1.17,
-      "confidence": 61,
-      "reasoning": "Portugal : 3V/2N/0D sur 5 matchs · #6 au classement · H2H: 0V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
+      "confidence": 60,
+      "reasoning": "Portugal : 3V/2N/0D sur 5 matchs · #7 au classement · H2H: 0V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
       "stats": {
         "form": [
           "D",
@@ -2666,7 +2794,7 @@
       "is_fun": false,
       "tier": "ok",
       "calibration_delta": -25.4,
-      "edge_pp": -24.5,
+      "edge_pp": -25.5,
       "history_top3": false
     },
     "no_picks": false,
@@ -2694,134 +2822,6 @@
         "summary_fr": "⛈️ orage · 27–34°C · humidité 52%"
       },
       "text": "Conditions : ⛈️ orage · 27–34°C · humidité 52%. Stade : NRG Stadium · altitude 18m · 72 220 places · climatisé. Toit retractable, climatisé. Houston chaud et humide en été."
-    }
-  },
-  {
-    "league": "Finnish Veikkausliiga",
-    "home": "IFK Mariehamn",
-    "away": "HJK",
-    "start_ts": 1782234000,
-    "match_id": "5147582",
-    "page_url": "/matches/ifk-mariehamn-vs-hjk/29091p#5147582",
-    "picks": [
-      {
-        "direction": "away_win",
-        "type": "Victoire extérieur",
-        "label": "HJK gagne",
-        "cote": null,
-        "confidence": 60,
-        "reasoning": "HJK : 2V/2N/1D sur 5 matchs · #4 au classement · H2H: 1V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
-        "stats": {
-          "form": [
-            "D",
-            "W",
-            "W",
-            "L",
-            "D"
-          ]
-        },
-        "is_fun": false,
-        "tier": "ok",
-        "calibration_delta": -25.4,
-        "history_top3": true
-      }
-    ],
-    "home_players": [],
-    "away_players": [
-      {
-        "player": "Mads Borchers / Alexander Ring",
-        "position": "",
-        "is_sub": false,
-        "type": "Double Chance Buteur",
-        "label": "Mads Borchers ou Alexander Ring marque",
-        "cote": null,
-        "book": null,
-        "books": [],
-        "confidence": 70,
-        "cote_min": 1.43,
-        "reasoning": "📈 P(Mads Borchers marque) ≈ 54% · P(Alexander Ring marque) ≈ 40%\n🎯 P(au moins un marque) = 70% (calculée par 1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.43 - chercher ≥1.43 chez le bookmaker\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
-        "context": {},
-        "stats": {
-          "p_a": 0.54,
-          "p_b": 0.405,
-          "p_or": 0.7,
-          "player_a": "Mads Borchers",
-          "player_b": "Alexander Ring"
-        },
-        "team": "away",
-        "tier": "safe",
-        "calibration_delta": -11.3,
-        "history_top3": true
-      },
-      {
-        "player": "Mads Borchers",
-        "position": "F",
-        "is_sub": false,
-        "type": "Buteur",
-        "label": "Mads Borchers marque",
-        "cote": null,
-        "book": null,
-        "books": [],
-        "confidence": 54,
-        "reasoning": "6 buts en 12 matchs cette saison (50.0% de chance/match) · xG moyen 0.00/match, défense adverse poreuse (1.7 buts concédés/match) · défense fragile\n📉 Calibration : bucket 50-59% historiquement à WR 42% (claim 55%, n=41) — sur-estimé de 14pp",
-        "context": {
-          "weakness": 0.56
-        },
-        "stats": {
-          "goals": 6,
-          "apps": 12,
-          "gpm": 0.5,
-          "xgpm": 0
-        },
-        "team": "away",
-        "tier": "fun",
-        "calibration_delta": -13.6,
-        "history_top3": true
-      }
-    ],
-    "fun_picks": [],
-    "top_pick": {
-      "direction": "away_win",
-      "type": "Victoire extérieur",
-      "label": "HJK gagne",
-      "cote": null,
-      "confidence": 60,
-      "reasoning": "HJK : 2V/2N/1D sur 5 matchs · #4 au classement · H2H: 1V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
-      "stats": {
-        "form": [
-          "D",
-          "W",
-          "W",
-          "L",
-          "D"
-        ]
-      },
-      "is_fun": false,
-      "tier": "ok",
-      "calibration_delta": -25.4,
-      "history_top3": true
-    },
-    "no_picks": false,
-    "context": {
-      "stadium": {
-        "name": "Wiklöf Holding Arena",
-        "city": "Maarianhamina (Mariehamn), Ahven",
-        "country": "Finland",
-        "lat": 60.102456912,
-        "lon": 19.93490696,
-        "capacity": 5637,
-        "surface": "artificial turf"
-      },
-      "weather": {
-        "temp_max": 17.7,
-        "temp_min": 10.1,
-        "humidity": 63,
-        "precipitation_sum_mm": 0.5,
-        "wind_max_kmh": 20.5,
-        "weather_code": 51,
-        "summary_fr": "🌦️ bruine légère · 10–17°C · humidité 63%"
-      },
-      "text": "Conditions : 🌦️ bruine légère · 10–17°C · humidité 63%. Stade : Wiklöf Holding Arena · 5 637 places · plein air."
     }
   },
   {
