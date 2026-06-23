@@ -24,7 +24,7 @@
           "wc_round": null,
           "family": "1X2"
         },
-        "reasoning": "📊 Niveau équilibré : Jordan #60 vs Algeria #38 (gap -135 pts).\nL10 : Jordan 0V/1N/4D sur 5 · Algeria 3V/1N/1D sur 5\n📋 Fiche Jordan : off solide (+0.39) · def moyenne (-0.03) · forme LLLDL · 🏆 novice WC\n📋 Fiche Algeria : off moyen (+0.01) · def solide (+0.42) · forme LWWDW · 🏆 présence occasionnelle\n🌦️ 🌫️ brouillard · 13–21°C · humidité 65%\n⚠️ Compo PROBABLE (officielle à T-60min)\n🏆 Modèle Poisson CdM (tier FIFA ajusté)\nλ Jordan = 0.65, λ Algeria = 3.32\nP(Jordan) = 4.1% · P(nul) = 8.8% · P(Algeria gagne) = 85.1%\n📉 Calibration : bucket 80-89% historiquement à WR 56% (claim 82%, n=63) — sur-estimé de 26pp",
+        "reasoning": "📊 Niveau équilibré : Jordan #60 vs Algeria #38 (gap -135 pts).\nL10 : Jordan 0V/1N/4D sur 5 · Algeria 3V/1N/1D sur 5\n📋 Fiche Jordan : off solide (+0.39) · def moyenne (-0.03) · forme LLLDL · 🏆 novice WC\n📋 Fiche Algeria : off moyen (+0.01) · def solide (+0.42) · forme LWWDW · 🏆 présence occasionnelle\n🌦️ 🌫️ brouillard · 13–21°C · humidité 65%\n✅ Compo OFFICIELLE\n🏆 Modèle Poisson CdM (tier FIFA ajusté)\nλ Jordan = 0.65, λ Algeria = 3.32\nP(Jordan) = 4.1% · P(nul) = 8.8% · P(Algeria gagne) = 85.1%\n📉 Calibration : bucket 80-89% historiquement à WR 56% (claim 82%, n=63) — sur-estimé de 26pp",
         "calibration_delta": -26.0,
         "edge_pp": 18.3,
         "history_top3": true
@@ -33,7 +33,7 @@
         "direction": "wc_over_25",
         "type": "⚽ Total buts WC",
         "label": "Plus de 2.5 buts",
-        "cote": 1.91,
+        "cote": 2.0,
         "cote_min": 1.32,
         "confidence": 76,
         "tier": "safe",
@@ -46,9 +46,9 @@
           "wc_round": null,
           "family": "TOTAL"
         },
-        "reasoning": "📊 Niveau équilibré : Jordan #60 vs Algeria #38 (gap -135 pts).\nL10 : Jordan 0V/1N/4D sur 5 · Algeria 3V/1N/1D sur 5\n📋 Fiche Jordan : off solide (+0.39) · def moyenne (-0.03) · forme LLLDL · 🏆 novice WC\n📋 Fiche Algeria : off moyen (+0.01) · def solide (+0.42) · forme LWWDW · 🏆 présence occasionnelle\n🌦️ 🌫️ brouillard · 13–21°C · humidité 65%\n⚠️ Compo PROBABLE (officielle à T-60min)\n⚽ Modèle Poisson : λ total = 3.97\nP(plus de 2.5 buts) = 75.8%\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+        "reasoning": "📊 Niveau équilibré : Jordan #60 vs Algeria #38 (gap -135 pts).\nL10 : Jordan 0V/1N/4D sur 5 · Algeria 3V/1N/1D sur 5\n📋 Fiche Jordan : off solide (+0.39) · def moyenne (-0.03) · forme LLLDL · 🏆 novice WC\n📋 Fiche Algeria : off moyen (+0.01) · def solide (+0.42) · forme LWWDW · 🏆 présence occasionnelle\n🌦️ 🌫️ brouillard · 13–21°C · humidité 65%\n✅ Compo OFFICIELLE\n⚽ Modèle Poisson : λ total = 3.97\nP(plus de 2.5 buts) = 75.8%\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
         "calibration_delta": -11.3,
-        "edge_pp": 23.6,
+        "edge_pp": 26.0,
         "history_top3": true
       }
     ],
@@ -57,19 +57,19 @@
       {
         "player": "Riyad Mahrez",
         "position": "F",
-        "is_sub": true,
+        "is_sub": false,
         "type": "Buteur",
         "label": "Riyad Mahrez marque",
         "cote": 2.65,
         "cote_min": 1.94,
         "book": "bovada",
         "books": [],
-        "confidence": 47,
-        "reasoning": "⚠️ Compo PROBABLE (a confirmer 1h avant). Riyad Mahrez : selection 6G/14m (0.43/m) · L10 club : 0G/10m | rotatif nat (58min/m) · last match 26min (0G+0A). λ ajusté à 0.73 (Algeria attendu 3.6 buts) → P(marque) ~47%.\n📉 Calibration : bucket 40-49% historiquement à WR 25% (claim 44%, n=36) — sur-estimé de 19pp",
+        "confidence": 52,
+        "reasoning": "Riyad Mahrez : selection 6G/14m (0.43/m) · L10 club : 0G/10m | rotatif nat (58min/m) · last match 26min (0G+0A). λ ajusté à 0.73 (Algeria attendu 3.6 buts) → P(marque) ~52%.\n📉 Calibration : bucket 50-59% historiquement à WR 42% (claim 55%, n=41) — sur-estimé de 14pp",
         "context": {
           "source": "lineup",
           "lam": 0.73,
-          "lineup_status": "predicted"
+          "lineup_status": "confirmed"
         },
         "stats": {
           "goals": null,
@@ -78,70 +78,40 @@
           "xgpm": null
         },
         "team": "away",
-        "lineup_status": "predicted",
+        "lineup_status": "confirmed",
         "tier": "fun",
-        "calibration_delta": -19.4,
-        "edge_pp": 9.3,
+        "calibration_delta": -13.6,
+        "edge_pp": 14.3,
         "history_top3": true
       },
       {
-        "player": "Mohamed Amoura",
+        "player": "Amine Gouiri",
         "position": "F",
-        "is_sub": true,
+        "is_sub": false,
         "type": "Buteur",
-        "label": "Mohamed Amoura marque",
-        "cote": 2.55,
-        "cote_min": 1.94,
+        "label": "Amine Gouiri marque",
+        "cote": 2.65,
+        "cote_min": 2.01,
         "book": "bovada",
         "books": [],
-        "confidence": 47,
-        "reasoning": "⚠️ Compo PROBABLE (a confirmer 1h avant). Mohamed Amoura : selection 6G/14m (0.43/m) · L10 club : 0G/10m | titu nat (72min/m) · last match 26min (0G+0A). λ ajusté à 0.73 (Algeria attendu 3.6 buts) → P(marque) ~47%.\n📉 Calibration : bucket 40-49% historiquement à WR 25% (claim 44%, n=36) — sur-estimé de 19pp",
+        "confidence": 50,
+        "reasoning": "Amine Gouiri : selection 4G/9m (0.44/m) · L10 club : 4G/10m, 🔥 2G/3 derniers nat (+19%) · ⚠️ dernier match nat 60+min 0G+0A (-45%) | rotatif nat (57min/m) · last match 64min (0G+0A). λ ajusté à 0.69 (Algeria attendu 3.6 buts) → P(marque) ~50%.\n📉 Calibration : bucket 50-59% historiquement à WR 42% (claim 55%, n=41) — sur-estimé de 14pp",
         "context": {
           "source": "lineup",
-          "lam": 0.73,
-          "lineup_status": "predicted"
+          "lam": 0.69,
+          "lineup_status": "confirmed"
         },
         "stats": {
           "goals": null,
           "apps": null,
-          "gpm": 0.727,
+          "gpm": 0.688,
           "xgpm": null
         },
         "team": "away",
-        "lineup_status": "predicted",
+        "lineup_status": "confirmed",
         "tier": "fun",
-        "calibration_delta": -19.4,
-        "edge_pp": 7.8,
-        "history_top3": true
-      },
-      {
-        "player": "Mohamed Amoura",
-        "position": "F",
-        "is_sub": true,
-        "type": "Passeur",
-        "label": "Mohamed Amoura délivre une passe décisive",
-        "cote": 4.75,
-        "cote_min": 1.91,
-        "book": "bovada",
-        "books": [],
-        "confidence": 47,
-        "reasoning": "⚠️ Compo PROBABLE (a confirmer 1h avant). Mohamed Amoura délivre une passe décisive : selection 5A/14m (0.36 passes/m nat). P(passe décisive) ~47%.\n📉 Calibration : bucket 40-49% historiquement à WR 25% (claim 44%, n=36) — sur-estimé de 19pp",
-        "context": {
-          "source": "lineup",
-          "lam": 0.74,
-          "lineup_status": "predicted"
-        },
-        "stats": {
-          "goals": null,
-          "apps": null,
-          "gpm": 0.74,
-          "xgpm": null
-        },
-        "team": "away",
-        "lineup_status": "predicted",
-        "tier": "fun",
-        "calibration_delta": -19.4,
-        "edge_pp": 25.9,
+        "calibration_delta": -13.6,
+        "edge_pp": 12.3,
         "history_top3": true
       }
     ],
@@ -209,7 +179,7 @@
         "wc_round": null,
         "family": "1X2"
       },
-      "reasoning": "📊 Niveau équilibré : Jordan #60 vs Algeria #38 (gap -135 pts).\nL10 : Jordan 0V/1N/4D sur 5 · Algeria 3V/1N/1D sur 5\n📋 Fiche Jordan : off solide (+0.39) · def moyenne (-0.03) · forme LLLDL · 🏆 novice WC\n📋 Fiche Algeria : off moyen (+0.01) · def solide (+0.42) · forme LWWDW · 🏆 présence occasionnelle\n🌦️ 🌫️ brouillard · 13–21°C · humidité 65%\n⚠️ Compo PROBABLE (officielle à T-60min)\n🏆 Modèle Poisson CdM (tier FIFA ajusté)\nλ Jordan = 0.65, λ Algeria = 3.32\nP(Jordan) = 4.1% · P(nul) = 8.8% · P(Algeria gagne) = 85.1%\n📉 Calibration : bucket 80-89% historiquement à WR 56% (claim 82%, n=63) — sur-estimé de 26pp",
+      "reasoning": "📊 Niveau équilibré : Jordan #60 vs Algeria #38 (gap -135 pts).\nL10 : Jordan 0V/1N/4D sur 5 · Algeria 3V/1N/1D sur 5\n📋 Fiche Jordan : off solide (+0.39) · def moyenne (-0.03) · forme LLLDL · 🏆 novice WC\n📋 Fiche Algeria : off moyen (+0.01) · def solide (+0.42) · forme LWWDW · 🏆 présence occasionnelle\n🌦️ 🌫️ brouillard · 13–21°C · humidité 65%\n✅ Compo OFFICIELLE\n🏆 Modèle Poisson CdM (tier FIFA ajusté)\nλ Jordan = 0.65, λ Algeria = 3.32\nP(Jordan) = 4.1% · P(nul) = 8.8% · P(Algeria gagne) = 85.1%\n📉 Calibration : bucket 80-89% historiquement à WR 56% (claim 82%, n=63) — sur-estimé de 26pp",
       "calibration_delta": -26.0,
       "edge_pp": 18.3,
       "history_top3": true
