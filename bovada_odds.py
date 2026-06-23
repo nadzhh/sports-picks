@@ -65,7 +65,7 @@ def _cache_path(url):
     return CACHE_DIR / f"bov_{h}.json"
 
 
-def _fetch(url, ttl=2 * 3600):
+def _fetch(url, ttl=30 * 60):  # 30 min (vs 2h avant)
     path = _cache_path(url)
     if path.exists() and time.time() - path.stat().st_mtime < ttl:
         try: return json.loads(path.read_text(encoding="utf-8"))
@@ -92,9 +92,13 @@ def _norm(s):
 
 
 def _list_events(competition_path):
-    """Liste les events d'une compétition Bovada."""
+    """Liste les events d'une compétition Bovada.
+
+    TTL court (30 min) car Bovada n'expose les markets shots/SoT qu'à
+    l'approche du match (~48h). Un cache trop long manque ces markets.
+    """
     url = f"https://www.bovada.lv/services/sports/event/coupon/events/A/description/{competition_path}"
-    data = _fetch(url, ttl=2 * 3600)
+    data = _fetch(url, ttl=30 * 60)
     if not data: return []
     out = []
     for section in (data if isinstance(data, list) else []):
