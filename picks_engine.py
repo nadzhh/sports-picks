@@ -3594,7 +3594,7 @@ def _wc_shots_picks_from_book(match, odds, home_name, away_name, lam_h=None, lam
             p_over = _poisson_p_over(exp_val, line)
             p_under = 1 - p_over
             # Emit pick si P_modele >= 55% et cote >= 1.50
-            if p_over >= 0.55 and over_cote >= 1.50:
+            if p_over >= 0.60 and over_cote >= 1.50:
                 conf = round(p_over * 100)
                 picks.append({
                     "direction": f"team_shots_over_{int(line*10)}",
@@ -3610,7 +3610,7 @@ def _wc_shots_picks_from_book(match, odds, home_name, away_name, lam_h=None, lam
                         f"Cote {over_cote} (bovada)."
                     ),
                 })
-            elif p_under >= 0.55 and under_cote >= 1.50:
+            elif p_under >= 0.60 and under_cote >= 1.50:
                 conf = round(p_under * 100)
                 picks.append({
                     "direction": f"team_shots_under_{int(line*10)}",

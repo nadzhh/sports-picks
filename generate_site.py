@@ -3744,9 +3744,100 @@ def build_foot_analyse_card(match):
             f'<tbody>{rows_html}</tbody></table></div>'
         )
 
+    # ── Bloc Analyse Contextuelle WC (dépliable, collapsed par défaut) ──
+    # Affiche le résultat de wc_context_analyse.py : top signaux, top bets EV,
+    # niveau d'incertitude, signaux par axe (Tournament Dynamics, Environnement,
+    # Forme & Squad, Marché). HTML pur, aucune dépendance JS.
+    wc_ana = match.get("wc_analysis") or {}
+    wc_block = ""
+    if wc_ana:
+        unc = wc_ana.get("uncertainty_level", "?")
+        unc_color = {"Low":"#22c55e", "Moderate":"#facc15",
+                      "High":"#f97316", "Extreme":"#ef4444"}.get(unc, "#94a3b8")
+
+        # Top signaux
+        top_signals_rows = ""
+        for s in wc_ana.get("top_signals", []):
+            top_signals_rows += (
+                f'<div style="padding:6px 10px;background:#0a1628;border-left:3px solid #3b82f6;border-radius:4px;margin-bottom:5px">'
+                f'<span style="font-size:14px">{s.get("emoji","")}</span> '
+                f'<span style="color:#cbd5e1;font-size:12.5px">{_html.escape(s.get("text",""))}</span> '
+                f'<span style="color:#64748b;font-size:10px;margin-left:6px">force {s.get("strength",0)}/5</span>'
+                f'</div>'
+            )
+        if not top_signals_rows:
+            top_signals_rows = '<div style="color:#64748b;font-size:11px;font-style:italic">Aucun signal saillant</div>'
+
+        # Top bets recommandés
+        top_bets_rows = ""
+        for i, b in enumerate(wc_ana.get("top3_bets", []), start=1):
+            val = b.get("value", 0) or 0
+            cote = b.get("cote", "-")
+            sigs = " · ".join(b.get("signals", []))
+            badge_color = "#22c55e" if val >= 110 else ("#84cc16" if val >= 100 else "#facc15")
+            top_bets_rows += (
+                f'<div style="padding:8px 12px;background:#0a1628;border-radius:6px;margin-bottom:6px">'
+                f'<div style="display:flex;align-items:center;gap:8px;margin-bottom:4px">'
+                f'<span style="color:#3b82f6;font-size:11px;font-weight:800">#{i}</span>'
+                f'<span style="color:#cbd5e1;font-size:13px;font-weight:700">{_html.escape(b.get("selection",""))}</span>'
+                f'<span style="color:#94a3b8;font-size:12px">@ <b>{cote}</b></span>'
+                f'<span style="margin-left:auto;background:{badge_color}22;color:{badge_color};border:1px solid {badge_color}aa;border-radius:6px;padding:2px 6px;font-size:11px;font-weight:700">value {val}%</span>'
+                f'</div>'
+                f'<div style="color:#64748b;font-size:10.5px">{_html.escape(sigs)}</div>'
+                f'</div>'
+            )
+        if not top_bets_rows:
+            top_bets_rows = '<div style="color:#64748b;font-size:11px;font-style:italic">Marché efficient — aucun edge clair</div>'
+
+        # Notes par axe
+        def _axis_block(title, emoji, items):
+            if not items: return ""
+            items_html = "".join(
+                f'<li style="color:#94a3b8;font-size:11.5px;margin-bottom:3px">{_html.escape(n)}</li>'
+                for n in items
+            )
+            return (
+                f'<div style="background:#0a1628;border-radius:6px;padding:10px 12px;margin-bottom:6px">'
+                f'<div style="color:#cbd5e1;font-size:11.5px;font-weight:700;margin-bottom:6px">{emoji} {_html.escape(title)}</div>'
+                f'<ul style="margin:0;padding-left:18px">{items_html}</ul>'
+                f'</div>'
+            )
+
+        dyn   = wc_ana.get("tournament_dynamics", {})
+        env   = wc_ana.get("environmental", {})
+        form_ = wc_ana.get("form_and_squad", {})
+        mkt   = wc_ana.get("market_intelligence", {})
+
+        axes_html = (
+            _axis_block("Tournament Dynamics", "🏆", dyn.get("notes", []))
+            + _axis_block("Conditions stade & météo", "🌦️", env.get("notes", []))
+            + _axis_block("Forme & profil équipes", "📋", form_.get("notes", []))
+            + _axis_block("Market Intelligence (cotes vs modèle)", "💎", mkt.get("notes", []))
+        )
+
+        reco = wc_ana.get("recommandation", "")
+
+        wc_block = (
+            f'<details style="margin-top:10px;background:#0a1628;border:1px solid #1e3a5f;border-radius:10px;overflow:hidden">'
+            f'<summary style="cursor:pointer;padding:12px 14px;list-style:none;display:flex;align-items:center;gap:10px">'
+            f'<span style="color:#60a5fa;font-size:13px;font-weight:800">🧠 Analyse contextuelle WC</span>'
+            f'<span style="margin-left:auto;background:{unc_color}22;color:{unc_color};border:1px solid {unc_color}aa;border-radius:6px;padding:2px 8px;font-size:10.5px;font-weight:700">Incertitude {unc}</span>'
+            f'<span style="color:#475569;font-size:11px">▼ déplier</span>'
+            f'</summary>'
+            f'<div style="padding:0 14px 14px">'
+            f'<div style="color:#cbd5e1;font-size:12px;padding:8px 12px;background:#1e3a5f;border-radius:6px;margin-bottom:10px"><b>📝 Recommandation :</b> {_html.escape(reco)}</div>'
+            f'<div style="color:#cbd5e1;font-size:12px;font-weight:700;margin:10px 0 6px">🎯 Top 5 signaux</div>'
+            f'{top_signals_rows}'
+            f'<div style="color:#cbd5e1;font-size:12px;font-weight:700;margin:14px 0 6px">💎 Top 3 picks long-term EV</div>'
+            f'{top_bets_rows}'
+            f'<div style="color:#cbd5e1;font-size:12px;font-weight:700;margin:14px 0 6px">📊 Analyse par axe</div>'
+            f'{axes_html}'
+            f'</div></details>'
+        )
+
     body = (
         f'<div style="padding:0 18px 18px">'
-        + stats_table + value_block + ft_block + ht_block + ft_buts_block + ht_buts_block + btts_block + league_block + perf_block
+        + wc_block + stats_table + value_block + ft_block + ht_block + ft_buts_block + ht_buts_block + btts_block + league_block + perf_block
         + f'</div>'
     )
 
@@ -5286,6 +5377,8 @@ def build_html(matches, team_ai, player_ai, pstats_data, nba_picks=None, nba_his
                 _m["home_season_stats"] = disk["home_season_stats"]
             if disk.get("away_season_stats"):
                 _m["away_season_stats"] = disk["away_season_stats"]
+            if disk.get("wc_analysis"):
+                _m["wc_analysis"] = disk["wc_analysis"]
     except Exception as _e:
         print(f"  ⚠️ Cannot merge foot analyses: {_e}")
     foot_analyse_section_html = build_foot_analyse_section(matches or [])
