@@ -327,16 +327,45 @@ def _player_unavailable(player_name, lineup):
 def _format_foot(match, kickoff, picks_data, lineup):
     """
     Format Telegram foot. Retourne None si :
-     - lineup non confirmee (on attend la prochaine notif)
      - aucun pick a envoyer (cotes manquantes ou joueurs indispos)
+     - lineup non dispo ET kickoff > 50 min (on attend encore)
+
+    Comportement par compo :
+     - confirmed (standard) → '✅ COMPO OFFICIELLE'
+     - predicted ≥ 11 starters → '⚠️ Compo PROBABLE' (on envoie quand même)
+     - aucune compo dispo + kickoff <= 50 min → on envoie '⚠️ Compo non disponible'
+       (préfère un message au prix d'une info incomplète que pas de message du tout)
+     - aucune compo + kickoff > 50 min → on attend (retour None)
+
+    User : 'hier j'ai reçu aucun pick pour Norvège-Sénégal / Jordan-Algeria',
+    cause : FotMob ne pousse pas la compo standard à T-60min pour les
+    équipes moins médiatisées.
     """
     home = match.get("home", "?"); away = match.get("away", "?")
     league = match.get("league", "")
-    mins = max(0, int((kickoff - datetime.now(tz=timezone.utc)).total_seconds() / 60))
+    now = datetime.now(tz=timezone.utc)
+    mins = max(0, int((kickoff - now).total_seconds() / 60))
     confirmed = (lineup or {}).get("confirmed", False)
-    if not confirmed:
-        print(f"  [skip foot {home} vs {away}] lineup_type={(lineup or {}).get('lineup_type')} - on attend la compo officielle")
+    lineup_type = (lineup or {}).get("lineup_type") or ""
+    n_home_starters = len((lineup or {}).get("home_starters") or [])
+    n_away_starters = len((lineup or {}).get("away_starters") or [])
+    has_predicted_xi = (lineup_type == "predicted"
+                        and n_home_starters >= 11 and n_away_starters >= 11)
+
+    # Fallback : on accepte predicted (compos probables) à partir de 50 min
+    # avant le KO si on a au moins les 11 titulaires des 2 équipes.
+    accept_predicted = mins <= 60 and has_predicted_xi
+    accept_no_lineup = mins <= 50  # dernière limite : envoyer quand même
+
+    if not confirmed and not accept_predicted and not accept_no_lineup:
+        print(f"  [skip foot {home} vs {away}] lineup_type={lineup_type} - on attend la compo")
         return None
+
+    compo_label = (
+        "✅ <b>COMPO OFFICIELLE</b>" if confirmed
+        else "⚠️ <b>Compo PROBABLE</b> (officielle attendue plus tard)" if has_predicted_xi
+        else "⚠️ <b>Compo non disponible</b> à T-{mins}min - picks envoyés sans vérif titulaires"
+    )
 
     # ── PICKS ÉQUIPE ──
     # On accepte aussi les picks sans cote book si on a une cote_min (estimation
@@ -369,25 +398,32 @@ def _format_foot(match, kickoff, picks_data, lineup):
         team_rows.append(row)
 
     # ── PICKS JOUEUR (skip indispos, skip si pas titulaire) ──
+    # Quand la compo n'est PAS confirmée (predicted ou absent), on relax le
+    # filtre 'titulaire vérifié' car _player_in_lineup va renvoyer None ou
+    # False par manque d'info. Sinon TOUS les player picks seraient skippés
+    # pour les matchs WC où la compo standard n'arrive jamais (cf. bug user
+    # Norvège-Sénégal, Jordan-Algeria).
     player_picks = ((picks_data or {}).get("home_players", []) or []) + ((picks_data or {}).get("away_players", []) or [])
     player_rows = []
     for p in player_picks[:12]:
         player = p.get("player", "?")
         side = p.get("team", "")
-        # Skip si dans la liste des indispos (blesse/suspendu)
         if _player_unavailable(player, lineup):
             continue
         in_xi = _player_in_lineup(player, lineup, side)
-        # On garde uniquement les titulaires (le filtre principal de qualite)
-        if in_xi is not True:
+        # Strict (compo confirmée) : garde uniquement les titulaires.
+        # Relax (compo non confirmée) : garde tous les picks (avec ⚠️ implicite)
+        if confirmed and in_xi is not True:
             continue
+        # Si compo non confirmée et joueur dans la liste predicted, on flag :
+        prefix_player = "✅" if in_xi is True else "⚠️"
         label = p.get("label", "?")
         conf = p.get("confidence", 0)
         cote = p.get("cote")
         cote_str = f" @ <b>{cote:.2f}</b>" if cote else ""
         reasoning = (p.get("reasoning") or "").strip()
         first_line = reasoning.split("\n")[0][:160] if reasoning else ""
-        row = f"✅ <b>{label}</b> ({conf}%){cote_str}"
+        row = f"{prefix_player} <b>{label}</b> ({conf}%){cote_str}"
         if first_line:
             row += f"\n  <i>{first_line}</i>"
         player_rows.append(row)
@@ -399,7 +435,7 @@ def _format_foot(match, kickoff, picks_data, lineup):
     lines = [
         f"⚽ <b>{home}</b> vs <b>{away}</b>",
         f"🕐 Coup d'envoi dans <b>{mins} min</b> · {league}",
-        f"✅ <b>COMPO OFFICIELLE</b>",
+        compo_label.format(mins=mins) if "{mins}" in compo_label else compo_label,
         "",
     ]
     if team_rows:
