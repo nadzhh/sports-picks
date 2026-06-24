@@ -20,6 +20,11 @@ def _now_paris():
         return datetime.now(TZ_PARIS)
     return datetime.now()
 import picks_engine
+try:
+    import bankroll_manager
+    _BANKROLL_AVAILABLE = True
+except Exception:
+    _BANKROLL_AVAILABLE = False
 
 ANTHROPIC_API_KEY = os.environ.get("ANTHROPIC_API_KEY", "")
 
@@ -3834,6 +3839,7 @@ def build_foot_analyse_card(match):
                 f'<li style="color:#f87171;font-size:10.5px;margin-bottom:2px">{_html.escape(r)}</li>'
                 for r in risks
             )
+            stake_badge = _bankroll_badge_for_pick(conf)
             top_bets_rows += (
                 f'<div style="padding:10px 12px;background:#0a1628;border-radius:6px;margin-bottom:8px;border-left:3px solid {badge_color}">'
                 f'<div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;flex-wrap:wrap">'
@@ -3842,6 +3848,7 @@ def build_foot_analyse_card(match):
                 f'<span style="color:#cbd5e1;font-size:13.5px;font-weight:700">{_html.escape(b.get("selection",""))}</span>'
                 f'<span style="color:#94a3b8;font-size:12.5px">@ <b style="color:#60a5fa">{cote}</b></span>'
                 f'<span style="margin-left:auto;background:{badge_color}22;color:{badge_color};border:1px solid {badge_color}aa;border-radius:6px;padding:2px 8px;font-size:11px;font-weight:700">confiance {conf}%</span>'
+                f'{stake_badge}'
                 f'</div>'
                 + (f'<div style="margin-top:4px"><div style="color:#22c55e;font-size:10px;font-weight:700;margin-bottom:3px">✓ Signaux justifiant ce pari</div><ul style="margin:0;padding-left:18px">{signals_html}</ul></div>' if signals_html else "")
                 + (f'<div style="margin-top:6px"><div style="color:#ef4444;font-size:10px;font-weight:700;margin-bottom:3px">⚠ Risques à considérer</div><ul style="margin:0;padding-left:18px">{risks_html}</ul></div>' if risks_html else "")
@@ -3910,6 +3917,129 @@ def build_foot_analyse_card(match):
     return (
         f'<details style="background:#0f172a;border:1px solid #1e293b;border-radius:12px;overflow:hidden">'
         + summary + body + f'</details>'
+    )
+
+
+def build_bankroll_panel(compact=False):
+    """Panneau Bankroll : BR actuelle + 3 tiers + cap journalier.
+
+    Mode compact = encart fin (visible partout en haut).
+    Mode étendu = panneau complet pour la section Bankroll.
+
+    Source : bankroll_manager.get_summary() lit data/bankroll.json.
+    """
+    if not _BANKROLL_AVAILABLE:
+        return '<div style="color:#64748b;font-size:11px">bankroll_manager indisponible</div>'
+    try:
+        s = bankroll_manager.get_summary()
+    except Exception as e:
+        return f'<div style="color:#ef4444;font-size:11px">Erreur bankroll : {_html.escape(str(e))}</div>'
+
+    pnl = s["net_pnl"]
+    pnl_color = "#22c55e" if pnl > 0 else ("#ef4444" if pnl < 0 else "#94a3b8")
+    pnl_sign = "+" if pnl >= 0 else ""
+    sl = s["stoploss_mode"]
+    sl_badge = ('<span style="background:#ef444422;color:#ef4444;border:1px solid #ef4444aa;'
+                'border-radius:6px;padding:2px 8px;font-size:10.5px;font-weight:700;margin-left:8px">'
+                '🚨 STOPLOSS — tiers réduits</span>') if sl else ""
+    next_w = s["auto_withdraw_threshold"]
+    to_w   = max(0, next_w - s["current_br"])
+
+    if compact:
+        # Encart fin pour le top de la page
+        t_amounts = s["tier_amounts"]
+        return (
+            f'<div style="background:linear-gradient(90deg,#0a1628,#0f172a);'
+            f'border:1px solid #1e3a5f;border-radius:10px;padding:10px 14px;margin-bottom:14px;'
+            f'display:flex;align-items:center;gap:14px;flex-wrap:wrap;font-size:12px">'
+            f'<span style="color:#facc15;font-size:13px;font-weight:800">💰 BR <b style="color:#fff">{s["current_br"]:.2f}€</b></span>'
+            f'<span style="color:#64748b">|</span>'
+            f'<span style="color:#94a3b8">P&amp;L net <b style="color:{pnl_color}">{pnl_sign}{pnl:.2f}€</b></span>'
+            f'<span style="color:#94a3b8">· Retraits <b style="color:#22c55e">{s["withdrawn_total"]:.0f}€</b></span>'
+            f'<span style="color:#64748b">|</span>'
+            f'<span style="color:#3b82f6;font-weight:700">T1 {t_amounts["T1"]:.2f}€</span>'
+            f'<span style="color:#84cc16;font-weight:700">T2 {t_amounts["T2"]:.2f}€</span>'
+            f'<span style="color:#22c55e;font-weight:700">T3 {t_amounts["T3"]:.2f}€</span>'
+            f'<span style="color:#64748b">| Cap/j <b style="color:#cbd5e1">{s["daily_cap"]:.0f}€</b></span>'
+            f'{sl_badge}'
+            f'</div>'
+        )
+
+    # Mode étendu : section Bankroll dédiée
+    t_amounts = s["tier_amounts"]
+    th = s["tier_thresholds"]
+    tier_rows = ""
+    tier_data = [
+        ("T1", th["T1"], t_amounts["T1"], "#3b82f6", "Pick basique",
+         "Cote/confiance modeste · banker conservateur"),
+        ("T2", th["T2"], t_amounts["T2"], "#84cc16", "Pick fort",
+         "Plusieurs signaux convergents · forme + value + contexte"),
+        ("T3", th["T3"], t_amounts["T3"], "#22c55e", "Pick premium",
+         "Edge clair · confiance très haute · jamais au-delà de 3%"),
+    ]
+    for tier, threshold, amount, color, label, desc in tier_data:
+        tier_rows += (
+            f'<div style="display:grid;grid-template-columns:60px 100px 100px 1fr;gap:12px;'
+            f'align-items:center;padding:10px 14px;background:#0a1628;border-left:4px solid {color};'
+            f'border-radius:6px;margin-bottom:8px">'
+            f'<div style="color:{color};font-size:18px;font-weight:800">{tier}</div>'
+            f'<div style="color:#cbd5e1;font-size:11px">conf <b>≥ {threshold}%</b></div>'
+            f'<div style="color:#fff;font-size:16px;font-weight:800">{amount:.2f}€</div>'
+            f'<div><div style="color:#cbd5e1;font-size:12.5px;font-weight:700">{label}</div>'
+            f'<div style="color:#94a3b8;font-size:11px;margin-top:2px">{_html.escape(desc)}</div></div>'
+            f'</div>'
+        )
+
+    rules_html = (
+        '<ul style="margin:6px 0 0 0;padding-left:20px;color:#94a3b8;font-size:12px;line-height:1.6">'
+        f'<li>Auto-retrait : si BR atteint <b style="color:#22c55e">{next_w:.0f}€</b> '
+        f'→ on retire automatiquement <b style="color:#22c55e">{s["auto_withdraw_amount"]:.0f}€</b> '
+        f'(reste {to_w:.2f}€ avant prochain retrait)</li>'
+        '<li>Cap journalier : <b style="color:#cbd5e1">' + f'{s["daily_cap"]:.0f}€' + '</b> max exposé/jour (force la sélectivité)</li>'
+        '<li>Stop-loss : si BR ≤ 80% du peak → tiers réduits 0.5%/1%/2%</li>'
+        '<li>Jamais de combiné · Jamais au-delà de 3% en une fois · Recalibrage hebdo</li>'
+        '</ul>'
+    )
+
+    return (
+        f'<div style="background:#0f172a;border:1px solid #1e293b;border-radius:12px;padding:18px;margin-bottom:18px">'
+        f'<div style="display:flex;align-items:center;gap:12px;margin-bottom:14px;flex-wrap:wrap">'
+        f'<div style="color:#facc15;font-size:20px;font-weight:800">💰 Bankroll</div>'
+        f'<div style="color:#fff;font-size:24px;font-weight:800">{s["current_br"]:.2f}€</div>'
+        f'<div style="color:#94a3b8;font-size:12px">peak {s["peak_br"]:.2f}€ · init {s["initial_br"]:.0f}€</div>'
+        f'{sl_badge}'
+        f'<div style="margin-left:auto;text-align:right">'
+        f'<div style="color:{pnl_color};font-size:18px;font-weight:800">{pnl_sign}{pnl:.2f}€ P&amp;L</div>'
+        f'<div style="color:#22c55e;font-size:11px;margin-top:2px">Retraits cumulés : {s["withdrawn_total"]:.2f}€</div>'
+        f'</div></div>'
+        f'<div style="color:#cbd5e1;font-size:13px;font-weight:700;margin-bottom:10px">🎯 Tier system — mise recommandée par pick</div>'
+        f'{tier_rows}'
+        f'<div style="color:#cbd5e1;font-size:13px;font-weight:700;margin:14px 0 6px">📋 Règles</div>'
+        f'{rules_html}'
+        f'<div style="color:#64748b;font-size:11px;margin-top:14px;padding:8px 12px;background:#0a1628;border-radius:6px">'
+        f'ℹ️ Pour modifier ta BR ou les tiers, édite <code style="color:#facc15">data/bankroll.json</code> '
+        f'puis relance le pipeline.'
+        f'</div>'
+        f'</div>'
+    )
+
+
+def _bankroll_badge_for_pick(confidence):
+    """Badge HTML 'Mise reco : X€' selon confidence. Renvoie '' si pas applicable."""
+    if not _BANKROLL_AVAILABLE or not confidence:
+        return ""
+    try:
+        s = bankroll_manager.compute_stake(confidence)
+    except Exception:
+        return ""
+    if not s:
+        return ""
+    tier_color = {"T1": "#3b82f6", "T2": "#84cc16", "T3": "#22c55e"}.get(s["tier"], "#94a3b8")
+    sl = " 🚨" if s["stoploss_mode"] else ""
+    return (
+        f'<span style="background:{tier_color}22;color:{tier_color};border:1px solid {tier_color}aa;'
+        f'border-radius:6px;padding:2px 8px;font-size:11px;font-weight:800;margin-left:8px">'
+        f'💰 Mise reco {s["amount"]:.2f}€ ({s["tier"]}{sl})</span>'
     )
 
 
@@ -5448,6 +5578,8 @@ def build_html(matches, team_ai, player_ai, pstats_data, nba_picks=None, nba_his
     except Exception as _e:
         print(f"  ⚠️ Cannot merge foot analyses: {_e}")
     foot_analyse_section_html = build_foot_analyse_section(matches or [])
+    bankroll_panel_compact_html = build_bankroll_panel(compact=True)
+    bankroll_panel_full_html    = build_bankroll_panel(compact=False)
     # Charge nba_box_scores ICI (avant la section historique) car build_nba_history_section
     # en a besoin. Sera reutilise plus bas pour l'embed window.NBA_BOX_SCORES.
     nba_box_scores = {}
@@ -6539,6 +6671,7 @@ def build_html(matches, team_ai, player_ai, pstats_data, nba_picks=None, nba_his
 <div class="container">
   <h1>🎯 Sports Picks</h1>
   <div class="meta">Généré le {now} · ⚽ {len(matches)} matchs foot · 🏀 {len(nba_picks)} matchs NBA</div>
+  {bankroll_panel_compact_html}
   <!-- Toast non-bloquant : signalement des nouveaux picks -->
   <div id="new-picks-toast" style="display:none;position:fixed;top:18px;right:18px;z-index:9999;background:linear-gradient(90deg,#fb923c,#f97316);color:#0a1628;border-radius:10px;padding:10px 16px;font-weight:700;font-size:14px;box-shadow:0 4px 20px rgba(251,146,60,0.5);transition:opacity 0.5s ease-out;max-width:300px">
     🆕 <span id="new-picks-count">0</span> nouveau(x) pick(s)
@@ -6612,6 +6745,7 @@ def build_html(matches, team_ai, player_ai, pstats_data, nba_picks=None, nba_his
 
   <!-- Section Bankroll (gestion + tracking) — design adapté du prototype mobile -->
   <div id="sport-userpicks" style="display:none">
+    {bankroll_panel_full_html}
     <div id="user-picks-list" class="bk-app"></div>
   </div>
 
