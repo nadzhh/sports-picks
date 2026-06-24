@@ -163,15 +163,15 @@
         "surface": null
       },
       "weather": {
-        "temp_max": 24.3,
-        "temp_min": 15.1,
-        "humidity": 46,
-        "precipitation_sum_mm": 0.0,
-        "wind_max_kmh": 11.9,
-        "weather_code": 3,
-        "summary_fr": "☁️ couvert · 15–24°C · humidité 46%"
+        "temp_max": 24.0,
+        "temp_min": 14.6,
+        "humidity": 45,
+        "precipitation_sum_mm": 0.3,
+        "wind_max_kmh": 12.6,
+        "weather_code": 51,
+        "summary_fr": "🌦️ bruine légère · 14–24°C · humidité 45%"
       },
-      "text": "Conditions : ☁️ couvert · 15–24°C · humidité 46%. Stade : Stadionā Esplanāde · plein air."
+      "text": "Conditions : 🌦️ bruine légère · 14–24°C · humidité 45%. Stade : Stadionā Esplanāde · plein air."
     }
   },
   {
@@ -338,15 +338,15 @@
         "surface": "grass"
       },
       "weather": {
-        "temp_max": 10.7,
-        "temp_min": 8.2,
-        "humidity": 78,
-        "precipitation_sum_mm": 8.1,
-        "wind_max_kmh": 19.4,
+        "temp_max": 11.0,
+        "temp_min": 8.5,
+        "humidity": 74,
+        "precipitation_sum_mm": 4.0,
+        "wind_max_kmh": 21.6,
         "weather_code": 61,
-        "summary_fr": "🌦️ pluie légère · 10°C · humidité 78% · précipitations 8.1mm"
+        "summary_fr": "🌦️ pluie légère · 11°C · humidité 74% · précipitations 4.0mm"
       },
-      "text": "Conditions : 🌦️ pluie légère · 10°C · humidité 78% · précipitations 8.1mm. Stade : Kópavogsvöllur · 5 501 places · plein air. ⚠️ Pluies prévues : terrain potentiellement lourd, jeu direct privilégié, plus d'erreurs techniques."
+      "text": "Conditions : 🌦️ pluie légère · 11°C · humidité 74% · précipitations 4.0mm. Stade : Kópavogsvöllur · 5 501 places · plein air."
     }
   },
   {
@@ -401,45 +401,46 @@
         "history_top3": true
       },
       {
-        "direction": "wc_over_15",
+        "direction": "wc_over_25",
         "type": "⚽ Total buts WC",
-        "label": "Plus de 1.5 buts",
-        "cote": null,
-        "cote_min": 1.25,
-        "confidence": 80,
-        "tier": "safe",
+        "label": "Plus de 2.5 buts",
+        "cote": 1.71,
+        "cote_min": 1.56,
+        "confidence": 64,
+        "tier": "ok",
         "stats": {
-          "lam_h": 0.67,
-          "lam_a": 2.31,
+          "lam_h": 0.74,
+          "lam_a": 2.57,
           "h_fifa_rank": 22,
           "a_fifa_rank": 10,
           "elo_gap": -116,
           "wc_round": null,
           "family": "TOTAL"
         },
-        "reasoning": "📊 Niveau équilibré : Ecuador #22 vs Germany #10 (gap -116 pts).\n⭐ Germany favori CdM 2026\nL10 : Ecuador 2V/2N/1D sur 5 · Germany 5V/0N/0D sur 5\n📋 Fiche Ecuador : off en panne (-0.52) · def moyenne (+0.27) · forme DLWWD · 🏆 présence occasionnelle\n📋 Fiche Germany : off moyen (+0.17) · def fragile (-0.53) · forme WWWWW · 🏆 régulière phase finale\n   ↳ Historique : phase de poules en 2022 · phase de poules en 2018 · vainqueur en 2014 · 2 titres (1990, 2014)\n🎯 Importance : Ecuador : 1 match joué (0pts) · Germany : 1 match joué (3pts)\n🌦️ Conditions : pluie 15.6mm (-10%)\n⚽ Modèle Poisson : λ total = 2.98 buts attendus\nP(plus de 1.5 buts) = 79.8%\n📉 Calibration : bucket 80-89% historiquement à WR 56% (claim 82%, n=63) — sur-estimé de 26pp",
-        "calibration_delta": -26.0,
-        "history_top3": false
+        "reasoning": "📊 Niveau équilibré : Ecuador #22 vs Germany #10 (gap -116 pts).\n⭐ Germany favori CdM 2026\nL10 : Ecuador 2V/2N/1D sur 5 · Germany 5V/0N/0D sur 5\n📋 Fiche Ecuador : off en panne (-0.52) · def moyenne (+0.27) · forme DLWWD · 🏆 présence occasionnelle\n📋 Fiche Germany : off moyen (+0.17) · def fragile (-0.53) · forme WWWWW · 🏆 régulière phase finale\n   ↳ Historique : phase de poules en 2022 · phase de poules en 2018 · vainqueur en 2014 · 2 titres (1990, 2014)\n🎯 Importance : Ecuador : 1 match joué (0pts) · Germany : 1 match joué (3pts)\n🌦️ 🌦️ bruine modérée · 16–29°C · humidité 44% · précipitations 1.7mm\n⚽ Modèle Poisson : λ total = 3.31\nP(plus de 2.5 buts) = 64.3%\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
+        "calibration_delta": -25.4,
+        "edge_pp": 5.5,
+        "history_top3": true
       },
       {
         "direction": "wc_away_scores_2",
         "type": "⚽ Buteur équipe WC",
         "label": "Germany marque 2+ buts",
         "cote": null,
-        "cote_min": 1.49,
-        "confidence": 67,
-        "tier": "ok",
+        "cote_min": 1.38,
+        "confidence": 73,
+        "tier": "safe",
         "stats": {
-          "lam_h": 0.67,
-          "lam_a": 2.31,
+          "lam_h": 0.74,
+          "lam_a": 2.57,
           "h_fifa_rank": 22,
           "a_fifa_rank": 10,
           "elo_gap": -116,
           "wc_round": null,
           "family": "BUT_TEAM"
         },
-        "reasoning": "📊 Niveau équilibré : Ecuador #22 vs Germany #10 (gap -116 pts).\n⭐ Germany favori CdM 2026\nL10 : Ecuador 2V/2N/1D sur 5 · Germany 5V/0N/0D sur 5\n📋 Fiche Ecuador : off en panne (-0.52) · def moyenne (+0.27) · forme DLWWD · 🏆 présence occasionnelle\n📋 Fiche Germany : off moyen (+0.17) · def fragile (-0.53) · forme WWWWW · 🏆 régulière phase finale\n   ↳ Historique : phase de poules en 2022 · phase de poules en 2018 · vainqueur en 2014 · 2 titres (1990, 2014)\n🎯 Importance : Ecuador : 1 match joué (0pts) · Germany : 1 match joué (3pts)\n🌦️ Conditions : pluie 15.6mm (-10%)\n⚽ P(Germany marque 2+) = 67.2% (λ = 2.31)\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
-        "calibration_delta": -25.4,
+        "reasoning": "📊 Niveau équilibré : Ecuador #22 vs Germany #10 (gap -116 pts).\n⭐ Germany favori CdM 2026\nL10 : Ecuador 2V/2N/1D sur 5 · Germany 5V/0N/0D sur 5\n📋 Fiche Ecuador : off en panne (-0.52) · def moyenne (+0.27) · forme DLWWD · 🏆 présence occasionnelle\n📋 Fiche Germany : off moyen (+0.17) · def fragile (-0.53) · forme WWWWW · 🏆 régulière phase finale\n   ↳ Historique : phase de poules en 2022 · phase de poules en 2018 · vainqueur en 2014 · 2 titres (1990, 2014)\n🎯 Importance : Ecuador : 1 match joué (0pts) · Germany : 1 match joué (3pts)\n🌦️ 🌦️ bruine modérée · 16–29°C · humidité 44% · précipitations 1.7mm\n⚽ P(Germany marque 2+) = 72.7% (λ = 2.57)\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+        "calibration_delta": -11.3,
         "history_top3": true
       }
     ],
@@ -472,7 +473,7 @@
         "lineup_status": "confirmed",
         "tier": "ok",
         "calibration_delta": -25.4,
-        "history_top3": true
+        "history_top3": false
       },
       {
         "player": "Florian Wirtz",
@@ -534,24 +535,24 @@
     ],
     "fun_picks": [
       {
-        "direction": "wc_score_0_2",
+        "direction": "wc_score_0_3",
         "type": "🏆 Score exact WC",
-        "label": "Score exact : Ecuador 0-2 Germany",
-        "cote_min": 7.37,
-        "confidence": 14,
+        "label": "Score exact : Ecuador 0-3 Germany",
+        "cote_min": 9.71,
+        "confidence": 10,
         "tier": "fun",
         "is_fun": true,
         "stats": {
-          "lam_h": 0.67,
-          "lam_a": 2.31,
+          "lam_h": 0.74,
+          "lam_a": 2.57,
           "h_fifa_rank": 22,
           "a_fifa_rank": 10,
           "elo_gap": -116
         },
-        "reasoning": "📊 Niveau équilibré : Ecuador #22 vs Germany #10 (gap -116 pts).\n⭐ Germany favori CdM 2026\nL10 : Ecuador 2V/2N/1D sur 5 · Germany 5V/0N/0D sur 5\n🏆 Coupe du Monde 2026 - score exact (Poisson grid, ajusté Elo FIFA)\nλ Ecuador = 0.67 buts, λ Germany = 2.31 buts\nTop 3 : 0-2 (13.6%) · 0-1 (11.7%) · 0-3 (10.5%)\n⚠️ Pari fun (cote élevée typique 4-8) - mise modeste",
+        "reasoning": "📊 Niveau équilibré : Ecuador #22 vs Germany #10 (gap -116 pts).\n⭐ Germany favori CdM 2026\nL10 : Ecuador 2V/2N/1D sur 5 · Germany 5V/0N/0D sur 5\n🏆 Coupe du Monde 2026 - score exact (Poisson grid, ajusté Elo FIFA)\nλ Ecuador = 0.74 buts, λ Germany = 2.57 buts\nTop 3 : 0-2 (12.0%) · 0-3 (10.3%) · 0-1 (9.4%)\n⚠️ Pari fun (cote élevée typique 4-8) - mise modeste",
         "exact_score": [
           0,
-          2
+          3
         ],
         "wc_top3": [
           [
@@ -559,21 +560,21 @@
               0,
               2
             ],
-            13.6
-          ],
-          [
-            [
-              0,
-              1
-            ],
-            11.7
+            12.0
           ],
           [
             [
               0,
               3
             ],
-            10.5
+            10.3
+          ],
+          [
+            [
+              0,
+              1
+            ],
+            9.4
           ]
         ],
         "history_top3": false
@@ -616,15 +617,15 @@
         "context_fr": "Climat nord-est USA. Juin 22-28°C, humidité modérée. Probable lieu de la finale."
       },
       "weather": {
-        "temp_max": 28.6,
-        "temp_min": 15.9,
-        "humidity": 55,
-        "precipitation_sum_mm": 15.6,
-        "wind_max_kmh": 22.8,
-        "weather_code": 82,
-        "summary_fr": "⛈️ averses violentes · 15–28°C · humidité 55% · précipitations 15.6mm"
+        "temp_max": 29.8,
+        "temp_min": 16.1,
+        "humidity": 44,
+        "precipitation_sum_mm": 1.68,
+        "wind_max_kmh": 24.4,
+        "weather_code": 53,
+        "summary_fr": "🌦️ bruine modérée · 16–29°C · humidité 44% · précipitations 1.7mm"
       },
-      "text": "Conditions : ⛈️ averses violentes · 15–28°C · humidité 55% · précipitations 15.6mm. Stade : MetLife Stadium · altitude 7m · 82 500 places · plein air. Climat nord-est USA. Juin 22-28°C, humidité modérée. Probable lieu de la finale. ⚠️ Pluies prévues : terrain potentiellement lourd, jeu direct privilégié, plus d'erreurs techniques."
+      "text": "Conditions : 🌦️ bruine modérée · 16–29°C · humidité 44% · précipitations 1.7mm. Stade : MetLife Stadium · altitude 7m · 82 500 places · plein air. Climat nord-est USA. Juin 22-28°C, humidité modérée. Probable lieu de la finale."
     }
   },
   {
@@ -695,7 +696,7 @@
           "wc_round": null,
           "family": "TOTAL"
         },
-        "reasoning": "📊 Niveau équilibré : Czechia #41 vs Mexico #17 (gap -151 pts).\nL10 : Czechia 2V/2N/1D sur 5 · Mexico 5V/0N/0D sur 5\n📋 Fiche Czechia : off moyen (-0.13) · def fragile (-0.52) · forme DLWWD · 🏆 novice WC\n📋 Fiche Mexico : off moyen (-0.18) · def solide (+0.74) · forme WWWWW · 🏆 habituée du tournoi\n🎯 Importance : Czechia : 1 match joué (0pts) · Mexico : 1 match joué (3pts)\n🌦️ Conditions : pluie 8.7mm (-10%) · altitude 2240m (+5%)\n⚠️ Compo PROBABLE (officielle à T-60min)\n⚽ Modèle Poisson : λ total = 2.90 buts attendus\nP(plus de 1.5 buts) = 78.5%\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+        "reasoning": "📊 Niveau équilibré : Czechia #41 vs Mexico #17 (gap -151 pts).\nL10 : Czechia 2V/2N/1D sur 5 · Mexico 5V/0N/0D sur 5\n📋 Fiche Czechia : off moyen (-0.13) · def fragile (-0.52) · forme DLWWD · 🏆 novice WC\n📋 Fiche Mexico : off moyen (-0.18) · def solide (+0.74) · forme WWWWW · 🏆 habituée du tournoi\n🎯 Importance : Czechia : 1 match joué (0pts) · Mexico : 1 match joué (3pts)\n🌦️ Conditions : pluie 12.2mm (-10%) · altitude 2240m (+5%)\n⚠️ Compo PROBABLE (officielle à T-60min)\n⚽ Modèle Poisson : λ total = 2.90 buts attendus\nP(plus de 1.5 buts) = 78.5%\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
         "calibration_delta": -11.3,
         "history_top3": false
       },
@@ -716,7 +717,7 @@
           "wc_round": null,
           "family": "BUT_TEAM"
         },
-        "reasoning": "📊 Niveau équilibré : Czechia #41 vs Mexico #17 (gap -151 pts).\nL10 : Czechia 2V/2N/1D sur 5 · Mexico 5V/0N/0D sur 5\n📋 Fiche Czechia : off moyen (-0.13) · def fragile (-0.52) · forme DLWWD · 🏆 novice WC\n📋 Fiche Mexico : off moyen (-0.18) · def solide (+0.74) · forme WWWWW · 🏆 habituée du tournoi\n🎯 Importance : Czechia : 1 match joué (0pts) · Mexico : 1 match joué (3pts)\n🌦️ Conditions : pluie 8.7mm (-10%) · altitude 2240m (+5%)\n⚠️ Compo PROBABLE (officielle à T-60min)\n⚽ P(Mexico marque 2+) = 67.4% (λ = 2.32)\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
+        "reasoning": "📊 Niveau équilibré : Czechia #41 vs Mexico #17 (gap -151 pts).\nL10 : Czechia 2V/2N/1D sur 5 · Mexico 5V/0N/0D sur 5\n📋 Fiche Czechia : off moyen (-0.13) · def fragile (-0.52) · forme DLWWD · 🏆 novice WC\n📋 Fiche Mexico : off moyen (-0.18) · def solide (+0.74) · forme WWWWW · 🏆 habituée du tournoi\n🎯 Importance : Czechia : 1 match joué (0pts) · Mexico : 1 match joué (3pts)\n🌦️ Conditions : pluie 12.2mm (-10%) · altitude 2240m (+5%)\n⚠️ Compo PROBABLE (officielle à T-60min)\n⚽ P(Mexico marque 2+) = 67.4% (λ = 2.32)\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
         "calibration_delta": -25.4,
         "history_top3": true
       }
@@ -807,15 +808,15 @@
         "context_fr": "Altitude 2240m : impact endurance fort. Saison des pluies en juin-juillet (humidité 60-75%). Mexique invaincu en CdM ici (7 matchs)."
       },
       "weather": {
-        "temp_max": 21.9,
-        "temp_min": 14.4,
-        "humidity": 66,
-        "precipitation_sum_mm": 8.7,
-        "wind_max_kmh": 8.8,
-        "weather_code": 81,
-        "summary_fr": "🌦️ averses modérées · 14–21°C · humidité 66% · précipitations 8.7mm"
+        "temp_max": 21.5,
+        "temp_min": 13.6,
+        "humidity": 65,
+        "precipitation_sum_mm": 12.2,
+        "wind_max_kmh": 12.6,
+        "weather_code": 95,
+        "summary_fr": "⛈️ orage · 13–21°C · humidité 65% · précipitations 12.2mm"
       },
-      "text": "Conditions : 🌦️ averses modérées · 14–21°C · humidité 66% · précipitations 8.7mm. Stade : Estadio Azteca · altitude 2240m · 87 000 places · plein air. Altitude 2240m : impact endurance fort. Saison des pluies en juin-juillet (humidité 60-75%). Mexique invaincu en CdM ici (7 matchs). ⚠️ Altitude 2240m : impact endurance significatif pour l'équipe non-acclimatée. ⚠️ Pluies prévues : terrain potentiellement lourd, jeu direct privilégié, plus d'erreurs techniques."
+      "text": "Conditions : ⛈️ orage · 13–21°C · humidité 65% · précipitations 12.2mm. Stade : Estadio Azteca · altitude 2240m · 87 000 places · plein air. Altitude 2240m : impact endurance fort. Saison des pluies en juin-juillet (humidité 60-75%). Mexique invaincu en CdM ici (7 matchs). ⚠️ Altitude 2240m : impact endurance significatif pour l'équipe non-acclimatée. ⚠️ Pluies prévues : terrain potentiellement lourd, jeu direct privilégié, plus d'erreurs techniques."
     }
   },
   {
@@ -843,7 +844,7 @@
           "wc_round": null,
           "family": "TOTAL"
         },
-        "reasoning": "📊 Écart FIFA significatif : Tunisia #36 vs Netherlands #7 (gap -242 pts, P favori ≈ 80%).\n⭐ Netherlands favori CdM 2026\nL10 : Tunisia 0V/1N/4D sur 5 · Netherlands 2V/2N/1D sur 5\n📋 Fiche Tunisia : off en panne (-0.47) · def fragile (-1.00) · forme LLLLD · 🏆 présence occasionnelle\n📋 Fiche Netherlands : off moyen (-0.03) · def fragile (-0.69) · forme WDWLD · 🏆 régulière phase finale\n   ↳ Historique : quart de finale en 2022 · demi-finaliste en 2014\n🎯 Importance : Tunisia : 1 match joué (0pts) · Netherlands : 1 match joué (1pts)\n🌦️ Conditions : pluie 58.0mm (-10%)\n⚽ Modèle Poisson : λ total = 4.24\nP(plus de 2.5 buts) = 79.5%\n📉 Calibration : bucket 80-89% historiquement à WR 56% (claim 82%, n=63) — sur-estimé de 26pp",
+        "reasoning": "📊 Écart FIFA significatif : Tunisia #36 vs Netherlands #7 (gap -242 pts, P favori ≈ 80%).\n⭐ Netherlands favori CdM 2026\nL10 : Tunisia 0V/1N/4D sur 5 · Netherlands 2V/2N/1D sur 5\n📋 Fiche Tunisia : off en panne (-0.47) · def fragile (-1.00) · forme LLLLD · 🏆 présence occasionnelle\n📋 Fiche Netherlands : off moyen (-0.03) · def fragile (-0.69) · forme WDWLD · 🏆 régulière phase finale\n   ↳ Historique : quart de finale en 2022 · demi-finaliste en 2014\n🎯 Importance : Tunisia : 1 match joué (0pts) · Netherlands : 1 match joué (1pts)\n🌦️ Conditions : pluie 55.38mm (-10%)\n⚽ Modèle Poisson : λ total = 4.24\nP(plus de 2.5 buts) = 79.5%\n📉 Calibration : bucket 80-89% historiquement à WR 56% (claim 82%, n=63) — sur-estimé de 26pp",
         "calibration_delta": -26.0,
         "history_top3": false
       },
@@ -864,7 +865,7 @@
           "wc_round": null,
           "family": "CLEAN_SHEET"
         },
-        "reasoning": "📊 Écart FIFA significatif : Tunisia #36 vs Netherlands #7 (gap -242 pts, P favori ≈ 80%).\n⭐ Netherlands favori CdM 2026\nL10 : Tunisia 0V/1N/4D sur 5 · Netherlands 2V/2N/1D sur 5\n📋 Fiche Tunisia : off en panne (-0.47) · def fragile (-1.00) · forme LLLLD · 🏆 présence occasionnelle\n📋 Fiche Netherlands : off moyen (-0.03) · def fragile (-0.69) · forme WDWLD · 🏆 régulière phase finale\n   ↳ Historique : quart de finale en 2022 · demi-finaliste en 2014\n🎯 Importance : Tunisia : 1 match joué (0pts) · Netherlands : 1 match joué (1pts)\n🌦️ Conditions : pluie 58.0mm (-10%)\n🛡️ P(Tunisia blanchi) = 73.1% (λ_Tunisia = 0.31)\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+        "reasoning": "📊 Écart FIFA significatif : Tunisia #36 vs Netherlands #7 (gap -242 pts, P favori ≈ 80%).\n⭐ Netherlands favori CdM 2026\nL10 : Tunisia 0V/1N/4D sur 5 · Netherlands 2V/2N/1D sur 5\n📋 Fiche Tunisia : off en panne (-0.47) · def fragile (-1.00) · forme LLLLD · 🏆 présence occasionnelle\n📋 Fiche Netherlands : off moyen (-0.03) · def fragile (-0.69) · forme WDWLD · 🏆 régulière phase finale\n   ↳ Historique : quart de finale en 2022 · demi-finaliste en 2014\n🎯 Importance : Tunisia : 1 match joué (0pts) · Netherlands : 1 match joué (1pts)\n🌦️ Conditions : pluie 55.38mm (-10%)\n🛡️ P(Tunisia blanchi) = 73.1% (λ_Tunisia = 0.31)\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
         "calibration_delta": -11.3,
         "history_top3": true
       }
@@ -1048,7 +1049,7 @@
         "wc_round": null,
         "family": "TOTAL"
       },
-      "reasoning": "📊 Écart FIFA significatif : Tunisia #36 vs Netherlands #7 (gap -242 pts, P favori ≈ 80%).\n⭐ Netherlands favori CdM 2026\nL10 : Tunisia 0V/1N/4D sur 5 · Netherlands 2V/2N/1D sur 5\n📋 Fiche Tunisia : off en panne (-0.47) · def fragile (-1.00) · forme LLLLD · 🏆 présence occasionnelle\n📋 Fiche Netherlands : off moyen (-0.03) · def fragile (-0.69) · forme WDWLD · 🏆 régulière phase finale\n   ↳ Historique : quart de finale en 2022 · demi-finaliste en 2014\n🎯 Importance : Tunisia : 1 match joué (0pts) · Netherlands : 1 match joué (1pts)\n🌦️ Conditions : pluie 58.0mm (-10%)\n⚽ Modèle Poisson : λ total = 4.24\nP(plus de 2.5 buts) = 79.5%\n📉 Calibration : bucket 80-89% historiquement à WR 56% (claim 82%, n=63) — sur-estimé de 26pp",
+      "reasoning": "📊 Écart FIFA significatif : Tunisia #36 vs Netherlands #7 (gap -242 pts, P favori ≈ 80%).\n⭐ Netherlands favori CdM 2026\nL10 : Tunisia 0V/1N/4D sur 5 · Netherlands 2V/2N/1D sur 5\n📋 Fiche Tunisia : off en panne (-0.47) · def fragile (-1.00) · forme LLLLD · 🏆 présence occasionnelle\n📋 Fiche Netherlands : off moyen (-0.03) · def fragile (-0.69) · forme WDWLD · 🏆 régulière phase finale\n   ↳ Historique : quart de finale en 2022 · demi-finaliste en 2014\n🎯 Importance : Tunisia : 1 match joué (0pts) · Netherlands : 1 match joué (1pts)\n🌦️ Conditions : pluie 55.38mm (-10%)\n⚽ Modèle Poisson : λ total = 4.24\nP(plus de 2.5 buts) = 79.5%\n📉 Calibration : bucket 80-89% historiquement à WR 56% (claim 82%, n=63) — sur-estimé de 26pp",
       "calibration_delta": -26.0,
       "history_top3": false
     },
@@ -1068,15 +1069,15 @@
         "context_fr": "Climat continental. Juin chaud (28-32°C) avec orages possibles."
       },
       "weather": {
-        "temp_max": 25.5,
+        "temp_max": 29.4,
         "temp_min": 19.2,
-        "humidity": 94,
-        "precipitation_sum_mm": 58.0,
-        "wind_max_kmh": 28.2,
+        "humidity": 71,
+        "precipitation_sum_mm": 55.38,
+        "wind_max_kmh": 24.5,
         "weather_code": 82,
-        "summary_fr": "⛈️ averses violentes · 19–25°C · humidité 94% · précipitations 58.0mm"
+        "summary_fr": "⛈️ averses violentes · 19–29°C · humidité 71% · précipitations 55.4mm"
       },
-      "text": "Conditions : ⛈️ averses violentes · 19–25°C · humidité 94% · précipitations 58.0mm. Stade : Arrowhead Stadium · altitude 230m · 76 416 places · plein air. Climat continental. Juin chaud (28-32°C) avec orages possibles. ⚠️ Pluies prévues : terrain potentiellement lourd, jeu direct privilégié, plus d'erreurs techniques."
+      "text": "Conditions : ⛈️ averses violentes · 19–29°C · humidité 71% · précipitations 55.4mm. Stade : Arrowhead Stadium · altitude 230m · 76 416 places · plein air. Climat continental. Juin chaud (28-32°C) avec orages possibles. ⚠️ Pluies prévues : terrain potentiellement lourd, jeu direct privilégié, plus d'erreurs techniques."
     }
   },
   {
@@ -1260,7 +1261,7 @@
         "direction": "away_win",
         "type": "Victoire extérieur",
         "label": "Brazil gagne",
-        "cote": 1.36,
+        "cote": 1.34,
         "confidence": 74,
         "reasoning": "Brazil : 4V/1N/0D sur 5 matchs · #1 au classement · H2H: 0V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
         "stats": {
@@ -1275,7 +1276,7 @@
         "is_fun": false,
         "tier": "safe",
         "calibration_delta": -11.3,
-        "edge_pp": 0.5,
+        "edge_pp": -0.6,
         "history_top3": false
       },
       {
@@ -1540,7 +1541,7 @@
       "direction": "away_win",
       "type": "Victoire extérieur",
       "label": "Brazil gagne",
-      "cote": 1.36,
+      "cote": 1.34,
       "confidence": 74,
       "reasoning": "Brazil : 4V/1N/0D sur 5 matchs · #1 au classement · H2H: 0V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
       "stats": {
@@ -1555,7 +1556,7 @@
       "is_fun": false,
       "tier": "safe",
       "calibration_delta": -11.3,
-      "edge_pp": 0.5,
+      "edge_pp": -0.6,
       "history_top3": false
     },
     "no_picks": false,
@@ -1632,7 +1633,7 @@
           "wc_round": null,
           "family": "BTTS"
         },
-        "reasoning": "📊 Niveau équilibré : Japan #16 vs Sweden #24 (gap +53 pts).\nL10 : Japan 4V/1N/0D sur 5 · Sweden 2V/1N/2D sur 5\n📋 Fiche Japan : off moyen (+0.08) · def moyenne (+0.18) · forme WDWWW · 🏆 habituée du tournoi\n📋 Fiche Sweden : off moyen (+0.11) · def fragile (-0.97) · forme LWDLW · 🏆 présence occasionnelle\n🎯 Importance : Japan : 1 match joué (1pts) · Sweden : 1 match joué (3pts)\n🌦️ ☁️ couvert · 24–36°C · humidité 34% · stade fermé\n⚽ BTTS Poisson : P(Japan ≥ 1) × P(Sweden ≥ 1) = 94% × 71% = 66.8%\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
+        "reasoning": "📊 Niveau équilibré : Japan #16 vs Sweden #24 (gap +53 pts).\nL10 : Japan 4V/1N/0D sur 5 · Sweden 2V/1N/2D sur 5\n📋 Fiche Japan : off moyen (+0.08) · def moyenne (+0.18) · forme WDWWW · 🏆 habituée du tournoi\n📋 Fiche Sweden : off moyen (+0.11) · def fragile (-0.97) · forme LWDLW · 🏆 présence occasionnelle\n🎯 Importance : Japan : 1 match joué (1pts) · Sweden : 1 match joué (3pts)\n🌦️ ☁️ couvert · 24–35°C · humidité 38% · stade fermé\n⚽ BTTS Poisson : P(Japan ≥ 1) × P(Sweden ≥ 1) = 94% × 71% = 66.8%\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
         "calibration_delta": -25.4,
         "history_top3": true
       },
@@ -1653,7 +1654,7 @@
           "wc_round": null,
           "family": "BUT_TEAM"
         },
-        "reasoning": "📊 Niveau équilibré : Japan #16 vs Sweden #24 (gap +53 pts).\nL10 : Japan 4V/1N/0D sur 5 · Sweden 2V/1N/2D sur 5\n📋 Fiche Japan : off moyen (+0.08) · def moyenne (+0.18) · forme WDWWW · 🏆 habituée du tournoi\n📋 Fiche Sweden : off moyen (+0.11) · def fragile (-0.97) · forme LWDLW · 🏆 présence occasionnelle\n🎯 Importance : Japan : 1 match joué (1pts) · Sweden : 1 match joué (3pts)\n🌦️ ☁️ couvert · 24–36°C · humidité 34% · stade fermé\n⚽ P(Japan marque 2+) = 77.2% (λ = 2.82)\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+        "reasoning": "📊 Niveau équilibré : Japan #16 vs Sweden #24 (gap +53 pts).\nL10 : Japan 4V/1N/0D sur 5 · Sweden 2V/1N/2D sur 5\n📋 Fiche Japan : off moyen (+0.08) · def moyenne (+0.18) · forme WDWWW · 🏆 habituée du tournoi\n📋 Fiche Sweden : off moyen (+0.11) · def fragile (-0.97) · forme LWDLW · 🏆 présence occasionnelle\n🎯 Importance : Japan : 1 match joué (1pts) · Sweden : 1 match joué (3pts)\n🌦️ ☁️ couvert · 24–35°C · humidité 38% · stade fermé\n⚽ P(Japan marque 2+) = 77.2% (λ = 2.82)\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
         "calibration_delta": -11.3,
         "history_top3": false
       }
@@ -1862,15 +1863,15 @@
         "context_fr": "Toit retractable, climatisé. Permet de jouer malgré chaleur Texas en juin (38°C+)."
       },
       "weather": {
-        "temp_max": 36.8,
-        "temp_min": 24.4,
-        "humidity": 34,
+        "temp_max": 35.1,
+        "temp_min": 24.6,
+        "humidity": 38,
         "precipitation_sum_mm": 0.0,
-        "wind_max_kmh": 28.1,
+        "wind_max_kmh": 28.4,
         "weather_code": 3,
-        "summary_fr": "☁️ couvert · 24–36°C · humidité 34%"
+        "summary_fr": "☁️ couvert · 24–35°C · humidité 38%"
       },
-      "text": "Conditions : ☁️ couvert · 24–36°C · humidité 34%. Stade : AT&T Stadium · altitude 180m · 80 000 places · climatisé. Toit retractable, climatisé. Permet de jouer malgré chaleur Texas en juin (38°C+)."
+      "text": "Conditions : ☁️ couvert · 24–35°C · humidité 38%. Stade : AT&T Stadium · altitude 180m · 80 000 places · climatisé. Toit retractable, climatisé. Permet de jouer malgré chaleur Texas en juin (38°C+)."
     }
   },
   {
@@ -2002,178 +2003,6 @@
     }
   },
   {
-    "league": "World Cup",
-    "home": "South Africa",
-    "away": "South Korea",
-    "start_ts": 1782349200,
-    "match_id": "4667756",
-    "page_url": "/matches/south-africa-vs-south-korea/1ncyls#4667756",
-    "picks": [
-      {
-        "direction": "wc_away_win",
-        "type": "🏆 Vainqueur WC",
-        "label": "South Korea gagne",
-        "cote": 1.67,
-        "cote_min": 1.42,
-        "confidence": 70,
-        "tier": "safe",
-        "stats": {
-          "lam_h": 0.31,
-          "lam_a": 1.62,
-          "h_fifa_rank": 54,
-          "a_fifa_rank": 25,
-          "elo_gap": -185,
-          "wc_round": null,
-          "family": "1X2"
-        },
-        "reasoning": "📊 Niveau équilibré : South Africa #54 vs South Korea #25 (gap -185 pts).\nL10 : South Africa 0V/3N/2D sur 5 · South Korea 3V/0N/2D sur 5\n📋 Fiche South Africa : off solide (+0.33) · def solide (+0.39) · forme DLDLD · 🏆 novice WC\n📋 Fiche South Korea : off solide (+0.46) · def solide (+0.39) · forme LWWWL · 🏆 présence occasionnelle\n🎯 Importance : South Africa : 1 match joué (0pts) · South Korea : 1 match joué (3pts)\n🌦️ Conditions : vent 30.8km/h (-7%) · chaleur 34.4°C (-10%)\n⚠️ Compo PROBABLE (officielle à T-60min)\n🏆 Modèle Poisson CdM (tier FIFA ajusté)\nλ South Africa = 0.31, λ South Korea = 1.62\nP(South Africa) = 6.7% · P(nul) = 22.9% · P(South Korea gagne) = 70.4%\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
-        "calibration_delta": -11.3,
-        "edge_pp": 10.1,
-        "history_top3": true
-      },
-      {
-        "direction": "wc_under_25",
-        "type": "⚽ Total buts WC",
-        "label": "Moins de 2.5 buts",
-        "cote": 1.77,
-        "cote_min": 1.44,
-        "confidence": 70,
-        "tier": "safe",
-        "stats": {
-          "lam_h": 0.31,
-          "lam_a": 1.62,
-          "h_fifa_rank": 54,
-          "a_fifa_rank": 25,
-          "elo_gap": -185,
-          "wc_round": null,
-          "family": "TOTAL"
-        },
-        "reasoning": "📊 Niveau équilibré : South Africa #54 vs South Korea #25 (gap -185 pts).\nL10 : South Africa 0V/3N/2D sur 5 · South Korea 3V/0N/2D sur 5\n📋 Fiche South Africa : off solide (+0.33) · def solide (+0.39) · forme DLDLD · 🏆 novice WC\n📋 Fiche South Korea : off solide (+0.46) · def solide (+0.39) · forme LWWWL · 🏆 présence occasionnelle\n🎯 Importance : South Africa : 1 match joué (0pts) · South Korea : 1 match joué (3pts)\n🌦️ Conditions : vent 30.8km/h (-7%) · chaleur 34.4°C (-10%)\n⚠️ Compo PROBABLE (officielle à T-60min)\n⚽ Modèle Poisson : λ total = 1.93\nP(moins de 2.5 buts) = 69.6%\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
-        "calibration_delta": -11.3,
-        "edge_pp": 13.5,
-        "history_top3": true
-      },
-      {
-        "direction": "wc_away_scores_1",
-        "type": "⚽ Buteur équipe WC",
-        "label": "South Korea marque (≥1 but)",
-        "cote": null,
-        "cote_min": 1.25,
-        "confidence": 80,
-        "tier": "safe",
-        "stats": {
-          "lam_h": 0.31,
-          "lam_a": 1.62,
-          "h_fifa_rank": 54,
-          "a_fifa_rank": 25,
-          "elo_gap": -185,
-          "wc_round": null,
-          "family": "BUT_TEAM"
-        },
-        "reasoning": "📊 Niveau équilibré : South Africa #54 vs South Korea #25 (gap -185 pts).\nL10 : South Africa 0V/3N/2D sur 5 · South Korea 3V/0N/2D sur 5\n📋 Fiche South Africa : off solide (+0.33) · def solide (+0.39) · forme DLDLD · 🏆 novice WC\n📋 Fiche South Korea : off solide (+0.46) · def solide (+0.39) · forme LWWWL · 🏆 présence occasionnelle\n🎯 Importance : South Africa : 1 match joué (0pts) · South Korea : 1 match joué (3pts)\n🌦️ Conditions : vent 30.8km/h (-7%) · chaleur 34.4°C (-10%)\n⚠️ Compo PROBABLE (officielle à T-60min)\n⚽ P(South Korea marque ≥1) = 80.1% — λ_South Korea = 1.62\n📉 Calibration : bucket 80-89% historiquement à WR 56% (claim 82%, n=63) — sur-estimé de 26pp",
-        "calibration_delta": -26.0,
-        "history_top3": false
-      }
-    ],
-    "home_players": [],
-    "away_players": [],
-    "fun_picks": [
-      {
-        "direction": "wc_score_0_1",
-        "type": "🏆 Score exact WC",
-        "label": "Score exact : South Africa 0-1 South Korea",
-        "cote_min": 4.26,
-        "confidence": 23,
-        "tier": "fun",
-        "is_fun": true,
-        "stats": {
-          "lam_h": 0.31,
-          "lam_a": 1.62,
-          "h_fifa_rank": 54,
-          "a_fifa_rank": 25,
-          "elo_gap": -185
-        },
-        "reasoning": "📊 Niveau équilibré : South Africa #54 vs South Korea #25 (gap -185 pts).\nL10 : South Africa 0V/3N/2D sur 5 · South Korea 3V/0N/2D sur 5\n🏆 Coupe du Monde 2026 - score exact (Poisson grid, ajusté Elo FIFA)\nλ South Africa = 0.31 buts, λ South Korea = 1.62 buts\nTop 3 : 0-1 (23.5%) · 0-2 (19.0%) · 0-0 (14.5%)\n⚠️ Pari fun (cote élevée typique 4-8) - mise modeste",
-        "exact_score": [
-          0,
-          1
-        ],
-        "wc_top3": [
-          [
-            [
-              0,
-              1
-            ],
-            23.5
-          ],
-          [
-            [
-              0,
-              2
-            ],
-            19.0
-          ],
-          [
-            [
-              0,
-              0
-            ],
-            14.5
-          ]
-        ],
-        "history_top3": true
-      }
-    ],
-    "top_pick": {
-      "direction": "wc_away_win",
-      "type": "🏆 Vainqueur WC",
-      "label": "South Korea gagne",
-      "cote": 1.67,
-      "cote_min": 1.42,
-      "confidence": 70,
-      "tier": "safe",
-      "stats": {
-        "lam_h": 0.31,
-        "lam_a": 1.62,
-        "h_fifa_rank": 54,
-        "a_fifa_rank": 25,
-        "elo_gap": -185,
-        "wc_round": null,
-        "family": "1X2"
-      },
-      "reasoning": "📊 Niveau équilibré : South Africa #54 vs South Korea #25 (gap -185 pts).\nL10 : South Africa 0V/3N/2D sur 5 · South Korea 3V/0N/2D sur 5\n📋 Fiche South Africa : off solide (+0.33) · def solide (+0.39) · forme DLDLD · 🏆 novice WC\n📋 Fiche South Korea : off solide (+0.46) · def solide (+0.39) · forme LWWWL · 🏆 présence occasionnelle\n🎯 Importance : South Africa : 1 match joué (0pts) · South Korea : 1 match joué (3pts)\n🌦️ Conditions : vent 30.8km/h (-7%) · chaleur 34.4°C (-10%)\n⚠️ Compo PROBABLE (officielle à T-60min)\n🏆 Modèle Poisson CdM (tier FIFA ajusté)\nλ South Africa = 0.31, λ South Korea = 1.62\nP(South Africa) = 6.7% · P(nul) = 22.9% · P(South Korea gagne) = 70.4%\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
-      "calibration_delta": -11.3,
-      "edge_pp": 10.1,
-      "history_top3": true
-    },
-    "no_picks": false,
-    "context": {
-      "stadium": {
-        "name": "Estadio BBVA",
-        "city": "Monterrey",
-        "country": "Mexique",
-        "lat": 25.6692,
-        "lon": -100.2444,
-        "capacity": 53500,
-        "surface": "Natural grass",
-        "altitude_m": 500,
-        "type": "outdoor",
-        "climatized": false,
-        "context_fr": "Climat semi-aride, chaleur élevée en juin (35-40°C l'après-midi)."
-      },
-      "weather": {
-        "temp_max": 34.4,
-        "temp_min": 22.2,
-        "humidity": 38,
-        "precipitation_sum_mm": 0.0,
-        "wind_max_kmh": 30.8,
-        "weather_code": 3,
-        "summary_fr": "☁️ couvert · 22–34°C · humidité 38%"
-      },
-      "text": "Conditions : ☁️ couvert · 22–34°C · humidité 38%. Stade : Estadio BBVA · altitude 500m · 53 500 places · plein air. Climat semi-aride, chaleur élevée en juin (35-40°C l'après-midi). ⚠️ Forte chaleur (>32°C) en plein air : impact endurance, plus de pauses hydratation. ⚠️ Vent fort prévu : jeu aérien moins fiable, balles longues imprévisibles."
-    }
-  },
-  {
     "league": "Latvian Virsliga",
     "home": "Grobina",
     "away": "Auda",
@@ -2290,15 +2119,15 @@
         "surface": null
       },
       "weather": {
-        "temp_max": 22.0,
-        "temp_min": 16.1,
-        "humidity": 77,
+        "temp_max": 22.2,
+        "temp_min": 16.3,
+        "humidity": 74,
         "precipitation_sum_mm": 0.0,
-        "wind_max_kmh": 14.4,
+        "wind_max_kmh": 15.5,
         "weather_code": 3,
-        "summary_fr": "☁️ couvert · 16–22°C · humidité 77%"
+        "summary_fr": "☁️ couvert · 16–22°C · humidité 74%"
       },
-      "text": "Conditions : ☁️ couvert · 16–22°C · humidité 77%. Stade : Stadions Daugava · plein air."
+      "text": "Conditions : ☁️ couvert · 16–22°C · humidité 74%. Stade : Stadions Daugava · plein air."
     }
   },
   {
@@ -2554,7 +2383,7 @@
           "wc_round": null,
           "family": "TOTAL"
         },
-        "reasoning": "L10 : Curacao 0V/1N/4D sur 5 · Ivory Coast 4V/0N/1D sur 5\n🚂 Mismatch significatif (Elo gap +545) : Ivory Coast pousse pour prendre le large. ⚠️ Curacao hors top 100 FIFA — fallback Elo estimé, défense souvent perméable vs top.\n📋 Fiche Curacao : off solide (+0.65) · def moyenne (-0.13) · forme DLLLL · 🏆 novice WC\n📋 Fiche Ivory Coast : off solide (+1.00) · def solide (+0.58) · forme LWWWW · 🏆 présence occasionnelle\n🎯 Importance : Curacao : 1 match joué (0pts) · Ivory Coast : 1 match joué (3pts)\n🌦️ 🌦️ averses légères · 16–31°C · humidité 46% · précipitations 2.2mm\n⚽ Modèle Poisson : λ total = 5.18\nP(plus de 3.5 buts) = 75.9% — match ouvert prévu\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+        "reasoning": "L10 : Curacao 0V/1N/4D sur 5 · Ivory Coast 4V/0N/1D sur 5\n🚂 Mismatch significatif (Elo gap +545) : Ivory Coast pousse pour prendre le large. ⚠️ Curacao hors top 100 FIFA — fallback Elo estimé, défense souvent perméable vs top.\n📋 Fiche Curacao : off solide (+0.65) · def moyenne (-0.13) · forme DLLLL · 🏆 novice WC\n📋 Fiche Ivory Coast : off solide (+1.00) · def solide (+0.58) · forme LWWWW · 🏆 présence occasionnelle\n🎯 Importance : Curacao : 1 match joué (0pts) · Ivory Coast : 1 match joué (3pts)\n🌦️ ☁️ couvert · 16–30°C · humidité 47%\n⚽ Modèle Poisson : λ total = 5.18\nP(plus de 3.5 buts) = 75.9% — match ouvert prévu\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
         "calibration_delta": -11.3,
         "history_top3": true
       },
@@ -2575,7 +2404,7 @@
           "wc_round": null,
           "family": "CLEAN_SHEET"
         },
-        "reasoning": "L10 : Curacao 0V/1N/4D sur 5 · Ivory Coast 4V/0N/1D sur 5\n🚂 Mismatch significatif (Elo gap +545) : Ivory Coast pousse pour prendre le large. ⚠️ Curacao hors top 100 FIFA — fallback Elo estimé, défense souvent perméable vs top.\n📋 Fiche Curacao : off solide (+0.65) · def moyenne (-0.13) · forme DLLLL · 🏆 novice WC\n📋 Fiche Ivory Coast : off solide (+1.00) · def solide (+0.58) · forme LWWWW · 🏆 présence occasionnelle\n🎯 Importance : Curacao : 1 match joué (0pts) · Ivory Coast : 1 match joué (3pts)\n🌦️ 🌦️ averses légères · 16–31°C · humidité 46% · précipitations 2.2mm\n🛡️ P(Curacao blanchi) = 75.2% (λ_Curacao = 0.28)\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+        "reasoning": "L10 : Curacao 0V/1N/4D sur 5 · Ivory Coast 4V/0N/1D sur 5\n🚂 Mismatch significatif (Elo gap +545) : Ivory Coast pousse pour prendre le large. ⚠️ Curacao hors top 100 FIFA — fallback Elo estimé, défense souvent perméable vs top.\n📋 Fiche Curacao : off solide (+0.65) · def moyenne (-0.13) · forme DLLLL · 🏆 novice WC\n📋 Fiche Ivory Coast : off solide (+1.00) · def solide (+0.58) · forme LWWWW · 🏆 présence occasionnelle\n🎯 Importance : Curacao : 1 match joué (0pts) · Ivory Coast : 1 match joué (3pts)\n🌦️ ☁️ couvert · 16–30°C · humidité 47%\n🛡️ P(Curacao blanchi) = 75.2% (λ_Curacao = 0.28)\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
         "calibration_delta": -11.3,
         "history_top3": true
       }
@@ -2697,15 +2526,15 @@
         "context_fr": "Climat tempéré humide. Juin 24-29°C."
       },
       "weather": {
-        "temp_max": 31.7,
-        "temp_min": 16.8,
-        "humidity": 46,
-        "precipitation_sum_mm": 2.2,
-        "wind_max_kmh": 22.4,
-        "weather_code": 80,
-        "summary_fr": "🌦️ averses légères · 16–31°C · humidité 46% · précipitations 2.2mm"
+        "temp_max": 30.1,
+        "temp_min": 16.5,
+        "humidity": 47,
+        "precipitation_sum_mm": 0.0,
+        "wind_max_kmh": 22.5,
+        "weather_code": 3,
+        "summary_fr": "☁️ couvert · 16–30°C · humidité 47%"
       },
-      "text": "Conditions : 🌦️ averses légères · 16–31°C · humidité 46% · précipitations 2.2mm. Stade : Lincoln Financial Field · altitude 12m · 67 594 places · plein air. Climat tempéré humide. Juin 24-29°C."
+      "text": "Conditions : ☁️ couvert · 16–30°C · humidité 47%. Stade : Lincoln Financial Field · altitude 12m · 67 594 places · plein air. Climat tempéré humide. Juin 24-29°C."
     }
   },
   {
@@ -2969,7 +2798,7 @@
         "direction": "home_win",
         "type": "Victoire domicile",
         "label": "Morocco gagne",
-        "cote": 1.18,
+        "cote": 1.19,
         "confidence": 65,
         "reasoning": "Morocco : 3V/2N/0D sur 5 matchs · #2 au classement · H2H: 0V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
         "stats": {
@@ -2984,7 +2813,7 @@
         "is_fun": false,
         "tier": "ok",
         "calibration_delta": -25.4,
-        "edge_pp": -19.7,
+        "edge_pp": -19.0,
         "history_top3": false
       },
       {
@@ -3165,7 +2994,7 @@
       "direction": "home_win",
       "type": "Victoire domicile",
       "label": "Morocco gagne",
-      "cote": 1.18,
+      "cote": 1.19,
       "confidence": 65,
       "reasoning": "Morocco : 3V/2N/0D sur 5 matchs · #2 au classement · H2H: 0V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
       "stats": {
@@ -3180,7 +3009,7 @@
       "is_fun": false,
       "tier": "ok",
       "calibration_delta": -25.4,
-      "edge_pp": -19.7,
+      "edge_pp": -19.0,
       "history_top3": false
     },
     "no_picks": false,
@@ -3937,6 +3766,199 @@
     }
   },
   {
+    "league": "World Cup",
+    "home": "South Africa",
+    "away": "South Korea",
+    "start_ts": 1782349200,
+    "match_id": "4667756",
+    "page_url": "/matches/south-africa-vs-south-korea/1ncyls#4667756",
+    "picks": [
+      {
+        "direction": "away_win",
+        "type": "Victoire extérieur",
+        "label": "South Korea gagne",
+        "cote": 1.67,
+        "confidence": 58,
+        "reasoning": "South Korea : 3V/0N/2D sur 5 matchs · #2 au classement · H2H: 0V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 50-59% historiquement à WR 42% (claim 55%, n=41) — sur-estimé de 14pp",
+        "stats": {
+          "form": [
+            "L",
+            "W",
+            "W",
+            "W",
+            "L"
+          ]
+        },
+        "is_fun": false,
+        "tier": "ok",
+        "calibration_delta": -13.6,
+        "edge_pp": -1.9,
+        "history_top3": true
+      },
+      {
+        "direction": "wc_dc_12",
+        "type": "🏆 Double chance WC",
+        "label": "South Africa ou South Korea (12, pas de nul)",
+        "cote": null,
+        "cote_min": 1.27,
+        "confidence": 79,
+        "tier": "safe",
+        "stats": {
+          "lam_h": 0.34,
+          "lam_a": 1.74,
+          "h_fifa_rank": 54,
+          "a_fifa_rank": 25,
+          "elo_gap": -185,
+          "wc_round": null,
+          "family": "DC"
+        },
+        "reasoning": "📊 Niveau équilibré : South Africa #54 vs South Korea #25 (gap -185 pts).\nL10 : South Africa 0V/3N/2D sur 5 · South Korea 3V/0N/2D sur 5\n📋 Fiche South Africa : off solide (+0.33) · def solide (+0.39) · forme DLDLD · 🏆 novice WC\n📋 Fiche South Korea : off solide (+0.46) · def solide (+0.39) · forme LWWWL · 🏆 présence occasionnelle\n🎯 Importance : South Africa : 1 match joué (0pts) · South Korea : 1 match joué (3pts)\n🌦️ Conditions : chaleur 34.5°C (-10%)\n⚠️ Compo PROBABLE (officielle à T-60min)\n🛡️ Double chance 12 : South Africa (6.5%) OU South Korea (72.3%)\nCombiné = 78.9% — couvre tout sauf le nul\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+        "calibration_delta": -11.3,
+        "history_top3": false
+      },
+      {
+        "direction": "wc_under_25",
+        "type": "⚽ Total buts WC",
+        "label": "Moins de 2.5 buts",
+        "cote": 1.8,
+        "cote_min": 1.52,
+        "confidence": 66,
+        "tier": "ok",
+        "stats": {
+          "lam_h": 0.34,
+          "lam_a": 1.74,
+          "h_fifa_rank": 54,
+          "a_fifa_rank": 25,
+          "elo_gap": -185,
+          "wc_round": null,
+          "family": "TOTAL"
+        },
+        "reasoning": "📊 Niveau équilibré : South Africa #54 vs South Korea #25 (gap -185 pts).\nL10 : South Africa 0V/3N/2D sur 5 · South Korea 3V/0N/2D sur 5\n📋 Fiche South Africa : off solide (+0.33) · def solide (+0.39) · forme DLDLD · 🏆 novice WC\n📋 Fiche South Korea : off solide (+0.46) · def solide (+0.39) · forme LWWWL · 🏆 présence occasionnelle\n🎯 Importance : South Africa : 1 match joué (0pts) · South Korea : 1 match joué (3pts)\n🌦️ Conditions : chaleur 34.5°C (-10%)\n⚠️ Compo PROBABLE (officielle à T-60min)\n⚽ Modèle Poisson : λ total = 2.07\nP(moins de 2.5 buts) = 65.7%\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
+        "calibration_delta": -25.4,
+        "edge_pp": 10.4,
+        "history_top3": true
+      },
+      {
+        "direction": "wc_home_no_score",
+        "type": "🛡️ Clean sheet WC",
+        "label": "South Africa ne marque pas",
+        "cote": null,
+        "cote_min": 1.4,
+        "confidence": 71,
+        "tier": "safe",
+        "stats": {
+          "lam_h": 0.34,
+          "lam_a": 1.74,
+          "h_fifa_rank": 54,
+          "a_fifa_rank": 25,
+          "elo_gap": -185,
+          "wc_round": null,
+          "family": "CLEAN_SHEET"
+        },
+        "reasoning": "📊 Niveau équilibré : South Africa #54 vs South Korea #25 (gap -185 pts).\nL10 : South Africa 0V/3N/2D sur 5 · South Korea 3V/0N/2D sur 5\n📋 Fiche South Africa : off solide (+0.33) · def solide (+0.39) · forme DLDLD · 🏆 novice WC\n📋 Fiche South Korea : off solide (+0.46) · def solide (+0.39) · forme LWWWL · 🏆 présence occasionnelle\n🎯 Importance : South Africa : 1 match joué (0pts) · South Korea : 1 match joué (3pts)\n🌦️ Conditions : chaleur 34.5°C (-10%)\n⚠️ Compo PROBABLE (officielle à T-60min)\n🛡️ P(South Africa blanchi) = 71.5% (λ_South Africa = 0.34)\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+        "calibration_delta": -11.3,
+        "history_top3": true
+      }
+    ],
+    "home_players": [],
+    "away_players": [],
+    "fun_picks": [
+      {
+        "direction": "wc_score_0_1",
+        "type": "🏆 Score exact WC",
+        "label": "Score exact : South Africa 0-1 South Korea",
+        "cote_min": 4.58,
+        "confidence": 22,
+        "tier": "fun",
+        "is_fun": true,
+        "stats": {
+          "lam_h": 0.34,
+          "lam_a": 1.74,
+          "h_fifa_rank": 54,
+          "a_fifa_rank": 25,
+          "elo_gap": -185
+        },
+        "reasoning": "📊 Niveau équilibré : South Africa #54 vs South Korea #25 (gap -185 pts).\nL10 : South Africa 0V/3N/2D sur 5 · South Korea 3V/0N/2D sur 5\n🏆 Coupe du Monde 2026 - score exact (Poisson grid, ajusté Elo FIFA)\nλ South Africa = 0.34 buts, λ South Korea = 1.74 buts\nTop 3 : 0-1 (21.8%) · 0-2 (19.0%) · 0-0 (12.6%)\n⚠️ Pari fun (cote élevée typique 4-8) - mise modeste",
+        "exact_score": [
+          0,
+          1
+        ],
+        "wc_top3": [
+          [
+            [
+              0,
+              1
+            ],
+            21.8
+          ],
+          [
+            [
+              0,
+              2
+            ],
+            19.0
+          ],
+          [
+            [
+              0,
+              0
+            ],
+            12.6
+          ]
+        ],
+        "history_top3": true
+      }
+    ],
+    "top_pick": {
+      "direction": "away_win",
+      "type": "Victoire extérieur",
+      "label": "South Korea gagne",
+      "cote": 1.67,
+      "confidence": 58,
+      "reasoning": "South Korea : 3V/0N/2D sur 5 matchs · #2 au classement · H2H: 0V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 50-59% historiquement à WR 42% (claim 55%, n=41) — sur-estimé de 14pp",
+      "stats": {
+        "form": [
+          "L",
+          "W",
+          "W",
+          "W",
+          "L"
+        ]
+      },
+      "is_fun": false,
+      "tier": "ok",
+      "calibration_delta": -13.6,
+      "edge_pp": -1.9,
+      "history_top3": true
+    },
+    "no_picks": false,
+    "context": {
+      "stadium": {
+        "name": "Estadio BBVA",
+        "city": "Monterrey",
+        "country": "Mexique",
+        "lat": 25.6692,
+        "lon": -100.2444,
+        "capacity": 53500,
+        "surface": "Natural grass",
+        "altitude_m": 500,
+        "type": "outdoor",
+        "climatized": false,
+        "context_fr": "Climat semi-aride, chaleur élevée en juin (35-40°C l'après-midi)."
+      },
+      "weather": {
+        "temp_max": 34.5,
+        "temp_min": 22.1,
+        "humidity": 39,
+        "precipitation_sum_mm": 0.0,
+        "wind_max_kmh": 27.8,
+        "weather_code": 3,
+        "summary_fr": "☁️ couvert · 22–34°C · humidité 39%"
+      },
+      "text": "Conditions : ☁️ couvert · 22–34°C · humidité 39%. Stade : Estadio BBVA · altitude 500m · 53 500 places · plein air. Climat semi-aride, chaleur élevée en juin (35-40°C l'après-midi). ⚠️ Forte chaleur (>32°C) en plein air : impact endurance, plus de pauses hydratation."
+    }
+  },
+  {
     "league": "Latvian Virsliga",
     "home": "SK Super Nova",
     "away": "FK Jelgava",
@@ -4004,15 +4026,15 @@
         "surface": null
       },
       "weather": {
-        "temp_max": 25.0,
-        "temp_min": 14.6,
-        "humidity": 51,
+        "temp_max": 24.6,
+        "temp_min": 15.1,
+        "humidity": 47,
         "precipitation_sum_mm": 0.0,
-        "wind_max_kmh": 10.4,
-        "weather_code": 3,
-        "summary_fr": "☁️ couvert · 14–25°C · humidité 51%"
+        "wind_max_kmh": 11.9,
+        "weather_code": 2,
+        "summary_fr": "⛅ partiellement nuageux · 15–24°C · humidité 47%"
       },
-      "text": "Conditions : ☁️ couvert · 14–25°C · humidité 51%. Stade : RFS Jāņa Skredeļa sporta komplekss Dabīgais segum · plein air."
+      "text": "Conditions : ⛅ partiellement nuageux · 15–24°C · humidité 47%. Stade : RFS Jāņa Skredeļa sporta komplekss Dabīgais segum · plein air."
     }
   }
 ]
