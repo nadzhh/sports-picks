@@ -1,6 +1,6 @@
 {
   "_meta": "Fiches équipes nationales : aisance off/def vs attendu Elo, forme L5/L10. Consommé par picks_engine pour ajuster λ Poisson WC.",
-  "_updated": "2026-06-24T21:02:03+00:00",
+  "_updated": "2026-06-24T21:31:43+00:00",
   "teams": {
     "mexico": {
       "fotmob_team_id": "6710",
@@ -164,7 +164,7 @@
         "Forme exceptionnelle : 5 victoires sur L5",
         "Défense solide : 8 clean sheets sur L10"
       ],
-      "last_updated": "2026-06-24T21:01:34+00:00"
+      "last_updated": "2026-06-24T21:31:17+00:00"
     },
     "south_africa": {
       "fotmob_team_id": "6316",
@@ -328,7 +328,7 @@
         "Défense +0.8 but/match vs attendu Elo",
         "Aucune phase finale WC sur les 3 dernières éditions"
       ],
-      "last_updated": "2026-06-24T21:01:35+00:00"
+      "last_updated": "2026-06-24T21:31:17+00:00"
     },
     "south_korea": {
       "fotmob_team_id": "7804",
@@ -493,7 +493,7 @@
         "Attaque en panne : 4 blanchies sur L10",
         "Défense +0.8 but/match vs attendu Elo"
       ],
-      "last_updated": "2026-06-24T21:01:36+00:00"
+      "last_updated": "2026-06-24T21:31:18+00:00"
     },
     "czechia": {
       "fotmob_team_id": "8496",
@@ -656,7 +656,7 @@
       "notes_fr": [
         "Aucune phase finale WC sur les 3 dernières éditions"
       ],
-      "last_updated": "2026-06-24T21:01:36+00:00"
+      "last_updated": "2026-06-24T21:31:18+00:00"
     },
     "canada": {
       "fotmob_team_id": "5810",
@@ -821,43 +821,54 @@
         "Attaque +0.7 but/match vs attendu Elo",
         "Défense +1.2 but/match vs attendu Elo"
       ],
-      "last_updated": "2026-06-24T21:01:36+00:00"
+      "last_updated": "2026-06-24T21:31:19+00:00"
     },
     "bosnia_and_herzegovina": {
       "fotmob_team_id": "10106",
       "fifa_rank": null,
       "fifa_points": 1200,
       "matches_n": 12,
-      "off_score": 0.89,
-      "def_score": 0.38,
+      "off_score": 1.0,
+      "def_score": 0.46,
       "off_rating": "bon",
       "def_rating": "bon",
-      "form": "LDDDD",
+      "form": "WLDDD",
       "stats_l5": {
         "n": 5,
-        "gf_pm": 0.8,
+        "gf_pm": 1.2,
         "ga_pm": 1.4,
         "clean_sheets": 1,
         "failed_to_score": 1,
         "btts": 4,
-        "wins": 0,
-        "draws": 4,
+        "wins": 1,
+        "draws": 3,
         "losses": 1
       },
       "stats_l10": {
         "n": 10,
-        "gf_pm": 1.5,
-        "ga_pm": 1.3,
+        "gf_pm": 1.6,
+        "ga_pm": 1.2,
         "clean_sheets": 1,
         "failed_to_score": 1,
         "btts": 9,
-        "wins": 2,
-        "draws": 7,
+        "wins": 3,
+        "draws": 6,
         "losses": 1,
-        "gf_expected_pm": 0.79,
-        "ga_expected_pm": 2.11
+        "gf_expected_pm": 0.67,
+        "ga_expected_pm": 2.23
       },
       "recent": [
+        {
+          "date": "2026-06-24",
+          "opp": "Qatar",
+          "opp_slug": "qatar",
+          "opp_id": 5902,
+          "venue": "home",
+          "gf": 3,
+          "ga": 1,
+          "result": "W",
+          "comp": "World Cup Grp. B"
+        },
         {
           "date": "2026-06-18",
           "opp": "Switzerland",
@@ -956,17 +967,6 @@
           "ga": 1,
           "result": "W",
           "comp": "Friendlies"
-        },
-        {
-          "date": "2025-10-09",
-          "opp": "Cyprus",
-          "opp_slug": "cyprus",
-          "opp_id": 5793,
-          "venue": "away",
-          "gf": 2,
-          "ga": 2,
-          "result": "D",
-          "comp": "World Cup Qualification UEFA 1st Round Grp. H"
         }
       ],
       "wc_pedigree": {
@@ -982,10 +982,10 @@
         "summary_fr": "phase de poules en 2014"
       },
       "notes_fr": [
-        "Attaque +0.7 but/match vs attendu Elo",
-        "Défense +0.8 but/match vs attendu Elo"
+        "Attaque +0.9 but/match vs attendu Elo",
+        "Défense +1.0 but/match vs attendu Elo"
       ],
-      "last_updated": "2026-06-24T21:01:38+00:00"
+      "last_updated": "2026-06-24T21:31:19+00:00"
     },
     "usa": {
       "fotmob_team_id": "6713",
@@ -1148,7 +1148,7 @@
       "notes_fr": [
         "Attaque +0.8 but/match vs attendu Elo"
       ],
-      "last_updated": "2026-06-24T21:01:38+00:00"
+      "last_updated": "2026-06-24T21:31:19+00:00"
     },
     "paraguay": {
       "fotmob_team_id": "6724",
@@ -1311,43 +1311,54 @@
       "notes_fr": [
         "Aucune phase finale WC sur les 3 dernières éditions"
       ],
-      "last_updated": "2026-06-24T21:01:39+00:00"
+      "last_updated": "2026-06-24T21:31:20+00:00"
     },
     "qatar": {
       "fotmob_team_id": "5902",
       "fifa_rank": 53,
       "fifa_points": 1406,
-      "matches_n": 11,
-      "off_score": -0.7,
-      "def_score": -0.64,
+      "matches_n": 12,
+      "off_score": -0.66,
+      "def_score": -1.0,
       "off_rating": "nul",
       "def_rating": "nul",
-      "form": "LDDLL",
+      "form": "LLDDL",
       "stats_l5": {
         "n": 5,
-        "gf_pm": 0.2,
+        "gf_pm": 0.4,
         "ga_pm": 2.2,
         "clean_sheets": 1,
-        "failed_to_score": 4,
-        "btts": 1,
+        "failed_to_score": 3,
+        "btts": 2,
         "wins": 0,
         "draws": 2,
         "losses": 3
       },
       "stats_l10": {
         "n": 10,
-        "gf_pm": 0.5,
-        "ga_pm": 1.6,
-        "clean_sheets": 2,
-        "failed_to_score": 6,
-        "btts": 4,
+        "gf_pm": 0.6,
+        "ga_pm": 1.9,
+        "clean_sheets": 1,
+        "failed_to_score": 5,
+        "btts": 5,
         "wins": 1,
-        "draws": 4,
-        "losses": 5,
-        "gf_expected_pm": 1.69,
-        "ga_expected_pm": 0.97
+        "draws": 3,
+        "losses": 6,
+        "gf_expected_pm": 1.77,
+        "ga_expected_pm": 0.92
       },
       "recent": [
+        {
+          "date": "2026-06-24",
+          "opp": "Bosnia and Herzegovina",
+          "opp_slug": "bosnia_and_herzegovina",
+          "opp_id": 10106,
+          "venue": "away",
+          "gf": 1,
+          "ga": 3,
+          "result": "L",
+          "comp": "World Cup Grp. B"
+        },
         {
           "date": "2026-06-18",
           "opp": "Canada",
@@ -1446,17 +1457,6 @@
           "ga": 1,
           "result": "W",
           "comp": "World Cup Qualification AFC 4th Round Grp. A"
-        },
-        {
-          "date": "2025-10-08",
-          "opp": "Oman",
-          "opp_slug": "oman",
-          "opp_id": 5824,
-          "venue": "away",
-          "gf": 0,
-          "ga": 0,
-          "result": "D",
-          "comp": "World Cup Qualification AFC 4th Round Grp. A"
         }
       ],
       "wc_pedigree": {
@@ -1473,11 +1473,12 @@
       },
       "notes_fr": [
         "Forme inquiétante : 3 défaites sur L5",
-        "Attaque en panne : 6 blanchies sur L10",
+        "Attaque en panne : 5 blanchies sur L10",
+        "Défense fragile : 1.9 buts encaissés/match sur L10",
         "Attaque -1.2 but/match vs attendu Elo",
-        "Défense -0.6 but/match vs attendu Elo"
+        "Défense -1.0 but/match vs attendu Elo"
       ],
-      "last_updated": "2026-06-24T21:01:39+00:00"
+      "last_updated": "2026-06-24T21:31:20+00:00"
     },
     "switzerland": {
       "fotmob_team_id": "6717",
@@ -1638,7 +1639,7 @@
         "summary_fr": "phase de poules en 2022 · 1/8 en 2018 · 1/8 en 2014"
       },
       "notes_fr": [],
-      "last_updated": "2026-06-24T21:01:40+00:00"
+      "last_updated": "2026-06-24T21:31:21+00:00"
     },
     "brazil": {
       "fotmob_team_id": "8256",
@@ -1806,7 +1807,7 @@
         "Attaque prolifique : 2.6 buts/match sur L10",
         "Habituée du tournoi : quart de finale en 2022 · quart de finale en 2018 · demi-finaliste en 2014 · 2 titres (1994, 2002)"
       ],
-      "last_updated": "2026-06-24T21:01:40+00:00"
+      "last_updated": "2026-06-24T21:31:22+00:00"
     },
     "morocco": {
       "fotmob_team_id": "6262",
@@ -1970,7 +1971,7 @@
         "Défense solide : 6 clean sheets sur L10",
         "Attaque -0.7 but/match vs attendu Elo"
       ],
-      "last_updated": "2026-06-24T21:01:41+00:00"
+      "last_updated": "2026-06-24T21:31:22+00:00"
     },
     "haiti": {
       "fotmob_team_id": "5934",
@@ -2135,7 +2136,7 @@
         "Attaque en panne : 4 blanchies sur L10",
         "Aucune phase finale WC sur les 3 dernières éditions"
       ],
-      "last_updated": "2026-06-24T21:01:41+00:00"
+      "last_updated": "2026-06-24T21:31:23+00:00"
     },
     "scotland": {
       "fotmob_team_id": "8498",
@@ -2298,7 +2299,7 @@
       "notes_fr": [
         "Aucune phase finale WC sur les 3 dernières éditions"
       ],
-      "last_updated": "2026-06-24T21:01:42+00:00"
+      "last_updated": "2026-06-24T21:31:23+00:00"
     },
     "australia": {
       "fotmob_team_id": "6716",
@@ -2461,7 +2462,7 @@
       "notes_fr": [
         "Attaque en panne : 4 blanchies sur L10"
       ],
-      "last_updated": "2026-06-24T21:01:42+00:00"
+      "last_updated": "2026-06-24T21:31:24+00:00"
     },
     "turkiye": {
       "fotmob_team_id": "6595",
@@ -2624,7 +2625,7 @@
       "notes_fr": [
         "Aucune phase finale WC sur les 3 dernières éditions"
       ],
-      "last_updated": "2026-06-24T21:01:43+00:00"
+      "last_updated": "2026-06-24T21:31:24+00:00"
     },
     "germany": {
       "fotmob_team_id": "8570",
@@ -2793,7 +2794,7 @@
         "Attaque prolifique : 3.4 buts/match sur L10",
         "Habituée du tournoi : phase de poules en 2022 · phase de poules en 2018 · vainqueur en 2014 · 2 titres (1990, 2014)"
       ],
-      "last_updated": "2026-06-24T21:01:43+00:00"
+      "last_updated": "2026-06-24T21:31:25+00:00"
     },
     "curacao": {
       "fotmob_team_id": "287981",
@@ -2959,7 +2960,7 @@
         "Attaque +0.6 but/match vs attendu Elo",
         "Aucune phase finale WC sur les 3 dernières éditions"
       ],
-      "last_updated": "2026-06-24T21:01:44+00:00"
+      "last_updated": "2026-06-24T21:31:25+00:00"
     },
     "netherlands": {
       "fotmob_team_id": "6708",
@@ -3123,7 +3124,7 @@
         "Attaque prolifique : 2.5 buts/match sur L10",
         "Habituée du tournoi : quart de finale en 2022 · demi-finaliste en 2014"
       ],
-      "last_updated": "2026-06-24T21:01:44+00:00"
+      "last_updated": "2026-06-24T21:31:26+00:00"
     },
     "japan": {
       "fotmob_team_id": "6715",
@@ -3287,7 +3288,7 @@
         "Forme exceptionnelle : 4 victoires sur L5",
         "Défense solide : 6 clean sheets sur L10"
       ],
-      "last_updated": "2026-06-24T21:01:45+00:00"
+      "last_updated": "2026-06-24T21:31:26+00:00"
     },
     "ivory_coast": {
       "fotmob_team_id": "6709",
@@ -3453,7 +3454,7 @@
         "Attaque +1.1 but/match vs attendu Elo",
         "Défense +1.2 but/match vs attendu Elo"
       ],
-      "last_updated": "2026-06-24T21:01:45+00:00"
+      "last_updated": "2026-06-24T21:31:27+00:00"
     },
     "ecuador": {
       "fotmob_team_id": "6707",
@@ -3616,7 +3617,7 @@
       "notes_fr": [
         "Attaque -1.2 but/match vs attendu Elo"
       ],
-      "last_updated": "2026-06-24T21:01:46+00:00"
+      "last_updated": "2026-06-24T21:31:27+00:00"
     },
     "sweden": {
       "fotmob_team_id": "8520",
@@ -3780,7 +3781,7 @@
         "Défense fragile : 2.2 buts encaissés/match sur L10",
         "Défense -1.1 but/match vs attendu Elo"
       ],
-      "last_updated": "2026-06-24T21:01:46+00:00"
+      "last_updated": "2026-06-24T21:31:28+00:00"
     },
     "tunisia": {
       "fotmob_team_id": "6719",
@@ -3947,7 +3948,7 @@
         "Attaque -0.8 but/match vs attendu Elo",
         "Défense -1.1 but/match vs attendu Elo"
       ],
-      "last_updated": "2026-06-24T21:01:47+00:00"
+      "last_updated": "2026-06-24T21:31:28+00:00"
     },
     "spain": {
       "fotmob_team_id": "6720",
@@ -4113,7 +4114,7 @@
         "Défense solide : 7 clean sheets sur L10",
         "Attaque -1.0 but/match vs attendu Elo"
       ],
-      "last_updated": "2026-06-24T21:01:48+00:00"
+      "last_updated": "2026-06-24T21:31:29+00:00"
     },
     "cape_verde": {
       "fotmob_team_id": "5888",
@@ -4279,7 +4280,7 @@
         "Défense +1.2 but/match vs attendu Elo",
         "Aucune phase finale WC sur les 3 dernières éditions"
       ],
-      "last_updated": "2026-06-24T21:01:48+00:00"
+      "last_updated": "2026-06-24T21:31:29+00:00"
     },
     "belgium": {
       "fotmob_team_id": "8263",
@@ -4444,7 +4445,7 @@
         "Attaque prolifique : 2.6 buts/match sur L10",
         "Habituée du tournoi : phase de poules en 2022 · demi-finaliste en 2018 · quart de finale en 2014"
       ],
-      "last_updated": "2026-06-24T21:01:49+00:00"
+      "last_updated": "2026-06-24T21:31:30+00:00"
     },
     "egypt": {
       "fotmob_team_id": "10255",
@@ -4605,7 +4606,7 @@
         "summary_fr": "phase de poules en 2018"
       },
       "notes_fr": [],
-      "last_updated": "2026-06-24T21:01:50+00:00"
+      "last_updated": "2026-06-24T21:31:30+00:00"
     },
     "saudi_arabia": {
       "fotmob_team_id": "7795",
@@ -4769,7 +4770,7 @@
         "Attaque en panne : 5 blanchies sur L10",
         "Défense +0.9 but/match vs attendu Elo"
       ],
-      "last_updated": "2026-06-24T21:01:50+00:00"
+      "last_updated": "2026-06-24T21:31:31+00:00"
     },
     "uruguay": {
       "fotmob_team_id": "5796",
@@ -4933,7 +4934,7 @@
         "Défense solide : 5 clean sheets sur L10",
         "Attaque -1.3 but/match vs attendu Elo"
       ],
-      "last_updated": "2026-06-24T21:01:51+00:00"
+      "last_updated": "2026-06-24T21:31:31+00:00"
     },
     "iran": {
       "fotmob_team_id": "6711",
@@ -5074,7 +5075,7 @@
       "notes_fr": [
         "Attaque -1.4 but/match vs attendu Elo"
       ],
-      "last_updated": "2026-06-24T21:01:51+00:00"
+      "last_updated": "2026-06-24T21:31:32+00:00"
     },
     "new_zealand": {
       "fotmob_team_id": "5820",
@@ -5241,7 +5242,7 @@
         "Défense +0.7 but/match vs attendu Elo",
         "Aucune phase finale WC sur les 3 dernières éditions"
       ],
-      "last_updated": "2026-06-24T21:01:52+00:00"
+      "last_updated": "2026-06-24T21:31:33+00:00"
     },
     "france": {
       "fotmob_team_id": "6723",
@@ -5409,7 +5410,7 @@
         "Attaque prolifique : 2.7 buts/match sur L10",
         "Pédigrée WC élite : finaliste en 2022 · vainqueur en 2018 · quart de finale en 2014 · 2 titres (1998, 2018)"
       ],
-      "last_updated": "2026-06-24T21:01:52+00:00"
+      "last_updated": "2026-06-24T21:31:33+00:00"
     },
     "senegal": {
       "fotmob_team_id": "6395",
@@ -5572,7 +5573,7 @@
       "notes_fr": [
         "Forme inquiétante : 3 défaites sur L5"
       ],
-      "last_updated": "2026-06-24T21:01:53+00:00"
+      "last_updated": "2026-06-24T21:31:34+00:00"
     },
     "iraq": {
       "fotmob_team_id": "5819",
@@ -5738,7 +5739,7 @@
         "Attaque -0.6 but/match vs attendu Elo",
         "Aucune phase finale WC sur les 3 dernières éditions"
       ],
-      "last_updated": "2026-06-24T21:01:53+00:00"
+      "last_updated": "2026-06-24T21:31:34+00:00"
     },
     "norway": {
       "fotmob_team_id": "8492",
@@ -5903,7 +5904,7 @@
         "Attaque +1.1 but/match vs attendu Elo",
         "Aucune phase finale WC sur les 3 dernières éditions"
       ],
-      "last_updated": "2026-06-24T21:01:54+00:00"
+      "last_updated": "2026-06-24T21:31:35+00:00"
     },
     "argentina": {
       "fotmob_team_id": "6706",
@@ -6072,7 +6073,7 @@
         "Attaque -1.0 but/match vs attendu Elo",
         "Pédigrée WC élite : vainqueur en 2022 · 1/8 en 2018 · finaliste en 2014 · 1 titre (2022)"
       ],
-      "last_updated": "2026-06-24T21:01:54+00:00"
+      "last_updated": "2026-06-24T21:31:35+00:00"
     },
     "algeria": {
       "fotmob_team_id": "6317",
@@ -6235,7 +6236,7 @@
       "notes_fr": [
         "Défense solide : 6 clean sheets sur L10"
       ],
-      "last_updated": "2026-06-24T21:01:55+00:00"
+      "last_updated": "2026-06-24T21:31:35+00:00"
     },
     "austria": {
       "fotmob_team_id": "8255",
@@ -6400,7 +6401,7 @@
         "Attaque prolifique : 2.5 buts/match sur L10",
         "Aucune phase finale WC sur les 3 dernières éditions"
       ],
-      "last_updated": "2026-06-24T21:01:56+00:00"
+      "last_updated": "2026-06-24T21:31:36+00:00"
     },
     "jordan": {
       "fotmob_team_id": "5816",
@@ -6564,7 +6565,7 @@
         "Forme inquiétante : 4 défaites sur L5",
         "Aucune phase finale WC sur les 3 dernières éditions"
       ],
-      "last_updated": "2026-06-24T21:01:56+00:00"
+      "last_updated": "2026-06-24T21:31:36+00:00"
     },
     "portugal": {
       "fotmob_team_id": "8361",
@@ -6727,7 +6728,7 @@
       "notes_fr": [
         "Forme exceptionnelle : 4 victoires sur L5"
       ],
-      "last_updated": "2026-06-24T21:01:57+00:00"
+      "last_updated": "2026-06-24T21:31:37+00:00"
     },
     "dr_congo": {
       "fotmob_team_id": "6321",
@@ -6892,7 +6893,7 @@
         "Défense +1.6 but/match vs attendu Elo",
         "Aucune phase finale WC sur les 3 dernières éditions"
       ],
-      "last_updated": "2026-06-24T21:01:58+00:00"
+      "last_updated": "2026-06-24T21:31:38+00:00"
     },
     "england": {
       "fotmob_team_id": "8491",
@@ -7057,7 +7058,7 @@
         "Attaque -0.8 but/match vs attendu Elo",
         "Habituée du tournoi : quart de finale en 2022 · demi-finaliste en 2018 · phase de poules en 2014"
       ],
-      "last_updated": "2026-06-24T21:01:58+00:00"
+      "last_updated": "2026-06-24T21:31:38+00:00"
     },
     "croatia": {
       "fotmob_team_id": "10155",
@@ -7221,7 +7222,7 @@
         "Forme inquiétante : 3 défaites sur L5",
         "Habituée du tournoi : demi-finaliste en 2022 · finaliste en 2018 · phase de poules en 2014"
       ],
-      "last_updated": "2026-06-24T21:01:59+00:00"
+      "last_updated": "2026-06-24T21:31:39+00:00"
     },
     "ghana": {
       "fotmob_team_id": "6714",
@@ -7384,7 +7385,7 @@
       "notes_fr": [
         "Attaque en panne : 5 blanchies sur L10"
       ],
-      "last_updated": "2026-06-24T21:01:59+00:00"
+      "last_updated": "2026-06-24T21:31:39+00:00"
     },
     "panama": {
       "fotmob_team_id": "5922",
@@ -7547,7 +7548,7 @@
       "notes_fr": [
         "Forme inquiétante : 3 défaites sur L5"
       ],
-      "last_updated": "2026-06-24T21:02:00+00:00"
+      "last_updated": "2026-06-24T21:31:39+00:00"
     },
     "uzbekistan": {
       "fotmob_team_id": "8700",
@@ -7701,7 +7702,7 @@
         "Attaque en panne : 4 blanchies sur L10",
         "Aucune phase finale WC sur les 3 dernières éditions"
       ],
-      "last_updated": "2026-06-24T21:02:01+00:00"
+      "last_updated": "2026-06-24T21:31:40+00:00"
     },
     "colombia": {
       "fotmob_team_id": "8258",
@@ -7865,7 +7866,7 @@
         "Forme exceptionnelle : 4 victoires sur L5",
         "Défense solide : 5 clean sheets sur L10"
       ],
-      "last_updated": "2026-06-24T21:02:01+00:00"
+      "last_updated": "2026-06-24T21:31:40+00:00"
     },
     "mexico_3cefhi": {
       "fotmob_team_id": "2037340",
@@ -7885,7 +7886,7 @@
         "summary_fr": "Pas d'historique récent en Coupe du Monde"
       },
       "notes_fr": [],
-      "last_updated": "2026-06-24T21:02:02+00:00"
+      "last_updated": "2026-06-24T21:31:41+00:00"
     },
     "usa_3befij": {
       "fotmob_team_id": "2040089",
@@ -7905,7 +7906,7 @@
         "summary_fr": "Pas d'historique récent en Coupe du Monde"
       },
       "notes_fr": [],
-      "last_updated": "2026-06-24T21:02:03+00:00"
+      "last_updated": "2026-06-24T21:31:41+00:00"
     },
     "germany_3abcdf": {
       "fotmob_team_id": "2042059",
@@ -7925,7 +7926,7 @@
         "summary_fr": "Pas d'historique récent en Coupe du Monde"
       },
       "notes_fr": [],
-      "last_updated": "2026-06-24T21:02:03+00:00"
+      "last_updated": "2026-06-24T21:31:42+00:00"
     },
     "argentina_2h": {
       "fotmob_team_id": "2046745",
@@ -7945,7 +7946,27 @@
         "summary_fr": "Pas d'historique récent en Coupe du Monde"
       },
       "notes_fr": [],
-      "last_updated": "2026-06-24T21:02:03+00:00"
+      "last_updated": "2026-06-24T21:31:42+00:00"
+    },
+    "switzerland_3efgij": {
+      "fotmob_team_id": "2053120",
+      "fifa_rank": null,
+      "fifa_points": 1200,
+      "matches_n": 0,
+      "off_score": 0.0,
+      "def_score": 0.0,
+      "off_rating": "moyen",
+      "def_rating": "moyen",
+      "form": "",
+      "wc_pedigree": {
+        "history": {},
+        "score": 0.0,
+        "label": "inconnu",
+        "titles_count": 0,
+        "summary_fr": "Pas d'historique récent en Coupe du Monde"
+      },
+      "notes_fr": [],
+      "last_updated": "2026-06-24T21:31:43+00:00"
     }
   }
 }
