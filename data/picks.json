@@ -480,7 +480,7 @@
         "direction": "away_win",
         "type": "Victoire extérieur",
         "label": "Mexico gagne",
-        "cote": 1.95,
+        "cote": 1.91,
         "confidence": 81,
         "reasoning": "Mexico : 5V/0N/0D sur 5 matchs · #1 au classement · H2H: 0V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 80-89% historiquement à WR 56% (claim 82%, n=63) — sur-estimé de 26pp",
         "stats": {
@@ -495,7 +495,7 @@
         "is_fun": false,
         "tier": "ok",
         "calibration_delta": -26.0,
-        "edge_pp": 29.7,
+        "edge_pp": 28.6,
         "history_top3": true
       },
       {
@@ -765,6 +765,31 @@
         "history_top3": true
       },
       {
+        "player": "Vinícius Júnior / Matheus Cunha",
+        "position": "",
+        "is_sub": false,
+        "type": "Double Chance Buteur",
+        "label": "Vinícius Júnior ou Matheus Cunha marque",
+        "cote": null,
+        "book": null,
+        "books": [],
+        "confidence": 65,
+        "cote_min": 1.54,
+        "reasoning": "📈 P(Vinícius Júnior marque) ≈ 40% · P(Matheus Cunha marque) ≈ 40%\n🎯 P(au moins un marque) = 65% (calculée par 1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.54 - chercher ≥1.54 chez le bookmaker\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
+        "context": {},
+        "stats": {
+          "p_a": 0.405,
+          "p_b": 0.405,
+          "p_or": 0.646,
+          "player_a": "Vinícius Júnior",
+          "player_b": "Matheus Cunha"
+        },
+        "team": "away",
+        "tier": "ok",
+        "calibration_delta": -25.4,
+        "history_top3": true
+      },
+      {
         "player": "Rayan",
         "position": "F",
         "is_sub": false,
@@ -791,7 +816,7 @@
         "lineup_status": "confirmed",
         "tier": "ok",
         "calibration_delta": -25.4,
-        "history_top3": true
+        "history_top3": false
       },
       {
         "player": "Vinícius Júnior",
