@@ -1056,30 +1056,7 @@
         "history_top3": false
       }
     ],
-    "home_players": [
-      {
-        "player": "Erling Haaland",
-        "position": "F",
-        "is_sub": false,
-        "type": "Buteur",
-        "label": "Erling Haaland marque",
-        "team": "home",
-        "cote": null,
-        "book": null,
-        "books": [],
-        "confidence": 37,
-        "reasoning": "4G en 10 matchs (40.0%/match) · xG: 0.27/match",
-        "context": {
-          "weakness": 0.37
-        },
-        "stats": {
-          "goals": 4,
-          "apps": 10
-        },
-        "tier": "fun",
-        "history_top3": false
-      }
-    ],
+    "home_players": [],
     "away_players": [
       {
         "player": "Michael Olise",
@@ -1111,6 +1088,31 @@
         "history_top3": true
       },
       {
+        "player": "Kylian Mbappé / Ousmane Dembélé",
+        "position": "",
+        "is_sub": false,
+        "type": "Double Chance Buteur",
+        "label": "Kylian Mbappé ou Ousmane Dembélé marque",
+        "cote": null,
+        "book": null,
+        "books": [],
+        "confidence": 65,
+        "cote_min": 1.54,
+        "reasoning": "📈 P(Kylian Mbappé marque) ≈ 43% · P(Ousmane Dembélé marque) ≈ 38%\n🎯 P(au moins un marque) = 65% (calculée par 1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.54 - chercher ≥1.54 chez le bookmaker\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
+        "context": {},
+        "stats": {
+          "p_a": 0.428,
+          "p_b": 0.382,
+          "p_or": 0.647,
+          "player_a": "Kylian Mbappé",
+          "player_b": "Ousmane Dembélé"
+        },
+        "team": "away",
+        "tier": "ok",
+        "calibration_delta": -25.4,
+        "history_top3": true
+      },
+      {
         "player": "Kylian Mbappé",
         "position": "F",
         "is_sub": false,
@@ -1137,7 +1139,7 @@
         "lineup_status": "confirmed",
         "tier": "ok",
         "calibration_delta": -25.4,
-        "history_top3": true
+        "history_top3": false
       },
       {
         "player": "Michael Olise",
@@ -1598,7 +1600,7 @@
         "direction": "fun_draw",
         "type": "🎲 Paris fun",
         "label": "Match nul",
-        "cote": 2.55,
+        "cote": 2.65,
         "confidence": 45,
         "is_fun": true,
         "stats": {
@@ -1610,10 +1612,10 @@
             "D"
           ]
         },
-        "reasoning": "Deux équipes au niveau similaire (#1 vs #2), forme équilibrée des deux côtés — nul logique à 2.55\n📉 Calibration : bucket 40-49% historiquement à WR 25% (claim 44%, n=36) — sur-estimé de 19pp",
+        "reasoning": "Deux équipes au niveau similaire (#1 vs #2), forme équilibrée des deux côtés — nul logique à 2.65\n📉 Calibration : bucket 40-49% historiquement à WR 25% (claim 44%, n=36) — sur-estimé de 19pp",
         "tier": "fun",
         "calibration_delta": -19.4,
-        "edge_pp": 5.8,
+        "edge_pp": 7.3,
         "history_top3": true
       },
       {
