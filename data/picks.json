@@ -3324,6 +3324,28 @@
     "away_players": [],
     "fun_picks": [
       {
+        "direction": "fun_draw",
+        "type": "🎲 Paris fun",
+        "label": "Match nul",
+        "cote": 3.5,
+        "confidence": 45,
+        "is_fun": true,
+        "stats": {
+          "form": [
+            "D",
+            "D",
+            "W",
+            "D",
+            "L"
+          ]
+        },
+        "reasoning": "Deux équipes au niveau similaire (#6 vs #4), forme équilibrée des deux côtés — nul logique à 3.5\n📉 Calibration : bucket 40-49% historiquement à WR 25% (claim 44%, n=36) — sur-estimé de 19pp",
+        "tier": "fun",
+        "calibration_delta": -19.4,
+        "edge_pp": 16.4,
+        "history_top3": true
+      },
+      {
         "direction": "wc_score_1_1",
         "type": "🏆 Score exact WC",
         "label": "Score exact : Cape Verde 1-1 Saudi Arabia",
@@ -4407,7 +4429,7 @@
         "direction": "away_win",
         "type": "Victoire extérieur",
         "label": "Spain gagne",
-        "cote": 1.67,
+        "cote": 1.69,
         "confidence": 59,
         "reasoning": "Spain : 2V/3N/0D sur 5 matchs · #1 au classement · H2H: 0V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 50-59% historiquement à WR 42% (claim 55%, n=41) — sur-estimé de 14pp",
         "stats": {
@@ -4422,7 +4444,7 @@
         "is_fun": false,
         "tier": "ok",
         "calibration_delta": -13.6,
-        "edge_pp": -0.9,
+        "edge_pp": -0.2,
         "history_top3": true
       },
       {
@@ -4631,7 +4653,7 @@
       "direction": "away_win",
       "type": "Victoire extérieur",
       "label": "Spain gagne",
-      "cote": 1.67,
+      "cote": 1.69,
       "confidence": 59,
       "reasoning": "Spain : 2V/3N/0D sur 5 matchs · #1 au classement · H2H: 0V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 50-59% historiquement à WR 42% (claim 55%, n=41) — sur-estimé de 14pp",
       "stats": {
@@ -4646,7 +4668,7 @@
       "is_fun": false,
       "tier": "ok",
       "calibration_delta": -13.6,
-      "edge_pp": -0.9,
+      "edge_pp": -0.2,
       "history_top3": true
     },
     "no_picks": false,
