@@ -26815,14 +26815,14 @@
       "cote": null,
       "book": null,
       "books": [],
-      "confidence": 66,
-      "cote_min": 1.52,
-      "reasoning": "📈 P(Alie Conteh marque) ≈ 46% · P(Jasse Tuominen marque) ≈ 37%\n🎯 P(au moins un marque) = 66% (calculée par 1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.52 - chercher ≥1.52 chez le bookmaker\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
+      "confidence": 69,
+      "cote_min": 1.45,
+      "reasoning": "📈 P(Alie Conteh marque) ≈ 50% · P(Jasse Tuominen marque) ≈ 37%\n🎯 P(au moins un marque) = 69% (calculée par 1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.45 - chercher ≥1.45 chez le bookmaker\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
       "context": {},
       "stats": {
-        "p_a": 0.458,
+        "p_a": 0.502,
         "p_b": 0.368,
-        "p_or": 0.657,
+        "p_or": 0.685,
         "player_a": "Alie Conteh",
         "player_b": "Jasse Tuominen"
       },
@@ -26872,6 +26872,42 @@
       "result": "PENDING",
       "actual": null,
       "resolved_at": null
+    },
+    {
+      "player": "Alie Conteh",
+      "position": "F",
+      "is_sub": false,
+      "type": "Buteur",
+      "label": "Alie Conteh marque",
+      "cote": null,
+      "book": null,
+      "books": [],
+      "confidence": 50,
+      "reasoning": "6 buts en 14 matchs cette saison (42.9% de chance/match) · xG moyen 0.00/match, face à une défense qui concède 1.8 buts/match · défense fragile\n📉 Calibration : bucket 50-59% historiquement à WR 42% (claim 55%, n=41) — sur-estimé de 14pp",
+      "context": {
+        "weakness": 0.57
+      },
+      "stats": {
+        "goals": 6,
+        "apps": 14,
+        "gpm": 0.429,
+        "xgpm": 0
+      },
+      "team": "away",
+      "tier": "fun",
+      "calibration_delta": -13.6,
+      "history_top3": true,
+      "id": "2026-06-27_5147585_player_Alie Conteh_Buteur",
+      "date": "2026-06-27",
+      "match_id": "5147585",
+      "page_url": "/matches/fc-inter-turku-vs-ifk-mariehamn/1fr1ka#5147585",
+      "matchup": "IFK Mariehamn vs FC Inter Turku",
+      "league": "Finnish Veikkausliiga",
+      "category": "player",
+      "result": "PENDING",
+      "actual": null,
+      "resolved_at": null,
+      "side": "away"
     },
     {
       "direction": "wc_dc_x2",
@@ -27806,11 +27842,11 @@
       "books": [],
       "confidence": 70,
       "cote_min": 1.43,
-      "reasoning": "📈 P(Jaime Moreno marque) ≈ 56% · P(Bob Nii Armah marque) ≈ 46%\n🎯 P(au moins un marque) = 70% (calculée par 1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.43 - chercher ≥1.43 chez le bookmaker\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+      "reasoning": "📈 P(Jaime Moreno marque) ≈ 56% · P(Bob Nii Armah marque) ≈ 47%\n🎯 P(au moins un marque) = 70% (calculée par 1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.43 - chercher ≥1.43 chez le bookmaker\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
       "context": {},
       "stats": {
         "p_a": 0.555,
-        "p_b": 0.465,
+        "p_b": 0.472,
         "p_or": 0.7,
         "player_a": "Jaime Moreno",
         "player_b": "Bob Nii Armah"
@@ -27874,7 +27910,7 @@
       "confidence": 56,
       "reasoning": "7 buts en 12 matchs cette saison (58.3% de chance/match) · xG moyen 0.00/match · défense correcte\n📉 Calibration : bucket 50-59% historiquement à WR 42% (claim 55%, n=41) — sur-estimé de 14pp",
       "context": {
-        "weakness": 0.32
+        "weakness": 0.33
       },
       "stats": {
         "goals": 7,
