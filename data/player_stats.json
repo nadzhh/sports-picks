@@ -1061,16 +1061,16 @@
       }
     ],
     "home_team_stats": {
-      "goals_pm": 1.9,
-      "conceded_pm": 1.0,
-      "shots_pm": 11.25,
-      "sot_pm": 4.5
+      "goals_pm": 1.8,
+      "conceded_pm": 0.9,
+      "shots_pm": 10.5,
+      "sot_pm": 4.2
     },
     "away_team_stats": {
-      "goals_pm": 1.6,
-      "conceded_pm": 1.1,
-      "shots_pm": 12.75,
-      "sot_pm": 5.1
+      "goals_pm": 1.5,
+      "conceded_pm": 1.0,
+      "shots_pm": 11.75,
+      "sot_pm": 4.7
     },
     "home_recent": {
       "form": [
@@ -1121,10 +1121,10 @@
       "shots_l10_lg": 16.0,
       "opp_shots_l5_lg": 12.3,
       "opp_shots_l10_lg": 12.3,
-      "sot_pm": 4.5,
+      "sot_pm": 4.2,
       "sot_l5": 7.3,
       "sot_l10": 7.3,
-      "sot_season": 4.5,
+      "sot_season": 4.2,
       "opp_sot_l5": 3.0,
       "opp_sot_l10": 3.0,
       "sot_l5_lg": 7.3,
@@ -1181,10 +1181,10 @@
       "opp_shots_away": 13.0,
       "shots_trend": "",
       "xg_conc_pm": 0,
-      "corners_pm": 5.38,
-      "big_chance_pm": 2.15,
-      "possession_pct": 55.5,
-      "clean_sheet_pm": 0.38
+      "corners_pm": 5.0,
+      "big_chance_pm": 2.0,
+      "possession_pct": 51.5,
+      "clean_sheet_pm": 0.36
     },
     "away_recent": {
       "form": [
@@ -1235,10 +1235,10 @@
       "shots_l10_lg": 15.1,
       "opp_shots_l5_lg": 11.2,
       "opp_shots_l10_lg": 9.6,
-      "sot_pm": 5.1,
+      "sot_pm": 4.7,
       "sot_l5": 4.0,
       "sot_l10": 4.9,
-      "sot_season": 5.1,
+      "sot_season": 4.7,
       "opp_sot_l5": 4.0,
       "opp_sot_l10": 3.6,
       "sot_l5_lg": 3.8,
@@ -1295,10 +1295,10 @@
       "opp_shots_away": 9.0,
       "shots_trend": "",
       "xg_conc_pm": 0,
-      "corners_pm": 7.07,
-      "big_chance_pm": 2.43,
-      "possession_pct": 59.3,
-      "clean_sheet_pm": 0.21
+      "corners_pm": 6.6,
+      "big_chance_pm": 2.27,
+      "possession_pct": 55.3,
+      "clean_sheet_pm": 0.2
     },
     "home_l5": [
       {
@@ -1926,13 +1926,13 @@
       "n_matches": 0
     },
     "lineup": {
-      "type": "lastStarting11",
-      "source": "lastStartingLineups",
+      "type": "standard",
+      "source": "optaSdapiLegacyIntegration",
       "home": {
         "name": "HJK",
         "id": 9861,
-        "formation": "4-2-3-1",
-        "coach": "Joonas Rantanen",
+        "formation": "4-1-4-1",
+        "coach": null,
         "starters": [
           {
             "id": 163352,
@@ -1988,27 +1988,17 @@
             "id": 574868,
             "name": "Lucas Lingman",
             "shirt": "10",
-            "pos_id": 64,
+            "pos_id": 65,
             "rating": 7.49,
             "goals": null,
             "assists": 2,
             "apps": null
           },
           {
-            "id": 1187964,
-            "name": "Jere Kallinen",
-            "shirt": "15",
-            "pos_id": 66,
-            "rating": 6.79,
-            "goals": null,
-            "assists": 1,
-            "apps": null
-          },
-          {
             "id": 1438218,
             "name": "Liam Möller",
             "shirt": "22",
-            "pos_id": 83,
+            "pos_id": 82,
             "rating": 7.07,
             "goals": 2,
             "assists": 1,
@@ -2018,9 +2008,19 @@
             "id": 181333,
             "name": "Alexander Ring",
             "shirt": "4",
-            "pos_id": 85,
+            "pos_id": 84,
             "rating": 7.21,
             "goals": 2,
+            "assists": 1,
+            "apps": null
+          },
+          {
+            "id": 1187964,
+            "name": "Jere Kallinen",
+            "shirt": "15",
+            "pos_id": 86,
+            "rating": 6.79,
+            "goals": null,
             "assists": 1,
             "apps": null
           },
@@ -2028,7 +2028,7 @@
             "id": 1255795,
             "name": "Mads Borchers",
             "shirt": "9",
-            "pos_id": 87,
+            "pos_id": 88,
             "rating": 7.13,
             "goals": 7,
             "assists": 2,
@@ -2050,8 +2050,8 @@
       "away": {
         "name": "KuPS",
         "id": 1693,
-        "formation": "4-3-3",
-        "coach": "Miika Nuutinen",
+        "formation": "4-4-2",
+        "coach": null,
         "starters": [
           {
             "id": 643731,
@@ -2084,12 +2084,12 @@
             "apps": null
           },
           {
-            "id": 586691,
-            "name": "Kasim Adams",
-            "shirt": "4",
+            "id": 1792391,
+            "name": "Brahima Magassa",
+            "shirt": "28",
             "pos_id": 36,
-            "rating": 7.12,
-            "goals": null,
+            "rating": 6.85,
+            "goals": 1,
             "assists": null,
             "apps": null
           },
@@ -2104,63 +2104,63 @@
             "apps": null
           },
           {
-            "id": 1260156,
-            "name": "Valentín Gasc",
-            "shirt": "10",
-            "pos_id": 73,
-            "rating": 7.31,
-            "goals": 2,
-            "assists": 1,
-            "apps": null
-          },
-          {
-            "id": 436079,
-            "name": "Gustav Engvall",
-            "shirt": "9",
-            "pos_id": 75,
-            "rating": 6.84,
-            "goals": 1,
-            "assists": 2,
-            "apps": null
-          },
-          {
-            "id": 104229,
-            "name": "Petteri Pennanen",
-            "shirt": "8",
-            "pos_id": 77,
-            "rating": 7.48,
-            "goals": 2,
-            "assists": 2,
-            "apps": null
-          },
-          {
             "id": 1347994,
             "name": "Otto Ruoppi",
             "shirt": "34",
-            "pos_id": 103,
+            "pos_id": 72,
             "rating": 7.38,
             "goals": 4,
             "assists": 3,
             "apps": null
           },
           {
-            "id": 495524,
-            "name": "Jaime Moreno",
-            "shirt": "11",
-            "pos_id": 105,
-            "rating": 7.65,
-            "goals": 7,
+            "id": 1260156,
+            "name": "Valentín Gasc",
+            "shirt": "10",
+            "pos_id": 74,
+            "rating": 7.31,
+            "goals": 2,
             "assists": 1,
+            "apps": null
+          },
+          {
+            "id": 104229,
+            "name": "Petteri Pennanen",
+            "shirt": "8",
+            "pos_id": 76,
+            "rating": 7.48,
+            "goals": 2,
+            "assists": 2,
             "apps": null
           },
           {
             "id": 1560019,
             "name": "Bob Nii Armah",
             "shirt": "24",
-            "pos_id": 107,
+            "pos_id": 78,
             "rating": 7.4,
             "goals": 5,
             "assists": null,
+            "apps": null
+          },
+          {
+            "id": 436079,
+            "name": "Gustav Engvall",
+            "shirt": "9",
+            "pos_id": 104,
+            "rating": 6.84,
+            "goals": 1,
+            "assists": 2,
+            "apps": null
+          },
+          {
+            "id": 495524,
+            "name": "Jaime Moreno",
+            "shirt": "11",
+            "pos_id": 106,
+            "rating": 7.65,
+            "goals": 7,
+            "assists": 1,
             "apps": null
           }
         ],
@@ -3358,15 +3358,15 @@
     ],
     "home_team_stats": {
       "goals_pm": 0.5,
-      "conceded_pm": 1.9,
-      "shots_pm": 6.5,
-      "sot_pm": 2.6
+      "conceded_pm": 1.8,
+      "shots_pm": 6.0,
+      "sot_pm": 2.4
     },
     "away_team_stats": {
-      "goals_pm": 1.5,
-      "conceded_pm": 0.9,
-      "shots_pm": 11.0,
-      "sot_pm": 4.4
+      "goals_pm": 1.4,
+      "conceded_pm": 0.8,
+      "shots_pm": 10.25,
+      "sot_pm": 4.1
     },
     "home_recent": {
       "form": [
@@ -3417,10 +3417,10 @@
       "shots_l10_lg": 9.0,
       "opp_shots_l5_lg": 19.2,
       "opp_shots_l10_lg": 20.2,
-      "sot_pm": 2.6,
+      "sot_pm": 2.4,
       "sot_l5": 3.3,
       "sot_l10": 2.6,
-      "sot_season": 2.6,
+      "sot_season": 2.4,
       "opp_sot_l5": 9.0,
       "opp_sot_l10": 9.2,
       "sot_l5_lg": 2.8,
@@ -3477,9 +3477,9 @@
       "opp_shots_away": 17.5,
       "shots_trend": "",
       "xg_conc_pm": 0,
-      "corners_pm": 3.92,
-      "big_chance_pm": 1.33,
-      "possession_pct": 48.0,
+      "corners_pm": 3.62,
+      "big_chance_pm": 1.23,
+      "possession_pct": 44.3,
       "clean_sheet_pm": 0
     },
     "away_recent": {
@@ -3531,10 +3531,10 @@
       "shots_l10_lg": 12.0,
       "opp_shots_l5_lg": 9.0,
       "opp_shots_l10_lg": 8.3,
-      "sot_pm": 4.4,
+      "sot_pm": 4.1,
       "sot_l5": 2.8,
       "sot_l10": 3.3,
-      "sot_season": 4.4,
+      "sot_season": 4.1,
       "opp_sot_l5": 3.2,
       "opp_sot_l10": 2.8,
       "sot_l5_lg": 3.4,
@@ -3591,10 +3591,10 @@
       "opp_shots_away": 7.3,
       "shots_trend": "",
       "xg_conc_pm": 0,
-      "corners_pm": 5.5,
-      "big_chance_pm": 2.07,
-      "possession_pct": 56.5,
-      "clean_sheet_pm": 0.36
+      "corners_pm": 5.13,
+      "big_chance_pm": 1.93,
+      "possession_pct": 52.7,
+      "clean_sheet_pm": 0.33
     },
     "home_l5": [
       {
@@ -4140,20 +4140,20 @@
       "n_matches": 0
     },
     "lineup": {
-      "type": "lastStarting11",
-      "source": "lastStartingLineups",
+      "type": "standard",
+      "source": "optaSdapiLegacyIntegration",
       "home": {
         "name": "IFK Mariehamn",
         "id": 6634,
-        "formation": "4-2-3-1",
-        "coach": "Roberth Björknesjö",
+        "formation": "4-3-3",
+        "coach": null,
         "starters": [
           {
-            "id": 1734086,
-            "name": "Kevin Lund",
-            "shirt": "1",
+            "id": 958145,
+            "name": "Matias Riikonen",
+            "shirt": "32",
             "pos_id": 11,
-            "rating": 6.89,
+            "rating": 6.84,
             "goals": null,
             "assists": null,
             "apps": null
@@ -4202,9 +4202,19 @@
             "id": 668370,
             "name": "Sebastian Dahlström",
             "shirt": "10",
-            "pos_id": 64,
+            "pos_id": 73,
             "rating": 6.68,
             "goals": 2,
+            "assists": null,
+            "apps": null
+          },
+          {
+            "id": 1180556,
+            "name": "Nikolaos Dosis",
+            "shirt": "6",
+            "pos_id": 75,
+            "rating": 6.48,
+            "goals": null,
             "assists": null,
             "apps": null
           },
@@ -4212,7 +4222,7 @@
             "id": 1395686,
             "name": "Emmanuel Patut",
             "shirt": "20",
-            "pos_id": 66,
+            "pos_id": 77,
             "rating": 6.89,
             "goals": 1,
             "assists": 1,
@@ -4222,9 +4232,19 @@
             "id": 1482205,
             "name": "Marlo Hyvönen",
             "shirt": "64",
-            "pos_id": 83,
+            "pos_id": 103,
             "rating": 6.28,
             "goals": 1,
+            "assists": null,
+            "apps": null
+          },
+          {
+            "id": 1353420,
+            "name": "Adam Stroud",
+            "shirt": "18",
+            "pos_id": 105,
+            "rating": 5.96,
+            "goals": null,
             "assists": null,
             "apps": null
           },
@@ -4232,28 +4252,8 @@
             "id": 1031418,
             "name": "Anttoni Huttunen",
             "shirt": "16",
-            "pos_id": 85,
+            "pos_id": 107,
             "rating": 6.35,
-            "goals": 1,
-            "assists": null,
-            "apps": null
-          },
-          {
-            "id": 1116911,
-            "name": "Luke Pearce",
-            "shirt": "11",
-            "pos_id": 87,
-            "rating": 6.07,
-            "goals": null,
-            "assists": 1,
-            "apps": null
-          },
-          {
-            "id": 1177032,
-            "name": "Adam Larsson",
-            "shirt": "7",
-            "pos_id": 115,
-            "rating": 6.33,
             "goals": 1,
             "assists": null,
             "apps": null
@@ -4265,7 +4265,7 @@
         "name": "FC Inter Turku",
         "id": 6550,
         "formation": "4-3-3",
-        "coach": "Vesa Vasara",
+        "coach": null,
         "starters": [
           {
             "id": 1152752,
@@ -4278,11 +4278,11 @@
             "apps": null
           },
           {
-            "id": 201433,
-            "name": "Albin Granlund",
-            "shirt": "5",
+            "id": 1067384,
+            "name": "Seth Saarinen",
+            "shirt": "18",
             "pos_id": 32,
-            "rating": 6.77,
+            "rating": 7.2,
             "goals": null,
             "assists": null,
             "apps": null
@@ -4298,12 +4298,12 @@
             "apps": null
           },
           {
-            "id": 440504,
-            "name": "Juuso Hämäläinen",
-            "shirt": "3",
+            "id": 1817295,
+            "name": "Ilari Kangasniemi",
+            "shirt": "21",
             "pos_id": 36,
-            "rating": 6.97,
-            "goals": null,
+            "rating": 7.64,
+            "goals": 1,
             "assists": null,
             "apps": null
           },
@@ -4318,43 +4318,43 @@
             "apps": null
           },
           {
-            "id": 447694,
-            "name": "Jasse Tuominen",
-            "shirt": "9",
-            "pos_id": 73,
-            "rating": 7.09,
-            "goals": 3,
-            "assists": 2,
-            "apps": null
-          },
-          {
             "id": 974503,
             "name": "Janne-Pekka Laine",
             "shirt": "14",
-            "pos_id": 75,
+            "pos_id": 73,
             "rating": 6.86,
             "goals": 1,
             "assists": 1,
             "apps": null
           },
           {
-            "id": 1352646,
-            "name": "Prosper Ahiabu",
-            "shirt": "4",
+            "id": 447694,
+            "name": "Jasse Tuominen",
+            "shirt": "9",
+            "pos_id": 75,
+            "rating": 7.09,
+            "goals": 3,
+            "assists": 2,
+            "apps": null
+          },
+          {
+            "id": 1473187,
+            "name": "Bismark Ampofo",
+            "shirt": "17",
             "pos_id": 77,
-            "rating": 6.98,
+            "rating": 7.76,
             "goals": null,
             "assists": null,
             "apps": null
           },
           {
-            "id": 1482217,
-            "name": "Vincent Ulundu",
-            "shirt": "27",
+            "id": 1439361,
+            "name": "Loic Essomba",
+            "shirt": "23",
             "pos_id": 103,
-            "rating": 6.46,
+            "rating": 7.02,
             "goals": 1,
-            "assists": null,
+            "assists": 2,
             "apps": null
           },
           {
