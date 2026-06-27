@@ -230,12 +230,12 @@
         "books": [],
         "confidence": 69,
         "cote_min": 1.45,
-        "reasoning": "📈 P(Alie Conteh marque) ≈ 50% · P(Jasse Tuominen marque) ≈ 37%\n🎯 P(au moins un marque) = 69% (calculée par 1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.45 - chercher ≥1.45 chez le bookmaker\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
+        "reasoning": "📈 P(Alie Conteh marque) ≈ 52% · P(Jasse Tuominen marque) ≈ 35%\n🎯 P(au moins un marque) = 69% (calculée par 1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.45 - chercher ≥1.45 chez le bookmaker\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
         "context": {},
         "stats": {
-          "p_a": 0.502,
-          "p_b": 0.368,
-          "p_or": 0.685,
+          "p_a": 0.525,
+          "p_b": 0.352,
+          "p_or": 0.692,
           "player_a": "Alie Conteh",
           "player_b": "Jasse Tuominen"
         },
@@ -253,15 +253,15 @@
         "cote": null,
         "book": null,
         "books": [],
-        "confidence": 50,
-        "reasoning": "6 buts en 14 matchs cette saison (42.9% de chance/match) · xG moyen 0.00/match, face à une défense qui concède 1.8 buts/match · défense fragile\n📉 Calibration : bucket 50-59% historiquement à WR 42% (claim 55%, n=41) — sur-estimé de 14pp",
+        "confidence": 52,
+        "reasoning": "7 buts en 15 matchs cette saison (46.7% de chance/match) · xG moyen 0.00/match, face à une défense qui concède 1.9 buts/match · défense fragile\n📉 Calibration : bucket 50-59% historiquement à WR 42% (claim 55%, n=41) — sur-estimé de 14pp",
         "context": {
-          "weakness": 0.57
+          "weakness": 0.58
         },
         "stats": {
-          "goals": 6,
-          "apps": 14,
-          "gpm": 0.429,
+          "goals": 7,
+          "apps": 15,
+          "gpm": 0.467,
           "xgpm": 0
         },
         "team": "away",
@@ -2034,7 +2034,7 @@
         "direction": "away_win",
         "type": "Victoire extérieur",
         "label": "Austria gagne",
-        "cote": 3.35,
+        "cote": 3.3,
         "confidence": 69,
         "reasoning": "Austria : 4V/0N/1D sur 5 matchs · #2 au classement · H2H: 0V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
         "stats": {
@@ -2049,7 +2049,7 @@
         "is_fun": false,
         "tier": "fun",
         "calibration_delta": -25.4,
-        "edge_pp": 39.1,
+        "edge_pp": 38.7,
         "history_top3": true
       },
       {
@@ -2169,7 +2169,7 @@
       "direction": "away_win",
       "type": "Victoire extérieur",
       "label": "Austria gagne",
-      "cote": 3.35,
+      "cote": 3.3,
       "confidence": 69,
       "reasoning": "Austria : 4V/0N/1D sur 5 matchs · #2 au classement · H2H: 0V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
       "stats": {
@@ -2184,7 +2184,7 @@
       "is_fun": false,
       "tier": "fun",
       "calibration_delta": -25.4,
-      "edge_pp": 39.1,
+      "edge_pp": 38.7,
       "history_top3": true
     },
     "no_picks": false,
@@ -3714,160 +3714,6 @@
       },
       "weather": null,
       "text": "Stade : Moulay Hassan Stadium · plein air."
-    }
-  },
-  {
-    "league": "Finnish Veikkausliiga",
-    "home": "HJK",
-    "away": "KuPS",
-    "start_ts": 1782568800,
-    "match_id": "5147584",
-    "page_url": "/matches/kups-vs-hjk/13qyqg#5147584",
-    "picks": [
-      {
-        "direction": "away_win",
-        "type": "Victoire extérieur",
-        "label": "KuPS gagne",
-        "cote": null,
-        "confidence": 59,
-        "reasoning": "KuPS : 3V/2N/0D sur 5 matchs · #1 au classement · H2H: 0V/1N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 50-59% historiquement à WR 42% (claim 55%, n=41) — sur-estimé de 14pp",
-        "stats": {
-          "form": [
-            "W",
-            "W",
-            "D",
-            "D",
-            "W"
-          ]
-        },
-        "is_fun": false,
-        "tier": "ok",
-        "calibration_delta": -13.6,
-        "history_top3": true
-      }
-    ],
-    "home_players": [
-      {
-        "player": "Mads Borchers / Lassi Lappalainen",
-        "position": "",
-        "is_sub": false,
-        "type": "Double Chance Buteur",
-        "label": "Mads Borchers ou Lassi Lappalainen marque",
-        "cote": null,
-        "book": null,
-        "books": [],
-        "confidence": 70,
-        "cote_min": 1.43,
-        "reasoning": "📈 P(Mads Borchers marque) ≈ 53% · P(Lassi Lappalainen marque) ≈ 42%\n🎯 P(au moins un marque) = 70% (calculée par 1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.43 - chercher ≥1.43 chez le bookmaker\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
-        "context": {},
-        "stats": {
-          "p_a": 0.532,
-          "p_b": 0.42,
-          "p_or": 0.7,
-          "player_a": "Mads Borchers",
-          "player_b": "Lassi Lappalainen"
-        },
-        "team": "home",
-        "tier": "safe",
-        "calibration_delta": -11.3,
-        "history_top3": true
-      }
-    ],
-    "away_players": [
-      {
-        "player": "Jaime Moreno / Bob Nii Armah",
-        "position": "",
-        "is_sub": false,
-        "type": "Double Chance Buteur",
-        "label": "Jaime Moreno ou Bob Nii Armah marque",
-        "cote": null,
-        "book": null,
-        "books": [],
-        "confidence": 70,
-        "cote_min": 1.43,
-        "reasoning": "📈 P(Jaime Moreno marque) ≈ 56% · P(Bob Nii Armah marque) ≈ 47%\n🎯 P(au moins un marque) = 70% (calculée par 1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.43 - chercher ≥1.43 chez le bookmaker\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
-        "context": {},
-        "stats": {
-          "p_a": 0.555,
-          "p_b": 0.472,
-          "p_or": 0.7,
-          "player_a": "Jaime Moreno",
-          "player_b": "Bob Nii Armah"
-        },
-        "team": "away",
-        "tier": "safe",
-        "calibration_delta": -11.3,
-        "history_top3": true
-      },
-      {
-        "player": "Jaime Moreno",
-        "position": "F",
-        "is_sub": false,
-        "type": "Buteur",
-        "label": "Jaime Moreno marque",
-        "cote": null,
-        "book": null,
-        "books": [],
-        "confidence": 56,
-        "reasoning": "7 buts en 12 matchs cette saison (58.3% de chance/match) · xG moyen 0.00/match · défense correcte\n📉 Calibration : bucket 50-59% historiquement à WR 42% (claim 55%, n=41) — sur-estimé de 14pp",
-        "context": {
-          "weakness": 0.34
-        },
-        "stats": {
-          "goals": 7,
-          "apps": 12,
-          "gpm": 0.583,
-          "xgpm": 0
-        },
-        "team": "away",
-        "tier": "ok",
-        "calibration_delta": -13.6,
-        "history_top3": true
-      }
-    ],
-    "fun_picks": [],
-    "top_pick": {
-      "direction": "away_win",
-      "type": "Victoire extérieur",
-      "label": "KuPS gagne",
-      "cote": null,
-      "confidence": 59,
-      "reasoning": "KuPS : 3V/2N/0D sur 5 matchs · #1 au classement · H2H: 0V/1N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 50-59% historiquement à WR 42% (claim 55%, n=41) — sur-estimé de 14pp",
-      "stats": {
-        "form": [
-          "W",
-          "W",
-          "D",
-          "D",
-          "W"
-        ]
-      },
-      "is_fun": false,
-      "tier": "ok",
-      "calibration_delta": -13.6,
-      "history_top3": true
-    },
-    "no_picks": false,
-    "context": {
-      "stadium": {
-        "name": "Bolt Arena",
-        "city": "Helsinki",
-        "country": "Finland",
-        "lat": 60.187723879,
-        "lon": 24.922742844,
-        "capacity": 10770,
-        "surface": "artificial turf"
-      },
-      "weather": {
-        "temp_max": 24.2,
-        "temp_min": 15.2,
-        "humidity": 45,
-        "precipitation_sum_mm": 2.2,
-        "wind_max_kmh": 16.9,
-        "weather_code": 55,
-        "summary_fr": "🌧️ bruine dense · 15–24°C · humidité 45% · précipitations 2.2mm"
-      },
-      "text": "Conditions : 🌧️ bruine dense · 15–24°C · humidité 45% · précipitations 2.2mm. Stade : Bolt Arena · 10 770 places · plein air."
     }
   },
   {
