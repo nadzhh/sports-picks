@@ -30032,9 +30032,9 @@
       "matchup": "South Africa vs Canada",
       "league": "World Cup",
       "category": "team",
-      "result": "PENDING",
-      "actual": null,
-      "resolved_at": null
+      "result": "WIN",
+      "actual": "0-1 (1 buts)",
+      "resolved_at": "2026-06-28 21:01"
     },
     {
       "direction": "wc_dc_x2",
@@ -30063,9 +30063,9 @@
       "matchup": "South Africa vs Canada",
       "league": "World Cup",
       "category": "team",
-      "result": "PENDING",
-      "actual": null,
-      "resolved_at": null
+      "result": "WIN",
+      "actual": "0-1",
+      "resolved_at": "2026-06-28 21:01"
     },
     {
       "direction": "wc_btts_no",
@@ -30094,9 +30094,9 @@
       "matchup": "South Africa vs Canada",
       "league": "World Cup",
       "category": "team",
-      "result": "PENDING",
-      "actual": null,
-      "resolved_at": null
+      "result": "WIN",
+      "actual": "0-1",
+      "resolved_at": "2026-06-28 21:01"
     },
     {
       "player": "Cyle Larin",
@@ -30127,10 +30127,216 @@
       "matchup": "South Africa vs Canada",
       "league": "World Cup",
       "category": "player",
+      "result": "LOSS",
+      "actual": {
+        "goals": 0,
+        "assists": 0
+      },
+      "resolved_at": "2026-06-28 21:01",
+      "side": "away"
+    },
+    {
+      "direction": "away_win",
+      "type": "Victoire extérieur",
+      "label": "Riga FC gagne",
+      "cote": null,
+      "confidence": 81,
+      "reasoning": "Riga FC : 4V/1N/0D sur 5 matchs · #2 au classement · H2H: 2V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 80-89% historiquement à WR 56% (claim 82%, n=63) — sur-estimé de 26pp",
+      "stats": {
+        "form": [
+          "D",
+          "W",
+          "W",
+          "W",
+          "W"
+        ]
+      },
+      "is_fun": false,
+      "tier": "safe",
+      "calibration_delta": -26.0,
+      "history_top3": true,
+      "id": "2026-06-29_5162017_team_away_win",
+      "date": "2026-06-29",
+      "match_id": "5162017",
+      "page_url": "/matches/auda-vs-riga-fc/2ib56p89#5162017",
+      "matchup": "Auda vs Riga FC",
+      "league": "Latvian Virsliga",
+      "category": "team",
+      "result": "PENDING",
+      "actual": null,
+      "resolved_at": null
+    },
+    {
+      "direction": "away_dc",
+      "type": "Double chance",
+      "label": "Nul ou Riga FC (X2)",
+      "cote": null,
+      "confidence": 81,
+      "reasoning": "Riga FC invaincu 100% sur 5 derniers matchs · H2H: 2/2 matchs sans défaite · Classement: #2 (away) vs #3 (home)\n📉 Calibration : bucket 80-89% historiquement à WR 56% (claim 82%, n=63) — sur-estimé de 26pp",
+      "stats": {
+        "form": [
+          "D",
+          "W",
+          "W",
+          "W",
+          "W"
+        ]
+      },
+      "is_fun": false,
+      "tier": "safe",
+      "calibration_delta": -26.0,
+      "history_top3": true,
+      "id": "2026-06-29_5162017_team_away_dc",
+      "date": "2026-06-29",
+      "match_id": "5162017",
+      "page_url": "/matches/auda-vs-riga-fc/2ib56p89#5162017",
+      "matchup": "Auda vs Riga FC",
+      "league": "Latvian Virsliga",
+      "category": "team",
+      "result": "PENDING",
+      "actual": null,
+      "resolved_at": null
+    },
+    {
+      "player": "Josué Vergara / Hussaini Ibrahim",
+      "position": "",
+      "is_sub": false,
+      "type": "Double Chance Buteur",
+      "label": "Josué Vergara ou Hussaini Ibrahim marque",
+      "cote": null,
+      "book": null,
+      "books": [],
+      "confidence": 70,
+      "cote_min": 1.43,
+      "reasoning": "📈 P(Josué Vergara marque) ≈ 57% · P(Hussaini Ibrahim marque) ≈ 34%\n🎯 P(au moins un marque) = 70% (calculée par 1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.43 - chercher ≥1.43 chez le bookmaker\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+      "context": {},
+      "stats": {
+        "p_a": 0.57,
+        "p_b": 0.345,
+        "p_or": 0.7,
+        "player_a": "Josué Vergara",
+        "player_b": "Hussaini Ibrahim"
+      },
+      "team": "home",
+      "tier": "safe",
+      "calibration_delta": -11.3,
+      "history_top3": true,
+      "id": "2026-06-29_5162017_player_Josué Vergara / Hussaini Ibrahim_Double Chance Buteur",
+      "date": "2026-06-29",
+      "match_id": "5162017",
+      "page_url": "/matches/auda-vs-riga-fc/2ib56p89#5162017",
+      "matchup": "Auda vs Riga FC",
+      "league": "Latvian Virsliga",
+      "category": "player",
+      "result": "PENDING",
+      "actual": null,
+      "resolved_at": null,
+      "side": "home"
+    },
+    {
+      "player": "Muhammed Badamosi / Iago Siqueira",
+      "position": "",
+      "is_sub": false,
+      "type": "Double Chance Buteur",
+      "label": "Muhammed Badamosi ou Iago Siqueira marque",
+      "cote": null,
+      "book": null,
+      "books": [],
+      "confidence": 70,
+      "cote_min": 1.43,
+      "reasoning": "📈 P(Muhammed Badamosi marque) ≈ 56% · P(Iago Siqueira marque) ≈ 45%\n🎯 P(au moins un marque) = 70% (calculée par 1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.43 - chercher ≥1.43 chez le bookmaker\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+      "context": {},
+      "stats": {
+        "p_a": 0.555,
+        "p_b": 0.45,
+        "p_or": 0.7,
+        "player_a": "Muhammed Badamosi",
+        "player_b": "Iago Siqueira"
+      },
+      "team": "away",
+      "tier": "safe",
+      "calibration_delta": -11.3,
+      "history_top3": true,
+      "id": "2026-06-29_5162017_player_Muhammed Badamosi / Iago Siqueira_Double Chance Buteur",
+      "date": "2026-06-29",
+      "match_id": "5162017",
+      "page_url": "/matches/auda-vs-riga-fc/2ib56p89#5162017",
+      "matchup": "Auda vs Riga FC",
+      "league": "Latvian Virsliga",
+      "category": "player",
       "result": "PENDING",
       "actual": null,
       "resolved_at": null,
       "side": "away"
+    },
+    {
+      "player": "Josué Vergara",
+      "position": "F",
+      "is_sub": false,
+      "type": "Buteur",
+      "label": "Josué Vergara marque",
+      "cote": null,
+      "book": null,
+      "books": [],
+      "confidence": 57,
+      "reasoning": "14 buts en 20 matchs cette saison (70.0% de chance/match) · xG moyen 0.00/match · défense solide\n📉 Calibration : bucket 50-59% historiquement à WR 42% (claim 55%, n=41) — sur-estimé de 14pp",
+      "context": {
+        "weakness": 0.19
+      },
+      "stats": {
+        "goals": 14,
+        "apps": 20,
+        "gpm": 0.7,
+        "xgpm": 0
+      },
+      "team": "home",
+      "tier": "ok",
+      "calibration_delta": -13.6,
+      "history_top3": true,
+      "id": "2026-06-29_5162017_player_Josué Vergara_Buteur",
+      "date": "2026-06-29",
+      "match_id": "5162017",
+      "page_url": "/matches/auda-vs-riga-fc/2ib56p89#5162017",
+      "matchup": "Auda vs Riga FC",
+      "league": "Latvian Virsliga",
+      "category": "player",
+      "result": "PENDING",
+      "actual": null,
+      "resolved_at": null,
+      "side": "home"
+    },
+    {
+      "player": "Filip Hasek",
+      "position": "M",
+      "is_sub": false,
+      "type": "Buteur",
+      "label": "Filip Hasek marque",
+      "team": "home",
+      "cote": null,
+      "book": null,
+      "books": [],
+      "confidence": 30,
+      "reasoning": "5G en 16 matchs (31.2%/match) · xG: 0.00/match",
+      "context": {
+        "weakness": 0.33
+      },
+      "stats": {
+        "goals": 5,
+        "apps": 16
+      },
+      "tier": "fun",
+      "history_top3": true,
+      "id": "2026-06-29_5162018_player_Filip Hasek_Buteur",
+      "date": "2026-06-29",
+      "match_id": "5162018",
+      "page_url": "/matches/fk-jelgava-vs-grobina/4o6tty3o#5162018",
+      "matchup": "FK Jelgava vs Grobina",
+      "league": "Latvian Virsliga",
+      "category": "player",
+      "result": "PENDING",
+      "actual": null,
+      "resolved_at": null,
+      "side": "home"
     }
   ]
 }
