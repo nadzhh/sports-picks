@@ -1,231 +1,5 @@
 [
   {
-    "league": "World Cup",
-    "home": "France",
-    "away": "Sweden",
-    "start_ts": 1782853200,
-    "match_id": "4653704",
-    "page_url": "/matches/france-vs-sweden/1x6dai#4653704",
-    "picks": [
-      {
-        "direction": "wc_home_win",
-        "type": "🏆 Vainqueur WC",
-        "label": "France gagne",
-        "cote": 1.27,
-        "cote_min": 1.16,
-        "confidence": 86,
-        "tier": "safe",
-        "stats": {
-          "lam_h": 4.21,
-          "lam_a": 0.71,
-          "h_fifa_rank": 2,
-          "a_fifa_rank": 24,
-          "elo_gap": 272,
-          "wc_round": null,
-          "family": "1X2"
-        },
-        "reasoning": "📊 Écart FIFA significatif : France #2 vs Sweden #24 (gap +272 pts, P favori ≈ 83%).\n⭐ France favori CdM 2026\nL10 : France 4V/0N/1D sur 5 · Sweden 1V/2N/2D sur 5\n📋 Fiche France : off moyen (-0.06) · def fragile (-1.00) · forme WWWWL · 🏆 élite mondiale\n   ↳ Historique : finaliste en 2022 · vainqueur en 2018 · quart de finale en 2014 · 2 titres (1998, 2018)\n📋 Fiche Sweden : off moyen (+0.17) · def fragile (-0.89) · forme DLWDL · 🏆 présence occasionnelle\n🎯 Importance : Sweden : 1 match joué (3pts)\n🌦️ Conditions : chaleur 33.1°C (-10%)\n🏆 Modèle Poisson CdM (tier FIFA ajusté)\nλ France = 4.21 buts attendus, λ Sweden = 0.71\nP(France gagne) = 86.0% · P(nul) = 5.2% · P(Sweden) = 2.3%\n📉 Calibration : bucket 80-89% historiquement à WR 56% (claim 82%, n=63) — sur-estimé de 26pp",
-        "calibration_delta": -26.0,
-        "edge_pp": 7.3,
-        "history_top3": false
-      },
-      {
-        "direction": "wc_over_35",
-        "type": "⚽ Total buts WC",
-        "label": "Plus de 3.5 buts",
-        "cote": null,
-        "cote_min": 1.38,
-        "confidence": 72,
-        "tier": "safe",
-        "stats": {
-          "lam_h": 4.21,
-          "lam_a": 0.71,
-          "h_fifa_rank": 2,
-          "a_fifa_rank": 24,
-          "elo_gap": 272,
-          "wc_round": null,
-          "family": "TOTAL"
-        },
-        "reasoning": "📊 Écart FIFA significatif : France #2 vs Sweden #24 (gap +272 pts, P favori ≈ 83%).\n⭐ France favori CdM 2026\nL10 : France 4V/0N/1D sur 5 · Sweden 1V/2N/2D sur 5\n📋 Fiche France : off moyen (-0.06) · def fragile (-1.00) · forme WWWWL · 🏆 élite mondiale\n   ↳ Historique : finaliste en 2022 · vainqueur en 2018 · quart de finale en 2014 · 2 titres (1998, 2018)\n📋 Fiche Sweden : off moyen (+0.17) · def fragile (-0.89) · forme DLWDL · 🏆 présence occasionnelle\n🎯 Importance : Sweden : 1 match joué (3pts)\n🌦️ Conditions : chaleur 33.1°C (-10%)\n⚽ Modèle Poisson : λ total = 4.92\nP(plus de 3.5 buts) = 72.4% — match ouvert prévu\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
-        "calibration_delta": -11.3,
-        "history_top3": true
-      },
-      {
-        "direction": "wc_home_scores_3",
-        "type": "⚽ Buteur équipe WC",
-        "label": "France marque 3+ buts",
-        "cote": null,
-        "cote_min": 1.26,
-        "confidence": 79,
-        "tier": "safe",
-        "stats": {
-          "lam_h": 4.21,
-          "lam_a": 0.71,
-          "h_fifa_rank": 2,
-          "a_fifa_rank": 24,
-          "elo_gap": 272,
-          "wc_round": null,
-          "family": "BUT_TEAM"
-        },
-        "reasoning": "📊 Écart FIFA significatif : France #2 vs Sweden #24 (gap +272 pts, P favori ≈ 83%).\n⭐ France favori CdM 2026\nL10 : France 4V/0N/1D sur 5 · Sweden 1V/2N/2D sur 5\n📋 Fiche France : off moyen (-0.06) · def fragile (-1.00) · forme WWWWL · 🏆 élite mondiale\n   ↳ Historique : finaliste en 2022 · vainqueur en 2018 · quart de finale en 2014 · 2 titres (1998, 2018)\n📋 Fiche Sweden : off moyen (+0.17) · def fragile (-0.89) · forme DLWDL · 🏆 présence occasionnelle\n🎯 Importance : Sweden : 1 match joué (3pts)\n🌦️ Conditions : chaleur 33.1°C (-10%)\n⚽ P(France marque 3+) = 79.1% — gros favori en mode steamroller\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
-        "calibration_delta": -11.3,
-        "history_top3": false
-      }
-    ],
-    "home_players": [
-      {
-        "player": "Désiré Doué",
-        "position": "F",
-        "is_sub": false,
-        "type": "Buteur",
-        "label": "Désiré Doué marque",
-        "cote": null,
-        "cote_min": 1.42,
-        "book": null,
-        "books": [],
-        "confidence": 70,
-        "reasoning": "Désiré Doué : selection 3G/7m (0.43/m) · L10 club : 2G/10m, 🔥 1G/3 derniers nat (+10%) | rotatif nat (56min/m) · last match 90min (1G+0A). λ ajusté à 1.21 (France attendu 4.6 buts) → P(marque) ~70%.\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
-        "context": {
-          "source": "lineup",
-          "lam": 1.21,
-          "lineup_status": "confirmed"
-        },
-        "stats": {
-          "goals": null,
-          "apps": null,
-          "gpm": 1.211,
-          "xgpm": null
-        },
-        "team": "home",
-        "lineup_status": "confirmed",
-        "tier": "safe",
-        "calibration_delta": -11.3,
-        "history_top3": true
-      },
-      {
-        "player": "Kylian Mbappé / Ousmane Dembélé",
-        "position": "",
-        "is_sub": false,
-        "type": "Double Chance Buteur",
-        "label": "Kylian Mbappé ou Ousmane Dembélé marque",
-        "cote": null,
-        "book": null,
-        "books": [],
-        "confidence": 65,
-        "cote_min": 1.54,
-        "reasoning": "📈 P(Kylian Mbappé marque) ≈ 44% · P(Ousmane Dembélé marque) ≈ 38%\n🎯 P(au moins un marque) = 65% (calculée par 1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.54 - chercher ≥1.54 chez le bookmaker\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
-        "context": {},
-        "stats": {
-          "p_a": 0.435,
-          "p_b": 0.382,
-          "p_or": 0.651,
-          "player_a": "Kylian Mbappé",
-          "player_b": "Ousmane Dembélé"
-        },
-        "team": "home",
-        "tier": "ok",
-        "calibration_delta": -25.4,
-        "history_top3": true
-      }
-    ],
-    "away_players": [],
-    "fun_picks": [
-      {
-        "direction": "wc_score_4_0",
-        "type": "🏆 Score exact WC",
-        "label": "Score exact : France 4-0 Sweden",
-        "cote_min": 10.46,
-        "confidence": 10,
-        "tier": "fun",
-        "is_fun": true,
-        "stats": {
-          "lam_h": 4.21,
-          "lam_a": 0.71,
-          "h_fifa_rank": 2,
-          "a_fifa_rank": 24,
-          "elo_gap": 272
-        },
-        "reasoning": "📊 Écart FIFA significatif : France #2 vs Sweden #24 (gap +272 pts, P favori ≈ 83%).\n⭐ France favori CdM 2026\nL10 : France 4V/0N/1D sur 5 · Sweden 1V/2N/2D sur 5\n🏆 Coupe du Monde 2026 - score exact (Poisson grid, ajusté Elo FIFA)\nλ France = 4.21 buts, λ Sweden = 0.71 buts\nTop 3 : 4-0 (9.6%) · 3-0 (9.1%) · 5-0 (8.1%)\n⚠️ Pari fun (cote élevée typique 4-8) - mise modeste",
-        "exact_score": [
-          4,
-          0
-        ],
-        "wc_top3": [
-          [
-            [
-              4,
-              0
-            ],
-            9.6
-          ],
-          [
-            [
-              3,
-              0
-            ],
-            9.1
-          ],
-          [
-            [
-              5,
-              0
-            ],
-            8.1
-          ]
-        ],
-        "history_top3": true
-      }
-    ],
-    "top_pick": {
-      "direction": "wc_home_win",
-      "type": "🏆 Vainqueur WC",
-      "label": "France gagne",
-      "cote": 1.27,
-      "cote_min": 1.16,
-      "confidence": 86,
-      "tier": "safe",
-      "stats": {
-        "lam_h": 4.21,
-        "lam_a": 0.71,
-        "h_fifa_rank": 2,
-        "a_fifa_rank": 24,
-        "elo_gap": 272,
-        "wc_round": null,
-        "family": "1X2"
-      },
-      "reasoning": "📊 Écart FIFA significatif : France #2 vs Sweden #24 (gap +272 pts, P favori ≈ 83%).\n⭐ France favori CdM 2026\nL10 : France 4V/0N/1D sur 5 · Sweden 1V/2N/2D sur 5\n📋 Fiche France : off moyen (-0.06) · def fragile (-1.00) · forme WWWWL · 🏆 élite mondiale\n   ↳ Historique : finaliste en 2022 · vainqueur en 2018 · quart de finale en 2014 · 2 titres (1998, 2018)\n📋 Fiche Sweden : off moyen (+0.17) · def fragile (-0.89) · forme DLWDL · 🏆 présence occasionnelle\n🎯 Importance : Sweden : 1 match joué (3pts)\n🌦️ Conditions : chaleur 33.1°C (-10%)\n🏆 Modèle Poisson CdM (tier FIFA ajusté)\nλ France = 4.21 buts attendus, λ Sweden = 0.71\nP(France gagne) = 86.0% · P(nul) = 5.2% · P(Sweden) = 2.3%\n📉 Calibration : bucket 80-89% historiquement à WR 56% (claim 82%, n=63) — sur-estimé de 26pp",
-      "calibration_delta": -26.0,
-      "edge_pp": 7.3,
-      "history_top3": false
-    },
-    "no_picks": false,
-    "context": {
-      "stadium": {
-        "name": "MetLife Stadium",
-        "city": "East Rutherford (New York)",
-        "country": "USA",
-        "lat": 40.8135,
-        "lon": -74.0744,
-        "capacity": 82500,
-        "surface": "Natural grass",
-        "altitude_m": 7,
-        "type": "outdoor",
-        "climatized": false,
-        "context_fr": "Climat nord-est USA. Juin 22-28°C, humidité modérée. Probable lieu de la finale."
-      },
-      "weather": {
-        "temp_max": 33.1,
-        "temp_min": 21.9,
-        "humidity": 45,
-        "precipitation_sum_mm": 0.0,
-        "wind_max_kmh": 18.0,
-        "weather_code": 3,
-        "summary_fr": "☁️ couvert · 21–33°C · humidité 45%"
-      },
-      "text": "Conditions : ☁️ couvert · 21–33°C · humidité 45%. Stade : MetLife Stadium · altitude 7m · 82 500 places · plein air. Climat nord-est USA. Juin 22-28°C, humidité modérée. Probable lieu de la finale. ⚠️ Forte chaleur (>32°C) en plein air : impact endurance, plus de pauses hydratation."
-    }
-  },
-  {
     "league": "Latvian Virsliga",
     "home": "Auda",
     "away": "Riga FC",
@@ -647,15 +421,15 @@
         "surface": null
       },
       "weather": {
-        "temp_max": 27.3,
-        "temp_min": 20.3,
-        "humidity": 46,
+        "temp_max": 27.6,
+        "temp_min": 20.4,
+        "humidity": 41,
         "precipitation_sum_mm": 0.0,
-        "wind_max_kmh": 15.1,
+        "wind_max_kmh": 15.5,
         "weather_code": 3,
-        "summary_fr": "☁️ couvert · 20–27°C · humidité 46%"
+        "summary_fr": "☁️ couvert · 20–27°C · humidité 41%"
       },
-      "text": "Conditions : ☁️ couvert · 20–27°C · humidité 46%. Stade : LNK Sporta Parks dabīgais · plein air."
+      "text": "Conditions : ☁️ couvert · 20–27°C · humidité 41%. Stade : LNK Sporta Parks dabīgais · plein air."
     }
   },
   {
@@ -692,7 +466,7 @@
         "direction": "wc_over_25",
         "type": "⚽ Total buts WC",
         "label": "Plus de 2.5 buts",
-        "cote": 2.1,
+        "cote": 2.05,
         "cote_min": 1.51,
         "confidence": 66,
         "tier": "ok",
@@ -707,7 +481,7 @@
         },
         "reasoning": "📊 Niveau équilibré : Brazil #5 vs Japan #16 (gap +136 pts).\n⭐ Brazil favori CdM 2026\nL10 : Brazil 4V/1N/0D sur 5 · Japan 3V/2N/0D sur 5\n📋 Fiche Brazil : off moyen (+0.15) · def fragile (-0.67) · forme WWDWW · 🏆 régulière phase finale\n   ↳ Historique : quart de finale en 2022 · quart de finale en 2018 · demi-finaliste en 2014 · 2 titres (1994, 2002)\n📋 Fiche Japan : off moyen (+0.12) · def moyenne (+0.27) · forme DWDWW · 🏆 habituée du tournoi\n🎯 Importance : Brazil : 1 match joué (1pts) · Japan : 1 match joué (1pts)\n🌦️ ⛈️ orage · 26–35°C · humidité 53% · stade fermé\n⚠️ Compo PROBABLE (officielle à T-60min)\n⚽ Modèle Poisson : λ total = 3.41\nP(plus de 2.5 buts) = 66.3%\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
         "calibration_delta": -25.4,
-        "edge_pp": 18.4,
+        "edge_pp": 17.2,
         "history_top3": true
       },
       {
@@ -1091,7 +865,7 @@
         "direction": "home_win",
         "type": "Victoire domicile",
         "label": "Germany gagne",
-        "cote": 1.33,
+        "cote": 1.35,
         "confidence": 70,
         "reasoning": "Germany : 4V/0N/1D sur 5 matchs · #1 au classement · H2H: 0V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
         "stats": {
@@ -1106,14 +880,14 @@
         "is_fun": false,
         "tier": "safe",
         "calibration_delta": -11.3,
-        "edge_pp": -5.2,
+        "edge_pp": -4.1,
         "history_top3": true
       },
       {
         "direction": "wc_over_25",
         "type": "⚽ Total buts WC",
         "label": "Plus de 2.5 buts",
-        "cote": 1.71,
+        "cote": 1.74,
         "cote_min": 1.27,
         "confidence": 79,
         "tier": "safe",
@@ -1128,7 +902,7 @@
         },
         "reasoning": "📊 Écart FIFA significatif : Germany #10 vs Paraguay #49 (gap +285 pts, P favori ≈ 84%).\n⭐ Germany favori CdM 2026\nL10 : Germany 4V/0N/1D sur 5 · Paraguay 2V/1N/2D sur 5\n📋 Fiche Germany : off moyen (+0.13) · def fragile (-0.82) · forme LWWWW · 🏆 régulière phase finale\n   ↳ Historique : phase de poules en 2022 · phase de poules en 2018 · vainqueur en 2014 · 2 titres (1990, 2014)\n📋 Fiche Paraguay : off moyen (+0.25) · def moyenne (+0.20) · forme DWLWL · 🏆 novice WC\n🎯 Importance : Germany : 1 match joué (3pts) · Paraguay : 1 match joué (0pts)\n🌦️ ☁️ couvert · 17–27°C · humidité 52%\n⚠️ Compo PROBABLE (officielle à T-60min)\n⚽ Modèle Poisson : λ total = 4.17\nP(plus de 2.5 buts) = 78.6%\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
         "calibration_delta": -11.3,
-        "edge_pp": 20.5,
+        "edge_pp": 21.5,
         "history_top3": true
       },
       {
@@ -1338,7 +1112,7 @@
       "direction": "home_win",
       "type": "Victoire domicile",
       "label": "Germany gagne",
-      "cote": 1.33,
+      "cote": 1.35,
       "confidence": 70,
       "reasoning": "Germany : 4V/0N/1D sur 5 matchs · #1 au classement · H2H: 0V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
       "stats": {
@@ -1353,7 +1127,7 @@
       "is_fun": false,
       "tier": "safe",
       "calibration_delta": -11.3,
-      "edge_pp": -5.2,
+      "edge_pp": -4.1,
       "history_top3": true
     },
     "no_picks": false,
@@ -1381,6 +1155,207 @@
         "summary_fr": "☁️ couvert · 17–27°C · humidité 52%"
       },
       "text": "Conditions : ☁️ couvert · 17–27°C · humidité 52%. Stade : Gillette Stadium · altitude 100m · 65 878 places · plein air. Climat tempéré nord-est. Juin-juillet 20-26°C, humidité modérée."
+    }
+  },
+  {
+    "league": "World Cup",
+    "home": "France",
+    "away": "Sweden",
+    "start_ts": 1782853200,
+    "match_id": "4653704",
+    "page_url": "/matches/france-vs-sweden/1x6dai#4653704",
+    "picks": [
+      {
+        "direction": "home_win",
+        "type": "Victoire domicile",
+        "label": "France gagne",
+        "cote": 1.27,
+        "confidence": 70,
+        "reasoning": "France : 4V/0N/1D sur 5 matchs · #1 au classement · H2H: 0V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+        "stats": {
+          "form": [
+            "W",
+            "W",
+            "W",
+            "W",
+            "L"
+          ]
+        },
+        "is_fun": false,
+        "tier": "safe",
+        "calibration_delta": -11.3,
+        "edge_pp": -8.7,
+        "history_top3": false
+      },
+      {
+        "direction": "wc_over_35",
+        "type": "⚽ Total buts WC",
+        "label": "Plus de 3.5 buts",
+        "cote": null,
+        "cote_min": 1.49,
+        "confidence": 67,
+        "tier": "ok",
+        "stats": {
+          "lam_h": 3.92,
+          "lam_a": 0.66,
+          "h_fifa_rank": 2,
+          "a_fifa_rank": 24,
+          "elo_gap": 272,
+          "wc_round": null,
+          "family": "TOTAL"
+        },
+        "reasoning": "📊 Écart FIFA significatif : France #2 vs Sweden #24 (gap +272 pts, P favori ≈ 83%).\n⭐ France favori CdM 2026\nL10 : France 4V/0N/1D sur 5 · Sweden 1V/2N/2D sur 5\n📋 Fiche France : off moyen (-0.06) · def fragile (-1.00) · forme WWWWL · 🏆 élite mondiale\n   ↳ Historique : finaliste en 2022 · vainqueur en 2018 · quart de finale en 2014 · 2 titres (1998, 2018)\n📋 Fiche Sweden : off moyen (+0.17) · def fragile (-0.89) · forme DLWDL · 🏆 présence occasionnelle\n🎯 Importance : Sweden : 1 match joué (3pts)\n🌦️ Conditions : vent 37.4km/h (-7%) · chaleur 33.5°C (-10%)\n⚽ Modèle Poisson : λ total = 4.58\nP(plus de 3.5 buts) = 67.0% — match ouvert prévu\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
+        "calibration_delta": -25.4,
+        "history_top3": true
+      },
+      {
+        "direction": "wc_dc_1x",
+        "type": "🏆 Double chance WC",
+        "label": "France ou nul (1X)",
+        "cote": null,
+        "cote_min": 1.08,
+        "confidence": 93,
+        "tier": "safe",
+        "stats": {
+          "lam_h": 3.92,
+          "lam_a": 0.66,
+          "h_fifa_rank": 2,
+          "a_fifa_rank": 24,
+          "elo_gap": 272,
+          "wc_round": null,
+          "family": "DC"
+        },
+        "reasoning": "📊 Écart FIFA significatif : France #2 vs Sweden #24 (gap +272 pts, P favori ≈ 83%).\n⭐ France favori CdM 2026\nL10 : France 4V/0N/1D sur 5 · Sweden 1V/2N/2D sur 5\n📋 Fiche France : off moyen (-0.06) · def fragile (-1.00) · forme WWWWL · 🏆 élite mondiale\n   ↳ Historique : finaliste en 2022 · vainqueur en 2018 · quart de finale en 2014 · 2 titres (1998, 2018)\n📋 Fiche Sweden : off moyen (+0.17) · def fragile (-0.89) · forme DLWDL · 🏆 présence occasionnelle\n🎯 Importance : Sweden : 1 match joué (3pts)\n🌦️ Conditions : vent 37.4km/h (-7%) · chaleur 33.5°C (-10%)\n🛡️ Double chance : France gagne (86.8%) OU match nul (6.0%)\nCombiné = 92.7% — option safe contre Sweden\n📉 Calibration : bucket 90+% historiquement à WR 52% (claim 94%, n=23) — sur-estimé de 42pp",
+        "calibration_delta": -41.8,
+        "history_top3": false
+      },
+      {
+        "direction": "wc_home_scores_3",
+        "type": "⚽ Buteur équipe WC",
+        "label": "France marque 3+ buts",
+        "cote": null,
+        "cote_min": 1.33,
+        "confidence": 75,
+        "tier": "safe",
+        "stats": {
+          "lam_h": 3.92,
+          "lam_a": 0.66,
+          "h_fifa_rank": 2,
+          "a_fifa_rank": 24,
+          "elo_gap": 272,
+          "wc_round": null,
+          "family": "BUT_TEAM"
+        },
+        "reasoning": "📊 Écart FIFA significatif : France #2 vs Sweden #24 (gap +272 pts, P favori ≈ 83%).\n⭐ France favori CdM 2026\nL10 : France 4V/0N/1D sur 5 · Sweden 1V/2N/2D sur 5\n📋 Fiche France : off moyen (-0.06) · def fragile (-1.00) · forme WWWWL · 🏆 élite mondiale\n   ↳ Historique : finaliste en 2022 · vainqueur en 2018 · quart de finale en 2014 · 2 titres (1998, 2018)\n📋 Fiche Sweden : off moyen (+0.17) · def fragile (-0.89) · forme DLWDL · 🏆 présence occasionnelle\n🎯 Importance : Sweden : 1 match joué (3pts)\n🌦️ Conditions : vent 37.4km/h (-7%) · chaleur 33.5°C (-10%)\n⚽ P(France marque 3+) = 74.9% — gros favori en mode steamroller\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+        "calibration_delta": -11.3,
+        "history_top3": true
+      }
+    ],
+    "home_players": [
+      {
+        "player": "Désiré Doué",
+        "position": "F",
+        "is_sub": false,
+        "type": "Buteur",
+        "label": "Désiré Doué marque",
+        "cote": null,
+        "cote_min": 1.42,
+        "book": null,
+        "books": [],
+        "confidence": 70,
+        "reasoning": "Désiré Doué : selection 3G/7m (0.43/m) · L10 club : 2G/10m, 🔥 1G/3 derniers nat (+10%) | rotatif nat (56min/m) · last match 90min (1G+0A). λ ajusté à 1.21 (France attendu 4.6 buts) → P(marque) ~70%.\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+        "context": {
+          "source": "lineup",
+          "lam": 1.21,
+          "lineup_status": "confirmed"
+        },
+        "stats": {
+          "goals": null,
+          "apps": null,
+          "gpm": 1.211,
+          "xgpm": null
+        },
+        "team": "home",
+        "lineup_status": "confirmed",
+        "tier": "safe",
+        "calibration_delta": -11.3,
+        "history_top3": true
+      },
+      {
+        "player": "Kylian Mbappé / Ousmane Dembélé",
+        "position": "",
+        "is_sub": false,
+        "type": "Double Chance Buteur",
+        "label": "Kylian Mbappé ou Ousmane Dembélé marque",
+        "cote": null,
+        "book": null,
+        "books": [],
+        "confidence": 65,
+        "cote_min": 1.54,
+        "reasoning": "📈 P(Kylian Mbappé marque) ≈ 44% · P(Ousmane Dembélé marque) ≈ 38%\n🎯 P(au moins un marque) = 65% (calculée par 1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.54 - chercher ≥1.54 chez le bookmaker\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
+        "context": {},
+        "stats": {
+          "p_a": 0.435,
+          "p_b": 0.382,
+          "p_or": 0.651,
+          "player_a": "Kylian Mbappé",
+          "player_b": "Ousmane Dembélé"
+        },
+        "team": "home",
+        "tier": "ok",
+        "calibration_delta": -25.4,
+        "history_top3": true
+      }
+    ],
+    "away_players": [],
+    "fun_picks": [],
+    "top_pick": {
+      "direction": "home_win",
+      "type": "Victoire domicile",
+      "label": "France gagne",
+      "cote": 1.27,
+      "confidence": 70,
+      "reasoning": "France : 4V/0N/1D sur 5 matchs · #1 au classement · H2H: 0V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+      "stats": {
+        "form": [
+          "W",
+          "W",
+          "W",
+          "W",
+          "L"
+        ]
+      },
+      "is_fun": false,
+      "tier": "safe",
+      "calibration_delta": -11.3,
+      "edge_pp": -8.7,
+      "history_top3": false
+    },
+    "no_picks": false,
+    "context": {
+      "stadium": {
+        "name": "MetLife Stadium",
+        "city": "East Rutherford (New York)",
+        "country": "USA",
+        "lat": 40.8135,
+        "lon": -74.0744,
+        "capacity": 82500,
+        "surface": "Natural grass",
+        "altitude_m": 7,
+        "type": "outdoor",
+        "climatized": false,
+        "context_fr": "Climat nord-est USA. Juin 22-28°C, humidité modérée. Probable lieu de la finale."
+      },
+      "weather": {
+        "temp_max": 33.5,
+        "temp_min": 19.4,
+        "humidity": 55,
+        "precipitation_sum_mm": 3.63,
+        "wind_max_kmh": 37.4,
+        "weather_code": 63,
+        "summary_fr": "🌧️ pluie modérée · 19–33°C · humidité 55% · précipitations 3.6mm"
+      },
+      "text": "Conditions : 🌧️ pluie modérée · 19–33°C · humidité 55% · précipitations 3.6mm. Stade : MetLife Stadium · altitude 7m · 82 500 places · plein air. Climat nord-est USA. Juin 22-28°C, humidité modérée. Probable lieu de la finale. ⚠️ Forte chaleur (>32°C) en plein air : impact endurance, plus de pauses hydratation. ⚠️ Vent fort prévu : jeu aérien moins fiable, balles longues imprévisibles."
     }
   },
   {
@@ -1430,7 +1405,7 @@
           "wc_round": null,
           "family": "DC"
         },
-        "reasoning": "📊 Niveau équilibré : Ivory Coast #31 vs Norway #34 (gap +18 pts).\nL10 : Ivory Coast 4V/0N/1D sur 5 · Norway 3V/1N/1D sur 5\n📋 Fiche Ivory Coast : off solide (+1.00) · def solide (+0.58) · forme WLWWW · 🏆 présence occasionnelle\n📋 Fiche Norway : off solide (+0.84) · def moyenne (+0.08) · forme LWWDW · 🏆 novice WC\n🎯 Importance : Ivory Coast : 1 match joué (3pts)\n🌦️ 🌤️ principalement clair · 24–37°C · humidité 33% · stade fermé\n🛡️ Double chance : Ivory Coast gagne (47.0%) OU match nul (22.3%)\nCombiné = 69.3% — option safe contre Norway\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
+        "reasoning": "📊 Niveau équilibré : Ivory Coast #31 vs Norway #34 (gap +18 pts).\nL10 : Ivory Coast 4V/0N/1D sur 5 · Norway 3V/1N/1D sur 5\n📋 Fiche Ivory Coast : off solide (+1.00) · def solide (+0.58) · forme WLWWW · 🏆 présence occasionnelle\n📋 Fiche Norway : off solide (+0.84) · def moyenne (+0.08) · forme LWWDW · 🏆 novice WC\n🎯 Importance : Ivory Coast : 1 match joué (3pts)\n🌦️ 🌤️ conditions variables · 24–36°C · humidité 38% · stade fermé\n🛡️ Double chance : Ivory Coast gagne (47.0%) OU match nul (22.3%)\nCombiné = 69.3% — option safe contre Norway\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
         "calibration_delta": -25.4,
         "history_top3": true
       },
@@ -1451,7 +1426,7 @@
           "wc_round": null,
           "family": "BTTS"
         },
-        "reasoning": "📊 Niveau équilibré : Ivory Coast #31 vs Norway #34 (gap +18 pts).\nL10 : Ivory Coast 4V/0N/1D sur 5 · Norway 3V/1N/1D sur 5\n📋 Fiche Ivory Coast : off solide (+1.00) · def solide (+0.58) · forme WLWWW · 🏆 présence occasionnelle\n📋 Fiche Norway : off solide (+0.84) · def moyenne (+0.08) · forme LWWDW · 🏆 novice WC\n🎯 Importance : Ivory Coast : 1 match joué (3pts)\n🌦️ 🌤️ principalement clair · 24–37°C · humidité 33% · stade fermé\n⚽ BTTS Poisson : P(Ivory Coast ≥ 1) × P(Norway ≥ 1) = 85% × 77% = 65.6%\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
+        "reasoning": "📊 Niveau équilibré : Ivory Coast #31 vs Norway #34 (gap +18 pts).\nL10 : Ivory Coast 4V/0N/1D sur 5 · Norway 3V/1N/1D sur 5\n📋 Fiche Ivory Coast : off solide (+1.00) · def solide (+0.58) · forme WLWWW · 🏆 présence occasionnelle\n📋 Fiche Norway : off solide (+0.84) · def moyenne (+0.08) · forme LWWDW · 🏆 novice WC\n🎯 Importance : Ivory Coast : 1 match joué (3pts)\n🌦️ 🌤️ conditions variables · 24–36°C · humidité 38% · stade fermé\n⚽ BTTS Poisson : P(Ivory Coast ≥ 1) × P(Norway ≥ 1) = 85% × 77% = 65.6%\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
         "calibration_delta": -25.4,
         "history_top3": true
       },
@@ -1472,7 +1447,7 @@
           "wc_round": null,
           "family": "BUT_TEAM"
         },
-        "reasoning": "📊 Niveau équilibré : Ivory Coast #31 vs Norway #34 (gap +18 pts).\nL10 : Ivory Coast 4V/0N/1D sur 5 · Norway 3V/1N/1D sur 5\n📋 Fiche Ivory Coast : off solide (+1.00) · def solide (+0.58) · forme WLWWW · 🏆 présence occasionnelle\n📋 Fiche Norway : off solide (+0.84) · def moyenne (+0.08) · forme LWWDW · 🏆 novice WC\n🎯 Importance : Ivory Coast : 1 match joué (3pts)\n🌦️ 🌤️ principalement clair · 24–37°C · humidité 33% · stade fermé\n⚽ P(Norway marque ≥1) = 77.4% — λ_Norway = 1.49\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+        "reasoning": "📊 Niveau équilibré : Ivory Coast #31 vs Norway #34 (gap +18 pts).\nL10 : Ivory Coast 4V/0N/1D sur 5 · Norway 3V/1N/1D sur 5\n📋 Fiche Ivory Coast : off solide (+1.00) · def solide (+0.58) · forme WLWWW · 🏆 présence occasionnelle\n📋 Fiche Norway : off solide (+0.84) · def moyenne (+0.08) · forme LWWDW · 🏆 novice WC\n🎯 Importance : Ivory Coast : 1 match joué (3pts)\n🌦️ 🌤️ conditions variables · 24–36°C · humidité 38% · stade fermé\n⚽ P(Norway marque ≥1) = 77.4% — λ_Norway = 1.49\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
         "calibration_delta": -11.3,
         "history_top3": false
       }
@@ -1542,15 +1517,15 @@
         "context_fr": "Toit retractable, climatisé. Permet de jouer malgré chaleur Texas en juin (38°C+)."
       },
       "weather": {
-        "temp_max": 37.4,
-        "temp_min": 24.2,
-        "humidity": 33,
+        "temp_max": 36.0,
+        "temp_min": 24.5,
+        "humidity": 38,
         "precipitation_sum_mm": 0.0,
-        "wind_max_kmh": 20.3,
-        "weather_code": 1,
-        "summary_fr": "🌤️ principalement clair · 24–37°C · humidité 33%"
+        "wind_max_kmh": 21.5,
+        "weather_code": 0,
+        "summary_fr": "🌤️ conditions variables · 24–36°C · humidité 38%"
       },
-      "text": "Conditions : 🌤️ principalement clair · 24–37°C · humidité 33%. Stade : AT&T Stadium · altitude 180m · 80 000 places · climatisé. Toit retractable, climatisé. Permet de jouer malgré chaleur Texas en juin (38°C+)."
+      "text": "Conditions : 🌤️ conditions variables · 24–36°C · humidité 38%. Stade : AT&T Stadium · altitude 180m · 80 000 places · climatisé. Toit retractable, climatisé. Permet de jouer malgré chaleur Texas en juin (38°C+)."
     }
   },
   {
@@ -1669,7 +1644,7 @@
           "wc_round": null,
           "family": "DC"
         },
-        "reasoning": "📊 Niveau équilibré : Netherlands #7 vs Morocco #12 (gap +60 pts).\n⭐ Netherlands favori CdM 2026\nL10 : Netherlands 3V/1N/1D sur 5 · Morocco 3V/2N/0D sur 5\n📋 Fiche Netherlands : off moyen (-0.01) · def fragile (-0.88) · forme WWDWL · 🏆 régulière phase finale\n   ↳ Historique : quart de finale en 2022 · demi-finaliste en 2014\n📋 Fiche Morocco : off moyen (-0.13) · def moyenne (+0.06) · forme WWDDW · 🏆 habituée du tournoi\n🎯 Importance : Netherlands : 1 match joué (1pts) · Morocco : 1 match joué (1pts)\n🌦️ Conditions : vent 39.5km/h (-7%) · chaleur 35.3°C (-10%)\n⚠️ Compo PROBABLE (officielle à T-60min)\n🛡️ Double chance : Netherlands gagne (42.3%) OU match nul (24.5%)\nCombiné = 66.8% — option safe contre Morocco\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
+        "reasoning": "📊 Niveau équilibré : Netherlands #7 vs Morocco #12 (gap +60 pts).\n⭐ Netherlands favori CdM 2026\nL10 : Netherlands 3V/1N/1D sur 5 · Morocco 3V/2N/0D sur 5\n📋 Fiche Netherlands : off moyen (-0.01) · def fragile (-0.88) · forme WWDWL · 🏆 régulière phase finale\n   ↳ Historique : quart de finale en 2022 · demi-finaliste en 2014\n📋 Fiche Morocco : off moyen (-0.13) · def moyenne (+0.06) · forme WWDDW · 🏆 habituée du tournoi\n🎯 Importance : Netherlands : 1 match joué (1pts) · Morocco : 1 match joué (1pts)\n🌦️ Conditions : vent 34.5km/h (-7%) · chaleur 34.8°C (-10%)\n⚠️ Compo PROBABLE (officielle à T-60min)\n🛡️ Double chance : Netherlands gagne (42.3%) OU match nul (24.5%)\nCombiné = 66.8% — option safe contre Morocco\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
         "calibration_delta": -25.4,
         "history_top3": true
       },
@@ -1690,7 +1665,7 @@
           "wc_round": null,
           "family": "TOTAL"
         },
-        "reasoning": "📊 Niveau équilibré : Netherlands #7 vs Morocco #12 (gap +60 pts).\n⭐ Netherlands favori CdM 2026\nL10 : Netherlands 3V/1N/1D sur 5 · Morocco 3V/2N/0D sur 5\n📋 Fiche Netherlands : off moyen (-0.01) · def fragile (-0.88) · forme WWDWL · 🏆 régulière phase finale\n   ↳ Historique : quart de finale en 2022 · demi-finaliste en 2014\n📋 Fiche Morocco : off moyen (-0.13) · def moyenne (+0.06) · forme WWDDW · 🏆 habituée du tournoi\n🎯 Importance : Netherlands : 1 match joué (1pts) · Morocco : 1 match joué (1pts)\n🌦️ Conditions : vent 39.5km/h (-7%) · chaleur 35.3°C (-10%)\n⚠️ Compo PROBABLE (officielle à T-60min)\n⚽ Modèle Poisson : λ total = 2.92 buts attendus\nP(plus de 1.5 buts) = 78.8%\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+        "reasoning": "📊 Niveau équilibré : Netherlands #7 vs Morocco #12 (gap +60 pts).\n⭐ Netherlands favori CdM 2026\nL10 : Netherlands 3V/1N/1D sur 5 · Morocco 3V/2N/0D sur 5\n📋 Fiche Netherlands : off moyen (-0.01) · def fragile (-0.88) · forme WWDWL · 🏆 régulière phase finale\n   ↳ Historique : quart de finale en 2022 · demi-finaliste en 2014\n📋 Fiche Morocco : off moyen (-0.13) · def moyenne (+0.06) · forme WWDDW · 🏆 habituée du tournoi\n🎯 Importance : Netherlands : 1 match joué (1pts) · Morocco : 1 match joué (1pts)\n🌦️ Conditions : vent 34.5km/h (-7%) · chaleur 34.8°C (-10%)\n⚠️ Compo PROBABLE (officielle à T-60min)\n⚽ Modèle Poisson : λ total = 2.92 buts attendus\nP(plus de 1.5 buts) = 78.8%\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
         "calibration_delta": -11.3,
         "history_top3": false
       },
@@ -1711,7 +1686,7 @@
           "wc_round": null,
           "family": "BUT_TEAM"
         },
-        "reasoning": "📊 Niveau équilibré : Netherlands #7 vs Morocco #12 (gap +60 pts).\n⭐ Netherlands favori CdM 2026\nL10 : Netherlands 3V/1N/1D sur 5 · Morocco 3V/2N/0D sur 5\n📋 Fiche Netherlands : off moyen (-0.01) · def fragile (-0.88) · forme WWDWL · 🏆 régulière phase finale\n   ↳ Historique : quart de finale en 2022 · demi-finaliste en 2014\n📋 Fiche Morocco : off moyen (-0.13) · def moyenne (+0.06) · forme WWDDW · 🏆 habituée du tournoi\n🎯 Importance : Netherlands : 1 match joué (1pts) · Morocco : 1 match joué (1pts)\n🌦️ Conditions : vent 39.5km/h (-7%) · chaleur 35.3°C (-10%)\n⚠️ Compo PROBABLE (officielle à T-60min)\n⚽ P(Netherlands marque ≥1) = 79.0% — λ_Netherlands = 1.56\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+        "reasoning": "📊 Niveau équilibré : Netherlands #7 vs Morocco #12 (gap +60 pts).\n⭐ Netherlands favori CdM 2026\nL10 : Netherlands 3V/1N/1D sur 5 · Morocco 3V/2N/0D sur 5\n📋 Fiche Netherlands : off moyen (-0.01) · def fragile (-0.88) · forme WWDWL · 🏆 régulière phase finale\n   ↳ Historique : quart de finale en 2022 · demi-finaliste en 2014\n📋 Fiche Morocco : off moyen (-0.13) · def moyenne (+0.06) · forme WWDDW · 🏆 habituée du tournoi\n🎯 Importance : Netherlands : 1 match joué (1pts) · Morocco : 1 match joué (1pts)\n🌦️ Conditions : vent 34.5km/h (-7%) · chaleur 34.8°C (-10%)\n⚠️ Compo PROBABLE (officielle à T-60min)\n⚽ P(Netherlands marque ≥1) = 79.0% — λ_Netherlands = 1.56\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
         "calibration_delta": -11.3,
         "history_top3": false
       }
@@ -1760,7 +1735,7 @@
         "wc_round": null,
         "family": "DC"
       },
-      "reasoning": "📊 Niveau équilibré : Netherlands #7 vs Morocco #12 (gap +60 pts).\n⭐ Netherlands favori CdM 2026\nL10 : Netherlands 3V/1N/1D sur 5 · Morocco 3V/2N/0D sur 5\n📋 Fiche Netherlands : off moyen (-0.01) · def fragile (-0.88) · forme WWDWL · 🏆 régulière phase finale\n   ↳ Historique : quart de finale en 2022 · demi-finaliste en 2014\n📋 Fiche Morocco : off moyen (-0.13) · def moyenne (+0.06) · forme WWDDW · 🏆 habituée du tournoi\n🎯 Importance : Netherlands : 1 match joué (1pts) · Morocco : 1 match joué (1pts)\n🌦️ Conditions : vent 39.5km/h (-7%) · chaleur 35.3°C (-10%)\n⚠️ Compo PROBABLE (officielle à T-60min)\n🛡️ Double chance : Netherlands gagne (42.3%) OU match nul (24.5%)\nCombiné = 66.8% — option safe contre Morocco\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
+      "reasoning": "📊 Niveau équilibré : Netherlands #7 vs Morocco #12 (gap +60 pts).\n⭐ Netherlands favori CdM 2026\nL10 : Netherlands 3V/1N/1D sur 5 · Morocco 3V/2N/0D sur 5\n📋 Fiche Netherlands : off moyen (-0.01) · def fragile (-0.88) · forme WWDWL · 🏆 régulière phase finale\n   ↳ Historique : quart de finale en 2022 · demi-finaliste en 2014\n📋 Fiche Morocco : off moyen (-0.13) · def moyenne (+0.06) · forme WWDDW · 🏆 habituée du tournoi\n🎯 Importance : Netherlands : 1 match joué (1pts) · Morocco : 1 match joué (1pts)\n🌦️ Conditions : vent 34.5km/h (-7%) · chaleur 34.8°C (-10%)\n⚠️ Compo PROBABLE (officielle à T-60min)\n🛡️ Double chance : Netherlands gagne (42.3%) OU match nul (24.5%)\nCombiné = 66.8% — option safe contre Morocco\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
       "calibration_delta": -25.4,
       "history_top3": true
     },
@@ -1780,15 +1755,15 @@
         "context_fr": "Climat semi-aride, chaleur élevée en juin (35-40°C l'après-midi)."
       },
       "weather": {
-        "temp_max": 35.3,
-        "temp_min": 23.2,
-        "humidity": 34,
+        "temp_max": 34.8,
+        "temp_min": 23.3,
+        "humidity": 37,
         "precipitation_sum_mm": 0.0,
-        "wind_max_kmh": 39.5,
+        "wind_max_kmh": 34.5,
         "weather_code": 2,
-        "summary_fr": "⛅ partiellement nuageux · 23–35°C · humidité 34%"
+        "summary_fr": "⛅ partiellement nuageux · 23–34°C · humidité 37%"
       },
-      "text": "Conditions : ⛅ partiellement nuageux · 23–35°C · humidité 34%. Stade : Estadio BBVA · altitude 500m · 53 500 places · plein air. Climat semi-aride, chaleur élevée en juin (35-40°C l'après-midi). ⚠️ Forte chaleur (>32°C) en plein air : impact endurance, plus de pauses hydratation. ⚠️ Vent fort prévu : jeu aérien moins fiable, balles longues imprévisibles."
+      "text": "Conditions : ⛅ partiellement nuageux · 23–34°C · humidité 37%. Stade : Estadio BBVA · altitude 500m · 53 500 places · plein air. Climat semi-aride, chaleur élevée en juin (35-40°C l'après-midi). ⚠️ Forte chaleur (>32°C) en plein air : impact endurance, plus de pauses hydratation. ⚠️ Vent fort prévu : jeu aérien moins fiable, balles longues imprévisibles."
     }
   },
   {
@@ -1859,15 +1834,15 @@
         "surface": null
       },
       "weather": {
-        "temp_max": 24.0,
-        "temp_min": 21.3,
-        "humidity": 56,
+        "temp_max": 24.1,
+        "temp_min": 21.4,
+        "humidity": 55,
         "precipitation_sum_mm": 0.0,
-        "wind_max_kmh": 22.0,
+        "wind_max_kmh": 19.4,
         "weather_code": 3,
-        "summary_fr": "☁️ couvert · 24°C · humidité 56%"
+        "summary_fr": "☁️ couvert · 24°C · humidité 55%"
       },
-      "text": "Conditions : ☁️ couvert · 24°C · humidité 56%. Stade : Stadions Daugava · plein air."
+      "text": "Conditions : ☁️ couvert · 24°C · humidité 55%. Stade : Stadions Daugava · plein air."
     }
   },
   {
