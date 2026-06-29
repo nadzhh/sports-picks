@@ -25328,9 +25328,9 @@
       "matchup": "Auda vs Riga FC",
       "league": "Latvian Virsliga",
       "category": "team",
-      "result": "PENDING",
-      "actual": null,
-      "resolved_at": null
+      "result": "WIN",
+      "actual": "0-2",
+      "resolved_at": "2026-06-29 17:01"
     },
     {
       "direction": "away_dc",
@@ -25359,9 +25359,9 @@
       "matchup": "Auda vs Riga FC",
       "league": "Latvian Virsliga",
       "category": "team",
-      "result": "PENDING",
-      "actual": null,
-      "resolved_at": null
+      "result": "WIN",
+      "actual": "0-2",
+      "resolved_at": "2026-06-29 17:01"
     },
     {
       "player": "Muhammed Badamosi / Iago Siqueira",
@@ -25398,9 +25398,12 @@
       "matchup": "Auda vs Riga FC",
       "league": "Latvian Virsliga",
       "category": "player",
-      "result": "PENDING",
-      "actual": null,
-      "resolved_at": null,
+      "result": "WIN",
+      "actual": {
+        "goals": 2,
+        "assists": 0
+      },
+      "resolved_at": "2026-06-29 17:01",
       "side": "away"
     },
     {
@@ -25434,9 +25437,12 @@
       "matchup": "Auda vs Riga FC",
       "league": "Latvian Virsliga",
       "category": "player",
-      "result": "PENDING",
-      "actual": null,
-      "resolved_at": null,
+      "result": "WIN",
+      "actual": {
+        "goals": 2,
+        "assists": 0
+      },
+      "resolved_at": "2026-06-29 17:01",
       "side": "away"
     },
     {
@@ -25470,16 +25476,55 @@
       "matchup": "Auda vs Riga FC",
       "league": "Latvian Virsliga",
       "category": "player",
-      "result": "PENDING",
-      "actual": null,
-      "resolved_at": null,
+      "result": "LOSS",
+      "actual": {
+        "goals": 0,
+        "assists": 0
+      },
+      "resolved_at": "2026-06-29 17:01",
+      "side": "home"
+    },
+    {
+      "player": "Filip Hasek",
+      "position": "M",
+      "is_sub": false,
+      "type": "Buteur",
+      "label": "Filip Hasek marque",
+      "team": "home",
+      "cote": null,
+      "book": null,
+      "books": [],
+      "confidence": 30,
+      "reasoning": "5G en 16 matchs (31.2%/match) · xG: 0.00/match",
+      "context": {
+        "weakness": 0.33
+      },
+      "stats": {
+        "goals": 5,
+        "apps": 16
+      },
+      "tier": "fun",
+      "history_top3": true,
+      "id": "2026-06-29_5162018_player_Filip Hasek_Buteur",
+      "date": "2026-06-29",
+      "match_id": "5162018",
+      "page_url": "/matches/fk-jelgava-vs-grobina/4o6tty3o#5162018",
+      "matchup": "FK Jelgava vs Grobina",
+      "league": "Latvian Virsliga",
+      "category": "player",
+      "result": "LOSS",
+      "actual": {
+        "goals": 0,
+        "assists": 0
+      },
+      "resolved_at": "2026-06-29 17:01",
       "side": "home"
     },
     {
       "direction": "home_win",
       "type": "Victoire domicile",
       "label": "Brazil gagne",
-      "cote": 1.8,
+      "cote": 1.74,
       "confidence": 74,
       "reasoning": "Brazil : 4V/1N/0D sur 5 matchs · #1 au classement · H2H: 0V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
       "stats": {
@@ -25494,7 +25539,7 @@
       "is_fun": false,
       "tier": "safe",
       "calibration_delta": -11.3,
-      "edge_pp": 18.4,
+      "edge_pp": 16.5,
       "history_top3": true,
       "id": "2026-06-29_4653711_team_home_win",
       "date": "2026-06-29",
@@ -25571,46 +25616,6 @@
       "resolved_at": null
     },
     {
-      "player": "Vinícius Júnior / Matheus Cunha",
-      "position": "",
-      "is_sub": false,
-      "type": "Double Chance Buteur",
-      "label": "Vinícius Júnior ou Matheus Cunha marque (Brazil)",
-      "cote": null,
-      "book": null,
-      "books": [],
-      "confidence": 65,
-      "cote_min": 1.54,
-      "reasoning": "🏠 Combo intra-Brazil\n📈 P(Vinícius Júnior marque) ≈ 44% · P(Matheus Cunha marque) ≈ 37%\n🎯 P(au moins un marque) = 65% (1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.54 - chercher ≥1.54 chez le bookmaker\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
-      "context": {
-        "combo_kind": "intra-home"
-      },
-      "_team_for_balance": "home",
-      "stats": {
-        "p_a": 0.442,
-        "p_b": 0.368,
-        "p_or": 0.647,
-        "player_a": "Vinícius Júnior",
-        "player_b": "Matheus Cunha",
-        "kind": "intra-home"
-      },
-      "team": "home",
-      "tier": "ok",
-      "calibration_delta": -25.4,
-      "history_top3": false,
-      "id": "2026-06-29_4653711_player_Vinícius Júnior / Matheus Cunha_Double Chance Buteur",
-      "date": "2026-06-29",
-      "match_id": "4653711",
-      "page_url": "/matches/japan-vs-brazil/1uqadm#4653711",
-      "matchup": "Brazil vs Japan",
-      "league": "World Cup",
-      "category": "player",
-      "result": "PENDING",
-      "actual": null,
-      "resolved_at": null,
-      "side": "home"
-    },
-    {
       "player": "Rayan",
       "position": "F",
       "is_sub": false,
@@ -25651,44 +25656,44 @@
       "side": "home"
     },
     {
-      "player": "Yegor Glushach / Xabi Auzmendi",
-      "position": "",
+      "player": "Bruno Guimarães",
+      "position": "F",
       "is_sub": false,
-      "type": "Double Chance Buteur",
-      "label": "Yegor Glushach ou Xabi Auzmendi marque (FK TransINVEST)",
+      "type": "Passeur",
+      "label": "Bruno Guimarães délivre une passe décisive",
       "cote": null,
+      "cote_min": 1.83,
       "book": null,
       "books": [],
-      "confidence": 70,
-      "cote_min": 1.43,
-      "reasoning": "✈️ Combo intra-FK TransINVEST\n📈 P(Yegor Glushach marque) ≈ 49% · P(Xabi Auzmendi marque) ≈ 48%\n🎯 P(au moins un marque) = 70% (1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.43 - chercher ≥1.43 chez le bookmaker\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+      "confidence": 55,
+      "reasoning": "Bruno Guimarães délivre une passe décisive : selection 5A/11m (0.46 passes/m nat). P(passe décisive) ~55%.\n📉 Calibration : bucket 50-59% historiquement à WR 42% (claim 55%, n=41) — sur-estimé de 14pp",
       "context": {
-        "combo_kind": "intra-away"
+        "source": "lineup",
+        "lam": 0.79,
+        "lineup_status": "confirmed"
       },
-      "_team_for_balance": "away",
       "stats": {
-        "p_a": 0.488,
-        "p_b": 0.48,
-        "p_or": 0.7,
-        "player_a": "Yegor Glushach",
-        "player_b": "Xabi Auzmendi",
-        "kind": "intra-away"
+        "goals": null,
+        "apps": null,
+        "gpm": 0.789,
+        "xgpm": null
       },
-      "team": "away",
-      "tier": "safe",
-      "calibration_delta": -11.3,
-      "history_top3": true,
-      "id": "2026-06-29_5838857_player_Yegor Glushach / Xabi Auzmendi_Double Chance Buteur",
+      "team": "home",
+      "lineup_status": "confirmed",
+      "tier": "ok",
+      "calibration_delta": -13.6,
+      "history_top3": false,
+      "id": "2026-06-29_4653711_player_Bruno Guimarães_Passeur",
       "date": "2026-06-29",
-      "match_id": "5838857",
-      "page_url": "/matches/fa-siauliai-vs-fk-transinvest/15eamc9zz#5838857",
-      "matchup": "FA Siauliai vs FK TransINVEST",
-      "league": "Lithuanian Toplyga",
+      "match_id": "4653711",
+      "page_url": "/matches/japan-vs-brazil/1uqadm#4653711",
+      "matchup": "Brazil vs Japan",
+      "league": "World Cup",
       "category": "player",
       "result": "PENDING",
       "actual": null,
       "resolved_at": null,
-      "side": "away"
+      "side": "home"
     },
     {
       "direction": "wc_over_25",
@@ -26037,8 +26042,8 @@
       "type": "Victoire extérieur",
       "label": "Suduva gagne",
       "cote": null,
-      "confidence": 64,
-      "reasoning": "Suduva : 3V/2N/0D sur 5 matchs · #4 au classement · H2H: 1V/1N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
+      "confidence": 63,
+      "reasoning": "Suduva : 3V/2N/0D sur 5 matchs · #5 au classement · H2H: 1V/1N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
       "stats": {
         "form": [
           "W",
@@ -26057,6 +26062,77 @@
       "match_id": "5838858",
       "page_url": "/matches/suduva-vs-fk-panevezys/1il1jjkd#5838858",
       "matchup": "FK Panevezys vs Suduva",
+      "league": "Lithuanian Toplyga",
+      "category": "team",
+      "result": "PENDING",
+      "actual": null,
+      "resolved_at": null
+    },
+    {
+      "player": "Yegor Glushach / Xabi Auzmendi",
+      "position": "",
+      "is_sub": false,
+      "type": "Double Chance Buteur",
+      "label": "Yegor Glushach ou Xabi Auzmendi marque (FK TransINVEST)",
+      "cote": null,
+      "book": null,
+      "books": [],
+      "confidence": 70,
+      "cote_min": 1.43,
+      "reasoning": "✈️ Combo intra-FK TransINVEST\n📈 P(Yegor Glushach marque) ≈ 49% · P(Xabi Auzmendi marque) ≈ 48%\n🎯 P(au moins un marque) = 70% (1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.43 - chercher ≥1.43 chez le bookmaker\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+      "context": {
+        "combo_kind": "intra-away"
+      },
+      "_team_for_balance": "away",
+      "stats": {
+        "p_a": 0.488,
+        "p_b": 0.48,
+        "p_or": 0.7,
+        "player_a": "Yegor Glushach",
+        "player_b": "Xabi Auzmendi",
+        "kind": "intra-away"
+      },
+      "team": "away",
+      "tier": "safe",
+      "calibration_delta": -11.3,
+      "history_top3": true,
+      "id": "2026-06-29_5838857_player_Yegor Glushach / Xabi Auzmendi_Double Chance Buteur",
+      "date": "2026-06-29",
+      "match_id": "5838857",
+      "page_url": "/matches/fa-siauliai-vs-fk-transinvest/15eamc9zz#5838857",
+      "matchup": "FA Siauliai vs FK TransINVEST",
+      "league": "Lithuanian Toplyga",
+      "category": "player",
+      "result": "PENDING",
+      "actual": null,
+      "resolved_at": null,
+      "side": "away"
+    },
+    {
+      "direction": "away_win",
+      "type": "Victoire extérieur",
+      "label": "FK TransINVEST gagne",
+      "cote": null,
+      "confidence": 58,
+      "reasoning": "FK TransINVEST : 3V/0N/2D sur 5 matchs · #2 au classement · H2H: 1V/1N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 50-59% historiquement à WR 42% (claim 55%, n=41) — sur-estimé de 14pp",
+      "stats": {
+        "form": [
+          "L",
+          "W",
+          "W",
+          "L",
+          "W"
+        ]
+      },
+      "is_fun": false,
+      "tier": "ok",
+      "calibration_delta": -13.6,
+      "history_top3": true,
+      "id": "2026-06-29_5838857_team_away_win",
+      "date": "2026-06-29",
+      "match_id": "5838857",
+      "page_url": "/matches/fa-siauliai-vs-fk-transinvest/15eamc9zz#5838857",
+      "matchup": "FA Siauliai vs FK TransINVEST",
       "league": "Lithuanian Toplyga",
       "category": "team",
       "result": "PENDING",
@@ -26210,39 +26286,6 @@
       "actual": null,
       "resolved_at": null,
       "side": "away"
-    },
-    {
-      "player": "Filip Hasek",
-      "position": "M",
-      "is_sub": false,
-      "type": "Buteur",
-      "label": "Filip Hasek marque",
-      "team": "home",
-      "cote": null,
-      "book": null,
-      "books": [],
-      "confidence": 30,
-      "reasoning": "5G en 16 matchs (31.2%/match) · xG: 0.00/match",
-      "context": {
-        "weakness": 0.33
-      },
-      "stats": {
-        "goals": 5,
-        "apps": 16
-      },
-      "tier": "fun",
-      "history_top3": true,
-      "id": "2026-06-29_5162018_player_Filip Hasek_Buteur",
-      "date": "2026-06-29",
-      "match_id": "5162018",
-      "page_url": "/matches/fk-jelgava-vs-grobina/4o6tty3o#5162018",
-      "matchup": "FK Jelgava vs Grobina",
-      "league": "Latvian Virsliga",
-      "category": "player",
-      "result": "PENDING",
-      "actual": null,
-      "resolved_at": null,
-      "side": "home"
     }
   ]
 }
