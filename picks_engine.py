@@ -657,7 +657,7 @@ def _match_odds_name(target, odds_keys):
     return None
 
 
-def player_picks_contextual(players, opp_pos, opp_rat, opp_conceded_pm=0, btts_prob=50, min_apps=5, match_odds=None):
+def player_picks_contextual(players, opp_pos, opp_rat, opp_conceded_pm=0, btts_prob=50, min_apps=5, match_odds=None, enable_dc_buteur=True, return_butdata=False):
     """
     Analyse contextuelle enrichie avec forme récente joueur.
     Forme récente (xG, buts récents) prime sur les stats saison brutes.
@@ -835,12 +835,13 @@ def player_picks_contextual(players, opp_pos, opp_rat, opp_conceded_pm=0, btts_p
     final.sort(key=lambda x: x["confidence"], reverse=True)
 
     # ── Double Chance Buteur : appairer 2 joueurs (l'un OU l'autre marque) ──
-    # Market populaire (Betclic/Bwin) avec cotes interessantes (1.40-1.80 pour
-    # 2 top buteurs meme equipe). P(A ou B) = 1 - (1-pA)(1-pB) avec independance
-    # approximee (legere sous-estimation due a la correlation positive).
-    # On utilise _buteur_data_local (proba calibree par joueur, capturee meme si
-    # individuellement sous le seuil d'emit).
-    if len(_buteur_data_local) >= 2:
+    # User : "tu n'es pas obligé de proposer un buteur pour chaque équipe + tu
+    # peux proposer buteur équipe A / équipe B en double chance".
+    # → La génération intra-équipe forcée est DÉSACTIVÉE par défaut quand on
+    #   est appelé depuis analyze_match (enable_dc_buteur=False). La logique
+    #   intelligente (intra-A vs intra-B vs cross-équipe) se fait au niveau
+    #   du match dans analyze_match() qui choisit la meilleure option.
+    if enable_dc_buteur and len(_buteur_data_local) >= 2:
         _buteur_data_local.sort(key=lambda x: x.get("conf_cal", 0), reverse=True)
         a, b = _buteur_data_local[0], _buteur_data_local[1]
         pa = float(a.get("conf_cal", 0)) / 100.0
@@ -894,7 +895,130 @@ def player_picks_contextual(players, opp_pos, opp_rat, opp_conceded_pm=0, btts_p
                 },
             })
 
+    if return_butdata:
+        return final, _buteur_data_local
     return final
+
+
+def _build_smart_dc_buteur(home_butdata, away_butdata, home_name, away_name):
+    """Génère AU PLUS UNE Double Chance Buteur en choisissant le meilleur
+    combo parmi 3 candidats : intra-home, intra-away, cross-équipe.
+
+    User : "tu peux proposer buteur équipe A / équipe B en double chance,
+    tu n'es pas obligé de proposer un buteur pour chaque équipe".
+
+    Critères :
+      - Chaque joueur doit avoir conf_cal ≥ 45% (sinon = remplissage)
+      - Conf combinée ≥ 65% (cap dur 70% pour ne pas afficher cotes ridicules)
+      - Cote min ≥ 1.40
+      - Préférence légère pour cross-équipe (moins de corrélation positive)
+    """
+    MIN_INDIV = 35     # conf_cal minimale par joueur (pour atteindre combiné ≥ 65%)
+    MIN_COMBINED = 65  # conf combinée mini pour émettre
+    MAX_COMBINED = 70  # plafond pour rester ≥ 1.40 cote
+    MIN_COTE = 1.40
+
+    def _top2(butdata):
+        sorted_b = sorted(butdata or [], key=lambda x: x.get("conf_cal", 0), reverse=True)
+        return sorted_b[:2] if len(sorted_b) >= 2 else None
+
+    def _combo(a, b, label_prefix=""):
+        """Calcule P(A ou B marque) = 1 - (1-pA)(1-pB) avec garde."""
+        if not a or not b: return None
+        pa = float(a.get("conf_cal", 0)) / 100.0
+        pb = float(b.get("conf_cal", 0)) / 100.0
+        # Garde-fou : chaque joueur doit avoir conf indiv ≥ MIN_INDIV
+        if pa * 100 < MIN_INDIV or pb * 100 < MIN_INDIV: return None
+        p_or = 1 - (1 - pa) * (1 - pb)
+        conf_combined = round(p_or * 100)
+        if conf_combined > MAX_COMBINED:
+            conf_combined = MAX_COMBINED
+            p_or = MAX_COMBINED / 100.0
+        if conf_combined < MIN_COMBINED: return None
+        cote_min = _fair_cote(conf_combined)
+        if not cote_min or cote_min < MIN_COTE: return None
+        return {
+            "a": a, "b": b, "p_or": p_or,
+            "conf": conf_combined, "cote_min": cote_min,
+            "label_prefix": label_prefix,
+        }
+
+    candidates = []
+
+    # Candidat 1 : intra-home
+    top_h = _top2(home_butdata)
+    if top_h:
+        c = _combo(top_h[0], top_h[1], label_prefix=f"({home_name})")
+        if c: c["kind"] = "intra-home"; candidates.append(c)
+
+    # Candidat 2 : intra-away
+    top_a = _top2(away_butdata)
+    if top_a:
+        c = _combo(top_a[0], top_a[1], label_prefix=f"({away_name})")
+        if c: c["kind"] = "intra-away"; candidates.append(c)
+
+    # Candidat 3 : cross-équipe (top home + top away)
+    top_h1 = sorted(home_butdata or [], key=lambda x: x.get("conf_cal", 0), reverse=True)[:1]
+    top_a1 = sorted(away_butdata or [], key=lambda x: x.get("conf_cal", 0), reverse=True)[:1]
+    if top_h1 and top_a1:
+        c = _combo(top_h1[0], top_a1[0], label_prefix=f"(cross)")
+        if c:
+            c["kind"] = "cross"
+            # Bonus +3% conf : cross-équipe = moins de corrélation positive
+            c["conf"] = min(MAX_COMBINED, c["conf"] + 3)
+            candidates.append(c)
+
+    if not candidates: return None
+
+    # Garde le meilleur (conf desc)
+    candidates.sort(key=lambda c: -c["conf"])
+    best = candidates[0]
+    a = best["a"]; b = best["b"]
+    pa = float(a.get("conf_cal", 0)) / 100.0
+    pb = float(b.get("conf_cal", 0)) / 100.0
+
+    if best["kind"] == "cross":
+        label = f"{a['player']} OU {b['player']} marque (cross-équipe)"
+        kind_desc = "🔀 Cross-équipe (moins corrélé → meilleur EV)"
+    elif best["kind"] == "intra-home":
+        label = f"{a['player']} ou {b['player']} marque ({home_name})"
+        kind_desc = f"🏠 Combo intra-{home_name}"
+    else:
+        label = f"{a['player']} ou {b['player']} marque ({away_name})"
+        kind_desc = f"✈️ Combo intra-{away_name}"
+
+    reasoning = (
+        f"{kind_desc}\n"
+        f"📈 P({a['player']} marque) ≈ {round(pa*100)}% · "
+        f"P({b['player']} marque) ≈ {round(pb*100)}%\n"
+        f"🎯 P(au moins un marque) = {best['conf']}% (1 - (1-pA)(1-pB))\n"
+        f"💎 Cote min équilibre = {best['cote_min']} - chercher ≥{best['cote_min']} chez le bookmaker"
+    )
+
+    return {
+        "player":      f"{a['player']} / {b['player']}",
+        "position":    "",
+        "is_sub":      False,
+        "type":        "Double Chance Buteur",
+        "label":       label,
+        "cote":        None,
+        "book":        None,
+        "books":       [],
+        "confidence":  best["conf"],
+        "cote_min":    best["cote_min"],
+        "reasoning":   reasoning,
+        "context":     {"combo_kind": best["kind"]},
+        "_team_for_balance": "home" if best["kind"] in ("intra-home","cross") else "away",
+        "stats":       {
+            "p_a":      round(pa, 3),
+            "p_b":      round(pb, 3),
+            "p_or":     round(best["p_or"], 3),
+            "player_a": a["player"],
+            "player_b": b["player"],
+            "kind":     best["kind"],
+        },
+    }
+
 
 # ─── Analyse équipe ──────────────────────────────────────────────────────────
 
@@ -2674,8 +2798,17 @@ def analyze_match(match, pstats_all, player_odds_all=None):
     home_conceded = away_ts_data.get("conceded_pm", 0) if away_ts_data else 0
     away_conceded = home_ts_data.get("conceded_pm", 0) if home_ts_data else 0
 
-    home_pp_raw = player_picks_contextual(home_players_filt, ap, ar, home_conceded, btts_p, match_odds=match_player_odds)
-    away_pp_raw = player_picks_contextual(away_players_filt, hp, hr, away_conceded, btts_p, match_odds=match_player_odds)
+    # enable_dc_buteur=False : on désactive la génération intra-équipe forcée
+    # et on génère la double chance buteur intelligemment plus bas (au niveau
+    # match) avec choix entre intra-A / intra-B / cross-équipe.
+    home_pp_raw, home_butdata = player_picks_contextual(
+        home_players_filt, ap, ar, home_conceded, btts_p,
+        match_odds=match_player_odds, enable_dc_buteur=False, return_butdata=True,
+    )
+    away_pp_raw, away_butdata = player_picks_contextual(
+        away_players_filt, hp, hr, away_conceded, btts_p,
+        match_odds=match_player_odds, enable_dc_buteur=False, return_butdata=True,
+    )
 
     # Marquer les picks de joueurs doubtful (confidence x0.85)
     for pk in home_pp_raw + away_pp_raw:
@@ -2700,6 +2833,13 @@ def analyze_match(match, pstats_all, player_odds_all=None):
             pk["confidence"] = min(95, round(pk["confidence"] * 1.10))
             pk["reasoning"] = f"⚽ Penaltyman · " + pk.get("reasoning", "")
 
+    # ── Double Chance Buteur INTELLIGENT (intra ou cross-équipe) ───────────
+    # User : "tu peux proposer buteur équipe A / équipe B en double chance,
+    # tu n'es pas obligé de proposer un buteur pour chaque équipe".
+    # On évalue 3 candidats : intra-A, intra-B, cross-équipe → on garde LE
+    # MEILLEUR (un seul DC Buteur par match max, en BONUS du top 3 props).
+    _dc_buteur_pick = _build_smart_dc_buteur(home_butdata, away_butdata, home, away)
+
     # ── Max 3 props joueurs PAR MATCH (pas par équipe) ──────────────────────
     # Mélange les deux listes, trie par confiance, garde les 3 meilleurs
     all_pp = []
@@ -2718,6 +2858,13 @@ def analyze_match(match, pstats_all, player_odds_all=None):
         team_count[team] += 1
         final_pp.append(pk)
         if len(final_pp) >= 3: break
+
+    # DC Buteur ajouté EN BONUS (hors filtre max 3) si valable.
+    # User : c'est un pick distinct, on ne devrait pas le perdre face à
+    # 3 props individuels. Limite : 1 DC Buteur max par match.
+    if _dc_buteur_pick:
+        _dc_buteur_pick["team"] = _dc_buteur_pick.get("_team_for_balance", "home")
+        final_pp.append(_dc_buteur_pick)
 
     home_pp = [p for p in final_pp if p.get("team") == "home"]
     away_pp = [p for p in final_pp if p.get("team") == "away"]
