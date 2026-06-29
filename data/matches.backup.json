@@ -837,7 +837,49 @@
         "l5_goals_n": 5
       }
     },
-    "match_odds": null,
+    "match_odds": {
+      "markets": [
+        {
+          "marketName": "Full time",
+          "choices": [
+            {
+              "name": "Germany",
+              "side": "home",
+              "cote": 1.33,
+              "book": "draftkings"
+            },
+            {
+              "name": "Draw",
+              "side": "draw",
+              "cote": 5.0,
+              "book": "draftkings"
+            },
+            {
+              "name": "Paraguay",
+              "side": "away",
+              "cote": 10.5,
+              "book": "draftkings"
+            }
+          ]
+        },
+        {
+          "marketName": "Goals Over/Under (2.5)",
+          "choices": [
+            {
+              "name": "Over 2.5",
+              "cote": 1.67,
+              "book": "draftkings"
+            },
+            {
+              "name": "Under 2.5",
+              "cote": 2.2,
+              "book": "draftkings"
+            }
+          ]
+        }
+      ],
+      "_source": "espn"
+    },
     "lineups_home": null,
     "lineups_away": null,
     "team_streaks": null,
@@ -878,22 +920,25 @@
         ]
       },
       "market_intelligence": {
-        "home_cote": null,
-        "home_value": null,
-        "home_p_final": 0.0,
-        "draw_cote": null,
-        "draw_value": null,
-        "draw_p_final": 0.0,
-        "away_cote": null,
-        "away_value": null,
-        "away_p_final": 0.0,
+        "home_cote": 1.33,
+        "home_value": 71.6,
+        "home_p_final": 0.5385351842987075,
+        "draw_cote": 5.0,
+        "draw_value": 71.6,
+        "draw_p_final": 0.1432503590234562,
+        "away_cote": 10.5,
+        "away_value": 71.6,
+        "away_p_final": 0.06821445667783628,
         "btts_yes_cote": null,
         "btts_yes_value": null,
         "btts_yes_p_final": 0.0,
         "btts_no_cote": null,
-        "over_25_cote": null,
-        "under_25_cote": null,
+        "over_25_cote": 1.67,
+        "under_25_cote": 2.2,
         "notes": [
+          "Cote Germany 1.33 (book P=72% · modèle P=0% · calibré P=54%) → value 71.6%",
+          "Cote nul 5.0 (book P=19% · modèle P=0% · calibré P=14%) → value 71.6%",
+          "Cote Paraguay 10.5 (book P=9% · modèle P=0% · calibré P=7%) → value 71.6%",
           "ℹ️ Probas calibrées = 25% modèle + 75% marché (shrinkage WC : marché plus fiable que notre Poisson sur si peu de matchs)"
         ]
       },
@@ -904,10 +949,25 @@
           "strength": 4
         }
       ],
-      "top3_bets": [],
+      "top3_bets": [
+        {
+          "market": "Total FT",
+          "selection": "Plus de 2.5 buts",
+          "cote": 1.67,
+          "confidence": 67,
+          "signals": [
+            "⚖️ Match déséquilibré (Germany fav @ 1.33)",
+            "⚽ Germany attaque ≥ moyenne (off +0.13)",
+            "📊 ~62% des matchs lopsided CDM finissent > 2.5 buts"
+          ],
+          "risks": [
+            "L'outsider défend bas avec succès (cf Maroc 2022)"
+          ]
+        }
+      ],
       "uncertainty_level": "High",
-      "recommandation": "Marché efficient — aucun pattern contextuel WC fort identifié. Mieux vaut passer ce match.",
-      "generated_at": "2026-06-29T20:37:43+00:00"
+      "recommandation": "Meilleur pari : Plus de 2.5 buts @ 1.67 (confiance 67%). Basé sur des signaux contextuels CDM (pas value brute sur outsider).",
+      "generated_at": "2026-06-29T21:04:17+00:00"
     },
     "analyse": {
       "ht_1x2": {
@@ -996,7 +1056,58 @@
         }
       ],
       "top_passeurs_away": [],
-      "value_bets": []
+      "value_bets": [
+        {
+          "marche": "Paraguay gagne (1X2)",
+          "cote": 10.5,
+          "book": "draftkings",
+          "p_ligue": 28,
+          "p_modele": 20,
+          "p_form": 15,
+          "p_avg": 21,
+          "value": 220.4
+        },
+        {
+          "marche": "Match nul (1X2)",
+          "cote": 5.0,
+          "book": "draftkings",
+          "p_ligue": 27,
+          "p_modele": 20,
+          "p_form": 30,
+          "p_avg": 26,
+          "value": 128.3
+        },
+        {
+          "marche": "Plus de 2.5 buts",
+          "cote": 1.67,
+          "book": "draftkings",
+          "p_ligue": 41,
+          "p_modele": 66,
+          "p_form": 66,
+          "p_avg": 58,
+          "value": 96.3
+        },
+        {
+          "marche": "Moins de 2.5 buts",
+          "cote": 2.2,
+          "book": "draftkings",
+          "p_ligue": 59,
+          "p_modele": 34,
+          "p_form": 34,
+          "p_avg": 42,
+          "value": 93.1
+        },
+        {
+          "marche": "Germany gagne (1X2)",
+          "cote": 1.33,
+          "book": "draftkings",
+          "p_ligue": 45,
+          "p_modele": 60,
+          "p_form": 55,
+          "p_avg": 53,
+          "value": 71.0
+        }
+      ]
     },
     "home_season_stats": {
       "overall": {
@@ -1292,7 +1403,7 @@
       ],
       "uncertainty_level": "High",
       "recommandation": "Meilleur pari : Moins de 2.5 buts @ 1.67 (confiance 64%). Basé sur des signaux contextuels CDM (pas value brute sur outsider).",
-      "generated_at": "2026-06-29T20:37:43+00:00"
+      "generated_at": "2026-06-29T21:04:17+00:00"
     },
     "analyse": {
       "ht_1x2": {
@@ -1732,7 +1843,7 @@
       ],
       "uncertainty_level": "High",
       "recommandation": "Meilleur pari : Moins de 2.5 buts @ 1.91 (confiance 64%). Basé sur des signaux contextuels CDM (pas value brute sur outsider).",
-      "generated_at": "2026-06-29T20:37:43+00:00"
+      "generated_at": "2026-06-29T21:04:17+00:00"
     },
     "analyse": {
       "ht_1x2": {
@@ -2045,13 +2156,13 @@
             {
               "name": "France",
               "side": "home",
-              "cote": 1.27,
+              "cote": 1.26,
               "book": "draftkings"
             },
             {
               "name": "Draw",
               "side": "draw",
-              "cote": 6.0,
+              "cote": 6.5,
               "book": "draftkings"
             },
             {
@@ -2072,7 +2183,7 @@
             },
             {
               "name": "Under 3.5",
-              "cote": 1.71,
+              "cote": 1.69,
               "book": "draftkings"
             }
           ]
@@ -2120,15 +2231,15 @@
         ]
       },
       "market_intelligence": {
-        "home_cote": 1.27,
-        "home_value": 71.8,
-        "home_p_final": 0.565133006050919,
-        "draw_cote": 6.0,
-        "draw_value": 71.8,
-        "draw_p_final": 0.1196198196141112,
+        "home_cote": 1.26,
+        "home_value": 72.2,
+        "home_p_final": 0.5732228754676644,
+        "draw_cote": 6.5,
+        "draw_value": 72.2,
+        "draw_p_final": 0.11111704970603956,
         "away_cote": 11.0,
-        "away_value": 71.8,
-        "away_p_final": 0.06524717433496975,
+        "away_value": 72.2,
+        "away_p_final": 0.0656600748262961,
         "btts_yes_cote": null,
         "btts_yes_value": null,
         "btts_yes_p_final": 0.0,
@@ -2136,9 +2247,9 @@
         "over_25_cote": null,
         "under_25_cote": null,
         "notes": [
-          "Cote France 1.27 (book P=75% · modèle P=0% · calibré P=57%) → value 71.8%",
-          "Cote nul 6.0 (book P=16% · modèle P=0% · calibré P=12%) → value 71.8%",
-          "Cote Sweden 11.0 (book P=9% · modèle P=0% · calibré P=7%) → value 71.8%",
+          "Cote France 1.26 (book P=76% · modèle P=0% · calibré P=57%) → value 72.2%",
+          "Cote nul 6.5 (book P=15% · modèle P=0% · calibré P=11%) → value 72.2%",
+          "Cote Sweden 11.0 (book P=9% · modèle P=0% · calibré P=7%) → value 72.2%",
           "ℹ️ Probas calibrées = 25% modèle + 75% marché (shrinkage WC : marché plus fiable que notre Poisson sur si peu de matchs)"
         ]
       },
@@ -2157,7 +2268,7 @@
       "top3_bets": [],
       "uncertainty_level": "High",
       "recommandation": "Marché efficient — aucun pattern contextuel WC fort identifié. Mieux vaut passer ce match.",
-      "generated_at": "2026-06-29T20:37:43+00:00"
+      "generated_at": "2026-06-29T21:04:17+00:00"
     },
     "analyse": {
       "ht_1x2": {
@@ -2246,23 +2357,23 @@
         },
         {
           "marche": "Match nul (1X2)",
-          "cote": 6.0,
+          "cote": 6.5,
           "book": "draftkings",
           "p_ligue": 27,
           "p_modele": 18,
           "p_form": 29,
           "p_avg": 24,
-          "value": 146.9
+          "value": 159.2
         },
         {
           "marche": "France gagne (1X2)",
-          "cote": 1.27,
+          "cote": 1.26,
           "book": "draftkings",
           "p_ligue": 45,
           "p_modele": 61,
           "p_form": 56,
           "p_avg": 54,
-          "value": 68.9
+          "value": 68.3
         }
       ]
     },
