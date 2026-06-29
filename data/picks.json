@@ -50,7 +50,33 @@
         "history_top3": true
       }
     ],
-    "home_players": [],
+    "home_players": [
+      {
+        "player": "Josué Vergara",
+        "position": "F",
+        "is_sub": false,
+        "type": "Buteur",
+        "label": "Josué Vergara marque",
+        "cote": null,
+        "book": null,
+        "books": [],
+        "confidence": 57,
+        "reasoning": "14 buts en 20 matchs cette saison (70.0% de chance/match) · xG moyen 0.00/match · défense solide\n📉 Calibration : bucket 50-59% historiquement à WR 42% (claim 55%, n=41) — sur-estimé de 14pp",
+        "context": {
+          "weakness": 0.19
+        },
+        "stats": {
+          "goals": 14,
+          "apps": 20,
+          "gpm": 0.7,
+          "xgpm": 0
+        },
+        "team": "home",
+        "tier": "ok",
+        "calibration_delta": -13.6,
+        "history_top3": true
+      }
+    ],
     "away_players": [
       {
         "player": "Muhammed Badamosi",
@@ -61,15 +87,15 @@
         "cote": null,
         "book": null,
         "books": [],
-        "confidence": 57,
-        "reasoning": "13 buts en 19 matchs cette saison (68.4% de chance/match) · xG moyen 0.00/match · défense solide\n📉 Calibration : bucket 50-59% historiquement à WR 42% (claim 55%, n=41) — sur-estimé de 14pp",
+        "confidence": 56,
+        "reasoning": "13 buts en 20 matchs cette saison (65.0% de chance/match) · xG moyen 0.00/match · défense solide\n📉 Calibration : bucket 50-59% historiquement à WR 42% (claim 55%, n=41) — sur-estimé de 14pp",
         "context": {
-          "weakness": 0.25
+          "weakness": 0.21
         },
         "stats": {
           "goals": 13,
-          "apps": 19,
-          "gpm": 0.684,
+          "apps": 20,
+          "gpm": 0.65,
           "xgpm": 0
         },
         "team": "away",
@@ -88,14 +114,14 @@
         "books": [],
         "confidence": 70,
         "cote_min": 1.43,
-        "reasoning": "✈️ Combo intra-Riga FC\n📈 P(Muhammed Badamosi marque) ≈ 57% · P(Iago Siqueira marque) ≈ 47%\n🎯 P(au moins un marque) = 70% (1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.43 - chercher ≥1.43 chez le bookmaker\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+        "reasoning": "✈️ Combo intra-Riga FC\n📈 P(Muhammed Badamosi marque) ≈ 56% · P(Iago Siqueira marque) ≈ 45%\n🎯 P(au moins un marque) = 70% (1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.43 - chercher ≥1.43 chez le bookmaker\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
         "context": {
           "combo_kind": "intra-away"
         },
         "_team_for_balance": "away",
         "stats": {
-          "p_a": 0.57,
-          "p_b": 0.472,
+          "p_a": 0.555,
+          "p_b": 0.45,
           "p_or": 0.7,
           "player_a": "Muhammed Badamosi",
           "player_b": "Iago Siqueira",
@@ -141,15 +167,15 @@
         "surface": null
       },
       "weather": {
-        "temp_max": 26.2,
-        "temp_min": 14.5,
-        "humidity": 41,
+        "temp_max": 28.5,
+        "temp_min": 22.9,
+        "humidity": 50,
         "precipitation_sum_mm": 0.0,
-        "wind_max_kmh": 14.8,
+        "wind_max_kmh": 13.7,
         "weather_code": 3,
-        "summary_fr": "☁️ couvert · 14–26°C · humidité 41%"
+        "summary_fr": "☁️ couvert · 22–28°C · humidité 50%"
       },
-      "text": "Conditions : ☁️ couvert · 14–26°C · humidité 41%. Stade : Stadionā Esplanāde · plein air."
+      "text": "Conditions : ☁️ couvert · 22–28°C · humidité 50%. Stade : Stadions Skonto · plein air."
     }
   },
   {
@@ -187,875 +213,209 @@
         "label": "Suduva gagne",
         "cote": null,
         "confidence": 64,
-        "tier": "ok",
-        "stats": {
-          "lam_h": 0.74,
-          "lam_a": 2.57,
-          "h_fifa_rank": 22,
-          "a_fifa_rank": 10,
-          "elo_gap": -116,
-          "wc_round": null,
-          "family": "TOTAL"
-        },
-        "reasoning": "📊 Niveau équilibré : Ecuador #22 vs Germany #10 (gap -116 pts).\n⭐ Germany favori CdM 2026\nL10 : Ecuador 2V/2N/1D sur 5 · Germany 5V/0N/0D sur 5\n📋 Fiche Ecuador : off en panne (-0.52) · def moyenne (+0.27) · forme DLWWD · 🏆 présence occasionnelle\n📋 Fiche Germany : off moyen (+0.17) · def fragile (-0.53) · forme WWWWW · 🏆 régulière phase finale\n   ↳ Historique : phase de poules en 2022 · phase de poules en 2018 · vainqueur en 2014 · 2 titres (1990, 2014)\n🎯 Importance : Ecuador : 1 match joué (0pts) · Germany : 1 match joué (3pts)\n🌦️ ☁️ couvert · 17–28°C · humidité 46%\n✅ Compo OFFICIELLE\n⚽ Modèle Poisson : λ total = 3.31\nP(plus de 2.5 buts) = 64.3%\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
-        "calibration_delta": -25.4,
-        "edge_pp": 6.5,
-        "history_top3": true
-      },
-      {
-        "direction": "wc_away_scores_2",
-        "type": "⚽ Buteur équipe WC",
-        "label": "Germany marque 2+ buts",
-        "cote": null,
-        "cote_min": 1.38,
-        "confidence": 73,
-        "tier": "safe",
-        "stats": {
-          "lam_h": 0.74,
-          "lam_a": 2.57,
-          "h_fifa_rank": 22,
-          "a_fifa_rank": 10,
-          "elo_gap": -116,
-          "wc_round": null,
-          "family": "BUT_TEAM"
-        },
-        "reasoning": "📊 Niveau équilibré : Ecuador #22 vs Germany #10 (gap -116 pts).\n⭐ Germany favori CdM 2026\nL10 : Ecuador 2V/2N/1D sur 5 · Germany 5V/0N/0D sur 5\n📋 Fiche Ecuador : off en panne (-0.52) · def moyenne (+0.27) · forme DLWWD · 🏆 présence occasionnelle\n📋 Fiche Germany : off moyen (+0.17) · def fragile (-0.53) · forme WWWWW · 🏆 régulière phase finale\n   ↳ Historique : phase de poules en 2022 · phase de poules en 2018 · vainqueur en 2014 · 2 titres (1990, 2014)\n🎯 Importance : Ecuador : 1 match joué (0pts) · Germany : 1 match joué (3pts)\n🌦️ ☁️ couvert · 17–28°C · humidité 46%\n✅ Compo OFFICIELLE\n⚽ P(Germany marque 2+) = 72.7% (λ = 2.57)\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
-        "calibration_delta": -11.3,
-        "history_top3": true
-      }
-    ],
-    "home_players": [],
-    "away_players": [
-      {
-        "player": "Deniz Undav",
-        "position": "F",
-        "is_sub": true,
-        "type": "Double buteur",
-        "label": "Deniz Undav marque 2+ buts",
-        "cote": null,
-        "cote_min": 1.67,
-        "book": null,
-        "books": [],
-        "confidence": 60,
-        "reasoning": "⚠️ Compo PROBABLE (a confirmer 1h avant). Deniz Undav : selection 6G/6m (1.00/m) · L10 club : 6G/10m, 🔥 3G/3 derniers nat (+19%) | rotatif nat (36min/m) · last match 30min (0G+0A). Attendu ~2.0 buts ce match - P(2+) ~55% (cote elevee).\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
-        "context": {
-          "source": "lineup",
-          "lam": 2.02,
-          "lineup_status": "predicted"
-        },
-        "stats": {
-          "goals": null,
-          "apps": null,
-          "gpm": 2.022,
-          "xgpm": null
-        },
-        "team": "away",
-        "lineup_status": "predicted",
-        "tier": "ok",
-        "calibration_delta": -25.4,
-        "history_top3": false
-      },
-      {
-        "player": "Deniz Undav",
-        "position": "F",
-        "is_sub": true,
-        "type": "Passeur",
-        "label": "Deniz Undav délivre une passe décisive",
-        "cote": null,
-        "cote_min": 1.66,
-        "book": null,
-        "books": [],
-        "confidence": 55,
-        "reasoning": "⚠️ Compo PROBABLE (a confirmer 1h avant). Deniz Undav délivre une passe décisive : selection 3A/6m (0.50 passes/m nat). P(passe décisive) ~55%.\n📉 Calibration : bucket 50-59% historiquement à WR 42% (claim 55%, n=41) — sur-estimé de 14pp",
-        "context": {
-          "source": "lineup",
-          "lam": 0.92,
-          "lineup_status": "predicted"
-        },
-        "stats": {
-          "goals": null,
-          "apps": null,
-          "gpm": 0.919,
-          "xgpm": null
-        },
-        "team": "away",
-        "lineup_status": "predicted",
-        "tier": "ok",
-        "calibration_delta": -13.6,
-        "history_top3": false
-      },
-      {
-        "player": "Kai Havertz",
-        "position": "F",
-        "is_sub": false,
-        "type": "Buteur",
-        "label": "Kai Havertz marque",
-        "team": "away",
-        "cote": null,
-        "book": null,
-        "books": [],
-        "confidence": 36,
-        "reasoning": "2G en 5 matchs (40.0%/match) · xG: 0.24/match",
-        "context": {
-          "weakness": 0.45
-        },
-        "stats": {
-          "goals": 2,
-          "apps": 5
-        },
-        "tier": "fun",
-        "history_top3": false
-      }
-    ],
-    "fun_picks": [
-      {
-        "direction": "wc_score_0_3",
-        "type": "🏆 Score exact WC",
-        "label": "Score exact : Ecuador 0-3 Germany",
-        "cote_min": 9.71,
-        "confidence": 10,
-        "tier": "fun",
-        "is_fun": true,
-        "stats": {
-          "lam_h": 0.74,
-          "lam_a": 2.57,
-          "h_fifa_rank": 22,
-          "a_fifa_rank": 10,
-          "elo_gap": -116
-        },
-        "reasoning": "📊 Niveau équilibré : Ecuador #22 vs Germany #10 (gap -116 pts).\n⭐ Germany favori CdM 2026\nL10 : Ecuador 2V/2N/1D sur 5 · Germany 5V/0N/0D sur 5\n🏆 Coupe du Monde 2026 - score exact (Poisson grid, ajusté Elo FIFA)\nλ Ecuador = 0.74 buts, λ Germany = 2.57 buts\nTop 3 : 0-2 (12.0%) · 0-3 (10.3%) · 0-1 (9.4%)\n⚠️ Pari fun (cote élevée typique 4-8) - mise modeste",
-        "exact_score": [
-          0,
-          3
-        ],
-        "wc_top3": [
-          [
-            [
-              0,
-              2
-            ],
-            12.0
-          ],
-          [
-            [
-              0,
-              3
-            ],
-            10.3
-          ],
-          [
-            [
-              0,
-              1
-            ],
-            9.4
-          ]
-        ],
-        "history_top3": false
-      }
-    ],
-    "top_pick": {
-      "direction": "away_dc",
-      "type": "Double chance",
-      "label": "Nul ou Germany (X2)",
-      "cote": null,
-      "confidence": 86,
-      "reasoning": "Germany invaincu 100% sur 5 derniers matchs · H2H: 0/0 matchs sans défaite · Classement: #1 (away) vs #10 (home)\n📉 Calibration : bucket 80-89% historiquement à WR 56% (claim 82%, n=63) — sur-estimé de 26pp",
-      "stats": {
-        "form": [
-          "W",
-          "W",
-          "W",
-          "W",
-          "W"
-        ]
-      },
-      "is_fun": false,
-      "tier": "safe",
-      "calibration_delta": -26.0,
-      "history_top3": true
-    },
-    "no_picks": false,
-    "context": {
-      "stadium": {
-        "name": "MetLife Stadium",
-        "city": "East Rutherford (New York)",
-        "country": "USA",
-        "lat": 40.8135,
-        "lon": -74.0744,
-        "capacity": 82500,
-        "surface": "Natural grass",
-        "altitude_m": 7,
-        "type": "outdoor",
-        "climatized": false,
-        "context_fr": "Climat nord-est USA. Juin 22-28°C, humidité modérée. Probable lieu de la finale."
-      },
-      "weather": {
-        "temp_max": 28.8,
-        "temp_min": 17.0,
-        "humidity": 46,
-        "precipitation_sum_mm": 0.0,
-        "wind_max_kmh": 20.4,
-        "weather_code": 3,
-        "summary_fr": "☁️ couvert · 17–28°C · humidité 46%"
-      },
-      "text": "Conditions : ☁️ couvert · 17–28°C · humidité 46%. Stade : MetLife Stadium · altitude 7m · 82 500 places · plein air. Climat nord-est USA. Juin 22-28°C, humidité modérée. Probable lieu de la finale."
-    }
-  },
-  {
-    "league": "World Cup",
-    "home": "Czechia",
-    "away": "Mexico",
-    "start_ts": 1782349200,
-    "match_id": "4667755",
-    "page_url": "/matches/mexico-vs-czechia/1wualx#4667755",
-    "picks": [
-      {
-        "direction": "away_dc",
-        "type": "Double chance",
-        "label": "Nul ou Mexico (X2)",
-        "cote": null,
-        "confidence": 82,
-        "reasoning": "Mexico invaincu 100% sur 5 derniers matchs · H2H: 0/0 matchs sans défaite · Classement: #1 (away) vs #8 (home)\n📉 Calibration : bucket 80-89% historiquement à WR 56% (claim 82%, n=63) — sur-estimé de 26pp",
+        "reasoning": "Suduva : 3V/2N/0D sur 5 matchs · #4 au classement · H2H: 1V/1N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
         "stats": {
           "form": [
             "W",
             "W",
+            "D",
             "W",
-            "W",
-            "W"
-          ]
-        },
-        "is_fun": false,
-        "tier": "safe",
-        "calibration_delta": -26.0,
-        "history_top3": true
-      },
-      {
-        "direction": "away_win",
-        "type": "Victoire extérieur",
-        "label": "Mexico gagne",
-        "cote": 1.95,
-        "confidence": 81,
-        "reasoning": "Mexico : 5V/0N/0D sur 5 matchs · #1 au classement · H2H: 0V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 80-89% historiquement à WR 56% (claim 82%, n=63) — sur-estimé de 26pp",
-        "stats": {
-          "form": [
-            "W",
-            "W",
-            "W",
-            "W",
-            "W"
+            "D"
           ]
         },
         "is_fun": false,
         "tier": "ok",
-        "calibration_delta": -26.0,
-        "edge_pp": 29.7,
-        "history_top3": true
-      },
-      {
-        "direction": "wc_over_25",
-        "type": "⚽ Total buts WC",
-        "label": "Plus de 2.5 buts",
-        "cote": 1.95,
-        "cote_min": 1.6,
-        "confidence": 62,
-        "tier": "ok",
-        "stats": {
-          "lam_h": 0.64,
-          "lam_a": 2.58,
-          "h_fifa_rank": 41,
-          "a_fifa_rank": 17,
-          "elo_gap": -151,
-          "wc_round": null,
-          "family": "TOTAL"
-        },
-        "reasoning": "📊 Niveau équilibré : Czechia #41 vs Mexico #17 (gap -151 pts).\nL10 : Czechia 2V/2N/1D sur 5 · Mexico 5V/0N/0D sur 5\n📋 Fiche Czechia : off moyen (-0.13) · def fragile (-0.52) · forme DLWWD · 🏆 novice WC\n📋 Fiche Mexico : off moyen (-0.18) · def solide (+0.74) · forme WWWWW · 🏆 habituée du tournoi\n🎯 Importance : Czechia : 1 match joué (0pts) · Mexico : 1 match joué (3pts)\n🌦️ Conditions : altitude 2240m (+5%)\n✅ Compo OFFICIELLE\n⚽ Modèle Poisson : λ total = 3.22\nP(plus de 2.5 buts) = 62.4%\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
         "calibration_delta": -25.4,
-        "edge_pp": 10.7,
-        "history_top3": true
-      },
-      {
-        "direction": "wc_away_scores_2",
-        "type": "⚽ Buteur équipe WC",
-        "label": "Mexico marque 2+ buts",
-        "cote": null,
-        "cote_min": 1.37,
-        "confidence": 73,
-        "tier": "safe",
-        "stats": {
-          "lam_h": 0.64,
-          "lam_a": 2.58,
-          "h_fifa_rank": 41,
-          "a_fifa_rank": 17,
-          "elo_gap": -151,
-          "wc_round": null,
-          "family": "BUT_TEAM"
-        },
-        "reasoning": "📊 Niveau équilibré : Czechia #41 vs Mexico #17 (gap -151 pts).\nL10 : Czechia 2V/2N/1D sur 5 · Mexico 5V/0N/0D sur 5\n📋 Fiche Czechia : off moyen (-0.13) · def fragile (-0.52) · forme DLWWD · 🏆 novice WC\n📋 Fiche Mexico : off moyen (-0.18) · def solide (+0.74) · forme WWWWW · 🏆 habituée du tournoi\n🎯 Importance : Czechia : 1 match joué (0pts) · Mexico : 1 match joué (3pts)\n🌦️ Conditions : altitude 2240m (+5%)\n✅ Compo OFFICIELLE\n⚽ P(Mexico marque 2+) = 72.9% (λ = 2.58)\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
-        "calibration_delta": -11.3,
         "history_top3": true
       }
     ],
     "home_players": [],
     "away_players": [
       {
-        "player": "Julián Quiñones",
-        "position": "F",
-        "is_sub": true,
-        "type": "Buteur",
-        "label": "Julián Quiñones marque",
-        "cote": null,
-        "cote_min": 1.75,
-        "book": null,
-        "books": [],
-        "confidence": 52,
-        "reasoning": "⚠️ Compo PROBABLE (a confirmer 1h avant). Julián Quiñones : selection 2G/10m (0.20/m) · L10 club : 9G/10m, 🔥 2G/3 derniers nat (+19%) | rotatif nat (57min/m) · last match 90min (1G+0A). λ ajusté à 0.85 (Mexico attendu 2.6 buts) → P(marque) ~52%.\n📉 Calibration : bucket 50-59% historiquement à WR 42% (claim 55%, n=41) — sur-estimé de 14pp",
-        "context": {
-          "source": "lineup",
-          "lam": 0.85,
-          "lineup_status": "predicted"
-        },
-        "stats": {
-          "goals": null,
-          "apps": null,
-          "gpm": 0.846,
-          "xgpm": null
-        },
-        "team": "away",
-        "lineup_status": "predicted",
-        "tier": "fun",
-        "calibration_delta": -13.6,
-        "history_top3": false
-      }
-    ],
-    "fun_picks": [
-      {
-        "direction": "wc_score_0_3",
-        "type": "🏆 Score exact WC",
-        "label": "Score exact : Czechia 0-3 Mexico",
-        "cote_min": 8.7,
-        "confidence": 12,
-        "tier": "fun",
-        "is_fun": true,
-        "stats": {
-          "lam_h": 0.64,
-          "lam_a": 2.58,
-          "h_fifa_rank": 41,
-          "a_fifa_rank": 17,
-          "elo_gap": -151
-        },
-        "reasoning": "📊 Niveau équilibré : Czechia #41 vs Mexico #17 (gap -151 pts).\nL10 : Czechia 2V/2N/1D sur 5 · Mexico 5V/0N/0D sur 5\n🏆 Coupe du Monde 2026 - score exact (Poisson grid, ajusté Elo FIFA)\nλ Czechia = 0.64 buts, λ Mexico = 2.58 buts\nTop 3 : 0-2 (13.3%) · 0-3 (11.5%) · 0-1 (10.3%)\n⚠️ Pari fun (cote élevée typique 4-8) - mise modeste",
-        "exact_score": [
-          0,
-          3
-        ],
-        "wc_top3": [
-          [
-            [
-              0,
-              2
-            ],
-            13.3
-          ],
-          [
-            [
-              0,
-              3
-            ],
-            11.5
-          ],
-          [
-            [
-              0,
-              1
-            ],
-            10.3
-          ]
-        ],
-        "history_top3": false
-      }
-    ],
-    "top_pick": {
-      "direction": "away_dc",
-      "type": "Double chance",
-      "label": "Nul ou Mexico (X2)",
-      "cote": null,
-      "confidence": 82,
-      "reasoning": "Mexico invaincu 100% sur 5 derniers matchs · H2H: 0/0 matchs sans défaite · Classement: #1 (away) vs #8 (home)\n📉 Calibration : bucket 80-89% historiquement à WR 56% (claim 82%, n=63) — sur-estimé de 26pp",
-      "stats": {
-        "form": [
-          "W",
-          "W",
-          "W",
-          "W",
-          "W"
-        ]
-      },
-      "is_fun": false,
-      "tier": "safe",
-      "calibration_delta": -26.0,
-      "history_top3": true
-    },
-    "no_picks": false,
-    "context": {
-      "stadium": {
-        "name": "Estadio Azteca",
-        "city": "Mexico City",
-        "country": "Mexique",
-        "lat": 19.3029,
-        "lon": -99.1505,
-        "capacity": 87000,
-        "surface": "Hybrid grass",
-        "altitude_m": 2240,
-        "type": "outdoor",
-        "climatized": false,
-        "context_fr": "Altitude 2240m : impact endurance fort. Saison des pluies en juin-juillet (humidité 60-75%). Mexique invaincu en CdM ici (7 matchs)."
-      },
-      "weather": {
-        "temp_max": 22.6,
-        "temp_min": 13.7,
-        "humidity": 59,
-        "precipitation_sum_mm": 4.4,
-        "wind_max_kmh": 6.7,
-        "weather_code": 53,
-        "summary_fr": "🌦️ bruine modérée · 13–22°C · humidité 59% · précipitations 4.4mm"
-      },
-      "text": "Conditions : 🌦️ bruine modérée · 13–22°C · humidité 59% · précipitations 4.4mm. Stade : Estadio Azteca · altitude 2240m · 87 000 places · plein air. Altitude 2240m : impact endurance fort. Saison des pluies en juin-juillet (humidité 60-75%). Mexique invaincu en CdM ici (7 matchs). ⚠️ Altitude 2240m : impact endurance significatif pour l'équipe non-acclimatée."
-    }
-  },
-  {
-    "league": "World Cup",
-    "home": "Tunisia",
-    "away": "Netherlands",
-    "start_ts": 1782428400,
-    "match_id": "4667787",
-    "page_url": "/matches/netherlands-vs-tunisia/1hoci5#4667787",
-    "picks": [
-      {
-        "direction": "wc_over_25",
-        "type": "⚽ Total buts WC",
-        "label": "Plus de 2.5 buts",
-        "cote": null,
-        "cote_min": 1.26,
-        "confidence": 80,
-        "tier": "safe",
-        "stats": {
-          "lam_h": 0.31,
-          "lam_a": 3.93,
-          "h_fifa_rank": 36,
-          "a_fifa_rank": 7,
-          "elo_gap": -242,
-          "wc_round": null,
-          "family": "TOTAL"
-        },
-        "reasoning": "📊 Écart FIFA significatif : Tunisia #36 vs Netherlands #7 (gap -242 pts, P favori ≈ 80%).\n⭐ Netherlands favori CdM 2026\nL10 : Tunisia 0V/1N/4D sur 5 · Netherlands 2V/2N/1D sur 5\n📋 Fiche Tunisia : off en panne (-0.47) · def fragile (-1.00) · forme LLLLD · 🏆 présence occasionnelle\n📋 Fiche Netherlands : off moyen (-0.03) · def fragile (-0.69) · forme WDWLD · 🏆 régulière phase finale\n   ↳ Historique : quart de finale en 2022 · demi-finaliste en 2014\n🎯 Importance : Tunisia : 1 match joué (0pts) · Netherlands : 1 match joué (1pts)\n🌦️ Conditions : pluie 51.9mm (-10%)\n✅ Compo OFFICIELLE\n⚽ Modèle Poisson : λ total = 4.24\nP(plus de 2.5 buts) = 79.5%\n📉 Calibration : bucket 80-89% historiquement à WR 56% (claim 82%, n=63) — sur-estimé de 26pp",
-        "calibration_delta": -26.0,
-        "history_top3": false
-      },
-      {
-        "direction": "wc_home_no_score",
-        "type": "🛡️ Clean sheet WC",
-        "label": "Tunisia ne marque pas",
-        "cote": null,
-        "cote_min": 1.37,
-        "confidence": 73,
-        "tier": "safe",
-        "stats": {
-          "lam_h": 0.31,
-          "lam_a": 3.93,
-          "h_fifa_rank": 36,
-          "a_fifa_rank": 7,
-          "elo_gap": -242,
-          "wc_round": null,
-          "family": "CLEAN_SHEET"
-        },
-        "reasoning": "📊 Écart FIFA significatif : Tunisia #36 vs Netherlands #7 (gap -242 pts, P favori ≈ 80%).\n⭐ Netherlands favori CdM 2026\nL10 : Tunisia 0V/1N/4D sur 5 · Netherlands 2V/2N/1D sur 5\n📋 Fiche Tunisia : off en panne (-0.47) · def fragile (-1.00) · forme LLLLD · 🏆 présence occasionnelle\n📋 Fiche Netherlands : off moyen (-0.03) · def fragile (-0.69) · forme WDWLD · 🏆 régulière phase finale\n   ↳ Historique : quart de finale en 2022 · demi-finaliste en 2014\n🎯 Importance : Tunisia : 1 match joué (0pts) · Netherlands : 1 match joué (1pts)\n🌦️ Conditions : pluie 51.9mm (-10%)\n✅ Compo OFFICIELLE\n🛡️ P(Tunisia blanchi) = 73.1% (λ_Tunisia = 0.31)\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
-        "calibration_delta": -11.3,
-        "history_top3": true
-      }
-    ],
-    "home_players": [],
-    "away_players": [
-      {
-        "player": "Cody Gakpo / Brian Brobbey",
+        "player": "Faustas Steponavicius / Meinardas Mikulenas",
         "position": "",
         "is_sub": false,
         "type": "Double Chance Buteur",
-        "label": "Cody Gakpo ou Brian Brobbey marque (Netherlands)",
+        "label": "Faustas Steponavicius ou Meinardas Mikulenas marque (Suduva)",
         "cote": null,
         "book": null,
         "books": [],
         "confidence": 70,
         "cote_min": 1.43,
-        "reasoning": "✈️ Combo intra-Netherlands\n📈 P(Cody Gakpo marque) ≈ 49% · P(Brian Brobbey marque) ≈ 45%\n🎯 P(au moins un marque) = 70% (1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.43 - chercher ≥1.43 chez le bookmaker\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+        "reasoning": "✈️ Combo intra-Suduva\n📈 P(Faustas Steponavicius marque) ≈ 46% · P(Meinardas Mikulenas marque) ≈ 45%\n🎯 P(au moins un marque) = 70% (1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.43 - chercher ≥1.43 chez le bookmaker\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
         "context": {
           "combo_kind": "intra-away"
         },
         "_team_for_balance": "away",
         "stats": {
-          "p_a": 0.488,
+          "p_a": 0.458,
           "p_b": 0.45,
-          "p_or": 0.7,
-          "player_a": "Cody Gakpo",
-          "player_b": "Brian Brobbey",
+          "p_or": 0.702,
+          "player_a": "Faustas Steponavicius",
+          "player_b": "Meinardas Mikulenas",
           "kind": "intra-away"
         },
         "team": "away",
         "tier": "safe",
         "calibration_delta": -11.3,
         "history_top3": true
-      },
-      {
-        "player": "Cody Gakpo",
-        "position": "F",
-        "is_sub": true,
-        "type": "Buteur",
-        "label": "Cody Gakpo marque",
-        "cote": null,
-        "cote_min": 1.61,
-        "book": null,
-        "books": [],
-        "confidence": 57,
-        "reasoning": "⚠️ Compo PROBABLE (a confirmer 1h avant). Cody Gakpo : selection 8G/13m (0.61/m) · L10 club : 5G/10m, 🔥 2G/3 derniers nat (+19%) · ⚠️ dernier match nat 60+min 0G+0A (-45%) | titu nat (83min/m) · last match 84min (0G+0A). λ ajusté à 0.97 (Netherlands attendu 3.8 buts) → P(marque) ~57%.\n📉 Calibration : bucket 50-59% historiquement à WR 42% (claim 55%, n=41) — sur-estimé de 14pp",
-        "context": {
-          "source": "lineup",
-          "lam": 0.97,
-          "lineup_status": "predicted"
-        },
-        "stats": {
-          "goals": null,
-          "apps": null,
-          "gpm": 0.974,
-          "xgpm": null
-        },
-        "team": "away",
-        "lineup_status": "predicted",
-        "tier": "ok",
-        "calibration_delta": -13.6,
-        "history_top3": true
-      },
-      {
-        "player": "Donyell Malen",
-        "position": "F",
-        "is_sub": true,
-        "type": "Buteur",
-        "label": "Donyell Malen marque",
-        "cote": null,
-        "cote_min": 1.85,
-        "book": null,
-        "books": [],
-        "confidence": 49,
-        "reasoning": "⚠️ Compo PROBABLE (a confirmer 1h avant). Donyell Malen : selection 9G/34m (0.27/m) · L10 club : 4G/10m | rotatif nat (40min/m) · last match 65min (0G+1A). λ ajusté à 0.78 (Netherlands attendu 3.8 buts) → P(marque) ~49%.\n📉 Calibration : bucket 40-49% historiquement à WR 25% (claim 44%, n=36) — sur-estimé de 19pp",
-        "context": {
-          "source": "lineup",
-          "lam": 0.78,
-          "lineup_status": "predicted"
-        },
-        "stats": {
-          "goals": null,
-          "apps": null,
-          "gpm": 0.777,
-          "xgpm": null
-        },
-        "team": "away",
-        "lineup_status": "predicted",
-        "tier": "fun",
-        "calibration_delta": -19.4,
-        "history_top3": true
-      },
-      {
-        "player": "Virgil van Dijk",
-        "position": "F",
-        "is_sub": true,
-        "type": "Buteur",
-        "label": "Virgil van Dijk marque",
-        "cote": null,
-        "cote_min": 1.98,
-        "book": null,
-        "books": [],
-        "confidence": 46,
-        "reasoning": "⚠️ Compo PROBABLE (a confirmer 1h avant). Virgil van Dijk : selection 3G/13m (0.23/m) · L10 club : 3G/10m, 🔥 1G/3 derniers nat (+10%) | titu nat (83min/m) · last match 90min (0G+1A). λ ajusté à 0.70 (Netherlands attendu 3.8 buts) → P(marque) ~46%.\n📉 Calibration : bucket 40-49% historiquement à WR 25% (claim 44%, n=36) — sur-estimé de 19pp",
-        "context": {
-          "source": "lineup",
-          "lam": 0.7,
-          "lineup_status": "predicted"
-        },
-        "stats": {
-          "goals": null,
-          "apps": null,
-          "gpm": 0.704,
-          "xgpm": null
-        },
-        "team": "away",
-        "lineup_status": "predicted",
-        "tier": "fun",
-        "calibration_delta": -19.4,
-        "history_top3": false
       }
     ],
-    "fun_picks": [
-      {
-        "direction": "wc_score_0_3",
-        "type": "🏆 Score exact WC",
-        "label": "Score exact : Tunisia 0-3 Netherlands",
-        "cote_min": 6.88,
-        "confidence": 15,
-        "tier": "fun",
-        "is_fun": true,
-        "stats": {
-          "lam_h": 0.31,
-          "lam_a": 3.93,
-          "h_fifa_rank": 36,
-          "a_fifa_rank": 7,
-          "elo_gap": -242
-        },
-        "reasoning": "📊 Écart FIFA significatif : Tunisia #36 vs Netherlands #7 (gap -242 pts, P favori ≈ 80%).\n⭐ Netherlands favori CdM 2026\nL10 : Tunisia 0V/1N/4D sur 5 · Netherlands 2V/2N/1D sur 5\n🏆 Coupe du Monde 2026 - score exact (Poisson grid, ajusté Elo FIFA)\nλ Tunisia = 0.31 buts, λ Netherlands = 3.93 buts\nTop 3 : 0-3 (14.5%) · 0-4 (14.3%) · 0-5 (11.2%)\n⚠️ Pari fun (cote élevée typique 4-8) - mise modeste",
-        "exact_score": [
-          0,
-          3
-        ],
-        "wc_top3": [
-          [
-            [
-              0,
-              3
-            ],
-            14.5
-          ],
-          [
-            [
-              0,
-              4
-            ],
-            14.3
-          ],
-          [
-            [
-              0,
-              5
-            ],
-            11.2
-          ]
-        ],
-        "history_top3": false
-      }
-    ],
+    "fun_picks": [],
     "top_pick": {
-      "direction": "wc_over_25",
-      "type": "⚽ Total buts WC",
-      "label": "Plus de 2.5 buts",
+      "direction": "away_dc",
+      "type": "Double chance",
+      "label": "Nul ou Suduva (X2)",
       "cote": null,
-      "cote_min": 1.26,
-      "confidence": 80,
-      "tier": "safe",
+      "confidence": 81,
+      "reasoning": "Suduva invaincu 100% sur 5 derniers matchs · H2H: 2/2 matchs sans défaite · Classement: #4 (away) vs #8 (home)\n📉 Calibration : bucket 80-89% historiquement à WR 56% (claim 82%, n=63) — sur-estimé de 26pp",
       "stats": {
-        "lam_h": 0.31,
-        "lam_a": 3.93,
-        "h_fifa_rank": 36,
-        "a_fifa_rank": 7,
-        "elo_gap": -242,
-        "wc_round": null,
-        "family": "TOTAL"
+        "form": [
+          "W",
+          "W",
+          "D",
+          "W",
+          "D"
+        ]
       },
-      "reasoning": "📊 Écart FIFA significatif : Tunisia #36 vs Netherlands #7 (gap -242 pts, P favori ≈ 80%).\n⭐ Netherlands favori CdM 2026\nL10 : Tunisia 0V/1N/4D sur 5 · Netherlands 2V/2N/1D sur 5\n📋 Fiche Tunisia : off en panne (-0.47) · def fragile (-1.00) · forme LLLLD · 🏆 présence occasionnelle\n📋 Fiche Netherlands : off moyen (-0.03) · def fragile (-0.69) · forme WDWLD · 🏆 régulière phase finale\n   ↳ Historique : quart de finale en 2022 · demi-finaliste en 2014\n🎯 Importance : Tunisia : 1 match joué (0pts) · Netherlands : 1 match joué (1pts)\n🌦️ Conditions : pluie 51.9mm (-10%)\n✅ Compo OFFICIELLE\n⚽ Modèle Poisson : λ total = 4.24\nP(plus de 2.5 buts) = 79.5%\n📉 Calibration : bucket 80-89% historiquement à WR 56% (claim 82%, n=63) — sur-estimé de 26pp",
+      "is_fun": false,
+      "tier": "safe",
       "calibration_delta": -26.0,
-      "history_top3": false
+      "history_top3": true
     },
     "no_picks": false,
-    "context": {
-      "stadium": {
-        "name": "Arrowhead Stadium",
-        "city": "Kansas City",
-        "country": "USA",
-        "lat": 39.0489,
-        "lon": -94.4839,
-        "capacity": 76416,
-        "surface": "Natural grass",
-        "altitude_m": 230,
-        "type": "outdoor",
-        "climatized": false,
-        "context_fr": "Climat continental. Juin chaud (28-32°C) avec orages possibles."
-      },
-      "weather": {
-        "temp_max": 28.4,
-        "temp_min": 21.1,
-        "humidity": 85,
-        "precipitation_sum_mm": 51.9,
-        "wind_max_kmh": 17.0,
-        "weather_code": 95,
-        "summary_fr": "⛈️ orage · 21–28°C · humidité 85% · précipitations 51.9mm"
-      },
-      "text": "Conditions : ⛈️ orage · 21–28°C · humidité 85% · précipitations 51.9mm. Stade : Arrowhead Stadium · altitude 230m · 76 416 places · plein air. Climat continental. Juin chaud (28-32°C) avec orages possibles. ⚠️ Pluies prévues : terrain potentiellement lourd, jeu direct privilégié, plus d'erreurs techniques."
-    }
+    "context": null
   },
   {
-    "league": "World Cup",
-    "home": "Bosnia and Herzegovina",
-    "away": "Qatar",
-    "start_ts": 1782327600,
-    "match_id": "4667762",
-    "page_url": "/matches/qatar-vs-bosnia-herzegovina/24aiya#4667762",
+    "league": "Latvian Virsliga",
+    "home": "RFS",
+    "away": "BFC Daugavpils",
+    "start_ts": 1782831600,
+    "match_id": "5162019",
+    "page_url": "/matches/bfc-daugavpils-vs-rfs/19uac4kf#5162019",
     "picks": [
       {
-        "direction": "wc_dc_1x",
-        "type": "🏆 Double chance WC",
-        "label": "Bosnia and Herzegovina ou nul (1X)",
+        "direction": "home_win",
+        "type": "Victoire domicile",
+        "label": "RFS gagne",
         "cote": null,
-        "cote_min": 1.34,
-        "confidence": 75,
-        "tier": "safe",
+        "confidence": 78,
+        "reasoning": "RFS : 4V/0N/1D sur 5 matchs · #1 au classement · H2H: 2V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
         "stats": {
-          "lam_h": 1.3,
-          "lam_a": 0.88,
-          "h_fifa_rank": 78,
-          "a_fifa_rank": 53,
-          "elo_gap": -150,
-          "wc_round": null,
-          "family": "DC"
+          "form": [
+            "W",
+            "W",
+            "L",
+            "W",
+            "W"
+          ]
         },
-        "reasoning": "📊 Niveau équilibré : Bosnia and Herzegovina #78 vs Qatar #53 (gap -150 pts).\nL10 : Bosnia and Herzegovina 0V/4N/1D sur 5 · Qatar 0V/2N/3D sur 5\n📋 Fiche Bosnia and Herzegovina : off solide (+0.89) · def solide (+0.38) · forme LDDDD · 🏆 présence occasionnelle\n📋 Fiche Qatar : off en panne (-0.70) · def fragile (-0.64) · forme LDDLL · 🏆 présence occasionnelle\n🎯 Importance : Bosnia and Herzegovina : 1 match joué (1pts) · Qatar : 1 match joué (1pts)\n🌦️ ⛈️ orage · 17–31°C · humidité 39%\n✅ Compo OFFICIELLE\n🛡️ Double chance : Bosnia and Herzegovina gagne (46.5%) OU match nul (28.4%)\nCombiné = 74.9% — option safe contre Qatar\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+        "is_fun": false,
+        "tier": "safe",
         "calibration_delta": -11.3,
         "history_top3": true
-      },
+      }
+    ],
+    "home_players": [
       {
-        "direction": "wc_under_25",
-        "type": "⚽ Total buts WC",
-        "label": "Moins de 2.5 buts",
+        "player": "Darko Lemajic",
+        "position": "F",
+        "is_sub": false,
+        "type": "Buteur",
+        "label": "Darko Lemajic marque",
         "cote": null,
-        "cote_min": 1.59,
-        "confidence": 63,
-        "tier": "ok",
-        "stats": {
-          "lam_h": 1.3,
-          "lam_a": 0.88,
-          "h_fifa_rank": 78,
-          "a_fifa_rank": 53,
-          "elo_gap": -150,
-          "wc_round": null,
-          "family": "TOTAL"
+        "book": null,
+        "books": [],
+        "confidence": 52,
+        "reasoning": "10 buts en 18 matchs cette saison (55.6% de chance/match) · xG moyen 0.00/match · défense solide\n📉 Calibration : bucket 50-59% historiquement à WR 42% (claim 55%, n=41) — sur-estimé de 14pp",
+        "context": {
+          "weakness": 0.25
         },
-        "reasoning": "📊 Niveau équilibré : Bosnia and Herzegovina #78 vs Qatar #53 (gap -150 pts).\nL10 : Bosnia and Herzegovina 0V/4N/1D sur 5 · Qatar 0V/2N/3D sur 5\n📋 Fiche Bosnia and Herzegovina : off solide (+0.89) · def solide (+0.38) · forme LDDDD · 🏆 présence occasionnelle\n📋 Fiche Qatar : off en panne (-0.70) · def fragile (-0.64) · forme LDDLL · 🏆 présence occasionnelle\n🎯 Importance : Bosnia and Herzegovina : 1 match joué (1pts) · Qatar : 1 match joué (1pts)\n🌦️ ⛈️ orage · 17–31°C · humidité 39%\n✅ Compo OFFICIELLE\n⚽ Modèle Poisson : λ total = 2.18\nP(moins de 2.5 buts) = 62.7%\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
-        "calibration_delta": -25.4,
-        "history_top3": true
-      },
-      {
-        "direction": "wc_btts_no",
-        "type": "⚽ BTTS WC",
-        "label": "Une équipe ne marque pas (BTTS NO)",
-        "cote": null,
-        "cote_min": 1.74,
-        "confidence": 57,
-        "tier": "ok",
         "stats": {
-          "lam_h": 1.3,
-          "lam_a": 0.88,
-          "h_fifa_rank": 78,
-          "a_fifa_rank": 53,
-          "elo_gap": -150,
-          "wc_round": null,
-          "family": "BTTS"
+          "goals": 10,
+          "apps": 18,
+          "gpm": 0.556,
+          "xgpm": 0
         },
-        "reasoning": "📊 Niveau équilibré : Bosnia and Herzegovina #78 vs Qatar #53 (gap -150 pts).\nL10 : Bosnia and Herzegovina 0V/4N/1D sur 5 · Qatar 0V/2N/3D sur 5\n📋 Fiche Bosnia and Herzegovina : off solide (+0.89) · def solide (+0.38) · forme LDDDD · 🏆 présence occasionnelle\n📋 Fiche Qatar : off en panne (-0.70) · def fragile (-0.64) · forme LDDLL · 🏆 présence occasionnelle\n🎯 Importance : Bosnia and Herzegovina : 1 match joué (1pts) · Qatar : 1 match joué (1pts)\n🌦️ ⛈️ orage · 17–31°C · humidité 39%\n✅ Compo OFFICIELLE\n⚽ BTTS NO : P(au moins une équipe blanchie) = 57.4%\nλ faibles côté Qatar (0.88) ou Bosnia and Herzegovina (1.30)\n📉 Calibration : bucket 50-59% historiquement à WR 42% (claim 55%, n=41) — sur-estimé de 14pp",
+        "team": "home",
+        "tier": "fun",
         "calibration_delta": -13.6,
         "history_top3": true
-      }
-    ],
-    "home_players": [],
-    "away_players": [],
-    "fun_picks": [
+      },
       {
-        "direction": "wc_score_1_0",
-        "type": "🏆 Score exact WC",
-        "label": "Score exact : Bosnia and Herzegovina 1-0 Qatar",
-        "cote_min": 6.8,
-        "confidence": 15,
-        "tier": "fun",
-        "is_fun": true,
-        "stats": {
-          "lam_h": 1.3,
-          "lam_a": 0.88,
-          "h_fifa_rank": 78,
-          "a_fifa_rank": 53,
-          "elo_gap": -150
+        "player": "Darko Lemajic / Ismaël Diomandé",
+        "position": "",
+        "is_sub": false,
+        "type": "Double Chance Buteur",
+        "label": "Darko Lemajic ou Ismaël Diomandé marque (RFS)",
+        "cote": null,
+        "book": null,
+        "books": [],
+        "confidence": 70,
+        "cote_min": 1.43,
+        "reasoning": "🏠 Combo intra-RFS\n📈 P(Darko Lemajic marque) ≈ 52% · P(Ismaël Diomandé marque) ≈ 47%\n🎯 P(au moins un marque) = 70% (1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.43 - chercher ≥1.43 chez le bookmaker\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+        "context": {
+          "combo_kind": "intra-home"
         },
-        "reasoning": "📊 Niveau équilibré : Bosnia and Herzegovina #78 vs Qatar #53 (gap -150 pts).\nL10 : Bosnia and Herzegovina 0V/4N/1D sur 5 · Qatar 0V/2N/3D sur 5\n🏆 Coupe du Monde 2026 - score exact (Poisson grid, ajusté Elo FIFA)\nλ Bosnia and Herzegovina = 1.30 buts, λ Qatar = 0.88 buts\nTop 3 : 1-0 (14.7%) · 1-1 (12.9%) · 0-0 (11.3%)\n⚠️ Pari fun (cote élevée typique 4-8) - mise modeste",
-        "exact_score": [
-          1,
-          0
-        ],
-        "wc_top3": [
-          [
-            [
-              1,
-              0
-            ],
-            14.7
-          ],
-          [
-            [
-              1,
-              1
-            ],
-            12.9
-          ],
-          [
-            [
-              0,
-              0
-            ],
-            11.3
-          ]
-        ],
+        "_team_for_balance": "home",
+        "stats": {
+          "p_a": 0.518,
+          "p_b": 0.472,
+          "p_or": 0.7,
+          "player_a": "Darko Lemajic",
+          "player_b": "Ismaël Diomandé",
+          "kind": "intra-home"
+        },
+        "team": "home",
+        "tier": "safe",
+        "calibration_delta": -11.3,
         "history_top3": true
       }
     ],
+    "away_players": [],
+    "fun_picks": [],
     "top_pick": {
-      "direction": "wc_dc_1x",
-      "type": "🏆 Double chance WC",
-      "label": "Bosnia and Herzegovina ou nul (1X)",
+      "direction": "home_win",
+      "type": "Victoire domicile",
+      "label": "RFS gagne",
       "cote": null,
-      "cote_min": 1.34,
-      "confidence": 75,
-      "tier": "safe",
+      "confidence": 78,
+      "reasoning": "RFS : 4V/0N/1D sur 5 matchs · #1 au classement · H2H: 2V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
       "stats": {
-        "lam_h": 1.3,
-        "lam_a": 0.88,
-        "h_fifa_rank": 78,
-        "a_fifa_rank": 53,
-        "elo_gap": -150,
-        "wc_round": null,
-        "family": "DC"
+        "form": [
+          "W",
+          "W",
+          "L",
+          "W",
+          "W"
+        ]
       },
-      "reasoning": "📊 Niveau équilibré : Bosnia and Herzegovina #78 vs Qatar #53 (gap -150 pts).\nL10 : Bosnia and Herzegovina 0V/4N/1D sur 5 · Qatar 0V/2N/3D sur 5\n📋 Fiche Bosnia and Herzegovina : off solide (+0.89) · def solide (+0.38) · forme LDDDD · 🏆 présence occasionnelle\n📋 Fiche Qatar : off en panne (-0.70) · def fragile (-0.64) · forme LDDLL · 🏆 présence occasionnelle\n🎯 Importance : Bosnia and Herzegovina : 1 match joué (1pts) · Qatar : 1 match joué (1pts)\n🌦️ ⛈️ orage · 17–31°C · humidité 39%\n✅ Compo OFFICIELLE\n🛡️ Double chance : Bosnia and Herzegovina gagne (46.5%) OU match nul (28.4%)\nCombiné = 74.9% — option safe contre Qatar\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+      "is_fun": false,
+      "tier": "safe",
       "calibration_delta": -11.3,
       "history_top3": true
     },
     "no_picks": false,
     "context": {
       "stadium": {
-        "name": "Lumen Field",
-        "city": "Seattle",
-        "country": "USA",
-        "lat": 47.5952,
-        "lon": -122.3316,
-        "capacity": 68740,
-        "surface": "Artificial turf",
-        "altitude_m": 17,
-        "type": "outdoor",
-        "climatized": false,
-        "context_fr": "Climat océanique tempéré. Juin 18-22°C, pluies possibles."
+        "name": "LNK Sporta Parks dabīgais",
+        "city": "Rīga",
+        "country": "Latvia",
+        "lat": 56.907960471,
+        "lon": 24.155300465,
+        "capacity": null,
+        "surface": null
       },
       "weather": {
-        "temp_max": 31.4,
-        "temp_min": 17.0,
-        "humidity": 39,
+        "temp_max": 27.2,
+        "temp_min": 20.6,
+        "humidity": 44,
         "precipitation_sum_mm": 0.0,
-        "wind_max_kmh": 11.8,
-        "weather_code": 95,
-        "summary_fr": "⛈️ orage · 17–31°C · humidité 39%"
+        "wind_max_kmh": 18.7,
+        "weather_code": 3,
+        "summary_fr": "☁️ couvert · 20–27°C · humidité 44%"
       },
-      "text": "Conditions : ⛈️ orage · 17–31°C · humidité 39%. Stade : Lumen Field · altitude 17m · 68 740 places · plein air. Climat océanique tempéré. Juin 18-22°C, pluies possibles."
+      "text": "Conditions : ☁️ couvert · 20–27°C · humidité 44%. Stade : LNK Sporta Parks dabīgais · plein air."
     }
   },
   {
@@ -1070,7 +430,7 @@
         "direction": "home_win",
         "type": "Victoire domicile",
         "label": "Brazil gagne",
-        "cote": 1.32,
+        "cote": 1.74,
         "confidence": 74,
         "reasoning": "Brazil : 4V/1N/0D sur 5 matchs · #1 au classement · H2H: 0V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
         "stats": {
@@ -1085,14 +445,14 @@
         "is_fun": false,
         "tier": "safe",
         "calibration_delta": -11.3,
-        "edge_pp": -1.8,
-        "history_top3": false
+        "edge_pp": 16.5,
+        "history_top3": true
       },
       {
         "direction": "wc_over_25",
         "type": "⚽ Total buts WC",
         "label": "Plus de 2.5 buts",
-        "cote": 1.8,
+        "cote": 2.15,
         "cote_min": 1.51,
         "confidence": 66,
         "tier": "ok",
@@ -1105,34 +465,13 @@
           "wc_round": null,
           "family": "TOTAL"
         },
-        "reasoning": "📊 Écart FIFA significatif : Scotland #37 vs Brazil #5 (gap -271 pts, P favori ≈ 83%).\n⭐ Brazil favori CdM 2026\nL10 : Scotland 3V/0N/2D sur 5 · Brazil 4V/1N/0D sur 5\n📋 Fiche Scotland : off moyen (+0.05) · def moyenne (-0.17) · forme LWWWL · 🏆 novice WC\n📋 Fiche Brazil : off moyen (+0.16) · def fragile (-0.67) · forme WDWWW · 🏆 régulière phase finale\n   ↳ Historique : quart de finale en 2022 · quart de finale en 2018 · demi-finaliste en 2014 · 2 titres (1994, 2002)\n🎯 Importance : Scotland : 1 match joué (3pts) · Brazil : 1 match joué (1pts)\n🌦️ Conditions : chaleur 33.2°C (-10%)\n✅ Compo OFFICIELLE\n⚽ Modèle Poisson : λ total = 3.40\nP(plus de 2.5 buts) = 66.0%\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
+        "reasoning": "📊 Niveau équilibré : Brazil #5 vs Japan #16 (gap +136 pts).\n⭐ Brazil favori CdM 2026\nL10 : Brazil 4V/1N/0D sur 5 · Japan 3V/2N/0D sur 5\n📋 Fiche Brazil : off moyen (+0.15) · def fragile (-0.67) · forme WWDWW · 🏆 régulière phase finale\n   ↳ Historique : quart de finale en 2022 · quart de finale en 2018 · demi-finaliste en 2014 · 2 titres (1994, 2002)\n📋 Fiche Japan : off moyen (+0.12) · def moyenne (+0.27) · forme DWDWW · 🏆 habituée du tournoi\n🎯 Importance : Brazil : 1 match joué (1pts) · Japan : 1 match joué (1pts)\n🌦️ ⛈️ orage · 27–35°C · humidité 52% · stade fermé\n⚠️ Compo PROBABLE (officielle à T-60min)\n⚽ Modèle Poisson : λ total = 3.41\nP(plus de 2.5 buts) = 66.3%\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
         "calibration_delta": -25.4,
-        "edge_pp": 10.4,
+        "edge_pp": 19.5,
         "history_top3": true
       },
       {
-        "direction": "wc_btts_no",
-        "type": "⚽ BTTS WC",
-        "label": "Une équipe ne marque pas (BTTS NO)",
-        "cote": null,
-        "cote_min": 1.77,
-        "confidence": 56,
-        "tier": "ok",
-        "stats": {
-          "lam_h": 0.62,
-          "lam_a": 2.78,
-          "h_fifa_rank": 37,
-          "a_fifa_rank": 5,
-          "elo_gap": -271,
-          "wc_round": null,
-          "family": "BTTS"
-        },
-        "reasoning": "📊 Écart FIFA significatif : Scotland #37 vs Brazil #5 (gap -271 pts, P favori ≈ 83%).\n⭐ Brazil favori CdM 2026\nL10 : Scotland 3V/0N/2D sur 5 · Brazil 4V/1N/0D sur 5\n📋 Fiche Scotland : off moyen (+0.05) · def moyenne (-0.17) · forme LWWWL · 🏆 novice WC\n📋 Fiche Brazil : off moyen (+0.16) · def fragile (-0.67) · forme WDWWW · 🏆 régulière phase finale\n   ↳ Historique : quart de finale en 2022 · quart de finale en 2018 · demi-finaliste en 2014 · 2 titres (1994, 2002)\n🎯 Importance : Scotland : 1 match joué (3pts) · Brazil : 1 match joué (1pts)\n🌦️ Conditions : chaleur 33.2°C (-10%)\n✅ Compo OFFICIELLE\n⚽ BTTS NO : P(au moins une équipe blanchie) = 56.5%\nλ faibles côté Brazil (2.78) ou Scotland (0.62)\n📉 Calibration : bucket 50-59% historiquement à WR 42% (claim 55%, n=41) — sur-estimé de 14pp",
-        "calibration_delta": -13.6,
-        "history_top3": false
-      },
-      {
-        "direction": "wc_away_scores_2",
+        "direction": "wc_home_scores_2",
         "type": "⚽ Buteur équipe WC",
         "label": "Brazil marque 2+ buts",
         "cote": null,
@@ -1148,40 +487,40 @@
           "wc_round": null,
           "family": "BUT_TEAM"
         },
-        "reasoning": "📊 Écart FIFA significatif : Scotland #37 vs Brazil #5 (gap -271 pts, P favori ≈ 83%).\n⭐ Brazil favori CdM 2026\nL10 : Scotland 3V/0N/2D sur 5 · Brazil 4V/1N/0D sur 5\n📋 Fiche Scotland : off moyen (+0.05) · def moyenne (-0.17) · forme LWWWL · 🏆 novice WC\n📋 Fiche Brazil : off moyen (+0.16) · def fragile (-0.67) · forme WDWWW · 🏆 régulière phase finale\n   ↳ Historique : quart de finale en 2022 · quart de finale en 2018 · demi-finaliste en 2014 · 2 titres (1994, 2002)\n🎯 Importance : Scotland : 1 match joué (3pts) · Brazil : 1 match joué (1pts)\n🌦️ Conditions : chaleur 33.2°C (-10%)\n✅ Compo OFFICIELLE\n⚽ P(Brazil marque 2+) = 76.5% (λ = 2.78)\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
-        "calibration_delta": -11.3,
-        "history_top3": false
+        "reasoning": "📊 Niveau équilibré : Brazil #5 vs Japan #16 (gap +136 pts).\n⭐ Brazil favori CdM 2026\nL10 : Brazil 4V/1N/0D sur 5 · Japan 3V/2N/0D sur 5\n📋 Fiche Brazil : off moyen (+0.15) · def fragile (-0.67) · forme WWDWW · 🏆 régulière phase finale\n   ↳ Historique : quart de finale en 2022 · quart de finale en 2018 · demi-finaliste en 2014 · 2 titres (1994, 2002)\n📋 Fiche Japan : off moyen (+0.12) · def moyenne (+0.27) · forme DWDWW · 🏆 habituée du tournoi\n🎯 Importance : Brazil : 1 match joué (1pts) · Japan : 1 match joué (1pts)\n🌦️ ⛈️ orage · 27–35°C · humidité 52% · stade fermé\n⚠️ Compo PROBABLE (officielle à T-60min)\n⚽ P(Brazil marque 2+) = 68.7% (λ = 2.38)\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
+        "calibration_delta": -25.4,
+        "history_top3": true
       }
     ],
     "home_players": [
       {
-        "player": "Vinícius Júnior",
-        "position": "F",
-        "is_sub": true,
-        "type": "Buteur",
-        "label": "Vinícius Júnior marque",
-        "cote": 2.35,
-        "cote_min": 1.28,
-        "book": "bovada",
+        "player": "Vinícius Júnior / Matheus Cunha",
+        "position": "",
+        "is_sub": false,
+        "type": "Double Chance Buteur",
+        "label": "Vinícius Júnior ou Matheus Cunha marque (Brazil)",
+        "cote": null,
+        "book": null,
         "books": [],
-        "confidence": 73,
-        "reasoning": "⚠️ Compo PROBABLE (a confirmer 1h avant). Vinícius Júnior : selection 6G/11m (0.55/m) · L10 club : 9G/10m, 🔥 4G/3 derniers nat (+19%) | titu nat (74min/m) · last match 90min (2G+0A). λ ajusté à 1.53 (Brazil attendu 2.9 buts) → P(marque) ~73%.\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+        "confidence": 65,
+        "cote_min": 1.54,
+        "reasoning": "🏠 Combo intra-Brazil\n📈 P(Vinícius Júnior marque) ≈ 44% · P(Matheus Cunha marque) ≈ 37%\n🎯 P(au moins un marque) = 65% (1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.54 - chercher ≥1.54 chez le bookmaker\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
         "context": {
-          "source": "lineup",
-          "lam": 1.53,
-          "lineup_status": "predicted"
+          "combo_kind": "intra-home"
         },
+        "_team_for_balance": "home",
         "stats": {
-          "goals": null,
-          "apps": null,
-          "gpm": 1.531,
-          "xgpm": null
+          "p_a": 0.442,
+          "p_b": 0.368,
+          "p_or": 0.647,
+          "player_a": "Vinícius Júnior",
+          "player_b": "Matheus Cunha",
+          "kind": "intra-home"
         },
         "team": "home",
         "tier": "ok",
-        "calibration_delta": -11.3,
-        "edge_pp": 30.4,
-        "history_top3": true
+        "calibration_delta": -25.4,
+        "history_top3": false
       },
       {
         "player": "Rayan",
@@ -1218,29 +557,28 @@
         "is_sub": true,
         "type": "Passeur",
         "label": "Bruno Guimarães délivre une passe décisive",
-        "cote": 5.5,
-        "cote_min": 1.72,
-        "book": "bovada",
+        "cote": null,
+        "cote_min": 1.83,
+        "book": null,
         "books": [],
-        "confidence": 53,
-        "reasoning": "⚠️ Compo PROBABLE (a confirmer 1h avant). Bruno Guimarães délivre une passe décisive : selection 5A/11m (0.46 passes/m nat). P(passe décisive) ~53%.\n📉 Calibration : bucket 50-59% historiquement à WR 42% (claim 55%, n=41) — sur-estimé de 14pp",
+        "confidence": 50,
+        "reasoning": "⚠️ Compo PROBABLE (a confirmer 1h avant). Bruno Guimarães délivre une passe décisive : selection 5A/11m (0.46 passes/m nat). P(passe décisive) ~50%.\n📉 Calibration : bucket 50-59% historiquement à WR 42% (claim 55%, n=41) — sur-estimé de 14pp",
         "context": {
           "source": "lineup",
-          "lam": 0.87,
+          "lam": 0.79,
           "lineup_status": "predicted"
         },
         "stats": {
           "goals": null,
           "apps": null,
-          "gpm": 0.87,
+          "gpm": 0.789,
           "xgpm": null
         },
         "team": "home",
         "lineup_status": "predicted",
         "tier": "fun",
         "calibration_delta": -13.6,
-        "edge_pp": 34.8,
-        "history_top3": true
+        "history_top3": false
       },
       {
         "player": "Matheus Cunha",
@@ -1248,29 +586,28 @@
         "is_sub": true,
         "type": "Buteur",
         "label": "Matheus Cunha marque",
-        "cote": 2.5,
-        "cote_min": 1.72,
-        "book": "bovada",
+        "cote": null,
+        "cote_min": 1.83,
+        "book": null,
         "books": [],
-        "confidence": 53,
-        "reasoning": "⚠️ Compo PROBABLE (a confirmer 1h avant). Matheus Cunha : selection 3G/11m (0.27/m) · L10 club : 6G/10m, 🔥 3G/3 derniers nat (+19%) | rotatif nat (57min/m) · last match 76min (1G+0A). λ ajusté à 0.87 (Brazil attendu 2.9 buts) → P(marque) ~53%.\n📉 Calibration : bucket 50-59% historiquement à WR 42% (claim 55%, n=41) — sur-estimé de 14pp",
+        "confidence": 50,
+        "reasoning": "⚠️ Compo PROBABLE (a confirmer 1h avant). Matheus Cunha : selection 3G/11m (0.27/m) · L10 club : 6G/10m, 🔥 3G/3 derniers nat (+19%) | rotatif nat (57min/m) · last match 76min (1G+0A). λ ajusté à 0.79 (Brazil attendu 2.7 buts) → P(marque) ~50%.\n📉 Calibration : bucket 50-59% historiquement à WR 42% (claim 55%, n=41) — sur-estimé de 14pp",
         "context": {
           "source": "lineup",
-          "lam": 0.87,
+          "lam": 0.79,
           "lineup_status": "predicted"
         },
         "stats": {
           "goals": null,
           "apps": null,
-          "gpm": 0.872,
+          "gpm": 0.791,
           "xgpm": null
         },
-        "team": "away",
+        "team": "home",
         "lineup_status": "predicted",
         "tier": "fun",
         "calibration_delta": -13.6,
-        "edge_pp": 13.0,
-        "history_top3": true
+        "history_top3": false
       }
     ],
     "away_players": [],
@@ -1325,7 +662,7 @@
       "direction": "home_win",
       "type": "Victoire domicile",
       "label": "Brazil gagne",
-      "cote": 1.32,
+      "cote": 1.74,
       "confidence": 74,
       "reasoning": "Brazil : 4V/1N/0D sur 5 matchs · #1 au classement · H2H: 0V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
       "stats": {
@@ -1340,347 +677,68 @@
       "is_fun": false,
       "tier": "safe",
       "calibration_delta": -11.3,
-      "edge_pp": -1.8,
-      "history_top3": false
-    },
-    "no_picks": false,
-    "context": {
-      "stadium": {
-        "name": "Hard Rock Stadium",
-        "city": "Miami Gardens",
-        "country": "USA",
-        "lat": 25.958,
-        "lon": -80.2389,
-        "capacity": 65326,
-        "surface": "Natural grass",
-        "altitude_m": 3,
-        "type": "outdoor",
-        "climatized": false,
-        "context_fr": "Toit canopy (ombre), pas climatisé. Humidité Floride 80%+, orages tropicaux fréquents en juin."
-      },
-      "weather": {
-        "temp_max": 33.2,
-        "temp_min": 24.4,
-        "humidity": 69,
-        "precipitation_sum_mm": 0.4,
-        "wind_max_kmh": 20.6,
-        "weather_code": 95,
-        "summary_fr": "⛈️ orage · 24–33°C · humidité 69%"
-      },
-      "text": "Conditions : ⛈️ orage · 24–33°C · humidité 69%. Stade : Hard Rock Stadium · altitude 3m · 65 326 places · plein air. Toit canopy (ombre), pas climatisé. Humidité Floride 80%+, orages tropicaux fréquents en juin. ⚠️ Forte chaleur (>32°C) en plein air : impact endurance, plus de pauses hydratation."
-    }
-  },
-  {
-    "league": "World Cup",
-    "home": "Japan",
-    "away": "Sweden",
-    "start_ts": 1782428400,
-    "match_id": "4667788",
-    "page_url": "/matches/japan-vs-sweden/1x3r7y#4667788",
-    "picks": [
-      {
-        "direction": "home_win",
-        "type": "Victoire domicile",
-        "label": "Japan gagne",
-        "cote": 1.87,
-        "confidence": 73,
-        "reasoning": "Japan : 4V/1N/0D sur 5 matchs · #2 au classement · H2H: 0V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
-        "stats": {
-          "form": [
-            "W",
-            "D",
-            "W",
-            "W",
-            "W"
-          ]
-        },
-        "is_fun": false,
-        "tier": "ok",
-        "calibration_delta": -11.3,
-        "edge_pp": 19.5,
-        "history_top3": true
-      },
-      {
-        "direction": "wc_btts_yes",
-        "type": "⚽ BTTS WC",
-        "label": "Les 2 équipes marquent",
-        "cote": null,
-        "cote_min": 1.5,
-        "confidence": 67,
-        "tier": "ok",
-        "stats": {
-          "lam_h": 2.82,
-          "lam_a": 1.24,
-          "h_fifa_rank": 16,
-          "a_fifa_rank": 24,
-          "elo_gap": 53,
-          "wc_round": null,
-          "family": "BTTS"
-        },
-        "reasoning": "📊 Niveau équilibré : Japan #16 vs Sweden #24 (gap +53 pts).\nL10 : Japan 4V/1N/0D sur 5 · Sweden 2V/1N/2D sur 5\n📋 Fiche Japan : off moyen (+0.08) · def moyenne (+0.18) · forme WDWWW · 🏆 habituée du tournoi\n📋 Fiche Sweden : off moyen (+0.11) · def fragile (-0.97) · forme LWDLW · 🏆 présence occasionnelle\n🎯 Importance : Japan : 1 match joué (1pts) · Sweden : 1 match joué (3pts)\n🌦️ ⛈️ orage · 25–33°C · humidité 52% · stade fermé\n✅ Compo OFFICIELLE\n⚽ BTTS Poisson : P(Japan ≥ 1) × P(Sweden ≥ 1) = 94% × 71% = 66.8%\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
-        "calibration_delta": -25.4,
-        "history_top3": true
-      },
-      {
-        "direction": "wc_home_scores_2",
-        "type": "⚽ Buteur équipe WC",
-        "label": "Japan marque 2+ buts",
-        "cote": null,
-        "cote_min": 1.29,
-        "confidence": 77,
-        "tier": "safe",
-        "stats": {
-          "lam_h": 2.82,
-          "lam_a": 1.24,
-          "h_fifa_rank": 16,
-          "a_fifa_rank": 24,
-          "elo_gap": 53,
-          "wc_round": null,
-          "family": "BUT_TEAM"
-        },
-        "reasoning": "📊 Niveau équilibré : Japan #16 vs Sweden #24 (gap +53 pts).\nL10 : Japan 4V/1N/0D sur 5 · Sweden 2V/1N/2D sur 5\n📋 Fiche Japan : off moyen (+0.08) · def moyenne (+0.18) · forme WDWWW · 🏆 habituée du tournoi\n📋 Fiche Sweden : off moyen (+0.11) · def fragile (-0.97) · forme LWDLW · 🏆 présence occasionnelle\n🎯 Importance : Japan : 1 match joué (1pts) · Sweden : 1 match joué (3pts)\n🌦️ ⛈️ orage · 25–33°C · humidité 52% · stade fermé\n✅ Compo OFFICIELLE\n⚽ P(Japan marque 2+) = 77.2% (λ = 2.82)\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
-        "calibration_delta": -11.3,
-        "history_top3": false
-      }
-    ],
-    "home_players": [
-      {
-        "player": "Daichi Kamada",
-        "position": "M",
-        "is_sub": false,
-        "type": "Buteur",
-        "label": "Daichi Kamada marque",
-        "team": "home",
-        "cote": null,
-        "book": null,
-        "books": [],
-        "confidence": 28,
-        "reasoning": "2G en 5 matchs (40.0%/match) · xG: 0.18/match",
-        "context": {
-          "weakness": 0.27
-        },
-        "stats": {
-          "goals": 2,
-          "apps": 5
-        },
-        "tier": "fun",
-        "history_top3": true
-      }
-    ],
-    "away_players": [],
-    "fun_picks": [
-      {
-        "direction": "wc_score_2_1",
-        "type": "🏆 Score exact WC",
-        "label": "Score exact : Japan 2-1 Sweden",
-        "cote_min": 11.76,
-        "confidence": 9,
-        "tier": "fun",
-        "is_fun": true,
-        "stats": {
-          "lam_h": 2.82,
-          "lam_a": 1.24,
-          "h_fifa_rank": 16,
-          "a_fifa_rank": 24,
-          "elo_gap": 53
-        },
-        "reasoning": "📊 Niveau équilibré : Japan #16 vs Sweden #24 (gap +53 pts).\nL10 : Japan 4V/1N/0D sur 5 · Sweden 2V/1N/2D sur 5\n🏆 Coupe du Monde 2026 - score exact (Poisson grid, ajusté Elo FIFA)\nλ Japan = 2.82 buts, λ Sweden = 1.24 buts\nTop 3 : 2-1 (8.5%) · 3-1 (8.0%) · 2-0 (6.9%)\n⚠️ Pari fun (cote élevée typique 4-8) - mise modeste",
-        "exact_score": [
-          2,
-          1
-        ],
-        "wc_top3": [
-          [
-            [
-              2,
-              1
-            ],
-            8.5
-          ],
-          [
-            [
-              3,
-              1
-            ],
-            8.0
-          ],
-          [
-            [
-              2,
-              0
-            ],
-            6.9
-          ]
-        ],
-        "history_top3": true
-      }
-    ],
-    "top_pick": {
-      "direction": "home_win",
-      "type": "Victoire domicile",
-      "label": "Japan gagne",
-      "cote": 1.87,
-      "confidence": 73,
-      "reasoning": "Japan : 4V/1N/0D sur 5 matchs · #2 au classement · H2H: 0V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
-      "stats": {
-        "form": [
-          "W",
-          "D",
-          "W",
-          "W",
-          "W"
-        ]
-      },
-      "is_fun": false,
-      "tier": "ok",
-      "calibration_delta": -11.3,
-      "edge_pp": 19.5,
+      "edge_pp": 16.5,
       "history_top3": true
     },
     "no_picks": false,
     "context": {
       "stadium": {
-        "name": "AT&T Stadium",
-        "city": "Arlington (Dallas)",
+        "name": "NRG Stadium",
+        "city": "Houston",
         "country": "USA",
-        "lat": 32.7473,
-        "lon": -97.0945,
-        "capacity": 80000,
-        "surface": "Natural grass (drainable)",
-        "altitude_m": 180,
+        "lat": 29.6847,
+        "lon": -95.4107,
+        "capacity": 72220,
+        "surface": "Natural grass",
+        "altitude_m": 18,
         "type": "indoor",
         "climatized": true,
-        "context_fr": "Toit retractable, climatisé. Permet de jouer malgré chaleur Texas en juin (38°C+)."
+        "context_fr": "Toit retractable, climatisé. Houston chaud et humide en été."
       },
       "weather": {
-        "temp_max": 33.4,
-        "temp_min": 25.0,
+        "temp_max": 35.8,
+        "temp_min": 27.4,
         "humidity": 52,
         "precipitation_sum_mm": 0.0,
-        "wind_max_kmh": 23.4,
+        "wind_max_kmh": 21.6,
         "weather_code": 95,
-        "summary_fr": "⛈️ orage · 25–33°C · humidité 52%"
+        "summary_fr": "⛈️ orage · 27–35°C · humidité 52%"
       },
-      "text": "Conditions : ⛈️ orage · 25–33°C · humidité 52%. Stade : AT&T Stadium · altitude 180m · 80 000 places · climatisé. Toit retractable, climatisé. Permet de jouer malgré chaleur Texas en juin (38°C+)."
+      "text": "Conditions : ⛈️ orage · 27–35°C · humidité 52%. Stade : NRG Stadium · altitude 18m · 72 220 places · climatisé. Toit retractable, climatisé. Houston chaud et humide en été."
     }
   },
   {
-    "league": "Morocco Botola Pro",
-    "home": "CODM Meknes",
-    "away": "Hassania Agadir",
-    "start_ts": 1782406800,
-    "match_id": "5793742",
-    "page_url": "/matches/codm-meknes-vs-hassania-agadir/9kd1rys#5793742",
-    "picks": [],
-    "home_players": [
-      {
-        "player": "Mustapha Sahd / Baba Bello Ilou",
-        "position": "",
-        "is_sub": false,
-        "type": "Double Chance Buteur",
-        "label": "Mustapha Sahd OU Baba Bello Ilou marque (cross-équipe)",
-        "cote": null,
-        "book": null,
-        "books": [],
-        "confidence": 70,
-        "cote_min": 1.45,
-        "reasoning": "🔀 Cross-équipe (moins corrélé → meilleur EV)\n📈 P(Mustapha Sahd marque) ≈ 44% · P(Baba Bello Ilou marque) ≈ 46%\n🎯 P(au moins un marque) = 70% (1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.45 - chercher ≥1.45 chez le bookmaker\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
-        "context": {
-          "combo_kind": "cross"
-        },
-        "_team_for_balance": "home",
-        "stats": {
-          "p_a": 0.435,
-          "p_b": 0.458,
-          "p_or": 0.694,
-          "player_a": "Mustapha Sahd",
-          "player_b": "Baba Bello Ilou",
-          "kind": "cross"
-        },
-        "team": "home",
-        "tier": "safe",
-        "calibration_delta": -11.3,
-        "history_top3": true
-      }
-    ],
-    "away_players": [],
-    "fun_picks": [],
-    "top_pick": {
-      "player": "Mustapha Sahd / Baba Bello Ilou",
-      "position": "",
-      "is_sub": false,
-      "type": "Double Chance Buteur",
-      "label": "Mustapha Sahd OU Baba Bello Ilou marque (cross-équipe)",
-      "cote": null,
-      "book": null,
-      "books": [],
-      "confidence": 70,
-      "cote_min": 1.45,
-      "reasoning": "🔀 Cross-équipe (moins corrélé → meilleur EV)\n📈 P(Mustapha Sahd marque) ≈ 44% · P(Baba Bello Ilou marque) ≈ 46%\n🎯 P(au moins un marque) = 70% (1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.45 - chercher ≥1.45 chez le bookmaker\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
-      "context": {
-        "combo_kind": "cross"
-      },
-      "_team_for_balance": "home",
-      "stats": {
-        "p_a": 0.435,
-        "p_b": 0.458,
-        "p_or": 0.694,
-        "player_a": "Mustapha Sahd",
-        "player_b": "Baba Bello Ilou",
-        "kind": "cross"
-      },
-      "team": "home",
-      "tier": "safe",
-      "calibration_delta": -11.3,
-      "history_top3": true
-    },
-    "no_picks": false,
-    "context": {
-      "stadium": {
-        "name": "Meknes Honor Stadium",
-        "city": null,
-        "country": "",
-        "lat": null,
-        "lon": null,
-        "capacity": null,
-        "surface": null
-      },
-      "weather": null,
-      "text": "Stade : Meknes Honor Stadium · plein air."
-    }
-  },
-  {
-    "league": "Morocco Botola Pro",
-    "home": "Renaissance Club Zemamra",
-    "away": "Olympic Club de Safi",
-    "start_ts": 1782406800,
-    "match_id": "5793745",
-    "page_url": "/matches/olympic-club-de-safi-vs-renaissance-club-zemamra/729hnoal#5793745",
+    "league": "Lithuanian Toplyga",
+    "home": "FA Siauliai",
+    "away": "FK TransINVEST",
+    "start_ts": 1782747000,
+    "match_id": "5838857",
+    "page_url": "/matches/fa-siauliai-vs-fk-transinvest/15eamc9zz#5838857",
     "picks": [],
     "home_players": [],
     "away_players": [
       {
-        "player": "Moussa Koné / Faraji Karmoune",
+        "player": "Yegor Glushach / Xabi Auzmendi",
         "position": "",
         "is_sub": false,
         "type": "Double Chance Buteur",
-        "label": "Moussa Koné ou Faraji Karmoune marque (Olympic Club de Safi)",
+        "label": "Yegor Glushach ou Xabi Auzmendi marque (FK TransINVEST)",
         "cote": null,
         "book": null,
         "books": [],
         "confidence": 70,
         "cote_min": 1.43,
-        "reasoning": "✈️ Combo intra-Olympic Club de Safi\n📈 P(Moussa Koné marque) ≈ 47% · P(Faraji Karmoune marque) ≈ 45%\n🎯 P(au moins un marque) = 70% (1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.43 - chercher ≥1.43 chez le bookmaker\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+        "reasoning": "✈️ Combo intra-FK TransINVEST\n📈 P(Yegor Glushach marque) ≈ 49% · P(Xabi Auzmendi marque) ≈ 48%\n🎯 P(au moins un marque) = 70% (1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.43 - chercher ≥1.43 chez le bookmaker\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
         "context": {
           "combo_kind": "intra-away"
         },
         "_team_for_balance": "away",
         "stats": {
-          "p_a": 0.472,
-          "p_b": 0.45,
+          "p_a": 0.488,
+          "p_b": 0.48,
           "p_or": 0.7,
-          "player_a": "Moussa Koné",
-          "player_b": "Faraji Karmoune",
+          "player_a": "Yegor Glushach",
+          "player_b": "Xabi Auzmendi",
           "kind": "intra-away"
         },
         "team": "away",
@@ -1691,1132 +749,52 @@
     ],
     "fun_picks": [],
     "top_pick": {
-      "player": "Moussa Koné / Faraji Karmoune",
+      "player": "Yegor Glushach / Xabi Auzmendi",
       "position": "",
       "is_sub": false,
       "type": "Double Chance Buteur",
-      "label": "Moussa Koné ou Faraji Karmoune marque (Olympic Club de Safi)",
+      "label": "Yegor Glushach ou Xabi Auzmendi marque (FK TransINVEST)",
       "cote": null,
       "book": null,
       "books": [],
       "confidence": 70,
       "cote_min": 1.43,
-      "reasoning": "✈️ Combo intra-Olympic Club de Safi\n📈 P(Moussa Koné marque) ≈ 47% · P(Faraji Karmoune marque) ≈ 45%\n🎯 P(au moins un marque) = 70% (1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.43 - chercher ≥1.43 chez le bookmaker\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+      "reasoning": "✈️ Combo intra-FK TransINVEST\n📈 P(Yegor Glushach marque) ≈ 49% · P(Xabi Auzmendi marque) ≈ 48%\n🎯 P(au moins un marque) = 70% (1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.43 - chercher ≥1.43 chez le bookmaker\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
       "context": {
         "combo_kind": "intra-away"
       },
       "_team_for_balance": "away",
       "stats": {
-        "p_a": 0.472,
-        "p_b": 0.45,
+        "p_a": 0.488,
+        "p_b": 0.48,
         "p_or": 0.7,
-        "player_a": "Moussa Koné",
-        "player_b": "Faraji Karmoune",
+        "player_a": "Yegor Glushach",
+        "player_b": "Xabi Auzmendi",
         "kind": "intra-away"
       },
       "team": "away",
       "tier": "safe",
       "calibration_delta": -11.3,
-      "history_top3": true
-    },
-    "no_picks": false,
-    "context": {
-      "stadium": {
-        "name": "Ahmed Choukri Stadium",
-        "city": null,
-        "country": "",
-        "lat": null,
-        "lon": null,
-        "capacity": null,
-        "surface": null
-      },
-      "weather": null,
-      "text": "Stade : Ahmed Choukri Stadium · plein air."
-    }
-  },
-  {
-    "league": "Morocco Botola Pro",
-    "home": "Union Touarga Sport",
-    "away": "Difaa El Jadida",
-    "start_ts": 1782406800,
-    "match_id": "5793746",
-    "page_url": "/matches/difaa-el-jadida-vs-union-touarga-sport/152nxk39#5793746",
-    "picks": [],
-    "home_players": [],
-    "away_players": [
-      {
-        "player": "Abdellah Ziani / Imad Sabik",
-        "position": "",
-        "is_sub": false,
-        "type": "Double Chance Buteur",
-        "label": "Abdellah Ziani ou Imad Sabik marque (Difaa El Jadida)",
-        "cote": null,
-        "book": null,
-        "books": [],
-        "confidence": 70,
-        "cote_min": 1.43,
-        "reasoning": "✈️ Combo intra-Difaa El Jadida\n📈 P(Abdellah Ziani marque) ≈ 47% · P(Imad Sabik marque) ≈ 44%\n🎯 P(au moins un marque) = 70% (1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.43 - chercher ≥1.43 chez le bookmaker\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
-        "context": {
-          "combo_kind": "intra-away"
-        },
-        "_team_for_balance": "away",
-        "stats": {
-          "p_a": 0.472,
-          "p_b": 0.442,
-          "p_or": 0.7,
-          "player_a": "Abdellah Ziani",
-          "player_b": "Imad Sabik",
-          "kind": "intra-away"
-        },
-        "team": "away",
-        "tier": "safe",
-        "calibration_delta": -11.3,
-        "history_top3": true
-      }
-    ],
-    "fun_picks": [],
-    "top_pick": {
-      "player": "Abdellah Ziani / Imad Sabik",
-      "position": "",
-      "is_sub": false,
-      "type": "Double Chance Buteur",
-      "label": "Abdellah Ziani ou Imad Sabik marque (Difaa El Jadida)",
-      "cote": null,
-      "book": null,
-      "books": [],
-      "confidence": 70,
-      "cote_min": 1.43,
-      "reasoning": "✈️ Combo intra-Difaa El Jadida\n📈 P(Abdellah Ziani marque) ≈ 47% · P(Imad Sabik marque) ≈ 44%\n🎯 P(au moins un marque) = 70% (1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.43 - chercher ≥1.43 chez le bookmaker\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
-      "context": {
-        "combo_kind": "intra-away"
-      },
-      "_team_for_balance": "away",
-      "stats": {
-        "p_a": 0.472,
-        "p_b": 0.442,
-        "p_or": 0.7,
-        "player_a": "Abdellah Ziani",
-        "player_b": "Imad Sabik",
-        "kind": "intra-away"
-      },
-      "team": "away",
-      "tier": "safe",
-      "calibration_delta": -11.3,
-      "history_top3": true
-    },
-    "no_picks": false,
-    "context": {
-      "stadium": {
-        "name": "Al Medina Stadium",
-        "city": null,
-        "country": "",
-        "lat": null,
-        "lon": null,
-        "capacity": null,
-        "surface": null
-      },
-      "weather": null,
-      "text": "Stade : Al Medina Stadium · plein air."
-    }
-  },
-  {
-    "league": "Latvian Virsliga",
-    "home": "Grobina",
-    "away": "Auda",
-    "start_ts": 1782396000,
-    "match_id": "5162013",
-    "page_url": "/matches/auda-vs-grobina/2tj3ibvk#5162013",
-    "picks": [
-      {
-        "direction": "away_win",
-        "type": "Victoire extérieur",
-        "label": "Auda gagne",
-        "cote": null,
-        "confidence": 69,
-        "reasoning": "Auda : 3V/1N/1D sur 5 matchs · #3 au classement · H2H: 2V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
-        "stats": {
-          "form": [
-            "W",
-            "L",
-            "D",
-            "W",
-            "W"
-          ]
-        },
-        "is_fun": false,
-        "tier": "ok",
-        "calibration_delta": -25.4,
-        "history_top3": true
-      }
-    ],
-    "home_players": [],
-    "away_players": [
-      {
-        "player": "Josué Vergara",
-        "position": "F",
-        "is_sub": false,
-        "type": "Buteur",
-        "label": "Josué Vergara marque",
-        "cote": null,
-        "book": null,
-        "books": [],
-        "confidence": 59,
-        "reasoning": "14 buts en 19 matchs cette saison (73.7% de chance/match) · xG moyen 0.00/match · défense correcte\n📉 Calibration : bucket 50-59% historiquement à WR 42% (claim 55%, n=41) — sur-estimé de 14pp",
-        "context": {
-          "weakness": 0.33
-        },
-        "stats": {
-          "goals": 14,
-          "apps": 19,
-          "gpm": 0.737,
-          "xgpm": 0
-        },
-        "team": "away",
-        "tier": "ok",
-        "calibration_delta": -13.6,
-        "history_top3": true
-      },
-      {
-        "player": "Josué Vergara / Hussaini Ibrahim",
-        "position": "",
-        "is_sub": false,
-        "type": "Double Chance Buteur",
-        "label": "Josué Vergara ou Hussaini Ibrahim marque (Auda)",
-        "cote": null,
-        "book": null,
-        "books": [],
-        "confidence": 70,
-        "cote_min": 1.43,
-        "reasoning": "✈️ Combo intra-Auda\n📈 P(Josué Vergara marque) ≈ 59% · P(Hussaini Ibrahim marque) ≈ 36%\n🎯 P(au moins un marque) = 70% (1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.43 - chercher ≥1.43 chez le bookmaker\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
-        "context": {
-          "combo_kind": "intra-away"
-        },
-        "_team_for_balance": "away",
-        "stats": {
-          "p_a": 0.592,
-          "p_b": 0.36,
-          "p_or": 0.7,
-          "player_a": "Josué Vergara",
-          "player_b": "Hussaini Ibrahim",
-          "kind": "intra-away"
-        },
-        "team": "away",
-        "tier": "safe",
-        "calibration_delta": -11.3,
-        "history_top3": true
-      }
-    ],
-    "fun_picks": [],
-    "top_pick": {
-      "direction": "away_win",
-      "type": "Victoire extérieur",
-      "label": "Auda gagne",
-      "cote": null,
-      "confidence": 69,
-      "reasoning": "Auda : 3V/1N/1D sur 5 matchs · #3 au classement · H2H: 2V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
-      "stats": {
-        "form": [
-          "W",
-          "L",
-          "D",
-          "W",
-          "W"
-        ]
-      },
-      "is_fun": false,
-      "tier": "ok",
-      "calibration_delta": -25.4,
-      "history_top3": true
-    },
-    "no_picks": false,
-    "context": {
-      "stadium": {
-        "name": "Stadions Daugava",
-        "city": "Liepāja",
-        "country": "Latvia",
-        "lat": 56.502915227,
-        "lon": 20.995157361,
-        "capacity": null,
-        "surface": null
-      },
-      "weather": {
-        "temp_max": 23.4,
-        "temp_min": 16.2,
-        "humidity": 63,
-        "precipitation_sum_mm": 0.0,
-        "wind_max_kmh": 12.2,
-        "weather_code": 3,
-        "summary_fr": "☁️ couvert · 16–23°C · humidité 63%"
-      },
-      "text": "Conditions : ☁️ couvert · 16–23°C · humidité 63%. Stade : Stadions Daugava · plein air."
-    }
-  },
-  {
-    "league": "World Cup",
-    "home": "Curacao",
-    "away": "Ivory Coast",
-    "start_ts": 1782417600,
-    "match_id": "4667782",
-    "page_url": "/matches/ivory-coast-vs-curacao/jy3w4js#4667782",
-    "picks": [
-      {
-        "direction": "away_win",
-        "type": "Victoire extérieur",
-        "label": "Ivory Coast gagne",
-        "cote": 1.15,
-        "confidence": 69,
-        "reasoning": "Ivory Coast : 4V/0N/1D sur 5 matchs · #2 au classement · H2H: 0V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
-        "stats": {
-          "form": [
-            "L",
-            "W",
-            "W",
-            "W",
-            "W"
-          ]
-        },
-        "is_fun": false,
-        "tier": "ok",
-        "calibration_delta": -25.4,
-        "edge_pp": -18.0,
-        "history_top3": false
-      },
-      {
-        "direction": "wc_over_35",
-        "type": "⚽ Total buts WC",
-        "label": "Plus de 3.5 buts",
-        "cote": null,
-        "cote_min": 1.32,
-        "confidence": 76,
-        "tier": "safe",
-        "stats": {
-          "lam_h": 0.28,
-          "lam_a": 4.89,
-          "h_fifa_rank": "?",
-          "a_fifa_rank": 31,
-          "elo_gap": null,
-          "wc_round": null,
-          "family": "TOTAL"
-        },
-        "reasoning": "L10 : Curacao 0V/1N/4D sur 5 · Ivory Coast 4V/0N/1D sur 5\n🚂 Mismatch significatif (Elo gap +545) : Ivory Coast pousse pour prendre le large. ⚠️ Curacao hors top 100 FIFA — fallback Elo estimé, défense souvent perméable vs top.\n📋 Fiche Curacao : off solide (+0.65) · def moyenne (-0.13) · forme DLLLL · 🏆 novice WC\n📋 Fiche Ivory Coast : off solide (+1.00) · def solide (+0.58) · forme LWWWW · 🏆 présence occasionnelle\n🎯 Importance : Curacao : 1 match joué (0pts) · Ivory Coast : 1 match joué (3pts)\n🌦️ ☁️ couvert · 17–30°C · humidité 42%\n✅ Compo OFFICIELLE\n⚽ Modèle Poisson : λ total = 5.18\nP(plus de 3.5 buts) = 75.9% — match ouvert prévu\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
-        "calibration_delta": -11.3,
-        "history_top3": true
-      },
-      {
-        "direction": "wc_home_no_score",
-        "type": "🛡️ Clean sheet WC",
-        "label": "Curacao ne marque pas",
-        "cote": null,
-        "cote_min": 1.33,
-        "confidence": 75,
-        "tier": "safe",
-        "stats": {
-          "lam_h": 0.28,
-          "lam_a": 4.89,
-          "h_fifa_rank": "?",
-          "a_fifa_rank": 31,
-          "elo_gap": null,
-          "wc_round": null,
-          "family": "CLEAN_SHEET"
-        },
-        "reasoning": "L10 : Curacao 0V/1N/4D sur 5 · Ivory Coast 4V/0N/1D sur 5\n🚂 Mismatch significatif (Elo gap +545) : Ivory Coast pousse pour prendre le large. ⚠️ Curacao hors top 100 FIFA — fallback Elo estimé, défense souvent perméable vs top.\n📋 Fiche Curacao : off solide (+0.65) · def moyenne (-0.13) · forme DLLLL · 🏆 novice WC\n📋 Fiche Ivory Coast : off solide (+1.00) · def solide (+0.58) · forme LWWWW · 🏆 présence occasionnelle\n🎯 Importance : Curacao : 1 match joué (0pts) · Ivory Coast : 1 match joué (3pts)\n🌦️ ☁️ couvert · 17–30°C · humidité 42%\n✅ Compo OFFICIELLE\n🛡️ P(Curacao blanchi) = 75.2% (λ_Curacao = 0.28)\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
-        "calibration_delta": -11.3,
-        "history_top3": true
-      }
-    ],
-    "home_players": [],
-    "away_players": [
-      {
-        "player": "Amad Diallo",
-        "position": "F",
-        "is_sub": true,
-        "type": "Buteur",
-        "label": "Amad Diallo marque",
-        "cote": null,
-        "cote_min": 1.84,
-        "book": null,
-        "books": [],
-        "confidence": 49,
-        "reasoning": "⚠️ Compo PROBABLE (a confirmer 1h avant). Amad Diallo : selection 6G/16m (0.38/m) · L10 club : 2G/10m, 🔥 1G/3 derniers nat (+10%) | rotatif nat (56min/m) · last match 45min (0G+0A). λ ajusté à 0.78 (Ivory Coast attendu 3.3 buts) → P(marque) ~49%.\n📉 Calibration : bucket 40-49% historiquement à WR 25% (claim 44%, n=36) — sur-estimé de 19pp",
-        "context": {
-          "source": "lineup",
-          "lam": 0.78,
-          "lineup_status": "predicted"
-        },
-        "stats": {
-          "goals": null,
-          "apps": null,
-          "gpm": 0.782,
-          "xgpm": null
-        },
-        "team": "away",
-        "lineup_status": "predicted",
-        "tier": "fun",
-        "calibration_delta": -19.4,
-        "history_top3": true
-      }
-    ],
-    "fun_picks": [
-      {
-        "direction": "wc_score_0_4",
-        "type": "🏆 Score exact WC",
-        "label": "Score exact : Curacao 0-4 Ivory Coast",
-        "cote_min": 7.42,
-        "confidence": 13,
-        "tier": "fun",
-        "is_fun": true,
-        "stats": {
-          "lam_h": 0.28,
-          "lam_a": 4.89,
-          "h_fifa_rank": "?",
-          "a_fifa_rank": 31,
-          "elo_gap": null
-        },
-        "reasoning": "L10 : Curacao 0V/1N/4D sur 5 · Ivory Coast 4V/0N/1D sur 5\n🏆 Coupe du Monde 2026 - score exact (Poisson grid, ajusté Elo FIFA)\nλ Curacao = 0.28 buts, λ Ivory Coast = 4.89 buts\nTop 3 : 0-4 (13.5%) · 0-5 (13.2%) · 0-3 (11.0%)\n⚠️ Pari fun (cote élevée typique 4-8) - mise modeste",
-        "exact_score": [
-          0,
-          4
-        ],
-        "wc_top3": [
-          [
-            [
-              0,
-              4
-            ],
-            13.5
-          ],
-          [
-            [
-              0,
-              5
-            ],
-            13.2
-          ],
-          [
-            [
-              0,
-              3
-            ],
-            11.0
-          ]
-        ],
-        "history_top3": true
-      }
-    ],
-    "top_pick": {
-      "direction": "away_win",
-      "type": "Victoire extérieur",
-      "label": "Ivory Coast gagne",
-      "cote": 1.15,
-      "confidence": 69,
-      "reasoning": "Ivory Coast : 4V/0N/1D sur 5 matchs · #2 au classement · H2H: 0V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
-      "stats": {
-        "form": [
-          "L",
-          "W",
-          "W",
-          "W",
-          "W"
-        ]
-      },
-      "is_fun": false,
-      "tier": "ok",
-      "calibration_delta": -25.4,
-      "edge_pp": -18.0,
-      "history_top3": false
-    },
-    "no_picks": false,
-    "context": {
-      "stadium": {
-        "name": "Lincoln Financial Field",
-        "city": "Philadelphia",
-        "country": "USA",
-        "lat": 39.9008,
-        "lon": -75.1675,
-        "capacity": 67594,
-        "surface": "Natural grass",
-        "altitude_m": 12,
-        "type": "outdoor",
-        "climatized": false,
-        "context_fr": "Climat tempéré humide. Juin 24-29°C."
-      },
-      "weather": {
-        "temp_max": 30.8,
-        "temp_min": 17.0,
-        "humidity": 42,
-        "precipitation_sum_mm": 0.0,
-        "wind_max_kmh": 16.6,
-        "weather_code": 3,
-        "summary_fr": "☁️ couvert · 17–30°C · humidité 42%"
-      },
-      "text": "Conditions : ☁️ couvert · 17–30°C · humidité 42%. Stade : Lincoln Financial Field · altitude 12m · 67 594 places · plein air. Climat tempéré humide. Juin 24-29°C."
-    }
-  },
-  {
-    "league": "Morocco Botola Pro",
-    "home": "Union Yacoub El-Mansour",
-    "away": "Raja Casablanca",
-    "start_ts": 1782406800,
-    "match_id": "5793748",
-    "page_url": "/matches/raja-casablanca-vs-union-yacoub-el-mansour/mrfe6zc4#5793748",
-    "picks": [
-      {
-        "direction": "away_win",
-        "type": "Favori net",
-        "label": "Raja Casablanca gagne",
-        "cote": null,
-        "confidence": 67,
-        "reasoning": "12 places d'écart au classement (#3 vs #15) · 2V/1N/2D sur 5 matchs · Note Sofa: 6.5/10\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
-        "stats": {
-          "form": [
-            "W",
-            "W",
-            "D",
-            "L",
-            "L"
-          ]
-        },
-        "is_fun": false,
-        "tier": "ok",
-        "calibration_delta": -25.4,
-        "history_top3": true
-      }
-    ],
-    "home_players": [],
-    "away_players": [
-      {
-        "player": "Mathias Oyewusi",
-        "position": "M",
-        "is_sub": false,
-        "type": "Buteur",
-        "label": "Mathias Oyewusi marque",
-        "cote": null,
-        "book": null,
-        "books": [],
-        "confidence": 55,
-        "reasoning": "3 buts en 5 matchs cette saison (60.0% de chance/match) · xG moyen 0.00/match, défense adverse poreuse (1.5 buts concédés/match) · défense fragile\n📉 Calibration : bucket 50-59% historiquement à WR 42% (claim 55%, n=41) — sur-estimé de 14pp",
-        "context": {
-          "weakness": 0.6
-        },
-        "stats": {
-          "goals": 3,
-          "apps": 5,
-          "gpm": 0.6,
-          "xgpm": 0
-        },
-        "team": "away",
-        "tier": "ok",
-        "calibration_delta": -13.6,
-        "history_top3": true
-      },
-      {
-        "player": "Ismail Khafi",
-        "position": "M",
-        "is_sub": false,
-        "type": "Buteur",
-        "label": "Ismail Khafi marque",
-        "cote": null,
-        "book": null,
-        "books": [],
-        "confidence": 50,
-        "reasoning": "3 buts en 6 matchs cette saison (50.0% de chance/match) · xG moyen 0.00/match, défense adverse poreuse (1.5 buts concédés/match) · défense fragile\n📉 Calibration : bucket 50-59% historiquement à WR 42% (claim 55%, n=41) — sur-estimé de 14pp",
-        "context": {
-          "weakness": 0.6
-        },
-        "stats": {
-          "goals": 3,
-          "apps": 6,
-          "gpm": 0.5,
-          "xgpm": 0
-        },
-        "team": "away",
-        "tier": "fun",
-        "calibration_delta": -13.6,
-        "history_top3": true
-      },
-      {
-        "player": "Mathias Oyewusi / Ismail Khafi",
-        "position": "",
-        "is_sub": false,
-        "type": "Double Chance Buteur",
-        "label": "Mathias Oyewusi ou Ismail Khafi marque (Raja Casablanca)",
-        "cote": null,
-        "book": null,
-        "books": [],
-        "confidence": 70,
-        "cote_min": 1.43,
-        "reasoning": "✈️ Combo intra-Raja Casablanca\n📈 P(Mathias Oyewusi marque) ≈ 55% · P(Ismail Khafi marque) ≈ 50%\n🎯 P(au moins un marque) = 70% (1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.43 - chercher ≥1.43 chez le bookmaker\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
-        "context": {
-          "combo_kind": "intra-away"
-        },
-        "_team_for_balance": "away",
-        "stats": {
-          "p_a": 0.548,
-          "p_b": 0.502,
-          "p_or": 0.7,
-          "player_a": "Mathias Oyewusi",
-          "player_b": "Ismail Khafi",
-          "kind": "intra-away"
-        },
-        "team": "away",
-        "tier": "safe",
-        "calibration_delta": -11.3,
-        "history_top3": true
-      }
-    ],
-    "fun_picks": [],
-    "top_pick": {
-      "direction": "away_win",
-      "type": "Favori net",
-      "label": "Raja Casablanca gagne",
-      "cote": null,
-      "confidence": 67,
-      "reasoning": "12 places d'écart au classement (#3 vs #15) · 2V/1N/2D sur 5 matchs · Note Sofa: 6.5/10\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
-      "stats": {
-        "form": [
-          "W",
-          "W",
-          "D",
-          "L",
-          "L"
-        ]
-      },
-      "is_fun": false,
-      "tier": "ok",
-      "calibration_delta": -25.4,
-      "history_top3": true
-    },
-    "no_picks": false,
-    "context": {
-      "stadium": {
-        "name": "Prince Moulay Abdellah Olympic Annex Stadium",
-        "city": null,
-        "country": "",
-        "lat": null,
-        "lon": null,
-        "capacity": null,
-        "surface": null
-      },
-      "weather": null,
-      "text": "Stade : Prince Moulay Abdellah Olympic Annex Stadium · plein air."
-    }
-  },
-  {
-    "league": "World Cup",
-    "home": "Morocco",
-    "away": "Haiti",
-    "start_ts": 1782338400,
-    "match_id": "4667769",
-    "page_url": "/matches/haiti-vs-morocco/18aaq8#4667769",
-    "picks": [
-      {
-        "direction": "home_win",
-        "type": "Victoire domicile",
-        "label": "Morocco gagne",
-        "cote": 1.19,
-        "confidence": 65,
-        "reasoning": "Morocco : 3V/2N/0D sur 5 matchs · #2 au classement · H2H: 0V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
-        "stats": {
-          "form": [
-            "W",
-            "D",
-            "D",
-            "W",
-            "W"
-          ]
-        },
-        "is_fun": false,
-        "tier": "ok",
-        "calibration_delta": -25.4,
-        "edge_pp": -19.0,
-        "history_top3": false
-      },
-      {
-        "direction": "wc_over_25",
-        "type": "⚽ Total buts WC",
-        "label": "Plus de 2.5 buts",
-        "cote": 1.54,
-        "cote_min": 1.55,
-        "confidence": 64,
-        "tier": "ok",
-        "stats": {
-          "lam_h": 3.16,
-          "lam_a": 0.16,
-          "h_fifa_rank": 12,
-          "a_fifa_rank": 75,
-          "elo_gap": 420,
-          "wc_round": null,
-          "family": "TOTAL"
-        },
-        "reasoning": "📊 Écart FIFA ÉNORME : Morocco #12 (1694 pts) vs Haiti #75 (1274 pts) — gap Elo +420 pts → P(vainqueur favori) ≈ 92%.\nL10 : Morocco 3V/2N/0D sur 5 · Haiti 1V/1N/3D sur 5\n🚂 Mismatch significatif (Elo gap +420) : Morocco pousse pour prendre le large.\n📋 Fiche Morocco : off moyen (-0.29) · def solide (+0.37) · forme WDDWW · 🏆 habituée du tournoi\n📋 Fiche Haiti : off moyen (+0.00) · def moyenne (+0.27) · forme LLLWD · 🏆 novice WC\n🎯 Importance : Morocco : 1 match joué (1pts) · Haiti : 1 match joué (0pts)\n🌦️ ☁️ couvert · 17–29°C · humidité 47% · stade fermé\n✅ Compo OFFICIELLE\n⚽ Modèle Poisson : λ total = 3.32\nP(plus de 2.5 buts) = 64.5%\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
-        "calibration_delta": -25.4,
-        "edge_pp": -0.9,
-        "history_top3": true
-      },
-      {
-        "direction": "wc_btts_no",
-        "type": "⚽ BTTS WC",
-        "label": "Une équipe ne marque pas (BTTS NO)",
-        "cote": null,
-        "cote_min": 1.17,
-        "confidence": 86,
-        "tier": "safe",
-        "stats": {
-          "lam_h": 3.16,
-          "lam_a": 0.16,
-          "h_fifa_rank": 12,
-          "a_fifa_rank": 75,
-          "elo_gap": 420,
-          "wc_round": null,
-          "family": "BTTS"
-        },
-        "reasoning": "📊 Écart FIFA ÉNORME : Morocco #12 (1694 pts) vs Haiti #75 (1274 pts) — gap Elo +420 pts → P(vainqueur favori) ≈ 92%.\nL10 : Morocco 3V/2N/0D sur 5 · Haiti 1V/1N/3D sur 5\n🚂 Mismatch significatif (Elo gap +420) : Morocco pousse pour prendre le large.\n📋 Fiche Morocco : off moyen (-0.29) · def solide (+0.37) · forme WDDWW · 🏆 habituée du tournoi\n📋 Fiche Haiti : off moyen (+0.00) · def moyenne (+0.27) · forme LLLWD · 🏆 novice WC\n🎯 Importance : Morocco : 1 match joué (1pts) · Haiti : 1 match joué (0pts)\n🌦️ ☁️ couvert · 17–29°C · humidité 47% · stade fermé\n✅ Compo OFFICIELLE\n⚽ BTTS NO : P(au moins une équipe blanchie) = 85.8%\nλ faibles côté Haiti (0.16) ou Morocco (3.16)\n📉 Calibration : bucket 80-89% historiquement à WR 56% (claim 82%, n=63) — sur-estimé de 26pp",
-        "calibration_delta": -26.0,
-        "history_top3": false
-      },
-      {
-        "direction": "wc_home_scores_3",
-        "type": "⚽ Buteur équipe WC",
-        "label": "Morocco marque 3+ buts",
-        "cote": null,
-        "cote_min": 1.63,
-        "confidence": 61,
-        "tier": "ok",
-        "stats": {
-          "lam_h": 3.16,
-          "lam_a": 0.16,
-          "h_fifa_rank": 12,
-          "a_fifa_rank": 75,
-          "elo_gap": 420,
-          "wc_round": null,
-          "family": "BUT_TEAM"
-        },
-        "reasoning": "📊 Écart FIFA ÉNORME : Morocco #12 (1694 pts) vs Haiti #75 (1274 pts) — gap Elo +420 pts → P(vainqueur favori) ≈ 92%.\nL10 : Morocco 3V/2N/0D sur 5 · Haiti 1V/1N/3D sur 5\n🚂 Mismatch significatif (Elo gap +420) : Morocco pousse pour prendre le large.\n📋 Fiche Morocco : off moyen (-0.29) · def solide (+0.37) · forme WDDWW · 🏆 habituée du tournoi\n📋 Fiche Haiti : off moyen (+0.00) · def moyenne (+0.27) · forme LLLWD · 🏆 novice WC\n🎯 Importance : Morocco : 1 match joué (1pts) · Haiti : 1 match joué (0pts)\n🌦️ ☁️ couvert · 17–29°C · humidité 47% · stade fermé\n✅ Compo OFFICIELLE\n⚽ P(Morocco marque 3+) = 61.2% — gros favori en mode steamroller\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
-        "calibration_delta": -25.4,
-        "history_top3": true
-      }
-    ],
-    "home_players": [
-      {
-        "player": "Ismael Saibari",
-        "position": "F",
-        "is_sub": true,
-        "type": "Buteur",
-        "label": "Ismael Saibari marque",
-        "cote": 1.89,
-        "cote_min": 1.35,
-        "book": "bovada",
-        "books": [],
-        "confidence": 69,
-        "reasoning": "⚠️ Compo PROBABLE (a confirmer 1h avant). Ismael Saibari : selection 9G/19m (0.47/m) · L10 club : 8G/10m, 🔥 3G/3 derniers nat (+19%) | titu nat (71min/m) · last match 70min (1G+0A). λ ajusté à 1.35 (Morocco attendu 2.9 buts) → P(marque) ~69%.\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
-        "context": {
-          "source": "lineup",
-          "lam": 1.35,
-          "lineup_status": "predicted"
-        },
-        "stats": {
-          "goals": null,
-          "apps": null,
-          "gpm": 1.347,
-          "xgpm": null
-        },
-        "team": "home",
-        "lineup_status": "predicted",
-        "tier": "ok",
-        "calibration_delta": -25.4,
-        "edge_pp": 16.1,
-        "history_top3": true
-      },
-      {
-        "player": "Ismael Saibari",
-        "position": "F",
-        "is_sub": true,
-        "type": "Double buteur",
-        "label": "Ismael Saibari marque 2+ buts",
-        "cote": 5.75,
-        "cote_min": 2.57,
-        "book": "bovada",
-        "books": [],
-        "confidence": 44,
-        "reasoning": "⚠️ Compo PROBABLE (a confirmer 1h avant). Ismael Saibari : selection 9G/19m (0.47/m) · L10 club : 8G/10m, 🔥 3G/3 derniers nat (+19%) | titu nat (71min/m) · last match 70min (1G+0A). Attendu ~1.3 buts ce match - P(2+) ~34% (cote elevee).\n📉 Calibration : bucket 40-49% historiquement à WR 25% (claim 44%, n=36) — sur-estimé de 19pp",
-        "context": {
-          "source": "lineup",
-          "lam": 1.35,
-          "lineup_status": "predicted"
-        },
-        "stats": {
-          "goals": null,
-          "apps": null,
-          "gpm": 1.347,
-          "xgpm": null
-        },
-        "team": "home",
-        "lineup_status": "predicted",
-        "tier": "fun",
-        "calibration_delta": -19.4,
-        "edge_pp": 26.6,
-        "history_top3": true
-      }
-    ],
-    "away_players": [],
-    "fun_picks": [
-      {
-        "direction": "wc_score_3_0",
-        "type": "🏆 Score exact WC",
-        "label": "Score exact : Morocco 3-0 Haiti",
-        "cote_min": 5.26,
-        "confidence": 19,
-        "tier": "fun",
-        "is_fun": true,
-        "stats": {
-          "lam_h": 3.16,
-          "lam_a": 0.16,
-          "h_fifa_rank": 12,
-          "a_fifa_rank": 75,
-          "elo_gap": 420
-        },
-        "reasoning": "📊 Écart FIFA ÉNORME : Morocco #12 (1694 pts) vs Haiti #75 (1274 pts) — gap Elo +420 pts → P(vainqueur favori) ≈ 92%.\nL10 : Morocco 3V/2N/0D sur 5 · Haiti 1V/1N/3D sur 5\n🏆 Coupe du Monde 2026 - score exact (Poisson grid, ajusté Elo FIFA)\nλ Morocco = 3.16 buts, λ Haiti = 0.16 buts\nTop 3 : 3-0 (19.0%) · 2-0 (18.0%) · 4-0 (15.0%)\n⚠️ Pari fun (cote élevée typique 4-8) - mise modeste",
-        "exact_score": [
-          3,
-          0
-        ],
-        "wc_top3": [
-          [
-            [
-              3,
-              0
-            ],
-            19.0
-          ],
-          [
-            [
-              2,
-              0
-            ],
-            18.0
-          ],
-          [
-            [
-              4,
-              0
-            ],
-            15.0
-          ]
-        ],
-        "history_top3": true
-      }
-    ],
-    "top_pick": {
-      "direction": "home_win",
-      "type": "Victoire domicile",
-      "label": "Morocco gagne",
-      "cote": 1.19,
-      "confidence": 65,
-      "reasoning": "Morocco : 3V/2N/0D sur 5 matchs · #2 au classement · H2H: 0V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
-      "stats": {
-        "form": [
-          "W",
-          "D",
-          "D",
-          "W",
-          "W"
-        ]
-      },
-      "is_fun": false,
-      "tier": "ok",
-      "calibration_delta": -25.4,
-      "edge_pp": -19.0,
-      "history_top3": false
-    },
-    "no_picks": false,
-    "context": {
-      "stadium": {
-        "name": "Mercedes-Benz Stadium",
-        "city": "Atlanta",
-        "country": "USA",
-        "lat": 33.7553,
-        "lon": -84.4006,
-        "capacity": 75000,
-        "surface": "Artificial turf (synthetic)",
-        "altitude_m": 320,
-        "type": "indoor",
-        "climatized": true,
-        "context_fr": "Toit ouvrant, climatisé. Conditions stables ~22°C indoor."
-      },
-      "weather": {
-        "temp_max": 29.7,
-        "temp_min": 17.6,
-        "humidity": 47,
-        "precipitation_sum_mm": 0.0,
-        "wind_max_kmh": 11.8,
-        "weather_code": 3,
-        "summary_fr": "☁️ couvert · 17–29°C · humidité 47%"
-      },
-      "text": "Conditions : ☁️ couvert · 17–29°C · humidité 47%. Stade : Mercedes-Benz Stadium · altitude 320m · 75 000 places · climatisé. Toit ouvrant, climatisé. Conditions stables ~22°C indoor."
-    }
-  },
-  {
-    "league": "Georgian Erovnuli",
-    "home": "FC Gagra",
-    "away": "FC Samgurali Tskhaltubo",
-    "start_ts": 1782316800,
-    "match_id": "5165336",
-    "page_url": "/matches/fc-gagra-vs-fc-samgurali-tskhaltubo/1evggavj#5165336",
-    "picks": [
-      {
-        "direction": "away_win",
-        "type": "Victoire extérieur",
-        "label": "FC Samgurali Tskhaltubo gagne",
-        "cote": null,
-        "confidence": 61,
-        "reasoning": "FC Samgurali Tskhaltubo : 3V/0N/2D sur 5 matchs · #7 au classement · H2H: 2V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
-        "stats": {
-          "form": [
-            "L",
-            "W",
-            "W",
-            "W",
-            "L"
-          ]
-        },
-        "is_fun": false,
-        "tier": "ok",
-        "calibration_delta": -25.4,
-        "history_top3": true
-      }
-    ],
-    "home_players": [],
-    "away_players": [
-      {
-        "player": "Wellissol / Cláudio",
-        "position": "",
-        "is_sub": false,
-        "type": "Double Chance Buteur",
-        "label": "Wellissol ou Cláudio marque (FC Samgurali Tskhaltubo)",
-        "cote": null,
-        "book": null,
-        "books": [],
-        "confidence": 70,
-        "cote_min": 1.43,
-        "reasoning": "✈️ Combo intra-FC Samgurali Tskhaltubo\n📈 P(Wellissol marque) ≈ 47% · P(Cláudio marque) ≈ 45%\n🎯 P(au moins un marque) = 70% (1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.43 - chercher ≥1.43 chez le bookmaker\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
-        "context": {
-          "combo_kind": "intra-away"
-        },
-        "_team_for_balance": "away",
-        "stats": {
-          "p_a": 0.472,
-          "p_b": 0.45,
-          "p_or": 0.7,
-          "player_a": "Wellissol",
-          "player_b": "Cláudio",
-          "kind": "intra-away"
-        },
-        "team": "away",
-        "tier": "safe",
-        "calibration_delta": -11.3,
-        "history_top3": true
-      }
-    ],
-    "fun_picks": [],
-    "top_pick": {
-      "direction": "away_win",
-      "type": "Victoire extérieur",
-      "label": "FC Samgurali Tskhaltubo gagne",
-      "cote": null,
-      "confidence": 61,
-      "reasoning": "FC Samgurali Tskhaltubo : 3V/0N/2D sur 5 matchs · #7 au classement · H2H: 2V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
-      "stats": {
-        "form": [
-          "L",
-          "W",
-          "W",
-          "W",
-          "L"
-        ]
-      },
-      "is_fun": false,
-      "tier": "ok",
-      "calibration_delta": -25.4,
       "history_top3": true
     },
     "no_picks": false,
     "context": null
   },
   {
-    "league": "Morocco Botola Pro",
-    "home": "Wydad Casablanca",
-    "away": "MAS Fes",
-    "start_ts": 1782406800,
-    "match_id": "5793747",
-    "page_url": "/matches/mas-fes-vs-wydad-casablanca/9kfyr9h#5793747",
+    "league": "World Cup",
+    "home": "Germany",
+    "away": "Paraguay",
+    "start_ts": 1782765000,
+    "match_id": "4653703",
+    "page_url": "/matches/paraguay-vs-germany/1xn26z#4653703",
     "picks": [
       {
-        "direction": "away_win",
-        "type": "Victoire extérieur",
-        "label": "MAS Fes gagne",
-        "cote": null,
-        "confidence": 60,
-        "reasoning": "MAS Fes : 2V/2N/1D sur 5 matchs · #4 au classement · H2H: 1V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
-        "stats": {
-          "form": [
-            "L",
-            "W",
-            "D",
-            "D",
-            "W"
-          ]
-        },
-        "is_fun": false,
-        "tier": "ok",
-        "calibration_delta": -25.4,
-        "history_top3": true
-      }
-    ],
-    "home_players": [
-      {
-        "player": "Hakim Ziyech / Hamza Hannouri",
-        "position": "",
-        "is_sub": false,
-        "type": "Double Chance Buteur",
-        "label": "Hakim Ziyech ou Hamza Hannouri marque (Wydad Casablanca)",
-        "cote": null,
-        "book": null,
-        "books": [],
+        "direction": "home_win",
+        "type": "Victoire domicile",
+        "label": "Germany gagne",
+        "cote": 1.36,
         "confidence": 70,
-        "cote_min": 1.43,
-        "reasoning": "🏠 Combo intra-Wydad Casablanca\n📈 P(Hakim Ziyech marque) ≈ 45% · P(Hamza Hannouri marque) ≈ 45%\n🎯 P(au moins un marque) = 70% (1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.43 - chercher ≥1.43 chez le bookmaker\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
-        "context": {
-          "combo_kind": "intra-home"
-        },
-        "_team_for_balance": "home",
-        "stats": {
-          "p_a": 0.45,
-          "p_b": 0.45,
-          "p_or": 0.698,
-          "player_a": "Hakim Ziyech",
-          "player_b": "Hamza Hannouri",
-          "kind": "intra-home"
-        },
-        "team": "home",
-        "tier": "safe",
-        "calibration_delta": -11.3,
-        "history_top3": true
-      }
-    ],
-    "away_players": [],
-    "fun_picks": [],
-    "top_pick": {
-      "direction": "away_win",
-      "type": "Victoire extérieur",
-      "label": "MAS Fes gagne",
-      "cote": null,
-      "confidence": 60,
-      "reasoning": "MAS Fes : 2V/2N/1D sur 5 matchs · #4 au classement · H2H: 1V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
-      "stats": {
-        "form": [
-          "L",
-          "W",
-          "D",
-          "D",
-          "W"
-        ]
-      },
-      "is_fun": false,
-      "tier": "ok",
-      "calibration_delta": -25.4,
-      "history_top3": true
-    },
-    "no_picks": false,
-    "context": {
-      "stadium": {
-        "name": "Stade Mohamed V",
-        "city": null,
-        "country": "",
-        "lat": null,
-        "lon": null,
-        "capacity": null,
-        "surface": null
-      },
-      "weather": null,
-      "text": "Stade : Stade Mohamed V · plein air."
-    }
-  },
-  {
-    "league": "Morocco Botola Pro",
-    "home": "RSB Berkane",
-    "away": "FAR Rabat",
-    "start_ts": 1782406800,
-    "match_id": "5793741",
-    "page_url": "/matches/far-rabat-vs-rsb-berkane/149ki59o#5793741",
-    "picks": [
-      {
-        "direction": "away_win",
-        "type": "Victoire extérieur",
-        "label": "FAR Rabat gagne",
-        "cote": null,
-        "confidence": 59,
-        "reasoning": "FAR Rabat : 3V/2N/0D sur 5 matchs · #1 au classement · H2H: 0V/1N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 50-59% historiquement à WR 42% (claim 55%, n=41) — sur-estimé de 14pp",
-        "stats": {
-          "form": [
-            "W",
-            "D",
-            "W",
-            "D",
-            "W"
-          ]
-        },
-        "is_fun": false,
-        "tier": "ok",
-        "calibration_delta": -13.6,
-        "history_top3": true
-      }
-    ],
-    "home_players": [
-      {
-        "player": "Youssef Mehri / Oussama Lamlioui",
-        "position": "",
-        "is_sub": false,
-        "type": "Double Chance Buteur",
-        "label": "Youssef Mehri ou Oussama Lamlioui marque (RSB Berkane)",
-        "cote": null,
-        "book": null,
-        "books": [],
-        "confidence": 70,
-        "cote_min": 1.43,
-        "reasoning": "🏠 Combo intra-RSB Berkane\n📈 P(Youssef Mehri marque) ≈ 45% · P(Oussama Lamlioui marque) ≈ 45%\n🎯 P(au moins un marque) = 70% (1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.43 - chercher ≥1.43 chez le bookmaker\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
-        "context": {
-          "combo_kind": "intra-home"
-        },
-        "_team_for_balance": "home",
-        "stats": {
-          "p_a": 0.45,
-          "p_b": 0.45,
-          "p_or": 0.698,
-          "player_a": "Youssef Mehri",
-          "player_b": "Oussama Lamlioui",
-          "kind": "intra-home"
-        },
-        "team": "home",
-        "tier": "safe",
-        "calibration_delta": -11.3,
-        "history_top3": true
-      }
-    ],
-    "away_players": [
-      {
-        "player": "Jalal-Eddine El Khfiyef",
-        "position": "M",
-        "is_sub": false,
-        "type": "Buteur",
-        "label": "Jalal-Eddine El Khfiyef marque",
-        "cote": null,
-        "book": null,
-        "books": [],
-        "confidence": 59,
-        "reasoning": "4 buts en 5 matchs cette saison (80.0% de chance/match) · xG moyen 0.00/match · défense solide\n📉 Calibration : bucket 50-59% historiquement à WR 42% (claim 55%, n=41) — sur-estimé de 14pp",
-        "context": {
-          "weakness": 0.27
-        },
+        "reasoning": "Germany : 4V/0N/1D sur 5 matchs · #1 au classement · H2H: 0V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
         "stats": {
           "form": [
             "L",
@@ -2831,6 +809,230 @@
         "calibration_delta": -11.3,
         "edge_pp": -3.5,
         "history_top3": true
+      },
+      {
+        "direction": "wc_over_25",
+        "type": "⚽ Total buts WC",
+        "label": "Plus de 2.5 buts",
+        "cote": 1.69,
+        "cote_min": 1.27,
+        "confidence": 79,
+        "tier": "safe",
+        "stats": {
+          "lam_h": 3.59,
+          "lam_a": 0.58,
+          "h_fifa_rank": 10,
+          "a_fifa_rank": 49,
+          "elo_gap": 285,
+          "wc_round": null,
+          "family": "TOTAL"
+        },
+        "reasoning": "📊 Écart FIFA significatif : Germany #10 vs Paraguay #49 (gap +285 pts, P favori ≈ 84%).\n⭐ Germany favori CdM 2026\nL10 : Germany 4V/0N/1D sur 5 · Paraguay 2V/1N/2D sur 5\n📋 Fiche Germany : off moyen (+0.13) · def fragile (-0.82) · forme LWWWW · 🏆 régulière phase finale\n   ↳ Historique : phase de poules en 2022 · phase de poules en 2018 · vainqueur en 2014 · 2 titres (1990, 2014)\n📋 Fiche Paraguay : off moyen (+0.25) · def moyenne (+0.20) · forme DWLWL · 🏆 novice WC\n🎯 Importance : Germany : 1 match joué (3pts) · Paraguay : 1 match joué (0pts)\n🌦️ 🌫️ brouillard · 16–29°C · humidité 44%\n⚠️ Compo PROBABLE (officielle à T-60min)\n⚽ Modèle Poisson : λ total = 4.17\nP(plus de 2.5 buts) = 78.6%\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+        "calibration_delta": -11.3,
+        "edge_pp": 19.8,
+        "history_top3": true
+      },
+      {
+        "direction": "wc_btts_no",
+        "type": "⚽ BTTS WC",
+        "label": "Une équipe ne marque pas (BTTS NO)",
+        "cote": null,
+        "cote_min": 1.75,
+        "confidence": 57,
+        "tier": "ok",
+        "stats": {
+          "lam_h": 3.59,
+          "lam_a": 0.58,
+          "h_fifa_rank": 10,
+          "a_fifa_rank": 49,
+          "elo_gap": 285,
+          "wc_round": null,
+          "family": "BTTS"
+        },
+        "reasoning": "📊 Écart FIFA significatif : Germany #10 vs Paraguay #49 (gap +285 pts, P favori ≈ 84%).\n⭐ Germany favori CdM 2026\nL10 : Germany 4V/0N/1D sur 5 · Paraguay 2V/1N/2D sur 5\n📋 Fiche Germany : off moyen (+0.13) · def fragile (-0.82) · forme LWWWW · 🏆 régulière phase finale\n   ↳ Historique : phase de poules en 2022 · phase de poules en 2018 · vainqueur en 2014 · 2 titres (1990, 2014)\n📋 Fiche Paraguay : off moyen (+0.25) · def moyenne (+0.20) · forme DWLWL · 🏆 novice WC\n🎯 Importance : Germany : 1 match joué (3pts) · Paraguay : 1 match joué (0pts)\n🌦️ 🌫️ brouillard · 16–29°C · humidité 44%\n⚠️ Compo PROBABLE (officielle à T-60min)\n⚽ BTTS NO : P(au moins une équipe blanchie) = 57.0%\nλ faibles côté Paraguay (0.58) ou Germany (3.59)\n📉 Calibration : bucket 50-59% historiquement à WR 42% (claim 55%, n=41) — sur-estimé de 14pp",
+        "calibration_delta": -13.6,
+        "history_top3": false
+      },
+      {
+        "direction": "wc_home_scores_3",
+        "type": "⚽ Buteur équipe WC",
+        "label": "Germany marque 3+ buts",
+        "cote": null,
+        "cote_min": 1.44,
+        "confidence": 70,
+        "tier": "safe",
+        "stats": {
+          "lam_h": 3.59,
+          "lam_a": 0.58,
+          "h_fifa_rank": 10,
+          "a_fifa_rank": 49,
+          "elo_gap": 285,
+          "wc_round": null,
+          "family": "BUT_TEAM"
+        },
+        "reasoning": "📊 Écart FIFA significatif : Germany #10 vs Paraguay #49 (gap +285 pts, P favori ≈ 84%).\n⭐ Germany favori CdM 2026\nL10 : Germany 4V/0N/1D sur 5 · Paraguay 2V/1N/2D sur 5\n📋 Fiche Germany : off moyen (+0.13) · def fragile (-0.82) · forme LWWWW · 🏆 régulière phase finale\n   ↳ Historique : phase de poules en 2022 · phase de poules en 2018 · vainqueur en 2014 · 2 titres (1990, 2014)\n📋 Fiche Paraguay : off moyen (+0.25) · def moyenne (+0.20) · forme DWLWL · 🏆 novice WC\n🎯 Importance : Germany : 1 match joué (3pts) · Paraguay : 1 match joué (0pts)\n🌦️ 🌫️ brouillard · 16–29°C · humidité 44%\n⚠️ Compo PROBABLE (officielle à T-60min)\n⚽ P(Germany marque 3+) = 69.5% — gros favori en mode steamroller\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+        "calibration_delta": -11.3,
+        "history_top3": true
+      }
+    ],
+    "home_players": [
+      {
+        "player": "Leroy Sané",
+        "position": "F",
+        "is_sub": true,
+        "type": "Buteur",
+        "label": "Leroy Sané marque",
+        "cote": null,
+        "cote_min": 1.59,
+        "book": null,
+        "books": [],
+        "confidence": 58,
+        "reasoning": "⚠️ Compo PROBABLE (a confirmer 1h avant). Leroy Sané : selection 4G/9m (0.44/m) · L10 club : 2G/10m, 🔥 1G/3 derniers nat (+10%) | titu nat (63min/m) · last match 90min (1G+0A). λ ajusté à 0.99 (Germany attendu 3.6 buts) → P(marque) ~58%.\n📉 Calibration : bucket 50-59% historiquement à WR 42% (claim 55%, n=41) — sur-estimé de 14pp",
+        "context": {
+          "source": "lineup",
+          "lam": 0.99,
+          "lineup_status": "predicted"
+        },
+        "stats": {
+          "goals": null,
+          "apps": null,
+          "gpm": 0.987,
+          "xgpm": null
+        },
+        "team": "home",
+        "lineup_status": "predicted",
+        "tier": "ok",
+        "calibration_delta": -13.6,
+        "history_top3": true
+      },
+      {
+        "player": "Florian Wirtz",
+        "position": "F",
+        "is_sub": true,
+        "type": "Passeur",
+        "label": "Florian Wirtz délivre une passe décisive",
+        "cote": null,
+        "cote_min": 1.59,
+        "book": null,
+        "books": [],
+        "confidence": 58,
+        "reasoning": "⚠️ Compo PROBABLE (a confirmer 1h avant). Florian Wirtz délivre une passe décisive : selection 6A/13m (0.46 passes/m nat). P(passe décisive) ~58%.\n📉 Calibration : bucket 50-59% historiquement à WR 42% (claim 55%, n=41) — sur-estimé de 14pp",
+        "context": {
+          "source": "lineup",
+          "lam": 0.99,
+          "lineup_status": "predicted"
+        },
+        "stats": {
+          "goals": null,
+          "apps": null,
+          "gpm": 0.991,
+          "xgpm": null
+        },
+        "team": "home",
+        "lineup_status": "predicted",
+        "tier": "ok",
+        "calibration_delta": -13.6,
+        "history_top3": true
+      },
+      {
+        "player": "Kai Havertz",
+        "position": "F",
+        "is_sub": false,
+        "type": "Buteur",
+        "label": "Kai Havertz marque",
+        "team": "home",
+        "cote": null,
+        "book": null,
+        "books": [],
+        "confidence": 54,
+        "reasoning": "2G en 3 matchs (66.7%/match) · xG: 0.43/match\n📉 Calibration : bucket 50-59% historiquement à WR 42% (claim 55%, n=41) — sur-estimé de 14pp",
+        "context": {
+          "weakness": 0.42
+        },
+        "stats": {
+          "goals": 2,
+          "apps": 3
+        },
+        "tier": "fun",
+        "calibration_delta": -13.6,
+        "history_top3": false
+      },
+      {
+        "player": "Leroy Sané",
+        "position": "F",
+        "is_sub": true,
+        "type": "Passeur",
+        "label": "Leroy Sané délivre une passe décisive",
+        "cote": null,
+        "cote_min": 2.1,
+        "book": null,
+        "books": [],
+        "confidence": 43,
+        "reasoning": "⚠️ Compo PROBABLE (a confirmer 1h avant). Leroy Sané délivre une passe décisive : selection 3A/9m (0.33 passes/m nat). P(passe décisive) ~43%.\n📉 Calibration : bucket 40-49% historiquement à WR 25% (claim 44%, n=36) — sur-estimé de 19pp",
+        "context": {
+          "source": "lineup",
+          "lam": 0.64,
+          "lineup_status": "predicted"
+        },
+        "stats": {
+          "goals": null,
+          "apps": null,
+          "gpm": 0.645,
+          "xgpm": null
+        },
+        "team": "home",
+        "lineup_status": "predicted",
+        "tier": "fun",
+        "calibration_delta": -19.4,
+        "history_top3": false
+      }
+    ],
+    "away_players": [],
+    "fun_picks": [
+      {
+        "direction": "wc_score_3_0",
+        "type": "🏆 Score exact WC",
+        "label": "Score exact : Germany 3-0 Paraguay",
+        "cote_min": 8.42,
+        "confidence": 12,
+        "tier": "fun",
+        "is_fun": true,
+        "stats": {
+          "lam_h": 3.59,
+          "lam_a": 0.58,
+          "h_fifa_rank": 10,
+          "a_fifa_rank": 49,
+          "elo_gap": 285
+        },
+        "reasoning": "📊 Écart FIFA significatif : Germany #10 vs Paraguay #49 (gap +285 pts, P favori ≈ 84%).\n⭐ Germany favori CdM 2026\nL10 : Germany 4V/0N/1D sur 5 · Paraguay 2V/1N/2D sur 5\n🏆 Coupe du Monde 2026 - score exact (Poisson grid, ajusté Elo FIFA)\nλ Germany = 3.59 buts, λ Paraguay = 0.58 buts\nTop 3 : 3-0 (11.9%) · 4-0 (10.7%) · 2-0 (9.9%)\n⚠️ Pari fun (cote élevée typique 4-8) - mise modeste",
+        "exact_score": [
+          3,
+          0
+        ],
+        "wc_top3": [
+          [
+            [
+              3,
+              0
+            ],
+            11.9
+          ],
+          [
+            [
+              4,
+              0
+            ],
+            10.7
+          ],
+          [
+            [
+              2,
+              0
+            ],
+            9.9
+          ]
+        ],
+        "history_top3": false
       }
     ],
     "top_pick": {
@@ -2870,8 +1072,16 @@
         "climatized": false,
         "context_fr": "Climat tempéré nord-est. Juin-juillet 20-26°C, humidité modérée."
       },
-      "weather": null,
-      "text": "Stade : Berkane Municipal Stadium · plein air."
+      "weather": {
+        "temp_max": 29.6,
+        "temp_min": 16.6,
+        "humidity": 44,
+        "precipitation_sum_mm": 0.0,
+        "wind_max_kmh": 13.0,
+        "weather_code": 45,
+        "summary_fr": "🌫️ brouillard · 16–29°C · humidité 44%"
+      },
+      "text": "Conditions : 🌫️ brouillard · 16–29°C · humidité 44%. Stade : Gillette Stadium · altitude 100m · 65 878 places · plein air. Climat tempéré nord-est. Juin-juillet 20-26°C, humidité modérée."
     }
   },
   {
@@ -2900,16 +1110,6 @@
         },
         "is_fun": false,
         "tier": "safe",
-        "stats": {
-          "lam_h": 1.85,
-          "lam_a": 0.5,
-          "h_fifa_rank": 15,
-          "a_fifa_rank": 76,
-          "elo_gap": 380,
-          "wc_round": null,
-          "family": "1X2"
-        },
-        "reasoning": "📊 Écart FIFA significatif : Switzerland #15 vs Canada #76 (gap +380 pts, P favori ≈ 90%).\nL10 : Switzerland 2V/3N/0D sur 5 · Canada 2V/3N/0D sur 5\n📋 Fiche Switzerland : off moyen (-0.05) · def fragile (-0.42) · forme WDDWD · 🏆 habituée du tournoi\n📋 Fiche Canada : off solide (+0.76) · def solide (+0.78) · forme WDDWD · 🏆 présence occasionnelle\n🎯 Importance : Switzerland : 1 match joué (1pts) · Canada : 1 match joué (1pts)\n🌦️ ☁️ couvert · 17–29°C · humidité 44%\n✅ Compo OFFICIELLE\n🏆 Modèle Poisson CdM (tier FIFA ajusté)\nλ Switzerland = 1.85 buts attendus, λ Canada = 0.50\nP(Switzerland gagne) = 70.2% · P(nul) = 20.6% · P(Canada) = 9.2%\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
         "calibration_delta": -11.3,
         "edge_pp": -8.7,
         "history_top3": false
@@ -2931,7 +1131,7 @@
           "wc_round": null,
           "family": "TOTAL"
         },
-        "reasoning": "📊 Écart FIFA significatif : Switzerland #15 vs Canada #76 (gap +380 pts, P favori ≈ 90%).\nL10 : Switzerland 2V/3N/0D sur 5 · Canada 2V/3N/0D sur 5\n📋 Fiche Switzerland : off moyen (-0.05) · def fragile (-0.42) · forme WDDWD · 🏆 habituée du tournoi\n📋 Fiche Canada : off solide (+0.76) · def solide (+0.78) · forme WDDWD · 🏆 présence occasionnelle\n🎯 Importance : Switzerland : 1 match joué (1pts) · Canada : 1 match joué (1pts)\n🌦️ ☁️ couvert · 17–29°C · humidité 44%\n✅ Compo OFFICIELLE\n🛡️ Double chance 12 : Switzerland (70.2%) OU Canada (9.2%)\nCombiné = 79.3% — couvre tout sauf le nul\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+        "reasoning": "📊 Écart FIFA significatif : France #2 vs Sweden #24 (gap +272 pts, P favori ≈ 83%).\n⭐ France favori CdM 2026\nL10 : France 4V/0N/1D sur 5 · Sweden 1V/2N/2D sur 5\n📋 Fiche France : off moyen (-0.06) · def fragile (-1.00) · forme WWWWL · 🏆 élite mondiale\n   ↳ Historique : finaliste en 2022 · vainqueur en 2018 · quart de finale en 2014 · 2 titres (1998, 2018)\n📋 Fiche Sweden : off moyen (+0.17) · def fragile (-0.89) · forme DLWDL · 🏆 présence occasionnelle\n🎯 Importance : Sweden : 1 match joué (3pts)\n🌦️ Conditions : pluie 7.6mm (-10%) · vent 36.8km/h (-7%) · chaleur 33.0°C (-10%)\n⚠️ Compo PROBABLE (officielle à T-60min)\n⚽ Modèle Poisson : λ total = 4.12\nP(plus de 2.5 buts) = 77.9%\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
         "calibration_delta": -11.3,
         "history_top3": false
       },
@@ -2952,7 +1152,28 @@
           "wc_round": null,
           "family": "BTTS"
         },
-        "reasoning": "📊 Écart FIFA significatif : Switzerland #15 vs Canada #76 (gap +380 pts, P favori ≈ 90%).\nL10 : Switzerland 2V/3N/0D sur 5 · Canada 2V/3N/0D sur 5\n📋 Fiche Switzerland : off moyen (-0.05) · def fragile (-0.42) · forme WDDWD · 🏆 habituée du tournoi\n📋 Fiche Canada : off solide (+0.76) · def solide (+0.78) · forme WDDWD · 🏆 présence occasionnelle\n🎯 Importance : Switzerland : 1 match joué (1pts) · Canada : 1 match joué (1pts)\n🌦️ ☁️ couvert · 17–29°C · humidité 44%\n✅ Compo OFFICIELLE\n⚽ BTTS NO : P(au moins une équipe blanchie) = 67.0%\nλ faibles côté Canada (0.50) ou Switzerland (1.85)\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
+        "reasoning": "📊 Écart FIFA significatif : France #2 vs Sweden #24 (gap +272 pts, P favori ≈ 83%).\n⭐ France favori CdM 2026\nL10 : France 4V/0N/1D sur 5 · Sweden 1V/2N/2D sur 5\n📋 Fiche France : off moyen (-0.06) · def fragile (-1.00) · forme WWWWL · 🏆 élite mondiale\n   ↳ Historique : finaliste en 2022 · vainqueur en 2018 · quart de finale en 2014 · 2 titres (1998, 2018)\n📋 Fiche Sweden : off moyen (+0.17) · def fragile (-0.89) · forme DLWDL · 🏆 présence occasionnelle\n🎯 Importance : Sweden : 1 match joué (3pts)\n🌦️ Conditions : pluie 7.6mm (-10%) · vent 36.8km/h (-7%) · chaleur 33.0°C (-10%)\n⚠️ Compo PROBABLE (officielle à T-60min)\n⚽ BTTS NO : P(au moins une équipe blanchie) = 56.6%\nλ faibles côté Sweden (0.59) ou France (3.52)\n📉 Calibration : bucket 50-59% historiquement à WR 42% (claim 55%, n=41) — sur-estimé de 14pp",
+        "calibration_delta": -13.6,
+        "history_top3": true
+      },
+      {
+        "direction": "wc_home_scores_3",
+        "type": "⚽ Buteur équipe WC",
+        "label": "France marque 3+ buts",
+        "cote": null,
+        "cote_min": 1.46,
+        "confidence": 68,
+        "tier": "ok",
+        "stats": {
+          "lam_h": 3.52,
+          "lam_a": 0.59,
+          "h_fifa_rank": 2,
+          "a_fifa_rank": 24,
+          "elo_gap": 272,
+          "wc_round": null,
+          "family": "BUT_TEAM"
+        },
+        "reasoning": "📊 Écart FIFA significatif : France #2 vs Sweden #24 (gap +272 pts, P favori ≈ 83%).\n⭐ France favori CdM 2026\nL10 : France 4V/0N/1D sur 5 · Sweden 1V/2N/2D sur 5\n📋 Fiche France : off moyen (-0.06) · def fragile (-1.00) · forme WWWWL · 🏆 élite mondiale\n   ↳ Historique : finaliste en 2022 · vainqueur en 2018 · quart de finale en 2014 · 2 titres (1998, 2018)\n📋 Fiche Sweden : off moyen (+0.17) · def fragile (-0.89) · forme DLWDL · 🏆 présence occasionnelle\n🎯 Importance : Sweden : 1 match joué (3pts)\n🌦️ Conditions : pluie 7.6mm (-10%) · vent 36.8km/h (-7%) · chaleur 33.0°C (-10%)\n⚠️ Compo PROBABLE (officielle à T-60min)\n⚽ P(France marque 3+) = 68.4% — gros favori en mode steamroller\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
         "calibration_delta": -25.4,
         "history_top3": true
       }
@@ -2963,20 +1184,24 @@
         "position": "",
         "is_sub": false,
         "type": "Double Chance Buteur",
-        "label": "Kylian Mbappé ou Ousmane Dembélé marque",
+        "label": "Kylian Mbappé ou Ousmane Dembélé marque (France)",
         "cote": null,
         "book": null,
         "books": [],
         "confidence": 65,
         "cote_min": 1.54,
-        "reasoning": "📈 P(Kylian Mbappé marque) ≈ 44% · P(Ousmane Dembélé marque) ≈ 38%\n🎯 P(au moins un marque) = 65% (calculée par 1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.54 - chercher ≥1.54 chez le bookmaker\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
-        "context": {},
+        "reasoning": "🏠 Combo intra-France\n📈 P(Kylian Mbappé marque) ≈ 44% · P(Ousmane Dembélé marque) ≈ 38%\n🎯 P(au moins un marque) = 65% (1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.54 - chercher ≥1.54 chez le bookmaker\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
+        "context": {
+          "combo_kind": "intra-home"
+        },
+        "_team_for_balance": "home",
         "stats": {
           "p_a": 0.435,
           "p_b": 0.382,
           "p_or": 0.651,
           "player_a": "Kylian Mbappé",
-          "player_b": "Ousmane Dembélé"
+          "player_b": "Ousmane Dembélé",
+          "kind": "intra-home"
         },
         "team": "home",
         "tier": "ok",
@@ -2988,333 +1213,31 @@
         "position": "F",
         "is_sub": true,
         "type": "Buteur",
-        "label": "Breel Embolo marque",
-        "cote": 3.05,
-        "cote_min": 1.86,
-        "book": "bovada",
+        "label": "Désiré Doué marque",
+        "cote": null,
+        "cote_min": 1.42,
+        "book": null,
         "books": [],
-        "confidence": 49,
-        "reasoning": "⚠️ Compo PROBABLE (a confirmer 1h avant). Breel Embolo : selection 7G/12m (0.58/m) · L10 club : 3G/10m, 🔥 1G/3 derniers nat (+10%) | titu nat (79min/m) · last match 85min (0G+1A). λ ajusté à 0.77 (Switzerland attendu 2.1 buts) → P(marque) ~49%.\n📉 Calibration : bucket 40-49% historiquement à WR 25% (claim 44%, n=36) — sur-estimé de 19pp",
+        "confidence": 65,
+        "reasoning": "⚠️ Compo PROBABLE (a confirmer 1h avant). Désiré Doué : selection 3G/7m (0.43/m) · L10 club : 2G/10m, 🔥 1G/3 derniers nat (+10%) | rotatif nat (56min/m) · last match 90min (1G+0A). λ ajusté à 1.21 (France attendu 4.6 buts) → P(marque) ~65%.\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
         "context": {
           "source": "lineup",
-          "lam": 0.77,
+          "lam": 1.21,
           "lineup_status": "predicted"
         },
         "stats": {
           "goals": null,
           "apps": null,
-          "gpm": 0.771,
+          "gpm": 1.211,
           "xgpm": null
         },
         "team": "home",
         "lineup_status": "predicted",
-        "tier": "fun",
-        "calibration_delta": -19.4,
-        "edge_pp": 16.2,
-        "history_top3": true
-      }
-    ],
-    "away_players": [
-      {
-        "player": "Cyle Larin / Jonathan David",
-        "position": "",
-        "is_sub": false,
-        "type": "Double Chance Buteur",
-        "label": "Cyle Larin ou Jonathan David marque (Canada)",
-        "cote": null,
-        "book": null,
-        "books": [],
-        "confidence": 68,
-        "cote_min": 1.47,
-        "reasoning": "✈️ Combo intra-Canada\n📈 P(Cyle Larin marque) ≈ 45% · P(Jonathan David marque) ≈ 42%\n🎯 P(au moins un marque) = 68% (1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.47 - chercher ≥1.47 chez le bookmaker\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
-        "context": {
-          "combo_kind": "intra-away"
-        },
-        "_team_for_balance": "away",
-        "stats": {
-          "p_a": 0.45,
-          "p_b": 0.42,
-          "p_or": 0.681,
-          "player_a": "Cyle Larin",
-          "player_b": "Jonathan David",
-          "kind": "intra-away"
-        },
-        "team": "away",
         "tier": "ok",
         "calibration_delta": -25.4,
         "history_top3": true
       }
     ],
-    "fun_picks": [],
-    "top_pick": {
-      "direction": "away_win",
-      "type": "Victoire extérieur",
-      "label": "Canada gagne",
-      "cote": 3.35,
-      "confidence": 59,
-      "reasoning": "Canada : 2V/3N/0D sur 5 matchs · #1 au classement · H2H: 0V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 50-59% historiquement à WR 42% (claim 55%, n=41) — sur-estimé de 14pp",
-      "stats": {
-        "form": [
-          "W",
-          "D",
-          "D",
-          "W",
-          "D"
-        ]
-      },
-      "is_fun": false,
-      "tier": "fun",
-      "calibration_delta": -13.6,
-      "edge_pp": 29.1,
-      "history_top3": true
-    },
-    "no_picks": false,
-    "context": {
-      "stadium": {
-        "name": "BC Place",
-        "city": "Vancouver",
-        "country": "Canada",
-        "lat": 49.2768,
-        "lon": -123.1119,
-        "capacity": 54500,
-        "surface": "Artificial turf",
-        "altitude_m": 5,
-        "type": "indoor",
-        "climatized": false,
-        "context_fr": "Toit rétractable. Climat océanique doux. Juin 15-20°C."
-      },
-      "weather": {
-        "temp_max": 29.3,
-        "temp_min": 17.1,
-        "humidity": 44,
-        "precipitation_sum_mm": 0.0,
-        "wind_max_kmh": 11.7,
-        "weather_code": 3,
-        "summary_fr": "☁️ couvert · 17–29°C · humidité 44%"
-      },
-      "text": "Conditions : ☁️ couvert · 17–29°C · humidité 44%. Stade : BC Place · altitude 5m · 54 500 places · indoor. Toit rétractable. Climat océanique doux. Juin 15-20°C."
-    }
-  },
-  {
-    "league": "Morocco Botola Pro",
-    "home": "Olympique Dcheira",
-    "away": "Ittihad Tanger",
-    "start_ts": 1782406800,
-    "match_id": "5793743",
-    "page_url": "/matches/ittihad-tanger-vs-olympique-dcheira/50rzmouj#5793743",
-    "picks": [
-      {
-        "direction": "away_win",
-        "type": "Victoire extérieur",
-        "label": "Ittihad Tanger gagne",
-        "cote": null,
-        "confidence": 58,
-        "reasoning": "Ittihad Tanger : 4V/0N/1D sur 5 matchs · #6 au classement · H2H: 0V/0N/1D · Note Sofa: 6.5/10\n📉 Calibration : bucket 50-59% historiquement à WR 42% (claim 55%, n=41) — sur-estimé de 14pp",
-        "stats": {
-          "form": [
-            "W",
-            "W",
-            "W",
-            "L",
-            "W"
-          ]
-        },
-        "is_fun": false,
-        "tier": "ok",
-        "calibration_delta": -13.6,
-        "history_top3": true
-      }
-    ],
-    "home_players": [],
-    "away_players": [
-      {
-        "player": "Jawad Ghabra",
-        "position": "M",
-        "is_sub": false,
-        "type": "Buteur",
-        "label": "Jawad Ghabra marque",
-        "cote": null,
-        "book": null,
-        "books": [],
-        "confidence": 54,
-        "reasoning": "3 buts en 5 matchs cette saison (60.0% de chance/match) · xG moyen 0.00/match, défense adverse poreuse (1.4 buts concédés/match) · défense fragile\n📉 Calibration : bucket 50-59% historiquement à WR 42% (claim 55%, n=41) — sur-estimé de 14pp",
-        "context": {
-          "weakness": 0.57
-        },
-        "stats": {
-          "goals": 3,
-          "apps": 5,
-          "gpm": 0.6,
-          "xgpm": 0
-        },
-        "team": "away",
-        "tier": "fun",
-        "calibration_delta": -13.6,
-        "history_top3": true
-      },
-      {
-        "player": "Jawad Ghabra / Haitam El Bahja",
-        "position": "",
-        "is_sub": false,
-        "type": "Double Chance Buteur",
-        "label": "Jawad Ghabra ou Haitam El Bahja marque (Ittihad Tanger)",
-        "cote": null,
-        "book": null,
-        "books": [],
-        "confidence": 70,
-        "cote_min": 1.43,
-        "reasoning": "✈️ Combo intra-Ittihad Tanger\n📈 P(Jawad Ghabra marque) ≈ 54% · P(Haitam El Bahja marque) ≈ 48%\n🎯 P(au moins un marque) = 70% (1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.43 - chercher ≥1.43 chez le bookmaker\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
-        "context": {
-          "combo_kind": "intra-away"
-        },
-        "_team_for_balance": "away",
-        "stats": {
-          "p_a": 0.54,
-          "p_b": 0.48,
-          "p_or": 0.7,
-          "player_a": "Jawad Ghabra",
-          "player_b": "Haitam El Bahja",
-          "kind": "intra-away"
-        },
-        "team": "away",
-        "tier": "safe",
-        "calibration_delta": -11.3,
-        "history_top3": true
-      }
-    ],
-    "fun_picks": [],
-    "top_pick": {
-      "direction": "away_win",
-      "type": "Victoire extérieur",
-      "label": "Ittihad Tanger gagne",
-      "cote": null,
-      "confidence": 58,
-      "reasoning": "Ittihad Tanger : 4V/0N/1D sur 5 matchs · #6 au classement · H2H: 0V/0N/1D · Note Sofa: 6.5/10\n📉 Calibration : bucket 50-59% historiquement à WR 42% (claim 55%, n=41) — sur-estimé de 14pp",
-      "stats": {
-        "form": [
-          "W",
-          "W",
-          "W",
-          "L",
-          "W"
-        ]
-      },
-      "is_fun": false,
-      "tier": "ok",
-      "calibration_delta": -13.6,
-      "history_top3": true
-    },
-    "no_picks": false,
-    "context": {
-      "stadium": {
-        "name": "Adrar Stadium",
-        "city": null,
-        "country": "",
-        "lat": null,
-        "lon": null,
-        "capacity": null,
-        "surface": null
-      },
-      "weather": null,
-      "text": "Stade : Adrar Stadium · plein air."
-    }
-  },
-  {
-    "league": "World Cup",
-    "home": "South Africa",
-    "away": "South Korea",
-    "start_ts": 1782349200,
-    "match_id": "4667756",
-    "page_url": "/matches/south-africa-vs-south-korea/1ncyls#4667756",
-    "picks": [
-      {
-        "direction": "away_win",
-        "type": "Victoire extérieur",
-        "label": "South Korea gagne",
-        "cote": 1.62,
-        "confidence": 58,
-        "reasoning": "South Korea : 3V/0N/2D sur 5 matchs · #2 au classement · H2H: 0V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 50-59% historiquement à WR 42% (claim 55%, n=41) — sur-estimé de 14pp",
-        "stats": {
-          "form": [
-            "L",
-            "W",
-            "W",
-            "W",
-            "L"
-          ]
-        },
-        "is_fun": false,
-        "tier": "ok",
-        "calibration_delta": -13.6,
-        "edge_pp": -3.7,
-        "history_top3": true
-      },
-      {
-        "direction": "wc_dc_12",
-        "type": "🏆 Double chance WC",
-        "label": "South Africa ou South Korea (12, pas de nul)",
-        "cote": null,
-        "cote_min": 1.27,
-        "confidence": 79,
-        "tier": "safe",
-        "stats": {
-          "lam_h": 0.34,
-          "lam_a": 1.74,
-          "h_fifa_rank": 54,
-          "a_fifa_rank": 25,
-          "elo_gap": -185,
-          "wc_round": null,
-          "family": "DC"
-        },
-        "reasoning": "📊 Niveau équilibré : South Africa #54 vs South Korea #25 (gap -185 pts).\nL10 : South Africa 0V/3N/2D sur 5 · South Korea 3V/0N/2D sur 5\n📋 Fiche South Africa : off solide (+0.33) · def solide (+0.39) · forme DLDLD · 🏆 novice WC\n📋 Fiche South Korea : off solide (+0.46) · def solide (+0.39) · forme LWWWL · 🏆 présence occasionnelle\n🎯 Importance : South Africa : 1 match joué (0pts) · South Korea : 1 match joué (3pts)\n🌦️ Conditions : chaleur 33.7°C (-10%)\n✅ Compo OFFICIELLE\n🛡️ Double chance 12 : South Africa (6.5%) OU South Korea (72.3%)\nCombiné = 78.9% — couvre tout sauf le nul\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
-        "calibration_delta": -11.3,
-        "history_top3": false
-      },
-      {
-        "direction": "wc_under_25",
-        "type": "⚽ Total buts WC",
-        "label": "Moins de 2.5 buts",
-        "cote": 1.8,
-        "cote_min": 1.52,
-        "confidence": 66,
-        "tier": "ok",
-        "stats": {
-          "lam_h": 0.34,
-          "lam_a": 1.74,
-          "h_fifa_rank": 54,
-          "a_fifa_rank": 25,
-          "elo_gap": -185,
-          "wc_round": null,
-          "family": "TOTAL"
-        },
-        "reasoning": "📊 Niveau équilibré : South Africa #54 vs South Korea #25 (gap -185 pts).\nL10 : South Africa 0V/3N/2D sur 5 · South Korea 3V/0N/2D sur 5\n📋 Fiche South Africa : off solide (+0.33) · def solide (+0.39) · forme DLDLD · 🏆 novice WC\n📋 Fiche South Korea : off solide (+0.46) · def solide (+0.39) · forme LWWWL · 🏆 présence occasionnelle\n🎯 Importance : South Africa : 1 match joué (0pts) · South Korea : 1 match joué (3pts)\n🌦️ Conditions : chaleur 33.7°C (-10%)\n✅ Compo OFFICIELLE\n⚽ Modèle Poisson : λ total = 2.07\nP(moins de 2.5 buts) = 65.7%\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
-        "calibration_delta": -25.4,
-        "edge_pp": 10.4,
-        "history_top3": true
-      },
-      {
-        "direction": "wc_home_no_score",
-        "type": "🛡️ Clean sheet WC",
-        "label": "South Africa ne marque pas",
-        "cote": null,
-        "cote_min": 1.4,
-        "confidence": 71,
-        "tier": "safe",
-        "stats": {
-          "lam_h": 0.34,
-          "lam_a": 1.74,
-          "h_fifa_rank": 54,
-          "a_fifa_rank": 25,
-          "elo_gap": -185,
-          "wc_round": null,
-          "family": "CLEAN_SHEET"
-        },
-        "reasoning": "📊 Niveau équilibré : South Africa #54 vs South Korea #25 (gap -185 pts).\nL10 : South Africa 0V/3N/2D sur 5 · South Korea 3V/0N/2D sur 5\n📋 Fiche South Africa : off solide (+0.33) · def solide (+0.39) · forme DLDLD · 🏆 novice WC\n📋 Fiche South Korea : off solide (+0.46) · def solide (+0.39) · forme LWWWL · 🏆 présence occasionnelle\n🎯 Importance : South Africa : 1 match joué (0pts) · South Korea : 1 match joué (3pts)\n🌦️ Conditions : chaleur 33.7°C (-10%)\n✅ Compo OFFICIELLE\n🛡️ P(South Africa blanchi) = 71.5% (λ_South Africa = 0.34)\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
-        "calibration_delta": -11.3,
-        "history_top3": true
-      }
-    ],
-    "home_players": [],
     "away_players": [],
     "fun_picks": [
       {
@@ -3642,97 +1565,6 @@
     }
   },
   {
-    "league": "Lithuanian Toplyga",
-    "home": "FA Siauliai",
-    "away": "FK TransINVEST",
-    "start_ts": 1782747000,
-    "match_id": "5838857",
-    "page_url": "/matches/fa-siauliai-vs-fk-transinvest/15eamc9zz#5838857",
-    "picks": [],
-    "home_players": [
-      {
-        "player": "Nedas Garbaliauskas / Daniel Romanovskij",
-        "position": "",
-        "is_sub": false,
-        "type": "Double Chance Buteur",
-        "label": "Nedas Garbaliauskas ou Daniel Romanovskij marque",
-        "cote": null,
-        "book": null,
-        "books": [],
-        "confidence": 68,
-        "cote_min": 1.47,
-        "reasoning": "📈 P(Nedas Garbaliauskas marque) ≈ 44% · P(Daniel Romanovskij marque) ≈ 44%\n🎯 P(au moins un marque) = 68% (calculée par 1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.47 - chercher ≥1.47 chez le bookmaker\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
-        "context": {},
-        "stats": {
-          "p_a": 0.442,
-          "p_b": 0.435,
-          "p_or": 0.685,
-          "player_a": "Nedas Garbaliauskas",
-          "player_b": "Daniel Romanovskij"
-        },
-        "team": "home",
-        "tier": "ok",
-        "calibration_delta": -25.4,
-        "history_top3": true
-      }
-    ],
-    "away_players": [
-      {
-        "player": "Yegor Glushach / Xabi Auzmendi",
-        "position": "",
-        "is_sub": false,
-        "type": "Double Chance Buteur",
-        "label": "Yegor Glushach ou Xabi Auzmendi marque",
-        "cote": null,
-        "book": null,
-        "books": [],
-        "confidence": 70,
-        "cote_min": 1.43,
-        "reasoning": "📈 P(Yegor Glushach marque) ≈ 49% · P(Xabi Auzmendi marque) ≈ 48%\n🎯 P(au moins un marque) = 70% (calculée par 1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.43 - chercher ≥1.43 chez le bookmaker\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
-        "context": {},
-        "stats": {
-          "p_a": 0.488,
-          "p_b": 0.48,
-          "p_or": 0.7,
-          "player_a": "Yegor Glushach",
-          "player_b": "Xabi Auzmendi"
-        },
-        "team": "away",
-        "tier": "safe",
-        "calibration_delta": -11.3,
-        "history_top3": true
-      }
-    ],
-    "fun_picks": [],
-    "top_pick": {
-      "player": "Nedas Garbaliauskas / Daniel Romanovskij",
-      "position": "",
-      "is_sub": false,
-      "type": "Double Chance Buteur",
-      "label": "Nedas Garbaliauskas ou Daniel Romanovskij marque",
-      "cote": null,
-      "book": null,
-      "books": [],
-      "confidence": 68,
-      "cote_min": 1.47,
-      "reasoning": "📈 P(Nedas Garbaliauskas marque) ≈ 44% · P(Daniel Romanovskij marque) ≈ 44%\n🎯 P(au moins un marque) = 68% (calculée par 1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.47 - chercher ≥1.47 chez le bookmaker\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
-      "context": {},
-      "stats": {
-        "p_a": 0.442,
-        "p_b": 0.435,
-        "p_or": 0.685,
-        "player_a": "Nedas Garbaliauskas",
-        "player_b": "Daniel Romanovskij"
-      },
-      "team": "home",
-      "tier": "ok",
-      "calibration_delta": -25.4,
-      "history_top3": true
-    },
-    "no_picks": false,
-    "context": null
-  },
-  {
     "league": "World Cup",
     "home": "Netherlands",
     "away": "Morocco",
@@ -3868,73 +1700,73 @@
         "context_fr": "Climat semi-aride, chaleur élevée en juin (35-40°C l'après-midi)."
       },
       "weather": {
-        "temp_max": 33.7,
-        "temp_min": 22.7,
-        "humidity": 51,
+        "temp_max": 35.1,
+        "temp_min": 23.7,
+        "humidity": 40,
         "precipitation_sum_mm": 0.0,
-        "wind_max_kmh": 24.8,
-        "weather_code": 95,
-        "summary_fr": "⛈️ orage · 22–33°C · humidité 51%"
+        "wind_max_kmh": 28.0,
+        "weather_code": 1,
+        "summary_fr": "🌤️ principalement clair · 23–35°C · humidité 40%"
       },
-      "text": "Conditions : ⛈️ orage · 22–33°C · humidité 51%. Stade : Estadio BBVA · altitude 500m · 53 500 places · plein air. Climat semi-aride, chaleur élevée en juin (35-40°C l'après-midi). ⚠️ Forte chaleur (>32°C) en plein air : impact endurance, plus de pauses hydratation."
+      "text": "Conditions : 🌤️ principalement clair · 23–35°C · humidité 40%. Stade : Estadio BBVA · altitude 500m · 53 500 places · plein air. Climat semi-aride, chaleur élevée en juin (35-40°C l'après-midi). ⚠️ Forte chaleur (>32°C) en plein air : impact endurance, plus de pauses hydratation."
     }
   },
   {
-    "league": "Morocco Botola Pro",
-    "home": "KACM",
-    "away": "FUS Rabat",
-    "start_ts": 1782406800,
-    "match_id": "5793744",
-    "page_url": "/matches/fus-rabat-vs-kacm/9ke555f#5793744",
+    "league": "Icelandic Besta",
+    "home": "IA Akranes",
+    "away": "Fram Reykjavik",
+    "start_ts": 1782760500,
+    "match_id": "5225671",
+    "page_url": "/matches/fram-reykjavik-vs-ia-akranes/1ou9a0#5225671",
     "picks": [],
     "home_players": [
       {
-        "player": "Ismail Mihrab",
-        "position": "M",
+        "player": "Markús Ellertsson",
+        "position": "F",
         "is_sub": false,
         "type": "Buteur",
-        "label": "Ismail Mihrab marque",
+        "label": "Markús Ellertsson marque",
         "cote": null,
         "book": null,
         "books": [],
-        "confidence": 53,
-        "reasoning": "3 buts en 5 matchs cette saison (60.0% de chance/match) · xG moyen 0.00/match · défense correcte\n📉 Calibration : bucket 50-59% historiquement à WR 42% (claim 55%, n=41) — sur-estimé de 14pp",
+        "confidence": 57,
+        "reasoning": "6 buts en 11 matchs cette saison (54.5% de chance/match) · bonne efficacité (19% conv.) · xG moyen 0.00/match, face à une défense qui concède 2.2 buts/match · défense correcte\n📉 Calibration : bucket 50-59% historiquement à WR 42% (claim 55%, n=41) — sur-estimé de 14pp",
         "context": {
           "weakness": 0.43
         },
         "stats": {
-          "goals": 3,
-          "apps": 5,
-          "gpm": 0.6,
+          "goals": 6,
+          "apps": 11,
+          "gpm": 0.545,
           "xgpm": 0
         },
         "team": "home",
-        "tier": "fun",
+        "tier": "ok",
         "calibration_delta": -13.6,
         "history_top3": true
       },
       {
-        "player": "Ismail Mihrab / Hamza El Janati",
+        "player": "Markús Ellertsson / Viktor Jónsson",
         "position": "",
         "is_sub": false,
         "type": "Double Chance Buteur",
-        "label": "Ismail Mihrab ou Hamza El Janati marque (KACM)",
+        "label": "Markús Ellertsson ou Viktor Jónsson marque (IA Akranes)",
         "cote": null,
         "book": null,
         "books": [],
         "confidence": 70,
         "cote_min": 1.43,
-        "reasoning": "🏠 Combo intra-KACM\n📈 P(Ismail Mihrab marque) ≈ 53% · P(Hamza El Janati marque) ≈ 44%\n🎯 P(au moins un marque) = 70% (1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.43 - chercher ≥1.43 chez le bookmaker\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+        "reasoning": "🏠 Combo intra-IA Akranes\n📈 P(Markús Ellertsson marque) ≈ 57% · P(Viktor Jónsson marque) ≈ 46%\n🎯 P(au moins un marque) = 70% (1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.43 - chercher ≥1.43 chez le bookmaker\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
         "context": {
           "combo_kind": "intra-home"
         },
         "_team_for_balance": "home",
         "stats": {
-          "p_a": 0.532,
-          "p_b": 0.442,
+          "p_a": 0.57,
+          "p_b": 0.465,
           "p_or": 0.7,
-          "player_a": "Ismail Mihrab",
-          "player_b": "Hamza El Janati",
+          "player_a": "Markús Ellertsson",
+          "player_b": "Viktor Jónsson",
           "kind": "intra-home"
         },
         "team": "home",
@@ -3943,46 +1775,105 @@
         "history_top3": true
       }
     ],
-    "away_players": [],
+    "away_players": [
+      {
+        "player": "Atli Jónasson",
+        "position": "F",
+        "is_sub": false,
+        "type": "Buteur",
+        "label": "Atli Jónasson marque",
+        "cote": null,
+        "book": null,
+        "books": [],
+        "confidence": 57,
+        "reasoning": "5 buts en 9 matchs cette saison (55.6% de chance/match) · xG moyen 0.00/match, face à une défense qui concède 1.9 buts/match · défense correcte\n📉 Calibration : bucket 50-59% historiquement à WR 42% (claim 55%, n=41) — sur-estimé de 14pp",
+        "context": {
+          "weakness": 0.46
+        },
+        "stats": {
+          "goals": 5,
+          "apps": 9,
+          "gpm": 0.556,
+          "xgpm": 0
+        },
+        "team": "away",
+        "tier": "ok",
+        "calibration_delta": -13.6,
+        "history_top3": true
+      },
+      {
+        "player": "Kennie Chopart",
+        "position": "F",
+        "is_sub": false,
+        "type": "Buteur",
+        "label": "Kennie Chopart marque",
+        "cote": null,
+        "book": null,
+        "books": [],
+        "confidence": 56,
+        "reasoning": "6 buts en 11 matchs cette saison (54.5% de chance/match) · bonne efficacité (18% conv.) · xG moyen 0.00/match, face à une défense qui concède 1.9 buts/match · défense correcte\n📉 Calibration : bucket 50-59% historiquement à WR 42% (claim 55%, n=41) — sur-estimé de 14pp",
+        "context": {
+          "weakness": 0.46
+        },
+        "stats": {
+          "goals": 6,
+          "apps": 11,
+          "gpm": 0.545,
+          "xgpm": 0
+        },
+        "team": "away",
+        "tier": "ok",
+        "calibration_delta": -13.6,
+        "history_top3": true
+      }
+    ],
     "fun_picks": [],
     "top_pick": {
-      "player": "Ismail Mihrab",
-      "position": "M",
+      "player": "Markús Ellertsson",
+      "position": "F",
       "is_sub": false,
       "type": "Buteur",
-      "label": "Ismail Mihrab marque",
+      "label": "Markús Ellertsson marque",
       "cote": null,
       "book": null,
       "books": [],
-      "confidence": 53,
-      "reasoning": "3 buts en 5 matchs cette saison (60.0% de chance/match) · xG moyen 0.00/match · défense correcte\n📉 Calibration : bucket 50-59% historiquement à WR 42% (claim 55%, n=41) — sur-estimé de 14pp",
+      "confidence": 57,
+      "reasoning": "6 buts en 11 matchs cette saison (54.5% de chance/match) · bonne efficacité (19% conv.) · xG moyen 0.00/match, face à une défense qui concède 2.2 buts/match · défense correcte\n📉 Calibration : bucket 50-59% historiquement à WR 42% (claim 55%, n=41) — sur-estimé de 14pp",
       "context": {
         "weakness": 0.43
       },
       "stats": {
-        "goals": 3,
-        "apps": 5,
-        "gpm": 0.6,
+        "goals": 6,
+        "apps": 11,
+        "gpm": 0.545,
         "xgpm": 0
       },
       "team": "home",
-      "tier": "fun",
+      "tier": "ok",
       "calibration_delta": -13.6,
       "history_top3": true
     },
     "no_picks": false,
     "context": {
       "stadium": {
-        "name": "Stade de Marrakech",
-        "city": null,
-        "country": "",
-        "lat": null,
-        "lon": null,
+        "name": "ELKEM völlurinn",
+        "city": "Akranes",
+        "country": "Iceland",
+        "lat": 64.31765419,
+        "lon": -22.059849501,
         "capacity": null,
         "surface": null
       },
-      "weather": null,
-      "text": "Stade : Stade de Marrakech · plein air."
+      "weather": {
+        "temp_max": 10.8,
+        "temp_min": 8.2,
+        "humidity": 75,
+        "precipitation_sum_mm": 2.8,
+        "wind_max_kmh": 20.9,
+        "weather_code": 51,
+        "summary_fr": "🌦️ bruine légère · 10°C · humidité 75% · précipitations 2.8mm"
+      },
+      "text": "Conditions : 🌦️ bruine légère · 10°C · humidité 75% · précipitations 2.8mm. Stade : ELKEM völlurinn · plein air."
     }
   },
   {
@@ -4053,11 +1944,11 @@
         "surface": null
       },
       "weather": {
-        "temp_max": 24.7,
-        "temp_min": 14.9,
-        "humidity": 43,
+        "temp_max": 24.0,
+        "temp_min": 21.6,
+        "humidity": 58,
         "precipitation_sum_mm": 0.0,
-        "wind_max_kmh": 12.6,
+        "wind_max_kmh": 20.5,
         "weather_code": 3,
         "summary_fr": "☁️ couvert · 24°C · humidité 58%"
       },
@@ -4086,7 +1977,7 @@
         "confidence": 30,
         "reasoning": "5G en 16 matchs (31.2%/match) · xG: 0.00/match",
         "context": {
-          "weakness": 0.33
+          "weakness": 0.31
         },
         "stats": {
           "goals": 5,
@@ -4111,7 +2002,7 @@
       "confidence": 30,
       "reasoning": "5G en 16 matchs (31.2%/match) · xG: 0.00/match",
       "context": {
-        "weakness": 0.33
+        "weakness": 0.31
       },
       "stats": {
         "goals": 5,
