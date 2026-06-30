@@ -26551,6 +26551,49 @@
       "side": "home"
     },
     {
+      "player": "Fellipe Vieira / Kristers Cudars",
+      "position": "",
+      "is_sub": false,
+      "type": "Double Chance Buteur",
+      "label": "Fellipe Vieira OU Kristers Cudars marque (cross-équipe)",
+      "cote": null,
+      "book": null,
+      "books": [],
+      "confidence": 68,
+      "cote_min": 1.54,
+      "reasoning": "🔀 Cross-équipe (moins corrélé → meilleur EV)\n📈 P(Fellipe Vieira marque) ≈ 40% · P(Kristers Cudars marque) ≈ 42%\n🎯 P(au moins un marque) = 68% (1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.54 - chercher ≥1.54 chez le bookmaker\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
+      "context": {
+        "combo_kind": "cross"
+      },
+      "_team_for_balance": "home",
+      "stats": {
+        "p_a": 0.398,
+        "p_b": 0.42,
+        "p_or": 0.651,
+        "player_a": "Fellipe Vieira",
+        "player_b": "Kristers Cudars",
+        "kind": "cross"
+      },
+      "team": "home",
+      "tier": "ok",
+      "calibration_delta": -25.4,
+      "history_top3": true,
+      "id": "2026-06-30_5162020_player_Fellipe Vieira / Kristers Cudars_Double Chance Buteur",
+      "date": "2026-06-30",
+      "match_id": "5162020",
+      "page_url": "/matches/fk-liepaja-vs-ogre-united/n7qrejri#5162020",
+      "matchup": "FK Liepaja vs Ogre United",
+      "league": "Latvian Virsliga",
+      "category": "player",
+      "result": "WIN",
+      "actual": {
+        "goals": 2,
+        "assists": 0
+      },
+      "resolved_at": "2026-06-30 18:01",
+      "side": "home"
+    },
+    {
       "direction": "wc_over_35",
       "type": "⚽ Total buts WC",
       "label": "Plus de 3.5 buts",
@@ -26993,46 +27036,6 @@
       "actual": null,
       "resolved_at": null,
       "side": "away"
-    },
-    {
-      "player": "Fellipe Vieira / Kristers Cudars",
-      "position": "",
-      "is_sub": false,
-      "type": "Double Chance Buteur",
-      "label": "Fellipe Vieira OU Kristers Cudars marque (cross-équipe)",
-      "cote": null,
-      "book": null,
-      "books": [],
-      "confidence": 68,
-      "cote_min": 1.54,
-      "reasoning": "🔀 Cross-équipe (moins corrélé → meilleur EV)\n📈 P(Fellipe Vieira marque) ≈ 40% · P(Kristers Cudars marque) ≈ 42%\n🎯 P(au moins un marque) = 68% (1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.54 - chercher ≥1.54 chez le bookmaker\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
-      "context": {
-        "combo_kind": "cross"
-      },
-      "_team_for_balance": "home",
-      "stats": {
-        "p_a": 0.398,
-        "p_b": 0.42,
-        "p_or": 0.651,
-        "player_a": "Fellipe Vieira",
-        "player_b": "Kristers Cudars",
-        "kind": "cross"
-      },
-      "team": "home",
-      "tier": "ok",
-      "calibration_delta": -25.4,
-      "history_top3": true,
-      "id": "2026-06-30_5162020_player_Fellipe Vieira / Kristers Cudars_Double Chance Buteur",
-      "date": "2026-06-30",
-      "match_id": "5162020",
-      "page_url": "/matches/fk-liepaja-vs-ogre-united/n7qrejri#5162020",
-      "matchup": "FK Liepaja vs Ogre United",
-      "league": "Latvian Virsliga",
-      "category": "player",
-      "result": "PENDING",
-      "actual": null,
-      "resolved_at": null,
-      "side": "home"
     }
   ]
 }
