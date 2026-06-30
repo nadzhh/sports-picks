@@ -103,6 +103,35 @@
         "history_top3": true
       },
       {
+        "player": "Kylian Mbappé / Ousmane Dembélé",
+        "position": "",
+        "is_sub": false,
+        "type": "Double Chance Buteur",
+        "label": "Kylian Mbappé ou Ousmane Dembélé marque (France)",
+        "cote": null,
+        "book": null,
+        "books": [],
+        "confidence": 65,
+        "cote_min": 1.54,
+        "reasoning": "🏠 Combo intra-France\n📈 P(Kylian Mbappé marque) ≈ 43% · P(Ousmane Dembélé marque) ≈ 39%\n🎯 P(au moins un marque) = 65% (1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.54 - chercher ≥1.54 chez le bookmaker\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
+        "context": {
+          "combo_kind": "intra-home"
+        },
+        "_team_for_balance": "home",
+        "stats": {
+          "p_a": 0.428,
+          "p_b": 0.39,
+          "p_or": 0.651,
+          "player_a": "Kylian Mbappé",
+          "player_b": "Ousmane Dembélé",
+          "kind": "intra-home"
+        },
+        "team": "home",
+        "tier": "ok",
+        "calibration_delta": -25.4,
+        "history_top3": true
+      },
+      {
         "player": "Michael Olise",
         "position": "F",
         "is_sub": false,
@@ -132,31 +161,7 @@
         "history_top3": true
       }
     ],
-    "away_players": [
-      {
-        "player": "Anthony Elanga",
-        "position": "F",
-        "is_sub": false,
-        "type": "Buteur",
-        "label": "Anthony Elanga marque",
-        "team": "away",
-        "cote": null,
-        "book": null,
-        "books": [],
-        "confidence": 42,
-        "reasoning": "2G en 3 matchs (66.7%/match) · xG: 0.13/match\n📉 Calibration : bucket 40-49% historiquement à WR 25% (claim 44%, n=36) — sur-estimé de 19pp",
-        "context": {
-          "weakness": 0.35
-        },
-        "stats": {
-          "goals": 2,
-          "apps": 3
-        },
-        "tier": "fun",
-        "calibration_delta": -19.4,
-        "history_top3": true
-      }
-    ],
+    "away_players": [],
     "fun_picks": [
       {
         "direction": "wc_score_4_0",
