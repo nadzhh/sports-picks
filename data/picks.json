@@ -74,26 +74,55 @@
     ],
     "home_players": [
       {
+        "player": "Kylian Mbappé",
+        "position": "F",
+        "is_sub": false,
+        "type": "Passeur",
+        "label": "Kylian Mbappé délivre une passe décisive",
+        "cote": null,
+        "cote_min": 1.45,
+        "book": null,
+        "books": [],
+        "confidence": 69,
+        "reasoning": "Kylian Mbappé délivre une passe décisive : selection 5A/11m (0.46 passes/m nat). P(passe décisive) ~69%.\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
+        "context": {
+          "source": "lineup",
+          "lam": 1.18,
+          "lineup_status": "confirmed"
+        },
+        "stats": {
+          "goals": null,
+          "apps": null,
+          "gpm": 1.178,
+          "xgpm": null
+        },
+        "team": "home",
+        "lineup_status": "confirmed",
+        "tier": "ok",
+        "calibration_delta": -25.4,
+        "history_top3": true
+      },
+      {
         "player": "Michael Olise",
         "position": "F",
         "is_sub": false,
         "type": "Passeur",
         "label": "Michael Olise délivre une passe décisive",
         "cote": null,
-        "cote_min": 1.53,
+        "cote_min": 1.62,
         "book": null,
         "books": [],
-        "confidence": 65,
-        "reasoning": "Michael Olise délivre une passe décisive : selection 4A/12m (0.33 passes/m nat). P(passe décisive) ~65%.\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
+        "confidence": 62,
+        "reasoning": "Michael Olise délivre une passe décisive : selection 4A/12m (0.33 passes/m nat). P(passe décisive) ~62%.\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
         "context": {
           "source": "lineup",
-          "lam": 1.06,
+          "lam": 0.96,
           "lineup_status": "confirmed"
         },
         "stats": {
           "goals": null,
           "apps": null,
-          "gpm": 1.058,
+          "gpm": 0.962,
           "xgpm": null
         },
         "team": "home",
@@ -452,7 +481,7 @@
         "direction": "wc_home_win",
         "type": "🏆 Vainqueur WC",
         "label": "Belgium gagne",
-        "cote": 2.25,
+        "cote": 2.2,
         "cote_min": 1.28,
         "confidence": 78,
         "tier": "safe",
@@ -467,7 +496,7 @@
         },
         "reasoning": "📊 Niveau équilibré : Belgium #8 vs Senegal #21 (gap +128 pts).\n🇪🇺 Belgium UEFA powerhouse\nL10 : Belgium 3V/2N/0D sur 5 · Senegal 1V/1N/3D sur 5\n📋 Fiche Belgium : off moyen (+0.30) · def moyenne (-0.28) · forme WDDWW · 🏆 régulière phase finale\n   ↳ Historique : phase de poules en 2022 · demi-finaliste en 2018 · quart de finale en 2014\n📋 Fiche Senegal : off moyen (-0.09) · def fragile (-0.37) · forme WLLDL · 🏆 présence occasionnelle\n🎯 Importance : Belgium : 1 match joué (1pts)\n🌦️ ☁️ couvert · 10–19°C · humidité 60%\n⚠️ Compo PROBABLE (officielle à T-60min)\n🏆 Modèle Poisson CdM (tier FIFA ajusté)\nλ Belgium = 3.05 buts attendus, λ Senegal = 0.92\nP(Belgium gagne) = 78.4% · P(nul) = 12.3% · P(Senegal) = 8.1%\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
         "calibration_delta": -11.3,
-        "edge_pp": 33.6,
+        "edge_pp": 32.5,
         "history_top3": true
       },
       {
@@ -676,7 +705,7 @@
       "direction": "wc_home_win",
       "type": "🏆 Vainqueur WC",
       "label": "Belgium gagne",
-      "cote": 2.25,
+      "cote": 2.2,
       "cote_min": 1.28,
       "confidence": 78,
       "tier": "safe",
@@ -691,7 +720,7 @@
       },
       "reasoning": "📊 Niveau équilibré : Belgium #8 vs Senegal #21 (gap +128 pts).\n🇪🇺 Belgium UEFA powerhouse\nL10 : Belgium 3V/2N/0D sur 5 · Senegal 1V/1N/3D sur 5\n📋 Fiche Belgium : off moyen (+0.30) · def moyenne (-0.28) · forme WDDWW · 🏆 régulière phase finale\n   ↳ Historique : phase de poules en 2022 · demi-finaliste en 2018 · quart de finale en 2014\n📋 Fiche Senegal : off moyen (-0.09) · def fragile (-0.37) · forme WLLDL · 🏆 présence occasionnelle\n🎯 Importance : Belgium : 1 match joué (1pts)\n🌦️ ☁️ couvert · 10–19°C · humidité 60%\n⚠️ Compo PROBABLE (officielle à T-60min)\n🏆 Modèle Poisson CdM (tier FIFA ajusté)\nλ Belgium = 3.05 buts attendus, λ Senegal = 0.92\nP(Belgium gagne) = 78.4% · P(nul) = 12.3% · P(Senegal) = 8.1%\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
       "calibration_delta": -11.3,
-      "edge_pp": 33.6,
+      "edge_pp": 32.5,
       "history_top3": true
     },
     "no_picks": false,
