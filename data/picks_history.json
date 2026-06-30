@@ -26438,6 +26438,119 @@
       "side": "away"
     },
     {
+      "direction": "home_win",
+      "type": "Victoire domicile",
+      "label": "RFS gagne",
+      "cote": null,
+      "confidence": 78,
+      "reasoning": "RFS : 4V/0N/1D sur 5 matchs · #1 au classement · H2H: 2V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+      "stats": {
+        "form": [
+          "W",
+          "W",
+          "L",
+          "W",
+          "W"
+        ]
+      },
+      "is_fun": false,
+      "tier": "safe",
+      "calibration_delta": -11.3,
+      "history_top3": true,
+      "id": "2026-06-30_5162019_team_home_win",
+      "date": "2026-06-30",
+      "match_id": "5162019",
+      "page_url": "/matches/bfc-daugavpils-vs-rfs/19uac4kf#5162019",
+      "matchup": "RFS vs BFC Daugavpils",
+      "league": "Latvian Virsliga",
+      "category": "team",
+      "result": "WIN",
+      "actual": "3-1",
+      "resolved_at": "2026-06-30 17:01"
+    },
+    {
+      "player": "Darko Lemajic / Ismaël Diomandé",
+      "position": "",
+      "is_sub": false,
+      "type": "Double Chance Buteur",
+      "label": "Darko Lemajic ou Ismaël Diomandé marque (RFS)",
+      "cote": null,
+      "book": null,
+      "books": [],
+      "confidence": 70,
+      "cote_min": 1.43,
+      "reasoning": "🏠 Combo intra-RFS\n📈 P(Darko Lemajic marque) ≈ 52% · P(Ismaël Diomandé marque) ≈ 47%\n🎯 P(au moins un marque) = 70% (1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.43 - chercher ≥1.43 chez le bookmaker\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+      "context": {
+        "combo_kind": "intra-home"
+      },
+      "_team_for_balance": "home",
+      "stats": {
+        "p_a": 0.518,
+        "p_b": 0.472,
+        "p_or": 0.7,
+        "player_a": "Darko Lemajic",
+        "player_b": "Ismaël Diomandé",
+        "kind": "intra-home"
+      },
+      "team": "home",
+      "tier": "safe",
+      "calibration_delta": -11.3,
+      "history_top3": true,
+      "id": "2026-06-30_5162019_player_Darko Lemajic / Ismaël Diomandé_Double Chance Buteur",
+      "date": "2026-06-30",
+      "match_id": "5162019",
+      "page_url": "/matches/bfc-daugavpils-vs-rfs/19uac4kf#5162019",
+      "matchup": "RFS vs BFC Daugavpils",
+      "league": "Latvian Virsliga",
+      "category": "player",
+      "result": "LOSS",
+      "actual": {
+        "goals": 0,
+        "assists": 0
+      },
+      "resolved_at": "2026-06-30 17:01",
+      "side": "home"
+    },
+    {
+      "player": "Darko Lemajic",
+      "position": "F",
+      "is_sub": false,
+      "type": "Buteur",
+      "label": "Darko Lemajic marque",
+      "cote": null,
+      "book": null,
+      "books": [],
+      "confidence": 52,
+      "reasoning": "10 buts en 18 matchs cette saison (55.6% de chance/match) · xG moyen 0.00/match · défense solide\n📉 Calibration : bucket 50-59% historiquement à WR 42% (claim 55%, n=41) — sur-estimé de 14pp",
+      "context": {
+        "weakness": 0.27
+      },
+      "stats": {
+        "goals": 10,
+        "apps": 18,
+        "gpm": 0.556,
+        "xgpm": 0
+      },
+      "team": "home",
+      "tier": "fun",
+      "calibration_delta": -13.6,
+      "history_top3": true,
+      "id": "2026-06-30_5162019_player_Darko Lemajic_Buteur",
+      "date": "2026-06-30",
+      "match_id": "5162019",
+      "page_url": "/matches/bfc-daugavpils-vs-rfs/19uac4kf#5162019",
+      "matchup": "RFS vs BFC Daugavpils",
+      "league": "Latvian Virsliga",
+      "category": "player",
+      "result": "LOSS",
+      "actual": {
+        "goals": 0,
+        "assists": 0
+      },
+      "resolved_at": "2026-06-30 17:01",
+      "side": "home"
+    },
+    {
       "direction": "wc_over_35",
       "type": "⚽ Total buts WC",
       "label": "Plus de 3.5 buts",
@@ -26710,115 +26823,8 @@
     {
       "direction": "home_win",
       "type": "Victoire domicile",
-      "label": "RFS gagne",
-      "cote": null,
-      "confidence": 78,
-      "reasoning": "RFS : 4V/0N/1D sur 5 matchs · #1 au classement · H2H: 2V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
-      "stats": {
-        "form": [
-          "W",
-          "W",
-          "L",
-          "W",
-          "W"
-        ]
-      },
-      "is_fun": false,
-      "tier": "safe",
-      "calibration_delta": -11.3,
-      "history_top3": true,
-      "id": "2026-06-30_5162019_team_home_win",
-      "date": "2026-06-30",
-      "match_id": "5162019",
-      "page_url": "/matches/bfc-daugavpils-vs-rfs/19uac4kf#5162019",
-      "matchup": "RFS vs BFC Daugavpils",
-      "league": "Latvian Virsliga",
-      "category": "team",
-      "result": "PENDING",
-      "actual": null,
-      "resolved_at": null
-    },
-    {
-      "player": "Darko Lemajic / Ismaël Diomandé",
-      "position": "",
-      "is_sub": false,
-      "type": "Double Chance Buteur",
-      "label": "Darko Lemajic ou Ismaël Diomandé marque (RFS)",
-      "cote": null,
-      "book": null,
-      "books": [],
-      "confidence": 70,
-      "cote_min": 1.43,
-      "reasoning": "🏠 Combo intra-RFS\n📈 P(Darko Lemajic marque) ≈ 52% · P(Ismaël Diomandé marque) ≈ 47%\n🎯 P(au moins un marque) = 70% (1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.43 - chercher ≥1.43 chez le bookmaker\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
-      "context": {
-        "combo_kind": "intra-home"
-      },
-      "_team_for_balance": "home",
-      "stats": {
-        "p_a": 0.518,
-        "p_b": 0.472,
-        "p_or": 0.7,
-        "player_a": "Darko Lemajic",
-        "player_b": "Ismaël Diomandé",
-        "kind": "intra-home"
-      },
-      "team": "home",
-      "tier": "safe",
-      "calibration_delta": -11.3,
-      "history_top3": true,
-      "id": "2026-06-30_5162019_player_Darko Lemajic / Ismaël Diomandé_Double Chance Buteur",
-      "date": "2026-06-30",
-      "match_id": "5162019",
-      "page_url": "/matches/bfc-daugavpils-vs-rfs/19uac4kf#5162019",
-      "matchup": "RFS vs BFC Daugavpils",
-      "league": "Latvian Virsliga",
-      "category": "player",
-      "result": "PENDING",
-      "actual": null,
-      "resolved_at": null,
-      "side": "home"
-    },
-    {
-      "player": "Darko Lemajic",
-      "position": "F",
-      "is_sub": false,
-      "type": "Buteur",
-      "label": "Darko Lemajic marque",
-      "cote": null,
-      "book": null,
-      "books": [],
-      "confidence": 52,
-      "reasoning": "10 buts en 18 matchs cette saison (55.6% de chance/match) · xG moyen 0.00/match · défense solide\n📉 Calibration : bucket 50-59% historiquement à WR 42% (claim 55%, n=41) — sur-estimé de 14pp",
-      "context": {
-        "weakness": 0.27
-      },
-      "stats": {
-        "goals": 10,
-        "apps": 18,
-        "gpm": 0.556,
-        "xgpm": 0
-      },
-      "team": "home",
-      "tier": "fun",
-      "calibration_delta": -13.6,
-      "history_top3": true,
-      "id": "2026-06-30_5162019_player_Darko Lemajic_Buteur",
-      "date": "2026-06-30",
-      "match_id": "5162019",
-      "page_url": "/matches/bfc-daugavpils-vs-rfs/19uac4kf#5162019",
-      "matchup": "RFS vs BFC Daugavpils",
-      "league": "Latvian Virsliga",
-      "category": "player",
-      "result": "PENDING",
-      "actual": null,
-      "resolved_at": null,
-      "side": "home"
-    },
-    {
-      "direction": "home_win",
-      "type": "Victoire domicile",
       "label": "Ivory Coast gagne",
-      "cote": 3.55,
+      "cote": 3.6,
       "confidence": 69,
       "reasoning": "Ivory Coast : 4V/0N/1D sur 5 matchs · #2 au classement · H2H: 0V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
       "stats": {
@@ -26833,7 +26839,7 @@
       "is_fun": false,
       "tier": "fun",
       "calibration_delta": -25.4,
-      "edge_pp": 40.8,
+      "edge_pp": 41.2,
       "history_top3": true,
       "id": "2026-06-30_4653712_team_home_win",
       "date": "2026-06-30",
@@ -26989,27 +26995,34 @@
       "side": "away"
     },
     {
-      "player": "Kristers Cudars",
-      "position": "F",
+      "player": "Fellipe Vieira / Kristers Cudars",
+      "position": "",
       "is_sub": false,
-      "type": "Buteur",
-      "label": "Kristers Cudars marque",
-      "team": "away",
+      "type": "Double Chance Buteur",
+      "label": "Fellipe Vieira OU Kristers Cudars marque (cross-équipe)",
       "cote": null,
       "book": null,
       "books": [],
-      "confidence": 38,
-      "reasoning": "7G en 19 matchs (36.8%/match) · xG: 0.00/match",
+      "confidence": 68,
+      "cote_min": 1.54,
+      "reasoning": "🔀 Cross-équipe (moins corrélé → meilleur EV)\n📈 P(Fellipe Vieira marque) ≈ 40% · P(Kristers Cudars marque) ≈ 42%\n🎯 P(au moins un marque) = 68% (1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.54 - chercher ≥1.54 chez le bookmaker\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
       "context": {
-        "weakness": 0.23
+        "combo_kind": "cross"
       },
+      "_team_for_balance": "home",
       "stats": {
-        "goals": 7,
-        "apps": 19
+        "p_a": 0.398,
+        "p_b": 0.42,
+        "p_or": 0.651,
+        "player_a": "Fellipe Vieira",
+        "player_b": "Kristers Cudars",
+        "kind": "cross"
       },
-      "tier": "fun",
+      "team": "home",
+      "tier": "ok",
+      "calibration_delta": -25.4,
       "history_top3": true,
-      "id": "2026-06-30_5162020_player_Kristers Cudars_Buteur",
+      "id": "2026-06-30_5162020_player_Fellipe Vieira / Kristers Cudars_Double Chance Buteur",
       "date": "2026-06-30",
       "match_id": "5162020",
       "page_url": "/matches/fk-liepaja-vs-ogre-united/n7qrejri#5162020",
@@ -27019,7 +27032,7 @@
       "result": "PENDING",
       "actual": null,
       "resolved_at": null,
-      "side": "away"
+      "side": "home"
     }
   ]
 }
