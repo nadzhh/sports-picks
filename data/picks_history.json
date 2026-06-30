@@ -26401,6 +26401,75 @@
       "side": "away"
     },
     {
+      "player": "Achraf Hakimi",
+      "position": "F",
+      "is_sub": false,
+      "type": "Buteur",
+      "label": "Achraf Hakimi marque",
+      "team": "away",
+      "cote": null,
+      "book": null,
+      "books": [],
+      "confidence": 49,
+      "reasoning": "1G en 3 matchs (33.3%/match) · xG: 0.70/match\n📉 Calibration : bucket 40-49% historiquement à WR 25% (claim 44%, n=36) — sur-estimé de 19pp",
+      "context": {
+        "weakness": 0.27
+      },
+      "stats": {
+        "goals": 1,
+        "apps": 3
+      },
+      "tier": "fun",
+      "calibration_delta": -19.4,
+      "history_top3": false,
+      "id": "2026-06-30_4653706_player_Achraf Hakimi_Buteur",
+      "date": "2026-06-30",
+      "match_id": "4653706",
+      "page_url": "/matches/morocco-vs-netherlands/1e327v#4653706",
+      "matchup": "Netherlands vs Morocco",
+      "league": "World Cup",
+      "category": "player",
+      "result": "LOSS",
+      "actual": {
+        "goals": 0,
+        "assists": 0
+      },
+      "resolved_at": "2026-06-30 03:31",
+      "side": "away"
+    },
+    {
+      "direction": "wc_home_win",
+      "type": "🏆 Vainqueur WC",
+      "label": "France gagne",
+      "cote": 1.3,
+      "cote_min": 1.16,
+      "confidence": 86,
+      "tier": "safe",
+      "stats": {
+        "lam_h": 4.21,
+        "lam_a": 0.71,
+        "h_fifa_rank": 2,
+        "a_fifa_rank": 24,
+        "elo_gap": 272,
+        "wc_round": null,
+        "family": "1X2"
+      },
+      "reasoning": "📊 Écart FIFA significatif : France #2 vs Sweden #24 (gap +272 pts, P favori ≈ 83%).\n⭐ France favori CdM 2026\nL10 : France 4V/0N/1D sur 5 · Sweden 1V/2N/2D sur 5\n📋 Fiche France : off moyen (-0.06) · def fragile (-1.00) · forme WWWWL · 🏆 élite mondiale\n   ↳ Historique : finaliste en 2022 · vainqueur en 2018 · quart de finale en 2014 · 2 titres (1998, 2018)\n📋 Fiche Sweden : off moyen (+0.17) · def fragile (-0.89) · forme DLWDL · 🏆 présence occasionnelle\n🎯 Importance : Sweden : 1 match joué (3pts)\n🌦️ Conditions : chaleur 34.6°C (-10%)\n⚠️ Compo PROBABLE (officielle à T-60min)\n🏆 Modèle Poisson CdM (tier FIFA ajusté)\nλ France = 4.21 buts attendus, λ Sweden = 0.71\nP(France gagne) = 86.0% · P(nul) = 5.2% · P(Sweden) = 2.3%\n📉 Calibration : bucket 80-89% historiquement à WR 56% (claim 82%, n=63) — sur-estimé de 26pp",
+      "calibration_delta": -26.0,
+      "edge_pp": 9.1,
+      "history_top3": true,
+      "id": "2026-06-30_4653704_team_wc_home_win",
+      "date": "2026-06-30",
+      "match_id": "4653704",
+      "page_url": "/matches/france-vs-sweden/1x6dai#4653704",
+      "matchup": "France vs Sweden",
+      "league": "World Cup",
+      "category": "team",
+      "result": "PENDING",
+      "actual": null,
+      "resolved_at": null
+    },
+    {
       "direction": "wc_over_35",
       "type": "⚽ Total buts WC",
       "label": "Plus de 3.5 buts",
@@ -26785,40 +26854,6 @@
       "actual": null,
       "resolved_at": null,
       "side": "home"
-    },
-    {
-      "player": "Achraf Hakimi",
-      "position": "F",
-      "is_sub": false,
-      "type": "Buteur",
-      "label": "Achraf Hakimi marque",
-      "team": "away",
-      "cote": null,
-      "book": null,
-      "books": [],
-      "confidence": 49,
-      "reasoning": "1G en 3 matchs (33.3%/match) · xG: 0.70/match\n📉 Calibration : bucket 40-49% historiquement à WR 25% (claim 44%, n=36) — sur-estimé de 19pp",
-      "context": {
-        "weakness": 0.27
-      },
-      "stats": {
-        "goals": 1,
-        "apps": 3
-      },
-      "tier": "fun",
-      "calibration_delta": -19.4,
-      "history_top3": false,
-      "id": "2026-06-30_4653706_player_Achraf Hakimi_Buteur",
-      "date": "2026-06-30",
-      "match_id": "4653706",
-      "page_url": "/matches/morocco-vs-netherlands/1e327v#4653706",
-      "matchup": "Netherlands vs Morocco",
-      "league": "World Cup",
-      "category": "player",
-      "result": "PENDING",
-      "actual": null,
-      "resolved_at": null,
-      "side": "away"
     },
     {
       "player": "Kristers Cudars",
