@@ -446,6 +446,138 @@
     }
   },
   {
+    "league": "Latvian Virsliga",
+    "home": "RFS",
+    "away": "BFC Daugavpils",
+    "start_ts": 1782831600,
+    "match_id": "5162019",
+    "page_url": "/matches/bfc-daugavpils-vs-rfs/19uac4kf#5162019",
+    "picks": [
+      {
+        "direction": "home_win",
+        "type": "Victoire domicile",
+        "label": "RFS gagne",
+        "cote": null,
+        "confidence": 78,
+        "reasoning": "RFS : 4V/0N/1D sur 5 matchs · #1 au classement · H2H: 2V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+        "stats": {
+          "form": [
+            "W",
+            "W",
+            "L",
+            "W",
+            "W"
+          ]
+        },
+        "is_fun": false,
+        "tier": "safe",
+        "calibration_delta": -11.3,
+        "history_top3": true
+      }
+    ],
+    "home_players": [
+      {
+        "player": "Darko Lemajic",
+        "position": "F",
+        "is_sub": false,
+        "type": "Buteur",
+        "label": "Darko Lemajic marque",
+        "cote": null,
+        "book": null,
+        "books": [],
+        "confidence": 52,
+        "reasoning": "10 buts en 18 matchs cette saison (55.6% de chance/match) · xG moyen 0.00/match · défense solide\n📉 Calibration : bucket 50-59% historiquement à WR 42% (claim 55%, n=41) — sur-estimé de 14pp",
+        "context": {
+          "weakness": 0.23
+        },
+        "stats": {
+          "goals": 10,
+          "apps": 18,
+          "gpm": 0.556,
+          "xgpm": 0
+        },
+        "team": "home",
+        "tier": "fun",
+        "calibration_delta": -13.6,
+        "history_top3": true
+      },
+      {
+        "player": "Darko Lemajic / Ismaël Diomandé",
+        "position": "",
+        "is_sub": false,
+        "type": "Double Chance Buteur",
+        "label": "Darko Lemajic ou Ismaël Diomandé marque (RFS)",
+        "cote": null,
+        "book": null,
+        "books": [],
+        "confidence": 70,
+        "cote_min": 1.43,
+        "reasoning": "🏠 Combo intra-RFS\n📈 P(Darko Lemajic marque) ≈ 52% · P(Ismaël Diomandé marque) ≈ 46%\n🎯 P(au moins un marque) = 70% (1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.43 - chercher ≥1.43 chez le bookmaker\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+        "context": {
+          "combo_kind": "intra-home"
+        },
+        "_team_for_balance": "home",
+        "stats": {
+          "p_a": 0.518,
+          "p_b": 0.465,
+          "p_or": 0.7,
+          "player_a": "Darko Lemajic",
+          "player_b": "Ismaël Diomandé",
+          "kind": "intra-home"
+        },
+        "team": "home",
+        "tier": "safe",
+        "calibration_delta": -11.3,
+        "history_top3": true
+      }
+    ],
+    "away_players": [],
+    "fun_picks": [],
+    "top_pick": {
+      "direction": "home_win",
+      "type": "Victoire domicile",
+      "label": "RFS gagne",
+      "cote": null,
+      "confidence": 78,
+      "reasoning": "RFS : 4V/0N/1D sur 5 matchs · #1 au classement · H2H: 2V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+      "stats": {
+        "form": [
+          "W",
+          "W",
+          "L",
+          "W",
+          "W"
+        ]
+      },
+      "is_fun": false,
+      "tier": "safe",
+      "calibration_delta": -11.3,
+      "history_top3": true
+    },
+    "no_picks": false,
+    "context": {
+      "stadium": {
+        "name": "LNK Sporta Parks dabīgais",
+        "city": "Rīga",
+        "country": "Latvia",
+        "lat": 56.907960471,
+        "lon": 24.155300465,
+        "capacity": null,
+        "surface": null
+      },
+      "weather": {
+        "temp_max": 26.5,
+        "temp_min": 19.7,
+        "humidity": 50,
+        "precipitation_sum_mm": 0.0,
+        "wind_max_kmh": 17.6,
+        "weather_code": 3,
+        "summary_fr": "☁️ couvert · 19–26°C · humidité 50%"
+      },
+      "text": "Conditions : ☁️ couvert · 19–26°C · humidité 50%. Stade : LNK Sporta Parks dabīgais · plein air."
+    }
+  },
+  {
     "league": "World Cup",
     "home": "Belgium",
     "away": "Senegal",
@@ -724,138 +856,6 @@
         "summary_fr": "☁️ couvert · 10–18°C · humidité 65%"
       },
       "text": "Conditions : ☁️ couvert · 10–18°C · humidité 65%. Stade : Lumen Field · altitude 17m · 68 740 places · plein air. Climat océanique tempéré. Juin 18-22°C, pluies possibles."
-    }
-  },
-  {
-    "league": "Latvian Virsliga",
-    "home": "RFS",
-    "away": "BFC Daugavpils",
-    "start_ts": 1782831600,
-    "match_id": "5162019",
-    "page_url": "/matches/bfc-daugavpils-vs-rfs/19uac4kf#5162019",
-    "picks": [
-      {
-        "direction": "home_win",
-        "type": "Victoire domicile",
-        "label": "RFS gagne",
-        "cote": null,
-        "confidence": 77,
-        "reasoning": "RFS : 4V/0N/1D sur 5 matchs · #2 au classement · H2H: 2V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
-        "stats": {
-          "form": [
-            "W",
-            "W",
-            "L",
-            "W",
-            "W"
-          ]
-        },
-        "is_fun": false,
-        "tier": "safe",
-        "calibration_delta": -11.3,
-        "history_top3": true
-      }
-    ],
-    "home_players": [
-      {
-        "player": "Darko Lemajic",
-        "position": "F",
-        "is_sub": false,
-        "type": "Buteur",
-        "label": "Darko Lemajic marque",
-        "cote": null,
-        "book": null,
-        "books": [],
-        "confidence": 52,
-        "reasoning": "10 buts en 18 matchs cette saison (55.6% de chance/match) · xG moyen 0.00/match · défense solide\n📉 Calibration : bucket 50-59% historiquement à WR 42% (claim 55%, n=41) — sur-estimé de 14pp",
-        "context": {
-          "weakness": 0.27
-        },
-        "stats": {
-          "goals": 10,
-          "apps": 18,
-          "gpm": 0.556,
-          "xgpm": 0
-        },
-        "team": "home",
-        "tier": "fun",
-        "calibration_delta": -13.6,
-        "history_top3": true
-      },
-      {
-        "player": "Darko Lemajic / Ismaël Diomandé",
-        "position": "",
-        "is_sub": false,
-        "type": "Double Chance Buteur",
-        "label": "Darko Lemajic ou Ismaël Diomandé marque (RFS)",
-        "cote": null,
-        "book": null,
-        "books": [],
-        "confidence": 70,
-        "cote_min": 1.43,
-        "reasoning": "🏠 Combo intra-RFS\n📈 P(Darko Lemajic marque) ≈ 52% · P(Ismaël Diomandé marque) ≈ 47%\n🎯 P(au moins un marque) = 70% (1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.43 - chercher ≥1.43 chez le bookmaker\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
-        "context": {
-          "combo_kind": "intra-home"
-        },
-        "_team_for_balance": "home",
-        "stats": {
-          "p_a": 0.518,
-          "p_b": 0.472,
-          "p_or": 0.7,
-          "player_a": "Darko Lemajic",
-          "player_b": "Ismaël Diomandé",
-          "kind": "intra-home"
-        },
-        "team": "home",
-        "tier": "safe",
-        "calibration_delta": -11.3,
-        "history_top3": true
-      }
-    ],
-    "away_players": [],
-    "fun_picks": [],
-    "top_pick": {
-      "direction": "home_win",
-      "type": "Victoire domicile",
-      "label": "RFS gagne",
-      "cote": null,
-      "confidence": 77,
-      "reasoning": "RFS : 4V/0N/1D sur 5 matchs · #2 au classement · H2H: 2V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
-      "stats": {
-        "form": [
-          "W",
-          "W",
-          "L",
-          "W",
-          "W"
-        ]
-      },
-      "is_fun": false,
-      "tier": "safe",
-      "calibration_delta": -11.3,
-      "history_top3": true
-    },
-    "no_picks": false,
-    "context": {
-      "stadium": {
-        "name": "LNK Sporta Parks dabīgais",
-        "city": "Rīga",
-        "country": "Latvia",
-        "lat": 56.907960471,
-        "lon": 24.155300465,
-        "capacity": null,
-        "surface": null
-      },
-      "weather": {
-        "temp_max": 26.5,
-        "temp_min": 19.7,
-        "humidity": 50,
-        "precipitation_sum_mm": 0.0,
-        "wind_max_kmh": 17.6,
-        "weather_code": 3,
-        "summary_fr": "☁️ couvert · 19–26°C · humidité 50%"
-      },
-      "text": "Conditions : ☁️ couvert · 19–26°C · humidité 50%. Stade : LNK Sporta Parks dabīgais · plein air."
     }
   },
   {
@@ -1559,7 +1559,7 @@
         "confidence": 38,
         "reasoning": "7G en 19 matchs (36.8%/match) · xG: 0.00/match",
         "context": {
-          "weakness": 0.23
+          "weakness": 0.25
         },
         "stats": {
           "goals": 7,
@@ -1583,7 +1583,7 @@
       "confidence": 38,
       "reasoning": "7G en 19 matchs (36.8%/match) · xG: 0.00/match",
       "context": {
-        "weakness": 0.23
+        "weakness": 0.25
       },
       "stats": {
         "goals": 7,
