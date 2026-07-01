@@ -52,17 +52,34 @@ def load_page_urls():
 # ─── Resolution par categorie ────────────────────────────────────────────────
 
 def _is_finished(ev):
-    """Detect si le match est FT (score present + 2h+ apres kickoff)."""
+    """Détermine si le match est vraiment terminé (FT/AET/Pen).
+
+    Priorité au flag `finished` officiel FotMob quand il est présent (couvre
+    les cas 90'+, prolongations, tirs au but). Fallback score + 2h après KO
+    pour les vieux caches sans le flag.
+
+    Bug corrigé (2026-06-29) : avant, un match à 1-0 à la 60e min récupéré
+    par le résolveur retournait True (2h après KO nominal du soir), donc le
+    pick "Morocco marque" était marqué LOSS alors qu'il finit WIN à 1-1.
+    """
     if not ev: return False
     s = ev.get("score") or ""
     if not s or "-" not in s: return False
+
+    # Si le fetch fresh a été fait, on a `finished` + `looks_live`
+    if "finished" in ev:
+        if ev.get("looks_live"): return False  # match en cours → jamais résoudre
+        return bool(ev.get("finished"))
+
+    # Fallback pour anciens caches sans le flag
     utc_time = ev.get("utcTime")
-    if not utc_time: return True  # on a un score sans heure -> on suppose fini
+    if not utc_time: return True
     try:
         from datetime import timezone
         kickoff = datetime.fromisoformat(utc_time.replace("Z", "+00:00"))
         elapsed_h = (datetime.now(tz=timezone.utc) - kickoff).total_seconds() / 3600
-        return elapsed_h >= 2.0
+        # 3h+ après KO au lieu de 2h : couvre les prolongations + tab
+        return elapsed_h >= 3.0
     except Exception:
         return True
 

@@ -282,7 +282,20 @@ def _fetch_match_page(page_url, ttl=30 * 24 * 3600, force=False):
     if not force:
         cached = _cache_get(path, ttl)
         if cached is not None:
-            return cached
+            # Garde-fou anti-cache-stale : si le cache est un match "non-finished"
+            # (score partiel captured pendant le match), on force un refetch pour
+            # éviter de bloquer un résultat provisoire pendant 30 jours.
+            # Bug historique : Netherlands vs Morocco cache à "1-0" à la 60e alors
+            # qu'il a fini 1-1 (Morocco qualifié aux tab).
+            _c_status = ((cached.get("header") or {}).get("status") or {})
+            _c_finished = bool(_c_status.get("finished"))
+            _c_reason = ((_c_status.get("reason") or {}).get("long") or "").lower()
+            _live_markers = ("half time","1st half","2nd half","extra time",
+                             "1h","2h"," et","live","in progress")
+            _looks_live = any(k in _c_reason for k in _live_markers)
+            if _c_finished and not _looks_live:
+                return cached
+            # Sinon (pas fini OU marqueur live) → force refetch
 
     _throttle()
     req = urllib.request.Request(full_url, headers=HEADERS)
@@ -500,9 +513,24 @@ def match_events(page_url, ttl=30 * 24 * 3600, force=False):
         try: return float(v)
         except: return None
 
+    # Détecte si le match est vraiment terminé (FT ou après tirs au but).
+    # Sans ce flag, _is_finished du resolver se fait piéger : un fetch pendant
+    # les 90min (score partiel 1-0) est mis en cache 30j et jamais réactualisé.
+    # Bug : Netherlands vs Morocco cache à "1-0" alors qu'il a fini 1-1.
+    _finished = bool(status.get("finished"))
+    _reason = ((status.get("reason") or {}).get("long") or "").lower()
+    # Certains matchs terminés en prolongation/pen ont finished=True + reason="Pen X-Y"
+    # Certains matchs live ont finished=False + reason contient "HT", "1H", "2H", "ET"
+    _live_markers = ("half time", "1st half", "2nd half", "extra time",
+                     "1h", "2h", "et", "live", "in progress")
+    _looks_live = any(k in _reason for k in _live_markers) and not _finished
+
     return {
         "score":     status.get("scoreStr"),
         "utcTime":   status.get("utcTime"),
+        "finished":  _finished,        # FT/AET/Pen officiel côté FotMob
+        "looks_live": _looks_live,     # Match en cours → cache non fiable
+        "status_reason": _reason,
         "home":      teams[0].get("name") if len(teams) > 0 else None,
         "home_id":   teams[0].get("id")   if len(teams) > 0 else None,
         "away":      teams[1].get("name") if len(teams) > 1 else None,
