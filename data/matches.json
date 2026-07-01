@@ -3581,28 +3581,28 @@
               "name": "England",
               "side": "home",
               "cote": 1.29,
-              "book": "betanysports"
+              "book": "betus"
             },
             {
               "name": "Draw",
               "side": "draw",
-              "cote": 5.0,
-              "book": "bovada"
+              "cote": 5.1,
+              "book": "gtbets"
             },
             {
               "name": "DR Congo",
               "side": "away",
               "cote": 13.0,
-              "book": "draftkings"
+              "book": "everygame"
             }
           ]
         },
         {
-          "marketName": "Goals Over/Under (0.5)",
+          "marketName": "Goals Over/Under (1.5)",
           "choices": [
             {
-              "name": "Over 0.5",
-              "cote": 1.05,
+              "name": "Over 1.5",
+              "cote": 1.33,
               "book": "fanduel"
             }
           ]
@@ -3613,22 +3613,12 @@
             {
               "name": "Over 2.5",
               "cote": 2.06,
-              "book": "mybookieag"
+              "book": "onexbet"
             },
             {
               "name": "Under 2.5",
               "cote": 1.76,
-              "book": "bovada"
-            }
-          ]
-        },
-        {
-          "marketName": "Goals Over/Under (4.5)",
-          "choices": [
-            {
-              "name": "Under 4.5",
-              "cote": 1.07,
-              "book": "fanduel"
+              "book": "unibet_se"
             }
           ]
         },
@@ -3638,7 +3628,7 @@
             {
               "name": "Yes",
               "cote": 2.8,
-              "book": "livescorebet"
+              "book": "ladbrokes_uk"
             },
             {
               "name": "No",
@@ -3691,14 +3681,14 @@
       },
       "market_intelligence": {
         "home_cote": 1.29,
-        "home_value": 71.3,
-        "home_p_final": 0.5525957832691,
-        "draw_cote": 5.0,
-        "draw_value": 71.3,
-        "draw_p_final": 0.1425697120834278,
+        "home_value": 71.6,
+        "home_p_final": 0.5546631864270656,
+        "draw_cote": 5.1,
+        "draw_value": 71.6,
+        "draw_p_final": 0.1402971589197872,
         "away_cote": 13.0,
-        "away_value": 71.3,
-        "away_p_final": 0.054834504647472235,
+        "away_value": 71.6,
+        "away_p_final": 0.05503965465314728,
         "btts_yes_cote": 2.8,
         "btts_yes_value": 70.0,
         "btts_yes_p_final": 0.25,
@@ -3706,9 +3696,9 @@
         "over_25_cote": 2.06,
         "under_25_cote": 1.76,
         "notes": [
-          "Cote England 1.29 (book P=74% · modèle P=0% · calibré P=55%) → value 71.3%",
-          "Cote nul 5.0 (book P=19% · modèle P=0% · calibré P=14%) → value 71.3%",
-          "Cote DR Congo 13.0 (book P=7% · modèle P=0% · calibré P=5%) → value 71.3%",
+          "Cote England 1.29 (book P=74% · modèle P=0% · calibré P=55%) → value 71.6%",
+          "Cote nul 5.1 (book P=19% · modèle P=0% · calibré P=14%) → value 71.6%",
+          "Cote DR Congo 13.0 (book P=7% · modèle P=0% · calibré P=6%) → value 71.6%",
           "ℹ️ Probas calibrées = 25% modèle + 75% marché (shrinkage WC : marché plus fiable que notre Poisson sur si peu de matchs)"
         ]
       },
@@ -3726,6 +3716,20 @@
       ],
       "top3_bets": [
         {
+          "market": "Total FT",
+          "selection": "Plus de 1.5 buts (match)",
+          "cote": 1.33,
+          "confidence": 75,
+          "signals": [
+            "⚖️ Match déséquilibré (England fav @ 1.29)",
+            "📊 88% des matchs déséquilibrés CDM > 1.5 buts",
+            "🛡️ Pick stable, parfait pour combo / banker"
+          ],
+          "risks": [
+            "0-0 ou 1-0 rare quand favori @ < 1.65"
+          ]
+        },
+        {
           "market": "BTTS",
           "selection": "Une équipe ne marque pas",
           "cote": 1.4,
@@ -3741,8 +3745,8 @@
         }
       ],
       "uncertainty_level": "Moderate",
-      "recommandation": "Meilleur pari : Une équipe ne marque pas @ 1.4 (confiance 59%). Basé sur des signaux contextuels CDM (pas value brute sur outsider).",
-      "generated_at": "2026-07-01T14:10:14+00:00"
+      "recommandation": "Meilleur pari : Plus de 1.5 buts (match) @ 1.33 (confiance 75%). Basé sur des signaux contextuels CDM (pas value brute sur outsider).",
+      "generated_at": "2026-07-01T14:41:14+00:00"
     },
     "analyse": {
       "ht_1x2": {
@@ -3827,7 +3831,7 @@
         {
           "marche": "DR Congo gagne (1X2)",
           "cote": 13.0,
-          "book": "draftkings",
+          "book": "everygame",
           "p_ligue": 28,
           "p_modele": 17,
           "p_form": 18,
@@ -3836,18 +3840,18 @@
         },
         {
           "marche": "Match nul (1X2)",
-          "cote": 5.0,
-          "book": "bovada",
+          "cote": 5.1,
+          "book": "gtbets",
           "p_ligue": 27,
           "p_modele": 26,
           "p_form": 30,
           "p_avg": 28,
-          "value": 138.6
+          "value": 141.4
         },
         {
           "marche": "Les 2 équipes marquent (BTTS Oui)",
           "cote": 2.8,
-          "book": "livescorebet",
+          "book": "ladbrokes_uk",
           "p_ligue": 45,
           "p_modele": 39,
           "p_form": 39,
@@ -3857,7 +3861,7 @@
         {
           "marche": "Moins de 2.5 buts",
           "cote": 1.76,
-          "book": "bovada",
+          "book": "unibet_se",
           "p_ligue": 59,
           "p_modele": 62,
           "p_form": 62,
@@ -3877,7 +3881,7 @@
         {
           "marche": "Plus de 2.5 buts",
           "cote": 2.06,
-          "book": "mybookieag",
+          "book": "onexbet",
           "p_ligue": 41,
           "p_modele": 38,
           "p_form": 38,
@@ -3887,7 +3891,7 @@
         {
           "marche": "England gagne (1X2)",
           "cote": 1.29,
-          "book": "betanysports",
+          "book": "betus",
           "p_ligue": 45,
           "p_modele": 56,
           "p_form": 52,
@@ -4097,12 +4101,12 @@
           "choices": [
             {
               "name": "Over 2.5",
-              "cote": 1.95,
+              "cote": 1.91,
               "book": "draftkings"
             },
             {
               "name": "Under 2.5",
-              "cote": 1.83,
+              "cote": 1.87,
               "book": "draftkings"
             }
           ]
@@ -4163,8 +4167,8 @@
         "btts_yes_value": null,
         "btts_yes_p_final": 0.0,
         "btts_no_cote": null,
-        "over_25_cote": 1.95,
-        "under_25_cote": 1.83,
+        "over_25_cote": 1.91,
+        "under_25_cote": 1.87,
         "notes": [
           "Cote Belgium 2.15 (book P=45% · modèle P=0% · calibré P=33%) → value 72.0%",
           "Cote nul 3.3 (book P=29% · modèle P=0% · calibré P=22%) → value 72.0%",
@@ -4183,7 +4187,7 @@
         {
           "market": "Total FT",
           "selection": "Moins de 2.5 buts",
-          "cote": 1.83,
+          "cote": 1.87,
           "confidence": 64,
           "signals": [
             "🎬 Premier match du tournoi : équipes en mode observation",
@@ -4196,8 +4200,8 @@
         }
       ],
       "uncertainty_level": "Moderate",
-      "recommandation": "Meilleur pari : Moins de 2.5 buts @ 1.83 (confiance 64%). Basé sur des signaux contextuels CDM (pas value brute sur outsider).",
-      "generated_at": "2026-07-01T14:10:14+00:00"
+      "recommandation": "Meilleur pari : Moins de 2.5 buts @ 1.87 (confiance 64%). Basé sur des signaux contextuels CDM (pas value brute sur outsider).",
+      "generated_at": "2026-07-01T14:41:14+00:00"
     },
     "analyse": {
       "ht_1x2": {
@@ -4299,13 +4303,13 @@
         },
         {
           "marche": "Plus de 2.5 buts",
-          "cote": 1.95,
+          "cote": 1.91,
           "book": "draftkings",
           "p_ligue": 41,
           "p_modele": 66,
           "p_form": 66,
           "p_avg": 58,
-          "value": 112.5
+          "value": 110.2
         },
         {
           "marche": "Match nul (1X2)",
@@ -4319,13 +4323,13 @@
         },
         {
           "marche": "Moins de 2.5 buts",
-          "cote": 1.83,
+          "cote": 1.87,
           "book": "draftkings",
           "p_ligue": 59,
           "p_modele": 34,
           "p_form": 34,
           "p_avg": 42,
-          "value": 77.4
+          "value": 79.1
         },
         {
           "marche": "Senegal gagne (1X2)",
@@ -4584,7 +4588,7 @@
       "top3_bets": [],
       "uncertainty_level": "Moderate",
       "recommandation": "Marché efficient — aucun pattern contextuel WC fort identifié. Mieux vaut passer ce match.",
-      "generated_at": "2026-07-01T14:10:14+00:00"
+      "generated_at": "2026-07-01T14:41:14+00:00"
     },
     "analyse": {
       "ht_1x2": {
@@ -4956,7 +4960,7 @@
       ],
       "uncertainty_level": "Moderate",
       "recommandation": "Meilleur pari : Plus de 2.5 buts @ 1.83 (confiance 67%). Basé sur des signaux contextuels CDM (pas value brute sur outsider).",
-      "generated_at": "2026-07-01T14:10:14+00:00"
+      "generated_at": "2026-07-01T14:41:14+00:00"
     },
     "analyse": {
       "ht_1x2": {
@@ -5389,7 +5393,7 @@
       ],
       "uncertainty_level": "High",
       "recommandation": "Meilleur pari : Moins de 2.5 buts @ 1.74 (confiance 64%). Basé sur des signaux contextuels CDM (pas value brute sur outsider).",
-      "generated_at": "2026-07-01T14:10:14+00:00"
+      "generated_at": "2026-07-01T14:41:14+00:00"
     },
     "analyse": {
       "ht_1x2": {
