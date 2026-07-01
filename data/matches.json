@@ -3580,7 +3580,7 @@
             {
               "name": "Mexico",
               "side": "home",
-              "cote": 2.3,
+              "cote": 2.35,
               "book": "draftkings"
             },
             {
@@ -3592,7 +3592,7 @@
             {
               "name": "Ecuador",
               "side": "away",
-              "cote": 4.0,
+              "cote": 3.95,
               "book": "draftkings"
             }
           ]
@@ -3602,12 +3602,12 @@
           "choices": [
             {
               "name": "Over 1.5",
-              "cote": 1.71,
+              "cote": 1.69,
               "book": "draftkings"
             },
             {
               "name": "Under 1.5",
-              "cote": 2.1,
+              "cote": 2.15,
               "book": "draftkings"
             }
           ]
@@ -3655,15 +3655,15 @@
         ]
       },
       "market_intelligence": {
-        "home_cote": 2.3,
-        "home_value": 71.5,
-        "home_p_final": 0.3110273327049953,
+        "home_cote": 2.35,
+        "home_value": 72.0,
+        "home_p_final": 0.3061871652729493,
         "draw_cote": 2.75,
-        "draw_value": 71.5,
-        "draw_p_final": 0.26013195098963243,
-        "away_cote": 4.0,
-        "away_value": 71.5,
-        "away_p_final": 0.1788407163053723,
+        "draw_value": 72.0,
+        "draw_p_final": 0.2616508503241567,
+        "away_cote": 3.95,
+        "away_value": 72.0,
+        "away_p_final": 0.18216198440289388,
         "btts_yes_cote": null,
         "btts_yes_value": null,
         "btts_yes_p_final": 0.0,
@@ -3671,9 +3671,9 @@
         "over_25_cote": null,
         "under_25_cote": null,
         "notes": [
-          "Cote Mexico 2.3 (book P=41% · modèle P=0% · calibré P=31%) → value 71.5%",
-          "Cote nul 2.75 (book P=35% · modèle P=0% · calibré P=26%) → value 71.5%",
-          "Cote Ecuador 4.0 (book P=24% · modèle P=0% · calibré P=18%) → value 71.5%",
+          "Cote Mexico 2.35 (book P=41% · modèle P=0% · calibré P=31%) → value 72.0%",
+          "Cote nul 2.75 (book P=35% · modèle P=0% · calibré P=26%) → value 72.0%",
+          "Cote Ecuador 3.95 (book P=24% · modèle P=0% · calibré P=18%) → value 72.0%",
           "ℹ️ Probas calibrées = 25% modèle + 75% marché (shrinkage WC : marché plus fiable que notre Poisson sur si peu de matchs)"
         ]
       },
@@ -3687,7 +3687,7 @@
       "top3_bets": [],
       "uncertainty_level": "Moderate",
       "recommandation": "Marché efficient — aucun pattern contextuel WC fort identifié. Mieux vaut passer ce match.",
-      "generated_at": "2026-07-01T01:43:51+00:00"
+      "generated_at": "2026-07-01T02:05:56+00:00"
     },
     "analyse": {
       "ht_1x2": {
@@ -3766,23 +3766,23 @@
       "value_bets": [
         {
           "marche": "Mexico gagne (1X2)",
-          "cote": 2.3,
+          "cote": 2.35,
           "book": "draftkings",
           "p_ligue": 45,
           "p_modele": 54,
           "p_form": 50,
           "p_avg": 50,
-          "value": 114.5
+          "value": 117.0
         },
         {
           "marche": "Ecuador gagne (1X2)",
-          "cote": 4.0,
+          "cote": 3.95,
           "book": "draftkings",
           "p_ligue": 28,
           "p_modele": 20,
           "p_form": 19,
           "p_avg": 22,
-          "value": 90.0
+          "value": 88.9
         },
         {
           "marche": "Match nul (1X2)",
@@ -3993,11 +3993,11 @@
           ]
         },
         {
-          "marketName": "Goals Over/Under (1.5)",
+          "marketName": "Goals Over/Under (0.5)",
           "choices": [
             {
-              "name": "Over 1.5",
-              "cote": 1.31,
+              "name": "Over 0.5",
+              "cote": 1.03,
               "book": "fanduel"
             }
           ]
@@ -4014,6 +4014,16 @@
               "name": "Under 2.5",
               "cote": 1.81,
               "book": "betonlineag"
+            }
+          ]
+        },
+        {
+          "marketName": "Goals Over/Under (4.5)",
+          "choices": [
+            {
+              "name": "Under 4.5",
+              "cote": 1.08,
+              "book": "fanduel"
             }
           ]
         },
@@ -4111,20 +4121,6 @@
       ],
       "top3_bets": [
         {
-          "market": "Total FT",
-          "selection": "Plus de 1.5 buts (match)",
-          "cote": 1.31,
-          "confidence": 75,
-          "signals": [
-            "⚖️ Match déséquilibré (England fav @ 1.29)",
-            "📊 88% des matchs déséquilibrés CDM > 1.5 buts",
-            "🛡️ Pick stable, parfait pour combo / banker"
-          ],
-          "risks": [
-            "0-0 ou 1-0 rare quand favori @ < 1.65"
-          ]
-        },
-        {
           "market": "BTTS",
           "selection": "Une équipe ne marque pas",
           "cote": 1.43,
@@ -4140,8 +4136,8 @@
         }
       ],
       "uncertainty_level": "Moderate",
-      "recommandation": "Meilleur pari : Plus de 1.5 buts (match) @ 1.31 (confiance 75%). Basé sur des signaux contextuels CDM (pas value brute sur outsider).",
-      "generated_at": "2026-07-01T01:43:51+00:00"
+      "recommandation": "Meilleur pari : Une équipe ne marque pas @ 1.43 (confiance 60%). Basé sur des signaux contextuels CDM (pas value brute sur outsider).",
+      "generated_at": "2026-07-01T02:05:56+00:00"
     },
     "analyse": {
       "ht_1x2": {
@@ -4596,7 +4592,7 @@
       ],
       "uncertainty_level": "Moderate",
       "recommandation": "Meilleur pari : Moins de 2.5 buts @ 1.83 (confiance 64%). Basé sur des signaux contextuels CDM (pas value brute sur outsider).",
-      "generated_at": "2026-07-01T01:43:51+00:00"
+      "generated_at": "2026-07-01T02:05:56+00:00"
     },
     "analyse": {
       "ht_1x2": {
@@ -4979,7 +4975,7 @@
       "top3_bets": [],
       "uncertainty_level": "Moderate",
       "recommandation": "Marché efficient — aucun pattern contextuel WC fort identifié. Mieux vaut passer ce match.",
-      "generated_at": "2026-07-01T01:43:51+00:00"
+      "generated_at": "2026-07-01T02:05:56+00:00"
     },
     "analyse": {
       "ht_1x2": {
@@ -5351,7 +5347,7 @@
       ],
       "uncertainty_level": "Moderate",
       "recommandation": "Meilleur pari : Plus de 2.5 buts @ 1.83 (confiance 67%). Basé sur des signaux contextuels CDM (pas value brute sur outsider).",
-      "generated_at": "2026-07-01T01:43:51+00:00"
+      "generated_at": "2026-07-01T02:05:56+00:00"
     },
     "analyse": {
       "ht_1x2": {
@@ -5784,7 +5780,7 @@
       ],
       "uncertainty_level": "High",
       "recommandation": "Meilleur pari : Moins de 2.5 buts @ 1.74 (confiance 64%). Basé sur des signaux contextuels CDM (pas value brute sur outsider).",
-      "generated_at": "2026-07-01T01:43:51+00:00"
+      "generated_at": "2026-07-01T02:05:56+00:00"
     },
     "analyse": {
       "ht_1x2": {
