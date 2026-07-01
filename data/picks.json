@@ -416,31 +416,38 @@
         "history_top3": true
       }
     ],
-    "home_players": [],
-    "away_players": [
+    "home_players": [
       {
-        "player": "Gonzalo Plata",
-        "position": "F",
+        "player": "Raul Jiménez / Julián Quiñones",
+        "position": "",
         "is_sub": false,
-        "type": "Buteur",
-        "label": "Gonzalo Plata marque",
-        "team": "away",
+        "type": "Double Chance Buteur",
+        "label": "Raul Jiménez ou Julián Quiñones marque (Mexico)",
         "cote": null,
         "book": null,
         "books": [],
-        "confidence": 39,
-        "reasoning": "1G en 3 matchs (33.3%/match) · xG: 0.43/match",
+        "confidence": 65,
+        "cote_min": 1.54,
+        "reasoning": "🏠 Combo intra-Mexico\n📈 P(Raul Jiménez marque) ≈ 44% · P(Julián Quiñones marque) ≈ 38%\n🎯 P(au moins un marque) = 65% (1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.54 - chercher ≥1.54 chez le bookmaker\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
         "context": {
-          "weakness": 0.27
+          "combo_kind": "intra-home"
         },
+        "_team_for_balance": "home",
         "stats": {
-          "goals": 1,
-          "apps": 3
+          "p_a": 0.435,
+          "p_b": 0.382,
+          "p_or": 0.651,
+          "player_a": "Raul Jiménez",
+          "player_b": "Julián Quiñones",
+          "kind": "intra-home"
         },
-        "tier": "fun",
+        "team": "home",
+        "tier": "ok",
+        "calibration_delta": -25.4,
         "history_top3": true
       }
     ],
+    "away_players": [],
     "fun_picks": [
       {
         "direction": "wc_score_1_0",
