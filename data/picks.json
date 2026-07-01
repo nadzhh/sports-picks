@@ -647,7 +647,7 @@
         },
         "reasoning": "📊 Niveau équilibré : Belgium #8 vs Senegal #21 (gap +128 pts).\n🇪🇺 Belgium UEFA powerhouse\nL10 : Belgium 3V/2N/0D sur 5 · Senegal 1V/1N/3D sur 5\n📋 Fiche Belgium : off moyen (+0.30) · def moyenne (-0.28) · forme WDDWW · 🏆 régulière phase finale\n   ↳ Historique : phase de poules en 2022 · demi-finaliste en 2018 · quart de finale en 2014\n📋 Fiche Senegal : off moyen (-0.09) · def fragile (-0.37) · forme WLLDL · 🏆 présence occasionnelle\n🎯 Importance : Belgium : 1 match joué (1pts)\n🌦️ ☁️ couvert · 10–18°C · humidité 66%\n✅ Compo OFFICIELLE\n⚽ P(Belgium marque 3+) = 58.7% — gros favori en mode steamroller\n📉 Calibration : bucket 50-59% historiquement à WR 42% (claim 55%, n=41) — sur-estimé de 14pp",
         "calibration_delta": -13.6,
-        "history_top3": true
+        "history_top3": false
       }
     ],
     "home_players": [
@@ -768,7 +768,37 @@
         "history_top3": false
       }
     ],
-    "away_players": [],
+    "away_players": [
+      {
+        "player": "Ismaïla Sarr / Habib Diarra",
+        "position": "",
+        "is_sub": false,
+        "type": "Double Chance Buteur",
+        "label": "Ismaïla Sarr ou Habib Diarra marque (Senegal)",
+        "cote": null,
+        "book": null,
+        "books": [],
+        "confidence": 66,
+        "cote_min": 1.52,
+        "reasoning": "✈️ Combo intra-Senegal\n📈 P(Ismaïla Sarr marque) ≈ 44% · P(Habib Diarra marque) ≈ 38%\n🎯 P(au moins un marque) = 66% (1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.52 - chercher ≥1.52 chez le bookmaker\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
+        "context": {
+          "combo_kind": "intra-away"
+        },
+        "_team_for_balance": "away",
+        "stats": {
+          "p_a": 0.442,
+          "p_b": 0.382,
+          "p_or": 0.655,
+          "player_a": "Ismaïla Sarr",
+          "player_b": "Habib Diarra",
+          "kind": "intra-away"
+        },
+        "team": "away",
+        "tier": "ok",
+        "calibration_delta": -25.4,
+        "history_top3": true
+      }
+    ],
     "fun_picks": [
       {
         "direction": "wc_score_3_0",
