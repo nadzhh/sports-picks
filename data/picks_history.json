@@ -26955,9 +26955,9 @@
       "matchup": "Mexico vs Ecuador",
       "league": "World Cup",
       "category": "team",
-      "result": "PENDING",
-      "actual": null,
-      "resolved_at": null
+      "result": "WIN",
+      "actual": "2-0",
+      "resolved_at": "2026-07-01 04:01"
     },
     {
       "direction": "wc_home_scores_1",
@@ -26986,9 +26986,9 @@
       "matchup": "Mexico vs Ecuador",
       "league": "World Cup",
       "category": "team",
-      "result": "PENDING",
-      "actual": null,
-      "resolved_at": null
+      "result": "WIN",
+      "actual": "2-0 (2 buts home, cible 1+)",
+      "resolved_at": "2026-07-01 04:01"
     },
     {
       "direction": "wc_under_25",
@@ -27017,9 +27017,9 @@
       "matchup": "Mexico vs Ecuador",
       "league": "World Cup",
       "category": "team",
-      "result": "PENDING",
-      "actual": null,
-      "resolved_at": null
+      "result": "WIN",
+      "actual": "2-0 (2 buts)",
+      "resolved_at": "2026-07-01 04:01"
     },
     {
       "direction": "wc_btts_no",
@@ -27048,9 +27048,9 @@
       "matchup": "Mexico vs Ecuador",
       "league": "World Cup",
       "category": "team",
-      "result": "PENDING",
-      "actual": null,
-      "resolved_at": null
+      "result": "WIN",
+      "actual": "2-0",
+      "resolved_at": "2026-07-01 04:01"
     },
     {
       "player": "Raul Jiménez / Julián Quiñones",
@@ -27087,9 +27087,12 @@
       "matchup": "Mexico vs Ecuador",
       "league": "World Cup",
       "category": "player",
-      "result": "PENDING",
-      "actual": null,
-      "resolved_at": null,
+      "result": "WIN",
+      "actual": {
+        "goals": 2,
+        "assists": 1
+      },
+      "resolved_at": "2026-07-01 04:01",
       "side": "home"
     },
     {
@@ -27265,7 +27268,7 @@
       "direction": "wc_over_25",
       "type": "⚽ Total buts WC",
       "label": "Plus de 2.5 buts",
-      "cote": 2.0,
+      "cote": 1.99,
       "cote_min": 1.39,
       "confidence": 72,
       "tier": "safe",
@@ -27280,7 +27283,7 @@
       },
       "reasoning": "📊 Écart FIFA ÉNORME : England #4 (1820 pts) vs DR Congo #91 (1178 pts) — gap Elo +642 pts → P(vainqueur favori) ≈ 98%.\n⭐ England favori CdM 2026\nL10 : England 4V/1N/0D sur 5 · DR Congo 1V/2N/2D sur 5\n🚂 Gros mismatch (Elo gap +642) : England cherche à creuser tôt pour la diff de buts qualif.\n📋 Fiche England : off en panne (-0.32) · def moyenne (+0.05) · forme WDWWW · 🏆 régulière phase finale\n   ↳ Historique : quart de finale en 2022 · demi-finaliste en 2018 · phase de poules en 2014\n📋 Fiche DR Congo : off solide (+0.78) · def solide (+0.69) · forme WLDLD · 🏆 novice WC\n🌦️ ⛈️ orage · 24–36°C · humidité 43% · stade fermé\n⚠️ Compo PROBABLE (officielle à T-60min)\n⚽ Modèle Poisson : λ total = 3.74\nP(plus de 2.5 buts) = 72.2%\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
       "calibration_delta": -11.3,
-      "edge_pp": 22.0,
+      "edge_pp": 21.7,
       "history_top3": true,
       "id": "2026-07-01_4653714_team_wc_over_25",
       "date": "2026-07-01",
@@ -27469,6 +27472,77 @@
       "actual": null,
       "resolved_at": null,
       "side": "home"
+    },
+    {
+      "player": "Deyverson / Agustín Herrera",
+      "position": "",
+      "is_sub": false,
+      "type": "Double Chance Buteur",
+      "label": "Deyverson OU Agustín Herrera marque (cross-équipe)",
+      "cote": null,
+      "book": null,
+      "books": [],
+      "confidence": 70,
+      "cote_min": 1.47,
+      "reasoning": "🔀 Cross-équipe (moins corrélé → meilleur EV)\n📈 P(Deyverson marque) ≈ 41% · P(Agustín Herrera marque) ≈ 46%\n🎯 P(au moins un marque) = 70% (1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.47 - chercher ≥1.47 chez le bookmaker\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+      "context": {
+        "combo_kind": "cross"
+      },
+      "_team_for_balance": "home",
+      "stats": {
+        "p_a": 0.412,
+        "p_b": 0.458,
+        "p_or": 0.681,
+        "player_a": "Deyverson",
+        "player_b": "Agustín Herrera",
+        "kind": "cross"
+      },
+      "team": "home",
+      "tier": "safe",
+      "calibration_delta": -11.3,
+      "history_top3": true,
+      "id": "2026-07-01_1000008999_player_Deyverson / Agustín Herrera_Double Chance Buteur",
+      "date": "2026-07-01",
+      "match_id": "1000008999",
+      "page_url": "/matches/ldu-de-quito-vs-orense/6ne9pn4h#1000008999",
+      "matchup": "LDU de Quito vs Orense",
+      "league": "Ecuador LigaPro",
+      "category": "player",
+      "result": "PENDING",
+      "actual": null,
+      "resolved_at": null,
+      "side": "home"
+    },
+    {
+      "direction": "home_win",
+      "type": "Victoire domicile",
+      "label": "LDU de Quito gagne",
+      "cote": null,
+      "confidence": 66,
+      "reasoning": "LDU de Quito : 3V/1N/1D sur 5 matchs · #6 au classement · H2H: 1V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
+      "stats": {
+        "form": [
+          "D",
+          "W",
+          "W",
+          "W",
+          "L"
+        ]
+      },
+      "is_fun": false,
+      "tier": "ok",
+      "calibration_delta": -25.4,
+      "history_top3": true,
+      "id": "2026-07-01_1000008999_team_home_win",
+      "date": "2026-07-01",
+      "match_id": "1000008999",
+      "page_url": "/matches/ldu-de-quito-vs-orense/6ne9pn4h#1000008999",
+      "matchup": "LDU de Quito vs Orense",
+      "league": "Ecuador LigaPro",
+      "category": "team",
+      "result": "PENDING",
+      "actual": null,
+      "resolved_at": null
     }
   ]
 }
