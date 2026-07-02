@@ -27517,6 +27517,80 @@
       "resolved_at": "2026-07-01 23:01"
     },
     {
+      "direction": "home_win",
+      "type": "Victoire domicile",
+      "label": "LDU de Quito gagne",
+      "cote": null,
+      "confidence": 70,
+      "reasoning": "LDU de Quito : 3V/1N/1D sur 5 matchs · #2 au classement · H2H: 1V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+      "stats": {
+        "form": [
+          "D",
+          "W",
+          "W",
+          "W",
+          "L"
+        ]
+      },
+      "is_fun": false,
+      "tier": "safe",
+      "calibration_delta": -11.3,
+      "history_top3": true,
+      "id": "2026-07-01_1000008999_team_home_win",
+      "date": "2026-07-01",
+      "match_id": "1000008999",
+      "page_url": "/matches/ldu-de-quito-vs-orense/6ne9pn4h#1000008999",
+      "matchup": "LDU de Quito vs Orense",
+      "league": "Ecuador LigaPro",
+      "category": "team",
+      "result": "WIN",
+      "actual": "3-0",
+      "resolved_at": "2026-07-02 00:01"
+    },
+    {
+      "player": "Deyverson / Agustín Herrera",
+      "position": "",
+      "is_sub": false,
+      "type": "Double Chance Buteur",
+      "label": "Deyverson OU Agustín Herrera marque (cross-équipe)",
+      "cote": null,
+      "book": null,
+      "books": [],
+      "confidence": 70,
+      "cote_min": 1.47,
+      "reasoning": "🔀 Cross-équipe (moins corrélé → meilleur EV)\n📈 P(Deyverson marque) ≈ 41% · P(Agustín Herrera marque) ≈ 45%\n🎯 P(au moins un marque) = 70% (1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.47 - chercher ≥1.47 chez le bookmaker\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+      "context": {
+        "combo_kind": "cross"
+      },
+      "_team_for_balance": "home",
+      "stats": {
+        "p_a": 0.412,
+        "p_b": 0.45,
+        "p_or": 0.677,
+        "player_a": "Deyverson",
+        "player_b": "Agustín Herrera",
+        "kind": "cross"
+      },
+      "team": "home",
+      "tier": "safe",
+      "calibration_delta": -11.3,
+      "history_top3": true,
+      "id": "2026-07-01_1000008999_player_Deyverson / Agustín Herrera_Double Chance Buteur",
+      "date": "2026-07-01",
+      "match_id": "1000008999",
+      "page_url": "/matches/ldu-de-quito-vs-orense/6ne9pn4h#1000008999",
+      "matchup": "LDU de Quito vs Orense",
+      "league": "Ecuador LigaPro",
+      "category": "player",
+      "result": "LOSS",
+      "actual": {
+        "goals": 0,
+        "assists": 0
+      },
+      "resolved_at": "2026-07-02 00:01",
+      "side": "home"
+    },
+    {
       "direction": "away_dc",
       "type": "Double chance",
       "label": "Nul ou FAR Rabat (X2)",
@@ -27653,77 +27727,6 @@
       "actual": null,
       "resolved_at": null,
       "side": "away"
-    },
-    {
-      "direction": "home_win",
-      "type": "Victoire domicile",
-      "label": "LDU de Quito gagne",
-      "cote": null,
-      "confidence": 70,
-      "reasoning": "LDU de Quito : 3V/1N/1D sur 5 matchs · #2 au classement · H2H: 1V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
-      "stats": {
-        "form": [
-          "D",
-          "W",
-          "W",
-          "W",
-          "L"
-        ]
-      },
-      "is_fun": false,
-      "tier": "safe",
-      "calibration_delta": -11.3,
-      "history_top3": true,
-      "id": "2026-07-01_1000008999_team_home_win",
-      "date": "2026-07-01",
-      "match_id": "1000008999",
-      "page_url": "/matches/ldu-de-quito-vs-orense/6ne9pn4h#1000008999",
-      "matchup": "LDU de Quito vs Orense",
-      "league": "Ecuador LigaPro",
-      "category": "team",
-      "result": "PENDING",
-      "actual": null,
-      "resolved_at": null
-    },
-    {
-      "player": "Deyverson / Agustín Herrera",
-      "position": "",
-      "is_sub": false,
-      "type": "Double Chance Buteur",
-      "label": "Deyverson OU Agustín Herrera marque (cross-équipe)",
-      "cote": null,
-      "book": null,
-      "books": [],
-      "confidence": 70,
-      "cote_min": 1.47,
-      "reasoning": "🔀 Cross-équipe (moins corrélé → meilleur EV)\n📈 P(Deyverson marque) ≈ 41% · P(Agustín Herrera marque) ≈ 45%\n🎯 P(au moins un marque) = 70% (1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.47 - chercher ≥1.47 chez le bookmaker\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
-      "context": {
-        "combo_kind": "cross"
-      },
-      "_team_for_balance": "home",
-      "stats": {
-        "p_a": 0.412,
-        "p_b": 0.45,
-        "p_or": 0.677,
-        "player_a": "Deyverson",
-        "player_b": "Agustín Herrera",
-        "kind": "cross"
-      },
-      "team": "home",
-      "tier": "safe",
-      "calibration_delta": -11.3,
-      "history_top3": true,
-      "id": "2026-07-01_1000008999_player_Deyverson / Agustín Herrera_Double Chance Buteur",
-      "date": "2026-07-01",
-      "match_id": "1000008999",
-      "page_url": "/matches/ldu-de-quito-vs-orense/6ne9pn4h#1000008999",
-      "matchup": "LDU de Quito vs Orense",
-      "league": "Ecuador LigaPro",
-      "category": "player",
-      "result": "PENDING",
-      "actual": null,
-      "resolved_at": null,
-      "side": "home"
     },
     {
       "player": "Moussa Koné / Faraji Karmoune",
