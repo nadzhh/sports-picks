@@ -331,151 +331,6 @@
     }
   },
   {
-    "league": "Morocco Botola Pro",
-    "home": "CODM Meknes",
-    "away": "FAR Rabat",
-    "start_ts": 1783011600,
-    "match_id": "5860591",
-    "page_url": "/matches/codm-meknes-vs-far-rabat/9kct11l#5860591",
-    "picks": [
-      {
-        "direction": "away_dc",
-        "type": "Double chance",
-        "label": "Nul ou FAR Rabat (X2)",
-        "cote": null,
-        "confidence": 82,
-        "reasoning": "FAR Rabat invaincu 100% sur 5 derniers matchs · H2H: 1/1 matchs sans défaite · Classement: #2 (away) vs #10 (home)\n📉 Calibration : bucket 80-89% historiquement à WR 56% (claim 82%, n=63) — sur-estimé de 26pp",
-        "stats": {
-          "form": [
-            "D",
-            "D",
-            "W",
-            "D",
-            "W"
-          ]
-        },
-        "is_fun": false,
-        "tier": "safe",
-        "calibration_delta": -26.0,
-        "history_top3": true
-      },
-      {
-        "direction": "away_win",
-        "type": "Victoire extérieur",
-        "label": "FAR Rabat gagne",
-        "cote": null,
-        "confidence": 66,
-        "reasoning": "FAR Rabat : 2V/3N/0D sur 5 matchs · #2 au classement · H2H: 1V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
-        "stats": {
-          "form": [
-            "D",
-            "D",
-            "W",
-            "D",
-            "W"
-          ]
-        },
-        "is_fun": false,
-        "tier": "ok",
-        "calibration_delta": -25.4,
-        "history_top3": true
-      }
-    ],
-    "home_players": [],
-    "away_players": [
-      {
-        "player": "Jalal-Eddine El Khfiyef",
-        "position": "M",
-        "is_sub": false,
-        "type": "Buteur",
-        "label": "Jalal-Eddine El Khfiyef marque",
-        "cote": null,
-        "book": null,
-        "books": [],
-        "confidence": 61,
-        "reasoning": "4 buts en 5 matchs cette saison (80.0% de chance/match) · xG moyen 0.00/match · défense correcte\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
-        "context": {
-          "weakness": 0.45
-        },
-        "stats": {
-          "goals": 4,
-          "apps": 5,
-          "gpm": 0.8,
-          "xgpm": 0
-        },
-        "team": "away",
-        "tier": "ok",
-        "calibration_delta": -25.4,
-        "history_top3": true
-      },
-      {
-        "player": "Jalal-Eddine El Khfiyef / Youssef El Fahli",
-        "position": "",
-        "is_sub": false,
-        "type": "Double Chance Buteur",
-        "label": "Jalal-Eddine El Khfiyef ou Youssef El Fahli marque (FAR Rabat)",
-        "cote": null,
-        "book": null,
-        "books": [],
-        "confidence": 70,
-        "cote_min": 1.43,
-        "reasoning": "✈️ Combo intra-FAR Rabat\n📈 P(Jalal-Eddine El Khfiyef marque) ≈ 61% · P(Youssef El Fahli marque) ≈ 47%\n🎯 P(au moins un marque) = 70% (1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.43 - chercher ≥1.43 chez le bookmaker\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
-        "context": {
-          "combo_kind": "intra-away"
-        },
-        "_team_for_balance": "away",
-        "stats": {
-          "p_a": 0.608,
-          "p_b": 0.472,
-          "p_or": 0.7,
-          "player_a": "Jalal-Eddine El Khfiyef",
-          "player_b": "Youssef El Fahli",
-          "kind": "intra-away"
-        },
-        "team": "away",
-        "tier": "safe",
-        "calibration_delta": -11.3,
-        "history_top3": true
-      }
-    ],
-    "fun_picks": [],
-    "top_pick": {
-      "direction": "away_dc",
-      "type": "Double chance",
-      "label": "Nul ou FAR Rabat (X2)",
-      "cote": null,
-      "confidence": 82,
-      "reasoning": "FAR Rabat invaincu 100% sur 5 derniers matchs · H2H: 1/1 matchs sans défaite · Classement: #2 (away) vs #10 (home)\n📉 Calibration : bucket 80-89% historiquement à WR 56% (claim 82%, n=63) — sur-estimé de 26pp",
-      "stats": {
-        "form": [
-          "D",
-          "D",
-          "W",
-          "D",
-          "W"
-        ]
-      },
-      "is_fun": false,
-      "tier": "safe",
-      "calibration_delta": -26.0,
-      "history_top3": true
-    },
-    "no_picks": false,
-    "context": {
-      "stadium": {
-        "name": "Meknes Honor Stadium",
-        "city": null,
-        "country": "",
-        "lat": null,
-        "lon": null,
-        "capacity": null,
-        "surface": null
-      },
-      "weather": null,
-      "text": "Stade : Meknes Honor Stadium · plein air."
-    }
-  },
-  {
     "league": "Swedish Allsvenskan",
     "home": "Sirius",
     "away": "Mjällby",
@@ -875,6 +730,151 @@
     }
   },
   {
+    "league": "Morocco Botola Pro",
+    "home": "CODM Meknes",
+    "away": "FAR Rabat",
+    "start_ts": 1783011600,
+    "match_id": "5860591",
+    "page_url": "/matches/codm-meknes-vs-far-rabat/9kct11l#5860591",
+    "picks": [
+      {
+        "direction": "away_dc",
+        "type": "Double chance",
+        "label": "Nul ou FAR Rabat (X2)",
+        "cote": null,
+        "confidence": 80,
+        "reasoning": "FAR Rabat invaincu 100% sur 5 derniers matchs · H2H: 1/1 matchs sans défaite · Classement: #3 (away) vs #9 (home)\n📉 Calibration : bucket 80-89% historiquement à WR 56% (claim 82%, n=63) — sur-estimé de 26pp",
+        "stats": {
+          "form": [
+            "D",
+            "D",
+            "W",
+            "D",
+            "W"
+          ]
+        },
+        "is_fun": false,
+        "tier": "safe",
+        "calibration_delta": -26.0,
+        "history_top3": true
+      },
+      {
+        "direction": "away_win",
+        "type": "Victoire extérieur",
+        "label": "FAR Rabat gagne",
+        "cote": null,
+        "confidence": 65,
+        "reasoning": "FAR Rabat : 2V/3N/0D sur 5 matchs · #3 au classement · H2H: 1V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
+        "stats": {
+          "form": [
+            "D",
+            "D",
+            "W",
+            "D",
+            "W"
+          ]
+        },
+        "is_fun": false,
+        "tier": "ok",
+        "calibration_delta": -25.4,
+        "history_top3": true
+      }
+    ],
+    "home_players": [],
+    "away_players": [
+      {
+        "player": "Jalal-Eddine El Khfiyef",
+        "position": "M",
+        "is_sub": false,
+        "type": "Buteur",
+        "label": "Jalal-Eddine El Khfiyef marque",
+        "cote": null,
+        "book": null,
+        "books": [],
+        "confidence": 61,
+        "reasoning": "4 buts en 5 matchs cette saison (80.0% de chance/match) · xG moyen 0.00/match · défense correcte\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
+        "context": {
+          "weakness": 0.43
+        },
+        "stats": {
+          "goals": 4,
+          "apps": 5,
+          "gpm": 0.8,
+          "xgpm": 0
+        },
+        "team": "away",
+        "tier": "ok",
+        "calibration_delta": -25.4,
+        "history_top3": true
+      },
+      {
+        "player": "Jalal-Eddine El Khfiyef / Youssef El Fahli",
+        "position": "",
+        "is_sub": false,
+        "type": "Double Chance Buteur",
+        "label": "Jalal-Eddine El Khfiyef ou Youssef El Fahli marque (FAR Rabat)",
+        "cote": null,
+        "book": null,
+        "books": [],
+        "confidence": 70,
+        "cote_min": 1.43,
+        "reasoning": "✈️ Combo intra-FAR Rabat\n📈 P(Jalal-Eddine El Khfiyef marque) ≈ 61% · P(Youssef El Fahli marque) ≈ 46%\n🎯 P(au moins un marque) = 70% (1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.43 - chercher ≥1.43 chez le bookmaker\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+        "context": {
+          "combo_kind": "intra-away"
+        },
+        "_team_for_balance": "away",
+        "stats": {
+          "p_a": 0.608,
+          "p_b": 0.465,
+          "p_or": 0.7,
+          "player_a": "Jalal-Eddine El Khfiyef",
+          "player_b": "Youssef El Fahli",
+          "kind": "intra-away"
+        },
+        "team": "away",
+        "tier": "safe",
+        "calibration_delta": -11.3,
+        "history_top3": true
+      }
+    ],
+    "fun_picks": [],
+    "top_pick": {
+      "direction": "away_dc",
+      "type": "Double chance",
+      "label": "Nul ou FAR Rabat (X2)",
+      "cote": null,
+      "confidence": 80,
+      "reasoning": "FAR Rabat invaincu 100% sur 5 derniers matchs · H2H: 1/1 matchs sans défaite · Classement: #3 (away) vs #9 (home)\n📉 Calibration : bucket 80-89% historiquement à WR 56% (claim 82%, n=63) — sur-estimé de 26pp",
+      "stats": {
+        "form": [
+          "D",
+          "D",
+          "W",
+          "D",
+          "W"
+        ]
+      },
+      "is_fun": false,
+      "tier": "safe",
+      "calibration_delta": -26.0,
+      "history_top3": true
+    },
+    "no_picks": false,
+    "context": {
+      "stadium": {
+        "name": "Meknes Honor Stadium",
+        "city": null,
+        "country": "",
+        "lat": null,
+        "lon": null,
+        "capacity": null,
+        "surface": null
+      },
+      "weather": null,
+      "text": "Stade : Meknes Honor Stadium · plein air."
+    }
+  },
+  {
     "league": "World Cup",
     "home": "Spain",
     "away": "Austria",
@@ -886,7 +886,7 @@
         "direction": "wc_home_win",
         "type": "🏆 Vainqueur WC",
         "label": "Spain gagne",
-        "cote": 1.29,
+        "cote": 1.32,
         "cote_min": 1.25,
         "confidence": 80,
         "tier": "safe",
@@ -901,8 +901,8 @@
         },
         "reasoning": "📊 Écart FIFA significatif : Spain #3 vs Austria #26 (gap +276 pts, P favori ≈ 83%).\n⭐ Spain favori CdM 2026\nL10 : Spain 3V/2N/0D sur 5 · Austria 3V/1N/1D sur 5\n📋 Fiche Spain : off moyen (-0.30) · def moyenne (-0.14) · forme WWDWD · 🏆 habituée du tournoi\n📋 Fiche Austria : off moyen (+0.17) · def moyenne (-0.18) · forme DLWWW · 🏆 novice WC\n🎯 Importance : Spain : 1 match joué (1pts)\n🌦️ 🌫️ brouillard · 15–22°C · humidité 73% · stade fermé\n✅ Compo OFFICIELLE\n🏆 Modèle Poisson CdM (tier FIFA ajusté)\nλ Spain = 2.38 buts attendus, λ Austria = 0.46\nP(Spain gagne) = 79.9% · P(nul) = 14.2% · P(Austria) = 5.5%\n📉 Calibration : bucket 80-89% historiquement à WR 56% (claim 82%, n=63) — sur-estimé de 26pp",
         "calibration_delta": -26.0,
-        "edge_pp": 2.5,
-        "history_top3": false
+        "edge_pp": 4.2,
+        "history_top3": true
       },
       {
         "direction": "wc_btts_no",
@@ -1057,7 +1057,7 @@
         },
         "tier": "ok",
         "calibration_delta": -13.6,
-        "history_top3": true
+        "history_top3": false
       }
     ],
     "fun_picks": [
@@ -1111,7 +1111,7 @@
       "direction": "wc_home_win",
       "type": "🏆 Vainqueur WC",
       "label": "Spain gagne",
-      "cote": 1.29,
+      "cote": 1.32,
       "cote_min": 1.25,
       "confidence": 80,
       "tier": "safe",
@@ -1126,8 +1126,8 @@
       },
       "reasoning": "📊 Écart FIFA significatif : Spain #3 vs Austria #26 (gap +276 pts, P favori ≈ 83%).\n⭐ Spain favori CdM 2026\nL10 : Spain 3V/2N/0D sur 5 · Austria 3V/1N/1D sur 5\n📋 Fiche Spain : off moyen (-0.30) · def moyenne (-0.14) · forme WWDWD · 🏆 habituée du tournoi\n📋 Fiche Austria : off moyen (+0.17) · def moyenne (-0.18) · forme DLWWW · 🏆 novice WC\n🎯 Importance : Spain : 1 match joué (1pts)\n🌦️ 🌫️ brouillard · 15–22°C · humidité 73% · stade fermé\n✅ Compo OFFICIELLE\n🏆 Modèle Poisson CdM (tier FIFA ajusté)\nλ Spain = 2.38 buts attendus, λ Austria = 0.46\nP(Spain gagne) = 79.9% · P(nul) = 14.2% · P(Austria) = 5.5%\n📉 Calibration : bucket 80-89% historiquement à WR 56% (claim 82%, n=63) — sur-estimé de 26pp",
       "calibration_delta": -26.0,
-      "edge_pp": 2.5,
-      "history_top3": false
+      "edge_pp": 4.2,
+      "history_top3": true
     },
     "no_picks": false,
     "context": {
@@ -1864,31 +1864,6 @@
     "home_players": [],
     "away_players": [
       {
-        "player": "Aron Sigurdarson",
-        "position": "F",
-        "is_sub": false,
-        "type": "Buteur",
-        "label": "Aron Sigurdarson marque",
-        "cote": null,
-        "book": null,
-        "books": [],
-        "confidence": 70,
-        "reasoning": "11 buts en 13 matchs cette saison (84.6% de chance/match) · xG moyen 0.00/match, face à une défense qui concède 2.5 buts/match · défense fragile\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
-        "context": {
-          "weakness": 0.62
-        },
-        "stats": {
-          "goals": 11,
-          "apps": 13,
-          "gpm": 0.846,
-          "xgpm": 0
-        },
-        "team": "away",
-        "tier": "safe",
-        "calibration_delta": -11.3,
-        "history_top3": true
-      },
-      {
         "player": "Eidur Sæbjörnsson",
         "position": "F",
         "is_sub": false,
@@ -1898,9 +1873,9 @@
         "book": null,
         "books": [],
         "confidence": 56,
-        "reasoning": "6 buts en 12 matchs cette saison (50.0% de chance/match) · xG moyen 0.00/match, face à une défense qui concède 2.5 buts/match · défense fragile\n📉 Calibration : bucket 50-59% historiquement à WR 42% (claim 55%, n=41) — sur-estimé de 14pp",
+        "reasoning": "6 buts en 12 matchs cette saison (50.0% de chance/match) · xG moyen 0.00/match, face à une défense qui concède 2.6 buts/match · défense fragile\n📉 Calibration : bucket 50-59% historiquement à WR 42% (claim 55%, n=41) — sur-estimé de 14pp",
         "context": {
-          "weakness": 0.62
+          "weakness": 0.63
         },
         "stats": {
           "goals": 6,
@@ -1914,27 +1889,52 @@
         "history_top3": true
       },
       {
-        "player": "Aron Sigurdarson / Eidur Sæbjörnsson",
+        "player": "Luke Rae",
+        "position": "F",
+        "is_sub": false,
+        "type": "Buteur",
+        "label": "Luke Rae marque",
+        "cote": null,
+        "book": null,
+        "books": [],
+        "confidence": 54,
+        "reasoning": "6 buts en 13 matchs cette saison (46.2% de chance/match) · bonne efficacité (23% conv.) · xG moyen 0.00/match, face à une défense qui concède 2.6 buts/match · défense fragile\n📉 Calibration : bucket 50-59% historiquement à WR 42% (claim 55%, n=41) — sur-estimé de 14pp",
+        "context": {
+          "weakness": 0.63
+        },
+        "stats": {
+          "goals": 6,
+          "apps": 13,
+          "gpm": 0.462,
+          "xgpm": 0
+        },
+        "team": "away",
+        "tier": "fun",
+        "calibration_delta": -13.6,
+        "history_top3": true
+      },
+      {
+        "player": "Eidur Sæbjörnsson / Luke Rae",
         "position": "",
         "is_sub": false,
         "type": "Double Chance Buteur",
-        "label": "Aron Sigurdarson ou Eidur Sæbjörnsson marque (KR Reykjavik)",
+        "label": "Eidur Sæbjörnsson ou Luke Rae marque (KR Reykjavik)",
         "cote": null,
         "book": null,
         "books": [],
         "confidence": 70,
         "cote_min": 1.43,
-        "reasoning": "✈️ Combo intra-KR Reykjavik\n📈 P(Aron Sigurdarson marque) ≈ 70% · P(Eidur Sæbjörnsson marque) ≈ 56%\n🎯 P(au moins un marque) = 70% (1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.43 - chercher ≥1.43 chez le bookmaker\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+        "reasoning": "✈️ Combo intra-KR Reykjavik\n📈 P(Eidur Sæbjörnsson marque) ≈ 56% · P(Luke Rae marque) ≈ 54%\n🎯 P(au moins un marque) = 70% (1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.43 - chercher ≥1.43 chez le bookmaker\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
         "context": {
           "combo_kind": "intra-away"
         },
         "_team_for_balance": "away",
         "stats": {
-          "p_a": 0.698,
-          "p_b": 0.555,
+          "p_a": 0.555,
+          "p_b": 0.54,
           "p_or": 0.7,
-          "player_a": "Aron Sigurdarson",
-          "player_b": "Eidur Sæbjörnsson",
+          "player_a": "Eidur Sæbjörnsson",
+          "player_b": "Luke Rae",
           "kind": "intra-away"
         },
         "team": "away",
@@ -2022,7 +2022,7 @@
         "direction": "wc_over_25",
         "type": "⚽ Total buts WC",
         "label": "Plus de 2.5 buts",
-        "cote": 2.15,
+        "cote": 2.2,
         "cote_min": 1.44,
         "confidence": 69,
         "tier": "ok",
@@ -2037,7 +2037,7 @@
         },
         "reasoning": "📊 Niveau équilibré : Switzerland #15 vs Algeria #38 (gap +149 pts).\nL10 : Switzerland 3V/2N/0D sur 5 · Algeria 3V/1N/1D sur 5\n📋 Fiche Switzerland : off moyen (-0.11) · def fragile (-0.75) · forme WWDDW · 🏆 habituée du tournoi\n📋 Fiche Algeria : off moyen (+0.25) · def moyenne (+0.17) · forme DWLWW · 🏆 présence occasionnelle\n🎯 Importance : Switzerland : 1 match joué (1pts)\n🌦️ ☁️ couvert · 14–19°C · humidité 76%\n⚠️ Compo PROBABLE (officielle à T-60min)\n⚽ Modèle Poisson : λ total = 3.58\nP(plus de 2.5 buts) = 69.4%\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
         "calibration_delta": -25.4,
-        "edge_pp": 22.5,
+        "edge_pp": 23.5,
         "history_top3": true
       },
       {
