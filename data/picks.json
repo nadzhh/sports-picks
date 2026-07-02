@@ -640,7 +640,7 @@
         "direction": "home_win",
         "type": "Victoire domicile",
         "label": "Argentina gagne",
-        "cote": 1.17,
+        "cote": 1.15,
         "confidence": 81,
         "reasoning": "Argentina : 5V/0N/0D sur 5 matchs · #1 au classement · H2H: 0V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 80-89% historiquement à WR 56% (claim 82%, n=63) — sur-estimé de 26pp",
         "stats": {
@@ -655,7 +655,7 @@
         "is_fun": false,
         "tier": "safe",
         "calibration_delta": -26.0,
-        "edge_pp": -4.5,
+        "edge_pp": -6.0,
         "history_top3": false
       },
       {
@@ -829,7 +829,7 @@
       "direction": "home_win",
       "type": "Victoire domicile",
       "label": "Argentina gagne",
-      "cote": 1.17,
+      "cote": 1.15,
       "confidence": 81,
       "reasoning": "Argentina : 5V/0N/0D sur 5 matchs · #1 au classement · H2H: 0V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 80-89% historiquement à WR 56% (claim 82%, n=63) — sur-estimé de 26pp",
       "stats": {
@@ -844,7 +844,7 @@
       "is_fun": false,
       "tier": "safe",
       "calibration_delta": -26.0,
-      "edge_pp": -4.5,
+      "edge_pp": -6.0,
       "history_top3": false
     },
     "no_picks": false,
@@ -2127,7 +2127,7 @@
         "direction": "wc_over_25",
         "type": "⚽ Total buts WC",
         "label": "Plus de 2.5 buts",
-        "cote": 2.2,
+        "cote": 2.15,
         "cote_min": 1.44,
         "confidence": 69,
         "tier": "ok",
@@ -2142,7 +2142,7 @@
         },
         "reasoning": "📊 Niveau équilibré : Switzerland #15 vs Algeria #38 (gap +149 pts).\nL10 : Switzerland 3V/2N/0D sur 5 · Algeria 3V/1N/1D sur 5\n📋 Fiche Switzerland : off moyen (-0.11) · def fragile (-0.75) · forme WWDDW · 🏆 habituée du tournoi\n📋 Fiche Algeria : off moyen (+0.25) · def moyenne (+0.17) · forme DWLWW · 🏆 présence occasionnelle\n🎯 Importance : Switzerland : 1 match joué (1pts)\n🌦️ ☁️ couvert · 14–19°C · humidité 76%\n⚠️ Compo PROBABLE (officielle à T-60min)\n⚽ Modèle Poisson : λ total = 3.58\nP(plus de 2.5 buts) = 69.4%\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
         "calibration_delta": -25.4,
-        "edge_pp": 23.5,
+        "edge_pp": 22.5,
         "history_top3": true
       },
       {
@@ -2608,7 +2608,7 @@
         "confidence": 62,
         "reasoning": "4 buts en 5 matchs cette saison (80.0% de chance/match) · xG moyen 0.00/match, défense adverse poreuse (1.3 buts concédés/match) · défense fragile\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
         "context": {
-          "weakness": 0.5
+          "weakness": 0.52
         },
         "stats": {
           "goals": 4,
@@ -2790,112 +2790,6 @@
   },
   {
     "league": "Morocco Botola Pro",
-    "home": "Union Touarga Sport",
-    "away": "Ittihad Tanger",
-    "start_ts": 1783011600,
-    "match_id": "5860596",
-    "page_url": "/matches/ittihad-tanger-vs-union-touarga-sport/2lcj8l2d#5860596",
-    "picks": [],
-    "home_players": [],
-    "away_players": [
-      {
-        "player": "Jawad Ghabra",
-        "position": "M",
-        "is_sub": false,
-        "type": "Buteur",
-        "label": "Jawad Ghabra marque",
-        "cote": null,
-        "book": null,
-        "books": [],
-        "confidence": 55,
-        "reasoning": "3 buts en 5 matchs cette saison (60.0% de chance/match) · xG moyen 0.00/match, défense adverse poreuse (1.4 buts concédés/match) · défense fragile\n📉 Calibration : bucket 50-59% historiquement à WR 42% (claim 55%, n=41) — sur-estimé de 14pp",
-        "context": {
-          "weakness": 0.59
-        },
-        "stats": {
-          "goals": 3,
-          "apps": 5,
-          "gpm": 0.6,
-          "xgpm": 0
-        },
-        "team": "away",
-        "tier": "ok",
-        "calibration_delta": -13.6,
-        "history_top3": true
-      },
-      {
-        "player": "Jawad Ghabra / Haitam El Bahja",
-        "position": "",
-        "is_sub": false,
-        "type": "Double Chance Buteur",
-        "label": "Jawad Ghabra ou Haitam El Bahja marque (Ittihad Tanger)",
-        "cote": null,
-        "book": null,
-        "books": [],
-        "confidence": 70,
-        "cote_min": 1.43,
-        "reasoning": "✈️ Combo intra-Ittihad Tanger\n📈 P(Jawad Ghabra marque) ≈ 55% · P(Haitam El Bahja marque) ≈ 48%\n🎯 P(au moins un marque) = 70% (1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.43 - chercher ≥1.43 chez le bookmaker\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
-        "context": {
-          "combo_kind": "intra-away"
-        },
-        "_team_for_balance": "away",
-        "stats": {
-          "p_a": 0.548,
-          "p_b": 0.48,
-          "p_or": 0.7,
-          "player_a": "Jawad Ghabra",
-          "player_b": "Haitam El Bahja",
-          "kind": "intra-away"
-        },
-        "team": "away",
-        "tier": "safe",
-        "calibration_delta": -11.3,
-        "history_top3": true
-      }
-    ],
-    "fun_picks": [],
-    "top_pick": {
-      "player": "Jawad Ghabra",
-      "position": "M",
-      "is_sub": false,
-      "type": "Buteur",
-      "label": "Jawad Ghabra marque",
-      "cote": null,
-      "book": null,
-      "books": [],
-      "confidence": 55,
-      "reasoning": "3 buts en 5 matchs cette saison (60.0% de chance/match) · xG moyen 0.00/match, défense adverse poreuse (1.4 buts concédés/match) · défense fragile\n📉 Calibration : bucket 50-59% historiquement à WR 42% (claim 55%, n=41) — sur-estimé de 14pp",
-      "context": {
-        "weakness": 0.59
-      },
-      "stats": {
-        "goals": 3,
-        "apps": 5,
-        "gpm": 0.6,
-        "xgpm": 0
-      },
-      "team": "away",
-      "tier": "ok",
-      "calibration_delta": -13.6,
-      "history_top3": true
-    },
-    "no_picks": false,
-    "context": {
-      "stadium": {
-        "name": "Al Medina Stadium",
-        "city": null,
-        "country": "",
-        "lat": null,
-        "lon": null,
-        "capacity": null,
-        "surface": null
-      },
-      "weather": null,
-      "text": "Stade : Al Medina Stadium · plein air."
-    }
-  },
-  {
-    "league": "Morocco Botola Pro",
     "home": "Renaissance Club Zemamra",
     "away": "FUS Rabat",
     "start_ts": 1783011600,
@@ -2914,9 +2808,9 @@
         "book": null,
         "books": [],
         "confidence": 54,
-        "reasoning": "3 buts en 5 matchs cette saison (60.0% de chance/match) · xG moyen 0.00/match, défense adverse poreuse (1.3 buts concédés/match) · défense fragile\n📉 Calibration : bucket 50-59% historiquement à WR 42% (claim 55%, n=41) — sur-estimé de 14pp",
+        "reasoning": "3 buts en 5 matchs cette saison (60.0% de chance/match) · xG moyen 0.00/match · défense correcte\n📉 Calibration : bucket 50-59% historiquement à WR 42% (claim 55%, n=41) — sur-estimé de 14pp",
         "context": {
-          "weakness": 0.52
+          "weakness": 0.49
         },
         "stats": {
           "goals": 3,
@@ -2970,9 +2864,9 @@
       "book": null,
       "books": [],
       "confidence": 54,
-      "reasoning": "3 buts en 5 matchs cette saison (60.0% de chance/match) · xG moyen 0.00/match, défense adverse poreuse (1.3 buts concédés/match) · défense fragile\n📉 Calibration : bucket 50-59% historiquement à WR 42% (claim 55%, n=41) — sur-estimé de 14pp",
+      "reasoning": "3 buts en 5 matchs cette saison (60.0% de chance/match) · xG moyen 0.00/match · défense correcte\n📉 Calibration : bucket 50-59% historiquement à WR 42% (claim 55%, n=41) — sur-estimé de 14pp",
       "context": {
-        "weakness": 0.52
+        "weakness": 0.49
       },
       "stats": {
         "goals": 3,
@@ -2998,6 +2892,112 @@
       },
       "weather": null,
       "text": "Stade : Ahmed Choukri Stadium · plein air."
+    }
+  },
+  {
+    "league": "Morocco Botola Pro",
+    "home": "Union Touarga Sport",
+    "away": "Ittihad Tanger",
+    "start_ts": 1783011600,
+    "match_id": "5860596",
+    "page_url": "/matches/ittihad-tanger-vs-union-touarga-sport/2lcj8l2d#5860596",
+    "picks": [],
+    "home_players": [],
+    "away_players": [
+      {
+        "player": "Jawad Ghabra",
+        "position": "M",
+        "is_sub": false,
+        "type": "Buteur",
+        "label": "Jawad Ghabra marque",
+        "cote": null,
+        "book": null,
+        "books": [],
+        "confidence": 54,
+        "reasoning": "3 buts en 5 matchs cette saison (60.0% de chance/match) · xG moyen 0.00/match, défense adverse poreuse (1.4 buts concédés/match) · défense fragile\n📉 Calibration : bucket 50-59% historiquement à WR 42% (claim 55%, n=41) — sur-estimé de 14pp",
+        "context": {
+          "weakness": 0.57
+        },
+        "stats": {
+          "goals": 3,
+          "apps": 5,
+          "gpm": 0.6,
+          "xgpm": 0
+        },
+        "team": "away",
+        "tier": "fun",
+        "calibration_delta": -13.6,
+        "history_top3": true
+      },
+      {
+        "player": "Jawad Ghabra / Haitam El Bahja",
+        "position": "",
+        "is_sub": false,
+        "type": "Double Chance Buteur",
+        "label": "Jawad Ghabra ou Haitam El Bahja marque (Ittihad Tanger)",
+        "cote": null,
+        "book": null,
+        "books": [],
+        "confidence": 70,
+        "cote_min": 1.43,
+        "reasoning": "✈️ Combo intra-Ittihad Tanger\n📈 P(Jawad Ghabra marque) ≈ 54% · P(Haitam El Bahja marque) ≈ 48%\n🎯 P(au moins un marque) = 70% (1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.43 - chercher ≥1.43 chez le bookmaker\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+        "context": {
+          "combo_kind": "intra-away"
+        },
+        "_team_for_balance": "away",
+        "stats": {
+          "p_a": 0.54,
+          "p_b": 0.48,
+          "p_or": 0.7,
+          "player_a": "Jawad Ghabra",
+          "player_b": "Haitam El Bahja",
+          "kind": "intra-away"
+        },
+        "team": "away",
+        "tier": "safe",
+        "calibration_delta": -11.3,
+        "history_top3": true
+      }
+    ],
+    "fun_picks": [],
+    "top_pick": {
+      "player": "Jawad Ghabra",
+      "position": "M",
+      "is_sub": false,
+      "type": "Buteur",
+      "label": "Jawad Ghabra marque",
+      "cote": null,
+      "book": null,
+      "books": [],
+      "confidence": 54,
+      "reasoning": "3 buts en 5 matchs cette saison (60.0% de chance/match) · xG moyen 0.00/match, défense adverse poreuse (1.4 buts concédés/match) · défense fragile\n📉 Calibration : bucket 50-59% historiquement à WR 42% (claim 55%, n=41) — sur-estimé de 14pp",
+      "context": {
+        "weakness": 0.57
+      },
+      "stats": {
+        "goals": 3,
+        "apps": 5,
+        "gpm": 0.6,
+        "xgpm": 0
+      },
+      "team": "away",
+      "tier": "fun",
+      "calibration_delta": -13.6,
+      "history_top3": true
+    },
+    "no_picks": false,
+    "context": {
+      "stadium": {
+        "name": "Al Medina Stadium",
+        "city": null,
+        "country": "",
+        "lat": null,
+        "lon": null,
+        "capacity": null,
+        "surface": null
+      },
+      "weather": null,
+      "text": "Stade : Al Medina Stadium · plein air."
     }
   },
   {
