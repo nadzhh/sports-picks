@@ -2848,27 +2848,78 @@
         "type": "Buteur",
         "label": "Folarin Balogun marque",
         "cote": null,
-        "cote_min": 2.08,
+        "cote_min": 1.4,
         "book": null,
         "books": [],
-        "confidence": 48,
-        "reasoning": "Folarin Balogun : selection 6G/12m (0.50/m) · L10 club : 5G/10m, 🔥 2G/3 derniers nat (+19%) · ⚠️ dernier match nat 60+min 0G+0A (-45%) | rotatif nat (57min/m) · last match 89min (0G+0A). λ ajusté à 0.65 (USA attendu 3.0 buts) → P(marque) ~48%.\n📉 Calibration : bucket 40-49% historiquement à WR 25% (claim 44%, n=36) — sur-estimé de 19pp",
+        "confidence": 71,
+        "reasoning": "Folarin Balogun : selection 7G/13m (0.54/m) · L10 club : 5G/10m, 🔥 3G/3 derniers nat (+19%) | rotatif nat (58min/m) · last match 64min (1G+0A). λ ajusté à 1.25 (USA attendu 3.0 buts) → P(marque) ~71%.\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
         "context": {
           "source": "lineup",
-          "lam": 0.65,
+          "lam": 1.25,
           "lineup_status": "confirmed"
         },
         "stats": {
           "goals": null,
           "apps": null,
-          "gpm": 0.655,
+          "gpm": 1.253,
+          "xgpm": null
+        },
+        "team": "home",
+        "lineup_status": "confirmed",
+        "tier": "safe",
+        "calibration_delta": -11.3,
+        "history_top3": true
+      },
+      {
+        "player": "Folarin Balogun",
+        "position": "F",
+        "is_sub": false,
+        "type": "Double buteur",
+        "label": "Folarin Balogun marque 2+ buts",
+        "cote": null,
+        "cote_min": 2.8,
+        "book": null,
+        "books": [],
+        "confidence": 46,
+        "reasoning": "Folarin Balogun : selection 7G/13m (0.54/m) · L10 club : 5G/10m, 🔥 3G/3 derniers nat (+19%) | rotatif nat (58min/m) · last match 64min (1G+0A). Attendu ~1.3 buts ce match - P(2+) ~36% (cote elevee).\n📉 Calibration : bucket 40-49% historiquement à WR 25% (claim 44%, n=36) — sur-estimé de 19pp",
+        "context": {
+          "source": "lineup",
+          "lam": 1.25,
+          "lineup_status": "confirmed"
+        },
+        "stats": {
+          "goals": null,
+          "apps": null,
+          "gpm": 1.253,
           "xgpm": null
         },
         "team": "home",
         "lineup_status": "confirmed",
         "tier": "fun",
         "calibration_delta": -19.4,
-        "history_top3": true
+        "history_top3": false
+      },
+      {
+        "player": "Malik Tillman",
+        "position": "F",
+        "is_sub": false,
+        "type": "Buteur",
+        "label": "Malik Tillman marque",
+        "team": "home",
+        "cote": null,
+        "book": null,
+        "books": [],
+        "confidence": 33,
+        "reasoning": "1G en 3 matchs (33.3%/match) · xG: 0.27/match",
+        "context": {
+          "weakness": 0.35
+        },
+        "stats": {
+          "goals": 1,
+          "apps": 3
+        },
+        "tier": "fun",
+        "history_top3": false
       }
     ],
     "away_players": [],
