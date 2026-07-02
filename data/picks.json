@@ -61,9 +61,9 @@
         "book": null,
         "books": [],
         "confidence": 60,
-        "reasoning": "8 buts en 13 matchs cette saison (61.5% de chance/match) · xG moyen 0.00/match, face à une défense qui concède 2.1 buts/match · défense fragile\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
+        "reasoning": "8 buts en 13 matchs cette saison (61.5% de chance/match) · xG moyen 0.00/match, face à une défense qui concède 2.0 buts/match · défense fragile\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
         "context": {
-          "weakness": 0.56
+          "weakness": 0.55
         },
         "stats": {
           "goals": 8,
@@ -86,9 +86,9 @@
         "book": null,
         "books": [],
         "confidence": 57,
-        "reasoning": "6 buts en 11 matchs cette saison (54.5% de chance/match) · bonne efficacité (21% conv.) · xG moyen 0.00/match, face à une défense qui concède 2.1 buts/match · défense fragile\n📉 Calibration : bucket 50-59% historiquement à WR 42% (claim 55%, n=41) — sur-estimé de 14pp",
+        "reasoning": "6 buts en 11 matchs cette saison (54.5% de chance/match) · bonne efficacité (20% conv.) · xG moyen 0.00/match, face à une défense qui concède 2.0 buts/match · défense fragile\n📉 Calibration : bucket 50-59% historiquement à WR 42% (claim 55%, n=41) — sur-estimé de 14pp",
         "context": {
-          "weakness": 0.56
+          "weakness": 0.55
         },
         "stats": {
           "goals": 6,
@@ -131,7 +131,33 @@
         "history_top3": true
       }
     ],
-    "away_players": [],
+    "away_players": [
+      {
+        "player": "Hallgrímur Steingrímsson",
+        "position": "F",
+        "is_sub": false,
+        "type": "Buteur",
+        "label": "Hallgrímur Steingrímsson marque",
+        "cote": null,
+        "book": null,
+        "books": [],
+        "confidence": 50,
+        "reasoning": "5 buts en 10 matchs cette saison (50.0% de chance/match) · xG moyen 0.00/match · défense solide\n📉 Calibration : bucket 50-59% historiquement à WR 42% (claim 55%, n=41) — sur-estimé de 14pp",
+        "context": {
+          "weakness": 0.23
+        },
+        "stats": {
+          "goals": 5,
+          "apps": 10,
+          "gpm": 0.5,
+          "xgpm": 0
+        },
+        "team": "away",
+        "tier": "fun",
+        "calibration_delta": -13.6,
+        "history_top3": false
+      }
+    ],
     "fun_picks": [],
     "top_pick": {
       "direction": "home_dc",
@@ -741,7 +767,7 @@
         "direction": "wc_home_win",
         "type": "🏆 Vainqueur WC",
         "label": "Spain gagne",
-        "cote": 1.33,
+        "cote": 1.35,
         "cote_min": 1.25,
         "confidence": 80,
         "tier": "safe",
@@ -756,7 +782,7 @@
         },
         "reasoning": "📊 Écart FIFA significatif : Spain #3 vs Austria #26 (gap +276 pts, P favori ≈ 83%).\n⭐ Spain favori CdM 2026\nL10 : Spain 3V/2N/0D sur 5 · Austria 3V/1N/1D sur 5\n📋 Fiche Spain : off moyen (-0.30) · def moyenne (-0.14) · forme WWDWD · 🏆 habituée du tournoi\n📋 Fiche Austria : off moyen (+0.17) · def moyenne (-0.18) · forme DLWWW · 🏆 novice WC\n🎯 Importance : Spain : 1 match joué (1pts)\n🌦️ 🌫️ brouillard · 15–22°C · humidité 73% · stade fermé\n✅ Compo OFFICIELLE\n🏆 Modèle Poisson CdM (tier FIFA ajusté)\nλ Spain = 2.38 buts attendus, λ Austria = 0.46\nP(Spain gagne) = 79.9% · P(nul) = 14.2% · P(Austria) = 5.5%\n📉 Calibration : bucket 80-89% historiquement à WR 56% (claim 82%, n=63) — sur-estimé de 26pp",
         "calibration_delta": -26.0,
-        "edge_pp": 4.8,
+        "edge_pp": 5.9,
         "history_top3": true
       },
       {
@@ -966,7 +992,7 @@
       "direction": "wc_home_win",
       "type": "🏆 Vainqueur WC",
       "label": "Spain gagne",
-      "cote": 1.33,
+      "cote": 1.35,
       "cote_min": 1.25,
       "confidence": 80,
       "tier": "safe",
@@ -981,7 +1007,7 @@
       },
       "reasoning": "📊 Écart FIFA significatif : Spain #3 vs Austria #26 (gap +276 pts, P favori ≈ 83%).\n⭐ Spain favori CdM 2026\nL10 : Spain 3V/2N/0D sur 5 · Austria 3V/1N/1D sur 5\n📋 Fiche Spain : off moyen (-0.30) · def moyenne (-0.14) · forme WWDWD · 🏆 habituée du tournoi\n📋 Fiche Austria : off moyen (+0.17) · def moyenne (-0.18) · forme DLWWW · 🏆 novice WC\n🎯 Importance : Spain : 1 match joué (1pts)\n🌦️ 🌫️ brouillard · 15–22°C · humidité 73% · stade fermé\n✅ Compo OFFICIELLE\n🏆 Modèle Poisson CdM (tier FIFA ajusté)\nλ Spain = 2.38 buts attendus, λ Austria = 0.46\nP(Spain gagne) = 79.9% · P(nul) = 14.2% · P(Austria) = 5.5%\n📉 Calibration : bucket 80-89% historiquement à WR 56% (claim 82%, n=63) — sur-estimé de 26pp",
       "calibration_delta": -26.0,
-      "edge_pp": 4.8,
+      "edge_pp": 5.9,
       "history_top3": true
     },
     "no_picks": false,
@@ -1986,335 +2012,6 @@
         "summary_fr": "☁️ couvert · 25–36°C · humidité 36%"
       },
       "text": "Conditions : ☁️ couvert · 25–36°C · humidité 36%. Stade : AT&T Stadium · altitude 180m · 80 000 places · climatisé. Toit retractable, climatisé. Permet de jouer malgré chaleur Texas en juin (38°C+)."
-    }
-  },
-  {
-    "league": "Morocco Botola Pro",
-    "home": "Raja Casablanca",
-    "away": "Hassania Agadir",
-    "start_ts": 1783011600,
-    "match_id": "5860594",
-    "page_url": "/matches/hassania-agadir-vs-raja-casablanca/9kf44xa#5860594",
-    "picks": [
-      {
-        "direction": "home_win",
-        "type": "Victoire domicile",
-        "label": "Raja Casablanca gagne",
-        "cote": null,
-        "confidence": 60,
-        "reasoning": "Raja Casablanca : 2V/2N/1D sur 5 matchs · #4 au classement · H2H: 1V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
-        "stats": {
-          "form": [
-            "D",
-            "L",
-            "W",
-            "W",
-            "D"
-          ]
-        },
-        "is_fun": false,
-        "tier": "ok",
-        "calibration_delta": -25.4,
-        "history_top3": true
-      }
-    ],
-    "home_players": [
-      {
-        "player": "Mathias Oyewusi",
-        "position": "M",
-        "is_sub": false,
-        "type": "Buteur",
-        "label": "Mathias Oyewusi marque",
-        "cote": null,
-        "book": null,
-        "books": [],
-        "confidence": 62,
-        "reasoning": "4 buts en 5 matchs cette saison (80.0% de chance/match) · xG moyen 0.00/match · défense fragile\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
-        "context": {
-          "weakness": 0.51
-        },
-        "stats": {
-          "goals": 4,
-          "apps": 5,
-          "gpm": 0.8,
-          "xgpm": 0
-        },
-        "team": "home",
-        "tier": "ok",
-        "calibration_delta": -25.4,
-        "history_top3": true
-      },
-      {
-        "player": "Mathias Oyewusi / Ismail Khafi",
-        "position": "",
-        "is_sub": false,
-        "type": "Double Chance Buteur",
-        "label": "Mathias Oyewusi ou Ismail Khafi marque (Raja Casablanca)",
-        "cote": null,
-        "book": null,
-        "books": [],
-        "confidence": 70,
-        "cote_min": 1.43,
-        "reasoning": "🏠 Combo intra-Raja Casablanca\n📈 P(Mathias Oyewusi marque) ≈ 62% · P(Ismail Khafi marque) ≈ 49%\n🎯 P(au moins un marque) = 70% (1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.43 - chercher ≥1.43 chez le bookmaker\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
-        "context": {
-          "combo_kind": "intra-home"
-        },
-        "_team_for_balance": "home",
-        "stats": {
-          "p_a": 0.615,
-          "p_b": 0.488,
-          "p_or": 0.7,
-          "player_a": "Mathias Oyewusi",
-          "player_b": "Ismail Khafi",
-          "kind": "intra-home"
-        },
-        "team": "home",
-        "tier": "safe",
-        "calibration_delta": -11.3,
-        "history_top3": true
-      }
-    ],
-    "away_players": [],
-    "fun_picks": [],
-    "top_pick": {
-      "direction": "home_win",
-      "type": "Victoire domicile",
-      "label": "Raja Casablanca gagne",
-      "cote": null,
-      "confidence": 60,
-      "reasoning": "Raja Casablanca : 2V/2N/1D sur 5 matchs · #4 au classement · H2H: 1V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
-      "stats": {
-        "form": [
-          "D",
-          "L",
-          "W",
-          "W",
-          "D"
-        ]
-      },
-      "is_fun": false,
-      "tier": "ok",
-      "calibration_delta": -25.4,
-      "history_top3": true
-    },
-    "no_picks": false,
-    "context": {
-      "stadium": {
-        "name": "Stade Mohamed V",
-        "city": null,
-        "country": "",
-        "lat": null,
-        "lon": null,
-        "capacity": null,
-        "surface": null
-      },
-      "weather": null,
-      "text": "Stade : Stade Mohamed V · plein air."
-    }
-  },
-  {
-    "league": "Morocco Botola Pro",
-    "home": "Union Yacoub El-Mansour",
-    "away": "Difaa El Jadida",
-    "start_ts": 1783011600,
-    "match_id": "5860597",
-    "page_url": "/matches/difaa-el-jadida-vs-union-yacoub-el-mansour/mrew79d8#5860597",
-    "picks": [
-      {
-        "direction": "away_win",
-        "type": "Victoire extérieur",
-        "label": "Difaa El Jadida gagne",
-        "cote": null,
-        "confidence": 58,
-        "reasoning": "Difaa El Jadida : 2V/2N/1D sur 5 matchs · #6 au classement · H2H: 1V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 50-59% historiquement à WR 42% (claim 55%, n=41) — sur-estimé de 14pp",
-        "stats": {
-          "form": [
-            "D",
-            "W",
-            "W",
-            "L",
-            "D"
-          ]
-        },
-        "is_fun": false,
-        "tier": "ok",
-        "calibration_delta": -13.6,
-        "history_top3": true
-      }
-    ],
-    "home_players": [
-      {
-        "player": "Mehdi Balouk / Zakaria Fati",
-        "position": "",
-        "is_sub": false,
-        "type": "Double Chance Buteur",
-        "label": "Mehdi Balouk ou Zakaria Fati marque (Union Yacoub El-Mansour)",
-        "cote": null,
-        "book": null,
-        "books": [],
-        "confidence": 70,
-        "cote_min": 1.43,
-        "reasoning": "🏠 Combo intra-Union Yacoub El-Mansour\n📈 P(Mehdi Balouk marque) ≈ 46% · P(Zakaria Fati marque) ≈ 46%\n🎯 P(au moins un marque) = 70% (1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.43 - chercher ≥1.43 chez le bookmaker\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
-        "context": {
-          "combo_kind": "intra-home"
-        },
-        "_team_for_balance": "home",
-        "stats": {
-          "p_a": 0.465,
-          "p_b": 0.458,
-          "p_or": 0.7,
-          "player_a": "Mehdi Balouk",
-          "player_b": "Zakaria Fati",
-          "kind": "intra-home"
-        },
-        "team": "home",
-        "tier": "safe",
-        "calibration_delta": -11.3,
-        "history_top3": true
-      }
-    ],
-    "away_players": [],
-    "fun_picks": [],
-    "top_pick": {
-      "direction": "away_win",
-      "type": "Victoire extérieur",
-      "label": "Difaa El Jadida gagne",
-      "cote": null,
-      "confidence": 58,
-      "reasoning": "Difaa El Jadida : 2V/2N/1D sur 5 matchs · #6 au classement · H2H: 1V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 50-59% historiquement à WR 42% (claim 55%, n=41) — sur-estimé de 14pp",
-      "stats": {
-        "form": [
-          "D",
-          "W",
-          "W",
-          "L",
-          "D"
-        ]
-      },
-      "is_fun": false,
-      "tier": "ok",
-      "calibration_delta": -13.6,
-      "history_top3": true
-    },
-    "no_picks": false,
-    "context": {
-      "stadium": {
-        "name": "Prince Moulay Abdellah Olympic Annex Stadium",
-        "city": null,
-        "country": "",
-        "lat": null,
-        "lon": null,
-        "capacity": null,
-        "surface": null
-      },
-      "weather": null,
-      "text": "Stade : Prince Moulay Abdellah Olympic Annex Stadium · plein air."
-    }
-  },
-  {
-    "league": "Morocco Botola Pro",
-    "home": "KACM",
-    "away": "MAS Fes",
-    "start_ts": 1783011600,
-    "match_id": "5860593",
-    "page_url": "/matches/kacm-vs-mas-fes/9kezrg2#5860593",
-    "picks": [],
-    "home_players": [
-      {
-        "player": "Ismail Mihrab",
-        "position": "M",
-        "is_sub": false,
-        "type": "Buteur",
-        "label": "Ismail Mihrab marque",
-        "cote": null,
-        "book": null,
-        "books": [],
-        "confidence": 51,
-        "reasoning": "3 buts en 5 matchs cette saison (60.0% de chance/match) · xG moyen 0.00/match · défense solide\n📉 Calibration : bucket 50-59% historiquement à WR 42% (claim 55%, n=41) — sur-estimé de 14pp",
-        "context": {
-          "weakness": 0.23
-        },
-        "stats": {
-          "goals": 3,
-          "apps": 5,
-          "gpm": 0.6,
-          "xgpm": 0
-        },
-        "team": "home",
-        "tier": "fun",
-        "calibration_delta": -13.6,
-        "history_top3": true
-      },
-      {
-        "player": "Ismail Mihrab / Hamza El Janati",
-        "position": "",
-        "is_sub": false,
-        "type": "Double Chance Buteur",
-        "label": "Ismail Mihrab ou Hamza El Janati marque (KACM)",
-        "cote": null,
-        "book": null,
-        "books": [],
-        "confidence": 70,
-        "cote_min": 1.43,
-        "reasoning": "🏠 Combo intra-KACM\n📈 P(Ismail Mihrab marque) ≈ 51% · P(Hamza El Janati marque) ≈ 43%\n🎯 P(au moins un marque) = 70% (1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.43 - chercher ≥1.43 chez le bookmaker\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
-        "context": {
-          "combo_kind": "intra-home"
-        },
-        "_team_for_balance": "home",
-        "stats": {
-          "p_a": 0.51,
-          "p_b": 0.428,
-          "p_or": 0.7,
-          "player_a": "Ismail Mihrab",
-          "player_b": "Hamza El Janati",
-          "kind": "intra-home"
-        },
-        "team": "home",
-        "tier": "safe",
-        "calibration_delta": -11.3,
-        "history_top3": true
-      }
-    ],
-    "away_players": [],
-    "fun_picks": [],
-    "top_pick": {
-      "player": "Ismail Mihrab",
-      "position": "M",
-      "is_sub": false,
-      "type": "Buteur",
-      "label": "Ismail Mihrab marque",
-      "cote": null,
-      "book": null,
-      "books": [],
-      "confidence": 51,
-      "reasoning": "3 buts en 5 matchs cette saison (60.0% de chance/match) · xG moyen 0.00/match · défense solide\n📉 Calibration : bucket 50-59% historiquement à WR 42% (claim 55%, n=41) — sur-estimé de 14pp",
-      "context": {
-        "weakness": 0.23
-      },
-      "stats": {
-        "goals": 3,
-        "apps": 5,
-        "gpm": 0.6,
-        "xgpm": 0
-      },
-      "team": "home",
-      "tier": "fun",
-      "calibration_delta": -13.6,
-      "history_top3": true
-    },
-    "no_picks": false,
-    "context": {
-      "stadium": {
-        "name": "Stade de Marrakech",
-        "city": null,
-        "country": "",
-        "lat": null,
-        "lon": null,
-        "capacity": null,
-        "surface": null
-      },
-      "weather": null,
-      "text": "Stade : Stade de Marrakech · plein air."
     }
   }
 ]
