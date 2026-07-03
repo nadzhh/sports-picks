@@ -553,6 +553,27 @@
         "tier": "safe",
         "calibration_delta": -26.0,
         "history_top3": true
+      },
+      {
+        "direction": "home_dc",
+        "type": "Double chance",
+        "label": "Sirius ou Nul (1X)",
+        "cote": null,
+        "confidence": 81,
+        "reasoning": "Sirius invaincu 100% sur 5 derniers matchs · H2H: 0/0 matchs sans défaite · Classement: #1 vs #6\n📉 Calibration : bucket 80-89% historiquement à WR 56% (claim 82%, n=63) — sur-estimé de 26pp",
+        "stats": {
+          "form": [
+            "W",
+            "W",
+            "W",
+            "W",
+            "W"
+          ]
+        },
+        "is_fun": false,
+        "tier": "safe",
+        "calibration_delta": -26.0,
+        "history_top3": true
       }
     ],
     "home_players": [
@@ -565,20 +586,20 @@
         "cote": null,
         "book": null,
         "books": [],
-        "confidence": 58,
-        "reasoning": "7 buts en 10 matchs cette saison (70.0% de chance/match) · finisseur efficace (30% de conv.) · xG moyen 0.56/match · défense correcte\n📉 Calibration : bucket 50-59% historiquement à WR 42% (claim 55%, n=41) — sur-estimé de 14pp",
+        "confidence": 61,
+        "reasoning": "8 buts en 10 matchs cette saison (80.0% de chance/match) · finisseur efficace (33% de conv.) · xG moyen 0.58/match · défense correcte\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
         "context": {
-          "weakness": 0.35
+          "weakness": 0.38
         },
         "stats": {
-          "goals": 7,
+          "goals": 8,
           "apps": 10,
-          "gpm": 0.7,
-          "xgpm": 0.56
+          "gpm": 0.8,
+          "xgpm": 0.58
         },
         "team": "home",
         "tier": "ok",
-        "calibration_delta": -13.6,
+        "calibration_delta": -25.4,
         "history_top3": true
       },
       {
@@ -592,13 +613,13 @@
         "books": [],
         "confidence": 70,
         "cote_min": 1.43,
-        "reasoning": "🏠 Combo intra-Sirius\n📈 P(Robbie Ure marque) ≈ 58% · P(Isak Bjerkebo marque) ≈ 43%\n🎯 P(au moins un marque) = 70% (1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.43 - chercher ≥1.43 chez le bookmaker\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+        "reasoning": "🏠 Combo intra-Sirius\n📈 P(Robbie Ure marque) ≈ 61% · P(Isak Bjerkebo marque) ≈ 43%\n🎯 P(au moins un marque) = 70% (1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.43 - chercher ≥1.43 chez le bookmaker\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
         "context": {
           "combo_kind": "intra-home"
         },
         "_team_for_balance": "home",
         "stats": {
-          "p_a": 0.578,
+          "p_a": 0.608,
           "p_b": 0.428,
           "p_or": 0.7,
           "player_a": "Robbie Ure",
@@ -669,7 +690,7 @@
         "direction": "home_win",
         "type": "Victoire domicile",
         "label": "Argentina gagne",
-        "cote": 1.15,
+        "cote": 1.14,
         "confidence": 81,
         "reasoning": "Argentina : 5V/0N/0D sur 5 matchs · #1 au classement · H2H: 0V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 80-89% historiquement à WR 56% (claim 82%, n=63) — sur-estimé de 26pp",
         "stats": {
@@ -684,7 +705,7 @@
         "is_fun": false,
         "tier": "safe",
         "calibration_delta": -26.0,
-        "edge_pp": -6.0,
+        "edge_pp": -6.7,
         "history_top3": false
       },
       {
@@ -858,7 +879,7 @@
       "direction": "home_win",
       "type": "Victoire domicile",
       "label": "Argentina gagne",
-      "cote": 1.15,
+      "cote": 1.14,
       "confidence": 81,
       "reasoning": "Argentina : 5V/0N/0D sur 5 matchs · #1 au classement · H2H: 0V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 80-89% historiquement à WR 56% (claim 82%, n=63) — sur-estimé de 26pp",
       "stats": {
@@ -873,7 +894,7 @@
       "is_fun": false,
       "tier": "safe",
       "calibration_delta": -26.0,
-      "edge_pp": -6.0,
+      "edge_pp": -6.7,
       "history_top3": false
     },
     "no_picks": false,
@@ -937,7 +958,7 @@
         "direction": "wc_under_25",
         "type": "⚽ Total buts WC",
         "label": "Moins de 2.5 buts",
-        "cote": 1.8,
+        "cote": 1.77,
         "cote_min": 1.42,
         "confidence": 71,
         "tier": "safe",
@@ -952,7 +973,7 @@
         },
         "reasoning": "📊 Écart FIFA significatif : Colombia #13 vs Ghana #55 (gap +291 pts, P favori ≈ 84%).\nL10 : Colombia 4V/1N/0D sur 5 · Ghana 1V/2N/2D sur 5\n📋 Fiche Colombia : off en panne (-0.32) · def moyenne (-0.05) · forme DWWWW · 🏆 habituée du tournoi\n📋 Fiche Ghana : off en panne (-0.43) · def moyenne (+0.15) · forme LDWDL · 🏆 présence occasionnelle\n🌦️ Conditions : pluie 10.8mm (-10%) · vent 37.0km/h (-7%)\n⚠️ Compo PROBABLE (officielle à T-60min)\n⚽ Modèle Poisson : λ total = 1.89\nP(moins de 2.5 buts) = 70.6%\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
         "calibration_delta": -11.3,
-        "edge_pp": 15.4,
+        "edge_pp": 14.5,
         "history_top3": true
       },
       {
@@ -3123,7 +3144,7 @@
         "direction": "away_win",
         "type": "Victoire extérieur",
         "label": "Morocco gagne",
-        "cote": 1.8,
+        "cote": 1.77,
         "confidence": 58,
         "reasoning": "Morocco : 2V/3N/0D sur 5 matchs · #2 au classement · H2H: 0V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 50-59% historiquement à WR 42% (claim 55%, n=41) — sur-estimé de 14pp",
         "stats": {
@@ -3138,7 +3159,7 @@
         "is_fun": false,
         "tier": "ok",
         "calibration_delta": -13.6,
-        "edge_pp": 2.4,
+        "edge_pp": 1.5,
         "history_top3": true
       },
       {
@@ -3319,7 +3340,7 @@
       "direction": "away_win",
       "type": "Victoire extérieur",
       "label": "Morocco gagne",
-      "cote": 1.8,
+      "cote": 1.77,
       "confidence": 58,
       "reasoning": "Morocco : 2V/3N/0D sur 5 matchs · #2 au classement · H2H: 0V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 50-59% historiquement à WR 42% (claim 55%, n=41) — sur-estimé de 14pp",
       "stats": {
@@ -3334,7 +3355,7 @@
       "is_fun": false,
       "tier": "ok",
       "calibration_delta": -13.6,
-      "edge_pp": 2.4,
+      "edge_pp": 1.5,
       "history_top3": true
     },
     "no_picks": false,
