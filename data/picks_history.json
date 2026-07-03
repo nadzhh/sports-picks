@@ -29824,7 +29824,7 @@
       "direction": "wc_under_25",
       "type": "⚽ Total buts WC",
       "label": "Moins de 2.5 buts",
-      "cote": 1.74,
+      "cote": 1.77,
       "cote_min": 1.42,
       "confidence": 71,
       "tier": "safe",
@@ -29839,7 +29839,7 @@
       },
       "reasoning": "📊 Écart FIFA significatif : Colombia #13 vs Ghana #55 (gap +291 pts, P favori ≈ 84%).\nL10 : Colombia 4V/1N/0D sur 5 · Ghana 1V/2N/2D sur 5\n📋 Fiche Colombia : off en panne (-0.32) · def moyenne (-0.05) · forme DWWWW · 🏆 habituée du tournoi\n📋 Fiche Ghana : off en panne (-0.43) · def moyenne (+0.15) · forme LDWDL · 🏆 présence occasionnelle\n🌦️ Conditions : pluie 10.8mm (-10%) · vent 37.0km/h (-7%)\n⚠️ Compo PROBABLE (officielle à T-60min)\n⚽ Modèle Poisson : λ total = 1.89\nP(moins de 2.5 buts) = 70.6%\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
       "calibration_delta": -11.3,
-      "edge_pp": 13.5,
+      "edge_pp": 14.5,
       "history_top3": true,
       "id": "2026-07-04_4653718_team_wc_under_25",
       "date": "2026-07-04",
@@ -30287,13 +30287,13 @@
       "books": [],
       "confidence": 70,
       "cote_min": 1.43,
-      "reasoning": "🏠 Combo intra-Yunnan Yukun\n📈 P(Oscar Taty Maritu marque) ≈ 64% · P(Cléber marque) ≈ 41%\n🎯 P(au moins un marque) = 70% (1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.43 - chercher ≥1.43 chez le bookmaker\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+      "reasoning": "🏠 Combo intra-Yunnan Yukun\n📈 P(Oscar Taty Maritu marque) ≈ 63% · P(Cléber marque) ≈ 41%\n🎯 P(au moins un marque) = 70% (1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.43 - chercher ≥1.43 chez le bookmaker\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
       "context": {
         "combo_kind": "intra-home"
       },
       "_team_for_balance": "home",
       "stats": {
-        "p_a": 0.638,
+        "p_a": 0.63,
         "p_b": 0.412,
         "p_or": 0.7,
         "player_a": "Oscar Taty Maritu",
@@ -30325,10 +30325,10 @@
       "cote": null,
       "book": null,
       "books": [],
-      "confidence": 64,
-      "reasoning": "12 buts en 16 matchs cette saison (75.0% de chance/match) · bonne efficacité (18% conv.) · xG moyen 0.00/match · défense fragile\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
+      "confidence": 63,
+      "reasoning": "12 buts en 16 matchs cette saison (75.0% de chance/match) · bonne efficacité (18% conv.) · xG moyen 0.00/match · défense correcte\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
       "context": {
-        "weakness": 0.51
+        "weakness": 0.43
       },
       "stats": {
         "goals": 12,
@@ -30351,6 +30351,37 @@
       "actual": null,
       "resolved_at": null,
       "side": "home"
+    },
+    {
+      "direction": "away_win",
+      "type": "Victoire extérieur",
+      "label": "Henan FC gagne",
+      "cote": null,
+      "confidence": 60,
+      "reasoning": "Henan FC : 3V/0N/2D sur 5 matchs · #8 au classement · H2H: 1V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
+      "stats": {
+        "form": [
+          "L",
+          "L",
+          "W",
+          "W",
+          "W"
+        ]
+      },
+      "is_fun": false,
+      "tier": "ok",
+      "calibration_delta": -25.4,
+      "history_top3": true,
+      "id": "2026-07-03_5186533_team_away_win",
+      "date": "2026-07-03",
+      "match_id": "5186533",
+      "page_url": "/matches/henan-fc-vs-yunnan-yukun/ewn4ntbh#5186533",
+      "matchup": "Yunnan Yukun vs Henan FC",
+      "league": "Chinese Super League",
+      "category": "team",
+      "result": "PENDING",
+      "actual": null,
+      "resolved_at": null
     }
   ]
 }

@@ -958,7 +958,7 @@
         "direction": "wc_under_25",
         "type": "⚽ Total buts WC",
         "label": "Moins de 2.5 buts",
-        "cote": 1.74,
+        "cote": 1.77,
         "cote_min": 1.42,
         "confidence": 71,
         "tier": "safe",
@@ -973,7 +973,7 @@
         },
         "reasoning": "📊 Écart FIFA significatif : Colombia #13 vs Ghana #55 (gap +291 pts, P favori ≈ 84%).\nL10 : Colombia 4V/1N/0D sur 5 · Ghana 1V/2N/2D sur 5\n📋 Fiche Colombia : off en panne (-0.32) · def moyenne (-0.05) · forme DWWWW · 🏆 habituée du tournoi\n📋 Fiche Ghana : off en panne (-0.43) · def moyenne (+0.15) · forme LDWDL · 🏆 présence occasionnelle\n🌦️ Conditions : pluie 10.8mm (-10%) · vent 37.0km/h (-7%)\n⚠️ Compo PROBABLE (officielle à T-60min)\n⚽ Modèle Poisson : λ total = 1.89\nP(moins de 2.5 buts) = 70.6%\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
         "calibration_delta": -11.3,
-        "edge_pp": 13.5,
+        "edge_pp": 14.5,
         "history_top3": true
       },
       {
@@ -2518,6 +2518,164 @@
     }
   },
   {
+    "league": "Chinese Super League",
+    "home": "Dalian Yingbo",
+    "away": "Wuhan Three Towns",
+    "start_ts": 1783164900,
+    "match_id": "5186537",
+    "page_url": "/matches/wuhan-three-towns-vs-dalian-yingbo/143cgle3e#5186537",
+    "picks": [
+      {
+        "direction": "home_win",
+        "type": "Favori net",
+        "label": "Dalian Yingbo gagne",
+        "cote": null,
+        "confidence": 67,
+        "reasoning": "12 places d'écart au classement (#3 vs #15) · 1V/1N/3D sur 5 matchs · Note Sofa: 6.5/10\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
+        "stats": {
+          "form": [
+            "L",
+            "L",
+            "W",
+            "D",
+            "L"
+          ]
+        },
+        "is_fun": false,
+        "tier": "ok",
+        "calibration_delta": -25.4,
+        "history_top3": true
+      }
+    ],
+    "home_players": [
+      {
+        "player": "Cephas Malele",
+        "position": "F",
+        "is_sub": false,
+        "type": "Buteur",
+        "label": "Cephas Malele marque",
+        "cote": null,
+        "book": null,
+        "books": [],
+        "confidence": 55,
+        "reasoning": "6 buts en 12 matchs cette saison (50.0% de chance/match) · bonne efficacité (26% conv.) · xG moyen 0.00/match, face à une défense qui concède 1.9 buts/match · défense fragile\n📉 Calibration : bucket 50-59% historiquement à WR 42% (claim 55%, n=41) — sur-estimé de 14pp",
+        "context": {
+          "weakness": 0.64
+        },
+        "stats": {
+          "goals": 6,
+          "apps": 12,
+          "gpm": 0.5,
+          "xgpm": 0
+        },
+        "team": "home",
+        "tier": "ok",
+        "calibration_delta": -13.6,
+        "history_top3": true
+      },
+      {
+        "player": "Cephas Malele / Nicolae Stanciu",
+        "position": "",
+        "is_sub": false,
+        "type": "Double Chance Buteur",
+        "label": "Cephas Malele ou Nicolae Stanciu marque (Dalian Yingbo)",
+        "cote": null,
+        "book": null,
+        "books": [],
+        "confidence": 70,
+        "cote_min": 1.43,
+        "reasoning": "🏠 Combo intra-Dalian Yingbo\n📈 P(Cephas Malele marque) ≈ 55% · P(Nicolae Stanciu marque) ≈ 43%\n🎯 P(au moins un marque) = 70% (1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.43 - chercher ≥1.43 chez le bookmaker\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+        "context": {
+          "combo_kind": "intra-home"
+        },
+        "_team_for_balance": "home",
+        "stats": {
+          "p_a": 0.548,
+          "p_b": 0.428,
+          "p_or": 0.7,
+          "player_a": "Cephas Malele",
+          "player_b": "Nicolae Stanciu",
+          "kind": "intra-home"
+        },
+        "team": "home",
+        "tier": "safe",
+        "calibration_delta": -11.3,
+        "history_top3": true
+      }
+    ],
+    "away_players": [
+      {
+        "player": "Jhonder Cádiz",
+        "position": "F",
+        "is_sub": false,
+        "type": "Buteur",
+        "label": "Jhonder Cádiz marque",
+        "cote": null,
+        "book": null,
+        "books": [],
+        "confidence": 70,
+        "reasoning": "⚽ Penaltyman · 12 buts en 16 matchs cette saison (75.0% de chance/match) · bonne efficacité (19% conv.) · xG moyen 0.00/match, face à une défense qui concède 1.8 buts/match · défense correcte\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+        "context": {
+          "weakness": 0.39
+        },
+        "stats": {
+          "goals": 12,
+          "apps": 16,
+          "gpm": 0.75,
+          "xgpm": 0
+        },
+        "team": "away",
+        "tier": "safe",
+        "calibration_delta": -11.3,
+        "history_top3": true
+      }
+    ],
+    "fun_picks": [],
+    "top_pick": {
+      "direction": "home_win",
+      "type": "Favori net",
+      "label": "Dalian Yingbo gagne",
+      "cote": null,
+      "confidence": 67,
+      "reasoning": "12 places d'écart au classement (#3 vs #15) · 1V/1N/3D sur 5 matchs · Note Sofa: 6.5/10\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
+      "stats": {
+        "form": [
+          "L",
+          "L",
+          "W",
+          "D",
+          "L"
+        ]
+      },
+      "is_fun": false,
+      "tier": "ok",
+      "calibration_delta": -25.4,
+      "history_top3": true
+    },
+    "no_picks": false,
+    "context": {
+      "stadium": {
+        "name": "Dalian Suoyuwan Football Stadium",
+        "city": "Dalian",
+        "country": "China",
+        "lat": 38.951329331,
+        "lon": 121.61987663,
+        "capacity": 63000,
+        "surface": "grass"
+      },
+      "weather": {
+        "temp_max": 27.8,
+        "temp_min": 23.0,
+        "humidity": 69,
+        "precipitation_sum_mm": 0.0,
+        "wind_max_kmh": 22.0,
+        "weather_code": 2,
+        "summary_fr": "⛅ partiellement nuageux · 23–27°C · humidité 69%"
+      },
+      "text": "Conditions : ⛅ partiellement nuageux · 23–27°C · humidité 69%. Stade : Dalian Suoyuwan Football Stadium · 63 000 places · plein air."
+    }
+  },
+  {
     "league": "World Cup",
     "home": "Australia",
     "away": "Egypt",
@@ -2711,26 +2869,26 @@
   },
   {
     "league": "Chinese Super League",
-    "home": "Dalian Yingbo",
-    "away": "Wuhan Three Towns",
-    "start_ts": 1783164900,
-    "match_id": "5186537",
-    "page_url": "/matches/wuhan-three-towns-vs-dalian-yingbo/143cgle3e#5186537",
+    "home": "Yunnan Yukun",
+    "away": "Henan FC",
+    "start_ts": 1783080000,
+    "match_id": "5186533",
+    "page_url": "/matches/henan-fc-vs-yunnan-yukun/ewn4ntbh#5186533",
     "picks": [
       {
-        "direction": "home_win",
-        "type": "Favori net",
-        "label": "Dalian Yingbo gagne",
+        "direction": "away_win",
+        "type": "Victoire extérieur",
+        "label": "Henan FC gagne",
         "cote": null,
-        "confidence": 65,
-        "reasoning": "11 places d'écart au classement (#4 vs #15) · 1V/1N/3D sur 5 matchs · Note Sofa: 6.5/10\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
+        "confidence": 60,
+        "reasoning": "Henan FC : 3V/0N/2D sur 5 matchs · #8 au classement · H2H: 1V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
         "stats": {
           "form": [
             "L",
             "L",
             "W",
-            "D",
-            "L"
+            "W",
+            "W"
           ]
         },
         "is_fun": false,
@@ -2741,142 +2899,6 @@
     ],
     "home_players": [
       {
-        "player": "Cephas Malele",
-        "position": "F",
-        "is_sub": false,
-        "type": "Buteur",
-        "label": "Cephas Malele marque",
-        "cote": null,
-        "book": null,
-        "books": [],
-        "confidence": 55,
-        "reasoning": "6 buts en 12 matchs cette saison (50.0% de chance/match) · bonne efficacité (26% conv.) · xG moyen 0.00/match, face à une défense qui concède 1.9 buts/match · défense fragile\n📉 Calibration : bucket 50-59% historiquement à WR 42% (claim 55%, n=41) — sur-estimé de 14pp",
-        "context": {
-          "weakness": 0.64
-        },
-        "stats": {
-          "goals": 6,
-          "apps": 12,
-          "gpm": 0.5,
-          "xgpm": 0
-        },
-        "team": "home",
-        "tier": "ok",
-        "calibration_delta": -13.6,
-        "history_top3": true
-      },
-      {
-        "player": "Cephas Malele / Nicolae Stanciu",
-        "position": "",
-        "is_sub": false,
-        "type": "Double Chance Buteur",
-        "label": "Cephas Malele ou Nicolae Stanciu marque (Dalian Yingbo)",
-        "cote": null,
-        "book": null,
-        "books": [],
-        "confidence": 70,
-        "cote_min": 1.43,
-        "reasoning": "🏠 Combo intra-Dalian Yingbo\n📈 P(Cephas Malele marque) ≈ 55% · P(Nicolae Stanciu marque) ≈ 43%\n🎯 P(au moins un marque) = 70% (1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.43 - chercher ≥1.43 chez le bookmaker\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
-        "context": {
-          "combo_kind": "intra-home"
-        },
-        "_team_for_balance": "home",
-        "stats": {
-          "p_a": 0.548,
-          "p_b": 0.428,
-          "p_or": 0.7,
-          "player_a": "Cephas Malele",
-          "player_b": "Nicolae Stanciu",
-          "kind": "intra-home"
-        },
-        "team": "home",
-        "tier": "safe",
-        "calibration_delta": -11.3,
-        "history_top3": true
-      }
-    ],
-    "away_players": [
-      {
-        "player": "Jhonder Cádiz",
-        "position": "F",
-        "is_sub": false,
-        "type": "Buteur",
-        "label": "Jhonder Cádiz marque",
-        "cote": null,
-        "book": null,
-        "books": [],
-        "confidence": 70,
-        "reasoning": "⚽ Penaltyman · 12 buts en 16 matchs cette saison (75.0% de chance/match) · bonne efficacité (19% conv.) · xG moyen 0.00/match, face à une défense qui concède 1.8 buts/match · défense correcte\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
-        "context": {
-          "weakness": 0.41
-        },
-        "stats": {
-          "goals": 12,
-          "apps": 16,
-          "gpm": 0.75,
-          "xgpm": 0
-        },
-        "team": "away",
-        "tier": "safe",
-        "calibration_delta": -11.3,
-        "history_top3": true
-      }
-    ],
-    "fun_picks": [],
-    "top_pick": {
-      "direction": "home_win",
-      "type": "Favori net",
-      "label": "Dalian Yingbo gagne",
-      "cote": null,
-      "confidence": 65,
-      "reasoning": "11 places d'écart au classement (#4 vs #15) · 1V/1N/3D sur 5 matchs · Note Sofa: 6.5/10\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
-      "stats": {
-        "form": [
-          "L",
-          "L",
-          "W",
-          "D",
-          "L"
-        ]
-      },
-      "is_fun": false,
-      "tier": "ok",
-      "calibration_delta": -25.4,
-      "history_top3": true
-    },
-    "no_picks": false,
-    "context": {
-      "stadium": {
-        "name": "Dalian Suoyuwan Football Stadium",
-        "city": "Dalian",
-        "country": "China",
-        "lat": 38.951329331,
-        "lon": 121.61987663,
-        "capacity": 63000,
-        "surface": "grass"
-      },
-      "weather": {
-        "temp_max": 27.8,
-        "temp_min": 23.0,
-        "humidity": 69,
-        "precipitation_sum_mm": 0.0,
-        "wind_max_kmh": 22.0,
-        "weather_code": 2,
-        "summary_fr": "⛅ partiellement nuageux · 23–27°C · humidité 69%"
-      },
-      "text": "Conditions : ⛅ partiellement nuageux · 23–27°C · humidité 69%. Stade : Dalian Suoyuwan Football Stadium · 63 000 places · plein air."
-    }
-  },
-  {
-    "league": "Chinese Super League",
-    "home": "Yunnan Yukun",
-    "away": "Henan FC",
-    "start_ts": 1783080000,
-    "match_id": "5186533",
-    "page_url": "/matches/henan-fc-vs-yunnan-yukun/ewn4ntbh#5186533",
-    "picks": [],
-    "home_players": [
-      {
         "player": "Oscar Taty Maritu",
         "position": "F",
         "is_sub": false,
@@ -2885,10 +2907,10 @@
         "cote": null,
         "book": null,
         "books": [],
-        "confidence": 64,
-        "reasoning": "12 buts en 16 matchs cette saison (75.0% de chance/match) · bonne efficacité (18% conv.) · xG moyen 0.00/match · défense fragile\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
+        "confidence": 63,
+        "reasoning": "12 buts en 16 matchs cette saison (75.0% de chance/match) · bonne efficacité (18% conv.) · xG moyen 0.00/match · défense correcte\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
         "context": {
-          "weakness": 0.51
+          "weakness": 0.43
         },
         "stats": {
           "goals": 12,
@@ -2912,13 +2934,13 @@
         "books": [],
         "confidence": 70,
         "cote_min": 1.43,
-        "reasoning": "🏠 Combo intra-Yunnan Yukun\n📈 P(Oscar Taty Maritu marque) ≈ 64% · P(Cléber marque) ≈ 41%\n🎯 P(au moins un marque) = 70% (1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.43 - chercher ≥1.43 chez le bookmaker\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+        "reasoning": "🏠 Combo intra-Yunnan Yukun\n📈 P(Oscar Taty Maritu marque) ≈ 63% · P(Cléber marque) ≈ 41%\n🎯 P(au moins un marque) = 70% (1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.43 - chercher ≥1.43 chez le bookmaker\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
         "context": {
           "combo_kind": "intra-home"
         },
         "_team_for_balance": "home",
         "stats": {
-          "p_a": 0.638,
+          "p_a": 0.63,
           "p_b": 0.412,
           "p_or": 0.7,
           "player_a": "Oscar Taty Maritu",
@@ -2934,26 +2956,22 @@
     "away_players": [],
     "fun_picks": [],
     "top_pick": {
-      "player": "Oscar Taty Maritu",
-      "position": "F",
-      "is_sub": false,
-      "type": "Buteur",
-      "label": "Oscar Taty Maritu marque",
+      "direction": "away_win",
+      "type": "Victoire extérieur",
+      "label": "Henan FC gagne",
       "cote": null,
-      "book": null,
-      "books": [],
-      "confidence": 64,
-      "reasoning": "12 buts en 16 matchs cette saison (75.0% de chance/match) · bonne efficacité (18% conv.) · xG moyen 0.00/match · défense fragile\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
-      "context": {
-        "weakness": 0.51
-      },
+      "confidence": 60,
+      "reasoning": "Henan FC : 3V/0N/2D sur 5 matchs · #8 au classement · H2H: 1V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
       "stats": {
-        "goals": 12,
-        "apps": 16,
-        "gpm": 0.75,
-        "xgpm": 0
+        "form": [
+          "L",
+          "L",
+          "W",
+          "W",
+          "W"
+        ]
       },
-      "team": "home",
+      "is_fun": false,
       "tier": "ok",
       "calibration_delta": -25.4,
       "history_top3": true
@@ -3862,7 +3880,7 @@
         "confidence": 51,
         "reasoning": "7 buts en 15 matchs cette saison (46.7% de chance/match) · xG moyen 0.00/match, défense adverse poreuse (1.6 buts concédés/match) · défense correcte\n📉 Calibration : bucket 50-59% historiquement à WR 42% (claim 55%, n=41) — sur-estimé de 14pp",
         "context": {
-          "weakness": 0.41
+          "weakness": 0.39
         },
         "stats": {
           "goals": 7,
@@ -3886,14 +3904,14 @@
         "books": [],
         "confidence": 70,
         "cote_min": 1.43,
-        "reasoning": "🏠 Combo intra-Beijing Guoan\n📈 P(Yuning Zhang marque) ≈ 51% · P(Fábio Abreu marque) ≈ 49%\n🎯 P(au moins un marque) = 70% (1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.43 - chercher ≥1.43 chez le bookmaker\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+        "reasoning": "🏠 Combo intra-Beijing Guoan\n📈 P(Yuning Zhang marque) ≈ 51% · P(Fábio Abreu marque) ≈ 48%\n🎯 P(au moins un marque) = 70% (1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.43 - chercher ≥1.43 chez le bookmaker\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
         "context": {
           "combo_kind": "intra-home"
         },
         "_team_for_balance": "home",
         "stats": {
           "p_a": 0.51,
-          "p_b": 0.488,
+          "p_b": 0.48,
           "p_or": 0.7,
           "player_a": "Yuning Zhang",
           "player_b": "Fábio Abreu",
@@ -3945,7 +3963,7 @@
       "confidence": 51,
       "reasoning": "7 buts en 15 matchs cette saison (46.7% de chance/match) · xG moyen 0.00/match, défense adverse poreuse (1.6 buts concédés/match) · défense correcte\n📉 Calibration : bucket 50-59% historiquement à WR 42% (claim 55%, n=41) — sur-estimé de 14pp",
       "context": {
-        "weakness": 0.41
+        "weakness": 0.39
       },
       "stats": {
         "goals": 7,
@@ -4002,7 +4020,7 @@
         "confidence": 50,
         "reasoning": "7 buts en 16 matchs cette saison (43.8% de chance/match) · xG moyen 0.00/match, face à une défense qui concède 1.8 buts/match · défense fragile\n📉 Calibration : bucket 50-59% historiquement à WR 42% (claim 55%, n=41) — sur-estimé de 14pp",
         "context": {
-          "weakness": 0.51
+          "weakness": 0.53
         },
         "stats": {
           "goals": 7,
@@ -4085,7 +4103,7 @@
       "confidence": 50,
       "reasoning": "7 buts en 16 matchs cette saison (43.8% de chance/match) · xG moyen 0.00/match, face à une défense qui concède 1.8 buts/match · défense fragile\n📉 Calibration : bucket 50-59% historiquement à WR 42% (claim 55%, n=41) — sur-estimé de 14pp",
       "context": {
-        "weakness": 0.51
+        "weakness": 0.53
       },
       "stats": {
         "goals": 7,
