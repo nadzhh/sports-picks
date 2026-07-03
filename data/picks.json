@@ -979,7 +979,7 @@
         "direction": "wc_under_25",
         "type": "⚽ Total buts WC",
         "label": "Moins de 2.5 buts",
-        "cote": 1.71,
+        "cote": 1.77,
         "cote_min": 1.38,
         "confidence": 72,
         "tier": "safe",
@@ -994,7 +994,7 @@
         },
         "reasoning": "📊 Écart FIFA significatif : Colombia #13 vs Ghana #55 (gap +291 pts, P favori ≈ 84%).\nL10 : Colombia 4V/1N/0D sur 5 · Ghana 1V/2N/2D sur 5\n📋 Fiche Colombia : off en panne (-0.32) · def moyenne (-0.05) · forme DWWWW · 🏆 habituée du tournoi\n📋 Fiche Ghana : off en panne (-0.43) · def moyenne (+0.15) · forme LDWDL · 🏆 présence occasionnelle\n🌦️ Conditions : pluie 25.88mm (-10%) · chaleur 33.8°C (-10%)\n⚠️ Compo PROBABLE (officielle à T-60min)\n⚽ Modèle Poisson : λ total = 1.83\nP(moins de 2.5 buts) = 72.3%\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
         "calibration_delta": -11.3,
-        "edge_pp": 13.5,
+        "edge_pp": 15.5,
         "history_top3": true
       }
     ],
@@ -2458,7 +2458,7 @@
         "direction": "wc_over_25",
         "type": "⚽ Total buts WC",
         "label": "Plus de 2.5 buts",
-        "cote": 2.1,
+        "cote": 2.15,
         "cote_min": 1.44,
         "confidence": 69,
         "tier": "ok",
@@ -2473,7 +2473,7 @@
         },
         "reasoning": "📊 Niveau équilibré : Switzerland #15 vs Algeria #38 (gap +149 pts).\nL10 : Switzerland 3V/2N/0D sur 5 · Algeria 3V/1N/1D sur 5\n📋 Fiche Switzerland : off moyen (-0.11) · def fragile (-0.75) · forme WWDDW · 🏆 habituée du tournoi\n📋 Fiche Algeria : off moyen (+0.25) · def moyenne (+0.17) · forme DWLWW · 🏆 présence occasionnelle\n🎯 Importance : Switzerland : 1 match joué (1pts)\n🌦️ 🌦️ bruine légère · 14–18°C · humidité 80%\n✅ Compo OFFICIELLE\n⚽ Modèle Poisson : λ total = 3.58\nP(plus de 2.5 buts) = 69.4%\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
         "calibration_delta": -25.4,
-        "edge_pp": 21.4,
+        "edge_pp": 22.5,
         "history_top3": true
       },
       {
@@ -2526,27 +2526,21 @@
         "is_sub": false,
         "type": "Buteur",
         "label": "Breel Embolo marque",
+        "team": "home",
         "cote": null,
-        "cote_min": 1.68,
         "book": null,
         "books": [],
-        "confidence": 59,
-        "reasoning": "Breel Embolo : selection 7G/12m (0.58/m) · L10 club : 3G/10m, 🔥 1G/3 derniers nat (+10%) | titu nat (79min/m) · last match 85min (0G+1A). λ ajusté à 0.90 (Switzerland attendu 2.5 buts) → P(marque) ~59%.\n📉 Calibration : bucket 50-59% historiquement à WR 42% (claim 55%, n=41) — sur-estimé de 14pp",
+        "confidence": 67,
+        "reasoning": "2G en 3 matchs (66.7%/match) · xG: 0.97/match\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
         "context": {
-          "source": "lineup",
-          "lam": 0.9,
-          "lineup_status": "confirmed"
+          "weakness": 0.35
         },
         "stats": {
-          "goals": null,
-          "apps": null,
-          "gpm": 0.901,
-          "xgpm": null
+          "goals": 2,
+          "apps": 3
         },
-        "team": "home",
-        "lineup_status": "confirmed",
         "tier": "ok",
-        "calibration_delta": -13.6,
+        "calibration_delta": -25.4,
         "history_top3": true
       },
       {
