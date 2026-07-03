@@ -29070,9 +29070,9 @@
       "matchup": "Portugal vs Croatia",
       "league": "World Cup",
       "category": "team",
-      "result": "PENDING",
-      "actual": null,
-      "resolved_at": null
+      "result": "WIN",
+      "actual": "2-1",
+      "resolved_at": "2026-07-03 01:31"
     },
     {
       "direction": "wc_over_15",
@@ -29101,9 +29101,9 @@
       "matchup": "Portugal vs Croatia",
       "league": "World Cup",
       "category": "team",
-      "result": "PENDING",
-      "actual": null,
-      "resolved_at": null
+      "result": "WIN",
+      "actual": "2-1 (3 buts)",
+      "resolved_at": "2026-07-03 01:31"
     },
     {
       "player": "Cristiano Ronaldo",
@@ -29134,9 +29134,12 @@
       "matchup": "Portugal vs Croatia",
       "league": "World Cup",
       "category": "player",
-      "result": "PENDING",
-      "actual": null,
-      "resolved_at": null,
+      "result": "WIN",
+      "actual": {
+        "goals": 1,
+        "assists": 0
+      },
+      "resolved_at": "2026-07-03 01:31",
       "side": "home"
     },
     {
@@ -29416,6 +29419,118 @@
       "side": "home"
     },
     {
+      "player": "Úlfur Björnsson / Tómas Róbertsson",
+      "position": "",
+      "is_sub": false,
+      "type": "Double Chance Buteur",
+      "label": "Úlfur Björnsson ou Tómas Róbertsson marque (FH Hafnarfjordur)",
+      "cote": null,
+      "book": null,
+      "books": [],
+      "confidence": 70,
+      "cote_min": 1.43,
+      "reasoning": "🏠 Combo intra-FH Hafnarfjordur\n📈 P(Úlfur Björnsson marque) ≈ 47% · P(Tómas Róbertsson marque) ≈ 46%\n🎯 P(au moins un marque) = 70% (1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.43 - chercher ≥1.43 chez le bookmaker\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+      "context": {
+        "combo_kind": "intra-home"
+      },
+      "_team_for_balance": "home",
+      "stats": {
+        "p_a": 0.472,
+        "p_b": 0.465,
+        "p_or": 0.7,
+        "player_a": "Úlfur Björnsson",
+        "player_b": "Tómas Róbertsson",
+        "kind": "intra-home"
+      },
+      "team": "home",
+      "tier": "safe",
+      "calibration_delta": -11.3,
+      "history_top3": true,
+      "id": "2026-07-03_5225675_player_Úlfur Björnsson / Tómas Róbertsson_Double Chance Buteur",
+      "date": "2026-07-03",
+      "match_id": "5225675",
+      "page_url": "/matches/stjarnan-vs-fh-hafnarfjordur/1qjnqg#5225675",
+      "matchup": "FH Hafnarfjordur vs Stjarnan",
+      "league": "Icelandic Besta",
+      "category": "player",
+      "result": "PENDING",
+      "actual": null,
+      "resolved_at": null,
+      "side": "home"
+    },
+    {
+      "player": "Emil Atlason",
+      "position": "F",
+      "is_sub": false,
+      "type": "Buteur",
+      "label": "Emil Atlason marque",
+      "cote": null,
+      "book": null,
+      "books": [],
+      "confidence": 62,
+      "reasoning": "7 buts en 11 matchs cette saison (63.6% de chance/match) · xG moyen 0.00/match, face à une défense qui concède 2.4 buts/match · défense fragile\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
+      "context": {
+        "weakness": 0.63
+      },
+      "stats": {
+        "goals": 7,
+        "apps": 11,
+        "gpm": 0.636,
+        "xgpm": 0
+      },
+      "team": "away",
+      "tier": "ok",
+      "calibration_delta": -25.4,
+      "history_top3": true,
+      "id": "2026-07-03_5225675_player_Emil Atlason_Buteur",
+      "date": "2026-07-03",
+      "match_id": "5225675",
+      "page_url": "/matches/stjarnan-vs-fh-hafnarfjordur/1qjnqg#5225675",
+      "matchup": "FH Hafnarfjordur vs Stjarnan",
+      "league": "Icelandic Besta",
+      "category": "player",
+      "result": "PENDING",
+      "actual": null,
+      "resolved_at": null,
+      "side": "away"
+    },
+    {
+      "player": "Andri Bjarnason",
+      "position": "F",
+      "is_sub": false,
+      "type": "Buteur",
+      "label": "Andri Bjarnason marque",
+      "cote": null,
+      "book": null,
+      "books": [],
+      "confidence": 56,
+      "reasoning": "5 buts en 10 matchs cette saison (50.0% de chance/match) · xG moyen 0.00/match, face à une défense qui concède 2.4 buts/match · défense fragile\n📉 Calibration : bucket 50-59% historiquement à WR 42% (claim 55%, n=41) — sur-estimé de 14pp",
+      "context": {
+        "weakness": 0.63
+      },
+      "stats": {
+        "goals": 5,
+        "apps": 10,
+        "gpm": 0.5,
+        "xgpm": 0
+      },
+      "team": "away",
+      "tier": "ok",
+      "calibration_delta": -13.6,
+      "history_top3": true,
+      "id": "2026-07-03_5225675_player_Andri Bjarnason_Buteur",
+      "date": "2026-07-03",
+      "match_id": "5225675",
+      "page_url": "/matches/stjarnan-vs-fh-hafnarfjordur/1qjnqg#5225675",
+      "matchup": "FH Hafnarfjordur vs Stjarnan",
+      "league": "Icelandic Besta",
+      "category": "player",
+      "result": "PENDING",
+      "actual": null,
+      "resolved_at": null,
+      "side": "away"
+    },
+    {
       "player": "Zakaria Beglarishvili / Mattias Männilaan",
       "position": "",
       "is_sub": false,
@@ -29512,7 +29627,7 @@
         "wc_round": null,
         "family": "TOTAL"
       },
-      "reasoning": "📊 Niveau équilibré : Switzerland #15 vs Algeria #38 (gap +149 pts).\nL10 : Switzerland 3V/2N/0D sur 5 · Algeria 3V/1N/1D sur 5\n📋 Fiche Switzerland : off moyen (-0.11) · def fragile (-0.75) · forme WWDDW · 🏆 habituée du tournoi\n📋 Fiche Algeria : off moyen (+0.25) · def moyenne (+0.17) · forme DWLWW · 🏆 présence occasionnelle\n🎯 Importance : Switzerland : 1 match joué (1pts)\n🌦️ 🌦️ bruine légère · 13–18°C · humidité 82%\n⚠️ Compo PROBABLE (officielle à T-60min)\n⚽ Modèle Poisson : λ total = 3.58\nP(plus de 2.5 buts) = 69.4%\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
+      "reasoning": "📊 Niveau équilibré : Switzerland #15 vs Algeria #38 (gap +149 pts).\nL10 : Switzerland 3V/2N/0D sur 5 · Algeria 3V/1N/1D sur 5\n📋 Fiche Switzerland : off moyen (-0.11) · def fragile (-0.75) · forme WWDDW · 🏆 habituée du tournoi\n📋 Fiche Algeria : off moyen (+0.25) · def moyenne (+0.17) · forme DWLWW · 🏆 présence occasionnelle\n🎯 Importance : Switzerland : 1 match joué (1pts)\n🌦️ 🌦️ bruine légère · 14–18°C · humidité 80%\n⚠️ Compo PROBABLE (officielle à T-60min)\n⚽ Modèle Poisson : λ total = 3.58\nP(plus de 2.5 buts) = 69.4%\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
       "calibration_delta": -25.4,
       "edge_pp": 23.5,
       "history_top3": true,
@@ -29576,7 +29691,7 @@
         "wc_round": null,
         "family": "BUT_TEAM"
       },
-      "reasoning": "📊 Niveau équilibré : Switzerland #15 vs Algeria #38 (gap +149 pts).\nL10 : Switzerland 3V/2N/0D sur 5 · Algeria 3V/1N/1D sur 5\n📋 Fiche Switzerland : off moyen (-0.11) · def fragile (-0.75) · forme WWDDW · 🏆 habituée du tournoi\n📋 Fiche Algeria : off moyen (+0.25) · def moyenne (+0.17) · forme DWLWW · 🏆 présence occasionnelle\n🎯 Importance : Switzerland : 1 match joué (1pts)\n🌦️ 🌦️ bruine légère · 13–18°C · humidité 82%\n⚠️ Compo PROBABLE (officielle à T-60min)\n⚽ P(Switzerland marque 2+) = 68.4% (λ = 2.36)\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
+      "reasoning": "📊 Niveau équilibré : Switzerland #15 vs Algeria #38 (gap +149 pts).\nL10 : Switzerland 3V/2N/0D sur 5 · Algeria 3V/1N/1D sur 5\n📋 Fiche Switzerland : off moyen (-0.11) · def fragile (-0.75) · forme WWDDW · 🏆 habituée du tournoi\n📋 Fiche Algeria : off moyen (+0.25) · def moyenne (+0.17) · forme DWLWW · 🏆 présence occasionnelle\n🎯 Importance : Switzerland : 1 match joué (1pts)\n🌦️ 🌦️ bruine légère · 14–18°C · humidité 80%\n⚠️ Compo PROBABLE (officielle à T-60min)\n⚽ P(Switzerland marque 2+) = 68.4% (λ = 2.36)\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
       "calibration_delta": -25.4,
       "history_top3": true,
       "id": "2026-07-03_4653717_team_wc_home_scores_2",
@@ -29607,7 +29722,7 @@
         "wc_round": null,
         "family": "BTTS"
       },
-      "reasoning": "📊 Niveau équilibré : Switzerland #15 vs Algeria #38 (gap +149 pts).\nL10 : Switzerland 3V/2N/0D sur 5 · Algeria 3V/1N/1D sur 5\n📋 Fiche Switzerland : off moyen (-0.11) · def fragile (-0.75) · forme WWDDW · 🏆 habituée du tournoi\n📋 Fiche Algeria : off moyen (+0.25) · def moyenne (+0.17) · forme DWLWW · 🏆 présence occasionnelle\n🎯 Importance : Switzerland : 1 match joué (1pts)\n🌦️ 🌦️ bruine légère · 13–18°C · humidité 82%\n⚠️ Compo PROBABLE (officielle à T-60min)\n⚽ BTTS Poisson : P(Switzerland ≥ 1) × P(Algeria ≥ 1) = 91% × 70% = 63.7%\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
+      "reasoning": "📊 Niveau équilibré : Switzerland #15 vs Algeria #38 (gap +149 pts).\nL10 : Switzerland 3V/2N/0D sur 5 · Algeria 3V/1N/1D sur 5\n📋 Fiche Switzerland : off moyen (-0.11) · def fragile (-0.75) · forme WWDDW · 🏆 habituée du tournoi\n📋 Fiche Algeria : off moyen (+0.25) · def moyenne (+0.17) · forme DWLWW · 🏆 présence occasionnelle\n🎯 Importance : Switzerland : 1 match joué (1pts)\n🌦️ 🌦️ bruine légère · 14–18°C · humidité 80%\n⚠️ Compo PROBABLE (officielle à T-60min)\n⚽ BTTS Poisson : P(Switzerland ≥ 1) × P(Algeria ≥ 1) = 91% × 70% = 63.7%\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
       "calibration_delta": -25.4,
       "history_top3": true,
       "id": "2026-07-03_4653717_team_wc_btts_yes",
@@ -29678,7 +29793,7 @@
         "wc_round": null,
         "family": "DC"
       },
-      "reasoning": "📊 Niveau équilibré : Australia #27 vs Egypt #30 (gap +20 pts).\nL10 : Australia 1V/2N/2D sur 5 · Egypt 2V/2N/1D sur 5\n📋 Fiche Australia : off en panne (-0.34) · def moyenne (+0.06) · forme DLWDL · 🏆 présence occasionnelle\n📋 Fiche Egypt : off moyen (-0.10) · def solide (+0.39) · forme DWDLW · 🏆 présence occasionnelle\n🎯 Importance : Australia : 1 match joué (3pts) · Egypt : 1 match joué (1pts)\n🌦️ ☁️ couvert · 25–36°C · humidité 36% · stade fermé\n⚠️ Compo PROBABLE (officielle à T-60min)\n🛡️ Double chance : Egypt gagne (41.5%) OU match nul (32.7%)\nCombiné = 74.2%\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+      "reasoning": "📊 Niveau équilibré : Australia #27 vs Egypt #30 (gap +20 pts).\nL10 : Australia 1V/2N/2D sur 5 · Egypt 2V/2N/1D sur 5\n📋 Fiche Australia : off en panne (-0.34) · def moyenne (+0.06) · forme DLWDL · 🏆 présence occasionnelle\n📋 Fiche Egypt : off moyen (-0.10) · def solide (+0.39) · forme DWDLW · 🏆 présence occasionnelle\n🎯 Importance : Australia : 1 match joué (3pts) · Egypt : 1 match joué (1pts)\n🌦️ ☁️ couvert · 25–34°C · humidité 43% · stade fermé\n⚠️ Compo PROBABLE (officielle à T-60min)\n🛡️ Double chance : Egypt gagne (41.5%) OU match nul (32.7%)\nCombiné = 74.2%\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
       "calibration_delta": -11.3,
       "history_top3": true,
       "id": "2026-07-03_4653716_team_wc_dc_x2",
@@ -29709,7 +29824,7 @@
         "wc_round": null,
         "family": "TOTAL"
       },
-      "reasoning": "📊 Niveau équilibré : Australia #27 vs Egypt #30 (gap +20 pts).\nL10 : Australia 1V/2N/2D sur 5 · Egypt 2V/2N/1D sur 5\n📋 Fiche Australia : off en panne (-0.34) · def moyenne (+0.06) · forme DLWDL · 🏆 présence occasionnelle\n📋 Fiche Egypt : off moyen (-0.10) · def solide (+0.39) · forme DWDLW · 🏆 présence occasionnelle\n🎯 Importance : Australia : 1 match joué (3pts) · Egypt : 1 match joué (1pts)\n🌦️ ☁️ couvert · 25–36°C · humidité 36% · stade fermé\n⚠️ Compo PROBABLE (officielle à T-60min)\n⚽ Modèle Poisson : λ total = 1.77\nP(moins de 2.5 buts) = 73.8%\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+      "reasoning": "📊 Niveau équilibré : Australia #27 vs Egypt #30 (gap +20 pts).\nL10 : Australia 1V/2N/2D sur 5 · Egypt 2V/2N/1D sur 5\n📋 Fiche Australia : off en panne (-0.34) · def moyenne (+0.06) · forme DLWDL · 🏆 présence occasionnelle\n📋 Fiche Egypt : off moyen (-0.10) · def solide (+0.39) · forme DWDLW · 🏆 présence occasionnelle\n🎯 Importance : Australia : 1 match joué (3pts) · Egypt : 1 match joué (1pts)\n🌦️ ☁️ couvert · 25–34°C · humidité 43% · stade fermé\n⚠️ Compo PROBABLE (officielle à T-60min)\n⚽ Modèle Poisson : λ total = 1.77\nP(moins de 2.5 buts) = 73.8%\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
       "calibration_delta": -11.3,
       "history_top3": true,
       "id": "2026-07-03_4653716_team_wc_under_25",
@@ -29740,7 +29855,7 @@
         "wc_round": null,
         "family": "BTTS"
       },
-      "reasoning": "📊 Niveau équilibré : Australia #27 vs Egypt #30 (gap +20 pts).\nL10 : Australia 1V/2N/2D sur 5 · Egypt 2V/2N/1D sur 5\n📋 Fiche Australia : off en panne (-0.34) · def moyenne (+0.06) · forme DLWDL · 🏆 présence occasionnelle\n📋 Fiche Egypt : off moyen (-0.10) · def solide (+0.39) · forme DWDLW · 🏆 présence occasionnelle\n🎯 Importance : Australia : 1 match joué (3pts) · Egypt : 1 match joué (1pts)\n🌦️ ☁️ couvert · 25–36°C · humidité 36% · stade fermé\n⚠️ Compo PROBABLE (officielle à T-60min)\n⚽ BTTS NO : P(au moins une équipe blanchie) = 66.3%\nλ faibles côté Egypt (1.03) ou Australia (0.74)\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
+      "reasoning": "📊 Niveau équilibré : Australia #27 vs Egypt #30 (gap +20 pts).\nL10 : Australia 1V/2N/2D sur 5 · Egypt 2V/2N/1D sur 5\n📋 Fiche Australia : off en panne (-0.34) · def moyenne (+0.06) · forme DLWDL · 🏆 présence occasionnelle\n📋 Fiche Egypt : off moyen (-0.10) · def solide (+0.39) · forme DWDLW · 🏆 présence occasionnelle\n🎯 Importance : Australia : 1 match joué (3pts) · Egypt : 1 match joué (1pts)\n🌦️ ☁️ couvert · 25–34°C · humidité 43% · stade fermé\n⚠️ Compo PROBABLE (officielle à T-60min)\n⚽ BTTS NO : P(au moins une équipe blanchie) = 66.3%\nλ faibles côté Egypt (1.03) ou Australia (0.74)\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
       "calibration_delta": -25.4,
       "history_top3": true,
       "id": "2026-07-03_4653716_team_wc_btts_no",
