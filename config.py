@@ -130,6 +130,8 @@ FOTMOB_LEAGUES = {
     # Afrique du Nord
     "Morocco Botola Pro":      {"id": 530,   "name_match": "Botola Pro"},        # MAR
     "Algeria Ligue 1":         {"id": 516,   "name_match": "Ligue 1"},           # ALG
+    # Asie
+    "Chinese Super League":    {"id": 120,   "name_match": "Super League"},      # CHN, ~240 fix
     # ── Competitions internationales (selections nationales + amicaux) ───────
     # IDs verifies live via /api/data/leagues?id=X (2026)
     "Friendlies":              {"id": 114,   "name_match": "Friendlies"},        # INT, amicaux 292
@@ -206,6 +208,8 @@ INTERNAL_LEAGUE_IDS = {
     # Afrique du Nord (id = fotmob id, mapping api-football optionnel)
     "Morocco Botola Pro":    530,
     "Algeria Ligue 1":       516,
+    # Asie
+    "Chinese Super League":  169,    # api-football id China Super League
     # Competitions internationales (id = fotmob id, pas toujours dans api-football)
     "Friendlies":            114,
     "World Cup":             77,

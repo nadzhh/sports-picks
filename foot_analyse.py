@@ -65,6 +65,8 @@ LEAGUE_STATS_DEFAULT = {
     # Afrique du Nord
     "Morocco Botola Pro":    {"btts": 42, "ht_over_05": 68, "ft_over_15": 62, "ft_over_25": 35},
     "Algeria Ligue 1":       {"btts": 42, "ht_over_05": 68, "ft_over_15": 62, "ft_over_25": 35},
+    # Asie (Chinese Super League 2024-2025 : ~2.85 buts/match, BTTS ~48%)
+    "Chinese Super League":  {"btts": 48, "ht_over_05": 74, "ft_over_15": 70, "ft_over_25": 46},
     # Friendlies (variable, valeurs moyennes prudentes)
     "Friendlies":            {"btts": 50, "ht_over_05": 75, "ft_over_15": 72, "ft_over_25": 50},
 }

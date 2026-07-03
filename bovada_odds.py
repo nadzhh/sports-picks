@@ -68,6 +68,8 @@ LEAGUE_TO_BOVADA = {
     "Latvian Virsliga":      "soccer/europe/latvia",
     "Lithuanian Toplyga":    "soccer/europe/lithuania",
     "Georgian Erovnuli":     "soccer/europe/georgia",
+    # ── Asie ──
+    "Chinese Super League":  "soccer/asia/china",
 }
 
 
