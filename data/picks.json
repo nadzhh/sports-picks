@@ -328,7 +328,7 @@
         "direction": "wc_over_25",
         "type": "⚽ Total buts WC",
         "label": "Plus de 2.5 buts",
-        "cote": 1.62,
+        "cote": 1.61,
         "cote_min": 1.27,
         "confidence": 79,
         "tier": "safe",
@@ -343,7 +343,7 @@
         },
         "reasoning": "📊 Écart FIFA ÉNORME : Paraguay #49 (1431 pts) vs France #2 (1859 pts) — gap Elo -428 pts → P(vainqueur favori) ≈ 92%.\n⭐ France favori CdM 2026\nL10 : Paraguay 2V/2N/1D sur 5 · France 5V/0N/0D sur 5\n🚂 Mismatch significatif (Elo gap +428) : France pousse pour prendre le large.\n📋 Fiche Paraguay : off moyen (+0.17) · def moyenne (+0.28) · forme DDWLW · 🏆 novice WC\n📋 Fiche France : off moyen (+0.01) · def fragile (-0.81) · forme WWWWW · 🏆 élite mondiale\n   ↳ Historique : finaliste en 2022 · vainqueur en 2018 · quart de finale en 2014 · 2 titres (1998, 2018)\n🎯 Importance : Paraguay : 1 match joué (0pts)\n🌦️ Conditions : chaleur 39.0°C (-10%)\n⚠️ Compo PROBABLE (officielle à T-60min)\n⚽ Modèle Poisson : λ total = 4.18\nP(plus de 2.5 buts) = 78.7%\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
         "calibration_delta": -11.3,
-        "edge_pp": 17.3,
+        "edge_pp": 16.9,
         "history_top3": true
       },
       {
@@ -2795,7 +2795,7 @@
         "confidence": 64,
         "reasoning": "12 buts en 16 matchs cette saison (75.0% de chance/match) · bonne efficacité (18% conv.) · xG moyen 0.00/match, défense adverse poreuse (1.6 buts concédés/match) · défense correcte\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
         "context": {
-          "weakness": 0.49
+          "weakness": 0.47
         },
         "stats": {
           "goals": 12,
@@ -2820,7 +2820,7 @@
         "confidence": 59,
         "reasoning": "5 buts en 7 matchs cette saison (71.4% de chance/match) · xG moyen 0.00/match, défense adverse poreuse (1.6 buts concédés/match) · défense correcte\n📉 Calibration : bucket 50-59% historiquement à WR 42% (claim 55%, n=41) — sur-estimé de 14pp",
         "context": {
-          "weakness": 0.49
+          "weakness": 0.47
         },
         "stats": {
           "goals": 5,
@@ -2877,7 +2877,7 @@
       "confidence": 64,
       "reasoning": "12 buts en 16 matchs cette saison (75.0% de chance/match) · bonne efficacité (18% conv.) · xG moyen 0.00/match, défense adverse poreuse (1.6 buts concédés/match) · défense correcte\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
       "context": {
-        "weakness": 0.49
+        "weakness": 0.47
       },
       "stats": {
         "goals": 12,
@@ -3199,38 +3199,39 @@
         "tier": "fun",
         "calibration_delta": -13.6,
         "history_top3": true
-      },
+      }
+    ],
+    "away_players": [
       {
-        "player": "Guy Mbenza / George Cîmpanu",
+        "player": "Landry Dimata / George Cîmpanu",
         "position": "",
         "is_sub": false,
         "type": "Double Chance Buteur",
-        "label": "Guy Mbenza OU George Cîmpanu marque (cross-équipe)",
+        "label": "Landry Dimata ou George Cîmpanu marque (Chongqing Tongliang Long)",
         "cote": null,
         "book": null,
         "books": [],
         "confidence": 70,
         "cote_min": 1.43,
-        "reasoning": "🔀 Cross-équipe (moins corrélé → meilleur EV)\n📈 P(Guy Mbenza marque) ≈ 54% · P(George Cîmpanu marque) ≈ 45%\n🎯 P(au moins un marque) = 70% (1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.43 - chercher ≥1.43 chez le bookmaker\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+        "reasoning": "✈️ Combo intra-Chongqing Tongliang Long\n📈 P(Landry Dimata marque) ≈ 47% · P(George Cîmpanu marque) ≈ 45%\n🎯 P(au moins un marque) = 70% (1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.43 - chercher ≥1.43 chez le bookmaker\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
         "context": {
-          "combo_kind": "cross"
+          "combo_kind": "intra-away"
         },
-        "_team_for_balance": "home",
+        "_team_for_balance": "away",
         "stats": {
-          "p_a": 0.54,
+          "p_a": 0.472,
           "p_b": 0.45,
           "p_or": 0.7,
-          "player_a": "Guy Mbenza",
+          "player_a": "Landry Dimata",
           "player_b": "George Cîmpanu",
-          "kind": "cross"
+          "kind": "intra-away"
         },
-        "team": "home",
+        "team": "away",
         "tier": "safe",
         "calibration_delta": -11.3,
         "history_top3": true
       }
     ],
-    "away_players": [],
     "fun_picks": [],
     "top_pick": {
       "direction": "away_win",
@@ -3288,7 +3289,7 @@
         "direction": "away_win",
         "type": "Victoire extérieur",
         "label": "Morocco gagne",
-        "cote": 1.77,
+        "cote": 1.74,
         "confidence": 58,
         "reasoning": "Morocco : 2V/3N/0D sur 5 matchs · #2 au classement · H2H: 0V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 50-59% historiquement à WR 42% (claim 55%, n=41) — sur-estimé de 14pp",
         "stats": {
@@ -3303,8 +3304,8 @@
         "is_fun": false,
         "tier": "ok",
         "calibration_delta": -13.6,
-        "edge_pp": 1.5,
-        "history_top3": true
+        "edge_pp": 0.5,
+        "history_top3": false
       },
       {
         "direction": "wc_away_scores_2",
@@ -3371,7 +3372,7 @@
         },
         "tier": "ok",
         "calibration_delta": -25.4,
-        "history_top3": false
+        "history_top3": true
       }
     ],
     "away_players": [
@@ -3484,7 +3485,7 @@
       "direction": "away_win",
       "type": "Victoire extérieur",
       "label": "Morocco gagne",
-      "cote": 1.77,
+      "cote": 1.74,
       "confidence": 58,
       "reasoning": "Morocco : 2V/3N/0D sur 5 matchs · #2 au classement · H2H: 0V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 50-59% historiquement à WR 42% (claim 55%, n=41) — sur-estimé de 14pp",
       "stats": {
@@ -3499,8 +3500,8 @@
       "is_fun": false,
       "tier": "ok",
       "calibration_delta": -13.6,
-      "edge_pp": 1.5,
-      "history_top3": true
+      "edge_pp": 0.5,
+      "history_top3": false
     },
     "no_picks": false,
     "context": {
@@ -4602,9 +4603,9 @@
         "book": null,
         "books": [],
         "confidence": 50,
-        "reasoning": "7 buts en 16 matchs cette saison (43.8% de chance/match) · xG moyen 0.00/match, défense adverse poreuse (1.6 buts concédés/match) · défense fragile\n📉 Calibration : bucket 50-59% historiquement à WR 42% (claim 55%, n=41) — sur-estimé de 14pp",
+        "reasoning": "7 buts en 16 matchs cette saison (43.8% de chance/match) · xG moyen 0.00/match, défense adverse poreuse (1.6 buts concédés/match) · défense correcte\n📉 Calibration : bucket 50-59% historiquement à WR 42% (claim 55%, n=41) — sur-estimé de 14pp",
         "context": {
-          "weakness": 0.51
+          "weakness": 0.49
         },
         "stats": {
           "goals": 7,
@@ -4685,9 +4686,9 @@
       "book": null,
       "books": [],
       "confidence": 50,
-      "reasoning": "7 buts en 16 matchs cette saison (43.8% de chance/match) · xG moyen 0.00/match, défense adverse poreuse (1.6 buts concédés/match) · défense fragile\n📉 Calibration : bucket 50-59% historiquement à WR 42% (claim 55%, n=41) — sur-estimé de 14pp",
+      "reasoning": "7 buts en 16 matchs cette saison (43.8% de chance/match) · xG moyen 0.00/match, défense adverse poreuse (1.6 buts concédés/match) · défense correcte\n📉 Calibration : bucket 50-59% historiquement à WR 42% (claim 55%, n=41) — sur-estimé de 14pp",
       "context": {
-        "weakness": 0.51
+        "weakness": 0.49
       },
       "stats": {
         "goals": 7,
