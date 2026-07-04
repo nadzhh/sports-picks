@@ -1459,6 +1459,99 @@
     }
   },
   {
+    "league": "Ecuador LigaPro",
+    "home": "Libertad",
+    "away": "Leones del Norte",
+    "start_ts": 1783191600,
+    "match_id": "1000009008",
+    "page_url": "/matches/libertad-vs-leones-del-norte/1b2b8jnbn#1000009008",
+    "picks": [],
+    "home_players": [
+      {
+        "player": "Vilington Branda / Juan Anangonó",
+        "position": "",
+        "is_sub": false,
+        "type": "Double Chance Buteur",
+        "label": "Vilington Branda OU Juan Anangonó marque (cross-équipe)",
+        "cote": null,
+        "book": null,
+        "books": [],
+        "confidence": 69,
+        "cote_min": 1.52,
+        "reasoning": "🔀 Cross-équipe (moins corrélé → meilleur EV)\n📈 P(Vilington Branda marque) ≈ 43% · P(Juan Anangonó marque) ≈ 41%\n🎯 P(au moins un marque) = 69% (1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.52 - chercher ≥1.52 chez le bookmaker\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
+        "context": {
+          "combo_kind": "cross"
+        },
+        "_team_for_balance": "home",
+        "stats": {
+          "p_a": 0.428,
+          "p_b": 0.412,
+          "p_or": 0.664,
+          "player_a": "Vilington Branda",
+          "player_b": "Juan Anangonó",
+          "kind": "cross"
+        },
+        "team": "home",
+        "tier": "ok",
+        "calibration_delta": -25.4,
+        "history_top3": true
+      }
+    ],
+    "away_players": [],
+    "fun_picks": [],
+    "top_pick": {
+      "player": "Vilington Branda / Juan Anangonó",
+      "position": "",
+      "is_sub": false,
+      "type": "Double Chance Buteur",
+      "label": "Vilington Branda OU Juan Anangonó marque (cross-équipe)",
+      "cote": null,
+      "book": null,
+      "books": [],
+      "confidence": 69,
+      "cote_min": 1.52,
+      "reasoning": "🔀 Cross-équipe (moins corrélé → meilleur EV)\n📈 P(Vilington Branda marque) ≈ 43% · P(Juan Anangonó marque) ≈ 41%\n🎯 P(au moins un marque) = 69% (1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.52 - chercher ≥1.52 chez le bookmaker\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
+      "context": {
+        "combo_kind": "cross"
+      },
+      "_team_for_balance": "home",
+      "stats": {
+        "p_a": 0.428,
+        "p_b": 0.412,
+        "p_or": 0.664,
+        "player_a": "Vilington Branda",
+        "player_b": "Juan Anangonó",
+        "kind": "cross"
+      },
+      "team": "home",
+      "tier": "ok",
+      "calibration_delta": -25.4,
+      "history_top3": true
+    },
+    "no_picks": false,
+    "context": {
+      "stadium": {
+        "name": "Estadio Federativo Reina del Cisne",
+        "city": "Loja",
+        "country": "Ecuador",
+        "lat": -3.992013134,
+        "lon": -79.207735062,
+        "capacity": null,
+        "surface": null
+      },
+      "weather": {
+        "temp_max": 18.4,
+        "temp_min": 12.4,
+        "humidity": 81,
+        "precipitation_sum_mm": 5.0,
+        "wind_max_kmh": 14.4,
+        "weather_code": 53,
+        "summary_fr": "🌦️ bruine modérée · 12–18°C · humidité 81% · précipitations 5.0mm"
+      },
+      "text": "Conditions : 🌦️ bruine modérée · 12–18°C · humidité 81% · précipitations 5.0mm. Stade : Estadio Federativo Reina del Cisne · plein air. ⚠️ Pluies prévues : terrain potentiellement lourd, jeu direct privilégié, plus d'erreurs techniques."
+    }
+  },
+  {
     "league": "Chinese Super League",
     "home": "Qingdao Hainiu",
     "away": "Chengdu Rongcheng FC",
@@ -1951,259 +2044,6 @@
       },
       "weather": null,
       "text": "Stade : Ben M'Hamed El Abdi Stadium · plein air."
-    }
-  },
-  {
-    "league": "World Cup",
-    "home": "Canada",
-    "away": "Morocco",
-    "start_ts": 1783184400,
-    "match_id": "4653843",
-    "page_url": "/matches/canada-vs-morocco/17e1pm#4653843",
-    "picks": [
-      {
-        "direction": "away_win",
-        "type": "Victoire extérieur",
-        "label": "Morocco gagne",
-        "cote": 1.8,
-        "confidence": 58,
-        "reasoning": "Morocco : 2V/3N/0D sur 5 matchs · #2 au classement · H2H: 0V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 50-59% historiquement à WR 42% (claim 55%, n=41) — sur-estimé de 14pp",
-        "stats": {
-          "form": [
-            "D",
-            "W",
-            "W",
-            "D",
-            "D"
-          ]
-        },
-        "is_fun": false,
-        "tier": "ok",
-        "calibration_delta": -13.6,
-        "edge_pp": 2.4,
-        "history_top3": true
-      },
-      {
-        "direction": "wc_away_scores_2",
-        "type": "⚽ Buteur équipe WC",
-        "label": "Morocco marque 2+ buts",
-        "cote": null,
-        "cote_min": 1.44,
-        "confidence": 70,
-        "tier": "safe",
-        "stats": {
-          "lam_h": 0.38,
-          "lam_a": 2.42,
-          "h_fifa_rank": 76,
-          "a_fifa_rank": 12,
-          "elo_gap": -426,
-          "wc_round": null,
-          "family": "BUT_TEAM"
-        },
-        "reasoning": "📊 Écart FIFA ÉNORME : Canada #76 (1268 pts) vs Morocco #12 (1694 pts) — gap Elo -426 pts → P(vainqueur favori) ≈ 92%.\nL10 : Canada 2V/2N/1D sur 5 · Morocco 2V/3N/0D sur 5\n🚂 Mismatch significatif (Elo gap +426) : Morocco pousse pour prendre le large.\n📋 Fiche Canada : off solide (+0.67) · def solide (+0.63) · forme WLWDD · 🏆 présence occasionnelle\n📋 Fiche Morocco : off moyen (-0.13) · def moyenne (+0.08) · forme DWWDD · 🏆 habituée du tournoi\n🎯 Importance : Canada : 1 match joué (1pts) · Morocco : 1 match joué (1pts)\n🌦️ 🌦️ averses légères · 25–36°C · humidité 55% · précipitations 2.2mm · stade fermé\n✅ Compo OFFICIELLE\n⚽ P(Morocco marque 2+) = 69.5% (λ = 2.42)\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
-        "calibration_delta": -11.3,
-        "history_top3": true
-      },
-      {
-        "direction": "wc_home_no_score",
-        "type": "🛡️ Clean sheet WC",
-        "label": "Canada ne marque pas",
-        "cote": null,
-        "cote_min": 1.46,
-        "confidence": 68,
-        "tier": "ok",
-        "stats": {
-          "lam_h": 0.38,
-          "lam_a": 2.42,
-          "h_fifa_rank": 76,
-          "a_fifa_rank": 12,
-          "elo_gap": -426,
-          "wc_round": null,
-          "family": "CLEAN_SHEET"
-        },
-        "reasoning": "📊 Écart FIFA ÉNORME : Canada #76 (1268 pts) vs Morocco #12 (1694 pts) — gap Elo -426 pts → P(vainqueur favori) ≈ 92%.\nL10 : Canada 2V/2N/1D sur 5 · Morocco 2V/3N/0D sur 5\n🚂 Mismatch significatif (Elo gap +426) : Morocco pousse pour prendre le large.\n📋 Fiche Canada : off solide (+0.67) · def solide (+0.63) · forme WLWDD · 🏆 présence occasionnelle\n📋 Fiche Morocco : off moyen (-0.13) · def moyenne (+0.08) · forme DWWDD · 🏆 habituée du tournoi\n🎯 Importance : Canada : 1 match joué (1pts) · Morocco : 1 match joué (1pts)\n🌦️ 🌦️ averses légères · 25–36°C · humidité 55% · précipitations 2.2mm · stade fermé\n✅ Compo OFFICIELLE\n🛡️ P(Canada blanchi) = 68.3% (λ_Canada = 0.38)\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
-        "calibration_delta": -25.4,
-        "history_top3": true
-      }
-    ],
-    "home_players": [
-      {
-        "player": "Jonathan David",
-        "position": "F",
-        "is_sub": false,
-        "type": "Buteur",
-        "label": "Jonathan David marque",
-        "team": "home",
-        "cote": null,
-        "book": null,
-        "books": [],
-        "confidence": 63,
-        "reasoning": "3G en 4 matchs (75.0%/match) · xG: 0.75/match\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
-        "context": {
-          "weakness": 0.31
-        },
-        "stats": {
-          "goals": 3,
-          "apps": 4
-        },
-        "tier": "ok",
-        "calibration_delta": -25.4,
-        "history_top3": false
-      }
-    ],
-    "away_players": [
-      {
-        "player": "Ismael Saibari",
-        "position": "F",
-        "is_sub": false,
-        "type": "Buteur",
-        "label": "Ismael Saibari marque",
-        "cote": null,
-        "cote_min": 1.54,
-        "book": null,
-        "books": [],
-        "confidence": 65,
-        "reasoning": "Ismael Saibari : selection 19G/38m (0.50/m) · L10 club : 8G/10m, 🔥 3G/3 derniers nat (+19%) | titu nat (80min/m) · last match 19min (0G+0A). λ ajusté à 1.05 (Morocco attendu 2.2 buts) → P(marque) ~65%.\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
-        "context": {
-          "source": "lineup",
-          "lam": 1.05,
-          "lineup_status": "confirmed"
-        },
-        "stats": {
-          "goals": null,
-          "apps": null,
-          "gpm": 1.049,
-          "xgpm": null
-        },
-        "team": "away",
-        "lineup_status": "confirmed",
-        "tier": "ok",
-        "calibration_delta": -25.4,
-        "history_top3": false
-      },
-      {
-        "player": "Ismael Saibari",
-        "position": "F",
-        "is_sub": false,
-        "type": "Double buteur",
-        "label": "Ismael Saibari marque 2+ buts",
-        "cote": null,
-        "cote_min": 3.54,
-        "book": null,
-        "books": [],
-        "confidence": 38,
-        "reasoning": "Ismael Saibari : selection 19G/38m (0.50/m) · L10 club : 8G/10m, 🔥 3G/3 derniers nat (+19%) | titu nat (80min/m) · last match 19min (0G+0A). Attendu ~1.0 buts ce match - P(2+) ~28% (cote elevee).",
-        "context": {
-          "source": "lineup",
-          "lam": 1.05,
-          "lineup_status": "confirmed"
-        },
-        "stats": {
-          "goals": null,
-          "apps": null,
-          "gpm": 1.049,
-          "xgpm": null
-        },
-        "team": "away",
-        "lineup_status": "confirmed",
-        "tier": "fun",
-        "history_top3": false
-      }
-    ],
-    "fun_picks": [
-      {
-        "direction": "wc_score_0_2",
-        "type": "🏆 Score exact WC",
-        "label": "Score exact : Canada 0-2 Morocco",
-        "cote_min": 5.62,
-        "confidence": 18,
-        "tier": "fun",
-        "is_fun": true,
-        "stats": {
-          "lam_h": 0.38,
-          "lam_a": 2.42,
-          "h_fifa_rank": 76,
-          "a_fifa_rank": 12,
-          "elo_gap": -426
-        },
-        "reasoning": "📊 Écart FIFA ÉNORME : Canada #76 (1268 pts) vs Morocco #12 (1694 pts) — gap Elo -426 pts → P(vainqueur favori) ≈ 92%.\nL10 : Canada 2V/2N/1D sur 5 · Morocco 2V/3N/0D sur 5\n🏆 Coupe du Monde 2026 - score exact (Poisson grid, ajusté Elo FIFA)\nλ Canada = 0.38 buts, λ Morocco = 2.42 buts\nTop 3 : 0-2 (17.8%) · 0-1 (14.7%) · 0-3 (14.3%)\n⚠️ Pari fun (cote élevée typique 4-8) - mise modeste",
-        "exact_score": [
-          0,
-          2
-        ],
-        "wc_top3": [
-          [
-            [
-              0,
-              2
-            ],
-            17.8
-          ],
-          [
-            [
-              0,
-              1
-            ],
-            14.7
-          ],
-          [
-            [
-              0,
-              3
-            ],
-            14.3
-          ]
-        ],
-        "history_top3": false
-      }
-    ],
-    "top_pick": {
-      "direction": "away_win",
-      "type": "Victoire extérieur",
-      "label": "Morocco gagne",
-      "cote": 1.8,
-      "confidence": 58,
-      "reasoning": "Morocco : 2V/3N/0D sur 5 matchs · #2 au classement · H2H: 0V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 50-59% historiquement à WR 42% (claim 55%, n=41) — sur-estimé de 14pp",
-      "stats": {
-        "form": [
-          "D",
-          "W",
-          "W",
-          "D",
-          "D"
-        ]
-      },
-      "is_fun": false,
-      "tier": "ok",
-      "calibration_delta": -13.6,
-      "edge_pp": 2.4,
-      "history_top3": true
-    },
-    "no_picks": false,
-    "context": {
-      "stadium": {
-        "name": "NRG Stadium",
-        "city": "Houston",
-        "country": "USA",
-        "lat": 29.6847,
-        "lon": -95.4107,
-        "capacity": 72220,
-        "surface": "Natural grass",
-        "altitude_m": 18,
-        "type": "indoor",
-        "climatized": true,
-        "context_fr": "Toit retractable, climatisé. Houston chaud et humide en été."
-      },
-      "weather": {
-        "temp_max": 36.6,
-        "temp_min": 25.9,
-        "humidity": 55,
-        "precipitation_sum_mm": 2.2,
-        "wind_max_kmh": 18.4,
-        "weather_code": 80,
-        "summary_fr": "🌦️ averses légères · 25–36°C · humidité 55% · précipitations 2.2mm"
-      },
-      "text": "Conditions : 🌦️ averses légères · 25–36°C · humidité 55% · précipitations 2.2mm. Stade : NRG Stadium · altitude 18m · 72 220 places · climatisé. Toit retractable, climatisé. Houston chaud et humide en été."
     }
   },
   {
@@ -2798,85 +2638,6 @@
         "summary_fr": "☁️ couvert · 20°C · humidité 74%"
       },
       "text": "Conditions : ☁️ couvert · 20°C · humidité 74%. Stade : Stadions Daugava · plein air."
-    }
-  },
-  {
-    "league": "Ecuador LigaPro",
-    "home": "Libertad",
-    "away": "Leones del Norte",
-    "start_ts": 1783191600,
-    "match_id": "1000009008",
-    "page_url": "/matches/libertad-vs-leones-del-norte/1b2b8jnbn#1000009008",
-    "picks": [],
-    "home_players": [],
-    "away_players": [
-      {
-        "player": "Juan Anangonó",
-        "position": "F",
-        "is_sub": false,
-        "type": "Buteur",
-        "label": "Juan Anangonó marque",
-        "team": "away",
-        "cote": null,
-        "book": null,
-        "books": [],
-        "confidence": 37,
-        "reasoning": "5G en 16 matchs (31.2%/match) · xG: 0.00/match",
-        "context": {
-          "weakness": 0.54
-        },
-        "stats": {
-          "goals": 5,
-          "apps": 16
-        },
-        "tier": "fun",
-        "history_top3": true
-      }
-    ],
-    "fun_picks": [],
-    "top_pick": {
-      "player": "Juan Anangonó",
-      "position": "F",
-      "is_sub": false,
-      "type": "Buteur",
-      "label": "Juan Anangonó marque",
-      "team": "away",
-      "cote": null,
-      "book": null,
-      "books": [],
-      "confidence": 37,
-      "reasoning": "5G en 16 matchs (31.2%/match) · xG: 0.00/match",
-      "context": {
-        "weakness": 0.54
-      },
-      "stats": {
-        "goals": 5,
-        "apps": 16
-      },
-      "tier": "fun",
-      "history_top3": true
-    },
-    "no_picks": false,
-    "context": {
-      "stadium": {
-        "name": "Estadio Federativo Reina del Cisne",
-        "city": "Loja",
-        "country": "Ecuador",
-        "lat": -3.992013134,
-        "lon": -79.207735062,
-        "capacity": null,
-        "surface": null
-      },
-      "weather": {
-        "temp_max": 18.4,
-        "temp_min": 12.4,
-        "humidity": 81,
-        "precipitation_sum_mm": 5.0,
-        "wind_max_kmh": 14.4,
-        "weather_code": 53,
-        "summary_fr": "🌦️ bruine modérée · 12–18°C · humidité 81% · précipitations 5.0mm"
-      },
-      "text": "Conditions : 🌦️ bruine modérée · 12–18°C · humidité 81% · précipitations 5.0mm. Stade : Estadio Federativo Reina del Cisne · plein air. ⚠️ Pluies prévues : terrain potentiellement lourd, jeu direct privilégié, plus d'erreurs techniques."
     }
   },
   {
