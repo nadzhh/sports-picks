@@ -30502,7 +30502,7 @@
       "direction": "wc_over_25",
       "type": "⚽ Total buts WC",
       "label": "Plus de 2.5 buts",
-      "cote": 1.61,
+      "cote": 1.62,
       "cote_min": 1.27,
       "confidence": 79,
       "tier": "safe",
@@ -30517,7 +30517,7 @@
       },
       "reasoning": "📊 Écart FIFA ÉNORME : Paraguay #49 (1431 pts) vs France #2 (1859 pts) — gap Elo -428 pts → P(vainqueur favori) ≈ 92%.\n⭐ France favori CdM 2026\nL10 : Paraguay 2V/2N/1D sur 5 · France 5V/0N/0D sur 5\n🚂 Mismatch significatif (Elo gap +428) : France pousse pour prendre le large.\n📋 Fiche Paraguay : off moyen (+0.17) · def moyenne (+0.28) · forme DDWLW · 🏆 novice WC\n📋 Fiche France : off moyen (+0.01) · def fragile (-0.81) · forme WWWWW · 🏆 élite mondiale\n   ↳ Historique : finaliste en 2022 · vainqueur en 2018 · quart de finale en 2014 · 2 titres (1998, 2018)\n🎯 Importance : Paraguay : 1 match joué (0pts)\n🌦️ Conditions : chaleur 39.0°C (-10%)\n⚠️ Compo PROBABLE (officielle à T-60min)\n⚽ Modèle Poisson : λ total = 4.18\nP(plus de 2.5 buts) = 78.7%\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
       "calibration_delta": -11.3,
-      "edge_pp": 16.9,
+      "edge_pp": 17.3,
       "history_top3": true,
       "id": "2026-07-04_4653842_team_wc_over_25",
       "date": "2026-07-04",
@@ -31158,6 +31158,82 @@
       "side": "away"
     },
     {
+      "player": "Alberto Quiles / Guilherme Schettine",
+      "position": "",
+      "is_sub": false,
+      "type": "Double Chance Buteur",
+      "label": "Alberto Quiles ou Guilherme Schettine marque (Tianjin Jinmen Tiger)",
+      "cote": null,
+      "book": null,
+      "books": [],
+      "confidence": 70,
+      "cote_min": 1.43,
+      "reasoning": "🏠 Combo intra-Tianjin Jinmen Tiger\n📈 P(Alberto Quiles marque) ≈ 50% · P(Guilherme Schettine marque) ≈ 42%\n🎯 P(au moins un marque) = 70% (1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.43 - chercher ≥1.43 chez le bookmaker\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+      "context": {
+        "combo_kind": "intra-home"
+      },
+      "_team_for_balance": "home",
+      "stats": {
+        "p_a": 0.495,
+        "p_b": 0.42,
+        "p_or": 0.7,
+        "player_a": "Alberto Quiles",
+        "player_b": "Guilherme Schettine",
+        "kind": "intra-home"
+      },
+      "team": "home",
+      "tier": "safe",
+      "calibration_delta": -11.3,
+      "history_top3": true,
+      "id": "2026-07-04_5186538_player_Alberto Quiles / Guilherme Schettine_Double Chance Buteur",
+      "date": "2026-07-04",
+      "match_id": "5186538",
+      "page_url": "/matches/tianjin-jinmen-tiger-vs-shenzhen-peng-city/5kgy2tgv#5186538",
+      "matchup": "Tianjin Jinmen Tiger vs Shenzhen Peng City",
+      "league": "Chinese Super League",
+      "category": "player",
+      "result": "PENDING",
+      "actual": null,
+      "resolved_at": null,
+      "side": "home"
+    },
+    {
+      "player": "Wesley",
+      "position": "F",
+      "is_sub": false,
+      "type": "Buteur",
+      "label": "Wesley marque",
+      "cote": null,
+      "book": null,
+      "books": [],
+      "confidence": 53,
+      "reasoning": "8 buts en 16 matchs cette saison (50.0% de chance/match) · bonne efficacité (21% conv.) · xG moyen 0.00/match, défense adverse poreuse (1.3 buts concédés/match) · défense fragile\n📉 Calibration : bucket 50-59% historiquement à WR 42% (claim 55%, n=41) — sur-estimé de 14pp",
+      "context": {
+        "weakness": 0.6
+      },
+      "stats": {
+        "goals": 8,
+        "apps": 16,
+        "gpm": 0.5,
+        "xgpm": 0
+      },
+      "team": "away",
+      "tier": "fun",
+      "calibration_delta": -13.6,
+      "history_top3": true,
+      "id": "2026-07-04_5186538_player_Wesley_Buteur",
+      "date": "2026-07-04",
+      "match_id": "5186538",
+      "page_url": "/matches/tianjin-jinmen-tiger-vs-shenzhen-peng-city/5kgy2tgv#5186538",
+      "matchup": "Tianjin Jinmen Tiger vs Shenzhen Peng City",
+      "league": "Chinese Super League",
+      "category": "player",
+      "result": "PENDING",
+      "actual": null,
+      "resolved_at": null,
+      "side": "away"
+    },
+    {
       "player": "Amir Belabid / Adeleke Akinyemi",
       "position": "",
       "is_sub": false,
@@ -31168,15 +31244,15 @@
       "books": [],
       "confidence": 70,
       "cote_min": 1.43,
-      "reasoning": "🔀 Cross-équipe (moins corrélé → meilleur EV)\n📈 P(Amir Belabid marque) ≈ 40% · P(Adeleke Akinyemi marque) ≈ 50%\n🎯 P(au moins un marque) = 70% (1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.43 - chercher ≥1.43 chez le bookmaker\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+      "reasoning": "🔀 Cross-équipe (moins corrélé → meilleur EV)\n📈 P(Amir Belabid marque) ≈ 39% · P(Adeleke Akinyemi marque) ≈ 50%\n🎯 P(au moins un marque) = 70% (1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.43 - chercher ≥1.43 chez le bookmaker\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
       "context": {
         "combo_kind": "cross"
       },
       "_team_for_balance": "home",
       "stats": {
-        "p_a": 0.398,
+        "p_a": 0.39,
         "p_b": 0.502,
-        "p_or": 0.7,
+        "p_or": 0.696,
         "player_a": "Amir Belabid",
         "player_b": "Adeleke Akinyemi",
         "kind": "cross"
@@ -31240,7 +31316,7 @@
       "confidence": 50,
       "reasoning": "6 buts en 13 matchs cette saison (46.2% de chance/match) · xG moyen 0.00/match · défense correcte\n📉 Calibration : bucket 50-59% historiquement à WR 42% (claim 55%, n=41) — sur-estimé de 14pp",
       "context": {
-        "weakness": 0.45
+        "weakness": 0.44
       },
       "stats": {
         "goals": 6,
@@ -32036,9 +32112,9 @@
       "book": null,
       "books": [],
       "confidence": 70,
-      "reasoning": "⚽ Penaltyman · 12 buts en 16 matchs cette saison (75.0% de chance/match) · bonne efficacité (19% conv.) · xG moyen 0.00/match, défense adverse poreuse (1.7 buts concédés/match) · défense correcte\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+      "reasoning": "⚽ Penaltyman · 12 buts en 16 matchs cette saison (75.0% de chance/match) · bonne efficacité (18% conv.) · xG moyen 0.00/match, face à une défense qui concède 1.8 buts/match · défense correcte\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
       "context": {
-        "weakness": 0.42
+        "weakness": 0.45
       },
       "stats": {
         "goals": 12,
@@ -32072,7 +32148,7 @@
       "book": null,
       "books": [],
       "confidence": 54,
-      "reasoning": "6 buts en 12 matchs cette saison (50.0% de chance/match) · bonne efficacité (26% conv.) · xG moyen 0.00/match, face à une défense qui concède 1.8 buts/match · défense fragile\n📉 Calibration : bucket 50-59% historiquement à WR 42% (claim 55%, n=41) — sur-estimé de 14pp",
+      "reasoning": "6 buts en 12 matchs cette saison (50.0% de chance/match) · bonne efficacité (25% conv.) · xG moyen 0.00/match, face à une défense qui concède 1.8 buts/match · défense fragile\n📉 Calibration : bucket 50-59% historiquement à WR 42% (claim 55%, n=41) — sur-estimé de 14pp",
       "context": {
         "weakness": 0.63
       },
@@ -32186,7 +32262,7 @@
       "confidence": 51,
       "reasoning": "7 buts en 15 matchs cette saison (46.7% de chance/match) · xG moyen 0.00/match, défense adverse poreuse (1.5 buts concédés/match) · défense correcte\n📉 Calibration : bucket 50-59% historiquement à WR 42% (claim 55%, n=41) — sur-estimé de 14pp",
       "context": {
-        "weakness": 0.42
+        "weakness": 0.38
       },
       "stats": {
         "goals": 7,
@@ -32203,118 +32279,6 @@
       "match_id": "5186536",
       "page_url": "/matches/beijing-guoan-vs-shandong-taishan/1cs5gv#5186536",
       "matchup": "Beijing Guoan vs Shandong Taishan",
-      "league": "Chinese Super League",
-      "category": "player",
-      "result": "PENDING",
-      "actual": null,
-      "resolved_at": null,
-      "side": "home"
-    },
-    {
-      "player": "Alberto Quiles / Guilherme Schettine",
-      "position": "",
-      "is_sub": false,
-      "type": "Double Chance Buteur",
-      "label": "Alberto Quiles ou Guilherme Schettine marque (Tianjin Jinmen Tiger)",
-      "cote": null,
-      "book": null,
-      "books": [],
-      "confidence": 70,
-      "cote_min": 1.43,
-      "reasoning": "🏠 Combo intra-Tianjin Jinmen Tiger\n📈 P(Alberto Quiles marque) ≈ 50% · P(Guilherme Schettine marque) ≈ 42%\n🎯 P(au moins un marque) = 70% (1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.43 - chercher ≥1.43 chez le bookmaker\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
-      "context": {
-        "combo_kind": "intra-home"
-      },
-      "_team_for_balance": "home",
-      "stats": {
-        "p_a": 0.502,
-        "p_b": 0.42,
-        "p_or": 0.7,
-        "player_a": "Alberto Quiles",
-        "player_b": "Guilherme Schettine",
-        "kind": "intra-home"
-      },
-      "team": "home",
-      "tier": "safe",
-      "calibration_delta": -11.3,
-      "history_top3": true,
-      "id": "2026-07-04_5186538_player_Alberto Quiles / Guilherme Schettine_Double Chance Buteur",
-      "date": "2026-07-04",
-      "match_id": "5186538",
-      "page_url": "/matches/tianjin-jinmen-tiger-vs-shenzhen-peng-city/5kgy2tgv#5186538",
-      "matchup": "Tianjin Jinmen Tiger vs Shenzhen Peng City",
-      "league": "Chinese Super League",
-      "category": "player",
-      "result": "PENDING",
-      "actual": null,
-      "resolved_at": null,
-      "side": "home"
-    },
-    {
-      "player": "Wesley",
-      "position": "F",
-      "is_sub": false,
-      "type": "Buteur",
-      "label": "Wesley marque",
-      "cote": null,
-      "book": null,
-      "books": [],
-      "confidence": 53,
-      "reasoning": "8 buts en 16 matchs cette saison (50.0% de chance/match) · bonne efficacité (21% conv.) · xG moyen 0.00/match, défense adverse poreuse (1.3 buts concédés/match) · défense fragile\n📉 Calibration : bucket 50-59% historiquement à WR 42% (claim 55%, n=41) — sur-estimé de 14pp",
-      "context": {
-        "weakness": 0.6
-      },
-      "stats": {
-        "goals": 8,
-        "apps": 16,
-        "gpm": 0.5,
-        "xgpm": 0
-      },
-      "team": "away",
-      "tier": "fun",
-      "calibration_delta": -13.6,
-      "history_top3": true,
-      "id": "2026-07-04_5186538_player_Wesley_Buteur",
-      "date": "2026-07-04",
-      "match_id": "5186538",
-      "page_url": "/matches/tianjin-jinmen-tiger-vs-shenzhen-peng-city/5kgy2tgv#5186538",
-      "matchup": "Tianjin Jinmen Tiger vs Shenzhen Peng City",
-      "league": "Chinese Super League",
-      "category": "player",
-      "result": "PENDING",
-      "actual": null,
-      "resolved_at": null,
-      "side": "away"
-    },
-    {
-      "player": "Alberto Quiles",
-      "position": "F",
-      "is_sub": false,
-      "type": "Buteur",
-      "label": "Alberto Quiles marque",
-      "cote": null,
-      "book": null,
-      "books": [],
-      "confidence": 50,
-      "reasoning": "7 buts en 16 matchs cette saison (43.8% de chance/match) · xG moyen 0.00/match, défense adverse poreuse (1.6 buts concédés/match) · défense correcte\n📉 Calibration : bucket 50-59% historiquement à WR 42% (claim 55%, n=41) — sur-estimé de 14pp",
-      "context": {
-        "weakness": 0.49
-      },
-      "stats": {
-        "goals": 7,
-        "apps": 16,
-        "gpm": 0.438,
-        "xgpm": 0
-      },
-      "team": "home",
-      "tier": "fun",
-      "calibration_delta": -13.6,
-      "history_top3": true,
-      "id": "2026-07-04_5186538_player_Alberto Quiles_Buteur",
-      "date": "2026-07-04",
-      "match_id": "5186538",
-      "page_url": "/matches/tianjin-jinmen-tiger-vs-shenzhen-peng-city/5kgy2tgv#5186538",
-      "matchup": "Tianjin Jinmen Tiger vs Shenzhen Peng City",
       "league": "Chinese Super League",
       "category": "player",
       "result": "PENDING",
