@@ -30249,9 +30249,9 @@
       "matchup": "Colombia vs Ghana",
       "league": "World Cup",
       "category": "team",
-      "result": "PENDING",
-      "actual": null,
-      "resolved_at": null
+      "result": "WIN",
+      "actual": "1-0",
+      "resolved_at": "2026-07-04 04:01"
     },
     {
       "direction": "wc_under_25",
@@ -30281,9 +30281,9 @@
       "matchup": "Colombia vs Ghana",
       "league": "World Cup",
       "category": "team",
-      "result": "PENDING",
-      "actual": null,
-      "resolved_at": null
+      "result": "WIN",
+      "actual": "1-0 (1 buts)",
+      "resolved_at": "2026-07-04 04:01"
     },
     {
       "direction": "wc_home_scores_2",
@@ -30312,9 +30312,9 @@
       "matchup": "Colombia vs Ghana",
       "league": "World Cup",
       "category": "team",
-      "result": "PENDING",
-      "actual": null,
-      "resolved_at": null
+      "result": "LOSS",
+      "actual": "1-0 (1 buts home, cible 2+)",
+      "resolved_at": "2026-07-04 04:01"
     },
     {
       "player": "Luis Suárez",
@@ -30351,9 +30351,12 @@
       "matchup": "Colombia vs Ghana",
       "league": "World Cup",
       "category": "player",
-      "result": "PENDING",
-      "actual": null,
-      "resolved_at": null,
+      "result": "LOSS",
+      "actual": {
+        "goals": 0,
+        "assists": 1
+      },
+      "resolved_at": "2026-07-04 04:01",
       "side": "home"
     },
     {
@@ -30385,16 +30388,19 @@
       "matchup": "Colombia vs Ghana",
       "league": "World Cup",
       "category": "player",
-      "result": "PENDING",
-      "actual": null,
-      "resolved_at": null,
+      "result": "LOSS",
+      "actual": {
+        "goals": 0,
+        "assists": 0
+      },
+      "resolved_at": "2026-07-04 04:01",
       "side": "home"
     },
     {
       "direction": "wc_over_25",
       "type": "⚽ Total buts WC",
       "label": "Plus de 2.5 buts",
-      "cote": 1.65,
+      "cote": 1.62,
       "cote_min": 1.38,
       "confidence": 72,
       "tier": "safe",
@@ -30409,7 +30415,7 @@
       },
       "reasoning": "📊 Écart FIFA ÉNORME : Paraguay #49 (1431 pts) vs France #2 (1859 pts) — gap Elo -428 pts → P(vainqueur favori) ≈ 92%.\n⭐ France favori CdM 2026\nL10 : Paraguay 2V/2N/1D sur 5 · France 5V/0N/0D sur 5\n🚂 Mismatch significatif (Elo gap +428) : France pousse pour prendre le large.\n📋 Fiche Paraguay : off moyen (+0.17) · def moyenne (+0.28) · forme DDWLW · 🏆 novice WC\n📋 Fiche France : off moyen (+0.01) · def fragile (-0.81) · forme WWWWW · 🏆 élite mondiale\n   ↳ Historique : finaliste en 2022 · vainqueur en 2018 · quart de finale en 2014 · 2 titres (1998, 2018)\n🎯 Importance : Paraguay : 1 match joué (0pts)\n🌦️ Conditions : pluie 19.5mm (-10%) · chaleur 39.6°C (-10%)\n⚠️ Compo PROBABLE (officielle à T-60min)\n⚽ Modèle Poisson : λ total = 3.76\nP(plus de 2.5 buts) = 72.5%\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
       "calibration_delta": -11.3,
-      "edge_pp": 11.4,
+      "edge_pp": 10.3,
       "history_top3": true,
       "id": "2026-07-04_4653842_team_wc_over_25",
       "date": "2026-07-04",
@@ -31660,7 +31666,7 @@
       "direction": "away_win",
       "type": "Victoire extérieur",
       "label": "Morocco gagne",
-      "cote": 1.87,
+      "cote": 1.83,
       "confidence": 58,
       "reasoning": "Morocco : 2V/3N/0D sur 5 matchs · #2 au classement · H2H: 0V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 50-59% historiquement à WR 42% (claim 55%, n=41) — sur-estimé de 14pp",
       "stats": {
@@ -31675,7 +31681,7 @@
       "is_fun": false,
       "tier": "ok",
       "calibration_delta": -13.6,
-      "edge_pp": 4.5,
+      "edge_pp": 3.4,
       "history_top3": true,
       "id": "2026-07-04_4653843_team_away_win",
       "date": "2026-07-04",
