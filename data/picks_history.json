@@ -30000,9 +30000,9 @@
       "matchup": "Independiente del Valle vs Manta",
       "league": "Ecuador LigaPro",
       "category": "team",
-      "result": "PENDING",
-      "actual": null,
-      "resolved_at": null
+      "result": "WIN",
+      "actual": "4-0",
+      "resolved_at": "2026-07-04 03:31"
     },
     {
       "direction": "home_win",
@@ -30031,9 +30031,9 @@
       "matchup": "Independiente del Valle vs Manta",
       "league": "Ecuador LigaPro",
       "category": "team",
-      "result": "PENDING",
-      "actual": null,
-      "resolved_at": null
+      "result": "WIN",
+      "actual": "4-0",
+      "resolved_at": "2026-07-04 03:31"
     },
     {
       "player": "Emerson Pata / Carlos González",
@@ -30070,9 +30070,12 @@
       "matchup": "Independiente del Valle vs Manta",
       "league": "Ecuador LigaPro",
       "category": "player",
-      "result": "PENDING",
-      "actual": null,
-      "resolved_at": null,
+      "result": "WIN",
+      "actual": {
+        "goals": 1,
+        "assists": 0
+      },
+      "resolved_at": "2026-07-04 03:31",
       "side": "home"
     },
     {
@@ -30103,9 +30106,9 @@
       "matchup": "Argentina vs Cape Verde",
       "league": "World Cup",
       "category": "team",
-      "result": "PENDING",
-      "actual": null,
-      "resolved_at": null
+      "result": "WIN",
+      "actual": "3-2 (5 buts)",
+      "resolved_at": "2026-07-04 03:31"
     },
     {
       "direction": "wc_home_scores_3",
@@ -30134,9 +30137,9 @@
       "matchup": "Argentina vs Cape Verde",
       "league": "World Cup",
       "category": "team",
-      "result": "PENDING",
-      "actual": null,
-      "resolved_at": null
+      "result": "WIN",
+      "actual": "3-2 (3 buts home, cible 3+)",
+      "resolved_at": "2026-07-04 03:31"
     },
     {
       "player": "Lionel Messi",
@@ -30173,9 +30176,12 @@
       "matchup": "Argentina vs Cape Verde",
       "league": "World Cup",
       "category": "player",
-      "result": "PENDING",
-      "actual": null,
-      "resolved_at": null,
+      "result": "WIN",
+      "actual": {
+        "goals": 1,
+        "assists": 0
+      },
+      "resolved_at": "2026-07-04 03:31",
       "side": "home"
     },
     {
@@ -30207,9 +30213,12 @@
       "matchup": "Argentina vs Cape Verde",
       "league": "World Cup",
       "category": "player",
-      "result": "PENDING",
-      "actual": null,
-      "resolved_at": null,
+      "result": "WIN",
+      "actual": {
+        "goals": 1,
+        "assists": 1
+      },
+      "resolved_at": "2026-07-04 03:31",
       "side": "home"
     },
     {
@@ -30380,6 +30389,143 @@
       "actual": null,
       "resolved_at": null,
       "side": "home"
+    },
+    {
+      "direction": "wc_over_25",
+      "type": "⚽ Total buts WC",
+      "label": "Plus de 2.5 buts",
+      "cote": 1.65,
+      "cote_min": 1.38,
+      "confidence": 72,
+      "tier": "safe",
+      "stats": {
+        "lam_h": 0.18,
+        "lam_a": 3.58,
+        "h_fifa_rank": 49,
+        "a_fifa_rank": 2,
+        "elo_gap": -428,
+        "wc_round": null,
+        "family": "TOTAL"
+      },
+      "reasoning": "📊 Écart FIFA ÉNORME : Paraguay #49 (1431 pts) vs France #2 (1859 pts) — gap Elo -428 pts → P(vainqueur favori) ≈ 92%.\n⭐ France favori CdM 2026\nL10 : Paraguay 2V/2N/1D sur 5 · France 5V/0N/0D sur 5\n🚂 Mismatch significatif (Elo gap +428) : France pousse pour prendre le large.\n📋 Fiche Paraguay : off moyen (+0.17) · def moyenne (+0.28) · forme DDWLW · 🏆 novice WC\n📋 Fiche France : off moyen (+0.01) · def fragile (-0.81) · forme WWWWW · 🏆 élite mondiale\n   ↳ Historique : finaliste en 2022 · vainqueur en 2018 · quart de finale en 2014 · 2 titres (1998, 2018)\n🎯 Importance : Paraguay : 1 match joué (0pts)\n🌦️ Conditions : pluie 19.5mm (-10%) · chaleur 39.6°C (-10%)\n⚠️ Compo PROBABLE (officielle à T-60min)\n⚽ Modèle Poisson : λ total = 3.76\nP(plus de 2.5 buts) = 72.5%\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+      "calibration_delta": -11.3,
+      "edge_pp": 11.4,
+      "history_top3": true,
+      "id": "2026-07-04_4653842_team_wc_over_25",
+      "date": "2026-07-04",
+      "match_id": "4653842",
+      "page_url": "/matches/france-vs-paraguay/1hu3vk#4653842",
+      "matchup": "Paraguay vs France",
+      "league": "World Cup",
+      "category": "team",
+      "result": "PENDING",
+      "actual": null,
+      "resolved_at": null
+    },
+    {
+      "direction": "away_dc",
+      "type": "Double chance",
+      "label": "Nul ou France (X2)",
+      "cote": null,
+      "confidence": 82,
+      "reasoning": "France invaincu 100% sur 5 derniers matchs · H2H: 0/0 matchs sans défaite · Classement: #1 (away) vs #7 (home)\n📉 Calibration : bucket 80-89% historiquement à WR 56% (claim 82%, n=63) — sur-estimé de 26pp",
+      "stats": {
+        "form": [
+          "W",
+          "W",
+          "W",
+          "W",
+          "W"
+        ]
+      },
+      "is_fun": false,
+      "tier": "safe",
+      "calibration_delta": -26.0,
+      "history_top3": true,
+      "id": "2026-07-04_4653842_team_away_dc",
+      "date": "2026-07-04",
+      "match_id": "4653842",
+      "page_url": "/matches/france-vs-paraguay/1hu3vk#4653842",
+      "matchup": "Paraguay vs France",
+      "league": "World Cup",
+      "category": "team",
+      "result": "PENDING",
+      "actual": null,
+      "resolved_at": null
+    },
+    {
+      "player": "Ousmane Dembélé",
+      "position": "F",
+      "is_sub": true,
+      "type": "Passeur",
+      "label": "Ousmane Dembélé délivre une passe décisive",
+      "cote": null,
+      "cote_min": 1.5,
+      "book": null,
+      "books": [],
+      "confidence": 62,
+      "reasoning": "⚠️ Compo PROBABLE (a confirmer 1h avant). Ousmane Dembélé délivre une passe décisive : selection 3A/7m (0.43 passes/m nat). P(passe décisive) ~62%.\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
+      "context": {
+        "source": "lineup",
+        "lam": 1.1,
+        "lineup_status": "predicted"
+      },
+      "stats": {
+        "goals": null,
+        "apps": null,
+        "gpm": 1.104,
+        "xgpm": null
+      },
+      "team": "away",
+      "lineup_status": "predicted",
+      "tier": "ok",
+      "calibration_delta": -25.4,
+      "history_top3": true,
+      "id": "2026-07-04_4653842_player_Ousmane Dembélé_Passeur",
+      "date": "2026-07-04",
+      "match_id": "4653842",
+      "page_url": "/matches/france-vs-paraguay/1hu3vk#4653842",
+      "matchup": "Paraguay vs France",
+      "league": "World Cup",
+      "category": "player",
+      "result": "PENDING",
+      "actual": null,
+      "resolved_at": null,
+      "side": "away"
+    },
+    {
+      "player": "Bradley Barcola",
+      "position": "F",
+      "is_sub": false,
+      "type": "Buteur",
+      "label": "Bradley Barcola marque",
+      "team": "away",
+      "cote": null,
+      "book": null,
+      "books": [],
+      "confidence": 44,
+      "reasoning": "2G en 4 matchs (50.0%/match) · xG: 0.38/match\n📉 Calibration : bucket 40-49% historiquement à WR 25% (claim 44%, n=36) — sur-estimé de 19pp",
+      "context": {
+        "weakness": 0.34
+      },
+      "stats": {
+        "goals": 2,
+        "apps": 4
+      },
+      "tier": "fun",
+      "calibration_delta": -19.4,
+      "history_top3": true,
+      "id": "2026-07-04_4653842_player_Bradley Barcola_Buteur",
+      "date": "2026-07-04",
+      "match_id": "4653842",
+      "page_url": "/matches/france-vs-paraguay/1hu3vk#4653842",
+      "matchup": "Paraguay vs France",
+      "league": "World Cup",
+      "category": "player",
+      "result": "PENDING",
+      "actual": null,
+      "resolved_at": null,
+      "side": "away"
     },
     {
       "direction": "away_win",
@@ -31496,7 +31642,7 @@
         "wc_round": null,
         "family": "BUT_TEAM"
       },
-      "reasoning": "📊 Écart FIFA ÉNORME : Canada #76 (1268 pts) vs Morocco #12 (1694 pts) — gap Elo -426 pts → P(vainqueur favori) ≈ 92%.\nL10 : Canada 2V/2N/1D sur 5 · Morocco 2V/3N/0D sur 5\n🚂 Mismatch significatif (Elo gap +426) : Morocco pousse pour prendre le large.\n📋 Fiche Canada : off solide (+0.67) · def solide (+0.63) · forme WLWDD · 🏆 présence occasionnelle\n📋 Fiche Morocco : off moyen (-0.13) · def moyenne (+0.08) · forme DWWDD · 🏆 habituée du tournoi\n🎯 Importance : Canada : 1 match joué (1pts) · Morocco : 1 match joué (1pts)\n🌦️ ⛈️ averses violentes · 25–36°C · humidité 62% · précipitations 59.1mm · stade fermé\n⚠️ Compo PROBABLE (officielle à T-60min)\n⚽ P(Morocco marque 2+) = 69.5% (λ = 2.42)\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+      "reasoning": "📊 Écart FIFA ÉNORME : Canada #76 (1268 pts) vs Morocco #12 (1694 pts) — gap Elo -426 pts → P(vainqueur favori) ≈ 92%.\nL10 : Canada 2V/2N/1D sur 5 · Morocco 2V/3N/0D sur 5\n🚂 Mismatch significatif (Elo gap +426) : Morocco pousse pour prendre le large.\n📋 Fiche Canada : off solide (+0.67) · def solide (+0.63) · forme WLWDD · 🏆 présence occasionnelle\n📋 Fiche Morocco : off moyen (-0.13) · def moyenne (+0.08) · forme DWWDD · 🏆 habituée du tournoi\n🎯 Importance : Canada : 1 match joué (1pts) · Morocco : 1 match joué (1pts)\n🌦️ 🌦️ averses modérées · 25–35°C · humidité 55% · précipitations 3.6mm · stade fermé\n⚠️ Compo PROBABLE (officielle à T-60min)\n⚽ P(Morocco marque 2+) = 69.5% (λ = 2.42)\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
       "calibration_delta": -11.3,
       "history_top3": true,
       "id": "2026-07-04_4653843_team_wc_away_scores_2",
@@ -31559,7 +31705,7 @@
         "wc_round": null,
         "family": "CLEAN_SHEET"
       },
-      "reasoning": "📊 Écart FIFA ÉNORME : Canada #76 (1268 pts) vs Morocco #12 (1694 pts) — gap Elo -426 pts → P(vainqueur favori) ≈ 92%.\nL10 : Canada 2V/2N/1D sur 5 · Morocco 2V/3N/0D sur 5\n🚂 Mismatch significatif (Elo gap +426) : Morocco pousse pour prendre le large.\n📋 Fiche Canada : off solide (+0.67) · def solide (+0.63) · forme WLWDD · 🏆 présence occasionnelle\n📋 Fiche Morocco : off moyen (-0.13) · def moyenne (+0.08) · forme DWWDD · 🏆 habituée du tournoi\n🎯 Importance : Canada : 1 match joué (1pts) · Morocco : 1 match joué (1pts)\n🌦️ ⛈️ averses violentes · 25–36°C · humidité 62% · précipitations 59.1mm · stade fermé\n⚠️ Compo PROBABLE (officielle à T-60min)\n🛡️ P(Canada blanchi) = 68.3% (λ_Canada = 0.38)\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
+      "reasoning": "📊 Écart FIFA ÉNORME : Canada #76 (1268 pts) vs Morocco #12 (1694 pts) — gap Elo -426 pts → P(vainqueur favori) ≈ 92%.\nL10 : Canada 2V/2N/1D sur 5 · Morocco 2V/3N/0D sur 5\n🚂 Mismatch significatif (Elo gap +426) : Morocco pousse pour prendre le large.\n📋 Fiche Canada : off solide (+0.67) · def solide (+0.63) · forme WLWDD · 🏆 présence occasionnelle\n📋 Fiche Morocco : off moyen (-0.13) · def moyenne (+0.08) · forme DWWDD · 🏆 habituée du tournoi\n🎯 Importance : Canada : 1 match joué (1pts) · Morocco : 1 match joué (1pts)\n🌦️ 🌦️ averses modérées · 25–35°C · humidité 55% · précipitations 3.6mm · stade fermé\n⚠️ Compo PROBABLE (officielle à T-60min)\n🛡️ P(Canada blanchi) = 68.3% (λ_Canada = 0.38)\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
       "calibration_delta": -25.4,
       "history_top3": true,
       "id": "2026-07-04_4653843_team_wc_home_no_score",
@@ -32098,6 +32244,39 @@
       "actual": null,
       "resolved_at": null,
       "side": "home"
+    },
+    {
+      "player": "Juan Anangonó",
+      "position": "F",
+      "is_sub": false,
+      "type": "Buteur",
+      "label": "Juan Anangonó marque",
+      "team": "away",
+      "cote": null,
+      "book": null,
+      "books": [],
+      "confidence": 37,
+      "reasoning": "5G en 16 matchs (31.2%/match) · xG: 0.00/match",
+      "context": {
+        "weakness": 0.54
+      },
+      "stats": {
+        "goals": 5,
+        "apps": 16
+      },
+      "tier": "fun",
+      "history_top3": true,
+      "id": "2026-07-04_1000009008_player_Juan Anangonó_Buteur",
+      "date": "2026-07-04",
+      "match_id": "1000009008",
+      "page_url": "/matches/libertad-vs-leones-del-norte/1b2b8jnbn#1000009008",
+      "matchup": "Libertad vs Leones del Norte",
+      "league": "Ecuador LigaPro",
+      "category": "player",
+      "result": "PENDING",
+      "actual": null,
+      "resolved_at": null,
+      "side": "away"
     },
     {
       "player": "Fellipe Vieira",
