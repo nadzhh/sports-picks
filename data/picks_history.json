@@ -32351,6 +32351,88 @@
       "side": "home"
     },
     {
+      "player": "Vilington Branda / Juan Anangonó",
+      "position": "",
+      "is_sub": false,
+      "type": "Double Chance Buteur",
+      "label": "Vilington Branda OU Juan Anangonó marque (cross-équipe)",
+      "cote": null,
+      "book": null,
+      "books": [],
+      "confidence": 70,
+      "cote_min": 1.43,
+      "reasoning": "🔀 Cross-équipe (moins corrélé → meilleur EV)\n📈 P(Vilington Branda marque) ≈ 43% · P(Juan Anangonó marque) ≈ 50%\n🎯 P(au moins un marque) = 70% (1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.43 - chercher ≥1.43 chez le bookmaker\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+      "context": {
+        "combo_kind": "cross"
+      },
+      "_team_for_balance": "home",
+      "stats": {
+        "p_a": 0.428,
+        "p_b": 0.502,
+        "p_or": 0.7,
+        "player_a": "Vilington Branda",
+        "player_b": "Juan Anangonó",
+        "kind": "cross"
+      },
+      "team": "home",
+      "tier": "safe",
+      "calibration_delta": -11.3,
+      "history_top3": true,
+      "id": "2026-07-04_1000009008_player_Vilington Branda / Juan Anangonó_Double Chance Buteur",
+      "date": "2026-07-04",
+      "match_id": "1000009008",
+      "page_url": "/matches/libertad-vs-leones-del-norte/1b2b8jnbn#1000009008",
+      "matchup": "Libertad vs Leones del Norte",
+      "league": "Ecuador LigaPro",
+      "category": "player",
+      "result": "WIN",
+      "actual": {
+        "goals": 3,
+        "assists": 0
+      },
+      "resolved_at": "2026-07-04 21:31",
+      "side": "home"
+    },
+    {
+      "player": "Juan Anangonó",
+      "position": "F",
+      "is_sub": false,
+      "type": "Buteur",
+      "label": "Juan Anangonó marque",
+      "cote": null,
+      "book": null,
+      "books": [],
+      "confidence": 50,
+      "reasoning": "7 buts en 16 matchs cette saison (43.8% de chance/match) · bonne efficacité (19% conv.) · xG moyen 0.00/match, défense adverse poreuse (1.5 buts concédés/match) · défense fragile\n📉 Calibration : bucket 50-59% historiquement à WR 42% (claim 55%, n=41) — sur-estimé de 14pp",
+      "context": {
+        "weakness": 0.58
+      },
+      "stats": {
+        "goals": 7,
+        "apps": 16,
+        "gpm": 0.438,
+        "xgpm": 0
+      },
+      "team": "away",
+      "tier": "fun",
+      "calibration_delta": -13.6,
+      "history_top3": true,
+      "id": "2026-07-04_1000009008_player_Juan Anangonó_Buteur",
+      "date": "2026-07-04",
+      "match_id": "1000009008",
+      "page_url": "/matches/libertad-vs-leones-del-norte/1b2b8jnbn#1000009008",
+      "matchup": "Libertad vs Leones del Norte",
+      "league": "Ecuador LigaPro",
+      "category": "player",
+      "result": "WIN",
+      "actual": {
+        "goals": 2,
+        "assists": 0
+      },
+      "resolved_at": "2026-07-04 21:31",
+      "side": "away"
+    },
+    {
       "direction": "away_dc",
       "type": "Double chance",
       "label": "Nul ou Deportivo Cuenca (X2)",
@@ -32608,7 +32690,7 @@
       "confidence": 44,
       "reasoning": "2G en 4 matchs (50.0%/match) · xG: 0.38/match\n📉 Calibration : bucket 40-49% historiquement à WR 25% (claim 44%, n=36) — sur-estimé de 19pp",
       "context": {
-        "weakness": 0.34
+        "weakness": 0.33
       },
       "stats": {
         "goals": 2,
@@ -32623,82 +32705,6 @@
       "page_url": "/matches/france-vs-paraguay/1hu3vk#4653842",
       "matchup": "Paraguay vs France",
       "league": "World Cup",
-      "category": "player",
-      "result": "PENDING",
-      "actual": null,
-      "resolved_at": null,
-      "side": "away"
-    },
-    {
-      "player": "Vilington Branda / Juan Anangonó",
-      "position": "",
-      "is_sub": false,
-      "type": "Double Chance Buteur",
-      "label": "Vilington Branda OU Juan Anangonó marque (cross-équipe)",
-      "cote": null,
-      "book": null,
-      "books": [],
-      "confidence": 70,
-      "cote_min": 1.43,
-      "reasoning": "🔀 Cross-équipe (moins corrélé → meilleur EV)\n📈 P(Vilington Branda marque) ≈ 43% · P(Juan Anangonó marque) ≈ 50%\n🎯 P(au moins un marque) = 70% (1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.43 - chercher ≥1.43 chez le bookmaker\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
-      "context": {
-        "combo_kind": "cross"
-      },
-      "_team_for_balance": "home",
-      "stats": {
-        "p_a": 0.428,
-        "p_b": 0.502,
-        "p_or": 0.7,
-        "player_a": "Vilington Branda",
-        "player_b": "Juan Anangonó",
-        "kind": "cross"
-      },
-      "team": "home",
-      "tier": "safe",
-      "calibration_delta": -11.3,
-      "history_top3": true,
-      "id": "2026-07-04_1000009008_player_Vilington Branda / Juan Anangonó_Double Chance Buteur",
-      "date": "2026-07-04",
-      "match_id": "1000009008",
-      "page_url": "/matches/libertad-vs-leones-del-norte/1b2b8jnbn#1000009008",
-      "matchup": "Libertad vs Leones del Norte",
-      "league": "Ecuador LigaPro",
-      "category": "player",
-      "result": "PENDING",
-      "actual": null,
-      "resolved_at": null,
-      "side": "home"
-    },
-    {
-      "player": "Juan Anangonó",
-      "position": "F",
-      "is_sub": false,
-      "type": "Buteur",
-      "label": "Juan Anangonó marque",
-      "cote": null,
-      "book": null,
-      "books": [],
-      "confidence": 50,
-      "reasoning": "7 buts en 16 matchs cette saison (43.8% de chance/match) · bonne efficacité (19% conv.) · xG moyen 0.00/match, défense adverse poreuse (1.5 buts concédés/match) · défense fragile\n📉 Calibration : bucket 50-59% historiquement à WR 42% (claim 55%, n=41) — sur-estimé de 14pp",
-      "context": {
-        "weakness": 0.58
-      },
-      "stats": {
-        "goals": 7,
-        "apps": 16,
-        "gpm": 0.438,
-        "xgpm": 0
-      },
-      "team": "away",
-      "tier": "fun",
-      "calibration_delta": -13.6,
-      "history_top3": true,
-      "id": "2026-07-04_1000009008_player_Juan Anangonó_Buteur",
-      "date": "2026-07-04",
-      "match_id": "1000009008",
-      "page_url": "/matches/libertad-vs-leones-del-norte/1b2b8jnbn#1000009008",
-      "matchup": "Libertad vs Leones del Norte",
-      "league": "Ecuador LigaPro",
       "category": "player",
       "result": "PENDING",
       "actual": null,

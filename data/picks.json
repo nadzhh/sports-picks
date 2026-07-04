@@ -441,7 +441,7 @@
         "confidence": 44,
         "reasoning": "2G en 4 matchs (50.0%/match) · xG: 0.38/match\n📉 Calibration : bucket 40-49% historiquement à WR 25% (claim 44%, n=36) — sur-estimé de 19pp",
         "context": {
-          "weakness": 0.34
+          "weakness": 0.33
         },
         "stats": {
           "goals": 2,
@@ -983,125 +983,6 @@
         "summary_fr": "🌧️ pluie forte · 21–32°C · humidité 72% · précipitations 122.8mm"
       },
       "text": "Conditions : 🌧️ pluie forte · 21–32°C · humidité 72% · précipitations 122.8mm. Stade : MetLife Stadium · altitude 7m · 82 500 places · plein air. Climat nord-est USA. Juin 22-28°C, humidité modérée. Probable lieu de la finale. ⚠️ Pluies prévues : terrain potentiellement lourd, jeu direct privilégié, plus d'erreurs techniques. ⚠️ Forte chaleur (>32°C) en plein air : impact endurance, plus de pauses hydratation. ⚠️ Vent fort prévu : jeu aérien moins fiable, balles longues imprévisibles."
-    }
-  },
-  {
-    "league": "Ecuador LigaPro",
-    "home": "Libertad",
-    "away": "Leones del Norte",
-    "start_ts": 1783191600,
-    "match_id": "1000009008",
-    "page_url": "/matches/libertad-vs-leones-del-norte/1b2b8jnbn#1000009008",
-    "picks": [],
-    "home_players": [
-      {
-        "player": "Vilington Branda / Juan Anangonó",
-        "position": "",
-        "is_sub": false,
-        "type": "Double Chance Buteur",
-        "label": "Vilington Branda OU Juan Anangonó marque (cross-équipe)",
-        "cote": null,
-        "book": null,
-        "books": [],
-        "confidence": 70,
-        "cote_min": 1.43,
-        "reasoning": "🔀 Cross-équipe (moins corrélé → meilleur EV)\n📈 P(Vilington Branda marque) ≈ 43% · P(Juan Anangonó marque) ≈ 50%\n🎯 P(au moins un marque) = 70% (1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.43 - chercher ≥1.43 chez le bookmaker\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
-        "context": {
-          "combo_kind": "cross"
-        },
-        "_team_for_balance": "home",
-        "stats": {
-          "p_a": 0.428,
-          "p_b": 0.502,
-          "p_or": 0.7,
-          "player_a": "Vilington Branda",
-          "player_b": "Juan Anangonó",
-          "kind": "cross"
-        },
-        "team": "home",
-        "tier": "safe",
-        "calibration_delta": -11.3,
-        "history_top3": true
-      }
-    ],
-    "away_players": [
-      {
-        "player": "Juan Anangonó",
-        "position": "F",
-        "is_sub": false,
-        "type": "Buteur",
-        "label": "Juan Anangonó marque",
-        "cote": null,
-        "book": null,
-        "books": [],
-        "confidence": 50,
-        "reasoning": "7 buts en 16 matchs cette saison (43.8% de chance/match) · bonne efficacité (19% conv.) · xG moyen 0.00/match, défense adverse poreuse (1.5 buts concédés/match) · défense fragile\n📉 Calibration : bucket 50-59% historiquement à WR 42% (claim 55%, n=41) — sur-estimé de 14pp",
-        "context": {
-          "weakness": 0.58
-        },
-        "stats": {
-          "goals": 7,
-          "apps": 16,
-          "gpm": 0.438,
-          "xgpm": 0
-        },
-        "team": "away",
-        "tier": "fun",
-        "calibration_delta": -13.6,
-        "history_top3": true
-      }
-    ],
-    "fun_picks": [],
-    "top_pick": {
-      "player": "Vilington Branda / Juan Anangonó",
-      "position": "",
-      "is_sub": false,
-      "type": "Double Chance Buteur",
-      "label": "Vilington Branda OU Juan Anangonó marque (cross-équipe)",
-      "cote": null,
-      "book": null,
-      "books": [],
-      "confidence": 70,
-      "cote_min": 1.43,
-      "reasoning": "🔀 Cross-équipe (moins corrélé → meilleur EV)\n📈 P(Vilington Branda marque) ≈ 43% · P(Juan Anangonó marque) ≈ 50%\n🎯 P(au moins un marque) = 70% (1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.43 - chercher ≥1.43 chez le bookmaker\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
-      "context": {
-        "combo_kind": "cross"
-      },
-      "_team_for_balance": "home",
-      "stats": {
-        "p_a": 0.428,
-        "p_b": 0.502,
-        "p_or": 0.7,
-        "player_a": "Vilington Branda",
-        "player_b": "Juan Anangonó",
-        "kind": "cross"
-      },
-      "team": "home",
-      "tier": "safe",
-      "calibration_delta": -11.3,
-      "history_top3": true
-    },
-    "no_picks": false,
-    "context": {
-      "stadium": {
-        "name": "Estadio Federativo Reina del Cisne",
-        "city": "Loja",
-        "country": "Ecuador",
-        "lat": -3.992013134,
-        "lon": -79.207735062,
-        "capacity": null,
-        "surface": null
-      },
-      "weather": {
-        "temp_max": 18.4,
-        "temp_min": 12.4,
-        "humidity": 81,
-        "precipitation_sum_mm": 5.0,
-        "wind_max_kmh": 14.4,
-        "weather_code": 53,
-        "summary_fr": "🌦️ bruine modérée · 12–18°C · humidité 81% · précipitations 5.0mm"
-      },
-      "text": "Conditions : 🌦️ bruine modérée · 12–18°C · humidité 81% · précipitations 5.0mm. Stade : Estadio Federativo Reina del Cisne · plein air. ⚠️ Pluies prévues : terrain potentiellement lourd, jeu direct privilégié, plus d'erreurs techniques."
     }
   },
   {
