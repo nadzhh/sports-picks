@@ -33710,9 +33710,12 @@
       "matchup": "Hassania Agadir vs KACM",
       "league": "Morocco Botola Pro",
       "category": "player",
-      "result": "PENDING",
-      "actual": null,
-      "resolved_at": null,
+      "result": "WIN",
+      "actual": {
+        "goals": 1,
+        "assists": 0
+      },
+      "resolved_at": "2026-07-05 19:31",
       "side": "away"
     },
     {
@@ -33746,9 +33749,12 @@
       "matchup": "Hassania Agadir vs KACM",
       "league": "Morocco Botola Pro",
       "category": "player",
-      "result": "PENDING",
-      "actual": null,
-      "resolved_at": null,
+      "result": "LOSS",
+      "actual": {
+        "goals": 0,
+        "assists": 0
+      },
+      "resolved_at": "2026-07-05 19:31",
       "side": "away"
     },
     {
@@ -33860,9 +33866,9 @@
       "matchup": "MAS Fes vs Olympique Dcheira",
       "league": "Morocco Botola Pro",
       "category": "team",
-      "result": "PENDING",
-      "actual": null,
-      "resolved_at": null
+      "result": "WIN",
+      "actual": "2-0",
+      "resolved_at": "2026-07-05 19:31"
     },
     {
       "direction": "home_win",
@@ -33891,9 +33897,9 @@
       "matchup": "MAS Fes vs Olympique Dcheira",
       "league": "Morocco Botola Pro",
       "category": "team",
-      "result": "PENDING",
-      "actual": null,
-      "resolved_at": null
+      "result": "WIN",
+      "actual": "2-0",
+      "resolved_at": "2026-07-05 19:31"
     },
     {
       "player": "Soufiane Benjdida / Achraf Harmach",
@@ -33930,9 +33936,94 @@
       "matchup": "MAS Fes vs Olympique Dcheira",
       "league": "Morocco Botola Pro",
       "category": "player",
-      "result": "PENDING",
-      "actual": null,
-      "resolved_at": null,
+      "result": "LOSS",
+      "actual": {
+        "goals": 0,
+        "assists": 0
+      },
+      "resolved_at": "2026-07-05 19:31",
+      "side": "home"
+    },
+    {
+      "player": "Amine Souane / Ayoub Mouloua",
+      "position": "",
+      "is_sub": false,
+      "type": "Double Chance Buteur",
+      "label": "Amine Souane ou Ayoub Mouloua marque (FUS Rabat)",
+      "cote": null,
+      "book": null,
+      "books": [],
+      "confidence": 70,
+      "cote_min": 1.43,
+      "reasoning": "🏠 Combo intra-FUS Rabat\n📈 P(Amine Souane marque) ≈ 55% · P(Ayoub Mouloua marque) ≈ 47%\n🎯 P(au moins un marque) = 70% (1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.43 - chercher ≥1.43 chez le bookmaker\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+      "context": {
+        "combo_kind": "intra-home"
+      },
+      "_team_for_balance": "home",
+      "stats": {
+        "p_a": 0.548,
+        "p_b": 0.472,
+        "p_or": 0.7,
+        "player_a": "Amine Souane",
+        "player_b": "Ayoub Mouloua",
+        "kind": "intra-home"
+      },
+      "team": "home",
+      "tier": "safe",
+      "calibration_delta": -11.3,
+      "history_top3": true,
+      "id": "2026-07-05_5888346_player_Amine Souane / Ayoub Mouloua_Double Chance Buteur",
+      "date": "2026-07-05",
+      "match_id": "5888346",
+      "page_url": "/matches/fus-rabat-vs-union-yacoub-el-mansour/mrezkpgz#5888346",
+      "matchup": "FUS Rabat vs Union Yacoub El-Mansour",
+      "league": "Morocco Botola Pro",
+      "category": "player",
+      "result": "LOSS",
+      "actual": {
+        "goals": 0,
+        "assists": 0
+      },
+      "resolved_at": "2026-07-05 19:31",
+      "side": "home"
+    },
+    {
+      "player": "Amine Souane",
+      "position": "M",
+      "is_sub": false,
+      "type": "Buteur",
+      "label": "Amine Souane marque",
+      "cote": null,
+      "book": null,
+      "books": [],
+      "confidence": 55,
+      "reasoning": "3 buts en 5 matchs cette saison (60.0% de chance/match) · xG moyen 0.00/match, défense adverse poreuse (1.5 buts concédés/match) · défense fragile\n📉 Calibration : bucket 50-59% historiquement à WR 42% (claim 55%, n=41) — sur-estimé de 14pp",
+      "context": {
+        "weakness": 0.6
+      },
+      "stats": {
+        "goals": 3,
+        "apps": 5,
+        "gpm": 0.6,
+        "xgpm": 0
+      },
+      "team": "home",
+      "tier": "ok",
+      "calibration_delta": -13.6,
+      "history_top3": true,
+      "id": "2026-07-05_5888346_player_Amine Souane_Buteur",
+      "date": "2026-07-05",
+      "match_id": "5888346",
+      "page_url": "/matches/fus-rabat-vs-union-yacoub-el-mansour/mrezkpgz#5888346",
+      "matchup": "FUS Rabat vs Union Yacoub El-Mansour",
+      "league": "Morocco Botola Pro",
+      "category": "player",
+      "result": "LOSS",
+      "actual": {
+        "goals": 0,
+        "assists": 0
+      },
+      "resolved_at": "2026-07-05 19:31",
       "side": "home"
     },
     {
@@ -33971,7 +34062,7 @@
       "direction": "wc_over_25",
       "type": "⚽ Total buts WC",
       "label": "Plus de 2.5 buts",
-      "cote": 1.65,
+      "cote": 1.71,
       "cote_min": 1.32,
       "confidence": 76,
       "tier": "safe",
@@ -33986,7 +34077,7 @@
       },
       "reasoning": "📊 Écart FIFA significatif : Brazil #5 vs Norway #34 (gap +249 pts, P favori ≈ 81%).\n⭐ Brazil favori CdM 2026\nL10 : Brazil 4V/1N/0D sur 5 · Norway 3V/1N/1D sur 5\n📋 Fiche Brazil : off moyen (+0.15) · def fragile (-0.37) · forme WWWDW · 🏆 régulière phase finale\n   ↳ Historique : quart de finale en 2022 · quart de finale en 2018 · demi-finaliste en 2014 · 2 titres (1994, 2002)\n📋 Fiche Norway : off solide (+0.93) · def moyenne (+0.08) · forme WLWWD · 🏆 novice WC\n🎯 Importance : Brazil : 1 match joué (1pts)\n🌦️ 🌦️ bruine légère · 22–28°C · humidité 71%\n✅ Compo OFFICIELLE\n⚽ Modèle Poisson : λ total = 3.98\nP(plus de 2.5 buts) = 75.8%\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
       "calibration_delta": -11.3,
-      "edge_pp": 15.4,
+      "edge_pp": 17.5,
       "history_top3": true,
       "id": "2026-07-05_4653846_team_wc_over_25",
       "date": "2026-07-05",
@@ -34010,15 +34101,15 @@
       "books": [],
       "confidence": 70,
       "cote_min": 1.43,
-      "reasoning": "🔀 Cross-équipe (moins corrélé → meilleur EV)\n📈 P(Vinícius Júnior marque) ≈ 48% · P(Erling Haaland marque) ≈ 43%\n🎯 P(au moins un marque) = 70% (1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.43 - chercher ≥1.43 chez le bookmaker\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+      "reasoning": "🔀 Cross-équipe (moins corrélé → meilleur EV)\n📈 P(Vinícius Júnior marque) ≈ 47% · P(Erling Haaland marque) ≈ 43%\n🎯 P(au moins un marque) = 70% (1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.43 - chercher ≥1.43 chez le bookmaker\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
       "context": {
         "combo_kind": "cross"
       },
       "_team_for_balance": "home",
       "stats": {
-        "p_a": 0.48,
+        "p_a": 0.472,
         "p_b": 0.428,
-        "p_or": 0.703,
+        "p_or": 0.698,
         "player_a": "Vinícius Júnior",
         "player_b": "Erling Haaland",
         "kind": "cross"
@@ -34337,82 +34428,6 @@
       "page_url": "/matches/csd-macara-vs-ldu-de-quito/1gwj58#1000009003",
       "matchup": "CSD Macara vs LDU de Quito",
       "league": "Ecuador LigaPro",
-      "category": "player",
-      "result": "PENDING",
-      "actual": null,
-      "resolved_at": null,
-      "side": "home"
-    },
-    {
-      "player": "Amine Souane / Ayoub Mouloua",
-      "position": "",
-      "is_sub": false,
-      "type": "Double Chance Buteur",
-      "label": "Amine Souane ou Ayoub Mouloua marque (FUS Rabat)",
-      "cote": null,
-      "book": null,
-      "books": [],
-      "confidence": 70,
-      "cote_min": 1.43,
-      "reasoning": "🏠 Combo intra-FUS Rabat\n📈 P(Amine Souane marque) ≈ 55% · P(Ayoub Mouloua marque) ≈ 47%\n🎯 P(au moins un marque) = 70% (1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.43 - chercher ≥1.43 chez le bookmaker\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
-      "context": {
-        "combo_kind": "intra-home"
-      },
-      "_team_for_balance": "home",
-      "stats": {
-        "p_a": 0.548,
-        "p_b": 0.472,
-        "p_or": 0.7,
-        "player_a": "Amine Souane",
-        "player_b": "Ayoub Mouloua",
-        "kind": "intra-home"
-      },
-      "team": "home",
-      "tier": "safe",
-      "calibration_delta": -11.3,
-      "history_top3": true,
-      "id": "2026-07-05_5888346_player_Amine Souane / Ayoub Mouloua_Double Chance Buteur",
-      "date": "2026-07-05",
-      "match_id": "5888346",
-      "page_url": "/matches/fus-rabat-vs-union-yacoub-el-mansour/mrezkpgz#5888346",
-      "matchup": "FUS Rabat vs Union Yacoub El-Mansour",
-      "league": "Morocco Botola Pro",
-      "category": "player",
-      "result": "PENDING",
-      "actual": null,
-      "resolved_at": null,
-      "side": "home"
-    },
-    {
-      "player": "Amine Souane",
-      "position": "M",
-      "is_sub": false,
-      "type": "Buteur",
-      "label": "Amine Souane marque",
-      "cote": null,
-      "book": null,
-      "books": [],
-      "confidence": 55,
-      "reasoning": "3 buts en 5 matchs cette saison (60.0% de chance/match) · xG moyen 0.00/match, défense adverse poreuse (1.5 buts concédés/match) · défense fragile\n📉 Calibration : bucket 50-59% historiquement à WR 42% (claim 55%, n=41) — sur-estimé de 14pp",
-      "context": {
-        "weakness": 0.6
-      },
-      "stats": {
-        "goals": 3,
-        "apps": 5,
-        "gpm": 0.6,
-        "xgpm": 0
-      },
-      "team": "home",
-      "tier": "ok",
-      "calibration_delta": -13.6,
-      "history_top3": true,
-      "id": "2026-07-05_5888346_player_Amine Souane_Buteur",
-      "date": "2026-07-05",
-      "match_id": "5888346",
-      "page_url": "/matches/fus-rabat-vs-union-yacoub-el-mansour/mrezkpgz#5888346",
-      "matchup": "FUS Rabat vs Union Yacoub El-Mansour",
-      "league": "Morocco Botola Pro",
       "category": "player",
       "result": "PENDING",
       "actual": null,
