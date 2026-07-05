@@ -32879,9 +32879,12 @@
       "matchup": "Shanghai Shenhua vs Zhejiang Professional",
       "league": "Chinese Super League",
       "category": "player",
-      "result": "PENDING",
-      "actual": null,
-      "resolved_at": null,
+      "result": "WIN",
+      "actual": {
+        "goals": 1,
+        "assists": 0
+      },
+      "resolved_at": "2026-07-05 14:01",
       "side": "home"
     },
     {
@@ -32915,9 +32918,12 @@
       "matchup": "Shanghai Shenhua vs Zhejiang Professional",
       "league": "Chinese Super League",
       "category": "player",
-      "result": "PENDING",
-      "actual": null,
-      "resolved_at": null,
+      "result": "WIN",
+      "actual": {
+        "goals": 1,
+        "assists": 0
+      },
+      "resolved_at": "2026-07-05 14:01",
       "side": "home"
     },
     {
@@ -32951,9 +32957,94 @@
       "matchup": "Shanghai Shenhua vs Zhejiang Professional",
       "league": "Chinese Super League",
       "category": "player",
-      "result": "PENDING",
-      "actual": null,
-      "resolved_at": null,
+      "result": "LOSS",
+      "actual": {
+        "goals": 0,
+        "assists": 0
+      },
+      "resolved_at": "2026-07-05 14:01",
+      "side": "home"
+    },
+    {
+      "player": "Tobias Heintz / Sebastian Clemmensen",
+      "position": "",
+      "is_sub": false,
+      "type": "Double Chance Buteur",
+      "label": "Tobias Heintz ou Sebastian Clemmensen marque (IFK Göteborg)",
+      "cote": null,
+      "book": null,
+      "books": [],
+      "confidence": 70,
+      "cote_min": 1.43,
+      "reasoning": "🏠 Combo intra-IFK Göteborg\n📈 P(Tobias Heintz marque) ≈ 56% · P(Sebastian Clemmensen marque) ≈ 35%\n🎯 P(au moins un marque) = 70% (1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.43 - chercher ≥1.43 chez le bookmaker\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+      "context": {
+        "combo_kind": "intra-home"
+      },
+      "_team_for_balance": "home",
+      "stats": {
+        "p_a": 0.555,
+        "p_b": 0.352,
+        "p_or": 0.7,
+        "player_a": "Tobias Heintz",
+        "player_b": "Sebastian Clemmensen",
+        "kind": "intra-home"
+      },
+      "team": "home",
+      "tier": "safe",
+      "calibration_delta": -11.3,
+      "history_top3": true,
+      "id": "2026-07-05_5107517_player_Tobias Heintz / Sebastian Clemmensen_Double Chance Buteur",
+      "date": "2026-07-05",
+      "match_id": "5107517",
+      "page_url": "/matches/aik-vs-ifk-goteborg/2r2mdk#5107517",
+      "matchup": "IFK Göteborg vs AIK",
+      "league": "Swedish Allsvenskan",
+      "category": "player",
+      "result": "WIN",
+      "actual": {
+        "goals": 1,
+        "assists": 0
+      },
+      "resolved_at": "2026-07-05 14:01",
+      "side": "home"
+    },
+    {
+      "player": "Tobias Heintz",
+      "position": "F",
+      "is_sub": false,
+      "type": "Buteur",
+      "label": "Tobias Heintz marque",
+      "cote": null,
+      "book": null,
+      "books": [],
+      "confidence": 56,
+      "reasoning": "6 buts en 10 matchs cette saison (60.0% de chance/match) · finisseur efficace (15% de conv.) · xG moyen 0.49/match, défense adverse poreuse (1.5 buts concédés/match) · défense fragile\n📉 Calibration : bucket 50-59% historiquement à WR 42% (claim 55%, n=41) — sur-estimé de 14pp",
+      "context": {
+        "weakness": 0.54
+      },
+      "stats": {
+        "goals": 6,
+        "apps": 10,
+        "gpm": 0.6,
+        "xgpm": 0.49
+      },
+      "team": "home",
+      "tier": "ok",
+      "calibration_delta": -13.6,
+      "history_top3": true,
+      "id": "2026-07-05_5107517_player_Tobias Heintz_Buteur",
+      "date": "2026-07-05",
+      "match_id": "5107517",
+      "page_url": "/matches/aik-vs-ifk-goteborg/2r2mdk#5107517",
+      "matchup": "IFK Göteborg vs AIK",
+      "league": "Swedish Allsvenskan",
+      "category": "player",
+      "result": "LOSS",
+      "actual": {
+        "goals": 0,
+        "assists": 0
+      },
+      "resolved_at": "2026-07-05 14:01",
       "side": "home"
     },
     {
@@ -33369,7 +33460,7 @@
       "direction": "wc_home_win",
       "type": "🏆 Vainqueur WC",
       "label": "Brazil gagne",
-      "cote": 1.8,
+      "cote": 1.77,
       "cote_min": 1.26,
       "confidence": 79,
       "tier": "safe",
@@ -33384,7 +33475,7 @@
       },
       "reasoning": "📊 Écart FIFA significatif : Brazil #5 vs Norway #34 (gap +249 pts, P favori ≈ 81%).\n⭐ Brazil favori CdM 2026\nL10 : Brazil 4V/1N/0D sur 5 · Norway 3V/1N/1D sur 5\n📋 Fiche Brazil : off moyen (+0.15) · def fragile (-0.37) · forme WWWDW · 🏆 régulière phase finale\n   ↳ Historique : quart de finale en 2022 · quart de finale en 2018 · demi-finaliste en 2014 · 2 titres (1994, 2002)\n📋 Fiche Norway : off solide (+0.93) · def moyenne (+0.08) · forme WLWWD · 🏆 novice WC\n🎯 Importance : Brazil : 1 match joué (1pts)\n🌦️ Conditions : pluie 8.8mm (-10%)\n⚠️ Compo PROBABLE (officielle à T-60min)\n🏆 Modèle Poisson CdM (tier FIFA ajusté)\nλ Brazil = 2.83 buts attendus, λ Norway = 0.75\nP(Brazil gagne) = 79.3% · P(nul) = 12.7% · P(Norway) = 7.1%\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
       "calibration_delta": -11.3,
-      "edge_pp": 23.4,
+      "edge_pp": 22.5,
       "history_top3": true,
       "id": "2026-07-05_4653846_team_wc_home_win",
       "date": "2026-07-05",
@@ -33401,7 +33492,7 @@
       "direction": "wc_over_25",
       "type": "⚽ Total buts WC",
       "label": "Plus de 2.5 buts",
-      "cote": 1.69,
+      "cote": 1.67,
       "cote_min": 1.44,
       "confidence": 69,
       "tier": "ok",
@@ -33416,7 +33507,7 @@
       },
       "reasoning": "📊 Écart FIFA significatif : Brazil #5 vs Norway #34 (gap +249 pts, P favori ≈ 81%).\n⭐ Brazil favori CdM 2026\nL10 : Brazil 4V/1N/0D sur 5 · Norway 3V/1N/1D sur 5\n📋 Fiche Brazil : off moyen (+0.15) · def fragile (-0.37) · forme WWWDW · 🏆 régulière phase finale\n   ↳ Historique : quart de finale en 2022 · quart de finale en 2018 · demi-finaliste en 2014 · 2 titres (1994, 2002)\n📋 Fiche Norway : off solide (+0.93) · def moyenne (+0.08) · forme WLWWD · 🏆 novice WC\n🎯 Importance : Brazil : 1 match joué (1pts)\n🌦️ Conditions : pluie 8.8mm (-10%)\n⚠️ Compo PROBABLE (officielle à T-60min)\n⚽ Modèle Poisson : λ total = 3.58\nP(plus de 2.5 buts) = 69.3%\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
       "calibration_delta": -25.4,
-      "edge_pp": 9.8,
+      "edge_pp": 9.1,
       "history_top3": true,
       "id": "2026-07-05_4653846_team_wc_over_25",
       "date": "2026-07-05",
@@ -33923,82 +34014,6 @@
       "result": "PENDING",
       "actual": null,
       "resolved_at": null
-    },
-    {
-      "player": "Tobias Heintz / Sebastian Clemmensen",
-      "position": "",
-      "is_sub": false,
-      "type": "Double Chance Buteur",
-      "label": "Tobias Heintz ou Sebastian Clemmensen marque (IFK Göteborg)",
-      "cote": null,
-      "book": null,
-      "books": [],
-      "confidence": 70,
-      "cote_min": 1.43,
-      "reasoning": "🏠 Combo intra-IFK Göteborg\n📈 P(Tobias Heintz marque) ≈ 56% · P(Sebastian Clemmensen marque) ≈ 35%\n🎯 P(au moins un marque) = 70% (1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.43 - chercher ≥1.43 chez le bookmaker\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
-      "context": {
-        "combo_kind": "intra-home"
-      },
-      "_team_for_balance": "home",
-      "stats": {
-        "p_a": 0.555,
-        "p_b": 0.352,
-        "p_or": 0.7,
-        "player_a": "Tobias Heintz",
-        "player_b": "Sebastian Clemmensen",
-        "kind": "intra-home"
-      },
-      "team": "home",
-      "tier": "safe",
-      "calibration_delta": -11.3,
-      "history_top3": true,
-      "id": "2026-07-05_5107517_player_Tobias Heintz / Sebastian Clemmensen_Double Chance Buteur",
-      "date": "2026-07-05",
-      "match_id": "5107517",
-      "page_url": "/matches/aik-vs-ifk-goteborg/2r2mdk#5107517",
-      "matchup": "IFK Göteborg vs AIK",
-      "league": "Swedish Allsvenskan",
-      "category": "player",
-      "result": "PENDING",
-      "actual": null,
-      "resolved_at": null,
-      "side": "home"
-    },
-    {
-      "player": "Tobias Heintz",
-      "position": "F",
-      "is_sub": false,
-      "type": "Buteur",
-      "label": "Tobias Heintz marque",
-      "cote": null,
-      "book": null,
-      "books": [],
-      "confidence": 56,
-      "reasoning": "6 buts en 10 matchs cette saison (60.0% de chance/match) · finisseur efficace (15% de conv.) · xG moyen 0.49/match, défense adverse poreuse (1.5 buts concédés/match) · défense fragile\n📉 Calibration : bucket 50-59% historiquement à WR 42% (claim 55%, n=41) — sur-estimé de 14pp",
-      "context": {
-        "weakness": 0.54
-      },
-      "stats": {
-        "goals": 6,
-        "apps": 10,
-        "gpm": 0.6,
-        "xgpm": 0.49
-      },
-      "team": "home",
-      "tier": "ok",
-      "calibration_delta": -13.6,
-      "history_top3": true,
-      "id": "2026-07-05_5107517_player_Tobias Heintz_Buteur",
-      "date": "2026-07-05",
-      "match_id": "5107517",
-      "page_url": "/matches/aik-vs-ifk-goteborg/2r2mdk#5107517",
-      "matchup": "IFK Göteborg vs AIK",
-      "league": "Swedish Allsvenskan",
-      "category": "player",
-      "result": "PENDING",
-      "actual": null,
-      "resolved_at": null,
-      "side": "home"
     },
     {
       "player": "Amine Souane / Ayoub Mouloua",
