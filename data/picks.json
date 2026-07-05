@@ -12,8 +12,8 @@
         "type": "Double chance",
         "label": "Nul ou Raja Casablanca (X2)",
         "cote": null,
-        "confidence": 83,
-        "reasoning": "Raja Casablanca invaincu 81% sur 5 derniers matchs · H2H: 1/1 matchs sans défaite · Classement: #4 (away) vs #16 (home)\n📉 Calibration : bucket 80-89% historiquement à WR 56% (claim 82%, n=63) — sur-estimé de 26pp",
+        "confidence": 84,
+        "reasoning": "Raja Casablanca invaincu 81% sur 5 derniers matchs · H2H: 1/1 matchs sans défaite · Classement: #3 (away) vs #16 (home)\n📉 Calibration : bucket 80-89% historiquement à WR 56% (claim 82%, n=63) — sur-estimé de 26pp",
         "stats": {
           "form": [
             "W",
@@ -33,8 +33,8 @@
         "type": "Victoire extérieur",
         "label": "Raja Casablanca gagne",
         "cote": null,
-        "confidence": 68,
-        "reasoning": "Raja Casablanca : 3V/1N/1D sur 5 matchs · #4 au classement · H2H: 1V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
+        "confidence": 69,
+        "reasoning": "Raja Casablanca : 3V/1N/1D sur 5 matchs · #3 au classement · H2H: 1V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
         "stats": {
           "form": [
             "W",
@@ -78,27 +78,52 @@
         "history_top3": true
       },
       {
-        "player": "Mathias Oyewusi / Ismail Khafi",
+        "player": "Abdellah Khafifi",
+        "position": "M",
+        "is_sub": false,
+        "type": "Buteur",
+        "label": "Abdellah Khafifi marque",
+        "cote": null,
+        "book": null,
+        "books": [],
+        "confidence": 52,
+        "reasoning": "5 buts en 9 matchs cette saison (55.6% de chance/match) · xG moyen 0.00/match, défense adverse poreuse (1.3 buts concédés/match) · défense fragile\n📉 Calibration : bucket 50-59% historiquement à WR 42% (claim 55%, n=41) — sur-estimé de 14pp",
+        "context": {
+          "weakness": 0.6
+        },
+        "stats": {
+          "goals": 5,
+          "apps": 9,
+          "gpm": 0.556,
+          "xgpm": 0
+        },
+        "team": "away",
+        "tier": "fun",
+        "calibration_delta": -13.6,
+        "history_top3": true
+      },
+      {
+        "player": "Mathias Oyewusi / Abdellah Khafifi",
         "position": "",
         "is_sub": false,
         "type": "Double Chance Buteur",
-        "label": "Mathias Oyewusi ou Ismail Khafi marque (Raja Casablanca)",
+        "label": "Mathias Oyewusi ou Abdellah Khafifi marque (Raja Casablanca)",
         "cote": null,
         "book": null,
         "books": [],
         "confidence": 70,
         "cote_min": 1.43,
-        "reasoning": "✈️ Combo intra-Raja Casablanca\n📈 P(Mathias Oyewusi marque) ≈ 62% · P(Ismail Khafi marque) ≈ 50%\n🎯 P(au moins un marque) = 70% (1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.43 - chercher ≥1.43 chez le bookmaker\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+        "reasoning": "✈️ Combo intra-Raja Casablanca\n📈 P(Mathias Oyewusi marque) ≈ 62% · P(Abdellah Khafifi marque) ≈ 52%\n🎯 P(au moins un marque) = 70% (1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.43 - chercher ≥1.43 chez le bookmaker\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
         "context": {
           "combo_kind": "intra-away"
         },
         "_team_for_balance": "away",
         "stats": {
           "p_a": 0.622,
-          "p_b": 0.495,
+          "p_b": 0.525,
           "p_or": 0.7,
           "player_a": "Mathias Oyewusi",
-          "player_b": "Ismail Khafi",
+          "player_b": "Abdellah Khafifi",
           "kind": "intra-away"
         },
         "team": "away",
@@ -113,8 +138,8 @@
       "type": "Double chance",
       "label": "Nul ou Raja Casablanca (X2)",
       "cote": null,
-      "confidence": 83,
-      "reasoning": "Raja Casablanca invaincu 81% sur 5 derniers matchs · H2H: 1/1 matchs sans défaite · Classement: #4 (away) vs #16 (home)\n📉 Calibration : bucket 80-89% historiquement à WR 56% (claim 82%, n=63) — sur-estimé de 26pp",
+      "confidence": 84,
+      "reasoning": "Raja Casablanca invaincu 81% sur 5 derniers matchs · H2H: 1/1 matchs sans défaite · Classement: #3 (away) vs #16 (home)\n📉 Calibration : bucket 80-89% historiquement à WR 56% (claim 82%, n=63) — sur-estimé de 26pp",
       "stats": {
         "form": [
           "W",
@@ -1366,17 +1391,17 @@
     "home_players": [],
     "away_players": [
       {
-        "player": "Fernando Mimbacas / Gonzalo Gomez",
+        "player": "Fernando Mimbacas / Ramiro Peralta",
         "position": "",
         "is_sub": false,
         "type": "Double Chance Buteur",
-        "label": "Fernando Mimbacas ou Gonzalo Gomez marque (Juventud de las Piedras)",
+        "label": "Fernando Mimbacas ou Ramiro Peralta marque (Juventud de las Piedras)",
         "cote": null,
         "book": null,
         "books": [],
         "confidence": 70,
         "cote_min": 1.43,
-        "reasoning": "✈️ Combo intra-Juventud de las Piedras\n📈 P(Fernando Mimbacas marque) ≈ 47% · P(Gonzalo Gomez marque) ≈ 44%\n🎯 P(au moins un marque) = 70% (1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.43 - chercher ≥1.43 chez le bookmaker\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+        "reasoning": "✈️ Combo intra-Juventud de las Piedras\n📈 P(Fernando Mimbacas marque) ≈ 47% · P(Ramiro Peralta marque) ≈ 44%\n🎯 P(au moins un marque) = 70% (1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.43 - chercher ≥1.43 chez le bookmaker\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
         "context": {
           "combo_kind": "intra-away"
         },
@@ -1386,7 +1411,7 @@
           "p_b": 0.442,
           "p_or": 0.7,
           "player_a": "Fernando Mimbacas",
-          "player_b": "Gonzalo Gomez",
+          "player_b": "Ramiro Peralta",
           "kind": "intra-away"
         },
         "team": "away",
@@ -1397,17 +1422,17 @@
     ],
     "fun_picks": [],
     "top_pick": {
-      "player": "Fernando Mimbacas / Gonzalo Gomez",
+      "player": "Fernando Mimbacas / Ramiro Peralta",
       "position": "",
       "is_sub": false,
       "type": "Double Chance Buteur",
-      "label": "Fernando Mimbacas ou Gonzalo Gomez marque (Juventud de las Piedras)",
+      "label": "Fernando Mimbacas ou Ramiro Peralta marque (Juventud de las Piedras)",
       "cote": null,
       "book": null,
       "books": [],
       "confidence": 70,
       "cote_min": 1.43,
-      "reasoning": "✈️ Combo intra-Juventud de las Piedras\n📈 P(Fernando Mimbacas marque) ≈ 47% · P(Gonzalo Gomez marque) ≈ 44%\n🎯 P(au moins un marque) = 70% (1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.43 - chercher ≥1.43 chez le bookmaker\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+      "reasoning": "✈️ Combo intra-Juventud de las Piedras\n📈 P(Fernando Mimbacas marque) ≈ 47% · P(Ramiro Peralta marque) ≈ 44%\n🎯 P(au moins un marque) = 70% (1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.43 - chercher ≥1.43 chez le bookmaker\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
       "context": {
         "combo_kind": "intra-away"
       },
@@ -1417,7 +1442,7 @@
         "p_b": 0.442,
         "p_or": 0.7,
         "player_a": "Fernando Mimbacas",
-        "player_b": "Gonzalo Gomez",
+        "player_b": "Ramiro Peralta",
         "kind": "intra-away"
       },
       "team": "away",
@@ -1520,79 +1545,6 @@
       },
       "text": "Conditions : ☁️ couvert · 11–20°C · humidité 32%. Stade : Grimsta IP · 7 350 places · plein air."
     }
-  },
-  {
-    "league": "Lithuanian Toplyga",
-    "home": "FA Siauliai",
-    "away": "Zalgiris Vilnius",
-    "start_ts": 1783266300,
-    "match_id": "5874458",
-    "page_url": "/matches/zalgiris-vilnius-vs-fa-siauliai/7s8obp3n#5874458",
-    "picks": [],
-    "home_players": [],
-    "away_players": [
-      {
-        "player": "Nikola Petkovic / Liviu Antal",
-        "position": "",
-        "is_sub": false,
-        "type": "Double Chance Buteur",
-        "label": "Nikola Petkovic ou Liviu Antal marque (Zalgiris Vilnius)",
-        "cote": null,
-        "book": null,
-        "books": [],
-        "confidence": 70,
-        "cote_min": 1.43,
-        "reasoning": "✈️ Combo intra-Zalgiris Vilnius\n📈 P(Nikola Petkovic marque) ≈ 47% · P(Liviu Antal marque) ≈ 46%\n🎯 P(au moins un marque) = 70% (1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.43 - chercher ≥1.43 chez le bookmaker\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
-        "context": {
-          "combo_kind": "intra-away"
-        },
-        "_team_for_balance": "away",
-        "stats": {
-          "p_a": 0.472,
-          "p_b": 0.458,
-          "p_or": 0.7,
-          "player_a": "Nikola Petkovic",
-          "player_b": "Liviu Antal",
-          "kind": "intra-away"
-        },
-        "team": "away",
-        "tier": "safe",
-        "calibration_delta": -11.3,
-        "history_top3": true
-      }
-    ],
-    "fun_picks": [],
-    "top_pick": {
-      "player": "Nikola Petkovic / Liviu Antal",
-      "position": "",
-      "is_sub": false,
-      "type": "Double Chance Buteur",
-      "label": "Nikola Petkovic ou Liviu Antal marque (Zalgiris Vilnius)",
-      "cote": null,
-      "book": null,
-      "books": [],
-      "confidence": 70,
-      "cote_min": 1.43,
-      "reasoning": "✈️ Combo intra-Zalgiris Vilnius\n📈 P(Nikola Petkovic marque) ≈ 47% · P(Liviu Antal marque) ≈ 46%\n🎯 P(au moins un marque) = 70% (1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.43 - chercher ≥1.43 chez le bookmaker\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
-      "context": {
-        "combo_kind": "intra-away"
-      },
-      "_team_for_balance": "away",
-      "stats": {
-        "p_a": 0.472,
-        "p_b": 0.458,
-        "p_or": 0.7,
-        "player_a": "Nikola Petkovic",
-        "player_b": "Liviu Antal",
-        "kind": "intra-away"
-      },
-      "team": "away",
-      "tier": "safe",
-      "calibration_delta": -11.3,
-      "history_top3": true
-    },
-    "no_picks": false,
-    "context": null
   },
   {
     "league": "Morocco Botola Pro",
@@ -2122,17 +2074,17 @@
     "home_players": [],
     "away_players": [
       {
-        "player": "Mounir Chouiar / Youssef Mehri",
+        "player": "Mounir Chouiar / Paul Bassene",
         "position": "",
         "is_sub": false,
         "type": "Double Chance Buteur",
-        "label": "Mounir Chouiar ou Youssef Mehri marque (RSB Berkane)",
+        "label": "Mounir Chouiar ou Paul Bassene marque (RSB Berkane)",
         "cote": null,
         "book": null,
         "books": [],
         "confidence": 70,
         "cote_min": 1.43,
-        "reasoning": "✈️ Combo intra-RSB Berkane\n📈 P(Mounir Chouiar marque) ≈ 46% · P(Youssef Mehri marque) ≈ 46%\n🎯 P(au moins un marque) = 70% (1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.43 - chercher ≥1.43 chez le bookmaker\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+        "reasoning": "✈️ Combo intra-RSB Berkane\n📈 P(Mounir Chouiar marque) ≈ 46% · P(Paul Bassene marque) ≈ 46%\n🎯 P(au moins un marque) = 70% (1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.43 - chercher ≥1.43 chez le bookmaker\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
         "context": {
           "combo_kind": "intra-away"
         },
@@ -2142,7 +2094,7 @@
           "p_b": 0.465,
           "p_or": 0.7,
           "player_a": "Mounir Chouiar",
-          "player_b": "Youssef Mehri",
+          "player_b": "Paul Bassene",
           "kind": "intra-away"
         },
         "team": "away",
@@ -2504,87 +2456,6 @@
       },
       "weather": null,
       "text": "Stade : Tangier Grand Stadium · plein air."
-    }
-  },
-  {
-    "league": "Estonian Meistriliiga",
-    "home": "Tammeka",
-    "away": "Harju Jalgpallikool",
-    "start_ts": 1783267200,
-    "match_id": "1000007911",
-    "page_url": "/matches/tammeka-vs-harju-jalgpallikool/2xc7ur7p#1000007911",
-    "picks": [],
-    "home_players": [
-      {
-        "player": "Tristan Koskor",
-        "position": "F",
-        "is_sub": false,
-        "type": "Buteur",
-        "label": "Tristan Koskor marque",
-        "team": "home",
-        "cote": null,
-        "book": null,
-        "books": [],
-        "confidence": 41,
-        "reasoning": "6G en 15 matchs (40.0%/match) · xG: 0.00/match\n📉 Calibration : bucket 40-49% historiquement à WR 25% (claim 44%, n=36) — sur-estimé de 19pp",
-        "context": {
-          "weakness": 0.31
-        },
-        "stats": {
-          "goals": 6,
-          "apps": 15
-        },
-        "tier": "fun",
-        "calibration_delta": -19.4,
-        "history_top3": true
-      }
-    ],
-    "away_players": [],
-    "fun_picks": [],
-    "top_pick": {
-      "player": "Tristan Koskor",
-      "position": "F",
-      "is_sub": false,
-      "type": "Buteur",
-      "label": "Tristan Koskor marque",
-      "team": "home",
-      "cote": null,
-      "book": null,
-      "books": [],
-      "confidence": 41,
-      "reasoning": "6G en 15 matchs (40.0%/match) · xG: 0.00/match\n📉 Calibration : bucket 40-49% historiquement à WR 25% (claim 44%, n=36) — sur-estimé de 19pp",
-      "context": {
-        "weakness": 0.31
-      },
-      "stats": {
-        "goals": 6,
-        "apps": 15
-      },
-      "tier": "fun",
-      "calibration_delta": -19.4,
-      "history_top3": true
-    },
-    "no_picks": false,
-    "context": {
-      "stadium": {
-        "name": "Tamme staadion",
-        "city": "Tartu",
-        "country": "Estonia",
-        "lat": 58.366503595,
-        "lon": 26.713728905,
-        "capacity": null,
-        "surface": null
-      },
-      "weather": {
-        "temp_max": 20.1,
-        "temp_min": 14.1,
-        "humidity": 83,
-        "precipitation_sum_mm": 9.7,
-        "wind_max_kmh": 14.8,
-        "weather_code": 63,
-        "summary_fr": "🌧️ pluie modérée · 14–20°C · humidité 83% · précipitations 9.7mm"
-      },
-      "text": "Conditions : 🌧️ pluie modérée · 14–20°C · humidité 83% · précipitations 9.7mm. Stade : Tamme staadion · plein air. ⚠️ Pluies prévues : terrain potentiellement lourd, jeu direct privilégié, plus d'erreurs techniques."
     }
   },
   {
