@@ -181,31 +181,7 @@
         "history_top3": true
       }
     ],
-    "home_players": [
-      {
-        "player": "Raul Jiménez",
-        "position": "F",
-        "is_sub": false,
-        "type": "Buteur",
-        "label": "Raul Jiménez marque",
-        "team": "home",
-        "cote": null,
-        "book": null,
-        "books": [],
-        "confidence": 55,
-        "reasoning": "2G en 3 matchs (66.7%/match) · xG: 0.60/match\n📉 Calibration : bucket 50-59% historiquement à WR 42% (claim 55%, n=41) — sur-estimé de 14pp",
-        "context": {
-          "weakness": 0.21
-        },
-        "stats": {
-          "goals": 2,
-          "apps": 3
-        },
-        "tier": "ok",
-        "calibration_delta": -13.6,
-        "history_top3": true
-      }
-    ],
+    "home_players": [],
     "away_players": [
       {
         "player": "Harry Kane",
@@ -234,6 +210,28 @@
         "lineup_status": "confirmed",
         "tier": "ok",
         "calibration_delta": -13.6,
+        "history_top3": true
+      },
+      {
+        "player": "Harry Kane",
+        "position": "F",
+        "is_sub": false,
+        "type": "Buteur",
+        "label": "Harry Kane marque",
+        "team": "away",
+        "cote": null,
+        "book": null,
+        "books": [],
+        "confidence": 34,
+        "reasoning": "6G en 15 matchs (40.0%/match) · xG: 0.23/match",
+        "context": {
+          "weakness": 0.27
+        },
+        "stats": {
+          "goals": 6,
+          "apps": 15
+        },
+        "tier": "fun",
         "history_top3": false
       }
     ],
@@ -1395,7 +1393,7 @@
         "direction": "wc_away_win",
         "type": "🏆 Vainqueur WC",
         "label": "Belgium gagne",
-        "cote": 2.63,
+        "cote": 2.64,
         "cote_min": 1.5,
         "confidence": 67,
         "tier": "ok",
@@ -1410,7 +1408,7 @@
         },
         "reasoning": "📊 Niveau équilibré : USA #18 vs Belgium #8 (gap -109 pts).\n🇪🇺 Belgium UEFA powerhouse\nL10 : USA 3V/0N/2D sur 5 · Belgium 3V/2N/0D sur 5\n📋 Fiche USA : off solide (+0.46) · def fragile (-0.50) · forme WLWWL · 🏆 présence occasionnelle\n📋 Fiche Belgium : off moyen (+0.27) · def moyenne (-0.25) · forme WWDDW · 🏆 régulière phase finale\n   ↳ Historique : phase de poules en 2022 · demi-finaliste en 2018 · quart de finale en 2014\n🎯 Importance : USA : 1 match joué (3pts) · Belgium : 1 match joué (1pts)\n🌦️ ☁️ couvert · 12–28°C · humidité 34%\n⚠️ Compo PROBABLE (officielle à T-60min)\n🏆 Modèle Poisson CdM (tier FIFA ajusté)\nλ USA = 1.30, λ Belgium = 2.72\nP(USA) = 16.1% · P(nul) = 16.5% · P(Belgium gagne) = 66.7%\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
         "calibration_delta": -25.4,
-        "edge_pp": 29.0,
+        "edge_pp": 29.1,
         "history_top3": true
       },
       {
