@@ -308,7 +308,7 @@
         "direction": "wc_under_25",
         "type": "⚽ Total buts WC",
         "label": "Moins de 2.5 buts",
-        "cote": 1.61,
+        "cote": 1.62,
         "cote_min": 1.66,
         "confidence": 60,
         "tier": "ok",
@@ -323,7 +323,7 @@
         },
         "reasoning": "📊 Niveau équilibré : Switzerland #15 vs Colombia #13 (gap -37 pts).\nL10 : Switzerland 3V/2N/0D sur 5 · Colombia 4V/1N/0D sur 5\n📋 Fiche Switzerland : off moyen (+0.01) · def fragile (-0.65) · forme WWWDD · 🏆 habituée du tournoi\n📋 Fiche Colombia : off moyen (-0.26) · def moyenne (-0.05) · forme WDWWW · 🏆 habituée du tournoi\n🎯 Importance : Switzerland : 1 match joué (1pts)\n🌦️ ☁️ couvert · 13–23°C · humidité 59%\n⚠️ Compo PROBABLE (officielle à T-60min)\n⚽ Modèle Poisson : λ total = 2.27\nP(moins de 2.5 buts) = 60.3%\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
         "calibration_delta": -25.4,
-        "edge_pp": -2.1,
+        "edge_pp": -1.7,
         "history_top3": true
       }
     ],
@@ -404,6 +404,99 @@
     }
   },
   {
+    "league": "Ecuador LigaPro",
+    "home": "Orense",
+    "away": "Tecnico Universitario",
+    "start_ts": 1783382400,
+    "match_id": "1000009004",
+    "page_url": "/matches/tecnico-universitario-vs-orense/83v2er0k#1000009004",
+    "picks": [],
+    "home_players": [
+      {
+        "player": "Agustín Herrera / Ángel Mena",
+        "position": "",
+        "is_sub": false,
+        "type": "Double Chance Buteur",
+        "label": "Agustín Herrera ou Ángel Mena marque (Orense)",
+        "cote": null,
+        "book": null,
+        "books": [],
+        "confidence": 67,
+        "cote_min": 1.49,
+        "reasoning": "🏠 Combo intra-Orense\n📈 P(Agustín Herrera marque) ≈ 49% · P(Ángel Mena marque) ≈ 36%\n🎯 P(au moins un marque) = 67% (1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.49 - chercher ≥1.49 chez le bookmaker\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
+        "context": {
+          "combo_kind": "intra-home"
+        },
+        "_team_for_balance": "home",
+        "stats": {
+          "p_a": 0.488,
+          "p_b": 0.36,
+          "p_or": 0.672,
+          "player_a": "Agustín Herrera",
+          "player_b": "Ángel Mena",
+          "kind": "intra-home"
+        },
+        "team": "home",
+        "tier": "ok",
+        "calibration_delta": -25.4,
+        "history_top3": true
+      }
+    ],
+    "away_players": [],
+    "fun_picks": [],
+    "top_pick": {
+      "player": "Agustín Herrera / Ángel Mena",
+      "position": "",
+      "is_sub": false,
+      "type": "Double Chance Buteur",
+      "label": "Agustín Herrera ou Ángel Mena marque (Orense)",
+      "cote": null,
+      "book": null,
+      "books": [],
+      "confidence": 67,
+      "cote_min": 1.49,
+      "reasoning": "🏠 Combo intra-Orense\n📈 P(Agustín Herrera marque) ≈ 49% · P(Ángel Mena marque) ≈ 36%\n🎯 P(au moins un marque) = 67% (1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.49 - chercher ≥1.49 chez le bookmaker\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
+      "context": {
+        "combo_kind": "intra-home"
+      },
+      "_team_for_balance": "home",
+      "stats": {
+        "p_a": 0.488,
+        "p_b": 0.36,
+        "p_or": 0.672,
+        "player_a": "Agustín Herrera",
+        "player_b": "Ángel Mena",
+        "kind": "intra-home"
+      },
+      "team": "home",
+      "tier": "ok",
+      "calibration_delta": -25.4,
+      "history_top3": true
+    },
+    "no_picks": false,
+    "context": {
+      "stadium": {
+        "name": "Estadio 9 de Mayo Banco de Machala",
+        "city": "Machala",
+        "country": "Ecuador",
+        "lat": -3.254466405,
+        "lon": -79.962514043,
+        "capacity": null,
+        "surface": null
+      },
+      "weather": {
+        "temp_max": 27.3,
+        "temp_min": 23.3,
+        "humidity": 80,
+        "precipitation_sum_mm": 1.5,
+        "wind_max_kmh": 16.1,
+        "weather_code": 51,
+        "summary_fr": "🌦️ bruine légère · 23–27°C · humidité 80% · précipitations 1.5mm"
+      },
+      "text": "Conditions : 🌦️ bruine légère · 23–27°C · humidité 80% · précipitations 1.5mm. Stade : Estadio 9 de Mayo Banco de Machala · plein air."
+    }
+  },
+  {
     "league": "World Cup",
     "home": "USA",
     "away": "Belgium",
@@ -415,7 +508,7 @@
         "direction": "wc_away_win",
         "type": "🏆 Vainqueur WC",
         "label": "Belgium gagne",
-        "cote": 1.44,
+        "cote": 1.05,
         "cote_min": 1.5,
         "confidence": 67,
         "tier": "ok",
@@ -430,8 +523,8 @@
         },
         "reasoning": "📊 Niveau équilibré : USA #18 vs Belgium #8 (gap -109 pts).\n🇪🇺 Belgium UEFA powerhouse\nL10 : USA 3V/0N/2D sur 5 · Belgium 3V/2N/0D sur 5\n📋 Fiche USA : off solide (+0.46) · def fragile (-0.50) · forme WLWWL · 🏆 présence occasionnelle\n📋 Fiche Belgium : off moyen (+0.27) · def moyenne (-0.25) · forme WWDDW · 🏆 régulière phase finale\n   ↳ Historique : phase de poules en 2022 · demi-finaliste en 2018 · quart de finale en 2014\n🎯 Importance : USA : 1 match joué (3pts) · Belgium : 1 match joué (1pts)\n🌦️ ☁️ couvert · 13–24°C · humidité 52%\n✅ Compo OFFICIELLE\n🏆 Modèle Poisson CdM (tier FIFA ajusté)\nλ USA = 1.30, λ Belgium = 2.72\nP(USA) = 16.1% · P(nul) = 16.5% · P(Belgium gagne) = 66.7%\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
         "calibration_delta": -25.4,
-        "edge_pp": -2.4,
-        "history_top3": true
+        "edge_pp": -28.2,
+        "history_top3": false
       },
       {
         "direction": "wc_btts_yes",
@@ -528,7 +621,7 @@
         },
         "tier": "fun",
         "calibration_delta": -13.6,
-        "history_top3": false
+        "history_top3": true
       },
       {
         "player": "Leandro Trossard",
@@ -611,7 +704,7 @@
       "direction": "wc_away_win",
       "type": "🏆 Vainqueur WC",
       "label": "Belgium gagne",
-      "cote": 1.44,
+      "cote": 1.05,
       "cote_min": 1.5,
       "confidence": 67,
       "tier": "ok",
@@ -626,8 +719,8 @@
       },
       "reasoning": "📊 Niveau équilibré : USA #18 vs Belgium #8 (gap -109 pts).\n🇪🇺 Belgium UEFA powerhouse\nL10 : USA 3V/0N/2D sur 5 · Belgium 3V/2N/0D sur 5\n📋 Fiche USA : off solide (+0.46) · def fragile (-0.50) · forme WLWWL · 🏆 présence occasionnelle\n📋 Fiche Belgium : off moyen (+0.27) · def moyenne (-0.25) · forme WWDDW · 🏆 régulière phase finale\n   ↳ Historique : phase de poules en 2022 · demi-finaliste en 2018 · quart de finale en 2014\n🎯 Importance : USA : 1 match joué (3pts) · Belgium : 1 match joué (1pts)\n🌦️ ☁️ couvert · 13–24°C · humidité 52%\n✅ Compo OFFICIELLE\n🏆 Modèle Poisson CdM (tier FIFA ajusté)\nλ USA = 1.30, λ Belgium = 2.72\nP(USA) = 16.1% · P(nul) = 16.5% · P(Belgium gagne) = 66.7%\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
       "calibration_delta": -25.4,
-      "edge_pp": -2.4,
-      "history_top3": true
+      "edge_pp": -28.2,
+      "history_top3": false
     },
     "no_picks": false,
     "context": {
@@ -768,87 +861,6 @@
         "summary_fr": "🌦️ bruine légère · 10–22°C · humidité 49%"
       },
       "text": "Conditions : 🌦️ bruine légère · 10–22°C · humidité 49%. Stade : Estadio Cooprogreso Gonzalo Pozo Ripalda · plein air."
-    }
-  },
-  {
-    "league": "Ecuador LigaPro",
-    "home": "Orense",
-    "away": "Tecnico Universitario",
-    "start_ts": 1783382400,
-    "match_id": "1000009004",
-    "page_url": "/matches/tecnico-universitario-vs-orense/83v2er0k#1000009004",
-    "picks": [],
-    "home_players": [
-      {
-        "player": "Agustín Herrera",
-        "position": "F",
-        "is_sub": false,
-        "type": "Buteur",
-        "label": "Agustín Herrera marque",
-        "team": "home",
-        "cote": null,
-        "book": null,
-        "books": [],
-        "confidence": 41,
-        "reasoning": "6G en 16 matchs (37.5%/match) · xG: 0.00/match\n📉 Calibration : bucket 40-49% historiquement à WR 25% (claim 44%, n=36) — sur-estimé de 19pp",
-        "context": {
-          "weakness": 0.48
-        },
-        "stats": {
-          "goals": 6,
-          "apps": 16
-        },
-        "tier": "fun",
-        "calibration_delta": -19.4,
-        "history_top3": true
-      }
-    ],
-    "away_players": [],
-    "fun_picks": [],
-    "top_pick": {
-      "player": "Agustín Herrera",
-      "position": "F",
-      "is_sub": false,
-      "type": "Buteur",
-      "label": "Agustín Herrera marque",
-      "team": "home",
-      "cote": null,
-      "book": null,
-      "books": [],
-      "confidence": 41,
-      "reasoning": "6G en 16 matchs (37.5%/match) · xG: 0.00/match\n📉 Calibration : bucket 40-49% historiquement à WR 25% (claim 44%, n=36) — sur-estimé de 19pp",
-      "context": {
-        "weakness": 0.48
-      },
-      "stats": {
-        "goals": 6,
-        "apps": 16
-      },
-      "tier": "fun",
-      "calibration_delta": -19.4,
-      "history_top3": true
-    },
-    "no_picks": false,
-    "context": {
-      "stadium": {
-        "name": "Estadio 9 de Mayo Banco de Machala",
-        "city": "Machala",
-        "country": "Ecuador",
-        "lat": -3.254466405,
-        "lon": -79.962514043,
-        "capacity": null,
-        "surface": null
-      },
-      "weather": {
-        "temp_max": 27.3,
-        "temp_min": 23.3,
-        "humidity": 80,
-        "precipitation_sum_mm": 1.5,
-        "wind_max_kmh": 16.1,
-        "weather_code": 51,
-        "summary_fr": "🌦️ bruine légère · 23–27°C · humidité 80% · précipitations 1.5mm"
-      },
-      "text": "Conditions : 🌦️ bruine légère · 23–27°C · humidité 80% · précipitations 1.5mm. Stade : Estadio 9 de Mayo Banco de Machala · plein air."
     }
   }
 ]
