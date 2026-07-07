@@ -35669,10 +35669,10 @@
       "cote": null,
       "book": null,
       "books": [],
-      "confidence": 40,
-      "reasoning": "2G en 4 matchs (50.0%/match) · xG: 0.30/match\n📉 Calibration : bucket 40-49% historiquement à WR 25% (claim 44%, n=36) — sur-estimé de 19pp",
+      "confidence": 43,
+      "reasoning": "2G en 4 matchs (50.0%/match) · xG: 0.35/match\n📉 Calibration : bucket 40-49% historiquement à WR 25% (claim 44%, n=36) — sur-estimé de 19pp",
       "context": {
-        "weakness": 0.25
+        "weakness": 0.31
       },
       "stats": {
         "goals": 2,
@@ -35697,7 +35697,7 @@
       "direction": "away_win",
       "type": "Victoire extérieur",
       "label": "Colombia gagne",
-      "cote": 2.25,
+      "cote": 2.3,
       "confidence": 74,
       "reasoning": "Colombia : 4V/1N/0D sur 5 matchs · #1 au classement · H2H: 0V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
       "stats": {
@@ -35712,7 +35712,7 @@
       "is_fun": false,
       "tier": "ok",
       "calibration_delta": -11.3,
-      "edge_pp": 29.6,
+      "edge_pp": 30.5,
       "history_top3": true,
       "id": "2026-07-07_4653849_team_away_win",
       "date": "2026-07-07",
@@ -35757,38 +35757,6 @@
       "resolved_at": null
     },
     {
-      "direction": "wc_under_25",
-      "type": "⚽ Total buts WC",
-      "label": "Moins de 2.5 buts",
-      "cote": 1.65,
-      "cote_min": 1.66,
-      "confidence": 60,
-      "tier": "ok",
-      "stats": {
-        "lam_h": 1.03,
-        "lam_a": 1.25,
-        "h_fifa_rank": 15,
-        "a_fifa_rank": 13,
-        "elo_gap": -37,
-        "wc_round": null,
-        "family": "TOTAL"
-      },
-      "reasoning": "📊 Niveau équilibré : Switzerland #15 vs Colombia #13 (gap -37 pts).\nL10 : Switzerland 3V/2N/0D sur 5 · Colombia 4V/1N/0D sur 5\n📋 Fiche Switzerland : off moyen (+0.01) · def fragile (-0.65) · forme WWWDD · 🏆 habituée du tournoi\n📋 Fiche Colombia : off moyen (-0.26) · def moyenne (-0.05) · forme WDWWW · 🏆 habituée du tournoi\n🎯 Importance : Switzerland : 1 match joué (1pts)\n🌦️ ☁️ couvert · 13–23°C · humidité 62%\n⚠️ Compo PROBABLE (officielle à T-60min)\n⚽ Modèle Poisson : λ total = 2.27\nP(moins de 2.5 buts) = 60.3%\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
-      "calibration_delta": -25.4,
-      "edge_pp": -0.6,
-      "history_top3": true,
-      "id": "2026-07-07_4653849_team_wc_under_25",
-      "date": "2026-07-07",
-      "match_id": "4653849",
-      "page_url": "/matches/switzerland-vs-colombia/1urkle#4653849",
-      "matchup": "Switzerland vs Colombia",
-      "league": "World Cup",
-      "category": "team",
-      "result": "PENDING",
-      "actual": null,
-      "resolved_at": null
-    },
-    {
       "player": "Breel Embolo",
       "position": "F",
       "is_sub": false,
@@ -35821,6 +35789,38 @@
       "actual": null,
       "resolved_at": null,
       "side": "home"
+    },
+    {
+      "direction": "wc_under_25",
+      "type": "⚽ Total buts WC",
+      "label": "Moins de 2.5 buts",
+      "cote": 1.62,
+      "cote_min": 1.66,
+      "confidence": 60,
+      "tier": "ok",
+      "stats": {
+        "lam_h": 1.03,
+        "lam_a": 1.25,
+        "h_fifa_rank": 15,
+        "a_fifa_rank": 13,
+        "elo_gap": -37,
+        "wc_round": null,
+        "family": "TOTAL"
+      },
+      "reasoning": "📊 Niveau équilibré : Switzerland #15 vs Colombia #13 (gap -37 pts).\nL10 : Switzerland 3V/2N/0D sur 5 · Colombia 4V/1N/0D sur 5\n📋 Fiche Switzerland : off moyen (+0.01) · def fragile (-0.65) · forme WWWDD · 🏆 habituée du tournoi\n📋 Fiche Colombia : off moyen (-0.26) · def moyenne (-0.05) · forme WDWWW · 🏆 habituée du tournoi\n🎯 Importance : Switzerland : 1 match joué (1pts)\n🌦️ ☁️ couvert · 13–23°C · humidité 62%\n⚠️ Compo PROBABLE (officielle à T-60min)\n⚽ Modèle Poisson : λ total = 2.27\nP(moins de 2.5 buts) = 60.3%\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
+      "calibration_delta": -25.4,
+      "edge_pp": -1.7,
+      "history_top3": true,
+      "id": "2026-07-07_4653849_team_wc_under_25",
+      "date": "2026-07-07",
+      "match_id": "4653849",
+      "page_url": "/matches/switzerland-vs-colombia/1urkle#4653849",
+      "matchup": "Switzerland vs Colombia",
+      "league": "World Cup",
+      "category": "team",
+      "result": "PENDING",
+      "actual": null,
+      "resolved_at": null
     },
     {
       "player": "Bruno Miranda / Edinson Mero",
