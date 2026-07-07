@@ -412,32 +412,10 @@
     "page_url": "/matches/usa-vs-belgium/1urw5j#4653845",
     "picks": [
       {
-        "direction": "wc_btts_yes",
-        "type": "⚽ BTTS WC",
-        "label": "Les 2 équipes marquent",
-        "cote": 1.57,
-        "cote_min": 1.47,
-        "confidence": 68,
-        "tier": "ok",
-        "stats": {
-          "lam_h": 1.3,
-          "lam_a": 2.72,
-          "h_fifa_rank": 18,
-          "a_fifa_rank": 8,
-          "elo_gap": -109,
-          "wc_round": null,
-          "family": "BTTS"
-        },
-        "reasoning": "📊 Niveau équilibré : USA #18 vs Belgium #8 (gap -109 pts).\n🇪🇺 Belgium UEFA powerhouse\nL10 : USA 3V/0N/2D sur 5 · Belgium 3V/2N/0D sur 5\n📋 Fiche USA : off solide (+0.46) · def fragile (-0.50) · forme WLWWL · 🏆 présence occasionnelle\n📋 Fiche Belgium : off moyen (+0.27) · def moyenne (-0.25) · forme WWDDW · 🏆 régulière phase finale\n   ↳ Historique : phase de poules en 2022 · demi-finaliste en 2018 · quart de finale en 2014\n🎯 Importance : USA : 1 match joué (3pts) · Belgium : 1 match joué (1pts)\n🌦️ ☁️ couvert · 13–24°C · humidité 52%\n✅ Compo OFFICIELLE\n⚽ BTTS Poisson : P(USA ≥ 1) × P(Belgium ≥ 1) = 73% × 93% = 68.0%\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
-        "calibration_delta": -25.4,
-        "edge_pp": 4.3,
-        "history_top3": true
-      },
-      {
         "direction": "wc_away_win",
         "type": "🏆 Vainqueur WC",
         "label": "Belgium gagne",
-        "cote": 2.85,
+        "cote": 2.8,
         "cote_min": 1.5,
         "confidence": 67,
         "tier": "ok",
@@ -452,14 +430,36 @@
         },
         "reasoning": "📊 Niveau équilibré : USA #18 vs Belgium #8 (gap -109 pts).\n🇪🇺 Belgium UEFA powerhouse\nL10 : USA 3V/0N/2D sur 5 · Belgium 3V/2N/0D sur 5\n📋 Fiche USA : off solide (+0.46) · def fragile (-0.50) · forme WLWWL · 🏆 présence occasionnelle\n📋 Fiche Belgium : off moyen (+0.27) · def moyenne (-0.25) · forme WWDDW · 🏆 régulière phase finale\n   ↳ Historique : phase de poules en 2022 · demi-finaliste en 2018 · quart de finale en 2014\n🎯 Importance : USA : 1 match joué (3pts) · Belgium : 1 match joué (1pts)\n🌦️ ☁️ couvert · 13–24°C · humidité 52%\n✅ Compo OFFICIELLE\n🏆 Modèle Poisson CdM (tier FIFA ajusté)\nλ USA = 1.30, λ Belgium = 2.72\nP(USA) = 16.1% · P(nul) = 16.5% · P(Belgium gagne) = 66.7%\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
         "calibration_delta": -25.4,
-        "edge_pp": 31.9,
+        "edge_pp": 31.3,
+        "history_top3": true
+      },
+      {
+        "direction": "wc_btts_yes",
+        "type": "⚽ BTTS WC",
+        "label": "Les 2 équipes marquent",
+        "cote": 1.6,
+        "cote_min": 1.47,
+        "confidence": 68,
+        "tier": "ok",
+        "stats": {
+          "lam_h": 1.3,
+          "lam_a": 2.72,
+          "h_fifa_rank": 18,
+          "a_fifa_rank": 8,
+          "elo_gap": -109,
+          "wc_round": null,
+          "family": "BTTS"
+        },
+        "reasoning": "📊 Niveau équilibré : USA #18 vs Belgium #8 (gap -109 pts).\n🇪🇺 Belgium UEFA powerhouse\nL10 : USA 3V/0N/2D sur 5 · Belgium 3V/2N/0D sur 5\n📋 Fiche USA : off solide (+0.46) · def fragile (-0.50) · forme WLWWL · 🏆 présence occasionnelle\n📋 Fiche Belgium : off moyen (+0.27) · def moyenne (-0.25) · forme WWDDW · 🏆 régulière phase finale\n   ↳ Historique : phase de poules en 2022 · demi-finaliste en 2018 · quart de finale en 2014\n🎯 Importance : USA : 1 match joué (3pts) · Belgium : 1 match joué (1pts)\n🌦️ ☁️ couvert · 13–24°C · humidité 52%\n✅ Compo OFFICIELLE\n⚽ BTTS Poisson : P(USA ≥ 1) × P(Belgium ≥ 1) = 73% × 93% = 68.0%\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
+        "calibration_delta": -25.4,
+        "edge_pp": 5.5,
         "history_top3": true
       },
       {
         "direction": "wc_over_25",
         "type": "⚽ Total buts WC",
         "label": "Plus de 2.5 buts",
-        "cote": 1.77,
+        "cote": 1.76,
         "cote_min": 1.31,
         "confidence": 77,
         "tier": "safe",
@@ -474,7 +474,7 @@
         },
         "reasoning": "📊 Niveau équilibré : USA #18 vs Belgium #8 (gap -109 pts).\n🇪🇺 Belgium UEFA powerhouse\nL10 : USA 3V/0N/2D sur 5 · Belgium 3V/2N/0D sur 5\n📋 Fiche USA : off solide (+0.46) · def fragile (-0.50) · forme WLWWL · 🏆 présence occasionnelle\n📋 Fiche Belgium : off moyen (+0.27) · def moyenne (-0.25) · forme WWDDW · 🏆 régulière phase finale\n   ↳ Historique : phase de poules en 2022 · demi-finaliste en 2018 · quart de finale en 2014\n🎯 Importance : USA : 1 match joué (3pts) · Belgium : 1 match joué (1pts)\n🌦️ ☁️ couvert · 13–24°C · humidité 52%\n✅ Compo OFFICIELLE\n⚽ Modèle Poisson : λ total = 4.03\nP(plus de 2.5 buts) = 76.6%\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
         "calibration_delta": -11.3,
-        "edge_pp": 20.5,
+        "edge_pp": 20.2,
         "history_top3": true
       }
     ],
@@ -587,12 +587,12 @@
       }
     ],
     "top_pick": {
-      "direction": "wc_btts_yes",
-      "type": "⚽ BTTS WC",
-      "label": "Les 2 équipes marquent",
-      "cote": 1.57,
-      "cote_min": 1.47,
-      "confidence": 68,
+      "direction": "wc_away_win",
+      "type": "🏆 Vainqueur WC",
+      "label": "Belgium gagne",
+      "cote": 2.8,
+      "cote_min": 1.5,
+      "confidence": 67,
       "tier": "ok",
       "stats": {
         "lam_h": 1.3,
@@ -601,11 +601,11 @@
         "a_fifa_rank": 8,
         "elo_gap": -109,
         "wc_round": null,
-        "family": "BTTS"
+        "family": "1X2"
       },
-      "reasoning": "📊 Niveau équilibré : USA #18 vs Belgium #8 (gap -109 pts).\n🇪🇺 Belgium UEFA powerhouse\nL10 : USA 3V/0N/2D sur 5 · Belgium 3V/2N/0D sur 5\n📋 Fiche USA : off solide (+0.46) · def fragile (-0.50) · forme WLWWL · 🏆 présence occasionnelle\n📋 Fiche Belgium : off moyen (+0.27) · def moyenne (-0.25) · forme WWDDW · 🏆 régulière phase finale\n   ↳ Historique : phase de poules en 2022 · demi-finaliste en 2018 · quart de finale en 2014\n🎯 Importance : USA : 1 match joué (3pts) · Belgium : 1 match joué (1pts)\n🌦️ ☁️ couvert · 13–24°C · humidité 52%\n✅ Compo OFFICIELLE\n⚽ BTTS Poisson : P(USA ≥ 1) × P(Belgium ≥ 1) = 73% × 93% = 68.0%\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
+      "reasoning": "📊 Niveau équilibré : USA #18 vs Belgium #8 (gap -109 pts).\n🇪🇺 Belgium UEFA powerhouse\nL10 : USA 3V/0N/2D sur 5 · Belgium 3V/2N/0D sur 5\n📋 Fiche USA : off solide (+0.46) · def fragile (-0.50) · forme WLWWL · 🏆 présence occasionnelle\n📋 Fiche Belgium : off moyen (+0.27) · def moyenne (-0.25) · forme WWDDW · 🏆 régulière phase finale\n   ↳ Historique : phase de poules en 2022 · demi-finaliste en 2018 · quart de finale en 2014\n🎯 Importance : USA : 1 match joué (3pts) · Belgium : 1 match joué (1pts)\n🌦️ ☁️ couvert · 13–24°C · humidité 52%\n✅ Compo OFFICIELLE\n🏆 Modèle Poisson CdM (tier FIFA ajusté)\nλ USA = 1.30, λ Belgium = 2.72\nP(USA) = 16.1% · P(nul) = 16.5% · P(Belgium gagne) = 66.7%\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
       "calibration_delta": -25.4,
-      "edge_pp": 4.3,
+      "edge_pp": 31.3,
       "history_top3": true
     },
     "no_picks": false,
@@ -726,6 +726,120 @@
         "summary_fr": "🌦️ bruine modérée · 23–27°C · humidité 80% · précipitations 2.7mm"
       },
       "text": "Conditions : 🌦️ bruine modérée · 23–27°C · humidité 80% · précipitations 2.7mm. Stade : Estadio 9 de Mayo Banco de Machala · plein air."
+    }
+  },
+  {
+    "league": "Ecuador LigaPro",
+    "home": "Aucas",
+    "away": "Guayaquil City",
+    "start_ts": 1783468800,
+    "match_id": "1000009002",
+    "page_url": "/matches/aucas-vs-guayaquil-city/9baa2ez#1000009002",
+    "picks": [],
+    "home_players": [
+      {
+        "player": "Bruno Miranda",
+        "position": "F",
+        "is_sub": false,
+        "type": "Buteur",
+        "label": "Bruno Miranda marque",
+        "cote": null,
+        "book": null,
+        "books": [],
+        "confidence": 58,
+        "reasoning": "6 buts en 10 matchs cette saison (60.0% de chance/match) · bonne efficacité (19% conv.) · xG moyen 0.00/match · défense fragile\n📉 Calibration : bucket 50-59% historiquement à WR 42% (claim 55%, n=41) — sur-estimé de 14pp",
+        "context": {
+          "weakness": 0.53
+        },
+        "stats": {
+          "goals": 6,
+          "apps": 10,
+          "gpm": 0.6,
+          "xgpm": 0
+        },
+        "team": "home",
+        "tier": "ok",
+        "calibration_delta": -13.6,
+        "history_top3": true
+      },
+      {
+        "player": "Bruno Miranda / Edinson Mero",
+        "position": "",
+        "is_sub": false,
+        "type": "Double Chance Buteur",
+        "label": "Bruno Miranda OU Edinson Mero marque (cross-équipe)",
+        "cote": null,
+        "book": null,
+        "books": [],
+        "confidence": 70,
+        "cote_min": 1.43,
+        "reasoning": "🔀 Cross-équipe (moins corrélé → meilleur EV)\n📈 P(Bruno Miranda marque) ≈ 58% · P(Edinson Mero marque) ≈ 45%\n🎯 P(au moins un marque) = 70% (1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.43 - chercher ≥1.43 chez le bookmaker\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+        "context": {
+          "combo_kind": "cross"
+        },
+        "_team_for_balance": "home",
+        "stats": {
+          "p_a": 0.578,
+          "p_b": 0.45,
+          "p_or": 0.7,
+          "player_a": "Bruno Miranda",
+          "player_b": "Edinson Mero",
+          "kind": "cross"
+        },
+        "team": "home",
+        "tier": "safe",
+        "calibration_delta": -11.3,
+        "history_top3": true
+      }
+    ],
+    "away_players": [],
+    "fun_picks": [],
+    "top_pick": {
+      "player": "Bruno Miranda",
+      "position": "F",
+      "is_sub": false,
+      "type": "Buteur",
+      "label": "Bruno Miranda marque",
+      "cote": null,
+      "book": null,
+      "books": [],
+      "confidence": 58,
+      "reasoning": "6 buts en 10 matchs cette saison (60.0% de chance/match) · bonne efficacité (19% conv.) · xG moyen 0.00/match · défense fragile\n📉 Calibration : bucket 50-59% historiquement à WR 42% (claim 55%, n=41) — sur-estimé de 14pp",
+      "context": {
+        "weakness": 0.53
+      },
+      "stats": {
+        "goals": 6,
+        "apps": 10,
+        "gpm": 0.6,
+        "xgpm": 0
+      },
+      "team": "home",
+      "tier": "ok",
+      "calibration_delta": -13.6,
+      "history_top3": true
+    },
+    "no_picks": false,
+    "context": {
+      "stadium": {
+        "name": "Estadio Cooprogreso Gonzalo Pozo Ripalda",
+        "city": "Quito",
+        "country": "Ecuador",
+        "lat": -0.278884263,
+        "lon": -78.546200395,
+        "capacity": null,
+        "surface": null
+      },
+      "weather": {
+        "temp_max": 22.8,
+        "temp_min": 10.4,
+        "humidity": 49,
+        "precipitation_sum_mm": 0.9,
+        "wind_max_kmh": 15.4,
+        "weather_code": 51,
+        "summary_fr": "🌦️ bruine légère · 10–22°C · humidité 49%"
+      },
+      "text": "Conditions : 🌦️ bruine légère · 10–22°C · humidité 49%. Stade : Estadio Cooprogreso Gonzalo Pozo Ripalda · plein air."
     }
   }
 ]
