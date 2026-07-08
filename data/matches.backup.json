@@ -105,7 +105,7 @@
           "choices": [
             {
               "name": "Over 2.5",
-              "cote": 1.95,
+              "cote": 2.0,
               "book": "draftkings"
             },
             {
@@ -171,7 +171,7 @@
         "btts_yes_value": null,
         "btts_yes_p_final": 0.0,
         "btts_no_cote": null,
-        "over_25_cote": 1.95,
+        "over_25_cote": 2.0,
         "under_25_cote": 1.83,
         "notes": [
           "Cote France 1.59 (book P=60% · modèle P=0% · calibré P=45%) → value 71.1%",
@@ -192,25 +192,10 @@
           "strength": 3
         }
       ],
-      "top3_bets": [
-        {
-          "market": "Total FT",
-          "selection": "Plus de 2.5 buts",
-          "cote": 1.95,
-          "confidence": 67,
-          "signals": [
-            "⚖️ Match déséquilibré (France fav @ 1.59)",
-            "⚽ France attaque ≥ moyenne (off -0.12)",
-            "📊 ~62% des matchs lopsided CDM finissent > 2.5 buts"
-          ],
-          "risks": [
-            "L'outsider défend bas avec succès (cf Maroc 2022)"
-          ]
-        }
-      ],
+      "top3_bets": [],
       "uncertainty_level": "High",
-      "recommandation": "Meilleur pari : Plus de 2.5 buts @ 1.95 (confiance 67%). Basé sur des signaux contextuels CDM (pas value brute sur outsider).",
-      "generated_at": "2026-07-08T06:34:40+00:00"
+      "recommandation": "Marché efficient — aucun pattern contextuel WC fort identifié. Mieux vaut passer ce match.",
+      "generated_at": "2026-07-08T07:03:25+00:00"
     },
     "analyse": {
       "ht_1x2": {
@@ -307,6 +292,16 @@
           "value": 148.8
         },
         {
+          "marche": "Plus de 2.5 buts",
+          "cote": 2.0,
+          "book": "draftkings",
+          "p_ligue": 41,
+          "p_modele": 58,
+          "p_form": 58,
+          "p_avg": 52,
+          "value": 104.2
+        },
+        {
           "marche": "Match nul (1X2)",
           "cote": 3.85,
           "book": "draftkings",
@@ -315,16 +310,6 @@
           "p_form": 30,
           "p_avg": 27,
           "value": 102.8
-        },
-        {
-          "marche": "Plus de 2.5 buts",
-          "cote": 1.95,
-          "book": "draftkings",
-          "p_ligue": 41,
-          "p_modele": 58,
-          "p_form": 58,
-          "p_avg": 52,
-          "value": 101.6
         },
         {
           "marche": "Moins de 2.5 buts",
