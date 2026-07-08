@@ -1,5 +1,319 @@
 [
   {
+    "league": "World Cup",
+    "home": "France",
+    "away": "Morocco",
+    "start_ts": 1783627200,
+    "match_id": "4653851",
+    "page_url": "/matches/morocco-vs-france/1e78fs#4653851",
+    "picks": [
+      {
+        "direction": "home_win",
+        "type": "Victoire domicile",
+        "label": "France gagne",
+        "cote": 1.59,
+        "confidence": 81,
+        "reasoning": "France : 5V/0N/0D sur 5 matchs · #1 au classement · H2H: 0V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 80-89% historiquement à WR 56% (claim 82%, n=63) — sur-estimé de 26pp",
+        "stats": {
+          "form": [
+            "W",
+            "W",
+            "W",
+            "W",
+            "W"
+          ]
+        },
+        "is_fun": false,
+        "tier": "safe",
+        "calibration_delta": -26.0,
+        "edge_pp": 18.1,
+        "history_top3": true
+      },
+      {
+        "direction": "wc_over_25",
+        "type": "⚽ Total buts WC",
+        "label": "Plus de 2.5 buts",
+        "cote": 1.95,
+        "cote_min": 1.54,
+        "confidence": 65,
+        "tier": "ok",
+        "stats": {
+          "lam_h": 2.46,
+          "lam_a": 0.89,
+          "h_fifa_rank": 2,
+          "a_fifa_rank": 12,
+          "elo_gap": 165,
+          "wc_round": null,
+          "family": "TOTAL"
+        },
+        "reasoning": "📊 Niveau équilibré : France #2 vs Morocco #12 (gap +165 pts).\n⭐ France favori CdM 2026\nL10 : France 5V/0N/0D sur 5 · Morocco 3V/2N/0D sur 5\n📋 Fiche France : off moyen (-0.12) · def fragile (-0.81) · forme WWWWW · 🏆 élite mondiale\n   ↳ Historique : finaliste en 2022 · vainqueur en 2018 · quart de finale en 2014 · 2 titres (1998, 2018)\n📋 Fiche Morocco : off moyen (-0.02) · def moyenne (+0.06) · forme WDWWD · 🏆 habituée du tournoi\n🎯 Importance : Morocco : 1 match joué (1pts)\n🌦️ 🌦️ bruine modérée · 19–31°C · humidité 57% · précipitations 2.2mm\n⚽ Modèle Poisson : λ total = 3.35\nP(plus de 2.5 buts) = 65.0%\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
+        "calibration_delta": -25.4,
+        "edge_pp": 13.7,
+        "history_top3": true
+      },
+      {
+        "direction": "wc_home_scores_2",
+        "type": "⚽ Buteur équipe WC",
+        "label": "France marque 2+ buts",
+        "cote": null,
+        "cote_min": 1.42,
+        "confidence": 70,
+        "tier": "safe",
+        "stats": {
+          "lam_h": 2.46,
+          "lam_a": 0.89,
+          "h_fifa_rank": 2,
+          "a_fifa_rank": 12,
+          "elo_gap": 165,
+          "wc_round": null,
+          "family": "BUT_TEAM"
+        },
+        "reasoning": "📊 Niveau équilibré : France #2 vs Morocco #12 (gap +165 pts).\n⭐ France favori CdM 2026\nL10 : France 5V/0N/0D sur 5 · Morocco 3V/2N/0D sur 5\n📋 Fiche France : off moyen (-0.12) · def fragile (-0.81) · forme WWWWW · 🏆 élite mondiale\n   ↳ Historique : finaliste en 2022 · vainqueur en 2018 · quart de finale en 2014 · 2 titres (1998, 2018)\n📋 Fiche Morocco : off moyen (-0.02) · def moyenne (+0.06) · forme WDWWD · 🏆 habituée du tournoi\n🎯 Importance : Morocco : 1 match joué (1pts)\n🌦️ 🌦️ bruine modérée · 19–31°C · humidité 57% · précipitations 2.2mm\n⚽ P(France marque 2+) = 70.4% (λ = 2.46)\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+        "calibration_delta": -11.3,
+        "history_top3": true
+      }
+    ],
+    "home_players": [
+      {
+        "player": "Ousmane Dembélé / Bradley Barcola",
+        "position": "",
+        "is_sub": false,
+        "type": "Double Chance Buteur",
+        "label": "Ousmane Dembélé ou Bradley Barcola marque (France)",
+        "cote": null,
+        "book": null,
+        "books": [],
+        "confidence": 70,
+        "cote_min": 1.43,
+        "reasoning": "🏠 Combo intra-France\n📈 P(Ousmane Dembélé marque) ≈ 52% · P(Bradley Barcola marque) ≈ 42%\n🎯 P(au moins un marque) = 70% (1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.43 - chercher ≥1.43 chez le bookmaker\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+        "context": {
+          "combo_kind": "intra-home"
+        },
+        "_team_for_balance": "home",
+        "stats": {
+          "p_a": 0.525,
+          "p_b": 0.42,
+          "p_or": 0.7,
+          "player_a": "Ousmane Dembélé",
+          "player_b": "Bradley Barcola",
+          "kind": "intra-home"
+        },
+        "team": "home",
+        "tier": "safe",
+        "calibration_delta": -11.3,
+        "history_top3": true
+      },
+      {
+        "player": "Kylian Mbappé",
+        "position": "F",
+        "is_sub": false,
+        "type": "Double buteur",
+        "label": "Kylian Mbappé marque 2+ buts",
+        "cote": null,
+        "cote_min": 1.77,
+        "book": null,
+        "books": [],
+        "confidence": 60,
+        "reasoning": "Kylian Mbappé : selection 13G/13m (1.00/m) · L10 club : 8G/10m, 🔥 3G/3 derniers nat (+19%) | titu nat (77min/m) · last match 90min (1G+0A). Attendu ~1.9 buts ce match - P(2+) ~57% (cote elevee).\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
+        "context": {
+          "source": "lineup",
+          "lam": 1.9,
+          "lineup_status": "confirmed"
+        },
+        "stats": {
+          "goals": null,
+          "apps": null,
+          "gpm": 1.898,
+          "xgpm": null
+        },
+        "team": "home",
+        "lineup_status": "confirmed",
+        "tier": "ok",
+        "calibration_delta": -25.4,
+        "history_top3": false
+      },
+      {
+        "player": "Michael Olise",
+        "position": "F",
+        "is_sub": false,
+        "type": "Passeur",
+        "label": "Michael Olise délivre une passe décisive",
+        "cote": null,
+        "cote_min": 1.9,
+        "book": null,
+        "books": [],
+        "confidence": 53,
+        "reasoning": "Michael Olise délivre une passe décisive : selection 6A/14m (0.43 passes/m nat). P(passe décisive) ~53%.\n📉 Calibration : bucket 50-59% historiquement à WR 42% (claim 55%, n=41) — sur-estimé de 14pp",
+        "context": {
+          "source": "lineup",
+          "lam": 0.75,
+          "lineup_status": "confirmed"
+        },
+        "stats": {
+          "goals": null,
+          "apps": null,
+          "gpm": 0.746,
+          "xgpm": null
+        },
+        "team": "home",
+        "lineup_status": "confirmed",
+        "tier": "fun",
+        "calibration_delta": -13.6,
+        "history_top3": false
+      },
+      {
+        "player": "Ousmane Dembélé",
+        "position": "F",
+        "is_sub": false,
+        "type": "Buteur",
+        "label": "Ousmane Dembélé marque",
+        "cote": null,
+        "book": null,
+        "books": [],
+        "confidence": 52,
+        "reasoning": "4 buts en 5 matchs cette saison (80.0% de chance/match) · finisseur efficace (29% de conv.) · xG moyen 0.26/match · défense solide\n📉 Calibration : bucket 50-59% historiquement à WR 42% (claim 55%, n=41) — sur-estimé de 14pp",
+        "context": {
+          "weakness": 0.27
+        },
+        "stats": {
+          "goals": 4,
+          "apps": 5,
+          "gpm": 0.8,
+          "xgpm": 0.26
+        },
+        "team": "home",
+        "tier": "fun",
+        "calibration_delta": -13.6,
+        "history_top3": false
+      },
+      {
+        "player": "Kylian Mbappé",
+        "position": "F",
+        "is_sub": false,
+        "type": "Passeur",
+        "label": "Kylian Mbappé délivre une passe décisive",
+        "cote": null,
+        "cote_min": 2.17,
+        "book": null,
+        "books": [],
+        "confidence": 46,
+        "reasoning": "Kylian Mbappé délivre une passe décisive : selection 5A/13m (0.39 passes/m nat). P(passe décisive) ~46%.\n📉 Calibration : bucket 40-49% historiquement à WR 25% (claim 44%, n=36) — sur-estimé de 19pp",
+        "context": {
+          "source": "lineup",
+          "lam": 0.62,
+          "lineup_status": "confirmed"
+        },
+        "stats": {
+          "goals": null,
+          "apps": null,
+          "gpm": 0.619,
+          "xgpm": null
+        },
+        "team": "home",
+        "lineup_status": "confirmed",
+        "tier": "fun",
+        "calibration_delta": -19.4,
+        "history_top3": false
+      }
+    ],
+    "away_players": [],
+    "fun_picks": [
+      {
+        "direction": "wc_score_2_1",
+        "type": "🏆 Score exact WC",
+        "label": "Score exact : France 2-1 Morocco",
+        "cote_min": 10.53,
+        "confidence": 10,
+        "tier": "fun",
+        "is_fun": true,
+        "stats": {
+          "lam_h": 2.46,
+          "lam_a": 0.89,
+          "h_fifa_rank": 2,
+          "a_fifa_rank": 12,
+          "elo_gap": 165
+        },
+        "reasoning": "📊 Niveau équilibré : France #2 vs Morocco #12 (gap +165 pts).\n⭐ France favori CdM 2026\nL10 : France 5V/0N/0D sur 5 · Morocco 3V/2N/0D sur 5\n🏆 Coupe du Monde 2026 - score exact (Poisson grid, ajusté Elo FIFA)\nλ France = 2.46 buts, λ Morocco = 0.89 buts\nTop 3 : 2-0 (10.6%) · 2-1 (9.5%) · 3-0 (8.7%)\n⚠️ Pari fun (cote élevée typique 4-8) - mise modeste",
+        "exact_score": [
+          2,
+          1
+        ],
+        "wc_top3": [
+          [
+            [
+              2,
+              0
+            ],
+            10.6
+          ],
+          [
+            [
+              2,
+              1
+            ],
+            9.5
+          ],
+          [
+            [
+              3,
+              0
+            ],
+            8.7
+          ]
+        ],
+        "history_top3": false
+      }
+    ],
+    "top_pick": {
+      "direction": "home_win",
+      "type": "Victoire domicile",
+      "label": "France gagne",
+      "cote": 1.59,
+      "confidence": 81,
+      "reasoning": "France : 5V/0N/0D sur 5 matchs · #1 au classement · H2H: 0V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 80-89% historiquement à WR 56% (claim 82%, n=63) — sur-estimé de 26pp",
+      "stats": {
+        "form": [
+          "W",
+          "W",
+          "W",
+          "W",
+          "W"
+        ]
+      },
+      "is_fun": false,
+      "tier": "safe",
+      "calibration_delta": -26.0,
+      "edge_pp": 18.1,
+      "history_top3": true
+    },
+    "no_picks": false,
+    "context": {
+      "stadium": {
+        "name": "Gillette Stadium",
+        "city": "Foxborough (Boston)",
+        "country": "USA",
+        "lat": 42.0909,
+        "lon": -71.2643,
+        "capacity": 65878,
+        "surface": "Natural grass",
+        "altitude_m": 100,
+        "type": "outdoor",
+        "climatized": false,
+        "context_fr": "Climat tempéré nord-est. Juin-juillet 20-26°C, humidité modérée."
+      },
+      "weather": {
+        "temp_max": 31.6,
+        "temp_min": 19.6,
+        "humidity": 57,
+        "precipitation_sum_mm": 2.2,
+        "wind_max_kmh": 18.9,
+        "weather_code": 53,
+        "summary_fr": "🌦️ bruine modérée · 19–31°C · humidité 57% · précipitations 2.2mm"
+      },
+      "text": "Conditions : 🌦️ bruine modérée · 19–31°C · humidité 57% · précipitations 2.2mm. Stade : Gillette Stadium · altitude 100m · 65 878 places · plein air. Climat tempéré nord-est. Juin-juillet 20-26°C, humidité modérée."
+    }
+  },
+  {
     "league": "Ecuador LigaPro",
     "home": "Aucas",
     "away": "Guayaquil City",
@@ -17,10 +331,10 @@
         "cote": null,
         "book": null,
         "books": [],
-        "confidence": 58,
+        "confidence": 57,
         "reasoning": "6 buts en 10 matchs cette saison (60.0% de chance/match) · bonne efficacité (19% conv.) · xG moyen 0.00/match · défense fragile\n📉 Calibration : bucket 50-59% historiquement à WR 42% (claim 55%, n=41) — sur-estimé de 14pp",
         "context": {
-          "weakness": 0.53
+          "weakness": 0.52
         },
         "stats": {
           "goals": 6,
@@ -44,14 +358,14 @@
         "books": [],
         "confidence": 70,
         "cote_min": 1.43,
-        "reasoning": "🔀 Cross-équipe (moins corrélé → meilleur EV)\n📈 P(Bruno Miranda marque) ≈ 58% · P(Edinson Mero marque) ≈ 45%\n🎯 P(au moins un marque) = 70% (1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.43 - chercher ≥1.43 chez le bookmaker\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+        "reasoning": "🔀 Cross-équipe (moins corrélé → meilleur EV)\n📈 P(Bruno Miranda marque) ≈ 57% · P(Edinson Mero marque) ≈ 44%\n🎯 P(au moins un marque) = 70% (1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.43 - chercher ≥1.43 chez le bookmaker\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
         "context": {
           "combo_kind": "cross"
         },
         "_team_for_balance": "home",
         "stats": {
-          "p_a": 0.578,
-          "p_b": 0.45,
+          "p_a": 0.57,
+          "p_b": 0.442,
           "p_or": 0.7,
           "player_a": "Bruno Miranda",
           "player_b": "Edinson Mero",
@@ -74,10 +388,10 @@
       "cote": null,
       "book": null,
       "books": [],
-      "confidence": 58,
+      "confidence": 57,
       "reasoning": "6 buts en 10 matchs cette saison (60.0% de chance/match) · bonne efficacité (19% conv.) · xG moyen 0.00/match · défense fragile\n📉 Calibration : bucket 50-59% historiquement à WR 42% (claim 55%, n=41) — sur-estimé de 14pp",
       "context": {
-        "weakness": 0.53
+        "weakness": 0.52
       },
       "stats": {
         "goals": 6,
