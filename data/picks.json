@@ -106,7 +106,7 @@
       {
         "player": "Kylian Mbappé",
         "position": "F",
-        "is_sub": false,
+        "is_sub": true,
         "type": "Double buteur",
         "label": "Kylian Mbappé marque 2+ buts",
         "cote": null,
@@ -114,11 +114,11 @@
         "book": null,
         "books": [],
         "confidence": 60,
-        "reasoning": "Kylian Mbappé : selection 13G/13m (1.00/m) · L10 club : 8G/10m, 🔥 3G/3 derniers nat (+19%) | titu nat (77min/m) · last match 90min (1G+0A). Attendu ~1.9 buts ce match - P(2+) ~57% (cote elevee).\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
+        "reasoning": "⚠️ Compo PROBABLE (a confirmer 1h avant). Kylian Mbappé : selection 13G/13m (1.00/m) · L10 club : 8G/10m, 🔥 3G/3 derniers nat (+19%) | titu nat (77min/m) · last match 90min (1G+0A). Attendu ~1.9 buts ce match - P(2+) ~52% (cote elevee).\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
         "context": {
           "source": "lineup",
           "lam": 1.9,
-          "lineup_status": "confirmed"
+          "lineup_status": "predicted"
         },
         "stats": {
           "goals": null,
@@ -127,38 +127,9 @@
           "xgpm": null
         },
         "team": "home",
-        "lineup_status": "confirmed",
+        "lineup_status": "predicted",
         "tier": "ok",
         "calibration_delta": -25.4,
-        "history_top3": false
-      },
-      {
-        "player": "Michael Olise",
-        "position": "F",
-        "is_sub": false,
-        "type": "Passeur",
-        "label": "Michael Olise délivre une passe décisive",
-        "cote": null,
-        "cote_min": 1.9,
-        "book": null,
-        "books": [],
-        "confidence": 53,
-        "reasoning": "Michael Olise délivre une passe décisive : selection 6A/14m (0.43 passes/m nat). P(passe décisive) ~53%.\n📉 Calibration : bucket 50-59% historiquement à WR 42% (claim 55%, n=41) — sur-estimé de 14pp",
-        "context": {
-          "source": "lineup",
-          "lam": 0.75,
-          "lineup_status": "confirmed"
-        },
-        "stats": {
-          "goals": null,
-          "apps": null,
-          "gpm": 0.746,
-          "xgpm": null
-        },
-        "team": "home",
-        "lineup_status": "confirmed",
-        "tier": "fun",
-        "calibration_delta": -13.6,
         "history_top3": false
       },
       {
@@ -187,21 +158,50 @@
         "history_top3": false
       },
       {
+        "player": "Michael Olise",
+        "position": "F",
+        "is_sub": true,
+        "type": "Passeur",
+        "label": "Michael Olise délivre une passe décisive",
+        "cote": null,
+        "cote_min": 1.9,
+        "book": null,
+        "books": [],
+        "confidence": 48,
+        "reasoning": "⚠️ Compo PROBABLE (a confirmer 1h avant). Michael Olise délivre une passe décisive : selection 6A/14m (0.43 passes/m nat). P(passe décisive) ~48%.\n📉 Calibration : bucket 40-49% historiquement à WR 25% (claim 44%, n=36) — sur-estimé de 19pp",
+        "context": {
+          "source": "lineup",
+          "lam": 0.75,
+          "lineup_status": "predicted"
+        },
+        "stats": {
+          "goals": null,
+          "apps": null,
+          "gpm": 0.746,
+          "xgpm": null
+        },
+        "team": "home",
+        "lineup_status": "predicted",
+        "tier": "fun",
+        "calibration_delta": -19.4,
+        "history_top3": false
+      },
+      {
         "player": "Kylian Mbappé",
         "position": "F",
-        "is_sub": false,
+        "is_sub": true,
         "type": "Passeur",
         "label": "Kylian Mbappé délivre une passe décisive",
         "cote": null,
         "cote_min": 2.17,
         "book": null,
         "books": [],
-        "confidence": 46,
-        "reasoning": "Kylian Mbappé délivre une passe décisive : selection 5A/13m (0.39 passes/m nat). P(passe décisive) ~46%.\n📉 Calibration : bucket 40-49% historiquement à WR 25% (claim 44%, n=36) — sur-estimé de 19pp",
+        "confidence": 41,
+        "reasoning": "⚠️ Compo PROBABLE (a confirmer 1h avant). Kylian Mbappé délivre une passe décisive : selection 5A/13m (0.39 passes/m nat). P(passe décisive) ~41%.\n📉 Calibration : bucket 40-49% historiquement à WR 25% (claim 44%, n=36) — sur-estimé de 19pp",
         "context": {
           "source": "lineup",
           "lam": 0.62,
-          "lineup_status": "confirmed"
+          "lineup_status": "predicted"
         },
         "stats": {
           "goals": null,
@@ -210,7 +210,7 @@
           "xgpm": null
         },
         "team": "home",
-        "lineup_status": "confirmed",
+        "lineup_status": "predicted",
         "tier": "fun",
         "calibration_delta": -19.4,
         "history_top3": false
