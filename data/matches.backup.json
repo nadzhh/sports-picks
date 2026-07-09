@@ -1355,12 +1355,12 @@
           "choices": [
             {
               "name": "Over 2.5",
-              "cote": 2.0,
+              "cote": 1.95,
               "book": "draftkings"
             },
             {
               "name": "Under 2.5",
-              "cote": 1.8,
+              "cote": 1.83,
               "book": "draftkings"
             }
           ]
@@ -1421,8 +1421,8 @@
         "btts_yes_value": null,
         "btts_yes_p_final": 0.0,
         "btts_no_cote": null,
-        "over_25_cote": 2.0,
-        "under_25_cote": 1.8,
+        "over_25_cote": 1.95,
+        "under_25_cote": 1.83,
         "notes": [
           "Cote France 1.57 (book P=60% · modèle P=0% · calibré P=45%) → value 71.2%",
           "Cote nul 3.8 (book P=25% · modèle P=0% · calibré P=19%) → value 71.2%",
@@ -1442,10 +1442,25 @@
           "strength": 3
         }
       ],
-      "top3_bets": [],
+      "top3_bets": [
+        {
+          "market": "Total FT",
+          "selection": "Plus de 2.5 buts",
+          "cote": 1.95,
+          "confidence": 67,
+          "signals": [
+            "⚖️ Match déséquilibré (France fav @ 1.57)",
+            "⚽ France attaque ≥ moyenne (off -0.12)",
+            "📊 ~62% des matchs lopsided CDM finissent > 2.5 buts"
+          ],
+          "risks": [
+            "L'outsider défend bas avec succès (cf Maroc 2022)"
+          ]
+        }
+      ],
       "uncertainty_level": "High",
-      "recommandation": "Marché efficient — aucun pattern contextuel WC fort identifié. Mieux vaut passer ce match.",
-      "generated_at": "2026-07-09T07:37:06+00:00"
+      "recommandation": "Meilleur pari : Plus de 2.5 buts @ 1.95 (confiance 67%). Basé sur des signaux contextuels CDM (pas value brute sur outsider).",
+      "generated_at": "2026-07-09T08:13:34+00:00"
     },
     "analyse": {
       "ht_1x2": {
@@ -1543,13 +1558,13 @@
         },
         {
           "marche": "Plus de 2.5 buts",
-          "cote": 2.0,
+          "cote": 1.95,
           "book": "draftkings",
           "p_ligue": 41,
           "p_modele": 58,
           "p_form": 58,
           "p_avg": 52,
-          "value": 104.2
+          "value": 101.6
         },
         {
           "marche": "Match nul (1X2)",
@@ -1563,13 +1578,13 @@
         },
         {
           "marche": "Moins de 2.5 buts",
-          "cote": 1.8,
+          "cote": 1.83,
           "book": "draftkings",
           "p_ligue": 59,
           "p_modele": 42,
           "p_form": 42,
           "p_avg": 48,
-          "value": 86.2
+          "value": 87.6
         },
         {
           "marche": "France gagne (1X2)",
@@ -1869,7 +1884,7 @@
       "top3_bets": [],
       "uncertainty_level": "Moderate",
       "recommandation": "Marché efficient — aucun pattern contextuel WC fort identifié. Mieux vaut passer ce match.",
-      "generated_at": "2026-07-09T07:37:06+00:00"
+      "generated_at": "2026-07-09T08:13:34+00:00"
     },
     "analyse": {
       "ht_1x2": {
