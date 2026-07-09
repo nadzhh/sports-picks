@@ -228,28 +228,28 @@
     ],
     "home_players": [
       {
-        "player": "Ousmane Dembélé / Bradley Barcola",
+        "player": "Bradley Barcola / Ismael Saibari",
         "position": "",
         "is_sub": false,
         "type": "Double Chance Buteur",
-        "label": "Ousmane Dembélé ou Bradley Barcola marque (France)",
+        "label": "Bradley Barcola OU Ismael Saibari marque (cross-équipe)",
         "cote": null,
         "book": null,
         "books": [],
         "confidence": 70,
         "cote_min": 1.43,
-        "reasoning": "🏠 Combo intra-France\n📈 P(Ousmane Dembélé marque) ≈ 52% · P(Bradley Barcola marque) ≈ 42%\n🎯 P(au moins un marque) = 70% (1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.43 - chercher ≥1.43 chez le bookmaker\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+        "reasoning": "🔀 Cross-équipe (moins corrélé → meilleur EV)\n📈 P(Bradley Barcola marque) ≈ 43% · P(Ismael Saibari marque) ≈ 48%\n🎯 P(au moins un marque) = 70% (1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.43 - chercher ≥1.43 chez le bookmaker\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
         "context": {
-          "combo_kind": "intra-home"
+          "combo_kind": "cross"
         },
         "_team_for_balance": "home",
         "stats": {
-          "p_a": 0.525,
-          "p_b": 0.42,
-          "p_or": 0.7,
-          "player_a": "Ousmane Dembélé",
-          "player_b": "Bradley Barcola",
-          "kind": "intra-home"
+          "p_a": 0.428,
+          "p_b": 0.48,
+          "p_or": 0.703,
+          "player_a": "Bradley Barcola",
+          "player_b": "Ismael Saibari",
+          "kind": "cross"
         },
         "team": "home",
         "tier": "safe",
@@ -310,31 +310,6 @@
         },
         "team": "home",
         "lineup_status": "confirmed",
-        "tier": "fun",
-        "calibration_delta": -13.6,
-        "history_top3": false
-      },
-      {
-        "player": "Ousmane Dembélé",
-        "position": "F",
-        "is_sub": false,
-        "type": "Buteur",
-        "label": "Ousmane Dembélé marque",
-        "cote": null,
-        "book": null,
-        "books": [],
-        "confidence": 52,
-        "reasoning": "4 buts en 5 matchs cette saison (80.0% de chance/match) · finisseur efficace (22% de conv.) · xG moyen 0.28/match · défense solide\n📉 Calibration : bucket 50-59% historiquement à WR 42% (claim 55%, n=41) — sur-estimé de 14pp",
-        "context": {
-          "weakness": 0.26
-        },
-        "stats": {
-          "goals": 4,
-          "apps": 5,
-          "gpm": 0.8,
-          "xgpm": 0.28
-        },
-        "team": "home",
         "tier": "fun",
         "calibration_delta": -13.6,
         "history_top3": false
