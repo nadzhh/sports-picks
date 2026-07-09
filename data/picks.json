@@ -1,5 +1,158 @@
 [
   {
+    "league": "Finnish Veikkausliiga",
+    "home": "VPS",
+    "away": "SJK",
+    "start_ts": 1783699200,
+    "match_id": "5147593",
+    "page_url": "/matches/vps-vs-sjk/6ji2a89#5147593",
+    "picks": [
+      {
+        "direction": "home_dc",
+        "type": "Double chance",
+        "label": "VPS ou Nul (1X)",
+        "cote": null,
+        "confidence": 83,
+        "reasoning": "VPS invaincu 100% sur 5 derniers matchs · H2H: 1/1 matchs sans défaite · Classement: #4 vs #10\n📉 Calibration : bucket 80-89% historiquement à WR 56% (claim 82%, n=63) — sur-estimé de 26pp",
+        "stats": {
+          "form": [
+            "W",
+            "D",
+            "W",
+            "W",
+            "D"
+          ]
+        },
+        "is_fun": false,
+        "tier": "safe",
+        "calibration_delta": -26.0,
+        "history_top3": true
+      },
+      {
+        "direction": "home_win",
+        "type": "Victoire domicile",
+        "label": "VPS gagne",
+        "cote": null,
+        "confidence": 71,
+        "reasoning": "VPS : 3V/2N/0D sur 5 matchs · #4 au classement · H2H: 1V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+        "stats": {
+          "form": [
+            "W",
+            "D",
+            "W",
+            "W",
+            "D"
+          ]
+        },
+        "is_fun": false,
+        "tier": "safe",
+        "calibration_delta": -11.3,
+        "history_top3": true
+      }
+    ],
+    "home_players": [
+      {
+        "player": "Luka Smyth",
+        "position": "F",
+        "is_sub": false,
+        "type": "Buteur",
+        "label": "Luka Smyth marque",
+        "cote": null,
+        "book": null,
+        "books": [],
+        "confidence": 58,
+        "reasoning": "7 buts en 12 matchs cette saison (58.3% de chance/match) · xG moyen 0.00/match, défense adverse poreuse (1.6 buts concédés/match) · défense fragile\n📉 Calibration : bucket 50-59% historiquement à WR 42% (claim 55%, n=41) — sur-estimé de 14pp",
+        "context": {
+          "weakness": 0.51
+        },
+        "stats": {
+          "goals": 7,
+          "apps": 12,
+          "gpm": 0.583,
+          "xgpm": 0
+        },
+        "team": "home",
+        "tier": "ok",
+        "calibration_delta": -13.6,
+        "history_top3": true
+      },
+      {
+        "player": "Luka Smyth / Simon Lindholm",
+        "position": "",
+        "is_sub": false,
+        "type": "Double Chance Buteur",
+        "label": "Luka Smyth ou Simon Lindholm marque (VPS)",
+        "cote": null,
+        "book": null,
+        "books": [],
+        "confidence": 70,
+        "cote_min": 1.43,
+        "reasoning": "🏠 Combo intra-VPS\n📈 P(Luka Smyth marque) ≈ 58% · P(Simon Lindholm marque) ≈ 36%\n🎯 P(au moins un marque) = 70% (1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.43 - chercher ≥1.43 chez le bookmaker\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+        "context": {
+          "combo_kind": "intra-home"
+        },
+        "_team_for_balance": "home",
+        "stats": {
+          "p_a": 0.578,
+          "p_b": 0.36,
+          "p_or": 0.7,
+          "player_a": "Luka Smyth",
+          "player_b": "Simon Lindholm",
+          "kind": "intra-home"
+        },
+        "team": "home",
+        "tier": "safe",
+        "calibration_delta": -11.3,
+        "history_top3": true
+      }
+    ],
+    "away_players": [],
+    "fun_picks": [],
+    "top_pick": {
+      "direction": "home_dc",
+      "type": "Double chance",
+      "label": "VPS ou Nul (1X)",
+      "cote": null,
+      "confidence": 83,
+      "reasoning": "VPS invaincu 100% sur 5 derniers matchs · H2H: 1/1 matchs sans défaite · Classement: #4 vs #10\n📉 Calibration : bucket 80-89% historiquement à WR 56% (claim 82%, n=63) — sur-estimé de 26pp",
+      "stats": {
+        "form": [
+          "W",
+          "D",
+          "W",
+          "W",
+          "D"
+        ]
+      },
+      "is_fun": false,
+      "tier": "safe",
+      "calibration_delta": -26.0,
+      "history_top3": true
+    },
+    "no_picks": false,
+    "context": {
+      "stadium": {
+        "name": "Lemonsoft stadion",
+        "city": "Vaasa",
+        "country": "Finland",
+        "lat": 63.085199656,
+        "lon": 21.627937624,
+        "capacity": 6009,
+        "surface": "artificial turf"
+      },
+      "weather": {
+        "temp_max": 24.3,
+        "temp_min": 13.1,
+        "humidity": 55,
+        "precipitation_sum_mm": 0.0,
+        "wind_max_kmh": 16.2,
+        "weather_code": 2,
+        "summary_fr": "⛅ partiellement nuageux · 13–24°C · humidité 55%"
+      },
+      "text": "Conditions : ⛅ partiellement nuageux · 13–24°C · humidité 55%. Stade : Lemonsoft stadion · 6 009 places · plein air."
+    }
+  },
+  {
     "league": "World Cup",
     "home": "France",
     "away": "Morocco",
@@ -311,6 +464,585 @@
         "summary_fr": "☁️ couvert · 18–29°C · humidité 66%"
       },
       "text": "Conditions : ☁️ couvert · 18–29°C · humidité 66%. Stade : Gillette Stadium · altitude 100m · 65 878 places · plein air. Climat tempéré nord-est. Juin-juillet 20-26°C, humidité modérée."
+    }
+  },
+  {
+    "league": "Chinese Super League",
+    "home": "Shandong Taishan",
+    "away": "Yunnan Yukun",
+    "start_ts": 1783683300,
+    "match_id": "5186541",
+    "page_url": "/matches/shandong-taishan-vs-yunnan-yukun/e2zvx8jb#5186541",
+    "picks": [],
+    "home_players": [
+      {
+        "player": "Cryzan",
+        "position": "F",
+        "is_sub": false,
+        "type": "Buteur",
+        "label": "Cryzan marque",
+        "cote": null,
+        "book": null,
+        "books": [],
+        "confidence": 75,
+        "reasoning": "⚽ Penaltyman · 11 buts en 13 matchs cette saison (84.6% de chance/match) · bonne efficacité (20% conv.) · xG moyen 0.00/match, défense adverse poreuse (1.7 buts concédés/match) · défense correcte\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+        "context": {
+          "weakness": 0.4
+        },
+        "stats": {
+          "goals": 11,
+          "apps": 13,
+          "gpm": 0.846,
+          "xgpm": 0
+        },
+        "team": "home",
+        "tier": "safe",
+        "calibration_delta": -11.3,
+        "history_top3": true
+      },
+      {
+        "player": "Cryzan / Zeca",
+        "position": "",
+        "is_sub": false,
+        "type": "Double Chance Buteur",
+        "label": "Cryzan ou Zeca marque (Shandong Taishan)",
+        "cote": null,
+        "book": null,
+        "books": [],
+        "confidence": 70,
+        "cote_min": 1.43,
+        "reasoning": "🏠 Combo intra-Shandong Taishan\n📈 P(Cryzan marque) ≈ 68% · P(Zeca marque) ≈ 46%\n🎯 P(au moins un marque) = 70% (1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.43 - chercher ≥1.43 chez le bookmaker\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+        "context": {
+          "combo_kind": "intra-home"
+        },
+        "_team_for_balance": "home",
+        "stats": {
+          "p_a": 0.675,
+          "p_b": 0.458,
+          "p_or": 0.7,
+          "player_a": "Cryzan",
+          "player_b": "Zeca",
+          "kind": "intra-home"
+        },
+        "team": "home",
+        "tier": "safe",
+        "calibration_delta": -11.3,
+        "history_top3": true
+      }
+    ],
+    "away_players": [
+      {
+        "player": "Oscar Taty Maritu",
+        "position": "F",
+        "is_sub": false,
+        "type": "Buteur",
+        "label": "Oscar Taty Maritu marque",
+        "cote": null,
+        "book": null,
+        "books": [],
+        "confidence": 62,
+        "reasoning": "12 buts en 17 matchs cette saison (70.6% de chance/match) · xG moyen 0.00/match, défense adverse poreuse (1.6 buts concédés/match) · défense correcte\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
+        "context": {
+          "weakness": 0.45
+        },
+        "stats": {
+          "goals": 12,
+          "apps": 17,
+          "gpm": 0.706,
+          "xgpm": 0
+        },
+        "team": "away",
+        "tier": "ok",
+        "calibration_delta": -25.4,
+        "history_top3": true
+      }
+    ],
+    "fun_picks": [],
+    "top_pick": {
+      "player": "Cryzan",
+      "position": "F",
+      "is_sub": false,
+      "type": "Buteur",
+      "label": "Cryzan marque",
+      "cote": null,
+      "book": null,
+      "books": [],
+      "confidence": 75,
+      "reasoning": "⚽ Penaltyman · 11 buts en 13 matchs cette saison (84.6% de chance/match) · bonne efficacité (20% conv.) · xG moyen 0.00/match, défense adverse poreuse (1.7 buts concédés/match) · défense correcte\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+      "context": {
+        "weakness": 0.4
+      },
+      "stats": {
+        "goals": 11,
+        "apps": 13,
+        "gpm": 0.846,
+        "xgpm": 0
+      },
+      "team": "home",
+      "tier": "safe",
+      "calibration_delta": -11.3,
+      "history_top3": true
+    },
+    "no_picks": false,
+    "context": {
+      "stadium": {
+        "name": "Jinan Olympic Sports Center",
+        "city": "Jinan",
+        "country": "China",
+        "lat": 36.656249565,
+        "lon": 117.110180855,
+        "capacity": 56808,
+        "surface": "grass"
+      },
+      "weather": {
+        "temp_max": 34.8,
+        "temp_min": 27.4,
+        "humidity": 61,
+        "precipitation_sum_mm": 0.2,
+        "wind_max_kmh": 19.9,
+        "weather_code": 51,
+        "summary_fr": "🌦️ bruine légère · 27–34°C · humidité 61%"
+      },
+      "text": "Conditions : 🌦️ bruine légère · 27–34°C · humidité 61%. Stade : Jinan Olympic Sports Center · 56 808 places · plein air. ⚠️ Forte chaleur (>32°C) en plein air : impact endurance, plus de pauses hydratation."
+    }
+  },
+  {
+    "league": "World Cup",
+    "home": "Spain",
+    "away": "Belgium",
+    "start_ts": 1783710000,
+    "match_id": "4653853",
+    "page_url": "/matches/spain-vs-belgium/1uu52b#4653853",
+    "picks": [
+      {
+        "direction": "home_win",
+        "type": "Victoire domicile",
+        "label": "Spain gagne",
+        "cote": 1.65,
+        "confidence": 74,
+        "reasoning": "Spain : 4V/1N/0D sur 5 matchs · #1 au classement · H2H: 0V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+        "stats": {
+          "form": [
+            "W",
+            "W",
+            "W",
+            "W",
+            "D"
+          ]
+        },
+        "is_fun": false,
+        "tier": "safe",
+        "calibration_delta": -11.3,
+        "edge_pp": 13.4,
+        "history_top3": true
+      },
+      {
+        "direction": "wc_over_15",
+        "type": "⚽ Total buts WC",
+        "label": "Plus de 1.5 buts",
+        "cote": null,
+        "cote_min": 1.3,
+        "confidence": 77,
+        "tier": "safe",
+        "stats": {
+          "lam_h": 1.75,
+          "lam_a": 1.06,
+          "h_fifa_rank": 3,
+          "a_fifa_rank": 8,
+          "elo_gap": 119,
+          "wc_round": null,
+          "family": "TOTAL"
+        },
+        "reasoning": "📊 Niveau équilibré : Spain #3 vs Belgium #8 (gap +119 pts).\n⭐ Spain favori CdM 2026 · 🇪🇺 Belgium UEFA powerhouse\nL10 : Spain 4V/1N/0D sur 5 · Belgium 3V/2N/0D sur 5\n📋 Fiche Spain : off en panne (-0.37) · def moyenne (-0.00) · forme WWWWD · 🏆 habituée du tournoi\n📋 Fiche Belgium : off solide (+0.49) · def moyenne (-0.15) · forme WWWDD · 🏆 régulière phase finale\n   ↳ Historique : phase de poules en 2022 · demi-finaliste en 2018 · quart de finale en 2014\n🎯 Importance : Spain : 1 match joué (1pts) · Belgium : 1 match joué (1pts)\n🌦️ 🌫️ brouillard · 16–27°C · humidité 49% · stade fermé\n⚽ Modèle Poisson : λ total = 2.81 buts attendus\nP(plus de 1.5 buts) = 77.1%\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+        "calibration_delta": -11.3,
+        "history_top3": true
+      },
+      {
+        "direction": "wc_dc_1x",
+        "type": "🏆 Double chance WC",
+        "label": "Spain ou nul (1X)",
+        "cote": null,
+        "cote_min": 1.3,
+        "confidence": 77,
+        "tier": "safe",
+        "stats": {
+          "lam_h": 1.75,
+          "lam_a": 1.06,
+          "h_fifa_rank": 3,
+          "a_fifa_rank": 8,
+          "elo_gap": 119,
+          "wc_round": null,
+          "family": "DC"
+        },
+        "reasoning": "📊 Niveau équilibré : Spain #3 vs Belgium #8 (gap +119 pts).\n⭐ Spain favori CdM 2026 · 🇪🇺 Belgium UEFA powerhouse\nL10 : Spain 4V/1N/0D sur 5 · Belgium 3V/2N/0D sur 5\n📋 Fiche Spain : off en panne (-0.37) · def moyenne (-0.00) · forme WWWWD · 🏆 habituée du tournoi\n📋 Fiche Belgium : off solide (+0.49) · def moyenne (-0.15) · forme WWWDD · 🏆 régulière phase finale\n   ↳ Historique : phase de poules en 2022 · demi-finaliste en 2018 · quart de finale en 2014\n🎯 Importance : Spain : 1 match joué (1pts) · Belgium : 1 match joué (1pts)\n🌦️ 🌫️ brouillard · 16–27°C · humidité 49% · stade fermé\n🛡️ Double chance : Spain gagne (53.4%) OU match nul (23.6%)\nCombiné = 77.0% — option safe contre Belgium\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+        "calibration_delta": -11.3,
+        "history_top3": true
+      }
+    ],
+    "home_players": [
+      {
+        "player": "Mikel Oyarzabal / Romelu Lukaku",
+        "position": "",
+        "is_sub": false,
+        "type": "Double Chance Buteur",
+        "label": "Mikel Oyarzabal OU Romelu Lukaku marque (cross-équipe)",
+        "cote": null,
+        "book": null,
+        "books": [],
+        "confidence": 70,
+        "cote_min": 1.43,
+        "reasoning": "🔀 Cross-équipe (moins corrélé → meilleur EV)\n📈 P(Mikel Oyarzabal marque) ≈ 61% · P(Romelu Lukaku marque) ≈ 44%\n🎯 P(au moins un marque) = 70% (1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.43 - chercher ≥1.43 chez le bookmaker\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+        "context": {
+          "combo_kind": "cross"
+        },
+        "_team_for_balance": "home",
+        "stats": {
+          "p_a": 0.608,
+          "p_b": 0.435,
+          "p_or": 0.7,
+          "player_a": "Mikel Oyarzabal",
+          "player_b": "Romelu Lukaku",
+          "kind": "cross"
+        },
+        "team": "home",
+        "tier": "safe",
+        "calibration_delta": -11.3,
+        "history_top3": true
+      },
+      {
+        "player": "Mikel Oyarzabal",
+        "position": "F",
+        "is_sub": false,
+        "type": "Buteur",
+        "label": "Mikel Oyarzabal marque",
+        "cote": null,
+        "book": null,
+        "books": [],
+        "confidence": 61,
+        "reasoning": "4 buts en 5 matchs cette saison (80.0% de chance/match) · finisseur efficace (18% de conv.) · xG moyen 0.62/match · défense solide\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
+        "context": {
+          "weakness": 0.27
+        },
+        "stats": {
+          "goals": 4,
+          "apps": 5,
+          "gpm": 0.8,
+          "xgpm": 0.62
+        },
+        "team": "home",
+        "tier": "ok",
+        "calibration_delta": -25.4,
+        "history_top3": false
+      }
+    ],
+    "away_players": [],
+    "fun_picks": [],
+    "top_pick": {
+      "direction": "home_win",
+      "type": "Victoire domicile",
+      "label": "Spain gagne",
+      "cote": 1.65,
+      "confidence": 74,
+      "reasoning": "Spain : 4V/1N/0D sur 5 matchs · #1 au classement · H2H: 0V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+      "stats": {
+        "form": [
+          "W",
+          "W",
+          "W",
+          "W",
+          "D"
+        ]
+      },
+      "is_fun": false,
+      "tier": "safe",
+      "calibration_delta": -11.3,
+      "edge_pp": 13.4,
+      "history_top3": true
+    },
+    "no_picks": false,
+    "context": {
+      "stadium": {
+        "name": "SoFi Stadium",
+        "city": "Inglewood (Los Angeles)",
+        "country": "USA",
+        "lat": 33.9535,
+        "lon": -118.3392,
+        "capacity": 70240,
+        "surface": "Natural grass",
+        "altitude_m": 50,
+        "type": "indoor",
+        "climatized": true,
+        "context_fr": "Toit fixe ouvert sur les côtés. Climat doux côte californienne."
+      },
+      "weather": {
+        "temp_max": 27.0,
+        "temp_min": 16.0,
+        "humidity": 49,
+        "precipitation_sum_mm": 0.0,
+        "wind_max_kmh": 15.0,
+        "weather_code": 45,
+        "summary_fr": "🌫️ brouillard · 16–27°C · humidité 49%"
+      },
+      "text": "Conditions : 🌫️ brouillard · 16–27°C · humidité 49%. Stade : SoFi Stadium · altitude 50m · 70 240 places · climatisé. Toit fixe ouvert sur les côtés. Climat doux côte californienne."
+    }
+  },
+  {
+    "league": "Ecuador LigaPro",
+    "home": "Leones del Norte",
+    "away": "Universidad Catolica",
+    "start_ts": 1783720800,
+    "match_id": "1000009010",
+    "page_url": "/matches/universidad-catolica-vs-leones-del-norte/e1keaf7n#1000009010",
+    "picks": [],
+    "home_players": [],
+    "away_players": [
+      {
+        "player": "Emiliano Clavijo / Byron Palacios",
+        "position": "",
+        "is_sub": false,
+        "type": "Double Chance Buteur",
+        "label": "Emiliano Clavijo ou Byron Palacios marque (Universidad Catolica)",
+        "cote": null,
+        "book": null,
+        "books": [],
+        "confidence": 70,
+        "cote_min": 1.43,
+        "reasoning": "✈️ Combo intra-Universidad Catolica\n📈 P(Emiliano Clavijo marque) ≈ 46% · P(Byron Palacios marque) ≈ 45%\n🎯 P(au moins un marque) = 70% (1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.43 - chercher ≥1.43 chez le bookmaker\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+        "context": {
+          "combo_kind": "intra-away"
+        },
+        "_team_for_balance": "away",
+        "stats": {
+          "p_a": 0.465,
+          "p_b": 0.45,
+          "p_or": 0.7,
+          "player_a": "Emiliano Clavijo",
+          "player_b": "Byron Palacios",
+          "kind": "intra-away"
+        },
+        "team": "away",
+        "tier": "safe",
+        "calibration_delta": -11.3,
+        "history_top3": true
+      }
+    ],
+    "fun_picks": [],
+    "top_pick": {
+      "player": "Emiliano Clavijo / Byron Palacios",
+      "position": "",
+      "is_sub": false,
+      "type": "Double Chance Buteur",
+      "label": "Emiliano Clavijo ou Byron Palacios marque (Universidad Catolica)",
+      "cote": null,
+      "book": null,
+      "books": [],
+      "confidence": 70,
+      "cote_min": 1.43,
+      "reasoning": "✈️ Combo intra-Universidad Catolica\n📈 P(Emiliano Clavijo marque) ≈ 46% · P(Byron Palacios marque) ≈ 45%\n🎯 P(au moins un marque) = 70% (1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.43 - chercher ≥1.43 chez le bookmaker\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+      "context": {
+        "combo_kind": "intra-away"
+      },
+      "_team_for_balance": "away",
+      "stats": {
+        "p_a": 0.465,
+        "p_b": 0.45,
+        "p_or": 0.7,
+        "player_a": "Emiliano Clavijo",
+        "player_b": "Byron Palacios",
+        "kind": "intra-away"
+      },
+      "team": "away",
+      "tier": "safe",
+      "calibration_delta": -11.3,
+      "history_top3": true
+    },
+    "no_picks": false,
+    "context": {
+      "stadium": {
+        "name": "Estadio Olímpico de Ibarra",
+        "city": "Ibarra",
+        "country": "Ecuador",
+        "lat": 0.360046616,
+        "lon": -78.118532081,
+        "capacity": null,
+        "surface": null
+      },
+      "weather": {
+        "temp_max": 25.5,
+        "temp_min": 17.2,
+        "humidity": 39,
+        "precipitation_sum_mm": 0.0,
+        "wind_max_kmh": 8.2,
+        "weather_code": 3,
+        "summary_fr": "☁️ couvert · 17–25°C · humidité 39%"
+      },
+      "text": "Conditions : ☁️ couvert · 17–25°C · humidité 39%. Stade : Estadio Olímpico de Ibarra · plein air."
+    }
+  },
+  {
+    "league": "Uruguay Primera",
+    "home": "Deportivo Maldonado",
+    "away": "Albion",
+    "start_ts": 1783720800,
+    "match_id": "5888337",
+    "page_url": "/matches/deportivo-maldonado-vs-albion/5habeage#5888337",
+    "picks": [
+      {
+        "direction": "home_win",
+        "type": "Victoire domicile",
+        "label": "Deportivo Maldonado gagne",
+        "cote": null,
+        "confidence": 67,
+        "reasoning": "Deportivo Maldonado : 4V/1N/0D sur 5 matchs · #1 au classement · H2H: 0V/0N/1D · Note Sofa: 6.5/10\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
+        "stats": {
+          "form": [
+            "W",
+            "W",
+            "D",
+            "W",
+            "W"
+          ]
+        },
+        "is_fun": false,
+        "tier": "ok",
+        "calibration_delta": -25.4,
+        "history_top3": true
+      }
+    ],
+    "home_players": [
+      {
+        "player": "Maximiliano Noble / Cristian Tabo",
+        "position": "",
+        "is_sub": false,
+        "type": "Double Chance Buteur",
+        "label": "Maximiliano Noble ou Cristian Tabo marque (Deportivo Maldonado)",
+        "cote": null,
+        "book": null,
+        "books": [],
+        "confidence": 70,
+        "cote_min": 1.43,
+        "reasoning": "🏠 Combo intra-Deportivo Maldonado\n📈 P(Maximiliano Noble marque) ≈ 46% · P(Cristian Tabo marque) ≈ 46%\n🎯 P(au moins un marque) = 70% (1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.43 - chercher ≥1.43 chez le bookmaker\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+        "context": {
+          "combo_kind": "intra-home"
+        },
+        "_team_for_balance": "home",
+        "stats": {
+          "p_a": 0.465,
+          "p_b": 0.458,
+          "p_or": 0.7,
+          "player_a": "Maximiliano Noble",
+          "player_b": "Cristian Tabo",
+          "kind": "intra-home"
+        },
+        "team": "home",
+        "tier": "safe",
+        "calibration_delta": -11.3,
+        "history_top3": true
+      }
+    ],
+    "away_players": [],
+    "fun_picks": [],
+    "top_pick": {
+      "direction": "home_win",
+      "type": "Victoire domicile",
+      "label": "Deportivo Maldonado gagne",
+      "cote": null,
+      "confidence": 67,
+      "reasoning": "Deportivo Maldonado : 4V/1N/0D sur 5 matchs · #1 au classement · H2H: 0V/0N/1D · Note Sofa: 6.5/10\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
+      "stats": {
+        "form": [
+          "W",
+          "W",
+          "D",
+          "W",
+          "W"
+        ]
+      },
+      "is_fun": false,
+      "tier": "ok",
+      "calibration_delta": -25.4,
+      "history_top3": true
+    },
+    "no_picks": false,
+    "context": null
+  },
+  {
+    "league": "Estonian Meistriliiga",
+    "home": "Harju Jalgpallikool",
+    "away": "Narva Trans",
+    "start_ts": 1783699200,
+    "match_id": "1000007914",
+    "page_url": "/matches/narva-trans-vs-harju-jalgpallikool/2wr0vrx6#1000007914",
+    "picks": [],
+    "home_players": [
+      {
+        "player": "Karel Eerme",
+        "position": "M",
+        "is_sub": false,
+        "type": "Buteur",
+        "label": "Karel Eerme marque",
+        "team": "home",
+        "cote": null,
+        "book": null,
+        "books": [],
+        "confidence": 31,
+        "reasoning": "5G en 16 matchs (31.2%/match) · xG: 0.00/match",
+        "context": {
+          "weakness": 0.35
+        },
+        "stats": {
+          "goals": 5,
+          "apps": 16
+        },
+        "tier": "fun",
+        "history_top3": true
+      }
+    ],
+    "away_players": [],
+    "fun_picks": [],
+    "top_pick": {
+      "player": "Karel Eerme",
+      "position": "M",
+      "is_sub": false,
+      "type": "Buteur",
+      "label": "Karel Eerme marque",
+      "team": "home",
+      "cote": null,
+      "book": null,
+      "books": [],
+      "confidence": 31,
+      "reasoning": "5G en 16 matchs (31.2%/match) · xG: 0.00/match",
+      "context": {
+        "weakness": 0.35
+      },
+      "stats": {
+        "goals": 5,
+        "apps": 16
+      },
+      "tier": "fun",
+      "history_top3": true
+    },
+    "no_picks": false,
+    "context": {
+      "stadium": {
+        "name": "Laagri kunstmurustaadion",
+        "city": "Tallinn",
+        "country": "Estonia",
+        "lat": 59.350362278,
+        "lon": 24.616541862,
+        "capacity": null,
+        "surface": null
+      },
+      "weather": {
+        "temp_max": 21.4,
+        "temp_min": 11.5,
+        "humidity": 68,
+        "precipitation_sum_mm": 0.6,
+        "wind_max_kmh": 12.6,
+        "weather_code": 51,
+        "summary_fr": "🌦️ bruine légère · 11–21°C · humidité 68%"
+      },
+      "text": "Conditions : 🌦️ bruine légère · 11–21°C · humidité 68%. Stade : Laagri kunstmurustaadion · plein air."
     }
   }
 ]
