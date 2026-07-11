@@ -883,7 +883,12 @@
       },
       "league_name": "Ecuador LigaPro",
       "top_buteurs_home": [],
-      "top_buteurs_away": [],
+      "top_buteurs_away": [
+        {
+          "player": "Vilington Branda",
+          "pct": 35
+        }
+      ],
       "top_passeurs_home": [],
       "top_passeurs_away": [],
       "value_bets": []
@@ -1129,7 +1134,12 @@
       },
       "league_name": "Ecuador LigaPro",
       "top_buteurs_home": [],
-      "top_buteurs_away": [],
+      "top_buteurs_away": [
+        {
+          "player": "Bruno Miranda",
+          "pct": 57
+        }
+      ],
       "top_passeurs_home": [],
       "top_passeurs_away": [],
       "value_bets": []
@@ -1477,32 +1487,50 @@
   },
   {
     "id": "5888338",
-    "home": "CA Juventud Colonia",
+    "home": "Juventud de las Piedras",
     "away": "Montevideo City Torque",
-    "home_id": "1545897",
+    "home_id": "9883",
     "away_id": "395613",
     "_fotmob_lid": 161,
-    "_page_url": "/matches/montevideo-city-torque-vs-ca-juventud-colonia/o1u0pqb6#5888338",
+    "_page_url": "/matches/juventud-de-las-piedras-vs-montevideo-city-torque/11rnx8zb#5888338",
     "start_ts": 1783774800,
     "league_id": 268,
     "league": "Uruguay Primera",
     "h2h": {
       "teamDuel": {
         "homeWins": 0,
-        "draws": 0,
+        "draws": 1,
         "awayWins": 0
       }
     },
     "pre_match_form": {
       "homeTeam": {
-        "form": [],
-        "form_opps": [],
-        "form_opp_ranks": [],
-        "position": null,
+        "form": [
+          "D",
+          "L",
+          "L",
+          "W",
+          "W"
+        ],
+        "form_opps": [
+          "8562",
+          "8304",
+          "7863",
+          "1838",
+          "7796"
+        ],
+        "form_opp_ranks": [
+          8,
+          2,
+          3,
+          7,
+          8
+        ],
+        "position": 6,
         "avgRating": null,
-        "l5_gf_pm": null,
-        "l5_ga_pm": null,
-        "l5_goals_n": 0
+        "l5_gf_pm": 1.6,
+        "l5_ga_pm": 1.8,
+        "l5_goals_n": 5
       },
       "awayTeam": {
         "form": [
@@ -1536,7 +1564,172 @@
     "match_odds": null,
     "lineups_home": null,
     "lineups_away": null,
-    "team_streaks": null
+    "team_streaks": null,
+    "analyse": {
+      "ht_1x2": {
+        "home_pct": 30,
+        "draw_pct": 37,
+        "away_pct": 33,
+        "home_cote": 3.31,
+        "draw_cote": 2.69,
+        "away_cote": 3.06,
+        "lam_h": 0.71,
+        "lam_a": 0.76,
+        "lam_draw": 0.37
+      },
+      "ft_1x2": {
+        "home_pct": 37,
+        "draw_pct": 22,
+        "away_pct": 41,
+        "home_cote": 2.72,
+        "draw_cote": 4.49,
+        "away_cote": 2.44,
+        "lam_h": 1.7,
+        "lam_a": 1.8
+      },
+      "ht_total_buts": [
+        {
+          "label": "0 buts",
+          "pct": 23
+        },
+        {
+          "label": "1 but",
+          "pct": 34
+        },
+        {
+          "label": "2+ buts",
+          "pct": 43
+        }
+      ],
+      "ft_total_buts": [
+        {
+          "label": "0 buts",
+          "pct": 3
+        },
+        {
+          "label": "1 but",
+          "pct": 11
+        },
+        {
+          "label": "2 buts",
+          "pct": 18
+        },
+        {
+          "label": "3+ buts",
+          "pct": 67
+        }
+      ],
+      "btts": {
+        "yes": 68,
+        "no": 32
+      },
+      "league_stats": {
+        "btts": 45,
+        "ht_over_05": 71,
+        "ft_over_15": 66,
+        "ft_over_25": 40
+      },
+      "league_name": "Uruguay Primera",
+      "top_buteurs_home": [],
+      "top_buteurs_away": [],
+      "top_passeurs_home": [],
+      "top_passeurs_away": [],
+      "value_bets": []
+    },
+    "home_season_stats": {
+      "overall": {
+        "n": 36,
+        "wins_pct": 28,
+        "draws_pct": 31,
+        "losses_pct": 42,
+        "btts_pct": 69,
+        "over_15": 75,
+        "over_25": 56,
+        "over_35": 25,
+        "under_15": 25,
+        "under_25": 44,
+        "under_35": 75,
+        "gf_pm": 1.33,
+        "ga_pm": 1.44
+      },
+      "home": {
+        "n": 19,
+        "wins_pct": 26,
+        "draws_pct": 37,
+        "losses_pct": 37,
+        "btts_pct": 47,
+        "over_15": 58,
+        "over_25": 32,
+        "over_35": 21,
+        "under_15": 42,
+        "under_25": 68,
+        "under_35": 79,
+        "gf_pm": 1.11,
+        "ga_pm": 1.05
+      },
+      "away": {
+        "n": 17,
+        "wins_pct": 29,
+        "draws_pct": 24,
+        "losses_pct": 47,
+        "btts_pct": 94,
+        "over_15": 94,
+        "over_25": 82,
+        "over_35": 29,
+        "under_15": 6,
+        "under_25": 18,
+        "under_35": 71,
+        "gf_pm": 1.59,
+        "ga_pm": 1.88
+      }
+    },
+    "away_season_stats": {
+      "overall": {
+        "n": 27,
+        "wins_pct": 52,
+        "draws_pct": 22,
+        "losses_pct": 26,
+        "btts_pct": 59,
+        "over_15": 67,
+        "over_25": 52,
+        "over_35": 30,
+        "under_15": 33,
+        "under_25": 48,
+        "under_35": 70,
+        "gf_pm": 1.56,
+        "ga_pm": 1.07
+      },
+      "home": {
+        "n": 14,
+        "wins_pct": 64,
+        "draws_pct": 7,
+        "losses_pct": 29,
+        "btts_pct": 57,
+        "over_15": 57,
+        "over_25": 57,
+        "over_35": 36,
+        "under_15": 43,
+        "under_25": 43,
+        "under_35": 64,
+        "gf_pm": 1.71,
+        "ga_pm": 1.14
+      },
+      "away": {
+        "n": 13,
+        "wins_pct": 38,
+        "draws_pct": 38,
+        "losses_pct": 23,
+        "btts_pct": 62,
+        "over_15": 77,
+        "over_25": 46,
+        "over_35": 23,
+        "under_15": 23,
+        "under_25": 54,
+        "under_35": 77,
+        "gf_pm": 1.38,
+        "ga_pm": 1.0
+      }
+    }
   },
   {
     "id": "5888339",
@@ -2175,7 +2368,12 @@
         "ft_over_25": 40
       },
       "league_name": "Uruguay Primera",
-      "top_buteurs_home": [],
+      "top_buteurs_home": [
+        {
+          "player": "Rubén Bentancourt",
+          "pct": 54
+        }
+      ],
       "top_buteurs_away": [],
       "top_passeurs_home": [],
       "top_passeurs_away": [],
@@ -2667,7 +2865,12 @@
         "ft_over_25": 40
       },
       "league_name": "Uruguay Primera",
-      "top_buteurs_home": [],
+      "top_buteurs_home": [
+        {
+          "player": "Tomás Habib",
+          "pct": 60
+        }
+      ],
       "top_buteurs_away": [],
       "top_passeurs_home": [],
       "top_passeurs_away": [],
@@ -3160,7 +3363,12 @@
       },
       "league_name": "Swedish Allsvenskan",
       "top_buteurs_home": [],
-      "top_buteurs_away": [],
+      "top_buteurs_away": [
+        {
+          "player": "Gustav Lindgren",
+          "pct": 55
+        }
+      ],
       "top_passeurs_home": [],
       "top_passeurs_away": [],
       "value_bets": []
@@ -3405,7 +3613,12 @@
         "ft_over_25": 57
       },
       "league_name": "Swedish Allsvenskan",
-      "top_buteurs_home": [],
+      "top_buteurs_home": [
+        {
+          "player": "Paulos Abraham",
+          "pct": 54
+        }
+      ],
       "top_buteurs_away": [],
       "top_passeurs_home": [],
       "top_passeurs_away": [],
@@ -3651,8 +3864,18 @@
         "ft_over_25": 57
       },
       "league_name": "Swedish Allsvenskan",
-      "top_buteurs_home": [],
-      "top_buteurs_away": [],
+      "top_buteurs_home": [
+        {
+          "player": "Erik Botheim",
+          "pct": 57
+        }
+      ],
+      "top_buteurs_away": [
+        {
+          "player": "Tobias Heintz",
+          "pct": 53
+        }
+      ],
       "top_passeurs_home": [],
       "top_passeurs_away": [],
       "value_bets": []
@@ -3897,7 +4120,12 @@
         "ft_over_25": 57
       },
       "league_name": "Swedish Allsvenskan",
-      "top_buteurs_home": [],
+      "top_buteurs_home": [
+        {
+          "player": "Mikkel Ladefoged",
+          "pct": 60
+        }
+      ],
       "top_buteurs_away": [],
       "top_passeurs_home": [],
       "top_passeurs_away": [],
@@ -4144,7 +4372,12 @@
       },
       "league_name": "Swedish Allsvenskan",
       "top_buteurs_home": [],
-      "top_buteurs_away": [],
+      "top_buteurs_away": [
+        {
+          "player": "Isak Bjerkebo",
+          "pct": 68
+        }
+      ],
       "top_passeurs_home": [],
       "top_passeurs_away": [],
       "value_bets": []
@@ -4636,7 +4869,12 @@
       },
       "league_name": "Norwegian Eliteserien",
       "top_buteurs_home": [],
-      "top_buteurs_away": [],
+      "top_buteurs_away": [
+        {
+          "player": "Thomas Lehne Olsen",
+          "pct": 52
+        }
+      ],
       "top_passeurs_home": [],
       "top_passeurs_away": [],
       "value_bets": []
@@ -5374,7 +5612,12 @@
       },
       "league_name": "Norwegian Eliteserien",
       "top_buteurs_home": [],
-      "top_buteurs_away": [],
+      "top_buteurs_away": [
+        {
+          "player": "Kasper Waarts Høgh",
+          "pct": 64
+        }
+      ],
       "top_passeurs_home": [],
       "top_passeurs_away": [],
       "value_bets": []
@@ -5619,7 +5862,12 @@
         "ft_over_25": 60
       },
       "league_name": "Norwegian Eliteserien",
-      "top_buteurs_home": [],
+      "top_buteurs_home": [
+        {
+          "player": "Noah Holm",
+          "pct": 50
+        }
+      ],
       "top_buteurs_away": [],
       "top_passeurs_home": [],
       "top_passeurs_away": [],
@@ -5866,7 +6114,12 @@
       },
       "league_name": "Norwegian Eliteserien",
       "top_buteurs_home": [],
-      "top_buteurs_away": [],
+      "top_buteurs_away": [
+        {
+          "player": "Leander Alvheim",
+          "pct": 51
+        }
+      ],
       "top_passeurs_home": [],
       "top_passeurs_away": [],
       "value_bets": []
@@ -6112,7 +6365,12 @@
       },
       "league_name": "Norwegian Eliteserien",
       "top_buteurs_home": [],
-      "top_buteurs_away": [],
+      "top_buteurs_away": [
+        {
+          "player": "Henrik Udahl",
+          "pct": 55
+        }
+      ],
       "top_passeurs_home": [],
       "top_passeurs_away": [],
       "value_bets": []
@@ -6358,9 +6616,19 @@
       },
       "league_name": "Norwegian Eliteserien",
       "top_buteurs_home": [],
-      "top_buteurs_away": [],
+      "top_buteurs_away": [
+        {
+          "player": "Peter Christiansen",
+          "pct": 60
+        }
+      ],
       "top_passeurs_home": [],
-      "top_passeurs_away": [],
+      "top_passeurs_away": [
+        {
+          "player": "Zlatko Tripic",
+          "pct": 46
+        }
+      ],
       "value_bets": []
     },
     "home_season_stats": {
@@ -6604,7 +6872,12 @@
       },
       "league_name": "Finnish Veikkausliiga",
       "top_buteurs_home": [],
-      "top_buteurs_away": [],
+      "top_buteurs_away": [
+        {
+          "player": "Mads Borchers",
+          "pct": 52
+        }
+      ],
       "top_passeurs_home": [],
       "top_passeurs_away": [],
       "value_bets": []
@@ -6849,7 +7122,12 @@
         "ft_over_25": 53
       },
       "league_name": "Finnish Veikkausliiga",
-      "top_buteurs_home": [],
+      "top_buteurs_home": [
+        {
+          "player": "Adeleke Akinyemi",
+          "pct": 51
+        }
+      ],
       "top_buteurs_away": [],
       "top_passeurs_home": [],
       "top_passeurs_away": [],
@@ -7096,7 +7374,12 @@
       },
       "league_name": "Finnish Veikkausliiga",
       "top_buteurs_home": [],
-      "top_buteurs_away": [],
+      "top_buteurs_away": [
+        {
+          "player": "Rasmus Karjalainen",
+          "pct": 62
+        }
+      ],
       "top_passeurs_home": [],
       "top_passeurs_away": [],
       "value_bets": []
@@ -7341,7 +7624,16 @@
         "ft_over_25": 65
       },
       "league_name": "Icelandic Besta",
-      "top_buteurs_home": [],
+      "top_buteurs_home": [
+        {
+          "player": "Atli Jónasson",
+          "pct": 65
+        },
+        {
+          "player": "Kennie Chopart",
+          "pct": 58
+        }
+      ],
       "top_buteurs_away": [],
       "top_passeurs_home": [],
       "top_passeurs_away": [],
@@ -7587,8 +7879,18 @@
         "ft_over_25": 65
       },
       "league_name": "Icelandic Besta",
-      "top_buteurs_home": [],
-      "top_buteurs_away": [],
+      "top_buteurs_home": [
+        {
+          "player": "Hallgrímur Steingrímsson",
+          "pct": 56
+        }
+      ],
+      "top_buteurs_away": [
+        {
+          "player": "Markús Ellertsson",
+          "pct": 52
+        }
+      ],
       "top_passeurs_home": [],
       "top_passeurs_away": [],
       "value_bets": []
@@ -7833,7 +8135,16 @@
         "ft_over_25": 65
       },
       "league_name": "Icelandic Besta",
-      "top_buteurs_home": [],
+      "top_buteurs_home": [
+        {
+          "player": "Eidur Sæbjörnsson",
+          "pct": 52
+        },
+        {
+          "player": "Luke Rae",
+          "pct": 50
+        }
+      ],
       "top_buteurs_away": [],
       "top_passeurs_home": [],
       "top_passeurs_away": [],
@@ -8080,7 +8391,12 @@
       },
       "league_name": "Icelandic Besta",
       "top_buteurs_home": [],
-      "top_buteurs_away": [],
+      "top_buteurs_away": [
+        {
+          "player": "Tryggvi Haraldsson",
+          "pct": 56
+        }
+      ],
       "top_passeurs_home": [],
       "top_passeurs_away": [],
       "value_bets": []
@@ -8571,7 +8887,12 @@
         "ft_over_25": 55
       },
       "league_name": "Estonian Meistriliiga",
-      "top_buteurs_home": [],
+      "top_buteurs_home": [
+        {
+          "player": "Zakaria Beglarishvili",
+          "pct": 36
+        }
+      ],
       "top_buteurs_away": [],
       "top_passeurs_home": [],
       "top_passeurs_away": [],
@@ -9199,11 +9520,11 @@
           "6628"
         ],
         "form_opp_ranks": [
-          4,
+          3,
           7,
-          6,
           5,
-          9
+          4,
+          10
         ],
         "position": 16,
         "avgRating": null,
@@ -9227,7 +9548,7 @@
           "4189"
         ],
         "form_opp_ranks": [
-          6,
+          5,
           12,
           11,
           7,
@@ -9309,7 +9630,12 @@
         "ft_over_25": 46
       },
       "league_name": "Chinese Super League",
-      "top_buteurs_home": [],
+      "top_buteurs_home": [
+        {
+          "player": "Jhonder Cádiz",
+          "pct": 70
+        }
+      ],
       "top_buteurs_away": [],
       "top_passeurs_home": [],
       "top_passeurs_away": [],
@@ -9446,12 +9772,12 @@
         ],
         "form_opp_ranks": [
           11,
-          4,
           3,
-          10,
+          6,
+          9,
           16
         ],
-        "position": 9,
+        "position": 10,
         "avgRating": null,
         "l5_gf_pm": 2.4,
         "l5_ga_pm": 1.8,
@@ -9473,11 +9799,11 @@
           "1283248"
         ],
         "form_opp_ranks": [
-          5,
+          4,
           16,
           2,
           13,
-          3
+          6
         ],
         "position": 7,
         "avgRating": null,
@@ -9555,8 +9881,22 @@
         "ft_over_25": 46
       },
       "league_name": "Chinese Super League",
-      "top_buteurs_home": [],
-      "top_buteurs_away": [],
+      "top_buteurs_home": [
+        {
+          "player": "Rafael Ratão",
+          "pct": 64
+        },
+        {
+          "player": "Makhtar Gueye",
+          "pct": 58
+        }
+      ],
+      "top_buteurs_away": [
+        {
+          "player": "Yuning Zhang",
+          "pct": 50
+        }
+      ],
       "top_passeurs_home": [],
       "top_passeurs_away": [],
       "value_bets": []
@@ -9694,10 +10034,10 @@
           15,
           1,
           14,
-          9,
-          4
+          10,
+          3
         ],
-        "position": 10,
+        "position": 9,
         "avgRating": null,
         "l5_gf_pm": 1.6,
         "l5_ga_pm": 2.0,
@@ -9721,11 +10061,11 @@
         "form_opp_ranks": [
           12,
           11,
-          9,
-          6,
+          10,
+          5,
           7
         ],
-        "position": 3,
+        "position": 6,
         "avgRating": null,
         "l5_gf_pm": 2.2,
         "l5_ga_pm": 1.4,
@@ -9801,8 +10141,18 @@
         "ft_over_25": 46
       },
       "league_name": "Chinese Super League",
-      "top_buteurs_home": [],
-      "top_buteurs_away": [],
+      "top_buteurs_home": [
+        {
+          "player": "Wesley",
+          "pct": 51
+        }
+      ],
+      "top_buteurs_away": [
+        {
+          "player": "Nelson da Luz",
+          "pct": 52
+        }
+      ],
       "top_passeurs_home": [],
       "top_passeurs_away": [],
       "value_bets": []
@@ -9938,9 +10288,9 @@
         ],
         "form_opp_ranks": [
           14,
-          10,
-          5,
+          9,
           4,
+          3,
           12
         ],
         "position": 1,
@@ -9969,7 +10319,7 @@
           15,
           7,
           14,
-          6
+          5
         ],
         "position": 2,
         "avgRating": null,
@@ -10047,7 +10397,16 @@
         "ft_over_25": 46
       },
       "league_name": "Chinese Super League",
-      "top_buteurs_home": [],
+      "top_buteurs_home": [
+        {
+          "player": "Felipe",
+          "pct": 64
+        },
+        {
+          "player": "Shihao Wei",
+          "pct": 57
+        }
+      ],
       "top_buteurs_away": [],
       "top_passeurs_home": [],
       "top_passeurs_away": [],
@@ -10183,9 +10542,9 @@
           "51442"
         ],
         "form_opp_ranks": [
-          10,
+          9,
           2,
-          4,
+          3,
           12,
           13
         ],
@@ -10212,7 +10571,7 @@
         ],
         "form_opp_ranks": [
           2,
-          5,
+          4,
           12,
           11,
           14
@@ -10294,7 +10653,12 @@
       },
       "league_name": "Chinese Super League",
       "top_buteurs_home": [],
-      "top_buteurs_away": [],
+      "top_buteurs_away": [
+        {
+          "player": "Guy Mbenza",
+          "pct": 55
+        }
+      ],
       "top_passeurs_home": [],
       "top_passeurs_away": [],
       "value_bets": []
@@ -10429,7 +10793,7 @@
           "737052"
         ],
         "form_opp_ranks": [
-          3,
+          6,
           13,
           8,
           15,
@@ -10458,12 +10822,12 @@
         ],
         "form_opp_ranks": [
           16,
-          9,
+          10,
           15,
           1,
-          10
+          9
         ],
-        "position": 4,
+        "position": 3,
         "avgRating": null,
         "l5_gf_pm": 1.4,
         "l5_ga_pm": 1.6,
@@ -10540,7 +10904,12 @@
       },
       "league_name": "Chinese Super League",
       "top_buteurs_home": [],
-      "top_buteurs_away": [],
+      "top_buteurs_away": [
+        {
+          "player": "Cephas Malele",
+          "pct": 55
+        }
+      ],
       "top_passeurs_home": [],
       "top_passeurs_away": [],
       "value_bets": []
@@ -10746,12 +11115,12 @@
           "choices": [
             {
               "name": "Over 2.5",
-              "cote": 1.69,
+              "cote": 1.67,
               "book": "draftkings"
             },
             {
               "name": "Under 2.5",
-              "cote": 2.15,
+              "cote": 2.2,
               "book": "draftkings"
             }
           ]
@@ -10813,8 +11182,8 @@
         "btts_yes_value": null,
         "btts_yes_p_final": 0.0,
         "btts_no_cote": null,
-        "over_25_cote": 1.69,
-        "under_25_cote": 2.15,
+        "over_25_cote": 1.67,
+        "under_25_cote": 2.2,
         "notes": [
           "Cote Norway 3.8 (book P=25% · modèle P=0% · calibré P=19%) → value 71.4%",
           "Cote nul 3.65 (book P=26% · modèle P=0% · calibré P=20%) → value 71.4%",
@@ -10843,7 +11212,7 @@
         {
           "market": "Total FT",
           "selection": "Moins de 2.5 buts",
-          "cote": 2.15,
+          "cote": 2.2,
           "confidence": 64,
           "signals": [
             "🎬 Premier match du tournoi : équipes en mode observation",
@@ -10856,8 +11225,8 @@
         }
       ],
       "uncertainty_level": "Moderate",
-      "recommandation": "Meilleur pari : Moins de 2.5 buts @ 2.15 (confiance 64%). Basé sur des signaux contextuels CDM (pas value brute sur outsider).",
-      "generated_at": "2026-07-11T12:16:47+00:00"
+      "recommandation": "Meilleur pari : Moins de 2.5 buts @ 2.2 (confiance 64%). Basé sur des signaux contextuels CDM (pas value brute sur outsider).",
+      "generated_at": "2026-07-11T12:50:10+00:00"
     },
     "analyse": {
       "ht_1x2": {
@@ -10924,8 +11293,18 @@
         "ft_over_25": 41
       },
       "league_name": "World Cup",
-      "top_buteurs_home": [],
-      "top_buteurs_away": [],
+      "top_buteurs_home": [
+        {
+          "player": "Erling Haaland",
+          "pct": 52
+        }
+      ],
+      "top_buteurs_away": [
+        {
+          "player": "Jude Bellingham",
+          "pct": 58
+        }
+      ],
       "top_passeurs_home": [],
       "top_passeurs_away": [],
       "value_bets": [
@@ -10941,13 +11320,13 @@
         },
         {
           "marche": "Plus de 2.5 buts",
-          "cote": 1.69,
+          "cote": 1.67,
           "book": "draftkings",
           "p_ligue": 41,
           "p_modele": 71,
           "p_form": 71,
           "p_avg": 61,
-          "value": 103.6
+          "value": 102.4
         },
         {
           "marche": "Match nul (1X2)",
@@ -10961,13 +11340,13 @@
         },
         {
           "marche": "Moins de 2.5 buts",
-          "cote": 2.15,
+          "cote": 2.2,
           "book": "draftkings",
           "p_ligue": 59,
           "p_modele": 29,
           "p_form": 29,
           "p_avg": 39,
-          "value": 83.2
+          "value": 85.1
         },
         {
           "marche": "England gagne (1X2)",
@@ -11287,7 +11666,7 @@
       ],
       "uncertainty_level": "High",
       "recommandation": "Meilleur pari : Moins de 2.5 buts @ 1.65 (confiance 64%). Basé sur des signaux contextuels CDM (pas value brute sur outsider).",
-      "generated_at": "2026-07-11T12:16:47+00:00"
+      "generated_at": "2026-07-11T12:50:10+00:00"
     },
     "analyse": {
       "ht_1x2": {
@@ -11354,9 +11733,24 @@
         "ft_over_25": 41
       },
       "league_name": "World Cup",
-      "top_buteurs_home": [],
-      "top_buteurs_away": [],
-      "top_passeurs_home": [],
+      "top_buteurs_home": [
+        {
+          "player": "Lautaro Martínez",
+          "pct": 53
+        }
+      ],
+      "top_buteurs_away": [
+        {
+          "player": "Breel Embolo",
+          "pct": 51
+        }
+      ],
+      "top_passeurs_home": [
+        {
+          "player": "Lionel Messi",
+          "pct": 45
+        }
+      ],
       "top_passeurs_away": [],
       "value_bets": [
         {
