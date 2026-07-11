@@ -692,6 +692,35 @@
     ],
     "home_players": [
       {
+        "player": "Erling Haaland / Harry Kane",
+        "position": "",
+        "is_sub": false,
+        "type": "Double Chance Buteur",
+        "label": "Erling Haaland OU Harry Kane marque (cross-équipe)",
+        "cote": null,
+        "book": null,
+        "books": [],
+        "confidence": 68,
+        "cote_min": 1.54,
+        "reasoning": "🔀 Cross-équipe (moins corrélé → meilleur EV)\n📈 P(Erling Haaland marque) ≈ 40% · P(Harry Kane marque) ≈ 42%\n🎯 P(au moins un marque) = 68% (1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.54 - chercher ≥1.54 chez le bookmaker\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
+        "context": {
+          "combo_kind": "cross"
+        },
+        "_team_for_balance": "home",
+        "stats": {
+          "p_a": 0.405,
+          "p_b": 0.42,
+          "p_or": 0.655,
+          "player_a": "Erling Haaland",
+          "player_b": "Harry Kane",
+          "kind": "cross"
+        },
+        "team": "home",
+        "tier": "ok",
+        "calibration_delta": -25.4,
+        "history_top3": false
+      },
+      {
         "player": "Erling Haaland",
         "position": "F",
         "is_sub": false,
@@ -721,62 +750,7 @@
         "history_top3": false
       }
     ],
-    "away_players": [
-      {
-        "player": "Jude Bellingham / Harry Kane",
-        "position": "",
-        "is_sub": false,
-        "type": "Double Chance Buteur",
-        "label": "Jude Bellingham ou Harry Kane marque (England)",
-        "cote": null,
-        "book": null,
-        "books": [],
-        "confidence": 70,
-        "cote_min": 1.43,
-        "reasoning": "✈️ Combo intra-England\n📈 P(Jude Bellingham marque) ≈ 58% · P(Harry Kane marque) ≈ 42%\n🎯 P(au moins un marque) = 70% (1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.43 - chercher ≥1.43 chez le bookmaker\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
-        "context": {
-          "combo_kind": "intra-away"
-        },
-        "_team_for_balance": "away",
-        "stats": {
-          "p_a": 0.578,
-          "p_b": 0.42,
-          "p_or": 0.7,
-          "player_a": "Jude Bellingham",
-          "player_b": "Harry Kane",
-          "kind": "intra-away"
-        },
-        "team": "away",
-        "tier": "safe",
-        "calibration_delta": -11.3,
-        "history_top3": false
-      },
-      {
-        "player": "Jude Bellingham",
-        "position": "F",
-        "is_sub": false,
-        "type": "Buteur",
-        "label": "Jude Bellingham marque",
-        "cote": null,
-        "book": null,
-        "books": [],
-        "confidence": 58,
-        "reasoning": "4 buts en 5 matchs cette saison (80.0% de chance/match) · finisseur efficace (29% de conv.) · xG moyen 0.40/match, défense adverse poreuse (1.5 buts concédés/match) · défense correcte\n📉 Calibration : bucket 50-59% historiquement à WR 42% (claim 55%, n=41) — sur-estimé de 14pp",
-        "context": {
-          "weakness": 0.34
-        },
-        "stats": {
-          "goals": 4,
-          "apps": 5,
-          "gpm": 0.8,
-          "xgpm": 0.4
-        },
-        "team": "away",
-        "tier": "ok",
-        "calibration_delta": -13.6,
-        "history_top3": false
-      }
-    ],
+    "away_players": [],
     "fun_picks": [
       {
         "direction": "wc_score_0_3",

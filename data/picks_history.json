@@ -38162,34 +38162,34 @@
       "resolved_at": null
     },
     {
-      "player": "Jude Bellingham / Harry Kane",
+      "player": "Erling Haaland / Harry Kane",
       "position": "",
       "is_sub": false,
       "type": "Double Chance Buteur",
-      "label": "Jude Bellingham ou Harry Kane marque (England)",
+      "label": "Erling Haaland OU Harry Kane marque (cross-équipe)",
       "cote": null,
       "book": null,
       "books": [],
-      "confidence": 70,
-      "cote_min": 1.43,
-      "reasoning": "✈️ Combo intra-England\n📈 P(Jude Bellingham marque) ≈ 58% · P(Harry Kane marque) ≈ 42%\n🎯 P(au moins un marque) = 70% (1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.43 - chercher ≥1.43 chez le bookmaker\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+      "confidence": 68,
+      "cote_min": 1.54,
+      "reasoning": "🔀 Cross-équipe (moins corrélé → meilleur EV)\n📈 P(Erling Haaland marque) ≈ 40% · P(Harry Kane marque) ≈ 42%\n🎯 P(au moins un marque) = 68% (1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.54 - chercher ≥1.54 chez le bookmaker\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
       "context": {
-        "combo_kind": "intra-away"
+        "combo_kind": "cross"
       },
-      "_team_for_balance": "away",
+      "_team_for_balance": "home",
       "stats": {
-        "p_a": 0.578,
+        "p_a": 0.405,
         "p_b": 0.42,
-        "p_or": 0.7,
-        "player_a": "Jude Bellingham",
+        "p_or": 0.655,
+        "player_a": "Erling Haaland",
         "player_b": "Harry Kane",
-        "kind": "intra-away"
+        "kind": "cross"
       },
-      "team": "away",
-      "tier": "safe",
-      "calibration_delta": -11.3,
+      "team": "home",
+      "tier": "ok",
+      "calibration_delta": -25.4,
       "history_top3": false,
-      "id": "2026-07-11_4653852_player_Jude Bellingham / Harry Kane_Double Chance Buteur",
+      "id": "2026-07-11_4653852_player_Erling Haaland / Harry Kane_Double Chance Buteur",
       "date": "2026-07-11",
       "match_id": "4653852",
       "page_url": "/matches/england-vs-norway/2dvb4w#4653852",
@@ -38199,33 +38199,37 @@
       "result": "PENDING",
       "actual": null,
       "resolved_at": null,
-      "side": "away"
+      "side": "home"
     },
     {
-      "player": "Jude Bellingham",
+      "player": "Erling Haaland",
       "position": "F",
       "is_sub": false,
       "type": "Buteur",
-      "label": "Jude Bellingham marque",
+      "label": "Erling Haaland marque",
       "cote": null,
+      "cote_min": 1.75,
       "book": null,
       "books": [],
-      "confidence": 58,
-      "reasoning": "4 buts en 5 matchs cette saison (80.0% de chance/match) · finisseur efficace (29% de conv.) · xG moyen 0.40/match, défense adverse poreuse (1.5 buts concédés/match) · défense correcte\n📉 Calibration : bucket 50-59% historiquement à WR 42% (claim 55%, n=41) — sur-estimé de 14pp",
+      "confidence": 57,
+      "reasoning": "Erling Haaland : selection 20G/11m (1.82/m) · L10 club : 9G/10m, 🔥 5G/3 derniers nat (+19%) | titu nat (81min/m) · last match 90min (2G+0A). λ ajusté à 0.85 (Norway attendu 0.7 buts) → P(marque) ~57%.\n📉 Calibration : bucket 50-59% historiquement à WR 42% (claim 55%, n=41) — sur-estimé de 14pp",
       "context": {
-        "weakness": 0.34
+        "source": "lineup",
+        "lam": 0.85,
+        "lineup_status": "confirmed"
       },
       "stats": {
-        "goals": 4,
-        "apps": 5,
-        "gpm": 0.8,
-        "xgpm": 0.4
+        "goals": null,
+        "apps": null,
+        "gpm": 0.851,
+        "xgpm": null
       },
-      "team": "away",
+      "team": "home",
+      "lineup_status": "confirmed",
       "tier": "ok",
       "calibration_delta": -13.6,
       "history_top3": false,
-      "id": "2026-07-11_4653852_player_Jude Bellingham_Buteur",
+      "id": "2026-07-11_4653852_player_Erling Haaland_Buteur",
       "date": "2026-07-11",
       "match_id": "4653852",
       "page_url": "/matches/england-vs-norway/2dvb4w#4653852",
@@ -38235,7 +38239,7 @@
       "result": "PENDING",
       "actual": null,
       "resolved_at": null,
-      "side": "away"
+      "side": "home"
     },
     {
       "direction": "away_win",
@@ -38870,6 +38874,77 @@
       "actual": null,
       "resolved_at": null,
       "side": "home"
+    },
+    {
+      "player": "Yegor Glushach / Xabi Auzmendi",
+      "position": "",
+      "is_sub": false,
+      "type": "Double Chance Buteur",
+      "label": "Yegor Glushach ou Xabi Auzmendi marque (FK TransINVEST)",
+      "cote": null,
+      "book": null,
+      "books": [],
+      "confidence": 70,
+      "cote_min": 1.43,
+      "reasoning": "🏠 Combo intra-FK TransINVEST\n📈 P(Yegor Glushach marque) ≈ 46% · P(Xabi Auzmendi marque) ≈ 45%\n🎯 P(au moins un marque) = 70% (1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.43 - chercher ≥1.43 chez le bookmaker\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+      "context": {
+        "combo_kind": "intra-home"
+      },
+      "_team_for_balance": "home",
+      "stats": {
+        "p_a": 0.458,
+        "p_b": 0.45,
+        "p_or": 0.702,
+        "player_a": "Yegor Glushach",
+        "player_b": "Xabi Auzmendi",
+        "kind": "intra-home"
+      },
+      "team": "home",
+      "tier": "safe",
+      "calibration_delta": -11.3,
+      "history_top3": true,
+      "id": "2026-07-12_5874489_player_Yegor Glushach / Xabi Auzmendi_Double Chance Buteur",
+      "date": "2026-07-12",
+      "match_id": "5874489",
+      "page_url": "/matches/banga-gargzdai-vs-fk-transinvest/go4rmqqc#5874489",
+      "matchup": "FK TransINVEST vs Banga Gargzdai",
+      "league": "Lithuanian Toplyga",
+      "category": "player",
+      "result": "PENDING",
+      "actual": null,
+      "resolved_at": null,
+      "side": "home"
+    },
+    {
+      "direction": "home_win",
+      "type": "Victoire domicile",
+      "label": "FK TransINVEST gagne",
+      "cote": null,
+      "confidence": 60,
+      "reasoning": "FK TransINVEST : 3V/1N/1D sur 5 matchs · #4 au classement · H2H: 1V/1N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
+      "stats": {
+        "form": [
+          "D",
+          "W",
+          "L",
+          "W",
+          "W"
+        ]
+      },
+      "is_fun": false,
+      "tier": "ok",
+      "calibration_delta": -25.4,
+      "history_top3": true,
+      "id": "2026-07-12_5874489_team_home_win",
+      "date": "2026-07-12",
+      "match_id": "5874489",
+      "page_url": "/matches/banga-gargzdai-vs-fk-transinvest/go4rmqqc#5874489",
+      "matchup": "FK TransINVEST vs Banga Gargzdai",
+      "league": "Lithuanian Toplyga",
+      "category": "team",
+      "result": "PENDING",
+      "actual": null,
+      "resolved_at": null
     },
     {
       "player": "Cephas Malele / Nicolae Stanciu",
