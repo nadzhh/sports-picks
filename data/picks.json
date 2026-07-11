@@ -446,8 +446,16 @@
         "capacity": 8022,
         "surface": "artificial turf"
       },
-      "weather": null,
-      "text": "Stade : Sarpsborg Stadion · 8 022 places · plein air."
+      "weather": {
+        "temp_max": 25.1,
+        "temp_min": 16.9,
+        "humidity": 44,
+        "precipitation_sum_mm": 0.0,
+        "wind_max_kmh": 19.1,
+        "weather_code": 3,
+        "summary_fr": "☁️ couvert · 16–25°C · humidité 44%"
+      },
+      "text": "Conditions : ☁️ couvert · 16–25°C · humidité 44%. Stade : Sarpsborg Stadion · 8 022 places · plein air."
     }
   },
   {
@@ -748,7 +756,7 @@
         "direction": "wc_away_win",
         "type": "🏆 Vainqueur WC",
         "label": "England gagne",
-        "cote": 1.95,
+        "cote": 1.91,
         "cote_min": 1.29,
         "confidence": 78,
         "tier": "safe",
@@ -763,7 +771,7 @@
         },
         "reasoning": "📊 Écart FIFA significatif : Norway #34 vs England #4 (gap -293 pts, P favori ≈ 84%).\n⭐ England favori CdM 2026\nL10 : Norway 4V/0N/1D sur 5 · England 4V/1N/0D sur 5\n📋 Fiche Norway : off solide (+1.00) · def moyenne (+0.19) · forme WWLWW · 🏆 novice WC\n📋 Fiche England : off en panne (-0.38) · def fragile (-0.50) · forme WWWDW · 🏆 régulière phase finale\n   ↳ Historique : quart de finale en 2022 · demi-finaliste en 2018 · phase de poules en 2014\n🌦️ Conditions : pluie 27.8mm (-10%)\n⚠️ Compo PROBABLE (officielle à T-60min)\n🏆 Modèle Poisson CdM (tier FIFA ajusté)\nλ Norway = 0.77, λ England = 2.72\nP(Norway) = 8.0% · P(nul) = 13.7% · P(England gagne) = 77.6%\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
         "calibration_delta": -11.3,
-        "edge_pp": 26.7,
+        "edge_pp": 25.6,
         "history_top3": true
       },
       {
@@ -948,7 +956,7 @@
       "direction": "wc_away_win",
       "type": "🏆 Vainqueur WC",
       "label": "England gagne",
-      "cote": 1.95,
+      "cote": 1.91,
       "cote_min": 1.29,
       "confidence": 78,
       "tier": "safe",
@@ -963,7 +971,7 @@
       },
       "reasoning": "📊 Écart FIFA significatif : Norway #34 vs England #4 (gap -293 pts, P favori ≈ 84%).\n⭐ England favori CdM 2026\nL10 : Norway 4V/0N/1D sur 5 · England 4V/1N/0D sur 5\n📋 Fiche Norway : off solide (+1.00) · def moyenne (+0.19) · forme WWLWW · 🏆 novice WC\n📋 Fiche England : off en panne (-0.38) · def fragile (-0.50) · forme WWWDW · 🏆 régulière phase finale\n   ↳ Historique : quart de finale en 2022 · demi-finaliste en 2018 · phase de poules en 2014\n🌦️ Conditions : pluie 27.8mm (-10%)\n⚠️ Compo PROBABLE (officielle à T-60min)\n🏆 Modèle Poisson CdM (tier FIFA ajusté)\nλ Norway = 0.77, λ England = 2.72\nP(Norway) = 8.0% · P(nul) = 13.7% · P(England gagne) = 77.6%\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
       "calibration_delta": -11.3,
-      "edge_pp": 26.7,
+      "edge_pp": 25.6,
       "history_top3": true
     },
     "no_picks": false,
@@ -1703,99 +1711,6 @@
         "summary_fr": "🌦️ bruine modérée · 9–20°C · humidité 69% · précipitations 5.9mm"
       },
       "text": "Conditions : 🌦️ bruine modérée · 9–20°C · humidité 69% · précipitations 5.9mm. Stade : Estadio Alejandro Serrano Aguilar Banco del Austro · plein air. ⚠️ Pluies prévues : terrain potentiellement lourd, jeu direct privilégié, plus d'erreurs techniques."
-    }
-  },
-  {
-    "league": "Ecuador LigaPro",
-    "home": "Manta",
-    "away": "Orense",
-    "start_ts": 1783789200,
-    "match_id": "1000009015",
-    "page_url": "/matches/manta-vs-orense/8u9aa5ce#1000009015",
-    "picks": [],
-    "home_players": [],
-    "away_players": [
-      {
-        "player": "Agustín Herrera / Ángel Mena",
-        "position": "",
-        "is_sub": false,
-        "type": "Double Chance Buteur",
-        "label": "Agustín Herrera ou Ángel Mena marque (Orense)",
-        "cote": null,
-        "book": null,
-        "books": [],
-        "confidence": 66,
-        "cote_min": 1.52,
-        "reasoning": "✈️ Combo intra-Orense\n📈 P(Agustín Herrera marque) ≈ 48% · P(Ángel Mena marque) ≈ 35%\n🎯 P(au moins un marque) = 66% (1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.52 - chercher ≥1.52 chez le bookmaker\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
-        "context": {
-          "combo_kind": "intra-away"
-        },
-        "_team_for_balance": "away",
-        "stats": {
-          "p_a": 0.48,
-          "p_b": 0.352,
-          "p_or": 0.663,
-          "player_a": "Agustín Herrera",
-          "player_b": "Ángel Mena",
-          "kind": "intra-away"
-        },
-        "team": "away",
-        "tier": "ok",
-        "calibration_delta": -25.4,
-        "history_top3": true
-      }
-    ],
-    "fun_picks": [],
-    "top_pick": {
-      "player": "Agustín Herrera / Ángel Mena",
-      "position": "",
-      "is_sub": false,
-      "type": "Double Chance Buteur",
-      "label": "Agustín Herrera ou Ángel Mena marque (Orense)",
-      "cote": null,
-      "book": null,
-      "books": [],
-      "confidence": 66,
-      "cote_min": 1.52,
-      "reasoning": "✈️ Combo intra-Orense\n📈 P(Agustín Herrera marque) ≈ 48% · P(Ángel Mena marque) ≈ 35%\n🎯 P(au moins un marque) = 66% (1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.52 - chercher ≥1.52 chez le bookmaker\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
-      "context": {
-        "combo_kind": "intra-away"
-      },
-      "_team_for_balance": "away",
-      "stats": {
-        "p_a": 0.48,
-        "p_b": 0.352,
-        "p_or": 0.663,
-        "player_a": "Agustín Herrera",
-        "player_b": "Ángel Mena",
-        "kind": "intra-away"
-      },
-      "team": "away",
-      "tier": "ok",
-      "calibration_delta": -25.4,
-      "history_top3": true
-    },
-    "no_picks": false,
-    "context": {
-      "stadium": {
-        "name": "Estadio Jocay",
-        "city": "Manta",
-        "country": "Ecuador",
-        "lat": -0.964042353,
-        "lon": -80.702696443,
-        "capacity": null,
-        "surface": null
-      },
-      "weather": {
-        "temp_max": 30.9,
-        "temp_min": 24.4,
-        "humidity": 64,
-        "precipitation_sum_mm": 0.2,
-        "wind_max_kmh": 15.9,
-        "weather_code": 51,
-        "summary_fr": "🌦️ bruine légère · 24–30°C · humidité 64%"
-      },
-      "text": "Conditions : 🌦️ bruine légère · 24–30°C · humidité 64%. Stade : Estadio Jocay · plein air."
     }
   },
   {
@@ -4063,15 +3978,15 @@
         "surface": "grass"
       },
       "weather": {
-        "temp_max": 23.6,
-        "temp_min": 11.4,
-        "humidity": 53,
+        "temp_max": 24.2,
+        "temp_min": 11.6,
+        "humidity": 55,
         "precipitation_sum_mm": 0.0,
-        "wind_max_kmh": 15.5,
+        "wind_max_kmh": 15.8,
         "weather_code": 1,
-        "summary_fr": "🌤️ principalement clair · 11–23°C · humidité 53%"
+        "summary_fr": "🌤️ principalement clair · 11–24°C · humidité 55%"
       },
-      "text": "Conditions : 🌤️ principalement clair · 11–23°C · humidité 53%. Stade : Brann Stadion · 17 686 places · plein air."
+      "text": "Conditions : 🌤️ principalement clair · 11–24°C · humidité 55%. Stade : Brann Stadion · 17 686 places · plein air."
     }
   }
 ]
