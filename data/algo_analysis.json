@@ -1,15 +1,15 @@
 {
-  "generated_at": "2026-07-11T13:24:46.487312",
-  "n_total": 1334,
+  "generated_at": "2026-07-11T13:47:29.793303",
+  "n_total": 1335,
   "globals": {
     "foot": {
-      "n": 1048,
+      "n": 1049,
       "w": 481,
-      "l": 541,
+      "l": 542,
       "push": 26,
-      "wr": 47.1,
-      "roi": -12.2,
-      "profit": -127.52,
+      "wr": 47.0,
+      "roi": -12.3,
+      "profit": -128.52,
       "avg_cote": 2.32,
       "break_even_wr": 43.1,
       "wr_vs_be": 3.9
@@ -70,18 +70,18 @@
         "calibration_gap": -20.7
       },
       "70-79": {
-        "n": 370,
+        "n": 371,
         "w": 193,
-        "l": 162,
+        "l": 163,
         "push": 15,
-        "wr": 54.4,
-        "roi": -2.2,
-        "profit": -8.2,
+        "wr": 54.2,
+        "roi": -2.5,
+        "profit": -9.2,
         "avg_cote": 1.86,
         "break_even_wr": 53.9,
-        "wr_vs_be": 0.5,
+        "wr_vs_be": 0.3,
         "expected_wr": 74.5,
-        "calibration_gap": -20.1
+        "calibration_gap": -20.3
       },
       "80-89": {
         "n": 111,
@@ -536,13 +536,13 @@
         "wr_vs_be": -1.7
       },
       "Double Chance Buteur": {
-        "n": 188,
+        "n": 189,
         "w": 76,
-        "l": 111,
+        "l": 112,
         "push": 1,
-        "wr": 40.6,
-        "roi": -26.7,
-        "profit": -50.2,
+        "wr": 40.4,
+        "roi": -27.1,
+        "profit": -51.2,
         "avg_cote": null,
         "break_even_wr": null,
         "wr_vs_be": null
@@ -806,6 +806,18 @@
     },
     "foot": {
       "league": {
+        "Estonian Meistriliiga": {
+          "n": 24,
+          "w": 8,
+          "l": 16,
+          "push": 0,
+          "wr": 33.3,
+          "roi": -40.0,
+          "profit": -9.6,
+          "avg_cote": null,
+          "break_even_wr": null,
+          "wr_vs_be": null
+        },
         "Finnish Veikkausliiga": {
           "n": 55,
           "w": 31,
@@ -826,18 +838,6 @@
           "wr": 38.5,
           "roi": -30.8,
           "profit": -8.0,
-          "avg_cote": null,
-          "break_even_wr": null,
-          "wr_vs_be": null
-        },
-        "Estonian Meistriliiga": {
-          "n": 23,
-          "w": 8,
-          "l": 15,
-          "push": 0,
-          "wr": 34.8,
-          "roi": -37.4,
-          "profit": -8.6,
           "avg_cote": null,
           "break_even_wr": null,
           "wr_vs_be": null
@@ -1375,13 +1375,13 @@
       },
       "is_fun": {
         "False": {
-          "n": 1039,
+          "n": 1040,
           "w": 478,
-          "l": 535,
+          "l": 536,
           "push": 26,
-          "wr": 47.2,
+          "wr": 47.1,
           "roi": -12.6,
-          "profit": -130.45,
+          "profit": -131.45,
           "avg_cote": 2.26,
           "break_even_wr": 44.3,
           "wr_vs_be": 2.8
@@ -1490,15 +1490,15 @@
       "severity": "high",
       "type": "skip_market",
       "scope": "foot · Double Chance Buteur",
-      "message": "Market <b>Double Chance Buteur</b> (foot) : ROI <b>-26.7%</b> sur 188 picks (WR 40.6%). À skipper ou refondre la formule.",
+      "message": "Market <b>Double Chance Buteur</b> (foot) : ROI <b>-27.1%</b> sur 189 picks (WR 40.4%). À skipper ou refondre la formule.",
       "stats": {
-        "n": 188,
+        "n": 189,
         "w": 76,
-        "l": 111,
+        "l": 112,
         "push": 1,
-        "wr": 40.6,
-        "roi": -26.7,
-        "profit": -50.2,
+        "wr": 40.4,
+        "roi": -27.1,
+        "profit": -51.2,
         "avg_cote": null,
         "break_even_wr": null,
         "wr_vs_be": null
@@ -1670,20 +1670,20 @@
       "severity": "medium",
       "type": "miscalibrated_overconfident",
       "scope": "foot · conf 70-79",
-      "message": "Bucket conf <b>70-79</b> (foot) : modèle annonce ~74.5% mais WR réel = 54.4% (gap -20.1pp sur 370 picks). Modèle trop confiant → relever MIN_CONF ou ajuster formule.",
+      "message": "Bucket conf <b>70-79</b> (foot) : modèle annonce ~74.5% mais WR réel = 54.2% (gap -20.3pp sur 371 picks). Modèle trop confiant → relever MIN_CONF ou ajuster formule.",
       "stats": {
-        "n": 370,
+        "n": 371,
         "w": 193,
-        "l": 162,
+        "l": 163,
         "push": 15,
-        "wr": 54.4,
-        "roi": -2.2,
-        "profit": -8.2,
+        "wr": 54.2,
+        "roi": -2.5,
+        "profit": -9.2,
         "avg_cote": 1.86,
         "break_even_wr": 53.9,
-        "wr_vs_be": 0.5,
+        "wr_vs_be": 0.3,
         "expected_wr": 74.5,
-        "calibration_gap": -20.1
+        "calibration_gap": -20.3
       }
     },
     {
