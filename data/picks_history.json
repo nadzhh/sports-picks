@@ -37091,7 +37091,7 @@
       "direction": "wc_over_25",
       "type": "⚽ Total buts WC",
       "label": "Plus de 2.5 buts",
-      "cote": 2.25,
+      "cote": 2.3,
       "cote_min": 1.65,
       "confidence": 61,
       "tier": "ok",
@@ -37106,7 +37106,7 @@
       },
       "reasoning": "📊 Écart FIFA significatif : Argentina #1 vs Switzerland #15 (gap +238 pts, P favori ≈ 80%).\n⭐ Argentina favori CdM 2026\nL10 : Argentina 5V/0N/0D sur 5 · Switzerland 3V/2N/0D sur 5\n📋 Fiche Argentina : off moyen (-0.22) · def fragile (-0.60) · forme WWWWW · 🏆 élite mondiale\n   ↳ Historique : vainqueur en 2022 · 1/8 en 2018 · finaliste en 2014 · 1 titre (2022)\n📋 Fiche Switzerland : off moyen (-0.16) · def fragile (-0.42) · forme DWWWD · 🏆 habituée du tournoi\n🎯 Importance : Switzerland : 1 match joué (1pts)\n🌦️ Conditions : chaleur 33.3°C (-10%)\n⚠️ Compo PROBABLE (officielle à T-60min)\n⚽ Modèle Poisson : λ total = 3.14\nP(plus de 2.5 buts) = 60.7%\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
       "calibration_delta": -25.4,
-      "edge_pp": 16.6,
+      "edge_pp": 17.5,
       "history_top3": true,
       "id": "2026-07-12_4653854_team_wc_over_25",
       "date": "2026-07-12",
@@ -37518,46 +37518,6 @@
       "side": "away"
     },
     {
-      "player": "Jens Hjertø-Dahl / Heine Åsen Larsen",
-      "position": "",
-      "is_sub": false,
-      "type": "Double Chance Buteur",
-      "label": "Jens Hjertø-Dahl ou Heine Åsen Larsen marque (Tromsø)",
-      "cote": null,
-      "book": null,
-      "books": [],
-      "confidence": 70,
-      "cote_min": 1.43,
-      "reasoning": "🏠 Combo intra-Tromsø\n📈 P(Jens Hjertø-Dahl marque) ≈ 46% · P(Heine Åsen Larsen marque) ≈ 44%\n🎯 P(au moins un marque) = 70% (1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.43 - chercher ≥1.43 chez le bookmaker\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
-      "context": {
-        "combo_kind": "intra-home"
-      },
-      "_team_for_balance": "home",
-      "stats": {
-        "p_a": 0.458,
-        "p_b": 0.442,
-        "p_or": 0.698,
-        "player_a": "Jens Hjertø-Dahl",
-        "player_b": "Heine Åsen Larsen",
-        "kind": "intra-home"
-      },
-      "team": "home",
-      "tier": "safe",
-      "calibration_delta": -11.3,
-      "history_top3": true,
-      "id": "2026-07-11_5104944_player_Jens Hjertø-Dahl / Heine Åsen Larsen_Double Chance Buteur",
-      "date": "2026-07-11",
-      "match_id": "5104944",
-      "page_url": "/matches/valerenga-vs-tromso/2a6szw#5104944",
-      "matchup": "Tromsø vs Vålerenga",
-      "league": "Norwegian Eliteserien",
-      "category": "player",
-      "result": "PENDING",
-      "actual": null,
-      "resolved_at": null,
-      "side": "home"
-    },
-    {
       "player": "Amine Benchaib / Fabien Ourega",
       "position": "",
       "is_sub": false,
@@ -37714,6 +37674,46 @@
       "side": "home"
     },
     {
+      "player": "Jens Hjertø-Dahl / Heine Åsen Larsen",
+      "position": "",
+      "is_sub": false,
+      "type": "Double Chance Buteur",
+      "label": "Jens Hjertø-Dahl ou Heine Åsen Larsen marque (Tromsø)",
+      "cote": null,
+      "book": null,
+      "books": [],
+      "confidence": 69,
+      "cote_min": 1.45,
+      "reasoning": "🏠 Combo intra-Tromsø\n📈 P(Jens Hjertø-Dahl marque) ≈ 45% · P(Heine Åsen Larsen marque) ≈ 44%\n🎯 P(au moins un marque) = 69% (1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.45 - chercher ≥1.45 chez le bookmaker\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
+      "context": {
+        "combo_kind": "intra-home"
+      },
+      "_team_for_balance": "home",
+      "stats": {
+        "p_a": 0.45,
+        "p_b": 0.442,
+        "p_or": 0.693,
+        "player_a": "Jens Hjertø-Dahl",
+        "player_b": "Heine Åsen Larsen",
+        "kind": "intra-home"
+      },
+      "team": "home",
+      "tier": "ok",
+      "calibration_delta": -25.4,
+      "history_top3": true,
+      "id": "2026-07-11_5104944_player_Jens Hjertø-Dahl / Heine Åsen Larsen_Double Chance Buteur",
+      "date": "2026-07-11",
+      "match_id": "5104944",
+      "page_url": "/matches/valerenga-vs-tromso/2a6szw#5104944",
+      "matchup": "Tromsø vs Vålerenga",
+      "league": "Norwegian Eliteserien",
+      "category": "player",
+      "result": "PENDING",
+      "actual": null,
+      "resolved_at": null,
+      "side": "home"
+    },
+    {
       "player": "Gustav Lindgren / Silas Andersen",
       "position": "",
       "is_sub": false,
@@ -37759,7 +37759,7 @@
       "label": "Häcken gagne",
       "cote": null,
       "confidence": 68,
-      "reasoning": "13 places d'écart au classement (#3 vs #16) · 3V/1N/1D sur 5 matchs · Note Sofa: 6.5/10\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
+      "reasoning": "13 places d'écart au classement (#2 vs #15) · 3V/1N/1D sur 5 matchs · Note Sofa: 6.5/10\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
       "stats": {
         "form": [
           "L",
@@ -37794,9 +37794,9 @@
       "book": null,
       "books": [],
       "confidence": 55,
-      "reasoning": "5 buts en 11 matchs cette saison (45.5% de chance/match) · xG moyen 0.51/match, face à une défense qui concède 2.3 buts/match · défense très vulnérable\n📉 Calibration : bucket 50-59% historiquement à WR 42% (claim 55%, n=41) — sur-estimé de 14pp",
+      "reasoning": "5 buts en 11 matchs cette saison (45.5% de chance/match) · xG moyen 0.51/match, face à une défense qui concède 2.3 buts/match · défense fragile\n📉 Calibration : bucket 50-59% historiquement à WR 42% (claim 55%, n=41) — sur-estimé de 14pp",
       "context": {
-        "weakness": 0.7
+        "weakness": 0.68
       },
       "stats": {
         "goals": 5,
@@ -38131,7 +38131,7 @@
       "confidence": 62,
       "reasoning": "⚽ Penaltyman · 8 buts en 14 matchs cette saison (57.1% de chance/match) · bonne efficacité (21% conv.) · xG moyen 0.00/match · défense correcte\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
       "context": {
-        "weakness": 0.38
+        "weakness": 0.4
       },
       "stats": {
         "goals": 8,
@@ -38196,7 +38196,7 @@
       "book": null,
       "books": [],
       "confidence": 52,
-      "reasoning": "7 buts en 14 matchs cette saison (50.0% de chance/match) · bonne efficacité (22% conv.) · xG moyen 0.00/match · défense correcte\n📉 Calibration : bucket 50-59% historiquement à WR 42% (claim 55%, n=41) — sur-estimé de 14pp",
+      "reasoning": "7 buts en 14 matchs cette saison (50.0% de chance/match) · bonne efficacité (21% conv.) · xG moyen 0.00/match · défense correcte\n📉 Calibration : bucket 50-59% historiquement à WR 42% (claim 55%, n=41) — sur-estimé de 14pp",
       "context": {
         "weakness": 0.35
       },
@@ -38223,6 +38223,37 @@
       "side": "home"
     },
     {
+      "direction": "home_win",
+      "type": "Victoire domicile",
+      "label": "IF Gnistan gagne",
+      "cote": null,
+      "confidence": 58,
+      "reasoning": "IF Gnistan : 2V/2N/1D sur 5 matchs · #6 au classement · H2H: 1V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 50-59% historiquement à WR 42% (claim 55%, n=41) — sur-estimé de 14pp",
+      "stats": {
+        "form": [
+          "L",
+          "D",
+          "D",
+          "W",
+          "W"
+        ]
+      },
+      "is_fun": false,
+      "tier": "ok",
+      "calibration_delta": -13.6,
+      "history_top3": true,
+      "id": "2026-07-11_5147595_team_home_win",
+      "date": "2026-07-11",
+      "match_id": "5147595",
+      "page_url": "/matches/if-gnistan-vs-ifk-mariehamn/o3bvk#5147595",
+      "matchup": "IF Gnistan vs IFK Mariehamn",
+      "league": "Finnish Veikkausliiga",
+      "category": "team",
+      "result": "PENDING",
+      "actual": null,
+      "resolved_at": null
+    },
+    {
       "player": "Adeleke Akinyemi",
       "position": "F",
       "is_sub": false,
@@ -38231,19 +38262,19 @@
       "cote": null,
       "book": null,
       "books": [],
-      "confidence": 50,
-      "reasoning": "6 buts en 14 matchs cette saison (42.9% de chance/match) · xG moyen 0.00/match, face à une défense qui concède 2.0 buts/match · défense fragile\n📉 Calibration : bucket 50-59% historiquement à WR 42% (claim 55%, n=41) — sur-estimé de 14pp",
+      "confidence": 58,
+      "reasoning": "8 buts en 14 matchs cette saison (57.1% de chance/match) · xG moyen 0.00/match, face à une défense qui concède 2.1 buts/match · défense fragile\n📉 Calibration : bucket 50-59% historiquement à WR 42% (claim 55%, n=41) — sur-estimé de 14pp",
       "context": {
-        "weakness": 0.59
+        "weakness": 0.6
       },
       "stats": {
-        "goals": 6,
+        "goals": 8,
         "apps": 14,
-        "gpm": 0.429,
+        "gpm": 0.571,
         "xgpm": 0
       },
       "team": "home",
-      "tier": "fun",
+      "tier": "ok",
       "calibration_delta": -13.6,
       "history_top3": true,
       "id": "2026-07-11_5147595_player_Adeleke Akinyemi_Buteur",
