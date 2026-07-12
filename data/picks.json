@@ -12,8 +12,8 @@
         "type": "Double chance",
         "label": "Nul ou Sirius (X2)",
         "cote": null,
-        "confidence": 81,
-        "reasoning": "Sirius invaincu 100% sur 5 derniers matchs · H2H: 0/0 matchs sans défaite · Classement: #1 (away) vs #9 (home)\n📉 Calibration : bucket 80-89% historiquement à WR 56% (claim 82%, n=63) — sur-estimé de 26pp",
+        "confidence": 83,
+        "reasoning": "Sirius invaincu 100% sur 5 derniers matchs · H2H: 0/0 matchs sans défaite · Classement: #1 (away) vs #11 (home)\n📉 Calibration : bucket 80-89% historiquement à WR 56% (claim 82%, n=63) — sur-estimé de 26pp",
         "stats": {
           "form": [
             "D",
@@ -50,71 +50,46 @@
         "history_top3": true
       }
     ],
-    "home_players": [],
-    "away_players": [
+    "home_players": [
       {
-        "player": "Isak Bjerkebo",
-        "position": "F",
-        "is_sub": false,
-        "type": "Buteur",
-        "label": "Isak Bjerkebo marque",
-        "cote": null,
-        "book": null,
-        "books": [],
-        "confidence": 68,
-        "reasoning": "⚽ Penaltyman · 9 buts en 11 matchs cette saison (81.8% de chance/match) · finisseur efficace (25% de conv.) · xG moyen 0.58/match, défense adverse poreuse (1.4 buts concédés/match) · défense correcte\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
-        "context": {
-          "weakness": 0.47
-        },
-        "stats": {
-          "goals": 9,
-          "apps": 11,
-          "gpm": 0.818,
-          "xgpm": 0.582
-        },
-        "team": "away",
-        "tier": "ok",
-        "calibration_delta": -25.4,
-        "history_top3": true
-      },
-      {
-        "player": "Isak Bjerkebo / Robbie Ure",
+        "player": "Mads Kristian Hansen / Isak Bjerkebo",
         "position": "",
         "is_sub": false,
         "type": "Double Chance Buteur",
-        "label": "Isak Bjerkebo ou Robbie Ure marque (Sirius)",
+        "label": "Mads Kristian Hansen OU Isak Bjerkebo marque (cross-équipe)",
         "cote": null,
         "book": null,
         "books": [],
         "confidence": 70,
-        "cote_min": 1.43,
-        "reasoning": "✈️ Combo intra-Sirius\n📈 P(Isak Bjerkebo marque) ≈ 62% · P(Robbie Ure marque) ≈ 41%\n🎯 P(au moins un marque) = 70% (1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.43 - chercher ≥1.43 chez le bookmaker\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+        "cote_min": 1.49,
+        "reasoning": "🔀 Cross-équipe (moins corrélé → meilleur EV)\n📈 P(Mads Kristian Hansen marque) ≈ 42% · P(Isak Bjerkebo marque) ≈ 43%\n🎯 P(au moins un marque) = 70% (1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.49 - chercher ≥1.49 chez le bookmaker\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
         "context": {
-          "combo_kind": "intra-away"
+          "combo_kind": "cross"
         },
-        "_team_for_balance": "away",
+        "_team_for_balance": "home",
         "stats": {
-          "p_a": 0.622,
-          "p_b": 0.412,
-          "p_or": 0.7,
-          "player_a": "Isak Bjerkebo",
-          "player_b": "Robbie Ure",
-          "kind": "intra-away"
+          "p_a": 0.42,
+          "p_b": 0.428,
+          "p_or": 0.668,
+          "player_a": "Mads Kristian Hansen",
+          "player_b": "Isak Bjerkebo",
+          "kind": "cross"
         },
-        "team": "away",
+        "team": "home",
         "tier": "safe",
         "calibration_delta": -11.3,
         "history_top3": true
       }
     ],
+    "away_players": [],
     "fun_picks": [],
     "top_pick": {
       "direction": "away_dc",
       "type": "Double chance",
       "label": "Nul ou Sirius (X2)",
       "cote": null,
-      "confidence": 81,
-      "reasoning": "Sirius invaincu 100% sur 5 derniers matchs · H2H: 0/0 matchs sans défaite · Classement: #1 (away) vs #9 (home)\n📉 Calibration : bucket 80-89% historiquement à WR 56% (claim 82%, n=63) — sur-estimé de 26pp",
+      "confidence": 83,
+      "reasoning": "Sirius invaincu 100% sur 5 derniers matchs · H2H: 0/0 matchs sans défaite · Classement: #1 (away) vs #11 (home)\n📉 Calibration : bucket 80-89% historiquement à WR 56% (claim 82%, n=63) — sur-estimé de 26pp",
       "stats": {
         "form": [
           "D",
@@ -165,8 +140,8 @@
         "type": "Double chance",
         "label": "Nul ou Viking (X2)",
         "cote": null,
-        "confidence": 81,
-        "reasoning": "Viking invaincu 100% sur 5 derniers matchs · H2H: 0/0 matchs sans défaite · Classement: #2 (away) vs #7 (home)\n📉 Calibration : bucket 80-89% historiquement à WR 56% (claim 82%, n=63) — sur-estimé de 26pp",
+        "confidence": 82,
+        "reasoning": "Viking invaincu 100% sur 5 derniers matchs · H2H: 0/0 matchs sans défaite · Classement: #2 (away) vs #9 (home)\n📉 Calibration : bucket 80-89% historiquement à WR 56% (claim 82%, n=63) — sur-estimé de 26pp",
         "stats": {
           "form": [
             "W",
@@ -214,10 +189,10 @@
         "cote": null,
         "book": null,
         "books": [],
-        "confidence": 60,
+        "confidence": 61,
         "reasoning": "6 buts en 9 matchs cette saison (66.7% de chance/match) · bonne efficacité (26% conv.) · xG moyen 0.64/match, défense adverse poreuse (1.5 buts concédés/match) · défense correcte\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
         "context": {
-          "weakness": 0.44
+          "weakness": 0.48
         },
         "stats": {
           "goals": 6,
@@ -242,7 +217,7 @@
         "confidence": 46,
         "reasoning": "13 passes décisives en 10 matchs (50.0% de chance/match) · xA moyen 0.66/match · défense correcte\n📉 Calibration : bucket 40-49% historiquement à WR 25% (claim 44%, n=36) — sur-estimé de 19pp",
         "context": {
-          "weakness": 0.44
+          "weakness": 0.48
         },
         "stats": {
           "assists": 13,
@@ -266,13 +241,13 @@
         "books": [],
         "confidence": 70,
         "cote_min": 1.43,
-        "reasoning": "✈️ Combo intra-Viking\n📈 P(Peter Christiansen marque) ≈ 60% · P(Simen Kvia-Egeskog marque) ≈ 43%\n🎯 P(au moins un marque) = 70% (1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.43 - chercher ≥1.43 chez le bookmaker\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+        "reasoning": "✈️ Combo intra-Viking\n📈 P(Peter Christiansen marque) ≈ 61% · P(Simen Kvia-Egeskog marque) ≈ 43%\n🎯 P(au moins un marque) = 70% (1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.43 - chercher ≥1.43 chez le bookmaker\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
         "context": {
           "combo_kind": "intra-away"
         },
         "_team_for_balance": "away",
         "stats": {
-          "p_a": 0.6,
+          "p_a": 0.608,
           "p_b": 0.428,
           "p_or": 0.7,
           "player_a": "Peter Christiansen",
@@ -291,8 +266,8 @@
       "type": "Double chance",
       "label": "Nul ou Viking (X2)",
       "cote": null,
-      "confidence": 81,
-      "reasoning": "Viking invaincu 100% sur 5 derniers matchs · H2H: 0/0 matchs sans défaite · Classement: #2 (away) vs #7 (home)\n📉 Calibration : bucket 80-89% historiquement à WR 56% (claim 82%, n=63) — sur-estimé de 26pp",
+      "confidence": 82,
+      "reasoning": "Viking invaincu 100% sur 5 derniers matchs · H2H: 0/0 matchs sans défaite · Classement: #2 (away) vs #9 (home)\n📉 Calibration : bucket 80-89% historiquement à WR 56% (claim 82%, n=63) — sur-estimé de 26pp",
       "stats": {
         "form": [
           "W",
@@ -748,15 +723,15 @@
         "books": [],
         "confidence": 69,
         "cote_min": 1.52,
-        "reasoning": "🔀 Cross-équipe (moins corrélé → meilleur EV)\n📈 P(Samuel Salter marque) ≈ 45% · P(Arbër Zeneli marque) ≈ 38%\n🎯 P(au moins un marque) = 69% (1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.52 - chercher ≥1.52 chez le bookmaker\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
+        "reasoning": "🔀 Cross-équipe (moins corrélé → meilleur EV)\n📈 P(Samuel Salter marque) ≈ 46% · P(Arbër Zeneli marque) ≈ 38%\n🎯 P(au moins un marque) = 69% (1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.52 - chercher ≥1.52 chez le bookmaker\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
         "context": {
           "combo_kind": "cross"
         },
         "_team_for_balance": "home",
         "stats": {
-          "p_a": 0.45,
+          "p_a": 0.458,
           "p_b": 0.375,
-          "p_or": 0.656,
+          "p_or": 0.661,
           "player_a": "Samuel Salter",
           "player_b": "Arbër Zeneli",
           "kind": "cross"
@@ -780,15 +755,15 @@
       "books": [],
       "confidence": 69,
       "cote_min": 1.52,
-      "reasoning": "🔀 Cross-équipe (moins corrélé → meilleur EV)\n📈 P(Samuel Salter marque) ≈ 45% · P(Arbër Zeneli marque) ≈ 38%\n🎯 P(au moins un marque) = 69% (1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.52 - chercher ≥1.52 chez le bookmaker\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
+      "reasoning": "🔀 Cross-équipe (moins corrélé → meilleur EV)\n📈 P(Samuel Salter marque) ≈ 46% · P(Arbër Zeneli marque) ≈ 38%\n🎯 P(au moins un marque) = 69% (1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.52 - chercher ≥1.52 chez le bookmaker\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
       "context": {
         "combo_kind": "cross"
       },
       "_team_for_balance": "home",
       "stats": {
-        "p_a": 0.45,
+        "p_a": 0.458,
         "p_b": 0.375,
-        "p_or": 0.656,
+        "p_or": 0.661,
         "player_a": "Samuel Salter",
         "player_b": "Arbër Zeneli",
         "kind": "cross"
@@ -2078,7 +2053,7 @@
         "confidence": 55,
         "reasoning": "⚽ Penaltyman · 5 buts en 10 matchs cette saison (50.0% de chance/match) · bonne efficacité (21% conv.) · xG moyen 0.43/match · défense correcte\n📉 Calibration : bucket 50-59% historiquement à WR 42% (claim 55%, n=41) — sur-estimé de 14pp",
         "context": {
-          "weakness": 0.42
+          "weakness": 0.4
         },
         "stats": {
           "goals": 5,
@@ -2134,7 +2109,7 @@
       "confidence": 55,
       "reasoning": "⚽ Penaltyman · 5 buts en 10 matchs cette saison (50.0% de chance/match) · bonne efficacité (21% conv.) · xG moyen 0.43/match · défense correcte\n📉 Calibration : bucket 50-59% historiquement à WR 42% (claim 55%, n=41) — sur-estimé de 14pp",
       "context": {
-        "weakness": 0.42
+        "weakness": 0.4
       },
       "stats": {
         "goals": 5,
