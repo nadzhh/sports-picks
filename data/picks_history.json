@@ -39641,6 +39641,82 @@
       "side": "home"
     },
     {
+      "player": "Rubén Bentancourt / Federico Martínez",
+      "position": "",
+      "is_sub": false,
+      "type": "Double Chance Buteur",
+      "label": "Rubén Bentancourt ou Federico Martínez marque (Liverpool FC)",
+      "cote": null,
+      "book": null,
+      "books": [],
+      "confidence": 70,
+      "cote_min": 1.43,
+      "reasoning": "🏠 Combo intra-Liverpool FC\n📈 P(Rubén Bentancourt marque) ≈ 62% · P(Federico Martínez marque) ≈ 46%\n🎯 P(au moins un marque) = 70% (1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.43 - chercher ≥1.43 chez le bookmaker\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+      "context": {
+        "combo_kind": "intra-home"
+      },
+      "_team_for_balance": "home",
+      "stats": {
+        "p_a": 0.622,
+        "p_b": 0.465,
+        "p_or": 0.7,
+        "player_a": "Rubén Bentancourt",
+        "player_b": "Federico Martínez",
+        "kind": "intra-home"
+      },
+      "team": "home",
+      "tier": "safe",
+      "calibration_delta": -11.3,
+      "history_top3": true,
+      "id": "2026-07-12_5888328_player_Rubén Bentancourt / Federico Martínez_Double Chance Buteur",
+      "date": "2026-07-12",
+      "match_id": "5888328",
+      "page_url": "/matches/cerro-vs-liverpool-fc/4wb1b#5888328",
+      "matchup": "Liverpool FC vs Cerro",
+      "league": "Uruguay Primera",
+      "category": "player",
+      "result": "PENDING",
+      "actual": null,
+      "resolved_at": null,
+      "side": "home"
+    },
+    {
+      "player": "Rubén Bentancourt",
+      "position": "M",
+      "is_sub": false,
+      "type": "Buteur",
+      "label": "Rubén Bentancourt marque",
+      "cote": null,
+      "book": null,
+      "books": [],
+      "confidence": 62,
+      "reasoning": "4 buts en 5 matchs cette saison (80.0% de chance/match) · xG moyen 0.00/match, défense adverse poreuse (1.6 buts concédés/match) · défense correcte\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
+      "context": {
+        "weakness": 0.45
+      },
+      "stats": {
+        "goals": 4,
+        "apps": 5,
+        "gpm": 0.8,
+        "xgpm": 0
+      },
+      "team": "home",
+      "tier": "ok",
+      "calibration_delta": -25.4,
+      "history_top3": true,
+      "id": "2026-07-12_5888328_player_Rubén Bentancourt_Buteur",
+      "date": "2026-07-12",
+      "match_id": "5888328",
+      "page_url": "/matches/cerro-vs-liverpool-fc/4wb1b#5888328",
+      "matchup": "Liverpool FC vs Cerro",
+      "league": "Uruguay Primera",
+      "category": "player",
+      "result": "PENDING",
+      "actual": null,
+      "resolved_at": null,
+      "side": "home"
+    },
+    {
       "player": "Eidur Sæbjörnsson / Luke Rae",
       "position": "",
       "is_sub": false,
@@ -39828,8 +39904,8 @@
       "type": "Victoire domicile",
       "label": "FK TransINVEST gagne",
       "cote": null,
-      "confidence": 60,
-      "reasoning": "FK TransINVEST : 3V/1N/1D sur 5 matchs · #4 au classement · H2H: 1V/1N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
+      "confidence": 59,
+      "reasoning": "FK TransINVEST : 3V/1N/1D sur 5 matchs · #5 au classement · H2H: 1V/1N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 50-59% historiquement à WR 42% (claim 55%, n=41) — sur-estimé de 14pp",
       "stats": {
         "form": [
           "D",
@@ -39841,7 +39917,7 @@
       },
       "is_fun": false,
       "tier": "ok",
-      "calibration_delta": -25.4,
+      "calibration_delta": -13.6,
       "history_top3": true,
       "id": "2026-07-12_5874489_team_home_win",
       "date": "2026-07-12",
@@ -40199,7 +40275,7 @@
       "book": null,
       "books": [],
       "confidence": 55,
-      "reasoning": "⚽ Penaltyman · 5 buts en 10 matchs cette saison (50.0% de chance/match) · bonne efficacité (21% conv.) · xG moyen 0.43/match · défense correcte\n📉 Calibration : bucket 50-59% historiquement à WR 42% (claim 55%, n=41) — sur-estimé de 14pp",
+      "reasoning": "⚽ Penaltyman · 5 buts en 10 matchs cette saison (50.0% de chance/match) · bonne efficacité (20% conv.) · xG moyen 0.44/match · défense correcte\n📉 Calibration : bucket 50-59% historiquement à WR 42% (claim 55%, n=41) — sur-estimé de 14pp",
       "context": {
         "weakness": 0.4
       },
@@ -40207,7 +40283,7 @@
         "goals": 5,
         "apps": 10,
         "gpm": 0.5,
-        "xgpm": 0.43
+        "xgpm": 0.44
       },
       "team": "away",
       "tier": "ok",
@@ -40224,82 +40300,6 @@
       "actual": null,
       "resolved_at": null,
       "side": "away"
-    },
-    {
-      "player": "Rubén Bentancourt / Federico Martínez",
-      "position": "",
-      "is_sub": false,
-      "type": "Double Chance Buteur",
-      "label": "Rubén Bentancourt ou Federico Martínez marque (Liverpool FC)",
-      "cote": null,
-      "book": null,
-      "books": [],
-      "confidence": 70,
-      "cote_min": 1.43,
-      "reasoning": "🏠 Combo intra-Liverpool FC\n📈 P(Rubén Bentancourt marque) ≈ 54% · P(Federico Martínez marque) ≈ 46%\n🎯 P(au moins un marque) = 70% (1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.43 - chercher ≥1.43 chez le bookmaker\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
-      "context": {
-        "combo_kind": "intra-home"
-      },
-      "_team_for_balance": "home",
-      "stats": {
-        "p_a": 0.54,
-        "p_b": 0.465,
-        "p_or": 0.7,
-        "player_a": "Rubén Bentancourt",
-        "player_b": "Federico Martínez",
-        "kind": "intra-home"
-      },
-      "team": "home",
-      "tier": "safe",
-      "calibration_delta": -11.3,
-      "history_top3": true,
-      "id": "2026-07-12_5888328_player_Rubén Bentancourt / Federico Martínez_Double Chance Buteur",
-      "date": "2026-07-12",
-      "match_id": "5888328",
-      "page_url": "/matches/cerro-vs-liverpool-fc/4wb1b#5888328",
-      "matchup": "Liverpool FC vs Cerro",
-      "league": "Uruguay Primera",
-      "category": "player",
-      "result": "PENDING",
-      "actual": null,
-      "resolved_at": null,
-      "side": "home"
-    },
-    {
-      "player": "Rubén Bentancourt",
-      "position": "M",
-      "is_sub": false,
-      "type": "Buteur",
-      "label": "Rubén Bentancourt marque",
-      "cote": null,
-      "book": null,
-      "books": [],
-      "confidence": 54,
-      "reasoning": "3 buts en 5 matchs cette saison (60.0% de chance/match) · xG moyen 0.00/match, défense adverse poreuse (1.6 buts concédés/match) · défense correcte\n📉 Calibration : bucket 50-59% historiquement à WR 42% (claim 55%, n=41) — sur-estimé de 14pp",
-      "context": {
-        "weakness": 0.41
-      },
-      "stats": {
-        "goals": 3,
-        "apps": 5,
-        "gpm": 0.6,
-        "xgpm": 0
-      },
-      "team": "home",
-      "tier": "fun",
-      "calibration_delta": -13.6,
-      "history_top3": true,
-      "id": "2026-07-12_5888328_player_Rubén Bentancourt_Buteur",
-      "date": "2026-07-12",
-      "match_id": "5888328",
-      "page_url": "/matches/cerro-vs-liverpool-fc/4wb1b#5888328",
-      "matchup": "Liverpool FC vs Cerro",
-      "league": "Uruguay Primera",
-      "category": "player",
-      "result": "PENDING",
-      "actual": null,
-      "resolved_at": null,
-      "side": "home"
     },
     {
       "player": "Leander Alvheim / Promise Meliga",
