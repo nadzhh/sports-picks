@@ -62,9 +62,9 @@
         "book": null,
         "books": [],
         "confidence": 68,
-        "reasoning": "⚽ Penaltyman · 9 buts en 11 matchs cette saison (81.8% de chance/match) · finisseur efficace (25% de conv.) · xG moyen 0.58/match, défense adverse poreuse (1.5 buts concédés/match) · défense fragile\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
+        "reasoning": "⚽ Penaltyman · 9 buts en 11 matchs cette saison (81.8% de chance/match) · finisseur efficace (25% de conv.) · xG moyen 0.58/match, défense adverse poreuse (1.4 buts concédés/match) · défense fragile\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
         "context": {
-          "weakness": 0.52
+          "weakness": 0.51
         },
         "stats": {
           "goals": 9,
@@ -88,14 +88,14 @@
         "books": [],
         "confidence": 70,
         "cote_min": 1.43,
-        "reasoning": "✈️ Combo intra-Sirius\n📈 P(Isak Bjerkebo marque) ≈ 62% · P(Robbie Ure marque) ≈ 42%\n🎯 P(au moins un marque) = 70% (1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.43 - chercher ≥1.43 chez le bookmaker\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+        "reasoning": "✈️ Combo intra-Sirius\n📈 P(Isak Bjerkebo marque) ≈ 62% · P(Robbie Ure marque) ≈ 41%\n🎯 P(au moins un marque) = 70% (1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.43 - chercher ≥1.43 chez le bookmaker\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
         "context": {
           "combo_kind": "intra-away"
         },
         "_team_for_balance": "away",
         "stats": {
           "p_a": 0.622,
-          "p_b": 0.42,
+          "p_b": 0.412,
           "p_or": 0.7,
           "player_a": "Isak Bjerkebo",
           "player_b": "Robbie Ure",
@@ -608,125 +608,6 @@
     },
     "no_picks": false,
     "context": null
-  },
-  {
-    "league": "Swedish Allsvenskan",
-    "home": "Malmö FF",
-    "away": "IFK Göteborg",
-    "start_ts": 1783857600,
-    "match_id": "5107530",
-    "page_url": "/matches/ifk-goteborg-vs-malmo-ff/3cn12w#5107530",
-    "picks": [],
-    "home_players": [
-      {
-        "player": "Erik Botheim / Tobias Heintz",
-        "position": "",
-        "is_sub": false,
-        "type": "Double Chance Buteur",
-        "label": "Erik Botheim OU Tobias Heintz marque (cross-équipe)",
-        "cote": null,
-        "book": null,
-        "books": [],
-        "confidence": 70,
-        "cote_min": 1.43,
-        "reasoning": "🔀 Cross-équipe (moins corrélé → meilleur EV)\n📈 P(Erik Botheim marque) ≈ 42% · P(Tobias Heintz marque) ≈ 53%\n🎯 P(au moins un marque) = 70% (1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.43 - chercher ≥1.43 chez le bookmaker\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
-        "context": {
-          "combo_kind": "cross"
-        },
-        "_team_for_balance": "home",
-        "stats": {
-          "p_a": 0.42,
-          "p_b": 0.532,
-          "p_or": 0.7,
-          "player_a": "Erik Botheim",
-          "player_b": "Tobias Heintz",
-          "kind": "cross"
-        },
-        "team": "home",
-        "tier": "safe",
-        "calibration_delta": -11.3,
-        "history_top3": true
-      }
-    ],
-    "away_players": [
-      {
-        "player": "Tobias Heintz",
-        "position": "F",
-        "is_sub": false,
-        "type": "Buteur",
-        "label": "Tobias Heintz marque",
-        "cote": null,
-        "book": null,
-        "books": [],
-        "confidence": 53,
-        "reasoning": "6 buts en 11 matchs cette saison (54.5% de chance/match) · finisseur efficace (14% de conv.) · xG moyen 0.45/match, défense adverse poreuse (1.7 buts concédés/match) · défense correcte\n📉 Calibration : bucket 50-59% historiquement à WR 42% (claim 55%, n=41) — sur-estimé de 14pp",
-        "context": {
-          "weakness": 0.4
-        },
-        "stats": {
-          "goals": 6,
-          "apps": 11,
-          "gpm": 0.545,
-          "xgpm": 0.445
-        },
-        "team": "away",
-        "tier": "fun",
-        "calibration_delta": -13.6,
-        "history_top3": true
-      }
-    ],
-    "fun_picks": [],
-    "top_pick": {
-      "player": "Erik Botheim / Tobias Heintz",
-      "position": "",
-      "is_sub": false,
-      "type": "Double Chance Buteur",
-      "label": "Erik Botheim OU Tobias Heintz marque (cross-équipe)",
-      "cote": null,
-      "book": null,
-      "books": [],
-      "confidence": 70,
-      "cote_min": 1.43,
-      "reasoning": "🔀 Cross-équipe (moins corrélé → meilleur EV)\n📈 P(Erik Botheim marque) ≈ 42% · P(Tobias Heintz marque) ≈ 53%\n🎯 P(au moins un marque) = 70% (1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.43 - chercher ≥1.43 chez le bookmaker\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
-      "context": {
-        "combo_kind": "cross"
-      },
-      "_team_for_balance": "home",
-      "stats": {
-        "p_a": 0.42,
-        "p_b": 0.532,
-        "p_or": 0.7,
-        "player_a": "Erik Botheim",
-        "player_b": "Tobias Heintz",
-        "kind": "cross"
-      },
-      "team": "home",
-      "tier": "safe",
-      "calibration_delta": -11.3,
-      "history_top3": true
-    },
-    "no_picks": false,
-    "context": {
-      "stadium": {
-        "name": "Eleda Stadion",
-        "city": "Malmö",
-        "country": "Sweden",
-        "lat": 55.583646464,
-        "lon": 12.987814635,
-        "capacity": 24148,
-        "surface": "grass"
-      },
-      "weather": {
-        "temp_max": 28.6,
-        "temp_min": 17.7,
-        "humidity": 49,
-        "precipitation_sum_mm": 0.0,
-        "wind_max_kmh": 21.6,
-        "weather_code": 3,
-        "summary_fr": "☁️ couvert · 17–28°C · humidité 49%"
-      },
-      "text": "Conditions : ☁️ couvert · 17–28°C · humidité 49%. Stade : Eleda Stadion · 24 148 places · plein air."
-    }
   },
   {
     "league": "Icelandic Besta",
@@ -1320,120 +1201,6 @@
     }
   },
   {
-    "league": "Swedish Allsvenskan",
-    "home": "Västerås SK",
-    "away": "Degerfors",
-    "start_ts": 1783857600,
-    "match_id": "5107532",
-    "page_url": "/matches/vasteras-sk-vs-degerfors/1cb4z7#5107532",
-    "picks": [],
-    "home_players": [
-      {
-        "player": "Mikkel Ladefoged",
-        "position": "F",
-        "is_sub": false,
-        "type": "Buteur",
-        "label": "Mikkel Ladefoged marque",
-        "cote": null,
-        "book": null,
-        "books": [],
-        "confidence": 64,
-        "reasoning": "9 buts en 11 matchs cette saison (81.8% de chance/match) · finisseur efficace (26% de conv.) · xG moyen 0.62/match, défense adverse poreuse (1.6 buts concédés/match) · défense fragile\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
-        "context": {
-          "weakness": 0.57
-        },
-        "stats": {
-          "goals": 9,
-          "apps": 11,
-          "gpm": 0.818,
-          "xgpm": 0.618
-        },
-        "team": "home",
-        "tier": "ok",
-        "calibration_delta": -25.4,
-        "history_top3": true
-      },
-      {
-        "player": "Mikkel Ladefoged / Axel Taonsa",
-        "position": "",
-        "is_sub": false,
-        "type": "Double Chance Buteur",
-        "label": "Mikkel Ladefoged ou Axel Taonsa marque (Västerås SK)",
-        "cote": null,
-        "book": null,
-        "books": [],
-        "confidence": 70,
-        "cote_min": 1.43,
-        "reasoning": "🏠 Combo intra-Västerås SK\n📈 P(Mikkel Ladefoged marque) ≈ 64% · P(Axel Taonsa marque) ≈ 44%\n🎯 P(au moins un marque) = 70% (1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.43 - chercher ≥1.43 chez le bookmaker\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
-        "context": {
-          "combo_kind": "intra-home"
-        },
-        "_team_for_balance": "home",
-        "stats": {
-          "p_a": 0.638,
-          "p_b": 0.435,
-          "p_or": 0.7,
-          "player_a": "Mikkel Ladefoged",
-          "player_b": "Axel Taonsa",
-          "kind": "intra-home"
-        },
-        "team": "home",
-        "tier": "safe",
-        "calibration_delta": -11.3,
-        "history_top3": true
-      }
-    ],
-    "away_players": [],
-    "fun_picks": [],
-    "top_pick": {
-      "player": "Mikkel Ladefoged",
-      "position": "F",
-      "is_sub": false,
-      "type": "Buteur",
-      "label": "Mikkel Ladefoged marque",
-      "cote": null,
-      "book": null,
-      "books": [],
-      "confidence": 64,
-      "reasoning": "9 buts en 11 matchs cette saison (81.8% de chance/match) · finisseur efficace (26% de conv.) · xG moyen 0.62/match, défense adverse poreuse (1.6 buts concédés/match) · défense fragile\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
-      "context": {
-        "weakness": 0.57
-      },
-      "stats": {
-        "goals": 9,
-        "apps": 11,
-        "gpm": 0.818,
-        "xgpm": 0.618
-      },
-      "team": "home",
-      "tier": "ok",
-      "calibration_delta": -25.4,
-      "history_top3": true
-    },
-    "no_picks": false,
-    "context": {
-      "stadium": {
-        "name": "Hitachi Energy Arena",
-        "city": "Västerås",
-        "country": "Sweden",
-        "lat": 59.627556757,
-        "lon": 16.530652642,
-        "capacity": 8900,
-        "surface": "artificial turf"
-      },
-      "weather": {
-        "temp_max": 24.1,
-        "temp_min": 16.3,
-        "humidity": 58,
-        "precipitation_sum_mm": 0.0,
-        "wind_max_kmh": 19.4,
-        "weather_code": 3,
-        "summary_fr": "☁️ couvert · 16–24°C · humidité 58%"
-      },
-      "text": "Conditions : ☁️ couvert · 16–24°C · humidité 58%. Stade : Hitachi Energy Arena · 8 900 places · plein air."
-    }
-  },
-  {
     "league": "Uruguay Primera",
     "home": "Racing",
     "away": "Club Atletico Penarol",
@@ -1587,7 +1354,7 @@
         "book": null,
         "books": [],
         "confidence": 64,
-        "reasoning": "7 buts en 10 matchs cette saison (70.0% de chance/match) · bonne efficacité (19% conv.) · xG moyen 0.81/match, défense adverse poreuse (1.5 buts concédés/match) · défense fragile\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
+        "reasoning": "7 buts en 10 matchs cette saison (70.0% de chance/match) · bonne efficacité (18% conv.) · xG moyen 0.82/match, défense adverse poreuse (1.5 buts concédés/match) · défense fragile\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
         "context": {
           "weakness": 0.56
         },
@@ -1595,7 +1362,7 @@
           "goals": 7,
           "apps": 10,
           "gpm": 0.7,
-          "xgpm": 0.81
+          "xgpm": 0.82
         },
         "team": "away",
         "tier": "ok",
@@ -2051,120 +1818,6 @@
         "summary_fr": "🌦️ averses légères · 26–31°C · humidité 75% · précipitations 8.6mm"
       },
       "text": "Conditions : 🌦️ averses légères · 26–31°C · humidité 75% · précipitations 8.6mm. Stade : SAIC Motor Pudong Arena · 37 000 places · plein air. ⚠️ Pluies prévues : terrain potentiellement lourd, jeu direct privilégié, plus d'erreurs techniques. ⚠️ Vent fort prévu : jeu aérien moins fiable, balles longues imprévisibles."
-    }
-  },
-  {
-    "league": "Swedish Allsvenskan",
-    "home": "Hammarby",
-    "away": "Kalmar FF",
-    "start_ts": 1783857600,
-    "match_id": "5107526",
-    "page_url": "/matches/hammarby-vs-kalmar-ff/2pyumy#5107526",
-    "picks": [],
-    "home_players": [
-      {
-        "player": "Paulos Abraham",
-        "position": "F",
-        "is_sub": false,
-        "type": "Buteur",
-        "label": "Paulos Abraham marque",
-        "cote": null,
-        "book": null,
-        "books": [],
-        "confidence": 57,
-        "reasoning": "7 buts en 12 matchs cette saison (58.3% de chance/match) · xG moyen 0.58/match, défense adverse poreuse (1.4 buts concédés/match) · défense fragile\n📉 Calibration : bucket 50-59% historiquement à WR 42% (claim 55%, n=41) — sur-estimé de 14pp",
-        "context": {
-          "weakness": 0.53
-        },
-        "stats": {
-          "goals": 7,
-          "apps": 12,
-          "gpm": 0.583,
-          "xgpm": 0.583
-        },
-        "team": "home",
-        "tier": "ok",
-        "calibration_delta": -13.6,
-        "history_top3": true
-      },
-      {
-        "player": "Paulos Abraham / Nahir Besara",
-        "position": "",
-        "is_sub": false,
-        "type": "Double Chance Buteur",
-        "label": "Paulos Abraham ou Nahir Besara marque (Hammarby)",
-        "cote": null,
-        "book": null,
-        "books": [],
-        "confidence": 70,
-        "cote_min": 1.43,
-        "reasoning": "🏠 Combo intra-Hammarby\n📈 P(Paulos Abraham marque) ≈ 57% · P(Nahir Besara marque) ≈ 48%\n🎯 P(au moins un marque) = 70% (1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.43 - chercher ≥1.43 chez le bookmaker\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
-        "context": {
-          "combo_kind": "intra-home"
-        },
-        "_team_for_balance": "home",
-        "stats": {
-          "p_a": 0.57,
-          "p_b": 0.48,
-          "p_or": 0.7,
-          "player_a": "Paulos Abraham",
-          "player_b": "Nahir Besara",
-          "kind": "intra-home"
-        },
-        "team": "home",
-        "tier": "safe",
-        "calibration_delta": -11.3,
-        "history_top3": true
-      }
-    ],
-    "away_players": [],
-    "fun_picks": [],
-    "top_pick": {
-      "player": "Paulos Abraham",
-      "position": "F",
-      "is_sub": false,
-      "type": "Buteur",
-      "label": "Paulos Abraham marque",
-      "cote": null,
-      "book": null,
-      "books": [],
-      "confidence": 57,
-      "reasoning": "7 buts en 12 matchs cette saison (58.3% de chance/match) · xG moyen 0.58/match, défense adverse poreuse (1.4 buts concédés/match) · défense fragile\n📉 Calibration : bucket 50-59% historiquement à WR 42% (claim 55%, n=41) — sur-estimé de 14pp",
-      "context": {
-        "weakness": 0.53
-      },
-      "stats": {
-        "goals": 7,
-        "apps": 12,
-        "gpm": 0.583,
-        "xgpm": 0.583
-      },
-      "team": "home",
-      "tier": "ok",
-      "calibration_delta": -13.6,
-      "history_top3": true
-    },
-    "no_picks": false,
-    "context": {
-      "stadium": {
-        "name": "3Arena",
-        "city": "Stockholm",
-        "country": "Sweden",
-        "lat": 59.291151885,
-        "lon": 18.084483762,
-        "capacity": 33000,
-        "surface": "artificial turf"
-      },
-      "weather": {
-        "temp_max": 22.7,
-        "temp_min": 17.4,
-        "humidity": 65,
-        "precipitation_sum_mm": 0.0,
-        "wind_max_kmh": 23.0,
-        "weather_code": 3,
-        "summary_fr": "☁️ couvert · 17–22°C · humidité 65%"
-      },
-      "text": "Conditions : ☁️ couvert · 17–22°C · humidité 65%. Stade : 3Arena · 33 000 places · plein air."
     }
   },
   {
