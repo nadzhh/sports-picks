@@ -39393,9 +39393,9 @@
       "matchup": "Sarpsborg 08 vs Viking",
       "league": "Norwegian Eliteserien",
       "category": "team",
-      "result": "PENDING",
-      "actual": null,
-      "resolved_at": null
+      "result": "LOSS",
+      "actual": "1-0",
+      "resolved_at": "2026-07-12 19:31"
     },
     {
       "direction": "away_win",
@@ -39424,9 +39424,9 @@
       "matchup": "Sarpsborg 08 vs Viking",
       "league": "Norwegian Eliteserien",
       "category": "team",
-      "result": "PENDING",
-      "actual": null,
-      "resolved_at": null
+      "result": "LOSS",
+      "actual": "1-0",
+      "resolved_at": "2026-07-12 19:31"
     },
     {
       "player": "Peter Christiansen / Simen Kvia-Egeskog",
@@ -39463,9 +39463,12 @@
       "matchup": "Sarpsborg 08 vs Viking",
       "league": "Norwegian Eliteserien",
       "category": "player",
-      "result": "PENDING",
-      "actual": null,
-      "resolved_at": null,
+      "result": "LOSS",
+      "actual": {
+        "goals": 0,
+        "assists": 0
+      },
+      "resolved_at": "2026-07-12 19:31",
       "side": "away"
     },
     {
@@ -39499,9 +39502,12 @@
       "matchup": "Sarpsborg 08 vs Viking",
       "league": "Norwegian Eliteserien",
       "category": "player",
-      "result": "PENDING",
-      "actual": null,
-      "resolved_at": null,
+      "result": "LOSS",
+      "actual": {
+        "goals": 0,
+        "assists": 0
+      },
+      "resolved_at": "2026-07-12 19:31",
       "side": "away"
     },
     {
@@ -39535,9 +39541,12 @@
       "matchup": "Sarpsborg 08 vs Viking",
       "league": "Norwegian Eliteserien",
       "category": "player",
-      "result": "PENDING",
-      "actual": null,
-      "resolved_at": null,
+      "result": "LOSS",
+      "actual": {
+        "goals": 0,
+        "assists": 0
+      },
+      "resolved_at": "2026-07-12 19:31",
       "side": "away"
     },
     {
@@ -39795,6 +39804,118 @@
       "side": "away"
     },
     {
+      "player": "Atli Jónasson / Kennie Chopart",
+      "position": "",
+      "is_sub": false,
+      "type": "Double Chance Buteur",
+      "label": "Atli Jónasson ou Kennie Chopart marque (Fram Reykjavik)",
+      "cote": null,
+      "book": null,
+      "books": [],
+      "confidence": 70,
+      "cote_min": 1.43,
+      "reasoning": "🏠 Combo intra-Fram Reykjavik\n📈 P(Atli Jónasson marque) ≈ 66% · P(Kennie Chopart marque) ≈ 58%\n🎯 P(au moins un marque) = 70% (1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.43 - chercher ≥1.43 chez le bookmaker\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+      "context": {
+        "combo_kind": "intra-home"
+      },
+      "_team_for_balance": "home",
+      "stats": {
+        "p_a": 0.66,
+        "p_b": 0.585,
+        "p_or": 0.7,
+        "player_a": "Atli Jónasson",
+        "player_b": "Kennie Chopart",
+        "kind": "intra-home"
+      },
+      "team": "home",
+      "tier": "safe",
+      "calibration_delta": -11.3,
+      "history_top3": true,
+      "id": "2026-07-12_5225678_player_Atli Jónasson / Kennie Chopart_Double Chance Buteur",
+      "date": "2026-07-12",
+      "match_id": "5225678",
+      "page_url": "/matches/thor-akureyri-vs-fram-reykjavik/yn8qx#5225678",
+      "matchup": "Fram Reykjavik vs Thor Akureyri",
+      "league": "Icelandic Besta",
+      "category": "player",
+      "result": "PENDING",
+      "actual": null,
+      "resolved_at": null,
+      "side": "home"
+    },
+    {
+      "player": "Atli Jónasson",
+      "position": "F",
+      "is_sub": false,
+      "type": "Buteur",
+      "label": "Atli Jónasson marque",
+      "cote": null,
+      "book": null,
+      "books": [],
+      "confidence": 66,
+      "reasoning": "7 buts en 10 matchs cette saison (70.0% de chance/match) · xG moyen 0.00/match, face à une défense qui concède 2.9 buts/match · défense fragile\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
+      "context": {
+        "weakness": 0.68
+      },
+      "stats": {
+        "goals": 7,
+        "apps": 10,
+        "gpm": 0.7,
+        "xgpm": 0
+      },
+      "team": "home",
+      "tier": "ok",
+      "calibration_delta": -25.4,
+      "history_top3": true,
+      "id": "2026-07-12_5225678_player_Atli Jónasson_Buteur",
+      "date": "2026-07-12",
+      "match_id": "5225678",
+      "page_url": "/matches/thor-akureyri-vs-fram-reykjavik/yn8qx#5225678",
+      "matchup": "Fram Reykjavik vs Thor Akureyri",
+      "league": "Icelandic Besta",
+      "category": "player",
+      "result": "PENDING",
+      "actual": null,
+      "resolved_at": null,
+      "side": "home"
+    },
+    {
+      "player": "Kennie Chopart",
+      "position": "F",
+      "is_sub": false,
+      "type": "Buteur",
+      "label": "Kennie Chopart marque",
+      "cote": null,
+      "book": null,
+      "books": [],
+      "confidence": 58,
+      "reasoning": "7 buts en 13 matchs cette saison (53.8% de chance/match) · xG moyen 0.00/match, face à une défense qui concède 2.9 buts/match · défense fragile\n📉 Calibration : bucket 50-59% historiquement à WR 42% (claim 55%, n=41) — sur-estimé de 14pp",
+      "context": {
+        "weakness": 0.68
+      },
+      "stats": {
+        "goals": 7,
+        "apps": 13,
+        "gpm": 0.538,
+        "xgpm": 0
+      },
+      "team": "home",
+      "tier": "ok",
+      "calibration_delta": -13.6,
+      "history_top3": true,
+      "id": "2026-07-12_5225678_player_Kennie Chopart_Buteur",
+      "date": "2026-07-12",
+      "match_id": "5225678",
+      "page_url": "/matches/thor-akureyri-vs-fram-reykjavik/yn8qx#5225678",
+      "matchup": "Fram Reykjavik vs Thor Akureyri",
+      "league": "Icelandic Besta",
+      "category": "player",
+      "result": "PENDING",
+      "actual": null,
+      "resolved_at": null,
+      "side": "home"
+    },
+    {
       "player": "Darío Benedetto / Jhonny Quiñónez",
       "position": "",
       "is_sub": false,
@@ -39839,8 +39960,8 @@
       "type": "Victoire extérieur",
       "label": "Barcelona SC gagne",
       "cote": null,
-      "confidence": 66,
-      "reasoning": "Barcelona SC : 3V/0N/2D sur 5 matchs · #2 au classement · H2H: 1V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
+      "confidence": 65,
+      "reasoning": "Barcelona SC : 3V/0N/2D sur 5 matchs · #3 au classement · H2H: 1V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
       "stats": {
         "form": [
           "W",
@@ -39864,118 +39985,6 @@
       "result": "PENDING",
       "actual": null,
       "resolved_at": null
-    },
-    {
-      "player": "Atli Jónasson / Kennie Chopart",
-      "position": "",
-      "is_sub": false,
-      "type": "Double Chance Buteur",
-      "label": "Atli Jónasson ou Kennie Chopart marque (Fram Reykjavik)",
-      "cote": null,
-      "book": null,
-      "books": [],
-      "confidence": 70,
-      "cote_min": 1.43,
-      "reasoning": "🏠 Combo intra-Fram Reykjavik\n📈 P(Atli Jónasson marque) ≈ 65% · P(Kennie Chopart marque) ≈ 58%\n🎯 P(au moins un marque) = 70% (1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.43 - chercher ≥1.43 chez le bookmaker\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
-      "context": {
-        "combo_kind": "intra-home"
-      },
-      "_team_for_balance": "home",
-      "stats": {
-        "p_a": 0.652,
-        "p_b": 0.578,
-        "p_or": 0.7,
-        "player_a": "Atli Jónasson",
-        "player_b": "Kennie Chopart",
-        "kind": "intra-home"
-      },
-      "team": "home",
-      "tier": "safe",
-      "calibration_delta": -11.3,
-      "history_top3": true,
-      "id": "2026-07-12_5225678_player_Atli Jónasson / Kennie Chopart_Double Chance Buteur",
-      "date": "2026-07-12",
-      "match_id": "5225678",
-      "page_url": "/matches/thor-akureyri-vs-fram-reykjavik/yn8qx#5225678",
-      "matchup": "Fram Reykjavik vs Thor Akureyri",
-      "league": "Icelandic Besta",
-      "category": "player",
-      "result": "PENDING",
-      "actual": null,
-      "resolved_at": null,
-      "side": "home"
-    },
-    {
-      "player": "Atli Jónasson",
-      "position": "F",
-      "is_sub": false,
-      "type": "Buteur",
-      "label": "Atli Jónasson marque",
-      "cote": null,
-      "book": null,
-      "books": [],
-      "confidence": 65,
-      "reasoning": "7 buts en 10 matchs cette saison (70.0% de chance/match) · xG moyen 0.00/match, face à une défense qui concède 2.6 buts/match · défense fragile\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
-      "context": {
-        "weakness": 0.65
-      },
-      "stats": {
-        "goals": 7,
-        "apps": 10,
-        "gpm": 0.7,
-        "xgpm": 0
-      },
-      "team": "home",
-      "tier": "ok",
-      "calibration_delta": -25.4,
-      "history_top3": true,
-      "id": "2026-07-12_5225678_player_Atli Jónasson_Buteur",
-      "date": "2026-07-12",
-      "match_id": "5225678",
-      "page_url": "/matches/thor-akureyri-vs-fram-reykjavik/yn8qx#5225678",
-      "matchup": "Fram Reykjavik vs Thor Akureyri",
-      "league": "Icelandic Besta",
-      "category": "player",
-      "result": "PENDING",
-      "actual": null,
-      "resolved_at": null,
-      "side": "home"
-    },
-    {
-      "player": "Kennie Chopart",
-      "position": "F",
-      "is_sub": false,
-      "type": "Buteur",
-      "label": "Kennie Chopart marque",
-      "cote": null,
-      "book": null,
-      "books": [],
-      "confidence": 58,
-      "reasoning": "7 buts en 13 matchs cette saison (53.8% de chance/match) · xG moyen 0.00/match, face à une défense qui concède 2.6 buts/match · défense fragile\n📉 Calibration : bucket 50-59% historiquement à WR 42% (claim 55%, n=41) — sur-estimé de 14pp",
-      "context": {
-        "weakness": 0.65
-      },
-      "stats": {
-        "goals": 7,
-        "apps": 13,
-        "gpm": 0.538,
-        "xgpm": 0
-      },
-      "team": "home",
-      "tier": "ok",
-      "calibration_delta": -13.6,
-      "history_top3": true,
-      "id": "2026-07-12_5225678_player_Kennie Chopart_Buteur",
-      "date": "2026-07-12",
-      "match_id": "5225678",
-      "page_url": "/matches/thor-akureyri-vs-fram-reykjavik/yn8qx#5225678",
-      "matchup": "Fram Reykjavik vs Thor Akureyri",
-      "league": "Icelandic Besta",
-      "category": "player",
-      "result": "PENDING",
-      "actual": null,
-      "resolved_at": null,
-      "side": "home"
     },
     {
       "player": "Tomás Habib / Felipe Álvarez",
@@ -40095,14 +40104,14 @@
       "books": [],
       "confidence": 70,
       "cote_min": 1.43,
-      "reasoning": "🏠 Combo intra-KR Reykjavik\n📈 P(Eidur Sæbjörnsson marque) ≈ 52% · P(Luke Rae marque) ≈ 50%\n🎯 P(au moins un marque) = 70% (1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.43 - chercher ≥1.43 chez le bookmaker\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+      "reasoning": "🏠 Combo intra-KR Reykjavik\n📈 P(Eidur Sæbjörnsson marque) ≈ 57% · P(Luke Rae marque) ≈ 51%\n🎯 P(au moins un marque) = 70% (1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.43 - chercher ≥1.43 chez le bookmaker\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
       "context": {
         "combo_kind": "intra-home"
       },
       "_team_for_balance": "home",
       "stats": {
-        "p_a": 0.525,
-        "p_b": 0.502,
+        "p_a": 0.57,
+        "p_b": 0.51,
         "p_or": 0.7,
         "player_a": "Eidur Sæbjörnsson",
         "player_b": "Luke Rae",
@@ -40156,6 +40165,42 @@
       "resolved_at": null
     },
     {
+      "player": "Eidur Sæbjörnsson",
+      "position": "F",
+      "is_sub": false,
+      "type": "Buteur",
+      "label": "Eidur Sæbjörnsson marque",
+      "cote": null,
+      "book": null,
+      "books": [],
+      "confidence": 57,
+      "reasoning": "7 buts en 13 matchs cette saison (53.8% de chance/match) · xG moyen 0.00/match, face à une défense qui concède 2.2 buts/match · défense fragile\n📉 Calibration : bucket 50-59% historiquement à WR 42% (claim 55%, n=41) — sur-estimé de 14pp",
+      "context": {
+        "weakness": 0.55
+      },
+      "stats": {
+        "goals": 7,
+        "apps": 13,
+        "gpm": 0.538,
+        "xgpm": 0
+      },
+      "team": "home",
+      "tier": "ok",
+      "calibration_delta": -13.6,
+      "history_top3": true,
+      "id": "2026-07-12_5225680_player_Eidur Sæbjörnsson_Buteur",
+      "date": "2026-07-12",
+      "match_id": "5225680",
+      "page_url": "/matches/kr-reykjavik-vs-ibv-vestmannaeyjar/28cxh2#5225680",
+      "matchup": "KR Reykjavik vs IBV Vestmannaeyjar",
+      "league": "Icelandic Besta",
+      "category": "player",
+      "result": "PENDING",
+      "actual": null,
+      "resolved_at": null,
+      "side": "home"
+    },
+    {
       "player": "Omar Sowe",
       "position": "M",
       "is_sub": false,
@@ -40192,42 +40237,6 @@
       "side": "away"
     },
     {
-      "player": "Eidur Sæbjörnsson",
-      "position": "F",
-      "is_sub": false,
-      "type": "Buteur",
-      "label": "Eidur Sæbjörnsson marque",
-      "cote": null,
-      "book": null,
-      "books": [],
-      "confidence": 52,
-      "reasoning": "6 buts en 13 matchs cette saison (46.2% de chance/match) · xG moyen 0.00/match, face à une défense qui concède 2.0 buts/match · défense fragile\n📉 Calibration : bucket 50-59% historiquement à WR 42% (claim 55%, n=41) — sur-estimé de 14pp",
-      "context": {
-        "weakness": 0.53
-      },
-      "stats": {
-        "goals": 6,
-        "apps": 13,
-        "gpm": 0.462,
-        "xgpm": 0
-      },
-      "team": "home",
-      "tier": "fun",
-      "calibration_delta": -13.6,
-      "history_top3": true,
-      "id": "2026-07-12_5225680_player_Eidur Sæbjörnsson_Buteur",
-      "date": "2026-07-12",
-      "match_id": "5225680",
-      "page_url": "/matches/kr-reykjavik-vs-ibv-vestmannaeyjar/28cxh2#5225680",
-      "matchup": "KR Reykjavik vs IBV Vestmannaeyjar",
-      "league": "Icelandic Besta",
-      "category": "player",
-      "result": "PENDING",
-      "actual": null,
-      "resolved_at": null,
-      "side": "home"
-    },
-    {
       "player": "Luke Rae",
       "position": "F",
       "is_sub": false,
@@ -40236,10 +40245,10 @@
       "cote": null,
       "book": null,
       "books": [],
-      "confidence": 50,
-      "reasoning": "6 buts en 14 matchs cette saison (42.9% de chance/match) · xG moyen 0.00/match, face à une défense qui concède 2.0 buts/match · défense fragile\n📉 Calibration : bucket 50-59% historiquement à WR 42% (claim 55%, n=41) — sur-estimé de 14pp",
+      "confidence": 51,
+      "reasoning": "6 buts en 14 matchs cette saison (42.9% de chance/match) · xG moyen 0.00/match, face à une défense qui concède 2.2 buts/match · défense fragile\n📉 Calibration : bucket 50-59% historiquement à WR 42% (claim 55%, n=41) — sur-estimé de 14pp",
       "context": {
-        "weakness": 0.53
+        "weakness": 0.55
       },
       "stats": {
         "goals": 6,
@@ -40381,14 +40390,14 @@
       "books": [],
       "confidence": 70,
       "cote_min": 1.43,
-      "reasoning": "🏠 Combo intra-KA Akureyri\n📈 P(Hallgrímur Steingrímsson marque) ≈ 56% · P(Birgir Baldvinsson marque) ≈ 41%\n🎯 P(au moins un marque) = 70% (1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.43 - chercher ≥1.43 chez le bookmaker\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+      "reasoning": "🏠 Combo intra-KA Akureyri\n📈 P(Hallgrímur Steingrímsson marque) ≈ 56% · P(Birgir Baldvinsson marque) ≈ 42%\n🎯 P(au moins un marque) = 70% (1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.43 - chercher ≥1.43 chez le bookmaker\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
       "context": {
         "combo_kind": "intra-home"
       },
       "_team_for_balance": "home",
       "stats": {
         "p_a": 0.562,
-        "p_b": 0.412,
+        "p_b": 0.42,
         "p_or": 0.7,
         "player_a": "Hallgrímur Steingrímsson",
         "player_b": "Birgir Baldvinsson",
@@ -40420,9 +40429,9 @@
       "book": null,
       "books": [],
       "confidence": 56,
-      "reasoning": "6 buts en 11 matchs cette saison (54.5% de chance/match) · xG moyen 0.00/match, face à une défense qui concède 1.8 buts/match · défense correcte\n📉 Calibration : bucket 50-59% historiquement à WR 42% (claim 55%, n=41) — sur-estimé de 14pp",
+      "reasoning": "6 buts en 11 matchs cette saison (54.5% de chance/match) · xG moyen 0.00/match, face à une défense qui concède 1.9 buts/match · défense correcte\n📉 Calibration : bucket 50-59% historiquement à WR 42% (claim 55%, n=41) — sur-estimé de 14pp",
       "context": {
-        "weakness": 0.45
+        "weakness": 0.48
       },
       "stats": {
         "goals": 6,
