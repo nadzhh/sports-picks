@@ -38807,9 +38807,9 @@
       "matchup": "Brommapojkarna vs Sirius",
       "league": "Swedish Allsvenskan",
       "category": "team",
-      "result": "PENDING",
-      "actual": null,
-      "resolved_at": null
+      "result": "WIN",
+      "actual": "1-2",
+      "resolved_at": "2026-07-12 16:31"
     },
     {
       "direction": "away_win",
@@ -38838,9 +38838,9 @@
       "matchup": "Brommapojkarna vs Sirius",
       "league": "Swedish Allsvenskan",
       "category": "team",
-      "result": "PENDING",
-      "actual": null,
-      "resolved_at": null
+      "result": "WIN",
+      "actual": "1-2",
+      "resolved_at": "2026-07-12 16:31"
     },
     {
       "player": "Mads Kristian Hansen / Isak Bjerkebo",
@@ -38877,9 +38877,55 @@
       "matchup": "Brommapojkarna vs Sirius",
       "league": "Swedish Allsvenskan",
       "category": "player",
-      "result": "PENDING",
-      "actual": null,
-      "resolved_at": null,
+      "result": "WIN",
+      "actual": {
+        "goals": 1,
+        "assists": 0
+      },
+      "resolved_at": "2026-07-12 16:31",
+      "side": "home"
+    },
+    {
+      "player": "Samuel Salter / Arbër Zeneli",
+      "position": "",
+      "is_sub": false,
+      "type": "Double Chance Buteur",
+      "label": "Samuel Salter OU Arbër Zeneli marque (cross-équipe)",
+      "cote": null,
+      "book": null,
+      "books": [],
+      "confidence": 70,
+      "cote_min": 1.49,
+      "reasoning": "🔀 Cross-équipe (moins corrélé → meilleur EV)\n📈 P(Samuel Salter marque) ≈ 46% · P(Arbër Zeneli marque) ≈ 38%\n🎯 P(au moins un marque) = 70% (1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.49 - chercher ≥1.49 chez le bookmaker\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+      "context": {
+        "combo_kind": "cross"
+      },
+      "_team_for_balance": "home",
+      "stats": {
+        "p_a": 0.465,
+        "p_b": 0.375,
+        "p_or": 0.666,
+        "player_a": "Samuel Salter",
+        "player_b": "Arbër Zeneli",
+        "kind": "cross"
+      },
+      "team": "home",
+      "tier": "safe",
+      "calibration_delta": -11.3,
+      "history_top3": true,
+      "id": "2026-07-12_5107527_player_Samuel Salter / Arbër Zeneli_Double Chance Buteur",
+      "date": "2026-07-12",
+      "match_id": "5107527",
+      "page_url": "/matches/elfsborg-vs-gais/277iy5#5107527",
+      "matchup": "GAIS vs Elfsborg",
+      "league": "Swedish Allsvenskan",
+      "category": "player",
+      "result": "LOSS",
+      "actual": {
+        "goals": 0,
+        "assists": 0
+      },
+      "resolved_at": "2026-07-12 16:31",
       "side": "home"
     },
     {
@@ -38955,13 +39001,13 @@
       "books": [],
       "confidence": 70,
       "cote_min": 1.43,
-      "reasoning": "✈️ Combo intra-Viking\n📈 P(Peter Christiansen marque) ≈ 61% · P(Simen Kvia-Egeskog marque) ≈ 43%\n🎯 P(au moins un marque) = 70% (1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.43 - chercher ≥1.43 chez le bookmaker\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+      "reasoning": "✈️ Combo intra-Viking\n📈 P(Peter Christiansen marque) ≈ 60% · P(Simen Kvia-Egeskog marque) ≈ 43%\n🎯 P(au moins un marque) = 70% (1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.43 - chercher ≥1.43 chez le bookmaker\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
       "context": {
         "combo_kind": "intra-away"
       },
       "_team_for_balance": "away",
       "stats": {
-        "p_a": 0.608,
+        "p_a": 0.6,
         "p_b": 0.428,
         "p_or": 0.7,
         "player_a": "Peter Christiansen",
@@ -38993,10 +39039,10 @@
       "cote": null,
       "book": null,
       "books": [],
-      "confidence": 61,
-      "reasoning": "6 buts en 9 matchs cette saison (66.7% de chance/match) · bonne efficacité (26% conv.) · xG moyen 0.64/match, défense adverse poreuse (1.5 buts concédés/match) · défense correcte\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
+      "confidence": 60,
+      "reasoning": "6 buts en 9 matchs cette saison (66.7% de chance/match) · bonne efficacité (26% conv.) · xG moyen 0.64/match, défense adverse poreuse (1.3 buts concédés/match) · défense correcte\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
       "context": {
-        "weakness": 0.48
+        "weakness": 0.46
       },
       "stats": {
         "goals": 6,
@@ -39032,7 +39078,7 @@
       "confidence": 46,
       "reasoning": "13 passes décisives en 10 matchs (50.0% de chance/match) · xA moyen 0.66/match · défense correcte\n📉 Calibration : bucket 40-49% historiquement à WR 25% (claim 44%, n=36) — sur-estimé de 19pp",
       "context": {
-        "weakness": 0.48
+        "weakness": 0.46
       },
       "stats": {
         "assists": 13,
@@ -39202,46 +39248,6 @@
       "actual": null,
       "resolved_at": null,
       "side": "away"
-    },
-    {
-      "player": "Samuel Salter / Arbër Zeneli",
-      "position": "",
-      "is_sub": false,
-      "type": "Double Chance Buteur",
-      "label": "Samuel Salter OU Arbër Zeneli marque (cross-équipe)",
-      "cote": null,
-      "book": null,
-      "books": [],
-      "confidence": 70,
-      "cote_min": 1.49,
-      "reasoning": "🔀 Cross-équipe (moins corrélé → meilleur EV)\n📈 P(Samuel Salter marque) ≈ 46% · P(Arbër Zeneli marque) ≈ 38%\n🎯 P(au moins un marque) = 70% (1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.49 - chercher ≥1.49 chez le bookmaker\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
-      "context": {
-        "combo_kind": "cross"
-      },
-      "_team_for_balance": "home",
-      "stats": {
-        "p_a": 0.465,
-        "p_b": 0.375,
-        "p_or": 0.666,
-        "player_a": "Samuel Salter",
-        "player_b": "Arbër Zeneli",
-        "kind": "cross"
-      },
-      "team": "home",
-      "tier": "safe",
-      "calibration_delta": -11.3,
-      "history_top3": true,
-      "id": "2026-07-12_5107527_player_Samuel Salter / Arbër Zeneli_Double Chance Buteur",
-      "date": "2026-07-12",
-      "match_id": "5107527",
-      "page_url": "/matches/elfsborg-vs-gais/277iy5#5107527",
-      "matchup": "GAIS vs Elfsborg",
-      "league": "Swedish Allsvenskan",
-      "category": "player",
-      "result": "PENDING",
-      "actual": null,
-      "resolved_at": null,
-      "side": "home"
     },
     {
       "player": "Matías Klimowicz / Bruno Miranda",
@@ -39860,34 +39866,34 @@
       "side": "home"
     },
     {
-      "player": "Yegor Glushach / Xabi Auzmendi",
+      "player": "Xabi Auzmendi / Yegor Glushach",
       "position": "",
       "is_sub": false,
       "type": "Double Chance Buteur",
-      "label": "Yegor Glushach ou Xabi Auzmendi marque (FK TransINVEST)",
+      "label": "Xabi Auzmendi ou Yegor Glushach marque (FK TransINVEST)",
       "cote": null,
       "book": null,
       "books": [],
       "confidence": 70,
       "cote_min": 1.43,
-      "reasoning": "🏠 Combo intra-FK TransINVEST\n📈 P(Yegor Glushach marque) ≈ 46% · P(Xabi Auzmendi marque) ≈ 45%\n🎯 P(au moins un marque) = 70% (1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.43 - chercher ≥1.43 chez le bookmaker\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+      "reasoning": "🏠 Combo intra-FK TransINVEST\n📈 P(Xabi Auzmendi marque) ≈ 46% · P(Yegor Glushach marque) ≈ 46%\n🎯 P(au moins un marque) = 70% (1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.43 - chercher ≥1.43 chez le bookmaker\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
       "context": {
         "combo_kind": "intra-home"
       },
       "_team_for_balance": "home",
       "stats": {
         "p_a": 0.458,
-        "p_b": 0.45,
-        "p_or": 0.702,
-        "player_a": "Yegor Glushach",
-        "player_b": "Xabi Auzmendi",
+        "p_b": 0.458,
+        "p_or": 0.7,
+        "player_a": "Xabi Auzmendi",
+        "player_b": "Yegor Glushach",
         "kind": "intra-home"
       },
       "team": "home",
       "tier": "safe",
       "calibration_delta": -11.3,
       "history_top3": true,
-      "id": "2026-07-12_5874489_player_Yegor Glushach / Xabi Auzmendi_Double Chance Buteur",
+      "id": "2026-07-12_5874489_player_Xabi Auzmendi / Yegor Glushach_Double Chance Buteur",
       "date": "2026-07-12",
       "match_id": "5874489",
       "page_url": "/matches/banga-gargzdai-vs-fk-transinvest/go4rmqqc#5874489",
@@ -39904,8 +39910,8 @@
       "type": "Victoire domicile",
       "label": "FK TransINVEST gagne",
       "cote": null,
-      "confidence": 59,
-      "reasoning": "FK TransINVEST : 3V/1N/1D sur 5 matchs · #5 au classement · H2H: 1V/1N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 50-59% historiquement à WR 42% (claim 55%, n=41) — sur-estimé de 14pp",
+      "confidence": 60,
+      "reasoning": "FK TransINVEST : 3V/1N/1D sur 5 matchs · #4 au classement · H2H: 1V/1N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
       "stats": {
         "form": [
           "D",
@@ -39917,7 +39923,7 @@
       },
       "is_fun": false,
       "tier": "ok",
-      "calibration_delta": -13.6,
+      "calibration_delta": -25.4,
       "history_top3": true,
       "id": "2026-07-12_5874489_team_home_win",
       "date": "2026-07-12",
@@ -40031,6 +40037,82 @@
       "page_url": "/matches/shanghai-port-vs-dalian-yingbo/hwy8a0ka#5186548",
       "matchup": "Shanghai Port vs Dalian Yingbo",
       "league": "Chinese Super League",
+      "category": "player",
+      "result": "PENDING",
+      "actual": null,
+      "resolved_at": null,
+      "side": "away"
+    },
+    {
+      "player": "Henrik Udahl / Mame Alassane Niang",
+      "position": "",
+      "is_sub": false,
+      "type": "Double Chance Buteur",
+      "label": "Henrik Udahl ou Mame Alassane Niang marque (Hamarkameratene)",
+      "cote": null,
+      "book": null,
+      "books": [],
+      "confidence": 70,
+      "cote_min": 1.43,
+      "reasoning": "✈️ Combo intra-Hamarkameratene\n📈 P(Henrik Udahl marque) ≈ 51% · P(Mame Alassane Niang marque) ≈ 44%\n🎯 P(au moins un marque) = 70% (1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.43 - chercher ≥1.43 chez le bookmaker\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+      "context": {
+        "combo_kind": "intra-away"
+      },
+      "_team_for_balance": "away",
+      "stats": {
+        "p_a": 0.51,
+        "p_b": 0.435,
+        "p_or": 0.7,
+        "player_a": "Henrik Udahl",
+        "player_b": "Mame Alassane Niang",
+        "kind": "intra-away"
+      },
+      "team": "away",
+      "tier": "safe",
+      "calibration_delta": -11.3,
+      "history_top3": true,
+      "id": "2026-07-12_5104945_player_Henrik Udahl / Mame Alassane Niang_Double Chance Buteur",
+      "date": "2026-07-12",
+      "match_id": "5104945",
+      "page_url": "/matches/hamarkameratene-vs-sandefjord/2emb2q#5104945",
+      "matchup": "Sandefjord vs Hamarkameratene",
+      "league": "Norwegian Eliteserien",
+      "category": "player",
+      "result": "PENDING",
+      "actual": null,
+      "resolved_at": null,
+      "side": "away"
+    },
+    {
+      "player": "Henrik Udahl",
+      "position": "F",
+      "is_sub": false,
+      "type": "Buteur",
+      "label": "Henrik Udahl marque",
+      "cote": null,
+      "book": null,
+      "books": [],
+      "confidence": 56,
+      "reasoning": "⚽ Penaltyman · 5 buts en 10 matchs cette saison (50.0% de chance/match) · bonne efficacité (20% conv.) · xG moyen 0.44/match · défense correcte\n📉 Calibration : bucket 50-59% historiquement à WR 42% (claim 55%, n=41) — sur-estimé de 14pp",
+      "context": {
+        "weakness": 0.41
+      },
+      "stats": {
+        "goals": 5,
+        "apps": 10,
+        "gpm": 0.5,
+        "xgpm": 0.44
+      },
+      "team": "away",
+      "tier": "ok",
+      "calibration_delta": -13.6,
+      "history_top3": true,
+      "id": "2026-07-12_5104945_player_Henrik Udahl_Buteur",
+      "date": "2026-07-12",
+      "match_id": "5104945",
+      "page_url": "/matches/hamarkameratene-vs-sandefjord/2emb2q#5104945",
+      "matchup": "Sandefjord vs Hamarkameratene",
+      "league": "Norwegian Eliteserien",
       "category": "player",
       "result": "PENDING",
       "actual": null,
@@ -40226,80 +40308,80 @@
       "side": "away"
     },
     {
-      "player": "Henrik Udahl / Mame Alassane Niang",
+      "player": "Noah Holm / Kristall Ingason",
       "position": "",
       "is_sub": false,
       "type": "Double Chance Buteur",
-      "label": "Henrik Udahl ou Mame Alassane Niang marque (Hamarkameratene)",
+      "label": "Noah Holm ou Kristall Ingason marque (Brann)",
       "cote": null,
       "book": null,
       "books": [],
       "confidence": 70,
       "cote_min": 1.43,
-      "reasoning": "✈️ Combo intra-Hamarkameratene\n📈 P(Henrik Udahl marque) ≈ 50% · P(Mame Alassane Niang marque) ≈ 43%\n🎯 P(au moins un marque) = 70% (1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.43 - chercher ≥1.43 chez le bookmaker\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+      "reasoning": "🏠 Combo intra-Brann\n📈 P(Noah Holm marque) ≈ 53% · P(Kristall Ingason marque) ≈ 41%\n🎯 P(au moins un marque) = 70% (1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.43 - chercher ≥1.43 chez le bookmaker\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
       "context": {
-        "combo_kind": "intra-away"
+        "combo_kind": "intra-home"
       },
-      "_team_for_balance": "away",
+      "_team_for_balance": "home",
       "stats": {
-        "p_a": 0.502,
-        "p_b": 0.428,
+        "p_a": 0.532,
+        "p_b": 0.412,
         "p_or": 0.7,
-        "player_a": "Henrik Udahl",
-        "player_b": "Mame Alassane Niang",
-        "kind": "intra-away"
+        "player_a": "Noah Holm",
+        "player_b": "Kristall Ingason",
+        "kind": "intra-home"
       },
-      "team": "away",
+      "team": "home",
       "tier": "safe",
       "calibration_delta": -11.3,
       "history_top3": true,
-      "id": "2026-07-12_5104945_player_Henrik Udahl / Mame Alassane Niang_Double Chance Buteur",
+      "id": "2026-07-12_5104941_player_Noah Holm / Kristall Ingason_Double Chance Buteur",
       "date": "2026-07-12",
-      "match_id": "5104945",
-      "page_url": "/matches/hamarkameratene-vs-sandefjord/2emb2q#5104945",
-      "matchup": "Sandefjord vs Hamarkameratene",
+      "match_id": "5104941",
+      "page_url": "/matches/brann-vs-start/2snjj1#5104941",
+      "matchup": "Brann vs Start",
       "league": "Norwegian Eliteserien",
       "category": "player",
       "result": "PENDING",
       "actual": null,
       "resolved_at": null,
-      "side": "away"
+      "side": "home"
     },
     {
-      "player": "Henrik Udahl",
+      "player": "Noah Holm",
       "position": "F",
       "is_sub": false,
       "type": "Buteur",
-      "label": "Henrik Udahl marque",
+      "label": "Noah Holm marque",
       "cote": null,
       "book": null,
       "books": [],
-      "confidence": 55,
-      "reasoning": "⚽ Penaltyman · 5 buts en 10 matchs cette saison (50.0% de chance/match) · bonne efficacité (20% conv.) · xG moyen 0.44/match · défense correcte\n📉 Calibration : bucket 50-59% historiquement à WR 42% (claim 55%, n=41) — sur-estimé de 14pp",
+      "confidence": 53,
+      "reasoning": "5 buts en 12 matchs cette saison (41.7% de chance/match) · xG moyen 0.51/match, face à une défense qui concède 2.2 buts/match · défense fragile\n📉 Calibration : bucket 50-59% historiquement à WR 42% (claim 55%, n=41) — sur-estimé de 14pp",
       "context": {
-        "weakness": 0.4
+        "weakness": 0.69
       },
       "stats": {
         "goals": 5,
-        "apps": 10,
-        "gpm": 0.5,
-        "xgpm": 0.44
+        "apps": 12,
+        "gpm": 0.417,
+        "xgpm": 0.508
       },
-      "team": "away",
-      "tier": "ok",
+      "team": "home",
+      "tier": "fun",
       "calibration_delta": -13.6,
       "history_top3": true,
-      "id": "2026-07-12_5104945_player_Henrik Udahl_Buteur",
+      "id": "2026-07-12_5104941_player_Noah Holm_Buteur",
       "date": "2026-07-12",
-      "match_id": "5104945",
-      "page_url": "/matches/hamarkameratene-vs-sandefjord/2emb2q#5104945",
-      "matchup": "Sandefjord vs Hamarkameratene",
+      "match_id": "5104941",
+      "page_url": "/matches/brann-vs-start/2snjj1#5104941",
+      "matchup": "Brann vs Start",
       "league": "Norwegian Eliteserien",
       "category": "player",
       "result": "PENDING",
       "actual": null,
       "resolved_at": null,
-      "side": "away"
+      "side": "home"
     },
     {
       "player": "Leander Alvheim / Promise Meliga",
@@ -40353,7 +40435,7 @@
       "confidence": 51,
       "reasoning": "5 buts en 10 matchs cette saison (50.0% de chance/match) · finisseur efficace (20% de conv.) · xG moyen 0.41/match, défense adverse poreuse (1.5 buts concédés/match) · défense fragile\n📉 Calibration : bucket 50-59% historiquement à WR 42% (claim 55%, n=41) — sur-estimé de 14pp",
       "context": {
-        "weakness": 0.58
+        "weakness": 0.56
       },
       "stats": {
         "goals": 5,
@@ -40376,82 +40458,6 @@
       "actual": null,
       "resolved_at": null,
       "side": "away"
-    },
-    {
-      "player": "Noah Holm / Kristall Ingason",
-      "position": "",
-      "is_sub": false,
-      "type": "Double Chance Buteur",
-      "label": "Noah Holm ou Kristall Ingason marque (Brann)",
-      "cote": null,
-      "book": null,
-      "books": [],
-      "confidence": 70,
-      "cote_min": 1.43,
-      "reasoning": "🏠 Combo intra-Brann\n📈 P(Noah Holm marque) ≈ 50% · P(Kristall Ingason marque) ≈ 41%\n🎯 P(au moins un marque) = 70% (1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.43 - chercher ≥1.43 chez le bookmaker\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
-      "context": {
-        "combo_kind": "intra-home"
-      },
-      "_team_for_balance": "home",
-      "stats": {
-        "p_a": 0.502,
-        "p_b": 0.412,
-        "p_or": 0.7,
-        "player_a": "Noah Holm",
-        "player_b": "Kristall Ingason",
-        "kind": "intra-home"
-      },
-      "team": "home",
-      "tier": "safe",
-      "calibration_delta": -11.3,
-      "history_top3": true,
-      "id": "2026-07-12_5104941_player_Noah Holm / Kristall Ingason_Double Chance Buteur",
-      "date": "2026-07-12",
-      "match_id": "5104941",
-      "page_url": "/matches/brann-vs-start/2snjj1#5104941",
-      "matchup": "Brann vs Start",
-      "league": "Norwegian Eliteserien",
-      "category": "player",
-      "result": "PENDING",
-      "actual": null,
-      "resolved_at": null,
-      "side": "home"
-    },
-    {
-      "player": "Noah Holm",
-      "position": "F",
-      "is_sub": false,
-      "type": "Buteur",
-      "label": "Noah Holm marque",
-      "cote": null,
-      "book": null,
-      "books": [],
-      "confidence": 50,
-      "reasoning": "4 buts en 12 matchs cette saison (33.3% de chance/match) · sous-performe son xG (attention) · xG moyen 0.48/match, face à une défense qui concède 2.2 buts/match · défense fragile\n📉 Calibration : bucket 50-59% historiquement à WR 42% (claim 55%, n=41) — sur-estimé de 14pp",
-      "context": {
-        "weakness": 0.69
-      },
-      "stats": {
-        "goals": 4,
-        "apps": 12,
-        "gpm": 0.333,
-        "xgpm": 0.483
-      },
-      "team": "home",
-      "tier": "fun",
-      "calibration_delta": -13.6,
-      "history_top3": true,
-      "id": "2026-07-12_5104941_player_Noah Holm_Buteur",
-      "date": "2026-07-12",
-      "match_id": "5104941",
-      "page_url": "/matches/brann-vs-start/2snjj1#5104941",
-      "matchup": "Brann vs Start",
-      "league": "Norwegian Eliteserien",
-      "category": "player",
-      "result": "PENDING",
-      "actual": null,
-      "resolved_at": null,
-      "side": "home"
     },
     {
       "player": "Vilington Branda",
