@@ -40247,9 +40247,9 @@
       "matchup": "Tianjin Jinmen Tiger vs Liaoning Tieren",
       "league": "Chinese Super League",
       "category": "team",
-      "result": "PENDING",
-      "actual": null,
-      "resolved_at": null
+      "result": "PUSH",
+      "actual": "Match data unavailable (likely cancelled/postponed)",
+      "resolved_at": "2026-07-12 23:01"
     },
     {
       "player": "Alberto Quiles / Guilherme Schettine",
@@ -40286,9 +40286,9 @@
       "matchup": "Tianjin Jinmen Tiger vs Liaoning Tieren",
       "league": "Chinese Super League",
       "category": "player",
-      "result": "PENDING",
-      "actual": null,
-      "resolved_at": null,
+      "result": "PUSH",
+      "actual": "Match data unavailable (likely cancelled/postponed)",
+      "resolved_at": "2026-07-12 23:01",
       "side": "home"
     },
     {
@@ -40322,9 +40322,9 @@
       "matchup": "Tianjin Jinmen Tiger vs Liaoning Tieren",
       "league": "Chinese Super League",
       "category": "player",
-      "result": "PENDING",
-      "actual": null,
-      "resolved_at": null,
+      "result": "PUSH",
+      "actual": "Match data unavailable (likely cancelled/postponed)",
+      "resolved_at": "2026-07-12 23:01",
       "side": "away"
     },
     {
@@ -40611,6 +40611,82 @@
       "actual": null,
       "resolved_at": null,
       "side": "away"
+    },
+    {
+      "player": "Kristian Lien / Patric Åslund",
+      "position": "",
+      "is_sub": false,
+      "type": "Double Chance Buteur",
+      "label": "Kristian Lien ou Patric Åslund marque (Djurgården)",
+      "cote": null,
+      "book": null,
+      "books": [],
+      "confidence": 70,
+      "cote_min": 1.43,
+      "reasoning": "🏠 Combo intra-Djurgården\n📈 P(Kristian Lien marque) ≈ 57% · P(Patric Åslund marque) ≈ 45%\n🎯 P(au moins un marque) = 70% (1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.43 - chercher ≥1.43 chez le bookmaker\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+      "context": {
+        "combo_kind": "intra-home"
+      },
+      "_team_for_balance": "home",
+      "stats": {
+        "p_a": 0.57,
+        "p_b": 0.45,
+        "p_or": 0.7,
+        "player_a": "Kristian Lien",
+        "player_b": "Patric Åslund",
+        "kind": "intra-home"
+      },
+      "team": "home",
+      "tier": "safe",
+      "calibration_delta": -11.3,
+      "history_top3": true,
+      "id": "2026-07-13_5107525_player_Kristian Lien / Patric Åslund_Double Chance Buteur",
+      "date": "2026-07-13",
+      "match_id": "5107525",
+      "page_url": "/matches/halmstads-bk-vs-djurgarden/2pnyy2#5107525",
+      "matchup": "Djurgården vs Halmstads BK",
+      "league": "Swedish Allsvenskan",
+      "category": "player",
+      "result": "PENDING",
+      "actual": null,
+      "resolved_at": null,
+      "side": "home"
+    },
+    {
+      "player": "Kristian Lien",
+      "position": "F",
+      "is_sub": false,
+      "type": "Buteur",
+      "label": "Kristian Lien marque",
+      "cote": null,
+      "book": null,
+      "books": [],
+      "confidence": 57,
+      "reasoning": "6 buts en 10 matchs cette saison (60.0% de chance/match) · finisseur efficace (22% de conv.) · xG moyen 0.47/match, face à une défense qui concède 2.1 buts/match · défense fragile\n📉 Calibration : bucket 50-59% historiquement à WR 42% (claim 55%, n=41) — sur-estimé de 14pp",
+      "context": {
+        "weakness": 0.68
+      },
+      "stats": {
+        "goals": 6,
+        "apps": 10,
+        "gpm": 0.6,
+        "xgpm": 0.47
+      },
+      "team": "home",
+      "tier": "ok",
+      "calibration_delta": -13.6,
+      "history_top3": true,
+      "id": "2026-07-13_5107525_player_Kristian Lien_Buteur",
+      "date": "2026-07-13",
+      "match_id": "5107525",
+      "page_url": "/matches/halmstads-bk-vs-djurgarden/2pnyy2#5107525",
+      "matchup": "Djurgården vs Halmstads BK",
+      "league": "Swedish Allsvenskan",
+      "category": "player",
+      "result": "PENDING",
+      "actual": null,
+      "resolved_at": null,
+      "side": "home"
     }
   ]
 }
