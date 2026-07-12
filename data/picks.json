@@ -342,7 +342,7 @@
         "direction": "home_win",
         "type": "Victoire domicile",
         "label": "Argentina gagne",
-        "cote": 1.71,
+        "cote": 1.74,
         "confidence": 81,
         "reasoning": "Argentina : 5V/0N/0D sur 5 matchs · #1 au classement · H2H: 0V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 80-89% historiquement à WR 56% (claim 82%, n=63) — sur-estimé de 26pp",
         "stats": {
@@ -357,14 +357,14 @@
         "is_fun": false,
         "tier": "safe",
         "calibration_delta": -26.0,
-        "edge_pp": 22.5,
+        "edge_pp": 23.5,
         "history_top3": true
       },
       {
         "direction": "wc_over_25",
         "type": "⚽ Total buts WC",
         "label": "Plus de 2.5 buts",
-        "cote": 2.25,
+        "cote": 2.3,
         "cote_min": 1.65,
         "confidence": 61,
         "tier": "ok",
@@ -379,7 +379,7 @@
         },
         "reasoning": "📊 Écart FIFA significatif : Argentina #1 vs Switzerland #15 (gap +238 pts, P favori ≈ 80%).\n⭐ Argentina favori CdM 2026\nL10 : Argentina 5V/0N/0D sur 5 · Switzerland 3V/2N/0D sur 5\n📋 Fiche Argentina : off moyen (-0.22) · def fragile (-0.60) · forme WWWWW · 🏆 élite mondiale\n   ↳ Historique : vainqueur en 2022 · 1/8 en 2018 · finaliste en 2014 · 1 titre (2022)\n📋 Fiche Switzerland : off moyen (-0.16) · def fragile (-0.42) · forme DWWWD · 🏆 habituée du tournoi\n🎯 Importance : Switzerland : 1 match joué (1pts)\n🌦️ Conditions : chaleur 32.8°C (-10%)\n✅ Compo OFFICIELLE\n⚽ Modèle Poisson : λ total = 3.14\nP(plus de 2.5 buts) = 60.7%\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
         "calibration_delta": -25.4,
-        "edge_pp": 16.6,
+        "edge_pp": 17.5,
         "history_top3": true
       },
       {
@@ -542,7 +542,7 @@
       "direction": "home_win",
       "type": "Victoire domicile",
       "label": "Argentina gagne",
-      "cote": 1.71,
+      "cote": 1.74,
       "confidence": 81,
       "reasoning": "Argentina : 5V/0N/0D sur 5 matchs · #1 au classement · H2H: 0V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 80-89% historiquement à WR 56% (claim 82%, n=63) — sur-estimé de 26pp",
       "stats": {
@@ -557,7 +557,7 @@
       "is_fun": false,
       "tier": "safe",
       "calibration_delta": -26.0,
-      "edge_pp": 22.5,
+      "edge_pp": 23.5,
       "history_top3": true
     },
     "no_picks": false,
@@ -3316,8 +3316,16 @@
         "capacity": null,
         "surface": null
       },
-      "weather": null,
-      "text": "Stade : Estadio Rodrigo Paz Delgado · plein air."
+      "weather": {
+        "temp_max": 19.4,
+        "temp_min": 10.4,
+        "humidity": 71,
+        "precipitation_sum_mm": 0.9,
+        "wind_max_kmh": 12.6,
+        "weather_code": 51,
+        "summary_fr": "🌦️ bruine légère · 10–19°C · humidité 71%"
+      },
+      "text": "Conditions : 🌦️ bruine légère · 10–19°C · humidité 71%. Stade : Estadio Rodrigo Paz Delgado · plein air."
     }
   }
 ]
