@@ -642,6 +642,113 @@
     }
   },
   {
+    "league": "Ecuador LigaPro",
+    "home": "Emelec",
+    "away": "Barcelona SC",
+    "start_ts": 1783901400,
+    "match_id": "1000009009",
+    "page_url": "/matches/emelec-vs-barcelona-sc/kj1bx#1000009009",
+    "picks": [
+      {
+        "direction": "away_win",
+        "type": "Victoire extérieur",
+        "label": "Barcelona SC gagne",
+        "cote": null,
+        "confidence": 65,
+        "reasoning": "Barcelona SC : 3V/0N/2D sur 5 matchs · #3 au classement · H2H: 1V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
+        "stats": {
+          "form": [
+            "W",
+            "L",
+            "W",
+            "W",
+            "L"
+          ]
+        },
+        "is_fun": false,
+        "tier": "ok",
+        "calibration_delta": -25.4,
+        "history_top3": true
+      }
+    ],
+    "home_players": [],
+    "away_players": [
+      {
+        "player": "Darío Benedetto / Jhonny Quiñónez",
+        "position": "",
+        "is_sub": false,
+        "type": "Double Chance Buteur",
+        "label": "Darío Benedetto ou Jhonny Quiñónez marque (Barcelona SC)",
+        "cote": null,
+        "book": null,
+        "books": [],
+        "confidence": 68,
+        "cote_min": 1.47,
+        "reasoning": "✈️ Combo intra-Barcelona SC\n📈 P(Darío Benedetto marque) ≈ 47% · P(Jhonny Quiñónez marque) ≈ 39%\n🎯 P(au moins un marque) = 68% (1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.47 - chercher ≥1.47 chez le bookmaker\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
+        "context": {
+          "combo_kind": "intra-away"
+        },
+        "_team_for_balance": "away",
+        "stats": {
+          "p_a": 0.472,
+          "p_b": 0.39,
+          "p_or": 0.678,
+          "player_a": "Darío Benedetto",
+          "player_b": "Jhonny Quiñónez",
+          "kind": "intra-away"
+        },
+        "team": "away",
+        "tier": "ok",
+        "calibration_delta": -25.4,
+        "history_top3": true
+      }
+    ],
+    "fun_picks": [],
+    "top_pick": {
+      "direction": "away_win",
+      "type": "Victoire extérieur",
+      "label": "Barcelona SC gagne",
+      "cote": null,
+      "confidence": 65,
+      "reasoning": "Barcelona SC : 3V/0N/2D sur 5 matchs · #3 au classement · H2H: 1V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
+      "stats": {
+        "form": [
+          "W",
+          "L",
+          "W",
+          "W",
+          "L"
+        ]
+      },
+      "is_fun": false,
+      "tier": "ok",
+      "calibration_delta": -25.4,
+      "history_top3": true
+    },
+    "no_picks": false,
+    "context": {
+      "stadium": {
+        "name": "Estadio George Capwell Banco del Austro",
+        "city": "Guayaquil",
+        "country": "Ecuador",
+        "lat": -2.206611926,
+        "lon": -79.893763661,
+        "capacity": null,
+        "surface": null
+      },
+      "weather": {
+        "temp_max": 33.6,
+        "temp_min": 24.0,
+        "humidity": 56,
+        "precipitation_sum_mm": 0.4,
+        "wind_max_kmh": 13.2,
+        "weather_code": 51,
+        "summary_fr": "🌦️ bruine légère · 24–33°C · humidité 56%"
+      },
+      "text": "Conditions : 🌦️ bruine légère · 24–33°C · humidité 56%. Stade : Estadio George Capwell Banco del Austro · plein air. ⚠️ Forte chaleur (>32°C) en plein air : impact endurance, plus de pauses hydratation."
+    }
+  },
+  {
     "league": "Swedish Allsvenskan",
     "home": "Djurgården",
     "away": "Halmstads BK",
