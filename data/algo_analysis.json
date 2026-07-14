@@ -1,18 +1,18 @@
 {
-  "generated_at": "2026-07-14T13:34:57.545223",
-  "n_total": 1448,
+  "generated_at": "2026-07-14T14:06:34.753102",
+  "n_total": 1449,
   "globals": {
     "foot": {
-      "n": 1162,
-      "w": 525,
+      "n": 1163,
+      "w": 526,
       "l": 599,
       "push": 38,
-      "wr": 46.7,
-      "roi": -12.9,
-      "profit": -149.94,
+      "wr": 46.8,
+      "roi": -12.8,
+      "profit": -149.14,
       "avg_cote": 2.31,
       "break_even_wr": 43.3,
-      "wr_vs_be": 3.4
+      "wr_vs_be": 3.5
     },
     "tennis": {
       "n": 151,
@@ -70,18 +70,18 @@
         "calibration_gap": -21.9
       },
       "70-79": {
-        "n": 418,
-        "w": 214,
+        "n": 419,
+        "w": 215,
         "l": 183,
         "push": 21,
-        "wr": 53.9,
-        "roi": -3.0,
-        "profit": -12.4,
+        "wr": 54.0,
+        "roi": -2.8,
+        "profit": -11.6,
         "avg_cote": 1.85,
         "break_even_wr": 53.9,
-        "wr_vs_be": -0.0,
+        "wr_vs_be": 0.1,
         "expected_wr": 74.5,
-        "calibration_gap": -20.6
+        "calibration_gap": -20.5
       },
       "80-89": {
         "n": 116,
@@ -536,13 +536,13 @@
         "wr_vs_be": -3.3
       },
       "Double Chance Buteur": {
-        "n": 233,
-        "w": 92,
+        "n": 234,
+        "w": 93,
         "l": 136,
         "push": 5,
-        "wr": 40.4,
-        "roi": -26.8,
-        "profit": -62.4,
+        "wr": 40.6,
+        "roi": -26.3,
+        "profit": -61.6,
         "avg_cote": null,
         "break_even_wr": null,
         "wr_vs_be": null
@@ -806,6 +806,18 @@
     },
     "foot": {
       "league": {
+        "Chinese Super League": {
+          "n": 45,
+          "w": 11,
+          "l": 22,
+          "push": 12,
+          "wr": 33.3,
+          "roi": -29.3,
+          "profit": -13.2,
+          "avg_cote": null,
+          "break_even_wr": null,
+          "wr_vs_be": null
+        },
         "Icelandic Besta": {
           "n": 61,
           "w": 23,
@@ -886,18 +898,6 @@
           "wr": 42.9,
           "roi": -21.8,
           "profit": -4.8,
-          "avg_cote": null,
-          "break_even_wr": null,
-          "wr_vs_be": null
-        },
-        "Chinese Super League": {
-          "n": 44,
-          "w": 10,
-          "l": 22,
-          "push": 12,
-          "wr": 31.2,
-          "roi": -31.8,
-          "profit": -14.0,
           "avg_cote": null,
           "break_even_wr": null,
           "wr_vs_be": null
@@ -1399,16 +1399,16 @@
       },
       "is_fun": {
         "False": {
-          "n": 1153,
-          "w": 522,
+          "n": 1154,
+          "w": 523,
           "l": 593,
           "push": 38,
-          "wr": 46.8,
-          "roi": -13.3,
-          "profit": -152.87,
+          "wr": 46.9,
+          "roi": -13.2,
+          "profit": -152.07,
           "avg_cote": 2.25,
           "break_even_wr": 44.5,
-          "wr_vs_be": 2.3
+          "wr_vs_be": 2.4
         },
         "True": {
           "n": 9,
@@ -1514,15 +1514,15 @@
       "severity": "high",
       "type": "skip_market",
       "scope": "foot · Double Chance Buteur",
-      "message": "Market <b>Double Chance Buteur</b> (foot) : ROI <b>-26.8%</b> sur 233 picks (WR 40.4%). À skipper ou refondre la formule.",
+      "message": "Market <b>Double Chance Buteur</b> (foot) : ROI <b>-26.3%</b> sur 234 picks (WR 40.6%). À skipper ou refondre la formule.",
       "stats": {
-        "n": 233,
-        "w": 92,
+        "n": 234,
+        "w": 93,
         "l": 136,
         "push": 5,
-        "wr": 40.4,
-        "roi": -26.8,
-        "profit": -62.4,
+        "wr": 40.6,
+        "roi": -26.3,
+        "profit": -61.6,
         "avg_cote": null,
         "break_even_wr": null,
         "wr_vs_be": null
@@ -1712,20 +1712,20 @@
       "severity": "medium",
       "type": "miscalibrated_overconfident",
       "scope": "foot · conf 70-79",
-      "message": "Bucket conf <b>70-79</b> (foot) : modèle annonce ~74.5% mais WR réel = 53.9% (gap -20.6pp sur 418 picks). Modèle trop confiant → relever MIN_CONF ou ajuster formule.",
+      "message": "Bucket conf <b>70-79</b> (foot) : modèle annonce ~74.5% mais WR réel = 54.0% (gap -20.5pp sur 419 picks). Modèle trop confiant → relever MIN_CONF ou ajuster formule.",
       "stats": {
-        "n": 418,
-        "w": 214,
+        "n": 419,
+        "w": 215,
         "l": 183,
         "push": 21,
-        "wr": 53.9,
-        "roi": -3.0,
-        "profit": -12.4,
+        "wr": 54.0,
+        "roi": -2.8,
+        "profit": -11.6,
         "avg_cote": 1.85,
         "break_even_wr": 53.9,
-        "wr_vs_be": -0.0,
+        "wr_vs_be": 0.1,
         "expected_wr": 74.5,
-        "calibration_gap": -20.6
+        "calibration_gap": -20.5
       }
     },
     {
