@@ -41090,6 +41090,73 @@
     {
       "direction": "away_win",
       "type": "Victoire extérieur",
+      "label": "Tecnico Universitario gagne",
+      "cote": null,
+      "confidence": 60,
+      "reasoning": "Tecnico Universitario : 3V/0N/2D sur 5 matchs · #8 au classement · H2H: 1V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
+      "stats": {
+        "form": [
+          "L",
+          "W",
+          "W",
+          "W",
+          "L"
+        ]
+      },
+      "is_fun": false,
+      "tier": "ok",
+      "calibration_delta": -25.4,
+      "history_top3": true,
+      "id": "2026-07-15_1000009021_team_away_win",
+      "date": "2026-07-15",
+      "match_id": "1000009021",
+      "page_url": "/matches/tecnico-universitario-vs-libertad/dkl88h2v#1000009021",
+      "matchup": "Libertad vs Tecnico Universitario",
+      "league": "Ecuador LigaPro",
+      "category": "team",
+      "result": "LOSS",
+      "actual": "1-0",
+      "resolved_at": "2026-07-15 19:01"
+    },
+    {
+      "player": "Vilington Branda",
+      "position": "F",
+      "is_sub": false,
+      "type": "Buteur",
+      "label": "Vilington Branda marque",
+      "team": "home",
+      "cote": null,
+      "book": null,
+      "books": [],
+      "confidence": 34,
+      "reasoning": "5G en 17 matchs (29.4%/match) · xG: 0.00/match",
+      "context": {
+        "weakness": 0.44
+      },
+      "stats": {
+        "goals": 5,
+        "apps": 17
+      },
+      "tier": "fun",
+      "history_top3": true,
+      "id": "2026-07-15_1000009021_player_Vilington Branda_Buteur",
+      "date": "2026-07-15",
+      "match_id": "1000009021",
+      "page_url": "/matches/tecnico-universitario-vs-libertad/dkl88h2v#1000009021",
+      "matchup": "Libertad vs Tecnico Universitario",
+      "league": "Ecuador LigaPro",
+      "category": "player",
+      "result": "LOSS",
+      "actual": {
+        "goals": 0,
+        "assists": 0
+      },
+      "resolved_at": "2026-07-15 19:01",
+      "side": "home"
+    },
+    {
+      "direction": "away_win",
+      "type": "Victoire extérieur",
       "label": "Argentina gagne",
       "cote": 3.05,
       "confidence": 81,
@@ -41162,15 +41229,15 @@
       "books": [],
       "confidence": 69,
       "cote_min": 1.52,
-      "reasoning": "🔀 Cross-équipe (moins corrélé → meilleur EV)\n📈 P(Harry Kane marque) ≈ 40% · P(Lautaro Martínez marque) ≈ 44%\n🎯 P(au moins un marque) = 69% (1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.52 - chercher ≥1.52 chez le bookmaker\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
+      "reasoning": "🔀 Cross-équipe (moins corrélé → meilleur EV)\n📈 P(Harry Kane marque) ≈ 40% · P(Lautaro Martínez marque) ≈ 43%\n🎯 P(au moins un marque) = 69% (1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.52 - chercher ≥1.52 chez le bookmaker\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
       "context": {
         "combo_kind": "cross"
       },
       "_team_for_balance": "home",
       "stats": {
         "p_a": 0.405,
-        "p_b": 0.435,
-        "p_or": 0.664,
+        "p_b": 0.428,
+        "p_or": 0.66,
         "player_a": "Harry Kane",
         "player_b": "Lautaro Martínez",
         "kind": "cross"
@@ -41273,15 +41340,15 @@
       "books": [],
       "confidence": 70,
       "cote_min": 1.45,
-      "reasoning": "🔀 Cross-équipe (moins corrélé → meilleur EV)\n📈 P(Juan Anangonó marque) ≈ 46% · P(Matías Klimowicz marque) ≈ 43%\n🎯 P(au moins un marque) = 70% (1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.45 - chercher ≥1.45 chez le bookmaker\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+      "reasoning": "🔀 Cross-équipe (moins corrélé → meilleur EV)\n📈 P(Juan Anangonó marque) ≈ 46% · P(Matías Klimowicz marque) ≈ 42%\n🎯 P(au moins un marque) = 70% (1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.45 - chercher ≥1.45 chez le bookmaker\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
       "context": {
         "combo_kind": "cross"
       },
       "_team_for_balance": "home",
       "stats": {
         "p_a": 0.458,
-        "p_b": 0.428,
-        "p_or": 0.69,
+        "p_b": 0.42,
+        "p_or": 0.686,
         "player_a": "Juan Anangonó",
         "player_b": "Matías Klimowicz",
         "kind": "cross"
@@ -41375,70 +41442,6 @@
       "match_id": "1000009019",
       "page_url": "/matches/ldu-de-quito-vs-universidad-catolica/3amloqa#1000009019",
       "matchup": "Universidad Catolica vs LDU de Quito",
-      "league": "Ecuador LigaPro",
-      "category": "player",
-      "result": "PENDING",
-      "actual": null,
-      "resolved_at": null,
-      "side": "home"
-    },
-    {
-      "direction": "away_win",
-      "type": "Victoire extérieur",
-      "label": "Tecnico Universitario gagne",
-      "cote": null,
-      "confidence": 60,
-      "reasoning": "Tecnico Universitario : 3V/0N/2D sur 5 matchs · #8 au classement · H2H: 1V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
-      "stats": {
-        "form": [
-          "L",
-          "W",
-          "W",
-          "W",
-          "L"
-        ]
-      },
-      "is_fun": false,
-      "tier": "ok",
-      "calibration_delta": -25.4,
-      "history_top3": true,
-      "id": "2026-07-15_1000009021_team_away_win",
-      "date": "2026-07-15",
-      "match_id": "1000009021",
-      "page_url": "/matches/tecnico-universitario-vs-libertad/dkl88h2v#1000009021",
-      "matchup": "Libertad vs Tecnico Universitario",
-      "league": "Ecuador LigaPro",
-      "category": "team",
-      "result": "PENDING",
-      "actual": null,
-      "resolved_at": null
-    },
-    {
-      "player": "Vilington Branda",
-      "position": "F",
-      "is_sub": false,
-      "type": "Buteur",
-      "label": "Vilington Branda marque",
-      "team": "home",
-      "cote": null,
-      "book": null,
-      "books": [],
-      "confidence": 34,
-      "reasoning": "5G en 17 matchs (29.4%/match) · xG: 0.00/match",
-      "context": {
-        "weakness": 0.44
-      },
-      "stats": {
-        "goals": 5,
-        "apps": 17
-      },
-      "tier": "fun",
-      "history_top3": true,
-      "id": "2026-07-15_1000009021_player_Vilington Branda_Buteur",
-      "date": "2026-07-15",
-      "match_id": "1000009021",
-      "page_url": "/matches/tecnico-universitario-vs-libertad/dkl88h2v#1000009021",
-      "matchup": "Libertad vs Tecnico Universitario",
       "league": "Ecuador LigaPro",
       "category": "player",
       "result": "PENDING",
