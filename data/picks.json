@@ -96,35 +96,6 @@
     ],
     "home_players": [
       {
-        "player": "Harry Kane / Lautaro Martínez",
-        "position": "",
-        "is_sub": false,
-        "type": "Double Chance Buteur",
-        "label": "Harry Kane OU Lautaro Martínez marque (cross-équipe)",
-        "cote": null,
-        "book": null,
-        "books": [],
-        "confidence": 69,
-        "cote_min": 1.52,
-        "reasoning": "🔀 Cross-équipe (moins corrélé → meilleur EV)\n📈 P(Harry Kane marque) ≈ 40% · P(Lautaro Martínez marque) ≈ 43%\n🎯 P(au moins un marque) = 69% (1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.52 - chercher ≥1.52 chez le bookmaker\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
-        "context": {
-          "combo_kind": "cross"
-        },
-        "_team_for_balance": "home",
-        "stats": {
-          "p_a": 0.405,
-          "p_b": 0.428,
-          "p_or": 0.66,
-          "player_a": "Harry Kane",
-          "player_b": "Lautaro Martínez",
-          "kind": "cross"
-        },
-        "team": "home",
-        "tier": "ok",
-        "calibration_delta": -25.4,
-        "history_top3": true
-      },
-      {
         "player": "Jude Bellingham",
         "position": "F",
         "is_sub": false,
@@ -185,6 +156,35 @@
     ],
     "away_players": [
       {
+        "player": "Lautaro Martínez / Lionel Messi",
+        "position": "",
+        "is_sub": false,
+        "type": "Double Chance Buteur",
+        "label": "Lautaro Martínez ou Lionel Messi marque (Argentina)",
+        "cote": null,
+        "book": null,
+        "books": [],
+        "confidence": 70,
+        "cote_min": 1.43,
+        "reasoning": "✈️ Combo intra-Argentina\n📈 P(Lautaro Martínez marque) ≈ 52% · P(Lionel Messi marque) ≈ 42%\n🎯 P(au moins un marque) = 70% (1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.43 - chercher ≥1.43 chez le bookmaker\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+        "context": {
+          "combo_kind": "intra-away"
+        },
+        "_team_for_balance": "away",
+        "stats": {
+          "p_a": 0.518,
+          "p_b": 0.42,
+          "p_or": 0.7,
+          "player_a": "Lautaro Martínez",
+          "player_b": "Lionel Messi",
+          "kind": "intra-away"
+        },
+        "team": "away",
+        "tier": "safe",
+        "calibration_delta": -11.3,
+        "history_top3": true
+      },
+      {
         "player": "Lionel Messi",
         "position": "F",
         "is_sub": false,
@@ -211,6 +211,31 @@
         "lineup_status": "confirmed",
         "tier": "ok",
         "calibration_delta": -25.4,
+        "history_top3": false
+      },
+      {
+        "player": "Lautaro Martínez",
+        "position": "F",
+        "is_sub": false,
+        "type": "Buteur",
+        "label": "Lautaro Martínez marque",
+        "cote": null,
+        "book": null,
+        "books": [],
+        "confidence": 52,
+        "reasoning": "3 buts en 6 matchs cette saison (50.0% de chance/match) · xG moyen 0.50/match · défense solide\n📉 Calibration : bucket 50-59% historiquement à WR 42% (claim 55%, n=41) — sur-estimé de 14pp",
+        "context": {
+          "weakness": 0.28
+        },
+        "stats": {
+          "goals": 3,
+          "apps": 6,
+          "gpm": 0.5,
+          "xgpm": 0.5
+        },
+        "team": "away",
+        "tier": "fun",
+        "calibration_delta": -13.6,
         "history_top3": false
       }
     ],

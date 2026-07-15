@@ -41219,34 +41219,34 @@
       "resolved_at": null
     },
     {
-      "player": "Harry Kane / Lautaro Martínez",
+      "player": "Lautaro Martínez / Lionel Messi",
       "position": "",
       "is_sub": false,
       "type": "Double Chance Buteur",
-      "label": "Harry Kane OU Lautaro Martínez marque (cross-équipe)",
+      "label": "Lautaro Martínez ou Lionel Messi marque (Argentina)",
       "cote": null,
       "book": null,
       "books": [],
-      "confidence": 69,
-      "cote_min": 1.52,
-      "reasoning": "🔀 Cross-équipe (moins corrélé → meilleur EV)\n📈 P(Harry Kane marque) ≈ 40% · P(Lautaro Martínez marque) ≈ 43%\n🎯 P(au moins un marque) = 69% (1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.52 - chercher ≥1.52 chez le bookmaker\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
+      "confidence": 70,
+      "cote_min": 1.43,
+      "reasoning": "✈️ Combo intra-Argentina\n📈 P(Lautaro Martínez marque) ≈ 52% · P(Lionel Messi marque) ≈ 42%\n🎯 P(au moins un marque) = 70% (1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.43 - chercher ≥1.43 chez le bookmaker\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
       "context": {
-        "combo_kind": "cross"
+        "combo_kind": "intra-away"
       },
-      "_team_for_balance": "home",
+      "_team_for_balance": "away",
       "stats": {
-        "p_a": 0.405,
-        "p_b": 0.428,
-        "p_or": 0.66,
-        "player_a": "Harry Kane",
-        "player_b": "Lautaro Martínez",
-        "kind": "cross"
+        "p_a": 0.518,
+        "p_b": 0.42,
+        "p_or": 0.7,
+        "player_a": "Lautaro Martínez",
+        "player_b": "Lionel Messi",
+        "kind": "intra-away"
       },
-      "team": "home",
-      "tier": "ok",
-      "calibration_delta": -25.4,
+      "team": "away",
+      "tier": "safe",
+      "calibration_delta": -11.3,
       "history_top3": true,
-      "id": "2026-07-15_4653856_player_Harry Kane / Lautaro Martínez_Double Chance Buteur",
+      "id": "2026-07-15_4653856_player_Lautaro Martínez / Lionel Messi_Double Chance Buteur",
       "date": "2026-07-15",
       "match_id": "4653856",
       "page_url": "/matches/argentina-vs-england/1wrd1a#4653856",
@@ -41256,7 +41256,7 @@
       "result": "PENDING",
       "actual": null,
       "resolved_at": null,
-      "side": "home"
+      "side": "away"
     },
     {
       "direction": "wc_btts_yes",
