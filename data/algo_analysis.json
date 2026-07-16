@@ -1,15 +1,15 @@
 {
-  "generated_at": "2026-07-16T18:43:03.309551",
-  "n_total": 1466,
+  "generated_at": "2026-07-16T19:07:14.548501",
+  "n_total": 1467,
   "globals": {
     "foot": {
-      "n": 1180,
-      "w": 533,
+      "n": 1181,
+      "w": 534,
       "l": 609,
       "push": 38,
       "wr": 46.7,
-      "roi": -12.9,
-      "profit": -151.69,
+      "roi": -12.8,
+      "profit": -150.89,
       "avg_cote": 2.32,
       "break_even_wr": 43.2,
       "wr_vs_be": 3.5
@@ -56,18 +56,18 @@
         "calibration_gap": -16.9
       },
       "60-69": {
-        "n": 315,
-        "w": 129,
+        "n": 316,
+        "w": 130,
         "l": 177,
         "push": 9,
-        "wr": 42.2,
-        "roi": -21.0,
-        "profit": -66.0,
+        "wr": 42.3,
+        "roi": -20.6,
+        "profit": -65.2,
         "avg_cote": 2.17,
         "break_even_wr": 46.0,
-        "wr_vs_be": -3.9,
+        "wr_vs_be": -3.7,
         "expected_wr": 64.5,
-        "calibration_gap": -22.3
+        "calibration_gap": -22.2
       },
       "70-79": {
         "n": 424,
@@ -536,13 +536,13 @@
         "wr_vs_be": -2.2
       },
       "Double Chance Buteur": {
-        "n": 240,
-        "w": 96,
+        "n": 241,
+        "w": 97,
         "l": 139,
         "push": 5,
-        "wr": 40.9,
-        "roi": -25.9,
-        "profit": -62.2,
+        "wr": 41.1,
+        "roi": -25.5,
+        "profit": -61.4,
         "avg_cote": null,
         "break_even_wr": null,
         "wr_vs_be": null
@@ -818,6 +818,18 @@
           "break_even_wr": null,
           "wr_vs_be": null
         },
+        "Norwegian Eliteserien": {
+          "n": 21,
+          "w": 10,
+          "l": 11,
+          "push": 0,
+          "wr": 47.6,
+          "roi": -14.3,
+          "profit": -3.0,
+          "avg_cote": null,
+          "break_even_wr": null,
+          "wr_vs_be": null
+        },
         "World Cup": {
           "n": 291,
           "w": 154,
@@ -862,18 +874,6 @@
           "wr": 55.9,
           "roi": 0.6,
           "profit": 0.2,
-          "avg_cote": null,
-          "break_even_wr": null,
-          "wr_vs_be": null
-        },
-        "Norwegian Eliteserien": {
-          "n": 20,
-          "w": 9,
-          "l": 11,
-          "push": 0,
-          "wr": 45.0,
-          "roi": -19.0,
-          "profit": -3.8,
           "avg_cote": null,
           "break_even_wr": null,
           "wr_vs_be": null
@@ -1399,16 +1399,16 @@
       },
       "is_fun": {
         "False": {
-          "n": 1171,
-          "w": 530,
+          "n": 1172,
+          "w": 531,
           "l": 603,
           "push": 38,
           "wr": 46.8,
-          "roi": -13.2,
-          "profit": -154.62,
+          "roi": -13.1,
+          "profit": -153.82,
           "avg_cote": 2.25,
           "break_even_wr": 44.4,
-          "wr_vs_be": 2.4
+          "wr_vs_be": 2.5
         },
         "True": {
           "n": 9,
@@ -1514,15 +1514,15 @@
       "severity": "high",
       "type": "skip_market",
       "scope": "foot · Double Chance Buteur",
-      "message": "Market <b>Double Chance Buteur</b> (foot) : ROI <b>-25.9%</b> sur 240 picks (WR 40.9%). À skipper ou refondre la formule.",
+      "message": "Market <b>Double Chance Buteur</b> (foot) : ROI <b>-25.5%</b> sur 241 picks (WR 41.1%). À skipper ou refondre la formule.",
       "stats": {
-        "n": 240,
-        "w": 96,
+        "n": 241,
+        "w": 97,
         "l": 139,
         "push": 5,
-        "wr": 40.9,
-        "roi": -25.9,
-        "profit": -62.2,
+        "wr": 41.1,
+        "roi": -25.5,
+        "profit": -61.4,
         "avg_cote": null,
         "break_even_wr": null,
         "wr_vs_be": null
@@ -1732,20 +1732,20 @@
       "severity": "medium",
       "type": "miscalibrated_overconfident",
       "scope": "foot · conf 60-69",
-      "message": "Bucket conf <b>60-69</b> (foot) : modèle annonce ~64.5% mais WR réel = 42.2% (gap -22.3pp sur 315 picks). Modèle trop confiant → relever MIN_CONF ou ajuster formule.",
+      "message": "Bucket conf <b>60-69</b> (foot) : modèle annonce ~64.5% mais WR réel = 42.3% (gap -22.2pp sur 316 picks). Modèle trop confiant → relever MIN_CONF ou ajuster formule.",
       "stats": {
-        "n": 315,
-        "w": 129,
+        "n": 316,
+        "w": 130,
         "l": 177,
         "push": 9,
-        "wr": 42.2,
-        "roi": -21.0,
-        "profit": -66.0,
+        "wr": 42.3,
+        "roi": -20.6,
+        "profit": -65.2,
         "avg_cote": 2.17,
         "break_even_wr": 46.0,
-        "wr_vs_be": -3.9,
+        "wr_vs_be": -3.7,
         "expected_wr": 64.5,
-        "calibration_gap": -22.3
+        "calibration_gap": -22.2
       }
     },
     {
