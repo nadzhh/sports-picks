@@ -1201,7 +1201,7 @@
         "sot_pm": 0,
         "xG_pm": 0,
         "xA_pm": 0.015,
-        "rating": 6.66
+        "rating": 6.64
       },
       {
         "id": 699694,
@@ -1661,16 +1661,16 @@
       }
     ],
     "home_team_stats": {
-      "goals_pm": 1.8,
-      "conceded_pm": 1.8,
-      "shots_pm": 12.75,
-      "sot_pm": 5.1
+      "goals_pm": 1.7,
+      "conceded_pm": 1.7,
+      "shots_pm": 12.0,
+      "sot_pm": 4.8
     },
     "away_team_stats": {
       "goals_pm": 1.4,
-      "conceded_pm": 1.6,
-      "shots_pm": 8.0,
-      "sot_pm": 3.2
+      "conceded_pm": 1.5,
+      "shots_pm": 7.75,
+      "sot_pm": 3.1
     },
     "home_recent": {
       "form": [
@@ -1721,20 +1721,20 @@
       "shots_l10_lg": 15.0,
       "opp_shots_l5_lg": 18.4,
       "opp_shots_l10_lg": 16.7,
-      "sot_pm": 5.1,
+      "sot_pm": 4.8,
       "sot_l5": 7.8,
       "sot_l10": 6.8,
-      "sot_season": 5.1,
+      "sot_season": 4.8,
       "opp_sot_l5": 3.2,
       "opp_sot_l10": 4.4,
       "sot_l5_lg": 5.4,
       "sot_l10_lg": 5.7,
       "opp_sot_l5_lg": 6.0,
       "opp_sot_l10_lg": 5.7,
-      "xg_pm": 1.24,
+      "xg_pm": 1.17,
       "xg_l5": 0.98,
       "xg_l10": 1.21,
-      "xg_season": 1.24,
+      "xg_season": 1.17,
       "opp_xg_l5": 1.65,
       "opp_xg_l10": 1.6,
       "xg_l5_lg": 1.21,
@@ -1747,10 +1747,10 @@
       "shots_weighted": 15.1,
       "sot_weighted": 5.7,
       "xg_weighted": 1.26,
-      "opp_shots_weighted": 16.0,
+      "opp_shots_weighted": 16.1,
       "opp_sot_weighted": 5.5,
-      "avg_opp_rank_l10": 12.8,
-      "target_opp_rank": 15,
+      "avg_opp_rank_l10": 12.9,
+      "target_opp_rank": 14,
       "all_comp_n_l5": 5,
       "all_comp_n_l10": 9,
       "shots_l5_all": 18.6,
@@ -1780,10 +1780,10 @@
       "opp_shots_home": 15.0,
       "opp_shots_away": 18.3,
       "shots_trend": "",
-      "xg_conc_pm": 1.56,
-      "corners_pm": 3.71,
-      "big_chance_pm": 2.12,
-      "possession_pct": 47.3,
+      "xg_conc_pm": 1.47,
+      "corners_pm": 3.5,
+      "big_chance_pm": 2.0,
+      "possession_pct": 45.6,
       "clean_sheet_pm": 0.06
     },
     "away_recent": {
@@ -1794,7 +1794,7 @@
         "W",
         "D"
       ],
-      "position": 15,
+      "position": 14,
       "avgRating": null,
       "goals_for_pm": 1.44,
       "goals_ag_pm": 1.61,
@@ -1835,20 +1835,20 @@
       "shots_l10_lg": 10.3,
       "opp_shots_l5_lg": 15.4,
       "opp_shots_l10_lg": 15.0,
-      "sot_pm": 3.2,
+      "sot_pm": 3.1,
       "sot_l5": 3.6,
       "sot_l10": 3.5,
-      "sot_season": 3.2,
+      "sot_season": 3.1,
       "opp_sot_l5": 5.6,
       "opp_sot_l10": 4.5,
       "sot_l5_lg": 3.4,
       "sot_l10_lg": 3.7,
       "opp_sot_l5_lg": 5.0,
       "opp_sot_l10_lg": 4.7,
-      "xg_pm": 1.21,
+      "xg_pm": 1.14,
       "xg_l5": 1.37,
       "xg_l10": 1.26,
-      "xg_season": 1.21,
+      "xg_season": 1.14,
       "opp_xg_l5": 1.7,
       "opp_xg_l10": 1.6,
       "xg_l5_lg": 1.26,
@@ -1894,11 +1894,11 @@
       "opp_shots_home": 12.8,
       "opp_shots_away": 18.0,
       "shots_trend": "",
-      "xg_conc_pm": 1.33,
-      "corners_pm": 5.0,
-      "big_chance_pm": 1.89,
-      "possession_pct": 48.3,
-      "clean_sheet_pm": 0.22
+      "xg_conc_pm": 1.26,
+      "corners_pm": 4.74,
+      "big_chance_pm": 1.79,
+      "possession_pct": 50.2,
+      "clean_sheet_pm": 0.21
     },
     "home_l5": [
       {
@@ -2505,14 +2505,125 @@
       "n_matches": 0
     },
     "lineup": {
-      "type": "unavailable",
+      "type": "standard",
       "source": "optaSdapi",
       "home": {
         "name": "Botafogo RJ",
         "id": 8517,
-        "formation": "",
-        "coach": null,
-        "starters": [],
+        "formation": "4-2-3-1",
+        "coach": "Franclim Carvalho",
+        "starters": [
+          {
+            "id": 1210064,
+            "name": "Léo Linck",
+            "shirt": "24",
+            "pos_id": 11,
+            "rating": null,
+            "goals": null,
+            "assists": null,
+            "apps": null
+          },
+          {
+            "id": 905498,
+            "name": "Vitinho",
+            "shirt": "2",
+            "pos_id": 32,
+            "rating": 6.73,
+            "goals": null,
+            "assists": 2,
+            "apps": null
+          },
+          {
+            "id": 1793991,
+            "name": "Gabriel Justino",
+            "shirt": "34",
+            "pos_id": 34,
+            "rating": 6.42,
+            "goals": null,
+            "assists": null,
+            "apps": null
+          },
+          {
+            "id": 847910,
+            "name": "Nahuel Ferraresi",
+            "shirt": "5",
+            "pos_id": 36,
+            "rating": 6.88,
+            "goals": 1,
+            "assists": null,
+            "apps": null
+          },
+          {
+            "id": 428672,
+            "name": "Alex Telles",
+            "shirt": "13",
+            "pos_id": 38,
+            "rating": 6.74,
+            "goals": 2,
+            "assists": 2,
+            "apps": null
+          },
+          {
+            "id": 1761942,
+            "name": "Huguinho",
+            "shirt": "75",
+            "pos_id": 64,
+            "rating": 6.9,
+            "goals": 1,
+            "assists": null,
+            "apps": null
+          },
+          {
+            "id": 1199960,
+            "name": "Cristian Medina",
+            "shirt": "6",
+            "pos_id": 66,
+            "rating": 6.69,
+            "goals": 1,
+            "assists": null,
+            "apps": null
+          },
+          {
+            "id": 1817873,
+            "name": "Kauan Toledo",
+            "shirt": "59",
+            "pos_id": 83,
+            "rating": 6.56,
+            "goals": null,
+            "assists": 1,
+            "apps": null
+          },
+          {
+            "id": 1262084,
+            "name": "Matheus Martins",
+            "shirt": "11",
+            "pos_id": 85,
+            "rating": 6.78,
+            "goals": 4,
+            "assists": null,
+            "apps": null
+          },
+          {
+            "id": 1474166,
+            "name": "Lucas Villalba",
+            "shirt": "77",
+            "pos_id": 87,
+            "rating": 6.49,
+            "goals": 1,
+            "assists": 1,
+            "apps": null
+          },
+          {
+            "id": 0,
+            "name": "Lucas Emanuel",
+            "shirt": "79",
+            "pos_id": 115,
+            "rating": null,
+            "goals": null,
+            "assists": null,
+            "apps": null
+          }
+        ],
         "unavailable": [
           {
             "id": 1607035,
@@ -2573,9 +2684,120 @@
       "away": {
         "name": "Santos FC",
         "id": 8514,
-        "formation": "",
-        "coach": null,
-        "starters": [],
+        "formation": "4-2-3-1",
+        "coach": "Cuca",
+        "starters": [
+          {
+            "id": 982426,
+            "name": "Gabriel Brazão",
+            "shirt": "77",
+            "pos_id": 11,
+            "rating": 6.75,
+            "goals": null,
+            "assists": null,
+            "apps": null
+          },
+          {
+            "id": 916348,
+            "name": "Igor Vinícius",
+            "shirt": "18",
+            "pos_id": 32,
+            "rating": 7.02,
+            "goals": null,
+            "assists": 1,
+            "apps": null
+          },
+          {
+            "id": 699694,
+            "name": "Lucas Veríssimo",
+            "shirt": "4",
+            "pos_id": 34,
+            "rating": 6.62,
+            "goals": null,
+            "assists": null,
+            "apps": null
+          },
+          {
+            "id": 763386,
+            "name": "Luan Peres",
+            "shirt": "14",
+            "pos_id": 36,
+            "rating": 6.62,
+            "goals": null,
+            "assists": null,
+            "apps": null
+          },
+          {
+            "id": 751010,
+            "name": "Gonzalo Escobar",
+            "shirt": "31",
+            "pos_id": 38,
+            "rating": 6.98,
+            "goals": null,
+            "assists": 1,
+            "apps": null
+          },
+          {
+            "id": 305713,
+            "name": "Willian Arão",
+            "shirt": "15",
+            "pos_id": 64,
+            "rating": 6.66,
+            "goals": null,
+            "assists": null,
+            "apps": null
+          },
+          {
+            "id": 1744831,
+            "name": "Gustavo Henrique",
+            "shirt": "48",
+            "pos_id": 66,
+            "rating": 6.4,
+            "goals": null,
+            "assists": null,
+            "apps": null
+          },
+          {
+            "id": 1312459,
+            "name": "Miguel Terceros",
+            "shirt": "30",
+            "pos_id": 83,
+            "rating": 6.73,
+            "goals": 1,
+            "assists": 2,
+            "apps": null
+          },
+          {
+            "id": 1073365,
+            "name": "Benjamín Rollheiser",
+            "shirt": "32",
+            "pos_id": 85,
+            "rating": 6.96,
+            "goals": 3,
+            "assists": null,
+            "apps": null
+          },
+          {
+            "id": 959915,
+            "name": "Álvaro Barreal",
+            "shirt": "22",
+            "pos_id": 87,
+            "rating": 6.69,
+            "goals": 3,
+            "assists": null,
+            "apps": null
+          },
+          {
+            "id": 687496,
+            "name": "Thaciano",
+            "shirt": "16",
+            "pos_id": 115,
+            "rating": 6.67,
+            "goals": 2,
+            "assists": null,
+            "apps": null
+          }
+        ],
         "unavailable": [
           {
             "id": 345905,
@@ -4432,10 +4654,10 @@
       "shots_n_l5_lg": 5,
       "shots_n_l10_lg": 6,
       "shots_source": "tcc",
-      "shots_weighted": 12.8,
-      "sot_weighted": 4.6,
+      "shots_weighted": 12.5,
+      "sot_weighted": 4.5,
       "xg_weighted": 1.01,
-      "opp_shots_weighted": 11.5,
+      "opp_shots_weighted": 11.7,
       "opp_sot_weighted": 2.6,
       "avg_opp_rank_l10": 9.7,
       "target_opp_rank": 17,
@@ -4546,12 +4768,12 @@
       "shots_n_l5_lg": 5,
       "shots_n_l10_lg": 7,
       "shots_source": "tcc",
-      "shots_weighted": 18.8,
+      "shots_weighted": 18.9,
       "sot_weighted": 5.8,
-      "xg_weighted": 1.36,
+      "xg_weighted": 1.37,
       "opp_shots_weighted": 12.3,
       "opp_sot_weighted": 5.3,
-      "avg_opp_rank_l10": 8.9,
+      "avg_opp_rank_l10": 9.0,
       "target_opp_rank": 13,
       "all_comp_n_l5": 5,
       "all_comp_n_l10": 9,
@@ -4592,7 +4814,7 @@
       {
         "date": "2026-05-30T23:00:00Z",
         "opponent": "Santos FC",
-        "opp_rank": 15,
+        "opp_rank": 14,
         "opp_id": "8514",
         "is_home": false,
         "score": "3 - 1",
@@ -4641,7 +4863,7 @@
       {
         "date": "2026-05-23T20:00:00Z",
         "opponent": "Internacional",
-        "opp_rank": 14,
+        "opp_rank": 15,
         "opp_id": "8702",
         "is_home": true,
         "score": "2 - 0",
@@ -4891,7 +5113,7 @@
       {
         "date": "2026-05-16T21:30:00Z",
         "opponent": "Internacional",
-        "opp_rank": 14,
+        "opp_rank": 15,
         "opp_id": "8702",
         "is_home": false,
         "score": "4 - 1",
@@ -7156,8 +7378,8 @@
       "sot_weighted": 5.5,
       "xg_weighted": 1.67,
       "opp_shots_weighted": 12.6,
-      "opp_sot_weighted": 5.3,
-      "avg_opp_rank_l10": 9.5,
+      "opp_sot_weighted": 5.4,
+      "avg_opp_rank_l10": 9.4,
       "target_opp_rank": 20,
       "all_comp_n_l5": 4,
       "all_comp_n_l10": 7,
@@ -9844,10 +10066,10 @@
       "shots_n_l10_lg": 7,
       "shots_source": "tcc",
       "shots_weighted": 12.0,
-      "sot_weighted": 4.7,
-      "xg_weighted": 1.13,
-      "opp_shots_weighted": 13.4,
-      "opp_sot_weighted": 5.3,
+      "sot_weighted": 4.6,
+      "xg_weighted": 1.12,
+      "opp_shots_weighted": 13.3,
+      "opp_sot_weighted": 5.2,
       "avg_opp_rank_l10": 11.9,
       "target_opp_rank": 5,
       "all_comp_n_l5": 5,
@@ -9957,9 +10179,9 @@
       "shots_n_l5_lg": 5,
       "shots_n_l10_lg": 7,
       "shots_source": "tcc",
-      "shots_weighted": 17.1,
+      "shots_weighted": 17.0,
       "sot_weighted": 5.0,
-      "xg_weighted": 1.69,
+      "xg_weighted": 1.67,
       "opp_shots_weighted": 9.1,
       "opp_sot_weighted": 3.0,
       "avg_opp_rank_l10": 13.0,
@@ -10162,7 +10384,7 @@
       {
         "date": "2026-05-03T21:30:00Z",
         "opponent": "Internacional",
-        "opp_rank": 14,
+        "opp_rank": 15,
         "opp_id": "8702",
         "is_home": false,
         "score": "2 - 0",
@@ -10200,7 +10422,7 @@
       {
         "date": "2026-05-31T14:00:00Z",
         "opponent": "Internacional",
-        "opp_rank": 14,
+        "opp_rank": 15,
         "opp_id": "8702",
         "is_home": true,
         "score": "3 - 1",
@@ -10327,7 +10549,7 @@
       {
         "date": "2026-05-10T21:30:00Z",
         "opponent": "Santos FC",
-        "opp_rank": 15,
+        "opp_rank": 14,
         "opp_id": "8514",
         "is_home": false,
         "score": "2 - 0",
@@ -12368,10 +12590,10 @@
       "shots_source": "tcc",
       "shots_weighted": 11.7,
       "sot_weighted": 3.7,
-      "xg_weighted": 1.16,
-      "opp_shots_weighted": 15.2,
+      "xg_weighted": 1.17,
+      "opp_shots_weighted": 15.3,
       "opp_sot_weighted": 4.0,
-      "avg_opp_rank_l10": 9.1,
+      "avg_opp_rank_l10": 9.2,
       "target_opp_rank": 16,
       "all_comp_n_l5": 5,
       "all_comp_n_l10": 8,
@@ -12480,11 +12702,11 @@
       "shots_n_l5_lg": 5,
       "shots_n_l10_lg": 7,
       "shots_source": "tcc",
-      "shots_weighted": 11.0,
+      "shots_weighted": 10.9,
       "sot_weighted": 3.0,
-      "xg_weighted": 1.02,
+      "xg_weighted": 1.01,
       "opp_shots_weighted": 16.9,
-      "opp_sot_weighted": 5.3,
+      "opp_sot_weighted": 5.4,
       "avg_opp_rank_l10": 8.8,
       "target_opp_rank": 19,
       "all_comp_n_l5": 5,
@@ -12766,7 +12988,7 @@
       {
         "date": "2026-05-23T22:00:00Z",
         "opponent": "Santos FC",
-        "opp_rank": 15,
+        "opp_rank": 14,
         "opp_id": "8514",
         "is_home": true,
         "score": "3 - 2",
@@ -21769,7 +21991,7 @@
         "sot_pm": 0.7,
         "xG_pm": 0,
         "xA_pm": 0,
-        "rating": 7.22
+        "rating": 7.24
       },
       {
         "id": 1813995,
@@ -21808,16 +22030,16 @@
         "minutes": 1327,
         "goals": 3,
         "assists": 1,
-        "shots": 31.0,
-        "shots_on": 12.0,
+        "shots": 34.0,
+        "shots_on": 14.0,
         "goals_pm": 0.176,
         "assists_pm": 0.059,
         "g_a_pm": 0.235,
-        "shots_pm": 1.8,
-        "sot_pm": 0.7,
+        "shots_pm": 2.0,
+        "sot_pm": 0.8,
         "xG_pm": 0,
         "xA_pm": 0,
-        "rating": 7.38
+        "rating": 7.4
       },
       {
         "id": 1435961,
@@ -21865,7 +22087,7 @@
         "sot_pm": 0.7,
         "xG_pm": 0,
         "xA_pm": 0,
-        "rating": 7.29
+        "rating": 7.31
       },
       {
         "id": 345801,
@@ -21889,7 +22111,7 @@
         "sot_pm": 1.2,
         "xG_pm": 0,
         "xA_pm": 0,
-        "rating": 6.95
+        "rating": 6.96
       },
       {
         "id": 1050795,
@@ -21913,7 +22135,7 @@
         "sot_pm": 0.6,
         "xG_pm": 0,
         "xA_pm": 0,
-        "rating": 6.65
+        "rating": 6.64
       },
       {
         "id": 1230852,
@@ -21985,7 +22207,7 @@
         "sot_pm": 0,
         "xG_pm": 0,
         "xA_pm": 0,
-        "rating": 7.04
+        "rating": 7.03
       },
       {
         "id": 1353451,
@@ -22009,7 +22231,7 @@
         "sot_pm": 0,
         "xG_pm": 0,
         "xA_pm": 0,
-        "rating": 7.04
+        "rating": 7.01
       },
       {
         "id": 1404394,
@@ -22033,7 +22255,7 @@
         "sot_pm": 0.4,
         "xG_pm": 0,
         "xA_pm": 0,
-        "rating": 6.77
+        "rating": 6.76
       },
       {
         "id": 282310,
@@ -22057,31 +22279,7 @@
         "sot_pm": 0,
         "xG_pm": 0,
         "xA_pm": 0,
-        "rating": 6.64
-      },
-      {
-        "id": 1122642,
-        "name": "Steven Tapiero",
-        "shortName": "Steven Tapiero",
-        "position": "M",
-        "team_id": 6608,
-        "appearances": 11,
-        "appearances_raw": 11,
-        "stats_suspect": false,
-        "is_sub": false,
-        "minutes": 396,
-        "goals": 0,
-        "assists": 0,
-        "shots": 2.0,
-        "shots_on": 0,
-        "goals_pm": 0.0,
-        "assists_pm": 0.0,
-        "g_a_pm": 0.0,
-        "shots_pm": 0.2,
-        "sot_pm": 0,
-        "xG_pm": 0,
-        "xA_pm": 0,
-        "rating": 6.49
+        "rating": 6.61
       },
       {
         "id": 1828220,
@@ -22105,7 +22303,31 @@
         "sot_pm": 0,
         "xG_pm": 0,
         "xA_pm": 0,
-        "rating": 6.45
+        "rating": 6.48
+      },
+      {
+        "id": 1122642,
+        "name": "Steven Tapiero",
+        "shortName": "Steven Tapiero",
+        "position": "M",
+        "team_id": 6608,
+        "appearances": 11,
+        "appearances_raw": 11,
+        "stats_suspect": false,
+        "is_sub": false,
+        "minutes": 396,
+        "goals": 0,
+        "assists": 0,
+        "shots": 2.0,
+        "shots_on": 0,
+        "goals_pm": 0.0,
+        "assists_pm": 0.0,
+        "g_a_pm": 0.0,
+        "shots_pm": 0.2,
+        "sot_pm": 0,
+        "xG_pm": 0,
+        "xA_pm": 0,
+        "rating": 6.46
       },
       {
         "id": 988120,
@@ -22374,6 +22596,30 @@
         "rating": null
       },
       {
+        "id": 1350448,
+        "name": "Layan Loor",
+        "shortName": "Layan Loor",
+        "position": "M",
+        "team_id": 192875,
+        "appearances": 10,
+        "appearances_raw": 10,
+        "stats_suspect": false,
+        "is_sub": false,
+        "minutes": 827,
+        "goals": 1,
+        "assists": 5,
+        "shots": 15.0,
+        "shots_on": 2.0,
+        "goals_pm": 0.1,
+        "assists_pm": 0.5,
+        "g_a_pm": 0.6,
+        "shots_pm": 1.5,
+        "sot_pm": 0.2,
+        "xG_pm": 0,
+        "xA_pm": 0,
+        "rating": 7.59
+      },
+      {
         "id": 809537,
         "name": "Djorkaeff Reasco",
         "shortName": "Djorkaeff Reasco",
@@ -22384,18 +22630,18 @@
         "stats_suspect": false,
         "is_sub": false,
         "minutes": 971,
-        "goals": 6,
+        "goals": 7,
         "assists": 3,
-        "shots": 65.0,
-        "shots_on": 24.0,
-        "goals_pm": 0.353,
+        "shots": 66.0,
+        "shots_on": 26.0,
+        "goals_pm": 0.412,
         "assists_pm": 0.176,
-        "g_a_pm": 0.529,
-        "shots_pm": 3.8,
-        "sot_pm": 1.4,
+        "g_a_pm": 0.588,
+        "shots_pm": 3.9,
+        "sot_pm": 1.5,
         "xG_pm": 0,
         "xA_pm": 0,
-        "rating": 7.0
+        "rating": 7.07
       },
       {
         "id": 1829195,
@@ -22422,30 +22668,6 @@
         "rating": null
       },
       {
-        "id": 1350448,
-        "name": "Layan Loor",
-        "shortName": "Layan Loor",
-        "position": "M",
-        "team_id": 192875,
-        "appearances": 10,
-        "appearances_raw": 10,
-        "stats_suspect": false,
-        "is_sub": false,
-        "minutes": 827,
-        "goals": 1,
-        "assists": 4,
-        "shots": 15.0,
-        "shots_on": 2.0,
-        "goals_pm": 0.1,
-        "assists_pm": 0.4,
-        "g_a_pm": 0.5,
-        "shots_pm": 1.5,
-        "sot_pm": 0.2,
-        "xG_pm": 0,
-        "xA_pm": 0,
-        "rating": 7.5
-      },
-      {
         "id": 1676881,
         "name": "Emerson Pata",
         "shortName": "Emerson Pata",
@@ -22467,7 +22689,7 @@
         "sot_pm": 1.7,
         "xG_pm": 0,
         "xA_pm": 0,
-        "rating": 7.29
+        "rating": 7.3
       },
       {
         "id": 1607569,
@@ -22627,15 +22849,15 @@
         "goals": 2,
         "assists": 3,
         "shots": 63.0,
-        "shots_on": 24.0,
+        "shots_on": 22.0,
         "goals_pm": 0.118,
         "assists_pm": 0.176,
         "g_a_pm": 0.294,
         "shots_pm": 3.7,
-        "sot_pm": 1.4,
+        "sot_pm": 1.3,
         "xG_pm": 0,
         "xA_pm": 0,
-        "rating": 6.9
+        "rating": 6.94
       },
       {
         "id": 1248973,
@@ -22659,7 +22881,7 @@
         "sot_pm": 1.2,
         "xG_pm": 0,
         "xA_pm": 0,
-        "rating": 7.03
+        "rating": 7.05
       },
       {
         "id": 1732291,
@@ -22923,7 +23145,7 @@
         "sot_pm": 0,
         "xG_pm": 0,
         "xA_pm": 0,
-        "rating": 6.78
+        "rating": 6.82
       },
       {
         "id": 1380288,
@@ -23097,8 +23319,8 @@
     "home_team_stats": {
       "goals_pm": 1.1,
       "conceded_pm": 0.9,
-      "shots_pm": 12.25,
-      "sot_pm": 4.9
+      "shots_pm": 12.5,
+      "sot_pm": 5.0
     },
     "away_team_stats": {
       "goals_pm": 2.2,
@@ -23155,10 +23377,10 @@
       "shots_l10_lg": 14.2,
       "opp_shots_l5_lg": 8.0,
       "opp_shots_l10_lg": 8.0,
-      "sot_pm": 4.9,
+      "sot_pm": 5.0,
       "sot_l5": 5.2,
       "sot_l10": 5.2,
-      "sot_season": 4.9,
+      "sot_season": 5.0,
       "opp_sot_l5": 1.8,
       "opp_sot_l10": 1.8,
       "sot_l5_lg": 5.2,
@@ -23215,9 +23437,9 @@
       "opp_shots_away": 12.5,
       "shots_trend": "",
       "xg_conc_pm": 0,
-      "corners_pm": 5.32,
+      "corners_pm": 5.37,
       "big_chance_pm": 2.21,
-      "possession_pct": 55.8,
+      "possession_pct": 56.6,
       "clean_sheet_pm": 0.42
     },
     "away_recent": {
@@ -23330,8 +23552,8 @@
       "shots_trend": "",
       "xg_conc_pm": 0,
       "corners_pm": 6.37,
-      "big_chance_pm": 3.63,
-      "possession_pct": 58.7,
+      "big_chance_pm": 3.68,
+      "possession_pct": 57.9,
       "clean_sheet_pm": 0.37
     },
     "home_l5": [
@@ -24092,7 +24314,7 @@
             "pos_id": 38,
             "rating": 7.58,
             "goals": 1,
-            "assists": 4,
+            "assists": 5,
             "apps": null
           },
           {
@@ -24151,7 +24373,7 @@
             "shirt": "99",
             "pos_id": 115,
             "rating": 7.06,
-            "goals": 6,
+            "goals": 7,
             "assists": 3,
             "apps": null
           }
