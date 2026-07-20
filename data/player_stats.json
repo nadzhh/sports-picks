@@ -3762,26 +3762,26 @@
       "cup_gf_pm": 0,
       "cup_ga_pm": 0,
       "cup_n": 0,
-      "shots_pm": 13.2,
+      "shots_pm": 14.3,
       "shots_l5": 13.2,
       "shots_l10": 13.2,
       "shots_season": null,
       "opp_shots_l5": 15.5,
       "opp_shots_l10": 15.5,
-      "shots_l5_lg": 13.2,
-      "shots_l10_lg": 13.2,
-      "opp_shots_l5_lg": 15.5,
-      "opp_shots_l10_lg": 15.5,
+      "shots_l5_lg": 14.3,
+      "shots_l10_lg": 14.3,
+      "opp_shots_l5_lg": 17.7,
+      "opp_shots_l10_lg": 17.7,
       "sot_pm": 3.8,
       "sot_l5": 3.0,
       "sot_l10": 3.0,
       "sot_season": 3.8,
       "opp_sot_l5": 6.0,
       "opp_sot_l10": 6.0,
-      "sot_l5_lg": 3.0,
-      "sot_l10_lg": 3.0,
-      "opp_sot_l5_lg": 6.0,
-      "opp_sot_l10_lg": 6.0,
+      "sot_l5_lg": 3.3,
+      "sot_l10_lg": 3.3,
+      "opp_sot_l5_lg": 6.7,
+      "opp_sot_l10_lg": 6.7,
       "xg_pm": 0,
       "xg_l5": null,
       "xg_l10": null,
@@ -3792,14 +3792,14 @@
       "xg_l10_lg": null,
       "shots_n_l5": 4,
       "shots_n_l10": 4,
-      "shots_n_l5_lg": 4,
-      "shots_n_l10_lg": 4,
+      "shots_n_l5_lg": 3,
+      "shots_n_l10_lg": 3,
       "shots_source": "tcc",
-      "shots_weighted": 13.1,
-      "sot_weighted": 3.1,
+      "shots_weighted": 14.4,
+      "sot_weighted": 3.5,
       "xg_weighted": null,
-      "opp_shots_weighted": 15.0,
-      "opp_sot_weighted": 5.8,
+      "opp_shots_weighted": 17.5,
+      "opp_sot_weighted": 6.5,
       "avg_opp_rank_l10": 5.9,
       "target_opp_rank": 12,
       "all_comp_n_l5": 4,
@@ -3822,14 +3822,14 @@
       "opp_xg_l10_all": null,
       "shots_home": 14.0,
       "shots_home_n": 2,
-      "shots_away": 12.5,
-      "shots_away_n": 2,
+      "shots_away": 15.0,
+      "shots_away_n": 1,
       "sot_home": 2.0,
-      "sot_away": 4.0,
+      "sot_away": 6.0,
       "xg_home": null,
       "xg_away": null,
       "opp_shots_home": 18.0,
-      "opp_shots_away": 13.0,
+      "opp_shots_away": 17.0,
       "shots_trend": "",
       "xg_conc_pm": 0,
       "corners_pm": 4.68,
@@ -3962,38 +3962,18 @@
         "gf": 1,
         "ga": 2,
         "result": "L",
-        "data_valid": true,
+        "data_valid": false,
         "match_id": "1000009022",
         "page_url": "/matches/csd-macara-vs-mushuc-runa/make4z0#1000009022",
         "team_id_str": "304929",
-        "team_shots": 10.0,
-        "opp_shots": 9.0,
-        "team_sot": 2.0,
-        "opp_sot": 4.0,
+        "team_shots": null,
+        "opp_shots": null,
+        "team_sot": null,
+        "opp_sot": null,
         "team_xg": null,
         "opp_xg": null,
-        "goals": [
-          {
-            "scorer": "Tomson Minda",
-            "assist": "Ronie Carrillo",
-            "minute": 12,
-            "ownGoal": false
-          }
-        ],
-        "opp_goals": [
-          {
-            "scorer": "Martín Tello",
-            "assist": "Matías Miranda",
-            "minute": 16,
-            "ownGoal": false
-          },
-          {
-            "scorer": "Franco Posse",
-            "assist": "Mateo Viera",
-            "minute": 68,
-            "ownGoal": false
-          }
-        ]
+        "goals": [],
+        "opp_goals": []
       },
       {
         "date": "2026-07-11T19:10:00Z",
@@ -4323,22 +4303,6 @@
     ],
     "home_decisive_l5": [
       {
-        "name": "Tomson Minda",
-        "goals": 1,
-        "assists": 1,
-        "decisive": 2,
-        "matches_decisive": 2,
-        "n_matches": 5
-      },
-      {
-        "name": "Ronie Carrillo",
-        "goals": 1,
-        "assists": 1,
-        "decisive": 2,
-        "matches_decisive": 2,
-        "n_matches": 5
-      },
-      {
         "name": "Nicolás Dávila",
         "goals": 1,
         "assists": 1,
@@ -4355,9 +4319,25 @@
         "n_matches": 5
       },
       {
+        "name": "Ronie Carrillo",
+        "goals": 1,
+        "assists": 0,
+        "decisive": 1,
+        "matches_decisive": 1,
+        "n_matches": 5
+      },
+      {
         "name": "Arnaldo Zambrano",
         "goals": 1,
         "assists": 0,
+        "decisive": 1,
+        "matches_decisive": 1,
+        "n_matches": 5
+      },
+      {
+        "name": "Tomson Minda",
+        "goals": 0,
+        "assists": 1,
         "decisive": 1,
         "matches_decisive": 1,
         "n_matches": 5
@@ -4365,22 +4345,6 @@
     ],
     "home_decisive_l10": [
       {
-        "name": "Tomson Minda",
-        "goals": 1,
-        "assists": 1,
-        "decisive": 2,
-        "matches_decisive": 2,
-        "n_matches": 10
-      },
-      {
-        "name": "Ronie Carrillo",
-        "goals": 1,
-        "assists": 1,
-        "decisive": 2,
-        "matches_decisive": 2,
-        "n_matches": 10
-      },
-      {
         "name": "Nicolás Dávila",
         "goals": 1,
         "assists": 1,
@@ -4397,9 +4361,25 @@
         "n_matches": 10
       },
       {
+        "name": "Ronie Carrillo",
+        "goals": 1,
+        "assists": 0,
+        "decisive": 1,
+        "matches_decisive": 1,
+        "n_matches": 10
+      },
+      {
         "name": "Arnaldo Zambrano",
         "goals": 1,
         "assists": 0,
+        "decisive": 1,
+        "matches_decisive": 1,
+        "n_matches": 10
+      },
+      {
+        "name": "Tomson Minda",
+        "goals": 0,
+        "assists": 1,
         "decisive": 1,
         "matches_decisive": 1,
         "n_matches": 10
@@ -15122,7 +15102,7 @@
         "sot_pm": 1.1,
         "xG_pm": 0,
         "xA_pm": 0,
-        "rating": 7.13
+        "rating": 7.08
       },
       {
         "id": 1322576,
@@ -15194,7 +15174,7 @@
         "sot_pm": 0.6,
         "xG_pm": 0,
         "xA_pm": 0,
-        "rating": 7.04
+        "rating": 6.96
       },
       {
         "id": 1945804,
@@ -15314,7 +15294,7 @@
         "sot_pm": 0.6,
         "xG_pm": 0,
         "xA_pm": 0,
-        "rating": 7.49
+        "rating": 7.4
       },
       {
         "id": 1072314,
@@ -15362,7 +15342,7 @@
         "sot_pm": 0.1,
         "xG_pm": 0,
         "xA_pm": 0,
-        "rating": 7.08
+        "rating": 7.01
       },
       {
         "id": 1247087,
@@ -15410,7 +15390,7 @@
         "sot_pm": 0.7,
         "xG_pm": 0,
         "xA_pm": 0,
-        "rating": 6.42
+        "rating": 6.4
       },
       {
         "id": 329669,
@@ -15434,7 +15414,7 @@
         "sot_pm": 0.1,
         "xG_pm": 0,
         "xA_pm": 0,
-        "rating": 7.06
+        "rating": 7.01
       },
       {
         "id": 1364646,
@@ -15482,7 +15462,7 @@
         "sot_pm": 0,
         "xG_pm": 0,
         "xA_pm": 0,
-        "rating": 6.96
+        "rating": 6.92
       },
       {
         "id": 1250148,
@@ -15506,7 +15486,7 @@
         "sot_pm": 0,
         "xG_pm": 0,
         "xA_pm": 0,
-        "rating": 6.84
+        "rating": 6.79
       },
       {
         "id": 929752,
@@ -15530,7 +15510,7 @@
         "sot_pm": 0,
         "xG_pm": 0,
         "xA_pm": 0,
-        "rating": 6.62
+        "rating": 6.58
       },
       {
         "id": 1513464,
@@ -15676,7 +15656,7 @@
         "sot_pm": 1.5,
         "xG_pm": 0,
         "xA_pm": 0,
-        "rating": 7.46
+        "rating": 7.37
       },
       {
         "id": 1270467,
@@ -15700,7 +15680,7 @@
         "sot_pm": 1.0,
         "xG_pm": 0,
         "xA_pm": 0,
-        "rating": 7.12
+        "rating": 7.05
       },
       {
         "id": 1526674,
@@ -15724,7 +15704,7 @@
         "sot_pm": 0.6,
         "xG_pm": 0,
         "xA_pm": 0,
-        "rating": 7.23
+        "rating": 7.15
       },
       {
         "id": 1152754,
@@ -15820,7 +15800,7 @@
         "sot_pm": 0.3,
         "xG_pm": 0,
         "xA_pm": 0,
-        "rating": 6.63
+        "rating": 6.59
       },
       {
         "id": 1202773,
@@ -15844,7 +15824,7 @@
         "sot_pm": 0.3,
         "xG_pm": 0,
         "xA_pm": 0,
-        "rating": 6.59
+        "rating": 6.55
       },
       {
         "id": 1680358,
@@ -15964,7 +15944,7 @@
         "sot_pm": 0.2,
         "xG_pm": 0,
         "xA_pm": 0,
-        "rating": 6.76
+        "rating": 6.74
       },
       {
         "id": 349481,
@@ -16012,7 +15992,7 @@
         "sot_pm": 0,
         "xG_pm": 0,
         "xA_pm": 0,
-        "rating": 6.71
+        "rating": 6.68
       },
       {
         "id": 1508341,
@@ -16036,7 +16016,7 @@
         "sot_pm": 0,
         "xG_pm": 0,
         "xA_pm": 0,
-        "rating": 6.68
+        "rating": 6.62
       },
       {
         "id": 1180893,
@@ -16060,7 +16040,7 @@
         "sot_pm": 0.4,
         "xG_pm": 0,
         "xA_pm": 0,
-        "rating": 6.63
+        "rating": 6.6
       },
       {
         "id": 545333,
@@ -16084,7 +16064,7 @@
         "sot_pm": 0.1,
         "xG_pm": 0,
         "xA_pm": 0,
-        "rating": 6.58
+        "rating": 6.56
       },
       {
         "id": 267187,
@@ -16256,16 +16236,16 @@
       }
     ],
     "home_team_stats": {
-      "goals_pm": 1.3,
-      "conceded_pm": 1.1,
-      "shots_pm": 11.5,
-      "sot_pm": 4.6
+      "goals_pm": 1.2,
+      "conceded_pm": 1.0,
+      "shots_pm": 10.75,
+      "sot_pm": 4.3
     },
     "away_team_stats": {
-      "goals_pm": 1.7,
-      "conceded_pm": 1.9,
-      "shots_pm": 11.75,
-      "sot_pm": 4.7
+      "goals_pm": 1.6,
+      "conceded_pm": 1.8,
+      "shots_pm": 11.0,
+      "sot_pm": 4.4
     },
     "home_recent": {
       "form": [
@@ -16316,10 +16296,10 @@
       "shots_l10_lg": 16.2,
       "opp_shots_l5_lg": 14.2,
       "opp_shots_l10_lg": 14.2,
-      "sot_pm": 4.6,
+      "sot_pm": 4.3,
       "sot_l5": 6.5,
       "sot_l10": 6.5,
-      "sot_season": 4.6,
+      "sot_season": 4.3,
       "opp_sot_l5": 4.0,
       "opp_sot_l10": 4.0,
       "sot_l5_lg": 6.5,
@@ -16376,10 +16356,10 @@
       "opp_shots_away": 14.5,
       "shots_trend": "",
       "xg_conc_pm": 0,
-      "corners_pm": 4.4,
-      "big_chance_pm": 2.0,
+      "corners_pm": 4.12,
+      "big_chance_pm": 1.88,
       "possession_pct": 45.8,
-      "clean_sheet_pm": 0.33
+      "clean_sheet_pm": 0.31
     },
     "away_recent": {
       "form": [
@@ -16430,10 +16410,10 @@
       "shots_l10_lg": 15.0,
       "opp_shots_l5_lg": 16.7,
       "opp_shots_l10_lg": 14.2,
-      "sot_pm": 4.7,
+      "sot_pm": 4.4,
       "sot_l5": 7.0,
       "sot_l10": 7.0,
-      "sot_season": 4.7,
+      "sot_season": 4.4,
       "opp_sot_l5": 5.7,
       "opp_sot_l10": 5.5,
       "sot_l5_lg": 8.0,
@@ -16490,10 +16470,10 @@
       "opp_shots_away": 14.5,
       "shots_trend": "",
       "xg_conc_pm": 0,
-      "corners_pm": 4.07,
-      "big_chance_pm": 1.4,
-      "possession_pct": 49.2,
-      "clean_sheet_pm": 0.27
+      "corners_pm": 3.81,
+      "big_chance_pm": 1.31,
+      "possession_pct": 49.5,
+      "clean_sheet_pm": 0.25
     },
     "home_l5": [
       {
@@ -17070,12 +17050,12 @@
     },
     "lineup": {
       "type": "standard",
-      "source": "optaSdapiLegacyIntegration",
+      "source": "enetpulse",
       "home": {
         "name": "TPS",
         "id": 6633,
         "formation": "4-3-3",
-        "coach": null,
+        "coach": "Ivan Pinol",
         "starters": [
           {
             "id": 1250148,
@@ -17128,10 +17108,20 @@
             "apps": null
           },
           {
+            "id": 1347767,
+            "name": "Marius Könkkölä",
+            "shirt": "10",
+            "pos_id": 73,
+            "rating": 7.03,
+            "goals": 3,
+            "assists": 2,
+            "apps": null
+          },
+          {
             "id": 1121566,
             "name": "Pau Juvanteny",
             "shirt": "6",
-            "pos_id": 73,
+            "pos_id": 75,
             "rating": 7.07,
             "goals": 1,
             "assists": null,
@@ -17141,39 +17131,9 @@
             "id": 1187467,
             "name": "Timo Zaal",
             "shirt": "22",
-            "pos_id": 75,
+            "pos_id": 77,
             "rating": 7.48,
             "goals": 1,
-            "assists": 1,
-            "apps": null
-          },
-          {
-            "id": 1309497,
-            "name": "Kian Visser",
-            "shirt": "99",
-            "pos_id": 77,
-            "rating": 6.8,
-            "goals": null,
-            "assists": 1,
-            "apps": null
-          },
-          {
-            "id": 1347767,
-            "name": "Marius Könkkölä",
-            "shirt": "10",
-            "pos_id": 103,
-            "rating": 7.03,
-            "goals": 3,
-            "assists": 2,
-            "apps": null
-          },
-          {
-            "id": 743093,
-            "name": "Albijon Muzaci",
-            "shirt": "29",
-            "pos_id": 105,
-            "rating": 7.12,
-            "goals": 7,
             "assists": 1,
             "apps": null
           },
@@ -17181,9 +17141,29 @@
             "id": 1617981,
             "name": "Elmer Vauhkonen",
             "shirt": "11",
-            "pos_id": 107,
+            "pos_id": 103,
             "rating": 6.41,
             "goals": null,
+            "assists": 1,
+            "apps": null
+          },
+          {
+            "id": 1309497,
+            "name": "Kian Visser",
+            "shirt": "99",
+            "pos_id": 105,
+            "rating": 6.8,
+            "goals": null,
+            "assists": 1,
+            "apps": null
+          },
+          {
+            "id": 743093,
+            "name": "Albijon Muzaci",
+            "shirt": "29",
+            "pos_id": 107,
+            "rating": 7.12,
+            "goals": 7,
             "assists": 1,
             "apps": null
           }
@@ -17194,7 +17174,7 @@
         "name": "Ilves",
         "id": 162146,
         "formation": "3-4-3",
-        "coach": null,
+        "coach": "Camilo Speranza",
         "starters": [
           {
             "id": 1508341,
@@ -19313,100 +19293,30 @@
       "n_matches": 0
     },
     "lineup": {
-      "type": "lastStarting11",
-      "source": "lastStartingLineups",
+      "type": "simple",
+      "source": null,
       "home": {
         "name": "IFK Mariehamn",
         "id": 6634,
-        "formation": "4-1-4-1",
+        "formation": null,
         "coach": "Roberth Björknesjö",
         "starters": [
           {
-            "id": 958145,
-            "name": "Matias Riikonen",
-            "shirt": "32",
-            "pos_id": 11,
-            "rating": 6.64,
+            "id": 1734086,
+            "name": "Kevin Lund",
+            "shirt": "1",
+            "pos_id": 0,
+            "rating": null,
             "goals": null,
             "assists": null,
             "apps": null
           },
           {
-            "id": 1306089,
-            "name": "Tuomas Koivisto",
-            "shirt": "5",
-            "pos_id": 32,
-            "rating": 6.57,
-            "goals": null,
-            "assists": 1,
-            "apps": null
-          },
-          {
-            "id": 1091906,
-            "name": "Yeboah Amankwah",
-            "shirt": "38",
-            "pos_id": 34,
-            "rating": 6.47,
-            "goals": null,
-            "assists": 1,
-            "apps": null
-          },
-          {
-            "id": 948416,
-            "name": "Noah Nurmi",
-            "shirt": "2",
-            "pos_id": 36,
-            "rating": 6.43,
-            "goals": null,
-            "assists": null,
-            "apps": null
-          },
-          {
-            "id": 1945803,
-            "name": "Samson Ngulube",
-            "shirt": "31",
-            "pos_id": 38,
-            "rating": 6.46,
-            "goals": null,
-            "assists": null,
-            "apps": null
-          },
-          {
-            "id": 562875,
-            "name": "Jelle van der Heyden",
-            "shirt": "8",
-            "pos_id": 65,
-            "rating": 6.57,
-            "goals": null,
-            "assists": null,
-            "apps": null
-          },
-          {
-            "id": 1353420,
-            "name": "Adam Stroud",
-            "shirt": "18",
-            "pos_id": 82,
-            "rating": 6.06,
-            "goals": 1,
-            "assists": null,
-            "apps": null
-          },
-          {
-            "id": 1395686,
-            "name": "Emmanuel Patut",
-            "shirt": "20",
-            "pos_id": 84,
-            "rating": 6.73,
-            "goals": 1,
-            "assists": 1,
-            "apps": null
-          },
-          {
-            "id": 2068511,
-            "name": "Viktor Widlund",
-            "shirt": "23",
-            "pos_id": 86,
-            "rating": 6.18,
+            "id": 1481574,
+            "name": "Aaro Soiniemi",
+            "shirt": "3",
+            "pos_id": 1,
+            "rating": null,
             "goals": null,
             "assists": null,
             "apps": null
@@ -19415,8 +19325,68 @@
             "id": 830977,
             "name": "Jiri Nissinen",
             "shirt": "28",
-            "pos_id": 88,
-            "rating": 6.55,
+            "pos_id": 1,
+            "rating": null,
+            "goals": null,
+            "assists": null,
+            "apps": null
+          },
+          {
+            "id": 1306089,
+            "name": "Tuomas Koivisto",
+            "shirt": "5",
+            "pos_id": 1,
+            "rating": null,
+            "goals": null,
+            "assists": null,
+            "apps": null
+          },
+          {
+            "id": 1031418,
+            "name": "Anttoni Huttunen",
+            "shirt": "16",
+            "pos_id": 2,
+            "rating": null,
+            "goals": null,
+            "assists": null,
+            "apps": null
+          },
+          {
+            "id": 1395686,
+            "name": "Emmanuel Patut",
+            "shirt": "20",
+            "pos_id": 2,
+            "rating": null,
+            "goals": null,
+            "assists": null,
+            "apps": null
+          },
+          {
+            "id": 740167,
+            "name": "Jonathan Svedberg",
+            "shirt": "11",
+            "pos_id": 2,
+            "rating": null,
+            "goals": null,
+            "assists": null,
+            "apps": null
+          },
+          {
+            "id": 2068511,
+            "name": "Viktor Widlund",
+            "shirt": "23",
+            "pos_id": 2,
+            "rating": null,
+            "goals": null,
+            "assists": null,
+            "apps": null
+          },
+          {
+            "id": 1353420,
+            "name": "Adam Stroud",
+            "shirt": "18",
+            "pos_id": 3,
+            "rating": null,
             "goals": null,
             "assists": null,
             "apps": null
@@ -19425,10 +19395,20 @@
             "id": 1177032,
             "name": "Adam Larsson",
             "shirt": "7",
-            "pos_id": 115,
-            "rating": 6.25,
-            "goals": 1,
-            "assists": 1,
+            "pos_id": 4,
+            "rating": null,
+            "goals": null,
+            "assists": null,
+            "apps": null
+          },
+          {
+            "id": 2068513,
+            "name": "Arvid Bergvik",
+            "shirt": "14",
+            "pos_id": 4,
+            "rating": null,
+            "goals": null,
+            "assists": null,
             "apps": null
           }
         ],
@@ -19437,35 +19417,15 @@
       "away": {
         "name": "FC Lahti",
         "id": 8424,
-        "formation": "4-3-3",
+        "formation": null,
         "coach": "Goncalo Pereira",
         "starters": [
           {
             "id": 1455655,
             "name": "Osku Maukonen",
             "shirt": "31",
-            "pos_id": 11,
-            "rating": 7.02,
-            "goals": null,
-            "assists": null,
-            "apps": null
-          },
-          {
-            "id": 1070619,
-            "name": "Romaric Yapi",
-            "shirt": "27",
-            "pos_id": 32,
-            "rating": 7.16,
-            "goals": null,
-            "assists": 1,
-            "apps": null
-          },
-          {
-            "id": 1073136,
-            "name": "Nícolas",
-            "shirt": "5",
-            "pos_id": 34,
-            "rating": 7.06,
+            "pos_id": 0,
+            "rating": null,
             "goals": null,
             "assists": null,
             "apps": null
@@ -19474,8 +19434,8 @@
             "id": 1601928,
             "name": "Jose Muller",
             "shirt": "4",
-            "pos_id": 36,
-            "rating": 6.8,
+            "pos_id": 1,
+            "rating": null,
             "goals": null,
             "assists": null,
             "apps": null
@@ -19484,59 +19444,59 @@
             "id": 1005795,
             "name": "Romain Sans",
             "shirt": "3",
-            "pos_id": 38,
-            "rating": 7.42,
+            "pos_id": 1,
+            "rating": null,
             "goals": null,
-            "assists": 1,
+            "assists": null,
             "apps": null
           },
           {
-            "id": 949752,
-            "name": "Tòfol Montiel",
-            "shirt": "8",
-            "pos_id": 73,
-            "rating": 7.29,
-            "goals": 2,
-            "assists": 3,
+            "id": 1070619,
+            "name": "Romaric Yapi",
+            "shirt": "27",
+            "pos_id": 1,
+            "rating": null,
+            "goals": null,
+            "assists": null,
             "apps": null
           },
           {
-            "id": 1243563,
-            "name": "Yohan Cassubie",
-            "shirt": "18",
-            "pos_id": 75,
-            "rating": 7.14,
+            "id": 1370496,
+            "name": "Väinö Vehkonen",
+            "shirt": "6",
+            "pos_id": 1,
+            "rating": null,
             "goals": null,
-            "assists": 3,
+            "assists": null,
+            "apps": null
+          },
+          {
+            "id": 403282,
+            "name": "Erik Andersson",
+            "shirt": "14",
+            "pos_id": 2,
+            "rating": null,
+            "goals": null,
+            "assists": null,
             "apps": null
           },
           {
             "id": 1202774,
             "name": "Otso Koskinen",
             "shirt": "10",
-            "pos_id": 77,
-            "rating": 6.6,
-            "goals": 3,
+            "pos_id": 2,
+            "rating": null,
+            "goals": null,
             "assists": null,
             "apps": null
           },
           {
-            "id": 933779,
-            "name": "Momodou Sarr",
-            "shirt": "77",
-            "pos_id": 103,
-            "rating": 6.98,
-            "goals": 2,
-            "assists": 1,
-            "apps": null
-          },
-          {
-            "id": 1666238,
-            "name": "Neemias Barbosa",
-            "shirt": "19",
-            "pos_id": 105,
-            "rating": 6.65,
-            "goals": 3,
+            "id": 1243563,
+            "name": "Yohan Cassubie",
+            "shirt": "18",
+            "pos_id": 2,
+            "rating": null,
+            "goals": null,
             "assists": null,
             "apps": null
           },
@@ -19544,9 +19504,29 @@
             "id": 1554764,
             "name": "Martim Ferreira",
             "shirt": "11",
-            "pos_id": 107,
-            "rating": 6.82,
-            "goals": 2,
+            "pos_id": 3,
+            "rating": null,
+            "goals": null,
+            "assists": null,
+            "apps": null
+          },
+          {
+            "id": 933779,
+            "name": "Momodou Sarr",
+            "shirt": "77",
+            "pos_id": 3,
+            "rating": null,
+            "goals": null,
+            "assists": null,
+            "apps": null
+          },
+          {
+            "id": 1666238,
+            "name": "Neemias Barbosa",
+            "shirt": "19",
+            "pos_id": 3,
+            "rating": null,
+            "goals": null,
             "assists": null,
             "apps": null
           }
@@ -25589,24 +25569,24 @@
       "cup_gf_pm": 0,
       "cup_ga_pm": 0,
       "cup_n": 0,
-      "shots_pm": 14.2,
-      "shots_l5": 14.2,
-      "shots_l10": 14.2,
+      "shots_pm": 13.5,
+      "shots_l5": 13.5,
+      "shots_l10": 13.5,
       "shots_season": null,
-      "opp_shots_l5": 15.0,
-      "opp_shots_l10": 15.0,
-      "shots_l5_lg": 14.2,
-      "shots_l10_lg": 14.2,
-      "opp_shots_l5_lg": 15.0,
-      "opp_shots_l10_lg": 15.0,
+      "opp_shots_l5": 15.2,
+      "opp_shots_l10": 15.2,
+      "shots_l5_lg": 13.5,
+      "shots_l10_lg": 13.5,
+      "opp_shots_l5_lg": 15.2,
+      "opp_shots_l10_lg": 15.2,
       "sot_pm": 0,
-      "sot_l5": 5.0,
-      "sot_l10": 5.0,
+      "sot_l5": 5.5,
+      "sot_l10": 5.5,
       "sot_season": 0,
       "opp_sot_l5": 5.0,
       "opp_sot_l10": 5.0,
-      "sot_l5_lg": 5.0,
-      "sot_l10_lg": 5.0,
+      "sot_l5_lg": 5.5,
+      "sot_l10_lg": 5.5,
       "opp_sot_l5_lg": 5.0,
       "opp_sot_l10_lg": 5.0,
       "xg_pm": 0,
@@ -25617,45 +25597,45 @@
       "opp_xg_l10": null,
       "xg_l5_lg": null,
       "xg_l10_lg": null,
-      "shots_n_l5": 5,
-      "shots_n_l10": 5,
-      "shots_n_l5_lg": 5,
-      "shots_n_l10_lg": 5,
+      "shots_n_l5": 4,
+      "shots_n_l10": 4,
+      "shots_n_l5_lg": 4,
+      "shots_n_l10_lg": 4,
       "shots_source": "tcc",
-      "shots_weighted": 13.6,
-      "sot_weighted": 4.8,
+      "shots_weighted": 12.9,
+      "sot_weighted": 5.1,
       "xg_weighted": null,
-      "opp_shots_weighted": 15.8,
-      "opp_sot_weighted": 5.6,
+      "opp_shots_weighted": 16.2,
+      "opp_sot_weighted": 5.7,
       "avg_opp_rank_l10": 5.0,
       "target_opp_rank": 2,
-      "all_comp_n_l5": 5,
-      "all_comp_n_l10": 5,
-      "shots_l5_all": 14.2,
-      "shots_l10_all": 14.2,
-      "sot_l5_all": 5.0,
-      "sot_l10_all": 5.0,
+      "all_comp_n_l5": 4,
+      "all_comp_n_l10": 4,
+      "shots_l5_all": 13.5,
+      "shots_l10_all": 13.5,
+      "sot_l5_all": 5.5,
+      "sot_l10_all": 5.5,
       "xg_l5_all": null,
       "xg_l10_all": null,
       "goals_for_l5_all": 2.2,
       "goals_for_l10_all": 1.6,
       "goals_ag_l5_all": 1.4,
       "goals_ag_l10_all": 1.6,
-      "opp_shots_l5_all": 15.0,
-      "opp_shots_l10_all": 15.0,
+      "opp_shots_l5_all": 15.2,
+      "opp_shots_l10_all": 15.2,
       "opp_sot_l5_all": 5.0,
       "opp_sot_l10_all": 5.0,
       "opp_xg_l5_all": null,
       "opp_xg_l10_all": null,
-      "shots_home": 16.0,
-      "shots_home_n": 3,
+      "shots_home": 15.5,
+      "shots_home_n": 2,
       "shots_away": 11.5,
       "shots_away_n": 2,
-      "sot_home": 4.7,
+      "sot_home": 5.5,
       "sot_away": 5.5,
       "xg_home": null,
       "xg_away": null,
-      "opp_shots_home": 13.0,
+      "opp_shots_home": 12.5,
       "opp_shots_away": 18.0,
       "shots_trend": "",
       "xg_conc_pm": 0,
@@ -25983,31 +25963,18 @@
         "gf": 0,
         "ga": 2,
         "result": "L",
-        "data_valid": true,
+        "data_valid": false,
         "match_id": "5162004",
         "page_url": "/matches/fk-jelgava-vs-ogre-united/rxnxzmz5#5162004",
         "team_id_str": "192962",
-        "team_shots": 17.0,
-        "opp_shots": 14.0,
-        "team_sot": 3.0,
-        "opp_sot": 5.0,
+        "team_shots": null,
+        "opp_shots": null,
+        "team_sot": null,
+        "opp_sot": null,
         "team_xg": null,
         "opp_xg": null,
         "goals": [],
-        "opp_goals": [
-          {
-            "scorer": "Markuss Ivulans",
-            "assist": "Markuss Kalnins",
-            "minute": 26,
-            "ownGoal": false
-          },
-          {
-            "scorer": "Maksims Semesko",
-            "assist": null,
-            "minute": 81,
-            "ownGoal": true
-          }
-        ]
+        "opp_goals": []
       }
     ],
     "away_l5": [
@@ -26429,22 +26396,22 @@
             "apps": null
           },
           {
-            "id": 1384910,
-            "name": "Kristers Alekseiciks",
-            "shirt": "27",
+            "id": 1657844,
+            "name": "Alans Kangars",
+            "shirt": "4",
             "pos_id": 33,
             "rating": null,
-            "goals": null,
+            "goals": 2,
             "assists": null,
             "apps": null
           },
           {
-            "id": 1657844,
-            "name": "Alans Kangars",
-            "shirt": "4",
+            "id": 1384910,
+            "name": "Kristers Alekseiciks",
+            "shirt": "27",
             "pos_id": 35,
             "rating": null,
-            "goals": 2,
+            "goals": null,
             "assists": null,
             "apps": null
           },
@@ -26479,13 +26446,13 @@
             "apps": null
           },
           {
-            "id": 1259929,
-            "name": "Roberts Melkis",
-            "shirt": "8",
+            "id": 776635,
+            "name": "Martin Hasek",
+            "shirt": "11",
             "pos_id": 66,
             "rating": null,
-            "goals": 3,
-            "assists": 2,
+            "goals": null,
+            "assists": null,
             "apps": null
           },
           {
@@ -26499,22 +26466,22 @@
             "apps": null
           },
           {
-            "id": 807765,
-            "name": "Filip Hasek",
-            "shirt": "24",
+            "id": 1259929,
+            "name": "Roberts Melkis",
+            "shirt": "8",
             "pos_id": 84,
             "rating": null,
-            "goals": 5,
-            "assists": null,
+            "goals": 3,
+            "assists": 2,
             "apps": null
           },
           {
-            "id": 776635,
-            "name": "Martin Hasek",
-            "shirt": "11",
+            "id": 807765,
+            "name": "Filip Hasek",
+            "shirt": "24",
             "pos_id": 86,
             "rating": null,
-            "goals": null,
+            "goals": 5,
             "assists": null,
             "apps": null
           },
@@ -26578,23 +26545,23 @@
             "apps": null
           },
           {
-            "id": 702428,
-            "name": "Stefan Panic",
-            "shirt": "26",
-            "pos_id": 38,
-            "rating": null,
-            "goals": 8,
-            "assists": 1,
-            "apps": null
-          },
-          {
             "id": 1080582,
             "name": "Dmitrijs Zelenkovs",
             "shirt": "18",
-            "pos_id": 72,
+            "pos_id": 38,
             "rating": null,
             "goals": 2,
             "assists": 2,
+            "apps": null
+          },
+          {
+            "id": 1780053,
+            "name": "Mamadou Sylla",
+            "shirt": "14",
+            "pos_id": 72,
+            "rating": null,
+            "goals": 5,
+            "assists": null,
             "apps": null
           },
           {
@@ -26608,43 +26575,43 @@
             "apps": null
           },
           {
+            "id": 702428,
+            "name": "Stefan Panic",
+            "shirt": "26",
+            "pos_id": 76,
+            "rating": null,
+            "goals": 8,
+            "assists": 1,
+            "apps": null
+          },
+          {
             "id": 1419540,
             "name": "Lasha Odisharia",
             "shirt": "8",
-            "pos_id": 76,
+            "pos_id": 78,
             "rating": null,
             "goals": null,
             "assists": 4,
             "apps": null
           },
           {
-            "id": 463803,
-            "name": "Janis Ikaunieks",
-            "shirt": "10",
-            "pos_id": 78,
-            "rating": null,
-            "goals": 5,
-            "assists": 3,
-            "apps": null
-          },
-          {
-            "id": 1780053,
-            "name": "Mamadou Sylla",
-            "shirt": "14",
-            "pos_id": 104,
-            "rating": null,
-            "goals": 5,
-            "assists": null,
-            "apps": null
-          },
-          {
             "id": 635789,
             "name": "Darko Lemajic",
             "shirt": "22",
-            "pos_id": 106,
+            "pos_id": 104,
             "rating": null,
             "goals": 10,
             "assists": 1,
+            "apps": null
+          },
+          {
+            "id": 463803,
+            "name": "Janis Ikaunieks",
+            "shirt": "10",
+            "pos_id": 106,
+            "rating": null,
+            "goals": 5,
+            "assists": 3,
             "apps": null
           }
         ],
