@@ -5497,7 +5497,7 @@
         "sot_pm": 0.4,
         "xG_pm": 0,
         "xA_pm": 0,
-        "rating": 6.54
+        "rating": 6.55
       },
       {
         "id": 497200,
@@ -5692,30 +5692,6 @@
         "rating": 6.44
       },
       {
-        "id": 1635053,
-        "name": "Erick Zúñiga",
-        "shortName": "Erick Zúñiga",
-        "position": "M",
-        "team_id": 519457,
-        "appearances": 12,
-        "appearances_raw": 12,
-        "stats_suspect": false,
-        "is_sub": false,
-        "minutes": 610,
-        "goals": 0,
-        "assists": 0,
-        "shots": 7.0,
-        "shots_on": 1.0,
-        "goals_pm": 0.0,
-        "assists_pm": 0.0,
-        "g_a_pm": 0.0,
-        "shots_pm": 0.6,
-        "sot_pm": 0.1,
-        "xG_pm": 0,
-        "xA_pm": 0,
-        "rating": 6.43
-      },
-      {
         "id": 1910457,
         "name": "Jonathan Morocho",
         "shortName": "Jonathan Morocho",
@@ -5735,6 +5711,30 @@
         "g_a_pm": 0.0,
         "shots_pm": 1.3,
         "sot_pm": 0.4,
+        "xG_pm": 0,
+        "xA_pm": 0,
+        "rating": 6.43
+      },
+      {
+        "id": 1635053,
+        "name": "Erick Zúñiga",
+        "shortName": "Erick Zúñiga",
+        "position": "M",
+        "team_id": 519457,
+        "appearances": 12,
+        "appearances_raw": 12,
+        "stats_suspect": false,
+        "is_sub": false,
+        "minutes": 610,
+        "goals": 0,
+        "assists": 0,
+        "shots": 7.0,
+        "shots_on": 1.0,
+        "goals_pm": 0.0,
+        "assists_pm": 0.0,
+        "g_a_pm": 0.0,
+        "shots_pm": 0.6,
+        "sot_pm": 0.1,
         "xG_pm": 0,
         "xA_pm": 0,
         "rating": 6.43
@@ -17069,13 +17069,13 @@
       "n_matches": 0
     },
     "lineup": {
-      "type": "lastStarting11",
-      "source": "lastStartingLineups",
+      "type": "standard",
+      "source": "optaSdapiLegacyIntegration",
       "home": {
         "name": "TPS",
         "id": 6633,
         "formation": "4-3-3",
-        "coach": "Ivan Pinol",
+        "coach": null,
         "starters": [
           {
             "id": 1250148,
@@ -17098,33 +17098,33 @@
             "apps": null
           },
           {
-            "id": 1364646,
-            "name": "Tobias Karkulowski",
-            "shirt": "77",
-            "pos_id": 34,
-            "rating": 6.71,
-            "goals": null,
-            "assists": 1,
-            "apps": null
-          },
-          {
             "id": 329669,
             "name": "Matej Hrádecky",
             "shirt": "14",
-            "pos_id": 36,
+            "pos_id": 34,
             "rating": 7.05,
             "goals": null,
             "assists": 1,
             "apps": null
           },
           {
-            "id": 1945804,
-            "name": "Eetu Turkki",
-            "shirt": "3",
-            "pos_id": 38,
-            "rating": 7.28,
+            "id": 929752,
+            "name": "Atte Sihvonen",
+            "shirt": "17",
+            "pos_id": 36,
+            "rating": 6.61,
             "goals": null,
-            "assists": 5,
+            "assists": null,
+            "apps": null
+          },
+          {
+            "id": 1515833,
+            "name": "Nikolas Talo",
+            "shirt": "24",
+            "pos_id": 38,
+            "rating": 6.7,
+            "goals": null,
+            "assists": 1,
             "apps": null
           },
           {
@@ -17138,32 +17138,12 @@
             "apps": null
           },
           {
-            "id": 1347767,
-            "name": "Marius Könkkölä",
-            "shirt": "10",
-            "pos_id": 75,
-            "rating": 7.03,
-            "goals": 3,
-            "assists": 2,
-            "apps": null
-          },
-          {
             "id": 1187467,
             "name": "Timo Zaal",
             "shirt": "22",
-            "pos_id": 77,
+            "pos_id": 75,
             "rating": 7.48,
             "goals": 1,
-            "assists": 1,
-            "apps": null
-          },
-          {
-            "id": 743093,
-            "name": "Albijon Muzaci",
-            "shirt": "29",
-            "pos_id": 103,
-            "rating": 7.12,
-            "goals": 7,
             "assists": 1,
             "apps": null
           },
@@ -17171,9 +17151,29 @@
             "id": 1309497,
             "name": "Kian Visser",
             "shirt": "99",
-            "pos_id": 105,
+            "pos_id": 77,
             "rating": 6.8,
             "goals": null,
+            "assists": 1,
+            "apps": null
+          },
+          {
+            "id": 1347767,
+            "name": "Marius Könkkölä",
+            "shirt": "10",
+            "pos_id": 103,
+            "rating": 7.03,
+            "goals": 3,
+            "assists": 2,
+            "apps": null
+          },
+          {
+            "id": 743093,
+            "name": "Albijon Muzaci",
+            "shirt": "29",
+            "pos_id": 105,
+            "rating": 7.12,
+            "goals": 7,
             "assists": 1,
             "apps": null
           },
@@ -17193,8 +17193,8 @@
       "away": {
         "name": "Ilves",
         "id": 162146,
-        "formation": "3-4-2-1",
-        "coach": "Camilo Speranza",
+        "formation": "3-4-3",
+        "coach": null,
         "starters": [
           {
             "id": 1508341,
@@ -17207,13 +17207,13 @@
             "apps": null
           },
           {
-            "id": 545333,
-            "name": "Tatu Miettunen",
-            "shirt": "16",
+            "id": 1202773,
+            "name": "Oliver Pettersson",
+            "shirt": "4",
             "pos_id": 33,
-            "rating": 6.58,
-            "goals": null,
-            "assists": null,
+            "rating": 6.59,
+            "goals": 1,
+            "assists": 1,
             "apps": null
           },
           {
@@ -17227,41 +17227,11 @@
             "apps": null
           },
           {
-            "id": 1173763,
-            "name": "Matias Rale",
-            "shirt": "3",
+            "id": 545333,
+            "name": "Tatu Miettunen",
+            "shirt": "16",
             "pos_id": 37,
-            "rating": 6.76,
-            "goals": null,
-            "assists": 1,
-            "apps": null
-          },
-          {
-            "id": 1680358,
-            "name": "Goudouss Bamba",
-            "shirt": "19",
-            "pos_id": 62,
-            "rating": 6.66,
-            "goals": 1,
-            "assists": null,
-            "apps": null
-          },
-          {
-            "id": 1573181,
-            "name": "Yiandro Raap",
-            "shirt": "6",
-            "pos_id": 64,
-            "rating": 6.63,
-            "goals": 1,
-            "assists": 1,
-            "apps": null
-          },
-          {
-            "id": 349481,
-            "name": "Anton Popovitch",
-            "shirt": "14",
-            "pos_id": 66,
-            "rating": 6.82,
+            "rating": 6.58,
             "goals": null,
             "assists": null,
             "apps": null
@@ -17270,30 +17240,50 @@
             "id": 1180893,
             "name": "Kalle Wallius",
             "shirt": "13",
-            "pos_id": 68,
+            "pos_id": 72,
             "rating": 6.63,
             "goals": null,
             "assists": null,
             "apps": null
           },
           {
-            "id": 1366935,
-            "name": "Jardell Kanga",
-            "shirt": "30",
-            "pos_id": 84,
-            "rating": 7.46,
-            "goals": 8,
-            "assists": 3,
-            "apps": null
-          },
-          {
             "id": 618800,
             "name": "Joona Veteli",
             "shirt": "7",
-            "pos_id": 86,
+            "pos_id": 74,
             "rating": 7.06,
             "goals": 1,
             "assists": null,
+            "apps": null
+          },
+          {
+            "id": 1573181,
+            "name": "Yiandro Raap",
+            "shirt": "6",
+            "pos_id": 76,
+            "rating": 6.63,
+            "goals": 1,
+            "assists": 1,
+            "apps": null
+          },
+          {
+            "id": 1173763,
+            "name": "Matias Rale",
+            "shirt": "3",
+            "pos_id": 78,
+            "rating": 6.76,
+            "goals": null,
+            "assists": 1,
+            "apps": null
+          },
+          {
+            "id": 1366935,
+            "name": "Jardell Kanga",
+            "shirt": "30",
+            "pos_id": 103,
+            "rating": 7.46,
+            "goals": 8,
+            "assists": 3,
             "apps": null
           },
           {
@@ -17304,6 +17294,16 @@
             "rating": 7.11,
             "goals": 6,
             "assists": 1,
+            "apps": null
+          },
+          {
+            "id": 1526674,
+            "name": "Jesse Kilo",
+            "shirt": "28",
+            "pos_id": 107,
+            "rating": 7.22,
+            "goals": null,
+            "assists": 5,
             "apps": null
           }
         ],
@@ -25539,13 +25539,13 @@
       }
     ],
     "home_team_stats": {
-      "goals_pm": 1.1,
+      "goals_pm": 1.0,
       "conceded_pm": 0,
       "shots_pm": 0,
       "sot_pm": 0
     },
     "away_team_stats": {
-      "goals_pm": 2.5,
+      "goals_pm": 2.3,
       "conceded_pm": 0,
       "shots_pm": 0,
       "sot_pm": 0
@@ -26409,7 +26409,248 @@
       "avg_total_shots": 0,
       "n_matches": 0
     },
-    "lineup": null,
+    "lineup": {
+      "type": "standard",
+      "source": "optaSdapi",
+      "home": {
+        "name": "FK Jelgava",
+        "id": 192962,
+        "formation": "3-4-2-1",
+        "coach": "Aleksandrs Basovs",
+        "starters": [
+          {
+            "id": 1403348,
+            "name": "Adam Dvorák",
+            "shirt": "1",
+            "pos_id": 11,
+            "rating": null,
+            "goals": null,
+            "assists": 1,
+            "apps": null
+          },
+          {
+            "id": 1384910,
+            "name": "Kristers Alekseiciks",
+            "shirt": "27",
+            "pos_id": 33,
+            "rating": null,
+            "goals": null,
+            "assists": null,
+            "apps": null
+          },
+          {
+            "id": 1657844,
+            "name": "Alans Kangars",
+            "shirt": "4",
+            "pos_id": 35,
+            "rating": null,
+            "goals": 2,
+            "assists": null,
+            "apps": null
+          },
+          {
+            "id": 1763552,
+            "name": "Maksims Semesko",
+            "shirt": "3",
+            "pos_id": 37,
+            "rating": null,
+            "goals": 1,
+            "assists": null,
+            "apps": null
+          },
+          {
+            "id": 1253883,
+            "name": "Jegors Novikovs",
+            "shirt": "13",
+            "pos_id": 62,
+            "rating": null,
+            "goals": null,
+            "assists": 2,
+            "apps": null
+          },
+          {
+            "id": 1379431,
+            "name": "Glebs Zaleiko",
+            "shirt": "29",
+            "pos_id": 64,
+            "rating": null,
+            "goals": 2,
+            "assists": 4,
+            "apps": null
+          },
+          {
+            "id": 1259929,
+            "name": "Roberts Melkis",
+            "shirt": "8",
+            "pos_id": 66,
+            "rating": null,
+            "goals": 3,
+            "assists": 2,
+            "apps": null
+          },
+          {
+            "id": 1340172,
+            "name": "Milos Pudil",
+            "shirt": "22",
+            "pos_id": 68,
+            "rating": null,
+            "goals": 2,
+            "assists": 1,
+            "apps": null
+          },
+          {
+            "id": 807765,
+            "name": "Filip Hasek",
+            "shirt": "24",
+            "pos_id": 84,
+            "rating": null,
+            "goals": 5,
+            "assists": null,
+            "apps": null
+          },
+          {
+            "id": 776635,
+            "name": "Martin Hasek",
+            "shirt": "11",
+            "pos_id": 86,
+            "rating": null,
+            "goals": null,
+            "assists": null,
+            "apps": null
+          },
+          {
+            "id": 1203494,
+            "name": "Tomás Rataj",
+            "shirt": "17",
+            "pos_id": 105,
+            "rating": null,
+            "goals": 3,
+            "assists": null,
+            "apps": null
+          }
+        ],
+        "unavailable": []
+      },
+      "away": {
+        "name": "RFS",
+        "id": 248871,
+        "formation": "4-4-2",
+        "coach": "Viktors Morozs",
+        "starters": [
+          {
+            "id": 807745,
+            "name": "Rihards Matrevics",
+            "shirt": "1",
+            "pos_id": 11,
+            "rating": null,
+            "goals": null,
+            "assists": null,
+            "apps": null
+          },
+          {
+            "id": 208742,
+            "name": "Roberts Savalnieks",
+            "shirt": "11",
+            "pos_id": 32,
+            "rating": null,
+            "goals": null,
+            "assists": 8,
+            "apps": null
+          },
+          {
+            "id": 522119,
+            "name": "Herdi Prenga",
+            "shirt": "23",
+            "pos_id": 34,
+            "rating": null,
+            "goals": 1,
+            "assists": 1,
+            "apps": null
+          },
+          {
+            "id": 769938,
+            "name": "Ziga Lipuscek",
+            "shirt": "43",
+            "pos_id": 36,
+            "rating": null,
+            "goals": 6,
+            "assists": 1,
+            "apps": null
+          },
+          {
+            "id": 702428,
+            "name": "Stefan Panic",
+            "shirt": "26",
+            "pos_id": 38,
+            "rating": null,
+            "goals": 8,
+            "assists": 1,
+            "apps": null
+          },
+          {
+            "id": 1080582,
+            "name": "Dmitrijs Zelenkovs",
+            "shirt": "18",
+            "pos_id": 72,
+            "rating": null,
+            "goals": 2,
+            "assists": 2,
+            "apps": null
+          },
+          {
+            "id": 1747232,
+            "name": "Strahinja Rakic",
+            "shirt": "81",
+            "pos_id": 74,
+            "rating": null,
+            "goals": null,
+            "assists": null,
+            "apps": null
+          },
+          {
+            "id": 1419540,
+            "name": "Lasha Odisharia",
+            "shirt": "8",
+            "pos_id": 76,
+            "rating": null,
+            "goals": null,
+            "assists": 4,
+            "apps": null
+          },
+          {
+            "id": 463803,
+            "name": "Janis Ikaunieks",
+            "shirt": "10",
+            "pos_id": 78,
+            "rating": null,
+            "goals": 5,
+            "assists": 3,
+            "apps": null
+          },
+          {
+            "id": 1780053,
+            "name": "Mamadou Sylla",
+            "shirt": "14",
+            "pos_id": 104,
+            "rating": null,
+            "goals": 5,
+            "assists": null,
+            "apps": null
+          },
+          {
+            "id": 635789,
+            "name": "Darko Lemajic",
+            "shirt": "22",
+            "pos_id": 106,
+            "rating": null,
+            "goals": 10,
+            "assists": 1,
+            "apps": null
+          }
+        ],
+        "unavailable": []
+      }
+    },
     "h2h_details": [
       {
         "date": "2026-05-21T17:00:00.000Z",
