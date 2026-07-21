@@ -41829,6 +41829,112 @@
       },
       "resolved_at": "2026-07-20 21:31",
       "side": "away"
+    },
+    {
+      "player": "Emiliano Clavijo / Darío Benedetto",
+      "position": "",
+      "is_sub": false,
+      "type": "Double Chance Buteur",
+      "label": "Emiliano Clavijo OU Darío Benedetto marque (cross-équipe)",
+      "cote": null,
+      "book": null,
+      "books": [],
+      "confidence": 70,
+      "cote_min": 1.43,
+      "reasoning": "🔀 Cross-équipe (moins corrélé → meilleur EV)\n📈 P(Emiliano Clavijo marque) ≈ 45% · P(Darío Benedetto marque) ≈ 50%\n🎯 P(au moins un marque) = 70% (1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.43 - chercher ≥1.43 chez le bookmaker\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+      "context": {
+        "combo_kind": "cross"
+      },
+      "_team_for_balance": "home",
+      "stats": {
+        "p_a": 0.45,
+        "p_b": 0.495,
+        "p_or": 0.7,
+        "player_a": "Emiliano Clavijo",
+        "player_b": "Darío Benedetto",
+        "kind": "cross"
+      },
+      "team": "home",
+      "tier": "safe",
+      "calibration_delta": -11.3,
+      "history_top3": true,
+      "id": "2026-07-22_1000009033_player_Emiliano Clavijo / Darío Benedetto_Double Chance Buteur",
+      "date": "2026-07-22",
+      "match_id": "1000009033",
+      "page_url": "/matches/barcelona-sc-vs-universidad-catolica/3a3ig1s#1000009033",
+      "matchup": "Universidad Catolica vs Barcelona SC",
+      "league": "Ecuador LigaPro",
+      "category": "player",
+      "result": "PENDING",
+      "actual": null,
+      "resolved_at": null,
+      "side": "home"
+    },
+    {
+      "player": "Luciano Juba",
+      "position": "F",
+      "is_sub": false,
+      "type": "Buteur",
+      "label": "Luciano Juba marque",
+      "team": "away",
+      "cote": null,
+      "book": null,
+      "books": [],
+      "confidence": 39,
+      "reasoning": "7G en 15 matchs (46.7%/match) · xG: 0.22/match",
+      "context": {
+        "weakness": 0.5
+      },
+      "stats": {
+        "goals": 7,
+        "apps": 15
+      },
+      "tier": "fun",
+      "history_top3": true,
+      "id": "2026-07-21_5103549_player_Luciano Juba_Buteur",
+      "date": "2026-07-21",
+      "match_id": "5103549",
+      "page_url": "/matches/bahia-vs-atletico-mg/2q2b38#5103549",
+      "matchup": "Atletico MG vs Bahia",
+      "league": "Brasileirao",
+      "category": "player",
+      "result": "PENDING",
+      "actual": null,
+      "resolved_at": null,
+      "side": "away"
+    },
+    {
+      "player": "Franco Ayunta",
+      "position": "F",
+      "is_sub": false,
+      "type": "Buteur",
+      "label": "Franco Ayunta marque",
+      "team": "away",
+      "cote": null,
+      "book": null,
+      "books": [],
+      "confidence": 37,
+      "reasoning": "6G en 19 matchs (31.6%/match) · xG: 0.00/match",
+      "context": {
+        "weakness": 0.55
+      },
+      "stats": {
+        "goals": 6,
+        "apps": 19
+      },
+      "tier": "fun",
+      "history_top3": true,
+      "id": "2026-07-21_1000009039_player_Franco Ayunta_Buteur",
+      "date": "2026-07-21",
+      "match_id": "1000009039",
+      "page_url": "/matches/delfin-vs-libertad/m6tibgvm#1000009039",
+      "matchup": "Libertad vs Delfin",
+      "league": "Ecuador LigaPro",
+      "category": "player",
+      "result": "PENDING",
+      "actual": null,
+      "resolved_at": null,
+      "side": "away"
     }
   ]
 }
