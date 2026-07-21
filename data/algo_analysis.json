@@ -1,12 +1,12 @@
 {
-  "generated_at": "2026-07-21T07:37:58.840494",
-  "n_total": 1472,
+  "generated_at": "2026-07-21T08:11:20.132666",
+  "n_total": 1473,
   "globals": {
     "foot": {
-      "n": 1186,
+      "n": 1187,
       "w": 537,
       "l": 611,
-      "push": 38,
+      "push": 39,
       "wr": 46.8,
       "roi": -12.7,
       "profit": -150.49,
@@ -70,10 +70,10 @@
         "calibration_gap": -22.2
       },
       "70-79": {
-        "n": 427,
+        "n": 428,
         "w": 221,
         "l": 185,
-        "push": 21,
+        "push": 22,
         "wr": 54.4,
         "roi": -2.1,
         "profit": -8.8,
@@ -536,12 +536,12 @@
         "wr_vs_be": -2.2
       },
       "Double Chance Buteur": {
-        "n": 244,
+        "n": 245,
         "w": 99,
         "l": 140,
-        "push": 5,
+        "push": 6,
         "wr": 41.4,
-        "roi": -24.9,
+        "roi": -24.8,
         "profit": -60.8,
         "avg_cote": null,
         "break_even_wr": null,
@@ -818,6 +818,18 @@
           "break_even_wr": null,
           "wr_vs_be": null
         },
+        "Uruguay Primera": {
+          "n": 42,
+          "w": 8,
+          "l": 29,
+          "push": 5,
+          "wr": 21.6,
+          "roi": -53.8,
+          "profit": -22.6,
+          "avg_cote": null,
+          "break_even_wr": null,
+          "wr_vs_be": null
+        },
         "Icelandic Besta": {
           "n": 65,
           "w": 25,
@@ -874,18 +886,6 @@
           "wr": 55.9,
           "roi": 0.6,
           "profit": 0.2,
-          "avg_cote": null,
-          "break_even_wr": null,
-          "wr_vs_be": null
-        },
-        "Uruguay Primera": {
-          "n": 41,
-          "w": 8,
-          "l": 29,
-          "push": 4,
-          "wr": 21.6,
-          "roi": -55.1,
-          "profit": -22.6,
           "avg_cote": null,
           "break_even_wr": null,
           "wr_vs_be": null
@@ -1399,10 +1399,10 @@
       },
       "is_fun": {
         "False": {
-          "n": 1177,
+          "n": 1178,
           "w": 534,
           "l": 605,
-          "push": 38,
+          "push": 39,
           "wr": 46.9,
           "roi": -13.0,
           "profit": -153.42,
@@ -1514,14 +1514,14 @@
       "severity": "high",
       "type": "skip_market",
       "scope": "foot · Double Chance Buteur",
-      "message": "Market <b>Double Chance Buteur</b> (foot) : ROI <b>-24.9%</b> sur 244 picks (WR 41.4%). À skipper ou refondre la formule.",
+      "message": "Market <b>Double Chance Buteur</b> (foot) : ROI <b>-24.8%</b> sur 245 picks (WR 41.4%). À skipper ou refondre la formule.",
       "stats": {
-        "n": 244,
+        "n": 245,
         "w": 99,
         "l": 140,
-        "push": 5,
+        "push": 6,
         "wr": 41.4,
-        "roi": -24.9,
+        "roi": -24.8,
         "profit": -60.8,
         "avg_cote": null,
         "break_even_wr": null,
@@ -1712,12 +1712,12 @@
       "severity": "medium",
       "type": "miscalibrated_overconfident",
       "scope": "foot · conf 70-79",
-      "message": "Bucket conf <b>70-79</b> (foot) : modèle annonce ~74.5% mais WR réel = 54.4% (gap -20.1pp sur 427 picks). Modèle trop confiant → relever MIN_CONF ou ajuster formule.",
+      "message": "Bucket conf <b>70-79</b> (foot) : modèle annonce ~74.5% mais WR réel = 54.4% (gap -20.1pp sur 428 picks). Modèle trop confiant → relever MIN_CONF ou ajuster formule.",
       "stats": {
-        "n": 427,
+        "n": 428,
         "w": 221,
         "l": 185,
-        "push": 21,
+        "push": 22,
         "wr": 54.4,
         "roi": -2.1,
         "profit": -8.8,
@@ -2038,16 +2038,16 @@
       "severity": "medium",
       "type": "context_signal",
       "scope": "foot · league",
-      "message": "Signal contexte <b>league</b> (foot) : league=Uruguay Primera → WR 21.6% (41 picks) vs league=Serie A → WR 66.7% (45). Filtrer/ponderer.",
+      "message": "Signal contexte <b>league</b> (foot) : league=Uruguay Primera → WR 21.6% (42 picks) vs league=Serie A → WR 66.7% (45). Filtrer/ponderer.",
       "stats": {
         "worst": {
           "Uruguay Primera": {
-            "n": 41,
+            "n": 42,
             "w": 8,
             "l": 29,
-            "push": 4,
+            "push": 5,
             "wr": 21.6,
-            "roi": -55.1,
+            "roi": -53.8,
             "profit": -22.6,
             "avg_cote": null,
             "break_even_wr": null,
