@@ -42336,6 +42336,77 @@
       "actual": null,
       "resolved_at": null,
       "side": "home"
+    },
+    {
+      "player": "Breno Lopes / Vitor Roque",
+      "position": "",
+      "is_sub": false,
+      "type": "Double Chance Buteur",
+      "label": "Breno Lopes OU Vitor Roque marque (cross-équipe)",
+      "cote": null,
+      "book": null,
+      "books": [],
+      "confidence": 70,
+      "cote_min": 1.47,
+      "reasoning": "🔀 Cross-équipe (moins corrélé → meilleur EV)\n📈 P(Breno Lopes marque) ≈ 46% · P(Vitor Roque marque) ≈ 40%\n🎯 P(au moins un marque) = 70% (1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.47 - chercher ≥1.47 chez le bookmaker\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+      "context": {
+        "combo_kind": "cross"
+      },
+      "_team_for_balance": "home",
+      "stats": {
+        "p_a": 0.465,
+        "p_b": 0.398,
+        "p_or": 0.678,
+        "player_a": "Breno Lopes",
+        "player_b": "Vitor Roque",
+        "kind": "cross"
+      },
+      "team": "home",
+      "tier": "safe",
+      "calibration_delta": -11.3,
+      "history_top3": true,
+      "id": "2026-07-22_5103551_player_Breno Lopes / Vitor Roque_Double Chance Buteur",
+      "date": "2026-07-22",
+      "match_id": "5103551",
+      "page_url": "/matches/coritiba-vs-palmeiras/3boktu#5103551",
+      "matchup": "Coritiba vs Palmeiras",
+      "league": "Brasileirao",
+      "category": "player",
+      "result": "PENDING",
+      "actual": null,
+      "resolved_at": null,
+      "side": "home"
+    },
+    {
+      "direction": "away_win",
+      "type": "Victoire extérieur",
+      "label": "Palmeiras gagne",
+      "cote": null,
+      "confidence": 59,
+      "reasoning": "Palmeiras : 2V/3N/0D sur 5 matchs · #1 au classement · H2H: 0V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 50-59% historiquement à WR 42% (claim 55%, n=41) — sur-estimé de 14pp",
+      "stats": {
+        "form": [
+          "W",
+          "W",
+          "D",
+          "D",
+          "D"
+        ]
+      },
+      "is_fun": false,
+      "tier": "ok",
+      "calibration_delta": -13.6,
+      "history_top3": true,
+      "id": "2026-07-22_5103551_team_away_win",
+      "date": "2026-07-22",
+      "match_id": "5103551",
+      "page_url": "/matches/coritiba-vs-palmeiras/3boktu#5103551",
+      "matchup": "Coritiba vs Palmeiras",
+      "league": "Brasileirao",
+      "category": "team",
+      "result": "PENDING",
+      "actual": null,
+      "resolved_at": null
     }
   ]
 }
