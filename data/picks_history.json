@@ -42477,7 +42477,7 @@
       "direction": "home_win",
       "type": "Favori net",
       "label": "New England Revolution gagne",
-      "cote": 1.95,
+      "cote": 2.0,
       "confidence": 74,
       "reasoning": "17 places d'écart au classement (#8 vs #25) · 3V/0N/2D sur 5 matchs · Note Sofa: 6.5/10\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
       "stats": {
@@ -42492,7 +42492,7 @@
       "is_fun": false,
       "tier": "ok",
       "calibration_delta": -11.3,
-      "edge_pp": 22.7,
+      "edge_pp": 24.0,
       "history_top3": true,
       "id": "2026-07-22_5071219_team_home_win",
       "date": "2026-07-22",
@@ -42549,7 +42549,7 @@
       "direction": "away_win",
       "type": "Favori net",
       "label": "Red Bull New York gagne",
-      "cote": 4.1,
+      "cote": 3.95,
       "confidence": 74,
       "reasoning": "17 places d'écart au classement (#13 vs #30) · 3V/1N/1D sur 5 matchs · Note Sofa: 6.5/10\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
       "stats": {
@@ -42564,7 +42564,7 @@
       "is_fun": false,
       "tier": "fun",
       "calibration_delta": -11.3,
-      "edge_pp": 49.6,
+      "edge_pp": 48.7,
       "history_top3": true,
       "id": "2026-07-22_5071220_team_away_win",
       "date": "2026-07-22",
@@ -43206,14 +43206,14 @@
       "books": [],
       "confidence": 70,
       "cote_min": 1.43,
-      "reasoning": "✈️ Combo intra-Viking\n📈 P(Peter Christiansen marque) ≈ 53% · P(Simen Kvia-Egeskog marque) ≈ 39%\n🎯 P(au moins un marque) = 70% (1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.43 - chercher ≥1.43 chez le bookmaker\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+      "reasoning": "✈️ Combo intra-Viking\n📈 P(Peter Christiansen marque) ≈ 53% · P(Simen Kvia-Egeskog marque) ≈ 40%\n🎯 P(au moins un marque) = 70% (1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.43 - chercher ≥1.43 chez le bookmaker\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
       "context": {
         "combo_kind": "intra-away"
       },
       "_team_for_balance": "away",
       "stats": {
         "p_a": 0.532,
-        "p_b": 0.39,
+        "p_b": 0.405,
         "p_or": 0.7,
         "player_a": "Peter Christiansen",
         "player_b": "Simen Kvia-Egeskog",
@@ -43306,6 +43306,42 @@
       "actual": null,
       "resolved_at": null,
       "side": "home"
+    },
+    {
+      "player": "Zlatko Tripic",
+      "position": "F",
+      "is_sub": false,
+      "type": "Passeur",
+      "label": "Zlatko Tripic délivre une passe décisive",
+      "cote": null,
+      "book": null,
+      "books": [],
+      "confidence": 46,
+      "reasoning": "13 passes décisives en 12 matchs (50.0% de chance/match) · xA moyen 0.66/match · défense correcte\n📉 Calibration : bucket 40-49% historiquement à WR 25% (claim 44%, n=36) — sur-estimé de 19pp",
+      "context": {
+        "weakness": 0.32
+      },
+      "stats": {
+        "assists": 13,
+        "apps": 12,
+        "apm": 0.5,
+        "xapm": 0.658
+      },
+      "team": "away",
+      "tier": "fun",
+      "calibration_delta": -19.4,
+      "history_top3": true,
+      "id": "2026-07-22_5104924_player_Zlatko Tripic_Passeur",
+      "date": "2026-07-22",
+      "match_id": "5104924",
+      "page_url": "/matches/lillestrom-vs-viking/2dkrf1#5104924",
+      "matchup": "Lillestrøm vs Viking",
+      "league": "Norwegian Eliteserien",
+      "category": "player",
+      "result": "PENDING",
+      "actual": null,
+      "resolved_at": null,
+      "side": "away"
     },
     {
       "player": "Kaio Jorge / Néiser Villarreal",
