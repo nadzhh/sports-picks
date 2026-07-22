@@ -42371,6 +42371,78 @@
       "side": "home"
     },
     {
+      "direction": "home_win",
+      "type": "Favori net",
+      "label": "Charlotte FC gagne",
+      "cote": 2.0,
+      "confidence": 70,
+      "reasoning": "14 places d'écart au classement (#14 vs #28) · 2V/1N/2D sur 5 matchs · Note Sofa: 6.5/10\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+      "stats": {
+        "form": [
+          "W",
+          "W",
+          "L",
+          "D",
+          "L"
+        ]
+      },
+      "is_fun": false,
+      "tier": "ok",
+      "calibration_delta": -11.3,
+      "edge_pp": 20.0,
+      "history_top3": true,
+      "id": "2026-07-23_5071222_team_home_win",
+      "date": "2026-07-23",
+      "match_id": "5071222",
+      "page_url": "/matches/atlanta-united-vs-charlotte-fc/s2xqd9kd#5071222",
+      "matchup": "Charlotte FC vs Atlanta United",
+      "league": "MLS",
+      "category": "team",
+      "result": "PENDING",
+      "actual": null,
+      "resolved_at": null
+    },
+    {
+      "player": "Pep Biel / Idan Toklomati",
+      "position": "",
+      "is_sub": false,
+      "type": "Double Chance Buteur",
+      "label": "Pep Biel ou Idan Toklomati marque (Charlotte FC)",
+      "cote": null,
+      "book": null,
+      "books": [],
+      "confidence": 70,
+      "cote_min": 1.43,
+      "reasoning": "🏠 Combo intra-Charlotte FC\n📈 P(Pep Biel marque) ≈ 50% · P(Idan Toklomati marque) ≈ 40%\n🎯 P(au moins un marque) = 70% (1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.43 - chercher ≥1.43 chez le bookmaker\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+      "context": {
+        "combo_kind": "intra-home"
+      },
+      "_team_for_balance": "home",
+      "stats": {
+        "p_a": 0.495,
+        "p_b": 0.398,
+        "p_or": 0.696,
+        "player_a": "Pep Biel",
+        "player_b": "Idan Toklomati",
+        "kind": "intra-home"
+      },
+      "team": "home",
+      "tier": "safe",
+      "calibration_delta": -11.3,
+      "history_top3": true,
+      "id": "2026-07-23_5071222_player_Pep Biel / Idan Toklomati_Double Chance Buteur",
+      "date": "2026-07-23",
+      "match_id": "5071222",
+      "page_url": "/matches/atlanta-united-vs-charlotte-fc/s2xqd9kd#5071222",
+      "matchup": "Charlotte FC vs Atlanta United",
+      "league": "MLS",
+      "category": "player",
+      "result": "PENDING",
+      "actual": null,
+      "resolved_at": null,
+      "side": "home"
+    },
+    {
       "player": "Federico Paz / Matías Klimowicz",
       "position": "",
       "is_sub": false,
@@ -42557,7 +42629,7 @@
       "direction": "away_win",
       "type": "Favori net",
       "label": "Vancouver Whitecaps gagne",
-      "cote": 1.74,
+      "cote": 1.77,
       "confidence": 68,
       "reasoning": "13 places d'écart au classement (#2 vs #15) · 2V/2N/1D sur 5 matchs · Note Sofa: 6.5/10\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
       "stats": {
@@ -42572,7 +42644,7 @@
       "is_fun": false,
       "tier": "ok",
       "calibration_delta": -25.4,
-      "edge_pp": 10.5,
+      "edge_pp": 11.5,
       "history_top3": true,
       "id": "2026-07-22_5071216_team_away_win",
       "date": "2026-07-22",
@@ -42737,7 +42809,7 @@
       "direction": "home_win",
       "type": "Victoire domicile",
       "label": "Inter Miami CF gagne",
-      "cote": 2.05,
+      "cote": 2.1,
       "confidence": 67,
       "reasoning": "Inter Miami CF : 4V/0N/1D sur 5 matchs · #4 au classement · H2H: 0V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
       "stats": {
@@ -42752,7 +42824,7 @@
       "is_fun": false,
       "tier": "ok",
       "calibration_delta": -25.4,
-      "edge_pp": 18.2,
+      "edge_pp": 19.4,
       "history_top3": true,
       "id": "2026-07-22_5071218_team_home_win",
       "date": "2026-07-22",
@@ -43059,6 +43131,39 @@
       "actual": null,
       "resolved_at": null,
       "side": "home"
+    },
+    {
+      "player": "Deyverson",
+      "position": "F",
+      "is_sub": false,
+      "type": "Buteur",
+      "label": "Deyverson marque",
+      "team": "away",
+      "cote": null,
+      "book": null,
+      "books": [],
+      "confidence": 28,
+      "reasoning": "4G en 18 matchs (22.2%/match) · xG: 0.00/match",
+      "context": {
+        "weakness": 0.55
+      },
+      "stats": {
+        "goals": 4,
+        "apps": 18
+      },
+      "tier": "fun",
+      "history_top3": true,
+      "id": "2026-07-23_1000009035_player_Deyverson_Buteur",
+      "date": "2026-07-23",
+      "match_id": "1000009035",
+      "page_url": "/matches/ldu-de-quito-vs-manta/6lz46gj#1000009035",
+      "matchup": "Manta vs LDU de Quito",
+      "league": "Ecuador LigaPro",
+      "category": "player",
+      "result": "PENDING",
+      "actual": null,
+      "resolved_at": null,
+      "side": "away"
     }
   ]
 }
