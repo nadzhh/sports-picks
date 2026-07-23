@@ -7774,12 +7774,12 @@
     },
     "lineup": {
       "type": "standard",
-      "source": "optaSdapiLegacyIntegration",
+      "source": "enetpulse",
       "home": {
         "name": "Belgrano",
         "id": 10092,
         "formation": "4-2-3-1",
-        "coach": null,
+        "coach": "Ricardo Zielinski",
         "starters": [
           {
             "id": 369831,
@@ -7908,7 +7908,7 @@
         "name": "Rosario Central",
         "id": 10084,
         "formation": "4-2-3-1",
-        "coach": null,
+        "coach": "Jorge Almirón",
         "starters": [
           {
             "id": 486981,
@@ -10084,14 +10084,125 @@
       "n_matches": 0
     },
     "lineup": {
-      "type": "unavailable",
+      "type": "standard",
       "source": "enetpulse",
       "home": {
         "name": "Sarmiento",
         "id": 202757,
-        "formation": "",
-        "coach": null,
-        "starters": [],
+        "formation": "4-4-2",
+        "coach": "Facundo Sava",
+        "starters": [
+          {
+            "id": 496869,
+            "name": "Iván Arboleda",
+            "shirt": "1",
+            "pos_id": 11,
+            "rating": null,
+            "goals": null,
+            "assists": null,
+            "apps": null
+          },
+          {
+            "id": 1607567,
+            "name": "Thiago Santamaría",
+            "shirt": "29",
+            "pos_id": 32,
+            "rating": 6.77,
+            "goals": null,
+            "assists": 1,
+            "apps": null
+          },
+          {
+            "id": 1139354,
+            "name": "Renzo Orihuela",
+            "shirt": "44",
+            "pos_id": 34,
+            "rating": 6.71,
+            "goals": null,
+            "assists": null,
+            "apps": null
+          },
+          {
+            "id": 147620,
+            "name": "Juan Manuel Insaurralde",
+            "shirt": "2",
+            "pos_id": 36,
+            "rating": 6.87,
+            "goals": null,
+            "assists": null,
+            "apps": null
+          },
+          {
+            "id": 528063,
+            "name": "Lucas Suárez",
+            "shirt": "3",
+            "pos_id": 38,
+            "rating": 6.33,
+            "goals": null,
+            "assists": null,
+            "apps": null
+          },
+          {
+            "id": 1135817,
+            "name": "Cristian Zabala",
+            "shirt": "15",
+            "pos_id": 72,
+            "rating": 7.26,
+            "goals": 1,
+            "assists": null,
+            "apps": null
+          },
+          {
+            "id": 1712136,
+            "name": "Elián Giménez",
+            "shirt": "23",
+            "pos_id": 74,
+            "rating": null,
+            "goals": null,
+            "assists": null,
+            "apps": null
+          },
+          {
+            "id": 1352729,
+            "name": "Gabriel Díaz",
+            "shirt": "33",
+            "pos_id": 76,
+            "rating": 6.13,
+            "goals": null,
+            "assists": null,
+            "apps": null
+          },
+          {
+            "id": 1439529,
+            "name": "Santiago Salle",
+            "shirt": "8",
+            "pos_id": 78,
+            "rating": 6.62,
+            "goals": null,
+            "assists": 1,
+            "apps": null
+          },
+          {
+            "id": 279769,
+            "name": "Pablo Magnín",
+            "shirt": "7",
+            "pos_id": 104,
+            "rating": 6.52,
+            "goals": 1,
+            "assists": null,
+            "apps": null
+          },
+          {
+            "id": 883281,
+            "name": "Junior Marabel",
+            "shirt": "27",
+            "pos_id": 106,
+            "rating": 6.86,
+            "goals": 6,
+            "assists": 3,
+            "apps": null
+          }
+        ],
         "unavailable": [
           {
             "id": 1020944,
@@ -10116,9 +10227,120 @@
       "away": {
         "name": "Argentinos Juniors",
         "id": 10086,
-        "formation": "",
-        "coach": null,
-        "starters": [],
+        "formation": "4-3-3",
+        "coach": "Nicolás Diez",
+        "starters": [
+          {
+            "id": 424153,
+            "name": "Brayan Cortés",
+            "shirt": "25",
+            "pos_id": 11,
+            "rating": 7.06,
+            "goals": null,
+            "assists": null,
+            "apps": null
+          },
+          {
+            "id": 1137661,
+            "name": "Franco Paredes",
+            "shirt": "17",
+            "pos_id": 32,
+            "rating": null,
+            "goals": null,
+            "assists": null,
+            "apps": null
+          },
+          {
+            "id": 920404,
+            "name": "Francisco Álvarez",
+            "shirt": "16",
+            "pos_id": 34,
+            "rating": 7.51,
+            "goals": 2,
+            "assists": null,
+            "apps": null
+          },
+          {
+            "id": 316878,
+            "name": "Érik Godoy",
+            "shirt": "4",
+            "pos_id": 36,
+            "rating": 6.65,
+            "goals": 1,
+            "assists": null,
+            "apps": null
+          },
+          {
+            "id": 841913,
+            "name": "Sebastián Prieto",
+            "shirt": "20",
+            "pos_id": 38,
+            "rating": 7.33,
+            "goals": 1,
+            "assists": 2,
+            "apps": null
+          },
+          {
+            "id": 1342579,
+            "name": "Alan Lescano",
+            "shirt": "10",
+            "pos_id": 73,
+            "rating": 7.23,
+            "goals": 3,
+            "assists": null,
+            "apps": null
+          },
+          {
+            "id": 1609797,
+            "name": "Lucas Gómez",
+            "shirt": "8",
+            "pos_id": 75,
+            "rating": 6.57,
+            "goals": null,
+            "assists": null,
+            "apps": null
+          },
+          {
+            "id": 543304,
+            "name": "Nicolás Oroz",
+            "shirt": "11",
+            "pos_id": 77,
+            "rating": 7.26,
+            "goals": 2,
+            "assists": 3,
+            "apps": null
+          },
+          {
+            "id": 785840,
+            "name": "Iván Morales",
+            "shirt": "7",
+            "pos_id": 103,
+            "rating": 6.6,
+            "goals": 2,
+            "assists": 1,
+            "apps": null
+          },
+          {
+            "id": 918846,
+            "name": "Gastón Verón",
+            "shirt": "9",
+            "pos_id": 105,
+            "rating": null,
+            "goals": null,
+            "assists": null,
+            "apps": null
+          },
+          {
+            "id": 1843096,
+            "name": "Facundo Jainikoski",
+            "shirt": "48",
+            "pos_id": 107,
+            "rating": 6.55,
+            "goals": 1,
+            "assists": 2,
+            "apps": null
+          }
+        ],
         "unavailable": []
       }
     },
@@ -19395,7 +19617,7 @@
         "sot_pm": 0.7,
         "xG_pm": 0,
         "xA_pm": 0,
-        "rating": 6.92
+        "rating": 6.93
       },
       {
         "id": 1130688,
@@ -19410,16 +19632,16 @@
         "minutes": 640,
         "goals": 2,
         "assists": 2,
-        "shots": 50.0,
-        "shots_on": 11.0,
+        "shots": 51.0,
+        "shots_on": 12.0,
         "goals_pm": 0.182,
         "assists_pm": 0.182,
         "g_a_pm": 0.364,
-        "shots_pm": 4.5,
-        "sot_pm": 1.0,
+        "shots_pm": 4.6,
+        "sot_pm": 1.1,
         "xG_pm": 0,
         "xA_pm": 0,
-        "rating": 7.04
+        "rating": 7.13
       },
       {
         "id": 1368340,
@@ -19491,7 +19713,7 @@
         "sot_pm": 0.7,
         "xG_pm": 0,
         "xA_pm": 0,
-        "rating": 7.11
+        "rating": 7.13
       },
       {
         "id": 1910734,
@@ -19635,7 +19857,7 @@
         "sot_pm": 0.1,
         "xG_pm": 0,
         "xA_pm": 0,
-        "rating": 6.91
+        "rating": 6.94
       },
       {
         "id": 1909678,
@@ -19674,16 +19896,16 @@
         "minutes": 1015,
         "goals": 1,
         "assists": 0,
-        "shots": 38.0,
+        "shots": 44.0,
         "shots_on": 8.0,
         "goals_pm": 0.053,
         "assists_pm": 0.0,
         "g_a_pm": 0.053,
-        "shots_pm": 2.0,
+        "shots_pm": 2.3,
         "sot_pm": 0.4,
         "xG_pm": 0,
         "xA_pm": 0,
-        "rating": 6.6
+        "rating": 6.64
       },
       {
         "id": 1119145,
@@ -19707,7 +19929,7 @@
         "sot_pm": 0.1,
         "xG_pm": 0,
         "xA_pm": 0,
-        "rating": 7.04
+        "rating": 7.06
       },
       {
         "id": 860842,
@@ -19755,7 +19977,7 @@
         "sot_pm": 0,
         "xG_pm": 0,
         "xA_pm": 0,
-        "rating": 6.92
+        "rating": 6.94
       },
       {
         "id": 1352485,
@@ -19770,16 +19992,16 @@
         "minutes": 507,
         "goals": 0,
         "assists": 0,
-        "shots": 45.0,
+        "shots": 48.0,
         "shots_on": 13.0,
         "goals_pm": 0.0,
         "assists_pm": 0.0,
         "g_a_pm": 0.0,
-        "shots_pm": 4.1,
+        "shots_pm": 4.4,
         "sot_pm": 1.2,
         "xG_pm": 0,
         "xA_pm": 0,
-        "rating": 6.85
+        "rating": 6.88
       },
       {
         "id": 1826537,
@@ -20141,7 +20363,7 @@
         "sot_pm": 0.7,
         "xG_pm": 0,
         "xA_pm": 0,
-        "rating": 6.99
+        "rating": 7.0
       },
       {
         "id": 1353301,
@@ -20189,7 +20411,7 @@
         "sot_pm": 0.1,
         "xG_pm": 0,
         "xA_pm": 0,
-        "rating": 6.97
+        "rating": 6.98
       },
       {
         "id": 52430,
@@ -20333,7 +20555,7 @@
         "sot_pm": 0.1,
         "xG_pm": 0,
         "xA_pm": 0,
-        "rating": 6.74
+        "rating": 6.75
       },
       {
         "id": 1421388,
@@ -20381,7 +20603,7 @@
         "sot_pm": 0.3,
         "xG_pm": 0,
         "xA_pm": 0,
-        "rating": 6.93
+        "rating": 6.94
       },
       {
         "id": 1910742,
@@ -20405,7 +20627,7 @@
         "sot_pm": 0.1,
         "xG_pm": 0,
         "xA_pm": 0,
-        "rating": 6.91
+        "rating": 6.92
       },
       {
         "id": 1469709,
@@ -20651,8 +20873,8 @@
     "home_team_stats": {
       "goals_pm": 1.0,
       "conceded_pm": 1.0,
-      "shots_pm": 8.5,
-      "sot_pm": 3.4
+      "shots_pm": 8.75,
+      "sot_pm": 3.5
     },
     "away_team_stats": {
       "goals_pm": 0.9,
@@ -20709,10 +20931,10 @@
       "shots_l10_lg": 19.6,
       "opp_shots_l5_lg": 11.8,
       "opp_shots_l10_lg": 11.8,
-      "sot_pm": 3.4,
+      "sot_pm": 3.5,
       "sot_l5": 5.4,
       "sot_l10": 5.4,
-      "sot_season": 3.4,
+      "sot_season": 3.5,
       "opp_sot_l5": 3.6,
       "opp_sot_l10": 3.6,
       "sot_l5_lg": 5.4,
@@ -20769,9 +20991,9 @@
       "opp_shots_away": 12.0,
       "shots_trend": "",
       "xg_conc_pm": 0,
-      "corners_pm": 3.71,
+      "corners_pm": 3.76,
       "big_chance_pm": 1.48,
-      "possession_pct": 46.1,
+      "possession_pct": 46.0,
       "clean_sheet_pm": 0.33
     },
     "away_recent": {
@@ -20851,7 +21073,7 @@
       "xg_weighted": null,
       "opp_shots_weighted": 14.3,
       "opp_sot_weighted": 4.8,
-      "avg_opp_rank_l10": 9.0,
+      "avg_opp_rank_l10": 8.9,
       "target_opp_rank": 9,
       "all_comp_n_l5": 5,
       "all_comp_n_l10": 5,
@@ -20885,7 +21107,7 @@
       "xg_conc_pm": 0,
       "corners_pm": 3.0,
       "big_chance_pm": 1.48,
-      "possession_pct": 55.0,
+      "possession_pct": 55.1,
       "clean_sheet_pm": 0.29
     },
     "home_l5": [
@@ -20989,7 +21211,7 @@
       {
         "date": "2026-07-04T19:00:00Z",
         "opponent": "Libertad",
-        "opp_rank": 12,
+        "opp_rank": 13,
         "opp_id": "1345405",
         "is_home": false,
         "score": "1 - 3",
@@ -21732,17 +21954,17 @@
         "is_sub": false,
         "minutes": 1650,
         "goals": 7,
-        "assists": 1,
+        "assists": 2,
         "shots": 50.0,
         "shots_on": 20.0,
         "goals_pm": 0.35,
-        "assists_pm": 0.05,
-        "g_a_pm": 0.4,
+        "assists_pm": 0.1,
+        "g_a_pm": 0.45,
         "shots_pm": 2.5,
         "sot_pm": 1.0,
         "xG_pm": 0,
         "xA_pm": 0,
-        "rating": 6.88
+        "rating": 6.94
       },
       {
         "id": 1829453,
@@ -21781,13 +22003,13 @@
         "minutes": 538,
         "goals": 3,
         "assists": 1,
-        "shots": 40.0,
-        "shots_on": 19.0,
+        "shots": 43.0,
+        "shots_on": 21.0,
         "goals_pm": 0.188,
         "assists_pm": 0.062,
         "g_a_pm": 0.25,
-        "shots_pm": 2.5,
-        "sot_pm": 1.2,
+        "shots_pm": 2.7,
+        "sot_pm": 1.3,
         "xG_pm": 0,
         "xA_pm": 0,
         "rating": 6.34
@@ -21815,6 +22037,30 @@
         "xG_pm": 0,
         "xA_pm": 0,
         "rating": 7.28
+      },
+      {
+        "id": 1741921,
+        "name": "Sergio Vasquez",
+        "shortName": "Sergio Vasquez",
+        "position": "F",
+        "team_id": 1014174,
+        "appearances": 20,
+        "appearances_raw": 20,
+        "stats_suspect": false,
+        "is_sub": false,
+        "minutes": 1731,
+        "goals": 3,
+        "assists": 1,
+        "shots": 34.0,
+        "shots_on": 10.0,
+        "goals_pm": 0.15,
+        "assists_pm": 0.05,
+        "g_a_pm": 0.2,
+        "shots_pm": 1.7,
+        "sot_pm": 0.5,
+        "xG_pm": 0,
+        "xA_pm": 0,
+        "rating": 7.33
       },
       {
         "id": 936100,
@@ -21863,30 +22109,6 @@
         "xG_pm": 0,
         "xA_pm": 0,
         "rating": null
-      },
-      {
-        "id": 1741921,
-        "name": "Sergio Vasquez",
-        "shortName": "Sergio Vasquez",
-        "position": "F",
-        "team_id": 1014174,
-        "appearances": 20,
-        "appearances_raw": 20,
-        "stats_suspect": false,
-        "is_sub": false,
-        "minutes": 1731,
-        "goals": 2,
-        "assists": 1,
-        "shots": 32.0,
-        "shots_on": 8.0,
-        "goals_pm": 0.1,
-        "assists_pm": 0.05,
-        "g_a_pm": 0.15,
-        "shots_pm": 1.6,
-        "sot_pm": 0.4,
-        "xG_pm": 0,
-        "xA_pm": 0,
-        "rating": 7.25
       },
       {
         "id": 1721710,
@@ -22054,7 +22276,7 @@
         "sot_pm": 0.1,
         "xG_pm": 0,
         "xA_pm": 0,
-        "rating": 6.85
+        "rating": 6.89
       },
       {
         "id": 848601,
@@ -22078,7 +22300,7 @@
         "sot_pm": 0.5,
         "xG_pm": 0,
         "xA_pm": 0,
-        "rating": 6.79
+        "rating": 6.8
       },
       {
         "id": 899352,
@@ -22102,7 +22324,7 @@
         "sot_pm": 0.1,
         "xG_pm": 0,
         "xA_pm": 0,
-        "rating": 6.58
+        "rating": 6.62
       },
       {
         "id": 1407182,
@@ -22150,7 +22372,7 @@
         "sot_pm": 0.3,
         "xG_pm": 0,
         "xA_pm": 0,
-        "rating": 6.28
+        "rating": 6.32
       },
       {
         "id": 1134929,
@@ -22440,7 +22662,7 @@
         "sot_pm": 0.7,
         "xG_pm": 0,
         "xA_pm": 0,
-        "rating": 7.16
+        "rating": 7.18
       },
       {
         "id": 1828927,
@@ -22479,12 +22701,12 @@
         "minutes": 925,
         "goals": 2,
         "assists": 1,
-        "shots": 42.0,
+        "shots": 44.0,
         "shots_on": 18.0,
         "goals_pm": 0.133,
         "assists_pm": 0.067,
         "g_a_pm": 0.2,
-        "shots_pm": 2.8,
+        "shots_pm": 2.9,
         "sot_pm": 1.2,
         "xG_pm": 0,
         "xA_pm": 0,
@@ -22536,7 +22758,7 @@
         "sot_pm": 0.7,
         "xG_pm": 0,
         "xA_pm": 0,
-        "rating": 6.6
+        "rating": 6.59
       },
       {
         "id": 1682278,
@@ -22575,12 +22797,12 @@
         "minutes": 410,
         "goals": 0,
         "assists": 1,
-        "shots": 34.0,
+        "shots": 38.0,
         "shots_on": 14.0,
         "goals_pm": 0.0,
         "assists_pm": 0.077,
         "g_a_pm": 0.077,
-        "shots_pm": 2.6,
+        "shots_pm": 2.9,
         "sot_pm": 1.1,
         "xG_pm": 0,
         "xA_pm": 0,
@@ -22680,7 +22902,7 @@
         "sot_pm": 0,
         "xG_pm": 0,
         "xA_pm": 0,
-        "rating": 6.99
+        "rating": 7.0
       },
       {
         "id": 1404394,
@@ -22696,12 +22918,12 @@
         "goals": 0,
         "assists": 0,
         "shots": 21.0,
-        "shots_on": 6.0,
+        "shots_on": 8.0,
         "goals_pm": 0.0,
         "assists_pm": 0.0,
         "g_a_pm": 0.0,
         "shots_pm": 1.1,
-        "sot_pm": 0.3,
+        "sot_pm": 0.4,
         "xG_pm": 0,
         "xA_pm": 0,
         "rating": 6.75
@@ -22728,31 +22950,7 @@
         "sot_pm": 0,
         "xG_pm": 0,
         "xA_pm": 0,
-        "rating": 6.69
-      },
-      {
-        "id": 1828220,
-        "name": "Maverick Vera",
-        "shortName": "Maverick Vera",
-        "position": "M",
-        "team_id": 6608,
-        "appearances": 11,
-        "appearances_raw": 11,
-        "stats_suspect": false,
-        "is_sub": false,
-        "minutes": 471,
-        "goals": 0,
-        "assists": 0,
-        "shots": 16.0,
-        "shots_on": 0,
-        "goals_pm": 0.0,
-        "assists_pm": 0.0,
-        "g_a_pm": 0.0,
-        "shots_pm": 1.5,
-        "sot_pm": 0,
-        "xG_pm": 0,
-        "xA_pm": 0,
-        "rating": 6.52
+        "rating": 6.71
       },
       {
         "id": 1122642,
@@ -22774,6 +22972,30 @@
         "g_a_pm": 0.0,
         "shots_pm": 0.3,
         "sot_pm": 0.2,
+        "xG_pm": 0,
+        "xA_pm": 0,
+        "rating": 6.52
+      },
+      {
+        "id": 1828220,
+        "name": "Maverick Vera",
+        "shortName": "Maverick Vera",
+        "position": "M",
+        "team_id": 6608,
+        "appearances": 11,
+        "appearances_raw": 11,
+        "stats_suspect": false,
+        "is_sub": false,
+        "minutes": 471,
+        "goals": 0,
+        "assists": 0,
+        "shots": 16.0,
+        "shots_on": 0,
+        "goals_pm": 0.0,
+        "assists_pm": 0.0,
+        "g_a_pm": 0.0,
+        "shots_pm": 1.5,
+        "sot_pm": 0,
         "xG_pm": 0,
         "xA_pm": 0,
         "rating": 6.5
@@ -22998,12 +23220,12 @@
     "home_team_stats": {
       "goals_pm": 1.1,
       "conceded_pm": 1.4,
-      "shots_pm": 10.25,
-      "sot_pm": 4.1
+      "shots_pm": 10.5,
+      "sot_pm": 4.2
     },
     "away_team_stats": {
       "goals_pm": 1.1,
-      "conceded_pm": 0.9,
+      "conceded_pm": 1.0,
       "shots_pm": 12.25,
       "sot_pm": 4.9
     },
@@ -23015,7 +23237,7 @@
         "L",
         "L"
       ],
-      "position": 14,
+      "position": 12,
       "avgRating": null,
       "goals_for_pm": 1.15,
       "goals_ag_pm": 1.4,
@@ -23056,10 +23278,10 @@
       "shots_l10_lg": 9.4,
       "opp_shots_l5_lg": 13.6,
       "opp_shots_l10_lg": 13.6,
-      "sot_pm": 4.1,
+      "sot_pm": 4.2,
       "sot_l5": 2.2,
       "sot_l10": 2.2,
-      "sot_season": 4.1,
+      "sot_season": 4.2,
       "opp_sot_l5": 4.6,
       "opp_sot_l10": 4.6,
       "sot_l5_lg": 2.2,
@@ -23079,12 +23301,12 @@
       "shots_n_l5_lg": 5,
       "shots_n_l10_lg": 5,
       "shots_source": "tcc",
-      "shots_weighted": 8.7,
+      "shots_weighted": 8.5,
       "sot_weighted": 2.0,
       "xg_weighted": null,
-      "opp_shots_weighted": 14.8,
+      "opp_shots_weighted": 14.9,
       "opp_sot_weighted": 5.4,
-      "avg_opp_rank_l10": 8.4,
+      "avg_opp_rank_l10": 8.5,
       "target_opp_rank": 2,
       "all_comp_n_l5": 5,
       "all_comp_n_l10": 5,
@@ -23116,9 +23338,9 @@
       "opp_shots_away": 16.0,
       "shots_trend": "",
       "xg_conc_pm": 0,
-      "corners_pm": 4.14,
+      "corners_pm": 4.19,
       "big_chance_pm": 1.81,
-      "possession_pct": 53.2,
+      "possession_pct": 53.3,
       "clean_sheet_pm": 0.19
     },
     "away_recent": {
@@ -23193,13 +23415,13 @@
       "shots_n_l5_lg": 5,
       "shots_n_l10_lg": 5,
       "shots_source": "tcc",
-      "shots_weighted": 11.8,
-      "sot_weighted": 4.1,
+      "shots_weighted": 12.0,
+      "sot_weighted": 4.2,
       "xg_weighted": null,
-      "opp_shots_weighted": 10.6,
+      "opp_shots_weighted": 10.7,
       "opp_sot_weighted": 2.4,
-      "avg_opp_rank_l10": 9.0,
-      "target_opp_rank": 14,
+      "avg_opp_rank_l10": 9.2,
+      "target_opp_rank": 12,
       "all_comp_n_l5": 5,
       "all_comp_n_l10": 5,
       "shots_l5_all": 12.0,
@@ -23232,7 +23454,7 @@
       "xg_conc_pm": 0,
       "corners_pm": 5.19,
       "big_chance_pm": 2.24,
-      "possession_pct": 55.6,
+      "possession_pct": 55.5,
       "clean_sheet_pm": 0.43
     },
     "home_l5": [
@@ -23341,7 +23563,7 @@
       {
         "date": "2026-07-07T00:00:00Z",
         "opponent": "Tecnico Universitario",
-        "opp_rank": 13,
+        "opp_rank": 14,
         "opp_id": "113054",
         "is_home": true,
         "score": "1 - 2",
@@ -23428,7 +23650,7 @@
       {
         "date": "2026-07-19T16:45:00Z",
         "opponent": "Tecnico Universitario",
-        "opp_rank": 13,
+        "opp_rank": 14,
         "opp_id": "113054",
         "is_home": false,
         "score": "0 - 1",
@@ -23754,7 +23976,7 @@
             "shirt": "7",
             "pos_id": 73,
             "rating": 7.31,
-            "goals": 2,
+            "goals": 3,
             "assists": 1,
             "apps": null
           },
@@ -23785,7 +24007,7 @@
             "pos_id": 103,
             "rating": 6.89,
             "goals": 7,
-            "assists": 1,
+            "assists": 2,
             "apps": null
           },
           {
@@ -25469,11 +25691,11 @@
       "shots_n_l10_lg": 5,
       "shots_source": "tcc",
       "shots_weighted": 11.4,
-      "sot_weighted": 3.3,
+      "sot_weighted": 3.4,
       "xg_weighted": null,
-      "opp_shots_weighted": 12.5,
-      "opp_sot_weighted": 3.4,
-      "avg_opp_rank_l10": 8.5,
+      "opp_shots_weighted": 12.3,
+      "opp_sot_weighted": 3.3,
+      "avg_opp_rank_l10": 8.4,
       "target_opp_rank": 11,
       "all_comp_n_l5": 5,
       "all_comp_n_l10": 5,
@@ -25582,12 +25804,12 @@
       "shots_n_l5_lg": 5,
       "shots_n_l10_lg": 5,
       "shots_source": "tcc",
-      "shots_weighted": 14.2,
-      "sot_weighted": 4.0,
+      "shots_weighted": 14.3,
+      "sot_weighted": 4.1,
       "xg_weighted": null,
-      "opp_shots_weighted": 13.3,
-      "opp_sot_weighted": 4.9,
-      "avg_opp_rank_l10": 7.0,
+      "opp_shots_weighted": 13.2,
+      "opp_sot_weighted": 4.8,
+      "avg_opp_rank_l10": 6.8,
       "target_opp_rank": 10,
       "all_comp_n_l5": 5,
       "all_comp_n_l10": 5,
@@ -25695,7 +25917,7 @@
       {
         "date": "2026-07-17T00:00:00Z",
         "opponent": "Orense",
-        "opp_rank": 14,
+        "opp_rank": 12,
         "opp_id": "1014174",
         "is_home": false,
         "score": "0 - 2",
@@ -25823,7 +26045,7 @@
       {
         "date": "2026-07-20T19:00:00Z",
         "opponent": "Orense",
-        "opp_rank": 14,
+        "opp_rank": 12,
         "opp_id": "1014174",
         "is_home": true,
         "score": "2 - 1",
