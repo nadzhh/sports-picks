@@ -1,15 +1,15 @@
 {
-  "generated_at": "2026-07-27T20:34:58.184838",
-  "n_total": 1548,
+  "generated_at": "2026-07-27T21:07:23.241064",
+  "n_total": 1549,
   "globals": {
     "foot": {
-      "n": 1262,
+      "n": 1263,
       "w": 574,
-      "l": 647,
+      "l": 648,
       "push": 41,
       "wr": 47.0,
-      "roi": -12.4,
-      "profit": -156.55,
+      "roi": -12.5,
+      "profit": -157.55,
       "avg_cote": 2.31,
       "break_even_wr": 43.2,
       "wr_vs_be": 3.8
@@ -70,18 +70,18 @@
         "calibration_gap": -21.9
       },
       "70-79": {
-        "n": 460,
+        "n": 461,
         "w": 237,
-        "l": 200,
+        "l": 201,
         "push": 23,
-        "wr": 54.2,
-        "roi": -2.4,
-        "profit": -11.0,
+        "wr": 54.1,
+        "roi": -2.6,
+        "profit": -12.0,
         "avg_cote": 1.92,
         "break_even_wr": 52.2,
-        "wr_vs_be": 2.1,
+        "wr_vs_be": 2.0,
         "expected_wr": 74.5,
-        "calibration_gap": -20.3
+        "calibration_gap": -20.4
       },
       "80-89": {
         "n": 122,
@@ -536,13 +536,13 @@
         "wr_vs_be": -0.6
       },
       "Double Chance Buteur": {
-        "n": 271,
+        "n": 272,
         "w": 114,
-        "l": 150,
+        "l": 151,
         "push": 7,
-        "wr": 43.2,
-        "roi": -21.7,
-        "profit": -58.8,
+        "wr": 43.0,
+        "roi": -22.0,
+        "profit": -59.8,
         "avg_cote": null,
         "break_even_wr": null,
         "wr_vs_be": null
@@ -818,6 +818,18 @@
           "break_even_wr": null,
           "wr_vs_be": null
         },
+        "Ecuador LigaPro": {
+          "n": 51,
+          "w": 18,
+          "l": 32,
+          "push": 1,
+          "wr": 36.0,
+          "roi": -34.5,
+          "profit": -17.6,
+          "avg_cote": null,
+          "break_even_wr": null,
+          "wr_vs_be": null
+        },
         "MLS": {
           "n": 44,
           "w": 21,
@@ -838,18 +850,6 @@
           "wr": 55.6,
           "roi": 0.0,
           "profit": 0.0,
-          "avg_cote": null,
-          "break_even_wr": null,
-          "wr_vs_be": null
-        },
-        "Ecuador LigaPro": {
-          "n": 50,
-          "w": 18,
-          "l": 31,
-          "push": 1,
-          "wr": 36.7,
-          "roi": -33.2,
-          "profit": -16.6,
           "avg_cote": null,
           "break_even_wr": null,
           "wr_vs_be": null
@@ -1423,16 +1423,16 @@
       },
       "is_fun": {
         "False": {
-          "n": 1253,
+          "n": 1254,
           "w": 571,
-          "l": 641,
+          "l": 642,
           "push": 41,
           "wr": 47.1,
-          "roi": -12.7,
-          "profit": -159.48,
+          "roi": -12.8,
+          "profit": -160.48,
           "avg_cote": 2.25,
           "break_even_wr": 44.3,
-          "wr_vs_be": 2.8
+          "wr_vs_be": 2.7
         },
         "True": {
           "n": 9,
@@ -1538,15 +1538,15 @@
       "severity": "high",
       "type": "skip_market",
       "scope": "foot · Double Chance Buteur",
-      "message": "Market <b>Double Chance Buteur</b> (foot) : ROI <b>-21.7%</b> sur 271 picks (WR 43.2%). À skipper ou refondre la formule.",
+      "message": "Market <b>Double Chance Buteur</b> (foot) : ROI <b>-22.0%</b> sur 272 picks (WR 43.0%). À skipper ou refondre la formule.",
       "stats": {
-        "n": 271,
+        "n": 272,
         "w": 114,
-        "l": 150,
+        "l": 151,
         "push": 7,
-        "wr": 43.2,
-        "roi": -21.7,
-        "profit": -58.8,
+        "wr": 43.0,
+        "roi": -22.0,
+        "profit": -59.8,
         "avg_cote": null,
         "break_even_wr": null,
         "wr_vs_be": null
@@ -1736,20 +1736,20 @@
       "severity": "medium",
       "type": "miscalibrated_overconfident",
       "scope": "foot · conf 70-79",
-      "message": "Bucket conf <b>70-79</b> (foot) : modèle annonce ~74.5% mais WR réel = 54.2% (gap -20.3pp sur 460 picks). Modèle trop confiant → relever MIN_CONF ou ajuster formule.",
+      "message": "Bucket conf <b>70-79</b> (foot) : modèle annonce ~74.5% mais WR réel = 54.1% (gap -20.4pp sur 461 picks). Modèle trop confiant → relever MIN_CONF ou ajuster formule.",
       "stats": {
-        "n": 460,
+        "n": 461,
         "w": 237,
-        "l": 200,
+        "l": 201,
         "push": 23,
-        "wr": 54.2,
-        "roi": -2.4,
-        "profit": -11.0,
+        "wr": 54.1,
+        "roi": -2.6,
+        "profit": -12.0,
         "avg_cote": 1.92,
         "break_even_wr": 52.2,
-        "wr_vs_be": 2.1,
+        "wr_vs_be": 2.0,
         "expected_wr": 74.5,
-        "calibration_gap": -20.3
+        "calibration_gap": -20.4
       }
     },
     {
