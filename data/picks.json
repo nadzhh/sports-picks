@@ -1,80 +1,222 @@
 [
   {
-    "league": "MLS",
-    "home": "Nashville SC",
-    "away": "CF Montreal",
-    "start_ts": 1784766600,
-    "match_id": "5071228",
-    "page_url": "/matches/cf-montreal-vs-nashville-sc/7efm1ceu#5071228",
-    "picks": [
-      {
-        "direction": "home_dc",
-        "type": "Double chance",
-        "label": "Nashville SC ou Nul (1X)",
-        "cote": null,
-        "confidence": 89,
-        "reasoning": "Nashville SC invaincu 100% sur 5 derniers matchs · H2H: 0/0 matchs sans défaite · Classement: #1 vs #24\n📉 Calibration : bucket 80-89% historiquement à WR 56% (claim 82%, n=63) — sur-estimé de 26pp",
-        "stats": {
-          "form": [
-            "W",
-            "W",
-            "W",
-            "W",
-            "D"
-          ]
-        },
-        "is_fun": false,
-        "tier": "safe",
-        "calibration_delta": -26.0,
-        "history_top3": true
-      },
-      {
-        "direction": "home_win",
-        "type": "Favori net",
-        "label": "Nashville SC gagne",
-        "cote": 1.49,
-        "confidence": 82,
-        "reasoning": "23 places d'écart au classement (#1 vs #24) · 4V/1N/0D sur 5 matchs · Note Sofa: 6.5/10\n📉 Calibration : bucket 80-89% historiquement à WR 56% (claim 82%, n=63) — sur-estimé de 26pp",
-        "stats": {
-          "form": [
-            "W",
-            "W",
-            "W",
-            "W",
-            "D"
-          ]
-        },
-        "is_fun": false,
-        "tier": "safe",
-        "calibration_delta": -26.0,
-        "edge_pp": 14.9,
-        "history_top3": true
-      }
-    ],
+    "league": "Argentina Primera",
+    "home": "Banfield",
+    "away": "Sarmiento",
+    "start_ts": 1785276000,
+    "match_id": "5115889",
+    "page_url": "/matches/banfield-vs-sarmiento/aem69ab#5115889",
+    "picks": [],
     "home_players": [
       {
-        "player": "Hany Mukhtar / Sam Surridge",
+        "player": "Mauro Méndez / Junior Marabel",
         "position": "",
         "is_sub": false,
         "type": "Double Chance Buteur",
-        "label": "Hany Mukhtar ou Sam Surridge marque (Nashville SC)",
+        "label": "Mauro Méndez OU Junior Marabel marque (cross-équipe)",
         "cote": null,
         "book": null,
         "books": [],
         "confidence": 70,
         "cote_min": 1.43,
-        "reasoning": "🏠 Combo intra-Nashville SC\n📈 P(Hany Mukhtar marque) ≈ 47% · P(Sam Surridge marque) ≈ 44%\n🎯 P(au moins un marque) = 70% (1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.43 - chercher ≥1.43 chez le bookmaker\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+        "reasoning": "🔀 Cross-équipe (moins corrélé → meilleur EV)\n📈 P(Mauro Méndez marque) ≈ 41% · P(Junior Marabel marque) ≈ 49%\n🎯 P(au moins un marque) = 70% (1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.43 - chercher ≥1.43 chez le bookmaker\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
         "context": {
-          "combo_kind": "intra-home"
+          "combo_kind": "cross"
         },
         "_team_for_balance": "home",
         "stats": {
-          "p_a": 0.472,
-          "p_b": 0.435,
-          "p_or": 0.702,
-          "player_a": "Hany Mukhtar",
-          "player_b": "Sam Surridge",
-          "kind": "intra-home"
+          "p_a": 0.412,
+          "p_b": 0.488,
+          "p_or": 0.699,
+          "player_a": "Mauro Méndez",
+          "player_b": "Junior Marabel",
+          "kind": "cross"
+        },
+        "team": "home",
+        "tier": "safe",
+        "calibration_delta": -11.3,
+        "history_top3": true
+      }
+    ],
+    "away_players": [],
+    "fun_picks": [],
+    "top_pick": {
+      "player": "Mauro Méndez / Junior Marabel",
+      "position": "",
+      "is_sub": false,
+      "type": "Double Chance Buteur",
+      "label": "Mauro Méndez OU Junior Marabel marque (cross-équipe)",
+      "cote": null,
+      "book": null,
+      "books": [],
+      "confidence": 70,
+      "cote_min": 1.43,
+      "reasoning": "🔀 Cross-équipe (moins corrélé → meilleur EV)\n📈 P(Mauro Méndez marque) ≈ 41% · P(Junior Marabel marque) ≈ 49%\n🎯 P(au moins un marque) = 70% (1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.43 - chercher ≥1.43 chez le bookmaker\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+      "context": {
+        "combo_kind": "cross"
+      },
+      "_team_for_balance": "home",
+      "stats": {
+        "p_a": 0.412,
+        "p_b": 0.488,
+        "p_or": 0.699,
+        "player_a": "Mauro Méndez",
+        "player_b": "Junior Marabel",
+        "kind": "cross"
+      },
+      "team": "home",
+      "tier": "safe",
+      "calibration_delta": -11.3,
+      "history_top3": true
+    },
+    "no_picks": false,
+    "context": {
+      "stadium": {
+        "name": "Estadio Florencio Solá",
+        "city": "Lomas de Zamora, Provincia de Bu",
+        "country": "Argentina",
+        "lat": -34.750877816,
+        "lon": -58.387538195,
+        "capacity": 34901,
+        "surface": "grass"
+      },
+      "weather": {
+        "temp_max": 17.7,
+        "temp_min": 9.8,
+        "humidity": 82,
+        "precipitation_sum_mm": 0.0,
+        "wind_max_kmh": 9.0,
+        "weather_code": 3,
+        "summary_fr": "☁️ couvert · 9–17°C · humidité 82%"
+      },
+      "text": "Conditions : ☁️ couvert · 9–17°C · humidité 82%. Stade : Estadio Florencio Solá · 34 901 places · plein air."
+    }
+  },
+  {
+    "league": "Ecuador LigaPro",
+    "home": "Mushuc Runa",
+    "away": "Libertad",
+    "start_ts": 1785178800,
+    "match_id": "1000009047",
+    "page_url": "/matches/mushuc-runa-vs-libertad/hdlpx4qa#1000009047",
+    "picks": [],
+    "home_players": [
+      {
+        "player": "Ronie Carrillo / Vilington Branda",
+        "position": "",
+        "is_sub": false,
+        "type": "Double Chance Buteur",
+        "label": "Ronie Carrillo OU Vilington Branda marque (cross-équipe)",
+        "cote": null,
+        "book": null,
+        "books": [],
+        "confidence": 70,
+        "cote_min": 1.47,
+        "reasoning": "🔀 Cross-équipe (moins corrélé → meilleur EV)\n📈 P(Ronie Carrillo marque) ≈ 49% · P(Vilington Branda marque) ≈ 38%\n🎯 P(au moins un marque) = 70% (1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.47 - chercher ≥1.47 chez le bookmaker\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+        "context": {
+          "combo_kind": "cross"
+        },
+        "_team_for_balance": "home",
+        "stats": {
+          "p_a": 0.488,
+          "p_b": 0.375,
+          "p_or": 0.68,
+          "player_a": "Ronie Carrillo",
+          "player_b": "Vilington Branda",
+          "kind": "cross"
+        },
+        "team": "home",
+        "tier": "safe",
+        "calibration_delta": -11.3,
+        "history_top3": true
+      }
+    ],
+    "away_players": [],
+    "fun_picks": [],
+    "top_pick": {
+      "player": "Ronie Carrillo / Vilington Branda",
+      "position": "",
+      "is_sub": false,
+      "type": "Double Chance Buteur",
+      "label": "Ronie Carrillo OU Vilington Branda marque (cross-équipe)",
+      "cote": null,
+      "book": null,
+      "books": [],
+      "confidence": 70,
+      "cote_min": 1.47,
+      "reasoning": "🔀 Cross-équipe (moins corrélé → meilleur EV)\n📈 P(Ronie Carrillo marque) ≈ 49% · P(Vilington Branda marque) ≈ 38%\n🎯 P(au moins un marque) = 70% (1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.47 - chercher ≥1.47 chez le bookmaker\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+      "context": {
+        "combo_kind": "cross"
+      },
+      "_team_for_balance": "home",
+      "stats": {
+        "p_a": 0.488,
+        "p_b": 0.375,
+        "p_or": 0.68,
+        "player_a": "Ronie Carrillo",
+        "player_b": "Vilington Branda",
+        "kind": "cross"
+      },
+      "team": "home",
+      "tier": "safe",
+      "calibration_delta": -11.3,
+      "history_top3": true
+    },
+    "no_picks": false,
+    "context": {
+      "stadium": {
+        "name": "Estadio Mushuc Runa Cooperativa de Ahorro y Crédito",
+        "city": "Ambato",
+        "country": "Ecuador",
+        "lat": -1.3091289,
+        "lon": -78.727898,
+        "capacity": null,
+        "surface": null
+      },
+      "weather": {
+        "temp_max": 12.9,
+        "temp_min": 6.3,
+        "humidity": 71,
+        "precipitation_sum_mm": 0.6,
+        "wind_max_kmh": 10.4,
+        "weather_code": 51,
+        "summary_fr": "🌦️ bruine légère · 6–12°C · humidité 71%"
+      },
+      "text": "Conditions : 🌦️ bruine légère · 6–12°C · humidité 71%. Stade : Estadio Mushuc Runa Cooperativa de Ahorro y Crédito · plein air."
+    }
+  },
+  {
+    "league": "Paraguay Profesional",
+    "home": "Rubio Nu",
+    "away": "Sportivo Ameliano",
+    "start_ts": 1785265200,
+    "match_id": "1000017358",
+    "page_url": "/matches/rubio-nu-vs-sportivo-ameliano/cli45c80#1000017358",
+    "picks": [],
+    "home_players": [
+      {
+        "player": "Estiven Pérez / Elvio Vera",
+        "position": "",
+        "is_sub": false,
+        "type": "Double Chance Buteur",
+        "label": "Estiven Pérez OU Elvio Vera marque (cross-équipe)",
+        "cote": null,
+        "book": null,
+        "books": [],
+        "confidence": 70,
+        "cote_min": 1.45,
+        "reasoning": "🔀 Cross-équipe (moins corrélé → meilleur EV)\n📈 P(Estiven Pérez marque) ≈ 38% · P(Elvio Vera marque) ≈ 51%\n🎯 P(au moins un marque) = 70% (1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.45 - chercher ≥1.45 chez le bookmaker\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+        "context": {
+          "combo_kind": "cross"
+        },
+        "_team_for_balance": "home",
+        "stats": {
+          "p_a": 0.375,
+          "p_b": 0.51,
+          "p_or": 0.694,
+          "player_a": "Estiven Pérez",
+          "player_b": "Elvio Vera",
+          "kind": "cross"
         },
         "team": "home",
         "tier": "safe",
@@ -84,24 +226,24 @@
     ],
     "away_players": [
       {
-        "player": "Prince Osei Owusu",
+        "player": "Elvio Vera",
         "position": "F",
         "is_sub": false,
         "type": "Buteur",
-        "label": "Prince Osei Owusu marque",
+        "label": "Elvio Vera marque",
         "cote": null,
         "book": null,
         "books": [],
-        "confidence": 52,
-        "reasoning": "9 buts en 14 matchs cette saison (64.3% de chance/match) · finisseur efficace (28% de conv.) · xG moyen 0.44/match · défense solide\n📉 Calibration : bucket 50-59% historiquement à WR 42% (claim 55%, n=41) — sur-estimé de 14pp",
+        "confidence": 51,
+        "reasoning": "9 buts en 19 matchs cette saison (47.4% de chance/match) · xG moyen 0.00/match · défense correcte\n📉 Calibration : bucket 50-59% historiquement à WR 42% (claim 55%, n=41) — sur-estimé de 14pp",
         "context": {
-          "weakness": 0.24
+          "weakness": 0.45
         },
         "stats": {
           "goals": 9,
-          "apps": 14,
-          "gpm": 0.643,
-          "xgpm": 0.443
+          "apps": 19,
+          "gpm": 0.474,
+          "xgpm": 0
         },
         "team": "away",
         "tier": "fun",
@@ -111,1255 +253,203 @@
     ],
     "fun_picks": [],
     "top_pick": {
-      "direction": "home_dc",
-      "type": "Double chance",
-      "label": "Nashville SC ou Nul (1X)",
+      "player": "Estiven Pérez / Elvio Vera",
+      "position": "",
+      "is_sub": false,
+      "type": "Double Chance Buteur",
+      "label": "Estiven Pérez OU Elvio Vera marque (cross-équipe)",
       "cote": null,
-      "confidence": 89,
-      "reasoning": "Nashville SC invaincu 100% sur 5 derniers matchs · H2H: 0/0 matchs sans défaite · Classement: #1 vs #24\n📉 Calibration : bucket 80-89% historiquement à WR 56% (claim 82%, n=63) — sur-estimé de 26pp",
-      "stats": {
-        "form": [
-          "W",
-          "W",
-          "W",
-          "W",
-          "D"
-        ]
+      "book": null,
+      "books": [],
+      "confidence": 70,
+      "cote_min": 1.45,
+      "reasoning": "🔀 Cross-équipe (moins corrélé → meilleur EV)\n📈 P(Estiven Pérez marque) ≈ 38% · P(Elvio Vera marque) ≈ 51%\n🎯 P(au moins un marque) = 70% (1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.45 - chercher ≥1.45 chez le bookmaker\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+      "context": {
+        "combo_kind": "cross"
       },
-      "is_fun": false,
+      "_team_for_balance": "home",
+      "stats": {
+        "p_a": 0.375,
+        "p_b": 0.51,
+        "p_or": 0.694,
+        "player_a": "Estiven Pérez",
+        "player_b": "Elvio Vera",
+        "kind": "cross"
+      },
+      "team": "home",
       "tier": "safe",
-      "calibration_delta": -26.0,
+      "calibration_delta": -11.3,
       "history_top3": true
     },
     "no_picks": false,
     "context": {
       "stadium": {
-        "name": "GEODIS Park",
-        "city": "Nashville, Tennessee",
-        "country": "United States",
-        "lat": 36.130239005,
-        "lon": -86.765556,
-        "capacity": 30109,
-        "surface": "grass"
+        "name": "Estadio La Arboleda",
+        "city": "Asunción",
+        "country": "Paraguay",
+        "lat": -25.257543599,
+        "lon": -57.575129271,
+        "capacity": null,
+        "surface": null
       },
       "weather": {
-        "temp_max": 31.3,
-        "temp_min": 18.9,
-        "humidity": 41,
-        "precipitation_sum_mm": 0.0,
-        "wind_max_kmh": 14.1,
-        "weather_code": 3,
-        "summary_fr": "☁️ couvert · 18–31°C · humidité 41%"
+        "temp_max": 30.7,
+        "temp_min": 22.8,
+        "humidity": 63,
+        "precipitation_sum_mm": 1.1,
+        "wind_max_kmh": 18.6,
+        "weather_code": 51,
+        "summary_fr": "🌦️ bruine légère · 22–30°C · humidité 63% · précipitations 1.1mm"
       },
-      "text": "Conditions : ☁️ couvert · 18–31°C · humidité 41%. Stade : GEODIS Park · 30 109 places · plein air."
+      "text": "Conditions : 🌦️ bruine légère · 22–30°C · humidité 63% · précipitations 1.1mm. Stade : Estadio La Arboleda · plein air."
     }
   },
   {
-    "league": "MLS",
-    "home": "San Jose Earthquakes",
-    "away": "Orlando City",
-    "start_ts": 1784773800,
-    "match_id": "5071230",
-    "page_url": "/matches/san-jose-earthquakes-vs-orlando-city/haonzau#5071230",
-    "picks": [
-      {
-        "direction": "home_win",
-        "type": "Favori net",
-        "label": "San Jose Earthquakes gagne",
-        "cote": 1.62,
-        "confidence": 82,
-        "reasoning": "23 places d'écart au classement (#3 vs #26) · 1V/2N/2D sur 5 matchs · Note Sofa: 6.5/10\n📉 Calibration : bucket 80-89% historiquement à WR 56% (claim 82%, n=63) — sur-estimé de 26pp",
-        "stats": {
-          "form": [
-            "W",
-            "L",
-            "L",
-            "D",
-            "D"
-          ]
-        },
-        "is_fun": false,
-        "tier": "safe",
-        "calibration_delta": -26.0,
-        "edge_pp": 20.3,
-        "history_top3": true
-      }
-    ],
+    "league": "Paraguay Profesional",
+    "home": "2 de Mayo",
+    "away": "Cerro Porteno",
+    "start_ts": 1785274200,
+    "match_id": "1000017357",
+    "page_url": "/matches/cerro-porteno-vs-2-de-mayo/px00jj#1000017357",
+    "picks": [],
     "home_players": [
       {
-        "player": "Preston Judd",
-        "position": "F",
-        "is_sub": false,
-        "type": "Buteur",
-        "label": "Preston Judd marque",
-        "cote": null,
-        "book": null,
-        "books": [],
-        "confidence": 64,
-        "reasoning": "11 buts en 15 matchs cette saison (73.3% de chance/match) · finisseur efficace (19% de conv.) · xG moyen 0.59/match, face à une défense qui concède 2.9 buts/match · défense très vulnérable\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
-        "context": {
-          "weakness": 0.84
-        },
-        "stats": {
-          "goals": 11,
-          "apps": 15,
-          "gpm": 0.733,
-          "xgpm": 0.587
-        },
-        "team": "home",
-        "tier": "ok",
-        "calibration_delta": -25.4,
-        "history_top3": true
-      },
-      {
-        "player": "Timo Werner",
-        "position": "M",
-        "is_sub": false,
-        "type": "Buteur",
-        "label": "Timo Werner marque",
-        "cote": null,
-        "book": null,
-        "books": [],
-        "confidence": 58,
-        "reasoning": "⚽ Penaltyman · 4 buts en 7 matchs cette saison (57.1% de chance/match) · finisseur efficace (0% de conv.) · xG moyen 0.41/match, face à une défense qui concède 2.9 buts/match · défense très vulnérable\n📉 Calibration : bucket 50-59% historiquement à WR 42% (claim 55%, n=41) — sur-estimé de 14pp",
-        "context": {
-          "weakness": 0.84
-        },
-        "stats": {
-          "goals": 4,
-          "apps": 7,
-          "gpm": 0.571,
-          "xgpm": 0.414
-        },
-        "team": "home",
-        "tier": "ok",
-        "calibration_delta": -13.6,
-        "history_top3": true
-      },
-      {
-        "player": "Preston Judd / Timo Werner",
+        "player": "Matías Cáceres / Juan Iturbe",
         "position": "",
         "is_sub": false,
         "type": "Double Chance Buteur",
-        "label": "Preston Judd ou Timo Werner marque (San Jose Earthquakes)",
+        "label": "Matías Cáceres OU Juan Iturbe marque (cross-équipe)",
         "cote": null,
         "book": null,
         "books": [],
-        "confidence": 70,
-        "cote_min": 1.43,
-        "reasoning": "🏠 Combo intra-San Jose Earthquakes\n📈 P(Preston Judd marque) ≈ 64% · P(Timo Werner marque) ≈ 53%\n🎯 P(au moins un marque) = 70% (1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.43 - chercher ≥1.43 chez le bookmaker\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+        "confidence": 68,
+        "cote_min": 1.54,
+        "reasoning": "🔀 Cross-équipe (moins corrélé → meilleur EV)\n📈 P(Matías Cáceres marque) ≈ 38% · P(Juan Iturbe marque) ≈ 44%\n🎯 P(au moins un marque) = 68% (1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.54 - chercher ≥1.54 chez le bookmaker\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
         "context": {
-          "combo_kind": "intra-home"
+          "combo_kind": "cross"
         },
         "_team_for_balance": "home",
         "stats": {
-          "p_a": 0.645,
-          "p_b": 0.532,
-          "p_or": 0.7,
-          "player_a": "Preston Judd",
-          "player_b": "Timo Werner",
-          "kind": "intra-home"
+          "p_a": 0.375,
+          "p_b": 0.435,
+          "p_or": 0.647,
+          "player_a": "Matías Cáceres",
+          "player_b": "Juan Iturbe",
+          "kind": "cross"
         },
         "team": "home",
-        "tier": "safe",
-        "calibration_delta": -11.3,
-        "history_top3": true
-      }
-    ],
-    "away_players": [
-      {
-        "player": "Martín Ojeda",
-        "position": "F",
-        "is_sub": false,
-        "type": "Buteur",
-        "label": "Martín Ojeda marque",
-        "cote": null,
-        "book": null,
-        "books": [],
-        "confidence": 62,
-        "reasoning": "⚽ Penaltyman · 11 buts en 15 matchs cette saison (73.3% de chance/match) · finisseur efficace (22% de conv.) · xG moyen 0.47/match · défense correcte\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
-        "context": {
-          "weakness": 0.31
-        },
-        "stats": {
-          "goals": 11,
-          "apps": 15,
-          "gpm": 0.733,
-          "xgpm": 0.467
-        },
-        "team": "away",
         "tier": "ok",
         "calibration_delta": -25.4,
         "history_top3": true
       }
     ],
+    "away_players": [],
     "fun_picks": [],
     "top_pick": {
-      "direction": "home_win",
-      "type": "Favori net",
-      "label": "San Jose Earthquakes gagne",
-      "cote": 1.62,
-      "confidence": 82,
-      "reasoning": "23 places d'écart au classement (#3 vs #26) · 1V/2N/2D sur 5 matchs · Note Sofa: 6.5/10\n📉 Calibration : bucket 80-89% historiquement à WR 56% (claim 82%, n=63) — sur-estimé de 26pp",
-      "stats": {
-        "form": [
-          "W",
-          "L",
-          "L",
-          "D",
-          "D"
-        ]
+      "player": "Matías Cáceres / Juan Iturbe",
+      "position": "",
+      "is_sub": false,
+      "type": "Double Chance Buteur",
+      "label": "Matías Cáceres OU Juan Iturbe marque (cross-équipe)",
+      "cote": null,
+      "book": null,
+      "books": [],
+      "confidence": 68,
+      "cote_min": 1.54,
+      "reasoning": "🔀 Cross-équipe (moins corrélé → meilleur EV)\n📈 P(Matías Cáceres marque) ≈ 38% · P(Juan Iturbe marque) ≈ 44%\n🎯 P(au moins un marque) = 68% (1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.54 - chercher ≥1.54 chez le bookmaker\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
+      "context": {
+        "combo_kind": "cross"
       },
-      "is_fun": false,
-      "tier": "safe",
-      "calibration_delta": -26.0,
-      "edge_pp": 20.3,
+      "_team_for_balance": "home",
+      "stats": {
+        "p_a": 0.375,
+        "p_b": 0.435,
+        "p_or": 0.647,
+        "player_a": "Matías Cáceres",
+        "player_b": "Juan Iturbe",
+        "kind": "cross"
+      },
+      "team": "home",
+      "tier": "ok",
+      "calibration_delta": -25.4,
       "history_top3": true
     },
     "no_picks": false,
     "context": {
       "stadium": {
-        "name": "PayPal Park",
-        "city": "San Jose, California",
-        "country": "United States",
-        "lat": 37.351179292,
-        "lon": -121.924619026,
-        "capacity": 18251,
-        "surface": "grass"
+        "name": "Estadio Monumental Río Parapití",
+        "city": "Pedro Juan Caballero",
+        "country": "Paraguay",
+        "lat": -22.539423746,
+        "lon": -55.745889544,
+        "capacity": null,
+        "surface": null
       },
       "weather": {
-        "temp_max": 23.6,
-        "temp_min": 14.4,
-        "humidity": 59,
+        "temp_max": 30.6,
+        "temp_min": 21.2,
+        "humidity": 44,
         "precipitation_sum_mm": 0.0,
-        "wind_max_kmh": 20.7,
-        "weather_code": 3,
-        "summary_fr": "☁️ couvert · 14–23°C · humidité 59%"
+        "wind_max_kmh": 24.3,
+        "weather_code": 0,
+        "summary_fr": "🌤️ conditions variables · 21–30°C · humidité 44%"
       },
-      "text": "Conditions : ☁️ couvert · 14–23°C · humidité 59%. Stade : PayPal Park · 18 251 places · plein air."
+      "text": "Conditions : 🌤️ conditions variables · 21–30°C · humidité 44%. Stade : Estadio Monumental Río Parapití · plein air."
     }
   },
   {
-    "league": "Argentina Primera",
-    "home": "Belgrano",
-    "away": "Rosario Central",
-    "start_ts": 1784845800,
-    "match_id": "5115874",
-    "page_url": "/matches/rosario-central-vs-belgrano/3d6wk4#5115874",
+    "league": "Icelandic Besta",
+    "home": "Breidablik",
+    "away": "IBV Vestmannaeyjar",
+    "start_ts": 1785175200,
+    "match_id": "5225692",
+    "page_url": "/matches/ibv-vestmannaeyjar-vs-breidablik/2aci0g#5225692",
     "picks": [
       {
         "direction": "home_win",
         "type": "Victoire domicile",
-        "label": "Belgrano gagne",
+        "label": "Breidablik gagne",
         "cote": null,
-        "confidence": 78,
-        "reasoning": "Belgrano : 4V/1N/0D sur 5 matchs · #5 au classement · H2H: 1V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+        "confidence": 68,
+        "reasoning": "Breidablik : 3V/1N/1D sur 5 matchs · #4 au classement · H2H: 1V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
         "stats": {
           "form": [
-            "W",
             "D",
             "W",
             "W",
+            "L",
             "W"
           ]
         },
         "is_fun": false,
-        "tier": "safe",
-        "calibration_delta": -11.3,
-        "history_top3": true
-      }
-    ],
-    "home_players": [],
-    "away_players": [
-      {
-        "player": "Giovanni Cantizano",
-        "position": "M",
-        "is_sub": false,
-        "type": "Buteur",
-        "label": "Giovanni Cantizano marque",
-        "team": "away",
-        "cote": null,
-        "book": null,
-        "books": [],
-        "confidence": 32,
-        "reasoning": "1G en 3 matchs (33.3%/match) · xG: 0.33/match",
-        "context": {
-          "weakness": 0.35
-        },
-        "stats": {
-          "goals": 1,
-          "apps": 3
-        },
-        "tier": "fun",
-        "history_top3": true
-      }
-    ],
-    "fun_picks": [],
-    "top_pick": {
-      "direction": "home_win",
-      "type": "Victoire domicile",
-      "label": "Belgrano gagne",
-      "cote": null,
-      "confidence": 78,
-      "reasoning": "Belgrano : 4V/1N/0D sur 5 matchs · #5 au classement · H2H: 1V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
-      "stats": {
-        "form": [
-          "W",
-          "D",
-          "W",
-          "W",
-          "W"
-        ]
-      },
-      "is_fun": false,
-      "tier": "safe",
-      "calibration_delta": -11.3,
-      "history_top3": true
-    },
-    "no_picks": false,
-    "context": {
-      "stadium": {
-        "name": "Estadio Julio César Villagra",
-        "city": "Ciudad de Córdoba, Provincia de ",
-        "country": "Argentina",
-        "lat": -31.403516063,
-        "lon": -64.206236601,
-        "capacity": 28000,
-        "surface": "grass"
-      },
-      "weather": {
-        "temp_max": 12.8,
-        "temp_min": 5.0,
-        "humidity": 72,
-        "precipitation_sum_mm": 0.0,
-        "wind_max_kmh": 18.8,
-        "weather_code": 3,
-        "summary_fr": "☁️ couvert · 5–12°C · humidité 72%"
-      },
-      "text": "Conditions : ☁️ couvert · 5–12°C · humidité 72%. Stade : Estadio Julio César Villagra · 28 000 places · plein air."
-    }
-  },
-  {
-    "league": "Brasileirao",
-    "home": "Chapecoense AF",
-    "away": "Flamengo",
-    "start_ts": 1784766600,
-    "match_id": "5103553",
-    "page_url": "/matches/flamengo-vs-chapecoense-af/9vwsbo6#5103553",
-    "picks": [
-      {
-        "direction": "away_win",
-        "type": "Favori net",
-        "label": "Flamengo gagne",
-        "cote": null,
-        "confidence": 75,
-        "reasoning": "18 places d'écart au classement (#2 vs #20) · 2V/2N/1D sur 5 matchs · Note Sofa: 6.5/10\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
-        "stats": {
-          "form": [
-            "W",
-            "L",
-            "D",
-            "W",
-            "D"
-          ]
-        },
-        "is_fun": false,
-        "tier": "safe",
-        "calibration_delta": -11.3,
-        "history_top3": true
-      }
-    ],
-    "home_players": [],
-    "away_players": [
-      {
-        "player": "Pedro",
-        "position": "F",
-        "is_sub": false,
-        "type": "Buteur",
-        "label": "Pedro marque",
-        "cote": null,
-        "book": null,
-        "books": [],
-        "confidence": 55,
-        "reasoning": "10 buts en 17 matchs cette saison (58.8% de chance/match) · finisseur efficace (27% de conv.) · xG moyen 0.42/match, face à une défense qui concède 1.9 buts/match · défense très vulnérable\n📉 Calibration : bucket 50-59% historiquement à WR 42% (claim 55%, n=41) — sur-estimé de 14pp",
-        "context": {
-          "weakness": 0.74
-        },
-        "stats": {
-          "goals": 10,
-          "apps": 17,
-          "gpm": 0.588,
-          "xgpm": 0.418
-        },
-        "team": "away",
-        "tier": "ok",
-        "calibration_delta": -13.6,
-        "history_top3": true
-      },
-      {
-        "player": "Pedro / Giorgian de Arrascaeta",
-        "position": "",
-        "is_sub": false,
-        "type": "Double Chance Buteur",
-        "label": "Pedro ou Giorgian de Arrascaeta marque (Flamengo)",
-        "cote": null,
-        "book": null,
-        "books": [],
-        "confidence": 70,
-        "cote_min": 1.43,
-        "reasoning": "✈️ Combo intra-Flamengo\n📈 P(Pedro marque) ≈ 55% · P(Giorgian de Arrascaeta marque) ≈ 48%\n🎯 P(au moins un marque) = 70% (1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.43 - chercher ≥1.43 chez le bookmaker\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
-        "context": {
-          "combo_kind": "intra-away"
-        },
-        "_team_for_balance": "away",
-        "stats": {
-          "p_a": 0.548,
-          "p_b": 0.48,
-          "p_or": 0.7,
-          "player_a": "Pedro",
-          "player_b": "Giorgian de Arrascaeta",
-          "kind": "intra-away"
-        },
-        "team": "away",
-        "tier": "safe",
-        "calibration_delta": -11.3,
-        "history_top3": true
-      }
-    ],
-    "fun_picks": [],
-    "top_pick": {
-      "direction": "away_win",
-      "type": "Favori net",
-      "label": "Flamengo gagne",
-      "cote": null,
-      "confidence": 75,
-      "reasoning": "18 places d'écart au classement (#2 vs #20) · 2V/2N/1D sur 5 matchs · Note Sofa: 6.5/10\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
-      "stats": {
-        "form": [
-          "W",
-          "L",
-          "D",
-          "W",
-          "D"
-        ]
-      },
-      "is_fun": false,
-      "tier": "safe",
-      "calibration_delta": -11.3,
-      "history_top3": true
-    },
-    "no_picks": false,
-    "context": {
-      "stadium": {
-        "name": "Levi's Stadium",
-        "city": "Santa Clara (San Francisco Bay)",
-        "country": "USA",
-        "lat": 37.403,
-        "lon": -121.9698,
-        "capacity": 68500,
-        "surface": "Natural grass",
-        "altitude_m": 9,
-        "type": "outdoor",
-        "climatized": false,
-        "context_fr": "Climat méditerranéen côtier. Juin doux 18-24°C, faible humidité."
-      },
-      "weather": {
-        "temp_max": 19.6,
-        "temp_min": 14.0,
-        "humidity": 74,
-        "precipitation_sum_mm": 0.0,
-        "wind_max_kmh": 26.5,
-        "weather_code": 3,
-        "summary_fr": "☁️ couvert · 14–19°C · humidité 74%"
-      },
-      "text": "Conditions : ☁️ couvert · 14–19°C · humidité 74%. Stade : Levi's Stadium · altitude 9m · 68 500 places · plein air. Climat méditerranéen côtier. Juin doux 18-24°C, faible humidité."
-    }
-  },
-  {
-    "league": "MLS",
-    "home": "New England Revolution",
-    "away": "Toronto FC",
-    "start_ts": 1784763000,
-    "match_id": "5071219",
-    "page_url": "/matches/new-england-revolution-vs-toronto-fc/wus3zd#5071219",
-    "picks": [
-      {
-        "direction": "home_win",
-        "type": "Favori net",
-        "label": "New England Revolution gagne",
-        "cote": null,
-        "confidence": 74,
-        "reasoning": "17 places d'écart au classement (#8 vs #25) · 3V/0N/2D sur 5 matchs · Note Sofa: 6.5/10\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
-        "stats": {
-          "form": [
-            "L",
-            "W",
-            "L",
-            "W",
-            "W"
-          ]
-        },
-        "is_fun": false,
-        "tier": "safe",
-        "calibration_delta": -11.3,
-        "history_top3": true
-      }
-    ],
-    "home_players": [
-      {
-        "player": "Carles Gil / Joshua Sargent",
-        "position": "",
-        "is_sub": false,
-        "type": "Double Chance Buteur",
-        "label": "Carles Gil OU Joshua Sargent marque (cross-équipe)",
-        "cote": null,
-        "book": null,
-        "books": [],
-        "confidence": 70,
-        "cote_min": 1.43,
-        "reasoning": "🔀 Cross-équipe (moins corrélé → meilleur EV)\n📈 P(Carles Gil marque) ≈ 45% · P(Joshua Sargent marque) ≈ 45%\n🎯 P(au moins un marque) = 70% (1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.43 - chercher ≥1.43 chez le bookmaker\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
-        "context": {
-          "combo_kind": "cross"
-        },
-        "_team_for_balance": "home",
-        "stats": {
-          "p_a": 0.45,
-          "p_b": 0.45,
-          "p_or": 0.698,
-          "player_a": "Carles Gil",
-          "player_b": "Joshua Sargent",
-          "kind": "cross"
-        },
-        "team": "home",
-        "tier": "safe",
-        "calibration_delta": -11.3,
-        "history_top3": true
-      }
-    ],
-    "away_players": [],
-    "fun_picks": [],
-    "top_pick": {
-      "direction": "home_win",
-      "type": "Favori net",
-      "label": "New England Revolution gagne",
-      "cote": null,
-      "confidence": 74,
-      "reasoning": "17 places d'écart au classement (#8 vs #25) · 3V/0N/2D sur 5 matchs · Note Sofa: 6.5/10\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
-      "stats": {
-        "form": [
-          "L",
-          "W",
-          "L",
-          "W",
-          "W"
-        ]
-      },
-      "is_fun": false,
-      "tier": "safe",
-      "calibration_delta": -11.3,
-      "history_top3": true
-    },
-    "no_picks": false,
-    "context": {
-      "stadium": {
-        "name": "Gillette Stadium",
-        "city": "Foxborough (Boston)",
-        "country": "USA",
-        "lat": 42.0909,
-        "lon": -71.2643,
-        "capacity": 65878,
-        "surface": "Natural grass",
-        "altitude_m": 100,
-        "type": "outdoor",
-        "climatized": false,
-        "context_fr": "Climat tempéré nord-est. Juin-juillet 20-26°C, humidité modérée."
-      },
-      "weather": {
-        "temp_max": 27.6,
-        "temp_min": 20.5,
-        "humidity": 79,
-        "precipitation_sum_mm": 4.4,
-        "wind_max_kmh": 22.9,
-        "weather_code": 81,
-        "summary_fr": "🌦️ averses modérées · 20–27°C · humidité 79% · précipitations 4.4mm"
-      },
-      "text": "Conditions : 🌦️ averses modérées · 20–27°C · humidité 79% · précipitations 4.4mm. Stade : Gillette Stadium · altitude 100m · 65 878 places · plein air. Climat tempéré nord-est. Juin-juillet 20-26°C, humidité modérée."
-    }
-  },
-  {
-    "league": "MLS",
-    "home": "Philadelphia Union",
-    "away": "Red Bull New York",
-    "start_ts": 1784763000,
-    "match_id": "5071220",
-    "page_url": "/matches/red-bull-new-york-vs-philadelphia-union/90xpssv#5071220",
-    "picks": [
-      {
-        "direction": "away_win",
-        "type": "Favori net",
-        "label": "Red Bull New York gagne",
-        "cote": 4.0,
-        "confidence": 74,
-        "reasoning": "17 places d'écart au classement (#13 vs #30) · 3V/1N/1D sur 5 matchs · Note Sofa: 6.5/10\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
-        "stats": {
-          "form": [
-            "W",
-            "D",
-            "W",
-            "W",
-            "L"
-          ]
-        },
-        "is_fun": false,
-        "tier": "fun",
-        "calibration_delta": -11.3,
-        "edge_pp": 49.0,
-        "history_top3": true
-      }
-    ],
-    "home_players": [
-      {
-        "player": "Milan Iloski",
-        "position": "F",
-        "is_sub": false,
-        "type": "Buteur",
-        "label": "Milan Iloski marque",
-        "cote": null,
-        "book": null,
-        "books": [],
-        "confidence": 56,
-        "reasoning": "⚽ Penaltyman · 7 buts en 15 matchs cette saison (46.7% de chance/match) · xG moyen 0.40/match, face à une défense qui concède 2.0 buts/match · défense fragile\n📉 Calibration : bucket 50-59% historiquement à WR 42% (claim 55%, n=41) — sur-estimé de 14pp",
-        "context": {
-          "weakness": 0.61
-        },
-        "stats": {
-          "goals": 7,
-          "apps": 15,
-          "gpm": 0.467,
-          "xgpm": 0.4
-        },
-        "team": "home",
-        "tier": "ok",
-        "calibration_delta": -13.6,
-        "history_top3": true
-      }
-    ],
-    "away_players": [
-      {
-        "player": "Julian Hall",
-        "position": "F",
-        "is_sub": false,
-        "type": "Buteur",
-        "label": "Julian Hall marque",
-        "cote": null,
-        "book": null,
-        "books": [],
-        "confidence": 59,
-        "reasoning": "9 buts en 15 matchs cette saison (60.0% de chance/match) · bonne efficacité (32% conv.) · xG moyen 0.58/match, face à une défense qui concède 1.9 buts/match · défense très vulnérable\n📉 Calibration : bucket 50-59% historiquement à WR 42% (claim 55%, n=41) — sur-estimé de 14pp",
-        "context": {
-          "weakness": 0.74
-        },
-        "stats": {
-          "goals": 9,
-          "apps": 15,
-          "gpm": 0.6,
-          "xgpm": 0.58
-        },
-        "team": "away",
-        "tier": "ok",
-        "calibration_delta": -13.6,
-        "history_top3": true
-      },
-      {
-        "player": "Julian Hall / Jorge Ruvalcaba",
-        "position": "",
-        "is_sub": false,
-        "type": "Double Chance Buteur",
-        "label": "Julian Hall ou Jorge Ruvalcaba marque (Red Bull New York)",
-        "cote": null,
-        "book": null,
-        "books": [],
-        "confidence": 70,
-        "cote_min": 1.43,
-        "reasoning": "✈️ Combo intra-Red Bull New York\n📈 P(Julian Hall marque) ≈ 59% · P(Jorge Ruvalcaba marque) ≈ 48%\n🎯 P(au moins un marque) = 70% (1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.43 - chercher ≥1.43 chez le bookmaker\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
-        "context": {
-          "combo_kind": "intra-away"
-        },
-        "_team_for_balance": "away",
-        "stats": {
-          "p_a": 0.592,
-          "p_b": 0.48,
-          "p_or": 0.7,
-          "player_a": "Julian Hall",
-          "player_b": "Jorge Ruvalcaba",
-          "kind": "intra-away"
-        },
-        "team": "away",
-        "tier": "safe",
-        "calibration_delta": -11.3,
-        "history_top3": true
-      }
-    ],
-    "fun_picks": [],
-    "top_pick": {
-      "direction": "away_win",
-      "type": "Favori net",
-      "label": "Red Bull New York gagne",
-      "cote": 4.0,
-      "confidence": 74,
-      "reasoning": "17 places d'écart au classement (#13 vs #30) · 3V/1N/1D sur 5 matchs · Note Sofa: 6.5/10\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
-      "stats": {
-        "form": [
-          "W",
-          "D",
-          "W",
-          "W",
-          "L"
-        ]
-      },
-      "is_fun": false,
-      "tier": "fun",
-      "calibration_delta": -11.3,
-      "edge_pp": 49.0,
-      "history_top3": true
-    },
-    "no_picks": false,
-    "context": {
-      "stadium": {
-        "name": "Subaru Park",
-        "city": "Chester, Pennsylvania",
-        "country": "United States",
-        "lat": 39.832680171,
-        "lon": -75.37881732,
-        "capacity": 19778,
-        "surface": "grass"
-      },
-      "weather": {
-        "temp_max": 30.5,
-        "temp_min": 21.5,
-        "humidity": 55,
-        "precipitation_sum_mm": 0.0,
-        "wind_max_kmh": 18.7,
-        "weather_code": 3,
-        "summary_fr": "☁️ couvert · 21–30°C · humidité 55%"
-      },
-      "text": "Conditions : ☁️ couvert · 21–30°C · humidité 55%. Stade : Subaru Park · 19 778 places · plein air."
-    }
-  },
-  {
-    "league": "MLS",
-    "home": "Sporting Kansas City",
-    "away": "Minnesota United",
-    "start_ts": 1784766600,
-    "match_id": "5071225",
-    "page_url": "/matches/sporting-kansas-city-vs-minnesota-united/ai5bxm1#5071225",
-    "picks": [
-      {
-        "direction": "away_win",
-        "type": "Favori net",
-        "label": "Minnesota United gagne",
-        "cote": 1.95,
-        "confidence": 74,
-        "reasoning": "17 places d'écart au classement (#12 vs #29) · 1V/2N/2D sur 5 matchs · Note Sofa: 6.5/10\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
-        "stats": {
-          "form": [
-            "D",
-            "L",
-            "L",
-            "D",
-            "W"
-          ]
-        },
-        "is_fun": false,
-        "tier": "ok",
-        "calibration_delta": -11.3,
-        "edge_pp": 22.7,
-        "history_top3": true
-      }
-    ],
-    "home_players": [
-      {
-        "player": "Dejan Joveljic / Kelvin Yeboah",
-        "position": "",
-        "is_sub": false,
-        "type": "Double Chance Buteur",
-        "label": "Dejan Joveljic OU Kelvin Yeboah marque (cross-équipe)",
-        "cote": null,
-        "book": null,
-        "books": [],
-        "confidence": 70,
-        "cote_min": 1.43,
-        "reasoning": "🔀 Cross-équipe (moins corrélé → meilleur EV)\n📈 P(Dejan Joveljic marque) ≈ 46% · P(Kelvin Yeboah marque) ≈ 62%\n🎯 P(au moins un marque) = 70% (1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.43 - chercher ≥1.43 chez le bookmaker\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
-        "context": {
-          "combo_kind": "cross"
-        },
-        "_team_for_balance": "home",
-        "stats": {
-          "p_a": 0.465,
-          "p_b": 0.615,
-          "p_or": 0.7,
-          "player_a": "Dejan Joveljic",
-          "player_b": "Kelvin Yeboah",
-          "kind": "cross"
-        },
-        "team": "home",
-        "tier": "safe",
-        "calibration_delta": -11.3,
-        "history_top3": true
-      }
-    ],
-    "away_players": [
-      {
-        "player": "Kelvin Yeboah",
-        "position": "F",
-        "is_sub": false,
-        "type": "Buteur",
-        "label": "Kelvin Yeboah marque",
-        "cote": null,
-        "book": null,
-        "books": [],
-        "confidence": 62,
-        "reasoning": "8 buts en 14 matchs cette saison (57.1% de chance/match) · bonne efficacité (22% conv.) · xG moyen 0.64/match, face à une défense qui concède 2.6 buts/match · défense très vulnérable\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
-        "context": {
-          "weakness": 0.81
-        },
-        "stats": {
-          "goals": 8,
-          "apps": 14,
-          "gpm": 0.571,
-          "xgpm": 0.636
-        },
-        "team": "away",
         "tier": "ok",
         "calibration_delta": -25.4,
         "history_top3": true
       }
     ],
-    "fun_picks": [],
-    "top_pick": {
-      "direction": "away_win",
-      "type": "Favori net",
-      "label": "Minnesota United gagne",
-      "cote": 1.95,
-      "confidence": 74,
-      "reasoning": "17 places d'écart au classement (#12 vs #29) · 1V/2N/2D sur 5 matchs · Note Sofa: 6.5/10\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
-      "stats": {
-        "form": [
-          "D",
-          "L",
-          "L",
-          "D",
-          "W"
-        ]
-      },
-      "is_fun": false,
-      "tier": "ok",
-      "calibration_delta": -11.3,
-      "edge_pp": 22.7,
-      "history_top3": true
-    },
-    "no_picks": false,
-    "context": {
-      "stadium": {
-        "name": "Arrowhead Stadium",
-        "city": "Kansas City",
-        "country": "USA",
-        "lat": 39.0489,
-        "lon": -94.4839,
-        "capacity": 76416,
-        "surface": "Natural grass",
-        "altitude_m": 230,
-        "type": "outdoor",
-        "climatized": false,
-        "context_fr": "Climat continental. Juin chaud (28-32°C) avec orages possibles."
-      },
-      "weather": {
-        "temp_max": 29.6,
-        "temp_min": 20.2,
-        "humidity": 42,
-        "precipitation_sum_mm": 0.0,
-        "wind_max_kmh": 14.1,
-        "weather_code": 3,
-        "summary_fr": "☁️ couvert · 20–29°C · humidité 42%"
-      },
-      "text": "Conditions : ☁️ couvert · 20–29°C · humidité 42%. Stade : Arrowhead Stadium · altitude 230m · 76 416 places · plein air. Climat continental. Juin chaud (28-32°C) avec orages possibles."
-    }
-  },
-  {
-    "league": "MLS",
-    "home": "Austin FC",
-    "away": "Seattle Sounders FC",
-    "start_ts": 1784770200,
-    "match_id": "5071221",
-    "page_url": "/matches/seattle-sounders-fc-vs-austin-fc/bm6cnh62#5071221",
-    "picks": [
-      {
-        "direction": "away_win",
-        "type": "Favori net",
-        "label": "Seattle Sounders FC gagne",
-        "cote": 2.25,
-        "confidence": 74,
-        "reasoning": "17 places d'écart au classement (#10 vs #27) · 1V/1N/3D sur 5 matchs · Note Sofa: 6.5/10\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
-        "stats": {
-          "form": [
-            "L",
-            "L",
-            "L",
-            "W",
-            "D"
-          ]
-        },
-        "is_fun": false,
-        "tier": "ok",
-        "calibration_delta": -11.3,
-        "edge_pp": 29.6,
-        "history_top3": true
-      }
-    ],
     "home_players": [
       {
-        "player": "Myrto Uzuni / Albert Rusnák",
+        "player": "Kristófer Kristinsson / Ágúst Thorsteinsson",
         "position": "",
         "is_sub": false,
         "type": "Double Chance Buteur",
-        "label": "Myrto Uzuni OU Albert Rusnák marque (cross-équipe)",
-        "cote": null,
-        "book": null,
-        "books": [],
-        "confidence": 69,
-        "cote_min": 1.52,
-        "reasoning": "🔀 Cross-équipe (moins corrélé → meilleur EV)\n📈 P(Myrto Uzuni marque) ≈ 45% · P(Albert Rusnák marque) ≈ 39%\n🎯 P(au moins un marque) = 69% (1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.52 - chercher ≥1.52 chez le bookmaker\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
-        "context": {
-          "combo_kind": "cross"
-        },
-        "_team_for_balance": "home",
-        "stats": {
-          "p_a": 0.45,
-          "p_b": 0.39,
-          "p_or": 0.664,
-          "player_a": "Myrto Uzuni",
-          "player_b": "Albert Rusnák",
-          "kind": "cross"
-        },
-        "team": "home",
-        "tier": "ok",
-        "calibration_delta": -25.4,
-        "history_top3": true
-      }
-    ],
-    "away_players": [],
-    "fun_picks": [],
-    "top_pick": {
-      "direction": "away_win",
-      "type": "Favori net",
-      "label": "Seattle Sounders FC gagne",
-      "cote": 2.25,
-      "confidence": 74,
-      "reasoning": "17 places d'écart au classement (#10 vs #27) · 1V/1N/3D sur 5 matchs · Note Sofa: 6.5/10\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
-      "stats": {
-        "form": [
-          "L",
-          "L",
-          "L",
-          "W",
-          "D"
-        ]
-      },
-      "is_fun": false,
-      "tier": "ok",
-      "calibration_delta": -11.3,
-      "edge_pp": 29.6,
-      "history_top3": true
-    },
-    "no_picks": false,
-    "context": {
-      "stadium": {
-        "name": "Q2 Stadium",
-        "city": "Austin, Texas",
-        "country": "United States",
-        "lat": 30.387726609,
-        "lon": -97.719504563,
-        "capacity": 20738,
-        "surface": "grass"
-      },
-      "weather": {
-        "temp_max": 37.9,
-        "temp_min": 28.4,
-        "humidity": 36,
-        "precipitation_sum_mm": 0.0,
-        "wind_max_kmh": 19.1,
-        "weather_code": 3,
-        "summary_fr": "☁️ couvert · 28–37°C · humidité 36%"
-      },
-      "text": "Conditions : ☁️ couvert · 28–37°C · humidité 36%. Stade : Q2 Stadium · 20 738 places · plein air. ⚠️ Forte chaleur (>32°C) en plein air : impact endurance, plus de pauses hydratation."
-    }
-  },
-  {
-    "league": "Brasileirao",
-    "home": "Sao Paulo",
-    "away": "Athletico Paranaense",
-    "start_ts": 1784766600,
-    "match_id": "5103546",
-    "page_url": "/matches/athletico-paranaense-vs-sao-paulo/3hq57e#5103546",
-    "picks": [],
-    "home_players": [
-      {
-        "player": "Luciano / Jonathan Calleri",
-        "position": "",
-        "is_sub": false,
-        "type": "Double Chance Buteur",
-        "label": "Luciano ou Jonathan Calleri marque (Sao Paulo)",
+        "label": "Kristófer Kristinsson ou Ágúst Thorsteinsson marque (Breidablik)",
         "cote": null,
         "book": null,
         "books": [],
         "confidence": 70,
         "cote_min": 1.43,
-        "reasoning": "🏠 Combo intra-Sao Paulo\n📈 P(Luciano marque) ≈ 45% · P(Jonathan Calleri marque) ≈ 45%\n🎯 P(au moins un marque) = 70% (1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.43 - chercher ≥1.43 chez le bookmaker\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
-        "context": {
-          "combo_kind": "intra-home"
-        },
-        "_team_for_balance": "home",
-        "stats": {
-          "p_a": 0.45,
-          "p_b": 0.45,
-          "p_or": 0.698,
-          "player_a": "Luciano",
-          "player_b": "Jonathan Calleri",
-          "kind": "intra-home"
-        },
-        "team": "home",
-        "tier": "safe",
-        "calibration_delta": -11.3,
-        "history_top3": true
-      }
-    ],
-    "away_players": [
-      {
-        "player": "Kevin Viveros",
-        "position": "F",
-        "is_sub": false,
-        "type": "Buteur",
-        "label": "Kevin Viveros marque",
-        "cote": null,
-        "book": null,
-        "books": [],
-        "confidence": 58,
-        "reasoning": "11 buts en 17 matchs cette saison (64.7% de chance/match) · bonne efficacité (23% conv.) · xG moyen 0.59/match · défense correcte\n📉 Calibration : bucket 50-59% historiquement à WR 42% (claim 55%, n=41) — sur-estimé de 14pp",
-        "context": {
-          "weakness": 0.42
-        },
-        "stats": {
-          "goals": 11,
-          "apps": 17,
-          "gpm": 0.647,
-          "xgpm": 0.594
-        },
-        "team": "away",
-        "tier": "ok",
-        "calibration_delta": -13.6,
-        "history_top3": true
-      }
-    ],
-    "fun_picks": [],
-    "top_pick": {
-      "player": "Luciano / Jonathan Calleri",
-      "position": "",
-      "is_sub": false,
-      "type": "Double Chance Buteur",
-      "label": "Luciano ou Jonathan Calleri marque (Sao Paulo)",
-      "cote": null,
-      "book": null,
-      "books": [],
-      "confidence": 70,
-      "cote_min": 1.43,
-      "reasoning": "🏠 Combo intra-Sao Paulo\n📈 P(Luciano marque) ≈ 45% · P(Jonathan Calleri marque) ≈ 45%\n🎯 P(au moins un marque) = 70% (1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.43 - chercher ≥1.43 chez le bookmaker\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
-      "context": {
-        "combo_kind": "intra-home"
-      },
-      "_team_for_balance": "home",
-      "stats": {
-        "p_a": 0.45,
-        "p_b": 0.45,
-        "p_or": 0.698,
-        "player_a": "Luciano",
-        "player_b": "Jonathan Calleri",
-        "kind": "intra-home"
-      },
-      "team": "home",
-      "tier": "safe",
-      "calibration_delta": -11.3,
-      "history_top3": true
-    },
-    "no_picks": false,
-    "context": {
-      "stadium": {
-        "name": "Estádio Municipal Cícero de Souza Marques",
-        "city": "Bragança Paulista, São Paulo",
-        "country": "Brazil",
-        "lat": -22.950968768,
-        "lon": -46.53003666,
-        "capacity": null,
-        "surface": null
-      },
-      "weather": {
-        "temp_max": 25.5,
-        "temp_min": 16.3,
-        "humidity": 60,
-        "precipitation_sum_mm": 0.5,
-        "wind_max_kmh": 17.2,
-        "weather_code": 51,
-        "summary_fr": "🌦️ bruine légère · 16–25°C · humidité 60%"
-      },
-      "text": "Conditions : 🌦️ bruine légère · 16–25°C · humidité 60%. Stade : Estádio Municipal Cícero de Souza Marques · plein air."
-    }
-  },
-  {
-    "league": "Brasileirao",
-    "home": "Botafogo RJ",
-    "away": "Vitoria",
-    "start_ts": 1784845800,
-    "match_id": "5103395",
-    "page_url": "/matches/vitoria-vs-botafogo-rj/26m8t0#5103395",
-    "picks": [],
-    "home_players": [
-      {
-        "player": "Danilo Santos / Arthur Cabral",
-        "position": "",
-        "is_sub": false,
-        "type": "Double Chance Buteur",
-        "label": "Danilo Santos ou Arthur Cabral marque (Botafogo RJ)",
-        "cote": null,
-        "book": null,
-        "books": [],
-        "confidence": 70,
-        "cote_min": 1.43,
-        "reasoning": "🏠 Combo intra-Botafogo RJ\n📈 P(Danilo Santos marque) ≈ 46% · P(Arthur Cabral marque) ≈ 44%\n🎯 P(au moins un marque) = 70% (1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.43 - chercher ≥1.43 chez le bookmaker\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
-        "context": {
-          "combo_kind": "intra-home"
-        },
-        "_team_for_balance": "home",
-        "stats": {
-          "p_a": 0.458,
-          "p_b": 0.442,
-          "p_or": 0.698,
-          "player_a": "Danilo Santos",
-          "player_b": "Arthur Cabral",
-          "kind": "intra-home"
-        },
-        "team": "home",
-        "tier": "safe",
-        "calibration_delta": -11.3,
-        "history_top3": true
-      }
-    ],
-    "away_players": [],
-    "fun_picks": [],
-    "top_pick": {
-      "player": "Danilo Santos / Arthur Cabral",
-      "position": "",
-      "is_sub": false,
-      "type": "Double Chance Buteur",
-      "label": "Danilo Santos ou Arthur Cabral marque (Botafogo RJ)",
-      "cote": null,
-      "book": null,
-      "books": [],
-      "confidence": 70,
-      "cote_min": 1.43,
-      "reasoning": "🏠 Combo intra-Botafogo RJ\n📈 P(Danilo Santos marque) ≈ 46% · P(Arthur Cabral marque) ≈ 44%\n🎯 P(au moins un marque) = 70% (1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.43 - chercher ≥1.43 chez le bookmaker\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
-      "context": {
-        "combo_kind": "intra-home"
-      },
-      "_team_for_balance": "home",
-      "stats": {
-        "p_a": 0.458,
-        "p_b": 0.442,
-        "p_or": 0.698,
-        "player_a": "Danilo Santos",
-        "player_b": "Arthur Cabral",
-        "kind": "intra-home"
-      },
-      "team": "home",
-      "tier": "safe",
-      "calibration_delta": -11.3,
-      "history_top3": true
-    },
-    "no_picks": false,
-    "context": {
-      "stadium": {
-        "name": "Estádio Olímpico Nilton Santos",
-        "city": "Rio de Janeiro",
-        "country": "Brazil",
-        "lat": -22.893225717,
-        "lon": -43.292312622,
-        "capacity": null,
-        "surface": null
-      },
-      "weather": {
-        "temp_max": 27.2,
-        "temp_min": 19.0,
-        "humidity": 63,
-        "precipitation_sum_mm": 0.0,
-        "wind_max_kmh": 10.6,
-        "weather_code": 3,
-        "summary_fr": "☁️ couvert · 19–27°C · humidité 63%"
-      },
-      "text": "Conditions : ☁️ couvert · 19–27°C · humidité 63%. Stade : Estádio Olímpico Nilton Santos · plein air."
-    }
-  },
-  {
-    "league": "MLS",
-    "home": "Charlotte FC",
-    "away": "Atlanta United",
-    "start_ts": 1784765700,
-    "match_id": "5071222",
-    "page_url": "/matches/atlanta-united-vs-charlotte-fc/s2xqd9kd#5071222",
-    "picks": [
-      {
-        "direction": "home_win",
-        "type": "Favori net",
-        "label": "Charlotte FC gagne",
-        "cote": 2.0,
-        "confidence": 70,
-        "reasoning": "14 places d'écart au classement (#14 vs #28) · 2V/1N/2D sur 5 matchs · Note Sofa: 6.5/10\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
-        "stats": {
-          "form": [
-            "W",
-            "W",
-            "L",
-            "D",
-            "L"
-          ]
-        },
-        "is_fun": false,
-        "tier": "ok",
-        "calibration_delta": -11.3,
-        "edge_pp": 20.0,
-        "history_top3": true
-      }
-    ],
-    "home_players": [
-      {
-        "player": "Pep Biel / Idan Toklomati",
-        "position": "",
-        "is_sub": false,
-        "type": "Double Chance Buteur",
-        "label": "Pep Biel ou Idan Toklomati marque (Charlotte FC)",
-        "cote": null,
-        "book": null,
-        "books": [],
-        "confidence": 70,
-        "cote_min": 1.43,
-        "reasoning": "🏠 Combo intra-Charlotte FC\n📈 P(Pep Biel marque) ≈ 50% · P(Idan Toklomati marque) ≈ 40%\n🎯 P(au moins un marque) = 70% (1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.43 - chercher ≥1.43 chez le bookmaker\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+        "reasoning": "🏠 Combo intra-Breidablik\n📈 P(Kristófer Kristinsson marque) ≈ 50% · P(Ágúst Thorsteinsson marque) ≈ 46%\n🎯 P(au moins un marque) = 70% (1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.43 - chercher ≥1.43 chez le bookmaker\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
         "context": {
           "combo_kind": "intra-home"
         },
         "_team_for_balance": "home",
         "stats": {
           "p_a": 0.495,
-          "p_b": 0.398,
-          "p_or": 0.696,
-          "player_a": "Pep Biel",
-          "player_b": "Idan Toklomati",
+          "p_b": 0.458,
+          "p_or": 0.7,
+          "player_a": "Kristófer Kristinsson",
+          "player_b": "Ágúst Thorsteinsson",
           "kind": "intra-home"
         },
         "team": "home",
@@ -1368,402 +458,41 @@
         "history_top3": true
       }
     ],
-    "away_players": [],
+    "away_players": [
+      {
+        "player": "Omar Sowe",
+        "position": "M",
+        "is_sub": false,
+        "type": "Buteur",
+        "label": "Omar Sowe marque",
+        "cote": null,
+        "book": null,
+        "books": [],
+        "confidence": 52,
+        "reasoning": "4 buts en 7 matchs cette saison (57.1% de chance/match) · xG moyen 0.00/match, défense adverse poreuse (1.6 buts concédés/match) · défense correcte\n📉 Calibration : bucket 50-59% historiquement à WR 42% (claim 55%, n=41) — sur-estimé de 14pp",
+        "context": {
+          "weakness": 0.39
+        },
+        "stats": {
+          "goals": 4,
+          "apps": 7,
+          "gpm": 0.571,
+          "xgpm": 0
+        },
+        "team": "away",
+        "tier": "fun",
+        "calibration_delta": -13.6,
+        "history_top3": true
+      }
+    ],
     "fun_picks": [],
     "top_pick": {
       "direction": "home_win",
-      "type": "Favori net",
-      "label": "Charlotte FC gagne",
-      "cote": 2.0,
-      "confidence": 70,
-      "reasoning": "14 places d'écart au classement (#14 vs #28) · 2V/1N/2D sur 5 matchs · Note Sofa: 6.5/10\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
-      "stats": {
-        "form": [
-          "W",
-          "W",
-          "L",
-          "D",
-          "L"
-        ]
-      },
-      "is_fun": false,
-      "tier": "ok",
-      "calibration_delta": -11.3,
-      "edge_pp": 20.0,
-      "history_top3": true
-    },
-    "no_picks": false,
-    "context": {
-      "stadium": {
-        "name": "Bank of America Stadium",
-        "city": "Charlotte, North Carolina",
-        "country": "United States",
-        "lat": 35.225823124,
-        "lon": -80.852873325,
-        "capacity": 75412,
-        "surface": "artificial turf"
-      },
-      "weather": {
-        "temp_max": 27.0,
-        "temp_min": 21.0,
-        "humidity": 94,
-        "precipitation_sum_mm": 51.8,
-        "wind_max_kmh": 20.1,
-        "weather_code": 80,
-        "summary_fr": "🌦️ averses légères · 21–27°C · humidité 94% · précipitations 51.8mm"
-      },
-      "text": "Conditions : 🌦️ averses légères · 21–27°C · humidité 94% · précipitations 51.8mm. Stade : Bank of America Stadium · 75 412 places · plein air. ⚠️ Pluies prévues : terrain potentiellement lourd, jeu direct privilégié, plus d'erreurs techniques."
-    }
-  },
-  {
-    "league": "MLS",
-    "home": "LA Galaxy",
-    "away": "St. Louis City",
-    "start_ts": 1784773800,
-    "match_id": "5071226",
-    "page_url": "/matches/la-galaxy-vs-st-louis-city/d4qffkld#5071226",
-    "picks": [],
-    "home_players": [
-      {
-        "player": "Gabriel Pec / Marcel Hartel",
-        "position": "",
-        "is_sub": false,
-        "type": "Double Chance Buteur",
-        "label": "Gabriel Pec OU Marcel Hartel marque (cross-équipe)",
-        "cote": null,
-        "book": null,
-        "books": [],
-        "confidence": 70,
-        "cote_min": 1.45,
-        "reasoning": "🔀 Cross-équipe (moins corrélé → meilleur EV)\n📈 P(Gabriel Pec marque) ≈ 46% · P(Marcel Hartel marque) ≈ 43%\n🎯 P(au moins un marque) = 70% (1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.45 - chercher ≥1.45 chez le bookmaker\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
-        "context": {
-          "combo_kind": "cross"
-        },
-        "_team_for_balance": "home",
-        "stats": {
-          "p_a": 0.465,
-          "p_b": 0.428,
-          "p_or": 0.694,
-          "player_a": "Gabriel Pec",
-          "player_b": "Marcel Hartel",
-          "kind": "cross"
-        },
-        "team": "home",
-        "tier": "safe",
-        "calibration_delta": -11.3,
-        "history_top3": true
-      }
-    ],
-    "away_players": [],
-    "fun_picks": [],
-    "top_pick": {
-      "player": "Gabriel Pec / Marcel Hartel",
-      "position": "",
-      "is_sub": false,
-      "type": "Double Chance Buteur",
-      "label": "Gabriel Pec OU Marcel Hartel marque (cross-équipe)",
+      "type": "Victoire domicile",
+      "label": "Breidablik gagne",
       "cote": null,
-      "book": null,
-      "books": [],
-      "confidence": 70,
-      "cote_min": 1.45,
-      "reasoning": "🔀 Cross-équipe (moins corrélé → meilleur EV)\n📈 P(Gabriel Pec marque) ≈ 46% · P(Marcel Hartel marque) ≈ 43%\n🎯 P(au moins un marque) = 70% (1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.45 - chercher ≥1.45 chez le bookmaker\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
-      "context": {
-        "combo_kind": "cross"
-      },
-      "_team_for_balance": "home",
-      "stats": {
-        "p_a": 0.465,
-        "p_b": 0.428,
-        "p_or": 0.694,
-        "player_a": "Gabriel Pec",
-        "player_b": "Marcel Hartel",
-        "kind": "cross"
-      },
-      "team": "home",
-      "tier": "safe",
-      "calibration_delta": -11.3,
-      "history_top3": true
-    },
-    "no_picks": false,
-    "context": {
-      "stadium": {
-        "name": "Dignity Health Sports Park",
-        "city": "Carson, California",
-        "country": "United States",
-        "lat": 33.864335519,
-        "lon": -118.261079192,
-        "capacity": 30510,
-        "surface": "grass"
-      },
-      "weather": {
-        "temp_max": 32.6,
-        "temp_min": 19.1,
-        "humidity": 50,
-        "precipitation_sum_mm": 0.0,
-        "wind_max_kmh": 20.2,
-        "weather_code": 3,
-        "summary_fr": "☁️ couvert · 19–32°C · humidité 50%"
-      },
-      "text": "Conditions : ☁️ couvert · 19–32°C · humidité 50%. Stade : Dignity Health Sports Park · 30 510 places · plein air. ⚠️ Forte chaleur (>32°C) en plein air : impact endurance, plus de pauses hydratation."
-    }
-  },
-  {
-    "league": "Ecuador LigaPro",
-    "home": "Leones del Norte",
-    "away": "Guayaquil City",
-    "start_ts": 1784842200,
-    "match_id": "1000009034",
-    "page_url": "/matches/guayaquil-city-vs-leones-del-norte/fms60xpx#1000009034",
-    "picks": [],
-    "home_players": [
-      {
-        "player": "Juan Anangonó / Edinson Mero",
-        "position": "",
-        "is_sub": false,
-        "type": "Double Chance Buteur",
-        "label": "Juan Anangonó OU Edinson Mero marque (cross-équipe)",
-        "cote": null,
-        "book": null,
-        "books": [],
-        "confidence": 70,
-        "cote_min": 1.43,
-        "reasoning": "🔀 Cross-équipe (moins corrélé → meilleur EV)\n📈 P(Juan Anangonó marque) ≈ 46% · P(Edinson Mero marque) ≈ 44%\n🎯 P(au moins un marque) = 70% (1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.43 - chercher ≥1.43 chez le bookmaker\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
-        "context": {
-          "combo_kind": "cross"
-        },
-        "_team_for_balance": "home",
-        "stats": {
-          "p_a": 0.465,
-          "p_b": 0.435,
-          "p_or": 0.698,
-          "player_a": "Juan Anangonó",
-          "player_b": "Edinson Mero",
-          "kind": "cross"
-        },
-        "team": "home",
-        "tier": "safe",
-        "calibration_delta": -11.3,
-        "history_top3": true
-      }
-    ],
-    "away_players": [],
-    "fun_picks": [],
-    "top_pick": {
-      "player": "Juan Anangonó / Edinson Mero",
-      "position": "",
-      "is_sub": false,
-      "type": "Double Chance Buteur",
-      "label": "Juan Anangonó OU Edinson Mero marque (cross-équipe)",
-      "cote": null,
-      "book": null,
-      "books": [],
-      "confidence": 70,
-      "cote_min": 1.43,
-      "reasoning": "🔀 Cross-équipe (moins corrélé → meilleur EV)\n📈 P(Juan Anangonó marque) ≈ 46% · P(Edinson Mero marque) ≈ 44%\n🎯 P(au moins un marque) = 70% (1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.43 - chercher ≥1.43 chez le bookmaker\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
-      "context": {
-        "combo_kind": "cross"
-      },
-      "_team_for_balance": "home",
-      "stats": {
-        "p_a": 0.465,
-        "p_b": 0.435,
-        "p_or": 0.698,
-        "player_a": "Juan Anangonó",
-        "player_b": "Edinson Mero",
-        "kind": "cross"
-      },
-      "team": "home",
-      "tier": "safe",
-      "calibration_delta": -11.3,
-      "history_top3": true
-    },
-    "no_picks": false,
-    "context": {
-      "stadium": {
-        "name": "Estadio Olímpico de Ibarra",
-        "city": "Ibarra",
-        "country": "Ecuador",
-        "lat": 0.360046616,
-        "lon": -78.118532081,
-        "capacity": null,
-        "surface": null
-      },
-      "weather": {
-        "temp_max": 25.5,
-        "temp_min": 16.0,
-        "humidity": 41,
-        "precipitation_sum_mm": 0.8,
-        "wind_max_kmh": 10.7,
-        "weather_code": 51,
-        "summary_fr": "🌦️ bruine légère · 16–25°C · humidité 41%"
-      },
-      "text": "Conditions : 🌦️ bruine légère · 16–25°C · humidité 41%. Stade : Estadio Olímpico de Ibarra · plein air."
-    }
-  },
-  {
-    "league": "Brasileirao",
-    "home": "Internacional",
-    "away": "Cruzeiro",
-    "start_ts": 1784766600,
-    "match_id": "5103550",
-    "page_url": "/matches/internacional-vs-cruzeiro/2tph0j#5103550",
-    "picks": [],
-    "home_players": [],
-    "away_players": [
-      {
-        "player": "Kaio Jorge / Néiser Villarreal",
-        "position": "",
-        "is_sub": false,
-        "type": "Double Chance Buteur",
-        "label": "Kaio Jorge ou Néiser Villarreal marque (Cruzeiro)",
-        "cote": null,
-        "book": null,
-        "books": [],
-        "confidence": 69,
-        "cote_min": 1.45,
-        "reasoning": "✈️ Combo intra-Cruzeiro\n📈 P(Kaio Jorge marque) ≈ 46% · P(Néiser Villarreal marque) ≈ 42%\n🎯 P(au moins un marque) = 69% (1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.45 - chercher ≥1.45 chez le bookmaker\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
-        "context": {
-          "combo_kind": "intra-away"
-        },
-        "_team_for_balance": "away",
-        "stats": {
-          "p_a": 0.458,
-          "p_b": 0.42,
-          "p_or": 0.686,
-          "player_a": "Kaio Jorge",
-          "player_b": "Néiser Villarreal",
-          "kind": "intra-away"
-        },
-        "team": "away",
-        "tier": "ok",
-        "calibration_delta": -25.4,
-        "history_top3": true
-      }
-    ],
-    "fun_picks": [],
-    "top_pick": {
-      "player": "Kaio Jorge / Néiser Villarreal",
-      "position": "",
-      "is_sub": false,
-      "type": "Double Chance Buteur",
-      "label": "Kaio Jorge ou Néiser Villarreal marque (Cruzeiro)",
-      "cote": null,
-      "book": null,
-      "books": [],
-      "confidence": 69,
-      "cote_min": 1.45,
-      "reasoning": "✈️ Combo intra-Cruzeiro\n📈 P(Kaio Jorge marque) ≈ 46% · P(Néiser Villarreal marque) ≈ 42%\n🎯 P(au moins un marque) = 69% (1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.45 - chercher ≥1.45 chez le bookmaker\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
-      "context": {
-        "combo_kind": "intra-away"
-      },
-      "_team_for_balance": "away",
-      "stats": {
-        "p_a": 0.458,
-        "p_b": 0.42,
-        "p_or": 0.686,
-        "player_a": "Kaio Jorge",
-        "player_b": "Néiser Villarreal",
-        "kind": "intra-away"
-      },
-      "team": "away",
-      "tier": "ok",
-      "calibration_delta": -25.4,
-      "history_top3": true
-    },
-    "no_picks": false,
-    "context": {
-      "stadium": {
-        "name": "Estádio José Pinheiro Borda",
-        "city": "Porto Alegre, Rio Grande do Sul",
-        "country": "Brazil",
-        "lat": -30.065560971,
-        "lon": -51.23583287,
-        "capacity": null,
-        "surface": null
-      },
-      "weather": {
-        "temp_max": 18.2,
-        "temp_min": 14.8,
-        "humidity": 78,
-        "precipitation_sum_mm": 10.0,
-        "wind_max_kmh": 24.1,
-        "weather_code": 81,
-        "summary_fr": "🌦️ averses modérées · 14–18°C · humidité 78% · précipitations 10.0mm"
-      },
-      "text": "Conditions : 🌦️ averses modérées · 14–18°C · humidité 78% · précipitations 10.0mm. Stade : Estádio José Pinheiro Borda · plein air. ⚠️ Pluies prévues : terrain potentiellement lourd, jeu direct privilégié, plus d'erreurs techniques."
-    }
-  },
-  {
-    "league": "Argentina Primera",
-    "home": "Sarmiento",
-    "away": "Argentinos Juniors",
-    "start_ts": 1784845800,
-    "match_id": "5115886",
-    "page_url": "/matches/argentinos-juniors-vs-sarmiento/aem1p1z#5115886",
-    "picks": [
-      {
-        "direction": "away_win",
-        "type": "Victoire extérieur",
-        "label": "Argentinos Juniors gagne",
-        "cote": null,
-        "confidence": 69,
-        "reasoning": "Argentinos Juniors : 3V/1N/1D sur 5 matchs · #3 au classement · H2H: 1V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
-        "stats": {
-          "form": [
-            "D",
-            "W",
-            "W",
-            "L",
-            "W"
-          ]
-        },
-        "is_fun": false,
-        "tier": "ok",
-        "calibration_delta": -25.4,
-        "history_top3": true
-      }
-    ],
-    "home_players": [
-      {
-        "player": "Junior Marabel / Tomás Molina",
-        "position": "",
-        "is_sub": false,
-        "type": "Double Chance Buteur",
-        "label": "Junior Marabel OU Tomás Molina marque (cross-équipe)",
-        "cote": null,
-        "book": null,
-        "books": [],
-        "confidence": 70,
-        "cote_min": 1.47,
-        "reasoning": "🔀 Cross-équipe (moins corrélé → meilleur EV)\n📈 P(Junior Marabel marque) ≈ 46% · P(Tomás Molina marque) ≈ 40%\n🎯 P(au moins un marque) = 70% (1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.47 - chercher ≥1.47 chez le bookmaker\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
-        "context": {
-          "combo_kind": "cross"
-        },
-        "_team_for_balance": "home",
-        "stats": {
-          "p_a": 0.458,
-          "p_b": 0.405,
-          "p_or": 0.678,
-          "player_a": "Junior Marabel",
-          "player_b": "Tomás Molina",
-          "kind": "cross"
-        },
-        "team": "home",
-        "tier": "safe",
-        "calibration_delta": -11.3,
-        "history_top3": true
-      }
-    ],
-    "away_players": [],
-    "fun_picks": [],
-    "top_pick": {
-      "direction": "away_win",
-      "type": "Victoire extérieur",
-      "label": "Argentinos Juniors gagne",
-      "cote": null,
-      "confidence": 69,
-      "reasoning": "Argentinos Juniors : 3V/1N/1D sur 5 matchs · #3 au classement · H2H: 1V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
+      "confidence": 68,
+      "reasoning": "Breidablik : 3V/1N/1D sur 5 matchs · #4 au classement · H2H: 1V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
       "stats": {
         "form": [
           "D",
@@ -1781,669 +510,79 @@
     "no_picks": false,
     "context": {
       "stadium": {
-        "name": "Estadio Eva Perón de Junín",
-        "city": "Junín, Provincia de Buenos Aires",
-        "country": "Argentina",
-        "lat": -34.585382973,
-        "lon": -60.92926383,
-        "capacity": 22000,
-        "surface": "grass"
-      },
-      "weather": {
-        "temp_max": 15.4,
-        "temp_min": 5.4,
-        "humidity": 66,
-        "precipitation_sum_mm": 0.0,
-        "wind_max_kmh": 18.4,
-        "weather_code": 3,
-        "summary_fr": "☁️ couvert · 5–15°C · humidité 66%"
-      },
-      "text": "Conditions : ☁️ couvert · 5–15°C · humidité 66%. Stade : Estadio Eva Perón de Junín · 22 000 places · plein air."
-    }
-  },
-  {
-    "league": "Ecuador LigaPro",
-    "home": "Orense",
-    "away": "Aucas",
-    "start_ts": 1784842200,
-    "match_id": "1000009036",
-    "page_url": "/matches/aucas-vs-orense/6ncd16p5#1000009036",
-    "picks": [
-      {
-        "direction": "away_win",
-        "type": "Victoire extérieur",
-        "label": "Aucas gagne",
-        "cote": null,
-        "confidence": 69,
-        "reasoning": "Aucas : 3V/1N/1D sur 5 matchs · #3 au classement · H2H: 1V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
-        "stats": {
-          "form": [
-            "W",
-            "L",
-            "W",
-            "W",
-            "D"
-          ]
-        },
-        "is_fun": false,
-        "tier": "ok",
-        "calibration_delta": -25.4,
-        "history_top3": true
-      }
-    ],
-    "home_players": [
-      {
-        "player": "Agustín Herrera / Bruno Miranda",
-        "position": "",
-        "is_sub": false,
-        "type": "Double Chance Buteur",
-        "label": "Agustín Herrera OU Bruno Miranda marque (cross-équipe)",
-        "cote": null,
-        "book": null,
-        "books": [],
-        "confidence": 70,
-        "cote_min": 1.43,
-        "reasoning": "🔀 Cross-équipe (moins corrélé → meilleur EV)\n📈 P(Agustín Herrera marque) ≈ 43% · P(Bruno Miranda marque) ≈ 58%\n🎯 P(au moins un marque) = 70% (1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.43 - chercher ≥1.43 chez le bookmaker\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
-        "context": {
-          "combo_kind": "cross"
-        },
-        "_team_for_balance": "home",
-        "stats": {
-          "p_a": 0.428,
-          "p_b": 0.578,
-          "p_or": 0.7,
-          "player_a": "Agustín Herrera",
-          "player_b": "Bruno Miranda",
-          "kind": "cross"
-        },
-        "team": "home",
-        "tier": "safe",
-        "calibration_delta": -11.3,
-        "history_top3": true
-      }
-    ],
-    "away_players": [
-      {
-        "player": "Bruno Miranda",
-        "position": "F",
-        "is_sub": false,
-        "type": "Buteur",
-        "label": "Bruno Miranda marque",
-        "cote": null,
-        "book": null,
-        "books": [],
-        "confidence": 58,
-        "reasoning": "6 buts en 10 matchs cette saison (60.0% de chance/match) · bonne efficacité (19% conv.) · xG moyen 0.00/match, défense adverse poreuse (1.4 buts concédés/match) · défense fragile\n📉 Calibration : bucket 50-59% historiquement à WR 42% (claim 55%, n=41) — sur-estimé de 14pp",
-        "context": {
-          "weakness": 0.55
-        },
-        "stats": {
-          "goals": 6,
-          "apps": 10,
-          "gpm": 0.6,
-          "xgpm": 0
-        },
-        "team": "away",
-        "tier": "ok",
-        "calibration_delta": -13.6,
-        "history_top3": true
-      }
-    ],
-    "fun_picks": [],
-    "top_pick": {
-      "direction": "away_win",
-      "type": "Victoire extérieur",
-      "label": "Aucas gagne",
-      "cote": null,
-      "confidence": 69,
-      "reasoning": "Aucas : 3V/1N/1D sur 5 matchs · #3 au classement · H2H: 1V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
-      "stats": {
-        "form": [
-          "W",
-          "L",
-          "W",
-          "W",
-          "D"
-        ]
-      },
-      "is_fun": false,
-      "tier": "ok",
-      "calibration_delta": -25.4,
-      "history_top3": true
-    },
-    "no_picks": false,
-    "context": {
-      "stadium": {
-        "name": "Estadio 9 de Mayo Banco de Machala",
-        "city": "Machala",
-        "country": "Ecuador",
-        "lat": -3.254466405,
-        "lon": -79.962514043,
+        "name": "Eikarvöllurinn",
+        "city": "Kópavogur",
+        "country": "Iceland",
+        "lat": 64.104103936,
+        "lon": -21.89688921,
         "capacity": null,
         "surface": null
       },
       "weather": {
-        "temp_max": 27.8,
-        "temp_min": 24.6,
-        "humidity": 75,
-        "precipitation_sum_mm": 0.8,
-        "wind_max_kmh": 12.1,
-        "weather_code": 51,
-        "summary_fr": "🌦️ bruine légère · 24–27°C · humidité 75%"
+        "temp_max": 18.9,
+        "temp_min": 11.2,
+        "humidity": 42,
+        "precipitation_sum_mm": 0.0,
+        "wind_max_kmh": 30.6,
+        "weather_code": 3,
+        "summary_fr": "☁️ couvert · 11–18°C · humidité 42%"
       },
-      "text": "Conditions : 🌦️ bruine légère · 24–27°C · humidité 75%. Stade : Estadio 9 de Mayo Banco de Machala · plein air."
+      "text": "Conditions : ☁️ couvert · 11–18°C · humidité 42%. Stade : Eikarvöllurinn · plein air. ⚠️ Vent fort prévu : jeu aérien moins fiable, balles longues imprévisibles."
     }
   },
   {
-    "league": "MLS",
-    "home": "FC Cincinnati",
-    "away": "Vancouver Whitecaps",
-    "start_ts": 1784763000,
-    "match_id": "5071216",
-    "page_url": "/matches/vancouver-whitecaps-vs-fc-cincinnati/6rnxzls3#5071216",
+    "league": "Ecuador LigaPro",
+    "home": "Guayaquil City",
+    "away": "Universidad Catolica",
+    "start_ts": 1785187800,
+    "match_id": "1000009043",
+    "page_url": "/matches/universidad-catolica-vs-guayaquil-city/lrgm5jm#1000009043",
     "picks": [
       {
         "direction": "away_win",
-        "type": "Favori net",
-        "label": "Vancouver Whitecaps gagne",
-        "cote": 1.91,
-        "confidence": 68,
-        "reasoning": "13 places d'écart au classement (#2 vs #15) · 2V/2N/1D sur 5 matchs · Note Sofa: 6.5/10\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
+        "type": "Victoire extérieur",
+        "label": "Universidad Catolica gagne",
+        "cote": null,
+        "confidence": 66,
+        "reasoning": "Universidad Catolica : 3V/0N/2D sur 5 matchs · #2 au classement · H2H: 1V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
         "stats": {
           "form": [
+            "W",
+            "W",
             "W",
             "L",
-            "W",
-            "D",
-            "D"
-          ]
-        },
-        "is_fun": false,
-        "tier": "ok",
-        "calibration_delta": -25.4,
-        "edge_pp": 15.6,
-        "history_top3": true
-      }
-    ],
-    "home_players": [
-      {
-        "player": "Evander Ferreira",
-        "position": "F",
-        "is_sub": false,
-        "type": "Buteur",
-        "label": "Evander Ferreira marque",
-        "cote": null,
-        "book": null,
-        "books": [],
-        "confidence": 58,
-        "reasoning": "⚽ Penaltyman · 9 buts en 14 matchs cette saison (64.3% de chance/match) · finisseur efficace (16% de conv.) · xG moyen 0.45/match · défense solide\n📉 Calibration : bucket 50-59% historiquement à WR 42% (claim 55%, n=41) — sur-estimé de 14pp",
-        "context": {
-          "weakness": 0.27
-        },
-        "stats": {
-          "goals": 9,
-          "apps": 14,
-          "gpm": 0.643,
-          "xgpm": 0.45
-        },
-        "team": "home",
-        "tier": "ok",
-        "calibration_delta": -13.6,
-        "history_top3": true
-      },
-      {
-        "player": "Kévin Denkey",
-        "position": "F",
-        "is_sub": false,
-        "type": "Buteur",
-        "label": "Kévin Denkey marque",
-        "cote": null,
-        "book": null,
-        "books": [],
-        "confidence": 57,
-        "reasoning": "9 buts en 14 matchs cette saison (64.3% de chance/match) · bonne efficacité (26% conv.) · xG moyen 0.63/match · défense solide\n📉 Calibration : bucket 50-59% historiquement à WR 42% (claim 55%, n=41) — sur-estimé de 14pp",
-        "context": {
-          "weakness": 0.27
-        },
-        "stats": {
-          "goals": 9,
-          "apps": 14,
-          "gpm": 0.643,
-          "xgpm": 0.629
-        },
-        "team": "home",
-        "tier": "ok",
-        "calibration_delta": -13.6,
-        "history_top3": true
-      },
-      {
-        "player": "Kévin Denkey / Evander Ferreira",
-        "position": "",
-        "is_sub": false,
-        "type": "Double Chance Buteur",
-        "label": "Kévin Denkey ou Evander Ferreira marque (FC Cincinnati)",
-        "cote": null,
-        "book": null,
-        "books": [],
-        "confidence": 70,
-        "cote_min": 1.43,
-        "reasoning": "🏠 Combo intra-FC Cincinnati\n📈 P(Kévin Denkey marque) ≈ 57% · P(Evander Ferreira marque) ≈ 53%\n🎯 P(au moins un marque) = 70% (1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.43 - chercher ≥1.43 chez le bookmaker\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
-        "context": {
-          "combo_kind": "intra-home"
-        },
-        "_team_for_balance": "home",
-        "stats": {
-          "p_a": 0.57,
-          "p_b": 0.532,
-          "p_or": 0.7,
-          "player_a": "Kévin Denkey",
-          "player_b": "Evander Ferreira",
-          "kind": "intra-home"
-        },
-        "team": "home",
-        "tier": "safe",
-        "calibration_delta": -11.3,
-        "history_top3": true
-      }
-    ],
-    "away_players": [
-      {
-        "player": "Brian White",
-        "position": "F",
-        "is_sub": false,
-        "type": "Buteur",
-        "label": "Brian White marque",
-        "cote": null,
-        "book": null,
-        "books": [],
-        "confidence": 68,
-        "reasoning": "10 buts en 14 matchs cette saison (71.4% de chance/match) · xG moyen 0.84/match, face à une défense qui concède 2.3 buts/match · défense fragile\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
-        "context": {
-          "weakness": 0.68
-        },
-        "stats": {
-          "goals": 10,
-          "apps": 14,
-          "gpm": 0.714,
-          "xgpm": 0.836
-        },
-        "team": "away",
-        "tier": "ok",
-        "calibration_delta": -25.4,
-        "history_top3": true
-      }
-    ],
-    "fun_picks": [],
-    "top_pick": {
-      "direction": "away_win",
-      "type": "Favori net",
-      "label": "Vancouver Whitecaps gagne",
-      "cote": 1.91,
-      "confidence": 68,
-      "reasoning": "13 places d'écart au classement (#2 vs #15) · 2V/2N/1D sur 5 matchs · Note Sofa: 6.5/10\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
-      "stats": {
-        "form": [
-          "W",
-          "L",
-          "W",
-          "D",
-          "D"
-        ]
-      },
-      "is_fun": false,
-      "tier": "ok",
-      "calibration_delta": -25.4,
-      "edge_pp": 15.6,
-      "history_top3": true
-    },
-    "no_picks": false,
-    "context": {
-      "stadium": {
-        "name": "TQL Stadium",
-        "city": "Cincinnati, Ohio",
-        "country": "United States",
-        "lat": 39.111095463,
-        "lon": -84.522244462,
-        "capacity": 26000,
-        "surface": "grass"
-      },
-      "weather": {
-        "temp_max": 25.9,
-        "temp_min": 18.6,
-        "humidity": 48,
-        "precipitation_sum_mm": 0.0,
-        "wind_max_kmh": 18.7,
-        "weather_code": 3,
-        "summary_fr": "☁️ couvert · 18–25°C · humidité 48%"
-      },
-      "text": "Conditions : ☁️ couvert · 18–25°C · humidité 48%. Stade : TQL Stadium · 26 000 places · plein air."
-    }
-  },
-  {
-    "league": "MLS",
-    "home": "Inter Miami CF",
-    "away": "Chicago Fire FC",
-    "start_ts": 1784763000,
-    "match_id": "5071218",
-    "page_url": "/matches/chicago-fire-fc-vs-inter-miami-cf/5yu85bd7#5071218",
-    "picks": [
-      {
-        "direction": "home_win",
-        "type": "Victoire domicile",
-        "label": "Inter Miami CF gagne",
-        "cote": 2.45,
-        "confidence": 67,
-        "reasoning": "Inter Miami CF : 4V/0N/1D sur 5 matchs · #4 au classement · H2H: 0V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
-        "stats": {
-          "form": [
-            "W",
-            "W",
-            "W",
-            "W",
             "L"
           ]
         },
         "is_fun": false,
         "tier": "ok",
         "calibration_delta": -25.4,
-        "edge_pp": 26.2,
         "history_top3": true
       }
     ],
     "home_players": [
       {
-        "player": "Luis Suárez",
-        "position": "F",
-        "is_sub": false,
-        "type": "Buteur",
-        "label": "Luis Suárez marque",
-        "cote": null,
-        "book": null,
-        "books": [],
-        "confidence": 52,
-        "reasoning": "6 buts en 11 matchs cette saison (54.5% de chance/match) · xG moyen 0.46/match · défense correcte\n📉 Calibration : bucket 50-59% historiquement à WR 42% (claim 55%, n=41) — sur-estimé de 14pp",
-        "context": {
-          "weakness": 0.38
-        },
-        "stats": {
-          "goals": 6,
-          "apps": 11,
-          "gpm": 0.545,
-          "xgpm": 0.464
-        },
-        "team": "home",
-        "tier": "fun",
-        "calibration_delta": -13.6,
-        "history_top3": true
-      },
-      {
-        "player": "Germán Berterame",
-        "position": "F",
-        "is_sub": false,
-        "type": "Buteur",
-        "label": "Germán Berterame marque",
-        "cote": null,
-        "book": null,
-        "books": [],
-        "confidence": 51,
-        "reasoning": "7 buts en 15 matchs cette saison (46.7% de chance/match) · bonne efficacité (19% conv.) · xG moyen 0.49/match · défense correcte\n📉 Calibration : bucket 50-59% historiquement à WR 42% (claim 55%, n=41) — sur-estimé de 14pp",
-        "context": {
-          "weakness": 0.38
-        },
-        "stats": {
-          "goals": 7,
-          "apps": 15,
-          "gpm": 0.467,
-          "xgpm": 0.493
-        },
-        "team": "home",
-        "tier": "fun",
-        "calibration_delta": -13.6,
-        "history_top3": true
-      },
-      {
-        "player": "Luis Suárez / Germán Berterame",
+        "player": "Edinson Mero / Emiliano Clavijo",
         "position": "",
         "is_sub": false,
         "type": "Double Chance Buteur",
-        "label": "Luis Suárez ou Germán Berterame marque (Inter Miami CF)",
-        "cote": null,
-        "book": null,
-        "books": [],
-        "confidence": 70,
-        "cote_min": 1.43,
-        "reasoning": "🏠 Combo intra-Inter Miami CF\n📈 P(Luis Suárez marque) ≈ 52% · P(Germán Berterame marque) ≈ 51%\n🎯 P(au moins un marque) = 70% (1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.43 - chercher ≥1.43 chez le bookmaker\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
-        "context": {
-          "combo_kind": "intra-home"
-        },
-        "_team_for_balance": "home",
-        "stats": {
-          "p_a": 0.525,
-          "p_b": 0.51,
-          "p_or": 0.7,
-          "player_a": "Luis Suárez",
-          "player_b": "Germán Berterame",
-          "kind": "intra-home"
-        },
-        "team": "home",
-        "tier": "safe",
-        "calibration_delta": -11.3,
-        "history_top3": true
-      }
-    ],
-    "away_players": [],
-    "fun_picks": [],
-    "top_pick": {
-      "direction": "home_win",
-      "type": "Victoire domicile",
-      "label": "Inter Miami CF gagne",
-      "cote": 2.45,
-      "confidence": 67,
-      "reasoning": "Inter Miami CF : 4V/0N/1D sur 5 matchs · #4 au classement · H2H: 0V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
-      "stats": {
-        "form": [
-          "W",
-          "W",
-          "W",
-          "W",
-          "L"
-        ]
-      },
-      "is_fun": false,
-      "tier": "ok",
-      "calibration_delta": -25.4,
-      "edge_pp": 26.2,
-      "history_top3": true
-    },
-    "no_picks": false,
-    "context": {
-      "stadium": {
-        "name": "Hard Rock Stadium",
-        "city": "Miami Gardens",
-        "country": "USA",
-        "lat": 25.958,
-        "lon": -80.2389,
-        "capacity": 65326,
-        "surface": "Natural grass",
-        "altitude_m": 3,
-        "type": "outdoor",
-        "climatized": false,
-        "context_fr": "Toit canopy (ombre), pas climatisé. Humidité Floride 80%+, orages tropicaux fréquents en juin."
-      },
-      "weather": {
-        "temp_max": 34.3,
-        "temp_min": 28.3,
-        "humidity": 56,
-        "precipitation_sum_mm": 0.0,
-        "wind_max_kmh": 19.6,
-        "weather_code": 3,
-        "summary_fr": "☁️ couvert · 28–34°C · humidité 56%"
-      },
-      "text": "Conditions : ☁️ couvert · 28–34°C · humidité 56%. Stade : Hard Rock Stadium · altitude 3m · 65 326 places · plein air. Toit canopy (ombre), pas climatisé. Humidité Floride 80%+, orages tropicaux fréquents en juin. ⚠️ Forte chaleur (>32°C) en plein air : impact endurance, plus de pauses hydratation."
-    }
-  },
-  {
-    "league": "MLS",
-    "home": "Portland Timbers",
-    "away": "FC Dallas",
-    "start_ts": 1784773800,
-    "match_id": "5071229",
-    "page_url": "/matches/fc-dallas-vs-portland-timbers/mnrhsos#5071229",
-    "picks": [
-      {
-        "direction": "away_win",
-        "type": "Favori net",
-        "label": "FC Dallas gagne",
-        "cote": 2.7,
-        "confidence": 65,
-        "reasoning": "11 places d'écart au classement (#9 vs #20) · 4V/0N/1D sur 5 matchs · Note Sofa: 6.5/10\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
-        "stats": {
-          "form": [
-            "W",
-            "W",
-            "L",
-            "W",
-            "W"
-          ]
-        },
-        "is_fun": false,
-        "tier": "fun",
-        "calibration_delta": -25.4,
-        "edge_pp": 28.0,
-        "history_top3": true
-      }
-    ],
-    "home_players": [],
-    "away_players": [
-      {
-        "player": "Logan Farrington / Petar Musa",
-        "position": "",
-        "is_sub": false,
-        "type": "Double Chance Buteur",
-        "label": "Logan Farrington ou Petar Musa marque (FC Dallas)",
-        "cote": null,
-        "book": null,
-        "books": [],
-        "confidence": 70,
-        "cote_min": 1.43,
-        "reasoning": "✈️ Combo intra-FC Dallas\n📈 P(Logan Farrington marque) ≈ 46% · P(Petar Musa marque) ≈ 45%\n🎯 P(au moins un marque) = 70% (1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.43 - chercher ≥1.43 chez le bookmaker\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
-        "context": {
-          "combo_kind": "intra-away"
-        },
-        "_team_for_balance": "away",
-        "stats": {
-          "p_a": 0.465,
-          "p_b": 0.45,
-          "p_or": 0.7,
-          "player_a": "Logan Farrington",
-          "player_b": "Petar Musa",
-          "kind": "intra-away"
-        },
-        "team": "away",
-        "tier": "safe",
-        "calibration_delta": -11.3,
-        "history_top3": true
-      }
-    ],
-    "fun_picks": [],
-    "top_pick": {
-      "direction": "away_win",
-      "type": "Favori net",
-      "label": "FC Dallas gagne",
-      "cote": 2.7,
-      "confidence": 65,
-      "reasoning": "11 places d'écart au classement (#9 vs #20) · 4V/0N/1D sur 5 matchs · Note Sofa: 6.5/10\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
-      "stats": {
-        "form": [
-          "W",
-          "W",
-          "L",
-          "W",
-          "W"
-        ]
-      },
-      "is_fun": false,
-      "tier": "fun",
-      "calibration_delta": -25.4,
-      "edge_pp": 28.0,
-      "history_top3": true
-    },
-    "no_picks": false,
-    "context": {
-      "stadium": {
-        "name": "Providence Park",
-        "city": "Portland, Oregon",
-        "country": "United States",
-        "lat": 45.521411267,
-        "lon": -122.691750526,
-        "capacity": 25518,
-        "surface": "artificial turf"
-      },
-      "weather": {
-        "temp_max": 30.0,
-        "temp_min": 18.6,
-        "humidity": 47,
-        "precipitation_sum_mm": 0.0,
-        "wind_max_kmh": 19.2,
-        "weather_code": 3,
-        "summary_fr": "☁️ couvert · 18–30°C · humidité 47%"
-      },
-      "text": "Conditions : ☁️ couvert · 18–30°C · humidité 47%. Stade : Providence Park · 25 518 places · plein air."
-    }
-  },
-  {
-    "league": "Brasileirao",
-    "home": "Coritiba",
-    "away": "Palmeiras",
-    "start_ts": 1784759400,
-    "match_id": "5103551",
-    "page_url": "/matches/coritiba-vs-palmeiras/3boktu#5103551",
-    "picks": [
-      {
-        "direction": "away_win",
-        "type": "Victoire extérieur",
-        "label": "Palmeiras gagne",
-        "cote": null,
-        "confidence": 59,
-        "reasoning": "Palmeiras : 2V/3N/0D sur 5 matchs · #1 au classement · H2H: 0V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 50-59% historiquement à WR 42% (claim 55%, n=41) — sur-estimé de 14pp",
-        "stats": {
-          "form": [
-            "W",
-            "W",
-            "D",
-            "D",
-            "D"
-          ]
-        },
-        "is_fun": false,
-        "tier": "ok",
-        "calibration_delta": -13.6,
-        "history_top3": true
-      }
-    ],
-    "home_players": [
-      {
-        "player": "Breno Lopes / José Manuel López",
-        "position": "",
-        "is_sub": false,
-        "type": "Double Chance Buteur",
-        "label": "Breno Lopes OU José Manuel López marque (cross-équipe)",
+        "label": "Edinson Mero OU Emiliano Clavijo marque (cross-équipe)",
         "cote": null,
         "book": null,
         "books": [],
         "confidence": 70,
         "cote_min": 1.49,
-        "reasoning": "🔀 Cross-équipe (moins corrélé → meilleur EV)\n📈 P(Breno Lopes marque) ≈ 46% · P(José Manuel López marque) ≈ 38%\n🎯 P(au moins un marque) = 70% (1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.49 - chercher ≥1.49 chez le bookmaker\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+        "reasoning": "🔀 Cross-équipe (moins corrélé → meilleur EV)\n📈 P(Edinson Mero marque) ≈ 41% · P(Emiliano Clavijo marque) ≈ 44%\n🎯 P(au moins un marque) = 70% (1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.49 - chercher ≥1.49 chez le bookmaker\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
         "context": {
           "combo_kind": "cross"
         },
         "_team_for_balance": "home",
         "stats": {
-          "p_a": 0.465,
-          "p_b": 0.375,
-          "p_or": 0.666,
-          "player_a": "Breno Lopes",
-          "player_b": "José Manuel López",
+          "p_a": 0.412,
+          "p_b": 0.435,
+          "p_or": 0.668,
+          "player_a": "Edinson Mero",
+          "player_b": "Emiliano Clavijo",
           "kind": "cross"
         },
         "team": "home",
@@ -2457,473 +596,97 @@
     "top_pick": {
       "direction": "away_win",
       "type": "Victoire extérieur",
-      "label": "Palmeiras gagne",
+      "label": "Universidad Catolica gagne",
       "cote": null,
-      "confidence": 59,
-      "reasoning": "Palmeiras : 2V/3N/0D sur 5 matchs · #1 au classement · H2H: 0V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 50-59% historiquement à WR 42% (claim 55%, n=41) — sur-estimé de 14pp",
+      "confidence": 66,
+      "reasoning": "Universidad Catolica : 3V/0N/2D sur 5 matchs · #2 au classement · H2H: 1V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
       "stats": {
         "form": [
           "W",
           "W",
-          "D",
-          "D",
-          "D"
+          "W",
+          "L",
+          "L"
         ]
       },
       "is_fun": false,
       "tier": "ok",
-      "calibration_delta": -13.6,
+      "calibration_delta": -25.4,
       "history_top3": true
     },
     "no_picks": false,
     "context": {
       "stadium": {
-        "name": "Estádio Major Antônio Couto Pereira",
-        "city": "Curitiba, Paraná",
-        "country": "Brazil",
-        "lat": -25.421096149,
-        "lon": -49.259551764,
+        "name": "Estadio Christian Benítez Betancourt",
+        "city": "Guayaquil",
+        "country": "Ecuador",
+        "lat": -2.102828886,
+        "lon": -79.90378012,
         "capacity": null,
         "surface": null
       },
       "weather": {
-        "temp_max": 19.8,
-        "temp_min": 14.3,
-        "humidity": 93,
-        "precipitation_sum_mm": 27.6,
-        "wind_max_kmh": 18.7,
-        "weather_code": 81,
-        "summary_fr": "🌦️ averses modérées · 14–19°C · humidité 93% · précipitations 27.6mm"
+        "temp_max": 33.6,
+        "temp_min": 24.8,
+        "humidity": 59,
+        "precipitation_sum_mm": 2.2,
+        "wind_max_kmh": 7.1,
+        "weather_code": 53,
+        "summary_fr": "🌦️ bruine modérée · 24–33°C · humidité 59% · précipitations 2.2mm"
       },
-      "text": "Conditions : 🌦️ averses modérées · 14–19°C · humidité 93% · précipitations 27.6mm. Stade : Estádio Major Antônio Couto Pereira · plein air. ⚠️ Pluies prévues : terrain potentiellement lourd, jeu direct privilégié, plus d'erreurs techniques."
+      "text": "Conditions : 🌦️ bruine modérée · 24–33°C · humidité 59% · précipitations 2.2mm. Stade : Estadio Christian Benítez Betancourt · plein air. ⚠️ Forte chaleur (>32°C) en plein air : impact endurance, plus de pauses hydratation."
     }
   },
   {
-    "league": "MLS",
-    "home": "Columbus Crew",
-    "away": "New York City FC",
-    "start_ts": 1784763000,
-    "match_id": "5071217",
-    "page_url": "/matches/columbus-crew-vs-new-york-city-fc/1y1t6fkp#5071217",
-    "picks": [],
-    "home_players": [],
-    "away_players": [
+    "league": "Chile Primera",
+    "home": "Union La Calera",
+    "away": "Everton CD",
+    "start_ts": 1785193200,
+    "match_id": "1000013176",
+    "page_url": "/matches/everton-cd-vs-union-la-calera/8o9hrmi#1000013176",
+    "picks": [
       {
-        "player": "Nicolás Fernández",
-        "position": "F",
-        "is_sub": false,
-        "type": "Buteur",
-        "label": "Nicolás Fernández marque",
+        "direction": "away_win",
+        "type": "Victoire extérieur",
+        "label": "Everton CD gagne",
         "cote": null,
-        "book": null,
-        "books": [],
-        "confidence": 58,
-        "reasoning": "⚽ Penaltyman · 10 buts en 15 matchs cette saison (66.7% de chance/match) · finisseur efficace (24% de conv.) · xG moyen 0.33/match, défense adverse poreuse (1.4 buts concédés/match) · défense fragile\n📉 Calibration : bucket 50-59% historiquement à WR 42% (claim 55%, n=41) — sur-estimé de 14pp",
-        "context": {
-          "weakness": 0.69
-        },
-        "stats": {
-          "goals": 10,
-          "apps": 15,
-          "gpm": 0.667,
-          "xgpm": 0.327
-        },
-        "team": "away",
-        "tier": "ok",
-        "calibration_delta": -13.6,
-        "history_top3": true
-      },
-      {
-        "player": "Nicolás Fernández / Hannes Wolf",
-        "position": "",
-        "is_sub": false,
-        "type": "Double Chance Buteur",
-        "label": "Nicolás Fernández ou Hannes Wolf marque (New York City FC)",
-        "cote": null,
-        "book": null,
-        "books": [],
-        "confidence": 70,
-        "cote_min": 1.43,
-        "reasoning": "✈️ Combo intra-New York City FC\n📈 P(Nicolás Fernández marque) ≈ 53% · P(Hannes Wolf marque) ≈ 40%\n🎯 P(au moins un marque) = 70% (1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.43 - chercher ≥1.43 chez le bookmaker\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
-        "context": {
-          "combo_kind": "intra-away"
-        },
-        "_team_for_balance": "away",
-        "stats": {
-          "p_a": 0.532,
-          "p_b": 0.405,
-          "p_or": 0.7,
-          "player_a": "Nicolás Fernández",
-          "player_b": "Hannes Wolf",
-          "kind": "intra-away"
-        },
-        "team": "away",
-        "tier": "safe",
-        "calibration_delta": -11.3,
-        "history_top3": true
-      }
-    ],
-    "fun_picks": [],
-    "top_pick": {
-      "player": "Nicolás Fernández",
-      "position": "F",
-      "is_sub": false,
-      "type": "Buteur",
-      "label": "Nicolás Fernández marque",
-      "cote": null,
-      "book": null,
-      "books": [],
-      "confidence": 58,
-      "reasoning": "⚽ Penaltyman · 10 buts en 15 matchs cette saison (66.7% de chance/match) · finisseur efficace (24% de conv.) · xG moyen 0.33/match, défense adverse poreuse (1.4 buts concédés/match) · défense fragile\n📉 Calibration : bucket 50-59% historiquement à WR 42% (claim 55%, n=41) — sur-estimé de 14pp",
-      "context": {
-        "weakness": 0.69
-      },
-      "stats": {
-        "goals": 10,
-        "apps": 15,
-        "gpm": 0.667,
-        "xgpm": 0.327
-      },
-      "team": "away",
-      "tier": "ok",
-      "calibration_delta": -13.6,
-      "history_top3": true
-    },
-    "no_picks": false,
-    "context": {
-      "stadium": {
-        "name": "ScottsMiracle-Gro Field",
-        "city": "Columbus, Ohio",
-        "country": "United States",
-        "lat": 39.968452368,
-        "lon": -83.017099203,
-        "capacity": 20931,
-        "surface": "grass"
-      },
-      "weather": {
-        "temp_max": 22.1,
-        "temp_min": 16.0,
-        "humidity": 65,
-        "precipitation_sum_mm": 0.0,
-        "wind_max_kmh": 15.1,
-        "weather_code": 3,
-        "summary_fr": "☁️ couvert · 16–22°C · humidité 65%"
-      },
-      "text": "Conditions : ☁️ couvert · 16–22°C · humidité 65%. Stade : ScottsMiracle-Gro Field · 20 931 places · plein air."
-    }
-  },
-  {
-    "league": "MLS",
-    "home": "Colorado Rapids",
-    "away": "San Diego FC",
-    "start_ts": 1784770200,
-    "match_id": "5071223",
-    "page_url": "/matches/colorado-rapids-vs-san-diego-fc/in7m68y7#5071223",
-    "picks": [],
-    "home_players": [
-      {
-        "player": "Rafael Navarro",
-        "position": "F",
-        "is_sub": false,
-        "type": "Buteur",
-        "label": "Rafael Navarro marque",
-        "cote": null,
-        "book": null,
-        "books": [],
-        "confidence": 57,
-        "reasoning": "8 buts en 15 matchs cette saison (53.3% de chance/match) · bonne efficacité (19% conv.) · xG moyen 0.57/match, face à une défense qui concède 1.8 buts/match · défense très vulnérable\n📉 Calibration : bucket 50-59% historiquement à WR 42% (claim 55%, n=41) — sur-estimé de 14pp",
-        "context": {
-          "weakness": 0.73
-        },
-        "stats": {
-          "goals": 8,
-          "apps": 15,
-          "gpm": 0.533,
-          "xgpm": 0.567
-        },
-        "team": "home",
-        "tier": "ok",
-        "calibration_delta": -13.6,
-        "history_top3": true
-      },
-      {
-        "player": "Rafael Navarro / Paxten Aaronson",
-        "position": "",
-        "is_sub": false,
-        "type": "Double Chance Buteur",
-        "label": "Rafael Navarro ou Paxten Aaronson marque (Colorado Rapids)",
-        "cote": null,
-        "book": null,
-        "books": [],
-        "confidence": 70,
-        "cote_min": 1.43,
-        "reasoning": "🏠 Combo intra-Colorado Rapids\n📈 P(Rafael Navarro marque) ≈ 57% · P(Paxten Aaronson marque) ≈ 36%\n🎯 P(au moins un marque) = 70% (1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.43 - chercher ≥1.43 chez le bookmaker\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
-        "context": {
-          "combo_kind": "intra-home"
-        },
-        "_team_for_balance": "home",
-        "stats": {
-          "p_a": 0.57,
-          "p_b": 0.36,
-          "p_or": 0.7,
-          "player_a": "Rafael Navarro",
-          "player_b": "Paxten Aaronson",
-          "kind": "intra-home"
-        },
-        "team": "home",
-        "tier": "safe",
-        "calibration_delta": -11.3,
-        "history_top3": true
-      }
-    ],
-    "away_players": [
-      {
-        "player": "Marcus Ingvartsen",
-        "position": "F",
-        "is_sub": false,
-        "type": "Buteur",
-        "label": "Marcus Ingvartsen marque",
-        "cote": null,
-        "book": null,
-        "books": [],
-        "confidence": 57,
-        "reasoning": "11 buts en 15 matchs cette saison (73.3% de chance/match) · finisseur efficace (25% de conv.) · xG moyen 0.37/match, défense adverse poreuse (1.6 buts concédés/match) · défense très vulnérable\n📉 Calibration : bucket 50-59% historiquement à WR 42% (claim 55%, n=41) — sur-estimé de 14pp",
-        "context": {
-          "weakness": 0.71
-        },
-        "stats": {
-          "goals": 11,
-          "apps": 15,
-          "gpm": 0.733,
-          "xgpm": 0.373
-        },
-        "team": "away",
-        "tier": "ok",
-        "calibration_delta": -13.6,
-        "history_top3": true
-      }
-    ],
-    "fun_picks": [],
-    "top_pick": {
-      "player": "Rafael Navarro",
-      "position": "F",
-      "is_sub": false,
-      "type": "Buteur",
-      "label": "Rafael Navarro marque",
-      "cote": null,
-      "book": null,
-      "books": [],
-      "confidence": 57,
-      "reasoning": "8 buts en 15 matchs cette saison (53.3% de chance/match) · bonne efficacité (19% conv.) · xG moyen 0.57/match, face à une défense qui concède 1.8 buts/match · défense très vulnérable\n📉 Calibration : bucket 50-59% historiquement à WR 42% (claim 55%, n=41) — sur-estimé de 14pp",
-      "context": {
-        "weakness": 0.73
-      },
-      "stats": {
-        "goals": 8,
-        "apps": 15,
-        "gpm": 0.533,
-        "xgpm": 0.567
-      },
-      "team": "home",
-      "tier": "ok",
-      "calibration_delta": -13.6,
-      "history_top3": true
-    },
-    "no_picks": false,
-    "context": {
-      "stadium": {
-        "name": "Dick's Sporting Goods Park",
-        "city": "Commerce City, Colorado",
-        "country": "United States",
-        "lat": 39.80567609,
-        "lon": -104.891806841,
-        "capacity": 19734,
-        "surface": "grass"
-      },
-      "weather": {
-        "temp_max": 30.3,
-        "temp_min": 19.3,
-        "humidity": 66,
-        "precipitation_sum_mm": 4.0,
-        "wind_max_kmh": 36.0,
-        "weather_code": 63,
-        "summary_fr": "🌧️ pluie modérée · 19–30°C · humidité 66% · précipitations 4.0mm"
-      },
-      "text": "Conditions : 🌧️ pluie modérée · 19–30°C · humidité 66% · précipitations 4.0mm. Stade : Dick's Sporting Goods Park · 19 734 places · plein air. ⚠️ Vent fort prévu : jeu aérien moins fiable, balles longues imprévisibles."
-    }
-  },
-  {
-    "league": "MLS",
-    "home": "Houston Dynamo FC",
-    "away": "DC United",
-    "start_ts": 1784766600,
-    "match_id": "5071224",
-    "page_url": "/matches/dc-united-vs-houston-dynamo-fc/1tr4bi#5071224",
-    "picks": [],
-    "home_players": [
-      {
-        "player": "Guilherme Augusto",
-        "position": "F",
-        "is_sub": false,
-        "type": "Buteur",
-        "label": "Guilherme Augusto marque",
-        "cote": null,
-        "book": null,
-        "books": [],
-        "confidence": 51,
-        "reasoning": "8 buts en 14 matchs cette saison (57.1% de chance/match) · finisseur efficace (20% de conv.) · xG moyen 0.30/match, défense adverse poreuse (1.7 buts concédés/match) · défense très vulnérable\n📉 Calibration : bucket 50-59% historiquement à WR 42% (claim 55%, n=41) — sur-estimé de 14pp",
-        "context": {
-          "weakness": 0.7
-        },
-        "stats": {
-          "goals": 8,
-          "apps": 14,
-          "gpm": 0.571,
-          "xgpm": 0.3
-        },
-        "team": "home",
-        "tier": "fun",
-        "calibration_delta": -13.6,
-        "history_top3": true
-      }
-    ],
-    "away_players": [
-      {
-        "player": "Tai Baribo",
-        "position": "F",
-        "is_sub": false,
-        "type": "Buteur",
-        "label": "Tai Baribo marque",
-        "cote": null,
-        "book": null,
-        "books": [],
         "confidence": 64,
-        "reasoning": "⚽ Penaltyman · 8 buts en 12 matchs cette saison (66.7% de chance/match) · finisseur efficace (29% de conv.) · xG moyen 0.54/match, défense adverse poreuse (1.6 buts concédés/match) · défense fragile\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
-        "context": {
-          "weakness": 0.53
-        },
+        "reasoning": "Everton CD : 3V/1N/1D sur 5 matchs · #8 au classement · H2H: 1V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
         "stats": {
-          "goals": 8,
-          "apps": 12,
-          "gpm": 0.667,
-          "xgpm": 0.542
+          "form": [
+            "L",
+            "W",
+            "D",
+            "W",
+            "W"
+          ]
         },
-        "team": "away",
+        "is_fun": false,
         "tier": "ok",
         "calibration_delta": -25.4,
         "history_top3": true
-      },
-      {
-        "player": "Tai Baribo / Louis Munteanu",
-        "position": "",
-        "is_sub": false,
-        "type": "Double Chance Buteur",
-        "label": "Tai Baribo ou Louis Munteanu marque (DC United)",
-        "cote": null,
-        "book": null,
-        "books": [],
-        "confidence": 70,
-        "cote_min": 1.43,
-        "reasoning": "✈️ Combo intra-DC United\n📈 P(Tai Baribo marque) ≈ 58% · P(Louis Munteanu marque) ≈ 47%\n🎯 P(au moins un marque) = 70% (1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.43 - chercher ≥1.43 chez le bookmaker\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
-        "context": {
-          "combo_kind": "intra-away"
-        },
-        "_team_for_balance": "away",
-        "stats": {
-          "p_a": 0.585,
-          "p_b": 0.472,
-          "p_or": 0.7,
-          "player_a": "Tai Baribo",
-          "player_b": "Louis Munteanu",
-          "kind": "intra-away"
-        },
-        "team": "away",
-        "tier": "safe",
-        "calibration_delta": -11.3,
-        "history_top3": true
       }
     ],
-    "fun_picks": [],
-    "top_pick": {
-      "player": "Guilherme Augusto",
-      "position": "F",
-      "is_sub": false,
-      "type": "Buteur",
-      "label": "Guilherme Augusto marque",
-      "cote": null,
-      "book": null,
-      "books": [],
-      "confidence": 51,
-      "reasoning": "8 buts en 14 matchs cette saison (57.1% de chance/match) · finisseur efficace (20% de conv.) · xG moyen 0.30/match, défense adverse poreuse (1.7 buts concédés/match) · défense très vulnérable\n📉 Calibration : bucket 50-59% historiquement à WR 42% (claim 55%, n=41) — sur-estimé de 14pp",
-      "context": {
-        "weakness": 0.7
-      },
-      "stats": {
-        "goals": 8,
-        "apps": 14,
-        "gpm": 0.571,
-        "xgpm": 0.3
-      },
-      "team": "home",
-      "tier": "fun",
-      "calibration_delta": -13.6,
-      "history_top3": true
-    },
-    "no_picks": false,
-    "context": {
-      "stadium": {
-        "name": "NRG Stadium",
-        "city": "Houston",
-        "country": "USA",
-        "lat": 29.6847,
-        "lon": -95.4107,
-        "capacity": 72220,
-        "surface": "Natural grass",
-        "altitude_m": 18,
-        "type": "indoor",
-        "climatized": true,
-        "context_fr": "Toit retractable, climatisé. Houston chaud et humide en été."
-      },
-      "weather": {
-        "temp_max": 35.1,
-        "temp_min": 25.2,
-        "humidity": 71,
-        "precipitation_sum_mm": 40.4,
-        "wind_max_kmh": 18.7,
-        "weather_code": 82,
-        "summary_fr": "⛈️ averses violentes · 25–35°C · humidité 71% · précipitations 40.4mm"
-      },
-      "text": "Conditions : ⛈️ averses violentes · 25–35°C · humidité 71% · précipitations 40.4mm. Stade : NRG Stadium · altitude 18m · 72 220 places · climatisé. Toit retractable, climatisé. Houston chaud et humide en été. ⚠️ Pluies prévues : terrain potentiellement lourd, jeu direct privilégié, plus d'erreurs techniques."
-    }
-  },
-  {
-    "league": "MLS",
-    "home": "Los Angeles FC",
-    "away": "Real Salt Lake",
-    "start_ts": 1784773800,
-    "match_id": "5071227",
-    "page_url": "/matches/real-salt-lake-vs-los-angeles-fc/4vexhen5#5071227",
-    "picks": [],
     "home_players": [
       {
-        "player": "Denis Bouanga",
+        "player": "Sebastián Sáez",
         "position": "F",
         "is_sub": false,
         "type": "Buteur",
-        "label": "Denis Bouanga marque",
+        "label": "Sebastián Sáez marque",
         "cote": null,
         "book": null,
         "books": [],
-        "confidence": 51,
-        "reasoning": "7 buts en 15 matchs cette saison (46.7% de chance/match) · xG moyen 0.48/match, défense adverse poreuse (1.4 buts concédés/match) · défense correcte\n📉 Calibration : bucket 50-59% historiquement à WR 42% (claim 55%, n=41) — sur-estimé de 14pp",
+        "confidence": 50,
+        "reasoning": "7 buts en 15 matchs cette saison (46.7% de chance/match) · xG moyen 0.00/match · défense correcte\n📉 Calibration : bucket 50-59% historiquement à WR 42% (claim 55%, n=41) — sur-estimé de 14pp",
         "context": {
-          "weakness": 0.43
+          "weakness": 0.41
         },
         "stats": {
           "goals": 7,
           "apps": 15,
           "gpm": 0.467,
-          "xgpm": 0.48
+          "xgpm": 0
         },
         "team": "home",
         "tier": "fun",
@@ -2931,27 +694,137 @@
         "history_top3": true
       },
       {
-        "player": "Denis Bouanga / David Martínez",
+        "player": "Sebastián Sáez / Cristian Palacios",
         "position": "",
         "is_sub": false,
         "type": "Double Chance Buteur",
-        "label": "Denis Bouanga ou David Martínez marque (Los Angeles FC)",
+        "label": "Sebastián Sáez OU Cristian Palacios marque (cross-équipe)",
         "cote": null,
         "book": null,
         "books": [],
         "confidence": 70,
         "cote_min": 1.43,
-        "reasoning": "🏠 Combo intra-Los Angeles FC\n📈 P(Denis Bouanga marque) ≈ 51% · P(David Martínez marque) ≈ 38%\n🎯 P(au moins un marque) = 70% (1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.43 - chercher ≥1.43 chez le bookmaker\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+        "reasoning": "🔀 Cross-équipe (moins corrélé → meilleur EV)\n📈 P(Sebastián Sáez marque) ≈ 50% · P(Cristian Palacios marque) ≈ 41%\n🎯 P(au moins un marque) = 70% (1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.43 - chercher ≥1.43 chez le bookmaker\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+        "context": {
+          "combo_kind": "cross"
+        },
+        "_team_for_balance": "home",
+        "stats": {
+          "p_a": 0.502,
+          "p_b": 0.412,
+          "p_or": 0.7,
+          "player_a": "Sebastián Sáez",
+          "player_b": "Cristian Palacios",
+          "kind": "cross"
+        },
+        "team": "home",
+        "tier": "safe",
+        "calibration_delta": -11.3,
+        "history_top3": true
+      }
+    ],
+    "away_players": [],
+    "fun_picks": [],
+    "top_pick": {
+      "direction": "away_win",
+      "type": "Victoire extérieur",
+      "label": "Everton CD gagne",
+      "cote": null,
+      "confidence": 64,
+      "reasoning": "Everton CD : 3V/1N/1D sur 5 matchs · #8 au classement · H2H: 1V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
+      "stats": {
+        "form": [
+          "L",
+          "W",
+          "D",
+          "W",
+          "W"
+        ]
+      },
+      "is_fun": false,
+      "tier": "ok",
+      "calibration_delta": -25.4,
+      "history_top3": true
+    },
+    "no_picks": false,
+    "context": {
+      "stadium": {
+        "name": "Estadio Municipal Nicolás Chahuán Nazar",
+        "city": "La Calera",
+        "country": "Chile",
+        "lat": -32.784171733,
+        "lon": -71.199474335,
+        "capacity": null,
+        "surface": null
+      },
+      "weather": {
+        "temp_max": 16.7,
+        "temp_min": 11.1,
+        "humidity": 94,
+        "precipitation_sum_mm": 13.5,
+        "wind_max_kmh": 8.0,
+        "weather_code": 81,
+        "summary_fr": "🌦️ averses modérées · 11–16°C · humidité 94% · précipitations 13.5mm"
+      },
+      "text": "Conditions : 🌦️ averses modérées · 11–16°C · humidité 94% · précipitations 13.5mm. Stade : Estadio Municipal Nicolás Chahuán Nazar · plein air. ⚠️ Pluies prévues : terrain potentiellement lourd, jeu direct privilégié, plus d'erreurs techniques."
+    }
+  },
+  {
+    "league": "Icelandic Besta",
+    "home": "KA Akureyri",
+    "away": "Thor Akureyri",
+    "start_ts": 1785179700,
+    "match_id": "5225693",
+    "page_url": "/matches/ka-akureyri-vs-thor-akureyri/d7nof#5225693",
+    "picks": [],
+    "home_players": [
+      {
+        "player": "Hallgrímur Steingrímsson",
+        "position": "F",
+        "is_sub": false,
+        "type": "Buteur",
+        "label": "Hallgrímur Steingrímsson marque",
+        "cote": null,
+        "book": null,
+        "books": [],
+        "confidence": 58,
+        "reasoning": "7 buts en 13 matchs cette saison (53.8% de chance/match) · xG moyen 0.00/match, face à une défense qui concède 2.6 buts/match · défense fragile\n📉 Calibration : bucket 50-59% historiquement à WR 42% (claim 55%, n=41) — sur-estimé de 14pp",
+        "context": {
+          "weakness": 0.65
+        },
+        "stats": {
+          "goals": 7,
+          "apps": 13,
+          "gpm": 0.538,
+          "xgpm": 0
+        },
+        "team": "home",
+        "tier": "ok",
+        "calibration_delta": -13.6,
+        "history_top3": true
+      },
+      {
+        "player": "Hallgrímur Steingrímsson / Birgir Baldvinsson",
+        "position": "",
+        "is_sub": false,
+        "type": "Double Chance Buteur",
+        "label": "Hallgrímur Steingrímsson ou Birgir Baldvinsson marque (KA Akureyri)",
+        "cote": null,
+        "book": null,
+        "books": [],
+        "confidence": 70,
+        "cote_min": 1.43,
+        "reasoning": "🏠 Combo intra-KA Akureyri\n📈 P(Hallgrímur Steingrímsson marque) ≈ 58% · P(Birgir Baldvinsson marque) ≈ 46%\n🎯 P(au moins un marque) = 70% (1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.43 - chercher ≥1.43 chez le bookmaker\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
         "context": {
           "combo_kind": "intra-home"
         },
         "_team_for_balance": "home",
         "stats": {
-          "p_a": 0.51,
-          "p_b": 0.382,
-          "p_or": 0.697,
-          "player_a": "Denis Bouanga",
-          "player_b": "David Martínez",
+          "p_a": 0.578,
+          "p_b": 0.458,
+          "p_or": 0.7,
+          "player_a": "Hallgrímur Steingrímsson",
+          "player_b": "Birgir Baldvinsson",
           "kind": "intra-home"
         },
         "team": "home",
@@ -2963,186 +836,184 @@
     "away_players": [],
     "fun_picks": [],
     "top_pick": {
-      "player": "Denis Bouanga",
+      "player": "Hallgrímur Steingrímsson",
       "position": "F",
       "is_sub": false,
       "type": "Buteur",
-      "label": "Denis Bouanga marque",
+      "label": "Hallgrímur Steingrímsson marque",
       "cote": null,
       "book": null,
       "books": [],
-      "confidence": 51,
-      "reasoning": "7 buts en 15 matchs cette saison (46.7% de chance/match) · xG moyen 0.48/match, défense adverse poreuse (1.4 buts concédés/match) · défense correcte\n📉 Calibration : bucket 50-59% historiquement à WR 42% (claim 55%, n=41) — sur-estimé de 14pp",
+      "confidence": 58,
+      "reasoning": "7 buts en 13 matchs cette saison (53.8% de chance/match) · xG moyen 0.00/match, face à une défense qui concède 2.6 buts/match · défense fragile\n📉 Calibration : bucket 50-59% historiquement à WR 42% (claim 55%, n=41) — sur-estimé de 14pp",
       "context": {
-        "weakness": 0.43
+        "weakness": 0.65
       },
       "stats": {
         "goals": 7,
-        "apps": 15,
-        "gpm": 0.467,
-        "xgpm": 0.48
+        "apps": 13,
+        "gpm": 0.538,
+        "xgpm": 0
       },
       "team": "home",
-      "tier": "fun",
+      "tier": "ok",
       "calibration_delta": -13.6,
       "history_top3": true
     },
     "no_picks": false,
     "context": {
       "stadium": {
-        "name": "BMO Stadium",
-        "city": "Los Angeles, California",
-        "country": "United States",
-        "lat": 34.012768788,
-        "lon": -118.2845485,
-        "capacity": 22937,
-        "surface": "grass"
+        "name": "Greifavöllurinn",
+        "city": "Akureyri",
+        "country": "Iceland",
+        "lat": 65.676664255,
+        "lon": -18.11432002,
+        "capacity": null,
+        "surface": null
       },
       "weather": {
-        "temp_max": 34.5,
-        "temp_min": 19.4,
-        "humidity": 42,
+        "temp_max": 12.8,
+        "temp_min": 6.8,
+        "humidity": 59,
         "precipitation_sum_mm": 0.0,
-        "wind_max_kmh": 17.5,
-        "weather_code": 0,
-        "summary_fr": "🌤️ conditions variables · 19–34°C · humidité 42%"
+        "wind_max_kmh": 25.6,
+        "weather_code": 3,
+        "summary_fr": "☁️ couvert · 6–12°C · humidité 59%"
       },
-      "text": "Conditions : 🌤️ conditions variables · 19–34°C · humidité 42%. Stade : BMO Stadium · 22 937 places · plein air. ⚠️ Forte chaleur (>32°C) en plein air : impact endurance, plus de pauses hydratation."
+      "text": "Conditions : ☁️ couvert · 6–12°C · humidité 59%. Stade : Greifavöllurinn · plein air."
     }
   },
   {
-    "league": "Brasileirao",
-    "home": "Corinthians",
-    "away": "Remo",
-    "start_ts": 1784845800,
-    "match_id": "5103547",
-    "page_url": "/matches/remo-vs-corinthians/12xedz#5103547",
+    "league": "Argentina Primera",
+    "home": "San Lorenzo",
+    "away": "Gimnasia Mendoza",
+    "start_ts": 1785276000,
+    "match_id": "5115899",
+    "page_url": "/matches/san-lorenzo-vs-gimnasia-mendoza/24ybxxd2#5115899",
     "picks": [],
     "home_players": [],
     "away_players": [
       {
-        "player": "Gabriel Taliari",
-        "position": "M",
+        "player": "Agustín Módica",
+        "position": "F",
         "is_sub": false,
         "type": "Buteur",
-        "label": "Gabriel Taliari marque",
+        "label": "Agustín Módica marque",
         "team": "away",
         "cote": null,
         "book": null,
         "books": [],
-        "confidence": 44,
-        "reasoning": "3G en 6 matchs (50.0%/match) · xG: 0.40/match\n📉 Calibration : bucket 40-49% historiquement à WR 25% (claim 44%, n=36) — sur-estimé de 19pp",
+        "confidence": 38,
+        "reasoning": "5G en 14 matchs (35.7%/match) · xG: 0.33/match",
         "context": {
-          "weakness": 0.55
+          "weakness": 0.42
         },
         "stats": {
-          "goals": 3,
-          "apps": 6
+          "goals": 5,
+          "apps": 14
         },
         "tier": "fun",
-        "calibration_delta": -19.4,
         "history_top3": true
       }
     ],
     "fun_picks": [],
     "top_pick": {
-      "player": "Gabriel Taliari",
-      "position": "M",
+      "player": "Agustín Módica",
+      "position": "F",
       "is_sub": false,
       "type": "Buteur",
-      "label": "Gabriel Taliari marque",
+      "label": "Agustín Módica marque",
       "team": "away",
       "cote": null,
       "book": null,
       "books": [],
-      "confidence": 44,
-      "reasoning": "3G en 6 matchs (50.0%/match) · xG: 0.40/match\n📉 Calibration : bucket 40-49% historiquement à WR 25% (claim 44%, n=36) — sur-estimé de 19pp",
+      "confidence": 38,
+      "reasoning": "5G en 14 matchs (35.7%/match) · xG: 0.33/match",
       "context": {
-        "weakness": 0.55
+        "weakness": 0.42
       },
       "stats": {
-        "goals": 3,
-        "apps": 6
+        "goals": 5,
+        "apps": 14
       },
       "tier": "fun",
-      "calibration_delta": -19.4,
       "history_top3": true
     },
     "no_picks": false,
     "context": {
       "stadium": {
-        "name": "Neo Química Arena",
-        "city": "São Paulo, São Paulo",
-        "country": "Brazil",
-        "lat": -23.545306226,
-        "lon": -46.474239577,
-        "capacity": null,
-        "surface": null
+        "name": "Estadio Pedro Bidegaín",
+        "city": "Capital Federal, Ciudad de Bueno",
+        "country": "Argentina",
+        "lat": -34.652057456,
+        "lon": -58.440109491,
+        "capacity": 43494,
+        "surface": "grass"
       },
       "weather": {
-        "temp_max": 25.4,
-        "temp_min": 15.9,
-        "humidity": 67,
-        "precipitation_sum_mm": 3.7,
-        "wind_max_kmh": 13.7,
-        "weather_code": 53,
-        "summary_fr": "🌦️ bruine modérée · 15–25°C · humidité 67% · précipitations 3.7mm"
+        "temp_max": 14.7,
+        "temp_min": 10.0,
+        "humidity": 92,
+        "precipitation_sum_mm": 0.0,
+        "wind_max_kmh": 13.0,
+        "weather_code": 3,
+        "summary_fr": "☁️ couvert · 10–14°C · humidité 92%"
       },
-      "text": "Conditions : 🌦️ bruine modérée · 15–25°C · humidité 67% · précipitations 3.7mm. Stade : Neo Química Arena · plein air."
+      "text": "Conditions : ☁️ couvert · 10–14°C · humidité 92%. Stade : Estadio Pedro Bidegaín · 43 494 places · plein air."
     }
   },
   {
     "league": "Ecuador LigaPro",
-    "home": "Manta",
-    "away": "LDU de Quito",
-    "start_ts": 1784764800,
-    "match_id": "1000009035",
-    "page_url": "/matches/ldu-de-quito-vs-manta/6lz46gj#1000009035",
+    "home": "Deportivo Cuenca",
+    "away": "Emelec",
+    "start_ts": 1785196800,
+    "match_id": "1000009041",
+    "page_url": "/matches/emelec-vs-deportivo-cuenca/ap6mv#1000009041",
     "picks": [],
-    "home_players": [],
-    "away_players": [
+    "home_players": [
       {
-        "player": "Deyverson",
+        "player": "Matías Klimowicz",
         "position": "F",
         "is_sub": false,
         "type": "Buteur",
-        "label": "Deyverson marque",
-        "team": "away",
+        "label": "Matías Klimowicz marque",
+        "team": "home",
         "cote": null,
         "book": null,
         "books": [],
-        "confidence": 28,
-        "reasoning": "4G en 18 matchs (22.2%/match) · xG: 0.00/match",
+        "confidence": 37,
+        "reasoning": "5G en 15 matchs (33.3%/match) · xG: 0.00/match",
         "context": {
-          "weakness": 0.55
+          "weakness": 0.43
         },
         "stats": {
-          "goals": 4,
-          "apps": 18
+          "goals": 5,
+          "apps": 15
         },
         "tier": "fun",
         "history_top3": true
       }
     ],
+    "away_players": [],
     "fun_picks": [],
     "top_pick": {
-      "player": "Deyverson",
+      "player": "Matías Klimowicz",
       "position": "F",
       "is_sub": false,
       "type": "Buteur",
-      "label": "Deyverson marque",
-      "team": "away",
+      "label": "Matías Klimowicz marque",
+      "team": "home",
       "cote": null,
       "book": null,
       "books": [],
-      "confidence": 28,
-      "reasoning": "4G en 18 matchs (22.2%/match) · xG: 0.00/match",
+      "confidence": 37,
+      "reasoning": "5G en 15 matchs (33.3%/match) · xG: 0.00/match",
       "context": {
-        "weakness": 0.55
+        "weakness": 0.43
       },
       "stats": {
-        "goals": 4,
-        "apps": 18
+        "goals": 5,
+        "apps": 15
       },
       "tier": "fun",
       "history_top3": true
@@ -3150,24 +1021,51 @@
     "no_picks": false,
     "context": {
       "stadium": {
-        "name": "Estadio Jocay",
-        "city": "Manta",
+        "name": "Estadio Alejandro Serrano Aguilar Banco del Austro",
+        "city": "Cuenca",
         "country": "Ecuador",
-        "lat": -0.964042353,
-        "lon": -80.702696443,
+        "lat": -2.906663962,
+        "lon": -79.005791545,
         "capacity": null,
         "surface": null
       },
       "weather": {
-        "temp_max": 29.3,
-        "temp_min": 24.4,
-        "humidity": 69,
-        "precipitation_sum_mm": 0.0,
-        "wind_max_kmh": 16.3,
-        "weather_code": 3,
-        "summary_fr": "☁️ couvert · 24–29°C · humidité 69%"
+        "temp_max": 21.1,
+        "temp_min": 8.3,
+        "humidity": 58,
+        "precipitation_sum_mm": 1.6,
+        "wind_max_kmh": 11.9,
+        "weather_code": 53,
+        "summary_fr": "🌦️ bruine modérée · 8–21°C · humidité 58% · précipitations 1.6mm"
       },
-      "text": "Conditions : ☁️ couvert · 24–29°C · humidité 69%. Stade : Estadio Jocay · plein air."
+      "text": "Conditions : 🌦️ bruine modérée · 8–21°C · humidité 58% · précipitations 1.6mm. Stade : Estadio Alejandro Serrano Aguilar Banco del Austro · plein air."
+    }
+  },
+  {
+    "league": "Bulgarian First",
+    "home": "CSKA Sofia",
+    "away": "Botev Plovdiv",
+    "start_ts": 1785176100,
+    "match_id": "5760442",
+    "page_url": "/matches/botev-plovdiv-vs-cska-sofia/3edtn2#5760442",
+    "picks": [],
+    "home_players": [],
+    "away_players": [],
+    "fun_picks": [],
+    "top_pick": null,
+    "no_picks": true,
+    "context": {
+      "stadium": {
+        "name": "Vasil Levski",
+        "city": null,
+        "country": "",
+        "lat": null,
+        "lon": null,
+        "capacity": null,
+        "surface": null
+      },
+      "weather": null,
+      "text": "Stade : Vasil Levski · plein air."
     }
   }
 ]
