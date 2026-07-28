@@ -44864,9 +44864,12 @@
       "matchup": "Union La Calera vs Everton CD",
       "league": "Chile Primera",
       "category": "player",
-      "result": "PENDING",
-      "actual": null,
-      "resolved_at": null,
+      "result": "LOSS",
+      "actual": {
+        "goals": 0,
+        "assists": 0
+      },
+      "resolved_at": "2026-07-28 01:01",
       "side": "home"
     },
     {
@@ -44896,9 +44899,85 @@
       "matchup": "Union La Calera vs Everton CD",
       "league": "Chile Primera",
       "category": "team",
+      "result": "LOSS",
+      "actual": "1-1",
+      "resolved_at": "2026-07-28 01:01"
+    },
+    {
+      "player": "Estiven Pérez / Elvio Vera",
+      "position": "",
+      "is_sub": false,
+      "type": "Double Chance Buteur",
+      "label": "Estiven Pérez OU Elvio Vera marque (cross-équipe)",
+      "cote": null,
+      "book": null,
+      "books": [],
+      "confidence": 70,
+      "cote_min": 1.45,
+      "reasoning": "🔀 Cross-équipe (moins corrélé → meilleur EV)\n📈 P(Estiven Pérez marque) ≈ 38% · P(Elvio Vera marque) ≈ 51%\n🎯 P(au moins un marque) = 70% (1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.45 - chercher ≥1.45 chez le bookmaker\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+      "context": {
+        "combo_kind": "cross"
+      },
+      "_team_for_balance": "home",
+      "stats": {
+        "p_a": 0.375,
+        "p_b": 0.51,
+        "p_or": 0.694,
+        "player_a": "Estiven Pérez",
+        "player_b": "Elvio Vera",
+        "kind": "cross"
+      },
+      "team": "home",
+      "tier": "safe",
+      "calibration_delta": -11.3,
+      "history_top3": true,
+      "id": "2026-07-28_1000017358_player_Estiven Pérez / Elvio Vera_Double Chance Buteur",
+      "date": "2026-07-28",
+      "match_id": "1000017358",
+      "page_url": "/matches/rubio-nu-vs-sportivo-ameliano/cli45c80#1000017358",
+      "matchup": "Rubio Nu vs Sportivo Ameliano",
+      "league": "Paraguay Profesional",
+      "category": "player",
       "result": "PENDING",
       "actual": null,
-      "resolved_at": null
+      "resolved_at": null,
+      "side": "home"
+    },
+    {
+      "player": "Elvio Vera",
+      "position": "F",
+      "is_sub": false,
+      "type": "Buteur",
+      "label": "Elvio Vera marque",
+      "cote": null,
+      "book": null,
+      "books": [],
+      "confidence": 51,
+      "reasoning": "9 buts en 19 matchs cette saison (47.4% de chance/match) · xG moyen 0.00/match · défense correcte\n📉 Calibration : bucket 50-59% historiquement à WR 42% (claim 55%, n=41) — sur-estimé de 14pp",
+      "context": {
+        "weakness": 0.45
+      },
+      "stats": {
+        "goals": 9,
+        "apps": 19,
+        "gpm": 0.474,
+        "xgpm": 0
+      },
+      "team": "away",
+      "tier": "fun",
+      "calibration_delta": -13.6,
+      "history_top3": true,
+      "id": "2026-07-28_1000017358_player_Elvio Vera_Buteur",
+      "date": "2026-07-28",
+      "match_id": "1000017358",
+      "page_url": "/matches/rubio-nu-vs-sportivo-ameliano/cli45c80#1000017358",
+      "matchup": "Rubio Nu vs Sportivo Ameliano",
+      "league": "Paraguay Profesional",
+      "category": "player",
+      "result": "PENDING",
+      "actual": null,
+      "resolved_at": null,
+      "side": "away"
     },
     {
       "player": "Matías Klimowicz",
@@ -44910,10 +44989,10 @@
       "cote": null,
       "book": null,
       "books": [],
-      "confidence": 37,
+      "confidence": 38,
       "reasoning": "5G en 15 matchs (33.3%/match) · xG: 0.00/match",
       "context": {
-        "weakness": 0.43
+        "weakness": 0.47
       },
       "stats": {
         "goals": 5,
