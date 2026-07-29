@@ -1,15 +1,15 @@
 {
-  "generated_at": "2026-07-28T23:41:54.836897",
-  "n_total": 1559,
+  "generated_at": "2026-07-29T00:15:41.769179",
+  "n_total": 1561,
   "globals": {
     "foot": {
-      "n": 1273,
-      "w": 574,
-      "l": 658,
+      "n": 1275,
+      "w": 575,
+      "l": 659,
       "push": 41,
       "wr": 46.6,
       "roi": -13.2,
-      "profit": -167.55,
+      "profit": -167.75,
       "avg_cote": 2.31,
       "break_even_wr": 43.2,
       "wr_vs_be": 3.4
@@ -70,18 +70,18 @@
         "calibration_gap": -22.4
       },
       "70-79": {
-        "n": 464,
-        "w": 237,
+        "n": 465,
+        "w": 238,
         "l": 204,
         "push": 23,
-        "wr": 53.7,
-        "roi": -3.2,
-        "profit": -15.0,
+        "wr": 53.8,
+        "roi": -3.1,
+        "profit": -14.2,
         "avg_cote": 1.92,
         "break_even_wr": 52.2,
-        "wr_vs_be": 1.6,
+        "wr_vs_be": 1.7,
         "expected_wr": 74.5,
-        "calibration_gap": -20.8
+        "calibration_gap": -20.7
       },
       "80-89": {
         "n": 122,
@@ -536,28 +536,28 @@
         "wr_vs_be": -1.7
       },
       "Double Chance Buteur": {
-        "n": 277,
-        "w": 114,
+        "n": 278,
+        "w": 115,
         "l": 156,
         "push": 7,
-        "wr": 42.2,
-        "roi": -23.4,
-        "profit": -64.8,
+        "wr": 42.4,
+        "roi": -23.0,
+        "profit": -64.0,
         "avg_cote": null,
         "break_even_wr": null,
         "wr_vs_be": null
       },
       "Buteur": {
-        "n": 349,
+        "n": 350,
         "w": 109,
-        "l": 232,
+        "l": 233,
         "push": 8,
-        "wr": 32.0,
-        "roi": -40.3,
-        "profit": -140.6,
+        "wr": 31.9,
+        "roi": -40.5,
+        "profit": -141.6,
         "avg_cote": 2.32,
         "break_even_wr": 43.2,
-        "wr_vs_be": -11.2
+        "wr_vs_be": -11.3
       }
     },
     "tennis": {
@@ -1423,13 +1423,13 @@
       },
       "is_fun": {
         "False": {
-          "n": 1264,
-          "w": 571,
-          "l": 652,
+          "n": 1266,
+          "w": 572,
+          "l": 653,
           "push": 41,
           "wr": 46.7,
           "roi": -13.5,
-          "profit": -170.48,
+          "profit": -170.68,
           "avg_cote": 2.25,
           "break_even_wr": 44.3,
           "wr_vs_be": 2.3
@@ -1520,33 +1520,33 @@
       "severity": "high",
       "type": "skip_market",
       "scope": "foot · Buteur",
-      "message": "Market <b>Buteur</b> (foot) : ROI <b>-40.3%</b> sur 349 picks (WR 32.0% (break-even @ 43.2% WR), cote moy. 2.32). À skipper ou refondre la formule.",
+      "message": "Market <b>Buteur</b> (foot) : ROI <b>-40.5%</b> sur 350 picks (WR 31.9% (break-even @ 43.2% WR), cote moy. 2.32). À skipper ou refondre la formule.",
       "stats": {
-        "n": 349,
+        "n": 350,
         "w": 109,
-        "l": 232,
+        "l": 233,
         "push": 8,
-        "wr": 32.0,
-        "roi": -40.3,
-        "profit": -140.6,
+        "wr": 31.9,
+        "roi": -40.5,
+        "profit": -141.6,
         "avg_cote": 2.32,
         "break_even_wr": 43.2,
-        "wr_vs_be": -11.2
+        "wr_vs_be": -11.3
       }
     },
     {
       "severity": "high",
       "type": "skip_market",
       "scope": "foot · Double Chance Buteur",
-      "message": "Market <b>Double Chance Buteur</b> (foot) : ROI <b>-23.4%</b> sur 277 picks (WR 42.2%). À skipper ou refondre la formule.",
+      "message": "Market <b>Double Chance Buteur</b> (foot) : ROI <b>-23.0%</b> sur 278 picks (WR 42.4%). À skipper ou refondre la formule.",
       "stats": {
-        "n": 277,
-        "w": 114,
+        "n": 278,
+        "w": 115,
         "l": 156,
         "push": 7,
-        "wr": 42.2,
-        "roi": -23.4,
-        "profit": -64.8,
+        "wr": 42.4,
+        "roi": -23.0,
+        "profit": -64.0,
         "avg_cote": null,
         "break_even_wr": null,
         "wr_vs_be": null
@@ -1736,20 +1736,20 @@
       "severity": "medium",
       "type": "miscalibrated_overconfident",
       "scope": "foot · conf 70-79",
-      "message": "Bucket conf <b>70-79</b> (foot) : modèle annonce ~74.5% mais WR réel = 53.7% (gap -20.8pp sur 464 picks). Modèle trop confiant → relever MIN_CONF ou ajuster formule.",
+      "message": "Bucket conf <b>70-79</b> (foot) : modèle annonce ~74.5% mais WR réel = 53.8% (gap -20.7pp sur 465 picks). Modèle trop confiant → relever MIN_CONF ou ajuster formule.",
       "stats": {
-        "n": 464,
-        "w": 237,
+        "n": 465,
+        "w": 238,
         "l": 204,
         "push": 23,
-        "wr": 53.7,
-        "roi": -3.2,
-        "profit": -15.0,
+        "wr": 53.8,
+        "roi": -3.1,
+        "profit": -14.2,
         "avg_cote": 1.92,
         "break_even_wr": 52.2,
-        "wr_vs_be": 1.6,
+        "wr_vs_be": 1.7,
         "expected_wr": 74.5,
-        "calibration_gap": -20.8
+        "calibration_gap": -20.7
       }
     },
     {

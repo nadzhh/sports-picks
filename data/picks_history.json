@@ -45065,6 +45065,85 @@
       "side": "home"
     },
     {
+      "player": "Tiziano Perrotta / Junior Marabel",
+      "position": "",
+      "is_sub": false,
+      "type": "Double Chance Buteur",
+      "label": "Tiziano Perrotta OU Junior Marabel marque (cross-équipe)",
+      "cote": null,
+      "book": null,
+      "books": [],
+      "confidence": 70,
+      "cote_min": 1.43,
+      "reasoning": "🔀 Cross-équipe (moins corrélé → meilleur EV)\n📈 P(Tiziano Perrotta marque) ≈ 44% · P(Junior Marabel marque) ≈ 49%\n🎯 P(au moins un marque) = 70% (1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.43 - chercher ≥1.43 chez le bookmaker\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+      "context": {
+        "combo_kind": "cross"
+      },
+      "_team_for_balance": "home",
+      "stats": {
+        "p_a": 0.435,
+        "p_b": 0.488,
+        "p_or": 0.7,
+        "player_a": "Tiziano Perrotta",
+        "player_b": "Junior Marabel",
+        "kind": "cross"
+      },
+      "team": "home",
+      "tier": "safe",
+      "calibration_delta": -11.3,
+      "history_top3": true,
+      "id": "2026-07-28_5115889_player_Tiziano Perrotta / Junior Marabel_Double Chance Buteur",
+      "date": "2026-07-28",
+      "match_id": "5115889",
+      "page_url": "/matches/banfield-vs-sarmiento/aem69ab#5115889",
+      "matchup": "Banfield vs Sarmiento",
+      "league": "Argentina Primera",
+      "category": "player",
+      "result": "WIN",
+      "actual": {
+        "goals": 3,
+        "assists": 0
+      },
+      "resolved_at": "2026-07-29 00:02",
+      "side": "home"
+    },
+    {
+      "player": "Agustín Módica",
+      "position": "F",
+      "is_sub": false,
+      "type": "Buteur",
+      "label": "Agustín Módica marque",
+      "team": "away",
+      "cote": null,
+      "book": null,
+      "books": [],
+      "confidence": 38,
+      "reasoning": "5G en 14 matchs (35.7%/match) · xG: 0.34/match",
+      "context": {
+        "weakness": 0.41
+      },
+      "stats": {
+        "goals": 5,
+        "apps": 14
+      },
+      "tier": "fun",
+      "history_top3": true,
+      "id": "2026-07-28_5115899_player_Agustín Módica_Buteur",
+      "date": "2026-07-28",
+      "match_id": "5115899",
+      "page_url": "/matches/san-lorenzo-vs-gimnasia-mendoza/24ybxxd2#5115899",
+      "matchup": "San Lorenzo vs Gimnasia Mendoza",
+      "league": "Argentina Primera",
+      "category": "player",
+      "result": "LOSS",
+      "actual": {
+        "goals": 0,
+        "assists": 0
+      },
+      "resolved_at": "2026-07-29 00:02",
+      "side": "away"
+    },
+    {
       "direction": "home_dc",
       "type": "Double chance",
       "label": "Argentinos Juniors ou Nul (1X)",
@@ -45376,46 +45455,6 @@
       "side": "away"
     },
     {
-      "player": "Tiziano Perrotta / Junior Marabel",
-      "position": "",
-      "is_sub": false,
-      "type": "Double Chance Buteur",
-      "label": "Tiziano Perrotta OU Junior Marabel marque (cross-équipe)",
-      "cote": null,
-      "book": null,
-      "books": [],
-      "confidence": 70,
-      "cote_min": 1.43,
-      "reasoning": "🔀 Cross-équipe (moins corrélé → meilleur EV)\n📈 P(Tiziano Perrotta marque) ≈ 44% · P(Junior Marabel marque) ≈ 49%\n🎯 P(au moins un marque) = 70% (1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.43 - chercher ≥1.43 chez le bookmaker\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
-      "context": {
-        "combo_kind": "cross"
-      },
-      "_team_for_balance": "home",
-      "stats": {
-        "p_a": 0.435,
-        "p_b": 0.488,
-        "p_or": 0.7,
-        "player_a": "Tiziano Perrotta",
-        "player_b": "Junior Marabel",
-        "kind": "cross"
-      },
-      "team": "home",
-      "tier": "safe",
-      "calibration_delta": -11.3,
-      "history_top3": true,
-      "id": "2026-07-28_5115889_player_Tiziano Perrotta / Junior Marabel_Double Chance Buteur",
-      "date": "2026-07-28",
-      "match_id": "5115889",
-      "page_url": "/matches/banfield-vs-sarmiento/aem69ab#5115889",
-      "matchup": "Banfield vs Sarmiento",
-      "league": "Argentina Primera",
-      "category": "player",
-      "result": "PENDING",
-      "actual": null,
-      "resolved_at": null,
-      "side": "home"
-    },
-    {
       "player": "Philippe Coutinho",
       "position": "M",
       "is_sub": false,
@@ -45443,39 +45482,6 @@
       "page_url": "/matches/vasco-da-gama-vs-chapecoense-af/9xnh3v2#5103573",
       "matchup": "Chapecoense AF vs Vasco da Gama",
       "league": "Brasileirao",
-      "category": "player",
-      "result": "PENDING",
-      "actual": null,
-      "resolved_at": null,
-      "side": "away"
-    },
-    {
-      "player": "Agustín Módica",
-      "position": "F",
-      "is_sub": false,
-      "type": "Buteur",
-      "label": "Agustín Módica marque",
-      "team": "away",
-      "cote": null,
-      "book": null,
-      "books": [],
-      "confidence": 38,
-      "reasoning": "5G en 14 matchs (35.7%/match) · xG: 0.34/match",
-      "context": {
-        "weakness": 0.41
-      },
-      "stats": {
-        "goals": 5,
-        "apps": 14
-      },
-      "tier": "fun",
-      "history_top3": true,
-      "id": "2026-07-28_5115899_player_Agustín Módica_Buteur",
-      "date": "2026-07-28",
-      "match_id": "5115899",
-      "page_url": "/matches/san-lorenzo-vs-gimnasia-mendoza/24ybxxd2#5115899",
-      "matchup": "San Lorenzo vs Gimnasia Mendoza",
-      "league": "Argentina Primera",
       "category": "player",
       "result": "PENDING",
       "actual": null,
