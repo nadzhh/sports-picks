@@ -45782,8 +45782,8 @@
       "type": "Favori net",
       "label": "Flamengo gagne",
       "cote": null,
-      "confidence": 68,
-      "reasoning": "13 places d'écart au classement (#2 vs #15) · 2V/2N/1D sur 5 matchs · Note Sofa: 6.5/10\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
+      "confidence": 67,
+      "reasoning": "12 places d'écart au classement (#2 vs #14) · 2V/2N/1D sur 5 matchs · Note Sofa: 6.5/10\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
       "stats": {
         "form": [
           "D",
@@ -45820,7 +45820,7 @@
       "confidence": 54,
       "reasoning": "12 buts en 19 matchs cette saison (63.2% de chance/match) · finisseur efficace (26% de conv.) · xG moyen 0.42/match · défense fragile\n📉 Calibration : bucket 50-59% historiquement à WR 42% (claim 55%, n=41) — sur-estimé de 14pp",
       "context": {
-        "weakness": 0.57
+        "weakness": 0.55
       },
       "stats": {
         "goals": 12,
@@ -45843,46 +45843,6 @@
       "actual": null,
       "resolved_at": null,
       "side": "away"
-    },
-    {
-      "player": "Nathan Fogaça / Gabriel Taliari",
-      "position": "",
-      "is_sub": false,
-      "type": "Double Chance Buteur",
-      "label": "Nathan Fogaça OU Gabriel Taliari marque (cross-équipe)",
-      "cote": null,
-      "book": null,
-      "books": [],
-      "confidence": 68,
-      "cote_min": 1.54,
-      "reasoning": "🔀 Cross-équipe (moins corrélé → meilleur EV)\n📈 P(Nathan Fogaça marque) ≈ 40% · P(Gabriel Taliari marque) ≈ 41%\n🎯 P(au moins un marque) = 68% (1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.54 - chercher ≥1.54 chez le bookmaker\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
-      "context": {
-        "combo_kind": "cross"
-      },
-      "_team_for_balance": "home",
-      "stats": {
-        "p_a": 0.398,
-        "p_b": 0.412,
-        "p_or": 0.646,
-        "player_a": "Nathan Fogaça",
-        "player_b": "Gabriel Taliari",
-        "kind": "cross"
-      },
-      "team": "home",
-      "tier": "ok",
-      "calibration_delta": -25.4,
-      "history_top3": true,
-      "id": "2026-07-29_5103568_player_Nathan Fogaça / Gabriel Taliari_Double Chance Buteur",
-      "date": "2026-07-29",
-      "match_id": "5103568",
-      "page_url": "/matches/remo-vs-mirassol/6a8t32u#5103568",
-      "matchup": "Mirassol vs Remo",
-      "league": "Brasileirao",
-      "category": "player",
-      "result": "PENDING",
-      "actual": null,
-      "resolved_at": null,
-      "side": "home"
     },
     {
       "player": "Hugo Benítez / Adrián Alcaraz",
@@ -46052,6 +46012,39 @@
       "actual": null,
       "resolved_at": null,
       "side": "home"
+    },
+    {
+      "player": "Gabriel Taliari",
+      "position": "M",
+      "is_sub": false,
+      "type": "Buteur",
+      "label": "Gabriel Taliari marque",
+      "team": "away",
+      "cote": null,
+      "book": null,
+      "books": [],
+      "confidence": 37,
+      "reasoning": "3G en 8 matchs (37.5%/match) · xG: 0.31/match",
+      "context": {
+        "weakness": 0.66
+      },
+      "stats": {
+        "goals": 3,
+        "apps": 8
+      },
+      "tier": "fun",
+      "history_top3": true,
+      "id": "2026-07-29_5103568_player_Gabriel Taliari_Buteur",
+      "date": "2026-07-29",
+      "match_id": "5103568",
+      "page_url": "/matches/remo-vs-mirassol/6a8t32u#5103568",
+      "matchup": "Mirassol vs Remo",
+      "league": "Brasileirao",
+      "category": "player",
+      "result": "PENDING",
+      "actual": null,
+      "resolved_at": null,
+      "side": "away"
     },
     {
       "player": "Alex Luna",
