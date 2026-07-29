@@ -45534,6 +45534,77 @@
       "side": "away"
     },
     {
+      "player": "Hugo Benítez / Adrián Alcaraz",
+      "position": "",
+      "is_sub": false,
+      "type": "Double Chance Buteur",
+      "label": "Hugo Benítez OU Adrián Alcaraz marque (cross-équipe)",
+      "cote": null,
+      "book": null,
+      "books": [],
+      "confidence": 70,
+      "cote_min": 1.49,
+      "reasoning": "🔀 Cross-équipe (moins corrélé → meilleur EV)\n📈 P(Hugo Benítez marque) ≈ 41% · P(Adrián Alcaraz marque) ≈ 44%\n🎯 P(au moins un marque) = 70% (1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.49 - chercher ≥1.49 chez le bookmaker\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+      "context": {
+        "combo_kind": "cross"
+      },
+      "_team_for_balance": "home",
+      "stats": {
+        "p_a": 0.412,
+        "p_b": 0.442,
+        "p_or": 0.672,
+        "player_a": "Hugo Benítez",
+        "player_b": "Adrián Alcaraz",
+        "kind": "cross"
+      },
+      "team": "home",
+      "tier": "safe",
+      "calibration_delta": -11.3,
+      "history_top3": true,
+      "id": "2026-07-29_1000017359_player_Hugo Benítez / Adrián Alcaraz_Double Chance Buteur",
+      "date": "2026-07-29",
+      "match_id": "1000017359",
+      "page_url": "/matches/olimpia-vs-nacional/q7v4m5#1000017359",
+      "matchup": "Nacional vs Olimpia",
+      "league": "Paraguay Profesional",
+      "category": "player",
+      "result": "PENDING",
+      "actual": null,
+      "resolved_at": null,
+      "side": "home"
+    },
+    {
+      "direction": "away_win",
+      "type": "Victoire extérieur",
+      "label": "Olimpia gagne",
+      "cote": null,
+      "confidence": 60,
+      "reasoning": "Olimpia : 2V/1N/2D sur 5 matchs · #1 au classement · H2H: 2V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
+      "stats": {
+        "form": [
+          "L",
+          "W",
+          "W",
+          "L",
+          "D"
+        ]
+      },
+      "is_fun": false,
+      "tier": "ok",
+      "calibration_delta": -25.4,
+      "history_top3": true,
+      "id": "2026-07-29_1000017359_team_away_win",
+      "date": "2026-07-29",
+      "match_id": "1000017359",
+      "page_url": "/matches/olimpia-vs-nacional/q7v4m5#1000017359",
+      "matchup": "Nacional vs Olimpia",
+      "league": "Paraguay Profesional",
+      "category": "team",
+      "result": "PENDING",
+      "actual": null,
+      "resolved_at": null
+    },
+    {
       "player": "Philippe Coutinho",
       "position": "M",
       "is_sub": false,
