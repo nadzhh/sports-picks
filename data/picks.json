@@ -591,6 +591,125 @@
     "context": null
   },
   {
+    "league": "Argentina Primera",
+    "home": "Independiente Rivadavia",
+    "away": "Huracan",
+    "start_ts": 1785448800,
+    "match_id": "5115896",
+    "page_url": "/matches/huracan-vs-independiente-rivadavia/6s3h578#5115896",
+    "picks": [],
+    "home_players": [
+      {
+        "player": "Leonel Bucca / Jordy Caicedo",
+        "position": "",
+        "is_sub": false,
+        "type": "Double Chance Buteur",
+        "label": "Leonel Bucca OU Jordy Caicedo marque (cross-équipe)",
+        "cote": null,
+        "book": null,
+        "books": [],
+        "confidence": 70,
+        "cote_min": 1.43,
+        "reasoning": "🔀 Cross-équipe (moins corrélé → meilleur EV)\n📈 P(Leonel Bucca marque) ≈ 41% · P(Jordy Caicedo marque) ≈ 50%\n🎯 P(au moins un marque) = 70% (1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.43 - chercher ≥1.43 chez le bookmaker\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+        "context": {
+          "combo_kind": "cross"
+        },
+        "_team_for_balance": "home",
+        "stats": {
+          "p_a": 0.412,
+          "p_b": 0.502,
+          "p_or": 0.7,
+          "player_a": "Leonel Bucca",
+          "player_b": "Jordy Caicedo",
+          "kind": "cross"
+        },
+        "team": "home",
+        "tier": "safe",
+        "calibration_delta": -11.3,
+        "history_top3": true
+      }
+    ],
+    "away_players": [
+      {
+        "player": "Jordy Caicedo",
+        "position": "F",
+        "is_sub": false,
+        "type": "Buteur",
+        "label": "Jordy Caicedo marque",
+        "cote": null,
+        "book": null,
+        "books": [],
+        "confidence": 50,
+        "reasoning": "9 buts en 18 matchs cette saison (50.0% de chance/match) · bonne efficacité (25% conv.) · xG moyen 0.46/match · défense solide\n📉 Calibration : bucket 50-59% historiquement à WR 42% (claim 55%, n=41) — sur-estimé de 14pp",
+        "context": {
+          "weakness": 0.26
+        },
+        "stats": {
+          "goals": 9,
+          "apps": 18,
+          "gpm": 0.5,
+          "xgpm": 0.461
+        },
+        "team": "away",
+        "tier": "fun",
+        "calibration_delta": -13.6,
+        "history_top3": true
+      }
+    ],
+    "fun_picks": [],
+    "top_pick": {
+      "player": "Leonel Bucca / Jordy Caicedo",
+      "position": "",
+      "is_sub": false,
+      "type": "Double Chance Buteur",
+      "label": "Leonel Bucca OU Jordy Caicedo marque (cross-équipe)",
+      "cote": null,
+      "book": null,
+      "books": [],
+      "confidence": 70,
+      "cote_min": 1.43,
+      "reasoning": "🔀 Cross-équipe (moins corrélé → meilleur EV)\n📈 P(Leonel Bucca marque) ≈ 41% · P(Jordy Caicedo marque) ≈ 50%\n🎯 P(au moins un marque) = 70% (1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.43 - chercher ≥1.43 chez le bookmaker\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+      "context": {
+        "combo_kind": "cross"
+      },
+      "_team_for_balance": "home",
+      "stats": {
+        "p_a": 0.412,
+        "p_b": 0.502,
+        "p_or": 0.7,
+        "player_a": "Leonel Bucca",
+        "player_b": "Jordy Caicedo",
+        "kind": "cross"
+      },
+      "team": "home",
+      "tier": "safe",
+      "calibration_delta": -11.3,
+      "history_top3": true
+    },
+    "no_picks": false,
+    "context": {
+      "stadium": {
+        "name": "Estadio Bautista Gargantini",
+        "city": "Mendoza, Provincia de Mendoza",
+        "country": "Argentina",
+        "lat": -32.890682564,
+        "lon": -68.86320591,
+        "capacity": 16000,
+        "surface": "grass"
+      },
+      "weather": {
+        "temp_max": 13.1,
+        "temp_min": 7.1,
+        "humidity": 83,
+        "precipitation_sum_mm": 0.0,
+        "wind_max_kmh": 5.1,
+        "weather_code": 3,
+        "summary_fr": "☁️ couvert · 7–13°C · humidité 83%"
+      },
+      "text": "Conditions : ☁️ couvert · 7–13°C · humidité 83%. Stade : Estadio Bautista Gargantini · 16 000 places · plein air."
+    }
+  },
+  {
     "league": "Paraguay Profesional",
     "home": "Luqueno",
     "away": "Sportivo Trinidense",
@@ -1048,7 +1167,7 @@
     "home_players": [
       {
         "player": "Marcelo Torres",
-        "position": "M",
+        "position": "F",
         "is_sub": false,
         "type": "Buteur",
         "label": "Marcelo Torres marque",
@@ -1056,13 +1175,13 @@
         "cote": null,
         "book": null,
         "books": [],
-        "confidence": 20,
-        "reasoning": "0G en 19 matchs (0.0%/match) · xG: 0.37/match",
+        "confidence": 39,
+        "reasoning": "7G en 19 matchs (36.8%/match) · xG: 0.37/match",
         "context": {
           "weakness": 0.31
         },
         "stats": {
-          "goals": 0,
+          "goals": 7,
           "apps": 19
         },
         "tier": "fun",
@@ -1440,6 +1559,243 @@
     }
   },
   {
+    "league": "Argentina Primera",
+    "home": "Talleres",
+    "away": "Velez Sarsfield",
+    "start_ts": 1785448800,
+    "match_id": "5115900",
+    "page_url": "/matches/velez-sarsfield-vs-talleres/3d8muf#5115900",
+    "picks": [],
+    "home_players": [],
+    "away_players": [
+      {
+        "player": "Florián Monzón",
+        "position": "F",
+        "is_sub": false,
+        "type": "Buteur",
+        "label": "Florián Monzón marque",
+        "team": "away",
+        "cote": null,
+        "book": null,
+        "books": [],
+        "confidence": 36,
+        "reasoning": "6G en 16 matchs (37.5%/match) · xG: 0.30/match",
+        "context": {
+          "weakness": 0.3
+        },
+        "stats": {
+          "goals": 6,
+          "apps": 16
+        },
+        "tier": "fun",
+        "history_top3": true
+      }
+    ],
+    "fun_picks": [],
+    "top_pick": {
+      "player": "Florián Monzón",
+      "position": "F",
+      "is_sub": false,
+      "type": "Buteur",
+      "label": "Florián Monzón marque",
+      "team": "away",
+      "cote": null,
+      "book": null,
+      "books": [],
+      "confidence": 36,
+      "reasoning": "6G en 16 matchs (37.5%/match) · xG: 0.30/match",
+      "context": {
+        "weakness": 0.3
+      },
+      "stats": {
+        "goals": 6,
+        "apps": 16
+      },
+      "tier": "fun",
+      "history_top3": true
+    },
+    "no_picks": false,
+    "context": {
+      "stadium": {
+        "name": "Estadio Mario Alberto Kempes",
+        "city": "Ciudad de Córdoba, Provincia de ",
+        "country": "Argentina",
+        "lat": -31.368991412,
+        "lon": -64.246051311,
+        "capacity": 57503,
+        "surface": "grass"
+      },
+      "weather": {
+        "temp_max": 16.9,
+        "temp_min": 11.9,
+        "humidity": 87,
+        "precipitation_sum_mm": 1.0,
+        "wind_max_kmh": 18.5,
+        "weather_code": 51,
+        "summary_fr": "🌦️ bruine légère · 11–16°C · humidité 87% · précipitations 1.0mm"
+      },
+      "text": "Conditions : 🌦️ bruine légère · 11–16°C · humidité 87% · précipitations 1.0mm. Stade : Estadio Mario Alberto Kempes · 57 503 places · plein air."
+    }
+  },
+  {
+    "league": "Argentina Primera",
+    "home": "Instituto",
+    "away": "Club Atletico Platense",
+    "start_ts": 1785371400,
+    "match_id": "5115897",
+    "page_url": "/matches/club-atletico-platense-vs-instituto/3d879k#5115897",
+    "picks": [],
+    "home_players": [
+      {
+        "player": "Alex Luna",
+        "position": "F",
+        "is_sub": false,
+        "type": "Buteur",
+        "label": "Alex Luna marque",
+        "team": "home",
+        "cote": null,
+        "book": null,
+        "books": [],
+        "confidence": 35,
+        "reasoning": "5G en 16 matchs (31.2%/match) · xG: 0.29/match",
+        "context": {
+          "weakness": 0.5
+        },
+        "stats": {
+          "goals": 5,
+          "apps": 16
+        },
+        "tier": "fun",
+        "history_top3": true
+      }
+    ],
+    "away_players": [],
+    "fun_picks": [],
+    "top_pick": {
+      "player": "Alex Luna",
+      "position": "F",
+      "is_sub": false,
+      "type": "Buteur",
+      "label": "Alex Luna marque",
+      "team": "home",
+      "cote": null,
+      "book": null,
+      "books": [],
+      "confidence": 35,
+      "reasoning": "5G en 16 matchs (31.2%/match) · xG: 0.29/match",
+      "context": {
+        "weakness": 0.5
+      },
+      "stats": {
+        "goals": 5,
+        "apps": 16
+      },
+      "tier": "fun",
+      "history_top3": true
+    },
+    "no_picks": false,
+    "context": {
+      "stadium": {
+        "name": "Estadio Juan Domingo Perón",
+        "city": "Ciudad de Córdoba, Provincia de ",
+        "country": "Argentina",
+        "lat": -31.383720551,
+        "lon": -64.18025136,
+        "capacity": 26535,
+        "surface": "grass"
+      },
+      "weather": {
+        "temp_max": 16.9,
+        "temp_min": 11.9,
+        "humidity": 87,
+        "precipitation_sum_mm": 1.0,
+        "wind_max_kmh": 18.5,
+        "weather_code": 51,
+        "summary_fr": "🌦️ bruine légère · 11–16°C · humidité 87% · précipitations 1.0mm"
+      },
+      "text": "Conditions : 🌦️ bruine légère · 11–16°C · humidité 87% · précipitations 1.0mm. Stade : Estadio Juan Domingo Perón · 26 535 places · plein air."
+    }
+  },
+  {
+    "league": "Argentina Primera",
+    "home": "Defensa y Justicia",
+    "away": "Deportivo Riestra",
+    "start_ts": 1785355200,
+    "match_id": "5115893",
+    "page_url": "/matches/defensa-y-justicia-vs-deportivo-riestra/1coh9f29#5115893",
+    "picks": [],
+    "home_players": [
+      {
+        "player": "Juan Miritello",
+        "position": "M",
+        "is_sub": false,
+        "type": "Buteur",
+        "label": "Juan Miritello marque",
+        "team": "home",
+        "cote": null,
+        "book": null,
+        "books": [],
+        "confidence": 34,
+        "reasoning": "2G en 6 matchs (33.3%/match) · xG: 0.32/match",
+        "context": {
+          "weakness": 0.58
+        },
+        "stats": {
+          "goals": 2,
+          "apps": 6
+        },
+        "tier": "fun",
+        "history_top3": true
+      }
+    ],
+    "away_players": [],
+    "fun_picks": [],
+    "top_pick": {
+      "player": "Juan Miritello",
+      "position": "M",
+      "is_sub": false,
+      "type": "Buteur",
+      "label": "Juan Miritello marque",
+      "team": "home",
+      "cote": null,
+      "book": null,
+      "books": [],
+      "confidence": 34,
+      "reasoning": "2G en 6 matchs (33.3%/match) · xG: 0.32/match",
+      "context": {
+        "weakness": 0.58
+      },
+      "stats": {
+        "goals": 2,
+        "apps": 6
+      },
+      "tier": "fun",
+      "history_top3": true
+    },
+    "no_picks": false,
+    "context": {
+      "stadium": {
+        "name": "Estadio Norberto Tito Tomaghello",
+        "city": "Florencio Varela, Provincia de B",
+        "country": "Argentina",
+        "lat": -34.821765816,
+        "lon": -58.286536932,
+        "capacity": 20000,
+        "surface": "grass"
+      },
+      "weather": {
+        "temp_max": 16.2,
+        "temp_min": 6.1,
+        "humidity": 66,
+        "precipitation_sum_mm": 0.0,
+        "wind_max_kmh": 11.0,
+        "weather_code": 3,
+        "summary_fr": "☁️ couvert · 6–16°C · humidité 66%"
+      },
+      "text": "Conditions : ☁️ couvert · 6–16°C · humidité 66%. Stade : Estadio Norberto Tito Tomaghello · 20 000 places · plein air."
+    }
+  },
+  {
     "league": "Paraguay Profesional",
     "home": "Sportivo San Lorenzo",
     "away": "Guarani",
@@ -1520,164 +1876,6 @@
   },
   {
     "league": "Argentina Primera",
-    "home": "Independiente Rivadavia",
-    "away": "Huracan",
-    "start_ts": 1785448800,
-    "match_id": "5115896",
-    "page_url": "/matches/huracan-vs-independiente-rivadavia/6s3h578#5115896",
-    "picks": [],
-    "home_players": [],
-    "away_players": [
-      {
-        "player": "Jordy Caicedo",
-        "position": "F",
-        "is_sub": false,
-        "type": "Buteur",
-        "label": "Jordy Caicedo marque",
-        "team": "away",
-        "cote": null,
-        "book": null,
-        "books": [],
-        "confidence": 26,
-        "reasoning": "0G en 18 matchs (0.0%/match) · xG: 0.46/match",
-        "context": {
-          "weakness": 0.25
-        },
-        "stats": {
-          "goals": 0,
-          "apps": 18
-        },
-        "tier": "fun",
-        "history_top3": true
-      }
-    ],
-    "fun_picks": [],
-    "top_pick": {
-      "player": "Jordy Caicedo",
-      "position": "F",
-      "is_sub": false,
-      "type": "Buteur",
-      "label": "Jordy Caicedo marque",
-      "team": "away",
-      "cote": null,
-      "book": null,
-      "books": [],
-      "confidence": 26,
-      "reasoning": "0G en 18 matchs (0.0%/match) · xG: 0.46/match",
-      "context": {
-        "weakness": 0.25
-      },
-      "stats": {
-        "goals": 0,
-        "apps": 18
-      },
-      "tier": "fun",
-      "history_top3": true
-    },
-    "no_picks": false,
-    "context": {
-      "stadium": {
-        "name": "Estadio Bautista Gargantini",
-        "city": "Mendoza, Provincia de Mendoza",
-        "country": "Argentina",
-        "lat": -32.890682564,
-        "lon": -68.86320591,
-        "capacity": 16000,
-        "surface": "grass"
-      },
-      "weather": {
-        "temp_max": 13.1,
-        "temp_min": 7.1,
-        "humidity": 83,
-        "precipitation_sum_mm": 0.0,
-        "wind_max_kmh": 5.1,
-        "weather_code": 3,
-        "summary_fr": "☁️ couvert · 7–13°C · humidité 83%"
-      },
-      "text": "Conditions : ☁️ couvert · 7–13°C · humidité 83%. Stade : Estadio Bautista Gargantini · 16 000 places · plein air."
-    }
-  },
-  {
-    "league": "Argentina Primera",
-    "home": "Instituto",
-    "away": "Club Atletico Platense",
-    "start_ts": 1785371400,
-    "match_id": "5115897",
-    "page_url": "/matches/club-atletico-platense-vs-instituto/3d879k#5115897",
-    "picks": [],
-    "home_players": [
-      {
-        "player": "Franco Jara",
-        "position": "F",
-        "is_sub": false,
-        "type": "Buteur",
-        "label": "Franco Jara marque",
-        "team": "home",
-        "cote": null,
-        "book": null,
-        "books": [],
-        "confidence": 21,
-        "reasoning": "0G en 11 matchs (0.0%/match) · xG: 0.33/match",
-        "context": {
-          "weakness": 0.5
-        },
-        "stats": {
-          "goals": 0,
-          "apps": 11
-        },
-        "tier": "fun",
-        "history_top3": true
-      }
-    ],
-    "away_players": [],
-    "fun_picks": [],
-    "top_pick": {
-      "player": "Franco Jara",
-      "position": "F",
-      "is_sub": false,
-      "type": "Buteur",
-      "label": "Franco Jara marque",
-      "team": "home",
-      "cote": null,
-      "book": null,
-      "books": [],
-      "confidence": 21,
-      "reasoning": "0G en 11 matchs (0.0%/match) · xG: 0.33/match",
-      "context": {
-        "weakness": 0.5
-      },
-      "stats": {
-        "goals": 0,
-        "apps": 11
-      },
-      "tier": "fun",
-      "history_top3": true
-    },
-    "no_picks": false,
-    "context": {
-      "stadium": {
-        "name": "Estadio Juan Domingo Perón",
-        "city": "Ciudad de Córdoba, Provincia de ",
-        "country": "Argentina",
-        "lat": -31.383720551,
-        "lon": -64.18025136,
-        "capacity": 26535,
-        "surface": "grass"
-      },
-      "weather": {
-        "temp_max": 16.9,
-        "temp_min": 11.9,
-        "humidity": 87,
-        "precipitation_sum_mm": 1.0,
-        "wind_max_kmh": 18.5,
-        "weather_code": 51,
-        "summary_fr": "🌦️ bruine légère · 11–16°C · humidité 87% · précipitations 1.0mm"
-      },
-      "text": "Conditions : 🌦️ bruine légère · 11–16°C · humidité 87% · précipitations 1.0mm. Stade : Estadio Juan Domingo Perón · 26 535 places · plein air."
-    }
-  },
-  {
-    "league": "Argentina Primera",
     "home": "Barracas Central",
     "away": "Aldosivi",
     "start_ts": 1785346200,
@@ -1687,23 +1885,23 @@
     "home_players": [],
     "away_players": [
       {
-        "player": "Junior Arias",
-        "position": "F",
+        "player": "Felipe Anso",
+        "position": "M",
         "is_sub": false,
         "type": "Buteur",
-        "label": "Junior Arias marque",
+        "label": "Felipe Anso marque",
         "team": "away",
         "cote": null,
         "book": null,
         "books": [],
-        "confidence": 20,
-        "reasoning": "0G en 11 matchs (0.0%/match) · xG: 0.17/match",
+        "confidence": 22,
+        "reasoning": "1G en 3 matchs (33.3%/match) · xG: 0.07/match",
         "context": {
           "weakness": 0.45
         },
         "stats": {
-          "goals": 0,
-          "apps": 11
+          "goals": 1,
+          "apps": 3
         },
         "tier": "fun",
         "history_top3": true
@@ -1711,23 +1909,23 @@
     ],
     "fun_picks": [],
     "top_pick": {
-      "player": "Junior Arias",
-      "position": "F",
+      "player": "Felipe Anso",
+      "position": "M",
       "is_sub": false,
       "type": "Buteur",
-      "label": "Junior Arias marque",
+      "label": "Felipe Anso marque",
       "team": "away",
       "cote": null,
       "book": null,
       "books": [],
-      "confidence": 20,
-      "reasoning": "0G en 11 matchs (0.0%/match) · xG: 0.17/match",
+      "confidence": 22,
+      "reasoning": "1G en 3 matchs (33.3%/match) · xG: 0.07/match",
       "context": {
         "weakness": 0.45
       },
       "stats": {
-        "goals": 0,
-        "apps": 11
+        "goals": 1,
+        "apps": 3
       },
       "tier": "fun",
       "history_top3": true
@@ -1753,164 +1951,6 @@
         "summary_fr": "☁️ couvert · 7–13°C · humidité 75%"
       },
       "text": "Conditions : ☁️ couvert · 7–13°C · humidité 75%. Stade : Estadio Claudio Fabián Tapia · 4 400 places · plein air."
-    }
-  },
-  {
-    "league": "Argentina Primera",
-    "home": "Defensa y Justicia",
-    "away": "Deportivo Riestra",
-    "start_ts": 1785355200,
-    "match_id": "5115893",
-    "page_url": "/matches/defensa-y-justicia-vs-deportivo-riestra/1coh9f29#5115893",
-    "picks": [],
-    "home_players": [
-      {
-        "player": "Juan Miritello",
-        "position": "M",
-        "is_sub": false,
-        "type": "Buteur",
-        "label": "Juan Miritello marque",
-        "team": "home",
-        "cote": null,
-        "book": null,
-        "books": [],
-        "confidence": 20,
-        "reasoning": "0G en 6 matchs (0.0%/match) · xG: 0.32/match",
-        "context": {
-          "weakness": 0.58
-        },
-        "stats": {
-          "goals": 0,
-          "apps": 6
-        },
-        "tier": "fun",
-        "history_top3": true
-      }
-    ],
-    "away_players": [],
-    "fun_picks": [],
-    "top_pick": {
-      "player": "Juan Miritello",
-      "position": "M",
-      "is_sub": false,
-      "type": "Buteur",
-      "label": "Juan Miritello marque",
-      "team": "home",
-      "cote": null,
-      "book": null,
-      "books": [],
-      "confidence": 20,
-      "reasoning": "0G en 6 matchs (0.0%/match) · xG: 0.32/match",
-      "context": {
-        "weakness": 0.58
-      },
-      "stats": {
-        "goals": 0,
-        "apps": 6
-      },
-      "tier": "fun",
-      "history_top3": true
-    },
-    "no_picks": false,
-    "context": {
-      "stadium": {
-        "name": "Estadio Norberto Tito Tomaghello",
-        "city": "Florencio Varela, Provincia de B",
-        "country": "Argentina",
-        "lat": -34.821765816,
-        "lon": -58.286536932,
-        "capacity": 20000,
-        "surface": "grass"
-      },
-      "weather": {
-        "temp_max": 16.2,
-        "temp_min": 6.1,
-        "humidity": 66,
-        "precipitation_sum_mm": 0.0,
-        "wind_max_kmh": 11.0,
-        "weather_code": 3,
-        "summary_fr": "☁️ couvert · 6–16°C · humidité 66%"
-      },
-      "text": "Conditions : ☁️ couvert · 6–16°C · humidité 66%. Stade : Estadio Norberto Tito Tomaghello · 20 000 places · plein air."
-    }
-  },
-  {
-    "league": "Argentina Primera",
-    "home": "Talleres",
-    "away": "Velez Sarsfield",
-    "start_ts": 1785448800,
-    "match_id": "5115900",
-    "page_url": "/matches/velez-sarsfield-vs-talleres/3d8muf#5115900",
-    "picks": [],
-    "home_players": [],
-    "away_players": [
-      {
-        "player": "Florián Monzón",
-        "position": "F",
-        "is_sub": false,
-        "type": "Buteur",
-        "label": "Florián Monzón marque",
-        "team": "away",
-        "cote": null,
-        "book": null,
-        "books": [],
-        "confidence": 20,
-        "reasoning": "0G en 16 matchs (0.0%/match) · xG: 0.30/match",
-        "context": {
-          "weakness": 0.3
-        },
-        "stats": {
-          "goals": 0,
-          "apps": 16
-        },
-        "tier": "fun",
-        "history_top3": true
-      }
-    ],
-    "fun_picks": [],
-    "top_pick": {
-      "player": "Florián Monzón",
-      "position": "F",
-      "is_sub": false,
-      "type": "Buteur",
-      "label": "Florián Monzón marque",
-      "team": "away",
-      "cote": null,
-      "book": null,
-      "books": [],
-      "confidence": 20,
-      "reasoning": "0G en 16 matchs (0.0%/match) · xG: 0.30/match",
-      "context": {
-        "weakness": 0.3
-      },
-      "stats": {
-        "goals": 0,
-        "apps": 16
-      },
-      "tier": "fun",
-      "history_top3": true
-    },
-    "no_picks": false,
-    "context": {
-      "stadium": {
-        "name": "Estadio Mario Alberto Kempes",
-        "city": "Ciudad de Córdoba, Provincia de ",
-        "country": "Argentina",
-        "lat": -31.368991412,
-        "lon": -64.246051311,
-        "capacity": 57503,
-        "surface": "grass"
-      },
-      "weather": {
-        "temp_max": 16.9,
-        "temp_min": 11.9,
-        "humidity": 87,
-        "precipitation_sum_mm": 1.0,
-        "wind_max_kmh": 18.5,
-        "weather_code": 51,
-        "summary_fr": "🌦️ bruine légère · 11–16°C · humidité 87% · précipitations 1.0mm"
-      },
-      "text": "Conditions : 🌦️ bruine légère · 11–16°C · humidité 87% · précipitations 1.0mm. Stade : Estadio Mario Alberto Kempes · 57 503 places · plein air."
     }
   }
 ]
