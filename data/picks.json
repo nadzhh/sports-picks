@@ -558,6 +558,99 @@
   },
   {
     "league": "Brasileirao",
+    "home": "Mirassol",
+    "away": "Remo",
+    "start_ts": 1785364200,
+    "match_id": "5103568",
+    "page_url": "/matches/remo-vs-mirassol/6a8t32u#5103568",
+    "picks": [],
+    "home_players": [
+      {
+        "player": "Nathan Fogaça / Gabriel Taliari",
+        "position": "",
+        "is_sub": false,
+        "type": "Double Chance Buteur",
+        "label": "Nathan Fogaça OU Gabriel Taliari marque (cross-équipe)",
+        "cote": null,
+        "book": null,
+        "books": [],
+        "confidence": 68,
+        "cote_min": 1.54,
+        "reasoning": "🔀 Cross-équipe (moins corrélé → meilleur EV)\n📈 P(Nathan Fogaça marque) ≈ 40% · P(Gabriel Taliari marque) ≈ 41%\n🎯 P(au moins un marque) = 68% (1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.54 - chercher ≥1.54 chez le bookmaker\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
+        "context": {
+          "combo_kind": "cross"
+        },
+        "_team_for_balance": "home",
+        "stats": {
+          "p_a": 0.398,
+          "p_b": 0.412,
+          "p_or": 0.646,
+          "player_a": "Nathan Fogaça",
+          "player_b": "Gabriel Taliari",
+          "kind": "cross"
+        },
+        "team": "home",
+        "tier": "ok",
+        "calibration_delta": -25.4,
+        "history_top3": true
+      }
+    ],
+    "away_players": [],
+    "fun_picks": [],
+    "top_pick": {
+      "player": "Nathan Fogaça / Gabriel Taliari",
+      "position": "",
+      "is_sub": false,
+      "type": "Double Chance Buteur",
+      "label": "Nathan Fogaça OU Gabriel Taliari marque (cross-équipe)",
+      "cote": null,
+      "book": null,
+      "books": [],
+      "confidence": 68,
+      "cote_min": 1.54,
+      "reasoning": "🔀 Cross-équipe (moins corrélé → meilleur EV)\n📈 P(Nathan Fogaça marque) ≈ 40% · P(Gabriel Taliari marque) ≈ 41%\n🎯 P(au moins un marque) = 68% (1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.54 - chercher ≥1.54 chez le bookmaker\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
+      "context": {
+        "combo_kind": "cross"
+      },
+      "_team_for_balance": "home",
+      "stats": {
+        "p_a": 0.398,
+        "p_b": 0.412,
+        "p_or": 0.646,
+        "player_a": "Nathan Fogaça",
+        "player_b": "Gabriel Taliari",
+        "kind": "cross"
+      },
+      "team": "home",
+      "tier": "ok",
+      "calibration_delta": -25.4,
+      "history_top3": true
+    },
+    "no_picks": false,
+    "context": {
+      "stadium": {
+        "name": "Estádio José Maria de Campos Maia",
+        "city": "Mirassol, São Paulo",
+        "country": "Brazil",
+        "lat": -20.822424215,
+        "lon": -49.506314993,
+        "capacity": null,
+        "surface": null
+      },
+      "weather": {
+        "temp_max": 33.0,
+        "temp_min": 19.5,
+        "humidity": 37,
+        "precipitation_sum_mm": 0.0,
+        "wind_max_kmh": 23.1,
+        "weather_code": 3,
+        "summary_fr": "☁️ couvert · 19–33°C · humidité 37%"
+      },
+      "text": "Conditions : ☁️ couvert · 19–33°C · humidité 37%. Stade : Estádio José Maria de Campos Maia · plein air. ⚠️ Forte chaleur (>32°C) en plein air : impact endurance, plus de pauses hydratation."
+    }
+  },
+  {
+    "league": "Brasileirao",
     "home": "Internacional",
     "away": "Flamengo",
     "start_ts": 1785364200,
@@ -818,113 +911,6 @@
         "summary_fr": "☁️ couvert · 13–21°C · humidité 77%"
       },
       "text": "Conditions : ☁️ couvert · 13–21°C · humidité 77%. Stade : Neo Química Arena · plein air."
-    }
-  },
-  {
-    "league": "Paraguay Profesional",
-    "home": "Nacional",
-    "away": "Olimpia",
-    "start_ts": 1785360600,
-    "match_id": "1000017359",
-    "page_url": "/matches/olimpia-vs-nacional/q7v4m5#1000017359",
-    "picks": [
-      {
-        "direction": "away_win",
-        "type": "Victoire extérieur",
-        "label": "Olimpia gagne",
-        "cote": null,
-        "confidence": 60,
-        "reasoning": "Olimpia : 2V/1N/2D sur 5 matchs · #1 au classement · H2H: 2V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
-        "stats": {
-          "form": [
-            "L",
-            "W",
-            "W",
-            "L",
-            "D"
-          ]
-        },
-        "is_fun": false,
-        "tier": "ok",
-        "calibration_delta": -25.4,
-        "history_top3": true
-      }
-    ],
-    "home_players": [
-      {
-        "player": "Hugo Benítez / Adrián Alcaraz",
-        "position": "",
-        "is_sub": false,
-        "type": "Double Chance Buteur",
-        "label": "Hugo Benítez OU Adrián Alcaraz marque (cross-équipe)",
-        "cote": null,
-        "book": null,
-        "books": [],
-        "confidence": 70,
-        "cote_min": 1.49,
-        "reasoning": "🔀 Cross-équipe (moins corrélé → meilleur EV)\n📈 P(Hugo Benítez marque) ≈ 41% · P(Adrián Alcaraz marque) ≈ 44%\n🎯 P(au moins un marque) = 70% (1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.49 - chercher ≥1.49 chez le bookmaker\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
-        "context": {
-          "combo_kind": "cross"
-        },
-        "_team_for_balance": "home",
-        "stats": {
-          "p_a": 0.412,
-          "p_b": 0.442,
-          "p_or": 0.672,
-          "player_a": "Hugo Benítez",
-          "player_b": "Adrián Alcaraz",
-          "kind": "cross"
-        },
-        "team": "home",
-        "tier": "safe",
-        "calibration_delta": -11.3,
-        "history_top3": true
-      }
-    ],
-    "away_players": [],
-    "fun_picks": [],
-    "top_pick": {
-      "direction": "away_win",
-      "type": "Victoire extérieur",
-      "label": "Olimpia gagne",
-      "cote": null,
-      "confidence": 60,
-      "reasoning": "Olimpia : 2V/1N/2D sur 5 matchs · #1 au classement · H2H: 2V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
-      "stats": {
-        "form": [
-          "L",
-          "W",
-          "W",
-          "L",
-          "D"
-        ]
-      },
-      "is_fun": false,
-      "tier": "ok",
-      "calibration_delta": -25.4,
-      "history_top3": true
-    },
-    "no_picks": false,
-    "context": {
-      "stadium": {
-        "name": "Estadio Arsenio Erico",
-        "city": "Asunción",
-        "country": "Paraguay",
-        "lat": -25.298372431,
-        "lon": -57.63993144,
-        "capacity": null,
-        "surface": null
-      },
-      "weather": {
-        "temp_max": 30.7,
-        "temp_min": 20.8,
-        "humidity": 61,
-        "precipitation_sum_mm": 3.0,
-        "wind_max_kmh": 12.8,
-        "weather_code": 95,
-        "summary_fr": "⛈️ orage · 20–30°C · humidité 61% · précipitations 3.0mm"
-      },
-      "text": "Conditions : ⛈️ orage · 20–30°C · humidité 61% · précipitations 3.0mm. Stade : Estadio Arsenio Erico · plein air."
     }
   },
   {
@@ -1349,85 +1335,6 @@
         "summary_fr": "☁️ couvert · 14–23°C · humidité 65%"
       },
       "text": "Conditions : ☁️ couvert · 14–23°C · humidité 65%. Stade : Levi's Stadium · altitude 9m · 68 500 places · plein air. Climat méditerranéen côtier. Juin doux 18-24°C, faible humidité."
-    }
-  },
-  {
-    "league": "Brasileirao",
-    "home": "Mirassol",
-    "away": "Remo",
-    "start_ts": 1785364200,
-    "match_id": "5103568",
-    "page_url": "/matches/remo-vs-mirassol/6a8t32u#5103568",
-    "picks": [],
-    "home_players": [],
-    "away_players": [
-      {
-        "player": "Gabriel Taliari",
-        "position": "M",
-        "is_sub": false,
-        "type": "Buteur",
-        "label": "Gabriel Taliari marque",
-        "team": "away",
-        "cote": null,
-        "book": null,
-        "books": [],
-        "confidence": 37,
-        "reasoning": "3G en 8 matchs (37.5%/match) · xG: 0.31/match",
-        "context": {
-          "weakness": 0.66
-        },
-        "stats": {
-          "goals": 3,
-          "apps": 8
-        },
-        "tier": "fun",
-        "history_top3": true
-      }
-    ],
-    "fun_picks": [],
-    "top_pick": {
-      "player": "Gabriel Taliari",
-      "position": "M",
-      "is_sub": false,
-      "type": "Buteur",
-      "label": "Gabriel Taliari marque",
-      "team": "away",
-      "cote": null,
-      "book": null,
-      "books": [],
-      "confidence": 37,
-      "reasoning": "3G en 8 matchs (37.5%/match) · xG: 0.31/match",
-      "context": {
-        "weakness": 0.66
-      },
-      "stats": {
-        "goals": 3,
-        "apps": 8
-      },
-      "tier": "fun",
-      "history_top3": true
-    },
-    "no_picks": false,
-    "context": {
-      "stadium": {
-        "name": "Estádio José Maria de Campos Maia",
-        "city": "Mirassol, São Paulo",
-        "country": "Brazil",
-        "lat": -20.822424215,
-        "lon": -49.506314993,
-        "capacity": null,
-        "surface": null
-      },
-      "weather": {
-        "temp_max": 33.0,
-        "temp_min": 19.5,
-        "humidity": 37,
-        "precipitation_sum_mm": 0.0,
-        "wind_max_kmh": 23.1,
-        "weather_code": 3,
-        "summary_fr": "☁️ couvert · 19–33°C · humidité 37%"
-      },
-      "text": "Conditions : ☁️ couvert · 19–33°C · humidité 37%. Stade : Estádio José Maria de Campos Maia · plein air. ⚠️ Forte chaleur (>32°C) en plein air : impact endurance, plus de pauses hydratation."
     }
   },
   {
