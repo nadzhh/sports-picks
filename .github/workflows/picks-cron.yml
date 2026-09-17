@@ -1,6 +1,12 @@
 name: Sport-picks cron
 
 on:
+  # Planification retablie le 17/09/2026. Elle avait ete retiree le 03/07/2026
+  # faute du scope "workflow" sur le jeton, et le site est reste fige depuis.
+  # 30 min plutot que 15 : chaque passage produit un commit et le depot pese
+  # deja 875 Mo. A remonter si la fraicheur l'exige vraiment.
+  schedule:
+    - cron: "*/30 * * * *"
   workflow_dispatch:
 
 permissions:
@@ -69,7 +75,20 @@ jobs:
           python picks_engine.py          || echo "[!] picks_engine KO"
           python wc_context_analyse.py    || echo "[!] wc_context_analyse KO"
           python foot_analyse.py          || echo "[!] foot_analyse KO"
-          python generate_site.py         || echo "[!] generate_site KO"
+          # ── Etape CRITIQUE, volontairement SANS "|| echo KO" ──────────────
+          # Les collectes ci-dessus peuvent echouer partiellement : une source
+          # indisponible ne doit pas interrompre les autres. La generation, elle,
+          # est le produit final : si elle echoue, le site cesse d'etre mis a jour
+          # et le workflow DOIT le signaler.
+          # Le 29/07/2026 elle s'est mise a echouer (ValueError dans
+          # picks_engine.player_picks_contextual) et le "|| echo KO" l'a masquee
+          # SEPT SEMAINES : le pipeline commitait data/ chaque jour en se
+          # declarant "success", pendant que la page restait figee au 29/07.
+          python generate_site.py
+          # Filet : generate_site.py appelle deja l'allegement avant sa
+          # publication, mais son try/except avale les erreurs. Ce second passage
+          # rattrape le cas echeant — sans effet si la page est deja allegee.
+          python optimize_html.py         || echo "[!] optimize_html KO"
           python picks_history_dump.py    || echo "[!] picks_history_dump KO"
           python analyze_picks.py         || echo "[!] analyze_picks KO"
           python notify.py                || echo "[!] notify KO"
