@@ -666,7 +666,13 @@ def player_picks_contextual(players, opp_pos, opp_rat, opp_conceded_pm=0, btts_p
                  issu de foot_odds.json pour ce match. Permet d'attacher la
                  VRAIE cote bookmaker aux picks (au lieu de cote=None).
     """
-    if not players: return []
+    # La sortie anticipee doit respecter return_butdata, comme les sorties
+    # normales plus bas (lignes 898-900). Sans cela, un match dont une equipe
+    # n'a aucun joueur exploitable renvoie [] la ou l'appelant attend un couple
+    # -> ValueError: not enough values to unpack (expected 2, got 0).
+    # C'est ce qui a interrompu toute la generation du site depuis le 29/07/2026.
+    if not players:
+        return ([], []) if return_butdata else []
     _buteur_data_local = []  # capture proba calibree par joueur (pour DC Buteur)
 
     weakness  = defense_weakness(opp_pos, opp_rat, opp_conceded_pm)

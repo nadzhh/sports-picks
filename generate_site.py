@@ -5722,7 +5722,15 @@ def build_html(matches, team_ai, player_ai, pstats_data, nba_picks=None, nba_his
 <meta http-equiv="Cache-Control" content="no-cache, must-revalidate">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="theme-color" content="#0f172a">
+<meta name="robots" content="noindex, nofollow">
 <title>Sports Picks — {now}</title>
+<meta name="description" content="Pronostics football, NBA et tennis avec suivi de bankroll : {total_t} picks sur {len(matches)} matchs, mis a jour automatiquement.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230f172a'/%3E%3Ctext x='16' y='23' font-size='19' text-anchor='middle'%3E%E2%9A%BD%3C/text%3E%3C/svg%3E">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Sports Picks">
+<meta property="og:description" content="{total_t} picks sur {len(matches)} matchs — football, NBA, tennis.">
+<meta property="og:locale" content="fr_FR">
 
 <!-- Anti-flash gate : si on etait deja connecte la derniere fois, on cache
      la gate AVANT meme le rendu (sync, depuis localStorage). Firebase
@@ -11555,6 +11563,27 @@ def main():
     with open("index.html", "w", encoding="utf-8") as f:
         f.write(html)
     print(f"✅ index.html prêt — ⚽ {len(matches)} foot · 🏀 {len(nba_picks)} NBA")
+
+    # Allegement AVANT la publication : les styles ecrits element par element
+    # sont extraits en classes CSS (6,7 Mo -> 3,3 Mo). Doit rester ici et non
+    # apres push_to_github(), sinon la version publiee resterait la lourde.
+    # Le script abandonne de lui-meme si le rendu changerait.
+    try:
+        import optimize_html
+        avant = os.path.getsize("index.html")
+        opt, stats = optimize_html.optimiser(open("index.html", encoding="utf-8").read())
+        if optimize_html.texte_visible(opt) == optimize_html.texte_visible(
+            open("index.html", encoding="utf-8").read()
+        ):
+            with open("index.html", "w", encoding="utf-8", newline="") as f:
+                f.write(opt)
+            apres = os.path.getsize("index.html")
+            print(f"🪶 index.html allege — {avant/1048576:.2f} Mo → {apres/1048576:.2f} Mo "
+                  f"({(avant-apres)/avant*100:.0f} %, {stats['classes']} classes)")
+        else:
+            print("⚠️  Allegement ignore : le rendu aurait change.")
+    except Exception as e:
+        print(f"⚠️  Allegement ignore ({e}) — la page reste valide, seulement plus lourde.")
 
     # Auto-push vers GitHub Pages si git configuré
     push_to_github()
