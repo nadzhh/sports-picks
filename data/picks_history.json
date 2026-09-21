@@ -49535,46 +49535,6 @@
       "side": "away"
     },
     {
-      "player": "Andrés Vombergar / Leandro Díaz",
-      "position": "",
-      "is_sub": false,
-      "type": "Double Chance Buteur",
-      "label": "Andrés Vombergar OU Leandro Díaz marque (cross-équipe)",
-      "cote": null,
-      "book": null,
-      "books": [],
-      "confidence": 70,
-      "cote_min": 1.43,
-      "reasoning": "🔀 Cross-équipe (moins corrélé → meilleur EV)\n📈 P(Andrés Vombergar marque) ≈ 46% · P(Leandro Díaz marque) ≈ 46%\n🎯 P(au moins un marque) = 70% (1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.43 - chercher ≥1.43 chez le bookmaker\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
-      "context": {
-        "combo_kind": "cross"
-      },
-      "_team_for_balance": "home",
-      "stats": {
-        "p_a": 0.465,
-        "p_b": 0.458,
-        "p_or": 0.7,
-        "player_a": "Andrés Vombergar",
-        "player_b": "Leandro Díaz",
-        "kind": "cross"
-      },
-      "team": "home",
-      "tier": "safe",
-      "calibration_delta": -11.3,
-      "history_top3": true,
-      "id": "2026-09-21_1000019540_player_Andrés Vombergar / Leandro Díaz_Double Chance Buteur",
-      "date": "2026-09-21",
-      "match_id": "1000019540",
-      "page_url": "/matches/atletico-tucuman-vs-aldosivi/o155e68#1000019540",
-      "matchup": "Aldosivi vs Atlético Tucumán",
-      "league": "Argentina Primera",
-      "category": "player",
-      "result": "PENDING",
-      "actual": null,
-      "resolved_at": null,
-      "side": "home"
-    },
-    {
       "player": "Lasha Kokhreidze / Giga Samkharadze",
       "position": "",
       "is_sub": false,
@@ -49613,46 +49573,6 @@
       "actual": null,
       "resolved_at": null,
       "side": "home"
-    },
-    {
-      "player": "Álex Arce / Fabrizio Sartori",
-      "position": "",
-      "is_sub": false,
-      "type": "Double Chance Buteur",
-      "label": "Álex Arce ou Fabrizio Sartori marque (Independiente Rivadavia)",
-      "cote": null,
-      "book": null,
-      "books": [],
-      "confidence": 68,
-      "cote_min": 1.47,
-      "reasoning": "✈️ Combo intra-Independiente Rivadavia\n📈 P(Álex Arce marque) ≈ 49% · P(Fabrizio Sartori marque) ≈ 38%\n🎯 P(au moins un marque) = 68% (1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.47 - chercher ≥1.47 chez le bookmaker\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
-      "context": {
-        "combo_kind": "intra-away"
-      },
-      "_team_for_balance": "away",
-      "stats": {
-        "p_a": 0.488,
-        "p_b": 0.375,
-        "p_or": 0.68,
-        "player_a": "Álex Arce",
-        "player_b": "Fabrizio Sartori",
-        "kind": "intra-away"
-      },
-      "team": "away",
-      "tier": "ok",
-      "calibration_delta": -25.4,
-      "history_top3": true,
-      "id": "2026-09-21_1000019539_player_Álex Arce / Fabrizio Sartori_Double Chance Buteur",
-      "date": "2026-09-21",
-      "match_id": "1000019539",
-      "page_url": "/matches/independiente-rivadavia-vs-barracas-central/wch83zi#1000019539",
-      "matchup": "Barracas Central vs Independiente Rivadavia",
-      "league": "Argentina Primera",
-      "category": "player",
-      "result": "PENDING",
-      "actual": null,
-      "resolved_at": null,
-      "side": "away"
     },
     {
       "player": "Juan Angulo / Djorkaeff Reasco",
@@ -49866,6 +49786,74 @@
       "result": "PENDING",
       "actual": null,
       "resolved_at": null
+    },
+    {
+      "player": "Álex Arce",
+      "position": "F",
+      "is_sub": false,
+      "type": "Buteur",
+      "label": "Álex Arce marque",
+      "team": "away",
+      "cote": null,
+      "book": null,
+      "books": [],
+      "confidence": 47,
+      "reasoning": "9G en 19 matchs (47.4%/match) · xG: 0.42/match\n📉 Calibration : bucket 40-49% historiquement à WR 25% (claim 44%, n=36) — sur-estimé de 19pp",
+      "context": {
+        "weakness": 0.45
+      },
+      "stats": {
+        "goals": 9,
+        "apps": 19
+      },
+      "tier": "fun",
+      "calibration_delta": -19.4,
+      "history_top3": true,
+      "id": "2026-09-21_1000019539_player_Álex Arce_Buteur",
+      "date": "2026-09-21",
+      "match_id": "1000019539",
+      "page_url": "/matches/independiente-rivadavia-vs-barracas-central/wch83zi#1000019539",
+      "matchup": "Barracas Central vs Independiente Rivadavia",
+      "league": "Argentina Primera",
+      "category": "player",
+      "result": "PENDING",
+      "actual": null,
+      "resolved_at": null,
+      "side": "away"
+    },
+    {
+      "player": "Andrés Vombergar",
+      "position": "M",
+      "is_sub": false,
+      "type": "Buteur",
+      "label": "Andrés Vombergar marque",
+      "team": "home",
+      "cote": null,
+      "book": null,
+      "books": [],
+      "confidence": 45,
+      "reasoning": "4G en 7 matchs (57.1%/match) · xG: 0.36/match\n📉 Calibration : bucket 40-49% historiquement à WR 25% (claim 44%, n=36) — sur-estimé de 19pp",
+      "context": {
+        "weakness": 0.55
+      },
+      "stats": {
+        "goals": 4,
+        "apps": 7
+      },
+      "tier": "fun",
+      "calibration_delta": -19.4,
+      "history_top3": true,
+      "id": "2026-09-21_1000019540_player_Andrés Vombergar_Buteur",
+      "date": "2026-09-21",
+      "match_id": "1000019540",
+      "page_url": "/matches/atletico-tucuman-vs-aldosivi/o155e68#1000019540",
+      "matchup": "Aldosivi vs Atlético Tucumán",
+      "league": "Argentina Primera",
+      "category": "player",
+      "result": "PENDING",
+      "actual": null,
+      "resolved_at": null,
+      "side": "home"
     },
     {
       "player": "Agustín Herrera",
