@@ -206,132 +206,40 @@
     }
   },
   {
-    "league": "Brasileirao",
-    "home": "Athletico Paranaense",
-    "away": "Bahia",
-    "start_ts": 1789943400,
-    "match_id": "5103641",
-    "page_url": "/matches/bahia-vs-athletico-paranaense/2q2p3e#5103641",
+    "league": "Algeria Ligue 1",
+    "home": "MC Alger",
+    "away": "MC Oran",
+    "start_ts": 1790103600,
+    "match_id": "5989695",
+    "page_url": "/matches/mc-alger-vs-mc-oran/2ofjty0#5989695",
     "picks": [
       {
-        "direction": "away_win",
-        "type": "Victoire extérieur",
-        "label": "Bahia gagne",
+        "direction": "away_dc",
+        "type": "Double chance",
+        "label": "Nul ou MC Oran (X2)",
         "cote": null,
-        "confidence": 78,
-        "reasoning": "Bahia : 4V/1N/0D sur 5 matchs · #5 au classement · H2H: 1V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+        "confidence": 81,
+        "reasoning": "MC Oran invaincu 100% sur 2 derniers matchs · H2H: 0/0 matchs sans défaite · Classement: #3 (away) vs #8 (home)\n📉 Calibration : bucket 80-89% historiquement à WR 56% (claim 82%, n=63) — sur-estimé de 26pp",
         "stats": {
           "form": [
             "W",
-            "W",
-            "W",
-            "W",
-            "D"
+            "W"
           ]
         },
         "is_fun": false,
         "tier": "safe",
-        "calibration_delta": -11.3,
+        "calibration_delta": -26.0,
         "history_top3": true
-      }
-    ],
-    "home_players": [
+      },
       {
-        "player": "Leozinho / Alejo Véliz",
-        "position": "",
-        "is_sub": false,
-        "type": "Double Chance Buteur",
-        "label": "Leozinho OU Alejo Véliz marque (cross-équipe)",
+        "direction": "away_win",
+        "type": "Victoire extérieur",
+        "label": "MC Oran gagne",
         "cote": null,
-        "book": null,
-        "books": [],
-        "confidence": 70,
-        "cote_min": 1.49,
-        "reasoning": "🔀 Cross-équipe (moins corrélé → meilleur EV)\n📈 P(Leozinho marque) ≈ 37% · P(Alejo Véliz marque) ≈ 47%\n🎯 P(au moins un marque) = 70% (1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.49 - chercher ≥1.49 chez le bookmaker\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
-        "context": {
-          "combo_kind": "cross"
-        },
-        "_team_for_balance": "home",
-        "stats": {
-          "p_a": 0.368,
-          "p_b": 0.472,
-          "p_or": 0.666,
-          "player_a": "Leozinho",
-          "player_b": "Alejo Véliz",
-          "kind": "cross"
-        },
-        "team": "home",
-        "tier": "safe",
-        "calibration_delta": -11.3,
-        "history_top3": true
-      }
-    ],
-    "away_players": [],
-    "fun_picks": [],
-    "top_pick": {
-      "direction": "away_win",
-      "type": "Victoire extérieur",
-      "label": "Bahia gagne",
-      "cote": null,
-      "confidence": 78,
-      "reasoning": "Bahia : 4V/1N/0D sur 5 matchs · #5 au classement · H2H: 1V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
-      "stats": {
-        "form": [
-          "W",
-          "W",
-          "W",
-          "W",
-          "D"
-        ]
-      },
-      "is_fun": false,
-      "tier": "safe",
-      "calibration_delta": -11.3,
-      "history_top3": true
-    },
-    "no_picks": false,
-    "context": {
-      "stadium": {
-        "name": "Estádio Mário Celso Petraglia",
-        "city": "Curitiba, Paraná",
-        "country": "Brazil",
-        "lat": -25.448210678,
-        "lon": -49.276927114,
-        "capacity": 43981,
-        "surface": "artificial turf"
-      },
-      "weather": {
-        "temp_max": 24.7,
-        "temp_min": 14.7,
-        "humidity": 74,
-        "precipitation_sum_mm": 2.9,
-        "wind_max_kmh": 23.4,
-        "weather_code": 53,
-        "summary_fr": "🌦️ bruine modérée · 14–24°C · humidité 74% · précipitations 2.9mm"
-      },
-      "text": "Conditions : 🌦️ bruine modérée · 14–24°C · humidité 74% · précipitations 2.9mm. Stade : Estádio Mário Celso Petraglia · 43 981 places · plein air."
-    }
-  },
-  {
-    "league": "Bulgarian First",
-    "home": "Levski Sofia",
-    "away": "Ludogorets Razgrad",
-    "start_ts": 1789925400,
-    "match_id": "5760499",
-    "page_url": "/matches/levski-sofia-vs-ludogorets-razgrad/azw0ykv#5760499",
-    "picks": [
-      {
-        "direction": "home_win",
-        "type": "Victoire domicile",
-        "label": "Levski Sofia gagne",
-        "cote": null,
-        "confidence": 74,
-        "reasoning": "Levski Sofia : 4V/1N/0D sur 5 matchs · #1 au classement · H2H: 0V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+        "confidence": 79,
+        "reasoning": "MC Oran : 2V/0N/0D sur 2 matchs · #3 au classement · H2H: 0V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
         "stats": {
           "form": [
-            "D",
-            "W",
-            "W",
             "W",
             "W"
           ]
@@ -342,210 +250,29 @@
         "history_top3": true
       }
     ],
-    "home_players": [
-      {
-        "player": "David Kusso / Ivaylo Chochev",
-        "position": "",
-        "is_sub": false,
-        "type": "Double Chance Buteur",
-        "label": "David Kusso OU Ivaylo Chochev marque (cross-équipe)",
-        "cote": null,
-        "book": null,
-        "books": [],
-        "confidence": 69,
-        "cote_min": 1.52,
-        "reasoning": "🔀 Cross-équipe (moins corrélé → meilleur EV)\n📈 P(David Kusso marque) ≈ 42% · P(Ivaylo Chochev marque) ≈ 42%\n🎯 P(au moins un marque) = 69% (1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.52 - chercher ≥1.52 chez le bookmaker\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
-        "context": {
-          "combo_kind": "cross"
-        },
-        "_team_for_balance": "home",
-        "stats": {
-          "p_a": 0.42,
-          "p_b": 0.42,
-          "p_or": 0.664,
-          "player_a": "David Kusso",
-          "player_b": "Ivaylo Chochev",
-          "kind": "cross"
-        },
-        "team": "home",
-        "tier": "ok",
-        "calibration_delta": -25.4,
-        "history_top3": true
-      }
-    ],
+    "home_players": [],
     "away_players": [],
     "fun_picks": [],
     "top_pick": {
-      "direction": "home_win",
-      "type": "Victoire domicile",
-      "label": "Levski Sofia gagne",
+      "direction": "away_dc",
+      "type": "Double chance",
+      "label": "Nul ou MC Oran (X2)",
       "cote": null,
-      "confidence": 74,
-      "reasoning": "Levski Sofia : 4V/1N/0D sur 5 matchs · #1 au classement · H2H: 0V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+      "confidence": 81,
+      "reasoning": "MC Oran invaincu 100% sur 2 derniers matchs · H2H: 0/0 matchs sans défaite · Classement: #3 (away) vs #8 (home)\n📉 Calibration : bucket 80-89% historiquement à WR 56% (claim 82%, n=63) — sur-estimé de 26pp",
       "stats": {
         "form": [
-          "D",
-          "W",
-          "W",
           "W",
           "W"
         ]
       },
       "is_fun": false,
       "tier": "safe",
-      "calibration_delta": -11.3,
+      "calibration_delta": -26.0,
       "history_top3": true
     },
     "no_picks": false,
-    "context": {
-      "stadium": {
-        "name": "Georgi Asparuhov",
-        "city": null,
-        "country": "",
-        "lat": null,
-        "lon": null,
-        "capacity": null,
-        "surface": null
-      },
-      "weather": null,
-      "text": "Stade : Georgi Asparuhov · plein air."
-    }
-  },
-  {
-    "league": "MLS",
-    "home": "Inter Miami CF",
-    "away": "San Diego FC",
-    "start_ts": 1789945200,
-    "match_id": "5071380",
-    "page_url": "/matches/inter-miami-cf-vs-san-diego-fc/197hpkaco#5071380",
-    "picks": [
-      {
-        "direction": "home_win",
-        "type": "Favori net",
-        "label": "Inter Miami CF gagne",
-        "cote": null,
-        "confidence": 72,
-        "reasoning": "16 places d'écart au classement (#4 vs #20) · 1V/3N/1D sur 5 matchs · Note Sofa: 6.5/10\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
-        "stats": {
-          "form": [
-            "D",
-            "D",
-            "D",
-            "W",
-            "L"
-          ]
-        },
-        "is_fun": false,
-        "tier": "safe",
-        "calibration_delta": -11.3,
-        "history_top3": true
-      }
-    ],
-    "home_players": [
-      {
-        "player": "Luis Suárez",
-        "position": "F",
-        "is_sub": false,
-        "type": "Buteur",
-        "label": "Luis Suárez marque",
-        "cote": null,
-        "book": null,
-        "books": [],
-        "confidence": 62,
-        "reasoning": "⚽ Penaltyman · 12 buts en 21 matchs cette saison (57.1% de chance/match) · bonne efficacité (24% conv.) · xG moyen 0.49/match, défense adverse poreuse (1.7 buts concédés/match) · défense très vulnérable\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
-        "context": {
-          "weakness": 0.72
-        },
-        "stats": {
-          "goals": 12,
-          "apps": 21,
-          "gpm": 0.571,
-          "xgpm": 0.49
-        },
-        "team": "home",
-        "tier": "ok",
-        "calibration_delta": -25.4,
-        "history_top3": true
-      },
-      {
-        "player": "Luis Suárez / Germán Berterame",
-        "position": "",
-        "is_sub": false,
-        "type": "Double Chance Buteur",
-        "label": "Luis Suárez ou Germán Berterame marque (Inter Miami CF)",
-        "cote": null,
-        "book": null,
-        "books": [],
-        "confidence": 70,
-        "cote_min": 1.43,
-        "reasoning": "🏠 Combo intra-Inter Miami CF\n📈 P(Luis Suárez marque) ≈ 56% · P(Germán Berterame marque) ≈ 47%\n🎯 P(au moins un marque) = 70% (1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.43 - chercher ≥1.43 chez le bookmaker\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
-        "context": {
-          "combo_kind": "intra-home"
-        },
-        "_team_for_balance": "home",
-        "stats": {
-          "p_a": 0.562,
-          "p_b": 0.472,
-          "p_or": 0.7,
-          "player_a": "Luis Suárez",
-          "player_b": "Germán Berterame",
-          "kind": "intra-home"
-        },
-        "team": "home",
-        "tier": "safe",
-        "calibration_delta": -11.3,
-        "history_top3": true
-      }
-    ],
-    "away_players": [],
-    "fun_picks": [],
-    "top_pick": {
-      "direction": "home_win",
-      "type": "Favori net",
-      "label": "Inter Miami CF gagne",
-      "cote": null,
-      "confidence": 72,
-      "reasoning": "16 places d'écart au classement (#4 vs #20) · 1V/3N/1D sur 5 matchs · Note Sofa: 6.5/10\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
-      "stats": {
-        "form": [
-          "D",
-          "D",
-          "D",
-          "W",
-          "L"
-        ]
-      },
-      "is_fun": false,
-      "tier": "safe",
-      "calibration_delta": -11.3,
-      "history_top3": true
-    },
-    "no_picks": false,
-    "context": {
-      "stadium": {
-        "name": "Hard Rock Stadium",
-        "city": "Miami Gardens",
-        "country": "USA",
-        "lat": 25.958,
-        "lon": -80.2389,
-        "capacity": 65326,
-        "surface": "Natural grass",
-        "altitude_m": 3,
-        "type": "outdoor",
-        "climatized": false,
-        "context_fr": "Toit canopy (ombre), pas climatisé. Humidité Floride 80%+, orages tropicaux fréquents en juin."
-      },
-      "weather": {
-        "temp_max": 30.1,
-        "temp_min": 23.4,
-        "humidity": 87,
-        "precipitation_sum_mm": 51.6,
-        "wind_max_kmh": 26.8,
-        "weather_code": 65,
-        "summary_fr": "🌧️ pluie forte · 23–30°C · humidité 87% · précipitations 51.6mm"
-      },
-      "text": "Conditions : 🌧️ pluie forte · 23–30°C · humidité 87% · précipitations 51.6mm. Stade : Hard Rock Stadium · altitude 3m · 65 326 places · plein air. Toit canopy (ombre), pas climatisé. Humidité Floride 80%+, orages tropicaux fréquents en juin. ⚠️ Pluies prévues : terrain potentiellement lourd, jeu direct privilégié, plus d'erreurs techniques."
-    }
+    "context": null
   },
   {
     "league": "Argentina Primera",
@@ -555,64 +282,64 @@
     "match_id": "1000019529",
     "page_url": "/matches/velez-sarsfield-vs-tigre/29ts14i#1000019529",
     "picks": [],
-    "home_players": [],
-    "away_players": [
+    "home_players": [
       {
-        "player": "David Romero / Mauro Méndez",
+        "player": "Florián Monzón / David Romero",
         "position": "",
         "is_sub": false,
         "type": "Double Chance Buteur",
-        "label": "David Romero ou Mauro Méndez marque (Tigre)",
+        "label": "Florián Monzón OU David Romero marque (cross-équipe)",
         "cote": null,
         "book": null,
         "books": [],
         "confidence": 70,
         "cote_min": 1.43,
-        "reasoning": "✈️ Combo intra-Tigre\n📈 P(David Romero marque) ≈ 50% · P(Mauro Méndez marque) ≈ 40%\n🎯 P(au moins un marque) = 70% (1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.43 - chercher ≥1.43 chez le bookmaker\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+        "reasoning": "🔀 Cross-équipe (moins corrélé → meilleur EV)\n📈 P(Florián Monzón marque) ≈ 42% · P(David Romero marque) ≈ 49%\n🎯 P(au moins un marque) = 70% (1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.43 - chercher ≥1.43 chez le bookmaker\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
         "context": {
-          "combo_kind": "intra-away"
+          "combo_kind": "cross"
         },
-        "_team_for_balance": "away",
+        "_team_for_balance": "home",
         "stats": {
-          "p_a": 0.495,
-          "p_b": 0.398,
-          "p_or": 0.696,
-          "player_a": "David Romero",
-          "player_b": "Mauro Méndez",
-          "kind": "intra-away"
+          "p_a": 0.42,
+          "p_b": 0.488,
+          "p_or": 0.703,
+          "player_a": "Florián Monzón",
+          "player_b": "David Romero",
+          "kind": "cross"
         },
-        "team": "away",
+        "team": "home",
         "tier": "safe",
         "calibration_delta": -11.3,
         "history_top3": true
       }
     ],
+    "away_players": [],
     "fun_picks": [],
     "top_pick": {
-      "player": "David Romero / Mauro Méndez",
+      "player": "Florián Monzón / David Romero",
       "position": "",
       "is_sub": false,
       "type": "Double Chance Buteur",
-      "label": "David Romero ou Mauro Méndez marque (Tigre)",
+      "label": "Florián Monzón OU David Romero marque (cross-équipe)",
       "cote": null,
       "book": null,
       "books": [],
       "confidence": 70,
       "cote_min": 1.43,
-      "reasoning": "✈️ Combo intra-Tigre\n📈 P(David Romero marque) ≈ 50% · P(Mauro Méndez marque) ≈ 40%\n🎯 P(au moins un marque) = 70% (1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.43 - chercher ≥1.43 chez le bookmaker\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+      "reasoning": "🔀 Cross-équipe (moins corrélé → meilleur EV)\n📈 P(Florián Monzón marque) ≈ 42% · P(David Romero marque) ≈ 49%\n🎯 P(au moins un marque) = 70% (1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.43 - chercher ≥1.43 chez le bookmaker\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
       "context": {
-        "combo_kind": "intra-away"
+        "combo_kind": "cross"
       },
-      "_team_for_balance": "away",
+      "_team_for_balance": "home",
       "stats": {
-        "p_a": 0.495,
-        "p_b": 0.398,
-        "p_or": 0.696,
-        "player_a": "David Romero",
-        "player_b": "Mauro Méndez",
-        "kind": "intra-away"
+        "p_a": 0.42,
+        "p_b": 0.488,
+        "p_or": 0.703,
+        "player_a": "Florián Monzón",
+        "player_b": "David Romero",
+        "kind": "cross"
       },
-      "team": "away",
+      "team": "home",
       "tier": "safe",
       "calibration_delta": -11.3,
       "history_top3": true
@@ -901,24 +628,24 @@
   },
   {
     "league": "Ecuador LigaPro",
-    "home": "LDU de Quito",
-    "away": "Universidad Católica",
-    "start_ts": 1789947000,
-    "match_id": "1000022021",
-    "page_url": "/matches/ldu-de-quito-vs-universidad-catolica/3amloqa#1000022021",
+    "home": "Barcelona SC",
+    "away": "Independiente del Valle",
+    "start_ts": 1790037000,
+    "match_id": "1000022020",
+    "page_url": "/matches/barcelona-sc-vs-independiente-del-valle/94jnv5x#1000022020",
     "picks": [
       {
         "direction": "away_win",
         "type": "Victoire extérieur",
-        "label": "Universidad Católica gagne",
+        "label": "Independiente del Valle gagne",
         "cote": null,
-        "confidence": 66,
-        "reasoning": "Universidad Católica : 3V/2N/0D sur 5 matchs · #2 au classement · H2H: 1V/1N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
+        "confidence": 63,
+        "reasoning": "Independiente del Valle : 3V/1N/1D sur 5 matchs · #1 au classement · H2H: 1V/0N/1D · Note Sofa: 6.5/10\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
         "stats": {
           "form": [
             "W",
             "W",
-            "D",
+            "L",
             "D",
             "W"
           ]
@@ -932,32 +659,32 @@
     "home_players": [],
     "away_players": [
       {
-        "player": "José Fajardo / Daniel Clavijo",
+        "player": "Juan Angulo / Djorkaeff Reasco",
         "position": "",
         "is_sub": false,
         "type": "Double Chance Buteur",
-        "label": "José Fajardo ou Daniel Clavijo marque (Universidad Católica)",
+        "label": "Juan Angulo ou Djorkaeff Reasco marque (Independiente del Valle)",
         "cote": null,
         "book": null,
         "books": [],
-        "confidence": 65,
-        "cote_min": 1.54,
-        "reasoning": "✈️ Combo intra-Universidad Católica\n📈 P(José Fajardo marque) ≈ 43% · P(Daniel Clavijo marque) ≈ 39%\n🎯 P(au moins un marque) = 65% (1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.54 - chercher ≥1.54 chez le bookmaker\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
+        "confidence": 70,
+        "cote_min": 1.43,
+        "reasoning": "✈️ Combo intra-Independiente del Valle\n📈 P(Juan Angulo marque) ≈ 46% · P(Djorkaeff Reasco marque) ≈ 45%\n🎯 P(au moins un marque) = 70% (1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.43 - chercher ≥1.43 chez le bookmaker\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
         "context": {
           "combo_kind": "intra-away"
         },
         "_team_for_balance": "away",
         "stats": {
-          "p_a": 0.428,
-          "p_b": 0.39,
-          "p_or": 0.651,
-          "player_a": "José Fajardo",
-          "player_b": "Daniel Clavijo",
+          "p_a": 0.458,
+          "p_b": 0.45,
+          "p_or": 0.702,
+          "player_a": "Juan Angulo",
+          "player_b": "Djorkaeff Reasco",
           "kind": "intra-away"
         },
         "team": "away",
-        "tier": "ok",
-        "calibration_delta": -25.4,
+        "tier": "safe",
+        "calibration_delta": -11.3,
         "history_top3": true
       }
     ],
@@ -965,15 +692,15 @@
     "top_pick": {
       "direction": "away_win",
       "type": "Victoire extérieur",
-      "label": "Universidad Católica gagne",
+      "label": "Independiente del Valle gagne",
       "cote": null,
-      "confidence": 66,
-      "reasoning": "Universidad Católica : 3V/2N/0D sur 5 matchs · #2 au classement · H2H: 1V/1N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
+      "confidence": 63,
+      "reasoning": "Independiente del Valle : 3V/1N/1D sur 5 matchs · #1 au classement · H2H: 1V/0N/1D · Note Sofa: 6.5/10\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
       "stats": {
         "form": [
           "W",
           "W",
-          "D",
+          "L",
           "D",
           "W"
         ]
@@ -986,270 +713,24 @@
     "no_picks": false,
     "context": {
       "stadium": {
-        "name": "Estadio Rodrigo Paz Delgado",
-        "city": "Quito",
+        "name": "Estadio Monumental Banco Pichincha",
+        "city": "Guayaquil",
         "country": "Ecuador",
-        "lat": -0.107690629,
-        "lon": -78.489047885,
-        "capacity": 55104,
+        "lat": -2.185872239,
+        "lon": -79.924947023,
+        "capacity": 59283,
         "surface": "grass"
       },
       "weather": {
-        "temp_max": 21.5,
-        "temp_min": 11.1,
-        "humidity": 69,
-        "precipitation_sum_mm": 4.0,
-        "wind_max_kmh": 8.3,
-        "weather_code": 80,
-        "summary_fr": "🌦️ averses légères · 11–21°C · humidité 69% · précipitations 4.0mm"
+        "temp_max": 30.3,
+        "temp_min": 23.8,
+        "humidity": 80,
+        "precipitation_sum_mm": 81.0,
+        "wind_max_kmh": 10.3,
+        "weather_code": 95,
+        "summary_fr": "⛈️ orage · 23–30°C · humidité 80% · précipitations 81.0mm"
       },
-      "text": "Conditions : 🌦️ averses légères · 11–21°C · humidité 69% · précipitations 4.0mm. Stade : Estadio Rodrigo Paz Delgado · 55 104 places · plein air."
-    }
-  },
-  {
-    "league": "Paraguay Profesional",
-    "home": "Luqueño",
-    "away": "Recoleta",
-    "start_ts": 1789939800,
-    "match_id": "1000017415",
-    "page_url": "/matches/luqueno-vs-recoleta/dxghbcba#1000017415",
-    "picks": [],
-    "home_players": [],
-    "away_players": [
-      {
-        "player": "Allan Wlk",
-        "position": "F",
-        "is_sub": false,
-        "type": "Buteur",
-        "label": "Allan Wlk marque",
-        "cote": null,
-        "book": null,
-        "books": [],
-        "confidence": 64,
-        "reasoning": "13 buts en 18 matchs cette saison (72.2% de chance/match) · bonne efficacité (24% conv.) · xG moyen 0.00/match, défense adverse poreuse (1.6 buts concédés/match) · défense fragile\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
-        "context": {
-          "weakness": 0.53
-        },
-        "stats": {
-          "goals": 13,
-          "apps": 18,
-          "gpm": 0.722,
-          "xgpm": 0
-        },
-        "team": "away",
-        "tier": "ok",
-        "calibration_delta": -25.4,
-        "history_top3": true
-      },
-      {
-        "player": "Allan Wlk / Aldo González",
-        "position": "",
-        "is_sub": false,
-        "type": "Double Chance Buteur",
-        "label": "Allan Wlk ou Aldo González marque (Recoleta)",
-        "cote": null,
-        "book": null,
-        "books": [],
-        "confidence": 70,
-        "cote_min": 1.43,
-        "reasoning": "✈️ Combo intra-Recoleta\n📈 P(Allan Wlk marque) ≈ 64% · P(Aldo González marque) ≈ 44%\n🎯 P(au moins un marque) = 70% (1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.43 - chercher ≥1.43 chez le bookmaker\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
-        "context": {
-          "combo_kind": "intra-away"
-        },
-        "_team_for_balance": "away",
-        "stats": {
-          "p_a": 0.638,
-          "p_b": 0.435,
-          "p_or": 0.7,
-          "player_a": "Allan Wlk",
-          "player_b": "Aldo González",
-          "kind": "intra-away"
-        },
-        "team": "away",
-        "tier": "safe",
-        "calibration_delta": -11.3,
-        "history_top3": true
-      }
-    ],
-    "fun_picks": [],
-    "top_pick": {
-      "player": "Allan Wlk",
-      "position": "F",
-      "is_sub": false,
-      "type": "Buteur",
-      "label": "Allan Wlk marque",
-      "cote": null,
-      "book": null,
-      "books": [],
-      "confidence": 64,
-      "reasoning": "13 buts en 18 matchs cette saison (72.2% de chance/match) · bonne efficacité (24% conv.) · xG moyen 0.00/match, défense adverse poreuse (1.6 buts concédés/match) · défense fragile\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
-      "context": {
-        "weakness": 0.53
-      },
-      "stats": {
-        "goals": 13,
-        "apps": 18,
-        "gpm": 0.722,
-        "xgpm": 0
-      },
-      "team": "away",
-      "tier": "ok",
-      "calibration_delta": -25.4,
-      "history_top3": true
-    },
-    "no_picks": false,
-    "context": {
-      "stadium": {
-        "name": "Estadio ueno Luis Salinas Tanasio",
-        "city": "Itauguá",
-        "country": "Paraguay",
-        "lat": -25.39589941,
-        "lon": -57.340658605,
-        "capacity": 8000,
-        "surface": "grass"
-      },
-      "weather": {
-        "temp_max": 32.0,
-        "temp_min": 19.6,
-        "humidity": 61,
-        "precipitation_sum_mm": 0.0,
-        "wind_max_kmh": 28.3,
-        "weather_code": 1,
-        "summary_fr": "🌤️ principalement clair · 19–32°C · humidité 61%"
-      },
-      "text": "Conditions : 🌤️ principalement clair · 19–32°C · humidité 61%. Stade : Estadio ueno Luis Salinas Tanasio · 8 000 places · plein air. ⚠️ Forte chaleur (>32°C) en plein air : impact endurance, plus de pauses hydratation."
-    }
-  },
-  {
-    "league": "Brasileirao",
-    "home": "Flamengo",
-    "away": "RB Bragantino",
-    "start_ts": 1789939800,
-    "match_id": "5103634",
-    "page_url": "/matches/flamengo-vs-rb-bragantino/3a1b4ew#5103634",
-    "picks": [
-      {
-        "direction": "home_win",
-        "type": "Victoire domicile",
-        "label": "Flamengo gagne",
-        "cote": null,
-        "confidence": 63,
-        "reasoning": "Flamengo : 4V/0N/1D sur 5 matchs · #1 au classement · H2H: 0V/0N/1D · Note Sofa: 6.5/10\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
-        "stats": {
-          "form": [
-            "W",
-            "W",
-            "W",
-            "W",
-            "L"
-          ]
-        },
-        "is_fun": false,
-        "tier": "ok",
-        "calibration_delta": -25.4,
-        "history_top3": true
-      }
-    ],
-    "home_players": [
-      {
-        "player": "Pedro",
-        "position": "F",
-        "is_sub": false,
-        "type": "Buteur",
-        "label": "Pedro marque",
-        "cote": null,
-        "book": null,
-        "books": [],
-        "confidence": 56,
-        "reasoning": "16 buts en 27 matchs cette saison (59.3% de chance/match) · bonne efficacité (23% conv.) · xG moyen 0.53/match · défense correcte\n📉 Calibration : bucket 50-59% historiquement à WR 42% (claim 55%, n=41) — sur-estimé de 14pp",
-        "context": {
-          "weakness": 0.48
-        },
-        "stats": {
-          "goals": 16,
-          "apps": 27,
-          "gpm": 0.593,
-          "xgpm": 0.53
-        },
-        "team": "home",
-        "tier": "ok",
-        "calibration_delta": -13.6,
-        "history_top3": true
-      },
-      {
-        "player": "Pedro / Giorgian De Arrascaeta",
-        "position": "",
-        "is_sub": false,
-        "type": "Double Chance Buteur",
-        "label": "Pedro ou Giorgian De Arrascaeta marque (Flamengo)",
-        "cote": null,
-        "book": null,
-        "books": [],
-        "confidence": 70,
-        "cote_min": 1.43,
-        "reasoning": "🏠 Combo intra-Flamengo\n📈 P(Pedro marque) ≈ 56% · P(Giorgian De Arrascaeta marque) ≈ 36%\n🎯 P(au moins un marque) = 70% (1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.43 - chercher ≥1.43 chez le bookmaker\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
-        "context": {
-          "combo_kind": "intra-home"
-        },
-        "_team_for_balance": "home",
-        "stats": {
-          "p_a": 0.555,
-          "p_b": 0.36,
-          "p_or": 0.7,
-          "player_a": "Pedro",
-          "player_b": "Giorgian De Arrascaeta",
-          "kind": "intra-home"
-        },
-        "team": "home",
-        "tier": "safe",
-        "calibration_delta": -11.3,
-        "history_top3": true
-      }
-    ],
-    "away_players": [],
-    "fun_picks": [],
-    "top_pick": {
-      "direction": "home_win",
-      "type": "Victoire domicile",
-      "label": "Flamengo gagne",
-      "cote": null,
-      "confidence": 63,
-      "reasoning": "Flamengo : 4V/0N/1D sur 5 matchs · #1 au classement · H2H: 0V/0N/1D · Note Sofa: 6.5/10\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
-      "stats": {
-        "form": [
-          "W",
-          "W",
-          "W",
-          "W",
-          "L"
-        ]
-      },
-      "is_fun": false,
-      "tier": "ok",
-      "calibration_delta": -25.4,
-      "history_top3": true
-    },
-    "no_picks": false,
-    "context": {
-      "stadium": {
-        "name": "Estadio Jornalista Mário Filho (Maracanã)",
-        "city": "Rio de Janeiro, Rio de Janeiro",
-        "country": "Brazil",
-        "lat": -22.91206776,
-        "lon": -43.230133653,
-        "capacity": 78838,
-        "surface": "grass"
-      },
-      "weather": {
-        "temp_max": 27.0,
-        "temp_min": 19.9,
-        "humidity": 72,
-        "precipitation_sum_mm": 0.0,
-        "wind_max_kmh": 14.1,
-        "weather_code": 3,
-        "summary_fr": "☁️ couvert · 19–27°C · humidité 72%"
-      },
-      "text": "Conditions : ☁️ couvert · 19–27°C · humidité 72%. Stade : Estadio Jornalista Mário Filho (Maracanã) · 78 838 places · plein air."
+      "text": "Conditions : ⛈️ orage · 23–30°C · humidité 80% · précipitations 81.0mm. Stade : Estadio Monumental Banco Pichincha · 59 283 places · plein air. ⚠️ Pluies prévues : terrain potentiellement lourd, jeu direct privilégié, plus d'erreurs techniques."
     }
   },
   {
@@ -1427,119 +908,6 @@
     "context": null
   },
   {
-    "league": "Uruguay Primera",
-    "home": "Liverpool FC",
-    "away": "Racing",
-    "start_ts": 1789945200,
-    "match_id": "6273618",
-    "page_url": "/matches/liverpool-fc-vs-racing/kbqz4#6273618",
-    "picks": [
-      {
-        "direction": "away_win",
-        "type": "Victoire extérieur",
-        "label": "Racing gagne",
-        "cote": null,
-        "confidence": 58,
-        "reasoning": "Racing : 3V/1N/1D sur 5 matchs · #6 au classement · H2H: 1V/1N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 50-59% historiquement à WR 42% (claim 55%, n=41) — sur-estimé de 14pp",
-        "stats": {
-          "form": [
-            "W",
-            "L",
-            "W",
-            "D",
-            "W"
-          ]
-        },
-        "is_fun": false,
-        "tier": "ok",
-        "calibration_delta": -13.6,
-        "history_top3": true
-      }
-    ],
-    "home_players": [
-      {
-        "player": "Federico Martínez / Facundo Barceló",
-        "position": "",
-        "is_sub": false,
-        "type": "Double Chance Buteur",
-        "label": "Federico Martínez ou Facundo Barceló marque (Liverpool FC)",
-        "cote": null,
-        "book": null,
-        "books": [],
-        "confidence": 70,
-        "cote_min": 1.43,
-        "reasoning": "🏠 Combo intra-Liverpool FC\n📈 P(Federico Martínez marque) ≈ 46% · P(Facundo Barceló marque) ≈ 46%\n🎯 P(au moins un marque) = 70% (1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.43 - chercher ≥1.43 chez le bookmaker\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
-        "context": {
-          "combo_kind": "intra-home"
-        },
-        "_team_for_balance": "home",
-        "stats": {
-          "p_a": 0.465,
-          "p_b": 0.458,
-          "p_or": 0.7,
-          "player_a": "Federico Martínez",
-          "player_b": "Facundo Barceló",
-          "kind": "intra-home"
-        },
-        "team": "home",
-        "tier": "safe",
-        "calibration_delta": -11.3,
-        "history_top3": true
-      }
-    ],
-    "away_players": [
-      {
-        "player": "Álex Vázquez",
-        "position": "M",
-        "is_sub": false,
-        "type": "Buteur",
-        "label": "Álex Vázquez marque",
-        "cote": null,
-        "book": null,
-        "books": [],
-        "confidence": 55,
-        "reasoning": "4 buts en 6 matchs cette saison (66.7% de chance/match) · xG moyen 0.00/match · défense solide\n📉 Calibration : bucket 50-59% historiquement à WR 42% (claim 55%, n=41) — sur-estimé de 14pp",
-        "context": {
-          "weakness": 0.28
-        },
-        "stats": {
-          "goals": 4,
-          "apps": 6,
-          "gpm": 0.667,
-          "xgpm": 0
-        },
-        "team": "away",
-        "tier": "ok",
-        "calibration_delta": -13.6,
-        "history_top3": true
-      }
-    ],
-    "fun_picks": [],
-    "top_pick": {
-      "direction": "away_win",
-      "type": "Victoire extérieur",
-      "label": "Racing gagne",
-      "cote": null,
-      "confidence": 58,
-      "reasoning": "Racing : 3V/1N/1D sur 5 matchs · #6 au classement · H2H: 1V/1N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 50-59% historiquement à WR 42% (claim 55%, n=41) — sur-estimé de 14pp",
-      "stats": {
-        "form": [
-          "W",
-          "L",
-          "W",
-          "D",
-          "W"
-        ]
-      },
-      "is_fun": false,
-      "tier": "ok",
-      "calibration_delta": -13.6,
-      "history_top3": true
-    },
-    "no_picks": false,
-    "context": null
-  },
-  {
     "league": "Ecuador LigaPro",
     "home": "Manta",
     "away": "Orense",
@@ -1622,31 +990,31 @@
   },
   {
     "league": "Argentina Primera",
-    "home": "Belgrano",
-    "away": "Estudiantes de Río Cuarto",
-    "start_ts": 1789942500,
-    "match_id": "1000019543",
-    "page_url": "/matches/belgrano-vs-estudiantes-de-rio-cuarto/bhqp0fx#1000019543",
+    "home": "Lanús",
+    "away": "Estudiantes",
+    "start_ts": 1790036100,
+    "match_id": "1000019531",
+    "page_url": "/matches/lanus-vs-estudiantes/3d6wk6#1000019531",
     "picks": [],
     "home_players": [
       {
-        "player": "Nicolás Fernández",
-        "position": "F",
+        "player": "Marcelino Moreno",
+        "position": "M",
         "is_sub": false,
         "type": "Buteur",
-        "label": "Nicolás Fernández marque",
+        "label": "Marcelino Moreno marque",
         "team": "home",
         "cote": null,
         "book": null,
         "books": [],
-        "confidence": 33,
-        "reasoning": "6G en 26 matchs (23.1%/match) · xG: 0.32/match",
+        "confidence": 32,
+        "reasoning": "3G en 9 matchs (33.3%/match) · xG: 0.36/match",
         "context": {
-          "weakness": 0.52
+          "weakness": 0.27
         },
         "stats": {
-          "goals": 6,
-          "apps": 26
+          "goals": 3,
+          "apps": 9
         },
         "tier": "fun",
         "history_top3": true
@@ -1655,23 +1023,23 @@
     "away_players": [],
     "fun_picks": [],
     "top_pick": {
-      "player": "Nicolás Fernández",
-      "position": "F",
+      "player": "Marcelino Moreno",
+      "position": "M",
       "is_sub": false,
       "type": "Buteur",
-      "label": "Nicolás Fernández marque",
+      "label": "Marcelino Moreno marque",
       "team": "home",
       "cote": null,
       "book": null,
       "books": [],
-      "confidence": 33,
-      "reasoning": "6G en 26 matchs (23.1%/match) · xG: 0.32/match",
+      "confidence": 32,
+      "reasoning": "3G en 9 matchs (33.3%/match) · xG: 0.36/match",
       "context": {
-        "weakness": 0.52
+        "weakness": 0.27
       },
       "stats": {
-        "goals": 6,
-        "apps": 26
+        "goals": 3,
+        "apps": 9
       },
       "tier": "fun",
       "history_top3": true
@@ -1679,33 +1047,33 @@
     "no_picks": false,
     "context": {
       "stadium": {
-        "name": "Estadio Julio César Villagra",
-        "city": "Ciudad de Córdoba, Provincia de ",
+        "name": "Estadio Ciudad de Lanús - Néstor Díaz Pérez",
+        "city": "Lanús, Provincia de Buenos Aires",
         "country": "Argentina",
-        "lat": -31.403516063,
-        "lon": -64.206236601,
-        "capacity": 28000,
+        "lat": -34.717708296,
+        "lon": -58.383815289,
+        "capacity": 46619,
         "surface": "grass"
       },
       "weather": {
-        "temp_max": 30.3,
-        "temp_min": 14.8,
-        "humidity": 43,
-        "precipitation_sum_mm": 0.2,
-        "wind_max_kmh": 29.3,
-        "weather_code": 51,
-        "summary_fr": "🌦️ bruine légère · 14–30°C · humidité 43%"
+        "temp_max": 12.2,
+        "temp_min": 6.5,
+        "humidity": 45,
+        "precipitation_sum_mm": 0.0,
+        "wind_max_kmh": 17.3,
+        "weather_code": 3,
+        "summary_fr": "☁️ couvert · 6–12°C · humidité 45%"
       },
-      "text": "Conditions : 🌦️ bruine légère · 14–30°C · humidité 43%. Stade : Estadio Julio César Villagra · 28 000 places · plein air."
+      "text": "Conditions : ☁️ couvert · 6–12°C · humidité 45%. Stade : Estadio Ciudad de Lanús - Néstor Díaz Pérez · 46 619 places · plein air."
     }
   },
   {
     "league": "Colombia Primera A",
-    "home": "Tolima",
-    "away": "América de Cali",
-    "start_ts": 1789945800,
-    "match_id": "1000014147",
-    "page_url": "/matches/tolima-vs-america-de-cali/184gi7#1000014147",
+    "home": "Independiente Medellín",
+    "away": "CD Jaguares",
+    "start_ts": 1790118000,
+    "match_id": "1000014148",
+    "page_url": "/matches/independiente-medellin-vs-cd-jaguares/15ua105j#1000014148",
     "picks": [],
     "home_players": [],
     "away_players": [],
@@ -1714,25 +1082,40 @@
     "no_picks": true,
     "context": {
       "stadium": {
-        "name": "Estadio Manuel Murillo Toro",
-        "city": "Ibagué",
+        "name": "Estadio Atanasio Girardot",
+        "city": "Medellín",
         "country": "Colombia",
-        "lat": 4.429594154,
-        "lon": -75.218238831,
-        "capacity": 38000,
+        "lat": 6.256772694,
+        "lon": -75.590250492,
+        "capacity": 45943,
         "surface": "grass"
       },
       "weather": {
-        "temp_max": 30.7,
-        "temp_min": 19.9,
-        "humidity": 46,
-        "precipitation_sum_mm": 3.8,
-        "wind_max_kmh": 11.9,
-        "weather_code": 81,
-        "summary_fr": "🌦️ averses modérées · 19–30°C · humidité 46% · précipitations 3.8mm"
+        "temp_max": 28.5,
+        "temp_min": 17.2,
+        "humidity": 73,
+        "precipitation_sum_mm": 1.8,
+        "wind_max_kmh": 8.6,
+        "weather_code": 51,
+        "summary_fr": "🌦️ bruine légère · 17–28°C · humidité 73% · précipitations 1.8mm"
       },
-      "text": "Conditions : 🌦️ averses modérées · 19–30°C · humidité 46% · précipitations 3.8mm. Stade : Estadio Manuel Murillo Toro · 38 000 places · plein air."
+      "text": "Conditions : 🌦️ bruine légère · 17–28°C · humidité 73% · précipitations 1.8mm. Stade : Estadio Atanasio Girardot · 45 943 places · plein air."
     }
+  },
+  {
+    "league": "Algeria Ligue 1",
+    "home": "US Biskra",
+    "away": "JS Saoura",
+    "start_ts": 1790096400,
+    "match_id": "5989699",
+    "page_url": "/matches/js-saoura-vs-us-biskra/2jzbyya5#5989699",
+    "picks": [],
+    "home_players": [],
+    "away_players": [],
+    "fun_picks": [],
+    "top_pick": null,
+    "no_picks": true,
+    "context": null
   },
   {
     "league": "Friendlies",
