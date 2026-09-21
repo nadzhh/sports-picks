@@ -48752,9 +48752,9 @@
       "matchup": "Levski Sofia vs Ludogorets Razgrad",
       "league": "Bulgarian First",
       "category": "team",
-      "result": "PENDING",
-      "actual": null,
-      "resolved_at": null
+      "result": "PUSH",
+      "actual": "Match data unavailable (likely cancelled/postponed)",
+      "resolved_at": "2026-09-21 06:52"
     },
     {
       "player": "David Kusso / Ivaylo Chochev",
@@ -48791,9 +48791,9 @@
       "matchup": "Levski Sofia vs Ludogorets Razgrad",
       "league": "Bulgarian First",
       "category": "player",
-      "result": "PENDING",
-      "actual": null,
-      "resolved_at": null,
+      "result": "PUSH",
+      "actual": "Match data unavailable (likely cancelled/postponed)",
+      "resolved_at": "2026-09-21 06:52",
       "side": "home"
     },
     {
@@ -48936,9 +48936,9 @@
       "matchup": "LDU de Quito vs Universidad Católica",
       "league": "Ecuador LigaPro",
       "category": "team",
-      "result": "PENDING",
-      "actual": null,
-      "resolved_at": null
+      "result": "LOSS",
+      "actual": "2-1",
+      "resolved_at": "2026-09-21 06:52"
     },
     {
       "player": "José Fajardo / Daniel Clavijo",
@@ -48975,9 +48975,12 @@
       "matchup": "LDU de Quito vs Universidad Católica",
       "league": "Ecuador LigaPro",
       "category": "player",
-      "result": "PENDING",
-      "actual": null,
-      "resolved_at": null,
+      "result": "WIN",
+      "actual": {
+        "goals": 1,
+        "assists": 0
+      },
+      "resolved_at": "2026-09-21 06:52",
       "side": "away"
     },
     {
@@ -49351,9 +49354,9 @@
       "matchup": "Llaneros FC vs Atlético Nacional",
       "league": "Colombia Primera A",
       "category": "team",
-      "result": "PENDING",
-      "actual": null,
-      "resolved_at": null
+      "result": "LOSS",
+      "actual": "2-0",
+      "resolved_at": "2026-09-21 06:52"
     },
     {
       "direction": "away_win",
@@ -49382,9 +49385,9 @@
       "matchup": "Llaneros FC vs Atlético Nacional",
       "league": "Colombia Primera A",
       "category": "team",
-      "result": "PENDING",
-      "actual": null,
-      "resolved_at": null
+      "result": "LOSS",
+      "actual": "2-0",
+      "resolved_at": "2026-09-21 06:52"
     },
     {
       "player": "Florián Monzón / David Romero",
@@ -49421,10 +49424,115 @@
       "matchup": "Vélez Sarsfield vs Tigre",
       "league": "Argentina Primera",
       "category": "player",
+      "result": "LOSS",
+      "actual": {
+        "goals": 0,
+        "assists": 0
+      },
+      "resolved_at": "2026-09-21 06:52",
+      "side": "home"
+    },
+    {
+      "direction": "away_dc",
+      "type": "Double chance",
+      "label": "Nul ou Montevideo City Torque (X2)",
+      "cote": null,
+      "confidence": 96,
+      "reasoning": "Montevideo City Torque invaincu 100% sur 5 derniers matchs · H2H: 1/1 matchs sans défaite · Classement: #1 (away) vs #13 (home)\n📉 Calibration : bucket 90+% historiquement à WR 52% (claim 94%, n=23) — sur-estimé de 42pp",
+      "stats": {
+        "form": [
+          "W",
+          "W",
+          "W",
+          "W",
+          "W"
+        ]
+      },
+      "is_fun": false,
+      "tier": "safe",
+      "calibration_delta": -41.8,
+      "history_top3": true,
+      "id": "2026-09-21_6273619_team_away_dc",
+      "date": "2026-09-21",
+      "match_id": "6273619",
+      "page_url": "/matches/central-espanol-vs-montevideo-city-torque/10a88da1#6273619",
+      "matchup": "Central Español vs Montevideo City Torque",
+      "league": "Uruguay Primera",
+      "category": "team",
+      "result": "PENDING",
+      "actual": null,
+      "resolved_at": null
+    },
+    {
+      "direction": "away_win",
+      "type": "Victoire extérieur",
+      "label": "Montevideo City Torque gagne",
+      "cote": null,
+      "confidence": 89,
+      "reasoning": "Montevideo City Torque : 5V/0N/0D sur 5 matchs · #1 au classement · H2H: 1V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 80-89% historiquement à WR 56% (claim 82%, n=63) — sur-estimé de 26pp",
+      "stats": {
+        "form": [
+          "W",
+          "W",
+          "W",
+          "W",
+          "W"
+        ]
+      },
+      "is_fun": false,
+      "tier": "safe",
+      "calibration_delta": -26.0,
+      "history_top3": true,
+      "id": "2026-09-21_6273619_team_away_win",
+      "date": "2026-09-21",
+      "match_id": "6273619",
+      "page_url": "/matches/central-espanol-vs-montevideo-city-torque/10a88da1#6273619",
+      "matchup": "Central Español vs Montevideo City Torque",
+      "league": "Uruguay Primera",
+      "category": "team",
+      "result": "PENDING",
+      "actual": null,
+      "resolved_at": null
+    },
+    {
+      "player": "Esteban Obregón / Salomón Rodríguez",
+      "position": "",
+      "is_sub": false,
+      "type": "Double Chance Buteur",
+      "label": "Esteban Obregón ou Salomón Rodríguez marque (Montevideo City Torque)",
+      "cote": null,
+      "book": null,
+      "books": [],
+      "confidence": 70,
+      "cote_min": 1.43,
+      "reasoning": "✈️ Combo intra-Montevideo City Torque\n📈 P(Esteban Obregón marque) ≈ 47% · P(Salomón Rodríguez marque) ≈ 46%\n🎯 P(au moins un marque) = 70% (1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.43 - chercher ≥1.43 chez le bookmaker\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+      "context": {
+        "combo_kind": "intra-away"
+      },
+      "_team_for_balance": "away",
+      "stats": {
+        "p_a": 0.472,
+        "p_b": 0.465,
+        "p_or": 0.7,
+        "player_a": "Esteban Obregón",
+        "player_b": "Salomón Rodríguez",
+        "kind": "intra-away"
+      },
+      "team": "away",
+      "tier": "safe",
+      "calibration_delta": -11.3,
+      "history_top3": true,
+      "id": "2026-09-21_6273619_player_Esteban Obregón / Salomón Rodríguez_Double Chance Buteur",
+      "date": "2026-09-21",
+      "match_id": "6273619",
+      "page_url": "/matches/central-espanol-vs-montevideo-city-torque/10a88da1#6273619",
+      "matchup": "Central Español vs Montevideo City Torque",
+      "league": "Uruguay Primera",
+      "category": "player",
       "result": "PENDING",
       "actual": null,
       "resolved_at": null,
-      "side": "home"
+      "side": "away"
     },
     {
       "player": "Andrés Vombergar / Leandro Díaz",
@@ -49505,6 +49613,117 @@
       "actual": null,
       "resolved_at": null,
       "side": "home"
+    },
+    {
+      "player": "Álex Arce / Fabrizio Sartori",
+      "position": "",
+      "is_sub": false,
+      "type": "Double Chance Buteur",
+      "label": "Álex Arce ou Fabrizio Sartori marque (Independiente Rivadavia)",
+      "cote": null,
+      "book": null,
+      "books": [],
+      "confidence": 68,
+      "cote_min": 1.47,
+      "reasoning": "✈️ Combo intra-Independiente Rivadavia\n📈 P(Álex Arce marque) ≈ 49% · P(Fabrizio Sartori marque) ≈ 38%\n🎯 P(au moins un marque) = 68% (1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.47 - chercher ≥1.47 chez le bookmaker\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
+      "context": {
+        "combo_kind": "intra-away"
+      },
+      "_team_for_balance": "away",
+      "stats": {
+        "p_a": 0.488,
+        "p_b": 0.375,
+        "p_or": 0.68,
+        "player_a": "Álex Arce",
+        "player_b": "Fabrizio Sartori",
+        "kind": "intra-away"
+      },
+      "team": "away",
+      "tier": "ok",
+      "calibration_delta": -25.4,
+      "history_top3": true,
+      "id": "2026-09-21_1000019539_player_Álex Arce / Fabrizio Sartori_Double Chance Buteur",
+      "date": "2026-09-21",
+      "match_id": "1000019539",
+      "page_url": "/matches/independiente-rivadavia-vs-barracas-central/wch83zi#1000019539",
+      "matchup": "Barracas Central vs Independiente Rivadavia",
+      "league": "Argentina Primera",
+      "category": "player",
+      "result": "PENDING",
+      "actual": null,
+      "resolved_at": null,
+      "side": "away"
+    },
+    {
+      "player": "Juan Angulo / Djorkaeff Reasco",
+      "position": "",
+      "is_sub": false,
+      "type": "Double Chance Buteur",
+      "label": "Juan Angulo ou Djorkaeff Reasco marque (Independiente del Valle)",
+      "cote": null,
+      "book": null,
+      "books": [],
+      "confidence": 70,
+      "cote_min": 1.43,
+      "reasoning": "✈️ Combo intra-Independiente del Valle\n📈 P(Juan Angulo marque) ≈ 46% · P(Djorkaeff Reasco marque) ≈ 45%\n🎯 P(au moins un marque) = 70% (1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.43 - chercher ≥1.43 chez le bookmaker\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+      "context": {
+        "combo_kind": "intra-away"
+      },
+      "_team_for_balance": "away",
+      "stats": {
+        "p_a": 0.458,
+        "p_b": 0.45,
+        "p_or": 0.702,
+        "player_a": "Juan Angulo",
+        "player_b": "Djorkaeff Reasco",
+        "kind": "intra-away"
+      },
+      "team": "away",
+      "tier": "safe",
+      "calibration_delta": -11.3,
+      "history_top3": true,
+      "id": "2026-09-22_1000022020_player_Juan Angulo / Djorkaeff Reasco_Double Chance Buteur",
+      "date": "2026-09-22",
+      "match_id": "1000022020",
+      "page_url": "/matches/barcelona-sc-vs-independiente-del-valle/94jnv5x#1000022020",
+      "matchup": "Barcelona SC vs Independiente del Valle",
+      "league": "Ecuador LigaPro",
+      "category": "player",
+      "result": "PENDING",
+      "actual": null,
+      "resolved_at": null,
+      "side": "away"
+    },
+    {
+      "direction": "away_win",
+      "type": "Victoire extérieur",
+      "label": "Independiente del Valle gagne",
+      "cote": null,
+      "confidence": 63,
+      "reasoning": "Independiente del Valle : 3V/1N/1D sur 5 matchs · #1 au classement · H2H: 1V/0N/1D · Note Sofa: 6.5/10\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
+      "stats": {
+        "form": [
+          "W",
+          "W",
+          "L",
+          "D",
+          "W"
+        ]
+      },
+      "is_fun": false,
+      "tier": "ok",
+      "calibration_delta": -25.4,
+      "history_top3": true,
+      "id": "2026-09-22_1000022020_team_away_win",
+      "date": "2026-09-22",
+      "match_id": "1000022020",
+      "page_url": "/matches/barcelona-sc-vs-independiente-del-valle/94jnv5x#1000022020",
+      "matchup": "Barcelona SC vs Independiente del Valle",
+      "league": "Ecuador LigaPro",
+      "category": "team",
+      "result": "PENDING",
+      "actual": null,
+      "resolved_at": null
     },
     {
       "player": "Amiran Dzagania / Jemali-Giorgi Jinjolava",
@@ -49681,6 +49900,39 @@
       "actual": null,
       "resolved_at": null,
       "side": "away"
+    },
+    {
+      "player": "Marcelino Moreno",
+      "position": "M",
+      "is_sub": false,
+      "type": "Buteur",
+      "label": "Marcelino Moreno marque",
+      "team": "home",
+      "cote": null,
+      "book": null,
+      "books": [],
+      "confidence": 32,
+      "reasoning": "3G en 9 matchs (33.3%/match) · xG: 0.36/match",
+      "context": {
+        "weakness": 0.27
+      },
+      "stats": {
+        "goals": 3,
+        "apps": 9
+      },
+      "tier": "fun",
+      "history_top3": true,
+      "id": "2026-09-22_1000019531_player_Marcelino Moreno_Buteur",
+      "date": "2026-09-22",
+      "match_id": "1000019531",
+      "page_url": "/matches/lanus-vs-estudiantes/3d6wk6#1000019531",
+      "matchup": "Lanús vs Estudiantes",
+      "league": "Argentina Primera",
+      "category": "player",
+      "result": "PENDING",
+      "actual": null,
+      "resolved_at": null,
+      "side": "home"
     }
   ]
 }
