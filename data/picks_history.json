@@ -50002,6 +50002,108 @@
       "resolved_at": null
     },
     {
+      "player": "Martin Stojanov / Ivan Gligorov",
+      "position": "",
+      "is_sub": false,
+      "type": "Double Chance Buteur",
+      "label": "Martin Stojanov ou Ivan Gligorov marque (FK Bregalnica Štip)",
+      "cote": null,
+      "book": null,
+      "books": [],
+      "confidence": 69,
+      "cote_min": 1.45,
+      "reasoning": "🏠 Combo intra-FK Bregalnica Štip\n📈 P(Martin Stojanov marque) ≈ 44% · P(Ivan Gligorov marque) ≈ 44%\n🎯 P(au moins un marque) = 69% (1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.45 - chercher ≥1.45 chez le bookmaker\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
+      "context": {
+        "combo_kind": "intra-home"
+      },
+      "_team_for_balance": "home",
+      "stats": {
+        "p_a": 0.442,
+        "p_b": 0.442,
+        "p_or": 0.689,
+        "player_a": "Martin Stojanov",
+        "player_b": "Ivan Gligorov",
+        "kind": "intra-home"
+      },
+      "team": "home",
+      "tier": "ok",
+      "calibration_delta": -25.4,
+      "history_top3": true,
+      "id": "2026-09-23_5804939_player_Martin Stojanov / Ivan Gligorov_Double Chance Buteur",
+      "date": "2026-09-23",
+      "match_id": "5804939",
+      "page_url": "/matches/fk-bregalnica-stip-vs-fk-skopje/8slatv1#5804939",
+      "matchup": "FK Bregalnica Štip vs FK Skopje",
+      "league": "Macedonian Prva",
+      "category": "player",
+      "result": "PENDING",
+      "actual": null,
+      "resolved_at": null,
+      "side": "home"
+    },
+    {
+      "direction": "over25",
+      "type": "Total buts",
+      "label": "Plus de 2.5 buts",
+      "cote": null,
+      "confidence": 62,
+      "reasoning": "Attendu 3.2 buts au total (Azerbaijan ~1.6, Tajikistan ~1.6) - P(>2.5) ~62%\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
+      "stats": {
+        "form": [
+          "W",
+          "L",
+          "D",
+          "W",
+          "L"
+        ]
+      },
+      "is_fun": false,
+      "tier": "ok",
+      "calibration_delta": -25.4,
+      "history_top3": true,
+      "id": "2026-09-23_6140728_team_over25",
+      "date": "2026-09-23",
+      "match_id": "6140728",
+      "page_url": "/matches/tajikistan-vs-azerbaijan/1qacvq#6140728",
+      "matchup": "Azerbaijan vs Tajikistan",
+      "league": "Friendlies",
+      "category": "team",
+      "result": "PENDING",
+      "actual": null,
+      "resolved_at": null
+    },
+    {
+      "direction": "away_over_15",
+      "type": "Buteur equipe",
+      "label": "Tajikistan marque plus de 1.5 buts",
+      "cote": null,
+      "confidence": 52,
+      "reasoning": "Tajikistan attendu a ~1.6 buts (marque 2.6/m sur L5, Azerbaijan encaisse 1.6/m) - P(2+ buts) ~47%\n📉 Calibration : bucket 50-59% historiquement à WR 42% (claim 55%, n=41) — sur-estimé de 14pp",
+      "stats": {
+        "form": [
+          "D",
+          "W",
+          "D",
+          "W",
+          "W"
+        ]
+      },
+      "is_fun": false,
+      "tier": "fun",
+      "calibration_delta": -13.6,
+      "history_top3": true,
+      "id": "2026-09-23_6140728_team_away_over_15",
+      "date": "2026-09-23",
+      "match_id": "6140728",
+      "page_url": "/matches/tajikistan-vs-azerbaijan/1qacvq#6140728",
+      "matchup": "Azerbaijan vs Tajikistan",
+      "league": "Friendlies",
+      "category": "team",
+      "result": "PENDING",
+      "actual": null,
+      "resolved_at": null
+    },
+    {
       "direction": "home_win",
       "type": "Victoire domicile",
       "label": "Santa Fe gagne",
