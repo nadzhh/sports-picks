@@ -2888,14 +2888,14 @@
       "cup_gf_pm": 0,
       "cup_ga_pm": 0,
       "cup_n": 0,
-      "shots_pm": 12.4,
+      "shots_pm": 11.4,
       "shots_l5": 12.4,
       "shots_l10": 12.2,
       "shots_season": null,
       "opp_shots_l5": 14.0,
       "opp_shots_l10": 14.2,
-      "shots_l5_lg": 14.5,
-      "shots_l10_lg": 12.4,
+      "shots_l5_lg": 12.4,
+      "shots_l10_lg": 11.4,
       "opp_shots_l5_lg": 14.0,
       "opp_shots_l10_lg": 14.6,
       "sot_pm": 5.3,
@@ -2904,9 +2904,9 @@
       "sot_season": 5.3,
       "opp_sot_l5": 4.8,
       "opp_sot_l10": 4.5,
-      "sot_l5_lg": 5.5,
-      "sot_l10_lg": 5.1,
-      "opp_sot_l5_lg": 5.0,
+      "sot_l5_lg": 4.4,
+      "sot_l10_lg": 4.6,
+      "opp_sot_l5_lg": 4.8,
       "opp_sot_l10_lg": 4.6,
       "xg_pm": 1.62,
       "xg_l5": 1.41,
@@ -2914,17 +2914,17 @@
       "xg_season": 1.62,
       "opp_xg_l5": 1.71,
       "opp_xg_l10": 1.74,
-      "xg_l5_lg": 1.73,
-      "xg_l10_lg": 1.43,
+      "xg_l5_lg": 1.41,
+      "xg_l10_lg": 1.29,
       "shots_n_l5": 5,
       "shots_n_l10": 10,
-      "shots_n_l5_lg": 4,
-      "shots_n_l10_lg": 8,
+      "shots_n_l5_lg": 5,
+      "shots_n_l10_lg": 9,
       "shots_source": "tcc",
-      "shots_weighted": 12.0,
-      "sot_weighted": 5.1,
-      "xg_weighted": 1.38,
-      "opp_shots_weighted": 14.3,
+      "shots_weighted": 11.2,
+      "sot_weighted": 4.6,
+      "xg_weighted": 1.26,
+      "opp_shots_weighted": 14.2,
       "opp_sot_weighted": 4.2,
       "avg_opp_rank_l10": 11.7,
       "target_opp_rank": 23,
@@ -2948,14 +2948,14 @@
       "opp_xg_l10_all": 1.74,
       "shots_home": 15.2,
       "shots_home_n": 5,
-      "shots_away": 7.7,
-      "shots_away_n": 3,
+      "shots_away": 6.8,
+      "shots_away_n": 4,
       "sot_home": 6.4,
-      "sot_away": 3.0,
+      "sot_away": 2.2,
       "xg_home": 1.91,
-      "xg_away": 0.64,
+      "xg_away": 0.52,
       "opp_shots_home": 14.4,
-      "opp_shots_away": 15.0,
+      "opp_shots_away": 14.8,
       "shots_trend": "",
       "xg_conc_pm": 1.54,
       "corners_pm": 4.92,
@@ -3353,18 +3353,25 @@
         "gf": 0,
         "ga": 1,
         "result": "L",
-        "data_valid": false,
+        "data_valid": true,
         "match_id": "5071313",
         "page_url": "/matches/real-salt-lake-vs-colorado-rapids/1u9y9q#5071313",
         "team_id_str": "6606",
-        "team_shots": null,
-        "opp_shots": null,
-        "team_sot": null,
-        "opp_sot": null,
-        "team_xg": null,
-        "opp_xg": null,
+        "team_shots": 4.0,
+        "opp_shots": 14.0,
+        "team_sot": 0.0,
+        "opp_sot": 4.0,
+        "team_xg": 0.14,
+        "opp_xg": 1.6,
         "goals": [],
-        "opp_goals": []
+        "opp_goals": [
+          {
+            "scorer": "Reggie Cannon",
+            "assist": "Youssef Maziz",
+            "minute": 58,
+            "ownGoal": false
+          }
+        ]
       }
     ],
     "home_decisive_l5": [
@@ -9630,13 +9637,13 @@
         "goals": [],
         "opp_goals": [
           {
-            "scorer": "<TBD>",
+            "scorer": "Raphael Lea'i",
             "assist": null,
             "minute": 76,
             "ownGoal": false
           },
           {
-            "scorer": "<TBD>",
+            "scorer": "Javin Wae",
             "assist": null,
             "minute": 90,
             "ownGoal": false
@@ -11945,6 +11952,15 @@
         "starters": [],
         "unavailable": [
           {
+            "id": 980311,
+            "name": "Gonzalo Plata",
+            "type": "injury",
+            "return": "Early October 2026",
+            "rating": null,
+            "goals": null,
+            "assists": null
+          },
+          {
             "id": 1137668,
             "name": "Moisés Caicedo",
             "type": "injury",
@@ -13678,7 +13694,7 @@
           {
             "id": 1131987,
             "name": "Bart Verbruggen",
-            "shirt": "1",
+            "shirt": null,
             "pos_id": 11,
             "rating": null,
             "goals": null,
@@ -13688,8 +13704,18 @@
           {
             "id": 593118,
             "name": "Denzel Dumfries",
-            "shirt": "22",
+            "shirt": null,
             "pos_id": 32,
+            "rating": null,
+            "goals": null,
+            "assists": null,
+            "apps": null
+          },
+          {
+            "id": 974618,
+            "name": "Jan Paul van Hecke",
+            "shirt": null,
+            "pos_id": 34,
             "rating": null,
             "goals": null,
             "assists": null,
@@ -13698,8 +13724,8 @@
           {
             "id": 209405,
             "name": "Virgil van Dijk",
-            "shirt": "4",
-            "pos_id": 34,
+            "shirt": null,
+            "pos_id": 36,
             "rating": null,
             "goals": null,
             "assists": null,
@@ -13708,28 +13734,8 @@
           {
             "id": 1097466,
             "name": "Micky van de Ven",
-            "shirt": "15",
-            "pos_id": 36,
-            "rating": null,
-            "goals": null,
-            "assists": null,
-            "apps": null
-          },
-          {
-            "id": 417068,
-            "name": "Nathan Aké",
-            "shirt": "5",
+            "shirt": null,
             "pos_id": 38,
-            "rating": null,
-            "goals": null,
-            "assists": null,
-            "apps": null
-          },
-          {
-            "id": 956683,
-            "name": "Ryan Gravenberch",
-            "shirt": "8",
-            "pos_id": 73,
             "rating": null,
             "goals": null,
             "assists": null,
@@ -13738,7 +13744,17 @@
           {
             "id": 792429,
             "name": "Joey Veerman",
-            "shirt": "25",
+            "shirt": null,
+            "pos_id": 73,
+            "rating": null,
+            "goals": null,
+            "assists": null,
+            "apps": null
+          },
+          {
+            "id": 956683,
+            "name": "Ryan Gravenberch",
+            "shirt": null,
             "pos_id": 75,
             "rating": null,
             "goals": null,
@@ -13748,7 +13764,7 @@
           {
             "id": 868344,
             "name": "Tijjani Reijnders",
-            "shirt": "14",
+            "shirt": null,
             "pos_id": 77,
             "rating": null,
             "goals": null,
@@ -13756,9 +13772,9 @@
             "apps": null
           },
           {
-            "id": 966018,
-            "name": "Jeremie Frimpong",
-            "shirt": "12",
+            "id": 941213,
+            "name": "Crysencio Summerville",
+            "shirt": null,
             "pos_id": 103,
             "rating": null,
             "goals": null,
@@ -13768,7 +13784,7 @@
           {
             "id": 940446,
             "name": "Brian Brobbey",
-            "shirt": "19",
+            "shirt": null,
             "pos_id": 105,
             "rating": null,
             "goals": null,
@@ -13778,7 +13794,7 @@
           {
             "id": 806552,
             "name": "Cody Gakpo",
-            "shirt": "11",
+            "shirt": null,
             "pos_id": 107,
             "rating": null,
             "goals": null,
@@ -13805,9 +13821,9 @@
         "coach": "Jürgen Klopp",
         "starters": [
           {
-            "id": 554534,
-            "name": "Alexander Nübel",
-            "shirt": "21",
+            "id": 184554,
+            "name": "Marc ter Stegen",
+            "shirt": null,
             "pos_id": 11,
             "rating": null,
             "goals": null,
@@ -13815,20 +13831,10 @@
             "apps": null
           },
           {
-            "id": 460632,
-            "name": "Joshua Kimmich",
-            "shirt": "6",
+            "id": 928454,
+            "name": "Josha Vagnoman",
+            "shirt": null,
             "pos_id": 32,
-            "rating": null,
-            "goals": null,
-            "assists": null,
-            "apps": null
-          },
-          {
-            "id": 1002058,
-            "name": "Nico Schlotterbeck",
-            "shirt": "15",
-            "pos_id": 34,
             "rating": null,
             "goals": null,
             "assists": null,
@@ -13837,7 +13843,17 @@
           {
             "id": 469700,
             "name": "Jonathan Tah",
-            "shirt": "4",
+            "shirt": null,
+            "pos_id": 34,
+            "rating": null,
+            "goals": null,
+            "assists": null,
+            "apps": null
+          },
+          {
+            "id": 1002058,
+            "name": "Nico Schlotterbeck",
+            "shirt": null,
             "pos_id": 36,
             "rating": null,
             "goals": null,
@@ -13847,7 +13863,7 @@
           {
             "id": 1395447,
             "name": "Nathaniel Brown",
-            "shirt": "18",
+            "shirt": null,
             "pos_id": 38,
             "rating": null,
             "goals": null,
@@ -13855,9 +13871,9 @@
             "apps": null
           },
           {
-            "id": 966019,
-            "name": "Felix Nmecha",
-            "shirt": "23",
+            "id": 460632,
+            "name": "Joshua Kimmich",
+            "shirt": null,
             "pos_id": 64,
             "rating": null,
             "goals": null,
@@ -13865,20 +13881,10 @@
             "apps": null
           },
           {
-            "id": 614449,
-            "name": "Nadiem Amiri",
-            "shirt": "20",
+            "id": 1473580,
+            "name": "Aleksandar Pavlović",
+            "shirt": null,
             "pos_id": 66,
-            "rating": null,
-            "goals": null,
-            "assists": null,
-            "apps": null
-          },
-          {
-            "id": 385437,
-            "name": "Serge Gnabry",
-            "shirt": "22",
-            "pos_id": 83,
             "rating": null,
             "goals": null,
             "assists": null,
@@ -13887,8 +13893,8 @@
           {
             "id": 1737700,
             "name": "Lennart Karl",
-            "shirt": "25",
-            "pos_id": 85,
+            "shirt": null,
+            "pos_id": 83,
             "rating": null,
             "goals": null,
             "assists": null,
@@ -13897,7 +13903,17 @@
           {
             "id": 1156141,
             "name": "Jamal Musiala",
-            "shirt": "10",
+            "shirt": null,
+            "pos_id": 85,
+            "rating": null,
+            "goals": null,
+            "assists": null,
+            "apps": null
+          },
+          {
+            "id": 1152455,
+            "name": "Florian Wirtz",
+            "shirt": null,
             "pos_id": 87,
             "rating": null,
             "goals": null,
@@ -13907,7 +13923,7 @@
           {
             "id": 749736,
             "name": "Kai Havertz",
-            "shirt": "7",
+            "shirt": null,
             "pos_id": 115,
             "rating": null,
             "goals": null,
@@ -14311,7 +14327,7 @@
           {
             "id": 73409,
             "name": "Ørjan Håskjold Nyland",
-            "shirt": "1",
+            "shirt": null,
             "pos_id": 11,
             "rating": null,
             "goals": null,
@@ -14321,7 +14337,7 @@
           {
             "id": 659272,
             "name": "Julian Ryerson",
-            "shirt": "26",
+            "shirt": null,
             "pos_id": 32,
             "rating": null,
             "goals": null,
@@ -14331,7 +14347,7 @@
           {
             "id": 552718,
             "name": "Kristoffer Ajer",
-            "shirt": "3",
+            "shirt": null,
             "pos_id": 34,
             "rating": null,
             "goals": null,
@@ -14339,9 +14355,9 @@
             "apps": null
           },
           {
-            "id": 935550,
-            "name": "Torbjørn Heggem",
-            "shirt": "17",
+            "id": 740944,
+            "name": "Leo Østigard",
+            "shirt": null,
             "pos_id": 36,
             "rating": null,
             "goals": null,
@@ -14351,7 +14367,7 @@
           {
             "id": 1049679,
             "name": "David Møller Wolfe",
-            "shirt": "5",
+            "shirt": null,
             "pos_id": 38,
             "rating": null,
             "goals": null,
@@ -14361,7 +14377,7 @@
           {
             "id": 534670,
             "name": "Martin Ødegaard",
-            "shirt": "10",
+            "shirt": null,
             "pos_id": 73,
             "rating": null,
             "goals": null,
@@ -14371,7 +14387,7 @@
           {
             "id": 540963,
             "name": "Sander Berge",
-            "shirt": "8",
+            "shirt": null,
             "pos_id": 75,
             "rating": null,
             "goals": null,
@@ -14381,7 +14397,7 @@
           {
             "id": 530635,
             "name": "Patrick Berg",
-            "shirt": "6",
+            "shirt": null,
             "pos_id": 77,
             "rating": null,
             "goals": null,
@@ -14389,9 +14405,9 @@
             "apps": null
           },
           {
-            "id": 1248482,
-            "name": "Antonio Nusa",
-            "shirt": "20",
+            "id": 1113790,
+            "name": "Oscar Bobb",
+            "shirt": null,
             "pos_id": 103,
             "rating": null,
             "goals": null,
@@ -14401,7 +14417,7 @@
           {
             "id": 737066,
             "name": "Erling Haaland",
-            "shirt": "9",
+            "shirt": null,
             "pos_id": 105,
             "rating": null,
             "goals": null,
@@ -14409,9 +14425,9 @@
             "apps": null
           },
           {
-            "id": 1228558,
-            "name": "Andreas Schjelderup",
-            "shirt": "21",
+            "id": 1248482,
+            "name": "Antonio Nusa",
+            "shirt": null,
             "pos_id": 107,
             "rating": null,
             "goals": null,
@@ -14430,7 +14446,7 @@
           {
             "id": 967941,
             "name": "Mads Hermansen",
-            "shirt": "16",
+            "shirt": null,
             "pos_id": 11,
             "rating": null,
             "goals": null,
@@ -14438,9 +14454,9 @@
             "apps": null
           },
           {
-            "id": 734287,
-            "name": "Alexander Bah",
-            "shirt": "18",
+            "id": 1329665,
+            "name": "Anton Gaaei",
+            "shirt": null,
             "pos_id": 32,
             "rating": null,
             "goals": null,
@@ -14450,7 +14466,7 @@
           {
             "id": 503659,
             "name": "Joachim Andersen",
-            "shirt": "2",
+            "shirt": null,
             "pos_id": 34,
             "rating": null,
             "goals": null,
@@ -14458,9 +14474,9 @@
             "apps": null
           },
           {
-            "id": 1333331,
-            "name": "Oliver Provstgaard",
-            "shirt": "3",
+            "id": 776594,
+            "name": "Victor Nelsson",
+            "shirt": null,
             "pos_id": 36,
             "rating": null,
             "goals": null,
@@ -14468,9 +14484,9 @@
             "apps": null
           },
           {
-            "id": 1526560,
-            "name": "Patrick Dorgu",
-            "shirt": "17",
+            "id": 759097,
+            "name": "Joakim Mæhle",
+            "shirt": null,
             "pos_id": 38,
             "rating": null,
             "goals": null,
@@ -14480,7 +14496,7 @@
           {
             "id": 266523,
             "name": "Pierre-Emile Højbjerg",
-            "shirt": "23",
+            "shirt": null,
             "pos_id": 73,
             "rating": null,
             "goals": null,
@@ -14490,7 +14506,7 @@
           {
             "id": 950199,
             "name": "Morten Hjulmand",
-            "shirt": "21",
+            "shirt": null,
             "pos_id": 75,
             "rating": null,
             "goals": null,
@@ -14498,9 +14514,9 @@
             "apps": null
           },
           {
-            "id": 1081025,
-            "name": "Mads Bidstrup",
-            "shirt": "14",
+            "id": 1436856,
+            "name": "Victor Froholdt",
+            "shirt": null,
             "pos_id": 77,
             "rating": null,
             "goals": null,
@@ -14510,7 +14526,7 @@
           {
             "id": 1016093,
             "name": "Gustav Isaksen",
-            "shirt": "8",
+            "shirt": null,
             "pos_id": 103,
             "rating": null,
             "goals": null,
@@ -14520,7 +14536,7 @@
           {
             "id": 1199272,
             "name": "Rasmus Højlund",
-            "shirt": "9",
+            "shirt": null,
             "pos_id": 105,
             "rating": null,
             "goals": null,
@@ -14530,7 +14546,7 @@
           {
             "id": 888912,
             "name": "Mikkel Damsgaard",
-            "shirt": "14",
+            "shirt": null,
             "pos_id": 107,
             "rating": null,
             "goals": null,
@@ -14539,6 +14555,15 @@
           }
         ],
         "unavailable": [
+          {
+            "id": 734287,
+            "name": "Alexander Bah",
+            "type": "injury",
+            "return": "Late October 2026",
+            "rating": null,
+            "goals": null,
+            "assists": null
+          },
           {
             "id": 640742,
             "name": "Kasper Dolberg",
@@ -14839,34 +14864,34 @@
       "cup_n": 0,
       "shots_pm": null,
       "shots_l5": 17.4,
-      "shots_l10": 15.5,
+      "shots_l10": 15.1,
       "shots_season": null,
       "opp_shots_l5": 12.6,
-      "opp_shots_l10": 12.4,
+      "opp_shots_l10": 13.7,
       "shots_l5_lg": null,
       "shots_l10_lg": null,
       "opp_shots_l5_lg": null,
       "opp_shots_l10_lg": null,
       "sot_pm": 0,
       "sot_l5": 5.6,
-      "sot_l10": 5.0,
+      "sot_l10": 4.7,
       "sot_season": 0,
       "opp_sot_l5": 4.8,
-      "opp_sot_l10": 4.4,
+      "opp_sot_l10": 5.0,
       "sot_l5_lg": null,
       "sot_l10_lg": null,
       "opp_sot_l5_lg": null,
       "opp_sot_l10_lg": null,
       "xg_pm": 0,
       "xg_l5": 2.48,
-      "xg_l10": 2.16,
+      "xg_l10": 1.93,
       "xg_season": 0,
       "opp_xg_l5": 0.86,
-      "opp_xg_l10": 1.27,
+      "opp_xg_l10": 1.61,
       "xg_l5_lg": null,
       "xg_l10_lg": null,
       "shots_n_l5": 5,
-      "shots_n_l10": 8,
+      "shots_n_l10": 7,
       "shots_n_l5_lg": 0,
       "shots_n_l10_lg": 0,
       "shots_source": "tcc",
@@ -14878,23 +14903,23 @@
       "avg_opp_rank_l10": null,
       "target_opp_rank": 3,
       "all_comp_n_l5": 5,
-      "all_comp_n_l10": 8,
+      "all_comp_n_l10": 7,
       "shots_l5_all": 17.4,
-      "shots_l10_all": 15.5,
+      "shots_l10_all": 15.1,
       "sot_l5_all": 5.6,
-      "sot_l10_all": 5.0,
+      "sot_l10_all": 4.7,
       "xg_l5_all": 2.48,
-      "xg_l10_all": 2.16,
+      "xg_l10_all": 1.93,
       "goals_for_l5_all": 2.2,
       "goals_for_l10_all": 1.75,
       "goals_ag_l5_all": 1.2,
       "goals_ag_l10_all": 1.62,
       "opp_shots_l5_all": 12.6,
-      "opp_shots_l10_all": 12.4,
+      "opp_shots_l10_all": 13.7,
       "opp_sot_l5_all": 4.8,
-      "opp_sot_l10_all": 4.4,
+      "opp_sot_l10_all": 5.0,
       "opp_xg_l5_all": 0.86,
-      "opp_xg_l10_all": 1.27,
+      "opp_xg_l10_all": 1.61,
       "shots_home": null,
       "shots_home_n": 0,
       "shots_away": null,
@@ -14982,9 +15007,9 @@
             "apps": null
           },
           {
-            "id": 534684,
-            "name": "Rúben Neves",
-            "shirt": "21",
+            "id": 1342757,
+            "name": "João Neves",
+            "shirt": "15",
             "pos_id": 64,
             "rating": null,
             "goals": null,
@@ -15141,9 +15166,9 @@
             "apps": null
           },
           {
-            "id": 760329,
-            "name": "Nathan Broadhead",
-            "shirt": "23",
+            "id": 717176,
+            "name": "Daniel James",
+            "shirt": "20",
             "pos_id": 87,
             "rating": null,
             "goals": null,
@@ -15162,6 +15187,15 @@
           }
         ],
         "unavailable": [
+          {
+            "id": 760329,
+            "name": "Nathan Broadhead",
+            "type": "injury",
+            "return": "Early October 2026",
+            "rating": null,
+            "goals": null,
+            "assists": null
+          },
           {
             "id": 1226630,
             "name": "Isaak Davies",
@@ -15265,21 +15299,21 @@
       "cup_ga_pm": 0,
       "cup_n": 0,
       "shots_pm": null,
-      "shots_l5": 11.6,
-      "shots_l10": 12.6,
+      "shots_l5": 13.8,
+      "shots_l10": 14.0,
       "shots_season": null,
-      "opp_shots_l5": 10.2,
-      "opp_shots_l10": 9.9,
+      "opp_shots_l5": 8.5,
+      "opp_shots_l10": 8.9,
       "shots_l5_lg": null,
       "shots_l10_lg": null,
       "opp_shots_l5_lg": null,
       "opp_shots_l10_lg": null,
       "sot_pm": 0,
-      "sot_l5": 4.2,
-      "sot_l10": 4.0,
+      "sot_l5": 5.0,
+      "sot_l10": 4.4,
       "sot_season": 0,
-      "opp_sot_l5": 5.2,
-      "opp_sot_l10": 4.6,
+      "opp_sot_l5": 4.8,
+      "opp_sot_l10": 4.3,
       "sot_l5_lg": null,
       "sot_l10_lg": null,
       "opp_sot_l5_lg": null,
@@ -15292,8 +15326,8 @@
       "opp_xg_l10": 0.89,
       "xg_l5_lg": null,
       "xg_l10_lg": null,
-      "shots_n_l5": 5,
-      "shots_n_l10": 8,
+      "shots_n_l5": 4,
+      "shots_n_l10": 7,
       "shots_n_l5_lg": 0,
       "shots_n_l10_lg": 0,
       "shots_source": "tcc",
@@ -15304,22 +15338,22 @@
       "opp_sot_weighted": null,
       "avg_opp_rank_l10": null,
       "target_opp_rank": 2,
-      "all_comp_n_l5": 5,
-      "all_comp_n_l10": 8,
-      "shots_l5_all": 11.6,
-      "shots_l10_all": 12.6,
-      "sot_l5_all": 4.2,
-      "sot_l10_all": 4.0,
+      "all_comp_n_l5": 4,
+      "all_comp_n_l10": 7,
+      "shots_l5_all": 13.8,
+      "shots_l10_all": 14.0,
+      "sot_l5_all": 5.0,
+      "sot_l10_all": 4.4,
       "xg_l5_all": 1.96,
       "xg_l10_all": 1.54,
       "goals_for_l5_all": 1.0,
       "goals_for_l10_all": 1.0,
       "goals_ag_l5_all": 2.6,
       "goals_ag_l10_all": 2.12,
-      "opp_shots_l5_all": 10.2,
-      "opp_shots_l10_all": 9.9,
-      "opp_sot_l5_all": 5.2,
-      "opp_sot_l10_all": 4.6,
+      "opp_shots_l5_all": 8.5,
+      "opp_shots_l10_all": 8.9,
+      "opp_sot_l5_all": 4.8,
+      "opp_sot_l10_all": 4.3,
       "opp_xg_l5_all": 1.27,
       "opp_xg_l10_all": 0.89,
       "shots_home": null,
@@ -15475,8 +15509,18 @@
           {
             "id": 543021,
             "name": "Vanja Milinković-Savić",
-            "shirt": "23",
+            "shirt": null,
             "pos_id": 11,
+            "rating": null,
+            "goals": null,
+            "assists": null,
+            "apps": null
+          },
+          {
+            "id": 1513910,
+            "name": "Kosta Nedeljković",
+            "shirt": null,
+            "pos_id": 32,
             "rating": null,
             "goals": null,
             "assists": null,
@@ -15485,17 +15529,7 @@
           {
             "id": 1122595,
             "name": "Strahinja Eraković",
-            "shirt": "2",
-            "pos_id": 32,
-            "rating": null,
-            "goals": null,
-            "assists": null,
-            "apps": null
-          },
-          {
-            "id": 1671265,
-            "name": "Nikola Simić",
-            "shirt": "4",
+            "shirt": null,
             "pos_id": 34,
             "rating": null,
             "goals": null,
@@ -15505,7 +15539,7 @@
           {
             "id": 1048023,
             "name": "Strahinja Pavlović",
-            "shirt": "3",
+            "shirt": null,
             "pos_id": 36,
             "rating": null,
             "goals": null,
@@ -15513,9 +15547,9 @@
             "apps": null
           },
           {
-            "id": 281012,
-            "name": "Filip Kostić",
-            "shirt": "11",
+            "id": 1515182,
+            "name": "Stefan Bukinac",
+            "shirt": null,
             "pos_id": 38,
             "rating": null,
             "goals": null,
@@ -15525,7 +15559,7 @@
           {
             "id": 556972,
             "name": "Saša Lukić",
-            "shirt": "10",
+            "shirt": null,
             "pos_id": 64,
             "rating": null,
             "goals": null,
@@ -15533,9 +15567,9 @@
             "apps": null
           },
           {
-            "id": 1761677,
-            "name": "Vanja Dragojević",
-            "shirt": "5",
+            "id": 463301,
+            "name": "Sergej Milinković-Savić",
+            "shirt": null,
             "pos_id": 66,
             "rating": null,
             "goals": null,
@@ -15545,18 +15579,8 @@
           {
             "id": 463268,
             "name": "Andrija Živković",
-            "shirt": "14",
+            "shirt": null,
             "pos_id": 83,
-            "rating": null,
-            "goals": null,
-            "assists": null,
-            "apps": null
-          },
-          {
-            "id": 1050178,
-            "name": "Lazar Samardžić",
-            "shirt": "20",
-            "pos_id": 85,
             "rating": null,
             "goals": null,
             "assists": null,
@@ -15565,7 +15589,17 @@
           {
             "id": 94267,
             "name": "Dušan Tadić",
-            "shirt": "7",
+            "shirt": null,
+            "pos_id": 85,
+            "rating": null,
+            "goals": null,
+            "assists": null,
+            "apps": null
+          },
+          {
+            "id": 281012,
+            "name": "Filip Kostić",
+            "shirt": null,
             "pos_id": 87,
             "rating": null,
             "goals": null,
@@ -15573,9 +15607,9 @@
             "apps": null
           },
           {
-            "id": 737857,
-            "name": "Dušan Vlahović",
-            "shirt": "9",
+            "id": 463291,
+            "name": "Luka Jović",
+            "shirt": null,
             "pos_id": 115,
             "rating": null,
             "goals": null,
@@ -15604,7 +15638,7 @@
           {
             "id": 1072068,
             "name": "Konstantinos Tzolakis",
-            "shirt": "12",
+            "shirt": null,
             "pos_id": 11,
             "rating": null,
             "goals": null,
@@ -15614,7 +15648,7 @@
           {
             "id": 1119687,
             "name": "Georgios Vagiannidis",
-            "shirt": "2",
+            "shirt": null,
             "pos_id": 32,
             "rating": null,
             "goals": null,
@@ -15624,7 +15658,7 @@
           {
             "id": 1337884,
             "name": "Konstantinos Koulierakis",
-            "shirt": "3",
+            "shirt": null,
             "pos_id": 34,
             "rating": null,
             "goals": null,
@@ -15634,7 +15668,7 @@
           {
             "id": 719219,
             "name": "Konstantinos Mavropanos",
-            "shirt": "4",
+            "shirt": null,
             "pos_id": 36,
             "rating": null,
             "goals": null,
@@ -15644,7 +15678,7 @@
           {
             "id": 671529,
             "name": "Konstantinos Tsimikas",
-            "shirt": "21",
+            "shirt": null,
             "pos_id": 38,
             "rating": null,
             "goals": null,
@@ -15654,7 +15688,7 @@
           {
             "id": 1124529,
             "name": "Christos Zafeiris",
-            "shirt": "16",
+            "shirt": null,
             "pos_id": 64,
             "rating": null,
             "goals": null,
@@ -15664,7 +15698,7 @@
           {
             "id": 1574198,
             "name": "Christos Mouzakitis",
-            "shirt": "8",
+            "shirt": null,
             "pos_id": 66,
             "rating": null,
             "goals": null,
@@ -15674,7 +15708,7 @@
           {
             "id": 575227,
             "name": "Giorgos Masouras",
-            "shirt": "7",
+            "shirt": null,
             "pos_id": 83,
             "rating": null,
             "goals": null,
@@ -15684,7 +15718,7 @@
           {
             "id": 1536436,
             "name": "Konstantinos Karetsas",
-            "shirt": "19",
+            "shirt": null,
             "pos_id": 85,
             "rating": null,
             "goals": null,
@@ -15694,7 +15728,7 @@
           {
             "id": 1157237,
             "name": "Christos Tzolis",
-            "shirt": "10",
+            "shirt": null,
             "pos_id": 87,
             "rating": null,
             "goals": null,
@@ -15704,7 +15738,7 @@
           {
             "id": 873270,
             "name": "Anastasios Douvikas",
-            "shirt": "9",
+            "shirt": null,
             "pos_id": 115,
             "rating": null,
             "goals": null,
@@ -16023,7 +16057,7 @@
           {
             "id": 450739,
             "name": "Alexander Schlager",
-            "shirt": "1",
+            "shirt": null,
             "pos_id": 11,
             "rating": null,
             "goals": null,
@@ -16031,10 +16065,20 @@
             "apps": null
           },
           {
-            "id": 951498,
-            "name": "Felix Bacher",
-            "shirt": "19",
+            "id": 557325,
+            "name": "Stefan Posch",
+            "shirt": null,
             "pos_id": 32,
+            "rating": null,
+            "goals": null,
+            "assists": null,
+            "apps": null
+          },
+          {
+            "id": 643724,
+            "name": "Philipp Lienhart",
+            "shirt": null,
+            "pos_id": 34,
             "rating": null,
             "goals": null,
             "assists": null,
@@ -16043,17 +16087,7 @@
           {
             "id": 754126,
             "name": "Kevin Danso",
-            "shirt": "3",
-            "pos_id": 34,
-            "rating": null,
-            "goals": null,
-            "assists": null,
-            "apps": null
-          },
-          {
-            "id": 767789,
-            "name": "Marco Friedl",
-            "shirt": "23",
+            "shirt": null,
             "pos_id": 36,
             "rating": null,
             "goals": null,
@@ -16061,9 +16095,9 @@
             "apps": null
           },
           {
-            "id": 1027194,
-            "name": "Alexander Prass",
-            "shirt": "22",
+            "id": 423812,
+            "name": "Phillipp Mwene",
+            "shirt": null,
             "pos_id": 38,
             "rating": null,
             "goals": null,
@@ -16073,7 +16107,7 @@
           {
             "id": 1024672,
             "name": "Nicolas Seiwald",
-            "shirt": "6",
+            "shirt": null,
             "pos_id": 64,
             "rating": null,
             "goals": null,
@@ -16083,7 +16117,7 @@
           {
             "id": 620027,
             "name": "Xaver Schlager",
-            "shirt": "4",
+            "shirt": null,
             "pos_id": 66,
             "rating": null,
             "goals": null,
@@ -16093,7 +16127,7 @@
           {
             "id": 1327149,
             "name": "Paul Wanner",
-            "shirt": "24",
+            "shirt": null,
             "pos_id": 83,
             "rating": null,
             "goals": null,
@@ -16103,7 +16137,7 @@
           {
             "id": 749488,
             "name": "Romano Schmid",
-            "shirt": "18",
+            "shirt": null,
             "pos_id": 85,
             "rating": null,
             "goals": null,
@@ -16113,7 +16147,7 @@
           {
             "id": 1073498,
             "name": "Patrick Wimmer",
-            "shirt": "21",
+            "shirt": null,
             "pos_id": 87,
             "rating": null,
             "goals": null,
@@ -16123,7 +16157,7 @@
           {
             "id": 198316,
             "name": "Michael Gregoritsch",
-            "shirt": "11",
+            "shirt": null,
             "pos_id": 115,
             "rating": null,
             "goals": null,
@@ -16161,7 +16195,7 @@
           {
             "id": 949321,
             "name": "Daniel Peretz",
-            "shirt": "1",
+            "shirt": null,
             "pos_id": 11,
             "rating": null,
             "goals": null,
@@ -16171,7 +16205,7 @@
           {
             "id": 451209,
             "name": "Eliazer Dasa",
-            "shirt": "2",
+            "shirt": null,
             "pos_id": 32,
             "rating": null,
             "goals": null,
@@ -16181,7 +16215,7 @@
           {
             "id": 1477873,
             "name": "Ilay Feingold",
-            "shirt": "20",
+            "shirt": null,
             "pos_id": 34,
             "rating": null,
             "goals": null,
@@ -16191,7 +16225,7 @@
           {
             "id": 940461,
             "name": "Raz Shlomo",
-            "shirt": "13",
+            "shirt": null,
             "pos_id": 36,
             "rating": null,
             "goals": null,
@@ -16201,7 +16235,7 @@
           {
             "id": 1337914,
             "name": "Roy Revivo",
-            "shirt": "3",
+            "shirt": null,
             "pos_id": 38,
             "rating": null,
             "goals": null,
@@ -16209,9 +16243,9 @@
             "apps": null
           },
           {
-            "id": 763312,
-            "name": "Eliel Peretz",
-            "shirt": "8",
+            "id": 580694,
+            "name": "Dor Peretz",
+            "shirt": null,
             "pos_id": 64,
             "rating": null,
             "goals": null,
@@ -16221,7 +16255,7 @@
           {
             "id": 917284,
             "name": "Mohammad Abu Fani",
-            "shirt": "12",
+            "shirt": null,
             "pos_id": 66,
             "rating": null,
             "goals": null,
@@ -16231,7 +16265,7 @@
           {
             "id": 1091975,
             "name": "Liel Abada",
-            "shirt": "23",
+            "shirt": null,
             "pos_id": 83,
             "rating": null,
             "goals": null,
@@ -16239,9 +16273,9 @@
             "apps": null
           },
           {
-            "id": 819066,
-            "name": "Gabi Kanichowsky",
-            "shirt": "16",
+            "id": 1337911,
+            "name": "Oscar Gloukh",
+            "shirt": null,
             "pos_id": 85,
             "rating": null,
             "goals": null,
@@ -16251,7 +16285,7 @@
           {
             "id": 822237,
             "name": "Manor Solomon",
-            "shirt": "10",
+            "shirt": null,
             "pos_id": 87,
             "rating": null,
             "goals": null,
@@ -16259,9 +16293,9 @@
             "apps": null
           },
           {
-            "id": 1337911,
-            "name": "Oscar Gloukh",
-            "shirt": "11",
+            "id": 1177306,
+            "name": "Dor Turgeman",
+            "shirt": null,
             "pos_id": 115,
             "rating": null,
             "goals": null,
@@ -16640,7 +16674,7 @@
           {
             "id": 760752,
             "name": "Arijanet Murić",
-            "shirt": "1",
+            "shirt": null,
             "pos_id": 11,
             "rating": null,
             "goals": null,
@@ -16650,7 +16684,7 @@
           {
             "id": 560945,
             "name": "Mërgim Vojvoda",
-            "shirt": "15",
+            "shirt": null,
             "pos_id": 32,
             "rating": null,
             "goals": null,
@@ -16660,7 +16694,7 @@
           {
             "id": 1067805,
             "name": "Lumbardh Dellova",
-            "shirt": "5",
+            "shirt": null,
             "pos_id": 34,
             "rating": null,
             "goals": null,
@@ -16670,7 +16704,7 @@
           {
             "id": 1186015,
             "name": "Albian Hajdari",
-            "shirt": "21",
+            "shirt": null,
             "pos_id": 36,
             "rating": null,
             "goals": null,
@@ -16680,7 +16714,7 @@
           {
             "id": 1729818,
             "name": "Dion Gallapeni",
-            "shirt": "13",
+            "shirt": null,
             "pos_id": 38,
             "rating": null,
             "goals": null,
@@ -16690,7 +16724,7 @@
           {
             "id": 1100015,
             "name": "Donat Rrudhani",
-            "shirt": "2",
+            "shirt": null,
             "pos_id": 72,
             "rating": null,
             "goals": null,
@@ -16700,7 +16734,7 @@
           {
             "id": 1190351,
             "name": "Veldin Hodža",
-            "shirt": "20",
+            "shirt": null,
             "pos_id": 74,
             "rating": null,
             "goals": null,
@@ -16710,7 +16744,7 @@
           {
             "id": 1478148,
             "name": "Leon Avdullahu",
-            "shirt": "24",
+            "shirt": null,
             "pos_id": 76,
             "rating": null,
             "goals": null,
@@ -16720,7 +16754,7 @@
           {
             "id": 862616,
             "name": "Edon Zhegrova",
-            "shirt": "10",
+            "shirt": null,
             "pos_id": 78,
             "rating": null,
             "goals": null,
@@ -16730,7 +16764,7 @@
           {
             "id": 1219540,
             "name": "Fisnik Asllani",
-            "shirt": "11",
+            "shirt": null,
             "pos_id": 104,
             "rating": null,
             "goals": null,
@@ -16740,7 +16774,7 @@
           {
             "id": 517052,
             "name": "Vedat Muriqi",
-            "shirt": "18",
+            "shirt": null,
             "pos_id": 106,
             "rating": null,
             "goals": null,
@@ -16759,7 +16793,7 @@
           {
             "id": 776689,
             "name": "Caoimhín Kelleher",
-            "shirt": "1",
+            "shirt": null,
             "pos_id": 11,
             "rating": null,
             "goals": null,
@@ -16769,8 +16803,18 @@
           {
             "id": 1098607,
             "name": "Jake O'Brien",
-            "shirt": "5",
+            "shirt": null,
             "pos_id": 33,
+            "rating": null,
+            "goals": null,
+            "assists": null,
+            "apps": null
+          },
+          {
+            "id": 295062,
+            "name": "John Egan",
+            "shirt": null,
+            "pos_id": 35,
             "rating": null,
             "goals": null,
             "assists": null,
@@ -16779,17 +16823,7 @@
           {
             "id": 789578,
             "name": "Dara O'Shea",
-            "shirt": "4",
-            "pos_id": 35,
-            "rating": null,
-            "goals": null,
-            "assists": null,
-            "apps": null
-          },
-          {
-            "id": 914399,
-            "name": "Liam Kitching",
-            "shirt": "16",
+            "shirt": null,
             "pos_id": 37,
             "rating": null,
             "goals": null,
@@ -16799,7 +16833,7 @@
           {
             "id": 1269329,
             "name": "James Abankwah",
-            "shirt": "19",
+            "shirt": null,
             "pos_id": 62,
             "rating": null,
             "goals": null,
@@ -16809,7 +16843,7 @@
           {
             "id": 1051415,
             "name": "Jason Knight",
-            "shirt": "17",
+            "shirt": null,
             "pos_id": 64,
             "rating": null,
             "goals": null,
@@ -16819,7 +16853,7 @@
           {
             "id": 789574,
             "name": "Jayson Molumby",
-            "shirt": "6",
+            "shirt": null,
             "pos_id": 66,
             "rating": null,
             "goals": null,
@@ -16829,7 +16863,7 @@
           {
             "id": 435513,
             "name": "Ryan Manning",
-            "shirt": "3",
+            "shirt": null,
             "pos_id": 68,
             "rating": null,
             "goals": null,
@@ -16839,7 +16873,7 @@
           {
             "id": 883079,
             "name": "Finn Azaz",
-            "shirt": "8",
+            "shirt": null,
             "pos_id": 84,
             "rating": null,
             "goals": null,
@@ -16849,7 +16883,7 @@
           {
             "id": 674009,
             "name": "Chiedozie Ogbene",
-            "shirt": "20",
+            "shirt": null,
             "pos_id": 86,
             "rating": null,
             "goals": null,
@@ -16859,7 +16893,7 @@
           {
             "id": 942365,
             "name": "Troy Parrott",
-            "shirt": "7",
+            "shirt": null,
             "pos_id": 105,
             "rating": null,
             "goals": null,
@@ -17125,7 +17159,36 @@
       "avg_total_shots": 0,
       "n_matches": 0
     },
-    "lineup": null,
+    "lineup": {
+      "type": "unavailable",
+      "source": "enetpulse",
+      "home": {
+        "name": "Andorra",
+        "id": 10045,
+        "formation": "",
+        "coach": null,
+        "starters": [],
+        "unavailable": []
+      },
+      "away": {
+        "name": "Malta",
+        "id": 8495,
+        "formation": "",
+        "coach": null,
+        "starters": [],
+        "unavailable": [
+          {
+            "id": 553785,
+            "name": "Joseph Mbong",
+            "type": "suspension",
+            "return": "Late September 2026",
+            "rating": null,
+            "goals": null,
+            "assists": null
+          }
+        ]
+      }
+    },
     "h2h_details": [
       {
         "date": "2024-11-19T19:45:00.000Z",
