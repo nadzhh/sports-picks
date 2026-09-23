@@ -50067,9 +50067,12 @@
       "matchup": "FK Bregalnica Štip vs FK Skopje",
       "league": "Macedonian Prva",
       "category": "player",
-      "result": "PENDING",
-      "actual": null,
-      "resolved_at": null,
+      "result": "LOSS",
+      "actual": {
+        "goals": 0,
+        "assists": 0
+      },
+      "resolved_at": "2026-09-23 17:56",
       "side": "home"
     },
     {
@@ -50099,9 +50102,9 @@
       "matchup": "Azerbaijan vs Tajikistan",
       "league": "Friendlies",
       "category": "team",
-      "result": "PENDING",
-      "actual": null,
-      "resolved_at": null
+      "result": "LOSS",
+      "actual": "1-0 (1 buts)",
+      "resolved_at": "2026-09-23 17:56"
     },
     {
       "direction": "away_over_15",
@@ -50128,6 +50131,99 @@
       "match_id": "6140728",
       "page_url": "/matches/tajikistan-vs-azerbaijan/1qacvq#6140728",
       "matchup": "Azerbaijan vs Tajikistan",
+      "league": "Friendlies",
+      "category": "team",
+      "result": "LOSS",
+      "actual": "1-0 (0 buts away)",
+      "resolved_at": "2026-09-23 17:56"
+    },
+    {
+      "direction": "home_win",
+      "type": "Forme superieure",
+      "label": "Japan gagne",
+      "cote": null,
+      "confidence": 71,
+      "reasoning": "Japan : 2V/2N/1D sur 5 matchs vs Uruguay : 0V/4N/1D sur 5 matchs (L5 TCC)\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+      "stats": {
+        "form": [
+          "L",
+          "D",
+          "W",
+          "D",
+          "W"
+        ]
+      },
+      "is_fun": false,
+      "tier": "safe",
+      "calibration_delta": -11.3,
+      "history_top3": true,
+      "id": "2026-09-24_6280194_team_home_win",
+      "date": "2026-09-24",
+      "match_id": "6280194",
+      "page_url": "/matches/uruguay-vs-japan/1alpsb#6280194",
+      "matchup": "Japan vs Uruguay",
+      "league": "Friendlies",
+      "category": "team",
+      "result": "PENDING",
+      "actual": null,
+      "resolved_at": null
+    },
+    {
+      "direction": "under25",
+      "type": "Total buts",
+      "label": "Moins de 2.5 buts",
+      "cote": null,
+      "confidence": 61,
+      "reasoning": "Attendu seulement 2.3 buts au total (Japan ~1.3, Uruguay ~1.0) - P(<2.5) ~61%\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
+      "stats": {
+        "form": [
+          "L",
+          "D",
+          "W",
+          "D",
+          "W"
+        ]
+      },
+      "is_fun": false,
+      "tier": "ok",
+      "calibration_delta": -25.4,
+      "history_top3": true,
+      "id": "2026-09-24_6280194_team_under25",
+      "date": "2026-09-24",
+      "match_id": "6280194",
+      "page_url": "/matches/uruguay-vs-japan/1alpsb#6280194",
+      "matchup": "Japan vs Uruguay",
+      "league": "Friendlies",
+      "category": "team",
+      "result": "PENDING",
+      "actual": null,
+      "resolved_at": null
+    },
+    {
+      "direction": "under25",
+      "type": "Total buts",
+      "label": "Moins de 2.5 buts",
+      "cote": null,
+      "confidence": 68,
+      "reasoning": "Attendu seulement 2.0 buts au total (South Korea ~1.2, Ecuador ~0.8) - P(<2.5) ~68%\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
+      "stats": {
+        "form": [
+          "L",
+          "L",
+          "W",
+          "W",
+          "W"
+        ]
+      },
+      "is_fun": false,
+      "tier": "ok",
+      "calibration_delta": -25.4,
+      "history_top3": true,
+      "id": "2026-09-24_6280195_team_under25",
+      "date": "2026-09-24",
+      "match_id": "6280195",
+      "page_url": "/matches/ecuador-vs-south-korea/1qoxpg#6280195",
+      "matchup": "South Korea vs Ecuador",
       "league": "Friendlies",
       "category": "team",
       "result": "PENDING",
