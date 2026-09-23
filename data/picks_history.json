@@ -49969,9 +49969,9 @@
       "matchup": "MC Alger vs MC Oran",
       "league": "Algeria Ligue 1",
       "category": "team",
-      "result": "PENDING",
-      "actual": null,
-      "resolved_at": null
+      "result": "PUSH",
+      "actual": "Match data unavailable (likely cancelled/postponed)",
+      "resolved_at": "2026-09-23 07:31"
     },
     {
       "direction": "away_win",
@@ -49997,9 +49997,40 @@
       "matchup": "MC Alger vs MC Oran",
       "league": "Algeria Ligue 1",
       "category": "team",
-      "result": "PENDING",
-      "actual": null,
-      "resolved_at": null
+      "result": "PUSH",
+      "actual": "Match data unavailable (likely cancelled/postponed)",
+      "resolved_at": "2026-09-23 07:31"
+    },
+    {
+      "direction": "home_win",
+      "type": "Victoire domicile",
+      "label": "Santa Fe gagne",
+      "cote": null,
+      "confidence": 60,
+      "reasoning": "Santa Fe : 3V/2N/0D sur 5 matchs · #7 au classement · H2H: 0V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
+      "stats": {
+        "form": [
+          "W",
+          "W",
+          "D",
+          "W",
+          "D"
+        ]
+      },
+      "is_fun": false,
+      "tier": "ok",
+      "calibration_delta": -25.4,
+      "history_top3": true,
+      "id": "2026-09-23_1000014160_team_home_win",
+      "date": "2026-09-23",
+      "match_id": "1000014160",
+      "page_url": "/matches/deportivo-cali-vs-santa-fe/1o2ril#1000014160",
+      "matchup": "Santa Fe vs Deportivo Cali",
+      "league": "Colombia Primera A",
+      "category": "team",
+      "result": "LOSS",
+      "actual": "0-1",
+      "resolved_at": "2026-09-23 07:32"
     },
     {
       "player": "Martin Stojanov / Ivan Gligorov",
@@ -50104,35 +50135,192 @@
       "resolved_at": null
     },
     {
-      "direction": "home_win",
-      "type": "Victoire domicile",
-      "label": "Santa Fe gagne",
+      "player": "Carlos Garcés / Alejandro Hohberg",
+      "position": "",
+      "is_sub": false,
+      "type": "Double Chance Buteur",
+      "label": "Carlos Garcés ou Alejandro Hohberg marque (Cienciano)",
       "cote": null,
-      "confidence": 60,
-      "reasoning": "Santa Fe : 3V/2N/0D sur 5 matchs · #7 au classement · H2H: 0V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
-      "stats": {
-        "form": [
-          "W",
-          "W",
-          "D",
-          "W",
-          "D"
-        ]
+      "book": null,
+      "books": [],
+      "confidence": 70,
+      "cote_min": 1.43,
+      "reasoning": "✈️ Combo intra-Cienciano\n📈 P(Carlos Garcés marque) ≈ 56% · P(Alejandro Hohberg marque) ≈ 53%\n🎯 P(au moins un marque) = 70% (1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.43 - chercher ≥1.43 chez le bookmaker\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+      "context": {
+        "combo_kind": "intra-away"
       },
-      "is_fun": false,
-      "tier": "ok",
-      "calibration_delta": -25.4,
+      "_team_for_balance": "away",
+      "stats": {
+        "p_a": 0.562,
+        "p_b": 0.532,
+        "p_or": 0.7,
+        "player_a": "Carlos Garcés",
+        "player_b": "Alejandro Hohberg",
+        "kind": "intra-away"
+      },
+      "team": "away",
+      "tier": "safe",
+      "calibration_delta": -11.3,
       "history_top3": true,
-      "id": "2026-09-23_1000014160_team_home_win",
+      "id": "2026-09-23_1000017231_player_Carlos Garcés / Alejandro Hohberg_Double Chance Buteur",
       "date": "2026-09-23",
-      "match_id": "1000014160",
-      "page_url": "/matches/deportivo-cali-vs-santa-fe/1o2ril#1000014160",
-      "matchup": "Santa Fe vs Deportivo Cali",
-      "league": "Colombia Primera A",
-      "category": "team",
+      "match_id": "1000017231",
+      "page_url": "/matches/cienciano-vs-asociacion-deportiva-tarma/7t9ddj0f#1000017231",
+      "matchup": "Asociación Deportiva Tarma vs Cienciano",
+      "league": "Peru Liga 1",
+      "category": "player",
       "result": "PENDING",
       "actual": null,
-      "resolved_at": null
+      "resolved_at": null,
+      "side": "away"
+    },
+    {
+      "player": "Carlos Garcés",
+      "position": "F",
+      "is_sub": false,
+      "type": "Buteur",
+      "label": "Carlos Garcés marque",
+      "cote": null,
+      "book": null,
+      "books": [],
+      "confidence": 56,
+      "reasoning": "14 buts en 25 matchs cette saison (56.0% de chance/match) · xG moyen 0.00/match, défense adverse poreuse (1.6 buts concédés/match) · défense fragile\n📉 Calibration : bucket 50-59% historiquement à WR 42% (claim 55%, n=41) — sur-estimé de 14pp",
+      "context": {
+        "weakness": 0.51
+      },
+      "stats": {
+        "goals": 14,
+        "apps": 25,
+        "gpm": 0.56,
+        "xgpm": 0
+      },
+      "team": "away",
+      "tier": "ok",
+      "calibration_delta": -13.6,
+      "history_top3": true,
+      "id": "2026-09-23_1000017231_player_Carlos Garcés_Buteur",
+      "date": "2026-09-23",
+      "match_id": "1000017231",
+      "page_url": "/matches/cienciano-vs-asociacion-deportiva-tarma/7t9ddj0f#1000017231",
+      "matchup": "Asociación Deportiva Tarma vs Cienciano",
+      "league": "Peru Liga 1",
+      "category": "player",
+      "result": "PENDING",
+      "actual": null,
+      "resolved_at": null,
+      "side": "away"
+    },
+    {
+      "player": "Alejandro Hohberg",
+      "position": "F",
+      "is_sub": false,
+      "type": "Buteur",
+      "label": "Alejandro Hohberg marque",
+      "cote": null,
+      "book": null,
+      "books": [],
+      "confidence": 53,
+      "reasoning": "11 buts en 22 matchs cette saison (50.0% de chance/match) · xG moyen 0.00/match, défense adverse poreuse (1.6 buts concédés/match) · défense fragile\n📉 Calibration : bucket 50-59% historiquement à WR 42% (claim 55%, n=41) — sur-estimé de 14pp",
+      "context": {
+        "weakness": 0.51
+      },
+      "stats": {
+        "goals": 11,
+        "apps": 22,
+        "gpm": 0.5,
+        "xgpm": 0
+      },
+      "team": "away",
+      "tier": "fun",
+      "calibration_delta": -13.6,
+      "history_top3": true,
+      "id": "2026-09-23_1000017231_player_Alejandro Hohberg_Buteur",
+      "date": "2026-09-23",
+      "match_id": "1000017231",
+      "page_url": "/matches/cienciano-vs-asociacion-deportiva-tarma/7t9ddj0f#1000017231",
+      "matchup": "Asociación Deportiva Tarma vs Cienciano",
+      "league": "Peru Liga 1",
+      "category": "player",
+      "result": "PENDING",
+      "actual": null,
+      "resolved_at": null,
+      "side": "away"
+    },
+    {
+      "player": "Sergi Solans / Zavier Gozo",
+      "position": "",
+      "is_sub": false,
+      "type": "Double Chance Buteur",
+      "label": "Sergi Solans ou Zavier Gozo marque (Real Salt Lake)",
+      "cote": null,
+      "book": null,
+      "books": [],
+      "confidence": 70,
+      "cote_min": 1.43,
+      "reasoning": "✈️ Combo intra-Real Salt Lake\n📈 P(Sergi Solans marque) ≈ 50% · P(Zavier Gozo marque) ≈ 42%\n🎯 P(au moins un marque) = 70% (1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.43 - chercher ≥1.43 chez le bookmaker\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+      "context": {
+        "combo_kind": "intra-away"
+      },
+      "_team_for_balance": "away",
+      "stats": {
+        "p_a": 0.502,
+        "p_b": 0.42,
+        "p_or": 0.7,
+        "player_a": "Sergi Solans",
+        "player_b": "Zavier Gozo",
+        "kind": "intra-away"
+      },
+      "team": "away",
+      "tier": "safe",
+      "calibration_delta": -11.3,
+      "history_top3": true,
+      "id": "2026-09-24_5071094_player_Sergi Solans / Zavier Gozo_Double Chance Buteur",
+      "date": "2026-09-24",
+      "match_id": "5071094",
+      "page_url": "/matches/real-salt-lake-vs-seattle-sounders-fc/4b7c0hu#5071094",
+      "matchup": "Seattle Sounders FC vs Real Salt Lake",
+      "league": "MLS",
+      "category": "player",
+      "result": "PENDING",
+      "actual": null,
+      "resolved_at": null,
+      "side": "away"
+    },
+    {
+      "player": "Sergi Solans",
+      "position": "F",
+      "is_sub": false,
+      "type": "Buteur",
+      "label": "Sergi Solans marque",
+      "cote": null,
+      "book": null,
+      "books": [],
+      "confidence": 50,
+      "reasoning": "9 buts en 23 matchs cette saison (39.1% de chance/match) · xG moyen 0.50/match, défense adverse poreuse (1.4 buts concédés/match) · défense fragile\n📉 Calibration : bucket 50-59% historiquement à WR 42% (claim 55%, n=41) — sur-estimé de 14pp",
+      "context": {
+        "weakness": 0.69
+      },
+      "stats": {
+        "goals": 9,
+        "apps": 23,
+        "gpm": 0.391,
+        "xgpm": 0.496
+      },
+      "team": "away",
+      "tier": "fun",
+      "calibration_delta": -13.6,
+      "history_top3": true,
+      "id": "2026-09-24_5071094_player_Sergi Solans_Buteur",
+      "date": "2026-09-24",
+      "match_id": "5071094",
+      "page_url": "/matches/real-salt-lake-vs-seattle-sounders-fc/4b7c0hu#5071094",
+      "matchup": "Seattle Sounders FC vs Real Salt Lake",
+      "league": "MLS",
+      "category": "player",
+      "result": "PENDING",
+      "actual": null,
+      "resolved_at": null,
+      "side": "away"
     }
   ]
 }
