@@ -107,15 +107,330 @@
         "surface": "grass"
       },
       "weather": {
-        "temp_max": 25.5,
-        "temp_min": 17.3,
-        "humidity": 51,
-        "precipitation_sum_mm": 2.3,
-        "wind_max_kmh": 10.2,
-        "weather_code": 53,
-        "summary_fr": "🌦️ bruine modérée · 17–25°C · humidité 51% · précipitations 2.3mm"
+        "temp_max": 23.7,
+        "temp_min": 16.6,
+        "humidity": 62,
+        "precipitation_sum_mm": 3.6,
+        "wind_max_kmh": 10.8,
+        "weather_code": 80,
+        "summary_fr": "🌦️ averses légères · 16–23°C · humidité 62% · précipitations 3.6mm"
       },
-      "text": "Conditions : 🌦️ bruine modérée · 17–25°C · humidité 51% · précipitations 2.3mm. Stade : Istiqlol stadioni · 20 500 places · plein air."
+      "text": "Conditions : 🌦️ averses légères · 16–23°C · humidité 62% · précipitations 3.6mm. Stade : Istiqlol stadioni · 20 500 places · plein air."
+    }
+  },
+  {
+    "league": "Friendlies",
+    "home": "Australia",
+    "away": "Brazil",
+    "start_ts": 1790330400,
+    "match_id": "5924776",
+    "page_url": "/matches/australia-vs-brazil/1uqlxi#5924776",
+    "picks": [
+      {
+        "direction": "away_win",
+        "type": "Forme superieure",
+        "label": "Brazil gagne",
+        "cote": null,
+        "confidence": 80,
+        "reasoning": "Brazil : 3V/1N/1D sur 5 matchs vs Australia : 1V/3N/1D sur 5 matchs (L5 TCC · ecart de tier FIFA 2vs1)\n📉 Calibration : bucket 80-89% historiquement à WR 56% (claim 82%, n=63) — sur-estimé de 26pp",
+        "stats": {
+          "form": [
+            "L",
+            "W",
+            "W",
+            "W",
+            "D"
+          ]
+        },
+        "is_fun": false,
+        "tier": "safe",
+        "calibration_delta": -26.0,
+        "history_top3": true
+      },
+      {
+        "direction": "btts_no",
+        "type": "BTTS",
+        "label": "Au moins 1 equipe ne marque pas",
+        "cote": null,
+        "confidence": 68,
+        "reasoning": "Attaque faible d'un cote : Australia ~0.5 buts, Brazil ~2.1 buts - P(BTTS Non) ~68%\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
+        "stats": {
+          "form": [
+            "D",
+            "D",
+            "L",
+            "W",
+            "D"
+          ]
+        },
+        "is_fun": false,
+        "tier": "ok",
+        "calibration_delta": -25.4,
+        "history_top3": true
+      },
+      {
+        "direction": "away_over_15",
+        "type": "Buteur equipe",
+        "label": "Brazil marque plus de 1.5 buts",
+        "cote": null,
+        "confidence": 66,
+        "reasoning": "Brazil attendu a ~2.1 buts (marque 2.0/m sur L5, Australia encaisse 0.8/m) - P(2+ buts) ~61%\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
+        "stats": {
+          "form": [
+            "L",
+            "W",
+            "W",
+            "W",
+            "D"
+          ]
+        },
+        "is_fun": false,
+        "tier": "ok",
+        "calibration_delta": -25.4,
+        "history_top3": true
+      }
+    ],
+    "home_players": [],
+    "away_players": [],
+    "fun_picks": [],
+    "top_pick": {
+      "direction": "away_win",
+      "type": "Forme superieure",
+      "label": "Brazil gagne",
+      "cote": null,
+      "confidence": 80,
+      "reasoning": "Brazil : 3V/1N/1D sur 5 matchs vs Australia : 1V/3N/1D sur 5 matchs (L5 TCC · ecart de tier FIFA 2vs1)\n📉 Calibration : bucket 80-89% historiquement à WR 56% (claim 82%, n=63) — sur-estimé de 26pp",
+      "stats": {
+        "form": [
+          "L",
+          "W",
+          "W",
+          "W",
+          "D"
+        ]
+      },
+      "is_fun": false,
+      "tier": "safe",
+      "calibration_delta": -26.0,
+      "history_top3": true
+    },
+    "no_picks": false,
+    "context": {
+      "stadium": {
+        "name": "Queensland Country Bank Stadium",
+        "city": "Townsville",
+        "country": "Australia",
+        "lat": -19.266087601,
+        "lon": 146.816542177,
+        "capacity": 25000,
+        "surface": "grass"
+      },
+      "weather": {
+        "temp_max": 26.3,
+        "temp_min": 18.0,
+        "humidity": 58,
+        "precipitation_sum_mm": 0.4,
+        "wind_max_kmh": 25.3,
+        "weather_code": 51,
+        "summary_fr": "🌦️ bruine légère · 18–26°C · humidité 58%"
+      },
+      "text": "Conditions : 🌦️ bruine légère · 18–26°C · humidité 58%. Stade : Queensland Country Bank Stadium · 25 000 places · plein air."
+    }
+  },
+  {
+    "league": "Friendlies",
+    "home": "India",
+    "away": "Panama",
+    "start_ts": 1790344800,
+    "match_id": "6280205",
+    "page_url": "/matches/panama-vs-india/18opjn#6280205",
+    "picks": [
+      {
+        "direction": "away_win",
+        "type": "Forme superieure",
+        "label": "Panama gagne",
+        "cote": null,
+        "confidence": 80,
+        "reasoning": "Panama : 2V/2N/1D sur 5 matchs vs India : 1V/1N/3D sur 5 matchs (L5 TCC · ecart de tier FIFA 4vs3)\n📉 Calibration : bucket 80-89% historiquement à WR 56% (claim 82%, n=63) — sur-estimé de 26pp",
+        "stats": {
+          "form": [
+            "D",
+            "W",
+            "L",
+            "W",
+            "D"
+          ]
+        },
+        "is_fun": false,
+        "tier": "safe",
+        "calibration_delta": -26.0,
+        "history_top3": true
+      },
+      {
+        "direction": "over25",
+        "type": "Total buts",
+        "label": "Plus de 2.5 buts",
+        "cote": null,
+        "confidence": 65,
+        "reasoning": "Attendu 3.4 buts au total (India ~1.2, Panama ~2.1) - P(>2.5) ~65%\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
+        "stats": {
+          "form": [
+            "D",
+            "L",
+            "L",
+            "L",
+            "W"
+          ]
+        },
+        "is_fun": false,
+        "tier": "ok",
+        "calibration_delta": -25.4,
+        "history_top3": true
+      },
+      {
+        "direction": "away_over_15",
+        "type": "Buteur equipe",
+        "label": "Panama marque plus de 1.5 buts",
+        "cote": null,
+        "confidence": 68,
+        "reasoning": "Panama attendu a ~2.1 buts (marque 2.0/m sur L5, India encaisse 1.6/m) - P(2+ buts) ~63%\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
+        "stats": {
+          "form": [
+            "D",
+            "W",
+            "L",
+            "W",
+            "D"
+          ]
+        },
+        "is_fun": false,
+        "tier": "ok",
+        "calibration_delta": -25.4,
+        "history_top3": true
+      }
+    ],
+    "home_players": [],
+    "away_players": [],
+    "fun_picks": [],
+    "top_pick": {
+      "direction": "away_win",
+      "type": "Forme superieure",
+      "label": "Panama gagne",
+      "cote": null,
+      "confidence": 80,
+      "reasoning": "Panama : 2V/2N/1D sur 5 matchs vs India : 1V/1N/3D sur 5 matchs (L5 TCC · ecart de tier FIFA 4vs3)\n📉 Calibration : bucket 80-89% historiquement à WR 56% (claim 82%, n=63) — sur-estimé de 26pp",
+      "stats": {
+        "form": [
+          "D",
+          "W",
+          "L",
+          "W",
+          "D"
+        ]
+      },
+      "is_fun": false,
+      "tier": "safe",
+      "calibration_delta": -26.0,
+      "history_top3": true
+    },
+    "no_picks": false,
+    "context": {
+      "stadium": {
+        "name": "Sree Kanteerava Stadium",
+        "city": "Bangalore",
+        "country": "India",
+        "lat": 12.969650506,
+        "lon": 77.59345293,
+        "capacity": 28001,
+        "surface": "grass"
+      },
+      "weather": {
+        "temp_max": 28.7,
+        "temp_min": 21.2,
+        "humidity": 70,
+        "precipitation_sum_mm": 3.1,
+        "wind_max_kmh": 20.7,
+        "weather_code": 53,
+        "summary_fr": "🌦️ bruine modérée · 21–28°C · humidité 70% · précipitations 3.1mm"
+      },
+      "text": "Conditions : 🌦️ bruine modérée · 21–28°C · humidité 70% · précipitations 3.1mm. Stade : Sree Kanteerava Stadium · 28 001 places · plein air."
+    }
+  },
+  {
+    "league": "Colombia Primera A",
+    "home": "Chicó FC",
+    "away": "Deportivo Pasto",
+    "start_ts": 1790377800,
+    "match_id": "1000014161",
+    "page_url": "/matches/deportivo-pasto-vs-chico-fc/xu1u1#1000014161",
+    "picks": [
+      {
+        "direction": "away_win",
+        "type": "Favori net",
+        "label": "Deportivo Pasto gagne",
+        "cote": null,
+        "confidence": 71,
+        "reasoning": "15 places d'écart au classement (#3 vs #18) · 2V/2N/1D sur 5 matchs · Note Sofa: 6.5/10\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+        "stats": {
+          "form": [
+            "W",
+            "W",
+            "D",
+            "L",
+            "D"
+          ]
+        },
+        "is_fun": false,
+        "tier": "safe",
+        "calibration_delta": -11.3,
+        "history_top3": true
+      }
+    ],
+    "home_players": [],
+    "away_players": [],
+    "fun_picks": [],
+    "top_pick": {
+      "direction": "away_win",
+      "type": "Favori net",
+      "label": "Deportivo Pasto gagne",
+      "cote": null,
+      "confidence": 71,
+      "reasoning": "15 places d'écart au classement (#3 vs #18) · 2V/2N/1D sur 5 matchs · Note Sofa: 6.5/10\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+      "stats": {
+        "form": [
+          "W",
+          "W",
+          "D",
+          "L",
+          "D"
+        ]
+      },
+      "is_fun": false,
+      "tier": "safe",
+      "calibration_delta": -11.3,
+      "history_top3": true
+    },
+    "no_picks": false,
+    "context": {
+      "stadium": {
+        "name": "Estadio de La Independencia",
+        "city": "Tunja",
+        "country": "Colombia",
+        "lat": 5.542264827,
+        "lon": -73.353266716,
+        "capacity": 25000,
+        "surface": "grass"
+      },
+      "weather": {
+        "temp_max": 18.7,
+        "temp_min": 10.3,
+        "humidity": 74,
+        "precipitation_sum_mm": 0.5,
+        "wind_max_kmh": 18.2,
+        "weather_code": 51,
+        "summary_fr": "🌦️ bruine légère · 10–18°C · humidité 74%"
+      },
+      "text": "Conditions : 🌦️ bruine légère · 10–18°C · humidité 74%. Stade : Estadio de La Independencia · 25 000 places · plein air."
     }
   },
   {
@@ -205,15 +520,92 @@
         "surface": "grass"
       },
       "weather": {
-        "temp_max": 27.0,
-        "temp_min": 17.8,
-        "humidity": 58,
-        "precipitation_sum_mm": 33.3,
-        "wind_max_kmh": 9.3,
+        "temp_max": 27.4,
+        "temp_min": 16.8,
+        "humidity": 56,
+        "precipitation_sum_mm": 22.8,
+        "wind_max_kmh": 10.2,
         "weather_code": 65,
-        "summary_fr": "🌧️ pluie forte · 17–27°C · humidité 58% · précipitations 33.3mm"
+        "summary_fr": "🌧️ pluie forte · 16–27°C · humidité 56% · précipitations 22.8mm"
       },
-      "text": "Conditions : 🌧️ pluie forte · 17–27°C · humidité 58% · précipitations 33.3mm. Stade : Miyagi Stadium · 49 133 places · plein air. ⚠️ Pluies prévues : terrain potentiellement lourd, jeu direct privilégié, plus d'erreurs techniques."
+      "text": "Conditions : 🌧️ pluie forte · 16–27°C · humidité 56% · précipitations 22.8mm. Stade : Miyagi Stadium · 49 133 places · plein air. ⚠️ Pluies prévues : terrain potentiellement lourd, jeu direct privilégié, plus d'erreurs techniques."
+    }
+  },
+  {
+    "league": "Colombia Primera A",
+    "home": "Atlético Nacional",
+    "away": "Millonarios",
+    "start_ts": 1790296200,
+    "match_id": "1000014157",
+    "page_url": "/matches/millonarios-vs-atletico-nacional/yjjq6#1000014157",
+    "picks": [
+      {
+        "direction": "home_win",
+        "type": "Victoire domicile",
+        "label": "Atlético Nacional gagne",
+        "cote": null,
+        "confidence": 70,
+        "reasoning": "Atlético Nacional : 4V/0N/1D sur 5 matchs · #1 au classement · H2H: 0V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+        "stats": {
+          "form": [
+            "L",
+            "W",
+            "W",
+            "W",
+            "W"
+          ]
+        },
+        "is_fun": false,
+        "tier": "safe",
+        "calibration_delta": -11.3,
+        "history_top3": true
+      }
+    ],
+    "home_players": [],
+    "away_players": [],
+    "fun_picks": [],
+    "top_pick": {
+      "direction": "home_win",
+      "type": "Victoire domicile",
+      "label": "Atlético Nacional gagne",
+      "cote": null,
+      "confidence": 70,
+      "reasoning": "Atlético Nacional : 4V/0N/1D sur 5 matchs · #1 au classement · H2H: 0V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+      "stats": {
+        "form": [
+          "L",
+          "W",
+          "W",
+          "W",
+          "W"
+        ]
+      },
+      "is_fun": false,
+      "tier": "safe",
+      "calibration_delta": -11.3,
+      "history_top3": true
+    },
+    "no_picks": false,
+    "context": {
+      "stadium": {
+        "name": "Estadio Atanasio Girardot",
+        "city": "Medellín",
+        "country": "Colombia",
+        "lat": 6.256772694,
+        "lon": -75.590250492,
+        "capacity": 45943,
+        "surface": "grass"
+      },
+      "weather": {
+        "temp_max": 25.8,
+        "temp_min": 16.5,
+        "humidity": 84,
+        "precipitation_sum_mm": 5.6,
+        "wind_max_kmh": 5.9,
+        "weather_code": 80,
+        "summary_fr": "🌦️ averses légères · 16–25°C · humidité 84% · précipitations 5.6mm"
+      },
+      "text": "Conditions : 🌦️ averses légères · 16–25°C · humidité 84% · précipitations 5.6mm. Stade : Estadio Atanasio Girardot · 45 943 places · plein air. ⚠️ Pluies prévues : terrain potentiellement lourd, jeu direct privilégié, plus d'erreurs techniques."
     }
   },
   {
@@ -282,15 +674,15 @@
         "surface": "grass"
       },
       "weather": {
-        "temp_max": 24.6,
-        "temp_min": 17.9,
-        "humidity": 76,
+        "temp_max": 24.8,
+        "temp_min": 17.3,
+        "humidity": 77,
         "precipitation_sum_mm": 0.0,
-        "wind_max_kmh": 10.8,
+        "wind_max_kmh": 9.2,
         "weather_code": 3,
-        "summary_fr": "☁️ couvert · 17–24°C · humidité 76%"
+        "summary_fr": "☁️ couvert · 17–24°C · humidité 77%"
       },
-      "text": "Conditions : ☁️ couvert · 17–24°C · humidité 76%. Stade : Suwon World Cup Stadium · 45 192 places · plein air."
+      "text": "Conditions : ☁️ couvert · 17–24°C · humidité 77%. Stade : Suwon World Cup Stadium · 45 192 places · plein air."
     }
   },
   {
@@ -359,15 +751,276 @@
         "surface": "grass"
       },
       "weather": {
-        "temp_max": 18.8,
-        "temp_min": 13.3,
+        "temp_max": 18.4,
+        "temp_min": 12.7,
         "humidity": 55,
         "precipitation_sum_mm": 0.0,
-        "wind_max_kmh": 14.0,
+        "wind_max_kmh": 12.2,
         "weather_code": 3,
-        "summary_fr": "☁️ couvert · 13–18°C · humidité 55%"
+        "summary_fr": "☁️ couvert · 12–18°C · humidité 55%"
       },
-      "text": "Conditions : ☁️ couvert · 13–18°C · humidité 55%. Stade : Johan Cruijff ArenA · 55 885 places · plein air."
+      "text": "Conditions : ☁️ couvert · 12–18°C · humidité 55%. Stade : Johan Cruijff ArenA · 55 885 places · plein air."
+    }
+  },
+  {
+    "league": "UEFA Nations League A",
+    "home": "Italy",
+    "away": "Belgium",
+    "start_ts": 1790361900,
+    "match_id": "5181788",
+    "page_url": "/matches/italy-vs-belgium/28qbqd#5181788",
+    "picks": [
+      {
+        "direction": "away_win",
+        "type": "Victoire extérieur",
+        "label": "Belgium gagne",
+        "cote": null,
+        "confidence": 63,
+        "reasoning": "Belgium : 3V/1N/1D sur 5 matchs · #1 au classement · H2H: 0V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
+        "stats": {
+          "form": [
+            "L",
+            "W",
+            "W",
+            "W",
+            "D"
+          ]
+        },
+        "is_fun": false,
+        "tier": "ok",
+        "calibration_delta": -25.4,
+        "history_top3": true
+      }
+    ],
+    "home_players": [],
+    "away_players": [],
+    "fun_picks": [],
+    "top_pick": {
+      "direction": "away_win",
+      "type": "Victoire extérieur",
+      "label": "Belgium gagne",
+      "cote": null,
+      "confidence": 63,
+      "reasoning": "Belgium : 3V/1N/1D sur 5 matchs · #1 au classement · H2H: 0V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
+      "stats": {
+        "form": [
+          "L",
+          "W",
+          "W",
+          "W",
+          "D"
+        ]
+      },
+      "is_fun": false,
+      "tier": "ok",
+      "calibration_delta": -25.4,
+      "history_top3": true
+    },
+    "no_picks": false,
+    "context": {
+      "stadium": {
+        "name": "Stadio Olimpico",
+        "city": "Roma",
+        "country": "Italy",
+        "lat": 41.933947912,
+        "lon": 12.454757094,
+        "capacity": 70634,
+        "surface": "grass"
+      },
+      "weather": {
+        "temp_max": 28.7,
+        "temp_min": 18.2,
+        "humidity": 46,
+        "precipitation_sum_mm": 0.0,
+        "wind_max_kmh": 13.7,
+        "weather_code": 3,
+        "summary_fr": "☁️ couvert · 18–28°C · humidité 46%"
+      },
+      "text": "Conditions : ☁️ couvert · 18–28°C · humidité 46%. Stade : Stadio Olimpico · 70 634 places · plein air."
+    }
+  },
+  {
+    "league": "Paraguay Profesional",
+    "home": "Nacional",
+    "away": "Sportivo Ameliano",
+    "start_ts": 1790373600,
+    "match_id": "1000017421",
+    "page_url": "/matches/nacional-vs-sportivo-ameliano/ankmb94u#1000017421",
+    "picks": [
+      {
+        "direction": "home_win",
+        "type": "Victoire domicile",
+        "label": "Nacional gagne",
+        "cote": null,
+        "confidence": 62,
+        "reasoning": "Nacional : 4V/0N/1D sur 5 matchs · #2 au classement · H2H: 0V/3N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
+        "stats": {
+          "form": [
+            "W",
+            "W",
+            "L",
+            "W",
+            "W"
+          ]
+        },
+        "is_fun": false,
+        "tier": "ok",
+        "calibration_delta": -25.4,
+        "history_top3": true
+      }
+    ],
+    "home_players": [
+      {
+        "player": "Hugo Benítez / Cristhian Ocampos",
+        "position": "",
+        "is_sub": false,
+        "type": "Double Chance Buteur",
+        "label": "Hugo Benítez OU Cristhian Ocampos marque (cross-équipe)",
+        "cote": null,
+        "book": null,
+        "books": [],
+        "confidence": 70,
+        "cote_min": 1.49,
+        "reasoning": "🔀 Cross-équipe (moins corrélé → meilleur EV)\n📈 P(Hugo Benítez marque) ≈ 44% · P(Cristhian Ocampos marque) ≈ 40%\n🎯 P(au moins un marque) = 70% (1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.49 - chercher ≥1.49 chez le bookmaker\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+        "context": {
+          "combo_kind": "cross"
+        },
+        "_team_for_balance": "home",
+        "stats": {
+          "p_a": 0.442,
+          "p_b": 0.405,
+          "p_or": 0.668,
+          "player_a": "Hugo Benítez",
+          "player_b": "Cristhian Ocampos",
+          "kind": "cross"
+        },
+        "team": "home",
+        "tier": "safe",
+        "calibration_delta": -11.3,
+        "history_top3": true
+      }
+    ],
+    "away_players": [],
+    "fun_picks": [],
+    "top_pick": {
+      "direction": "home_win",
+      "type": "Victoire domicile",
+      "label": "Nacional gagne",
+      "cote": null,
+      "confidence": 62,
+      "reasoning": "Nacional : 4V/0N/1D sur 5 matchs · #2 au classement · H2H: 0V/3N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
+      "stats": {
+        "form": [
+          "W",
+          "W",
+          "L",
+          "W",
+          "W"
+        ]
+      },
+      "is_fun": false,
+      "tier": "ok",
+      "calibration_delta": -25.4,
+      "history_top3": true
+    },
+    "no_picks": false,
+    "context": {
+      "stadium": {
+        "name": "Estadio Arsenio Erico",
+        "city": "Asunción",
+        "country": "Paraguay",
+        "lat": -25.298372431,
+        "lon": -57.63993144,
+        "capacity": 7000,
+        "surface": "grass"
+      },
+      "weather": {
+        "temp_max": 31.6,
+        "temp_min": 19.0,
+        "humidity": 58,
+        "precipitation_sum_mm": 0.0,
+        "wind_max_kmh": 14.6,
+        "weather_code": 1,
+        "summary_fr": "🌤️ principalement clair · 19–31°C · humidité 58%"
+      },
+      "text": "Conditions : 🌤️ principalement clair · 19–31°C · humidité 58%. Stade : Estadio Arsenio Erico · 7 000 places · plein air."
+    }
+  },
+  {
+    "league": "UEFA Nations League B",
+    "home": "Hungary",
+    "away": "Ukraine",
+    "start_ts": 1790361900,
+    "match_id": "5181801",
+    "page_url": "/matches/ukraine-vs-hungary/1xjgf7#5181801",
+    "picks": [
+      {
+        "direction": "home_win",
+        "type": "Victoire domicile",
+        "label": "Hungary gagne",
+        "cote": null,
+        "confidence": 62,
+        "reasoning": "Hungary : 3V/1N/1D sur 5 matchs · #2 au classement · H2H: 0V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
+        "stats": {
+          "form": [
+            "W",
+            "W",
+            "D",
+            "W",
+            "L"
+          ]
+        },
+        "is_fun": false,
+        "tier": "ok",
+        "calibration_delta": -25.4,
+        "history_top3": true
+      }
+    ],
+    "home_players": [],
+    "away_players": [],
+    "fun_picks": [],
+    "top_pick": {
+      "direction": "home_win",
+      "type": "Victoire domicile",
+      "label": "Hungary gagne",
+      "cote": null,
+      "confidence": 62,
+      "reasoning": "Hungary : 3V/1N/1D sur 5 matchs · #2 au classement · H2H: 0V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
+      "stats": {
+        "form": [
+          "W",
+          "W",
+          "D",
+          "W",
+          "L"
+        ]
+      },
+      "is_fun": false,
+      "tier": "ok",
+      "calibration_delta": -25.4,
+      "history_top3": true
+    },
+    "no_picks": false,
+    "context": {
+      "stadium": {
+        "name": "Puskás Aréna",
+        "city": "Budapest",
+        "country": "Hungary",
+        "lat": 47.503076416,
+        "lon": 19.098164846,
+        "capacity": 67889,
+        "surface": "grass"
+      },
+      "weather": {
+        "temp_max": 19.4,
+        "temp_min": 10.1,
+        "humidity": 55,
+        "precipitation_sum_mm": 0.0,
+        "wind_max_kmh": 17.3,
+        "weather_code": 3,
+        "summary_fr": "☁️ couvert · 10–19°C · humidité 55%"
+      },
+      "text": "Conditions : ☁️ couvert · 10–19°C · humidité 55%. Stade : Puskás Aréna · 67 889 places · plein air."
     }
   },
   {
@@ -437,14 +1090,91 @@
       },
       "weather": {
         "temp_max": 13.8,
-        "temp_min": 9.6,
-        "humidity": 80,
-        "precipitation_sum_mm": 7.2,
-        "wind_max_kmh": 17.3,
-        "weather_code": 63,
-        "summary_fr": "🌧️ pluie modérée · 9–13°C · humidité 80% · précipitations 7.2mm"
+        "temp_min": 8.8,
+        "humidity": 82,
+        "precipitation_sum_mm": 5.3,
+        "wind_max_kmh": 15.8,
+        "weather_code": 61,
+        "summary_fr": "🌦️ pluie légère · 8–13°C · humidité 82% · précipitations 5.3mm"
       },
-      "text": "Conditions : 🌧️ pluie modérée · 9–13°C · humidité 80% · précipitations 7.2mm. Stade : Ullevaal Stadion · 27 182 places · plein air. ⚠️ Pluies prévues : terrain potentiellement lourd, jeu direct privilégié, plus d'erreurs techniques."
+      "text": "Conditions : 🌦️ pluie légère · 8–13°C · humidité 82% · précipitations 5.3mm. Stade : Ullevaal Stadion · 27 182 places · plein air. ⚠️ Pluies prévues : terrain potentiellement lourd, jeu direct privilégié, plus d'erreurs techniques."
+    }
+  },
+  {
+    "league": "UEFA Nations League A",
+    "home": "Turkiye",
+    "away": "France",
+    "start_ts": 1790361900,
+    "match_id": "5181789",
+    "page_url": "/matches/turkiye-vs-france/1gt3rs#5181789",
+    "picks": [
+      {
+        "direction": "away_win",
+        "type": "Victoire extérieur",
+        "label": "France gagne",
+        "cote": null,
+        "confidence": 58,
+        "reasoning": "France : 3V/0N/2D sur 5 matchs · #2 au classement · H2H: 0V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 50-59% historiquement à WR 42% (claim 55%, n=41) — sur-estimé de 14pp",
+        "stats": {
+          "form": [
+            "L",
+            "L",
+            "W",
+            "W",
+            "W"
+          ]
+        },
+        "is_fun": false,
+        "tier": "ok",
+        "calibration_delta": -13.6,
+        "history_top3": true
+      }
+    ],
+    "home_players": [],
+    "away_players": [],
+    "fun_picks": [],
+    "top_pick": {
+      "direction": "away_win",
+      "type": "Victoire extérieur",
+      "label": "France gagne",
+      "cote": null,
+      "confidence": 58,
+      "reasoning": "France : 3V/0N/2D sur 5 matchs · #2 au classement · H2H: 0V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 50-59% historiquement à WR 42% (claim 55%, n=41) — sur-estimé de 14pp",
+      "stats": {
+        "form": [
+          "L",
+          "L",
+          "W",
+          "W",
+          "W"
+        ]
+      },
+      "is_fun": false,
+      "tier": "ok",
+      "calibration_delta": -13.6,
+      "history_top3": true
+    },
+    "no_picks": false,
+    "context": {
+      "stadium": {
+        "name": "Turka Arac Muayene Kocaeli Stadyumu",
+        "city": "Kocaeli",
+        "country": "Türkiye",
+        "lat": 40.77505842,
+        "lon": 30.017771524,
+        "capacity": 35000,
+        "surface": "grass"
+      },
+      "weather": {
+        "temp_max": 22.9,
+        "temp_min": 8.9,
+        "humidity": 50,
+        "precipitation_sum_mm": 0.0,
+        "wind_max_kmh": 15.3,
+        "weather_code": 45,
+        "summary_fr": "🌫️ brouillard · 8–22°C · humidité 50%"
+      },
+      "text": "Conditions : 🌫️ brouillard · 8–22°C · humidité 50%. Stade : Turka Arac Muayene Kocaeli Stadyumu · 35 000 places · plein air."
     }
   },
   {
@@ -513,11 +1243,11 @@
         "surface": "grass"
       },
       "weather": {
-        "temp_max": 19.3,
-        "temp_min": 6.0,
+        "temp_max": 19.1,
+        "temp_min": 6.4,
         "humidity": 36,
         "precipitation_sum_mm": 0.0,
-        "wind_max_kmh": 7.5,
+        "wind_max_kmh": 6.4,
         "weather_code": 3,
         "summary_fr": "☁️ couvert · 6–19°C · humidité 36%"
       },
@@ -525,156 +1255,82 @@
     }
   },
   {
-    "league": "MLS",
-    "home": "Seattle Sounders FC",
-    "away": "Real Salt Lake",
-    "start_ts": 1790213400,
-    "match_id": "5071094",
-    "page_url": "/matches/real-salt-lake-vs-seattle-sounders-fc/4b7c0hu#5071094",
+    "league": "Paraguay Profesional",
+    "home": "Luqueño",
+    "away": "Guaraní",
+    "start_ts": 1790364600,
+    "match_id": "1000017418",
+    "page_url": "/matches/guarani-vs-luqueno/m01gbh#1000017418",
     "picks": [],
-    "home_players": [],
-    "away_players": [
+    "home_players": [
       {
-        "player": "Sergi Solans",
+        "player": "Iván Maggi",
         "position": "F",
         "is_sub": false,
         "type": "Buteur",
-        "label": "Sergi Solans marque",
+        "label": "Iván Maggi marque",
+        "team": "home",
         "cote": null,
         "book": null,
         "books": [],
-        "confidence": 50,
-        "reasoning": "9 buts en 23 matchs cette saison (39.1% de chance/match) · xG moyen 0.50/match, défense adverse poreuse (1.4 buts concédés/match) · défense fragile\n📉 Calibration : bucket 50-59% historiquement à WR 42% (claim 55%, n=41) — sur-estimé de 14pp",
+        "confidence": 38,
+        "reasoning": "11G en 32 matchs (34.4%/match) · xG: 0.00/match",
         "context": {
-          "weakness": 0.69
+          "weakness": 0.45
         },
         "stats": {
-          "goals": 9,
-          "apps": 23,
-          "gpm": 0.391,
-          "xgpm": 0.496
+          "goals": 11,
+          "apps": 32
         },
-        "team": "away",
         "tier": "fun",
-        "calibration_delta": -13.6,
-        "history_top3": true
-      },
-      {
-        "player": "Sergi Solans / Zavier Gozo",
-        "position": "",
-        "is_sub": false,
-        "type": "Double Chance Buteur",
-        "label": "Sergi Solans ou Zavier Gozo marque (Real Salt Lake)",
-        "cote": null,
-        "book": null,
-        "books": [],
-        "confidence": 70,
-        "cote_min": 1.43,
-        "reasoning": "✈️ Combo intra-Real Salt Lake\n📈 P(Sergi Solans marque) ≈ 50% · P(Zavier Gozo marque) ≈ 42%\n🎯 P(au moins un marque) = 70% (1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.43 - chercher ≥1.43 chez le bookmaker\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
-        "context": {
-          "combo_kind": "intra-away"
-        },
-        "_team_for_balance": "away",
-        "stats": {
-          "p_a": 0.502,
-          "p_b": 0.42,
-          "p_or": 0.7,
-          "player_a": "Sergi Solans",
-          "player_b": "Zavier Gozo",
-          "kind": "intra-away"
-        },
-        "team": "away",
-        "tier": "safe",
-        "calibration_delta": -11.3,
         "history_top3": true
       }
     ],
+    "away_players": [],
     "fun_picks": [],
     "top_pick": {
-      "player": "Sergi Solans",
+      "player": "Iván Maggi",
       "position": "F",
       "is_sub": false,
       "type": "Buteur",
-      "label": "Sergi Solans marque",
+      "label": "Iván Maggi marque",
+      "team": "home",
       "cote": null,
       "book": null,
       "books": [],
-      "confidence": 50,
-      "reasoning": "9 buts en 23 matchs cette saison (39.1% de chance/match) · xG moyen 0.50/match, défense adverse poreuse (1.4 buts concédés/match) · défense fragile\n📉 Calibration : bucket 50-59% historiquement à WR 42% (claim 55%, n=41) — sur-estimé de 14pp",
+      "confidence": 38,
+      "reasoning": "11G en 32 matchs (34.4%/match) · xG: 0.00/match",
       "context": {
-        "weakness": 0.69
+        "weakness": 0.45
       },
       "stats": {
-        "goals": 9,
-        "apps": 23,
-        "gpm": 0.391,
-        "xgpm": 0.496
+        "goals": 11,
+        "apps": 32
       },
-      "team": "away",
       "tier": "fun",
-      "calibration_delta": -13.6,
       "history_top3": true
     },
     "no_picks": false,
     "context": {
       "stadium": {
-        "name": "Lumen Field",
-        "city": "Seattle",
-        "country": "USA",
-        "lat": 47.5952,
-        "lon": -122.3316,
-        "capacity": 68740,
-        "surface": "Artificial turf",
-        "altitude_m": 17,
-        "type": "outdoor",
-        "climatized": false,
-        "context_fr": "Climat océanique tempéré. Juin 18-22°C, pluies possibles."
-      },
-      "weather": {
-        "temp_max": 16.0,
-        "temp_min": 9.5,
-        "humidity": 73,
-        "precipitation_sum_mm": 0.4,
-        "wind_max_kmh": 13.7,
-        "weather_code": 51,
-        "summary_fr": "🌦️ bruine légère · 9–16°C · humidité 73%"
-      },
-      "text": "Conditions : 🌦️ bruine légère · 9–16°C · humidité 73%. Stade : Lumen Field · altitude 17m · 68 740 places · plein air. Climat océanique tempéré. Juin 18-22°C, pluies possibles."
-    }
-  },
-  {
-    "league": "Colombia Primera A",
-    "home": "América de Cali",
-    "away": "Águilas Doradas",
-    "start_ts": 1790209800,
-    "match_id": "1000014164",
-    "page_url": "/matches/america-de-cali-vs-aguilas-doradas/9hsgb4u#1000014164",
-    "picks": [],
-    "home_players": [],
-    "away_players": [],
-    "fun_picks": [],
-    "top_pick": null,
-    "no_picks": true,
-    "context": {
-      "stadium": {
-        "name": "Estadio Olímpico Pascual Guerrero",
-        "city": "Santiago de Cali",
-        "country": "Colombia",
-        "lat": 3.429846865,
-        "lon": -76.541179419,
-        "capacity": 46400,
+        "name": "Estadio ueno Luis Salinas Tanasio",
+        "city": "Itauguá",
+        "country": "Paraguay",
+        "lat": -25.39589941,
+        "lon": -57.340658605,
+        "capacity": 8000,
         "surface": "grass"
       },
       "weather": {
-        "temp_max": 25.8,
-        "temp_min": 20.4,
-        "humidity": 80,
-        "precipitation_sum_mm": 6.6,
-        "wind_max_kmh": 5.0,
-        "weather_code": 80,
-        "summary_fr": "🌦️ averses légères · 20–25°C · humidité 80% · précipitations 6.6mm"
+        "temp_max": 30.9,
+        "temp_min": 18.9,
+        "humidity": 62,
+        "precipitation_sum_mm": 0.0,
+        "wind_max_kmh": 16.4,
+        "weather_code": 1,
+        "summary_fr": "🌤️ principalement clair · 18–30°C · humidité 62%"
       },
-      "text": "Conditions : 🌦️ averses légères · 20–25°C · humidité 80% · précipitations 6.6mm. Stade : Estadio Olímpico Pascual Guerrero · 46 400 places · plein air. ⚠️ Pluies prévues : terrain potentiellement lourd, jeu direct privilégié, plus d'erreurs techniques."
+      "text": "Conditions : 🌤️ principalement clair · 18–30°C · humidité 62%. Stade : Estadio ueno Luis Salinas Tanasio · 8 000 places · plein air."
     }
   },
   {
@@ -756,14 +1412,14 @@
       },
       "weather": {
         "temp_max": 22.9,
-        "temp_min": 20.7,
-        "humidity": 89,
-        "precipitation_sum_mm": 8.8,
-        "wind_max_kmh": 20.8,
+        "temp_min": 20.8,
+        "humidity": 94,
+        "precipitation_sum_mm": 10.8,
+        "wind_max_kmh": 19.9,
         "weather_code": 80,
-        "summary_fr": "🌦️ averses légères · 22°C · humidité 89% · précipitations 8.8mm"
+        "summary_fr": "🌦️ averses légères · 22°C · humidité 94% · précipitations 10.8mm"
       },
-      "text": "Conditions : 🌦️ averses légères · 22°C · humidité 89% · précipitations 8.8mm. Stade : HFC Bank Stadium · 10 000 places · plein air. ⚠️ Pluies prévues : terrain potentiellement lourd, jeu direct privilégié, plus d'erreurs techniques."
+      "text": "Conditions : 🌦️ averses légères · 22°C · humidité 94% · précipitations 10.8mm. Stade : HFC Bank Stadium · 10 000 places · plein air. ⚠️ Pluies prévues : terrain potentiellement lourd, jeu direct privilégié, plus d'erreurs techniques."
     }
   },
   {
@@ -790,15 +1446,15 @@
         "surface": "grass"
       },
       "weather": {
-        "temp_max": 27.3,
-        "temp_min": 21.4,
+        "temp_max": 28.4,
+        "temp_min": 21.5,
         "humidity": 72,
-        "precipitation_sum_mm": 10.3,
-        "wind_max_kmh": 7.4,
+        "precipitation_sum_mm": 9.0,
+        "wind_max_kmh": 10.3,
         "weather_code": 95,
-        "summary_fr": "⛈️ orage · 21–27°C · humidité 72% · précipitations 10.3mm"
+        "summary_fr": "⛈️ orage · 21–28°C · humidité 72% · précipitations 9.0mm"
       },
-      "text": "Conditions : ⛈️ orage · 21–27°C · humidité 72% · précipitations 10.3mm. Stade : Tongliang Long Stadium · 20 000 places · plein air. ⚠️ Pluies prévues : terrain potentiellement lourd, jeu direct privilégié, plus d'erreurs techniques."
+      "text": "Conditions : ⛈️ orage · 21–28°C · humidité 72% · précipitations 9.0mm. Stade : Tongliang Long Stadium · 20 000 places · plein air. ⚠️ Pluies prévues : terrain potentiellement lourd, jeu direct privilégié, plus d'erreurs techniques."
     }
   },
   {
@@ -825,15 +1481,15 @@
         "surface": "grass"
       },
       "weather": {
-        "temp_max": 29.1,
-        "temp_min": 22.2,
-        "humidity": 72,
-        "precipitation_sum_mm": 1.1,
-        "wind_max_kmh": 7.6,
-        "weather_code": 51,
-        "summary_fr": "🌦️ bruine légère · 22–29°C · humidité 72% · précipitations 1.1mm"
+        "temp_max": 29.4,
+        "temp_min": 21.6,
+        "humidity": 73,
+        "precipitation_sum_mm": 7.5,
+        "wind_max_kmh": 7.0,
+        "weather_code": 95,
+        "summary_fr": "⛈️ orage · 21–29°C · humidité 73% · précipitations 7.5mm"
       },
-      "text": "Conditions : 🌦️ bruine légère · 22–29°C · humidité 72% · précipitations 1.1mm. Stade : Chongqing Longxing Football Stadium · 60 000 places · plein air."
+      "text": "Conditions : ⛈️ orage · 21–29°C · humidité 73% · précipitations 7.5mm. Stade : Chongqing Longxing Football Stadium · 60 000 places · plein air. ⚠️ Pluies prévues : terrain potentiellement lourd, jeu direct privilégié, plus d'erreurs techniques."
     }
   },
   {
@@ -861,14 +1517,14 @@
       },
       "weather": {
         "temp_max": 33.9,
-        "temp_min": 18.0,
-        "humidity": 25,
+        "temp_min": 17.8,
+        "humidity": 24,
         "precipitation_sum_mm": 0.0,
-        "wind_max_kmh": 14.6,
+        "wind_max_kmh": 14.7,
         "weather_code": 1,
-        "summary_fr": "🌤️ principalement clair · 18–33°C · humidité 25%"
+        "summary_fr": "🌤️ principalement clair · 17–33°C · humidité 24%"
       },
-      "text": "Conditions : 🌤️ principalement clair · 18–33°C · humidité 25%. Stade : Estádio José Alvalade · 52 095 places · plein air. ⚠️ Forte chaleur (>32°C) en plein air : impact endurance, plus de pauses hydratation."
+      "text": "Conditions : 🌤️ principalement clair · 17–33°C · humidité 24%. Stade : Estádio José Alvalade · 52 095 places · plein air. ⚠️ Forte chaleur (>32°C) en plein air : impact endurance, plus de pauses hydratation."
     }
   },
   {
@@ -895,11 +1551,11 @@
         "surface": "grass"
       },
       "weather": {
-        "temp_max": 23.4,
-        "temp_min": 13.2,
+        "temp_max": 23.0,
+        "temp_min": 13.0,
         "humidity": 28,
         "precipitation_sum_mm": 0.0,
-        "wind_max_kmh": 15.1,
+        "wind_max_kmh": 13.0,
         "weather_code": 3,
         "summary_fr": "☁️ couvert · 13–23°C · humidité 28%"
       },
@@ -931,14 +1587,189 @@
       },
       "weather": {
         "temp_max": 17.2,
-        "temp_min": 8.6,
-        "humidity": 58,
-        "precipitation_sum_mm": 0.5,
+        "temp_min": 8.8,
+        "humidity": 61,
+        "precipitation_sum_mm": 0.6,
         "wind_max_kmh": 16.4,
         "weather_code": 80,
-        "summary_fr": "🌦️ averses légères · 8–17°C · humidité 58%"
+        "summary_fr": "🌦️ averses légères · 8–17°C · humidité 61%"
       },
-      "text": "Conditions : 🌦️ averses légères · 8–17°C · humidité 58%. Stade : Raiffeisen Arena · 19 080 places · plein air."
+      "text": "Conditions : 🌦️ averses légères · 8–17°C · humidité 61%. Stade : Raiffeisen Arena · 19 080 places · plein air."
+    }
+  },
+  {
+    "league": "UEFA Nations League B",
+    "home": "Georgia",
+    "away": "Northern Ireland",
+    "start_ts": 1790352000,
+    "match_id": "5181800",
+    "page_url": "/matches/georgia-vs-northern-ireland/2u6w4c#5181800",
+    "picks": [],
+    "home_players": [],
+    "away_players": [],
+    "fun_picks": [],
+    "top_pick": null,
+    "no_picks": true,
+    "context": {
+      "stadium": {
+        "name": "Boris Paichadze Dinamo Arena",
+        "city": "Tbilisi",
+        "country": "Georgia",
+        "lat": 41.723007433,
+        "lon": 44.789725542,
+        "capacity": 54202,
+        "surface": "grass"
+      },
+      "weather": {
+        "temp_max": 24.0,
+        "temp_min": 18.3,
+        "humidity": 70,
+        "precipitation_sum_mm": 4.6,
+        "wind_max_kmh": 20.5,
+        "weather_code": 95,
+        "summary_fr": "⛈️ orage · 18–24°C · humidité 70% · précipitations 4.6mm"
+      },
+      "text": "Conditions : ⛈️ orage · 18–24°C · humidité 70% · précipitations 4.6mm. Stade : Boris Paichadze Dinamo Arena · 54 202 places · plein air."
+    }
+  },
+  {
+    "league": "UEFA Nations League B",
+    "home": "Poland",
+    "away": "Bosnia and Herzegovina",
+    "start_ts": 1790361900,
+    "match_id": "5181837",
+    "page_url": "/matches/poland-vs-bosnia-herzegovina/2vti6r#5181837",
+    "picks": [],
+    "home_players": [],
+    "away_players": [],
+    "fun_picks": [],
+    "top_pick": null,
+    "no_picks": true,
+    "context": {
+      "stadium": {
+        "name": "Stadion Narodowy",
+        "city": "Warszawa",
+        "country": "Poland",
+        "lat": 52.239436313,
+        "lon": 21.045802832,
+        "capacity": 58145,
+        "surface": "grass"
+      },
+      "weather": {
+        "temp_max": 15.1,
+        "temp_min": 10.3,
+        "humidity": 82,
+        "precipitation_sum_mm": 5.4,
+        "wind_max_kmh": 15.5,
+        "weather_code": 61,
+        "summary_fr": "🌦️ pluie légère · 10–15°C · humidité 82% · précipitations 5.4mm"
+      },
+      "text": "Conditions : 🌦️ pluie légère · 10–15°C · humidité 82% · précipitations 5.4mm. Stade : Stadion Narodowy · 58 145 places · plein air. ⚠️ Pluies prévues : terrain potentiellement lourd, jeu direct privilégié, plus d'erreurs techniques."
+    }
+  },
+  {
+    "league": "UEFA Nations League B",
+    "home": "Sweden",
+    "away": "Romania",
+    "start_ts": 1790361900,
+    "match_id": "5181838",
+    "page_url": "/matches/sweden-vs-romania/2r5qvt#5181838",
+    "picks": [],
+    "home_players": [],
+    "away_players": [],
+    "fun_picks": [],
+    "top_pick": null,
+    "no_picks": true,
+    "context": {
+      "stadium": {
+        "name": "Strawberry Arena",
+        "city": "Solna",
+        "country": "Sweden",
+        "lat": 59.372625298,
+        "lon": 18.000355212,
+        "capacity": 54329,
+        "surface": "grass"
+      },
+      "weather": {
+        "temp_max": 13.3,
+        "temp_min": 10.2,
+        "humidity": 84,
+        "precipitation_sum_mm": 0.7,
+        "wind_max_kmh": 18.7,
+        "weather_code": 51,
+        "summary_fr": "🌦️ bruine légère · 10–13°C · humidité 84%"
+      },
+      "text": "Conditions : 🌦️ bruine légère · 10–13°C · humidité 84%. Stade : Strawberry Arena · 54 329 places · plein air."
+    }
+  },
+  {
+    "league": "UEFA Nations League C",
+    "home": "Armenia",
+    "away": "Latvia",
+    "start_ts": 1790352000,
+    "match_id": "5181921",
+    "page_url": "/matches/latvia-vs-armenia/19m8ja#5181921",
+    "picks": [],
+    "home_players": [],
+    "away_players": [],
+    "fun_picks": [],
+    "top_pick": null,
+    "no_picks": true,
+    "context": {
+      "stadium": {
+        "name": "Vazgen Sargsyan anvan Hanrapetakan Marzadasht",
+        "city": "Yerevan",
+        "country": "Armenia",
+        "lat": 40.171913539,
+        "lon": 44.525667429,
+        "capacity": 14530,
+        "surface": "grass"
+      },
+      "weather": {
+        "temp_max": 30.0,
+        "temp_min": 17.4,
+        "humidity": 28,
+        "precipitation_sum_mm": 0.0,
+        "wind_max_kmh": 26.4,
+        "weather_code": 3,
+        "summary_fr": "☁️ couvert · 17–30°C · humidité 28%"
+      },
+      "text": "Conditions : ☁️ couvert · 17–30°C · humidité 28%. Stade : Vazgen Sargsyan anvan Hanrapetakan Marzadasht · 14 530 places · plein air."
+    }
+  },
+  {
+    "league": "UEFA Nations League C",
+    "home": "Montenegro",
+    "away": "Cyprus",
+    "start_ts": 1790361900,
+    "match_id": "5181922",
+    "page_url": "/matches/cyprus-vs-montenegro/p82jgi#5181922",
+    "picks": [],
+    "home_players": [],
+    "away_players": [],
+    "fun_picks": [],
+    "top_pick": null,
+    "no_picks": true,
+    "context": {
+      "stadium": {
+        "name": "Stadion Pod Goricom",
+        "city": "Podgorica",
+        "country": "Montenegro",
+        "lat": 42.444816549,
+        "lon": 19.264268875,
+        "capacity": 15230,
+        "surface": "grass"
+      },
+      "weather": {
+        "temp_max": 20.9,
+        "temp_min": 14.3,
+        "humidity": 46,
+        "precipitation_sum_mm": 11.8,
+        "wind_max_kmh": 18.6,
+        "weather_code": 63,
+        "summary_fr": "🌧️ pluie modérée · 14–20°C · humidité 46% · précipitations 11.8mm"
+      },
+      "text": "Conditions : 🌧️ pluie modérée · 14–20°C · humidité 46% · précipitations 11.8mm. Stade : Stadion Pod Goricom · 15 230 places · plein air. ⚠️ Pluies prévues : terrain potentiellement lourd, jeu direct privilégié, plus d'erreurs techniques."
     }
   },
   {
@@ -965,15 +1796,15 @@
         "surface": "grass"
       },
       "weather": {
-        "temp_max": 27.0,
-        "temp_min": 11.0,
-        "humidity": 18,
+        "temp_max": 26.7,
+        "temp_min": 11.6,
+        "humidity": 20,
         "precipitation_sum_mm": 0.0,
-        "wind_max_kmh": 8.2,
+        "wind_max_kmh": 8.0,
         "weather_code": 3,
-        "summary_fr": "☁️ couvert · 11–27°C · humidité 18%"
+        "summary_fr": "☁️ couvert · 11–26°C · humidité 20%"
       },
-      "text": "Conditions : ☁️ couvert · 11–27°C · humidité 18%. Stade : Estadi de la FAF d'Encamp · 5 500 places · plein air."
+      "text": "Conditions : ☁️ couvert · 11–26°C · humidité 20%. Stade : Estadi de la FAF d'Encamp · 5 500 places · plein air."
     }
   },
   {
@@ -1000,15 +1831,15 @@
         "surface": "grass"
       },
       "weather": {
-        "temp_max": 21.9,
-        "temp_min": 10.4,
-        "humidity": 51,
+        "temp_max": 22.1,
+        "temp_min": 10.5,
+        "humidity": 52,
         "precipitation_sum_mm": 0.0,
-        "wind_max_kmh": 15.6,
+        "wind_max_kmh": 14.3,
         "weather_code": 3,
-        "summary_fr": "☁️ couvert · 10–21°C · humidité 51%"
+        "summary_fr": "☁️ couvert · 10–22°C · humidité 52%"
       },
-      "text": "Conditions : ☁️ couvert · 10–21°C · humidité 51%. Stade : Rheinpark Stadion · 7 564 places · plein air."
+      "text": "Conditions : ☁️ couvert · 10–22°C · humidité 52%. Stade : Rheinpark Stadion · 7 564 places · plein air."
     }
   }
 ]
