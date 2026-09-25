@@ -50620,6 +50620,37 @@
       "resolved_at": "2026-09-24 22:06"
     },
     {
+      "direction": "home_win",
+      "type": "Victoire domicile",
+      "label": "Atlético Nacional gagne",
+      "cote": null,
+      "confidence": 70,
+      "reasoning": "Atlético Nacional : 4V/0N/1D sur 5 matchs · #1 au classement · H2H: 0V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+      "stats": {
+        "form": [
+          "L",
+          "W",
+          "W",
+          "W",
+          "W"
+        ]
+      },
+      "is_fun": false,
+      "tier": "safe",
+      "calibration_delta": -11.3,
+      "history_top3": true,
+      "id": "2026-09-25_1000014157_team_home_win",
+      "date": "2026-09-25",
+      "match_id": "1000014157",
+      "page_url": "/matches/millonarios-vs-atletico-nacional/yjjq6#1000014157",
+      "matchup": "Atlético Nacional vs Millonarios",
+      "league": "Colombia Primera A",
+      "category": "team",
+      "result": "LOSS",
+      "actual": "1-1",
+      "resolved_at": "2026-09-25 05:57"
+    },
+    {
       "direction": "away_win",
       "type": "Forme superieure",
       "label": "Brazil gagne",
@@ -50806,30 +50837,30 @@
       "resolved_at": null
     },
     {
-      "direction": "home_win",
-      "type": "Victoire domicile",
-      "label": "Atlético Nacional gagne",
+      "direction": "away_win",
+      "type": "Favori net",
+      "label": "Deportivo Pasto gagne",
       "cote": null,
-      "confidence": 70,
-      "reasoning": "Atlético Nacional : 4V/0N/1D sur 5 matchs · #1 au classement · H2H: 0V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+      "confidence": 71,
+      "reasoning": "15 places d'écart au classement (#3 vs #18) · 2V/2N/1D sur 5 matchs · Note Sofa: 6.5/10\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
       "stats": {
         "form": [
+          "W",
+          "W",
+          "D",
           "L",
-          "W",
-          "W",
-          "W",
-          "W"
+          "D"
         ]
       },
       "is_fun": false,
       "tier": "safe",
       "calibration_delta": -11.3,
       "history_top3": true,
-      "id": "2026-09-25_1000014157_team_home_win",
+      "id": "2026-09-25_1000014161_team_away_win",
       "date": "2026-09-25",
-      "match_id": "1000014157",
-      "page_url": "/matches/millonarios-vs-atletico-nacional/yjjq6#1000014157",
-      "matchup": "Atlético Nacional vs Millonarios",
+      "match_id": "1000014161",
+      "page_url": "/matches/deportivo-pasto-vs-chico-fc/xu1u1#1000014161",
+      "matchup": "Chicó FC vs Deportivo Pasto",
       "league": "Colombia Primera A",
       "category": "team",
       "result": "PENDING",
@@ -50862,6 +50893,77 @@
       "page_url": "/matches/italy-vs-belgium/28qbqd#5181788",
       "matchup": "Italy vs Belgium",
       "league": "UEFA Nations League A",
+      "category": "team",
+      "result": "PENDING",
+      "actual": null,
+      "resolved_at": null
+    },
+    {
+      "player": "Hugo Benítez / Cristhian Ocampos",
+      "position": "",
+      "is_sub": false,
+      "type": "Double Chance Buteur",
+      "label": "Hugo Benítez OU Cristhian Ocampos marque (cross-équipe)",
+      "cote": null,
+      "book": null,
+      "books": [],
+      "confidence": 70,
+      "cote_min": 1.49,
+      "reasoning": "🔀 Cross-équipe (moins corrélé → meilleur EV)\n📈 P(Hugo Benítez marque) ≈ 44% · P(Cristhian Ocampos marque) ≈ 40%\n🎯 P(au moins un marque) = 70% (1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.49 - chercher ≥1.49 chez le bookmaker\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+      "context": {
+        "combo_kind": "cross"
+      },
+      "_team_for_balance": "home",
+      "stats": {
+        "p_a": 0.442,
+        "p_b": 0.405,
+        "p_or": 0.668,
+        "player_a": "Hugo Benítez",
+        "player_b": "Cristhian Ocampos",
+        "kind": "cross"
+      },
+      "team": "home",
+      "tier": "safe",
+      "calibration_delta": -11.3,
+      "history_top3": true,
+      "id": "2026-09-25_1000017421_player_Hugo Benítez / Cristhian Ocampos_Double Chance Buteur",
+      "date": "2026-09-25",
+      "match_id": "1000017421",
+      "page_url": "/matches/nacional-vs-sportivo-ameliano/ankmb94u#1000017421",
+      "matchup": "Nacional vs Sportivo Ameliano",
+      "league": "Paraguay Profesional",
+      "category": "player",
+      "result": "PENDING",
+      "actual": null,
+      "resolved_at": null,
+      "side": "home"
+    },
+    {
+      "direction": "home_win",
+      "type": "Victoire domicile",
+      "label": "Nacional gagne",
+      "cote": null,
+      "confidence": 62,
+      "reasoning": "Nacional : 4V/0N/1D sur 5 matchs · #2 au classement · H2H: 0V/3N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
+      "stats": {
+        "form": [
+          "W",
+          "W",
+          "L",
+          "W",
+          "W"
+        ]
+      },
+      "is_fun": false,
+      "tier": "ok",
+      "calibration_delta": -25.4,
+      "history_top3": true,
+      "id": "2026-09-25_1000017421_team_home_win",
+      "date": "2026-09-25",
+      "match_id": "1000017421",
+      "page_url": "/matches/nacional-vs-sportivo-ameliano/ankmb94u#1000017421",
+      "matchup": "Nacional vs Sportivo Ameliano",
+      "league": "Paraguay Profesional",
       "category": "team",
       "result": "PENDING",
       "actual": null,
@@ -50928,6 +51030,39 @@
       "result": "PENDING",
       "actual": null,
       "resolved_at": null
+    },
+    {
+      "player": "Iván Maggi",
+      "position": "F",
+      "is_sub": false,
+      "type": "Buteur",
+      "label": "Iván Maggi marque",
+      "team": "home",
+      "cote": null,
+      "book": null,
+      "books": [],
+      "confidence": 38,
+      "reasoning": "11G en 32 matchs (34.4%/match) · xG: 0.00/match",
+      "context": {
+        "weakness": 0.45
+      },
+      "stats": {
+        "goals": 11,
+        "apps": 32
+      },
+      "tier": "fun",
+      "history_top3": true,
+      "id": "2026-09-25_1000017418_player_Iván Maggi_Buteur",
+      "date": "2026-09-25",
+      "match_id": "1000017418",
+      "page_url": "/matches/guarani-vs-luqueno/m01gbh#1000017418",
+      "matchup": "Luqueño vs Guaraní",
+      "league": "Paraguay Profesional",
+      "category": "player",
+      "result": "PENDING",
+      "actual": null,
+      "resolved_at": null,
+      "side": "home"
     }
   ]
 }
