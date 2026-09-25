@@ -180,7 +180,122 @@
       }
     ],
     "home_players": [],
-    "away_players": [],
+    "away_players": [
+      {
+        "player": "Estêvão",
+        "position": "F",
+        "is_sub": false,
+        "type": "Buteur",
+        "label": "Estêvão marque",
+        "cote": null,
+        "cote_min": 1.58,
+        "book": null,
+        "books": [],
+        "confidence": 63,
+        "reasoning": "Estêvão : selection 4G/4m (1.00/m) · L10 club : 0G/10m, 🔥 2G/3 derniers nat (+19%) | titu nat (64min/m) · last match 90min (1G+0A). λ ajusté à 1.00 (Brazil attendu 2.3 buts) → P(marque) ~63%.\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
+        "context": {
+          "source": "lineup",
+          "lam": 1.0,
+          "lineup_status": "confirmed"
+        },
+        "stats": {
+          "goals": null,
+          "apps": null,
+          "gpm": 1.003,
+          "xgpm": null
+        },
+        "team": "away",
+        "lineup_status": "confirmed",
+        "tier": "ok",
+        "calibration_delta": -25.4,
+        "history_top3": true
+      },
+      {
+        "player": "Raphinha",
+        "position": "F",
+        "is_sub": false,
+        "type": "Buteur",
+        "label": "Raphinha marque",
+        "cote": null,
+        "cote_min": 2.02,
+        "book": null,
+        "books": [],
+        "confidence": 50,
+        "reasoning": "Raphinha : selection 0G/5m (0.00/m) · L10 club : 15G/10m | rotatif nat (58min/m) · last match 40min (0G+0A). λ ajusté à 0.68 (Brazil attendu 2.3 buts) → P(marque) ~50%.\n📉 Calibration : bucket 50-59% historiquement à WR 42% (claim 55%, n=41) — sur-estimé de 14pp",
+        "context": {
+          "source": "lineup",
+          "lam": 0.68,
+          "lineup_status": "confirmed"
+        },
+        "stats": {
+          "goals": null,
+          "apps": null,
+          "gpm": 0.684,
+          "xgpm": null
+        },
+        "team": "away",
+        "lineup_status": "confirmed",
+        "tier": "fun",
+        "calibration_delta": -13.6,
+        "history_top3": true
+      },
+      {
+        "player": "Estêvão",
+        "position": "F",
+        "is_sub": false,
+        "type": "Double buteur",
+        "label": "Estêvão marque 2+ buts",
+        "cote": null,
+        "cote_min": 3.77,
+        "book": null,
+        "books": [],
+        "confidence": 37,
+        "reasoning": "Estêvão : selection 4G/4m (1.00/m) · L10 club : 0G/10m, 🔥 2G/3 derniers nat (+19%) | titu nat (64min/m) · last match 90min (1G+0A). Attendu ~1.0 buts ce match - P(2+) ~27% (cote elevee).",
+        "context": {
+          "source": "lineup",
+          "lam": 1.0,
+          "lineup_status": "confirmed"
+        },
+        "stats": {
+          "goals": null,
+          "apps": null,
+          "gpm": 1.003,
+          "xgpm": null
+        },
+        "team": "away",
+        "lineup_status": "confirmed",
+        "tier": "fun",
+        "history_top3": false
+      },
+      {
+        "player": "Endrick",
+        "position": "F",
+        "is_sub": false,
+        "type": "Passeur",
+        "label": "Endrick délivre une passe décisive",
+        "cote": null,
+        "cote_min": 2.7,
+        "book": null,
+        "books": [],
+        "confidence": 37,
+        "reasoning": "Endrick délivre une passe décisive : selection 8A/21m (0.38 passes/m nat). P(passe décisive) ~37%.",
+        "context": {
+          "source": "lineup",
+          "lam": 0.46,
+          "lineup_status": "confirmed"
+        },
+        "stats": {
+          "goals": null,
+          "apps": null,
+          "gpm": 0.463,
+          "xgpm": null
+        },
+        "team": "away",
+        "lineup_status": "confirmed",
+        "tier": "fun",
+        "history_top3": false
+      }
+    ],
     "fun_picks": [],
     "top_pick": {
       "direction": "away_win",
@@ -411,15 +526,15 @@
         "surface": "grass"
       },
       "weather": {
-        "temp_max": 19.8,
-        "temp_min": 11.8,
-        "humidity": 41,
+        "temp_max": 19.5,
+        "temp_min": 12.4,
+        "humidity": 37,
         "precipitation_sum_mm": 0.0,
-        "wind_max_kmh": 12.2,
+        "wind_max_kmh": 16.2,
         "weather_code": 3,
-        "summary_fr": "☁️ couvert · 11–19°C · humidité 41%"
+        "summary_fr": "☁️ couvert · 12–19°C · humidité 37%"
       },
-      "text": "Conditions : ☁️ couvert · 11–19°C · humidité 41%. Stade : Wembley Stadium · 90 000 places · plein air."
+      "text": "Conditions : ☁️ couvert · 12–19°C · humidité 37%. Stade : Wembley Stadium · 90 000 places · plein air."
     }
   },
   {
@@ -530,15 +645,15 @@
         "surface": "grass"
       },
       "weather": {
-        "temp_max": 31.0,
+        "temp_max": 28.9,
         "temp_min": 17.0,
-        "humidity": 34,
+        "humidity": 45,
         "precipitation_sum_mm": 0.0,
-        "wind_max_kmh": 18.2,
-        "weather_code": 1,
-        "summary_fr": "🌤️ principalement clair · 17–31°C · humidité 34%"
+        "wind_max_kmh": 11.2,
+        "weather_code": 3,
+        "summary_fr": "☁️ couvert · 17–28°C · humidité 45%"
       },
-      "text": "Conditions : 🌤️ principalement clair · 17–31°C · humidité 34%. Stade : Inter.co Stadium · 25 527 places · plein air."
+      "text": "Conditions : ☁️ couvert · 17–28°C · humidité 45%. Stade : Inter.co Stadium · 25 527 places · plein air."
     }
   },
   {
@@ -700,15 +815,15 @@
         "surface": "artificial turf"
       },
       "weather": {
-        "temp_max": 27.2,
-        "temp_min": 8.9,
-        "humidity": 26,
+        "temp_max": 26.8,
+        "temp_min": 9.4,
+        "humidity": 22,
         "precipitation_sum_mm": 0.0,
-        "wind_max_kmh": 11.2,
-        "weather_code": 3,
-        "summary_fr": "☁️ couvert · 8–27°C · humidité 26%"
+        "wind_max_kmh": 16.1,
+        "weather_code": 0,
+        "summary_fr": "🌤️ conditions variables · 9–26°C · humidité 22%"
       },
-      "text": "Conditions : ☁️ couvert · 8–27°C · humidité 26%. Stade : Bank of America Stadium · 75 412 places · plein air."
+      "text": "Conditions : 🌤️ conditions variables · 9–26°C · humidité 22%. Stade : Bank of America Stadium · 75 412 places · plein air."
     }
   },
   {
@@ -945,15 +1060,15 @@
         "surface": "grass"
       },
       "weather": {
-        "temp_max": 20.9,
-        "temp_min": 10.4,
-        "humidity": 47,
+        "temp_max": 21.0,
+        "temp_min": 9.2,
+        "humidity": 51,
         "precipitation_sum_mm": 0.0,
-        "wind_max_kmh": 19.7,
+        "wind_max_kmh": 19.0,
         "weather_code": 3,
-        "summary_fr": "☁️ couvert · 10–20°C · humidité 47%"
+        "summary_fr": "☁️ couvert · 9–21°C · humidité 51%"
       },
-      "text": "Conditions : ☁️ couvert · 10–20°C · humidité 47%. Stade : Stade Saputo · 20 801 places · plein air."
+      "text": "Conditions : ☁️ couvert · 9–21°C · humidité 51%. Stade : Stade Saputo · 20 801 places · plein air."
     }
   },
   {
@@ -1022,15 +1137,15 @@
         "surface": "grass"
       },
       "weather": {
-        "temp_max": 30.2,
-        "temp_min": 22.2,
-        "humidity": 75,
-        "precipitation_sum_mm": 25.5,
-        "wind_max_kmh": 9.7,
+        "temp_max": 30.5,
+        "temp_min": 23.7,
+        "humidity": 81,
+        "precipitation_sum_mm": 6.8,
+        "wind_max_kmh": 10.6,
         "weather_code": 95,
-        "summary_fr": "⛈️ orage · 22–30°C · humidité 75% · précipitations 25.5mm"
+        "summary_fr": "⛈️ orage · 23–30°C · humidité 81% · précipitations 6.8mm"
       },
-      "text": "Conditions : ⛈️ orage · 22–30°C · humidité 75% · précipitations 25.5mm. Stade : Estadio Santiago de las Atalayas · 12 000 places · plein air. ⚠️ Pluies prévues : terrain potentiellement lourd, jeu direct privilégié, plus d'erreurs techniques."
+      "text": "Conditions : ⛈️ orage · 23–30°C · humidité 81% · précipitations 6.8mm. Stade : Estadio Santiago de las Atalayas · 12 000 places · plein air. ⚠️ Pluies prévues : terrain potentiellement lourd, jeu direct privilégié, plus d'erreurs techniques."
     }
   },
   {
@@ -1099,15 +1214,15 @@
         "surface": "grass"
       },
       "weather": {
-        "temp_max": 24.8,
-        "temp_min": 12.2,
-        "humidity": 45,
+        "temp_max": 24.4,
+        "temp_min": 11.2,
+        "humidity": 41,
         "precipitation_sum_mm": 0.0,
-        "wind_max_kmh": 8.3,
+        "wind_max_kmh": 12.2,
         "weather_code": 45,
-        "summary_fr": "🌫️ brouillard · 12–24°C · humidité 45%"
+        "summary_fr": "🌫️ brouillard · 11–24°C · humidité 41%"
       },
-      "text": "Conditions : 🌫️ brouillard · 12–24°C · humidité 45%. Stade : Arena Kombëtare · 22 000 places · plein air."
+      "text": "Conditions : 🌫️ brouillard · 11–24°C · humidité 41%. Stade : Arena Kombëtare · 22 000 places · plein air."
     }
   },
   {
@@ -1253,15 +1368,15 @@
         "surface": "grass"
       },
       "weather": {
-        "temp_max": 21.1,
-        "temp_min": 12.2,
-        "humidity": 52,
-        "precipitation_sum_mm": 0.0,
-        "wind_max_kmh": 14.3,
-        "weather_code": 3,
-        "summary_fr": "☁️ couvert · 12–21°C · humidité 52%"
+        "temp_max": 16.9,
+        "temp_min": 13.2,
+        "humidity": 67,
+        "precipitation_sum_mm": 4.4,
+        "wind_max_kmh": 9.4,
+        "weather_code": 61,
+        "summary_fr": "🌦️ pluie légère · 13–16°C · humidité 67% · précipitations 4.4mm"
       },
-      "text": "Conditions : ☁️ couvert · 12–21°C · humidité 52%. Stade : Stadion Hristo Botev · 22 000 places · plein air."
+      "text": "Conditions : 🌦️ pluie légère · 13–16°C · humidité 67% · précipitations 4.4mm. Stade : Stadion Hristo Botev · 22 000 places · plein air."
     }
   },
   {
@@ -1436,15 +1551,15 @@
         "surface": "grass"
       },
       "weather": {
-        "temp_max": 17.3,
-        "temp_min": 12.5,
-        "humidity": 91,
-        "precipitation_sum_mm": 16.95,
-        "wind_max_kmh": 32.0,
-        "weather_code": 63,
-        "summary_fr": "🌧️ pluie modérée · 12–17°C · humidité 91% · précipitations 16.9mm"
+        "temp_max": 17.1,
+        "temp_min": 12.7,
+        "humidity": 87,
+        "precipitation_sum_mm": 15.5,
+        "wind_max_kmh": 33.2,
+        "weather_code": 65,
+        "summary_fr": "🌧️ pluie forte · 12–17°C · humidité 87% · précipitations 15.5mm"
       },
-      "text": "Conditions : 🌧️ pluie modérée · 12–17°C · humidité 91% · précipitations 16.9mm. Stade : Subaru Park · 19 778 places · plein air. ⚠️ Pluies prévues : terrain potentiellement lourd, jeu direct privilégié, plus d'erreurs techniques. ⚠️ Vent fort prévu : jeu aérien moins fiable, balles longues imprévisibles."
+      "text": "Conditions : 🌧️ pluie forte · 12–17°C · humidité 87% · précipitations 15.5mm. Stade : Subaru Park · 19 778 places · plein air. ⚠️ Pluies prévues : terrain potentiellement lourd, jeu direct privilégié, plus d'erreurs techniques. ⚠️ Vent fort prévu : jeu aérien moins fiable, balles longues imprévisibles."
     }
   },
   {
@@ -1804,15 +1919,15 @@
         "surface": "grass"
       },
       "weather": {
-        "temp_max": 9.2,
-        "temp_min": 5.0,
+        "temp_max": 9.1,
+        "temp_min": 4.6,
         "humidity": 69,
         "precipitation_sum_mm": 0.0,
-        "wind_max_kmh": 17.3,
+        "wind_max_kmh": 17.6,
         "weather_code": 3,
-        "summary_fr": "☁️ couvert · 5–9°C · humidité 69%"
+        "summary_fr": "☁️ couvert · 4–9°C · humidité 69%"
       },
-      "text": "Conditions : ☁️ couvert · 5–9°C · humidité 69%. Stade : Laugardalsvöllur · 15 427 places · plein air."
+      "text": "Conditions : ☁️ couvert · 4–9°C · humidité 69%. Stade : Laugardalsvöllur · 15 427 places · plein air."
     }
   },
   {
@@ -1937,14 +2052,14 @@
       },
       "weather": {
         "temp_max": 15.9,
-        "temp_min": 12.3,
-        "humidity": 85,
-        "precipitation_sum_mm": 22.28,
-        "wind_max_kmh": 37.5,
-        "weather_code": 63,
-        "summary_fr": "🌧️ pluie modérée · 12–15°C · humidité 85% · précipitations 22.3mm"
+        "temp_min": 12.0,
+        "humidity": 89,
+        "precipitation_sum_mm": 50.7,
+        "wind_max_kmh": 34.0,
+        "weather_code": 65,
+        "summary_fr": "🌧️ pluie forte · 12–15°C · humidité 89% · précipitations 50.7mm"
       },
-      "text": "Conditions : 🌧️ pluie modérée · 12–15°C · humidité 85% · précipitations 22.3mm. Stade : Sports Illustrated Stadium · 26 765 places · plein air. ⚠️ Pluies prévues : terrain potentiellement lourd, jeu direct privilégié, plus d'erreurs techniques. ⚠️ Vent fort prévu : jeu aérien moins fiable, balles longues imprévisibles."
+      "text": "Conditions : 🌧️ pluie forte · 12–15°C · humidité 89% · précipitations 50.7mm. Stade : Sports Illustrated Stadium · 26 765 places · plein air. ⚠️ Pluies prévues : terrain potentiellement lourd, jeu direct privilégié, plus d'erreurs techniques. ⚠️ Vent fort prévu : jeu aérien moins fiable, balles longues imprévisibles."
     }
   },
   {
@@ -2013,15 +2128,15 @@
         "surface": "grass"
       },
       "weather": {
-        "temp_max": 21.4,
-        "temp_min": 12.5,
-        "humidity": 53,
-        "precipitation_sum_mm": 4.9,
-        "wind_max_kmh": 6.5,
-        "weather_code": 61,
-        "summary_fr": "🌦️ pluie légère · 12–21°C · humidité 53% · précipitations 4.9mm"
+        "temp_max": 18.6,
+        "temp_min": 12.8,
+        "humidity": 62,
+        "precipitation_sum_mm": 4.8,
+        "wind_max_kmh": 7.8,
+        "weather_code": 80,
+        "summary_fr": "🌦️ averses légères · 12–18°C · humidité 62% · précipitations 4.8mm"
       },
-      "text": "Conditions : 🌦️ pluie légère · 12–21°C · humidité 53% · précipitations 4.9mm. Stade : Nacionalna Arena Toše Proeski · 32 580 places · plein air."
+      "text": "Conditions : 🌦️ averses légères · 12–18°C · humidité 62% · précipitations 4.8mm. Stade : Nacionalna Arena Toše Proeski · 32 580 places · plein air."
     }
   },
   {
@@ -2090,15 +2205,15 @@
         "surface": "grass"
       },
       "weather": {
-        "temp_max": 21.5,
-        "temp_min": 9.8,
-        "humidity": 49,
+        "temp_max": 21.7,
+        "temp_min": 9.4,
+        "humidity": 46,
         "precipitation_sum_mm": 0.0,
-        "wind_max_kmh": 6.6,
+        "wind_max_kmh": 5.2,
         "weather_code": 3,
-        "summary_fr": "☁️ couvert · 9–21°C · humidité 49%"
+        "summary_fr": "☁️ couvert · 9–21°C · humidité 46%"
       },
-      "text": "Conditions : ☁️ couvert · 9–21°C · humidité 49%. Stade : Fortuna Arena · 19 370 places · plein air."
+      "text": "Conditions : ☁️ couvert · 9–21°C · humidité 46%. Stade : Fortuna Arena · 19 370 places · plein air."
     }
   },
   {
@@ -2168,14 +2283,14 @@
       },
       "weather": {
         "temp_max": 11.6,
-        "temp_min": 8.4,
+        "temp_min": 9.1,
         "humidity": 81,
-        "precipitation_sum_mm": 11.6,
-        "wind_max_kmh": 46.8,
+        "precipitation_sum_mm": 9.8,
+        "wind_max_kmh": 44.6,
         "weather_code": 63,
-        "summary_fr": "🌧️ pluie modérée · 8–11°C · humidité 81% · précipitations 11.6mm"
+        "summary_fr": "🌧️ pluie modérée · 11°C · humidité 81% · précipitations 9.8mm"
       },
-      "text": "Conditions : 🌧️ pluie modérée · 8–11°C · humidité 81% · précipitations 11.6mm. Stade : Tórsvøllur · 6 040 places · plein air. ⚠️ Pluies prévues : terrain potentiellement lourd, jeu direct privilégié, plus d'erreurs techniques. ⚠️ Vent fort prévu : jeu aérien moins fiable, balles longues imprévisibles."
+      "text": "Conditions : 🌧️ pluie modérée · 11°C · humidité 81% · précipitations 9.8mm. Stade : Tórsvøllur · 6 040 places · plein air. ⚠️ Pluies prévues : terrain potentiellement lourd, jeu direct privilégié, plus d'erreurs techniques. ⚠️ Vent fort prévu : jeu aérien moins fiable, balles longues imprévisibles."
     }
   },
   {
@@ -2321,15 +2436,15 @@
         "surface": "grass"
       },
       "weather": {
-        "temp_max": 20.0,
-        "temp_min": 7.0,
-        "humidity": 58,
+        "temp_max": 20.3,
+        "temp_min": 6.4,
+        "humidity": 57,
         "precipitation_sum_mm": 0.0,
-        "wind_max_kmh": 7.0,
+        "wind_max_kmh": 8.7,
         "weather_code": 45,
-        "summary_fr": "🌫️ brouillard · 7–20°C · humidité 58%"
+        "summary_fr": "🌫️ brouillard · 6–20°C · humidité 57%"
       },
-      "text": "Conditions : 🌫️ brouillard · 7–20°C · humidité 58%. Stade : Stadion Stožice · 16 432 places · plein air."
+      "text": "Conditions : 🌫️ brouillard · 6–20°C · humidité 57%. Stade : Stadion Stožice · 16 432 places · plein air."
     }
   },
   {
@@ -2464,15 +2579,15 @@
         "context_fr": "Toit ouvrant, climatisé. Conditions stables ~22°C indoor."
       },
       "weather": {
-        "temp_max": 29.0,
-        "temp_min": 13.9,
-        "humidity": 31,
+        "temp_max": 28.2,
+        "temp_min": 13.5,
+        "humidity": 22,
         "precipitation_sum_mm": 0.0,
-        "wind_max_kmh": 15.2,
+        "wind_max_kmh": 14.5,
         "weather_code": 3,
-        "summary_fr": "☁️ couvert · 13–29°C · humidité 31%"
+        "summary_fr": "☁️ couvert · 13–28°C · humidité 22%"
       },
-      "text": "Conditions : ☁️ couvert · 13–29°C · humidité 31%. Stade : Mercedes-Benz Stadium · altitude 320m · 75 000 places · climatisé. Toit ouvrant, climatisé. Conditions stables ~22°C indoor."
+      "text": "Conditions : ☁️ couvert · 13–28°C · humidité 22%. Stade : Mercedes-Benz Stadium · altitude 320m · 75 000 places · climatisé. Toit ouvrant, climatisé. Conditions stables ~22°C indoor."
     }
   },
   {
@@ -2716,15 +2831,15 @@
         "surface": "grass"
       },
       "weather": {
-        "temp_max": 34.4,
-        "temp_min": 22.4,
-        "humidity": 54,
+        "temp_max": 34.8,
+        "temp_min": 22.7,
+        "humidity": 53,
         "precipitation_sum_mm": 0.0,
-        "wind_max_kmh": 14.8,
+        "wind_max_kmh": 15.7,
         "weather_code": 0,
-        "summary_fr": "🌤️ conditions variables · 22–34°C · humidité 54%"
+        "summary_fr": "🌤️ conditions variables · 22–34°C · humidité 53%"
       },
-      "text": "Conditions : 🌤️ conditions variables · 22–34°C · humidité 54%. Stade : Estadio La Arboleda · 8 000 places · plein air. ⚠️ Forte chaleur (>32°C) en plein air : impact endurance, plus de pauses hydratation."
+      "text": "Conditions : 🌤️ conditions variables · 22–34°C · humidité 53%. Stade : Estadio La Arboleda · 8 000 places · plein air. ⚠️ Forte chaleur (>32°C) en plein air : impact endurance, plus de pauses hydratation."
     }
   },
   {
@@ -2751,15 +2866,15 @@
         "surface": "grass"
       },
       "weather": {
-        "temp_max": 17.2,
+        "temp_max": 18.1,
         "temp_min": 14.7,
-        "humidity": 99,
-        "precipitation_sum_mm": 51.2,
-        "wind_max_kmh": 7.1,
+        "humidity": 96,
+        "precipitation_sum_mm": 46.9,
+        "wind_max_kmh": 8.8,
         "weather_code": 95,
-        "summary_fr": "⛈️ orage · 17°C · humidité 99% · précipitations 51.2mm"
+        "summary_fr": "⛈️ orage · 14–18°C · humidité 96% · précipitations 46.9mm"
       },
-      "text": "Conditions : ⛈️ orage · 17°C · humidité 99% · précipitations 51.2mm. Stade : Estadio Palogrande · 42 678 places · plein air. ⚠️ Pluies prévues : terrain potentiellement lourd, jeu direct privilégié, plus d'erreurs techniques."
+      "text": "Conditions : ⛈️ orage · 14–18°C · humidité 96% · précipitations 46.9mm. Stade : Estadio Palogrande · 42 678 places · plein air. ⚠️ Pluies prévues : terrain potentiellement lourd, jeu direct privilégié, plus d'erreurs techniques."
     }
   },
   {
@@ -2786,15 +2901,15 @@
         "surface": "grass"
       },
       "weather": {
-        "temp_max": 37.8,
-        "temp_min": 25.8,
-        "humidity": 55,
-        "precipitation_sum_mm": 3.1,
-        "wind_max_kmh": 16.3,
+        "temp_max": 34.8,
+        "temp_min": 25.2,
+        "humidity": 54,
+        "precipitation_sum_mm": 4.3,
+        "wind_max_kmh": 13.0,
         "weather_code": 80,
-        "summary_fr": "🌦️ averses légères · 25–37°C · humidité 55% · précipitations 3.1mm"
+        "summary_fr": "🌦️ averses légères · 25–34°C · humidité 54% · précipitations 4.3mm"
       },
-      "text": "Conditions : 🌦️ averses légères · 25–37°C · humidité 55% · précipitations 3.1mm. Stade : Estadio General Santander · 42 901 places · plein air. ⚠️ Forte chaleur (>32°C) en plein air : impact endurance, plus de pauses hydratation."
+      "text": "Conditions : 🌦️ averses légères · 25–34°C · humidité 54% · précipitations 4.3mm. Stade : Estadio General Santander · 42 901 places · plein air. ⚠️ Forte chaleur (>32°C) en plein air : impact endurance, plus de pauses hydratation."
     }
   },
   {
@@ -2906,15 +3021,15 @@
         "context_fr": "Plus petit stade de la CdM 2026. Climat continental. Juin 20-26°C."
       },
       "weather": {
-        "temp_max": 23.2,
-        "temp_min": 10.9,
-        "humidity": 37,
+        "temp_max": 22.5,
+        "temp_min": 9.9,
+        "humidity": 46,
         "precipitation_sum_mm": 0.0,
-        "wind_max_kmh": 14.0,
+        "wind_max_kmh": 17.4,
         "weather_code": 3,
-        "summary_fr": "☁️ couvert · 10–23°C · humidité 37%"
+        "summary_fr": "☁️ couvert · 9–22°C · humidité 46%"
       },
-      "text": "Conditions : ☁️ couvert · 10–23°C · humidité 37%. Stade : BMO Field · altitude 76m · 30 000 places · plein air. Plus petit stade de la CdM 2026. Climat continental. Juin 20-26°C."
+      "text": "Conditions : ☁️ couvert · 9–22°C · humidité 46%. Stade : BMO Field · altitude 76m · 30 000 places · plein air. Plus petit stade de la CdM 2026. Climat continental. Juin 20-26°C."
     }
   },
   {
@@ -3116,15 +3231,15 @@
         "surface": "grass"
       },
       "weather": {
-        "temp_max": 22.7,
-        "temp_min": 14.6,
-        "humidity": 52,
+        "temp_max": 23.0,
+        "temp_min": 14.5,
+        "humidity": 49,
         "precipitation_sum_mm": 0.0,
-        "wind_max_kmh": 11.6,
-        "weather_code": 2,
-        "summary_fr": "⛅ partiellement nuageux · 14–22°C · humidité 52%"
+        "wind_max_kmh": 11.1,
+        "weather_code": 1,
+        "summary_fr": "🌤️ principalement clair · 14–23°C · humidité 49%"
       },
-      "text": "Conditions : ⛅ partiellement nuageux · 14–22°C · humidité 52%. Stade : Stadio Olimpico di Serravalle · 5 115 places · plein air."
+      "text": "Conditions : 🌤️ principalement clair · 14–23°C · humidité 49%. Stade : Stadio Olimpico di Serravalle · 5 115 places · plein air."
     }
   },
   {
@@ -3151,15 +3266,15 @@
         "surface": "grass"
       },
       "weather": {
-        "temp_max": 21.4,
-        "temp_min": 6.5,
+        "temp_max": 21.5,
+        "temp_min": 7.2,
         "humidity": 44,
         "precipitation_sum_mm": 0.0,
         "wind_max_kmh": 8.6,
         "weather_code": 3,
-        "summary_fr": "☁️ couvert · 6–21°C · humidité 44%"
+        "summary_fr": "☁️ couvert · 7–21°C · humidité 44%"
       },
-      "text": "Conditions : ☁️ couvert · 6–21°C · humidité 44%. Stade : Futbal Tatran Aréna · 6 500 places · plein air."
+      "text": "Conditions : ☁️ couvert · 7–21°C · humidité 44%. Stade : Futbal Tatran Aréna · 6 500 places · plein air."
     }
   }
 ]
