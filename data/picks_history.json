@@ -51157,6 +51157,119 @@
       "resolved_at": "2026-09-26 01:52"
     },
     {
+      "direction": "away_win",
+      "type": "Victoire extérieur",
+      "label": "Scotland gagne",
+      "cote": null,
+      "confidence": 58,
+      "reasoning": "Scotland : 3V/0N/2D sur 5 matchs · #2 au classement · H2H: 0V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 50-59% historiquement à WR 42% (claim 55%, n=41) — sur-estimé de 14pp",
+      "stats": {
+        "form": [
+          "L",
+          "L",
+          "W",
+          "W",
+          "W"
+        ]
+      },
+      "is_fun": false,
+      "tier": "ok",
+      "calibration_delta": -13.6,
+      "history_top3": true,
+      "id": "2026-09-26_5181776_team_away_win",
+      "date": "2026-09-26",
+      "match_id": "5181776",
+      "page_url": "/matches/slovenia-vs-scotland/1or7e5#5181776",
+      "matchup": "Slovenia vs Scotland",
+      "league": "UEFA Nations League B",
+      "category": "team",
+      "result": "LOSS",
+      "actual": "0-0",
+      "resolved_at": "2026-09-26 16:38"
+    },
+    {
+      "player": "Álex Vázquez / Tomás Habib",
+      "position": "",
+      "is_sub": false,
+      "type": "Double Chance Buteur",
+      "label": "Álex Vázquez ou Tomás Habib marque (Racing)",
+      "cote": null,
+      "book": null,
+      "books": [],
+      "confidence": 70,
+      "cote_min": 1.43,
+      "reasoning": "✈️ Combo intra-Racing\n📈 P(Álex Vázquez marque) ≈ 57% · P(Tomás Habib marque) ≈ 47%\n🎯 P(au moins un marque) = 70% (1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.43 - chercher ≥1.43 chez le bookmaker\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+      "context": {
+        "combo_kind": "intra-away"
+      },
+      "_team_for_balance": "away",
+      "stats": {
+        "p_a": 0.57,
+        "p_b": 0.472,
+        "p_or": 0.7,
+        "player_a": "Álex Vázquez",
+        "player_b": "Tomás Habib",
+        "kind": "intra-away"
+      },
+      "team": "away",
+      "tier": "safe",
+      "calibration_delta": -11.3,
+      "history_top3": true,
+      "id": "2026-09-26_6301056_player_Álex Vázquez / Tomás Habib_Double Chance Buteur",
+      "date": "2026-09-26",
+      "match_id": "6301056",
+      "page_url": "/matches/club-atletico-progreso-vs-racing/ihtyg#6301056",
+      "matchup": "Club Atlético Progreso vs Racing",
+      "league": "Uruguay Primera",
+      "category": "player",
+      "result": "LOSS",
+      "actual": {
+        "goals": 0,
+        "assists": 0
+      },
+      "resolved_at": "2026-09-26 16:38",
+      "side": "away"
+    },
+    {
+      "player": "Álex Vázquez",
+      "position": "M",
+      "is_sub": false,
+      "type": "Buteur",
+      "label": "Álex Vázquez marque",
+      "cote": null,
+      "book": null,
+      "books": [],
+      "confidence": 57,
+      "reasoning": "4 buts en 6 matchs cette saison (66.7% de chance/match) · xG moyen 0.00/match, défense adverse poreuse (1.4 buts concédés/match) · défense correcte\n📉 Calibration : bucket 50-59% historiquement à WR 42% (claim 55%, n=41) — sur-estimé de 14pp",
+      "context": {
+        "weakness": 0.49
+      },
+      "stats": {
+        "goals": 4,
+        "apps": 6,
+        "gpm": 0.667,
+        "xgpm": 0
+      },
+      "team": "away",
+      "tier": "ok",
+      "calibration_delta": -13.6,
+      "history_top3": true,
+      "id": "2026-09-26_6301056_player_Álex Vázquez_Buteur",
+      "date": "2026-09-26",
+      "match_id": "6301056",
+      "page_url": "/matches/club-atletico-progreso-vs-racing/ihtyg#6301056",
+      "matchup": "Club Atlético Progreso vs Racing",
+      "league": "Uruguay Primera",
+      "category": "player",
+      "result": "LOSS",
+      "actual": {
+        "goals": 0,
+        "assists": 0
+      },
+      "resolved_at": "2026-09-26 16:38",
+      "side": "away"
+    },
+    {
       "direction": "home_win",
       "type": "Favori net",
       "label": "Houston Dynamo FC gagne",
@@ -51369,6 +51482,68 @@
       "actual": null,
       "resolved_at": null,
       "side": "home"
+    },
+    {
+      "direction": "home_dc",
+      "type": "Double chance",
+      "label": "Union Touarga Sport ou Nul (1X)",
+      "cote": null,
+      "confidence": 85,
+      "reasoning": "Union Touarga Sport invaincu 100% sur 5 derniers matchs · H2H: 0/0 matchs sans défaite · Classement: #2 vs #16\n📉 Calibration : bucket 80-89% historiquement à WR 56% (claim 82%, n=63) — sur-estimé de 26pp",
+      "stats": {
+        "form": [
+          "W",
+          "D",
+          "W",
+          "W",
+          "D"
+        ]
+      },
+      "is_fun": false,
+      "tier": "safe",
+      "calibration_delta": -26.0,
+      "history_top3": true,
+      "id": "2026-09-26_6150380_team_home_dc",
+      "date": "2026-09-26",
+      "match_id": "6150380",
+      "page_url": "/matches/fus-rabat-vs-union-touarga-sport/152ooqyf#6150380",
+      "matchup": "Union Touarga Sport vs FUS Rabat",
+      "league": "Morocco Botola Pro",
+      "category": "team",
+      "result": "PENDING",
+      "actual": null,
+      "resolved_at": null
+    },
+    {
+      "direction": "home_win",
+      "type": "Favori net",
+      "label": "Union Touarga Sport gagne",
+      "cote": null,
+      "confidence": 70,
+      "reasoning": "14 places d'écart au classement (#2 vs #16) · 3V/2N/0D sur 5 matchs · Note Sofa: 6.5/10\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+      "stats": {
+        "form": [
+          "W",
+          "D",
+          "W",
+          "W",
+          "D"
+        ]
+      },
+      "is_fun": false,
+      "tier": "safe",
+      "calibration_delta": -11.3,
+      "history_top3": true,
+      "id": "2026-09-26_6150380_team_home_win",
+      "date": "2026-09-26",
+      "match_id": "6150380",
+      "page_url": "/matches/fus-rabat-vs-union-touarga-sport/152ooqyf#6150380",
+      "matchup": "Union Touarga Sport vs FUS Rabat",
+      "league": "Morocco Botola Pro",
+      "category": "team",
+      "result": "PENDING",
+      "actual": null,
+      "resolved_at": null
     },
     {
       "direction": "home_dc",
@@ -51790,108 +51965,6 @@
       "side": "away"
     },
     {
-      "direction": "away_dc",
-      "type": "Double chance",
-      "label": "Nul ou Nacional (X2)",
-      "cote": null,
-      "confidence": 81,
-      "reasoning": "Nacional invaincu 100% sur 5 derniers matchs · H2H: 1/1 matchs sans défaite · Classement: #8 (away) vs #12 (home)\n📉 Calibration : bucket 80-89% historiquement à WR 56% (claim 82%, n=63) — sur-estimé de 26pp",
-      "stats": {
-        "form": [
-          "W",
-          "D",
-          "D",
-          "W",
-          "W"
-        ]
-      },
-      "is_fun": false,
-      "tier": "safe",
-      "calibration_delta": -26.0,
-      "history_top3": true,
-      "id": "2026-09-26_6301057_team_away_dc",
-      "date": "2026-09-26",
-      "match_id": "6301057",
-      "page_url": "/matches/nacional-vs-cerro-largo/5oj3dyc#6301057",
-      "matchup": "Cerro Largo vs Nacional",
-      "league": "Uruguay Primera",
-      "category": "team",
-      "result": "PENDING",
-      "actual": null,
-      "resolved_at": null
-    },
-    {
-      "player": "Axel Pandiani / Diego Daguerre",
-      "position": "",
-      "is_sub": false,
-      "type": "Double Chance Buteur",
-      "label": "Axel Pandiani ou Diego Daguerre marque (Cerro Largo)",
-      "cote": null,
-      "book": null,
-      "books": [],
-      "confidence": 70,
-      "cote_min": 1.43,
-      "reasoning": "🏠 Combo intra-Cerro Largo\n📈 P(Axel Pandiani marque) ≈ 46% · P(Diego Daguerre marque) ≈ 45%\n🎯 P(au moins un marque) = 70% (1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.43 - chercher ≥1.43 chez le bookmaker\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
-      "context": {
-        "combo_kind": "intra-home"
-      },
-      "_team_for_balance": "home",
-      "stats": {
-        "p_a": 0.465,
-        "p_b": 0.45,
-        "p_or": 0.7,
-        "player_a": "Axel Pandiani",
-        "player_b": "Diego Daguerre",
-        "kind": "intra-home"
-      },
-      "team": "home",
-      "tier": "safe",
-      "calibration_delta": -11.3,
-      "history_top3": true,
-      "id": "2026-09-26_6301057_player_Axel Pandiani / Diego Daguerre_Double Chance Buteur",
-      "date": "2026-09-26",
-      "match_id": "6301057",
-      "page_url": "/matches/nacional-vs-cerro-largo/5oj3dyc#6301057",
-      "matchup": "Cerro Largo vs Nacional",
-      "league": "Uruguay Primera",
-      "category": "player",
-      "result": "PENDING",
-      "actual": null,
-      "resolved_at": null,
-      "side": "home"
-    },
-    {
-      "direction": "away_win",
-      "type": "Victoire extérieur",
-      "label": "Nacional gagne",
-      "cote": null,
-      "confidence": 67,
-      "reasoning": "Nacional : 3V/2N/0D sur 5 matchs · #8 au classement · H2H: 1V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
-      "stats": {
-        "form": [
-          "W",
-          "D",
-          "D",
-          "W",
-          "W"
-        ]
-      },
-      "is_fun": false,
-      "tier": "ok",
-      "calibration_delta": -25.4,
-      "history_top3": true,
-      "id": "2026-09-26_6301057_team_away_win",
-      "date": "2026-09-26",
-      "match_id": "6301057",
-      "page_url": "/matches/nacional-vs-cerro-largo/5oj3dyc#6301057",
-      "matchup": "Cerro Largo vs Nacional",
-      "league": "Uruguay Primera",
-      "category": "team",
-      "result": "PENDING",
-      "actual": null,
-      "resolved_at": null
-    },
-    {
       "direction": "away_win",
       "type": "Victoire extérieur",
       "label": "Spain gagne",
@@ -52036,7 +52109,7 @@
       "confidence": 52,
       "reasoning": "3 buts en 5 matchs cette saison (60.0% de chance/match) · xG moyen 0.00/match · défense correcte\n📉 Calibration : bucket 50-59% historiquement à WR 42% (claim 55%, n=41) — sur-estimé de 14pp",
       "context": {
-        "weakness": 0.38
+        "weakness": 0.4
       },
       "stats": {
         "goals": 3,
@@ -52515,12 +52588,83 @@
       "side": "home"
     },
     {
+      "player": "Axel Pandiani / Diego Daguerre",
+      "position": "",
+      "is_sub": false,
+      "type": "Double Chance Buteur",
+      "label": "Axel Pandiani ou Diego Daguerre marque (Cerro Largo)",
+      "cote": null,
+      "book": null,
+      "books": [],
+      "confidence": 70,
+      "cote_min": 1.43,
+      "reasoning": "🏠 Combo intra-Cerro Largo\n📈 P(Axel Pandiani marque) ≈ 46% · P(Diego Daguerre marque) ≈ 45%\n🎯 P(au moins un marque) = 70% (1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.43 - chercher ≥1.43 chez le bookmaker\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+      "context": {
+        "combo_kind": "intra-home"
+      },
+      "_team_for_balance": "home",
+      "stats": {
+        "p_a": 0.465,
+        "p_b": 0.45,
+        "p_or": 0.7,
+        "player_a": "Axel Pandiani",
+        "player_b": "Diego Daguerre",
+        "kind": "intra-home"
+      },
+      "team": "home",
+      "tier": "safe",
+      "calibration_delta": -11.3,
+      "history_top3": true,
+      "id": "2026-09-26_6301057_player_Axel Pandiani / Diego Daguerre_Double Chance Buteur",
+      "date": "2026-09-26",
+      "match_id": "6301057",
+      "page_url": "/matches/nacional-vs-cerro-largo/5oj3dyc#6301057",
+      "matchup": "Cerro Largo vs Nacional",
+      "league": "Uruguay Primera",
+      "category": "player",
+      "result": "PENDING",
+      "actual": null,
+      "resolved_at": null,
+      "side": "home"
+    },
+    {
+      "direction": "away_win",
+      "type": "Victoire extérieur",
+      "label": "Nacional gagne",
+      "cote": null,
+      "confidence": 66,
+      "reasoning": "Nacional : 3V/2N/0D sur 5 matchs · #9 au classement · H2H: 1V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
+      "stats": {
+        "form": [
+          "W",
+          "D",
+          "D",
+          "W",
+          "W"
+        ]
+      },
+      "is_fun": false,
+      "tier": "ok",
+      "calibration_delta": -25.4,
+      "history_top3": true,
+      "id": "2026-09-26_6301057_team_away_win",
+      "date": "2026-09-26",
+      "match_id": "6301057",
+      "page_url": "/matches/nacional-vs-cerro-largo/5oj3dyc#6301057",
+      "matchup": "Cerro Largo vs Nacional",
+      "league": "Uruguay Primera",
+      "category": "team",
+      "result": "PENDING",
+      "actual": null,
+      "resolved_at": null
+    },
+    {
       "direction": "away_win",
       "type": "Victoire extérieur",
       "label": "Belarus gagne",
       "cote": null,
-      "confidence": 65,
-      "reasoning": "Belarus : 3V/2N/0D sur 5 matchs · #2 au classement · H2H: 0V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
+      "confidence": 64,
+      "reasoning": "Belarus : 3V/2N/0D sur 5 matchs · #3 au classement · H2H: 0V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
       "stats": {
         "form": [
           "D",
@@ -52656,37 +52800,6 @@
       "actual": null,
       "resolved_at": null,
       "side": "away"
-    },
-    {
-      "direction": "home_win",
-      "type": "Victoire domicile",
-      "label": "Bulgaria gagne",
-      "cote": null,
-      "confidence": 63,
-      "reasoning": "Bulgaria : 3V/1N/1D sur 5 matchs · #1 au classement · H2H: 0V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
-      "stats": {
-        "form": [
-          "D",
-          "L",
-          "W",
-          "W",
-          "W"
-        ]
-      },
-      "is_fun": false,
-      "tier": "ok",
-      "calibration_delta": -25.4,
-      "history_top3": true,
-      "id": "2026-09-26_5181949_team_home_win",
-      "date": "2026-09-26",
-      "match_id": "5181949",
-      "page_url": "/matches/luxembourg-vs-bulgaria/23nxat#5181949",
-      "matchup": "Bulgaria vs Luxembourg",
-      "league": "UEFA Nations League C",
-      "category": "team",
-      "result": "PENDING",
-      "actual": null,
-      "resolved_at": null
     },
     {
       "player": "Milan Iloski / Bruno Damiani",
@@ -52939,18 +53052,18 @@
       "resolved_at": null
     },
     {
-      "direction": "away_win",
-      "type": "Victoire extérieur",
-      "label": "Estonia gagne",
+      "direction": "home_win",
+      "type": "Victoire domicile",
+      "label": "Bulgaria gagne",
       "cote": null,
       "confidence": 62,
-      "reasoning": "Estonia : 3V/1N/1D sur 5 matchs · #2 au classement · H2H: 0V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
+      "reasoning": "Bulgaria : 3V/1N/1D sur 5 matchs · #2 au classement · H2H: 0V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
       "stats": {
         "form": [
-          "W",
-          "W",
-          "L",
           "D",
+          "L",
+          "W",
+          "W",
           "W"
         ]
       },
@@ -52958,11 +53071,11 @@
       "tier": "ok",
       "calibration_delta": -25.4,
       "history_top3": true,
-      "id": "2026-09-26_5181950_team_away_win",
+      "id": "2026-09-26_5181949_team_home_win",
       "date": "2026-09-26",
-      "match_id": "5181950",
-      "page_url": "/matches/estonia-vs-iceland/2bzz2j#5181950",
-      "matchup": "Iceland vs Estonia",
+      "match_id": "5181949",
+      "page_url": "/matches/luxembourg-vs-bulgaria/23nxat#5181949",
+      "matchup": "Bulgaria vs Luxembourg",
       "league": "UEFA Nations League C",
       "category": "team",
       "result": "PENDING",
@@ -53079,6 +53192,37 @@
     {
       "direction": "away_win",
       "type": "Victoire extérieur",
+      "label": "Estonia gagne",
+      "cote": null,
+      "confidence": 61,
+      "reasoning": "Estonia : 3V/1N/1D sur 5 matchs · #3 au classement · H2H: 0V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
+      "stats": {
+        "form": [
+          "W",
+          "W",
+          "L",
+          "D",
+          "W"
+        ]
+      },
+      "is_fun": false,
+      "tier": "ok",
+      "calibration_delta": -25.4,
+      "history_top3": true,
+      "id": "2026-09-26_5181950_team_away_win",
+      "date": "2026-09-26",
+      "match_id": "5181950",
+      "page_url": "/matches/estonia-vs-iceland/2bzz2j#5181950",
+      "matchup": "Iceland vs Estonia",
+      "league": "UEFA Nations League C",
+      "category": "team",
+      "result": "PENDING",
+      "actual": null,
+      "resolved_at": null
+    },
+    {
+      "direction": "away_win",
+      "type": "Victoire extérieur",
       "label": "Switzerland gagne",
       "cote": null,
       "confidence": 60,
@@ -53143,8 +53287,8 @@
       "type": "Victoire domicile",
       "label": "Faroe Islands gagne",
       "cote": null,
-      "confidence": 59,
-      "reasoning": "Faroe Islands : 3V/0N/2D sur 5 matchs · #1 au classement · H2H: 0V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 50-59% historiquement à WR 42% (claim 55%, n=41) — sur-estimé de 14pp",
+      "confidence": 58,
+      "reasoning": "Faroe Islands : 3V/0N/2D sur 5 matchs · #2 au classement · H2H: 0V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 50-59% historiquement à WR 42% (claim 55%, n=41) — sur-estimé de 14pp",
       "stats": {
         "form": [
           "W",
@@ -53164,37 +53308,6 @@
       "page_url": "/matches/kazakhstan-vs-faroe-islands/29e0sq#5181933",
       "matchup": "Faroe Islands vs Kazakhstan",
       "league": "UEFA Nations League C",
-      "category": "team",
-      "result": "PENDING",
-      "actual": null,
-      "resolved_at": null
-    },
-    {
-      "direction": "away_win",
-      "type": "Victoire extérieur",
-      "label": "Scotland gagne",
-      "cote": null,
-      "confidence": 58,
-      "reasoning": "Scotland : 3V/0N/2D sur 5 matchs · #2 au classement · H2H: 0V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 50-59% historiquement à WR 42% (claim 55%, n=41) — sur-estimé de 14pp",
-      "stats": {
-        "form": [
-          "L",
-          "L",
-          "W",
-          "W",
-          "W"
-        ]
-      },
-      "is_fun": false,
-      "tier": "ok",
-      "calibration_delta": -13.6,
-      "history_top3": true,
-      "id": "2026-09-26_5181776_team_away_win",
-      "date": "2026-09-26",
-      "match_id": "5181776",
-      "page_url": "/matches/slovenia-vs-scotland/1or7e5#5181776",
-      "matchup": "Slovenia vs Scotland",
-      "league": "UEFA Nations League B",
       "category": "team",
       "result": "PENDING",
       "actual": null,
@@ -53306,82 +53419,6 @@
       "page_url": "/matches/new-york-city-fc-vs-atlanta-united/b4ccvx74#5071381",
       "matchup": "Atlanta United vs New York City FC",
       "league": "MLS",
-      "category": "player",
-      "result": "PENDING",
-      "actual": null,
-      "resolved_at": null,
-      "side": "away"
-    },
-    {
-      "player": "Álex Vázquez / Tomás Habib",
-      "position": "",
-      "is_sub": false,
-      "type": "Double Chance Buteur",
-      "label": "Álex Vázquez ou Tomás Habib marque (Racing)",
-      "cote": null,
-      "book": null,
-      "books": [],
-      "confidence": 70,
-      "cote_min": 1.43,
-      "reasoning": "✈️ Combo intra-Racing\n📈 P(Álex Vázquez marque) ≈ 57% · P(Tomás Habib marque) ≈ 47%\n🎯 P(au moins un marque) = 70% (1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.43 - chercher ≥1.43 chez le bookmaker\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
-      "context": {
-        "combo_kind": "intra-away"
-      },
-      "_team_for_balance": "away",
-      "stats": {
-        "p_a": 0.57,
-        "p_b": 0.472,
-        "p_or": 0.7,
-        "player_a": "Álex Vázquez",
-        "player_b": "Tomás Habib",
-        "kind": "intra-away"
-      },
-      "team": "away",
-      "tier": "safe",
-      "calibration_delta": -11.3,
-      "history_top3": true,
-      "id": "2026-09-26_6301056_player_Álex Vázquez / Tomás Habib_Double Chance Buteur",
-      "date": "2026-09-26",
-      "match_id": "6301056",
-      "page_url": "/matches/club-atletico-progreso-vs-racing/ihtyg#6301056",
-      "matchup": "Club Atlético Progreso vs Racing",
-      "league": "Uruguay Primera",
-      "category": "player",
-      "result": "PENDING",
-      "actual": null,
-      "resolved_at": null,
-      "side": "away"
-    },
-    {
-      "player": "Álex Vázquez",
-      "position": "M",
-      "is_sub": false,
-      "type": "Buteur",
-      "label": "Álex Vázquez marque",
-      "cote": null,
-      "book": null,
-      "books": [],
-      "confidence": 57,
-      "reasoning": "4 buts en 6 matchs cette saison (66.7% de chance/match) · xG moyen 0.00/match, défense adverse poreuse (1.4 buts concédés/match) · défense correcte\n📉 Calibration : bucket 50-59% historiquement à WR 42% (claim 55%, n=41) — sur-estimé de 14pp",
-      "context": {
-        "weakness": 0.49
-      },
-      "stats": {
-        "goals": 4,
-        "apps": 6,
-        "gpm": 0.667,
-        "xgpm": 0
-      },
-      "team": "away",
-      "tier": "ok",
-      "calibration_delta": -13.6,
-      "history_top3": true,
-      "id": "2026-09-26_6301056_player_Álex Vázquez_Buteur",
-      "date": "2026-09-26",
-      "match_id": "6301056",
-      "page_url": "/matches/club-atletico-progreso-vs-racing/ihtyg#6301056",
-      "matchup": "Club Atlético Progreso vs Racing",
-      "league": "Uruguay Primera",
       "category": "player",
       "result": "PENDING",
       "actual": null,
