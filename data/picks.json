@@ -13,7 +13,7 @@
         "label": "Nul ou Inter Miami CF (X2)",
         "cote": null,
         "confidence": 88,
-        "reasoning": "Inter Miami CF invaincu 100% sur 5 derniers matchs · H2H: 1/1 matchs sans défaite · Classement: #5 (away) vs #28 (home)\n📉 Calibration : bucket 80-89% historiquement à WR 56% (claim 82%, n=63) — sur-estimé de 26pp",
+        "reasoning": "Inter Miami CF invaincu 100% sur 5 derniers matchs · H2H: 1/1 matchs sans défaite · Classement: #4 (away) vs #27 (home)\n📉 Calibration : bucket 80-89% historiquement à WR 56% (claim 82%, n=63) — sur-estimé de 26pp",
         "stats": {
           "form": [
             "D",
@@ -34,7 +34,7 @@
         "label": "Inter Miami CF gagne",
         "cote": null,
         "confidence": 82,
-        "reasoning": "23 places d'écart au classement (#5 vs #28) · 1V/4N/0D sur 5 matchs · Note Sofa: 6.5/10\n📉 Calibration : bucket 80-89% historiquement à WR 56% (claim 82%, n=63) — sur-estimé de 26pp",
+        "reasoning": "23 places d'écart au classement (#4 vs #27) · 1V/4N/0D sur 5 matchs · Note Sofa: 6.5/10\n📉 Calibration : bucket 80-89% historiquement à WR 56% (claim 82%, n=63) — sur-estimé de 26pp",
         "stats": {
           "form": [
             "D",
@@ -50,37 +50,7 @@
         "history_top3": true
       }
     ],
-    "home_players": [
-      {
-        "player": "Diego Rossi / Luis Suárez",
-        "position": "",
-        "is_sub": false,
-        "type": "Double Chance Buteur",
-        "label": "Diego Rossi OU Luis Suárez marque (cross-équipe)",
-        "cote": null,
-        "book": null,
-        "books": [],
-        "confidence": 70,
-        "cote_min": 1.43,
-        "reasoning": "🔀 Cross-équipe (moins corrélé → meilleur EV)\n📈 P(Diego Rossi marque) ≈ 45% · P(Luis Suárez marque) ≈ 56%\n🎯 P(au moins un marque) = 70% (1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.43 - chercher ≥1.43 chez le bookmaker\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
-        "context": {
-          "combo_kind": "cross"
-        },
-        "_team_for_balance": "home",
-        "stats": {
-          "p_a": 0.45,
-          "p_b": 0.562,
-          "p_or": 0.7,
-          "player_a": "Diego Rossi",
-          "player_b": "Luis Suárez",
-          "kind": "cross"
-        },
-        "team": "home",
-        "tier": "safe",
-        "calibration_delta": -11.3,
-        "history_top3": true
-      }
-    ],
+    "home_players": [],
     "away_players": [
       {
         "player": "Luis Suárez",
@@ -106,6 +76,35 @@
         "tier": "ok",
         "calibration_delta": -25.4,
         "history_top3": true
+      },
+      {
+        "player": "Luis Suárez / Lionel Messi",
+        "position": "",
+        "is_sub": false,
+        "type": "Double Chance Buteur",
+        "label": "Luis Suárez ou Lionel Messi marque (Inter Miami CF)",
+        "cote": null,
+        "book": null,
+        "books": [],
+        "confidence": 70,
+        "cote_min": 1.43,
+        "reasoning": "✈️ Combo intra-Inter Miami CF\n📈 P(Luis Suárez marque) ≈ 56% · P(Lionel Messi marque) ≈ 46%\n🎯 P(au moins un marque) = 70% (1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.43 - chercher ≥1.43 chez le bookmaker\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+        "context": {
+          "combo_kind": "intra-away"
+        },
+        "_team_for_balance": "away",
+        "stats": {
+          "p_a": 0.562,
+          "p_b": 0.465,
+          "p_or": 0.7,
+          "player_a": "Luis Suárez",
+          "player_b": "Lionel Messi",
+          "kind": "intra-away"
+        },
+        "team": "away",
+        "tier": "safe",
+        "calibration_delta": -11.3,
+        "history_top3": true
       }
     ],
     "fun_picks": [],
@@ -115,7 +114,7 @@
       "label": "Nul ou Inter Miami CF (X2)",
       "cote": null,
       "confidence": 88,
-      "reasoning": "Inter Miami CF invaincu 100% sur 5 derniers matchs · H2H: 1/1 matchs sans défaite · Classement: #5 (away) vs #28 (home)\n📉 Calibration : bucket 80-89% historiquement à WR 56% (claim 82%, n=63) — sur-estimé de 26pp",
+      "reasoning": "Inter Miami CF invaincu 100% sur 5 derniers matchs · H2H: 1/1 matchs sans défaite · Classement: #4 (away) vs #27 (home)\n📉 Calibration : bucket 80-89% historiquement à WR 56% (claim 82%, n=63) — sur-estimé de 26pp",
       "stats": {
         "form": [
           "D",
@@ -142,15 +141,15 @@
         "surface": "grass"
       },
       "weather": {
-        "temp_max": 21.8,
+        "temp_max": 24.2,
         "temp_min": 9.5,
-        "humidity": 58,
+        "humidity": 50,
         "precipitation_sum_mm": 0.0,
-        "wind_max_kmh": 17.7,
+        "wind_max_kmh": 18.5,
         "weather_code": 1,
-        "summary_fr": "🌤️ principalement clair · 9–21°C · humidité 58%"
+        "summary_fr": "🌤️ principalement clair · 9–24°C · humidité 50%"
       },
-      "text": "Conditions : 🌤️ principalement clair · 9–21°C · humidité 58%. Stade : ScottsMiracle-Gro Field · 20 931 places · plein air."
+      "text": "Conditions : 🌤️ principalement clair · 9–24°C · humidité 50%. Stade : ScottsMiracle-Gro Field · 20 931 places · plein air."
     }
   },
   {
@@ -228,106 +227,6 @@
         "summary_fr": "☁️ couvert · 16–23°C · humidité 58%"
       },
       "text": "Conditions : ☁️ couvert · 16–23°C · humidité 58%. Stade : Seoul World Cup Stadium · 68 476 places · plein air."
-    }
-  },
-  {
-    "league": "UEFA Nations League A",
-    "home": "Norway",
-    "away": "Portugal",
-    "start_ts": 1790534700,
-    "match_id": "5181864",
-    "page_url": "/matches/portugal-vs-norway/2ck62b#5181864",
-    "picks": [
-      {
-        "direction": "away_win",
-        "type": "Victoire extérieur",
-        "label": "Portugal gagne",
-        "cote": null,
-        "confidence": 74,
-        "reasoning": "Portugal : 4V/1N/0D sur 5 matchs · #1 au classement · H2H: 0V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
-        "stats": {
-          "form": [
-            "W",
-            "W",
-            "W",
-            "W",
-            "D"
-          ]
-        },
-        "is_fun": false,
-        "tier": "safe",
-        "calibration_delta": -11.3,
-        "history_top3": true
-      }
-    ],
-    "home_players": [
-      {
-        "player": "Erling Haaland",
-        "position": "F",
-        "is_sub": false,
-        "type": "Buteur",
-        "label": "Erling Haaland marque",
-        "team": "home",
-        "cote": null,
-        "book": null,
-        "books": [],
-        "confidence": 34,
-        "reasoning": "3G en 8 matchs (37.5%/match) · xG: 0.23/match",
-        "context": {
-          "weakness": 0.37
-        },
-        "stats": {
-          "goals": 3,
-          "apps": 8
-        },
-        "tier": "fun",
-        "history_top3": true
-      }
-    ],
-    "away_players": [],
-    "fun_picks": [],
-    "top_pick": {
-      "direction": "away_win",
-      "type": "Victoire extérieur",
-      "label": "Portugal gagne",
-      "cote": null,
-      "confidence": 74,
-      "reasoning": "Portugal : 4V/1N/0D sur 5 matchs · #1 au classement · H2H: 0V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
-      "stats": {
-        "form": [
-          "W",
-          "W",
-          "W",
-          "W",
-          "D"
-        ]
-      },
-      "is_fun": false,
-      "tier": "safe",
-      "calibration_delta": -11.3,
-      "history_top3": true
-    },
-    "no_picks": false,
-    "context": {
-      "stadium": {
-        "name": "Ullevaal Stadion",
-        "city": "Oslo",
-        "country": "Norway",
-        "lat": 59.94919756,
-        "lon": 10.734243393,
-        "capacity": 27182,
-        "surface": "grass"
-      },
-      "weather": {
-        "temp_max": 16.4,
-        "temp_min": 6.1,
-        "humidity": 75,
-        "precipitation_sum_mm": 0.0,
-        "wind_max_kmh": 19.8,
-        "weather_code": 3,
-        "summary_fr": "☁️ couvert · 6–16°C · humidité 75%"
-      },
-      "text": "Conditions : ☁️ couvert · 6–16°C · humidité 75%. Stade : Ullevaal Stadion · 27 182 places · plein air."
     }
   },
   {
@@ -540,156 +439,6 @@
     }
   },
   {
-    "league": "UEFA Nations League A",
-    "home": "Germany",
-    "away": "Greece",
-    "start_ts": 1790534700,
-    "match_id": "5181828",
-    "page_url": "/matches/greece-vs-germany/1ukit3#5181828",
-    "picks": [
-      {
-        "direction": "home_win",
-        "type": "Victoire domicile",
-        "label": "Germany gagne",
-        "cote": null,
-        "confidence": 72,
-        "reasoning": "Germany : 4V/1N/0D sur 5 matchs · #3 au classement · H2H: 0V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
-        "stats": {
-          "form": [
-            "D",
-            "W",
-            "W",
-            "W",
-            "W"
-          ]
-        },
-        "is_fun": false,
-        "tier": "safe",
-        "calibration_delta": -11.3,
-        "history_top3": true
-      }
-    ],
-    "home_players": [],
-    "away_players": [],
-    "fun_picks": [],
-    "top_pick": {
-      "direction": "home_win",
-      "type": "Victoire domicile",
-      "label": "Germany gagne",
-      "cote": null,
-      "confidence": 72,
-      "reasoning": "Germany : 4V/1N/0D sur 5 matchs · #3 au classement · H2H: 0V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
-      "stats": {
-        "form": [
-          "D",
-          "W",
-          "W",
-          "W",
-          "W"
-        ]
-      },
-      "is_fun": false,
-      "tier": "safe",
-      "calibration_delta": -11.3,
-      "history_top3": true
-    },
-    "no_picks": false,
-    "context": {
-      "stadium": {
-        "name": "WWK Arena",
-        "city": "Augsburg",
-        "country": "Germany",
-        "lat": 48.32310136,
-        "lon": 10.885949135,
-        "capacity": 30662,
-        "surface": "grass"
-      },
-      "weather": {
-        "temp_max": 24.2,
-        "temp_min": 6.6,
-        "humidity": 42,
-        "precipitation_sum_mm": 0.0,
-        "wind_max_kmh": 11.2,
-        "weather_code": 3,
-        "summary_fr": "☁️ couvert · 6–24°C · humidité 42%"
-      },
-      "text": "Conditions : ☁️ couvert · 6–24°C · humidité 42%. Stade : WWK Arena · 30 662 places · plein air."
-    }
-  },
-  {
-    "league": "Uruguay Primera",
-    "home": "Defensor Sporting",
-    "away": "Danubio",
-    "start_ts": 1790542800,
-    "match_id": "6301062",
-    "page_url": "/matches/defensor-sporting-vs-danubio/27nzjr#6301062",
-    "picks": [],
-    "home_players": [
-      {
-        "player": "Martín Rabuñal / Brian Montenegro",
-        "position": "",
-        "is_sub": false,
-        "type": "Double Chance Buteur",
-        "label": "Martín Rabuñal ou Brian Montenegro marque (Defensor Sporting)",
-        "cote": null,
-        "book": null,
-        "books": [],
-        "confidence": 70,
-        "cote_min": 1.43,
-        "reasoning": "🏠 Combo intra-Defensor Sporting\n📈 P(Martín Rabuñal marque) ≈ 50% · P(Brian Montenegro marque) ≈ 46%\n🎯 P(au moins un marque) = 70% (1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.43 - chercher ≥1.43 chez le bookmaker\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
-        "context": {
-          "combo_kind": "intra-home"
-        },
-        "_team_for_balance": "home",
-        "stats": {
-          "p_a": 0.495,
-          "p_b": 0.465,
-          "p_or": 0.7,
-          "player_a": "Martín Rabuñal",
-          "player_b": "Brian Montenegro",
-          "kind": "intra-home"
-        },
-        "team": "home",
-        "tier": "safe",
-        "calibration_delta": -11.3,
-        "history_top3": true
-      }
-    ],
-    "away_players": [],
-    "fun_picks": [],
-    "top_pick": {
-      "player": "Martín Rabuñal / Brian Montenegro",
-      "position": "",
-      "is_sub": false,
-      "type": "Double Chance Buteur",
-      "label": "Martín Rabuñal ou Brian Montenegro marque (Defensor Sporting)",
-      "cote": null,
-      "book": null,
-      "books": [],
-      "confidence": 70,
-      "cote_min": 1.43,
-      "reasoning": "🏠 Combo intra-Defensor Sporting\n📈 P(Martín Rabuñal marque) ≈ 50% · P(Brian Montenegro marque) ≈ 46%\n🎯 P(au moins un marque) = 70% (1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.43 - chercher ≥1.43 chez le bookmaker\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
-      "context": {
-        "combo_kind": "intra-home"
-      },
-      "_team_for_balance": "home",
-      "stats": {
-        "p_a": 0.495,
-        "p_b": 0.465,
-        "p_or": 0.7,
-        "player_a": "Martín Rabuñal",
-        "player_b": "Brian Montenegro",
-        "kind": "intra-home"
-      },
-      "team": "home",
-      "tier": "safe",
-      "calibration_delta": -11.3,
-      "history_top3": true
-    },
-    "no_picks": false,
-    "context": null
-  },
-  {
     "league": "Uruguay Primera",
     "home": "Montevideo Wanderers",
     "away": "Albion",
@@ -787,104 +536,6 @@
     },
     "no_picks": false,
     "context": null
-  },
-  {
-    "league": "Friendlies",
-    "home": "Bolivia",
-    "away": "Paraguay",
-    "start_ts": 1790541000,
-    "match_id": "6280211",
-    "page_url": "/matches/bolivia-vs-paraguay/1aoedd#6280211",
-    "picks": [
-      {
-        "direction": "away_win",
-        "type": "Forme superieure",
-        "label": "Paraguay gagne",
-        "cote": null,
-        "confidence": 68,
-        "reasoning": "Paraguay : 1V/2N/2D sur 5 matchs vs Bolivia : 1V/1N/3D sur 5 matchs (L5 TCC · ecart de tier FIFA 4vs3)\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
-        "stats": {
-          "form": [
-            "L",
-            "D",
-            "D",
-            "W",
-            "L"
-          ]
-        },
-        "is_fun": false,
-        "tier": "ok",
-        "calibration_delta": -25.4,
-        "history_top3": true
-      },
-      {
-        "direction": "under25",
-        "type": "Total buts",
-        "label": "Moins de 2.5 buts",
-        "cote": null,
-        "confidence": 58,
-        "reasoning": "Attendu seulement 2.4 buts au total (Bolivia ~0.8, Paraguay ~1.5) - P(<2.5) ~58%\n📉 Calibration : bucket 50-59% historiquement à WR 42% (claim 55%, n=41) — sur-estimé de 14pp",
-        "stats": {
-          "form": [
-            "L",
-            "L",
-            "W",
-            "L",
-            "D"
-          ]
-        },
-        "is_fun": false,
-        "tier": "ok",
-        "calibration_delta": -13.6,
-        "history_top3": true
-      }
-    ],
-    "home_players": [],
-    "away_players": [],
-    "fun_picks": [],
-    "top_pick": {
-      "direction": "away_win",
-      "type": "Forme superieure",
-      "label": "Paraguay gagne",
-      "cote": null,
-      "confidence": 68,
-      "reasoning": "Paraguay : 1V/2N/2D sur 5 matchs vs Bolivia : 1V/1N/3D sur 5 matchs (L5 TCC · ecart de tier FIFA 4vs3)\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
-      "stats": {
-        "form": [
-          "L",
-          "D",
-          "D",
-          "W",
-          "L"
-        ]
-      },
-      "is_fun": false,
-      "tier": "ok",
-      "calibration_delta": -25.4,
-      "history_top3": true
-    },
-    "no_picks": false,
-    "context": {
-      "stadium": {
-        "name": "Audi Field",
-        "city": "Washington, District of Columbia",
-        "country": "United States",
-        "lat": 38.8688021,
-        "lon": -77.012888,
-        "capacity": 20621,
-        "surface": "grass"
-      },
-      "weather": {
-        "temp_max": 16.7,
-        "temp_min": 15.4,
-        "humidity": 83,
-        "precipitation_sum_mm": 0.4,
-        "wind_max_kmh": 19.9,
-        "weather_code": 51,
-        "summary_fr": "🌦️ bruine légère · 16°C · humidité 83%"
-      },
-      "text": "Conditions : 🌦️ bruine légère · 16°C · humidité 83%. Stade : Audi Field · 20 621 places · plein air."
-    }
   },
   {
     "league": "Friendlies",
@@ -1485,41 +1136,6 @@
   },
   {
     "league": "Colombia Primera A",
-    "home": "CD Jaguares",
-    "away": "Alianza FC",
-    "start_ts": 1790542800,
-    "match_id": "1000014165",
-    "page_url": "/matches/alianza-fc-vs-cd-jaguares/2fj0i06k#1000014165",
-    "picks": [],
-    "home_players": [],
-    "away_players": [],
-    "fun_picks": [],
-    "top_pick": null,
-    "no_picks": true,
-    "context": {
-      "stadium": {
-        "name": "Estadio de Fútbol Jaraguay de Montería",
-        "city": "Montería",
-        "country": "Colombia",
-        "lat": 8.764444064,
-        "lon": -75.870117545,
-        "capacity": 12000,
-        "surface": "grass"
-      },
-      "weather": {
-        "temp_max": 30.8,
-        "temp_min": 24.1,
-        "humidity": 84,
-        "precipitation_sum_mm": 18.7,
-        "wind_max_kmh": 12.9,
-        "weather_code": 95,
-        "summary_fr": "⛈️ orage · 24–30°C · humidité 84% · précipitations 18.7mm"
-      },
-      "text": "Conditions : ⛈️ orage · 24–30°C · humidité 84% · précipitations 18.7mm. Stade : Estadio de Fútbol Jaraguay de Montería · 12 000 places · plein air. ⚠️ Pluies prévues : terrain potentiellement lourd, jeu direct privilégié, plus d'erreurs techniques."
-    }
-  },
-  {
-    "league": "Colombia Primera A",
     "home": "Fortaleza FC",
     "away": "Tolima",
     "start_ts": 1790550300,
@@ -1542,42 +1158,15 @@
         "surface": "grass"
       },
       "weather": {
-        "temp_max": 22.2,
+        "temp_max": 22.5,
         "temp_min": 11.6,
-        "humidity": 67,
-        "precipitation_sum_mm": 5.5,
-        "wind_max_kmh": 7.6,
-        "weather_code": 80,
-        "summary_fr": "🌦️ averses légères · 11–22°C · humidité 67% · précipitations 5.5mm"
+        "humidity": 61,
+        "precipitation_sum_mm": 3.1,
+        "wind_max_kmh": 7.3,
+        "weather_code": 53,
+        "summary_fr": "🌦️ bruine modérée · 11–22°C · humidité 61% · précipitations 3.1mm"
       },
-      "text": "Conditions : 🌦️ averses légères · 11–22°C · humidité 67% · précipitations 5.5mm. Stade : Estadio Metropolitano de Techo · 10 000 places · plein air. ⚠️ Pluies prévues : terrain potentiellement lourd, jeu direct privilégié, plus d'erreurs techniques."
-    }
-  },
-  {
-    "league": "Morocco Botola Pro",
-    "home": "KACM",
-    "away": "Hassania Agadir",
-    "start_ts": 1790539200,
-    "match_id": "6150377",
-    "page_url": "/matches/hassania-agadir-vs-kacm/9ke9ima#6150377",
-    "picks": [],
-    "home_players": [],
-    "away_players": [],
-    "fun_picks": [],
-    "top_pick": null,
-    "no_picks": true,
-    "context": {
-      "stadium": {
-        "name": "Stade de Marrakech",
-        "city": null,
-        "country": "",
-        "lat": null,
-        "lon": null,
-        "capacity": null,
-        "surface": null
-      },
-      "weather": null,
-      "text": "Stade : Stade de Marrakech · plein air."
+      "text": "Conditions : 🌦️ bruine modérée · 11–22°C · humidité 61% · précipitations 3.1mm. Stade : Estadio Metropolitano de Techo · 10 000 places · plein air."
     }
   },
   {
@@ -1644,41 +1233,6 @@
     "top_pick": null,
     "no_picks": true,
     "context": null
-  },
-  {
-    "league": "UEFA Nations League B",
-    "home": "Israel",
-    "away": "Ireland",
-    "start_ts": 1790534700,
-    "match_id": "5181815",
-    "page_url": "/matches/ireland-vs-israel/1pdm5w#5181815",
-    "picks": [],
-    "home_players": [],
-    "away_players": [],
-    "fun_picks": [],
-    "top_pick": null,
-    "no_picks": true,
-    "context": {
-      "stadium": {
-        "name": "Nagyerdei Stadion",
-        "city": "Debrecen",
-        "country": "Hungary",
-        "lat": 47.554230062,
-        "lon": 21.633631584,
-        "capacity": 20450,
-        "surface": "grass"
-      },
-      "weather": {
-        "temp_max": 23.3,
-        "temp_min": 8.5,
-        "humidity": 35,
-        "precipitation_sum_mm": 0.0,
-        "wind_max_kmh": 6.8,
-        "weather_code": 3,
-        "summary_fr": "☁️ couvert · 8–23°C · humidité 35%"
-      },
-      "text": "Conditions : ☁️ couvert · 8–23°C · humidité 35%. Stade : Nagyerdei Stadion · 20 450 places · plein air."
-    }
   },
   {
     "league": "UEFA Nations League B",
