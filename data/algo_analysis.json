@@ -1,15 +1,15 @@
 {
-  "generated_at": "2026-09-28T02:07:43.587774",
-  "n_total": 1820,
+  "generated_at": "2026-09-28T08:37:27.447955",
+  "n_total": 1821,
   "globals": {
     "foot": {
-      "n": 1534,
-      "w": 676,
+      "n": 1535,
+      "w": 677,
       "l": 801,
       "push": 57,
       "wr": 45.8,
       "roi": -14.9,
-      "profit": -228.95,
+      "profit": -228.15,
       "avg_cote": 2.31,
       "break_even_wr": 43.2,
       "wr_vs_be": 2.6
@@ -42,18 +42,18 @@
   "calibration": {
     "foot": {
       "50-59": {
-        "n": 257,
-        "w": 93,
+        "n": 258,
+        "w": 94,
         "l": 157,
         "push": 7,
-        "wr": 37.2,
-        "roi": -30.0,
-        "profit": -77.1,
+        "wr": 37.5,
+        "roi": -29.6,
+        "profit": -76.3,
         "avg_cote": 2.23,
         "break_even_wr": 44.8,
-        "wr_vs_be": -7.6,
+        "wr_vs_be": -7.4,
         "expected_wr": 54.5,
-        "calibration_gap": -17.3
+        "calibration_gap": -17.0
       },
       "60-69": {
         "n": 407,
@@ -368,16 +368,16 @@
         "wr_vs_be": 6.5
       },
       "Victoire domicile": {
-        "n": 82,
-        "w": 45,
+        "n": 83,
+        "w": 46,
         "l": 36,
         "push": 1,
-        "wr": 55.6,
-        "roi": 2.2,
-        "profit": 1.82,
+        "wr": 56.1,
+        "roi": 3.2,
+        "profit": 2.62,
         "avg_cote": 2.25,
         "break_even_wr": 44.5,
-        "wr_vs_be": 11.1
+        "wr_vs_be": 11.6
       },
       "Under 3.5 buts": {
         "n": 9,
@@ -806,6 +806,18 @@
     },
     "foot": {
       "league": {
+        "Colombia Primera A": {
+          "n": 9,
+          "w": 2,
+          "l": 7,
+          "push": 0,
+          "wr": 22.2,
+          "roi": -60.0,
+          "profit": -5.4,
+          "avg_cote": null,
+          "break_even_wr": null,
+          "wr_vs_be": null
+        },
         "MLS": {
           "n": 96,
           "w": 41,
@@ -886,18 +898,6 @@
           "wr": 17.6,
           "roi": -68.2,
           "profit": -11.6,
-          "avg_cote": null,
-          "break_even_wr": null,
-          "wr_vs_be": null
-        },
-        "Colombia Primera A": {
-          "n": 8,
-          "w": 1,
-          "l": 7,
-          "push": 0,
-          "wr": 12.5,
-          "roi": -77.5,
-          "profit": -6.2,
           "avg_cote": null,
           "break_even_wr": null,
           "wr_vs_be": null
@@ -1204,6 +1204,18 @@
         }
       },
       "direction": {
+        "home_win": {
+          "n": 125,
+          "w": 68,
+          "l": 51,
+          "push": 6,
+          "wr": 57.1,
+          "roi": 3.7,
+          "profit": 4.68,
+          "avg_cote": 2.1,
+          "break_even_wr": 47.6,
+          "wr_vs_be": 9.6
+        },
         "home_dc": {
           "n": 24,
           "w": 22,
@@ -1215,18 +1227,6 @@
           "avg_cote": 1.17,
           "break_even_wr": 85.3,
           "wr_vs_be": 6.4
-        },
-        "home_win": {
-          "n": 124,
-          "w": 67,
-          "l": 51,
-          "push": 6,
-          "wr": 56.8,
-          "roi": 3.1,
-          "profit": 3.88,
-          "avg_cote": 2.1,
-          "break_even_wr": 47.6,
-          "wr_vs_be": 9.2
         },
         "away_dc": {
           "n": 41,
@@ -1519,13 +1519,13 @@
       },
       "is_fun": {
         "False": {
-          "n": 1525,
-          "w": 673,
+          "n": 1526,
+          "w": 674,
           "l": 795,
           "push": 57,
-          "wr": 45.8,
-          "roi": -15.2,
-          "profit": -231.88,
+          "wr": 45.9,
+          "roi": -15.1,
+          "profit": -231.08,
           "avg_cote": 2.25,
           "break_even_wr": 44.3,
           "wr_vs_be": 1.5
@@ -1908,20 +1908,20 @@
       "severity": "medium",
       "type": "miscalibrated_overconfident",
       "scope": "foot · conf 50-59",
-      "message": "Bucket conf <b>50-59</b> (foot) : modèle annonce ~54.5% mais WR réel = 37.2% (gap -17.3pp sur 257 picks). Modèle trop confiant → relever MIN_CONF ou ajuster formule.",
+      "message": "Bucket conf <b>50-59</b> (foot) : modèle annonce ~54.5% mais WR réel = 37.5% (gap -17.0pp sur 258 picks). Modèle trop confiant → relever MIN_CONF ou ajuster formule.",
       "stats": {
-        "n": 257,
-        "w": 93,
+        "n": 258,
+        "w": 94,
         "l": 157,
         "push": 7,
-        "wr": 37.2,
-        "roi": -30.0,
-        "profit": -77.1,
+        "wr": 37.5,
+        "roi": -29.6,
+        "profit": -76.3,
         "avg_cote": 2.23,
         "break_even_wr": 44.8,
-        "wr_vs_be": -7.6,
+        "wr_vs_be": -7.4,
         "expected_wr": 54.5,
-        "calibration_gap": -17.3
+        "calibration_gap": -17.0
       }
     },
     {
