@@ -1,25 +1,25 @@
 [
   {
-    "league": "MLS",
-    "home": "Columbus Crew",
-    "away": "Inter Miami CF",
-    "start_ts": 1790550000,
-    "match_id": "5071387",
-    "page_url": "/matches/columbus-crew-vs-inter-miami-cf/5ynw6fqp#5071387",
+    "league": "Friendlies",
+    "home": "Argentina",
+    "away": "Bolivia",
+    "start_ts": 1790722800,
+    "match_id": "6266052",
+    "page_url": "/matches/bolivia-vs-argentina/1ajkkm#6266052",
     "picks": [
       {
-        "direction": "away_dc",
-        "type": "Double chance",
-        "label": "Nul ou Inter Miami CF (X2)",
+        "direction": "home_win",
+        "type": "Forme superieure",
+        "label": "Argentina gagne",
         "cote": null,
-        "confidence": 88,
-        "reasoning": "Inter Miami CF invaincu 100% sur 5 derniers matchs · H2H: 1/1 matchs sans défaite · Classement: #4 (away) vs #27 (home)\n📉 Calibration : bucket 80-89% historiquement à WR 56% (claim 82%, n=63) — sur-estimé de 26pp",
+        "confidence": 85,
+        "reasoning": "Argentina : 4V/0N/1D sur 5 matchs vs Bolivia : 1V/0N/4D sur 5 matchs (L5 TCC · ecart de tier FIFA 1vs4)\n📉 Calibration : bucket 80-89% historiquement à WR 56% (claim 82%, n=63) — sur-estimé de 26pp",
         "stats": {
           "form": [
-            "D",
-            "D",
-            "D",
-            "D",
+            "L",
+            "W",
+            "W",
+            "W",
             "W"
           ]
         },
@@ -29,98 +29,85 @@
         "history_top3": true
       },
       {
-        "direction": "away_win",
-        "type": "Favori net",
-        "label": "Inter Miami CF gagne",
+        "direction": "over25",
+        "type": "Total buts",
+        "label": "Plus de 2.5 buts",
         "cote": null,
-        "confidence": 82,
-        "reasoning": "23 places d'écart au classement (#4 vs #27) · 1V/4N/0D sur 5 matchs · Note Sofa: 6.5/10\n📉 Calibration : bucket 80-89% historiquement à WR 56% (claim 82%, n=63) — sur-estimé de 26pp",
+        "confidence": 74,
+        "reasoning": "Attendu 3.8 buts au total (Argentina ~3.4, Bolivia ~0.5) - P(>2.5) ~74%\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
         "stats": {
           "form": [
-            "D",
-            "D",
-            "D",
-            "D",
+            "L",
+            "W",
+            "W",
+            "W",
             "W"
           ]
         },
         "is_fun": false,
         "tier": "safe",
-        "calibration_delta": -26.0,
+        "calibration_delta": -11.3,
         "history_top3": true
-      }
-    ],
-    "home_players": [],
-    "away_players": [
+      },
       {
-        "player": "Luis Suárez",
-        "position": "F",
-        "is_sub": false,
-        "type": "Buteur",
-        "label": "Luis Suárez marque",
+        "direction": "btts_no",
+        "type": "BTTS",
+        "label": "Au moins 1 equipe ne marque pas",
         "cote": null,
-        "book": null,
-        "books": [],
-        "confidence": 62,
-        "reasoning": "⚽ Penaltyman · 13 buts en 22 matchs cette saison (59.1% de chance/match) · bonne efficacité (23% conv.) · xG moyen 0.49/match, défense adverse poreuse (1.6 buts concédés/match) · défense très vulnérable\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
-        "context": {
-          "weakness": 0.71
-        },
+        "confidence": 64,
+        "reasoning": "Attaque faible d'un cote : Argentina ~3.4 buts, Bolivia ~0.5 buts - P(BTTS Non) ~64%\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
         "stats": {
-          "goals": 13,
-          "apps": 22,
-          "gpm": 0.591,
-          "xgpm": 0.495
+          "form": [
+            "L",
+            "W",
+            "W",
+            "W",
+            "W"
+          ]
         },
-        "team": "away",
+        "is_fun": false,
         "tier": "ok",
         "calibration_delta": -25.4,
         "history_top3": true
       },
       {
-        "player": "Luis Suárez / Lionel Messi",
-        "position": "",
-        "is_sub": false,
-        "type": "Double Chance Buteur",
-        "label": "Luis Suárez ou Lionel Messi marque (Inter Miami CF)",
+        "direction": "home_over_15",
+        "type": "Buteur equipe",
+        "label": "Argentina marque plus de 1.5 buts",
         "cote": null,
-        "book": null,
-        "books": [],
-        "confidence": 70,
-        "cote_min": 1.43,
-        "reasoning": "✈️ Combo intra-Inter Miami CF\n📈 P(Luis Suárez marque) ≈ 56% · P(Lionel Messi marque) ≈ 46%\n🎯 P(au moins un marque) = 70% (1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.43 - chercher ≥1.43 chez le bookmaker\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
-        "context": {
-          "combo_kind": "intra-away"
-        },
-        "_team_for_balance": "away",
+        "confidence": 78,
+        "reasoning": "Argentina attendu a ~3.4 buts (marque 2.2/m sur L5, Bolivia encaisse 2.2/m) - P(2+ buts) ~85%\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
         "stats": {
-          "p_a": 0.562,
-          "p_b": 0.465,
-          "p_or": 0.7,
-          "player_a": "Luis Suárez",
-          "player_b": "Lionel Messi",
-          "kind": "intra-away"
+          "form": [
+            "L",
+            "W",
+            "W",
+            "W",
+            "W"
+          ]
         },
-        "team": "away",
+        "is_fun": false,
         "tier": "safe",
         "calibration_delta": -11.3,
         "history_top3": true
       }
     ],
+    "home_players": [],
+    "away_players": [],
     "fun_picks": [],
     "top_pick": {
-      "direction": "away_dc",
-      "type": "Double chance",
-      "label": "Nul ou Inter Miami CF (X2)",
+      "direction": "home_win",
+      "type": "Forme superieure",
+      "label": "Argentina gagne",
       "cote": null,
-      "confidence": 88,
-      "reasoning": "Inter Miami CF invaincu 100% sur 5 derniers matchs · H2H: 1/1 matchs sans défaite · Classement: #4 (away) vs #27 (home)\n📉 Calibration : bucket 80-89% historiquement à WR 56% (claim 82%, n=63) — sur-estimé de 26pp",
+      "confidence": 85,
+      "reasoning": "Argentina : 4V/0N/1D sur 5 matchs vs Bolivia : 1V/0N/4D sur 5 matchs (L5 TCC · ecart de tier FIFA 1vs4)\n📉 Calibration : bucket 80-89% historiquement à WR 56% (claim 82%, n=63) — sur-estimé de 26pp",
       "stats": {
         "form": [
-          "D",
-          "D",
-          "D",
-          "D",
+          "L",
+          "W",
+          "W",
+          "W",
           "W"
         ]
       },
@@ -132,24 +119,24 @@
     "no_picks": false,
     "context": {
       "stadium": {
-        "name": "ScottsMiracle-Gro Field",
-        "city": "Columbus, Ohio",
-        "country": "United States",
-        "lat": 39.968452368,
-        "lon": -83.017099203,
-        "capacity": 20931,
+        "name": "Estadio Mario Alberto Kempes",
+        "city": "Ciudad de Córdoba, Provincia de ",
+        "country": "Argentina",
+        "lat": -31.368991412,
+        "lon": -64.246051311,
+        "capacity": 57503,
         "surface": "grass"
       },
       "weather": {
-        "temp_max": 24.2,
-        "temp_min": 9.5,
-        "humidity": 50,
-        "precipitation_sum_mm": 0.0,
-        "wind_max_kmh": 18.5,
-        "weather_code": 1,
-        "summary_fr": "🌤️ principalement clair · 9–24°C · humidité 50%"
+        "temp_max": 22.6,
+        "temp_min": 15.8,
+        "humidity": 44,
+        "precipitation_sum_mm": 0.2,
+        "wind_max_kmh": 20.7,
+        "weather_code": 51,
+        "summary_fr": "🌦️ bruine légère · 15–22°C · humidité 44%"
       },
-      "text": "Conditions : 🌤️ principalement clair · 9–24°C · humidité 50%. Stade : ScottsMiracle-Gro Field · 20 931 places · plein air."
+      "text": "Conditions : 🌦️ bruine légère · 15–22°C · humidité 44%. Stade : Estadio Mario Alberto Kempes · 57 503 places · plein air."
     }
   },
   {
@@ -439,6 +426,242 @@
     }
   },
   {
+    "league": "Friendlies",
+    "home": "Australia",
+    "away": "Brazil",
+    "start_ts": 1790676000,
+    "match_id": "5924777",
+    "page_url": "/matches/australia-vs-brazil/1uqlxi#5924777",
+    "picks": [
+      {
+        "direction": "away_win",
+        "type": "Forme superieure",
+        "label": "Brazil gagne",
+        "cote": null,
+        "confidence": 72,
+        "reasoning": "Brazil : 3V/1N/1D sur 5 matchs vs Australia : 2V/2N/1D sur 5 matchs (L5 TCC · ecart de tier FIFA 2vs1)\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+        "stats": {
+          "form": [
+            "D",
+            "W",
+            "W",
+            "W",
+            "L"
+          ]
+        },
+        "is_fun": false,
+        "tier": "safe",
+        "calibration_delta": -11.3,
+        "history_top3": true
+      },
+      {
+        "direction": "over25",
+        "type": "Total buts",
+        "label": "Plus de 2.5 buts",
+        "cote": null,
+        "confidence": 66,
+        "reasoning": "Attendu 3.4 buts au total (Australia ~0.9, Brazil ~2.5) - P(>2.5) ~66%\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
+        "stats": {
+          "form": [
+            "D",
+            "D",
+            "L",
+            "W",
+            "W"
+          ]
+        },
+        "is_fun": false,
+        "tier": "ok",
+        "calibration_delta": -25.4,
+        "history_top3": true
+      },
+      {
+        "direction": "away_over_15",
+        "type": "Buteur equipe",
+        "label": "Brazil marque plus de 1.5 buts",
+        "cote": null,
+        "confidence": 77,
+        "reasoning": "Brazil attendu a ~2.5 buts (marque 2.6/m sur L5, Australia encaisse 0.8/m) - P(2+ buts) ~72%\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+        "stats": {
+          "form": [
+            "D",
+            "W",
+            "W",
+            "W",
+            "L"
+          ]
+        },
+        "is_fun": false,
+        "tier": "safe",
+        "calibration_delta": -11.3,
+        "history_top3": true
+      }
+    ],
+    "home_players": [],
+    "away_players": [
+      {
+        "player": "Raphinha",
+        "position": "F",
+        "is_sub": false,
+        "type": "Buteur",
+        "label": "Raphinha marque",
+        "cote": null,
+        "cote_min": 1.77,
+        "book": null,
+        "books": [],
+        "confidence": 57,
+        "reasoning": "Raphinha : selection 0G/6m (0.00/m) · L10 club : 15G/10m | titu nat (63min/m) · last match 90min (0G+1A). λ ajusté à 0.83 (Brazil attendu 2.8 buts) → P(marque) ~57%.\n📉 Calibration : bucket 50-59% historiquement à WR 42% (claim 55%, n=41) — sur-estimé de 14pp",
+        "context": {
+          "source": "lineup",
+          "lam": 0.83,
+          "lineup_status": "confirmed"
+        },
+        "stats": {
+          "goals": null,
+          "apps": null,
+          "gpm": 0.833,
+          "xgpm": null
+        },
+        "team": "away",
+        "lineup_status": "confirmed",
+        "tier": "ok",
+        "calibration_delta": -13.6,
+        "history_top3": true
+      },
+      {
+        "player": "Estêvão",
+        "position": "F",
+        "is_sub": false,
+        "type": "Buteur",
+        "label": "Estêvão marque",
+        "cote": null,
+        "cote_min": 2.02,
+        "book": null,
+        "books": [],
+        "confidence": 50,
+        "reasoning": "Estêvão : selection 4G/5m (0.80/m) · L10 club : 0G/10m, 🔥 2G/3 derniers nat (+19%) · ⚠️ dernier match nat 60+min 0G+0A (-45%) | titu nat (66min/m) · last match 76min (0G+0A). λ ajusté à 0.68 (Brazil attendu 2.8 buts) → P(marque) ~50%.\n📉 Calibration : bucket 50-59% historiquement à WR 42% (claim 55%, n=41) — sur-estimé de 14pp",
+        "context": {
+          "source": "lineup",
+          "lam": 0.68,
+          "lineup_status": "confirmed"
+        },
+        "stats": {
+          "goals": null,
+          "apps": null,
+          "gpm": 0.684,
+          "xgpm": null
+        },
+        "team": "away",
+        "lineup_status": "confirmed",
+        "tier": "fun",
+        "calibration_delta": -13.6,
+        "history_top3": true
+      },
+      {
+        "player": "Raphinha",
+        "position": "F",
+        "is_sub": false,
+        "type": "Passeur",
+        "label": "Raphinha délivre une passe décisive",
+        "cote": null,
+        "cote_min": 2.11,
+        "book": null,
+        "books": [],
+        "confidence": 47,
+        "reasoning": "Raphinha délivre une passe décisive : selection 2A/6m (0.33 passes/m nat). P(passe décisive) ~47%.\n📉 Calibration : bucket 40-49% historiquement à WR 25% (claim 44%, n=36) — sur-estimé de 19pp",
+        "context": {
+          "source": "lineup",
+          "lam": 0.64,
+          "lineup_status": "confirmed"
+        },
+        "stats": {
+          "goals": null,
+          "apps": null,
+          "gpm": 0.641,
+          "xgpm": null
+        },
+        "team": "away",
+        "lineup_status": "confirmed",
+        "tier": "fun",
+        "calibration_delta": -19.4,
+        "history_top3": false
+      },
+      {
+        "player": "Endrick",
+        "position": "F",
+        "is_sub": false,
+        "type": "Passeur",
+        "label": "Endrick délivre une passe décisive",
+        "cote": null,
+        "cote_min": 2.32,
+        "book": null,
+        "books": [],
+        "confidence": 43,
+        "reasoning": "Endrick délivre une passe décisive : selection 8A/21m (0.38 passes/m nat). P(passe décisive) ~43%.\n📉 Calibration : bucket 40-49% historiquement à WR 25% (claim 44%, n=36) — sur-estimé de 19pp",
+        "context": {
+          "source": "lineup",
+          "lam": 0.56,
+          "lineup_status": "confirmed"
+        },
+        "stats": {
+          "goals": null,
+          "apps": null,
+          "gpm": 0.564,
+          "xgpm": null
+        },
+        "team": "away",
+        "lineup_status": "confirmed",
+        "tier": "fun",
+        "calibration_delta": -19.4,
+        "history_top3": false
+      }
+    ],
+    "fun_picks": [],
+    "top_pick": {
+      "direction": "away_win",
+      "type": "Forme superieure",
+      "label": "Brazil gagne",
+      "cote": null,
+      "confidence": 72,
+      "reasoning": "Brazil : 3V/1N/1D sur 5 matchs vs Australia : 2V/2N/1D sur 5 matchs (L5 TCC · ecart de tier FIFA 2vs1)\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+      "stats": {
+        "form": [
+          "D",
+          "W",
+          "W",
+          "W",
+          "L"
+        ]
+      },
+      "is_fun": false,
+      "tier": "safe",
+      "calibration_delta": -11.3,
+      "history_top3": true
+    },
+    "no_picks": false,
+    "context": {
+      "stadium": {
+        "name": "Suncorp Stadium",
+        "city": "Brisbane",
+        "country": "Australia",
+        "lat": -27.464838325,
+        "lon": 153.009569049,
+        "capacity": 52500,
+        "surface": "grass"
+      },
+      "weather": {
+        "temp_max": 21.7,
+        "temp_min": 14.3,
+        "humidity": 56,
+        "precipitation_sum_mm": 2.5,
+        "wind_max_kmh": 15.5,
+        "weather_code": 55,
+        "summary_fr": "🌧️ bruine dense · 14–21°C · humidité 56% · précipitations 2.5mm"
+      },
+      "text": "Conditions : 🌧️ bruine dense · 14–21°C · humidité 56% · précipitations 2.5mm. Stade : Suncorp Stadium · 52 500 places · plein air."
+    }
+  },
+  {
     "league": "Uruguay Primera",
     "home": "Montevideo Wanderers",
     "away": "Albion",
@@ -538,6 +761,258 @@
     "context": null
   },
   {
+    "league": "UEFA Nations League C",
+    "home": "Luxembourg",
+    "away": "Iceland",
+    "start_ts": 1790707500,
+    "match_id": "5181952",
+    "page_url": "/matches/luxembourg-vs-iceland/1p4e44#5181952",
+    "picks": [
+      {
+        "direction": "home_win",
+        "type": "Victoire domicile",
+        "label": "Luxembourg gagne",
+        "cote": null,
+        "confidence": 70,
+        "reasoning": "Luxembourg : 4V/0N/1D sur 5 matchs · #1 au classement · H2H: 0V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+        "stats": {
+          "form": [
+            "W",
+            "W",
+            "L",
+            "W",
+            "W"
+          ]
+        },
+        "is_fun": false,
+        "tier": "safe",
+        "calibration_delta": -11.3,
+        "history_top3": true
+      }
+    ],
+    "home_players": [],
+    "away_players": [],
+    "fun_picks": [],
+    "top_pick": {
+      "direction": "home_win",
+      "type": "Victoire domicile",
+      "label": "Luxembourg gagne",
+      "cote": null,
+      "confidence": 70,
+      "reasoning": "Luxembourg : 4V/0N/1D sur 5 matchs · #1 au classement · H2H: 0V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+      "stats": {
+        "form": [
+          "W",
+          "W",
+          "L",
+          "W",
+          "W"
+        ]
+      },
+      "is_fun": false,
+      "tier": "safe",
+      "calibration_delta": -11.3,
+      "history_top3": true
+    },
+    "no_picks": false,
+    "context": {
+      "stadium": {
+        "name": "Stade de Luxembourg",
+        "city": "Lëtzebuerg (Luxembourg)",
+        "country": "Luxembourg",
+        "lat": 49.577206347,
+        "lon": 6.114722,
+        "capacity": 9386,
+        "surface": "grass"
+      },
+      "weather": {
+        "temp_max": 26.7,
+        "temp_min": 17.4,
+        "humidity": 38,
+        "precipitation_sum_mm": 0.0,
+        "wind_max_kmh": 12.6,
+        "weather_code": 3,
+        "summary_fr": "☁️ couvert · 17–26°C · humidité 38%"
+      },
+      "text": "Conditions : ☁️ couvert · 17–26°C · humidité 38%. Stade : Stade de Luxembourg · 9 386 places · plein air."
+    }
+  },
+  {
+    "league": "Friendlies",
+    "home": "Russia",
+    "away": "Iran",
+    "start_ts": 1790699400,
+    "match_id": "6144112",
+    "page_url": "/matches/iran-vs-russia/1ytuzt#6144112",
+    "picks": [
+      {
+        "direction": "away_win",
+        "type": "Forme superieure",
+        "label": "Iran gagne",
+        "cote": null,
+        "confidence": 69,
+        "reasoning": "Iran : 3V/0N/2D sur 5 matchs vs Russia : 3V/1N/1D sur 5 matchs (L5 TCC · ecart de tier FIFA 4vs2)\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
+        "stats": {
+          "form": [
+            "L",
+            "W",
+            "W",
+            "W",
+            "L"
+          ]
+        },
+        "is_fun": false,
+        "tier": "ok",
+        "calibration_delta": -25.4,
+        "history_top3": true
+      },
+      {
+        "direction": "away_over_15",
+        "type": "Buteur equipe",
+        "label": "Iran marque plus de 1.5 buts",
+        "cote": null,
+        "confidence": 54,
+        "reasoning": "Iran attendu a ~1.6 buts (marque 2.4/m sur L5, Russia encaisse 0.4/m) - P(2+ buts) ~49%\n📉 Calibration : bucket 50-59% historiquement à WR 42% (claim 55%, n=41) — sur-estimé de 14pp",
+        "stats": {
+          "form": [
+            "L",
+            "W",
+            "W",
+            "W",
+            "L"
+          ]
+        },
+        "is_fun": false,
+        "tier": "fun",
+        "calibration_delta": -13.6,
+        "history_top3": true
+      }
+    ],
+    "home_players": [],
+    "away_players": [],
+    "fun_picks": [],
+    "top_pick": {
+      "direction": "away_win",
+      "type": "Forme superieure",
+      "label": "Iran gagne",
+      "cote": null,
+      "confidence": 69,
+      "reasoning": "Iran : 3V/0N/2D sur 5 matchs vs Russia : 3V/1N/1D sur 5 matchs (L5 TCC · ecart de tier FIFA 4vs2)\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
+      "stats": {
+        "form": [
+          "L",
+          "W",
+          "W",
+          "W",
+          "L"
+        ]
+      },
+      "is_fun": false,
+      "tier": "ok",
+      "calibration_delta": -25.4,
+      "history_top3": true
+    },
+    "no_picks": false,
+    "context": {
+      "stadium": {
+        "name": "Ak Bars Arena",
+        "city": "Kazan'",
+        "country": "Russia",
+        "lat": 55.821052599,
+        "lon": 49.160731423,
+        "capacity": 45105,
+        "surface": "grass"
+      },
+      "weather": {
+        "temp_max": 20.0,
+        "temp_min": 11.4,
+        "humidity": 50,
+        "precipitation_sum_mm": 0.0,
+        "wind_max_kmh": 5.8,
+        "weather_code": 3,
+        "summary_fr": "☁️ couvert · 11–20°C · humidité 50%"
+      },
+      "text": "Conditions : ☁️ couvert · 11–20°C · humidité 50%. Stade : Ak Bars Arena · 45 105 places · plein air."
+    }
+  },
+  {
+    "league": "Colombia Primera A",
+    "home": "Deportivo Pereira",
+    "away": "Santa Fe",
+    "start_ts": 1790713800,
+    "match_id": "1000014076",
+    "page_url": "/matches/deportivo-pereira-vs-santa-fe/18h4vf#1000014076",
+    "picks": [
+      {
+        "direction": "away_win",
+        "type": "Favori net",
+        "label": "Santa Fe gagne",
+        "cote": null,
+        "confidence": 68,
+        "reasoning": "13 places d'écart au classement (#7 vs #20) · 3V/1N/1D sur 5 matchs · Note Sofa: 6.5/10\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
+        "stats": {
+          "form": [
+            "L",
+            "W",
+            "W",
+            "D",
+            "W"
+          ]
+        },
+        "is_fun": false,
+        "tier": "ok",
+        "calibration_delta": -25.4,
+        "history_top3": true
+      }
+    ],
+    "home_players": [],
+    "away_players": [],
+    "fun_picks": [],
+    "top_pick": {
+      "direction": "away_win",
+      "type": "Favori net",
+      "label": "Santa Fe gagne",
+      "cote": null,
+      "confidence": 68,
+      "reasoning": "13 places d'écart au classement (#7 vs #20) · 3V/1N/1D sur 5 matchs · Note Sofa: 6.5/10\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
+      "stats": {
+        "form": [
+          "L",
+          "W",
+          "W",
+          "D",
+          "W"
+        ]
+      },
+      "is_fun": false,
+      "tier": "ok",
+      "calibration_delta": -25.4,
+      "history_top3": true
+    },
+    "no_picks": false,
+    "context": {
+      "stadium": {
+        "name": "Estadio Santiago de las Atalayas",
+        "city": "Yopal",
+        "country": "Colombia",
+        "lat": 5.318365764,
+        "lon": -72.39187181,
+        "capacity": 12000,
+        "surface": "grass"
+      },
+      "weather": {
+        "temp_max": 30.8,
+        "temp_min": 23.3,
+        "humidity": 76,
+        "precipitation_sum_mm": 1.0,
+        "wind_max_kmh": 15.4,
+        "weather_code": 51,
+        "summary_fr": "🌦️ bruine légère · 23–30°C · humidité 76% · précipitations 1.0mm"
+      },
+      "text": "Conditions : 🌦️ bruine légère · 23–30°C · humidité 76% · précipitations 1.0mm. Stade : Estadio Santiago de las Atalayas · 12 000 places · plein air."
+    }
+  },
+  {
     "league": "Friendlies",
     "home": "Japan",
     "away": "Venezuela",
@@ -633,6 +1108,83 @@
         "summary_fr": "🌧️ pluie modérée · 22–25°C · humidité 93% · précipitations 27.1mm"
       },
       "text": "Conditions : 🌧️ pluie modérée · 22–25°C · humidité 93% · précipitations 27.1mm. Stade : Edion Peace Wing Hiroshima · 28 520 places · plein air. ⚠️ Pluies prévues : terrain potentiellement lourd, jeu direct privilégié, plus d'erreurs techniques."
+    }
+  },
+  {
+    "league": "UEFA Nations League A",
+    "home": "Spain",
+    "away": "Croatia",
+    "start_ts": 1790707500,
+    "match_id": "5181852",
+    "page_url": "/matches/spain-vs-croatia/2cs2z6#5181852",
+    "picks": [
+      {
+        "direction": "home_win",
+        "type": "Victoire domicile",
+        "label": "Spain gagne",
+        "cote": null,
+        "confidence": 66,
+        "reasoning": "Spain : 3V/2N/0D sur 5 matchs · #1 au classement · H2H: 0V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
+        "stats": {
+          "form": [
+            "W",
+            "W",
+            "D",
+            "D",
+            "W"
+          ]
+        },
+        "is_fun": false,
+        "tier": "ok",
+        "calibration_delta": -25.4,
+        "history_top3": true
+      }
+    ],
+    "home_players": [],
+    "away_players": [],
+    "fun_picks": [],
+    "top_pick": {
+      "direction": "home_win",
+      "type": "Victoire domicile",
+      "label": "Spain gagne",
+      "cote": null,
+      "confidence": 66,
+      "reasoning": "Spain : 3V/2N/0D sur 5 matchs · #1 au classement · H2H: 0V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
+      "stats": {
+        "form": [
+          "W",
+          "W",
+          "D",
+          "D",
+          "W"
+        ]
+      },
+      "is_fun": false,
+      "tier": "ok",
+      "calibration_delta": -25.4,
+      "history_top3": true
+    },
+    "no_picks": false,
+    "context": {
+      "stadium": {
+        "name": "Estadio Ramón Sánchez Pizjuán",
+        "city": "Sevilla",
+        "country": "Spain",
+        "lat": 37.384045627,
+        "lon": -5.970591903,
+        "capacity": 42714,
+        "surface": "grass"
+      },
+      "weather": {
+        "temp_max": 30.1,
+        "temp_min": 18.3,
+        "humidity": 49,
+        "precipitation_sum_mm": 0.0,
+        "wind_max_kmh": 10.5,
+        "weather_code": 3,
+        "summary_fr": "☁️ couvert · 18–30°C · humidité 49%"
+      },
+      "text": "Conditions : ☁️ couvert · 18–30°C · humidité 49%. Stade : Estadio Ramón Sánchez Pizjuán · 42 714 places · plein air."
     }
   },
   {
@@ -751,6 +1303,83 @@
   },
   {
     "league": "UEFA Nations League C",
+    "home": "Slovakia",
+    "away": "Kazakhstan",
+    "start_ts": 1790707500,
+    "match_id": "5181936",
+    "page_url": "/matches/kazakhstan-vs-slovakia/2bndvk#5181936",
+    "picks": [
+      {
+        "direction": "home_win",
+        "type": "Victoire domicile",
+        "label": "Slovakia gagne",
+        "cote": null,
+        "confidence": 63,
+        "reasoning": "Slovakia : 3V/1N/1D sur 5 matchs · #1 au classement · H2H: 0V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
+        "stats": {
+          "form": [
+            "W",
+            "D",
+            "W",
+            "W",
+            "L"
+          ]
+        },
+        "is_fun": false,
+        "tier": "ok",
+        "calibration_delta": -25.4,
+        "history_top3": true
+      }
+    ],
+    "home_players": [],
+    "away_players": [],
+    "fun_picks": [],
+    "top_pick": {
+      "direction": "home_win",
+      "type": "Victoire domicile",
+      "label": "Slovakia gagne",
+      "cote": null,
+      "confidence": 63,
+      "reasoning": "Slovakia : 3V/1N/1D sur 5 matchs · #1 au classement · H2H: 0V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
+      "stats": {
+        "form": [
+          "W",
+          "D",
+          "W",
+          "W",
+          "L"
+        ]
+      },
+      "is_fun": false,
+      "tier": "ok",
+      "calibration_delta": -25.4,
+      "history_top3": true
+    },
+    "no_picks": false,
+    "context": {
+      "stadium": {
+        "name": "Košická futbalová aréna",
+        "city": "Košice",
+        "country": "Slovakia",
+        "lat": 48.696780843,
+        "lon": 21.245129694,
+        "capacity": 12658,
+        "surface": "grass"
+      },
+      "weather": {
+        "temp_max": 22.9,
+        "temp_min": 13.2,
+        "humidity": 31,
+        "precipitation_sum_mm": 0.0,
+        "wind_max_kmh": 13.3,
+        "weather_code": 0,
+        "summary_fr": "🌤️ conditions variables · 13–22°C · humidité 31%"
+      },
+      "text": "Conditions : 🌤️ conditions variables · 13–22°C · humidité 31%. Stade : Košická futbalová aréna · 12 658 places · plein air."
+    }
+  },
+  {
+    "league": "UEFA Nations League C",
     "home": "Armenia",
     "away": "Montenegro",
     "start_ts": 1790611200,
@@ -824,6 +1453,183 @@
         "summary_fr": "🌦️ averses légères · 17–25°C · humidité 46%"
       },
       "text": "Conditions : 🌦️ averses légères · 17–25°C · humidité 46%. Stade : Vazgen Sargsyan anvan Hanrapetakan Marzadasht · 14 530 places · plein air."
+    }
+  },
+  {
+    "league": "UEFA Nations League C",
+    "home": "Finland",
+    "away": "Belarus",
+    "start_ts": 1790697600,
+    "match_id": "5181896",
+    "page_url": "/matches/finland-vs-belarus/2nouzn#5181896",
+    "picks": [
+      {
+        "direction": "away_win",
+        "type": "Victoire extérieur",
+        "label": "Belarus gagne",
+        "cote": null,
+        "confidence": 61,
+        "reasoning": "Belarus : 3V/1N/1D sur 5 matchs · #3 au classement · H2H: 0V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
+        "stats": {
+          "form": [
+            "L",
+            "D",
+            "W",
+            "W",
+            "W"
+          ]
+        },
+        "is_fun": false,
+        "tier": "ok",
+        "calibration_delta": -25.4,
+        "history_top3": true
+      }
+    ],
+    "home_players": [
+      {
+        "player": "Joel Pohjanpalo",
+        "position": "F",
+        "is_sub": false,
+        "type": "Buteur",
+        "label": "Joel Pohjanpalo marque",
+        "team": "home",
+        "cote": null,
+        "book": null,
+        "books": [],
+        "confidence": 32,
+        "reasoning": "3G en 8 matchs (37.5%/match) · xG: 0.24/match",
+        "context": {
+          "weakness": 0.21
+        },
+        "stats": {
+          "goals": 3,
+          "apps": 8
+        },
+        "tier": "fun",
+        "history_top3": true
+      }
+    ],
+    "away_players": [],
+    "fun_picks": [],
+    "top_pick": {
+      "direction": "away_win",
+      "type": "Victoire extérieur",
+      "label": "Belarus gagne",
+      "cote": null,
+      "confidence": 61,
+      "reasoning": "Belarus : 3V/1N/1D sur 5 matchs · #3 au classement · H2H: 0V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
+      "stats": {
+        "form": [
+          "L",
+          "D",
+          "W",
+          "W",
+          "W"
+        ]
+      },
+      "is_fun": false,
+      "tier": "ok",
+      "calibration_delta": -25.4,
+      "history_top3": true
+    },
+    "no_picks": false,
+    "context": {
+      "stadium": {
+        "name": "Helsingin olympiastadion",
+        "city": "Helsinki (Helsingfors)",
+        "country": "Finland",
+        "lat": 60.186977118,
+        "lon": 24.927216768,
+        "capacity": 40682,
+        "surface": "grass"
+      },
+      "weather": {
+        "temp_max": 14.7,
+        "temp_min": 13.1,
+        "humidity": 94,
+        "precipitation_sum_mm": 1.7,
+        "wind_max_kmh": 22.3,
+        "weather_code": 53,
+        "summary_fr": "🌦️ bruine modérée · 14°C · humidité 94% · précipitations 1.7mm"
+      },
+      "text": "Conditions : 🌦️ bruine modérée · 14°C · humidité 94% · précipitations 1.7mm. Stade : Helsingin olympiastadion · 40 682 places · plein air."
+    }
+  },
+  {
+    "league": "UEFA Nations League C",
+    "home": "Moldova",
+    "away": "Faroe Islands",
+    "start_ts": 1790697600,
+    "match_id": "5181935",
+    "page_url": "/matches/moldova-vs-faroe-islands/1mvr6d#5181935",
+    "picks": [
+      {
+        "direction": "away_win",
+        "type": "Victoire extérieur",
+        "label": "Faroe Islands gagne",
+        "cote": null,
+        "confidence": 61,
+        "reasoning": "Faroe Islands : 3V/1N/1D sur 5 matchs · #3 au classement · H2H: 0V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
+        "stats": {
+          "form": [
+            "D",
+            "W",
+            "L",
+            "W",
+            "W"
+          ]
+        },
+        "is_fun": false,
+        "tier": "ok",
+        "calibration_delta": -25.4,
+        "history_top3": true
+      }
+    ],
+    "home_players": [],
+    "away_players": [],
+    "fun_picks": [],
+    "top_pick": {
+      "direction": "away_win",
+      "type": "Victoire extérieur",
+      "label": "Faroe Islands gagne",
+      "cote": null,
+      "confidence": 61,
+      "reasoning": "Faroe Islands : 3V/1N/1D sur 5 matchs · #3 au classement · H2H: 0V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
+      "stats": {
+        "form": [
+          "D",
+          "W",
+          "L",
+          "W",
+          "W"
+        ]
+      },
+      "is_fun": false,
+      "tier": "ok",
+      "calibration_delta": -25.4,
+      "history_top3": true
+    },
+    "no_picks": false,
+    "context": {
+      "stadium": {
+        "name": "Stadionul Zimbru",
+        "city": "Chișinău",
+        "country": "Moldova",
+        "lat": 46.980321893,
+        "lon": 28.867891431,
+        "capacity": 10104,
+        "surface": "grass"
+      },
+      "weather": {
+        "temp_max": 21.0,
+        "temp_min": 10.6,
+        "humidity": 45,
+        "precipitation_sum_mm": 0.0,
+        "wind_max_kmh": 15.5,
+        "weather_code": 2,
+        "summary_fr": "⛅ partiellement nuageux · 10–21°C · humidité 45%"
+      },
+      "text": "Conditions : ⛅ partiellement nuageux · 10–21°C · humidité 45%. Stade : Stadionul Zimbru · 10 104 places · plein air."
     }
   },
   {
@@ -1135,38 +1941,82 @@
     }
   },
   {
-    "league": "Colombia Primera A",
-    "home": "Fortaleza FC",
-    "away": "Tolima",
-    "start_ts": 1790550300,
-    "match_id": "1000014158",
-    "page_url": "/matches/tolima-vs-fortaleza-fc/dwnzhoy#1000014158",
+    "league": "UEFA Nations League B",
+    "home": "Scotland",
+    "away": "Switzerland",
+    "start_ts": 1790707500,
+    "match_id": "5181778",
+    "page_url": "/matches/switzerland-vs-scotland/1wx88q#5181778",
     "picks": [],
     "home_players": [],
-    "away_players": [],
+    "away_players": [
+      {
+        "player": "Zeki Amdouni",
+        "position": "M",
+        "is_sub": false,
+        "type": "Buteur",
+        "label": "Zeki Amdouni marque",
+        "team": "away",
+        "cote": null,
+        "book": null,
+        "books": [],
+        "confidence": 30,
+        "reasoning": "2G en 5 matchs (40.0%/match) · xG: 0.24/match",
+        "context": {
+          "weakness": 0.19
+        },
+        "stats": {
+          "goals": 2,
+          "apps": 5
+        },
+        "tier": "fun",
+        "history_top3": true
+      }
+    ],
     "fun_picks": [],
-    "top_pick": null,
-    "no_picks": true,
+    "top_pick": {
+      "player": "Zeki Amdouni",
+      "position": "M",
+      "is_sub": false,
+      "type": "Buteur",
+      "label": "Zeki Amdouni marque",
+      "team": "away",
+      "cote": null,
+      "book": null,
+      "books": [],
+      "confidence": 30,
+      "reasoning": "2G en 5 matchs (40.0%/match) · xG: 0.24/match",
+      "context": {
+        "weakness": 0.19
+      },
+      "stats": {
+        "goals": 2,
+        "apps": 5
+      },
+      "tier": "fun",
+      "history_top3": true
+    },
+    "no_picks": false,
     "context": {
       "stadium": {
-        "name": "Estadio Metropolitano de Techo",
-        "city": "Bogotá, D.C.",
-        "country": "Colombia",
-        "lat": 4.623335389,
-        "lon": -74.13525939,
-        "capacity": 10000,
+        "name": "Barclays Hampden",
+        "city": "Glasgow",
+        "country": "Scotland",
+        "lat": 55.825864778,
+        "lon": -4.252004027,
+        "capacity": 52500,
         "surface": "grass"
       },
       "weather": {
-        "temp_max": 22.5,
-        "temp_min": 11.6,
-        "humidity": 61,
-        "precipitation_sum_mm": 3.1,
-        "wind_max_kmh": 7.3,
-        "weather_code": 53,
-        "summary_fr": "🌦️ bruine modérée · 11–22°C · humidité 61% · précipitations 3.1mm"
+        "temp_max": 17.5,
+        "temp_min": 7.9,
+        "humidity": 74,
+        "precipitation_sum_mm": 0.0,
+        "wind_max_kmh": 22.3,
+        "weather_code": 3,
+        "summary_fr": "☁️ couvert · 7–17°C · humidité 74%"
       },
-      "text": "Conditions : 🌦️ bruine modérée · 11–22°C · humidité 61% · précipitations 3.1mm. Stade : Estadio Metropolitano de Techo · 10 000 places · plein air."
+      "text": "Conditions : ☁️ couvert · 7–17°C · humidité 74%. Stade : Barclays Hampden · 52 500 places · plein air."
     }
   },
   {
@@ -1233,6 +2083,41 @@
     "top_pick": null,
     "no_picks": true,
     "context": null
+  },
+  {
+    "league": "UEFA Nations League A",
+    "home": "Czechia",
+    "away": "England",
+    "start_ts": 1790707500,
+    "match_id": "5181851",
+    "page_url": "/matches/england-vs-czechia/2dwrka#5181851",
+    "picks": [],
+    "home_players": [],
+    "away_players": [],
+    "fun_picks": [],
+    "top_pick": null,
+    "no_picks": true,
+    "context": {
+      "stadium": {
+        "name": "Fortuna Arena",
+        "city": "Praha",
+        "country": "Czech Republic",
+        "lat": 50.067525002,
+        "lon": 14.471139908,
+        "capacity": 19370,
+        "surface": "grass"
+      },
+      "weather": {
+        "temp_max": 24.1,
+        "temp_min": 10.6,
+        "humidity": 36,
+        "precipitation_sum_mm": 0.0,
+        "wind_max_kmh": 14.4,
+        "weather_code": 3,
+        "summary_fr": "☁️ couvert · 10–24°C · humidité 36%"
+      },
+      "text": "Conditions : ☁️ couvert · 10–24°C · humidité 36%. Stade : Fortuna Arena · 19 370 places · plein air."
+    }
   },
   {
     "league": "UEFA Nations League B",
@@ -1305,6 +2190,41 @@
     }
   },
   {
+    "league": "UEFA Nations League B",
+    "home": "Slovenia",
+    "away": "North Macedonia",
+    "start_ts": 1790707500,
+    "match_id": "5181779",
+    "page_url": "/matches/slovenia-vs-north-macedonia/1mqxn8#5181779",
+    "picks": [],
+    "home_players": [],
+    "away_players": [],
+    "fun_picks": [],
+    "top_pick": null,
+    "no_picks": true,
+    "context": {
+      "stadium": {
+        "name": "Stadion Stožice",
+        "city": "Ljubljana",
+        "country": "Slovenia",
+        "lat": 46.080472195,
+        "lon": 14.524183273,
+        "capacity": 16432,
+        "surface": "grass"
+      },
+      "weather": {
+        "temp_max": 22.7,
+        "temp_min": 7.2,
+        "humidity": 52,
+        "precipitation_sum_mm": 0.0,
+        "wind_max_kmh": 8.7,
+        "weather_code": 45,
+        "summary_fr": "🌫️ brouillard · 7–22°C · humidité 52%"
+      },
+      "text": "Conditions : 🌫️ brouillard · 7–22°C · humidité 52%. Stade : Stadion Stožice · 16 432 places · plein air."
+    }
+  },
+  {
     "league": "UEFA Nations League C",
     "home": "Latvia",
     "away": "Cyprus",
@@ -1337,6 +2257,76 @@
         "summary_fr": "☁️ couvert · 11–17°C · humidité 60%"
       },
       "text": "Conditions : ☁️ couvert · 11–17°C · humidité 60%. Stade : Stadions Skonto · 8 207 places · plein air."
+    }
+  },
+  {
+    "league": "UEFA Nations League C",
+    "home": "Bulgaria",
+    "away": "Estonia",
+    "start_ts": 1790707500,
+    "match_id": "5181951",
+    "page_url": "/matches/estonia-vs-bulgaria/2swyzb#5181951",
+    "picks": [],
+    "home_players": [],
+    "away_players": [],
+    "fun_picks": [],
+    "top_pick": null,
+    "no_picks": true,
+    "context": {
+      "stadium": {
+        "name": "Stadion Hristo Botev",
+        "city": "Plovdiv",
+        "country": "Bulgaria",
+        "lat": 42.13989523,
+        "lon": 24.764449596,
+        "capacity": 22000,
+        "surface": "grass"
+      },
+      "weather": {
+        "temp_max": 20.1,
+        "temp_min": 14.9,
+        "humidity": 48,
+        "precipitation_sum_mm": 0.0,
+        "wind_max_kmh": 10.5,
+        "weather_code": 3,
+        "summary_fr": "☁️ couvert · 14–20°C · humidité 48%"
+      },
+      "text": "Conditions : ☁️ couvert · 14–20°C · humidité 48%. Stade : Stadion Hristo Botev · 22 000 places · plein air."
+    }
+  },
+  {
+    "league": "UEFA Nations League C",
+    "home": "San Marino",
+    "away": "Albania",
+    "start_ts": 1790707500,
+    "match_id": "5181897",
+    "page_url": "/matches/san-marino-vs-albania/24s20t#5181897",
+    "picks": [],
+    "home_players": [],
+    "away_players": [],
+    "fun_picks": [],
+    "top_pick": null,
+    "no_picks": true,
+    "context": {
+      "stadium": {
+        "name": "Stadio Olimpico di Serravalle",
+        "city": "Serravalle",
+        "country": "San Marino",
+        "lat": 43.971244776,
+        "lon": 12.476971149,
+        "capacity": 5115,
+        "surface": "grass"
+      },
+      "weather": {
+        "temp_max": 24.3,
+        "temp_min": 16.5,
+        "humidity": 61,
+        "precipitation_sum_mm": 0.0,
+        "wind_max_kmh": 10.7,
+        "weather_code": 2,
+        "summary_fr": "⛅ partiellement nuageux · 16–24°C · humidité 61%"
+      },
+      "text": "Conditions : ⛅ partiellement nuageux · 16–24°C · humidité 61%. Stade : Stadio Olimpico di Serravalle · 5 115 places · plein air."
     }
   }
 ]

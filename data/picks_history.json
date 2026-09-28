@@ -54257,9 +54257,9 @@
       "matchup": "Columbus Crew vs Inter Miami CF",
       "league": "MLS",
       "category": "team",
-      "result": "PENDING",
-      "actual": null,
-      "resolved_at": null
+      "result": "LOSS",
+      "actual": "2-1",
+      "resolved_at": "2026-09-28 01:55"
     },
     {
       "direction": "away_win",
@@ -54288,9 +54288,9 @@
       "matchup": "Columbus Crew vs Inter Miami CF",
       "league": "MLS",
       "category": "team",
-      "result": "PENDING",
-      "actual": null,
-      "resolved_at": null
+      "result": "LOSS",
+      "actual": "2-1",
+      "resolved_at": "2026-09-28 01:55"
     },
     {
       "player": "Luis Suárez / Lionel Messi",
@@ -54327,9 +54327,12 @@
       "matchup": "Columbus Crew vs Inter Miami CF",
       "league": "MLS",
       "category": "player",
-      "result": "PENDING",
-      "actual": null,
-      "resolved_at": null,
+      "result": "WIN",
+      "actual": {
+        "goals": 1,
+        "assists": 0
+      },
+      "resolved_at": "2026-09-28 01:55",
       "side": "away"
     },
     {
@@ -54363,9 +54366,12 @@
       "matchup": "Columbus Crew vs Inter Miami CF",
       "league": "MLS",
       "category": "player",
-      "result": "PENDING",
-      "actual": null,
-      "resolved_at": null,
+      "result": "LOSS",
+      "actual": {
+        "goals": 0,
+        "assists": 0
+      },
+      "resolved_at": "2026-09-28 01:55",
       "side": "away"
     },
     {
@@ -54394,6 +54400,37 @@
       "page_url": "/matches/uruguay-vs-south-korea/1j2hak#6210557",
       "matchup": "South Korea vs Uruguay",
       "league": "Friendlies",
+      "category": "team",
+      "result": "PENDING",
+      "actual": null,
+      "resolved_at": null
+    },
+    {
+      "direction": "home_win",
+      "type": "Victoire domicile",
+      "label": "Belgium gagne",
+      "cote": null,
+      "confidence": 74,
+      "reasoning": "Belgium : 4V/1N/0D sur 5 matchs · #1 au classement · H2H: 0V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+      "stats": {
+        "form": [
+          "W",
+          "W",
+          "W",
+          "D",
+          "W"
+        ]
+      },
+      "is_fun": false,
+      "tier": "safe",
+      "calibration_delta": -11.3,
+      "history_top3": true,
+      "id": "2026-09-28_5181790_team_home_win",
+      "date": "2026-09-28",
+      "match_id": "5181790",
+      "page_url": "/matches/france-vs-belgium/1uv3r2#5181790",
+      "matchup": "Belgium vs France",
+      "league": "UEFA Nations League A",
       "category": "team",
       "result": "PENDING",
       "actual": null,
@@ -54462,6 +54499,82 @@
       "resolved_at": null
     },
     {
+      "player": "Allan Wlk / Aldo González",
+      "position": "",
+      "is_sub": false,
+      "type": "Double Chance Buteur",
+      "label": "Allan Wlk ou Aldo González marque (Recoleta)",
+      "cote": null,
+      "book": null,
+      "books": [],
+      "confidence": 70,
+      "cote_min": 1.43,
+      "reasoning": "✈️ Combo intra-Recoleta\n📈 P(Allan Wlk marque) ≈ 64% · P(Aldo González marque) ≈ 44%\n🎯 P(au moins un marque) = 70% (1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.43 - chercher ≥1.43 chez le bookmaker\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+      "context": {
+        "combo_kind": "intra-away"
+      },
+      "_team_for_balance": "away",
+      "stats": {
+        "p_a": 0.645,
+        "p_b": 0.435,
+        "p_or": 0.7,
+        "player_a": "Allan Wlk",
+        "player_b": "Aldo González",
+        "kind": "intra-away"
+      },
+      "team": "away",
+      "tier": "safe",
+      "calibration_delta": -11.3,
+      "history_top3": true,
+      "id": "2026-09-28_1000017419_player_Allan Wlk / Aldo González_Double Chance Buteur",
+      "date": "2026-09-28",
+      "match_id": "1000017419",
+      "page_url": "/matches/sportivo-san-lorenzo-vs-recoleta/gvbj2uxy#1000017419",
+      "matchup": "Sportivo San Lorenzo vs Recoleta",
+      "league": "Paraguay Profesional",
+      "category": "player",
+      "result": "PENDING",
+      "actual": null,
+      "resolved_at": null,
+      "side": "away"
+    },
+    {
+      "player": "Allan Wlk",
+      "position": "F",
+      "is_sub": false,
+      "type": "Buteur",
+      "label": "Allan Wlk marque",
+      "cote": null,
+      "book": null,
+      "books": [],
+      "confidence": 64,
+      "reasoning": "13 buts en 18 matchs cette saison (72.2% de chance/match) · bonne efficacité (24% conv.) · xG moyen 0.00/match, face à une défense qui concède 1.9 buts/match · défense fragile\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
+      "context": {
+        "weakness": 0.58
+      },
+      "stats": {
+        "goals": 13,
+        "apps": 18,
+        "gpm": 0.722,
+        "xgpm": 0
+      },
+      "team": "away",
+      "tier": "ok",
+      "calibration_delta": -25.4,
+      "history_top3": true,
+      "id": "2026-09-28_1000017419_player_Allan Wlk_Buteur",
+      "date": "2026-09-28",
+      "match_id": "1000017419",
+      "page_url": "/matches/sportivo-san-lorenzo-vs-recoleta/gvbj2uxy#1000017419",
+      "matchup": "Sportivo San Lorenzo vs Recoleta",
+      "league": "Paraguay Profesional",
+      "category": "player",
+      "result": "PENDING",
+      "actual": null,
+      "resolved_at": null,
+      "side": "away"
+    },
+    {
       "direction": "away_win",
       "type": "Victoire extérieur",
       "label": "Montenegro gagne",
@@ -54487,6 +54600,68 @@
       "page_url": "/matches/armenia-vs-montenegro/py8fl5#5181923",
       "matchup": "Armenia vs Montenegro",
       "league": "UEFA Nations League C",
+      "category": "team",
+      "result": "PENDING",
+      "actual": null,
+      "resolved_at": null
+    },
+    {
+      "direction": "away_win",
+      "type": "Victoire extérieur",
+      "label": "Italy gagne",
+      "cote": null,
+      "confidence": 60,
+      "reasoning": "Italy : 3V/1N/1D sur 5 matchs · #4 au classement · H2H: 0V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
+      "stats": {
+        "form": [
+          "L",
+          "W",
+          "W",
+          "D",
+          "W"
+        ]
+      },
+      "is_fun": false,
+      "tier": "ok",
+      "calibration_delta": -25.4,
+      "history_top3": true,
+      "id": "2026-09-28_5181791_team_away_win",
+      "date": "2026-09-28",
+      "match_id": "5181791",
+      "page_url": "/matches/turkiye-vs-italy/1t7esk#5181791",
+      "matchup": "Turkiye vs Italy",
+      "league": "UEFA Nations League A",
+      "category": "team",
+      "result": "PENDING",
+      "actual": null,
+      "resolved_at": null
+    },
+    {
+      "direction": "away_win",
+      "type": "Victoire extérieur",
+      "label": "Hungary gagne",
+      "cote": null,
+      "confidence": 60,
+      "reasoning": "Hungary : 3V/1N/1D sur 5 matchs · #4 au classement · H2H: 0V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
+      "stats": {
+        "form": [
+          "L",
+          "W",
+          "W",
+          "D",
+          "W"
+        ]
+      },
+      "is_fun": false,
+      "tier": "ok",
+      "calibration_delta": -25.4,
+      "history_top3": true,
+      "id": "2026-09-28_5181803_team_away_win",
+      "date": "2026-09-28",
+      "match_id": "5181803",
+      "page_url": "/matches/hungary-vs-northern-ireland/2xhs9l#5181803",
+      "matchup": "Northern Ireland vs Hungary",
+      "league": "UEFA Nations League B",
       "category": "team",
       "result": "PENDING",
       "actual": null,
