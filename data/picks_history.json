@@ -54798,9 +54798,9 @@
       "matchup": "Libertad vs Olimpia",
       "league": "Paraguay Profesional",
       "category": "team",
-      "result": "PENDING",
-      "actual": null,
-      "resolved_at": null
+      "result": "WIN",
+      "actual": "0-1",
+      "resolved_at": "2026-09-29 02:15"
     },
     {
       "player": "Lorenzo Melgarejo / Elvio Vera",
@@ -54837,9 +54837,12 @@
       "matchup": "Libertad vs Olimpia",
       "league": "Paraguay Profesional",
       "category": "player",
-      "result": "PENDING",
-      "actual": null,
-      "resolved_at": null,
+      "result": "LOSS",
+      "actual": {
+        "goals": 0,
+        "assists": 0
+      },
+      "resolved_at": "2026-09-29 02:15",
       "side": "home"
     },
     {
@@ -54873,10 +54876,95 @@
       "matchup": "Libertad vs Olimpia",
       "league": "Paraguay Profesional",
       "category": "player",
-      "result": "PENDING",
-      "actual": null,
-      "resolved_at": null,
+      "result": "LOSS",
+      "actual": {
+        "goals": 0,
+        "assists": 0
+      },
+      "resolved_at": "2026-09-29 02:15",
       "side": "home"
+    },
+    {
+      "player": "Luciano Cosentino / Joaquín Zeballos",
+      "position": "",
+      "is_sub": false,
+      "type": "Double Chance Buteur",
+      "label": "Luciano Cosentino ou Joaquín Zeballos marque (Montevideo Wanderers)",
+      "cote": null,
+      "book": null,
+      "books": [],
+      "confidence": 70,
+      "cote_min": 1.43,
+      "reasoning": "🏠 Combo intra-Montevideo Wanderers\n📈 P(Luciano Cosentino marque) ≈ 48% · P(Joaquín Zeballos marque) ≈ 45%\n🎯 P(au moins un marque) = 70% (1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.43 - chercher ≥1.43 chez le bookmaker\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+      "context": {
+        "combo_kind": "intra-home"
+      },
+      "_team_for_balance": "home",
+      "stats": {
+        "p_a": 0.48,
+        "p_b": 0.45,
+        "p_or": 0.7,
+        "player_a": "Luciano Cosentino",
+        "player_b": "Joaquín Zeballos",
+        "kind": "intra-home"
+      },
+      "team": "home",
+      "tier": "safe",
+      "calibration_delta": -11.3,
+      "history_top3": true,
+      "id": "2026-09-28_6301063_player_Luciano Cosentino / Joaquín Zeballos_Double Chance Buteur",
+      "date": "2026-09-28",
+      "match_id": "6301063",
+      "page_url": "/matches/montevideo-wanderers-vs-albion/5jv1ext5#6301063",
+      "matchup": "Montevideo Wanderers vs Albion",
+      "league": "Uruguay Primera",
+      "category": "player",
+      "result": "WIN",
+      "actual": {
+        "goals": 1,
+        "assists": 0
+      },
+      "resolved_at": "2026-09-29 02:15",
+      "side": "home"
+    },
+    {
+      "player": "Carlos Airala",
+      "position": "M",
+      "is_sub": false,
+      "type": "Buteur",
+      "label": "Carlos Airala marque",
+      "cote": null,
+      "book": null,
+      "books": [],
+      "confidence": 55,
+      "reasoning": "5 buts en 8 matchs cette saison (62.5% de chance/match) · xG moyen 0.00/match, défense adverse poreuse (1.3 buts concédés/match) · défense correcte\n📉 Calibration : bucket 50-59% historiquement à WR 42% (claim 55%, n=41) — sur-estimé de 14pp",
+      "context": {
+        "weakness": 0.48
+      },
+      "stats": {
+        "goals": 5,
+        "apps": 8,
+        "gpm": 0.625,
+        "xgpm": 0
+      },
+      "team": "away",
+      "tier": "ok",
+      "calibration_delta": -13.6,
+      "history_top3": true,
+      "id": "2026-09-28_6301063_player_Carlos Airala_Buteur",
+      "date": "2026-09-28",
+      "match_id": "6301063",
+      "page_url": "/matches/montevideo-wanderers-vs-albion/5jv1ext5#6301063",
+      "matchup": "Montevideo Wanderers vs Albion",
+      "league": "Uruguay Primera",
+      "category": "player",
+      "result": "LOSS",
+      "actual": {
+        "goals": 0,
+        "assists": 0
+      },
+      "resolved_at": "2026-09-29 02:15",
+      "side": "away"
     },
     {
       "direction": "away_over_15",
@@ -55052,80 +55140,35 @@
       "side": "away"
     },
     {
-      "player": "Luciano Cosentino / Joaquín Zeballos",
-      "position": "",
-      "is_sub": false,
-      "type": "Double Chance Buteur",
-      "label": "Luciano Cosentino ou Joaquín Zeballos marque (Montevideo Wanderers)",
+      "direction": "home_win",
+      "type": "Victoire domicile",
+      "label": "Luxembourg gagne",
       "cote": null,
-      "book": null,
-      "books": [],
       "confidence": 70,
-      "cote_min": 1.43,
-      "reasoning": "🏠 Combo intra-Montevideo Wanderers\n📈 P(Luciano Cosentino marque) ≈ 48% · P(Joaquín Zeballos marque) ≈ 45%\n🎯 P(au moins un marque) = 70% (1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.43 - chercher ≥1.43 chez le bookmaker\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
-      "context": {
-        "combo_kind": "intra-home"
-      },
-      "_team_for_balance": "home",
+      "reasoning": "Luxembourg : 4V/0N/1D sur 5 matchs · #1 au classement · H2H: 0V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
       "stats": {
-        "p_a": 0.48,
-        "p_b": 0.45,
-        "p_or": 0.7,
-        "player_a": "Luciano Cosentino",
-        "player_b": "Joaquín Zeballos",
-        "kind": "intra-home"
+        "form": [
+          "W",
+          "W",
+          "L",
+          "W",
+          "W"
+        ]
       },
-      "team": "home",
+      "is_fun": false,
       "tier": "safe",
       "calibration_delta": -11.3,
       "history_top3": true,
-      "id": "2026-09-28_6301063_player_Luciano Cosentino / Joaquín Zeballos_Double Chance Buteur",
-      "date": "2026-09-28",
-      "match_id": "6301063",
-      "page_url": "/matches/montevideo-wanderers-vs-albion/5jv1ext5#6301063",
-      "matchup": "Montevideo Wanderers vs Albion",
-      "league": "Uruguay Primera",
-      "category": "player",
+      "id": "2026-09-29_5181952_team_home_win",
+      "date": "2026-09-29",
+      "match_id": "5181952",
+      "page_url": "/matches/luxembourg-vs-iceland/1p4e44#5181952",
+      "matchup": "Luxembourg vs Iceland",
+      "league": "UEFA Nations League C",
+      "category": "team",
       "result": "PENDING",
       "actual": null,
-      "resolved_at": null,
-      "side": "home"
-    },
-    {
-      "player": "Carlos Airala",
-      "position": "M",
-      "is_sub": false,
-      "type": "Buteur",
-      "label": "Carlos Airala marque",
-      "cote": null,
-      "book": null,
-      "books": [],
-      "confidence": 55,
-      "reasoning": "5 buts en 8 matchs cette saison (62.5% de chance/match) · xG moyen 0.00/match, défense adverse poreuse (1.3 buts concédés/match) · défense correcte\n📉 Calibration : bucket 50-59% historiquement à WR 42% (claim 55%, n=41) — sur-estimé de 14pp",
-      "context": {
-        "weakness": 0.48
-      },
-      "stats": {
-        "goals": 5,
-        "apps": 8,
-        "gpm": 0.625,
-        "xgpm": 0
-      },
-      "team": "away",
-      "tier": "ok",
-      "calibration_delta": -13.6,
-      "history_top3": true,
-      "id": "2026-09-28_6301063_player_Carlos Airala_Buteur",
-      "date": "2026-09-28",
-      "match_id": "6301063",
-      "page_url": "/matches/montevideo-wanderers-vs-albion/5jv1ext5#6301063",
-      "matchup": "Montevideo Wanderers vs Albion",
-      "league": "Uruguay Primera",
-      "category": "player",
-      "result": "PENDING",
-      "actual": null,
-      "resolved_at": null,
-      "side": "away"
+      "resolved_at": null
     },
     {
       "direction": "away_win",
@@ -55184,6 +55227,68 @@
       "page_url": "/matches/iran-vs-russia/1ytuzt#6144112",
       "matchup": "Russia vs Iran",
       "league": "Friendlies",
+      "category": "team",
+      "result": "PENDING",
+      "actual": null,
+      "resolved_at": null
+    },
+    {
+      "direction": "home_win",
+      "type": "Victoire domicile",
+      "label": "Spain gagne",
+      "cote": null,
+      "confidence": 66,
+      "reasoning": "Spain : 3V/2N/0D sur 5 matchs · #1 au classement · H2H: 0V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
+      "stats": {
+        "form": [
+          "W",
+          "W",
+          "D",
+          "D",
+          "W"
+        ]
+      },
+      "is_fun": false,
+      "tier": "ok",
+      "calibration_delta": -25.4,
+      "history_top3": true,
+      "id": "2026-09-29_5181852_team_home_win",
+      "date": "2026-09-29",
+      "match_id": "5181852",
+      "page_url": "/matches/spain-vs-croatia/2cs2z6#5181852",
+      "matchup": "Spain vs Croatia",
+      "league": "UEFA Nations League A",
+      "category": "team",
+      "result": "PENDING",
+      "actual": null,
+      "resolved_at": null
+    },
+    {
+      "direction": "home_win",
+      "type": "Victoire domicile",
+      "label": "Slovakia gagne",
+      "cote": null,
+      "confidence": 63,
+      "reasoning": "Slovakia : 3V/1N/1D sur 5 matchs · #1 au classement · H2H: 0V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
+      "stats": {
+        "form": [
+          "W",
+          "D",
+          "W",
+          "W",
+          "L"
+        ]
+      },
+      "is_fun": false,
+      "tier": "ok",
+      "calibration_delta": -25.4,
+      "history_top3": true,
+      "id": "2026-09-29_5181936_team_home_win",
+      "date": "2026-09-29",
+      "match_id": "5181936",
+      "page_url": "/matches/kazakhstan-vs-slovakia/2bndvk#5181936",
+      "matchup": "Slovakia vs Kazakhstan",
+      "league": "UEFA Nations League C",
       "category": "team",
       "result": "PENDING",
       "actual": null,
@@ -55283,6 +55388,39 @@
       "result": "PENDING",
       "actual": null,
       "resolved_at": null
+    },
+    {
+      "player": "Zeki Amdouni",
+      "position": "M",
+      "is_sub": false,
+      "type": "Buteur",
+      "label": "Zeki Amdouni marque",
+      "team": "away",
+      "cote": null,
+      "book": null,
+      "books": [],
+      "confidence": 30,
+      "reasoning": "2G en 5 matchs (40.0%/match) · xG: 0.24/match",
+      "context": {
+        "weakness": 0.19
+      },
+      "stats": {
+        "goals": 2,
+        "apps": 5
+      },
+      "tier": "fun",
+      "history_top3": true,
+      "id": "2026-09-29_5181778_player_Zeki Amdouni_Buteur",
+      "date": "2026-09-29",
+      "match_id": "5181778",
+      "page_url": "/matches/switzerland-vs-scotland/1wx88q#5181778",
+      "matchup": "Scotland vs Switzerland",
+      "league": "UEFA Nations League B",
+      "category": "player",
+      "result": "PENDING",
+      "actual": null,
+      "resolved_at": null,
+      "side": "away"
     }
   ]
 }
