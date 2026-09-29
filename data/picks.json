@@ -569,8 +569,8 @@
         "type": "Victoire domicile",
         "label": "Luxembourg gagne",
         "cote": null,
-        "confidence": 70,
-        "reasoning": "Luxembourg : 4V/0N/1D sur 5 matchs · #1 au classement · H2H: 0V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+        "confidence": 69,
+        "reasoning": "Luxembourg : 4V/0N/1D sur 5 matchs · #2 au classement · H2H: 0V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
         "stats": {
           "form": [
             "W",
@@ -581,21 +581,44 @@
           ]
         },
         "is_fun": false,
-        "tier": "safe",
-        "calibration_delta": -11.3,
+        "tier": "ok",
+        "calibration_delta": -25.4,
         "history_top3": true
       }
     ],
     "home_players": [],
-    "away_players": [],
+    "away_players": [
+      {
+        "player": "Andri Guðjohnsen",
+        "position": "M",
+        "is_sub": false,
+        "type": "Buteur",
+        "label": "Andri Guðjohnsen marque",
+        "team": "away",
+        "cote": null,
+        "book": null,
+        "books": [],
+        "confidence": 30,
+        "reasoning": "2G en 5 matchs (40.0%/match) · xG: 0.24/match",
+        "context": {
+          "weakness": 0.24
+        },
+        "stats": {
+          "goals": 2,
+          "apps": 5
+        },
+        "tier": "fun",
+        "history_top3": true
+      }
+    ],
     "fun_picks": [],
     "top_pick": {
       "direction": "home_win",
       "type": "Victoire domicile",
       "label": "Luxembourg gagne",
       "cote": null,
-      "confidence": 70,
-      "reasoning": "Luxembourg : 4V/0N/1D sur 5 matchs · #1 au classement · H2H: 0V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+      "confidence": 69,
+      "reasoning": "Luxembourg : 4V/0N/1D sur 5 matchs · #2 au classement · H2H: 0V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
       "stats": {
         "form": [
           "W",
@@ -606,8 +629,8 @@
         ]
       },
       "is_fun": false,
-      "tier": "safe",
-      "calibration_delta": -11.3,
+      "tier": "ok",
+      "calibration_delta": -25.4,
       "history_top3": true
     },
     "no_picks": false,
@@ -631,104 +654,6 @@
         "summary_fr": "☁️ couvert · 15–27°C · humidité 39%"
       },
       "text": "Conditions : ☁️ couvert · 15–27°C · humidité 39%. Stade : Stade de Luxembourg · 9 386 places · plein air."
-    }
-  },
-  {
-    "league": "Friendlies",
-    "home": "Russia",
-    "away": "Iran",
-    "start_ts": 1790697600,
-    "match_id": "6144112",
-    "page_url": "/matches/iran-vs-russia/1ytuzt#6144112",
-    "picks": [
-      {
-        "direction": "away_win",
-        "type": "Forme superieure",
-        "label": "Iran gagne",
-        "cote": null,
-        "confidence": 69,
-        "reasoning": "Iran : 3V/0N/2D sur 5 matchs vs Russia : 3V/1N/1D sur 5 matchs (L5 TCC · ecart de tier FIFA 4vs2)\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
-        "stats": {
-          "form": [
-            "L",
-            "W",
-            "W",
-            "W",
-            "L"
-          ]
-        },
-        "is_fun": false,
-        "tier": "ok",
-        "calibration_delta": -25.4,
-        "history_top3": true
-      },
-      {
-        "direction": "away_over_15",
-        "type": "Buteur equipe",
-        "label": "Iran marque plus de 1.5 buts",
-        "cote": null,
-        "confidence": 54,
-        "reasoning": "Iran attendu a ~1.6 buts (marque 2.4/m sur L5, Russia encaisse 0.4/m) - P(2+ buts) ~49%\n📉 Calibration : bucket 50-59% historiquement à WR 42% (claim 55%, n=41) — sur-estimé de 14pp",
-        "stats": {
-          "form": [
-            "L",
-            "W",
-            "W",
-            "W",
-            "L"
-          ]
-        },
-        "is_fun": false,
-        "tier": "fun",
-        "calibration_delta": -13.6,
-        "history_top3": true
-      }
-    ],
-    "home_players": [],
-    "away_players": [],
-    "fun_picks": [],
-    "top_pick": {
-      "direction": "away_win",
-      "type": "Forme superieure",
-      "label": "Iran gagne",
-      "cote": null,
-      "confidence": 69,
-      "reasoning": "Iran : 3V/0N/2D sur 5 matchs vs Russia : 3V/1N/1D sur 5 matchs (L5 TCC · ecart de tier FIFA 4vs2)\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
-      "stats": {
-        "form": [
-          "L",
-          "W",
-          "W",
-          "W",
-          "L"
-        ]
-      },
-      "is_fun": false,
-      "tier": "ok",
-      "calibration_delta": -25.4,
-      "history_top3": true
-    },
-    "no_picks": false,
-    "context": {
-      "stadium": {
-        "name": "Ak Bars Arena",
-        "city": "Kazan'",
-        "country": "Russia",
-        "lat": 55.821052599,
-        "lon": 49.160731423,
-        "capacity": 45105,
-        "surface": "grass"
-      },
-      "weather": {
-        "temp_max": 19.9,
-        "temp_min": 11.4,
-        "humidity": 52,
-        "precipitation_sum_mm": 0.0,
-        "wind_max_kmh": 5.1,
-        "weather_code": 3,
-        "summary_fr": "☁️ couvert · 11–19°C · humidité 52%"
-      },
-      "text": "Conditions : ☁️ couvert · 11–19°C · humidité 52%. Stade : Ak Bars Arena · 45 105 places · plein air."
     }
   },
   {
@@ -838,7 +763,30 @@
         "history_top3": true
       }
     ],
-    "home_players": [],
+    "home_players": [
+      {
+        "player": "Lamine Yamal",
+        "position": "F",
+        "is_sub": false,
+        "type": "Buteur",
+        "label": "Lamine Yamal marque",
+        "team": "home",
+        "cote": null,
+        "book": null,
+        "books": [],
+        "confidence": 31,
+        "reasoning": "3G en 8 matchs (37.5%/match) · xG: 0.17/match",
+        "context": {
+          "weakness": 0.36
+        },
+        "stats": {
+          "goals": 3,
+          "apps": 8
+        },
+        "tier": "fun",
+        "history_top3": true
+      }
+    ],
     "away_players": [],
     "fun_picks": [],
     "top_pick": {
@@ -960,183 +908,6 @@
         "summary_fr": "🌤️ conditions variables · 12–23°C · humidité 31%"
       },
       "text": "Conditions : 🌤️ conditions variables · 12–23°C · humidité 31%. Stade : Košická futbalová aréna · 12 658 places · plein air."
-    }
-  },
-  {
-    "league": "UEFA Nations League C",
-    "home": "Finland",
-    "away": "Belarus",
-    "start_ts": 1790697600,
-    "match_id": "5181896",
-    "page_url": "/matches/finland-vs-belarus/2nouzn#5181896",
-    "picks": [
-      {
-        "direction": "away_win",
-        "type": "Victoire extérieur",
-        "label": "Belarus gagne",
-        "cote": null,
-        "confidence": 61,
-        "reasoning": "Belarus : 3V/1N/1D sur 5 matchs · #3 au classement · H2H: 0V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
-        "stats": {
-          "form": [
-            "L",
-            "D",
-            "W",
-            "W",
-            "W"
-          ]
-        },
-        "is_fun": false,
-        "tier": "ok",
-        "calibration_delta": -25.4,
-        "history_top3": true
-      }
-    ],
-    "home_players": [
-      {
-        "player": "Joel Pohjanpalo",
-        "position": "F",
-        "is_sub": false,
-        "type": "Buteur",
-        "label": "Joel Pohjanpalo marque",
-        "team": "home",
-        "cote": null,
-        "book": null,
-        "books": [],
-        "confidence": 32,
-        "reasoning": "3G en 8 matchs (37.5%/match) · xG: 0.24/match",
-        "context": {
-          "weakness": 0.21
-        },
-        "stats": {
-          "goals": 3,
-          "apps": 8
-        },
-        "tier": "fun",
-        "history_top3": true
-      }
-    ],
-    "away_players": [],
-    "fun_picks": [],
-    "top_pick": {
-      "direction": "away_win",
-      "type": "Victoire extérieur",
-      "label": "Belarus gagne",
-      "cote": null,
-      "confidence": 61,
-      "reasoning": "Belarus : 3V/1N/1D sur 5 matchs · #3 au classement · H2H: 0V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
-      "stats": {
-        "form": [
-          "L",
-          "D",
-          "W",
-          "W",
-          "W"
-        ]
-      },
-      "is_fun": false,
-      "tier": "ok",
-      "calibration_delta": -25.4,
-      "history_top3": true
-    },
-    "no_picks": false,
-    "context": {
-      "stadium": {
-        "name": "Helsingin olympiastadion",
-        "city": "Helsinki (Helsingfors)",
-        "country": "Finland",
-        "lat": 60.186977118,
-        "lon": 24.927216768,
-        "capacity": 40682,
-        "surface": "grass"
-      },
-      "weather": {
-        "temp_max": 15.7,
-        "temp_min": 12.9,
-        "humidity": 87,
-        "precipitation_sum_mm": 0.0,
-        "wind_max_kmh": 21.2,
-        "weather_code": 3,
-        "summary_fr": "☁️ couvert · 15°C · humidité 87%"
-      },
-      "text": "Conditions : ☁️ couvert · 15°C · humidité 87%. Stade : Helsingin olympiastadion · 40 682 places · plein air."
-    }
-  },
-  {
-    "league": "UEFA Nations League C",
-    "home": "Moldova",
-    "away": "Faroe Islands",
-    "start_ts": 1790697600,
-    "match_id": "5181935",
-    "page_url": "/matches/moldova-vs-faroe-islands/1mvr6d#5181935",
-    "picks": [
-      {
-        "direction": "away_win",
-        "type": "Victoire extérieur",
-        "label": "Faroe Islands gagne",
-        "cote": null,
-        "confidence": 61,
-        "reasoning": "Faroe Islands : 3V/1N/1D sur 5 matchs · #3 au classement · H2H: 0V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
-        "stats": {
-          "form": [
-            "D",
-            "W",
-            "L",
-            "W",
-            "W"
-          ]
-        },
-        "is_fun": false,
-        "tier": "ok",
-        "calibration_delta": -25.4,
-        "history_top3": true
-      }
-    ],
-    "home_players": [],
-    "away_players": [],
-    "fun_picks": [],
-    "top_pick": {
-      "direction": "away_win",
-      "type": "Victoire extérieur",
-      "label": "Faroe Islands gagne",
-      "cote": null,
-      "confidence": 61,
-      "reasoning": "Faroe Islands : 3V/1N/1D sur 5 matchs · #3 au classement · H2H: 0V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
-      "stats": {
-        "form": [
-          "D",
-          "W",
-          "L",
-          "W",
-          "W"
-        ]
-      },
-      "is_fun": false,
-      "tier": "ok",
-      "calibration_delta": -25.4,
-      "history_top3": true
-    },
-    "no_picks": false,
-    "context": {
-      "stadium": {
-        "name": "Stadionul Zimbru",
-        "city": "Chișinău",
-        "country": "Moldova",
-        "lat": 46.980321893,
-        "lon": 28.867891431,
-        "capacity": 10104,
-        "surface": "grass"
-      },
-      "weather": {
-        "temp_max": 21.4,
-        "temp_min": 11.8,
-        "humidity": 41,
-        "precipitation_sum_mm": 0.0,
-        "wind_max_kmh": 15.9,
-        "weather_code": 3,
-        "summary_fr": "☁️ couvert · 11–21°C · humidité 41%"
-      },
-      "text": "Conditions : ☁️ couvert · 11–21°C · humidité 41%. Stade : Stadionul Zimbru · 10 104 places · plein air."
     }
   },
   {
@@ -1430,10 +1201,10 @@
         "cote": null,
         "book": null,
         "books": [],
-        "confidence": 30,
-        "reasoning": "2G en 5 matchs (40.0%/match) · xG: 0.24/match",
+        "confidence": 31,
+        "reasoning": "2G en 5 matchs (40.0%/match) · xG: 0.26/match",
         "context": {
-          "weakness": 0.19
+          "weakness": 0.21
         },
         "stats": {
           "goals": 2,
@@ -1454,10 +1225,10 @@
       "cote": null,
       "book": null,
       "books": [],
-      "confidence": 30,
-      "reasoning": "2G en 5 matchs (40.0%/match) · xG: 0.24/match",
+      "confidence": 31,
+      "reasoning": "2G en 5 matchs (40.0%/match) · xG: 0.26/match",
       "context": {
-        "weakness": 0.19
+        "weakness": 0.21
       },
       "stats": {
         "goals": 2,
@@ -1487,6 +1258,85 @@
         "summary_fr": "☁️ couvert · 6–18°C · humidité 72%"
       },
       "text": "Conditions : ☁️ couvert · 6–18°C · humidité 72%. Stade : Barclays Hampden · 52 500 places · plein air."
+    }
+  },
+  {
+    "league": "UEFA Nations League A",
+    "home": "Czechia",
+    "away": "England",
+    "start_ts": 1790707500,
+    "match_id": "5181851",
+    "page_url": "/matches/england-vs-czechia/2dwrka#5181851",
+    "picks": [],
+    "home_players": [],
+    "away_players": [
+      {
+        "player": "Anthony Gordon",
+        "position": "M",
+        "is_sub": false,
+        "type": "Buteur",
+        "label": "Anthony Gordon marque",
+        "team": "away",
+        "cote": null,
+        "book": null,
+        "books": [],
+        "confidence": 25,
+        "reasoning": "2G en 5 matchs (40.0%/match) · xG: 0.08/match",
+        "context": {
+          "weakness": 0.38
+        },
+        "stats": {
+          "goals": 2,
+          "apps": 5
+        },
+        "tier": "fun",
+        "history_top3": true
+      }
+    ],
+    "fun_picks": [],
+    "top_pick": {
+      "player": "Anthony Gordon",
+      "position": "M",
+      "is_sub": false,
+      "type": "Buteur",
+      "label": "Anthony Gordon marque",
+      "team": "away",
+      "cote": null,
+      "book": null,
+      "books": [],
+      "confidence": 25,
+      "reasoning": "2G en 5 matchs (40.0%/match) · xG: 0.08/match",
+      "context": {
+        "weakness": 0.38
+      },
+      "stats": {
+        "goals": 2,
+        "apps": 5
+      },
+      "tier": "fun",
+      "history_top3": true
+    },
+    "no_picks": false,
+    "context": {
+      "stadium": {
+        "name": "Fortuna Arena",
+        "city": "Praha",
+        "country": "Czech Republic",
+        "lat": 50.067525002,
+        "lon": 14.471139908,
+        "capacity": 19370,
+        "surface": "grass"
+      },
+      "weather": {
+        "temp_max": 24.1,
+        "temp_min": 10.5,
+        "humidity": 35,
+        "precipitation_sum_mm": 0.0,
+        "wind_max_kmh": 14.9,
+        "weather_code": 3,
+        "summary_fr": "☁️ couvert · 10–24°C · humidité 35%"
+      },
+      "text": "Conditions : ☁️ couvert · 10–24°C · humidité 35%. Stade : Fortuna Arena · 19 370 places · plein air."
     }
   },
   {
@@ -1712,41 +1562,6 @@
         "summary_fr": "☁️ couvert · 13–18°C · humidité 61%"
       },
       "text": "Conditions : ☁️ couvert · 13–18°C · humidité 61%. Stade : S. Dariaus ir S. Girėno stadionas · 15 315 places · plein air."
-    }
-  },
-  {
-    "league": "UEFA Nations League A",
-    "home": "Czechia",
-    "away": "England",
-    "start_ts": 1790707500,
-    "match_id": "5181851",
-    "page_url": "/matches/england-vs-czechia/2dwrka#5181851",
-    "picks": [],
-    "home_players": [],
-    "away_players": [],
-    "fun_picks": [],
-    "top_pick": null,
-    "no_picks": true,
-    "context": {
-      "stadium": {
-        "name": "Fortuna Arena",
-        "city": "Praha",
-        "country": "Czech Republic",
-        "lat": 50.067525002,
-        "lon": 14.471139908,
-        "capacity": 19370,
-        "surface": "grass"
-      },
-      "weather": {
-        "temp_max": 24.1,
-        "temp_min": 10.5,
-        "humidity": 35,
-        "precipitation_sum_mm": 0.0,
-        "wind_max_kmh": 14.9,
-        "weather_code": 3,
-        "summary_fr": "☁️ couvert · 10–24°C · humidité 35%"
-      },
-      "text": "Conditions : ☁️ couvert · 10–24°C · humidité 35%. Stade : Fortuna Arena · 19 370 places · plein air."
     }
   },
   {
