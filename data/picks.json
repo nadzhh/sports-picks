@@ -1,213 +1,6 @@
 [
   {
     "league": "Friendlies",
-    "home": "Mexico",
-    "away": "Peru",
-    "start_ts": 1790730000,
-    "match_id": "6280444",
-    "page_url": "/matches/peru-vs-mexico/1akwto#6280444",
-    "picks": [
-      {
-        "direction": "home_win",
-        "type": "Forme superieure",
-        "label": "Mexico gagne",
-        "cote": null,
-        "confidence": 85,
-        "reasoning": "Mexico : 3V/2N/0D sur 5 matchs vs Peru : 1V/1N/3D sur 5 matchs (L5 TCC · ecart de tier FIFA 2vs3)\n📉 Calibration : bucket 80-89% historiquement à WR 56% (claim 82%, n=63) — sur-estimé de 26pp",
-        "stats": {
-          "form": [
-            "D",
-            "W",
-            "W",
-            "W",
-            "D"
-          ]
-        },
-        "is_fun": false,
-        "tier": "safe",
-        "calibration_delta": -26.0,
-        "history_top3": true
-      },
-      {
-        "direction": "over25",
-        "type": "Total buts",
-        "label": "Plus de 2.5 buts",
-        "cote": null,
-        "confidence": 70,
-        "reasoning": "Attendu 3.6 buts au total (Mexico ~3.0, Peru ~0.6) - P(>2.5) ~70%\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
-        "stats": {
-          "form": [
-            "D",
-            "W",
-            "W",
-            "W",
-            "D"
-          ]
-        },
-        "is_fun": false,
-        "tier": "safe",
-        "calibration_delta": -11.3,
-        "history_top3": true
-      },
-      {
-        "direction": "home_over_15",
-        "type": "Buteur equipe",
-        "label": "Mexico marque plus de 1.5 buts",
-        "cote": null,
-        "confidence": 78,
-        "reasoning": "Mexico attendu a ~3.0 buts (marque 2.0/m sur L5, Peru encaisse 2.4/m) - P(2+ buts) ~81%\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
-        "stats": {
-          "form": [
-            "D",
-            "W",
-            "W",
-            "W",
-            "D"
-          ]
-        },
-        "is_fun": false,
-        "tier": "safe",
-        "calibration_delta": -11.3,
-        "history_top3": true
-      }
-    ],
-    "home_players": [
-      {
-        "player": "Armando González",
-        "position": "F",
-        "is_sub": false,
-        "type": "Buteur",
-        "label": "Armando González marque",
-        "cote": null,
-        "cote_min": 1.47,
-        "book": null,
-        "books": [],
-        "confidence": 68,
-        "reasoning": "Armando González : selection 19G/30m (0.63/m) · L10 club : 4G/10m | titu nat (70min/m) · last match 20min (0G+0A). λ ajusté à 1.14 (Mexico attendu 3.0 buts) → P(marque) ~68%.\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
-        "context": {
-          "source": "lineup",
-          "lam": 1.14,
-          "lineup_status": "confirmed"
-        },
-        "stats": {
-          "goals": null,
-          "apps": null,
-          "gpm": 1.138,
-          "xgpm": null
-        },
-        "team": "home",
-        "lineup_status": "confirmed",
-        "tier": "ok",
-        "calibration_delta": -25.4,
-        "history_top3": true
-      },
-      {
-        "player": "Hirving Lozano",
-        "position": "F",
-        "is_sub": false,
-        "type": "Buteur",
-        "label": "Hirving Lozano marque",
-        "cote": null,
-        "cote_min": 1.89,
-        "book": null,
-        "books": [],
-        "confidence": 53,
-        "reasoning": "Hirving Lozano : selection 2G/5m (0.40/m) · L10 club : 2G/10m, 🔥 1G/3 derniers nat (+10%) | rotatif nat (33min/m) · last match 45min (1G+0A). λ ajusté à 0.76 (Mexico attendu 3.0 buts) → P(marque) ~53%.\n📉 Calibration : bucket 50-59% historiquement à WR 42% (claim 55%, n=41) — sur-estimé de 14pp",
-        "context": {
-          "source": "lineup",
-          "lam": 0.76,
-          "lineup_status": "confirmed"
-        },
-        "stats": {
-          "goals": null,
-          "apps": null,
-          "gpm": 0.756,
-          "xgpm": null
-        },
-        "team": "home",
-        "lineup_status": "confirmed",
-        "tier": "fun",
-        "calibration_delta": -13.6,
-        "history_top3": true
-      },
-      {
-        "player": "Armando González",
-        "position": "F",
-        "is_sub": false,
-        "type": "Double buteur",
-        "label": "Armando González marque 2+ buts",
-        "cote": null,
-        "cote_min": 3.18,
-        "book": null,
-        "books": [],
-        "confidence": 41,
-        "reasoning": "Armando González : selection 19G/30m (0.63/m) · L10 club : 4G/10m | titu nat (70min/m) · last match 20min (0G+0A). Attendu ~1.1 buts ce match - P(2+) ~31% (cote elevee).\n📉 Calibration : bucket 40-49% historiquement à WR 25% (claim 44%, n=36) — sur-estimé de 19pp",
-        "context": {
-          "source": "lineup",
-          "lam": 1.14,
-          "lineup_status": "confirmed"
-        },
-        "stats": {
-          "goals": null,
-          "apps": null,
-          "gpm": 1.138,
-          "xgpm": null
-        },
-        "team": "home",
-        "lineup_status": "confirmed",
-        "tier": "fun",
-        "calibration_delta": -19.4,
-        "history_top3": false
-      }
-    ],
-    "away_players": [],
-    "fun_picks": [],
-    "top_pick": {
-      "direction": "home_win",
-      "type": "Forme superieure",
-      "label": "Mexico gagne",
-      "cote": null,
-      "confidence": 85,
-      "reasoning": "Mexico : 3V/2N/0D sur 5 matchs vs Peru : 1V/1N/3D sur 5 matchs (L5 TCC · ecart de tier FIFA 2vs3)\n📉 Calibration : bucket 80-89% historiquement à WR 56% (claim 82%, n=63) — sur-estimé de 26pp",
-      "stats": {
-        "form": [
-          "D",
-          "W",
-          "W",
-          "W",
-          "D"
-        ]
-      },
-      "is_fun": false,
-      "tier": "safe",
-      "calibration_delta": -26.0,
-      "history_top3": true
-    },
-    "no_picks": false,
-    "context": {
-      "stadium": {
-        "name": "Sports Illustrated Stadium",
-        "city": "Harrison, New Jersey",
-        "country": "United States",
-        "lat": 40.736876521,
-        "lon": -74.150225111,
-        "capacity": 26765,
-        "surface": "grass"
-      },
-      "weather": {
-        "temp_max": 22.0,
-        "temp_min": 13.5,
-        "humidity": 80,
-        "precipitation_sum_mm": 0.0,
-        "wind_max_kmh": 8.7,
-        "weather_code": 3,
-        "summary_fr": "☁️ couvert · 13–22°C · humidité 80%"
-      },
-      "text": "Conditions : ☁️ couvert · 13–22°C · humidité 80%. Stade : Sports Illustrated Stadium · 26 765 places · plein air."
-    }
-  },
-  {
-    "league": "Friendlies",
     "home": "Argentina",
     "away": "Bolivia",
     "start_ts": 1790809200,
@@ -347,6 +140,281 @@
     }
   },
   {
+    "league": "Friendlies",
+    "home": "Japan",
+    "away": "Ecuador",
+    "start_ts": 1790849400,
+    "match_id": "6315047",
+    "page_url": "/matches/ecuador-vs-japan/1hmwpg#6315047",
+    "picks": [
+      {
+        "direction": "home_win",
+        "type": "Forme superieure",
+        "label": "Japan gagne",
+        "cote": null,
+        "confidence": 83,
+        "reasoning": "Japan : 5V/0N/0D sur 5 matchs vs Ecuador : 2V/2N/1D sur 5 matchs (L5 TCC)\n📉 Calibration : bucket 80-89% historiquement à WR 56% (claim 82%, n=63) — sur-estimé de 26pp",
+        "stats": {
+          "form": [
+            "W",
+            "W",
+            "W",
+            "W",
+            "W"
+          ]
+        },
+        "is_fun": false,
+        "tier": "safe",
+        "calibration_delta": -26.0,
+        "history_top3": true
+      },
+      {
+        "direction": "under25",
+        "type": "Total buts",
+        "label": "Moins de 2.5 buts",
+        "cote": null,
+        "confidence": 59,
+        "reasoning": "Attendu seulement 2.3 buts au total (Japan ~1.5, Ecuador ~0.8) - P(<2.5) ~59%\n📉 Calibration : bucket 50-59% historiquement à WR 42% (claim 55%, n=41) — sur-estimé de 14pp",
+        "stats": {
+          "form": [
+            "W",
+            "W",
+            "W",
+            "W",
+            "W"
+          ]
+        },
+        "is_fun": false,
+        "tier": "ok",
+        "calibration_delta": -13.6,
+        "history_top3": true
+      }
+    ],
+    "home_players": [],
+    "away_players": [],
+    "fun_picks": [],
+    "top_pick": {
+      "direction": "home_win",
+      "type": "Forme superieure",
+      "label": "Japan gagne",
+      "cote": null,
+      "confidence": 83,
+      "reasoning": "Japan : 5V/0N/0D sur 5 matchs vs Ecuador : 2V/2N/1D sur 5 matchs (L5 TCC)\n📉 Calibration : bucket 80-89% historiquement à WR 56% (claim 82%, n=63) — sur-estimé de 26pp",
+      "stats": {
+        "form": [
+          "W",
+          "W",
+          "W",
+          "W",
+          "W"
+        ]
+      },
+      "is_fun": false,
+      "tier": "safe",
+      "calibration_delta": -26.0,
+      "history_top3": true
+    },
+    "no_picks": false,
+    "context": {
+      "stadium": {
+        "name": "Nissan Stadium",
+        "city": "Yokohama",
+        "country": "Japan",
+        "lat": 35.509972173,
+        "lon": 139.606388211,
+        "capacity": 72327,
+        "surface": "grass"
+      },
+      "weather": {
+        "temp_max": 23.7,
+        "temp_min": 18.2,
+        "humidity": 81,
+        "precipitation_sum_mm": 1.5,
+        "wind_max_kmh": 7.6,
+        "weather_code": 53,
+        "summary_fr": "🌦️ bruine modérée · 18–23°C · humidité 81% · précipitations 1.5mm"
+      },
+      "text": "Conditions : 🌦️ bruine modérée · 18–23°C · humidité 81% · précipitations 1.5mm. Stade : Nissan Stadium · 72 327 places · plein air."
+    }
+  },
+  {
+    "league": "UEFA Nations League A",
+    "home": "Denmark",
+    "away": "Portugal",
+    "start_ts": 1790880300,
+    "match_id": "5181865",
+    "page_url": "/matches/denmark-vs-portugal/2a13rx#5181865",
+    "picks": [
+      {
+        "direction": "away_win",
+        "type": "Victoire extérieur",
+        "label": "Portugal gagne",
+        "cote": null,
+        "confidence": 81,
+        "reasoning": "Portugal : 5V/0N/0D sur 5 matchs · #1 au classement · H2H: 0V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 80-89% historiquement à WR 56% (claim 82%, n=63) — sur-estimé de 26pp",
+        "stats": {
+          "form": [
+            "W",
+            "W",
+            "W",
+            "W",
+            "W"
+          ]
+        },
+        "is_fun": false,
+        "tier": "safe",
+        "calibration_delta": -26.0,
+        "history_top3": true
+      }
+    ],
+    "home_players": [],
+    "away_players": [
+      {
+        "player": "Joao Félix",
+        "position": "F",
+        "is_sub": false,
+        "type": "Buteur",
+        "label": "Joao Félix marque",
+        "team": "away",
+        "cote": null,
+        "book": null,
+        "books": [],
+        "confidence": 27,
+        "reasoning": "2G en 5 matchs (40.0%/match) · xG: 0.08/match",
+        "context": {
+          "weakness": 0.26
+        },
+        "stats": {
+          "goals": 2,
+          "apps": 5
+        },
+        "tier": "fun",
+        "history_top3": true
+      }
+    ],
+    "fun_picks": [],
+    "top_pick": {
+      "direction": "away_win",
+      "type": "Victoire extérieur",
+      "label": "Portugal gagne",
+      "cote": null,
+      "confidence": 81,
+      "reasoning": "Portugal : 5V/0N/0D sur 5 matchs · #1 au classement · H2H: 0V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 80-89% historiquement à WR 56% (claim 82%, n=63) — sur-estimé de 26pp",
+      "stats": {
+        "form": [
+          "W",
+          "W",
+          "W",
+          "W",
+          "W"
+        ]
+      },
+      "is_fun": false,
+      "tier": "safe",
+      "calibration_delta": -26.0,
+      "history_top3": true
+    },
+    "no_picks": false,
+    "context": {
+      "stadium": {
+        "name": "Parken",
+        "city": "København",
+        "country": "Denmark",
+        "lat": 55.702717828,
+        "lon": 12.572290823,
+        "capacity": 38065,
+        "surface": "grass"
+      },
+      "weather": {
+        "temp_max": 19.8,
+        "temp_min": 14.5,
+        "humidity": 63,
+        "precipitation_sum_mm": 0.0,
+        "wind_max_kmh": 21.2,
+        "weather_code": 3,
+        "summary_fr": "☁️ couvert · 14–19°C · humidité 63%"
+      },
+      "text": "Conditions : ☁️ couvert · 14–19°C · humidité 63%. Stade : Parken · 38 065 places · plein air."
+    }
+  },
+  {
+    "league": "UEFA Nations League B",
+    "home": "Ireland",
+    "away": "Austria",
+    "start_ts": 1790880300,
+    "match_id": "5181817",
+    "page_url": "/matches/ireland-vs-austria/1mqmsw#5181817",
+    "picks": [
+      {
+        "direction": "away_win",
+        "type": "Victoire extérieur",
+        "label": "Austria gagne",
+        "cote": null,
+        "confidence": 81,
+        "reasoning": "Austria : 5V/0N/0D sur 5 matchs · #1 au classement · H2H: 0V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 80-89% historiquement à WR 56% (claim 82%, n=63) — sur-estimé de 26pp",
+        "stats": {
+          "form": [
+            "W",
+            "W",
+            "W",
+            "W",
+            "W"
+          ]
+        },
+        "is_fun": false,
+        "tier": "safe",
+        "calibration_delta": -26.0,
+        "history_top3": true
+      }
+    ],
+    "home_players": [],
+    "away_players": [],
+    "fun_picks": [],
+    "top_pick": {
+      "direction": "away_win",
+      "type": "Victoire extérieur",
+      "label": "Austria gagne",
+      "cote": null,
+      "confidence": 81,
+      "reasoning": "Austria : 5V/0N/0D sur 5 matchs · #1 au classement · H2H: 0V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 80-89% historiquement à WR 56% (claim 82%, n=63) — sur-estimé de 26pp",
+      "stats": {
+        "form": [
+          "W",
+          "W",
+          "W",
+          "W",
+          "W"
+        ]
+      },
+      "is_fun": false,
+      "tier": "safe",
+      "calibration_delta": -26.0,
+      "history_top3": true
+    },
+    "no_picks": false,
+    "context": {
+      "stadium": {
+        "name": "Aviva Stadium",
+        "city": "Dublin",
+        "country": "Ireland",
+        "lat": 53.335127142,
+        "lon": -6.22829318,
+        "capacity": 55359,
+        "surface": "grass"
+      },
+      "weather": {
+        "temp_max": 17.1,
+        "temp_min": 11.6,
+        "humidity": 54,
+        "precipitation_sum_mm": 0.6,
+        "wind_max_kmh": 16.6,
+        "weather_code": 53,
+        "summary_fr": "🌦️ bruine modérée · 11–17°C · humidité 54%"
+      },
+      "text": "Conditions : 🌦️ bruine modérée · 11–17°C · humidité 54%. Stade : Aviva Stadium · 55 359 places · plein air."
+    }
+  },
+  {
     "league": "Uruguay Primera",
     "home": "Montevideo City Torque",
     "away": "Club Atletico Peñarol",
@@ -460,26 +528,26 @@
   },
   {
     "league": "Friendlies",
-    "home": "USA",
-    "away": "Chile",
-    "start_ts": 1790726400,
-    "match_id": "5991874",
-    "page_url": "/matches/usa-vs-chile/28t6kc#5991874",
+    "home": "Panama",
+    "away": "New Zealand",
+    "start_ts": 1790835000,
+    "match_id": "6315046",
+    "page_url": "/matches/new-zealand-vs-panama/151tg3#6315046",
     "picks": [
       {
         "direction": "over25",
         "type": "Total buts",
         "label": "Plus de 2.5 buts",
         "cote": null,
-        "confidence": 76,
-        "reasoning": "Attendu 4.0 buts au total (USA ~2.9, Chile ~1.1) - P(>2.5) ~76%\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+        "confidence": 73,
+        "reasoning": "Attendu 3.8 buts au total (Panama ~2.1, New Zealand ~1.6) - P(>2.5) ~73%\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
         "stats": {
           "form": [
+            "D",
+            "D",
             "W",
             "L",
-            "W",
-            "L",
-            "L"
+            "W"
           ]
         },
         "is_fun": false,
@@ -488,49 +556,70 @@
         "history_top3": true
       },
       {
-        "direction": "home_over_15",
-        "type": "Buteur equipe",
-        "label": "USA marque plus de 1.5 buts",
+        "direction": "home_win",
+        "type": "Forme superieure",
+        "label": "Panama gagne",
         "cote": null,
-        "confidence": 78,
-        "reasoning": "USA attendu a ~2.9 buts (marque 2.0/m sur L5, Chile encaisse 2.0/m) - P(2+ buts) ~78%\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+        "confidence": 68,
+        "reasoning": "Panama : 2V/2N/1D sur 5 matchs vs New Zealand : 2V/1N/2D sur 5 matchs (L5 TCC · ecart de tier FIFA 3vs4)\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
         "stats": {
           "form": [
+            "D",
+            "D",
             "W",
             "L",
-            "W",
-            "L",
-            "L"
+            "W"
           ]
         },
         "is_fun": false,
-        "tier": "safe",
-        "calibration_delta": -11.3,
+        "tier": "ok",
+        "calibration_delta": -25.4,
+        "history_top3": true
+      },
+      {
+        "direction": "home_over_15",
+        "type": "Buteur equipe",
+        "label": "Panama marque plus de 1.5 buts",
+        "cote": null,
+        "confidence": 68,
+        "reasoning": "Panama attendu a ~2.1 buts (marque 2.0/m sur L5, New Zealand encaisse 1.6/m) - P(2+ buts) ~63%\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
+        "stats": {
+          "form": [
+            "D",
+            "D",
+            "W",
+            "L",
+            "W"
+          ]
+        },
+        "is_fun": false,
+        "tier": "ok",
+        "calibration_delta": -25.4,
         "history_top3": true
       }
     ],
     "home_players": [
       {
-        "player": "Neil Pierre",
+        "player": "Rafael Mosquera",
         "position": "F",
         "is_sub": false,
         "type": "Buteur",
-        "label": "Neil Pierre marque",
+        "label": "Rafael Mosquera marque",
         "cote": null,
-        "cote_min": 2.1,
+        "cote_min": 2.07,
         "book": null,
         "books": [],
         "confidence": 48,
-        "reasoning": "Neil Pierre : selection 4G/10m (0.40/m) · L10 club : 2G/10m | titu nat (65min/m) · last match 45min (0G+0A). λ ajusté à 0.65 (USA attendu 2.9 buts) → P(marque) ~48%.\n📉 Calibration : bucket 40-49% historiquement à WR 25% (claim 44%, n=36) — sur-estimé de 19pp",
+        "reasoning": "Rafael Mosquera : selection 6G/9m (0.67/m) · L10 club : 0G/10m | titu nat (82min/m) · last match 59min (0G+0A). λ ajusté à 0.66 (Panama attendu 2.1 buts) → P(marque) ~48%.\n📉 Calibration : bucket 40-49% historiquement à WR 25% (claim 44%, n=36) — sur-estimé de 19pp",
         "context": {
           "source": "lineup",
-          "lam": 0.65,
+          "lam": 0.66,
           "lineup_status": "confirmed"
         },
         "stats": {
           "goals": null,
           "apps": null,
-          "gpm": 0.647,
+          "gpm": 0.661,
           "xgpm": null
         },
         "team": "home",
@@ -547,15 +636,15 @@
       "type": "Total buts",
       "label": "Plus de 2.5 buts",
       "cote": null,
-      "confidence": 76,
-      "reasoning": "Attendu 4.0 buts au total (USA ~2.9, Chile ~1.1) - P(>2.5) ~76%\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+      "confidence": 73,
+      "reasoning": "Attendu 3.8 buts au total (Panama ~2.1, New Zealand ~1.6) - P(>2.5) ~73%\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
       "stats": {
         "form": [
+          "D",
+          "D",
           "W",
           "L",
-          "W",
-          "L",
-          "L"
+          "W"
         ]
       },
       "is_fun": false,
@@ -566,24 +655,276 @@
     "no_picks": false,
     "context": {
       "stadium": {
-        "name": "Energizer Park",
-        "city": "St. Louis, Missouri",
-        "country": "United States",
-        "lat": 38.631224309,
-        "lon": -90.210496328,
-        "capacity": 22500,
+        "name": "Nissan Stadium",
+        "city": "Yokohama",
+        "country": "Japan",
+        "lat": 35.509972173,
+        "lon": 139.606388211,
+        "capacity": 72327,
         "surface": "grass"
       },
       "weather": {
-        "temp_max": 33.4,
-        "temp_min": 18.1,
-        "humidity": 34,
-        "precipitation_sum_mm": 0.0,
-        "wind_max_kmh": 15.2,
-        "weather_code": 3,
-        "summary_fr": "☁️ couvert · 18–33°C · humidité 34%"
+        "temp_max": 23.7,
+        "temp_min": 18.2,
+        "humidity": 81,
+        "precipitation_sum_mm": 1.5,
+        "wind_max_kmh": 7.6,
+        "weather_code": 53,
+        "summary_fr": "🌦️ bruine modérée · 18–23°C · humidité 81% · précipitations 1.5mm"
       },
-      "text": "Conditions : ☁️ couvert · 18–33°C · humidité 34%. Stade : Energizer Park · 22 500 places · plein air. ⚠️ Forte chaleur (>32°C) en plein air : impact endurance, plus de pauses hydratation."
+      "text": "Conditions : 🌦️ bruine modérée · 18–23°C · humidité 81% · précipitations 1.5mm. Stade : Nissan Stadium · 72 327 places · plein air."
+    }
+  },
+  {
+    "league": "Friendlies",
+    "home": "Uzbekistan",
+    "away": "Syria",
+    "start_ts": 1790863200,
+    "match_id": "6280451",
+    "page_url": "/matches/syria-vs-uzbekistan/1v61p6#6280451",
+    "picks": [
+      {
+        "direction": "home_win",
+        "type": "Forme superieure",
+        "label": "Uzbekistan gagne",
+        "cote": null,
+        "confidence": 72,
+        "reasoning": "Uzbekistan : 2V/1N/2D sur 5 matchs vs Syria : 1V/2N/2D sur 5 matchs (L5 TCC · ecart de tier FIFA 3vs4)\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+        "stats": {
+          "form": [
+            "W",
+            "L",
+            "L",
+            "D",
+            "W"
+          ]
+        },
+        "is_fun": false,
+        "tier": "safe",
+        "calibration_delta": -11.3,
+        "history_top3": true
+      },
+      {
+        "direction": "home_over_15",
+        "type": "Buteur equipe",
+        "label": "Uzbekistan marque plus de 1.5 buts",
+        "cote": null,
+        "confidence": 55,
+        "reasoning": "Uzbekistan attendu a ~1.7 buts (marque 1.4/m sur L5, Syria encaisse 1.4/m) - P(2+ buts) ~50%\n📉 Calibration : bucket 50-59% historiquement à WR 42% (claim 55%, n=41) — sur-estimé de 14pp",
+        "stats": {
+          "form": [
+            "W",
+            "L",
+            "L",
+            "D",
+            "W"
+          ]
+        },
+        "is_fun": false,
+        "tier": "ok",
+        "calibration_delta": -13.6,
+        "history_top3": true
+      }
+    ],
+    "home_players": [],
+    "away_players": [],
+    "fun_picks": [],
+    "top_pick": {
+      "direction": "home_win",
+      "type": "Forme superieure",
+      "label": "Uzbekistan gagne",
+      "cote": null,
+      "confidence": 72,
+      "reasoning": "Uzbekistan : 2V/1N/2D sur 5 matchs vs Syria : 1V/2N/2D sur 5 matchs (L5 TCC · ecart de tier FIFA 3vs4)\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+      "stats": {
+        "form": [
+          "W",
+          "L",
+          "L",
+          "D",
+          "W"
+        ]
+      },
+      "is_fun": false,
+      "tier": "safe",
+      "calibration_delta": -11.3,
+      "history_top3": true
+    },
+    "no_picks": false,
+    "context": {
+      "stadium": {
+        "name": "Paxtakor Markaziy stadioni",
+        "city": "Toshkent (Tashkent)",
+        "country": "Uzbekistan",
+        "lat": 41.315469643,
+        "lon": 69.260269403,
+        "capacity": 35000,
+        "surface": "grass"
+      },
+      "weather": {
+        "temp_max": 22.9,
+        "temp_min": 15.3,
+        "humidity": 55,
+        "precipitation_sum_mm": 5.4,
+        "wind_max_kmh": 11.9,
+        "weather_code": 81,
+        "summary_fr": "🌦️ averses modérées · 15–22°C · humidité 55% · précipitations 5.4mm"
+      },
+      "text": "Conditions : 🌦️ averses modérées · 15–22°C · humidité 55% · précipitations 5.4mm. Stade : Paxtakor Markaziy stadioni · 35 000 places · plein air. ⚠️ Pluies prévues : terrain potentiellement lourd, jeu direct privilégié, plus d'erreurs techniques."
+    }
+  },
+  {
+    "league": "Colombia Primera A",
+    "home": "Atlético Nacional",
+    "away": "Junior FC",
+    "start_ts": 1790816400,
+    "match_id": "1000014067",
+    "page_url": "/matches/junior-fc-vs-atletico-nacional/m4wd5#1000014067",
+    "picks": [
+      {
+        "direction": "home_win",
+        "type": "Victoire domicile",
+        "label": "Atlético Nacional gagne",
+        "cote": null,
+        "confidence": 63,
+        "reasoning": "Atlético Nacional : 3V/1N/1D sur 5 matchs · #1 au classement · H2H: 0V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
+        "stats": {
+          "form": [
+            "D",
+            "L",
+            "W",
+            "W",
+            "W"
+          ]
+        },
+        "is_fun": false,
+        "tier": "ok",
+        "calibration_delta": -25.4,
+        "history_top3": true
+      }
+    ],
+    "home_players": [],
+    "away_players": [],
+    "fun_picks": [],
+    "top_pick": {
+      "direction": "home_win",
+      "type": "Victoire domicile",
+      "label": "Atlético Nacional gagne",
+      "cote": null,
+      "confidence": 63,
+      "reasoning": "Atlético Nacional : 3V/1N/1D sur 5 matchs · #1 au classement · H2H: 0V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
+      "stats": {
+        "form": [
+          "D",
+          "L",
+          "W",
+          "W",
+          "W"
+        ]
+      },
+      "is_fun": false,
+      "tier": "ok",
+      "calibration_delta": -25.4,
+      "history_top3": true
+    },
+    "no_picks": false,
+    "context": {
+      "stadium": {
+        "name": "Estadio Atanasio Girardot",
+        "city": "Medellín",
+        "country": "Colombia",
+        "lat": 6.256772694,
+        "lon": -75.590250492,
+        "capacity": 45943,
+        "surface": "grass"
+      },
+      "weather": {
+        "temp_max": 26.3,
+        "temp_min": 17.1,
+        "humidity": 93,
+        "precipitation_sum_mm": 15.4,
+        "wind_max_kmh": 8.4,
+        "weather_code": 95,
+        "summary_fr": "⛈️ orage · 17–26°C · humidité 93% · précipitations 15.4mm"
+      },
+      "text": "Conditions : ⛈️ orage · 17–26°C · humidité 93% · précipitations 15.4mm. Stade : Estadio Atanasio Girardot · 45 943 places · plein air. ⚠️ Pluies prévues : terrain potentiellement lourd, jeu direct privilégié, plus d'erreurs techniques."
+    }
+  },
+  {
+    "league": "UEFA Nations League A",
+    "home": "Germany",
+    "away": "Serbia",
+    "start_ts": 1790880300,
+    "match_id": "5181829",
+    "page_url": "/matches/serbia-vs-germany/2bs252#5181829",
+    "picks": [
+      {
+        "direction": "home_win",
+        "type": "Victoire domicile",
+        "label": "Germany gagne",
+        "cote": null,
+        "confidence": 61,
+        "reasoning": "Germany : 3V/1N/1D sur 5 matchs · #3 au classement · H2H: 0V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
+        "stats": {
+          "form": [
+            "L",
+            "D",
+            "W",
+            "W",
+            "W"
+          ]
+        },
+        "is_fun": false,
+        "tier": "ok",
+        "calibration_delta": -25.4,
+        "history_top3": true
+      }
+    ],
+    "home_players": [],
+    "away_players": [],
+    "fun_picks": [],
+    "top_pick": {
+      "direction": "home_win",
+      "type": "Victoire domicile",
+      "label": "Germany gagne",
+      "cote": null,
+      "confidence": 61,
+      "reasoning": "Germany : 3V/1N/1D sur 5 matchs · #3 au classement · H2H: 0V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
+      "stats": {
+        "form": [
+          "L",
+          "D",
+          "W",
+          "W",
+          "W"
+        ]
+      },
+      "is_fun": false,
+      "tier": "ok",
+      "calibration_delta": -25.4,
+      "history_top3": true
+    },
+    "no_picks": false,
+    "context": {
+      "stadium": {
+        "name": "Allianz Arena",
+        "city": "München",
+        "country": "Germany",
+        "lat": 48.218779054,
+        "lon": 11.624743491,
+        "capacity": 75024,
+        "surface": "grass"
+      },
+      "weather": {
+        "temp_max": 25.6,
+        "temp_min": 7.7,
+        "humidity": 54,
+        "precipitation_sum_mm": 0.0,
+        "wind_max_kmh": 6.9,
+        "weather_code": 45,
+        "summary_fr": "🌫️ brouillard · 7–25°C · humidité 54%"
+      },
+      "text": "Conditions : 🌫️ brouillard · 7–25°C · humidité 54%. Stade : Allianz Arena · 75 024 places · plein air."
     }
   },
   {
@@ -716,6 +1057,83 @@
         "summary_fr": "☁️ couvert · 13–22°C · humidité 80%"
       },
       "text": "Conditions : ☁️ couvert · 13–22°C · humidité 80%. Stade : Sports Illustrated Stadium · 26 765 places · plein air."
+    }
+  },
+  {
+    "league": "UEFA Nations League D",
+    "home": "Malta",
+    "away": "Gibraltar",
+    "start_ts": 1790880300,
+    "match_id": "5181876",
+    "page_url": "/matches/malta-vs-gibraltar/1p7wpy79#5181876",
+    "picks": [
+      {
+        "direction": "home_win",
+        "type": "Victoire domicile",
+        "label": "Malta gagne",
+        "cote": null,
+        "confidence": 59,
+        "reasoning": "Malta : 3V/0N/2D sur 5 matchs · #1 au classement · H2H: 0V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 50-59% historiquement à WR 42% (claim 55%, n=41) — sur-estimé de 14pp",
+        "stats": {
+          "form": [
+            "W",
+            "W",
+            "W",
+            "L",
+            "L"
+          ]
+        },
+        "is_fun": false,
+        "tier": "ok",
+        "calibration_delta": -13.6,
+        "history_top3": true
+      }
+    ],
+    "home_players": [],
+    "away_players": [],
+    "fun_picks": [],
+    "top_pick": {
+      "direction": "home_win",
+      "type": "Victoire domicile",
+      "label": "Malta gagne",
+      "cote": null,
+      "confidence": 59,
+      "reasoning": "Malta : 3V/0N/2D sur 5 matchs · #1 au classement · H2H: 0V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 50-59% historiquement à WR 42% (claim 55%, n=41) — sur-estimé de 14pp",
+      "stats": {
+        "form": [
+          "W",
+          "W",
+          "W",
+          "L",
+          "L"
+        ]
+      },
+      "is_fun": false,
+      "tier": "ok",
+      "calibration_delta": -13.6,
+      "history_top3": true
+    },
+    "no_picks": false,
+    "context": {
+      "stadium": {
+        "name": "Ta'Qali National Stadium",
+        "city": "Ta'Qali",
+        "country": "Malta",
+        "lat": 35.894817015,
+        "lon": 14.415140748,
+        "capacity": 17797,
+        "surface": "grass"
+      },
+      "weather": {
+        "temp_max": 25.0,
+        "temp_min": 20.3,
+        "humidity": 64,
+        "precipitation_sum_mm": 0.0,
+        "wind_max_kmh": 16.4,
+        "weather_code": 2,
+        "summary_fr": "⛅ partiellement nuageux · 20–25°C · humidité 64%"
+      },
+      "text": "Conditions : ⛅ partiellement nuageux · 20–25°C · humidité 64%. Stade : Ta'Qali National Stadium · 17 797 places · plein air."
     }
   },
   {
@@ -858,38 +1276,163 @@
     }
   },
   {
-    "league": "Colombia Primera A",
-    "home": "Independiente Medellín",
-    "away": "Millonarios",
-    "start_ts": 1790730300,
-    "match_id": "1000014078",
-    "page_url": "/matches/independiente-medellin-vs-millonarios/eazjl#1000014078",
+    "league": "UEFA Nations League A",
+    "home": "Greece",
+    "away": "Netherlands",
+    "start_ts": 1790880300,
+    "match_id": "5181830",
+    "page_url": "/matches/greece-vs-netherlands/1f0uui#5181830",
     "picks": [],
     "home_players": [],
-    "away_players": [],
+    "away_players": [
+      {
+        "player": "Mexx Meerdink",
+        "position": "F",
+        "is_sub": false,
+        "type": "Buteur",
+        "label": "Mexx Meerdink marque",
+        "team": "away",
+        "cote": null,
+        "book": null,
+        "books": [],
+        "confidence": 44,
+        "reasoning": "2G en 5 matchs (40.0%/match) · xG: 0.50/match\n📉 Calibration : bucket 40-49% historiquement à WR 25% (claim 44%, n=36) — sur-estimé de 19pp",
+        "context": {
+          "weakness": 0.27
+        },
+        "stats": {
+          "goals": 2,
+          "apps": 5
+        },
+        "tier": "fun",
+        "calibration_delta": -19.4,
+        "history_top3": true
+      }
+    ],
     "fun_picks": [],
-    "top_pick": null,
-    "no_picks": true,
+    "top_pick": {
+      "player": "Mexx Meerdink",
+      "position": "F",
+      "is_sub": false,
+      "type": "Buteur",
+      "label": "Mexx Meerdink marque",
+      "team": "away",
+      "cote": null,
+      "book": null,
+      "books": [],
+      "confidence": 44,
+      "reasoning": "2G en 5 matchs (40.0%/match) · xG: 0.50/match\n📉 Calibration : bucket 40-49% historiquement à WR 25% (claim 44%, n=36) — sur-estimé de 19pp",
+      "context": {
+        "weakness": 0.27
+      },
+      "stats": {
+        "goals": 2,
+        "apps": 5
+      },
+      "tier": "fun",
+      "calibration_delta": -19.4,
+      "history_top3": true
+    },
+    "no_picks": false,
     "context": {
       "stadium": {
-        "name": "Estadio Atanasio Girardot",
-        "city": "Medellín",
-        "country": "Colombia",
-        "lat": 6.256772694,
-        "lon": -75.590250492,
-        "capacity": 45943,
+        "name": "Stadio Toumbas",
+        "city": "Thessaloníki",
+        "country": "Greece",
+        "lat": 40.613818058,
+        "lon": 22.972396016,
+        "capacity": 28803,
         "surface": "grass"
       },
       "weather": {
-        "temp_max": 26.3,
-        "temp_min": 17.2,
-        "humidity": 91,
-        "precipitation_sum_mm": 12.5,
-        "wind_max_kmh": 6.8,
-        "weather_code": 95,
-        "summary_fr": "⛈️ orage · 17–26°C · humidité 91% · précipitations 12.5mm"
+        "temp_max": 23.7,
+        "temp_min": 13.7,
+        "humidity": 26,
+        "precipitation_sum_mm": 0.0,
+        "wind_max_kmh": 7.0,
+        "weather_code": 2,
+        "summary_fr": "⛅ partiellement nuageux · 13–23°C · humidité 26%"
       },
-      "text": "Conditions : ⛈️ orage · 17–26°C · humidité 91% · précipitations 12.5mm. Stade : Estadio Atanasio Girardot · 45 943 places · plein air. ⚠️ Pluies prévues : terrain potentiellement lourd, jeu direct privilégié, plus d'erreurs techniques."
+      "text": "Conditions : ⛅ partiellement nuageux · 13–23°C · humidité 26%. Stade : Stadio Toumbas · 28 803 places · plein air."
+    }
+  },
+  {
+    "league": "UEFA Nations League A",
+    "home": "Wales",
+    "away": "Norway",
+    "start_ts": 1790880300,
+    "match_id": "5181866",
+    "page_url": "/matches/wales-vs-norway/1oqabn#5181866",
+    "picks": [],
+    "home_players": [],
+    "away_players": [
+      {
+        "player": "Erling Haaland",
+        "position": "F",
+        "is_sub": false,
+        "type": "Buteur",
+        "label": "Erling Haaland marque",
+        "team": "away",
+        "cote": null,
+        "book": null,
+        "books": [],
+        "confidence": 35,
+        "reasoning": "3G en 8 matchs (37.5%/match) · xG: 0.24/match",
+        "context": {
+          "weakness": 0.43
+        },
+        "stats": {
+          "goals": 3,
+          "apps": 8
+        },
+        "tier": "fun",
+        "history_top3": true
+      }
+    ],
+    "fun_picks": [],
+    "top_pick": {
+      "player": "Erling Haaland",
+      "position": "F",
+      "is_sub": false,
+      "type": "Buteur",
+      "label": "Erling Haaland marque",
+      "team": "away",
+      "cote": null,
+      "book": null,
+      "books": [],
+      "confidence": 35,
+      "reasoning": "3G en 8 matchs (37.5%/match) · xG: 0.24/match",
+      "context": {
+        "weakness": 0.43
+      },
+      "stats": {
+        "goals": 3,
+        "apps": 8
+      },
+      "tier": "fun",
+      "history_top3": true
+    },
+    "no_picks": false,
+    "context": {
+      "stadium": {
+        "name": "Cardiff City Stadium",
+        "city": "Cardiff (Caerdydd)",
+        "country": "Wales",
+        "lat": 51.472829314,
+        "lon": -3.203115455,
+        "capacity": 33280,
+        "surface": "grass"
+      },
+      "weather": {
+        "temp_max": 17.9,
+        "temp_min": 12.5,
+        "humidity": 57,
+        "precipitation_sum_mm": 0.0,
+        "wind_max_kmh": 14.0,
+        "weather_code": 3,
+        "summary_fr": "☁️ couvert · 12–17°C · humidité 57%"
+      },
+      "text": "Conditions : ☁️ couvert · 12–17°C · humidité 57%. Stade : Cardiff City Stadium · 33 280 places · plein air."
     }
   },
   {
@@ -1080,6 +1623,91 @@
         "summary_fr": "🌦️ bruine légère · 12–19°C · humidité 62%"
       },
       "text": "Conditions : 🌦️ bruine légère · 12–19°C · humidité 62%. Stade : S. Dariaus ir S. Girėno stadionas · 15 315 places · plein air."
+    }
+  },
+  {
+    "league": "Friendlies",
+    "home": "Maldives",
+    "away": "Lebanon",
+    "start_ts": 1790856000,
+    "match_id": "6280450",
+    "page_url": "/matches/lebanon-vs-maldives/15fftp#6280450",
+    "picks": [],
+    "home_players": [],
+    "away_players": [],
+    "fun_picks": [],
+    "top_pick": null,
+    "no_picks": true,
+    "context": null
+  },
+  {
+    "league": "UEFA Nations League B",
+    "home": "Israel",
+    "away": "Kosovo",
+    "start_ts": 1790880300,
+    "match_id": "5181816",
+    "page_url": "/matches/israel-vs-kosovo/187mb9nh#5181816",
+    "picks": [],
+    "home_players": [],
+    "away_players": [],
+    "fun_picks": [],
+    "top_pick": null,
+    "no_picks": true,
+    "context": {
+      "stadium": {
+        "name": "Nagyerdei Stadion",
+        "city": "Debrecen",
+        "country": "Hungary",
+        "lat": 47.554230062,
+        "lon": 21.633631584,
+        "capacity": 20450,
+        "surface": "grass"
+      },
+      "weather": {
+        "temp_max": 23.8,
+        "temp_min": 9.3,
+        "humidity": 23,
+        "precipitation_sum_mm": 0.0,
+        "wind_max_kmh": 7.9,
+        "weather_code": 3,
+        "summary_fr": "☁️ couvert · 9–23°C · humidité 23%"
+      },
+      "text": "Conditions : ☁️ couvert · 9–23°C · humidité 23%. Stade : Nagyerdei Stadion · 20 450 places · plein air."
+    }
+  },
+  {
+    "league": "UEFA Nations League D",
+    "home": "Azerbaijan",
+    "away": "Liechtenstein",
+    "start_ts": 1790870400,
+    "match_id": "5181882",
+    "page_url": "/matches/liechtenstein-vs-azerbaijan/1pfrqh#5181882",
+    "picks": [],
+    "home_players": [],
+    "away_players": [],
+    "fun_picks": [],
+    "top_pick": null,
+    "no_picks": true,
+    "context": {
+      "stadium": {
+        "name": "Tofiq Bəhramov adına Respublika stadionu",
+        "city": "Baku",
+        "country": "Azerbaijan",
+        "lat": 40.397340345,
+        "lon": 49.852400422,
+        "capacity": 31850,
+        "surface": "grass"
+      },
+      "weather": {
+        "temp_max": 23.0,
+        "temp_min": 18.4,
+        "humidity": 53,
+        "precipitation_sum_mm": 0.1,
+        "wind_max_kmh": 8.1,
+        "weather_code": 3,
+        "summary_fr": "☁️ couvert · 18–23°C · humidité 53%"
+      },
+      "text": "Conditions : ☁️ couvert · 18–23°C · humidité 53%. Stade : Tofiq Bəhramov adına Respublika stadionu · 31 850 places · plein air."
     }
   }
 ]
