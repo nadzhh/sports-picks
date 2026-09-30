@@ -195,15 +195,15 @@
         "surface": "grass"
       },
       "weather": {
-        "temp_max": 22.4,
-        "temp_min": 13.6,
-        "humidity": 79,
+        "temp_max": 22.0,
+        "temp_min": 13.5,
+        "humidity": 80,
         "precipitation_sum_mm": 0.0,
-        "wind_max_kmh": 7.9,
+        "wind_max_kmh": 8.7,
         "weather_code": 3,
-        "summary_fr": "☁️ couvert · 13–22°C · humidité 79%"
+        "summary_fr": "☁️ couvert · 13–22°C · humidité 80%"
       },
-      "text": "Conditions : ☁️ couvert · 13–22°C · humidité 79%. Stade : Sports Illustrated Stadium · 26 765 places · plein air."
+      "text": "Conditions : ☁️ couvert · 13–22°C · humidité 80%. Stade : Sports Illustrated Stadium · 26 765 places · plein air."
     }
   },
   {
@@ -335,15 +335,15 @@
         "surface": "grass"
       },
       "weather": {
-        "temp_max": 21.5,
+        "temp_max": 21.9,
         "temp_min": 10.5,
         "humidity": 46,
         "precipitation_sum_mm": 0.0,
-        "wind_max_kmh": 11.1,
-        "weather_code": 3,
-        "summary_fr": "☁️ couvert · 10–21°C · humidité 46%"
+        "wind_max_kmh": 11.6,
+        "weather_code": 1,
+        "summary_fr": "🌤️ principalement clair · 10–21°C · humidité 46%"
       },
-      "text": "Conditions : ☁️ couvert · 10–21°C · humidité 46%. Stade : Estadio Mario Alberto Kempes · 57 503 places · plein air."
+      "text": "Conditions : 🌤️ principalement clair · 10–21°C · humidité 46%. Stade : Estadio Mario Alberto Kempes · 57 503 places · plein air."
     }
   },
   {
@@ -509,7 +509,37 @@
         "history_top3": true
       }
     ],
-    "home_players": [],
+    "home_players": [
+      {
+        "player": "Neil Pierre",
+        "position": "F",
+        "is_sub": false,
+        "type": "Buteur",
+        "label": "Neil Pierre marque",
+        "cote": null,
+        "cote_min": 2.1,
+        "book": null,
+        "books": [],
+        "confidence": 48,
+        "reasoning": "Neil Pierre : selection 4G/10m (0.40/m) · L10 club : 2G/10m | titu nat (65min/m) · last match 45min (0G+0A). λ ajusté à 0.65 (USA attendu 2.9 buts) → P(marque) ~48%.\n📉 Calibration : bucket 40-49% historiquement à WR 25% (claim 44%, n=36) — sur-estimé de 19pp",
+        "context": {
+          "source": "lineup",
+          "lam": 0.65,
+          "lineup_status": "confirmed"
+        },
+        "stats": {
+          "goals": null,
+          "apps": null,
+          "gpm": 0.647,
+          "xgpm": null
+        },
+        "team": "home",
+        "lineup_status": "confirmed",
+        "tier": "fun",
+        "calibration_delta": -19.4,
+        "history_top3": true
+      }
+    ],
     "away_players": [],
     "fun_picks": [],
     "top_pick": {
@@ -545,369 +575,15 @@
         "surface": "grass"
       },
       "weather": {
-        "temp_max": 34.2,
-        "temp_min": 18.4,
-        "humidity": 29,
+        "temp_max": 33.4,
+        "temp_min": 18.1,
+        "humidity": 34,
         "precipitation_sum_mm": 0.0,
-        "wind_max_kmh": 17.7,
+        "wind_max_kmh": 15.2,
         "weather_code": 3,
-        "summary_fr": "☁️ couvert · 18–34°C · humidité 29%"
+        "summary_fr": "☁️ couvert · 18–33°C · humidité 34%"
       },
-      "text": "Conditions : ☁️ couvert · 18–34°C · humidité 29%. Stade : Energizer Park · 22 500 places · plein air. ⚠️ Forte chaleur (>32°C) en plein air : impact endurance, plus de pauses hydratation."
-    }
-  },
-  {
-    "league": "UEFA Nations League C",
-    "home": "Luxembourg",
-    "away": "Iceland",
-    "start_ts": 1790707500,
-    "match_id": "5181952",
-    "page_url": "/matches/luxembourg-vs-iceland/1p4e44#5181952",
-    "picks": [
-      {
-        "direction": "home_win",
-        "type": "Victoire domicile",
-        "label": "Luxembourg gagne",
-        "cote": null,
-        "confidence": 69,
-        "reasoning": "Luxembourg : 4V/0N/1D sur 5 matchs · #2 au classement · H2H: 0V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
-        "stats": {
-          "form": [
-            "W",
-            "W",
-            "L",
-            "W",
-            "W"
-          ]
-        },
-        "is_fun": false,
-        "tier": "ok",
-        "calibration_delta": -25.4,
-        "history_top3": true
-      }
-    ],
-    "home_players": [],
-    "away_players": [
-      {
-        "player": "Andri Guðjohnsen",
-        "position": "M",
-        "is_sub": false,
-        "type": "Buteur",
-        "label": "Andri Guðjohnsen marque",
-        "team": "away",
-        "cote": null,
-        "book": null,
-        "books": [],
-        "confidence": 30,
-        "reasoning": "2G en 5 matchs (40.0%/match) · xG: 0.24/match",
-        "context": {
-          "weakness": 0.24
-        },
-        "stats": {
-          "goals": 2,
-          "apps": 5
-        },
-        "tier": "fun",
-        "history_top3": true
-      }
-    ],
-    "fun_picks": [],
-    "top_pick": {
-      "direction": "home_win",
-      "type": "Victoire domicile",
-      "label": "Luxembourg gagne",
-      "cote": null,
-      "confidence": 69,
-      "reasoning": "Luxembourg : 4V/0N/1D sur 5 matchs · #2 au classement · H2H: 0V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
-      "stats": {
-        "form": [
-          "W",
-          "W",
-          "L",
-          "W",
-          "W"
-        ]
-      },
-      "is_fun": false,
-      "tier": "ok",
-      "calibration_delta": -25.4,
-      "history_top3": true
-    },
-    "no_picks": false,
-    "context": {
-      "stadium": {
-        "name": "Stade de Luxembourg",
-        "city": "Lëtzebuerg (Luxembourg)",
-        "country": "Luxembourg",
-        "lat": 49.577206347,
-        "lon": 6.114722,
-        "capacity": 9386,
-        "surface": "grass"
-      },
-      "weather": {
-        "temp_max": 27.1,
-        "temp_min": 15.5,
-        "humidity": 39,
-        "precipitation_sum_mm": 0.0,
-        "wind_max_kmh": 15.8,
-        "weather_code": 3,
-        "summary_fr": "☁️ couvert · 15–27°C · humidité 39%"
-      },
-      "text": "Conditions : ☁️ couvert · 15–27°C · humidité 39%. Stade : Stade de Luxembourg · 9 386 places · plein air."
-    }
-  },
-  {
-    "league": "Colombia Primera A",
-    "home": "Deportivo Pereira",
-    "away": "Santa Fe",
-    "start_ts": 1790713800,
-    "match_id": "1000014076",
-    "page_url": "/matches/deportivo-pereira-vs-santa-fe/18h4vf#1000014076",
-    "picks": [
-      {
-        "direction": "away_win",
-        "type": "Favori net",
-        "label": "Santa Fe gagne",
-        "cote": null,
-        "confidence": 68,
-        "reasoning": "13 places d'écart au classement (#7 vs #20) · 3V/1N/1D sur 5 matchs · Note Sofa: 6.5/10\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
-        "stats": {
-          "form": [
-            "L",
-            "W",
-            "W",
-            "D",
-            "W"
-          ]
-        },
-        "is_fun": false,
-        "tier": "ok",
-        "calibration_delta": -25.4,
-        "history_top3": true
-      }
-    ],
-    "home_players": [],
-    "away_players": [],
-    "fun_picks": [],
-    "top_pick": {
-      "direction": "away_win",
-      "type": "Favori net",
-      "label": "Santa Fe gagne",
-      "cote": null,
-      "confidence": 68,
-      "reasoning": "13 places d'écart au classement (#7 vs #20) · 3V/1N/1D sur 5 matchs · Note Sofa: 6.5/10\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
-      "stats": {
-        "form": [
-          "L",
-          "W",
-          "W",
-          "D",
-          "W"
-        ]
-      },
-      "is_fun": false,
-      "tier": "ok",
-      "calibration_delta": -25.4,
-      "history_top3": true
-    },
-    "no_picks": false,
-    "context": {
-      "stadium": {
-        "name": "Estadio Santiago de las Atalayas",
-        "city": "Yopal",
-        "country": "Colombia",
-        "lat": 5.318365764,
-        "lon": -72.39187181,
-        "capacity": 12000,
-        "surface": "grass"
-      },
-      "weather": {
-        "temp_max": 31.6,
-        "temp_min": 23.9,
-        "humidity": 69,
-        "precipitation_sum_mm": 2.6,
-        "wind_max_kmh": 13.7,
-        "weather_code": 55,
-        "summary_fr": "🌧️ bruine dense · 23–31°C · humidité 69% · précipitations 2.6mm"
-      },
-      "text": "Conditions : 🌧️ bruine dense · 23–31°C · humidité 69% · précipitations 2.6mm. Stade : Estadio Santiago de las Atalayas · 12 000 places · plein air."
-    }
-  },
-  {
-    "league": "UEFA Nations League A",
-    "home": "Spain",
-    "away": "Croatia",
-    "start_ts": 1790707500,
-    "match_id": "5181852",
-    "page_url": "/matches/spain-vs-croatia/2cs2z6#5181852",
-    "picks": [
-      {
-        "direction": "home_win",
-        "type": "Victoire domicile",
-        "label": "Spain gagne",
-        "cote": null,
-        "confidence": 66,
-        "reasoning": "Spain : 3V/2N/0D sur 5 matchs · #1 au classement · H2H: 0V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
-        "stats": {
-          "form": [
-            "W",
-            "W",
-            "D",
-            "D",
-            "W"
-          ]
-        },
-        "is_fun": false,
-        "tier": "ok",
-        "calibration_delta": -25.4,
-        "history_top3": true
-      }
-    ],
-    "home_players": [
-      {
-        "player": "Lamine Yamal",
-        "position": "F",
-        "is_sub": false,
-        "type": "Buteur",
-        "label": "Lamine Yamal marque",
-        "team": "home",
-        "cote": null,
-        "book": null,
-        "books": [],
-        "confidence": 31,
-        "reasoning": "3G en 8 matchs (37.5%/match) · xG: 0.17/match",
-        "context": {
-          "weakness": 0.36
-        },
-        "stats": {
-          "goals": 3,
-          "apps": 8
-        },
-        "tier": "fun",
-        "history_top3": true
-      }
-    ],
-    "away_players": [],
-    "fun_picks": [],
-    "top_pick": {
-      "direction": "home_win",
-      "type": "Victoire domicile",
-      "label": "Spain gagne",
-      "cote": null,
-      "confidence": 66,
-      "reasoning": "Spain : 3V/2N/0D sur 5 matchs · #1 au classement · H2H: 0V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
-      "stats": {
-        "form": [
-          "W",
-          "W",
-          "D",
-          "D",
-          "W"
-        ]
-      },
-      "is_fun": false,
-      "tier": "ok",
-      "calibration_delta": -25.4,
-      "history_top3": true
-    },
-    "no_picks": false,
-    "context": {
-      "stadium": {
-        "name": "Estadio Ramón Sánchez Pizjuán",
-        "city": "Sevilla",
-        "country": "Spain",
-        "lat": 37.384045627,
-        "lon": -5.970591903,
-        "capacity": 42714,
-        "surface": "grass"
-      },
-      "weather": {
-        "temp_max": 31.4,
-        "temp_min": 19.4,
-        "humidity": 46,
-        "precipitation_sum_mm": 0.0,
-        "wind_max_kmh": 12.1,
-        "weather_code": 3,
-        "summary_fr": "☁️ couvert · 19–31°C · humidité 46%"
-      },
-      "text": "Conditions : ☁️ couvert · 19–31°C · humidité 46%. Stade : Estadio Ramón Sánchez Pizjuán · 42 714 places · plein air."
-    }
-  },
-  {
-    "league": "UEFA Nations League C",
-    "home": "Slovakia",
-    "away": "Kazakhstan",
-    "start_ts": 1790707500,
-    "match_id": "5181936",
-    "page_url": "/matches/kazakhstan-vs-slovakia/2bndvk#5181936",
-    "picks": [
-      {
-        "direction": "home_win",
-        "type": "Victoire domicile",
-        "label": "Slovakia gagne",
-        "cote": null,
-        "confidence": 63,
-        "reasoning": "Slovakia : 3V/1N/1D sur 5 matchs · #1 au classement · H2H: 0V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
-        "stats": {
-          "form": [
-            "W",
-            "D",
-            "W",
-            "W",
-            "L"
-          ]
-        },
-        "is_fun": false,
-        "tier": "ok",
-        "calibration_delta": -25.4,
-        "history_top3": true
-      }
-    ],
-    "home_players": [],
-    "away_players": [],
-    "fun_picks": [],
-    "top_pick": {
-      "direction": "home_win",
-      "type": "Victoire domicile",
-      "label": "Slovakia gagne",
-      "cote": null,
-      "confidence": 63,
-      "reasoning": "Slovakia : 3V/1N/1D sur 5 matchs · #1 au classement · H2H: 0V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
-      "stats": {
-        "form": [
-          "W",
-          "D",
-          "W",
-          "W",
-          "L"
-        ]
-      },
-      "is_fun": false,
-      "tier": "ok",
-      "calibration_delta": -25.4,
-      "history_top3": true
-    },
-    "no_picks": false,
-    "context": {
-      "stadium": {
-        "name": "Košická futbalová aréna",
-        "city": "Košice",
-        "country": "Slovakia",
-        "lat": 48.696780843,
-        "lon": 21.245129694,
-        "capacity": 12658,
-        "surface": "grass"
-      },
-      "weather": {
-        "temp_max": 23.0,
-        "temp_min": 12.9,
-        "humidity": 31,
-        "precipitation_sum_mm": 0.0,
-        "wind_max_kmh": 11.5,
-        "weather_code": 0,
-        "summary_fr": "🌤️ conditions variables · 12–23°C · humidité 31%"
-      },
-      "text": "Conditions : 🌤️ conditions variables · 12–23°C · humidité 31%. Stade : Košická futbalová aréna · 12 658 places · plein air."
+      "text": "Conditions : ☁️ couvert · 18–33°C · humidité 34%. Stade : Energizer Park · 22 500 places · plein air. ⚠️ Forte chaleur (>32°C) en plein air : impact endurance, plus de pauses hydratation."
     }
   },
   {
@@ -1031,15 +707,15 @@
         "surface": "grass"
       },
       "weather": {
-        "temp_max": 22.4,
-        "temp_min": 13.6,
-        "humidity": 79,
+        "temp_max": 22.0,
+        "temp_min": 13.5,
+        "humidity": 80,
         "precipitation_sum_mm": 0.0,
-        "wind_max_kmh": 7.9,
+        "wind_max_kmh": 8.7,
         "weather_code": 3,
-        "summary_fr": "☁️ couvert · 13–22°C · humidité 79%"
+        "summary_fr": "☁️ couvert · 13–22°C · humidité 80%"
       },
-      "text": "Conditions : ☁️ couvert · 13–22°C · humidité 79%. Stade : Sports Illustrated Stadium · 26 765 places · plein air."
+      "text": "Conditions : ☁️ couvert · 13–22°C · humidité 80%. Stade : Sports Illustrated Stadium · 26 765 places · plein air."
     }
   },
   {
@@ -1170,173 +846,15 @@
         "surface": "grass"
       },
       "weather": {
-        "temp_max": 18.7,
-        "temp_min": 6.2,
+        "temp_max": 18.9,
+        "temp_min": 7.1,
         "humidity": 28,
-        "precipitation_sum_mm": 1.3,
-        "wind_max_kmh": 11.0,
+        "precipitation_sum_mm": 2.4,
+        "wind_max_kmh": 12.0,
         "weather_code": 51,
-        "summary_fr": "🌦️ bruine légère · 6–18°C · humidité 28% · précipitations 1.3mm"
+        "summary_fr": "🌦️ bruine légère · 7–18°C · humidité 28% · précipitations 2.4mm"
       },
-      "text": "Conditions : 🌦️ bruine légère · 6–18°C · humidité 28% · précipitations 1.3mm. Stade : Estadio Inca Garcilaso de la Vega · 42 056 places · plein air."
-    }
-  },
-  {
-    "league": "UEFA Nations League B",
-    "home": "Scotland",
-    "away": "Switzerland",
-    "start_ts": 1790707500,
-    "match_id": "5181778",
-    "page_url": "/matches/switzerland-vs-scotland/1wx88q#5181778",
-    "picks": [],
-    "home_players": [],
-    "away_players": [
-      {
-        "player": "Zeki Amdouni",
-        "position": "M",
-        "is_sub": false,
-        "type": "Buteur",
-        "label": "Zeki Amdouni marque",
-        "team": "away",
-        "cote": null,
-        "book": null,
-        "books": [],
-        "confidence": 31,
-        "reasoning": "2G en 5 matchs (40.0%/match) · xG: 0.26/match",
-        "context": {
-          "weakness": 0.21
-        },
-        "stats": {
-          "goals": 2,
-          "apps": 5
-        },
-        "tier": "fun",
-        "history_top3": true
-      }
-    ],
-    "fun_picks": [],
-    "top_pick": {
-      "player": "Zeki Amdouni",
-      "position": "M",
-      "is_sub": false,
-      "type": "Buteur",
-      "label": "Zeki Amdouni marque",
-      "team": "away",
-      "cote": null,
-      "book": null,
-      "books": [],
-      "confidence": 31,
-      "reasoning": "2G en 5 matchs (40.0%/match) · xG: 0.26/match",
-      "context": {
-        "weakness": 0.21
-      },
-      "stats": {
-        "goals": 2,
-        "apps": 5
-      },
-      "tier": "fun",
-      "history_top3": true
-    },
-    "no_picks": false,
-    "context": {
-      "stadium": {
-        "name": "Barclays Hampden",
-        "city": "Glasgow",
-        "country": "Scotland",
-        "lat": 55.825864778,
-        "lon": -4.252004027,
-        "capacity": 52500,
-        "surface": "grass"
-      },
-      "weather": {
-        "temp_max": 18.2,
-        "temp_min": 6.9,
-        "humidity": 72,
-        "precipitation_sum_mm": 0.0,
-        "wind_max_kmh": 22.7,
-        "weather_code": 3,
-        "summary_fr": "☁️ couvert · 6–18°C · humidité 72%"
-      },
-      "text": "Conditions : ☁️ couvert · 6–18°C · humidité 72%. Stade : Barclays Hampden · 52 500 places · plein air."
-    }
-  },
-  {
-    "league": "UEFA Nations League A",
-    "home": "Czechia",
-    "away": "England",
-    "start_ts": 1790707500,
-    "match_id": "5181851",
-    "page_url": "/matches/england-vs-czechia/2dwrka#5181851",
-    "picks": [],
-    "home_players": [],
-    "away_players": [
-      {
-        "player": "Anthony Gordon",
-        "position": "M",
-        "is_sub": false,
-        "type": "Buteur",
-        "label": "Anthony Gordon marque",
-        "team": "away",
-        "cote": null,
-        "book": null,
-        "books": [],
-        "confidence": 25,
-        "reasoning": "2G en 5 matchs (40.0%/match) · xG: 0.08/match",
-        "context": {
-          "weakness": 0.38
-        },
-        "stats": {
-          "goals": 2,
-          "apps": 5
-        },
-        "tier": "fun",
-        "history_top3": true
-      }
-    ],
-    "fun_picks": [],
-    "top_pick": {
-      "player": "Anthony Gordon",
-      "position": "M",
-      "is_sub": false,
-      "type": "Buteur",
-      "label": "Anthony Gordon marque",
-      "team": "away",
-      "cote": null,
-      "book": null,
-      "books": [],
-      "confidence": 25,
-      "reasoning": "2G en 5 matchs (40.0%/match) · xG: 0.08/match",
-      "context": {
-        "weakness": 0.38
-      },
-      "stats": {
-        "goals": 2,
-        "apps": 5
-      },
-      "tier": "fun",
-      "history_top3": true
-    },
-    "no_picks": false,
-    "context": {
-      "stadium": {
-        "name": "Fortuna Arena",
-        "city": "Praha",
-        "country": "Czech Republic",
-        "lat": 50.067525002,
-        "lon": 14.471139908,
-        "capacity": 19370,
-        "surface": "grass"
-      },
-      "weather": {
-        "temp_max": 24.1,
-        "temp_min": 10.5,
-        "humidity": 35,
-        "precipitation_sum_mm": 0.0,
-        "wind_max_kmh": 14.9,
-        "weather_code": 3,
-        "summary_fr": "☁️ couvert · 10–24°C · humidité 35%"
-      },
-      "text": "Conditions : ☁️ couvert · 10–24°C · humidité 35%. Stade : Fortuna Arena · 19 370 places · plein air."
+      "text": "Conditions : 🌦️ bruine légère · 7–18°C · humidité 28% · précipitations 2.4mm. Stade : Estadio Inca Garcilaso de la Vega · 42 056 places · plein air."
     }
   },
   {
@@ -1363,15 +881,15 @@
         "surface": "grass"
       },
       "weather": {
-        "temp_max": 26.6,
-        "temp_min": 17.8,
-        "humidity": 92,
-        "precipitation_sum_mm": 10.6,
-        "wind_max_kmh": 6.6,
+        "temp_max": 26.3,
+        "temp_min": 17.2,
+        "humidity": 91,
+        "precipitation_sum_mm": 12.5,
+        "wind_max_kmh": 6.8,
         "weather_code": 95,
-        "summary_fr": "⛈️ orage · 17–26°C · humidité 92% · précipitations 10.6mm"
+        "summary_fr": "⛈️ orage · 17–26°C · humidité 91% · précipitations 12.5mm"
       },
-      "text": "Conditions : ⛈️ orage · 17–26°C · humidité 92% · précipitations 10.6mm. Stade : Estadio Atanasio Girardot · 45 943 places · plein air. ⚠️ Pluies prévues : terrain potentiellement lourd, jeu direct privilégié, plus d'erreurs techniques."
+      "text": "Conditions : ⛈️ orage · 17–26°C · humidité 91% · précipitations 12.5mm. Stade : Estadio Atanasio Girardot · 45 943 places · plein air. ⚠️ Pluies prévues : terrain potentiellement lourd, jeu direct privilégié, plus d'erreurs techniques."
     }
   },
   {
@@ -1398,15 +916,15 @@
         "surface": "grass"
       },
       "weather": {
-        "temp_max": 24.4,
-        "temp_min": 21.2,
-        "humidity": 78,
-        "precipitation_sum_mm": 4.8,
-        "wind_max_kmh": 20.5,
+        "temp_max": 24.5,
+        "temp_min": 21.1,
+        "humidity": 80,
+        "precipitation_sum_mm": 6.7,
+        "wind_max_kmh": 21.2,
         "weather_code": 53,
-        "summary_fr": "🌦️ bruine modérée · 21–24°C · humidité 78% · précipitations 4.8mm"
+        "summary_fr": "🌦️ bruine modérée · 21–24°C · humidité 80% · précipitations 6.7mm"
       },
-      "text": "Conditions : 🌦️ bruine modérée · 21–24°C · humidité 78% · précipitations 4.8mm. Stade : HFC Bank Stadium · 10 000 places · plein air."
+      "text": "Conditions : 🌦️ bruine modérée · 21–24°C · humidité 80% · précipitations 6.7mm. Stade : HFC Bank Stadium · 10 000 places · plein air. ⚠️ Pluies prévues : terrain potentiellement lourd, jeu direct privilégié, plus d'erreurs techniques."
     }
   },
   {
@@ -1433,15 +951,15 @@
         "surface": "grass"
       },
       "weather": {
-        "temp_max": 24.4,
-        "temp_min": 21.2,
-        "humidity": 78,
-        "precipitation_sum_mm": 4.8,
-        "wind_max_kmh": 20.5,
+        "temp_max": 24.5,
+        "temp_min": 21.1,
+        "humidity": 80,
+        "precipitation_sum_mm": 6.7,
+        "wind_max_kmh": 21.2,
         "weather_code": 53,
-        "summary_fr": "🌦️ bruine modérée · 21–24°C · humidité 78% · précipitations 4.8mm"
+        "summary_fr": "🌦️ bruine modérée · 21–24°C · humidité 80% · précipitations 6.7mm"
       },
-      "text": "Conditions : 🌦️ bruine modérée · 21–24°C · humidité 78% · précipitations 4.8mm. Stade : HFC Bank Stadium · 10 000 places · plein air."
+      "text": "Conditions : 🌦️ bruine modérée · 21–24°C · humidité 80% · précipitations 6.7mm. Stade : HFC Bank Stadium · 10 000 places · plein air. ⚠️ Pluies prévues : terrain potentiellement lourd, jeu direct privilégié, plus d'erreurs techniques."
     }
   },
   {
@@ -1483,15 +1001,15 @@
         "surface": "artificial turf"
       },
       "weather": {
-        "temp_max": 27.3,
-        "temp_min": 25.2,
-        "humidity": 86,
-        "precipitation_sum_mm": 14.9,
-        "wind_max_kmh": 21.4,
+        "temp_max": 27.7,
+        "temp_min": 25.3,
+        "humidity": 83,
+        "precipitation_sum_mm": 21.1,
+        "wind_max_kmh": 22.1,
         "weather_code": 95,
-        "summary_fr": "⛈️ orage · 27°C · humidité 86% · précipitations 14.9mm"
+        "summary_fr": "⛈️ orage · 27°C · humidité 83% · précipitations 21.1mm"
       },
-      "text": "Conditions : ⛈️ orage · 27°C · humidité 86% · précipitations 14.9mm. Stade : Stade Linité · 10 000 places · plein air. ⚠️ Pluies prévues : terrain potentiellement lourd, jeu direct privilégié, plus d'erreurs techniques."
+      "text": "Conditions : ⛈️ orage · 27°C · humidité 83% · précipitations 21.1mm. Stade : Stade Linité · 10 000 places · plein air. ⚠️ Pluies prévues : terrain potentiellement lourd, jeu direct privilégié, plus d'erreurs techniques."
     }
   },
   {
@@ -1518,15 +1036,15 @@
         "surface": "grass"
       },
       "weather": {
-        "temp_max": 17.9,
-        "temp_min": 13.5,
-        "humidity": 76,
-        "precipitation_sum_mm": 11.3,
-        "wind_max_kmh": 21.6,
+        "temp_max": 17.6,
+        "temp_min": 12.5,
+        "humidity": 79,
+        "precipitation_sum_mm": 8.9,
+        "wind_max_kmh": 21.3,
         "weather_code": 80,
-        "summary_fr": "🌦️ averses légères · 13–17°C · humidité 76% · précipitations 11.3mm"
+        "summary_fr": "🌦️ averses légères · 12–17°C · humidité 79% · précipitations 8.9mm"
       },
-      "text": "Conditions : 🌦️ averses légères · 13–17°C · humidité 76% · précipitations 11.3mm. Stade : Botswana National Stadium · 22 500 places · plein air. ⚠️ Pluies prévues : terrain potentiellement lourd, jeu direct privilégié, plus d'erreurs techniques."
+      "text": "Conditions : 🌦️ averses légères · 12–17°C · humidité 79% · précipitations 8.9mm. Stade : Botswana National Stadium · 22 500 places · plein air. ⚠️ Pluies prévues : terrain potentiellement lourd, jeu direct privilégié, plus d'erreurs techniques."
     }
   },
   {
@@ -1553,120 +1071,15 @@
         "surface": "grass"
       },
       "weather": {
-        "temp_max": 18.8,
-        "temp_min": 13.2,
-        "humidity": 61,
-        "precipitation_sum_mm": 0.0,
-        "wind_max_kmh": 8.6,
-        "weather_code": 3,
-        "summary_fr": "☁️ couvert · 13–18°C · humidité 61%"
+        "temp_max": 19.2,
+        "temp_min": 12.9,
+        "humidity": 62,
+        "precipitation_sum_mm": 0.3,
+        "wind_max_kmh": 7.2,
+        "weather_code": 51,
+        "summary_fr": "🌦️ bruine légère · 12–19°C · humidité 62%"
       },
-      "text": "Conditions : ☁️ couvert · 13–18°C · humidité 61%. Stade : S. Dariaus ir S. Girėno stadionas · 15 315 places · plein air."
-    }
-  },
-  {
-    "league": "UEFA Nations League B",
-    "home": "Slovenia",
-    "away": "North Macedonia",
-    "start_ts": 1790707500,
-    "match_id": "5181779",
-    "page_url": "/matches/slovenia-vs-north-macedonia/1mqxn8#5181779",
-    "picks": [],
-    "home_players": [],
-    "away_players": [],
-    "fun_picks": [],
-    "top_pick": null,
-    "no_picks": true,
-    "context": {
-      "stadium": {
-        "name": "Stadion Stožice",
-        "city": "Ljubljana",
-        "country": "Slovenia",
-        "lat": 46.080472195,
-        "lon": 14.524183273,
-        "capacity": 16432,
-        "surface": "grass"
-      },
-      "weather": {
-        "temp_max": 23.3,
-        "temp_min": 6.6,
-        "humidity": 48,
-        "precipitation_sum_mm": 0.0,
-        "wind_max_kmh": 8.0,
-        "weather_code": 45,
-        "summary_fr": "🌫️ brouillard · 6–23°C · humidité 48%"
-      },
-      "text": "Conditions : 🌫️ brouillard · 6–23°C · humidité 48%. Stade : Stadion Stožice · 16 432 places · plein air."
-    }
-  },
-  {
-    "league": "UEFA Nations League C",
-    "home": "Bulgaria",
-    "away": "Estonia",
-    "start_ts": 1790707500,
-    "match_id": "5181951",
-    "page_url": "/matches/estonia-vs-bulgaria/2swyzb#5181951",
-    "picks": [],
-    "home_players": [],
-    "away_players": [],
-    "fun_picks": [],
-    "top_pick": null,
-    "no_picks": true,
-    "context": {
-      "stadium": {
-        "name": "Stadion Hristo Botev",
-        "city": "Plovdiv",
-        "country": "Bulgaria",
-        "lat": 42.13989523,
-        "lon": 24.764449596,
-        "capacity": 22000,
-        "surface": "grass"
-      },
-      "weather": {
-        "temp_max": 19.8,
-        "temp_min": 14.8,
-        "humidity": 50,
-        "precipitation_sum_mm": 0.2,
-        "wind_max_kmh": 10.5,
-        "weather_code": 3,
-        "summary_fr": "☁️ couvert · 14–19°C · humidité 50%"
-      },
-      "text": "Conditions : ☁️ couvert · 14–19°C · humidité 50%. Stade : Stadion Hristo Botev · 22 000 places · plein air."
-    }
-  },
-  {
-    "league": "UEFA Nations League C",
-    "home": "San Marino",
-    "away": "Albania",
-    "start_ts": 1790707500,
-    "match_id": "5181897",
-    "page_url": "/matches/san-marino-vs-albania/24s20t#5181897",
-    "picks": [],
-    "home_players": [],
-    "away_players": [],
-    "fun_picks": [],
-    "top_pick": null,
-    "no_picks": true,
-    "context": {
-      "stadium": {
-        "name": "Stadio Olimpico di Serravalle",
-        "city": "Serravalle",
-        "country": "San Marino",
-        "lat": 43.971244776,
-        "lon": 12.476971149,
-        "capacity": 5115,
-        "surface": "grass"
-      },
-      "weather": {
-        "temp_max": 24.1,
-        "temp_min": 16.3,
-        "humidity": 67,
-        "precipitation_sum_mm": 0.0,
-        "wind_max_kmh": 10.5,
-        "weather_code": 2,
-        "summary_fr": "⛅ partiellement nuageux · 16–24°C · humidité 67%"
-      },
-      "text": "Conditions : ⛅ partiellement nuageux · 16–24°C · humidité 67%. Stade : Stadio Olimpico di Serravalle · 5 115 places · plein air."
+      "text": "Conditions : 🌦️ bruine légère · 12–19°C · humidité 62%. Stade : S. Dariaus ir S. Girėno stadionas · 15 315 places · plein air."
     }
   }
 ]
