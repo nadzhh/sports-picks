@@ -818,7 +818,49 @@
         "l5_goals_n": 5
       }
     },
-    "match_odds": null,
+    "match_odds": {
+      "markets": [
+        {
+          "marketName": "Full time",
+          "choices": [
+            {
+              "name": "Seattle Sounders FC",
+              "side": "home",
+              "cote": 1.51,
+              "book": "draftkings"
+            },
+            {
+              "name": "Draw",
+              "side": "draw",
+              "cote": 4.6,
+              "book": "draftkings"
+            },
+            {
+              "name": "Sporting Kansas City",
+              "side": "away",
+              "cote": 5.0,
+              "book": "draftkings"
+            }
+          ]
+        },
+        {
+          "marketName": "Goals Over/Under (3.5)",
+          "choices": [
+            {
+              "name": "Over 3.5",
+              "cote": 1.91,
+              "book": "draftkings"
+            },
+            {
+              "name": "Under 3.5",
+              "cote": 1.87,
+              "book": "draftkings"
+            }
+          ]
+        }
+      ],
+      "_source": "espn"
+    },
     "lineups_home": null,
     "lineups_away": null,
     "team_streaks": null,
@@ -896,7 +938,38 @@
       ],
       "top_passeurs_home": [],
       "top_passeurs_away": [],
-      "value_bets": []
+      "value_bets": [
+        {
+          "marche": "Sporting Kansas City gagne (1X2)",
+          "cote": 5.0,
+          "book": "draftkings",
+          "p_ligue": 28,
+          "p_modele": 30,
+          "p_form": 22,
+          "p_avg": 27,
+          "value": 133.5
+        },
+        {
+          "marche": "Match nul (1X2)",
+          "cote": 4.6,
+          "book": "draftkings",
+          "p_ligue": 27,
+          "p_modele": 21,
+          "p_form": 30,
+          "p_avg": 26,
+          "value": 119.6
+        },
+        {
+          "marche": "Seattle Sounders FC gagne (1X2)",
+          "cote": 1.51,
+          "book": "draftkings",
+          "p_ligue": 45,
+          "p_modele": 49,
+          "p_form": 48,
+          "p_avg": 47,
+          "value": 71.4
+        }
+      ]
     },
     "home_season_stats": {
       "overall": {
@@ -1959,498 +2032,6 @@
     }
   },
   {
-    "id": "6280450",
-    "home": "Maldives",
-    "away": "Lebanon",
-    "home_id": "5899",
-    "away_id": "5897",
-    "_fotmob_lid": 114,
-    "_page_url": "/matches/lebanon-vs-maldives/15fftp#6280450",
-    "start_ts": 1790863200,
-    "league_id": 114,
-    "league": "Friendlies",
-    "h2h": {
-      "teamDuel": {
-        "homeWins": 0,
-        "draws": 0,
-        "awayWins": 0
-      }
-    },
-    "pre_match_form": {
-      "homeTeam": {
-        "form": [
-          "L",
-          "L",
-          "L",
-          "L",
-          "W"
-        ],
-        "form_opps": [
-          "5893",
-          "5822",
-          "5910",
-          "95796",
-          "95801"
-        ],
-        "form_opp_ranks": [
-          null,
-          null,
-          null,
-          null,
-          null
-        ],
-        "position": null,
-        "avgRating": null,
-        "l5_gf_pm": 0.4,
-        "l5_ga_pm": 2.6,
-        "l5_goals_n": 5
-      },
-      "awayTeam": {
-        "form": [
-          "L",
-          "L",
-          "W",
-          "W",
-          "W"
-        ],
-        "form_opps": [
-          "5892",
-          "5805",
-          "178671",
-          "95800",
-          "95800"
-        ],
-        "form_opp_ranks": [
-          null,
-          null,
-          null,
-          null,
-          null
-        ],
-        "position": null,
-        "avgRating": null,
-        "l5_gf_pm": 2.0,
-        "l5_ga_pm": 0.8,
-        "l5_goals_n": 5
-      }
-    },
-    "match_odds": null,
-    "lineups_home": null,
-    "lineups_away": null,
-    "team_streaks": null,
-    "analyse": {
-      "ht_1x2": {
-        "home_pct": 10,
-        "draw_pct": 37,
-        "away_pct": 53,
-        "home_cote": 10.52,
-        "draw_cote": 2.69,
-        "away_cote": 1.88,
-        "lam_h": 0.25,
-        "lam_a": 0.97,
-        "lam_draw": 0.2
-      },
-      "ft_1x2": {
-        "home_pct": 8,
-        "draw_pct": 16,
-        "away_pct": 76,
-        "home_cote": 12.46,
-        "draw_cote": 6.19,
-        "away_cote": 1.32,
-        "lam_h": 0.6,
-        "lam_a": 2.3
-      },
-      "ht_total_buts": [
-        {
-          "label": "0 buts",
-          "pct": 30
-        },
-        {
-          "label": "1 but",
-          "pct": 36
-        },
-        {
-          "label": "2+ buts",
-          "pct": 34
-        }
-      ],
-      "ft_total_buts": [
-        {
-          "label": "0 buts",
-          "pct": 6
-        },
-        {
-          "label": "1 but",
-          "pct": 16
-        },
-        {
-          "label": "2 buts",
-          "pct": 23
-        },
-        {
-          "label": "3+ buts",
-          "pct": 55
-        }
-      ],
-      "btts": {
-        "yes": 41,
-        "no": 59
-      },
-      "league_stats": {
-        "btts": 50,
-        "ht_over_05": 75,
-        "ft_over_15": 72,
-        "ft_over_25": 50
-      },
-      "league_name": "Friendlies",
-      "top_buteurs_home": [],
-      "top_buteurs_away": [],
-      "top_passeurs_home": [],
-      "top_passeurs_away": [],
-      "value_bets": []
-    },
-    "home_season_stats": {
-      "overall": {
-        "n": 5,
-        "wins_pct": 20,
-        "draws_pct": 0,
-        "losses_pct": 80,
-        "btts_pct": 20,
-        "over_15": 80,
-        "over_25": 40,
-        "over_35": 0,
-        "under_15": 20,
-        "under_25": 60,
-        "under_35": 100,
-        "gf_pm": 0.4,
-        "ga_pm": 1.8
-      },
-      "home": {
-        "n": 4,
-        "wins_pct": 25,
-        "draws_pct": 0,
-        "losses_pct": 75,
-        "btts_pct": 25,
-        "over_15": 75,
-        "over_25": 50,
-        "over_35": 0,
-        "under_15": 25,
-        "under_25": 50,
-        "under_35": 100,
-        "gf_pm": 0.5,
-        "ga_pm": 1.75
-      },
-      "away": {
-        "n": 1,
-        "wins_pct": 0,
-        "draws_pct": 0,
-        "losses_pct": 100,
-        "btts_pct": 0,
-        "over_15": 100,
-        "over_25": 0,
-        "over_35": 0,
-        "under_15": 0,
-        "under_25": 100,
-        "under_35": 100,
-        "gf_pm": 0.0,
-        "ga_pm": 2.0
-      }
-    },
-    "away_season_stats": {
-      "overall": {
-        "n": 5,
-        "wins_pct": 60,
-        "draws_pct": 0,
-        "losses_pct": 40,
-        "btts_pct": 20,
-        "over_15": 100,
-        "over_25": 60,
-        "over_35": 20,
-        "under_15": 0,
-        "under_25": 40,
-        "under_35": 80,
-        "gf_pm": 2.0,
-        "ga_pm": 0.8
-      },
-      "home": {
-        "n": 2,
-        "wins_pct": 50,
-        "draws_pct": 0,
-        "losses_pct": 50,
-        "btts_pct": 0,
-        "over_15": 100,
-        "over_25": 0,
-        "over_35": 0,
-        "under_15": 0,
-        "under_25": 100,
-        "under_35": 100,
-        "gf_pm": 1.0,
-        "ga_pm": 1.0
-      },
-      "away": {
-        "n": 3,
-        "wins_pct": 67,
-        "draws_pct": 0,
-        "losses_pct": 33,
-        "btts_pct": 33,
-        "over_15": 100,
-        "over_25": 100,
-        "over_35": 33,
-        "under_15": 0,
-        "under_25": 0,
-        "under_35": 67,
-        "gf_pm": 2.67,
-        "ga_pm": 0.67
-      }
-    }
-  },
-  {
-    "id": "6280451",
-    "home": "Uzbekistan",
-    "away": "Syria",
-    "home_id": "8700",
-    "away_id": "6320",
-    "_fotmob_lid": 114,
-    "_page_url": "/matches/syria-vs-uzbekistan/1v61p6#6280451",
-    "start_ts": 1790863200,
-    "league_id": 114,
-    "league": "Friendlies",
-    "h2h": {
-      "teamDuel": {
-        "homeWins": 0,
-        "draws": 0,
-        "awayWins": 0
-      }
-    },
-    "pre_match_form": {
-      "homeTeam": {
-        "form": [
-          "W",
-          "L",
-          "L",
-          "D",
-          "W"
-        ],
-        "form_opps": [
-          "6711",
-          "6708",
-          "5810",
-          "5800",
-          "5889"
-        ],
-        "form_opp_ranks": [
-          null,
-          2,
-          null,
-          null,
-          null
-        ],
-        "position": null,
-        "avgRating": null,
-        "l5_gf_pm": 1.4,
-        "l5_ga_pm": 1.2,
-        "l5_goals_n": 5
-      },
-      "awayTeam": {
-        "form": [
-          "D",
-          "L",
-          "W",
-          "L",
-          "D"
-        ],
-        "form_opps": [
-          "5816",
-          "10057",
-          "95796",
-          "6262",
-          "6333"
-        ],
-        "form_opp_ranks": [
-          null,
-          3,
-          null,
-          null,
-          null
-        ],
-        "position": null,
-        "avgRating": null,
-        "l5_gf_pm": 1.4,
-        "l5_ga_pm": 1.4,
-        "l5_goals_n": 5
-      }
-    },
-    "match_odds": null,
-    "lineups_home": null,
-    "lineups_away": null,
-    "team_streaks": null,
-    "analyse": {
-      "ht_1x2": {
-        "home_pct": 30,
-        "draw_pct": 43,
-        "away_pct": 27,
-        "home_cote": 3.37,
-        "draw_cote": 2.31,
-        "away_cote": 3.71,
-        "lam_h": 0.59,
-        "lam_a": 0.55,
-        "lam_draw": 0.28
-      },
-      "ft_1x2": {
-        "home_pct": 39,
-        "draw_pct": 26,
-        "away_pct": 35,
-        "home_cote": 2.54,
-        "draw_cote": 3.88,
-        "away_cote": 2.87,
-        "lam_h": 1.4,
-        "lam_a": 1.3
-      },
-      "ht_total_buts": [
-        {
-          "label": "0 buts",
-          "pct": 32
-        },
-        {
-          "label": "1 but",
-          "pct": 36
-        },
-        {
-          "label": "2+ buts",
-          "pct": 31
-        }
-      ],
-      "ft_total_buts": [
-        {
-          "label": "0 buts",
-          "pct": 7
-        },
-        {
-          "label": "1 but",
-          "pct": 18
-        },
-        {
-          "label": "2 buts",
-          "pct": 24
-        },
-        {
-          "label": "3+ buts",
-          "pct": 50
-        }
-      ],
-      "btts": {
-        "yes": 55,
-        "no": 45
-      },
-      "league_stats": {
-        "btts": 50,
-        "ht_over_05": 75,
-        "ft_over_15": 72,
-        "ft_over_25": 50
-      },
-      "league_name": "Friendlies",
-      "top_buteurs_home": [],
-      "top_buteurs_away": [],
-      "top_passeurs_home": [],
-      "top_passeurs_away": [],
-      "value_bets": []
-    },
-    "home_season_stats": {
-      "overall": {
-        "n": 8,
-        "wins_pct": 25,
-        "draws_pct": 25,
-        "losses_pct": 50,
-        "btts_pct": 50,
-        "over_15": 75,
-        "over_25": 50,
-        "over_35": 25,
-        "under_15": 25,
-        "under_25": 50,
-        "under_35": 75,
-        "gf_pm": 1.0,
-        "ga_pm": 1.25
-      },
-      "home": {
-        "n": 6,
-        "wins_pct": 33,
-        "draws_pct": 33,
-        "losses_pct": 33,
-        "btts_pct": 50,
-        "over_15": 67,
-        "over_25": 50,
-        "over_35": 33,
-        "under_15": 33,
-        "under_25": 50,
-        "under_35": 67,
-        "gf_pm": 1.17,
-        "ga_pm": 1.0
-      },
-      "away": {
-        "n": 2,
-        "wins_pct": 0,
-        "draws_pct": 0,
-        "losses_pct": 100,
-        "btts_pct": 50,
-        "over_15": 100,
-        "over_25": 50,
-        "over_35": 0,
-        "under_15": 0,
-        "under_25": 50,
-        "under_35": 100,
-        "gf_pm": 0.5,
-        "ga_pm": 2.0
-      }
-    },
-    "away_season_stats": {
-      "overall": {
-        "n": 10,
-        "wins_pct": 60,
-        "draws_pct": 20,
-        "losses_pct": 20,
-        "btts_pct": 40,
-        "over_15": 70,
-        "over_25": 50,
-        "over_35": 40,
-        "under_15": 30,
-        "under_25": 50,
-        "under_35": 60,
-        "gf_pm": 2.3,
-        "ga_pm": 0.8
-      },
-      "home": {
-        "n": 5,
-        "wins_pct": 60,
-        "draws_pct": 40,
-        "losses_pct": 0,
-        "btts_pct": 60,
-        "over_15": 80,
-        "over_25": 40,
-        "over_35": 40,
-        "under_15": 20,
-        "under_25": 60,
-        "under_35": 60,
-        "gf_pm": 2.6,
-        "ga_pm": 0.6
-      },
-      "away": {
-        "n": 5,
-        "wins_pct": 60,
-        "draws_pct": 0,
-        "losses_pct": 40,
-        "btts_pct": 20,
-        "over_15": 60,
-        "over_25": 60,
-        "over_35": 40,
-        "under_15": 40,
-        "under_25": 40,
-        "under_35": 60,
-        "gf_pm": 2.0,
-        "ga_pm": 1.0
-      }
-    }
-  },
-  {
     "id": "6299692",
     "home": "DR Congo",
     "away": "Uganda",
@@ -2740,7 +2321,7 @@
           null,
           null,
           null,
-          1
+          2
         ],
         "position": null,
         "avgRating": null,
@@ -3583,8 +3164,8 @@
       "top_buteurs_home": [],
       "top_buteurs_away": [
         {
-          "player": "Joao Félix",
-          "pct": 27
+          "player": "Gonçalo Ramos",
+          "pct": 35
         }
       ],
       "top_passeurs_home": [],
@@ -3722,12 +3303,12 @@
         ],
         "form_opp_ranks": [
           1,
-          2,
+          3,
           null,
           2,
           null
         ],
-        "position": 3,
+        "position": 2,
         "avgRating": null,
         "l5_gf_pm": 1.8,
         "l5_ga_pm": 0.8,
@@ -3749,7 +3330,7 @@
           "7795"
         ],
         "form_opp_ranks": [
-          2,
+          3,
           1,
           null,
           null,
@@ -3967,7 +3548,7 @@
           "8565"
         ],
         "form_opp_ranks": [
-          3,
+          2,
           4,
           3,
           1,
@@ -3996,12 +3577,12 @@
         ],
         "form_opp_ranks": [
           4,
-          3,
+          2,
           null,
           null,
           null
         ],
-        "position": 2,
+        "position": 3,
         "avgRating": null,
         "l5_gf_pm": 1.2,
         "l5_ga_pm": 1.0,
@@ -4081,7 +3662,7 @@
       "top_buteurs_away": [
         {
           "player": "Mexx Meerdink",
-          "pct": 44
+          "pct": 45
         }
       ],
       "top_passeurs_home": [],
@@ -4332,7 +3913,7 @@
       "top_buteurs_away": [
         {
           "player": "Erling Haaland",
-          "pct": 35
+          "pct": 34
         }
       ],
       "top_passeurs_home": [],
@@ -4962,12 +4543,12 @@
         ],
         "form_opp_ranks": [
           4,
-          2,
+          3,
           null,
           null,
           null
         ],
-        "position": 3,
+        "position": 1,
         "avgRating": null,
         "l5_gf_pm": 2.0,
         "l5_ga_pm": 0.4,
@@ -4989,13 +4570,13 @@
           "6714"
         ],
         "form_opp_ranks": [
-          2,
+          3,
           4,
           null,
           null,
           null
         ],
-        "position": 1,
+        "position": 2,
         "avgRating": null,
         "l5_gf_pm": 2.6,
         "l5_ga_pm": 0.6,
@@ -5071,7 +4652,12 @@
         "ft_over_25": 50
       },
       "league_name": "UEFA Nations League B",
-      "top_buteurs_home": [],
+      "top_buteurs_home": [
+        {
+          "player": "Troy Parrott",
+          "pct": 31
+        }
+      ],
       "top_buteurs_away": [],
       "top_passeurs_home": [],
       "top_passeurs_away": [],
@@ -5207,8 +4793,8 @@
           "5794"
         ],
         "form_opp_ranks": [
-          3,
           1,
+          2,
           1,
           3,
           4
@@ -5235,13 +4821,13 @@
           "6595"
         ],
         "form_opp_ranks": [
+          2,
           1,
-          3,
           3,
           4,
           4
         ],
-        "position": 2,
+        "position": 3,
         "avgRating": null,
         "l5_gf_pm": 1.2,
         "l5_ga_pm": 1.2,
@@ -5485,7 +5071,7 @@
           4,
           1,
           null,
-          2
+          3
         ],
         "position": 1,
         "avgRating": null,
@@ -7393,252 +6979,6 @@
         "under_35": 50,
         "gf_pm": 0.0,
         "ga_pm": 4.0
-      }
-    }
-  },
-  {
-    "id": "5181882",
-    "home": "Azerbaijan",
-    "away": "Liechtenstein",
-    "home_id": "8566",
-    "away_id": "5799",
-    "_fotmob_lid": 9809,
-    "_page_url": "/matches/liechtenstein-vs-azerbaijan/1pfrqh#5181882",
-    "start_ts": 1790870400,
-    "league_id": 9809,
-    "league": "UEFA Nations League D",
-    "h2h": {
-      "teamDuel": {
-        "homeWins": 0,
-        "draws": 0,
-        "awayWins": 0
-      }
-    },
-    "pre_match_form": {
-      "homeTeam": {
-        "form": [
-          "D",
-          "W",
-          "W",
-          "L",
-          "D"
-        ],
-        "form_opps": [
-          "8254",
-          "5898",
-          "6035",
-          "8495",
-          "5803"
-        ],
-        "form_opp_ranks": [
-          1,
-          null,
-          4,
-          1,
-          null
-        ],
-        "position": 2,
-        "avgRating": null,
-        "l5_gf_pm": 1.0,
-        "l5_ga_pm": 1.0,
-        "l5_goals_n": 5
-      },
-      "awayTeam": {
-        "form": [
-          "L",
-          "L",
-          "L",
-          "L",
-          "L"
-        ],
-        "form_opps": [
-          "8495",
-          "8254",
-          "5793",
-          "10045",
-          "262131"
-        ],
-        "form_opp_ranks": [
-          1,
-          1,
-          3,
-          3,
-          null
-        ],
-        "position": 3,
-        "avgRating": null,
-        "l5_gf_pm": 0.2,
-        "l5_ga_pm": 2.4,
-        "l5_goals_n": 5
-      }
-    },
-    "match_odds": null,
-    "lineups_home": null,
-    "lineups_away": null,
-    "team_streaks": null,
-    "analyse": {
-      "ht_1x2": {
-        "home_pct": 43,
-        "draw_pct": 45,
-        "away_pct": 12,
-        "home_cote": 2.33,
-        "draw_cote": 2.21,
-        "away_cote": 8.42,
-        "lam_h": 0.71,
-        "lam_a": 0.25,
-        "lam_draw": 0.19
-      },
-      "ft_1x2": {
-        "home_pct": 64,
-        "draw_pct": 23,
-        "away_pct": 13,
-        "home_cote": 1.56,
-        "draw_cote": 4.31,
-        "away_cote": 7.88,
-        "lam_h": 1.7,
-        "lam_a": 0.6
-      },
-      "ht_total_buts": [
-        {
-          "label": "0 buts",
-          "pct": 38
-        },
-        {
-          "label": "1 but",
-          "pct": 37
-        },
-        {
-          "label": "2+ buts",
-          "pct": 25
-        }
-      ],
-      "ft_total_buts": [
-        {
-          "label": "0 buts",
-          "pct": 10
-        },
-        {
-          "label": "1 but",
-          "pct": 23
-        },
-        {
-          "label": "2 buts",
-          "pct": 27
-        },
-        {
-          "label": "3+ buts",
-          "pct": 40
-        }
-      ],
-      "btts": {
-        "yes": 37,
-        "no": 63
-      },
-      "league_stats": {
-        "btts": 50,
-        "ht_over_05": 75,
-        "ft_over_15": 72,
-        "ft_over_25": 50
-      },
-      "league_name": "UEFA Nations League D",
-      "top_buteurs_home": [],
-      "top_buteurs_away": [],
-      "top_passeurs_home": [],
-      "top_passeurs_away": [],
-      "value_bets": []
-    },
-    "home_season_stats": {
-      "overall": {
-        "n": 8,
-        "wins_pct": 25,
-        "draws_pct": 12,
-        "losses_pct": 62,
-        "btts_pct": 62,
-        "over_15": 100,
-        "over_25": 62,
-        "over_35": 25,
-        "under_15": 0,
-        "under_25": 38,
-        "under_35": 75,
-        "gf_pm": 1.38,
-        "ga_pm": 1.88
-      },
-      "home": {
-        "n": 6,
-        "wins_pct": 33,
-        "draws_pct": 17,
-        "losses_pct": 50,
-        "btts_pct": 67,
-        "over_15": 100,
-        "over_25": 50,
-        "over_35": 33,
-        "under_15": 0,
-        "under_25": 50,
-        "under_35": 67,
-        "gf_pm": 1.67,
-        "ga_pm": 1.67
-      },
-      "away": {
-        "n": 2,
-        "wins_pct": 0,
-        "draws_pct": 0,
-        "losses_pct": 100,
-        "btts_pct": 50,
-        "over_15": 100,
-        "over_25": 100,
-        "over_35": 0,
-        "under_15": 0,
-        "under_25": 0,
-        "under_35": 100,
-        "gf_pm": 0.5,
-        "ga_pm": 2.5
-      }
-    },
-    "away_season_stats": {
-      "overall": {
-        "n": 8,
-        "wins_pct": 12,
-        "draws_pct": 0,
-        "losses_pct": 88,
-        "btts_pct": 25,
-        "over_15": 75,
-        "over_25": 50,
-        "over_35": 38,
-        "under_15": 25,
-        "under_25": 50,
-        "under_35": 62,
-        "gf_pm": 0.38,
-        "ga_pm": 2.75
-      },
-      "home": {
-        "n": 2,
-        "wins_pct": 0,
-        "draws_pct": 0,
-        "losses_pct": 100,
-        "btts_pct": 0,
-        "over_15": 50,
-        "over_25": 0,
-        "over_35": 0,
-        "under_15": 50,
-        "under_25": 100,
-        "under_35": 100,
-        "gf_pm": 0.0,
-        "ga_pm": 1.5
-      },
-      "away": {
-        "n": 6,
-        "wins_pct": 17,
-        "draws_pct": 0,
-        "losses_pct": 83,
-        "btts_pct": 33,
-        "over_15": 83,
-        "over_25": 67,
-        "over_35": 50,
-        "under_15": 17,
-        "under_25": 33,
-        "under_35": 50,
-        "gf_pm": 0.5,
-        "ga_pm": 3.17
       }
     }
   },

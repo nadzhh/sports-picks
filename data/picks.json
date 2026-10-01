@@ -32,7 +32,7 @@
         "direction": "home_win",
         "type": "Favori net",
         "label": "Seattle Sounders FC gagne",
-        "cote": null,
+        "cote": 1.51,
         "confidence": 71,
         "reasoning": "15 places d'écart au classement (#15 vs #30) · 2V/3N/0D sur 5 matchs · Note Sofa: 6.5/10\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
         "stats": {
@@ -47,6 +47,7 @@
         "is_fun": false,
         "tier": "safe",
         "calibration_delta": -11.3,
+        "edge_pp": 4.8,
         "history_top3": true
       }
     ],
@@ -344,19 +345,19 @@
     "home_players": [],
     "away_players": [
       {
-        "player": "Joao Félix",
+        "player": "Gonçalo Ramos",
         "position": "F",
         "is_sub": false,
         "type": "Buteur",
-        "label": "Joao Félix marque",
+        "label": "Gonçalo Ramos marque",
         "team": "away",
         "cote": null,
         "book": null,
         "books": [],
-        "confidence": 27,
-        "reasoning": "2G en 5 matchs (40.0%/match) · xG: 0.08/match",
+        "confidence": 35,
+        "reasoning": "2G en 5 matchs (40.0%/match) · xG: 0.26/match",
         "context": {
-          "weakness": 0.26
+          "weakness": 0.28
         },
         "stats": {
           "goals": 2,
@@ -409,83 +410,6 @@
         "summary_fr": "☁️ couvert · 14–19°C · humidité 63%"
       },
       "text": "Conditions : ☁️ couvert · 14–19°C · humidité 63%. Stade : Parken · 38 065 places · plein air."
-    }
-  },
-  {
-    "league": "UEFA Nations League B",
-    "home": "Ireland",
-    "away": "Austria",
-    "start_ts": 1790880300,
-    "match_id": "5181817",
-    "page_url": "/matches/ireland-vs-austria/1mqmsw#5181817",
-    "picks": [
-      {
-        "direction": "away_win",
-        "type": "Victoire extérieur",
-        "label": "Austria gagne",
-        "cote": null,
-        "confidence": 81,
-        "reasoning": "Austria : 5V/0N/0D sur 5 matchs · #1 au classement · H2H: 0V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 80-89% historiquement à WR 56% (claim 82%, n=63) — sur-estimé de 26pp",
-        "stats": {
-          "form": [
-            "W",
-            "W",
-            "W",
-            "W",
-            "W"
-          ]
-        },
-        "is_fun": false,
-        "tier": "safe",
-        "calibration_delta": -26.0,
-        "history_top3": true
-      }
-    ],
-    "home_players": [],
-    "away_players": [],
-    "fun_picks": [],
-    "top_pick": {
-      "direction": "away_win",
-      "type": "Victoire extérieur",
-      "label": "Austria gagne",
-      "cote": null,
-      "confidence": 81,
-      "reasoning": "Austria : 5V/0N/0D sur 5 matchs · #1 au classement · H2H: 0V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 80-89% historiquement à WR 56% (claim 82%, n=63) — sur-estimé de 26pp",
-      "stats": {
-        "form": [
-          "W",
-          "W",
-          "W",
-          "W",
-          "W"
-        ]
-      },
-      "is_fun": false,
-      "tier": "safe",
-      "calibration_delta": -26.0,
-      "history_top3": true
-    },
-    "no_picks": false,
-    "context": {
-      "stadium": {
-        "name": "Aviva Stadium",
-        "city": "Dublin",
-        "country": "Ireland",
-        "lat": 53.335127142,
-        "lon": -6.22829318,
-        "capacity": 55359,
-        "surface": "grass"
-      },
-      "weather": {
-        "temp_max": 17.6,
-        "temp_min": 11.5,
-        "humidity": 53,
-        "precipitation_sum_mm": 0.0,
-        "wind_max_kmh": 19.1,
-        "weather_code": 3,
-        "summary_fr": "☁️ couvert · 11–17°C · humidité 53%"
-      },
-      "text": "Conditions : ☁️ couvert · 11–17°C · humidité 53%. Stade : Aviva Stadium · 55 359 places · plein air."
     }
   },
   {
@@ -606,6 +530,106 @@
       },
       "weather": null,
       "text": "Stade : TBC (South Africa) · plein air."
+    }
+  },
+  {
+    "league": "UEFA Nations League B",
+    "home": "Ireland",
+    "away": "Austria",
+    "start_ts": 1790880300,
+    "match_id": "5181817",
+    "page_url": "/matches/ireland-vs-austria/1mqmsw#5181817",
+    "picks": [
+      {
+        "direction": "away_win",
+        "type": "Victoire extérieur",
+        "label": "Austria gagne",
+        "cote": null,
+        "confidence": 80,
+        "reasoning": "Austria : 5V/0N/0D sur 5 matchs · #2 au classement · H2H: 0V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 80-89% historiquement à WR 56% (claim 82%, n=63) — sur-estimé de 26pp",
+        "stats": {
+          "form": [
+            "W",
+            "W",
+            "W",
+            "W",
+            "W"
+          ]
+        },
+        "is_fun": false,
+        "tier": "safe",
+        "calibration_delta": -26.0,
+        "history_top3": true
+      }
+    ],
+    "home_players": [
+      {
+        "player": "Troy Parrott",
+        "position": "F",
+        "is_sub": false,
+        "type": "Buteur",
+        "label": "Troy Parrott marque",
+        "team": "home",
+        "cote": null,
+        "book": null,
+        "books": [],
+        "confidence": 31,
+        "reasoning": "3G en 8 matchs (37.5%/match) · xG: 0.21/match",
+        "context": {
+          "weakness": 0.22
+        },
+        "stats": {
+          "goals": 3,
+          "apps": 8
+        },
+        "tier": "fun",
+        "history_top3": true
+      }
+    ],
+    "away_players": [],
+    "fun_picks": [],
+    "top_pick": {
+      "direction": "away_win",
+      "type": "Victoire extérieur",
+      "label": "Austria gagne",
+      "cote": null,
+      "confidence": 80,
+      "reasoning": "Austria : 5V/0N/0D sur 5 matchs · #2 au classement · H2H: 0V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 80-89% historiquement à WR 56% (claim 82%, n=63) — sur-estimé de 26pp",
+      "stats": {
+        "form": [
+          "W",
+          "W",
+          "W",
+          "W",
+          "W"
+        ]
+      },
+      "is_fun": false,
+      "tier": "safe",
+      "calibration_delta": -26.0,
+      "history_top3": true
+    },
+    "no_picks": false,
+    "context": {
+      "stadium": {
+        "name": "Aviva Stadium",
+        "city": "Dublin",
+        "country": "Ireland",
+        "lat": 53.335127142,
+        "lon": -6.22829318,
+        "capacity": 55359,
+        "surface": "grass"
+      },
+      "weather": {
+        "temp_max": 17.6,
+        "temp_min": 11.5,
+        "humidity": 53,
+        "precipitation_sum_mm": 0.0,
+        "wind_max_kmh": 19.1,
+        "weather_code": 3,
+        "summary_fr": "☁️ couvert · 11–17°C · humidité 53%"
+      },
+      "text": "Conditions : ☁️ couvert · 11–17°C · humidité 53%. Stade : Aviva Stadium · 55 359 places · plein air."
     }
   },
   {
@@ -755,104 +779,6 @@
         "summary_fr": "🌧️ bruine dense · 7–11°C · humidité 79% · précipitations 3.4mm"
       },
       "text": "Conditions : 🌧️ bruine dense · 7–11°C · humidité 79% · précipitations 3.4mm. Stade : Tórsvøllur · 6 040 places · plein air. ⚠️ Vent fort prévu : jeu aérien moins fiable, balles longues imprévisibles."
-    }
-  },
-  {
-    "league": "Friendlies",
-    "home": "Uzbekistan",
-    "away": "Syria",
-    "start_ts": 1790863200,
-    "match_id": "6280451",
-    "page_url": "/matches/syria-vs-uzbekistan/1v61p6#6280451",
-    "picks": [
-      {
-        "direction": "home_win",
-        "type": "Forme superieure",
-        "label": "Uzbekistan gagne",
-        "cote": null,
-        "confidence": 72,
-        "reasoning": "Uzbekistan : 2V/1N/2D sur 5 matchs vs Syria : 1V/2N/2D sur 5 matchs (L5 TCC · ecart de tier FIFA 3vs4)\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
-        "stats": {
-          "form": [
-            "W",
-            "L",
-            "L",
-            "D",
-            "W"
-          ]
-        },
-        "is_fun": false,
-        "tier": "safe",
-        "calibration_delta": -11.3,
-        "history_top3": true
-      },
-      {
-        "direction": "home_over_15",
-        "type": "Buteur equipe",
-        "label": "Uzbekistan marque plus de 1.5 buts",
-        "cote": null,
-        "confidence": 55,
-        "reasoning": "Uzbekistan attendu a ~1.7 buts (marque 1.4/m sur L5, Syria encaisse 1.4/m) - P(2+ buts) ~50%\n📉 Calibration : bucket 50-59% historiquement à WR 42% (claim 55%, n=41) — sur-estimé de 14pp",
-        "stats": {
-          "form": [
-            "W",
-            "L",
-            "L",
-            "D",
-            "W"
-          ]
-        },
-        "is_fun": false,
-        "tier": "ok",
-        "calibration_delta": -13.6,
-        "history_top3": true
-      }
-    ],
-    "home_players": [],
-    "away_players": [],
-    "fun_picks": [],
-    "top_pick": {
-      "direction": "home_win",
-      "type": "Forme superieure",
-      "label": "Uzbekistan gagne",
-      "cote": null,
-      "confidence": 72,
-      "reasoning": "Uzbekistan : 2V/1N/2D sur 5 matchs vs Syria : 1V/2N/2D sur 5 matchs (L5 TCC · ecart de tier FIFA 3vs4)\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
-      "stats": {
-        "form": [
-          "W",
-          "L",
-          "L",
-          "D",
-          "W"
-        ]
-      },
-      "is_fun": false,
-      "tier": "safe",
-      "calibration_delta": -11.3,
-      "history_top3": true
-    },
-    "no_picks": false,
-    "context": {
-      "stadium": {
-        "name": "Paxtakor Markaziy stadioni",
-        "city": "Toshkent (Tashkent)",
-        "country": "Uzbekistan",
-        "lat": 41.315469643,
-        "lon": 69.260269403,
-        "capacity": 35000,
-        "surface": "grass"
-      },
-      "weather": {
-        "temp_max": 23.8,
-        "temp_min": 14.6,
-        "humidity": 60,
-        "precipitation_sum_mm": 4.4,
-        "wind_max_kmh": 16.8,
-        "weather_code": 80,
-        "summary_fr": "🌦️ averses légères · 14–23°C · humidité 60% · précipitations 4.4mm"
-      },
-      "text": "Conditions : 🌦️ averses légères · 14–23°C · humidité 60% · précipitations 4.4mm. Stade : Paxtakor Markaziy stadioni · 35 000 places · plein air."
     }
   },
   {
@@ -1363,6 +1289,83 @@
   },
   {
     "league": "UEFA Nations League A",
+    "home": "Germany",
+    "away": "Serbia",
+    "start_ts": 1790880300,
+    "match_id": "5181829",
+    "page_url": "/matches/serbia-vs-germany/2bs252#5181829",
+    "picks": [
+      {
+        "direction": "home_win",
+        "type": "Victoire domicile",
+        "label": "Germany gagne",
+        "cote": null,
+        "confidence": 62,
+        "reasoning": "Germany : 3V/1N/1D sur 5 matchs · #2 au classement · H2H: 0V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
+        "stats": {
+          "form": [
+            "L",
+            "D",
+            "W",
+            "W",
+            "W"
+          ]
+        },
+        "is_fun": false,
+        "tier": "ok",
+        "calibration_delta": -25.4,
+        "history_top3": true
+      }
+    ],
+    "home_players": [],
+    "away_players": [],
+    "fun_picks": [],
+    "top_pick": {
+      "direction": "home_win",
+      "type": "Victoire domicile",
+      "label": "Germany gagne",
+      "cote": null,
+      "confidence": 62,
+      "reasoning": "Germany : 3V/1N/1D sur 5 matchs · #2 au classement · H2H: 0V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
+      "stats": {
+        "form": [
+          "L",
+          "D",
+          "W",
+          "W",
+          "W"
+        ]
+      },
+      "is_fun": false,
+      "tier": "ok",
+      "calibration_delta": -25.4,
+      "history_top3": true
+    },
+    "no_picks": false,
+    "context": {
+      "stadium": {
+        "name": "Allianz Arena",
+        "city": "München",
+        "country": "Germany",
+        "lat": 48.218779054,
+        "lon": 11.624743491,
+        "capacity": 75024,
+        "surface": "grass"
+      },
+      "weather": {
+        "temp_max": 23.8,
+        "temp_min": 7.1,
+        "humidity": 58,
+        "precipitation_sum_mm": 0.0,
+        "wind_max_kmh": 12.4,
+        "weather_code": 45,
+        "summary_fr": "🌫️ brouillard · 7–23°C · humidité 58%"
+      },
+      "text": "Conditions : 🌫️ brouillard · 7–23°C · humidité 58%. Stade : Allianz Arena · 75 024 places · plein air."
+    }
+  },
+  {
+    "league": "UEFA Nations League A",
     "home": "Belgium",
     "away": "Turkiye",
     "start_ts": 1790966700,
@@ -1516,83 +1519,6 @@
     }
   },
   {
-    "league": "UEFA Nations League A",
-    "home": "Germany",
-    "away": "Serbia",
-    "start_ts": 1790880300,
-    "match_id": "5181829",
-    "page_url": "/matches/serbia-vs-germany/2bs252#5181829",
-    "picks": [
-      {
-        "direction": "home_win",
-        "type": "Victoire domicile",
-        "label": "Germany gagne",
-        "cote": null,
-        "confidence": 61,
-        "reasoning": "Germany : 3V/1N/1D sur 5 matchs · #3 au classement · H2H: 0V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
-        "stats": {
-          "form": [
-            "L",
-            "D",
-            "W",
-            "W",
-            "W"
-          ]
-        },
-        "is_fun": false,
-        "tier": "ok",
-        "calibration_delta": -25.4,
-        "history_top3": true
-      }
-    ],
-    "home_players": [],
-    "away_players": [],
-    "fun_picks": [],
-    "top_pick": {
-      "direction": "home_win",
-      "type": "Victoire domicile",
-      "label": "Germany gagne",
-      "cote": null,
-      "confidence": 61,
-      "reasoning": "Germany : 3V/1N/1D sur 5 matchs · #3 au classement · H2H: 0V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
-      "stats": {
-        "form": [
-          "L",
-          "D",
-          "W",
-          "W",
-          "W"
-        ]
-      },
-      "is_fun": false,
-      "tier": "ok",
-      "calibration_delta": -25.4,
-      "history_top3": true
-    },
-    "no_picks": false,
-    "context": {
-      "stadium": {
-        "name": "Allianz Arena",
-        "city": "München",
-        "country": "Germany",
-        "lat": 48.218779054,
-        "lon": 11.624743491,
-        "capacity": 75024,
-        "surface": "grass"
-      },
-      "weather": {
-        "temp_max": 23.8,
-        "temp_min": 7.1,
-        "humidity": 58,
-        "precipitation_sum_mm": 0.0,
-        "wind_max_kmh": 12.4,
-        "weather_code": 45,
-        "summary_fr": "🌫️ brouillard · 7–23°C · humidité 58%"
-      },
-      "text": "Conditions : 🌫️ brouillard · 7–23°C · humidité 58%. Stade : Allianz Arena · 75 024 places · plein air."
-    }
-  },
-  {
     "league": "UEFA Nations League D",
     "home": "Malta",
     "away": "Gibraltar",
@@ -1689,10 +1615,10 @@
         "cote": null,
         "book": null,
         "books": [],
-        "confidence": 44,
+        "confidence": 45,
         "reasoning": "2G en 5 matchs (40.0%/match) · xG: 0.50/match\n📉 Calibration : bucket 40-49% historiquement à WR 25% (claim 44%, n=36) — sur-estimé de 19pp",
         "context": {
-          "weakness": 0.27
+          "weakness": 0.3
         },
         "stats": {
           "goals": 2,
@@ -1714,10 +1640,10 @@
       "cote": null,
       "book": null,
       "books": [],
-      "confidence": 44,
+      "confidence": 45,
       "reasoning": "2G en 5 matchs (40.0%/match) · xG: 0.50/match\n📉 Calibration : bucket 40-49% historiquement à WR 25% (claim 44%, n=36) — sur-estimé de 19pp",
       "context": {
-        "weakness": 0.27
+        "weakness": 0.3
       },
       "stats": {
         "goals": 2,
@@ -1770,10 +1696,10 @@
         "cote": null,
         "book": null,
         "books": [],
-        "confidence": 35,
+        "confidence": 34,
         "reasoning": "3G en 8 matchs (37.5%/match) · xG: 0.24/match",
         "context": {
-          "weakness": 0.43
+          "weakness": 0.4
         },
         "stats": {
           "goals": 3,
@@ -1794,10 +1720,10 @@
       "cote": null,
       "book": null,
       "books": [],
-      "confidence": 35,
+      "confidence": 34,
       "reasoning": "3G en 8 matchs (37.5%/match) · xG: 0.24/match",
       "context": {
-        "weakness": 0.43
+        "weakness": 0.4
       },
       "stats": {
         "goals": 3,
@@ -1999,41 +1925,6 @@
   },
   {
     "league": "Friendlies",
-    "home": "Maldives",
-    "away": "Lebanon",
-    "start_ts": 1790863200,
-    "match_id": "6280450",
-    "page_url": "/matches/lebanon-vs-maldives/15fftp#6280450",
-    "picks": [],
-    "home_players": [],
-    "away_players": [],
-    "fun_picks": [],
-    "top_pick": null,
-    "no_picks": true,
-    "context": {
-      "stadium": {
-        "name": "Stadion im. Dolena Omurzakova",
-        "city": "Bishkek",
-        "country": "Kyrgyzstan",
-        "lat": 42.880193926,
-        "lon": 74.597961903,
-        "capacity": 23000,
-        "surface": "grass"
-      },
-      "weather": {
-        "temp_max": 22.7,
-        "temp_min": 14.7,
-        "humidity": 42,
-        "precipitation_sum_mm": 0.0,
-        "wind_max_kmh": 23.2,
-        "weather_code": 3,
-        "summary_fr": "☁️ couvert · 14–22°C · humidité 42%"
-      },
-      "text": "Conditions : ☁️ couvert · 14–22°C · humidité 42%. Stade : Stadion im. Dolena Omurzakova · 23 000 places · plein air."
-    }
-  },
-  {
-    "league": "Friendlies",
     "home": "China",
     "away": "Palestine",
     "start_ts": 1790940900,
@@ -2080,7 +1971,27 @@
     "fun_picks": [],
     "top_pick": null,
     "no_picks": true,
-    "context": null
+    "context": {
+      "stadium": {
+        "name": "National Sports Complex Pitch 1",
+        "city": "Saint Pierre",
+        "country": "Mauritius",
+        "lat": -20.242451456,
+        "lon": 57.544244725,
+        "capacity": 10000,
+        "surface": "artificial turf"
+      },
+      "weather": {
+        "temp_max": 24.9,
+        "temp_min": 16.3,
+        "humidity": 61,
+        "precipitation_sum_mm": 0.0,
+        "wind_max_kmh": 17.5,
+        "weather_code": 3,
+        "summary_fr": "☁️ couvert · 16–24°C · humidité 61%"
+      },
+      "text": "Conditions : ☁️ couvert · 16–24°C · humidité 61%. Stade : National Sports Complex Pitch 1 · 10 000 places · plein air."
+    }
   },
   {
     "league": "UEFA Nations League B",
@@ -2255,41 +2166,6 @@
         "summary_fr": "⛈️ orage · 15–24°C · humidité 71% · précipitations 2.5mm"
       },
       "text": "Conditions : ⛈️ orage · 15–24°C · humidité 71% · précipitations 2.5mm. Stade : Neo GSP · 22 859 places · plein air."
-    }
-  },
-  {
-    "league": "UEFA Nations League D",
-    "home": "Azerbaijan",
-    "away": "Liechtenstein",
-    "start_ts": 1790870400,
-    "match_id": "5181882",
-    "page_url": "/matches/liechtenstein-vs-azerbaijan/1pfrqh#5181882",
-    "picks": [],
-    "home_players": [],
-    "away_players": [],
-    "fun_picks": [],
-    "top_pick": null,
-    "no_picks": true,
-    "context": {
-      "stadium": {
-        "name": "Tofiq Bəhramov adına Respublika stadionu",
-        "city": "Baku",
-        "country": "Azerbaijan",
-        "lat": 40.397340345,
-        "lon": 49.852400422,
-        "capacity": 31850,
-        "surface": "grass"
-      },
-      "weather": {
-        "temp_max": 22.9,
-        "temp_min": 17.7,
-        "humidity": 48,
-        "precipitation_sum_mm": 0.0,
-        "wind_max_kmh": 12.2,
-        "weather_code": 3,
-        "summary_fr": "☁️ couvert · 17–22°C · humidité 48%"
-      },
-      "text": "Conditions : ☁️ couvert · 17–22°C · humidité 48%. Stade : Tofiq Bəhramov adına Respublika stadionu · 31 850 places · plein air."
     }
   }
 ]
