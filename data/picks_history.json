@@ -62256,6 +62256,104 @@
       "side": "home"
     },
     {
+      "direction": "home_win",
+      "type": "Forme superieure",
+      "label": "South Korea gagne",
+      "cote": null,
+      "confidence": 76,
+      "reasoning": "South Korea : 3V/1N/1D sur 5 matchs vs Uzbekistan : 2V/1N/2D sur 5 matchs (L5 TCC · ecart de tier FIFA 2vs3)\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+      "stats": {
+        "form": [
+          "D",
+          "L",
+          "W",
+          "W",
+          "W"
+        ]
+      },
+      "is_fun": false,
+      "tier": "safe",
+      "calibration_delta": -11.3,
+      "history_top3": true,
+      "id": "2026-10-06_6368651_team_home_win",
+      "date": "2026-10-06",
+      "match_id": "6368651",
+      "page_url": "/matches/south-korea-vs-uzbekistan/293eqg#6368651",
+      "matchup": "South Korea vs Uzbekistan",
+      "league": "Friendlies",
+      "category": "team",
+      "result": "WIN",
+      "actual": "2-0",
+      "resolved_at": "2026-10-06 16:11"
+    },
+    {
+      "direction": "home_over_15",
+      "type": "Buteur equipe",
+      "label": "South Korea marque plus de 1.5 buts",
+      "cote": null,
+      "confidence": 70,
+      "reasoning": "South Korea attendu a ~2.2 buts (marque 2.0/m sur L5, Uzbekistan encaisse 1.2/m) - P(2+ buts) ~65%\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+      "stats": {
+        "form": [
+          "D",
+          "L",
+          "W",
+          "W",
+          "W"
+        ]
+      },
+      "is_fun": false,
+      "tier": "safe",
+      "calibration_delta": -11.3,
+      "history_top3": true,
+      "id": "2026-10-06_6368651_team_home_over_15",
+      "date": "2026-10-06",
+      "match_id": "6368651",
+      "page_url": "/matches/south-korea-vs-uzbekistan/293eqg#6368651",
+      "matchup": "South Korea vs Uzbekistan",
+      "league": "Friendlies",
+      "category": "team",
+      "result": "WIN",
+      "actual": "2-0 (2 buts home)",
+      "resolved_at": "2026-10-06 16:11"
+    },
+    {
+      "player": "Adrian Justinussen",
+      "position": "M",
+      "is_sub": false,
+      "type": "Buteur",
+      "label": "Adrian Justinussen marque",
+      "team": "away",
+      "cote": null,
+      "book": null,
+      "books": [],
+      "confidence": 24,
+      "reasoning": "1G en 3 matchs (33.3%/match) · xG: 0.13/match",
+      "context": {
+        "weakness": 0.33
+      },
+      "stats": {
+        "goals": 1,
+        "apps": 3
+      },
+      "tier": "fun",
+      "history_top3": true,
+      "id": "2026-10-06_5181939_player_Adrian Justinussen_Buteur",
+      "date": "2026-10-06",
+      "match_id": "5181939",
+      "page_url": "/matches/kazakhstan-vs-faroe-islands/29e0sq#5181939",
+      "matchup": "Kazakhstan vs Faroe Islands",
+      "league": "UEFA Nations League C",
+      "category": "player",
+      "result": "LOSS",
+      "actual": {
+        "goals": 0,
+        "assists": 0
+      },
+      "resolved_at": "2026-10-06 16:11",
+      "side": "away"
+    },
+    {
       "direction": "away_win",
       "type": "Forme superieure",
       "label": "Uruguay gagne",
@@ -62377,6 +62475,46 @@
       "calibration_delta": -13.6,
       "history_top3": true,
       "id": "2026-10-06_6162940_player_Darwin Núñez_Buteur",
+      "date": "2026-10-06",
+      "match_id": "6162940",
+      "page_url": "/matches/uruguay-vs-india/17rsjw#6162940",
+      "matchup": "India vs Uruguay",
+      "league": "Friendlies",
+      "category": "player",
+      "result": "PENDING",
+      "actual": null,
+      "resolved_at": null,
+      "side": "away"
+    },
+    {
+      "player": "Rodrigo Zalazar",
+      "position": "F",
+      "is_sub": false,
+      "type": "Buteur",
+      "label": "Rodrigo Zalazar marque",
+      "cote": null,
+      "cote_min": 1.94,
+      "book": null,
+      "books": [],
+      "confidence": 52,
+      "reasoning": "Rodrigo Zalazar : selection 17G/31m (0.55/m) · L10 club : 2G/10m | titu nat (72min/m) · last match 16min (0G+0A). λ ajusté à 0.72 (Uruguay attendu 2.4 buts) → P(marque) ~52%.\n📉 Calibration : bucket 50-59% historiquement à WR 42% (claim 55%, n=41) — sur-estimé de 14pp",
+      "context": {
+        "source": "lineup",
+        "lam": 0.72,
+        "lineup_status": "confirmed"
+      },
+      "stats": {
+        "goals": null,
+        "apps": null,
+        "gpm": 0.724,
+        "xgpm": null
+      },
+      "team": "away",
+      "lineup_status": "confirmed",
+      "tier": "fun",
+      "calibration_delta": -13.6,
+      "history_top3": true,
+      "id": "2026-10-06_6162940_player_Rodrigo Zalazar_Buteur",
       "date": "2026-10-06",
       "match_id": "6162940",
       "page_url": "/matches/uruguay-vs-india/17rsjw#6162940",
@@ -63134,68 +63272,6 @@
       "side": "home"
     },
     {
-      "direction": "home_win",
-      "type": "Forme superieure",
-      "label": "South Korea gagne",
-      "cote": null,
-      "confidence": 76,
-      "reasoning": "South Korea : 3V/1N/1D sur 5 matchs vs Uzbekistan : 2V/1N/2D sur 5 matchs (L5 TCC · ecart de tier FIFA 2vs3)\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
-      "stats": {
-        "form": [
-          "D",
-          "L",
-          "W",
-          "W",
-          "W"
-        ]
-      },
-      "is_fun": false,
-      "tier": "safe",
-      "calibration_delta": -11.3,
-      "history_top3": true,
-      "id": "2026-10-06_6368651_team_home_win",
-      "date": "2026-10-06",
-      "match_id": "6368651",
-      "page_url": "/matches/south-korea-vs-uzbekistan/293eqg#6368651",
-      "matchup": "South Korea vs Uzbekistan",
-      "league": "Friendlies",
-      "category": "team",
-      "result": "PENDING",
-      "actual": null,
-      "resolved_at": null
-    },
-    {
-      "direction": "home_over_15",
-      "type": "Buteur equipe",
-      "label": "South Korea marque plus de 1.5 buts",
-      "cote": null,
-      "confidence": 70,
-      "reasoning": "South Korea attendu a ~2.2 buts (marque 2.0/m sur L5, Uzbekistan encaisse 1.2/m) - P(2+ buts) ~65%\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
-      "stats": {
-        "form": [
-          "D",
-          "L",
-          "W",
-          "W",
-          "W"
-        ]
-      },
-      "is_fun": false,
-      "tier": "safe",
-      "calibration_delta": -11.3,
-      "history_top3": true,
-      "id": "2026-10-06_6368651_team_home_over_15",
-      "date": "2026-10-06",
-      "match_id": "6368651",
-      "page_url": "/matches/south-korea-vs-uzbekistan/293eqg#6368651",
-      "matchup": "South Korea vs Uzbekistan",
-      "league": "Friendlies",
-      "category": "team",
-      "result": "PENDING",
-      "actual": null,
-      "resolved_at": null
-    },
-    {
       "direction": "away_win",
       "type": "Victoire extérieur",
       "label": "Slovakia gagne",
@@ -63239,7 +63315,7 @@
       "confidence": 35,
       "reasoning": "1G en 3 matchs (33.3%/match) · xG: 0.33/match",
       "context": {
-        "weakness": 0.26
+        "weakness": 0.28
       },
       "stats": {
         "goals": 1,
@@ -63693,6 +63769,45 @@
       "side": "home"
     },
     {
+      "player": "Aleksey Batrakov",
+      "position": "F",
+      "is_sub": false,
+      "type": "Passeur",
+      "label": "Aleksey Batrakov délivre une passe décisive",
+      "cote": null,
+      "cote_min": 2.73,
+      "book": null,
+      "books": [],
+      "confidence": 37,
+      "reasoning": "Aleksey Batrakov délivre une passe décisive : selection 9A/26m (0.35 passes/m nat). P(passe décisive) ~37%.",
+      "context": {
+        "source": "lineup",
+        "lam": 0.46,
+        "lineup_status": "confirmed"
+      },
+      "stats": {
+        "goals": null,
+        "apps": null,
+        "gpm": 0.455,
+        "xgpm": null
+      },
+      "team": "home",
+      "lineup_status": "confirmed",
+      "tier": "fun",
+      "history_top3": true,
+      "id": "2026-10-06_6210361_player_Aleksey Batrakov_Passeur",
+      "date": "2026-10-06",
+      "match_id": "6210361",
+      "page_url": "/matches/nigeria-vs-russia/1vimav#6210361",
+      "matchup": "Russia vs Nigeria",
+      "league": "Friendlies",
+      "category": "player",
+      "result": "PENDING",
+      "actual": null,
+      "resolved_at": null,
+      "side": "home"
+    },
+    {
       "direction": "home_win",
       "type": "Victoire domicile",
       "label": "Estonia gagne",
@@ -63917,39 +64032,6 @@
       "match_id": "5181956",
       "page_url": "/matches/luxembourg-vs-bulgaria/23nxat#5181956",
       "matchup": "Luxembourg vs Bulgaria",
-      "league": "UEFA Nations League C",
-      "category": "player",
-      "result": "PENDING",
-      "actual": null,
-      "resolved_at": null,
-      "side": "away"
-    },
-    {
-      "player": "Adrian Justinussen",
-      "position": "M",
-      "is_sub": false,
-      "type": "Buteur",
-      "label": "Adrian Justinussen marque",
-      "team": "away",
-      "cote": null,
-      "book": null,
-      "books": [],
-      "confidence": 24,
-      "reasoning": "1G en 3 matchs (33.3%/match) · xG: 0.13/match",
-      "context": {
-        "weakness": 0.33
-      },
-      "stats": {
-        "goals": 1,
-        "apps": 3
-      },
-      "tier": "fun",
-      "history_top3": true,
-      "id": "2026-10-06_5181939_player_Adrian Justinussen_Buteur",
-      "date": "2026-10-06",
-      "match_id": "5181939",
-      "page_url": "/matches/kazakhstan-vs-faroe-islands/29e0sq#5181939",
-      "matchup": "Kazakhstan vs Faroe Islands",
       "league": "UEFA Nations League C",
       "category": "player",
       "result": "PENDING",
