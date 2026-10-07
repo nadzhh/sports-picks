@@ -63382,9 +63382,9 @@
       "matchup": "Argentina vs Benin",
       "league": "Friendlies",
       "category": "team",
-      "result": "PENDING",
-      "actual": null,
-      "resolved_at": null
+      "result": "WIN",
+      "actual": "3-0",
+      "resolved_at": "2026-10-07 07:03"
     },
     {
       "direction": "over25",
@@ -63413,9 +63413,9 @@
       "matchup": "Argentina vs Benin",
       "league": "Friendlies",
       "category": "team",
-      "result": "PENDING",
-      "actual": null,
-      "resolved_at": null
+      "result": "WIN",
+      "actual": "3-0 (3 buts)",
+      "resolved_at": "2026-10-07 07:03"
     },
     {
       "direction": "home_over_15",
@@ -63444,9 +63444,9 @@
       "matchup": "Argentina vs Benin",
       "league": "Friendlies",
       "category": "team",
-      "result": "PENDING",
-      "actual": null,
-      "resolved_at": null
+      "result": "WIN",
+      "actual": "3-0 (3 buts home)",
+      "resolved_at": "2026-10-07 07:03"
     },
     {
       "direction": "btts_no",
@@ -63475,9 +63475,9 @@
       "matchup": "Argentina vs Benin",
       "league": "Friendlies",
       "category": "team",
-      "result": "PENDING",
-      "actual": null,
-      "resolved_at": null
+      "result": "WIN",
+      "actual": "3-0",
+      "resolved_at": "2026-10-07 07:03"
     },
     {
       "direction": "home_win",
@@ -63506,9 +63506,9 @@
       "matchup": "Colombia vs Peru",
       "league": "Friendlies",
       "category": "team",
-      "result": "PENDING",
-      "actual": null,
-      "resolved_at": null
+      "result": "WIN",
+      "actual": "2-0",
+      "resolved_at": "2026-10-07 07:03"
     },
     {
       "direction": "home_over_15",
@@ -63537,9 +63537,9 @@
       "matchup": "Colombia vs Peru",
       "league": "Friendlies",
       "category": "team",
-      "result": "PENDING",
-      "actual": null,
-      "resolved_at": null
+      "result": "WIN",
+      "actual": "2-0 (2 buts home)",
+      "resolved_at": "2026-10-07 07:03"
     },
     {
       "direction": "over25",
@@ -63568,9 +63568,9 @@
       "matchup": "Colombia vs Peru",
       "league": "Friendlies",
       "category": "team",
-      "result": "PENDING",
-      "actual": null,
-      "resolved_at": null
+      "result": "LOSS",
+      "actual": "2-0 (2 buts)",
+      "resolved_at": "2026-10-07 07:03"
     },
     {
       "player": "Luis Suárez",
@@ -63607,9 +63607,12 @@
       "matchup": "Colombia vs Peru",
       "league": "Friendlies",
       "category": "player",
-      "result": "PENDING",
-      "actual": null,
-      "resolved_at": null,
+      "result": "LOSS",
+      "actual": {
+        "goals": 0,
+        "assists": 0
+      },
+      "resolved_at": "2026-10-07 07:03",
       "side": "home"
     },
     {
@@ -63711,9 +63714,9 @@
       "matchup": "JS Kabylie vs MC Alger",
       "league": "Algeria Ligue 1",
       "category": "team",
-      "result": "PENDING",
-      "actual": null,
-      "resolved_at": null
+      "result": "PUSH",
+      "actual": "Match data unavailable (likely cancelled/postponed)",
+      "resolved_at": "2026-10-07 07:03"
     },
     {
       "player": "Cristhian Ocampos",
@@ -63778,9 +63781,9 @@
       "matchup": "Mexico vs Chile",
       "league": "Friendlies",
       "category": "team",
-      "result": "PENDING",
-      "actual": null,
-      "resolved_at": null
+      "result": "LOSS",
+      "actual": "0-2",
+      "resolved_at": "2026-10-07 07:03"
     },
     {
       "direction": "home_over_15",
@@ -63809,9 +63812,9 @@
       "matchup": "Mexico vs Chile",
       "league": "Friendlies",
       "category": "team",
-      "result": "PENDING",
-      "actual": null,
-      "resolved_at": null
+      "result": "LOSS",
+      "actual": "0-2 (0 buts home)",
+      "resolved_at": "2026-10-07 07:03"
     },
     {
       "direction": "over25",
@@ -63840,9 +63843,258 @@
       "matchup": "Mexico vs Chile",
       "league": "Friendlies",
       "category": "team",
-      "result": "PENDING",
-      "actual": null,
-      "resolved_at": null
+      "result": "LOSS",
+      "actual": "0-2 (2 buts)",
+      "resolved_at": "2026-10-07 07:03"
+    },
+    {
+      "player": "Robert Lewandowski / Hugo Cuypers",
+      "position": "",
+      "is_sub": false,
+      "type": "Double Chance Buteur",
+      "label": "Robert Lewandowski ou Hugo Cuypers marque (Chicago Fire FC)",
+      "cote": null,
+      "book": null,
+      "books": [],
+      "confidence": 70,
+      "cote_min": 1.43,
+      "reasoning": "🏠 Combo intra-Chicago Fire FC\n📈 P(Robert Lewandowski marque) ≈ 50% · P(Hugo Cuypers marque) ≈ 42%\n🎯 P(au moins un marque) = 70% (1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.43 - chercher ≥1.43 chez le bookmaker\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+      "context": {
+        "combo_kind": "intra-home"
+      },
+      "_team_for_balance": "home",
+      "stats": {
+        "p_a": 0.495,
+        "p_b": 0.42,
+        "p_or": 0.7,
+        "player_a": "Robert Lewandowski",
+        "player_b": "Hugo Cuypers",
+        "kind": "intra-home"
+      },
+      "team": "home",
+      "tier": "safe",
+      "calibration_delta": -11.3,
+      "history_top3": true,
+      "id": "2026-10-07_5071211_player_Robert Lewandowski / Hugo Cuypers_Double Chance Buteur",
+      "date": "2026-10-07",
+      "match_id": "5071211",
+      "page_url": "/matches/chicago-fire-fc-vs-vancouver-whitecaps/mnrb2c1#5071211",
+      "matchup": "Chicago Fire FC vs Vancouver Whitecaps",
+      "league": "MLS",
+      "category": "player",
+      "result": "LOSS",
+      "actual": {
+        "goals": 0,
+        "assists": 0
+      },
+      "resolved_at": "2026-10-07 07:03",
+      "side": "home"
+    },
+    {
+      "player": "Brian White",
+      "position": "F",
+      "is_sub": false,
+      "type": "Buteur",
+      "label": "Brian White marque",
+      "cote": null,
+      "book": null,
+      "books": [],
+      "confidence": 62,
+      "reasoning": "17 buts en 24 matchs cette saison (70.8% de chance/match) · bonne efficacité (19% conv.) · xG moyen 0.70/match, défense adverse poreuse (1.4 buts concédés/match) · défense correcte\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
+      "context": {
+        "weakness": 0.45
+      },
+      "stats": {
+        "goals": 17,
+        "apps": 24,
+        "gpm": 0.708,
+        "xgpm": 0.704
+      },
+      "team": "away",
+      "tier": "ok",
+      "calibration_delta": -25.4,
+      "history_top3": true,
+      "id": "2026-10-07_5071211_player_Brian White_Buteur",
+      "date": "2026-10-07",
+      "match_id": "5071211",
+      "page_url": "/matches/chicago-fire-fc-vs-vancouver-whitecaps/mnrb2c1#5071211",
+      "matchup": "Chicago Fire FC vs Vancouver Whitecaps",
+      "league": "MLS",
+      "category": "player",
+      "result": "LOSS",
+      "actual": {
+        "goals": 0,
+        "assists": 0
+      },
+      "resolved_at": "2026-10-07 07:03",
+      "side": "away"
+    },
+    {
+      "direction": "home_over_15",
+      "type": "Buteur equipe",
+      "label": "USA marque plus de 1.5 buts",
+      "cote": null,
+      "confidence": 78,
+      "reasoning": "USA attendu a ~2.7 buts (marque 3.0/m sur L5, Canada encaisse 0.2/m) - P(2+ buts) ~76%\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+      "stats": {
+        "form": [
+          "W",
+          "W",
+          "W",
+          "L",
+          "W"
+        ]
+      },
+      "is_fun": false,
+      "tier": "safe",
+      "calibration_delta": -11.3,
+      "history_top3": true,
+      "id": "2026-10-07_5991876_team_home_over_15",
+      "date": "2026-10-07",
+      "match_id": "5991876",
+      "page_url": "/matches/canada-vs-usa/1aoxor#5991876",
+      "matchup": "USA vs Canada",
+      "league": "Friendlies",
+      "category": "team",
+      "result": "LOSS",
+      "actual": "1-0 (1 buts home)",
+      "resolved_at": "2026-10-07 07:03"
+    },
+    {
+      "direction": "btts_no",
+      "type": "BTTS",
+      "label": "Au moins 1 equipe ne marque pas",
+      "cote": null,
+      "confidence": 70,
+      "reasoning": "Attaque faible d'un cote : USA ~2.7 buts, Canada ~0.4 buts - P(BTTS Non) ~70%\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+      "stats": {
+        "form": [
+          "W",
+          "W",
+          "W",
+          "L",
+          "W"
+        ]
+      },
+      "is_fun": false,
+      "tier": "safe",
+      "calibration_delta": -11.3,
+      "history_top3": true,
+      "id": "2026-10-07_5991876_team_btts_no",
+      "date": "2026-10-07",
+      "match_id": "5991876",
+      "page_url": "/matches/canada-vs-usa/1aoxor#5991876",
+      "matchup": "USA vs Canada",
+      "league": "Friendlies",
+      "category": "team",
+      "result": "WIN",
+      "actual": "1-0",
+      "resolved_at": "2026-10-07 07:03"
+    },
+    {
+      "direction": "home_win",
+      "type": "Forme superieure",
+      "label": "USA gagne",
+      "cote": null,
+      "confidence": 68,
+      "reasoning": "USA : 4V/0N/1D sur 5 matchs vs Canada : 3V/2N/0D sur 5 matchs (L5 TCC · ecart de tier FIFA 2vs3)\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
+      "stats": {
+        "form": [
+          "W",
+          "W",
+          "W",
+          "L",
+          "W"
+        ]
+      },
+      "is_fun": false,
+      "tier": "ok",
+      "calibration_delta": -25.4,
+      "history_top3": true,
+      "id": "2026-10-07_5991876_team_home_win",
+      "date": "2026-10-07",
+      "match_id": "5991876",
+      "page_url": "/matches/canada-vs-usa/1aoxor#5991876",
+      "matchup": "USA vs Canada",
+      "league": "Friendlies",
+      "category": "team",
+      "result": "WIN",
+      "actual": "1-0",
+      "resolved_at": "2026-10-07 07:03"
+    },
+    {
+      "direction": "over25",
+      "type": "Total buts",
+      "label": "Plus de 2.5 buts",
+      "cote": null,
+      "confidence": 61,
+      "reasoning": "Attendu 3.1 buts au total (USA ~2.7, Canada ~0.4) - P(>2.5) ~61%\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
+      "stats": {
+        "form": [
+          "W",
+          "W",
+          "W",
+          "L",
+          "W"
+        ]
+      },
+      "is_fun": false,
+      "tier": "ok",
+      "calibration_delta": -25.4,
+      "history_top3": true,
+      "id": "2026-10-07_5991876_team_over25",
+      "date": "2026-10-07",
+      "match_id": "5991876",
+      "page_url": "/matches/canada-vs-usa/1aoxor#5991876",
+      "matchup": "USA vs Canada",
+      "league": "Friendlies",
+      "category": "team",
+      "result": "LOSS",
+      "actual": "1-0 (1 buts)",
+      "resolved_at": "2026-10-07 07:03"
+    },
+    {
+      "player": "Malik Tillman",
+      "position": "F",
+      "is_sub": false,
+      "type": "Buteur",
+      "label": "Malik Tillman marque",
+      "cote": null,
+      "cote_min": 2.2,
+      "book": null,
+      "books": [],
+      "confidence": 45,
+      "reasoning": "Malik Tillman : selection 4G/13m (0.31/m) · L10 club : 2G/10m, 🔥 2G/3 derniers nat (+19%) | titu nat (68min/m) · last match 88min (1G+0A). λ ajusté à 0.61 (USA attendu 2.7 buts) → P(marque) ~45%.\n📉 Calibration : bucket 40-49% historiquement à WR 25% (claim 44%, n=36) — sur-estimé de 19pp",
+      "context": {
+        "source": "lineup",
+        "lam": 0.61,
+        "lineup_status": "confirmed"
+      },
+      "stats": {
+        "goals": null,
+        "apps": null,
+        "gpm": 0.605,
+        "xgpm": null
+      },
+      "team": "home",
+      "lineup_status": "confirmed",
+      "tier": "fun",
+      "calibration_delta": -19.4,
+      "history_top3": true,
+      "id": "2026-10-07_5991876_player_Malik Tillman_Buteur",
+      "date": "2026-10-07",
+      "match_id": "5991876",
+      "page_url": "/matches/canada-vs-usa/1aoxor#5991876",
+      "matchup": "USA vs Canada",
+      "league": "Friendlies",
+      "category": "player",
+      "result": "LOSS",
+      "actual": {
+        "goals": 0,
+        "assists": 0
+      },
+      "resolved_at": "2026-10-07 07:03",
+      "side": "home"
     },
     {
       "direction": "home_dc",
@@ -63903,39 +64155,39 @@
       "resolved_at": null
     },
     {
-      "player": "Robert Lewandowski / Hugo Cuypers",
+      "player": "Renê / Túlio",
       "position": "",
       "is_sub": false,
       "type": "Double Chance Buteur",
-      "label": "Robert Lewandowski ou Hugo Cuypers marque (Chicago Fire FC)",
+      "label": "Renê OU Túlio marque (cross-équipe)",
       "cote": null,
       "book": null,
       "books": [],
       "confidence": 70,
       "cote_min": 1.43,
-      "reasoning": "🏠 Combo intra-Chicago Fire FC\n📈 P(Robert Lewandowski marque) ≈ 50% · P(Hugo Cuypers marque) ≈ 42%\n🎯 P(au moins un marque) = 70% (1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.43 - chercher ≥1.43 chez le bookmaker\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+      "reasoning": "🔀 Cross-équipe (moins corrélé → meilleur EV)\n📈 P(Renê marque) ≈ 48% · P(Túlio marque) ≈ 44%\n🎯 P(au moins un marque) = 70% (1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.43 - chercher ≥1.43 chez le bookmaker\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
       "context": {
-        "combo_kind": "intra-home"
+        "combo_kind": "cross"
       },
       "_team_for_balance": "home",
       "stats": {
-        "p_a": 0.495,
-        "p_b": 0.42,
+        "p_a": 0.48,
+        "p_b": 0.435,
         "p_or": 0.7,
-        "player_a": "Robert Lewandowski",
-        "player_b": "Hugo Cuypers",
-        "kind": "intra-home"
+        "player_a": "Renê",
+        "player_b": "Túlio",
+        "kind": "cross"
       },
       "team": "home",
       "tier": "safe",
       "calibration_delta": -11.3,
       "history_top3": true,
-      "id": "2026-10-07_5071211_player_Robert Lewandowski / Hugo Cuypers_Double Chance Buteur",
+      "id": "2026-10-07_5103652_player_Renê / Túlio_Double Chance Buteur",
       "date": "2026-10-07",
-      "match_id": "5071211",
-      "page_url": "/matches/chicago-fire-fc-vs-vancouver-whitecaps/mnrb2c1#5071211",
-      "matchup": "Chicago Fire FC vs Vancouver Whitecaps",
-      "league": "MLS",
+      "match_id": "5103652",
+      "page_url": "/matches/vitoria-vs-chapecoense/9oyew9c#5103652",
+      "matchup": "Vitória vs Chapecoense",
+      "league": "Brasileirao",
       "category": "player",
       "result": "PENDING",
       "actual": null,
@@ -63943,35 +64195,75 @@
       "side": "home"
     },
     {
-      "player": "Brian White",
-      "position": "F",
+      "player": "Danilo / Facundo Colidio",
+      "position": "",
       "is_sub": false,
-      "type": "Buteur",
-      "label": "Brian White marque",
+      "type": "Double Chance Buteur",
+      "label": "Danilo OU Facundo Colidio marque (cross-équipe)",
       "cote": null,
       "book": null,
       "books": [],
-      "confidence": 62,
-      "reasoning": "17 buts en 24 matchs cette saison (70.8% de chance/match) · bonne efficacité (19% conv.) · xG moyen 0.70/match, défense adverse poreuse (1.4 buts concédés/match) · défense correcte\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
+      "confidence": 70,
+      "cote_min": 1.43,
+      "reasoning": "🔀 Cross-équipe (moins corrélé → meilleur EV)\n📈 P(Danilo marque) ≈ 40% · P(Facundo Colidio marque) ≈ 51%\n🎯 P(au moins un marque) = 70% (1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.43 - chercher ≥1.43 chez le bookmaker\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
       "context": {
-        "weakness": 0.45
+        "combo_kind": "cross"
+      },
+      "_team_for_balance": "home",
+      "stats": {
+        "p_a": 0.398,
+        "p_b": 0.51,
+        "p_or": 0.7,
+        "player_a": "Danilo",
+        "player_b": "Facundo Colidio",
+        "kind": "cross"
+      },
+      "team": "home",
+      "tier": "safe",
+      "calibration_delta": -11.3,
+      "history_top3": true,
+      "id": "2026-10-07_5103645_player_Danilo / Facundo Colidio_Double Chance Buteur",
+      "date": "2026-10-07",
+      "match_id": "5103645",
+      "page_url": "/matches/botafogo-vs-vasco-da-gama/2x5abm#5103645",
+      "matchup": "Botafogo vs Vasco da Gama",
+      "league": "Brasileirao",
+      "category": "player",
+      "result": "PENDING",
+      "actual": null,
+      "resolved_at": null,
+      "side": "home"
+    },
+    {
+      "player": "Facundo Colidio",
+      "position": "M",
+      "is_sub": false,
+      "type": "Buteur",
+      "label": "Facundo Colidio marque",
+      "cote": null,
+      "book": null,
+      "books": [],
+      "confidence": 51,
+      "reasoning": "3 buts en 6 matchs cette saison (50.0% de chance/match) · xG moyen 0.53/match, défense adverse poreuse (1.6 buts concédés/match) · défense fragile\n📉 Calibration : bucket 50-59% historiquement à WR 42% (claim 55%, n=41) — sur-estimé de 14pp",
+      "context": {
+        "weakness": 0.55
       },
       "stats": {
-        "goals": 17,
-        "apps": 24,
-        "gpm": 0.708,
-        "xgpm": 0.704
+        "goals": 3,
+        "apps": 6,
+        "gpm": 0.5,
+        "xgpm": 0.533
       },
       "team": "away",
-      "tier": "ok",
-      "calibration_delta": -25.4,
+      "tier": "fun",
+      "calibration_delta": -13.6,
       "history_top3": true,
-      "id": "2026-10-07_5071211_player_Brian White_Buteur",
+      "id": "2026-10-07_5103645_player_Facundo Colidio_Buteur",
       "date": "2026-10-07",
-      "match_id": "5071211",
-      "page_url": "/matches/chicago-fire-fc-vs-vancouver-whitecaps/mnrb2c1#5071211",
-      "matchup": "Chicago Fire FC vs Vancouver Whitecaps",
-      "league": "MLS",
+      "match_id": "5103645",
+      "page_url": "/matches/botafogo-vs-vasco-da-gama/2x5abm#5103645",
+      "matchup": "Botafogo vs Vasco da Gama",
+      "league": "Brasileirao",
       "category": "player",
       "result": "PENDING",
       "actual": null,
@@ -63979,163 +64271,39 @@
       "side": "away"
     },
     {
-      "direction": "home_over_15",
-      "type": "Buteur equipe",
-      "label": "USA marque plus de 1.5 buts",
-      "cote": null,
-      "confidence": 78,
-      "reasoning": "USA attendu a ~2.7 buts (marque 3.0/m sur L5, Canada encaisse 0.2/m) - P(2+ buts) ~76%\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
-      "stats": {
-        "form": [
-          "W",
-          "W",
-          "W",
-          "L",
-          "W"
-        ]
-      },
-      "is_fun": false,
-      "tier": "safe",
-      "calibration_delta": -11.3,
-      "history_top3": true,
-      "id": "2026-10-07_5991876_team_home_over_15",
-      "date": "2026-10-07",
-      "match_id": "5991876",
-      "page_url": "/matches/canada-vs-usa/1aoxor#5991876",
-      "matchup": "USA vs Canada",
-      "league": "Friendlies",
-      "category": "team",
-      "result": "PENDING",
-      "actual": null,
-      "resolved_at": null
-    },
-    {
-      "direction": "btts_no",
-      "type": "BTTS",
-      "label": "Au moins 1 equipe ne marque pas",
-      "cote": null,
-      "confidence": 70,
-      "reasoning": "Attaque faible d'un cote : USA ~2.7 buts, Canada ~0.4 buts - P(BTTS Non) ~70%\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
-      "stats": {
-        "form": [
-          "W",
-          "W",
-          "W",
-          "L",
-          "W"
-        ]
-      },
-      "is_fun": false,
-      "tier": "safe",
-      "calibration_delta": -11.3,
-      "history_top3": true,
-      "id": "2026-10-07_5991876_team_btts_no",
-      "date": "2026-10-07",
-      "match_id": "5991876",
-      "page_url": "/matches/canada-vs-usa/1aoxor#5991876",
-      "matchup": "USA vs Canada",
-      "league": "Friendlies",
-      "category": "team",
-      "result": "PENDING",
-      "actual": null,
-      "resolved_at": null
-    },
-    {
-      "direction": "home_win",
-      "type": "Forme superieure",
-      "label": "USA gagne",
-      "cote": null,
-      "confidence": 68,
-      "reasoning": "USA : 4V/0N/1D sur 5 matchs vs Canada : 3V/2N/0D sur 5 matchs (L5 TCC · ecart de tier FIFA 2vs3)\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
-      "stats": {
-        "form": [
-          "W",
-          "W",
-          "W",
-          "L",
-          "W"
-        ]
-      },
-      "is_fun": false,
-      "tier": "ok",
-      "calibration_delta": -25.4,
-      "history_top3": true,
-      "id": "2026-10-07_5991876_team_home_win",
-      "date": "2026-10-07",
-      "match_id": "5991876",
-      "page_url": "/matches/canada-vs-usa/1aoxor#5991876",
-      "matchup": "USA vs Canada",
-      "league": "Friendlies",
-      "category": "team",
-      "result": "PENDING",
-      "actual": null,
-      "resolved_at": null
-    },
-    {
-      "direction": "over25",
-      "type": "Total buts",
-      "label": "Plus de 2.5 buts",
-      "cote": null,
-      "confidence": 61,
-      "reasoning": "Attendu 3.1 buts au total (USA ~2.7, Canada ~0.4) - P(>2.5) ~61%\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
-      "stats": {
-        "form": [
-          "W",
-          "W",
-          "W",
-          "L",
-          "W"
-        ]
-      },
-      "is_fun": false,
-      "tier": "ok",
-      "calibration_delta": -25.4,
-      "history_top3": true,
-      "id": "2026-10-07_5991876_team_over25",
-      "date": "2026-10-07",
-      "match_id": "5991876",
-      "page_url": "/matches/canada-vs-usa/1aoxor#5991876",
-      "matchup": "USA vs Canada",
-      "league": "Friendlies",
-      "category": "team",
-      "result": "PENDING",
-      "actual": null,
-      "resolved_at": null
-    },
-    {
-      "player": "Malik Tillman",
-      "position": "F",
+      "player": "Bill / Carlos Vinícius",
+      "position": "",
       "is_sub": false,
-      "type": "Buteur",
-      "label": "Malik Tillman marque",
+      "type": "Double Chance Buteur",
+      "label": "Bill OU Carlos Vinícius marque (cross-équipe)",
       "cote": null,
-      "cote_min": 2.2,
       "book": null,
       "books": [],
-      "confidence": 45,
-      "reasoning": "Malik Tillman : selection 4G/13m (0.31/m) · L10 club : 2G/10m, 🔥 2G/3 derniers nat (+19%) | titu nat (68min/m) · last match 88min (1G+0A). λ ajusté à 0.61 (USA attendu 2.7 buts) → P(marque) ~45%.\n📉 Calibration : bucket 40-49% historiquement à WR 25% (claim 44%, n=36) — sur-estimé de 19pp",
+      "confidence": 68,
+      "cote_min": 1.54,
+      "reasoning": "🔀 Cross-équipe (moins corrélé → meilleur EV)\n📈 P(Bill marque) ≈ 37% · P(Carlos Vinícius marque) ≈ 44%\n🎯 P(au moins un marque) = 68% (1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.54 - chercher ≥1.54 chez le bookmaker\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
       "context": {
-        "source": "lineup",
-        "lam": 0.61,
-        "lineup_status": "confirmed"
+        "combo_kind": "cross"
       },
+      "_team_for_balance": "home",
       "stats": {
-        "goals": null,
-        "apps": null,
-        "gpm": 0.605,
-        "xgpm": null
+        "p_a": 0.368,
+        "p_b": 0.442,
+        "p_or": 0.647,
+        "player_a": "Bill",
+        "player_b": "Carlos Vinícius",
+        "kind": "cross"
       },
       "team": "home",
-      "lineup_status": "confirmed",
-      "tier": "fun",
-      "calibration_delta": -19.4,
+      "tier": "ok",
+      "calibration_delta": -25.4,
       "history_top3": true,
-      "id": "2026-10-07_5991876_player_Malik Tillman_Buteur",
+      "id": "2026-10-07_5103653_player_Bill / Carlos Vinícius_Double Chance Buteur",
       "date": "2026-10-07",
-      "match_id": "5991876",
-      "page_url": "/matches/canada-vs-usa/1aoxor#5991876",
-      "matchup": "USA vs Canada",
-      "league": "Friendlies",
+      "match_id": "5103653",
+      "page_url": "/matches/remo-vs-gremio/12nuun#5103653",
+      "matchup": "Remo vs Grêmio",
+      "league": "Brasileirao",
       "category": "player",
       "result": "PENDING",
       "actual": null,
@@ -64250,6 +64418,77 @@
       "side": "home"
     },
     {
+      "player": "Kaio Jorge / Jonathan Calleri",
+      "position": "",
+      "is_sub": false,
+      "type": "Double Chance Buteur",
+      "label": "Kaio Jorge OU Jonathan Calleri marque (cross-équipe)",
+      "cote": null,
+      "book": null,
+      "books": [],
+      "confidence": 70,
+      "cote_min": 1.47,
+      "reasoning": "🔀 Cross-équipe (moins corrélé → meilleur EV)\n📈 P(Kaio Jorge marque) ≈ 44% · P(Jonathan Calleri marque) ≈ 44%\n🎯 P(au moins un marque) = 70% (1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.47 - chercher ≥1.47 chez le bookmaker\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+      "context": {
+        "combo_kind": "cross"
+      },
+      "_team_for_balance": "home",
+      "stats": {
+        "p_a": 0.435,
+        "p_b": 0.435,
+        "p_or": 0.681,
+        "player_a": "Kaio Jorge",
+        "player_b": "Jonathan Calleri",
+        "kind": "cross"
+      },
+      "team": "home",
+      "tier": "safe",
+      "calibration_delta": -11.3,
+      "history_top3": true,
+      "id": "2026-10-08_5103649_player_Kaio Jorge / Jonathan Calleri_Double Chance Buteur",
+      "date": "2026-10-08",
+      "match_id": "5103649",
+      "page_url": "/matches/cruzeiro-vs-sao-paulo/3bs0ms#5103649",
+      "matchup": "Cruzeiro vs São Paulo",
+      "league": "Brasileirao",
+      "category": "player",
+      "result": "PENDING",
+      "actual": null,
+      "resolved_at": null,
+      "side": "home"
+    },
+    {
+      "direction": "away_win",
+      "type": "Victoire extérieur",
+      "label": "São Paulo gagne",
+      "cote": null,
+      "confidence": 58,
+      "reasoning": "São Paulo : 3V/0N/2D sur 5 matchs · #10 au classement · H2H: 1V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 50-59% historiquement à WR 42% (claim 55%, n=41) — sur-estimé de 14pp",
+      "stats": {
+        "form": [
+          "L",
+          "W",
+          "L",
+          "W",
+          "W"
+        ]
+      },
+      "is_fun": false,
+      "tier": "ok",
+      "calibration_delta": -13.6,
+      "history_top3": true,
+      "id": "2026-10-08_5103649_team_away_win",
+      "date": "2026-10-08",
+      "match_id": "5103649",
+      "page_url": "/matches/cruzeiro-vs-sao-paulo/3bs0ms#5103649",
+      "matchup": "Cruzeiro vs São Paulo",
+      "league": "Brasileirao",
+      "category": "team",
+      "result": "PENDING",
+      "actual": null,
+      "resolved_at": null
+    },
+    {
       "player": "Yawo Agbagno",
       "position": "M",
       "is_sub": false,
@@ -64282,6 +64521,72 @@
       "actual": null,
       "resolved_at": null,
       "side": "home"
+    },
+    {
+      "player": "Johan Carbonero",
+      "position": "F",
+      "is_sub": false,
+      "type": "Buteur",
+      "label": "Johan Carbonero marque",
+      "team": "home",
+      "cote": null,
+      "book": null,
+      "books": [],
+      "confidence": 31,
+      "reasoning": "7G en 27 matchs (25.9%/match) · xG: 0.24/match",
+      "context": {
+        "weakness": 0.56
+      },
+      "stats": {
+        "goals": 7,
+        "apps": 27
+      },
+      "tier": "fun",
+      "history_top3": true,
+      "id": "2026-10-07_5103650_player_Johan Carbonero_Buteur",
+      "date": "2026-10-07",
+      "match_id": "5103650",
+      "page_url": "/matches/internacional-vs-corinthians/2u06e1#5103650",
+      "matchup": "Internacional vs Corinthians",
+      "league": "Brasileirao",
+      "category": "player",
+      "result": "PENDING",
+      "actual": null,
+      "resolved_at": null,
+      "side": "home"
+    },
+    {
+      "player": "Nathan Fogaça",
+      "position": "M",
+      "is_sub": false,
+      "type": "Buteur",
+      "label": "Nathan Fogaça marque",
+      "team": "away",
+      "cote": null,
+      "book": null,
+      "books": [],
+      "confidence": 29,
+      "reasoning": "2G en 10 matchs (20.0%/match) · xG: 0.34/match",
+      "context": {
+        "weakness": 0.52
+      },
+      "stats": {
+        "goals": 2,
+        "apps": 10
+      },
+      "tier": "fun",
+      "history_top3": true,
+      "id": "2026-10-07_5103648_player_Nathan Fogaça_Buteur",
+      "date": "2026-10-07",
+      "match_id": "5103648",
+      "page_url": "/matches/rb-bragantino-vs-mirassol/h6hq59a#5103648",
+      "matchup": "RB Bragantino vs Mirassol",
+      "league": "Brasileirao",
+      "category": "player",
+      "result": "PENDING",
+      "actual": null,
+      "resolved_at": null,
+      "side": "away"
     }
   ]
 }
