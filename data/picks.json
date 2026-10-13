@@ -1,288 +1,6 @@
 [
   {
     "league": "Champions League",
-    "home": "Viking",
-    "away": "Bayern München",
-    "start_ts": 1791918000,
-    "match_id": "6106417",
-    "page_url": "/matches/viking-vs-bayern-munchen/2rpq5e#6106417",
-    "picks": [
-      {
-        "direction": "away_win",
-        "type": "Favori net",
-        "label": "Bayern München gagne",
-        "cote": null,
-        "confidence": 89,
-        "reasoning": "28 places d'écart au classement (#2 vs #30) · 3V/2N/0D sur 5 matchs · Note Sofa: 6.5/10\n📉 Calibration : bucket 80-89% historiquement à WR 56% (claim 82%, n=63) — sur-estimé de 26pp",
-        "stats": {
-          "form": [
-            "D",
-            "W",
-            "W",
-            "W",
-            "D"
-          ]
-        },
-        "is_fun": false,
-        "tier": "safe",
-        "calibration_delta": -26.0,
-        "history_top3": true
-      },
-      {
-        "direction": "away_dc",
-        "type": "Double chance",
-        "label": "Nul ou Bayern München (X2)",
-        "cote": null,
-        "confidence": 86,
-        "reasoning": "Bayern München invaincu 100% sur 5 derniers matchs · H2H: 0/0 matchs sans défaite · Classement: #2 (away) vs #30 (home)\n📉 Calibration : bucket 80-89% historiquement à WR 56% (claim 82%, n=63) — sur-estimé de 26pp",
-        "stats": {
-          "form": [
-            "D",
-            "W",
-            "W",
-            "W",
-            "D"
-          ]
-        },
-        "is_fun": false,
-        "tier": "safe",
-        "calibration_delta": -26.0,
-        "history_top3": true
-      },
-      {
-        "direction": "shots_over_26.5",
-        "type": "Tirs (total match)",
-        "label": "Plus de 26.5 tirs total",
-        "cote": null,
-        "cote_min": 1.34,
-        "value": [
-          "💎",
-          "Value correcte",
-          "#84cc16"
-        ],
-        "confidence": 75,
-        "reasoning": "📊 Brut : Viking L10 TCC 17.1 (L5 TCC 16.6) tirs/m · Bayern München L10 TCC 23.4 (L5 TCC 24.2) tirs/m\n🛡️ Défenses : Viking concède 15.6/m · Bayern München concède 5.7/m\n🎯 Attendu : Viking ~5.9 · Bayern München ~24.4 → total ~30.2\n⚖️ Bayern München favori (#2 vs #30) · Viking forme : W-W-W-W-L · Bayern München forme : D-W-W-W-D\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
-        "stats": {
-          "expected_total": 30.2
-        },
-        "tier": "safe",
-        "calibration_delta": -11.3,
-        "history_top3": true
-      },
-      {
-        "direction": "tirs_cadrés_(viking)_under_4.5",
-        "type": "Tirs cadrés (Viking)",
-        "label": "Moins de 4.5 tirs cadrés Viking",
-        "cote": null,
-        "cote_min": 1.4,
-        "value": [
-          "💎",
-          "Value correcte",
-          "#84cc16"
-        ],
-        "confidence": 71,
-        "edge": null,
-        "reasoning": "Viking prend 6.4/m [pondere vs opp #2] · adv. concède 1.9/m → attendu ~3.6 (Bayern München favori (#2 vs #30))\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
-        "stats": {
-          "expected": 3.6
-        },
-        "tier": "safe",
-        "calibration_delta": -11.3,
-        "history_top3": true
-      }
-    ],
-    "home_players": [],
-    "away_players": [
-      {
-        "player": "Michael Olise",
-        "position": "F",
-        "is_sub": false,
-        "type": "Buteur",
-        "label": "Michael Olise marque",
-        "team": "away",
-        "cote": null,
-        "book": null,
-        "books": [],
-        "confidence": 30,
-        "reasoning": "2G en 5 matchs (40.0%/match) · xG: 0.08/match",
-        "context": {
-          "weakness": 0.55
-        },
-        "stats": {
-          "goals": 2,
-          "apps": 5
-        },
-        "tier": "fun",
-        "history_top3": true
-      }
-    ],
-    "fun_picks": [],
-    "top_pick": {
-      "direction": "away_win",
-      "type": "Favori net",
-      "label": "Bayern München gagne",
-      "cote": null,
-      "confidence": 89,
-      "reasoning": "28 places d'écart au classement (#2 vs #30) · 3V/2N/0D sur 5 matchs · Note Sofa: 6.5/10\n📉 Calibration : bucket 80-89% historiquement à WR 56% (claim 82%, n=63) — sur-estimé de 26pp",
-      "stats": {
-        "form": [
-          "D",
-          "W",
-          "W",
-          "W",
-          "D"
-        ]
-      },
-      "is_fun": false,
-      "tier": "safe",
-      "calibration_delta": -26.0,
-      "history_top3": true
-    },
-    "no_picks": false,
-    "context": {
-      "stadium": {
-        "name": "Lyse Arena",
-        "city": "Stavanger",
-        "country": "Norway",
-        "lat": 58.914596008,
-        "lon": 5.730925798,
-        "capacity": 15900,
-        "surface": "artificial turf"
-      },
-      "weather": {
-        "temp_max": 13.2,
-        "temp_min": 10.9,
-        "humidity": 86,
-        "precipitation_sum_mm": 14.6,
-        "wind_max_kmh": 52.9,
-        "weather_code": 63,
-        "summary_fr": "🌧️ pluie modérée · 13°C · humidité 86% · précipitations 14.6mm"
-      },
-      "text": "Conditions : 🌧️ pluie modérée · 13°C · humidité 86% · précipitations 14.6mm. Stade : Lyse Arena · 15 900 places · plein air. ⚠️ Pluies prévues : terrain potentiellement lourd, jeu direct privilégié, plus d'erreurs techniques. ⚠️ Vent fort prévu : jeu aérien moins fiable, balles longues imprévisibles."
-    }
-  },
-  {
-    "league": "Champions League",
-    "home": "Feyenoord",
-    "away": "Como",
-    "start_ts": 1791996300,
-    "match_id": "6106309",
-    "page_url": "/matches/como-vs-feyenoord/3fyxs8#6106309",
-    "picks": [
-      {
-        "direction": "away_win",
-        "type": "Favori net",
-        "label": "Como gagne",
-        "cote": 1.91,
-        "confidence": 89,
-        "reasoning": "28 places d'écart au classement (#5 vs #33) · 3V/1N/1D sur 5 matchs · Note Sofa: 6.5/10\n📉 Calibration : bucket 80-89% historiquement à WR 56% (claim 82%, n=63) — sur-estimé de 26pp",
-        "stats": {
-          "form": [
-            "D",
-            "L",
-            "W",
-            "W",
-            "W"
-          ]
-        },
-        "is_fun": false,
-        "tier": "ok",
-        "calibration_delta": -26.0,
-        "edge_pp": 36.6,
-        "history_top3": true
-      },
-      {
-        "direction": "tirs_cadrés_(feyenoord)_over_2.5",
-        "type": "Tirs cadrés (Feyenoord)",
-        "label": "Plus de 2.5 tirs cadrés Feyenoord",
-        "cote": null,
-        "cote_min": 1.28,
-        "value": [
-          "⚠️",
-          "Value serrée",
-          "#f59e0b"
-        ],
-        "confidence": 78,
-        "edge": null,
-        "reasoning": "Feyenoord prend 6.1/m [pondere vs opp #5] · adv. concède 3.5/m → attendu ~4.1 (Como favori (#5 vs #33))\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
-        "stats": {
-          "expected": 4.1
-        },
-        "tier": "safe",
-        "calibration_delta": -11.3,
-        "history_top3": false
-      },
-      {
-        "direction": "sot_over_7.5",
-        "type": "Tirs cadrés (total)",
-        "label": "Plus de 7.5 tirs cadrés total",
-        "cote": null,
-        "cote_min": 1.3,
-        "value": [
-          "💎",
-          "Value correcte",
-          "#84cc16"
-        ],
-        "confidence": 77,
-        "reasoning": "📊 Brut : Feyenoord L10 TCC 7.3 (L5 TCC 7.0) tirs cadrés/m · Como L10 TCC 6.6 (L5 TCC 6.8) tirs cadrés/m\n🛡️ Défenses : Feyenoord concède 3.5/m · Como concède 3.5/m\n🎯 Attendu : Feyenoord ~4.1 · Como ~5.8 → total ~9.9\n⚖️ Como favori (#5 vs #33) · Feyenoord forme : W-W-W-L-W · Como forme : D-L-W-W-W\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
-        "stats": {
-          "expected_total": 9.9
-        },
-        "tier": "safe",
-        "calibration_delta": -11.3,
-        "history_top3": true
-      }
-    ],
-    "home_players": [],
-    "away_players": [],
-    "fun_picks": [],
-    "top_pick": {
-      "direction": "away_win",
-      "type": "Favori net",
-      "label": "Como gagne",
-      "cote": 1.91,
-      "confidence": 89,
-      "reasoning": "28 places d'écart au classement (#5 vs #33) · 3V/1N/1D sur 5 matchs · Note Sofa: 6.5/10\n📉 Calibration : bucket 80-89% historiquement à WR 56% (claim 82%, n=63) — sur-estimé de 26pp",
-      "stats": {
-        "form": [
-          "D",
-          "L",
-          "W",
-          "W",
-          "W"
-        ]
-      },
-      "is_fun": false,
-      "tier": "ok",
-      "calibration_delta": -26.0,
-      "edge_pp": 36.6,
-      "history_top3": true
-    },
-    "no_picks": false,
-    "context": {
-      "stadium": {
-        "name": "Stadion Feijenoord",
-        "city": "Rotterdam",
-        "country": "Netherlands",
-        "lat": 51.89385454,
-        "lon": 4.523191452,
-        "capacity": 51117,
-        "surface": "grass"
-      },
-      "weather": {
-        "temp_max": 17.9,
-        "temp_min": 13.9,
-        "humidity": 61,
-        "precipitation_sum_mm": 0.0,
-        "wind_max_kmh": 16.9,
-        "weather_code": 3,
-        "summary_fr": "☁️ couvert · 13–17°C · humidité 61%"
-      },
-      "text": "Conditions : ☁️ couvert · 13–17°C · humidité 61%. Stade : Stadion Feijenoord · 51 117 places · plein air."
-    }
-  },
-  {
-    "league": "Champions League",
     "home": "Bodø/Glimt",
     "away": "Borussia Dortmund",
     "start_ts": 1792004400,
@@ -295,7 +13,7 @@
         "label": "Nul ou Borussia Dortmund (X2)",
         "cote": null,
         "confidence": 89,
-        "reasoning": "Borussia Dortmund invaincu 100% sur 5 derniers matchs · H2H: 0/0 matchs sans défaite · Classement: #12 (away) vs #36 (home)\n📉 Calibration : bucket 80-89% historiquement à WR 56% (claim 82%, n=63) — sur-estimé de 26pp",
+        "reasoning": "Borussia Dortmund invaincu 100% sur 5 derniers matchs · H2H: 0/0 matchs sans défaite · Classement: #14 (away) vs #36 (home)\n📉 Calibration : bucket 80-89% historiquement à WR 56% (claim 82%, n=63) — sur-estimé de 26pp",
         "stats": {
           "form": [
             "D",
@@ -315,8 +33,8 @@
         "type": "Favori net",
         "label": "Borussia Dortmund gagne",
         "cote": null,
-        "confidence": 84,
-        "reasoning": "24 places d'écart au classement (#12 vs #36) · 4V/1N/0D sur 5 matchs · Note Sofa: 6.5/10\n📉 Calibration : bucket 80-89% historiquement à WR 56% (claim 82%, n=63) — sur-estimé de 26pp",
+        "confidence": 81,
+        "reasoning": "22 places d'écart au classement (#14 vs #36) · 4V/1N/0D sur 5 matchs · Note Sofa: 6.5/10\n📉 Calibration : bucket 80-89% historiquement à WR 56% (claim 82%, n=63) — sur-estimé de 26pp",
         "stats": {
           "form": [
             "D",
@@ -343,7 +61,7 @@
           "#f59e0b"
         ],
         "confidence": 80,
-        "reasoning": "📊 Brut : Bodø/Glimt L10 TCC 6.4 (L5 TCC 6.5) tirs cadrés/m · Borussia Dortmund L10 TCC 7.0 (L5 TCC 6.0) tirs cadrés/m\n🛡️ Défenses : Bodø/Glimt concède 4.7/m · Borussia Dortmund concède 4.0/m\n🎯 Attendu : Bodø/Glimt ~3.9 · Borussia Dortmund ~6.2 → total ~10.2\n⚖️ Borussia Dortmund favori (#12 vs #36) · Bodø/Glimt forme : W-W-L-W-L · Borussia Dortmund forme : D-W-W-W-W\n📉 Calibration : bucket 80-89% historiquement à WR 56% (claim 82%, n=63) — sur-estimé de 26pp",
+        "reasoning": "📊 Brut : Bodø/Glimt L10 TCC 6.4 (L5 TCC 6.5) tirs cadrés/m · Borussia Dortmund L10 TCC 7.0 (L5 TCC 6.0) tirs cadrés/m\n🛡️ Défenses : Bodø/Glimt concède 4.7/m · Borussia Dortmund concède 4.0/m\n🎯 Attendu : Bodø/Glimt ~3.9 · Borussia Dortmund ~6.2 → total ~10.2\n⚖️ Borussia Dortmund favori (#14 vs #36) · Bodø/Glimt forme : W-W-L-W-L · Borussia Dortmund forme : D-W-W-W-W\n📉 Calibration : bucket 80-89% historiquement à WR 56% (claim 82%, n=63) — sur-estimé de 26pp",
         "stats": {
           "expected_total": 10.2
         },
@@ -364,7 +82,7 @@
         ],
         "confidence": 80,
         "edge": null,
-        "reasoning": "Bodø/Glimt prend 5.2/m [pondere vs opp #12] · adv. concède 4.0/m → attendu ~3.9 (Borussia Dortmund favori (#12 vs #36))\n📉 Calibration : bucket 80-89% historiquement à WR 56% (claim 82%, n=63) — sur-estimé de 26pp",
+        "reasoning": "Bodø/Glimt prend 5.2/m [pondere vs opp #14] · adv. concède 4.0/m → attendu ~3.9 (Borussia Dortmund favori (#14 vs #36))\n📉 Calibration : bucket 80-89% historiquement à WR 56% (claim 82%, n=63) — sur-estimé de 26pp",
         "stats": {
           "expected": 3.9
         },
@@ -408,7 +126,7 @@
       "label": "Nul ou Borussia Dortmund (X2)",
       "cote": null,
       "confidence": 89,
-      "reasoning": "Borussia Dortmund invaincu 100% sur 5 derniers matchs · H2H: 0/0 matchs sans défaite · Classement: #12 (away) vs #36 (home)\n📉 Calibration : bucket 80-89% historiquement à WR 56% (claim 82%, n=63) — sur-estimé de 26pp",
+      "reasoning": "Borussia Dortmund invaincu 100% sur 5 derniers matchs · H2H: 0/0 matchs sans défaite · Classement: #14 (away) vs #36 (home)\n📉 Calibration : bucket 80-89% historiquement à WR 56% (claim 82%, n=63) — sur-estimé de 26pp",
       "stats": {
         "form": [
           "D",
@@ -460,7 +178,7 @@
         "label": "Real Betis ou Nul (1X)",
         "cote": null,
         "confidence": 89,
-        "reasoning": "Real Betis invaincu 100% sur 5 derniers matchs · H2H: 0/0 matchs sans défaite · Classement: #11 vs #31\n📉 Calibration : bucket 80-89% historiquement à WR 56% (claim 82%, n=63) — sur-estimé de 26pp",
+        "reasoning": "Real Betis invaincu 100% sur 5 derniers matchs · H2H: 0/0 matchs sans défaite · Classement: #12 vs #29\n📉 Calibration : bucket 80-89% historiquement à WR 56% (claim 82%, n=63) — sur-estimé de 26pp",
         "stats": {
           "form": [
             "W",
@@ -480,8 +198,8 @@
         "type": "Favori net",
         "label": "Real Betis gagne",
         "cote": 2.05,
-        "confidence": 78,
-        "reasoning": "20 places d'écart au classement (#11 vs #31) · 4V/1N/0D sur 5 matchs · Note Sofa: 6.5/10\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+        "confidence": 74,
+        "reasoning": "17 places d'écart au classement (#12 vs #29) · 4V/1N/0D sur 5 matchs · Note Sofa: 6.5/10\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
         "stats": {
           "form": [
             "W",
@@ -494,7 +212,7 @@
         "is_fun": false,
         "tier": "ok",
         "calibration_delta": -11.3,
-        "edge_pp": 29.2,
+        "edge_pp": 25.2,
         "history_top3": true
       },
       {
@@ -510,7 +228,7 @@
         ],
         "confidence": 80,
         "edge": null,
-        "reasoning": "Real Betis prend 20.0/m [pondere vs opp #31] · adv. concède 12.1/m → attendu ~19.2 (Real Betis favori (#11 vs #31))\n📉 Calibration : bucket 80-89% historiquement à WR 56% (claim 82%, n=63) — sur-estimé de 26pp",
+        "reasoning": "Real Betis prend 20.0/m [pondere vs opp #29] · adv. concède 12.1/m → attendu ~19.2 (Real Betis favori (#12 vs #29))\n📉 Calibration : bucket 80-89% historiquement à WR 56% (claim 82%, n=63) — sur-estimé de 26pp",
         "stats": {
           "expected": 19.2
         },
@@ -530,7 +248,7 @@
           "#84cc16"
         ],
         "confidence": 73,
-        "reasoning": "📊 Brut : Real Betis L10 TCC 18.0 (L5 TCC 19.8) tirs/m · FC Porto L10 TCC 15.8 (L5 TCC 16.8) tirs/m\n🛡️ Défenses : Real Betis concède 13.2/m · FC Porto concède 12.1/m\n🎯 Attendu : Real Betis ~19.2 · FC Porto ~7.3 → total ~26.5\n⚖️ Real Betis favori (#11 vs #31) · Real Betis forme : W-D-W-W-W · FC Porto forme : W-W-W-W-L\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+        "reasoning": "📊 Brut : Real Betis L10 TCC 18.0 (L5 TCC 19.8) tirs/m · FC Porto L10 TCC 15.8 (L5 TCC 16.8) tirs/m\n🛡️ Défenses : Real Betis concède 13.2/m · FC Porto concède 12.1/m\n🎯 Attendu : Real Betis ~19.2 · FC Porto ~7.3 → total ~26.5\n⚖️ Real Betis favori (#12 vs #29) · Real Betis forme : W-D-W-W-W · FC Porto forme : W-W-W-W-L\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
         "stats": {
           "expected_total": 26.5
         },
@@ -571,7 +289,7 @@
       "label": "Real Betis ou Nul (1X)",
       "cote": null,
       "confidence": 89,
-      "reasoning": "Real Betis invaincu 100% sur 5 derniers matchs · H2H: 0/0 matchs sans défaite · Classement: #11 vs #31\n📉 Calibration : bucket 80-89% historiquement à WR 56% (claim 82%, n=63) — sur-estimé de 26pp",
+      "reasoning": "Real Betis invaincu 100% sur 5 derniers matchs · H2H: 0/0 matchs sans défaite · Classement: #12 vs #29\n📉 Calibration : bucket 80-89% historiquement à WR 56% (claim 82%, n=63) — sur-estimé de 26pp",
       "stats": {
         "form": [
           "W",
@@ -611,6 +329,126 @@
   },
   {
     "league": "Champions League",
+    "home": "Feyenoord",
+    "away": "Como",
+    "start_ts": 1791996300,
+    "match_id": "6106309",
+    "page_url": "/matches/como-vs-feyenoord/3fyxs8#6106309",
+    "picks": [
+      {
+        "direction": "away_win",
+        "type": "Favori net",
+        "label": "Como gagne",
+        "cote": 1.91,
+        "confidence": 88,
+        "reasoning": "27 places d'écart au classement (#6 vs #33) · 3V/1N/1D sur 5 matchs · Note Sofa: 6.5/10\n📉 Calibration : bucket 80-89% historiquement à WR 56% (claim 82%, n=63) — sur-estimé de 26pp",
+        "stats": {
+          "form": [
+            "D",
+            "L",
+            "W",
+            "W",
+            "W"
+          ]
+        },
+        "is_fun": false,
+        "tier": "ok",
+        "calibration_delta": -26.0,
+        "edge_pp": 35.6,
+        "history_top3": true
+      },
+      {
+        "direction": "tirs_cadrés_(feyenoord)_over_2.5",
+        "type": "Tirs cadrés (Feyenoord)",
+        "label": "Plus de 2.5 tirs cadrés Feyenoord",
+        "cote": null,
+        "cote_min": 1.28,
+        "value": [
+          "⚠️",
+          "Value serrée",
+          "#f59e0b"
+        ],
+        "confidence": 78,
+        "edge": null,
+        "reasoning": "Feyenoord prend 6.1/m [pondere vs opp #6] · adv. concède 3.5/m → attendu ~4.1 (Como favori (#6 vs #33))\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+        "stats": {
+          "expected": 4.1
+        },
+        "tier": "safe",
+        "calibration_delta": -11.3,
+        "history_top3": false
+      },
+      {
+        "direction": "sot_over_7.5",
+        "type": "Tirs cadrés (total)",
+        "label": "Plus de 7.5 tirs cadrés total",
+        "cote": null,
+        "cote_min": 1.3,
+        "value": [
+          "💎",
+          "Value correcte",
+          "#84cc16"
+        ],
+        "confidence": 77,
+        "reasoning": "📊 Brut : Feyenoord L10 TCC 7.3 (L5 TCC 7.0) tirs cadrés/m · Como L10 TCC 6.6 (L5 TCC 6.8) tirs cadrés/m\n🛡️ Défenses : Feyenoord concède 3.5/m · Como concède 3.5/m\n🎯 Attendu : Feyenoord ~4.1 · Como ~5.8 → total ~9.9\n⚖️ Como favori (#6 vs #33) · Feyenoord forme : W-W-W-L-W · Como forme : D-L-W-W-W\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+        "stats": {
+          "expected_total": 9.9
+        },
+        "tier": "safe",
+        "calibration_delta": -11.3,
+        "history_top3": true
+      }
+    ],
+    "home_players": [],
+    "away_players": [],
+    "fun_picks": [],
+    "top_pick": {
+      "direction": "away_win",
+      "type": "Favori net",
+      "label": "Como gagne",
+      "cote": 1.91,
+      "confidence": 88,
+      "reasoning": "27 places d'écart au classement (#6 vs #33) · 3V/1N/1D sur 5 matchs · Note Sofa: 6.5/10\n📉 Calibration : bucket 80-89% historiquement à WR 56% (claim 82%, n=63) — sur-estimé de 26pp",
+      "stats": {
+        "form": [
+          "D",
+          "L",
+          "W",
+          "W",
+          "W"
+        ]
+      },
+      "is_fun": false,
+      "tier": "ok",
+      "calibration_delta": -26.0,
+      "edge_pp": 35.6,
+      "history_top3": true
+    },
+    "no_picks": false,
+    "context": {
+      "stadium": {
+        "name": "Stadion Feijenoord",
+        "city": "Rotterdam",
+        "country": "Netherlands",
+        "lat": 51.89385454,
+        "lon": 4.523191452,
+        "capacity": 51117,
+        "surface": "grass"
+      },
+      "weather": {
+        "temp_max": 17.9,
+        "temp_min": 13.9,
+        "humidity": 61,
+        "precipitation_sum_mm": 0.0,
+        "wind_max_kmh": 16.9,
+        "weather_code": 3,
+        "summary_fr": "☁️ couvert · 13–17°C · humidité 61%"
+      },
+      "text": "Conditions : ☁️ couvert · 13–17°C · humidité 61%. Stade : Stadion Feijenoord · 51 117 places · plein air."
+    }
+  },
+  {
+    "league": "Champions League",
     "home": "Slovan Bratislava",
     "away": "VfB Stuttgart",
     "start_ts": 1792004400,
@@ -622,8 +460,8 @@
         "type": "Favori net",
         "label": "VfB Stuttgart gagne",
         "cote": 1.29,
-        "confidence": 89,
-        "reasoning": "28 places d'écart au classement (#7 vs #35) · 3V/0N/2D sur 5 matchs · Note Sofa: 6.5/10\n📉 Calibration : bucket 80-89% historiquement à WR 56% (claim 82%, n=63) — sur-estimé de 26pp",
+        "confidence": 88,
+        "reasoning": "27 places d'écart au classement (#8 vs #35) · 3V/0N/2D sur 5 matchs · Note Sofa: 6.5/10\n📉 Calibration : bucket 80-89% historiquement à WR 56% (claim 82%, n=63) — sur-estimé de 26pp",
         "stats": {
           "form": [
             "W",
@@ -636,7 +474,7 @@
         "is_fun": false,
         "tier": "safe",
         "calibration_delta": -26.0,
-        "edge_pp": 11.5,
+        "edge_pp": 10.5,
         "history_top3": false
       },
       {
@@ -652,7 +490,7 @@
         ],
         "confidence": 79,
         "edge": null,
-        "reasoning": "VfB Stuttgart prend 17.0/m [pondere vs opp #35] · adv. concède 16.6/m → attendu ~20.2 (VfB Stuttgart favori (#7 vs #35))\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+        "reasoning": "VfB Stuttgart prend 17.0/m [pondere vs opp #35] · adv. concède 16.6/m → attendu ~20.2 (VfB Stuttgart favori (#8 vs #35))\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
         "stats": {
           "expected": 20.2
         },
@@ -672,7 +510,7 @@
           "#84cc16"
         ],
         "confidence": 75,
-        "reasoning": "📊 Brut : Slovan Bratislava L10 TCC 15.7 (L5 TCC 16.2) tirs/m · VfB Stuttgart L10 TCC 16.7 (L5 TCC 17.0) tirs/m\n🛡️ Défenses : Slovan Bratislava concède 16.6/m · VfB Stuttgart concède 16.4/m\n🎯 Attendu : Slovan Bratislava ~10.2 · VfB Stuttgart ~20.2 → total ~30.3\n⚖️ VfB Stuttgart favori (#7 vs #35) · Slovan Bratislava forme : D-W-W-D-L · VfB Stuttgart forme : W-W-L-L-W\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+        "reasoning": "📊 Brut : Slovan Bratislava L10 TCC 15.7 (L5 TCC 16.2) tirs/m · VfB Stuttgart L10 TCC 16.7 (L5 TCC 17.0) tirs/m\n🛡️ Défenses : Slovan Bratislava concède 16.6/m · VfB Stuttgart concède 16.4/m\n🎯 Attendu : Slovan Bratislava ~10.2 · VfB Stuttgart ~20.2 → total ~30.3\n⚖️ VfB Stuttgart favori (#8 vs #35) · Slovan Bratislava forme : D-W-W-D-L · VfB Stuttgart forme : W-W-L-L-W\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
         "stats": {
           "expected_total": 30.3
         },
@@ -712,8 +550,8 @@
       "type": "Favori net",
       "label": "VfB Stuttgart gagne",
       "cote": 1.29,
-      "confidence": 89,
-      "reasoning": "28 places d'écart au classement (#7 vs #35) · 3V/0N/2D sur 5 matchs · Note Sofa: 6.5/10\n📉 Calibration : bucket 80-89% historiquement à WR 56% (claim 82%, n=63) — sur-estimé de 26pp",
+      "confidence": 88,
+      "reasoning": "27 places d'écart au classement (#8 vs #35) · 3V/0N/2D sur 5 matchs · Note Sofa: 6.5/10\n📉 Calibration : bucket 80-89% historiquement à WR 56% (claim 82%, n=63) — sur-estimé de 26pp",
       "stats": {
         "form": [
           "W",
@@ -726,7 +564,7 @@
       "is_fun": false,
       "tier": "safe",
       "calibration_delta": -26.0,
-      "edge_pp": 11.5,
+      "edge_pp": 10.5,
       "history_top3": false
     },
     "no_picks": false,
@@ -750,149 +588,6 @@
         "summary_fr": "🌦️ pluie légère · 6–16°C · humidité 68%"
       },
       "text": "Conditions : 🌦️ pluie légère · 6–16°C · humidité 68%. Stade : Štadión Tehelné pole · 22 500 places · plein air."
-    }
-  },
-  {
-    "league": "Champions League",
-    "home": "Galatasaray",
-    "away": "Barcelona",
-    "start_ts": 1791918000,
-    "match_id": "6106338",
-    "page_url": "/matches/barcelona-vs-galatasaray/2gt1cx#6106338",
-    "picks": [
-      {
-        "direction": "away_win",
-        "type": "Favori net",
-        "label": "Barcelona gagne",
-        "cote": 1.26,
-        "confidence": 86,
-        "reasoning": "26 places d'écart au classement (#3 vs #29) · 5V/0N/0D sur 5 matchs · Note Sofa: 6.5/10\n📉 Calibration : bucket 80-89% historiquement à WR 56% (claim 82%, n=63) — sur-estimé de 26pp",
-        "stats": {
-          "form": [
-            "W",
-            "W",
-            "W",
-            "W",
-            "W"
-          ]
-        },
-        "is_fun": false,
-        "tier": "safe",
-        "calibration_delta": -26.0,
-        "edge_pp": 6.6,
-        "history_top3": false
-      },
-      {
-        "direction": "tirs_cadrés_(galatasaray)_under_5.5",
-        "type": "Tirs cadrés (Galatasaray)",
-        "label": "Moins de 5.5 tirs cadrés Galatasaray",
-        "cote": null,
-        "cote_min": 1.25,
-        "value": [
-          "⚠️",
-          "Value serrée",
-          "#f59e0b"
-        ],
-        "confidence": 80,
-        "edge": null,
-        "reasoning": "Galatasaray prend 6.1/m [pondere vs opp #3] · adv. concède 3.0/m → attendu ~3.9 (Barcelona favori (#3 vs #29))\n📉 Calibration : bucket 80-89% historiquement à WR 56% (claim 82%, n=63) — sur-estimé de 26pp",
-        "stats": {
-          "expected": 3.9
-        },
-        "tier": "safe",
-        "calibration_delta": -26.0,
-        "history_top3": false
-      },
-      {
-        "direction": "sot_over_8.5",
-        "type": "Tirs cadrés (total)",
-        "label": "Plus de 8.5 tirs cadrés total",
-        "cote": null,
-        "cote_min": 1.4,
-        "value": [
-          "💎",
-          "Value correcte",
-          "#84cc16"
-        ],
-        "confidence": 72,
-        "reasoning": "📊 Brut : Galatasaray L10 TCC 7.5 (L5 TCC 6.4) tirs cadrés/m · Barcelona L10 TCC 8.3 (L5 TCC 7.8) tirs cadrés/m\n🛡️ Défenses : Galatasaray concède 3.3/m · Barcelona concède 3.0/m\n🎯 Attendu : Galatasaray ~3.9 · Barcelona ~6.5 → total ~10.4\n⚖️ Barcelona favori (#3 vs #29) · Galatasaray forme : W-L-W-L-W · Barcelona forme : W-W-W-W-W\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
-        "stats": {
-          "expected_total": 10.4
-        },
-        "tier": "safe",
-        "calibration_delta": -11.3,
-        "history_top3": true
-      }
-    ],
-    "home_players": [],
-    "away_players": [
-      {
-        "player": "Raphinha",
-        "position": "M",
-        "is_sub": false,
-        "type": "Buteur",
-        "label": "Raphinha marque",
-        "team": "away",
-        "cote": null,
-        "book": null,
-        "books": [],
-        "confidence": 30,
-        "reasoning": "2G en 5 matchs (40.0%/match) · xG: 0.14/match",
-        "context": {
-          "weakness": 0.65
-        },
-        "stats": {
-          "goals": 2,
-          "apps": 5
-        },
-        "tier": "fun",
-        "history_top3": true
-      }
-    ],
-    "fun_picks": [],
-    "top_pick": {
-      "direction": "away_win",
-      "type": "Favori net",
-      "label": "Barcelona gagne",
-      "cote": 1.26,
-      "confidence": 86,
-      "reasoning": "26 places d'écart au classement (#3 vs #29) · 5V/0N/0D sur 5 matchs · Note Sofa: 6.5/10\n📉 Calibration : bucket 80-89% historiquement à WR 56% (claim 82%, n=63) — sur-estimé de 26pp",
-      "stats": {
-        "form": [
-          "W",
-          "W",
-          "W",
-          "W",
-          "W"
-        ]
-      },
-      "is_fun": false,
-      "tier": "safe",
-      "calibration_delta": -26.0,
-      "edge_pp": 6.6,
-      "history_top3": false
-    },
-    "no_picks": false,
-    "context": {
-      "stadium": {
-        "name": "RAMS Park",
-        "city": "İstanbul",
-        "country": "Türkiye",
-        "lat": 41.10339059,
-        "lon": 28.991063833,
-        "capacity": 53798,
-        "surface": "grass"
-      },
-      "weather": {
-        "temp_max": 17.9,
-        "temp_min": 16.2,
-        "humidity": 89,
-        "precipitation_sum_mm": 5.7,
-        "wind_max_kmh": 15.7,
-        "weather_code": 80,
-        "summary_fr": "🌦️ averses légères · 17°C · humidité 89% · précipitations 5.7mm"
-      },
-      "text": "Conditions : 🌦️ averses légères · 17°C · humidité 89% · précipitations 5.7mm. Stade : RAMS Park · 53 798 places · plein air. ⚠️ Pluies prévues : terrain potentiellement lourd, jeu direct privilégié, plus d'erreurs techniques."
     }
   },
   {
@@ -1023,104 +718,6 @@
       },
       "text": "Conditions : 🌧️ bruine dense · 16–26°C · humidité 80% · précipitations 1.8mm. Stade : ScottsMiracle-Gro Field · 21 188 places · plein air."
     }
-  },
-  {
-    "league": "Algeria Ligue 1",
-    "home": "ASO Chlef",
-    "away": "MC Alger",
-    "start_ts": 1791909900,
-    "match_id": "5989839",
-    "page_url": "/matches/mc-alger-vs-aso-chlef/2of3moq#5989839",
-    "picks": [
-      {
-        "direction": "away_dc",
-        "type": "Double chance",
-        "label": "Nul ou MC Alger (X2)",
-        "cote": null,
-        "confidence": 83,
-        "reasoning": "MC Alger invaincu 100% sur 4 derniers matchs · H2H: 0/0 matchs sans défaite · Classement: #5 (away) vs #16 (home)\n📉 Calibration : bucket 80-89% historiquement à WR 56% (claim 82%, n=63) — sur-estimé de 26pp",
-        "stats": {
-          "form": [
-            "W",
-            "W",
-            "W",
-            "D"
-          ]
-        },
-        "is_fun": false,
-        "tier": "safe",
-        "calibration_delta": -26.0,
-        "history_top3": true
-      },
-      {
-        "direction": "away_win",
-        "type": "Victoire extérieur",
-        "label": "MC Alger gagne",
-        "cote": null,
-        "confidence": 68,
-        "reasoning": "MC Alger : 3V/1N/0D sur 4 matchs · #5 au classement · H2H: 0V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
-        "stats": {
-          "form": [
-            "W",
-            "W",
-            "W",
-            "D"
-          ]
-        },
-        "is_fun": false,
-        "tier": "ok",
-        "calibration_delta": -25.4,
-        "history_top3": true
-      }
-    ],
-    "home_players": [
-      {
-        "player": "Zoubir Motrani",
-        "position": "M",
-        "is_sub": false,
-        "type": "Buteur",
-        "label": "Zoubir Motrani marque",
-        "team": "home",
-        "cote": null,
-        "book": null,
-        "books": [],
-        "confidence": 39,
-        "reasoning": "2G en 5 matchs (40.0%/match) · xG: 0.00/match",
-        "context": {
-          "weakness": 0.45
-        },
-        "stats": {
-          "goals": 2,
-          "apps": 5
-        },
-        "tier": "fun",
-        "history_top3": true
-      }
-    ],
-    "away_players": [],
-    "fun_picks": [],
-    "top_pick": {
-      "direction": "away_dc",
-      "type": "Double chance",
-      "label": "Nul ou MC Alger (X2)",
-      "cote": null,
-      "confidence": 83,
-      "reasoning": "MC Alger invaincu 100% sur 4 derniers matchs · H2H: 0/0 matchs sans défaite · Classement: #5 (away) vs #16 (home)\n📉 Calibration : bucket 80-89% historiquement à WR 56% (claim 82%, n=63) — sur-estimé de 26pp",
-      "stats": {
-        "form": [
-          "W",
-          "W",
-          "W",
-          "D"
-        ]
-      },
-      "is_fun": false,
-      "tier": "safe",
-      "calibration_delta": -26.0,
-      "history_top3": true
-    },
-    "no_picks": false,
-    "context": null
   },
   {
     "league": "Argentina Primera",
@@ -1434,187 +1031,53 @@
     }
   },
   {
-    "league": "Champions League",
-    "home": "Arsenal",
-    "away": "Lille",
-    "start_ts": 1791918000,
-    "match_id": "6106260",
-    "page_url": "/matches/lille-vs-arsenal/2thy7l#6106260",
+    "league": "Morocco Botola Pro",
+    "home": "FUS Rabat",
+    "away": "Raja Casablanca",
+    "start_ts": 1791921600,
+    "match_id": "6408792",
+    "page_url": "/matches/fus-rabat-vs-raja-casablanca/9kezrg8#6408792",
     "picks": [
       {
-        "direction": "tirs_cadrés_(arsenal)_over_3.5",
-        "type": "Tirs cadrés (Arsenal)",
-        "label": "Plus de 3.5 tirs cadrés Arsenal",
+        "direction": "away_dc",
+        "type": "Double chance",
+        "label": "Nul ou Raja Casablanca (X2)",
         "cote": null,
-        "cote_min": 1.26,
-        "value": [
-          "⚠️",
-          "Value serrée",
-          "#f59e0b"
-        ],
-        "confidence": 79,
-        "edge": null,
-        "reasoning": "Arsenal prend 6.0/m [pondere vs opp #23] · adv. concède 4.2/m → attendu ~5.4 (Arsenal favori (#15 vs #23))\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
-        "stats": {
-          "expected": 5.4
-        },
-        "tier": "safe",
-        "calibration_delta": -11.3,
-        "history_top3": false
-      },
-      {
-        "direction": "shots_over_26.5",
-        "type": "Tirs (total match)",
-        "label": "Plus de 26.5 tirs total",
-        "cote": null,
-        "cote_min": 1.32,
-        "value": [
-          "💎",
-          "Value correcte",
-          "#84cc16"
-        ],
-        "confidence": 76,
-        "reasoning": "📊 Brut : Arsenal L10 TCC 14.5 (L5 TCC 14.6) tirs/m · Lille L10 TCC 10.7 (L5 TCC 11.0) tirs/m\n🛡️ Défenses : Arsenal concède 10.2/m · Lille concède 16.1/m\n🎯 Attendu : Arsenal ~23.1 · Lille ~7.3 → total ~30.4\n⚖️ Arsenal favori (#15 vs #23) · Arsenal forme : W-L-W-W-W · Lille forme : W-L-W-L-W\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
-        "stats": {
-          "expected_total": 30.4
-        },
-        "tier": "safe",
-        "calibration_delta": -11.3,
-        "history_top3": true
-      }
-    ],
-    "home_players": [],
-    "away_players": [],
-    "fun_picks": [],
-    "top_pick": {
-      "direction": "tirs_cadrés_(arsenal)_over_3.5",
-      "type": "Tirs cadrés (Arsenal)",
-      "label": "Plus de 3.5 tirs cadrés Arsenal",
-      "cote": null,
-      "cote_min": 1.26,
-      "value": [
-        "⚠️",
-        "Value serrée",
-        "#f59e0b"
-      ],
-      "confidence": 79,
-      "edge": null,
-      "reasoning": "Arsenal prend 6.0/m [pondere vs opp #23] · adv. concède 4.2/m → attendu ~5.4 (Arsenal favori (#15 vs #23))\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
-      "stats": {
-        "expected": 5.4
-      },
-      "tier": "safe",
-      "calibration_delta": -11.3,
-      "history_top3": false
-    },
-    "no_picks": false,
-    "context": {
-      "stadium": {
-        "name": "Emirates Stadium",
-        "city": "London",
-        "country": "England",
-        "lat": 51.555074614,
-        "lon": -0.108457804,
-        "capacity": 60704,
-        "surface": "grass"
-      },
-      "weather": {
-        "temp_max": 20.1,
-        "temp_min": 14.8,
-        "humidity": 52,
-        "precipitation_sum_mm": 0.1,
-        "wind_max_kmh": 23.4,
-        "weather_code": 51,
-        "summary_fr": "🌦️ bruine légère · 14–20°C · humidité 52%"
-      },
-      "text": "Conditions : 🌦️ bruine légère · 14–20°C · humidité 52%. Stade : Emirates Stadium · 60 704 places · plein air."
-    }
-  },
-  {
-    "league": "Champions League",
-    "home": "Atlético Madrid",
-    "away": "Manchester United",
-    "start_ts": 1791918000,
-    "match_id": "6106267",
-    "page_url": "/matches/atletico-madrid-vs-manchester-united/3d2krr#6106267",
-    "picks": [
-      {
-        "direction": "away_win",
-        "type": "Favori net",
-        "label": "Manchester United gagne",
-        "cote": 4.0,
-        "confidence": 79,
-        "reasoning": "21 places d'écart au classement (#4 vs #25) · 1V/2N/2D sur 5 matchs · Note Sofa: 6.5/10\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+        "confidence": 80,
+        "reasoning": "Raja Casablanca invaincu 100% sur 5 derniers matchs · H2H: 0/0 matchs sans défaite · Classement: #5 (away) vs #15 (home)\n📉 Calibration : bucket 80-89% historiquement à WR 56% (claim 82%, n=63) — sur-estimé de 26pp",
         "stats": {
           "form": [
             "D",
-            "D",
-            "L",
-            "L",
-            "W"
+            "W",
+            "W",
+            "W",
+            "D"
           ]
         },
         "is_fun": false,
-        "tier": "fun",
-        "calibration_delta": -11.3,
-        "edge_pp": 54.0,
+        "tier": "safe",
+        "calibration_delta": -26.0,
         "history_top3": true
       },
       {
-        "direction": "over25",
-        "type": "Over 2.5 buts",
-        "label": "Plus de 2.5 buts",
-        "cote": 1.67,
-        "confidence": 70,
-        "reasoning": "Atlético Madrid: 1.0 buts/L10 · défense Manchester United concède 0.0/L10 → ~1.0 attendus · Manchester United: 4.0 buts/L10 · défense Atlético Madrid concède 2.0/L10 → ~3.0 attendus · Total: ~4.0 buts (P=76.2% · contexte LDC (L10/L10))\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+        "direction": "away_win",
+        "type": "Victoire extérieur",
+        "label": "Raja Casablanca gagne",
+        "cote": null,
+        "confidence": 62,
+        "reasoning": "Raja Casablanca : 3V/2N/0D sur 5 matchs · #5 au classement · H2H: 0V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
         "stats": {
-          "form": []
+          "form": [
+            "D",
+            "W",
+            "W",
+            "W",
+            "D"
+          ]
         },
         "is_fun": false,
-        "tier": "safe",
-        "calibration_delta": -11.3,
-        "edge_pp": 10.1,
-        "history_top3": true
-      },
-      {
-        "direction": "tirs_(manchester_united)_over_14.5",
-        "type": "Tirs (Manchester United)",
-        "label": "Plus de 14.5 tirs Manchester United",
-        "cote": null,
-        "cote_min": 1.27,
-        "value": [
-          "⚠️",
-          "Value serrée",
-          "#f59e0b"
-        ],
-        "confidence": 79,
-        "edge": null,
-        "reasoning": "Manchester United prend 21.0/m [pondere vs opp #25] · adv. concède 8.9/m → attendu ~17.9 (Manchester United favori (#4 vs #25))\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
-        "stats": {
-          "expected": 17.9
-        },
-        "tier": "safe",
-        "calibration_delta": -11.3,
-        "history_top3": false
-      },
-      {
-        "direction": "sot_over_7.5",
-        "type": "Tirs cadrés (total)",
-        "label": "Plus de 7.5 tirs cadrés total",
-        "cote": null,
-        "cote_min": 1.34,
-        "value": [
-          "💎",
-          "Value correcte",
-          "#84cc16"
-        ],
-        "confidence": 75,
-        "reasoning": "📊 Brut : Atlético Madrid L10 TCC 6.2 (L5 TCC 7.2) tirs cadrés/m · Manchester United L10 TCC 5.8 (L5 TCC 5.4) tirs cadrés/m\n🛡️ Défenses : Atlético Madrid concède 3.1/m · Manchester United concède 3.5/m\n🎯 Attendu : Atlético Madrid ~4.2 · Manchester United ~5.5 → total ~9.6\n⚖️ Manchester United favori (#4 vs #25) · Atlético Madrid forme : W-W-W-W-L · Manchester United forme : D-D-L-L-W\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
-        "stats": {
-          "expected_total": 9.6
-        },
-        "tier": "safe",
-        "calibration_delta": -11.3,
+        "tier": "ok",
+        "calibration_delta": -25.4,
         "history_top3": true
       }
     ],
@@ -1622,144 +1085,39 @@
     "away_players": [],
     "fun_picks": [],
     "top_pick": {
-      "direction": "away_win",
-      "type": "Favori net",
-      "label": "Manchester United gagne",
-      "cote": 4.0,
-      "confidence": 79,
-      "reasoning": "21 places d'écart au classement (#4 vs #25) · 1V/2N/2D sur 5 matchs · Note Sofa: 6.5/10\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+      "direction": "away_dc",
+      "type": "Double chance",
+      "label": "Nul ou Raja Casablanca (X2)",
+      "cote": null,
+      "confidence": 80,
+      "reasoning": "Raja Casablanca invaincu 100% sur 5 derniers matchs · H2H: 0/0 matchs sans défaite · Classement: #5 (away) vs #15 (home)\n📉 Calibration : bucket 80-89% historiquement à WR 56% (claim 82%, n=63) — sur-estimé de 26pp",
       "stats": {
         "form": [
           "D",
-          "D",
-          "L",
-          "L",
-          "W"
+          "W",
+          "W",
+          "W",
+          "D"
         ]
       },
       "is_fun": false,
-      "tier": "fun",
-      "calibration_delta": -11.3,
-      "edge_pp": 54.0,
+      "tier": "safe",
+      "calibration_delta": -26.0,
       "history_top3": true
     },
     "no_picks": false,
     "context": {
       "stadium": {
-        "name": "Riyadh Air Metropolitano",
-        "city": "Madrid",
-        "country": "Spain",
-        "lat": 40.436225928,
-        "lon": -3.599460125,
-        "capacity": 70692,
-        "surface": "grass"
+        "name": "Moulay Hassan Stadium",
+        "city": null,
+        "country": "",
+        "lat": null,
+        "lon": null,
+        "capacity": null,
+        "surface": null
       },
-      "weather": {
-        "temp_max": 27.8,
-        "temp_min": 14.5,
-        "humidity": 39,
-        "precipitation_sum_mm": 0.0,
-        "wind_max_kmh": 5.1,
-        "weather_code": 1,
-        "summary_fr": "🌤️ principalement clair · 14–27°C · humidité 39%"
-      },
-      "text": "Conditions : 🌤️ principalement clair · 14–27°C · humidité 39%. Stade : Riyadh Air Metropolitano · 70 692 places · plein air."
-    }
-  },
-  {
-    "league": "Champions League",
-    "home": "Aston Villa",
-    "away": "Fenerbahçe",
-    "start_ts": 1792004400,
-    "match_id": "6106284",
-    "page_url": "/matches/fenerbahce-vs-aston-villa/2yvksd#6106284",
-    "picks": [
-      {
-        "direction": "sot_over_8.5",
-        "type": "Tirs cadrés (total)",
-        "label": "Plus de 8.5 tirs cadrés total",
-        "cote": null,
-        "cote_min": 1.27,
-        "value": [
-          "⚠️",
-          "Value serrée",
-          "#f59e0b"
-        ],
-        "confidence": 79,
-        "reasoning": "📊 Brut : Aston Villa L10 TCC 4.6 (L5 TCC 7.2) tirs cadrés/m · Fenerbahçe L10 TCC 7.0 (L5 TCC 5.8) tirs cadrés/m\n🛡️ Défenses : Aston Villa concède 5.7/m · Fenerbahçe concède 4.0/m\n🎯 Attendu : Aston Villa ~5.9 · Fenerbahçe ~5.4 → total ~11.2\n⚖️ Aston Villa favori (#9 vs #19) · Aston Villa forme : D-W-W-W-L · Fenerbahçe forme : W-W-W-D-D\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
-        "stats": {
-          "expected_total": 11.2
-        },
-        "tier": "safe",
-        "calibration_delta": -11.3,
-        "history_top3": false
-      },
-      {
-        "direction": "tirs_cadrés_(fenerbahçe)_over_3.5",
-        "type": "Tirs cadrés (Fenerbahçe)",
-        "label": "Plus de 3.5 tirs cadrés Fenerbahçe",
-        "cote": null,
-        "cote_min": 1.28,
-        "value": [
-          "⚠️",
-          "Value serrée",
-          "#f59e0b"
-        ],
-        "confidence": 78,
-        "edge": null,
-        "reasoning": "Fenerbahçe prend 6.0/m [pondere vs opp #9] · adv. concède 5.7/m → attendu ~5.4 (Aston Villa favori (#9 vs #19))\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
-        "stats": {
-          "expected": 5.4
-        },
-        "tier": "safe",
-        "calibration_delta": -11.3,
-        "history_top3": false
-      }
-    ],
-    "home_players": [],
-    "away_players": [],
-    "fun_picks": [],
-    "top_pick": {
-      "direction": "sot_over_8.5",
-      "type": "Tirs cadrés (total)",
-      "label": "Plus de 8.5 tirs cadrés total",
-      "cote": null,
-      "cote_min": 1.27,
-      "value": [
-        "⚠️",
-        "Value serrée",
-        "#f59e0b"
-      ],
-      "confidence": 79,
-      "reasoning": "📊 Brut : Aston Villa L10 TCC 4.6 (L5 TCC 7.2) tirs cadrés/m · Fenerbahçe L10 TCC 7.0 (L5 TCC 5.8) tirs cadrés/m\n🛡️ Défenses : Aston Villa concède 5.7/m · Fenerbahçe concède 4.0/m\n🎯 Attendu : Aston Villa ~5.9 · Fenerbahçe ~5.4 → total ~11.2\n⚖️ Aston Villa favori (#9 vs #19) · Aston Villa forme : D-W-W-W-L · Fenerbahçe forme : W-W-W-D-D\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
-      "stats": {
-        "expected_total": 11.2
-      },
-      "tier": "safe",
-      "calibration_delta": -11.3,
-      "history_top3": false
-    },
-    "no_picks": false,
-    "context": {
-      "stadium": {
-        "name": "Villa Park",
-        "city": "Birmingham",
-        "country": "England",
-        "lat": 52.509090736,
-        "lon": -1.884841919,
-        "capacity": 43205,
-        "surface": "grass"
-      },
-      "weather": {
-        "temp_max": 17.2,
-        "temp_min": 10.2,
-        "humidity": 64,
-        "precipitation_sum_mm": 0.0,
-        "wind_max_kmh": 20.5,
-        "weather_code": 3,
-        "summary_fr": "☁️ couvert · 10–17°C · humidité 64%"
-      },
-      "text": "Conditions : ☁️ couvert · 10–17°C · humidité 64%. Stade : Villa Park · 43 205 places · plein air."
+      "weather": null,
+      "text": "Stade : Moulay Hassan Stadium · plein air."
     }
   },
   {
@@ -1771,9 +1129,9 @@
     "page_url": "/matches/real-madrid-vs-roma/2hatyy#6106274",
     "picks": [
       {
-        "direction": "tirs_(roma)_under_14.5",
+        "direction": "tirs_(roma)_under_13.5",
         "type": "Tirs (Roma)",
-        "label": "Moins de 14.5 tirs Roma",
+        "label": "Moins de 13.5 tirs Roma",
         "cote": null,
         "cote_min": 1.27,
         "value": [
@@ -1783,9 +1141,9 @@
         ],
         "confidence": 79,
         "edge": null,
-        "reasoning": "Roma prend 8.0/m [pondere vs opp #14] · adv. concède 15.6/m → attendu ~11.8 (équipes proches au classement)\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+        "reasoning": "Roma prend 8.0/m [pondere vs opp #16] · adv. concède 15.6/m → attendu ~10.9 (Real Madrid favori (#16 vs #22))\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
         "stats": {
-          "expected": 11.8
+          "expected": 10.9
         },
         "tier": "safe",
         "calibration_delta": -11.3,
@@ -1796,16 +1154,16 @@
         "type": "Tirs (total match)",
         "label": "Moins de 29.5 tirs total",
         "cote": null,
-        "cote_min": 1.28,
+        "cote_min": 1.29,
         "value": [
           "⚠️",
           "Value serrée",
           "#f59e0b"
         ],
         "confidence": 78,
-        "reasoning": "📊 Brut : Roma L10 TCC 17.1 (L5 TCC 17.6) tirs/m · Real Madrid L10 TCC 17.7 (L5 TCC 15.8) tirs/m\n🛡️ Défenses : Roma concède 11.6/m · Real Madrid concède 15.6/m\n🎯 Attendu : Roma ~11.8 · Real Madrid ~13.8 → total ~25.6\n⚖️ équipes proches au classement · Roma forme : D-D-W-D-W · Real Madrid forme : W-L-W-W-W\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+        "reasoning": "📊 Brut : Roma L10 TCC 17.1 (L5 TCC 17.6) tirs/m · Real Madrid L10 TCC 17.7 (L5 TCC 15.8) tirs/m\n🛡️ Défenses : Roma concède 11.6/m · Real Madrid concède 15.6/m\n🎯 Attendu : Roma ~10.9 · Real Madrid ~14.8 → total ~25.7\n⚖️ Real Madrid favori (#16 vs #22) · Roma forme : D-D-W-D-W · Real Madrid forme : W-L-W-W-W\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
         "stats": {
-          "expected_total": 25.6
+          "expected_total": 25.7
         },
         "tier": "safe",
         "calibration_delta": -11.3,
@@ -1816,9 +1174,9 @@
     "away_players": [],
     "fun_picks": [],
     "top_pick": {
-      "direction": "tirs_(roma)_under_14.5",
+      "direction": "tirs_(roma)_under_13.5",
       "type": "Tirs (Roma)",
-      "label": "Moins de 14.5 tirs Roma",
+      "label": "Moins de 13.5 tirs Roma",
       "cote": null,
       "cote_min": 1.27,
       "value": [
@@ -1828,9 +1186,9 @@
       ],
       "confidence": 79,
       "edge": null,
-      "reasoning": "Roma prend 8.0/m [pondere vs opp #14] · adv. concède 15.6/m → attendu ~11.8 (équipes proches au classement)\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+      "reasoning": "Roma prend 8.0/m [pondere vs opp #16] · adv. concède 15.6/m → attendu ~10.9 (Real Madrid favori (#16 vs #22))\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
       "stats": {
-        "expected": 11.8
+        "expected": 10.9
       },
       "tier": "safe",
       "calibration_delta": -11.3,
@@ -1857,126 +1215,6 @@
         "summary_fr": "☁️ couvert · 11–25°C · humidité 39%"
       },
       "text": "Conditions : ☁️ couvert · 11–25°C · humidité 39%. Stade : Stadio Olimpico · 70 634 places · plein air."
-    }
-  },
-  {
-    "league": "Champions League",
-    "home": "Inter",
-    "away": "Club Brugge",
-    "start_ts": 1791918000,
-    "match_id": "6106251",
-    "page_url": "/matches/club-brugge-vs-inter/2dthqf#6106251",
-    "picks": [
-      {
-        "direction": "tirs_(club_brugge)_under_16.5",
-        "type": "Tirs (Club Brugge)",
-        "label": "Moins de 16.5 tirs Club Brugge",
-        "cote": null,
-        "cote_min": 1.31,
-        "value": [
-          "💎",
-          "Value correcte",
-          "#84cc16"
-        ],
-        "confidence": 76,
-        "edge": null,
-        "reasoning": "Club Brugge prend 14.0/m [pondere vs opp #26] · adv. concède 12.5/m → attendu ~13.9 (Club Brugge favori (#22 vs #26))\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
-        "stats": {
-          "expected": 13.9
-        },
-        "tier": "safe",
-        "calibration_delta": -11.3,
-        "history_top3": true
-      },
-      {
-        "direction": "shots_over_27.5",
-        "type": "Tirs (total match)",
-        "label": "Plus de 27.5 tirs total",
-        "cote": null,
-        "cote_min": 1.34,
-        "value": [
-          "💎",
-          "Value correcte",
-          "#84cc16"
-        ],
-        "confidence": 74,
-        "reasoning": "📊 Brut : Inter L10 TCC 22.3 (L5 TCC 22.4) tirs/m · Club Brugge L10 TCC 18.4 (L5 TCC 19.0) tirs/m\n🛡️ Défenses : Inter concède 12.5/m · Club Brugge concède 15.5/m\n🎯 Attendu : Inter ~17.4 · Club Brugge ~13.9 → total ~31.3\n⚖️ Club Brugge favori (#22 vs #26) · Inter forme : W-D-W-L-W · Club Brugge forme : W-W-W-L-W\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
-        "stats": {
-          "expected_total": 31.3
-        },
-        "tier": "safe",
-        "calibration_delta": -11.3,
-        "history_top3": true
-      }
-    ],
-    "home_players": [],
-    "away_players": [],
-    "fun_picks": [
-      {
-        "direction": "fun_draw",
-        "type": "🎲 Paris fun",
-        "label": "Match nul",
-        "cote": 6.5,
-        "confidence": 45,
-        "is_fun": true,
-        "stats": {
-          "form": [
-            "W",
-            "D",
-            "W",
-            "L",
-            "W"
-          ]
-        },
-        "reasoning": "Deux équipes au niveau similaire (#26 vs #22), forme équilibrée des deux côtés — nul logique à 6.5\n📉 Calibration : bucket 40-49% historiquement à WR 25% (claim 44%, n=36) — sur-estimé de 19pp",
-        "tier": "fun",
-        "calibration_delta": -19.4,
-        "edge_pp": 29.6,
-        "history_top3": true
-      }
-    ],
-    "top_pick": {
-      "direction": "tirs_(club_brugge)_under_16.5",
-      "type": "Tirs (Club Brugge)",
-      "label": "Moins de 16.5 tirs Club Brugge",
-      "cote": null,
-      "cote_min": 1.31,
-      "value": [
-        "💎",
-        "Value correcte",
-        "#84cc16"
-      ],
-      "confidence": 76,
-      "edge": null,
-      "reasoning": "Club Brugge prend 14.0/m [pondere vs opp #26] · adv. concède 12.5/m → attendu ~13.9 (Club Brugge favori (#22 vs #26))\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
-      "stats": {
-        "expected": 13.9
-      },
-      "tier": "safe",
-      "calibration_delta": -11.3,
-      "history_top3": true
-    },
-    "no_picks": false,
-    "context": {
-      "stadium": {
-        "name": "Stadio Giuseppe Meazza",
-        "city": "Milano",
-        "country": "Italy",
-        "lat": 45.478083998,
-        "lon": 9.123979211,
-        "capacity": 75817,
-        "surface": "grass"
-      },
-      "weather": {
-        "temp_max": 20.8,
-        "temp_min": 14.0,
-        "humidity": 51,
-        "precipitation_sum_mm": 0.0,
-        "wind_max_kmh": 6.4,
-        "weather_code": 3,
-        "summary_fr": "☁️ couvert · 14–20°C · humidité 51%"
-      },
-      "text": "Conditions : ☁️ couvert · 14–20°C · humidité 51%. Stade : Stadio Giuseppe Meazza · 75 817 places · plein air."
     }
   },
   {
@@ -2058,136 +1296,6 @@
   },
   {
     "league": "Champions League",
-    "home": "Lens",
-    "away": "Sporting CP",
-    "start_ts": 1791909900,
-    "match_id": "6106414",
-    "page_url": "/matches/lens-vs-sporting-cp/2sbbyi#6106414",
-    "picks": [
-      {
-        "direction": "over25",
-        "type": "Over 2.5 buts",
-        "label": "Plus de 2.5 buts",
-        "cote": 1.67,
-        "confidence": 74,
-        "reasoning": "Lens: 3.0 buts/L10 · défense Sporting CP concède 1.0/L10 → ~2.0 attendus · Sporting CP: 3.0 buts/L10 · défense Lens concède 2.0/L10 → ~2.5 attendus · Total: ~4.5 buts (P=82.6% · contexte LDC (L10/L10))\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
-        "stats": {
-          "form": []
-        },
-        "is_fun": false,
-        "tier": "safe",
-        "calibration_delta": -11.3,
-        "edge_pp": 14.1,
-        "history_top3": true
-      },
-      {
-        "direction": "away_win",
-        "type": "Victoire extérieur",
-        "label": "Sporting CP gagne",
-        "cote": 2.75,
-        "confidence": 61,
-        "reasoning": "Sporting CP : 3V/2N/0D sur 5 matchs · #6 au classement · H2H: 0V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
-        "stats": {
-          "form": [
-            "W",
-            "D",
-            "D",
-            "W",
-            "W"
-          ]
-        },
-        "is_fun": false,
-        "tier": "fun",
-        "calibration_delta": -25.4,
-        "edge_pp": 24.6,
-        "history_top3": true
-      },
-      {
-        "direction": "tirs_(lens)_over_13.5",
-        "type": "Tirs (Lens)",
-        "label": "Plus de 13.5 tirs Lens",
-        "cote": null,
-        "cote_min": 1.25,
-        "value": [
-          "⚠️",
-          "Value serrée",
-          "#f59e0b"
-        ],
-        "confidence": 80,
-        "edge": null,
-        "reasoning": "Lens prend 26.0/m [pondere vs opp #6] · adv. concède 9.7/m → attendu ~17.0 (Sporting CP favori (#6 vs #10))\n📉 Calibration : bucket 80-89% historiquement à WR 56% (claim 82%, n=63) — sur-estimé de 26pp",
-        "stats": {
-          "expected": 17.0
-        },
-        "tier": "safe",
-        "calibration_delta": -26.0,
-        "history_top3": false
-      },
-      {
-        "direction": "sot_over_7.5",
-        "type": "Tirs cadrés (total)",
-        "label": "Plus de 7.5 tirs cadrés total",
-        "cote": null,
-        "cote_min": 1.34,
-        "value": [
-          "💎",
-          "Value correcte",
-          "#84cc16"
-        ],
-        "confidence": 75,
-        "reasoning": "📊 Brut : Lens L10 TCC 6.1 (L5 TCC 6.2) tirs cadrés/m · Sporting CP L10 TCC 5.4 (L5 TCC 4.8) tirs cadrés/m\n🛡️ Défenses : Lens concède 4.7/m · Sporting CP concède 3.0/m\n🎯 Attendu : Lens ~4.6 · Sporting CP ~5.0 → total ~9.7\n⚖️ Sporting CP favori (#6 vs #10) · Lens forme : W-L-D-W-L · Sporting CP forme : W-D-D-W-W\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
-        "stats": {
-          "expected_total": 9.7
-        },
-        "tier": "safe",
-        "calibration_delta": -11.3,
-        "history_top3": true
-      }
-    ],
-    "home_players": [],
-    "away_players": [],
-    "fun_picks": [],
-    "top_pick": {
-      "direction": "over25",
-      "type": "Over 2.5 buts",
-      "label": "Plus de 2.5 buts",
-      "cote": 1.67,
-      "confidence": 74,
-      "reasoning": "Lens: 3.0 buts/L10 · défense Sporting CP concède 1.0/L10 → ~2.0 attendus · Sporting CP: 3.0 buts/L10 · défense Lens concède 2.0/L10 → ~2.5 attendus · Total: ~4.5 buts (P=82.6% · contexte LDC (L10/L10))\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
-      "stats": {
-        "form": []
-      },
-      "is_fun": false,
-      "tier": "safe",
-      "calibration_delta": -11.3,
-      "edge_pp": 14.1,
-      "history_top3": true
-    },
-    "no_picks": false,
-    "context": {
-      "stadium": {
-        "name": "Stade Bollaert-Delelis",
-        "city": "Lens",
-        "country": "France",
-        "lat": 50.432866762,
-        "lon": 2.81494081,
-        "capacity": 41233,
-        "surface": "grass"
-      },
-      "weather": {
-        "temp_max": 20.8,
-        "temp_min": 14.4,
-        "humidity": 82,
-        "precipitation_sum_mm": 0.8,
-        "wind_max_kmh": 23.0,
-        "weather_code": 51,
-        "summary_fr": "🌦️ bruine légère · 14–20°C · humidité 82%"
-      },
-      "text": "Conditions : 🌦️ bruine légère · 14–20°C · humidité 82%. Stade : Stade Bollaert-Delelis · 41 233 places · plein air."
-    }
-  },
-  {
-    "league": "Champions League",
     "home": "Manchester City",
     "away": "Paris Saint-Germain",
     "start_ts": 1792004400,
@@ -2199,8 +1307,8 @@
         "type": "Victoire domicile",
         "label": "Manchester City gagne",
         "cote": 2.15,
-        "confidence": 74,
-        "reasoning": "Manchester City : 5V/0N/0D sur 5 matchs · #8 au classement · H2H: 0V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+        "confidence": 73,
+        "reasoning": "Manchester City : 5V/0N/0D sur 5 matchs · #9 au classement · H2H: 0V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
         "stats": {
           "form": [
             "W",
@@ -2213,43 +1321,43 @@
         "is_fun": false,
         "tier": "ok",
         "calibration_delta": -11.3,
-        "edge_pp": 27.5,
+        "edge_pp": 26.5,
         "history_top3": true
       },
       {
-        "direction": "tirs_(manchester_city)_under_16.5",
-        "type": "Tirs (Manchester City)",
-        "label": "Moins de 16.5 tirs Manchester City",
+        "direction": "tirs_cadrés_(manchester_city)_under_6.5",
+        "type": "Tirs cadrés (Manchester City)",
+        "label": "Moins de 6.5 tirs cadrés Manchester City",
         "cote": null,
-        "cote_min": 1.3,
+        "cote_min": 1.26,
         "value": [
-          "💎",
-          "Value correcte",
-          "#84cc16"
+          "⚠️",
+          "Value serrée",
+          "#f59e0b"
         ],
-        "confidence": 77,
+        "confidence": 79,
         "edge": null,
-        "reasoning": "Manchester City prend 20.0/m [pondere vs opp #1] · adv. concède 10.2/m → attendu ~13.8 (Paris Saint-Germain favori (#1 vs #8))\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+        "reasoning": "Manchester City prend 6.6/m [pondere vs opp #5] · adv. concède 3.3/m → attendu ~4.8 (Paris Saint-Germain favori (#5 vs #9))\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
         "stats": {
-          "expected": 13.8
+          "expected": 4.8
         },
         "tier": "safe",
         "calibration_delta": -11.3,
-        "history_top3": true
+        "history_top3": false
       },
       {
         "direction": "sot_over_9.5",
         "type": "Tirs cadrés (total)",
         "label": "Plus de 9.5 tirs cadrés total",
         "cote": null,
-        "cote_min": 1.35,
+        "cote_min": 1.36,
         "value": [
           "💎",
           "Value correcte",
           "#84cc16"
         ],
         "confidence": 74,
-        "reasoning": "📊 Brut : Manchester City L10 TCC 5.9 (L5 TCC 5.6) tirs cadrés/m · Paris Saint-Germain L10 TCC 8.0 (L5 TCC 9.8) tirs cadrés/m\n🛡️ Défenses : Manchester City concède 3.4/m · Paris Saint-Germain concède 3.3/m\n🎯 Attendu : Manchester City ~4.7 · Paris Saint-Germain ~7.2 → total ~11.8\n⚖️ Paris Saint-Germain favori (#1 vs #8) · Manchester City forme : W-W-W-W-W · Paris Saint-Germain forme : W-W-W-W-L\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+        "reasoning": "📊 Brut : Manchester City L10 TCC 5.9 (L5 TCC 5.6) tirs cadrés/m · Paris Saint-Germain L10 TCC 8.0 (L5 TCC 9.8) tirs cadrés/m\n🛡️ Défenses : Manchester City concède 3.4/m · Paris Saint-Germain concède 3.3/m\n🎯 Attendu : Manchester City ~4.8 · Paris Saint-Germain ~7.0 → total ~11.8\n⚖️ Paris Saint-Germain favori (#5 vs #9) · Manchester City forme : W-W-W-W-W · Paris Saint-Germain forme : W-W-W-W-L\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
         "stats": {
           "expected_total": 11.8
         },
@@ -2270,15 +1378,15 @@
         "books": [],
         "confidence": 68,
         "cote_min": 1.54,
-        "reasoning": "🔀 Cross-équipe (moins corrélé → meilleur EV)\n📈 P(Erling Haaland marque) ≈ 41% · P(Ousmane Dembélé marque) ≈ 40%\n🎯 P(au moins un marque) = 68% (1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.54 - chercher ≥1.54 chez le bookmaker\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
+        "reasoning": "🔀 Cross-équipe (moins corrélé → meilleur EV)\n📈 P(Erling Haaland marque) ≈ 42% · P(Ousmane Dembélé marque) ≈ 40%\n🎯 P(au moins un marque) = 68% (1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.54 - chercher ≥1.54 chez le bookmaker\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
         "context": {
           "combo_kind": "cross"
         },
         "_team_for_balance": "home",
         "stats": {
-          "p_a": 0.412,
+          "p_a": 0.42,
           "p_b": 0.405,
-          "p_or": 0.65,
+          "p_or": 0.655,
           "player_a": "Erling Haaland",
           "player_b": "Ousmane Dembélé",
           "kind": "cross"
@@ -2296,8 +1404,8 @@
       "type": "Victoire domicile",
       "label": "Manchester City gagne",
       "cote": 2.15,
-      "confidence": 74,
-      "reasoning": "Manchester City : 5V/0N/0D sur 5 matchs · #8 au classement · H2H: 0V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+      "confidence": 73,
+      "reasoning": "Manchester City : 5V/0N/0D sur 5 matchs · #9 au classement · H2H: 0V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
       "stats": {
         "form": [
           "W",
@@ -2310,7 +1418,7 @@
       "is_fun": false,
       "tier": "ok",
       "calibration_delta": -11.3,
-      "edge_pp": 27.5,
+      "edge_pp": 26.5,
       "history_top3": true
     },
     "no_picks": false,
@@ -2338,6 +1446,126 @@
   },
   {
     "league": "Champions League",
+    "home": "Aston Villa",
+    "away": "Fenerbahçe",
+    "start_ts": 1792004400,
+    "match_id": "6106284",
+    "page_url": "/matches/fenerbahce-vs-aston-villa/2yvksd#6106284",
+    "picks": [
+      {
+        "direction": "home_win",
+        "type": "Favori net",
+        "label": "Aston Villa gagne",
+        "cote": 1.65,
+        "confidence": 68,
+        "reasoning": "13 places d'écart au classement (#11 vs #24) · 3V/1N/1D sur 5 matchs · Note Sofa: 6.5/10\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
+        "stats": {
+          "form": [
+            "D",
+            "W",
+            "W",
+            "W",
+            "L"
+          ]
+        },
+        "is_fun": false,
+        "tier": "ok",
+        "calibration_delta": -25.4,
+        "edge_pp": 7.4,
+        "history_top3": true
+      },
+      {
+        "direction": "sot_over_8.5",
+        "type": "Tirs cadrés (total)",
+        "label": "Plus de 8.5 tirs cadrés total",
+        "cote": null,
+        "cote_min": 1.27,
+        "value": [
+          "⚠️",
+          "Value serrée",
+          "#f59e0b"
+        ],
+        "confidence": 79,
+        "reasoning": "📊 Brut : Aston Villa L10 TCC 4.6 (L5 TCC 7.2) tirs cadrés/m · Fenerbahçe L10 TCC 7.0 (L5 TCC 5.8) tirs cadrés/m\n🛡️ Défenses : Aston Villa concède 5.7/m · Fenerbahçe concède 4.0/m\n🎯 Attendu : Aston Villa ~6.0 · Fenerbahçe ~5.2 → total ~11.2\n⚖️ Aston Villa favori (#11 vs #24) · Aston Villa forme : D-W-W-W-L · Fenerbahçe forme : W-W-W-D-D\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+        "stats": {
+          "expected_total": 11.2
+        },
+        "tier": "safe",
+        "calibration_delta": -11.3,
+        "history_top3": false
+      },
+      {
+        "direction": "tirs_(aston_villa)_over_16.5",
+        "type": "Tirs (Aston Villa)",
+        "label": "Plus de 16.5 tirs Aston Villa",
+        "cote": null,
+        "cote_min": 1.29,
+        "value": [
+          "⚠️",
+          "Value serrée",
+          "#f59e0b"
+        ],
+        "confidence": 78,
+        "edge": null,
+        "reasoning": "Aston Villa prend 21.0/m [pondere vs opp #24] · adv. concède 13.6/m → attendu ~20.0 (Aston Villa favori (#11 vs #24))\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+        "stats": {
+          "expected": 20.0
+        },
+        "tier": "safe",
+        "calibration_delta": -11.3,
+        "history_top3": false
+      }
+    ],
+    "home_players": [],
+    "away_players": [],
+    "fun_picks": [],
+    "top_pick": {
+      "direction": "home_win",
+      "type": "Favori net",
+      "label": "Aston Villa gagne",
+      "cote": 1.65,
+      "confidence": 68,
+      "reasoning": "13 places d'écart au classement (#11 vs #24) · 3V/1N/1D sur 5 matchs · Note Sofa: 6.5/10\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
+      "stats": {
+        "form": [
+          "D",
+          "W",
+          "W",
+          "W",
+          "L"
+        ]
+      },
+      "is_fun": false,
+      "tier": "ok",
+      "calibration_delta": -25.4,
+      "edge_pp": 7.4,
+      "history_top3": true
+    },
+    "no_picks": false,
+    "context": {
+      "stadium": {
+        "name": "Villa Park",
+        "city": "Birmingham",
+        "country": "England",
+        "lat": 52.509090736,
+        "lon": -1.884841919,
+        "capacity": 43205,
+        "surface": "grass"
+      },
+      "weather": {
+        "temp_max": 17.2,
+        "temp_min": 10.2,
+        "humidity": 64,
+        "precipitation_sum_mm": 0.0,
+        "wind_max_kmh": 20.5,
+        "weather_code": 3,
+        "summary_fr": "☁️ couvert · 10–17°C · humidité 64%"
+      },
+      "text": "Conditions : ☁️ couvert · 10–17°C · humidité 64%. Stade : Villa Park · 43 205 places · plein air."
+    }
+  },
+  {
+    "league": "Champions League",
     "home": "LASK",
     "away": "Liverpool",
     "start_ts": 1791996300,
@@ -2349,8 +1577,8 @@
         "type": "Favori net",
         "label": "Liverpool gagne",
         "cote": 1.29,
-        "confidence": 70,
-        "reasoning": "14 places d'écart au classement (#13 vs #27) · 3V/1N/1D sur 5 matchs · Note Sofa: 6.5/10\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+        "confidence": 67,
+        "reasoning": "12 places d'écart au classement (#15 vs #27) · 3V/1N/1D sur 5 matchs · Note Sofa: 6.5/10\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
         "stats": {
           "form": [
             "L",
@@ -2361,30 +1589,30 @@
           ]
         },
         "is_fun": false,
-        "tier": "safe",
-        "calibration_delta": -11.3,
-        "edge_pp": -7.5,
+        "tier": "ok",
+        "calibration_delta": -25.4,
+        "edge_pp": -10.5,
         "history_top3": false
       },
       {
-        "direction": "tirs_(liverpool)_over_12.5",
-        "type": "Tirs (Liverpool)",
-        "label": "Plus de 12.5 tirs Liverpool",
+        "direction": "tirs_(lask)_under_12.5",
+        "type": "Tirs (LASK)",
+        "label": "Moins de 12.5 tirs LASK",
         "cote": null,
-        "cote_min": 1.28,
+        "cote_min": 1.25,
         "value": [
           "⚠️",
           "Value serrée",
           "#f59e0b"
         ],
-        "confidence": 78,
+        "confidence": 80,
         "edge": null,
-        "reasoning": "Liverpool prend 14.0/m [pondere vs opp #27] · adv. concède 12.7/m → attendu ~15.6 (Liverpool favori (#13 vs #27))\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+        "reasoning": "LASK prend 11.0/m [pondere vs opp #15] · adv. concède 12.1/m → attendu ~9.9 (Liverpool favori (#15 vs #27))\n📉 Calibration : bucket 80-89% historiquement à WR 56% (claim 82%, n=63) — sur-estimé de 26pp",
         "stats": {
-          "expected": 15.6
+          "expected": 9.9
         },
         "tier": "safe",
-        "calibration_delta": -11.3,
+        "calibration_delta": -26.0,
         "history_top3": false
       },
       {
@@ -2399,7 +1627,7 @@
           "#84cc16"
         ],
         "confidence": 76,
-        "reasoning": "📊 Brut : LASK L10 TCC 5.3 (L5 TCC 3.2) tirs cadrés/m · Liverpool L10 TCC 5.0 (L5 TCC 4.4) tirs cadrés/m\n🛡️ Défenses : LASK concède 4.4/m · Liverpool concède 4.0/m\n🎯 Attendu : LASK ~3.4 · Liverpool ~5.1 → total ~8.5\n⚖️ Liverpool favori (#13 vs #27) · LASK forme : L-D-L-L-W · Liverpool forme : L-W-W-D-W\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+        "reasoning": "📊 Brut : LASK L10 TCC 5.3 (L5 TCC 3.2) tirs cadrés/m · Liverpool L10 TCC 5.0 (L5 TCC 4.4) tirs cadrés/m\n🛡️ Défenses : LASK concède 4.4/m · Liverpool concède 4.0/m\n🎯 Attendu : LASK ~3.5 · Liverpool ~5.0 → total ~8.5\n⚖️ Liverpool favori (#15 vs #27) · LASK forme : L-D-L-L-W · Liverpool forme : L-W-W-D-W\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
         "stats": {
           "expected_total": 8.5
         },
@@ -2416,8 +1644,8 @@
       "type": "Favori net",
       "label": "Liverpool gagne",
       "cote": 1.29,
-      "confidence": 70,
-      "reasoning": "14 places d'écart au classement (#13 vs #27) · 3V/1N/1D sur 5 matchs · Note Sofa: 6.5/10\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+      "confidence": 67,
+      "reasoning": "12 places d'écart au classement (#15 vs #27) · 3V/1N/1D sur 5 matchs · Note Sofa: 6.5/10\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
       "stats": {
         "form": [
           "L",
@@ -2428,9 +1656,9 @@
         ]
       },
       "is_fun": false,
-      "tier": "safe",
-      "calibration_delta": -11.3,
-      "edge_pp": -7.5,
+      "tier": "ok",
+      "calibration_delta": -25.4,
+      "edge_pp": -10.5,
       "history_top3": false
     },
     "no_picks": false,
@@ -2454,327 +1682,6 @@
         "summary_fr": "🌦️ averses légères · 8–17°C · humidité 69% · précipitations 3.4mm"
       },
       "text": "Conditions : 🌦️ averses légères · 8–17°C · humidité 69% · précipitations 3.4mm. Stade : Raiffeisen Arena · 19 080 places · plein air."
-    }
-  },
-  {
-    "league": "Estonian Meistriliiga",
-    "home": "Pärnu JK Vaprus",
-    "away": "Nõmme JK Kalju",
-    "start_ts": 1791903600,
-    "match_id": "1000007972",
-    "page_url": "/matches/nomme-jk-kalju-vs-parnu-jk-vaprus/5na8fkdg#1000007972",
-    "picks": [],
-    "home_players": [
-      {
-        "player": "Henri Välja / Mattias Männilaan",
-        "position": "",
-        "is_sub": false,
-        "type": "Double Chance Buteur",
-        "label": "Henri Välja OU Mattias Männilaan marque (cross-équipe)",
-        "cote": null,
-        "book": null,
-        "books": [],
-        "confidence": 70,
-        "cote_min": 1.49,
-        "reasoning": "🔀 Cross-équipe (moins corrélé → meilleur EV)\n📈 P(Henri Välja marque) ≈ 36% · P(Mattias Männilaan marque) ≈ 48%\n🎯 P(au moins un marque) = 70% (1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.49 - chercher ≥1.49 chez le bookmaker\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
-        "context": {
-          "combo_kind": "cross"
-        },
-        "_team_for_balance": "home",
-        "stats": {
-          "p_a": 0.36,
-          "p_b": 0.48,
-          "p_or": 0.667,
-          "player_a": "Henri Välja",
-          "player_b": "Mattias Männilaan",
-          "kind": "cross"
-        },
-        "team": "home",
-        "tier": "safe",
-        "calibration_delta": -11.3,
-        "history_top3": true
-      }
-    ],
-    "away_players": [],
-    "fun_picks": [],
-    "top_pick": {
-      "player": "Henri Välja / Mattias Männilaan",
-      "position": "",
-      "is_sub": false,
-      "type": "Double Chance Buteur",
-      "label": "Henri Välja OU Mattias Männilaan marque (cross-équipe)",
-      "cote": null,
-      "book": null,
-      "books": [],
-      "confidence": 70,
-      "cote_min": 1.49,
-      "reasoning": "🔀 Cross-équipe (moins corrélé → meilleur EV)\n📈 P(Henri Välja marque) ≈ 36% · P(Mattias Männilaan marque) ≈ 48%\n🎯 P(au moins un marque) = 70% (1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.49 - chercher ≥1.49 chez le bookmaker\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
-      "context": {
-        "combo_kind": "cross"
-      },
-      "_team_for_balance": "home",
-      "stats": {
-        "p_a": 0.36,
-        "p_b": 0.48,
-        "p_or": 0.667,
-        "player_a": "Henri Välja",
-        "player_b": "Mattias Männilaan",
-        "kind": "cross"
-      },
-      "team": "home",
-      "tier": "safe",
-      "calibration_delta": -11.3,
-      "history_top3": true
-    },
-    "no_picks": false,
-    "context": {
-      "stadium": {
-        "name": "Pärnu Rannastaadion",
-        "city": "Pärnu",
-        "country": "Estonia",
-        "lat": 58.375078254,
-        "lon": 24.502902031,
-        "capacity": 1501,
-        "surface": "grass"
-      },
-      "weather": {
-        "temp_max": 10.7,
-        "temp_min": 7.7,
-        "humidity": 74,
-        "precipitation_sum_mm": 0.0,
-        "wind_max_kmh": 11.5,
-        "weather_code": 3,
-        "summary_fr": "☁️ couvert · 10°C · humidité 74%"
-      },
-      "text": "Conditions : ☁️ couvert · 10°C · humidité 74%. Stade : Pärnu Rannastaadion · 1 501 places · plein air."
-    }
-  },
-  {
-    "league": "Champions League",
-    "home": "RB Leipzig",
-    "away": "PSV Eindhoven",
-    "start_ts": 1791918000,
-    "match_id": "6106323",
-    "page_url": "/matches/psv-eindhoven-vs-rb-leipzig/81iorv6#6106323",
-    "picks": [
-      {
-        "direction": "away_win",
-        "type": "Favori net",
-        "label": "PSV Eindhoven gagne",
-        "cote": 5.0,
-        "confidence": 67,
-        "reasoning": "12 places d'écart au classement (#20 vs #32) · 3V/1N/1D sur 5 matchs · Note Sofa: 6.5/10\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
-        "stats": {
-          "form": [
-            "W",
-            "L",
-            "W",
-            "D",
-            "W"
-          ]
-        },
-        "is_fun": false,
-        "tier": "fun",
-        "calibration_delta": -25.4,
-        "edge_pp": 47.0,
-        "history_top3": true
-      },
-      {
-        "direction": "tirs_(psv_eindhoven)_under_16.5",
-        "type": "Tirs (PSV Eindhoven)",
-        "label": "Moins de 16.5 tirs PSV Eindhoven",
-        "cote": null,
-        "cote_min": 1.29,
-        "value": [
-          "⚠️",
-          "Value serrée",
-          "#f59e0b"
-        ],
-        "confidence": 78,
-        "edge": null,
-        "reasoning": "PSV Eindhoven prend 10.0/m [pondere vs opp #32] · adv. concède 14.0/m → attendu ~13.7 (PSV Eindhoven favori (#20 vs #32))\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
-        "stats": {
-          "expected": 13.7
-        },
-        "tier": "safe",
-        "calibration_delta": -11.3,
-        "history_top3": false
-      },
-      {
-        "direction": "shots_under_28.5",
-        "type": "Tirs (total match)",
-        "label": "Moins de 28.5 tirs total",
-        "cote": null,
-        "cote_min": 1.34,
-        "value": [
-          "💎",
-          "Value correcte",
-          "#84cc16"
-        ],
-        "confidence": 75,
-        "reasoning": "📊 Brut : RB Leipzig L10 TCC 19.6 (L5 TCC 16.8) tirs/m · PSV Eindhoven L10 TCC 19.2 (L5 TCC 15.6) tirs/m\n🛡️ Défenses : RB Leipzig concède 14.0/m · PSV Eindhoven concède 12.9/m\n🎯 Attendu : RB Leipzig ~11.5 · PSV Eindhoven ~13.7 → total ~25.2\n⚖️ PSV Eindhoven favori (#20 vs #32) · RB Leipzig forme : W-L-W-L-L · PSV Eindhoven forme : W-L-W-D-W\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
-        "stats": {
-          "expected_total": 25.2
-        },
-        "tier": "safe",
-        "calibration_delta": -11.3,
-        "history_top3": true
-      }
-    ],
-    "home_players": [],
-    "away_players": [],
-    "fun_picks": [],
-    "top_pick": {
-      "direction": "away_win",
-      "type": "Favori net",
-      "label": "PSV Eindhoven gagne",
-      "cote": 5.0,
-      "confidence": 67,
-      "reasoning": "12 places d'écart au classement (#20 vs #32) · 3V/1N/1D sur 5 matchs · Note Sofa: 6.5/10\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
-      "stats": {
-        "form": [
-          "W",
-          "L",
-          "W",
-          "D",
-          "W"
-        ]
-      },
-      "is_fun": false,
-      "tier": "fun",
-      "calibration_delta": -25.4,
-      "edge_pp": 47.0,
-      "history_top3": true
-    },
-    "no_picks": false,
-    "context": {
-      "stadium": {
-        "name": "Red Bull Arena",
-        "city": "Leipzig",
-        "country": "Germany",
-        "lat": 51.345776141,
-        "lon": 12.34828949,
-        "capacity": 47800,
-        "surface": "grass"
-      },
-      "weather": {
-        "temp_max": 16.4,
-        "temp_min": 5.8,
-        "humidity": 59,
-        "precipitation_sum_mm": 0.2,
-        "wind_max_kmh": 10.6,
-        "weather_code": 61,
-        "summary_fr": "🌦️ pluie légère · 5–16°C · humidité 59%"
-      },
-      "text": "Conditions : 🌦️ pluie légère · 5–16°C · humidité 59%. Stade : Red Bull Arena · 47 800 places · plein air."
-    }
-  },
-  {
-    "league": "Champions League",
-    "home": "Villarreal",
-    "away": "Napoli",
-    "start_ts": 1791918000,
-    "match_id": "6106328",
-    "page_url": "/matches/napoli-vs-villarreal/3c1he3#6106328",
-    "picks": [
-      {
-        "direction": "under25",
-        "type": "Under 2.5 buts",
-        "label": "Moins de 2.5 buts",
-        "cote": 2.2,
-        "confidence": 67,
-        "reasoning": "Défenses solides — Villarreal concède 3.0/L10, Napoli concède 1.0/saison · Total attendu: ~1.5 buts (P Under=80.9%)\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
-        "stats": {
-          "form": []
-        },
-        "is_fun": false,
-        "tier": "ok",
-        "calibration_delta": -25.4,
-        "edge_pp": 21.5,
-        "history_top3": true
-      },
-      {
-        "direction": "shots_under_29.5",
-        "type": "Tirs (total match)",
-        "label": "Moins de 29.5 tirs total",
-        "cote": null,
-        "cote_min": 1.26,
-        "value": [
-          "⚠️",
-          "Value serrée",
-          "#f59e0b"
-        ],
-        "confidence": 80,
-        "reasoning": "📊 Brut : Villarreal L10 TCC 15.6 (L5 TCC 15.8) tirs/m · Napoli L10 TCC 13.3 (L5 TCC 13.4) tirs/m\n🛡️ Défenses : Villarreal concède 13.2/m · Napoli concède 18.5/m\n🎯 Attendu : Villarreal ~17.1 · Napoli ~8.3 → total ~25.4\n⚖️ Villarreal favori (#21 vs #28) · Villarreal forme : L-W-W-L-L · Napoli forme : W-D-W-L-L\n📉 Calibration : bucket 80-89% historiquement à WR 56% (claim 82%, n=63) — sur-estimé de 26pp",
-        "stats": {
-          "expected_total": 25.4
-        },
-        "tier": "safe",
-        "calibration_delta": -26.0,
-        "history_top3": false
-      },
-      {
-        "direction": "tirs_cadrés_(napoli)_over_2.5",
-        "type": "Tirs cadrés (Napoli)",
-        "label": "Plus de 2.5 tirs cadrés Napoli",
-        "cote": null,
-        "cote_min": 1.25,
-        "value": [
-          "⚠️",
-          "Value serrée",
-          "#f59e0b"
-        ],
-        "confidence": 80,
-        "edge": null,
-        "reasoning": "Napoli prend 4.6/m [pondere vs opp #21] · adv. concède 4.5/m → attendu ~4.3 (Villarreal favori (#21 vs #28))\n📉 Calibration : bucket 80-89% historiquement à WR 56% (claim 82%, n=63) — sur-estimé de 26pp",
-        "stats": {
-          "expected": 4.3
-        },
-        "tier": "safe",
-        "calibration_delta": -26.0,
-        "history_top3": false
-      }
-    ],
-    "home_players": [],
-    "away_players": [],
-    "fun_picks": [],
-    "top_pick": {
-      "direction": "under25",
-      "type": "Under 2.5 buts",
-      "label": "Moins de 2.5 buts",
-      "cote": 2.2,
-      "confidence": 67,
-      "reasoning": "Défenses solides — Villarreal concède 3.0/L10, Napoli concède 1.0/saison · Total attendu: ~1.5 buts (P Under=80.9%)\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
-      "stats": {
-        "form": []
-      },
-      "is_fun": false,
-      "tier": "ok",
-      "calibration_delta": -25.4,
-      "edge_pp": 21.5,
-      "history_top3": true
-    },
-    "no_picks": false,
-    "context": {
-      "stadium": {
-        "name": "Estadio de la Cerámica",
-        "city": "Villarreal",
-        "country": "Spain",
-        "lat": 39.944119181,
-        "lon": -0.103474259,
-        "capacity": 24500,
-        "surface": "grass"
-      },
-      "weather": {
-        "temp_max": 26.1,
-        "temp_min": 16.9,
-        "humidity": 68,
-        "precipitation_sum_mm": 0.0,
-        "wind_max_kmh": 12.8,
-        "weather_code": 45,
-        "summary_fr": "🌫️ brouillard · 16–26°C · humidité 68%"
-      },
-      "text": "Conditions : 🌫️ brouillard · 16–26°C · humidité 68%. Stade : Estadio de la Cerámica · 24 500 places · plein air."
     }
   },
   {
@@ -3015,91 +1922,6 @@
       "weather": null,
       "text": "Stade : Tangier Grand Stadium · plein air."
     }
-  },
-  {
-    "league": "Algeria Ligue 1",
-    "home": "USM Alger",
-    "away": "JS Saoura",
-    "start_ts": 1791918000,
-    "match_id": "5989845",
-    "page_url": "/matches/usm-alger-vs-js-saoura/145040n5#5989845",
-    "picks": [
-      {
-        "direction": "home_win",
-        "type": "Favori net",
-        "label": "USM Alger gagne",
-        "cote": null,
-        "confidence": 65,
-        "reasoning": "11 places d'écart au classement (#3 vs #14) · 2V/1N/1D sur 4 matchs · Note Sofa: 6.5/10\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
-        "stats": {
-          "form": [
-            "L",
-            "W",
-            "W",
-            "D"
-          ]
-        },
-        "is_fun": false,
-        "tier": "ok",
-        "calibration_delta": -25.4,
-        "history_top3": true
-      }
-    ],
-    "home_players": [
-      {
-        "player": "Mohamed Ramdaoui / Zakaria Draoui",
-        "position": "",
-        "is_sub": false,
-        "type": "Double Chance Buteur",
-        "label": "Mohamed Ramdaoui ou Zakaria Draoui marque (USM Alger)",
-        "cote": null,
-        "book": null,
-        "books": [],
-        "confidence": 69,
-        "cote_min": 1.45,
-        "reasoning": "🏠 Combo intra-USM Alger\n📈 P(Mohamed Ramdaoui marque) ≈ 44% · P(Zakaria Draoui marque) ≈ 44%\n🎯 P(au moins un marque) = 69% (1 - (1-pA)(1-pB))\n💎 Cote min équilibre = 1.45 - chercher ≥1.45 chez le bookmaker\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
-        "context": {
-          "combo_kind": "intra-home"
-        },
-        "_team_for_balance": "home",
-        "stats": {
-          "p_a": 0.442,
-          "p_b": 0.442,
-          "p_or": 0.689,
-          "player_a": "Mohamed Ramdaoui",
-          "player_b": "Zakaria Draoui",
-          "kind": "intra-home"
-        },
-        "team": "home",
-        "tier": "ok",
-        "calibration_delta": -25.4,
-        "history_top3": true
-      }
-    ],
-    "away_players": [],
-    "fun_picks": [],
-    "top_pick": {
-      "direction": "home_win",
-      "type": "Favori net",
-      "label": "USM Alger gagne",
-      "cote": null,
-      "confidence": 65,
-      "reasoning": "11 places d'écart au classement (#3 vs #14) · 2V/1N/1D sur 4 matchs · Note Sofa: 6.5/10\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
-      "stats": {
-        "form": [
-          "L",
-          "W",
-          "W",
-          "D"
-        ]
-      },
-      "is_fun": false,
-      "tier": "ok",
-      "calibration_delta": -25.4,
-      "history_top3": true
-    },
-    "no_picks": false,
-    "context": null
   },
   {
     "league": "Colombia Primera A",
@@ -3781,137 +2603,6 @@
   },
   {
     "league": "Champions League",
-    "home": "Sabah FK",
-    "away": "Slavia Prague",
-    "start_ts": 1791909900,
-    "match_id": "6106424",
-    "page_url": "/matches/slavia-prague-vs-sabah-fk/5vjqemr9#6106424",
-    "picks": [
-      {
-        "direction": "over25",
-        "type": "Over 2.5 buts",
-        "label": "Plus de 2.5 buts",
-        "cote": 1.65,
-        "confidence": 59,
-        "reasoning": "Sabah FK: 0.0 buts/saison · défense Slavia Prague concède 3.0/L10 → ~0.0 attendus · Slavia Prague: 2.0 buts/L10 · défense Sabah FK concède 4.0/saison → ~3.0 attendus · Total: ~3.0 buts (P=57.7% · contexte LDC (L10/L10))\n📉 Calibration : bucket 50-59% historiquement à WR 42% (claim 55%, n=41) — sur-estimé de 14pp",
-        "stats": {
-          "form": []
-        },
-        "is_fun": false,
-        "tier": "ok",
-        "calibration_delta": -13.6,
-        "edge_pp": -1.6,
-        "history_top3": true
-      },
-      {
-        "direction": "tirs_(slavia_prague)_over_16.5",
-        "type": "Tirs (Slavia Prague)",
-        "label": "Plus de 16.5 tirs Slavia Prague",
-        "cote": null,
-        "cote_min": 1.25,
-        "value": [
-          "⚠️",
-          "Value serrée",
-          "#f59e0b"
-        ],
-        "confidence": 80,
-        "edge": null,
-        "reasoning": "Slavia Prague prend 17.0/m [pondere vs opp #34] · adv. concède 19.2/m → attendu ~20.3 (Slavia Prague favori (#24 vs #34))\n📉 Calibration : bucket 80-89% historiquement à WR 56% (claim 82%, n=63) — sur-estimé de 26pp",
-        "stats": {
-          "expected": 20.3
-        },
-        "tier": "safe",
-        "calibration_delta": -26.0,
-        "history_top3": false
-      },
-      {
-        "direction": "shots_over_26.5",
-        "type": "Tirs (total match)",
-        "label": "Plus de 26.5 tirs total",
-        "cote": null,
-        "cote_min": 1.27,
-        "value": [
-          "⚠️",
-          "Value serrée",
-          "#f59e0b"
-        ],
-        "confidence": 79,
-        "reasoning": "📊 Brut : Sabah FK L10 TCC 25.0 (L5 TCC 11.0) tirs/m · Slavia Prague L10 TCC 16.1 (L5 TCC 17.5) tirs/m\n🛡️ Défenses : Sabah FK concède 19.2/m · Slavia Prague concède 13.5/m\n🎯 Attendu : Sabah FK ~10.8 · Slavia Prague ~20.3 → total ~31.1\n⚖️ Slavia Prague favori (#24 vs #34) · Sabah FK forme : D-W-W-L-W · Slavia Prague forme : W-W-W-L-W\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
-        "stats": {
-          "expected_total": 31.1
-        },
-        "tier": "safe",
-        "calibration_delta": -11.3,
-        "history_top3": false
-      }
-    ],
-    "home_players": [],
-    "away_players": [
-      {
-        "player": "Danijel Šturm",
-        "position": "F",
-        "is_sub": false,
-        "type": "Buteur",
-        "label": "Danijel Šturm marque",
-        "team": "away",
-        "cote": null,
-        "book": null,
-        "books": [],
-        "confidence": 32,
-        "reasoning": "2G en 5 matchs (40.0%/match) · xG: 0.08/match",
-        "context": {
-          "weakness": 0.85
-        },
-        "stats": {
-          "goals": 2,
-          "apps": 5
-        },
-        "tier": "fun",
-        "history_top3": true
-      }
-    ],
-    "fun_picks": [],
-    "top_pick": {
-      "direction": "over25",
-      "type": "Over 2.5 buts",
-      "label": "Plus de 2.5 buts",
-      "cote": 1.65,
-      "confidence": 59,
-      "reasoning": "Sabah FK: 0.0 buts/saison · défense Slavia Prague concède 3.0/L10 → ~0.0 attendus · Slavia Prague: 2.0 buts/L10 · défense Sabah FK concède 4.0/saison → ~3.0 attendus · Total: ~3.0 buts (P=57.7% · contexte LDC (L10/L10))\n📉 Calibration : bucket 50-59% historiquement à WR 42% (claim 55%, n=41) — sur-estimé de 14pp",
-      "stats": {
-        "form": []
-      },
-      "is_fun": false,
-      "tier": "ok",
-      "calibration_delta": -13.6,
-      "edge_pp": -1.6,
-      "history_top3": true
-    },
-    "no_picks": false,
-    "context": {
-      "stadium": {
-        "name": "Bakı Olimpiya Stadionu",
-        "city": "Baku",
-        "country": "Azerbaijan",
-        "lat": 40.429913283,
-        "lon": 49.919627318,
-        "capacity": 68700,
-        "surface": "grass"
-      },
-      "weather": {
-        "temp_max": 23.7,
-        "temp_min": 19.6,
-        "humidity": 75,
-        "precipitation_sum_mm": 0.0,
-        "wind_max_kmh": 27.1,
-        "weather_code": 3,
-        "summary_fr": "☁️ couvert · 19–23°C · humidité 75%"
-      },
-      "text": "Conditions : ☁️ couvert · 19–23°C · humidité 75%. Stade : Bakı Olimpiya Stadionu · 68 700 places · plein air."
-    }
-  },
-  {
-    "league": "Champions League",
     "home": "Shakhtar Donetsk",
     "away": "AEK Athens",
     "start_ts": 1792004400,
@@ -3923,8 +2614,8 @@
         "type": "Victoire extérieur",
         "label": "AEK Athens gagne",
         "cote": 2.65,
-        "confidence": 59,
-        "reasoning": "AEK Athens : 4V/1N/0D sur 5 matchs · #16 au classement · H2H: 0V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 50-59% historiquement à WR 42% (claim 55%, n=41) — sur-estimé de 14pp",
+        "confidence": 58,
+        "reasoning": "AEK Athens : 4V/1N/0D sur 5 matchs · #17 au classement · H2H: 0V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 50-59% historiquement à WR 42% (claim 55%, n=41) — sur-estimé de 14pp",
         "stats": {
           "form": [
             "W",
@@ -3937,48 +2628,48 @@
         "is_fun": false,
         "tier": "fun",
         "calibration_delta": -13.6,
-        "edge_pp": 21.3,
+        "edge_pp": 20.3,
         "history_top3": true
       },
       {
-        "direction": "shots_under_24.5",
-        "type": "Tirs (total match)",
-        "label": "Moins de 24.5 tirs total",
+        "direction": "tirs_(shakhtar_donetsk)_under_10.5",
+        "type": "Tirs (Shakhtar Donetsk)",
+        "label": "Moins de 10.5 tirs Shakhtar Donetsk",
         "cote": null,
-        "cote_min": 1.21,
+        "cote_min": 1.22,
         "value": [
-          "🚫",
-          "Quasi-impossible",
-          "#94a3b8"
+          "⚠️",
+          "Value serrée",
+          "#f59e0b"
         ],
         "confidence": 82,
-        "reasoning": "📊 Brut : Shakhtar Donetsk L10 TCC 12.4 (L5 TCC 13.4) tirs/m · AEK Athens L10 TCC 17.6 (L5 TCC 16.4) tirs/m\n🛡️ Défenses : Shakhtar Donetsk concède 5.6/m · AEK Athens concède 9.1/m\n🎯 Attendu : Shakhtar Donetsk ~8.5 · AEK Athens ~11.8 → total ~20.3\n⚖️ équipes proches au classement · Shakhtar Donetsk forme : W-W-W-D-W · AEK Athens forme : W-W-W-D-W\n📉 Calibration : bucket 80-89% historiquement à WR 56% (claim 82%, n=63) — sur-estimé de 26pp",
+        "edge": null,
+        "reasoning": "Shakhtar Donetsk prend 8.0/m [pondere vs opp #17] · adv. concède 9.1/m → attendu ~7.9 (AEK Athens favori (#17 vs #23))\n📉 Calibration : bucket 80-89% historiquement à WR 56% (claim 82%, n=63) — sur-estimé de 26pp",
         "stats": {
-          "expected_total": 20.3
+          "expected": 7.9
         },
         "tier": "safe",
         "calibration_delta": -26.0,
         "history_top3": false
       },
       {
-        "direction": "tirs_(aek_athens)_under_14.5",
-        "type": "Tirs (AEK Athens)",
-        "label": "Moins de 14.5 tirs AEK Athens",
+        "direction": "shots_under_24.5",
+        "type": "Tirs (total match)",
+        "label": "Moins de 24.5 tirs total",
         "cote": null,
-        "cote_min": 1.26,
+        "cote_min": 1.23,
         "value": [
           "⚠️",
           "Value serrée",
           "#f59e0b"
         ],
-        "confidence": 79,
-        "edge": null,
-        "reasoning": "AEK Athens prend 18.0/m [pondere vs opp #18] · adv. concède 5.6/m → attendu ~11.8 (équipes proches au classement)\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+        "confidence": 81,
+        "reasoning": "📊 Brut : Shakhtar Donetsk L10 TCC 12.4 (L5 TCC 13.4) tirs/m · AEK Athens L10 TCC 17.6 (L5 TCC 16.4) tirs/m\n🛡️ Défenses : Shakhtar Donetsk concède 5.6/m · AEK Athens concède 9.1/m\n🎯 Attendu : Shakhtar Donetsk ~7.9 · AEK Athens ~12.6 → total ~20.6\n⚖️ AEK Athens favori (#17 vs #23) · Shakhtar Donetsk forme : W-W-W-D-W · AEK Athens forme : W-W-W-D-W\n📉 Calibration : bucket 80-89% historiquement à WR 56% (claim 82%, n=63) — sur-estimé de 26pp",
         "stats": {
-          "expected": 11.8
+          "expected_total": 20.6
         },
         "tier": "safe",
-        "calibration_delta": -11.3,
+        "calibration_delta": -26.0,
         "history_top3": false
       }
     ],
@@ -3990,8 +2681,8 @@
       "type": "Victoire extérieur",
       "label": "AEK Athens gagne",
       "cote": 2.65,
-      "confidence": 59,
-      "reasoning": "AEK Athens : 4V/1N/0D sur 5 matchs · #16 au classement · H2H: 0V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 50-59% historiquement à WR 42% (claim 55%, n=41) — sur-estimé de 14pp",
+      "confidence": 58,
+      "reasoning": "AEK Athens : 4V/1N/0D sur 5 matchs · #17 au classement · H2H: 0V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 50-59% historiquement à WR 42% (claim 55%, n=41) — sur-estimé de 14pp",
       "stats": {
         "form": [
           "W",
@@ -4004,7 +2695,7 @@
       "is_fun": false,
       "tier": "fun",
       "calibration_delta": -13.6,
-      "edge_pp": 21.3,
+      "edge_pp": 20.3,
       "history_top3": true
     },
     "no_picks": false,
@@ -4028,75 +2719,6 @@
         "summary_fr": "☁️ couvert · 10–18°C · humidité 58%"
       },
       "text": "Conditions : ☁️ couvert · 10–18°C · humidité 58%. Stade : Stamford Bridge · 40 044 places · plein air."
-    }
-  },
-  {
-    "league": "Morocco Botola Pro",
-    "home": "FUS Rabat",
-    "away": "Raja Casablanca",
-    "start_ts": 1791921600,
-    "match_id": "6408792",
-    "page_url": "/matches/fus-rabat-vs-raja-casablanca/9kezrg8#6408792",
-    "picks": [
-      {
-        "direction": "away_win",
-        "type": "Victoire extérieur",
-        "label": "Raja Casablanca gagne",
-        "cote": null,
-        "confidence": 59,
-        "reasoning": "Raja Casablanca : 3V/2N/0D sur 5 matchs · #8 au classement · H2H: 0V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 50-59% historiquement à WR 42% (claim 55%, n=41) — sur-estimé de 14pp",
-        "stats": {
-          "form": [
-            "D",
-            "W",
-            "W",
-            "W",
-            "D"
-          ]
-        },
-        "is_fun": false,
-        "tier": "ok",
-        "calibration_delta": -13.6,
-        "history_top3": true
-      }
-    ],
-    "home_players": [],
-    "away_players": [],
-    "fun_picks": [],
-    "top_pick": {
-      "direction": "away_win",
-      "type": "Victoire extérieur",
-      "label": "Raja Casablanca gagne",
-      "cote": null,
-      "confidence": 59,
-      "reasoning": "Raja Casablanca : 3V/2N/0D sur 5 matchs · #8 au classement · H2H: 0V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 50-59% historiquement à WR 42% (claim 55%, n=41) — sur-estimé de 14pp",
-      "stats": {
-        "form": [
-          "D",
-          "W",
-          "W",
-          "W",
-          "D"
-        ]
-      },
-      "is_fun": false,
-      "tier": "ok",
-      "calibration_delta": -13.6,
-      "history_top3": true
-    },
-    "no_picks": false,
-    "context": {
-      "stadium": {
-        "name": "Moulay Hassan Stadium",
-        "city": null,
-        "country": "",
-        "lat": null,
-        "lon": null,
-        "capacity": null,
-        "surface": null
-      },
-      "weather": null,
-      "text": "Stade : Moulay Hassan Stadium · plein air."
     }
   },
   {
@@ -4237,79 +2859,6 @@
     }
   },
   {
-    "league": "Morocco Botola Pro",
-    "home": "RS Berkane",
-    "away": "Renaissance Club Zemamra",
-    "start_ts": 1791914400,
-    "match_id": "6408791",
-    "page_url": "/matches/rs-berkane-vs-renaissance-club-zemamra/a8kh2k5l#6408791",
-    "picks": [],
-    "home_players": [],
-    "away_players": [
-      {
-        "player": "Jawad Essaghir",
-        "position": "M",
-        "is_sub": false,
-        "type": "Buteur",
-        "label": "Jawad Essaghir marque",
-        "team": "away",
-        "cote": null,
-        "book": null,
-        "books": [],
-        "confidence": 42,
-        "reasoning": "2G en 5 matchs (40.0%/match) · xG: 0.00/match\n📉 Calibration : bucket 40-49% historiquement à WR 25% (claim 44%, n=36) — sur-estimé de 19pp",
-        "context": {
-          "weakness": 0.7
-        },
-        "stats": {
-          "goals": 2,
-          "apps": 5
-        },
-        "tier": "fun",
-        "calibration_delta": -19.4,
-        "history_top3": true
-      }
-    ],
-    "fun_picks": [],
-    "top_pick": {
-      "player": "Jawad Essaghir",
-      "position": "M",
-      "is_sub": false,
-      "type": "Buteur",
-      "label": "Jawad Essaghir marque",
-      "team": "away",
-      "cote": null,
-      "book": null,
-      "books": [],
-      "confidence": 42,
-      "reasoning": "2G en 5 matchs (40.0%/match) · xG: 0.00/match\n📉 Calibration : bucket 40-49% historiquement à WR 25% (claim 44%, n=36) — sur-estimé de 19pp",
-      "context": {
-        "weakness": 0.7
-      },
-      "stats": {
-        "goals": 2,
-        "apps": 5
-      },
-      "tier": "fun",
-      "calibration_delta": -19.4,
-      "history_top3": true
-    },
-    "no_picks": false,
-    "context": {
-      "stadium": {
-        "name": "Berkane Municipal Stadium",
-        "city": null,
-        "country": "",
-        "lat": null,
-        "lon": null,
-        "capacity": null,
-        "surface": null
-      },
-      "weather": null,
-      "text": "Stade : Berkane Municipal Stadium · plein air."
-    }
-  },
-  {
     "league": "Algeria Ligue 1",
     "home": "ES Sétif",
     "away": "JS Kabylie",
@@ -4367,85 +2916,6 @@
     },
     "no_picks": false,
     "context": null
-  },
-  {
-    "league": "Estonian Meistriliiga",
-    "home": "Harju Jalgpallikool",
-    "away": "Nõmme United",
-    "start_ts": 1791903600,
-    "match_id": "1000007973",
-    "page_url": "/matches/nomme-united-vs-harju-jalgpallikool/a3dj5g2x#1000007973",
-    "picks": [],
-    "home_players": [],
-    "away_players": [
-      {
-        "player": "Zakaria Beglarisvili",
-        "position": "F",
-        "is_sub": false,
-        "type": "Buteur",
-        "label": "Zakaria Beglarisvili marque",
-        "team": "away",
-        "cote": null,
-        "book": null,
-        "books": [],
-        "confidence": 36,
-        "reasoning": "10G en 29 matchs (34.5%/match) · xG: 0.00/match",
-        "context": {
-          "weakness": 0.27
-        },
-        "stats": {
-          "goals": 10,
-          "apps": 29
-        },
-        "tier": "fun",
-        "history_top3": true
-      }
-    ],
-    "fun_picks": [],
-    "top_pick": {
-      "player": "Zakaria Beglarisvili",
-      "position": "F",
-      "is_sub": false,
-      "type": "Buteur",
-      "label": "Zakaria Beglarisvili marque",
-      "team": "away",
-      "cote": null,
-      "book": null,
-      "books": [],
-      "confidence": 36,
-      "reasoning": "10G en 29 matchs (34.5%/match) · xG: 0.00/match",
-      "context": {
-        "weakness": 0.27
-      },
-      "stats": {
-        "goals": 10,
-        "apps": 29
-      },
-      "tier": "fun",
-      "history_top3": true
-    },
-    "no_picks": false,
-    "context": {
-      "stadium": {
-        "name": "Laagri kunstmurustaadion",
-        "city": "Tallinn",
-        "country": "Estonia",
-        "lat": 59.350362278,
-        "lon": 24.616541862,
-        "capacity": 1000,
-        "surface": "artificial turf"
-      },
-      "weather": {
-        "temp_max": 9.3,
-        "temp_min": 6.5,
-        "humidity": 78,
-        "precipitation_sum_mm": 0.1,
-        "wind_max_kmh": 20.9,
-        "weather_code": 51,
-        "summary_fr": "🌦️ bruine légère · 9°C · humidité 78%"
-      },
-      "text": "Conditions : 🌦️ bruine légère · 9°C · humidité 78%. Stade : Laagri kunstmurustaadion · 1 000 places · plein air."
-    }
   },
   {
     "league": "Estonian Meistriliiga",
