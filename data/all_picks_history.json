@@ -1,12 +1,107 @@
 {
-  "generated_at": "2026-10-13T21:43:38.117662",
-  "n_total": 2174,
+  "generated_at": "2026-10-19T00:19:53.160173",
+  "n_total": 2184,
   "by_sport": {
-    "foot": 1863,
-    "nba": 160,
+    "foot": 1867,
+    "nba": 166,
     "tennis": 151
   },
   "picks": [
+    {
+      "sport": "foot",
+      "id": "2026-10-14_1000007975_player_Ahmad Gero_Buteur",
+      "date": "2026-10-14",
+      "matchup": "Narva Trans vs FC Kuressaare",
+      "market": "Buteur",
+      "label": "Ahmad Gero marque",
+      "line": null,
+      "direction": null,
+      "confidence": 30,
+      "cote": null,
+      "cote_min": null,
+      "edge_pp": null,
+      "result": "LOSS",
+      "actual": null,
+      "context": {
+        "league": "Estonian Meistriliiga",
+        "is_fun": false
+      }
+    },
+    {
+      "sport": "nba",
+      "id": "2026-10-14_401908621_Jay Huff_AST_over_1.5",
+      "date": "2026-10-14",
+      "matchup": "Pacers @ Thunder",
+      "market": "AST",
+      "label": "Jay Huff plus de 1.5 passes",
+      "line": 1.5,
+      "direction": "over",
+      "confidence": 69,
+      "cote": null,
+      "cote_min": 1.53,
+      "edge_pp": null,
+      "result": "LOSS",
+      "actual": 1.0,
+      "context": {
+        "player": "Jay Huff",
+        "team": "Pacers",
+        "side": "away",
+        "is_real_line": false,
+        "hit_l10_pct": 80.0,
+        "hit_l20_pct": 60.0,
+        "trend": "hot"
+      }
+    },
+    {
+      "sport": "nba",
+      "id": "2026-10-14_401908621_Isaiah Hartenstein_PRA_under_24.5",
+      "date": "2026-10-14",
+      "matchup": "Pacers @ Thunder",
+      "market": "PRA",
+      "label": "Isaiah Hartenstein moins de 24.5 PRA",
+      "line": 24.5,
+      "direction": "under",
+      "confidence": 58,
+      "cote": null,
+      "cote_min": 1.62,
+      "edge_pp": null,
+      "result": "WIN",
+      "actual": 3.0,
+      "context": {
+        "player": "Isaiah Hartenstein",
+        "team": "Thunder",
+        "side": "home",
+        "is_real_line": false,
+        "hit_l10_pct": 80.0,
+        "hit_l20_pct": 85.0,
+        "trend": "stable"
+      }
+    },
+    {
+      "sport": "nba",
+      "id": "2026-10-14_401908621_Jalen Slawson_AST_over_1.5",
+      "date": "2026-10-14",
+      "matchup": "Pacers @ Thunder",
+      "market": "AST",
+      "label": "Jalen Slawson plus de 1.5 passes",
+      "line": 1.5,
+      "direction": "over",
+      "confidence": 72,
+      "cote": null,
+      "cote_min": 1.4,
+      "edge_pp": null,
+      "result": "WIN",
+      "actual": 3.0,
+      "context": {
+        "player": "Jalen Slawson",
+        "team": "Pacers",
+        "side": "away",
+        "is_real_line": false,
+        "hit_l10_pct": 70.0,
+        "hit_l20_pct": 65.0,
+        "trend": "stable"
+      }
+    },
     {
       "sport": "foot",
       "id": "2026-10-13_5989841_team_away_dc",
@@ -685,6 +780,141 @@
       "context": {
         "league": "Estonian Meistriliiga",
         "is_fun": false
+      }
+    },
+    {
+      "sport": "foot",
+      "id": "2026-10-13_6408792_team_away_dc",
+      "date": "2026-10-13",
+      "matchup": "FUS Rabat vs Raja Casablanca",
+      "market": "Double chance",
+      "label": "Nul ou Raja Casablanca (X2)",
+      "line": null,
+      "direction": "away_dc",
+      "confidence": 80,
+      "cote": null,
+      "cote_min": null,
+      "edge_pp": null,
+      "result": "WIN",
+      "actual": null,
+      "context": {
+        "league": "Morocco Botola Pro",
+        "is_fun": false
+      }
+    },
+    {
+      "sport": "foot",
+      "id": "2026-10-13_6408792_team_away_win",
+      "date": "2026-10-13",
+      "matchup": "FUS Rabat vs Raja Casablanca",
+      "market": "Victoire extérieur",
+      "label": "Raja Casablanca gagne",
+      "line": null,
+      "direction": "away_win",
+      "confidence": 62,
+      "cote": null,
+      "cote_min": null,
+      "edge_pp": null,
+      "result": "LOSS",
+      "actual": null,
+      "context": {
+        "league": "Morocco Botola Pro",
+        "is_fun": false
+      }
+    },
+    {
+      "sport": "foot",
+      "id": "2026-10-13_1000014115_team_home_win",
+      "date": "2026-10-13",
+      "matchup": "Bucaramanga vs Águilas Doradas",
+      "market": "Victoire domicile",
+      "label": "Bucaramanga gagne",
+      "line": null,
+      "direction": "home_win",
+      "confidence": 62,
+      "cote": null,
+      "cote_min": null,
+      "edge_pp": null,
+      "result": "LOSS",
+      "actual": null,
+      "context": {
+        "league": "Colombia Primera A",
+        "is_fun": false
+      }
+    },
+    {
+      "sport": "nba",
+      "id": "2026-10-13_401908944_Kawhi Leonard_REB_over_4.5",
+      "date": "2026-10-13",
+      "matchup": "Knicks @ Raptors",
+      "market": "REB",
+      "label": "Kawhi Leonard plus de 4.5 rebonds",
+      "line": 4.5,
+      "direction": "over",
+      "confidence": 62,
+      "cote": null,
+      "cote_min": 1.45,
+      "edge_pp": null,
+      "result": "WIN",
+      "actual": 5.0,
+      "context": {
+        "player": "Kawhi Leonard",
+        "team": "Raptors",
+        "side": "home",
+        "is_real_line": false,
+        "hit_l10_pct": 90.0,
+        "hit_l20_pct": 85.0,
+        "trend": "stable"
+      }
+    },
+    {
+      "sport": "nba",
+      "id": "2026-10-13_401908944_Ja'Kobe Walter_AST_over_0.5",
+      "date": "2026-10-13",
+      "matchup": "Knicks @ Raptors",
+      "market": "AST",
+      "label": "Ja'Kobe Walter plus de 0.5 passes",
+      "line": 0.5,
+      "direction": "over",
+      "confidence": 62,
+      "cote": null,
+      "cote_min": 1.35,
+      "edge_pp": null,
+      "result": "WIN",
+      "actual": 1.0,
+      "context": {
+        "player": "Ja'Kobe Walter",
+        "team": "Raptors",
+        "side": "home",
+        "is_real_line": false,
+        "hit_l10_pct": 80.0,
+        "hit_l20_pct": 80.0,
+        "trend": "stable"
+      }
+    },
+    {
+      "sport": "nba",
+      "id": "2026-10-13_401908944_RJ Barrett_PR_over_24.5",
+      "date": "2026-10-13",
+      "matchup": "Knicks @ Raptors",
+      "market": "PR",
+      "label": "RJ Barrett plus de 24.5 pts + reb",
+      "line": 24.5,
+      "direction": "over",
+      "confidence": 55,
+      "cote": null,
+      "cote_min": 1.8,
+      "edge_pp": null,
+      "result": "LOSS",
+      "actual": 21.0,
+      "context": {
+        "player": "RJ Barrett",
+        "team": "Raptors",
+        "side": "home",
+        "is_real_line": false,
+        "hit_l10_pct": 90.0,
+        "hit_l20_pct": 70.0,
+        "trend": "hot"
       }
     },
     {
