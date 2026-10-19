@@ -1,15 +1,15 @@
 {
-  "generated_at": "2026-10-19T00:19:53.256354",
-  "n_total": 2184,
+  "generated_at": "2026-10-19T04:46:43.163064",
+  "n_total": 2185,
   "globals": {
     "foot": {
-      "n": 1867,
+      "n": 1868,
       "w": 822,
-      "l": 978,
+      "l": 979,
       "push": 67,
-      "wr": 45.7,
+      "wr": 45.6,
       "roi": -15.5,
-      "profit": -288.47,
+      "profit": -289.47,
       "avg_cote": 2.34,
       "break_even_wr": 42.7,
       "wr_vs_be": 2.9
@@ -56,18 +56,18 @@
         "calibration_gap": -17.6
       },
       "60-69": {
-        "n": 500,
+        "n": 501,
         "w": 206,
-        "l": 277,
+        "l": 278,
         "push": 17,
-        "wr": 42.7,
-        "roi": -20.6,
-        "profit": -102.8,
+        "wr": 42.6,
+        "roi": -20.7,
+        "profit": -103.8,
         "avg_cote": 2.24,
         "break_even_wr": 44.6,
-        "wr_vs_be": -2.0,
+        "wr_vs_be": -2.1,
         "expected_wr": 64.5,
-        "calibration_gap": -21.8
+        "calibration_gap": -21.9
       },
       "70-79": {
         "n": 647,
@@ -379,18 +379,6 @@
         "break_even_wr": 58.6,
         "wr_vs_be": 8.0
       },
-      "Victoire domicile": {
-        "n": 117,
-        "w": 64,
-        "l": 52,
-        "push": 1,
-        "wr": 55.2,
-        "roi": 0.9,
-        "profit": 1.02,
-        "avg_cote": 2.25,
-        "break_even_wr": 44.5,
-        "wr_vs_be": 10.7
-      },
       "BTTS": {
         "n": 19,
         "w": 11,
@@ -402,6 +390,18 @@
         "avg_cote": 1.53,
         "break_even_wr": 65.4,
         "wr_vs_be": -4.2
+      },
+      "Victoire domicile": {
+        "n": 118,
+        "w": 64,
+        "l": 53,
+        "push": 1,
+        "wr": 54.7,
+        "roi": 0.0,
+        "profit": 0.02,
+        "avg_cote": 2.25,
+        "break_even_wr": 44.5,
+        "wr_vs_be": 10.2
       },
       "1ère équipe à marquer": {
         "n": 3,
@@ -806,6 +806,18 @@
     },
     "foot": {
       "league": {
+        "Colombia Primera A": {
+          "n": 18,
+          "w": 6,
+          "l": 12,
+          "push": 0,
+          "wr": 33.3,
+          "roi": -40.0,
+          "profit": -7.2,
+          "avg_cote": null,
+          "break_even_wr": null,
+          "wr_vs_be": null
+        },
         "Estonian Meistriliiga": {
           "n": 33,
           "w": 14,
@@ -862,18 +874,6 @@
           "wr": 35.4,
           "roi": -36.4,
           "profit": -36.0,
-          "avg_cote": null,
-          "break_even_wr": null,
-          "wr_vs_be": null
-        },
-        "Colombia Primera A": {
-          "n": 17,
-          "w": 6,
-          "l": 11,
-          "push": 0,
-          "wr": 35.3,
-          "roi": -36.5,
-          "profit": -6.2,
           "avg_cote": null,
           "break_even_wr": null,
           "wr_vs_be": null
@@ -1228,6 +1228,18 @@
         }
       },
       "direction": {
+        "home_win": {
+          "n": 187,
+          "w": 100,
+          "l": 80,
+          "push": 7,
+          "wr": 55.6,
+          "roi": 0.5,
+          "profit": 1.01,
+          "avg_cote": 2.08,
+          "break_even_wr": 48.0,
+          "wr_vs_be": 7.5
+        },
         "away_dc": {
           "n": 48,
           "w": 35,
@@ -1311,18 +1323,6 @@
           "avg_cote": 2.2,
           "break_even_wr": 45.5,
           "wr_vs_be": 13.4
-        },
-        "home_win": {
-          "n": 186,
-          "w": 100,
-          "l": 79,
-          "push": 7,
-          "wr": 55.9,
-          "roi": 1.1,
-          "profit": 2.01,
-          "avg_cote": 2.08,
-          "break_even_wr": 48.0,
-          "wr_vs_be": 7.8
         },
         "home_over_15": {
           "n": 36,
@@ -1579,13 +1579,13 @@
       },
       "is_fun": {
         "False": {
-          "n": 1857,
+          "n": 1858,
           "w": 819,
-          "l": 971,
+          "l": 972,
           "push": 67,
-          "wr": 45.8,
-          "roi": -15.6,
-          "profit": -290.4,
+          "wr": 45.7,
+          "roi": -15.7,
+          "profit": -291.4,
           "avg_cote": 2.27,
           "break_even_wr": 44.1,
           "wr_vs_be": 1.6
@@ -1948,20 +1948,20 @@
       "severity": "medium",
       "type": "miscalibrated_overconfident",
       "scope": "foot · conf 60-69",
-      "message": "Bucket conf <b>60-69</b> (foot) : modèle annonce ~64.5% mais WR réel = 42.7% (gap -21.8pp sur 500 picks). Modèle trop confiant → relever MIN_CONF ou ajuster formule.",
+      "message": "Bucket conf <b>60-69</b> (foot) : modèle annonce ~64.5% mais WR réel = 42.6% (gap -21.9pp sur 501 picks). Modèle trop confiant → relever MIN_CONF ou ajuster formule.",
       "stats": {
-        "n": 500,
+        "n": 501,
         "w": 206,
-        "l": 277,
+        "l": 278,
         "push": 17,
-        "wr": 42.7,
-        "roi": -20.6,
-        "profit": -102.8,
+        "wr": 42.6,
+        "roi": -20.7,
+        "profit": -103.8,
         "avg_cote": 2.24,
         "break_even_wr": 44.6,
-        "wr_vs_be": -2.0,
+        "wr_vs_be": -2.1,
         "expected_wr": 64.5,
-        "calibration_gap": -21.8
+        "calibration_gap": -21.9
       }
     },
     {
@@ -2290,7 +2290,7 @@
       "severity": "medium",
       "type": "context_signal",
       "scope": "foot · is_fun",
-      "message": "Signal contexte <b>is_fun</b> (foot) : is_fun=True → WR 30.0% (10 picks) vs is_fun=False → WR 45.8% (1857). Filtrer/ponderer.",
+      "message": "Signal contexte <b>is_fun</b> (foot) : is_fun=True → WR 30.0% (10 picks) vs is_fun=False → WR 45.7% (1858). Filtrer/ponderer.",
       "stats": {
         "worst": {
           "True": {
@@ -2308,13 +2308,13 @@
         },
         "best": {
           "False": {
-            "n": 1857,
+            "n": 1858,
             "w": 819,
-            "l": 971,
+            "l": 972,
             "push": 67,
-            "wr": 45.8,
-            "roi": -15.6,
-            "profit": -290.4,
+            "wr": 45.7,
+            "roi": -15.7,
+            "profit": -291.4,
             "avg_cote": 2.27,
             "break_even_wr": 44.1,
             "wr_vs_be": 1.6
