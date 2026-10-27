@@ -1491,6 +1491,61 @@ _TIER_BADGE = {
     "fun":  ("🎲 FUN",    "#f97316", "Long shot. Cote >=2.6 OU conf <55. A doser sur la bankroll."),
 }
 
+_MISE_COULEUR = {5.0: "#22c55e", 3.0: "#84cc16", 1.0: "#3b82f6", 0.5: "#f97316"}
+
+
+def badge_mise(pick):
+    """Badge « mise conseillee », en % du capital.
+
+    Il remplace l'ancien badge indexe sur la confiance brute. La difference
+    est de fond : la confiance est ce que le moteur annonce, la mise est
+    calculee sur la probabilite MESUREE du marche et, quand le prix est
+    connu, sur la valeur reelle du pari.
+    """
+    mise = pick.get("mise_pct")
+    if mise is None:
+        return ""
+    col = _MISE_COULEUR.get(mise, "#3b82f6")
+    p_cal = pick.get("p_cal")
+    val = pick.get("valeur_pct")
+    est = pick.get("cote_estimee")
+
+    tip = "Mise conseillee : %g %% du capital." % mise
+    if p_cal is not None:
+        tip += " Probabilite mesuree sur l'historique du marche : %.1f %%." % p_cal
+        c = pick.get("confidence")
+        if c:
+            tip += " (score annonce par le moteur : %s %%)" % c
+    if val is not None:
+        tip += (" Valeur estimee a la cote MOYENNE du marche : %+.1f %% — indicative." % val
+                if est else " Valeur au prix reel : %+.1f %%." % val)
+    else:
+        tip += " Cote inconnue : mise plafonnee a 3 %."
+    st = pick.get("statut_marche")
+    if st == "SURVEILLE":
+        tip += " Marche pas encore prouve : mise plafonnee a 1 %."
+
+    sup = ""
+    if p_cal is not None:
+        sup = ('<span style="color:#94a3b8;font-size:10px;margin-left:5px;'
+               'vertical-align:middle">%.0f %% reel</span>' % p_cal)
+    if pick.get("hors_budget"):
+        r = pick.get("rang_jour")
+        sup += ('<span title="Le budget conseille du jour (10 %% du capital) est '
+                'atteint avant ce pari%s. Il reste propose, a toi de '
+                'decider si tu depasses." style="display:inline-block;'
+                'background:#64748b1f;color:#94a3b8;border:1px solid #64748b;'
+                'border-radius:4px;padding:1px 6px;font-size:10px;font-weight:700;'
+                'margin-left:6px;vertical-align:middle">au-dela du budget</span>'
+                % ((" (rang %d du jour)" % r) if r else ""))
+    return (
+        '<span title="%s" style="display:inline-block;background:%s1f;color:%s;'
+        'border:1px solid %s;border-radius:4px;padding:1px 6px;font-size:10px;'
+        'font-weight:800;margin-left:6px;vertical-align:middle">&#128176; %g %%</span>%s'
+        % (_html.escape(tip, quote=True), col, col, col, mise, sup)
+    )
+
+
 def tier_badge(pick):
     tier = pick.get("tier")
     if not tier or tier not in _TIER_BADGE: return ""
@@ -1596,7 +1651,7 @@ def build_team_pick(p, ai_txt="", match_ctx=None):
         f'<div style="display:flex;align-items:center;flex-wrap:wrap;gap:4px">'
         f'<span style="color:{color};font-weight:700;font-size:15px">{p["label"]}</span>'
         f'{cote_block}'
-        f'{tier_badge(p)}'
+        f'{badge_mise(p)}{tier_badge(p)}'
         f'{edge_badge(p)}'
         f'{history_top_badge(p)}'
         f'<span class="new-badge" style="display:none;background:#fb923c;color:#0a1628;border-radius:4px;padding:1px 6px;font-size:10px;font-weight:800;margin-left:6px">🆕 NOUVEAU</span>'
@@ -1709,7 +1764,7 @@ def build_player_pick(p, ai_analyses=None, match_ctx=None):
         f'<span>{icon}</span>{pos_b}'
         f'<span style="color:{color};font-weight:600;font-size:14px">{p["label"]}</span>'
         f'{cote_b}'
-        f'{tier_badge(p)}'
+        f'{badge_mise(p)}{tier_badge(p)}'
         f'{edge_badge(p)}'
         f'{history_top_badge(p)}'
         f'<span class="new-badge" style="display:none;background:#fb923c;color:#0a1628;border-radius:4px;padding:1px 6px;font-size:10px;font-weight:800;margin-left:6px">🆕</span>'
@@ -1757,7 +1812,7 @@ def build_fun_pick(p, match_ctx=None):
         f'<div style="flex:1">'
         f'<div style="display:flex;align-items:center;flex-wrap:wrap;gap:4px;margin-bottom:4px">'
         f'<span style="color:#a78bfa;font-weight:700;font-size:14px">{p["label"]}</span>'
-        f'{cb}<span class="new-badge" style="display:none;background:#fb923c;color:#0a1628;border-radius:4px;padding:1px 6px;font-size:10px;font-weight:800;margin-left:6px">🆕</span><span style="color:#7c3aed;font-size:11px;margin-left:5px">Paris fun</span>'
+        f'{cb}<span class="new-badge" style="display:none;background:#fb923c;color:#0a1628;border-radius:4px;padding:1px 6px;font-size:10px;font-weight:800;margin-left:6px">🆕</span><span style="color:#7c3aed;font-size:11px;margin-left:5px">Paris fun</span>{badge_mise(p)}'
         f'</div>'
         f'<div style="color:#9f7aea;font-size:12px;font-style:italic">{p["reasoning"]}</div>'
         f'</div>'
@@ -3231,13 +3286,34 @@ def build_tennis_history(history_data):
     losses = sum(1 for p in resolved if p.get("result") == "LOSS")
     pushes = sum(1 for p in resolved if p.get("result") == "PUSH")
     wr = (wins / (wins + losses) * 100) if (wins + losses) else 0
-    roi_units, n_betted = 0.0, 0
-    for p in resolved:
-        cote = p.get("real_cote") or p.get("cote_min") or 0
-        if not cote or p.get("result") == "PUSH": continue
-        n_betted += 1
-        roi_units += (cote - 1) if p.get("result") == "WIN" else -1
-    roi_pct = (roi_units / n_betted * 100) if n_betted else 0
+    # Bilan pondere par la mise. L'ancien calcul comptait chaque pari pour une
+    # unite et utilisait `cote_min` (= 1/confiance) comme prix de repli : une
+    # cote inventee par le moteur lui-meme, ce qui rendait le ROI circulaire.
+    # Ici chaque pari pese sa mise reelle, et seul un vrai prix est utilise.
+    try:
+        import bilan as _bilan
+        _b = _bilan.calculer(resolved)
+        roi_units, n_betted = _b["gain_pct"], _b["n_joues"]
+        roi_pct = _b["roi_pct"]
+        roi_titre = "Gain (pondere par la mise)"
+        roi_val = "%+.1f%%" % roi_units
+        roi_sous = "ROI %+.1f%% sur %d paris mises" % (roi_pct, n_betted)
+        if not n_betted:
+            # Aucun prix connu : le gain n'est pas calculable. Afficher « 0 % »
+            # ferait croire a un resultat nul au lieu d'une absence de mesure.
+            roi_val = "n/c"
+            roi_sous = "aucun prix connu sur %d paris resolus" % _b["n_total"]
+    except Exception as _e:
+        roi_units, n_betted = 0.0, 0
+        for p in resolved:
+            cote = p.get("cote") or 0
+            if not cote or p.get("result") == "PUSH": continue
+            n_betted += 1
+            roi_units += (cote - 1) if p.get("result") == "WIN" else -1
+        roi_pct = (roi_units / n_betted * 100) if n_betted else 0
+        roi_titre = "ROI (1u/pick)"
+        roi_val = "%+.2fu" % roi_units
+        roi_sous = "%+.1f%% sur %d" % (roi_pct, n_betted)
 
     wr_color  = "#22c55e" if wr >= 55 else ("#84cc16" if wr >= 50 else "#ef4444")
     roi_color = "#22c55e" if roi_units > 0 else "#ef4444"
@@ -3249,9 +3325,9 @@ def build_tennis_history(history_data):
         f'<div><div style="color:#64748b;font-size:11px;text-transform:uppercase;letter-spacing:1px">Win Rate</div>'
         f'<div style="color:{wr_color};font-size:22px;font-weight:800">{wr:.0f}%</div>'
         f'<div style="color:#64748b;font-size:10px">{wins}W · {losses}L · {pushes}P</div></div>'
-        f'<div><div style="color:#64748b;font-size:11px;text-transform:uppercase;letter-spacing:1px">ROI (1u/pick)</div>'
-        f'<div style="color:{roi_color};font-size:22px;font-weight:800">{roi_units:+.2f}u</div>'
-        f'<div style="color:#64748b;font-size:10px">{roi_pct:+.1f}% sur {n_betted}</div></div>'
+        f'<div><div style="color:#64748b;font-size:11px;text-transform:uppercase;letter-spacing:1px">{roi_titre}</div>'
+        f'<div style="color:{roi_color};font-size:22px;font-weight:800">{roi_val}</div>'
+        f'<div style="color:#64748b;font-size:10px">{roi_sous}</div></div>'
         f'</div>'
     )
 
@@ -3839,7 +3915,7 @@ def build_foot_analyse_card(match):
                 f'<li style="color:#f87171;font-size:10.5px;margin-bottom:2px">{_html.escape(r)}</li>'
                 for r in risks
             )
-            stake_badge = _bankroll_badge_for_pick(conf)
+            stake_badge = _bankroll_badge_for_pick(conf, b.get("mise_pct"))
             top_bets_rows += (
                 f'<div style="padding:10px 12px;background:#0a1628;border-radius:6px;margin-bottom:8px;border-left:3px solid {badge_color}">'
                 f'<div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;flex-wrap:wrap">'
@@ -4024,12 +4100,13 @@ def build_bankroll_panel(compact=False):
     )
 
 
-def _bankroll_badge_for_pick(confidence):
-    """Badge HTML 'Mise reco : X€' selon confidence. Renvoie '' si pas applicable."""
-    if not _BANKROLL_AVAILABLE or not confidence:
+def _bankroll_badge_for_pick(confidence, mise_pct=None):
+    """Badge HTML 'Mise reco : X€'. `mise_pct`, quand il vient de la regle de
+    selection, prime sur la confiance brute."""
+    if not _BANKROLL_AVAILABLE or not (confidence or mise_pct):
         return ""
     try:
-        s = bankroll_manager.compute_stake(confidence)
+        s = bankroll_manager.compute_stake(confidence, mise_pct=mise_pct)
     except Exception:
         return ""
     if not s:
@@ -4077,13 +4154,33 @@ def build_foot_history(history_data):
     pushes = sum(1 for p in resolved if p.get("result") == "PUSH")
     pending = sum(1 for p in picks if p.get("result") in (None, "PENDING"))
     wr = (wins / (wins + losses) * 100) if (wins + losses) else 0
-    roi_units, n_betted = 0.0, 0
-    for p in resolved:
-        cote = p.get("cote") or 0
-        if not cote or p.get("result") == "PUSH": continue
-        n_betted += 1
-        roi_units += (cote - 1) if p.get("result") == "WIN" else -1
-    roi_pct = (roi_units / n_betted * 100) if n_betted else 0
+    # Bilan pondere par la mise : un pari a 3 % pese six fois un pari a 0,5 %.
+    # Compter chaque pari pour une unite melangeait les convictions fortes et
+    # les paris de decouverte, et masquait ce que la methode rapporte vraiment.
+    try:
+        import bilan as _bilan
+        _b = _bilan.calculer(resolved)
+        roi_units, n_betted = _b["gain_pct"], _b["n_joues"]
+        roi_pct = _b["roi_pct"]
+        roi_titre = "Gain (pondere mise)"
+        roi_val = "%+.1f%%" % roi_units
+        roi_sous = "ROI %+.1f%% · %d paris mises sur %d" % (roi_pct, n_betted, _b["n_total"])
+        if not n_betted:
+            # Aucun prix connu : le gain n'est pas calculable. Afficher « 0 % »
+            # ferait croire a un resultat nul au lieu d'une absence de mesure.
+            roi_val = "n/c"
+            roi_sous = "aucun prix connu sur %d paris resolus" % _b["n_total"]
+    except Exception:
+        roi_units, n_betted = 0.0, 0
+        for p in resolved:
+            cote = p.get("cote") or 0
+            if not cote or p.get("result") == "PUSH": continue
+            n_betted += 1
+            roi_units += (cote - 1) if p.get("result") == "WIN" else -1
+        roi_pct = (roi_units / n_betted * 100) if n_betted else 0
+        roi_titre = "ROI (1u/pick)"
+        roi_val = "%+.2fu" % roi_units
+        roi_sous = "%+.1f%% sur %d bets" % (roi_pct, n_betted)
 
     wr_color = "#22c55e" if wr >= 55 else ("#84cc16" if wr >= 50 else "#ef4444")
     roi_color = "#22c55e" if roi_units > 0 else "#ef4444"
@@ -4095,9 +4192,9 @@ def build_foot_history(history_data):
         f'<div><div style="color:#64748b;font-size:11px;text-transform:uppercase;letter-spacing:1px">Win Rate</div>'
         f'<div style="color:{wr_color};font-size:22px;font-weight:800">{wr:.1f}%</div>'
         f'<div style="color:#64748b;font-size:10px">{wins}W · {losses}L · {pushes}P</div></div>'
-        f'<div><div style="color:#64748b;font-size:11px;text-transform:uppercase;letter-spacing:1px">ROI</div>'
-        f'<div style="color:{roi_color};font-size:22px;font-weight:800">{roi_units:+.2f}u</div>'
-        f'<div style="color:#64748b;font-size:10px">{roi_pct:+.1f}% sur {n_betted} bets</div></div>'
+        f'<div><div style="color:#64748b;font-size:11px;text-transform:uppercase;letter-spacing:1px">{roi_titre}</div>'
+        f'<div style="color:{roi_color};font-size:22px;font-weight:800">{roi_val}</div>'
+        f'<div style="color:#64748b;font-size:10px">{roi_sous}</div></div>'
         f'<div><div style="color:#64748b;font-size:11px;text-transform:uppercase;letter-spacing:1px">Pending</div>'
         f'<div style="color:#fb923c;font-size:22px;font-weight:800">{pending}</div></div>'
         f'</div>'
@@ -5554,6 +5651,13 @@ def build_html(matches, team_ai, player_ai, pstats_data, nba_picks=None, nba_his
     tennis_section  = build_tennis_section(tennis_picks_data)
     # tennis_hist_html sera defini plus bas apres lecture de tennis_picks_history.json
     nba_analyse_html = build_nba_analyse_section(nba_picks, nba_player_stats, nba_odds)
+    # Section Simulation NBA (Monte-Carlo, data/nba_sim.json produit par nba_sim_run.py)
+    try:
+        from nba_sim_site import build_nba_sim_section
+        nba_sim_html = build_nba_sim_section()
+    except Exception as _e_sim:
+        print(f"  [!] Section simulation NBA ignoree : {_e_sim}")
+        nba_sim_html = '<div style="padding:40px;text-align:center;color:#64748b">Simulation indisponible.</div>'
 
     # Recharge matches.json pour récupérer les champs "analyse",
     # "home_season_stats" et "away_season_stats" (foot_analyse.py les écrit
@@ -5577,7 +5681,14 @@ def build_html(matches, team_ai, player_ai, pstats_data, nba_picks=None, nba_his
                 _m["wc_analysis"] = disk["wc_analysis"]
     except Exception as _e:
         print(f"  ⚠️ Cannot merge foot analyses: {_e}")
-    foot_analyse_section_html = build_foot_analyse_section(matches or [])
+    # Analyse Foot v2 (foot_analyse_site.py : liste + fiche + simulation dans le navigateur),
+    # l'ancienne version reste en secours
+    try:
+        from foot_analyse_site import build_foot_analyse_section as _build_foot_v2
+        foot_analyse_section_html = _build_foot_v2(matches or [])
+    except Exception as _e_foot:
+        print(f"  [!] Analyse Foot v2 ignoree : {_e_foot}")
+        foot_analyse_section_html = build_foot_analyse_section(matches or [])
     bankroll_panel_compact_html = build_bankroll_panel(compact=True)
     bankroll_panel_full_html    = build_bankroll_panel(compact=False)
     # Charge nba_box_scores ICI (avant la section historique) car build_nba_history_section
@@ -6677,8 +6788,8 @@ def build_html(matches, team_ai, player_ai, pstats_data, nba_picks=None, nba_his
 </div>
 
 <div class="container">
-  <h1>🎯 Sports Picks</h1>
-  <div class="meta">Généré le {now} · ⚽ {len(matches)} matchs foot · 🏀 {len(nba_picks)} matchs NBA</div>
+  <header class="sp-top"><h1 class="sp-brand">Sports<span>Picks</span></h1>
+    <div class="sp-meta">Généré le <b>{now}</b> · <b>{len(matches)}</b> matchs foot · <b>{len(nba_picks)}</b> matchs NBA</div></header>
   {bankroll_panel_compact_html}
   <!-- Toast non-bloquant : signalement des nouveaux picks -->
   <div id="new-picks-toast" style="display:none;position:fixed;top:18px;right:18px;z-index:9999;background:linear-gradient(90deg,#fb923c,#f97316);color:#0a1628;border-radius:10px;padding:10px 16px;font-weight:700;font-size:14px;box-shadow:0 4px 20px rgba(251,146,60,0.5);transition:opacity 0.5s ease-out;max-width:300px">
@@ -6686,9 +6797,10 @@ def build_html(matches, team_ai, player_ai, pstats_data, nba_picks=None, nba_his
     <div style="font-size:11px;font-weight:500;color:#1e293b;margin-top:2px">Repere les badges 🆕 sur les cartes</div>
   </div>
   <!-- Sport switcher (4 menus : Picks | Analyse NBA | Bankroll | Historique) -->
-  <div style="display:flex;gap:10px;margin-bottom:14px;flex-wrap:wrap">
+  <div class="sp-nav" style="display:flex;gap:10px;margin-bottom:14px;flex-wrap:wrap">
     <button class="sport-btn active" onclick="showSport('picks')"     id="sport-btn-picks">📌 Picks</button>
     <button class="sport-btn" onclick="showSport('pronos')"           id="sport-btn-pronos">🎯 Pronos <span style="background:#22c55e;color:#0a1628;border-radius:8px;padding:1px 5px;font-size:9px;margin-left:3px;font-weight:800">V1</span></button>
+    <button class="sport-btn" onclick="showSport('nbasim')"           id="sport-btn-nbasim">🎲 Simulation NBA</button>
     <button class="sport-btn" onclick="showSport('analyse')"          id="sport-btn-analyse">🔍 Analyse NBA</button>
     <button class="sport-btn" onclick="showSport('footanalyse')"      id="sport-btn-footanalyse">⚽ Analyse Foot</button>
     <button class="sport-btn" onclick="showSport('userpicks')"        id="sport-btn-userpicks">💰 Bankroll <span id="userpicks-count" style="background:rgba(255,255,255,0.2);border-radius:10px;padding:1px 7px;font-size:11px;margin-left:4px;display:none">0</span></button>
@@ -6804,10 +6916,15 @@ def build_html(matches, team_ai, player_ai, pstats_data, nba_picks=None, nba_his
     {nba_analyse_html}
   </div>
 
+  <!-- Section Simulation NBA (nba_sim_site.py) -->
+  <div id="sport-nbasim" style="display:none">
+    {nba_sim_html}
+  </div>
+
   <!-- Section Analyse Foot (Datafoot-style) - HTML statique, zero JS -->
   <div id="sport-footanalyse" style="display:none">
     <div class="legend">
-      <b>⚽ Analyse Foot</b> — Modèle Poisson : 1X2 mi-temps + full match · Distribution buts · BTTS · Stats championnat · Top performeurs. Clique sur un match pour déplier.
+      <b>⚽ Analyse Foot</b> — Modèle Poisson · Monte-Carlo : choisis un match dans la liste, puis relance la simulation autant de fois que tu veux.
     </div>
     {foot_analyse_section_html}
   </div>
@@ -6857,7 +6974,7 @@ window._currentSubPick = window._currentSubPick || 'football';
 window._currentSubHist = window._currentSubHist || 'foot';
 
 function _hideAllSportSections(){{
-  ['football','nba','tennis','analyse','userpicks','foothist','nbahist','tennishist','pronos'].forEach(function(s){{
+  ['football','nba','tennis','analyse','nbasim','footanalyse','userpicks','foothist','nbahist','tennishist','pronos'].forEach(function(s){{
     var el = document.getElementById('sport-'+s);
     if(el) el.style.display = 'none';
   }});
@@ -6905,6 +7022,9 @@ function showSport(sport){{
   }} else if(sport === 'footanalyse'){{
     var el = document.getElementById('sport-footanalyse'); if(el) el.style.display = 'block';
     _setMainBtnActive('footanalyse');
+  }} else if(sport === 'nbasim'){{
+    var el = document.getElementById('sport-nbasim'); if(el) el.style.display = 'block';
+    _setMainBtnActive('nbasim');
   }}
 }}
 
@@ -11560,6 +11680,13 @@ def main():
 
     print("\n🌐 Génération du site...")
     html = build_html(matches, team_ai, player_ai, pstats_data, nba_picks=nba_picks, nba_history=nba_history, foot_history=foot_history, nba_player_stats=nba_player_stats_data, nba_odds=nba_odds_data)
+    # Charte graphique globale (site_theme.py) : avant l'allegement, qui regroupe
+    # ensuite les styles en classes. En cas d'echec, la page reste dans l'ancien style.
+    try:
+        import site_theme
+        html = site_theme.apply(html)
+    except Exception as e:
+        print(f"⚠️  Charte graphique non appliquee ({e})")
     with open("index.html", "w", encoding="utf-8") as f:
         f.write(html)
     print(f"✅ index.html prêt — ⚽ {len(matches)} foot · 🏀 {len(nba_picks)} NBA")

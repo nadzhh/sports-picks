@@ -4205,8 +4205,25 @@ def run():
     except ImportError:
         pass
 
+    # Table de calibration (marches retenus/exclus + score -> probabilite reelle).
+    # Chargee une fois pour tous les matchs.
+    try:
+        import selection as _sel
+        _cal = _sel.calibrage.charger()
+    except Exception as e:
+        print(f"  [selection] table indisponible ({e}) — aucun filtrage applique")
+        _sel, _cal = None, None
+
     for match in matches:
         team_picks, home_pp, away_pp, fun_picks = analyze_match(match, player_stats, player_odds_all)
+
+        # Filtre unique : on ecarte les marches dont la perte est demontree, on
+        # traduit le score en probabilite reelle, on compare a la cote quand on
+        # l'a, et on ne garde que les 3 meilleurs paris du match.
+        if _sel is not None:
+            team_picks, home_pp, away_pp, fun_picks = _sel.selectionner(
+                "foot", team_picks, home_pp, away_pp, fun_picks, cal=_cal)
+
         # IMPORTANT : on inclut TOUS les matchs scrapes, meme sans picks, pour
         # que l'user voie qu'on les a bien recuperes (transparence). Les matchs
         # sans pick auront top_pick=None et seront badges "Pas de pick" dans l'UI.
@@ -4228,6 +4245,11 @@ def run():
             "context":      match.get("context"),
         })
 
+    # Plafond journalier : 20 paris a 5 % engageraient tout le capital en un
+    # jour. On sert les meilleurs d'abord et on retrograde les suivants.
+    if _sel is not None:
+        _sel.allouer_journee(output, cap_pct=10.0)
+
     # Tri : matchs avec picks (confiance desc), puis matchs sans picks (par heure)
     output.sort(key=lambda x: (
         0 if x.get("no_picks") else 1,                                # matchs AVEC picks en premier
@@ -4238,6 +4260,8 @@ def run():
         json.dump(output,f,ensure_ascii=False,indent=2)
 
     print(f"✅ {len(output)} matchs → data/picks.json")
+    if _sel is not None:
+        print("   " + _sel.resume(output))
     for m in output[:5]:
         tp  = m.get("top_pick")
         nb  = len(m["home_players"]) + len(m["away_players"])

@@ -19,7 +19,9 @@ concurrency:
 jobs:
   run:
     runs-on: ubuntu-latest
-    timeout-minutes: 25
+    # 75 : un premier passage a cache FotMob vide sur une grosse journee de foot
+    # depasse 40 min (les suivants, cache chaud, reviennent sous les 20 min).
+    timeout-minutes: 75
 
     steps:
       - name: Checkout repo
@@ -44,6 +46,26 @@ jobs:
             python -m pip install --upgrade pip
             pip install -r requirements.txt
           fi
+
+      # Base historique NBA (nba_boxdb.py) : ~25 Mo, non versionnee. Restauree
+      # a chaque passage puis resauvegardee (cle unique par run) ; sans elle le
+      # premier passage retelecharge la saison precedente (~1 300 matchs, ~6 min).
+      - name: Cache base NBA
+        uses: actions/cache@v4
+        with:
+          path: data/nba_db
+          key: nba-db-${{ github.run_id }}
+          restore-keys: nba-db-
+
+      # Cache FotMob (fiches de match gardees 30 j par fotmob_client). Sans lui,
+      # scraper_players_today retelecharge ~25 fiches par match a chaque passage :
+      # 107 matchs le 27/10 = ~40 min, d'ou les runs annules au timeout depuis le 21/10.
+      - name: Cache FotMob
+        uses: actions/cache@v4
+        with:
+          path: data/cache_fotmob
+          key: fotmob-${{ github.run_id }}
+          restore-keys: fotmob-
 
       - name: Pipeline complet
         env:
@@ -72,9 +94,15 @@ jobs:
           python tennis_scraper.py        || echo "[!] tennis_scraper KO"
           python tennis_picks_engine.py   || echo "[!] tennis_picks_engine KO"
           python tennis_resolver.py       || echo "[!] tennis_resolver KO"
+          # Table de calibration : apres les resolveurs (historique a jour),
+          # avant picks_engine qui s'en sert pour selectionner et miser.
+          # Si elle echoue, la version commitee precedente reste en place.
+          python calibrage.py             || echo "[!] calibrage KO - table precedente conservee"
           python picks_engine.py          || echo "[!] picks_engine KO"
           python wc_context_analyse.py    || echo "[!] wc_context_analyse KO"
           python foot_analyse.py          || echo "[!] foot_analyse KO"
+          # Simulation Monte-Carlo NBA -> onglet « Simulation NBA » du site
+          python nba_sim_run.py           || echo "[!] nba_sim_run KO"
           # ── Etape CRITIQUE, volontairement SANS "|| echo KO" ──────────────
           # Les collectes ci-dessus peuvent echouer partiellement : une source
           # indisponible ne doit pas interrompre les autres. La generation, elle,
@@ -92,6 +120,8 @@ jobs:
           python picks_history_dump.py    || echo "[!] picks_history_dump KO"
           python analyze_picks.py         || echo "[!] analyze_picks KO"
           python notify.py                || echo "[!] notify KO"
+          # Borne la taille du cache FotMob resauvegarde (fiches au-dela de leur TTL de 30 j)
+          find data/cache_fotmob -type f -mtime +30 -delete 2>/dev/null || true
           echo "Pipeline termine"
 
       - name: Commit master + push gh-pages
@@ -100,6 +130,8 @@ jobs:
           set +e
           echo "=== Stage des fichiers data + index ==="
           git add -f data/*.json index.html 2>/dev/null || true
+          # Deroules video du match type NBA (nba_replay.py), suppressions comprises
+          git add -A data/replays 2>/dev/null || true
           git status --short
 
           if git diff --cached --quiet; then
@@ -121,6 +153,7 @@ jobs:
               git rebase --abort 2>/dev/null
               git reset --hard origin/master
               git add -f data/*.json index.html 2>/dev/null
+              git add -A data/replays 2>/dev/null
               git commit -m "Auto-update picks $(date -u +'%Y-%m-%d %H:%M UTC')" || true
             fi
             git push origin master

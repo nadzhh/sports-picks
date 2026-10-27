@@ -1,0 +1,362 @@
+"""
+nba_sim_site.py — Onglet « Simulation NBA » : liste des matchs a gauche, fiche du match a droite.
+
+Donnees : data/nba_db/nba_sim.json (nba_sim_run.py, 10 000 simulations par match).
+Styles : composants .eb-* de site_theme.py ; JS de selection partage avec
+foot_analyse_site.py. Visibilite par classes uniquement (optimize_html convertit
+les styles en ligne en classes).
+"""
+import html
+import json
+from datetime import datetime, timedelta, timezone
+
+from foot_analyse_site import SCRIPT as EB_SCRIPT
+
+try:
+    from zoneinfo import ZoneInfo
+    TZ_PARIS = ZoneInfo("Europe/Paris")
+except Exception:
+    TZ_PARIS = timezone(timedelta(hours=1))
+
+SIM_PATH = "data/nba_db/nba_sim.json"
+JOURS = ["Lun.", "Mar.", "Mer.", "Jeu.", "Ven.", "Sam.", "Dim."]
+STAT_LABELS = {"PTS": "Points", "REB": "Rebonds", "AST": "Passes", "3PM": "Paniers à 3 pts", "PRA": "Pts + Reb + Pas",
+               "PR": "Pts + Reb", "PA": "Pts + Pas", "RA": "Reb + Pas", "STL": "Interceptions", "BLK": "Contres"}
+STAT_SHORT = {"PTS": "Pts", "REB": "Reb", "AST": "Pas", "3PM": "3pts", "PRA": "PRA", "PR": "P+R", "PA": "P+A",
+              "RA": "R+A", "STL": "Int", "BLK": "Ctr"}
+# Bilan du backtest 2025-26 contre les vraies lignes ESPN BET (nba_backtest.py, label v2)
+BACKTEST_NOTE = ("Backtest 2025-26 sur 35 607 vraies lignes : meilleur que l'ancien algorithme, "
+                 "pas encore meilleur que le bookmaker (ROI −3,4 %). Les écarts sont des pistes, pas des paris conseillés.")
+PROPS_SHOWN = 10
+SUSPECT_GAP = 0.20
+
+
+def load_sim(path=SIM_PATH):
+    try:
+        with open(path, encoding="utf-8") as f:
+            return json.load(f)
+    except Exception:
+        return None
+
+
+def _e(s):
+    return html.escape(str(s if s is not None else ""))
+
+
+def _pct(x, d=1):
+    return f"{100 * x:.{d}f}".replace(".", ",") + " %"
+
+
+def _when(iso, now):
+    try:
+        dt = datetime.fromisoformat(iso.replace("Z", "+00:00")).astimezone(TZ_PARIS)
+    except Exception:
+        return ""
+    if dt.date() == now.date(): day = "Auj."
+    elif dt.date() == now.date() + timedelta(days=1): day = "Dem."
+    else: day = JOURS[dt.weekday()]
+    return f"{day} {dt:%H:%M}"
+
+
+def _dec(ml):
+    if ml is None: return None
+    ml = float(ml)
+    return 1 + ml / 100 if ml > 0 else 1 + 100 / -ml
+
+
+def _am(o):
+    return "" if o is None else (f"+{o}" if o > 0 else f"−{-o}")
+
+
+def _nick(team):
+    n = team.get("name") or team.get("abbr") or ""
+    return n.split()[-1] if n else ""
+
+
+def _vegas_line(g):
+    L = g.get("lines") or {}
+    if L.get("home_spread") is None: return None
+    sp = L["home_spread"]
+    return (g["home"], sp) if sp <= 0 else (g["away"], -sp)
+
+
+# ── Liste de gauche ──────────────────────────────────────────────────────────
+
+def _item(g, gid, now, first):
+    L = g.get("lines") or {}
+    chips = ""
+    for team, key in ((g["away"], "away_ml"), (g["home"], "home_ml")):
+        d = _dec(L.get(key))
+        if d: chips += f'<span class="eb-chip"><em>{_e(team["abbr"])}</em>{d:.2f}</span>'
+    if L.get("total"):
+        chips += f'<span class="eb-chip"><em>O/U</em>{L["total"]}</span>'
+    return (f'<button class="eb-item{" on" if first else ""}" data-id="{gid}" onclick="ebPick(\'nba\',\'{gid}\')">'
+            f'<div class="eb-item-top"><span>NBA</span><span>{_when(g.get("date", ""), now)}</span></div>'
+            f'<div class="eb-item-t">{_e(_nick(g["away"]))} @ {_e(_nick(g["home"]))}</div>'
+            f'<div class="eb-chips">{chips}</div></button>')
+
+
+# ── Fiche du match ───────────────────────────────────────────────────────────
+
+def _form(team):
+    cells = "".join(f'<i class="{"v" if r == "V" else "d"}">{r}</i>' for r in team.get("form") or [])
+    return f'<div class="eb-form" title="5 derniers matchs, du plus ancien au plus récent">{cells}</div>' if cells else ""
+
+
+def _kpi(label, p, sub=""):
+    return (f'<div class="eb-card eb-kpi"><span class="eb-kpi-l">{label}</span>'
+            f'<span class="eb-kpi-v">{_pct(p)}</span><span class="eb-bar"><i style="--w:{100 * p:.1f}%"></i></span>'
+            + (f'<span class="eb-kpi-s">{sub}</span>' if sub else "") + '</div>')
+
+
+def _header(g, now):
+    t, h, a, L = g["team"], g["home"], g["away"], g.get("lines") or {}
+    vl = _vegas_line(g)
+    vegas = (f' · {_e(g.get("book") or "DraftKings")} : {_e(vl[0]["abbr"])} {vl[1]:+.1f} · O/U {L["total"]}'
+             if vl and L.get("total") else "")
+
+    def side(team, pts):
+        return (f'<div class="eb-team"><span class="eb-team-n">{_e(_nick(team))}</span>{_form(team)}'
+                f'<span class="eb-team-sub">Points attendus : <b>{pts:.1f}</b> · bilan <b>{_e(team.get("record", "–"))}</b></span></div>')
+    return (f'<div class="eb-card"><div class="eb-meta">NBA · {_when(g.get("date", ""), now)}{vegas}</div>'
+            f'<div class="eb-vs">{side(a, t["away_mean"])}<span class="eb-vs-x">@</span>{side(h, t["home_mean"])}</div></div>')
+
+
+def _infobar(g):
+    n = f'{g.get("n_sims", 10000):,}'.replace(",", " ")
+    return ('<div class="eb-card"><div class="eb-ctrl">'
+            f'<span class="eb-meta"><b class="eb-acc">{n}</b> simulations · rythme, adresse, minutes, blessures et lignes Vegas</span>'
+            f'<span class="eb-ctrl-info">{BACKTEST_NOTE}</span></div></div>')
+
+
+def _kpis(g):
+    t, h, a, L = g["team"], g["home"], g["away"], g.get("lines") or {}
+    p = t["p_home_win"]
+
+    def odds(key, prob):
+        fair = f"juste {1 / max(prob, 1e-3):.2f}"
+        return f"cote {_dec(L.get(key)):.2f} · {fair}" if L.get(key) is not None else f"cote {fair}"
+    row1 = (f'<div class="eb-g3">{_kpi("Victoire " + _e(_nick(a)), 1 - p, odds("away_ml", 1 - p))}'
+            f'{_kpi("Match serré (écart ≤ 5 pts)", t.get("p_close", 0), "prolongation " + _pct(t["p_ot"]))}'
+            f'{_kpi("Victoire " + _e(_nick(h)), p, odds("home_ml", p))}</div>')
+    vl = _vegas_line(g)
+    if t.get("p_over_total") is not None:
+        over = _kpi(f'Plus de {L["total"]} pts', t["p_over_total"], f'total projeté {t["total_mean"]:.1f}')
+    else:
+        over = _kpi("Écart ≥ 15 pts", t.get("p_blowout", 0), f'total projeté {t["total_mean"]:.1f}')
+    if vl and t.get("p_home_cover") is not None:
+        pc = t["p_home_cover"] if vl[0] is h else 1 - t["p_home_cover"]
+        cover = _kpi(f'{_e(_nick(vl[0]))} {vl[1]:+.1f} couvert', pc, f'écart projeté {abs(t["margin_mean"]):.1f} pts')
+    else:
+        cover = _kpi("Écart ≥ 15 pts", t.get("p_blowout", 0))
+    tiles = "".join(f'<div class="eb-tile"><b>{_e(x["team"])} {x["range"]}</b><small>{_pct(x["p"])}</small></div>'
+                    for x in (t.get("margin_top") or [])[:6])
+    margins = (f'<div class="eb-card eb-kpi"><span class="eb-kpi-l">Écarts les plus probables</span>'
+               f'<div class="eb-tiles">{tiles}</div></div>')
+    return row1 + f'<div class="eb-g3">{over}{cover}{margins}</div>'
+
+
+def _hist(g):
+    t, L = g["team"], g.get("lines") or {}
+    hist = t.get("total_hist") or []
+    if not hist: return ""
+    top = max(x["p"] for x in hist) or 1
+    line = L.get("total")
+
+    def has_line(lab):
+        if line is None: return False
+        lo = -1e9 if lab == "<200" else float(lab.rstrip("+"))
+        hi = 200 if lab == "<200" else (1e9 if lab.endswith("+") else lo + 10)
+        return lo <= line < hi
+    bars = "".join(f'<div class="eb-hb{" mark" if has_line(x["label"]) else ""}"><em>{_pct(x["p"])}</em>'
+                   f'<i style="--h:{100 * x["p"] / top:.1f}%"></i></div>' for x in hist)
+    xs = "".join(f'<span>{_e(x["label"])}</span>' for x in hist)
+    note = f' <small>hachuré = tranche de la ligne O/U {line}</small>' if line else ""
+    return (f'<div class="eb-card"><h3 class="eb-h">Distribution du total de points{note}</h3>'
+            f'<div class="eb-hist">{bars}</div><div class="eb-hx">{xs}</div></div>')
+
+
+def _rb(q, scale, line=None):
+    pos = lambda v: max(0.0, min(100.0, 100.0 * v / scale))
+    out = (f'<span class="eb-rb" style="--a:{pos(q[0]):.1f}%;--b:{100 - pos(q[4]):.1f}%;--c:{pos(q[1]):.1f}%;'
+           f'--d:{100 - pos(q[3]):.1f}%;--m:{pos(q[2]):.1f}%"><i class="o"></i><i class="in"></i><i class="m"></i>')
+    if line is not None:
+        out += f'<i class="l" style="--x:{pos(line):.1f}%" title="Ligne DraftKings {line}"></i>'
+    return out + "</span>"
+
+
+def _players(g):
+    lines = {(p["id"], p["stat"]): p["line"] for p in g.get("props") or []}
+    scale = max([p["PTS"]["q"][4] for p in g["players"]] + [30]) * 1.05
+    rows = ""
+    for side in ("away", "home"):
+        team = g[side]
+        ps = sorted([p for p in g["players"] if p["side"] == side and p["p_play"] >= 0.3 and p["MIN"] >= 8],
+                    key=lambda p: -p["MIN"] * p["p_play"])
+        starters = [p for p in ps if p.get("starter")][:5]
+        if len(starters) < 5: starters = ps[:5]
+        for label, group in (("5 majeur", starters), ("Banc", [p for p in ps if p not in starters])):
+            if not group: continue
+            rows += f'<tr class="sec"><td colspan="7">{_e(team.get("name"))} · {label}</td></tr>'
+            for p in group:
+                tag = ""
+                if p.get("status"): tag = '<span class="eb-tag warn">incertain</span>'
+                elif p["p_play"] < 0.9: tag = f'<span class="eb-tag">joue {_pct(p["p_play"], 0)}</span>'
+                if p.get("n_season", 0) < 2: tag += '<span class="eb-tag" title="Projection moins fiable">peu de données</span>'
+                rows += (f'<tr><td>{_e(p["name"])}{tag}</td><td class="n">{p["MIN"]:.0f}</td>'
+                         f'<td class="n"><b>{p["PTS"]["mean"]:.1f}</b>{_rb(p["PTS"]["q"], scale, lines.get((p["id"], "PTS")))}</td>'
+                         f'<td class="n">{p["REB"]["mean"]:.1f}</td><td class="n">{p["AST"]["mean"]:.1f}</td>'
+                         f'<td class="n">{p["3PM"]["mean"]:.1f}</td><td class="n">{p["PRA"]["mean"]:.1f}</td></tr>')
+    return ('<p class="eb-note eb-note-top">Moyennes sur les matchs où le joueur joue · barre : 8 matchs sur 10 (fin), '
+            '1 sur 2 (épais), trait blanc = médiane, pointillés = ligne DraftKings</p>'
+            '<div class="eb-scroll"><table class="eb-tbl"><tr><th>Joueur</th><th>Min</th><th>Points</th><th>Reb</th>'
+            f'<th>Pas</th><th>3pts</th><th>PRA</th></tr>{rows}</table></div>')
+
+
+def _props(g, gid):
+    props = g.get("props") or []
+    if not props:
+        return '<div class="eb-empty">Lignes DraftKings pas encore publiées (en général la veille au soir).</div>'
+    gap = lambda p: abs(p["p_sim"] - p["p_mkt"])
+    rows = sorted(props, key=lambda p: (gap(p) >= SUSPECT_GAP, -gap(p)))
+    stats = [s for s in STAT_LABELS if any(p["stat"] == s for p in rows)]
+    seg = (f'<div class="eb-seg"><button class="on" onclick="ebProps(\'{gid}\',\'ALL\',this)">Tous</button>'
+           + "".join(f'<button onclick="ebProps(\'{gid}\',\'{s}\',this)">{STAT_SHORT[s]}</button>' for s in stats) + '</div>')
+    body = ""
+    for i, p in enumerate(rows):
+        d = p["p_sim"] - p["p_mkt"]
+        over = d >= 0
+        sus = gap(p) >= SUSPECT_GAP
+        cls = "eb-dim" if sus else ("eb-acc" if gap(p) >= 0.08 else "")
+        hide = " eb-off" if i >= PROPS_SHOWN else ""
+        flag = ('<span class="eb-tag" title="Écart trop grand pour être crédible : le bookmaker intègre sûrement '
+                'une info absente du modèle">suspect</span>') if sus else ""
+        body += (f'<tr class="eb-prop{hide}" data-stat="{p["stat"]}"><td>{_e(p["name"])}</td>'
+                 f'<td>{_e(STAT_LABELS.get(p["stat"], p["stat"]))}</td><td class="n"><b>{p["line"]}</b></td>'
+                 f'<td class="n"><span class="eb-pp"><i style="--w:{100 * p["p_sim"]:.1f}%"></i></span>{_pct(p["p_sim"], 0)}</td>'
+                 f'<td class="n"><span class="eb-pp bk"><i style="--w:{100 * p["p_mkt"]:.1f}%"></i></span>{_pct(p["p_mkt"], 0)}</td>'
+                 f'<td class="n {cls}">{"+" if d >= 0 else "−"}{abs(100 * d):.0f} pts{flag}</td>'
+                 f'<td class="n">{"Over" if over else "Under"} <span class="eb-dim">{_am(p["over"] if over else p["under"])}</span></td></tr>')
+    more = (f'<button class="eb-more" onclick="ebPropsMore(\'{gid}\',this)">Voir les {len(rows)} props</button>'
+            if len(rows) > PROPS_SHOWN else "")
+    return (f'{seg}<div class="eb-scroll"><table class="eb-tbl" id="eb-props-{gid}"><tr><th>Joueur</th><th>Marché</th>'
+            f'<th>Ligne</th><th>Over simu</th><th>Over book</th><th>Écart</th><th>Côté simu</th></tr>{body}</table></div>{more}'
+            '<p class="eb-note">Probabilité de dépasser la ligne, marge du bookmaker retirée. Écarts ≥ 20 pts (« suspect ») '
+            'en fin de liste : ils signalent presque toujours une info que le modèle n’a pas (minutes, nouveau rôle, blessure).</p>')
+
+
+def _typical(g):
+    ty, h, a = g["typical"], g["home"], g["away"]
+    box = ty.get("box") or []
+    rows = ""
+    for side, team in (("away", a), ("home", h)):
+        rows += f'<tr class="sec"><td colspan="6">{_e(team.get("name"))} · {ty[side]} pts</td></tr>'
+        for b in sorted([b for b in box if b["side"] == side], key=lambda b: -b["PTS"])[:5]:
+            rows += (f'<tr><td>{_e(b["name"])}</td><td class="n">{b["MIN"]}</td><td class="n"><b>{b["PTS"]}</b></td>'
+                     f'<td class="n">{b["REB"]}</td><td class="n">{b["AST"]}</td><td class="n">{b["3PM"]}</td></tr>')
+    ot = " · après prolongation" if ty.get("ot") else ""
+    return (f'<div class="eb-vs eb-vs-typ"><div class="eb-team"><span class="eb-kpi-v">{ty["away"]}</span>'
+            f'<span class="eb-team-sub">{_e(_nick(a))}</span></div><span class="eb-vs-x">–</span>'
+            f'<div class="eb-team"><span class="eb-kpi-v">{ty["home"]}</span><span class="eb-team-sub">{_e(_nick(h))}</span></div></div>'
+            f'<div class="eb-scroll"><table class="eb-tbl"><tr><th>Joueur</th><th>Min</th><th>Pts</th><th>Reb</th><th>Pas</th>'
+            f'<th>3pts</th></tr>{rows}</table></div>'
+            f'<p class="eb-note">Le tirage le plus proche du match médian{ot} : un scénario plausible pour se projeter, pas une prédiction.</p>')
+
+
+def _tabs(g, gid):
+    n_props = len(g.get("props") or [])
+    return ('<div class="eb-card"><div class="eb-seg">'
+            '<button class="on" onclick="ebSeg(this,\'pl\')">Joueurs</button>'
+            f'<button onclick="ebSeg(this,\'pr\')">Props DraftKings · {n_props}</button></div>'
+            f'<div class="eb-pane on" data-pane="pl">{_players(g)}</div>'
+            f'<div class="eb-pane" data-pane="pr">{_props(g, gid)}</div></div>')
+
+
+def _video(g, gid):
+    """Carte « match type en video » : le deroule (data/replays/<gid>.json, nba_replay.py)
+    est charge a la demande et rejoue par le lecteur canvas (nba_replay_player.js)."""
+    rp = g.get("replay")
+    if not rp:
+        return ""
+    h, a = g["home"], g["away"]
+    fin = rp["final"]
+    name = f'match-type-{a["abbr"]}-{h["abbr"]}-{(g.get("date") or "")[:10]}'
+    n = f'{rp["n"]:,}'.replace(",", " ")
+    k = f'{rp["k"]:,}'.replace(",", " ")
+    return ('<div class="eb-card eb-video">'
+            '<div class="eb-video-head"><div>'
+            '<h3 class="eb-h eb-h-nomb">Le match type en vidéo <small>~3 min · condensé</small></h3>'
+            f'<div class="eb-meta">{n} matchs simulés possession par possession · simulation n° {k} · '
+            f'{_e(_nick(a))} <b class="eb-acc">{fin[1]}-{fin[0]}</b> {_e(_nick(h))}</div></div>'
+            f'<button class="eb-btn" onclick="ebVideo(this,\'{_e(rp["path"])}\',\'{_e(name)}\')">▶ Regarder</button></div>'
+            '<div class="eb-video-host"></div>'
+            '<p class="eb-note">Le vainqueur choisi par la majorité des simulations, un score proche de la médiane, '
+            'chaque joueur proche de sa moyenne. Bouton « Télécharger MP4 » sous la vidéo.</p></div>')
+
+
+def _player_script():
+    """Lecteur video (nba_replay_player.js) + chargement a la demande du deroule."""
+    try:
+        with open("nba_replay_player.js", encoding="utf-8") as f:
+            js = f.read()
+    except OSError:
+        return ""
+    return "<script>" + js + "</script>" + VIDEO_SCRIPT
+
+
+VIDEO_SCRIPT = """<script>
+window.ebVideo=function(btn,path,name){
+  var host=btn.closest('.eb-video').querySelector('.eb-video-host');
+  if(host.getAttribute('data-ready'))return;
+  btn.disabled=true;btn.textContent='Chargement…';
+  fetch(path,{cache:'no-cache'}).then(function(r){if(!r.ok)throw new Error('HTTP '+r.status);return r.json();})
+    .then(function(d){host.setAttribute('data-ready','1');SPReplay.open(host,d,name);btn.classList.add('eb-off');
+      var p=host.querySelector('[data-a=play]');if(p)p.click();})
+    .catch(function(e){btn.disabled=false;btn.textContent='▶ Regarder';host.innerHTML='<p class="eb-note">Vidéo indisponible ('+e.message+').</p>';});
+};
+</script>"""
+
+
+def build_nba_sim_section(sim=None):
+    sim = sim if sim is not None else load_sim()
+    if not sim or not sim.get("games"):
+        return '<!--eb:start--><div class="eb"><div class="eb-card eb-empty">Aucune simulation NBA disponible.</div></div><!--eb:end-->'
+    now = datetime.now(TZ_PARIS)
+    games = sorted(sim["games"], key=lambda g: g.get("date", ""))
+    ids = [_e(g["gid"]) for g in games]
+    items = "".join(_item(g, gid, now, i == 0) for i, (g, gid) in enumerate(zip(games, ids)))
+    details = "".join(
+        f'<section class="eb-detail{" on" if i == 0 else ""}" data-id="{gid}">'
+        f'{_header(g, now)}{_infobar(g)}{_kpis(g)}{_video(g, gid)}{_hist(g)}{_tabs(g, gid)}</section>'
+        for i, (g, gid) in enumerate(zip(games, ids)))
+    return ('<!--eb:start--><div class="eb" data-eb="nba"><div class="eb-layout">'
+            f'<aside class="eb-side"><div class="eb-label">Matchs NBA à venir · {len(games)}</div>'
+            f'<div class="eb-list">{items}</div></aside><div class="eb-main">{details}</div></div></div>'
+            + EB_SCRIPT + PROPS_SCRIPT + _player_script() + '<!--eb:end-->')
+
+
+PROPS_SCRIPT = """<script>
+(function(){
+  if(window.ebProps)return;
+  window.ebProps=function(id,stat,btn){
+    var t=document.getElementById('eb-props-'+id);if(!t)return;
+    btn.parentNode.querySelectorAll('button').forEach(function(b){b.classList.toggle('on',b===btn);});
+    t.setAttribute('data-stat',stat);
+    var all=t.getAttribute('data-all')==='1',shown=0;
+    t.querySelectorAll('tr.eb-prop').forEach(function(r){
+      var ok=stat==='ALL'||r.getAttribute('data-stat')===stat;
+      var vis=ok&&(all||stat!=='ALL'||shown<""" + str(PROPS_SHOWN) + """);
+      r.classList.toggle('eb-off',!vis);if(vis)shown++;
+    });
+  };
+  window.ebPropsMore=function(id,btn){
+    var t=document.getElementById('eb-props-'+id);if(!t)return;
+    t.setAttribute('data-all','1');
+    var st=t.getAttribute('data-stat')||'ALL';
+    t.querySelectorAll('tr.eb-prop').forEach(function(r){
+      r.classList.toggle('eb-off',!(st==='ALL'||r.getAttribute('data-stat')===st));
+    });
+    btn.classList.add('eb-off');
+  };
+})();
+</script>"""

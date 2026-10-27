@@ -72,7 +72,7 @@ def get_effective_tier_pcts(state):
     return state["tier_pcts_stoploss"] if is_in_stoploss(state) else state["tier_pcts"]
 
 
-def compute_stake(confidence, state=None):
+def compute_stake(confidence, state=None, mise_pct=None):
     """Mise recommandée selon la confidence du pick.
 
     Args:
@@ -91,6 +91,24 @@ def compute_stake(confidence, state=None):
     """
     if state is None:
         state = load_state()
+
+    # Si le pari porte deja une mise calculee par la regle de selection, elle
+    # fait autorite : elle est fondee sur la probabilite MESUREE du marche et
+    # sur le prix, la ou les paliers ci-dessous ne lisent que le score brut
+    # annonce par le moteur — lequel surestime de 16 a 34 points selon la
+    # tranche. Garder deux baremes divergents afficherait deux mises pour le
+    # meme pari.
+    if mise_pct:
+        pct = mise_pct / 100.0
+        amount = round(state["current_br"] * pct, 2)
+        stoploss = is_in_stoploss(state)
+        return {
+            "tier": "%g %%" % mise_pct, "pct": pct, "amount": amount,
+            "stoploss_mode": stoploss,
+            "label": "%.2f EUR (%g %% du capital%s)" % (
+                amount, mise_pct, " - STOPLOSS" if stoploss else ""),
+        }
+
     if not confidence or confidence < state["tier_thresholds"]["T1"]:
         return None
     pcts = get_effective_tier_pcts(state)

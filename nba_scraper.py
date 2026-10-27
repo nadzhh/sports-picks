@@ -14,7 +14,15 @@ import json, os, sys
 from datetime import date, datetime, timedelta
 from nba_client import games_on_date, team_player_averages, player_recent_form, team_advanced_map, team_opponent_map
 
-CURRENT_SEASON = "2025-26"
+def current_season(d=None):
+    """Saison NBA en cours au format '2026-27' (une saison demarre en octobre).
+    Etait codee en dur a '2025-26' : le pipeline s'est fige a l'ouverture de 2026-27."""
+    d = d or date.today()
+    y = d.year if d.month >= 10 else d.year - 1
+    return f"{y}-{(y + 1) % 100:02d}"
+
+
+CURRENT_SEASON = current_season()
 
 os.makedirs("data", exist_ok=True)
 
