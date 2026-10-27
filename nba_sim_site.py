@@ -24,9 +24,12 @@ STAT_LABELS = {"PTS": "Points", "REB": "Rebonds", "AST": "Passes", "3PM": "Panie
                "PR": "Pts + Reb", "PA": "Pts + Pas", "RA": "Reb + Pas", "STL": "Interceptions", "BLK": "Contres"}
 STAT_SHORT = {"PTS": "Pts", "REB": "Reb", "AST": "Pas", "3PM": "3pts", "PRA": "PRA", "PR": "P+R", "PA": "P+A",
               "RA": "R+A", "STL": "Int", "BLK": "Ctr"}
-# Bilan du backtest 2025-26 contre les vraies lignes ESPN BET (nba_backtest.py, label v2)
-BACKTEST_NOTE = ("Backtest 2025-26 sur 35 607 vraies lignes : meilleur que l'ancien algorithme, "
-                 "pas encore meilleur que le bookmaker (ROI −3,4 %). Les écarts sont des pistes, pas des paris conseillés.")
+# Bilan des backtests contre les vraies lignes (nba_backtest.py, labels m_U / late_U / blind_*)
+BACKTEST_NOTE = ("Sur la ligne de clôture, le simulateur ne bat pas le bookmaker. Sa force : repérer les cotes "
+                 "d’ouverture mal placées sur les 3 pts, passes, interceptions et contres (voir la sélection).")
+PICKS_PATH = "data/nba_sim_picks.json"
+PICK_STATS = ("3PM", "AST", "STL", "BLK")   # = nba_sim_run.PICK_STATS
+SIM_BIAS = 0.025                            # = nba_sim_run.SIM_BIAS
 PROPS_SHOWN = 10
 SUSPECT_GAP = 0.20
 
@@ -226,21 +229,28 @@ def _props(g, gid):
     for i, p in enumerate(rows):
         d = p["p_sim"] - p["p_mkt"]
         over = d >= 0
-        sus = gap(p) >= SUSPECT_GAP
+        sus = gap(p) >= SUSPECT_GAP and p["stat"] not in PICK_STATS
         cls = "eb-dim" if sus else ("eb-acc" if gap(p) >= 0.08 else "")
         hide = " eb-off" if i >= PROPS_SHOWN else ""
         flag = ('<span class="eb-tag" title="Écart trop grand pour être crédible : le bookmaker intègre sûrement '
                 'une info absente du modèle">suspect</span>') if sus else ""
-        body += (f'<tr class="eb-prop{hide}" data-stat="{p["stat"]}"><td>{_e(p["name"])}</td>'
-                 f'<td>{_e(STAT_LABELS.get(p["stat"], p["stat"]))}</td><td class="n"><b>{p["line"]}</b></td>'
-                 f'<td class="n"><span class="eb-pp"><i style="--w:{100 * p["p_sim"]:.1f}%"></i></span>{_pct(p["p_sim"], 0)}</td>'
-                 f'<td class="n"><span class="eb-pp bk"><i style="--w:{100 * p["p_mkt"]:.1f}%"></i></span>{_pct(p["p_mkt"], 0)}</td>'
-                 f'<td class="n {cls}">{"+" if d >= 0 else "−"}{abs(100 * d):.0f} pts{flag}</td>'
-                 f'<td class="n">{"Over" if over else "Under"} <span class="eb-dim">{_am(p["over"] if over else p["under"])}</span></td></tr>')
+        if p.get("pick"):
+            flag += '<span class="eb-tag acc" title="Retenu par la sélection du simulateur">sélection</span>'
+        price = p["over"] if over else p["under"]
+        # data-v : valeur de tri de chaque colonne (ebSort)
+        body += (f'<tr class="eb-prop{hide}" data-stat="{p["stat"]}" data-i="{i}"><td data-v="{_e(p["name"])}">{_e(p["name"])}</td>'
+                 f'<td data-v="{_e(STAT_LABELS.get(p["stat"], p["stat"]))}">{_e(STAT_LABELS.get(p["stat"], p["stat"]))}</td>'
+                 f'<td class="n" data-v="{p["line"]}"><b>{p["line"]}</b></td>'
+                 f'<td class="n" data-v="{p["p_sim"]:.4f}"><span class="eb-pp"><i style="--w:{100 * p["p_sim"]:.1f}%"></i></span>{_pct(p["p_sim"], 0)}</td>'
+                 f'<td class="n" data-v="{p["p_mkt"]:.4f}"><span class="eb-pp bk"><i style="--w:{100 * p["p_mkt"]:.1f}%"></i></span>{_pct(p["p_mkt"], 0)}</td>'
+                 f'<td class="n {cls}" data-v="{abs(d):.4f}">{"+" if d >= 0 else "−"}{abs(100 * d):.0f} pts{flag}</td>'
+                 f'<td class="n" data-v="{"Over" if over else "Under"}{_dec(price):06.3f}">{"Over" if over else "Under"} '
+                 f'<span class="eb-dim">{_am(price)}</span></td></tr>')
     more = (f'<button class="eb-more" onclick="ebPropsMore(\'{gid}\',this)">Voir les {len(rows)} props</button>'
             if len(rows) > PROPS_SHOWN else "")
-    return (f'{seg}<div class="eb-scroll"><table class="eb-tbl" id="eb-props-{gid}"><tr><th>Joueur</th><th>Marché</th>'
-            f'<th>Ligne</th><th>Over simu</th><th>Over book</th><th>Écart</th><th>Côté simu</th></tr>{body}</table></div>{more}'
+    head = "".join(f'<th class="eb-sort" onclick="ebSort(this)" title="Trier">{h}</th>'
+                   for h in ("Joueur", "Marché", "Ligne", "Over simu", "Over book", "Écart", "Côté simu"))
+    return (f'{seg}<div class="eb-scroll"><table class="eb-tbl" id="eb-props-{gid}"><tr>{head}</tr>{body}</table></div>{more}'
             '<p class="eb-note">Probabilité de dépasser la ligne, marge du bookmaker retirée. Écarts ≥ 20 pts (« suspect ») '
             'en fin de liste : ils signalent presque toujours une info que le modèle n’a pas (minutes, nouveau rôle, blessure).</p>')
 
@@ -270,6 +280,82 @@ def _tabs(g, gid):
             f'<button onclick="ebSeg(this,\'pr\')">Props DraftKings · {n_props}</button></div>'
             f'<div class="eb-pane on" data-pane="pl">{_players(g)}</div>'
             f'<div class="eb-pane" data-pane="pr">{_props(g, gid)}</div></div>')
+
+
+# ── Selection du simulateur ─────────────────────────────────────────────────
+
+def load_picks(path=PICKS_PATH):
+    try:
+        with open(path, encoding="utf-8") as f:
+            return json.load(f).get("picks") or {}
+    except (OSError, ValueError):
+        return {}
+
+
+def _pick_rows(items, with_game):
+    """items : [(g, p)] ; une ligne par pick, triee par ecart decroissant."""
+    rows = ""
+    for g, p in sorted(items, key=lambda x: -abs(x[1]["p_sim"] + SIM_BIAS - x[1]["p_mkt"])):
+        over = p["pick"] == "o"
+        price = p["over"] if over else p["under"]
+        opn = p.get("over_open") if over else p.get("under_open")
+        ps = min(max(p["p_sim"] + SIM_BIAS, 0), 1)
+        ps, pm = (ps, p["p_mkt"]) if over else (1 - ps, 1 - p["p_mkt"])
+        moved = ""
+        if opn is not None and _dec(opn) and abs(_dec(opn) - _dec(price)) >= 0.02:
+            moved = f'<span class="eb-dim"> (ouv. {_dec(opn):.2f})</span>'
+        game = (f'<td data-v="{_e(g["away"]["abbr"])}{_e(g["home"]["abbr"])}" class="eb-dim">'
+                f'{_e(g["away"]["abbr"])} @ {_e(g["home"]["abbr"])}</td>') if with_game else ""
+        rows += (f'<tr class="eb-prop" data-stat="{p["stat"]}" data-i="0">{game}<td data-v="{_e(p["name"])}">{_e(p["name"])}</td>'
+                 f'<td data-v="{_e(STAT_LABELS.get(p["stat"], p["stat"]))}"><b>{"Over" if over else "Under"} {p["line"]}</b> '
+                 f'{_e(STAT_LABELS.get(p["stat"], p["stat"]))}</td>'
+                 f'<td class="n" data-v="{_dec(price):.3f}"><b>{_dec(price):.2f}</b>{moved}</td>'
+                 f'<td class="n" data-v="{ps:.4f}">{_pct(ps, 0)}</td><td class="n" data-v="{pm:.4f}">{_pct(pm, 0)}</td>'
+                 f'<td class="n eb-acc" data-v="{ps - pm:.4f}">+{100 * (ps - pm):.0f} pts</td></tr>')
+    return rows
+
+
+def _pick_head(with_game):
+    cols = (("Match",) if with_game else ()) + ("Joueur", "Pari", "Cote", "Simu", "Book", "Écart")
+    return "".join(f'<th class="eb-sort" onclick="ebSort(this)" title="Trier">{h}</th>' for h in cols)
+
+
+PICK_NOTE = ("Règle testée en aveugle sur 3 saisons de vraies cotes (ESPN BET 2025-26, DraftKings 2026-27) : "
+             "le simulateur annonce le sens du mouvement de la cote 3 fois sur 4. À la cote d’ouverture : "
+             "+10 à +20 % de rendement ; à la cote de clôture : −1 à −7 %. <b>L’avantage vient de prendre la cote tôt</b> : "
+             "si elle a déjà bougé dans le sens du pari (« ouv. »), il a en partie fondu. Mise fixe et modeste.")
+
+
+def _track(picks):
+    done = [r for r in picks.values() if r.get("result") in ("win", "loss", "push")]
+    if not done:
+        return '<span class="eb-meta">Suivi réel : démarré, premiers résultats après les matchs de ce soir.</span>'
+    w = sum(r["result"] == "win" for r in done); l = sum(r["result"] == "loss" for r in done)
+    profit = sum((_dec(r["first_price"]) - 1) if r["result"] == "win" else -1 if r["result"] == "loss" else 0 for r in done)
+    clv = [r["last_p_mkt"] * _dec(r["first_price"]) - 1 for r in done if r.get("last_p_mkt") is not None]
+    clv_txt = f' · CLV {100 * sum(clv) / len(clv):+.1f} %' if clv else ""
+    return (f'<span class="eb-meta">Suivi réel depuis le 27/10 : <b>{w}-{l}</b> · '
+            f'<b class="{"eb-acc" if profit >= 0 else "eb-neg"}">{profit:+.1f} u</b> '
+            f'({100 * profit / len(done):+.1f} % sur {len(done)} picks, 1 u par pick, première cote proposée){clv_txt}</span>')
+
+
+def _selection_global(games, picks):
+    items = [(g, p) for g in games for p in g.get("props") or [] if p.get("pick")]
+    body = (f'<div class="eb-scroll"><table class="eb-tbl" data-all="1"><tr>{_pick_head(True)}</tr>{_pick_rows(items, True)}</table></div>'
+            if items else '<div class="eb-empty">Aucune prop retenue pour l’instant : les lignes DraftKings sortent '
+                          'en général la veille au soir, la sélection se remplit à leur publication.</div>')
+    return ('<div class="eb-card eb-sel"><div class="eb-ctrl"><h3 class="eb-h eb-h-nomb">Sélection du simulateur '
+            f'<small>{len(items)} props · 3 pts, passes, interceptions, contres</small></h3>{_track(picks)}</div>'
+            f'{body}<p class="eb-note">{PICK_NOTE}</p></div>')
+
+
+def _selection(g):
+    items = [(g, p) for p in g.get("props") or [] if p.get("pick")]
+    if not items:
+        return ""
+    return ('<div class="eb-card eb-sel"><h3 class="eb-h">Sélection du simulateur '
+            f'<small>{len(items)} props</small></h3><div class="eb-scroll"><table class="eb-tbl" data-all="1"><tr>{_pick_head(False)}</tr>'
+            f'{_pick_rows(items, False)}</table></div></div>')
 
 
 def _video(g, gid):
@@ -327,9 +413,9 @@ def build_nba_sim_section(sim=None):
     items = "".join(_item(g, gid, now, i == 0) for i, (g, gid) in enumerate(zip(games, ids)))
     details = "".join(
         f'<section class="eb-detail{" on" if i == 0 else ""}" data-id="{gid}">'
-        f'{_header(g, now)}{_infobar(g)}{_kpis(g)}{_video(g, gid)}{_hist(g)}{_tabs(g, gid)}</section>'
+        f'{_header(g, now)}{_infobar(g)}{_kpis(g)}{_selection(g)}{_video(g, gid)}{_hist(g)}{_tabs(g, gid)}</section>'
         for i, (g, gid) in enumerate(zip(games, ids)))
-    return ('<!--eb:start--><div class="eb" data-eb="nba"><div class="eb-layout">'
+    return ('<!--eb:start--><div class="eb" data-eb="nba">' + _selection_global(games, load_picks()) + '<div class="eb-layout">'
             f'<aside class="eb-side"><div class="eb-label">Matchs NBA à venir · {len(games)}</div>'
             f'<div class="eb-list">{items}</div></aside><div class="eb-main">{details}</div></div></div>'
             + EB_SCRIPT + PROPS_SCRIPT + _player_script() + '<!--eb:end-->')
@@ -338,25 +424,39 @@ def build_nba_sim_section(sim=None):
 PROPS_SCRIPT = """<script>
 (function(){
   if(window.ebProps)return;
-  window.ebProps=function(id,stat,btn){
-    var t=document.getElementById('eb-props-'+id);if(!t)return;
-    btn.parentNode.querySelectorAll('button').forEach(function(b){b.classList.toggle('on',b===btn);});
-    t.setAttribute('data-stat',stat);
-    var all=t.getAttribute('data-all')==='1',shown=0;
+  // Visibilite : filtre de stat (data-stat) + limite de lignes tant que « Voir les N props » n'a pas ete clique
+  function apply(t){
+    var stat=t.getAttribute('data-stat')||'ALL',all=t.getAttribute('data-all')==='1',shown=0;
     t.querySelectorAll('tr.eb-prop').forEach(function(r){
       var ok=stat==='ALL'||r.getAttribute('data-stat')===stat;
       var vis=ok&&(all||stat!=='ALL'||shown<""" + str(PROPS_SHOWN) + """);
       r.classList.toggle('eb-off',!vis);if(vis)shown++;
     });
+  }
+  window.ebProps=function(id,stat,btn){
+    var t=document.getElementById('eb-props-'+id);if(!t)return;
+    btn.parentNode.querySelectorAll('button').forEach(function(b){b.classList.toggle('on',b===btn);});
+    t.setAttribute('data-stat',stat);apply(t);
   };
   window.ebPropsMore=function(id,btn){
     var t=document.getElementById('eb-props-'+id);if(!t)return;
-    t.setAttribute('data-all','1');
-    var st=t.getAttribute('data-stat')||'ALL';
-    t.querySelectorAll('tr.eb-prop').forEach(function(r){
-      r.classList.toggle('eb-off',!(st==='ALL'||r.getAttribute('data-stat')===st));
-    });
-    btn.classList.add('eb-off');
+    t.setAttribute('data-all','1');apply(t);btn.classList.add('eb-off');
+  };
+  // Tri par colonne : 1er clic decroissant pour les nombres (croissant pour le texte), 2e clic inverse
+  window.ebSort=function(th){
+    var t=th.closest('table'),idx=Array.prototype.indexOf.call(th.parentNode.children,th);
+    var rows=Array.prototype.slice.call(t.querySelectorAll('tr.eb-prop'));if(!rows.length)return;
+    var val=function(r){var v=r.children[idx].getAttribute('data-v')||'';return /^-?[0-9.]+$/.test(v)?parseFloat(v):v;};
+    var num=typeof val(rows[0])==='number';
+    var dir=th.getAttribute('data-dir')==='desc'?'asc':th.getAttribute('data-dir')==='asc'?'desc':(num?'desc':'asc');
+    th.parentNode.querySelectorAll('th').forEach(function(h){h.removeAttribute('data-dir');});
+    th.setAttribute('data-dir',dir);
+    var k=dir==='asc'?1:-1;
+    rows.sort(function(a,b){var x=val(a),y=val(b);
+      var c=typeof x==='number'&&typeof y==='number'?x-y:String(x).localeCompare(String(y),'fr');
+      return c?c*k:(+a.getAttribute('data-i'))-(+b.getAttribute('data-i'));});
+    var body=rows[0].parentNode;rows.forEach(function(r){body.appendChild(r);});
+    apply(t);
   };
 })();
 </script>"""

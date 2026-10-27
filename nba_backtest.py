@@ -22,7 +22,7 @@ from collections import defaultdict
 import numpy as np
 
 from nba_boxdb import load_season, DB_DIR
-from nba_props_hist import load_props, props_main_lines
+from nba_props_hist import load_props, props_ladders, props_main_lines
 from nba_sim import NBAState, simulate
 
 PROFILE_REFRESH_DAYS = 7   # moteur possession : profils play-by-play recalcules chaque semaine (matchs passes)
@@ -89,7 +89,9 @@ def _ml_prob(ml):
     return 100 / (ml + 100) if ml > 0 else -ml / (-ml + 100)
 
 
-def run(test_year, params, n_sims, label, start=None, max_games=None, engine="box"):
+def run(test_year, params, n_sims, label, start=None, max_games=None, engine="box", blind=False):
+    """blind : test sans fuite d'information pour mesurer le mouvement des cotes (ouverture -> cloture) :
+    effectif = joueurs du match precedent de l'equipe, pas de lignes Vegas (celles stockees sont de cloture)."""
     prior = load_season(test_year - 1)
     test = load_season(test_year)
     if not test:
@@ -105,7 +107,8 @@ def run(test_year, params, n_sims, label, start=None, max_games=None, engine="bo
         from nba_poss_sim import simulate as poss_simulate
         pdata = load_data([test_year - 1, test_year])
         prof, prof_day = None, None
-    team_rows, player_rows, minutes_rows, real_rows = [], [], [], []
+    team_rows, player_rows, minutes_rows, real_rows, alt_rows = [], [], [], [], []
+    last_roster = {}
     t0 = time.time()
     by_date = defaultdict(list)
     for gid, g, season in games: by_date[g["date"]].append((gid, g, season))
@@ -117,7 +120,11 @@ def run(test_year, params, n_sims, label, start=None, max_games=None, engine="bo
             if not st.player_hist or "stats" not in g["home"]: continue
             st.season = season   # le premier match de la saison bascule l'etat
             h, a = g["home"], g["away"]
-            inp = st.project(h["id"], a["id"], roster_for(h), roster_for(a), g.get("lines"))
+            if blind:
+                inp = st.project(h["id"], a["id"], last_roster.get(h["id"]) or roster_for(h),
+                                 last_roster.get(a["id"]) or roster_for(a), None)
+            else:
+                inp = st.project(h["id"], a["id"], roster_for(h), roster_for(a), g.get("lines"))
             if engine == "poss":
                 if prof is None or (_date.fromisoformat(d) - _date.fromisoformat(prof_day)).days >= PROFILE_REFRESH_DAYS:
                     prof, prof_day = build_profiles([test_year - 1, test_year], before=d, data=pdata), d
@@ -139,6 +146,7 @@ def run(test_year, params, n_sims, label, start=None, max_games=None, engine="bo
             for s, side in (("home", h), ("away", a)):
                 actual = {p["id"]: p for p in side.get("players") or [] if not p.get("dnp") and p.get("MIN")}
                 main = props_main_lines(props.get(gid))
+                ladders = props_ladders(props.get(gid))
                 for i, pl in enumerate(inp[s]["players"]):
                     act = actual.get(pl["id"])
                     on = res[s]["MIN"][:, i] > 0
@@ -154,11 +162,22 @@ def run(test_year, params, n_sims, label, start=None, max_games=None, engine="bo
                         r = {"stat": stat, "date": d, "line": m["line"], "over": m["over"], "under": m["under"],
                              "p_mkt": m["p_over_novig"], "p_sim": float((x > m["line"]).mean()),
                              "p_push": float((x == m["line"]).mean()), "actual": _box_val(act, stat),
-                             "m_mu": pl["m_mu"], "n_season": pl["n_season"]}
+                             "m_mu": pl["m_mu"], "n_season": pl["n_season"],
+                             "over_open": m.get("over_open"), "under_open": m.get("under_open")}
                         if old:
                             mu, sd = old[stat]
                             r["p_old"] = 1 - _phi((m["line"] - mu) / sd)
                         real_rows.append(r)
+                    # Seuils alternatifs « X+ » (over seul, ESPN BET 2025-26)
+                    for stat, comps in REAL_STATS.items():
+                        lad = ladders.get((pl["id"], stat))
+                        if not lad: continue
+                        x = sum(res[s][c][:, i] for c in comps)[on]
+                        av = _box_val(act, stat)
+                        for line, am, am_open in lad:
+                            alt_rows.append({"stat": stat, "date": d, "line": line, "am": am, "am_open": am_open,
+                                             "p_sim": float((x > line).mean()), "actual": av, "m_mu": pl["m_mu"],
+                                             "main": (main.get((pl["id"], stat)) or {}).get("line")})
                     if pl["m_mu"] < 20: continue
                     for stat, comps in PROP_STATS.items():
                         x = sum(res[s][c][:, i] for c in comps)[on]
@@ -177,9 +196,13 @@ def run(test_year, params, n_sims, label, start=None, max_games=None, engine="bo
                 print(f"  {n_done} matchs ({time.time() - t0:.0f}s)")
         for gid, g, season in day:
             st.add_game(gid, g, season)
+            for side in ("home", "away"):
+                if g[side].get("players"):
+                    last_roster[g[side]["id"]] = [{"id": p["id"], "name": p["name"], "pos": p.get("pos", "")}
+                                                  for p in g[side]["players"] if not p.get("dnp") and p.get("MIN")]
 
     out = {"label": label, "params": st.p, "teams": team_rows, "players": player_rows, "minutes": minutes_rows,
-           "real": real_rows}
+           "real": real_rows, "alt": alt_rows}
     (DB_DIR / f"backtest_{label}.json").write_text(json.dumps(out), encoding="utf-8")
     report(out)
     return out
@@ -315,8 +338,9 @@ if __name__ == "__main__":
     ap.add_argument("--start")
     ap.add_argument("--max-games", type=int)
     ap.add_argument("--report", help="relit un backtest existant sans le relancer")
+    ap.add_argument("--blind", action="store_true", help="sans fuite : effectif du match precedent, sans lignes Vegas")
     a = ap.parse_args()
     if a.report:
         report(json.loads((DB_DIR / f"backtest_{a.report}.json").read_text(encoding="utf-8")))
     else:
-        run(a.year, json.loads(a.params), a.sims, a.label, a.start, a.max_games, a.engine)
+        run(a.year, json.loads(a.params), a.sims, a.label, a.start, a.max_games, a.engine, a.blind)

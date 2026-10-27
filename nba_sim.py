@@ -217,6 +217,20 @@ class NBAState:
             return 1.0   # transfere recemment
         return len(days.intersection(team_days)) / len(team_days)
 
+    def rotation_share(self, pid, team_id, n=3):
+        """Part des n derniers matchs de l'equipe ou le joueur a JOUE (minutes > 0).
+        None tant que l'equipe a joue moins de 2 matchs ou si le joueur vient d'arriver.
+        0 pour un joueur present mais laisse sur le banc (« Coach's decision ») : ses
+        minutes de la saison passee ne disent rien de son role actuel."""
+        team_days = sorted({r["day"] for r in self.team_recs
+                            if r["team"] == team_id and r["season"] == self.season})[-n:]
+        if len(team_days) < 2: return None
+        hist = self.player_hist.get(pid) or []
+        if hist and hist[-1].get("team") != team_id and hist[-1]["day"] >= team_days[0]:
+            return None
+        played = {r["day"] for r in hist if r.get("team") == team_id and not r.get("dnp")}
+        return len(played.intersection(team_days)) / len(team_days)
+
     # ── Profil joueur ────────────────────────────────────────────────────────
     def player_profile(self, pid, pos=None):
         hist = self.player_hist.get(pid) or []

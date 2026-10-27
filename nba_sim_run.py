@@ -38,6 +38,18 @@ REPLAY_KEEP_DAYS = 3
 QUESTIONABLE_FACTOR = 0.5
 MIN_AVAILABILITY = 0.1
 
+# Selection de props. Regle validee en aveugle (nba_backtest.py --blind : effectif du match
+# precedent, sans lignes Vegas) sur 3 echantillons : ESPN BET oct-nov 2025 (2 853 props),
+# ESPN BET avr-juin 2026 (1 243), DraftKings 2026-27 (548). Le simulateur annonce le sens
+# du mouvement des cotes dans 74-80 % des cas : ROI a la cote d'OUVERTURE +10 a +20 %,
+# a la cote de CLOTURE -1 a -7 %. L'avantage vient donc de prendre la cote tot.
+# Points et combines (PRA, P+R, P+A) : nuls ou negatifs ; rebonds : instables -> exclus.
+PICK_STATS = ("3PM", "AST", "STL", "BLK")
+PICK_GAP = 0.08        # ecart minimal simu corrigee - marche sans marge
+SIM_BIAS = 0.025       # le simu sous-estime l'over de 2-3 pts en moyenne (mesure sur les 3 echantillons)
+PICK_MIN_PLAY = 0.9    # joueurs incertains exclus
+PICKS_PATH = Path("data/nba_sim_picks.json")   # versionne : suivi reel des picks proposes
+
 
 def build_state(year):
     st = NBAState()
@@ -149,6 +161,12 @@ def build_inputs(st, g):
             # inactif (blessure longue, G-League). Une absence isolee ne compte pas.
             if st.availability(p["id"], tid) == 0:
                 p["p_play"] *= MIN_AVAILABILITY
+            # Sur la feuille mais sans jouer aux 3 derniers matchs (choix de l'entraineur) :
+            # hors rotation. Aligne la production sur le backtest valide (--blind : joueurs
+            # ayant joue le match precedent), sinon ces joueurs gardaient leurs minutes de
+            # la saison passee et sous-projetaient tout l'effectif (biais vers les unders).
+            elif st.rotation_share(p["id"], tid) == 0:
+                p["p_play"] *= MIN_AVAILABILITY
     jerseys = {p["PLAYER_ID"]: p.get("JERSEY", "") for tid in (h_id, a_id) for p in team_roster(tid, ttl=12 * 3600)}
     return inp, lines, jerseys
 
@@ -227,9 +245,14 @@ def run_game(st, g, n_sims, profiles=None):
         if on.sum() < 200: continue
         x = sum(res[s][c][:, i] for c in STAT_COMPS[stat])[on]
         p_over = float((x > m["line"]).mean())
+        p_play = float(on.mean())
+        gap = p_over + SIM_BIAS - m["p_over_novig"]
+        pick = ("o" if gap > 0 else "u") if (stat in PICK_STATS and abs(gap) >= PICK_GAP
+                                             and p_play >= PICK_MIN_PLAY) else ""
         props.append({"id": aid, "name": inp[s]["players"][i]["name"], "side": s, "stat": stat, "line": m["line"],
                       "over": m["over"], "under": m["under"], "p_sim": round(p_over, 4),
-                      "p_mkt": round(m["p_over_novig"], 4), "p_play": round(float(on.mean()), 3),
+                      "p_mkt": round(m["p_over_novig"], 4), "p_play": round(p_play, 3),
+                      "over_open": m.get("over_open"), "under_open": m.get("under_open"), "pick": pick,
                       "ev_over": round(p_over * _dec(m["over"]) - 1, 4),
                       "ev_under": round((1 - p_over) * _dec(m["under"]) - 1, 4)})
 
@@ -262,6 +285,60 @@ def run_game(st, g, n_sims, profiles=None):
         "typical": {"home": int(hp[k]), "away": int(ap[k]), "ot": int(res["n_ot"][k]), "box": typical_box},
         "players": players, "props": props, "n_sims": n_sims,
     }
+
+
+def _novig(over, under):
+    po, pu = _ml_prob(over), _ml_prob(under)
+    return po / (po + pu) if po and pu else None
+
+
+def update_picks(games, year):
+    """Suivi reel des picks : premiere cote vue (celle qu'on pouvait prendre), derniere cote
+    avant le match (~cloture, pour la CLV), puis resultat depuis la base box-score.
+    Un pick reste compte meme s'il disparait ensuite de la selection (il a ete propose)."""
+    try:
+        book = json.loads(PICKS_PATH.read_text(encoding="utf-8"))
+    except (OSError, ValueError):
+        book = {"picks": {}}
+    picks = book["picks"]
+    now = datetime.now(timezone.utc).isoformat(timespec="minutes")
+    live = {}
+    for g in games:
+        teams = {"home": g["home"]["abbr"], "away": g["away"]["abbr"]}
+        for p in g.get("props") or []:
+            key = f'{g["gid"]}|{p["id"]}|{p["stat"]}|{p["line"]}'
+            live[key] = p
+            for side in ("o", "u"):
+                k = f"{key}|{side}"
+                if p.get("pick") == side and k not in picks:
+                    price = p["over"] if side == "o" else p["under"]
+                    picks[k] = {"gid": g["gid"], "date": g["date"], "id": p["id"], "name": p["name"],
+                                "team": teams[p["side"]], "opp": teams["away" if p["side"] == "home" else "home"],
+                                "stat": p["stat"], "line": p["line"], "side": side,
+                                "first_price": price, "first_seen": now,
+                                "first_p_sim": round(p["p_sim"] + SIM_BIAS, 4), "first_p_mkt": p["p_mkt"],
+                                "open_price": p["over_open"] if side == "o" else p["under_open"]}
+    box = load_season(year)
+    for k, r in picks.items():
+        if r.get("result"): continue
+        p = live.get(k.rsplit("|", 1)[0])
+        if p:   # match encore a venir : derniere cote vue
+            r["last_price"] = p["over"] if r["side"] == "o" else p["under"]
+            pm = p["p_mkt"] if r["side"] == "o" else 1 - p["p_mkt"]
+            r["last_p_mkt"], r["last_seen"], r["active"] = round(pm, 4), now, p.get("pick") == r["side"]
+            continue
+        g = box.get(r["gid"])
+        if not g: continue
+        pl = next((x for sd in ("home", "away") for x in g[sd].get("players") or [] if x["id"] == r["id"]), None)
+        if not pl or pl.get("dnp") or not pl.get("MIN"):
+            r["result"] = "void"; continue
+        v = sum(pl.get(c, 0) for c in STAT_COMPS[r["stat"]])
+        r["actual"] = v
+        r["result"] = "push" if v == r["line"] else ("win" if (v > r["line"]) == (r["side"] == "o") else "loss")
+    PICKS_PATH.write_text(json.dumps(book, ensure_ascii=False, indent=0), encoding="utf-8")
+    done = [r for r in picks.values() if r.get("result") in ("win", "loss")]
+    print(f"  [picks] {len(picks)} au total, {sum(1 for r in picks.values() if not r.get('result'))} en attente, "
+          f"{sum(r['result'] == 'win' for r in done)}-{sum(r['result'] == 'loss' for r in done)} resolus")
 
 
 def main():
@@ -297,6 +374,10 @@ def main():
               f"  props {len(r['props'])}"
               + (f"  video {r['replay']['final'][1]}-{r['replay']['final'][0]}" if r.get("replay") else ""))
         out.append(r)
+    try:
+        update_picks(out, year)
+    except Exception as e:
+        print(f"  [!] suivi des picks : {type(e).__name__}: {e}")
     with open(OUT_PATH, "w", encoding="utf-8") as f:
         json.dump({"generated_at": datetime.now(timezone.utc).isoformat(timespec="seconds"), "games": out},
                   f, ensure_ascii=False)

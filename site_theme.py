@@ -233,12 +233,20 @@ footer{color:var(--di)!important;border-top:1px solid var(--line)!important;font
 .eb-tbl td.n{font-family:var(--mono);font-size:13px}
 .eb-tbl tr.sec td{font-family:var(--mono);font-size:11px;letter-spacing:1px;text-transform:uppercase;color:var(--di);padding-top:16px;border-top:0}
 .eb-tbl .num{text-align:right}
+.eb-tbl th.eb-sort{cursor:pointer;user-select:none}
+.eb-tbl th.eb-sort:hover{color:var(--tx)}
+.eb-tbl th.eb-sort[data-dir]{color:var(--acc)}
+.eb-tbl th.eb-sort[data-dir=desc]::after{content:' ▼';font-size:9px}
+.eb-tbl th.eb-sort[data-dir=asc]::after{content:' ▲';font-size:9px}
 .eb-tbl b{font-weight:600}
 .eb-dim{color:var(--di)}
 .eb-acc{color:var(--acc)}
 .eb-neg{color:var(--loss)}
 .eb-tag{font-family:var(--mono);font-size:10.5px;padding:1px 6px;border-radius:4px;background:var(--chip);color:var(--mu);margin-left:6px}
 .eb-tag.warn{color:var(--warn)}
+.eb-tag.acc{color:var(--acc);box-shadow:inset 0 0 0 1px var(--acc)}
+.eb-sel{margin-bottom:16px}
+.eb-sel .eb-ctrl{margin-bottom:12px}
 .eb-rb{position:relative;display:inline-block;width:140px;height:10px;vertical-align:middle;margin-left:10px}
 .eb-rb i{position:absolute;display:block}
 .eb-rb .o{top:4px;height:2px;left:var(--a);right:var(--b);background:var(--line2)}

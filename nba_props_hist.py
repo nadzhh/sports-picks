@@ -113,8 +113,8 @@ def props_main_lines(game_props):
     unlabeled = defaultdict(list)
     for aid, stat, line, am, am_open, upd, side in (game_props or {}).get("rows") or []:
         if am is None: continue
-        if side: groups[(aid, stat)][line][side] = (am, upd)
-        else: unlabeled[(aid, stat, line)].append((am, upd))
+        if side: groups[(aid, stat)][line][side] = (am, upd, am_open)
+        else: unlabeled[(aid, stat, line)].append((am, upd, am_open))
     # DraftKings (2026-27) ne marque pas le sens : la paire est dans l'ordre over puis
     # under (verifie : avec cet ordre le favori gagne 59 % sur 928 lignes, 41 % sinon)
     labeled = set(groups)
@@ -127,8 +127,23 @@ def props_main_lines(game_props):
         if not pairs: continue
         _, line, d = max(pairs, key=lambda x: x[0])
         po, pu = _prob(d["o"][0]), _prob(d["u"][0])
-        out[key] = {"line": line, "over": d["o"][0], "under": d["u"][0], "p_over_novig": po / (po + pu)}
+        out[key] = {"line": line, "over": d["o"][0], "under": d["u"][0], "p_over_novig": po / (po + pu),
+                    "over_open": d["o"][2], "under_open": d["u"][2]}
     return out
+
+
+def props_ladders(game_props):
+    """Echelle des seuils alternatifs (ESPN BET 2025-26 : un seul prix, celui de l'over
+    « X+ ») : {(aid, stat): [(seuil, prix, prix_ouverture), ...]}. Les paires DraftKings
+    sans sens (lignes principales) sont exclues : un seuil alternatif n'a qu'une ligne."""
+    rows = defaultdict(list)
+    for aid, stat, line, am, am_open, upd, side in (game_props or {}).get("rows") or []:
+        if not side: rows[(aid, stat, line)].append((am, am_open))
+    out = defaultdict(list)
+    for (aid, stat, line), rs in rows.items():
+        if len(rs) == 1 and rs[0][0] is not None:
+            out[(aid, stat)].append((line, rs[0][0], rs[0][1]))
+    return {k: sorted(v) for k, v in out.items()}
 
 
 if __name__ == "__main__":
