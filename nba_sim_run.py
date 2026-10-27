@@ -21,6 +21,7 @@ from pathlib import Path
 
 import numpy as np
 
+import nba_sim_bilan
 from nba_boxdb import BASE, _get, _lines, load_season, season_year, update_season
 from nba_client import team_roster
 from nba_props_hist import fetch_game_props, props_main_lines
@@ -356,6 +357,11 @@ def update_picks(games, year):
     except (OSError, ValueError):
         book = {"picks": {}}
     picks = book["picks"]
+    for r in picks.values():   # v1 (27/10) : probas de la 1re cote stockees cote over meme pour un under
+        if r.get("v") != 2:
+            if r["side"] == "u":
+                r["first_p_sim"], r["first_p_mkt"] = round(1 - r["first_p_sim"], 4), round(1 - r["first_p_mkt"], 4)
+            r["v"] = 2
     now = datetime.now(timezone.utc).isoformat(timespec="minutes")
     live = {}
     for g in games:
@@ -367,11 +373,14 @@ def update_picks(games, year):
                 k = f"{key}|{side}"
                 if p.get("pick") == side and k not in picks:
                     price = p["over"] if side == "o" else p["under"]
+                    ps, pm = p["p_sim"] + SIM_BIAS, p["p_mkt"]
                     picks[k] = {"gid": g["gid"], "date": g["date"], "id": p["id"], "name": p["name"],
                                 "team": teams[p["side"]], "opp": teams["away" if p["side"] == "home" else "home"],
                                 "stat": p["stat"], "line": p["line"], "side": side,
                                 "first_price": price, "first_seen": now,
-                                "first_p_sim": round(p["p_sim"] + SIM_BIAS, 4), "first_p_mkt": p["p_mkt"],
+                                # probas du cote du pick (comme last_p_mkt)
+                                "first_p_sim": round(ps if side == "o" else 1 - ps, 4),
+                                "first_p_mkt": round(pm if side == "o" else 1 - pm, 4), "v": 2,
                                 "open_price": p["over_open"] if side == "o" else p["under_open"]}
     box = load_season(year)
     for k, r in picks.items():
@@ -433,6 +442,11 @@ def main():
         update_picks(out, year)
     except Exception as e:
         print(f"  [!] suivi des picks : {type(e).__name__}: {e}")
+    try:   # historique : derniere simulation d'avant-match + resultat, pour le bilan de chaque soiree
+        nba_sim_bilan.archive(out)
+        print(f"  [bilan] {nba_sim_bilan.resolve(year)} match(s) termine(s) ajoute(s) a l'historique")
+    except Exception as e:
+        print(f"  [!] historique du simulateur : {type(e).__name__}: {e}")
     with open(OUT_PATH, "w", encoding="utf-8") as f:
         json.dump({"generated_at": datetime.now(timezone.utc).isoformat(timespec="seconds"), "games": out},
                   f, ensure_ascii=False)

@@ -462,12 +462,188 @@ window.ebVideo=function(btn,path,name){
 </script>"""
 
 
+# ── Historique : bilan de chaque soiree (nba_sim_bilan) ──────────────────────
+
+MOIS = ["janvier", "février", "mars", "avril", "mai", "juin", "juillet", "août", "septembre", "octobre",
+        "novembre", "décembre"]
+JOURS_L = ["lundi", "mardi", "mercredi", "jeudi", "vendredi", "samedi", "dimanche"]
+RES_TAG = {"win": ("acc", "Gagné"), "loss": ("neg", "Perdu"), "push": ("", "Nul"), "void": ("", "Remboursé")}
+
+
+def _sgn(x, d=1):
+    return f"{x:+.{d}f}".replace(".", ",").replace("-", "−")
+
+
+def _u(x):
+    return _sgn(x) + " u"
+
+
+def _record(s):
+    return f'{s["w"]}-{s["l"]}' + (f'-{s["p"]}' if s["p"] else "")
+
+
+def _night_item(rep):
+    n, s = rep["night"], rep["sum"]
+    d = datetime.strptime(n, "%Y-%m-%d")
+    title = f'{_record(s)} · {_u(s["units"])}' if s["n"] else f'{rep["total"]} match{"s" if rep["total"] > 1 else ""}'
+    chips = f'<span class="eb-chip"><em>Matchs</em>{rep["done"]}/{rep["total"]}</span>'
+    if s["with_us"] is not None:
+        chips += f'<span class="eb-chip"><em>Cotes</em>{100 * s["with_us"]:.0f} % pour nous</span>'
+    return (f'<button class="eb-item" data-id="bilan-{n}" onclick="ebPick(\'nba\',\'bilan-{n}\')">'
+            f'<div class="eb-item-top"><span>Bilan</span><span>{JOURS[d.weekday()]} {d:%d/%m}</span></div>'
+            f'<div class="eb-item-t">{title}</div><div class="eb-chips">{chips}</div></button>')
+
+
+def _stat(label, value, sub="", cls=""):
+    return (f'<div class="eb-stat"><span class="eb-kpi-l">{label}</span><span class="eb-stat-v {cls}">{value}</span>'
+            + (f'<span class="eb-kpi-s">{sub}</span>' if sub else "") + '</div>')
+
+
+def _night_facts(rep):
+    """« Ce qui s'est passe » : resultats, cotes, causes des pertes, matchs, minutes."""
+    s, items = rep["sum"], []
+    if s["n"]:
+        by = s["by"]
+        parts = [f'{UNIT.get(k, k)} {by[k][0]}-{by[k][1]}' for k in PICK_STATS if k in by]
+        ou = [f'{lab} {by[k][0]}-{by[k][1]}' for k, lab in (("over", "overs"), ("under", "unders")) if k in by]
+        items.append(f'<b>{s["w"]} gagnés, {s["l"]} perdus</b>' + (f', {s["p"]} nul{"s" if s["p"] > 1 else ""}' if s["p"] else "")
+                     + f' : <b>{_u(s["units"])}</b> à la première cote proposée (1 u par pick). '
+                     f'Par stat : {", ".join(parts)} · {", ".join(ou)}.')
+    if s["void"]:
+        items.append(f'{s["void"]} pick{"s" if s["void"] > 1 else ""} remboursé{"s" if s["void"] > 1 else ""} : joueur absent.')
+    if s["pending"]:
+        items.append(f'{s["pending"]} pick{"s" if s["pending"] > 1 else ""} en attente (match pas terminé ou base pas encore à jour).')
+    if s["with_us"] is not None:
+        items.append(f'Cotes : le marché est allé dans notre sens sur <b>{100 * s["with_us"]:.0f} %</b> des {s["n_moved"]} cotes '
+                     "qui ont bougé avant le match (74-80 % au backtest ; c'est l'indicateur le plus fiable à court terme).")
+    if s["l"]:
+        c = s["causes"]
+        parts = [(c["minutes"], "temps de jeu mal prévu"), (c["near"], "perdus d'une seule unité"), (c["rate"], "rendement")]
+        items.append("Picks perdus : " + ", ".join(f"<b>{k}</b> {t}" for k, t in parts if k) + ".")
+    g = [r for r in rep["games"] if r.get("final")]
+    if g:
+        ok = sum(r["winner_ok"] for r in g)
+        gv = [r for r in g if r.get("vegas_ok") is not None]
+        gt = [r for r in g if r.get("err_total_vegas") is not None]
+        items.append(f'Vainqueur trouvé dans <b>{ok} match{"s" if ok > 1 else ""} sur {len(g)}</b>'
+                     + (f' (favori Vegas : {sum(r["vegas_ok"] for r in gv)} sur {len(gv)})' if gv else "") + ". "
+                     f'Erreur moyenne sur le total de points : {_n(sum(abs(r["err_total"]) for r in g) / len(g))} pts'
+                     + (f' (Vegas : {_n(sum(abs(r["err_total_vegas"]) for r in gt) / len(gt))} pts)' if gt else "") + ".")
+    m = rep["min"]
+    if m["mae"] is not None:
+        top = ", ".join(f'{_e(x["name"])} ({_e(x["team"])}) {x["proj"]:.0f} → {x["act"]:.0f} min'
+                        + (" (absent)" if x["dnp"] else "") for x in m["misses"][:4])
+        items.append(f'Minutes : erreur moyenne de {_n(m["mae"])} min par joueur ({m["n"]} joueurs)'
+                     + (f". Plus gros écarts (prévu → joué) : {top}." if top else "."))
+    return '<ul class="eb-why-l">' + "".join(f"<li>{t}</li>" for t in items) + "</ul>"
+
+
+def _night_picks(rep):
+    rows = ""
+    for n, p in enumerate(rep["picks"]):
+        over = p["side"] == "o"
+        cls, lab = RES_TAG.get(p.get("result"), ("", "En attente"))
+        price, last = _dec(p["first_price"]), _dec(p.get("last_price"))
+        pm, am = p["proj_min"], p["act_min"]
+        mins = f'{pm:.0f} → {am:.0f}' if pm and am is not None else (f'{pm:.0f} → –' if pm else "–")
+        act = p.get("actual")
+        rk = {"win": 3, "push": 2, "void": 1, "loss": 0}.get(p.get("result"), -1)
+        rows += (f'<tr class="eb-prop" data-i="{n}"><td data-v="{_e(p["name"])}">{_e(p["name"])} '
+                 f'<span class="eb-dim">{_e(p["team"])}</span></td>'
+                 f'<td data-v="{_e(p["stat"])}"><b>{"Over" if over else "Under"} {p["line"]:g}</b> {_e(UNIT.get(p["stat"], p["stat"]))}</td>'
+                 f'<td class="n" data-v="{price:.3f}"><b>{price:.2f}</b>'
+                 + (f'<span class="eb-dim"> → {last:.2f}</span>' if last and abs(last - price) >= 0.02 else "") + "</td>"
+                 f'<td class="n" data-v="{act if act is not None else -1}">{act if act is not None else "–"}</td>'
+                 f'<td class="n" data-v="{(am or 0) - (pm or 0):.1f}">{mins}</td>'
+                 f'<td data-v="{rk}"><span class="eb-tag {cls}">{lab}</span></td>'
+                 f'<td class="eb-cause">{_e(p["cause_txt"])}</td></tr>')
+    if not rows:
+        return '<div class="eb-empty">Aucun pick proposé pour cette soirée.</div>'
+    head = "".join(f'<th class="eb-sort" onclick="ebSort(this)" title="Trier">{h}</th>'
+                   for h in ("Joueur", "Pari", "Cote prise", "Réel", "Minutes", "Résultat")) + "<th>Explication</th>"
+    return f'<div class="eb-scroll"><table class="eb-tbl" data-all="1"><tr>{head}</tr>{rows}</table></div>'
+
+
+def _night_games(rep):
+    rows = ""
+    for r in rep["games"]:
+        s, f, v = r["sim"], r.get("final"), r.get("vegas") or {}
+        fav = r["home"] if s["p_home"] >= 0.5 else r["away"]
+        vg = ""
+        if v.get("spread") is not None:
+            vg = f'{_e(r["home"] if v["spread"] <= 0 else r["away"])} −{abs(v["spread"]):g}'
+            if v.get("total"): vg += f' · O/U {v["total"]:g}'
+        final = f'<b>{f["away"]}-{f["home"]}</b>' if f else "–"
+        res = (f'<span class="eb-tag {"acc" if r["winner_ok"] else "neg"}">{"trouvé" if r["winner_ok"] else "raté"}</span>'
+               if f else '<span class="eb-tag">à venir</span>')
+        rows += (f'<tr><td><b>{_e(r["away"])} @ {_e(r["home"])}</b></td>'
+                 f'<td class="n">{s["away"]:.0f}-{s["home"]:.0f} <span class="eb-dim">({_e(fav)} '
+                 f'{_pct(max(s["p_home"], 1 - s["p_home"]), 0)})</span></td>'
+                 f'<td class="n">{vg or "–"}</td><td class="n">{final}</td><td>{res}</td></tr>')
+    return ('<div class="eb-scroll"><table class="eb-tbl"><tr><th>Match</th><th>Simulateur</th><th>Vegas</th>'
+            f'<th>Final</th><th>Vainqueur</th></tr>{rows}</table></div>')
+
+
+def _night_detail(rep, cum, insights):
+    n, s = rep["night"], rep["sum"]
+    d = datetime.strptime(n, "%Y-%m-%d")
+    many = rep["total"] > 1
+    state = (f'{rep["done"]}/{rep["total"]} matchs terminés' if rep["done"] < rep["total"]
+             else f'{rep["total"]} match{"s" if many else ""} terminé{"s" if many else ""}')
+    stats = ""
+    if s["n"]:
+        stats += _stat("Picks", _record(s), f'{s["n"]} réglés' + (f' · {s["void"]} remb.' if s["void"] else ""))
+        stats += _stat("Résultat", _u(s["units"]), f'ROI {_sgn(100 * s["roi"])} %', "eb-acc" if s["units"] >= 0 else "eb-neg")
+    if s["with_us"] is not None:
+        stats += _stat("Cotes dans notre sens", f'{100 * s["with_us"]:.0f} %',
+                       f'{s["n_moved"]} cotes ont bougé · backtest 74-80 %', "eb-acc" if s["with_us"] >= 0.6 else "eb-neg")
+    if s["clv"] is not None:
+        stats += _stat("CLV", f'{_sgn(100 * s["clv"])} %', "cote prise vs clôture sans marge",
+                       "eb-acc" if s["clv"] >= 0 else "eb-neg")
+    c = cum["sum"]
+    cum_txt = ""
+    if c["n"]:
+        cum_txt = (f'Depuis le début ({cum["nights"]} soirée{"s" if cum["nights"] > 1 else ""}) : <b>{_record(c)}</b> · '
+                   f'<b class="{"eb-acc" if c["units"] >= 0 else "eb-neg"}">{_u(c["units"])}</b> · ROI {_sgn(100 * c["roi"])} %')
+    return (f'<section class="eb-detail" data-id="bilan-{n}">'
+            f'<div class="eb-card"><div class="eb-meta">Bilan · soirée NBA du {JOURS_L[d.weekday()]} {d.day} '
+            f'{MOIS[d.month - 1]} · {state}</div>'
+            "<h3 class=\"eb-h eb-bil-t\">Ce que le simulateur avait prévu, ce qui s'est passé</h3>"
+            + (f'<div class="eb-stats">{stats}</div>' if stats else "") + "</div>"
+            f"<div class=\"eb-card\"><h3 class=\"eb-h\">Ce qui s'est passé</h3>{_night_facts(rep)}</div>"
+            '<div class="eb-card"><h3 class="eb-h">Picks de la soirée <small>cote prise → dernière cote avant le match · '
+            f'minutes prévues → jouées</small></h3>{_night_picks(rep)}</div>'
+            f'<div class="eb-card"><h3 class="eb-h">Matchs</h3>{_night_games(rep)}</div>'
+            "<div class=\"eb-card\"><h3 class=\"eb-h\">Comment l'améliorer</h3>"
+            '<ul class="eb-why-l">' + "".join(f"<li>{t}</li>" for t in insights) + "</ul>"
+            + (f'<p class="eb-note">{cum_txt}</p>' if cum_txt else "") + "</div></section>")
+
+
+def _history(max_nights=10):
+    """(items de la liste, fiches, nombre) des dernieres soirees dont au moins un match est termine."""
+    try:
+        import nba_sim_bilan as B
+        hist, picks = B.load_history(), B.load_picks()
+        cum = B.cumulative(hist, picks)
+        reps = [B.night_report(n, hist, picks) for n, (t, d) in B.nights(hist).items() if d][:max_nights]
+        if not reps and hist["games"]:   # rien de termine : on annonce le premier bilan
+            first = datetime.strptime(min(h["night"] for h in hist["games"].values()), "%Y-%m-%d")
+            return (f'<div class="eb-card eb-meta">Premier bilan (soirée du {first:%d/%m}) ici dès la fin des matchs : '
+                    "picks, ce qui s'est passé et comment améliorer le simulateur.</div>", "", 0)
+        return ("".join(_night_item(r) for r in reps),
+                "".join(_night_detail(r, cum, B.insights(r, cum)) for r in reps), len(reps))
+    except Exception as e:
+        print(f"  [!] historique NBA : {type(e).__name__}: {e}")
+        return "", "", 0
+
+
 def build_nba_sim_section(sim=None):
     sim = sim if sim is not None else load_sim()
-    if not sim or not sim.get("games"):
+    games = sorted((sim or {}).get("games") or [], key=lambda g: g.get("date", ""))
+    h_items, h_details, n_nights = _history()
+    if not games and not n_nights:
         return '<!--eb:start--><div class="eb"><div class="eb-card eb-empty">Aucune simulation NBA disponible.</div></div><!--eb:end-->'
     now = datetime.now(TZ_PARIS)
-    games = sorted(sim["games"], key=lambda g: g.get("date", ""))
     ids = [_e(g["gid"]) for g in games]
     items = "".join(_item(g, gid, now, i == 0) for i, (g, gid) in enumerate(zip(games, ids)))
     picks = load_picks()
@@ -475,9 +651,14 @@ def build_nba_sim_section(sim=None):
         f'<section class="eb-detail{" on" if i == 0 else ""}" data-id="{gid}">'
         f'{_header(g, now)}{_selection(g, picks)}{_infobar(g)}{_kpis(g)}{_video(g, gid)}{_hist(g)}{_tabs(g, gid)}</section>'
         for i, (g, gid) in enumerate(zip(games, ids)))
+    if not games:   # pas de match a venir : le bilan le plus recent est affiche
+        h_items = h_items.replace('class="eb-item"', 'class="eb-item on"', 1)
+        h_details = h_details.replace('class="eb-detail"', 'class="eb-detail on"', 1)
+    side = f'<div class="eb-label">Matchs NBA à venir · {len(games)}</div><div class="eb-list">{items}</div>' if games else ""
+    if h_items:
+        side += f'<div class="eb-label eb-label-2">Historique · bilan des soirées</div><div class="eb-list">{h_items}</div>'
     return ('<!--eb:start--><div class="eb" data-eb="nba">' + '<div class="eb-layout">'
-            f'<aside class="eb-side"><div class="eb-label">Matchs NBA à venir · {len(games)}</div>'
-            f'<div class="eb-list">{items}</div></aside><div class="eb-main">{details}</div></div></div>'
+            f'<aside class="eb-side">{side}</aside><div class="eb-main">{details}{h_details}</div></div></div>'
             + EB_SCRIPT + PROPS_SCRIPT + _player_script() + '<!--eb:end-->')
 
 
