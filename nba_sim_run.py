@@ -14,6 +14,8 @@ nba_sim_run.py — Simule les matchs NBA du jour et du lendemain (production).
 Usage : python nba_sim_run.py [--sims 10000] [--date 2026-10-27]
 """
 import argparse, json, os, time
+from collections import defaultdict
+from functools import lru_cache
 from datetime import date, datetime, timedelta, timezone
 from pathlib import Path
 
@@ -113,13 +115,14 @@ def _availability(summary):
 
 
 def _roster(team_id, injuries):
-    roster, statuses = [], {}
+    roster, statuses, out = [], {}, []
     for p in team_roster(team_id, ttl=12 * 3600):
         st = injuries.get(p["PLAYER_ID"], "")
-        if st in ("out", "doubtful", "suspension"): continue
+        if st in ("out", "doubtful", "suspension"):
+            out.append({"id": p["PLAYER_ID"], "name": p["PLAYER_NAME"]}); continue
         roster.append({"id": p["PLAYER_ID"], "name": p["PLAYER_NAME"], "pos": p.get("POSITION", "")})
         if st: statuses[p["PLAYER_ID"]] = st
-    return roster, statuses
+    return roster, statuses, out
 
 
 def _typical(res, inp):
@@ -148,10 +151,11 @@ def build_inputs(st, g):
     summary = _get(f"{BASE}/summary?event={g['gid']}") or {}
     inj = _availability(summary)
     h_id, a_id = str(g["home"].get("id")), str(g["away"].get("id"))
-    h_roster, h_st = _roster(h_id, inj)
-    a_roster, a_st = _roster(a_id, inj)
+    h_roster, h_st, h_out = _roster(h_id, inj)
+    a_roster, a_st, a_out = _roster(a_id, inj)
     lines = _lines(summary, h_id) if summary else None
     inp = st.project(h_id, a_id, h_roster, a_roster, lines)
+    inp["home"]["out"], inp["away"]["out"] = h_out, a_out
     for s, statuses, tid in (("home", h_st, h_id), ("away", a_st, a_id)):
         for p in inp[s]["players"]:
             if statuses.get(p["id"]) in ("questionable", "day-to-day"):
@@ -203,6 +207,52 @@ def _clean_replays():
         if f.stat().st_mtime < limit: f.unlink()
 
 
+LOG_STATS = ("PTS", "REB", "AST", "3PM", "STL", "BLK")
+
+
+@lru_cache(maxsize=2)
+def _logs(year):
+    """Feuilles de match reelles (saison et precedente) pour l'argumentaire des picks :
+    {joueur: [match...]}, {equipe: [stats concedees par match...]}, moyenne ligue concedee."""
+    players, allowed = defaultdict(list), defaultdict(list)
+    for y in (year - 1, year):
+        for gid, g in sorted(load_season(y).items(), key=lambda x: (x[1]["date"], x[0])):
+            for s, o in (("home", "away"), ("away", "home")):
+                tot = dict.fromkeys(LOG_STATS, 0.0)
+                for p in g[s].get("players") or []:
+                    if p.get("dnp") or not p.get("MIN"): continue
+                    for c in LOG_STATS: tot[c] += p.get(c) or 0
+                    players[p["id"]].append({"date": g["date"], "season": y, "team": g[s]["id"], "MIN": p["MIN"],
+                                             **{c: p.get(c) or 0 for c in LOG_STATS}})
+                allowed[g[o]["id"]].append(tot)
+    league = {c: float(np.mean([np.mean([r[c] for r in rs[-15:]]) for rs in allowed.values() if rs])) for c in LOG_STATS}
+    return players, allowed, league
+
+
+def _why(pid, stat, line, x, minutes, team_id, opp_id, opp_abbr, out, year):
+    """Faits qui justifient un pick (le texte est redige par nba_sim_site)."""
+    logs, allowed, league = _logs(year)
+    comps = STAT_COMPS[stat]
+    val = lambda r: sum(r[c] for c in comps)
+    hist = logs.get(pid) or []
+    cur = [r for r in hist if r["season"] == year]
+    prev = [r for r in hist if r["season"] == year - 1]
+    agg = lambda rs: {"n": len(rs), "avg": round(float(np.mean([val(r) for r in rs])), 2),
+                      "min": round(float(np.mean([r["MIN"] for r in rs])), 1)} if rs else None
+    last10 = hist[-10:]
+    opp = allowed.get(opp_id, [])[-15:]
+    absent = []
+    for o in out:   # absents qui comptaient vraiment cette saison
+        rs = [r for r in logs.get(o["id"], []) if r["season"] == year and r["team"] == team_id]
+        if rs and np.mean([r["MIN"] for r in rs]) >= 18: absent.append(o["name"])
+    return {"proj": round(float(x.mean()), 2), "med": float(np.median(x)), "min": round(minutes, 1),
+            "cur": agg(cur), "last": [val(r) for r in cur[-5:]][::-1], "prev": agg(prev),
+            "l10_over": sum(val(r) > line for r in last10), "l10_n": len(last10),
+            "opp": {"abbr": opp_abbr, "allowed": round(float(np.mean([sum(r[c] for c in comps) for r in opp])), 2),
+                    "league": round(sum(league[c] for c in comps), 2)} if opp else None,
+            "out": absent}
+
+
 def run_game(st, g, n_sims, profiles=None):
     inp, lines, jerseys = build_inputs(st, g)
     replay = None
@@ -249,8 +299,13 @@ def run_game(st, g, n_sims, profiles=None):
         gap = p_over + SIM_BIAS - m["p_over_novig"]
         pick = ("o" if gap > 0 else "u") if (stat in PICK_STATS and abs(gap) >= PICK_GAP
                                              and p_play >= PICK_MIN_PLAY) else ""
+        why = None
+        if pick:
+            o = "away" if s == "home" else "home"
+            why = _why(aid, stat, m["line"], x, float(res[s]["MIN"][on, i].mean()), inp[s]["id"], inp[o]["id"],
+                       g[o].get("abbreviation"), inp[s].get("out") or [], season_year(datetime.now(timezone.utc).date()))
         props.append({"id": aid, "name": inp[s]["players"][i]["name"], "side": s, "stat": stat, "line": m["line"],
-                      "over": m["over"], "under": m["under"], "p_sim": round(p_over, 4),
+                      "why": why, "over": m["over"], "under": m["under"], "p_sim": round(p_over, 4),
                       "p_mkt": round(m["p_over_novig"], 4), "p_play": round(p_play, 3),
                       "over_open": m.get("over_open"), "under_open": m.get("under_open"), "pick": pick,
                       "ev_over": round(p_over * _dec(m["over"]) - 1, 4),
