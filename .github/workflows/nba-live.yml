@@ -65,7 +65,20 @@ jobs:
       - name: Veille
         env:
           PYTHONIOENCODING: utf-8
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}   # paris de la Bankroll IA
+          TELEGRAM_CHAT_ID:   ${{ secrets.TELEGRAM_CHAT_ID }}
         run: python nba_live.py --loop --max-minutes 330
+
+      # Alerte : la veille a plante (elle ne se relance pas seule dans ce cas). Jeton lu par
+      # notify.py dans l'environnement, jamais sur la ligne de commande.
+      - name: Alerte Telegram si echec
+        if: failure()
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID:   ${{ secrets.TELEGRAM_CHAT_ID }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: |
+          python -c "import os, notify; notify.tg_send('⚠️ Veille NBA arrêtée sur une erreur, la Bankroll IA ne parie plus. ' + os.environ['RUN_URL'])"
 
       - name: Relance de la veille
         if: success() && hashFiles('.nba_live_continue') != ''

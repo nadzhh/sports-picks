@@ -282,3 +282,61 @@ def decide(state, games):
             for leg in bet["legs"]: state["waiting"].pop(leg["key"], None)
     state["bets"] += placed
     return placed
+
+
+# ── Telegram : les paris a prendre et leur reglement ─────────────────────────
+
+UNIT_FR = {"AST": "passes", "3PM": "paniers à 3 pts", "STL": "interceptions", "BLK": "contres"}
+SITE = "https://nadzhh.github.io/sports-picks/"
+
+
+def _fr(x, d=2):
+    return f"{x:.{d}f}".replace(".", ",")
+
+
+def _paris_time(iso):
+    try:
+        from zoneinfo import ZoneInfo
+        return datetime.fromisoformat(iso.replace("Z", "+00:00")).astimezone(ZoneInfo("Europe/Paris")).strftime("%d/%m %H:%M")
+    except Exception:
+        return ""
+
+
+def _leg_txt(l):
+    return (f'<b>{l["name"]}</b> ({l["team"]} vs {l["opp"]}, {_paris_time(l["date"])}) : '
+            f'{"Over" if l["side"] == "o" else "Under"} {l["line"]:g} {UNIT_FR.get(l["stat"], l["stat"])}')
+
+
+def telegram_placed(placed, state):
+    """Message des paris a prendre. Cote mini : en dessous, l'esperance tombe sous le seuil (min_ev)."""
+    eq = equity(state)
+    out = ["🤖 <b>Bankroll IA : paris à prendre</b>"]
+    for b in placed:
+        mini = (1 + PRM["min_ev"]) / b["p"]
+        if b["kind"] == "combine":
+            out.append("\n🔗 <b>Combiné</b>\n" + "\n".join("• " + _leg_txt(l) for l in b["legs"]))
+        else:
+            out.append("\n🏀 " + _leg_txt(b["legs"][0]))
+        out.append(f'Cote DraftKings <b>{_fr(b["odds"])}</b> · à prendre si ta cote ≥ <b>{_fr(mini)}</b>')
+        out.append(f'Mise <b>{_fr(b["stake"])} €</b> ({_fr(100 * b["stake"] / eq, 1)} % de la bankroll)')
+        why = f'proba retenue {round(100 * b["p"])} %, espérance +{round(100 * b["ev"])} %'
+        if len(b["legs"]) == 1:
+            l = b["legs"][0]
+            why = f'simu {round(100 * l["p_sim"])} % vs bookmaker {round(100 * l["p_mkt"])} % → ' + why
+        out.append(f"<i>{why}</i>")
+    out.append(f'\nCapital {_fr(eq)} € · <a href="{SITE}">détails sur le site</a>')
+    return "\n".join(out)
+
+
+def telegram_settled(bets, state):
+    lab = {"won": "✅", "lost": "❌", "void": "↩️"}
+    out = ["🤖 <b>Bankroll IA : paris réglés</b>"]
+    for b in bets:
+        legs = " + ".join(f'{l["name"]} {"Over" if l["side"] == "o" else "Under"} {l["line"]:g} '
+                          f'{UNIT_FR.get(l["stat"], l["stat"])}' + (f' ({l["actual"]:g})' if l.get("actual") is not None else "")
+                          for l in b["legs"])
+        out.append(f'{lab.get(b["status"], "")} {legs} : {"+" if b["pnl"] > 0 else ""}{_fr(b["pnl"])} €')
+    eq = equity(state)
+    out.append(f'\nCapital <b>{_fr(eq)} €</b> ({"+" if eq >= state["start"] else ""}'
+               f'{_fr(100 * (eq / state["start"] - 1), 1)} % depuis le départ)')
+    return "\n".join(out)

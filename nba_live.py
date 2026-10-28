@@ -187,15 +187,36 @@ class Live:
                                      else "resultats et liste des matchs" if changed else "bankroll") + bank)
         return games
 
+    def telegram(self, *msgs):
+        """Envoi Telegram : uniquement depuis GitHub Actions avec publication (jamais d'un poste local,
+        dont le .env contient aussi le jeton du bot)."""
+        if not (self.push and os.environ.get("GITHUB_ACTIONS")): return
+        try:
+            from notify import tg_send
+            for m in msgs:
+                if not m: continue
+                parts, cur = [], ""
+                for block in m.split("\n\n"):   # limite Telegram : 4 096 caracteres par message
+                    if cur and len(cur) + len(block) > 3800: parts.append(cur); cur = ""
+                    cur = f"{cur}\n\n{block}" if cur else block
+                parts.append(cur)
+                for part in parts: print("  [telegram] " + ("envoye" if tg_send(part) else "ECHEC"))
+        except Exception as e:
+            print(f"  [!] telegram : {type(e).__name__}: {e}")
+
     def bankroll(self, fresh):
         """Bankroll IA : regle les paris termines, place les nouveaux sur les matchs simules a l'instant
         (cote actuelle ; une simulation plus ancienne aurait une cote perimee)."""
         try:
             st = BK.load()
+            before = {b["id"] for b in st["bets"] if b["status"] == "open"}
             n_set = BK.settle(st, load_season(self.year))
             placed = BK.decide(st, fresh) if fresh else []
             if not (n_set or placed or not Path(BS.FRAGMENT).exists()): return ""
             BK.save(st); BS.write_fragment()
+            settled = [b for b in st["bets"] if b["id"] in before and b["status"] != "open"]
+            self.telegram(BK.telegram_placed(placed, st) if placed else None,
+                          BK.telegram_settled(settled, st) if settled else None)
             for b in placed:
                 print(f"  [bankroll] {b['kind']} {b['stake']:.2f} EUR @ {b['odds']:.2f} : "
                       + " + ".join(f"{l['name']} {l['side']}{l['line']:g} {l['stat']}" for l in b["legs"]))
