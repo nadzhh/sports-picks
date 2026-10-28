@@ -1,10 +1,10 @@
 {
-  "generated_at": "2026-10-27T21:06:08.843008",
-  "n_total": 2301,
+  "generated_at": "2026-10-28T00:38:05.680267",
+  "n_total": 2306,
   "by_sport": {
-    "foot": 1952,
+    "foot": 1954,
     "nba": 192,
-    "tennis": 157
+    "tennis": 160
   },
   "picks": [
     {
@@ -104,6 +104,46 @@
       "actual": null,
       "context": {
         "league": "Bulgarian First",
+        "is_fun": false
+      }
+    },
+    {
+      "sport": "foot",
+      "id": "2026-10-27_1000017277_team_away_dc",
+      "date": "2026-10-27",
+      "matchup": "ADC Juan Pablo II vs Sport Huancayo",
+      "market": "Double chance",
+      "label": "Nul ou Sport Huancayo (X2)",
+      "line": null,
+      "direction": "away_dc",
+      "confidence": 84,
+      "cote": null,
+      "cote_min": null,
+      "edge_pp": null,
+      "result": "LOSS",
+      "actual": null,
+      "context": {
+        "league": "Peru Liga 1",
+        "is_fun": false
+      }
+    },
+    {
+      "sport": "foot",
+      "id": "2026-10-27_1000017277_team_away_win",
+      "date": "2026-10-27",
+      "matchup": "ADC Juan Pablo II vs Sport Huancayo",
+      "market": "Victoire extérieur",
+      "label": "Sport Huancayo gagne",
+      "line": null,
+      "direction": "away_win",
+      "confidence": 74,
+      "cote": null,
+      "cote_min": null,
+      "edge_pp": null,
+      "result": "LOSS",
+      "actual": null,
+      "context": {
+        "league": "Peru Liga 1",
         "is_fun": false
       }
     },
@@ -236,6 +276,72 @@
         "surface": "Hard",
         "tour": "ATP",
         "tournament": "Swiss Indoors",
+        "selection": null
+      }
+    },
+    {
+      "sport": "tennis",
+      "id": "0ccce6d326e553ba75890585346be8db_tennis_total_games___19.5_over",
+      "date": "2026-10-27",
+      "matchup": "Stan Wawrinka vs Jiri Lehecka",
+      "market": "tennis_total_games",
+      "label": "Plus de 19.5 jeux",
+      "line": 19.5,
+      "direction": "over",
+      "confidence": 60,
+      "cote": null,
+      "cote_min": 1.62,
+      "edge_pp": null,
+      "result": "WIN",
+      "actual": 25,
+      "context": {
+        "surface": "Hard",
+        "tour": "ATP",
+        "tournament": "Swiss Indoors",
+        "selection": null
+      }
+    },
+    {
+      "sport": "tennis",
+      "id": "705dce2eaaf74f7b3cb3f919d2f1ea8d_tennis_winner_home___",
+      "date": "2026-10-27",
+      "matchup": "Flavio Cobolli vs Grigor Dimitrov",
+      "market": "tennis_winner",
+      "label": "Vainqueur : Flavio Cobolli",
+      "line": null,
+      "direction": null,
+      "confidence": 80,
+      "cote": 1.53,
+      "cote_min": 1.12,
+      "edge_pp": 25.6,
+      "result": "WIN",
+      "actual": "home",
+      "context": {
+        "surface": "Hard",
+        "tour": "ATP",
+        "tournament": "Vienna Open",
+        "selection": "home"
+      }
+    },
+    {
+      "sport": "tennis",
+      "id": "705dce2eaaf74f7b3cb3f919d2f1ea8d_tennis_total_games___19.5_over",
+      "date": "2026-10-27",
+      "matchup": "Flavio Cobolli vs Grigor Dimitrov",
+      "market": "tennis_total_games",
+      "label": "Plus de 19.5 jeux",
+      "line": 19.5,
+      "direction": "over",
+      "confidence": 59,
+      "cote": null,
+      "cote_min": 1.66,
+      "edge_pp": null,
+      "result": "WIN",
+      "actual": 28,
+      "context": {
+        "surface": "Hard",
+        "tour": "ATP",
+        "tournament": "Vienna Open",
         "selection": null
       }
     },
