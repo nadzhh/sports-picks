@@ -61,6 +61,10 @@ def archive(games, path=HIST_PATH):
             "home": r["home"]["abbr"], "away": r["away"]["abbr"],
             "sim": {"home": t["home_mean"], "away": t["away_mean"], "p_home": t["p_home_win"]},
             "vegas": {"total": L.get("total"), "spread": L.get("home_spread")},
+            # journal de la veille (nba_live) : informations recues avant le match et statuts finaux
+            "events": r.get("events") or [], "report_at": r.get("report_at"),
+            "doubt": [[p["name"], r["home" if s == "home" else "away"]["abbr"], p["status"], p["p_play"]]
+                      for s in ("home", "away") for p in ((r.get("injuries") or {}).get(s) or {}).get("doubt") or []],
             # id -> [nom, cote (home/away), proba de jouer, minutes, PTS, REB, AST, 3PM, STL, BLK] (moyennes s'il joue)
             "players": {p["id"]: [p["name"], p["side"], p["p_play"], p["MIN"]]
                         + [(p.get(s) or {}).get("mean") for s in STATS[1:]]
@@ -163,7 +167,8 @@ def _game_rows(games):
     rows = []
     for gid, h in sorted(games.items(), key=lambda x: x[1]["date"]):
         f, s, v = h.get("final"), h["sim"], h.get("vegas") or {}
-        row = {"gid": gid, "home": h["home"], "away": h["away"], "sim": s, "final": f, "vegas": v}
+        row = {"gid": gid, "home": h["home"], "away": h["away"], "sim": s, "final": f, "vegas": v,
+               "events": h.get("events") or [], "doubt": h.get("doubt") or []}
         if f:
             row["winner_ok"] = (s["p_home"] >= 0.5) == (f["home"] > f["away"])
             row["vegas_ok"] = None if v.get("spread") is None else (v["spread"] <= 0) == (f["home"] > f["away"])

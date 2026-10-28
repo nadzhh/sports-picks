@@ -672,13 +672,33 @@ def _night_detail(rep, cum, insights):
             '<div class="eb-card"><h3 class="eb-h">Picks de la soirée <small>cote prise → dernière cote avant le match · '
             f'minutes prévues → jouées</small></h3>{_night_picks(rep)}</div>'
             f'<div class="eb-card"><h3 class="eb-h">Matchs</h3>{_night_games(rep)}</div>'
+            + _night_watch(rep) +
             "<div class=\"eb-card\"><h3 class=\"eb-h\">Comment l'améliorer</h3>"
             '<ul class="eb-why-l">' + "".join(f"<li>{t}</li>" for t in insights) + "</ul>"
             + (f'<p class="eb-note">{cum_txt}</p>' if cum_txt else "") + "</div></section>")
 
 
+def _night_watch(rep):
+    """Journal de la veille : ce qui a change avant chaque match (statuts, lignes) et les joueurs
+    encore incertains a la derniere simulation — pour juger le lendemain si l'info a pese."""
+    blocks = ""
+    for r in rep["games"]:
+        ev = "".join(f'<li><span class="eb-dim">{_hm(e["at"])}</span> {_e(e["txt"])}</li>' for e in r["events"])
+        dbt = [x for x in r["doubt"] if x[2] in ("questionable", "day-to-day")]
+        if dbt:
+            ev += ("<li>Incertains à la dernière simulation : " + ", ".join(
+                f'{_e(x[0])} ({_e(x[1])}, joue dans {_pct(x[3], 0)} des simulations)' for x in dbt) + "</li>")
+        if ev:
+            blocks += f'<div class="eb-meta eb-ev-t">{_e(r["away"])} @ {_e(r["home"])}</div><ul class="eb-ev">{ev}</ul>'
+    if not blocks:
+        return ""
+    return ('<div class="eb-card"><h3 class="eb-h">Journal de la veille <small>informations reçues avant les matchs, '
+            f'chacune a relancé la simulation</small></h3>{blocks}</div>')
+
+
 def _history(max_nights=10):
-    """(items de la liste, fiches, nombre) des dernieres soirees dont au moins un match est termine."""
+    """(items de la liste, fiches, nombre, bandeau « bilan d'hier ») des dernieres soirees dont au moins
+    un match est termine."""
     try:
         import nba_sim_bilan as B
         hist, picks = B.load_history(), B.load_picks()
@@ -687,18 +707,27 @@ def _history(max_nights=10):
         if not reps and hist["games"]:   # rien de termine : on annonce le premier bilan
             first = datetime.strptime(min(h["night"] for h in hist["games"].values()), "%Y-%m-%d")
             return (f'<div class="eb-card eb-meta">Premier bilan (soirée du {first:%d/%m}) ici dès la fin des matchs : '
-                    "picks, ce qui s'est passé et comment améliorer le simulateur.</div>", "", 0)
+                    "picks, ce qui s'est passé et comment améliorer le simulateur.</div>", "", 0, "")
+        banner = ""
+        if reps:
+            r, s_ = reps[0], reps[0]["sum"]
+            d = datetime.strptime(r["night"], "%Y-%m-%d")
+            res = (f'{_record(s_)} · <b class="{"eb-acc" if s_["units"] >= 0 else "eb-neg"}">{_u(s_["units"])}</b>'
+                   if s_["n"] else f'{r["done"]}/{r["total"]} matchs')
+            banner = (f'<button class="eb-banner" onclick="ebHist(\'bilan-{r["night"]}\')">'
+                      f'<span class="eb-meta">Bilan · soirée du {JOURS[d.weekday()].lower()} {d:%d/%m}</span>'
+                      f'<span class="eb-banner-t">{res}</span><span class="eb-banner-a">Voir le bilan →</span></button>')
         return ("".join(_night_item(r) for r in reps),
-                "".join(_night_detail(r, cum, B.insights(r, cum)) for r in reps), len(reps))
+                "".join(_night_detail(r, cum, B.insights(r, cum)) for r in reps), len(reps), banner)
     except Exception as e:
         print(f"  [!] historique NBA : {type(e).__name__}: {e}")
-        return "", "", 0
+        return "", "", 0, ""
 
 
 def build_nba_sim_section(sim=None):
     sim = sim if sim is not None else load_sim()
     games = sorted((sim or {}).get("games") or [], key=lambda g: g.get("date", ""))
-    h_items, h_details, n_nights = _history()
+    h_items, h_details, n_nights, banner = _history()
     if not games and not n_nights:
         return '<!--eb:start--><div class="eb"><div class="eb-card eb-empty">Aucune simulation NBA disponible.</div></div><!--eb:end-->'
     now = datetime.now(TZ_PARIS)
@@ -712,13 +741,40 @@ def build_nba_sim_section(sim=None):
     if not games:   # pas de match a venir : le bilan le plus recent est affiche
         h_items = h_items.replace('class="eb-item"', 'class="eb-item on"', 1)
         h_details = h_details.replace('class="eb-detail"', 'class="eb-detail on"', 1)
-    side = f'<div class="eb-label">Matchs NBA à venir · {len(games)}</div><div class="eb-list">{items}</div>' if games else ""
+    # Deux onglets en tete de liste : matchs a venir / historique (bilan de chaque soiree)
+    up = bool(games)
+    tabs = (f'<div class="eb-sidetabs"><button class="{"on" if up else ""}" onclick="ebSide(this,\'up\')">'
+            f'À venir · {len(games)}</button><button class="{"" if up else "on"}" onclick="ebSide(this,\'hist\')">'
+            f'Historique · {n_nights}</button></div>') if h_items else ""
+    side = tabs + (f'<div class="eb-sidepane{" on" if up else ""}" data-pane="up">{banner}'
+                   f'<div class="eb-label">Matchs NBA à venir · {len(games)}</div><div class="eb-list">{items}</div></div>'
+                   if games else "")
     if h_items:
-        side += f'<div class="eb-label eb-label-2">Historique · bilan des soirées</div><div class="eb-list">{h_items}</div>'
+        side += (f'<div class="eb-sidepane{"" if up else " on"}" data-pane="hist">'
+                 f'<div class="eb-label">Bilan des soirées</div><div class="eb-list">{h_items}</div></div>')
     return (f'<!--nba-sim:{_e((sim or {}).get("generated_at", ""))}-->'
             '<!--eb:start--><div class="eb" data-eb="nba">' + '<div class="eb-layout">'
             f'<aside class="eb-side">{side}</aside><div class="eb-main">{details}{h_details}</div></div></div>'
-            + EB_SCRIPT + PROPS_SCRIPT + _player_script() + '<!--eb:end-->')
+            + EB_SCRIPT + PROPS_SCRIPT + SIDE_SCRIPT + _player_script() + '<!--eb:end-->')
+
+
+SIDE_SCRIPT = """<script>
+(function(){
+  if(window.ebSide)return;
+  window.ebSide=function(btn,pane){
+    var side=btn.closest('.eb-side');
+    side.querySelectorAll('.eb-sidetabs button').forEach(function(b){b.classList.toggle('on',b===btn);});
+    side.querySelectorAll('.eb-sidepane').forEach(function(p){p.classList.toggle('on',p.getAttribute('data-pane')===pane);});
+    var first=side.querySelector('.eb-sidepane.on .eb-item');
+    if(first&&!side.querySelector('.eb-sidepane.on .eb-item.on'))ebPick('nba',first.getAttribute('data-id'));
+  };
+  window.ebHist=function(id){
+    var side=document.querySelector('[data-eb="nba"] .eb-side');if(!side)return;
+    var b=side.querySelectorAll('.eb-sidetabs button')[1];if(b)ebSide(b,'hist');
+    ebPick('nba',id);
+  };
+})();
+</script>"""
 
 
 def build_nba_sim_page():

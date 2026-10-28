@@ -257,6 +257,14 @@ footer{color:var(--di)!important;border-top:1px solid var(--line)!important;font
 .eb-why-l b{color:var(--tx)}
 .eb-why-l .eb-warn{color:var(--warn)}
 .eb-label.eb-label-2{margin-top:24px}
+.eb-sidetabs{display:flex;gap:6px;margin:0 0 14px;padding:4px;background:var(--panel);border:1px solid var(--line);border-radius:10px}
+.eb-sidetabs button{flex:1;background:transparent;border:0;border-radius:7px;padding:8px 10px;color:var(--mu);font:500 13px var(--sans);cursor:pointer;white-space:nowrap}
+.eb-sidetabs button.on{background:var(--chip);color:var(--acc)}
+.eb-sidepane{display:none}
+.eb-sidepane.on{display:block}
+.eb-banner{display:flex;flex-direction:column;gap:4px;width:100%;text-align:left;margin:0 0 16px;padding:12px 14px;background:var(--acc-soft);border:1px solid var(--acc);border-radius:12px;color:var(--tx);cursor:pointer}
+.eb-banner-t{font-size:16px;font-weight:600}
+.eb-banner-a{font-family:var(--mono);font-size:11.5px;color:var(--acc)}
 .eb-inj{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:12px}
 .eb-inj-l{margin:8px 0 0;padding-left:18px;font-size:13.5px;line-height:1.6;color:var(--mu)}
 .eb-inj-l b{color:var(--tx);font-weight:600}
