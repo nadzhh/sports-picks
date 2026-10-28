@@ -26,8 +26,16 @@ from nba_props_hist import fetch_game_props
 from nba_sim_site import FRAGMENT, write_fragment
 import nba_bankroll as BK
 import nba_bankroll_site as BS
+import foot_db
+import foot_sim_run as FR
+import foot_sim_site as FS
 
-PUBLISHED = [FRAGMENT, R.OUT_PATH, str(R.PICKS_PATH), "data/nba_sim_history.json", BS.FRAGMENT, str(BK.BANK_PATH)]
+PUBLISHED = [FRAGMENT, R.OUT_PATH, str(R.PICKS_PATH), "data/nba_sim_history.json", BS.FRAGMENT, str(BK.BANK_PATH),
+             FS.FRAGMENT, str(FR.OUT_PATH)]
+# Foot (Top 5 + coupes d'Europe) : base mise a jour par tranches (premiere constitution en plusieurs
+# passages), simulation toutes les 30 min, a chaque cycle quand un match approche (composition officielle)
+FOOT_SEASONS = ("2026/2027", "2025/2026")   # saison en cours d'abord
+FOOT_EVERY, FOOT_DB_BUDGET, FOOT_REFRESH = 30 * 60, 6 * 60, timedelta(hours=3)
 HORIZON = timedelta(hours=36)
 FINAL_BEFORE = timedelta(minutes=35)
 REFRESH_AGE = timedelta(hours=3)
@@ -139,6 +147,7 @@ class Live:
         self.n_box = len(load_season(self.year))
         self.box_at = time.time()
         R._clean_replays()
+        self.foot_st, self.foot_at = None, 0.0
 
     def refresh_box(self):
         """Matchs termines depuis le dernier passage -> base, etat du modele, resultats."""
@@ -181,6 +190,9 @@ class Live:
             R.save(list(keep.values()), fresh, self.year)
             write_fragment()
         bank = self.bankroll(fresh)
+        foot = self.foot()
+        if foot and not (changed or bank) and self.push:
+            publish("Foot live : " + foot)
         if (changed or bank) and self.push:
             parts = [f"{r['away']['abbr']}@{r['home']['abbr']}" for r in fresh]
             publish("NBA live : " + (f"{len(fresh)} match(s) resimule(s) ({', '.join(parts[:6])})" if fresh
@@ -224,6 +236,50 @@ class Live:
             return f" ; bankroll : {len(placed)} pari(s) place(s), {n_set} regle(s)"
         except Exception as e:
             print(f"  [!] bankroll : {type(e).__name__}: {e}")
+            return ""
+
+    def foot(self):
+        """Simulation foot : nouveaux matchs, simulations de plus de 3 h, et composition officielle
+        attendue a moins de 2 h du coup d'envoi. Renvoie un resume si quelque chose a ete publie."""
+        try:
+            now = datetime.now(timezone.utc)
+            prev = {g["id"]: g for g in (json.loads(FR.OUT_PATH.read_text(encoding="utf-8")).get("games") or [])}                 if FR.OUT_PATH.exists() else {}
+            soon = any(timedelta(0) < _t(g["ko"]) - now <= timedelta(hours=2) for g in prev.values())
+            if not soon and time.time() - self.foot_at < FOOT_EVERY: return ""
+            self.foot_at = time.time()
+            added = foot_db.update(list(foot_db.LEAGUES), list(FOOT_SEASONS), budget=FOOT_DB_BUDGET) if self.update else 0
+            if added or self.foot_st is None:
+                self.foot_st = FR.build_state()
+            games = FR.upcoming(48)
+            due = []
+            for g in games:
+                p = prev.get(g["id"])
+                if not p or now - _t(p["sim_at"]) >= FOOT_REFRESH:
+                    due.append(g)
+                elif _t(g["ko"]) - now <= timedelta(minutes=120) and now - _t(p["sim_at"]) >= timedelta(minutes=15)                         and "officielle" not in (p["home_info"]["lineup"], p["away_info"]["lineup"]):
+                    due.append(g)      # composition officielle attendue : on reverifie
+            fresh = []
+            for g in due:
+                try:
+                    r = FR.run_game(self.foot_st, g, self.n_sims)
+                    old = prev.get(g["id"])
+                    if old and r["home_info"]["lineup"] == old["home_info"]["lineup"]                             and r["away_info"]["lineup"] == old["away_info"]["lineup"] and now - _t(old["sim_at"]) < FOOT_REFRESH:
+                        continue   # composition toujours pas officielle : rien de neuf a publier
+                    fresh.append(r)
+                except Exception as e:
+                    print(f"  [!] foot {g['id']} : {type(e).__name__}: {e}")
+            live = {g["id"] for g in games}
+            keep = {gid: g for gid, g in prev.items() if gid in live}
+            keep.update({r["id"]: r for r in fresh})
+            if not fresh and set(keep) == set(prev): return ""
+            FR.OUT_PATH.write_text(json.dumps({"generated_at": now.isoformat(timespec="seconds"),
+                                               "games": sorted(keep.values(), key=lambda g: g["ko"])}, ensure_ascii=False),
+                                   encoding="utf-8")
+            FS.write_fragment()
+            print(f"  [foot] {len(fresh)} match(s) simule(s), {len(keep)} affiches, base +{added}")
+            return f"{len(fresh)} match(s) foot simule(s)"
+        except Exception as e:
+            print(f"  [!] foot : {type(e).__name__}: {e}")
             return ""
 
     @staticmethod
