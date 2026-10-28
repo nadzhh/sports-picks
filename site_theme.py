@@ -100,6 +100,7 @@ button,input,select,textarea{font-family:inherit}
   padding:6px 0 18px;margin-bottom:18px;border-bottom:1px solid var(--line)}
 .container h1.sp-brand{font-family:var(--sans);font-size:26px!important;font-weight:700!important;letter-spacing:-.6px;margin:0!important;color:var(--tx)}
 .sp-brand span{color:var(--acc)}
+.sp-brand .sp-logo{display:inline-block;width:34px;height:34px;vertical-align:-8px;margin-right:10px}
 .sp-meta{font-family:var(--mono);font-size:12.5px;color:var(--mu)}
 .sp-meta b{color:var(--tx);font-weight:500}
 .sp-nav{display:flex!important;gap:6px!important;flex-wrap:wrap;margin-bottom:18px!important}

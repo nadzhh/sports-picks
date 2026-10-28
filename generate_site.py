@@ -5847,7 +5847,7 @@ def build_html(matches, team_ai, player_ai, pstats_data, nba_picks=None, nba_his
 <meta name="robots" content="noindex, nofollow">
 <title>Sports Picks — {now}</title>
 <meta name="description" content="Pronostics football, NBA et tennis avec suivi de bankroll : {total_t} picks sur {len(matches)} matchs, mis a jour automatiquement.">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230f172a'/%3E%3Ctext x='16' y='23' font-size='19' text-anchor='middle'%3E%E2%9A%BD%3C/text%3E%3C/svg%3E">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" %3E%0A  %3Crect x="2" y="2" width="60" height="60" rx="15" fill="%230f1411" stroke="%232a352c" stroke-width="2"/%3E%0A  %3Cpath d="M13 47 L25 34 L33 40 L40.5 29.5" fill="none" stroke="%2395e04a" stroke-width="6.5" stroke-linecap="round" stroke-linejoin="round"/%3E%0A  %3Ccircle cx="49" cy="19" r="8" fill="%2395e04a"/%3E%0A  %3Cpath d="M41 19 H57 M49 11 V27 M43.6 13.2 Q47 19 43.6 24.8 M54.4 13.2 Q51 19 54.4 24.8" fill="none" stroke="%230f1411" stroke-width="1.7" stroke-linecap="round"/%3E%0A%3C/svg%3E">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Sports Picks">
 <meta property="og:description" content="{total_t} picks sur {len(matches)} matchs — football, NBA, tennis.">
@@ -6798,7 +6798,7 @@ def build_html(matches, team_ai, player_ai, pstats_data, nba_picks=None, nba_his
 </div>
 
 <div class="container">
-  <header class="sp-top"><h1 class="sp-brand">Sports<span>Picks</span></h1>
+  <header class="sp-top"><h1 class="sp-brand"><svg class="sp-logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" aria-hidden="true">  <rect x="2" y="2" width="60" height="60" rx="15" fill="#0f1411" stroke="#2a352c" stroke-width="2"/>  <path d="M13 47 L25 34 L33 40 L40.5 29.5" fill="none" stroke="#95e04a" stroke-width="6.5" stroke-linecap="round" stroke-linejoin="round"/>  <circle cx="49" cy="19" r="8" fill="#95e04a"/>  <path d="M41 19 H57 M49 11 V27 M43.6 13.2 Q47 19 43.6 24.8 M54.4 13.2 Q51 19 54.4 24.8" fill="none" stroke="#0f1411" stroke-width="1.7" stroke-linecap="round"/></svg>Sports<span>Picks</span></h1>
     <div class="sp-meta">Généré le <b>{now}</b> · <b>{len(matches)}</b> matchs foot · <b>{len(nba_picks)}</b> matchs NBA</div></header>
   {bankroll_panel_compact_html}
   <!-- Toast non-bloquant : signalement des nouveaux picks -->
