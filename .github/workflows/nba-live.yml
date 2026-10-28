@@ -35,6 +35,7 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v4
         with:
+          ref: master          # toujours le code le plus recent (un run en file attend parfois des heures)
           fetch-depth: 20
           token: ${{ secrets.GITHUB_TOKEN }}
 

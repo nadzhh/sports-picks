@@ -97,6 +97,10 @@ RULES = [
     "(calibré sur l’historique). Pas d’espérance d’au moins {ev} → pas de pari.",
     "Mise : {kel} de Kelly sur cette probabilité prudente, au plus {mb} du capital par pari, {mg} par match "
     "(paris liés) et {mn} par soirée. Un seul pari par joueur.",
+    "Un pari ne s’annule pas : tant qu’une info peut changer le rôle du joueur (coéquipier important "
+    "incertain, rapport officiel pas encore rempli), <b>j’attends</b>. Dès que le statut tombe, le match est "
+    "resimulé et je décide avec l’info confirmée. À {wu} min du match, je tranche avec la dernière simulation. "
+    "Si le joueur parié ne joue pas, le pari est remboursé.",
     "Combiné : au plus un par soirée, deux matchs différents, seulement si son espérance dépasse celle des "
     "simples et {cev} ; mise ≤ {cm} du capital (variance et marge du bookmaker multipliées).",
 ]
@@ -125,7 +129,15 @@ def build_bankroll_section(state=None):
                    "eb-neg" if md.get("mode") in ("prudent", "pause") else "eb-acc")
     rules = "".join(f"<li>{r}</li>" for r in RULES).format(
         lam=_pct(p["lambda"]), ev=_pct(p["min_ev"]), kel=f'{p["kelly"]:.2f}'.replace(".", ","), mb=_pct(p["max_bet"]),
-        mg=_pct(p["max_game"]), mn=_pct(p["max_night"]), cev=_pct(p["combo_ev"]), cm=_pct(p["combo_max"]))
+        mg=_pct(p["max_game"]), mn=_pct(p["max_night"]), cev=_pct(p["combo_ev"]), cm=_pct(p["combo_max"]),
+        wu=p["wait_until"])
+    wait = sorted((state.get("waiting") or {}).values(), key=lambda w: w["date"])
+    w_rows = "".join(
+        f'<tr><td class="n eb-dim">{_when(w["date"])}</td><td class="eb-bk-legs"><b>{_e(w["name"])}</b> '
+        f'<span class="eb-dim">{_e(w["team"])} vs {_e(w["opp"])}</span> · {"Over" if w["side"] == "o" else "Under"} '
+        f'{w["line"]:g} {_e(UNIT.get(w["stat"], w["stat"]))} @ {w["dec"]:.2f}'
+        f'<div class="eb-dim eb-bk-why">attend : {_e(" ; ".join(w["why"]))}</div></td>'
+        f'<td class="n">{_pct(w["ev"], True)}</td></tr>' for w in wait)
     o_rows = "".join(_bet_row(b, True) for b in sorted(open_, key=lambda b: b["placed_at"], reverse=True))
     d_rows = "".join(_bet_row(b, False) for b in sorted((b for b in state["bets"] if b["status"] != "open"),
                                                         key=lambda b: b.get("settled_at", ""), reverse=True)[:60])
@@ -140,6 +152,9 @@ def build_bankroll_section(state=None):
             '<div class="eb-card"><h3 class="eb-h">Paris en cours</h3>'
             + (f'<div class="eb-scroll"><table class="eb-tbl">{head}<th>Gain possible</th></tr>{o_rows}</table></div>' if o_rows
                else '<div class="eb-empty">Aucun pari en cours : j’attends une cote qui en vaut la peine.</div>') + '</div>'
+            + (f'<div class="eb-card"><h3 class="eb-h">En attente d’information <small>pari repéré, pas encore placé</small></h3>'
+               f'<div class="eb-scroll"><table class="eb-tbl"><tr><th>Match</th><th>Pari envisagé</th><th>Espérance actuelle</th></tr>'
+               f'{w_rows}</table></div></div>' if w_rows else "") +
             '<div class="eb-card"><h3 class="eb-h">Historique</h3>'
             + (f'<div class="eb-scroll"><table class="eb-tbl">{head}<th>Résultat</th><th>Gain</th></tr>{d_rows}</table></div>' if d_rows
                else '<div class="eb-empty">Pas encore de pari réglé.</div>') + '</div>'

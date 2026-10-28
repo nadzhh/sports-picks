@@ -35,7 +35,14 @@ PRM = {
     "combo":      True,
     "combo_ev":   0.08,   # esperance minimale d'un combine
     "combo_max":  0.01,   # mise max d'un combine, en part du capital
+    # Un pari ne s'annule pas : tant qu'une info qui peut changer le role du joueur est en suspens dans
+    # son equipe (coequipier de rotation incertain, rapport officiel pas encore rempli), on attend ; la
+    # veille resimule des que le statut tombe. A moins de wait_until min du match, plus rien ne tombera :
+    # la derniere simulation pondere l'incertitude et on decide. (Si le joueur parie ne joue pas, rembourse.)
+    "wait_min":   18,     # minutes attendues d'un coequipier incertain qui justifient d'attendre
+    "wait_until": 40,     # minutes avant le coup d'envoi
 }
+UNCERTAIN = ("questionable", "doubtful", "day-to-day")
 # Discipline : la bankroll mesure sa propre CLV (cote prise vs derniere cote avant le match, suivi
 # data/nba_sim_picks.json). Sans avantage mesure, un bon parieur reduit puis arrete.
 PRUDENT = (30, 0.0)    # apres 30 paris regles, CLV moyenne < 0 -> mises divisees par 2
@@ -180,8 +187,19 @@ def candidates(games, now=None):
     from nba_sim_bilan import night_of
     out = []
     for g in games:
+        # Infos en suspens par equipe : rapport officiel pas encore rempli, coequipiers incertains
+        pend = {}
+        for side in ("home", "away"):
+            why = []
+            if ((g.get("injuries") or {}).get(side) or {}).get("src") not in (None, "officiel"):
+                why.append("rapport officiel des blessures pas encore rempli")
+            pend[side] = (why, [(pl["id"], pl["name"]) for pl in g.get("players") or [] if pl["side"] == side
+                                and pl.get("status") in UNCERTAIN and pl.get("MIN", 0) >= PRM["wait_min"]])
         for p in g.get("props") or []:
             if not p.get("pick") or p.get("p_play", 0) < PICK_MIN_PLAY: continue
+            why, unc = pend[p["side"]]
+            names = [n for i, n in unc if i != p["id"]]
+            pending = why + ([f"statut de {', '.join(names)} (incertain{'s' if len(names) > 1 else ''})"] if names else [])
             o = p["pick"] == "o"
             ps = min(max(p["p_sim"] + SIM_BIAS, 0.0), 1.0)
             hold = _imp(p["over"]) + _imp(p["under"]) - 1 if p.get("over") is not None and p.get("under") is not None else None
@@ -189,7 +207,8 @@ def candidates(games, now=None):
                         "night": night_of(g["date"]), "date": g["date"], "pid": p["id"], "name": p["name"],
                         "team": g[p["side"]]["abbr"], "opp": g["away" if p["side"] == "home" else "home"]["abbr"],
                         "stat": p["stat"], "line": p["line"], "side": p["pick"], "am": p["over"] if o else p["under"],
-                        "p_sim": ps if o else 1 - ps, "p_mkt": p["p_mkt"] if o else 1 - p["p_mkt"], "hold": hold})
+                        "p_sim": ps if o else 1 - ps, "p_mkt": p["p_mkt"] if o else 1 - p["p_mkt"], "hold": hold,
+                        "pending": pending})
     return out
 
 
@@ -222,6 +241,25 @@ def decide(state, games):
     if mode == "pause": return []
     cands = candidates(games)
     taken = {leg["key"] for b in state["bets"] for leg in b["legs"]}
+    # Attente d'information : on retire (et on affiche) les selections dont le contexte n'est pas fixe
+    t_now = datetime.now(timezone.utc)
+    waiting = {k: w for k, w in (state.get("waiting") or {}).items()
+               if datetime.fromisoformat(w["date"].replace("Z", "+00:00")) > t_now and k not in taken}
+    ready = []
+    for c in cands:
+        mins = (datetime.fromisoformat(c["date"].replace("Z", "+00:00")) - t_now).total_seconds() / 60
+        if c["key"] in taken: continue
+        if c["pending"] and mins > PRM["wait_until"]:
+            p_, d_, ev_ = leg_estimate(c)
+            if ev_ >= PRM["min_ev"] and d_ <= PRM["max_odds"]:
+                waiting[c["key"]] = {"name": c["name"], "team": c["team"], "opp": c["opp"], "stat": c["stat"],
+                                     "side": c["side"], "line": c["line"], "date": c["date"], "dec": round(d_, 2),
+                                     "ev": round(ev_, 4), "why": c["pending"], "since": waiting.get(c["key"], {}).get("since", now)}
+            continue
+        waiting.pop(c["key"], None)
+        ready.append(c)
+    state["waiting"] = waiting
+    cands = ready
     placed = []
     eq = equity(state)
     for night in sorted({c["night"] for c in cands}):
@@ -241,5 +279,6 @@ def decide(state, games):
             bet.update(id=f'{night}-{len(state["bets"]) + len(placed) + 1}', night=night, placed_at=now, status="open")
             placed.append(bet)
             taken |= {leg["key"] for leg in bet["legs"]}
+            for leg in bet["legs"]: state["waiting"].pop(leg["key"], None)
     state["bets"] += placed
     return placed
