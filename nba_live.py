@@ -12,7 +12,7 @@ Declencheurs, par match a venir dans les 36 h (cycle toutes les 10 min, plus ser
 Matchs termines : resultats des picks et historique (nba_sim_bilan) mis a jour.
 
 Usage : python nba_live.py              # un cycle
-        python nba_live.py --loop       # veille jusqu'au dernier coup d'envoi (budget --max-minutes)
+        python nba_live.py --loop       # veille tant qu'un match arrive dans les 36 h (budget --max-minutes)
         python nba_live.py --no-push    # sans commit / push (tests)
 """
 import argparse, json, os, shutil, subprocess, sys, tempfile, time
@@ -32,6 +32,7 @@ REFRESH_AGE = timedelta(hours=3)
 PROPS_AGE = timedelta(hours=1)
 SPREAD_MOVE, TOTAL_MOVE = 1.5, 3.0
 EVENTS_KEPT = 15
+CONTINUE_FLAG = ".nba_live_continue"   # lu par le workflow : relancer la veille a la fin du job
 STATUS_FR = {"out": "absent", "doubtful": "douteux", "questionable": "incertain", "probable": "probable",
              "day-to-day": "au jour le jour", "suspension": "suspendu", "": "disponible"}
 
@@ -200,7 +201,8 @@ class Live:
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--loop", action="store_true")
-    ap.add_argument("--interval", type=int, default=600)
+    ap.add_argument("--interval", type=int, default=600, help="secondes entre deux cycles a moins de 6 h d'un match")
+    ap.add_argument("--idle", type=int, default=1800, help="secondes entre deux cycles sinon (props, statuts)")
     ap.add_argument("--max-minutes", type=int, default=330)
     ap.add_argument("--sims", type=int, default=10000)
     ap.add_argument("--no-push", action="store_true")
@@ -208,16 +210,21 @@ def main():
     a = ap.parse_args()
     t0 = time.time()
     live = Live(a.sims, not a.no_push, not a.no_update)
+    Path(CONTINUE_FLAG).unlink(missing_ok=True)
     while True:
         print(f"=== Cycle {datetime.now(timezone.utc):%H:%M} UTC ===", flush=True)
         games = live.cycle()
         now = datetime.now(timezone.utc)
         soon = [g for g in games if timedelta(0) < _t(g["date"]) - now <= timedelta(hours=6)]
         left = a.max_minutes * 60 - (time.time() - t0)
-        if not a.loop or not soon or left < 15 * 60:
-            print("Veille terminee" + ("" if soon or not a.loop else " : aucun match dans les 6 h"))
+        if not a.loop or not games:
+            print("Veille terminee" + (" : aucun match dans les 36 h" if a.loop else ""))
             break
-        time.sleep(min(live.next_wake(games, a.interval), left - 10 * 60))
+        if left < 15 * 60:
+            # Budget du job epuise, des matchs arrivent : le workflow relance la veille (nba-live.yml)
+            Path(CONTINUE_FLAG).write_text(now.isoformat(), encoding="utf-8")
+            print("Budget epuise : relance demandee"); break
+        time.sleep(min(live.next_wake(games, a.interval if soon else a.idle), left - 10 * 60))
 
 
 if __name__ == "__main__":

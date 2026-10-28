@@ -5,17 +5,23 @@ name: NBA live (blessures, lignes, avant-match)
 # ~35 min avant le coup d'envoi ; publie nba_sim.html + donnees NBA, jamais index.html (possede
 # par le cron principal : fichiers disjoints, donc pas de conflit entre les deux workflows).
 #
-# Le cron GitHub n'est pas fiable (le 27/10, « */30 » a donne un passage toutes les 3 a 6 h) :
-# chaque declenchement lance une veille qui boucle jusqu'au dernier coup d'envoi des 6 h a venir
-# (budget 330 min). Les declenchements suivants attendent leur tour (concurrency) puis prennent
-# le relais : un seul declenchement l'apres-midi suffit a couvrir la soiree.
+# Le cron GitHub n'est pas fiable sur ce depot (27-28/10 : « */30 » et « 11 * * * » = un passage
+# toutes les 3 a 6 h, voire aucun). La veille boucle donc dans le job (cycle 10 min a moins de 6 h
+# d'un match, 30 min sinon) et, a la fin de son budget, RELANCE ELLE-MEME le workflow tant que des
+# matchs arrivent dans les 36 h (workflow_dispatch, autorise avec le GITHUB_TOKEN). Pas de relance
+# si le job echoue (pas de boucle d'erreurs) : le cron horaire sert alors de filet.
+# Un push qui modifie la veille la (re)demarre. Arret : desactiver le workflow dans l'onglet Actions.
 on:
   schedule:
     - cron: "11 * * * *"
   workflow_dispatch:
+  push:
+    branches: [master]
+    paths: ["nba_live.py", ".github/workflows/nba-live.yml"]
 
 permissions:
   contents: write
+  actions: write
 
 concurrency:
   group: nba-live
@@ -59,3 +65,9 @@ jobs:
         env:
           PYTHONIOENCODING: utf-8
         run: python nba_live.py --loop --max-minutes 330
+
+      - name: Relance de la veille
+        if: success() && hashFiles('.nba_live_continue') != ''
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh workflow run nba-live.yml --ref master
