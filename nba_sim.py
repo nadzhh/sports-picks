@@ -38,6 +38,8 @@ P = {
     "w_vegas":         0.75,   # poids des lignes Vegas dans le score attendu
     "hl_rates":        30.0,   # demi-vie (matchs) des taux joueur
     "hl_minutes":      4.0,    # demi-vie (matchs) des minutes
+    "min_long_w":      0.0,    # part d'une moyenne longue (demi-vie min_long_hl) dans les minutes attendues.
+    "min_long_hl":     20.0,   # Teste le 28/10 (nba_minutes_diag) : 0,25 / 0,4 degradent l'erreur de minutes -> 0
     "k_usage":         150.0,  # pseudo-possessions du retrait vers la moyenne du poste
     "k_p2":            80.0,   # pseudo-tentatives pour 2P%
     "k_p3":            150.0,
@@ -57,6 +59,12 @@ P = {
     "blowout_from":    15.0,   # ecart a partir duquel les titulaires sortent
     "blowout_slope":   0.015,  # -1,5 % de minutes titulaires par point d'ecart au-dela
     "blowout_floor":   0.70,
+    # Effets de l'adversaire (0 = desactive, 1 = actif). Backtests --blind du 28/10/2026 sur les 3 echantillons
+    # de vraies cotes (ESPN BET oct-nov 2025, avr-juin 2026, DraftKings 2026-27), log-loss de la stat visee :
+    "opp_stl":         0.0,    # interceptions ~ pertes de balle adverses : -0,0006 / +0,0017 / +0,0004 -> rejete
+    "opp_blk":         0.0,    # contres ~ tirs a 2 pts manques adverses : +0,0031 / -0,0007 / +0,0022 -> rejete
+    "opp_ast":         1.0,    # passes ajustees a la defense adverse : +0,0006 / +0,0021 / +0,0005 -> retenu
+                               # (gain faible : le marche integre deja l'essentiel de l'effet adversaire)
 }
 
 LEAGUE = {  # valeurs par defaut, recalculees sur les donnees
@@ -199,7 +207,7 @@ class NBAState:
             rates[t] = {key: _shrunk([(r[key], wi) for r, wi in by_team[t]], lg[key], K)
                         for key in ("v2", "v3", "vft", "vto", "orb", "ast")}
             allowed[t] = {key: _shrunk([(r[key], wi) for r, wi in by_opp[t]], lg[key], K)
-                          for key in ("v2", "v3", "vft", "vto", "orb")}
+                          for key in ("v2", "v3", "vft", "vto", "orb", "ast")}
         self._team_cache = {"eff": eff, "pace": pace, "rates": rates, "allowed": allowed, "league": lg}
         return self._team_cache
 
@@ -287,6 +295,9 @@ class NBAState:
             wm = 0.5 ** (idx / self.p["hl_minutes"]) * seas_m
             mu = float(np.average(mins, weights=wm))
             sd = float(math.sqrt(np.average((mins - mu) ** 2, weights=wm)))
+            if self.p["min_long_w"] > 0:
+                wl = 0.5 ** (idx / self.p["min_long_hl"]) * seas_m
+                mu = (1 - self.p["min_long_w"]) * mu + self.p["min_long_w"] * float(np.average(mins, weights=wl))
             prof["m_mu"], prof["m_sd"] = mu, min(max(sd, self.p["min_sd_floor"]), 10.0) * self.p["min_sd_scale"]
             prof["starter_rate"] = float(np.average([r["starter"] for r in recent], weights=wm))
         else:
@@ -321,13 +332,14 @@ class NBAState:
                 prof.update(id=pl["id"], name=pl.get("name") or self.player_info.get(pl["id"], {}).get("name", ""),
                             pos=pl.get("pos", ""))
                 players.append(prof)
-            return {"id": tid, "vol": vol, "orb": r["orb"] * al["orb"] / lg["orb"], "ast": r["ast"],
+            ast = r["ast"] * (al["ast"] / lg["ast"]) ** self.p["opp_ast"]
+            return {"id": tid, "vol": vol, "orb": r["orb"] * al["orb"] / lg["orb"], "ast": ast,
                     "players": players}
 
         return {
             "home": _team(home_id, away_id, home_roster), "away": _team(away_id, home_id, away_roster),
             "pace": pace_mu, "pts_h": pts_h, "pts_a": pts_a, "model": (model_h, model_a), "vegas": vegas,
-            "dreb_credit": lg["dreb_credit"], "params": self.p,
+            "dreb_credit": lg["dreb_credit"], "params": self.p, "lg_vto": lg["vto"], "lg_v2": lg["v2"],
         }
 
 
@@ -434,6 +446,19 @@ def _sim_block(rng, inp, n, frac, poss, shock, scale, blow):
         blk = rng.poisson(on * A["rblk"] * poss[:, None])
         sides[s] = dict(A=A, m=m, on=on, fg2a=fg2a, fg3a=fg3a, fta=fta, fg2m=fg2m, fg3m=fg3m, ftm=ftm,
                         tov=tov, stl=stl, blk=blk, pts=2 * fg2m + 3 * fg3m + ftm)
+    # L'adversaire nourrit la defense : interceptions a proportion de ses pertes de balle, contres
+    # a proportion de ses tirs a 2 pts manques (ratio match simule / moyenne attendue, puissance opp_*)
+    if p.get("opp_stl", 0) or p.get("opp_blk", 0):
+        for s, o in (("home", "away"), ("away", "home")):
+            S, O = sides[s], sides[o]
+            if p.get("opp_stl", 0):
+                to = O["tov"].sum(axis=1)
+                f = to / max(to.mean(), 1e-9) * inp[o]["vol"]["vto"] / inp["lg_vto"]
+                S["stl"] = rng.poisson(S["on"] * S["A"]["rstl"] * poss[:, None] * (f ** p["opp_stl"])[:, None])
+            if p.get("opp_blk", 0):
+                miss2 = (O["fg2a"] - O["fg2m"]).sum(axis=1)
+                f = miss2 / max(miss2.mean(), 1e-9) * inp[o]["vol"]["v2"] / inp["lg_v2"]
+                S["blk"] = rng.poisson(S["on"] * S["A"]["rblk"] * poss[:, None] * (f ** p["opp_blk"])[:, None])
     for s, o in (("home", "away"), ("away", "home")):
         S, O = sides[s], sides[o]
         fga, fgm = S["fg2a"] + S["fg3a"], S["fg2m"] + S["fg3m"]
