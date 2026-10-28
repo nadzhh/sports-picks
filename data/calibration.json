@@ -1,12 +1,22 @@
 {
- "genere_le": "2026-10-28T06:18:01",
- "n_resolus": 2239,
+ "genere_le": "2026-10-28T13:35:23",
+ "n_resolus": 2240,
  "parametres": {
   "n_min_jugement": 20,
   "seuil_pct": 50.0,
   "pas_tranche": 10
  },
  "marches": {
+  "tennis/tennis_total_games": {
+   "n": 105,
+   "wins": 71,
+   "wr": 67.6,
+   "borne_basse": 58.2,
+   "borne_haute": 75.8,
+   "statut": "RETENU",
+   "cote_moyenne": null,
+   "n_cotes": 0
+  },
   "foot/Double chance": {
    "n": 83,
    "wins": 68,
@@ -46,16 +56,6 @@
    "statut": "RETENU",
    "cote_moyenne": 1.73,
    "n_cotes": 1
-  },
-  "tennis/tennis_total_games": {
-   "n": 104,
-   "wins": 71,
-   "wr": 68.3,
-   "borne_basse": 58.8,
-   "borne_haute": 76.4,
-   "statut": "RETENU",
-   "cote_moyenne": null,
-   "n_cotes": 0
   },
   "tennis/tennis_winner": {
    "n": 30,
@@ -869,6 +869,20 @@
   }
  },
  "calibration": {
+  "tennis/tennis_total_games": {
+   "60-69": {
+    "n": 73,
+    "p": 72.6
+   },
+   "50-59": {
+    "n": 3,
+    "p": 57.3
+   },
+   "70-79": {
+    "n": 29,
+    "p": 58.6
+   }
+  },
   "foot/Double chance": {
    "80-89": {
     "n": 61,
@@ -927,20 +941,6 @@
    "80-89": {
     "n": 10,
     "p": 80.0
-   }
-  },
-  "tennis/tennis_total_games": {
-   "60-69": {
-    "n": 72,
-    "p": 73.6
-   },
-   "50-59": {
-    "n": 3,
-    "p": 57.8
-   },
-   "70-79": {
-    "n": 29,
-    "p": 58.6
    }
   },
   "tennis/tennis_winner": {
@@ -1755,8 +1755,8 @@
   }
  },
  "replis_sport": {
+  "tennis": 60.2,
   "foot": 45.7,
-  "tennis": 60.6,
   "nba": 50.5
  }
 }
