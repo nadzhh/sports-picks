@@ -159,7 +159,8 @@ def run(test_year, params, n_sims, label, start=None, max_games=None, engine="bo
                         m = main.get((pl["id"], stat))
                         if not m: continue
                         x = sum(res[s][c][:, i] for c in comps)[on]
-                        r = {"stat": stat, "date": d, "line": m["line"], "over": m["over"], "under": m["under"],
+                        r = {"gid": gid, "pid": pl["id"], "name": pl.get("name", ""), "p_play": pl["p_play"],
+                             "stat": stat, "date": d, "line": m["line"], "over": m["over"], "under": m["under"],
                              "p_mkt": m["p_over_novig"], "p_sim": float((x > m["line"]).mean()),
                              "p_push": float((x == m["line"]).mean()), "actual": _box_val(act, stat),
                              "m_mu": pl["m_mu"], "n_season": pl["n_season"],

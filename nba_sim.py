@@ -29,6 +29,8 @@ from collections import defaultdict
 
 import numpy as np
 
+from nba_wowy import Wowy
+
 # ── Parametres (a ajuster par nba_backtest.py) ────────────────────────────────
 P = {
     "team_tau":        40.0,   # decroissance ridge equipe, en jours de match
@@ -64,6 +66,13 @@ P = {
     "opp_stl":         0.0,    # interceptions ~ pertes de balle adverses : -0,0006 / +0,0017 / +0,0004 -> rejete
     "opp_blk":         0.0,    # contres ~ tirs a 2 pts manques adverses : +0,0031 / -0,0007 / +0,0022 -> rejete
     "opp_ast":         1.0,    # passes ajustees a la defense adverse : +0,0006 / +0,0021 / +0,0005 -> retenu
+    # Absents de la rotation (nba_wowy, « with or without you » appris sur les 40 derniers matchs de
+    # l'equipe) : minutes en plus = wowy_min x minutes recuperees par le passe + wowy_start x hausse de
+    # la probabilite d'etre titulaire. Backtests --blind du 28/10 (3 echantillons de vraies cotes) :
+    # (0,15 ; 0,74) appris sur les minutes, (0,3 ; 3) retenu : log-loss 0,6928 -> 0,6924 / 0,6708 -> 0,6703 /
+    # 0,6923 -> 0,6880, ROI regle a l'ouverture +23,5 -> +24,4 / +14,0 -> +15,3 / +16,3 -> +16,3 % ; (0,5 ; 5) trop fort.
+    "wowy_min":        0.3,
+    "wowy_start":      3.0,
                                # (gain faible : le marche integre deja l'essentiel de l'effet adversaire)
 }
 
@@ -106,6 +115,7 @@ class NBAState:
         self.pos_sums = defaultdict(lambda: defaultdict(float))
         self.league_sums = defaultdict(float)
         self._team_cache = None
+        self.wowy = Wowy()
 
     # ── Mise a jour ──────────────────────────────────────────────────────────
     def add_game(self, gid, g, season):
@@ -115,6 +125,7 @@ class NBAState:
         if season != self.season:
             self.season = season
         self._team_cache = None
+        self.wowy.add_game(g)
         glen = _game_len(g)
         h, a = g["home"], g["away"]
         if "stats" not in h or "stats" not in a: return
@@ -327,10 +338,18 @@ class NBAState:
             r, al = tm["rates"].get(tid, lg), tm["allowed"].get(oid, lg)
             vol = {k: r[k] * al[k] / lg[k] for k in ("v2", "v3", "vft", "vto")}
             players = []
+            wm, ws = self.p.get("wowy_min", 0), self.p.get("wowy_start", 0)
+            here = {pl["id"] for pl in roster}
+            absents = [j for j in self.wowy.regulars(tid) if j not in here] if (wm or ws) else []
             for pl in roster:
                 prof = self.player_profile(pl["id"], pl.get("pos"))
                 prof.update(id=pl["id"], name=pl.get("name") or self.player_info.get(pl["id"], {}).get("name", ""),
                             pos=pl.get("pos", ""))
+                if absents:   # qui recupere les minutes / la place de titulaire des absents
+                    dm, ds = self.wowy.delta(tid, pl["id"], absents)
+                    sr = min(max(prof["starter_rate"] + ds, 0.0), 1.0)
+                    prof["m_mu"] = max(prof["m_mu"] + wm * dm + ws * (sr - prof["starter_rate"]), 0.0)
+                    if ws: prof["starter_rate"] = sr
                 players.append(prof)
             ast = r["ast"] * (al["ast"] / lg["ast"]) ** self.p["opp_ast"]
             return {"id": tid, "vol": vol, "orb": r["orb"] * al["orb"] / lg["orb"], "ast": ast,

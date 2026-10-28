@@ -5660,6 +5660,14 @@ def build_html(matches, team_ai, player_ai, pstats_data, nba_picks=None, nba_his
     except Exception as _e_sim:
         print(f"  [!] Section simulation NBA ignoree : {_e_sim}")
         nba_sim_html = '<div style="padding:40px;text-align:center;color:#64748b">Simulation indisponible.</div>'
+    # Onglet Bankroll IA (data/nba_bankroll.json, nba_bankroll.html publie par la veille NBA)
+    try:
+        import nba_bankroll_site as _bks
+        iabank_html, _bfrag = _bks.build_bankroll_page()
+        _bks.write_fragment(_bfrag)
+    except Exception as _e_bk:
+        print(f"  [!] Section Bankroll IA ignoree : {_e_bk}")
+        iabank_html = '<div style="padding:40px;text-align:center;color:#64748b">Bankroll IA indisponible.</div>'
 
     # Recharge matches.json pour récupérer les champs "analyse",
     # "home_season_stats" et "away_season_stats" (foot_analyse.py les écrit
@@ -6803,6 +6811,7 @@ def build_html(matches, team_ai, player_ai, pstats_data, nba_picks=None, nba_his
     <button class="sport-btn active" onclick="showSport('picks')"     id="sport-btn-picks">📌 Picks</button>
     <button class="sport-btn" onclick="showSport('pronos')"           id="sport-btn-pronos">🎯 Pronos <span style="background:#22c55e;color:#0a1628;border-radius:8px;padding:1px 5px;font-size:9px;margin-left:3px;font-weight:800">V1</span></button>
     <button class="sport-btn" onclick="showSport('nbasim')"           id="sport-btn-nbasim">🎲 Simulation NBA</button>
+    <button class="sport-btn" onclick="showSport('iabank')"           id="sport-btn-iabank">🤖 Bankroll IA</button>
     <button class="sport-btn" onclick="showSport('analyse')"          id="sport-btn-analyse">🔍 Analyse NBA</button>
     <button class="sport-btn" onclick="showSport('footanalyse')"      id="sport-btn-footanalyse">⚽ Analyse Foot</button>
     <button class="sport-btn" onclick="showSport('userpicks')"        id="sport-btn-userpicks">💰 Bankroll <span id="userpicks-count" style="background:rgba(255,255,255,0.2);border-radius:10px;padding:1px 7px;font-size:11px;margin-left:4px;display:none">0</span></button>
@@ -6918,6 +6927,11 @@ def build_html(matches, team_ai, player_ai, pstats_data, nba_picks=None, nba_his
     {nba_analyse_html}
   </div>
 
+  <!-- Section Bankroll IA (nba_bankroll_site.py, nba_bankroll.html publie par la veille NBA) -->
+  <div id="sport-iabank" style="display:none">
+    {iabank_html}
+  </div>
+
   <!-- Section Simulation NBA (nba_sim_site.py) -->
   <div id="sport-nbasim" style="display:none">
     {nba_sim_html}
@@ -6976,7 +6990,7 @@ window._currentSubPick = window._currentSubPick || 'football';
 window._currentSubHist = window._currentSubHist || 'foot';
 
 function _hideAllSportSections(){{
-  ['football','nba','tennis','analyse','nbasim','footanalyse','userpicks','foothist','nbahist','tennishist','pronos'].forEach(function(s){{
+  ['football','nba','tennis','analyse','nbasim','iabank','footanalyse','userpicks','foothist','nbahist','tennishist','pronos'].forEach(function(s){{
     var el = document.getElementById('sport-'+s);
     if(el) el.style.display = 'none';
   }});
@@ -7027,6 +7041,9 @@ function showSport(sport){{
   }} else if(sport === 'nbasim'){{
     var el = document.getElementById('sport-nbasim'); if(el) el.style.display = 'block';
     _setMainBtnActive('nbasim');
+  }} else if(sport === 'iabank'){{
+    var el = document.getElementById('sport-iabank'); if(el) el.style.display = 'block';
+    _setMainBtnActive('iabank');
   }}
 }}
 

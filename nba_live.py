@@ -24,8 +24,10 @@ from nba_boxdb import BASE, _get, _lines, load_season, update_season
 from nba_client import team_roster
 from nba_props_hist import fetch_game_props
 from nba_sim_site import FRAGMENT, write_fragment
+import nba_bankroll as BK
+import nba_bankroll_site as BS
 
-PUBLISHED = [FRAGMENT, R.OUT_PATH, str(R.PICKS_PATH), "data/nba_sim_history.json"]
+PUBLISHED = [FRAGMENT, R.OUT_PATH, str(R.PICKS_PATH), "data/nba_sim_history.json", BS.FRAGMENT, str(BK.BANK_PATH)]
 HORIZON = timedelta(hours=36)
 FINAL_BEFORE = timedelta(minutes=35)
 REFRESH_AGE = timedelta(hours=3)
@@ -178,11 +180,30 @@ class Live:
         if changed:
             R.save(list(keep.values()), fresh, self.year)
             write_fragment()
-            if self.push:
-                parts = [f"{r['away']['abbr']}@{r['home']['abbr']}" for r in fresh]
-                publish("NBA live : " + (f"{len(fresh)} match(s) resimule(s) ({', '.join(parts[:6])})" if fresh
-                                         else "resultats et liste des matchs"))
+        bank = self.bankroll(fresh)
+        if (changed or bank) and self.push:
+            parts = [f"{r['away']['abbr']}@{r['home']['abbr']}" for r in fresh]
+            publish("NBA live : " + (f"{len(fresh)} match(s) resimule(s) ({', '.join(parts[:6])})" if fresh
+                                     else "resultats et liste des matchs" if changed else "bankroll") + bank)
         return games
+
+    def bankroll(self, fresh):
+        """Bankroll IA : regle les paris termines, place les nouveaux sur les matchs simules a l'instant
+        (cote actuelle ; une simulation plus ancienne aurait une cote perimee)."""
+        try:
+            st = BK.load()
+            n_set = BK.settle(st, load_season(self.year))
+            placed = BK.decide(st, fresh) if fresh else []
+            if not (n_set or placed or not Path(BS.FRAGMENT).exists()): return ""
+            BK.save(st); BS.write_fragment()
+            for b in placed:
+                print(f"  [bankroll] {b['kind']} {b['stake']:.2f} EUR @ {b['odds']:.2f} : "
+                      + " + ".join(f"{l['name']} {l['side']}{l['line']:g} {l['stat']}" for l in b["legs"]))
+            print(f"  [bankroll] capital {BK.equity(st):.2f} EUR, {n_set} pari(s) regle(s), {len(placed)} place(s)")
+            return f" ; bankroll : {len(placed)} pari(s) place(s), {n_set} regle(s)"
+        except Exception as e:
+            print(f"  [!] bankroll : {type(e).__name__}: {e}")
+            return ""
 
     @staticmethod
     def _reroll(why):

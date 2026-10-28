@@ -257,6 +257,10 @@ footer{color:var(--di)!important;border-top:1px solid var(--line)!important;font
 .eb-why-l b{color:var(--tx)}
 .eb-why-l .eb-warn{color:var(--warn)}
 .eb-label.eb-label-2{margin-top:24px}
+.eb-bk-curve{display:block;width:100%;height:160px;margin-top:18px}
+.eb-tbl td.eb-bk-legs{white-space:normal;min-width:280px;line-height:1.55}
+.eb-bk-why{font-size:12px;margin-top:3px;font-family:var(--mono)}
+.eb-bk .eb-card+.eb-card{margin-top:16px}
 .eb-sidetabs{display:flex;gap:6px;margin:0 0 14px;padding:4px;background:var(--panel);border:1px solid var(--line);border-radius:10px}
 .eb-sidetabs button{flex:1;background:transparent;border:0;border-radius:7px;padding:8px 10px;color:var(--mu);font:500 13px var(--sans);cursor:pointer;white-space:nowrap}
 .eb-sidetabs button.on{background:var(--chip);color:var(--acc)}
