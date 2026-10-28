@@ -101,8 +101,8 @@ jobs:
           python picks_engine.py          || echo "[!] picks_engine KO"
           python wc_context_analyse.py    || echo "[!] wc_context_analyse KO"
           python foot_analyse.py          || echo "[!] foot_analyse KO"
-          # Simulation Monte-Carlo NBA -> onglet « Simulation NBA » du site
-          python nba_sim_run.py           || echo "[!] nba_sim_run KO"
+          # Simulation NBA : geree par le workflow nba-live.yml (veille nba_live.py), qui publie
+          # nba_sim.html et les donnees NBA ; generate_site reprend data/nba_sim.json (copie de secours)
           # ── Etape CRITIQUE, volontairement SANS "|| echo KO" ──────────────
           # Les collectes ci-dessus peuvent echouer partiellement : une source
           # indisponible ne doit pas interrompre les autres. La generation, elle,
@@ -172,5 +172,7 @@ jobs:
           fi
 
           echo "=== Push gh-pages (forced) ==="
-          git push origin master:gh-pages --force
+          # master le plus recent : la veille NBA (nba-live.yml) peut avoir publie entre-temps
+          git fetch origin master
+          git push origin FETCH_HEAD:gh-pages --force
           echo "Done"

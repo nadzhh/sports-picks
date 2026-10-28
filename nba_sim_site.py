@@ -1,7 +1,9 @@
 """
 nba_sim_site.py — Onglet « Simulation NBA » : liste des matchs a gauche, fiche du match a droite.
 
-Donnees : data/nba_db/nba_sim.json (nba_sim_run.py, 10 000 simulations par match).
+Donnees : data/nba_sim.json (nba_sim_run.py / veille nba_live.py, 10 000 simulations par match).
+Publication : la section est ecrite dans nba_sim.html (mis a jour par la veille sans toucher a
+index.html) ; index.html en garde une copie de secours et la remplace par nba_sim.html si plus recent.
 Styles : composants .eb-* de site_theme.py ; JS de selection partage avec
 foot_analyse_site.py. Visibilite par classes uniquement (optimize_html convertit
 les styles en ligne en classes).
@@ -14,11 +16,12 @@ from foot_analyse_site import SCRIPT as EB_SCRIPT
 
 try:
     from zoneinfo import ZoneInfo
-    TZ_PARIS = ZoneInfo("Europe/Paris")
+    TZ_PARIS, TZ_NY = ZoneInfo("Europe/Paris"), ZoneInfo("America/New_York")
 except Exception:
-    TZ_PARIS = timezone(timedelta(hours=1))
+    TZ_PARIS, TZ_NY = timezone(timedelta(hours=1)), timezone(timedelta(hours=-4))
 
-SIM_PATH = "data/nba_db/nba_sim.json"
+SIM_PATH = "data/nba_sim.json"
+FRAGMENT = "nba_sim.html"
 JOURS = ["Lun.", "Mar.", "Mer.", "Jeu.", "Ven.", "Sam.", "Dim."]
 STAT_LABELS = {"PTS": "Points", "REB": "Rebonds", "AST": "Passes", "3PM": "Paniers à 3 pts", "PRA": "Pts + Reb + Pas",
                "PR": "Pts + Reb", "PA": "Pts + Pas", "RA": "Reb + Pas", "STL": "Interceptions", "BLK": "Contres"}
@@ -93,6 +96,8 @@ def _item(g, gid, now, first):
         if d: chips += f'<span class="eb-chip"><em>{_e(team["abbr"])}</em>{d:.2f}</span>'
     if L.get("total"):
         chips += f'<span class="eb-chip"><em>O/U</em>{L["total"]}</span>'
+    if g.get("events"):
+        chips += f'<span class="eb-chip hl" title="Informations reçues depuis la première simulation"><em>Infos</em>{len(g["events"])}</span>'
     return (f'<button class="eb-item{" on" if first else ""}" data-id="{gid}" onclick="ebPick(\'nba\',\'{gid}\')">'
             f'<div class="eb-item-top"><span>NBA</span><span>{_when(g.get("date", ""), now)}</span></div>'
             f'<div class="eb-item-t">{_e(_nick(g["away"]))} @ {_e(_nick(g["home"]))}</div>'
@@ -462,6 +467,59 @@ window.ebVideo=function(btn,path,name){
 </script>"""
 
 
+# ── Infos d'avant-match : blessures, heure de simulation, journal de la veille ──
+
+STATUS_FR = {"out": "absent", "doubtful": "douteux", "questionable": "incertain", "probable": "probable",
+             "available": "de retour", "day-to-day": "au jour le jour", "suspension": "suspendu"}
+
+
+def _hm(iso, tz=None):
+    """Heure de Paris d'un horodatage UTC (iso avec fuseau) ou d'une heure de New York (iso naif + TZ_NY)."""
+    try:
+        dt = datetime.fromisoformat(iso.replace("Z", "+00:00"))
+        if dt.tzinfo is None: dt = dt.replace(tzinfo=tz or timezone.utc)
+        return f"{dt.astimezone(TZ_PARIS):%H:%M}"
+    except Exception:
+        return ""
+
+
+def _reason(r):
+    return _e((r or "").replace("Injury/Illness - ", "").replace("G League - ", "G League : "))
+
+
+def _infos(g):
+    inj = g.get("injuries")
+    if not inj: return ""
+    src = (f'rapport officiel NBA de {_hm(g["report_at"], TZ_NY)}' if g.get("report_at")
+           and "officiel" in (inj["home"]["src"], inj["away"]["src"]) else "ESPN")
+    head = (f'simulé à {_hm(g["sim_at"])} · blessures : {src}' if g.get("sim_at") else f"blessures : {src}")
+    cols = ""
+    for side in ("away", "home"):
+        t, d = inj[side], g[side]
+        # absents de l'effectif simule + joueurs du rapport hors effectif ESPN (two-way...)
+        allout = (t.get("out") or []) + [x for x in t.get("extra") or [] if x["status"] in ("out", "doubtful")]
+        outs = [o for o in allout if "G League" not in (o.get("reason") or "")]
+        gl = len(allout) - len(outs)
+        lines = []
+        if outs:
+            lines.append("<b>Absents</b> : " + ", ".join(
+                f'{_e(o["name"])}' + (f' <span class="eb-dim">({_reason(o.get("reason"))})</span>' if o.get("reason") else "")
+                for o in outs))
+        for p in t.get("doubt") or []:
+            lines.append(f'<b>{_e(p["name"])}</b> : {STATUS_FR.get(p["status"], _e(p["status"]))}, '
+                         f'joue dans {_pct(p["p_play"], 0)} des simulations'
+                         + (f' <span class="eb-dim">({_reason(p.get("reason"))})</span>' if p.get("reason") else ""))
+        if gl: lines.append(f'<span class="eb-dim">{gl} joueur{"s" if gl > 1 else ""} en G League</span>')
+        body = "".join(f"<li>{x}</li>" for x in lines) or '<li class="eb-dim">Aucun absent déclaré.</li>'
+        cols += (f'<div><div class="eb-meta">{_e(d.get("abbr"))} · {"rapport officiel" if t["src"] == "officiel" else "ESPN (rapport officiel pas encore rempli)"}</div>'
+                 f'<ul class="eb-inj-l">{body}</ul></div>')
+    ev = "".join(f'<li><span class="eb-dim">{_hm(e["at"])}</span> {_e(e["txt"])}</li>' for e in reversed(g.get("events") or []))
+    ev_html = (f'<div class="eb-meta eb-ev-t">Journal de la veille (chaque ligne a relancé la simulation)</div><ul class="eb-ev">{ev}</ul>'
+               if ev else "")
+    return (f'<div class="eb-card"><h3 class="eb-h">Infos d’avant-match <small>{head}</small></h3>'
+            f'<div class="eb-inj">{cols}</div>{ev_html}</div>')
+
+
 # ── Historique : bilan de chaque soiree (nba_sim_bilan) ──────────────────────
 
 MOIS = ["janvier", "février", "mars", "avril", "mai", "juin", "juillet", "août", "septembre", "octobre",
@@ -649,7 +707,7 @@ def build_nba_sim_section(sim=None):
     picks = load_picks()
     details = "".join(
         f'<section class="eb-detail{" on" if i == 0 else ""}" data-id="{gid}">'
-        f'{_header(g, now)}{_selection(g, picks)}{_infobar(g)}{_kpis(g)}{_video(g, gid)}{_hist(g)}{_tabs(g, gid)}</section>'
+        f'{_header(g, now)}{_selection(g, picks)}{_infos(g)}{_infobar(g)}{_kpis(g)}{_video(g, gid)}{_hist(g)}{_tabs(g, gid)}</section>'
         for i, (g, gid) in enumerate(zip(games, ids)))
     if not games:   # pas de match a venir : le bilan le plus recent est affiche
         h_items = h_items.replace('class="eb-item"', 'class="eb-item on"', 1)
@@ -657,9 +715,48 @@ def build_nba_sim_section(sim=None):
     side = f'<div class="eb-label">Matchs NBA à venir · {len(games)}</div><div class="eb-list">{items}</div>' if games else ""
     if h_items:
         side += f'<div class="eb-label eb-label-2">Historique · bilan des soirées</div><div class="eb-list">{h_items}</div>'
-    return ('<!--eb:start--><div class="eb" data-eb="nba">' + '<div class="eb-layout">'
+    return (f'<!--nba-sim:{_e((sim or {}).get("generated_at", ""))}-->'
+            '<!--eb:start--><div class="eb" data-eb="nba">' + '<div class="eb-layout">'
             f'<aside class="eb-side">{side}</aside><div class="eb-main">{details}{h_details}</div></div></div>'
             + EB_SCRIPT + PROPS_SCRIPT + _player_script() + '<!--eb:end-->')
+
+
+def build_nba_sim_page():
+    """(bloc pour index.html, contenu de nba_sim.html). Le bloc embarque la section du moment (secours)
+    et un chargeur qui la remplace par nba_sim.html des qu'une version plus recente est publiee par
+    la veille (nba_live.py) ; la page se remet a jour quand on revient sur l'onglet."""
+    sec = build_nba_sim_section()
+    v = sec[len("<!--nba-sim:"):sec.index("-->")] if sec.startswith("<!--nba-sim:") else ""
+    return f'<div id="eb-nba-wrap" data-v="{v}">{sec}</div>' + LOADER_SCRIPT, sec
+
+
+def write_fragment(sec=None):
+    with open(FRAGMENT, "w", encoding="utf-8") as f:
+        f.write(sec if sec is not None else build_nba_sim_section())
+
+
+LOADER_SCRIPT = """<script>
+(function(){
+  var wrap=document.getElementById('eb-nba-wrap');if(!wrap||window.ebNbaLive)return;
+  var last=0;
+  function run(el){el.querySelectorAll('script').forEach(function(s){var n=document.createElement('script');
+    Array.prototype.forEach.call(s.attributes,function(a){n.setAttribute(a.name,a.value);});
+    n.textContent=s.textContent;s.parentNode.replaceChild(n,s);});}
+  window.ebNbaLive=function(){
+    last=Date.now();
+    fetch('""" + FRAGMENT + """?t='+Date.now(),{cache:'no-store'}).then(function(r){if(!r.ok)throw 0;return r.text();})
+      .then(function(h){
+        var m=/^<!--nba-sim:([^>]*)-->/.exec(h);if(!m||m[1]<=(wrap.getAttribute('data-v')||''))return;
+        var on=wrap.querySelector('.eb-item.on'),id=on&&on.getAttribute('data-id');
+        wrap.innerHTML=h;wrap.setAttribute('data-v',m[1]);run(wrap);
+        if(id&&wrap.querySelector('.eb-item[data-id="'+id+'"]')&&window.ebPick)ebPick('nba',id);
+      }).catch(function(){});
+  };
+  ebNbaLive();
+  document.addEventListener('visibilitychange',function(){
+    if(document.visibilityState==='visible'&&Date.now()-last>120000)ebNbaLive();});
+})();
+</script>"""
 
 
 PROPS_SCRIPT = """<script>

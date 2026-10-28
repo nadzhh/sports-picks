@@ -2,9 +2,10 @@
 nba_sim_run.py — Simule les matchs NBA du jour et du lendemain (production).
 
 1. Met a jour la base box-score (nba_boxdb, incremental) et reconstruit l'etat du modele.
-2. Pour chaque match a venir : effectif ESPN moins les blesses « Out » (les incertains
-   gardent la moitie de leur probabilite de jouer), lignes Vegas et props DraftKings
-   publies par ESPN (gratuits, pas de credits The Odds API).
+2. Pour chaque match a venir : effectif ESPN, statuts du rapport officiel NBA des blessures
+   (nba_injury_report, toutes les 15 min ; ESPN si l'equipe n'a pas encore declare) -> absents
+   retires, incertains ponderes par leur probabilite de jouer mesuree (STATUS_PLAY), lignes Vegas
+   et props DraftKings publies par ESPN (gratuits, pas de credits The Odds API).
 3. 10 000 simulations par match -> data/nba_db/nba_sim.json : score attendu et sa dispersion,
    % de victoire, scenario le plus typique, distributions joueurs, et pour chaque prop
    la probabilite simulee face a celle du bookmaker (marge retiree).
@@ -12,6 +13,7 @@ nba_sim_run.py — Simule les matchs NBA du jour et du lendemain (production).
    par le lecteur video du site : data/replays/<game_id>.json (nba_replay).
 
 Usage : python nba_sim_run.py [--sims 10000] [--date 2026-10-27]
+        (en production, la veille nba_live.py appelle prepare / sim_games / save match par match)
 """
 import argparse, json, os, time
 from collections import defaultdict
@@ -21,6 +23,7 @@ from pathlib import Path
 
 import numpy as np
 
+import nba_injury_report as IR
 import nba_sim_bilan
 from nba_boxdb import BASE, _get, _lines, load_season, season_year, update_season
 from nba_client import team_roster
@@ -30,15 +33,21 @@ from nba_pbp_profiles import build_profiles
 from nba_poss_sim import pick_typical, simulate as poss_simulate
 from nba_replay import build_replay
 
-# Dans data/nba_db (cache CI, non versionne) : le contenu est deja dans index.html,
-# inutile de commiter 400 Ko a chaque passage du cron
-OUT_PATH = "data/nba_db/nba_sim.json"
+# Versionne : la veille nba_live.py resimule match par match et repart de la derniere version
+OUT_PATH = "data/nba_sim.json"
 STAT_COMPS = {"PTS": ("PTS",), "REB": ("REB",), "AST": ("AST",), "3PM": ("3PM",), "PRA": ("PTS", "REB", "AST"),
               "PR": ("PTS", "REB"), "PA": ("PTS", "AST"), "RA": ("REB", "AST"), "STL": ("STL",), "BLK": ("BLK",)}
 REPLAY_DIR = Path("data/replays")   # versionne : publie avec le site, charge a la demande par le lecteur
 REPLAY_SIMS = 5000
 REPLAY_KEEP_DAYS = 3
-QUESTIONABLE_FACTOR = 0.5
+# Probabilite de jouer selon le statut officiel, mesuree sur la saison 2025-26 : rapports de 13 h
+# et 18 h (ET) de chaque jour de match confrontes aux feuilles de match (26 353 lignes, hors G League).
+# A joue : Out 1 %, Doubtful 0-1 %, Questionable 52-55 %, Probable 91-92 %, Available 86-89 %
+# (joueur liste qui revient), contre ~97 % pour un joueur de rotation non liste -> facteurs ci-dessous.
+# « day-to-day » (ESPN, quand l'equipe n'a pas encore rempli le rapport officiel) : non mesure.
+STATUS_PLAY = {"questionable": 0.57, "probable": 0.94, "available": 0.9, "day-to-day": 0.5}
+STATUS_OUT = ("out", "suspension", "doubtful")
+STATUS_BACK = ("available", "probable", "questionable")   # annonce par son equipe : pas « inactif »
 MIN_AVAILABILITY = 0.1
 
 # Selection de props. Regle validee en aveugle (nba_backtest.py --blind : effectif du match
@@ -94,7 +103,8 @@ def _buckets(total, margin, h_abbr, a_abbr):
 
 def upcoming_games(day):
     out = []
-    for d in (day, day + timedelta(days=1)):
+    # veille comprise : a 01:00 UTC, les matchs de la soiree americaine sont dates de la veille
+    for d in (day - timedelta(days=1), day, day + timedelta(days=1)):
         sb = _get(f"{BASE}/scoreboard?dates={d:%Y%m%d}") or {}
         for ev in sb.get("events") or []:
             if ((ev.get("status") or {}).get("type") or {}).get("state") != "pre": continue
@@ -115,12 +125,53 @@ def _availability(summary):
     return out
 
 
-def _roster(team_id, injuries):
+def _et_day(iso):
+    """Date du match a New York (« 10/28/2026 »), comme dans le rapport officiel."""
+    dt = datetime.fromisoformat(iso.replace("Z", "+00:00"))
+    try:
+        from zoneinfo import ZoneInfo
+        return dt.astimezone(ZoneInfo("America/New_York")).strftime("%m/%d/%Y")
+    except Exception:
+        return (dt - timedelta(hours=4)).strftime("%m/%d/%Y")
+
+
+def statuses(g, report, summary=None):
+    """Statuts des deux effectifs : {cote: {"src", "status": {id: statut}, "reason": {id: raison}}}.
+    Rapport officiel NBA si l'equipe l'a rempli (il doit lister TOUT joueur non disponible :
+    absent du rapport = disponible), sinon blessures ESPN du summary du match."""
+    if summary is None:
+        summary = _get(f"{BASE}/summary?event={g['gid']}") or {}
+    espn = _availability(summary)
+    out = {}
+    for side in ("home", "away"):
+        tid = str(g[side].get("id"))
+        roster = [{"id": p["PLAYER_ID"], "name": p["PLAYER_NAME"]} for p in team_roster(tid, ttl=12 * 3600)]
+        entry = IR.team_entry(report, g[side].get("displayName", ""), _et_day(g["date"]))
+        if entry and entry["submitted"]:
+            extra = []
+            off = IR.status_map(entry, roster, extra)
+            out[side] = {"src": "officiel", "status": {k: v[0] for k, v in off.items()},
+                         "reason": {k: v[1] for k, v in off.items()},
+                         "extra": [{"name": p["name"], "status": p["status"].lower(), "reason": p["reason"]}
+                                   for p in extra]}
+        else:
+            ids = {p["id"] for p in roster}
+            out[side] = {"src": "ESPN", "status": {k: v for k, v in espn.items() if k in ids}, "reason": {}}
+    return out
+
+
+def signature(st):
+    """Empreinte des statuts : une difference declenche une nouvelle simulation (nba_live)."""
+    return "|".join(f"{k}:{v}" for side in ("home", "away") for k, v in sorted(st[side]["status"].items()))
+
+
+def _roster(team_id, injuries, reasons=None):
     roster, statuses, out = [], {}, []
     for p in team_roster(team_id, ttl=12 * 3600):
         st = injuries.get(p["PLAYER_ID"], "")
-        if st in ("out", "doubtful", "suspension"):
-            out.append({"id": p["PLAYER_ID"], "name": p["PLAYER_NAME"]}); continue
+        if st in STATUS_OUT:
+            out.append({"id": p["PLAYER_ID"], "name": p["PLAYER_NAME"], "status": st,
+                        "reason": (reasons or {}).get(p["PLAYER_ID"], "")}); continue
         roster.append({"id": p["PLAYER_ID"], "name": p["PLAYER_NAME"], "pos": p.get("POSITION", "")})
         if st: statuses[p["PLAYER_ID"]] = st
     return roster, statuses, out
@@ -146,22 +197,30 @@ def _dec(am):
     return 1 + am / 100.0 if am > 0 else 1 + 100.0 / -am
 
 
-def build_inputs(st, g):
-    """Entrees du simulateur pour un match a venir : effectifs ESPN moins les blesses,
-    incertains a moitie, inactifs de longue duree, lignes Vegas. -> (inp, lines, jerseys)"""
+def build_inputs(st, g, report=None):
+    """Entrees du simulateur pour un match a venir : effectifs ESPN moins les absents (rapport
+    officiel NBA, sinon ESPN), incertains ponderes, inactifs de longue duree, lignes Vegas.
+    -> (inp, lines, jerseys) ; inp["injuries"] = statuts utilises (affichage, veille)."""
     summary = _get(f"{BASE}/summary?event={g['gid']}") or {}
-    inj = _availability(summary)
+    sts = statuses(g, report, summary)
     h_id, a_id = str(g["home"].get("id")), str(g["away"].get("id"))
-    h_roster, h_st, h_out = _roster(h_id, inj)
-    a_roster, a_st, a_out = _roster(a_id, inj)
+    h_roster, h_st, h_out = _roster(h_id, sts["home"]["status"], sts["home"]["reason"])
+    a_roster, a_st, a_out = _roster(a_id, sts["away"]["status"], sts["away"]["reason"])
     lines = _lines(summary, h_id) if summary else None
     inp = st.project(h_id, a_id, h_roster, a_roster, lines)
     inp["home"]["out"], inp["away"]["out"] = h_out, a_out
-    for s, statuses, tid in (("home", h_st, h_id), ("away", a_st, a_id)):
+    inp["injuries"] = sts
+    for s, statuses_, tid in (("home", h_st, h_id), ("away", a_st, a_id)):
         for p in inp[s]["players"]:
-            if statuses.get(p["id"]) in ("questionable", "day-to-day"):
-                p["p_play"] *= QUESTIONABLE_FACTOR
-                p["status"] = statuses[p["id"]]
+            if statuses_.get(p["id"]) in STATUS_PLAY:
+                p["p_play"] *= STATUS_PLAY[statuses_[p["id"]]]
+                p["status"] = statuses_[p["id"]]
+            # Liste par son equipe au rapport officiel comme disponible / probable / incertain (hors G
+            # League) : il revient de blessure. Sans ce test, ses matchs manques le faisaient passer pour
+            # inactif et sa probabilite de jouer etait divisee par 10.
+            if (sts[s]["src"] == "officiel" and statuses_.get(p["id"]) in STATUS_BACK
+                    and "G League" not in sts[s]["reason"].get(p["id"], "")):
+                continue
             # Absent de TOUTES les feuilles de match recentes sans etre declare blesse :
             # inactif (blessure longue, G-League). Une absence isolee ne compte pas.
             if st.availability(p["id"], tid) == 0:
@@ -254,10 +313,12 @@ def _why(pid, stat, line, x, minutes, team_id, opp_id, opp_abbr, out, year):
             "out": absent}
 
 
-def run_game(st, g, n_sims, profiles=None):
-    inp, lines, jerseys = build_inputs(st, g)
-    replay = None
-    if profiles is not None:
+def run_game(st, g, n_sims, profiles=None, report=None, keep_replay=None):
+    """keep_replay : match type deja calcule a reprendre tel quel (la veille ne refait la video,
+    le calcul le plus long, que si les effectifs changent ou pour la derniere simulation)."""
+    inp, lines, jerseys = build_inputs(st, g, report)
+    replay = keep_replay
+    if profiles is not None and keep_replay is None:
         try:
             replay = run_replay(g, inp, lines, jerseys, profiles)
         except Exception as e:
@@ -313,7 +374,13 @@ def run_game(st, g, n_sims, profiles=None):
                       "ev_under": round((1 - p_over) * _dec(m["under"]) - 1, 4)})
 
     return {
-        "gid": g["gid"], "date": g["date"],
+        "gid": g["gid"], "date": g["date"], "sim_at": datetime.now(timezone.utc).isoformat(timespec="minutes"),
+        "report_at": (report or {}).get("at"), "sig": signature(inp["injuries"]),
+        "injuries": {s: {"src": inp["injuries"][s]["src"], "out": inp[s]["out"],
+                         "extra": inp["injuries"][s].get("extra") or [],
+                         "doubt": [{"id": p["id"], "name": p["name"], "status": p["status"],
+                                    "reason": inp["injuries"][s]["reason"].get(p["id"], ""), "p_play": p["p_play"]}
+                                   for p in inp[s]["players"] if p.get("status")]} for s in ("home", "away")},
         "home": {"id": h_id, "abbr": g["home"].get("abbreviation"), "name": g["home"].get("displayName"),
                  "color": g["home"].get("color"), "alt": g["home"].get("alternateColor"), **_form(st, h_id)},
         "away": {"id": a_id, "abbr": g["away"].get("abbreviation"), "name": g["away"].get("displayName"),
@@ -405,16 +472,10 @@ def update_picks(games, year):
           f"{sum(r['result'] == 'win' for r in done)}-{sum(r['result'] == 'loss' for r in done)} resolus")
 
 
-def main():
-    ap = argparse.ArgumentParser()
-    ap.add_argument("--sims", type=int, default=10000)
-    ap.add_argument("--date")
-    ap.add_argument("--no-update", action="store_true", help="ne met pas la base a jour (tests)")
-    a = ap.parse_args()
-    day = date.fromisoformat(a.date) if a.date else datetime.now(timezone.utc).date()
+def prepare(day, update=True):
+    """Base box-score a jour + etat du modele + profils video. -> (year, st, profiles)"""
     year = season_year(day)
-    t0 = time.time()
-    if not a.no_update:
+    if update:
         if not load_season(year - 1): update_season(year - 1)
         update_season(year)
     st = build_state(year)
@@ -423,13 +484,25 @@ def main():
     except Exception as e:
         print(f"  [!] profils play-by-play indisponibles ({e}) : pas de match type video")
         profiles = None
-    _clean_replays()
-    games = upcoming_games(day)
-    print(f"=== NBA simulation : {len(games)} matchs a venir (etat construit en {time.time() - t0:.0f}s) ===")
+    return year, st, profiles
+
+
+def latest_report():
+    try:
+        rep = IR.latest()
+        print(f"  [blessures] rapport officiel NBA du {rep['at']} (ET), {len(rep['teams'])} equipes" if rep
+              else "  [blessures] rapport officiel introuvable : statuts ESPN")
+        return rep
+    except Exception as e:
+        print(f"  [!] rapport officiel des blessures : {type(e).__name__}: {e} -> statuts ESPN")
+        return None
+
+
+def sim_games(st, games, n_sims, profiles, report, keep_replays=None):
     out = []
     for g in games:
         try:
-            r = run_game(st, g, a.sims, profiles)
+            r = run_game(st, g, n_sims, profiles, report, (keep_replays or {}).get(g["gid"]))
         except Exception as e:
             print(f"  [err] {g['gid']}: {type(e).__name__}: {e}"); continue
         t = r["team"]
@@ -438,18 +511,51 @@ def main():
               f"  props {len(r['props'])}"
               + (f"  video {r['replay']['final'][1]}-{r['replay']['final'][0]}" if r.get("replay") else ""))
         out.append(r)
+    return out
+
+
+def load_out():
     try:
-        update_picks(out, year)
+        with open(OUT_PATH, encoding="utf-8") as f:
+            return json.load(f).get("games") or []
+    except (OSError, ValueError):
+        return []
+
+
+def save(games, fresh, year):
+    """games : tous les matchs a afficher ; fresh : ceux simules a l'instant (suivi des picks,
+    historique). Renvoie le nombre de matchs termines ajoutes a l'historique."""
+    try:
+        update_picks(fresh, year)
     except Exception as e:
         print(f"  [!] suivi des picks : {type(e).__name__}: {e}")
+    n = 0
     try:   # historique : derniere simulation d'avant-match + resultat, pour le bilan de chaque soiree
-        nba_sim_bilan.archive(out)
-        print(f"  [bilan] {nba_sim_bilan.resolve(year)} match(s) termine(s) ajoute(s) a l'historique")
+        nba_sim_bilan.archive(fresh)
+        n = nba_sim_bilan.resolve(year)
+        print(f"  [bilan] {n} match(s) termine(s) ajoute(s) a l'historique")
     except Exception as e:
         print(f"  [!] historique du simulateur : {type(e).__name__}: {e}")
     with open(OUT_PATH, "w", encoding="utf-8") as f:
-        json.dump({"generated_at": datetime.now(timezone.utc).isoformat(timespec="seconds"), "games": out},
-                  f, ensure_ascii=False)
+        json.dump({"generated_at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
+                   "games": sorted(games, key=lambda g: g.get("date", ""))}, f, ensure_ascii=False)
+    return n
+
+
+def main():
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--sims", type=int, default=10000)
+    ap.add_argument("--date")
+    ap.add_argument("--no-update", action="store_true", help="ne met pas la base a jour (tests)")
+    a = ap.parse_args()
+    day = date.fromisoformat(a.date) if a.date else datetime.now(timezone.utc).date()
+    t0 = time.time()
+    year, st, profiles = prepare(day, not a.no_update)
+    _clean_replays()
+    games = upcoming_games(day)
+    print(f"=== NBA simulation : {len(games)} matchs a venir (etat construit en {time.time() - t0:.0f}s) ===")
+    out = sim_games(st, games, a.sims, profiles, latest_report())
+    save(out, out, year)
     print(f"[OK] {OUT_PATH} ({len(out)} matchs, {time.time() - t0:.0f}s)")
 
 

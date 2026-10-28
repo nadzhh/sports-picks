@@ -5651,10 +5651,12 @@ def build_html(matches, team_ai, player_ai, pstats_data, nba_picks=None, nba_his
     tennis_section  = build_tennis_section(tennis_picks_data)
     # tennis_hist_html sera defini plus bas apres lecture de tennis_picks_history.json
     nba_analyse_html = build_nba_analyse_section(nba_picks, nba_player_stats, nba_odds)
-    # Section Simulation NBA (Monte-Carlo, data/nba_sim.json produit par nba_sim_run.py)
+    # Section Simulation NBA (data/nba_sim.json, veille nba_live.py) : copie de secours dans
+    # index.html + nba_sim.html, recharge par la page (la veille publie nba_sim.html seul)
     try:
-        from nba_sim_site import build_nba_sim_section
-        nba_sim_html = build_nba_sim_section()
+        from nba_sim_site import build_nba_sim_page, write_fragment
+        nba_sim_html, _frag = build_nba_sim_page()
+        write_fragment(_frag)
     except Exception as _e_sim:
         print(f"  [!] Section simulation NBA ignoree : {_e_sim}")
         nba_sim_html = '<div style="padding:40px;text-align:center;color:#64748b">Simulation indisponible.</div>'
