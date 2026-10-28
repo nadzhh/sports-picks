@@ -1,6 +1,6 @@
 {
- "genere_le": "2026-10-28T00:35:26",
- "n_resolus": 2234,
+ "genere_le": "2026-10-28T06:18:01",
+ "n_resolus": 2239,
  "parametres": {
   "n_min_jugement": 20,
   "seuil_pct": 50.0,
@@ -8,11 +8,11 @@
  },
  "marches": {
   "foot/Double chance": {
-   "n": 82,
+   "n": 83,
    "wins": 68,
-   "wr": 82.9,
-   "borne_basse": 73.4,
-   "borne_haute": 89.5,
+   "wr": 81.9,
+   "borne_basse": 72.3,
+   "borne_haute": 88.7,
    "statut": "RETENU",
    "cote_moyenne": 1.43,
    "n_cotes": 15
@@ -28,11 +28,11 @@
    "n_cotes": 23
   },
   "foot/Victoire extérieur": {
-   "n": 153,
+   "n": 154,
    "wins": 68,
-   "wr": 44.4,
-   "borne_basse": 36.8,
-   "borne_haute": 52.4,
+   "wr": 44.2,
+   "borne_basse": 36.5,
+   "borne_haute": 52.0,
    "statut": "SURVEILLE",
    "cote_moyenne": 2.4,
    "n_cotes": 19
@@ -48,14 +48,24 @@
    "n_cotes": 1
   },
   "tennis/tennis_total_games": {
-   "n": 102,
-   "wins": 69,
-   "wr": 67.6,
-   "borne_basse": 58.1,
-   "borne_haute": 75.9,
+   "n": 104,
+   "wins": 71,
+   "wr": 68.3,
+   "borne_basse": 58.8,
+   "borne_haute": 76.4,
    "statut": "RETENU",
    "cote_moyenne": null,
    "n_cotes": 0
+  },
+  "tennis/tennis_winner": {
+   "n": 30,
+   "wins": 15,
+   "wr": 50.0,
+   "borne_basse": 33.2,
+   "borne_haute": 66.8,
+   "statut": "SURVEILLE",
+   "cote_moyenne": 2.38,
+   "n_cotes": 30
   },
   "foot/Buteur": {
    "n": 530,
@@ -416,16 +426,6 @@
    "statut": "SURVEILLE",
    "cote_moyenne": 2.64,
    "n_cotes": 15
-  },
-  "tennis/tennis_winner": {
-   "n": 29,
-   "wins": 14,
-   "wr": 48.3,
-   "borne_basse": 31.4,
-   "borne_haute": 65.6,
-   "statut": "SURVEILLE",
-   "cote_moyenne": 2.41,
-   "n_cotes": 29
   },
   "foot/Tirs (Universitario de Vinto)": {
    "n": 1,
@@ -871,8 +871,8 @@
  "calibration": {
   "foot/Double chance": {
    "80-89": {
-    "n": 60,
-    "p": 81.7
+    "n": 61,
+    "p": 80.3
    },
    "90-99": {
     "n": 16,
@@ -880,7 +880,7 @@
    },
    "70-79": {
     "n": 6,
-    "p": 73.2
+    "p": 72.8
    }
   },
   "foot/Victoire domicile": {
@@ -903,8 +903,8 @@
   },
   "foot/Victoire extérieur": {
    "70-79": {
-    "n": 37,
-    "p": 54.1
+    "n": 38,
+    "p": 52.6
    },
    "60-69": {
     "n": 73,
@@ -931,16 +931,38 @@
   },
   "tennis/tennis_total_games": {
    "60-69": {
-    "n": 71,
-    "p": 73.2
+    "n": 72,
+    "p": 73.6
    },
    "50-59": {
-    "n": 2,
-    "p": 54.1
+    "n": 3,
+    "p": 57.8
    },
    "70-79": {
     "n": 29,
     "p": 58.6
+   }
+  },
+  "tennis/tennis_winner": {
+   "80-89": {
+    "n": 4,
+    "p": 50.0
+   },
+   "60-69": {
+    "n": 7,
+    "p": 55.0
+   },
+   "70-79": {
+    "n": 12,
+    "p": 50.0
+   },
+   "50-59": {
+    "n": 3,
+    "p": 35.0
+   },
+   "90-99": {
+    "n": 4,
+    "p": 60.0
    }
   },
   "foot/Buteur": {
@@ -1439,28 +1461,6 @@
     "p": 44.6
    }
   },
-  "tennis/tennis_winner": {
-   "60-69": {
-    "n": 7,
-    "p": 54.5
-   },
-   "70-79": {
-    "n": 12,
-    "p": 50.0
-   },
-   "50-59": {
-    "n": 3,
-    "p": 33.8
-   },
-   "90-99": {
-    "n": 4,
-    "p": 59.0
-   },
-   "80-89": {
-    "n": 3,
-    "p": 43.8
-   }
-  },
   "foot/Tirs (Universitario de Vinto)": {
    "70-79": {
     "n": 1,
@@ -1755,8 +1755,8 @@
   }
  },
  "replis_sport": {
-  "foot": 45.8,
-  "tennis": 59.9,
+  "foot": 45.7,
+  "tennis": 60.6,
   "nba": 50.5
  }
 }
