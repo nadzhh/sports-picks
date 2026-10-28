@@ -304,17 +304,17 @@
         "type": "Tirs cadrés (Inter)",
         "label": "Plus de 6.5 tirs cadrés Inter",
         "cote": null,
-        "cote_min": 1.31,
+        "cote_min": 1.32,
         "value": [
           "💎",
           "Value correcte",
           "#84cc16"
         ],
-        "confidence": 77,
+        "confidence": 76,
         "edge": null,
-        "reasoning": "Inter prend 8.2/m [pondere vs opp #20] · adv. concède 7.1/m → attendu ~8.7 (Inter favori (#2 vs #20))\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+        "reasoning": "Inter prend 8.1/m [pondere vs opp #20] · adv. concède 7.1/m → attendu ~8.6 (Inter favori (#2 vs #20))\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
         "stats": {
-          "expected": 8.7
+          "expected": 8.6
         },
         "tier": "safe",
         "calibration_delta": -11.3,
@@ -325,7 +325,7 @@
         "mise_label": "0.5 %",
         "valeur_pct": null,
         "cote_estimee": false,
-        "ecart_calibration": -31.3,
+        "ecart_calibration": -30.3,
         "rang_jour": 22,
         "cumul_pct": 47.0,
         "hors_budget": true
@@ -3136,8 +3136,16 @@
         "capacity": 3500,
         "surface": "artificial turf"
       },
-      "weather": null,
-      "text": "Stade : Estadio Municipal · 3 500 places · plein air."
+      "weather": {
+        "temp_max": 27.3,
+        "temp_min": 12.2,
+        "humidity": 44,
+        "precipitation_sum_mm": 0.0,
+        "wind_max_kmh": 8.7,
+        "weather_code": 1,
+        "summary_fr": "🌤️ principalement clair · 12–27°C · humidité 44%"
+      },
+      "text": "Conditions : 🌤️ principalement clair · 12–27°C · humidité 44%. Stade : Estadio Municipal · 3 500 places · plein air."
     }
   },
   {
