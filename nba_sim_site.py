@@ -430,6 +430,25 @@ def _selection(g, picks):
             f'{_pick_rows(items)}</table></div><p class="eb-note">{PICK_NOTE}</p></div>')
 
 
+def _combos_card(g):
+    cs = g.get("combos") or []
+    if not cs: return ""
+    rows = ""
+    for c in cs:
+        legs = " + ".join(f'{_e(l["name"])} {"Over" if l["side"] == "o" else "Under"} {l["line"]:g} '
+                          f'{_e(STAT_LABELS.get(l["stat"], l["stat"]).lower())}' for l in c["legs"])
+        rows += (f'<tr><td class="eb-bk-legs">{legs}</td><td class="n">{_pct(c["p"], 0)}</td><td class="n"><b>{c["fair"]:.2f}</b></td>'
+                 f'<td class="n">{c["indep_mkt"]:.2f}</td><td class="n eb-acc">+{100 * (c["lift"] - 1):.0f} %</td></tr>')
+    return ('<div class="eb-card"><h3 class="eb-h">Combinés du même match <small>tirages conjoints du simulateur</small></h3>'
+            '<div class="eb-scroll"><table class="eb-tbl"><tr><th>Combiné</th><th>Proba</th><th>Cote juste</th>'
+            f'<th>Cote « indépendante »</th><th>Corrélation</th></tr>{rows}</table></div>'
+            '<p class="eb-note">Probabilité de chaque pari = celle du marché (sans marge), plus fiable que le simulateur ; '
+            'le simulateur, qui joue le match entier, n’apporte que la <b>corrélation</b> entre les deux (ex. +20 % : ils '
+            'arrivent ensemble 20 % plus souvent que s’ils étaient indépendants). « Cote indépendante » = ce que vaudrait '
+            'le combiné sans ce lien. Sur Winamax (MyMatch) ou Betclic (Combi), le combiné vaut le coup si le prix proposé '
+            '<b>dépasse la cote juste</b>. Outil de vérification, non validé sur l’historique (ces prix n’y figurent pas).</p></div>')
+
+
 def _video(g, gid):
     """Carte « match type en video » : le deroule (data/replays/<gid>.json, nba_replay.py)
     est charge a la demande et rejoue par le lecteur canvas (nba_replay_player.js)."""
@@ -750,7 +769,8 @@ def _picks_view(games, picks):
              + (" — en dessous de zéro, les cotes obtenues ne battent pas la clôture : pas d’avantage démontré." if clv < 0 else "."))
     head = (f'<div class="eb-card"><h3 class="eb-h">Picks du simulateur</h3><p class="eb-note">{PICK_NOTE}</p>'
             f'<p class="eb-note">{state} {_track(picks)}</p></div>')
-    return head + (blocks or '<div class="eb-card eb-empty">Aucune sélection pour l’instant : props pas encore publiées ou pas d’écart assez net.</div>')
+    import ev_site
+    return ev_site.build_ev_card("nba") + head + (blocks or '<div class="eb-card eb-empty">Aucune sélection pour l’instant : props pas encore publiées ou pas d’écart assez net.</div>')
 
 
 def build_nba_sim_section(sim=None):
@@ -765,7 +785,7 @@ def build_nba_sim_section(sim=None):
         items = "".join(_item(g, gid, now, i == 0) for i, (g, gid) in enumerate(zip(games, ids)))
         details = "".join(
             f'<section class="eb-detail{" on" if i == 0 else ""}" data-id="{gid}">'
-            f'{_header(g, now)}{_livecard(g)}{_selection(g, picks)}{_infos(g)}{_infobar(g)}{_kpis(g)}{_video(g, gid)}{_hist(g)}{_tabs(g, gid)}</section>'
+            f'{_header(g, now)}{_livecard(g)}{_selection(g, picks)}{_combos_card(g)}{_infos(g)}{_infobar(g)}{_kpis(g)}{_video(g, gid)}{_hist(g)}{_tabs(g, gid)}</section>'
             for i, (g, gid) in enumerate(zip(games, ids)))
         sim_view = ('<div class="eb eb-view on" data-view="sim" data-eb="nba"><div class="eb-layout">'
                     f'<aside class="eb-side">{banner}<div class="eb-label">Matchs NBA à venir · {len(games)}</div>'

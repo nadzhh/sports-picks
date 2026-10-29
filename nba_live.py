@@ -30,9 +30,10 @@ import foot_db
 import foot_sim_run as FR
 import foot_sim_site as FS
 import foot_sim_bilan as FB
+import ev_scan as EV
 
 PUBLISHED = [FRAGMENT, R.OUT_PATH, str(R.PICKS_PATH), "data/nba_sim_history.json", BS.FRAGMENT, str(BK.BANK_PATH),
-             FS.FRAGMENT, str(FR.OUT_PATH), str(FB.HIST_PATH)]
+             FS.FRAGMENT, str(FR.OUT_PATH), str(FB.HIST_PATH), str(EV.PATH)]
 # Foot (Top 5 + coupes d'Europe) : base mise a jour par tranches (premiere constitution en plusieurs
 # passages), simulation toutes les 30 min, a chaque cycle quand un match approche (composition officielle)
 FOOT_SEASONS = ("2026/2027", "2025/2026")   # saison en cours d'abord
@@ -194,8 +195,9 @@ class Live:
             write_fragment()
         bank = self.bankroll(fresh)
         foot = self.foot()
-        if foot and not (changed or bank) and self.push:
-            publish("Foot live : " + foot)
+        ev = self.ev()
+        if (foot or ev) and not (changed or bank) and self.push:
+            publish("Foot live : " + " ; ".join(x for x in (foot, ev) if x))
         if (changed or bank) and self.push:
             parts = [f"{r['away']['abbr']}@{r['home']['abbr']}" for r in fresh]
             publish("NBA live : " + (f"{len(fresh)} match(s) resimule(s) ({', '.join(parts[:6])})" if fresh
@@ -239,6 +241,24 @@ class Live:
             return f" ; bankroll : {len(placed)} pari(s) place(s), {n_set} regle(s)"
         except Exception as e:
             print(f"  [!] bankroll : {type(e).__name__}: {e}")
+            return ""
+
+    def ev(self):
+        """Value bets (cotes francaises vs cote juste Pinnacle) : ~2 balayages par jour (quota The Odds API)."""
+        if not self.update or not EV.due(): return ""
+        try:
+            new = EV.scan()
+            write_fragment(); FS.write_fragment()      # cartes « Value bets » et calculateur des vues Picks
+            if new:
+                self.telegram(EV.telegram_msg(new))
+                st = BK.load()                         # la Bankroll IA joue les value bets (avantage valide)
+                placed = BK.decide_value(st, new)
+                if placed:
+                    BK.save(st); BS.write_fragment()
+                    self.telegram(BK.telegram_placed(placed, st))
+            return f"value bets : {len(new)} nouveau(x)"
+        except Exception as e:
+            print(f"  [!] value bets : {type(e).__name__}: {e}")
             return ""
 
     def foot(self):

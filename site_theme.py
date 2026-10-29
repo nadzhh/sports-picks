@@ -259,6 +259,11 @@ footer{color:var(--di)!important;border-top:1px solid var(--line)!important;font
 .eb-why-l .eb-warn{color:var(--warn)}
 .eb-label.eb-label-2{margin-top:24px}
 .sp-legacy{display:none!important}
+.eb-evc{display:grid;grid-template-columns:minmax(0,2fr) minmax(0,2fr) 140px;gap:10px;align-items:center;margin-top:10px}
+.eb-evc select,.eb-evc input{background:var(--chip);border:1px solid var(--line2);border-radius:8px;color:var(--tx);padding:9px 10px;font:500 14px var(--sans);min-width:0}
+.eb-evr{grid-column:1/-1;font-size:14px;color:var(--mu)}
+.eb-evr b{color:var(--tx)}
+@media (max-width:640px){.eb-evc{grid-template-columns:1fr}}
 /* Boutons d'ajout a l'ancienne bankroll manuelle (retiree le 29/10/2026) */
 .tg-userpick-btn{display:none!important}
 .eb-live{font-family:var(--mono);font-size:11px;margin-left:6px;color:var(--mu)}

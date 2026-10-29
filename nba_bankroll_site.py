@@ -42,6 +42,9 @@ def _when(iso):
 def _leg(l):
     res = l.get("result")
     mark = {"win": " ✓", "loss": " ✗", "void": " (remboursé)", "push": " (nul)"}.get(res, "")
+    if l.get("ev_key"):   # value bet (cote francaise au-dessus de la cote juste Pinnacle)
+        return (f'<b>{_e(l["name"])}</b> <span class="eb-dim">{_e(l["team"])}</span> · {_e(l["stat"])} chez {_e(l["opp"])} '
+                f'@ {l["dec"]:.2f}{mark} <span class="eb-tag acc">value</span>')
     act = f' <span class="eb-dim">réel {l["actual"]:g}</span>' if l.get("actual") is not None else ""
     return (f'<b>{_e(l["name"])}</b> <span class="eb-dim">{_e(l["team"])} vs {_e(l["opp"])}</span> · '
             f'{"Over" if l["side"] == "o" else "Under"} {l["line"]:g} {_e(UNIT.get(l["stat"], l["stat"]))} '
@@ -76,7 +79,7 @@ def _stat(label, value, sub="", cls=""):
 def _bet_row(b, open_):
     legs = "<br>".join(_leg(l) for l in b["legs"])
     kind = '<span class="eb-tag acc">combiné</span>' if b["kind"] == "combine" else ""
-    why = (f'proba estimée {_pct(b["p"])} · espérance {_pct(b["ev"], True)}'
+    why = (f'{"cote juste Pinnacle " + format(1 / b["p"], ".2f") + " · " if b["kind"] == "value" else ""}proba estimée {_pct(b["p"])} · espérance {_pct(b["ev"], True)}'
            + (f' · simu {_pct(b["legs"][0]["p_sim"])} vs bookmaker {_pct(b["legs"][0]["p_mkt"])}' if len(b["legs"]) == 1 else ""))
     if open_:
         res = f'<td class="n">{_eur(b["stake"] * b["odds"])}</td>'
@@ -91,6 +94,9 @@ def _bet_row(b, open_):
 
 
 RULES = [
+    "<b>Value bets</b> (seul avantage validé sur deux saisons) : quand Winamax, Betclic, Unibet ou PMU paient plus que "
+    "la cote juste de Pinnacle (marge retirée), je mise 1/4 de Kelly, 2 % du capital au plus. Rare : les bookmakers "
+    "français prennent 5 à 14 % de marge.",
     "<b>Discipline</b> : je juge l’avantage sur toutes les sélections du simulateur. Si les cotes obtenues ne battent "
     "pas la clôture (CLV négative), les paris ordinaires s’arrêtent : je ne garde que les paris nés d’une "
     "<b>information fraîche</b> (un joueur du match change de statut et je resimule avant que la cote bouge), "

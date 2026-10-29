@@ -236,7 +236,8 @@ def _picks_view(games):
              f'<th>Simu</th><th>Bookmaker</th><th>Écart</th></tr>{rows}</table></div>' if rows else
              '<div class="eb-empty">Aucun pick foot : aucun match ne remplit la règle validée dans les 48 h. '
              'C’est un choix, pas un oubli.</div>')
-    return (f'<div class="eb-card"><h3 class="eb-h">Picks foot</h3>{table}<p class="eb-note">{PICKS_NOTE}'
+    import ev_site
+    return ev_site.build_ev_card("foot") + (f'<div class="eb-card"><h3 class="eb-h">Picks du simulateur</h3>{table}<p class="eb-note">{PICKS_NOTE}'
             + (f' Règle en vigueur : {_e(PICK_RULE_TXT)}' if PICK_RULE_TXT else "") + '</p></div>')
 
 

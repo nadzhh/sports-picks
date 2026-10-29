@@ -28,7 +28,7 @@ import nba_sim_bilan
 from nba_boxdb import BASE, _get, _lines, load_season, season_year, update_season
 from nba_client import team_roster
 from nba_props_hist import fetch_game_props, props_main_lines
-from nba_sim import NBAState, simulate
+from nba_sim import NBAState, simulate, market_minutes
 from nba_pbp_profiles import build_profiles
 from nba_poss_sim import pick_typical, simulate as poss_simulate
 from nba_replay import build_replay
@@ -325,6 +325,11 @@ def run_game(st, g, n_sims, profiles=None, report=None, keep_replay=None):
             print(f"  [!] match type {g['gid']} : {type(e).__name__}: {e}")
     h_id, a_id = inp["home"]["id"], inp["away"]["id"]
     res = simulate(inp, n=n_sims, seed=int(g["gid"]) % (2 ** 31))
+    gp = fetch_game_props(g["gid"])
+    if st.p.get("mkt_min_alpha") and gp:   # minutes implicites du marche (lignes de points), puis resimulation
+        pts = {aid: (m["line"], m["p_over_novig"]) for (aid, stt), m in props_main_lines(gp).items() if stt == "PTS"}
+        if pts and market_minutes(inp, res, pts, st.p["mkt_min_alpha"]):
+            res = simulate(inp, n=n_sims, seed=int(g["gid"]) % (2 ** 31))
     hp, ap = res["home"]["PTS"].sum(axis=1), res["away"]["PTS"].sum(axis=1)
     k = _typical(res, inp)
     tot_hist, margin_top = _buckets(hp + ap, hp - ap, g["home"].get("abbreviation"), g["away"].get("abbreviation"))
@@ -348,8 +353,8 @@ def run_game(st, g, n_sims, profiles=None, report=None, keep_replay=None):
                                     **{key: int(round(float(res[s][key][k, i]))) for key in ("MIN", "PTS", "REB", "AST", "3PM")}})
 
     props = []
-    gp = fetch_game_props(g["gid"])
     idx = {p["id"]: (s, i) for s in ("home", "away") for i, p in enumerate(inp[s]["players"])}
+    legs = []   # candidats aux combines du meme match : (prop, cote choisi, succes par simulation, joue)
     for (aid, stat), m in props_main_lines(gp).items():
         if aid not in idx or stat not in STAT_COMPS: continue
         s, i = idx[aid]
@@ -372,6 +377,10 @@ def run_game(st, g, n_sims, profiles=None, report=None, keep_replay=None):
                       "over_open": m.get("over_open"), "under_open": m.get("under_open"), "pick": pick,
                       "ev_over": round(p_over * _dec(m["over"]) - 1, 4),
                       "ev_under": round((1 - p_over) * _dec(m["under"]) - 1, 4)})
+        if p_play >= PICK_MIN_PLAY and stat in COMBO_STATS and 0.3 <= m["p_over_novig"] <= 0.7:
+            xa = sum(res[s][c][:, i] for c in STAT_COMPS[stat])
+            legs += [(props[-1], "o", xa > m["line"], on), (props[-1], "u", xa < m["line"], on)]
+    combos = _combos(legs)
 
     return {
         "gid": g["gid"], "date": g["date"], "sim_at": datetime.now(timezone.utc).isoformat(timespec="minutes"),
@@ -406,8 +415,38 @@ def run_game(st, g, n_sims, profiles=None, report=None, keep_replay=None):
                  if lines and lines.get("total") else None,
                  "model_only": [round(float(x), 1) for x in inp["model"]]},
         "typical": {"home": int(hp[k]), "away": int(ap[k]), "ot": int(res["n_ot"][k]), "box": typical_box},
-        "players": players, "props": props, "n_sims": n_sims,
+        "players": players, "props": props, "n_sims": n_sims, "combos": combos,
     }
+
+
+COMBO_STATS = ("PTS", "REB", "AST", "3PM", "STL", "BLK")
+COMBO_MIN_P = 0.25       # combine plausible (cote juste <= 4)
+
+
+def _combos(legs, top=6):
+    """Combines a 2 selections du meme match. Le simulateur ne bat pas le marche pari par pari : on garde la
+    probabilite du MARCHE pour chaque selection et on n'emprunte au simulateur que la CORRELATION (tirages
+    conjoints du meme match). Cote juste = 1 / (p_marche A x p_marche B x correlation). Un bookmaker qui
+    tarife le combine comme si les paris etaient independants paie trop quand la correlation est > 1.
+    Joueur absent : selection annulee -> on conditionne sur les deux joueurs presents."""
+    out = []
+    for a in range(len(legs)):
+        for b in range(a + 1, len(legs)):
+            pa, sa, wa, oa = legs[a]; pb, sb, wb, ob = legs[b]
+            if pa["id"] == pb["id"]: continue
+            both = oa & ob
+            if both.sum() < 500: continue
+            p1, p2 = float(wa[both].mean()), float(wb[both].mean())
+            lift = float((wa & wb)[both].mean()) / max(p1 * p2, 1e-9)
+            m1 = pa["p_mkt"] if sa == "o" else 1 - pa["p_mkt"]
+            m2 = pb["p_mkt"] if sb == "o" else 1 - pb["p_mkt"]
+            pj = m1 * m2 * lift
+            if pj < COMBO_MIN_P or lift <= 1.03: continue
+            out.append({"legs": [{"name": pa["name"], "stat": pa["stat"], "side": sa, "line": pa["line"]},
+                                 {"name": pb["name"], "stat": pb["stat"], "side": sb, "line": pb["line"]}],
+                        "p": round(pj, 4), "lift": round(lift, 3), "fair": round(1 / pj, 2), "indep_mkt": round(1 / (m1 * m2), 2)})
+    out.sort(key=lambda c: -c["lift"])
+    return out[:top]
 
 
 def _novig(over, under):

@@ -181,10 +181,44 @@ def settle_bet(b, results):
 
 def settle(state, box):
     n = 0
+    ev = None
     for b in state["bets"]:
         if b["status"] != "open": continue
+        if b["kind"] == "value":   # value bet : resultat releve par ev_scan (scores ESPN)
+            if ev is None:
+                import ev_scan
+                ev = ev_scan.load()["picks"]
+            r = (ev.get(b["legs"][0]["ev_key"]) or {}).get("result")
+            n += settle_bet(b, [{"push": "void"}.get(r, r)]) if r else 0
+            continue
         n += settle_bet(b, [leg_result(leg, box) for leg in b["legs"]])
     return n
+
+
+VALUE_MAX = 0.02     # mise max d'un value bet (part du capital)
+
+
+def decide_value(state, new):
+    """Value bets (ev_scan : cote francaise au-dessus de la cote juste Pinnacle) : 1/4 de Kelly sur la
+    probabilite juste, au plus VALUE_MAX du capital. Seul avantage valide (CLV positive sur deux saisons)."""
+    from nba_sim_bilan import night_of
+    now = datetime.now(timezone.utc).isoformat(timespec="minutes")
+    taken = {leg.get("ev_key") for b in state["bets"] for leg in b["legs"]}
+    placed, eq = [], equity(state)
+    for p in new:
+        if p["key"] in taken: continue
+        d, pf = p["price"], p["fair"]
+        k = (pf * d - 1) / (d - 1)
+        stake = _round(min(PRM["kelly"] * k * eq, VALUE_MAX * eq))
+        if stake < PRM["min_stake"] or stake > cash(state) - sum(x["stake"] for x in placed): continue
+        leg = {"key": "ev|" + p["key"], "ev_key": p["key"], "name": f'{p["home"]} - {p["away"]}', "team": p["league"],
+               "opp": p["book_name"], "stat": p["label"], "side": "", "line": 0, "dec": d, "am": None,
+               "p_sim": pf, "p_mkt": pf, "date": p["commence"], "gid": "", "pid": ""}
+        placed.append({"legs": [leg], "stake": stake, "odds": d, "p": pf, "ev": p["ev"], "kind": "value", "mode": "value",
+                       "id": f'{night_of(p["commence"])}-v{len(state["bets"]) + len(placed) + 1}', "night": night_of(p["commence"]),
+                       "placed_at": now, "status": "open", "news": []})
+    state["bets"] += placed
+    return placed
 
 
 def candidates(games, now=None):
@@ -314,6 +348,8 @@ def _paris_time(iso):
 
 
 def _leg_txt(l):
+    if l.get("ev_key"):   # value bet
+        return f'<b>{l["name"]}</b> ({l["team"]}, {_paris_time(l["date"])}) : {l["stat"]} chez {l["opp"]}'
     return (f'<b>{l["name"]}</b> ({l["team"]} vs {l["opp"]}, {_paris_time(l["date"])}) : '
             f'{"Over" if l["side"] == "o" else "Under"} {l["line"]:g} {UNIT_FR.get(l["stat"], l["stat"])}')
 
@@ -324,6 +360,13 @@ def telegram_placed(placed, state):
     out = ["🤖 <b>Bankroll IA : paris à prendre</b>"]
     for b in placed:
         mini = (1 + PRM["min_ev"]) / b["p"]
+        if b["kind"] == "value":   # cote francaise au-dessus de la cote juste Pinnacle
+            l = b["legs"][0]
+            out.append(f'\n💎 <b>Value bet</b> · {_leg_txt(l)}')
+            out.append(f'Cote {l["opp"]} <b>{_fr(b["odds"])}</b> · cote juste Pinnacle <b>{_fr(1 / b["p"])}</b> · '
+                       f'espérance +{round(100 * b["ev"], 1)} %')
+            out.append(f'Mise <b>{_fr(b["stake"])} €</b> ({_fr(100 * b["stake"] / eq, 1)} % de la bankroll)')
+            continue
         if b["kind"] == "combine":
             out.append("\n🔗 <b>Combiné</b>\n" + "\n".join("• " + _leg_txt(l) for l in b["legs"]))
         else:
@@ -343,7 +386,7 @@ def telegram_settled(bets, state):
     lab = {"won": "✅", "lost": "❌", "void": "↩️"}
     out = ["🤖 <b>Bankroll IA : paris réglés</b>"]
     for b in bets:
-        legs = " + ".join(f'{l["name"]} {"Over" if l["side"] == "o" else "Under"} {l["line"]:g} '
+        legs = " + ".join(f'{l["name"]} : {l["stat"]}' if l.get("ev_key") else f'{l["name"]} {"Over" if l["side"] == "o" else "Under"} {l["line"]:g} '
                           f'{UNIT_FR.get(l["stat"], l["stat"])}' + (f' ({l["actual"]:g})' if l.get("actual") is not None else "")
                           for l in b["legs"])
         out.append(f'{lab.get(b["status"], "")} {legs} : {"+" if b["pnl"] > 0 else ""}{_fr(b["pnl"])} €')

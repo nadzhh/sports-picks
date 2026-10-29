@@ -23,7 +23,7 @@ import numpy as np
 
 from nba_boxdb import load_season, DB_DIR
 from nba_props_hist import load_props, props_ladders, props_main_lines
-from nba_sim import NBAState, simulate
+from nba_sim import NBAState, simulate, market_minutes
 
 PROFILE_REFRESH_DAYS = 7   # moteur possession : profils play-by-play recalcules chaque semaine (matchs passes)
 
@@ -131,6 +131,10 @@ def run(test_year, params, n_sims, label, start=None, max_games=None, engine="bo
                 res = poss_as_box(poss_simulate(inp, prof, n=n_sims, seed=int(gid) % (2 ** 31)), len(inp["home"]["players"]))
             else:
                 res = simulate(inp, n=n_sims, seed=int(gid) % (2 ** 31))
+                if st.p.get("mkt_min_alpha"):   # minutes implicites du marche (lignes de points)
+                    pts = {aid: (m["line"], m["p_over_novig"]) for (aid, stt), m in props_main_lines(props.get(gid)).items() if stt == "PTS"}
+                    if pts and market_minutes(inp, res, pts, st.p["mkt_min_alpha"]):
+                        res = simulate(inp, n=n_sims, seed=int(gid) % (2 ** 31))
             hp, ap = res["home"]["PTS"].sum(axis=1), res["away"]["PTS"].sum(axis=1)
             ln = g.get("lines") or {}
             team_rows.append({

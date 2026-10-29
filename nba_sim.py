@@ -71,6 +71,12 @@ P = {
     # la probabilite d'etre titulaire. Backtests --blind du 28/10 (3 echantillons de vraies cotes) :
     # (0,15 ; 0,74) appris sur les minutes, (0,3 ; 3) retenu : log-loss 0,6928 -> 0,6924 / 0,6708 -> 0,6703 /
     # 0,6923 -> 0,6880, ROI regle a l'ouverture +23,5 -> +24,4 / +14,0 -> +15,3 / +16,3 -> +16,3 % ; (0,5 ; 5) trop fort.
+    # Minutes implicites du marche : la ligne de points d'un joueur revele le temps de jeu / role attendu
+    # par le bookmaker ; m_mu x (points du marche / points simules) ^ mkt_min_alpha, puis nouvelle
+    # simulation (market_minutes). Backtests --blind du 29/10/2026 : 0,5 -> log-loss 0,6924 -> 0,6884 /
+    # 0,6703 -> 0,6676 / 0,6880 -> 0,6839 et sens du mouvement 81 -> 85 / 79 -> 83 / 71 -> 78 % (3/3), mais ROI
+    # de la regle a la cloture plus faible : gain de PRECISION (analyse), pas d'avantage de pari. 1,0 : moins bon.
+    "mkt_min_alpha":   0.5,
     "wowy_min":        0.3,
     "wowy_start":      3.0,
                                # (gain faible : le marche integre deja l'essentiel de l'effet adversaire)
@@ -581,3 +587,27 @@ def p_over(res, side, i, stat, line):
     on = res[side]["MIN"][:, i] > 0
     x = sum(res[side][k][:, i] for k in stat.split("+"))[on]
     return float((x > line).mean()) if len(x) else float("nan")
+
+
+def market_minutes(inp, res, pts_lines, alpha):
+    """Ajuste les minutes attendues d'apres les lignes de points du marche.
+    pts_lines : {player_id: (ligne, proba over sans marge)}. Renvoie True si un joueur a ete ajuste.
+    Points attendus par le marche ~ ligne + 0,5 + ecart-type simule x quantile normal de P(over)."""
+    from statistics import NormalDist
+    nd = NormalDist()
+    changed = False
+    for s in ("home", "away"):
+        for i, pl in enumerate(inp[s]["players"]):
+            m = pts_lines.get(pl["id"])
+            if not m: continue
+            on = res[s]["MIN"][:, i] > 0
+            if on.sum() < 200: continue
+            x = res[s]["PTS"][on, i]
+            mu, sd = float(x.mean()), max(float(x.std()), 1.0)
+            p = min(max(m[1], 0.03), 0.97)
+            mu_m = m[0] + 0.5 + sd * nd.inv_cdf(p)
+            if mu <= 0.5: continue
+            r = min(max(mu_m / mu, 0.6), 1.6)
+            pl["m_mu"] = pl["m_mu"] * r ** alpha
+            changed = True
+    return changed
