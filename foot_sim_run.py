@@ -24,6 +24,26 @@ from foot_sim import FootState, simulate, _ord, pos_group
 OUT_PATH = Path("data/foot_sim.json")
 CUR_SEASON = "2026/2027"
 LOG_SIMS = 3000
+ESPN_SLUG = {47: "eng.1", 87: "esp.1", 54: "ger.1", 55: "ita.1", 53: "fra.1", 42: "uefa.champions", 73: "uefa.europa"}
+_ESPN_CACHE = {}
+
+
+def espn_event(g):
+    """Identifiant ESPN du match (scores en direct dans le navigateur) : meme jour, noms d'equipes proches."""
+    import difflib
+    from nba_boxdb import _get
+    slug = ESPN_SLUG.get(g["league"])
+    day = g["ko"][:10].replace("-", "")
+    key = (slug, day)
+    if key not in _ESPN_CACHE:
+        _ESPN_CACHE[key] = (_get(f"https://site.api.espn.com/apis/site/v2/sports/soccer/{slug}/scoreboard?dates={day}") or {}).get("events") or []
+    sim = lambda a, b: difflib.SequenceMatcher(None, a.lower(), b.lower()).ratio()
+    best, score = None, 0.0
+    for e in _ESPN_CACHE[key]:
+        teams = {c.get("homeAway"): (c.get("team") or {}).get("displayName", "") for c in (e.get("competitions") or [{}])[0].get("competitors") or []}
+        sc = sim(teams.get("home", ""), g["home"]["name"]) + sim(teams.get("away", ""), g["away"]["name"])
+        if sc > score: best, score = e, sc
+    return {"slug": slug, "id": str(best["id"])} if best and score >= 1.0 else None
 LINEUP_TYPES = {"standard": "officielle", "simple": "officielle", "predicted": "probable",
                 "laststarting11": "dernier onze"}
 
@@ -99,12 +119,16 @@ def absence_impact(st, tid, unav, day, players_here):
 
 
 def typical_index(res):
-    """Le match type : resultat le plus probable, score le plus frequent de ce resultat, puis le
-    scenario dont l'xG est le plus proche de la moyenne (de preference sans carton rouge)."""
+    """Le match type : resultat le plus probable, score representatif de ce resultat (frequent ET proche
+    des buts attendus), puis le scenario dont l'xG est le plus proche de la moyenne (sans rouge de preference)."""
     H, A = res["home_goals"], res["away_goals"]
     sign = np.sign(H - A)
     k = max((1, 0, -1), key=lambda v: np.mean(sign == v))
-    best = Counter(zip(H[sign == k].tolist(), A[sign == k].tolist())).most_common(1)[0][0]
+    # Score representatif : frequence x proximite des buts attendus. Le score le plus frequent seul donnait
+    # presque toujours 1-0 (le mode d'une loi de Poisson est bas) meme pour 2,5-3 buts attendus (28/10).
+    eh, ea = H.mean(), A.mean()
+    cnt = Counter(zip(H[sign == k].tolist(), A[sign == k].tolist()))
+    best = max(cnt, key=lambda sc: cnt[sc] * np.exp(-((sc[0] - eh) ** 2 + (sc[1] - ea) ** 2)))
     h, a = H[:LOG_SIMS], A[:LOG_SIMS]
     cand = np.nonzero((h == best[0]) & (a == best[1]))[0]
     if not len(cand): cand = np.nonzero(np.sign(h - a) == k)[0]
@@ -159,7 +183,11 @@ def run_game(st, g, n_sims):
     hg, ag = res["home_goals"], res["away_goals"]
     tot = hg + ag
     cs = Counter(zip(hg.tolist(), ag.tolist()))
-    out = {"id": g["id"], "league": g["league"], "league_name": foot_db.LEAGUES[g["league"]], "ko": g["ko"],
+    try:
+        espn = espn_event(g)
+    except Exception:
+        espn = None
+    out = {"id": g["id"], "league": g["league"], "league_name": foot_db.LEAGUES[g["league"]], "ko": g["ko"], "espn": espn,
            "home": g["home"], "away": g["away"], "n_sims": n_sims,
            "sim_at": datetime.now(timezone.utc).isoformat(timespec="minutes"),
            "xg": [round(float(res["home_xg"].mean()), 2), round(float(res["away_xg"].mean()), 2)],

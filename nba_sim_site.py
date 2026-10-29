@@ -13,6 +13,7 @@ import json
 from datetime import datetime, timedelta, timezone
 
 from foot_analyse_site import SCRIPT as EB_SCRIPT
+import site_live
 
 try:
     from zoneinfo import ZoneInfo
@@ -99,7 +100,7 @@ def _item(g, gid, now, first):
     if g.get("events"):
         chips += f'<span class="eb-chip hl" title="Informations reçues depuis la première simulation"><em>Infos</em>{len(g["events"])}</span>'
     return (f'<button class="eb-item{" on" if first else ""}" data-id="{gid}" onclick="ebPick(\'nba\',\'{gid}\')">'
-            f'<div class="eb-item-top"><span>NBA</span><span>{_when(g.get("date", ""), now)}</span></div>'
+            f'<div class="eb-item-top"><span>NBA {site_live.badge("nba", "nba", g["gid"])}</span><span>{_when(g.get("date", ""), now)}</span></div>'
             f'<div class="eb-item-t">{_e(_nick(g["away"]))} @ {_e(_nick(g["home"]))}</div>'
             f'<div class="eb-chips">{chips}</div></button>')
 
@@ -115,6 +116,12 @@ def _kpi(label, p, sub=""):
     return (f'<div class="eb-card eb-kpi"><span class="eb-kpi-l">{label}</span>'
             f'<span class="eb-kpi-v">{_pct(p)}</span><span class="eb-bar"><i style="--w:{100 * p:.1f}%"></i></span>'
             + (f'<span class="eb-kpi-s">{sub}</span>' if sub else "") + '</div>')
+
+
+def _livecard(g):
+    """Carte « En direct » (scores ESPN dans le navigateur) avec l'avancement des selections du match."""
+    picks = [[p["id"], p["name"], p["stat"], p["pick"], p["line"]] for p in g.get("props") or [] if p.get("pick")]
+    return site_live.card("nba", "nba", g["gid"], picks)
 
 
 def _header(g, now):
@@ -390,10 +397,11 @@ def _pick_head():
     return "".join(f'<th class="eb-sort" onclick="ebSort(this)" title="Trier">{h}</th>' for h in cols) + "<th></th>"
 
 
-PICK_NOTE = ("Règle testée en aveugle sur 3 saisons de vraies cotes (ESPN BET 2025-26, DraftKings 2026-27) : "
-             "le simulateur annonce le sens du mouvement de la cote 3 fois sur 4. À la cote d’ouverture : "
-             "+10 à +20 % de rendement ; à la cote de clôture : −1 à −7 %. <b>L’avantage vient de prendre la cote tôt</b> : "
-             "si elle a déjà bougé dans le sens du pari (« ouv. »), il a en partie fondu. Mise fixe et modeste.")
+PICK_NOTE = ("Sélection = écart d’au moins 8 points entre le simulateur et le bookmaker sur les passes, paniers à 3 pts, "
+             "interceptions et contres. En historique, le bookmaker corrige souvent sa cote dans notre sens, mais l’avantage "
+             "mesuré « à l’ouverture » venait surtout de cotes d’ouverture aberrantes. <b>En réel</b> (suivi depuis le 27/10), "
+             "les cotes obtenues valent la clôture (CLV négative) : <b>pas d’avantage démontré à ce jour</b>. À lire comme une "
+             "analyse, pas comme un conseil de pari.")
 
 
 def _track(picks):
@@ -547,7 +555,7 @@ def _night_item(rep):
     chips = f'<span class="eb-chip"><em>Matchs</em>{rep["done"]}/{rep["total"]}</span>'
     if s["with_us"] is not None:
         chips += f'<span class="eb-chip"><em>Cotes</em>{100 * s["with_us"]:.0f} % pour nous</span>'
-    return (f'<button class="eb-item" data-id="bilan-{n}" onclick="ebPick(\'nba\',\'bilan-{n}\')">'
+    return (f'<button class="eb-item" data-id="bilan-{n}" onclick="ebPick(\'nbahist\',\'bilan-{n}\')">'
             f'<div class="eb-item-top"><span>Bilan</span><span>{JOURS[d.weekday()]} {d:%d/%m}</span></div>'
             f'<div class="eb-item-t">{title}</div><div class="eb-chips">{chips}</div></button>')
 
@@ -724,54 +732,70 @@ def _history(max_nights=10):
         return "", "", 0, ""
 
 
+def _picks_view(games, picks):
+    """Vue « Picks » : toutes les selections du simulateur, par match, avec leur argumentaire."""
+    from nba_bankroll import discipline, load as bk_load
+    now = datetime.now(TZ_PARIS)
+    blocks = ""
+    for g in games:
+        items = [p for p in g.get("props") or [] if p.get("pick")]
+        if not items: continue
+        blocks += (f'<div class="eb-card"><div class="eb-meta">NBA · {_when(g.get("date", ""), now)}</div>'
+                   f'<h3 class="eb-h">{_e(_nick(g["away"]))} @ {_e(_nick(g["home"]))} <small>{len(items)} sélection'
+                   f'{"s" if len(items) > 1 else ""} · cliquer une ligne pour l’argumentaire</small></h3>'
+                   f'<div class="eb-scroll"><table class="eb-tbl" data-all="1"><tr>{_pick_head()}</tr>{_pick_rows(items)}</table></div></div>')
+    mode, clv, n = discipline(bk_load())
+    state = (f'Suivi réel : <b>{n}</b> sélections réglées, CLV <b class="{"eb-acc" if clv >= 0 else "eb-neg"}">'
+             f'{100 * clv:+.1f} %</b>'.replace(".", ",").replace("-", "−")
+             + (" — en dessous de zéro, les cotes obtenues ne battent pas la clôture : pas d’avantage démontré." if clv < 0 else "."))
+    head = (f'<div class="eb-card"><h3 class="eb-h">Picks du simulateur</h3><p class="eb-note">{PICK_NOTE}</p>'
+            f'<p class="eb-note">{state} {_track(picks)}</p></div>')
+    return head + (blocks or '<div class="eb-card eb-empty">Aucune sélection pour l’instant : props pas encore publiées ou pas d’écart assez net.</div>')
+
+
 def build_nba_sim_section(sim=None):
     sim = sim if sim is not None else load_sim()
     games = sorted((sim or {}).get("games") or [], key=lambda g: g.get("date", ""))
     h_items, h_details, n_nights, banner = _history()
-    if not games and not n_nights:
-        return '<!--eb:start--><div class="eb"><div class="eb-card eb-empty">Aucune simulation NBA disponible.</div></div><!--eb:end-->'
     now = datetime.now(TZ_PARIS)
-    ids = [_e(g["gid"]) for g in games]
-    items = "".join(_item(g, gid, now, i == 0) for i, (g, gid) in enumerate(zip(games, ids)))
     picks = load_picks()
-    details = "".join(
-        f'<section class="eb-detail{" on" if i == 0 else ""}" data-id="{gid}">'
-        f'{_header(g, now)}{_selection(g, picks)}{_infos(g)}{_infobar(g)}{_kpis(g)}{_video(g, gid)}{_hist(g)}{_tabs(g, gid)}</section>'
-        for i, (g, gid) in enumerate(zip(games, ids)))
-    if not games:   # pas de match a venir : le bilan le plus recent est affiche
+    # Vue Simulation : matchs a venir + fiche
+    if games:
+        ids = [_e(g["gid"]) for g in games]
+        items = "".join(_item(g, gid, now, i == 0) for i, (g, gid) in enumerate(zip(games, ids)))
+        details = "".join(
+            f'<section class="eb-detail{" on" if i == 0 else ""}" data-id="{gid}">'
+            f'{_header(g, now)}{_livecard(g)}{_selection(g, picks)}{_infos(g)}{_infobar(g)}{_kpis(g)}{_video(g, gid)}{_hist(g)}{_tabs(g, gid)}</section>'
+            for i, (g, gid) in enumerate(zip(games, ids)))
+        sim_view = ('<div class="eb eb-view on" data-view="sim" data-eb="nba"><div class="eb-layout">'
+                    f'<aside class="eb-side">{banner}<div class="eb-label">Matchs NBA à venir · {len(games)}</div>'
+                    f'<div class="eb-list">{items}</div></aside><div class="eb-main">{details}</div></div></div>')
+    else:
+        sim_view = ('<div class="eb eb-view on" data-view="sim" data-eb="nba"><div class="eb-card eb-empty">Aucun match NBA à '
+                    'venir dans les 36 h.' + (f' <button class="eb-more" onclick="spNav(\'basket\',\'nbahist2\')">Voir l’historique</button>'
+                                               if n_nights else "") + '</div></div>')
+    # Vue Historique : bilan de chaque soiree
+    if n_nights:
         h_items = h_items.replace('class="eb-item"', 'class="eb-item on"', 1)
         h_details = h_details.replace('class="eb-detail"', 'class="eb-detail on"', 1)
-    # Deux onglets en tete de liste : matchs a venir / historique (bilan de chaque soiree)
-    up = bool(games)
-    tabs = (f'<div class="eb-sidetabs"><button class="{"on" if up else ""}" onclick="ebSide(this,\'up\')">'
-            f'À venir · {len(games)}</button><button class="{"" if up else "on"}" onclick="ebSide(this,\'hist\')">'
-            f'Historique · {n_nights}</button></div>') if h_items else ""
-    side = tabs + (f'<div class="eb-sidepane{" on" if up else ""}" data-pane="up">{banner}'
-                   f'<div class="eb-label">Matchs NBA à venir · {len(games)}</div><div class="eb-list">{items}</div></div>'
-                   if games else "")
-    if h_items:
-        side += (f'<div class="eb-sidepane{"" if up else " on"}" data-pane="hist">'
-                 f'<div class="eb-label">Bilan des soirées</div><div class="eb-list">{h_items}</div></div>')
+        hist_view = ('<div class="eb eb-view" data-view="hist" data-eb="nbahist"><div class="eb-layout">'
+                     f'<aside class="eb-side"><div class="eb-label">Bilan des soirées · {n_nights}</div><div class="eb-list">{h_items}</div></aside>'
+                     f'<div class="eb-main">{h_details}</div></div></div>')
+    else:
+        hist_view = (f'<div class="eb eb-view" data-view="hist" data-eb="nbahist">{h_items or ""}'
+                     '<div class="eb-card eb-empty">Premier bilan après les matchs.</div></div>')
+    picks_view = f'<div class="eb eb-view" data-view="picks" data-eb="nbapick">{_picks_view(games, picks)}</div>'
     return (f'<!--nba-sim:{_e((sim or {}).get("generated_at", ""))}-->'
-            '<!--eb:start--><div class="eb" data-eb="nba">' + '<div class="eb-layout">'
-            f'<aside class="eb-side">{side}</aside><div class="eb-main">{details}{h_details}</div></div></div>'
-            + EB_SCRIPT + PROPS_SCRIPT + SIDE_SCRIPT + _player_script() + '<!--eb:end-->')
+            f'<!--eb:start-->{sim_view}{picks_view}{hist_view}'
+            + EB_SCRIPT + PROPS_SCRIPT + SIDE_SCRIPT + site_live.LIVE_SCRIPT + _player_script() + '<!--eb:end-->')
 
 
 SIDE_SCRIPT = """<script>
 (function(){
-  if(window.ebSide)return;
-  window.ebSide=function(btn,pane){
-    var side=btn.closest('.eb-side');
-    side.querySelectorAll('.eb-sidetabs button').forEach(function(b){b.classList.toggle('on',b===btn);});
-    side.querySelectorAll('.eb-sidepane').forEach(function(p){p.classList.toggle('on',p.getAttribute('data-pane')===pane);});
-    var first=side.querySelector('.eb-sidepane.on .eb-item');
-    if(first&&!side.querySelector('.eb-sidepane.on .eb-item.on'))ebPick('nba',first.getAttribute('data-id'));
-  };
+  if(window.ebHist)return;
   window.ebHist=function(id){
-    var side=document.querySelector('[data-eb="nba"] .eb-side');if(!side)return;
-    var b=side.querySelectorAll('.eb-sidetabs button')[1];if(b)ebSide(b,'hist');
-    ebPick('nba',id);
+    if(window.spNav)spNav('basket','nbahist2');
+    if(window.ebPick)ebPick('nbahist',id);
   };
 })();
 </script>"""
@@ -804,7 +828,7 @@ LOADER_SCRIPT = """<script>
       .then(function(h){
         var m=/^<!--nba-sim:([^>]*)-->/.exec(h);if(!m||m[1]<=(wrap.getAttribute('data-v')||''))return;
         var on=wrap.querySelector('.eb-item.on'),id=on&&on.getAttribute('data-id');
-        wrap.innerHTML=h;wrap.setAttribute('data-v',m[1]);run(wrap);
+        wrap.innerHTML=h;wrap.setAttribute('data-v',m[1]);run(wrap);if(window.spReapply)spReapply();
         if(id&&wrap.querySelector('.eb-item[data-id="'+id+'"]')&&window.ebPick)ebPick('nba',id);
       }).catch(function(){});
   };

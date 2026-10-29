@@ -10,6 +10,7 @@ import json
 from datetime import datetime, timedelta, timezone
 
 from foot_analyse_site import SCRIPT as EB_SCRIPT
+import site_live
 
 try:
     from zoneinfo import ZoneInfo
@@ -33,6 +34,15 @@ def _back(txt):
     for a, b in _BACK:
         txt = txt.replace(a, b)
     return txt
+PICK_RULE_TXT = ""   # renseigne si un marche est valide sur deux saisons (foot_sim_run.FOOT_PICK)
+MOIS = ["janvier", "février", "mars", "avril", "mai", "juin", "juillet", "août", "septembre", "octobre", "novembre", "décembre"]
+JOURS_L = ["lundi", "mardi", "mercredi", "jeudi", "vendredi", "samedi", "dimanche"]
+
+
+def _n(x, d=2):
+    return f"{x:.{d}f}".replace(".", ",")
+
+
 BACKTEST_NOTE = ("Validé sur toute la saison 2025-26 de Premier League, Liga, Bundesliga et Serie A (~1 450 matchs), "
                  "chaque match simulé avec les seuls matchs précédents : sur les plus/moins 2,5 buts, le simulateur est "
                  "presque au niveau des cotes de clôture Pinnacle, la référence des parieurs (et meilleur en Serie A) ; "
@@ -65,11 +75,16 @@ def load_sim(path=SIM_PATH):
         return None
 
 
+def _badge(g):
+    e = g.get("espn") or {}
+    return site_live.badge("soccer", e.get("slug"), e.get("id"))
+
+
 def _item(g, gid, now, first):
     p = g["p"]
     chips = "".join(f'<span class="eb-chip"><em>{k}</em>{_pct(p[k])}</span>' for k in ("1", "X", "2"))
     return (f'<button class="eb-item{" on" if first else ""}" data-id="{gid}" onclick="ebPick(\'foot2\',\'{gid}\')">'
-            f'<div class="eb-item-top"><span>{_e(LIG.get(g["league"], g["league_name"]))}</span><span>{_when(g["ko"], now)}</span></div>'
+            f'<div class="eb-item-top"><span>{_e(LIG.get(g["league"], g["league_name"]))} {_badge(g)}</span><span>{_when(g["ko"], now)}</span></div>'
             f'<div class="eb-item-t">{_e(g["home"]["name"])} - {_e(g["away"]["name"])}</div>'
             f'<div class="eb-chips">{chips}</div></button>')
 
@@ -194,24 +209,113 @@ def _player_script():
         return ""
 
 
+def _livecard(g):
+    e = g.get("espn") or {}
+    return site_live.card("soccer", e.get("slug"), e.get("id"))
+
+
+PICKS_NOTE = ("Un pick foot n’est proposé que sur un marché où le simulateur a battu les cotes de clôture Pinnacle "
+              "<b>sur deux saisons séparées</b>. Testé le 29/10/2026 sur ~2 600 matchs du Top 5 : sur le 1X2, suivre le "
+              "simulateur contre le marché perd partout (−15 à −20 %) ; sur les plus/moins 2,5 buts, la Serie A semblait "
+              "gagnante en 2025-26 (+19 à +28 %) mais perd en 2025 (−3 à −12 %) : c’était du hasard. Aucun marché validé "
+              "à ce jour, donc aucun pick. Pas de pick vaut mieux qu’un mauvais pick.")
+
+
+def _picks_view(games):
+    now = datetime.now(TZ)
+    rows = ""
+    for g in games:
+        pk = g.get("pick")
+        if not pk: continue
+        rows += (f'<tr><td>{_when(g["ko"], now)}</td><td><b>{_e(g["home"]["name"])} - {_e(g["away"]["name"])}</b> '
+                 f'<span class="eb-dim">{_e(LIG.get(g["league"], ""))}</span></td>'
+                 f'<td><b>{_e(pk["label"])}</b></td><td class="n">{pk["dec"]:.2f}</td>'
+                 f'<td class="n">{_pct(pk["p_sim"])}</td><td class="n">{_pct(pk["p_mkt"])}</td>'
+                 f'<td class="n eb-acc">+{100 * (pk["p_sim"] - pk["p_mkt"]):.0f} pts</td></tr>')
+    table = (f'<div class="eb-scroll"><table class="eb-tbl"><tr><th>Coup d’envoi</th><th>Match</th><th>Pari</th><th>Cote</th>'
+             f'<th>Simu</th><th>Bookmaker</th><th>Écart</th></tr>{rows}</table></div>' if rows else
+             '<div class="eb-empty">Aucun pick foot : aucun match ne remplit la règle validée dans les 48 h. '
+             'C’est un choix, pas un oubli.</div>')
+    return (f'<div class="eb-card"><h3 class="eb-h">Picks foot</h3>{table}<p class="eb-note">{PICKS_NOTE}'
+            + (f' Règle en vigueur : {_e(PICK_RULE_TXT)}' if PICK_RULE_TXT else "") + '</p></div>')
+
+
+def _history_view():
+    import foot_sim_bilan as FB
+    h = FB.load()
+    ds = [d for d, (t, done) in FB.days(h).items() if done][:14]
+    if not ds:
+        return ('<div class="eb-card eb-empty">Premier bilan après les premiers matchs terminés : chaque match simulé est '
+                'archivé avant le coup d’envoi puis comparé au résultat.</div>')
+    items, details = "", ""
+    for i, d in enumerate(ds):
+        rep_ = FB.day_report(d, h)
+        sm = rep_["sum"]
+        dt = datetime.strptime(d, "%Y-%m-%d")
+        items += (f'<button class="eb-item{" on" if i == 0 else ""}" data-id="fday-{d}" onclick="ebPick(\'foothist\',\'fday-{d}\')">'
+                  f'<div class="eb-item-top"><span>Bilan</span><span>{JOURS[dt.weekday()]} {dt:%d/%m}</span></div>'
+                  f'<div class="eb-item-t">Favori trouvé {sm["hit"]}/{sm["n"]}</div>'
+                  f'<div class="eb-chips"><span class="eb-chip"><em>Proba du vrai résultat</em>{_pct(sm["p_true"])}</span></div></button>')
+        rows = ""
+        for g in rep_["games"]:
+            f = g.get("final")
+            fav = max(("1", "X", "2"), key=lambda k: g["p"][k])
+            res = None if not f else ("1" if f[0] > f[1] else ("X" if f[0] == f[1] else "2"))
+            tag = ('<span class="eb-tag">à venir</span>' if not f else
+                   f'<span class="eb-tag {"acc" if res == fav else "neg"}">{"trouvé" if res == fav else "raté"}</span>')
+            o25 = "" if not f else ("✓" if (g["p"]["o25"] >= 0.5) == (sum(f) > 2.5) else "✗")
+            rows += (f'<tr><td><b>{_e(g["home"])} - {_e(g["away"])}</b> <span class="eb-dim">{_e(LIG.get(g["league"], ""))}</span></td>'
+                     f'<td class="n">{_pct(g["p"]["1"])} / {_pct(g["p"]["X"])} / {_pct(g["p"]["2"])}</td>'
+                     f'<td class="n">{g["goals"][0]:.1f}-{g["goals"][1]:.1f}</td>'
+                     f'<td class="n">{"<b>" + str(f[0]) + "-" + str(f[1]) + "</b>" if f else "–"}</td>'
+                     f'<td class="n">{(str(g["xg"][0]) + "-" + str(g["xg"][1])) if g.get("xg") else "–"} → '
+                     f'{(str(g["xg_real"][0]) + "-" + str(g["xg_real"][1])) if g.get("xg_real") else "–"}</td>'
+                     f'<td class="n">{_pct(g["p"]["o25"])} {o25}</td><td>{tag}</td></tr>')
+        scor = [f'{_e(nm)} ({_pct(p)})' for g in rep_["games"] for nm, p in g.get("scorers") or []
+                if p >= 0.35 and nm in (g.get("goalscorers") or [])]
+        facts = (f'<ul class="eb-why-l"><li>Favori du simulateur trouvé <b>{sm["hit"]} fois sur {sm["n"]}</b> ; probabilité '
+                 f'moyenne donnée au vrai résultat <b>{_pct(sm["p_true"])}</b> (33 % = hasard).</li>'
+                 f'<li>Buts : <b>{_n(sm["goals_sim"])}</b> attendus par match, <b>{_n(sm["goals_real"])}</b> réels · xG '
+                 f'{_n(sm["xg_sim"])} attendus, {_n(sm["xg_real"])} réels.</li>'
+                 f'<li>Plus/moins 2,5 buts du bon côté : {sm["o_hit"]}/{sm["n"]}.</li>'
+                 + (f'<li>Buteurs annoncés (35 % et plus) qui ont marqué : {", ".join(scor)}.</li>' if scor else "")
+                 + '</ul>')
+        details += (f'<section class="eb-detail{" on" if i == 0 else ""}" data-id="fday-{d}">'
+                    f'<div class="eb-card"><div class="eb-meta">Bilan · {JOURS_L[dt.weekday()]} {dt.day} {MOIS[dt.month - 1]} · '
+                    f'{rep_["done"]}/{rep_["total"]} matchs terminés</div><h3 class="eb-h eb-bil-t">Ce que le simulateur avait prévu, ce qui s’est passé</h3>{facts}</div>'
+                    f'<div class="eb-card"><h3 class="eb-h">Matchs <small>1 / N / 2 simulés · buts attendus · score · xG attendus → réels · +2,5</small></h3>'
+                    f'<div class="eb-scroll"><table class="eb-tbl"><tr><th>Match</th><th>1 / N / 2</th><th>Buts att.</th><th>Score</th>'
+                    f'<th>xG</th><th>+2,5</th><th>Favori</th></tr>{rows}</table></div></div>'
+                    '<div class="eb-card"><h3 class="eb-h">Comment l’améliorer</h3><ul class="eb-why-l">'
+                    + "".join(f"<li>{_e(t)}</li>" for t in FB.insights(h)) + '</ul></div></section>')
+    return ('<div class="eb-layout">'
+            f'<aside class="eb-side"><div class="eb-label">Bilan des journées · {len(ds)}</div><div class="eb-list">{items}</div></aside>'
+            f'<div class="eb-main">{details}</div></div>')
+
+
 def build_foot_sim_section(sim=None):
     sim = sim if sim is not None else load_sim()
     games = sorted((sim or {}).get("games") or [], key=lambda g: g["ko"])
-    if not games:
-        return ('<!--eb:start--><div class="eb"><div class="eb-card eb-empty">Aucun match du Top 5 européen ou de coupe '
-                'd’Europe dans les 48 prochaines heures.</div></div><!--eb:end-->')
     now = datetime.now(TZ)
-    ids = [_e(g["id"]) for g in games]
-    items = "".join(_item(g, gid, now, i == 0) for i, (g, gid) in enumerate(zip(games, ids)))
-    details = "".join(
-        f'<section class="eb-detail{" on" if i == 0 else ""}" data-id="{gid}">{_header(g, now)}{_kpis(g)}{_video(g, gid)}'
-        f'{_crisis(g)}{_scorers(g)}{_scores(g)}{_markets(g)}'
-        + (f'<div class="eb-card"><p class="eb-note">{BACKTEST_NOTE}</p></div>' if BACKTEST_NOTE else "") + '</section>'
-        for i, (g, gid) in enumerate(zip(games, ids)))
+    if games:
+        ids = [_e(g["id"]) for g in games]
+        items = "".join(_item(g, gid, now, i == 0) for i, (g, gid) in enumerate(zip(games, ids)))
+        details = "".join(
+            f'<section class="eb-detail{" on" if i == 0 else ""}" data-id="{gid}">{_header(g, now)}{_livecard(g)}{_kpis(g)}{_video(g, gid)}'
+            f'{_crisis(g)}{_scorers(g)}{_scores(g)}{_markets(g)}'
+            + (f'<div class="eb-card"><p class="eb-note">{BACKTEST_NOTE}</p></div>' if BACKTEST_NOTE else "") + '</section>'
+            for i, (g, gid) in enumerate(zip(games, ids)))
+        sim_view = ('<div class="eb eb-view on" data-view="sim" data-eb="foot2"><div class="eb-layout">'
+                    f'<aside class="eb-side"><div class="eb-label">Matchs · {len(games)}</div><div class="eb-list">{items}</div></aside>'
+                    f'<div class="eb-main">{details}</div></div></div>')
+    else:
+        sim_view = ('<div class="eb eb-view on" data-view="sim" data-eb="foot2"><div class="eb-card eb-empty">Aucun match du '
+                    'Top 5 européen ou de coupe d’Europe dans les 48 prochaines heures.</div></div>')
+    picks_view = f'<div class="eb eb-view" data-view="picks" data-eb="footpick">{_picks_view(games)}</div>'
+    hist_view = f'<div class="eb eb-view" data-view="hist" data-eb="foothist">{_history_view()}</div>'
     from nba_sim_site import PROPS_SCRIPT
-    return ('<!--eb:start--><div class="eb" data-eb="foot2"><div class="eb-layout">'
-            f'<aside class="eb-side"><div class="eb-label">Matchs à venir · {len(games)}</div><div class="eb-list">{items}</div></aside>'
-            f'<div class="eb-main">{details}</div></div></div>' + EB_SCRIPT + PROPS_SCRIPT + _player_script() + '<!--eb:end-->')
+    return (f'<!--eb:start-->{sim_view}{picks_view}{hist_view}' + EB_SCRIPT + PROPS_SCRIPT + site_live.LIVE_SCRIPT
+            + _player_script() + '<!--eb:end-->')
 
 
 FRAGMENT = "foot_sim.html"
@@ -243,7 +347,7 @@ LOADER = """<script>
       .then(function(h){var m=/^<!--foot-sim:([^>]*)-->/.exec(h);
         if(!m||m[1]<=(wrap.getAttribute('data-v')||''))return;
         var on=wrap.querySelector('.eb-item.on'),id=on&&on.getAttribute('data-id');
-        wrap.innerHTML=h;wrap.setAttribute('data-v',m[1]);run(wrap);
+        wrap.innerHTML=h;wrap.setAttribute('data-v',m[1]);run(wrap);if(window.spReapply)spReapply();
         if(id&&wrap.querySelector('.eb-item[data-id="'+id+'"]')&&window.ebPick)ebPick('foot2',id);})
       .catch(function(){});
   };

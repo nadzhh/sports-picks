@@ -91,6 +91,11 @@ def _bet_row(b, open_):
 
 
 RULES = [
+    "<b>Discipline</b> : je juge l’avantage sur toutes les sélections du simulateur. Si les cotes obtenues ne battent "
+    "pas la clôture (CLV négative), les paris ordinaires s’arrêtent : je ne garde que les paris nés d’une "
+    "<b>information fraîche</b> (un joueur du match change de statut et je resimule avant que la cote bouge), "
+    "à demi-mise et 3 % du capital par soirée maximum. Écart de 20 points ou plus avec le bookmaker : jamais "
+    "(c’est presque toujours une info qui me manque).",
     "Je ne parie que là où un avantage est démontré : la sélection du simulateur (passes, paniers à 3 pts, "
     "interceptions, contres), validée en aveugle sur trois échantillons de vraies cotes, prise à la <b>première cote vue</b>.",
     "Je ne crois pas le simulateur sur parole : ma probabilité garde {lam} de son écart avec le bookmaker "
@@ -123,7 +128,7 @@ def build_bankroll_section(state=None):
              + _stat("Paris réglés", f'{w}-{len(done) - w}', f'ROI {_pct((eq - start) / stakes, True) if stakes else "–"} sur {_eur(stakes)} misés')
              + _stat("Pire baisse", _pct(dd), "depuis un plus haut"))
     md = state.get("mode") or {}
-    mode_txt = {"normal": "normal", "prudent": "prudent (mises divisées par 2)", "pause": "pause (plus de nouveaux paris)"}
+    mode_txt = {"normal": "normal", "prudent": "prudent (mises divisées par 2)", "pause": "info (paris ordinaires en pause)"}
     stats += _stat("Mode", mode_txt.get(md.get("mode"), "normal").split(" ")[0],
                    (f'CLV {_pct(md["clv"], True)} sur {md["n"]} sélections' if md.get("n") else "CLV mesurée dès les premiers paris"),
                    "eb-neg" if md.get("mode") in ("prudent", "pause") else "eb-acc")

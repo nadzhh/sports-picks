@@ -448,7 +448,9 @@ def update_picks(games, year):
                                 # probas du cote du pick (comme last_p_mkt)
                                 "first_p_sim": round(ps if side == "o" else 1 - ps, 4),
                                 "first_p_mkt": round(pm if side == "o" else 1 - pm, 4), "v": 2,
-                                "open_price": p["over_open"] if side == "o" else p["under_open"]}
+                                "open_price": p["over_open"] if side == "o" else p["under_open"],
+                                # declencheur de la simulation qui a fait naitre le pick (changements de statut...)
+                                "trigger": [e["txt"] for e in g.get("events") or [] if e.get("at") == g.get("sim_at")]}
     box = load_season(year)
     for k, r in picks.items():
         if r.get("result"): continue

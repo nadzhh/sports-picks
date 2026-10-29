@@ -29,13 +29,15 @@ import nba_bankroll_site as BS
 import foot_db
 import foot_sim_run as FR
 import foot_sim_site as FS
+import foot_sim_bilan as FB
 
 PUBLISHED = [FRAGMENT, R.OUT_PATH, str(R.PICKS_PATH), "data/nba_sim_history.json", BS.FRAGMENT, str(BK.BANK_PATH),
-             FS.FRAGMENT, str(FR.OUT_PATH)]
+             FS.FRAGMENT, str(FR.OUT_PATH), str(FB.HIST_PATH)]
 # Foot (Top 5 + coupes d'Europe) : base mise a jour par tranches (premiere constitution en plusieurs
 # passages), simulation toutes les 30 min, a chaque cycle quand un match approche (composition officielle)
 FOOT_SEASONS = ("2026/2027", "2025/2026")   # saison en cours d'abord
 FOOT_EVERY, FOOT_DB_BUDGET, FOOT_REFRESH = 30 * 60, 6 * 60, timedelta(hours=3)
+LIVE_KEEP, FOOT_LIVE_KEEP = timedelta(hours=4), timedelta(hours=3)   # suivi en direct apres le coup d'envoi
 HORIZON = timedelta(hours=36)
 FINAL_BEFORE = timedelta(minutes=35)
 REFRESH_AGE = timedelta(hours=3)
@@ -183,7 +185,8 @@ class Live:
                 ev = ev + [{"at": r["sim_at"], "txt": w} for w in whys[r["gid"]]]
             r["events"] = ev[-EVENTS_KEPT:]
         live = {g["gid"] for g in games}
-        keep = {gid: g for gid, g in prev.items() if gid in live}   # matchs commences : retires
+        # matchs commences : gardes 4 h apres le coup d'envoi pour le suivi en direct (score ESPN dans le navigateur)
+        keep = {gid: g for gid, g in prev.items() if gid in live or now - _t(g["date"]) < LIVE_KEEP}
         keep.update({r["gid"]: r for r in fresh})
         changed = bool(fresh) or new_results or set(keep) != set(prev)
         if changed:
@@ -269,14 +272,16 @@ class Live:
                 except Exception as e:
                     print(f"  [!] foot {g['id']} : {type(e).__name__}: {e}")
             live = {g["id"] for g in games}
-            keep = {gid: g for gid, g in prev.items() if gid in live}
+            keep = {gid: g for gid, g in prev.items() if gid in live or now - _t(g["ko"]) < FOOT_LIVE_KEEP}
             keep.update({r["id"]: r for r in fresh})
-            if not fresh and set(keep) == set(prev): return ""
+            FB.archive(fresh)                      # historique : derniere simulation d'avant-match
+            resolved = FB.resolve()                # et resultats des matchs termines
+            if not fresh and not resolved and set(keep) == set(prev): return ""
             FR.OUT_PATH.write_text(json.dumps({"generated_at": now.isoformat(timespec="seconds"),
                                                "games": sorted(keep.values(), key=lambda g: g["ko"])}, ensure_ascii=False),
                                    encoding="utf-8")
             FS.write_fragment()
-            print(f"  [foot] {len(fresh)} match(s) simule(s), {len(keep)} affiches, base +{added}")
+            print(f"  [foot] {len(fresh)} match(s) simule(s), {len(keep)} affiches, base +{added}, {resolved} resultat(s)")
             return f"{len(fresh)} match(s) foot simule(s)"
         except Exception as e:
             print(f"  [!] foot : {type(e).__name__}: {e}")

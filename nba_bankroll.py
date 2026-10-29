@@ -45,8 +45,15 @@ PRM = {
 UNCERTAIN = ("questionable", "doubtful", "day-to-day")
 # Discipline : la bankroll mesure sa propre CLV (cote prise vs derniere cote avant le match, suivi
 # data/nba_sim_picks.json). Sans avantage mesure, un bon parieur reduit puis arrete.
-PRUDENT = (30, 0.0)    # apres 30 paris regles, CLV moyenne < 0 -> mises divisees par 2
-PAUSE = (60, -0.02)    # apres 60 paris regles, CLV moyenne < -2 % -> plus de nouveaux paris
+PRUDENT = (30, 0.0)    # apres 30 selections reglees, CLV moyenne < 0 -> mises divisees par 2
+PAUSE = (60, -0.02)    # apres 60 selections reglees, CLV moyenne < -2 % -> plus de paris ordinaires
+# Jugee sur TOUTES les selections du simulateur (data/nba_sim_picks.json), pas sur les seuls paris de la
+# bankroll : 29/10/2026, 176 selections, CLV -4,6 % -> les cotes obtenues valent la cloture, pas d'avantage
+# demontre sur les paris ordinaires. Seule piste gardee, a petite mise et mesuree a part : les paris nes
+# d'une information fraiche (statut d'un joueur du match qui change, la veille resimule avant que la
+# cote bouge) — mode « info ».
+INFO_KELLY, INFO_NIGHT = 0.5, 0.03   # en mode info : 1/2 de la fraction de Kelly, 3 % du capital par soiree
+MAX_GAP = 0.20         # ecart simu / marche >= 20 pts : presque toujours une info manquante (5-10 en reel)
 CALIB_NOTE = ("Réglages testés le 28/10/2026 sur 3 échantillons de vraies cotes (oct-nov 2025, avr-juin 2026, "
               "début 2026-27), en rejouant exactement cette règle soirée après soirée : avec les cotes d’ouverture "
               "(scénario optimiste) 100 € deviennent 642 € / 264 € / 124 € ; avec les cotes de clôture (pessimiste) "
@@ -104,7 +111,7 @@ def plan(cands, eq, night_exposure, game_exposure, prm=PRM, taken=()):
     for c in cands:
         if c["key"] in taken: continue
         p, d, ev = leg_estimate(c, prm)
-        if d is None or ev < prm["min_ev"] or d > prm["max_odds"]: continue
+        if d is None or ev < prm["min_ev"] or d > prm["max_odds"] or abs(c["p_sim"] - c["p_mkt"]) >= MAX_GAP: continue
         if c.get("hold") is not None and not prm["hold"][0] <= c["hold"] <= prm["hold"][1]: continue
         rows.append((ev, p, d, c))
     rows.sort(key=lambda r: -r[0])
@@ -187,6 +194,8 @@ def candidates(games, now=None):
     from nba_sim_bilan import night_of
     out = []
     for g in games:
+        news = [e["txt"] for e in g.get("events") or [] if e.get("at") == g.get("sim_at") and "→" in e.get("txt", "")
+                and "Vegas" not in e["txt"]]   # changements de statut seulement (pas les mouvements de ligne)
         # Infos en suspens par equipe : rapport officiel pas encore rempli, coequipiers incertains
         pend = {}
         for side in ("home", "away"):
@@ -208,7 +217,7 @@ def candidates(games, now=None):
                         "team": g[p["side"]]["abbr"], "opp": g["away" if p["side"] == "home" else "home"]["abbr"],
                         "stat": p["stat"], "line": p["line"], "side": p["pick"], "am": p["over"] if o else p["under"],
                         "p_sim": ps if o else 1 - ps, "p_mkt": p["p_mkt"] if o else 1 - p["p_mkt"], "hold": hold,
-                        "pending": pending})
+                        "pending": pending, "news": news})
     return out
 
 
@@ -221,12 +230,9 @@ def discipline(state, picks=None):
         except (OSError, ValueError):
             picks = {}
     clv = []
-    for b in state["bets"]:
-        if b["status"] == "open": continue
-        for leg in b["legs"]:
-            r = picks.get(leg["key"])
-            if r and r.get("last_p_mkt") is not None:
-                clv.append(r["last_p_mkt"] * leg["dec"] - 1)
+    for r in picks.values():
+        if r.get("result") in ("win", "loss", "push") and r.get("last_p_mkt") is not None:
+            clv.append(r["last_p_mkt"] * _dec(r["first_price"]) - 1)
     n, m = len(clv), (sum(clv) / len(clv) if clv else 0.0)
     if n >= PAUSE[0] and m < PAUSE[1]: return "pause", m, n
     if n >= PRUDENT[0] and m < PRUDENT[1]: return "prudent", m, n
@@ -238,8 +244,9 @@ def decide(state, games):
     now = datetime.now(timezone.utc).isoformat(timespec="minutes")
     mode, clv, n_clv = discipline(state)
     state["mode"] = {"mode": mode, "clv": round(clv, 4), "n": n_clv}
-    if mode == "pause": return []
     cands = candidates(games)
+    if mode == "pause":   # seuls les paris nes d'une information fraiche, a petite mise
+        cands = [c for c in cands if c.get("news")]
     taken = {leg["key"] for b in state["bets"] for leg in b["legs"]}
     # Attente d'information : on retire (et on affiche) les selections dont le contexte n'est pas fixe
     t_now = datetime.now(timezone.utc)
@@ -270,13 +277,17 @@ def decide(state, games):
         for b in open_night:
             for leg in b["legs"]: gexp[leg["gid"]] = gexp.get(leg["gid"], 0.0) + b["stake"] / len(b["legs"])
         combo_done = any(b["kind"] == "combine" for b in open_night)
-        prm = dict(PRM, combo=PRM["combo"] and not combo_done,
-                   kelly=PRM["kelly"] / (2 if mode == "prudent" else 1))
+        prm = dict(PRM, combo=PRM["combo"] and not combo_done and mode != "pause",
+                   kelly=PRM["kelly"] * (INFO_KELLY if mode == "pause" else 0.5 if mode == "prudent" else 1))
+        if mode == "pause":
+            prm["max_night"] = INFO_NIGHT
         for bet in plan(cs, eq, nexp, gexp, prm, taken):
             if bet["stake"] > cash(state) - sum(x["stake"] for x in placed): continue
             for leg in bet["legs"]:
                 leg["dec"] = round(_dec(leg["am"]), 3)
-            bet.update(id=f'{night}-{len(state["bets"]) + len(placed) + 1}', night=night, placed_at=now, status="open")
+            bet.update(id=f'{night}-{len(state["bets"]) + len(placed) + 1}', night=night, placed_at=now, status="open",
+                       mode="info" if mode == "pause" else mode,
+                       news=sorted({n for leg in bet["legs"] for n in leg.get("news") or []}))
             placed.append(bet)
             taken |= {leg["key"] for leg in bet["legs"]}
             for leg in bet["legs"]: state["waiting"].pop(leg["key"], None)

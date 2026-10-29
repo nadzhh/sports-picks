@@ -258,6 +258,20 @@ footer{color:var(--di)!important;border-top:1px solid var(--line)!important;font
 .eb-why-l b{color:var(--tx)}
 .eb-why-l .eb-warn{color:var(--warn)}
 .eb-label.eb-label-2{margin-top:24px}
+.sp-legacy{display:none!important}
+.eb-live{font-family:var(--mono);font-size:11px;margin-left:6px;color:var(--mu)}
+.eb-live.in{color:var(--loss);font-weight:600}
+.eb-live.post{color:var(--di)}
+.eb-lv-score{font-size:20px;font-family:var(--mono)}
+.eb-lv-score b{color:var(--acc);margin:0 6px}
+.eb-lv-stats .eb-row{display:grid;grid-template-columns:1fr auto 1fr;text-align:center}
+.eb-lv-stats .eb-row span:first-child{text-align:left;font-family:var(--mono)}
+.eb-lv-stats .eb-row span:last-child{text-align:right}
+.eb-lv-m{color:var(--mu);font-size:13px}
+.eb-view{display:none}
+.eb-view.on{display:block}
+#sp-subnav{flex-wrap:wrap}
+#sp-subnav .sub-tg{padding:8px 14px}
 .eb-scg{display:grid;grid-template-columns:repeat(auto-fill,minmax(92px,1fr));gap:8px;margin-top:12px}
 .eb-sc{display:flex;flex-direction:column;gap:2px;background:var(--chip);border-radius:8px;padding:8px 10px;font-family:var(--mono)}
 .eb-sc b{font-size:17px;color:var(--tx)}

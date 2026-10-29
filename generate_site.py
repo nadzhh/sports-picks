@@ -5707,7 +5707,8 @@ def build_html(matches, team_ai, player_ai, pstats_data, nba_picks=None, nba_his
     except Exception as _e_foot:
         print(f"  [!] Analyse Foot v2 ignoree : {_e_foot}")
         foot_analyse_section_html = build_foot_analyse_section(matches or [])
-    bankroll_panel_compact_html = build_bankroll_panel(compact=True)
+    # Bandeau de l'ancienne bankroll manuelle : retire avec son menu le 29/10/2026 (seule la Bankroll IA reste)
+    bankroll_panel_compact_html = ""
     bankroll_panel_full_html    = build_bankroll_panel(compact=False)
     # Charge nba_box_scores ICI (avant la section historique) car build_nba_history_section
     # en a besoin. Sera reutilise plus bas pour l'embed window.NBA_BOX_SCORES.
@@ -6796,9 +6797,6 @@ def build_html(matches, team_ai, player_ai, pstats_data, nba_picks=None, nba_his
         <div class="acct-dd-sync" id="acct-dd-sync">✓ Synchronisé</div>
       </div>
     </div>
-    <button type="button" class="acct-dd-item" onclick="showSport('userpicks');_bkCloseAccountMenu()">
-      <span class="ic">💰</span><span>Ma bankroll</span>
-    </button>
     <button type="button" class="acct-dd-item danger" onclick="_bkSignOut();_bkCloseAccountMenu()">
       <span class="ic">🚪</span><span>Se déconnecter</span>
     </button>
@@ -6815,26 +6813,23 @@ def build_html(matches, team_ai, player_ai, pstats_data, nba_picks=None, nba_his
     <div style="font-size:11px;font-weight:500;color:#1e293b;margin-top:2px">Repere les badges 🆕 sur les cartes</div>
   </div>
   <!-- Sport switcher (4 menus : Picks | Analyse NBA | Bankroll | Historique) -->
-  <div class="sp-nav" style="display:flex;gap:10px;margin-bottom:14px;flex-wrap:wrap">
-    <button class="sport-btn active" onclick="showSport('picks')"     id="sport-btn-picks">📌 Picks</button>
-    <button class="sport-btn" onclick="showSport('pronos')"           id="sport-btn-pronos">🎯 Pronos <span style="background:#22c55e;color:#0a1628;border-radius:8px;padding:1px 5px;font-size:9px;margin-left:3px;font-weight:800">V1</span></button>
-    <button class="sport-btn" onclick="showSport('nbasim')"           id="sport-btn-nbasim">🎲 Simulation NBA</button>
-    <button class="sport-btn" onclick="showSport('iabank')"           id="sport-btn-iabank">🤖 Bankroll IA</button>
-    <button class="sport-btn" onclick="showSport('footsim')"          id="sport-btn-footsim">⚽ Simulation Foot</button>
-    <button class="sport-btn" onclick="showSport('analyse')"          id="sport-btn-analyse">🔍 Analyse NBA</button>
-    <button class="sport-btn" onclick="showSport('footanalyse')"      id="sport-btn-footanalyse">⚽ Analyse Foot</button>
-    <button class="sport-btn" onclick="showSport('userpicks')"        id="sport-btn-userpicks">💰 Bankroll <span id="userpicks-count" style="background:rgba(255,255,255,0.2);border-radius:10px;padding:1px 7px;font-size:11px;margin-left:4px;display:none">0</span></button>
-    <button class="sport-btn" onclick="showSport('history')"          id="sport-btn-history">🏆 Historique</button>
+  <div class="sp-nav" style="display:flex;gap:10px;margin-bottom:10px;flex-wrap:wrap">
+    <button class="sport-btn" onclick="spNav('foot')"   id="nav-foot">⚽ Foot</button>
+    <button class="sport-btn" onclick="spNav('basket')" id="nav-basket">🏀 Basket</button>
+    <button class="sport-btn" onclick="spNav('tennis')" id="nav-tennis">🎾 Tennis</button>
+    <button class="sport-btn" onclick="spNav('iabank')" id="nav-iabank">🤖 Bankroll IA</button>
   </div>
+  <!-- Sous-menus du menu choisi (spNav) -->
+  <div id="sp-subnav" class="sub-tg-bar" style="display:none;margin-bottom:14px"></div>
 
   <!-- Sub-toggle Picks (Football <-> Basketball NBA <-> Tennis) -->
-  <div id="picks-subtoggle" class="sub-tg-bar">
+  <div id="picks-subtoggle" class="sub-tg-bar sp-legacy">
     <button class="sub-tg active" onclick="showSubPicks('football')" id="sub-tg-picks-football">⚽ Football</button>
     <button class="sub-tg"        onclick="showSubPicks('nba')"      id="sub-tg-picks-nba">🏀 Basketball NBA</button>
     <button class="sub-tg"        onclick="showSubPicks('tennis')"   id="sub-tg-picks-tennis">🎾 Tennis</button>
   </div>
   <!-- Sub-toggle Historique (Foot <-> NBA <-> Tennis) -->
-  <div id="hist-subtoggle" class="sub-tg-bar" style="display:none">
+  <div id="hist-subtoggle" class="sub-tg-bar sp-legacy" style="display:none">
     <button class="sub-tg active" onclick="showSubHist('foot')"   id="sub-tg-hist-foot">⚽ Historique Foot</button>
     <button class="sub-tg"        onclick="showSubHist('nba')"    id="sub-tg-hist-nba">🏀 Historique NBA</button>
     <button class="sub-tg"        onclick="showSubHist('tennis')" id="sub-tg-hist-tennis">🎾 Historique Tennis</button>
@@ -7016,6 +7011,57 @@ function _setMainBtnActive(tab){{
   document.querySelectorAll('.sport-btn').forEach(function(b){{ b.classList.remove('active'); }});
   var btn = document.getElementById('sport-btn-' + tab);
   if(btn) btn.classList.add('active');
+}}
+
+// ── Navigation : menus Foot / Basket / Tennis / Bankroll IA et leurs sous-menus ──
+// Simulation, Picks et Historique de Foot et Basket sont des vues de la meme section (mise a jour en
+// direct par la veille : foot_sim.html / nba_sim.html).
+var SP_NAV = {{
+  foot:   [['footsim','Simulation'],['footanalyse','Analyse'],['footpicks','Picks'],['foothist2','Historique']],
+  basket: [['nbasim','Simulation'],['analyse','Analyse'],['nbapicks','Picks'],['nbahist2','Historique']],
+  tennis: [['tennis','Picks'],['tennishist','Historique']],
+  iabank: [['iabank','Bankroll IA']]
+}};
+var SP_VIEW = {{ footsim:['footsim','sim'], footpicks:['footsim','picks'], foothist2:['footsim','hist'],
+                nbasim:['nbasim','sim'], nbapicks:['nbasim','picks'], nbahist2:['nbasim','hist'] }};
+window._spMain = 'basket'; window._spSub = 'nbasim';
+function spNav(main, sub){{
+  var items = SP_NAV[main] || SP_NAV.basket;
+  if(!sub){{ try {{ var m = JSON.parse(localStorage.getItem('spNavLast') || '{{}}'); sub = m[main]; }} catch(e) {{}} }}
+  if(!sub || !items.some(function(it){{ return it[0] === sub; }})) sub = items[0][0];
+  window._spMain = main; window._spSub = sub;
+  var bar = document.getElementById('sp-subnav');
+  if(bar){{
+    bar.innerHTML = items.length > 1 ? items.map(function(it){{
+      return '<button class="sub-tg' + (it[0] === sub ? ' active' : '') + '" onclick="spNav(\\'' + main + '\\',\\'' + it[0] + '\\')">' + it[1] + '</button>';
+    }}).join('') : '';
+    bar.style.display = items.length > 1 ? 'flex' : 'none';
+  }}
+  spShow(sub);
+  // apres spShow : showSport (ancien code) retire la classe active de tous les boutons de menu
+  document.querySelectorAll('.sp-nav .sport-btn').forEach(function(b){{ b.classList.toggle('active', b.id === 'nav-' + main); }});
+  try {{
+    var m2 = JSON.parse(localStorage.getItem('spNavLast') || '{{}}'); m2[main] = sub; m2._main = main;
+    localStorage.setItem('spNavLast', JSON.stringify(m2));
+  }} catch(e) {{}}
+}}
+function spShow(sub){{
+  var v = SP_VIEW[sub];
+  showSport(v ? v[0] : sub);
+  if(v) ebView(v[0], v[1]);
+  document.querySelectorAll('.sp-legacy').forEach(function(el){{ el.style.display = 'none'; }});
+}}
+function ebView(sec, view){{
+  var root = document.getElementById('sport-' + sec); if(!root) return;
+  root.querySelectorAll('.eb-view').forEach(function(el){{ el.classList.toggle('on', el.getAttribute('data-view') === view); }});
+}}
+// Apres un rechargement de section (veille), on reaffiche la vue en cours
+window.spReapply = function(){{ var v = SP_VIEW[window._spSub]; if(v) ebView(v[0], v[1]); }};
+document.addEventListener('DOMContentLoaded', function(){{ spInit(); }});
+function spInit(){{
+  var main = 'basket';
+  try {{ var m = JSON.parse(localStorage.getItem('spNavLast') || '{{}}'); if(m._main && SP_NAV[m._main]) main = m._main; }} catch(e) {{}}
+  spNav(main);
 }}
 
 function showSport(sport){{
