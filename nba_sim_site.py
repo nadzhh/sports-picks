@@ -471,19 +471,64 @@ def _video(g, gid):
     if not rp:
         return ""
     h, a = g["home"], g["away"]
-    fin = rp["final"]
-    name = f'match-type-{a["abbr"]}-{h["abbr"]}-{(g.get("date") or "")[:10]}'
     n = f'{rp["n"]:,}'.replace(",", " ")
-    k = f'{rp["k"]:,}'.replace(",", " ")
+    scen = rp.get("scenarios") or [{"path": rp["path"], "final": rp["final"], "home_wins": rp["final"][0] > rp["final"][1],
+                                     "p": rp["p_home"] if rp["final"][0] > rp["final"][1] else 1 - rp["p_home"]}]
+    btns, lines = "", []
+    for i, sc in enumerate(scen):
+        win = h if sc["home_wins"] else a
+        fin = sc["final"]
+        name = f'match-{a["abbr"]}-{h["abbr"]}-{(g.get("date") or "")[:10]}-victoire-{win["abbr"]}'
+        btns += (f'<button class="eb-btn{" eb-btn-alt" if i else ""}" onclick="ebVideo(this,\'{_e(sc["path"])}\',\'{_e(name)}\')">'
+                 f'▶ Victoire {_e(_nick(win))} · {_pct(sc["p"], 0)}</button>')
+        q = sc.get("quarters") or []
+        qt = (" <span class=\"eb-dim\">(" + " · ".join(f"{x[1]}-{x[0]}" for x in q) + ")</span>") if q else ""
+        lines.append(f'{_e(_nick(a))} <b class="eb-acc">{fin[1]}-{fin[0]}</b> {_e(_nick(h))}{qt}')
     return ('<div class="eb-card eb-video">'
             '<div class="eb-video-head"><div>'
-            '<h3 class="eb-h eb-h-nomb">Le match type en vidéo <small>~3 min · condensé</small></h3>'
-            f'<div class="eb-meta">{n} matchs simulés possession par possession · simulation n° {k} · '
-            f'{_e(_nick(a))} <b class="eb-acc">{fin[1]}-{fin[0]}</b> {_e(_nick(h))}</div></div>'
-            f'<button class="eb-btn" onclick="ebVideo(this,\'{_e(rp["path"])}\',\'{_e(name)}\')">▶ Regarder</button></div>'
+            '<h3 class="eb-h eb-h-nomb">Le match en vidéo <small>~3 min · condensé · un scénario par vainqueur</small></h3>'
+            f'<div class="eb-meta">{n} matchs simulés possession par possession · ' + " / ".join(lines) + '</div></div>'
+            f'<div class="eb-video-btns">{btns}</div></div>'
             '<div class="eb-video-host"></div>'
-            '<p class="eb-note">Le vainqueur choisi par la majorité des simulations, un score proche de la médiane, '
-            'chaque joueur proche de sa moyenne. Bouton « Télécharger MP4 » sous la vidéo.</p></div>')
+            '<p class="eb-note">Un scénario par vainqueur possible, avec sa fréquence dans les simulations : un match '
+            'serré montre les deux issues, pas seulement celle du favori. Score par quart-temps entre parenthèses '
+            '(visiteur-domicile). Joueurs placés selon leurs zones de tir réelles, défense homme à homme, fautes et '
+            'lancers francs simulés (6 fautes = exclusion, joueur chargé de fautes mis au repos). '
+            'Bouton « Télécharger MP4 » sous la vidéo.</p></div>' + _keys(g))
+
+
+KEY_LOWER_BETTER = {"pertes de balle", "fautes"}
+
+
+def _keys(g):
+    """« Clés du match » : ce qui change entre les victoires de chaque equipe dans les simulations
+    possession par possession, et le duel statistique moyen (forces et faiblesses face a face)."""
+    ky = (g.get("replay") or {}).get("keys")
+    if not ky:
+        return ""
+    h, a = g["home"], g["away"]
+    nick = lambda side: _e(_nick(h if side == "home" else a))
+    fmt = lambda r, v: (_pct(v, 1) if r["key"] == "3P%" else _n(v))
+    sw = "".join(
+        f'<li><b>{nick(r["team"])}</b> · {_e(r["stat"])} : <b>{fmt(r, r["if_home"])}</b> quand {nick("home")} gagne, '
+        f'<b>{fmt(r, r["if_away"])}</b> quand {nick("away")} gagne</li>' for r in ky.get("swing") or [])
+    rows = ""
+    for r in ky.get("duel") or []:
+        if r["away"] is None:
+            rows += f'<tr><td>{_e(r["stat"])} par équipe</td><td class="n" colspan="2">{_n(r["home"])}</td></tr>'
+            continue
+        lower = r["stat"] in KEY_LOWER_BETTER
+        best_a = (r["away"] < r["home"]) if lower else (r["away"] > r["home"])
+        cls = lambda win: ' class="n eb-acc"' if win and abs(r["away"] - r["home"]) >= 0.05 * max(r["home"], r["away"], 1) else ' class="n"'
+        rows += f'<tr><td>{_e(r["stat"])}</td><td{cls(best_a)}>{_n(r["away"])}</td><td{cls(not best_a)}>{_n(r["home"])}</td></tr>'
+    return ('<div class="eb-card"><h3 class="eb-h">Clés du match <small>d’après les 5 000 matchs simulés possession par possession</small></h3>'
+            + (f'<div class="eb-meta">Ce qui décide du vainqueur</div><ul class="eb-inj-l">{sw}</ul>' if sw else "")
+            + f'<div class="eb-meta eb-ev-t">Forces et faiblesses face à face (moyennes par match, en vert l’avantage net)</div>'
+            f'<div class="eb-scroll"><table class="eb-tbl eb-keys"><tr><th></th><th class="n">{nick("away")}</th><th class="n">{nick("home")}</th></tr>{rows}</table></div>'
+            '<p class="eb-note">Chaque équipe y joue avec ses vraies forces : zones de tir et réussite de chaque joueur, '
+            'défense adverse par zone, rebond, pertes de balle, fautes provoquées et commises, lancers francs. Le score moyen '
+            'reste calé sur les cotes (elles prévoient mieux l’écart final que notre modèle seul : 11,2 contre 11,9 points '
+            'd’erreur sur 1 065 matchs de 2025-26), mais l’issue de chaque simulation dépend de ces duels.</p></div>')
 
 
 def _player_script():
@@ -498,13 +543,17 @@ def _player_script():
 
 VIDEO_SCRIPT = """<script>
 window.ebVideo=function(btn,path,name){
-  var host=btn.closest('.eb-video').querySelector('.eb-video-host');
-  if(host.getAttribute('data-ready'))return;
+  var card=btn.closest('.eb-video'),host=card.querySelector('.eb-video-host');
+  if(host.getAttribute('data-path')===path)return;
+  var label=btn.getAttribute('data-l')||btn.textContent;btn.setAttribute('data-l',label);
   btn.disabled=true;btn.textContent='Chargement…';
   fetch(path,{cache:'no-cache'}).then(function(r){if(!r.ok)throw new Error('HTTP '+r.status);return r.json();})
-    .then(function(d){host.setAttribute('data-ready','1');SPReplay.open(host,d,name);btn.classList.add('eb-off');
+    .then(function(d){
+      if(host._rp&&host._rp.stop)host._rp.stop();
+      host.setAttribute('data-path',path);host._rp=SPReplay.open(host,d,name);
+      card.querySelectorAll('.eb-video-btns .eb-btn').forEach(function(b){b.classList.toggle('on',b===btn);b.disabled=false;b.textContent=b.getAttribute('data-l')||b.textContent;});
       var p=host.querySelector('[data-a=play]');if(p)p.click();})
-    .catch(function(e){btn.disabled=false;btn.textContent='▶ Regarder';host.innerHTML='<p class="eb-note">Vidéo indisponible ('+e.message+').</p>';});
+    .catch(function(e){btn.disabled=false;btn.textContent=label;host.innerHTML='<p class="eb-note">Vidéo indisponible ('+e.message+').</p>';});
 };
 </script>"""
 

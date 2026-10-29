@@ -242,23 +242,66 @@ def _ml_prob(ml):
     return 100 / (ml + 100) if ml > 0 else -ml / (-ml + 100)
 
 
+REPLAY_V = 2          # version des videos (2 : scenarios par vainqueur, quarts-temps, fautes, placement)
+SCENARIO_MIN_P = 0.10   # 2e scenario (victoire de l'outsider) seulement s'il arrive dans 10 % des simulations
+KEY_STATS = [("3PM", "paniers à 3 pts"), ("3PA", "tirs à 3 pts tentés"), ("FTA", "lancers francs tentés"),
+             ("FTM", "lancers francs réussis"), ("OREB", "rebonds offensifs"), ("DREB", "rebonds défensifs"),
+             ("TO", "pertes de balle"), ("STL", "interceptions"), ("BLK", "contres"), ("PF", "fautes"), ("AST", "passes décisives")]
+
+
+def match_keys(res, meta):
+    """Clés du match d'apres les simulations possession par possession : le duel statistique moyen et,
+    pour chaque equipe, ce qui change entre ses victoires et ses defaites (ecart standardise)."""
+    box, nh = res["box"], res["n_home"]
+    sc = res["score"]
+    hw = sc[:, 0] > sc[:, 1]
+    T = [{k: box[k][:, :nh].sum(axis=1).astype(float) for k, _ in KEY_STATS},
+         {k: box[k][:, nh:].sum(axis=1).astype(float) for k, _ in KEY_STATS}]
+    for t in T:
+        t["3P%"] = np.where(t["3PA"] > 0, t["3PM"] / np.maximum(t["3PA"], 1), 0)
+    duel = [{"stat": lab, "home": round(float(T[0][k].mean()), 1), "away": round(float(T[1][k].mean()), 1)}
+            for k, lab in KEY_STATS if k not in ("FTM",)]
+    duel.insert(0, {"stat": "possessions", "home": round(float(res["n_poss"].mean() / 2), 1), "away": None})
+    # Ce qui decide du match : stats de chaque equipe dans les victoires de l'une et de l'autre
+    swing = []
+    if hw.sum() >= 50 and (~hw).sum() >= 50:
+        for side, t in (("home", T[0]), ("away", T[1])):
+            for k, lab in KEY_STATS + [("3P%", "réussite à 3 pts")]:
+                x = t[k]; sd = x.std()
+                if sd <= 0 or k in ("FTM",): continue
+                a, b = float(x[hw].mean()), float(x[~hw].mean())
+                swing.append({"team": side, "stat": lab, "key": k, "if_home": round(a, 3 if k == "3P%" else 1),
+                              "if_away": round(b, 3 if k == "3P%" else 1), "d": round((a - b) / sd, 3)})
+        swing.sort(key=lambda r: -abs(r["d"]))
+        swing = [r for r in swing if abs(r["d"]) >= 0.15][:6]
+    return {"duel": duel, "swing": swing, "p_home": round(float(hw.mean()), 4)}
+
+
 def run_replay(g, inp, lines, jerseys, profiles):
-    """5 000 matchs possession par possession -> deroule du match type (data/replays/<gid>.json)."""
+    """5 000 matchs possession par possession -> un match type par vainqueur possible
+    (data/replays/<gid>.json pour le plus probable, <gid>_b.json pour l'autre) + clés du match."""
     seed = int(g["gid"]) % (2 ** 31)
     res = poss_simulate(inp, profiles, n=REPLAY_SIMS, seed=seed)
-    k = pick_typical(res, inp)
     ph, pa = _ml_prob((lines or {}).get("home_ml")), _ml_prob((lines or {}).get("away_ml"))
     team = lambda t: {"abbr": t.get("abbreviation"), "name": t.get("displayName"), "short": t.get("name") or t.get("abbreviation"),
                       "color": t.get("color"), "alt": t.get("alternateColor")}
     meta = {"home": team(g["home"]), "away": team(g["away"]), "date": g["date"], "lines": lines,
             "books_p_home": round(ph / (ph + pa), 3) if ph and pa else None}
-    rp = build_replay(res, k, inp, profiles, jerseys, meta, seed=seed)
+    p_home = float((res["score"][:, 0] > res["score"][:, 1]).mean())
     REPLAY_DIR.mkdir(parents=True, exist_ok=True)
-    path = REPLAY_DIR / f"{g['gid']}.json"
-    path.write_text(json.dumps(rp, ensure_ascii=False, separators=(",", ":")), encoding="utf-8")
+    scen = []
+    for home_wins in sorted((True, False), key=lambda h: -(p_home if h else 1 - p_home)):
+        p = p_home if home_wins else 1 - p_home
+        if scen and p < SCENARIO_MIN_P: break
+        k = pick_typical(res, inp, home_wins=home_wins)
+        rp = build_replay(res, k, inp, profiles, jerseys, dict(meta, scenario={"home_wins": home_wins, "p": round(p, 4)}), seed=seed)
+        path = REPLAY_DIR / f"{g['gid']}{'_b' if scen else ''}.json"
+        path.write_text(json.dumps(rp, ensure_ascii=False, separators=(",", ":")), encoding="utf-8")
+        scen.append({"path": path.as_posix(), "final": rp["final"], "quarters": rp["quarters"], "k": rp["summary"]["k"],
+                     "home_wins": home_wins, "p": round(p, 4)})
     sm = rp["summary"]
-    return {"path": path.as_posix(), "final": rp["final"], "p_home": sm["p_home"], "avg": sm["avg"],
-            "p_over": sm["p_over"], "n": sm["n"], "k": sm["k"]}
+    return {"v": REPLAY_V, "path": scen[0]["path"], "final": scen[0]["final"], "p_home": sm["p_home"], "avg": sm["avg"],
+            "p_over": sm["p_over"], "n": sm["n"], "k": scen[0]["k"], "scenarios": scen, "keys": match_keys(res, meta)}
 
 
 def _clean_replays():

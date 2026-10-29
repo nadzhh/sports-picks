@@ -175,7 +175,7 @@ class Live:
             print(f"  -> {g['away'].get('abbreviation')} @ {g['home'].get('abbreviation')} : {' ; '.join(why)}")
         # Video du match type gardee si seuls les cotes / props ont change
         keep_rp = {g["gid"]: prev[g["gid"]]["replay"] for g, why in due
-                if prev.get(g["gid"], {}).get("replay") and not self._reroll(why)}
+                if (prev.get(g["gid"], {}).get("replay") or {}).get("v") == R.REPLAY_V and not self._reroll(why)}
         fresh = R.sim_games(self.st, [g for g, _ in due], self.n_sims, self.profiles, report, keep_rp) if due else []
         whys = {g["gid"]: why for g, why in due}
         for r in fresh:

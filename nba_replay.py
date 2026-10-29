@@ -58,6 +58,24 @@ def _clock(per, t, p_end):
     return round(rem, 1)
 
 
+def _spot(pr):
+    """Ou le joueur se place sans ballon, d'apres ses vrais tirs : [x 0-50 en largeur, y = profondeur
+    depuis le panier]. Interieur (cercle + raquette > 55 %) -> poste bas / « dunker spot » ; sinon la zone
+    exterieure ou il tire le plus (centre des tirs reels de cette zone)."""
+    if not pr: return None
+    z = pr.get("zones") or {}
+    w = {k: (z.get(k) or {}).get("w", 0) for k in ("RIM", "PAINT", "MID", "C3", "AB3")}
+    if w["RIM"] + w["PAINT"] >= 0.55:
+        pts = (z.get("RIM") or {}).get("xy") or (z.get("PAINT") or {}).get("xy") or []
+        side = sum(x for x, _ in pts) / len(pts) if pts else 25
+        return [17.0 if side < 25 else 33.0, 4.0]
+    best = max(("MID", "C3", "AB3"), key=lambda k: w[k])
+    pts = (z.get(best) or {}).get("xy") or []
+    if not pts: return list(ZONE_XY[best])
+    xs, ys = sorted(x for x, _ in pts), sorted(y for _, y in pts)
+    return [round(float(xs[len(xs) // 2]), 1), round(float(ys[len(ys) // 2]), 1)]
+
+
 def build_replay(res, k, inp, profiles, jerseys, meta, seed=0):
     """Deroule du match k. meta : {home:{abbr,name,color,alt}, away:{...}, date, lines, books_p_home}."""
     rng = np.random.default_rng(seed)
@@ -66,8 +84,10 @@ def build_replay(res, k, inp, profiles, jerseys, meta, seed=0):
     nh = res["n_home"]
     ids = teams[0].ids + teams[1].ids
     names = teams[0].names + teams[1].names
+    pos_of = {p["id"]: p.get("pos", "") for s_ in ("home", "away") for p in inp[s_]["players"]}
     players = [{"id": pid, "name": nm, "short": _last(nm), "num": str(jerseys.get(pid, "") or ""),
-                "team": 0 if j < nh else 1} for j, (pid, nm) in enumerate(zip(ids, names))]
+                "team": 0 if j < nh else 1, "pos": pos_of.get(pid, ""), "spot": _spot(profiles["players"].get(pid))}
+               for j, (pid, nm) in enumerate(zip(ids, names))]
     sc_all = res["score"].astype(float)
     mu = float((sc_all[:, 0] - sc_all[:, 1]).mean())
     sigma = float((sc_all[:, 0] - sc_all[:, 1]).std())
@@ -127,7 +147,10 @@ def build_replay(res, k, inp, profiles, jerseys, meta, seed=0):
             continue
         if kind == K_TO:
             to = int(L["to"][s, k]); stl = int(L["stl"][s, k])
-            if stl >= 0:
+            if bool(L["offf"][s, k]) if "offf" in L else False:
+                push({"k": "to", "p": to, "off": True, "txt": f"Faute offensive de {players[to]['short']} (passage en force)",
+                      "badge": "FAUTE OFF.", **poss}, t_end, per, p_end)
+            elif stl >= 0:
                 txt = f"{players[stl]['short']} intercepte le ballon de {players[to]['short']}"
                 push({"k": "to", "p": to, "stl": stl, "txt": txt, "badge": "INTERCEPTION", **poss}, t_end, per, p_end, prio=2)
             else:
@@ -191,6 +214,29 @@ def build_replay(res, k, inp, profiles, jerseys, meta, seed=0):
     events[-1]["c"] = 0.0
     events[-1]["wp"] = 1.0 if score[0] > score[1] else 0.0
 
+    pf = {}
+    for ev in events:
+        if ev["k"] == "foul" or (ev["k"] == "to" and ev.get("off")):
+            j = ev["p"]; pf[j] = pf.get(j, 0) + 1; ev["pf"] = pf[j]
+            if pf[j] >= 3: ev["txt"] += f" ({pf[j]}e faute)"
+            if pf[j] >= 6:
+                ev["txt"] += " : exclu !"; ev["badge"] = "EXCLU"; ev["pr"] = max(ev["pr"], 3)
+        elif ev["k"] == "sub":
+            tag = []
+            for j in ev["out"]:
+                n = pf.get(j, 0)
+                if n >= 6: tag.append(f"{players[j]['short']} exclu (6 fautes)")
+                elif n >= {1: 2, 2: 3, 3: 4}.get(ev["q"], 5) and (ev["q"] < 4 or ev["c"] > 300):
+                    tag.append(f"{players[j]['short']} sur le banc, chargé de fautes ({n})")
+            if tag:
+                ev["txt"] += " · " + ", ".join(tag); ev["pr"] = max(ev["pr"], 2)
+
+    # Score par quart-temps (et prolongations)
+    quarters, prev = [], [0, 0]
+    for ev in events:
+        if ev["k"] == "end":
+            quarters.append([ev["s"][0] - prev[0], ev["s"][1] - prev[1]]); prev = list(ev["s"])
+
     # Condense : actions marquantes + 2 dernieres minutes du QT4 et prolongations en entier
     for ev in events:
         late = ev["q"] >= 5 or (ev["q"] == 4 and ev["c"] <= 120)
@@ -211,6 +257,6 @@ def build_replay(res, k, inp, profiles, jerseys, meta, seed=0):
         "total_line": lines.get("total"), "p_over": round(float((hp + ap > lines["total"]).mean()), 4) if lines.get("total") else None,
         "books_p_home": meta.get("books_p_home"),
     }
-    return {"v": 1, "meta": {k2: meta[k2] for k2 in ("home", "away", "date") if k2 in meta},
+    return {"v": 2, "meta": {k2: meta[k2] for k2 in ("home", "away", "date", "scenario") if k2 in meta},
             "players": players, "starters": starters, "events": events, "summary": summary,
-            "final": [int(score[0]), int(score[1])]}
+            "quarters": quarters, "final": [int(score[0]), int(score[1])]}

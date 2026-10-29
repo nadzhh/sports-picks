@@ -175,13 +175,13 @@ class NBAState:
                     "2PA": pl["FGA"] - pl["3PA"], "2PM": pl["FGM"] - pl["3PM"],
                     "3PA": pl["3PA"], "3PM": pl["3PM"], "FTA": pl["FTA"], "FTM": pl["FTM"],
                     "OREB": pl["OREB"], "DREB": pl["DREB"], "AST": pl["AST"], "TO": pl["TO"],
-                    "STL": pl["STL"], "BLK": pl["BLK"],
+                    "STL": pl["STL"], "BLK": pl["BLK"], "PF": pl.get("PF") or 0,
                 }
                 self.player_hist[pl["id"]].append(rec)
                 self.player_info[pl["id"]] = {"name": pl["name"], "pos": pl.get("pos", ""), "team": side["id"]}
                 ps = self.pos_sums[pos_group(pl.get("pos"))]
                 for k in ("op", "or_opp", "dr_opp", "ast_opp", "2PA", "2PM", "3PA", "3PM", "FTA", "FTM",
-                          "OREB", "DREB", "AST", "TO", "STL", "BLK"):
+                          "OREB", "DREB", "AST", "TO", "STL", "BLK", "PF"):
                     ps[k] += rec[k]
 
     # ── Modele equipe ────────────────────────────────────────────────────────
@@ -270,6 +270,7 @@ class NBAState:
             "r2": ps["2PA"] / max(ps["op"], 1), "r3": ps["3PA"] / max(ps["op"], 1),
             "rft": ps["FTA"] / max(ps["op"], 1), "rto": ps["TO"] / max(ps["op"], 1),
             "rstl": ps["STL"] / max(ps["op"], 1), "rblk": ps["BLK"] / max(ps["op"], 1),
+            "rpf": ps["PF"] / max(ps["op"], 1),
             "p2": ps["2PM"] / max(ps["2PA"], 1), "p3": ps["3PM"] / max(ps["3PA"], 1),
             "pft": ps["FTM"] / max(ps["FTA"], 1),
             "s_or": ps["OREB"] / max(ps["or_opp"], 1), "s_dr": ps["DREB"] / max(ps["dr_opp"], 1),
@@ -300,6 +301,7 @@ class NBAState:
             "rto": (S("TO") + ku * prior["rto"]) / (op + ku),
             "rstl": (S("STL") + ku * prior["rstl"]) / (op + ku),
             "rblk": (S("BLK") + ku * prior["rblk"]) / (op + ku),
+            "rpf": (sum(w[i] * (r.get("PF") or 0) for i, r in enumerate(recent)) + ku * prior["rpf"]) / (op + ku) if nh else prior["rpf"],
             "p2": (S("2PM") + self.p["k_p2"] * prior["p2"]) / (S("2PA") + self.p["k_p2"]),
             "p3": (S("3PM") + self.p["k_p3"] * prior["p3"]) / (S("3PA") + self.p["k_p3"]),
             "pft": (S("FTM") + self.p["k_ft"] * prior["pft"]) / (S("FTA") + self.p["k_ft"]),
@@ -408,8 +410,10 @@ def _ridge(X, y, w, lam, free=1):
 def _side_arrays(team):
     ps = team["players"]
     g = lambda key: np.array([p[key] for p in ps], dtype=float)
-    return {k: g(k) for k in ("m_mu", "m_sd", "r2", "r3", "rft", "rto", "rstl", "rblk",
-                              "p2", "p3", "pft", "s_or", "s_dr", "s_ast", "starter_rate", "p_play")}
+    A = {k: g(k) for k in ("m_mu", "m_sd", "r2", "r3", "rft", "rto", "rstl", "rblk",
+                           "p2", "p3", "pft", "s_or", "s_dr", "s_ast", "starter_rate", "p_play")}
+    A["rpf"] = np.array([p.get("rpf", 0.04) for p in ps], dtype=float)   # fautes par possession (nba_poss_sim)
+    return A
 
 
 def _draw_minutes(rng, A, n, total, blow, pw=None):

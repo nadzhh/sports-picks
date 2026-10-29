@@ -19,6 +19,17 @@
     var a = '#' + (t.color || '94a3b8'), b = '#' + (t.alt || '94a3b8');
     return lum(a) >= 0.045 ? a : (lum(b) >= 0.045 ? b : '#94a3b8');
   }
+  function rgb(hex) { var h = hex.replace('#', ''); return [0, 2, 4].map(function (i) { return parseInt(h.substr(i, 2), 16); }); }
+  function cdist(a, b) { var x = rgb(a), y = rgb(b); return Math.hypot(x[0] - y[0], x[1] - y[1], x[2] - y[2]); }
+  function teamColors(home, away) {
+    // Deux couleurs proches (ex. Cavaliers et Hawks, rouge tous les deux) : l'equipe visiteuse passe a
+    // sa couleur secondaire, ou a un blanc casse, pour distinguer attaque et defense
+    var h = teamColor(home), a = teamColor(away);
+    if (cdist(h, a) >= 110) return [h, a];
+    var alt = '#' + (away.alt || '');
+    if (alt.length === 7 && lum(alt) >= 0.045 && cdist(h, alt) >= 110) return [h, alt];
+    return [h, '#e8ece9'];
+  }
   function fmtClock(c) { c = Math.max(0, c); if (c < 60) return c.toFixed(1); var m = Math.floor(c / 60), s = Math.floor(c % 60); return m + ':' + (s < 10 ? '0' : '') + s; }
   function pct(x, d) { return (100 * x).toFixed(d == null ? 1 : d).replace('.', ',') + ' %'; }
   function lerp(a, b, u) { return a + (b - a) * u; }
@@ -38,6 +49,7 @@
     var hl = ev.map(function (e, i) { return { i: i, score: (e.hl ? 1 : 0) * (10 + e.pr + (e.lc ? 5 : 0) + ((e.q === 4 && e.c <= 120) || e.q >= 5 ? 20 : 0)) }; })
       .filter(function (x) { return x.score > 0; }).sort(function (a, b) { return b.score - a.score; }).slice(0, 75);
     var keep = {}; hl.forEach(function (x) { keep[x.i] = true; });
+    ev.forEach(function (e, i) { if (e.k === 'end') keep[i] = true; });
     var t = DUR.intro, timeline = [];
     ev.forEach(function (e, i) {
       var g = gtime(e);
@@ -51,13 +63,15 @@
       if (e.k === 'to' && e.stl != null) B.STL[e.stl]++;
       if (e.k === 'foul') { B.PF[e.p]++; fouls[P[e.p].team]++; }
       var big = keep[i];
-      var d = !big ? (e.k === 'sub' ? 0.04 : 0.07) : (e.k === 'shot' ? 2.0 : e.k === 'end' ? 2.4 : (e.k === 'to' && e.stl != null) ? 1.6 : e.k === 'sub' ? 1.0 : 1.3);
+      var d = !big ? (e.k === 'sub' ? 0.04 : 0.07) : (e.k === 'shot' ? 2.0 : e.k === 'end' ? 3.6 : (e.k === 'to' && e.stl != null) ? 1.6 : e.k === 'sub' ? 1.0 : 1.3);
       timeline.push({ e: e, i: i, t0: t, d: d, big: !!big, g: g, box: box.map(function (a) { return a.slice(); }), on: Object.keys(on).map(Number), fouls: fouls.slice() });
       t += d;
     });
     var gameEnd = t;
-    return { data: data, tl: timeline, cols: cols, gameEnd: gameEnd, total: gameEnd + DUR.box + DUR.summary,
-             colors: [teamColor(data.meta.home), teamColor(data.meta.away)] };
+    var quarters = data.quarters;
+    if (!quarters) { quarters = []; var pv = [0, 0]; ev.forEach(function (e) { if (e.k === 'end') { quarters.push([e.s[0] - pv[0], e.s[1] - pv[1]]); pv = e.s; } }); }
+    return { data: data, tl: timeline, cols: cols, gameEnd: gameEnd, total: gameEnd + DUR.box + DUR.summary, quarters: quarters,
+             colors: teamColors(data.meta.home, data.meta.away) };
   }
 
   /* ── Terrain en perspective (pieds : longueur 94, largeur 50) ────────── */
@@ -109,21 +123,55 @@
   var OFF_SPOTS = [[4, 3], [22, 10], [29, 25], [22, 40], [4, 47]];
   function attackRight(team, q) { var firstHalf = q <= 2; return team === 0 ? firstHalf : !firstHalf; }
   function toCourt(team, q, dx, y) { return attackRight(team, q) ? [94 - dx, y] : [dx, y]; }
+  // Zones de jeu : [x en largeur 0-50, profondeur depuis le panier]
+  var ROLE_SPOTS = [[[25, 25], [9, 21], [41, 21]], [[3, 4], [47, 4], [12, 15], [38, 15]], [[17, 4], [33, 4], [25, 10]]];
+  var FREE = [[25, 25], [8, 21], [42, 21], [2, 4], [48, 4], [17, 4], [33, 4], [13, 14], [37, 14]];
+  function role(p) { var s = (p.pos || '').toUpperCase(); return s.indexOf('C') >= 0 ? 2 : s.indexOf('F') >= 0 ? 1 : 0; }
+  function dist(a, b) { return Math.hypot(a[0] - b[0], a[1] - b[1]); }
+  function byRole(P, list) { return list.slice().sort(function (a, b) { return role(P[a]) - role(P[b]) || a - b; }); }
+  function baseSpots(P, off) {
+    // Chaque attaquant a sa zone habituelle (nba_replay._spot : la ou il tire le plus) ; deux joueurs
+    // au meme endroit -> le second prend la place libre la plus proche (ecartement)
+    var used = [], out = {};
+    byRole(P, off).forEach(function (j) {
+      var r = ROLE_SPOTS[role(P[j])], sp = P[j].spot || r[j % r.length];
+      if (used.some(function (u) { return dist(u, sp) < 8; })) {
+        var cand = FREE.filter(function (f) { return used.every(function (u) { return dist(u, f) >= 8; }); });
+        if (cand.length) sp = cand.sort(function (a, b) { return dist(a, sp) - dist(b, sp); })[0];
+      }
+      used.push(sp); out[j] = sp;
+    });
+    return out;
+  }
   function formation(S, item) {
+    if (item.pos) return item.pos;
     var e = item.e, P = S.data.players, pos = {};
     var offT = e.team != null ? e.team : 0, q = e.q;
+    var at = function (x, d) { return toCourt(offT, q, 5.25 + d, x); };
     var off = item.on.filter(function (j) { return P[j].team === offT; }), def = item.on.filter(function (j) { return P[j].team !== offT; });
-    off.forEach(function (j, k) {
-      var sp = OFF_SPOTS[(k + item.i) % 5];
-      pos[j] = toCourt(offT, q, sp[0] + (rnd(item.i * 7 + k) - 0.5) * 3, sp[1] + (rnd(item.i * 11 + k) - 0.5) * 3);
+    var hoop = at(25, 0);
+    if (e.k === 'ft' && e.p != null) {
+      // Lancers francs : tireur sur la ligne, raquette alignee (defense au plus pres du cercle), deux joueurs a l'arriere
+      pos[e.p] = at(25, 13.75);
+      var LD = [[17, 7], [33, 7], [17, 13]], LO = [[33, 10], [17, 10]], BD = [[12, 30], [38, 30]], BO = [[25, 34], [6, 28], [44, 28]];
+      byRole(P, def).reverse().forEach(function (j, k) { var s2 = k < 3 ? LD[k] : BD[k - 3]; pos[j] = at(s2[0], s2[1]); });
+      byRole(P, off.filter(function (j) { return j !== e.p; })).reverse().forEach(function (j, k) { var s2 = k < 2 ? LO[k] : BO[k - 2]; pos[j] = at(s2[0], s2[1]); });
+      return (item.pos = pos);
+    }
+    var sp = baseSpots(P, off);
+    off.forEach(function (j) { pos[j] = at(sp[j][0], sp[j][1]); });
+    if (e.k === 'shot' && e.xy && pos[e.p]) pos[e.p] = at(e.xy[0], e.xy[1]);              // le vrai spot de tir
+    if (e.k === 'reb' && e.p != null && e.o && pos[e.p]) pos[e.p] = at(e.p % 2 ? 21 : 29, 3.5);   // rebond offensif
+    // Defense homme a homme : defenseurs et attaquants apparies par poste, entre leur joueur et le cercle
+    var D = byRole(P, def), O = byRole(P, off);
+    D.forEach(function (j, k) {
+      var man = O[k % Math.max(O.length, 1)], o = pos[man] || hoop;
+      var sag = (e.k === 'shot' && man === e.p) ? 0.12 : (sp[man] && sp[man][1] > 20 ? 0.22 : 0.3);   // plus pres du tireur
+      pos[j] = [lerp(o[0], hoop[0], sag), lerp(o[1], hoop[1], sag)];
     });
-    if (e.k === 'shot' && e.xy && pos[e.p]) pos[e.p] = toCourt(offT, q, 5.25 + e.xy[1], e.xy[0]);
-    var hoop = toCourt(offT, q, 5.25, 25);
-    def.forEach(function (j, k) {
-      var o = pos[off[k % off.length]] || hoop;
-      pos[j] = [lerp(o[0], hoop[0], 0.28) + (rnd(item.i * 13 + k) - 0.5) * 2, lerp(o[1], hoop[1], 0.28)];
-    });
-    return pos;
+    if (e.k === 'reb' && e.p != null && !e.o) pos[e.p] = at(e.p % 2 ? 22 : 28, 4.5);             // rebond defensif
+    if (e.k === 'to' && e.stl != null && pos[e.p]) pos[e.stl] = [pos[e.p][0] + 1.5, pos[e.p][1] + 1.2];
+    return (item.pos = pos);
   }
 
   /* ── Rendu d'une image ──────────────────────────────────────────────── */
@@ -147,6 +195,7 @@
     var mv = ease(Math.min(1, u / 0.45));
     var tokens = cur.on.map(function (j) {
       var a = pa[j] || pb[j], b = pb[j]; var x = lerp(a[0], b[0], mv), y = lerp(a[1], b[1], mv);
+      if (j !== cur.e.p && cur.e.k !== 'ft') { x += Math.sin(t * 1.1 + j * 2.3) * 0.9; y += Math.cos(t * 0.8 + j * 1.7) * 0.9; }
       return { j: j, X: x, Y: y };
     }).sort(function (a, b) { return a.Y - b.Y; });
     var e = cur.e;
@@ -165,6 +214,7 @@
     drawBox(S, ctx, cur, 1, 30, 'left');
     drawBox(S, ctx, cur, 0, W - 30, 'right');
     drawTicker(S, ctx, cur, u);
+    if (e.k === 'end' && idx < tl.length - 1) drawQuarters(S, ctx, 610, 300, e.q, e.s, Math.min(1, u / 0.15));
     ctx.fillStyle = C.di; ctx.font = '500 17px ' + MONO; ctx.textAlign = 'right'; ctx.textBaseline = 'alphabetic';
     ctx.fillText('Match simulé, pas une prédiction · simulation ' + fmtN(D.summary.k) + ' sur ' + fmtN(D.summary.n), W - 34, H - 18);
     ctx.textAlign = 'left'; ctx.fillStyle = C.tx; ctx.font = '700 24px ' + SANS; ctx.fillText('Sports', 34, H - 22);
@@ -183,9 +233,13 @@
     var s = proj(sp[0], sp[1]);
     var hoop = toCourt(e.team, e.q, 5.25, 25), h = proj(hoop[0], hoop[1]); var hx = h[0], hy = h[1] - 34;
     var f = (u - 0.42) / 0.33;
-    if (f < 0) drawBall(ctx, s[0] + 12, s[1] - 14, s[2]);
+    if (f < 0 && e.ast != null && pos[e.ast] && u < 0.3) {
+      var a0 = proj(pos[e.ast][0], pos[e.ast][1]), g0 = ease(u / 0.3);
+      drawBall(ctx, lerp(a0[0] + 12, s[0] + 12, g0), lerp(a0[1] - 14, s[1] - 14, g0) - Math.sin(Math.PI * g0) * 30, s[2]);
+    }
+    else if (f < 0) drawBall(ctx, s[0] + 12, s[1] - 14, s[2]);
     else if (f <= 1) {
-      var x = lerp(s[0], hx, f), y = lerp(s[1] - 14, hy, f) - Math.sin(Math.PI * f) * (170 + 4 * Math.abs(s[0] - hx) / 10);
+      var x = lerp(s[0], hx, f), y = lerp(s[1] - 14, hy, f) - Math.sin(Math.PI * f) * (110 + 2 * Math.abs(s[0] - hx) / 10);
       drawBall(ctx, x, y, lerp(s[2], 1, f));
     } else {
       var g2 = Math.min(1, (u - 0.75) / 0.25);
@@ -299,7 +353,7 @@
     if (txt !== e.txt) txt += '…';
     ctx.fillText(txt, tx, y + 37);
     if (e.badge && cur.big) {
-      var bad = ['CONTRE', 'INTERCEPTION'].indexOf(e.badge) >= 0;
+      var bad = ['CONTRE', 'INTERCEPTION', 'EXCLU', 'FAUTE OFF.'].indexOf(e.badge) >= 0;
       ctx.font = 'italic 800 24px ' + SANS; var bw = ctx.measureText(e.badge).width + 28;
       ctx.fillStyle = bad ? C.loss : C.acc; roundRect(ctx, x0 + w - bw - 16, y + 16, bw, 38, 6); ctx.fill();
       ctx.fillStyle = bad ? '#fff' : '#0b1208'; ctx.textAlign = 'center'; ctx.fillText(e.badge, x0 + w - 16 - bw / 2, y + 36);
@@ -312,8 +366,39 @@
     ctx.font = '600 22px ' + MONO; ctx.fillStyle = C.acc; ctx.fillText('MATCH TYPE · ' + fmtN(D.summary.n) + ' SIMULATIONS', 960, 380);
     ctx.font = '700 92px ' + SANS; ctx.fillStyle = C.tx; ctx.fillText((m.away.short || m.away.abbr) + '  @  ' + (m.home.short || m.home.abbr), 960, 480);
     ctx.font = '500 26px ' + SANS; ctx.fillStyle = C.mu;
-    ctx.fillText('Le vainqueur choisi par la majorité des simulations, un score proche de la médiane,', 960, 580);
-    ctx.fillText('chaque joueur proche de sa moyenne.', 960, 618);
+    var sc = m.scenario;
+    if (sc) {
+      var win = sc.home_wins ? m.home : m.away;
+      ctx.font = '700 34px ' + SANS; ctx.fillStyle = S.colors[sc.home_wins ? 0 : 1];
+      ctx.fillText('Scénario : victoire ' + (win.short || win.abbr) + ' · ' + pct(sc.p, 0) + ' des simulations', 960, 580);
+      ctx.font = '500 26px ' + SANS; ctx.fillStyle = C.mu;
+      ctx.fillText('Parmi ces simulations, celle au score le plus proche de leur médiane, chaque joueur proche de sa moyenne.', 960, 630);
+    } else {
+      ctx.fillText('Le vainqueur choisi par la majorité des simulations, un score proche de la médiane,', 960, 580);
+      ctx.fillText('chaque joueur proche de sa moyenne.', 960, 618);
+    }
+    ctx.globalAlpha = 1;
+  }
+  function drawQuarters(S, ctx, x0, y0, upto, total, alpha) {
+    var D = S.data, m = D.meta, Q = S.quarters.slice(0, upto), n = Q.length;
+    var cw = 92, w = 260 + cw * (n + 1), h = 190;
+    x0 = 960 - w / 2;
+    ctx.globalAlpha = alpha == null ? 1 : alpha;
+    ctx.fillStyle = 'rgba(10,13,11,0.94)'; roundRect(ctx, x0, y0, w, h, 16); ctx.fill(); ctx.strokeStyle = C.acc; ctx.lineWidth = 2; ctx.stroke();
+    ctx.textBaseline = 'middle'; ctx.font = '600 18px ' + MONO; ctx.fillStyle = C.di; ctx.textAlign = 'center';
+    Q.forEach(function (q, i) { ctx.fillText(i < 4 ? 'Q' + (i + 1) : 'P' + (i - 3), x0 + 240 + cw * i + cw / 2, y0 + 36); });
+    ctx.fillStyle = C.acc; ctx.fillText('TOTAL', x0 + 240 + cw * n + cw / 2, y0 + 36);
+    [[1, m.away], [0, m.home]].forEach(function (r, k) {
+      var y = y0 + 88 + k * 62, team = r[0];
+      ctx.fillStyle = S.colors[team]; ctx.fillRect(x0 + 24, y - 18, 6, 36);
+      ctx.textAlign = 'left'; ctx.fillStyle = C.tx; ctx.font = '700 30px ' + SANS; ctx.fillText(r[1].short || r[1].abbr, x0 + 44, y);
+      ctx.textAlign = 'center'; ctx.font = '600 30px ' + MONO;
+      Q.forEach(function (q, i) {
+        var mine = q[team], theirs = q[1 - team];
+        ctx.fillStyle = mine > theirs ? C.tx : C.mu; ctx.fillText(mine, x0 + 240 + cw * i + cw / 2, y);
+      });
+      ctx.fillStyle = C.tx; ctx.font = '800 32px ' + MONO; ctx.fillText(total[team], x0 + 240 + cw * n + cw / 2, y);
+    });
     ctx.globalAlpha = 1;
   }
   function drawFinalBox(S, ctx, t) {
@@ -341,6 +426,7 @@
         y += 40;
       });
     });
+    if (S.quarters.length) drawQuarters(S, ctx, 0, 800, S.quarters.length, D.final, al);
     ctx.textAlign = 'center'; ctx.fillStyle = C.di; ctx.font = '500 17px ' + MONO;
     ctx.fillText('Match simulé, pas un résultat réel · construit à partir du play-by-play 2025-27', 960, H - 30);
     ctx.globalAlpha = 1;
@@ -397,7 +483,8 @@
     });
     seek.addEventListener('input', function () { t = S.total * seek.value / 1000; render(); });
     (document.fonts ? document.fonts.ready : Promise.resolve()).then(render);
-    return { draw: function (tt) { draw(S, ctx, tt); }, total: S.total };
+    return { draw: function (tt) { draw(S, ctx, tt); }, total: S.total,
+             stop: function () { playing = false; cancelAnimationFrame(raf); } };
   }
 
   /* ── Export MP4 (WebCodecs + mp4-muxer), repli WebM temps reel ──────── */

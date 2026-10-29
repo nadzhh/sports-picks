@@ -169,6 +169,10 @@ footer{color:var(--di)!important;border-top:1px solid var(--line)!important;font
 .eb-h-nomb{margin-bottom:6px}
 .eb-video-head{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap}
 .eb-video-host:not(:empty){margin-top:16px}
+.eb-video-btns{display:flex;gap:8px;flex-wrap:wrap}
+.eb-btn.eb-btn-alt{background:var(--chip);color:var(--tx);border:1px solid var(--line)}
+.eb-video-btns .eb-btn.on{outline:2px solid var(--acc);outline-offset:2px}
+.eb-keys td:first-child{color:var(--mu)}
 .rp-cv{display:block;width:100%;height:auto;aspect-ratio:16/9;border-radius:10px;border:1px solid var(--line);background:var(--bg)}
 .rp-bar{display:flex;align-items:center;gap:10px;margin-top:10px;flex-wrap:wrap}
 .rp-b{background:var(--chip);color:var(--tx);border:1px solid var(--line2);border-radius:8px;padding:7px 12px;font:600 14px var(--sans);cursor:pointer;min-width:44px}

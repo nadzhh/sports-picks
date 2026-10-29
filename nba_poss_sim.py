@@ -33,11 +33,13 @@ CTX_DEAD, CTX_DREB, CTX_STEAL, CTX_OREB = 0, 1, 2, 3
 DUR_MEAN = np.array([15.5, 12.5, 7.5, 8.0])   # secondes par contexte (avant calage sur le rythme)
 P = {
     "steal_share": 0.52,      # part des pertes de balle sur interception
-    "ns_foul": 0.075,         # faute defensive non-tir par possession
+    "ns_foul": 0.10,          # faute defensive non-tir par possession (0,075 -> 16-18 fautes/equipe, reel ~20)
+    "off_foul": 0.35,         # part des pertes de balle sans interception qui sont des fautes offensives
     "ft3_share": 0.07,        # part des fautes sur tir a 3 pts
     "orb_ft": 0.13,           # rebond offensif apres lancer rate
     "trans_bonus": 1.10,      # reussite en transition apres interception
     "heave_pct": 0.04,
+    "foul_coach": 0.8,        # part des simulations ou l'entraineur sort un joueur charge de fautes
     "score_k": 0.006,         # effet d'ecart : -0,6 % d'adresse par point d'avance au-dela de 10 (2e mi-temps)
     "score_cap": 0.12,
     "garbage_margin": 20,     # QT4, 5 dernieres minutes : remplacants si l'ecart atteint 20 pts
@@ -127,7 +129,7 @@ def rotation(rng, team, n, stay_bonus=0.25):
         on[:] = False
         np.put_along_axis(on, top, True, axis=1)
         R -= on
-    return np.sort(lineup, axis=2)
+    return np.sort(lineup, axis=2), M
 
 
 def simulate(inp, profiles, n=5000, seed=0, log=True, calibrate=True):
@@ -161,7 +163,13 @@ def simulate(inp, profiles, n=5000, seed=0, log=True, calibrate=True):
 def _run(rng, teams, profiles, n, dur_scale, log=True):
     H, Aw = teams
     nh, na = H.n, Aw.n
-    lineups = [rotation(rng, H, n), rotation(rng, Aw, n) + nh]          # indices globaux
+    (lu0, M0), (lu1, M1) = rotation(rng, H, n), rotation(rng, Aw, n)
+    lineups = [lu0, lu1 + nh]                                            # indices globaux
+    # Remplacants possibles (fautes) : joueurs avec des minutes dans cette simulation, poids = leur
+    # occupation habituelle a chaque minute
+    avail = np.concatenate([M0, M1], axis=1) > 0.5                       # (n, Pt)
+    occ_all = np.concatenate([H.occ, Aw.occ])                            # (Pt, 48)
+    coach = rng.random((n, 2)) < P["foul_coach"]
     Pt = nh + na
     # « Garbage time » : les 5 joueurs aux plus petites minutes (non nulles) de chaque simulation
     garbage = []
@@ -181,7 +189,7 @@ def _run(rng, teams, profiles, n, dur_scale, log=True):
     # trop peu de tirs et de lancers, et les fins de banc trop
     gu, ga = H.usage_pow, H.ast_pow
     r_shot = (g("r2") + g("r3")) ** gu
-    r_to, r_ft, r_stl, r_blk = g("rto"), g("rft") ** gu, g("rstl"), g("rblk")
+    r_to, r_ft, r_stl, r_blk, r_pf = g("rto"), g("rft") ** gu, g("rstl"), g("rblk"), g("rpf")
     s_or, s_dr, s_ast, pft = g("s_or"), g("s_dr"), g("s_ast") ** ga, g("pft")
     mix = np.concatenate([H.mix, Aw.mix])
     pct = np.concatenate([H.pct, Aw.pct])
@@ -225,6 +233,29 @@ def _run(rng, teams, profiles, n, dur_scale, log=True):
         blowout = (period == 4) & (p_end - t <= 300) & (np.abs(score[:, 0] - score[:, 1]) >= P["garbage_margin"])
         lu_h = np.where(blowout[:, None], garbage[0], lu_h)
         lu_a = np.where(blowout[:, None], garbage[1], lu_a)
+        # Fautes : 6 = exclu ; charge de fautes (2 au 1er QT, 3 au 2e, 4 au 3e, 5 avant les 5 dernieres
+        # minutes) = sur le banc si l'entraineur est prudent
+        pf = box["PF"]
+        rem0 = p_end - t
+        lim = np.select([period == 1, period == 2, period == 3, (period == 4) & (rem0 > 300)], [2, 3, 4, 5], 6)
+        for k, lu in ((0, lu_h), (1, lu_a)):
+            pfl = pf[idx[:, None], lu]
+            bad = (pfl >= 6) | ((pfl >= lim[:, None]) & coach[:, k:k + 1] & ~blowout[:, None])
+            if not bad.any(): continue
+            own = (np.arange(Pt) >= nh) if k else (np.arange(Pt) < nh)
+            ok = avail & own[None, :] & (pf < np.where(coach[:, k], lim, 6)[:, None]) & (pf < 6)
+            w_all = occ_all[:, np.minimum(minute, 47)].T + 0.02                  # (n, Pt)
+            for sl in range(5):
+                need = bad[:, sl]
+                if not need.any(): continue
+                rows = idx[need]
+                w = np.where(ok[rows], w_all[rows], 0.0)
+                w[np.arange(len(rows))[:, None], lu[rows]] = 0.0                # deja sur le terrain
+                has = w.sum(axis=1) > 0
+                if not has.any(): continue
+                pick = _choose(rng, w[has])
+                lu[rows[has], sl] = pick
+        lu_h, lu_a = np.sort(lu_h, axis=1), np.sort(lu_a, axis=1)
         lu_off = np.where(off[:, None] == 0, lu_h, lu_a)
         lu_def = np.where(off[:, None] == 0, lu_a, lu_h)
         rem = p_end - t
@@ -258,10 +289,12 @@ def _run(rng, teams, profiles, n, dur_scale, log=True):
         stl_who = lu_def[idx, _choose(rng, w_on(r_stl, lu_def) + 1e-4)]
         add("TO", to_who, 1, is_to)
         add("STL", stl_who, 1, stl)
+        offf = is_to & ~stl & (rng.random(n) < P["off_foul"] * np.clip(r_pf[to_who] / 0.04, 0.5, 2.0))   # passage en force
+        add("PF", to_who, 1, offf)
 
         # Faute non-tir (peut mettre en bonus)
         nsf = live & (kind == K_SHOT) & (rng.random(n) < P["ns_foul"])
-        fouler = lu_def[idx, _choose(rng, np.ones((n, 5)) + w_on(r_blk, lu_def) * 20)]
+        fouler = lu_def[idx, _choose(rng, w_on(r_pf, lu_def) + 0.004)]   # selon le vrai taux de fautes
         add("PF", fouler, 1, nsf)
         tfouls[idx[nsf], 1 - off[nsf]] += 1
         bonus_lim = np.where((rem <= 120) & (period >= 1), 2, 5)
@@ -346,7 +379,7 @@ def _run(rng, teams, profiles, n, dur_scale, log=True):
                 "t": t.astype(np.float32).copy(), "d": d.astype(np.float32), "per": period.astype(np.int8).copy(),
                 "off": off.astype(np.int8).copy(), "kind": kind.astype(np.int8), "act": act.copy(),
                 "ctx": ctx.astype(np.int8).copy(),
-                "to": to_who.astype(np.int16), "stl": np.where(stl, stl_who, -1).astype(np.int16),
+                "to": to_who.astype(np.int16), "stl": np.where(stl, stl_who, -1).astype(np.int16), "offf": offf,
                 "nsf": np.where(nsf, fouler, -1).astype(np.int16), "fouler": fouler.astype(np.int16),
                 "sh": shooter.astype(np.int16), "zone": zone.astype(np.int8), "made": made, "heave": heave,
                 "blk": np.where(blocked, blocker, -1).astype(np.int16), "and1": and_one,
@@ -395,16 +428,19 @@ def _run(rng, teams, profiles, n, dur_scale, log=True):
     return out
 
 
-def pick_typical(res, inp):
-    """Le match « type » : vainqueur majoritaire, score proche de la mediane,
-    chaque joueur important proche de sa moyenne simulee."""
+def pick_typical(res, inp, home_wins=None):
+    """Le match « type » : score proche de la mediane, chaque joueur important proche de sa moyenne
+    simulee. home_wins : None = vainqueur majoritaire ; True / False = le match type PARMI les
+    simulations gagnees par cette equipe (scenario de chaque equipe, scores medians de ces simulations)."""
     sc = res["score"].astype(float)
     hw = sc[:, 0] > sc[:, 1]
-    major = hw.mean() >= 0.5
-    z = ((sc[:, 0] - np.median(sc[:, 0])) / sc[:, 0].std()) ** 2 + ((sc[:, 1] - np.median(sc[:, 1])) / sc[:, 1].std()) ** 2
-    # Candidats : vainqueur majoritaire, chaque score a +/- 3 pts de sa mediane (elargi si besoin)
+    major = (hw.mean() >= 0.5) if home_wins is None else bool(home_wins)
+    sub = sc[hw == major] if (hw == major).any() else sc
+    med = np.median(sub, axis=0)
+    z = ((sc[:, 0] - med[0]) / sc[:, 0].std()) ** 2 + ((sc[:, 1] - med[1]) / sc[:, 1].std()) ** 2
+    # Candidats : le bon vainqueur, chaque score a +/- 3 pts de sa mediane (elargi si besoin)
     for tol in (3, 5, 8, 99):
-        cand = (hw == major) & (np.abs(sc[:, 0] - np.median(sc[:, 0])) <= tol) & (np.abs(sc[:, 1] - np.median(sc[:, 1])) <= tol)
+        cand = (hw == major) & (np.abs(sc[:, 0] - med[0]) <= tol) & (np.abs(sc[:, 1] - med[1]) <= tol)
         if cand.sum() >= 20: break
     z = np.where(cand, z * 0.1, 1e6)
     z += np.where(res["n_ot"] > 0, 3, 0)
