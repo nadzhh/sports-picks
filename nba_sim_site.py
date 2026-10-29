@@ -480,19 +480,20 @@ def _video(g, gid):
         fin = sc["final"]
         name = f'match-{a["abbr"]}-{h["abbr"]}-{(g.get("date") or "")[:10]}-victoire-{win["abbr"]}'
         btns += (f'<button class="eb-btn{" eb-btn-alt" if i else ""}" onclick="ebVideo(this,\'{_e(sc["path"])}\',\'{_e(name)}\')">'
-                 f'▶ Victoire {_e(_nick(win))} · {_pct(sc["p"], 0)}</button>')
+                 f'▶ Regarder</button>')
         q = sc.get("quarters") or []
         qt = (" <span class=\"eb-dim\">(" + " · ".join(f"{x[1]}-{x[0]}" for x in q) + ")</span>") if q else ""
         lines.append(f'{_e(_nick(a))} <b class="eb-acc">{fin[1]}-{fin[0]}</b> {_e(_nick(h))}{qt}')
     return ('<div class="eb-card eb-video">'
             '<div class="eb-video-head"><div>'
-            '<h3 class="eb-h eb-h-nomb">Le match en vidéo <small>~3 min · condensé · un scénario par vainqueur</small></h3>'
-            f'<div class="eb-meta">{n} matchs simulés possession par possession · ' + " / ".join(lines) + '</div></div>'
+            '<h3 class="eb-h eb-h-nomb">Le match en vidéo <small>~3 min · condensé</small></h3>'
+            f'<div class="eb-meta">{n} matchs simulés possession par possession · match retenu : ' + " / ".join(lines) + '</div></div>'
             f'<div class="eb-video-btns">{btns}</div></div>'
             '<div class="eb-video-host"></div>'
-            '<p class="eb-note">Un scénario par vainqueur possible, avec sa fréquence dans les simulations : un match '
-            'serré montre les deux issues, pas seulement celle du favori. Score par quart-temps entre parenthèses '
-            '(visiteur-domicile). Joueurs placés selon leurs zones de tir réelles, défense homme à homme, fautes et '
+            '<p class="eb-note">' + (f'Vainqueur tiré au sort selon les simulations ({_e(_nick(h))} gagne dans {_pct(rp["p_home"], 0)} '
+            f'des cas, {_e(_nick(a))} dans {_pct(1 - rp["p_home"], 0)}) : l’outsider apparaît gagnant aussi souvent qu’il gagne '
+            'dans les simulations, puis le match le plus représentatif de ces victoires est montré. ' if rp.get("p_home") is not None else "")
+            + 'Score par quart-temps entre parenthèses (visiteur-domicile). Joueurs placés selon leurs zones de tir réelles, défense homme à homme, fautes et '
             'lancers francs simulés (6 fautes = exclusion, joueur chargé de fautes mis au repos). '
             'Bouton « Télécharger MP4 » sous la vidéo.</p></div>' + _keys(g))
 
