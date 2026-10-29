@@ -683,15 +683,15 @@
           "choices": [
             {
               "name": "1",
-              "fractionalValue": "0.6900"
+              "fractionalValue": "0.7100"
             },
             {
               "name": "X",
-              "fractionalValue": "3.1000"
+              "fractionalValue": "3.0000"
             },
             {
               "name": "2",
-              "fractionalValue": "3.2000"
+              "fractionalValue": "3.1000"
             }
           ]
         },
@@ -709,7 +709,7 @@
             },
             {
               "name": "X2",
-              "fractionalValue": "1.0700"
+              "fractionalValue": "1.0200"
             }
           ]
         },
@@ -719,7 +719,7 @@
           "choices": [
             {
               "name": "Over",
-              "fractionalValue": "0.9500"
+              "fractionalValue": "1.0000"
             },
             {
               "name": "Under",
@@ -987,11 +987,11 @@
             },
             {
               "name": "X",
-              "fractionalValue": "2.5000"
+              "fractionalValue": "2.6000"
             },
             {
               "name": "2",
-              "fractionalValue": "1.8500"
+              "fractionalValue": "1.8000"
             }
           ]
         },
@@ -1001,11 +1001,11 @@
           "choices": [
             {
               "name": "1X",
-              "fractionalValue": "0.3700"
+              "fractionalValue": "0.3800"
             },
             {
               "name": "12",
-              "fractionalValue": "0.2600"
+              "fractionalValue": "0.2500"
             },
             {
               "name": "X2",
@@ -1015,15 +1015,15 @@
         },
         {
           "marketName": "Match goals",
-          "choiceGroup": "2.5",
+          "choiceGroup": "3.5",
           "choices": [
             {
               "name": "Over",
-              "fractionalValue": "0.5700"
+              "fractionalValue": "1.1000"
             },
             {
               "name": "Under",
-              "fractionalValue": "1.3500"
+              "fractionalValue": "0.7100"
             }
           ]
         }
@@ -2613,7 +2613,49 @@
         "l5_goals_n": 5
       }
     },
-    "match_odds": null,
+    "match_odds": {
+      "markets": [
+        {
+          "marketName": "Full time",
+          "choices": [
+            {
+              "name": "Atlético Baleares",
+              "side": "home",
+              "cote": 3.6,
+              "book": "draftkings"
+            },
+            {
+              "name": "Draw",
+              "side": "draw",
+              "cote": 3.5,
+              "book": "draftkings"
+            },
+            {
+              "name": "Eldense",
+              "side": "away",
+              "cote": 2.05,
+              "book": "draftkings"
+            }
+          ]
+        },
+        {
+          "marketName": "Goals Over/Under (2.5)",
+          "choices": [
+            {
+              "name": "Over 2.5",
+              "cote": 1.95,
+              "book": "draftkings"
+            },
+            {
+              "name": "Under 2.5",
+              "cote": 1.83,
+              "book": "draftkings"
+            }
+          ]
+        }
+      ],
+      "_source": "espn"
+    },
     "lineups_home": null,
     "lineups_away": null,
     "team_streaks": null,
@@ -2686,7 +2728,58 @@
       "top_buteurs_away": [],
       "top_passeurs_home": [],
       "top_passeurs_away": [],
-      "value_bets": []
+      "value_bets": [
+        {
+          "marche": "Atlético Baleares gagne (1X2)",
+          "cote": 3.6,
+          "book": "draftkings",
+          "p_ligue": 45,
+          "p_modele": 40,
+          "p_form": 42,
+          "p_avg": 42,
+          "value": 152.1
+        },
+        {
+          "marche": "Plus de 2.5 buts",
+          "cote": 1.95,
+          "book": "draftkings",
+          "p_ligue": 50,
+          "p_modele": 60,
+          "p_form": 60,
+          "p_avg": 57,
+          "value": 110.3
+        },
+        {
+          "marche": "Match nul (1X2)",
+          "cote": 3.5,
+          "book": "draftkings",
+          "p_ligue": 27,
+          "p_modele": 24,
+          "p_form": 30,
+          "p_avg": 27,
+          "value": 94.3
+        },
+        {
+          "marche": "Moins de 2.5 buts",
+          "cote": 1.83,
+          "book": "draftkings",
+          "p_ligue": 50,
+          "p_modele": 40,
+          "p_form": 40,
+          "p_avg": 43,
+          "value": 79.4
+        },
+        {
+          "marche": "Eldense gagne (1X2)",
+          "cote": 2.05,
+          "book": "draftkings",
+          "p_ligue": 28,
+          "p_modele": 36,
+          "p_form": 28,
+          "p_avg": 31,
+          "value": 63.2
+        }
+      ]
     },
     "home_season_stats": {
       "overall": {
@@ -3414,7 +3507,49 @@
         "l5_goals_n": 5
       }
     },
-    "match_odds": null,
+    "match_odds": {
+      "markets": [
+        {
+          "marketName": "Full time",
+          "choices": [
+            {
+              "name": "San Sebastián de los Reyes",
+              "side": "home",
+              "cote": 2.15,
+              "book": "draftkings"
+            },
+            {
+              "name": "Draw",
+              "side": "draw",
+              "cote": 3.45,
+              "book": "draftkings"
+            },
+            {
+              "name": "Coria",
+              "side": "away",
+              "cote": 3.4,
+              "book": "draftkings"
+            }
+          ]
+        },
+        {
+          "marketName": "Goals Over/Under (2.5)",
+          "choices": [
+            {
+              "name": "Over 2.5",
+              "cote": 1.95,
+              "book": "draftkings"
+            },
+            {
+              "name": "Under 2.5",
+              "cote": 1.8,
+              "book": "draftkings"
+            }
+          ]
+        }
+      ],
+      "_source": "espn"
+    },
     "lineups_home": null,
     "lineups_away": null,
     "team_streaks": null,
@@ -3487,7 +3622,58 @@
       "top_buteurs_away": [],
       "top_passeurs_home": [],
       "top_passeurs_away": [],
-      "value_bets": []
+      "value_bets": [
+        {
+          "marche": "Plus de 2.5 buts",
+          "cote": 1.95,
+          "book": "draftkings",
+          "p_ligue": 50,
+          "p_modele": 60,
+          "p_form": 60,
+          "p_avg": 57,
+          "value": 110.3
+        },
+        {
+          "marche": "San Sebastian de los Reyes gagne (1X2)",
+          "cote": 2.15,
+          "book": "draftkings",
+          "p_ligue": 45,
+          "p_modele": 49,
+          "p_form": 48,
+          "p_avg": 47,
+          "value": 101.5
+        },
+        {
+          "marche": "Match nul (1X2)",
+          "cote": 3.45,
+          "book": "draftkings",
+          "p_ligue": 27,
+          "p_modele": 23,
+          "p_form": 30,
+          "p_avg": 27,
+          "value": 92.1
+        },
+        {
+          "marche": "CD Coria gagne (1X2)",
+          "cote": 3.4,
+          "book": "draftkings",
+          "p_ligue": 28,
+          "p_modele": 28,
+          "p_form": 22,
+          "p_avg": 26,
+          "value": 88.7
+        },
+        {
+          "marche": "Moins de 2.5 buts",
+          "cote": 1.8,
+          "book": "draftkings",
+          "p_ligue": 50,
+          "p_modele": 40,
+          "p_form": 40,
+          "p_avg": 43,
+          "value": 78.1
+        }
+      ]
     },
     "home_season_stats": {
       "overall": {
@@ -3642,7 +3828,49 @@
         "l5_goals_n": 5
       }
     },
-    "match_odds": null,
+    "match_odds": {
+      "markets": [
+        {
+          "marketName": "Full time",
+          "choices": [
+            {
+              "name": "UB Lebrijana",
+              "side": "home",
+              "cote": 66.0,
+              "book": "draftkings"
+            },
+            {
+              "name": "Draw",
+              "side": "draw",
+              "cote": 18.0,
+              "book": "draftkings"
+            },
+            {
+              "name": "Getafe",
+              "side": "away",
+              "cote": 1.02,
+              "book": "draftkings"
+            }
+          ]
+        },
+        {
+          "marketName": "Goals Over/Under (4.5)",
+          "choices": [
+            {
+              "name": "Over 4.5",
+              "cote": 2.15,
+              "book": "draftkings"
+            },
+            {
+              "name": "Under 4.5",
+              "cote": 1.69,
+              "book": "draftkings"
+            }
+          ]
+        }
+      ],
+      "_source": "espn"
+    },
     "lineups_home": null,
     "lineups_away": null,
     "team_streaks": null
@@ -3969,7 +4197,49 @@
         "l5_goals_n": 5
       }
     },
-    "match_odds": null,
+    "match_odds": {
+      "markets": [
+        {
+          "marketName": "Full time",
+          "choices": [
+            {
+              "name": "Antequera CF",
+              "side": "home",
+              "cote": 2.25,
+              "book": "draftkings"
+            },
+            {
+              "name": "Draw",
+              "side": "draw",
+              "cote": 3.5,
+              "book": "draftkings"
+            },
+            {
+              "name": "Aguilas",
+              "side": "away",
+              "cote": 3.1,
+              "book": "draftkings"
+            }
+          ]
+        },
+        {
+          "marketName": "Goals Over/Under (2.5)",
+          "choices": [
+            {
+              "name": "Over 2.5",
+              "cote": 2.0,
+              "book": "draftkings"
+            },
+            {
+              "name": "Under 2.5",
+              "cote": 1.77,
+              "book": "draftkings"
+            }
+          ]
+        }
+      ],
+      "_source": "espn"
+    },
     "lineups_home": null,
     "lineups_away": null,
     "team_streaks": null,
@@ -4042,7 +4312,58 @@
       "top_buteurs_away": [],
       "top_passeurs_home": [],
       "top_passeurs_away": [],
-      "value_bets": []
+      "value_bets": [
+        {
+          "marche": "Plus de 2.5 buts",
+          "cote": 2.0,
+          "book": "draftkings",
+          "p_ligue": 50,
+          "p_modele": 58,
+          "p_form": 58,
+          "p_avg": 55,
+          "value": 110.2
+        },
+        {
+          "marche": "Antequera gagne (1X2)",
+          "cote": 2.25,
+          "book": "draftkings",
+          "p_ligue": 45,
+          "p_modele": 51,
+          "p_form": 49,
+          "p_avg": 48,
+          "value": 109.1
+        },
+        {
+          "marche": "Match nul (1X2)",
+          "cote": 3.5,
+          "book": "draftkings",
+          "p_ligue": 27,
+          "p_modele": 23,
+          "p_form": 30,
+          "p_avg": 27,
+          "value": 93.5
+        },
+        {
+          "marche": "Moins de 2.5 buts",
+          "cote": 1.77,
+          "book": "draftkings",
+          "p_ligue": 50,
+          "p_modele": 42,
+          "p_form": 42,
+          "p_avg": 45,
+          "value": 79.4
+        },
+        {
+          "marche": "CDA Águilas FC gagne (1X2)",
+          "cote": 3.1,
+          "book": "draftkings",
+          "p_ligue": 28,
+          "p_modele": 25,
+          "p_form": 21,
+          "p_avg": 25,
+          "value": 76.9
+        }
+      ]
     },
     "home_season_stats": {
       "overall": {
@@ -4260,7 +4581,49 @@
         "l5_goals_n": 5
       }
     },
-    "match_odds": null,
+    "match_odds": {
+      "markets": [
+        {
+          "marketName": "Full time",
+          "choices": [
+            {
+              "name": "CD Laredo",
+              "side": "home",
+              "cote": 6.0,
+              "book": "draftkings"
+            },
+            {
+              "name": "Draw",
+              "side": "draw",
+              "cote": 4.4,
+              "book": "draftkings"
+            },
+            {
+              "name": "Burgos",
+              "side": "away",
+              "cote": 1.53,
+              "book": "draftkings"
+            }
+          ]
+        },
+        {
+          "marketName": "Goals Over/Under (2.5)",
+          "choices": [
+            {
+              "name": "Over 2.5",
+              "cote": 1.83,
+              "book": "draftkings"
+            },
+            {
+              "name": "Under 2.5",
+              "cote": 1.95,
+              "book": "draftkings"
+            }
+          ]
+        }
+      ],
+      "_source": "espn"
+    },
     "lineups_home": null,
     "lineups_away": null,
     "team_streaks": null
@@ -4323,7 +4686,49 @@
         "l5_goals_n": 5
       }
     },
-    "match_odds": null,
+    "match_odds": {
+      "markets": [
+        {
+          "marketName": "Full time",
+          "choices": [
+            {
+              "name": "CD Varea",
+              "side": "home",
+              "cote": 23.0,
+              "book": "draftkings"
+            },
+            {
+              "name": "Draw",
+              "side": "draw",
+              "cote": 9.5,
+              "book": "draftkings"
+            },
+            {
+              "name": "FC Andorra",
+              "side": "away",
+              "cote": 1.11,
+              "book": "draftkings"
+            }
+          ]
+        },
+        {
+          "marketName": "Goals Over/Under (2.5)",
+          "choices": [
+            {
+              "name": "Over 2.5",
+              "cote": 1.67,
+              "book": "draftkings"
+            },
+            {
+              "name": "Under 2.5",
+              "cote": 2.2,
+              "book": "draftkings"
+            }
+          ]
+        }
+      ],
+      "_source": "espn"
+    },
     "lineups_home": null,
     "lineups_away": null,
     "team_streaks": null
@@ -4404,7 +4809,49 @@
         "l5_goals_n": 5
       }
     },
-    "match_odds": null,
+    "match_odds": {
+      "markets": [
+        {
+          "marketName": "Full time",
+          "choices": [
+            {
+              "name": "Conquense",
+              "side": "home",
+              "cote": 5.0,
+              "book": "draftkings"
+            },
+            {
+              "name": "Draw",
+              "side": "draw",
+              "cote": 3.75,
+              "book": "draftkings"
+            },
+            {
+              "name": "Castellón",
+              "side": "away",
+              "cote": 1.71,
+              "book": "draftkings"
+            }
+          ]
+        },
+        {
+          "marketName": "Goals Over/Under (2.5)",
+          "choices": [
+            {
+              "name": "Over 2.5",
+              "cote": 2.05,
+              "book": "draftkings"
+            },
+            {
+              "name": "Under 2.5",
+              "cote": 1.74,
+              "book": "draftkings"
+            }
+          ]
+        }
+      ],
+      "_source": "espn"
+    },
     "lineups_home": null,
     "lineups_away": null,
     "team_streaks": null,
@@ -4477,7 +4924,58 @@
       "top_buteurs_away": [],
       "top_passeurs_home": [],
       "top_passeurs_away": [],
-      "value_bets": []
+      "value_bets": [
+        {
+          "marche": "Conquense gagne (1X2)",
+          "cote": 5.0,
+          "book": "draftkings",
+          "p_ligue": 45,
+          "p_modele": 36,
+          "p_form": 38,
+          "p_avg": 40,
+          "value": 199.0
+        },
+        {
+          "marche": "Plus de 2.5 buts",
+          "cote": 2.05,
+          "book": "draftkings",
+          "p_ligue": 50,
+          "p_modele": 60,
+          "p_form": 60,
+          "p_avg": 57,
+          "value": 116.0
+        },
+        {
+          "marche": "Match nul (1X2)",
+          "cote": 3.75,
+          "book": "draftkings",
+          "p_ligue": 27,
+          "p_modele": 24,
+          "p_form": 30,
+          "p_avg": 27,
+          "value": 101.0
+        },
+        {
+          "marche": "Moins de 2.5 buts",
+          "cote": 1.74,
+          "book": "draftkings",
+          "p_ligue": 50,
+          "p_modele": 40,
+          "p_form": 40,
+          "p_avg": 43,
+          "value": 75.5
+        },
+        {
+          "marche": "Castellón gagne (1X2)",
+          "cote": 1.71,
+          "book": "draftkings",
+          "p_ligue": 28,
+          "p_modele": 40,
+          "p_form": 32,
+          "p_avg": 33,
+          "value": 56.9
+        }
+      ]
     },
     "home_season_stats": {
       "overall": {
@@ -4632,7 +5130,49 @@
         "l5_goals_n": 5
       }
     },
-    "match_odds": null,
+    "match_odds": {
+      "markets": [
+        {
+          "marketName": "Full time",
+          "choices": [
+            {
+              "name": "Guijuelo",
+              "side": "home",
+              "cote": 7.5,
+              "book": "draftkings"
+            },
+            {
+              "name": "Draw",
+              "side": "draw",
+              "cote": 4.8,
+              "book": "draftkings"
+            },
+            {
+              "name": "Sporting Gijón",
+              "side": "away",
+              "cote": 1.43,
+              "book": "draftkings"
+            }
+          ]
+        },
+        {
+          "marketName": "Goals Over/Under (2.5)",
+          "choices": [
+            {
+              "name": "Over 2.5",
+              "cote": 1.8,
+              "book": "draftkings"
+            },
+            {
+              "name": "Under 2.5",
+              "cote": 2.0,
+              "book": "draftkings"
+            }
+          ]
+        }
+      ],
+      "_source": "espn"
+    },
     "lineups_home": null,
     "lineups_away": null,
     "team_streaks": null
@@ -4959,7 +5499,49 @@
         "l5_goals_n": 5
       }
     },
-    "match_odds": null,
+    "match_odds": {
+      "markets": [
+        {
+          "marketName": "Full time",
+          "choices": [
+            {
+              "name": "Real Ávila",
+              "side": "home",
+              "cote": 2.95,
+              "book": "draftkings"
+            },
+            {
+              "name": "Draw",
+              "side": "draw",
+              "cote": 3.4,
+              "book": "draftkings"
+            },
+            {
+              "name": "Unionistas de Salamanca",
+              "side": "away",
+              "cote": 2.4,
+              "book": "draftkings"
+            }
+          ]
+        },
+        {
+          "marketName": "Goals Over/Under (2.5)",
+          "choices": [
+            {
+              "name": "Over 2.5",
+              "cote": 1.95,
+              "book": "draftkings"
+            },
+            {
+              "name": "Under 2.5",
+              "cote": 1.83,
+              "book": "draftkings"
+            }
+          ]
+        }
+      ],
+      "_source": "espn"
+    },
     "lineups_home": null,
     "lineups_away": null,
     "team_streaks": null,
@@ -5032,7 +5614,58 @@
       "top_buteurs_away": [],
       "top_passeurs_home": [],
       "top_passeurs_away": [],
-      "value_bets": []
+      "value_bets": [
+        {
+          "marche": "Moins de 2.5 buts",
+          "cote": 1.83,
+          "book": "draftkings",
+          "p_ligue": 50,
+          "p_modele": 65,
+          "p_form": 65,
+          "p_avg": 60,
+          "value": 109.8
+        },
+        {
+          "marche": "Unionistas de Salamanca gagne (1X2)",
+          "cote": 2.4,
+          "book": "draftkings",
+          "p_ligue": 28,
+          "p_modele": 54,
+          "p_form": 40,
+          "p_avg": 41,
+          "value": 97.8
+        },
+        {
+          "marche": "Match nul (1X2)",
+          "cote": 3.4,
+          "book": "draftkings",
+          "p_ligue": 27,
+          "p_modele": 28,
+          "p_form": 30,
+          "p_avg": 28,
+          "value": 95.8
+        },
+        {
+          "marche": "Real Ávila gagne (1X2)",
+          "cote": 2.95,
+          "book": "draftkings",
+          "p_ligue": 45,
+          "p_modele": 19,
+          "p_form": 30,
+          "p_avg": 31,
+          "value": 91.6
+        },
+        {
+          "marche": "Plus de 2.5 buts",
+          "cote": 1.95,
+          "book": "draftkings",
+          "p_ligue": 50,
+          "p_modele": 35,
+          "p_form": 35,
+          "p_avg": 40,
+          "value": 78.0
+        }
+      ]
     },
     "home_season_stats": {
       "overall": {
@@ -5433,7 +6066,49 @@
         "l5_goals_n": 5
       }
     },
-    "match_odds": null,
+    "match_odds": {
+      "markets": [
+        {
+          "marketName": "Full time",
+          "choices": [
+            {
+              "name": "AE Prat",
+              "side": "home",
+              "cote": 76.0,
+              "book": "draftkings"
+            },
+            {
+              "name": "Draw",
+              "side": "draw",
+              "cote": 26.0,
+              "book": "draftkings"
+            },
+            {
+              "name": "Athletic Club",
+              "side": "away",
+              "cote": 1.01,
+              "book": "draftkings"
+            }
+          ]
+        },
+        {
+          "marketName": "Goals Over/Under (4.5)",
+          "choices": [
+            {
+              "name": "Over 4.5",
+              "cote": 1.77,
+              "book": "draftkings"
+            },
+            {
+              "name": "Under 4.5",
+              "cote": 2.0,
+              "book": "draftkings"
+            }
+          ]
+        }
+      ],
+      "_source": "espn"
+    },
     "lineups_home": null,
     "lineups_away": null,
     "team_streaks": null
@@ -9893,19 +10568,19 @@
             {
               "name": "Casa Pia",
               "side": "home",
-              "cote": 9.5,
+              "cote": 9.0,
               "book": "draftkings"
             },
             {
               "name": "Draw",
               "side": "draw",
-              "cote": 5.75,
+              "cote": 5.5,
               "book": "draftkings"
             },
             {
               "name": "Sporting CP",
               "side": "away",
-              "cote": 1.27,
+              "cote": 1.29,
               "book": "draftkings"
             }
           ]
@@ -9915,12 +10590,12 @@
           "choices": [
             {
               "name": "Over 2.5",
-              "cote": 1.56,
+              "cote": 1.57,
               "book": "draftkings"
             },
             {
               "name": "Under 2.5",
-              "cote": 2.3,
+              "cote": 2.25,
               "book": "draftkings"
             }
           ]
@@ -10003,53 +10678,53 @@
       "value_bets": [
         {
           "marche": "Casa Pia AC gagne (1X2)",
-          "cote": 9.5,
+          "cote": 9.0,
           "book": "draftkings",
           "p_ligue": 45,
           "p_modele": 28,
           "p_form": 34,
           "p_avg": 36,
-          "value": 338.2
+          "value": 320.4
         },
         {
           "marche": "Match nul (1X2)",
-          "cote": 5.75,
+          "cote": 5.5,
           "book": "draftkings",
           "p_ligue": 27,
           "p_modele": 26,
           "p_form": 30,
           "p_avg": 28,
-          "value": 158.6
+          "value": 151.7
         },
         {
           "marche": "Moins de 2.5 buts",
-          "cote": 2.3,
+          "cote": 2.25,
           "book": "draftkings",
           "p_ligue": 50,
           "p_modele": 52,
           "p_form": 52,
           "p_avg": 51,
-          "value": 117.8
+          "value": 115.3
         },
         {
           "marche": "Plus de 2.5 buts",
-          "cote": 1.56,
+          "cote": 1.57,
           "book": "draftkings",
           "p_ligue": 50,
           "p_modele": 48,
           "p_form": 48,
           "p_avg": 49,
-          "value": 76.1
+          "value": 76.6
         },
         {
           "marche": "Sporting CP gagne (1X2)",
-          "cote": 1.27,
+          "cote": 1.29,
           "book": "draftkings",
           "p_ligue": 28,
           "p_modele": 46,
           "p_form": 36,
           "p_avg": 37,
-          "value": 46.7
+          "value": 47.5
         }
       ]
     },
