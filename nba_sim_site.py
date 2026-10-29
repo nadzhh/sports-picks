@@ -486,13 +486,14 @@ def _video(g, gid):
         lines.append(f'{_e(_nick(a))} <b class="eb-acc">{fin[1]}-{fin[0]}</b> {_e(_nick(h))}{qt}')
     return ('<div class="eb-card eb-video">'
             '<div class="eb-video-head"><div>'
-            '<h3 class="eb-h eb-h-nomb">Le match en vidéo <small>~3 min · condensé</small></h3>'
+            '<h3 class="eb-h eb-h-nomb">Le match en vidéo <small>match complet ~10 min, toutes les possessions · bouton « Résumé 3 min »</small></h3>'
             f'<div class="eb-meta">{n} matchs simulés possession par possession · match retenu : ' + " / ".join(lines) + '</div></div>'
             f'<div class="eb-video-btns">{btns}</div></div>'
             '<div class="eb-video-host"></div>'
             '<p class="eb-note">' + (f'Vainqueur tiré au sort selon les simulations ({_e(_nick(h))} gagne dans {_pct(rp["p_home"], 0)} '
             f'des cas, {_e(_nick(a))} dans {_pct(1 - rp["p_home"], 0)}) : l’outsider apparaît gagnant aussi souvent qu’il gagne '
             'dans les simulations, puis le match le plus représentatif de ces victoires est montré. ' if rp.get("p_home") is not None else "")
+            + 'Chaque possession est jouée en temps de jeu accéléré : remontée de balle, mise en place, action, horloge des 24 secondes. '
             + 'Score par quart-temps entre parenthèses (visiteur-domicile). Joueurs placés selon leurs zones de tir réelles, défense homme à homme, fautes et '
             'lancers francs simulés (6 fautes = exclusion, joueur chargé de fautes mis au repos). '
             'Bouton « Télécharger MP4 » sous la vidéo.</p></div>' + _keys(g))
