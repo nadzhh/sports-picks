@@ -29,6 +29,7 @@ from nba_boxdb import BASE, _get, _lines, load_season, season_year, update_seaso
 from nba_client import team_roster
 from nba_props_hist import fetch_game_props, props_main_lines
 from nba_sim import NBAState, simulate, market_minutes
+from nba_wowy import ROT_MIN
 from nba_pbp_profiles import build_profiles
 from nba_poss_sim import pick_typical, simulate as poss_simulate
 from nba_replay import build_replay
@@ -289,7 +290,61 @@ def _logs(year):
     return players, allowed, league
 
 
-def _why(pid, stat, line, x, minutes, team_id, opp_id, opp_abbr, out, year):
+CTX_MIN_WO = 5     # matchs sans l'absent necessaires pour en parler (a 3-4 : bruit, ex. -25 min sur 3 matchs)
+CTX_STATS = ("MIN", "PTS", "REB", "AST", "3PM")
+
+
+def _absent_ids(st, team_id, out):
+    """Absents qui comptent (18+ min de moyenne quand ils jouaient, sur les 40 derniers matchs de l'equipe)."""
+    return [(o["id"], o["name"]) for o in out if st.wowy.avg_min(team_id, o["id"]) >= ROT_MIN]
+
+
+def absence_ctx(st, inp, s):
+    """Impact des absents de l'equipe `s`, mesure sur ses matchs recents SANS eux : ce que font les
+    coequipiers (minutes et stats par match, sans / avec) et ce que l'equipe concede a l'adversaire."""
+    tid, res = inp[s]["id"], []
+    for j, name in _absent_ids(st, tid, inp[s].get("out") or []):
+        mates = []
+        for p in inp[s]["players"]:
+            sp = st.wowy.split(tid, p["id"], j)
+            if not sp or sp["n_wo"] < CTX_MIN_WO or sp["n_wi"] < CTX_MIN_WO: continue
+            mates.append({"name": p["name"], "n": sp["n_wo"],
+                          **{k: [round(sp[k][0], 1), round(sp[k][1], 1)] for k in CTX_STATS}})
+        mates.sort(key=lambda m: -(abs(m["MIN"][0] - m["MIN"][1]) + abs(m["PTS"][0] - m["PTS"][1])))
+        al = st.wowy.allowed_split(tid, j)
+        res.append({"name": name, "n_wo": max([m["n"] for m in mates] or [0]), "mates": mates[:5],
+                    "allowed": {"n": al["n_wo"], **{k: [round(al[k][0], 1), round(al[k][1], 1)] for k in CTX_STATS[1:]}}
+                    if al and al["n_wo"] >= CTX_MIN_WO and al["n_wi"] >= CTX_MIN_WO else None})
+    return res
+
+
+def _why_ctx(st, pid, comps, team_id, opp_id, out, opp_out):
+    """Pour l'argumentaire : le joueur dans ses matchs sans chaque coequipier absent, et ce que
+    l'adversaire concede sur cette stat dans ses matchs sans chacun de ses absents."""
+    mine, opp = [], []
+    for j, name in _absent_ids(st, team_id, out):
+        sp = st.wowy.split(team_id, pid, j)
+        if sp and sp["n_wo"] >= CTX_MIN_WO and sp["n_wi"] >= CTX_MIN_WO:
+            mine.append({"who": name, "n": sp["n_wo"], "min": [round(sp["MIN"][0], 1), round(sp["MIN"][1], 1)],
+                         "val": [round(sum(sp[c][k] for c in comps), 2) for k in (0, 1)]})
+    for j, name in _absent_ids(st, opp_id, opp_out):
+        al = st.wowy.allowed_split(opp_id, j)
+        if al and al["n_wo"] >= CTX_MIN_WO and al["n_wi"] >= CTX_MIN_WO:
+            opp.append({"who": name, "n": al["n_wo"], "val": [round(sum(al[c][k] for c in comps), 2) for k in (0, 1)]})
+    return _merge(mine), sorted(_merge(opp), key=lambda c: -abs(c["val"][0] - c["val"][1]))[:3]
+
+
+def _merge(rows):
+    """Absents qui ont manque exactement les memes matchs -> une seule ligne « X et Y »."""
+    out = {}
+    for r in rows:
+        k = (r["n"], tuple(r["val"]))
+        if k in out: out[k]["who"] += " et " + r["who"]
+        else: out[k] = dict(r)
+    return list(out.values())
+
+
+def _why(pid, stat, line, x, minutes, team_id, opp_id, opp_abbr, out, year, st=None, opp_out=()):
     """Faits qui justifient un pick (le texte est redige par nba_sim_site)."""
     logs, allowed, league = _logs(year)
     comps = STAT_COMPS[stat]
@@ -310,7 +365,8 @@ def _why(pid, stat, line, x, minutes, team_id, opp_id, opp_abbr, out, year):
             "l10_over": sum(val(r) > line for r in last10), "l10_n": len(last10),
             "opp": {"abbr": opp_abbr, "allowed": round(float(np.mean([sum(r[c] for c in comps) for r in opp])), 2),
                     "league": round(sum(league[c] for c in comps), 2)} if opp else None,
-            "out": absent}
+            "out": absent, **(dict(zip(("ctx", "opp_ctx"), _why_ctx(st, pid, comps, team_id, opp_id, out, opp_out)))
+                               if st is not None else {})}
 
 
 def run_game(st, g, n_sims, profiles=None, report=None, keep_replay=None):
@@ -370,7 +426,8 @@ def run_game(st, g, n_sims, profiles=None, report=None, keep_replay=None):
         if pick:
             o = "away" if s == "home" else "home"
             why = _why(aid, stat, m["line"], x, float(res[s]["MIN"][on, i].mean()), inp[s]["id"], inp[o]["id"],
-                       g[o].get("abbreviation"), inp[s].get("out") or [], season_year(datetime.now(timezone.utc).date()))
+                       g[o].get("abbreviation"), inp[s].get("out") or [], season_year(datetime.now(timezone.utc).date()),
+                       st, inp[o].get("out") or [])
         props.append({"id": aid, "name": inp[s]["players"][i]["name"], "side": s, "stat": stat, "line": m["line"],
                       "why": why, "over": m["over"], "under": m["under"], "p_sim": round(p_over, 4),
                       "p_mkt": round(m["p_over_novig"], 4), "p_play": round(p_play, 3),
@@ -394,6 +451,7 @@ def run_game(st, g, n_sims, profiles=None, report=None, keep_replay=None):
                  "color": g["home"].get("color"), "alt": g["home"].get("alternateColor"), **_form(st, h_id)},
         "away": {"id": a_id, "abbr": g["away"].get("abbreviation"), "name": g["away"].get("displayName"),
                  "color": g["away"].get("color"), "alt": g["away"].get("alternateColor"), **_form(st, a_id)},
+        "absences": {s: absence_ctx(st, inp, s) for s in ("home", "away")},
         "lines": lines, "book": (gp or {}).get("book"), "replay": replay,
         "team": {"home_mean": round(float(hp.mean()), 1), "away_mean": round(float(ap.mean()), 1),
                  "total_mean": round(float((hp + ap).mean()), 1), "total_sd": round(float((hp + ap).std()), 1),

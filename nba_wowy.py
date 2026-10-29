@@ -17,25 +17,33 @@ from collections import defaultdict, deque
 N_GAMES = 40      # fenetre de matchs de l'equipe
 K_SHRINK = 3.0    # matchs sans j equivalents du retrait vers 0
 ROT_MIN = 18.0    # joueur dont l'absence compte : 18+ min de moyenne sur ses matchs recents
+STATS = ("PTS", "REB", "AST", "3PM", "STL", "BLK")
+K_RATE = 4.0      # matchs sans j equivalents du retrait des ratios de stats vers 1 (pas d'effet)
 
 
 class Wowy:
     def __init__(self, n_games=N_GAMES, k=K_SHRINK):
         self.n, self.k = n_games, k
-        self.games = defaultdict(lambda: deque(maxlen=n_games))   # equipe -> [{pid: (min, starter)}]
+        self.games = defaultdict(lambda: deque(maxlen=n_games))   # equipe -> [{pid: (min, starter, PTS..BLK)}]
+        self.allowed = defaultdict(lambda: deque(maxlen=n_games)) # equipe -> [(joueurs de l'equipe, stats adverses)]
 
     def add_game(self, g):
         for s in ("home", "away"):
             t = g[s]
             if not t.get("players"): continue
-            self.games[t["id"]].append({p["id"]: (float(p.get("MIN") or 0), bool(p.get("starter")))
-                                        for p in t["players"] if not p.get("dnp") and p.get("MIN")})
+            gm = {p["id"]: (float(p.get("MIN") or 0), bool(p.get("starter")), *[float(p.get(k) or 0) for k in STATS])
+                  for p in t["players"] if not p.get("dnp") and p.get("MIN")}
+            self.games[t["id"]].append(gm)
+            o = g["away" if s == "home" else "home"]
+            if o.get("players"):   # ce que l'equipe a concede ce soir-la, selon qui jouait chez elle
+                opp = [sum(float(p.get(k) or 0) for p in o["players"] if not p.get("dnp")) for k in STATS]
+                self.allowed[t["id"]].append((frozenset(gm), opp))
 
     def regulars(self, team_id, last=5):
         """Joueurs de rotation recents : {pid: minutes moyennes sur ses matchs joues parmi les `last` derniers}."""
         out = defaultdict(list)
         for gm in list(self.games[team_id])[-last:]:
-            for pid, (m, _) in gm.items(): out[pid].append(m)
+            for pid, v in gm.items(): out[pid].append(v[0])
         return {pid: sum(v) / len(v) for pid, v in out.items() if len(v) >= 2 and sum(v) / len(v) >= ROT_MIN}
 
     def delta(self, team_id, pid, absents):
@@ -49,9 +57,65 @@ class Wowy:
             wi = [gm[pid] for gm in gms if j in gm]
             if not wo or not wi: continue
             f = len(wo) / (len(wo) + self.k)
-            dm += f * (sum(m for m, _ in wo) / len(wo) - sum(m for m, _ in wi) / len(wi))
-            ds += f * (sum(s for _, s in wo) / len(wo) - sum(s for _, s in wi) / len(wi))
+            dm += f * (sum(x[0] for x in wo) / len(wo) - sum(x[0] for x in wi) / len(wi))
+            ds += f * (sum(x[1] for x in wo) / len(wo) - sum(x[1] for x in wi) / len(wi))
         return dm, ds
+
+
+    def stat_ratios(self, team_id, pid, absents, shrink=K_RATE):
+        """{stat: ratio} du rendement PAR MINUTE de pid sans les `absents` / avec eux (les minutes sont deja
+        traitees par delta) ; chaque absent compte a part (produit), retrait vers 1 selon le nombre de matchs."""
+        gms = [gm for gm in self.games[team_id] if pid in gm and gm[pid][0] > 0]
+        out = {k: 1.0 for k in STATS}
+        for j in absents:
+            if j == pid: continue
+            wo = [gm[pid] for gm in gms if j not in gm]
+            wi = [gm[pid] for gm in gms if j in gm]
+            if not wo or not wi: continue
+            f = len(wo) / (len(wo) + shrink)
+            mwo, mwi = sum(x[0] for x in wo), sum(x[0] for x in wi)
+            for i, k in enumerate(STATS):
+                a, b = sum(x[2 + i] for x in wo) / mwo, sum(x[2 + i] for x in wi) / mwi
+                if b > 0: out[k] *= 1 + f * (min(max(a / b, 0.5), 2.0) - 1)
+        return out
+
+    def allowed_ratios(self, team_id, absents, shrink=K_RATE):
+        """{stat: ratio} de ce que l'equipe CONCEDE quand ses joueurs `absents` manquent / quand ils jouent."""
+        recs = list(self.allowed[team_id])
+        out = {k: 1.0 for k in STATS}
+        for j in absents:
+            wo = [o for here, o in recs if j not in here]
+            wi = [o for here, o in recs if j in here]
+            if not wo or not wi: continue
+            f = len(wo) / (len(wo) + shrink)
+            for i, k in enumerate(STATS):
+                a, b = sum(o[i] for o in wo) / len(wo), sum(o[i] for o in wi) / len(wi)
+                if b > 0: out[k] *= 1 + f * (min(max(a / b, 0.7), 1.4) - 1)
+        return out
+
+    def avg_min(self, team_id, j):
+        """Minutes moyennes de j sur ses matchs joues dans la fenetre (0 s'il n'a pas joue)."""
+        m = [gm[j][0] for gm in self.games[team_id] if j in gm]
+        return sum(m) / len(m) if m else 0.0
+
+    def split(self, team_id, pid, j):
+        """Pour l'argumentaire : moyennes par match de pid sans j / avec j (n matchs, minutes, stats)."""
+        gms = [gm for gm in self.games[team_id] if pid in gm]
+        wo = [gm[pid] for gm in gms if j not in gm]
+        wi = [gm[pid] for gm in gms if j in gm]
+        if not wo or not wi: return None
+        avg = lambda L, i: sum(x[i] for x in L) / len(L)
+        return {"n_wo": len(wo), "n_wi": len(wi), "MIN": (avg(wo, 0), avg(wi, 0)),
+                **{k: (avg(wo, 2 + i), avg(wi, 2 + i)) for i, k in enumerate(STATS)}}
+
+    def allowed_split(self, team_id, j):
+        """Pour l'argumentaire : ce que l'equipe concede par match sans j / avec j."""
+        recs = list(self.allowed[team_id])
+        wo = [o for here, o in recs if j not in here]
+        wi = [o for here, o in recs if j in here]
+        if not wo or not wi: return None
+        return {"n_wo": len(wo), "n_wi": len(wi),
+                **{k: (sum(o[i] for o in wo) / len(wo), sum(o[i] for o in wi) / len(wi)) for i, k in enumerate(STATS)}}
 
 
 def validate(year):

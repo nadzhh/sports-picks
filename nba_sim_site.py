@@ -353,7 +353,22 @@ def _why_text(p):
         else:
             items.append(f'Adversaire : {_e(o["abbr"])} dans la moyenne de la ligue '
                          f'({_n(o["allowed"])} {unit} concédés par match).')
-    if w.get("out"):
+    for c in w.get("ctx") or []:   # le joueur dans ses matchs recents sans ce coequipier
+        d = c["val"][0] - c["val"][1]
+        good = (d > 0) == over
+        tag = (f'<b class="{"eb-acc" if good else "eb-neg"}">{"favorable" if good else "défavorable"}</b>'
+               if abs(d) >= 0.1 * max(c["val"][1], 1) else "neutre")
+        items.append(f'Sans {_e(c["who"])} ({c["n"]} matchs) : '
+                     f'{c["min"][0]:.0f} min et <b>{_n(c["val"][0])} {unit}</b> par match, contre {c["min"][1]:.0f} min et '
+                     f'{_n(c["val"][1])} avec lui → {tag}.')
+    for c in w.get("opp_ctx") or []:   # ce que l'adversaire concede sans son absent
+        d = c["val"][0] - c["val"][1]
+        good = (d > 0) == over
+        tag = (f'<b class="{"eb-acc" if good else "eb-neg"}">{"favorable" if good else "défavorable"}</b>'
+               if abs(d) >= 0.08 * max(c["val"][1], 1) else "neutre")
+        items.append(f'En face, sans {_e(c["who"])} ({c["n"]} matchs) : {_e((w.get("opp") or {}).get("abbr") or "l’adversaire")} '
+                     f'concède <b>{_n(c["val"][0])} {unit}</b> par match, contre {_n(c["val"][1])} avec lui → {tag}.')
+    if w.get("out") and not w.get("ctx"):
         items.append(f'Absents dans son équipe : {_e(", ".join(w["out"]))}. '
                      'Le simulateur redistribue leurs minutes et leurs ballons.')
     price = p["over"] if over else p["under"]
@@ -514,6 +529,44 @@ def _reason(r):
     return _e((r or "").replace("Injury/Illness - ", "").replace("G League - ", "G League : "))
 
 
+def _delta(a, b, unit, d=1):
+    v = a - b
+    if abs(v) < (0.5 if unit == "min" else 0.3): return ""
+    return f'<b class="{"eb-acc" if v > 0 else "eb-neg"}">{"+" if v > 0 else "−"}{_n(abs(v), d)}</b> {unit}'
+
+
+def _absences_html(g):
+    """« Impact des absences » : pour chaque absent qui compte, les matchs recents de son equipe sans lui."""
+    blocks = ""
+    for side in ("away", "home"):
+        me, opp = g[side], g["home" if side == "away" else "away"]
+        for a in (g.get("absences") or {}).get(side) or []:
+            lines = []
+            for m in a["mates"]:
+                parts = [x for x in (_delta(*m["MIN"], "min", 0), _delta(*m["PTS"], "pts"), _delta(*m["REB"], "reb"),
+                                     _delta(*m["AST"], "pd")) if x]
+                if parts:
+                    lines.append(f'{_e(m["name"])} : {", ".join(parts)} <span class="eb-dim">({_n(m["PTS"][0])} pts en '
+                                 f'{m["MIN"][0]:.0f} min sans lui, {m["n"]} matchs)</span>')
+            al = a.get("allowed")
+            if al:
+                parts = [x for x in (_delta(*al["PTS"], "pts"), _delta(*al["REB"], "reb"), _delta(*al["AST"], "pd"),
+                                     _delta(*al["3PM"], "à 3 pts")) if x]
+                if parts:
+                    lines.append(f'{_e(me.get("abbr"))} concède {", ".join(parts)} par match sans lui '
+                                 f'<span class="eb-dim">({al["n"]} matchs)</span> → bon signe pour les joueurs de {_e(opp.get("abbr"))}'
+                                 if any("eb-acc" in x for x in parts) else
+                                 f'{_e(me.get("abbr"))} concède {", ".join(parts)} par match sans lui <span class="eb-dim">({al["n"]} matchs)</span>')
+            if not lines: continue
+            blocks += (f'<div><div class="eb-meta">{_e(me.get("abbr"))} sans <b>{_e(a["name"])}</b>'
+                       f'</div><ul class="eb-inj-l">'
+                       + "".join(f"<li>{x}</li>" for x in lines) + "</ul></div>")
+    if not blocks: return ""
+    return ('<div class="eb-abs"><div class="eb-meta eb-ev-t">Impact des absences — matchs récents de l’équipe '
+            'sans le joueur (5 au moins), comparés aux matchs avec lui ; les minutes en plus ou en moins sont intégrées à la simulation</div>'
+            f'<div class="eb-abs-g">{blocks}</div></div>')
+
+
 def _infos(g):
     inj = g.get("injuries")
     if not inj: return ""
@@ -544,7 +597,7 @@ def _infos(g):
     ev_html = (f'<div class="eb-meta eb-ev-t">Journal de la veille (chaque ligne a relancé la simulation)</div><ul class="eb-ev">{ev}</ul>'
                if ev else "")
     return (f'<div class="eb-card"><h3 class="eb-h">Infos d’avant-match <small>{head}</small></h3>'
-            f'<div class="eb-inj">{cols}</div>{ev_html}</div>')
+            f'<div class="eb-inj">{cols}</div>{_absences_html(g)}{ev_html}</div>')
 
 
 # ── Historique : bilan de chaque soiree (nba_sim_bilan) ──────────────────────

@@ -77,6 +77,10 @@ P = {
     # 0,6703 -> 0,6676 / 0,6880 -> 0,6839 et sens du mouvement 81 -> 85 / 79 -> 83 / 71 -> 78 % (3/3), mais ROI
     # de la regle a la cloture plus faible : gain de PRECISION (analyse), pas d'avantage de pari. 1,0 : moins bon.
     "mkt_min_alpha":   0.5,
+    # Contexte des absents (nba_wowy) : rendement par minute du joueur sans ses coequipiers absents
+    # (ctx_w) et ce que l'adversaire concede sans ses propres absents (opp_w). 0 = desactive.
+    "ctx_w":           0.0,
+    "opp_w":           0.0,
     "wowy_min":        0.3,
     "wowy_start":      3.0,
                                # (gain faible : le marche integre deja l'essentiel de l'effet adversaire)
@@ -345,8 +349,9 @@ class NBAState:
             vol = {k: r[k] * al[k] / lg[k] for k in ("v2", "v3", "vft", "vto")}
             players = []
             wm, ws = self.p.get("wowy_min", 0), self.p.get("wowy_start", 0)
+            cw, ow = self.p.get("ctx_w", 0), self.p.get("opp_w", 0)
             here = {pl["id"] for pl in roster}
-            absents = [j for j in self.wowy.regulars(tid) if j not in here] if (wm or ws) else []
+            absents = [j for j in self.wowy.regulars(tid) if j not in here] if (wm or ws or cw) else []
             for pl in roster:
                 prof = self.player_profile(pl["id"], pl.get("pos"))
                 prof.update(id=pl["id"], name=pl.get("name") or self.player_info.get(pl["id"], {}).get("name", ""),
@@ -356,9 +361,24 @@ class NBAState:
                     sr = min(max(prof["starter_rate"] + ds, 0.0), 1.0)
                     prof["m_mu"] = max(prof["m_mu"] + wm * dm + ws * (sr - prof["starter_rate"]), 0.0)
                     if ws: prof["starter_rate"] = sr
+                    if cw:    # son rendement par minute dans les matchs sans ces coequipiers
+                        f = self.wowy.stat_ratios(tid, pl["id"], absents, self.p.get("ctx_k", 4.0))
+                        prof["r2"] *= f["PTS"] ** cw; prof["rft"] *= f["PTS"] ** cw; prof["r3"] *= f["3PM"] ** cw
+                        prof["s_ast"] *= f["AST"] ** cw; prof["s_or"] *= f["REB"] ** cw; prof["s_dr"] *= f["REB"] ** cw
+                        prof["rstl"] *= f["STL"] ** cw; prof["rblk"] *= f["BLK"] ** cw
                 players.append(prof)
             ast = r["ast"] * (al["ast"] / lg["ast"]) ** self.p["opp_ast"]
-            return {"id": tid, "vol": vol, "orb": r["orb"] * al["orb"] / lg["orb"], "ast": ast,
+            orb_f = 1.0
+            if ow:   # l'adversaire sans ses absents : ce qu'il concede dans ces matchs-la
+                o_roster = away_roster if tid == home_id else home_roster
+                o_here = {pl["id"] for pl in o_roster}
+                o_abs = [j for j in self.wowy.regulars(oid) if j not in o_here]
+                if o_abs:
+                    f = self.wowy.allowed_ratios(oid, o_abs, self.p.get("ctx_k", 4.0))
+                    vol = dict(vol, v2=vol["v2"] * f["PTS"] ** ow, vft=vol["vft"] * f["PTS"] ** ow, v3=vol["v3"] * f["3PM"] ** ow)
+                    ast *= f["AST"] ** ow
+                    orb_f = f["REB"] ** ow
+            return {"id": tid, "vol": vol, "orb": r["orb"] * al["orb"] / lg["orb"] * orb_f, "ast": ast,
                     "players": players}
 
         return {
