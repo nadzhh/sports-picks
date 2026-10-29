@@ -41,7 +41,7 @@ FOOT_EVERY, FOOT_DB_BUDGET, FOOT_REFRESH = 30 * 60, 6 * 60, timedelta(hours=3)
 LIVE_KEEP, FOOT_LIVE_KEEP = timedelta(hours=4), timedelta(hours=3)   # suivi en direct apres le coup d'envoi
 HORIZON = timedelta(hours=36)
 FINAL_BEFORE = timedelta(minutes=35)
-REFRESH_AGE = timedelta(hours=3)
+REFRESH_AGE = timedelta(hours=3)   # + resimulation immediate des matchs dont la video n'est pas a la version R.REPLAY_V
 PROPS_AGE = timedelta(hours=1)
 SPREAD_MOVE, TOTAL_MOVE = 1.5, 3.0
 EVENTS_KEPT = 15
