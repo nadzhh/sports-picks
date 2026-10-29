@@ -50,6 +50,9 @@ def archive(games, path=HIST_PATH):
             "lineups": [r["home_info"]["lineup"], r["away_info"]["lineup"]],
             "absences": [[a["name"], a["impact"]] for side in ("home", "away") for a in (r[side + "_info"].get("absences") or [])[:3]],
             "scorers": [[s_["name"], s_["p_goal"]] for side in ("home", "away") for s_ in (r[side + "_info"].get("scorers") or [])[:3]],
+            # True : simulation rejouee apres coup (etat d'avant le jour du match, composition officielle),
+            # pas archivee en direct avant le coup d'envoi
+            "replayed": bool(r.get("replayed")),
         }
     save(h, path)
 

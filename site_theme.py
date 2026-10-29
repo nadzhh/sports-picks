@@ -259,6 +259,8 @@ footer{color:var(--di)!important;border-top:1px solid var(--line)!important;font
 .eb-why-l .eb-warn{color:var(--warn)}
 .eb-label.eb-label-2{margin-top:24px}
 .sp-legacy{display:none!important}
+/* Boutons d'ajout a l'ancienne bankroll manuelle (retiree le 29/10/2026) */
+.tg-userpick-btn{display:none!important}
 .eb-live{font-family:var(--mono);font-size:11px;margin-left:6px;color:var(--mu)}
 .eb-live.in{color:var(--loss);font-weight:600}
 .eb-live.post{color:var(--di)}

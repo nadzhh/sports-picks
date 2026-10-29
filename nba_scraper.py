@@ -109,10 +109,16 @@ def fetch_team_player_data(team_id, season=CURRENT_SEASON, top_n=10):
     leurs season avgs + leurs L20 derniers matchs.
     """
     avgs = team_player_averages(team_id, season=season)
-    # Filtre joueurs avec >= 5 matchs et minutes >= 12
-    avgs = [p for p in avgs if (p.get("GP") or 0) >= 5 and (p.get("MIN") or 0) >= 12]
+    # Joueurs de rotation : >= 12 min et un minimum de matchs. Le seuil fixe de 5 matchs vidait TOUTE
+    # l'analyse en debut de saison (27/10/2026 : 3-4 matchs joues par equipe -> 0 joueur retenu) :
+    # il suit maintenant le nombre de matchs deja joues (5 au plus, 1 au moins).
+    max_gp = max([p.get("GP") or 0 for p in avgs] or [0])
+    min_gp = min(5, max(1, max_gp // 2))
+    avgs = [p for p in avgs if (p.get("GP") or 0) >= min_gp and (p.get("MIN") or 0) >= 12]
     avgs.sort(key=lambda p: p.get("MIN", 0), reverse=True)
     top = avgs[:top_n]
+    y = int(season.split("-")[0])
+    prev = f"{y - 1}-{y % 100:02d}"
 
     out = []
     for p in top:
@@ -121,6 +127,9 @@ def fetch_team_player_data(team_id, season=CURRENT_SEASON, top_n=10):
         if pid:
             try:
                 l20 = player_recent_form(pid, season=season, n=20)
+                # Debut de saison : forme recente completee par la fin de la saison precedente
+                if len(l20) < 10:
+                    l20 = l20 + player_recent_form(pid, season=prev, n=20 - len(l20))
             except Exception as e:
                 print(f"  [gamelog err] {p.get('PLAYER_NAME')}: {e}")
         out.append(_player_summary(p, l20))

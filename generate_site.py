@@ -6924,7 +6924,7 @@ def build_html(matches, team_ai, player_ai, pstats_data, nba_picks=None, nba_his
     <!-- Section Historique (matchs récents 2h-48h ago) — masquée par défaut -->
     <div id="nba-history-block" style="display:none;margin-bottom:18px">
       <div style="color:#fbbf24;font-size:13px;font-weight:700;margin-bottom:10px;padding:8px 12px;background:rgba(251,191,36,0.06);border-left:3px solid #fbbf24;border-radius:4px;line-height:1.5">
-        📅 <b>Historique NBA (48h)</b> — Matchs joués entre 2h et 48h ago. Clique sur un match → ouvre les cards joueur identiques à Analyse → utilise <b style="color:#22c55e">📌 Add OVER</b> ou <b style="color:#ef4444">📌 Add UNDER</b> pour ajouter retroactivement un pari à ta bankroll (le match_date du passé est embarqué, et l'auto-resolve via box scores fera le reste).
+        📅 <b>Historique NBA (48h)</b> — Matchs joués entre 2h et 48h ago. Clique sur un match pour revoir les cartes joueur, comme dans l'Analyse.
       </div>
       {nba_history_section_html}
     </div>

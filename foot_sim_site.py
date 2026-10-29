@@ -264,7 +264,8 @@ def _history_view():
             tag = ('<span class="eb-tag">à venir</span>' if not f else
                    f'<span class="eb-tag {"acc" if res == fav else "neg"}">{"trouvé" if res == fav else "raté"}</span>')
             o25 = "" if not f else ("✓" if (g["p"]["o25"] >= 0.5) == (sum(f) > 2.5) else "✗")
-            rows += (f'<tr><td><b>{_e(g["home"])} - {_e(g["away"])}</b> <span class="eb-dim">{_e(LIG.get(g["league"], ""))}</span></td>'
+            rp = ' <span class="eb-tag" title="Simulation rejouée après coup : état du modèle d’avant le jour du match, composition officielle">rejouée</span>' if g.get("replayed") else ""
+            rows += (f'<tr><td><b>{_e(g["home"])} - {_e(g["away"])}</b> <span class="eb-dim">{_e(LIG.get(g["league"], ""))}</span>{rp}</td>'
                      f'<td class="n">{_pct(g["p"]["1"])} / {_pct(g["p"]["X"])} / {_pct(g["p"]["2"])}</td>'
                      f'<td class="n">{g["goals"][0]:.1f}-{g["goals"][1]:.1f}</td>'
                      f'<td class="n">{"<b>" + str(f[0]) + "-" + str(f[1]) + "</b>" if f else "–"}</td>'
