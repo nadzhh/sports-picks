@@ -84,6 +84,8 @@ def due_games(games, prev, report, now):
                 why.append("dernière simulation avant le match")
             if age >= REFRESH_AGE:
                 why.append("cotes rafraîchies")
+            if p.get("replay") and p["replay"].get("v") != R.REPLAY_V:
+                why.append("nouvelle version de la vidéo")
             if not p.get("props") and age >= PROPS_AGE and fetch_game_props(g["gid"]):
                 why.append("props DraftKings publiées")
             summary = _get(f"{BASE}/summary?event={g['gid']}") or {}
