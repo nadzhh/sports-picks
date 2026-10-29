@@ -39,8 +39,12 @@
   /* ── Preparation : chronologie + etats cumules ───────────────────────── */
   // Match complet : chaque action dure a l'ecran son vrai temps de jeu / SPEED (remontee de balle, mise en
   // place, action), plus le temps de montrer son issue (EXTRA). Resume : 75 temps forts (~3 min).
-  var SPEED = 8.5;
-  var EXTRA = { shot: 0.85, ft: 0.5, reb: 0.35, to: 0.8, foul: 0.7, sub: 0.3, end: 3.6 };
+  var SPEED = 8;
+  var EXTRA = { shot: 0.75, ft: 0.4, reb: 0.25, to: 0.5, foul: 0.5, sub: 0.25, end: 3.0 };
+  // Deplacements : une vitesse de course maximale, la meme partout (pieds de terrain par seconde de
+  // video), positions calculees image par image (FS par seconde) ; la video attend le joueur de
+  // l'action s'il n'est pas encore a son spot, au lieu de le faire sauter
+  var VMAX = 38, FS = 20;
   function gtime(e) { return e.q <= 4 ? (e.q - 1) * 720 + (720 - e.c) : 2880 + (e.q - 5) * 300 + (300 - e.c); }
   function prepare(data, mode) {
     var full = mode !== 'resume';
@@ -75,7 +79,7 @@
       var big = full || !!keep[i];
       var app = full ? Math.min(Math.max(0, g - gLast) / SPEED, 5) : (big && e.k !== 'sub' && e.k !== 'end' ? 0.6 : 0);
       var ex = !big ? (e.k === 'sub' ? 0.04 : 0.07) : full ? (EXTRA[e.k] || 0.5) : (e.k === 'shot' ? 1.4 : e.k === 'end' ? 3.6 : 0.8);
-      timeline.push({ e: e, i: i, k: timeline.length, t0: t, app: app, d: app + ex, big: big, g0: gLast, g: g, team: tm,
+      timeline.push({ e: e, i: i, k: timeline.length, t0: t, app: app, ex: ex, d: app + ex, big: big, g0: gLast, g: g, team: tm,
                       newPoss: newPoss, ps: ps, sc0: sc0, box: box.map(function (a) { return a.slice(); }),
                       on: Object.keys(on).map(Number), fouls: fouls.slice() });
       t += app + ex;
@@ -84,11 +88,64 @@
       if (e.team != null) team = e.team;
       gLast = Math.max(gLast, g);
     });
-    var gameEnd = t;
     var quarters = data.quarters;
     if (!quarters) { quarters = []; var pv = [0, 0]; ev.forEach(function (e) { if (e.k === 'end') { quarters.push([e.s[0] - pv[0], e.s[1] - pv[1]]); pv = e.s; } }); }
-    return { data: data, mode: full ? 'full' : 'resume', tl: timeline, cols: cols, gameEnd: gameEnd, total: gameEnd + DUR.box + DUR.summary,
-             quarters: quarters, colors: teamColors(data.meta.home, data.meta.away) };
+    var S = { data: data, mode: full ? 'full' : 'resume', tl: timeline, cols: cols, quarters: quarters,
+              colors: teamColors(data.meta.home, data.meta.away) };
+    simulateMotion(S);
+    S.total = S.gameEnd + DUR.box + DUR.summary;
+    return S;
+  }
+
+  function simulateMotion(S) {
+    var P = S.data.players, n = P.length, tl = S.tl, cur = {}, frames = [];
+    function snap() { var a = new Float32Array(2 * n).fill(NaN); for (var j in cur) { a[2 * j] = cur[j][0]; a[2 * j + 1] = cur[j][1]; } frames.push(a); }
+    function step(tg) {
+      for (var j in cur) {
+        var g = tg[j]; if (!g) continue;
+        var dx = g[0] - cur[j][0], dy = g[1] - cur[j][1], d = Math.hypot(dx, dy);
+        if (d < 1e-3) continue;
+        var sp = Math.min(d, (VMAX / FS) * Math.min(1, 0.25 + d / 6));   // ralentit en arrivant
+        cur[j][0] += dx / d * sp; cur[j][1] += dy / d * sp;
+      }
+    }
+    var f0 = formation(S, tl[0]);
+    tl[0].on.forEach(function (j) { cur[j] = (f0[j] || [47, 25]).slice(); });
+    for (var i = 0; i < Math.round(DUR.intro * FS); i++) snap();
+    tl.forEach(function (item) {
+      var e = item.e;
+      item.t0 = frames.length / FS;
+      // Changements : le sortant quitte le terrain, l'entrant arrive du banc (ligne de touche, milieu)
+      for (var j in cur) if (item.on.indexOf(+j) < 0) delete cur[j];
+      item.on.forEach(function (j) { if (!cur[j]) cur[j] = [47 + (P[j].team === 0 ? 9 : -9), 53]; });
+      var fin = formation(S, item);
+      var fast = e.ctx === 'contre-attaque' || e.ctx === 'transition';
+      var bu = item.newPoss && !fast && item.app > 0.9 ? bringUp(S, item) : null;
+      var actor = item.big && (e.k === 'shot' || e.k === 'ft') ? e.p : null;   // resume : on n'attend que pour les temps forts
+      var nApp = Math.round(item.app * FS), k2 = 0;
+      while (k2 < nApp || (actor != null && cur[actor] && fin[actor] && Math.hypot(cur[actor][0] - fin[actor][0], cur[actor][1] - fin[actor][1]) > 2.5 && k2 < nApp + 3 * FS)) {
+        var u = nApp ? k2 / nApp : 1, tg = {};
+        item.on.forEach(function (j) { tg[j] = (bu && u < 0.45 && bu[j]) ? bu[j] : fin[j]; });
+        step(tg); snap(); k2++;
+      }
+      item.app = k2 / FS;
+      var nEx = Math.max(1, Math.round(item.ex * FS));
+      for (var k3 = 0; k3 < nEx; k3++) { step(fin); snap(); }
+      item.d = item.app + nEx / FS;
+    });
+    S.frames = frames;
+    S.gameEnd = frames.length / FS;
+  }
+  function framePos(S, t, on) {
+    var f = Math.max(0, Math.min(S.frames.length - 1, t * FS)), i0 = Math.floor(f), i1 = Math.min(i0 + 1, S.frames.length - 1), w = f - i0;
+    var A = S.frames[i0], B = S.frames[i1], pos = {};
+    on.forEach(function (j) {
+      var ax = A[2 * j], ay = A[2 * j + 1], bx = B[2 * j], by = B[2 * j + 1];
+      if (isNaN(ax)) { ax = bx; ay = by; }
+      if (isNaN(bx)) { bx = ax; by = ay; }
+      if (!isNaN(ax)) pos[j] = [lerp(ax, bx, w), lerp(ay, by, w)];
+    });
+    return pos;
   }
 
   /* ── Terrain en perspective (pieds : longueur 94, largeur 50) ────────── */
@@ -242,23 +299,11 @@
     var ua = t < DUR.intro ? 0 : (cur.app > 0 ? Math.min(1, lt / cur.app) : 1);                 // mise en place
     var ux = t < DUR.intro ? 0 : Math.max(0, Math.min(1, (lt - cur.app) / Math.max(cur.d - cur.app, 1e-3)));   // issue
     drawCourt(ctx);
-    // Joueurs : remontee de balle a chaque changement de possession, puis placement ; le joueur de l'action
-    // part de sa zone en fin de possession (drive, sortie d'ecran) ; les autres ne restent jamais figes
-    var pa = formation(S, prev), pb = formation(S, cur), pos = {};
-    var bu = (cur.newPoss && cur.app > 0.9 && e.ctx !== 'contre-attaque') ? bringUp(S, cur) : null;
+    // Joueurs : trajets precalcules a vitesse de course constante (simulateMotion) + leger mouvement sur place
+    var pos = framePos(S, t, cur.on);
     cur.on.forEach(function (j) {
-      var a = pa[j] || pb[j], b = pb[j], x, y;
-      var actor = j === e.p && e.k === 'shot' && cur.app > 0.9;
-      if (bu) {
-        var m = bu[j] || b;
-        if (ua < 0.45) { var v = ease(ua / 0.45); x = lerp(a[0], m[0], v); y = lerp(a[1], m[1], v); }
-        else { var v2 = ease(actor ? Math.max(0, (ua - 0.7) / 0.3) : (ua - 0.45) / 0.55); x = lerp(m[0], b[0], v2); y = lerp(m[1], b[1], v2); }
-      } else {
-        var v3 = cur.app > 0 ? (actor ? Math.max(0, (ua - 0.55) / 0.45) : ua) : Math.min(1, lt / (0.45 * cur.d));
-        v3 = ease(v3); x = lerp(a[0], b[0], v3); y = lerp(a[1], b[1], v3);
-      }
-      if (j !== e.p && e.k !== 'ft') { x += Math.sin(t * 1.1 + j * 2.3) * 0.9; y += Math.cos(t * 0.8 + j * 1.7) * 0.9; }
-      pos[j] = [x, y];
+      if (!pos[j]) { var fb = formation(S, cur)[j] || [47, 25]; pos[j] = fb.slice(); }
+      if (j !== e.p && e.k !== 'ft') { pos[j][0] += Math.sin(t * 1.1 + j * 2.3) * 0.5; pos[j][1] += Math.cos(t * 0.8 + j * 1.7) * 0.5; }
     });
     var tokens = cur.on.map(function (j) { return { j: j, X: pos[j][0], Y: pos[j][1] }; }).sort(function (a, b) { return a.Y - b.Y; });
     tokens.forEach(function (tk) {
