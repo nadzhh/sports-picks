@@ -1,6 +1,6 @@
 {
- "genere_le": "2026-10-28T23:15:58",
- "n_resolus": 2253,
+ "genere_le": "2026-10-29T02:59:01",
+ "n_resolus": 2264,
  "parametres": {
   "n_min_jugement": 20,
   "seuil_pct": 50.0,
@@ -8,21 +8,71 @@
  },
  "marches": {
   "foot/Victoire domicile": {
-   "n": 123,
+   "n": 125,
    "wins": 69,
-   "wr": 56.1,
-   "borne_basse": 47.3,
-   "borne_haute": 64.6,
+   "wr": 55.2,
+   "borne_basse": 46.5,
+   "borne_haute": 63.6,
    "statut": "SURVEILLE",
-   "cote_moyenne": 2.22,
-   "n_cotes": 23
+   "cote_moyenne": 2.2,
+   "n_cotes": 24
+  },
+  "foot/Double chance": {
+   "n": 85,
+   "wins": 70,
+   "wr": 82.4,
+   "borne_basse": 72.9,
+   "borne_haute": 89.0,
+   "statut": "RETENU",
+   "cote_moyenne": 1.43,
+   "n_cotes": 15
+  },
+  "foot/Tirs cadrés (Inter)": {
+   "n": 1,
+   "wins": 0,
+   "wr": 0.0,
+   "borne_basse": 0.0,
+   "borne_haute": 79.3,
+   "statut": "SURVEILLE",
+   "cote_moyenne": null,
+   "n_cotes": 0
+  },
+  "foot/Tirs cadrés (total)": {
+   "n": 33,
+   "wins": 26,
+   "wr": 78.8,
+   "borne_basse": 62.2,
+   "borne_haute": 89.3,
+   "statut": "RETENU",
+   "cote_moyenne": null,
+   "n_cotes": 0
+  },
+  "foot/Tirs (Juventus)": {
+   "n": 1,
+   "wins": 1,
+   "wr": 100.0,
+   "borne_basse": 20.7,
+   "borne_haute": 100.0,
+   "statut": "SURVEILLE",
+   "cote_moyenne": null,
+   "n_cotes": 0
+  },
+  "foot/Victoire extérieur": {
+   "n": 155,
+   "wins": 68,
+   "wr": 43.9,
+   "borne_basse": 36.3,
+   "borne_haute": 51.7,
+   "statut": "SURVEILLE",
+   "cote_moyenne": 2.4,
+   "n_cotes": 19
   },
   "tennis/tennis_total_games": {
-   "n": 116,
-   "wins": 79,
-   "wr": 68.1,
-   "borne_basse": 59.2,
-   "borne_haute": 75.9,
+   "n": 118,
+   "wins": 80,
+   "wr": 67.8,
+   "borne_basse": 58.9,
+   "borne_haute": 75.6,
    "statut": "RETENU",
    "cote_moyenne": null,
    "n_cotes": 0
@@ -36,26 +86,6 @@
    "statut": "SURVEILLE",
    "cote_moyenne": 2.35,
    "n_cotes": 31
-  },
-  "foot/Double chance": {
-   "n": 83,
-   "wins": 68,
-   "wr": 81.9,
-   "borne_basse": 72.3,
-   "borne_haute": 88.7,
-   "statut": "RETENU",
-   "cote_moyenne": 1.43,
-   "n_cotes": 15
-  },
-  "foot/Victoire extérieur": {
-   "n": 154,
-   "wins": 68,
-   "wr": 44.2,
-   "borne_basse": 36.5,
-   "borne_haute": 52.0,
-   "statut": "SURVEILLE",
-   "cote_moyenne": 2.4,
-   "n_cotes": 19
   },
   "foot/Tirs (total match)": {
    "n": 40,
@@ -86,16 +116,6 @@
    "statut": "SURVEILLE",
    "cote_moyenne": 4.03,
    "n_cotes": 13
-  },
-  "foot/Tirs cadrés (total)": {
-   "n": 31,
-   "wins": 25,
-   "wr": 80.6,
-   "borne_basse": 63.7,
-   "borne_haute": 90.8,
-   "statut": "RETENU",
-   "cote_moyenne": null,
-   "n_cotes": 0
   },
   "foot/Double Chance Buteur": {
    "n": 383,
@@ -871,30 +891,84 @@
  "calibration": {
   "foot/Victoire domicile": {
    "60-69": {
-    "n": 52,
-    "p": 50.0
+    "n": 53,
+    "p": 49.1
+   },
+   "70-79": {
+    "n": 32,
+    "p": 56.2
    },
    "80-89": {
     "n": 20,
     "p": 75.0
-   },
-   "70-79": {
-    "n": 31,
-    "p": 58.1
    },
    "50-59": {
     "n": 20,
     "p": 50.0
    }
   },
+  "foot/Double chance": {
+   "80-89": {
+    "n": 63,
+    "p": 81.0
+   },
+   "90-99": {
+    "n": 16,
+    "p": 90.0
+   },
+   "70-79": {
+    "n": 6,
+    "p": 73.0
+   }
+  },
+  "foot/Tirs cadrés (Inter)": {
+   "70-79": {
+    "n": 1,
+    "p": 5.0
+   }
+  },
+  "foot/Tirs cadrés (total)": {
+   "70-79": {
+    "n": 28,
+    "p": 78.6
+   },
+   "80-89": {
+    "n": 5,
+    "p": 79.4
+   }
+  },
+  "foot/Tirs (Juventus)": {
+   "70-79": {
+    "n": 1,
+    "p": 90.0
+   }
+  },
+  "foot/Victoire extérieur": {
+   "70-79": {
+    "n": 39,
+    "p": 51.3
+   },
+   "60-69": {
+    "n": 73,
+    "p": 41.1
+   },
+   "50-59": {
+    "n": 25,
+    "p": 36.0
+   },
+   "80-89": {
+    "n": 18,
+    "p": 50.0
+   }
+  },
   "tennis/tennis_total_games": {
    "60-69": {
-    "n": 84,
-    "p": 72.6
+    "n": 86,
+    "p": 72.1
    },
    "50-59": {
     "n": 3,
-    "p": 57.7
+    "p": 57.5
    },
    "70-79": {
     "n": 29,
@@ -921,38 +995,6 @@
    "90-99": {
     "n": 4,
     "p": 61.0
-   }
-  },
-  "foot/Double chance": {
-   "80-89": {
-    "n": 61,
-    "p": 80.3
-   },
-   "90-99": {
-    "n": 16,
-    "p": 90.0
-   },
-   "70-79": {
-    "n": 6,
-    "p": 72.8
-   }
-  },
-  "foot/Victoire extérieur": {
-   "70-79": {
-    "n": 38,
-    "p": 52.6
-   },
-   "60-69": {
-    "n": 73,
-    "p": 41.1
-   },
-   "50-59": {
-    "n": 25,
-    "p": 36.0
-   },
-   "80-89": {
-    "n": 18,
-    "p": 50.0
    }
   },
   "foot/Tirs (total match)": {
@@ -1007,16 +1049,6 @@
    "50-59": {
     "n": 1,
     "p": 27.7
-   }
-  },
-  "foot/Tirs cadrés (total)": {
-   "70-79": {
-    "n": 26,
-    "p": 80.8
-   },
-   "80-89": {
-    "n": 5,
-    "p": 80.3
    }
   },
   "foot/Double Chance Buteur": {
@@ -1756,7 +1788,7 @@
  },
  "replis_sport": {
   "foot": 45.7,
-  "tennis": 61.3,
+  "tennis": 61.1,
   "nba": 50.5
  }
 }
