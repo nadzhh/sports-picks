@@ -72,6 +72,43 @@ def upcoming(hours):
     return sorted(out, key=lambda g: g["ko"])
 
 
+SHIRT_CACHE = Path("data/foot_db/shirts.json")   # dossier mis en cache par la veille (CI)
+_RECS = {}
+
+
+def shirt_numbers(team_id, before):
+    """{joueur: numero} d'apres la feuille de match complete du dernier match joue par l'equipe (FotMob) :
+    la composition « probable » d'avant-match ne donne pas les remplacants. Cache 3 jours par equipe."""
+    try:
+        cache = json.loads(SHIRT_CACHE.read_text(encoding="utf-8")) if SHIRT_CACHE.exists() else {}
+    except ValueError:
+        cache = {}
+    c = cache.get(str(team_id))
+    if c and time.time() - c["at"] < 3 * 86400:
+        return c["nums"]
+    if not _RECS: _RECS.update(foot_db.load_all())
+    past = [r for r in _RECS.values() if str(team_id) in (str(r["home"]["id"]), str(r["away"]["id"])) and r["date"] < before]
+    nums = {}
+    if past:
+        last = max(past, key=lambda r: r["date"])
+        try:
+            lu = ((foot_db._page(last["id"]) or {}).get("content") or {}).get("lineup") or {}
+            for key in ("homeTeam", "awayTeam"):
+                t = lu.get(key) or {}
+                if str(t.get("id")) != str(team_id): continue
+                for pl in (t.get("starters") or []) + (t.get("subs") or []):
+                    if pl.get("shirtNumber"): nums[str(pl.get("id"))] = str(pl["shirtNumber"])
+        except Exception:
+            pass
+    cache[str(team_id)] = {"at": time.time(), "nums": nums}
+    try:
+        SHIRT_CACHE.parent.mkdir(parents=True, exist_ok=True)
+        SHIRT_CACHE.write_text(json.dumps(cache), encoding="utf-8")
+    except OSError:
+        pass
+    return nums
+
+
 def lineups(st, g, day):
     """Composition et indisponibles de chaque equipe : {side: {xi, bench, type, unavailable}}."""
     try:
@@ -106,6 +143,20 @@ def lineups(st, g, day):
                 pool = Counter(pid for gm in games[-6:] for pid in gm[2][0] + gm[2][1])
                 bench = [p for p, _ in pool.most_common(30) if p not in xi and p not in out_ids][:12]
                 typ = "estimée"
+        if xi and not bench:   # composition probable FotMob sans banc : remplacants habituels de l'equipe
+            tid = g[side]["id"]
+            games = [x for x in st.team_games.get(tid, []) if x[0] < day]
+            out_ids = {u["id"] for u in unav}
+            pool = Counter(pid for gm in games[-6:] for pid in gm[2][0] + gm[2][1])
+            bench = [p for p, _ in pool.most_common(30) if p not in xi and p not in out_ids][:12]
+        missing = [p for p in xi + bench if not (info.get(p) or {}).get("num")]
+        if missing:   # numeros manquants (remplacants d'une compo probable, compo estimee) : dernier match joue
+            try:
+                nums = shirt_numbers(g[side]["id"], g["ko"])
+            except Exception:
+                nums = {}
+            for pid in missing:
+                if nums.get(pid): info[pid] = {"num": nums[pid], "lay": (info.get(pid) or {}).get("lay") or [None, None]}
         out[side] = {"xi": xi, "bench": bench, "type": typ, "unavailable": unav, "names": names, "info": info,
                      "formation": t.get("formation")}
     return out
@@ -173,7 +224,16 @@ def replay(res, inp, k, g, lu=None):
         pl = inp[side]["players"]
         outs = [(float(t_out[k, j]), j) for j in range(len(pl)) if np.isfinite(t_out[k, j])]
         ins = [(float(t_in[k, j]), j) for j in range(len(pl)) if np.isfinite(t_in[k, j]) and t_in[k, j] > 0]
-        for (tm, jo), (_, ji) in zip(sorted(outs), sorted(ins)):
+        # Appariement sortant -> entrant : 5 changements au plus, poste pour poste de preference (a minute
+        # proche), jamais un gardien a la place d'un joueur de champ
+        used, n_sub = set(), 0
+        for tm, jo in sorted(outs):
+            if n_sub >= 5: break
+            po = pl[jo]["pos"]
+            cand = [(abs(ti - tm) + (0 if pl[ji]["pos"] == po else 15), ji) for ti, ji in ins
+                    if ji not in used and (pl[ji]["pos"] != "GK" or po == "GK")]
+            if not cand: continue
+            ji = min(cand)[1]; used.add(ji); n_sub += 1
             ev.append({"t": int(tm), "side": side, "kind": "remplacement", "who": pl[ji]["name"], "out": pl[jo]["name"]})
     ev.sort(key=lambda e: e["t"])
     score = [0, 0]

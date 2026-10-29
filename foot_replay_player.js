@@ -388,6 +388,18 @@
         g.fillStyle = tag.e.kind === 'but' ? '#0b1208' : C.tx; g.font = '700 13px ' + SANS; g.fillText(lab2, x0 + w1 + 8, y0 + 14);
       }
     }
+    // Changements : etiquette sur le joueur qui entre (pendant 3 s)
+    S.log.slice(Math.max(0, fr.L - 6), fr.L).forEach(function (l) {
+      if (l.kind !== 'sub' || f - l.f > 3 * F_FS || l.who == null) return;
+      var xs = fr.P[2 * l.who], ys = fr.P[2 * l.who + 1]; if (isNaN(xs)) return;
+      var qs = cv(lp(xs, nx.P[2 * l.who]), lp(ys, nx.P[2 * l.who + 1])), o3 = S.all[l.who];
+      var t1 = (o3.num ? o3.num + '  ' : '') + o3.name.toUpperCase(), t2 = 'ENTRÉE';
+      g.font = '800 14px ' + SANS; var a1 = g.measureText(t1).width + 16; g.font = '700 12px ' + SANS; var a2 = g.measureText(t2).width + 14;
+      var xa = clamp(qs[0] - (a1 + a2) / 2, PX, PX + PW - a1 - a2), ya = qs[1] - 44;
+      g.fillStyle = COL[o3.side === 'home' ? 0 : 1]; g.fillRect(xa, ya, a1, 24); g.fillStyle = C.tx; g.fillRect(xa + a1, ya, a2, 24);
+      g.fillStyle = '#0b1208'; g.textAlign = 'left'; g.textBaseline = 'middle'; g.font = '800 14px ' + SANS; g.fillText(t1, xa + 8, ya + 13);
+      g.font = '700 12px ' + SANS; g.fillText(t2, xa + a1 + 7, ya + 13);
+    });
     if (tag.k === 'but') { g.fillStyle = COL[tag.side === 'home' ? 0 : 1]; g.font = '800 84px ' + SANS; g.textAlign = 'center'; g.fillText(tag.e.kind === 'csc' ? 'BUT CSC !' : 'BUT !', PX + PW / 2, PY + PH / 2); }
     // Bandeau : equipes, score, minute, possession
     var mins = Math.floor(fr.gt / 60), clock = tag.k === 'fin' ? 'Fin' : tag.k === 'mt' ? 'Mi-temps' : (mins >= 90 ? "90'+" + (mins - 89) : (mins + 1) + "'");
