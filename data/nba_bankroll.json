@@ -21,7 +21,9 @@
 "p_mkt": 0.5450999999999999,
 "hold": 0.06702685136287934,
 "pending": [],
-"dec": 1.719
+"dec": 1.719,
+"actual": 8,
+"result": "win"
 }
 ],
 "stake": 2.5,
@@ -32,7 +34,9 @@
 "id": "2026-10-28-1",
 "night": "2026-10-28",
 "placed_at": "2026-10-28T16:42+00:00",
-"status": "open"
+"status": "won",
+"pnl": 1.8,
+"settled_at": "2026-10-29T01:37+00:00"
 },
 {
 "legs": [
@@ -53,7 +57,9 @@
 "p_mkt": 0.5796,
 "hold": 0.0667511039605655,
 "pending": [],
-"dec": 1.617
+"dec": 1.617,
+"actual": 8,
+"result": "loss"
 }
 ],
 "stake": 3.0,
@@ -64,7 +70,9 @@
 "id": "2026-10-28-2",
 "night": "2026-10-28",
 "placed_at": "2026-10-28T17:12+00:00",
-"status": "open"
+"status": "lost",
+"pnl": -3.0,
+"settled_at": "2026-10-29T01:37+00:00"
 },
 {
 "legs": [
@@ -163,27 +171,11 @@
 "status": "open"
 }
 ],
-"updated": "2026-10-28T17:33:19+00:00",
+"updated": "2026-10-29T01:37:45+00:00",
 "mode": {
 "mode": "normal",
-"clv": 0.0,
-"n": 0
+"clv": -0.0629,
+"n": 2
 },
-"waiting": {
-"401909887|4395725|3PM|2.5|u": {
-"name": "Tyler Herro",
-"team": "MIL",
-"opp": "HOU",
-"stat": "3PM",
-"side": "u",
-"line": 2.5,
-"date": "2026-10-29T00:00Z",
-"dec": 2.11,
-"ev": 0.0569,
-"why": [
-"rapport officiel des blessures pas encore rempli"
-],
-"since": "2026-10-28T17:33+00:00"
-}
-}
+"waiting": {}
 }
