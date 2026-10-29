@@ -1,6 +1,6 @@
 {
- "genere_le": "2026-10-29T09:48:38",
- "n_resolus": 2271,
+ "genere_le": "2026-10-29T16:55:54",
+ "n_resolus": 2275,
  "parametres": {
   "n_min_jugement": 20,
   "seuil_pct": 50.0,
@@ -28,14 +28,24 @@
    "n_cotes": 15
   },
   "tennis/tennis_total_games": {
-   "n": 119,
-   "wins": 81,
-   "wr": 68.1,
-   "borne_basse": 59.2,
-   "borne_haute": 75.8,
+   "n": 122,
+   "wins": 84,
+   "wr": 68.9,
+   "borne_basse": 60.2,
+   "borne_haute": 76.4,
    "statut": "RETENU",
    "cote_moyenne": null,
    "n_cotes": 0
+  },
+  "tennis/tennis_winner": {
+   "n": 32,
+   "wins": 16,
+   "wr": 50.0,
+   "borne_basse": 33.6,
+   "borne_haute": 66.4,
+   "statut": "SURVEILLE",
+   "cote_moyenne": 2.32,
+   "n_cotes": 32
   },
   "foot/Tirs cadrés (Inter)": {
    "n": 1,
@@ -76,16 +86,6 @@
    "statut": "SURVEILLE",
    "cote_moyenne": 2.4,
    "n_cotes": 19
-  },
-  "tennis/tennis_winner": {
-   "n": 31,
-   "wins": 16,
-   "wr": 51.6,
-   "borne_basse": 34.8,
-   "borne_haute": 68.0,
-   "statut": "SURVEILLE",
-   "cote_moyenne": 2.35,
-   "n_cotes": 31
   },
   "foot/Tirs (total match)": {
    "n": 40,
@@ -923,16 +923,38 @@
   },
   "tennis/tennis_total_games": {
    "60-69": {
-    "n": 87,
-    "p": 72.4
+    "n": 90,
+    "p": 73.3
    },
    "50-59": {
     "n": 3,
-    "p": 57.7
+    "p": 58.2
    },
    "70-79": {
     "n": 29,
     "p": 58.6
+   }
+  },
+  "tennis/tennis_winner": {
+   "80-89": {
+    "n": 5,
+    "p": 45.0
+   },
+   "70-79": {
+    "n": 13,
+    "p": 53.8
+   },
+   "60-69": {
+    "n": 7,
+    "p": 55.0
+   },
+   "50-59": {
+    "n": 3,
+    "p": 35.0
+   },
+   "90-99": {
+    "n": 4,
+    "p": 60.0
    }
   },
   "foot/Tirs cadrés (Inter)": {
@@ -973,28 +995,6 @@
    "80-89": {
     "n": 18,
     "p": 50.0
-   }
-  },
-  "tennis/tennis_winner": {
-   "70-79": {
-    "n": 13,
-    "p": 53.8
-   },
-   "80-89": {
-    "n": 4,
-    "p": 51.0
-   },
-   "60-69": {
-    "n": 7,
-    "p": 55.5
-   },
-   "50-59": {
-    "n": 3,
-    "p": 36.1
-   },
-   "90-99": {
-    "n": 4,
-    "p": 61.0
    }
   },
   "foot/Tirs (total match)": {
@@ -1788,7 +1788,7 @@
  },
  "replis_sport": {
   "foot": 45.7,
-  "tennis": 61.4,
+  "tennis": 61.7,
   "nba": 50.5
  }
 }
