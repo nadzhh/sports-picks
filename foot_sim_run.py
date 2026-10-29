@@ -90,6 +90,11 @@ def lineups(st, g, day):
         # noms et postes depuis FotMob : joueurs encore absents de la base (recrues, promus)
         names = {str(p.get("id")): (p.get("name"), p.get("positionId") or p.get("usualPlayingPositionId"))
                  for p in (t.get("starters") or []) + (t.get("subs") or [])}
+        # Video : numero de maillot et place dans le schema (horizontalLayout : x = profondeur depuis son but,
+        # y = largeur, de 0 a 1)
+        info = {str(p.get("id")): {"num": str(p.get("shirtNumber") or ""),
+                                   "lay": [(p.get("horizontalLayout") or {}).get("x"), (p.get("horizontalLayout") or {}).get("y")]}
+                for p in (t.get("starters") or []) + (t.get("subs") or [])}
         typ = (LINEUP_TYPES.get(ltype, "probable") if xi else "")
         if not xi:   # notre composition : dernier onze de l'equipe, indisponibles retires
             tid = g[side]["id"]
@@ -101,7 +106,8 @@ def lineups(st, g, day):
                 pool = Counter(pid for gm in games[-6:] for pid in gm[2][0] + gm[2][1])
                 bench = [p for p, _ in pool.most_common(30) if p not in xi and p not in out_ids][:12]
                 typ = "estimée"
-        out[side] = {"xi": xi, "bench": bench, "type": typ, "unavailable": unav, "names": names}
+        out[side] = {"xi": xi, "bench": bench, "type": typ, "unavailable": unav, "names": names, "info": info,
+                     "formation": t.get("formation")}
     return out
 
 
@@ -118,12 +124,19 @@ def absence_impact(st, tid, unav, day, players_here):
     return sorted(out, key=lambda x: -x["impact"])
 
 
-def typical_index(res):
-    """Le match type : resultat le plus probable, score representatif de ce resultat (frequent ET proche
-    des buts attendus), puis le scenario dont l'xG est le plus proche de la moyenne (sans rouge de preference)."""
+def typical_index(res, gid=None):
+    """Le match montre : resultat (1 / N / 2) tire au sort selon les probabilites des simulations (comme au
+    basket : l'outsider apparait gagnant aussi souvent qu'il gagne ; tirage fixe par match), puis un score
+    representatif de ce resultat (frequent ET proche des buts attendus), puis le scenario dont l'xG est le
+    plus proche de la moyenne (sans rouge de preference). Sans gid : le resultat le plus probable."""
     H, A = res["home_goals"], res["away_goals"]
     sign = np.sign(H - A)
-    k = max((1, 0, -1), key=lambda v: np.mean(sign == v))
+    if gid is None:
+        k = max((1, 0, -1), key=lambda v: np.mean(sign == v))
+    else:
+        u = (int(gid) * 2654435761 % 2 ** 32) / 2 ** 32
+        p1, px = float(np.mean(sign == 1)), float(np.mean(sign == 0))
+        k = 1 if u < p1 else (0 if u < p1 + px else -1)
     # Score representatif : frequence x proximite des buts attendus. Le score le plus frequent seul donnait
     # presque toujours 1-0 (le mode d'une loi de Poisson est bas) meme pour 2,5-3 buts attendus (28/10).
     eh, ea = H.mean(), A.mean()
@@ -137,8 +150,9 @@ def typical_index(res):
     return int(cand[int(np.argmin(z))])
 
 
-def replay(res, inp, k, g):
-    """Actions du match type pour la video : tirs (position, xG, issue), buts, penalties, csc, rouges, remplacements."""
+def replay(res, inp, k, g, lu=None):
+    """Actions du match type pour la video : tirs (position, xG, issue), buts, penalties, csc, rouges, remplacements,
+    et les joueurs (numero, poste, place dans le schema) pour les montrer tous sur le terrain."""
     ev = []
     for minute, side, j, q, goal, kind in sorted(res["log"][k], key=lambda e: e[0]):
         pl = inp[side]["players"]
@@ -167,7 +181,19 @@ def replay(res, inp, k, g):
         if e["kind"] in ("but", "csc"):
             score[0 if e["side"] == "home" else 1] += 1
         e["score"] = list(score)
-    return {"events": ev, "final": score}
+    teams = {}
+    for side in ("home", "away"):
+        info = ((lu or {}).get(side) or {}).get("info") or {}
+        pls = []
+        for q in inp[side]["players"]:
+            i = info.get(q["id"]) or {}
+            lay = i.get("lay") or [None, None]
+            pls.append({"name": q["name"], "num": i.get("num", ""), "pos": q["pos"], "st": bool(q["starter"]),
+                        "lay": [round(lay[0], 3), round(lay[1], 3)] if q["starter"] and None not in lay else None})
+        teams[side] = {"players": pls, "formation": ((lu or {}).get(side) or {}).get("formation")}
+    xh, xa = float(res["home_xg"].mean()), float(res["away_xg"].mean())
+    poss = round(min(max(0.5 + 0.3 * (xh - xa) / max(xh + xa, 0.1), 0.35), 0.65), 3)   # possession du domicile (approx.)
+    return {"v": 2, "events": ev, "final": score, "teams": teams, "poss": poss}
 
 
 def run_game(st, g, n_sims):
@@ -212,8 +238,8 @@ def run_game(st, g, n_sims):
                                "absences": absence_impact(st, g[side]["id"], lu[side]["unavailable"], day, pl),
                                "scorers": sorted([s for s in scorers if s["p_goal"] >= 0.03], key=lambda s: -s["p_goal"])[:8],
                                "xi": [q["name"] for q in pl if q["starter"]]}
-    k = typical_index(res)
-    out["replay"] = replay(res, inp, k, g)
+    k = typical_index(res, g["id"])
+    out["replay"] = replay(res, inp, k, g, lu)
     return out
 
 

@@ -279,8 +279,8 @@ class Live:
             due = []
             for g in games:
                 p = prev.get(g["id"])
-                if not p or now - _t(p["sim_at"]) >= FOOT_REFRESH:
-                    due.append(g)
+                if not p or now - _t(p["sim_at"]) >= FOOT_REFRESH or (p.get("replay") or {}).get("v") != 2:
+                    due.append(g)      # (v != 2 : video de l'ancien format, sans les 22 joueurs)
                 elif _t(g["ko"]) - now <= timedelta(minutes=120) and now - _t(p["sim_at"]) >= timedelta(minutes=15)                         and "officielle" not in (p["home_info"]["lineup"], p["away_info"]["lineup"]):
                     due.append(g)      # composition officielle attendue : on reverifie
             fresh = []

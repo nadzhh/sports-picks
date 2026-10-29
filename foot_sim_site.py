@@ -121,7 +121,7 @@ def _video(g, gid):
     rp = g.get("replay")
     if not rp or not rp.get("events"): return ""
     title = json.dumps({"home": g["home"]["name"], "away": g["away"]["name"],
-                        "foot": "Le match type parmi 10 000 simulations : score le plus fréquent du résultat le plus probable"},
+                        "foot": "Un match parmi 10 000 simulations : résultat tiré au sort selon les probabilités"},
                        ensure_ascii=False)
     data = json.dumps(rp, ensure_ascii=False, separators=(",", ":"))
     n_goals = sum(e["kind"] in ("but", "csc") for e in rp["events"])
@@ -131,8 +131,10 @@ def _video(g, gid):
             f'<div class="eb-video-host sp-foot-host"></div>'
             f'<script type="application/json" class="sp-foot-data">{data.replace("</", "<\\/")}</script>'
             f'<script type="application/json" class="sp-foot-title">{title.replace("</", "<\\/")}</script>'
-            '<p class="eb-note">Un vrai scénario simulé de bout en bout : chaque tir est un tir réel passé du joueur '
-            '(sa position, son xG). Ce n’est pas un pronostic de score exact.</p></div>')
+            '<p class="eb-note">Le match en entier (~9 min) : les 22 joueurs avec leur numéro, placés selon le vrai schéma '
+            'de leur équipe (FotMob), bloc qui monte ou se replie, passes, pressing. Chaque tir est un tir réel passé du joueur '
+            '(sa position, son xG). Résultat tiré au sort selon les probabilités des simulations : l’outsider apparaît gagnant '
+            'aussi souvent qu’il gagne. Ce n’est pas un pronostic de score exact.</p></div>')
 
 
 def _crisis(g):

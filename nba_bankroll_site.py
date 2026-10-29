@@ -97,17 +97,15 @@ def _bet_row(b, open_):
 RULES = [
     "<b>Paris safe</b> : le côté que le bookmaker et la simulation donnent tous deux nettement favori (58 % et plus), "
     "cote 1,50 minimum, ou un combiné de deux jambes très probables (75 % et plus, matchs différents) qui atteint 1,50. "
-    "Mise fixe 1 % du capital, 2 par soirée au plus, suivis à part. Comme les autres paris ordinaires, ils s’arrêtent "
-    "quand la discipline met la bankroll en pause (une forte probabilité ne garantit pas un gain : la marge du "
-    "bookmaker reste dessus).",
+    "Mise fixe 1 % du capital (divisée par 2 en mode prudent), 2 par soirée au plus, suivis à part (une forte "
+    "probabilité ne garantit pas un gain : la marge du bookmaker reste dessus).",
     "<b>Value bets</b> (seul avantage validé sur deux saisons) : quand Winamax, Betclic, Unibet ou PMU paient plus que "
     "la cote juste de Pinnacle (marge retirée), je mise 1/4 de Kelly, 2 % du capital au plus. Rare : les bookmakers "
     "français prennent 5 à 14 % de marge.",
-    "<b>Discipline</b> : je juge l’avantage sur toutes les sélections du simulateur. Si les cotes obtenues ne battent "
-    "pas la clôture (CLV négative), les paris ordinaires s’arrêtent : je ne garde que les paris nés d’une "
-    "<b>information fraîche</b> (un joueur du match change de statut et je resimule avant que la cote bouge), "
-    "à demi-mise et 3 % du capital par soirée maximum. Écart de 20 points ou plus avec le bookmaker : jamais "
-    "(c’est presque toujours une info qui me manque).",
+    "<b>Je parie tous les jours</b>, sans pause. Discipline : je juge l’avantage sur toutes les sélections du "
+    "simulateur ; si les cotes obtenues ne battent pas la clôture (CLV négative), je passe en <b>mode prudent</b> "
+    "(mises divisées par 2) sans m’arrêter. Gestion : 1/4 de Kelly, 3 % du capital au plus par pari, 5 % par match, "
+    "10 % par soirée. Écart de 20 points ou plus avec le bookmaker : jamais (c’est presque toujours une info qui me manque).",
     "Je ne parie que là où un avantage est démontré : la sélection du simulateur (passes, paniers à 3 pts, "
     "interceptions, contres), validée en aveugle sur trois échantillons de vraies cotes, prise à la <b>première cote vue</b>.",
     "Je ne crois pas le simulateur sur parole : ma probabilité garde {lam} de son écart avec le bookmaker "

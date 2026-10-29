@@ -46,7 +46,7 @@ UNCERTAIN = ("questionable", "doubtful", "day-to-day")
 # Discipline : la bankroll mesure sa propre CLV (cote prise vs derniere cote avant le match, suivi
 # data/nba_sim_picks.json). Sans avantage mesure, un bon parieur reduit puis arrete.
 PRUDENT = (30, 0.0)    # apres 30 selections reglees, CLV moyenne < 0 -> mises divisees par 2
-PAUSE = (60, -0.02)    # apres 60 selections reglees, CLV moyenne < -2 % -> plus de paris ordinaires
+PAUSE = (60, -0.02)    # (plus utilise depuis le 29/10/2026 : la bankroll ne se met plus en pause)
 # Jugee sur TOUTES les selections du simulateur (data/nba_sim_picks.json), pas sur les seuls paris de la
 # bankroll : 29/10/2026, 176 selections, CLV -4,6 % -> les cotes obtenues valent la cloture, pas d'avantage
 # demontre sur les paris ordinaires. Seule piste gardee, a petite mise et mesuree a part : les paris nes
@@ -286,8 +286,7 @@ def plan_safe(cands, eq, taken, n_done, prm_mult=1.0):
     """Au plus SAFE['per_night'] - n_done paris safe : simples d'abord (le plus probable), sinon un combine."""
     left = SAFE["per_night"] - n_done
     if left <= 0: return []
-    stake = _round(SAFE["stake"] * eq * prm_mult)
-    if stake < PRM["min_stake"]: return []
+    stake = max(PRM["min_stake"], _round(SAFE["stake"] * eq * prm_mult))   # au moins la mise minimale
     ok = [c for c in cands if c["key"] not in taken and c["am"] is not None]
     singles = sorted((c for c in ok if _dec(c["am"]) >= SAFE["min_odds"] and min(c["p_sim"], c["p_mkt"]) >= SAFE["p_min"]),
                      key=lambda c: -min(c["p_sim"], c["p_mkt"]))
@@ -329,7 +328,8 @@ def discipline(state, picks=None):
         if r.get("result") in ("win", "loss", "push") and r.get("last_p_mkt") is not None:
             clv.append(r["last_p_mkt"] * _dec(r["first_price"]) - 1)
     n, m = len(clv), (sum(clv) / len(clv) if clv else 0.0)
-    if n >= PAUSE[0] and m < PAUSE[1]: return "pause", m, n
+    # Plus de pause (choix de Wilson, 29/10/2026 : la bankroll doit tourner tous les jours) : une CLV
+    # negative ne fait que diviser les mises par 2 (« prudent »)
     if n >= PRUDENT[0] and m < PRUDENT[1]: return "prudent", m, n
     return "normal", m, n
 
