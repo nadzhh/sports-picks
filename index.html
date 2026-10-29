@@ -8,7 +8,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="theme-color" content="#0f1411">
 <meta name="robots" content="noindex, nofollow">
-<title>Sports Picks — 29/10/2026 15:28</title>
+<title>Sports Picks — 29/10/2026 15:36</title>
 <meta name="description" content="Pronostics football, NBA et tennis avec suivi de bankroll : 33 picks sur 66 matchs, mis a jour automatiquement.">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" %3E%0A  %3Crect x="2" y="2" width="60" height="60" rx="15" fill="%230f1411" stroke="%232a352c" stroke-width="2"/%3E%0A  %3Cpath d="M13 47 L25 34 L33 40 L40.5 29.5" fill="none" stroke="%2395e04a" stroke-width="6.5" stroke-linecap="round" stroke-linejoin="round"/%3E%0A  %3Ccircle cx="49" cy="19" r="8" fill="%2395e04a"/%3E%0A  %3Cpath d="M41 19 H57 M49 11 V27 M43.6 13.2 Q47 19 43.6 24.8 M54.4 13.2 Q51 19 54.4 24.8" fill="none" stroke="%230f1411" stroke-width="1.7" stroke-linecap="round"/%3E%0A%3C/svg%3E">
 <meta property="og:type" content="website">
@@ -1238,7 +1238,7 @@ footer{color:var(--di)!important;border-top:1px solid var(--line)!important;font
 
 <div class="container">
   <header class="sp-top"><h1 class="sp-brand"><svg class="sp-logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" aria-hidden="true">  <rect x="2" y="2" width="60" height="60" rx="15" fill="#0f1411" stroke="#2a352c" stroke-width="2"/>  <path d="M13 47 L25 34 L33 40 L40.5 29.5" fill="none" stroke="#95e04a" stroke-width="6.5" stroke-linecap="round" stroke-linejoin="round"/>  <circle cx="49" cy="19" r="8" fill="#95e04a"/>  <path d="M41 19 H57 M49 11 V27 M43.6 13.2 Q47 19 43.6 24.8 M54.4 13.2 Q51 19 54.4 24.8" fill="none" stroke="#0f1411" stroke-width="1.7" stroke-linecap="round"/></svg>Sports<span>Picks</span></h1>
-    <div class="sp-meta">Généré le <b>29/10/2026 15:28</b> · <b>66</b> matchs foot · <b>13</b> matchs NBA</div></header>
+    <div class="sp-meta">Généré le <b>29/10/2026 15:36</b> · <b>66</b> matchs foot · <b>13</b> matchs NBA</div></header>
   
   <!-- Toast non-bloquant : signalement des nouveaux picks -->
   <div id="new-picks-toast" style="display:none;position:fixed;top:18px;right:18px;z-index:9999;background:linear-gradient(90deg,#fb923c,#f97316);color:#0f1411;border-radius:10px;padding:10px 16px;font-weight:700;font-size:14px;box-shadow:0 4px 20px rgba(251,146,60,0.5);transition:opacity 0.5s ease-out;max-width:300px">
@@ -2618,12 +2618,13 @@ window.ebFootVideo=function(btn){
   /* ── Preparation : chronologie + etats cumules ───────────────────────── */
   // Match complet : chaque action dure a l'ecran son vrai temps de jeu / SPEED (remontee de balle, mise en
   // place, action), plus le temps de montrer son issue (EXTRA). Resume : 75 temps forts (~3 min).
-  var SPEED = 8;
-  var EXTRA = { shot: 0.75, ft: 0.4, reb: 0.25, to: 0.5, foul: 0.5, sub: 0.25, end: 3.0 };
+  var TS = 1.4;   // acceleration uniforme de toute la video (match complet ~8 min au lieu de ~11)
+  var SPEED = 8 * TS;
+  var EXTRA = { shot: 0.75 / TS, ft: 0.4 / TS, reb: 0.25 / TS, to: 0.5 / TS, foul: 0.5 / TS, sub: 0.25 / TS, end: 3.0 };
   // Deplacements : une vitesse de course maximale, la meme partout (pieds de terrain par seconde de
   // video), positions calculees image par image (FS par seconde) ; la video attend le joueur de
   // l'action s'il n'est pas encore a son spot, au lieu de le faire sauter
-  var VMAX = 38, FS = 20;
+  var VMAX = 38 * TS, FS = 20;
   function gtime(e) { return e.q <= 4 ? (e.q - 1) * 720 + (720 - e.c) : 2880 + (e.q - 5) * 300 + (300 - e.c); }
   function prepare(data, mode) {
     var full = mode !== 'resume';
@@ -3196,7 +3197,10 @@ window.ebFootVideo=function(btn){
     bar.addEventListener('click', function (ev) {
       var a = ev.target.getAttribute('data-a'); if (!a) return;
       if (a === 'play') { if (t >= S.total) t = 0; playing = !playing; btn.textContent = playing ? '❚❚' : '▶'; if (playing) { last = performance.now(); raf = requestAnimationFrame(loop); } }
-      if (a === 'speed') { speed = speed === 1 ? 2 : speed === 2 ? 4 : 1; ev.target.textContent = speed + '×'; }
+      if (a === 'speed') {
+        var SP = [1, 1.25, 1.5, 2, 4]; speed = SP[(SP.indexOf(speed) + 1) % SP.length];
+        ev.target.textContent = String(speed).replace('.', ',') + '×';
+      }
       if (a === 'mode') {
         S = prepare(data, S.mode === 'full' ? 'resume' : 'full'); t = 0; render();
         ev.target.textContent = S.mode === 'full' ? 'Résumé 3 min' : 'Match complet';

@@ -238,12 +238,13 @@
   /* ── Preparation : chronologie + etats cumules ───────────────────────── */
   // Match complet : chaque action dure a l'ecran son vrai temps de jeu / SPEED (remontee de balle, mise en
   // place, action), plus le temps de montrer son issue (EXTRA). Resume : 75 temps forts (~3 min).
-  var SPEED = 8;
-  var EXTRA = { shot: 0.75, ft: 0.4, reb: 0.25, to: 0.5, foul: 0.5, sub: 0.25, end: 3.0 };
+  var TS = 1.4;   // acceleration uniforme de toute la video (match complet ~8 min au lieu de ~11)
+  var SPEED = 8 * TS;
+  var EXTRA = { shot: 0.75 / TS, ft: 0.4 / TS, reb: 0.25 / TS, to: 0.5 / TS, foul: 0.5 / TS, sub: 0.25 / TS, end: 3.0 };
   // Deplacements : une vitesse de course maximale, la meme partout (pieds de terrain par seconde de
   // video), positions calculees image par image (FS par seconde) ; la video attend le joueur de
   // l'action s'il n'est pas encore a son spot, au lieu de le faire sauter
-  var VMAX = 38, FS = 20;
+  var VMAX = 38 * TS, FS = 20;
   function gtime(e) { return e.q <= 4 ? (e.q - 1) * 720 + (720 - e.c) : 2880 + (e.q - 5) * 300 + (300 - e.c); }
   function prepare(data, mode) {
     var full = mode !== 'resume';
@@ -816,7 +817,10 @@
     bar.addEventListener('click', function (ev) {
       var a = ev.target.getAttribute('data-a'); if (!a) return;
       if (a === 'play') { if (t >= S.total) t = 0; playing = !playing; btn.textContent = playing ? '❚❚' : '▶'; if (playing) { last = performance.now(); raf = requestAnimationFrame(loop); } }
-      if (a === 'speed') { speed = speed === 1 ? 2 : speed === 2 ? 4 : 1; ev.target.textContent = speed + '×'; }
+      if (a === 'speed') {
+        var SP = [1, 1.25, 1.5, 2, 4]; speed = SP[(SP.indexOf(speed) + 1) % SP.length];
+        ev.target.textContent = String(speed).replace('.', ',') + '×';
+      }
       if (a === 'mode') {
         S = prepare(data, S.mode === 'full' ? 'resume' : 'full'); t = 0; render();
         ev.target.textContent = S.mode === 'full' ? 'Résumé 3 min' : 'Match complet';
