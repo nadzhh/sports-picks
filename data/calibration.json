@@ -1,6 +1,6 @@
 {
- "genere_le": "2026-10-29T02:59:01",
- "n_resolus": 2264,
+ "genere_le": "2026-10-29T09:48:38",
+ "n_resolus": 2271,
  "parametres": {
   "n_min_jugement": 20,
   "seuil_pct": 50.0,
@@ -8,24 +8,34 @@
  },
  "marches": {
   "foot/Victoire domicile": {
-   "n": 125,
+   "n": 128,
    "wins": 69,
-   "wr": 55.2,
-   "borne_basse": 46.5,
-   "borne_haute": 63.6,
+   "wr": 53.9,
+   "borne_basse": 45.3,
+   "borne_haute": 62.3,
    "statut": "SURVEILLE",
-   "cote_moyenne": 2.2,
-   "n_cotes": 24
+   "cote_moyenne": 2.16,
+   "n_cotes": 26
   },
   "foot/Double chance": {
-   "n": 85,
-   "wins": 70,
-   "wr": 82.4,
-   "borne_basse": 72.9,
-   "borne_haute": 89.0,
+   "n": 88,
+   "wins": 73,
+   "wr": 83.0,
+   "borne_basse": 73.8,
+   "borne_haute": 89.4,
    "statut": "RETENU",
    "cote_moyenne": 1.43,
    "n_cotes": 15
+  },
+  "tennis/tennis_total_games": {
+   "n": 119,
+   "wins": 81,
+   "wr": 68.1,
+   "borne_basse": 59.2,
+   "borne_haute": 75.8,
+   "statut": "RETENU",
+   "cote_moyenne": null,
+   "n_cotes": 0
   },
   "foot/Tirs cadrés (Inter)": {
    "n": 1,
@@ -66,16 +76,6 @@
    "statut": "SURVEILLE",
    "cote_moyenne": 2.4,
    "n_cotes": 19
-  },
-  "tennis/tennis_total_games": {
-   "n": 118,
-   "wins": 80,
-   "wr": 67.8,
-   "borne_basse": 58.9,
-   "borne_haute": 75.6,
-   "statut": "RETENU",
-   "cote_moyenne": null,
-   "n_cotes": 0
   },
   "tennis/tennis_winner": {
    "n": 31,
@@ -891,12 +891,12 @@
  "calibration": {
   "foot/Victoire domicile": {
    "60-69": {
-    "n": 53,
-    "p": 49.1
+    "n": 55,
+    "p": 47.3
    },
    "70-79": {
-    "n": 32,
-    "p": 56.2
+    "n": 33,
+    "p": 54.5
    },
    "80-89": {
     "n": 20,
@@ -908,17 +908,31 @@
    }
   },
   "foot/Double chance": {
-   "80-89": {
-    "n": 63,
-    "p": 81.0
-   },
    "90-99": {
-    "n": 16,
+    "n": 17,
     "p": 90.0
+   },
+   "80-89": {
+    "n": 65,
+    "p": 81.5
    },
    "70-79": {
     "n": 6,
-    "p": 73.0
+    "p": 73.2
+   }
+  },
+  "tennis/tennis_total_games": {
+   "60-69": {
+    "n": 87,
+    "p": 72.4
+   },
+   "50-59": {
+    "n": 3,
+    "p": 57.7
+   },
+   "70-79": {
+    "n": 29,
+    "p": 58.6
    }
   },
   "foot/Tirs cadrés (Inter)": {
@@ -959,20 +973,6 @@
    "80-89": {
     "n": 18,
     "p": 50.0
-   }
-  },
-  "tennis/tennis_total_games": {
-   "60-69": {
-    "n": 86,
-    "p": 72.1
-   },
-   "50-59": {
-    "n": 3,
-    "p": 57.5
-   },
-   "70-79": {
-    "n": 29,
-    "p": 58.6
    }
   },
   "tennis/tennis_winner": {
@@ -1788,7 +1788,7 @@
  },
  "replis_sport": {
   "foot": 45.7,
-  "tennis": 61.1,
+  "tennis": 61.4,
   "nba": 50.5
  }
 }
