@@ -235,7 +235,9 @@ def player_gamelog(player_id, season="2025-26", season_type="Regular Season", tt
     Game log d'un joueur. Retourne liste de games (1 dict par match).
     Combine regular season + playoffs (ESPN seasonTypes).
     """
-    url = f"{BASE_WEB}/athletes/{player_id}/gamelog"
+    # season "2025-26" -> ?season=2026 (sans ce parametre ESPN renvoie toujours la saison en cours)
+    try: url = f"{BASE_WEB}/athletes/{player_id}/gamelog?season={int(season.split('-')[0]) + 1}"
+    except Exception: url = f"{BASE_WEB}/athletes/{player_id}/gamelog"
     r = _fetch(url, ttl=ttl)
     if not r: return []
 
@@ -245,6 +247,7 @@ def player_gamelog(player_id, season="2025-26", season_type="Regular Season", tt
 
     out = []
     for st in (r.get("seasonTypes") or []):
+        if "preseason" in (st.get("displayName") or "").lower(): continue   # matchs amicaux : faussent les hit rates
         for cat in (st.get("categories") or []):
             for ev_stat in (cat.get("events") or []):
                 evid = str(ev_stat.get("eventId", ""))

@@ -2493,6 +2493,9 @@ def _build_prop_chart(player, prop, opp_abbr, book_line=None, match_ctx=None, bo
         chart_blocks += (
             f'<div class="tg-window-block" data-window="{window_key}" style="display:{display}">{content}</div>'
         )
+        if window_key == "L5":
+            chart_blocks += '<template class="tg-lazy">'   # L10/L20 : crees au premier clic (tgHydrate)
+    chart_blocks += '</template>'
 
     # Boutons "Add to picks" : OVER / UNDER avec la ligne courante (book ou mediane).
     # Inclut les cotes du book (si dispo) pour les pre-remplir au moment du add.
@@ -2710,6 +2713,29 @@ def _build_injuries_card(home_team, away_team, home_abbr="", away_abbr=""):
     )
 
 
+# Anciennes sections que les menus Foot / Basket / Tennis n'affichent plus (remplacees par les vues
+# Simulation / Picks / Historique) : leur contenu reste dans la page mais inerte (<template>), sans quoi
+# elles pesaient 74 000 elements sur 141 000 (29/10/2026). Les blocs id existent toujours pour l'ancien JS.
+LEGACY_SECTIONS = ("sport-football", "sport-foothist", "sport-nbahist")
+
+
+def _park_legacy(html, ids):
+    import re as _re
+    for sid in ids:
+        start = html.find(f'<div id="{sid}"')
+        if start < 0: continue
+        open_end = html.index(">", start) + 1
+        depth, pos = 1, open_end
+        for m in _re.finditer(r"<(/?)div\b", html[open_end:]):
+            depth += -1 if m.group(1) else 1
+            if depth == 0:
+                pos = open_end + m.start(); break
+        else:
+            continue
+        html = html[:open_end] + '<template class="sp-dead">' + html[open_end:pos] + "</template>" + html[pos:]
+    return html
+
+
 def _build_player_analyse_card(player, opp_abbr, odds_for_player, side_label, is_starter=True, match_ctx=None):
     """Card d'analyse joueur. Starters : expanded par defaut. Bench : collapsed
     (juste le nom + min). Clic sur header = toggle expand."""
@@ -2760,7 +2786,12 @@ def _build_player_analyse_card(player, opp_abbr, odds_for_player, side_label, is
         prop_display = "block" if i == 0 else "none"
         contents += (
             f'<div class="tg-prop-content" data-prop="{pr}" style="display:{prop_display}">{chart_html}</div>'
+            + ('<template class="tg-lazy">' if i == 0 else "")
         )
+    # Seul le graphique PTS / L5 est dans la page au chargement : les 23 autres (7 props x 3 fenetres
+    # + L10/L20 de PTS) restent inertes dans des <template> jusqu'au premier clic sur la carte
+    # (264 joueurs x 24 graphiques = 600 000 elements, 14 s de chargement le 29/10/2026).
+    contents += '</template>'
 
     content_display = "block" if is_starter else "none"
     arrow = "▼" if is_starter else "▶"
@@ -6513,7 +6544,8 @@ def build_html(matches, team_ai, player_ai, pstats_data, nba_picks=None, nba_his
   #auth-gate .gate-logo {{
     text-align: center; margin-bottom: 24px;
   }}
-  #auth-gate .gate-logo .emoji {{ font-size: 38px; line-height: 1; margin-bottom: 8px; }}
+  #auth-gate .gate-logo .gate-mark {{ width: 64px; height: 64px; display: block; margin: 0 auto 12px; }}
+  #auth-gate .gate-logo h1 span {{ color: #95e04a; }}
   #auth-gate .gate-logo h1 {{
     font-size: 26px; font-weight: 800; letter-spacing: -0.8px;
     margin: 0 0 6px; color: #fff;
@@ -6578,7 +6610,7 @@ def build_html(matches, team_ai, player_ai, pstats_data, nba_picks=None, nba_his
   @media (max-width: 460px) {{
     #auth-gate .gate-card {{ padding: 24px 18px 22px; border-radius: 18px; }}
     #auth-gate .gate-logo h1 {{ font-size: 22px; }}
-    #auth-gate .gate-logo .emoji {{ font-size: 32px; }}
+    #auth-gate .gate-logo .gate-mark {{ width: 54px; height: 54px; }}
   }}
 
   /* ── Bouton flottant refresh (mobile + PWA standalone) ─────────────── */
@@ -6758,9 +6790,9 @@ def build_html(matches, team_ai, player_ai, pstats_data, nba_picks=None, nba_his
 <div id="auth-gate">
   <div class="gate-card">
     <div class="gate-logo">
-      <div class="emoji">🎯</div>
-      <h1>Sports Picks</h1>
-      <p>Connecte-toi pour accéder à tes paris et ton historique</p>
+      <svg class="gate-mark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" aria-hidden="true"><rect x="2" y="2" width="60" height="60" rx="15" fill="#0f1411" stroke="#2a352c" stroke-width="2"/><path d="M13 47 L25 34 L33 40 L40.5 29.5" fill="none" stroke="#95e04a" stroke-width="6.5" stroke-linecap="round" stroke-linejoin="round"/><circle cx="49" cy="19" r="8" fill="#95e04a"/><path d="M41 19 H57 M49 11 V27 M43.6 13.2 Q47 19 43.6 24.8 M54.4 13.2 Q51 19 54.4 24.8" fill="none" stroke="#0f1411" stroke-width="1.7" stroke-linecap="round"/></svg>
+      <h1>Sports<span>Picks</span></h1>
+      <p>Simulations, analyses et picks Foot · Basket · Tennis<br>et la Bankroll IA, mis à jour en direct</p>
     </div>
     <div class="bk-auth-tabs">
       <button type="button" class="bk-auth-tab active" id="gate-tab-signin" onclick="_bkGateSwitchTab('signin')">Se connecter</button>
@@ -6772,7 +6804,7 @@ def build_html(matches, team_ai, player_ai, pstats_data, nba_picks=None, nba_his
       <label class="bk-m-label" for="bk-gate-pw" style="margin-top:14px">Mot de passe</label>
       <input class="bk-m-input" type="password" id="bk-gate-pw" autocomplete="current-password" required minlength="6" placeholder="ton mot de passe">
       <div class="gate-signup-hint" id="gate-signup-hint">
-        🛡️ Tes données (picks, bankroll, tipsters) sont stockées sur ton compte et accessibles depuis n'importe quel appareil.
+        🛡️ Un compte suffit pour accéder au site depuis n'importe quel appareil.
       </div>
       <div class="bk-auth-err" id="bk-gate-err"></div>
       <button type="submit" class="bk-m-cta" id="bk-gate-submit">Se connecter</button>
@@ -7603,9 +7635,15 @@ function _styleWindowBtn(btn, active){{
   btn.classList.toggle('tg-window-active', active);
 }}
 
+// Cree les graphiques laisses en <template> (voir _build_player_analyse_card)
+function tgHydrate(card){{
+  var t;
+  while((t = card.querySelector('template.tg-lazy'))) t.replaceWith(t.content);
+}}
 function selectPropChart(btn){{
   var card = btn.closest('.player-analyse');
   if(!card) return;
+  tgHydrate(card);
   card.querySelectorAll('.tg-prop-btn').forEach(b=>_stylePropBtn(b, false));
   _stylePropBtn(btn, true);
   // Affiche le content du prop selectionne
@@ -7618,6 +7656,7 @@ function selectPropChart(btn){{
 function selectWindow(btn){{
   var card = btn.closest('.player-analyse');
   if(!card) return;
+  tgHydrate(card);
   card.querySelectorAll('.tg-window-btn').forEach(b=>_styleWindowBtn(b, false));
   _styleWindowBtn(btn, true);
   // Affiche les blocs du window selectionne (toutes props confondues)
@@ -7656,7 +7695,7 @@ function setAnalyseGlobalWindow(win){{
 }}
 
 // ── Ajustement ligne de reference + recalcul live des hit rates / colors ──
-function _findPropChart(el){{ return el.closest('.tg-prop-chart'); }}
+function _findPropChart(el){{ var card = el.closest('.player-analyse'); if(card) tgHydrate(card); return el.closest('.tg-prop-chart'); }}
 function _computeHR(vals, line){{
   if(!vals || !vals.length) return null;
   var hits = vals.filter(function(v){{ return v > line; }}).length;
@@ -11769,6 +11808,7 @@ def main():
         html = site_theme.apply(html)
     except Exception as e:
         print(f"⚠️  Charte graphique non appliquee ({e})")
+    html = _park_legacy(html, LEGACY_SECTIONS)
     with open("index.html", "w", encoding="utf-8") as f:
         f.write(html)
     print(f"✅ index.html prêt — ⚽ {len(matches)} foot · 🏀 {len(nba_picks)} NBA")
