@@ -255,6 +255,67 @@ def candidates(games, now=None):
     return out
 
 
+# Paris « safe » (demande de Wilson, 29/10/2026) : le cote que le bookmaker ET la simulation donnent
+# nettement favori, cote 1,50 minimum ; ou un combine de deux jambes tres probables (matchs differents)
+# qui atteint 1,50. Petite mise fixe, suivis a part. Ils suivent la discipline (aucun en pause).
+SAFE = {"min_odds": 1.50, "p_min": 0.58, "leg_p": 0.75, "stake": 0.01, "per_night": 2}
+
+
+def safe_candidates(games):
+    """Toutes les lignes principales (pas seulement les picks) : pour chaque cote d'une prop, probabilites
+    simulee et du marche sans marge du cote parie, joueur quasi certain de jouer."""
+    from nba_sim_run import SIM_BIAS, PICK_MIN_PLAY
+    from nba_sim_bilan import night_of
+    out = []
+    for g in games:
+        for p in g.get("props") or []:
+            if p.get("p_play", 0) < PICK_MIN_PLAY or p.get("over") is None or p.get("under") is None: continue
+            ps = min(max(p["p_sim"] + SIM_BIAS, 0.0), 1.0)
+            for side in ("o", "u"):
+                am = p["over"] if side == "o" else p["under"]
+                out.append({"key": f'{g["gid"]}|{p["id"]}|{p["stat"]}|{p["line"]}|{side}', "gid": g["gid"],
+                            "night": night_of(g["date"]), "date": g["date"], "pid": p["id"], "name": p["name"],
+                            "team": g[p["side"]]["abbr"], "opp": g["away" if p["side"] == "home" else "home"]["abbr"],
+                            "stat": p["stat"], "line": p["line"], "side": side, "am": am,
+                            "p_sim": ps if side == "o" else 1 - ps, "p_mkt": p["p_mkt"] if side == "o" else 1 - p["p_mkt"],
+                            "pending": [], "news": []})
+    return out
+
+
+def plan_safe(cands, eq, taken, n_done, prm_mult=1.0):
+    """Au plus SAFE['per_night'] - n_done paris safe : simples d'abord (le plus probable), sinon un combine."""
+    left = SAFE["per_night"] - n_done
+    if left <= 0: return []
+    stake = _round(SAFE["stake"] * eq * prm_mult)
+    if stake < PRM["min_stake"]: return []
+    ok = [c for c in cands if c["key"] not in taken and c["am"] is not None]
+    singles = sorted((c for c in ok if _dec(c["am"]) >= SAFE["min_odds"] and min(c["p_sim"], c["p_mkt"]) >= SAFE["p_min"]),
+                     key=lambda c: -min(c["p_sim"], c["p_mkt"]))
+    out, players = [], set()
+    for c in singles:
+        if len(out) >= left: break
+        if (c["gid"], c["pid"]) in players: continue
+        p = min(c["p_sim"], c["p_mkt"]); d = _dec(c["am"])
+        out.append({"legs": [c], "stake": stake, "odds": round(d, 3), "p": round(p, 4), "ev": round(p * d - 1, 4), "kind": "safe"})
+        players.add((c["gid"], c["pid"]))
+    if len(out) < left:   # combine safe : deux jambes tres probables de matchs differents
+        legs = sorted((c for c in ok if min(c["p_sim"], c["p_mkt"]) >= SAFE["leg_p"] and (c["gid"], c["pid"]) not in players),
+                      key=lambda c: -min(c["p_sim"], c["p_mkt"]))[:10]
+        best = None
+        for i in range(len(legs)):
+            for j in range(i + 1, len(legs)):
+                a, b = legs[i], legs[j]
+                if a["gid"] == b["gid"]: continue
+                d = _dec(a["am"]) * _dec(b["am"])
+                if d < SAFE["min_odds"]: continue
+                pr = min(a["p_sim"], a["p_mkt"]) * min(b["p_sim"], b["p_mkt"])
+                if best is None or pr > best[0]: best = (pr, d, a, b)
+        if best:
+            pr, d, a, b = best
+            out.append({"legs": [a, b], "stake": stake, "odds": round(d, 3), "p": round(pr, 4), "ev": round(pr * d - 1, 4), "kind": "safe"})
+    return out
+
+
 def discipline(state, picks=None):
     """(mode, CLV moyenne, n) : « normal », « prudent » (mises / 2) ou « pause », selon la CLV des
     selections jouees et reglees (prix pris vs derniere cote sans marge avant le match)."""
@@ -325,6 +386,20 @@ def decide(state, games):
             placed.append(bet)
             taken |= {leg["key"] for leg in bet["legs"]}
             for leg in bet["legs"]: state["waiting"].pop(leg["key"], None)
+    # Paris safe (hors pause seulement), par soiree, en plus des paris ordinaires
+    if mode != "pause":
+        taken = {leg["key"] for b in state["bets"] + placed for leg in b["legs"]}
+        sc = safe_candidates(games)
+        for night in sorted({c["night"] for c in sc}):
+            n_done = sum(1 for b in state["bets"] + placed if b.get("night") == night and b.get("kind") == "safe")
+            for bet in plan_safe([c for c in sc if c["night"] == night], eq, taken, n_done, 0.5 if mode == "prudent" else 1.0):
+                if bet["stake"] > cash(state) - sum(x["stake"] for x in placed): continue
+                for leg in bet["legs"]:
+                    leg["dec"] = round(_dec(leg["am"]), 3)
+                bet.update(id=f'{night}-{len(state["bets"]) + len(placed) + 1}', night=night, placed_at=now, status="open",
+                           mode=mode, news=[])
+                placed.append(bet)
+                taken |= {leg["key"] for leg in bet["legs"]}
     state["bets"] += placed
     return placed
 
@@ -359,7 +434,7 @@ def telegram_placed(placed, state):
     eq = equity(state)
     out = ["🤖 <b>Bankroll IA : paris à prendre</b>"]
     for b in placed:
-        mini = (1 + PRM["min_ev"]) / b["p"]
+        mini = SAFE["min_odds"] if b["kind"] == "safe" else (1 + PRM["min_ev"]) / b["p"]
         if b["kind"] == "value":   # cote francaise au-dessus de la cote juste Pinnacle
             l = b["legs"][0]
             out.append(f'\n💎 <b>Value bet</b> · {_leg_txt(l)}')
@@ -367,13 +442,15 @@ def telegram_placed(placed, state):
                        f'espérance +{round(100 * b["ev"], 1)} %')
             out.append(f'Mise <b>{_fr(b["stake"])} €</b> ({_fr(100 * b["stake"] / eq, 1)} % de la bankroll)')
             continue
-        if b["kind"] == "combine":
+        if b["kind"] == "safe":
+            out.append(f'\n🛡️ <b>Pari safe</b> (probabilité {round(100 * b["p"])} %)\n' + "\n".join("• " + _leg_txt(l) for l in b["legs"]))
+        elif b["kind"] == "combine":
             out.append("\n🔗 <b>Combiné</b>\n" + "\n".join("• " + _leg_txt(l) for l in b["legs"]))
         else:
             out.append("\n🏀 " + _leg_txt(b["legs"][0]))
         out.append(f'Cote DraftKings <b>{_fr(b["odds"])}</b> · à prendre si ta cote ≥ <b>{_fr(mini)}</b>')
         out.append(f'Mise <b>{_fr(b["stake"])} €</b> ({_fr(100 * b["stake"] / eq, 1)} % de la bankroll)')
-        why = f'proba retenue {round(100 * b["p"])} %, espérance +{round(100 * b["ev"])} %'
+        why = f'proba retenue {round(100 * b["p"])} %, espérance {round(100 * b["ev"]):+d} %'
         if len(b["legs"]) == 1:
             l = b["legs"][0]
             why = f'simu {round(100 * l["p_sim"])} % vs bookmaker {round(100 * l["p_mkt"])} % → ' + why

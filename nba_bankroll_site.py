@@ -78,7 +78,8 @@ def _stat(label, value, sub="", cls=""):
 
 def _bet_row(b, open_):
     legs = "<br>".join(_leg(l) for l in b["legs"])
-    kind = '<span class="eb-tag acc">combiné</span>' if b["kind"] == "combine" else ""
+    kind = ('<span class="eb-tag acc">combiné</span>' if b["kind"] == "combine" else
+            '<span class="eb-tag acc">safe</span>' + (' <span class="eb-tag">combiné</span>' if len(b["legs"]) > 1 else "") if b["kind"] == "safe" else "")
     why = (f'{"cote juste Pinnacle " + format(1 / b["p"], ".2f") + " · " if b["kind"] == "value" else ""}proba estimée {_pct(b["p"])} · espérance {_pct(b["ev"], True)}'
            + (f' · simu {_pct(b["legs"][0]["p_sim"])} vs bookmaker {_pct(b["legs"][0]["p_mkt"])}' if len(b["legs"]) == 1 else ""))
     if open_:
@@ -94,6 +95,11 @@ def _bet_row(b, open_):
 
 
 RULES = [
+    "<b>Paris safe</b> : le côté que le bookmaker et la simulation donnent tous deux nettement favori (58 % et plus), "
+    "cote 1,50 minimum, ou un combiné de deux jambes très probables (75 % et plus, matchs différents) qui atteint 1,50. "
+    "Mise fixe 1 % du capital, 2 par soirée au plus, suivis à part. Comme les autres paris ordinaires, ils s’arrêtent "
+    "quand la discipline met la bankroll en pause (une forte probabilité ne garantit pas un gain : la marge du "
+    "bookmaker reste dessus).",
     "<b>Value bets</b> (seul avantage validé sur deux saisons) : quand Winamax, Betclic, Unibet ou PMU paient plus que "
     "la cote juste de Pinnacle (marge retirée), je mise 1/4 de Kelly, 2 % du capital au plus. Rare : les bookmakers "
     "français prennent 5 à 14 % de marge.",
