@@ -58,8 +58,11 @@ P = {
     "min_sd_scale":    1.0,    # facteur sur l'ecart-type des minutes (titulaires plus stables que l'historique brut)
     "min_prior_w":     0.5,    # poids des matchs de la saison precedente dans les minutes
     "norm_pow":        2.0,    # retour des minutes vers 240 : poids m * (1 - m/46)^norm_pow
-    "blowout_from":    15.0,   # ecart a partir duquel les titulaires sortent
-    "blowout_slope":   0.015,  # -1,5 % de minutes titulaires par point d'ecart au-dela
+    # Minutes des titulaires selon l'ecart : 2025-26, 31,6 min a 0-5 pts d'ecart final, 30,2 a 11-15, 27,0 au-dela
+    # de 20 -> baisse progressive des 4 pts (avant : seulement au-dela de 15). Backtest aveugle 30/10/2026 :
+    # log-loss props 0,6888->0,6886 / 0,6725->0,6713 / 0,6867->0,6859, ROI cloture meilleur sur les 3 echantillons.
+    "blowout_from":    4.0,    # ecart a partir duquel les titulaires jouent moins
+    "blowout_slope":   0.006,  # -0,6 % de minutes titulaires par point d'ecart au-dela
     "blowout_floor":   0.70,
     # Effets de l'adversaire (0 = desactive, 1 = actif). Backtests --blind du 28/10/2026 sur les 3 echantillons
     # de vraies cotes (ESPN BET oct-nov 2025, avr-juin 2026, DraftKings 2026-27), log-loss de la stat visee :
