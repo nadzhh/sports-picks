@@ -237,7 +237,9 @@
 "p_mkt": 0.5244,
 "hold": 0.06686052820034294,
 "pending": [],
-"dec": 1.787
+"dec": 1.787,
+"actual": 2,
+"result": "win"
 }
 ],
 "stake": 2.5,
@@ -248,7 +250,9 @@
 "id": "2026-10-29-7",
 "night": "2026-10-29",
 "placed_at": "2026-10-29T08:08+00:00",
-"status": "open"
+"status": "won",
+"pnl": 1.97,
+"settled_at": "2026-10-30T04:39+00:00"
 },
 {
 "legs": [
@@ -382,7 +386,9 @@
 "hold": 0.06694855532064836,
 "pending": [],
 "news": [],
-"dec": 2.2
+"dec": 2.2,
+"actual": 2,
+"result": "win"
 }
 ],
 "stake": 0.5,
@@ -393,9 +399,11 @@
 "id": "2026-10-29-11",
 "night": "2026-10-29",
 "placed_at": "2026-10-29T22:09+00:00",
-"status": "open",
+"status": "won",
 "mode": "prudent",
-"news": []
+"news": [],
+"pnl": 0.6,
+"settled_at": "2026-10-30T04:39+00:00"
 },
 {
 "legs": [
@@ -568,7 +576,9 @@
 "Javon Small (MEM) disponible → absent",
 "Carson Cooper (MEM) disponible → absent"
 ],
-"dec": 2.28
+"dec": 2.28,
+"actual": 0,
+"result": "loss"
 }
 ],
 "stake": 0.5,
@@ -579,7 +589,7 @@
 "id": "2026-10-29-15",
 "night": "2026-10-29",
 "placed_at": "2026-10-30T01:10+00:00",
-"status": "open",
+"status": "lost",
 "mode": "prudent",
 "news": [
 "Carson Cooper (MEM) disponible → absent",
@@ -589,14 +599,16 @@
 "Jayson Kent (POR) incertain → absent",
 "John Tonje (POR) incertain → available",
 "Robert Williams III (POR) douteux → absent"
-]
+],
+"pnl": -0.5,
+"settled_at": "2026-10-30T04:39+00:00"
 }
 ],
-"updated": "2026-10-30T02:36:58+00:00",
+"updated": "2026-10-30T04:39:58+00:00",
 "mode": {
 "mode": "prudent",
-"clv": -0.0482,
-"n": 176
+"clv": -0.0419,
+"n": 226
 },
 "waiting": {}
 }
