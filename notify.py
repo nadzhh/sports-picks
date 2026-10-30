@@ -28,7 +28,7 @@ Format message :
 """
 import json, urllib.request, urllib.parse, urllib.error, sys
 from pathlib import Path
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 
 try:
     from config import TELEGRAM_BOT_TOKEN, TELEGRAM_CHAT_ID
@@ -1018,6 +1018,83 @@ def send_high_value_alerts():
         print(f"[HV] Aucune nouvelle alerte (deja {len(sent_ids)} pick(s) high-value envoyes au total)")
 
 
+# ─── Recapitulatif quotidien (1 seul message) ───────────────────────────────
+# Demande de Wilson (30/10/2026) : plus un message par pick ou par match, mais UN message par jour,
+# vers 20 h (heure de Paris), avec match par match tous les picks high value des 24 h suivantes
+# (foot du soir, nuit NBA, foot du lendemain apres-midi). Envoye par la veille (nba_live.py), qui tourne
+# en continu ; la Bankroll IA garde ses propres messages.
+DIGEST_HOUR_PARIS = 20
+DIGEST_WINDOW_H = 24
+JOURS_FR = ["lun.", "mar.", "mer.", "jeu.", "ven.", "sam.", "dim."]
+
+
+def _paris(dt):
+    try:
+        from zoneinfo import ZoneInfo
+        return dt.astimezone(ZoneInfo("Europe/Paris"))
+    except Exception:
+        return dt + timedelta(hours=1)
+
+
+def build_hv_digest(now=None, window_h=DIGEST_WINDOW_H):
+    """Texte du message unique : picks high value (NBA + foot) des matchs qui commencent dans les
+    window_h prochaines heures, regroupes par match et tries par heure. None si aucun pick."""
+    now = now or datetime.now(timezone.utc)
+    blocks = []
+    try:
+        nba = json.load(open("data/nba_picks.json", encoding="utf-8"))
+    except (OSError, ValueError):
+        nba = {}
+    for gid, game in nba.items():
+        try:
+            ko = datetime.fromisoformat((game.get("date") or "").replace("Z", "+00:00"))
+            if ko.tzinfo is None: ko = ko.replace(tzinfo=timezone.utc)
+        except ValueError:
+            continue
+        if not 0 <= (ko - now).total_seconds() / 3600 <= window_h: continue
+        picks = [pk for pk in (game.get("home_picks") or []) + (game.get("away_picks") or []) if _is_high_value_nba(pk)]
+        if not picks: continue
+        kl = _paris(ko)
+        lines = [f"🏀 <b>{game.get('away_team', '?')} @ {game.get('home_team', '?')}</b> · {JOURS_FR[kl.weekday()]} {kl:%H:%M}"]
+        for pk in picks:
+            book = BOOK_LABELS.get(pk.get("book"), (pk.get("book") or "").upper())
+            cote = f" — <b>{book} @ {pk['real_cote']}</b>" if pk.get("real_cote") else ""
+            lines.append(f"• {pk.get('label', '?')}{cote} · edge +{pk.get('edge')} % · confiance {pk.get('confidence')} %")
+        blocks.append((ko, "\n".join(lines)))
+    try:
+        foot = json.load(open("data/picks.json", encoding="utf-8"))
+    except (OSError, ValueError):
+        foot = []
+    for m in foot:
+        try:
+            ko = datetime.fromtimestamp(int(m.get("start_ts")), tz=timezone.utc)
+        except (TypeError, ValueError):
+            continue
+        if not 0 <= (ko - now).total_seconds() / 3600 <= window_h: continue
+        sel = [pk for pk in m.get("picks") or [] if _is_push_eligible_team(pk)[0]]
+        for pk in m.get("fun_picks") or []:
+            if (pk.get("direction") or "").startswith("wc_score_"): continue   # score exact : attend la compo officielle
+            c, _src = _effective_cote(pk)
+            if c is not None and c >= 2.0: sel.append(pk)
+        if not sel: continue
+        kl = _paris(ko)
+        lines = [f"⚽ <b>{m.get('home', '?')} - {m.get('away', '?')}</b> · {JOURS_FR[kl.weekday()]} {kl:%H:%M} · <i>{m.get('league', '')}</i>"]
+        for pk in sel:
+            c, src = _effective_cote(pk)
+            cote = (f" — <b>@ {c:.2f}</b>" if src == "book" else f" — cote mini {c:.2f}") if c else ""
+            edge = f" · edge {pk['edge_pp']:+.1f} pts" if pk.get("edge_pp") is not None else ""
+            lines.append(f"• {pk.get('label', '?')}{cote}{edge} · confiance {pk.get('confidence', 0)} %")
+        blocks.append((ko, "\n".join(lines)))
+    if not blocks:
+        return None
+    blocks.sort(key=lambda b: b[0])
+    n_picks = sum(b[1].count("\n•") for b in blocks)
+    head = (f"🎯 <b>Picks high value</b> · {_paris(now):%d/%m}\n"
+            f"{len(blocks)} match{'s' if len(blocks) > 1 else ''}, {n_picks} pick{'s' if n_picks > 1 else ''} "
+            f"(matchs des {window_h} prochaines heures, heures de Paris)")
+    return head + "\n\n" + "\n\n".join(b[1] for b in blocks)
+
+
 # ─── Main ────────────────────────────────────────────────────────────────────
 
 def run_notifications():
@@ -1025,9 +1102,10 @@ def run_notifications():
         print("[!] TELEGRAM_CHAT_ID vide. Lance d'abord : python notify.py setup")
         return
 
-    # 1. Alertes single-pick high-value (independantes de la fenetre kickoff)
-    print("=== Scan high-value picks ===")
-    send_high_value_alerts()
+    # Depuis le 30/10/2026 : plus d'alerte par pick ni de resume par match ; un seul recapitulatif par jour
+    # (build_hv_digest), envoye vers 20 h par la veille nba_live.py.
+    print("[notify] alertes par pick / par match desactivees : recapitulatif quotidien envoye par la veille (20 h)")
+    return
 
     # 2. Notifications par match (30 min avant kickoff, summary complet)
     log = _load_notif_log()

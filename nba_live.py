@@ -32,8 +32,9 @@ import foot_sim_site as FS
 import foot_sim_bilan as FB
 import ev_scan as EV
 
+DIGEST_PATH = "data/telegram_digest.json"   # jour du dernier recapitulatif Telegram envoye (pas de doublon)
 PUBLISHED = [FRAGMENT, R.OUT_PATH, str(R.PICKS_PATH), "data/nba_sim_history.json", BS.FRAGMENT, str(BK.BANK_PATH),
-             FS.FRAGMENT, str(FR.OUT_PATH), str(FB.HIST_PATH), str(EV.PATH)]
+             FS.FRAGMENT, str(FR.OUT_PATH), str(FB.HIST_PATH), str(EV.PATH), DIGEST_PATH]
 # Foot (Top 5 + coupes d'Europe) : base mise a jour par tranches (premiere constitution en plusieurs
 # passages), simulation toutes les 30 min, a chaque cycle quand un match approche (composition officielle)
 FOOT_SEASONS = ("2026/2027", "2025/2026")   # saison en cours d'abord
@@ -198,6 +199,7 @@ class Live:
         bank = self.bankroll(fresh)
         foot = self.foot()
         ev = self.ev()
+        ev = " ; ".join(x for x in (ev, self.digest()) if x)
         if (foot or ev) and not (changed or bank) and self.push:
             publish("Foot live : " + " ; ".join(x for x in (foot, ev) if x))
         if (changed or bank) and self.push:
@@ -222,6 +224,31 @@ class Live:
                 for part in parts: print("  [telegram] " + ("envoye" if tg_send(part) else "ECHEC"))
         except Exception as e:
             print(f"  [!] telegram : {type(e).__name__}: {e}")
+
+    def digest(self):
+        """Un seul message Telegram par jour, vers 20 h (Paris) : les picks high value des 24 h suivantes,
+        match par match (notify.build_hv_digest). Le jour envoye est publie (data/telegram_digest.json)
+        pour qu'une relance de la veille ne renvoie pas le message."""
+        if not (self.push and os.environ.get("GITHUB_ACTIONS")): return ""
+        try:
+            import notify
+            now = datetime.now(timezone.utc)
+            loc = notify._paris(now)
+            if loc.hour < notify.DIGEST_HOUR_PARIS: return ""
+            day = loc.strftime("%Y-%m-%d")
+            try:
+                done = json.loads(Path(DIGEST_PATH).read_text(encoding="utf-8")).get("day")
+            except (OSError, ValueError):
+                done = None
+            if done == day: return ""
+            txt = notify.build_hv_digest(now) or (f"🎯 <b>Picks high value</b> · {loc:%d/%m}\n"
+                                                  "Aucun pick high value pour les matchs des 24 prochaines heures.")
+            self.telegram(txt)
+            Path(DIGEST_PATH).write_text(json.dumps({"day": day, "at": now.isoformat(timespec="minutes")}), encoding="utf-8")
+            return "recapitulatif Telegram des picks"
+        except Exception as e:
+            print(f"  [!] recapitulatif : {type(e).__name__}: {e}")
+            return ""
 
     def bankroll(self, fresh):
         """Bankroll IA : regle les paris termines, place les nouveaux sur les matchs simules a l'instant

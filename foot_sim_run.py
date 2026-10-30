@@ -201,6 +201,9 @@ def typical_index(res, gid=None):
     return int(cand[int(np.argmin(z))])
 
 
+MAX_SUBS, MAX_WINDOWS, HT_MINUTE = 5, 3, 46   # reglement des changements (IFAB, Top 5 et coupes d'Europe)
+
+
 def replay(res, inp, k, g, lu=None):
     """Actions du match type pour la video : tirs (position, xG, issue), buts, penalties, csc, rouges, remplacements,
     et les joueurs (numero, poste, place dans le schema) pour les montrer tous sur le terrain."""
@@ -226,15 +229,25 @@ def replay(res, inp, k, g, lu=None):
         ins = [(float(t_in[k, j]), j) for j in range(len(pl)) if np.isfinite(t_in[k, j]) and t_in[k, j] > 0]
         # Appariement sortant -> entrant : 5 changements au plus, poste pour poste de preference (a minute
         # proche), jamais un gardien a la place d'un joueur de champ
-        used, n_sub = set(), 0
+        used, chosen = set(), []
         for tm, jo in sorted(outs):
-            if n_sub >= 5: break
+            if len(chosen) >= MAX_SUBS: break
             po = pl[jo]["pos"]
             cand = [(abs(ti - tm) + (0 if pl[ji]["pos"] == po else 15), ji) for ti, ji in ins
                     if ji not in used and (pl[ji]["pos"] != "GK" or po == "GK")]
             if not cand: continue
-            ji = min(cand)[1]; used.add(ji); n_sub += 1
-            ev.append({"t": int(tm), "side": side, "kind": "remplacement", "who": pl[ji]["name"], "out": pl[jo]["name"]})
+            ji = min(cand)[1]; used.add(ji)
+            chosen.append([int(tm), jo, ji])
+        # Reglement (Top 5 et coupes d'Europe) : 5 changements, en 3 arrets de jeu au plus ; ceux faits a la
+        # mi-temps (46e) ne comptent pas. Au-dela de 3 moments, les deux plus proches sont fusionnes.
+        wins = sorted({c[0] for c in chosen if c[0] > HT_MINUTE})
+        while len(wins) > MAX_WINDOWS:
+            i = min(range(len(wins) - 1), key=lambda k: wins[k + 1] - wins[k])
+            wins[i:i + 2] = [round((wins[i] + wins[i + 1]) / 2)]
+        for c in chosen:
+            if c[0] > HT_MINUTE: c[0] = min(wins, key=lambda w: abs(w - c[0]))
+            else: c[0] = HT_MINUTE
+            ev.append({"t": c[0], "side": side, "kind": "remplacement", "who": pl[c[2]]["name"], "out": pl[c[1]]["name"]})
     ev.sort(key=lambda e: e["t"])
     score = [0, 0]
     for e in ev:
