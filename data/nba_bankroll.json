@@ -201,7 +201,9 @@
 "p_mkt": 0.42769999999999997,
 "hold": 0.06751594620045132,
 "pending": [],
-"dec": 2.19
+"dec": 2.19,
+"actual": 3,
+"result": "loss"
 }
 ],
 "stake": 1.0,
@@ -212,7 +214,9 @@
 "id": "2026-10-29-6",
 "night": "2026-10-29",
 "placed_at": "2026-10-29T05:39+00:00",
-"status": "open"
+"status": "lost",
+"pnl": -1.0,
+"settled_at": "2026-10-30T02:36+00:00"
 },
 {
 "legs": [
@@ -265,7 +269,9 @@
 "p_mkt": 0.4788,
 "hold": 0.06971724584502481,
 "pending": [],
-"dec": 1.952
+"dec": 1.952,
+"actual": 14,
+"result": "win"
 }
 ],
 "stake": 1.5,
@@ -276,7 +282,9 @@
 "id": "2026-10-29-8",
 "night": "2026-10-29",
 "placed_at": "2026-10-29T09:08+00:00",
-"status": "open"
+"status": "won",
+"pnl": 1.43,
+"settled_at": "2026-10-30T02:36+00:00"
 },
 {
 "legs": [
@@ -297,7 +305,9 @@
 "p_mkt": 0.6229,
 "pending": [],
 "news": [],
-"dec": 1.508
+"dec": 1.508,
+"actual": 3,
+"result": "win"
 }
 ],
 "stake": 0.5,
@@ -308,9 +318,11 @@
 "id": "2026-10-29-9",
 "night": "2026-10-29",
 "placed_at": "2026-10-29T16:59+00:00",
-"status": "open",
+"status": "won",
 "mode": "prudent",
-"news": []
+"news": [],
+"pnl": 0.25,
+"settled_at": "2026-10-30T02:36+00:00"
 },
 {
 "legs": [
@@ -331,7 +343,9 @@
 "p_mkt": 0.6027,
 "pending": [],
 "news": [],
-"dec": 1.556
+"dec": 1.556,
+"actual": 0,
+"result": "win"
 }
 ],
 "stake": 0.5,
@@ -342,9 +356,11 @@
 "id": "2026-10-29-10",
 "night": "2026-10-29",
 "placed_at": "2026-10-29T16:59+00:00",
-"status": "open",
+"status": "won",
 "mode": "prudent",
-"news": []
+"news": [],
+"pnl": 0.28,
+"settled_at": "2026-10-30T02:36+00:00"
 },
 {
 "legs": [
@@ -401,7 +417,9 @@
 "hold": 0.06633959702551762,
 "pending": [],
 "news": [],
-"dec": 2.34
+"dec": 2.34,
+"actual": 3,
+"result": "win"
 }
 ],
 "stake": 1.0,
@@ -412,9 +430,11 @@
 "id": "2026-10-29-12",
 "night": "2026-10-29",
 "placed_at": "2026-10-29T23:27+00:00",
-"status": "open",
+"status": "won",
 "mode": "prudent",
-"news": []
+"news": [],
+"pnl": 1.34,
+"settled_at": "2026-10-30T02:36+00:00"
 },
 {
 "legs": [
@@ -438,7 +458,9 @@
 "statut de Meleek Thomas, Jaylon Tyson (incertains)"
 ],
 "news": [],
-"dec": 2.26
+"dec": 2.26,
+"actual": 1,
+"result": "loss"
 }
 ],
 "stake": 0.5,
@@ -449,9 +471,11 @@
 "id": "2026-10-29-13",
 "night": "2026-10-29",
 "placed_at": "2026-10-29T23:27+00:00",
-"status": "open",
+"status": "lost",
 "mode": "prudent",
-"news": []
+"news": [],
+"pnl": -0.5,
+"settled_at": "2026-10-30T02:36+00:00"
 },
 {
 "legs": [
@@ -473,7 +497,9 @@
 "hold": 0.06633959702551762,
 "pending": [],
 "news": [],
-"dec": 2.34
+"dec": 2.34,
+"actual": 3,
+"result": "win"
 },
 {
 "key": "401909893|4432158|BLK|1.5|o",
@@ -495,7 +521,9 @@
 "statut de Meleek Thomas, Jaylon Tyson (incertains)"
 ],
 "news": [],
-"dec": 2.26
+"dec": 2.26,
+"actual": 1,
+"result": "loss"
 }
 ],
 "stake": 0.5,
@@ -506,9 +534,11 @@
 "id": "2026-10-29-14",
 "night": "2026-10-29",
 "placed_at": "2026-10-29T23:27+00:00",
-"status": "open",
+"status": "lost",
 "mode": "prudent",
-"news": []
+"news": [],
+"pnl": -0.5,
+"settled_at": "2026-10-30T02:36+00:00"
 },
 {
 "legs": [
@@ -562,7 +592,7 @@
 ]
 }
 ],
-"updated": "2026-10-30T01:10:40+00:00",
+"updated": "2026-10-30T02:36:58+00:00",
 "mode": {
 "mode": "prudent",
 "clv": -0.0482,
