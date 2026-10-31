@@ -699,7 +699,9 @@
 "hold": 0.06815402810351401,
 "pending": [],
 "news": [],
-"dec": 2.07
+"dec": 2.07,
+"actual": 1,
+"result": "win"
 }
 ],
 "stake": 0.5,
@@ -710,9 +712,11 @@
 "id": "2026-10-30-18",
 "night": "2026-10-30",
 "placed_at": "2026-10-30T07:43+00:00",
-"status": "open",
+"status": "won",
 "mode": "prudent",
-"news": []
+"news": [],
+"pnl": 0.53,
+"settled_at": "2026-10-31T02:39+00:00"
 },
 {
 "legs": [
@@ -734,7 +738,9 @@
 "hold": 0.0673260454624327,
 "pending": [],
 "news": [],
-"dec": 1.962
+"dec": 1.962,
+"actual": 2,
+"result": "win"
 }
 ],
 "stake": 0.5,
@@ -745,9 +751,11 @@
 "id": "2026-10-30-19",
 "night": "2026-10-30",
 "placed_at": "2026-10-30T11:00+00:00",
-"status": "open",
+"status": "won",
 "mode": "prudent",
-"news": []
+"news": [],
+"pnl": 0.48,
+"settled_at": "2026-10-31T02:39+00:00"
 },
 {
 "legs": [
@@ -769,7 +777,9 @@
 "hold": 0.06715506715506714,
 "pending": [],
 "news": [],
-"dec": 2.6
+"dec": 2.6,
+"actual": 1,
+"result": "loss"
 }
 ],
 "stake": 0.5,
@@ -780,9 +790,11 @@
 "id": "2026-10-30-20",
 "night": "2026-10-30",
 "placed_at": "2026-10-30T17:22+00:00",
-"status": "open",
+"status": "lost",
 "mode": "prudent",
-"news": []
+"news": [],
+"pnl": -0.5,
+"settled_at": "2026-10-31T02:39+00:00"
 },
 {
 "legs": [
@@ -804,7 +816,9 @@
 "hold": 0.06826927234208124,
 "pending": [],
 "news": [],
-"dec": 1.98
+"dec": 1.98,
+"actual": 3,
+"result": "loss"
 }
 ],
 "stake": 1.0,
@@ -815,9 +829,11 @@
 "id": "2026-10-30-21",
 "night": "2026-10-30",
 "placed_at": "2026-10-30T20:29+00:00",
-"status": "open",
+"status": "lost",
 "mode": "prudent",
-"news": []
+"news": [],
+"pnl": -1.0,
+"settled_at": "2026-10-31T02:39+00:00"
 },
 {
 "legs": [
@@ -839,7 +855,9 @@
 "hold": 0.06756165000563019,
 "pending": [],
 "news": [],
-"dec": 2.57
+"dec": 2.57,
+"actual": 0,
+"result": "loss"
 }
 ],
 "stake": 0.5,
@@ -850,9 +868,11 @@
 "id": "2026-10-30-22",
 "night": "2026-10-30",
 "placed_at": "2026-10-30T20:29+00:00",
-"status": "open",
+"status": "lost",
 "mode": "prudent",
-"news": []
+"news": [],
+"pnl": -0.5,
+"settled_at": "2026-10-31T02:39+00:00"
 },
 {
 "legs": [
@@ -874,7 +894,9 @@
 "hold": 0.06939483620777631,
 "pending": [],
 "news": [],
-"dec": 1.719
+"dec": 1.719,
+"actual": 11,
+"result": "loss"
 }
 ],
 "stake": 0.5,
@@ -885,9 +907,11 @@
 "id": "2026-10-30-23",
 "night": "2026-10-30",
 "placed_at": "2026-10-30T20:29+00:00",
-"status": "open",
+"status": "lost",
 "mode": "prudent",
-"news": []
+"news": [],
+"pnl": -0.5,
+"settled_at": "2026-10-31T02:39+00:00"
 },
 {
 "legs": [
@@ -1134,29 +1158,112 @@
 "news": [
 "Marcus Smart (HOU) incertain → available"
 ]
+},
+{
+"legs": [
+{
+"key": "401909896|3995|3PM|2.5|u",
+"gid": "401909896",
+"night": "2026-10-31",
+"date": "2026-10-31T19:00Z",
+"pid": "3995",
+"name": "Jrue Holiday",
+"team": "POR",
+"opp": "UTAH",
+"stat": "3PM",
+"line": 2.5,
+"side": "u",
+"am": -175,
+"p_sim": 0.5985,
+"p_mkt": 0.5962000000000001,
+"pending": [],
+"news": [],
+"dec": 1.571
 }
 ],
-"updated": "2026-10-31T02:08:43+00:00",
+"stake": 0.5,
+"odds": 1.571,
+"p": 0.5962,
+"ev": -0.0631,
+"kind": "safe",
+"id": "2026-10-31-30",
+"night": "2026-10-31",
+"placed_at": "2026-10-31T02:39+00:00",
+"status": "open",
+"mode": "prudent",
+"news": []
+},
+{
+"legs": [
+{
+"key": "401909896|6606|3PM|3.5|u",
+"gid": "401909896",
+"night": "2026-10-31",
+"date": "2026-10-31T19:00Z",
+"pid": "6606",
+"name": "Damian Lillard",
+"team": "POR",
+"opp": "UTAH",
+"stat": "3PM",
+"line": 3.5,
+"side": "u",
+"am": -165,
+"p_sim": 0.613,
+"p_mkt": 0.5835,
+"pending": [],
+"news": [],
+"dec": 1.606
+}
+],
+"stake": 0.5,
+"odds": 1.606,
+"p": 0.5835,
+"ev": -0.0629,
+"kind": "safe",
+"id": "2026-10-31-31",
+"night": "2026-10-31",
+"placed_at": "2026-10-31T02:39+00:00",
+"status": "open",
+"mode": "prudent",
+"news": []
+}
+],
+"updated": "2026-10-31T02:39:01+00:00",
 "mode": {
 "mode": "prudent",
-"clv": -0.0419,
-"n": 226
+"clv": -0.0401,
+"n": 289
 },
 "waiting": {
-"401909286|3064290|AST|2.5|u": {
-"name": "Aaron Gordon",
-"team": "DEN",
-"opp": "PHX",
-"stat": "AST",
+"401909896|4683021|3PM|1.5|u": {
+"name": "Deni Avdija",
+"team": "POR",
+"opp": "UTAH",
+"stat": "3PM",
 "side": "u",
-"line": 2.5,
-"date": "2026-10-31T02:00Z",
-"dec": 2.01,
-"ev": 0.0585,
+"line": 1.5,
+"date": "2026-10-31T19:00Z",
+"dec": 2.36,
+"ev": 0.0637,
 "why": [
-"statut de Cameron Johnson (incertain)"
+"statut de Robert Williams III (incertain)"
 ],
-"since": "2026-10-30T23:19+00:00"
+"since": "2026-10-31T02:39+00:00"
+},
+"401909896|4683678|3PM|1.5|u": {
+"name": "Scoot Henderson",
+"team": "POR",
+"opp": "UTAH",
+"stat": "3PM",
+"side": "u",
+"line": 1.5,
+"date": "2026-10-31T19:00Z",
+"dec": 2.45,
+"ev": 0.0533,
+"why": [
+"statut de Robert Williams III (incertain)"
+],
+"since": "2026-10-31T02:39+00:00"
 }
 }
 }
