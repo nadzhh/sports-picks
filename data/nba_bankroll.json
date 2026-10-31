@@ -1023,7 +1023,9 @@
 "Andrew Nembhard (IND) probable → available",
 "Aaron Nesmith (IND) probable → available"
 ],
-"dec": 2.33
+"dec": 2.33,
+"actual": 0,
+"result": "loss"
 }
 ],
 "stake": 0.5,
@@ -1034,13 +1036,15 @@
 "id": "2026-10-30-26",
 "night": "2026-10-30",
 "placed_at": "2026-10-30T22:58+00:00",
-"status": "open",
+"status": "lost",
 "mode": "prudent",
 "news": [
 "Aaron Nesmith (IND) probable → available",
 "Andrew Nembhard (IND) probable → available",
 "Obi Toppin (IND) incertain → absent"
-]
+],
+"pnl": -0.5,
+"settled_at": "2026-10-31T03:09+00:00"
 },
 {
 "legs": [
@@ -1103,7 +1107,9 @@
 "news": [
 "Marcus Smart (HOU) incertain → available"
 ],
-"dec": 1.763
+"dec": 1.763,
+"actual": 1,
+"result": "loss"
 }
 ],
 "stake": 1.0,
@@ -1114,11 +1120,13 @@
 "id": "2026-10-30-28",
 "night": "2026-10-30",
 "placed_at": "2026-10-30T23:19+00:00",
-"status": "open",
+"status": "lost",
 "mode": "prudent",
 "news": [
 "Marcus Smart (HOU) incertain → available"
-]
+],
+"pnl": -1.0,
+"settled_at": "2026-10-31T03:09+00:00"
 },
 {
 "legs": [
@@ -1142,7 +1150,9 @@
 "news": [
 "Marcus Smart (HOU) incertain → available"
 ],
-"dec": 2.49
+"dec": 2.49,
+"actual": 1,
+"result": "loss"
 }
 ],
 "stake": 0.5,
@@ -1153,11 +1163,13 @@
 "id": "2026-10-30-29",
 "night": "2026-10-30",
 "placed_at": "2026-10-30T23:19+00:00",
-"status": "open",
+"status": "lost",
 "mode": "prudent",
 "news": [
 "Marcus Smart (HOU) incertain → available"
-]
+],
+"pnl": -0.5,
+"settled_at": "2026-10-31T03:09+00:00"
 },
 {
 "legs": [
@@ -1228,11 +1240,11 @@
 "news": []
 }
 ],
-"updated": "2026-10-31T02:39:01+00:00",
+"updated": "2026-10-31T03:09:42+00:00",
 "mode": {
 "mode": "prudent",
-"clv": -0.0401,
-"n": 289
+"clv": -0.0418,
+"n": 312
 },
 "waiting": {
 "401909896|4683021|3PM|1.5|u": {
