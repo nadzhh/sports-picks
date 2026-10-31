@@ -1,6 +1,6 @@
 {
- "genere_le": "2026-10-30T20:21:03",
- "n_resolus": 2289,
+ "genere_le": "2026-10-30T23:58:51",
+ "n_resolus": 2295,
  "parametres": {
   "n_min_jugement": 20,
   "seuil_pct": 50.0,
@@ -8,14 +8,54 @@
  },
  "marches": {
   "foot/Double chance": {
-   "n": 91,
+   "n": 92,
    "wins": 75,
-   "wr": 82.4,
-   "borne_basse": 73.3,
-   "borne_haute": 88.9,
+   "wr": 81.5,
+   "borne_basse": 72.4,
+   "borne_haute": 88.1,
    "statut": "RETENU",
    "cote_moyenne": 1.43,
    "n_cotes": 15
+  },
+  "foot/Victoire extérieur": {
+   "n": 158,
+   "wins": 69,
+   "wr": 43.7,
+   "borne_basse": 36.2,
+   "borne_haute": 51.5,
+   "statut": "SURVEILLE",
+   "cote_moyenne": 2.4,
+   "n_cotes": 19
+  },
+  "foot/Under 3.5 buts": {
+   "n": 14,
+   "wins": 8,
+   "wr": 57.1,
+   "borne_basse": 32.6,
+   "borne_haute": 78.6,
+   "statut": "SURVEILLE",
+   "cote_moyenne": 1.72,
+   "n_cotes": 14
+  },
+  "foot/Tirs (total match)": {
+   "n": 41,
+   "wins": 29,
+   "wr": 70.7,
+   "borne_basse": 55.5,
+   "borne_haute": 82.4,
+   "statut": "RETENU",
+   "cote_moyenne": 1.73,
+   "n_cotes": 1
+  },
+  "foot/Victoire domicile": {
+   "n": 130,
+   "wins": 70,
+   "wr": 53.8,
+   "borne_basse": 45.3,
+   "borne_haute": 62.2,
+   "statut": "SURVEILLE",
+   "cote_moyenne": 2.16,
+   "n_cotes": 26
   },
   "nba/AST": {
    "n": 37,
@@ -46,36 +86,6 @@
    "statut": "SURVEILLE",
    "cote_moyenne": 1.96,
    "n_cotes": 28
-  },
-  "foot/Victoire domicile": {
-   "n": 129,
-   "wins": 69,
-   "wr": 53.5,
-   "borne_basse": 44.9,
-   "borne_haute": 61.9,
-   "statut": "SURVEILLE",
-   "cote_moyenne": 2.16,
-   "n_cotes": 26
-  },
-  "foot/Under 3.5 buts": {
-   "n": 13,
-   "wins": 8,
-   "wr": 61.5,
-   "borne_basse": 35.5,
-   "borne_haute": 82.3,
-   "statut": "SURVEILLE",
-   "cote_moyenne": 1.72,
-   "n_cotes": 13
-  },
-  "foot/Victoire extérieur": {
-   "n": 156,
-   "wins": 68,
-   "wr": 43.6,
-   "borne_basse": 36.1,
-   "borne_haute": 51.4,
-   "statut": "SURVEILLE",
-   "cote_moyenne": 2.4,
-   "n_cotes": 19
   },
   "foot/Tirs (Atalanta)": {
    "n": 1,
@@ -136,16 +146,6 @@
    "statut": "SURVEILLE",
    "cote_moyenne": null,
    "n_cotes": 0
-  },
-  "foot/Tirs (total match)": {
-   "n": 40,
-   "wins": 29,
-   "wr": 72.5,
-   "borne_basse": 57.2,
-   "borne_haute": 83.9,
-   "statut": "RETENU",
-   "cote_moyenne": 1.73,
-   "n_cotes": 1
   },
   "foot/Buteur": {
    "n": 530,
@@ -901,8 +901,8 @@
  "calibration": {
   "foot/Double chance": {
    "80-89": {
-    "n": 67,
-    "p": 80.6
+    "n": 68,
+    "p": 79.4
    },
    "90-99": {
     "n": 18,
@@ -910,7 +910,63 @@
    },
    "70-79": {
     "n": 6,
-    "p": 73.0
+    "p": 72.6
+   }
+  },
+  "foot/Victoire extérieur": {
+   "80-89": {
+    "n": 19,
+    "p": 47.4
+   },
+   "70-79": {
+    "n": 41,
+    "p": 51.2
+   },
+   "60-69": {
+    "n": 73,
+    "p": 41.1
+   },
+   "50-59": {
+    "n": 25,
+    "p": 36.0
+   }
+  },
+  "foot/Under 3.5 buts": {
+   "60-69": {
+    "n": 12,
+    "p": 50.0
+   },
+   "70-79": {
+    "n": 2,
+    "p": 65.7
+   }
+  },
+  "foot/Tirs (total match)": {
+   "70-79": {
+    "n": 31,
+    "p": 67.7
+   },
+   "80-89": {
+    "n": 10,
+    "p": 80.0
+   }
+  },
+  "foot/Victoire domicile": {
+   "60-69": {
+    "n": 57,
+    "p": 47.4
+   },
+   "70-79": {
+    "n": 33,
+    "p": 54.5
+   },
+   "80-89": {
+    "n": 20,
+    "p": 75.0
+   },
+   "50-59": {
+    "n": 20,
+    "p": 50.0
    }
   },
   "nba/AST": {
@@ -975,52 +1031,6 @@
     "p": 45.0
    }
   },
-  "foot/Victoire domicile": {
-   "60-69": {
-    "n": 56,
-    "p": 46.4
-   },
-   "70-79": {
-    "n": 33,
-    "p": 54.5
-   },
-   "80-89": {
-    "n": 20,
-    "p": 75.0
-   },
-   "50-59": {
-    "n": 20,
-    "p": 50.0
-   }
-  },
-  "foot/Under 3.5 buts": {
-   "60-69": {
-    "n": 11,
-    "p": 54.5
-   },
-   "70-79": {
-    "n": 2,
-    "p": 69.2
-   }
-  },
-  "foot/Victoire extérieur": {
-   "70-79": {
-    "n": 40,
-    "p": 50.0
-   },
-   "60-69": {
-    "n": 73,
-    "p": 41.1
-   },
-   "50-59": {
-    "n": 25,
-    "p": 36.0
-   },
-   "80-89": {
-    "n": 18,
-    "p": 50.0
-   }
-  },
   "foot/Tirs (Atalanta)": {
    "70-79": {
     "n": 1,
@@ -1083,16 +1093,6 @@
    "70-79": {
     "n": 1,
     "p": 90.0
-   }
-  },
-  "foot/Tirs (total match)": {
-   "70-79": {
-    "n": 30,
-    "p": 70.0
-   },
-   "80-89": {
-    "n": 10,
-    "p": 80.0
    }
   },
   "foot/Buteur": {
