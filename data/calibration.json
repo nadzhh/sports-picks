@@ -1,12 +1,72 @@
 {
- "genere_le": "2026-11-01T16:56:47",
- "n_resolus": 2409,
+ "genere_le": "2026-11-01T21:16:00",
+ "n_resolus": 2429,
  "parametres": {
   "n_min_jugement": 20,
   "seuil_pct": 50.0,
   "pas_tranche": 10
  },
  "marches": {
+  "foot/Double chance": {
+   "n": 108,
+   "wins": 90,
+   "wr": 83.3,
+   "borne_basse": 75.2,
+   "borne_haute": 89.2,
+   "statut": "RETENU",
+   "cote_moyenne": 1.43,
+   "n_cotes": 15
+  },
+  "foot/Victoire extérieur": {
+   "n": 170,
+   "wins": 78,
+   "wr": 45.9,
+   "borne_basse": 38.6,
+   "borne_haute": 53.4,
+   "statut": "SURVEILLE",
+   "cote_moyenne": 2.38,
+   "n_cotes": 20
+  },
+  "foot/Victoire domicile": {
+   "n": 157,
+   "wins": 82,
+   "wr": 52.2,
+   "borne_basse": 44.5,
+   "borne_haute": 59.9,
+   "statut": "SURVEILLE",
+   "cote_moyenne": 2.1,
+   "n_cotes": 29
+  },
+  "foot/Under 3.5 buts": {
+   "n": 19,
+   "wins": 12,
+   "wr": 63.2,
+   "borne_basse": 41.0,
+   "borne_haute": 80.9,
+   "statut": "SURVEILLE",
+   "cote_moyenne": 1.71,
+   "n_cotes": 19
+  },
+  "foot/Tirs (total match)": {
+   "n": 56,
+   "wins": 38,
+   "wr": 67.9,
+   "borne_basse": 54.8,
+   "borne_haute": 78.6,
+   "statut": "RETENU",
+   "cote_moyenne": 1.73,
+   "n_cotes": 1
+  },
+  "foot/Tirs (Frosinone)": {
+   "n": 1,
+   "wins": 1,
+   "wr": 100.0,
+   "borne_basse": 20.7,
+   "borne_haute": 100.0,
+   "statut": "SURVEILLE",
+   "cote_moyenne": null,
+   "n_cotes": 0
+  },
   "nba/FG3M": {
    "n": 31,
    "wins": 17,
@@ -57,36 +117,6 @@
    "cote_moyenne": 1.9,
    "n_cotes": 23
   },
-  "foot/Double chance": {
-   "n": 104,
-   "wins": 86,
-   "wr": 82.7,
-   "borne_basse": 74.3,
-   "borne_haute": 88.8,
-   "statut": "RETENU",
-   "cote_moyenne": 1.43,
-   "n_cotes": 15
-  },
-  "foot/Victoire extérieur": {
-   "n": 167,
-   "wins": 77,
-   "wr": 46.1,
-   "borne_basse": 38.7,
-   "borne_haute": 53.7,
-   "statut": "SURVEILLE",
-   "cote_moyenne": 2.38,
-   "n_cotes": 20
-  },
-  "foot/Victoire domicile": {
-   "n": 149,
-   "wins": 76,
-   "wr": 51.0,
-   "borne_basse": 43.1,
-   "borne_haute": 58.9,
-   "statut": "SURVEILLE",
-   "cote_moyenne": 2.13,
-   "n_cotes": 28
-  },
   "foot/Over 3.5 buts": {
    "n": 5,
    "wins": 3,
@@ -97,16 +127,6 @@
    "cote_moyenne": 2.1,
    "n_cotes": 5
   },
-  "foot/Tirs (total match)": {
-   "n": 53,
-   "wins": 36,
-   "wr": 67.9,
-   "borne_basse": 54.5,
-   "borne_haute": 78.9,
-   "statut": "RETENU",
-   "cote_moyenne": 1.73,
-   "n_cotes": 1
-  },
   "foot/Tirs cadrés (total)": {
    "n": 37,
    "wins": 29,
@@ -116,16 +136,6 @@
    "statut": "RETENU",
    "cote_moyenne": null,
    "n_cotes": 0
-  },
-  "foot/Under 3.5 buts": {
-   "n": 18,
-   "wins": 11,
-   "wr": 61.1,
-   "borne_basse": 38.6,
-   "borne_haute": 79.7,
-   "statut": "SURVEILLE",
-   "cote_moyenne": 1.71,
-   "n_cotes": 18
   },
   "foot/Over 2.5 buts": {
    "n": 16,
@@ -929,6 +939,82 @@
   }
  },
  "calibration": {
+  "foot/Double chance": {
+   "90-99": {
+    "n": 20,
+    "p": 90.0
+   },
+   "80-89": {
+    "n": 82,
+    "p": 81.7
+   },
+   "70-79": {
+    "n": 6,
+    "p": 73.3
+   }
+  },
+  "foot/Victoire extérieur": {
+   "80-89": {
+    "n": 23,
+    "p": 52.2
+   },
+   "70-79": {
+    "n": 49,
+    "p": 55.1
+   },
+   "60-69": {
+    "n": 73,
+    "p": 41.1
+   },
+   "50-59": {
+    "n": 25,
+    "p": 36.0
+   }
+  },
+  "foot/Victoire domicile": {
+   "70-79": {
+    "n": 41,
+    "p": 51.2
+   },
+   "80-89": {
+    "n": 23,
+    "p": 78.3
+   },
+   "60-69": {
+    "n": 70,
+    "p": 47.1
+   },
+   "50-59": {
+    "n": 23,
+    "p": 43.5
+   }
+  },
+  "foot/Under 3.5 buts": {
+   "70-79": {
+    "n": 4,
+    "p": 67.9
+   },
+   "60-69": {
+    "n": 15,
+    "p": 60.0
+   }
+  },
+  "foot/Tirs (total match)": {
+   "70-79": {
+    "n": 46,
+    "p": 65.2
+   },
+   "80-89": {
+    "n": 10,
+    "p": 80.0
+   }
+  },
+  "foot/Tirs (Frosinone)": {
+   "70-79": {
+    "n": 1,
+    "p": 90.0
+   }
+  },
   "nba/FG3M": {
    "60-69": {
     "n": 12,
@@ -1023,56 +1109,6 @@
     "p": 50.4
    }
   },
-  "foot/Double chance": {
-   "80-89": {
-    "n": 79,
-    "p": 81.0
-   },
-   "90-99": {
-    "n": 19,
-    "p": 90.0
-   },
-   "70-79": {
-    "n": 6,
-    "p": 73.1
-   }
-  },
-  "foot/Victoire extérieur": {
-   "70-79": {
-    "n": 47,
-    "p": 55.3
-   },
-   "80-89": {
-    "n": 22,
-    "p": 54.5
-   },
-   "60-69": {
-    "n": 73,
-    "p": 41.1
-   },
-   "50-59": {
-    "n": 25,
-    "p": 36.0
-   }
-  },
-  "foot/Victoire domicile": {
-   "70-79": {
-    "n": 39,
-    "p": 51.3
-   },
-   "50-59": {
-    "n": 23,
-    "p": 43.5
-   },
-   "60-69": {
-    "n": 66,
-    "p": 45.5
-   },
-   "80-89": {
-    "n": 21,
-    "p": 76.2
-   }
-  },
   "foot/Over 3.5 buts": {
    "50-59": {
     "n": 2,
@@ -1083,16 +1119,6 @@
     "p": 72.0
    }
   },
-  "foot/Tirs (total match)": {
-   "70-79": {
-    "n": 43,
-    "p": 65.1
-   },
-   "80-89": {
-    "n": 10,
-    "p": 80.0
-   }
-  },
   "foot/Tirs cadrés (total)": {
    "70-79": {
     "n": 32,
@@ -1101,16 +1127,6 @@
    "80-89": {
     "n": 5,
     "p": 79.2
-   }
-  },
-  "foot/Under 3.5 buts": {
-   "60-69": {
-    "n": 15,
-    "p": 60.0
-   },
-   "70-79": {
-    "n": 3,
-    "p": 62.8
    }
   },
   "foot/Over 2.5 buts": {
@@ -1855,8 +1871,8 @@
   }
  },
  "replis_sport": {
+  "foot": 46.4,
   "nba": 53.3,
-  "foot": 46.1,
   "tennis": 61.7
  }
 }
