@@ -1190,7 +1190,9 @@
 "p_mkt": 0.5962000000000001,
 "pending": [],
 "news": [],
-"dec": 1.571
+"dec": 1.571,
+"actual": 2,
+"result": "win"
 }
 ],
 "stake": 0.5,
@@ -1201,9 +1203,11 @@
 "id": "2026-10-31-30",
 "night": "2026-10-31",
 "placed_at": "2026-10-31T02:39+00:00",
-"status": "open",
+"status": "won",
 "mode": "prudent",
-"news": []
+"news": [],
+"pnl": 0.29,
+"settled_at": "2026-11-01T00:07+00:00"
 },
 {
 "legs": [
@@ -1224,7 +1228,9 @@
 "p_mkt": 0.5835,
 "pending": [],
 "news": [],
-"dec": 1.606
+"dec": 1.606,
+"actual": 3,
+"result": "win"
 }
 ],
 "stake": 0.5,
@@ -1235,9 +1241,11 @@
 "id": "2026-10-31-31",
 "night": "2026-10-31",
 "placed_at": "2026-10-31T02:39+00:00",
-"status": "open",
+"status": "won",
 "mode": "prudent",
-"news": []
+"news": [],
+"pnl": 0.3,
+"settled_at": "2026-11-01T00:07+00:00"
 },
 {
 "legs": [
@@ -1469,7 +1477,9 @@
 "hold": 0.06847771928684399,
 "pending": [],
 "news": [],
-"dec": 1.813
+"dec": 1.813,
+"actual": 1,
+"result": "win"
 }
 ],
 "stake": 0.5,
@@ -1480,9 +1490,11 @@
 "id": "2026-10-31-38",
 "night": "2026-10-31",
 "placed_at": "2026-10-31T16:42+00:00",
-"status": "open",
+"status": "won",
 "mode": "prudent",
-"news": []
+"news": [],
+"pnl": 0.41,
+"settled_at": "2026-11-01T00:07+00:00"
 },
 {
 "legs": [
@@ -1647,7 +1659,9 @@
 "news": [
 "Lauri Markkanen (UTAH) incertain → available"
 ],
-"dec": 2.25
+"dec": 2.25,
+"actual": 2,
+"result": "loss"
 }
 ],
 "stake": 0.5,
@@ -1658,11 +1672,13 @@
 "id": "2026-10-31-42",
 "night": "2026-10-31",
 "placed_at": "2026-10-31T18:25+00:00",
-"status": "open",
+"status": "lost",
 "mode": "prudent",
 "news": [
 "Lauri Markkanen (UTAH) incertain → available"
-]
+],
+"pnl": -0.5,
+"settled_at": "2026-11-01T00:07+00:00"
 },
 {
 "legs": [
@@ -1743,42 +1759,11 @@
 ]
 }
 ],
-"updated": "2026-10-31T21:37:35+00:00",
+"updated": "2026-11-01T00:07:25+00:00",
 "mode": {
 "mode": "prudent",
-"clv": -0.0415,
-"n": 332
+"clv": -0.0421,
+"n": 344
 },
-"waiting": {
-"401909899|5041935|AST|5.5|o": {
-"name": "Cameron Boozer",
-"team": "MEM",
-"opp": "SAC",
-"stat": "AST",
-"side": "o",
-"line": 5.5,
-"date": "2026-11-01T00:00Z",
-"dec": 2.14,
-"ev": 0.0873,
-"why": [
-"statut de Ty Jerome (incertain)"
-],
-"since": "2026-10-31T09:15+00:00"
-},
-"401909900|4432848|AST|3.5|o": {
-"name": "Jaime Jaquez Jr.",
-"team": "MIL",
-"opp": "CLE",
-"stat": "AST",
-"side": "o",
-"line": 3.5,
-"date": "2026-11-01T00:00Z",
-"dec": 2.26,
-"ev": 0.055,
-"why": [
-"rapport officiel des blessures pas encore rempli"
-],
-"since": "2026-10-31T18:25+00:00"
-}
-}
+"waiting": {}
 }
