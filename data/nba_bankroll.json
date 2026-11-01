@@ -1458,7 +1458,9 @@
 "hold": 0.0681345353675451,
 "pending": [],
 "news": [],
-"dec": 1.806
+"dec": 1.806,
+"actual": 4,
+"result": "loss"
 }
 ],
 "stake": 0.5,
@@ -1469,9 +1471,11 @@
 "id": "2026-10-31-37",
 "night": "2026-10-31",
 "placed_at": "2026-10-31T15:39+00:00",
-"status": "open",
+"status": "lost",
 "mode": "prudent",
-"news": []
+"news": [],
+"pnl": -0.5,
+"settled_at": "2026-11-01T02:31+00:00"
 },
 {
 "legs": [
@@ -1781,13 +1785,81 @@
 ],
 "pnl": -1.0,
 "settled_at": "2026-11-01T01:38+00:00"
+},
+{
+"legs": [
+{
+"key": "401909903|3078576|3PM|2.5|u",
+"gid": "401909903",
+"night": "2026-11-01",
+"date": "2026-11-01T20:30Z",
+"pid": "3078576",
+"name": "Derrick White",
+"team": "BOS",
+"opp": "ORL",
+"stat": "3PM",
+"line": 2.5,
+"side": "u",
+"am": -189,
+"p_sim": 0.6493,
+"p_mkt": 0.6138,
+"pending": [],
+"news": [],
+"dec": 1.529
 }
 ],
-"updated": "2026-11-01T01:38:04+00:00",
+"stake": 0.5,
+"odds": 1.529,
+"p": 0.6138,
+"ev": -0.0614,
+"kind": "safe",
+"id": "2026-11-01-45",
+"night": "2026-11-01",
+"placed_at": "2026-11-01T02:31+00:00",
+"status": "open",
+"mode": "prudent",
+"news": []
+},
+{
+"legs": [
+{
+"key": "401909903|4277847|AST|1.5|o",
+"gid": "401909903",
+"night": "2026-11-01",
+"date": "2026-11-01T20:30Z",
+"pid": "4277847",
+"name": "Wendell Carter Jr.",
+"team": "ORL",
+"opp": "BOS",
+"stat": "AST",
+"line": 1.5,
+"side": "o",
+"am": -174,
+"p_sim": 0.6702,
+"p_mkt": 0.5957,
+"pending": [],
+"news": [],
+"dec": 1.575
+}
+],
+"stake": 0.5,
+"odds": 1.575,
+"p": 0.5957,
+"ev": -0.0619,
+"kind": "safe",
+"id": "2026-11-01-46",
+"night": "2026-11-01",
+"placed_at": "2026-11-01T02:31+00:00",
+"status": "open",
+"mode": "prudent",
+"news": []
+}
+],
+"updated": "2026-11-01T02:31:07+00:00",
 "mode": {
 "mode": "prudent",
-"clv": -0.0421,
-"n": 344
+"clv": -0.0409,
+"n": 392
 },
 "waiting": {}
 }
