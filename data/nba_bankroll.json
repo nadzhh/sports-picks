@@ -1821,7 +1821,9 @@
 "p_mkt": 0.6138,
 "pending": [],
 "news": [],
-"dec": 1.529
+"dec": 1.529,
+"actual": 2,
+"result": "win"
 }
 ],
 "stake": 0.5,
@@ -1832,9 +1834,11 @@
 "id": "2026-11-01-45",
 "night": "2026-11-01",
 "placed_at": "2026-11-01T02:31+00:00",
-"status": "open",
+"status": "won",
 "mode": "prudent",
-"news": []
+"news": [],
+"pnl": 0.26,
+"settled_at": "2026-11-02T00:12+00:00"
 },
 {
 "legs": [
@@ -1855,7 +1859,9 @@
 "p_mkt": 0.5957,
 "pending": [],
 "news": [],
-"dec": 1.575
+"dec": 1.575,
+"actual": 0,
+"result": "loss"
 }
 ],
 "stake": 0.5,
@@ -1866,9 +1872,11 @@
 "id": "2026-11-01-46",
 "night": "2026-11-01",
 "placed_at": "2026-11-01T02:31+00:00",
-"status": "open",
+"status": "lost",
 "mode": "prudent",
-"news": []
+"news": [],
+"pnl": -0.5,
+"settled_at": "2026-11-02T00:12+00:00"
 },
 {
 "legs": [
@@ -1976,11 +1984,11 @@
 "news": []
 }
 ],
-"updated": "2026-11-01T23:30:23+00:00",
+"updated": "2026-11-02T00:12:17+00:00",
 "mode": {
 "mode": "prudent",
-"clv": -0.0405,
-"n": 410
+"clv": -0.0402,
+"n": 417
 },
 "waiting": {}
 }
