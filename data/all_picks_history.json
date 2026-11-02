@@ -1,12 +1,52 @@
 {
-  "generated_at": "2026-11-02T00:54:42.846146",
-  "n_total": 2531,
+  "generated_at": "2026-11-02T07:44:14.654618",
+  "n_total": 2542,
   "by_sport": {
-    "foot": 2109,
-    "nba": 242,
+    "foot": 2114,
+    "nba": 248,
     "tennis": 180
   },
   "picks": [
+    {
+      "sport": "foot",
+      "id": "2026-11-02_5071484_team_away_dc",
+      "date": "2026-11-02",
+      "matchup": "Portland Timbers vs Houston Dynamo FC",
+      "market": "Double chance",
+      "label": "Nul ou Houston Dynamo FC (X2)",
+      "line": null,
+      "direction": "away_dc",
+      "confidence": 82,
+      "cote": null,
+      "cote_min": null,
+      "edge_pp": null,
+      "result": "LOSS",
+      "actual": null,
+      "context": {
+        "league": "MLS",
+        "is_fun": false
+      }
+    },
+    {
+      "sport": "foot",
+      "id": "2026-11-02_5071483_team_home_win",
+      "date": "2026-11-02",
+      "matchup": "New England Revolution vs Inter Miami CF",
+      "market": "Victoire domicile",
+      "label": "New England Revolution gagne",
+      "line": null,
+      "direction": "home_win",
+      "confidence": 61,
+      "cote": 2.75,
+      "cote_min": null,
+      "edge_pp": null,
+      "result": "LOSS",
+      "actual": null,
+      "context": {
+        "league": "MLS",
+        "is_fun": false
+      }
+    },
     {
       "sport": "foot",
       "id": "2026-11-01_5162090_team_away_dc",
@@ -949,6 +989,46 @@
     },
     {
       "sport": "foot",
+      "id": "2026-11-01_6492337_team_home_dc",
+      "date": "2026-11-01",
+      "matchup": "Liverpool FC vs Juventud de las Piedras",
+      "market": "Double chance",
+      "label": "Liverpool FC ou Nul (1X)",
+      "line": null,
+      "direction": "home_dc",
+      "confidence": 88,
+      "cote": null,
+      "cote_min": null,
+      "edge_pp": null,
+      "result": "WIN",
+      "actual": null,
+      "context": {
+        "league": "Uruguay Primera",
+        "is_fun": false
+      }
+    },
+    {
+      "sport": "foot",
+      "id": "2026-11-01_6492337_team_home_win",
+      "date": "2026-11-01",
+      "matchup": "Liverpool FC vs Juventud de las Piedras",
+      "market": "Victoire domicile",
+      "label": "Liverpool FC gagne",
+      "line": null,
+      "direction": "home_win",
+      "confidence": 67,
+      "cote": null,
+      "cote_min": null,
+      "edge_pp": null,
+      "result": "WIN",
+      "actual": null,
+      "context": {
+        "league": "Uruguay Primera",
+        "is_fun": false
+      }
+    },
+    {
+      "sport": "foot",
       "id": "2026-11-01_5071480_team_home_dc",
       "date": "2026-11-01",
       "matchup": "Vancouver Whitecaps vs Seattle Sounders FC",
@@ -1024,6 +1104,26 @@
       "actual": null,
       "context": {
         "league": "La Liga",
+        "is_fun": false
+      }
+    },
+    {
+      "sport": "foot",
+      "id": "2026-11-01_1000019611_team_home_win",
+      "date": "2026-11-01",
+      "matchup": "Lanús vs Gimnasia Mendoza",
+      "market": "Victoire domicile",
+      "label": "Lanús gagne",
+      "line": null,
+      "direction": "home_win",
+      "confidence": 61,
+      "cote": null,
+      "cote_min": null,
+      "edge_pp": null,
+      "result": "LOSS",
+      "actual": null,
+      "context": {
+        "league": "Argentina Primera",
         "is_fun": false
       }
     },
@@ -1250,6 +1350,156 @@
         "hit_l10_pct": 60.0,
         "hit_l20_pct": 60.0,
         "trend": "stable"
+      }
+    },
+    {
+      "sport": "nba",
+      "id": "2026-11-01_401909904_Julius Randle_REB_over_6.5",
+      "date": "2026-11-01",
+      "matchup": "Nets @ Pacers",
+      "market": "REB",
+      "label": "Julius Randle plus de 6.5 rebonds",
+      "line": 6.5,
+      "direction": "over",
+      "confidence": 77,
+      "cote": 1.68,
+      "cote_min": 1.25,
+      "edge_pp": 34.4,
+      "result": "LOSS",
+      "actual": 5.0,
+      "context": {
+        "player": "Julius Randle",
+        "team": "Nets",
+        "side": "away",
+        "is_real_line": true,
+        "hit_l10_pct": 70.0,
+        "hit_l20_pct": 70.0,
+        "trend": "stable"
+      }
+    },
+    {
+      "sport": "nba",
+      "id": "2026-11-01_401909904_Nolan Traore_PRA_under_19.5",
+      "date": "2026-11-01",
+      "matchup": "Nets @ Pacers",
+      "market": "PRA",
+      "label": "Nolan Traore moins de 19.5 PRA",
+      "line": 19.5,
+      "direction": "under",
+      "confidence": 73,
+      "cote": 1.78,
+      "cote_min": 1.35,
+      "edge_pp": 31.9,
+      "result": "LOSS",
+      "actual": 24.0,
+      "context": {
+        "player": "Nolan Traore",
+        "team": "Nets",
+        "side": "away",
+        "is_real_line": true,
+        "hit_l10_pct": 80.0,
+        "hit_l20_pct": 65.0,
+        "trend": "hot"
+      }
+    },
+    {
+      "sport": "nba",
+      "id": "2026-11-01_401909904_Day'Ron Sharpe_PRA_under_19.5",
+      "date": "2026-11-01",
+      "matchup": "Nets @ Pacers",
+      "market": "PRA",
+      "label": "Day'Ron Sharpe moins de 19.5 PRA",
+      "line": 19.5,
+      "direction": "under",
+      "confidence": 70,
+      "cote": 1.88,
+      "cote_min": 1.44,
+      "edge_pp": 30.6,
+      "result": "LOSS",
+      "actual": 32.0,
+      "context": {
+        "player": "Day'Ron Sharpe",
+        "team": "Nets",
+        "side": "away",
+        "is_real_line": true,
+        "hit_l10_pct": 70.0,
+        "hit_l20_pct": 65.0,
+        "trend": "stable"
+      }
+    },
+    {
+      "sport": "nba",
+      "id": "2026-11-01_401909904_Nolan Traore_PA_under_16.5",
+      "date": "2026-11-01",
+      "matchup": "Nets @ Pacers",
+      "market": "PA",
+      "label": "Nolan Traore moins de 16.5 pts + ast",
+      "line": 16.5,
+      "direction": "under",
+      "confidence": 71,
+      "cote": 1.89,
+      "cote_min": 1.42,
+      "edge_pp": 33.1,
+      "result": "LOSS",
+      "actual": 22.0,
+      "context": {
+        "player": "Nolan Traore",
+        "team": "Nets",
+        "side": "away",
+        "is_real_line": true,
+        "hit_l10_pct": 60.0,
+        "hit_l20_pct": 55.0,
+        "trend": "stable"
+      }
+    },
+    {
+      "sport": "nba",
+      "id": "2026-11-01_401909904_Noah Clowney_REB_over_3.5",
+      "date": "2026-11-01",
+      "matchup": "Nets @ Pacers",
+      "market": "REB",
+      "label": "Noah Clowney plus de 3.5 rebonds",
+      "line": 3.5,
+      "direction": "over",
+      "confidence": 73,
+      "cote": 1.78,
+      "cote_min": 1.26,
+      "edge_pp": 41.3,
+      "result": "LOSS",
+      "actual": 3.0,
+      "context": {
+        "player": "Noah Clowney",
+        "team": "Nets",
+        "side": "away",
+        "is_real_line": true,
+        "hit_l10_pct": 60.0,
+        "hit_l20_pct": 50.0,
+        "trend": "hot"
+      }
+    },
+    {
+      "sport": "nba",
+      "id": "2026-11-01_401909904_Aaron Nesmith_PTS_over_12.5",
+      "date": "2026-11-01",
+      "matchup": "Nets @ Pacers",
+      "market": "PTS",
+      "label": "Aaron Nesmith plus de 12.5 points",
+      "line": 12.5,
+      "direction": "over",
+      "confidence": 56,
+      "cote": 1.99,
+      "cote_min": 1.57,
+      "edge_pp": 26.8,
+      "result": "LOSS",
+      "actual": 11.0,
+      "context": {
+        "player": "Aaron Nesmith",
+        "team": "Pacers",
+        "side": "home",
+        "is_real_line": true,
+        "hit_l10_pct": 70.0,
+        "hit_l20_pct": 50.0,
+        "trend": "hot"
       }
     },
     {
