@@ -1,6 +1,6 @@
 {
- "genere_le": "2026-11-03T06:43:31",
- "n_resolus": 2485,
+ "genere_le": "2026-11-03T15:04:57",
+ "n_resolus": 2488,
  "parametres": {
   "n_min_jugement": 20,
   "seuil_pct": 50.0,
@@ -8,34 +8,34 @@
  },
  "marches": {
   "foot/Double chance": {
-   "n": 124,
-   "wins": 103,
-   "wr": 83.1,
-   "borne_basse": 75.5,
-   "borne_haute": 88.6,
+   "n": 125,
+   "wins": 104,
+   "wr": 83.2,
+   "borne_basse": 75.7,
+   "borne_haute": 88.7,
    "statut": "RETENU",
    "cote_moyenne": 1.43,
    "n_cotes": 15
   },
-  "foot/Victoire domicile": {
-   "n": 170,
-   "wins": 92,
-   "wr": 54.1,
-   "borne_basse": 46.6,
-   "borne_haute": 61.4,
-   "statut": "SURVEILLE",
-   "cote_moyenne": 2.12,
-   "n_cotes": 30
-  },
   "foot/Victoire extérieur": {
-   "n": 181,
+   "n": 182,
    "wins": 84,
-   "wr": 46.4,
-   "borne_basse": 39.3,
-   "borne_haute": 53.7,
+   "wr": 46.2,
+   "borne_basse": 39.1,
+   "borne_haute": 53.4,
    "statut": "SURVEILLE",
    "cote_moyenne": 2.38,
    "n_cotes": 21
+  },
+  "foot/Victoire domicile": {
+   "n": 171,
+   "wins": 92,
+   "wr": 53.8,
+   "borne_basse": 46.3,
+   "borne_haute": 61.1,
+   "statut": "SURVEILLE",
+   "cote_moyenne": 2.12,
+   "n_cotes": 30
   },
   "foot/Tirs (total match)": {
    "n": 61,
@@ -951,8 +951,8 @@
  "calibration": {
   "foot/Double chance": {
    "80-89": {
-    "n": 95,
-    "p": 82.1
+    "n": 96,
+    "p": 82.3
    },
    "90-99": {
     "n": 23,
@@ -960,13 +960,31 @@
    },
    "70-79": {
     "n": 6,
-    "p": 73.2
+    "p": 73.3
+   }
+  },
+  "foot/Victoire extérieur": {
+   "70-79": {
+    "n": 60,
+    "p": 53.3
+   },
+   "80-89": {
+    "n": 24,
+    "p": 54.2
+   },
+   "60-69": {
+    "n": 73,
+    "p": 41.1
+   },
+   "50-59": {
+    "n": 25,
+    "p": 36.0
    }
   },
   "foot/Victoire domicile": {
    "60-69": {
-    "n": 77,
-    "p": 48.1
+    "n": 78,
+    "p": 47.4
    },
    "70-79": {
     "n": 46,
@@ -979,24 +997,6 @@
    "50-59": {
     "n": 23,
     "p": 43.5
-   }
-  },
-  "foot/Victoire extérieur": {
-   "80-89": {
-    "n": 24,
-    "p": 54.2
-   },
-   "70-79": {
-    "n": 59,
-    "p": 54.2
-   },
-   "60-69": {
-    "n": 73,
-    "p": 41.1
-   },
-   "50-59": {
-    "n": 25,
-    "p": 36.0
    }
   },
   "foot/Tirs (total match)": {
@@ -1887,7 +1887,7 @@
   }
  },
  "replis_sport": {
-  "foot": 47.0,
+  "foot": 46.9,
   "nba": 52.0,
   "tennis": 61.7
  }
