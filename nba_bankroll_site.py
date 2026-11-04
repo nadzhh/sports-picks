@@ -146,8 +146,8 @@ def _lab_card():
             '<div class="eb-scroll"><table class="eb-tbl eb-cards"><tr><th>Stratégie</th><th>Paris</th><th>Réussite</th><th>Cote moy.</th>'
             f'<th>ROI</th><th>IC 95 %</th><th>CLV</th><th>Statut</th></tr>{body}</table></div>'
             '<p class="eb-note">Classées par borne basse du ROI (la plus sûre en tête). Le taux de réussite seul trompe : 80 % à '
-            '1,20 perd de l’argent ; on juge au ROI et à la CLV (cote prise vs dernière cote juste avant le match). Avec 13 '
-            'stratégies, l’une paraîtra bonne par chance : « prouvée » seulement après 100 paris et si l’intervalle corrigé '
+            '1,20 perd de l’argent ; on juge au ROI et à la CLV (cote prise vs dernière cote juste avant le match). Avec '
+            f'{len(rows)} stratégies, l’une paraîtra bonne par chance : « prouvée » seulement après 100 paris et si l’intervalle corrigé '
             'du nombre de stratégies (Bonferroni) reste au-dessus de 0. Le « hasard » sert de témoin.</p>'
             f'<details class="eb-det"><summary>Les stratégies</summary><ul class="eb-why-l">{desc}</ul></details></div>')
 

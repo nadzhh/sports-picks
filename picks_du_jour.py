@@ -87,8 +87,11 @@ def value_candidates(now, hours=WINDOW_H):
             p, p_sim = p_fair, None
             if sim:
                 q = sim["p"]
-                p_sim = {"Match nul": q["X"], f"Victoire {v['home']}": q["1"], f"Victoire {v['away']}": q["2"],
-                         "Plus de 2.5 buts": q["over"]["2.5"], "Moins de 2.5 buts": 1 - q["over"]["2.5"]}.get(lab)
+                p_sim = {"Match nul": q["X"], f"Victoire {v['home']}": q["1"], f"Victoire {v['away']}": q["2"]}.get(lab)
+                for pre, over in (("Plus de ", True), ("Moins de ", False)):   # toutes les lignes x,5 simulees (0,5 a 4,5)
+                    if lab.startswith(pre) and lab.endswith(" buts"):
+                        o = q["over"].get(lab[len(pre):-5])
+                        if o is not None: p_sim = o if over else 1 - o
                 if p_sim is not None and "2.5 buts" in lab:
                     p = p_fair + W_O25 * (p_sim - p_fair)
             ev = p * fr[0] - 1

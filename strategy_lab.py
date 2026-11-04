@@ -87,6 +87,43 @@ def value_pool(now, hours=WINDOW_H):
     return [dict(x, src="value", key=f'{x["match_id"]}|{x["label"]}', gid=x["match_id"]) for x in c]
 
 
+def moteur_pool(now, hours=WINDOW_H):
+    """Picks foot du moteur (data/picks.json) avec une vraie cote bookmaker ; regles via data/picks_history.json."""
+    try:
+        import notify
+    except Exception:
+        return []
+    out = []
+    for m in _load("data/picks.json", []) or []:
+        try:
+            ko = datetime.fromtimestamp(int(m.get("start_ts")), timezone.utc)
+        except (TypeError, ValueError):
+            continue
+        if not timedelta(0) < ko - now <= timedelta(hours=hours): continue
+        for pk in (m.get("picks") or []) + (m.get("fun_picks") or []):
+            if (pk.get("direction") or "").startswith("wc_score_"): continue
+            c, src = notify._effective_cote(pk)
+            if src != "book" or not c: continue
+            hv = (pk.get("is_fun") and c >= 2.0) or (not pk.get("is_fun") and notify._is_push_eligible_team(pk)[0])
+            out.append({"src": "moteur", "gid": str(m.get("match_id")), "ko": ko.isoformat(), "match": f'{m["home"]} - {m["away"]}',
+                        "name": f'{m["home"]} - {m["away"]}', "label": pk.get("label"), "price": round(c, 2), "book": "bookmaker",
+                        "conf": pk.get("confidence", 0), "edge": pk.get("edge_pp"), "hv": bool(hv),
+                        "key": f'moteur|{pk.get("id")}', "res": {"id": pk.get("id")}})
+    return out
+
+
+def _nba_sim_line(r):
+    """Probabilite du simulateur NBA pour une ligne de match (vainqueur / ecart / total), via nba_bankroll.sim_prob."""
+    try:
+        import nba_bankroll
+        m, nm, pt = (r.get("res") or {}).get("key") or (None, None, None)
+        if not m: return None
+        return nba_bankroll.sim_prob({"sport": "nba", "commence": r["ko"], "home": r["res"]["home"], "away": r["res"]["away"],
+                                      "market": m, "name": nm, "point": pt, "fair": r["p_fair"]})
+    except Exception:
+        return None
+
+
 def hv_pool(now, hours=WINDOW_H):
     try:
         import notify
@@ -191,28 +228,91 @@ def s_value(P, day):
     return _per_player(sorted(rows, key=lambda r: -r["ev"]))
 
 
+def _foot(P): return [r for r in P["value"] if r.get("sport") == "foot"]
+
+
+def _nba_lines(P):
+    out = []
+    for r in P["value"]:
+        if r.get("sport") != "nba": continue
+        ps = r.get("p_sim") if r.get("p_sim") is not None else _nba_sim_line(r)
+        out.append(dict(r, p_sim=ps))
+    return out
+
+
+def f_random(P, day):
+    rows = list(_foot(P)); random.Random(_seed(day) + 1).shuffle(rows)
+    return _per_player(rows)
+
+
+def f_favorites(P, day):
+    return _per_player(sorted((r for r in _foot(P) if r["price"] >= 1.5), key=lambda r: -r["p_fair"]))
+
+
+def f_sim_1x2(P, day):
+    rows = [r for r in _foot(P) if r.get("p_sim") is not None and (r["label"].startswith("Victoire") or r["label"] == "Match nul")
+            and r["p_sim"] > r["p_fair"]]
+    return _per_player(sorted(rows, key=lambda r: -(r["p_sim"] - r["p_fair"])))
+
+
+def f_consensus(P, day):
+    rows = [r for r in _foot(P) if r.get("p_sim") is not None and r["p_sim"] >= 0.55 and r["p_fair"] >= 0.52 and r["price"] >= 1.6]
+    return _per_player(sorted(rows, key=lambda r: -(r["p_sim"] + r["p_fair"])))
+
+
+def f_high_value(P, day):
+    return _per_player(sorted((r for r in P["moteur"] if r["hv"]), key=lambda r: -(r["edge"] or 0)))
+
+
+def f_moteur_conf(P, day):
+    return _per_player(sorted((r for r in P["moteur"] if r["price"] >= 1.5), key=lambda r: -r["conf"]))
+
+
+def n_lines_sim(P, day):
+    """Lignes de match NBA (vainqueur, ecart, total) ou le simulateur s'ecarte le plus de Pinnacle, de son cote."""
+    rows = [r for r in _nba_lines(P) if r.get("p_sim") is not None and r["p_sim"] > r["p_fair"]]
+    return _per_player(sorted(rows, key=lambda r: -(r["p_sim"] - r["p_fair"])))
+
+
+def n_lines_random(P, day):
+    rows = _nba_lines(P); random.Random(_seed(day) + 2).shuffle(rows)
+    return _per_player(rows)
+
+
 def s_foot_sim(P, day):
     """Plus / moins 2,5 buts ou le simulateur foot s'ecarte le plus de la cote juste Pinnacle, du cote du simulateur."""
-    rows = [r for r in P["value"] if r.get("p_sim") is not None and "2.5 buts" in r["label"] and r["p_sim"] > r["p_fair"]]
+    rows = [r for r in P["value"] if r.get("p_sim") is not None and r["label"].endswith(" buts") and r["p_sim"] > r["p_fair"]]
     return _per_player(sorted(rows, key=lambda r: -(r["p_sim"] - r["p_fair"])))
 
 
 STRATS = [
-    ("hasard", "Témoin : au hasard", "10 props NBA tirées au sort : ce que vaut « ne rien savoir ».", s_random),
-    ("marche", "Favoris du marché", "Les props NBA que le bookmaker donne les plus probables, cote ≥ 1,50.", s_market_fav),
-    ("simu_brut", "Simulateur brut", "Le plus gros écart simulateur / bookmaker (passes, 3 pts, interceptions, contres).", s_sim_raw),
-    ("simu_recale", "Simulateur recalé", "Espérance avec 10 % de l'écart du simulateur (poids mesuré en réel), écarts < 15 pts.", s_sim_cal),
-    ("ecart_modere", "Écart modéré", "Écart simulateur / bookmaker entre 5 et 15 pts seulement (les gros écarts = info manquante).", s_gap_mid),
-    ("unders", "Unders passes / 3 pts", "Seulement les « moins de » sur les passes et les 3 pts, quand le simulateur est d'accord.", s_unders),
-    ("minutes", "Temps de jeu en hausse", "Joueurs avec 3+ min de plus que leur moyenne ce soir, over avec le simulateur.", s_minutes),
-    ("absences", "Effet des absences", "Le joueur produit 15 %+ de plus (ou de moins) sans un coéquipier absent ce soir, simulateur d'accord.", s_absences),
-    ("consensus", "Consensus simu + marché", "Simulateur ≥ 55 % et marché ≥ 52 % du même côté, cote ≥ 1,60.", s_consensus),
-    ("safe", "Safe", "Simulateur et bookmaker ≥ 58 %, cote ≥ 1,50.", s_safe),
-    ("high_value", "High value (moteur props)", "Les picks « high value » de l'ancien moteur, cotes FanDuel / DraftKings.", s_high_value),
-    ("value", "Value bets Pinnacle", "Cote française au-dessus de la cote juste Pinnacle (foot et NBA, victoires ≤ 3,00).", s_value),
-    ("foot_simu", "Simulateur foot +/- 2,5", "Plus / moins 2,5 buts où le simulateur foot s'écarte le plus de Pinnacle.", s_foot_sim),
+    # 🏀 props NBA (cotes DraftKings)
+    ("hasard", "🏀 Témoin : props au hasard", "10 props NBA tirées au sort : ce que vaut « ne rien savoir ».", s_random),
+    ("marche", "🏀 Favoris du marché", "Les props NBA que le bookmaker donne les plus probables, cote ≥ 1,50.", s_market_fav),
+    ("simu_brut", "🏀 Simulateur brut", "Le plus gros écart simulateur / bookmaker (passes, 3 pts, interceptions, contres).", s_sim_raw),
+    ("simu_recale", "🏀 Simulateur recalé", "Espérance avec 10 % de l'écart du simulateur (poids mesuré en réel), écarts < 15 pts.", s_sim_cal),
+    ("ecart_modere", "🏀 Écart modéré", "Écart simulateur / bookmaker entre 5 et 15 pts seulement (les gros écarts = info manquante).", s_gap_mid),
+    ("unders", "🏀 Unders passes / 3 pts", "Seulement les « moins de » sur les passes et les 3 pts, quand le simulateur est d'accord.", s_unders),
+    ("minutes", "🏀 Temps de jeu en hausse", "Joueurs avec 3+ min de plus que leur moyenne ce soir, over avec le simulateur.", s_minutes),
+    ("absences", "🏀 Effet des absences", "Le joueur produit 15 %+ de plus (ou de moins) sans un coéquipier absent ce soir, simulateur d'accord.", s_absences),
+    ("consensus", "🏀 Consensus simu + marché", "Simulateur ≥ 55 % et marché ≥ 52 % du même côté, cote ≥ 1,60.", s_consensus),
+    ("safe", "🏀 Safe", "Simulateur et bookmaker ≥ 58 %, cote ≥ 1,50.", s_safe),
+    ("high_value", "🏀 High value (moteur props)", "Les picks « high value » de l'ancien moteur, cotes FanDuel / DraftKings.", s_high_value),
+    # 🏀 lignes de match NBA (meilleure cote française vs Pinnacle)
+    ("nba_lignes_simu", "🏀 Lignes de match : simulateur", "Vainqueur, écart, total où le simulateur NBA s'écarte le plus de Pinnacle, de son côté.", n_lines_sim),
+    ("nba_lignes_hasard", "🏀 Témoin : lignes de match au hasard", "Lignes de match NBA tirées au sort (meilleure cote française).", n_lines_random),
+    # ⚽ foot (meilleure cote française vs Pinnacle, moteur picks)
+    ("foot_hasard", "⚽ Témoin : foot au hasard", "Issues 1X2 / plus-moins tirées au sort (meilleure cote française).", f_random),
+    ("foot_favoris", "⚽ Favoris Pinnacle", "Les issues que Pinnacle donne les plus probables, cote française ≥ 1,50.", f_favorites),
+    ("foot_simu_1x2", "⚽ Simulateur foot 1X2", "Victoire / nul où le simulateur foot s'écarte le plus de Pinnacle, de son côté (≤ 3,00).", f_sim_1x2),
+    ("foot_simu", "⚽ Simulateur foot plus / moins", "Plus / moins de buts (ligne principale Pinnacle) où le simulateur foot s'écarte le plus de Pinnacle.", s_foot_sim),
+    ("foot_consensus", "⚽ Consensus simu + Pinnacle", "Simulateur ≥ 55 % et Pinnacle ≥ 52 % du même côté, cote ≥ 1,60.", f_consensus),
+    ("foot_high_value", "⚽ High value foot", "Les picks foot « high value » du moteur (critères du récap Telegram), cote bookmaker.", f_high_value),
+    ("foot_moteur", "⚽ Moteur foot : confiance", "Les picks du moteur foot les plus « confiants », cote bookmaker ≥ 1,50.", f_moteur_conf),
+    # ⚽ + 🏀
+    ("value", "⚽🏀 Value bets Pinnacle", "Cote française au-dessus de la cote juste Pinnacle (foot et NBA, victoires ≤ 3,00).", s_value),
 ]
-Z_ADJ = 2.69   # Bonferroni ~12 strategies (0,05 / 12, bilateral)
+Z_ADJ = 2.94   # Bonferroni ~21 strategies (0,05 / 21, bilateral)
 
 
 # ─── Decision du soir, suivi des cotes, reglement ────────────────────────────
@@ -231,7 +331,7 @@ def decide(now=None):
     day = loc.strftime("%Y-%m-%d")
     st = load()
     if loc.hour < DECIDE_HOUR or day in st["days"]: return 0
-    P = {"nba": nba_pool(now), "value": value_pool(now), "hv": hv_pool(now)}
+    P = {"nba": nba_pool(now), "value": value_pool(now), "hv": hv_pool(now), "moteur": moteur_pool(now)}
     n = 0
     for key, name, _, fn in STRATS:
         try:
@@ -285,10 +385,16 @@ def resolve(box=None, now=None):
                 m, nm, pt = b["res"]["key"]
                 out = ev_scan._espn_result(dict(b["res"], market=m, name=nm, point=pt))
                 r = out[0] if out else None
+            elif b["src"] == "moteur":
+                if hist is None or "moteur" not in hist:
+                    hist = hist or {}
+                    hist["moteur"] = {p.get("id"): p.get("result") for p in (list((_load("data/picks_history.json", {}) or {}).values()) or [[]])[0]}
+                r = {"WIN": "win", "LOSS": "loss", "PUSH": "push"}.get(hist["moteur"].get((b["res"] or {}).get("id")))
             elif b["src"] == "hv":
-                if hist is None:
-                    hist = {(p.get("date"), p.get("label")): p.get("result") for p in (_load("data/nba_picks_history.json", {}) or {}).get("picks") or []}
-                x = next((v for (d, l), v in hist.items() if l == b["label"] and d and abs((_t(d + "T12:00Z") - _t(b["ko"])).days) <= 1), None)
+                if hist is None or "hv" not in hist:
+                    hist = hist or {}
+                    hist["hv"] = {(p.get("date"), p.get("label")): p.get("result") for p in (_load("data/nba_picks_history.json", {}) or {}).get("picks") or []}
+                x = next((v for (d, l), v in hist["hv"].items() if l == b["label"] and d and abs((_t(d + "T12:00Z") - _t(b["ko"])).days) <= 1), None)
                 r = {"WIN": "win", "LOSS": "loss", "PUSH": "push"}.get(x)
         except Exception as e:
             print(f"  [!] reglement labo {b.get('label')} : {type(e).__name__}: {e}")
@@ -331,7 +437,7 @@ if __name__ == "__main__":
     import sys
     sys.stdout.reconfigure(encoding="utf-8")
     now = datetime.now(timezone.utc)
-    P = {"nba": nba_pool(now), "value": value_pool(now), "hv": hv_pool(now)}
+    P = {"nba": nba_pool(now), "value": value_pool(now), "hv": hv_pool(now), "moteur": moteur_pool(now)}
     print(f"lot : {len(P['nba'])} props NBA, {len(P['value'])} lignes de match cotées, {len(P['hv'])} high value")
     day = _paris(now).strftime("%Y-%m-%d")
     for key, name, _, fn in STRATS:
