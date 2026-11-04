@@ -428,6 +428,11 @@ def main():
     Path(CONTINUE_FLAG).unlink(missing_ok=True)
     start = _git("rev-parse", "HEAD", check=False).stdout.strip() if a.loop else ""
     while True:
+        # Code publie plus recent que le notre : on relance AVANT de publier quoi que ce soit (sinon la veille ecrase
+        # les fiches du site avec l'ancien code, ex. bouton « Analyse approfondie » et tri disparus le 04/11/2026)
+        if a.loop and not a.no_push and code_changed(start):
+            Path(CONTINUE_FLAG).write_text(datetime.now(timezone.utc).isoformat(), encoding="utf-8")
+            print("Nouveau code sur master (debut de cycle) : relance de la veille"); break
         print(f"=== Cycle {datetime.now(timezone.utc):%H:%M} UTC ===", flush=True)
         games = live.cycle()
         now = datetime.now(timezone.utc)
