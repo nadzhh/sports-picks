@@ -262,7 +262,7 @@ def _props(g, gid):
             if len(rows) > PROPS_SHOWN else "")
     head = "".join(f'<th class="eb-sort" onclick="ebSort(this)" title="Trier">{h}</th>'
                    for h in ("Joueur", "Marché", "Ligne", "Over simu", "Over book", "Écart", "Côté simu"))
-    return (f'{seg}<div class="eb-scroll"><table class="eb-tbl" id="eb-props-{gid}"><tr>{head}</tr>{body}</table></div>{more}'
+    return (f'{seg}<div class="eb-scroll"><table class="eb-tbl eb-cards" id="eb-props-{gid}"><tr>{head}</tr>{body}</table></div>{more}'
             '<p class="eb-note">Probabilité de dépasser la ligne, marge du bookmaker retirée. Écarts ≥ 20 pts (« suspect ») '
             'en fin de liste : ils signalent presque toujours une info que le modèle n’a pas (minutes, nouveau rôle, blessure).</p>')
 
@@ -441,7 +441,7 @@ def _selection(g, picks):
         return f'<div class="eb-card eb-sel"><h3 class="eb-h">Sélection du simulateur</h3><div class="eb-empty">{msg}</div></div>'
     return ('<div class="eb-card eb-sel"><div class="eb-ctrl"><h3 class="eb-h eb-h-nomb">Sélection du simulateur '
             f'<small>{len(items)} props · cliquer une ligne pour l’argumentaire</small></h3>{_track(picks)}</div>'
-            f'<div class="eb-scroll"><table class="eb-tbl" data-all="1"><tr>{_pick_head()}</tr>'
+            f'<div class="eb-scroll"><table class="eb-tbl eb-cards" data-all="1"><tr>{_pick_head()}</tr>'
             f'{_pick_rows(items)}</table></div><p class="eb-note">{PICK_NOTE}</p></div>')
 
 
@@ -455,7 +455,7 @@ def _combos_card(g):
         rows += (f'<tr><td class="eb-bk-legs">{legs}</td><td class="n">{_pct(c["p"], 0)}</td><td class="n"><b>{c["fair"]:.2f}</b></td>'
                  f'<td class="n">{c["indep_mkt"]:.2f}</td><td class="n eb-acc">+{100 * (c["lift"] - 1):.0f} %</td></tr>')
     return ('<div class="eb-card"><h3 class="eb-h">Combinés du même match <small>tirages conjoints du simulateur</small></h3>'
-            '<div class="eb-scroll"><table class="eb-tbl"><tr><th>Combiné</th><th>Proba</th><th>Cote juste</th>'
+            '<div class="eb-scroll"><table class="eb-tbl eb-cards"><tr><th>Combiné</th><th>Proba</th><th>Cote juste</th>'
             f'<th>Cote « indépendante »</th><th>Corrélation</th></tr>{rows}</table></div>'
             '<p class="eb-note">Probabilité de chaque pari = celle du marché (sans marge), plus fiable que le simulateur ; '
             'le simulateur, qui joue le match entier, n’apporte que la <b>corrélation</b> entre les deux (ex. +20 % : ils '
@@ -750,7 +750,7 @@ def _night_picks(rep):
         return '<div class="eb-empty">Aucun pick proposé pour cette soirée.</div>'
     head = "".join(f'<th class="eb-sort" onclick="ebSort(this)" title="Trier">{h}</th>'
                    for h in ("Joueur", "Pari", "Cote prise", "Réel", "Minutes", "Résultat")) + "<th>Explication</th>"
-    return f'<div class="eb-scroll"><table class="eb-tbl" data-all="1"><tr>{head}</tr>{rows}</table></div>'
+    return f'<div class="eb-scroll"><table class="eb-tbl eb-cards" data-all="1"><tr>{head}</tr>{rows}</table></div>'
 
 
 def _night_games(rep):
@@ -769,7 +769,7 @@ def _night_games(rep):
                  f'<td class="n">{s["away"]:.0f}-{s["home"]:.0f} <span class="eb-dim">({_e(fav)} '
                  f'{_pct(max(s["p_home"], 1 - s["p_home"]), 0)})</span></td>'
                  f'<td class="n">{vg or "–"}</td><td class="n">{final}</td><td>{res}</td></tr>')
-    return ('<div class="eb-scroll"><table class="eb-tbl"><tr><th>Match</th><th>Simulateur</th><th>Vegas</th>'
+    return ('<div class="eb-scroll"><table class="eb-tbl eb-cards"><tr><th>Match</th><th>Simulateur</th><th>Vegas</th>'
             f'<th>Final</th><th>Vainqueur</th></tr>{rows}</table></div>')
 
 
@@ -866,7 +866,7 @@ def _picks_view(games, picks):
         blocks += (f'<div class="eb-card"><div class="eb-meta">NBA · {_when(g.get("date", ""), now)}</div>'
                    f'<h3 class="eb-h">{_e(_nick(g["away"]))} @ {_e(_nick(g["home"]))} <small>{len(items)} sélection'
                    f'{"s" if len(items) > 1 else ""} · cliquer une ligne pour l’argumentaire</small></h3>'
-                   f'<div class="eb-scroll"><table class="eb-tbl" data-all="1"><tr>{_pick_head()}</tr>{_pick_rows(items)}</table></div></div>')
+                   f'<div class="eb-scroll"><table class="eb-tbl eb-cards" data-all="1"><tr>{_pick_head()}</tr>{_pick_rows(items)}</table></div></div>')
     mode, clv, n = discipline(bk_load())
     state = (f'Suivi réel : <b>{n}</b> sélections réglées, CLV <b class="{"eb-acc" if clv >= 0 else "eb-neg"}">'
              f'{100 * clv:+.1f} %</b>'.replace(".", ",").replace("-", "−")

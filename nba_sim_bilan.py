@@ -247,9 +247,13 @@ def insights(rep, cum):
                    "le gain ou la perte d'une soirée ne prouve rien. Le juge rapide, c'est la CLV (le marché va-t-il dans notre sens ?).")
     if c["with_us"] is not None and c["n_moved"] >= 10:
         ok = c["with_us"] >= 0.6
+        # 04/11/2026 : 67 % dans notre sens mais CLV -3 a -4 % : le mouvement ne couvre pas la marge du bookmaker
+        beats = c.get("clv") is not None and c["clv"] > 0
         out.append(f"Mouvement des cotes : le marché est allé dans notre sens sur {100 * c['with_us']:.0f} % des picks "
                    f"({c['n_moved']} cotes qui ont bougé ; 74-80 % au backtest). "
-                   + ("Le signal fonctionne : continuer, en prenant les cotes le plus tôt possible." if ok else
+                   + ("Le signal fonctionne : continuer, en prenant les cotes le plus tôt possible." if ok and beats else
+                      f"Le sens est bon mais la CLV reste négative ({_f(100 * c['clv'])} %) : le mouvement ne couvre pas "
+                      "la marge du bookmaker, pas d'avantage de pari démontré." if ok else
                       "Moins bien qu'au backtest : si ça reste sous 60 % après 100 picks, relever l'écart minimal "
                       "(PICK_GAP 0,08 → 0,10) ou retirer la stat la plus faible."))
     lost = s["l"]

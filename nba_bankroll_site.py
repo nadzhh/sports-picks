@@ -165,13 +165,13 @@ def build_bankroll_section(state=None):
             '<p class="eb-note">Bankroll fictive, cotes DraftKings publiées par ESPN : aucun argent réel. '
             'Les cotes Winamax / Betclic peuvent différer.</p></div>'
             '<div class="eb-card"><h3 class="eb-h">Paris en cours</h3>'
-            + (f'<div class="eb-scroll"><table class="eb-tbl">{head}<th>Gain possible</th></tr>{o_rows}</table></div>' if o_rows
+            + (f'<div class="eb-scroll"><table class="eb-tbl eb-cards">{head}<th>Gain possible</th></tr>{o_rows}</table></div>' if o_rows
                else '<div class="eb-empty">Aucun pari en cours : j’attends une cote qui en vaut la peine.</div>') + '</div>'
             + (f'<div class="eb-card"><h3 class="eb-h">En attente d’information <small>pari repéré, pas encore placé</small></h3>'
-               f'<div class="eb-scroll"><table class="eb-tbl"><tr><th>Match</th><th>Pari envisagé</th><th>Espérance actuelle</th></tr>'
+               f'<div class="eb-scroll"><table class="eb-tbl eb-cards"><tr><th>Match</th><th>Pari envisagé</th><th>Espérance actuelle</th></tr>'
                f'{w_rows}</table></div></div>' if w_rows else "") +
             '<div class="eb-card"><h3 class="eb-h">Historique</h3>'
-            + (f'<div class="eb-scroll"><table class="eb-tbl">{head}<th>Résultat</th><th>Gain</th></tr>{d_rows}</table></div>' if d_rows
+            + (f'<div class="eb-scroll"><table class="eb-tbl eb-cards">{head}<th>Résultat</th><th>Gain</th></tr>{d_rows}</table></div>' if d_rows
                else '<div class="eb-empty">Pas encore de pari réglé.</div>') + '</div>'
             f'<div class="eb-card"><h3 class="eb-h">Comment je gère</h3><ul class="eb-why-l">{rules}</ul>'
             + (f'<p class="eb-note">{BK.CALIB_NOTE}</p>' if BK.CALIB_NOTE else "") + '</div>'

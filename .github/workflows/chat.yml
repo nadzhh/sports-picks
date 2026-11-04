@@ -1,0 +1,64 @@
+name: Chat du site (Claude)
+
+# Relais du chat du site (bouton 💬) : lit les messages de Wilson dans Firestore et fait repondre
+# Claude Code avec son abonnement (jeton `claude setup-token`). Voir chat_bot.py.
+# Comme la veille NBA, le job boucle ~5 h 40 puis se relance lui-meme ; le cron horaire sert de filet.
+# Depot public : le relais n'ecrit dans le journal que des compteurs, jamais le contenu des messages.
+# Arret : desactiver le workflow dans l'onglet Actions.
+on:
+  schedule:
+    - cron: "23 * * * *"
+  workflow_dispatch:
+  push:
+    branches: [master]
+    paths: ["chat_bot.py", "chat/**", ".github/workflows/chat.yml"]
+
+permissions:
+  contents: read
+  actions: write
+
+concurrency:
+  group: chat
+  cancel-in-progress: false
+
+jobs:
+  relay:
+    runs-on: ubuntu-latest
+    timeout-minutes: 355
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+        with:
+          ref: master
+          fetch-depth: 1
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Install
+        run: |
+          pip install requests numpy
+          npm install -g @anthropic-ai/claude-code
+
+      - name: Relais
+        env:
+          PYTHONIOENCODING: utf-8
+          CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+          CHAT_BOT_EMAIL:          ${{ secrets.CHAT_BOT_EMAIL }}
+          CHAT_BOT_PASSWORD:       ${{ secrets.CHAT_BOT_PASSWORD }}
+          CHAT_ALLOWED_UIDS:       ${{ secrets.CHAT_ALLOWED_UIDS }}
+          CHAT_MODEL:              ${{ vars.CHAT_MODEL }}
+        run: python chat_bot.py --loop --max-minutes 340
+
+      - name: Relance du relais
+        if: success() && hashFiles('.chat_continue') != ''
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh workflow run chat.yml --ref master

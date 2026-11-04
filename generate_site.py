@@ -2968,7 +2968,7 @@ def build_nba_history_section(nba_history, nba_box_scores, nba_player_stats, nba
             # Body deroulable
             f'<div id="nba-body-hist-{gid_safe}" class="nba-match-body" style="padding:14px 18px">'
             f'{injuries_block}'
-            f'<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">'
+            f'<div class="nba-teams2" style="display:grid;grid-template-columns:1fr 1fr;gap:12px">'
             f'<div><div style="color:#3b82f6;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:8px">🏠 {home}</div>{home_cards or "Pas de joueurs"}</div>'
             f'<div><div style="color:#3b82f6;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:8px">✈️ {away}</div>{away_cards or "Pas de joueurs"}</div>'
             f'</div>'
@@ -3033,7 +3033,7 @@ def build_nba_analyse_section(nba_picks_data, nba_player_stats, nba_odds):
             f'<div style="color:#fb923c;font-size:11px;text-transform:uppercase;letter-spacing:1px;font-weight:700;margin-bottom:4px">🏀 NBA</div>'
             f'<div style="color:#f1f5f9;font-size:18px;font-weight:700;margin-bottom:14px">{away} <span style="color:#334155">@</span> {home}</div>'
             f'{injuries_block}'
-            f'<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">'
+            f'<div class="nba-teams2" style="display:grid;grid-template-columns:1fr 1fr;gap:12px">'
             f'<div><div style="color:#3b82f6;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:8px">🏠 {home}</div>{home_cards or "Pas de joueurs"}</div>'
             f'<div><div style="color:#3b82f6;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:8px">✈️ {away}</div>{away_cards or "Pas de joueurs"}</div>'
             f'</div>'
@@ -5910,7 +5910,7 @@ def build_html(matches, team_ai, player_ai, pstats_data, nba_picks=None, nba_his
   import {{ initializeApp }} from "https://www.gstatic.com/firebasejs/10.13.0/firebase-app.js";
   import {{ getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword,
            signOut, onAuthStateChanged, sendPasswordResetEmail }} from "https://www.gstatic.com/firebasejs/10.13.0/firebase-auth.js";
-  import {{ getFirestore, doc, setDoc, getDoc }} from "https://www.gstatic.com/firebasejs/10.13.0/firebase-firestore.js";
+  import {{ getFirestore, doc, setDoc, getDoc, collection, addDoc, query, orderBy, limitToLast, onSnapshot, serverTimestamp }} from "https://www.gstatic.com/firebasejs/10.13.0/firebase-firestore.js";
 
   const firebaseConfig = {{
     apiKey: "AIzaSyAdZ3GvbYVapF0gqyh5O7mN1xC0sTT1yJo",
@@ -5934,6 +5934,9 @@ def build_html(matches, team_ai, player_ai, pstats_data, nba_picks=None, nba_his
     resetPw: (email) => sendPasswordResetEmail(auth, email),
     setUserDoc: (uid, data) => setDoc(doc(db, "users", uid, "state", "main"), data, {{merge: true}}),
     getUserDoc: (uid) => getDoc(doc(db, "users", uid, "state", "main")),
+    // Chat avec Claude (site_chat.py / chat_bot.py) : users/<uid>/chat
+    chatSend: (uid, data) => addDoc(collection(db, "users", uid, "chat"), Object.assign({{at: serverTimestamp()}}, data)),
+    chatListen: (uid, cb, err) => onSnapshot(query(collection(db, "users", uid, "chat"), orderBy("at"), limitToLast(80)), cb, err),
   }};
   window._fbReady = true;
 
@@ -6846,10 +6849,10 @@ def build_html(matches, team_ai, player_ai, pstats_data, nba_picks=None, nba_his
   </div>
   <!-- Sport switcher (4 menus : Picks | Analyse NBA | Bankroll | Historique) -->
   <div class="sp-nav" style="display:flex;gap:10px;margin-bottom:10px;flex-wrap:wrap">
-    <button class="sport-btn" onclick="spNav('foot')"   id="nav-foot">⚽ Foot</button>
-    <button class="sport-btn" onclick="spNav('basket')" id="nav-basket">🏀 Basket</button>
-    <button class="sport-btn" onclick="spNav('tennis')" id="nav-tennis">🎾 Tennis</button>
-    <button class="sport-btn" onclick="spNav('iabank')" id="nav-iabank">🤖 Bankroll IA</button>
+    <button class="sport-btn" onclick="spNav('foot')"   id="nav-foot"><span class="sp-ic">⚽</span> <span class="sp-lb">Foot</span></button>
+    <button class="sport-btn" onclick="spNav('basket')" id="nav-basket"><span class="sp-ic">🏀</span> <span class="sp-lb">Basket</span></button>
+    <button class="sport-btn" onclick="spNav('tennis')" id="nav-tennis"><span class="sp-ic">🎾</span> <span class="sp-lb">Tennis</span></button>
+    <button class="sport-btn" onclick="spNav('iabank')" id="nav-iabank"><span class="sp-ic">🤖</span> <span class="sp-lb">Bankroll IA</span></button>
   </div>
   <!-- Sous-menus du menu choisi (spNav) -->
   <div id="sp-subnav" class="sub-tg-bar" style="display:none;margin-bottom:14px"></div>
@@ -7089,7 +7092,27 @@ function ebView(sec, view){{
 }}
 // Apres un rechargement de section (veille), on reaffiche la vue en cours
 window.spReapply = function(){{ var v = SP_VIEW[window._spSub]; if(v) ebView(v[0], v[1]); }};
-document.addEventListener('DOMContentLoaded', function(){{ spInit(); }});
+// Telephone : les tableaux .eb-cards s'affichent en cartes ; chaque cellule recoit le titre de sa colonne
+// (data-l, lu par le CSS). Relance sur chaque ajout au DOM (sections rechargees par la veille, « voir plus »).
+function ebLabel(){{
+  document.querySelectorAll('table.eb-cards').forEach(function(t){{
+    var h = t.rows[0]; if(!h) return;
+    var L = [].map.call(h.cells, function(c){{ return c.textContent.trim(); }});
+    [].forEach.call(t.querySelectorAll('tr:not([data-lb])'), function(r){{
+      r.setAttribute('data-lb', '1');
+      if(r === h || r.cells.length !== L.length) return;
+      for(var j = 0; j < r.cells.length; j++) if(L[j]) r.cells[j].setAttribute('data-l', L[j]);
+    }});
+  }});
+}}
+(function(){{
+  var pend = false;
+  new MutationObserver(function(){{
+    if(pend) return; pend = true;
+    requestAnimationFrame(function(){{ pend = false; ebLabel(); }});
+  }}).observe(document.documentElement, {{childList: true, subtree: true}});
+}})();
+document.addEventListener('DOMContentLoaded', function(){{ spInit(); ebLabel(); }});
 function spInit(){{
   var main = 'basket';
   try {{ var m = JSON.parse(localStorage.getItem('spNavLast') || '{{}}'); if(m._main && SP_NAV[m._main]) main = m._main; }} catch(e) {{}}
@@ -11809,6 +11832,11 @@ def main():
     except Exception as e:
         print(f"⚠️  Charte graphique non appliquee ({e})")
     html = _park_legacy(html, LEGACY_SECTIONS)
+    try:   # chat avec Claude (bouton 💬, relais chat_bot.py)
+        import site_chat
+        html = site_chat.inject(html)
+    except Exception as e:
+        print(f"⚠️  Chat non ajoute ({e})")
     with open("index.html", "w", encoding="utf-8") as f:
         f.write(html)
     print(f"✅ index.html prêt — ⚽ {len(matches)} foot · 🏀 {len(nba_picks)} NBA")

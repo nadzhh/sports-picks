@@ -120,6 +120,9 @@ def scan(dry=False):
     st = load()
     now = datetime.now(timezone.utc)
     keys = _keys()
+    if not keys:   # sans cle, ne pas marquer le balayage comme fait (scanned_at) : il serait cru a jour
+        print("  [!] value bets : aucune cle The Odds API dans l'environnement")
+        return []
     new, n_ev = [], 0
     for skey, (sport, title, markets, slug) in SPORTS.items():
         try:

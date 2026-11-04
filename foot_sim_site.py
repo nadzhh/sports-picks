@@ -234,7 +234,7 @@ def _picks_view(games):
                  f'<td><b>{_e(pk["label"])}</b></td><td class="n">{pk["dec"]:.2f}</td>'
                  f'<td class="n">{_pct(pk["p_sim"])}</td><td class="n">{_pct(pk["p_mkt"])}</td>'
                  f'<td class="n eb-acc">+{100 * (pk["p_sim"] - pk["p_mkt"]):.0f} pts</td></tr>')
-    table = (f'<div class="eb-scroll"><table class="eb-tbl"><tr><th>Coup d’envoi</th><th>Match</th><th>Pari</th><th>Cote</th>'
+    table = (f'<div class="eb-scroll"><table class="eb-tbl eb-cards"><tr><th>Coup d’envoi</th><th>Match</th><th>Pari</th><th>Cote</th>'
              f'<th>Simu</th><th>Bookmaker</th><th>Écart</th></tr>{rows}</table></div>' if rows else
              '<div class="eb-empty">Aucun pick foot : aucun match ne remplit la règle validée dans les 48 h. '
              'C’est un choix, pas un oubli.</div>')
@@ -288,7 +288,7 @@ def _history_view():
                     f'<div class="eb-card"><div class="eb-meta">Bilan · {JOURS_L[dt.weekday()]} {dt.day} {MOIS[dt.month - 1]} · '
                     f'{rep_["done"]}/{rep_["total"]} matchs terminés</div><h3 class="eb-h eb-bil-t">Ce que le simulateur avait prévu, ce qui s’est passé</h3>{facts}</div>'
                     f'<div class="eb-card"><h3 class="eb-h">Matchs <small>1 / N / 2 simulés · buts attendus · score · xG attendus → réels · +2,5</small></h3>'
-                    f'<div class="eb-scroll"><table class="eb-tbl"><tr><th>Match</th><th>1 / N / 2</th><th>Buts att.</th><th>Score</th>'
+                    f'<div class="eb-scroll"><table class="eb-tbl eb-cards"><tr><th>Match</th><th>1 / N / 2</th><th>Buts att.</th><th>Score</th>'
                     f'<th>xG</th><th>+2,5</th><th>Favori</th></tr>{rows}</table></div></div>'
                     '<div class="eb-card"><h3 class="eb-h">Comment l’améliorer</h3><ul class="eb-why-l">'
                     + "".join(f"<li>{_e(t)}</li>" for t in FB.insights(h)) + '</ul></div></section>')

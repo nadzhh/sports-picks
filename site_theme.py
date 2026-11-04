@@ -358,4 +358,47 @@ footer{color:var(--di)!important;border-top:1px solid var(--line)!important;font
   .eb-hx span{font-size:10.5px}
   .eb-ctrl-info{margin-left:0;width:100%}
 }
+/* ── Telephone (04/11/2026) : menu principal en barre d'onglets fixe en bas, sous-menus collants en haut,
+   tableaux de paris en cartes (cellules etiquetees par ebLabel, d'apres l'en-tete), equipes empilees ── */
+.sp-nav .sp-ic{font-style:normal}
+@media (max-width:720px){
+  html,body{overflow-x:clip}
+  body{padding-bottom:calc(84px + env(safe-area-inset-bottom,0px))!important}
+  .sp-top{padding:0 0 10px;margin-bottom:10px;gap:2px 10px;padding-right:46px}
+  .container h1.sp-brand{font-size:21px!important}
+  .sp-brand .sp-logo{width:26px;height:26px;vertical-align:-6px;margin-right:8px}
+  .sp-meta{font-size:10.5px;line-height:1.5}
+  .sp-nav{position:fixed;left:0;right:0;bottom:0;z-index:10002;margin:0!important;display:grid!important;
+    grid-template-columns:repeat(4,1fr);gap:2px!important;padding:6px 6px calc(6px + env(safe-area-inset-bottom,0px))!important;
+    background:rgba(10,13,11,.97);border-top:1px solid var(--line);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px)}
+  .sp-nav .sport-btn{display:flex!important;flex-direction:column;align-items:center;justify-content:center;gap:3px;min-height:52px;
+    border:0!important;border-radius:12px!important;padding:6px 2px!important;font-size:11px!important;white-space:nowrap;-webkit-tap-highlight-color:transparent}
+  .sp-nav .sport-btn .sp-ic{font-size:21px;line-height:1}
+  .sp-nav .sport-btn.active{background:var(--acc-soft)!important;color:var(--acc)!important}
+  #sp-subnav{position:sticky;top:0;z-index:60;margin:0 -10px 12px!important;width:calc(100% + 20px)!important;box-sizing:border-box;max-width:none!important;border-radius:0!important;border-left:0!important;border-right:0!important;
+    border-top:0!important;flex-wrap:nowrap;overflow-x:auto;padding:6px 8px!important;background:rgba(15,20,17,.97)!important;
+    -webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);scrollbar-width:none}
+  #sp-subnav::-webkit-scrollbar{display:none}
+  #sp-subnav .sub-tg{flex:1 0 auto;white-space:nowrap;padding:9px 12px!important;font-size:13.5px!important;text-align:center}
+  .bk-refresh-fab{bottom:calc(84px + env(safe-area-inset-bottom,0px))!important;width:44px!important;height:44px!important;font-size:19px!important;right:12px!important}
+  .nba-teams2{grid-template-columns:1fr!important}
+  .nba-teams2>div,.eb-layout>*{min-width:0}
+  .eb-scroll{-webkit-overflow-scrolling:touch}
+  /* tableaux de paris -> cartes */
+  .eb-tbl.eb-cards,.eb-tbl.eb-cards tbody{display:block;width:100%}
+  .eb-tbl.eb-cards tr:first-child{display:none}
+  .eb-tbl.eb-cards tr{display:flex;flex-wrap:wrap;align-items:flex-end;gap:6px 14px;padding:11px 2px;border-top:1px solid var(--line)}
+  .eb-tbl.eb-cards tr.sec{display:block;padding:14px 2px 2px;border-top:0}
+  .eb-tbl.eb-cards td{display:block;border:0!important;padding:0!important;white-space:normal;min-width:0!important;background:none!important}
+  .eb-tbl.eb-cards td:first-child{flex:1 1 100%;font-weight:600}
+  .eb-tbl.eb-cards td[data-l]:not(:first-child)::before{content:attr(data-l);display:block;font:500 9.5px var(--mono);
+    letter-spacing:.6px;text-transform:uppercase;color:var(--di);margin-bottom:2px}
+  .eb-tbl.eb-cards td.eb-bk-legs,.eb-tbl.eb-cards td.eb-cause{flex:1 1 100%;font-size:13px}
+  .eb-tbl.eb-cards td.eb-why-b{margin-left:auto}
+  .eb-tbl.eb-cards tr.eb-why{display:block;padding:0 2px 12px;border-top:0}
+  .eb-tbl.eb-cards tr.eb-why td{display:block}
+  .eb-stats{grid-template-columns:1fr 1fr!important;gap:8px!important}
+  .eb-stats>*{padding:12px!important;min-width:0}
+  .eb-stat-v{font-size:20px}
+}
 </style>"""

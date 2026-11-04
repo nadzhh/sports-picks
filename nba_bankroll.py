@@ -23,7 +23,10 @@ from pathlib import Path
 BANK_PATH = Path("data/nba_bankroll.json")
 START = 100.0
 PRM = {
-    "lambda":     0.40,   # part de l'ecart simu - marche gardee dans la probabilite (calibre : voir CALIB_NOTE)
+    # part de l'ecart simu - marche gardee dans la probabilite. 0,40 au backtest (28/10) ; 0,10 mesure le
+    # 04/11/2026 sur 613 selections reelles reglees (cotes DraftKings) : 0,05 et 0,15 sur chaque moitie,
+    # 0 pour les passes. A 0,40 la bankroll prenait des paris d'esperance negative (-5 a -12 %).
+    "lambda":     0.10,
     "max_odds":   2.60,   # au-dela, l'« avantage » historique venait de cotes d'ouverture aberrantes
     "hold":       (0.035, 0.11),   # marge du bookmaker sur la ligne : hors plage = cote suspecte, on passe
     "kelly":      0.25,   # fraction de Kelly
@@ -55,11 +58,11 @@ PAUSE = (60, -0.02)    # (plus utilise depuis le 29/10/2026 : la bankroll ne se 
 INFO_KELLY, INFO_NIGHT = 0.5, 0.03   # en mode info : 1/2 de la fraction de Kelly, 3 % du capital par soiree
 MAX_GAP = 0.20         # ecart simu / marche >= 20 pts : presque toujours une info manquante (5-10 en reel)
 CALIB_NOTE = ("Réglages testés le 28/10/2026 sur 3 échantillons de vraies cotes (oct-nov 2025, avr-juin 2026, "
-              "début 2026-27), en rejouant exactement cette règle soirée après soirée : avec les cotes d’ouverture "
-              "(scénario optimiste) 100 € deviennent 642 € / 264 € / 124 € ; avec les cotes de clôture (pessimiste) "
-              "79 € / 111 € / 86 €. L’avantage n’existe que si la cote est prise tôt, d’où la veille toutes les "
-              "10-30 min et la règle de discipline : CLV négative après 30 paris → mises divisées par 2, "
-              "sous −2 % après 60 paris → pause.")
+              "début 2026-27). Recalés le 04/11/2026 sur les 613 premières sélections réelles réglées : le simulateur "
+              "annonçait 61 % de réussite pour 51,5 % obtenus (49,7 % selon le marché). On ne garde donc que 10 % de "
+              "son écart avec le bookmaker (40 % avant) : la bankroll ne prend plus que les paris dont l’espérance "
+              "reste positive après la marge, et les paris « safe » et value bets à petite mise. "
+              "CLV négative après 30 paris → mises divisées par 2.")
 
 
 def _dec(am):
