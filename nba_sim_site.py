@@ -215,6 +215,30 @@ PL_CSS = ("<style>.eb-det{margin:10px 0}.eb-det>summary{cursor:pointer;list-styl
           "background:var(--panel);z-index:1;max-width:150px;overflow:hidden;text-overflow:ellipsis}</style>")
 
 
+_SEASON = {}
+
+
+def season_stats(pid):
+    """Moyennes REELLES de la saison d'un joueur, lues dans les feuilles de match (aucun lien avec la simulation :
+    remarque de Wilson, 04/11/2026). Cache par processus."""
+    if "logs" not in _SEASON:
+        try:
+            import nba_sim_run as R
+            year = R.season_year(datetime.now(timezone.utc).date())
+            logs, _, _ = R._logs(year)
+            _SEASON.update(logs=logs, year=year)
+        except Exception:
+            _SEASON.update(logs={}, year=None)
+    rs = [r for r in _SEASON["logs"].get(str(pid)) or _SEASON["logs"].get(pid) or [] if r.get("season") == _SEASON["year"]]
+    if not rs: return None
+    n = len(rs)
+    m = lambda f: round(sum(f(r) for r in rs) / n, 1)
+    return {"n": n, "MIN": m(lambda r: r["MIN"]), "PTS": m(lambda r: r["PTS"]), "REB": m(lambda r: r["REB"]),
+            "AST": m(lambda r: r["AST"]), "3PM": m(lambda r: r["3PM"]), "STL": m(lambda r: r["STL"]), "BLK": m(lambda r: r["BLK"]),
+            "PR": m(lambda r: r["PTS"] + r["REB"]), "PA": m(lambda r: r["PTS"] + r["AST"]), "RA": m(lambda r: r["REB"] + r["AST"]),
+            "PRA": m(lambda r: r["PTS"] + r["REB"] + r["AST"])}
+
+
 def _pl_groups(g):
     for side in ("away", "home"):
         ps = sorted([p for p in g["players"] if p["side"] == side and p["p_play"] >= 0.3 and p["MIN"] >= 8],
@@ -244,7 +268,7 @@ def _players(g):
                 elif k == "PTS": cells += f'<td class="n"><b>{p["PTS"]["mean"]:.1f}</b>{_rb(p["PTS"]["q"], scale, lines.get((p["id"], "PTS")))}</td>'
                 else: cells += f'<td class="n">{(p.get(k) or {}).get("mean", 0):.1f}</td>'
             sim += f'<tr><td>{_e(p["name"])}{tag}</td>{cells}</tr>'
-            se = p.get("season") or {}
+            se = season_stats(p["id"]) or p.get("season") or {}   # feuilles de match reelles
             sea += (f'<tr><td>{_e(p["name"])} <span class="eb-dim">{se.get("n", 0)} m.</span></td>'
                     + "".join(f'<td class="n">{se[k]:.{0 if k == "MIN" else 1}f}</td>' if k in se else '<td class="n eb-dim">–</td>'
                               for k, _ in PL_STATS) + '</tr>')
