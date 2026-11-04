@@ -121,10 +121,12 @@ def fixtures(lid, season):
     return ((d.get("fixtures") or {}).get("allMatches")) or []
 
 
-def _page(mid):
+def _page(mid, fresh=False):
+    """fresh : contourne le cache CDN (10 min) pour l'etat d'un match en cours (Analyse live)."""
     time.sleep(DELAY)
     F._throttle()
-    raw = urllib.request.urlopen(urllib.request.Request(f"https://www.fotmob.com/match/{mid}", headers=F.HEADERS),
+    url = f"https://www.fotmob.com/match/{mid}" + (f"?t={int(time.time())}" if fresh else "")
+    raw = urllib.request.urlopen(urllib.request.Request(url, headers=F.HEADERS),
                                  timeout=25).read()
     if raw[:2] == b"\x1f\x8b":
         raw = gzip.decompress(raw)

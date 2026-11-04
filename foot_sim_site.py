@@ -107,8 +107,8 @@ def _header(g, now):
     return (f'<div class="eb-card"><div class="eb-meta">{_e(LIG.get(g["league"], g["league_name"]))} · {_when(g["ko"], now)}</div>'
             f'<div class="eb-vs">{side(g["home"]["name"], g["xg"][0], g["goals"][0], hi)}<span class="eb-vs-x">-</span>'
             f'{side(g["away"]["name"], g["xg"][1], g["goals"][1], ai)}</div>'
-            f'<button class="eb-more eb-ask" onclick="window.ebAnalyse&&ebAnalyse(\'foot\',\'{_e(g["id"])}\','
-            f'\'{_e(g["home"]["name"] + " - " + g["away"]["name"]).replace(chr(39), "&#39;")}\')">💬 Analyse approfondie avec Claude</button></div>')
+            f'<button class="eb-more eb-ask" data-ko="{_e(g["ko"])}" onclick="window.ebAnalyse&&ebAnalyse(\'foot\',\'{_e(g["id"])}\','
+            f'\'{_e(g["home"]["name"] + " - " + g["away"]["name"]).replace(chr(39), "&#39;")}\',this)">💬 Analyse approfondie avec Claude</button></div>')
 
 
 def _kpis(g):

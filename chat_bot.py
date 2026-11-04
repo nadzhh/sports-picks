@@ -290,6 +290,15 @@ def handle(fire, uid, msg, recent):
     except Exception:
         dossier = ""
     extra = (f"DOSSIER DU MATCH CHOISI PAR WILSON (données complètes, calculées à l'instant) :\n{dossier}" if dossier else "")
+    parts = str(msg.get("ctx") or "").split(":")
+    if len(parts) == 3 and parts[0] == "live":            # bouton « Analyse live » (match commence)
+        try:
+            import live_tool
+            live = live_tool.run(parts[1], parts[2])
+        except Exception as e:
+            live = f"Données live indisponibles : {type(e).__name__}"
+        extra = (f"DONNÉES LIVE (relevées à l'instant par le relais, {datetime.now(timezone.utc):%H:%M} UTC) :\n{live}\n\n"
+                 "Le dossier ci-dessous est celui d'AVANT-MATCH : il sert de base, l'état live prime.\n\n" + extra)
     try:
         txt, st = ask_claude(hist[-HISTORY:], msg, memos, extra), "done"
         for _ in range(SIM_ROUNDS):
@@ -342,7 +351,7 @@ def git_pull(start):
     """Donnees a jour ; vrai si le code du relais a change depuis le demarrage (il se relance alors)."""
     # --rebase (et non --ff-only) : une idee pas encore publiee (commit local) ne doit pas bloquer la mise a jour
     subprocess.run(["git", "pull", "--rebase", "-q", "origin", "master"], capture_output=True, timeout=120)
-    r = subprocess.run(["git", "diff", "--quiet", start, "HEAD", "--", "chat_bot.py", "chat", "chat_context.py", "sim_tool.py", ".github/workflows/chat.yml",
+    r = subprocess.run(["git", "diff", "--quiet", start, "HEAD", "--", "chat_bot.py", "chat", "chat_context.py", "sim_tool.py", "live_tool.py", ".github/workflows/chat.yml",
                         "nba_sim_bilan.py", "foot_sim_bilan.py", "notify.py", "nba_bankroll.py"], capture_output=True, timeout=60)
     return bool(start) and r.returncode == 1
 

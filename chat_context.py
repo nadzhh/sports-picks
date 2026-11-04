@@ -406,9 +406,10 @@ def foot_dossier(g):
 
 
 def dossier(ctx):
-    """ctx « match:nba:<gid> » ou « match:foot:<id> » (bouton Analyse approfondie) -> dossier texte, sinon ''."""
+    """ctx « match:nba:<gid> » / « match:foot:<id> » (bouton Analyse approfondie) ou « live:... » (Analyse live :
+    le dossier d'avant-match sert de base) -> dossier texte, sinon ''."""
     parts = str(ctx or "").split(":")
-    if len(parts) < 3 or parts[0] != "match": return ""
+    if len(parts) < 3 or parts[0] not in ("match", "live"): return ""
     sport, mid = parts[1], parts[2]
     try:
         if sport == "nba":
