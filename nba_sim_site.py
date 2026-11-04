@@ -342,7 +342,9 @@ def _n(v, d=1):
 
 
 def _why_text(p):
-    """Argumentaire d'un pick, redige a partir des faits calcules par nba_sim_run._why."""
+    """Argumentaire d'un pick, redige a partir des faits calcules par nba_sim_run._why. Ordre (Wilson, 04/11/2026) :
+    temps de jeu et sa raison -> rendement et role -> rythme -> adversaire -> projection et marge d'erreur ->
+    historique remis en contexte (minutes de chaque match, reussite a temps de jeu comparable) -> marche."""
     w = p.get("why")
     if not w:
         return ""
@@ -350,20 +352,92 @@ def _why_text(p):
     unit, line = UNIT.get(p["stat"], STAT_LABELS.get(p["stat"], p["stat"]).lower()), _n(p["line"])
     ps = min(max(p["p_sim"] + SIM_BIAS, 0), 1)
     ps, pm = (ps, p["p_mkt"]) if over else (1 - ps, 1 - p["p_mkt"])
-    items = [f'Le simulateur projette <b>{_n(w["proj"])} {unit}</b> (médiane {_n(w["med"], 0)}) en {w["min"]:.0f} min : '
-             f'{"plus" if over else "moins"} de {line} dans <b>{_pct(ps, 0)}</b> des 10 000 matchs simulés, '
-             f'contre {_pct(pm, 0)} selon le bookmaker.']
+    fav = lambda good: f'<b class="{"eb-acc" if good else "eb-neg"}">{"favorable" if good else "défavorable"}</b>'
+    sg = lambda d: ("+" if d > 0 else "−") + _n(abs(d), 0)
+    items = []
     cur, prev = w.get("cur"), w.get("prev")
+    # 1. Temps de jeu
+    base = w.get("min_cur") or (cur or {}).get("min")
+    txt = f'🕒 <b>Temps de jeu</b> : <b>{w["min"]:.0f} min</b> prévues'
+    if w.get("min_q"): txt += f' (8 matchs simulés sur 10 entre {w["min_q"][0]} et {w["min_q"][1]} min)'
+    if base:
+        d = w["min"] - base
+        txt += f', pour {base:.0f} en moyenne cette saison' + (f' (<b>{sg(d)} min</b>, {fav((d > 0) == over)} au pari)' if abs(d) >= 2 else "")
+    why_min = [f'sans {_e(c["who"])} il joue {c["min"][0]:.0f} min ({c["n"]} matchs, {c["min"][1]:.0f} avec lui)'
+               for c in w.get("ctx") or [] if abs(c["min"][0] - c["min"][1]) >= 2]
+    if w.get("spread") and w["spread"] >= 10:
+        why_min.append(f'écart Vegas de {_n(w["spread"])} pts : les titulaires peuvent finir sur le banc')
+    items.append(txt + (" — " + " ; ".join(why_min) if why_min else "") + ".")
+    # 2. Rendement et role
+    r = w.get("rate") or {}
+    if r.get("cur") is not None:
+        items.append(f'⚙️ <b>Rendement</b> : {_n(r["cur"])} {unit} par 36 min cette saison'
+                     + (f', {_n(r["l10"])} sur ses 10 derniers matchs' if r.get("l10") is not None else "")
+                     + f' ; le simulateur retient <b>{_n(r["now"])}</b> par 36 min ce soir (coéquipiers présents, adversaire, rythme).')
+    ro = w.get("role")
+    if ro:
+        pct = ro["key"].startswith("s_")
+        v, avg = (100 * ro["val"], 100 * ro["team_avg"]) if pct else (100 * ro["val"], 100 * ro["team_avg"])
+        items.append(f'🎯 <b>Rôle</b> : ' + (f'{v:.0f} % {ro["txt"]}' if pct else f'{_n(v)} {ro["txt"].replace("par possession jouée", "pour 100 possessions jouées")}')
+                     + f' quand il est sur le terrain (moyenne de son équipe : {avg:.0f}{" %" if pct else ""}'
+                     + (f', {ro["rank"]}{"er" if ro["rank"] == 1 else "e"} sur {ro["n"]}' if ro.get("rank") else "") + ').')
+    # 3. Rythme
+    pc = w.get("pace")
+    if pc and pc.get("league"):
+        d = pc["game"] / pc["league"] - 1
+        tm = lambda x: "rapide" if x >= 1 else "lent" if x <= -1 else "dans la moyenne"
+        items.append(f'🏃 <b>Rythme</b> : {pc["game"]:.0f} possessions attendues (moyenne de la ligue {pc["league"]:.0f}) — '
+                     f'son équipe joue {tm(pc["team"])} ({sg(pc["team"])}), {_e((w.get("opp") or {}).get("abbr") or "l’adversaire")} '
+                     f'{tm(pc["opp"])} ({sg(pc["opp"])})'
+                     + (f' : {abs(100 * d):.0f} % d’occasions en {"plus" if d > 0 else "moins"}, {fav((d > 0) == over)}.' if abs(d) >= 0.015 else " : sans effet notable."))
+    # 4. Adversaire
+    o = w.get("opp")
+    if o and o["league"]:
+        d = o["allowed"] / o["league"] - 1
+        if abs(d) >= 0.05:
+            items.append(f'🛡️ <b>Adversaire</b> : {_e(o["abbr"])} concède {_n(o["allowed"])} {unit} par match sur ses 15 derniers '
+                         f'({"+" if d > 0 else "−"}{abs(100 * d):.0f} % par rapport à la moyenne de la ligue, {fav((d > 0) == over)}).')
+        else:
+            items.append(f'🛡️ <b>Adversaire</b> : {_e(o["abbr"])} dans la moyenne de la ligue ({_n(o["allowed"])} {unit} concédés par match).')
+    for c in w.get("ctx") or []:   # le joueur dans ses matchs recents sans ce coequipier
+        d = c["val"][0] - c["val"][1]
+        tag = fav((d > 0) == over) if abs(d) >= 0.1 * max(c["val"][1], 1) else "neutre"
+        items.append(f'👥 Sans {_e(c["who"])} ({c["n"]} matchs) : {c["min"][0]:.0f} min et <b>{_n(c["val"][0])} {unit}</b> par match, '
+                     f'contre {c["min"][1]:.0f} min et {_n(c["val"][1])} avec lui → {tag}.')
+    for c in w.get("opp_ctx") or []:   # ce que l'adversaire concede sans son absent
+        d = c["val"][0] - c["val"][1]
+        tag = fav((d > 0) == over) if abs(d) >= 0.08 * max(c["val"][1], 1) else "neutre"
+        items.append(f'👥 En face, sans {_e(c["who"])} ({c["n"]} matchs) : {_e((o or {}).get("abbr") or "l’adversaire")} '
+                     f'concède <b>{_n(c["val"][0])} {unit}</b> par match, contre {_n(c["val"][1])} avec lui → {tag}.')
+    if w.get("out") and not w.get("ctx"):
+        items.append(f'👥 Absents dans son équipe : {_e(", ".join(w["out"]))}. Le simulateur redistribue leurs minutes et leurs ballons.')
+    # 5. Projection et marge d'erreur
+    q = w.get("q")
+    items.append(f'📐 <b>Projection</b> : <b>{_n(w["proj"])} {unit}</b> (médiane {_n(w["med"], 0)}'
+                 + (f' ; 8 matchs simulés sur 10 entre {_n(q[0], 0)} et {_n(q[1], 0)}' if q else "") + ') → '
+                 f'{"plus" if over else "moins"} de {line} dans <b>{_pct(ps, 0)}</b> des 10 000 matchs simulés, '
+                 f'contre {_pct(pm, 0)} selon le bookmaker.')
+    # 6. Historique remis en contexte
     if cur:
-        last = ", ".join(_n(v, 0) for v in w.get("last") or [])
-        items.append(f'Cette saison : <b>{_n(cur["avg"])}</b> par match en {cur["min"]:.0f} min '
-                     f'({cur["n"]} match{"s" if cur["n"] > 1 else ""}{" : " + last if last else ""}, du plus récent au plus ancien).')
+        l5 = " · ".join(f'{_n(v, 0)} ({mn} min)' for v, mn in (w.get("last5m") or [])) or ", ".join(_n(v, 0) for v in w.get("last") or [])
+        items.append(f'📊 <b>Historique</b> : {_n(cur["avg"])} par match cette saison en {cur["min"]:.0f} min ({cur["n"]} matchs)'
+                     + (f' ; 5 derniers : {l5}' if l5 else "") + '.')
     if w.get("l10_n") and w["l10_n"] > (cur or {}).get("n", 0):
         k = w["l10_over"] if over else w["l10_n"] - w["l10_over"]
-        items.append(f'Sur ses {w["l10_n"]} derniers matchs : <b>{k}/{w["l10_n"]}</b> '
-                     f'{"au-dessus" if over else "en dessous"} de {line}.')
+        items.append(f'📊 Sur ses {w["l10_n"]} derniers matchs : {k}/{w["l10_n"]} {"au-dessus" if over else "en dessous"} de {line}.')
+    cm = w.get("cmp")
+    if cm and cm["n"] >= 3:
+        k = cm["over"] if over else cm["n"] - cm["over"]
+        items.append(f'📊 <b>À temps de jeu comparable</b> ({cm["thr"]}+ min, {cm["n"]} matchs récents) : <b>{k}/{cm["n"]}</b> '
+                     f'{"au-dessus" if over else "en dessous"} de {line}, {_n(cm["avg"])} {unit} en moyenne.')
+    if cm and cm["n"] >= 5:
+        rate = (cm["over"] if over else cm["n"] - cm["over"]) / cm["n"]
+        if rate < 0.45 and ps >= 0.55:
+            items.append(f'<span class="eb-warn">⚠️ Contre-argument : à temps de jeu comparable, le pari n’est passé que '
+                         f'{round(100 * rate)} % du temps ({cm["n"]} matchs) alors que le simulateur annonce {_pct(ps, 0)}. '
+                         'Le simulateur voit autre chose (adversaire, coéquipiers, rythme) : à vérifier avant de jouer.</span>')
     if prev:
-        txt = f'Saison passée : {_n(prev["avg"])} en {prev["min"]:.0f} min'
+        txt = f'📊 Saison passée : {_n(prev["avg"])} en {prev["min"]:.0f} min'
         if cur and abs(cur["min"] - prev["min"]) >= 4:
             txt += (f', temps de jeu en {"hausse" if cur["min"] > prev["min"] else "baisse"} '
                     f'de {abs(cur["min"] - prev["min"]):.0f} min cette saison')
@@ -372,42 +446,16 @@ def _why_text(p):
     if n_games < 10:
         items.append(f'<span class="eb-warn">Prudence : seulement {n_games} match{"s" if n_games > 1 else ""} '
                      f'en {"deux saisons" if prev else "un an"}, la projection repose en partie sur des moyennes de poste.</span>')
-    o = w.get("opp")
-    if o and o["league"]:
-        d = o["allowed"] / o["league"] - 1
-        if abs(d) >= 0.05:
-            good = (d > 0) == over
-            items.append(f'Adversaire : {_e(o["abbr"])} concède {_n(o["allowed"])} {unit} par match sur ses 15 derniers '
-                         f'({"+" if d > 0 else "−"}{abs(100 * d):.0f} % par rapport à la moyenne de la ligue, '
-                         f'{"favorable" if good else "défavorable"} au pari).')
-        else:
-            items.append(f'Adversaire : {_e(o["abbr"])} dans la moyenne de la ligue '
-                         f'({_n(o["allowed"])} {unit} concédés par match).')
-    for c in w.get("ctx") or []:   # le joueur dans ses matchs recents sans ce coequipier
-        d = c["val"][0] - c["val"][1]
-        good = (d > 0) == over
-        tag = (f'<b class="{"eb-acc" if good else "eb-neg"}">{"favorable" if good else "défavorable"}</b>'
-               if abs(d) >= 0.1 * max(c["val"][1], 1) else "neutre")
-        items.append(f'Sans {_e(c["who"])} ({c["n"]} matchs) : '
-                     f'{c["min"][0]:.0f} min et <b>{_n(c["val"][0])} {unit}</b> par match, contre {c["min"][1]:.0f} min et '
-                     f'{_n(c["val"][1])} avec lui → {tag}.')
-    for c in w.get("opp_ctx") or []:   # ce que l'adversaire concede sans son absent
-        d = c["val"][0] - c["val"][1]
-        good = (d > 0) == over
-        tag = (f'<b class="{"eb-acc" if good else "eb-neg"}">{"favorable" if good else "défavorable"}</b>'
-               if abs(d) >= 0.08 * max(c["val"][1], 1) else "neutre")
-        items.append(f'En face, sans {_e(c["who"])} ({c["n"]} matchs) : {_e((w.get("opp") or {}).get("abbr") or "l’adversaire")} '
-                     f'concède <b>{_n(c["val"][0])} {unit}</b> par match, contre {_n(c["val"][1])} avec lui → {tag}.')
-    if w.get("out") and not w.get("ctx"):
-        items.append(f'Absents dans son équipe : {_e(", ".join(w["out"]))}. '
-                     'Le simulateur redistribue leurs minutes et leurs ballons.')
     price = p["over"] if over else p["under"]
     opn = p.get("over_open") if over else p.get("under_open")
     if opn is not None and _dec(opn) and abs(_dec(opn) - _dec(price)) >= 0.02:
         moved = _dec(price) < _dec(opn)
-        items.append(f'Cote passée de {_dec(opn):.2f} à {_dec(price):.2f} depuis l’ouverture : '
+        items.append(f'💱 Cote passée de {_dec(opn):.2f} à {_dec(price):.2f} depuis l’ouverture : '
                      + ("le marché va déjà dans ce sens, une partie de l’avantage est déjà prise." if moved
                         else "le marché va dans l’autre sens, prudence."))
+    pro, con = sum("eb-acc" in t for t in items), sum("eb-neg" in t or "Contre-argument" in t for t in items)
+    items.append(f'⚖️ <b>Bilan</b> : {pro} argument{"s" if pro > 1 else ""} pour, {con} contre. Rappel du suivi réel : '
+                 'le simulateur annonce en moyenne 61 % sur ses sélections pour 52 % obtenus, la cote du bookmaker reste la référence.')
     return '<ul class="eb-why-l">' + "".join(f"<li>{t}</li>" for t in items) + "</ul>"
 
 

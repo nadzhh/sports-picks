@@ -389,8 +389,56 @@ def _merge(rows):
     return list(out.values())
 
 
-def _why(pid, stat, line, x, minutes, team_id, opp_id, opp_abbr, out, year, st=None, opp_out=()):
-    """Faits qui justifient un pick (le texte est redige par nba_sim_site)."""
+# Role mesure du joueur selon la stat (profil du simulateur) : part des passes decisives sur les paniers de ses
+# coequipiers, volume de tirs a 3 pts, d'interceptions, de contres par possession jouee, part des rebonds
+ROLE_KEY = {"AST": ("s_ast", "des paniers de ses coéquipiers passent par lui (passe décisive)"),
+            "3PM": ("r3", "tirs à 3 pts par possession jouée"), "STL": ("rstl", "interceptions par possession jouée"),
+            "BLK": ("rblk", "contres par possession jouée"), "REB": ("s_dr", "des rebonds défensifs disponibles pris")}
+
+
+def _why_more(st, pid, stat, line, x, mins, team_id, opp_id, players, i, lines, side, hist, val, year):
+    """Argumentaire complet (demande de Wilson, 04/11/2026) : temps de jeu et sa fourchette, rendement par 36 min,
+    role mesure, rythme du match, projection et marge d'erreur, historique a temps de jeu comparable."""
+    out = {}
+    m = float(np.mean(mins))
+    out["min_q"] = [round(float(np.percentile(mins, 10))), round(float(np.percentile(mins, 90)))]
+    out["q"] = [float(np.percentile(x, 10)), float(np.percentile(x, 90))]
+    cur = [r for r in hist if r["season"] == year]
+    per36 = lambda rs: round(36 * sum(val(r) for r in rs) / max(sum(r["MIN"] for r in rs), 1), 2) if rs else None
+    out["rate"] = {"cur": per36(cur), "l10": per36(hist[-10:]), "now": round(36 * float(x.mean()) / max(m, 1), 2)}
+    out["last5m"] = [[val(r), round(r["MIN"])] for r in cur[-5:]][::-1]
+    pool = hist[-40:]
+    thr = m - 3
+    cmp_ = [r for r in pool if r["MIN"] >= thr]
+    if cmp_:
+        out["cmp"] = {"thr": round(thr), "n": len(cmp_), "over": sum(val(r) > line for r in cmp_),
+                      "avg": round(float(np.mean([val(r) for r in cmp_])), 2)}
+    rk = ROLE_KEY.get(stat)
+    if rk and players:
+        key = rk[0]
+        rot = [q for q in players if (q.get("n_season") or 0) >= 3 and q.get(key) is not None]
+        me = players[i].get(key)
+        if me is not None and rot:
+            ids = [q["id"] for q in sorted(rot, key=lambda q: -q[key])]
+            rank = ids.index(players[i]["id"]) + 1 if players[i]["id"] in ids else None
+            out["role"] = {"val": round(float(me), 4), "rank": rank, "n": len(ids), "txt": rk[1], "key": key,
+                           "team_avg": round(float(np.mean([q[key] for q in rot])), 4)}
+    try:
+        tm = st.team_model()
+        pc = tm["pace"]
+        mu = float(pc["mu"]); dt = float(pc["team"].get(team_id, 0)); do = float(pc["team"].get(opp_id, 0))
+        out["pace"] = {"game": round(mu + dt + do, 1), "league": round(mu, 1), "team": round(dt, 1), "opp": round(do, 1)}
+    except Exception:
+        pass
+    if lines and lines.get("home_spread") is not None:
+        out["spread"] = abs(float(lines["home_spread"]))
+    out["min_cur"] = round(float(np.mean([r["MIN"] for r in cur])), 1) if cur else None
+    return out
+
+
+def _why(pid, stat, line, x, minutes, team_id, opp_id, opp_abbr, out, year, st=None, opp_out=(), more=None):
+    """Faits qui justifient un pick (le texte est redige par nba_sim_site). more : arguments supplementaires
+    (minutes simulees, joueurs de l'equipe, lignes Vegas : voir _why_more)."""
     logs, allowed, league = _logs(year)
     comps = STAT_COMPS[stat]
     val = lambda r: sum(r[c] for c in comps)
@@ -411,7 +459,9 @@ def _why(pid, stat, line, x, minutes, team_id, opp_id, opp_abbr, out, year, st=N
             "opp": {"abbr": opp_abbr, "allowed": round(float(np.mean([sum(r[c] for c in comps) for r in opp])), 2),
                     "league": round(sum(league[c] for c in comps), 2)} if opp else None,
             "out": absent, **(dict(zip(("ctx", "opp_ctx"), _why_ctx(st, pid, comps, team_id, opp_id, out, opp_out)))
-                               if st is not None else {})}
+                               if st is not None else {}),
+            **(_why_more(st, pid, stat, line, x, val=val, hist=hist, year=year, team_id=team_id, opp_id=opp_id, **more)
+               if (more and st is not None) else {})}
 
 
 def run_game(st, g, n_sims, profiles=None, report=None, keep_replay=None):
@@ -470,9 +520,16 @@ def run_game(st, g, n_sims, profiles=None, report=None, keep_replay=None):
         why = None
         if pick:
             o = "away" if s == "home" else "home"
-            why = _why(aid, stat, m["line"], x, float(res[s]["MIN"][on, i].mean()), inp[s]["id"], inp[o]["id"],
-                       g[o].get("abbreviation"), inp[s].get("out") or [], season_year(datetime.now(timezone.utc).date()),
-                       st, inp[o].get("out") or [])
+            try:
+                why = _why(aid, stat, m["line"], x, float(res[s]["MIN"][on, i].mean()), inp[s]["id"], inp[o]["id"],
+                           g[o].get("abbreviation"), inp[s].get("out") or [], season_year(datetime.now(timezone.utc).date()),
+                           st, inp[o].get("out") or [],
+                           more={"mins": res[s]["MIN"][on, i], "players": inp[s]["players"], "i": i, "lines": lines, "side": s})
+            except Exception as e:   # l'argumentaire ne doit jamais faire tomber la simulation
+                print(f"  [!] argumentaire {aid} {stat} : {type(e).__name__}: {e}")
+                why = _why(aid, stat, m["line"], x, float(res[s]["MIN"][on, i].mean()), inp[s]["id"], inp[o]["id"],
+                           g[o].get("abbreviation"), inp[s].get("out") or [], season_year(datetime.now(timezone.utc).date()),
+                           st, inp[o].get("out") or [])
         props.append({"id": aid, "name": inp[s]["players"][i]["name"], "side": s, "stat": stat, "line": m["line"],
                       "why": why, "over": m["over"], "under": m["under"], "p_sim": round(p_over, 4),
                       "p_mkt": round(m["p_over_novig"], 4), "p_play": round(p_play, 3),
