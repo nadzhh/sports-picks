@@ -120,6 +120,38 @@ RULES = [
 ]
 
 
+def _lab_card():
+    """Classement du labo des strategies (strategy_lab) : ROI, intervalle de confiance, CLV, statut."""
+    try:
+        import strategy_lab as SL
+        rows = SL.leaderboard()
+    except Exception:
+        return ""
+    tag = {"prouvée": "acc", "perdante": "neg"}
+    body = ""
+    for r in rows:
+        if not r["n"]:
+            body += (f'<tr><td><b>{_e(r["name"])}</b></td><td class="n">0</td><td class="n eb-dim">–</td><td class="n eb-dim">–</td>'
+                     f'<td class="n eb-dim">–</td><td class="n eb-dim">–</td><td class="n eb-dim">–</td>'
+                     f'<td><span class="eb-tag">{r["open"]} en cours</span></td></tr>'); continue
+        body += (f'<tr><td><b>{_e(r["name"])}</b></td><td class="n">{r["n"]}</td><td class="n">{_pct(r["hit"])}</td>'
+                 f'<td class="n">{r["odds"]:.2f}</td><td class="n {"eb-acc" if r["roi"] > 0 else "eb-neg"}"><b>{_pct(r["roi"], True)}</b></td>'
+                 f'<td class="n eb-dim">{_pct(r["lo"], True)} / {_pct(r["hi"], True)}</td>'
+                 f'<td class="n">{_pct(r["clv"], True) if r.get("clv") is not None else "–"}</td>'
+                 f'<td><span class="eb-tag {tag.get(r["status"], "")}">{_e(r["status"])}</span></td></tr>')
+    desc = "".join(f'<li><b>{_e(r["name"])}</b> : {_e(r["desc"])}</li>' for r in rows)
+    from nba_sim_site import PL_CSS
+    return (PL_CSS + '<div class="eb-card"><h3 class="eb-h">🧪 Labo des stratégies <small>10 paris fictifs par stratégie et par soir, '
+            '1 unité, choisis à 20 h dans le même lot</small></h3>'
+            '<div class="eb-scroll"><table class="eb-tbl eb-cards"><tr><th>Stratégie</th><th>Paris</th><th>Réussite</th><th>Cote moy.</th>'
+            f'<th>ROI</th><th>IC 95 %</th><th>CLV</th><th>Statut</th></tr>{body}</table></div>'
+            '<p class="eb-note">Classées par borne basse du ROI (la plus sûre en tête). Le taux de réussite seul trompe : 80 % à '
+            '1,20 perd de l’argent ; on juge au ROI et à la CLV (cote prise vs dernière cote juste avant le match). Avec 13 '
+            'stratégies, l’une paraîtra bonne par chance : « prouvée » seulement après 100 paris et si l’intervalle corrigé '
+            'du nombre de stratégies (Bonferroni) reste au-dessus de 0. Le « hasard » sert de témoin.</p>'
+            f'<details class="eb-det"><summary>Les stratégies</summary><ul class="eb-why-l">{desc}</ul></details></div>')
+
+
 def build_bankroll_section(state=None):
     state = state if state is not None else BK.load()
     p = BK.PRM
@@ -172,6 +204,7 @@ def build_bankroll_section(state=None):
             '<div class="eb-card"><h3 class="eb-h">Historique</h3>'
             + (f'<div class="eb-scroll"><table class="eb-tbl eb-cards">{head}<th>Résultat</th><th>Gain</th></tr>{d_rows}</table></div>' if d_rows
                else '<div class="eb-empty">Pas encore de pari réglé.</div>') + '</div>'
+            + _lab_card() +
             f'<div class="eb-card"><h3 class="eb-h">Comment je gère</h3><ul class="eb-why-l">{rules}</ul>'
             + (f'<p class="eb-note">{BK.CALIB_NOTE}</p>' if BK.CALIB_NOTE else "") + '</div>'
             '</div><!--eb:end-->')

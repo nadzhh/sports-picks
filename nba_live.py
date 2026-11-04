@@ -35,7 +35,7 @@ import ev_scan as EV
 DIGEST_PATH = "data/telegram_digest.json"   # jour du dernier recapitulatif Telegram envoye (pas de doublon)
 PUBLISHED = [FRAGMENT, R.OUT_PATH, str(R.PICKS_PATH), "data/nba_sim_history.json", BS.FRAGMENT, str(BK.BANK_PATH),
              FS.FRAGMENT, str(FR.OUT_PATH), str(FB.HIST_PATH), str(EV.PATH), DIGEST_PATH, "data/telegram_picks.json",
-             "data/foot_competitions.json"]
+             "data/foot_competitions.json", "data/strategy_lab.json"]
 # Foot (Top 5 + coupes d'Europe) : base mise a jour par tranches (premiere constitution en plusieurs
 # passages), simulation toutes les 30 min, a chaque cycle quand un match approche (composition officielle)
 FOOT_SEASONS = ("2026/2027", "2025/2026")   # saison en cours d'abord
@@ -200,7 +200,7 @@ class Live:
         bank = self.bankroll(fresh)
         foot = self.foot()
         ev = self.ev()
-        ev = " ; ".join(x for x in (ev, self.digest()) if x)
+        ev = " ; ".join(x for x in (ev, self.digest(), self.lab()) if x)
         self.health()
         if (foot or ev) and not (changed or bank) and self.push:
             publish("Foot live : " + " ; ".join(x for x in (foot, ev) if x))
@@ -268,6 +268,11 @@ class Live:
                 PJ.resolve(box)
             except Exception as e:
                 print(f"  [!] picks du jour : {type(e).__name__}: {e}")
+            try:   # labo des strategies
+                import strategy_lab as SL
+                SL.resolve(box)
+            except Exception as e:
+                print(f"  [!] labo (reglement) : {type(e).__name__}: {e}")
             placed = BK.decide(st, fresh) if fresh else []
             if not (n_set or placed or not Path(BS.FRAGMENT).exists()): return ""
             BK.save(st); BS.write_fragment()
@@ -281,6 +286,18 @@ class Live:
             return f" ; bankroll : {len(placed)} pari(s) place(s), {n_set} regle(s)"
         except Exception as e:
             print(f"  [!] bankroll : {type(e).__name__}: {e}")
+            return ""
+
+    def lab(self):
+        """Labo des strategies (strategy_lab.py) : a 20 h chaque strategie choisit ses 10 paris ; a chaque cycle, derniere
+        cote vue avant le match (CLV). Le reglement se fait avec la bankroll (feuilles de match)."""
+        try:
+            import strategy_lab as SL
+            n = SL.decide()
+            SL.update_prices()
+            return f"labo des strategies : {n} paris" if n else ""
+        except Exception as e:
+            print(f"  [!] labo : {type(e).__name__}: {e}")
             return ""
 
     def health(self):

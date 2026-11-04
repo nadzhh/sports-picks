@@ -135,6 +135,16 @@ def reliability(now):
                    "- Canal Telegram « Picks » : pas encore de pick posté réglé (filtre : espérance > 0 en probabilité recalée).")
     except Exception:
         pass
+    # Labo des strategies (strategy_lab) : 10 paris fictifs par strategie et par soir
+    try:
+        import strategy_lab
+        lb = [r for r in strategy_lab.leaderboard() if r["n"]]
+        if lb:
+            out.append("- Labo des stratégies (ROI réel, IC 95 %, statut ; « prouvée » seulement après 100 paris et correction "
+                       "du test multiple) : " + " · ".join(f"{r['name']} {r['n']} paris, réussite {100 * r['hit']:.0f} %, ROI "
+                                                          f"{100 * r['roi']:+.0f} % [{100 * r['lo']:+.0f} ; {100 * r['hi']:+.0f}], {r['status']}" for r in lb))
+    except Exception:
+        pass
     # Value bets
     ev = (_load("data/ev_picks.json", {}) or {}).get("picks") or {}
     R = [p for p in ev.values() if p.get("result") in ("win", "loss")]
