@@ -274,8 +274,44 @@ def replay(res, inp, k, g, lu=None):
 # tir reel tire au sort etait hors cadre), tirs du match sous-estimes. Probabilites : Platt p' = sig(a + b logit p) ;
 # moyennes : facteur d'echelle. Validation : tirs / cadres par equipe calibres a 4 pts pres ; cumules : 5-9 pts
 # (fiabilite moyenne, affichee comme telle).
-SHOT_CAL = {"team_sh": (0.165, 0.905), "team_so": (-0.302, 1.008), "tot_sh": (0.287, 0.911), "tot_so": (-0.33, 1.122),
-            "scale_sh": 1.023, "scale_so": 0.887}
+# 04/11/2026 (2e version) : la moyenne simulee est melangee a 40 % avec les HABITUDES DE VOLUME (tirs de l'equipe et
+# tirs concedes par l'adversaire, 15 derniers matchs, hors penalties) : l'xG ne voit pas les equipes qui frappent de
+# loin ni les blocs bas qui laissent tirer. Backtest 759 matchs, choisi avant le 01/04/2026, valide apres : log-loss
+# tirs equipe 0,508 -> 0,497, cadres 0,449 -> 0,442, total cadres 0,695 -> 0,672. Un modele de style detaille
+# (contre-attaque, coups de pied arretes, distance, domination, interactions) n'apportait RIEN hors echantillon
+# (+0,4 % d'erreur) : la simulation tient deja compte du rapport de force (outsider en contre : reel / simule = 1,00).
+SHOT_CAL = {"team_sh": (0.075, 1.13), "team_so": (-0.129, 0.981), "tot_sh": (0.186, 1.295), "tot_so": (-0.043, 1.080),
+            "scale_sh": 1.023, "scale_so": 0.887, "blend": 0.4}
+SP_SIT = ("FromCorner", "SetPiece", "FreeKick", "ThrowInSetPiece")
+
+
+def style_profile(team_id, before, n=15):
+    """Facon de jouer sur les n derniers matchs de la base (avant `before`) : volume de tirs pour / contre, qualite
+    (xG par tir), distance de tir, part de contre-attaques et de coups de pied arretes, domination (part des tirs du
+    match), defense a 3. Sert au melange des tirs et a la carte « Profil tactique »."""
+    if not _RECS: _RECS.update(foot_db.load_all())
+    tid = str(team_id)
+    past = sorted((r for r in _RECS.values() if tid in (str(r["home"]["id"]), str(r["away"]["id"])) and r["date"] < before
+                   and r.get("shots")), key=lambda r: r["date"])[-n:]
+    if len(past) < 5: return None
+    S = defaultdict(float)
+    for r in past:
+        side = 1 if str(r["home"]["id"]) == tid else 0
+        f = [x for x in r["shots"] if x[0] == side and not x[13] and x[9] != "Penalty"]
+        a = [x for x in r["shots"] if x[0] != side and not x[13] and x[9] != "Penalty"]
+        so = lambda L: sum(1 for x in L if (x[11] and not x[12]) or x[8] == "Goal")
+        S["sh"] += len(f); S["sha"] += len(a); S["so"] += so(f); S["soa"] += so(a)
+        S["xg"] += sum(x[6] for x in f); S["xga"] += sum(x[6] for x in a)
+        S["fb"] += sum(1 for x in f if x[9] == "FastBreak"); S["sp"] += sum(1 for x in f if x[9] in SP_SIT)
+        S["dist"] += sum(math.hypot(105 - x[4], 34 - x[5]) for x in f)
+        S["back3"] += str(r.get("formation_home" if side else "formation_away") or "").startswith("3")
+    m = len(past); sh = S["sh"] or 1
+    form = Counter(str(r.get("formation_home" if str(r["home"]["id"]) == tid else "formation_away") or "") for r in past)
+    return {"n": m, "sh": round(S["sh"] / m, 2), "sha": round(S["sha"] / m, 2), "so": round(S["so"] / m, 2),
+            "soa": round(S["soa"] / m, 2), "xg": round(S["xg"] / m, 2), "xga": round(S["xga"] / m, 2),
+            "xgps": round(S["xg"] / sh, 3), "fb": round(S["fb"] / sh, 3), "sp": round(S["sp"] / sh, 3),
+            "dist": round(S["dist"] / sh, 1), "dom": round(S["sh"] / ((S["sh"] + S["sha"]) or 1), 3),
+            "back3": round(S["back3"] / m, 2), "formation": form.most_common(1)[0][0] if form else ""}
 
 
 def _cal(p, key):
@@ -284,13 +320,23 @@ def _cal(p, key):
     return round(1 / (1 + math.exp(-(a + b * math.log(p / (1 - p))))), 3)
 
 
-def shot_lines(res):
-    """Tirs et tirs cadres : moyennes recalees par equipe et probabilites recalees de depasser 3 lignes (equipe)
-    ou 4 / 3 lignes (match) placees autour de la moyenne."""
-    sh = {s: res[s + "_pshots"].sum(axis=1) for s in ("home", "away")}
-    so = {s: res[s + "_psot"].sum(axis=1) for s in ("home", "away")}
-    ms = {s: float(sh[s].mean()) * SHOT_CAL["scale_sh"] for s in sh}
-    mo = {s: float(so[s].mean()) * SHOT_CAL["scale_so"] for s in so}
+def shot_lines(res, style=None):
+    """Tirs et tirs cadres : moyennes par equipe (simulation melangee aux habitudes de volume, voir SHOT_CAL) et
+    probabilites recalees de depasser 3 lignes (equipe) ou 4 / 3 lignes (match) placees autour de la moyenne."""
+    style = style or {}
+    raw_sh = {s: res[s + "_pshots"].sum(axis=1) for s in ("home", "away")}
+    raw_so = {s: res[s + "_psot"].sum(axis=1) for s in ("home", "away")}
+    sh, so, ms, mo, sim_m = {}, {}, {}, {}, {}
+    for s, o in (("home", "away"), ("away", "home")):
+        me, op = style.get(s), style.get(o)
+        b = SHOT_CAL["blend"] if me and op else 0.0
+        for raw, out, mm, key, sc, naive in ((raw_sh, sh, ms, "sh", SHOT_CAL["scale_sh"], (me["sh"] + op["sha"]) / 2 if b else 0),
+                                             (raw_so, so, mo, "so", SHOT_CAL["scale_so"], (me["so"] + op["soa"]) / 2 if b else 0)):
+            m0 = float(raw[s].mean()) or 1e-9
+            target = (1 - b) * m0 * sc + b * naive
+            out[s] = raw[s] * (target / m0)          # distribution simulee remise a l'echelle de la moyenne melangee
+            mm[s] = target
+        sim_m[s] = [round(float(raw_sh[s].mean()) * SHOT_CAL["scale_sh"], 1), round(float(raw_so[s].mean()) * SHOT_CAL["scale_so"], 1)]
     lines = {}
     for s in ("home", "away"):
         b = math.floor(ms[s])
@@ -303,7 +349,7 @@ def shot_lines(res):
     b = math.floor(mo["home"] + mo["away"])
     lines["tot_so"] = {f"{l}.5": _cal(np.mean(to > l + 0.5), "tot_so") for l in (b - 1, b, b + 1)}
     return {"home": [round(ms["home"], 1), round(mo["home"], 1)], "away": [round(ms["away"], 1), round(mo["away"], 1)],
-            "lines": lines}
+            "sim": sim_m, "lines": lines}
 
 
 # Cartons par joueur (valide walk-forward le 04/11/2026 sur 71 962 apparitions, oct. 2025 - oct. 2026) :
@@ -434,8 +480,12 @@ def run_game(st, g, n_sims):
                  "clean": [round(float(np.mean(ag == 0)), 4), round(float(np.mean(hg == 0)), 4)]},
            "scores": [[int(h), int(a), round(c / n_sims, 4)] for (h, a), c in cs.most_common(12)],
            "goal_hist": [round(float(np.mean(tot == k)), 4) for k in range(7)] + [round(float(np.mean(tot >= 7)), 4)]}
-    # Tirs et tirs cadres par equipe et cumules, recales sur le backtest (SHOT_CAL)
-    out["shots"] = shot_lines(res)
+    # Facon de jouer (15 derniers matchs) puis tirs et tirs cadres (simulation + habitudes de volume, SHOT_CAL)
+    try:
+        out["style"] = {s: style_profile(g[s]["id"], g["ko"]) for s in ("home", "away")}
+    except Exception:
+        out["style"] = {}
+    out["shots"] = shot_lines(res, out["style"])
     try:
         out["form"] = {s: team_form(g[s]["id"], g["ko"]) for s in ("home", "away")}
     except Exception:

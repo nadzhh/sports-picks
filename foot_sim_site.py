@@ -171,6 +171,53 @@ def _args(g):
             '(championnat et coupes d’Europe suivis). Un tir cadré = arrêt du gardien ou but (les tirs contrés n’en sont pas).</p></div>')
 
 
+def _style_tags(p):
+    """Traits de jeu marquants (seuils autour des moyennes de la base : contre-attaque 8 % des tirs, coups de pied
+    arretes 25 %, domination 50 %, distance de tir ~17 m, xG par tir ~0,10)."""
+    t = []
+    if p["dom"] >= 0.58: t.append(f"domine ses matchs ({round(100 * p['dom'])} % des tirs)")
+    elif p["dom"] <= 0.43: t.append(f"subit souvent, bloc plus bas ({round(100 * p['dom'])} % des tirs)")
+    if p["fb"] >= 0.11: t.append(f"aime jouer en contre ({round(100 * p['fb'])} % de ses tirs)")
+    if p["sp"] >= 0.30: t.append(f"dangereuse sur coups de pied arrêtés ({round(100 * p['sp'])} %)")
+    if p["dist"] >= 18.5: t.append(f"frappe souvent de loin ({p['dist']:.0f} m en moyenne)".replace(".", ","))
+    if p["xgps"] >= 0.125: t.append(f"tirs de grande qualité (xG {p['xgps']:.2f} par tir)".replace(".", ","))
+    if p["sha"] <= 10.5: t.append(f"concède peu de tirs ({p['sha']:.1f})".replace(".", ","))
+    elif p["sha"] >= 14.5: t.append(f"laisse beaucoup tirer ({p['sha']:.1f} tirs concédés)".replace(".", ","))
+    if p["back3"] >= 0.6: t.append("défense à trois")
+    return t
+
+
+def _tactics(g):
+    """Profil tactique des deux equipes (15 derniers matchs de la base) et effet sur les tirs attendus."""
+    st = g.get("style") or {}
+    if not any(st.values()): return ""
+    n1 = lambda x: f"{x:.1f}".replace(".", ",")
+    cols = ""
+    for side, opp in (("home", "away"), ("away", "home")):
+        p, o, name = st.get(side), st.get(opp), _e(g[side]["name"])
+        if not p:
+            cols += f'<div><div class="eb-meta">{name}</div><p class="eb-note">Moins de 5 matchs dans la base : profil indisponible.</p></div>'
+            continue
+        tags = "".join(f'<span class="eb-tag">{_e(x)}</span> ' for x in _style_tags(p))
+        rows = (f'<li>Schéma habituel <b>{_e(p.get("formation") or "?")}</b> · {p["n"]} derniers matchs</li>'
+                f'<li>Tirs : <b>{n1(p["sh"])}</b> par match ({n1(p["so"])} cadrés), en concède <b>{n1(p["sha"])}</b></li>'
+                f'<li>Qualité : xG {p["xgps"]:.2f} par tir, à {p["dist"]:.0f} m en moyenne · contres {round(100 * p["fb"])} % · '
+                f'coups de pied arrêtés {round(100 * p["sp"])} %</li>'.replace(".", ","))
+        sh = g.get("shots") or {}
+        if o and sh.get("sim"):
+            sim_v = sh["sim"][side][0]; fin = sh[side][0]; hab = (p["sh"] + o["sha"]) / 2
+            rows += (f'<li>Tirs ce soir : simulation <b>{n1(sim_v)}</b> (xG du soir, rapport de force, composition) · habitudes '
+                     f'<b>{n1(hab)}</b> (tire {n1(p["sh"])}, {_e(g[opp]["name"])} en concède {n1(o["sha"])}) → '
+                     f'<b>{n1(fin)}</b> retenus</li>')
+        cols += f'<div><div class="eb-meta">{name}</div><div>{tags}</div><ul class="eb-inj-l">{rows}</ul></div>'
+    return ('<div class="eb-card"><h3 class="eb-h">Profil tactique <small>façon de jouer et effet sur le match</small></h3>'
+            f'<div class="eb-inj">{cols}</div><p class="eb-note">Mesuré sur 759 matchs passés : la simulation tient déjà compte du '
+            'rapport de force (un outsider qui joue en contre tire bien moins : réel / simulé = 1,00). Ce qu’elle ne voyait pas, '
+            'ce sont les habitudes de VOLUME (équipes qui frappent de loin, blocs bas qui laissent tirer) : mélangées à 40 %, '
+            'elles améliorent la prévision des tirs hors échantillon (log-loss −2,2 %). Le style ne change pas les buts '
+            'attendus (pas de gain mesuré).</p></div>')
+
+
 def _shots_card(g):
     """Lignes de tirs / tirs cadres (equipe et match) : probabilite recalee sur le backtest et cote juste."""
     L = (g.get("shots") or {}).get("lines")
@@ -188,9 +235,10 @@ def _shots_card(g):
                      for l, p in (ln or {}).items()) + '</span></div>'
         for lab, m, ln in rows if ln)
     return ('<div class="eb-card"><h3 class="eb-h">Tirs et tirs cadrés <small>probabilité de dépasser la ligne · cote juste</small></h3>'
-            f'<div class="eb-list2">{body}</div><p class="eb-note">Recalé sur un backtest de 548 matchs (oct. 2025 - oct. 2026, '
-            'sans information postérieure au coup d’envoi) : par équipe, probabilités justes à 4 points près ; '
-            '⚠ cumuls du match moins fiables (écarts de 5 à 9 points). Une cote du bookmaker au-dessus de la cote juste '
+            f'<div class="eb-list2">{body}</div><p class="eb-note">Simulation mélangée aux habitudes de volume des deux équipes '
+            '(voir « Profil tactique »), puis recalée sur un backtest de 759 matchs (sept. 2025 - oct. 2026, sans information '
+            'postérieure au coup d’envoi) : par équipe, probabilités justes à 3-7 points près sur la période de validation ; '
+            '⚠ cumuls du match moins fiables (5 à 8 points, la saison en cours tire un peu plus). Une cote du bookmaker au-dessus de la cote juste '
             'est une piste, pas une garantie. Tir cadré = arrêt du gardien ou but.</p></div>')
 
 
@@ -419,7 +467,7 @@ def build_foot_sim_section(sim=None):
         ids = [_e(g["id"]) for g in games]
         items = "".join(_item(g, gid, now, i == 0) for i, (g, gid) in enumerate(zip(games, ids)))
         details = "".join(
-            f'<section class="eb-detail{" on" if i == 0 else ""}" data-id="{gid}">{_header(g, now)}{_livecard(g)}{_kpis(g)}{_args(g)}{_shots_card(g)}{_video(g, gid)}'
+            f'<section class="eb-detail{" on" if i == 0 else ""}" data-id="{gid}">{_header(g, now)}{_livecard(g)}{_kpis(g)}{_tactics(g)}{_args(g)}{_shots_card(g)}{_video(g, gid)}'
             f'{_crisis(g)}{_scorers(g)}{_players_card(g)}{_scores(g)}{_markets(g)}'
             + (f'<div class="eb-card"><p class="eb-note">{BACKTEST_NOTE}</p></div>' if BACKTEST_NOTE else "") + '</section>'
             for i, (g, gid) in enumerate(zip(games, ids)))

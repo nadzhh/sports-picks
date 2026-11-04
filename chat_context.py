@@ -250,6 +250,14 @@ def foot(now, hours=36):
             if f: bits.append(f"forme {''.join(f.get('last') or [])}, {f['gf']:.1f} marqués / {f['ga']:.1f} encaissés, xG {f.get('xg_f', 0):.2f} / {f.get('xg_a', 0):.2f}, +2,5 dans {round(f['o25'] * f['n'])}/{f['n']}")
             if ab: bits.append("absents : " + ", ".join(ab))
             bits.append(f"composition {i.get('lineup', '?')}")
+            sp_ = (g.get("style") or {}).get(sd)
+            if sp_:
+                try:
+                    from foot_sim_site import _style_tags
+                    bits.append(f"style ({sp_['formation']}) : " + (", ".join(_style_tags(sp_)) or "sans trait marquant")
+                                + f", tire {sp_['sh']:.1f} / concède {sp_['sha']:.1f}")
+                except Exception:
+                    pass
             out.append(f"- {g[sd]['name']} : " + " ; ".join(bits))
         v = _fair_for(fair, hn, an, ko)
         if v:
