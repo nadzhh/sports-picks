@@ -1,0 +1,50 @@
+name: Validation base foot etendue
+
+# Chaque jour : tant que la base etendue (foot_comps) n'est pas assez remplie, ne fait que mesurer la couverture ;
+# ensuite, rejoue le Top 5 2025-26 avec la base historique puis etendue et n'active l'extension du modele de forces
+# que si le 1X2 et le +2,5 ne sont pas moins bien prevus (foot_validate.py -> data/foot_model_ext.json).
+on:
+  schedule:
+    - cron: "41 4 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: foot-validate
+  cancel-in-progress: false
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 180
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: master
+          fetch-depth: 1
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install numpy requests
+      # base foot constituee par la veille (lecture seule : on ne resauvegarde pas le cache)
+      - uses: actions/cache/restore@v4
+        with:
+          path: data/foot_db
+          key: foot-db-validate-${{ github.run_id }}
+          restore-keys: foot-db-
+      - name: Validation
+        env:
+          PYTHONIOENCODING: utf-8
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID:   ${{ secrets.TELEGRAM_CHAT_ID }}
+          TELEGRAM_CHAT_ID_BANKROLL: ${{ secrets.TELEGRAM_CHAT_ID_BANKROLL }}
+        run: python foot_validate.py
+      - name: Publication de la decision
+        run: |
+          git config user.name "sport-picks-bot"; git config user.email "actions@github.com"
+          git add -f data/foot_model_ext.json
+          if git diff --cached --quiet; then echo "rien de nouveau"; exit 0; fi
+          git commit -q -m "Validation base foot etendue : $(python -c "import json;print(json.load(open('data/foot_model_ext.json'))['reason'][:120])")"
+          for i in 1 2 3 4 5; do git pull -q --rebase origin master && git push -q origin master && exit 0; sleep 15; done; exit 1

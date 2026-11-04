@@ -23,6 +23,7 @@ from foot_sim import FootState, simulate, _ord, pos_group
 
 OUT_PATH = Path("data/foot_sim.json")
 CUR_SEASON = "2026/2027"
+SEASON_START = "2026-07-01"
 LOG_SIMS = 3000
 ESPN_SLUG = {47: "eng.1", 87: "esp.1", 54: "ger.1", 55: "ita.1", 53: "fra.1", 42: "uefa.champions", 73: "uefa.europa"}
 _ESPN_CACHE = {}
@@ -48,17 +49,51 @@ LINEUP_TYPES = {"standard": "officielle", "simple": "officielle", "predicted": "
                 "laststarting11": "dernier onze"}
 
 
-def build_state(params=None):
-    st = FootState(params)
-    for r in sorted(foot_db.load_all().values(), key=lambda r: (r["date"], r["id"])):
+MODEL_EXT_PATH = Path("data/foot_model_ext.json")   # ecrit par foot_validate.py (backtest Top 5 base etendue vs historique)
+
+
+def model_ext():
+    """La base etendue (C4, coupes nationales, autres championnats...) entre-t-elle dans le modele de forces ?
+    Seulement apres une validation qui montre que le Top 5 n'est pas moins bien prevu (foot_validate.py)."""
+    try:
+        return bool(json.loads(MODEL_EXT_PATH.read_text(encoding="utf-8")).get("enabled"))
+    except (OSError, ValueError):
+        return False
+
+
+def build_state(params=None, ext=None):
+    ext = model_ext() if ext is None else ext
+    cups = None
+    if ext:
+        import foot_comps
+        cups = foot_comps.cups()
+    st = FootState(params, cups=cups)
+    for r in sorted((foot_db.load_all_ext() if ext else foot_db.load_all()).values(), key=lambda r: (r["date"], r["id"])):
         st.add_match(r)
     return st
+
+
+# Matchs simules : Top 5 + C1 / C3 ; avec la base etendue validee, aussi la C4, les coupes nationales et Supercoupes du
+# Top 5, la Supercoupe d'Europe et les competitions de selections (demande de Wilson, 04/11/2026)
+SIM_EXT = (10216, 132, 133, 247, 138, 139, 209, 8924, 141, 222, 134, 207, 74, 9806, 10195, 77)
+
+
+def _comp_name(lid):
+    try:
+        import foot_comps
+        return (foot_comps.load().get(int(lid)) or {}).get("name") or str(lid)
+    except Exception:
+        return str(lid)
+
+
+def sim_leagues():
+    return list(foot_db.LEAGUES) + ([l for l in SIM_EXT if l not in foot_db.LEAGUES] if model_ext() else [])
 
 
 def upcoming(hours):
     now = datetime.now(timezone.utc)
     out = []
-    for lid in foot_db.LEAGUES:
+    for lid in sim_leagues():
         for m in foot_db.fixtures(lid, CUR_SEASON):
             stt = m.get("status") or {}
             if stt.get("started") or stt.get("finished") or stt.get("cancelled"): continue
@@ -86,7 +121,7 @@ def shirt_numbers(team_id, before):
     c = cache.get(str(team_id))
     if c and time.time() - c["at"] < 3 * 86400:
         return c["nums"]
-    if not _RECS: _RECS.update(foot_db.load_all())
+    if not _RECS: _RECS.update(foot_db.load_all_ext())
     past = [r for r in _RECS.values() if str(team_id) in (str(r["home"]["id"]), str(r["away"]["id"])) and r["date"] < before]
     nums = {}
     if past:
@@ -289,7 +324,7 @@ def style_profile(team_id, before, n=15):
     """Facon de jouer sur les n derniers matchs de la base (avant `before`) : volume de tirs pour / contre, qualite
     (xG par tir), distance de tir, part de contre-attaques et de coups de pied arretes, domination (part des tirs du
     match), defense a 3. Sert au melange des tirs et a la carte « Profil tactique »."""
-    if not _RECS: _RECS.update(foot_db.load_all())
+    if not _RECS: _RECS.update(foot_db.load_all_ext())
     tid = str(team_id)
     past = sorted((r for r in _RECS.values() if tid in (str(r["home"]["id"]), str(r["away"]["id"])) and r["date"] < before
                    and r.get("shots")), key=lambda r: r["date"])[-n:]
@@ -364,13 +399,13 @@ def player_book(before):
     d'apres les matchs de la base joues avant `before` (cache par jour)."""
     day = before[:10]
     if _CARDS.get("day") == day: return _CARDS["book"], _CARDS["avg"]
-    if not _RECS: _RECS.update(foot_db.load_all())
+    if not _RECS: _RECS.update(foot_db.load_all_ext())
     book = defaultdict(lambda: {"min": 0.0, "y": 0, "r": 0, "s_app": 0, "s_min": 0.0, "s_g": 0, "s_sh": 0, "s_so": 0,
                                 "s_y": 0, "s_r": 0})
     tot = [0.0, 0, 0]
     for r in _RECS.values():
         if r["date"] >= before: continue
-        cur = r.get("season") == CUR_SEASON
+        cur = r["date"] >= SEASON_START   # saison en cours, quel que soit le format de saison (2026/2027, 2026...)
         cards = defaultdict(lambda: [0, 0])
         for c in r.get("cards") or []:
             if c[4] in ("Yellow", "YellowRed"): cards[c[3]][0] = 1
@@ -423,7 +458,7 @@ def team_form(team_id, before, n=10):
     """Forme recente (n derniers matchs de la base : championnat + coupes d'Europe suivis) : buts, xG, tirs et
     tirs cadres pour / contre par match, part de matchs a plus de 2,5 buts et ou les deux marquent. Sert
     d'arguments aux chiffres de la simulation (demande de Wilson, 04/11/2026)."""
-    if not _RECS: _RECS.update(foot_db.load_all())
+    if not _RECS: _RECS.update(foot_db.load_all_ext())
     tid = str(team_id)
     past = sorted((r for r in _RECS.values() if tid in (str(r["home"]["id"]), str(r["away"]["id"])) and r["date"] < before
                    and r.get("score")), key=lambda r: r["date"])[-n:]
@@ -466,7 +501,7 @@ def run_game(st, g, n_sims):
         espn = espn_event(g)
     except Exception:
         espn = None
-    out = {"id": g["id"], "league": g["league"], "league_name": foot_db.LEAGUES[g["league"]], "ko": g["ko"], "espn": espn,
+    out = {"id": g["id"], "league": g["league"], "league_name": foot_db.LEAGUES.get(g["league"]) or _comp_name(g["league"]), "ko": g["ko"], "espn": espn,
            "home": g["home"], "away": g["away"], "n_sims": n_sims,
            "sim_at": datetime.now(timezone.utc).isoformat(timespec="minutes"),
            "xg": [round(float(res["home_xg"].mean()), 2), round(float(res["away_xg"].mean()), 2)],

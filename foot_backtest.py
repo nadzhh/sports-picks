@@ -88,8 +88,11 @@ def _ll(p, y):
     return -(y * math.log(p) + (1 - y) * math.log(1 - p))
 
 
-def run(start, end, params, n_sims, label):
-    M = sorted(foot_db.load_all().values(), key=lambda r: (r["date"], r["id"]))
+def run(start, end, params, n_sims, label, ext=False, eval_leagues=None):
+    """ext : etat construit avec la base etendue (foot_comps) ; eval_leagues : competitions evaluees (par defaut
+    toutes celles du perimetre historique) -> comparaison equitable base historique / base etendue."""
+    M = sorted((foot_db.load_all_ext() if ext else foot_db.load_all()).values(), key=lambda r: (r["date"], r["id"]))
+    eval_leagues = set(eval_leagues or foot_db.LEAGUES)
     names = defaultdict(dict)
     for r in M:
         for s in ("home", "away"):
@@ -99,12 +102,16 @@ def run(start, end, params, n_sims, label):
         if lid in FD:
             try: odds.update(odds_index(lid, season, nm))
             except Exception as e: print(f"  [!] cotes {lid} {season} : {e}")
-    st = FootState(params)
+    cups = None
+    if ext:
+        import foot_comps
+        cups = foot_comps.cups()
+    st = FootState(params, cups=cups)
     rows, t0 = [], time.time()
     d0, d1 = _ord(start), _ord(end)
     for r in M:
         day = _ord(r["date"])
-        if d0 <= day <= d1 and len(st.team_recs) > 400 and r["players"]:
+        if d0 <= day <= d1 and len(st.team_recs) > 400 and r["players"] and r["league"] in eval_leagues:
             sq = {side: {"xi": [p[0] for p in r["players"] if p[2] == side and p[3]],
                          "bench": [p[0] for p in r["players"] if p[2] == side and not p[3]]} for side in (1, 0)}
             inp = st.project(r["home"]["id"], r["away"]["id"], r["league"], sq[1], sq[0], day,
@@ -124,6 +131,7 @@ def run(start, end, params, n_sims, label):
     out = {"label": label, "params": st.p, "rows": rows}
     Path(f"data/foot_db/backtest_{label}.json").write_text(json.dumps(out), encoding="utf-8")
     report(out)
+    return out
 
 
 def report(out):
@@ -163,8 +171,9 @@ if __name__ == "__main__":
     ap.add_argument("--sims", type=int, default=4000)
     ap.add_argument("--label", default="base")
     ap.add_argument("--report")
+    ap.add_argument("--ext", action="store_true", help="etat avec la base etendue (foot_comps)")
     a = ap.parse_args()
     if a.report:
         report(json.loads(Path(f"data/foot_db/backtest_{a.report}.json").read_text(encoding="utf-8")))
     else:
-        run(a.start, a.end, json.loads(a.params), a.sims, a.label)
+        run(a.start, a.end, json.loads(a.params), a.sims, a.label, ext=a.ext)

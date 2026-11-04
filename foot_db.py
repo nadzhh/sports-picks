@@ -1,7 +1,9 @@
 """
 foot_db.py — Base historique des matchs de foot (FotMob) pour le simulateur foot.
 
-Competitions : Top 5 europeen + Ligue des champions + Ligue Europa. Pour chaque match termine :
+Competitions : Top 5 europeen + Ligue des champions + Ligue Europa (perimetre historique LEAGUES, celui du modele de
+forces), plus depuis le 04/11/2026 l'extension du registre foot_comps (C4, championnats des clubs europeens, coupes
+nationales, 2e divisions, selections) pour les analyses. Pour chaque match termine :
   - tirs : equipe, joueur, minute, position (x, y), xG, xG cadre, situation, type, issue ;
   - joueurs : titulaire / remplacant, poste, minutes jouees (entree / sortie + raison : blessure,
     choix tactique, carton rouge), note ;
@@ -58,6 +60,50 @@ def write_snapshot(seasons=SEED_SEASONS):
             if p.exists(): data[p.stem] = json.loads(p.read_text(encoding="utf-8"))
     SEED.write_bytes(gzip.compress(json.dumps(data, ensure_ascii=False, separators=(",", ":")).encode("utf-8"), 9))
     return SEED.stat().st_size
+
+
+def ext_targets():
+    """[(competition, saison)] du registre foot_comps (championnats des clubs europeens, coupes nationales, C4,
+    selections...) hors perimetre historique LEAGUES, saison la plus recente d'abord."""
+    try:
+        import foot_comps
+        comps = foot_comps.load()
+    except Exception as e:
+        print(f"  [!] registre foot_comps : {type(e).__name__}: {e}"); return []
+    out = []
+    for lid, c in comps.items():
+        for s in sorted(c.get("seasons") or [], reverse=True):
+            if lid in LEAGUES and s in SEASONS: continue
+            out.append((lid, s))
+    rank = lambda lid: (0 if comps[lid]["kind"] == "euro" else 1 if lid in foot_comps.TOP5_CUPS else
+                        2 if comps[lid]["kind"] == "league" else 3 if comps[lid]["kind"] == "intl" else 4)
+    # saison en cours d'abord, puis C4 > coupes nationales du Top 5 > championnats > selections > autres coupes
+    return sorted(out, key=lambda x: (x[1][:4] != "2026", rank(x[0]), x[0]))
+
+
+def load_all_ext():
+    """Toute la base (perimetre historique + extension) : forme, profil tactique, joueurs, cartons (descriptif).
+    Le modele de forces (foot_sim_run.build_state) reste sur LEAGUES tant que l'extension n'est pas validee."""
+    out = load_all()
+    for lid, s in ext_targets():
+        for mid, r in load(lid, s).items():
+            out.setdefault(mid, r)
+    return out
+
+
+def update_all(seasons, budget=None):
+    """Perimetre historique d'abord (saisons demandees), puis l'extension, dans le meme budget (secondes).
+    Renvoie (ajouts historiques, ajouts extension)."""
+    t0 = time.time()
+    core = update(list(LEAGUES), list(seasons), budget=budget)
+    left = None if budget is None else budget - (time.time() - t0)
+    ext = 0
+    for lid, s in ext_targets():
+        if left is not None and left <= 5: break
+        t1 = time.time()
+        ext += update([lid], [s], budget=left, quiet=True)
+        if left is not None: left -= time.time() - t1
+    return core, ext
 
 
 def load_all(leagues=LEAGUES, seasons=SEASONS):
@@ -148,7 +194,7 @@ def extract(pp, lid, season):
     return rec
 
 
-def update(leagues, seasons, max_games=None, budget=None):
+def update(leagues, seasons, max_games=None, budget=None, quiet=False):
     """budget : secondes maximum (la veille constitue la base en plusieurs passages). Renvoie le nombre
     de matchs ajoutes."""
     DB_DIR.mkdir(parents=True, exist_ok=True)
@@ -160,8 +206,9 @@ def update(leagues, seasons, max_games=None, budget=None):
                   and not (m.get("status") or {}).get("cancelled") and not (m.get("status") or {}).get("awarded")]
             todo = [m for m in fx if str(m["id"]) not in db]
             if max_games: todo = todo[:max_games]
-            print(f"=== {LEAGUES.get(lid, lid)} {season} : {len(fx)} matchs joues, {len(db)} en base, {len(todo)} a recuperer",
-                  flush=True)
+            if todo or not quiet:
+                print(f"=== {LEAGUES.get(lid, lid)} {season} : {len(fx)} matchs joues, {len(db)} en base, {len(todo)} a recuperer",
+                      flush=True)
             for i, m in enumerate(todo, 1):
                 if budget and time.time() - t0 > budget: break
                 try:
@@ -175,8 +222,11 @@ def update(leagues, seasons, max_games=None, budget=None):
                 if i % 25 == 0:
                     _path(lid, season).write_text(json.dumps(db, ensure_ascii=False, separators=(",", ":")), encoding="utf-8")
                     print(f"  {i}/{len(todo)}", flush=True)
-            _path(lid, season).write_text(json.dumps(db, ensure_ascii=False, separators=(",", ":")), encoding="utf-8")
-    print(f"[OK] {total} matchs ajoutes", flush=True)
+            if todo or not quiet:
+                _path(lid, season).write_text(json.dumps(db, ensure_ascii=False, separators=(",", ":")), encoding="utf-8")
+            if budget and time.time() - t0 > budget: break
+        if budget and time.time() - t0 > budget: break
+    if total or not quiet: print(f"[OK] {total} matchs ajoutes", flush=True)
     return total
 
 

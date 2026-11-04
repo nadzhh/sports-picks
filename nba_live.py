@@ -34,11 +34,12 @@ import ev_scan as EV
 
 DIGEST_PATH = "data/telegram_digest.json"   # jour du dernier recapitulatif Telegram envoye (pas de doublon)
 PUBLISHED = [FRAGMENT, R.OUT_PATH, str(R.PICKS_PATH), "data/nba_sim_history.json", BS.FRAGMENT, str(BK.BANK_PATH),
-             FS.FRAGMENT, str(FR.OUT_PATH), str(FB.HIST_PATH), str(EV.PATH), DIGEST_PATH, "data/telegram_picks.json"]
+             FS.FRAGMENT, str(FR.OUT_PATH), str(FB.HIST_PATH), str(EV.PATH), DIGEST_PATH, "data/telegram_picks.json",
+             "data/foot_competitions.json"]
 # Foot (Top 5 + coupes d'Europe) : base mise a jour par tranches (premiere constitution en plusieurs
 # passages), simulation toutes les 30 min, a chaque cycle quand un match approche (composition officielle)
 FOOT_SEASONS = ("2026/2027", "2025/2026")   # saison en cours d'abord
-FOOT_EVERY, FOOT_DB_BUDGET, FOOT_REFRESH = 30 * 60, 6 * 60, timedelta(hours=3)
+FOOT_EVERY, FOOT_DB_BUDGET, FOOT_REFRESH = 30 * 60, 10 * 60, timedelta(hours=3)   # 10 min : extension de la base (04/11/2026)
 LIVE_KEEP, FOOT_LIVE_KEEP = timedelta(hours=4), timedelta(hours=3)   # suivi en direct apres le coup d'envoi
 HORIZON = timedelta(hours=36)
 FINAL_BEFORE = timedelta(minutes=35)
@@ -328,10 +329,14 @@ class Live:
             soon = any(timedelta(0) < _t(g["ko"]) - now <= timedelta(hours=2) for g in prev.values())
             if not soon and time.time() - self.foot_at < FOOT_EVERY: return ""
             self.foot_at = time.time()
-            added = foot_db.update(list(foot_db.LEAGUES), list(FOOT_SEASONS), budget=FOOT_DB_BUDGET) if self.update else 0
-            if added or self.foot_st is None:
-                self.foot_st = FR.build_state()
-                FR._RECS.clear()   # forme recente (team_form) relue avec les nouveaux matchs
+            # base : perimetre du modele d'abord, puis l'extension (C4, championnats des clubs europeens, coupes
+            # nationales, selections : foot_comps), dans le meme budget
+            added, ext = foot_db.update_all(FOOT_SEASONS, budget=FOOT_DB_BUDGET) if self.update else (0, 0)
+            if added or self.foot_st is None or getattr(self, "foot_ext", None) != FR.model_ext():
+                self.foot_ext = FR.model_ext()      # base etendue validee (foot_validate.py) ou non
+                self.foot_st = FR.build_state(ext=self.foot_ext)
+            if added or ext:
+                FR._RECS.clear()   # forme, profil tactique, joueurs relus avec les nouveaux matchs
             games = FR.upcoming(48)
             due = []
             for g in games:

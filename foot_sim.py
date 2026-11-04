@@ -74,9 +74,14 @@ def _ord(iso):
     return date.fromisoformat(iso[:10]).toordinal()
 
 
+CUPS = {42, 73}   # competitions qui melangent les championnats (facteurs de niveau par championnat national)
+
+
 class FootState:
-    def __init__(self, params=None):
+    def __init__(self, params=None, cups=None):
         self.p = dict(P, **(params or {}))
+        # cups : coupes d'Europe, coupes nationales, Supercoupes (foot_comps.cups()) quand la base etendue est active
+        self.cups = set(cups) if cups else set(CUPS)
         self.team_recs = []                       # (jour, equipe, adversaire, ligue, domicile, npxg pour, npxg contre)
         self.team_league = {}                     # equipe -> championnat national (le plus recent)
         self.player_hist = defaultdict(list)      # pid -> [(jour, equipe, minutes, titulaire, npxg, buts, poste)]
@@ -109,7 +114,7 @@ class FootState:
             t, o = sides[side], sides[1 - side]
             self.team_recs.append((d, t, o, lid, side, npxg[side], npxg[1 - side], npg[side]))
             self.team_pens[t][0] += pens[side]; self.team_pens[t][1] += 1
-            if lid not in (42, 73): self.team_league[t] = lid
+            if lid not in self.cups: self.team_league[t] = lid
         length = 120 if r.get("extra_time") else 90
         played = {1: [], 0: []}
         squad = {1: ([], []), 0: ([], [])}
@@ -137,7 +142,7 @@ class FootState:
         y = np.array([(1 - gw) * r[5] + gw * r[7] for r in recs])
         team = [r[1] for r in recs]; opp = [r[2] for r in recs]; home = np.array([r[4] for r in recs])
         lg = [r[3] for r in recs]
-        cup = np.array([l in (42, 73) for l in lg])
+        cup = np.array([l in self.cups for l in lg])
         dom = {r[1]: self.team_league.get(r[1], -1) for r in recs}
         teams = sorted(set(team) | set(opp))
         ti = {t: i for i, t in enumerate(teams)}
@@ -240,7 +245,7 @@ class FootState:
         """squad : {"xi": [pid], "bench": [pid], "confirmed": bool} (xi vide = composition probable
         d'apres les derniers matchs). -> entrees de simulate()."""
         m = self.team_model(day)
-        cup = league in (42, 73)
+        cup = league in self.cups
         out = {"league": league, "params": self.p}
         lam = {}
         for side, tid, oid, sq in (("home", home_id, away_id, home_squad), ("away", away_id, home_id, away_squad)):
