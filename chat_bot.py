@@ -28,7 +28,7 @@ PROJECT = "sportspick-c6955"
 DOCS = f"https://firestore.googleapis.com/v1/projects/{PROJECT}/databases/(default)/documents"
 SYSTEM_FILE = Path("chat/system.md")
 POLL_S = 6                 # attente entre deux lectures de Firestore
-PULL_EVERY_S = 600         # depot remis a jour (donnees publiees par la veille et le cron)
+PULL_EVERY_S = 300         # depot remis a jour (donnees publiees par la veille et le cron)
 CLAUDE_TIMEOUT_S = 300
 HISTORY = 16               # messages precedents donnes a Claude
 MAX_PER_HOUR = 30          # garde-fou sur l'abonnement
@@ -39,7 +39,9 @@ CONTINUE_FLAG = Path(".chat_continue")
 # quel fichier, dont /proc/self/environ qui contient le jeton de l'abonnement (verifie le 04/11/2026).
 CLAUDE_TOOLS = "Read,Grep,Glob"
 CLAUDE_ALLOWED = "Read(./**)"
-CLAUDE_DENIED = "Read(//proc/**),Read(~/**),Read(//etc/**),Read(./.git/**),Read(./.env)"
+# (pas « ~/** » : en CI le depot est DANS le dossier personnel, /home/runner/work/... — 04/11/2026)
+CLAUDE_DENIED = ("Read(//proc/**),Read(//etc/**),Read(~/.claude/**),Read(~/.config/**),Read(~/.ssh/**),"
+                 "Read(~/.gitconfig),Read(~/work/_temp/**),Read(./.git/**),Read(./.env)")
 
 
 # ─── Firebase (REST) ─────────────────────────────────────────────────────────
@@ -223,8 +225,12 @@ def cycle(fire, uids, recent):
     return n
 
 
-def git_pull():
+def git_pull(start):
+    """Donnees a jour ; vrai si le code du relais a change depuis le demarrage (il se relance alors)."""
     subprocess.run(["git", "pull", "--ff-only", "-q", "origin", "master"], capture_output=True, timeout=120)
+    r = subprocess.run(["git", "diff", "--quiet", start, "HEAD", "--", "chat_bot.py", "chat", "nba_sim_bilan.py",
+                        "foot_sim_bilan.py"], capture_output=True, timeout=60)
+    return bool(start) and r.returncode == 1
 
 
 def main():
@@ -240,6 +246,7 @@ def main():
         return
     fire, recent, t0, pulled, errs = Fire(email, pw), [], time.time(), time.time(), 0
     fire.token()
+    start = subprocess.run(["git", "rev-parse", "HEAD"], capture_output=True, text=True).stdout.strip()
     print(f"[chat] relais pret ({len(uids)} compte(s) autorise(s))", flush=True)
     while True:
         try:
@@ -255,7 +262,11 @@ def main():
             print("[chat] fin du budget : relance du workflow", flush=True)
             break
         if time.time() - pulled > PULL_EVERY_S:
-            git_pull(); pulled = time.time()
+            pulled = time.time()
+            if git_pull(start):
+                CONTINUE_FLAG.write_text("1")
+                print("[chat] nouveau code : relance du relais", flush=True)
+                break
         time.sleep(POLL_S)
 
 

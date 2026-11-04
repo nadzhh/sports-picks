@@ -351,6 +351,14 @@ class Live:
         return max((wake - now).total_seconds(), 60)
 
 
+def code_changed(start):
+    """Vrai si le code publie sur master (.py, .js, ce workflow) differe de celui charge au demarrage : la veille
+    se relance alors d'elle-meme (avant le 04/11/2026, il fallait annuler le run a la main)."""
+    if not start or _git("fetch", "-q", "origin", "master", check=False).returncode: return False
+    return _git("diff", "--quiet", start, "origin/master", "--", "*.py", "*.js", ".github/workflows/nba-live.yml",
+                check=False).returncode == 1
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--loop", action="store_true")
@@ -364,6 +372,7 @@ def main():
     t0 = time.time()
     live = Live(a.sims, not a.no_push, not a.no_update)
     Path(CONTINUE_FLAG).unlink(missing_ok=True)
+    start = _git("rev-parse", "HEAD", check=False).stdout.strip() if a.loop else ""
     while True:
         print(f"=== Cycle {datetime.now(timezone.utc):%H:%M} UTC ===", flush=True)
         games = live.cycle()
@@ -373,6 +382,9 @@ def main():
         if not a.loop or not games:
             print("Veille terminee" + (" : aucun match dans les 36 h" if a.loop else ""))
             break
+        if a.loop and not a.no_push and code_changed(start):
+            Path(CONTINUE_FLAG).write_text(now.isoformat(), encoding="utf-8")
+            print("Nouveau code sur master : relance de la veille"); break
         if left < 15 * 60:
             # Budget du job epuise, des matchs arrivent : le workflow relance la veille (nba-live.yml)
             Path(CONTINUE_FLAG).write_text(now.isoformat(), encoding="utf-8")
