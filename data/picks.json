@@ -35,8 +35,8 @@
         "cote_estimee": true,
         "cote_reference": 1.43,
         "ecart_calibration": -7.0,
-        "rang_jour": 7,
-        "cumul_pct": 23.0,
+        "rang_jour": 5,
+        "cumul_pct": 19.0,
         "hors_budget": true
       },
       {
@@ -67,8 +67,8 @@
         "cote_estimee": true,
         "cote_reference": 2.12,
         "ecart_calibration": -2.8,
-        "rang_jour": 61,
-        "cumul_pct": 183.0,
+        "rang_jour": 58,
+        "cumul_pct": 176.0,
         "hors_budget": true
       }
     ],
@@ -103,8 +103,8 @@
       "cote_estimee": true,
       "cote_reference": 1.43,
       "ecart_calibration": -7.0,
-      "rang_jour": 7,
-      "cumul_pct": 23.0,
+      "rang_jour": 5,
+      "cumul_pct": 19.0,
       "hors_budget": true
     },
     "no_picks": false,
@@ -119,15 +119,15 @@
         "surface": "grass"
       },
       "weather": {
-        "temp_max": 27.7,
-        "temp_min": 22.6,
-        "humidity": 82,
+        "temp_max": 28.1,
+        "temp_min": 22.8,
+        "humidity": 80,
         "precipitation_sum_mm": 0.0,
-        "wind_max_kmh": 14.2,
+        "wind_max_kmh": 14.8,
         "weather_code": 3,
-        "summary_fr": "☁️ couvert · 22–27°C · humidité 82%"
+        "summary_fr": "☁️ couvert · 22–28°C · humidité 80%"
       },
-      "text": "Conditions : ☁️ couvert · 22–27°C · humidité 82%. Stade : Estadio Jornalista Mário Filho (Maracanã) · 78 838 places · plein air."
+      "text": "Conditions : ☁️ couvert · 22–28°C · humidité 80%. Stade : Estadio Jornalista Mário Filho (Maracanã) · 78 838 places · plein air."
     }
   },
   {
@@ -166,8 +166,8 @@
         "cote_estimee": true,
         "cote_reference": 1.43,
         "ecart_calibration": -7.0,
-        "rang_jour": 8,
-        "cumul_pct": 26.0,
+        "rang_jour": 6,
+        "cumul_pct": 22.0,
         "hors_budget": true
       }
     ],
@@ -202,8 +202,8 @@
       "cote_estimee": true,
       "cote_reference": 1.43,
       "ecart_calibration": -7.0,
-      "rang_jour": 8,
-      "cumul_pct": 26.0,
+      "rang_jour": 6,
+      "cumul_pct": 22.0,
       "hors_budget": true
     },
     "no_picks": false,
@@ -218,192 +218,32 @@
         "surface": "grass"
       },
       "weather": {
-        "temp_max": 29.3,
-        "temp_min": 18.6,
-        "humidity": 73,
-        "precipitation_sum_mm": 5.7,
-        "wind_max_kmh": 24.0,
-        "weather_code": 95,
-        "summary_fr": "⛈️ orage · 18–29°C · humidité 73% · précipitations 5.7mm"
+        "temp_max": 28.5,
+        "temp_min": 18.8,
+        "humidity": 72,
+        "precipitation_sum_mm": 9.2,
+        "wind_max_kmh": 20.8,
+        "weather_code": 96,
+        "summary_fr": "⛈️ orage + grêle légère · 18–28°C · humidité 72% · précipitations 9.2mm"
       },
-      "text": "Conditions : ⛈️ orage · 18–29°C · humidité 73% · précipitations 5.7mm. Stade : Nubank Parque · 43 713 places · plein air. ⚠️ Pluies prévues : terrain potentiellement lourd, jeu direct privilégié, plus d'erreurs techniques."
+      "text": "Conditions : ⛈️ orage + grêle légère · 18–28°C · humidité 72% · précipitations 9.2mm. Stade : Nubank Parque · 43 713 places · plein air. ⚠️ Pluies prévues : terrain potentiellement lourd, jeu direct privilégié, plus d'erreurs techniques."
     }
   },
   {
-    "league": "Champions League",
-    "home": "AEK Athens",
-    "away": "Real Madrid",
-    "start_ts": 1793814300,
-    "match_id": "6106401",
-    "page_url": "/matches/aek-athens-vs-real-madrid/2g1c0n#6106401",
+    "league": "Europa League",
+    "home": "Benfica",
+    "away": "Lech Poznań",
+    "start_ts": 1793908800,
+    "match_id": "6112248",
+    "page_url": "/matches/lech-poznan-vs-benfica/16jqlj#6112248",
     "picks": [
       {
-        "direction": "away_dc",
+        "direction": "home_dc",
         "type": "Double chance",
-        "label": "Nul ou Real Madrid (X2)",
+        "label": "Benfica ou Nul (1X)",
         "cote": null,
         "confidence": 92,
-        "reasoning": "Real Madrid invaincu 100% sur 5 derniers matchs · H2H: 0/0 matchs sans défaite · Classement: #5 (away) vs #27 (home)\n📉 Calibration : bucket 90+% historiquement à WR 52% (claim 94%, n=23) — sur-estimé de 42pp",
-        "stats": {
-          "form": [
-            "W",
-            "W",
-            "W",
-            "W",
-            "W"
-          ]
-        },
-        "is_fun": false,
-        "tier": "safe",
-        "calibration_delta": -41.8,
-        "history_top3": true,
-        "p_cal": 90.0,
-        "statut_marche": "RETENU",
-        "mise_pct": 3.0,
-        "mise_label": "3 %",
-        "valeur_pct": 28.7,
-        "cote_estimee": true,
-        "cote_reference": 1.43,
-        "ecart_calibration": -2.0,
-        "rang_jour": 2,
-        "cumul_pct": 8.0,
-        "hors_budget": false
-      },
-      {
-        "direction": "shots_over_24.5",
-        "type": "Tirs (total match)",
-        "label": "Plus de 24.5 tirs total",
-        "cote": null,
-        "cote_min": 1.29,
-        "value": [
-          "⚠️",
-          "Value serrée",
-          "#f59e0b"
-        ],
-        "confidence": 78,
-        "reasoning": "📊 Brut : AEK Athens L10 TCC 15.9 (L5 TCC 16.2) tirs/m · Real Madrid L10 TCC 16.0 (L5 TCC 16.2) tirs/m\n🛡️ Défenses : AEK Athens concède 12.5/m · Real Madrid concède 13.5/m\n🎯 Attendu : AEK Athens ~10.9 · Real Madrid ~17.7 → total ~28.6\n⚖️ Real Madrid favori (#5 vs #27) · AEK Athens forme : L-L-W-L-L · Real Madrid forme : W-W-W-W-W\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
-        "stats": {
-          "expected_total": 28.6
-        },
-        "tier": "safe",
-        "calibration_delta": -11.3,
-        "history_top3": false,
-        "p_cal": 63.0,
-        "statut_marche": "RETENU",
-        "mise_pct": 3.0,
-        "mise_label": "3 %",
-        "valeur_pct": null,
-        "cote_estimee": false,
-        "ecart_calibration": -15.0,
-        "rang_jour": 36,
-        "cumul_pct": 110.0,
-        "hors_budget": true
-      },
-      {
-        "direction": "tirs_(aek_athens)_under_13.5",
-        "type": "Tirs (AEK Athens)",
-        "label": "Moins de 13.5 tirs AEK Athens",
-        "cote": null,
-        "cote_min": 1.27,
-        "value": [
-          "⚠️",
-          "Value serrée",
-          "#f59e0b"
-        ],
-        "confidence": 79,
-        "edge": null,
-        "reasoning": "AEK Athens prend 13.8/m [pondere vs opp #5] · adv. concède 13.5/m → attendu ~10.9 (Real Madrid favori (#5 vs #27))\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
-        "stats": {
-          "expected": 10.9
-        },
-        "tier": "safe",
-        "calibration_delta": -11.3,
-        "history_top3": false,
-        "p_cal": 46.9,
-        "statut_marche": "SURVEILLE",
-        "mise_pct": 0.5,
-        "mise_label": "0.5 %",
-        "valeur_pct": null,
-        "cote_estimee": false,
-        "ecart_calibration": -32.1,
-        "rang_jour": 76,
-        "cumul_pct": 194.5,
-        "hors_budget": true
-      }
-    ],
-    "home_players": [],
-    "away_players": [],
-    "fun_picks": [],
-    "top_pick": {
-      "direction": "away_dc",
-      "type": "Double chance",
-      "label": "Nul ou Real Madrid (X2)",
-      "cote": null,
-      "confidence": 92,
-      "reasoning": "Real Madrid invaincu 100% sur 5 derniers matchs · H2H: 0/0 matchs sans défaite · Classement: #5 (away) vs #27 (home)\n📉 Calibration : bucket 90+% historiquement à WR 52% (claim 94%, n=23) — sur-estimé de 42pp",
-      "stats": {
-        "form": [
-          "W",
-          "W",
-          "W",
-          "W",
-          "W"
-        ]
-      },
-      "is_fun": false,
-      "tier": "safe",
-      "calibration_delta": -41.8,
-      "history_top3": true,
-      "p_cal": 90.0,
-      "statut_marche": "RETENU",
-      "mise_pct": 3.0,
-      "mise_label": "3 %",
-      "valeur_pct": 28.7,
-      "cote_estimee": true,
-      "cote_reference": 1.43,
-      "ecart_calibration": -2.0,
-      "rang_jour": 2,
-      "cumul_pct": 8.0,
-      "hors_budget": false
-    },
-    "no_picks": false,
-    "context": {
-      "stadium": {
-        "name": "ALLWYN Arena",
-        "city": "Athína (Athens)",
-        "country": "Greece",
-        "lat": 38.037165836,
-        "lon": 23.741438985,
-        "capacity": 31100,
-        "surface": "grass"
-      },
-      "weather": {
-        "temp_max": 20.2,
-        "temp_min": 11.1,
-        "humidity": 57,
-        "precipitation_sum_mm": 0.0,
-        "wind_max_kmh": 7.2,
-        "weather_code": 45,
-        "summary_fr": "🌫️ brouillard · 11–20°C · humidité 57%"
-      },
-      "text": "Conditions : 🌫️ brouillard · 11–20°C · humidité 57%. Stade : ALLWYN Arena · 31 100 places · plein air."
-    }
-  },
-  {
-    "league": "Champions League",
-    "home": "Lens",
-    "away": "Como",
-    "start_ts": 1793822400,
-    "match_id": "6106416",
-    "page_url": "/matches/lens-vs-como/2wrls8#6106416",
-    "picks": [
-      {
-        "direction": "away_dc",
-        "type": "Double chance",
-        "label": "Nul ou Como (X2)",
-        "cote": null,
-        "confidence": 92,
-        "reasoning": "Como invaincu 100% sur 5 derniers matchs · H2H: 0/0 matchs sans défaite · Classement: #11 (away) vs #26 (home)\n📉 Calibration : bucket 90+% historiquement à WR 52% (claim 94%, n=23) — sur-estimé de 42pp",
+        "reasoning": "Benfica invaincu 100% sur 5 derniers matchs · H2H: 0/0 matchs sans défaite · Classement: #2 vs #32\n📉 Calibration : bucket 90+% historiquement à WR 52% (claim 94%, n=23) — sur-estimé de 42pp",
         "stats": {
           "form": [
             "W",
@@ -426,13 +266,43 @@
         "cote_reference": 1.43,
         "ecart_calibration": -2.0,
         "rang_jour": 3,
-        "cumul_pct": 11.0,
+        "cumul_pct": 13.0,
         "hors_budget": true
       },
       {
-        "direction": "sot_over_7.5",
-        "type": "Tirs cadrés (total)",
-        "label": "Plus de 7.5 tirs cadrés total",
+        "direction": "shots_over_27.5",
+        "type": "Tirs (total match)",
+        "label": "Plus de 27.5 tirs total",
+        "cote": null,
+        "cote_min": 1.26,
+        "value": [
+          "⚠️",
+          "Value serrée",
+          "#f59e0b"
+        ],
+        "confidence": 80,
+        "reasoning": "📊 Brut : Benfica L10 TCC 19.1 (L5 TCC 21.0) tirs/m · Lech Poznań L10 TCC 15.3 (L5 TCC 14.8) tirs/m\n🛡️ Défenses : Benfica concède 10.9/m · Lech Poznań concède 17.3/m\n🎯 Attendu : Benfica ~22.6 · Lech Poznań ~9.7 → total ~32.2\n⚖️ Benfica favori (#2 vs #32) · Benfica forme : W-W-W-W-W · Lech Poznań forme : W-L-W-D-W\n📉 Calibration : bucket 80-89% historiquement à WR 56% (claim 82%, n=63) — sur-estimé de 26pp",
+        "stats": {
+          "expected_total": 32.2
+        },
+        "tier": "safe",
+        "calibration_delta": -26.0,
+        "history_top3": false,
+        "p_cal": 80.0,
+        "statut_marche": "RETENU",
+        "mise_pct": 3.0,
+        "mise_label": "3 %",
+        "valeur_pct": null,
+        "cote_estimee": false,
+        "ecart_calibration": 0.0,
+        "rang_jour": 18,
+        "cumul_pct": 58.0,
+        "hors_budget": true
+      },
+      {
+        "direction": "tirs_cadrés_(benfica)_over_5.5",
+        "type": "Tirs cadrés (Benfica)",
+        "label": "Plus de 5.5 tirs cadrés Benfica",
         "cote": null,
         "cote_min": 1.3,
         "value": [
@@ -441,54 +311,23 @@
           "#84cc16"
         ],
         "confidence": 77,
-        "reasoning": "📊 Brut : Lens L10 TCC 5.3 (L5 TCC 4.4) tirs cadrés/m · Como L10 TCC 6.1 (L5 TCC 6.2) tirs cadrés/m\n🛡️ Défenses : Lens concède 4.6/m · Como concède 3.5/m\n🎯 Attendu : Lens ~3.8 · Como ~6.1 → total ~9.9\n⚖️ Como favori (#11 vs #26) · Lens forme : L-W-L-W-L · Como forme : W-W-W-W-W\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+        "edge": null,
+        "reasoning": "Benfica prend 6.6/m [pondere vs opp #32] · adv. concède 6.7/m → attendu ~7.6 (Benfica favori (#2 vs #32))\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
         "stats": {
-          "expected_total": 9.9
+          "expected": 7.6
         },
         "tier": "safe",
         "calibration_delta": -11.3,
         "history_top3": true,
-        "p_cal": 75.7,
-        "statut_marche": "RETENU",
-        "mise_pct": 3.0,
-        "mise_label": "3 %",
-        "valeur_pct": null,
-        "cote_estimee": false,
-        "ecart_calibration": -1.3,
-        "rang_jour": 25,
-        "cumul_pct": 77.0,
-        "hors_budget": true
-      },
-      {
-        "direction": "away_win",
-        "type": "Victoire extérieur",
-        "label": "Como gagne",
-        "cote": 1.95,
-        "confidence": 71,
-        "reasoning": "Como : 5V/0N/0D sur 5 matchs · #11 au classement · H2H: 0V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
-        "stats": {
-          "form": [
-            "W",
-            "W",
-            "W",
-            "W",
-            "W"
-          ]
-        },
-        "is_fun": false,
-        "tier": "ok",
-        "calibration_delta": -11.3,
-        "edge_pp": 19.7,
-        "history_top3": true,
-        "p_cal": 53.3,
+        "p_cal": 47.0,
         "statut_marche": "SURVEILLE",
         "mise_pct": 0.5,
         "mise_label": "0.5 %",
-        "valeur_pct": 3.9,
+        "valeur_pct": null,
         "cote_estimee": false,
-        "ecart_calibration": -17.7,
-        "rang_jour": 71,
-        "cumul_pct": 192.0,
+        "ecart_calibration": -30.0,
+        "rang_jour": 92,
+        "cumul_pct": 198.5,
         "hors_budget": true
       }
     ],
@@ -496,12 +335,12 @@
     "away_players": [],
     "fun_picks": [],
     "top_pick": {
-      "direction": "away_dc",
+      "direction": "home_dc",
       "type": "Double chance",
-      "label": "Nul ou Como (X2)",
+      "label": "Benfica ou Nul (1X)",
       "cote": null,
       "confidence": 92,
-      "reasoning": "Como invaincu 100% sur 5 derniers matchs · H2H: 0/0 matchs sans défaite · Classement: #11 (away) vs #26 (home)\n📉 Calibration : bucket 90+% historiquement à WR 52% (claim 94%, n=23) — sur-estimé de 42pp",
+      "reasoning": "Benfica invaincu 100% sur 5 derniers matchs · H2H: 0/0 matchs sans défaite · Classement: #2 vs #32\n📉 Calibration : bucket 90+% historiquement à WR 52% (claim 94%, n=23) — sur-estimé de 42pp",
       "stats": {
         "form": [
           "W",
@@ -524,167 +363,7 @@
       "cote_reference": 1.43,
       "ecart_calibration": -2.0,
       "rang_jour": 3,
-      "cumul_pct": 11.0,
-      "hors_budget": true
-    },
-    "no_picks": false,
-    "context": {
-      "stadium": {
-        "name": "Stade Bollaert-Delelis",
-        "city": "Lens",
-        "country": "France",
-        "lat": 50.432866762,
-        "lon": 2.81494081,
-        "capacity": 41233,
-        "surface": "grass"
-      },
-      "weather": {
-        "temp_max": 9.1,
-        "temp_min": 2.9,
-        "humidity": 73,
-        "precipitation_sum_mm": 0.0,
-        "wind_max_kmh": 18.4,
-        "weather_code": 3,
-        "summary_fr": "☁️ couvert · 2–9°C · humidité 73%"
-      },
-      "text": "Conditions : ☁️ couvert · 2–9°C · humidité 73%. Stade : Stade Bollaert-Delelis · 41 233 places · plein air."
-    }
-  },
-  {
-    "league": "Europa League",
-    "home": "Benfica",
-    "away": "Lech Poznań",
-    "start_ts": 1793908800,
-    "match_id": "6112248",
-    "page_url": "/matches/lech-poznan-vs-benfica/16jqlj#6112248",
-    "picks": [
-      {
-        "direction": "home_dc",
-        "type": "Double chance",
-        "label": "Benfica ou Nul (1X)",
-        "cote": null,
-        "confidence": 92,
-        "reasoning": "Benfica invaincu 100% sur 5 derniers matchs · H2H: 0/0 matchs sans défaite · Classement: #1 vs #32\n📉 Calibration : bucket 90+% historiquement à WR 52% (claim 94%, n=23) — sur-estimé de 42pp",
-        "stats": {
-          "form": [
-            "W",
-            "W",
-            "W",
-            "W",
-            "W"
-          ]
-        },
-        "is_fun": false,
-        "tier": "safe",
-        "calibration_delta": -41.8,
-        "history_top3": true,
-        "p_cal": 90.0,
-        "statut_marche": "RETENU",
-        "mise_pct": 3.0,
-        "mise_label": "3 %",
-        "valeur_pct": 28.7,
-        "cote_estimee": true,
-        "cote_reference": 1.43,
-        "ecart_calibration": -2.0,
-        "rang_jour": 5,
-        "cumul_pct": 17.0,
-        "hors_budget": true
-      },
-      {
-        "direction": "shots_over_27.5",
-        "type": "Tirs (total match)",
-        "label": "Plus de 27.5 tirs total",
-        "cote": null,
-        "cote_min": 1.26,
-        "value": [
-          "⚠️",
-          "Value serrée",
-          "#f59e0b"
-        ],
-        "confidence": 79,
-        "reasoning": "📊 Brut : Benfica L10 TCC 19.1 (L5 TCC 21.0) tirs/m · Lech Poznań L10 TCC 15.3 (L5 TCC 14.8) tirs/m\n🛡️ Défenses : Benfica concède 10.9/m · Lech Poznań concède 17.3/m\n🎯 Attendu : Benfica ~22.6 · Lech Poznań ~9.6 → total ~32.2\n⚖️ Benfica favori (#1 vs #32) · Benfica forme : W-W-W-W-W · Lech Poznań forme : W-L-W-D-W\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
-        "stats": {
-          "expected_total": 32.2
-        },
-        "tier": "safe",
-        "calibration_delta": -11.3,
-        "history_top3": false,
-        "p_cal": 63.0,
-        "statut_marche": "RETENU",
-        "mise_pct": 3.0,
-        "mise_label": "3 %",
-        "valeur_pct": null,
-        "cote_estimee": false,
-        "ecart_calibration": -16.0,
-        "rang_jour": 45,
-        "cumul_pct": 137.0,
-        "hors_budget": true
-      },
-      {
-        "direction": "tirs_cadrés_(benfica)_over_5.5",
-        "type": "Tirs cadrés (Benfica)",
-        "label": "Plus de 5.5 tirs cadrés Benfica",
-        "cote": null,
-        "cote_min": 1.3,
-        "value": [
-          "💎",
-          "Value correcte",
-          "#84cc16"
-        ],
-        "confidence": 77,
-        "edge": null,
-        "reasoning": "Benfica prend 6.6/m [pondere vs opp #32] · adv. concède 6.7/m → attendu ~7.6 (Benfica favori (#1 vs #32))\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
-        "stats": {
-          "expected": 7.6
-        },
-        "tier": "safe",
-        "calibration_delta": -11.3,
-        "history_top3": true,
-        "p_cal": 46.9,
-        "statut_marche": "SURVEILLE",
-        "mise_pct": 0.5,
-        "mise_label": "0.5 %",
-        "valeur_pct": null,
-        "cote_estimee": false,
-        "ecart_calibration": -30.1,
-        "rang_jour": 92,
-        "cumul_pct": 202.5,
-        "hors_budget": true
-      }
-    ],
-    "home_players": [],
-    "away_players": [],
-    "fun_picks": [],
-    "top_pick": {
-      "direction": "home_dc",
-      "type": "Double chance",
-      "label": "Benfica ou Nul (1X)",
-      "cote": null,
-      "confidence": 92,
-      "reasoning": "Benfica invaincu 100% sur 5 derniers matchs · H2H: 0/0 matchs sans défaite · Classement: #1 vs #32\n📉 Calibration : bucket 90+% historiquement à WR 52% (claim 94%, n=23) — sur-estimé de 42pp",
-      "stats": {
-        "form": [
-          "W",
-          "W",
-          "W",
-          "W",
-          "W"
-        ]
-      },
-      "is_fun": false,
-      "tier": "safe",
-      "calibration_delta": -41.8,
-      "history_top3": true,
-      "p_cal": 90.0,
-      "statut_marche": "RETENU",
-      "mise_pct": 3.0,
-      "mise_label": "3 %",
-      "valeur_pct": 28.7,
-      "cote_estimee": true,
-      "cote_reference": 1.43,
-      "ecart_calibration": -2.0,
-      "rang_jour": 5,
-      "cumul_pct": 17.0,
+      "cumul_pct": 13.0,
       "hors_budget": true
     },
     "no_picks": false,
@@ -699,15 +378,15 @@
         "surface": "grass"
       },
       "weather": {
-        "temp_max": 18.6,
-        "temp_min": 8.0,
-        "humidity": 57,
+        "temp_max": 18.5,
+        "temp_min": 7.9,
+        "humidity": 58,
         "precipitation_sum_mm": 0.0,
-        "wind_max_kmh": 9.4,
+        "wind_max_kmh": 10.7,
         "weather_code": 3,
-        "summary_fr": "☁️ couvert · 8–18°C · humidité 57%"
+        "summary_fr": "☁️ couvert · 7–18°C · humidité 58%"
       },
-      "text": "Conditions : ☁️ couvert · 8–18°C · humidité 57%. Stade : Estádio do Sport Lisboa e Benfica (da Luz) · 68 100 places · plein air."
+      "text": "Conditions : ☁️ couvert · 7–18°C · humidité 58%. Stade : Estádio do Sport Lisboa e Benfica (da Luz) · 68 100 places · plein air."
     }
   },
   {
@@ -746,8 +425,8 @@
         "cote_estimee": true,
         "cote_reference": 1.43,
         "ecart_calibration": -2.0,
-        "rang_jour": 6,
-        "cumul_pct": 20.0,
+        "rang_jour": 4,
+        "cumul_pct": 16.0,
         "hors_budget": true
       },
       {
@@ -777,7 +456,7 @@
         "cote_estimee": false,
         "ecart_calibration": 1.7,
         "rang_jour": 33,
-        "cumul_pct": 101.0,
+        "cumul_pct": 103.0,
         "hors_budget": true
       },
       {
@@ -800,15 +479,15 @@
         "tier": "safe",
         "calibration_delta": -11.3,
         "history_top3": true,
-        "p_cal": 46.9,
+        "p_cal": 47.0,
         "statut_marche": "SURVEILLE",
         "mise_pct": 0.5,
         "mise_label": "0.5 %",
         "valeur_pct": null,
         "cote_estimee": false,
-        "ecart_calibration": -28.1,
+        "ecart_calibration": -28.0,
         "rang_jour": 109,
-        "cumul_pct": 211.0,
+        "cumul_pct": 207.0,
         "hors_budget": true
       }
     ],
@@ -843,8 +522,8 @@
       "cote_estimee": true,
       "cote_reference": 1.43,
       "ecart_calibration": -2.0,
-      "rang_jour": 6,
-      "cumul_pct": 20.0,
+      "rang_jour": 4,
+      "cumul_pct": 16.0,
       "hors_budget": true
     },
     "no_picks": false,
@@ -859,15 +538,15 @@
         "surface": "grass"
       },
       "weather": {
-        "temp_max": 13.1,
-        "temp_min": 8.2,
+        "temp_max": 13.4,
+        "temp_min": 7.4,
         "humidity": 74,
         "precipitation_sum_mm": 0.0,
-        "wind_max_kmh": 4.9,
+        "wind_max_kmh": 6.3,
         "weather_code": 3,
-        "summary_fr": "☁️ couvert · 8–13°C · humidité 74%"
+        "summary_fr": "☁️ couvert · 7–13°C · humidité 74%"
       },
-      "text": "Conditions : ☁️ couvert · 8–13°C · humidité 74%. Stade : AIL Arena · 8 793 places · plein air."
+      "text": "Conditions : ☁️ couvert · 7–13°C · humidité 74%. Stade : AIL Arena · 8 793 places · plein air."
     }
   },
   {
@@ -906,8 +585,8 @@
         "valeur_pct": 35.9,
         "cote_estimee": false,
         "ecart_calibration": -1.0,
-        "rang_jour": 1,
-        "cumul_pct": 5.0,
+        "rang_jour": 2,
+        "cumul_pct": 10.0,
         "hors_budget": false
       },
       {
@@ -937,7 +616,7 @@
         "cote_estimee": false,
         "ecart_calibration": 3.7,
         "rang_jour": 30,
-        "cumul_pct": 92.0,
+        "cumul_pct": 94.0,
         "hors_budget": true
       },
       {
@@ -961,15 +640,15 @@
         "calibration_delta": -11.3,
         "edge_pp": 38.8,
         "history_top3": true,
-        "p_cal": 55.3,
+        "p_cal": 56.2,
         "statut_marche": "SURVEILLE",
         "mise_pct": 1.0,
         "mise_label": "1 %",
-        "valeur_pct": 41.0,
+        "valeur_pct": 43.3,
         "cote_estimee": false,
-        "ecart_calibration": -22.7,
-        "rang_jour": 62,
-        "cumul_pct": 184.0,
+        "ecart_calibration": -21.8,
+        "rang_jour": 61,
+        "cumul_pct": 179.0,
         "hors_budget": true
       }
     ],
@@ -1004,8 +683,8 @@
       "valeur_pct": 35.9,
       "cote_estimee": false,
       "ecart_calibration": -1.0,
-      "rang_jour": 1,
-      "cumul_pct": 5.0,
+      "rang_jour": 2,
+      "cumul_pct": 10.0,
       "hors_budget": false
     },
     "no_picks": false,
@@ -1020,175 +699,15 @@
         "surface": "grass"
       },
       "weather": {
-        "temp_max": 16.2,
-        "temp_min": 12.9,
-        "humidity": 73,
-        "precipitation_sum_mm": 15.9,
-        "wind_max_kmh": 20.0,
-        "weather_code": 63,
-        "summary_fr": "🌧️ pluie modérée · 12–16°C · humidité 73% · précipitations 15.9mm"
+        "temp_max": 16.6,
+        "temp_min": 12.5,
+        "humidity": 78,
+        "precipitation_sum_mm": 10.7,
+        "wind_max_kmh": 16.4,
+        "weather_code": 80,
+        "summary_fr": "🌦️ averses légères · 12–16°C · humidité 78% · précipitations 10.7mm"
       },
-      "text": "Conditions : 🌧️ pluie modérée · 12–16°C · humidité 73% · précipitations 15.9mm. Stade : Papara Park · 41 513 places · plein air. ⚠️ Pluies prévues : terrain potentiellement lourd, jeu direct privilégié, plus d'erreurs techniques."
-    }
-  },
-  {
-    "league": "Europa League",
-    "home": "Sparta Prague",
-    "away": "AFC Bournemouth",
-    "start_ts": 1793900700,
-    "match_id": "6112304",
-    "page_url": "/matches/afc-bournemouth-vs-sparta-prague/2ymnbl#6112304",
-    "picks": [
-      {
-        "direction": "away_dc",
-        "type": "Double chance",
-        "label": "Nul ou AFC Bournemouth (X2)",
-        "cote": null,
-        "confidence": 90,
-        "reasoning": "AFC Bournemouth invaincu 100% sur 5 derniers matchs · H2H: 0/0 matchs sans défaite · Classement: #3 (away) vs #16 (home)\n📉 Calibration : bucket 90+% historiquement à WR 52% (claim 94%, n=23) — sur-estimé de 42pp",
-        "stats": {
-          "form": [
-            "W",
-            "W",
-            "W",
-            "W",
-            "W"
-          ]
-        },
-        "is_fun": false,
-        "tier": "safe",
-        "calibration_delta": -41.8,
-        "history_top3": true,
-        "p_cal": 90.0,
-        "statut_marche": "RETENU",
-        "mise_pct": 3.0,
-        "mise_label": "3 %",
-        "valeur_pct": 28.7,
-        "cote_estimee": true,
-        "cote_reference": 1.43,
-        "ecart_calibration": 0.0,
-        "rang_jour": 4,
-        "cumul_pct": 14.0,
-        "hors_budget": true
-      },
-      {
-        "direction": "sot_under_10.5",
-        "type": "Tirs cadrés (total)",
-        "label": "Moins de 10.5 tirs cadrés total",
-        "cote": null,
-        "cote_min": 1.29,
-        "value": [
-          "⚠️",
-          "Value serrée",
-          "#f59e0b"
-        ],
-        "confidence": 78,
-        "reasoning": "📊 Brut : Sparta Prague L10 TCC 6.8 (L5 TCC 6.0) tirs cadrés/m · AFC Bournemouth L10 TCC 5.5 (L5 TCC 5.8) tirs cadrés/m\n🛡️ Défenses : Sparta Prague concède 2.5/m · AFC Bournemouth concède 2.4/m\n🎯 Attendu : Sparta Prague ~3.8 · AFC Bournemouth ~4.5 → total ~8.4\n⚖️ AFC Bournemouth favori (#3 vs #16) · Sparta Prague forme : D-W-L-D-D · AFC Bournemouth forme : W-W-W-W-W\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
-        "stats": {
-          "expected_total": 8.4
-        },
-        "tier": "safe",
-        "calibration_delta": -11.3,
-        "history_top3": false,
-        "p_cal": 75.7,
-        "statut_marche": "RETENU",
-        "mise_pct": 3.0,
-        "mise_label": "3 %",
-        "valeur_pct": null,
-        "cote_estimee": false,
-        "ecart_calibration": -2.3,
-        "rang_jour": 29,
-        "cumul_pct": 89.0,
-        "hors_budget": true
-      },
-      {
-        "direction": "tirs_(sparta_prague)_under_13.5",
-        "type": "Tirs (Sparta Prague)",
-        "label": "Moins de 13.5 tirs Sparta Prague",
-        "cote": null,
-        "cote_min": 1.28,
-        "value": [
-          "⚠️",
-          "Value serrée",
-          "#f59e0b"
-        ],
-        "confidence": 78,
-        "edge": null,
-        "reasoning": "Sparta Prague prend 16.0/m [pondere vs opp #3] · adv. concède 10.1/m → attendu ~11.0 (AFC Bournemouth favori (#3 vs #16))\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
-        "stats": {
-          "expected": 11.0
-        },
-        "tier": "safe",
-        "calibration_delta": -11.3,
-        "history_top3": false,
-        "p_cal": 46.9,
-        "statut_marche": "SURVEILLE",
-        "mise_pct": 0.5,
-        "mise_label": "0.5 %",
-        "valeur_pct": null,
-        "cote_estimee": false,
-        "ecart_calibration": -31.1,
-        "rang_jour": 89,
-        "cumul_pct": 201.0,
-        "hors_budget": true
-      }
-    ],
-    "home_players": [],
-    "away_players": [],
-    "fun_picks": [],
-    "top_pick": {
-      "direction": "away_dc",
-      "type": "Double chance",
-      "label": "Nul ou AFC Bournemouth (X2)",
-      "cote": null,
-      "confidence": 90,
-      "reasoning": "AFC Bournemouth invaincu 100% sur 5 derniers matchs · H2H: 0/0 matchs sans défaite · Classement: #3 (away) vs #16 (home)\n📉 Calibration : bucket 90+% historiquement à WR 52% (claim 94%, n=23) — sur-estimé de 42pp",
-      "stats": {
-        "form": [
-          "W",
-          "W",
-          "W",
-          "W",
-          "W"
-        ]
-      },
-      "is_fun": false,
-      "tier": "safe",
-      "calibration_delta": -41.8,
-      "history_top3": true,
-      "p_cal": 90.0,
-      "statut_marche": "RETENU",
-      "mise_pct": 3.0,
-      "mise_label": "3 %",
-      "valeur_pct": 28.7,
-      "cote_estimee": true,
-      "cote_reference": 1.43,
-      "ecart_calibration": 0.0,
-      "rang_jour": 4,
-      "cumul_pct": 14.0,
-      "hors_budget": true
-    },
-    "no_picks": false,
-    "context": {
-      "stadium": {
-        "name": "epet ARENA",
-        "city": "Praha",
-        "country": "Czech Republic",
-        "lat": 50.09981606,
-        "lon": 14.415827394,
-        "capacity": 20854,
-        "surface": "grass"
-      },
-      "weather": {
-        "temp_max": 9.1,
-        "temp_min": 2.1,
-        "humidity": 64,
-        "precipitation_sum_mm": 0.0,
-        "wind_max_kmh": 10.6,
-        "weather_code": 1,
-        "summary_fr": "🌤️ principalement clair · 2–9°C · humidité 64%"
-      },
-      "text": "Conditions : 🌤️ principalement clair · 2–9°C · humidité 64%. Stade : epet ARENA · 20 854 places · plein air."
+      "text": "Conditions : 🌦️ averses légères · 12–16°C · humidité 78% · précipitations 10.7mm. Stade : Papara Park · 41 513 places · plein air. ⚠️ Pluies prévues : terrain potentiellement lourd, jeu direct privilégié, plus d'erreurs techniques."
     }
   },
   {
@@ -1205,7 +724,7 @@
         "label": "Nul ou Ferencváros (X2)",
         "cote": null,
         "confidence": 89,
-        "reasoning": "Ferencváros invaincu 100% sur 5 derniers matchs · H2H: 0/0 matchs sans défaite · Classement: #4 (away) vs #24 (home)\n📉 Calibration : bucket 80-89% historiquement à WR 56% (claim 82%, n=63) — sur-estimé de 26pp",
+        "reasoning": "Ferencváros invaincu 100% sur 5 derniers matchs · H2H: 0/0 matchs sans défaite · Classement: #5 (away) vs #24 (home)\n📉 Calibration : bucket 80-89% historiquement à WR 56% (claim 82%, n=63) — sur-estimé de 26pp",
         "stats": {
           "form": [
             "W",
@@ -1227,8 +746,8 @@
         "cote_estimee": true,
         "cote_reference": 1.43,
         "ecart_calibration": -7.6,
-        "rang_jour": 12,
-        "cumul_pct": 38.0,
+        "rang_jour": 8,
+        "cumul_pct": 28.0,
         "hors_budget": true
       },
       {
@@ -1243,7 +762,7 @@
           "#f59e0b"
         ],
         "confidence": 80,
-        "reasoning": "📊 Brut : Milan L10 TCC 11.7 (L5 TCC 9.6) tirs/m · Ferencváros L10 TCC 15.8 (L5 TCC 17.6) tirs/m\n🛡️ Défenses : Milan concède 13.5/m · Ferencváros concède 7.9/m\n🎯 Attendu : Milan ~7.3 · Ferencváros ~16.2 → total ~23.5\n⚖️ Ferencváros favori (#4 vs #24) · Milan forme : W-L-W-L-W · Ferencváros forme : W-W-W-D-W\n📉 Calibration : bucket 80-89% historiquement à WR 56% (claim 82%, n=63) — sur-estimé de 26pp",
+        "reasoning": "📊 Brut : Milan L10 TCC 11.7 (L5 TCC 9.6) tirs/m · Ferencváros L10 TCC 15.8 (L5 TCC 17.6) tirs/m\n🛡️ Défenses : Milan concède 13.5/m · Ferencváros concède 7.9/m\n🎯 Attendu : Milan ~7.3 · Ferencváros ~16.2 → total ~23.5\n⚖️ Ferencváros favori (#5 vs #24) · Milan forme : W-L-W-L-W · Ferencváros forme : W-W-W-D-W\n📉 Calibration : bucket 80-89% historiquement à WR 56% (claim 82%, n=63) — sur-estimé de 26pp",
         "stats": {
           "expected_total": 23.5
         },
@@ -1257,8 +776,8 @@
         "valeur_pct": null,
         "cote_estimee": false,
         "ecart_calibration": 0.0,
-        "rang_jour": 18,
-        "cumul_pct": 56.0,
+        "rang_jour": 16,
+        "cumul_pct": 52.0,
         "hors_budget": true
       },
       {
@@ -1274,22 +793,22 @@
         ],
         "confidence": 78,
         "edge": null,
-        "reasoning": "Milan prend 4.5/m [pondere vs opp #4] · adv. concède 2.9/m → attendu ~3.2 (Ferencváros favori (#4 vs #24))\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+        "reasoning": "Milan prend 4.5/m [pondere vs opp #5] · adv. concède 2.9/m → attendu ~3.2 (Ferencváros favori (#5 vs #24))\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
         "stats": {
           "expected": 3.2
         },
         "tier": "safe",
         "calibration_delta": -11.3,
         "history_top3": false,
-        "p_cal": 46.9,
+        "p_cal": 47.0,
         "statut_marche": "SURVEILLE",
         "mise_pct": 0.5,
         "mise_label": "0.5 %",
         "valeur_pct": null,
         "cote_estimee": false,
-        "ecart_calibration": -31.1,
-        "rang_jour": 82,
-        "cumul_pct": 197.5,
+        "ecart_calibration": -31.0,
+        "rang_jour": 83,
+        "cumul_pct": 194.0,
         "hors_budget": true
       }
     ],
@@ -1302,7 +821,7 @@
       "label": "Nul ou Ferencváros (X2)",
       "cote": null,
       "confidence": 89,
-      "reasoning": "Ferencváros invaincu 100% sur 5 derniers matchs · H2H: 0/0 matchs sans défaite · Classement: #4 (away) vs #24 (home)\n📉 Calibration : bucket 80-89% historiquement à WR 56% (claim 82%, n=63) — sur-estimé de 26pp",
+      "reasoning": "Ferencváros invaincu 100% sur 5 derniers matchs · H2H: 0/0 matchs sans défaite · Classement: #5 (away) vs #24 (home)\n📉 Calibration : bucket 80-89% historiquement à WR 56% (claim 82%, n=63) — sur-estimé de 26pp",
       "stats": {
         "form": [
           "W",
@@ -1324,8 +843,8 @@
       "cote_estimee": true,
       "cote_reference": 1.43,
       "ecart_calibration": -7.6,
-      "rang_jour": 12,
-      "cumul_pct": 38.0,
+      "rang_jour": 8,
+      "cumul_pct": 28.0,
       "hors_budget": true
     },
     "no_picks": false,
@@ -1340,38 +859,38 @@
         "surface": "grass"
       },
       "weather": {
-        "temp_max": 13.7,
-        "temp_min": 9.4,
-        "humidity": 64,
+        "temp_max": 14.1,
+        "temp_min": 9.6,
+        "humidity": 60,
         "precipitation_sum_mm": 0.0,
-        "wind_max_kmh": 6.9,
+        "wind_max_kmh": 7.2,
         "weather_code": 61,
-        "summary_fr": "🌦️ pluie légère · 9–13°C · humidité 64%"
+        "summary_fr": "🌦️ pluie légère · 9–14°C · humidité 60%"
       },
-      "text": "Conditions : 🌦️ pluie légère · 9–13°C · humidité 64%. Stade : Stadio Giuseppe Meazza · 75 817 places · plein air."
+      "text": "Conditions : 🌦️ pluie légère · 9–14°C · humidité 60%. Stade : Stadio Giuseppe Meazza · 75 817 places · plein air."
     }
   },
   {
-    "league": "Champions League",
-    "home": "Slavia Prague",
-    "away": "Arsenal",
-    "start_ts": 1793822400,
-    "match_id": "6106389",
-    "page_url": "/matches/slavia-prague-vs-arsenal/2kcjkf#6106389",
+    "league": "Europa League",
+    "home": "Sparta Prague",
+    "away": "AFC Bournemouth",
+    "start_ts": 1793900700,
+    "match_id": "6112304",
+    "page_url": "/matches/afc-bournemouth-vs-sparta-prague/2ymnbl#6112304",
     "picks": [
       {
         "direction": "away_dc",
         "type": "Double chance",
-        "label": "Nul ou Arsenal (X2)",
+        "label": "Nul ou AFC Bournemouth (X2)",
         "cote": null,
-        "confidence": 86,
-        "reasoning": "Arsenal invaincu 100% sur 5 derniers matchs · H2H: 0/0 matchs sans défaite · Classement: #9 (away) vs #32 (home)\n📉 Calibration : bucket 80-89% historiquement à WR 56% (claim 82%, n=63) — sur-estimé de 26pp",
+        "confidence": 88,
+        "reasoning": "AFC Bournemouth invaincu 100% sur 5 derniers matchs · H2H: 0/0 matchs sans défaite · Classement: #4 (away) vs #16 (home)\n📉 Calibration : bucket 80-89% historiquement à WR 56% (claim 82%, n=63) — sur-estimé de 26pp",
         "stats": {
           "form": [
             "W",
-            "D",
             "W",
-            "D",
+            "W",
+            "W",
             "W"
           ]
         },
@@ -1386,45 +905,15 @@
         "valeur_pct": 16.4,
         "cote_estimee": true,
         "cote_reference": 1.43,
-        "ecart_calibration": -4.6,
+        "ecart_calibration": -6.6,
         "rang_jour": 10,
-        "cumul_pct": 32.0,
+        "cumul_pct": 34.0,
         "hors_budget": true
       },
       {
-        "direction": "shots_over_24.5",
-        "type": "Tirs (total match)",
-        "label": "Plus de 24.5 tirs total",
-        "cote": null,
-        "cote_min": 1.28,
-        "value": [
-          "⚠️",
-          "Value serrée",
-          "#f59e0b"
-        ],
-        "confidence": 78,
-        "reasoning": "📊 Brut : Slavia Prague L10 TCC 20.1 (L5 TCC 22.5) tirs/m · Arsenal L10 TCC 14.2 (L5 TCC 15.8) tirs/m\n🛡️ Défenses : Slavia Prague concède 10.5/m · Arsenal concède 10.9/m\n🎯 Attendu : Slavia Prague ~11.0 · Arsenal ~17.7 → total ~28.7\n⚖️ Arsenal favori (#9 vs #32) · Slavia Prague forme : W-D-D-D-L · Arsenal forme : W-D-W-D-W\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
-        "stats": {
-          "expected_total": 28.7
-        },
-        "tier": "safe",
-        "calibration_delta": -11.3,
-        "history_top3": false,
-        "p_cal": 63.0,
-        "statut_marche": "RETENU",
-        "mise_pct": 3.0,
-        "mise_label": "3 %",
-        "valeur_pct": null,
-        "cote_estimee": false,
-        "ecart_calibration": -15.0,
-        "rang_jour": 38,
-        "cumul_pct": 116.0,
-        "hors_budget": true
-      },
-      {
-        "direction": "tirs_(slavia_prague)_under_13.5",
-        "type": "Tirs (Slavia Prague)",
-        "label": "Moins de 13.5 tirs Slavia Prague",
+        "direction": "sot_under_10.5",
+        "type": "Tirs cadrés (total)",
+        "label": "Moins de 10.5 tirs cadrés total",
         "cote": null,
         "cote_min": 1.29,
         "value": [
@@ -1433,23 +922,53 @@
           "#f59e0b"
         ],
         "confidence": 78,
-        "edge": null,
-        "reasoning": "Slavia Prague prend 16.7/m [pondere vs opp #9] · adv. concède 10.9/m → attendu ~11.0 (Arsenal favori (#9 vs #32))\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+        "reasoning": "📊 Brut : Sparta Prague L10 TCC 6.8 (L5 TCC 6.0) tirs cadrés/m · AFC Bournemouth L10 TCC 5.5 (L5 TCC 5.8) tirs cadrés/m\n🛡️ Défenses : Sparta Prague concède 2.5/m · AFC Bournemouth concède 2.4/m\n🎯 Attendu : Sparta Prague ~3.9 · AFC Bournemouth ~4.5 → total ~8.4\n⚖️ AFC Bournemouth favori (#4 vs #16) · Sparta Prague forme : D-W-L-D-D · AFC Bournemouth forme : W-W-W-W-W\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
         "stats": {
-          "expected": 11.0
+          "expected_total": 8.4
         },
         "tier": "safe",
         "calibration_delta": -11.3,
         "history_top3": false,
-        "p_cal": 46.9,
-        "statut_marche": "SURVEILLE",
-        "mise_pct": 0.5,
-        "mise_label": "0.5 %",
+        "p_cal": 75.7,
+        "statut_marche": "RETENU",
+        "mise_pct": 3.0,
+        "mise_label": "3 %",
         "valeur_pct": null,
         "cote_estimee": false,
-        "ecart_calibration": -31.1,
-        "rang_jour": 80,
-        "cumul_pct": 196.5,
+        "ecart_calibration": -2.3,
+        "rang_jour": 29,
+        "cumul_pct": 91.0,
+        "hors_budget": true
+      },
+      {
+        "direction": "tirs_(afc_bournemouth)_over_13.5",
+        "type": "Tirs (AFC Bournemouth)",
+        "label": "Plus de 13.5 tirs AFC Bournemouth",
+        "cote": null,
+        "cote_min": 1.25,
+        "value": [
+          "⚠️",
+          "Value serrée",
+          "#f59e0b"
+        ],
+        "confidence": 80,
+        "edge": null,
+        "reasoning": "AFC Bournemouth prend 17.6/m [pondere vs opp #16] · adv. concède 12.1/m → attendu ~17.0 (AFC Bournemouth favori (#4 vs #16))\n📉 Calibration : bucket 80-89% historiquement à WR 56% (claim 82%, n=63) — sur-estimé de 26pp",
+        "stats": {
+          "expected": 17.0
+        },
+        "tier": "safe",
+        "calibration_delta": -26.0,
+        "history_top3": false,
+        "p_cal": 90.0,
+        "statut_marche": "SURVEILLE",
+        "mise_pct": 1.0,
+        "mise_label": "1 %",
+        "valeur_pct": null,
+        "cote_estimee": false,
+        "ecart_calibration": 10.0,
+        "rang_jour": 69,
+        "cumul_pct": 187.0,
         "hors_budget": true
       }
     ],
@@ -1459,16 +978,16 @@
     "top_pick": {
       "direction": "away_dc",
       "type": "Double chance",
-      "label": "Nul ou Arsenal (X2)",
+      "label": "Nul ou AFC Bournemouth (X2)",
       "cote": null,
-      "confidence": 86,
-      "reasoning": "Arsenal invaincu 100% sur 5 derniers matchs · H2H: 0/0 matchs sans défaite · Classement: #9 (away) vs #32 (home)\n📉 Calibration : bucket 80-89% historiquement à WR 56% (claim 82%, n=63) — sur-estimé de 26pp",
+      "confidence": 88,
+      "reasoning": "AFC Bournemouth invaincu 100% sur 5 derniers matchs · H2H: 0/0 matchs sans défaite · Classement: #4 (away) vs #16 (home)\n📉 Calibration : bucket 80-89% historiquement à WR 56% (claim 82%, n=63) — sur-estimé de 26pp",
       "stats": {
         "form": [
           "W",
-          "D",
           "W",
-          "D",
+          "W",
+          "W",
           "W"
         ]
       },
@@ -1483,32 +1002,193 @@
       "valeur_pct": 16.4,
       "cote_estimee": true,
       "cote_reference": 1.43,
-      "ecart_calibration": -4.6,
+      "ecart_calibration": -6.6,
       "rang_jour": 10,
-      "cumul_pct": 32.0,
+      "cumul_pct": 34.0,
       "hors_budget": true
     },
     "no_picks": false,
     "context": {
       "stadium": {
-        "name": "Fortuna Arena",
+        "name": "epet ARENA",
         "city": "Praha",
         "country": "Czech Republic",
-        "lat": 50.067525002,
-        "lon": 14.471139908,
-        "capacity": 19370,
+        "lat": 50.09981606,
+        "lon": 14.415827394,
+        "capacity": 20854,
         "surface": "grass"
       },
       "weather": {
-        "temp_max": 9.8,
-        "temp_min": 4.2,
-        "humidity": 65,
+        "temp_max": 9.0,
+        "temp_min": 2.0,
+        "humidity": 64,
         "precipitation_sum_mm": 0.0,
-        "wind_max_kmh": 13.1,
-        "weather_code": 3,
-        "summary_fr": "☁️ couvert · 4–9°C · humidité 65%"
+        "wind_max_kmh": 10.5,
+        "weather_code": 1,
+        "summary_fr": "🌤️ principalement clair · 2–9°C · humidité 64%"
       },
-      "text": "Conditions : ☁️ couvert · 4–9°C · humidité 65%. Stade : Fortuna Arena · 19 370 places · plein air."
+      "text": "Conditions : 🌤️ principalement clair · 2–9°C · humidité 64%. Stade : epet ARENA · 20 854 places · plein air."
+    }
+  },
+  {
+    "league": "Europa League",
+    "home": "Rennes",
+    "away": "Olympiacos",
+    "start_ts": 1793806200,
+    "match_id": "6112306",
+    "page_url": "/matches/olympiacos-vs-rennes/2trunk#6112306",
+    "picks": [
+      {
+        "direction": "away_dc",
+        "type": "Double chance",
+        "label": "Nul ou Olympiacos (X2)",
+        "cote": null,
+        "confidence": 87,
+        "reasoning": "Olympiacos invaincu 100% sur 5 derniers matchs · H2H: 0/0 matchs sans défaite · Classement: #1 (away) vs #12 (home)\n📉 Calibration : bucket 80-89% historiquement à WR 56% (claim 82%, n=63) — sur-estimé de 26pp",
+        "stats": {
+          "form": [
+            "W",
+            "W",
+            "W",
+            "W",
+            "W"
+          ]
+        },
+        "is_fun": false,
+        "tier": "safe",
+        "calibration_delta": -26.0,
+        "history_top3": true,
+        "p_cal": 81.4,
+        "statut_marche": "RETENU",
+        "mise_pct": 3.0,
+        "mise_label": "3 %",
+        "valeur_pct": 16.4,
+        "cote_estimee": true,
+        "cote_reference": 1.43,
+        "ecart_calibration": -5.6,
+        "rang_jour": 7,
+        "cumul_pct": 25.0,
+        "hors_budget": true
+      },
+      {
+        "direction": "shots_over_27.5",
+        "type": "Tirs (total match)",
+        "label": "Plus de 27.5 tirs total",
+        "cote": null,
+        "cote_min": 1.25,
+        "value": [
+          "⚠️",
+          "Value serrée",
+          "#f59e0b"
+        ],
+        "confidence": 80,
+        "reasoning": "📊 Brut : Rennes L10 TCC 18.0 (L5 TCC 17.2) tirs/m · Olympiacos L10 TCC 18.1 (L5 TCC 19.2) tirs/m\n🛡️ Défenses : Rennes concède 13.0/m · Olympiacos concède 10.8/m\n🎯 Attendu : Rennes ~13.2 · Olympiacos ~19.0 → total ~32.3\n⚖️ Olympiacos favori (#1 vs #12) · Rennes forme : L-W-D-L-W · Olympiacos forme : W-W-W-W-W\n📉 Calibration : bucket 80-89% historiquement à WR 56% (claim 82%, n=63) — sur-estimé de 26pp",
+        "stats": {
+          "expected_total": 32.3
+        },
+        "tier": "safe",
+        "calibration_delta": -26.0,
+        "history_top3": false,
+        "p_cal": 80.0,
+        "statut_marche": "RETENU",
+        "mise_pct": 3.0,
+        "mise_label": "3 %",
+        "valeur_pct": null,
+        "cote_estimee": false,
+        "ecart_calibration": 0.0,
+        "rang_jour": 15,
+        "cumul_pct": 49.0,
+        "hors_budget": true
+      },
+      {
+        "direction": "away_win",
+        "type": "Victoire extérieur",
+        "label": "Olympiacos gagne",
+        "cote": null,
+        "confidence": 81,
+        "reasoning": "Olympiacos : 5V/0N/0D sur 5 matchs · #1 au classement · H2H: 0V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 80-89% historiquement à WR 56% (claim 82%, n=63) — sur-estimé de 26pp",
+        "stats": {
+          "form": [
+            "W",
+            "W",
+            "W",
+            "W",
+            "W"
+          ]
+        },
+        "is_fun": false,
+        "tier": "safe",
+        "calibration_delta": -26.0,
+        "history_top3": true,
+        "p_cal": 54.2,
+        "statut_marche": "SURVEILLE",
+        "mise_pct": 0.5,
+        "mise_label": "0.5 %",
+        "valeur_pct": 29.0,
+        "cote_estimee": true,
+        "cote_reference": 2.38,
+        "ecart_calibration": -26.8,
+        "rang_jour": 70,
+        "cumul_pct": 187.5,
+        "hors_budget": true
+      }
+    ],
+    "home_players": [],
+    "away_players": [],
+    "fun_picks": [],
+    "top_pick": {
+      "direction": "away_dc",
+      "type": "Double chance",
+      "label": "Nul ou Olympiacos (X2)",
+      "cote": null,
+      "confidence": 87,
+      "reasoning": "Olympiacos invaincu 100% sur 5 derniers matchs · H2H: 0/0 matchs sans défaite · Classement: #1 (away) vs #12 (home)\n📉 Calibration : bucket 80-89% historiquement à WR 56% (claim 82%, n=63) — sur-estimé de 26pp",
+      "stats": {
+        "form": [
+          "W",
+          "W",
+          "W",
+          "W",
+          "W"
+        ]
+      },
+      "is_fun": false,
+      "tier": "safe",
+      "calibration_delta": -26.0,
+      "history_top3": true,
+      "p_cal": 81.4,
+      "statut_marche": "RETENU",
+      "mise_pct": 3.0,
+      "mise_label": "3 %",
+      "valeur_pct": 16.4,
+      "cote_estimee": true,
+      "cote_reference": 1.43,
+      "ecart_calibration": -5.6,
+      "rang_jour": 7,
+      "cumul_pct": 25.0,
+      "hors_budget": true
+    },
+    "no_picks": false,
+    "context": {
+      "stadium": {
+        "name": "Roazhon Park",
+        "city": "Rennes",
+        "country": "France",
+        "lat": 48.107467009,
+        "lon": -1.712884158,
+        "capacity": 31127,
+        "surface": "grass"
+      },
+      "weather": {
+        "temp_max": 10.1,
+        "temp_min": 5.0,
+        "humidity": 67,
+        "precipitation_sum_mm": 0.0,
+        "wind_max_kmh": 16.7,
+        "weather_code": 51,
+        "summary_fr": "🌦️ bruine légère · 5–10°C · humidité 67%"
+      },
+      "text": "Conditions : 🌦️ bruine légère · 5–10°C · humidité 67%. Stade : Roazhon Park · 31 127 places · plein air."
     }
   },
   {
@@ -1547,8 +1227,8 @@
         "cote_estimee": true,
         "cote_reference": 1.43,
         "ecart_calibration": -4.6,
-        "rang_jour": 14,
-        "cumul_pct": 44.0,
+        "rang_jour": 11,
+        "cumul_pct": 37.0,
         "hors_budget": true
       },
       {
@@ -1577,8 +1257,8 @@
         "valeur_pct": null,
         "cote_estimee": false,
         "ecart_calibration": -16.0,
-        "rang_jour": 46,
-        "cumul_pct": 140.0,
+        "rang_jour": 43,
+        "cumul_pct": 133.0,
         "hors_budget": true
       },
       {
@@ -1601,15 +1281,15 @@
         "tier": "safe",
         "calibration_delta": -11.3,
         "history_top3": false,
-        "p_cal": 46.9,
+        "p_cal": 47.0,
         "statut_marche": "SURVEILLE",
         "mise_pct": 0.5,
         "mise_label": "0.5 %",
         "valeur_pct": null,
         "cote_estimee": false,
-        "ecart_calibration": -32.1,
+        "ecart_calibration": -32.0,
         "rang_jour": 93,
-        "cumul_pct": 203.0,
+        "cumul_pct": 199.0,
         "hors_budget": true
       }
     ],
@@ -1644,8 +1324,8 @@
       "cote_estimee": true,
       "cote_reference": 1.43,
       "ecart_calibration": -4.6,
-      "rang_jour": 14,
-      "cumul_pct": 44.0,
+      "rang_jour": 11,
+      "cumul_pct": 37.0,
       "hors_budget": true
     },
     "no_picks": false,
@@ -1660,15 +1340,15 @@
         "surface": "grass"
       },
       "weather": {
-        "temp_max": 15.4,
-        "temp_min": 7.9,
-        "humidity": 68,
+        "temp_max": 14.9,
+        "temp_min": 7.8,
+        "humidity": 69,
         "precipitation_sum_mm": 0.0,
-        "wind_max_kmh": 7.9,
+        "wind_max_kmh": 9.0,
         "weather_code": 1,
-        "summary_fr": "🌤️ principalement clair · 7–15°C · humidité 68%"
+        "summary_fr": "🌤️ principalement clair · 7–14°C · humidité 69%"
       },
-      "text": "Conditions : 🌤️ principalement clair · 7–15°C · humidité 68%. Stade : Estadio Abanca-Balaídos · 24 870 places · plein air."
+      "text": "Conditions : 🌤️ principalement clair · 7–14°C · humidité 69%. Stade : Estadio Abanca-Balaídos · 24 870 places · plein air."
     }
   },
   {
@@ -1683,7 +1363,7 @@
         "direction": "away_dc",
         "type": "Double chance",
         "label": "Nul ou Club Brugge (X2)",
-        "cote": null,
+        "cote": 1.85,
         "confidence": 84,
         "reasoning": "Club Brugge invaincu 100% sur 5 derniers matchs · H2H: 0/0 matchs sans défaite · Classement: #13 (away) vs #21 (home)\n📉 Calibration : bucket 80-89% historiquement à WR 56% (claim 82%, n=63) — sur-estimé de 26pp",
         "stats": {
@@ -1698,18 +1378,18 @@
         "is_fun": false,
         "tier": "safe",
         "calibration_delta": -26.0,
+        "edge_pp": 29.9,
         "history_top3": true,
         "p_cal": 81.4,
         "statut_marche": "RETENU",
-        "mise_pct": 3.0,
-        "mise_label": "3 %",
-        "valeur_pct": 16.4,
-        "cote_estimee": true,
-        "cote_reference": 1.43,
+        "mise_pct": 5.0,
+        "mise_label": "5 %",
+        "valeur_pct": 50.6,
+        "cote_estimee": false,
         "ecart_calibration": -2.6,
-        "rang_jour": 9,
-        "cumul_pct": 29.0,
-        "hors_budget": true
+        "rang_jour": 1,
+        "cumul_pct": 5.0,
+        "hors_budget": false
       },
       {
         "direction": "sot_over_8.5",
@@ -1737,8 +1417,8 @@
         "valeur_pct": null,
         "cote_estimee": false,
         "ecart_calibration": -0.3,
-        "rang_jour": 26,
-        "cumul_pct": 80.0,
+        "rang_jour": 25,
+        "cumul_pct": 79.0,
         "hors_budget": true
       },
       {
@@ -1761,15 +1441,15 @@
         "tier": "safe",
         "calibration_delta": -11.3,
         "history_top3": false,
-        "p_cal": 46.9,
+        "p_cal": 47.0,
         "statut_marche": "SURVEILLE",
         "mise_pct": 0.5,
         "mise_label": "0.5 %",
         "valeur_pct": null,
         "cote_estimee": false,
-        "ecart_calibration": -31.1,
-        "rang_jour": 79,
-        "cumul_pct": 196.0,
+        "ecart_calibration": -31.0,
+        "rang_jour": 80,
+        "cumul_pct": 192.5,
         "hors_budget": true
       }
     ],
@@ -1780,7 +1460,7 @@
       "direction": "away_dc",
       "type": "Double chance",
       "label": "Nul ou Club Brugge (X2)",
-      "cote": null,
+      "cote": 1.85,
       "confidence": 84,
       "reasoning": "Club Brugge invaincu 100% sur 5 derniers matchs · H2H: 0/0 matchs sans défaite · Classement: #13 (away) vs #21 (home)\n📉 Calibration : bucket 80-89% historiquement à WR 56% (claim 82%, n=63) — sur-estimé de 26pp",
       "stats": {
@@ -1795,18 +1475,18 @@
       "is_fun": false,
       "tier": "safe",
       "calibration_delta": -26.0,
+      "edge_pp": 29.9,
       "history_top3": true,
       "p_cal": 81.4,
       "statut_marche": "RETENU",
-      "mise_pct": 3.0,
-      "mise_label": "3 %",
-      "valeur_pct": 16.4,
-      "cote_estimee": true,
-      "cote_reference": 1.43,
+      "mise_pct": 5.0,
+      "mise_label": "5 %",
+      "valeur_pct": 50.6,
+      "cote_estimee": false,
       "ecart_calibration": -2.6,
-      "rang_jour": 9,
-      "cumul_pct": 29.0,
-      "hors_budget": true
+      "rang_jour": 1,
+      "cumul_pct": 5.0,
+      "hors_budget": false
     },
     "no_picks": false,
     "context": {
@@ -1820,176 +1500,15 @@
         "surface": "grass"
       },
       "weather": {
-        "temp_max": 10.5,
-        "temp_min": 4.4,
-        "humidity": 70,
+        "temp_max": 10.3,
+        "temp_min": 4.5,
+        "humidity": 71,
         "precipitation_sum_mm": 0.0,
-        "wind_max_kmh": 23.0,
+        "wind_max_kmh": 22.3,
         "weather_code": 3,
-        "summary_fr": "☁️ couvert · 4–10°C · humidité 70%"
+        "summary_fr": "☁️ couvert · 4–10°C · humidité 71%"
       },
-      "text": "Conditions : ☁️ couvert · 4–10°C · humidité 70%. Stade : Philips Stadion · 35 000 places · plein air."
-    }
-  },
-  {
-    "league": "Europa League",
-    "home": "Rennes",
-    "away": "Olympiacos",
-    "start_ts": 1793806200,
-    "match_id": "6112306",
-    "page_url": "/matches/olympiacos-vs-rennes/2trunk#6112306",
-    "picks": [
-      {
-        "direction": "away_dc",
-        "type": "Double chance",
-        "label": "Nul ou Olympiacos (X2)",
-        "cote": null,
-        "confidence": 84,
-        "reasoning": "Olympiacos invaincu 100% sur 5 derniers matchs · H2H: 0/0 matchs sans défaite · Classement: #5 (away) vs #13 (home)\n📉 Calibration : bucket 80-89% historiquement à WR 56% (claim 82%, n=63) — sur-estimé de 26pp",
-        "stats": {
-          "form": [
-            "W",
-            "W",
-            "W",
-            "W",
-            "W"
-          ]
-        },
-        "is_fun": false,
-        "tier": "safe",
-        "calibration_delta": -26.0,
-        "history_top3": true,
-        "p_cal": 81.4,
-        "statut_marche": "RETENU",
-        "mise_pct": 3.0,
-        "mise_label": "3 %",
-        "valeur_pct": 16.4,
-        "cote_estimee": true,
-        "cote_reference": 1.43,
-        "ecart_calibration": -2.6,
-        "rang_jour": 11,
-        "cumul_pct": 35.0,
-        "hors_budget": true
-      },
-      {
-        "direction": "shots_over_27.5",
-        "type": "Tirs (total match)",
-        "label": "Plus de 27.5 tirs total",
-        "cote": null,
-        "cote_min": 1.27,
-        "value": [
-          "⚠️",
-          "Value serrée",
-          "#f59e0b"
-        ],
-        "confidence": 79,
-        "reasoning": "📊 Brut : Rennes L10 TCC 18.0 (L5 TCC 17.2) tirs/m · Olympiacos L10 TCC 18.1 (L5 TCC 19.2) tirs/m\n🛡️ Défenses : Rennes concède 13.0/m · Olympiacos concède 10.8/m\n🎯 Attendu : Rennes ~13.6 · Olympiacos ~18.5 → total ~32.0\n⚖️ Olympiacos favori (#5 vs #13) · Rennes forme : L-W-D-L-W · Olympiacos forme : W-W-W-W-W\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
-        "stats": {
-          "expected_total": 32.0
-        },
-        "tier": "safe",
-        "calibration_delta": -11.3,
-        "history_top3": false,
-        "p_cal": 63.0,
-        "statut_marche": "RETENU",
-        "mise_pct": 3.0,
-        "mise_label": "3 %",
-        "valeur_pct": null,
-        "cote_estimee": false,
-        "ecart_calibration": -16.0,
-        "rang_jour": 40,
-        "cumul_pct": 122.0,
-        "hors_budget": true
-      },
-      {
-        "direction": "away_win",
-        "type": "Victoire extérieur",
-        "label": "Olympiacos gagne",
-        "cote": null,
-        "confidence": 77,
-        "reasoning": "Olympiacos : 5V/0N/0D sur 5 matchs · #5 au classement · H2H: 0V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
-        "stats": {
-          "form": [
-            "W",
-            "W",
-            "W",
-            "W",
-            "W"
-          ]
-        },
-        "is_fun": false,
-        "tier": "safe",
-        "calibration_delta": -11.3,
-        "history_top3": true,
-        "p_cal": 53.3,
-        "statut_marche": "SURVEILLE",
-        "mise_pct": 0.5,
-        "mise_label": "0.5 %",
-        "valeur_pct": 26.9,
-        "cote_estimee": true,
-        "cote_reference": 2.38,
-        "ecart_calibration": -23.7,
-        "rang_jour": 70,
-        "cumul_pct": 191.5,
-        "hors_budget": true
-      }
-    ],
-    "home_players": [],
-    "away_players": [],
-    "fun_picks": [],
-    "top_pick": {
-      "direction": "away_dc",
-      "type": "Double chance",
-      "label": "Nul ou Olympiacos (X2)",
-      "cote": null,
-      "confidence": 84,
-      "reasoning": "Olympiacos invaincu 100% sur 5 derniers matchs · H2H: 0/0 matchs sans défaite · Classement: #5 (away) vs #13 (home)\n📉 Calibration : bucket 80-89% historiquement à WR 56% (claim 82%, n=63) — sur-estimé de 26pp",
-      "stats": {
-        "form": [
-          "W",
-          "W",
-          "W",
-          "W",
-          "W"
-        ]
-      },
-      "is_fun": false,
-      "tier": "safe",
-      "calibration_delta": -26.0,
-      "history_top3": true,
-      "p_cal": 81.4,
-      "statut_marche": "RETENU",
-      "mise_pct": 3.0,
-      "mise_label": "3 %",
-      "valeur_pct": 16.4,
-      "cote_estimee": true,
-      "cote_reference": 1.43,
-      "ecart_calibration": -2.6,
-      "rang_jour": 11,
-      "cumul_pct": 35.0,
-      "hors_budget": true
-    },
-    "no_picks": false,
-    "context": {
-      "stadium": {
-        "name": "Roazhon Park",
-        "city": "Rennes",
-        "country": "France",
-        "lat": 48.107467009,
-        "lon": -1.712884158,
-        "capacity": 31127,
-        "surface": "grass"
-      },
-      "weather": {
-        "temp_max": 9.7,
-        "temp_min": 5.0,
-        "humidity": 63,
-        "precipitation_sum_mm": 0.0,
-        "wind_max_kmh": 17.7,
-        "weather_code": 3,
-        "summary_fr": "☁️ couvert · 5–9°C · humidité 63%"
-      },
-      "text": "Conditions : ☁️ couvert · 5–9°C · humidité 63%. Stade : Roazhon Park · 31 127 places · plein air."
+      "text": "Conditions : ☁️ couvert · 4–10°C · humidité 71%. Stade : Philips Stadion · 35 000 places · plein air."
     }
   },
   {
@@ -2028,8 +1547,8 @@
         "cote_estimee": true,
         "cote_reference": 1.43,
         "ecart_calibration": -2.6,
-        "rang_jour": 16,
-        "cumul_pct": 50.0,
+        "rang_jour": 13,
+        "cumul_pct": 43.0,
         "hors_budget": true
       },
       {
@@ -2052,16 +1571,16 @@
         "tier": "safe",
         "calibration_delta": -11.3,
         "history_top3": true,
-        "p_cal": 55.3,
+        "p_cal": 56.2,
         "statut_marche": "SURVEILLE",
         "mise_pct": 1.0,
         "mise_label": "1 %",
-        "valeur_pct": 17.2,
+        "valeur_pct": 19.1,
         "cote_estimee": true,
         "cote_reference": 2.12,
-        "ecart_calibration": -18.7,
-        "rang_jour": 64,
-        "cumul_pct": 186.0,
+        "ecart_calibration": -17.8,
+        "rang_jour": 62,
+        "cumul_pct": 180.0,
         "hors_budget": true
       }
     ],
@@ -2096,8 +1615,8 @@
       "cote_estimee": true,
       "cote_reference": 1.43,
       "ecart_calibration": -2.6,
-      "rang_jour": 16,
-      "cumul_pct": 50.0,
+      "rang_jour": 13,
+      "cumul_pct": 43.0,
       "hors_budget": true
     },
     "no_picks": false,
@@ -2112,15 +1631,15 @@
         "surface": "grass"
       },
       "weather": {
-        "temp_max": 29.8,
-        "temp_min": 21.1,
-        "humidity": 57,
-        "precipitation_sum_mm": 18.8,
-        "wind_max_kmh": 17.0,
+        "temp_max": 29.4,
+        "temp_min": 20.7,
+        "humidity": 58,
+        "precipitation_sum_mm": 9.5,
+        "wind_max_kmh": 21.9,
         "weather_code": 95,
-        "summary_fr": "⛈️ orage · 21–29°C · humidité 57% · précipitations 18.8mm"
+        "summary_fr": "⛈️ orage · 20–29°C · humidité 58% · précipitations 9.5mm"
       },
-      "text": "Conditions : ⛈️ orage · 21–29°C · humidité 57% · précipitations 18.8mm. Stade : Estadio ueno Defensores del Chaco · 42 354 places · plein air. ⚠️ Pluies prévues : terrain potentiellement lourd, jeu direct privilégié, plus d'erreurs techniques."
+      "text": "Conditions : ⛈️ orage · 20–29°C · humidité 58% · précipitations 9.5mm. Stade : Estadio ueno Defensores del Chaco · 42 354 places · plein air. ⚠️ Pluies prévues : terrain potentiellement lourd, jeu direct privilégié, plus d'erreurs techniques."
     }
   },
   {
@@ -2159,8 +1678,8 @@
         "cote_estimee": true,
         "cote_reference": 1.43,
         "ecart_calibration": -0.6,
-        "rang_jour": 15,
-        "cumul_pct": 47.0,
+        "rang_jour": 12,
+        "cumul_pct": 40.0,
         "hors_budget": true
       },
       {
@@ -2189,8 +1708,8 @@
         "valeur_pct": null,
         "cote_estimee": false,
         "ecart_calibration": -16.0,
-        "rang_jour": 60,
-        "cumul_pct": 182.0,
+        "rang_jour": 57,
+        "cumul_pct": 175.0,
         "hors_budget": true
       },
       {
@@ -2222,7 +1741,7 @@
         "cote_reference": 2.12,
         "ecart_calibration": -16.6,
         "rang_jour": 73,
-        "cumul_pct": 193.0,
+        "cumul_pct": 189.0,
         "hors_budget": true
       }
     ],
@@ -2257,8 +1776,8 @@
       "cote_estimee": true,
       "cote_reference": 1.43,
       "ecart_calibration": -0.6,
-      "rang_jour": 15,
-      "cumul_pct": 47.0,
+      "rang_jour": 12,
+      "cumul_pct": 40.0,
       "hors_budget": true
     },
     "no_picks": false,
@@ -2273,15 +1792,15 @@
         "surface": "grass"
       },
       "weather": {
-        "temp_max": 8.8,
-        "temp_min": 4.4,
+        "temp_max": 8.7,
+        "temp_min": 4.5,
         "humidity": 79,
-        "precipitation_sum_mm": 1.2,
-        "wind_max_kmh": 13.3,
+        "precipitation_sum_mm": 1.1,
+        "wind_max_kmh": 13.5,
         "weather_code": 61,
-        "summary_fr": "🌦️ pluie légère · 4–8°C · humidité 79% · précipitations 1.2mm"
+        "summary_fr": "🌦️ pluie légère · 4–8°C · humidité 79% · précipitations 1.1mm"
       },
-      "text": "Conditions : 🌦️ pluie légère · 4–8°C · humidité 79% · précipitations 1.2mm. Stade : Complex Sportiv Craiova · 30 983 places · plein air."
+      "text": "Conditions : 🌦️ pluie légère · 4–8°C · humidité 79% · précipitations 1.1mm. Stade : Complex Sportiv Craiova · 30 983 places · plein air."
     }
   },
   {
@@ -2318,8 +1837,8 @@
         "valeur_pct": null,
         "cote_estimee": false,
         "ecart_calibration": 0.0,
-        "rang_jour": 17,
-        "cumul_pct": 53.0,
+        "rang_jour": 14,
+        "cumul_pct": 46.0,
         "hors_budget": true
       },
       {
@@ -2342,15 +1861,15 @@
         "tier": "safe",
         "calibration_delta": -11.3,
         "history_top3": false,
-        "p_cal": 46.9,
+        "p_cal": 47.0,
         "statut_marche": "SURVEILLE",
         "mise_pct": 0.5,
         "mise_label": "0.5 %",
         "valeur_pct": null,
         "cote_estimee": false,
-        "ecart_calibration": -32.1,
+        "ecart_calibration": -32.0,
         "rang_jour": 78,
-        "cumul_pct": 195.5,
+        "cumul_pct": 191.5,
         "hors_budget": true
       }
     ],
@@ -2383,8 +1902,8 @@
       "valeur_pct": null,
       "cote_estimee": false,
       "ecart_calibration": 0.0,
-      "rang_jour": 17,
-      "cumul_pct": 53.0,
+      "rang_jour": 14,
+      "cumul_pct": 46.0,
       "hors_budget": true
     },
     "no_picks": false,
@@ -2400,14 +1919,14 @@
       },
       "weather": {
         "temp_max": 9.3,
-        "temp_min": 3.0,
-        "humidity": 74,
+        "temp_min": 3.5,
+        "humidity": 75,
         "precipitation_sum_mm": 0.0,
-        "wind_max_kmh": 23.4,
+        "wind_max_kmh": 20.9,
         "weather_code": 3,
-        "summary_fr": "☁️ couvert · 3–9°C · humidité 74%"
+        "summary_fr": "☁️ couvert · 3–9°C · humidité 75%"
       },
-      "text": "Conditions : ☁️ couvert · 3–9°C · humidité 74%. Stade : SIGNAL IDUNA PARK · 81 365 places · plein air."
+      "text": "Conditions : ☁️ couvert · 3–9°C · humidité 75%. Stade : SIGNAL IDUNA PARK · 81 365 places · plein air."
     }
   },
   {
@@ -2444,8 +1963,8 @@
         "valeur_pct": null,
         "cote_estimee": false,
         "ecart_calibration": -1.9,
-        "rang_jour": 22,
-        "cumul_pct": 68.0,
+        "rang_jour": 21,
+        "cumul_pct": 67.0,
         "hors_budget": true
       },
       {
@@ -2468,15 +1987,15 @@
         "tier": "safe",
         "calibration_delta": -11.3,
         "history_top3": false,
-        "p_cal": 46.9,
+        "p_cal": 47.0,
         "statut_marche": "SURVEILLE",
         "mise_pct": 0.5,
         "mise_label": "0.5 %",
         "valeur_pct": null,
         "cote_estimee": false,
-        "ecart_calibration": -32.1,
-        "rang_jour": 83,
-        "cumul_pct": 198.0,
+        "ecart_calibration": -32.0,
+        "rang_jour": 84,
+        "cumul_pct": 194.5,
         "hors_budget": true
       }
     ],
@@ -2509,8 +2028,8 @@
       "valeur_pct": null,
       "cote_estimee": false,
       "ecart_calibration": -1.9,
-      "rang_jour": 22,
-      "cumul_pct": 68.0,
+      "rang_jour": 21,
+      "cumul_pct": 67.0,
       "hors_budget": true
     },
     "no_picks": false,
@@ -2526,14 +2045,14 @@
       },
       "weather": {
         "temp_max": 11.3,
-        "temp_min": 3.0,
-        "humidity": 68,
+        "temp_min": 3.1,
+        "humidity": 67,
         "precipitation_sum_mm": 0.0,
-        "wind_max_kmh": 17.6,
+        "wind_max_kmh": 15.8,
         "weather_code": 0,
-        "summary_fr": "🌤️ conditions variables · 3–11°C · humidité 68%"
+        "summary_fr": "🌤️ conditions variables · 3–11°C · humidité 67%"
       },
-      "text": "Conditions : 🌤️ conditions variables · 3–11°C · humidité 68%. Stade : Lotto Park · 28 063 places · plein air."
+      "text": "Conditions : 🌤️ conditions variables · 3–11°C · humidité 67%. Stade : Lotto Park · 28 063 places · plein air."
     }
   },
   {
@@ -2572,38 +2091,38 @@
         "cote_estimee": true,
         "cote_reference": 1.43,
         "ecart_calibration": 1.4,
-        "rang_jour": 13,
-        "cumul_pct": 41.0,
+        "rang_jour": 9,
+        "cumul_pct": 31.0,
         "hors_budget": true
       },
       {
-        "direction": "shots_under_24.5",
-        "type": "Tirs (total match)",
-        "label": "Moins de 24.5 tirs total",
+        "direction": "sot_under_10.5",
+        "type": "Tirs cadrés (total)",
+        "label": "Moins de 10.5 tirs cadrés total",
         "cote": null,
-        "cote_min": 1.27,
+        "cote_min": 1.26,
         "value": [
           "⚠️",
           "Value serrée",
           "#f59e0b"
         ],
         "confidence": 79,
-        "reasoning": "📊 Brut : Levski Sofia L10 TCC 10.2 (L5 TCC 9.2) tirs/m · Jagiellonia Białystok L10 TCC 12.4 (L5 TCC 15.5) tirs/m\n🛡️ Défenses : Levski Sofia concède 9.7/m · Jagiellonia Białystok concède 14.8/m\n🎯 Attendu : Levski Sofia ~13.6 · Jagiellonia Białystok ~7.3 → total ~20.9\n⚖️ Levski Sofia favori (#17 vs #27) · Levski Sofia forme : W-D-W-W-D · Jagiellonia Białystok forme : W-W-W-L-L\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+        "reasoning": "📊 Brut : Levski Sofia L10 TCC 3.2 (L5 TCC 4.0) tirs cadrés/m · Jagiellonia Białystok L10 TCC 3.7 (L5 TCC 4.2) tirs cadrés/m\n🛡️ Défenses : Levski Sofia concède 3.4/m · Jagiellonia Białystok concède 5.8/m\n🎯 Attendu : Levski Sofia ~4.9 · Jagiellonia Białystok ~3.3 → total ~8.2\n⚖️ Levski Sofia favori (#17 vs #27) · Levski Sofia forme : W-D-W-W-D · Jagiellonia Białystok forme : W-W-W-L-L\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
         "stats": {
-          "expected_total": 20.9
+          "expected_total": 8.2
         },
         "tier": "safe",
         "calibration_delta": -11.3,
         "history_top3": false,
-        "p_cal": 63.0,
+        "p_cal": 75.7,
         "statut_marche": "RETENU",
         "mise_pct": 3.0,
         "mise_label": "3 %",
         "valeur_pct": null,
         "cote_estimee": false,
-        "ecart_calibration": -16.0,
-        "rang_jour": 41,
-        "cumul_pct": 125.0,
+        "ecart_calibration": -3.3,
+        "rang_jour": 28,
+        "cumul_pct": 88.0,
         "hors_budget": true
       },
       {
@@ -2626,15 +2145,15 @@
         "tier": "safe",
         "calibration_delta": -11.3,
         "history_top3": false,
-        "p_cal": 46.9,
+        "p_cal": 47.0,
         "statut_marche": "SURVEILLE",
         "mise_pct": 0.5,
         "mise_label": "0.5 %",
         "valeur_pct": null,
         "cote_estimee": false,
-        "ecart_calibration": -32.1,
-        "rang_jour": 85,
-        "cumul_pct": 199.0,
+        "ecart_calibration": -32.0,
+        "rang_jour": 86,
+        "cumul_pct": 195.5,
         "hors_budget": true
       }
     ],
@@ -2669,8 +2188,8 @@
       "cote_estimee": true,
       "cote_reference": 1.43,
       "ecart_calibration": 1.4,
-      "rang_jour": 13,
-      "cumul_pct": 41.0,
+      "rang_jour": 9,
+      "cumul_pct": 31.0,
       "hors_budget": true
     },
     "no_picks": false,
@@ -2685,15 +2204,15 @@
         "surface": "grass"
       },
       "weather": {
-        "temp_max": 9.2,
-        "temp_min": 5.6,
-        "humidity": 82,
-        "precipitation_sum_mm": 1.2,
+        "temp_max": 9.0,
+        "temp_min": 5.0,
+        "humidity": 81,
+        "precipitation_sum_mm": 1.8,
         "wind_max_kmh": 6.8,
         "weather_code": 61,
-        "summary_fr": "🌦️ pluie légère · 5–9°C · humidité 82% · précipitations 1.2mm"
+        "summary_fr": "🌦️ pluie légère · 5–9°C · humidité 81% · précipitations 1.8mm"
       },
-      "text": "Conditions : 🌦️ pluie légère · 5–9°C · humidité 82% · précipitations 1.2mm. Stade : Stadion Vasil Levski · 43 632 places · plein air."
+      "text": "Conditions : 🌦️ pluie légère · 5–9°C · humidité 81% · précipitations 1.8mm. Stade : Stadion Vasil Levski · 43 632 places · plein air."
     }
   },
   {
@@ -2730,8 +2249,8 @@
         "valeur_pct": null,
         "cote_estimee": false,
         "ecart_calibration": 0.0,
-        "rang_jour": 19,
-        "cumul_pct": 59.0,
+        "rang_jour": 17,
+        "cumul_pct": 55.0,
         "hors_budget": true
       },
       {
@@ -2754,15 +2273,15 @@
         "tier": "safe",
         "calibration_delta": -11.3,
         "history_top3": false,
-        "p_cal": 46.9,
+        "p_cal": 47.0,
         "statut_marche": "SURVEILLE",
         "mise_pct": 0.5,
         "mise_label": "0.5 %",
         "valeur_pct": null,
         "cote_estimee": false,
-        "ecart_calibration": -32.1,
-        "rang_jour": 87,
-        "cumul_pct": 200.0,
+        "ecart_calibration": -32.0,
+        "rang_jour": 88,
+        "cumul_pct": 196.5,
         "hors_budget": true
       }
     ],
@@ -2795,8 +2314,8 @@
       "valeur_pct": null,
       "cote_estimee": false,
       "ecart_calibration": 0.0,
-      "rang_jour": 19,
-      "cumul_pct": 59.0,
+      "rang_jour": 17,
+      "cumul_pct": 55.0,
       "hors_budget": true
     },
     "no_picks": false,
@@ -2812,14 +2331,14 @@
       },
       "weather": {
         "temp_max": 10.3,
-        "temp_min": 1.7,
-        "humidity": 73,
+        "temp_min": 2.0,
+        "humidity": 74,
         "precipitation_sum_mm": 0.0,
         "wind_max_kmh": 17.6,
         "weather_code": 0,
-        "summary_fr": "🌤️ conditions variables · 1–10°C · humidité 73%"
+        "summary_fr": "🌤️ conditions variables · 2–10°C · humidité 74%"
       },
-      "text": "Conditions : 🌤️ conditions variables · 1–10°C · humidité 73%. Stade : Goffertstadion · 12 650 places · plein air."
+      "text": "Conditions : 🌤️ conditions variables · 2–10°C · humidité 74%. Stade : Goffertstadion · 12 650 places · plein air."
     }
   },
   {
@@ -2842,7 +2361,7 @@
           "#f59e0b"
         ],
         "confidence": 80,
-        "reasoning": "📊 Brut : Bayer Leverkusen L10 TCC 7.5 (L5 TCC 7.8) tirs cadrés/m · Marseille L10 TCC 4.1 (L5 TCC 4.4) tirs cadrés/m\n🛡️ Défenses : Bayer Leverkusen concède 4.0/m · Marseille concède 5.5/m\n🎯 Attendu : Bayer Leverkusen ~7.9 · Marseille ~3.4 → total ~11.3\n⚖️ Bayer Leverkusen favori (#2 vs #34) · Bayer Leverkusen forme : L-W-L-W-W · Marseille forme : W-W-L-W-L\n📉 Calibration : bucket 80-89% historiquement à WR 56% (claim 82%, n=63) — sur-estimé de 26pp",
+        "reasoning": "📊 Brut : Bayer Leverkusen L10 TCC 7.5 (L5 TCC 7.8) tirs cadrés/m · Marseille L10 TCC 4.1 (L5 TCC 4.4) tirs cadrés/m\n🛡️ Défenses : Bayer Leverkusen concède 4.0/m · Marseille concède 5.5/m\n🎯 Attendu : Bayer Leverkusen ~7.9 · Marseille ~3.4 → total ~11.3\n⚖️ Bayer Leverkusen favori (#3 vs #34) · Bayer Leverkusen forme : L-W-L-W-W · Marseille forme : W-W-L-W-L\n📉 Calibration : bucket 80-89% historiquement à WR 56% (claim 82%, n=63) — sur-estimé de 26pp",
         "stats": {
           "expected_total": 11.3
         },
@@ -2856,8 +2375,8 @@
         "valeur_pct": null,
         "cote_estimee": false,
         "ecart_calibration": -1.9,
-        "rang_jour": 23,
-        "cumul_pct": 71.0,
+        "rang_jour": 22,
+        "cumul_pct": 70.0,
         "hors_budget": true
       },
       {
@@ -2873,22 +2392,22 @@
         ],
         "confidence": 80,
         "edge": null,
-        "reasoning": "Bayer Leverkusen prend 8.3/m [pondere vs opp #34] · adv. concède 5.5/m → attendu ~7.9 (Bayer Leverkusen favori (#2 vs #34))\n📉 Calibration : bucket 80-89% historiquement à WR 56% (claim 82%, n=63) — sur-estimé de 26pp",
+        "reasoning": "Bayer Leverkusen prend 8.3/m [pondere vs opp #34] · adv. concède 5.5/m → attendu ~7.9 (Bayer Leverkusen favori (#3 vs #34))\n📉 Calibration : bucket 80-89% historiquement à WR 56% (claim 82%, n=63) — sur-estimé de 26pp",
         "stats": {
           "expected": 7.9
         },
         "tier": "safe",
         "calibration_delta": -26.0,
         "history_top3": false,
-        "p_cal": 46.9,
+        "p_cal": 47.0,
         "statut_marche": "SURVEILLE",
         "mise_pct": 0.5,
         "mise_label": "0.5 %",
         "valeur_pct": null,
         "cote_estimee": false,
-        "ecart_calibration": -33.1,
+        "ecart_calibration": -33.0,
         "rang_jour": 91,
-        "cumul_pct": 202.0,
+        "cumul_pct": 198.0,
         "hors_budget": true
       }
     ],
@@ -2907,7 +2426,7 @@
         "#f59e0b"
       ],
       "confidence": 80,
-      "reasoning": "📊 Brut : Bayer Leverkusen L10 TCC 7.5 (L5 TCC 7.8) tirs cadrés/m · Marseille L10 TCC 4.1 (L5 TCC 4.4) tirs cadrés/m\n🛡️ Défenses : Bayer Leverkusen concède 4.0/m · Marseille concède 5.5/m\n🎯 Attendu : Bayer Leverkusen ~7.9 · Marseille ~3.4 → total ~11.3\n⚖️ Bayer Leverkusen favori (#2 vs #34) · Bayer Leverkusen forme : L-W-L-W-W · Marseille forme : W-W-L-W-L\n📉 Calibration : bucket 80-89% historiquement à WR 56% (claim 82%, n=63) — sur-estimé de 26pp",
+      "reasoning": "📊 Brut : Bayer Leverkusen L10 TCC 7.5 (L5 TCC 7.8) tirs cadrés/m · Marseille L10 TCC 4.1 (L5 TCC 4.4) tirs cadrés/m\n🛡️ Défenses : Bayer Leverkusen concède 4.0/m · Marseille concède 5.5/m\n🎯 Attendu : Bayer Leverkusen ~7.9 · Marseille ~3.4 → total ~11.3\n⚖️ Bayer Leverkusen favori (#3 vs #34) · Bayer Leverkusen forme : L-W-L-W-W · Marseille forme : W-W-L-W-L\n📉 Calibration : bucket 80-89% historiquement à WR 56% (claim 82%, n=63) — sur-estimé de 26pp",
       "stats": {
         "expected_total": 11.3
       },
@@ -2921,8 +2440,8 @@
       "valeur_pct": null,
       "cote_estimee": false,
       "ecart_calibration": -1.9,
-      "rang_jour": 23,
-      "cumul_pct": 71.0,
+      "rang_jour": 22,
+      "cumul_pct": 70.0,
       "hors_budget": true
     },
     "no_picks": false,
@@ -2938,14 +2457,14 @@
       },
       "weather": {
         "temp_max": 13.3,
-        "temp_min": 4.5,
-        "humidity": 59,
+        "temp_min": 4.3,
+        "humidity": 62,
         "precipitation_sum_mm": 0.0,
-        "wind_max_kmh": 11.5,
+        "wind_max_kmh": 11.9,
         "weather_code": 0,
-        "summary_fr": "🌤️ conditions variables · 4–13°C · humidité 59%"
+        "summary_fr": "🌤️ conditions variables · 4–13°C · humidité 62%"
       },
-      "text": "Conditions : 🌤️ conditions variables · 4–13°C · humidité 59%. Stade : BayArena · 30 210 places · plein air."
+      "text": "Conditions : 🌤️ conditions variables · 4–13°C · humidité 62%. Stade : BayArena · 30 210 places · plein air."
     }
   },
   {
@@ -2982,8 +2501,8 @@
         "valeur_pct": null,
         "cote_estimee": false,
         "ecart_calibration": 0.0,
-        "rang_jour": 20,
-        "cumul_pct": 62.0,
+        "rang_jour": 19,
+        "cumul_pct": 61.0,
         "hors_budget": true
       },
       {
@@ -3006,15 +2525,15 @@
         "tier": "safe",
         "calibration_delta": -26.0,
         "history_top3": false,
-        "p_cal": 46.9,
+        "p_cal": 47.0,
         "statut_marche": "SURVEILLE",
         "mise_pct": 0.5,
         "mise_label": "0.5 %",
         "valeur_pct": null,
         "cote_estimee": false,
-        "ecart_calibration": -33.1,
+        "ecart_calibration": -33.0,
         "rang_jour": 95,
-        "cumul_pct": 204.0,
+        "cumul_pct": 200.0,
         "hors_budget": true
       }
     ],
@@ -3047,8 +2566,8 @@
       "valeur_pct": null,
       "cote_estimee": false,
       "ecart_calibration": 0.0,
-      "rang_jour": 20,
-      "cumul_pct": 62.0,
+      "rang_jour": 19,
+      "cumul_pct": 61.0,
       "hors_budget": true
     },
     "no_picks": false,
@@ -3063,15 +2582,15 @@
         "surface": "grass"
       },
       "weather": {
-        "temp_max": 7.1,
-        "temp_min": 3.8,
-        "humidity": 79,
-        "precipitation_sum_mm": 1.0,
-        "wind_max_kmh": 8.6,
+        "temp_max": 6.8,
+        "temp_min": 3.7,
+        "humidity": 83,
+        "precipitation_sum_mm": 1.3,
+        "wind_max_kmh": 8.3,
         "weather_code": 61,
-        "summary_fr": "🌦️ pluie légère · 3–7°C · humidité 79% · précipitations 1.0mm"
+        "summary_fr": "🌦️ pluie légère · 3–6°C · humidité 83% · précipitations 1.3mm"
       },
-      "text": "Conditions : 🌦️ pluie légère · 3–7°C · humidité 79% · précipitations 1.0mm. Stade : Arena Giulești · 14 073 places · plein air."
+      "text": "Conditions : 🌦️ pluie légère · 3–6°C · humidité 83% · précipitations 1.3mm. Stade : Arena Giulești · 14 073 places · plein air."
     }
   },
   {
@@ -3108,8 +2627,8 @@
         "valeur_pct": null,
         "cote_estimee": false,
         "ecart_calibration": 0.0,
-        "rang_jour": 21,
-        "cumul_pct": 65.0,
+        "rang_jour": 20,
+        "cumul_pct": 64.0,
         "hors_budget": true
       },
       {
@@ -3132,15 +2651,15 @@
         "tier": "safe",
         "calibration_delta": -11.3,
         "history_top3": true,
-        "p_cal": 46.9,
+        "p_cal": 47.0,
         "statut_marche": "SURVEILLE",
         "mise_pct": 0.5,
         "mise_label": "0.5 %",
         "valeur_pct": null,
         "cote_estimee": false,
-        "ecart_calibration": -28.1,
+        "ecart_calibration": -28.0,
         "rang_jour": 103,
-        "cumul_pct": 208.0,
+        "cumul_pct": 204.0,
         "hors_budget": true
       }
     ],
@@ -3173,8 +2692,8 @@
       "valeur_pct": null,
       "cote_estimee": false,
       "ecart_calibration": 0.0,
-      "rang_jour": 21,
-      "cumul_pct": 65.0,
+      "rang_jour": 20,
+      "cumul_pct": 64.0,
       "hors_budget": true
     },
     "no_picks": false,
@@ -3189,15 +2708,15 @@
         "surface": "artificial turf"
       },
       "weather": {
-        "temp_max": 21.5,
-        "temp_min": 14.3,
-        "humidity": 72,
+        "temp_max": 21.7,
+        "temp_min": 13.7,
+        "humidity": 68,
         "precipitation_sum_mm": 0.0,
-        "wind_max_kmh": 12.5,
+        "wind_max_kmh": 13.5,
         "weather_code": 45,
-        "summary_fr": "🌫️ brouillard · 14–21°C · humidité 72%"
+        "summary_fr": "🌫️ brouillard · 13–21°C · humidité 68%"
       },
-      "text": "Conditions : 🌫️ brouillard · 14–21°C · humidité 72%. Stade : Europa Point Stadium · 2 000 places · plein air."
+      "text": "Conditions : 🌫️ brouillard · 13–21°C · humidité 68%. Stade : Europa Point Stadium · 2 000 places · plein air."
     }
   },
   {
@@ -3234,8 +2753,8 @@
         "valeur_pct": null,
         "cote_estimee": false,
         "ecart_calibration": -3.3,
-        "rang_jour": 27,
-        "cumul_pct": 83.0,
+        "rang_jour": 26,
+        "cumul_pct": 82.0,
         "hors_budget": true
       },
       {
@@ -3265,8 +2784,8 @@
         "valeur_pct": null,
         "cote_estimee": false,
         "ecart_calibration": 10.0,
-        "rang_jour": 69,
-        "cumul_pct": 191.0,
+        "rang_jour": 68,
+        "cumul_pct": 186.0,
         "hors_budget": true
       }
     ],
@@ -3299,8 +2818,8 @@
       "valeur_pct": null,
       "cote_estimee": false,
       "ecart_calibration": -3.3,
-      "rang_jour": 27,
-      "cumul_pct": 83.0,
+      "rang_jour": 26,
+      "cumul_pct": 82.0,
       "hors_budget": true
     },
     "no_picks": false,
@@ -3315,15 +2834,15 @@
         "surface": "grass"
       },
       "weather": {
-        "temp_max": 8.6,
-        "temp_min": 4.4,
-        "humidity": 72,
+        "temp_max": 8.5,
+        "temp_min": 4.7,
+        "humidity": 73,
         "precipitation_sum_mm": 0.1,
-        "wind_max_kmh": 11.3,
+        "wind_max_kmh": 13.3,
         "weather_code": 61,
-        "summary_fr": "🌦️ pluie légère · 4–8°C · humidité 72%"
+        "summary_fr": "🌦️ pluie légère · 4–8°C · humidité 73%"
       },
-      "text": "Conditions : 🌦️ pluie légère · 4–8°C · humidité 72%. Stade : Red Bull Arena · 47 800 places · plein air."
+      "text": "Conditions : 🌦️ pluie légère · 4–8°C · humidité 73%. Stade : Red Bull Arena · 47 800 places · plein air."
     }
   },
   {
@@ -3360,8 +2879,8 @@
         "valeur_pct": null,
         "cote_estimee": false,
         "ecart_calibration": -16.0,
-        "rang_jour": 53,
-        "cumul_pct": 161.0,
+        "rang_jour": 50,
+        "cumul_pct": 154.0,
         "hors_budget": true
       },
       {
@@ -3384,15 +2903,15 @@
         "tier": "safe",
         "calibration_delta": -11.3,
         "history_top3": false,
-        "p_cal": 46.9,
+        "p_cal": 47.0,
         "statut_marche": "SURVEILLE",
         "mise_pct": 0.5,
         "mise_label": "0.5 %",
         "valeur_pct": null,
         "cote_estimee": false,
-        "ecart_calibration": -31.1,
+        "ecart_calibration": -31.0,
         "rang_jour": 101,
-        "cumul_pct": 207.0,
+        "cumul_pct": 203.0,
         "hors_budget": true
       }
     ],
@@ -3425,8 +2944,8 @@
       "valeur_pct": null,
       "cote_estimee": false,
       "ecart_calibration": -16.0,
-      "rang_jour": 53,
-      "cumul_pct": 161.0,
+      "rang_jour": 50,
+      "cumul_pct": 154.0,
       "hors_budget": true
     },
     "no_picks": false,
@@ -3441,15 +2960,15 @@
         "surface": "grass"
       },
       "weather": {
-        "temp_max": 11.2,
+        "temp_max": 11.1,
         "temp_min": 5.3,
-        "humidity": 55,
+        "humidity": 59,
         "precipitation_sum_mm": 0.0,
-        "wind_max_kmh": 10.4,
+        "wind_max_kmh": 10.1,
         "weather_code": 3,
-        "summary_fr": "☁️ couvert · 5–11°C · humidité 55%"
+        "summary_fr": "☁️ couvert · 5–11°C · humidité 59%"
       },
-      "text": "Conditions : ☁️ couvert · 5–11°C · humidité 55%. Stade : Stadion Rajko Mitić · 51 775 places · plein air."
+      "text": "Conditions : ☁️ couvert · 5–11°C · humidité 59%. Stade : Stadion Rajko Mitić · 51 775 places · plein air."
     }
   },
   {
@@ -3487,7 +3006,7 @@
         "cote_estimee": false,
         "ecart_calibration": -3.3,
         "rang_jour": 31,
-        "cumul_pct": 95.0,
+        "cumul_pct": 97.0,
         "hors_budget": true
       },
       {
@@ -3512,8 +3031,8 @@
         "valeur_pct": 6.2,
         "cote_estimee": false,
         "ecart_calibration": -4.0,
-        "rang_jour": 65,
-        "cumul_pct": 187.0,
+        "rang_jour": 64,
+        "cumul_pct": 182.0,
         "hors_budget": true
       },
       {
@@ -3536,15 +3055,15 @@
         "tier": "safe",
         "calibration_delta": -11.3,
         "history_top3": false,
-        "p_cal": 46.9,
+        "p_cal": 47.0,
         "statut_marche": "SURVEILLE",
         "mise_pct": 0.5,
         "mise_label": "0.5 %",
         "valeur_pct": null,
         "cote_estimee": false,
-        "ecart_calibration": -32.1,
+        "ecart_calibration": -32.0,
         "rang_jour": 106,
-        "cumul_pct": 209.5,
+        "cumul_pct": 205.5,
         "hors_budget": true
       }
     ],
@@ -3578,7 +3097,7 @@
       "cote_estimee": false,
       "ecart_calibration": -3.3,
       "rang_jour": 31,
-      "cumul_pct": 95.0,
+      "cumul_pct": 97.0,
       "hors_budget": true
     },
     "no_picks": false,
@@ -3593,15 +3112,15 @@
         "surface": "grass"
       },
       "weather": {
-        "temp_max": 9.4,
-        "temp_min": 3.8,
-        "humidity": 93,
+        "temp_max": 10.1,
+        "temp_min": 3.6,
+        "humidity": 87,
         "precipitation_sum_mm": 0.0,
-        "wind_max_kmh": 10.1,
+        "wind_max_kmh": 9.4,
         "weather_code": 3,
-        "summary_fr": "☁️ couvert · 3–9°C · humidité 93%"
+        "summary_fr": "☁️ couvert · 3–10°C · humidité 87%"
       },
-      "text": "Conditions : ☁️ couvert · 3–9°C · humidité 93%. Stade : Parken · 38 065 places · plein air."
+      "text": "Conditions : ☁️ couvert · 3–10°C · humidité 87%. Stade : Parken · 38 065 places · plein air."
     }
   },
   {
@@ -3639,7 +3158,7 @@
         "cote_estimee": false,
         "ecart_calibration": -3.3,
         "rang_jour": 34,
-        "cumul_pct": 104.0,
+        "cumul_pct": 106.0,
         "hors_budget": true
       },
       {
@@ -3664,8 +3183,8 @@
         "valeur_pct": 4.4,
         "cote_estimee": false,
         "ecart_calibration": -2.0,
-        "rang_jour": 67,
-        "cumul_pct": 189.0,
+        "rang_jour": 66,
+        "cumul_pct": 184.0,
         "hors_budget": true
       },
       {
@@ -3688,15 +3207,15 @@
         "tier": "safe",
         "calibration_delta": -26.0,
         "history_top3": false,
-        "p_cal": 46.9,
+        "p_cal": 47.0,
         "statut_marche": "SURVEILLE",
         "mise_pct": 0.5,
         "mise_label": "0.5 %",
         "valeur_pct": null,
         "cote_estimee": false,
-        "ecart_calibration": -33.1,
+        "ecart_calibration": -33.0,
         "rang_jour": 110,
-        "cumul_pct": 211.5,
+        "cumul_pct": 207.5,
         "hors_budget": true
       }
     ],
@@ -3730,7 +3249,7 @@
       "cote_estimee": false,
       "ecart_calibration": -3.3,
       "rang_jour": 34,
-      "cumul_pct": 104.0,
+      "cumul_pct": 106.0,
       "hors_budget": true
     },
     "no_picks": false,
@@ -3745,15 +3264,15 @@
         "surface": "grass"
       },
       "weather": {
-        "temp_max": 17.4,
-        "temp_min": 14.8,
-        "humidity": 60,
-        "precipitation_sum_mm": 11.95,
-        "wind_max_kmh": 19.2,
-        "weather_code": 80,
-        "summary_fr": "🌦️ averses légères · 17°C · humidité 60% · précipitations 11.9mm"
+        "temp_max": 17.5,
+        "temp_min": 15.0,
+        "humidity": 59,
+        "precipitation_sum_mm": 8.08,
+        "wind_max_kmh": 24.5,
+        "weather_code": 61,
+        "summary_fr": "🌦️ pluie légère · 17°C · humidité 59% · précipitations 8.1mm"
       },
-      "text": "Conditions : 🌦️ averses légères · 17°C · humidité 60% · précipitations 11.9mm. Stade : Stade Louis-II · 18 523 places · plein air. ⚠️ Pluies prévues : terrain potentiellement lourd, jeu direct privilégié, plus d'erreurs techniques."
+      "text": "Conditions : 🌦️ pluie légère · 17°C · humidité 59% · précipitations 8.1mm. Stade : Stade Louis-II · 18 523 places · plein air. ⚠️ Pluies prévues : terrain potentiellement lourd, jeu direct privilégié, plus d'erreurs techniques."
     }
   },
   {
@@ -3790,8 +3309,8 @@
         "valeur_pct": null,
         "cote_estimee": false,
         "ecart_calibration": -16.0,
-        "rang_jour": 59,
-        "cumul_pct": 179.0,
+        "rang_jour": 56,
+        "cumul_pct": 172.0,
         "hors_budget": true
       },
       {
@@ -3814,15 +3333,15 @@
         "tier": "safe",
         "calibration_delta": -11.3,
         "history_top3": false,
-        "p_cal": 46.9,
+        "p_cal": 47.0,
         "statut_marche": "SURVEILLE",
         "mise_pct": 0.5,
         "mise_label": "0.5 %",
         "valeur_pct": null,
         "cote_estimee": false,
-        "ecart_calibration": -31.1,
+        "ecart_calibration": -31.0,
         "rang_jour": 113,
-        "cumul_pct": 213.0,
+        "cumul_pct": 209.0,
         "hors_budget": true
       }
     ],
@@ -3855,8 +3374,8 @@
       "valeur_pct": null,
       "cote_estimee": false,
       "ecart_calibration": -16.0,
-      "rang_jour": 59,
-      "cumul_pct": 179.0,
+      "rang_jour": 56,
+      "cumul_pct": 172.0,
       "hors_budget": true
     },
     "no_picks": false,
@@ -3871,15 +3390,293 @@
         "surface": "artificial turf"
       },
       "weather": {
-        "temp_max": 12.0,
+        "temp_max": 11.8,
         "temp_min": 1.7,
         "humidity": 69,
         "precipitation_sum_mm": 0.0,
-        "wind_max_kmh": 15.5,
+        "wind_max_kmh": 15.1,
         "weather_code": 0,
-        "summary_fr": "🌤️ conditions variables · 1–12°C · humidité 69%"
+        "summary_fr": "🌤️ conditions variables · 1–11°C · humidité 69%"
       },
-      "text": "Conditions : 🌤️ conditions variables · 1–12°C · humidité 69%. Stade : Daio Wasabi Stayen Stadium · 11 756 places · plein air."
+      "text": "Conditions : 🌤️ conditions variables · 1–11°C · humidité 69%. Stade : Daio Wasabi Stayen Stadium · 11 756 places · plein air."
+    }
+  },
+  {
+    "league": "Champions League",
+    "home": "AEK Athens",
+    "away": "Real Madrid",
+    "start_ts": 1793814300,
+    "match_id": "6106401",
+    "page_url": "/matches/aek-athens-vs-real-madrid/2g1c0n#6106401",
+    "picks": [
+      {
+        "direction": "shots_over_24.5",
+        "type": "Tirs (total match)",
+        "label": "Plus de 24.5 tirs total",
+        "cote": null,
+        "cote_min": 1.29,
+        "value": [
+          "⚠️",
+          "Value serrée",
+          "#f59e0b"
+        ],
+        "confidence": 78,
+        "reasoning": "📊 Brut : AEK Athens L10 TCC 15.9 (L5 TCC 16.2) tirs/m · Real Madrid L10 TCC 16.0 (L5 TCC 16.2) tirs/m\n🛡️ Défenses : AEK Athens concède 12.5/m · Real Madrid concède 13.5/m\n🎯 Attendu : AEK Athens ~10.9 · Real Madrid ~17.7 → total ~28.6\n⚖️ Real Madrid favori (#5 vs #27) · AEK Athens forme : L-L-W-L-L · Real Madrid forme : W-W-W-W-W\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+        "stats": {
+          "expected_total": 28.6
+        },
+        "tier": "safe",
+        "calibration_delta": -11.3,
+        "history_top3": false,
+        "p_cal": 63.0,
+        "statut_marche": "RETENU",
+        "mise_pct": 3.0,
+        "mise_label": "3 %",
+        "valeur_pct": null,
+        "cote_estimee": false,
+        "ecart_calibration": -15.0,
+        "rang_jour": 36,
+        "cumul_pct": 112.0,
+        "hors_budget": true
+      },
+      {
+        "direction": "over35",
+        "type": "Over 3.5 buts",
+        "label": "Plus de 3.5 buts",
+        "cote": 1.8,
+        "confidence": 60,
+        "reasoning": "AEK Athens: 1.0 buts/L10 · défense Real Madrid concède 1.7/L10 → ~1.3 attendus · Real Madrid: 3.3 buts/L10 · défense AEK Athens concède 2.7/L10 → ~3.0 attendus · Total: ~4.3 buts (P=62.3% · contexte LDC (L10/L10))\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
+        "stats": {
+          "form": []
+        },
+        "is_fun": false,
+        "tier": "ok",
+        "calibration_delta": -25.4,
+        "edge_pp": 4.4,
+        "history_top3": true,
+        "p_cal": 81.2,
+        "statut_marche": "SURVEILLE",
+        "mise_pct": 1.0,
+        "mise_label": "1 %",
+        "valeur_pct": 46.2,
+        "cote_estimee": false,
+        "ecart_calibration": 21.2,
+        "rang_jour": 60,
+        "cumul_pct": 178.0,
+        "hors_budget": true
+      },
+      {
+        "direction": "tirs_(aek_athens)_under_13.5",
+        "type": "Tirs (AEK Athens)",
+        "label": "Moins de 13.5 tirs AEK Athens",
+        "cote": null,
+        "cote_min": 1.27,
+        "value": [
+          "⚠️",
+          "Value serrée",
+          "#f59e0b"
+        ],
+        "confidence": 79,
+        "edge": null,
+        "reasoning": "AEK Athens prend 13.8/m [pondere vs opp #5] · adv. concède 13.5/m → attendu ~10.9 (Real Madrid favori (#5 vs #27))\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+        "stats": {
+          "expected": 10.9
+        },
+        "tier": "safe",
+        "calibration_delta": -11.3,
+        "history_top3": false,
+        "p_cal": 47.0,
+        "statut_marche": "SURVEILLE",
+        "mise_pct": 0.5,
+        "mise_label": "0.5 %",
+        "valeur_pct": null,
+        "cote_estimee": false,
+        "ecart_calibration": -32.0,
+        "rang_jour": 76,
+        "cumul_pct": 190.5,
+        "hors_budget": true
+      }
+    ],
+    "home_players": [],
+    "away_players": [],
+    "fun_picks": [],
+    "top_pick": {
+      "direction": "shots_over_24.5",
+      "type": "Tirs (total match)",
+      "label": "Plus de 24.5 tirs total",
+      "cote": null,
+      "cote_min": 1.29,
+      "value": [
+        "⚠️",
+        "Value serrée",
+        "#f59e0b"
+      ],
+      "confidence": 78,
+      "reasoning": "📊 Brut : AEK Athens L10 TCC 15.9 (L5 TCC 16.2) tirs/m · Real Madrid L10 TCC 16.0 (L5 TCC 16.2) tirs/m\n🛡️ Défenses : AEK Athens concède 12.5/m · Real Madrid concède 13.5/m\n🎯 Attendu : AEK Athens ~10.9 · Real Madrid ~17.7 → total ~28.6\n⚖️ Real Madrid favori (#5 vs #27) · AEK Athens forme : L-L-W-L-L · Real Madrid forme : W-W-W-W-W\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+      "stats": {
+        "expected_total": 28.6
+      },
+      "tier": "safe",
+      "calibration_delta": -11.3,
+      "history_top3": false,
+      "p_cal": 63.0,
+      "statut_marche": "RETENU",
+      "mise_pct": 3.0,
+      "mise_label": "3 %",
+      "valeur_pct": null,
+      "cote_estimee": false,
+      "ecart_calibration": -15.0,
+      "rang_jour": 36,
+      "cumul_pct": 112.0,
+      "hors_budget": true
+    },
+    "no_picks": false,
+    "context": {
+      "stadium": {
+        "name": "ALLWYN Arena",
+        "city": "Athína (Athens)",
+        "country": "Greece",
+        "lat": 38.037165836,
+        "lon": 23.741438985,
+        "capacity": 31100,
+        "surface": "grass"
+      },
+      "weather": {
+        "temp_max": 20.4,
+        "temp_min": 11.1,
+        "humidity": 56,
+        "precipitation_sum_mm": 0.0,
+        "wind_max_kmh": 8.1,
+        "weather_code": 45,
+        "summary_fr": "🌫️ brouillard · 11–20°C · humidité 56%"
+      },
+      "text": "Conditions : 🌫️ brouillard · 11–20°C · humidité 56%. Stade : ALLWYN Arena · 31 100 places · plein air."
+    }
+  },
+  {
+    "league": "Champions League",
+    "home": "Slavia Prague",
+    "away": "Arsenal",
+    "start_ts": 1793822400,
+    "match_id": "6106389",
+    "page_url": "/matches/slavia-prague-vs-arsenal/2kcjkf#6106389",
+    "picks": [
+      {
+        "direction": "shots_over_24.5",
+        "type": "Tirs (total match)",
+        "label": "Plus de 24.5 tirs total",
+        "cote": null,
+        "cote_min": 1.28,
+        "value": [
+          "⚠️",
+          "Value serrée",
+          "#f59e0b"
+        ],
+        "confidence": 78,
+        "reasoning": "📊 Brut : Slavia Prague L10 TCC 20.1 (L5 TCC 22.5) tirs/m · Arsenal L10 TCC 14.2 (L5 TCC 15.8) tirs/m\n🛡️ Défenses : Slavia Prague concède 10.5/m · Arsenal concède 10.9/m\n🎯 Attendu : Slavia Prague ~11.0 · Arsenal ~17.7 → total ~28.7\n⚖️ Arsenal favori (#9 vs #32) · Slavia Prague forme : W-D-D-D-L · Arsenal forme : W-D-W-D-W\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+        "stats": {
+          "expected_total": 28.7
+        },
+        "tier": "safe",
+        "calibration_delta": -11.3,
+        "history_top3": false,
+        "p_cal": 63.0,
+        "statut_marche": "RETENU",
+        "mise_pct": 3.0,
+        "mise_label": "3 %",
+        "valeur_pct": null,
+        "cote_estimee": false,
+        "ecart_calibration": -15.0,
+        "rang_jour": 38,
+        "cumul_pct": 118.0,
+        "hors_budget": true
+      },
+      {
+        "direction": "tirs_(slavia_prague)_under_13.5",
+        "type": "Tirs (Slavia Prague)",
+        "label": "Moins de 13.5 tirs Slavia Prague",
+        "cote": null,
+        "cote_min": 1.29,
+        "value": [
+          "⚠️",
+          "Value serrée",
+          "#f59e0b"
+        ],
+        "confidence": 78,
+        "edge": null,
+        "reasoning": "Slavia Prague prend 16.7/m [pondere vs opp #9] · adv. concède 10.9/m → attendu ~11.0 (Arsenal favori (#9 vs #32))\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+        "stats": {
+          "expected": 11.0
+        },
+        "tier": "safe",
+        "calibration_delta": -11.3,
+        "history_top3": false,
+        "p_cal": 47.0,
+        "statut_marche": "SURVEILLE",
+        "mise_pct": 0.5,
+        "mise_label": "0.5 %",
+        "valeur_pct": null,
+        "cote_estimee": false,
+        "ecart_calibration": -31.0,
+        "rang_jour": 81,
+        "cumul_pct": 193.0,
+        "hors_budget": true
+      }
+    ],
+    "home_players": [],
+    "away_players": [],
+    "fun_picks": [],
+    "top_pick": {
+      "direction": "shots_over_24.5",
+      "type": "Tirs (total match)",
+      "label": "Plus de 24.5 tirs total",
+      "cote": null,
+      "cote_min": 1.28,
+      "value": [
+        "⚠️",
+        "Value serrée",
+        "#f59e0b"
+      ],
+      "confidence": 78,
+      "reasoning": "📊 Brut : Slavia Prague L10 TCC 20.1 (L5 TCC 22.5) tirs/m · Arsenal L10 TCC 14.2 (L5 TCC 15.8) tirs/m\n🛡️ Défenses : Slavia Prague concède 10.5/m · Arsenal concède 10.9/m\n🎯 Attendu : Slavia Prague ~11.0 · Arsenal ~17.7 → total ~28.7\n⚖️ Arsenal favori (#9 vs #32) · Slavia Prague forme : W-D-D-D-L · Arsenal forme : W-D-W-D-W\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+      "stats": {
+        "expected_total": 28.7
+      },
+      "tier": "safe",
+      "calibration_delta": -11.3,
+      "history_top3": false,
+      "p_cal": 63.0,
+      "statut_marche": "RETENU",
+      "mise_pct": 3.0,
+      "mise_label": "3 %",
+      "valeur_pct": null,
+      "cote_estimee": false,
+      "ecart_calibration": -15.0,
+      "rang_jour": 38,
+      "cumul_pct": 118.0,
+      "hors_budget": true
+    },
+    "no_picks": false,
+    "context": {
+      "stadium": {
+        "name": "Fortuna Arena",
+        "city": "Praha",
+        "country": "Czech Republic",
+        "lat": 50.067525002,
+        "lon": 14.471139908,
+        "capacity": 19370,
+        "surface": "grass"
+      },
+      "weather": {
+        "temp_max": 9.2,
+        "temp_min": 4.3,
+        "humidity": 67,
+        "precipitation_sum_mm": 0.0,
+        "wind_max_kmh": 12.0,
+        "weather_code": 3,
+        "summary_fr": "☁️ couvert · 4–9°C · humidité 67%"
+      },
+      "text": "Conditions : ☁️ couvert · 4–9°C · humidité 67%. Stade : Fortuna Arena · 19 370 places · plein air."
     }
   },
   {
@@ -3916,8 +3713,8 @@
         "valeur_pct": null,
         "cote_estimee": false,
         "ecart_calibration": -2.3,
-        "rang_jour": 28,
-        "cumul_pct": 86.0,
+        "rang_jour": 27,
+        "cumul_pct": 85.0,
         "hors_budget": true
       },
       {
@@ -3940,15 +3737,15 @@
         "tier": "safe",
         "calibration_delta": -11.3,
         "history_top3": false,
-        "p_cal": 46.9,
+        "p_cal": 47.0,
         "statut_marche": "SURVEILLE",
         "mise_pct": 0.5,
         "mise_label": "0.5 %",
         "valeur_pct": null,
         "cote_estimee": false,
-        "ecart_calibration": -31.1,
-        "rang_jour": 84,
-        "cumul_pct": 198.5,
+        "ecart_calibration": -31.0,
+        "rang_jour": 85,
+        "cumul_pct": 195.0,
         "hors_budget": true
       }
     ],
@@ -3981,8 +3778,8 @@
       "valeur_pct": null,
       "cote_estimee": false,
       "ecart_calibration": -2.3,
-      "rang_jour": 28,
-      "cumul_pct": 86.0,
+      "rang_jour": 27,
+      "cumul_pct": 85.0,
       "hors_budget": true
     },
     "no_picks": false,
@@ -3998,14 +3795,14 @@
       },
       "weather": {
         "temp_max": 10.8,
-        "temp_min": 8.4,
-        "humidity": 70,
+        "temp_min": 8.7,
+        "humidity": 72,
         "precipitation_sum_mm": 0.0,
-        "wind_max_kmh": 19.1,
+        "wind_max_kmh": 17.3,
         "weather_code": 3,
-        "summary_fr": "☁️ couvert · 10°C · humidité 70%"
+        "summary_fr": "☁️ couvert · 10°C · humidité 72%"
       },
-      "text": "Conditions : ☁️ couvert · 10°C · humidité 70%. Stade : Selhurst Park · 25 486 places · plein air."
+      "text": "Conditions : ☁️ couvert · 10°C · humidité 72%. Stade : Selhurst Park · 25 486 places · plein air."
     }
   },
   {
@@ -4042,8 +3839,8 @@
         "valeur_pct": null,
         "cote_estimee": false,
         "ecart_calibration": -15.0,
-        "rang_jour": 42,
-        "cumul_pct": 128.0,
+        "rang_jour": 40,
+        "cumul_pct": 124.0,
         "hors_budget": true
       },
       {
@@ -4066,15 +3863,15 @@
         "tier": "safe",
         "calibration_delta": -26.0,
         "history_top3": false,
-        "p_cal": 46.9,
+        "p_cal": 47.0,
         "statut_marche": "SURVEILLE",
         "mise_pct": 0.5,
         "mise_label": "0.5 %",
         "valeur_pct": null,
         "cote_estimee": false,
-        "ecart_calibration": -33.1,
-        "rang_jour": 86,
-        "cumul_pct": 199.5,
+        "ecart_calibration": -33.0,
+        "rang_jour": 87,
+        "cumul_pct": 196.0,
         "hors_budget": true
       }
     ],
@@ -4107,8 +3904,8 @@
       "valeur_pct": null,
       "cote_estimee": false,
       "ecart_calibration": -15.0,
-      "rang_jour": 42,
-      "cumul_pct": 128.0,
+      "rang_jour": 40,
+      "cumul_pct": 124.0,
       "hors_budget": true
     },
     "no_picks": false,
@@ -4123,15 +3920,15 @@
         "surface": "grass"
       },
       "weather": {
-        "temp_max": 5.3,
-        "temp_min": -0.4,
+        "temp_max": 2.4,
+        "temp_min": -2.1,
         "humidity": 89,
         "precipitation_sum_mm": 0.0,
-        "wind_max_kmh": 4.3,
-        "weather_code": 2,
-        "summary_fr": "⛅ partiellement nuageux · 0–5°C · humidité 89%"
+        "wind_max_kmh": 4.0,
+        "weather_code": 1,
+        "summary_fr": "🌤️ principalement clair · -2–2°C · humidité 89%"
       },
-      "text": "Conditions : ⛅ partiellement nuageux · 0–5°C · humidité 89%. Stade : Åråsen Stadion · 11 637 places · plein air."
+      "text": "Conditions : 🌤️ principalement clair · -2–2°C · humidité 89%. Stade : Åråsen Stadion · 11 637 places · plein air."
     }
   },
   {
@@ -4168,8 +3965,8 @@
         "valeur_pct": null,
         "cote_estimee": false,
         "ecart_calibration": -15.0,
-        "rang_jour": 49,
-        "cumul_pct": 149.0,
+        "rang_jour": 46,
+        "cumul_pct": 142.0,
         "hors_budget": true
       },
       {
@@ -4192,15 +3989,15 @@
         "tier": "safe",
         "calibration_delta": -26.0,
         "history_top3": false,
-        "p_cal": 46.9,
+        "p_cal": 47.0,
         "statut_marche": "SURVEILLE",
         "mise_pct": 0.5,
         "mise_label": "0.5 %",
         "valeur_pct": null,
         "cote_estimee": false,
-        "ecart_calibration": -33.1,
+        "ecart_calibration": -33.0,
         "rang_jour": 97,
-        "cumul_pct": 205.0,
+        "cumul_pct": 201.0,
         "hors_budget": true
       }
     ],
@@ -4233,8 +4030,8 @@
       "valeur_pct": null,
       "cote_estimee": false,
       "ecart_calibration": -15.0,
-      "rang_jour": 49,
-      "cumul_pct": 149.0,
+      "rang_jour": 46,
+      "cumul_pct": 142.0,
       "hors_budget": true
     },
     "no_picks": false,
@@ -4249,15 +4046,15 @@
         "surface": "grass"
       },
       "weather": {
-        "temp_max": 11.0,
-        "temp_min": 10.0,
-        "humidity": 83,
-        "precipitation_sum_mm": 0.3,
-        "wind_max_kmh": 23.0,
+        "temp_max": 11.4,
+        "temp_min": 10.1,
+        "humidity": 79,
+        "precipitation_sum_mm": 0.1,
+        "wind_max_kmh": 22.3,
         "weather_code": 51,
-        "summary_fr": "🌦️ bruine légère · 11°C · humidité 83%"
+        "summary_fr": "🌦️ bruine légère · 11°C · humidité 79%"
       },
-      "text": "Conditions : 🌦️ bruine légère · 11°C · humidité 83%. Stade : Stadium of Light · 49 000 places · plein air."
+      "text": "Conditions : 🌦️ bruine légère · 11°C · humidité 79%. Stade : Stadium of Light · 49 000 places · plein air."
     }
   },
   {
@@ -4294,8 +4091,8 @@
         "valeur_pct": null,
         "cote_estimee": false,
         "ecart_calibration": -15.0,
-        "rang_jour": 51,
-        "cumul_pct": 155.0,
+        "rang_jour": 48,
+        "cumul_pct": 148.0,
         "hors_budget": true
       },
       {
@@ -4318,15 +4115,15 @@
         "tier": "safe",
         "calibration_delta": -11.3,
         "history_top3": false,
-        "p_cal": 46.9,
+        "p_cal": 47.0,
         "statut_marche": "SURVEILLE",
         "mise_pct": 0.5,
         "mise_label": "0.5 %",
         "valeur_pct": null,
         "cote_estimee": false,
-        "ecart_calibration": -32.1,
+        "ecart_calibration": -32.0,
         "rang_jour": 99,
-        "cumul_pct": 206.0,
+        "cumul_pct": 202.0,
         "hors_budget": true
       }
     ],
@@ -4359,8 +4156,8 @@
       "valeur_pct": null,
       "cote_estimee": false,
       "ecart_calibration": -15.0,
-      "rang_jour": 51,
-      "cumul_pct": 155.0,
+      "rang_jour": 48,
+      "cumul_pct": 148.0,
       "hors_budget": true
     },
     "no_picks": false,
@@ -4375,15 +4172,15 @@
         "surface": "grass"
       },
       "weather": {
-        "temp_max": 8.3,
-        "temp_min": 0.6,
+        "temp_max": 7.4,
+        "temp_min": 1.2,
         "humidity": 99,
         "precipitation_sum_mm": 0.0,
-        "wind_max_kmh": 9.0,
+        "wind_max_kmh": 7.9,
         "weather_code": 3,
-        "summary_fr": "☁️ couvert · 0–8°C · humidité 99%"
+        "summary_fr": "☁️ couvert · 1–7°C · humidité 99%"
       },
-      "text": "Conditions : ☁️ couvert · 0–8°C · humidité 99%. Stade : Cepheus Park Randers · 12 000 places · plein air."
+      "text": "Conditions : ☁️ couvert · 1–7°C · humidité 99%. Stade : Cepheus Park Randers · 12 000 places · plein air."
     }
   },
   {
@@ -4420,8 +4217,8 @@
         "valeur_pct": null,
         "cote_estimee": false,
         "ecart_calibration": -15.0,
-        "rang_jour": 58,
-        "cumul_pct": 176.0,
+        "rang_jour": 55,
+        "cumul_pct": 169.0,
         "hors_budget": true
       },
       {
@@ -4453,7 +4250,7 @@
         "cote_estimee": false,
         "ecart_calibration": -1.8,
         "rang_jour": 63,
-        "cumul_pct": 185.0,
+        "cumul_pct": 181.0,
         "hors_budget": true
       },
       {
@@ -4476,15 +4273,15 @@
         "tier": "safe",
         "calibration_delta": -11.3,
         "history_top3": true,
-        "p_cal": 46.9,
+        "p_cal": 47.0,
         "statut_marche": "SURVEILLE",
         "mise_pct": 0.5,
         "mise_label": "0.5 %",
         "valeur_pct": null,
         "cote_estimee": false,
-        "ecart_calibration": -29.1,
+        "ecart_calibration": -29.0,
         "rang_jour": 111,
-        "cumul_pct": 212.0,
+        "cumul_pct": 208.0,
         "hors_budget": true
       }
     ],
@@ -4517,8 +4314,8 @@
       "valeur_pct": null,
       "cote_estimee": false,
       "ecart_calibration": -15.0,
-      "rang_jour": 58,
-      "cumul_pct": 176.0,
+      "rang_jour": 55,
+      "cumul_pct": 169.0,
       "hors_budget": true
     },
     "no_picks": false,
@@ -4533,29 +4330,29 @@
         "surface": "grass"
       },
       "weather": {
-        "temp_max": 16.0,
-        "temp_min": 10.9,
+        "temp_max": 15.9,
+        "temp_min": 11.0,
         "humidity": 70,
         "precipitation_sum_mm": 0.0,
-        "wind_max_kmh": 18.1,
+        "wind_max_kmh": 17.7,
         "weather_code": 3,
-        "summary_fr": "☁️ couvert · 10–16°C · humidité 70%"
+        "summary_fr": "☁️ couvert · 11–15°C · humidité 70%"
       },
-      "text": "Conditions : ☁️ couvert · 10–16°C · humidité 70%. Stade : Olympiako Stadio Spyros Louis · 69 618 places · plein air."
+      "text": "Conditions : ☁️ couvert · 11–15°C · humidité 70%. Stade : Olympiako Stadio Spyros Louis · 69 618 places · plein air."
     }
   },
   {
-    "league": "Europa League",
-    "home": "Real Sociedad",
-    "away": "Lyon",
-    "start_ts": 1793900700,
-    "match_id": "6112270",
-    "page_url": "/matches/real-sociedad-vs-lyon/2rsgym#6112270",
+    "league": "Champions League",
+    "home": "Lens",
+    "away": "Como",
+    "start_ts": 1793822400,
+    "match_id": "6106416",
+    "page_url": "/matches/lens-vs-como/2wrls8#6106416",
     "picks": [
       {
-        "direction": "shots_under_28.5",
-        "type": "Tirs (total match)",
-        "label": "Moins de 28.5 tirs total",
+        "direction": "sot_over_7.5",
+        "type": "Tirs cadrés (total)",
+        "label": "Plus de 7.5 tirs cadrés total",
         "cote": null,
         "cote_min": 1.3,
         "value": [
@@ -4564,30 +4361,62 @@
           "#84cc16"
         ],
         "confidence": 77,
-        "reasoning": "📊 Brut : Real Sociedad L10 TCC 14.4 (L5 TCC 14.8) tirs/m · Lyon L10 TCC 12.3 (L5 TCC 11.2) tirs/m\n🛡️ Défenses : Real Sociedad concède 14.0/m · Lyon concède 13.5/m\n🎯 Attendu : Real Sociedad ~12.5 · Lyon ~12.4 → total ~24.9\n⚖️ équipes proches au classement · Real Sociedad forme : L-W-W-W-D · Lyon forme : W-L-L-W-W\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+        "reasoning": "📊 Brut : Lens L10 TCC 5.3 (L5 TCC 4.4) tirs cadrés/m · Como L10 TCC 6.1 (L5 TCC 6.2) tirs cadrés/m\n🛡️ Défenses : Lens concède 4.6/m · Como concède 3.5/m\n🎯 Attendu : Lens ~3.8 · Como ~6.1 → total ~9.9\n⚖️ Como favori (#11 vs #26) · Lens forme : L-W-L-W-L · Como forme : W-W-W-W-W\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
         "stats": {
-          "expected_total": 24.9
+          "expected_total": 9.9
         },
         "tier": "safe",
         "calibration_delta": -11.3,
         "history_top3": true,
-        "p_cal": 63.0,
+        "p_cal": 75.7,
         "statut_marche": "RETENU",
         "mise_pct": 3.0,
         "mise_label": "3 %",
         "valeur_pct": null,
         "cote_estimee": false,
-        "ecart_calibration": -14.0,
-        "rang_jour": 43,
-        "cumul_pct": 131.0,
+        "ecart_calibration": -1.3,
+        "rang_jour": 24,
+        "cumul_pct": 76.0,
         "hors_budget": true
       },
       {
-        "direction": "tirs_cadrés_(real_sociedad)_over_3.5",
-        "type": "Tirs cadrés (Real Sociedad)",
-        "label": "Plus de 3.5 tirs cadrés Real Sociedad",
+        "direction": "away_win",
+        "type": "Victoire extérieur",
+        "label": "Como gagne",
+        "cote": 1.91,
+        "confidence": 71,
+        "reasoning": "Como : 5V/0N/0D sur 5 matchs · #11 au classement · H2H: 0V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+        "stats": {
+          "form": [
+            "W",
+            "W",
+            "W",
+            "W",
+            "W"
+          ]
+        },
+        "is_fun": false,
+        "tier": "ok",
+        "calibration_delta": -11.3,
+        "edge_pp": 18.6,
+        "history_top3": true,
+        "p_cal": 53.3,
+        "statut_marche": "SURVEILLE",
+        "mise_pct": 0.5,
+        "mise_label": "0.5 %",
+        "valeur_pct": 1.8,
+        "cote_estimee": false,
+        "ecart_calibration": -17.7,
+        "rang_jour": 72,
+        "cumul_pct": 188.5,
+        "hors_budget": true
+      },
+      {
+        "direction": "tirs_(lens)_over_10.5",
+        "type": "Tirs (Lens)",
+        "label": "Plus de 10.5 tirs Lens",
         "cote": null,
-        "cote_min": 1.29,
+        "cote_min": 1.28,
         "value": [
           "⚠️",
           "Value serrée",
@@ -4595,22 +4424,22 @@
         ],
         "confidence": 78,
         "edge": null,
-        "reasoning": "Real Sociedad prend 5.0/m [pondere vs opp #12] · adv. concède 5.6/m → attendu ~5.3 (équipes proches au classement)\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+        "reasoning": "Lens prend 20.8/m [pondere vs opp #11] · adv. concède 11.9/m → attendu ~13.4 (Como favori (#11 vs #26))\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
         "stats": {
-          "expected": 5.3
+          "expected": 13.4
         },
         "tier": "safe",
         "calibration_delta": -11.3,
         "history_top3": false,
-        "p_cal": 46.9,
+        "p_cal": 47.0,
         "statut_marche": "SURVEILLE",
         "mise_pct": 0.5,
         "mise_label": "0.5 %",
         "valeur_pct": null,
         "cote_estimee": false,
-        "ecart_calibration": -31.1,
-        "rang_jour": 88,
-        "cumul_pct": 200.5,
+        "ecart_calibration": -31.0,
+        "rang_jour": 79,
+        "cumul_pct": 192.0,
         "hors_budget": true
       }
     ],
@@ -4618,9 +4447,9 @@
     "away_players": [],
     "fun_picks": [],
     "top_pick": {
-      "direction": "shots_under_28.5",
-      "type": "Tirs (total match)",
-      "label": "Moins de 28.5 tirs total",
+      "direction": "sot_over_7.5",
+      "type": "Tirs cadrés (total)",
+      "label": "Plus de 7.5 tirs cadrés total",
       "cote": null,
       "cote_min": 1.3,
       "value": [
@@ -4629,45 +4458,45 @@
         "#84cc16"
       ],
       "confidence": 77,
-      "reasoning": "📊 Brut : Real Sociedad L10 TCC 14.4 (L5 TCC 14.8) tirs/m · Lyon L10 TCC 12.3 (L5 TCC 11.2) tirs/m\n🛡️ Défenses : Real Sociedad concède 14.0/m · Lyon concède 13.5/m\n🎯 Attendu : Real Sociedad ~12.5 · Lyon ~12.4 → total ~24.9\n⚖️ équipes proches au classement · Real Sociedad forme : L-W-W-W-D · Lyon forme : W-L-L-W-W\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+      "reasoning": "📊 Brut : Lens L10 TCC 5.3 (L5 TCC 4.4) tirs cadrés/m · Como L10 TCC 6.1 (L5 TCC 6.2) tirs cadrés/m\n🛡️ Défenses : Lens concède 4.6/m · Como concède 3.5/m\n🎯 Attendu : Lens ~3.8 · Como ~6.1 → total ~9.9\n⚖️ Como favori (#11 vs #26) · Lens forme : L-W-L-W-L · Como forme : W-W-W-W-W\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
       "stats": {
-        "expected_total": 24.9
+        "expected_total": 9.9
       },
       "tier": "safe",
       "calibration_delta": -11.3,
       "history_top3": true,
-      "p_cal": 63.0,
+      "p_cal": 75.7,
       "statut_marche": "RETENU",
       "mise_pct": 3.0,
       "mise_label": "3 %",
       "valeur_pct": null,
       "cote_estimee": false,
-      "ecart_calibration": -14.0,
-      "rang_jour": 43,
-      "cumul_pct": 131.0,
+      "ecart_calibration": -1.3,
+      "rang_jour": 24,
+      "cumul_pct": 76.0,
       "hors_budget": true
     },
     "no_picks": false,
     "context": {
       "stadium": {
-        "name": "Estadio Municipal de Anoeta",
-        "city": "Donostia-San Sebastián",
-        "country": "Spain",
-        "lat": 43.301375816,
-        "lon": -1.97360158,
-        "capacity": 40000,
+        "name": "Stade Bollaert-Delelis",
+        "city": "Lens",
+        "country": "France",
+        "lat": 50.432866762,
+        "lon": 2.81494081,
+        "capacity": 41233,
         "surface": "grass"
       },
       "weather": {
-        "temp_max": 16.1,
-        "temp_min": 5.0,
-        "humidity": 65,
+        "temp_max": 8.0,
+        "temp_min": 3.7,
+        "humidity": 76,
         "precipitation_sum_mm": 0.0,
-        "wind_max_kmh": 8.3,
-        "weather_code": 2,
-        "summary_fr": "⛅ partiellement nuageux · 5–16°C · humidité 65%"
+        "wind_max_kmh": 17.6,
+        "weather_code": 3,
+        "summary_fr": "☁️ couvert · 3–8°C · humidité 76%"
       },
-      "text": "Conditions : ⛅ partiellement nuageux · 5–16°C · humidité 65%. Stade : Estadio Municipal de Anoeta · 40 000 places · plein air."
+      "text": "Conditions : ☁️ couvert · 3–8°C · humidité 76%. Stade : Stade Bollaert-Delelis · 41 233 places · plein air."
     }
   },
   {
@@ -4704,8 +4533,8 @@
         "valeur_pct": null,
         "cote_estimee": false,
         "ecart_calibration": -14.0,
-        "rang_jour": 47,
-        "cumul_pct": 143.0,
+        "rang_jour": 44,
+        "cumul_pct": 136.0,
         "hors_budget": true
       },
       {
@@ -4728,15 +4557,15 @@
         "tier": "safe",
         "calibration_delta": -11.3,
         "history_top3": false,
-        "p_cal": 46.9,
+        "p_cal": 47.0,
         "statut_marche": "SURVEILLE",
         "mise_pct": 0.5,
         "mise_label": "0.5 %",
         "valeur_pct": null,
         "cote_estimee": false,
-        "ecart_calibration": -32.1,
+        "ecart_calibration": -32.0,
         "rang_jour": 94,
-        "cumul_pct": 203.5,
+        "cumul_pct": 199.5,
         "hors_budget": true
       }
     ],
@@ -4769,8 +4598,8 @@
       "valeur_pct": null,
       "cote_estimee": false,
       "ecart_calibration": -14.0,
-      "rang_jour": 47,
-      "cumul_pct": 143.0,
+      "rang_jour": 44,
+      "cumul_pct": 136.0,
       "hors_budget": true
     },
     "no_picks": false,
@@ -4785,15 +4614,15 @@
         "surface": "grass"
       },
       "weather": {
-        "temp_max": 10.6,
-        "temp_min": 5.2,
-        "humidity": 79,
+        "temp_max": 10.5,
+        "temp_min": 5.6,
+        "humidity": 80,
         "precipitation_sum_mm": 0.0,
         "wind_max_kmh": 17.3,
         "weather_code": 3,
-        "summary_fr": "☁️ couvert · 5–10°C · humidité 79%"
+        "summary_fr": "☁️ couvert · 5–10°C · humidité 80%"
       },
-      "text": "Conditions : ☁️ couvert · 5–10°C · humidité 79%. Stade : Celtic Park · 60 832 places · plein air."
+      "text": "Conditions : ☁️ couvert · 5–10°C · humidité 80%. Stade : Celtic Park · 60 832 places · plein air."
     }
   },
   {
@@ -4830,8 +4659,8 @@
         "valeur_pct": null,
         "cote_estimee": false,
         "ecart_calibration": -14.0,
-        "rang_jour": 48,
-        "cumul_pct": 146.0,
+        "rang_jour": 45,
+        "cumul_pct": 139.0,
         "hors_budget": true
       },
       {
@@ -4854,15 +4683,15 @@
         "tier": "safe",
         "calibration_delta": -26.0,
         "history_top3": false,
-        "p_cal": 46.9,
+        "p_cal": 47.0,
         "statut_marche": "SURVEILLE",
         "mise_pct": 0.5,
         "mise_label": "0.5 %",
         "valeur_pct": null,
         "cote_estimee": false,
-        "ecart_calibration": -33.1,
+        "ecart_calibration": -33.0,
         "rang_jour": 96,
-        "cumul_pct": 204.5,
+        "cumul_pct": 200.5,
         "hors_budget": true
       }
     ],
@@ -4895,8 +4724,8 @@
       "valeur_pct": null,
       "cote_estimee": false,
       "ecart_calibration": -14.0,
-      "rang_jour": 48,
-      "cumul_pct": 146.0,
+      "rang_jour": 45,
+      "cumul_pct": 139.0,
       "hors_budget": true
     },
     "no_picks": false,
@@ -4911,15 +4740,15 @@
         "surface": "grass"
       },
       "weather": {
-        "temp_max": 9.0,
-        "temp_min": 4.6,
-        "humidity": 73,
+        "temp_max": 8.6,
+        "temp_min": 4.8,
+        "humidity": 74,
         "precipitation_sum_mm": 0.0,
         "wind_max_kmh": 5.2,
         "weather_code": 3,
-        "summary_fr": "☁️ couvert · 4–9°C · humidité 73%"
+        "summary_fr": "☁️ couvert · 4–8°C · humidité 74%"
       },
-      "text": "Conditions : ☁️ couvert · 4–9°C · humidité 73%. Stade : Stadion Graz-Liebenau · 17 425 places · plein air."
+      "text": "Conditions : ☁️ couvert · 4–8°C · humidité 74%. Stade : Stadion Graz-Liebenau · 17 425 places · plein air."
     }
   },
   {
@@ -4956,8 +4785,8 @@
         "valeur_pct": null,
         "cote_estimee": false,
         "ecart_calibration": -14.0,
-        "rang_jour": 50,
-        "cumul_pct": 152.0,
+        "rang_jour": 47,
+        "cumul_pct": 145.0,
         "hors_budget": true
       },
       {
@@ -4980,15 +4809,15 @@
         "tier": "safe",
         "calibration_delta": -11.3,
         "history_top3": false,
-        "p_cal": 46.9,
+        "p_cal": 47.0,
         "statut_marche": "SURVEILLE",
         "mise_pct": 0.5,
         "mise_label": "0.5 %",
         "valeur_pct": null,
         "cote_estimee": false,
-        "ecart_calibration": -31.1,
+        "ecart_calibration": -31.0,
         "rang_jour": 98,
-        "cumul_pct": 205.5,
+        "cumul_pct": 201.5,
         "hors_budget": true
       }
     ],
@@ -5021,8 +4850,8 @@
       "valeur_pct": null,
       "cote_estimee": false,
       "ecart_calibration": -14.0,
-      "rang_jour": 50,
-      "cumul_pct": 152.0,
+      "rang_jour": 47,
+      "cumul_pct": 145.0,
       "hors_budget": true
     },
     "no_picks": false,
@@ -5036,8 +4865,16 @@
         "capacity": 23888,
         "surface": "grass"
       },
-      "weather": null,
-      "text": "Stade : Estádio Dr. Magalhães Pessoa · 23 888 places · plein air."
+      "weather": {
+        "temp_max": 18.6,
+        "temp_min": 4.8,
+        "humidity": 60,
+        "precipitation_sum_mm": 0.0,
+        "wind_max_kmh": 11.3,
+        "weather_code": 45,
+        "summary_fr": "🌫️ brouillard · 4–18°C · humidité 60%"
+      },
+      "text": "Conditions : 🌫️ brouillard · 4–18°C · humidité 60%. Stade : Estádio Dr. Magalhães Pessoa · 23 888 places · plein air."
     }
   },
   {
@@ -5074,8 +4911,8 @@
         "valeur_pct": null,
         "cote_estimee": false,
         "ecart_calibration": -14.0,
-        "rang_jour": 54,
-        "cumul_pct": 164.0,
+        "rang_jour": 51,
+        "cumul_pct": 157.0,
         "hors_budget": true
       },
       {
@@ -5098,15 +4935,15 @@
         "tier": "safe",
         "calibration_delta": -26.0,
         "history_top3": false,
-        "p_cal": 46.9,
+        "p_cal": 47.0,
         "statut_marche": "SURVEILLE",
         "mise_pct": 0.5,
         "mise_label": "0.5 %",
         "valeur_pct": null,
         "cote_estimee": false,
-        "ecart_calibration": -33.1,
+        "ecart_calibration": -33.0,
         "rang_jour": 102,
-        "cumul_pct": 207.5,
+        "cumul_pct": 203.5,
         "hors_budget": true
       }
     ],
@@ -5139,8 +4976,8 @@
       "valeur_pct": null,
       "cote_estimee": false,
       "ecart_calibration": -14.0,
-      "rang_jour": 54,
-      "cumul_pct": 164.0,
+      "rang_jour": 51,
+      "cumul_pct": 157.0,
       "hors_budget": true
     },
     "no_picks": false,
@@ -5156,7 +4993,7 @@
       },
       "weather": {
         "temp_max": 6.7,
-        "temp_min": 4.2,
+        "temp_min": 4.4,
         "humidity": 71,
         "precipitation_sum_mm": 0.0,
         "wind_max_kmh": 29.5,
@@ -5200,8 +5037,8 @@
         "valeur_pct": null,
         "cote_estimee": false,
         "ecart_calibration": -14.0,
-        "rang_jour": 57,
-        "cumul_pct": 173.0,
+        "rang_jour": 54,
+        "cumul_pct": 166.0,
         "hors_budget": true
       },
       {
@@ -5226,8 +5063,8 @@
         "valeur_pct": 4.4,
         "cote_estimee": false,
         "ecart_calibration": -2.0,
-        "rang_jour": 66,
-        "cumul_pct": 188.0,
+        "rang_jour": 65,
+        "cumul_pct": 183.0,
         "hors_budget": true
       },
       {
@@ -5250,15 +5087,15 @@
         "tier": "safe",
         "calibration_delta": -26.0,
         "history_top3": false,
-        "p_cal": 46.9,
+        "p_cal": 47.0,
         "statut_marche": "SURVEILLE",
         "mise_pct": 0.5,
         "mise_label": "0.5 %",
         "valeur_pct": null,
         "cote_estimee": false,
-        "ecart_calibration": -34.1,
+        "ecart_calibration": -34.0,
         "rang_jour": 107,
-        "cumul_pct": 210.0,
+        "cumul_pct": 206.0,
         "hors_budget": true
       }
     ],
@@ -5291,8 +5128,8 @@
       "valeur_pct": null,
       "cote_estimee": false,
       "ecart_calibration": -14.0,
-      "rang_jour": 57,
-      "cumul_pct": 173.0,
+      "rang_jour": 54,
+      "cumul_pct": 166.0,
       "hors_budget": true
     },
     "no_picks": false,
@@ -5307,15 +5144,15 @@
         "surface": "grass"
       },
       "weather": {
-        "temp_max": 10.3,
-        "temp_min": 2.3,
-        "humidity": 72,
+        "temp_max": 10.2,
+        "temp_min": 2.7,
+        "humidity": 73,
         "precipitation_sum_mm": 0.0,
-        "wind_max_kmh": 17.3,
+        "wind_max_kmh": 16.9,
         "weather_code": 0,
-        "summary_fr": "🌤️ conditions variables · 2–10°C · humidité 72%"
+        "summary_fr": "🌤️ conditions variables · 2–10°C · humidité 73%"
       },
-      "text": "Conditions : 🌤️ conditions variables · 2–10°C · humidité 72%. Stade : De Grolsch Veste · 30 205 places · plein air."
+      "text": "Conditions : 🌤️ conditions variables · 2–10°C · humidité 73%. Stade : De Grolsch Veste · 30 205 places · plein air."
     }
   },
   {
@@ -5352,8 +5189,34 @@
         "valeur_pct": null,
         "cote_estimee": false,
         "ecart_calibration": -0.3,
-        "rang_jour": 24,
-        "cumul_pct": 74.0,
+        "rang_jour": 23,
+        "cumul_pct": 73.0,
+        "hors_budget": true
+      },
+      {
+        "direction": "over35",
+        "type": "Over 3.5 buts",
+        "label": "Plus de 3.5 buts",
+        "cote": 1.83,
+        "confidence": 68,
+        "reasoning": "Fenerbahçe: 1.0 buts/L10 · défense Liverpool concède 2.3/L10 → ~1.7 attendus · Liverpool: 4.0 buts/L10 · défense Fenerbahçe concède 3.0/L10 → ~3.5 attendus · Total: ~5.2 buts (P=76.2% · contexte LDC (L10/L10))\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
+        "stats": {
+          "form": []
+        },
+        "is_fun": false,
+        "tier": "ok",
+        "calibration_delta": -25.4,
+        "edge_pp": 13.4,
+        "history_top3": true,
+        "p_cal": 81.2,
+        "statut_marche": "SURVEILLE",
+        "mise_pct": 1.0,
+        "mise_label": "1 %",
+        "valeur_pct": 48.6,
+        "cote_estimee": false,
+        "ecart_calibration": 13.2,
+        "rang_jour": 59,
+        "cumul_pct": 177.0,
         "hors_budget": true
       },
       {
@@ -5376,15 +5239,15 @@
         "tier": "safe",
         "calibration_delta": -11.3,
         "history_top3": true,
-        "p_cal": 46.9,
+        "p_cal": 47.0,
         "statut_marche": "SURVEILLE",
         "mise_pct": 0.5,
         "mise_label": "0.5 %",
         "valeur_pct": null,
         "cote_estimee": false,
-        "ecart_calibration": -28.1,
+        "ecart_calibration": -28.0,
         "rang_jour": 77,
-        "cumul_pct": 195.0,
+        "cumul_pct": 191.0,
         "hors_budget": true
       }
     ],
@@ -5417,8 +5280,8 @@
       "valeur_pct": null,
       "cote_estimee": false,
       "ecart_calibration": -0.3,
-      "rang_jour": 24,
-      "cumul_pct": 74.0,
+      "rang_jour": 23,
+      "cumul_pct": 73.0,
       "hors_budget": true
     },
     "no_picks": false,
@@ -5434,14 +5297,14 @@
       },
       "weather": {
         "temp_max": 16.3,
-        "temp_min": 13.5,
-        "humidity": 89,
-        "precipitation_sum_mm": 34.7,
-        "wind_max_kmh": 29.0,
+        "temp_min": 13.4,
+        "humidity": 90,
+        "precipitation_sum_mm": 35.9,
+        "wind_max_kmh": 28.1,
         "weather_code": 95,
-        "summary_fr": "⛈️ orage · 16°C · humidité 89% · précipitations 34.7mm"
+        "summary_fr": "⛈️ orage · 16°C · humidité 90% · précipitations 35.9mm"
       },
-      "text": "Conditions : ⛈️ orage · 16°C · humidité 89% · précipitations 34.7mm. Stade : Chobani Stadyumu Fenerbahçe Şükrü Saracoğlu Spor Kompleksi · 47 834 places · plein air. ⚠️ Pluies prévues : terrain potentiellement lourd, jeu direct privilégié, plus d'erreurs techniques."
+      "text": "Conditions : ⛈️ orage · 16°C · humidité 90% · précipitations 35.9mm. Stade : Chobani Stadyumu Fenerbahçe Şükrü Saracoğlu Spor Kompleksi · 47 834 places · plein air. ⚠️ Pluies prévues : terrain potentiellement lourd, jeu direct privilégié, plus d'erreurs techniques."
     }
   },
   {
@@ -5479,7 +5342,7 @@
         "cote_estimee": false,
         "ecart_calibration": -13.0,
         "rang_jour": 37,
-        "cumul_pct": 113.0,
+        "cumul_pct": 115.0,
         "hors_budget": true
       },
       {
@@ -5509,8 +5372,8 @@
         "valeur_pct": null,
         "cote_estimee": false,
         "ecart_calibration": 12.0,
-        "rang_jour": 68,
-        "cumul_pct": 190.0,
+        "rang_jour": 67,
+        "cumul_pct": 185.0,
         "hors_budget": true
       }
     ],
@@ -5544,7 +5407,7 @@
       "cote_estimee": false,
       "ecart_calibration": -13.0,
       "rang_jour": 37,
-      "cumul_pct": 113.0,
+      "cumul_pct": 115.0,
       "hors_budget": true
     },
     "no_picks": false,
@@ -5560,14 +5423,14 @@
       },
       "weather": {
         "temp_max": 17.2,
-        "temp_min": 8.3,
-        "humidity": 49,
+        "temp_min": 8.0,
+        "humidity": 52,
         "precipitation_sum_mm": 0.0,
-        "wind_max_kmh": 13.5,
+        "wind_max_kmh": 14.3,
         "weather_code": 1,
-        "summary_fr": "🌤️ principalement clair · 8–17°C · humidité 49%"
+        "summary_fr": "🌤️ principalement clair · 8–17°C · humidité 52%"
       },
-      "text": "Conditions : 🌤️ principalement clair · 8–17°C · humidité 49%. Stade : Estádio Do Dragão · 50 399 places · plein air."
+      "text": "Conditions : 🌤️ principalement clair · 8–17°C · humidité 52%. Stade : Estádio Do Dragão · 50 399 places · plein air."
     }
   },
   {
@@ -5605,7 +5468,7 @@
         "cote_estimee": false,
         "ecart_calibration": -13.0,
         "rang_jour": 39,
-        "cumul_pct": 119.0,
+        "cumul_pct": 121.0,
         "hors_budget": true
       },
       {
@@ -5628,15 +5491,15 @@
         "tier": "safe",
         "calibration_delta": -11.3,
         "history_top3": true,
-        "p_cal": 46.9,
+        "p_cal": 47.0,
         "statut_marche": "SURVEILLE",
         "mise_pct": 0.5,
         "mise_label": "0.5 %",
         "valeur_pct": null,
         "cote_estimee": false,
-        "ecart_calibration": -30.1,
-        "rang_jour": 81,
-        "cumul_pct": 197.0,
+        "ecart_calibration": -30.0,
+        "rang_jour": 82,
+        "cumul_pct": 193.5,
         "hors_budget": true
       }
     ],
@@ -5670,7 +5533,7 @@
       "cote_estimee": false,
       "ecart_calibration": -13.0,
       "rang_jour": 39,
-      "cumul_pct": 119.0,
+      "cumul_pct": 121.0,
       "hors_budget": true
     },
     "no_picks": false,
@@ -5685,15 +5548,141 @@
         "surface": "artificial turf"
       },
       "weather": {
-        "temp_max": 8.4,
+        "temp_max": 8.3,
         "temp_min": 1.6,
-        "humidity": 88,
+        "humidity": 87,
         "precipitation_sum_mm": 0.0,
-        "wind_max_kmh": 10.1,
+        "wind_max_kmh": 9.7,
         "weather_code": 3,
-        "summary_fr": "☁️ couvert · 1–8°C · humidité 88%"
+        "summary_fr": "☁️ couvert · 1–8°C · humidité 87%"
       },
-      "text": "Conditions : ☁️ couvert · 1–8°C · humidité 88%. Stade : Lyse Arena · 15 900 places · plein air."
+      "text": "Conditions : ☁️ couvert · 1–8°C · humidité 87%. Stade : Lyse Arena · 15 900 places · plein air."
+    }
+  },
+  {
+    "league": "Europa League",
+    "home": "Real Sociedad",
+    "away": "Lyon",
+    "start_ts": 1793900700,
+    "match_id": "6112270",
+    "page_url": "/matches/real-sociedad-vs-lyon/2rsgym#6112270",
+    "picks": [
+      {
+        "direction": "shots_under_28.5",
+        "type": "Tirs (total match)",
+        "label": "Moins de 28.5 tirs total",
+        "cote": null,
+        "cote_min": 1.31,
+        "value": [
+          "💎",
+          "Value correcte",
+          "#84cc16"
+        ],
+        "confidence": 76,
+        "reasoning": "📊 Brut : Real Sociedad L10 TCC 14.4 (L5 TCC 14.8) tirs/m · Lyon L10 TCC 12.3 (L5 TCC 11.2) tirs/m\n🛡️ Défenses : Real Sociedad concède 14.0/m · Lyon concède 13.5/m\n🎯 Attendu : Real Sociedad ~12.6 · Lyon ~12.4 → total ~25.0\n⚖️ équipes proches au classement · Real Sociedad forme : L-W-W-W-D · Lyon forme : W-L-L-W-W\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+        "stats": {
+          "expected_total": 25.0
+        },
+        "tier": "safe",
+        "calibration_delta": -11.3,
+        "history_top3": true,
+        "p_cal": 63.0,
+        "statut_marche": "RETENU",
+        "mise_pct": 3.0,
+        "mise_label": "3 %",
+        "valeur_pct": null,
+        "cote_estimee": false,
+        "ecart_calibration": -13.0,
+        "rang_jour": 41,
+        "cumul_pct": 127.0,
+        "hors_budget": true
+      },
+      {
+        "direction": "tirs_(real_sociedad)_under_15.5",
+        "type": "Tirs (Real Sociedad)",
+        "label": "Moins de 15.5 tirs Real Sociedad",
+        "cote": null,
+        "cote_min": 1.25,
+        "value": [
+          "⚠️",
+          "Value serrée",
+          "#f59e0b"
+        ],
+        "confidence": 80,
+        "edge": null,
+        "reasoning": "Real Sociedad prend 11.7/m [pondere vs opp #13] · adv. concède 13.5/m → attendu ~12.6 (équipes proches au classement)\n📉 Calibration : bucket 80-89% historiquement à WR 56% (claim 82%, n=63) — sur-estimé de 26pp",
+        "stats": {
+          "expected": 12.6
+        },
+        "tier": "safe",
+        "calibration_delta": -26.0,
+        "history_top3": false,
+        "p_cal": 47.0,
+        "statut_marche": "SURVEILLE",
+        "mise_pct": 0.5,
+        "mise_label": "0.5 %",
+        "valeur_pct": null,
+        "cote_estimee": false,
+        "ecart_calibration": -33.0,
+        "rang_jour": 89,
+        "cumul_pct": 197.0,
+        "hors_budget": true
+      }
+    ],
+    "home_players": [],
+    "away_players": [],
+    "fun_picks": [],
+    "top_pick": {
+      "direction": "shots_under_28.5",
+      "type": "Tirs (total match)",
+      "label": "Moins de 28.5 tirs total",
+      "cote": null,
+      "cote_min": 1.31,
+      "value": [
+        "💎",
+        "Value correcte",
+        "#84cc16"
+      ],
+      "confidence": 76,
+      "reasoning": "📊 Brut : Real Sociedad L10 TCC 14.4 (L5 TCC 14.8) tirs/m · Lyon L10 TCC 12.3 (L5 TCC 11.2) tirs/m\n🛡️ Défenses : Real Sociedad concède 14.0/m · Lyon concède 13.5/m\n🎯 Attendu : Real Sociedad ~12.6 · Lyon ~12.4 → total ~25.0\n⚖️ équipes proches au classement · Real Sociedad forme : L-W-W-W-D · Lyon forme : W-L-L-W-W\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
+      "stats": {
+        "expected_total": 25.0
+      },
+      "tier": "safe",
+      "calibration_delta": -11.3,
+      "history_top3": true,
+      "p_cal": 63.0,
+      "statut_marche": "RETENU",
+      "mise_pct": 3.0,
+      "mise_label": "3 %",
+      "valeur_pct": null,
+      "cote_estimee": false,
+      "ecart_calibration": -13.0,
+      "rang_jour": 41,
+      "cumul_pct": 127.0,
+      "hors_budget": true
+    },
+    "no_picks": false,
+    "context": {
+      "stadium": {
+        "name": "Estadio Municipal de Anoeta",
+        "city": "Donostia-San Sebastián",
+        "country": "Spain",
+        "lat": 43.301375816,
+        "lon": -1.97360158,
+        "capacity": 40000,
+        "surface": "grass"
+      },
+      "weather": {
+        "temp_max": 16.2,
+        "temp_min": 5.3,
+        "humidity": 65,
+        "precipitation_sum_mm": 0.0,
+        "wind_max_kmh": 8.5,
+        "weather_code": 1,
+        "summary_fr": "🌤️ principalement clair · 5–16°C · humidité 65%"
+      },
+      "text": "Conditions : 🌤️ principalement clair · 5–16°C · humidité 65%. Stade : Estadio Municipal de Anoeta · 40 000 places · plein air."
     }
   },
   {
@@ -5730,8 +5719,8 @@
         "valeur_pct": null,
         "cote_estimee": false,
         "ecart_calibration": -13.0,
-        "rang_jour": 44,
-        "cumul_pct": 134.0,
+        "rang_jour": 42,
+        "cumul_pct": 130.0,
         "hors_budget": true
       },
       {
@@ -5754,15 +5743,15 @@
         "tier": "safe",
         "calibration_delta": -11.3,
         "history_top3": false,
-        "p_cal": 46.9,
+        "p_cal": 47.0,
         "statut_marche": "SURVEILLE",
         "mise_pct": 0.5,
         "mise_label": "0.5 %",
         "valeur_pct": null,
         "cote_estimee": false,
-        "ecart_calibration": -31.1,
+        "ecart_calibration": -31.0,
         "rang_jour": 90,
-        "cumul_pct": 201.5,
+        "cumul_pct": 197.5,
         "hors_budget": true
       }
     ],
@@ -5795,8 +5784,8 @@
       "valeur_pct": null,
       "cote_estimee": false,
       "ecart_calibration": -13.0,
-      "rang_jour": 44,
-      "cumul_pct": 134.0,
+      "rang_jour": 42,
+      "cumul_pct": 130.0,
       "hors_budget": true
     },
     "no_picks": false,
@@ -5811,15 +5800,15 @@
         "surface": "grass"
       },
       "weather": {
-        "temp_max": 10.1,
-        "temp_min": 3.9,
-        "humidity": 77,
+        "temp_max": 9.9,
+        "temp_min": 4.1,
+        "humidity": 76,
         "precipitation_sum_mm": 0.0,
         "wind_max_kmh": 23.8,
         "weather_code": 0,
-        "summary_fr": "🌤️ conditions variables · 3–10°C · humidité 77%"
+        "summary_fr": "🌤️ conditions variables · 4–9°C · humidité 76%"
       },
-      "text": "Conditions : 🌤️ conditions variables · 3–10°C · humidité 77%. Stade : AFAS Stadion · 19 500 places · plein air."
+      "text": "Conditions : 🌤️ conditions variables · 4–9°C · humidité 76%. Stade : AFAS Stadion · 19 500 places · plein air."
     }
   },
   {
@@ -5856,8 +5845,8 @@
         "valeur_pct": null,
         "cote_estimee": false,
         "ecart_calibration": -13.0,
-        "rang_jour": 55,
-        "cumul_pct": 167.0,
+        "rang_jour": 52,
+        "cumul_pct": 160.0,
         "hors_budget": true
       },
       {
@@ -5880,15 +5869,15 @@
         "tier": "safe",
         "calibration_delta": -11.3,
         "history_top3": false,
-        "p_cal": 46.9,
+        "p_cal": 47.0,
         "statut_marche": "SURVEILLE",
         "mise_pct": 0.5,
         "mise_label": "0.5 %",
         "valeur_pct": null,
         "cote_estimee": false,
-        "ecart_calibration": -31.1,
+        "ecart_calibration": -31.0,
         "rang_jour": 104,
-        "cumul_pct": 208.5,
+        "cumul_pct": 204.5,
         "hors_budget": true
       }
     ],
@@ -5921,8 +5910,8 @@
       "valeur_pct": null,
       "cote_estimee": false,
       "ecart_calibration": -13.0,
-      "rang_jour": 55,
-      "cumul_pct": 167.0,
+      "rang_jour": 52,
+      "cumul_pct": 160.0,
       "hors_budget": true
     },
     "no_picks": false,
@@ -5937,15 +5926,15 @@
         "surface": "grass"
       },
       "weather": {
-        "temp_max": 9.3,
-        "temp_min": 4.5,
-        "humidity": 93,
+        "temp_max": 9.5,
+        "temp_min": 4.9,
+        "humidity": 92,
         "precipitation_sum_mm": 0.0,
-        "wind_max_kmh": 12.6,
+        "wind_max_kmh": 13.0,
         "weather_code": 3,
-        "summary_fr": "☁️ couvert · 4–9°C · humidité 93%"
+        "summary_fr": "☁️ couvert · 4–9°C · humidité 92%"
       },
-      "text": "Conditions : ☁️ couvert · 4–9°C · humidité 93%. Stade : Olympia · 16 673 places · plein air."
+      "text": "Conditions : ☁️ couvert · 4–9°C · humidité 92%. Stade : Olympia · 16 673 places · plein air."
     }
   },
   {
@@ -5983,7 +5972,7 @@
         "cote_estimee": false,
         "ecart_calibration": -0.3,
         "rang_jour": 32,
-        "cumul_pct": 98.0,
+        "cumul_pct": 100.0,
         "hors_budget": true
       },
       {
@@ -6006,15 +5995,15 @@
         "tier": "safe",
         "calibration_delta": -11.3,
         "history_top3": true,
-        "p_cal": 46.9,
+        "p_cal": 47.0,
         "statut_marche": "SURVEILLE",
         "mise_pct": 0.5,
         "mise_label": "0.5 %",
         "valeur_pct": null,
         "cote_estimee": false,
-        "ecart_calibration": -29.1,
+        "ecart_calibration": -29.0,
         "rang_jour": 108,
-        "cumul_pct": 210.5,
+        "cumul_pct": 206.5,
         "hors_budget": true
       }
     ],
@@ -6048,7 +6037,7 @@
       "cote_estimee": false,
       "ecart_calibration": -0.3,
       "rang_jour": 32,
-      "cumul_pct": 98.0,
+      "cumul_pct": 100.0,
       "hors_budget": true
     },
     "no_picks": false,
@@ -6063,15 +6052,15 @@
         "surface": "grass"
       },
       "weather": {
-        "temp_max": 16.0,
-        "temp_min": 4.3,
-        "humidity": 37,
+        "temp_max": 15.5,
+        "temp_min": 4.2,
+        "humidity": 43,
         "precipitation_sum_mm": 0.0,
-        "wind_max_kmh": 10.2,
+        "wind_max_kmh": 9.5,
         "weather_code": 2,
-        "summary_fr": "⛅ partiellement nuageux · 4–16°C · humidité 37%"
+        "summary_fr": "⛅ partiellement nuageux · 4–15°C · humidité 43%"
       },
-      "text": "Conditions : ⛅ partiellement nuageux · 4–16°C · humidité 37%. Stade : Estadio Coliseum · 17 393 places · plein air."
+      "text": "Conditions : ⛅ partiellement nuageux · 4–15°C · humidité 43%. Stade : Estadio Coliseum · 17 393 places · plein air."
     }
   },
   {
@@ -6108,8 +6097,8 @@
         "valeur_pct": null,
         "cote_estimee": false,
         "ecart_calibration": -12.0,
-        "rang_jour": 52,
-        "cumul_pct": 158.0,
+        "rang_jour": 49,
+        "cumul_pct": 151.0,
         "hors_budget": true
       },
       {
@@ -6132,15 +6121,15 @@
         "tier": "safe",
         "calibration_delta": -26.0,
         "history_top3": false,
-        "p_cal": 46.9,
+        "p_cal": 47.0,
         "statut_marche": "SURVEILLE",
         "mise_pct": 0.5,
         "mise_label": "0.5 %",
         "valeur_pct": null,
         "cote_estimee": false,
-        "ecart_calibration": -33.1,
+        "ecart_calibration": -33.0,
         "rang_jour": 100,
-        "cumul_pct": 206.5,
+        "cumul_pct": 202.5,
         "hors_budget": true
       }
     ],
@@ -6173,8 +6162,8 @@
       "valeur_pct": null,
       "cote_estimee": false,
       "ecart_calibration": -12.0,
-      "rang_jour": 52,
-      "cumul_pct": 158.0,
+      "rang_jour": 49,
+      "cumul_pct": 151.0,
       "hors_budget": true
     },
     "no_picks": false,
@@ -6189,15 +6178,15 @@
         "surface": "grass"
       },
       "weather": {
-        "temp_max": 13.4,
-        "temp_min": 8.5,
-        "humidity": 61,
+        "temp_max": 13.3,
+        "temp_min": 9.0,
+        "humidity": 63,
         "precipitation_sum_mm": 0.0,
-        "wind_max_kmh": 5.4,
+        "wind_max_kmh": 7.4,
         "weather_code": 3,
-        "summary_fr": "☁️ couvert · 8–13°C · humidité 61%"
+        "summary_fr": "☁️ couvert · 9–13°C · humidité 63%"
       },
-      "text": "Conditions : ☁️ couvert · 8–13°C · humidité 61%. Stade : New Balance Arena · 24 950 places · plein air."
+      "text": "Conditions : ☁️ couvert · 9–13°C · humidité 63%. Stade : New Balance Arena · 24 950 places · plein air."
     }
   },
   {
@@ -6235,7 +6224,7 @@
         "cote_estimee": false,
         "ecart_calibration": 1.7,
         "rang_jour": 35,
-        "cumul_pct": 107.0,
+        "cumul_pct": 109.0,
         "hors_budget": true
       },
       {
@@ -6258,15 +6247,15 @@
         "tier": "safe",
         "calibration_delta": -11.3,
         "history_top3": true,
-        "p_cal": 46.9,
+        "p_cal": 47.0,
         "statut_marche": "SURVEILLE",
         "mise_pct": 0.5,
         "mise_label": "0.5 %",
         "valeur_pct": null,
         "cote_estimee": false,
-        "ecart_calibration": -28.1,
+        "ecart_calibration": -28.0,
         "rang_jour": 112,
-        "cumul_pct": 212.5,
+        "cumul_pct": 208.5,
         "hors_budget": true
       }
     ],
@@ -6300,7 +6289,7 @@
       "cote_estimee": false,
       "ecart_calibration": 1.7,
       "rang_jour": 35,
-      "cumul_pct": 107.0,
+      "cumul_pct": 109.0,
       "hors_budget": true
     },
     "no_picks": false,
@@ -6315,15 +6304,15 @@
         "surface": "grass"
       },
       "weather": {
-        "temp_max": 10.4,
-        "temp_min": 8.3,
-        "humidity": 74,
+        "temp_max": 10.8,
+        "temp_min": 8.5,
+        "humidity": 69,
         "precipitation_sum_mm": 0.0,
         "wind_max_kmh": 29.5,
         "weather_code": 3,
-        "summary_fr": "☁️ couvert · 10°C · humidité 74%"
+        "summary_fr": "☁️ couvert · 10°C · humidité 69%"
       },
-      "text": "Conditions : ☁️ couvert · 10°C · humidité 74%. Stade : Stadions Skonto · 8 207 places · plein air."
+      "text": "Conditions : ☁️ couvert · 10°C · humidité 69%. Stade : Stadions Skonto · 8 207 places · plein air."
     }
   },
   {
@@ -6360,8 +6349,8 @@
         "valeur_pct": null,
         "cote_estimee": false,
         "ecart_calibration": -10.0,
-        "rang_jour": 56,
-        "cumul_pct": 170.0,
+        "rang_jour": 53,
+        "cumul_pct": 163.0,
         "hors_budget": true
       },
       {
@@ -6386,8 +6375,8 @@
         "valeur_pct": 1.8,
         "cote_estimee": false,
         "ecart_calibration": -20.8,
-        "rang_jour": 72,
-        "cumul_pct": 192.5,
+        "rang_jour": 71,
+        "cumul_pct": 188.0,
         "hors_budget": true
       },
       {
@@ -6410,15 +6399,15 @@
         "tier": "safe",
         "calibration_delta": -26.0,
         "history_top3": false,
-        "p_cal": 46.9,
+        "p_cal": 47.0,
         "statut_marche": "SURVEILLE",
         "mise_pct": 0.5,
         "mise_label": "0.5 %",
         "valeur_pct": null,
         "cote_estimee": false,
-        "ecart_calibration": -33.1,
+        "ecart_calibration": -33.0,
         "rang_jour": 105,
-        "cumul_pct": 209.0,
+        "cumul_pct": 205.0,
         "hors_budget": true
       }
     ],
@@ -6451,8 +6440,8 @@
       "valeur_pct": null,
       "cote_estimee": false,
       "ecart_calibration": -10.0,
-      "rang_jour": 56,
-      "cumul_pct": 170.0,
+      "rang_jour": 53,
+      "cumul_pct": 163.0,
       "hors_budget": true
     },
     "no_picks": false,
@@ -6467,15 +6456,15 @@
         "surface": "artificial turf"
       },
       "weather": {
-        "temp_max": 9.8,
-        "temp_min": 2.1,
-        "humidity": 78,
+        "temp_max": 10.0,
+        "temp_min": 3.9,
+        "humidity": 75,
         "precipitation_sum_mm": 0.0,
-        "wind_max_kmh": 5.1,
+        "wind_max_kmh": 5.2,
         "weather_code": 45,
-        "summary_fr": "🌫️ brouillard · 2–9°C · humidité 78%"
+        "summary_fr": "🌫️ brouillard · 3–10°C · humidité 75%"
       },
-      "text": "Conditions : 🌫️ brouillard · 2–9°C · humidité 78%. Stade : VISANA STADION · 10 014 places · plein air."
+      "text": "Conditions : 🌫️ brouillard · 3–10°C · humidité 75%. Stade : VISANA STADION · 10 014 places · plein air."
     }
   },
   {
@@ -6515,7 +6504,7 @@
         "cote_reference": 2.12,
         "ecart_calibration": -21.6,
         "rang_jour": 75,
-        "cumul_pct": 194.0,
+        "cumul_pct": 190.0,
         "hors_budget": true
       }
     ],
@@ -6551,7 +6540,7 @@
       "cote_reference": 2.12,
       "ecart_calibration": -21.6,
       "rang_jour": 75,
-      "cumul_pct": 194.0,
+      "cumul_pct": 190.0,
       "hors_budget": true
     },
     "no_picks": false,
@@ -6594,7 +6583,7 @@
         "cote_reference": 2.12,
         "ecart_calibration": -13.6,
         "rang_jour": 74,
-        "cumul_pct": 193.5,
+        "cumul_pct": 189.5,
         "hors_budget": true
       }
     ],
@@ -6630,7 +6619,7 @@
       "cote_reference": 2.12,
       "ecart_calibration": -13.6,
       "rang_jour": 74,
-      "cumul_pct": 193.5,
+      "cumul_pct": 189.5,
       "hors_budget": true
     },
     "no_picks": false,
@@ -6645,15 +6634,15 @@
         "surface": "grass"
       },
       "weather": {
-        "temp_max": 24.1,
-        "temp_min": 11.3,
-        "humidity": 50,
+        "temp_max": 23.9,
+        "temp_min": 11.2,
+        "humidity": 51,
         "precipitation_sum_mm": 0.0,
-        "wind_max_kmh": 11.5,
-        "weather_code": 2,
-        "summary_fr": "⛅ partiellement nuageux · 11–24°C · humidité 50%"
+        "wind_max_kmh": 11.6,
+        "weather_code": 3,
+        "summary_fr": "☁️ couvert · 11–23°C · humidité 51%"
       },
-      "text": "Conditions : ⛅ partiellement nuageux · 11–24°C · humidité 50%. Stade : Estadio Juan Carmelo Zerillo · 24 544 places · plein air."
+      "text": "Conditions : ☁️ couvert · 11–23°C · humidité 51%. Stade : Estadio Juan Carmelo Zerillo · 24 544 places · plein air."
     }
   },
   {
@@ -6680,15 +6669,15 @@
         "surface": "grass"
       },
       "weather": {
-        "temp_max": 13.4,
-        "temp_min": 6.8,
-        "humidity": 70,
+        "temp_max": 13.1,
+        "temp_min": 6.4,
+        "humidity": 74,
         "precipitation_sum_mm": 1.4,
-        "wind_max_kmh": 8.3,
-        "weather_code": 51,
-        "summary_fr": "🌦️ bruine légère · 6–13°C · humidité 70% · précipitations 1.4mm"
+        "wind_max_kmh": 6.9,
+        "weather_code": 53,
+        "summary_fr": "🌦️ bruine modérée · 6–13°C · humidité 74% · précipitations 1.4mm"
       },
-      "text": "Conditions : 🌦️ bruine légère · 6–13°C · humidité 70% · précipitations 1.4mm. Stade : Estadio La Florida · 5 000 places · plein air."
+      "text": "Conditions : 🌦️ bruine modérée · 6–13°C · humidité 74% · précipitations 1.4mm. Stade : Estadio La Florida · 5 000 places · plein air."
     }
   },
   {
@@ -6716,14 +6705,14 @@
       },
       "weather": {
         "temp_max": 13.9,
-        "temp_min": 6.5,
-        "humidity": 66,
+        "temp_min": 6.3,
+        "humidity": 72,
         "precipitation_sum_mm": 0.2,
-        "wind_max_kmh": 9.7,
+        "wind_max_kmh": 10.2,
         "weather_code": 53,
-        "summary_fr": "🌦️ bruine modérée · 6–13°C · humidité 66%"
+        "summary_fr": "🌦️ bruine modérée · 6–13°C · humidité 72%"
       },
-      "text": "Conditions : 🌦️ bruine modérée · 6–13°C · humidité 66%. Stade : Campo Municipal de Urritxe · 3 000 places · plein air."
+      "text": "Conditions : 🌦️ bruine modérée · 6–13°C · humidité 72%. Stade : Campo Municipal de Urritxe · 3 000 places · plein air."
     }
   },
   {
@@ -6750,15 +6739,15 @@
         "surface": "artificial turf"
       },
       "weather": {
-        "temp_max": 18.6,
+        "temp_max": 18.2,
         "temp_min": 15.1,
-        "humidity": 75,
-        "precipitation_sum_mm": 6.7,
-        "wind_max_kmh": 21.1,
+        "humidity": 76,
+        "precipitation_sum_mm": 6.8,
+        "wind_max_kmh": 21.2,
         "weather_code": 95,
-        "summary_fr": "⛈️ orage · 15–18°C · humidité 75% · précipitations 6.7mm"
+        "summary_fr": "⛈️ orage · 15–18°C · humidité 76% · précipitations 6.8mm"
       },
-      "text": "Conditions : ⛈️ orage · 15–18°C · humidité 75% · précipitations 6.7mm. Stade : Estadio Municipal Ángel Celdrán · 2 000 places · plein air. ⚠️ Pluies prévues : terrain potentiellement lourd, jeu direct privilégié, plus d'erreurs techniques."
+      "text": "Conditions : ⛈️ orage · 15–18°C · humidité 76% · précipitations 6.8mm. Stade : Estadio Municipal Ángel Celdrán · 2 000 places · plein air. ⚠️ Pluies prévues : terrain potentiellement lourd, jeu direct privilégié, plus d'erreurs techniques."
     }
   },
   {
@@ -6785,15 +6774,15 @@
         "surface": "grass"
       },
       "weather": {
-        "temp_max": 15.3,
-        "temp_min": 8.2,
-        "humidity": 65,
+        "temp_max": 15.0,
+        "temp_min": 8.5,
+        "humidity": 66,
         "precipitation_sum_mm": 1.9,
-        "wind_max_kmh": 8.1,
+        "wind_max_kmh": 7.9,
         "weather_code": 61,
-        "summary_fr": "🌦️ pluie légère · 8–15°C · humidité 65% · précipitations 1.9mm"
+        "summary_fr": "🌦️ pluie légère · 8–15°C · humidité 66% · précipitations 1.9mm"
       },
-      "text": "Conditions : 🌦️ pluie légère · 8–15°C · humidité 65% · précipitations 1.9mm. Stade : Estadio Camp Nou Municipal · 4 847 places · plein air."
+      "text": "Conditions : 🌦️ pluie légère · 8–15°C · humidité 66% · précipitations 1.9mm. Stade : Estadio Camp Nou Municipal · 4 847 places · plein air."
     }
   },
   {
@@ -6820,15 +6809,15 @@
         "surface": "artificial turf"
       },
       "weather": {
-        "temp_max": 14.2,
-        "temp_min": 5.9,
-        "humidity": 46,
+        "temp_max": 14.4,
+        "temp_min": 6.1,
+        "humidity": 48,
         "precipitation_sum_mm": 0.0,
         "wind_max_kmh": 14.4,
         "weather_code": 3,
-        "summary_fr": "☁️ couvert · 5–14°C · humidité 46%"
+        "summary_fr": "☁️ couvert · 6–14°C · humidité 48%"
       },
-      "text": "Conditions : ☁️ couvert · 5–14°C · humidité 46%. Stade : Estadio Santa Ana · 5 000 places · plein air."
+      "text": "Conditions : ☁️ couvert · 6–14°C · humidité 48%. Stade : Estadio Santa Ana · 5 000 places · plein air."
     }
   },
   {
@@ -6855,15 +6844,15 @@
         "surface": "grass"
       },
       "weather": {
-        "temp_max": 18.3,
-        "temp_min": 6.0,
-        "humidity": 42,
+        "temp_max": 17.9,
+        "temp_min": 5.8,
+        "humidity": 44,
         "precipitation_sum_mm": 0.0,
-        "wind_max_kmh": 17.5,
+        "wind_max_kmh": 16.9,
         "weather_code": 3,
-        "summary_fr": "☁️ couvert · 6–18°C · humidité 42%"
+        "summary_fr": "☁️ couvert · 5–17°C · humidité 44%"
       },
-      "text": "Conditions : ☁️ couvert · 6–18°C · humidité 42%. Stade : Estadio Ciudad de Puertollano · 7 240 places · plein air."
+      "text": "Conditions : ☁️ couvert · 5–17°C · humidité 44%. Stade : Estadio Ciudad de Puertollano · 7 240 places · plein air."
     }
   },
   {
@@ -6890,15 +6879,15 @@
         "surface": "grass"
       },
       "weather": {
-        "temp_max": 19.9,
-        "temp_min": 4.6,
-        "humidity": 29,
+        "temp_max": 20.0,
+        "temp_min": 3.8,
+        "humidity": 30,
         "precipitation_sum_mm": 0.0,
-        "wind_max_kmh": 9.7,
+        "wind_max_kmh": 10.2,
         "weather_code": 3,
-        "summary_fr": "☁️ couvert · 4–19°C · humidité 29%"
+        "summary_fr": "☁️ couvert · 3–20°C · humidité 30%"
       },
-      "text": "Conditions : ☁️ couvert · 4–19°C · humidité 29%. Stade : Estadio Municipal Nuevo Vivero · 15 198 places · plein air."
+      "text": "Conditions : ☁️ couvert · 3–20°C · humidité 30%. Stade : Estadio Municipal Nuevo Vivero · 15 198 places · plein air."
     }
   },
   {
@@ -6925,15 +6914,15 @@
         "surface": "grass"
       },
       "weather": {
-        "temp_max": 15.3,
+        "temp_max": 14.6,
         "temp_min": 5.5,
-        "humidity": 36,
+        "humidity": 41,
         "precipitation_sum_mm": 0.0,
-        "wind_max_kmh": 12.8,
+        "wind_max_kmh": 12.9,
         "weather_code": 3,
-        "summary_fr": "☁️ couvert · 5–15°C · humidité 36%"
+        "summary_fr": "☁️ couvert · 5–14°C · humidité 41%"
       },
-      "text": "Conditions : ☁️ couvert · 5–15°C · humidité 36%. Stade : Polideportivo Estadio Municipal Tarancón · 1 500 places · plein air."
+      "text": "Conditions : ☁️ couvert · 5–14°C · humidité 41%. Stade : Polideportivo Estadio Municipal Tarancón · 1 500 places · plein air."
     }
   },
   {
@@ -6960,15 +6949,15 @@
         "surface": "grass"
       },
       "weather": {
-        "temp_max": 18.2,
-        "temp_min": 7.5,
-        "humidity": 64,
+        "temp_max": 18.1,
+        "temp_min": 8.0,
+        "humidity": 59,
         "precipitation_sum_mm": 0.0,
-        "wind_max_kmh": 14.6,
-        "weather_code": 45,
-        "summary_fr": "🌫️ brouillard · 7–18°C · humidité 64%"
+        "wind_max_kmh": 12.4,
+        "weather_code": 3,
+        "summary_fr": "☁️ couvert · 8–18°C · humidité 59%"
       },
-      "text": "Conditions : 🌫️ brouillard · 7–18°C · humidité 64%. Stade : Campo Municipal El Collao · 4 850 places · plein air."
+      "text": "Conditions : ☁️ couvert · 8–18°C · humidité 59%. Stade : Campo Municipal El Collao · 4 850 places · plein air."
     }
   },
   {
@@ -6995,15 +6984,15 @@
         "surface": "artificial turf"
       },
       "weather": {
-        "temp_max": 25.5,
+        "temp_max": 25.0,
         "temp_min": 17.9,
-        "humidity": 75,
-        "precipitation_sum_mm": 2.3,
-        "wind_max_kmh": 21.4,
-        "weather_code": 80,
-        "summary_fr": "🌦️ averses légères · 17–25°C · humidité 75% · précipitations 2.3mm"
+        "humidity": 78,
+        "precipitation_sum_mm": 0.9,
+        "wind_max_kmh": 14.5,
+        "weather_code": 51,
+        "summary_fr": "🌦️ bruine légère · 17–25°C · humidité 78%"
       },
-      "text": "Conditions : 🌦️ averses légères · 17–25°C · humidité 75% · précipitations 2.3mm. Stade : Estádio Mário Celso Petraglia · 43 981 places · plein air."
+      "text": "Conditions : 🌦️ bruine légère · 17–25°C · humidité 78%. Stade : Estádio Mário Celso Petraglia · 43 981 places · plein air."
     }
   },
   {
@@ -7030,15 +7019,15 @@
         "surface": "artificial turf"
       },
       "weather": {
-        "temp_max": 37.0,
+        "temp_max": 36.0,
         "temp_min": 22.5,
-        "humidity": 72,
-        "precipitation_sum_mm": 2.3,
-        "wind_max_kmh": 16.7,
-        "weather_code": 80,
-        "summary_fr": "🌦️ averses légères · 22–37°C · humidité 72% · précipitations 2.3mm"
+        "humidity": 61,
+        "precipitation_sum_mm": 0.9,
+        "wind_max_kmh": 19.6,
+        "weather_code": 53,
+        "summary_fr": "🌦️ bruine modérée · 22–36°C · humidité 61%"
       },
-      "text": "Conditions : 🌦️ averses légères · 22–37°C · humidité 72% · précipitations 2.3mm. Stade : Estádio Olímpico Nilton Santos · 46 931 places · plein air. ⚠️ Forte chaleur (>32°C) en plein air : impact endurance, plus de pauses hydratation."
+      "text": "Conditions : 🌦️ bruine modérée · 22–36°C · humidité 61%. Stade : Estádio Olímpico Nilton Santos · 46 931 places · plein air. ⚠️ Forte chaleur (>32°C) en plein air : impact endurance, plus de pauses hydratation."
     }
   },
   {
@@ -7065,15 +7054,15 @@
         "surface": "grass"
       },
       "weather": {
-        "temp_max": 32.1,
+        "temp_max": 34.3,
         "temp_min": 22.3,
-        "humidity": 86,
-        "precipitation_sum_mm": 8.5,
-        "wind_max_kmh": 16.9,
-        "weather_code": 95,
-        "summary_fr": "⛈️ orage · 22–32°C · humidité 86% · précipitations 8.5mm"
+        "humidity": 76,
+        "precipitation_sum_mm": 5.8,
+        "wind_max_kmh": 21.9,
+        "weather_code": 80,
+        "summary_fr": "🌦️ averses légères · 22–34°C · humidité 76% · précipitations 5.8mm"
       },
-      "text": "Conditions : ⛈️ orage · 22–32°C · humidité 86% · précipitations 8.5mm. Stade : Estádio Urbano Caldeira · 17 923 places · plein air. ⚠️ Pluies prévues : terrain potentiellement lourd, jeu direct privilégié, plus d'erreurs techniques. ⚠️ Forte chaleur (>32°C) en plein air : impact endurance, plus de pauses hydratation."
+      "text": "Conditions : 🌦️ averses légères · 22–34°C · humidité 76% · précipitations 5.8mm. Stade : Estádio Urbano Caldeira · 17 923 places · plein air. ⚠️ Pluies prévues : terrain potentiellement lourd, jeu direct privilégié, plus d'erreurs techniques. ⚠️ Forte chaleur (>32°C) en plein air : impact endurance, plus de pauses hydratation."
     }
   },
   {
@@ -7100,15 +7089,15 @@
         "surface": "grass"
       },
       "weather": {
-        "temp_max": 23.8,
-        "temp_min": 10.7,
-        "humidity": 63,
+        "temp_max": 23.5,
+        "temp_min": 11.0,
+        "humidity": 61,
         "precipitation_sum_mm": 0.0,
-        "wind_max_kmh": 18.3,
+        "wind_max_kmh": 17.2,
         "weather_code": 3,
-        "summary_fr": "☁️ couvert · 10–23°C · humidité 63%"
+        "summary_fr": "☁️ couvert · 11–23°C · humidité 61%"
       },
-      "text": "Conditions : ☁️ couvert · 10–23°C · humidité 63%. Stade : Estadio José María Minella · 35 354 places · plein air."
+      "text": "Conditions : ☁️ couvert · 11–23°C · humidité 61%. Stade : Estadio José María Minella · 35 354 places · plein air."
     }
   },
   {
@@ -7135,15 +7124,15 @@
         "surface": "grass"
       },
       "weather": {
-        "temp_max": 32.7,
-        "temp_min": 24.4,
-        "humidity": 63,
-        "precipitation_sum_mm": 4.0,
-        "wind_max_kmh": 13.3,
-        "weather_code": 55,
-        "summary_fr": "🌧️ bruine dense · 24–32°C · humidité 63% · précipitations 4.0mm"
+        "temp_max": 31.1,
+        "temp_min": 24.2,
+        "humidity": 66,
+        "precipitation_sum_mm": 6.5,
+        "wind_max_kmh": 11.9,
+        "weather_code": 81,
+        "summary_fr": "🌦️ averses modérées · 24–31°C · humidité 66% · précipitations 6.5mm"
       },
-      "text": "Conditions : 🌧️ bruine dense · 24–32°C · humidité 63% · précipitations 4.0mm. Stade : Estadio General Santander · 42 901 places · plein air. ⚠️ Forte chaleur (>32°C) en plein air : impact endurance, plus de pauses hydratation."
+      "text": "Conditions : 🌦️ averses modérées · 24–31°C · humidité 66% · précipitations 6.5mm. Stade : Estadio General Santander · 42 901 places · plein air. ⚠️ Pluies prévues : terrain potentiellement lourd, jeu direct privilégié, plus d'erreurs techniques."
     }
   },
   {
@@ -7170,15 +7159,15 @@
         "surface": "grass"
       },
       "weather": {
-        "temp_max": 21.0,
-        "temp_min": 11.0,
-        "humidity": 66,
-        "precipitation_sum_mm": 7.8,
-        "wind_max_kmh": 7.8,
+        "temp_max": 21.4,
+        "temp_min": 10.4,
+        "humidity": 73,
+        "precipitation_sum_mm": 16.0,
+        "wind_max_kmh": 9.0,
         "weather_code": 81,
-        "summary_fr": "🌦️ averses modérées · 11–21°C · humidité 66% · précipitations 7.8mm"
+        "summary_fr": "🌦️ averses modérées · 10–21°C · humidité 73% · précipitations 16.0mm"
       },
-      "text": "Conditions : 🌦️ averses modérées · 11–21°C · humidité 66% · précipitations 7.8mm. Stade : Estadio Nemesio Camacho El Campín · 39 512 places · plein air. ⚠️ Pluies prévues : terrain potentiellement lourd, jeu direct privilégié, plus d'erreurs techniques."
+      "text": "Conditions : 🌦️ averses modérées · 10–21°C · humidité 73% · précipitations 16.0mm. Stade : Estadio Nemesio Camacho El Campín · 39 512 places · plein air. ⚠️ Pluies prévues : terrain potentiellement lourd, jeu direct privilégié, plus d'erreurs techniques."
     }
   },
   {
@@ -7205,15 +7194,15 @@
         "surface": "grass"
       },
       "weather": {
-        "temp_max": 24.5,
-        "temp_min": 19.9,
-        "humidity": 79,
-        "precipitation_sum_mm": 2.2,
-        "wind_max_kmh": 13.2,
+        "temp_max": 24.6,
+        "temp_min": 19.7,
+        "humidity": 78,
+        "precipitation_sum_mm": 1.1,
+        "wind_max_kmh": 12.6,
         "weather_code": 51,
-        "summary_fr": "🌦️ bruine légère · 19–24°C · humidité 79% · précipitations 2.2mm"
+        "summary_fr": "🌦️ bruine légère · 19–24°C · humidité 78% · précipitations 1.1mm"
       },
-      "text": "Conditions : 🌦️ bruine légère · 19–24°C · humidité 79% · précipitations 2.2mm. Stade : Estadio Monumental U Marathon · 80 093 places · plein air."
+      "text": "Conditions : 🌦️ bruine légère · 19–24°C · humidité 78% · précipitations 1.1mm. Stade : Estadio Monumental U Marathon · 80 093 places · plein air."
     }
   },
   {
@@ -7240,15 +7229,15 @@
         "surface": "grass"
       },
       "weather": {
-        "temp_max": 34.8,
-        "temp_min": 22.5,
-        "humidity": 71,
-        "precipitation_sum_mm": 6.8,
-        "wind_max_kmh": 20.8,
-        "weather_code": 95,
-        "summary_fr": "⛈️ orage · 22–34°C · humidité 71% · précipitations 6.8mm"
+        "temp_max": 34.0,
+        "temp_min": 23.3,
+        "humidity": 75,
+        "precipitation_sum_mm": 5.9,
+        "wind_max_kmh": 20.4,
+        "weather_code": 96,
+        "summary_fr": "⛈️ orage + grêle légère · 23–34°C · humidité 75% · précipitations 5.9mm"
       },
-      "text": "Conditions : ⛈️ orage · 22–34°C · humidité 71% · précipitations 6.8mm. Stade : Estadio Tigo La Huerta · 12 000 places · plein air. ⚠️ Pluies prévues : terrain potentiellement lourd, jeu direct privilégié, plus d'erreurs techniques. ⚠️ Forte chaleur (>32°C) en plein air : impact endurance, plus de pauses hydratation."
+      "text": "Conditions : ⛈️ orage + grêle légère · 23–34°C · humidité 75% · précipitations 5.9mm. Stade : Estadio Tigo La Huerta · 12 000 places · plein air. ⚠️ Pluies prévues : terrain potentiellement lourd, jeu direct privilégié, plus d'erreurs techniques. ⚠️ Forte chaleur (>32°C) en plein air : impact endurance, plus de pauses hydratation."
     }
   },
   {
@@ -7275,15 +7264,15 @@
         "surface": "grass"
       },
       "weather": {
-        "temp_max": 34.8,
-        "temp_min": 22.1,
-        "humidity": 77,
-        "precipitation_sum_mm": 9.0,
-        "wind_max_kmh": 24.0,
+        "temp_max": 34.0,
+        "temp_min": 22.9,
+        "humidity": 81,
+        "precipitation_sum_mm": 6.1,
+        "wind_max_kmh": 25.0,
         "weather_code": 96,
-        "summary_fr": "⛈️ orage + grêle légère · 22–34°C · humidité 77% · précipitations 9.0mm"
+        "summary_fr": "⛈️ orage + grêle légère · 22–34°C · humidité 81% · précipitations 6.1mm"
       },
-      "text": "Conditions : ⛈️ orage + grêle légère · 22–34°C · humidité 77% · précipitations 9.0mm. Stade : Estadio Ameliano Villeta · 4 500 places · plein air. ⚠️ Pluies prévues : terrain potentiellement lourd, jeu direct privilégié, plus d'erreurs techniques. ⚠️ Forte chaleur (>32°C) en plein air : impact endurance, plus de pauses hydratation."
+      "text": "Conditions : ⛈️ orage + grêle légère · 22–34°C · humidité 81% · précipitations 6.1mm. Stade : Estadio Ameliano Villeta · 4 500 places · plein air. ⚠️ Pluies prévues : terrain potentiellement lourd, jeu direct privilégié, plus d'erreurs techniques. ⚠️ Forte chaleur (>32°C) en plein air : impact endurance, plus de pauses hydratation."
     }
   },
   {
@@ -7310,15 +7299,15 @@
         "surface": "grass"
       },
       "weather": {
-        "temp_max": 29.3,
-        "temp_min": 21.3,
+        "temp_max": 29.1,
+        "temp_min": 20.9,
         "humidity": 60,
-        "precipitation_sum_mm": 22.7,
-        "wind_max_kmh": 16.6,
+        "precipitation_sum_mm": 14.1,
+        "wind_max_kmh": 22.0,
         "weather_code": 95,
-        "summary_fr": "⛈️ orage · 21–29°C · humidité 60% · précipitations 22.7mm"
+        "summary_fr": "⛈️ orage · 20–29°C · humidité 60% · précipitations 14.1mm"
       },
-      "text": "Conditions : ⛈️ orage · 21–29°C · humidité 60% · précipitations 22.7mm. Stade : Estadio La Arboleda · 8 000 places · plein air. ⚠️ Pluies prévues : terrain potentiellement lourd, jeu direct privilégié, plus d'erreurs techniques."
+      "text": "Conditions : ⛈️ orage · 20–29°C · humidité 60% · précipitations 14.1mm. Stade : Estadio La Arboleda · 8 000 places · plein air. ⚠️ Pluies prévues : terrain potentiellement lourd, jeu direct privilégié, plus d'erreurs techniques."
     }
   },
   {
@@ -7345,11 +7334,11 @@
         "surface": "grass"
       },
       "weather": {
-        "temp_max": 9.7,
-        "temp_min": 3.7,
+        "temp_max": 9.0,
+        "temp_min": 3.9,
         "humidity": 70,
         "precipitation_sum_mm": 0.0,
-        "wind_max_kmh": 19.8,
+        "wind_max_kmh": 18.4,
         "weather_code": 3,
         "summary_fr": "☁️ couvert · 3–9°C · humidité 70%"
       },
@@ -7380,15 +7369,15 @@
         "surface": "grass"
       },
       "weather": {
-        "temp_max": 10.3,
+        "temp_max": 9.9,
         "temp_min": 4.6,
-        "humidity": 64,
+        "humidity": 63,
         "precipitation_sum_mm": 0.0,
-        "wind_max_kmh": 17.1,
+        "wind_max_kmh": 19.4,
         "weather_code": 2,
-        "summary_fr": "⛅ partiellement nuageux · 4–10°C · humidité 64%"
+        "summary_fr": "⛅ partiellement nuageux · 4–9°C · humidité 63%"
       },
-      "text": "Conditions : ⛅ partiellement nuageux · 4–10°C · humidité 64%. Stade : ShipEx Aréna · 10 600 places · plein air."
+      "text": "Conditions : ⛅ partiellement nuageux · 4–9°C · humidité 63%. Stade : ShipEx Aréna · 10 600 places · plein air."
     }
   },
   {

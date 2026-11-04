@@ -1,12 +1,22 @@
 {
- "genere_le": "2026-11-04T08:02:50",
- "n_resolus": 2501,
+ "genere_le": "2026-11-04T16:15:46",
+ "n_resolus": 2502,
  "parametres": {
   "n_min_jugement": 20,
   "seuil_pct": 50.0,
   "pas_tranche": 10
  },
  "marches": {
+  "foot/Victoire domicile": {
+   "n": 173,
+   "wins": 93,
+   "wr": 53.8,
+   "borne_basse": 46.3,
+   "borne_haute": 61.0,
+   "statut": "SURVEILLE",
+   "cote_moyenne": 2.12,
+   "n_cotes": 30
+  },
   "foot/Double chance": {
    "n": 126,
    "wins": 104,
@@ -46,16 +56,6 @@
    "statut": "RETENU",
    "cote_moyenne": null,
    "n_cotes": 0
-  },
-  "foot/Victoire domicile": {
-   "n": 172,
-   "wins": 92,
-   "wr": 53.5,
-   "borne_basse": 46.0,
-   "borne_haute": 60.8,
-   "statut": "SURVEILLE",
-   "cote_moyenne": 2.12,
-   "n_cotes": 30
   },
   "foot/Tirs (Barcelona)": {
    "n": 1,
@@ -969,6 +969,24 @@
   }
  },
  "calibration": {
+  "foot/Victoire domicile": {
+   "70-79": {
+    "n": 48,
+    "p": 56.2
+   },
+   "60-69": {
+    "n": 78,
+    "p": 47.4
+   },
+   "80-89": {
+    "n": 24,
+    "p": 79.2
+   },
+   "50-59": {
+    "n": 23,
+    "p": 43.5
+   }
+  },
   "foot/Double chance": {
    "80-89": {
     "n": 97,
@@ -1019,24 +1037,6 @@
    "80-89": {
     "n": 5,
     "p": 78.1
-   }
-  },
-  "foot/Victoire domicile": {
-   "70-79": {
-    "n": 47,
-    "p": 55.3
-   },
-   "60-69": {
-    "n": 78,
-    "p": 47.4
-   },
-   "80-89": {
-    "n": 24,
-    "p": 79.2
-   },
-   "50-59": {
-    "n": 23,
-    "p": 43.5
    }
   },
   "foot/Tirs (Barcelona)": {
@@ -1919,7 +1919,7 @@
   }
  },
  "replis_sport": {
-  "foot": 46.9,
+  "foot": 47.0,
   "nba": 52.0,
   "tennis": 61.7
  }
