@@ -14,7 +14,7 @@ on:
     paths: ["chat_bot.py", "chat/**", ".github/workflows/chat.yml"]
 
 permissions:
-  contents: read
+  contents: write   # uniquement pour publier la boite a idees (data/idees.json) ; Claude n'ecrit rien
   actions: write
 
 concurrency:
@@ -70,6 +70,7 @@ jobs:
           CHAT_ALLOWED_UIDS:       ${{ secrets.CHAT_ALLOWED_UIDS }}
           CHAT_MODEL:              ${{ vars.CHAT_MODEL }}
           CHAT_DB_EXPECTED:        "1"     # bases NBA / foot restaurees (simulations de scenario)
+          CHAT_WRITE:              "1"     # job avec contents: write (boite a idees)
         run: python chat_bot.py --loop --max-minutes 340
 
       - name: Relance du relais

@@ -202,6 +202,46 @@ def ask_claude(history, msg, memos=(), extra=""):
 
 
 # ─── Boucle ──────────────────────────────────────────────────────────────────
+IDEAS_PATH = Path("data/idees.json")   # boite a idees (Wilson, 04/11/2026) : revue ensuite dans une session Claude Code
+
+
+def split_ideas(txt):
+    """Lignes « IDEE: ... » (idee d'amelioration de Wilson reformulee par Claude) -> (texte sans elles, [idees])."""
+    keep, ideas = [], []
+    for line in txt.splitlines():
+        t = line.strip().lstrip("*_`💡 ").rstrip("*_` ")
+        up = t.upper()
+        if up.startswith("IDEE:") or up.startswith("IDÉE:") or up.startswith("IDEE :") or up.startswith("IDÉE :"):
+            v = t.split(":", 1)[1].strip()
+            if v: ideas.append(v[:500])
+        else:
+            keep.append(line)
+    return "\n".join(keep).strip(), ideas[:3]
+
+
+def save_ideas(ideas, msg):
+    """Ajoute les idees a data/idees.json et les publie sur master (seul fichier que le relais ecrit)."""
+    if not ideas: return False
+    try:
+        d = json.loads(IDEAS_PATH.read_text(encoding="utf-8")) if IDEAS_PATH.exists() else {"ideas": []}
+    except ValueError:
+        d = {"ideas": []}
+    now = datetime.now(timezone.utc).isoformat(timespec="minutes")
+    for i in ideas:
+        d["ideas"].append({"at": now, "text": i, "status": "nouvelle", "page": msg.get("ctx") or "", "source": "chat"})
+    IDEAS_PATH.write_text(json.dumps(d, ensure_ascii=False, indent=1), encoding="utf-8")
+    git = lambda *a: subprocess.run(["git", *a], capture_output=True, text=True, timeout=120)
+    git("config", "user.name", "sport-picks-bot"); git("config", "user.email", "actions@github.com")
+    git("add", str(IDEAS_PATH))
+    if git("commit", "-q", "-m", f"Boite a idees : {len(ideas)} idee(s) notee(s) depuis le chat").returncode: return False
+    for _ in range(4):
+        if git("pull", "-q", "--rebase", "origin", "master").returncode == 0 and git("push", "-q", "origin", "HEAD:master").returncode == 0:
+            print(f"  [chat] {len(ideas)} idee(s) publiee(s)", flush=True); return True
+        time.sleep(10)
+    print("  [!] boite a idees : publication impossible (gardee localement)", flush=True)
+    return False
+
+
 def split_memos(txt):
     """Retire de la reponse les lignes « MEMO: ... » (ce que Claude veut retenir) : (texte affiche, [memos])."""
     keep, memos = [], []
@@ -270,6 +310,11 @@ def handle(fire, uid, msg, recent):
     except Exception as e:
         txt, st = f"Erreur du relais : {e}", "error"
     txt = split_sims(txt)[0]          # au cas ou une demande de simulation resterait dans la reponse
+    txt, ideas = split_ideas(txt)
+    if ideas:
+        ok = save_ideas(ideas, msg)
+        txt += "\n\n" + "\n".join(f"💡 Idée notée{'' if ok else ' (enregistrement à vérifier)'} : {i}" for i in ideas) \
+               + "\nJe la garde de côté : on la verra ensemble lors de ta prochaine session de travail sur SportsPicks."
     txt, new_memos = split_memos(txt)
     for m in new_memos:   # memoire durable : relue a chaque question (« Nouvelle » ne l'efface pas)
         fire.add(uid, {"role": "memo", "text": m, "at": datetime.now(timezone.utc), "reply_to": msg["_id"]})
@@ -295,7 +340,8 @@ def cycle(fire, uids, recent):
 
 def git_pull(start):
     """Donnees a jour ; vrai si le code du relais a change depuis le demarrage (il se relance alors)."""
-    subprocess.run(["git", "pull", "--ff-only", "-q", "origin", "master"], capture_output=True, timeout=120)
+    # --rebase (et non --ff-only) : une idee pas encore publiee (commit local) ne doit pas bloquer la mise a jour
+    subprocess.run(["git", "pull", "--rebase", "-q", "origin", "master"], capture_output=True, timeout=120)
     r = subprocess.run(["git", "diff", "--quiet", start, "HEAD", "--", "chat_bot.py", "chat", "chat_context.py", "sim_tool.py", ".github/workflows/chat.yml",
                         "nba_sim_bilan.py", "foot_sim_bilan.py", "notify.py", "nba_bankroll.py"], capture_output=True, timeout=60)
     return bool(start) and r.returncode == 1
@@ -312,10 +358,10 @@ def main():
     if not (email and pw and uids and os.environ.get("CLAUDE_CODE_OAUTH_TOKEN")):
         print("[chat] secrets manquants (CHAT_BOT_EMAIL, CHAT_BOT_PASSWORD, CHAT_ALLOWED_UIDS, CLAUDE_CODE_OAUTH_TOKEN) : arret")
         return
-    if os.environ.get("GITHUB_ACTIONS") and not os.environ.get("CHAT_DB_EXPECTED"):
+    if os.environ.get("GITHUB_ACTIONS") and not (os.environ.get("CHAT_DB_EXPECTED") and os.environ.get("CHAT_WRITE")):
         # job demarre avant l'ajout des bases NBA / foot (chat.yml) : on s'arrete pour que le run suivant les ait
         CONTINUE_FLAG.write_text("1")
-        print("[chat] relais lance sans les bases NBA / foot : arret, le run suivant les restaure", flush=True)
+        print("[chat] relais lance avec une ancienne configuration (bases / droits) : arret, le run suivant l'aura", flush=True)
         return
     fire, recent, t0, pulled, errs = Fire(email, pw), [], time.time(), time.time(), 0
     fire.token()
