@@ -12,7 +12,7 @@ Pas de lien avec les paris ni la bankroll.
 Usage : python foot_sim_run.py [--sims 10000] [--hours 48] [--no-update]
 """
 import argparse, json, sys, time
-from collections import Counter
+from collections import Counter, defaultdict
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
@@ -269,6 +269,36 @@ def replay(res, inp, k, g, lu=None):
     return {"v": 2, "events": ev, "final": score, "teams": teams, "poss": poss}
 
 
+def team_form(team_id, before, n=10):
+    """Forme recente (n derniers matchs de la base : championnat + coupes d'Europe suivis) : buts, xG, tirs et
+    tirs cadres pour / contre par match, part de matchs a plus de 2,5 buts et ou les deux marquent. Sert
+    d'arguments aux chiffres de la simulation (demande de Wilson, 04/11/2026)."""
+    if not _RECS: _RECS.update(foot_db.load_all())
+    tid = str(team_id)
+    past = sorted((r for r in _RECS.values() if tid in (str(r["home"]["id"]), str(r["away"]["id"])) and r["date"] < before
+                   and r.get("score")), key=lambda r: r["date"])[-n:]
+    if not past: return None
+    agg = defaultdict(float)
+    res = []
+    for r in past:
+        side = 1 if str(r["home"]["id"]) == tid else 0
+        h, a = r["score"]
+        gf, ga = (h, a) if side else (a, h)
+        agg["gf"] += gf; agg["ga"] += ga
+        agg["o25"] += (h + a) > 2.5; agg["btts"] += h > 0 and a > 0
+        res.append("V" if gf > ga else "N" if gf == ga else "D")
+        for s in r.get("shots") or []:
+            k = "f" if s[0] == side else "a"
+            if s[13]: continue                       # but contre son camp : pas un tir de l'equipe
+            agg["sh_" + k] += 1
+            agg["sot_" + k] += (bool(s[11]) and not s[12]) or s[8] == "Goal"   # contre != cadre
+            agg["xg_" + k] += s[6] or 0
+    m = len(past)
+    out = {k: round(v / m, 2) for k, v in agg.items()}
+    out.update(n=m, last=res[::-1][:5], o25=round(agg["o25"] / m, 2), btts=round(agg["btts"] / m, 2))
+    return out
+
+
 def run_game(st, g, n_sims):
     day = _ord(g["ko"])
     lu = lineups(st, g, day)
@@ -300,6 +330,19 @@ def run_game(st, g, n_sims):
                  "clean": [round(float(np.mean(ag == 0)), 4), round(float(np.mean(hg == 0)), 4)]},
            "scores": [[int(h), int(a), round(c / n_sims, 4)] for (h, a), c in cs.most_common(12)],
            "goal_hist": [round(float(np.mean(tot == k)), 4) for k in range(7)] + [round(float(np.mean(tot >= 7)), 4)]}
+    # Tirs simules par equipe (tirs et tirs cadres) et lignes de tirs du match autour de la moyenne
+    sh = {s: res[s + "_pshots"].sum(axis=1) for s in ("home", "away")}
+    so = {s: res[s + "_psot"].sum(axis=1) for s in ("home", "away")}
+    ts, tso = sh["home"] + sh["away"], so["home"] + so["away"]
+    mid, mid_o = int(ts.mean()), int(tso.mean())
+    out["shots"] = {"home": [round(float(sh["home"].mean()), 1), round(float(so["home"].mean()), 1)],
+                    "away": [round(float(sh["away"].mean()), 1), round(float(so["away"].mean()), 1)],
+                    "over": {f"{l}.5": round(float(np.mean(ts > l + 0.5)), 3) for l in range(mid - 4, mid + 4, 2)},
+                    "sot_over": {f"{l}.5": round(float(np.mean(tso > l + 0.5)), 3) for l in range(mid_o - 2, mid_o + 2)}}
+    try:
+        out["form"] = {s: team_form(g[s]["id"], g["ko"]) for s in ("home", "away")}
+    except Exception:
+        pass
     for side in ("home", "away"):
         pl = inp[side]["players"]
         scorers = [{"name": q["name"], "pos": q["pos"], "starter": q["starter"],

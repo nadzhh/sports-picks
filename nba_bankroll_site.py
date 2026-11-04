@@ -78,7 +78,9 @@ def _stat(label, value, sub="", cls=""):
 
 def _bet_row(b, open_):
     legs = "<br>".join(_leg(l) for l in b["legs"])
-    kind = ('<span class="eb-tag acc">combiné</span>' if b["kind"] == "combine" else
+    conf = (f' <span class="eb-tag {"acc" if b["conf"] == "forte" else ""}">confiance {b["conf"]}</span>'
+            if b.get("conf") else "")
+    kind = conf + ('<span class="eb-tag acc">combiné</span>' if b["kind"] == "combine" else
             '<span class="eb-tag acc">safe</span>' + (' <span class="eb-tag">combiné</span>' if len(b["legs"]) > 1 else "") if b["kind"] == "safe" else "")
     why = (f'{"cote juste Pinnacle " + format(1 / b["p"], ".2f") + " · " if b["kind"] == "value" else ""}proba estimée {_pct(b["p"])} · espérance {_pct(b["ev"], True)}'
            + (f' · simu {_pct(b["legs"][0]["p_sim"])} vs bookmaker {_pct(b["legs"][0]["p_mkt"])}' if len(b["legs"]) == 1 else ""))
@@ -95,23 +97,17 @@ def _bet_row(b, open_):
 
 
 RULES = [
-    "<b>Paris safe</b> : le côté que le bookmaker et la simulation donnent tous deux nettement favori (58 % et plus), "
-    "cote 1,50 minimum, ou un combiné de deux jambes très probables (75 % et plus, matchs différents) qui atteint 1,50. "
-    "Mise fixe 1 % du capital (divisée par 2 en mode prudent), 2 par soirée au plus, suivis à part (une forte "
-    "probabilité ne garantit pas un gain : la marge du bookmaker reste dessus).",
-    "<b>Value bets</b> (seul avantage validé sur deux saisons) : quand Winamax, Betclic, Unibet ou PMU paient plus que "
-    "la cote juste de Pinnacle (marge retirée), je mise 1/4 de Kelly, 2 % du capital au plus. Rare : les bookmakers "
-    "français prennent 5 à 14 % de marge.",
-    "<b>Je parie tous les jours</b>, sans pause. Discipline : je juge l’avantage sur toutes les sélections du "
-    "simulateur ; si les cotes obtenues ne battent pas la clôture (CLV négative), je passe en <b>mode prudent</b> "
-    "(mises divisées par 2) sans m’arrêter. Gestion : 1/4 de Kelly, 3 % du capital au plus par pari, 5 % par match, "
-    "10 % par soirée. Écart de 20 points ou plus avec le bookmaker : jamais (c’est presque toujours une info qui me manque).",
-    "Je ne parie que là où un avantage est démontré : la sélection du simulateur (passes, paniers à 3 pts, "
-    "interceptions, contres), validée en aveugle sur trois échantillons de vraies cotes, prise à la <b>première cote vue</b>.",
-    "Je ne crois pas le simulateur sur parole : ma probabilité garde {lam} de son écart avec le bookmaker "
-    "(calibré sur l’historique). Pas d’espérance d’au moins {ev} → pas de pari.",
-    "Mise : {kel} de Kelly sur cette probabilité prudente, au plus {mb} du capital par pari, {mg} par match "
-    "(paris liés) et {mn} par soirée. Un seul pari par joueur.",
+    "<b>Ma bankroll, mes décisions</b> (depuis le 04/11/2026) : je parie en foot et en basket quand je vois un avantage, "
+    "et la mise suit ma confiance, jusqu’à {mb} du capital sur un seul pari (garde-fous : {mg} par match, {mn} par jour). "
+    "Sans avantage, je ne parie pas : c’est ce qui protège le capital. Les picks safe et high value pour toi partent "
+    "à part, dans le récapitulatif Telegram de 20 h.",
+    "<b>Value bets</b> (foot et NBA, seul avantage validé sur deux saisons) : quand Winamax, Betclic, Unibet ou PMU paient "
+    "plus que la cote juste de Pinnacle (marge retirée). Ma confiance dépend de ma propre simulation du match : "
+    "<b>forte</b> si elle va dans le même sens (3/4 de Kelly), <b>moyenne</b> si elle est à moins de 5 points (1/2), "
+    "<b>faible</b> si elle est contre (1/4).",
+    "<b>Props NBA du simulateur</b> : confiance faible (le suivi réel ne montre pas d’avantage), donc 1/4 de Kelly et "
+    "seulement si l’espérance reste d’au moins {ev} après avoir gardé {lam} de l’écart simulateur / bookmaker. "
+    "CLV négative → mode prudent (mises divisées par 2). Écart de 20 points ou plus : jamais (info qui me manque).",
     "Un pari ne s’annule pas : tant qu’une info peut changer le rôle du joueur (coéquipier important "
     "incertain, rapport officiel pas encore rempli), <b>j’attends</b>. Dès que le statut tombe, le match est "
     "resimulé et je décide avec l’info confirmée. À {wu} min du match, je tranche avec la dernière simulation. "
@@ -159,7 +155,7 @@ def build_bankroll_section(state=None):
     head = '<tr><th>Placé</th><th>Pari</th><th>Cote</th><th>Mise</th>'
     return (f'<!--nba-bank:{_e(state.get("updated", ""))}-->'
             '<!--eb:start--><div class="eb eb-bk" data-eb="bank">'
-            '<div class="eb-card"><div class="eb-meta">Bankroll IA · NBA · gérée seule par le simulateur</div>'
+            '<div class="eb-card"><div class="eb-meta">Bankroll IA · foot et basket · gérée seule par Claude</div>'
             '<h3 class="eb-h eb-bil-t">100 € de départ, aucune intervention humaine</h3>'
             f'<div class="eb-stats">{stats}</div>{_curve(state)}'
             '<p class="eb-note">Bankroll fictive, cotes DraftKings publiées par ESPN : aucun argent réel. '

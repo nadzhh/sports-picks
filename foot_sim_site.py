@@ -117,6 +117,61 @@ def _kpis(g):
             + _kpi("Au moins un carton rouge", p["red"]) + '</div>')
 
 
+def _args(g):
+    """Tirs et buts attendus, avec leurs arguments (forme recente pour / contre, absences) : demande de Wilson
+    (04/11/2026, « nombre de tirs > arguments, nombre de buts > arguments »)."""
+    f = g.get("form") or {}
+    fh, fa = f.get("home"), f.get("away")
+    sh = g.get("shots")
+    if not (fh and fa) and not sh: return ""
+    h, a = _e(g["home"]["name"]), _e(g["away"]["name"])
+    n1 = lambda x: f"{x:.1f}".replace(".", ",")
+    out = []
+    if sh:
+        (hs, ht), (as_, at) = sh["home"], sh["away"]
+        lines = " · ".join(f'plus de {l.replace(".", ",")} : <b>{_pct(v)}</b>' for l, v in sh["over"].items())
+        out.append(f'<h3 class="eb-h">Tirs <small>simulés · arguments</small></h3><ul class="eb-why-l">'
+                   f'<li>Tirs attendus : <b>{h} {n1(hs)}</b> ({n1(ht)} cadrés) · <b>{a} {n1(as_)}</b> ({n1(at)} cadrés), '
+                   f'soit <b>{n1(hs + as_)}</b> dans le match.</li><li class="eb-dim">Total de tirs : {lines}</li>')
+        for (name, fo, opp_name, fopp, sim, xg) in ((h, fh, a, fa, hs, g["xg"][0]), (a, fa, h, fh, as_, g["xg"][1])):
+            if not (fo and fopp): continue
+            ref = (fo["sh_f"] + fopp["sh_a"]) / 2
+            verdict = ("au-dessus" if sim > ref + 1 else "en dessous" if sim < ref - 1 else "dans la ligne")
+            out.append(f'<li><b>{name}</b> tire <b>{n1(fo["sh_f"])}</b> fois par match ({n1(fo["sot_f"])} cadrés, xG '
+                       f'{_n(fo.get("xg_f", 0))}) sur ses {fo["n"]} derniers matchs ; {opp_name} en concède '
+                       f'<b>{n1(fopp["sh_a"])}</b> (xG {_n(fopp.get("xg_a", 0))}). Simulé : <b>{n1(sim)}</b>, {verdict} de ces '
+                       f'repères ({n1(ref)})'
+                       + (f' : les tirs découlent de l’xG attendu ce soir (<b>{_n(xg)}</b>), qui tient compte de la composition, '
+                          'des absences et de la défense adverse, et de la qualité habituelle de ses tirs.'
+                          if verdict != "dans la ligne" else ".") + '</li>')
+        out.append('</ul>')
+    if fh and fa:
+        gh, ga_ = g["goals"]
+        tot = gh + ga_
+        p = g["p"]
+        out.append(f'<h3 class="eb-h eb-ev-t">Buts <small>simulés · arguments</small></h3><ul class="eb-why-l">'
+                   f'<li>Buts attendus : <b>{h} {_n(gh)}</b> · <b>{a} {_n(ga_)}</b> (total {_n(tot)}) · plus de 2,5 : '
+                   f'<b>{_pct(p["over"]["2.5"])}</b> · les deux marquent : <b>{_pct(p["btts"])}</b>.</li>')
+        for (name, fo, opp_name, fopp, side) in ((h, fh, a, fa, "home"), (a, fa, h, fh, "away")):
+            info = g.get(side + "_info") or {}
+            delta = ((info.get("lineup_mult") or 1.0) - 1) * 100
+            ab = [x["name"] for x in info.get("absences") or [] if x.get("impact", 0) >= 0.05]
+            out.append(f'<li><b>{name}</b> : {n1(fo["gf"])} marqués / {n1(fo["ga"])} encaissés par match '
+                       f'<span class="eb-dim">(xG {_n(fo.get("xg_f", 0))} / {_n(fo.get("xg_a", 0))})</span> ; plus de 2,5 buts '
+                       f'dans {round(fo["o25"] * fo["n"])}/{fo["n"]}, les deux marquent {round(fo["btts"] * fo["n"])}/{fo["n"]} ; '
+                       f'forme {" ".join(fo.get("last") or [])}'
+                       + (f' ; attaque du soir <b class="{"eb-neg" if delta < 0 else "eb-acc"}">{"+" if delta > 0 else "−"}{abs(delta):.0f} %</b>'
+                          + (f' ({_e(", ".join(ab))} absent{"s" if len(ab) > 1 else ""})' if ab and delta < 0 else
+                             " (onze plus fort que d’habitude)" if delta > 0 else "") if abs(delta) >= 3 else "")
+                       + '.</li>')
+        ref = (fh["gf"] + fh["ga"] + fa["gf"] + fa["ga"]) / 2
+        out.append(f'<li>Leurs matchs récents comptent en moyenne <b>{n1(ref)}</b> buts ; la simulation en attend <b>{n1(tot)}</b>'
+                   + (" : plus fermé que d’habitude (niveau des attaques du soir, défenses adverses)." if tot < ref - 0.3 else
+                      " : plus ouvert que d’habitude." if tot > ref + 0.3 else ".") + '</li></ul>')
+    return ('<div class="eb-card">' + "".join(out) + '<p class="eb-note">Forme : derniers matchs présents dans la base '
+            '(championnat et coupes d’Europe suivis). Un tir cadré = arrêt du gardien ou but (les tirs contrés n’en sont pas).</p></div>')
+
+
 def _video(g, gid):
     rp = g.get("replay")
     if not rp or not rp.get("events"): return ""
@@ -305,7 +360,7 @@ def build_foot_sim_section(sim=None):
         ids = [_e(g["id"]) for g in games]
         items = "".join(_item(g, gid, now, i == 0) for i, (g, gid) in enumerate(zip(games, ids)))
         details = "".join(
-            f'<section class="eb-detail{" on" if i == 0 else ""}" data-id="{gid}">{_header(g, now)}{_livecard(g)}{_kpis(g)}{_video(g, gid)}'
+            f'<section class="eb-detail{" on" if i == 0 else ""}" data-id="{gid}">{_header(g, now)}{_livecard(g)}{_kpis(g)}{_args(g)}{_video(g, gid)}'
             f'{_crisis(g)}{_scorers(g)}{_scores(g)}{_markets(g)}'
             + (f'<div class="eb-card"><p class="eb-note">{BACKTEST_NOTE}</p></div>' if BACKTEST_NOTE else "") + '</section>'
             for i, (g, gid) in enumerate(zip(games, ids)))

@@ -30,9 +30,11 @@ PRM = {
     "max_odds":   2.60,   # au-dela, l'« avantage » historique venait de cotes d'ouverture aberrantes
     "hold":       (0.035, 0.11),   # marge du bookmaker sur la ligne : hors plage = cote suspecte, on passe
     "kelly":      0.25,   # fraction de Kelly
-    "max_bet":    0.03,   # mise max d'un simple, en part du capital
-    "max_game":   0.05,   # exposition max sur un meme match
-    "max_night":  0.10,   # exposition max sur une soiree
+    # Plafonds (04/11/2026, Wilson : « tu mets ce que tu veux, 10 % si grosse confiance ») : la mise suit la
+    # confiance (fraction de Kelly selon la source de l'avantage, voir CONF), ces plafonds ne servent que de garde-fou.
+    "max_bet":    0.10,   # mise max d'un pari, en part du capital
+    "max_game":   0.12,   # exposition max sur un meme match
+    "max_night":  0.30,   # exposition max sur une soiree / journee
     "min_ev":     0.05,   # esperance minimale d'un simple
     "min_stake":  0.5,    # EUR
     "combo":      True,
@@ -61,8 +63,8 @@ CALIB_NOTE = ("Réglages testés le 28/10/2026 sur 3 échantillons de vraies cot
               "début 2026-27). Recalés le 04/11/2026 sur les 613 premières sélections réelles réglées : le simulateur "
               "annonçait 61 % de réussite pour 51,5 % obtenus (49,7 % selon le marché). On ne garde donc que 10 % de "
               "son écart avec le bookmaker (40 % avant) : la bankroll ne prend plus que les paris dont l’espérance "
-              "reste positive après la marge, et les paris « safe » et value bets à petite mise. "
-              "CLV négative après 30 paris → mises divisées par 2.")
+              "reste positive après la marge. Les grosses mises vont aux value bets (cote française au-dessus de la "
+              "cote juste Pinnacle) que ma simulation confirme.")
 
 
 def _dec(am):
@@ -126,7 +128,8 @@ def plan(cands, eq, night_exposure, game_exposure, prm=PRM, taken=()):
                     prm["max_game"] * eq - games.get(c["gid"], 0.0), prm["max_night"] * eq - night)
         stake = _round(stake)
         if stake < prm["min_stake"]: continue
-        out.append({"legs": [c], "stake": stake, "odds": round(d, 3), "p": round(p, 4), "ev": round(ev, 4), "kind": "simple"})
+        out.append({"legs": [c], "stake": stake, "odds": round(d, 3), "p": round(p, 4), "ev": round(ev, 4), "kind": "simple",
+                    "conf": "faible"})   # avantage du simulateur seul : non demontre en reel
         night += stake; games[c["gid"]] = games.get(c["gid"], 0.0) + stake; players.add((c["gid"], c["pid"]))
     if prm["combo"] and len({r[3]["gid"] for r in rows}) >= 2:
         best = None
@@ -198,7 +201,62 @@ def settle(state, box):
     return n
 
 
-VALUE_MAX = 0.02     # mise max d'un value bet (part du capital)
+VALUE_MAX = 0.10     # mise max d'un value bet (part du capital)
+# Confiance d'un value bet = accord entre la cote juste Pinnacle (avantage valide) et ma propre simulation
+# (foot_sim / nba_sim) : les deux d'accord -> forte (3/4 de Kelly) ; simu a moins de 5 pts -> moyenne (1/2) ;
+# simu nettement contre -> faible (1/4) ; pas de simulation du match -> moyenne.
+CONF = {"forte": 0.75, "moyenne": 0.5, "faible": 0.25}
+
+
+def _ndist(x):
+    return 0.5 * (1 + math.erf(x / math.sqrt(2)))
+
+
+def sim_prob(p):
+    """Probabilite de ma simulation pour un value bet ev_scan (None si le match n'est pas simule)."""
+    import difflib
+    from datetime import timedelta
+    try:
+        ko = datetime.fromisoformat(p["commence"].replace("Z", "+00:00"))
+    except (KeyError, ValueError):
+        return None
+    same = lambda a, b: difflib.SequenceMatcher(None, a.lower(), b.lower()).ratio()
+    path = "data/foot_sim.json" if p.get("sport") == "foot" else "data/nba_sim.json"
+    try:
+        games = json.loads(Path(path).read_text(encoding="utf-8")).get("games") or []
+    except (OSError, ValueError):
+        return None
+    for g in games:
+        t = datetime.fromisoformat((g.get("ko") or g.get("date")).replace("Z", "+00:00"))
+        if abs(t - ko) > timedelta(hours=3): continue
+        if same(g["home"]["name"], p["home"]) + same(g["away"]["name"], p["away"]) < 1.3: continue
+        home = p["name"] == p["home"]
+        if p.get("sport") == "foot":
+            q = g["p"]
+            if p["market"] == "h2h":
+                return q["X"] if p["name"] == "Draw" else q["1"] if home else q["2"]
+            if p["market"] == "totals":
+                o = q["over"].get(str(p["point"]))
+                return None if o is None else (o if p["name"] == "Over" else 1 - o)
+            return None
+        tm = g.get("team") or {}
+        if p["market"] == "h2h" and tm.get("p_home_win") is not None:
+            return tm["p_home_win"] if home else 1 - tm["p_home_win"]
+        if p["market"] == "totals" and tm.get("total_sd"):
+            o = 1 - _ndist((p["point"] - tm["total_mean"]) / tm["total_sd"])
+            return o if p["name"] == "Over" else 1 - o
+        if p["market"] == "spreads" and tm.get("margin_sd"):
+            m = tm["margin_mean"] if home else -tm["margin_mean"]      # marge de l'equipe pariee
+            return 1 - _ndist((-p["point"] - m) / tm["margin_sd"])
+        return None
+    return None
+
+
+def value_conf(p):
+    """(niveau de confiance, probabilite de ma simulation ou None)."""
+    ps = sim_prob(p)
+    if ps is None: return "moyenne", None
+    return ("forte" if ps >= p["fair"] else "moyenne" if ps >= p["fair"] - 0.05 else "faible"), round(ps, 4)
 
 
 def decide_value(state, new):
@@ -211,13 +269,16 @@ def decide_value(state, new):
     for p in new:
         if p["key"] in taken: continue
         d, pf = p["price"], p["fair"]
+        conf, ps = value_conf(p)
         k = (pf * d - 1) / (d - 1)
-        stake = _round(min(PRM["kelly"] * k * eq, VALUE_MAX * eq))
+        day = sum(b["stake"] for b in state["bets"] + placed if b["status"] == "open" and b.get("night") == night_of(p["commence"]))
+        stake = _round(min(CONF[conf] * k * eq, VALUE_MAX * eq, PRM["max_night"] * eq - day))
         if stake < PRM["min_stake"] or stake > cash(state) - sum(x["stake"] for x in placed): continue
         leg = {"key": "ev|" + p["key"], "ev_key": p["key"], "name": f'{p["home"]} - {p["away"]}', "team": p["league"],
                "opp": p["book_name"], "stat": p["label"], "side": "", "line": 0, "dec": d, "am": None,
-               "p_sim": pf, "p_mkt": pf, "date": p["commence"], "gid": "", "pid": ""}
-        placed.append({"legs": [leg], "stake": stake, "odds": d, "p": pf, "ev": p["ev"], "kind": "value", "mode": "value",
+               "p_sim": ps if ps is not None else pf, "p_mkt": pf, "date": p["commence"], "gid": "", "pid": "",
+               "sport": p.get("sport")}
+        placed.append({"legs": [leg], "stake": stake, "odds": d, "p": pf, "ev": p["ev"], "kind": "value", "mode": "value", "conf": conf,
                        "id": f'{night_of(p["commence"])}-v{len(state["bets"]) + len(placed) + 1}', "night": night_of(p["commence"]),
                        "placed_at": now, "status": "open", "news": []})
     state["bets"] += placed
@@ -262,6 +323,7 @@ def candidates(games, now=None):
 # nettement favori, cote 1,50 minimum ; ou un combine de deux jambes tres probables (matchs differents)
 # qui atteint 1,50. Petite mise fixe, suivis a part. Ils suivent la discipline (aucun en pause).
 SAFE = {"min_odds": 1.50, "p_min": 0.58, "leg_p": 0.75, "stake": 0.01, "per_night": 2}
+SAFE_IN_BANK = False
 
 
 def safe_candidates(games):
@@ -389,8 +451,9 @@ def decide(state, games):
             placed.append(bet)
             taken |= {leg["key"] for leg in bet["legs"]}
             for leg in bet["legs"]: state["waiting"].pop(leg["key"], None)
-    # Paris safe (hors pause seulement), par soiree, en plus des paris ordinaires
-    if mode != "pause":
+    # Paris safe : plus dans la bankroll depuis le 04/11/2026 (esperance -6 % selon ma propre estimation) ;
+    # ils partent a Wilson dans le recapitulatif Telegram de 20 h (notify.build_hv_digest).
+    if SAFE_IN_BANK and mode != "pause":
         taken = {leg["key"] for b in state["bets"] + placed for leg in b["legs"]}
         sc = safe_candidates(games)
         for night in sorted({c["night"] for c in sc}):
@@ -440,7 +503,7 @@ def telegram_placed(placed, state):
         mini = SAFE["min_odds"] if b["kind"] == "safe" else (1 + PRM["min_ev"]) / b["p"]
         if b["kind"] == "value":   # cote francaise au-dessus de la cote juste Pinnacle
             l = b["legs"][0]
-            out.append(f'\n💎 <b>Value bet</b> · {_leg_txt(l)}')
+            out.append(f'\n💎 <b>Value bet</b> · confiance {b.get("conf", "moyenne")} · {_leg_txt(l)}')
             out.append(f'Cote {l["opp"]} <b>{_fr(b["odds"])}</b> · cote juste Pinnacle <b>{_fr(1 / b["p"])}</b> · '
                        f'espérance +{round(100 * b["ev"], 1)} %')
             out.append(f'Mise <b>{_fr(b["stake"])} €</b> ({_fr(100 * b["stake"] / eq, 1)} % de la bankroll)')

@@ -357,7 +357,8 @@ def simulate(inp, n=10000, seed=None, shots_db=None, log_sims=0):
                     goal = rng.random(len(idx)) < np.clip(xg * p["finish"], 0, 0.97)
                     A["goals"][idx] += goal; A["xg"][idx] += xg
                     A["pg"][idx, j] += goal; A["ps"][idx, j] += 1
-                    sot = goal | np.array([POOL[s][1][q][5] for q in pi], bool)
+                    # cadre = arret du gardien ou but ; FotMob marque aussi « cadres » les tirs contres (04/11/2026)
+                    sot = goal | np.array([POOL[s][1][q][5] and not POOL[s][1][q][6] for q in pi], bool)
                     A["pt"][idx, j] += sot
                     if half == 1: A["ht"][idx] += goal
                     for ii, jj, qq, gg in zip(idx, j, pi, goal):

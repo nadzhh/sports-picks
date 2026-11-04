@@ -1085,14 +1085,60 @@ def build_hv_digest(now=None, window_h=DIGEST_WINDOW_H):
             edge = f" · edge {pk['edge_pp']:+.1f} pts" if pk.get("edge_pp") is not None else ""
             lines.append(f"• {pk.get('label', '?')}{cote}{edge} · confiance {pk.get('confidence', 0)} %")
         blocks.append((ko, "\n".join(lines)))
-    if not blocks:
+    safe = _safe_block(now, window_h)
+    if not blocks and not safe:
         return None
     blocks.sort(key=lambda b: b[0])
     n_picks = sum(b[1].count("\n•") for b in blocks)
-    head = (f"🎯 <b>Picks high value</b> · {_paris(now):%d/%m}\n"
-            f"{len(blocks)} match{'s' if len(blocks) > 1 else ''}, {n_picks} pick{'s' if n_picks > 1 else ''} "
-            f"(matchs des {window_h} prochaines heures, heures de Paris)")
-    return head + "\n\n" + "\n\n".join(b[1] for b in blocks)
+    head = (f"🎯 <b>Tes picks du soir</b> · {_paris(now):%d/%m}\n"
+            f"Matchs des {window_h} prochaines heures, heures de Paris. (Ma Bankroll IA parie à part.)")
+    hv = (f"🔥 <b>High value</b> · {len(blocks)} match{'s' if len(blocks) > 1 else ''}, {n_picks} pick{'s' if n_picks > 1 else ''}\n\n"
+          + "\n\n".join(b[1] for b in blocks)) if blocks else "🔥 <b>High value</b> : aucun ce soir."
+    return head + ("\n\n" + safe if safe else "") + "\n\n" + hv
+
+
+SAFE_MAX = 3   # paris safe par message (simples d'abord, combine si moins de 3 simples)
+
+
+def _safe_block(now, window_h=DIGEST_WINDOW_H):
+    """Props NBA « safe » (demande de Wilson, 29/10 puis 04/11/2026 : pour lui, plus dans la bankroll) : le cote que
+    le bookmaker ET la simulation donnent nettement favori, cote 1,50 mini, ou un combine de deux jambes tres
+    probables de matchs differents qui atteint 1,50 (regles nba_bankroll.SAFE)."""
+    try:
+        import nba_bankroll as BK
+        games = json.load(open("data/nba_sim.json", encoding="utf-8")).get("games") or []
+    except Exception:
+        return ""
+    soon = []
+    for g in games:
+        try:
+            ko = datetime.fromisoformat(g["date"].replace("Z", "+00:00"))
+        except (KeyError, ValueError):
+            continue
+        if 0 <= (ko - now).total_seconds() / 3600 <= window_h: soon.append(g)
+    cands = BK.safe_candidates(soon)
+    plan = BK.SAFE
+    old = dict(plan)
+    try:
+        plan["per_night"] = SAFE_MAX
+        bets = BK.plan_safe(cands, 100.0, set(), 0)
+    finally:
+        plan.clear(); plan.update(old)
+    if not bets:
+        return ""
+    unit = BK.UNIT_FR
+    leg = lambda c: (f"{c['name']} ({c['team']} vs {c['opp']}, {_paris(datetime.fromisoformat(c['date'].replace('Z', '+00:00'))):%H:%M}) : "
+                     f"{'Over' if c['side'] == 'o' else 'Under'} {c['line']:g} {unit.get(c['stat'], c['stat'])}")
+    out = [f"🛡️ <b>Safe</b> · NBA"]
+    for b in bets:
+        c = b["legs"]
+        if len(c) == 1:
+            out.append(f"• {leg(c[0])} — <b>@ {b['odds']:.2f}</b> · proba {round(100 * b['p'])} % "
+                       f"(simu {round(100 * c[0]['p_sim'])} %, bookmaker {round(100 * c[0]['p_mkt'])} %)")
+        else:
+            out.append(f"• Combiné <b>@ {b['odds']:.2f}</b> · proba {round(100 * b['p'])} %\n   – " + "\n   – ".join(leg(x) for x in c))
+    out.append("<i>Cotes DraftKings ; forte probabilité ≠ gain garanti (la marge du bookmaker reste dessus).</i>")
+    return "\n".join(out)
 
 
 # ─── Main ────────────────────────────────────────────────────────────────────

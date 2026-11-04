@@ -302,12 +302,13 @@ class Live:
             added = foot_db.update(list(foot_db.LEAGUES), list(FOOT_SEASONS), budget=FOOT_DB_BUDGET) if self.update else 0
             if added or self.foot_st is None:
                 self.foot_st = FR.build_state()
+                FR._RECS.clear()   # forme recente (team_form) relue avec les nouveaux matchs
             games = FR.upcoming(48)
             due = []
             for g in games:
                 p = prev.get(g["id"])
-                if not p or now - _t(p["sim_at"]) >= FOOT_REFRESH or (p.get("replay") or {}).get("v") != 2:
-                    due.append(g)      # (v != 2 : video de l'ancien format, sans les 22 joueurs)
+                if not p or now - _t(p["sim_at"]) >= FOOT_REFRESH or (p.get("replay") or {}).get("v") != 2 or "shots" not in p:
+                    due.append(g)      # (v != 2 : video de l'ancien format ; sans « shots » : avant les arguments tirs / buts)
                 elif _t(g["ko"]) - now <= timedelta(minutes=120) and now - _t(p["sim_at"]) >= timedelta(minutes=15)                         and "officielle" not in (p["home_info"]["lineup"], p["away_info"]["lineup"]):
                     due.append(g)      # composition officielle attendue : on reverifie
             fresh = []
