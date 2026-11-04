@@ -88,6 +88,8 @@ def due_games(games, prev, report, now):
                 why.append("cotes rafraîchies")
             if p.get("replay") and p["replay"].get("v") != R.REPLAY_V:
                 why.append("nouvelle version de la vidéo")
+            if p.get("players") and not any(x.get("season") for x in p["players"]):
+                why.append("moyennes de la saison réelle (tableau des joueurs)")   # simulations d'avant le 04/11/2026
             if not p.get("props") and age >= PROPS_AGE and fetch_game_props(g["gid"]):
                 why.append("props DraftKings publiées")
             summary = _get(f"{BASE}/summary?event={g['gid']}") or {}
@@ -390,7 +392,8 @@ class Live:
 
     @staticmethod
     def _reroll(why):
-        return any(not w.startswith(("cotes rafraîchies", "props DraftKings", "écart Vegas", "total Vegas")) for w in why)
+        return any(not w.startswith(("cotes rafraîchies", "props DraftKings", "écart Vegas", "total Vegas", "moyennes de la saison"))
+                   for w in why)
 
     def next_wake(self, games, interval):
         """Prochain reveil : intervalle normal, ou juste a temps pour la derniere simulation d'un match."""
