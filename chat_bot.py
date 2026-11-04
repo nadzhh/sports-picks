@@ -161,11 +161,21 @@ def state_summary():
 
 
 # ─── Claude Code ─────────────────────────────────────────────────────────────
-def ask_claude(history, msg):
+MEMO_MAX = 40   # lecons / preferences retenues des echanges (role « memo » dans users/<uid>/chat)
+
+
+def ask_claude(history, msg, memos=()):
     convo = "\n\n".join(f"{'Wilson' if h.get('role') == 'user' else 'Claude'} : {h.get('text', '')}" for h in history)
+    try:
+        import chat_context
+        brief = chat_context.briefing()
+    except Exception as e:
+        brief = f"(briefing indisponible : {type(e).__name__})"
     prompt = (f"Date et heure (Paris) : {_paris_now():%A %d/%m/%Y %H:%M}.\n"
               f"Page du site ouverte par Wilson : {msg.get('ctx') or 'inconnue'}.\n\n"
-              f"Etat actuel (calcule a l'instant) :\n{state_summary()}\n\n"
+              + (("Ta mémoire (retenu des échanges précédents, du plus ancien au plus récent) :\n"
+                  + "\n".join(f"- {m}" for m in memos) + "\n\n") if memos else "")
+              + f"{brief}\n\nBilans des dernières soirées :\n{state_summary()}\n\n"
               + (f"Conversation precedente :\n{convo}\n\n" if convo else "")
               + f"Nouveau message de Wilson :\n{msg.get('text', '')}")
     # environnement minimal : le jeton de l'abonnement, pas les secrets du relais
@@ -191,21 +201,40 @@ def ask_claude(history, msg):
 
 
 # ─── Boucle ──────────────────────────────────────────────────────────────────
+def split_memos(txt):
+    """Retire de la reponse les lignes « MEMO: ... » (ce que Claude veut retenir) : (texte affiche, [memos])."""
+    keep, memos = [], []
+    for line in txt.splitlines():
+        t = line.strip().lstrip("*_` ").rstrip("*_` ")
+        if t.upper().startswith("MEMO:") or t.upper().startswith("MEMO :"):
+            m = t.split(":", 1)[1].strip()
+            if m: memos.append(m[:300])
+        else:
+            keep.append(line)
+    return "\n".join(keep).strip(), memos[:3]
+
+
 def handle(fire, uid, msg, recent):
     fire.patch(msg["_name"], {"status": "thinking"})
-    hist = [h for h in fire.query(uid, order_desc=True, limit=HISTORY + 8) if h["_id"] != msg["_id"]]
+    memos = sorted(fire.query(uid, where=("role", "memo"), limit=200), key=lambda m: m.get("at") or "")
+    memos = [m.get("text", "") for m in memos][-MEMO_MAX:]
+    hist = [h for h in fire.query(uid, order_desc=True, limit=HISTORY + 30) if h["_id"] != msg["_id"]
+            and h.get("role") != "memo"]
     hist.sort(key=lambda h: h.get("at") or "")
     cut = max((i for i, h in enumerate(hist) if h.get("role") == "reset"), default=-1)   # « nouvelle conversation »
     # questions posees avant celle-ci, et toutes les reponses deja ecrites (meme apres, si deux messages se suivent)
     hist = [h for h in hist[cut + 1:] if h.get("role") == "assistant"
             or (h.get("role") == "user" and (h.get("at") or "") < (msg.get("at") or "~"))]
     try:
-        txt, st = ask_claude(hist[-HISTORY:], msg), "done"
+        txt, st = ask_claude(hist[-HISTORY:], msg, memos), "done"
     except subprocess.TimeoutExpired:
         txt, st = "Je n'ai pas pu terminer à temps (plus de 5 min). Reformule ou découpe la question.", "error"
     except Exception as e:
         txt, st = f"Erreur du relais : {e}", "error"
-    fire.add(uid, {"role": "assistant", "text": txt, "at": datetime.now(timezone.utc), "reply_to": msg["_id"]})
+    txt, new_memos = split_memos(txt)
+    for m in new_memos:   # memoire durable : relue a chaque question (« Nouvelle » ne l'efface pas)
+        fire.add(uid, {"role": "memo", "text": m, "at": datetime.now(timezone.utc), "reply_to": msg["_id"]})
+    fire.add(uid, {"role": "assistant", "text": txt or "(réponse vide)", "at": datetime.now(timezone.utc), "reply_to": msg["_id"]})
     fire.patch(msg["_name"], {"status": st})
     recent.append(time.time())
     print(f"  [chat] reponse envoyee ({st}, {len(txt)} car.)", flush=True)
@@ -228,8 +257,8 @@ def cycle(fire, uids, recent):
 def git_pull(start):
     """Donnees a jour ; vrai si le code du relais a change depuis le demarrage (il se relance alors)."""
     subprocess.run(["git", "pull", "--ff-only", "-q", "origin", "master"], capture_output=True, timeout=120)
-    r = subprocess.run(["git", "diff", "--quiet", start, "HEAD", "--", "chat_bot.py", "chat", "nba_sim_bilan.py",
-                        "foot_sim_bilan.py"], capture_output=True, timeout=60)
+    r = subprocess.run(["git", "diff", "--quiet", start, "HEAD", "--", "chat_bot.py", "chat", "chat_context.py",
+                        "nba_sim_bilan.py", "foot_sim_bilan.py", "notify.py", "nba_bankroll.py"], capture_output=True, timeout=60)
     return bool(start) and r.returncode == 1
 
 

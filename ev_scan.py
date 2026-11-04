@@ -85,6 +85,19 @@ def _label(sport, market, name, point, home, away):
     return f"{name} {point or ''}"
 
 
+def _best_fr(ev, sport):
+    """{libelle: [meilleure cote, bookmaker]} parmi Winamax, Betclic, Unibet, PMU, pour chaque issue cotee."""
+    best = {}
+    for bk, nm in BOOKS_FR.items():
+        b = next((x for x in ev.get("bookmakers") or [] if x["key"] == bk), None)
+        for m in (b or {}).get("markets") or []:
+            for o in m["outcomes"]:
+                lab = _label(sport, m["key"], o["name"], o.get("point"), ev["home_team"], ev["away_team"])
+                if o.get("price") and (lab not in best or o["price"] > best[lab][0]):
+                    best[lab] = [o["price"], nm]
+    return best
+
+
 def opportunities(ev):
     """Occasions +EV d'un evenement (cotes Odds API, region eu)."""
     books = {b["key"]: b for b in ev.get("bookmakers") or []}
@@ -149,7 +162,8 @@ def scan(dry=False):
                     "sport": sport, "league": title, "home": ev["home_team"], "away": ev["away_team"], "commence": ev["commence_time"],
                     "at": now.isoformat(timespec="minutes"),
                     "lines": [[_label(sport, pm["key"], nm, pt, ev["home_team"], ev["away_team"]), round(1 / pf, 3)]
-                              for pm in pin0["markets"] for (nm, pt), pf in _fair(pm["outcomes"]).items()]}
+                              for pm in pin0["markets"] for (nm, pt), pf in _fair(pm["outcomes"]).items()],
+                    "fr": _best_fr(ev, sport)}   # meilleure cote francaise par issue (chat, analyses)
             # cote juste Pinnacle a jour pour les picks deja ouverts (-> CLV a la derniere mise a jour)
             pin = next((b for b in ev.get("bookmakers") or [] if b["key"] == "pinnacle"), None)
             if pin:
