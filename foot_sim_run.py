@@ -11,7 +11,7 @@ Pas de lien avec les paris ni la bankroll.
 
 Usage : python foot_sim_run.py [--sims 10000] [--hours 48] [--no-update]
 """
-import argparse, json, sys, time
+import argparse, json, math, sys, time
 from collections import Counter, defaultdict
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
@@ -269,6 +269,43 @@ def replay(res, inp, k, g, lu=None):
     return {"v": 2, "events": ev, "final": score, "teams": teams, "poss": poss}
 
 
+# Recalage des tirs (backtest walk-forward du 04/11/2026, 548 matchs oct. 2025 - oct. 2026, sans fuite : ajuste
+# avant le 01/04/2026, valide apres). Brut : tirs cadres surestimes de 12 % (un but simule compte cadre meme si le
+# tir reel tire au sort etait hors cadre), tirs du match sous-estimes. Probabilites : Platt p' = sig(a + b logit p) ;
+# moyennes : facteur d'echelle. Validation : tirs / cadres par equipe calibres a 4 pts pres ; cumules : 5-9 pts
+# (fiabilite moyenne, affichee comme telle).
+SHOT_CAL = {"team_sh": (0.165, 0.905), "team_so": (-0.302, 1.008), "tot_sh": (0.287, 0.911), "tot_so": (-0.33, 1.122),
+            "scale_sh": 1.023, "scale_so": 0.887}
+
+
+def _cal(p, key):
+    a, b = SHOT_CAL[key]
+    p = min(max(float(p), 1e-4), 1 - 1e-4)
+    return round(1 / (1 + math.exp(-(a + b * math.log(p / (1 - p))))), 3)
+
+
+def shot_lines(res):
+    """Tirs et tirs cadres : moyennes recalees par equipe et probabilites recalees de depasser 3 lignes (equipe)
+    ou 4 / 3 lignes (match) placees autour de la moyenne."""
+    sh = {s: res[s + "_pshots"].sum(axis=1) for s in ("home", "away")}
+    so = {s: res[s + "_psot"].sum(axis=1) for s in ("home", "away")}
+    ms = {s: float(sh[s].mean()) * SHOT_CAL["scale_sh"] for s in sh}
+    mo = {s: float(so[s].mean()) * SHOT_CAL["scale_so"] for s in so}
+    lines = {}
+    for s in ("home", "away"):
+        b = math.floor(ms[s])
+        lines[s + "_sh"] = {f"{l}.5": _cal(np.mean(sh[s] > l + 0.5), "team_sh") for l in (b - 2, b, b + 2)}
+        b = math.floor(mo[s])
+        lines[s + "_so"] = {f"{l}.5": _cal(np.mean(so[s] > l + 0.5), "team_so") for l in (b - 1, b, b + 1)}
+    ts, to = sh["home"] + sh["away"], so["home"] + so["away"]
+    b = math.floor(ms["home"] + ms["away"])
+    lines["tot_sh"] = {f"{l}.5": _cal(np.mean(ts > l + 0.5), "tot_sh") for l in (b - 3, b - 1, b + 1, b + 3)}
+    b = math.floor(mo["home"] + mo["away"])
+    lines["tot_so"] = {f"{l}.5": _cal(np.mean(to > l + 0.5), "tot_so") for l in (b - 1, b, b + 1)}
+    return {"home": [round(ms["home"], 1), round(mo["home"], 1)], "away": [round(ms["away"], 1), round(mo["away"], 1)],
+            "lines": lines}
+
+
 def team_form(team_id, before, n=10):
     """Forme recente (n derniers matchs de la base : championnat + coupes d'Europe suivis) : buts, xG, tirs et
     tirs cadres pour / contre par match, part de matchs a plus de 2,5 buts et ou les deux marquent. Sert
@@ -330,15 +367,8 @@ def run_game(st, g, n_sims):
                  "clean": [round(float(np.mean(ag == 0)), 4), round(float(np.mean(hg == 0)), 4)]},
            "scores": [[int(h), int(a), round(c / n_sims, 4)] for (h, a), c in cs.most_common(12)],
            "goal_hist": [round(float(np.mean(tot == k)), 4) for k in range(7)] + [round(float(np.mean(tot >= 7)), 4)]}
-    # Tirs simules par equipe (tirs et tirs cadres) et lignes de tirs du match autour de la moyenne
-    sh = {s: res[s + "_pshots"].sum(axis=1) for s in ("home", "away")}
-    so = {s: res[s + "_psot"].sum(axis=1) for s in ("home", "away")}
-    ts, tso = sh["home"] + sh["away"], so["home"] + so["away"]
-    mid, mid_o = int(ts.mean()), int(tso.mean())
-    out["shots"] = {"home": [round(float(sh["home"].mean()), 1), round(float(so["home"].mean()), 1)],
-                    "away": [round(float(sh["away"].mean()), 1), round(float(so["away"].mean()), 1)],
-                    "over": {f"{l}.5": round(float(np.mean(ts > l + 0.5)), 3) for l in range(mid - 4, mid + 4, 2)},
-                    "sot_over": {f"{l}.5": round(float(np.mean(tso > l + 0.5)), 3) for l in range(mid_o - 2, mid_o + 2)}}
+    # Tirs et tirs cadres par equipe et cumules, recales sur le backtest (SHOT_CAL)
+    out["shots"] = shot_lines(res)
     try:
         out["form"] = {s: team_form(g[s]["id"], g["ko"]) for s in ("home", "away")}
     except Exception:
@@ -348,7 +378,7 @@ def run_game(st, g, n_sims):
         scorers = [{"name": q["name"], "pos": q["pos"], "starter": q["starter"],
                     "p_goal": round(float(np.mean(res[side + "_pgoals"][:, j] > 0)), 4),
                     "shots": round(float(res[side + "_pshots"][:, j].mean()), 2),
-                    "sot": round(float(res[side + "_psot"][:, j].mean()), 2)} for j, q in enumerate(pl)]
+                    "sot": round(float(res[side + "_psot"][:, j].mean()) * SHOT_CAL["scale_so"], 2)} for j, q in enumerate(pl)]
         out[side + "_info"] = {"lineup": lu[side]["type"], "lineup_mult": round(inp[side]["lineup_mult"], 3),
                                "npxg_base": round(inp[side]["npxg_base"], 2), "npxg": round(inp[side]["npxg"], 2),
                                "absences": absence_impact(st, g[side]["id"], lu[side]["unavailable"], day, pl),

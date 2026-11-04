@@ -226,7 +226,13 @@ def foot(now, hours=36):
         out.append(f"\n### {hn} - {an} · {g.get('league_name', '')} · {_hm(ko)} (simulé)")
         out.append(f"- Simulation 10 000 matchs : 1 {_pc(p['1'])} / N {_pc(p['X'])} / 2 {_pc(p['2'])} ; buts attendus "
                    f"{g['goals'][0]:.2f}-{g['goals'][1]:.2f} (xG {g['xg'][0]:.2f}-{g['xg'][1]:.2f}) ; +2,5 {_pc(p['over']['2.5'])} ; "
-                   f"les deux marquent {_pc(p['btts'])}" + (f" ; tirs {g['shots']['home'][0]}-{g['shots']['away'][0]}" if g.get("shots") else ""))
+                   f"les deux marquent {_pc(p['btts'])}" + (f" ; tirs {g['shots']['home'][0]}-{g['shots']['away'][0]} (cadrés {g['shots']['home'][1]}-{g['shots']['away'][1]})" if g.get("shots") else ""))
+        L = (g.get("shots") or {}).get("lines") or {}
+        if L:
+            nm = {"home_sh": f"tirs {hn}", "home_so": f"cadrés {hn}", "away_sh": f"tirs {an}", "away_so": f"cadrés {an}",
+                  "tot_sh": "tirs du match (fiabilité moyenne)", "tot_so": "cadrés du match (fiabilité moyenne)"}
+            out.append("- Lignes de tirs (proba recalée sur backtest 548 matchs, cote juste) : " + " ; ".join(
+                f"{nm[k]} " + ", ".join(f"+{l} {_pc(p_)} @{1 / max(p_, .01):.2f}" for l, p_ in v.items()) for k, v in L.items()))
         for sd in ("home", "away"):
             i = g.get(sd + "_info") or {}
             ab = [f"{x['name']} (−{100 * x['impact']:.0f} % attaque)" for x in i.get("absences") or [] if x.get("impact", 0) >= 0.05]

@@ -54,6 +54,8 @@ def archive(games, path=HIST_PATH):
             # pas archivee en direct avant le coup d'envoi
             "replayed": bool(r.get("replayed")),
         }
+        if r.get("shots"):   # tirs / tirs cadres prevus (par equipe) : mesures contre le reel au reglement
+            h["games"][r["id"]]["shots"] = [r["shots"]["home"], r["shots"]["away"]]
     save(h, path)
 
 
@@ -73,6 +75,10 @@ def resolve(path=HIST_PATH, season="2026/2027"):
         g["xg_real"] = [round(sum(s[6] for s in r["shots"] if s[0] == side), 2) for side in (1, 0)]
         g["reds"] = sum(1 for c in r["cards"] if c[4] in ("Red", "YellowRed"))
         g["goalscorers"] = [names.get(s[1], "") for s in r["shots"] if s[8] == "Goal" and not s[13]]
+        # tirs et tirs cadres reels (cadre = arret ou but ; FotMob marque aussi « cadres » les tirs contres)
+        g["shots_real"] = [[sum(1 for s in r["shots"] if s[0] == side and not s[13]),
+                            sum(1 for s in r["shots"] if s[0] == side and not s[13] and ((s[11] and not s[12]) or s[8] == "Goal"))]
+                           for side in (1, 0)]
         n += 1
     save(h, path)
     return n
@@ -133,4 +139,11 @@ def insights(h=None):
     if s["scorer_n"] >= 20:
         out.append(f"Buteurs annoncés à 35 % ou plus : {s['scorer_hit']}/{s['scorer_n']} ont marqué "
                    f"({100 * s['scorer_hit'] / s['scorer_n']:.0f} %).")
+    sh = [g for g in h["games"].values() if g.get("shots") and g.get("shots_real")]
+    if len(sh) >= 10:   # tirs prevus vs reels, par equipe (suivi en direct depuis le 04/11/2026)
+        n = 2 * len(sh)
+        ps = sum(g["shots"][i][0] for g in sh for i in (0, 1)) / n; rs = sum(g["shots_real"][i][0] for g in sh for i in (0, 1)) / n
+        pt = sum(g["shots"][i][1] for g in sh for i in (0, 1)) / n; rt = sum(g["shots_real"][i][1] for g in sh for i in (0, 1)) / n
+        out.append(f"Tirs par équipe ({len(sh)} matchs) : {ps:.1f} prévus pour {rs:.1f} réels ; tirs cadrés {pt:.1f} prévus pour "
+                   f"{rt:.1f} réels.".replace(".", ","))
     return out

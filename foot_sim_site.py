@@ -129,10 +129,9 @@ def _args(g):
     out = []
     if sh:
         (hs, ht), (as_, at) = sh["home"], sh["away"]
-        lines = " · ".join(f'plus de {l.replace(".", ",")} : <b>{_pct(v)}</b>' for l, v in sh["over"].items())
         out.append(f'<h3 class="eb-h">Tirs <small>simulés · arguments</small></h3><ul class="eb-why-l">'
                    f'<li>Tirs attendus : <b>{h} {n1(hs)}</b> ({n1(ht)} cadrés) · <b>{a} {n1(as_)}</b> ({n1(at)} cadrés), '
-                   f'soit <b>{n1(hs + as_)}</b> dans le match.</li><li class="eb-dim">Total de tirs : {lines}</li>')
+                   f'soit <b>{n1(hs + as_)}</b> tirs et <b>{n1(ht + at)}</b> cadrés dans le match.</li>')
         for (name, fo, opp_name, fopp, sim, xg) in ((h, fh, a, fa, hs, g["xg"][0]), (a, fa, h, fh, as_, g["xg"][1])):
             if not (fo and fopp): continue
             ref = (fo["sh_f"] + fopp["sh_a"]) / 2
@@ -170,6 +169,29 @@ def _args(g):
                       " : plus ouvert que d’habitude." if tot > ref + 0.3 else ".") + '</li></ul>')
     return ('<div class="eb-card">' + "".join(out) + '<p class="eb-note">Forme : derniers matchs présents dans la base '
             '(championnat et coupes d’Europe suivis). Un tir cadré = arrêt du gardien ou but (les tirs contrés n’en sont pas).</p></div>')
+
+
+def _shots_card(g):
+    """Lignes de tirs / tirs cadres (equipe et match) : probabilite recalee sur le backtest et cote juste."""
+    L = (g.get("shots") or {}).get("lines")
+    if not L: return ""
+    h, a = _e(g["home"]["name"]), _e(g["away"]["name"])
+    sh = g["shots"]
+    rows = [(f"Tirs {h}", sh["home"][0], L.get("home_sh")), (f"Tirs cadrés {h}", sh["home"][1], L.get("home_so")),
+            (f"Tirs {a}", sh["away"][0], L.get("away_sh")), (f"Tirs cadrés {a}", sh["away"][1], L.get("away_so")),
+            ("Tirs du match ⚠", sh["home"][0] + sh["away"][0], L.get("tot_sh")),
+            ("Tirs cadrés du match ⚠", sh["home"][1] + sh["away"][1], L.get("tot_so"))]
+    n1 = lambda x: f"{x:.1f}".replace(".", ",")
+    body = "".join(
+        f'<div class="eb-row" style="flex-wrap:wrap"><span><b>{lab}</b> <span class="eb-dim">· attendu {n1(m)}</span></span><span>'
+        + " · ".join(f'+{l.replace(".", ",")} <b>{_pct(p)}</b> <span class="eb-dim">@{1 / max(p, 0.01):.2f}</span>'
+                     for l, p in (ln or {}).items()) + '</span></div>'
+        for lab, m, ln in rows if ln)
+    return ('<div class="eb-card"><h3 class="eb-h">Tirs et tirs cadrés <small>probabilité de dépasser la ligne · cote juste</small></h3>'
+            f'<div class="eb-list2">{body}</div><p class="eb-note">Recalé sur un backtest de 548 matchs (oct. 2025 - oct. 2026, '
+            'sans information postérieure au coup d’envoi) : par équipe, probabilités justes à 4 points près ; '
+            '⚠ cumuls du match moins fiables (écarts de 5 à 9 points). Une cote du bookmaker au-dessus de la cote juste '
+            'est une piste, pas une garantie. Tir cadré = arrêt du gardien ou but.</p></div>')
 
 
 def _video(g, gid):
@@ -360,7 +382,7 @@ def build_foot_sim_section(sim=None):
         ids = [_e(g["id"]) for g in games]
         items = "".join(_item(g, gid, now, i == 0) for i, (g, gid) in enumerate(zip(games, ids)))
         details = "".join(
-            f'<section class="eb-detail{" on" if i == 0 else ""}" data-id="{gid}">{_header(g, now)}{_livecard(g)}{_kpis(g)}{_args(g)}{_video(g, gid)}'
+            f'<section class="eb-detail{" on" if i == 0 else ""}" data-id="{gid}">{_header(g, now)}{_livecard(g)}{_kpis(g)}{_args(g)}{_shots_card(g)}{_video(g, gid)}'
             f'{_crisis(g)}{_scorers(g)}{_scores(g)}{_markets(g)}'
             + (f'<div class="eb-card"><p class="eb-note">{BACKTEST_NOTE}</p></div>' if BACKTEST_NOTE else "") + '</section>'
             for i, (g, gid) in enumerate(zip(games, ids)))
