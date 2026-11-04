@@ -97,6 +97,19 @@ LEAGUE = {  # valeurs par defaut, recalculees sur les donnees
 STATS = ("PTS", "REB", "AST", "3PM", "STL", "BLK", "TO", "MIN", "FGA", "2PA", "3PA", "FTA", "OREB", "DREB")
 
 
+def _season_avg(rs):
+    """Moyennes reelles de la saison (matchs joues) pour le tableau des joueurs du site : minutes, points, rebonds..."""
+    if not rs: return None
+    n = len(rs)
+    m = lambda f: round(sum(f(r) for r in rs) / n, 1)
+    pts = lambda r: 2 * r["2PM"] + 3 * r["3PM"] + r["FTM"]
+    reb = lambda r: r["OREB"] + r["DREB"]
+    return {"n": n, "MIN": m(lambda r: r["MIN"]), "PTS": m(pts), "REB": m(reb), "AST": m(lambda r: r["AST"]),
+            "3PM": m(lambda r: r["3PM"]), "STL": m(lambda r: r["STL"]), "BLK": m(lambda r: r["BLK"]),
+            "PR": m(lambda r: pts(r) + reb(r)), "PA": m(lambda r: pts(r) + r["AST"]), "RA": m(lambda r: reb(r) + r["AST"]),
+            "PRA": m(lambda r: pts(r) + reb(r) + r["AST"])}
+
+
 def pos_group(pos):
     pos = (pos or "").upper()
     if pos in ("PG", "SG", "G"): return "G"
@@ -312,6 +325,7 @@ class NBAState:
             "s_dr": (S("DREB") + 40 * prior["s_dr"]) / (S("dr_opp") + 40),
             "s_ast": (S("AST") + 40 * prior["s_ast"]) / (S("ast_opp") + 40),
             "n_games": nh, "n_season": sum(1 for r in recent if r["season"] == self.season),
+            "season_avg": _season_avg([r for r in recent if r["season"] == self.season]),   # affichage (tableau joueurs)
             "p_play": p_play,
         }
         # Minutes : moyenne exponentielle courte (role actuel), ecart-type pondere

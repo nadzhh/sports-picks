@@ -250,6 +250,43 @@ def _scorers(g):
             f'moyens</small></h3><div class="eb-scroll"><table class="eb-tbl" data-all="1"><tr>{head}</tr>{rows}</table></div></div>')
 
 
+def _players_card(g):
+    """Tous les joueurs : moyennes des simulations (sur les matchs ou il joue) et saison reelle, en blocs repliables."""
+    if not any((g.get(s + "_info") or {}).get("players") for s in ("home", "away")): return ""
+    from nba_sim_site import PL_CSS
+    n1 = lambda x, d=1: f"{x:.{d}f}".replace(".", ",")
+    sim = sea = ""
+    for side in ("home", "away"):
+        pl = (g.get(side + "_info") or {}).get("players") or []
+        for label, grp in (("titulaires", [p for p in pl if p["starter"]]), ("remplaçants", [p for p in pl if not p["starter"]])):
+            if not grp: continue
+            sec = f'<tr class="sec"><td colspan="9">{_e(g[side]["name"])} · {label}</td></tr>'
+            sim += sec; sea += sec
+            for p in grp:
+                pos = f' <span class="eb-dim">{_e(p["pos"])}</span>'
+                sim += (f'<tr><td>{_e(p["name"])}{pos}</td><td class="n">{_pct(p["p_play"])}</td><td class="n">{p["min"]:.0f}</td>'
+                        f'<td class="n"><b>{_pct(p["p_goal"])}</b></td><td class="n">{n1(p["goals"], 2)}</td>'
+                        f'<td class="n">{n1(p["shots"])}</td><td class="n">{n1(p["sot"])}</td>'
+                        f'<td class="n">{_pct(p["p_yellow"])}</td><td class="n">{_pct(p["p_red"], 1)}</td></tr>')
+                s = p.get("season") or {}
+                sea += (f'<tr><td>{_e(p["name"])}{pos}</td><td class="n">{s.get("app", 0)}</td><td class="n">{s.get("min", 0)}</td>'
+                        f'<td class="n"><b>{s.get("g", 0)}</b></td><td class="n">{s.get("sh", 0)}</td><td class="n">{s.get("so", 0)}</td>'
+                        f'<td class="n">{s.get("y", 0)}</td><td class="n">{s.get("r", 0)}</td><td></td></tr>')
+    h1 = "".join(f"<th>{x}</th>" for x in ("Joueur", "Joue", "Min", "Marque", "Buts", "Tirs", "Cadrés", "Jaune", "Rouge"))
+    h2 = "".join(f"<th>{x}</th>" for x in ("Joueur", "Matchs", "Min", "Buts", "Tirs", "Cadrés", "Jaunes", "Rouges", ""))
+    n = g.get("n_sims") or 10000
+    return ('<div class="eb-card"><h3 class="eb-h">Joueurs</h3>' + PL_CSS
+            + f'<details class="eb-det"><summary>Moyennes des {n:,} simulations'.replace(",", " ")
+            + '<small>sur les matchs où il joue</small></summary>'
+            '<p class="eb-note eb-note-top">Joue = part des simulations où il entre en jeu · Marque = probabilité de marquer s’il joue '
+            '(penalties compris) · tirs cadrés recalés (backtest) · cartons : taux du joueur sur ses matchs passés ramené à ses '
+            'minutes simulées (validé sur 71 962 apparitions : fiabilité moyenne, ±1-3 pts).</p>'
+            f'<div class="eb-scroll"><table class="eb-tbl eb-stk"><tr>{h1}</tr>{sim}</table></div></details>'
+            '<details class="eb-det"><summary>Saison réelle<small>totaux, compétitions suivies (championnat + coupes d’Europe)</small></summary>'
+            f'<div class="eb-scroll"><table class="eb-tbl eb-stk"><tr>{h2}</tr>{sea}</table></div></details>'
+            '<p class="eb-note">Passes décisives : pas encore dans la base de matchs (FotMob), à ajouter.</p></div>')
+
+
 def _scores(g):
     cells = "".join(f'<div class="eb-sc"><b>{h}-{a}</b><span>{_pct(p, 1)}</span></div>' for h, a, p in g["scores"])
     hist = g["goal_hist"]
@@ -383,7 +420,7 @@ def build_foot_sim_section(sim=None):
         items = "".join(_item(g, gid, now, i == 0) for i, (g, gid) in enumerate(zip(games, ids)))
         details = "".join(
             f'<section class="eb-detail{" on" if i == 0 else ""}" data-id="{gid}">{_header(g, now)}{_livecard(g)}{_kpis(g)}{_args(g)}{_shots_card(g)}{_video(g, gid)}'
-            f'{_crisis(g)}{_scorers(g)}{_scores(g)}{_markets(g)}'
+            f'{_crisis(g)}{_scorers(g)}{_players_card(g)}{_scores(g)}{_markets(g)}'
             + (f'<div class="eb-card"><p class="eb-note">{BACKTEST_NOTE}</p></div>' if BACKTEST_NOTE else "") + '</section>'
             for i, (g, gid) in enumerate(zip(games, ids)))
         sim_view = ('<div class="eb eb-view on" data-view="sim" data-eb="foot2"><div class="eb-layout">'

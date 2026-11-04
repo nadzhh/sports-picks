@@ -306,6 +306,73 @@ def shot_lines(res):
             "lines": lines}
 
 
+# Cartons par joueur (valide walk-forward le 04/11/2026 sur 71 962 apparitions, oct. 2025 - oct. 2026) :
+# taux = (jaunes + K x taux moyen) / (minutes / 90 + K), K = 30 ; P(jaune) = 1 - exp(-taux x minutes / 90).
+# Brier 0,1061 vs 0,1076 pour un taux unique ; calibre a 1-3 pts (petits temps de jeu sous-estimes ~2 pts).
+CARD_K = 30.0
+_CARDS = {}
+
+
+def player_book(before):
+    """{joueur: [minutes, jaunes, rouges, matchs, buts, tirs, cadres, minutes saison, ...]} et taux moyens,
+    d'apres les matchs de la base joues avant `before` (cache par jour)."""
+    day = before[:10]
+    if _CARDS.get("day") == day: return _CARDS["book"], _CARDS["avg"]
+    if not _RECS: _RECS.update(foot_db.load_all())
+    book = defaultdict(lambda: {"min": 0.0, "y": 0, "r": 0, "s_app": 0, "s_min": 0.0, "s_g": 0, "s_sh": 0, "s_so": 0,
+                                "s_y": 0, "s_r": 0})
+    tot = [0.0, 0, 0]
+    for r in _RECS.values():
+        if r["date"] >= before: continue
+        cur = r.get("season") == CUR_SEASON
+        cards = defaultdict(lambda: [0, 0])
+        for c in r.get("cards") or []:
+            if c[4] in ("Yellow", "YellowRed"): cards[c[3]][0] = 1
+            if c[4] in ("Red", "YellowRed"): cards[c[3]][1] = 1
+        for q in r.get("players") or []:
+            m = min(q[6] or 0, 95)
+            if m <= 0: continue
+            b = book[q[0]]
+            b["min"] += m; b["y"] += cards[q[0]][0]; b["r"] += cards[q[0]][1]
+            tot[0] += m; tot[1] += cards[q[0]][0]; tot[2] += cards[q[0]][1]
+            if cur:
+                b["s_app"] += 1; b["s_min"] += m; b["s_y"] += cards[q[0]][0]; b["s_r"] += cards[q[0]][1]
+        if cur:
+            for sh in r.get("shots") or []:
+                if sh[13]: continue
+                b = book[sh[1]]
+                b["s_sh"] += 1; b["s_so"] += bool((sh[11] and not sh[12]) or sh[8] == "Goal"); b["s_g"] += sh[8] == "Goal"
+    avg = (tot[1] / (tot[0] / 90), tot[2] / (tot[0] / 90)) if tot[0] else (0.17, 0.006)
+    _CARDS.update(day=day, book=book, avg=avg)
+    return book, avg
+
+
+def player_table(res, inp, side, before):
+    """Tableau des joueurs d'une equipe : moyennes des simulations (sur les matchs ou il joue) + saison reelle."""
+    book, (ay, ar) = player_book(before)
+    pl = inp[side]["players"]
+    mins = res[side + "_pmin"]
+    out = []
+    for j, q in enumerate(pl):
+        m = mins[:, j]
+        on = m > 0
+        if on.mean() < 0.05: continue
+        b = book.get(q["id"]) or {"min": 0, "y": 0, "r": 0, "s_app": 0, "s_min": 0, "s_g": 0, "s_sh": 0, "s_so": 0, "s_y": 0, "s_r": 0}
+        ry = (b["y"] + CARD_K * ay) / (b["min"] / 90 + CARD_K)
+        rr = (b["r"] + CARD_K * ar) / (b["min"] / 90 + CARD_K)
+        g = res[side + "_pgoals"][:, j]
+        out.append({"name": q["name"], "pos": q["pos"], "starter": bool(q["starter"]), "p_play": round(float(on.mean()), 3),
+                    "min": round(float(m[on].mean()), 0),
+                    "p_goal": round(float(np.mean(g[on] > 0)), 3), "goals": round(float(g[on].mean()), 2),
+                    "shots": round(float(res[side + "_pshots"][on, j].mean()) * SHOT_CAL["scale_sh"], 2),
+                    "sot": round(float(res[side + "_psot"][on, j].mean()) * SHOT_CAL["scale_so"], 2),
+                    "p_yellow": round(float(np.mean(1 - np.exp(-ry * m[on] / 90))), 3),
+                    "p_red": round(float(np.mean(1 - np.exp(-rr * m[on] / 90))), 4),
+                    "season": {"app": b["s_app"], "min": round(b["s_min"]), "g": b["s_g"], "sh": b["s_sh"], "so": b["s_so"],
+                               "y": b["s_y"], "r": b["s_r"]}})
+    return sorted(out, key=lambda x: (not x["starter"], -x["min"]))
+
+
 def team_form(team_id, before, n=10):
     """Forme recente (n derniers matchs de la base : championnat + coupes d'Europe suivis) : buts, xG, tirs et
     tirs cadres pour / contre par match, part de matchs a plus de 2,5 buts et ou les deux marquent. Sert
@@ -384,6 +451,10 @@ def run_game(st, g, n_sims):
                                "absences": absence_impact(st, g[side]["id"], lu[side]["unavailable"], day, pl),
                                "scorers": sorted([s for s in scorers if s["p_goal"] >= 0.03], key=lambda s: -s["p_goal"])[:8],
                                "xi": [q["name"] for q in pl if q["starter"]]}
+        try:
+            out[side + "_info"]["players"] = player_table(res, inp, side, g["ko"])
+        except Exception as e:
+            print(f"  [!] tableau joueurs {side} : {type(e).__name__}: {e}")
     k = typical_index(res, g["id"])
     out["replay"] = replay(res, inp, k, g, lu)
     return out

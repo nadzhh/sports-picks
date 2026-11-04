@@ -310,13 +310,18 @@ def simulate(inp, n=10000, seed=None, shots_db=None, log_sims=0):
         # entree / sortie (minute de jeu continue, 0..90)
         t_in = np.where(st[None, :], 0.0, np.inf) * np.ones((n, k))
         t_out = np.full((n, k), np.inf)
+        # Entrees : jusqu'au 04/11/2026 chaque remplacant entrait selon son seul taux, d'ou 9 changements par match
+        # avec un banc complet ; on ramene le nombre attendu d'entrees aux sorties attendues des titulaires (5 au plus).
+        outs = sum(1 - q["full_rate"] for q in pl if q["starter"] and q["pos"] != "GK")
+        ins = sum(min(q["sub_rate"], 0.95) for q in pl if not q["starter"])
+        sub_scale = min(1.0, min(outs, 5.0) / ins) if ins else 1.0
         for j, q in enumerate(pl):
             if q["starter"]:
                 if q["pos"] != "GK":
                     off = rng.random(n) > q["full_rate"]
                     t_out[off, j] = np.clip(rng.normal(q["out_min"], 10, off.sum()), 46, 89)
             else:
-                on = rng.random(n) < min(q["sub_rate"], 0.95)
+                on = rng.random(n) < min(q["sub_rate"], 0.95) * sub_scale
                 t_in[on, j] = np.clip(rng.normal(70, 11, on.sum()), 46, 88)
         team_pool = [x for q in pl for x in (shots_db.get(q["id"]) or [])][-400:] or [(85, 34, 0.1, "RegularPlay", "RightFoot", 0, 0, "Miss")]
         pool, pst, plen = _pools(pl, shots_db, team_pool)
@@ -391,4 +396,6 @@ def simulate(inp, n=10000, seed=None, shots_db=None, log_sims=0):
            "subs": {s: (S[s]["t_in"][:log_sims], S[s]["t_out"][:log_sims]) for s in sides}}
     for s in sides:
         res[s + "_pgoals"], res[s + "_pshots"], res[s + "_psot"] = S[s]["pg"], S[s]["ps"], S[s]["pt"]
+        # minutes jouees par joueur et par simulation (temps additionnel ~3 min compris) : tableau des joueurs
+        res[s + "_pmin"] = np.clip(np.minimum(S[s]["t_out"], 93) - np.minimum(S[s]["t_in"], 93), 0, None)
     return res

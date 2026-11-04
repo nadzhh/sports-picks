@@ -442,7 +442,7 @@ def run_game(st, g, n_sims, profiles=None, report=None, keep_replay=None):
             if on.mean() < 0.05: continue
             d = {"id": p["id"], "name": p["name"], "side": s, "p_play": round(float(on.mean()), 3),
                  "pos": p.get("pos", ""), "starter": bool(p.get("starter_rate", 0) >= 0.5),
-                 "status": p.get("status", ""), "n_season": p["n_season"]}
+                 "status": p.get("status", ""), "n_season": p["n_season"], "season": p.get("season_avg")}
             for stat, comps in STAT_COMPS.items():
                 x = sum(res[s][c][:, i] for c in comps)[on]
                 d[stat] = {"mean": round(float(x.mean()), 2),

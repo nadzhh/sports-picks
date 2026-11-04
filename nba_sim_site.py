@@ -200,32 +200,62 @@ def _rb(q, scale, line=None):
     return out + "</span>"
 
 
-def _players(g):
-    lines = {(p["id"], p["stat"]): p["line"] for p in g.get("props") or []}
-    scale = max([p["PTS"]["q"][4] for p in g["players"]] + [30]) * 1.05
-    rows = ""
+# Tableaux des joueurs (Wilson, 04/11/2026) : toutes les stats, moyennes des 10 000 simulations ET de la saison
+# reelle, chacun dans un bloc qu'on ouvre / ferme (<details>) pour ne pas allonger la page.
+PL_STATS = (("MIN", "Min"), ("PTS", "Pts"), ("REB", "Reb"), ("AST", "Pas"), ("3PM", "3pts"), ("STL", "Int"),
+            ("BLK", "Ctr"), ("PR", "PR"), ("PA", "PA"), ("RA", "RP"), ("PRA", "PRA"))
+PL_CSS = ("<style>.eb-det{margin:10px 0}.eb-det>summary{cursor:pointer;list-style:none;font:600 14px var(--sans);"
+          "color:var(--tx);padding:10px 12px;border:1px solid var(--line2);border-radius:10px;background:var(--chip)}"
+          ".eb-det>summary::-webkit-details-marker{display:none}.eb-det>summary::before{content:'▸ ';color:var(--acc)}"
+          ".eb-det[open]>summary::before{content:'▾ '}.eb-det>summary small{color:var(--di);font:400 11.5px var(--mono);margin-left:6px}"
+          ".eb-det .eb-scroll{margin-top:8px}.eb-tbl.eb-stk td:first-child,.eb-tbl.eb-stk th:first-child{position:sticky;left:0;"
+          "background:var(--panel);z-index:1;max-width:150px;overflow:hidden;text-overflow:ellipsis}</style>")
+
+
+def _pl_groups(g):
     for side in ("away", "home"):
-        team = g[side]
         ps = sorted([p for p in g["players"] if p["side"] == side and p["p_play"] >= 0.3 and p["MIN"] >= 8],
                     key=lambda p: -p["MIN"] * p["p_play"])
         starters = [p for p in ps if p.get("starter")][:5]
         if len(starters) < 5: starters = ps[:5]
         for label, group in (("5 majeur", starters), ("Banc", [p for p in ps if p not in starters])):
-            if not group: continue
-            rows += f'<tr class="sec"><td colspan="7">{_e(team.get("name"))} · {label}</td></tr>'
-            for p in group:
-                tag = ""
-                if p.get("status"): tag = '<span class="eb-tag warn">incertain</span>'
-                elif p["p_play"] < 0.9: tag = f'<span class="eb-tag">joue {_pct(p["p_play"], 0)}</span>'
-                if p.get("n_season", 0) < 2: tag += '<span class="eb-tag" title="Projection moins fiable">peu de données</span>'
-                rows += (f'<tr><td>{_e(p["name"])}{tag}</td><td class="n">{p["MIN"]:.0f}</td>'
-                         f'<td class="n"><b>{p["PTS"]["mean"]:.1f}</b>{_rb(p["PTS"]["q"], scale, lines.get((p["id"], "PTS")))}</td>'
-                         f'<td class="n">{p["REB"]["mean"]:.1f}</td><td class="n">{p["AST"]["mean"]:.1f}</td>'
-                         f'<td class="n">{p["3PM"]["mean"]:.1f}</td><td class="n">{p["PRA"]["mean"]:.1f}</td></tr>')
-    return ('<p class="eb-note eb-note-top">Moyennes sur les matchs où le joueur joue · barre : 8 matchs sur 10 (fin), '
-            '1 sur 2 (épais), trait blanc = médiane, pointillés = ligne DraftKings</p>'
-            '<div class="eb-scroll"><table class="eb-tbl"><tr><th>Joueur</th><th>Min</th><th>Points</th><th>Reb</th>'
-            f'<th>Pas</th><th>3pts</th><th>PRA</th></tr>{rows}</table></div>')
+            if group: yield g[side], label, group
+
+
+def _players(g):
+    lines = {(p["id"], p["stat"]): p["line"] for p in g.get("props") or []}
+    scale = max([p["PTS"]["q"][4] for p in g["players"]] + [30]) * 1.05
+    ncol = len(PL_STATS) + 1
+    sim, sea = "", ""
+    for team, label, group in _pl_groups(g):
+        sec = f'<tr class="sec"><td colspan="{ncol}">{_e(team.get("name"))} · {label}</td></tr>'
+        sim += sec; sea += sec
+        for p in group:
+            tag = ""
+            if p.get("status"): tag = '<span class="eb-tag warn">incertain</span>'
+            elif p["p_play"] < 0.9: tag = f'<span class="eb-tag">joue {_pct(p["p_play"], 0)}</span>'
+            if p.get("n_season", 0) < 2: tag += '<span class="eb-tag" title="Projection moins fiable">peu de données</span>'
+            cells = ""
+            for k, _ in PL_STATS:
+                if k == "MIN": cells += f'<td class="n">{p["MIN"]:.0f}</td>'
+                elif k == "PTS": cells += f'<td class="n"><b>{p["PTS"]["mean"]:.1f}</b>{_rb(p["PTS"]["q"], scale, lines.get((p["id"], "PTS")))}</td>'
+                else: cells += f'<td class="n">{(p.get(k) or {}).get("mean", 0):.1f}</td>'
+            sim += f'<tr><td>{_e(p["name"])}{tag}</td>{cells}</tr>'
+            se = p.get("season") or {}
+            sea += (f'<tr><td>{_e(p["name"])} <span class="eb-dim">{se.get("n", 0)} m.</span></td>'
+                    + "".join(f'<td class="n">{se[k]:.{0 if k == "MIN" else 1}f}</td>' if k in se else '<td class="n eb-dim">–</td>'
+                              for k, _ in PL_STATS) + '</tr>')
+    head = "<tr><th>Joueur</th>" + "".join(f"<th>{h}</th>" for _, h in PL_STATS) + "</tr>"
+    n = g.get("n_sims") or 10000
+    return (PL_CSS
+            + f'<details class="eb-det"><summary>Moyennes des {n:,} simulations'.replace(",", " ")
+            + '<small>ce soir · matchs où le joueur joue</small></summary>'
+            '<p class="eb-note eb-note-top">Barre (points) : 8 matchs simulés sur 10 (fin), 1 sur 2 (épais), trait blanc = médiane, '
+            'pointillés = ligne DraftKings. Int = interceptions, Ctr = contres, PR = points + rebonds, PA = points + passes, '
+            'RP = rebonds + passes.</p>'
+            f'<div class="eb-scroll"><table class="eb-tbl eb-stk">{head}{sim}</table></div></details>'
+            '<details class="eb-det"><summary>Moyennes de la saison réelle<small>matchs joués cette saison (m.)</small></summary>'
+            f'<div class="eb-scroll"><table class="eb-tbl eb-stk">{head}{sea}</table></div></details>')
 
 
 def _props(g, gid):
