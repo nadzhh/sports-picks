@@ -17,7 +17,7 @@ Securite :
     python chat_bot.py --loop --max-minutes 340     # CI
     python chat_bot.py --once                        # un passage (test)
 """
-import argparse, json, os, shutil, subprocess, time
+import argparse, json, os, shutil, subprocess, sys, time
 from datetime import datetime, timezone
 from pathlib import Path
 
@@ -293,9 +293,11 @@ def main():
         if time.time() - pulled > PULL_EVERY_S:
             pulled = time.time()
             if git_pull(start):
-                CONTINUE_FLAG.write_text("1")
-                print("[chat] nouveau code : relance du relais", flush=True)
-                break
+                # Redemarrage DANS le meme job avec le nouveau code : la relance par un nouveau run (gh workflow
+                # run) a echoue le 04/11/2026 et le cron horaire de GitHub n'est pas fiable -> chat coupe 2 h 30.
+                left = a.max_minutes - (time.time() - t0) / 60
+                print("[chat] nouveau code : redemarrage du relais", flush=True)
+                os.execv(sys.executable, [sys.executable, os.path.abspath(__file__), "--loop", "--max-minutes", f"{max(left, 10):.0f}"])
         time.sleep(POLL_S)
 
 

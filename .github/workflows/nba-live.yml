@@ -97,4 +97,5 @@ jobs:
         if: success() && hashFiles('.nba_live_continue') != ''
         env:
           GH_TOKEN: ${{ github.token }}
-        run: gh workflow run nba-live.yml --ref master
+        # plusieurs essais : un refus ponctuel de GitHub a deja coupe le relais du chat (04/11/2026)
+        run: for i in 1 2 3 4 5; do gh workflow run nba-live.yml --ref master && exit 0; sleep 30; done; exit 1
