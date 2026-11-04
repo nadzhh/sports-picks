@@ -314,16 +314,17 @@ def _players_card(g):
             sim += sec; sea += sec
             for p in grp:
                 pos = f' <span class="eb-dim">{_e(p["pos"])}</span>'
-                sim += (f'<tr><td>{_e(p["name"])}{pos}</td><td class="n">{_pct(p["p_play"])}</td><td class="n">{p["min"]:.0f}</td>'
-                        f'<td class="n"><b>{_pct(p["p_goal"])}</b></td><td class="n">{n1(p["goals"], 2)}</td>'
-                        f'<td class="n">{n1(p["shots"])}</td><td class="n">{n1(p["sot"])}</td>'
-                        f'<td class="n">{_pct(p["p_yellow"])}</td><td class="n">{_pct(p["p_red"], 1)}</td></tr>')
+                td = lambda v, txt: f'<td class="n" data-v="{v}">{txt}</td>'   # data-v : valeur de tri (ebSortPl)
+                sim += (f'<tr><td data-v="{_e(p["name"])}">{_e(p["name"])}{pos}</td>' + td(p["p_play"], _pct(p["p_play"])) + td(p["min"], f'{p["min"]:.0f}')
+                        + td(p["p_goal"], f'<b>{_pct(p["p_goal"])}</b>') + td(p["goals"], n1(p["goals"], 2)) + td(p["shots"], n1(p["shots"]))
+                        + td(p["sot"], n1(p["sot"])) + td(p["p_yellow"], _pct(p["p_yellow"])) + td(p["p_red"], _pct(p["p_red"], 1)) + '</tr>')
                 s = p.get("season") or {}
-                sea += (f'<tr><td>{_e(p["name"])}{pos}</td><td class="n">{s.get("app", 0)}</td><td class="n">{s.get("min", 0)}</td>'
-                        f'<td class="n"><b>{s.get("g", 0)}</b></td><td class="n">{s.get("sh", 0)}</td><td class="n">{s.get("so", 0)}</td>'
-                        f'<td class="n">{s.get("y", 0)}</td><td class="n">{s.get("r", 0)}</td><td></td></tr>')
-    h1 = "".join(f"<th>{x}</th>" for x in ("Joueur", "Joue", "Min", "Marque", "Buts", "Tirs", "Cadrés", "Jaune", "Rouge"))
-    h2 = "".join(f"<th>{x}</th>" for x in ("Joueur", "Matchs", "Min", "Buts", "Tirs", "Cadrés", "Jaunes", "Rouges", ""))
+                sea += (f'<tr><td data-v="{_e(p["name"])}">{_e(p["name"])}{pos}</td>' + td(s.get("app", 0), s.get("app", 0)) + td(s.get("min", 0), s.get("min", 0))
+                        + td(s.get("g", 0), f'<b>{s.get("g", 0)}</b>') + td(s.get("sh", 0), s.get("sh", 0)) + td(s.get("so", 0), s.get("so", 0))
+                        + td(s.get("y", 0), s.get("y", 0)) + td(s.get("r", 0), s.get("r", 0)) + '<td></td></tr>')
+    th = lambda x: f'<th class="eb-sort" onclick="ebSortPl(this)" title="Trier">{x}</th>' if x else "<th></th>"
+    h1 = "".join(th(x) for x in ("Joueur", "Joue", "Min", "Marque", "Buts", "Tirs", "Cadrés", "Jaune", "Rouge"))
+    h2 = "".join(th(x) for x in ("Joueur", "Matchs", "Min", "Buts", "Tirs", "Cadrés", "Jaunes", "Rouges", ""))
     n = g.get("n_sims") or 10000
     return ('<div class="eb-card"><h3 class="eb-h">Joueurs</h3>' + PL_CSS
             + f'<details class="eb-det"><summary>Moyennes des {n:,} simulations'.replace(",", " ")

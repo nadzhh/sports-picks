@@ -263,16 +263,18 @@ def _players(g):
             elif p["p_play"] < 0.9: tag = f'<span class="eb-tag">joue {_pct(p["p_play"], 0)}</span>'
             if p.get("n_season", 0) < 2: tag += '<span class="eb-tag" title="Projection moins fiable">peu de données</span>'
             cells = ""
-            for k, _ in PL_STATS:
-                if k == "MIN": cells += f'<td class="n">{p["MIN"]:.0f}</td>'
-                elif k == "PTS": cells += f'<td class="n"><b>{p["PTS"]["mean"]:.1f}</b>{_rb(p["PTS"]["q"], scale, lines.get((p["id"], "PTS")))}</td>'
-                else: cells += f'<td class="n">{(p.get(k) or {}).get("mean", 0):.1f}</td>'
-            sim += f'<tr><td>{_e(p["name"])}{tag}</td>{cells}</tr>'
+            for k, _ in PL_STATS:   # data-v : valeur de tri (ebSortPl)
+                v = p["MIN"] if k == "MIN" else (p.get(k) or {}).get("mean", 0)
+                if k == "MIN": cells += f'<td class="n" data-v="{v:.1f}">{v:.0f}</td>'
+                elif k == "PTS": cells += f'<td class="n" data-v="{v:.2f}"><b>{v:.1f}</b>{_rb(p["PTS"]["q"], scale, lines.get((p["id"], "PTS")))}</td>'
+                else: cells += f'<td class="n" data-v="{v:.2f}">{v:.1f}</td>'
+            sim += f'<tr><td data-v="{_e(p["name"])}">{_e(p["name"])}{tag}</td>{cells}</tr>'
             se = season_stats(p["id"]) or p.get("season") or {}   # feuilles de match reelles
-            sea += (f'<tr><td>{_e(p["name"])} <span class="eb-dim">{se.get("n", 0)} m.</span></td>'
-                    + "".join(f'<td class="n">{se[k]:.{0 if k == "MIN" else 1}f}</td>' if k in se else '<td class="n eb-dim">–</td>'
-                              for k, _ in PL_STATS) + '</tr>')
-    head = "<tr><th>Joueur</th>" + "".join(f"<th>{h}</th>" for _, h in PL_STATS) + "</tr>"
+            sea += (f'<tr><td data-v="{_e(p["name"])}">{_e(p["name"])} <span class="eb-dim">{se.get("n", 0)} m.</span></td>'
+                    + "".join(f'<td class="n" data-v="{se[k]}">{se[k]:.{0 if k == "MIN" else 1}f}</td>' if k in se
+                              else '<td class="n eb-dim" data-v="-1">–</td>' for k, _ in PL_STATS) + '</tr>')
+    head = ('<tr><th class="eb-sort" onclick="ebSortPl(this)" title="Trier">Joueur</th>'
+            + "".join(f'<th class="eb-sort" onclick="ebSortPl(this)" title="Trier">{h}</th>' for _, h in PL_STATS) + "</tr>")
     n = g.get("n_sims") or 10000
     return (PL_CSS
             + f'<details class="eb-det"><summary>Moyennes des {n:,} simulations'.replace(",", " ")
@@ -1071,6 +1073,20 @@ LOADER_SCRIPT = """<script>
 # « Analyse approfondie » d'un match : ouvre le chat et envoie la demande avec le match en contexte (chat_bot.py
 # joint alors le dossier complet du match et peut lancer des simulations de scenario)
 ASK_SCRIPT = """<script>
+/* Tri des tableaux de joueurs (clic sur une colonne) : a l'interieur de chaque groupe (equipe, titulaires / banc),
+   du plus grand au plus petit puis inverse au 2e clic. */
+window.ebSortPl=function(th){
+  var t=th.closest('table'),idx=[].indexOf.call(th.parentNode.children,th);
+  var cur=th.getAttribute('data-dir'),dir=cur==='desc'?'asc':cur==='asc'?'desc':(idx===0?'asc':'desc');
+  th.parentNode.querySelectorAll('th').forEach(function(h){h.removeAttribute('data-dir');});th.setAttribute('data-dir',dir);
+  var k=dir==='asc'?1:-1,val=function(r){var c=r.children[idx],v=c?c.getAttribute('data-v'):'',f=parseFloat(v);return isNaN(f)?(v||''):f;};
+  var rows=[].slice.call(t.rows).slice(1),groups=[],g=null;
+  rows.forEach(function(r){if(r.classList.contains('sec')){g={sec:r,rows:[]};groups.push(g);}else{if(!g){g={sec:null,rows:[]};groups.push(g);}g.rows.push(r);}});
+  var body=t.tBodies[0]||t;
+  groups.forEach(function(G){G.rows.sort(function(a,b){var x=val(a),y=val(b);
+    var c=(typeof x==='number'&&typeof y==='number')?x-y:String(x).localeCompare(String(y),'fr');return c*k;});
+    if(G.sec)body.appendChild(G.sec);G.rows.forEach(function(r){body.appendChild(r);});});
+};
 window.ebAnalyse=function(sport,id,label){
   if(!window.spChat){alert('Chat indisponible sur cette page');return;}
   spChat.toggle(true);
