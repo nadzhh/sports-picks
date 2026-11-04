@@ -1,0 +1,42 @@
+name: Test des canaux Telegram
+
+# Envoie un message de verification dans le canal « Bankroll IA » (secret TELEGRAM_CHAT_ID_BANKROLL) ; echoue si
+# le secret manque ou si Telegram refuse (bot pas administrateur du canal, identifiant faux). Relancer a la main
+# depuis l'onglet Actions apres un changement de canal.
+on:
+  workflow_dispatch:
+  push:
+    branches: [master]
+    paths: [".github/workflows/telegram-test.yml"]
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Message de test (canal Bankroll IA)
+        env:
+          PYTHONIOENCODING: utf-8
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID:   ${{ secrets.TELEGRAM_CHAT_ID }}
+          TELEGRAM_CHAT_ID_BANKROLL: ${{ secrets.TELEGRAM_CHAT_ID_BANKROLL }}
+        run: |
+          python - <<'EOF'
+          import os, sys, notify
+          b = os.environ.get("TELEGRAM_CHAT_ID_BANKROLL")
+          if not b: sys.exit("secret TELEGRAM_CHAT_ID_BANKROLL absent")
+          if b == os.environ.get("TELEGRAM_CHAT_ID"): print("attention : meme identifiant que le canal Picks")
+          ok = notify.tg_send("✅ <b>Canal Bankroll IA connecté</b>\nIci : mes paris, leurs règlements et les alertes. "
+                              "Les picks du jour arrivent dans l'autre canal, vers 20 h.", chat_id=b)
+          print("envoi canal Bankroll IA :", "OK" if ok else "ECHEC")
+          sys.exit(0 if ok else 1)
+          EOF
