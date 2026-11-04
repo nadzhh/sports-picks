@@ -76,7 +76,9 @@ def _imp(am):
 
 
 def _round(x):
-    return math.floor(x * 2) / 2   # 0,50 EUR
+    # aux 10 centimes (avant le 04/11/2026 : tranche de 0,50 EUR inferieure, qui ramenait presque toutes les
+    # mises a 0,50 EUR quelle que soit la confiance)
+    return math.floor(round(x * 10, 6)) / 10
 
 
 def load(path=BANK_PATH):
