@@ -1,18 +1,18 @@
 {
-  "generated_at": "2026-11-04T01:23:49.796629",
-  "n_total": 2572,
+  "generated_at": "2026-11-04T08:06:14.458806",
+  "n_total": 2573,
   "globals": {
     "foot": {
-      "n": 2144,
-      "w": 973,
+      "n": 2145,
+      "w": 974,
       "l": 1100,
       "push": 71,
-      "wr": 46.9,
-      "roi": -13.3,
-      "profit": -284.99,
+      "wr": 47.0,
+      "roi": -13.2,
+      "profit": -284.19,
       "avg_cote": 2.3,
       "break_even_wr": 43.5,
-      "wr_vs_be": 3.4
+      "wr_vs_be": 3.5
     },
     "nba": {
       "n": 248,
@@ -70,16 +70,16 @@
         "calibration_gap": -21.2
       },
       "70-79": {
-        "n": 770,
-        "w": 392,
+        "n": 771,
+        "w": 393,
         "l": 341,
         "push": 37,
         "wr": 53.5,
-        "roi": -3.6,
-        "profit": -27.53,
+        "roi": -3.5,
+        "profit": -26.73,
         "avg_cote": 1.96,
         "break_even_wr": 51.1,
-        "wr_vs_be": 2.4,
+        "wr_vs_be": 2.5,
         "expected_wr": 74.5,
         "calibration_gap": -21.0
       },
@@ -488,16 +488,16 @@
         "wr_vs_be": null
       },
       "Victoire domicile": {
-        "n": 175,
-        "w": 92,
+        "n": 176,
+        "w": 93,
         "l": 80,
         "push": 3,
-        "wr": 53.5,
-        "roi": -2.6,
-        "profit": -4.63,
+        "wr": 53.8,
+        "roi": -2.2,
+        "profit": -3.83,
         "avg_cote": 2.12,
         "break_even_wr": 47.1,
-        "wr_vs_be": 6.4
+        "wr_vs_be": 6.7
       },
       "Joueur décisif": {
         "n": 39,
@@ -854,6 +854,18 @@
     },
     "foot": {
       "league": {
+        "Peru Liga 1": {
+          "n": 14,
+          "w": 4,
+          "l": 10,
+          "push": 0,
+          "wr": 28.6,
+          "roi": -48.6,
+          "profit": -6.8,
+          "avg_cote": null,
+          "break_even_wr": null,
+          "wr_vs_be": null
+        },
         "Colombia Primera A": {
           "n": 22,
           "w": 7,
@@ -934,18 +946,6 @@
           "wr": 20.0,
           "roi": -64.0,
           "profit": -3.2,
-          "avg_cote": null,
-          "break_even_wr": null,
-          "wr_vs_be": null
-        },
-        "Peru Liga 1": {
-          "n": 13,
-          "w": 3,
-          "l": 10,
-          "push": 0,
-          "wr": 23.1,
-          "roi": -58.5,
-          "profit": -7.6,
           "avg_cote": null,
           "break_even_wr": null,
           "wr_vs_be": null
@@ -1384,6 +1384,18 @@
         }
       },
       "direction": {
+        "home_win": {
+          "n": 247,
+          "w": 129,
+          "l": 109,
+          "push": 9,
+          "wr": 54.2,
+          "roi": -2.0,
+          "profit": -4.84,
+          "avg_cote": 2.05,
+          "break_even_wr": 48.7,
+          "wr_vs_be": 5.5
+        },
         "away_dc": {
           "n": 72,
           "w": 53,
@@ -1443,18 +1455,6 @@
           "avg_cote": 1.17,
           "break_even_wr": 85.3,
           "wr_vs_be": 7.4
-        },
-        "home_win": {
-          "n": 246,
-          "w": 128,
-          "l": 109,
-          "push": 9,
-          "wr": 54.0,
-          "roi": -2.3,
-          "profit": -5.64,
-          "avg_cote": 2.05,
-          "break_even_wr": 48.7,
-          "wr_vs_be": 5.3
         },
         "shots_over_24.5": {
           "n": 16,
@@ -1771,13 +1771,13 @@
       },
       "is_fun": {
         "False": {
-          "n": 2131,
-          "w": 969,
+          "n": 2132,
+          "w": 970,
           "l": 1091,
           "push": 71,
-          "wr": 47.0,
+          "wr": 47.1,
           "roi": -13.5,
-          "profit": -288.72,
+          "profit": -287.92,
           "avg_cote": 2.21,
           "break_even_wr": 45.2,
           "wr_vs_be": 1.9
@@ -2120,18 +2120,18 @@
       "severity": "medium",
       "type": "miscalibrated_overconfident",
       "scope": "foot · conf 70-79",
-      "message": "Bucket conf <b>70-79</b> (foot) : modèle annonce ~74.5% mais WR réel = 53.5% (gap -21.0pp sur 770 picks). Modèle trop confiant → relever MIN_CONF ou ajuster formule.",
+      "message": "Bucket conf <b>70-79</b> (foot) : modèle annonce ~74.5% mais WR réel = 53.5% (gap -21.0pp sur 771 picks). Modèle trop confiant → relever MIN_CONF ou ajuster formule.",
       "stats": {
-        "n": 770,
-        "w": 392,
+        "n": 771,
+        "w": 393,
         "l": 341,
         "push": 37,
         "wr": 53.5,
-        "roi": -3.6,
-        "profit": -27.53,
+        "roi": -3.5,
+        "profit": -26.73,
         "avg_cote": 1.96,
         "break_even_wr": 51.1,
-        "wr_vs_be": 2.4,
+        "wr_vs_be": 2.5,
         "expected_wr": 74.5,
         "calibration_gap": -21.0
       }
@@ -2428,7 +2428,7 @@
       "severity": "medium",
       "type": "context_signal",
       "scope": "foot · is_fun",
-      "message": "Signal contexte <b>is_fun</b> (foot) : is_fun=True → WR 30.8% (13 picks) vs is_fun=False → WR 47.0% (2131). Filtrer/ponderer.",
+      "message": "Signal contexte <b>is_fun</b> (foot) : is_fun=True → WR 30.8% (13 picks) vs is_fun=False → WR 47.1% (2132). Filtrer/ponderer.",
       "stats": {
         "worst": {
           "True": {
@@ -2446,13 +2446,13 @@
         },
         "best": {
           "False": {
-            "n": 2131,
-            "w": 969,
+            "n": 2132,
+            "w": 970,
             "l": 1091,
             "push": 71,
-            "wr": 47.0,
+            "wr": 47.1,
             "roi": -13.5,
-            "profit": -288.72,
+            "profit": -287.92,
             "avg_cote": 2.21,
             "break_even_wr": 45.2,
             "wr_vs_be": 1.9
