@@ -182,6 +182,8 @@ def scan(dry=False):
                 st["picks"][k] = p; new.append(p)
         print(f"  {title:20s} {len(soon):3d} matchs < 36 h · credits restants {rem}", flush=True)
     st["scanned_at"] = now.isoformat(timespec="minutes")
+    if any(v.get("at") == st["scanned_at"] for v in (st.get("fair") or {}).values()):
+        st["ok_at"] = st["scanned_at"]   # derniere fois que des cotes Pinnacle ont ete relevees (sante, nba_live.health)
     st["fair"] = {k: v for k, v in (st.get("fair") or {}).items()
                   if datetime.fromisoformat(v["commence"].replace("Z", "+00:00")) > now}
     n_res = resolve(st)

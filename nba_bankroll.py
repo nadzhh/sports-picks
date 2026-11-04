@@ -208,6 +208,30 @@ VALUE_MAX = 0.10     # mise max d'un value bet (part du capital)
 # (foot_sim / nba_sim) : les deux d'accord -> forte (3/4 de Kelly) ; simu a moins de 5 pts -> moyenne (1/2) ;
 # simu nettement contre -> faible (1/4) ; pas de simulation du match -> moyenne.
 CONF = {"forte": 0.75, "moyenne": 0.5, "faible": 0.25}
+# Audit du 04/11/2026 (Monte-Carlo, 90 j, 2 paris/jour) : avec un avantage annonce de +5 % mais reel nul, 3/4 de Kelly
+# donne 88 % de risque de perdre 30 % depuis un plus haut (5e centile 39 EUR) ; 0,35 / 0,25 / 0,15 et 5 % max : 25 %.
+# Tant que les value bets n'ont pas PROUVE leur avantage en reel (value_proven), on mise donc avec ces fractions.
+CONF_UNPROVEN = {"forte": 0.35, "moyenne": 0.25, "faible": 0.15}
+VALUE_MAX_UNPROVEN = 0.05
+PROOF_N = 100          # value bets regles avec une cote juste de cloture Pinnacle
+
+
+def value_proven(ev_picks=None):
+    """(prouve ?, n, CLV moyenne, borne basse IC95) : CLV = cote prise x proba juste Pinnacle au dernier releve - 1."""
+    if ev_picks is None:
+        try:
+            import ev_scan
+            ev_picks = ev_scan.load()["picks"]
+        except Exception:
+            ev_picks = {}
+    c = [p["price"] * p["last_fair"] - 1 for p in ev_picks.values() if p.get("result") and p.get("last_fair")]
+    n = len(c)
+    if n < 2: return False, n, None, None
+    m = sum(c) / n
+    sd = (sum((x - m) ** 2 for x in c) / (n - 1)) ** 0.5
+    lo = m - 1.96 * sd / n ** 0.5
+    return n >= PROOF_N and lo > 0, n, m, lo
+
 
 
 def _ndist(x):
@@ -268,13 +292,15 @@ def decide_value(state, new):
     now = datetime.now(timezone.utc).isoformat(timespec="minutes")
     taken = {leg.get("ev_key") for b in state["bets"] for leg in b["legs"]}
     placed, eq = [], equity(state)
+    proven = value_proven()[0]
+    fracs, vmax = (CONF, VALUE_MAX) if proven else (CONF_UNPROVEN, VALUE_MAX_UNPROVEN)
     for p in new:
         if p["key"] in taken: continue
         d, pf = p["price"], p["fair"]
         conf, ps = value_conf(p)
         k = (pf * d - 1) / (d - 1)
         day = sum(b["stake"] for b in state["bets"] + placed if b["status"] == "open" and b.get("night") == night_of(p["commence"]))
-        stake = _round(min(CONF[conf] * k * eq, VALUE_MAX * eq, PRM["max_night"] * eq - day))
+        stake = _round(min(fracs[conf] * k * eq, vmax * eq, PRM["max_night"] * eq - day))
         if stake < PRM["min_stake"] or stake > cash(state) - sum(x["stake"] for x in placed): continue
         leg = {"key": "ev|" + p["key"], "ev_key": p["key"], "name": f'{p["home"]} - {p["away"]}', "team": p["league"],
                "opp": p["book_name"], "stat": p["label"], "side": "", "line": 0, "dec": d, "am": None,

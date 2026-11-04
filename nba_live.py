@@ -200,6 +200,7 @@ class Live:
         foot = self.foot()
         ev = self.ev()
         ev = " ; ".join(x for x in (ev, self.digest()) if x)
+        self.health()
         if (foot or ev) and not (changed or bank) and self.push:
             publish("Foot live : " + " ; ".join(x for x in (foot, ev) if x))
         if (changed or bank) and self.push:
@@ -271,6 +272,25 @@ class Live:
         except Exception as e:
             print(f"  [!] bankroll : {type(e).__name__}: {e}")
             return ""
+
+    def health(self):
+        """Alerte Telegram (1 par jour) si les value bets ne relevent plus aucune cote depuis 30 h : cles absentes,
+        quota epuise, API en erreur. Le 30/10-04/11/2026 la veille a tourne 5 jours sans cle sans que personne le voie."""
+        if not (self.push and os.environ.get("GITHUB_ACTIONS")): return
+        try:
+            st = EV.load()
+            ok = st.get("ok_at") or st.get("scanned_at")
+            now = datetime.now(timezone.utc)
+            day = now.strftime("%Y-%m-%d")
+            if not ok or now - _t(ok) < timedelta(hours=30) or st.get("alert_day") == day: return
+            keys = [n for n, k in EV._keys()]
+            self.telegram(f"⚠️ <b>Value bets à l'arrêt</b> : aucune cote Pinnacle relevée depuis {int((now - _t(ok)).total_seconds() // 3600)} h "
+                          f"(clés The Odds API présentes : {', '.join(keys) or 'aucune'} ; quota : {st.get('quota')}). "
+                          "La Bankroll IA ne peut plus jouer ses value bets.")
+            st["alert_day"] = day
+            EV.save(st)
+        except Exception as e:
+            print(f"  [!] sante : {type(e).__name__}: {e}")
 
     def ev(self):
         """Value bets (cotes francaises vs cote juste Pinnacle) : ~2 balayages par jour (quota The Odds API)."""

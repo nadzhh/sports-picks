@@ -103,8 +103,11 @@ RULES = [
     "à part, dans le récapitulatif Telegram de 20 h.",
     "<b>Value bets</b> (foot et NBA, seul avantage validé sur deux saisons) : quand Winamax, Betclic, Unibet ou PMU paient "
     "plus que la cote juste de Pinnacle (marge retirée). Ma confiance dépend de ma propre simulation du match : "
-    "<b>forte</b> si elle va dans le même sens (3/4 de Kelly), <b>moyenne</b> si elle est à moins de 5 points (1/2), "
-    "<b>faible</b> si elle est contre (1/4).",
+    "<b>forte</b> si elle va dans le même sens, <b>moyenne</b> si elle est à moins de 5 points, <b>faible</b> si elle est "
+    "contre. Tant que les value bets n’ont pas prouvé leur avantage en réel (100 paris réglés, CLV positive face à la cote "
+    "juste de clôture Pinnacle), je mise 0,35 / 0,25 / 0,15 de Kelly et 5 % au plus ; ensuite 3/4, 1/2, 1/4 et 10 %. "
+    "Raison (audit du 04/11) : si l’avantage réel est nul, miser 3/4 de Kelly donne 88 % de risque de perdre 30 % "
+    "depuis un plus haut, contre 25 % avec ces fractions.",
     "<b>Props NBA du simulateur</b> : confiance faible (le suivi réel ne montre pas d’avantage), donc 1/4 de Kelly et "
     "seulement si l’espérance reste d’au moins {ev} après avoir gardé {lam} de l’écart simulateur / bookmaker. "
     "CLV négative → mode prudent (mises divisées par 2). Écart de 20 points ou plus : jamais (info qui me manque).",
