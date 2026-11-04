@@ -355,9 +355,17 @@ def nba_dossier(g):
                    f"MIN {p.get('MIN')} · PTS {_q(p.get('PTS'))} · REB {_q(p.get('REB'))} · AST {_q(p.get('AST'))} · 3PM {_q(p.get('3PM'))} · "
                    f"STL {_q(p.get('STL'))} · BLK {_q(p.get('BLK'))} · PRA {_q(p.get('PRA'))}"
                    + (f" | saison ({se.get('n')} m.) MIN {se.get('MIN')} PTS {se.get('PTS')} REB {se.get('REB')} AST {se.get('AST')} 3PM {se.get('3PM')}" if se else ""))
-    out.append("\n## Props cotées (DraftKings, cote décimale over / under · proba simu over · marché sans marge over)")
+    out.append("\n## Props cotées (DraftKings, cote décimale over / under · proba simu over · marché sans marge over · "
+               "ESPÉRANCE RECALÉE du meilleur côté = (marché + 10 % de l'écart simu, poids mesuré sur 613 picks réels) x cote - 1)")
     for pr in sorted(g.get("props") or [], key=lambda p: (p["name"], p["stat"])):
+        best = None
+        for side, ps, pm, am in (("over", pr["p_sim"], pr["p_mkt"], pr["over"]), ("under", 1 - pr["p_sim"], 1 - pr["p_mkt"], pr["under"])):
+            d = _dec(am)
+            if d:
+                ev = (pm + 0.10 * (ps - pm)) * d - 1
+                if best is None or ev > best[1]: best = (side, ev)
         out.append(f"- {pr['name']} {pr['stat']} {pr['line']:g} : {_dec(pr['over'])} / {_dec(pr['under'])} · simu {_pc(pr['p_sim'])} · marché {_pc(pr['p_mkt'])}"
+                   + (f" · espérance recalée {best[0]} {100 * best[1]:+.1f} %" if best else "")
                    + (f" · SÉLECTION {'over' if pr['pick'] == 'o' else 'under'}" if pr.get("pick") else ""))
         if pr.get("why"):
             w = {k: v for k, v in pr["why"].items() if k not in ("last",)}

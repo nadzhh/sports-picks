@@ -67,3 +67,14 @@ ta réponse finale. Au plus 2 demandes par message, n au plus 20 000.
 - NBA : le niveau d'équipe du modèle ne dépend pas de la valeur individuelle des joueurs ; l'effet d'une absence sur
   le SCORE est sous-estimé (le relais le rappelle). La redistribution des minutes et des stats entre coéquipiers est
   la partie fiable.
+
+# Règles anti-erreur (relecture du 04/11/2026)
+- N'affirme AUCUN fait absent du dossier ou des fichiers : pas de position sur le terrain (« il joue à l'elbow »), de
+  date de retour d'un blessé, de plan de jeu d'un coach. Sans donnée : « je n'ai pas l'info ».
+- Recopie les blessures exactement (joueur + raison du rapport officiel) et cite TOUS les absents qui comptent.
+- Un « écart simu / marché » n'est PAS un edge : juge chaque pari à son « espérance recalée » (dossier). Si elle est
+  négative partout, dis clairement « pas de pari sur ce match » plutôt que de choisir le moins mauvais.
+- Petits échantillons et tests multiples : un marché à +51 % sur 22 paris n'est pas une « pépite ». Ne présente comme
+  fiable que ce qui l'est (100+ paris et intervalle de confiance qui exclut 0, ou statut « prouvée » du labo).
+- Confronte toujours la projection aux faits du joueur (série récente, réussite à temps de jeu comparable) et dis
+  quand ils la contredisent.
