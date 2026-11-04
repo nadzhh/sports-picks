@@ -164,7 +164,7 @@ def state_summary():
 MEMO_MAX = 40   # lecons / preferences retenues des echanges (role « memo » dans users/<uid>/chat)
 
 
-def ask_claude(history, msg, memos=()):
+def ask_claude(history, msg, memos=(), extra=""):
     convo = "\n\n".join(f"{'Wilson' if h.get('role') == 'user' else 'Claude'} : {h.get('text', '')}" for h in history)
     try:
         import chat_context
@@ -177,6 +177,7 @@ def ask_claude(history, msg, memos=()):
                   + "\n".join(f"- {m}" for m in memos) + "\n\n") if memos else "")
               + f"{brief}\n\nBilans des dernières soirées :\n{state_summary()}\n\n"
               + (f"Conversation precedente :\n{convo}\n\n" if convo else "")
+              + (f"{extra}\n\n" if extra else "")
               + f"Nouveau message de Wilson :\n{msg.get('text', '')}")
     # environnement minimal : le jeton de l'abonnement, pas les secrets du relais
     env = {k: os.environ[k] for k in ("PATH", "HOME", "LANG", "CLAUDE_CODE_OAUTH_TOKEN", "SYSTEMROOT", "USERPROFILE",
@@ -214,6 +215,24 @@ def split_memos(txt):
     return "\n".join(keep).strip(), memos[:3]
 
 
+SIM_ROUNDS = 2   # simulations de scenario par message (sim_tool, executees par le relais, jamais par Claude)
+
+
+def split_sims(txt):
+    """Lignes « SIMULER: {json} » ecrites par Claude -> (texte sans ces lignes, [requetes])."""
+    keep, reqs = [], []
+    for line in txt.splitlines():
+        t = line.strip().strip("`*_ ")
+        if t.upper().startswith("SIMULER"):
+            try:
+                reqs.append(json.loads(t.split(":", 1)[1].strip()))
+            except (ValueError, IndexError):
+                pass
+        else:
+            keep.append(line)
+    return "\n".join(keep).strip(), reqs[:2]
+
+
 def handle(fire, uid, msg, recent):
     fire.patch(msg["_name"], {"status": "thinking"})
     memos = sorted(fire.query(uid, where=("role", "memo"), limit=200), key=lambda m: m.get("at") or "")
@@ -226,11 +245,31 @@ def handle(fire, uid, msg, recent):
     hist = [h for h in hist[cut + 1:] if h.get("role") == "assistant"
             or (h.get("role") == "user" and (h.get("at") or "") < (msg.get("at") or "~"))]
     try:
-        txt, st = ask_claude(hist[-HISTORY:], msg, memos), "done"
+        import chat_context
+        dossier = chat_context.dossier(msg.get("ctx"))   # bouton « Analyse approfondie »
+    except Exception:
+        dossier = ""
+    extra = (f"DOSSIER DU MATCH CHOISI PAR WILSON (données complètes, calculées à l'instant) :\n{dossier}" if dossier else "")
+    try:
+        txt, st = ask_claude(hist[-HISTORY:], msg, memos, extra), "done"
+        for _ in range(SIM_ROUNDS):
+            txt, reqs = split_sims(txt)
+            if not reqs: break
+            fire.add(uid, {"role": "assistant", "at": datetime.now(timezone.utc), "reply_to": msg["_id"],
+                           "text": (txt + "\n\n" if txt else "") + "⏳ Je lance la simulation demandée ("
+                                   + " ; ".join(f"{r.get('sport')} {r.get('n', 10000)} matchs" + (f", sans {', '.join(r.get('absents') or [])}" if r.get("absents") else "")
+                                                for r in reqs) + "), réponse dans une à deux minutes."})
+            import sim_tool
+            results = "\n\n".join(f"Requête {json.dumps(r, ensure_ascii=False)} :\n{sim_tool.run(r)}" for r in reqs)
+            extra = ((extra + "\n\n") if extra else "") + (
+                f"RÉSULTATS DES SIMULATIONS QUE TU AS DEMANDÉES (exécutées par le relais à l'instant) :\n{results}\n\n"
+                "Rédige maintenant ta réponse finale à Wilson à partir de ces résultats (n'écris plus de ligne SIMULER).")
+            txt = ask_claude(hist[-HISTORY:], msg, memos, extra)
     except subprocess.TimeoutExpired:
         txt, st = "Je n'ai pas pu terminer à temps (plus de 5 min). Reformule ou découpe la question.", "error"
     except Exception as e:
         txt, st = f"Erreur du relais : {e}", "error"
+    txt = split_sims(txt)[0]          # au cas ou une demande de simulation resterait dans la reponse
     txt, new_memos = split_memos(txt)
     for m in new_memos:   # memoire durable : relue a chaque question (« Nouvelle » ne l'efface pas)
         fire.add(uid, {"role": "memo", "text": m, "at": datetime.now(timezone.utc), "reply_to": msg["_id"]})
@@ -257,7 +296,7 @@ def cycle(fire, uids, recent):
 def git_pull(start):
     """Donnees a jour ; vrai si le code du relais a change depuis le demarrage (il se relance alors)."""
     subprocess.run(["git", "pull", "--ff-only", "-q", "origin", "master"], capture_output=True, timeout=120)
-    r = subprocess.run(["git", "diff", "--quiet", start, "HEAD", "--", "chat_bot.py", "chat", "chat_context.py",
+    r = subprocess.run(["git", "diff", "--quiet", start, "HEAD", "--", "chat_bot.py", "chat", "chat_context.py", "sim_tool.py", ".github/workflows/chat.yml",
                         "nba_sim_bilan.py", "foot_sim_bilan.py", "notify.py", "nba_bankroll.py"], capture_output=True, timeout=60)
     return bool(start) and r.returncode == 1
 
@@ -272,6 +311,11 @@ def main():
     uids = [u.strip() for u in (os.environ.get("CHAT_ALLOWED_UIDS") or "").split(",") if u.strip()]
     if not (email and pw and uids and os.environ.get("CLAUDE_CODE_OAUTH_TOKEN")):
         print("[chat] secrets manquants (CHAT_BOT_EMAIL, CHAT_BOT_PASSWORD, CHAT_ALLOWED_UIDS, CLAUDE_CODE_OAUTH_TOKEN) : arret")
+        return
+    if os.environ.get("GITHUB_ACTIONS") and not os.environ.get("CHAT_DB_EXPECTED"):
+        # job demarre avant l'ajout des bases NBA / foot (chat.yml) : on s'arrete pour que le run suivant les ait
+        CONTINUE_FLAG.write_text("1")
+        print("[chat] relais lance sans les bases NBA / foot : arret, le run suivant les restaure", flush=True)
         return
     fire, recent, t0, pulled, errs = Fire(email, pw), [], time.time(), time.time(), 0
     fire.token()

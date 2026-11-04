@@ -133,8 +133,11 @@ def _header(g, now):
     def side(team, pts):
         return (f'<div class="eb-team"><span class="eb-team-n">{_e(_nick(team))}</span>{_form(team)}'
                 f'<span class="eb-team-sub">Points attendus : <b>{pts:.1f}</b> · bilan <b>{_e(team.get("record", "–"))}</b></span></div>')
+    lab = _e(f'{_nick(a)} @ {_nick(h)}').replace("'", "&#39;")
     return (f'<div class="eb-card"><div class="eb-meta">NBA · {_when(g.get("date", ""), now)}{vegas}</div>'
-            f'<div class="eb-vs">{side(a, t["away_mean"])}<span class="eb-vs-x">@</span>{side(h, t["home_mean"])}</div></div>')
+            f'<div class="eb-vs">{side(a, t["away_mean"])}<span class="eb-vs-x">@</span>{side(h, t["home_mean"])}</div>'
+            f'<button class="eb-more eb-ask" onclick="window.ebAnalyse&&ebAnalyse(\'nba\',\'{_e(g["gid"])}\',\'{lab}\')">'
+            '💬 Analyse approfondie avec Claude</button></div>')
 
 
 def _infobar(g):
@@ -989,7 +992,7 @@ def build_nba_sim_section(sim=None):
     picks_view = f'<div class="eb eb-view" data-view="picks" data-eb="nbapick">{_picks_view(games, picks)}</div>'
     return (f'<!--nba-sim:{_e((sim or {}).get("generated_at", ""))}-->'
             f'<!--eb:start-->{sim_view}{picks_view}{hist_view}'
-            + EB_SCRIPT + PROPS_SCRIPT + SIDE_SCRIPT + site_live.LIVE_SCRIPT + _player_script() + '<!--eb:end-->')
+            + EB_SCRIPT + PROPS_SCRIPT + ASK_SCRIPT + SIDE_SCRIPT + site_live.LIVE_SCRIPT + _player_script() + '<!--eb:end-->')
 
 
 SIDE_SCRIPT = """<script>
@@ -1041,6 +1044,16 @@ LOADER_SCRIPT = """<script>
 </script>"""
 
 
+# « Analyse approfondie » d'un match : ouvre le chat et envoie la demande avec le match en contexte (chat_bot.py
+# joint alors le dossier complet du match et peut lancer des simulations de scenario)
+ASK_SCRIPT = """<script>
+window.ebAnalyse=function(sport,id,label){
+  if(!window.spChat){alert('Chat indisponible sur cette page');return;}
+  spChat.toggle(true);
+  var u=window._fbUser;if(!u||!window._fb||!window._fb.chatSend)return;
+  window._fb.chatSend(u.uid,{role:'user',text:'🔎 Analyse approfondie : '+label,status:'pending',ctx:'match:'+sport+':'+id});
+};
+</script>"""
 PROPS_SCRIPT = """<script>
 (function(){
   if(window.ebProps)return;

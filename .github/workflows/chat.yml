@@ -47,6 +47,20 @@ jobs:
           pip install requests numpy
           npm install -g @anthropic-ai/claude-code
 
+      # Bases NBA et foot constituees par la veille (lecture seule) : simulations de scenario a la demande (sim_tool.py)
+      - uses: actions/cache/restore@v4
+        with:
+          path: data/nba_db
+          key: nba-db-chat-${{ github.run_id }}
+          restore-keys: |
+            nba-db-live-
+            nba-db-
+      - uses: actions/cache/restore@v4
+        with:
+          path: data/foot_db
+          key: foot-db-chat-${{ github.run_id }}
+          restore-keys: foot-db-
+
       - name: Relais
         env:
           PYTHONIOENCODING: utf-8
@@ -55,6 +69,7 @@ jobs:
           CHAT_BOT_PASSWORD:       ${{ secrets.CHAT_BOT_PASSWORD }}
           CHAT_ALLOWED_UIDS:       ${{ secrets.CHAT_ALLOWED_UIDS }}
           CHAT_MODEL:              ${{ vars.CHAT_MODEL }}
+          CHAT_DB_EXPECTED:        "1"     # bases NBA / foot restaurees (simulations de scenario)
         run: python chat_bot.py --loop --max-minutes 340
 
       - name: Relance du relais

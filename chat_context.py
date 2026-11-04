@@ -327,6 +327,93 @@ def briefing(now=None):
     return f"# Briefing SportsPicks · {_hm(now)} (heure de Paris)\n\n" + "\n\n".join(parts)
 
 
+# ─── Dossier complet d'un match (bouton « Analyse approfondie », ctx = "match:<sport>:<id>") ─────────────
+def _q(d):
+    return f"{d['mean']:.1f} [{d['q'][0]:g}-{d['q'][4]:g}]" if isinstance(d, dict) and d.get("q") else "–"
+
+
+def nba_dossier(g):
+    h, a, tm, ln = g["home"], g["away"], g.get("team") or {}, g.get("lines") or {}
+    out = [f"# DOSSIER NBA · {a['name']} @ {h['name']} · {_hm(_t(g['date']))} (gid {g['gid']}, {g.get('n_sims', 10000)} simulations)",
+           f"Ligne {ln.get('book', 'DraftKings')} : {h['abbr']} {ln.get('home_spread')} · total {ln.get('total')} · ML {h['abbr']} {_dec(ln.get('home_ml'))} / {a['abbr']} {_dec(ln.get('away_ml'))}",
+           f"Simulation : {h['abbr']} {tm.get('home_mean')} - {tm.get('away_mean')} {a['abbr']}, total {tm.get('total_mean')} (écart-type {tm.get('total_sd')}), "
+           f"marge {tm.get('margin_mean')} (écart-type {tm.get('margin_sd')}), {h['abbr']} gagne {_pc(tm.get('p_home_win', 0))}, prolongation {_pc(tm.get('p_ot', 0))}",
+           f"Forme : {h['abbr']} {''.join(h.get('form') or [])} ({h.get('record')}) · {a['abbr']} {''.join(a.get('form') or [])} ({a.get('record')})"]
+    for sd, ab in (("home", h["abbr"]), ("away", a["abbr"])):
+        x = (g.get("injuries") or {}).get(sd) or {}
+        out.append(f"Rapport {ab} ({x.get('src')}) : absents " + ", ".join(f"{p['name']} ({p.get('reason', '')})" for p in x.get("out") or [])
+                   + " ; incertains " + ", ".join(f"{p['name']} ({p.get('status')})" for p in x.get("doubt") or []))
+        for ab_ in (g.get("absences") or {}).get(sd) or []:
+            out.append(f"  Sans {ab_['name']} ({ab_.get('n_wo')} matchs) : " + " ; ".join(
+                f"{m['name']} {m['MIN'][1]:.0f}->{m['MIN'][0]:.0f} min, PTS {m['PTS'][1]:.1f}->{m['PTS'][0]:.1f}, AST {m['AST'][1]:.1f}->{m['AST'][0]:.1f}"
+                for m in (ab_.get("mates") or [])[:6]))
+    out.append("\n## Joueurs (moyenne simulée quand il joue [8 matchs sur 10] · saison réelle)")
+    for p in sorted(g.get("players") or [], key=lambda p: (p["side"], -p.get("MIN", 0))):
+        if p.get("p_play", 0) < 0.2: continue
+        se = p.get("season") or {}
+        out.append(f"- {p['name']} ({h['abbr'] if p['side'] == 'home' else a['abbr']}, joue {_pc(p['p_play'])}{', ' + p['status'] if p.get('status') else ''}) : "
+                   f"MIN {p.get('MIN')} · PTS {_q(p.get('PTS'))} · REB {_q(p.get('REB'))} · AST {_q(p.get('AST'))} · 3PM {_q(p.get('3PM'))} · "
+                   f"STL {_q(p.get('STL'))} · BLK {_q(p.get('BLK'))} · PRA {_q(p.get('PRA'))}"
+                   + (f" | saison ({se.get('n')} m.) MIN {se.get('MIN')} PTS {se.get('PTS')} REB {se.get('REB')} AST {se.get('AST')} 3PM {se.get('3PM')}" if se else ""))
+    out.append("\n## Props cotées (DraftKings, cote décimale over / under · proba simu over · marché sans marge over)")
+    for pr in sorted(g.get("props") or [], key=lambda p: (p["name"], p["stat"])):
+        out.append(f"- {pr['name']} {pr['stat']} {pr['line']:g} : {_dec(pr['over'])} / {_dec(pr['under'])} · simu {_pc(pr['p_sim'])} · marché {_pc(pr['p_mkt'])}"
+                   + (f" · SÉLECTION {'over' if pr['pick'] == 'o' else 'under'}" if pr.get("pick") else ""))
+        if pr.get("why"):
+            w = {k: v for k, v in pr["why"].items() if k not in ("last",)}
+            out.append("    faits : " + json.dumps(w, ensure_ascii=False)[:900])
+    return "\n".join(out)
+
+
+def foot_dossier(g):
+    ko = _t(g["ko"]); hn, an, p = g["home"]["name"], g["away"]["name"], g["p"]
+    out = [f"# DOSSIER FOOT · {hn} - {an} · {g.get('league_name', '')} · {_hm(ko)} (id {g['id']}, {g.get('n_sims', 10000)} simulations)",
+           f"1 {_pc(p['1'])} / N {_pc(p['X'])} / 2 {_pc(p['2'])} · mi-temps 1 {_pc(p['ht']['1'])} N {_pc(p['ht']['X'])} 2 {_pc(p['ht']['2'])} · "
+           f"les deux marquent {_pc(p['btts'])} · rouge {_pc(p['red'])} · clean sheet {hn} {_pc(p['clean'][0])} / {an} {_pc(p['clean'][1])}",
+           "Plus de : " + " · ".join(f"{k} {_pc(v)}" for k, v in p["over"].items())
+           + f" · buts attendus {g['goals'][0]:.2f}-{g['goals'][1]:.2f}, xG {g['xg'][0]:.2f}-{g['xg'][1]:.2f}",
+           "Scores : " + ", ".join(f"{s_[0]}-{s_[1]} {100 * s_[2]:.1f} %" for s_ in (g.get("scores") or [])[:8])]
+    sh = g.get("shots") or {}
+    if sh:
+        out.append(f"Tirs {sh['home'][0]}-{sh['away'][0]}, cadrés {sh['home'][1]}-{sh['away'][1]} (simulation {sh.get('sim')}) · lignes "
+                   + " ; ".join(f"{k} " + ", ".join(f"+{l} {_pc(v)}" for l, v in L.items()) for k, L in (sh.get("lines") or {}).items()))
+    for sd, nm in (("home", hn), ("away", an)):
+        i = g.get(sd + "_info") or {}
+        out.append(f"\n## {nm}")
+        st_ = (g.get("style") or {}).get(sd)
+        if st_: out.append("Style (15 derniers matchs) : " + json.dumps(st_, ensure_ascii=False))
+        fo = (g.get("form") or {}).get(sd)
+        if fo: out.append("Forme (10 derniers) : " + json.dumps(fo, ensure_ascii=False))
+        out.append(f"Composition {i.get('lineup')} (attaque x{i.get('lineup_mult')}, xG {i.get('npxg_base')} -> {i.get('npxg')}) : " + ", ".join(i.get("xi") or []))
+        out.append("Absents : " + ", ".join(f"{x['name']} ({x.get('pos')}, {x.get('type')}, -{100 * x.get('impact', 0):.0f} % attaque)" for x in i.get("absences") or []))
+        for pl in i.get("players") or []:
+            out.append(f"- {pl['name']} ({pl['pos']}{', titulaire' if pl['starter'] else ''}) : joue {_pc(pl['p_play'])}, {pl['min']:.0f} min, "
+                       f"marque {_pc(pl['p_goal'])}, {pl['shots']} tirs, {pl['sot']} cadrés, jaune {_pc(pl['p_yellow'])} | saison {pl.get('season')}")
+    v = _fair_for((_load("data/ev_picks.json", {}) or {}).get("fair") or {}, hn, an, ko)
+    if v:
+        fr = v.get("fr") or {}
+        out.append("\nCotes (meilleure FR / juste Pinnacle) : " + " · ".join(
+            f"{lab} {fr[lab][0]:.2f} {fr[lab][1]} / {odd:.2f}" if lab in fr else f"{lab} juste {odd:.2f}" for lab, odd in v["lines"]))
+    return "\n".join(out)
+
+
+def dossier(ctx):
+    """ctx « match:nba:<gid> » ou « match:foot:<id> » (bouton Analyse approfondie) -> dossier texte, sinon ''."""
+    parts = str(ctx or "").split(":")
+    if len(parts) < 3 or parts[0] != "match": return ""
+    sport, mid = parts[1], parts[2]
+    try:
+        if sport == "nba":
+            g = next((x for x in (_load("data/nba_sim.json", {}) or {}).get("games") or [] if str(x["gid"]) == mid), None)
+            return nba_dossier(g) if g else ""
+        if sport == "foot":
+            g = next((x for x in (_load("data/foot_sim.json", {}) or {}).get("games") or [] if str(x["id"]) == mid), None)
+            return foot_dossier(g) if g else ""
+    except Exception as e:
+        return f"(dossier indisponible : {type(e).__name__}: {e})"
+    return ""
+
+
 if __name__ == "__main__":
     import sys
     sys.stdout.reconfigure(encoding="utf-8")

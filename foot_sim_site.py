@@ -106,7 +106,9 @@ def _header(g, now):
                 f'<span class="eb-team-sub">{lt(info)}</span></div>')
     return (f'<div class="eb-card"><div class="eb-meta">{_e(LIG.get(g["league"], g["league_name"]))} · {_when(g["ko"], now)}</div>'
             f'<div class="eb-vs">{side(g["home"]["name"], g["xg"][0], g["goals"][0], hi)}<span class="eb-vs-x">-</span>'
-            f'{side(g["away"]["name"], g["xg"][1], g["goals"][1], ai)}</div></div>')
+            f'{side(g["away"]["name"], g["xg"][1], g["goals"][1], ai)}</div>'
+            f'<button class="eb-more eb-ask" onclick="window.ebAnalyse&&ebAnalyse(\'foot\',\'{_e(g["id"])}\','
+            f'\'{_e(g["home"]["name"] + " - " + g["away"]["name"]).replace(chr(39), "&#39;")}\')">💬 Analyse approfondie avec Claude</button></div>')
 
 
 def _kpis(g):
@@ -479,8 +481,8 @@ def build_foot_sim_section(sim=None):
                     'Top 5 européen ou de coupe d’Europe dans les 48 prochaines heures.</div></div>')
     picks_view = f'<div class="eb eb-view" data-view="picks" data-eb="footpick">{_picks_view(games)}</div>'
     hist_view = f'<div class="eb eb-view" data-view="hist" data-eb="foothist">{_history_view()}</div>'
-    from nba_sim_site import PROPS_SCRIPT
-    return (f'<!--eb:start-->{sim_view}{picks_view}{hist_view}' + EB_SCRIPT + PROPS_SCRIPT + site_live.LIVE_SCRIPT
+    from nba_sim_site import PROPS_SCRIPT, ASK_SCRIPT
+    return (f'<!--eb:start-->{sim_view}{picks_view}{hist_view}' + EB_SCRIPT + PROPS_SCRIPT + ASK_SCRIPT + site_live.LIVE_SCRIPT
             + _player_script() + '<!--eb:end-->')
 
 

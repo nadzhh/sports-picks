@@ -34,6 +34,10 @@ HTML = r"""
 #sp-chat .m.a code{font:12.5px var(--mono,monospace);background:rgba(255,255,255,.06);padding:1px 4px;border-radius:4px}
 #sp-chat .m.a h4{font-size:14.5px;margin:6px 0 2px}
 #sp-chat .m.err{border:1px solid rgba(239,68,68,.4)}
+#sp-chat .m.a .tw{overflow-x:auto;margin:6px 0}
+#sp-chat .m.a table{border-collapse:collapse;font-size:12.5px;white-space:nowrap}
+#sp-chat .m.a th,#sp-chat .m.a td{border-bottom:1px solid var(--line2,#2a352c);padding:4px 8px;text-align:left}
+#sp-chat .m.a th{color:var(--mu,#9aa89e);font-weight:600}
 #sp-chat .sep{align-self:center;font:11px var(--mono,monospace);color:var(--di,#6b7a70);padding:4px 0}
 #sp-chat .wait{align-self:flex-start;font:12.5px var(--mono,monospace);color:var(--mu,#9aa89e)}
 #sp-chat .wait i{display:inline-block;width:6px;height:6px;border-radius:3px;background:var(--acc,#95e04a);margin-right:4px;animation:spch 1.2s infinite}
@@ -74,8 +78,18 @@ window.spChat = (function(){
   var SUGG = ['Résume-moi la soirée NBA de cette nuit', 'Comment va la Bankroll IA ?', 'Quels sont les meilleurs picks de ce soir et pourquoi ?'];
   function esc(s){ return String(s).replace(/[&<>"]/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
   function md(s){
-    var out = [], list = false;
+    var out = [], list = false, tbl = null;
+    var flush = function(){ if(tbl){ out.push('<div class="tw"><table>' + tbl.join('') + '</table></div>'); tbl = null; } };
     esc(s).split('\n').forEach(function(l){
+      if(/^\s*\|.*\|\s*$/.test(l)){            // tableau markdown -> vrai tableau (defile sur mobile)
+        if(/^\s*\|[\s:|-]+\|\s*$/.test(l)) return;
+        var cells = l.trim().slice(1, -1).split('|').map(function(c){ return c.trim().replace(/\*\*(.+?)\*\*/g, '<b>$1</b>'); });
+        if(list){ out.push('</ul>'); list = false; }
+        if(!tbl) tbl = ['<tr>' + cells.map(function(c){ return '<th>' + c + '</th>'; }).join('') + '</tr>'];
+        else tbl.push('<tr>' + cells.map(function(c){ return '<td>' + c + '</td>'; }).join('') + '</tr>');
+        return;
+      }
+      flush();
       l = l.replace(/\*\*(.+?)\*\*/g, '<b>$1</b>').replace(/`([^`]+)`/g, '<code>$1</code>');
       var li = l.match(/^\s*(?:[-•*]|\d+[.)])\s+(.*)/);
       if(li){ if(!list){ out.push('<ul>'); list = true; } out.push('<li>' + li[1] + '</li>'); return; }
@@ -83,6 +97,7 @@ window.spChat = (function(){
       var h = l.match(/^#{1,4}\s+(.*)/);
       out.push(h ? '<h4>' + h[1] + '</h4>' : (l.trim() ? l + '<br>' : '<br>'));
     });
+    flush();
     if(list) out.push('</ul>');
     return out.join('').replace(/(<br>)+$/, '');
   }
