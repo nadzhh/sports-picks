@@ -26,7 +26,7 @@ Format message :
   ✅ Bukayo Saka but/passe décisive (72%) — TITULAIRE
   ⚠️ Viktor Gyökeres marque (68%) — REMPLAÇANT (skip)
 """
-import json, urllib.request, urllib.parse, urllib.error, sys
+import json, os, urllib.request, urllib.parse, urllib.error, sys
 from pathlib import Path
 from datetime import datetime, timedelta, timezone
 
@@ -161,13 +161,19 @@ def discover_chat_id():
     print("=> Copie le chat_id dans config.py :  TELEGRAM_CHAT_ID = \"...\"")
 
 
-def tg_send(text, parse_mode="HTML"):
-    """Envoie un message au TELEGRAM_CHAT_ID."""
-    if not TELEGRAM_CHAT_ID:
+# Deux canaux (Wilson, 04/11/2026) : TELEGRAM_CHAT_ID = « Picks » (le message quotidien des meilleurs picks) ;
+# TELEGRAM_CHAT_ID_BANKROLL = « Bankroll IA » (mes paris, reglements, alertes). Sans le second : repli sur le premier.
+TELEGRAM_CHAT_ID_BANKROLL = os.environ.get("TELEGRAM_CHAT_ID_BANKROLL") or TELEGRAM_CHAT_ID
+
+
+def tg_send(text, parse_mode="HTML", chat_id=None):
+    """Envoie un message au canal chat_id (par defaut TELEGRAM_CHAT_ID, le canal « Picks »)."""
+    chat_id = chat_id or TELEGRAM_CHAT_ID
+    if not chat_id:
         print("[X] TELEGRAM_CHAT_ID vide - lance d'abord : python notify.py setup")
         return False
     res = _tg("sendMessage", {
-        "chat_id": TELEGRAM_CHAT_ID,
+        "chat_id": chat_id,
         "text": text,
         "parse_mode": parse_mode,
         "disable_web_page_preview": "true",

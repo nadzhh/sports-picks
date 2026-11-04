@@ -163,7 +163,11 @@ def scan(dry=False):
                     "at": now.isoformat(timespec="minutes"),
                     "lines": [[_label(sport, pm["key"], nm, pt, ev["home_team"], ev["away_team"]), round(1 / pf, 3)]
                               for pm in pin0["markets"] for (nm, pt), pf in _fair(pm["outcomes"]).items()],
-                    "fr": _best_fr(ev, sport)}   # meilleure cote francaise par issue (chat, analyses)
+                    "fr": _best_fr(ev, sport),   # meilleure cote francaise par issue (chat, picks du jour)
+                    # de quoi regler un pick poste (picks_du_jour) : marche / issue / ligne de chaque libelle, slug ESPN
+                    "keys": {_label(sport, pm["key"], nm, pt, ev["home_team"], ev["away_team"]): [pm["key"], nm, pt]
+                             for pm in pin0["markets"] for (nm, pt) in _fair(pm["outcomes"])},
+                    "espn": slug}
             # cote juste Pinnacle a jour pour les picks deja ouverts (-> CLV a la derniere mise a jour)
             pin = next((b for b in ev.get("bookmakers") or [] if b["key"] == "pinnacle"), None)
             if pin:

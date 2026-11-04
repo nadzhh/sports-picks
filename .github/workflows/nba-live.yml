@@ -74,7 +74,8 @@ jobs:
         env:
           PYTHONIOENCODING: utf-8
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}   # paris de la Bankroll IA
-          TELEGRAM_CHAT_ID:   ${{ secrets.TELEGRAM_CHAT_ID }}
+          TELEGRAM_CHAT_ID:   ${{ secrets.TELEGRAM_CHAT_ID }}            # canal « Picks »
+          TELEGRAM_CHAT_ID_BANKROLL: ${{ secrets.TELEGRAM_CHAT_ID_BANKROLL }}   # canal « Bankroll IA » (repli : Picks)
           # value bets (ev_scan.py) : sans ces cles le balayage ne faisait rien (30/10-04/11/2026)
           ODDS_API_KEY:       ${{ secrets.ODDS_API_KEY }}
           ODDS_API_KEY2:      ${{ secrets.ODDS_API_KEY2 }}

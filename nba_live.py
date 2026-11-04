@@ -34,7 +34,7 @@ import ev_scan as EV
 
 DIGEST_PATH = "data/telegram_digest.json"   # jour du dernier recapitulatif Telegram envoye (pas de doublon)
 PUBLISHED = [FRAGMENT, R.OUT_PATH, str(R.PICKS_PATH), "data/nba_sim_history.json", BS.FRAGMENT, str(BK.BANK_PATH),
-             FS.FRAGMENT, str(FR.OUT_PATH), str(FB.HIST_PATH), str(EV.PATH), DIGEST_PATH]
+             FS.FRAGMENT, str(FR.OUT_PATH), str(FB.HIST_PATH), str(EV.PATH), DIGEST_PATH, "data/telegram_picks.json"]
 # Foot (Top 5 + coupes d'Europe) : base mise a jour par tranches (premiere constitution en plusieurs
 # passages), simulation toutes les 30 min, a chaque cycle quand un match approche (composition officielle)
 FOOT_SEASONS = ("2026/2027", "2025/2026")   # saison en cours d'abord
@@ -209,7 +209,7 @@ class Live:
                                      else "resultats et liste des matchs" if changed else "bankroll") + bank)
         return games
 
-    def telegram(self, *msgs):
+    def telegram(self, *msgs, bank=False):
         """Envoi Telegram : uniquement depuis GitHub Actions avec publication (jamais d'un poste local,
         dont le .env contient aussi le jeton du bot)."""
         if not (self.push and os.environ.get("GITHUB_ACTIONS")): return
@@ -222,7 +222,9 @@ class Live:
                     if cur and len(cur) + len(block) > 3800: parts.append(cur); cur = ""
                     cur = f"{cur}\n\n{block}" if cur else block
                 parts.append(cur)
-                for part in parts: print("  [telegram] " + ("envoye" if tg_send(part) else "ECHEC"))
+                import notify
+                chat = notify.TELEGRAM_CHAT_ID_BANKROLL if bank else None   # canal « Bankroll IA » / « Picks »
+                for part in parts: print("  [telegram] " + ("envoye" if tg_send(part, chat_id=chat) else "ECHEC"))
         except Exception as e:
             print(f"  [!] telegram : {type(e).__name__}: {e}")
 
@@ -242,9 +244,10 @@ class Live:
             except (OSError, ValueError):
                 done = None
             if done == day: return ""
-            txt = notify.build_hv_digest(now) or (f"🎯 <b>Picks high value</b> · {loc:%d/%m}\n"
-                                                  "Aucun pick high value pour les matchs des 24 prochaines heures.")
+            import picks_du_jour as PJ   # 04/11/2026 : au plus 5 picks, esperance positive en probabilite recalee
+            txt, picks = PJ.build(now)
             self.telegram(txt)
+            PJ.record(picks, now)
             Path(DIGEST_PATH).write_text(json.dumps({"day": day, "at": now.isoformat(timespec="minutes")}), encoding="utf-8")
             return "recapitulatif Telegram des picks"
         except Exception as e:
@@ -257,13 +260,19 @@ class Live:
         try:
             st = BK.load()
             before = {b["id"] for b in st["bets"] if b["status"] == "open"}
-            n_set = BK.settle(st, load_season(self.year))
+            box = load_season(self.year)
+            n_set = BK.settle(st, box)
+            try:   # picks postes sur le canal « Picks » : reglement (suivi du canal)
+                import picks_du_jour as PJ
+                PJ.resolve(box)
+            except Exception as e:
+                print(f"  [!] picks du jour : {type(e).__name__}: {e}")
             placed = BK.decide(st, fresh) if fresh else []
             if not (n_set or placed or not Path(BS.FRAGMENT).exists()): return ""
             BK.save(st); BS.write_fragment()
             settled = [b for b in st["bets"] if b["id"] in before and b["status"] != "open"]
             self.telegram(BK.telegram_placed(placed, st) if placed else None,
-                          BK.telegram_settled(settled, st) if settled else None)
+                          BK.telegram_settled(settled, st) if settled else None, bank=True)
             for b in placed:
                 print(f"  [bankroll] {b['kind']} {b['stake']:.2f} EUR @ {b['odds']:.2f} : "
                       + " + ".join(f"{l['name']} {l['side']}{l['line']:g} {l['stat']}" for l in b["legs"]))
@@ -286,7 +295,7 @@ class Live:
             keys = [n for n, k in EV._keys()]
             self.telegram(f"⚠️ <b>Value bets à l'arrêt</b> : aucune cote Pinnacle relevée depuis {int((now - _t(ok)).total_seconds() // 3600)} h "
                           f"(clés The Odds API présentes : {', '.join(keys) or 'aucune'} ; quota : {st.get('quota')}). "
-                          "La Bankroll IA ne peut plus jouer ses value bets.")
+                          "La Bankroll IA ne peut plus jouer ses value bets.", bank=True)
             st["alert_day"] = day
             EV.save(st)
         except Exception as e:
@@ -299,12 +308,12 @@ class Live:
             new = EV.scan()
             write_fragment(); FS.write_fragment()      # cartes « Value bets » et calculateur des vues Picks
             if new:
-                self.telegram(EV.telegram_msg(new))
+                self.telegram(EV.telegram_msg(new), bank=True)
                 st = BK.load()                         # la Bankroll IA joue les value bets (avantage valide)
                 placed = BK.decide_value(st, new)
                 if placed:
                     BK.save(st); BS.write_fragment()
-                    self.telegram(BK.telegram_placed(placed, st))
+                    self.telegram(BK.telegram_placed(placed, st), bank=True)
             return f"value bets : {len(new)} nouveau(x)"
         except Exception as e:
             print(f"  [!] value bets : {type(e).__name__}: {e}")

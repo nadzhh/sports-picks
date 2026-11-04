@@ -126,6 +126,15 @@ def reliability(now):
                        f"(0,33 hasard, ~0,38-0,40 niveau marché) ; buts {s['goals_sim']:.2f} simulés / {s['goals_real']:.2f} réels.")
     except Exception:
         pass
+    # Canal Telegram « Picks » (au plus 5 picks / jour, probabilite recalee ; picks_du_jour)
+    try:
+        import picks_du_jour
+        s_ = picks_du_jour.stats()
+        out.append(f"- Canal Telegram « Picks » (mes picks postés à Wilson depuis le {s_['since']}) : {s_['w']}-{s_['n'] - s_['w']}, "
+                   f"{s_['units']:+.1f} u ({100 * s_['roi']:+.1f} %)." if s_ else
+                   "- Canal Telegram « Picks » : pas encore de pick posté réglé (filtre : espérance > 0 en probabilité recalée).")
+    except Exception:
+        pass
     # Value bets
     ev = (_load("data/ev_picks.json", {}) or {}).get("picks") or {}
     R = [p for p in ev.values() if p.get("result") in ("win", "loss")]
