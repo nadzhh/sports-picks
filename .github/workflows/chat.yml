@@ -72,6 +72,10 @@ jobs:
           CHAT_DB_EXPECTED:        "1"     # bases NBA / foot restaurees (simulations de scenario)
           CHAT_WRITE:              "1"     # job avec contents: write (boite a idees)
           CHAT_TG:                 "1"     # Telegram disponible (demandes d'inscription)
+          CHAT_ODDS:               "1"     # cles The Odds API (cotes live a la demande, live_tool.live_odds)
+          ODDS_API_KEY:              ${{ secrets.ODDS_API_KEY }}
+          ODDS_API_KEY2:             ${{ secrets.ODDS_API_KEY2 }}
+          ODDS_API_KEY3:             ${{ secrets.ODDS_API_KEY3 }}
           TELEGRAM_BOT_TOKEN:        ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHAT_ID_BANKROLL: ${{ secrets.TELEGRAM_CHAT_ID_BANKROLL }}   # canal « Bankroll IA »
         run: python chat_bot.py --loop --max-minutes 340

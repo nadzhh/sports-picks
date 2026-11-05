@@ -94,7 +94,12 @@ relais à l'instant, puis le dossier d'avant-match. Méthode :
 2. Idées de paris live classées, chacune avec la probabilité du modèle et la COTE MINIMALE pour qu'elle vaille le coup
    (cote mini = 1 / probabilité, + 5 % de marge) : vainqueur / double chance, buts (plus de X, les deux marquent,
    prochain but), tirs d'équipe, buteurs encore sur le terrain, et pour la NBA les props joueur (stat actuelle →
-   projection). Wilson compare lui-même avec la cote live du bookmaker : tu n'as PAS les cotes live, ne les invente pas.
+   projection).
+   COTES LIVE : si le bloc « COTES LIVE » est présent, il donne pour chaque issue la meilleure cote française du
+   moment, la cote juste Pinnacle live (sans marge) et l'espérance. Ne propose comme pari qu'une issue à espérance
+   positive CONTRE PINNACLE (+2 % au moins) avec une cote de moins de 60 s ; le modèle live n'est qu'un second avis.
+   Si le bloc dit qu'il n'y a pas de cote française, donne la cote minimale et laisse Wilson comparer. N'invente jamais
+   une cote absente du bloc.
 3. Fiabilité, à dire clairement : modèle foot live validé sur 759 matchs (le niveau d'avant-match prévoit mieux la suite
    que l'xG observé : une équipe qui domine 20 minutes ne vaut pas forcément plus) ; modèle live NBA NON validé
    (indicatif). Les cotes live bougent vite et la marge du bookmaker y est plus forte : seuil d'exigence plus haut.

@@ -124,7 +124,117 @@ def foot(mid):
                    + " ; ".join(t_ for _, t_ in sorted(sc_lines, key=lambda x: -x[0])[:8]))
     cards = [f"{c[0]}' {names.get(c[3], '?')} ({c[4]})" for c in rec.get("cards") or []]
     if cards: out.append("Cartons : " + ", ".join(cards))
+    skey = FOOT_KEYS.get(gm.get("league"))
+    if skey:
+        def model(mk, name, pt):
+            if mk == "h2h": return px if name == "Draw" else p1 if name == gm["home"]["name"] or name == hn else p2
+            if mk == "totals" and pt is not None and pt in over: return over[pt] if name == "Over" else 1 - over[pt]
+            return None
+        def model_named(mk, name, pt):   # noms The Odds API != noms FotMob : on rattache la victoire par proximite
+            if mk == "h2h" and name != "Draw":
+                import difflib
+                r = lambda a, b: difflib.SequenceMatcher(None, a.lower(), b.lower()).ratio()
+                return p1 if r(name, hn) >= r(name, an) else p2
+            return model(mk, name, pt)
+        out.append(live_odds("foot", skey, hn, an, gm["ko"], model_named))
     return "\n".join(out)
+
+
+# ─── COTES LIVE (The Odds API, a la demande : 1 appel par clic « Analyse live ») ──────────────────────────
+# Wilson, 05/11/2026 : « si on clique dessus ca recupere les cotes en live ; si ca marche pas on annule ».
+# Cout : 1 credit par marche renvoye (bookmakers FR + Pinnacle = 1 « region »), foot 2, NBA 3. Garde-fous : cles
+# au-dessus de la reserve d'ev_scan (+ marge), au plus LIVE_ODDS_MAX_DAY appels par jour et par relais.
+FOOT_KEYS = {47: "soccer_epl", 87: "soccer_spain_la_liga", 54: "soccer_germany_bundesliga", 55: "soccer_italy_serie_a",
+             53: "soccer_france_ligue_one", 42: "soccer_uefa_champs_league", 73: "soccer_uefa_europa_league"}
+LIVE_BOOKS = "pinnacle,winamax_fr,betclic_fr,unibet_fr,pmu_fr"
+FR_NAMES = {"winamax_fr": "Winamax", "betclic_fr": "Betclic", "unibet_fr": "Unibet", "pmu_fr": "PMU"}
+LIVE_ODDS_MAX_DAY = 25
+LIVE_RESERVE = 60            # credits laisses a chaque cle (ev_scan garde 40 pour l'avant-match)
+_CALLS = {}                  # jour -> appels faits par ce processus
+
+
+def _norm_cdf(x): return 0.5 * (1 + math.erf(x / math.sqrt(2)))
+
+
+def _odds_event(skey, home, away, ko):
+    """Evenement The Odds API (liste gratuite) correspondant au match : debut a 3 h pres, noms proches."""
+    import difflib, ev_scan
+    keys = ev_scan._keys()
+    if not keys: return None, "aucune clé The Odds API dans l'environnement du relais"
+    evs, _ = ev_scan._get(f"/sports/{skey}/events", {}, keys[-1][1])
+    sim = lambda a, b: difflib.SequenceMatcher(None, (a or "").lower(), (b or "").lower()).ratio()
+    t0 = datetime.fromisoformat(ko.replace("Z", "+00:00"))
+    best = max(((sim(e["home_team"], home) + sim(e["away_team"], away), e) for e in evs
+                if abs(datetime.fromisoformat(e["commence_time"].replace("Z", "+00:00")) - t0).total_seconds() <= 3 * 3600),
+               key=lambda x: x[0], default=(0, None))
+    return (best[1], "") if best[0] >= 1.2 else (None, "match introuvable chez The Odds API")
+
+
+def _odds_call(skey, eid, markets):
+    """Cotes de l'evenement (Pinnacle + 4 bookmakers FR). -> (donnees, message d'erreur)."""
+    import ev_scan
+    day = datetime.now(timezone.utc).strftime("%Y-%m-%d")
+    if _CALLS.get(day, 0) >= LIVE_ODDS_MAX_DAY: return None, f"plafond de {LIVE_ODDS_MAX_DAY} appels de cotes live atteint aujourd'hui"
+    quota = (_load("data/ev_picks.json", {}) or {}).get("quota") or {}
+    for name, key in reversed(ev_scan._keys()):        # k1 d'abord : ev_scan commence par k3
+        if quota.get(name, 999) <= LIVE_RESERVE: continue
+        try:
+            data, rem = ev_scan._get(f"/sports/{skey}/events/{eid}/odds",
+                                     {"bookmakers": LIVE_BOOKS, "markets": markets, "oddsFormat": "decimal"}, key)
+        except Exception as e:                           # jamais l'URL (elle contient la cle)
+            if getattr(e, "code", None) in (401, 429): continue
+            return None, f"appel refusé ({type(e).__name__} {getattr(e, 'code', '')})"
+        _CALLS[day] = _CALLS.get(day, 0) + 1
+        return data, ""
+    return None, "quota The Odds API trop bas (réservé aux value bets d'avant-match)"
+
+
+def live_odds(sport, skey, home, away, ko, model):
+    """Bloc texte : pour chaque issue, meilleure cote FR live, cote juste Pinnacle live (sans marge), probabilite du
+    modele live et esperance. model(market, name, point) -> probabilite ou None."""
+    try:
+        ev, err = _odds_event(skey, home, away, ko)
+        if not ev: return "COTES LIVE : " + err + "."
+        data, err = _odds_call(skey, ev["id"], "h2h,totals" if sport == "foot" else "h2h,spreads,totals")
+        if data is None: return "COTES LIVE : " + err + "."
+    except Exception as e:
+        return f"COTES LIVE indisponibles ({type(e).__name__})."
+    now = datetime.now(timezone.utc)
+    books = data.get("bookmakers") or []
+    fr = [b for b in books if b["key"] in FR_NAMES]
+    if not fr:
+        return ("COTES LIVE : aucun bookmaker français ne publie de cote en direct pour ce match dans The Odds API "
+                "(Pinnacle " + ("oui" if any(b["key"] == "pinnacle" for b in books) else "non") + "). Compare toi-même avec ta cote mini.")
+    pin = next((b for b in books if b["key"] == "pinnacle"), None)
+    fair = {}
+    if pin:
+        for m in pin.get("markets") or []:
+            groups = {}
+            for o in m["outcomes"]:
+                groups.setdefault(abs(o.get("point") or 0) if m["key"] == "spreads" else o.get("point"), []).append(o)
+            for g in groups.values():
+                s = sum(1 / o["price"] for o in g)
+                for o in g: fair[(m["key"], o["name"], o.get("point"))] = (1 / o["price"]) / s
+    best = {}
+    for b in fr:
+        age = (now - datetime.fromisoformat(b.get("last_update", now.isoformat()).replace("Z", "+00:00"))).total_seconds()
+        for m in b.get("markets") or []:
+            for o in m["outcomes"]:
+                k = (m["key"], o["name"], o.get("point"))
+                if k not in best or o["price"] > best[k][0]: best[k] = (o["price"], FR_NAMES[b["key"]], age)
+    rows = []
+    for (mk, name, pt), (price, book, age) in best.items():
+        pf, pm = fair.get((mk, name, pt)), model(mk, name, pt)
+        lab = ({"h2h": "Nul" if name == "Draw" else f"Victoire {name}"}.get(mk) if mk == "h2h" else
+               f"{'Plus' if name == 'Over' else 'Moins'} de {pt:g}" if mk == "totals" else f"{name} {pt:+g}")
+        ev_pin = pf * price - 1 if pf else None
+        ev_mod = pm * price - 1 if pm is not None else None
+        rows.append((ev_pin if ev_pin is not None else -9, f"- {lab} : {price:.2f} ({book}, cote vieille de {age:.0f} s)"
+                     + (f" · juste Pinnacle {1 / pf:.2f} ({_pc(pf)}) → espérance {100 * ev_pin:+.1f} %" if pf else " · pas de Pinnacle")
+                     + (f" · modèle live {_pc(pm)} → {100 * ev_mod:+.1f} %" if pm is not None else "")))
+    rows.sort(key=lambda r: -r[0])
+    return ("COTES LIVE (relevées à l'instant ; espérance jugée d'abord contre la cote juste Pinnacle live, le modèle en "
+            "second avis) :\n" + "\n".join(r for _, r in rows[:14]))
 
 
 # ─── NBA ──────────────────────────────────────────────────────────────────────
@@ -182,6 +292,19 @@ def nba(gid):
                     line.append(f"{st} {now} → {now + fut:.1f} (ligne {pr['line']:g} : plus {_pc(pov)}, d'avant-match {_pc(pr['p_sim'])})")
             if line:
                 rows.append(f"- {p['name']} ({ab}, {p.get('MIN', 0):.0f} min jouées, {p.get('PF', 0)} fautes, encore ~{rem_i:.0f} min) : " + " ; ".join(line))
+    if state != "post":
+        hn_full, an_full = gm["home"].get("name") or h, gm["away"].get("name") or a
+        t_sd = (tm.get("total_sd") or 18) * math.sqrt(max(frac, 1e-6))
+        def model(mk, name, pt):
+            if mk == "h2h": return p_home if name == hn_full else 1 - p_home
+            if mk == "spreads" and pt is not None:          # equipe couvre : marge (de son point de vue) + pt > 0
+                mu = m_exp if name == hn_full else -m_exp
+                return _norm_cdf((mu + pt) / sd) if rem_game > 0 else None
+            if mk == "totals" and pt is not None and rem_game > 0:
+                po = 1 - _norm_cdf((pt - tot_exp) / t_sd)
+                return po if name == "Over" else 1 - po
+            return None
+        out.append(live_odds("nba", "basketball_nba", hn_full, an_full, gm["date"], model))
     if rows: out.append("Joueurs (stat actuelle → projection finale) :\n" + "\n".join(rows[:24]))
     return "\n".join(out)
 

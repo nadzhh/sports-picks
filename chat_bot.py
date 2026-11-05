@@ -423,7 +423,7 @@ def main():
         print("[chat] secrets manquants (CHAT_BOT_EMAIL, CHAT_BOT_PASSWORD, CHAT_ALLOWED_UIDS, CLAUDE_CODE_OAUTH_TOKEN) : arret")
         return
     if os.environ.get("GITHUB_ACTIONS") and not (os.environ.get("CHAT_DB_EXPECTED") and os.environ.get("CHAT_WRITE")
-                                                  and os.environ.get("CHAT_TG")):
+                                                  and os.environ.get("CHAT_TG") and os.environ.get("CHAT_ODDS")):
         # job demarre avant l'ajout des bases NBA / foot (chat.yml) : on s'arrete pour que le run suivant les ait
         CONTINUE_FLAG.write_text("1")
         print("[chat] relais lance avec une ancienne configuration (bases / droits) : arret, le run suivant l'aura", flush=True)
