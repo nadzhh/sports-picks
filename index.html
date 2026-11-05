@@ -1721,7 +1721,7 @@ footer{color:var(--di)!important;border-top:1px solid var(--line)!important;font
   </div>
 
   <!-- Section Analyse NBA -->
-  <div id="sport-analyse" class="s4a"><div class="sp-lazy" data-src="lazy/nba_analyse.html?v=c2d25b0480"></div></div>
+  <div id="sport-analyse" class="s4a"><div class="sp-lazy" data-src="lazy/nba_analyse.html?v=8bb421476d"></div></div>
 
   <!-- Section Simulation Foot (foot_sim_site.py, data/foot_sim.json de foot_sim_run.py) -->
   <div id="sport-footsim" class="s4a">
@@ -8502,10 +8502,26 @@ tr.sp-np-flash{animation:spNpFlash 2s ease-out}
     box.innerHTML = '<div class="sp-lazy-msg">Chargement…</div>';
     fetch(box.getAttribute('data-src'), {cache: 'force-cache'}).then(function(r){ if(!r.ok) throw r.status; return r.text(); })
       .then(function(h){
-        var host = box.parentNode, tmp = document.createElement('div'); tmp.innerHTML = h;
-        while(tmp.firstChild) host.insertBefore(tmp.firstChild, box);
-        box.setAttribute('data-st', 'ok'); box.style.display = 'none';
-        var L = box._cb; box._cb = []; L.forEach(function(f){ if(f) try { f(); } catch(e){} });
+        // Fragment decoupe en morceaux (<!--sp-chunk-->, ordre de priorite dans <!--sp-order:...-->) : chaque morceau
+        // est insere a sa place (repere vide), en rendant la main entre deux -> le premier match s'affiche vite
+        // (05/11/2026 : 16,8 Mo d'un coup = ~11 s sur telephone).
+        var m = /^<!--sp-order:([0-9,]+)-->/.exec(h), parts = h.replace(/^<!--sp-order:[0-9,]+-->/, '').split('<!--sp-chunk-->');
+        var order = m ? m[1].split(',').map(Number) : parts.map(function(_, i){ return i; });
+        var host = box.parentNode, marks = parts.map(function(){ var i = document.createElement('i'); i.hidden = true; host.insertBefore(i, box); return i; });
+        box.innerHTML = ''; box.style.display = 'none';
+        var k = 0;
+        (function step(){
+          var i = order[k++], mk = marks[i];
+          var before = mk.previousSibling, fresh = [];
+          mk.insertAdjacentHTML('beforebegin', parts[i]);
+          for(var n = before ? before.nextSibling : host.firstChild; n && n !== mk; n = n.nextSibling) if(n.nodeType === 1) fresh.push(n);
+          mk.remove();
+          try { if(window.spLazyChunk) spLazyChunk(fresh); } catch(e){}
+          if(k < order.length){ setTimeout(step, 16); return; }
+          marks.forEach(function(x){ if(x.parentNode) x.remove(); });
+          box.setAttribute('data-st', 'ok');
+          var L = box._cb; box._cb = []; L.forEach(function(f){ if(f) try { f(); } catch(e){} });
+        })();
       })
       .catch(function(){
         box.setAttribute('data-st', 'ko');
@@ -8520,6 +8536,19 @@ tr.sp-np-flash{animation:spNpFlash 2s ease-out}
   if(typeof showSport === 'function'){
     var _show = showSport;
     window.showSport = showSport = function(s){ var r = _show.apply(this, arguments); setTimeout(visible, 0); return r; };
+  }
+  // Choix globaux (Prop pour tous / Fenetre) faits pendant le chargement : appliques aussi aux morceaux arrives ensuite
+  if(typeof setAnalyseGlobalProp === 'function'){
+    var _gp = setAnalyseGlobalProp, _gw = setAnalyseGlobalWindow;
+    window.setAnalyseGlobalProp = setAnalyseGlobalProp = function(p){ window._spAgProp = p; return _gp.apply(this, arguments); };
+    window.setAnalyseGlobalWindow = setAnalyseGlobalWindow = function(w){ window._spAgWin = w; return _gw.apply(this, arguments); };
+    window.spLazyChunk = function(nodes){
+      if(!window._spAgProp && !window._spAgWin) return;
+      nodes.forEach(function(n){ (n.matches && n.matches('.player-analyse') ? [n] : [].slice.call(n.querySelectorAll ? n.querySelectorAll('.player-analyse') : [])).forEach(function(c){
+        var b = window._spAgProp && c.querySelector('.tg-prop-btn[data-prop="' + window._spAgProp + '"]'); if(b) selectPropChart(b);
+        var w = window._spAgWin && c.querySelector('.tg-window-btn[data-window="' + window._spAgWin + '"]'); if(w) selectWindow(w);
+      }); });
+    };
   }
   if(typeof goToAnalyse === 'function'){
     var _go = goToAnalyse;
