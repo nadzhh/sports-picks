@@ -381,20 +381,20 @@ def _mask(email):
 
 
 ACCESS_STEP = ""
-ACCESS_REPORT = Path("data/relay_access.json")   # diagnostic public, sans secret ni identifiant
+ACCESS_REPORT = Path("data/relay_status.json")   # diagnostic public, sans secret ni identifiant
 
 
-def access_report(ok, err=""):
-    """Publie l'etat du controle des inscriptions (seulement quand il change) : Claude Code ne voit pas les journaux
-    des runs GitHub, ce fichier lui dit ou ca bloque."""
-    st = {"ok": ok, "step": "" if ok else ACCESS_STEP, "error": err}
+def access_report(ok, err="", part="acces", step=None):
+    """Publie l'etat du relais par partie (« chat », « acces »), seulement quand il change : Claude Code ne voit pas
+    les journaux des runs GitHub, ce fichier lui dit ou ca bloque."""
+    st = {"ok": ok, "step": "" if ok else (step if step is not None else ACCESS_STEP), "error": err}
     try:
         old = json.loads(ACCESS_REPORT.read_text(encoding="utf-8")) if ACCESS_REPORT.exists() else {}
     except ValueError:
         old = {}
-    if {k: old.get(k) for k in st} == st: return
-    ACCESS_REPORT.write_text(json.dumps(dict(st, at=datetime.now(timezone.utc).isoformat(timespec="minutes")),
-                                        ensure_ascii=False, indent=1), encoding="utf-8")
+    if {k: (old.get(part) or {}).get(k) for k in st} == st: return
+    old[part] = dict(st, at=datetime.now(timezone.utc).isoformat(timespec="minutes"))
+    ACCESS_REPORT.write_text(json.dumps(old, ensure_ascii=False, indent=1), encoding="utf-8")
     git = lambda *a: subprocess.run(["git", *a], capture_output=True, text=True, timeout=120)
     git("config", "user.name", "sport-picks-bot"); git("config", "user.email", "actions@github.com")
     git("add", str(ACCESS_REPORT))
@@ -463,12 +463,18 @@ def main():
     print(f"[chat] relais pret ({len(uids)} compte(s) autorise(s))", flush=True)
     while True:
         try:
-            cycle(fire, uids, recent); errs = 0
+            cycle(fire, uids, recent)
+            if errs >= 5: access_report(True, part="chat")
+            errs = 0
         except Exception as e:
             errs += 1
-            print(f"  [!] chat : {type(e).__name__}", flush=True)
-            if errs >= 20: raise
-            time.sleep(min(60, 5 * errs))
+            code = getattr(getattr(e, "response", None), "status_code", "")
+            print(f"  [!] chat : {type(e).__name__} {code}", flush=True)
+            if errs == 5:
+                access_report(False, f"{type(e).__name__} {code}", part="chat", step="lecture des messages du chat"
+                              + (" : acces refuse par les regles Firestore (UID du relais ?)" if code == 403 else ""))
+            # 05/11/2026 : s'arreter apres 20 erreurs coupait le chat pour des heures -> on ralentit au lieu de mourir
+            time.sleep(300 if errs >= 20 else min(60, 5 * errs))
         if time.time() - acc_at > acc_wait:   # inscriptions : a part, une panne ici ne doit pas couper le chat
             acc_at = time.time()
             try:
