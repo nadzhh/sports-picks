@@ -91,8 +91,8 @@ jobs:
           python nba_scraper.py           || echo "[!] nba_scraper KO"
           python nba_odds.py              || echo "[!] nba_odds KO"
           python nba_picks_engine.py      || echo "[!] nba_picks_engine KO"
-          python tennis_scraper.py        || echo "[!] tennis_scraper KO"
-          python tennis_picks_engine.py   || echo "[!] tennis_picks_engine KO"
+          # python tennis_scraper.py        || echo "[!] tennis_scraper KO"   # tennis en pause (05/11/2026, Wilson) : economise les credits Odds API
+          # python tennis_picks_engine.py   || echo "[!] tennis_picks_engine KO"   # tennis en pause (05/11/2026, Wilson) : economise les credits Odds API
           python tennis_resolver.py       || echo "[!] tennis_resolver KO"
           # Table de calibration : apres les resolveurs (historique a jour),
           # avant picks_engine qui s'en sert pour selectionner et miser.

@@ -79,13 +79,13 @@ def main():
     # 3.5 Tennis (Sackmann stats + Odds API)
     # Best effort : si rien d'actif (entre tournois) ou pas de cle dispo,
     # tennis_matches.json contiendra 0 match et la section UI affichera un message.
-    run("tennis_scraper.py",      "Tennis scraper (Sackmann + Odds API)")
-    run("tennis_picks_engine.py", "Tennis picks engine")
+    # run("tennis_scraper.py",      "Tennis scraper (Sackmann + Odds API)")   # tennis en pause (05/11/2026)
+    # run("tennis_picks_engine.py", "Tennis picks engine")   # tennis en pause (05/11/2026)
     run("tennis_resolver.py",     "Tennis resolver (scores Odds API)")
     # 3.6 Tennis schedule complementaire (ESPN) : matchs des tournois non couverts
     # par Odds API (grass season ATP 250 mens, etc.). Pas de cote → pas de pick,
     # juste affichage dans la sidebar V1 pour completude.
-    run("tennis_schedule_scraper.py", "Tennis schedule (ESPN, no-odds)")
+    # run("tennis_schedule_scraper.py", "Tennis schedule (ESPN, no-odds)")   # tennis en pause (05/11/2026)
 
     # 3.7 Basketball Europe (Euroleague, ACB, LNB, Eurocup, etc) via Odds API.
     # On expose juste les matchs + cotes consensus dans Pronos V1 (pas de

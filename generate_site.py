@@ -6867,7 +6867,6 @@ def build_html(matches, team_ai, player_ai, pstats_data, nba_picks=None, nba_his
     <button class="sport-btn" onclick="spNav('today')"  id="nav-today"><span class="sp-ic">🎯</span> <span class="sp-lb">Aujourd’hui</span></button>
     <button class="sport-btn" onclick="spNav('foot')"   id="nav-foot"><span class="sp-ic">⚽</span> <span class="sp-lb">Foot</span></button>
     <button class="sport-btn" onclick="spNav('basket')" id="nav-basket"><span class="sp-ic">🏀</span> <span class="sp-lb">Basket</span></button>
-    <button class="sport-btn" onclick="spNav('tennis')" id="nav-tennis"><span class="sp-ic">🎾</span> <span class="sp-lb">Tennis</span></button>
     <button class="sport-btn" onclick="spNav('iabank')" id="nav-iabank"><span class="sp-ic">🤖</span> <span class="sp-lb">Bankroll IA</span></button>
   </div>
   <!-- Sous-menus du menu choisi (spNav) -->
@@ -7076,7 +7075,8 @@ var SP_NAV = {{
   today:  [['today','Aujourd’hui']],
   foot:   [['footsim','Simulation'],['footanalyse','Analyse'],['footpicks','Picks'],['foothist2','Historique']],
   basket: [['nbasim','Simulation'],['analyse','Analyse'],['nbapicks','Picks'],['nbahist2','Historique']],
-  tennis: [['tennis','Picks'],['tennishist','Historique']],
+  // tennis retire du menu le 05/11/2026 (Wilson : « je n'utilise plus le tennis ») ; pour le remettre :
+  // tennis: [['tennis','Picks'],['tennishist','Historique']],  + bouton nav-tennis + 5 colonnes (site_theme)
   iabank: [['iabank','Bankroll IA']]
 }};
 var SP_VIEW = {{ footsim:['footsim','sim'], footpicks:['footsim','picks'], foothist2:['footsim','hist'],
