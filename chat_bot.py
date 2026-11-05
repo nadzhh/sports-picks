@@ -272,18 +272,23 @@ SIM_ROUNDS = 2   # simulations de scenario par message (sim_tool, executees par 
 
 
 def split_sims(txt):
-    """Lignes « SIMULER: {json} » ecrites par Claude -> (texte sans ces lignes, [requetes])."""
+    """Lignes « SIMULER: {json} » et « BOOST: {json} » ecrites par Claude -> (texte sans ces lignes, [requetes]).
+    BOOST (05/11/2026) : cote boostee collee par Wilson, chiffree par boosts.check (prix juste cale sur Pinnacle)."""
     keep, reqs = [], []
     for line in txt.splitlines():
         t = line.strip().strip("`*_ ")
-        if t.upper().startswith("SIMULER"):
+        kind = "boost" if t.upper().startswith("BOOST") else "sim" if t.upper().startswith("SIMULER") else None
+        if kind:
             try:
-                reqs.append(json.loads(t.split(":", 1)[1].strip()))
-            except (ValueError, IndexError):
+                r = json.loads(t.split(":", 1)[1].strip())
+                if kind == "boost": r["_boost"] = True
+                reqs.append(r)
+            except (ValueError, IndexError, TypeError):
                 pass
         else:
             keep.append(line)
-    return "\n".join(keep).strip(), reqs[:2]
+    sims, boosts_ = [r for r in reqs if not r.get("_boost")], [r for r in reqs if r.get("_boost")]
+    return "\n".join(keep).strip(), sims[:2] + boosts_[:4]
 
 
 def handle(fire, uid, msg, recent):
@@ -317,15 +322,24 @@ def handle(fire, uid, msg, recent):
         for _ in range(SIM_ROUNDS):
             txt, reqs = split_sims(txt)
             if not reqs: break
-            fire.add(uid, {"role": "assistant", "at": datetime.now(timezone.utc), "reply_to": msg["_id"],
-                           "text": (txt + "\n\n" if txt else "") + "⏳ Je lance la simulation demandée ("
-                                   + " ; ".join(f"{r.get('sport')} {r.get('n', 10000)} matchs" + (f", sans {', '.join(r.get('absents') or [])}" if r.get("absents") else "")
-                                                for r in reqs) + "), réponse dans une à deux minutes."})
-            import sim_tool
-            results = "\n\n".join(f"Requête {json.dumps(r, ensure_ascii=False)} :\n{sim_tool.run(r)}" for r in reqs)
+            sims = [r for r in reqs if not r.get("_boost")]
+            if sims:   # une simulation prend 1-2 min : on previent ; un boost se chiffre en quelques secondes
+                fire.add(uid, {"role": "assistant", "at": datetime.now(timezone.utc), "reply_to": msg["_id"],
+                               "text": (txt + "\n\n" if txt else "") + "⏳ Je lance la simulation demandée ("
+                                       + " ; ".join(f"{r.get('sport')} {r.get('n', 10000)} matchs" + (f", sans {', '.join(r.get('absents') or [])}" if r.get("absents") else "")
+                                                    for r in sims) + "), réponse dans une à deux minutes."})
+
+            def _run(r):
+                if r.get("_boost"):
+                    import boosts
+                    return boosts.check(r)
+                import sim_tool
+                return sim_tool.run(r)
+            results = "\n\n".join(f"Requête {json.dumps({k: v for k, v in r.items() if k != '_boost'}, ensure_ascii=False)} :\n{_run(r)}"
+                                  for r in reqs)
             extra = ((extra + "\n\n") if extra else "") + (
-                f"RÉSULTATS DES SIMULATIONS QUE TU AS DEMANDÉES (exécutées par le relais à l'instant) :\n{results}\n\n"
-                "Rédige maintenant ta réponse finale à Wilson à partir de ces résultats (n'écris plus de ligne SIMULER).")
+                f"RÉSULTATS DES SIMULATIONS / BOOSTS QUE TU AS DEMANDÉS (exécutés par le relais à l'instant) :\n{results}\n\n"
+                "Rédige maintenant ta réponse finale à Wilson à partir de ces résultats (n'écris plus de ligne SIMULER ni BOOST).")
             txt = ask_claude(hist[-HISTORY:], msg, memos, extra)
     except subprocess.TimeoutExpired:
         txt, st = "Je n'ai pas pu terminer à temps (plus de 5 min). Reformule ou découpe la question.", "error"
@@ -364,7 +378,7 @@ def git_pull(start):
     """Donnees a jour ; vrai si le code du relais a change depuis le demarrage (il se relance alors)."""
     # --rebase (et non --ff-only) : une idee pas encore publiee (commit local) ne doit pas bloquer la mise a jour
     subprocess.run(["git", "pull", "--rebase", "-q", "origin", "master"], capture_output=True, timeout=120)
-    r = subprocess.run(["git", "diff", "--quiet", start, "HEAD", "--", "chat_bot.py", "chat", "chat_context.py", "sim_tool.py", "live_tool.py", ".github/workflows/chat.yml",
+    r = subprocess.run(["git", "diff", "--quiet", start, "HEAD", "--", "chat_bot.py", "chat", "chat_context.py", "sim_tool.py", "live_tool.py", "boosts.py", "boost_model.py", ".github/workflows/chat.yml",
                         "nba_sim_bilan.py", "foot_sim_bilan.py", "notify.py", "nba_bankroll.py"], capture_output=True, timeout=60)
     return bool(start) and r.returncode == 1
 

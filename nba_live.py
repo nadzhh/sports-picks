@@ -36,7 +36,7 @@ import site_today as ST
 DIGEST_PATH = "data/telegram_digest.json"   # jour du dernier recapitulatif Telegram envoye (pas de doublon)
 PUBLISHED = [FRAGMENT, R.OUT_PATH, str(R.PICKS_PATH), "data/nba_sim_history.json", BS.FRAGMENT, str(BK.BANK_PATH),
              FS.FRAGMENT, str(FR.OUT_PATH), str(FB.HIST_PATH), str(EV.PATH), DIGEST_PATH, "data/telegram_picks.json",
-             "data/foot_competitions.json", "data/strategy_lab.json", ST.FRAGMENT]
+             "data/foot_competitions.json", "data/strategy_lab.json", ST.FRAGMENT, "data/boosts.json"]
 # Foot (Top 5 + coupes d'Europe) : base mise a jour par tranches (premiere constitution en plusieurs
 # passages), simulation toutes les 30 min, a chaque cycle quand un match approche (composition officielle)
 FOOT_SEASONS = ("2026/2027", "2025/2026")   # saison en cours d'abord
@@ -207,7 +207,7 @@ class Live:
         bank = self.bankroll(fresh)
         foot = self.foot()
         ev = self.ev()
-        ev = " ; ".join(x for x in (ev, self.digest(), self.lab()) if x)
+        ev = " ; ".join(x for x in (ev, self.boosts(), self.digest(), self.lab()) if x)
         self.health()
         if (foot or ev) and not (changed or bank) and self.push:
             publish("Foot live : " + " ; ".join(x for x in (foot, ev) if x))
@@ -293,6 +293,17 @@ class Live:
             return f" ; bankroll : {len(placed)} pari(s) place(s), {n_set} regle(s)"
         except Exception as e:
             print(f"  [!] bankroll : {type(e).__name__}: {e}")
+            return ""
+
+    def boosts(self):
+        """Cotes boostees Winamax (boosts.py) : releve au plus toutes les 2 h sur la page publique, prix juste, verdict.
+        Avant le recapitulatif de 20 h, qui les reprend."""
+        try:
+            import boosts as BO
+            n = BO.scan()
+            return f"cotes boostees : {n}" if n else ""
+        except Exception as e:
+            print(f"  [!] cotes boostees : {type(e).__name__}: {e}")
             return ""
 
     def lab(self):

@@ -82,10 +82,20 @@ def _go(link, label="Fiche"):
     return f'<button class="td-go" onclick="spToday(\'{link[0]}\',\'{_e(link[1])}\')">{label} →</button>'
 
 
+def _units(x):
+    """Mise conseillee du pick, en unites (« 0,25 »)."""
+    return f"{x.get('stake', 1):g}".replace(".", ",")
+
+
+def _stake(x):
+    return f" · mise <b>{_units(x)} u</b>"
+
+
 def _pick_row(x, sims, nba):
     ico = "⚽" if x["sport"] == "foot" else "🏀"
-    kind = x.get("src") if x["kind"] == "safe" else x["kind"]
-    ref = (f"juste Pinnacle {_fr(1 / x['p_fair'])}" if kind in ("value", "best") else f"marché {_pc(x['p_fair'])}")
+    kind = x.get("src") if x["kind"] in ("safe", "fill") else x["kind"]
+    ref = ("juste " + _fr(1 / x["p"]) + " (modèle calé sur Pinnacle)" if kind == "boost" else
+           f"juste Pinnacle {_fr(1 / x['p_fair'])}" if kind in ("value", "best") else f"marché {_pc(x['p_fair'])}")
     if x.get("p_sim") is not None: ref += f" · ma simu {_pc(x['p_sim'])}"
     ev = (f'<span class="eb-acc">espérance <b>{100 * x["ev"]:+.0f} %</b></span>' if x["ev"] >= 0
           else f'<span class="eb-dim">coût attendu <b>{_fr(100 * -x["ev"], 1)} %</b></span>')
@@ -93,7 +103,7 @@ def _pick_row(x, sims, nba):
             f'<span class="eb-dim">· {_hm(x["ko"])} · {_e(x["league"])}</span></span>{_go(_link(x, sims, nba))}</div>'
             f'<div class="td-l2"><b>{_e(x["label"])}</b> <span class="td-odds">@ {_fr(x["price"])}</span> '
             f'<span class="eb-dim">{_e(x["book"])}</span></div>'
-            f'<div class="td-l3">gagné {_pc(x["p"])} <span class="eb-dim">({ref})</span> · {ev}</div></div>')
+            f'<div class="td-l3">gagné {_pc(x["p"])} <span class="eb-dim">({ref})</span> · {ev}{_stake(x)}</div></div>')
 
 
 def _tier_stats(kinds):
@@ -105,13 +115,15 @@ def _tier_stats(kinds):
 
 
 def _tiers(now):
-    value = PJ.select(now)
-    safe = PJ.safe_picks(now, taken={x["match_id"] for x in value})
-    best = PJ.best_price(now, taken={x["match_id"] for x in value + safe})
-    return value, safe, best
+    """{palier: [picks]} de la selection du soir (picks_du_jour.all_picks : meme liste que le canal Telegram)."""
+    T = {"value": [], "boost": [], "safe": [], "best": [], "fill": []}
+    for x in PJ.all_picks(now):
+        T["value" if x["kind"] in ("value", "prop") else x["kind"]].append(x)
+    return T
 
 
-TIER_TAG = {"value": ("Value", "acc"), "prop": ("Value", "acc"), "safe": ("🛡️ Safe", "acc"), "best": ("💡 Meilleur prix", "warn")}
+TIER_TAG = {"value": ("Value", "acc"), "prop": ("Value", "acc"), "boost": ("⚡ Boost", "acc"), "safe": ("🛡️ Safe", "acc"),
+            "best": ("💡 Meilleur prix", "warn"), "fill": ("➕ Complément", "")}
 
 
 def picks_table(sport):
@@ -120,13 +132,13 @@ def picks_table(sport):
     25 u sur 740 picks en reel (05/11/2026) et ne doit plus etre signalee comme un pick."""
     now = datetime.now(timezone.utc)
     try:
-        value, safe, best = _tiers(now)
+        T = _tiers(now)
     except Exception as e:
         print(f"  [!] picks du jour ({sport}) : {type(e).__name__}: {e}")
         return ""
     ico = "⚽" if sport == "foot" else "🏀"
     rows = ""
-    for x in sorted((x for x in value + safe + best if x["sport"] == sport), key=lambda x: x["ko"]):
+    for x in sorted((x for L in T.values() for x in L if x["sport"] == sport), key=lambda x: x["ko"]):
         lab, cls = TIER_TAG[x["kind"]]
         ev = (f'<span class="eb-acc">+{_fr(100 * x["ev"], 1)} %</span>' if x["ev"] >= 0
               else f'<span class="eb-dim">coût {_fr(100 * -x["ev"], 1)} %</span>')
@@ -135,40 +147,85 @@ def picks_table(sport):
                  f'<td class="n eb-dim">{_day(x["ko"], now)}{_hm(x["ko"])}</td><td><b>{_e(x["match"])}</b> '
                  f'<span class="eb-dim">{_e(x["league"])}</span></td><td><b>{_e(x["label"])}</b> '
                  f'<span class="eb-tag {cls}">{lab}</span></td><td>{_e(x["book"])}</td><td class="n"><b>{_fr(x["price"])}</b></td>'
-                 f'<td class="n">{_pc(x["p"])}</td><td class="n">{ev}</td></tr>')
+                 f'<td class="n">{_pc(x["p"])}</td><td class="n">{ev}</td>'
+                 f'<td class="n">{_units(x)} u</td></tr>')
     table = (f'<div class="eb-scroll"><table class="eb-tbl eb-cards"><tr><th>Heure</th><th>Match</th><th>Pari</th>'
-             f'<th>Bookmaker</th><th>Cote</th><th>Gagné</th><th>Espérance</th></tr>{rows}</table></div>' if rows else
+             f'<th>Bookmaker</th><th>Cote</th><th>Gagné</th><th>Espérance</th><th>Mise</th></tr>{rows}</table></div>' if rows else
              '<div class="eb-empty">Aucun pari ne remplit les critères pour les 24 prochaines heures. Mieux vaut ne rien '
              'jouer que jouer un pari perdant sur la durée.</div>')
-    return ('<div class="eb-card"><h3 class="eb-h">🎯 Picks du jour <small>value · safe · meilleur prix, probabilités '
-            'recalées sur les résultats réels</small></h3>' + table +
-            '<p class="eb-note">Les mêmes que l’onglet Aujourd’hui et le canal Telegram : value = espérance positive contre la '
-            'cote juste Pinnacle ; safe = cote ≥ 1,40 gagnée au moins 2 fois sur 3, marge faible ; meilleur prix = pas de la '
-            'value, la marge la plus faible du jour, simulation d’accord. Seules ces lignes déclenchent la notification '
-            '« nouveaux picks ».</p></div>')
+    return ('<div class="eb-card"><h3 class="eb-h">🎯 Picks du jour <small>value · boosts · safe · meilleur prix · complément'
+            '</small></h3>' + table +
+            '<p class="eb-note">Les mêmes que l’onglet Aujourd’hui et le canal Telegram. Value = espérance positive contre la '
+            'cote juste Pinnacle (1 u) ; boost = cote boostée Winamax au-dessus de sa cote juste (1 u) ; safe = cote ≥ 1,40 '
+            'gagnée au moins 2 fois sur 3 (0,5 u) ; meilleur prix et complément = pas de la value, les paris les moins chers '
+            'du soir (0,25 u). Seules ces lignes déclenchent la notification « nouveaux picks ».</p></div>')
 
 
 def _picks_card(now, sims, nba):
-    value, safe, best = _tiers(now)
-    out = ('<div class="eb-card"><h3 class="eb-h">🎯 Picks du jour <small>24 prochaines heures · probabilités recalées '
-           'sur les résultats réels</small></h3>')
-    out += '<div class="td-tier">Value <span class="eb-tag acc">espérance positive</span></div>'
-    out += ("".join(_pick_row(x, sims, nba) for x in value) if value else
-            '<p class="td-none">Aucun pari ne bat la marge du bookmaker en ce moment. Mieux vaut ne rien jouer que jouer '
-            'un pari perdant sur la durée.</p>')
+    T = _tiers(now)
+    n = sum(len(L) for L in T.values())
+    out = ('<div class="eb-card"><h3 class="eb-h">🎯 Picks du soir <small>' + (f"{n} pari{'s' if n > 1 else ''} · " if n else "")
+           + 'classés du meilleur au moins bon, mise adaptée</small></h3>')
+    out += '<div class="td-tier">Value <span class="eb-tag acc">espérance positive · 1 u</span></div>'
+    out += ("".join(_pick_row(x, sims, nba) for x in T["value"]) if T["value"] else
+            '<p class="td-none">Aucun pari ne bat la marge du bookmaker en ce moment.</p>')
     out += _tier_stats(("value", "prop"))
-    if safe:
-        out += ('<div class="td-tier">🛡️ Safe <span class="eb-tag">cote ≥ 1,40 · gagné ≥ 2 fois sur 3</span></div>'
-                + "".join(_pick_row(x, sims, nba) for x in safe)
+    if T["boost"]:
+        out += ('<div class="td-tier">⚡ Cotes boostées <span class="eb-tag acc">au-dessus de leur cote juste · 1 u</span></div>'
+                + "".join(_pick_row(x, sims, nba) for x in T["boost"]) + _tier_stats(("boost",)))
+    if T["safe"]:
+        out += ('<div class="td-tier">🛡️ Safe <span class="eb-tag">cote ≥ 1,40 · gagné ≥ 2 fois sur 3 · 0,5 u</span></div>'
+                + "".join(_pick_row(x, sims, nba) for x in T["safe"])
                 + '<p class="eb-note">Safe ne veut pas dire sûr : ils se perdent environ 1 fois sur 3.</p>' + _tier_stats(("safe",)))
-    if best:
+    if T["best"]:
         m = PJ.fr_margin()
-        out += ('<div class="td-tier">💡 Meilleurs prix <span class="eb-tag">pas de la value : marge la plus faible</span></div>'
-                + "".join(_pick_row(x, sims, nba) for x in best)
+        out += ('<div class="td-tier">💡 Meilleurs prix <span class="eb-tag">pas de la value · simulation d’accord · 0,25 u</span></div>'
+                + "".join(_pick_row(x, sims, nba) for x in T["best"])
                 + (f'<p class="eb-note">Un pari français moyen coûte {_fr(100 * -m, 1)} % aujourd’hui ; ceux-ci coûtent '
-                   'moins, et ma simulation est d’accord.</p>' if m else "") + _tier_stats(("best",)))
+                   'moins.</p>' if m else "") + _tier_stats(("best",)))
+    if T["fill"]:
+        out += ('<div class="td-tier">➕ Complément du soir <span class="eb-tag">les moins chers · 0,25 u</span></div>'
+                + "".join(_pick_row(x, sims, nba) for x in T["fill"])
+                + '<p class="eb-note">Pas de la value : ils coûtent un peu (coût affiché), d’où la mise réduite. Ils complètent '
+                  'la soirée jusqu’à 5 paris ; leur bilan est suivi à part.</p>' + _tier_stats(("fill",)))
     return out + ('<p class="eb-note">Recalculés à chaque mise à jour avec les cotes du moment ; le canal Telegram poste '
                   'la sélection de 20 h. Vérifie la cote chez ton bookmaker avant de jouer.</p></div>')
+
+
+def _boosts_card(now):
+    """Toutes les cotes boostees Winamax du moment, avec leur verdict (prix juste : boosts.py)."""
+    try:
+        import boosts as BO
+        L = BO.current(now)
+        st = BO._load()
+    except Exception:
+        return ""
+    if not L:
+        if st.get("last_error"):
+            return ('<div class="eb-card"><h3 class="eb-h">⚡ Cotes boostées</h3><p class="td-none">Lecture des boosts '
+                    'Winamax impossible pour le moment (nouvel essai dans 2 h).</p></div>')
+        return ""
+    rows = ""
+    for b in sorted(L, key=lambda b: (b.get("ev") is None, -(b.get("ev") or 0))):
+        if b.get("ev") is None:
+            v = f'<span class="eb-dim">non chiffrable : {_e(b.get("why", ""))}</span>'
+        elif b["ev"] >= BO.MIN_EV:
+            v = f'<span class="eb-acc"><b>à jouer</b> · espérance +{_fr(100 * b["ev"], 1)} %</span>'
+        elif b["ev"] >= 0:
+            v = f'<span>légère value +{_fr(100 * b["ev"], 1)} % (sous le seuil de +5 %)</span>'
+        else:
+            v = f'<span class="eb-dim">pas assez boostée · coût {_fr(100 * -b["ev"], 1)} %</span>'
+        fair = f' · juste {_fr(b["fair"])}' if b.get("fair") else ""
+        rows += (f'<div class="td-pick"><div class="td-l1"><span>⚽ <b>{_e(b["match"])}</b> <span class="eb-dim">· '
+                 f'{_day(b["ko"], now)}{_hm(b["ko"])}' + (f' · mise max {b["max_stake"]} €' if b.get("max_stake") else "")
+                 + f'</span></span></div><div class="td-l2"><b>{_e(b["label"])}</b> <span class="td-odds">@ {_fr(b["odds"])}</span>'
+                 f'<span class="eb-dim">{fair}</span></div><div class="td-l3">{v}</div></div>')
+    at = st.get("at", "")
+    return ('<div class="eb-card"><h3 class="eb-h">⚡ Cotes boostées Winamax <small>' + f'{len(L)} boost{"s" if len(L) > 1 else ""}'
+            + (f' · relevé à {_hm(at)}' if at else "") + '</small></h3>' + rows +
+            '<p class="eb-note">Relevées automatiquement sur la page publique Winamax (toutes les 2 h). Cote juste = modèle de '
+            'buts calé sur la cote Pinnacle du match, vérifié sur 2 548 matchs (écart moyen de 1 à 2 points selon le type de '
+            'pari). « À jouer » à partir de +5 % d’espérance (marge de sécurité). Buteurs et joueurs : pas encore chiffrés.</p></div>')
 
 
 def _matches_card(now, sims, nba):
@@ -425,7 +482,7 @@ def build_today_section(now=None):
             f'<div class="td-head"><h2>{JOURS[loc.weekday()].capitalize()} {loc.day} {MOIS[loc.month - 1]}</h2>'
             f'<span class="eb-meta">mis à jour à {loc:%H:%M}</span></div>'
             f'<div class="td-grid"><div class="td-col">{picks}{_bank_card()}{_safe(_bilan_card)}</div>'
-            f'<div class="td-col">{_matches_card(now, sims, nba)}</div></div></div>'
+            f'<div class="td-col">{_safe(lambda: _boosts_card(now))}{_matches_card(now, sims, nba)}</div></div></div>'
             + CSS + SCRIPT + '<!--eb:end-->')
 
 

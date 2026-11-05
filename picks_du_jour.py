@@ -34,6 +34,12 @@ BEST_MIN_EV = -0.03   # palier « Meilleur prix »
 # probabilite RECALEE >= 65 % (perdu au plus ~1 fois sur 3), simulation d'accord (>= 65 %) quand elle existe, et cout
 # <= 5 % (mesure du 05/11 : un favori a 1,40-1,60 coute ~9 % chez les bookmakers FR, ce n'est plus « safe » pour le capital).
 SAFE_MIN_ODDS, SAFE_MIN_P, SAFE_MIN_EV = 1.40, 0.65, -0.05
+# « 5 picks du soir » (Wilson, 05/11/2026 : « au moins 3-5 picks par soir de match ») : apres value / boosts / safe /
+# meilleur prix, complement avec les paris les MOINS CHERS (cout affiche), mise reduite. Mises en unites par palier :
+# value et boosts rentables 1 u ; safe 0,5 u ; meilleur prix et complement 0,25 u (perte attendue ~2-3 u / mois au lieu
+# de ~6 u a mise pleine : mesure du 05/11, top 5 du soir a -4,9 % en moyenne).
+TARGET_PICKS, FILL_MIN_EV = 5, -0.08   # 05/11 : les cotes FR coutent ~11 % ; a -6 %, 2 picks seulement un soir de Ligue Europa
+STAKE = {"value": 1.0, "prop": 1.0, "boost": 1.0, "safe": 0.5, "best": 0.25, "fill": 0.25}
 MAX_ODDS_WIN = 3.0   # victoires / nul : au-dela, retirer la marge a la proportionnelle surestime l'outsider (meme regle qu'ev_scan)
 UNIT = {"AST": "passes", "3PM": "paniers à 3 pts", "STL": "interceptions", "BLK": "contres", "PTS": "points",
         "REB": "rebonds"}
@@ -89,10 +95,15 @@ def value_candidates(now, hours=WINDOW_H, min_ev=MIN_EV_VALUE):
         except (KeyError, ValueError):
             continue
         if not timedelta(0) < ko - now <= timedelta(hours=hours): continue
-        sim = None
+        sim, gn, mid = None, None, eid
         if v.get("sport") == "foot":
             sim = next((g for g in sims if abs(_t(g["ko"]) - ko) <= timedelta(hours=3)
                         and _same(g["home"]["name"], v["home"]) + _same(g["away"]["name"], v["away"]) >= 1.3), None)
+        elif v.get("sport") == "nba":
+            gn = next((g for g in nba if abs(_t(g["date"]) - ko) <= timedelta(hours=3)
+                       and _same(g["home"].get("name"), v["home"]) + _same(g["away"].get("name"), v["away"]) >= 1.3), None)
+            # meme identifiant que les props du match (gid NBA) : un seul pari par match, tous paliers (05/11/2026)
+            if gn: mid = gn["gid"]
         for lab, fair_odds in v.get("lines") or []:
             fr = (v.get("fr") or {}).get(lab)
             if not fr or not fair_odds: continue
@@ -112,13 +123,11 @@ def value_candidates(now, hours=WINDOW_H, min_ev=MIN_EV_VALUE):
                     ps_raw = p_sim if o_raw is None else (o_raw if lab.startswith("Plus") else 1 - o_raw)
                     p = p_fair + W_O25 * (ps_raw - p_fair)
             elif v.get("sport") == "nba" and lab.startswith("Victoire"):   # accord du simulateur NBA (palier Meilleur prix)
-                g = next((g for g in nba if abs(_t(g["date"]) - ko) <= timedelta(hours=3)
-                          and _same(g["home"].get("name"), v["home"]) + _same(g["away"].get("name"), v["away"]) >= 1.3), None)
-                ph = ((g or {}).get("team") or {}).get("p_home_win")
+                ph = ((gn or {}).get("team") or {}).get("p_home_win")
                 if ph is not None: p_sim = ph if lab == f"Victoire {v['home']}" else 1 - ph
             ev = p * fr[0] - 1
             if ev < min_ev: continue
-            out.append({"kind": "value", "sport": v.get("sport"), "match_id": eid, "match": f"{v['home']} - {v['away']}",
+            out.append({"kind": "value", "sport": v.get("sport"), "match_id": mid, "match": f"{v['home']} - {v['away']}",
                         "league": v.get("league", ""), "ko": v["commence"], "label": lab, "price": fr[0], "book": fr[1],
                         "p": round(p, 4), "p_fair": round(p_fair, 4), "p_sim": None if p_sim is None else round(p_sim, 4),
                         "ev": round(ev, 4), "res": {"espn": v.get("espn"), "home": v["home"], "away": v["away"],
@@ -185,6 +194,48 @@ def best_price(now, taken=(), hours=WINDOW_H):
     return sorted(out, key=lambda x: x["ko"])
 
 
+def boost_picks(now, taken=()):
+    """Cotes boostees Winamax rentables (boosts.py : prix juste cale sur Pinnacle, esperance >= +5 %)."""
+    try:
+        import boosts as BO
+    except Exception:
+        return []
+    out = []
+    for b in BO.picks(now):
+        if (b.get("eid") or f"boost|{b['id']}") in taken: continue
+        out.append(_boost_pick(b, "boost"))
+    return out
+
+
+def _boost_pick(b, kind):
+    return {"kind": kind, "src": "boost", "sport": b["sport"], "match_id": b.get("eid") or f"boost|{b['id']}", "match": b["match"],
+            "league": "Winamax · cote boostée" + (f" (mise max {b['max_stake']} €)" if b.get("max_stake") else ""),
+            "ko": b["ko"], "label": b["label"], "price": b["odds"], "book": "Winamax", "p": b["p"], "p_fair": b["p"],
+            "p_sim": None, "ev": b["ev"], "max_stake": b.get("max_stake"), "res": {"boost": b}}
+
+
+def fill(now, taken=(), have=0, hours=WINDOW_H):
+    """Complement jusqu'a TARGET_PICKS (au plus un pari par match) : les paris les moins chers du moment, boosts
+    compris, esperance >= FILL_MIN_EV. Jamais plus de picks que de matchs dans la fenetre."""
+    vc = value_candidates(now, hours, min_ev=FILL_MIN_EV) + prop_candidates(now, hours, min_ev=FILL_MIN_EV)
+    n_matches = len({x["match_id"] for x in value_candidates(now, hours, min_ev=-1) + prop_candidates(now, hours, min_ev=-1)})
+    target = min(TARGET_PICKS, n_matches) - have
+    if target <= 0: return []
+    # jamais un pari que ma simulation contredit nettement (> 5 points sous la probabilite retenue)
+    c = [dict(x, kind="fill", src=x["kind"]) for x in vc if x.get("p_sim") is None or x["p_sim"] >= x["p"] - 0.05]
+    try:
+        import boosts as BO
+        c += [_boost_pick(b, "fill") for b in BO.current(now) if b.get("ev") is not None and b["ev"] >= FILL_MIN_EV]
+    except Exception:
+        pass
+    out, seen = [], set(taken)
+    for x in sorted(c, key=lambda x: -x["ev"]):
+        if x["match_id"] in seen: continue
+        out.append(x); seen.add(x["match_id"])
+        if len(out) >= target: break
+    return sorted(out, key=lambda x: x["ko"])
+
+
 def select(now, hours=WINDOW_H):
     """Les meilleurs : esperance decroissante, un pick par match, MAX_PICKS au plus."""
     c = sorted(value_candidates(now, hours) + prop_candidates(now, hours), key=lambda x: -x["ev"])
@@ -220,8 +271,11 @@ def resolve(box=None, now=None):
         if p.get("result") or now - _t(p["ko"]) < timedelta(hours=3): continue
         r = None
         try:
-            kind = p.get("src") if p["kind"] == "safe" else p["kind"]
-            if kind in ("value", "best") and (p["res"] or {}).get("key") and p["res"].get("espn"):
+            kind = p.get("src") if p["kind"] in ("safe", "fill") else p["kind"]
+            if kind == "boost" or p.get("src") == "boost":
+                import boosts as BO
+                r = BO.settle((p.get("res") or {}).get("boost") or {})
+            elif kind in ("value", "best") and (p["res"] or {}).get("key") and p["res"].get("espn"):
                 import ev_scan
                 m, nm, pt = p["res"]["key"]
                 out = ev_scan._espn_result(dict(p["res"], market=m, name=nm, point=pt))
@@ -234,7 +288,8 @@ def resolve(box=None, now=None):
             print(f"  [!] reglement pick {p.get('label')} : {type(e).__name__}: {e}")
         if r:
             p["result"] = r
-            p["units"] = round(p["price"] - 1, 3) if r == "win" else -1.0 if r == "loss" else 0.0
+            k = p.get("stake", 1.0)       # unites misees (paliers a mise reduite, 05/11/2026)
+            p["units"] = round(k * (p["price"] - 1), 3) if r == "win" else -k if r == "loss" else 0.0
             n += 1
     if n: PATH.write_text(json.dumps(st, ensure_ascii=False, indent=0), encoding="utf-8")
     return n
@@ -262,8 +317,9 @@ def stats(kinds=("value", "prop")):
     if not done: return None
     w = sum(p["result"] == "win" for p in done)
     u = sum(p["units"] for p in done)
+    staked = sum(p.get("stake", 1.0) for p in done) or 1
     clv = [p["price"] * p["last_p"] - 1 for p in done if p.get("last_p")]
-    return {"n": len(done), "w": w, "units": round(u, 2), "roi": u / len(done), "since": min(p["day"] for p in done),
+    return {"n": len(done), "w": w, "units": round(u, 2), "roi": u / staked, "since": min(p["day"] for p in done),
             "clv": sum(clv) / len(clv) if clv else None, "clv_n": len(clv)}
 
 
@@ -276,8 +332,14 @@ def message(picks, now):
             "\n\n<i>Chaque pick posté est suivi : le bilan du canal s'affichera ici.</i>")
     best = [x for x in picks if x["kind"] == "best"]
     safe = [x for x in picks if x["kind"] == "safe"]
-    picks = [x for x in picks if x["kind"] not in ("best", "safe")]
-    if not picks and not best and not safe:
+    boost = [x for x in picks if x["kind"] == "boost"]
+    filler = [x for x in picks if x["kind"] == "fill"]
+    picks = [x for x in picks if x["kind"] not in ("best", "safe", "boost", "fill")]
+
+    def mise(x):
+        k = x.get("stake", 1.0)
+        return f" · mise <b>{(f'{k:g}').replace('.', ',')} u</b>"
+    if not picks and not best and not safe and not boost and not filler:
         return (head + "\n\nAucun pari ne bat la marge du bookmaker pour les 24 prochaines heures. "
                 "Je préfère ne rien poster que poster un pari perdant sur la durée." + foot)
     lines = [head, (f"{len(picks)} pick{'s' if len(picks) > 1 else ''}, classés par heure · probabilités recalées sur les résultats réels"
@@ -291,7 +353,15 @@ def message(picks, now):
         tag = " 🛡️" if x.get("safe") else ""
         lines.append(f"\n{i}. {ico} <b>{x['match']}</b> · {_hm(_t(x['ko']))} · <i>{x['league']}</i>\n"
                      f"• <b>{x['label']}</b>{tag} — <b>@ {_fr(x['price'])}</b> {x['book']} (à prendre si ≥ {_fr(mini)})\n"
-                     f"• proba retenue {round(100 * x['p'])} % ({why}) · espérance <b>{100 * x['ev']:+.0f} %</b>")
+                     f"• proba retenue {round(100 * x['p'])} % ({why}) · espérance <b>{100 * x['ev']:+.0f} %</b>" + mise(x))
+    if boost:
+        lines.append("\n⚡ <b>Cotes boostées rentables</b> — boost au-dessus de sa cote juste (modèle calé sur Pinnacle, "
+                     "vérifié sur 2 548 matchs), espérance ≥ +5 %.")
+        for x in boost:
+            lines.append(f"⚽ <b>{x['match']}</b> · {_hm(_t(x['ko']))}\n"
+                         f"• <b>{x['label']}</b> — <b>@ {_fr(x['price'])}</b> Winamax (juste {_fr(1 / x['p'])})"
+                         f" · espérance <b>{100 * x['ev']:+.0f} %</b>" + mise(x)
+                         + (f" (Winamax plafonne à {x['max_stake']} €)" if x.get("max_stake") else ""))
     if safe:
         lines.append("\n🛡️ <b>Paris safe</b> — cote ≥ 1,40, gagnés au moins 2 fois sur 3 selon la probabilité recalée, "
                      "simulation d'accord, et la marge du bookmaker reste faible. Safe ne veut pas dire sûr : ils se perdent "
@@ -302,7 +372,8 @@ def message(picks, now):
             lines.append(f"{ico} <b>{x['match']}</b> · {_hm(_t(x['ko']))}\n"
                          f"• <b>{x['label']}</b> — <b>@ {_fr(x['price'])}</b> {x['book']} · gagné {round(100 * x['p'])} % ({ref}"
                          + (f", ma simu {round(100 * x['p_sim'])} %" if x.get("p_sim") is not None else "") + ")"
-                         + (f" · espérance <b>{100 * x['ev']:+.0f} %</b>" if x["ev"] >= 0 else f" · coût attendu {_fr(100 * -x['ev'], 1)} %"))
+                         + (f" · espérance <b>{100 * x['ev']:+.0f} %</b>" if x["ev"] >= 0 else f" · coût attendu {_fr(100 * -x['ev'], 1)} %")
+                         + mise(x))
         ss = stats(("safe",))
         if ss:
             lines.append(f"<i>Palier safe depuis le {ss['since'][8:]}/{ss['since'][5:7]} : {ss['w']}-{ss['n'] - ss['w']}, "
@@ -315,20 +386,43 @@ def message(picks, now):
             ico = "⚽" if x["sport"] == "foot" else "🏀"
             lines.append(f"{ico} <b>{x['match']}</b> · {_hm(_t(x['ko']))}\n"
                          f"• <b>{x['label']}</b> — <b>@ {_fr(x['price'])}</b> {x['book']} · juste Pinnacle {_fr(1 / x['p_fair'])}"
-                         f" · ma simu {round(100 * x['p_sim'])} % · coût attendu <b>{_fr(100 * -x['ev'], 1)} %</b> de la mise")
+                         f" · ma simu {round(100 * x['p_sim'])} % · coût attendu <b>{_fr(100 * -x['ev'], 1)} %</b> de la mise"
+                         + mise(x))
         sb = stats(("best",))
         if sb:
             lines.append(f"<i>Palier meilleur prix depuis le {sb['since'][8:]}/{sb['since'][5:7]} : {sb['w']}-{sb['n'] - sb['w']}, "
                          f"{sb['units']:+.1f} u (ROI {100 * sb['roi']:+.0f} %).</i>")
+    if filler:
+        lines.append("\n➕ <b>Complément du soir</b> — pas de la value : les paris les moins chers du moment, à mise réduite "
+                     "pour limiter le coût.")
+        for x in filler:
+            ico = "⚽" if x["sport"] == "foot" else "🏀"
+            lines.append(f"{ico} <b>{x['match']}</b> · {_hm(_t(x['ko']))}\n"
+                         f"• <b>{x['label']}</b> — <b>@ {_fr(x['price'])}</b> {x['book']} · gagné {round(100 * x['p'])} %"
+                         f" · coût attendu <b>{_fr(100 * max(-x['ev'], 0), 1)} %</b>" + mise(x))
+        sf = stats(("fill",))
+        if sf:
+            lines.append(f"<i>Complément depuis le {sf['since'][8:]}/{sf['since'][5:7]} : {sf['w']}-{sf['n'] - sf['w']}, "
+                         f"{sf['units']:+.1f} u (ROI {100 * sf['roi']:+.0f} %).</i>")
     return "\n".join(lines) + foot
 
 
 def build(now=None):
     now = now or datetime.now(timezone.utc)
+    picks = all_picks(now)
+    return message(picks, now), picks
+
+
+def all_picks(now=None):
+    """La selection du soir, tous paliers, avec la mise de chacun (meme liste pour Telegram et le site)."""
+    now = now or datetime.now(timezone.utc)
     picks = select(now)
+    picks += boost_picks(now, taken={x["match_id"] for x in picks})
     picks += safe_picks(now, taken={x["match_id"] for x in picks})
     picks += best_price(now, taken={x["match_id"] for x in picks})
-    return message(picks, now), picks
+    picks += fill(now, taken={x["match_id"] for x in picks}, have=len(picks))
+    for x in picks: x["stake"] = STAKE.get(x["kind"], 0.25)
+    return picks
 
 
 if __name__ == "__main__":
