@@ -33,10 +33,26 @@ SCRIPT = r"""<script>
     box.innerHTML = '<div class="sp-lazy-msg">Chargement…</div>';
     fetch(box.getAttribute('data-src'), {cache: 'force-cache'}).then(function(r){ if(!r.ok) throw r.status; return r.text(); })
       .then(function(h){
-        var host = box.parentNode, tmp = document.createElement('div'); tmp.innerHTML = h;
-        while(tmp.firstChild) host.insertBefore(tmp.firstChild, box);
-        box.setAttribute('data-st', 'ok'); box.style.display = 'none';
-        var L = box._cb; box._cb = []; L.forEach(function(f){ if(f) try { f(); } catch(e){} });
+        // Fragment decoupe en morceaux (<!--sp-chunk-->, ordre de priorite dans <!--sp-order:...-->) : chaque morceau
+        // est insere a sa place (repere vide), en rendant la main entre deux -> le premier match s'affiche vite
+        // (05/11/2026 : 16,8 Mo d'un coup = ~11 s sur telephone).
+        var m = /^<!--sp-order:([0-9,]+)-->/.exec(h), parts = h.replace(/^<!--sp-order:[0-9,]+-->/, '').split('<!--sp-chunk-->');
+        var order = m ? m[1].split(',').map(Number) : parts.map(function(_, i){ return i; });
+        var host = box.parentNode, marks = parts.map(function(){ var i = document.createElement('i'); i.hidden = true; host.insertBefore(i, box); return i; });
+        box.innerHTML = ''; box.style.display = 'none';
+        var k = 0;
+        (function step(){
+          var i = order[k++], mk = marks[i];
+          var before = mk.previousSibling, fresh = [];
+          mk.insertAdjacentHTML('beforebegin', parts[i]);
+          for(var n = before ? before.nextSibling : host.firstChild; n && n !== mk; n = n.nextSibling) if(n.nodeType === 1) fresh.push(n);
+          mk.remove();
+          try { if(window.spLazyChunk) spLazyChunk(fresh); } catch(e){}
+          if(k < order.length){ setTimeout(step, 16); return; }
+          marks.forEach(function(x){ if(x.parentNode) x.remove(); });
+          box.setAttribute('data-st', 'ok');
+          var L = box._cb; box._cb = []; L.forEach(function(f){ if(f) try { f(); } catch(e){} });
+        })();
       })
       .catch(function(){
         box.setAttribute('data-st', 'ko');
@@ -51,6 +67,19 @@ SCRIPT = r"""<script>
   if(typeof showSport === 'function'){
     var _show = showSport;
     window.showSport = showSport = function(s){ var r = _show.apply(this, arguments); setTimeout(visible, 0); return r; };
+  }
+  // Choix globaux (Prop pour tous / Fenetre) faits pendant le chargement : appliques aussi aux morceaux arrives ensuite
+  if(typeof setAnalyseGlobalProp === 'function'){
+    var _gp = setAnalyseGlobalProp, _gw = setAnalyseGlobalWindow;
+    window.setAnalyseGlobalProp = setAnalyseGlobalProp = function(p){ window._spAgProp = p; return _gp.apply(this, arguments); };
+    window.setAnalyseGlobalWindow = setAnalyseGlobalWindow = function(w){ window._spAgWin = w; return _gw.apply(this, arguments); };
+    window.spLazyChunk = function(nodes){
+      if(!window._spAgProp && !window._spAgWin) return;
+      nodes.forEach(function(n){ (n.matches && n.matches('.player-analyse') ? [n] : [].slice.call(n.querySelectorAll ? n.querySelectorAll('.player-analyse') : [])).forEach(function(c){
+        var b = window._spAgProp && c.querySelector('.tg-prop-btn[data-prop="' + window._spAgProp + '"]'); if(b) selectPropChart(b);
+        var w = window._spAgWin && c.querySelector('.tg-window-btn[data-window="' + window._spAgWin + '"]'); if(w) selectWindow(w);
+      }); });
+    };
   }
   if(typeof goToAnalyse === 'function'){
     var _go = goToAnalyse;
@@ -77,6 +106,30 @@ def _inner(html, sid):
     return None
 
 
+def _chunked(body, small=100_000):
+    """Decoupe le contenu en morceaux de premier niveau (un par match pour Analyse NBA) : blocs consecutifs de moins
+    de 100 Ko regroupes ; les blocs masques (display:none, ex. Historique 48 h) passent en dernier."""
+    blocks, depth, start, last = [], 0, 0, 0
+    for m in re.finditer(r"<(/?)div(?=[\s>])[^>]*>", body):
+        if m.group(1):
+            depth -= 1
+            if depth == 0:
+                blocks.append(body[start:m.end()]); last = m.end()
+        else:
+            if depth == 0: start = last
+            depth += 1
+    if depth != 0 or len(blocks) < 2:
+        return body                    # structure inattendue : un seul morceau (comportement d'avant)
+    blocks[-1] += body[last:]
+    chunks = []
+    for b in blocks:
+        if chunks and len(chunks[-1]) < small and len(b) < small: chunks[-1] += b
+        else: chunks.append(b)
+    hidden = [i for i, c in enumerate(chunks) if re.match(r"\s*(?:<!--.*?-->\s*)*<div[^>]*display:\s*none", c, re.S)]
+    order = [i for i in range(len(chunks)) if i not in hidden] + hidden
+    return f"<!--sp-order:{','.join(map(str, order))}-->" + "<!--sp-chunk-->".join(chunks)
+
+
 def split(path="index.html"):
     html = open(path, encoding="utf-8").read()
     before = len(html.encode("utf-8"))
@@ -92,7 +145,7 @@ def split(path="index.html"):
             continue
         os.makedirs(os.path.dirname(frag), exist_ok=True)
         with open(frag, "w", encoding="utf-8", newline="") as f:
-            f.write(body)
+            f.write(_chunked(body))
         v = hashlib.sha1(body.encode("utf-8")).hexdigest()[:10]
         html = html[:r[0]] + f'<div class="sp-lazy" data-src="{frag}?v={v}"></div>' + html[r[1]:]
     k = html.rfind("</body>")
