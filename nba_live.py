@@ -377,9 +377,13 @@ class Live:
             live = {g["id"] for g in games}
             keep = {gid: g for gid, g in prev.items() if gid in live or now - _t(g["ko"]) < FOOT_LIVE_KEEP}
             keep.update({r["id"]: r for r in fresh})
+            added_hist = 0     # historique des tirs L5/L10/L20 (05/11/2026) : ajoute sans resimuler
+            for p in keep.values():
+                if "shots_hist" not in p and _t(p["ko"]) > now:
+                    p["shots_hist"] = FR.shots_hist_pair(p); added_hist += 1
             FB.archive(fresh)                      # historique : derniere simulation d'avant-match
             resolved = FB.resolve()                # et resultats des matchs termines
-            if not fresh and not resolved and set(keep) == set(prev): return ""
+            if not fresh and not resolved and not added_hist and set(keep) == set(prev): return ""
             FR.OUT_PATH.write_text(json.dumps({"generated_at": now.isoformat(timespec="seconds"),
                                                "games": sorted(keep.values(), key=lambda g: g["ko"])}, ensure_ascii=False),
                                    encoding="utf-8")

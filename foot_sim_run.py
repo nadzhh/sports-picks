@@ -484,6 +484,70 @@ def team_form(team_id, before, n=10):
     return out
 
 
+# Historique des tirs L5 / L10 / L20 (Wilson, 05/11/2026 : « comme les stats joueurs NBA, en tenant compte des
+# adversaires »). Backtest du 05/11 sur 6 139 matchs-equipe (toutes competitions) : erreur moyenne sur les tirs du
+# match suivant 4,38 (L5) / 4,18 (L10) / 4,08 (L20) en brut ; corriger chaque match de la force de l'adversaire
+# (tirs qu'il concede) et ramener a l'adversaire du soir gagne ~3 % : meilleur = moitie brut + moitie corrige
+# (4,22 / 4,03 / 3,93). Sur les tirs cadres, la correction n'apporte rien (1,92 = 1,92) : cadres en brut seulement.
+_CONC = {}
+
+
+def _conceded(before):
+    """{equipe: [(date, tirs concedes, cadres concedes)]} et moyennes de reference (cache par jour)."""
+    day = before[:10]
+    if _CONC.get("day") == day: return _CONC["idx"], _CONC["ref"]
+    if not _RECS: _RECS.update(foot_db.load_all_ext())
+    idx, tot = defaultdict(list), [0, 0, 0]
+    for r in sorted(_RECS.values(), key=lambda r: r["date"]):
+        if r["date"] >= before or not r.get("shots"): continue
+        for side in (1, 0):
+            f = [s for s in r["shots"] if s[0] != side and not s[13]]
+            so = sum(1 for s in f if (s[11] and not s[12]) or s[8] == "Goal")
+            idx[str((r["home"] if side else r["away"])["id"])].append((r["date"], len(f), so))
+            tot[0] += len(f); tot[1] += so; tot[2] += 1
+    ref = (tot[0] / tot[2], tot[1] / tot[2]) if tot[2] else (12.8, 4.5)
+    _CONC.update(day=day, idx=idx, ref=ref)
+    return idx, ref
+
+
+def _conc_at(idx, team, date, k=20):
+    L = [x for x in idx.get(str(team), []) if x[0] < date][-k:]
+    return (sum(x[1] for x in L) / len(L), sum(x[2] for x in L) / len(L)) if len(L) >= 5 else (None, None)
+
+
+def shot_history(team_id, opp_id, before, n=20):
+    """n derniers matchs (toutes competitions de la base) : tirs et cadres de l'equipe, force de l'adversaire de
+    chaque match (tirs qu'il concedait), et tirs « ajustes » a l'adversaire du soir (moitie brut, moitie corrige)."""
+    if not _RECS: _RECS.update(foot_db.load_all_ext())
+    idx, (ref, refo) = _conceded(before)
+    tid = str(team_id)
+    past = sorted((r for r in _RECS.values() if tid in (str(r["home"]["id"]), str(r["away"]["id"])) and r["date"] < before
+                   and r.get("shots") and r.get("score")), key=lambda r: r["date"])[-n:]
+    if len(past) < 5: return None
+    tonight = _conc_at(idx, opp_id, before)[0] or ref
+    games = []
+    for r in reversed(past):
+        side = 1 if str(r["home"]["id"]) == tid else 0
+        opp = r["away"] if side else r["home"]
+        f = [s for s in r["shots"] if s[0] == side and not s[13]]
+        sh, so = len(f), sum(1 for s in f if (s[11] and not s[12]) or s[8] == "Goal")
+        oc = _conc_at(idx, opp["id"], r["date"])[0]
+        adj = (sh + sh * tonight / oc) / 2 if oc else sh
+        h, a = r["score"]
+        games.append([r["date"][:10], opp.get("name") or "?", "D" if side else "E", sh, so, round(adj, 1),
+                      None if oc is None else round(oc, 1), f"{h}-{a}" if side else f"{a}-{h}"])
+    return {"opp_conc": round(tonight, 1), "ref": round(ref, 1), "games": games}
+
+
+def shots_hist_pair(g):
+    """Historique des tirs des deux equipes d'un match (carte « Historique des tirs »)."""
+    try:
+        return {s: shot_history(g[s]["id"], g[o]["id"], g["ko"]) for s, o in (("home", "away"), ("away", "home"))}
+    except Exception as e:
+        print(f"  [!] historique des tirs {g.get('id')} : {type(e).__name__}: {e}")
+        return None
+
+
 def run_game(st, g, n_sims):
     day = _ord(g["ko"])
     lu = lineups(st, g, day)
@@ -525,6 +589,7 @@ def run_game(st, g, n_sims):
         out["form"] = {s: team_form(g[s]["id"], g["ko"]) for s in ("home", "away")}
     except Exception:
         pass
+    out["shots_hist"] = shots_hist_pair(g)
     for side in ("home", "away"):
         pl = inp[side]["players"]
         scorers = [{"name": q["name"], "pos": q["pos"], "starter": q["starter"],

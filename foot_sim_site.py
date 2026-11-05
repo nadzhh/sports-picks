@@ -245,6 +245,52 @@ def _shots_card(g):
             'est une piste, pas une garantie. Tir cadré = arrêt du gardien ou but.</p></div>')
 
 
+def _shots_hist_card(g):
+    """Historique des tirs L5 / L10 / L20 de chaque equipe, aux lignes du soir, brut et ajuste a l'adversaire."""
+    H, L = g.get("shots_hist") or {}, (g.get("shots") or {}).get("lines") or {}
+    if not any(H.get(s) for s in ("home", "away")): return ""
+    n1 = lambda x: f"{x:.1f}".replace(".", ",")
+    cols = ""
+    for s, o in (("home", "away"), ("away", "home")):
+        h = H.get(s)
+        if not h: continue
+        G = h["games"]
+        def hits(i, line, n):
+            k = G[:n]
+            return f'{sum(1 for x in k if x[i] > line)}/{len(k)}'
+        def avg(i, n):
+            k = G[:n]
+            return sum(x[i] for x in k) / len(k)
+        rows = ""
+        for key, lab, i_raw, i_adj in ((s + "_sh", "tirs", 3, 5), (s + "_so", "tirs cadrés", 4, None)):
+            for ln in (L.get(key) or {}):
+                v = float(ln)
+                raw = " · ".join(f"L{n} <b>{hits(i_raw, v, n)}</b>" for n in (5, 10, 20))
+                adj = (" · ".join(f"L{n} {hits(i_adj, v, n)}" for n in (5, 10, 20))) if i_adj else ""
+                rows += (f'<div class="eb-row" style="flex-wrap:wrap"><span>+{ln.replace(".", ",")} {lab}</span><span>{raw}'
+                         + (f' <span class="eb-dim">· ajusté {adj}</span>' if adj else "") + '</span></div>')
+        conc = h["opp_conc"]
+        strength = ("concède beaucoup" if conc >= h["ref"] * 1.08 else "concède peu" if conc <= h["ref"] * 0.92 else "est dans la moyenne")
+        means = (f'Moyenne tirs : L5 <b>{n1(avg(3, 5))}</b> · L10 <b>{n1(avg(3, 10))}</b> · L20 <b>{n1(avg(3, 20))}</b> '
+                 f'<span class="eb-dim">(ajusté : {n1(avg(5, 5))} · {n1(avg(5, 10))} · {n1(avg(5, 20))})</span><br>'
+                 f'Moyenne cadrés : L5 <b>{n1(avg(4, 5))}</b> · L10 <b>{n1(avg(4, 10))}</b> · L20 <b>{n1(avg(4, 20))}</b>')
+        last = "".join(f'<tr><td>{x[0][8:]}/{x[0][5:7]}</td><td>{_e(x[1])} <span class="eb-dim">{x[2]} · {x[7]}</span></td>'
+                       f'<td class="n"><b>{x[3]}</b></td><td class="n">{x[4]}</td><td class="n">{n1(x[5])}</td>'
+                       f'<td class="n eb-dim">{"–" if x[6] is None else n1(x[6])}</td></tr>' for x in G)
+        cols += (f'<div><div class="eb-meta">{_e(g[s]["name"])} <span class="eb-dim">· face à {_e(g[o]["name"])} '
+                 f'qui {strength} ({n1(conc)} tirs/match, moyenne {n1(h["ref"])})</span></div>'
+                 f'<p class="eb-note" style="margin:6px 0">{means}</p><div class="eb-list2">{rows}</div>'
+                 f'<details class="eb-det"><summary>Les {len(G)} derniers matchs</summary><div class="eb-scroll"><table class="eb-tbl">'
+                 '<tr><th>Date</th><th>Adversaire</th><th>Tirs</th><th>Cadrés</th><th>Ajusté</th><th>Adv. concède</th></tr>'
+                 f'{last}</table></div></details></div>')
+    return ('<div class="eb-card"><h3 class="eb-h">Historique des tirs <small>L5 · L10 · L20, toutes compétitions, aux lignes du soir</small></h3>'
+            f'<div class="eb-inj">{cols}</div><p class="eb-note">« Ajusté » : chaque match est corrigé de la force de l’adversaire '
+            '(tirs qu’il concédait alors) puis ramené à l’adversaire du soir, à moitié (meilleur réglage au test). Mesuré sur 6 139 '
+            'matchs : la L20 prévoit mieux que la L5 (erreur moyenne 4,1 contre 4,4 tirs) et l’ajustement gagne environ 3 % ; '
+            'sur les tirs cadrés il n’apporte rien, d’où le brut seul. Ce sont des repères : la probabilité de la carte '
+            '« Tirs et tirs cadrés » (simulation recalée) reste la référence.</p></div>')
+
+
 def _video(g, gid):
     rp = g.get("replay")
     if not rp or not rp.get("events"): return ""
@@ -471,7 +517,7 @@ def build_foot_sim_section(sim=None):
         ids = [_e(g["id"]) for g in games]
         items = "".join(_item(g, gid, now, i == 0) for i, (g, gid) in enumerate(zip(games, ids)))
         details = "".join(
-            f'<section class="eb-detail{" on" if i == 0 else ""}" data-id="{gid}">{_header(g, now)}{_livecard(g)}{_kpis(g)}{_tactics(g)}{_args(g)}{_shots_card(g)}{_video(g, gid)}'
+            f'<section class="eb-detail{" on" if i == 0 else ""}" data-id="{gid}">{_header(g, now)}{_livecard(g)}{_kpis(g)}{_tactics(g)}{_args(g)}{_shots_card(g)}{_shots_hist_card(g)}{_video(g, gid)}'
             f'{_crisis(g)}{_scorers(g)}{_players_card(g)}{_scores(g)}{_markets(g)}'
             + (f'<div class="eb-card"><p class="eb-note">{BACKTEST_NOTE}</p></div>' if BACKTEST_NOTE else "") + '</section>'
             for i, (g, gid) in enumerate(zip(games, ids)))

@@ -392,6 +392,15 @@ def foot_dossier(g):
         if st_: out.append("Style (15 derniers matchs) : " + json.dumps(st_, ensure_ascii=False))
         fo = (g.get("form") or {}).get(sd)
         if fo: out.append("Forme (10 derniers) : " + json.dumps(fo, ensure_ascii=False))
+        hs = (g.get("shots_hist") or {}).get(sd)
+        if hs:   # [date, adversaire, D/E, tirs, cadres, tirs ajustes a l'adversaire du soir, tirs concedes par l'adv., score]
+            G = hs["games"]
+            mean = lambda i, n: sum(x[i] for x in G[:n]) / len(G[:n])
+            out.append(f"Tirs L5/L10/L20 : {mean(3, 5):.1f}/{mean(3, 10):.1f}/{mean(3, 20):.1f} (ajustés à l'adversaire du soir "
+                       f"{mean(5, 5):.1f}/{mean(5, 10):.1f}/{mean(5, 20):.1f}) · cadrés {mean(4, 5):.1f}/{mean(4, 10):.1f}/{mean(4, 20):.1f} · "
+                       f"l'adversaire du soir concède {hs['opp_conc']} tirs/match (moyenne {hs['ref']}). L20 > L5 en fiabilité ; "
+                       "ajustement utile sur les tirs seulement. Derniers matchs : "
+                       + " ; ".join(f"{x[0][5:]} {x[1]} ({x[2]}, {x[7]}) {x[3]} tirs {x[4]} cadrés" for x in G[:10]))
         out.append(f"Composition {i.get('lineup')} (attaque x{i.get('lineup_mult')}, xG {i.get('npxg_base')} -> {i.get('npxg')}) : " + ", ".join(i.get("xi") or []))
         out.append("Absents : " + ", ".join(f"{x['name']} ({x.get('pos')}, {x.get('type')}, -{100 * x.get('impact', 0):.0f} % attaque)" for x in i.get("absences") or []))
         for pl in i.get("players") or []:
