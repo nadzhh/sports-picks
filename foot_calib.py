@@ -20,6 +20,13 @@ T, D = 1.161, 0.032          # 1X2 : p_k ∝ p_k^T · e^(D si nul)
 O25 = (0.727, 0.062)         # plus de 2,5 buts : logit' = a·logit + b
 BTTS = (0.621, 0.073)        # les deux equipes marquent
 EPS = 1e-6
+try:   # parametres re-appris par improve_bot (memes donnees, apres un changement de reglage de la simulation)
+    import json as _json
+    _o = (_json.loads(open("data/model_params.json", encoding="utf-8").read()).get("foot_calib") or {})
+    T, D = _o.get("T", T), _o.get("D", D)
+    O25, BTTS = tuple(_o.get("O25", O25)), tuple(_o.get("BTTS", BTTS))
+except (OSError, ValueError):
+    pass
 
 
 def _logit_scale(p, ab):

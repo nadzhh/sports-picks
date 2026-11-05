@@ -10,6 +10,7 @@ Comme les sections Simulation : ecrite dans today.html par la veille (nba_live.p
 le cron (generate_site) ; index.html en garde une copie de secours remplacee si today.html est plus recent.
 """
 import html
+import json
 from datetime import datetime, timedelta, timezone
 
 import picks_du_jour as PJ
@@ -190,6 +191,40 @@ def _picks_card(now, sims, nba):
                   'la soirée jusqu’à 5 paris ; leur bilan est suivi à part.</p>' + _tier_stats(("fill",)))
     return out + ('<p class="eb-note">Recalculés à chaque mise à jour avec les cotes du moment ; le canal Telegram poste '
                   'la sélection de 20 h. Vérifie la cote chez ton bookmaker avant de jouer.</p></div>')
+
+
+def _bot_card():
+    """Ce que le bot d'amelioration (improve_bot.py) a essaye, adopte, et l'ecart de la simulation au marche."""
+    try:
+        R = json.loads(open("data/improve_report.json", encoding="utf-8").read())
+    except (OSError, ValueError):
+        return ('<div class="eb-card"><h3 class="eb-h">🤖 Bot d’amélioration <small>chaque nuit</small></h3><p class="td-none">'
+                'Première nuit de travail à venir : il testera des réglages de la simulation foot sur deux saisons et '
+                'n’adoptera que ceux qui améliorent les deux.</p></div>')
+    r = R.get("last") or {}
+    try:
+        H = (json.loads(open("data/model_params.json", encoding="utf-8").read()).get("history") or [])[-5:]
+    except (OSError, ValueError):
+        H = []
+    gap = "".join(f'<div class="eb-row"><span>{_e(k)}</span><span>simu {_fr(v[0], 4)} · Pinnacle {_fr(v[1], 4)} '
+                  f'<span class="eb-dim">(écart {_fr(100 * (v[0] - v[1]) / v[1], 1)} %)</span></span></div>'
+                  for k, v in (r.get("gap") or {}).items() if v)
+    a = r.get("adopted")
+    head = (f'✅ Adopté cette nuit : <b>{_e(a["param"])}</b> {_e(a["from"])} → {_e(a["to"])}' if a else
+            f'{len(r.get("tried") or [])} réglages essayés, aucun n’améliore les deux saisons : rien ne change.')
+    hist = "".join(f'<li>{_e(h["at"][8:10])}/{_e(h["at"][5:7])} : {_e(h["param"])} {_e(h["from"])} → {_e(h["to"])}</li>' for h in reversed(H))
+    notes = "".join(f"<li>{_e(n)}</li>" for n in r.get("notes") or [])
+    return ('<div class="eb-card"><h3 class="eb-h">🤖 Bot d’amélioration <small>nuit du ' + _e((r.get("at") or "")[8:10]) + "/"
+            + _e((r.get("at") or "")[5:7]) + '</small></h3>'
+            f'<p class="td-none" style="color:var(--tx)">{head}</p>'
+            '<div class="td-sub">Écart au marché <small>log-loss 1X2, plus bas = meilleur ; l’objectif est de passer sous Pinnacle</small></div>'
+            f'<div class="eb-list2">{gap}</div>'
+            + (f'<ul class="vd-why">{notes}</ul>' if notes else "")
+            + (f'<div class="td-sub">Réglages adoptés</div><ul class="vd-why">{hist}</ul>' if hist else "")
+            + '<p class="eb-note">Chaque nuit, le bot rejoue deux saisons de matchs avec la simulation (sans information '
+              'postérieure au coup d’envoi), essaie des réglages voisins un par un et n’en garde un que s’il prévoit mieux '
+              'les DEUX saisons. Il recale aussi les pourcentages et baisse la mise d’un palier de picks dont la CLV réelle '
+              'est négative. Il ne touche jamais au code, seulement à des valeurs (retour arrière possible).</p></div>')
 
 
 def _boosts_card(now):
@@ -481,7 +516,7 @@ def build_today_section(now=None):
     return (f'<!--today:{stamp}--><!--eb:start--><div class="eb">'
             f'<div class="td-head"><h2>{JOURS[loc.weekday()].capitalize()} {loc.day} {MOIS[loc.month - 1]}</h2>'
             f'<span class="eb-meta">mis à jour à {loc:%H:%M}</span></div>'
-            f'<div class="td-grid"><div class="td-col">{picks}{_bank_card()}{_safe(_bilan_card)}</div>'
+            f'<div class="td-grid"><div class="td-col">{picks}{_bank_card()}{_safe(_bilan_card)}{_safe(_bot_card)}</div>'
             f'<div class="td-col">{_safe(lambda: _boosts_card(now))}{_matches_card(now, sims, nba)}</div></div></div>'
             + CSS + SCRIPT + '<!--eb:end-->')
 

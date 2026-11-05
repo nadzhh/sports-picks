@@ -1,0 +1,51 @@
+name: Bot d'amelioration (nuit)
+
+# Chaque nuit : improve_bot.py mesure la simulation foot sur deux saisons de backtest, essaie 8 reglages voisins et
+# n'en adopte qu'un s'il ameliore les deux saisons ; recale les probabilites ; ajuste les mises des paliers d'apres la
+# CLV reelle. Publie data/model_params.json (lu par la production) et data/improve_report.json (carte du site).
+# Resume Telegram le dimanche (canal Bankroll IA). Wilson, 05/11/2026 : « un bot actif qui analyse tout ».
+on:
+  schedule:
+    - cron: "17 1 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: improve-bot
+  cancel-in-progress: false
+
+jobs:
+  improve:
+    runs-on: ubuntu-latest
+    timeout-minutes: 240
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: master
+          fetch-depth: 1
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install numpy requests
+      # base foot constituee par la veille (lecture seule : on ne resauvegarde pas le cache)
+      - uses: actions/cache/restore@v4
+        with:
+          path: data/foot_db
+          key: foot-db-improve-${{ github.run_id }}
+          restore-keys: foot-db-
+      - name: Nuit d'amelioration
+        env:
+          PYTHONIOENCODING: utf-8
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID:   ${{ secrets.TELEGRAM_CHAT_ID }}
+          TELEGRAM_CHAT_ID_BANKROLL: ${{ secrets.TELEGRAM_CHAT_ID_BANKROLL }}
+        run: python improve_bot.py --candidates 8 --sims 1000 --workers 4 --telegram
+      - name: Publication
+        run: |
+          git config user.name "sport-picks-bot"; git config user.email "actions@github.com"
+          git add -f data/model_params.json data/improve_report.json
+          if git diff --cached --quiet; then echo "rien de nouveau"; exit 0; fi
+          git commit -q -m "Bot d'amelioration : $(python -c "import json;r=json.load(open('data/improve_report.json'))['last'];a=r.get('adopted');print(('adopte '+a['param']+' '+str(a['from'])+' -> '+str(a['to'])) if a else 'aucun reglage adopte (%d essais)' % len(r['tried']))")"
+          for i in 1 2 3 4 5; do git pull -q --rebase --autostash origin master && git push -q origin master && exit 0; sleep 15; done; exit 1

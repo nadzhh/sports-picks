@@ -40,6 +40,10 @@ SAFE_MIN_ODDS, SAFE_MIN_P, SAFE_MIN_EV = 1.40, 0.65, -0.05
 # de ~6 u a mise pleine : mesure du 05/11, top 5 du soir a -4,9 % en moyenne).
 TARGET_PICKS, FILL_MIN_EV = 5, -0.08   # 05/11 : les cotes FR coutent ~11 % ; a -6 %, 2 picks seulement un soir de Ligue Europa
 STAKE = {"value": 1.0, "prop": 1.0, "boost": 1.0, "safe": 0.5, "best": 0.25, "fill": 0.25}
+try:   # mises ajustees par improve_bot : un palier dont la CLV reelle est negative voit sa mise baisser
+    STAKE.update(json.loads(Path("data/model_params.json").read_text(encoding="utf-8")).get("stakes") or {})
+except (OSError, ValueError):
+    pass
 MAX_ODDS_WIN = 3.0   # victoires / nul : au-dela, retirer la marge a la proportionnelle surestime l'outsider (meme regle qu'ev_scan)
 UNIT = {"AST": "passes", "3PM": "paniers à 3 pts", "STL": "interceptions", "BLK": "contres", "PTS": "points",
         "REB": "rebonds"}

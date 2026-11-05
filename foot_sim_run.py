@@ -62,7 +62,19 @@ def model_ext():
         return False
 
 
+PARAMS_PATH = Path("data/model_params.json")   # reglages adoptes par le bot d'amelioration (improve_bot.py)
+
+
+def learned_params():
+    """Reglages de la simulation foot valides par improve_bot (ameliorent les deux saisons de backtest)."""
+    try:
+        return json.loads(PARAMS_PATH.read_text(encoding="utf-8")).get("foot") or {}
+    except (OSError, ValueError):
+        return {}
+
+
 def build_state(params=None, ext=None):
+    params = learned_params() if params is None else params
     ext = model_ext() if ext is None else ext
     cups = None
     if ext:
