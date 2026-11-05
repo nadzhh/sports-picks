@@ -369,7 +369,7 @@ footer{color:var(--di)!important;border-top:1px solid var(--line)!important;font
   .sp-brand .sp-logo{width:26px;height:26px;vertical-align:-6px;margin-right:8px}
   .sp-meta{font-size:10.5px;line-height:1.5}
   .sp-nav{position:fixed;left:0;right:0;bottom:0;z-index:10002;margin:0!important;display:grid!important;
-    grid-template-columns:repeat(4,1fr);gap:2px!important;padding:6px 6px calc(6px + env(safe-area-inset-bottom,0px))!important;
+    grid-template-columns:repeat(5,1fr);gap:2px!important;padding:6px 6px calc(6px + env(safe-area-inset-bottom,0px))!important;
     background:rgba(10,13,11,.97);border-top:1px solid var(--line);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px)}
   .sp-nav .sport-btn{display:flex!important;flex-direction:column;align-items:center;justify-content:center;gap:3px;min-height:52px;
     border:0!important;border-radius:12px!important;padding:6px 2px!important;font-size:11px!important;white-space:nowrap;-webkit-tap-highlight-color:transparent}

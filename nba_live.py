@@ -31,11 +31,12 @@ import foot_sim_run as FR
 import foot_sim_site as FS
 import foot_sim_bilan as FB
 import ev_scan as EV
+import site_today as ST
 
 DIGEST_PATH = "data/telegram_digest.json"   # jour du dernier recapitulatif Telegram envoye (pas de doublon)
 PUBLISHED = [FRAGMENT, R.OUT_PATH, str(R.PICKS_PATH), "data/nba_sim_history.json", BS.FRAGMENT, str(BK.BANK_PATH),
              FS.FRAGMENT, str(FR.OUT_PATH), str(FB.HIST_PATH), str(EV.PATH), DIGEST_PATH, "data/telegram_picks.json",
-             "data/foot_competitions.json", "data/strategy_lab.json"]
+             "data/foot_competitions.json", "data/strategy_lab.json", ST.FRAGMENT]
 # Foot (Top 5 + coupes d'Europe) : base mise a jour par tranches (premiere constitution en plusieurs
 # passages), simulation toutes les 30 min, a chaque cycle quand un match approche (composition officielle)
 FOOT_SEASONS = ("2026/2027", "2025/2026")   # saison en cours d'abord
@@ -120,6 +121,10 @@ def _git(*a, check=True):
 def publish(msg):
     """Commit des seuls fichiers NBA (jamais index.html : le cron principal le possede, d'ou aucun
     conflit possible entre les deux workflows), push master puis gh-pages."""
+    try:   # onglet Aujourd'hui : picks du jour, matchs, Bankroll IA, avec les donnees de ce cycle
+        ST.write_fragment()
+    except Exception as e:
+        print(f"  [!] today.html non ecrit : {type(e).__name__}: {e}")
     _git("add", "-f", *[f for f in PUBLISHED if os.path.exists(f)])
     _git("add", "-A", "data/replays")
     if not _git("diff", "--cached", "--quiet", check=False).returncode:

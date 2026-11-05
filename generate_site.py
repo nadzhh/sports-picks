@@ -5708,6 +5708,15 @@ def build_html(matches, team_ai, player_ai, pstats_data, nba_picks=None, nba_his
         print(f"  [!] Section Bankroll IA ignoree : {_e_bk}")
         iabank_html = '<div style="padding:40px;text-align:center;color:#64748b">Bankroll IA indisponible.</div>'
 
+    # Onglet Aujourd'hui (site_today.py) : picks du jour par palier, matchs des 24 h, resume Bankroll IA
+    try:
+        import site_today as _std
+        today_html, _tfrag = _std.build_today_page()
+        _std.write_fragment(_tfrag)
+    except Exception as _e_td:
+        print(f"  [!] Onglet Aujourd'hui ignore : {_e_td}")
+        today_html = '<div style="padding:40px;text-align:center;color:#64748b">Onglet indisponible.</div>'
+
     # Recharge matches.json pour récupérer les champs "analyse",
     # "home_season_stats" et "away_season_stats" (foot_analyse.py les écrit
     # dans matches.json, mais picks_engine.run() ne les préserve pas dans
@@ -6855,6 +6864,7 @@ def build_html(matches, team_ai, player_ai, pstats_data, nba_picks=None, nba_his
   </div>
   <!-- Sport switcher (4 menus : Picks | Analyse NBA | Bankroll | Historique) -->
   <div class="sp-nav" style="display:flex;gap:10px;margin-bottom:10px;flex-wrap:wrap">
+    <button class="sport-btn" onclick="spNav('today')"  id="nav-today"><span class="sp-ic">🎯</span> <span class="sp-lb">Aujourd’hui</span></button>
     <button class="sport-btn" onclick="spNav('foot')"   id="nav-foot"><span class="sp-ic">⚽</span> <span class="sp-lb">Foot</span></button>
     <button class="sport-btn" onclick="spNav('basket')" id="nav-basket"><span class="sp-ic">🏀</span> <span class="sp-lb">Basket</span></button>
     <button class="sport-btn" onclick="spNav('tennis')" id="nav-tennis"><span class="sp-ic">🎾</span> <span class="sp-lb">Tennis</span></button>
@@ -6977,6 +6987,11 @@ def build_html(matches, team_ai, player_ai, pstats_data, nba_picks=None, nba_his
     {footsim_html}
   </div>
 
+  <!-- Section Aujourd'hui (site_today.py, today.html publie par la veille) -->
+  <div id="sport-today" style="display:none">
+    {today_html}
+  </div>
+
   <!-- Section Bankroll IA (nba_bankroll_site.py, nba_bankroll.html publie par la veille NBA) -->
   <div id="sport-iabank" style="display:none">
     {iabank_html}
@@ -7040,7 +7055,7 @@ window._currentSubPick = window._currentSubPick || 'football';
 window._currentSubHist = window._currentSubHist || 'foot';
 
 function _hideAllSportSections(){{
-  ['football','nba','tennis','analyse','nbasim','iabank','footsim','footanalyse','userpicks','foothist','nbahist','tennishist','pronos'].forEach(function(s){{
+  ['football','nba','tennis','analyse','nbasim','iabank','today','footsim','footanalyse','userpicks','foothist','nbahist','tennishist','pronos'].forEach(function(s){{
     var el = document.getElementById('sport-'+s);
     if(el) el.style.display = 'none';
   }});
@@ -7058,6 +7073,7 @@ function _setMainBtnActive(tab){{
 // Simulation, Picks et Historique de Foot et Basket sont des vues de la meme section (mise a jour en
 // direct par la veille : foot_sim.html / nba_sim.html).
 var SP_NAV = {{
+  today:  [['today','Aujourd’hui']],
   foot:   [['footsim','Simulation'],['footanalyse','Analyse'],['footpicks','Picks'],['foothist2','Historique']],
   basket: [['nbasim','Simulation'],['analyse','Analyse'],['nbapicks','Picks'],['nbahist2','Historique']],
   tennis: [['tennis','Picks'],['tennishist','Historique']],
@@ -7120,7 +7136,7 @@ function ebLabel(){{
 }})();
 document.addEventListener('DOMContentLoaded', function(){{ spInit(); ebLabel(); }});
 function spInit(){{
-  var main = 'basket';
+  var main = 'today';   // premiere visite : l'onglet Aujourd'hui (05/11/2026)
   try {{ var m = JSON.parse(localStorage.getItem('spNavLast') || '{{}}'); if(m._main && SP_NAV[m._main]) main = m._main; }} catch(e) {{}}
   spNav(main);
 }}
@@ -7162,6 +7178,9 @@ function showSport(sport){{
   }} else if(sport === 'nbasim'){{
     var el = document.getElementById('sport-nbasim'); if(el) el.style.display = 'block';
     _setMainBtnActive('nbasim');
+  }} else if(sport === 'today'){{
+    var el = document.getElementById('sport-today'); if(el) el.style.display = 'block';
+    _setMainBtnActive('today');
   }} else if(sport === 'iabank'){{
     var el = document.getElementById('sport-iabank'); if(el) el.style.display = 'block';
     _setMainBtnActive('iabank');
