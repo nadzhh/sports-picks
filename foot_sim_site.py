@@ -277,8 +277,14 @@ def _shots_hist_card(g):
         last = "".join(f'<tr><td>{x[0][8:]}/{x[0][5:7]}</td><td>{_e(x[1])} <span class="eb-dim">{x[2]} · {x[7]}</span></td>'
                        f'<td class="n"><b>{x[3]}</b></td><td class="n">{x[4]}</td><td class="n">{n1(x[5])}</td>'
                        f'<td class="n eb-dim">{"–" if x[6] is None else n1(x[6])}</td></tr>' for x in G)
+        data = json.dumps({"g": [[x[0], x[1], x[2], x[3], x[4], x[5], x[7]] for x in G],
+                           "L": {"sh": list(L.get(s + "_sh") or {}), "so": list(L.get(s + "_so") or {})}},
+                          ensure_ascii=False, separators=(",", ":")).replace("</", "<\\/")
+        chart = (f'<div class="eb-shc" data-k="sh" data-n="10"><script type="application/json">{data}</script>'
+                 '<div class="eb-shc-ctl"></div><div class="eb-shc-sum"></div><div class="eb-shc-plot"></div>'
+                 '<div class="eb-shc-x"></div><div class="eb-shc-cap eb-dim"></div></div>')
         cols += (f'<div><div class="eb-meta">{_e(g[s]["name"])} <span class="eb-dim">· face à {_e(g[o]["name"])} '
-                 f'qui {strength} ({n1(conc)} tirs/match, moyenne {n1(h["ref"])})</span></div>'
+                 f'qui {strength} ({n1(conc)} tirs/match, moyenne {n1(h["ref"])})</span></div>{chart}'
                  f'<p class="eb-note" style="margin:6px 0">{means}</p><div class="eb-list2">{rows}</div>'
                  f'<details class="eb-det"><summary>Les {len(G)} derniers matchs</summary><div class="eb-scroll"><table class="eb-tbl">'
                  '<tr><th>Date</th><th>Adversaire</th><th>Tirs</th><th>Cadrés</th><th>Ajusté</th><th>Adv. concède</th></tr>'
@@ -403,6 +409,84 @@ def _markets(g):
              (f"{_e(h)} ne prend pas de but", p["clean"][0]), (f"{_e(a)} ne prend pas de but", p["clean"][1])]
     body = "".join(f'<div class="eb-row"><span>{t}</span><span>{_pct(v, 1)}</span></div>' for t, v in rows)
     return f'<div class="eb-card"><h3 class="eb-h">Autres issues</h3><div class="eb-list2">{body}</div></div>'
+
+
+# Graphique match par match de la carte « Historique des tirs » (Wilson, 05/11/2026 : « les graphes L10 des tirs »).
+# Barres du plus ancien (gauche) au plus recent (droite), vert = au-dessus de la ligne du soir, rouge = en dessous.
+SHOTS_SCRIPT = r"""<style>
+.eb-shc{margin:10px 0 4px}
+.eb-shc-ctl{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:8px}
+.eb-shc-ctl .eb-seg{margin:0;padding:3px}
+.eb-shc-ctl .eb-seg button{padding:5px 10px;font-size:12.5px}
+.eb-shc-sum{font-size:13.5px;margin-bottom:6px}
+.eb-shc-plot{position:relative;display:flex;align-items:flex-end;gap:4px;height:150px;padding-right:40px;border-bottom:1px solid var(--line)}
+.eb-shc-b{flex:1;min-width:0;height:100%;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;cursor:pointer}
+.eb-shc-b em{font-style:normal;font-family:var(--mono);font-size:10.5px;color:var(--mu);margin-bottom:3px;white-space:nowrap}
+.eb-shc-b i{display:block;width:100%;max-width:34px;min-height:2px;border-radius:4px 4px 0 0;background:var(--line2)}
+.eb-shc-b.ok i{background:var(--acc)}
+.eb-shc-b.ko i{background:var(--loss);opacity:.8}
+.eb-shc-b.sel em{color:var(--tx);font-weight:700}
+.eb-shc-ln{position:absolute;left:0;right:0;border-top:2px dashed var(--warn);pointer-events:none}
+.eb-shc-ln span{position:absolute;right:0;top:-9px;font:600 11px var(--mono);color:var(--warn);background:var(--panel);padding:0 4px;border-radius:4px}
+.eb-shc-x{display:flex;gap:4px;margin-top:4px;padding-right:40px}
+.eb-shc-x span{flex:1;min-width:0;text-align:center;font:10px var(--mono);color:var(--mu);overflow:hidden;white-space:nowrap}
+.eb-shc-cap{font-size:12.5px;min-height:18px;margin-top:4px}
+@media (max-width:520px){.eb-shc-plot{height:130px;gap:2px}.eb-shc-x{gap:2px}.eb-shc-b em{font-size:9.5px}}
+</style><script>
+(function(){
+  function f1(x){ return (Math.round(x * 10) / 10).toFixed(1).replace('.', ','); }
+  function q(s){ return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/"/g, '&quot;'); }
+  function ab(n){ return String(n || '?').replace(/^(FC|AS|AC|SS|SSC|RC|RCD|OGC|SC|US|CA|CD|UD|SD|VfB|VfL|TSG|SV|AFC|1\. ?FC|FK|SK|PSV|AZ)\s+/i, '').slice(0, 3).toUpperCase(); }
+  function seg(k, opts, cur){
+    return '<div class="eb-seg">' + opts.map(function(o){
+      return '<button' + (String(o[0]) === String(cur) ? ' class="on"' : '') + ' onclick="ebShots(this,\'' + k + '\',\'' + o[0] + '\')">' + o[1] + '</button>';
+    }).join('') + '</div>';
+  }
+  window.ebShots = function(el, k, v){
+    var c = el.closest('.eb-shc'); c.setAttribute('data-' + k, v);
+    if(k === 'k') c.removeAttribute('data-l');
+    ebShR(c);
+  };
+  window.ebShTap = function(b){
+    var c = b.closest('.eb-shc');
+    c.querySelectorAll('.eb-shc-b.sel').forEach(function(x){ x.classList.remove('sel'); });
+    b.classList.add('sel'); c.querySelector('.eb-shc-cap').textContent = b.getAttribute('data-t');
+  };
+  window.ebShR = function(c){
+    var d; try { d = JSON.parse(c.querySelector('script').textContent); } catch(e){ return; }
+    var k = c.getAttribute('data-k') || 'sh', n = +c.getAttribute('data-n') || 10;
+    var col = {sh: 3, so: 4, adj: 5}[k] || 3, G = d.g.slice(0, n).reverse();
+    if(!G.length) return;
+    var V = G.map(function(x){ return x[col]; }), avg = V.reduce(function(a, b){ return a + b; }, 0) / V.length;
+    var lines = (k === 'so' ? d.L.so : d.L.sh) || [], li = c.getAttribute('data-l');
+    if(li === null || +li >= lines.length){      // par defaut : la ligne du soir la plus proche de la moyenne
+      li = 0; lines.forEach(function(l, i){ if(Math.abs(+l - avg) < Math.abs(+lines[li] - avg)) li = i; });
+      c.setAttribute('data-l', li);
+    }
+    var line = lines.length ? +lines[+li] : null;
+    var top = Math.max.apply(null, V.concat(line == null ? [] : [line])) * 1.25 || 1;
+    var over = line == null ? 0 : V.filter(function(v){ return v > line; }).length;
+    var lab = {sh: 'tirs', so: 'tirs cadrés', adj: 'tirs ajustés'}[k];
+    c.querySelector('.eb-shc-ctl').innerHTML =
+      seg('k', [['sh', 'Tirs'], ['so', 'Cadrés'], ['adj', 'Ajustés']], k)
+      + seg('n', [[5, 'L5'], [10, 'L10'], [20, 'L20']], n)
+      + (lines.length ? seg('l', lines.map(function(l, i){ return [i, '+' + l.replace('.', ',')]; }), li) : '');
+    c.querySelector('.eb-shc-sum').innerHTML = 'L' + n + (G.length < n ? ' (' + G.length + ' matchs)' : '') + ' : '
+      + (line == null ? '' : '<b>' + over + '/' + G.length + '</b> au-dessus de ' + f1(line) + ' · ')
+      + 'moyenne <b>' + f1(avg) + '</b> ' + lab;
+    c.querySelector('.eb-shc-plot').innerHTML = G.map(function(x, i){
+      var v = V[i], cls = line == null ? '' : (v > line ? ' ok' : ' ko');
+      var t = x[0].slice(8) + '/' + x[0].slice(5, 7) + ' · ' + x[1] + ' (' + (x[2] === 'D' ? 'dom.' : 'ext.') + ', ' + x[6] + ') · '
+        + x[3] + ' tirs, ' + x[4] + ' cadrés, ajusté ' + f1(x[5]);
+      return '<div class="eb-shc-b' + cls + '" title="' + q(t) + '" data-t="' + q(t) + '" onclick="ebShTap(this)"><em>'
+        + (k === 'adj' ? f1(v) : v) + '</em><i style="height:' + (100 * v / top).toFixed(1) + '%"></i></div>';
+    }).join('') + (line == null ? '' : '<div class="eb-shc-ln" style="bottom:' + (100 * line / top).toFixed(1) + '%"><span>' + f1(line) + '</span></div>');
+    c.querySelector('.eb-shc-x').innerHTML = G.map(function(x){ return '<span>' + (G.length <= 10 ? q(ab(x[1])) : '') + '</span>'; }).join('');
+    c.querySelector('.eb-shc-cap').textContent = 'Touchez une barre pour le détail du match · ← plus ancien, plus récent →';
+  };
+  document.querySelectorAll('.eb-shc').forEach(function(c){ ebShR(c); });
+})();
+</script>"""
 
 
 VIDEO_SCRIPT = """<script>
@@ -532,7 +616,7 @@ def build_foot_sim_section(sim=None):
     hist_view = f'<div class="eb eb-view" data-view="hist" data-eb="foothist">{_history_view()}</div>'
     from nba_sim_site import PROPS_SCRIPT, ASK_SCRIPT
     return (f'<!--eb:start-->{sim_view}{picks_view}{hist_view}' + EB_SCRIPT + PROPS_SCRIPT + ASK_SCRIPT + site_live.LIVE_SCRIPT
-            + _player_script() + '<!--eb:end-->')
+            + _player_script() + SHOTS_SCRIPT + '<!--eb:end-->')
 
 
 FRAGMENT = "foot_sim.html"
