@@ -931,7 +931,7 @@ button,input,select,textarea{font-family:inherit}
 /* ── En-tete et navigation ─────────────────────────────────────────────── */
 .sp-top{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;
   padding:6px 0 18px;margin-bottom:18px;border-bottom:1px solid var(--line)}
-.container h1.sp-brand{font-family:var(--sans);font-size:26px!important;font-weight:700!important;letter-spacing:-.6px;margin:0!important;color:var(--tx)}
+.container h1.sp-brand{cursor:pointer;-webkit-tap-highlight-color:transparent;font-family:var(--sans);font-size:26px!important;font-weight:700!important;letter-spacing:-.6px;margin:0!important;color:var(--tx)}
 .sp-brand span{color:var(--acc)}
 .sp-brand .sp-logo{display:inline-block;width:34px;height:34px;vertical-align:-8px;margin-right:10px}
 .sp-meta{font-family:var(--mono);font-size:12.5px;color:var(--mu)}
@@ -1289,7 +1289,7 @@ footer{color:var(--di)!important;border-top:1px solid var(--line)!important;font
 </div>
 
 <div class="container">
-  <header class="sp-top"><h1 class="sp-brand"><svg class="sp-logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" aria-hidden="true">  <rect x="2" y="2" width="60" height="60" rx="15" fill="#0f1411" stroke="#2a352c" stroke-width="2"/>  <path d="M13 47 L25 34 L33 40 L40.5 29.5" fill="none" stroke="#95e04a" stroke-width="6.5" stroke-linecap="round" stroke-linejoin="round"/>  <circle cx="49" cy="19" r="8" fill="#95e04a"/>  <path d="M41 19 H57 M49 11 V27 M43.6 13.2 Q47 19 43.6 24.8 M54.4 13.2 Q51 19 54.4 24.8" fill="none" stroke="#0f1411" stroke-width="1.7" stroke-linecap="round"/></svg>Sports<span>Picks</span></h1>
+  <header class="sp-top"><h1 class="sp-brand" role="link" tabindex="0" title="Accueil" onclick="if(window._bkCloseForm)try{_bkCloseForm()}catch(e){};spNav('today');window.scrollTo(0,0)" onkeydown="if(event.key==='Enter')this.click()"><svg class="sp-logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" aria-hidden="true">  <rect x="2" y="2" width="60" height="60" rx="15" fill="#0f1411" stroke="#2a352c" stroke-width="2"/>  <path d="M13 47 L25 34 L33 40 L40.5 29.5" fill="none" stroke="#95e04a" stroke-width="6.5" stroke-linecap="round" stroke-linejoin="round"/>  <circle cx="49" cy="19" r="8" fill="#95e04a"/>  <path d="M41 19 H57 M49 11 V27 M43.6 13.2 Q47 19 43.6 24.8 M54.4 13.2 Q51 19 54.4 24.8" fill="none" stroke="#0f1411" stroke-width="1.7" stroke-linecap="round"/></svg>Sports<span>Picks</span></h1>
     <div class="sp-meta">Généré le <b>05/11/2026 11:45</b> · <b>71</b> matchs foot · <b>11</b> matchs NBA</div></header>
   
   <!-- Toast non-bloquant : signalement des nouveaux picks -->
