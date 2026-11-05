@@ -11,11 +11,11 @@ PTS+AST, REB+AST, PTS+REB+AST) :
   - « prends si ta cote >= X » : X = cote juste + 3 % (seuil de rentabilite avec marge de securite).
 Pourquoi ce seuil : le pick du post est rentable parce que PrizePicks paie un prix FIXE (~-118 par jambe) au-dessus de
 la probabilite ; chez Betclic / Winamax, c'est rentable seulement si leur cote depasse la cote juste.
-Selection (5 au plus) : cote du cote choisi au moins 1,60, historique ET marche dans le meme sens (L10 et saison >= 60 %,
+Selection (toutes celles qui passent, 3 par joueur au plus) : cote du cote choisi au moins 1,60, historique ET marche dans le meme sens (L10 et saison >= 60 %,
 mediane du bon cote de la ligne), simulation pas contre. L'historique seul ne prouve rien (le marche le connait) :
 il sert a eviter les paris que tout contredit. Suivi reel (data/props_edge.json) : resultat et CLV.
 """
-import json, statistics
+import json, math, statistics
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
@@ -24,7 +24,13 @@ LABEL = {"PTS": "points", "REB": "rebonds", "AST": "passes", "3PM": "paniers à 
          "PA": "points + passes", "RA": "rebonds + passes", "PRA": "points + rebonds + passes", "STL": "interceptions",
          "BLK": "contres"}
 SHORT = {"PR": "PTS+REB", "PA": "PTS+AST", "RA": "REB+AST", "PRA": "PTS+REB+AST"}
-W_PROP, EDGE, MIN_ODDS, MAX_SHOW = 0.10, 0.03, 1.60, 5
+W_PROP, EDGE, MIN_ODDS, MAX_SHOW = 0.10, 0.03, 1.60, 40   # toutes celles qui passent les filtres (10 visibles), 3 dans Telegram
+SHOW_FIRST = 10
+# REB+AST : absent de DraftKings via ESPN (0 ligne sur 1 370 matchs). Ligne DEDUITE des lignes rebonds et passes
+# (moyennes retrouvees, somme, loi binomiale negative r = 40) ; verifie sur 3 758 cas 2025-26 : annonce 47,6 % /
+# reel 47,2 %, legere surestimation des « plus » (~1,5 pt) -> corrigee ; marge de securite portee a 5 %.
+# (props_combo_validate.py, 05/11/2026)
+RA_R, RA_BIAS, EDGE_DERIVED = 40, -0.015, 0.05
 
 
 def _t(iso):
@@ -85,7 +91,7 @@ def candidates(now=None, hours=24):
     for g in sim.get("games") or []:
         ko = _t(g["date"])
         if not timedelta(0) < ko - now <= timedelta(hours=hours): continue
-        for pr in g.get("props") or []:
+        for pr in list(g.get("props") or []) + _derived_ra(g):
             if pr.get("p_play", 0) < 0.9 or pr.get("over") is None or pr.get("under") is None: continue
             if pr["stat"] not in LABEL: continue
             log = logs.get(str(pr["id"])) or []
@@ -96,7 +102,8 @@ def candidates(now=None, hours=24):
                 ps = pr["p_sim"] if over else 1 - pr["p_sim"]
                 p = pm + W_PROP * (ps - pm)
                 fair = 1 / p
-                if fair * (1 + EDGE) < MIN_ODDS: continue
+                edge = EDGE_DERIVED if pr.get("derived") else EDGE
+                if fair * (1 + edge) < MIN_ODDS: continue
                 h = history(log, pr["stat"], pr["line"], over, opp, season)
                 rate = lambda k: h[k][0] / h[k][1] if h[k][1] else None
                 ok_hist = (rate("l10") or 0) >= 0.6 and (rate("season") or 0) >= 0.6 and h["med"] is not None \
@@ -105,16 +112,39 @@ def candidates(now=None, hours=24):
                 out.append({"gid": g["gid"], "ko": g["date"], "match": f'{g["away"]["abbr"]} @ {g["home"]["abbr"]}',
                             "opp": opp, "id": str(pr["id"]), "name": pr["name"], "stat": pr["stat"], "line": pr["line"],
                             "over": over, "p_mkt": round(pm, 4), "p_sim": round(ps, 4), "p": round(p, 4),
-                            "fair": round(fair, 2), "take": round(fair * (1 + EDGE), 2), "am_novig": _am(pm),
-                            "dk": pr["over"] if over else pr["under"], "hist": h})
+                            "fair": round(fair, 2), "take": round(fair * (1 + edge), 2), "am_novig": _am(pm),
+                            "dk": pr["over"] if over else pr["under"], "hist": h, "derived": pr.get("derived")})
     # les plus probables d'abord, a historique egal ; un seul prop par joueur
     out.sort(key=lambda x: (-x["p"], -(x["hist"]["l10"][0] / max(x["hist"]["l10"][1], 1))))
-    seen, top = set(), []
+    # au plus 3 props par joueur (05/11/2026 : la REB+AST de Melton passait derriere ses props points et PRA)
+    seen, top = {}, []
     for x in out:
-        if x["id"] in seen: continue
-        seen.add(x["id"]); top.append(x)
+        if seen.get(x["id"], 0) >= 3: continue
+        seen[x["id"]] = seen.get(x["id"], 0) + 1; top.append(x)
         if len(top) >= MAX_SHOW: break
     return top
+
+
+def _derived_ra(g):
+    """Props REB+AST deduites des lignes principales rebonds et passes du meme joueur (voir RA_*)."""
+    from props_combo_validate import nb_sf, mean_from
+    by = {}
+    for pr in g.get("props") or []:
+        by.setdefault(pr["id"], {})[pr["stat"]] = pr
+    sim_pl = {str(p["id"]): p for p in g.get("players") or []}
+    out = []
+    for pid, S in by.items():
+        if "RA" in S or "REB" not in S or "AST" not in S: continue
+        r, a = S["REB"], S["AST"]
+        mu = mean_from(r["line"], r["p_mkt"], RA_R) + mean_from(a["line"], a["p_mkt"], RA_R)
+        line = math.floor(mu) + 0.5
+        pm = min(max(nb_sf(math.floor(line), mu, 2 * RA_R) + RA_BIAS, 0.02), 0.98)
+        sp = (sim_pl.get(str(pid)) or {}).get("RA") or {}
+        ps = nb_sf(math.floor(line), sp["mean"], 2 * RA_R) if sp.get("mean") else pm
+        out.append({"id": pid, "name": r["name"], "side": r["side"], "stat": "RA", "line": line, "p_mkt": round(pm, 4),
+                    "p_sim": round(ps, 4), "p_play": min(r.get("p_play", 1), a.get("p_play", 1)), "over": _am(pm),
+                    "under": _am(1 - pm), "derived": {"REB": r["line"], "AST": a["line"]}})
+    return out
 
 
 # ─── Suivi reel ──────────────────────────────────────────────────────────────
@@ -200,8 +230,11 @@ def card_html(x):
             f'<div class="pe-plot"><div class="pe-ln" style="bottom:{100 * line / top:.1f}%"><span>{line:g}</span></div>{bars}</div>'
             f'<div class="pe-chips">{chip("Saison", "season")}{chip("H2H", "h2h")}{chip("L5", "l5")}{chip("L10", "l10")}{chip("L20", "l20")}</div>'
             f'<div class="pe-ft"><span>Moyenne L10 <b>{_fr(h["avg"], 1)}</b></span><span>Médiane L10 <b>{h["med"]:g}</b></span></div>'
-            f'<p class="pe-why">DraftKings : {x["dk"]:+d} ; <b>{x["am_novig"]:+d} sans la marge</b> ({round(100 * x["p_mkt"])} %), '
-            f'ma simu {round(100 * x["p_sim"])} % → <b>cote juste {_fr(x["fair"])}</b>. '
+            + (f'<p class="pe-why">Ligne déduite des lignes DraftKings rebonds ({x["derived"]["REB"]:g}) et passes '
+               f'({x["derived"]["AST"]:g}) : <b>≈ {x["am_novig"]:+d} sans la marge</b> ({round(100 * x["p_mkt"])} %), '
+               if x.get("derived") else
+               f'<p class="pe-why">DraftKings : {x["dk"]:+d} ; <b>{x["am_novig"]:+d} sans la marge</b> ({round(100 * x["p_mkt"])} %), ')
+            + f'ma simu {round(100 * x["p_sim"])} % → <b>cote juste {_fr(x["fair"])}</b>. '
             f'<b class="eb-acc">Prends si ta cote ≥ {_fr(x["take"])}</b> (Betclic, Winamax…), sinon passe.</p></div>')
 
 
@@ -247,7 +280,10 @@ def section_html(now=None):
     s = stats()
     track = (f'Suivi réel : {s["w"]}/{s["n"]} gagnés (attendu {_fr(s["expected"], 1)}) ; aux cotes « prends si », ROI '
              f'{100 * s["roi_at_take"]:+.0f} %.'.replace(".", ",", 0) if s else "Suivi réel : chaque prop affiché est réglé sur la feuille de match.")
-    body = (f'<div class="pe-grid">{"".join(card_html(x) for x in P)}</div>' if P else
+    more = (f'<details class="eb-det"><summary>Voir les {len(P) - SHOW_FIRST} autres props</summary>'
+            f'<div class="pe-grid" style="margin-top:12px">{"".join(card_html(x) for x in P[SHOW_FIRST:])}</div></details>'
+            if len(P) > SHOW_FIRST else "")
+    body = (f'<div class="pe-grid">{"".join(card_html(x) for x in P[:SHOW_FIRST])}</div>{more}' if P else
             '<p class="td-none">Aucun prop ce soir où le marché, ma simulation et l’historique vont dans le même sens à une '
             'cote d’au moins 1,60.</p>')
     return (CSS + '<div class="eb-card"><h3 class="eb-h">📊 Props du soir <small>façon PropsEdge · marché sans marge + '

@@ -39,6 +39,9 @@ SAFE_MIN_ODDS, SAFE_MIN_P, SAFE_MIN_EV = 1.40, 0.65, -0.05
 # value et boosts rentables 1 u ; safe 0,5 u ; meilleur prix et complement 0,25 u (perte attendue ~2-3 u / mois au lieu
 # de ~6 u a mise pleine : mesure du 05/11, top 5 du soir a -4,9 % en moyenne).
 TARGET_PICKS, FILL_MIN_EV = 5, -0.08   # 05/11 : les cotes FR coutent ~11 % ; a -6 %, 2 picks seulement un soir de Ligue Europa
+# Paliers a petite mise (meilleur prix, complement) : cote >= 1,50 (Wilson, 05/11 : « 0,25 u a 1,09 ? inutile » :
+# gain de 0,02 u pour un cout de 8 %). Le palier safe garde son seuil de 1,40.
+SMALL_MIN_ODDS = 1.50
 STAKE = {"value": 1.0, "prop": 1.0, "boost": 1.0, "safe": 0.5, "best": 0.25, "fill": 0.25}
 try:   # mises ajustees par improve_bot : un palier dont la CLV reelle est negative voit sa mise baisser
     STAKE.update(json.loads(Path("data/model_params.json").read_text(encoding="utf-8")).get("stakes") or {})
@@ -189,7 +192,8 @@ def best_price(now, taken=(), hours=WINDOW_H):
     """Palier « Meilleur prix » : esperance entre -3 % et le seuil value, simulation au moins aussi confiante que
     Pinnacle, un pari par match, dans la place laissee par les picks value (MAX_PICKS au total)."""
     c = [dict(x, kind="best") for x in value_candidates(now, hours, min_ev=BEST_MIN_EV)
-         if x["ev"] < MIN_EV_VALUE and x.get("p_sim") is not None and x["p_sim"] >= x["p_fair"]]
+         if x["ev"] < MIN_EV_VALUE and x.get("p_sim") is not None and x["p_sim"] >= x["p_fair"]
+         and x["price"] >= SMALL_MIN_ODDS]
     out, seen = [], set(taken)
     for x in sorted(c, key=lambda x: -x["ev"]):
         if x["match_id"] in seen: continue
@@ -226,10 +230,12 @@ def fill(now, taken=(), have=0, hours=WINDOW_H):
     target = min(TARGET_PICKS, n_matches) - have
     if target <= 0: return []
     # jamais un pari que ma simulation contredit nettement (> 5 points sous la probabilite retenue)
-    c = [dict(x, kind="fill", src=x["kind"]) for x in vc if x.get("p_sim") is None or x["p_sim"] >= x["p"] - 0.05]
+    c = [dict(x, kind="fill", src=x["kind"]) for x in vc
+         if x["price"] >= SMALL_MIN_ODDS and (x.get("p_sim") is None or x["p_sim"] >= x["p"] - 0.05)]
     try:
         import boosts as BO
-        c += [_boost_pick(b, "fill") for b in BO.current(now) if b.get("ev") is not None and b["ev"] >= FILL_MIN_EV]
+        c += [_boost_pick(b, "fill") for b in BO.current(now) if b.get("ev") is not None and b["ev"] >= FILL_MIN_EV
+              and b["odds"] >= SMALL_MIN_ODDS]
     except Exception:
         pass
     out, seen = [], set(taken)
