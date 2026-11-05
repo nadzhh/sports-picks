@@ -33,8 +33,8 @@ def build_ev_card(sport):
     st = ev_scan.load()
     picks = sorted((p for p in st["picks"].values() if p["sport"] == sport and not p.get("result")), key=lambda p: p["commence"])
     rows = "".join(
-        f'<tr data-np="ev|{_e(p["home"])}|{_e(p["away"])}|{_e(p["label"])}" data-npl="{"⚽" if sport == "foot" else "🏀"} '
-        f'{_e(p["home"])} - {_e(p["away"])} · {_e(p["label"])} @ {p["price"]:.2f} (value)">'
+        # pas de data-np : la notification vient de la carte « Picks du jour » (site_today.picks_table), sans doublon
+        f'<tr>'
         f'<td class="n eb-dim">{_when(p["commence"])}</td><td><b>{_e(p["home"])} - {_e(p["away"])}</b> '
         f'<span class="eb-dim">{_e(p["league"])}</span></td><td><b>{_e(p["label"])}</b></td><td>{_e(p["book_name"])}</td>'
         f'<td class="n"><b>{p["price"]:.2f}</b></td><td class="n">{1 / p["fair"]:.2f}</td>'

@@ -104,10 +104,52 @@ def _tier_stats(kinds):
             f'{u if s["units"] < 0 else "+" + u} u (ROI {100 * s["roi"]:+.0f} %).</p>')
 
 
-def _picks_card(now, sims, nba):
+def _tiers(now):
     value = PJ.select(now)
     safe = PJ.safe_picks(now, taken={x["match_id"] for x in value})
     best = PJ.best_price(now, taken={x["match_id"] for x in value + safe})
+    return value, safe, best
+
+
+TIER_TAG = {"value": ("Value", "acc"), "prop": ("Value", "acc"), "safe": ("🛡️ Safe", "acc"), "best": ("💡 Meilleur prix", "warn")}
+
+
+def picks_table(sport):
+    """Carte « Picks du jour » des vues Picks foot / NBA : memes paliers que l'onglet Aujourd'hui, filtres sur le sport.
+    Seules ces lignes portent data-np (notification « nouveaux picks ») : la selection brute du simulateur NBA a perdu
+    25 u sur 740 picks en reel (05/11/2026) et ne doit plus etre signalee comme un pick."""
+    now = datetime.now(timezone.utc)
+    try:
+        value, safe, best = _tiers(now)
+    except Exception as e:
+        print(f"  [!] picks du jour ({sport}) : {type(e).__name__}: {e}")
+        return ""
+    ico = "⚽" if sport == "foot" else "🏀"
+    rows = ""
+    for x in sorted((x for x in value + safe + best if x["sport"] == sport), key=lambda x: x["ko"]):
+        lab, cls = TIER_TAG[x["kind"]]
+        ev = (f'<span class="eb-acc">+{_fr(100 * x["ev"], 1)} %</span>' if x["ev"] >= 0
+              else f'<span class="eb-dim">coût {_fr(100 * -x["ev"], 1)} %</span>')
+        rows += (f'<tr data-np="pj|{_e(x["kind"])}|{_e(x["match_id"])}|{_e(x["label"])}" '
+                 f'data-npl="{ico} {_e(x["match"])} · {_e(x["label"])} @ {_fr(x["price"])} ({lab})">'
+                 f'<td class="n eb-dim">{_day(x["ko"], now)}{_hm(x["ko"])}</td><td><b>{_e(x["match"])}</b> '
+                 f'<span class="eb-dim">{_e(x["league"])}</span></td><td><b>{_e(x["label"])}</b> '
+                 f'<span class="eb-tag {cls}">{lab}</span></td><td>{_e(x["book"])}</td><td class="n"><b>{_fr(x["price"])}</b></td>'
+                 f'<td class="n">{_pc(x["p"])}</td><td class="n">{ev}</td></tr>')
+    table = (f'<div class="eb-scroll"><table class="eb-tbl eb-cards"><tr><th>Heure</th><th>Match</th><th>Pari</th>'
+             f'<th>Bookmaker</th><th>Cote</th><th>Gagné</th><th>Espérance</th></tr>{rows}</table></div>' if rows else
+             '<div class="eb-empty">Aucun pari ne remplit les critères pour les 24 prochaines heures. Mieux vaut ne rien '
+             'jouer que jouer un pari perdant sur la durée.</div>')
+    return ('<div class="eb-card"><h3 class="eb-h">🎯 Picks du jour <small>value · safe · meilleur prix, probabilités '
+            'recalées sur les résultats réels</small></h3>' + table +
+            '<p class="eb-note">Les mêmes que l’onglet Aujourd’hui et le canal Telegram : value = espérance positive contre la '
+            'cote juste Pinnacle ; safe = cote ≥ 1,40 gagnée au moins 2 fois sur 3, marge faible ; meilleur prix = pas de la '
+            'value, la marge la plus faible du jour, simulation d’accord. Seules ces lignes déclenchent la notification '
+            '« nouveaux picks ».</p></div>')
+
+
+def _picks_card(now, sims, nba):
+    value, safe, best = _tiers(now)
     out = ('<div class="eb-card"><h3 class="eb-h">🎯 Picks du jour <small>24 prochaines heures · probabilités recalées '
            'sur les résultats réels</small></h3>')
     out += '<div class="td-tier">Value <span class="eb-tag acc">espérance positive</span></div>'

@@ -505,10 +505,9 @@ def _pick_rows(items, g=None):
         if opn is not None and _dec(opn) and abs(_dec(opn) - _dec(price)) >= 0.02:
             moved = f'<span class="eb-dim"> (ouv. {_dec(opn):.2f})</span>'
         why = _why_text(p)
-        np_ = (f' data-np="nba|{_e(g["gid"])}|{p["id"]}|{p["stat"]}|{p["line"]}|{p["pick"]}" data-npl="🏀 {_e(match)} · '
-               f'{_e(p["name"])} {"Over" if over else "Under"} {p["line"]} {_e(STAT_LABELS.get(p["stat"], p["stat"]))} @ {_dec(price):.2f}"'
-               if g else "")
-        rows += (f'<tr class="eb-prop eb-pick{" open" if n == 0 and why else ""}" data-stat="{p["stat"]}" data-i="{n}"{np_}'
+        # 05/11/2026 : plus de data-np sur ces lignes (notification « nouveaux picks ») : en reel, la selection du
+        # simulateur a perdu 25 u sur 740 ; la notification vient de la carte « Picks du jour » (site_today.picks_table)
+        rows += (f'<tr class="eb-prop eb-pick{" open" if n == 0 and why else ""}" data-stat="{p["stat"]}" data-i="{n}"'
                  f'{" onclick=\"ebWhy(this)\"" if why else ""}><td data-v="{_e(p["name"])}">{_e(p["name"])}</td>'
                  f'<td data-v="{_e(STAT_LABELS.get(p["stat"], p["stat"]))}"><b>{"Over" if over else "Under"} {p["line"]}</b> '
                  f'{_e(STAT_LABELS.get(p["stat"], p["stat"]))}</td>'
@@ -985,10 +984,10 @@ def _picks_view(games, picks):
     state = (f'Suivi réel : <b>{n}</b> sélections réglées, CLV <b class="{"eb-acc" if clv >= 0 else "eb-neg"}">'
              f'{100 * clv:+.1f} %</b>'.replace(".", ",").replace("-", "−")
              + (" — en dessous de zéro, les cotes obtenues ne battent pas la clôture : pas d’avantage démontré." if clv < 0 else "."))
-    head = (f'<div class="eb-card"><h3 class="eb-h">Picks du simulateur</h3><p class="eb-note">{PICK_NOTE}</p>'
-            f'<p class="eb-note">{state} {_track(picks)}</p></div>')
-    import ev_site
-    return ev_site.build_ev_card("nba") + head + (blocks or '<div class="eb-card eb-empty">Aucune sélection pour l’instant : props pas encore publiées ou pas d’écart assez net.</div>')
+    head = (f'<div class="eb-card"><h3 class="eb-h">Pistes du simulateur <small>analyse, pas des picks</small></h3>'
+            f'<p class="eb-note">{PICK_NOTE}</p><p class="eb-note">{state} {_track(picks)}</p></div>')
+    import ev_site, site_today
+    return site_today.picks_table("nba") + ev_site.build_ev_card("nba") + head + (blocks or '<div class="eb-card eb-empty">Aucune sélection pour l’instant : props pas encore publiées ou pas d’écart assez net.</div>')
 
 
 def build_nba_sim_section(sim=None):
