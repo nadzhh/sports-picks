@@ -34,6 +34,8 @@ JS = r"""<script>
   function gate(){ return document.getElementById('auth-gate'); }
   function wait(status){
     var g = gate(); if(!g) return;
+    // l'indicateur « deja valide » ferait afficher le site avant le controle au prochain chargement
+    try { localStorage.removeItem('sp_access_ok'); } catch(e){}
     document.documentElement.classList.remove('bk-prelogged');
     g.classList.add('ready'); g.classList.remove('hidden'); g.classList.add('sp-wait');
     var w = document.getElementById('sp-acc-wait');

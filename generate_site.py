@@ -5897,7 +5897,7 @@ def build_html(matches, team_ai, player_ai, pstats_data, nba_picks=None, nba_his
      la gate AVANT meme le rendu (sync, depuis localStorage). Firebase
      confirmera l'auth state en async ensuite. -->
 <script>
-  if(localStorage.getItem('bk_was_signed_in') === '1'){{
+  if(localStorage.getItem('sp_access_ok') === '1'){{
     document.documentElement.classList.add('bk-prelogged');
   }}
 </script>
@@ -8595,12 +8595,12 @@ async function _bkOnAuthChanged(user){{
     // Compte valide par Wilson ? Sinon ecran « en attente » (site_access.py) et aucune donnee chargee
     if(typeof window._spAccessOk === 'function' && !(await window._spAccessOk(user))) return;
     // Marque le flag pour anti-flash au prochain refresh
-    try {{ localStorage.setItem('bk_was_signed_in', '1'); }} catch(e){{}}
+    try {{ localStorage.setItem('sp_access_ok', '1'); }} catch(e){{}}
     await _bkPullFromServer();
     _bkUpdateGate(user);
   }} else {{
     // Session perdue ou pas connecte : on retire le flag et la classe pre-hide
-    try {{ localStorage.removeItem('bk_was_signed_in'); }} catch(e){{}}
+    try {{ localStorage.removeItem('sp_access_ok'); }} catch(e){{}}
     document.documentElement.classList.remove('bk-prelogged');
     _bkSetSyncState('idle');
     if(typeof window._spAccessReset === 'function') window._spAccessReset();
@@ -8620,7 +8620,7 @@ async function _bkSignOut(){{
     localStorage.removeItem(USERPICKS_KEY);
     localStorage.removeItem('user_bankroll_units');
     localStorage.removeItem(BK_TIPSTERS_KEY);
-    localStorage.removeItem('bk_was_signed_in');
+    localStorage.removeItem('sp_access_ok');
   }} catch(e){{}}
   document.documentElement.classList.remove('bk-prelogged');
   await window._fb.signOut();
