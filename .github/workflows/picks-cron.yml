@@ -130,6 +130,7 @@ jobs:
           set +e
           echo "=== Stage des fichiers data + index ==="
           git add -f data/*.json index.html 2>/dev/null || true
+          git add -A -f lazy 2>/dev/null || true   # fragments charges a la demande (site_lazy.py)
           # Deroules video du match type NBA (nba_replay.py), suppressions comprises
           git add -A data/replays 2>/dev/null || true
           git status --short
@@ -153,6 +154,7 @@ jobs:
               git rebase --abort 2>/dev/null
               git reset --hard origin/master
               git add -f data/*.json index.html 2>/dev/null
+              git add -A -f lazy 2>/dev/null
               git add -A data/replays 2>/dev/null
               git commit -m "Auto-update picks $(date -u +'%Y-%m-%d %H:%M UTC')" || true
             fi

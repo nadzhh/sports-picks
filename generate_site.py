@@ -7175,8 +7175,9 @@ function showSport(sport){{
 window._BK2_DATA = {pronos_data_json};
 window._BK2_TENNIS_DETAILS = {tennis_details_json};
 window._BK2_BASKET_EU_DETAILS = {basket_eu_details_json};
-window._BK2_FOOT_DETAILS = {foot_details_json};
-window._BK2_NBA_DETAILS = {nba_details_json};
+// Pronos V2 : section que le menu n'affiche plus depuis la refonte ; ses fiches pesaient 2,3 Mo (05/11/2026)
+window._BK2_FOOT_DETAILS = {{}};
+window._BK2_NBA_DETAILS = {{}};
 window._bk2State = {{ sport: 'all', comp: null, query: '', dayFilter: 'today' }};
 
 function bk2FilterDay(dayKey){{
@@ -11687,6 +11688,8 @@ def push_to_github():
 
         # Force l'ajout même si dans .gitignore
         subprocess.run(["git", "add", "-f", "index.html"], check=True, timeout=10)
+        if os.path.isdir("lazy"):   # fragments charges a la demande (site_lazy.py)
+            subprocess.run(["git", "add", "-A", "-f", "lazy"], check=True, timeout=10)
         # Egalement les fichiers d'historique + box scores pour le polling JS du bankroll
         import os as _os_p
         for _df in ("data/nba_history_min.json", "data/nba_box_scores_min.json"):
@@ -11880,6 +11883,14 @@ def main():
             print("⚠️  Allegement ignore : le rendu aurait change.")
     except Exception as e:
         print(f"⚠️  Allegement ignore ({e}) — la page reste valide, seulement plus lourde.")
+
+    # Chargement a la demande (site_lazy.py, 05/11/2026) : Basket › Analyse dans lazy/nba_analyse.html, anciennes
+    # sections videes. APRES l'allegement ci-dessus (memes classes CSS dans la page et le fragment).
+    try:
+        import site_lazy
+        site_lazy.split("index.html")
+    except Exception as e:
+        print(f"⚠️  Chargement a la demande ignore ({e}) — la page reste complete, seulement plus lourde.")
 
     # Auto-push vers GitHub Pages si git configuré
     push_to_github()
