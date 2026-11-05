@@ -391,6 +391,7 @@ class Live:
             for p in keep.values():
                 if "shots_hist" not in p and _t(p["ko"]) > now:
                     p["shots_hist"] = FR.shots_hist_pair(p); added_hist += 1
+                if _t(p["ko"]) > now and FR.foot_calib.ensure(p): added_hist += 1   # recalage (05/11/2026)
             FB.archive(fresh)                      # historique : derniere simulation d'avant-match
             resolved = FB.resolve()                # et resultats des matchs termines
             if not fresh and not resolved and not added_hist and set(keep) == set(prev): return ""

@@ -114,10 +114,14 @@ def _header(g, now):
 
 
 def _kpis(g):
-    p = g["p"]
-    return ('<div class="eb-g3">' + _kpi(f'Victoire {_e(g["home"]["name"])}', p["1"]) + _kpi("Match nul", p["X"])
-            + _kpi(f'Victoire {_e(g["away"]["name"])}', p["2"]) + '</div>'
-            '<div class="eb-g3">' + _kpi("Plus de 2,5 buts", p["over"]["2.5"]) + _kpi("Les deux équipes marquent", p["btts"])
+    p, r = g["p"], g.get("p_raw") or {}
+
+    def raw(v):   # probabilite recalee (foot_calib) : la valeur brute de la simulation en petit
+        return f"recalé · simulation brute {_pct(v)}" if v is not None else ""
+    ro = (r.get("over") or {}).get("2.5")
+    return ('<div class="eb-g3">' + _kpi(f'Victoire {_e(g["home"]["name"])}', p["1"], raw(r.get("1"))) + _kpi("Match nul", p["X"], raw(r.get("X")))
+            + _kpi(f'Victoire {_e(g["away"]["name"])}', p["2"], raw(r.get("2"))) + '</div>'
+            '<div class="eb-g3">' + _kpi("Plus de 2,5 buts", p["over"]["2.5"], raw(ro)) + _kpi("Les deux équipes marquent", p["btts"], raw(r.get("btts")))
             + _kpi("Au moins un carton rouge", p["red"]) + '</div>')
 
 

@@ -233,6 +233,13 @@ def _calib_pairs():
         h, a = fin[0], fin[1]
         out += [("foot", p["1"], h > a), ("foot", p["X"], h == a), ("foot", p["2"], h < a),
                 ("foot", p["o25"], h + a > 2), ("foot", p["btts"], h > 0 and a > 0)]
+        try:   # meme prevision, recalee (foot_calib, parametres appris sur les backtests : jamais vu ces matchs)
+            import foot_calib
+            c = foot_calib.apply({"1": p["1"], "X": p["X"], "2": p["2"], "btts": p["btts"], "over": {"2.5": p["o25"]}})
+            out += [("footcal", c["1"], h > a), ("footcal", c["X"], h == a), ("footcal", c["2"], h < a),
+                    ("footcal", c["over"]["2.5"], h + a > 2), ("footcal", c["btts"], h > 0 and a > 0)]
+        except Exception:
+            pass
     n = (PJ._load("data/nba_sim_history.json", {}) or {}).get("games") or {}
     for g in (n.values() if isinstance(n, dict) else n):
         fin, s = g.get("final"), g.get("sim") or {}
@@ -312,10 +319,10 @@ def _bilan_card():
     curve = (_curve_svg(lines) if lines else
              '<p class="td-none">La courbe démarre au premier pari réglé du canal (picks postés depuis le 04/11).</p>')
     pairs = _calib_pairs()
-    fb, nb = _bins(pairs, "foot"), _bins(pairs, "nba")
+    fb, nb, cb = _bins(pairs, "foot"), _bins(pairs, "nba"), _bins(pairs, "footcal")
     nf, nn = sum(s == "foot" for s, _, _ in pairs), sum(s == "nba" for s, _, _ in pairs)
     flags = []
-    for lab, B in (("foot", fb), ("NBA", nb)):
+    for lab, B in (("foot brut", fb), ("foot recalé", cb), ("NBA", nb)):
         for mp, ob, n, ci in B:
             if n >= 30 and abs(ob - mp) > ci:
                 flags.append(f'{lab} : annoncé {round(100 * mp)} %, arrivé {round(100 * ob)} % ({n} cas) → '
@@ -325,12 +332,16 @@ def _bilan_card():
         calib = ('<div class="td-sub">Fiabilité de ma simulation <small>probabilité annoncée (horizontal) contre '
                  'fréquence réelle (vertical)</small></div>'
                  + '<div class="td-cal"><div class="td-cal-g">'
-                 + _calib_svg([s for s in (("Foot", "var(--acc)", fb), ("NBA", "var(--warn)", nb)) if s[2]])
-                 + '</div><div class="td-cal-t"><div class="td-lgs"><span class="td-lg"><i style="background:var(--acc)"></i>Foot · '
-                 f'{nf} prévisions (1X2, +2,5 buts, les deux marquent)</span><span class="td-lg"><i style="background:var(--warn)">'
+                 + _calib_svg([s for s in (("Foot brut", "var(--mu)", fb), ("Foot recalé", "var(--acc)", cb),
+                                           ("NBA", "var(--warn)", nb)) if s[2]])
+                 + '</div><div class="td-cal-t"><div class="td-lgs"><span class="td-lg"><i style="background:var(--mu)"></i>Foot brut · '
+                 f'{nf} prévisions (1X2, +2,5 buts, les deux marquent)</span><span class="td-lg"><i style="background:var(--acc)">'
+                 '</i>Foot recalé · ce qui est affiché depuis le 05/11</span><span class="td-lg"><i style="background:var(--warn)">'
                  f'</i>NBA · {nn} prévisions (vainqueur)</span></div>'
                  '<p class="eb-note">Sur la diagonale = fiable. Barre = marge d’erreur à 95 % (peu de matchs : elle est large). '
                  + ("Écart net : " + " ; ".join(flags) + ". " if flags else "Aucun écart net à ce jour. ")
+                 + ("La version recalée, affichée depuis le 05/11, corrige cet écart (courbe verte). "
+                    if any(f.startswith("foot brut") for f in flags) and not any(f.startswith("foot recalé") for f in flags) else "")
                  + 'Les picks du jour n’utilisent pas ces pourcentages bruts : ils partent de la cote juste Pinnacle, '
                  'recalée sur les résultats réels.</p></div></div>')
     return ('<div class="eb-card"><h3 class="eb-h">📈 Bilan et fiabilité <small>est-ce que ça marche ?</small></h3>'

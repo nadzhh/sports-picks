@@ -100,14 +100,17 @@ def value_candidates(now, hours=WINDOW_H, min_ev=MIN_EV_VALUE):
             p_fair = 1 / fair_odds
             p, p_sim = p_fair, None
             if sim:
-                q = sim["p"]
+                q = sim["p"]                       # recalee (foot_calib) : affichage et accord de la simulation
+                qr = sim.get("p_raw") or q         # brute : melange du +2,5 (poids W_O25 valide sur la simulation brute)
                 p_sim = {"Match nul": q["X"], f"Victoire {v['home']}": q["1"], f"Victoire {v['away']}": q["2"]}.get(lab)
                 for pre, over in (("Plus de ", True), ("Moins de ", False)):   # toutes les lignes x,5 simulees (0,5 a 4,5)
                     if lab.startswith(pre) and lab.endswith(" buts"):
                         o = q["over"].get(lab[len(pre):-5])
                         if o is not None: p_sim = o if over else 1 - o
                 if p_sim is not None and "2.5 buts" in lab:
-                    p = p_fair + W_O25 * (p_sim - p_fair)
+                    o_raw = qr["over"].get("2.5")
+                    ps_raw = p_sim if o_raw is None else (o_raw if lab.startswith("Plus") else 1 - o_raw)
+                    p = p_fair + W_O25 * (ps_raw - p_fair)
             elif v.get("sport") == "nba" and lab.startswith("Victoire"):   # accord du simulateur NBA (palier Meilleur prix)
                 g = next((g for g in nba if abs(_t(g["date"]) - ko) <= timedelta(hours=3)
                           and _same(g["home"].get("name"), v["home"]) + _same(g["away"].get("name"), v["away"]) >= 1.3), None)

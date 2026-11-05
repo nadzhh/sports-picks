@@ -19,6 +19,7 @@ from pathlib import Path
 import numpy as np
 
 import foot_db
+import foot_calib
 from foot_sim import FootState, simulate, _ord, pos_group
 
 OUT_PATH = Path("data/foot_sim.json")
@@ -607,6 +608,8 @@ def run_game(st, g, n_sims):
             print(f"  [!] tableau joueurs {side} : {type(e).__name__}: {e}")
     k = typical_index(res, g["id"])
     out["replay"] = replay(res, inp, k, g, lu)
+    # probabilites affichees recalees (1X2, +2,5, les deux marquent ; foot_calib, 05/11/2026), brutes dans p_raw
+    foot_calib.ensure(out)
     return out
 
 

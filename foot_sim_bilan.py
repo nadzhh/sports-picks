@@ -42,10 +42,13 @@ def archive(games, path=HIST_PATH):
     for r in games:
         old = h["games"].get(r["id"])
         if old and old.get("final"): continue
+        pr = r.get("p_raw") or r["p"]
         h["games"][r["id"]] = {
             "id": r["id"], "ko": r["ko"], "day": day_of(r["ko"]), "league": r["league"], "league_name": r["league_name"],
             "home": r["home"]["name"], "away": r["away"]["name"], "sim_at": r["sim_at"],
-            "p": {"1": r["p"]["1"], "X": r["p"]["X"], "2": r["p"]["2"], "o25": r["p"]["over"]["2.5"], "btts": r["p"]["btts"]},
+            # p = probabilites BRUTES de la simulation (etudes de calibration) ; p_cal = celles affichees (foot_calib)
+            "p": {"1": pr["1"], "X": pr["X"], "2": pr["2"], "o25": pr["over"]["2.5"], "btts": pr["btts"]},
+            "p_cal": {"1": r["p"]["1"], "X": r["p"]["X"], "2": r["p"]["2"], "o25": r["p"]["over"]["2.5"], "btts": r["p"]["btts"]},
             "xg": r["xg"], "goals": r["goals"], "scores": r["scores"][:5], "typical": r["replay"]["final"] if r.get("replay") else None,
             "lineups": [r["home_info"]["lineup"], r["away_info"]["lineup"]],
             "absences": [[a["name"], a["impact"]] for side in ("home", "away") for a in (r[side + "_info"].get("absences") or [])[:3]],
