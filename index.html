@@ -8437,8 +8437,10 @@ tr.sp-np-flash{animation:spNpFlash 2s ease-out}
     clearTimeout(hideT); hideT = setTimeout(function(){ t.classList.remove('on'); }, 20000);
   }
   function scan(){
-    var R = rows(); if(!R.length) return;
-    var raw = null; try { raw = localStorage.getItem(KEY); } catch(e){}
+    var R = rows(), raw = null; try { raw = localStorage.getItem(KEY); } catch(e){}
+    // aucune ligne : on note quand meme la visite, sinon les premiers picks a paraitre passeraient pour une
+    // premiere visite (pas de notification) — cas reel du 05/11/2026, jours sans pick
+    if(!R.length){ if(raw === null) try { localStorage.setItem(KEY, '[]'); } catch(e){} return; }
     var seen = {}; try { (JSON.parse(raw || '[]') || []).forEach(function(id){ seen[id] = 1; }); } catch(e){}
     var first = raw === null, added = 0, ids = [];
     R.forEach(function(el){
