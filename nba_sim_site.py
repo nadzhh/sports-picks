@@ -14,6 +14,7 @@ from datetime import datetime, timedelta, timezone
 
 from foot_analyse_site import SCRIPT as EB_SCRIPT
 import site_live
+import site_verdict as V
 
 try:
     from zoneinfo import ZoneInfo
@@ -1002,7 +1003,10 @@ def build_nba_sim_section(sim=None):
         items = "".join(_item(g, gid, now, i == 0) for i, (g, gid) in enumerate(zip(games, ids)))
         details = "".join(
             f'<section class="eb-detail{" on" if i == 0 else ""}" data-id="{gid}">'
-            f'{_header(g, now)}{_livecard(g)}{_selection(g, picks)}{_combos_card(g)}{_infos(g)}{_infobar(g)}{_kpis(g)}{_video(g, gid)}{_hist(g)}{_tabs(g, gid)}</section>'
+            f'{_header(g, now)}{_livecard(g)}{V.nba(g)}{_selection(g, picks)}{_kpis(g)}'
+            # verdict en tete, cartes detaillees repliees (site_verdict, 05/11/2026)
+            + V.fold(f'{_combos_card(g)}{_infos(g)}{_infobar(g)}{_video(g, gid)}{_hist(g)}{_tabs(g, gid)}',
+                     "combinés, absences, contexte, match type, distribution, joueurs") + '</section>'
             for i, (g, gid) in enumerate(zip(games, ids)))
         sim_view = ('<div class="eb eb-view on" data-view="sim" data-eb="nba"><div class="eb-layout">'
                     f'<aside class="eb-side">{banner}<div class="eb-label">Matchs NBA à venir · {len(games)}</div>'
@@ -1024,7 +1028,7 @@ def build_nba_sim_section(sim=None):
     picks_view = f'<div class="eb eb-view" data-view="picks" data-eb="nbapick">{_picks_view(games, picks)}</div>'
     return (f'<!--nba-sim:{_e((sim or {}).get("generated_at", ""))}-->'
             f'<!--eb:start-->{sim_view}{picks_view}{hist_view}'
-            + EB_SCRIPT + PROPS_SCRIPT + ASK_SCRIPT + SIDE_SCRIPT + site_live.LIVE_SCRIPT + _player_script() + '<!--eb:end-->')
+            + EB_SCRIPT + PROPS_SCRIPT + ASK_SCRIPT + SIDE_SCRIPT + site_live.LIVE_SCRIPT + _player_script() + V.CSS + V.SCRIPT + '<!--eb:end-->')
 
 
 SIDE_SCRIPT = """<script>

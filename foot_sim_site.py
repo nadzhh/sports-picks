@@ -11,6 +11,7 @@ from datetime import datetime, timedelta, timezone
 
 from foot_analyse_site import SCRIPT as EB_SCRIPT
 import site_live
+import site_verdict as V
 
 try:
     from zoneinfo import ZoneInfo
@@ -602,9 +603,12 @@ def build_foot_sim_section(sim=None):
         ids = [_e(g["id"]) for g in games]
         items = "".join(_item(g, gid, now, i == 0) for i, (g, gid) in enumerate(zip(games, ids)))
         details = "".join(
-            f'<section class="eb-detail{" on" if i == 0 else ""}" data-id="{gid}">{_header(g, now)}{_livecard(g)}{_kpis(g)}{_tactics(g)}{_args(g)}{_shots_card(g)}{_shots_hist_card(g)}{_video(g, gid)}'
-            f'{_crisis(g)}{_scorers(g)}{_players_card(g)}{_scores(g)}{_markets(g)}'
-            + (f'<div class="eb-card"><p class="eb-note">{BACKTEST_NOTE}</p></div>' if BACKTEST_NOTE else "") + '</section>'
+            f'<section class="eb-detail{" on" if i == 0 else ""}" data-id="{gid}">{_header(g, now)}{_livecard(g)}{V.foot(g)}{_kpis(g)}'
+            # verdict en tete, cartes detaillees repliees (site_verdict, 05/11/2026)
+            + V.fold(f'{_tactics(g)}{_args(g)}{_shots_card(g)}{_shots_hist_card(g)}{_video(g, gid)}'
+                     f'{_crisis(g)}{_scorers(g)}{_players_card(g)}{_scores(g)}{_markets(g)}'
+                     + (f'<div class="eb-card"><p class="eb-note">{BACKTEST_NOTE}</p></div>' if BACKTEST_NOTE else ""),
+                     "tactique, tirs, buteurs, joueurs, scores exacts, marchés") + '</section>'
             for i, (g, gid) in enumerate(zip(games, ids)))
         sim_view = ('<div class="eb eb-view on" data-view="sim" data-eb="foot2"><div class="eb-layout">'
                     f'<aside class="eb-side"><div class="eb-label">Matchs · {len(games)}</div><div class="eb-list">{items}</div></aside>'
@@ -616,7 +620,7 @@ def build_foot_sim_section(sim=None):
     hist_view = f'<div class="eb eb-view" data-view="hist" data-eb="foothist">{_history_view()}</div>'
     from nba_sim_site import PROPS_SCRIPT, ASK_SCRIPT
     return (f'<!--eb:start-->{sim_view}{picks_view}{hist_view}' + EB_SCRIPT + PROPS_SCRIPT + ASK_SCRIPT + site_live.LIVE_SCRIPT
-            + _player_script() + SHOTS_SCRIPT + '<!--eb:end-->')
+            + _player_script() + SHOTS_SCRIPT + V.CSS + V.SCRIPT + '<!--eb:end-->')
 
 
 FRAGMENT = "foot_sim.html"
