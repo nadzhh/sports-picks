@@ -987,7 +987,9 @@ def _picks_view(games, picks):
     head = (f'<div class="eb-card"><h3 class="eb-h">Pistes du simulateur <small>analyse, pas des picks</small></h3>'
             f'<p class="eb-note">{PICK_NOTE}</p><p class="eb-note">{state} {_track(picks)}</p></div>')
     import ev_site, site_today
-    return site_today.picks_table("nba") + ev_site.build_ev_card("nba") + head + (blocks or '<div class="eb-card eb-empty">Aucune sélection pour l’instant : props pas encore publiées ou pas d’écart assez net.</div>')
+    import nba_props_edge
+    return (site_today.picks_table("nba") + nba_props_edge.section_html() + ev_site.build_ev_card("nba") + head
+            + (blocks or '<div class="eb-card eb-empty">Aucune sélection pour l’instant : props pas encore publiées ou pas d’écart assez net.</div>'))
 
 
 def build_nba_sim_section(sim=None):

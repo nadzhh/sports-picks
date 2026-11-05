@@ -36,7 +36,7 @@ import site_today as ST
 DIGEST_PATH = "data/telegram_digest.json"   # jour du dernier recapitulatif Telegram envoye (pas de doublon)
 PUBLISHED = [FRAGMENT, R.OUT_PATH, str(R.PICKS_PATH), "data/nba_sim_history.json", BS.FRAGMENT, str(BK.BANK_PATH),
              FS.FRAGMENT, str(FR.OUT_PATH), str(FB.HIST_PATH), str(EV.PATH), DIGEST_PATH, "data/telegram_picks.json",
-             "data/foot_competitions.json", "data/strategy_lab.json", ST.FRAGMENT, "data/boosts.json"]
+             "data/foot_competitions.json", "data/strategy_lab.json", ST.FRAGMENT, "data/boosts.json", "data/props_edge.json"]
 # Foot (Top 5 + coupes d'Europe) : base mise a jour par tranches (premiere constitution en plusieurs
 # passages), simulation toutes les 30 min, a chaque cycle quand un match approche (composition officielle)
 FOOT_SEASONS = ("2026/2027", "2025/2026")   # saison en cours d'abord
@@ -275,6 +275,11 @@ class Live:
                 PJ.resolve(box)
             except Exception as e:
                 print(f"  [!] picks du jour : {type(e).__name__}: {e}")
+            try:
+                import nba_props_edge as PE
+                PE.resolve()
+            except Exception as e:
+                print(f"  [!] props du soir (reglement) : {type(e).__name__}: {e}")
             try:   # labo des strategies
                 import strategy_lab as SL
                 SL.resolve(box)
@@ -313,6 +318,11 @@ class Live:
             import strategy_lab as SL
             n = SL.decide()
             SL.update_prices()
+            try:   # props du soir facon PropsEdge (nba_props_edge) : suivi reel de ceux affiches
+                import nba_props_edge as PE
+                PE.record(PE.candidates())
+            except Exception as e:
+                print(f"  [!] props du soir : {type(e).__name__}: {e}")
             try:   # CLV des picks postes sur le canal (05/11/2026)
                 import picks_du_jour as PJ
                 PJ.update_close()

@@ -408,6 +408,18 @@ def message(picks, now):
         if sf:
             lines.append(f"<i>Complément depuis le {sf['since'][8:]}/{sf['since'][5:7]} : {sf['w']}-{sf['n'] - sf['w']}, "
                          f"{sf['units']:+.1f} u (ROI {100 * sf['roi']:+.0f} %).</i>")
+    try:   # props NBA facon PropsEdge : a prendre seulement si la cote francaise atteint le seuil
+        import nba_props_edge as PE
+        pe = PE.candidates(now)[:3]
+    except Exception:
+        pe = []
+    if pe:
+        lines.append("\n📊 <b>Props du soir</b> — marché sans marge + historique + ma simu ; rentable seulement si ta cote atteint le seuil.")
+        for x in pe:
+            h = x["hist"]
+            lines.append(f"🏀 <b>{x['name']}</b> ({x['match']}) · {'Plus' if x['over'] else 'Moins'} de {x['line']:g} {PE.LABEL[x['stat']]}\n"
+                         f"• L10 {h['l10'][0]}/{h['l10'][1]} · saison {h['season'][0]}/{h['season'][1]} · médiane {h['med']:g} · "
+                         f"sans la marge {x['am_novig']:+d} → <b>prends si ≥ {_fr(x['take'])}</b>")
     return "\n".join(lines) + foot
 
 

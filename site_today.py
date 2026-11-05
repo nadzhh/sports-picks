@@ -193,6 +193,11 @@ def _picks_card(now, sims, nba):
                   'la sélection de 20 h. Vérifie la cote chez ton bookmaker avant de jouer.</p></div>')
 
 
+def _props_card():
+    import nba_props_edge as E
+    return E.section_html()
+
+
 def _bot_card():
     """Ce que le bot d'amelioration (improve_bot.py) a essaye, adopte, et l'ecart de la simulation au marche."""
     try:
@@ -516,7 +521,7 @@ def build_today_section(now=None):
     return (f'<!--today:{stamp}--><!--eb:start--><div class="eb">'
             f'<div class="td-head"><h2>{JOURS[loc.weekday()].capitalize()} {loc.day} {MOIS[loc.month - 1]}</h2>'
             f'<span class="eb-meta">mis à jour à {loc:%H:%M}</span></div>'
-            f'<div class="td-grid"><div class="td-col">{picks}{_bank_card()}{_safe(_bilan_card)}{_safe(_bot_card)}</div>'
+            f'<div class="td-grid"><div class="td-col">{picks}{_safe(_props_card)}{_bank_card()}{_safe(_bilan_card)}{_safe(_bot_card)}</div>'
             f'<div class="td-col">{_safe(lambda: _boosts_card(now))}{_matches_card(now, sims, nba)}</div></div></div>'
             + CSS + SCRIPT + '<!--eb:end-->')
 
