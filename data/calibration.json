@@ -1,31 +1,41 @@
 {
- "genere_le": "2026-11-05T02:54:50",
- "n_resolus": 2516,
+ "genere_le": "2026-11-05T10:43:34",
+ "n_resolus": 2521,
  "parametres": {
   "n_min_jugement": 20,
   "seuil_pct": 50.0,
   "pas_tranche": 10
  },
  "marches": {
+  "foot/Double chance": {
+   "n": 130,
+   "wins": 108,
+   "wr": 83.1,
+   "borne_basse": 75.7,
+   "borne_haute": 88.6,
+   "statut": "RETENU",
+   "cote_moyenne": 1.45,
+   "n_cotes": 16
+  },
   "foot/Victoire domicile": {
-   "n": 174,
-   "wins": 94,
-   "wr": 54.0,
-   "borne_basse": 46.6,
-   "borne_haute": 61.3,
+   "n": 176,
+   "wins": 96,
+   "wr": 54.5,
+   "borne_basse": 47.2,
+   "borne_haute": 61.7,
    "statut": "SURVEILLE",
    "cote_moyenne": 2.12,
    "n_cotes": 30
   },
-  "foot/Double chance": {
-   "n": 128,
-   "wins": 106,
-   "wr": 82.8,
-   "borne_basse": 75.3,
-   "borne_haute": 88.4,
-   "statut": "RETENU",
-   "cote_moyenne": 1.45,
-   "n_cotes": 16
+  "nba/PRA": {
+   "n": 32,
+   "wins": 19,
+   "wr": 59.4,
+   "borne_basse": 42.3,
+   "borne_haute": 74.5,
+   "statut": "SURVEILLE",
+   "cote_moyenne": 1.86,
+   "n_cotes": 12
   },
   "foot/Victoire extérieur": {
    "n": 184,
@@ -206,16 +216,6 @@
    "statut": "SURVEILLE",
    "cote_moyenne": 1.9,
    "n_cotes": 23
-  },
-  "nba/PRA": {
-   "n": 31,
-   "wins": 18,
-   "wr": 58.1,
-   "borne_basse": 40.8,
-   "borne_haute": 73.6,
-   "statut": "SURVEILLE",
-   "cote_moyenne": 1.86,
-   "n_cotes": 12
   },
   "foot/Tirs (Werder Bremen)": {
    "n": 1,
@@ -989,36 +989,54 @@
   }
  },
  "calibration": {
+  "foot/Double chance": {
+   "80-89": {
+    "n": 100,
+    "p": 82.0
+   },
+   "90-99": {
+    "n": 24,
+    "p": 90.0
+   },
+   "70-79": {
+    "n": 6,
+    "p": 73.2
+   }
+  },
   "foot/Victoire domicile": {
    "70-79": {
-    "n": 48,
-    "p": 56.2
+    "n": 49,
+    "p": 57.1
    },
    "60-69": {
     "n": 79,
     "p": 48.1
    },
    "80-89": {
-    "n": 24,
-    "p": 79.2
+    "n": 25,
+    "p": 80.0
    },
    "50-59": {
     "n": 23,
     "p": 43.5
    }
   },
-  "foot/Double chance": {
-   "80-89": {
-    "n": 99,
-    "p": 81.8
-   },
-   "90-99": {
-    "n": 23,
-    "p": 90.0
-   },
+  "nba/PRA": {
    "70-79": {
+    "n": 12,
+    "p": 66.7
+   },
+   "60-69": {
+    "n": 12,
+    "p": 66.7
+   },
+   "50-59": {
     "n": 6,
-    "p": 73.1
+    "p": 53.8
+   },
+   "80-89": {
+    "n": 2,
+    "p": 47.5
    }
   },
   "foot/Victoire extérieur": {
@@ -1227,24 +1245,6 @@
    "50-59": {
     "n": 3,
     "p": 50.4
-   }
-  },
-  "nba/PRA": {
-   "70-79": {
-    "n": 11,
-    "p": 63.6
-   },
-   "60-69": {
-    "n": 12,
-    "p": 66.7
-   },
-   "50-59": {
-    "n": 6,
-    "p": 53.2
-   },
-   "80-89": {
-    "n": 2,
-    "p": 46.5
    }
   },
   "foot/Tirs (Werder Bremen)": {
@@ -1951,8 +1951,8 @@
   }
  },
  "replis_sport": {
-  "foot": 47.2,
-  "nba": 52.0,
+  "foot": 47.3,
+  "nba": 52.2,
   "tennis": 61.7
  }
 }
