@@ -1,5 +1,5 @@
 """
-picks_du_jour.py — le message unique du canal Telegram « Picks » (20 h, heure de Paris) : au plus 5 picks, seulement
+picks_du_jour.py — le message unique du canal Telegram « Picks » (20 h, heure de Paris) : autant de picks que les criteres en retiennent (12 au plus pour la lisibilite), seulement
 ceux dont l'esperance reste positive avec une probabilite RECALEE sur les resultats reels (demande de Wilson,
 04/11/2026 : « que les meilleurs picks » ; 2 canaux : Picks pour lui, Bankroll IA a part).
 
@@ -13,7 +13,7 @@ Esperance = probabilite retenue x meilleure cote - 1 ; seuil +2 % (cote francais
 Chaque pick poste est enregistre (data/telegram_picks.json) puis regle : le canal est juge sur son vrai ROI.
 
 Palier « Meilleur prix » (Wilson, 05/11/2026 : les cotes francaises sont nettement sous Pinnacle, mediane -9,5 % sur
-91 issues mesurees -> presque jamais de value) : au plus 3 paris par jour ou la meilleure cote francaise est a moins
+91 issues mesurees -> presque jamais de value) : autant de paris que les criteres en retiennent, la ou la meilleure cote francaise est a moins
 de 3 % de la cote juste Pinnacle ET ou ma simulation donne au moins la probabilite de Pinnacle. Esperance encore
 legerement NEGATIVE, annoncee comme telle : on paie ~1-3 % de marge au lieu de ~9,5 %. Suivi a part du palier value.
 """
@@ -22,11 +22,14 @@ from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
 PATH = Path("data/telegram_picks.json")
-MAX_PICKS = 5
+# 05/11/2026 (Wilson : « ne te bloque pas a 3 paris, c'est a toi de gerer ») : pas de quota fixe, ce sont les criteres
+# qui decident (esperance, accord de la simulation, un pari par match). MAX_PICKS ne sert qu'a garder le message
+# Telegram lisible et sous sa limite de 4 096 caracteres (environ 250 caracteres par pari), tous paliers confondus.
+MAX_PICKS = 12
 WINDOW_H = 24
 MIN_EV_VALUE, MIN_EV_PROP = 0.02, 0.03
 W_O25, W_PROP, MAX_GAP_PROP = 0.25, 0.10, 0.15
-BEST_MAX, BEST_MIN_EV = 3, -0.03   # palier « Meilleur prix »
+BEST_MIN_EV = -0.03   # palier « Meilleur prix »
 MAX_ODDS_WIN = 3.0   # victoires / nul : au-dela, retirer la marge a la proportionnelle surestime l'outsider (meme regle qu'ev_scan)
 UNIT = {"AST": "passes", "3PM": "paniers à 3 pts", "STL": "interceptions", "BLK": "contres", "PTS": "points",
         "REB": "rebonds"}
@@ -151,14 +154,14 @@ def fr_margin():
 
 def best_price(now, taken=(), hours=WINDOW_H):
     """Palier « Meilleur prix » : esperance entre -3 % et le seuil value, simulation au moins aussi confiante que
-    Pinnacle, un pari par match, BEST_MAX au plus."""
+    Pinnacle, un pari par match, dans la place laissee par les picks value (MAX_PICKS au total)."""
     c = [dict(x, kind="best") for x in value_candidates(now, hours, min_ev=BEST_MIN_EV)
          if x["ev"] < MIN_EV_VALUE and x.get("p_sim") is not None and x["p_sim"] >= x["p_fair"]]
     out, seen = [], set(taken)
     for x in sorted(c, key=lambda x: -x["ev"]):
         if x["match_id"] in seen: continue
         out.append(x); seen.add(x["match_id"])
-        if len(out) >= BEST_MAX: break
+        if len(out) + len(taken) >= MAX_PICKS: break
     return sorted(out, key=lambda x: x["ko"])
 
 
