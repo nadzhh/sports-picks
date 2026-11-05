@@ -30,6 +30,10 @@ WINDOW_H = 24
 MIN_EV_VALUE, MIN_EV_PROP = 0.02, 0.03
 W_O25, W_PROP, MAX_GAP_PROP = 0.25, 0.10, 0.15
 BEST_MIN_EV = -0.03   # palier « Meilleur prix »
+# Palier « Safe » (Wilson, 05/11/2026 : « des paris a partir de 1,40, si pour toi c'est vraiment safe ») : cote >= 1,40,
+# probabilite RECALEE >= 65 % (perdu au plus ~1 fois sur 3), simulation d'accord (>= 65 %) quand elle existe, et cout
+# <= 5 % (mesure du 05/11 : un favori a 1,40-1,60 coute ~9 % chez les bookmakers FR, ce n'est plus « safe » pour le capital).
+SAFE_MIN_ODDS, SAFE_MIN_P, SAFE_MIN_EV = 1.40, 0.65, -0.05
 MAX_ODDS_WIN = 3.0   # victoires / nul : au-dela, retirer la marge a la proportionnelle surestime l'outsider (meme regle qu'ev_scan)
 UNIT = {"AST": "passes", "3PM": "paniers à 3 pts", "STL": "interceptions", "BLK": "contres", "PTS": "points",
         "REB": "rebonds"}
@@ -119,7 +123,7 @@ def value_candidates(now, hours=WINDOW_H, min_ev=MIN_EV_VALUE):
     return out
 
 
-def prop_candidates(now, hours=WINDOW_H):
+def prop_candidates(now, hours=WINDOW_H, min_ev=MIN_EV_PROP):
     """Props NBA (toutes les lignes cotees) : probabilite = marche sans marge + 0,10 x ecart du simulateur."""
     out = []
     for g in (_load("data/nba_sim.json", {}) or {}).get("games") or []:
@@ -134,7 +138,7 @@ def prop_candidates(now, hours=WINDOW_H):
                 d = _dec(pr["over"] if side == "o" else pr["under"])
                 p = pm + W_PROP * (ps - pm)
                 ev = p * d - 1
-                if ev < MIN_EV_PROP: continue
+                if ev < min_ev: continue
                 out.append({"kind": "prop", "sport": "nba", "match_id": g["gid"],
                             "match": f"{g['away']['abbr']} @ {g['home']['abbr']}", "league": "NBA", "ko": g["date"],
                             "label": f"{pr['name']} {'plus' if side == 'o' else 'moins'} de {pr['line']:g} {UNIT.get(pr['stat'], pr['stat'])}",
@@ -150,6 +154,19 @@ def fr_margin():
     x = sorted(fr[0] * p - 1 for v in fair.values() for lab, fo in v.get("lines") or []
                for fr in [(v.get("fr") or {}).get(lab)] for p in [1 / fo if fo else 0] if fr and fo)
     return x[len(x) // 2] if x else None
+
+
+def safe_picks(now, taken=(), hours=WINDOW_H):
+    """Palier « Safe » : voir SAFE_*. Lignes de match et props NBA, un pari par match, les plus probables d'abord."""
+    c = [dict(x, kind="safe", src=x["kind"]) for x in value_candidates(now, hours, min_ev=SAFE_MIN_EV)
+         + prop_candidates(now, hours, min_ev=SAFE_MIN_EV)
+         if x["price"] >= SAFE_MIN_ODDS and x["p"] >= SAFE_MIN_P and (x.get("p_sim") is None or x["p_sim"] >= SAFE_MIN_P)]
+    out, seen = [], set(taken)
+    for x in sorted(c, key=lambda x: (-x["p"], -x["ev"])):
+        if x["match_id"] in seen: continue
+        out.append(x); seen.add(x["match_id"])
+        if len(out) + len(taken) >= MAX_PICKS: break
+    return sorted(out, key=lambda x: x["ko"])
 
 
 def best_price(now, taken=(), hours=WINDOW_H):
@@ -200,12 +217,13 @@ def resolve(box=None, now=None):
         if p.get("result") or now - _t(p["ko"]) < timedelta(hours=3): continue
         r = None
         try:
-            if p["kind"] in ("value", "best") and (p["res"] or {}).get("key") and p["res"].get("espn"):
+            kind = p.get("src") if p["kind"] == "safe" else p["kind"]
+            if kind in ("value", "best") and (p["res"] or {}).get("key") and p["res"].get("espn"):
                 import ev_scan
                 m, nm, pt = p["res"]["key"]
                 out = ev_scan._espn_result(dict(p["res"], market=m, name=nm, point=pt))
                 r = out[0] if out else None
-            elif p["kind"] == "prop" and box is not None:
+            elif kind == "prop" and box is not None:
                 import nba_bankroll
                 r = nba_bankroll.leg_result(dict(p["res"]), box)
                 r = {"void": "push"}.get(r, r)
@@ -235,8 +253,9 @@ def message(picks, now):
             f"{s['units']:+.1f} u (ROI {100 * s['roi']:+.0f} %).</i>" if s else
             "\n\n<i>Chaque pick posté est suivi : le bilan du canal s'affichera ici.</i>")
     best = [x for x in picks if x["kind"] == "best"]
-    picks = [x for x in picks if x["kind"] != "best"]
-    if not picks and not best:
+    safe = [x for x in picks if x["kind"] == "safe"]
+    picks = [x for x in picks if x["kind"] not in ("best", "safe")]
+    if not picks and not best and not safe:
         return (head + "\n\nAucun pari ne bat la marge du bookmaker pour les 24 prochaines heures. "
                 "Je préfère ne rien poster que poster un pari perdant sur la durée." + foot)
     lines = [head, (f"{len(picks)} pick{'s' if len(picks) > 1 else ''}, classés par heure · probabilités recalées sur les résultats réels"
@@ -251,6 +270,21 @@ def message(picks, now):
         lines.append(f"\n{i}. {ico} <b>{x['match']}</b> · {_hm(_t(x['ko']))} · <i>{x['league']}</i>\n"
                      f"• <b>{x['label']}</b>{tag} — <b>@ {_fr(x['price'])}</b> {x['book']} (à prendre si ≥ {_fr(mini)})\n"
                      f"• proba retenue {round(100 * x['p'])} % ({why}) · espérance <b>{100 * x['ev']:+.0f} %</b>")
+    if safe:
+        lines.append("\n🛡️ <b>Paris safe</b> — cote ≥ 1,40, gagnés au moins 2 fois sur 3 selon la probabilité recalée, "
+                     "simulation d'accord, et la marge du bookmaker reste faible. Safe ne veut pas dire sûr : ils se perdent "
+                     "environ 1 fois sur 3.")
+        for x in safe:
+            ico = "⚽" if x["sport"] == "foot" else "🏀"
+            ref = f"juste Pinnacle {_fr(1 / x['p_fair'])}" if x["src"] == "value" else f"marché {round(100 * x['p_fair'])} %"
+            lines.append(f"{ico} <b>{x['match']}</b> · {_hm(_t(x['ko']))}\n"
+                         f"• <b>{x['label']}</b> — <b>@ {_fr(x['price'])}</b> {x['book']} · gagné {round(100 * x['p'])} % ({ref}"
+                         + (f", ma simu {round(100 * x['p_sim'])} %" if x.get("p_sim") is not None else "") + ")"
+                         + (f" · espérance <b>{100 * x['ev']:+.0f} %</b>" if x["ev"] >= 0 else f" · coût attendu {_fr(100 * -x['ev'], 1)} %"))
+        ss = stats(("safe",))
+        if ss:
+            lines.append(f"<i>Palier safe depuis le {ss['since'][8:]}/{ss['since'][5:7]} : {ss['w']}-{ss['n'] - ss['w']}, "
+                         f"{ss['units']:+.1f} u (ROI {100 * ss['roi']:+.0f} %).</i>")
     if best:
         m = fr_margin()
         lines.append("\n💡 <b>Meilleurs prix du jour</b> — pas de la value : les paris où la marge du bookmaker est la plus "
@@ -270,6 +304,7 @@ def message(picks, now):
 def build(now=None):
     now = now or datetime.now(timezone.utc)
     picks = select(now)
+    picks += safe_picks(now, taken={x["match_id"] for x in picks})
     picks += best_price(now, taken={x["match_id"] for x in picks})
     return message(picks, now), picks
 
