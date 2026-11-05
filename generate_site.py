@@ -8435,7 +8435,7 @@ function resetSeenPicks(){{
 }}
 
 // Lance la detection au chargement de la page
-window.addEventListener('DOMContentLoaded', detectNewPicks);
+// 05/11/2026 : remplace par site_newpicks.py (onglets Picks actuels, notification cliquable)
 
 // ── Mes picks perso (user-sent depuis Analyse) ──
 // Stockes dans localStorage.user_picks_v1 sous forme de liste de dicts.
@@ -11846,6 +11846,11 @@ def main():
         html = site_access.inject(html)
     except Exception as e:
         print(f"⚠️  Controle des inscriptions non ajoute ({e})")
+    try:   # notification « nouveaux picks » cliquable
+        import site_newpicks
+        html = site_newpicks.inject(html)
+    except Exception as e:
+        print(f"⚠️  Notification des nouveaux picks non ajoutee ({e})")
     try:   # chat avec Claude (bouton 💬, relais chat_bot.py)
         import site_chat
         html = site_chat.inject(html)

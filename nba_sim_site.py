@@ -489,9 +489,11 @@ def _why_text(p):
     return '<ul class="eb-why-l">' + "".join(f"<li>{t}</li>" for t in items) + "</ul>"
 
 
-def _pick_rows(items):
-    """Une ligne par pick (triee par ecart decroissant) + sa ligne « Pourquoi ? » (repliee sauf la premiere)."""
+def _pick_rows(items, g=None):
+    """Une ligne par pick (triee par ecart decroissant) + sa ligne « Pourquoi ? » (repliee sauf la premiere).
+    g (vue Picks) : identifiant data-np et libelle data-npl pour la notification « nouveaux picks » (site_newpicks)."""
     rows = ""
+    match = f'{_nick(g["away"])} @ {_nick(g["home"])}' if g else ""
     for n, p in enumerate(sorted(items, key=lambda p: -abs(p["p_sim"] + SIM_BIAS - p["p_mkt"]))):
         over = p["pick"] == "o"
         price = p["over"] if over else p["under"]
@@ -502,7 +504,10 @@ def _pick_rows(items):
         if opn is not None and _dec(opn) and abs(_dec(opn) - _dec(price)) >= 0.02:
             moved = f'<span class="eb-dim"> (ouv. {_dec(opn):.2f})</span>'
         why = _why_text(p)
-        rows += (f'<tr class="eb-prop eb-pick{" open" if n == 0 and why else ""}" data-stat="{p["stat"]}" data-i="{n}"'
+        np_ = (f' data-np="nba|{_e(g["gid"])}|{p["id"]}|{p["stat"]}|{p["line"]}|{p["pick"]}" data-npl="🏀 {_e(match)} · '
+               f'{_e(p["name"])} {"Over" if over else "Under"} {p["line"]} {_e(STAT_LABELS.get(p["stat"], p["stat"]))} @ {_dec(price):.2f}"'
+               if g else "")
+        rows += (f'<tr class="eb-prop eb-pick{" open" if n == 0 and why else ""}" data-stat="{p["stat"]}" data-i="{n}"{np_}'
                  f'{" onclick=\"ebWhy(this)\"" if why else ""}><td data-v="{_e(p["name"])}">{_e(p["name"])}</td>'
                  f'<td data-v="{_e(STAT_LABELS.get(p["stat"], p["stat"]))}"><b>{"Over" if over else "Under"} {p["line"]}</b> '
                  f'{_e(STAT_LABELS.get(p["stat"], p["stat"]))}</td>'
@@ -974,7 +979,7 @@ def _picks_view(games, picks):
         blocks += (f'<div class="eb-card"><div class="eb-meta">NBA · {_when(g.get("date", ""), now)}</div>'
                    f'<h3 class="eb-h">{_e(_nick(g["away"]))} @ {_e(_nick(g["home"]))} <small>{len(items)} sélection'
                    f'{"s" if len(items) > 1 else ""} · cliquer une ligne pour l’argumentaire</small></h3>'
-                   f'<div class="eb-scroll"><table class="eb-tbl eb-cards" data-all="1"><tr>{_pick_head()}</tr>{_pick_rows(items)}</table></div></div>')
+                   f'<div class="eb-scroll"><table class="eb-tbl eb-cards" data-all="1"><tr>{_pick_head()}</tr>{_pick_rows(items, g)}</table></div></div>')
     mode, clv, n = discipline(bk_load())
     state = (f'Suivi réel : <b>{n}</b> sélections réglées, CLV <b class="{"eb-acc" if clv >= 0 else "eb-neg"}">'
              f'{100 * clv:+.1f} %</b>'.replace(".", ",").replace("-", "−")

@@ -441,7 +441,8 @@ def _picks_view(games):
     for g in games:
         pk = g.get("pick")
         if not pk: continue
-        rows += (f'<tr><td>{_when(g["ko"], now)}</td><td><b>{_e(g["home"]["name"])} - {_e(g["away"]["name"])}</b> '
+        rows += (f'<tr data-np="foot|{_e(g["id"])}|{_e(pk["label"])}" data-npl="⚽ {_e(g["home"]["name"])} - {_e(g["away"]["name"])} · '
+                 f'{_e(pk["label"])} @ {pk["dec"]:.2f}"><td>{_when(g["ko"], now)}</td><td><b>{_e(g["home"]["name"])} - {_e(g["away"]["name"])}</b> '
                  f'<span class="eb-dim">{_e(LIG.get(g["league"], ""))}</span></td>'
                  f'<td><b>{_e(pk["label"])}</b></td><td class="n">{pk["dec"]:.2f}</td>'
                  f'<td class="n">{_pct(pk["p_sim"])}</td><td class="n">{_pct(pk["p_mkt"])}</td>'
