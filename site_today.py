@@ -154,7 +154,7 @@ def _matches_card(now, sims, nba):
         body += (f'<div class="td-m"><span class="td-when">{when}</span><span class="td-mn">{ico} <b>{_e(name)}</b>'
                  f'<span class="eb-dim"> · {_e(lg)}</span><br><span class="td-pr">{pr}</span></span>{_go(link, "Simu")}</div>')
     n_f = sum(r[1] == "⚽" for r in rows)
-    return (f'<div class="eb-card"><h3 class="eb-h">📅 Matchs du jour <small>{n_f} foot · {len(rows) - n_f} NBA · '
+    return (f'<div class="eb-card td-mcard"><h3 class="eb-h">📅 Matchs du jour <small>{n_f} foot · {len(rows) - n_f} NBA · '
             f'probabilités de ma simulation</small></h3>{body}</div>')
 
 
@@ -282,14 +282,15 @@ def _bilan_card():
     if fb or nb:
         calib = ('<div class="td-sub">Fiabilité de ma simulation <small>probabilité annoncée (horizontal) contre '
                  'fréquence réelle (vertical)</small></div>'
+                 + '<div class="td-cal"><div class="td-cal-g">'
                  + _calib_svg([s for s in (("Foot", "var(--acc)", fb), ("NBA", "var(--warn)", nb)) if s[2]])
-                 + '<div class="td-lgs"><span class="td-lg"><i style="background:var(--acc)"></i>Foot · '
+                 + '</div><div class="td-cal-t"><div class="td-lgs"><span class="td-lg"><i style="background:var(--acc)"></i>Foot · '
                  f'{nf} prévisions (1X2, +2,5 buts, les deux marquent)</span><span class="td-lg"><i style="background:var(--warn)">'
                  f'</i>NBA · {nn} prévisions (vainqueur)</span></div>'
                  '<p class="eb-note">Sur la diagonale = fiable. Barre = marge d’erreur à 95 % (peu de matchs : elle est large). '
                  + ("Écart net : " + " ; ".join(flags) + ". " if flags else "Aucun écart net à ce jour. ")
                  + 'Les picks du jour n’utilisent pas ces pourcentages bruts : ils partent de la cote juste Pinnacle, '
-                 'recalée sur les résultats réels.</p>')
+                 'recalée sur les résultats réels.</p></div></div>')
     return ('<div class="eb-card"><h3 class="eb-h">📈 Bilan et fiabilité <small>est-ce que ça marche ?</small></h3>'
             '<div class="td-sub">Canal Picks : gains cumulés par palier <small>1 unité par pari</small></div>'
             f'{curve}<div class="td-lgs">{legend}</div>'
@@ -305,6 +306,9 @@ CSS = """<style>
 .td-sub:first-of-type{margin-top:0}
 .td-sub small{font:11.5px var(--mono);color:var(--mu);font-weight:400;margin-left:6px}
 .td-lgs{display:flex;flex-direction:column;gap:4px;font-size:12.5px;color:var(--mu)}
+.td-cal{display:flex;flex-wrap:wrap;gap:4px 22px;align-items:center}
+.td-cal-g{flex:1 1 280px;max-width:460px;min-width:0}
+.td-cal-t{flex:1 1 220px;min-width:0}
 .td-lg i{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:6px;vertical-align:-1px}
 .td-head{display:flex;justify-content:space-between;align-items:baseline;gap:10px;flex-wrap:wrap;margin:0 0 14px}
 .td-head h2{font-size:22px;font-weight:600;margin:0;letter-spacing:-.4px}
@@ -330,6 +334,10 @@ CSS = """<style>
 .td-bets{margin-top:12px}
 .td-bet{display:flex;justify-content:space-between;gap:10px;padding:8px 0;border-top:1px solid var(--line);font-size:13px}
 @media (max-width:900px){.td-grid{grid-template-columns:1fr}}
+/* ordinateur : la liste des matchs (longue les soirs de coupe d'Europe) defile dans sa colonne, a hauteur d'ecran,
+   au lieu d'allonger la page et de laisser un vide sous la colonne de gauche (Wilson, 05/11/2026) */
+@media (min-width:901px){.td-grid>.td-col:last-child{position:sticky;top:12px}
+  .td-mcard{max-height:calc(100vh - 24px);overflow-y:auto;scrollbar-width:thin}}
 </style>"""
 
 SCRIPT = """<script>
@@ -363,8 +371,8 @@ def build_today_section(now=None):
     return (f'<!--today:{stamp}--><!--eb:start--><div class="eb">'
             f'<div class="td-head"><h2>{JOURS[loc.weekday()].capitalize()} {loc.day} {MOIS[loc.month - 1]}</h2>'
             f'<span class="eb-meta">mis à jour à {loc:%H:%M}</span></div>'
-            f'<div class="td-grid"><div class="td-col">{picks}{_bank_card()}</div>'
-            f'<div class="td-col">{_matches_card(now, sims, nba)}{_safe(_bilan_card)}</div></div></div>'
+            f'<div class="td-grid"><div class="td-col">{picks}{_bank_card()}{_safe(_bilan_card)}</div>'
+            f'<div class="td-col">{_matches_card(now, sims, nba)}</div></div></div>'
             + CSS + SCRIPT + '<!--eb:end-->')
 
 
