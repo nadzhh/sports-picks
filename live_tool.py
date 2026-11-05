@@ -51,6 +51,9 @@ def foot(mid):
     if not pp: return "Page FotMob du match introuvable."
     t, h = _minute(pp)
     if not h.get("started"): return "Le match n'a pas encore commencé : utilise l'analyse d'avant-match."
+    if h.get("finished"):
+        return (f"MATCH TERMINÉ · score final {h.get('scoreStr', '?')} ({(h.get('reason') or {}).get('long', 'fin du match')}). "
+                "Plus aucun pari live possible : analyse d'après-match seulement.")
     gm = next((g for g in (_load("data/foot_sim.json", {}) or {}).get("games") or [] if str(g["id"]) == str(mid)), None)
     if not gm: return "Pas de simulation d'avant-match pour ce match (hors Top 5 / coupes simulées) : projection impossible."
     rec = foot_db.extract(pp, gm["league"], "live")
@@ -84,7 +87,7 @@ def foot(mid):
                 over[L] = over.get(L, 0) + q * (fh + fa > L)
     tot = lam[1] + lam[0]
     nxt = (lam[1] / tot if tot else 0, lam[0] / tot if tot else 0, math.exp(-tot))
-    out = [f"MATCH EN COURS · {hn} {g[1]}-{g[0]} {an} · {t:.0f}e minute" + (" (terminé)" if fin else "")
+    out = [f"MATCH EN COURS · {hn} {g[1]}-{g[0]} {an} · {t:.0f}e minute"
            + (f" · rouges {hn} {red[1]} / {an} {red[0]}" if red[1] or red[0] else ""),
            f"Jusqu'ici : tirs {sh[1]}-{sh[0]} (cadrés {so[1]}-{so[0]}), xG {xg[1]:.2f}-{xg[0]:.2f} "
            f"(avant-match : buts attendus {gm['goals'][0]:.2f}-{gm['goals'][1]:.2f} sur 90 min). "

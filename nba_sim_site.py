@@ -136,7 +136,7 @@ def _header(g, now):
     lab = _e(f'{_nick(a)} @ {_nick(h)}').replace("'", "&#39;")
     return (f'<div class="eb-card"><div class="eb-meta">NBA · {_when(g.get("date", ""), now)}{vegas}</div>'
             f'<div class="eb-vs">{side(a, t["away_mean"])}<span class="eb-vs-x">@</span>{side(h, t["home_mean"])}</div>'
-            f'<button class="eb-more eb-ask" data-ko="{_e(g.get("date", ""))}" '
+            f'<button class="eb-more eb-ask" data-ko="{_e(g.get("date", ""))}" data-live-key="nba|nba|{_e(g["gid"])}" '
             f'onclick="window.ebAnalyse&&ebAnalyse(\'nba\',\'{_e(g["gid"])}\',\'{lab}\',this)">'
             '💬 Analyse approfondie avec Claude</button></div>')
 
@@ -1088,8 +1088,13 @@ window.ebSortPl=function(th){
     var c=(typeof x==='number'&&typeof y==='number')?x-y:String(x).localeCompare(String(y),'fr');return c*k;});
     if(G.sec)body.appendChild(G.sec);G.rows.forEach(function(r){body.appendChild(r);});});
 };
-/* Match commence (coup d'envoi passe, moins de 3 h) : « Analyse live » (etat du match releve par le relais). */
-window.ebIsLive=function(b){var t=Date.parse(b&&b.getAttribute('data-ko')||''),n=Date.now();return !isNaN(t)&&n>=t&&n<t+3*3600e3;};
+/* « Analyse live » seulement pendant le match : etat ESPN (site_live, pastilles) s'il est connu, sinon fenetre
+   depuis le coup d'envoi (foot 2 h 15, NBA 3 h). 05/11/2026 : Rennes restait « live » apres la fin. */
+window.ebIsLive=function(b){
+  if(!b)return false;var k=b.getAttribute('data-live-key')||'',s=window.spLiveState&&window.spLiveState[k];
+  if(s)return s==='in';
+  var t=Date.parse(b.getAttribute('data-ko')||''),n=Date.now(),d=k.indexOf('soccer')===0?135:180;
+  return !isNaN(t)&&n>=t&&n<t+d*60e3;};
 window.ebAnalyse=function(sport,id,label,btn){
   if(!window.spChat){alert('Chat indisponible sur cette page');return;}
   spChat.toggle(true);
@@ -1098,7 +1103,7 @@ window.ebAnalyse=function(sport,id,label,btn){
   window._fb.chatSend(u.uid,{role:'user',text:(live?'📡 Analyse live : ':'🔎 Analyse approfondie : ')+label,status:'pending',
     ctx:(live?'live:':'match:')+sport+':'+id});
 };
-if(!window.ebLiveTimer){var ebRelabel=function(){document.querySelectorAll('.eb-ask[data-ko]').forEach(function(b){
+if(!window.ebLiveTimer){var ebRelabel=window.ebRelabel=function(){document.querySelectorAll('.eb-ask[data-ko]').forEach(function(b){
   var l=window.ebIsLive(b),t=l?'📡 Analyse live avec Claude':'💬 Analyse approfondie avec Claude';
   if(b.textContent!==t){b.textContent=t;b.classList.toggle('eb-live',l);}});};
   window.ebLiveTimer=setInterval(ebRelabel,30000);ebRelabel();

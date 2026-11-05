@@ -102,8 +102,11 @@ window.spChat = (function(){
     return out.join('').replace(/(<br>)+$/, '');
   }
   function ms(d){ return d.at && d.at.toMillis ? d.at.toMillis() : Date.now(); }
-  function render(){
+  // force : aller en bas (ouverture, envoi). Sinon on ne descend que si la vue etait deja en bas : Wilson peut
+  // remonter lire l'historique sans etre ramene en bas par le rafraichissement (05/11/2026).
+  function render(force){
     var b = document.getElementById('sp-chat-b'); if(!b) return;
+    var atBottom = b.scrollHeight - b.scrollTop - b.clientHeight < 80, keep = b.scrollTop;
     if(!uid){ b.innerHTML = '<div class="empty">Connecte-toi au site pour discuter avec Claude.</div>'; return; }
     var cut = -1; docs.forEach(function(d, i){ if(d.role === 'reset') cut = i; });
     var cur = docs.slice(cut + 1), h = [];
@@ -122,7 +125,7 @@ window.spChat = (function(){
         : last.status === 'thinking' ? 'Claude réfléchit…' : 'Message transmis…') + '</div>');
     }
     b.innerHTML = h.join('');
-    b.scrollTop = b.scrollHeight;
+    b.scrollTop = (force || atBottom) ? b.scrollHeight : keep;
   }
   function listen(){
     if(unsub || !uid || !window._fb || !window._fb.chatListen) return;
@@ -131,7 +134,7 @@ window.spChat = (function(){
       var n = docs.filter(function(d){ return d.role === 'assistant'; }).length;
       if(!open && seen && n > seen) document.getElementById('sp-chat-fab').classList.add('unread');
       if(open || !seen) seen = n;
-      render();
+      render(window._spChatForce); window._spChatForce = false;
     }, function(){ unsub = null; });
   }
   // la connexion Firebase arrive en asynchrone : on attend l'utilisateur
@@ -148,14 +151,14 @@ window.spChat = (function(){
       if(open){
         document.getElementById('sp-chat-fab').classList.remove('unread');
         seen = docs.filter(function(d){ return d.role === 'assistant'; }).length;
-        render();
+        render(true);
         if(window.innerWidth > 720) setTimeout(function(){ document.getElementById('sp-chat-in').focus(); }, 50);
       }
     },
     send: function(){
       var t = document.getElementById('sp-chat-in'), txt = (t.value || '').trim();
       if(!txt || !uid || !window._fb) return;
-      t.value = ''; t.style.height = 'auto';
+      t.value = ''; t.style.height = 'auto'; window._spChatForce = true;
       var ctx = (window._spMain || '') + ' / ' + (window._spSub || '');
       window._fb.chatSend(uid, {role: 'user', text: txt.slice(0, 4000), status: 'pending', ctx: ctx})
         .catch(function(e){ alert('Envoi impossible : ' + (e && e.code || e)); t.value = txt; });

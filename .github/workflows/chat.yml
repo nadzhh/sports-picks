@@ -71,6 +71,9 @@ jobs:
           CHAT_MODEL:              ${{ vars.CHAT_MODEL }}
           CHAT_DB_EXPECTED:        "1"     # bases NBA / foot restaurees (simulations de scenario)
           CHAT_WRITE:              "1"     # job avec contents: write (boite a idees)
+          CHAT_TG:                 "1"     # Telegram disponible (demandes d'inscription)
+          TELEGRAM_BOT_TOKEN:        ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID_BANKROLL: ${{ secrets.TELEGRAM_CHAT_ID_BANKROLL }}   # canal « Bankroll IA »
         run: python chat_bot.py --loop --max-minutes 340
 
       - name: Relance du relais

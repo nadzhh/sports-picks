@@ -5910,7 +5910,7 @@ def build_html(matches, team_ai, player_ai, pstats_data, nba_picks=None, nba_his
   import {{ initializeApp }} from "https://www.gstatic.com/firebasejs/10.13.0/firebase-app.js";
   import {{ getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword,
            signOut, onAuthStateChanged, sendPasswordResetEmail }} from "https://www.gstatic.com/firebasejs/10.13.0/firebase-auth.js";
-  import {{ getFirestore, doc, setDoc, getDoc, collection, addDoc, query, orderBy, limitToLast, onSnapshot, serverTimestamp }} from "https://www.gstatic.com/firebasejs/10.13.0/firebase-firestore.js";
+  import {{ getFirestore, doc, setDoc, getDoc, getDocs, updateDoc, collection, addDoc, query, orderBy, limitToLast, onSnapshot, serverTimestamp }} from "https://www.gstatic.com/firebasejs/10.13.0/firebase-firestore.js";
 
   const firebaseConfig = {{
     apiKey: "AIzaSyAdZ3GvbYVapF0gqyh5O7mN1xC0sTT1yJo",
@@ -5937,6 +5937,12 @@ def build_html(matches, team_ai, player_ai, pstats_data, nba_picks=None, nba_his
     // Chat avec Claude (site_chat.py / chat_bot.py) : users/<uid>/chat
     chatSend: (uid, data) => addDoc(collection(db, "users", uid, "chat"), Object.assign({{at: serverTimestamp()}}, data)),
     chatListen: (uid, cb, err) => onSnapshot(query(collection(db, "users", uid, "chat"), orderBy("at"), limitToLast(80)), cb, err),
+    // Validation des inscriptions (site_access.py) : access/<uid>
+    accessGet: (uid) => getDoc(doc(db, "access", uid)),
+    accessRequest: (uid, email) => setDoc(doc(db, "access", uid), {{email: email, status: "pending", at: serverTimestamp()}}),
+    accessListen: (uid, cb, err) => onSnapshot(doc(db, "access", uid), cb, err),
+    accessAll: () => getDocs(collection(db, "access")),
+    accessDecide: (uid, status, by) => updateDoc(doc(db, "access", uid), {{status: status, by: by || "", decided_at: serverTimestamp()}}),
   }};
   window._fbReady = true;
 
@@ -8586,6 +8592,8 @@ async function _bkPullFromServer(){{
 // Hook appele par le listener onAuthStateChanged du module Firebase
 async function _bkOnAuthChanged(user){{
   if(user){{
+    // Compte valide par Wilson ? Sinon ecran « en attente » (site_access.py) et aucune donnee chargee
+    if(typeof window._spAccessOk === 'function' && !(await window._spAccessOk(user))) return;
     // Marque le flag pour anti-flash au prochain refresh
     try {{ localStorage.setItem('bk_was_signed_in', '1'); }} catch(e){{}}
     await _bkPullFromServer();
@@ -8595,6 +8603,7 @@ async function _bkOnAuthChanged(user){{
     try {{ localStorage.removeItem('bk_was_signed_in'); }} catch(e){{}}
     document.documentElement.classList.remove('bk-prelogged');
     _bkSetSyncState('idle');
+    if(typeof window._spAccessReset === 'function') window._spAccessReset();
     _bkUpdateGate(null);
   }}
   _bkUpdateAccountMenu(user);
@@ -11832,6 +11841,11 @@ def main():
     except Exception as e:
         print(f"⚠️  Charte graphique non appliquee ({e})")
     html = _park_legacy(html, LEGACY_SECTIONS)
+    try:   # validation manuelle des inscriptions (avant le chat : doit etre defini avant le module Firebase)
+        import site_access
+        html = site_access.inject(html)
+    except Exception as e:
+        print(f"⚠️  Controle des inscriptions non ajoute ({e})")
     try:   # chat avec Claude (bouton 💬, relais chat_bot.py)
         import site_chat
         html = site_chat.inject(html)

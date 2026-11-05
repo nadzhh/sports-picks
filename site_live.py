@@ -93,13 +93,14 @@ LIVE_SCRIPT = r"""<script>
     Object.keys(groups).forEach(function(g){var k=groups[g];
       J(API+path(k)+'/scoreboard').then(function(d){(d.events||[]).forEach(function(e){
         var b=badgeTxt(k,e),sel='[data-live="'+g+'|'+e.id+'"]';
+        window.spLiveState=window.spLiveState||{};window.spLiveState[g+'|'+e.id]=b?b.s:'pre';
         document.querySelectorAll(sel).forEach(function(el){el.textContent=b?b.t:'';el.className='eb-live'+(b?' '+b.s:'');});
         if(!b)return;
         document.querySelectorAll('[data-livecard="'+g+'|'+e.id+'"]').forEach(function(c){
           c.classList.remove('eb-off');if(!visible(c))return;
           J(API+path(k)+'/summary?event='+e.id).then(function(s){
             c.innerHTML=k[0]==='nba'?nbaCard(s,JSON.parse(c.getAttribute('data-picks')||'[]')):footCard(s);}).catch(function(){});});
-      });}).catch(function(){});});
+      });if(window.ebRelabel)window.ebRelabel();}).catch(function(){});});
   }
   window.spLive=tick;
   setInterval(tick,30000);

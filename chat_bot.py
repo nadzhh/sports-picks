@@ -85,6 +85,19 @@ class Fire:
                           json={"fields": {k: _val(v) for k, v in fields.items()}}, timeout=20)
         r.raise_for_status()
 
+    def get(self, path):
+        r = requests.get(f"{DOCS}/{path}", headers=self._h(), timeout=20)
+        if r.status_code == 404: return None
+        r.raise_for_status()
+        return _doc(r.json())
+
+    def query_root(self, coll, where, limit=50):
+        q = {"from": [{"collectionId": coll}], "limit": limit,
+             "where": {"fieldFilter": {"field": {"fieldPath": where[0]}, "op": "EQUAL", "value": _val(where[1])}}}
+        r = requests.post(f"{DOCS}:runQuery", headers=self._h(), json={"structuredQuery": q}, timeout=20)
+        r.raise_for_status()
+        return [_doc(x["document"]) for x in r.json() if "document" in x]
+
     def patch(self, name, fields):
         mask = "&".join(f"updateMask.fieldPaths={k}" for k in fields)
         r = requests.patch(f"https://firestore.googleapis.com/v1/{name}?{mask}", headers=self._h(),
@@ -356,6 +369,48 @@ def git_pull(start):
     return bool(start) and r.returncode == 1
 
 
+# ─── Validation des inscriptions (05/11/2026, site_access.py) ───────────────
+SITE_URL = "https://nadzhh.github.io/sports-picks/"
+ACCESS_EVERY_S = 60
+
+
+def _mask(email):
+    """jo***@gmail.com : le canal Telegram n'a pas a montrer l'adresse complete (elle est dans le panneau du site)."""
+    user, _, dom = str(email or "").partition("@")
+    return f"{user[:2]}***@{dom}" if dom else "adresse inconnue"
+
+
+def access_cycle(fire, uids, done_admins):
+    """Comptes de CHAT_ALLOWED_UIDS = administrateurs valides (une fois) ; chaque nouvelle demande d'acces ->
+    Telegram « Bankroll IA » (une fois, champ notified). Le relais ne valide jamais un compte lui-meme."""
+    for uid in uids:
+        if uid in done_admins: continue
+        d = fire.get(f"access/{uid}")
+        if not d or d.get("status") != "approved" or d.get("role") != "admin":
+            fire.patch(f"projects/{PROJECT}/databases/(default)/documents/access/{uid}",
+                       {"status": "approved", "role": "admin", "decided_at": datetime.now(timezone.utc)})
+            print("  [acces] compte administrateur valide", flush=True)
+        done_admins.add(uid)
+    import notify
+    for d in fire.query_root("access", ("status", "pending")):
+        if d.get("notified") is True: continue
+        if not (notify.TELEGRAM_BOT_TOKEN and os.environ.get("TELEGRAM_CHAT_ID_BANKROLL")):
+            print("  [acces] demande en attente, Telegram non configure pour le relais", flush=True); return
+        when = d.get("at") or ""
+        try:
+            from zoneinfo import ZoneInfo
+            when = datetime.fromisoformat(when.replace("Z", "+00:00")).astimezone(ZoneInfo("Europe/Paris")).strftime("%d/%m à %H:%M")
+        except Exception:
+            when = when[:16]
+        ok = notify.tg_send("🆕 <b>Demande d'accès à SportsPicks</b>\n"
+                            f"{_mask(d.get('email'))} · inscrit le {when}\n"
+                            f"Valide ou refuse depuis le site : menu compte › 👥 Inscriptions\n{SITE_URL}#acces",
+                            chat_id=notify.TELEGRAM_CHAT_ID_BANKROLL)
+        if ok:
+            fire.patch(d["_name"], {"notified": True})
+            print("  [acces] demande signalee sur Telegram", flush=True)
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--loop", action="store_true")
@@ -367,12 +422,14 @@ def main():
     if not (email and pw and uids and os.environ.get("CLAUDE_CODE_OAUTH_TOKEN")):
         print("[chat] secrets manquants (CHAT_BOT_EMAIL, CHAT_BOT_PASSWORD, CHAT_ALLOWED_UIDS, CLAUDE_CODE_OAUTH_TOKEN) : arret")
         return
-    if os.environ.get("GITHUB_ACTIONS") and not (os.environ.get("CHAT_DB_EXPECTED") and os.environ.get("CHAT_WRITE")):
+    if os.environ.get("GITHUB_ACTIONS") and not (os.environ.get("CHAT_DB_EXPECTED") and os.environ.get("CHAT_WRITE")
+                                                  and os.environ.get("CHAT_TG")):
         # job demarre avant l'ajout des bases NBA / foot (chat.yml) : on s'arrete pour que le run suivant les ait
         CONTINUE_FLAG.write_text("1")
         print("[chat] relais lance avec une ancienne configuration (bases / droits) : arret, le run suivant l'aura", flush=True)
         return
     fire, recent, t0, pulled, errs = Fire(email, pw), [], time.time(), time.time(), 0
+    admins, acc_at, acc_wait = set(), 0, ACCESS_EVERY_S
     fire.token()
     start = subprocess.run(["git", "rev-parse", "HEAD"], capture_output=True, text=True).stdout.strip()
     print(f"[chat] relais pret ({len(uids)} compte(s) autorise(s))", flush=True)
@@ -384,6 +441,16 @@ def main():
             print(f"  [!] chat : {type(e).__name__}", flush=True)
             if errs >= 20: raise
             time.sleep(min(60, 5 * errs))
+        if time.time() - acc_at > acc_wait:   # inscriptions : a part, une panne ici ne doit pas couper le chat
+            acc_at = time.time()
+            try:
+                access_cycle(fire, uids, admins); acc_wait = ACCESS_EVERY_S
+            except Exception as e:
+                code = getattr(getattr(e, "response", None), "status_code", "")
+                if acc_wait == ACCESS_EVERY_S:
+                    print(f"  [!] inscriptions : {type(e).__name__} {code}"
+                          + (" (regles Firestore pas encore publiees ?)" if code == 403 else ""), flush=True)
+                acc_wait = 180
         if a.once or not a.loop: break
         if time.time() - t0 > a.max_minutes * 60:
             CONTINUE_FLAG.write_text("1")
