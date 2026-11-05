@@ -380,18 +380,46 @@ def _mask(email):
     return f"{user[:2]}***@{dom}" if dom else "adresse inconnue"
 
 
+ACCESS_STEP = ""
+ACCESS_REPORT = Path("data/relay_access.json")   # diagnostic public, sans secret ni identifiant
+
+
+def access_report(ok, err=""):
+    """Publie l'etat du controle des inscriptions (seulement quand il change) : Claude Code ne voit pas les journaux
+    des runs GitHub, ce fichier lui dit ou ca bloque."""
+    st = {"ok": ok, "step": "" if ok else ACCESS_STEP, "error": err}
+    try:
+        old = json.loads(ACCESS_REPORT.read_text(encoding="utf-8")) if ACCESS_REPORT.exists() else {}
+    except ValueError:
+        old = {}
+    if {k: old.get(k) for k in st} == st: return
+    ACCESS_REPORT.write_text(json.dumps(dict(st, at=datetime.now(timezone.utc).isoformat(timespec="minutes")),
+                                        ensure_ascii=False, indent=1), encoding="utf-8")
+    git = lambda *a: subprocess.run(["git", *a], capture_output=True, text=True, timeout=120)
+    git("config", "user.name", "sport-picks-bot"); git("config", "user.email", "actions@github.com")
+    git("add", str(ACCESS_REPORT))
+    if git("commit", "-q", "-m", "Relais : etat du controle des inscriptions").returncode: return
+    for _ in range(3):
+        if git("pull", "-q", "--rebase", "origin", "master").returncode == 0 and git("push", "-q", "origin", "HEAD:master").returncode == 0: return
+        time.sleep(10)
+
+
 def access_cycle(fire, uids, done_admins):
     """Comptes de CHAT_ALLOWED_UIDS = administrateurs valides (une fois) ; chaque nouvelle demande d'acces ->
     Telegram « Bankroll IA » (une fois, champ notified). Le relais ne valide jamais un compte lui-meme."""
+    global ACCESS_STEP
     for uid in uids:
         if uid in done_admins: continue
+        ACCESS_STEP = "lecture du compte administrateur"
         d = fire.get(f"access/{uid}")
         if not d or d.get("status") != "approved" or d.get("role") != "admin":
+            ACCESS_STEP = "validation du compte administrateur" + ("" if d else " (aucune demande a ce nom : UID different ?)")
             fire.patch(f"projects/{PROJECT}/databases/(default)/documents/access/{uid}",
                        {"status": "approved", "role": "admin", "decided_at": datetime.now(timezone.utc)})
             print("  [acces] compte administrateur valide", flush=True)
         done_admins.add(uid)
     import notify
+    ACCESS_STEP = "liste des demandes en attente"
     for d in fire.query_root("access", ("status", "pending")):
         if d.get("notified") is True: continue
         if not (notify.TELEGRAM_BOT_TOKEN and os.environ.get("TELEGRAM_CHAT_ID_BANKROLL")):
@@ -445,8 +473,10 @@ def main():
             acc_at = time.time()
             try:
                 access_cycle(fire, uids, admins); acc_wait = ACCESS_EVERY_S
+                access_report(True)
             except Exception as e:
                 code = getattr(getattr(e, "response", None), "status_code", "")
+                access_report(False, f"{type(e).__name__} {code}")
                 if acc_wait == ACCESS_EVERY_S:
                     print(f"  [!] inscriptions : {type(e).__name__} {code}"
                           + (" (regles Firestore pas encore publiees ?)" if code == 403 else ""), flush=True)
