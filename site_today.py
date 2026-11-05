@@ -180,7 +180,132 @@ def _bank_card():
             + '<button class="td-go td-more" onclick="spNav(\'iabank\')">Toute la Bankroll IA →</button></div>')
 
 
+def _calib_pairs():
+    """(sport, probabilite annoncee, issue) : simulations archivees et reglees (foot : 1X2, plus de 2,5, les deux
+    marquent ; NBA : victoire)."""
+    out = []
+    f = (PJ._load("data/foot_sim_history.json", {}) or {}).get("games") or {}
+    for g in (f.values() if isinstance(f, dict) else f):
+        fin, p = g.get("final"), g.get("p") or {}
+        if not fin or not all(k in p for k in ("1", "X", "2", "o25", "btts")): continue
+        h, a = fin[0], fin[1]
+        out += [("foot", p["1"], h > a), ("foot", p["X"], h == a), ("foot", p["2"], h < a),
+                ("foot", p["o25"], h + a > 2), ("foot", p["btts"], h > 0 and a > 0)]
+    n = (PJ._load("data/nba_sim_history.json", {}) or {}).get("games") or {}
+    for g in (n.values() if isinstance(n, dict) else n):
+        fin, s = g.get("final"), g.get("sim") or {}
+        if not fin or s.get("p_home") is None: continue
+        h, a = (fin["home"], fin["away"]) if isinstance(fin, dict) else (fin[0], fin[1])
+        out += [("nba", s["p_home"], h > a), ("nba", 1 - s["p_home"], a > h)]
+    return out
+
+
+def _bins(pairs, sport, min_n=10):
+    B = []
+    for lo in (0, .2, .4, .6, .8):
+        L = [(p, o) for s, p, o in pairs if s == sport and lo <= p < lo + .2 + (1e-9 if lo == .8 else 0)]
+        if len(L) < min_n: continue
+        mp, ob = sum(p for p, _ in L) / len(L), sum(o for _, o in L) / len(L)
+        B.append((mp, ob, len(L), 1.96 * (max(ob * (1 - ob), .01) / len(L)) ** .5))
+    return B
+
+
+def _calib_svg(series):
+    W, H, P = 320, 250, 36
+    X = lambda v: P + v * (W - P - 12)
+    Y = lambda v: H - P + 6 - v * (H - P - 12)
+    s = (f'<svg viewBox="0 0 {W} {H}" class="td-svg" role="img" aria-label="Probabilité annoncée contre fréquence observée">'
+         + "".join(f'<line x1="{X(v):.1f}" y1="{Y(0):.1f}" x2="{X(v):.1f}" y2="{Y(1):.1f}" style="stroke:var(--line)"/>'
+                   f'<line x1="{X(0):.1f}" y1="{Y(v):.1f}" x2="{X(1):.1f}" y2="{Y(v):.1f}" style="stroke:var(--line)"/>'
+                   f'<text x="{X(v):.1f}" y="{H - 12}" class="td-ax" text-anchor="middle">{round(100 * v)}</text>'
+                   f'<text x="{P - 6}" y="{Y(v) + 4:.1f}" class="td-ax" text-anchor="end">{round(100 * v)}</text>'
+                   for v in (0, .2, .4, .6, .8, 1))
+         + f'<line x1="{X(0)}" y1="{Y(0)}" x2="{X(1)}" y2="{Y(1)}" style="stroke:var(--mu);stroke-dasharray:4 4"/>')
+    for k, (lab, col, B) in enumerate(series):
+        dx = (k - (len(series) - 1) / 2) * 0.012
+        pts = " ".join(f"{X(mp + dx):.1f},{Y(ob):.1f}" for mp, ob, n, ci in B)
+        s += f'<polyline points="{pts}" style="fill:none;stroke:{col};stroke-width:2;opacity:.55"/>'
+        for mp, ob, n, ci in B:
+            s += (f'<line x1="{X(mp + dx):.1f}" y1="{Y(max(0, ob - ci)):.1f}" x2="{X(mp + dx):.1f}" y2="{Y(min(1, ob + ci)):.1f}" '
+                  f'style="stroke:{col};stroke-width:1.5;opacity:.7"/><circle cx="{X(mp + dx):.1f}" cy="{Y(ob):.1f}" r="4.5" '
+                  f'style="fill:{col}"><title>{lab} : annoncé {round(100 * mp)} %, observé {round(100 * ob)} % '
+                  f'(± {round(100 * ci)}, {n} cas)</title></circle>')
+    return s + '</svg>'
+
+
+def _curve_svg(lines):
+    """Gains cumules (unites) par palier, pari apres pari."""
+    W, H, P = 320, 170, 34
+    allv = [v for _, _, L in lines for v in L] + [0]
+    lo, hi = min(allv), max(allv)
+    hi, lo = (hi + 1, lo - 1) if hi == lo else (hi, lo)
+    nmax = max(len(L) for _, _, L in lines)
+    X = lambda i: P + i * (W - P - 10) / max(nmax, 1)
+    Y = lambda v: 10 + (hi - v) * (H - P - 4) / (hi - lo)
+    s = (f'<svg viewBox="0 0 {W} {H}" class="td-svg" role="img" aria-label="Gains cumulés par palier">'
+         f'<line x1="{P}" y1="{Y(0):.1f}" x2="{W - 10}" y2="{Y(0):.1f}" style="stroke:var(--mu);stroke-dasharray:4 4"/>'
+         f'<text x="{P - 6}" y="{Y(hi) + 4:.1f}" class="td-ax" text-anchor="end">{_fr(hi, 1)}</text>'
+         f'<text x="{P - 6}" y="{Y(lo) + 4:.1f}" class="td-ax" text-anchor="end">{_fr(lo, 1)}</text>'
+         f'<text x="{P - 6}" y="{Y(0) + 4:.1f}" class="td-ax" text-anchor="end">0</text>')
+    for lab, col, L in lines:
+        pts = " ".join(f"{X(i):.1f},{Y(v):.1f}" for i, v in enumerate([0] + L))
+        s += f'<polyline points="{pts}" style="fill:none;stroke:{col};stroke-width:2.2"><title>{lab}</title></polyline>'
+    return s + '</svg>'
+
+
+def _bilan_card():
+    TIERS = (("Value", "var(--acc)", ("value", "prop")), ("Safe", "#60a5fa", ("safe",)), ("Meilleur prix", "var(--warn)", ("best",)))
+    done = sorted((p for p in PJ.load()["picks"] if p.get("result") in ("win", "loss")), key=lambda p: p["ko"])
+    lines, legend = [], ""
+    for lab, col, kinds in TIERS:
+        cum, L = 0.0, []
+        for p in done:
+            if p.get("kind") in kinds: cum += p["units"]; L.append(round(cum, 2))
+        s = PJ.stats(kinds)
+        if L: lines.append((lab, col, L))
+        legend += (f'<span class="td-lg"><i style="background:{col}"></i>{lab} : ' + (
+            f'{s["w"]}-{s["n"] - s["w"]}, <b>{"+" if s["units"] >= 0 else ""}{_fr(s["units"], 1)} u</b> '
+            f'(ROI {100 * s["roi"]:+.0f} %)' + (f' · CLV {100 * s["clv"]:+.1f} %'.replace(".", ",") if s.get("clv") is not None else "")
+            if s else '<span class="eb-dim">pas encore de pari réglé</span>') + '</span>')
+    curve = (_curve_svg(lines) if lines else
+             '<p class="td-none">La courbe démarre au premier pari réglé du canal (picks postés depuis le 04/11).</p>')
+    pairs = _calib_pairs()
+    fb, nb = _bins(pairs, "foot"), _bins(pairs, "nba")
+    nf, nn = sum(s == "foot" for s, _, _ in pairs), sum(s == "nba" for s, _, _ in pairs)
+    flags = []
+    for lab, B in (("foot", fb), ("NBA", nb)):
+        for mp, ob, n, ci in B:
+            if n >= 30 and abs(ob - mp) > ci:
+                flags.append(f'{lab} : annoncé {round(100 * mp)} %, arrivé {round(100 * ob)} % ({n} cas) → '
+                             + ("trop confiante" if ob < mp else "trop prudente"))
+    calib = ""
+    if fb or nb:
+        calib = ('<div class="td-sub">Fiabilité de ma simulation <small>probabilité annoncée (horizontal) contre '
+                 'fréquence réelle (vertical)</small></div>'
+                 + _calib_svg([s for s in (("Foot", "var(--acc)", fb), ("NBA", "var(--warn)", nb)) if s[2]])
+                 + '<div class="td-lgs"><span class="td-lg"><i style="background:var(--acc)"></i>Foot · '
+                 f'{nf} prévisions (1X2, +2,5 buts, les deux marquent)</span><span class="td-lg"><i style="background:var(--warn)">'
+                 f'</i>NBA · {nn} prévisions (vainqueur)</span></div>'
+                 '<p class="eb-note">Sur la diagonale = fiable. Barre = marge d’erreur à 95 % (peu de matchs : elle est large). '
+                 + ("Écart net : " + " ; ".join(flags) + ". " if flags else "Aucun écart net à ce jour. ")
+                 + 'Les picks du jour n’utilisent pas ces pourcentages bruts : ils partent de la cote juste Pinnacle, '
+                 'recalée sur les résultats réels.</p>')
+    return ('<div class="eb-card"><h3 class="eb-h">📈 Bilan et fiabilité <small>est-ce que ça marche ?</small></h3>'
+            '<div class="td-sub">Canal Picks : gains cumulés par palier <small>1 unité par pari</small></div>'
+            f'{curve}<div class="td-lgs">{legend}</div>'
+            '<p class="eb-note">CLV = cote prise comparée à la dernière cote juste avant le match : positive, on bat le marché '
+            '(meilleur signe à long terme que le résultat de quelques paris).</p>'
+            f'{calib}</div>')
+
+
 CSS = """<style>
+.td-svg{width:100%;max-width:520px;height:auto;display:block;margin:8px 0 4px}
+.td-ax{font:10px var(--mono);fill:var(--mu)}
+.td-sub{font-weight:600;font-size:14.5px;margin:14px 0 2px}
+.td-sub:first-of-type{margin-top:0}
+.td-sub small{font:11.5px var(--mono);color:var(--mu);font-weight:400;margin-left:6px}
+.td-lgs{display:flex;flex-direction:column;gap:4px;font-size:12.5px;color:var(--mu)}
+.td-lg i{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:6px;vertical-align:-1px}
 .td-head{display:flex;justify-content:space-between;align-items:baseline;gap:10px;flex-wrap:wrap;margin:0 0 14px}
 .td-head h2{font-size:22px;font-weight:600;margin:0;letter-spacing:-.4px}
 .td-grid{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:16px;align-items:start}
@@ -217,6 +342,14 @@ window.spToday=function(sp,id){
 </script>"""
 
 
+def _safe(f):
+    try:
+        return f()
+    except Exception as e:
+        print(f"  [!] Aujourd'hui : {f.__name__} indisponible ({type(e).__name__}: {e})")
+        return ""
+
+
 def build_today_section(now=None):
     now = now or datetime.now(timezone.utc)
     sims, nba = _games()
@@ -231,7 +364,7 @@ def build_today_section(now=None):
             f'<div class="td-head"><h2>{JOURS[loc.weekday()].capitalize()} {loc.day} {MOIS[loc.month - 1]}</h2>'
             f'<span class="eb-meta">mis à jour à {loc:%H:%M}</span></div>'
             f'<div class="td-grid"><div class="td-col">{picks}{_bank_card()}</div>'
-            f'<div class="td-col">{_matches_card(now, sims, nba)}</div></div></div>'
+            f'<div class="td-col">{_matches_card(now, sims, nba)}{_safe(_bilan_card)}</div></div></div>'
             + CSS + SCRIPT + '<!--eb:end-->')
 
 

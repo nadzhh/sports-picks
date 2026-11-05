@@ -237,12 +237,31 @@ def resolve(box=None, now=None):
     return n
 
 
+def update_close(now=None):
+    """Derniere probabilite sans marge vue avant le match pour chaque pick poste encore ouvert (CLV = cote prise x
+    cette probabilite - 1, meme methode que le labo des strategies). Appele a chaque cycle de la veille (05/11/2026)."""
+    now = now or datetime.now(timezone.utc)
+    st = load()
+    todo = [p for p in st["picks"] if not p.get("result") and _t(p["ko"]) > now]
+    if not todo: return 0
+    cur = {(x["match_id"], x["label"]): x["p_fair"]
+           for x in value_candidates(now, 48, min_ev=-9) + prop_candidates(now, 48, min_ev=-9)}
+    n = 0
+    for p in todo:
+        q = cur.get((p["match_id"], p["label"]))
+        if q and q != p.get("last_p"): p["last_p"] = q; n += 1
+    if n: PATH.write_text(json.dumps(st, ensure_ascii=False, indent=0), encoding="utf-8")
+    return n
+
+
 def stats(kinds=("value", "prop")):
     done = [p for p in load()["picks"] if p.get("result") in ("win", "loss") and p.get("kind") in kinds]
     if not done: return None
     w = sum(p["result"] == "win" for p in done)
     u = sum(p["units"] for p in done)
-    return {"n": len(done), "w": w, "units": round(u, 2), "roi": u / len(done), "since": min(p["day"] for p in done)}
+    clv = [p["price"] * p["last_p"] - 1 for p in done if p.get("last_p")]
+    return {"n": len(done), "w": w, "units": round(u, 2), "roi": u / len(done), "since": min(p["day"] for p in done),
+            "clv": sum(clv) / len(clv) if clv else None, "clv_n": len(clv)}
 
 
 # ─── Message ─────────────────────────────────────────────────────────────────

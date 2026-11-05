@@ -302,6 +302,11 @@ class Live:
             import strategy_lab as SL
             n = SL.decide()
             SL.update_prices()
+            try:   # CLV des picks postes sur le canal (05/11/2026)
+                import picks_du_jour as PJ
+                PJ.update_close()
+            except Exception as e:
+                print(f"  [!] CLV picks du jour : {type(e).__name__}: {e}")
             return f"labo des strategies : {n} paris" if n else ""
         except Exception as e:
             print(f"  [!] labo : {type(e).__name__}: {e}")
