@@ -298,6 +298,11 @@ def run(k=8, sims=1000, dry=False, workers=4):
         rep["notes"] += adjust_stakes(P)
     except Exception as e:
         rep["notes"].append(f"mises : {type(e).__name__}: {e}")
+    try:   # objectif de Wilson : series de 10 paris positives (series10.py)
+        import series10
+        rep["series"] = series10.text()
+    except Exception as e:
+        rep["series"] = [f"series : {type(e).__name__}: {e}"]
     try:   # lecons de la veille : bilan, suivi par type de pari, exclusions / reintegrations
         rep["lecons"] = lessons(P)
         rep["notes"] += rep["lecons"]["notes"]
@@ -340,6 +345,7 @@ def summary(rep):
         w = sum(r["win"] for r in L["hier"])
         lines.append(f"\nVeille : {w}/{len(L['hier'])} gagnés (attendu {sum(r['p'] for r in L['hier']):.1f}).")
         lines += [f"{'✅' if r['win'] else '❌'} {r['label']} @ {r['price']:.2f} ({round(100 * r['p'])} % annoncé)" for r in L["hier"][:8]]
+    lines += [f"🔟 {x}" for x in rep.get("series") or []]
     pr = L.get("props") or {}
     if pr.get("n"):
         lines.append(f"Props du soir : {pr['w']}/{pr['n']} gagnées (attendu {pr['exp']:.1f}) sur {pr['matchs']} match(s) : "
