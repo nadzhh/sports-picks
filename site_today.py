@@ -258,8 +258,17 @@ def _bot_card():
     a = r.get("adopted")
     head = (f'✅ Adopté cette nuit : <b>{_e(a["param"])}</b> {_e(a["from"])} → {_e(a["to"])}' if a else
             f'{len(r.get("tried") or [])} réglages essayés, aucun n’améliore les deux saisons : rien ne change.')
-    hist = "".join(f'<li>{_e(h["at"][8:10])}/{_e(h["at"][5:7])} : {_e(h["param"])} {_e(h["from"])} → {_e(h["to"])}</li>' for h in reversed(H))
-    notes = "".join(f"<li>{_e(n)}</li>" for n in r.get("notes") or [])
+    hist = "".join(f'<li>{_e(h["at"][8:10])}/{_e(h["at"][5:7])} : {"🏀 " if h.get("sport") == "nba" else "⚽ "}'
+                   f'{_e(h["param"])} {_e(h["from"])} → {_e(h["to"])}</li>' for h in reversed(H))
+    N = r.get("nba") or {}
+    if N.get("tried") or N.get("notes"):
+        b = N.get("adopted")
+        head += ("<br>🏀 NBA : " + (f'✅ adopté <b>{_e(b["param"])}</b> {_e(b["from"])} → {_e(b["to"])}' if b else
+                 f'{len(N.get("tried") or [])} réglages essayés, aucun n’améliore les deux échantillons.'))
+        gap += "".join(f'<div class="eb-row"><span>🏀 props {_e(k)}</span><span>simu {_fr(v[0], 4)} · bookmaker {_fr(v[1], 4)} '
+                       f'<span class="eb-dim">({v[2]} props)</span></span></div>'
+                       for k, v in (N.get("gap") or {}).items() if v)
+    notes = "".join(f"<li>{_e(n)}</li>" for n in (r.get("notes") or []) + (N.get("notes") or []))
     L = r.get("lecons") or {}
     if L.get("hier"):
         w = sum(x["win"] for x in L["hier"])
@@ -274,11 +283,12 @@ def _bot_card():
     return ('<div class="eb-card"><h3 class="eb-h">🤖 Bot d’amélioration <small>nuit du ' + _e((r.get("at") or "")[8:10]) + "/"
             + _e((r.get("at") or "")[5:7]) + '</small></h3>'
             f'<p class="td-none" style="color:var(--tx)">{head}</p>'
-            '<div class="td-sub">Écart au marché <small>log-loss 1X2, plus bas = meilleur ; l’objectif est de passer sous Pinnacle</small></div>'
+            '<div class="td-sub">Écart au marché <small>log-loss (1X2 foot, props NBA), plus bas = meilleur ; l’objectif est de passer sous le marché</small></div>'
             f'<div class="eb-list2">{gap}</div>'
             + (f'<ul class="vd-why">{notes}</ul>' if notes else "")
             + (f'<div class="td-sub">Réglages adoptés</div><ul class="vd-why">{hist}</ul>' if hist else "")
-            + '<p class="eb-note">Chaque nuit, le bot rejoue deux saisons de matchs avec la simulation (sans information '
+            + '<p class="eb-note">Chaque nuit, le bot rejoue deux saisons de matchs (foot) et deux échantillons de vraies cotes '
+              'de props (NBA) avec la simulation (sans information '
               'postérieure au coup d’envoi), essaie des réglages voisins un par un et n’en garde un que s’il prévoit mieux '
               'les DEUX saisons. Il recale aussi les pourcentages et baisse la mise d’un palier de picks dont la CLV réelle '
               'est négative. Il ne touche jamais au code, seulement à des valeurs (retour arrière possible).</p></div>')

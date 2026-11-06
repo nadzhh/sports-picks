@@ -35,6 +35,22 @@ jobs:
           path: data/foot_db
           key: foot-db-improve-${{ github.run_id }}
           restore-keys: foot-db-
+      # base NBA constituee par la veille (lecture seule) + cotes de props historiques (ESPN) gardees entre les nuits
+      - uses: actions/cache/restore@v4
+        with:
+          path: data/nba_db
+          key: nba-db-improve-${{ github.run_id }}
+          restore-keys: |
+            nba-db-live-
+            nba-db-
+      - name: Cache cotes props NBA
+        uses: actions/cache@v4
+        with:
+          path: |
+            data/nba_db/props_2026.json
+            data/nba_db/props_2027.json
+          key: nba-props-${{ github.run_id }}
+          restore-keys: nba-props-
       - name: Nuit d'amelioration
         env:
           PYTHONIOENCODING: utf-8

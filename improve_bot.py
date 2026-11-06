@@ -18,7 +18,7 @@ Garde-fous : jamais de changement de code, seulement des valeurs dans data/model
 adopte par nuit ; seuils au-dessus du bruit (memes tirages pour toutes les variantes).
 Usage : python improve_bot.py [--candidates 8] [--sims 1000] [--dry]
 """
-import argparse, hashlib, json, math, os, subprocess, sys, time
+import argparse, hashlib, json, math, os, subprocess, sys, time, traceback
 from concurrent.futures import ThreadPoolExecutor
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
@@ -32,6 +32,7 @@ SPACE = {"rest_w": (0.05, -0.3, 0.3), "cong_w": (0.03, -0.2, 0.2), "hl_days": (4
          "home_boost": (0.02, 0.9, 1.1), "k_cup": (4.0, 2, 40), "goal_w": (0.1, 0.0, 0.6), "k_share": (300.0, 200, 3000)}
 MIN_GAIN, MIN_SUM = 0.0004, 0.0012       # gain minimal de score par saison et au total (memes tirages : bruit ~1e-4)
 STAKE_MIN_N, STAKE_CUT = 40, -0.02
+FOOT_MIN_ROWS = 500                     # matchs rejoues minimum par saison pour juger un reglage
 
 
 def _now():
@@ -251,18 +252,19 @@ def lessons(params, now=None):
             "segments": table[:12], "exclus": sorted(ex), "notes": notes}
 
 
-# ─── Nuit ────────────────────────────────────────────────────────────────────
-def run(k=8, sims=1000, dry=False, workers=4):
-    t0 = time.time()
-    P = load_params()
-    cur = dict(defaults(), **(P.get("foot") or {}))
-    rep = {"at": _now().isoformat(timespec="minutes"), "sims": sims, "tried": [], "adopted": None, "notes": []}
+def foot_round(P, rep, cur, k, sims, workers, dry):
+    """Une nuit de reglage foot (modifie P et rep)."""
     cands, nxt = candidates(cur, k, P.get("next", 0))
     variants = [("base", None, cur)] + [(name, v, dict(cur, **{name: v})) for name, v in cands]
     with ThreadPoolExecutor(max_workers=workers) as pool:   # chaque (variante, saison) = un processus
         futs = {(i, s): pool.submit(run_backtest, prm, s, a, b, sims)
                 for i, (_, _, prm) in enumerate(variants) for s, a, b in SEASONS}
         rows = {key: f.result() for key, f in futs.items()}
+    thin = [s for s, _, _ in SEASONS if len(rows[(0, s)]) < FOOT_MIN_ROWS]
+    if thin:   # base foot du CI incomplete : on ne juge rien sur un echantillon trop petit
+        rep["notes"].append(f"foot : moins de {FOOT_MIN_ROWS} matchs rejoues sur {', '.join(thin)} "
+                            f"({', '.join(str(len(rows[(0, s)])) for s in thin)}), aucun reglage juge cette nuit")
+        return
     base_rows = {s: rows[(0, s)] for s, _, _ in SEASONS}
     base = {s: round(score(R), 5) for s, R in base_rows.items()}
     rep["base"] = base
@@ -294,6 +296,140 @@ def run(k=8, sims=1000, dry=False, workers=4):
         else:
             rep["notes"].append("recalage : pas de gain stable en validation croisee, valeurs gardees")
             if not dry: P["foot_calib_for"] = key
+
+
+# ─── NBA (06/11/2026, Wilson : « ok pour les points 1 a 4 » -> le bot regle aussi la simulation NBA) ───────────
+# Mesure : backtest « aveugle » de nba_backtest (sans fuite : effectif du match precedent, pas de ligne Vegas)
+# contre les VRAIES cotes de props (ESPN BET 2025-26, DraftKings 2026-27), log-loss de P(over) simulee.
+# Meme regle que le foot : un parametre a la fois, adopte seulement s'il ameliore LES DEUX echantillons.
+NBA_SAMPLES = (("2025-26", 2026), ("2026-27", 2027))
+NBA_SPACE = {"usage_pow": (0.05, 0.9, 1.5), "ast_pow": (0.05, 0.9, 1.5), "hl_rates": (5.0, 10, 80),
+             "hl_minutes": (1.0, 2, 12), "k_usage": (30.0, 30, 400), "usage_k": (2.0, 4, 40),
+             "min_sd_scale": (0.1, 0.5, 1.5), "wowy_min": (0.1, 0.0, 1.0), "mkt_min_alpha": (0.1, 0.0, 1.0),
+             "blowout_slope": (0.002, 0.0, 0.02), "vol_c": (0.1, 0.0, 1.0), "shoot_c": (0.1, 0.3, 1.5)}
+NBA_MIN_GAIN, NBA_MIN_SUM, NBA_MIN_PROPS = 0.0005, 0.0012, 1000
+NBA_DB = Path("data/nba_db")
+
+
+def nba_defaults():
+    from nba_sim import P   # valeurs du code + reglages deja adoptes (cle "nba")
+    return dict(P)
+
+
+def _nba_stamp(year):
+    """Taille des fichiers de la saison : les resultats en cache sont refaits des qu'il y a de nouveaux matchs."""
+    return "-".join(str((NBA_DB / f).stat().st_size) if (NBA_DB / f).exists() else "0"
+                    for f in (f"box_{year - 1}.json", f"box_{year}.json", f"props_{year}.json"))
+
+
+def nba_backtest(params, year, sims):
+    """[(p_sim, p_marche, over reel)] sur les vraies lignes (poussees exclues), via nba_backtest.py --blind."""
+    h = hashlib.sha1((json.dumps(params, sort_keys=True) + _nba_stamp(year)).encode()).hexdigest()[:10]
+    label = f"bot_nba_{year}_{h}"
+    out = NBA_DB / f"backtest_{label}.json"
+    if not out.exists():
+        cmd = [sys.executable, "nba_backtest.py", "--year", str(year), "--params", json.dumps(params),
+               "--sims", str(sims), "--blind", "--label", label]
+        r = subprocess.run(cmd, capture_output=True, text=True, env=dict(os.environ, PYTHONIOENCODING="utf-8"))
+        if r.returncode or not out.exists():
+            raise RuntimeError(f"backtest {label} : {r.stderr[-300:]}")
+    D = json.loads(out.read_text(encoding="utf-8"))
+    return [(r["p_sim"], r["p_mkt"], r["actual"] > r["line"]) for r in D.get("real") or [] if r["actual"] != r["line"]]
+
+
+def nba_score(rows):
+    return sum(_ll(p, y) for p, _, y in rows) / max(len(rows), 1)
+
+
+def nba_gap(rows):
+    if not rows: return None
+    return round(nba_score(rows), 4), round(sum(_ll(m, y) for _, m, y in rows) / len(rows), 4), len(rows)
+
+
+def nba_refresh():
+    """Cotes de props historiques (ESPN, gratuit) : saison en cours mise a jour chaque nuit (incremental),
+    2025-26 recuperee une fois puis gardee dans le cache CI."""
+    notes = []
+    for _, y in NBA_SAMPLES:
+        if not (NBA_DB / f"box_{y}.json").exists():
+            notes.append(f"NBA : base des matchs {y - 1}-{str(y)[2:]} absente"); continue
+        if y < NBA_SAMPLES[-1][1] and (NBA_DB / f"props_{y}.json").exists(): continue
+        try:
+            subprocess.run([sys.executable, "nba_props_hist.py", str(y)], capture_output=True, text=True, timeout=5400,
+                           env=dict(os.environ, PYTHONIOENCODING="utf-8"))
+        except Exception as e:
+            notes.append(f"NBA : cotes de props {y} non mises a jour ({type(e).__name__})")
+    return notes
+
+
+def nba_round(P, rep, k=4, sims=1000, workers=4, dry=False):
+    """Une nuit de reglage NBA ; modifie P (cle "nba", "next_nba", "history") sauf en --dry."""
+    R = {"tried": [], "adopted": None, "notes": nba_refresh()}
+    rep["nba"] = R
+    samples = [(s, y) for s, y in NBA_SAMPLES if (NBA_DB / f"props_{y}.json").exists() and (NBA_DB / f"box_{y}.json").exists()]
+    if len(samples) < 2:
+        R["notes"].append("NBA : il faut les deux echantillons de vraies cotes pour juger un reglage, essai reporte")
+        return R
+    cur = nba_defaults()
+    names = list(NBA_SPACE)
+    cands, i0 = [], P.get("next_nba", 0)
+    for j in range(len(names)):
+        name = names[(i0 + j) % len(names)]
+        step, lo, hi = NBA_SPACE[name]
+        cands += [(name, round(cur[name] + sg * step, 4)) for sg in (-1, 1) if lo <= round(cur[name] + sg * step, 4) <= hi]
+        if len(cands) >= k: break
+    cands = cands[:k]
+    variants = [("base", None, cur)] + [(n, v, dict(cur, **{n: v})) for n, v in cands]
+    with ThreadPoolExecutor(max_workers=workers) as pool:
+        futs = {(i, s): pool.submit(nba_backtest, prm, y, sims) for i, (_, _, prm) in enumerate(variants) for s, y in samples}
+        rows = {key: f.result() for key, f in futs.items()}
+    small = [s for s, _ in samples if len(rows[(0, s)]) < NBA_MIN_PROPS]
+    base = {s: round(nba_score(rows[(0, s)]), 5) for s, _ in samples}
+    R["base"], R["gap"] = base, {s: nba_gap(rows[(0, s)]) for s, _ in samples}
+    for i, (name, v, _) in enumerate(variants[1:], 1):
+        sc = {s: round(nba_score(rows[(i, s)]), 5) for s, _ in samples}
+        gains = {s: round(base[s] - sc[s], 5) for s in base}
+        R["tried"].append({"param": name, "from": cur[name], "to": v, "score": sc, "gain": gains})
+        print(f"  NBA essai {name} {cur[name]} -> {v} : gains {gains}", flush=True)
+    P["next_nba"] = (i0 + j + 1) % len(names)
+    if small:
+        R["notes"].append(f"NBA : moins de {NBA_MIN_PROPS} props sur {', '.join(small)}, rien n'est adopte")
+        return R
+    ok = [r for r in R["tried"] if all(g >= NBA_MIN_GAIN for g in r["gain"].values()) and sum(r["gain"].values()) >= NBA_MIN_SUM]
+    if ok:
+        best = max(ok, key=lambda r: sum(r["gain"].values()))
+        R["adopted"] = best
+        if not dry:
+            P.setdefault("history", []).append({"at": rep["at"], "sport": "nba", "param": best["param"], "from": best["from"],
+                                                 "to": best["to"], "gain": best["gain"], "base": base})
+            P.setdefault("nba", {})[best["param"]] = best["to"]
+    return R
+
+
+def _cleanup_nba():
+    for f in NBA_DB.glob("backtest_bot_nba_*.json"):
+        if time.time() - f.stat().st_mtime > 2 * 86400: f.unlink()
+
+
+# ─── Nuit ────────────────────────────────────────────────────────────────────
+def run(k=8, sims=1000, dry=False, workers=4, nba_k=4):
+    t0 = time.time()
+    P = load_params()
+    cur = dict(defaults(), **(P.get("foot") or {}))
+    rep = {"at": _now().isoformat(timespec="minutes"), "sims": sims, "tried": [], "adopted": None, "notes": []}
+    try:
+        foot_round(P, rep, cur, k, sims, workers, dry)
+    except Exception as e:
+        rep["notes"].append(f"foot : erreur {type(e).__name__}: {e}"[:400])
+        rep["trace"] = traceback.format_exc()[-1500:]
+        print(rep["trace"], flush=True)
+    if nba_k:
+        try:
+            nba_round(P, rep, nba_k, sims, workers, dry)
+        except Exception as e:
+            rep.setdefault("nba", {"tried": [], "adopted": None, "notes": []})["notes"].append(f"NBA : {type(e).__name__}: {e}"[:300])
+            rep["trace_nba"] = traceback.format_exc()[-1500:]
+            print(rep["trace_nba"], flush=True)
     try:
         rep["notes"] += adjust_stakes(P)
     except Exception as e:
@@ -317,9 +453,11 @@ def run(k=8, sims=1000, dry=False, workers=4):
         pass
     if not dry:
         save_params(P)
-        REPORT_PATH.write_text(json.dumps({"last": rep, "nights": (hist + [{k2: rep[k2] for k2 in ("at", "base", "gap", "adopted", "notes")}])[-60:]},
+        night = {k2: rep.get(k2) for k2 in ("at", "base", "gap", "adopted", "notes")}
+        if rep.get("nba"): night["nba"] = {k2: rep["nba"].get(k2) for k2 in ("base", "gap", "adopted")}
+        REPORT_PATH.write_text(json.dumps({"last": rep, "nights": (hist + [night])[-60:]},
                                           ensure_ascii=False, indent=1), encoding="utf-8")
-    _cleanup()
+    _cleanup(); _cleanup_nba()
     return rep
 
 
@@ -340,6 +478,14 @@ def summary(rep):
               if a else "Aucun réglage n'améliore les deux saisons : rien ne change (c'est voulu)."),
              f"Écart au marché (log-loss 1X2) : {gap}"]
     lines += [f"• {n}" for n in rep.get("notes") or []]
+    N = rep.get("nba") or {}
+    if N.get("tried") or N.get("notes"):
+        b = N.get("adopted")
+        ng = " ; ".join(f"{s} : simu {v[0]:.4f} / bookmaker {v[1]:.4f} ({v[2]} props)" for s, v in (N.get("gap") or {}).items() if v)
+        lines.append(f"🏀 NBA : {len(N.get('tried') or [])} réglages essayés · "
+                     + (f"✅ adopté <b>{b['param']}</b> {b['from']} → {b['to']}" if b else "aucun n'améliore les deux échantillons"))
+        if ng: lines.append(f"Écart au marché props (log-loss) : {ng}")
+        lines += [f"• {n}" for n in N.get("notes") or []]
     L = rep.get("lecons") or {}
     if L.get("hier"):
         w = sum(r["win"] for r in L["hier"])
@@ -362,9 +508,15 @@ if __name__ == "__main__":
     ap.add_argument("--sims", type=int, default=1000)
     ap.add_argument("--workers", type=int, default=4)
     ap.add_argument("--dry", action="store_true")
+    ap.add_argument("--nba-candidates", type=int, default=4, help="reglages NBA essayes par nuit (0 = pas de NBA)")
+    ap.add_argument("--only-nba", action="store_true", help="test : seulement la partie NBA (sans ecrire)")
     ap.add_argument("--telegram", action="store_true", help="envoie le resume (le dimanche, en CI)")
     a = ap.parse_args()
-    rep = run(a.candidates, a.sims, a.dry, a.workers)
+    if a.only_nba:
+        rep = {"at": _now().isoformat(timespec="minutes")}
+        print(json.dumps(nba_round(load_params(), rep, a.nba_candidates, a.sims, a.workers, dry=True), ensure_ascii=False, indent=1))
+        sys.exit(0)
+    rep = run(a.candidates, a.sims, a.dry, a.workers, a.nba_candidates)
     txt = summary(rep)
     print(txt)
     if a.telegram and _now().weekday() == 6 and os.environ.get("GITHUB_ACTIONS"):

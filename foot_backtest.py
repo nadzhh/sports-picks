@@ -32,8 +32,11 @@ def load_odds(lid, season):
     p = FD_DIR / f"{FD[lid]}_{_season_code(season)}.csv"
     if not p.exists():
         url = f"https://www.football-data.co.uk/mmz4281/{_season_code(season)}/{FD[lid]}.csv"
-        raw = urllib.request.urlopen(urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0"}), timeout=30).read()
-        p.write_bytes(raw)
+        try:
+            raw = urllib.request.urlopen(urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0"}), timeout=30).read()
+        except Exception as e:   # site indisponible / bloque : backtest sans cotes (pas d'ecart au marche) plutot qu'un arret
+            print(f"[!] cotes football-data {p.name} indisponibles : {type(e).__name__}", file=sys.stderr); return []
+        tmp = p.with_suffix(".part"); tmp.write_bytes(raw); tmp.replace(p)   # ecriture atomique (backtests en parallele)
     txt = p.read_bytes().decode("utf-8-sig", "ignore")
     return [r for r in csv.DictReader(io.StringIO(txt)) if r.get("HomeTeam")]
 

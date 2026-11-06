@@ -328,7 +328,9 @@ class Live:
             api = f"https://api.github.com/repos/{repo}/actions/workflows/improve.yml"
             runs = requests.get(f"{api}/runs", params={"created": f">={day}"}, headers=h, timeout=20).json()
             self._kicked = day
-            if runs.get("total_count"): return ""
+            R = runs.get("workflow_runs") or []
+            # deja lance (en cours ou reussi), ou deja relance une fois apres un echec : rien
+            if any(x.get("conclusion") != "failure" for x in R) or len(R) >= 2: return ""
             r = requests.post(f"{api}/dispatches", json={"ref": "master"}, headers=h, timeout=20)
             print(f"  [bot] relance du bot d'amelioration : HTTP {r.status_code}")
             return "bot d'amelioration relance" if r.status_code == 204 else ""

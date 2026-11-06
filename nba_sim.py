@@ -37,7 +37,9 @@ P = {
     "prior_season_w":  0.5,    # poids des matchs de la saison precedente
     "ridge_eff":       8.0,    # retrait des notes off/def (en matchs equivalents)
     "ridge_pace":      8.0,
-    "w_vegas":         0.75,   # poids des lignes Vegas dans le score attendu
+    "w_vegas":         1.0,    # poids des lignes Vegas dans le score attendu (06/11/2026, nba_impact_validate : erreur
+                               # sur l'ecart 2025-26 11.242 -> 11.192 et 2026-27 11.076 -> 10.949 en passant de 0.75 a 1.0 ;
+                               # le modele d'equipe n'ajoute rien a Vegas, il reste la reference quand la ligne manque)
     "hl_rates":        30.0,   # demi-vie (matchs) des taux joueur
     "hl_minutes":      4.0,    # demi-vie (matchs) des minutes
     "min_long_w":      0.0,    # part d'une moyenne longue (demi-vie min_long_hl) dans les minutes attendues.
@@ -88,6 +90,21 @@ P = {
     "wowy_start":      3.0,
                                # (gain faible : le marche integre deja l'essentiel de l'effet adversaire)
 }
+
+def _learned():
+    """Reglages adoptes par le bot de nuit (improve_bot.py, cle "nba" de data/model_params.json) : seules les cles
+    connues de P sont prises ; fichier absent ou illisible = valeurs ci-dessus."""
+    import json, os
+    try:
+        with open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "data", "model_params.json"), encoding="utf-8") as f:
+            L = json.load(f).get("nba") or {}
+        return {k: float(v) for k, v in L.items() if k in P and isinstance(v, (int, float))}
+    except (OSError, ValueError, AttributeError):
+        return {}
+
+
+P_CODE = dict(P)          # valeurs du code (avant le bot), pour le rapport et un retour arriere
+P.update(_learned())
 
 LEAGUE = {  # valeurs par defaut, recalculees sur les donnees
     "pace": 100.0, "eff": 114.0, "v2": 0.50, "v3": 0.38, "vft": 0.24, "vto": 0.13,
