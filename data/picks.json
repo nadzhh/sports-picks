@@ -35,9 +35,9 @@
         "cote_estimee": true,
         "cote_reference": 1.45,
         "ecart_calibration": -7.0,
-        "rang_jour": 3,
-        "cumul_pct": 11.0,
-        "hors_budget": true
+        "rang_jour": 2,
+        "cumul_pct": 6.0,
+        "hors_budget": false
       }
     ],
     "home_players": [],
@@ -71,9 +71,9 @@
       "cote_estimee": true,
       "cote_reference": 1.45,
       "ecart_calibration": -7.0,
-      "rang_jour": 3,
-      "cumul_pct": 11.0,
-      "hors_budget": true
+      "rang_jour": 2,
+      "cumul_pct": 6.0,
+      "hors_budget": false
     },
     "no_picks": false,
     "context": {
@@ -134,8 +134,8 @@
         "cote_estimee": true,
         "cote_reference": 1.45,
         "ecart_calibration": -2.0,
-        "rang_jour": 2,
-        "cumul_pct": 8.0,
+        "rang_jour": 1,
+        "cumul_pct": 3.0,
         "hors_budget": false
       },
       {
@@ -164,8 +164,8 @@
         "valeur_pct": null,
         "cote_estimee": false,
         "ecart_calibration": 3.5,
-        "rang_jour": 18,
-        "cumul_pct": 56.0,
+        "rang_jour": 8,
+        "cumul_pct": 24.0,
         "hors_budget": true
       },
       {
@@ -195,8 +195,8 @@
         "valeur_pct": null,
         "cote_estimee": false,
         "ecart_calibration": -27.7,
-        "rang_jour": 92,
-        "cumul_pct": 167.5,
+        "rang_jour": 35,
+        "cumul_pct": 63.5,
         "hors_budget": true
       }
     ],
@@ -231,8 +231,8 @@
       "cote_estimee": true,
       "cote_reference": 1.45,
       "ecart_calibration": -2.0,
-      "rang_jour": 2,
-      "cumul_pct": 8.0,
+      "rang_jour": 1,
+      "cumul_pct": 3.0,
       "hors_budget": false
     },
     "no_picks": false,
@@ -256,166 +256,6 @@
         "summary_fr": "☁️ couvert · 6–14°C · humidité 65%"
       },
       "text": "Conditions : ☁️ couvert · 6–14°C · humidité 65%. Stade : AIL Arena · 8 793 places · plein air."
-    }
-  },
-  {
-    "league": "Europa League",
-    "home": "Milan",
-    "away": "Ferencváros",
-    "start_ts": 1793900700,
-    "match_id": "6112255",
-    "page_url": "/matches/ferencvaros-vs-milan/2bw0kf#6112255",
-    "picks": [
-      {
-        "direction": "away_dc",
-        "type": "Double chance",
-        "label": "Nul ou Ferencváros (X2)",
-        "cote": 3.0,
-        "confidence": 89,
-        "reasoning": "Ferencváros invaincu 100% sur 5 derniers matchs · H2H: 0/0 matchs sans défaite · Classement: #2 (away) vs #20 (home)\n📉 Calibration : bucket 80-89% historiquement à WR 56% (claim 82%, n=63) — sur-estimé de 26pp",
-        "stats": {
-          "form": [
-            "W",
-            "W",
-            "W",
-            "D",
-            "W"
-          ]
-        },
-        "is_fun": false,
-        "tier": "fun",
-        "calibration_delta": -26.0,
-        "edge_pp": 55.7,
-        "history_top3": true,
-        "p_cal": 82.0,
-        "statut_marche": "RETENU",
-        "mise_pct": 5.0,
-        "mise_label": "5 %",
-        "valeur_pct": 146.0,
-        "cote_estimee": false,
-        "ecart_calibration": -7.0,
-        "rang_jour": 1,
-        "cumul_pct": 5.0,
-        "hors_budget": false
-      },
-      {
-        "direction": "shots_under_26.5",
-        "type": "Tirs (total match)",
-        "label": "Moins de 26.5 tirs total",
-        "cote": null,
-        "cote_min": 1.34,
-        "value": [
-          "💎",
-          "Value correcte",
-          "#84cc16"
-        ],
-        "confidence": 75,
-        "reasoning": "📊 Brut : Milan L10 TCC 11.7 (L5 TCC 9.6) tirs/m · Ferencváros L10 TCC 15.8 (L5 TCC 17.6) tirs/m\n🛡️ Défenses : Milan concède 13.5/m · Ferencváros concède 7.9/m\n🎯 Attendu : Milan ~7.4 · Ferencváros ~16.0 → total ~23.4\n⚖️ Ferencváros favori (#2 vs #20) · Milan forme : W-L-W-L-W · Ferencváros forme : W-W-W-D-W\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
-        "stats": {
-          "expected_total": 23.4
-        },
-        "tier": "safe",
-        "calibration_delta": -11.3,
-        "history_top3": true,
-        "p_cal": 62.5,
-        "statut_marche": "RETENU",
-        "mise_pct": 3.0,
-        "mise_label": "3 %",
-        "valeur_pct": null,
-        "cote_estimee": false,
-        "ecart_calibration": -12.5,
-        "rang_jour": 27,
-        "cumul_pct": 83.0,
-        "hors_budget": true
-      },
-      {
-        "direction": "tirs_cadrés_(milan)_under_4.5",
-        "type": "Tirs cadrés (Milan)",
-        "label": "Moins de 4.5 tirs cadrés Milan",
-        "cote": null,
-        "cote_min": 1.28,
-        "value": [
-          "⚠️",
-          "Value serrée",
-          "#f59e0b"
-        ],
-        "confidence": 78,
-        "edge": null,
-        "reasoning": "Milan prend 4.5/m [pondere vs opp #2] · adv. concède 2.9/m → attendu ~3.2 (Ferencváros favori (#2 vs #20))\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
-        "stats": {
-          "expected": 3.2
-        },
-        "tier": "safe",
-        "calibration_delta": -11.3,
-        "history_top3": false,
-        "p_cal": 47.3,
-        "statut_marche": "SURVEILLE",
-        "mise_pct": 0.5,
-        "mise_label": "0.5 %",
-        "valeur_pct": null,
-        "cote_estimee": false,
-        "ecart_calibration": -30.7,
-        "rang_jour": 65,
-        "cumul_pct": 154.0,
-        "hors_budget": true
-      }
-    ],
-    "home_players": [],
-    "away_players": [],
-    "fun_picks": [],
-    "top_pick": {
-      "direction": "away_dc",
-      "type": "Double chance",
-      "label": "Nul ou Ferencváros (X2)",
-      "cote": 3.0,
-      "confidence": 89,
-      "reasoning": "Ferencváros invaincu 100% sur 5 derniers matchs · H2H: 0/0 matchs sans défaite · Classement: #2 (away) vs #20 (home)\n📉 Calibration : bucket 80-89% historiquement à WR 56% (claim 82%, n=63) — sur-estimé de 26pp",
-      "stats": {
-        "form": [
-          "W",
-          "W",
-          "W",
-          "D",
-          "W"
-        ]
-      },
-      "is_fun": false,
-      "tier": "fun",
-      "calibration_delta": -26.0,
-      "edge_pp": 55.7,
-      "history_top3": true,
-      "p_cal": 82.0,
-      "statut_marche": "RETENU",
-      "mise_pct": 5.0,
-      "mise_label": "5 %",
-      "valeur_pct": 146.0,
-      "cote_estimee": false,
-      "ecart_calibration": -7.0,
-      "rang_jour": 1,
-      "cumul_pct": 5.0,
-      "hors_budget": false
-    },
-    "no_picks": false,
-    "context": {
-      "stadium": {
-        "name": "Stadio Giuseppe Meazza",
-        "city": "Milano",
-        "country": "Italy",
-        "lat": 45.478083998,
-        "lon": 9.123979211,
-        "capacity": 75817,
-        "surface": "grass"
-      },
-      "weather": {
-        "temp_max": 14.3,
-        "temp_min": 8.1,
-        "humidity": 61,
-        "precipitation_sum_mm": 0.0,
-        "wind_max_kmh": 6.4,
-        "weather_code": 3,
-        "summary_fr": "☁️ couvert · 8–14°C · humidité 61%"
-      },
-      "text": "Conditions : ☁️ couvert · 8–14°C · humidité 61%. Stade : Stadio Giuseppe Meazza · 75 817 places · plein air."
     }
   },
   {
@@ -454,9 +294,9 @@
         "cote_estimee": true,
         "cote_reference": 1.45,
         "ecart_calibration": -4.0,
-        "rang_jour": 4,
-        "cumul_pct": 14.0,
-        "hors_budget": true
+        "rang_jour": 3,
+        "cumul_pct": 9.0,
+        "hors_budget": false
       },
       {
         "direction": "shots_over_27.5",
@@ -484,8 +324,8 @@
         "valeur_pct": null,
         "cote_estimee": false,
         "ecart_calibration": -16.5,
-        "rang_jour": 32,
-        "cumul_pct": 98.0,
+        "rang_jour": 15,
+        "cumul_pct": 45.0,
         "hors_budget": true
       },
       {
@@ -515,8 +355,8 @@
         "valeur_pct": null,
         "cote_estimee": false,
         "ecart_calibration": -30.7,
-        "rang_jour": 75,
-        "cumul_pct": 159.0,
+        "rang_jour": 32,
+        "cumul_pct": 62.0,
         "hors_budget": true
       }
     ],
@@ -551,9 +391,9 @@
       "cote_estimee": true,
       "cote_reference": 1.45,
       "ecart_calibration": -4.0,
-      "rang_jour": 4,
-      "cumul_pct": 14.0,
-      "hors_budget": true
+      "rang_jour": 3,
+      "cumul_pct": 9.0,
+      "hors_budget": false
     },
     "no_picks": false,
     "context": {
@@ -614,8 +454,8 @@
         "cote_estimee": true,
         "cote_reference": 1.45,
         "ecart_calibration": 1.0,
-        "rang_jour": 6,
-        "cumul_pct": 20.0,
+        "rang_jour": 5,
+        "cumul_pct": 15.0,
         "hors_budget": true
       }
     ],
@@ -650,164 +490,12 @@
       "cote_estimee": true,
       "cote_reference": 1.45,
       "ecart_calibration": 1.0,
-      "rang_jour": 6,
-      "cumul_pct": 20.0,
+      "rang_jour": 5,
+      "cumul_pct": 15.0,
       "hors_budget": true
     },
     "no_picks": false,
     "context": null
-  },
-  {
-    "league": "Europa League",
-    "home": "Anderlecht",
-    "away": "Salzburg",
-    "start_ts": 1793900700,
-    "match_id": "6112311",
-    "page_url": "/matches/anderlecht-vs-salzburg/2vj3uv#6112311",
-    "picks": [
-      {
-        "direction": "sot_over_7.5",
-        "type": "Tirs cadrés (total)",
-        "label": "Plus de 7.5 tirs cadrés total",
-        "cote": null,
-        "cote_min": 1.25,
-        "value": [
-          "⚠️",
-          "Value serrée",
-          "#f59e0b"
-        ],
-        "confidence": 80,
-        "reasoning": "📊 Brut : Anderlecht L10 TCC 5.9 (L5 TCC 6.8) tirs cadrés/m · Salzburg L10 TCC 6.0 (L5 TCC 7.2) tirs cadrés/m\n🛡️ Défenses : Anderlecht concède 4.1/m · Salzburg concède 3.6/m\n🎯 Attendu : Anderlecht ~5.5 · Salzburg ~4.7 → total ~10.2\n⚖️ Anderlecht favori (#13 vs #25) · Anderlecht forme : W-L-W-L-W · Salzburg forme : W-W-W-D-W\n📉 Calibration : bucket 80-89% historiquement à WR 56% (claim 82%, n=63) — sur-estimé de 26pp",
-        "stats": {
-          "expected_total": 10.2
-        },
-        "tier": "safe",
-        "calibration_delta": -26.0,
-        "history_top3": false,
-        "p_cal": 78.9,
-        "statut_marche": "RETENU",
-        "mise_pct": 3.0,
-        "mise_label": "3 %",
-        "valeur_pct": null,
-        "cote_estimee": false,
-        "ecart_calibration": -1.1,
-        "rang_jour": 10,
-        "cumul_pct": 32.0,
-        "hors_budget": true
-      },
-      {
-        "direction": "under35",
-        "type": "Under 3.5 buts",
-        "label": "Moins de 3.5 buts",
-        "cote": 1.71,
-        "confidence": 66,
-        "reasoning": "Défenses solides — Anderlecht concède 1.0/L10, Salzburg concède 2.0/L10 · Total attendu: ~2.7 buts (P Under=71.4%)\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
-        "stats": {
-          "form": []
-        },
-        "is_fun": false,
-        "tier": "ok",
-        "calibration_delta": -25.4,
-        "edge_pp": 7.5,
-        "history_top3": true,
-        "p_cal": 60.0,
-        "statut_marche": "SURVEILLE",
-        "mise_pct": 1.0,
-        "mise_label": "1 %",
-        "valeur_pct": 2.6,
-        "cote_estimee": false,
-        "ecart_calibration": -6.0,
-        "rang_jour": 52,
-        "cumul_pct": 146.0,
-        "hors_budget": true
-      },
-      {
-        "direction": "tirs_(anderlecht)_over_11.5",
-        "type": "Tirs (Anderlecht)",
-        "label": "Plus de 11.5 tirs Anderlecht",
-        "cote": null,
-        "cote_min": 1.27,
-        "value": [
-          "⚠️",
-          "Value serrée",
-          "#f59e0b"
-        ],
-        "confidence": 79,
-        "edge": null,
-        "reasoning": "Anderlecht prend 12.8/m [pondere vs opp #25] · adv. concède 12.7/m → attendu ~14.6 (Anderlecht favori (#13 vs #25))\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
-        "stats": {
-          "expected": 14.6
-        },
-        "tier": "safe",
-        "calibration_delta": -11.3,
-        "history_top3": false,
-        "p_cal": 47.3,
-        "statut_marche": "SURVEILLE",
-        "mise_pct": 0.5,
-        "mise_label": "0.5 %",
-        "valeur_pct": null,
-        "cote_estimee": false,
-        "ecart_calibration": -31.7,
-        "rang_jour": 66,
-        "cumul_pct": 154.5,
-        "hors_budget": true
-      }
-    ],
-    "home_players": [],
-    "away_players": [],
-    "fun_picks": [],
-    "top_pick": {
-      "direction": "sot_over_7.5",
-      "type": "Tirs cadrés (total)",
-      "label": "Plus de 7.5 tirs cadrés total",
-      "cote": null,
-      "cote_min": 1.25,
-      "value": [
-        "⚠️",
-        "Value serrée",
-        "#f59e0b"
-      ],
-      "confidence": 80,
-      "reasoning": "📊 Brut : Anderlecht L10 TCC 5.9 (L5 TCC 6.8) tirs cadrés/m · Salzburg L10 TCC 6.0 (L5 TCC 7.2) tirs cadrés/m\n🛡️ Défenses : Anderlecht concède 4.1/m · Salzburg concède 3.6/m\n🎯 Attendu : Anderlecht ~5.5 · Salzburg ~4.7 → total ~10.2\n⚖️ Anderlecht favori (#13 vs #25) · Anderlecht forme : W-L-W-L-W · Salzburg forme : W-W-W-D-W\n📉 Calibration : bucket 80-89% historiquement à WR 56% (claim 82%, n=63) — sur-estimé de 26pp",
-      "stats": {
-        "expected_total": 10.2
-      },
-      "tier": "safe",
-      "calibration_delta": -26.0,
-      "history_top3": false,
-      "p_cal": 78.9,
-      "statut_marche": "RETENU",
-      "mise_pct": 3.0,
-      "mise_label": "3 %",
-      "valeur_pct": null,
-      "cote_estimee": false,
-      "ecart_calibration": -1.1,
-      "rang_jour": 10,
-      "cumul_pct": 32.0,
-      "hors_budget": true
-    },
-    "no_picks": false,
-    "context": {
-      "stadium": {
-        "name": "Lotto Park",
-        "city": "Bruxelles (Brussel)",
-        "country": "Belgium",
-        "lat": 50.834182156,
-        "lon": 4.298352599,
-        "capacity": 28063,
-        "surface": "grass"
-      },
-      "weather": {
-        "temp_max": 10.2,
-        "temp_min": 3.0,
-        "humidity": 66,
-        "precipitation_sum_mm": 0.0,
-        "wind_max_kmh": 16.2,
-        "weather_code": 0,
-        "summary_fr": "🌤️ conditions variables · 3–10°C · humidité 66%"
-      },
-      "text": "Conditions : 🌤️ conditions variables · 3–10°C · humidité 66%. Stade : Lotto Park · 28 063 places · plein air."
-    }
   },
   {
     "league": "Europa League",
@@ -843,8 +531,8 @@
         "valeur_pct": null,
         "cote_estimee": false,
         "ecart_calibration": 0.0,
-        "rang_jour": 7,
-        "cumul_pct": 23.0,
+        "rang_jour": 6,
+        "cumul_pct": 18.0,
         "hors_budget": true
       },
       {
@@ -874,8 +562,8 @@
         "valeur_pct": null,
         "cote_estimee": false,
         "ecart_calibration": -34.7,
-        "rang_jour": 68,
-        "cumul_pct": 155.5,
+        "rang_jour": 30,
+        "cumul_pct": 61.0,
         "hors_budget": true
       }
     ],
@@ -908,8 +596,8 @@
       "valeur_pct": null,
       "cote_estimee": false,
       "ecart_calibration": 0.0,
-      "rang_jour": 7,
-      "cumul_pct": 23.0,
+      "rang_jour": 6,
+      "cumul_pct": 18.0,
       "hors_budget": true
     },
     "no_picks": false,
@@ -933,536 +621,6 @@
         "summary_fr": "🌦️ pluie légère · 4–9°C · humidité 74% · précipitations 2.3mm"
       },
       "text": "Conditions : 🌦️ pluie légère · 4–9°C · humidité 74% · précipitations 2.3mm. Stade : Stadion Vasil Levski · 43 632 places · plein air."
-    }
-  },
-  {
-    "league": "Europa League",
-    "home": "NEC Nijmegen",
-    "away": "Omonia Nicosia",
-    "start_ts": 1793900700,
-    "match_id": "6112368",
-    "page_url": "/matches/omonia-nicosia-vs-nec-nijmegen/294thy#6112368",
-    "picks": [
-      {
-        "direction": "sot_over_7.5",
-        "type": "Tirs cadrés (total)",
-        "label": "Plus de 7.5 tirs cadrés total",
-        "cote": null,
-        "cote_min": 1.25,
-        "value": [
-          "⚠️",
-          "Value serrée",
-          "#f59e0b"
-        ],
-        "confidence": 80,
-        "reasoning": "📊 Brut : NEC Nijmegen L10 TCC 4.5 (L5 TCC 6.2) tirs cadrés/m · Omonia Nicosia L10 TCC 6.7 (L5 TCC 5.4) tirs cadrés/m\n🛡️ Défenses : NEC Nijmegen concède 4.4/m · Omonia Nicosia concède 4.7/m\n🎯 Attendu : NEC Nijmegen ~4.4 · Omonia Nicosia ~5.7 → total ~10.2\n⚖️ Omonia Nicosia favori (#6 vs #24) · NEC Nijmegen forme : L-D-W-D-D · Omonia Nicosia forme : W-L-L-D-W\n📉 Calibration : bucket 80-89% historiquement à WR 56% (claim 82%, n=63) — sur-estimé de 26pp",
-        "stats": {
-          "expected_total": 10.2
-        },
-        "tier": "safe",
-        "calibration_delta": -26.0,
-        "history_top3": false,
-        "p_cal": 78.9,
-        "statut_marche": "RETENU",
-        "mise_pct": 3.0,
-        "mise_label": "3 %",
-        "valeur_pct": null,
-        "cote_estimee": false,
-        "ecart_calibration": -1.1,
-        "rang_jour": 11,
-        "cumul_pct": 35.0,
-        "hors_budget": true
-      },
-      {
-        "direction": "tirs_(omonia_nicosia)_under_15.5",
-        "type": "Tirs (Omonia Nicosia)",
-        "label": "Moins de 15.5 tirs Omonia Nicosia",
-        "cote": null,
-        "cote_min": 1.27,
-        "value": [
-          "⚠️",
-          "Value serrée",
-          "#f59e0b"
-        ],
-        "confidence": 79,
-        "edge": null,
-        "reasoning": "Omonia Nicosia prend 11.0/m [pondere vs opp #24] · adv. concède 10.2/m → attendu ~12.7 (Omonia Nicosia favori (#6 vs #24))\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
-        "stats": {
-          "expected": 12.7
-        },
-        "tier": "safe",
-        "calibration_delta": -11.3,
-        "history_top3": false,
-        "p_cal": 47.3,
-        "statut_marche": "SURVEILLE",
-        "mise_pct": 0.5,
-        "mise_label": "0.5 %",
-        "valeur_pct": null,
-        "cote_estimee": false,
-        "ecart_calibration": -31.7,
-        "rang_jour": 70,
-        "cumul_pct": 156.5,
-        "hors_budget": true
-      }
-    ],
-    "home_players": [],
-    "away_players": [],
-    "fun_picks": [],
-    "top_pick": {
-      "direction": "sot_over_7.5",
-      "type": "Tirs cadrés (total)",
-      "label": "Plus de 7.5 tirs cadrés total",
-      "cote": null,
-      "cote_min": 1.25,
-      "value": [
-        "⚠️",
-        "Value serrée",
-        "#f59e0b"
-      ],
-      "confidence": 80,
-      "reasoning": "📊 Brut : NEC Nijmegen L10 TCC 4.5 (L5 TCC 6.2) tirs cadrés/m · Omonia Nicosia L10 TCC 6.7 (L5 TCC 5.4) tirs cadrés/m\n🛡️ Défenses : NEC Nijmegen concède 4.4/m · Omonia Nicosia concède 4.7/m\n🎯 Attendu : NEC Nijmegen ~4.4 · Omonia Nicosia ~5.7 → total ~10.2\n⚖️ Omonia Nicosia favori (#6 vs #24) · NEC Nijmegen forme : L-D-W-D-D · Omonia Nicosia forme : W-L-L-D-W\n📉 Calibration : bucket 80-89% historiquement à WR 56% (claim 82%, n=63) — sur-estimé de 26pp",
-      "stats": {
-        "expected_total": 10.2
-      },
-      "tier": "safe",
-      "calibration_delta": -26.0,
-      "history_top3": false,
-      "p_cal": 78.9,
-      "statut_marche": "RETENU",
-      "mise_pct": 3.0,
-      "mise_label": "3 %",
-      "valeur_pct": null,
-      "cote_estimee": false,
-      "ecart_calibration": -1.1,
-      "rang_jour": 11,
-      "cumul_pct": 35.0,
-      "hors_budget": true
-    },
-    "no_picks": false,
-    "context": {
-      "stadium": {
-        "name": "Goffertstadion",
-        "city": "Nijmegen",
-        "country": "Netherlands",
-        "lat": 51.822455451,
-        "lon": 5.837204893,
-        "capacity": 12650,
-        "surface": "grass"
-      },
-      "weather": {
-        "temp_max": 10.3,
-        "temp_min": 2.3,
-        "humidity": 73,
-        "precipitation_sum_mm": 0.0,
-        "wind_max_kmh": 16.9,
-        "weather_code": 0,
-        "summary_fr": "🌤️ conditions variables · 2–10°C · humidité 73%"
-      },
-      "text": "Conditions : 🌤️ conditions variables · 2–10°C · humidité 73%. Stade : Goffertstadion · 12 650 places · plein air."
-    }
-  },
-  {
-    "league": "Europa League",
-    "home": "Bayer Leverkusen",
-    "away": "Marseille",
-    "start_ts": 1793908800,
-    "match_id": "6112242",
-    "page_url": "/matches/bayer-leverkusen-vs-marseille/2bq9g3#6112242",
-    "picks": [
-      {
-        "direction": "sot_over_8.5",
-        "type": "Tirs cadrés (total)",
-        "label": "Plus de 8.5 tirs cadrés total",
-        "cote": null,
-        "cote_min": 1.26,
-        "value": [
-          "⚠️",
-          "Value serrée",
-          "#f59e0b"
-        ],
-        "confidence": 80,
-        "reasoning": "📊 Brut : Bayer Leverkusen L10 TCC 7.5 (L5 TCC 7.8) tirs cadrés/m · Marseille L10 TCC 4.1 (L5 TCC 4.4) tirs cadrés/m\n🛡️ Défenses : Bayer Leverkusen concède 4.0/m · Marseille concède 5.5/m\n🎯 Attendu : Bayer Leverkusen ~7.9 · Marseille ~3.4 → total ~11.3\n⚖️ Bayer Leverkusen favori (#5 vs #34) · Bayer Leverkusen forme : L-L-W-W-W · Marseille forme : W-W-L-W-L\n📉 Calibration : bucket 80-89% historiquement à WR 56% (claim 82%, n=63) — sur-estimé de 26pp",
-        "stats": {
-          "expected_total": 11.3
-        },
-        "tier": "safe",
-        "calibration_delta": -26.0,
-        "history_top3": false,
-        "p_cal": 78.9,
-        "statut_marche": "RETENU",
-        "mise_pct": 3.0,
-        "mise_label": "3 %",
-        "valeur_pct": null,
-        "cote_estimee": false,
-        "ecart_calibration": -1.1,
-        "rang_jour": 12,
-        "cumul_pct": 38.0,
-        "hors_budget": true
-      },
-      {
-        "direction": "under35",
-        "type": "Under 3.5 buts",
-        "label": "Moins de 3.5 buts",
-        "cote": 2.0,
-        "confidence": 63,
-        "reasoning": "Défenses solides — Bayer Leverkusen concède 0.0/L10, Marseille concède 2.0/L10 · Total attendu: ~2.7 buts (P Under=71.4%)\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
-        "stats": {
-          "form": []
-        },
-        "is_fun": false,
-        "tier": "ok",
-        "calibration_delta": -25.4,
-        "edge_pp": 13.0,
-        "history_top3": true,
-        "p_cal": 60.0,
-        "statut_marche": "SURVEILLE",
-        "mise_pct": 1.0,
-        "mise_label": "1 %",
-        "valeur_pct": 20.0,
-        "cote_estimee": false,
-        "ecart_calibration": -3.0,
-        "rang_jour": 50,
-        "cumul_pct": 144.0,
-        "hors_budget": true
-      },
-      {
-        "direction": "tirs_cadrés_(bayer_leverkusen)_over_5.5",
-        "type": "Tirs cadrés (Bayer Leverkusen)",
-        "label": "Plus de 5.5 tirs cadrés Bayer Leverkusen",
-        "cote": null,
-        "cote_min": 1.25,
-        "value": [
-          "⚠️",
-          "Value serrée",
-          "#f59e0b"
-        ],
-        "confidence": 80,
-        "edge": null,
-        "reasoning": "Bayer Leverkusen prend 8.3/m [pondere vs opp #34] · adv. concède 5.5/m → attendu ~7.9 (Bayer Leverkusen favori (#5 vs #34))\n📉 Calibration : bucket 80-89% historiquement à WR 56% (claim 82%, n=63) — sur-estimé de 26pp",
-        "stats": {
-          "expected": 7.9
-        },
-        "tier": "safe",
-        "calibration_delta": -26.0,
-        "history_top3": false,
-        "p_cal": 47.3,
-        "statut_marche": "SURVEILLE",
-        "mise_pct": 0.5,
-        "mise_label": "0.5 %",
-        "valeur_pct": null,
-        "cote_estimee": false,
-        "ecart_calibration": -32.7,
-        "rang_jour": 73,
-        "cumul_pct": 158.0,
-        "hors_budget": true
-      }
-    ],
-    "home_players": [],
-    "away_players": [],
-    "fun_picks": [],
-    "top_pick": {
-      "direction": "sot_over_8.5",
-      "type": "Tirs cadrés (total)",
-      "label": "Plus de 8.5 tirs cadrés total",
-      "cote": null,
-      "cote_min": 1.26,
-      "value": [
-        "⚠️",
-        "Value serrée",
-        "#f59e0b"
-      ],
-      "confidence": 80,
-      "reasoning": "📊 Brut : Bayer Leverkusen L10 TCC 7.5 (L5 TCC 7.8) tirs cadrés/m · Marseille L10 TCC 4.1 (L5 TCC 4.4) tirs cadrés/m\n🛡️ Défenses : Bayer Leverkusen concède 4.0/m · Marseille concède 5.5/m\n🎯 Attendu : Bayer Leverkusen ~7.9 · Marseille ~3.4 → total ~11.3\n⚖️ Bayer Leverkusen favori (#5 vs #34) · Bayer Leverkusen forme : L-L-W-W-W · Marseille forme : W-W-L-W-L\n📉 Calibration : bucket 80-89% historiquement à WR 56% (claim 82%, n=63) — sur-estimé de 26pp",
-      "stats": {
-        "expected_total": 11.3
-      },
-      "tier": "safe",
-      "calibration_delta": -26.0,
-      "history_top3": false,
-      "p_cal": 78.9,
-      "statut_marche": "RETENU",
-      "mise_pct": 3.0,
-      "mise_label": "3 %",
-      "valeur_pct": null,
-      "cote_estimee": false,
-      "ecart_calibration": -1.1,
-      "rang_jour": 12,
-      "cumul_pct": 38.0,
-      "hors_budget": true
-    },
-    "no_picks": false,
-    "context": {
-      "stadium": {
-        "name": "BayArena",
-        "city": "Leverkusen",
-        "country": "Germany",
-        "lat": 51.038213121,
-        "lon": 7.002249956,
-        "capacity": 30210,
-        "surface": "grass"
-      },
-      "weather": {
-        "temp_max": 12.7,
-        "temp_min": 4.0,
-        "humidity": 60,
-        "precipitation_sum_mm": 0.0,
-        "wind_max_kmh": 11.2,
-        "weather_code": 0,
-        "summary_fr": "🌤️ conditions variables · 4–12°C · humidité 60%"
-      },
-      "text": "Conditions : 🌤️ conditions variables · 4–12°C · humidité 60%. Stade : BayArena · 30 210 places · plein air."
-    }
-  },
-  {
-    "league": "Conference League",
-    "home": "Atalanta",
-    "away": "Kairat Almaty",
-    "start_ts": 1793900700,
-    "match_id": "6112388",
-    "page_url": "/matches/kairat-almaty-vs-atalanta/29nlqt#6112388",
-    "picks": [
-      {
-        "direction": "shots_over_27.5",
-        "type": "Tirs (total match)",
-        "label": "Plus de 27.5 tirs total",
-        "cote": null,
-        "cote_min": 1.25,
-        "value": [
-          "⚠️",
-          "Value serrée",
-          "#f59e0b"
-        ],
-        "confidence": 80,
-        "reasoning": "📊 Brut : Atalanta L10 TCC 16.1 (L5 TCC 16.0) tirs/m · Kairat Almaty L10 13.0 (L5 13.0) tirs/m\n🛡️ Défenses : Atalanta concède 17.5/m · Kairat Almaty concède 14.5/m\n🎯 Attendu : Atalanta ~18.6 · Kairat Almaty ~13.8 → total ~32.3\n⚖️ Atalanta favori (#16 vs #25) · Atalanta forme : L-D-D-L-L · Kairat Almaty forme : D-D-L-W-D\n📉 Calibration : bucket 80-89% historiquement à WR 56% (claim 82%, n=63) — sur-estimé de 26pp",
-        "stats": {
-          "expected_total": 32.3
-        },
-        "tier": "safe",
-        "calibration_delta": -26.0,
-        "history_top3": false,
-        "p_cal": 80.0,
-        "statut_marche": "RETENU",
-        "mise_pct": 3.0,
-        "mise_label": "3 %",
-        "valeur_pct": null,
-        "cote_estimee": false,
-        "ecart_calibration": 0.0,
-        "rang_jour": 8,
-        "cumul_pct": 26.0,
-        "hors_budget": true
-      },
-      {
-        "direction": "tirs_(kairat_almaty)_under_16.5",
-        "type": "Tirs (Kairat Almaty)",
-        "label": "Moins de 16.5 tirs Kairat Almaty",
-        "cote": null,
-        "cote_min": 1.29,
-        "value": [
-          "⚠️",
-          "Value serrée",
-          "#f59e0b"
-        ],
-        "confidence": 78,
-        "edge": null,
-        "reasoning": "Kairat Almaty prend 13.4/m [pondere vs opp #16] · adv. concède 17.5/m → attendu ~13.8 (Atalanta favori (#16 vs #25))\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
-        "stats": {
-          "expected": 13.8
-        },
-        "tier": "safe",
-        "calibration_delta": -11.3,
-        "history_top3": false,
-        "p_cal": 47.3,
-        "statut_marche": "SURVEILLE",
-        "mise_pct": 0.5,
-        "mise_label": "0.5 %",
-        "valeur_pct": null,
-        "cote_estimee": false,
-        "ecart_calibration": -30.7,
-        "rang_jour": 82,
-        "cumul_pct": 162.5,
-        "hors_budget": true
-      }
-    ],
-    "home_players": [],
-    "away_players": [],
-    "fun_picks": [],
-    "top_pick": {
-      "direction": "shots_over_27.5",
-      "type": "Tirs (total match)",
-      "label": "Plus de 27.5 tirs total",
-      "cote": null,
-      "cote_min": 1.25,
-      "value": [
-        "⚠️",
-        "Value serrée",
-        "#f59e0b"
-      ],
-      "confidence": 80,
-      "reasoning": "📊 Brut : Atalanta L10 TCC 16.1 (L5 TCC 16.0) tirs/m · Kairat Almaty L10 13.0 (L5 13.0) tirs/m\n🛡️ Défenses : Atalanta concède 17.5/m · Kairat Almaty concède 14.5/m\n🎯 Attendu : Atalanta ~18.6 · Kairat Almaty ~13.8 → total ~32.3\n⚖️ Atalanta favori (#16 vs #25) · Atalanta forme : L-D-D-L-L · Kairat Almaty forme : D-D-L-W-D\n📉 Calibration : bucket 80-89% historiquement à WR 56% (claim 82%, n=63) — sur-estimé de 26pp",
-      "stats": {
-        "expected_total": 32.3
-      },
-      "tier": "safe",
-      "calibration_delta": -26.0,
-      "history_top3": false,
-      "p_cal": 80.0,
-      "statut_marche": "RETENU",
-      "mise_pct": 3.0,
-      "mise_label": "3 %",
-      "valeur_pct": null,
-      "cote_estimee": false,
-      "ecart_calibration": 0.0,
-      "rang_jour": 8,
-      "cumul_pct": 26.0,
-      "hors_budget": true
-    },
-    "no_picks": false,
-    "context": {
-      "stadium": {
-        "name": "New Balance Arena",
-        "city": "Bergamo",
-        "country": "Italy",
-        "lat": 45.709236083,
-        "lon": 9.68069315,
-        "capacity": 24950,
-        "surface": "grass"
-      },
-      "weather": {
-        "temp_max": 13.8,
-        "temp_min": 8.3,
-        "humidity": 63,
-        "precipitation_sum_mm": 0.0,
-        "wind_max_kmh": 7.7,
-        "weather_code": 3,
-        "summary_fr": "☁️ couvert · 8–13°C · humidité 63%"
-      },
-      "text": "Conditions : ☁️ couvert · 8–13°C · humidité 63%. Stade : New Balance Arena · 24 950 places · plein air."
-    }
-  },
-  {
-    "league": "Conference League",
-    "home": "FC Midtjylland",
-    "away": "Ajax",
-    "start_ts": 1793900700,
-    "match_id": "6112405",
-    "page_url": "/matches/fc-midtjylland-vs-ajax/2b3aus#6112405",
-    "picks": [
-      {
-        "direction": "shots_over_27.5",
-        "type": "Tirs (total match)",
-        "label": "Plus de 27.5 tirs total",
-        "cote": null,
-        "cote_min": 1.25,
-        "value": [
-          "⚠️",
-          "Value serrée",
-          "#f59e0b"
-        ],
-        "confidence": 80,
-        "reasoning": "📊 Brut : FC Midtjylland L10 TCC 15.1 (L5 TCC 15.2) tirs/m · Ajax L10 TCC 20.3 (L5 TCC 14.6) tirs/m\n🛡️ Défenses : FC Midtjylland concède 16.2/m · Ajax concède 14.0/m\n🎯 Attendu : FC Midtjylland ~12.5 · Ajax ~19.8 → total ~32.3\n⚖️ Ajax favori (#9 vs #29) · FC Midtjylland forme : W-W-L-W-D · Ajax forme : W-W-W-W-L\n📉 Calibration : bucket 80-89% historiquement à WR 56% (claim 82%, n=63) — sur-estimé de 26pp",
-        "stats": {
-          "expected_total": 32.3
-        },
-        "tier": "safe",
-        "calibration_delta": -26.0,
-        "history_top3": false,
-        "p_cal": 80.0,
-        "statut_marche": "RETENU",
-        "mise_pct": 3.0,
-        "mise_label": "3 %",
-        "valeur_pct": null,
-        "cote_estimee": false,
-        "ecart_calibration": 0.0,
-        "rang_jour": 9,
-        "cumul_pct": 29.0,
-        "hors_budget": true
-      },
-      {
-        "direction": "tirs_cadrés_(fc_midtjylland)_over_2.5",
-        "type": "Tirs cadrés (FC Midtjylland)",
-        "label": "Plus de 2.5 tirs cadrés FC Midtjylland",
-        "cote": null,
-        "cote_min": 1.27,
-        "value": [
-          "⚠️",
-          "Value serrée",
-          "#f59e0b"
-        ],
-        "confidence": 78,
-        "edge": null,
-        "reasoning": "FC Midtjylland prend 5.2/m [pondere vs opp #9] · adv. concède 4.5/m → attendu ~4.2 (Ajax favori (#9 vs #29))\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
-        "stats": {
-          "expected": 4.2
-        },
-        "tier": "safe",
-        "calibration_delta": -11.3,
-        "history_top3": false,
-        "p_cal": 47.3,
-        "statut_marche": "SURVEILLE",
-        "mise_pct": 0.5,
-        "mise_label": "0.5 %",
-        "valeur_pct": null,
-        "cote_estimee": false,
-        "ecart_calibration": -30.7,
-        "rang_jour": 83,
-        "cumul_pct": 163.0,
-        "hors_budget": true
-      }
-    ],
-    "home_players": [],
-    "away_players": [],
-    "fun_picks": [],
-    "top_pick": {
-      "direction": "shots_over_27.5",
-      "type": "Tirs (total match)",
-      "label": "Plus de 27.5 tirs total",
-      "cote": null,
-      "cote_min": 1.25,
-      "value": [
-        "⚠️",
-        "Value serrée",
-        "#f59e0b"
-      ],
-      "confidence": 80,
-      "reasoning": "📊 Brut : FC Midtjylland L10 TCC 15.1 (L5 TCC 15.2) tirs/m · Ajax L10 TCC 20.3 (L5 TCC 14.6) tirs/m\n🛡️ Défenses : FC Midtjylland concède 16.2/m · Ajax concède 14.0/m\n🎯 Attendu : FC Midtjylland ~12.5 · Ajax ~19.8 → total ~32.3\n⚖️ Ajax favori (#9 vs #29) · FC Midtjylland forme : W-W-L-W-D · Ajax forme : W-W-W-W-L\n📉 Calibration : bucket 80-89% historiquement à WR 56% (claim 82%, n=63) — sur-estimé de 26pp",
-      "stats": {
-        "expected_total": 32.3
-      },
-      "tier": "safe",
-      "calibration_delta": -26.0,
-      "history_top3": false,
-      "p_cal": 80.0,
-      "statut_marche": "RETENU",
-      "mise_pct": 3.0,
-      "mise_label": "3 %",
-      "valeur_pct": null,
-      "cote_estimee": false,
-      "ecart_calibration": 0.0,
-      "rang_jour": 9,
-      "cumul_pct": 29.0,
-      "hors_budget": true
-    },
-    "no_picks": false,
-    "context": {
-      "stadium": {
-        "name": "MCH Arena",
-        "city": "Herning",
-        "country": "Denmark",
-        "lat": 56.116849794,
-        "lon": 8.951647282,
-        "capacity": 12152,
-        "surface": "grass"
-      },
-      "weather": {
-        "temp_max": 9.3,
-        "temp_min": 1.5,
-        "humidity": 100,
-        "precipitation_sum_mm": 0.0,
-        "wind_max_kmh": 8.6,
-        "weather_code": 3,
-        "summary_fr": "☁️ couvert · 1–9°C · humidité 100%"
-      },
-      "text": "Conditions : ☁️ couvert · 1–9°C · humidité 100%. Stade : MCH Arena · 12 152 places · plein air."
     }
   },
   {
@@ -1501,8 +659,8 @@
         "cote_estimee": true,
         "cote_reference": 1.45,
         "ecart_calibration": 2.0,
-        "rang_jour": 5,
-        "cumul_pct": 17.0,
+        "rang_jour": 4,
+        "cumul_pct": 12.0,
         "hors_budget": true
       },
       {
@@ -1531,8 +689,8 @@
         "valeur_pct": null,
         "cote_estimee": false,
         "ecart_calibration": -16.5,
-        "rang_jour": 46,
-        "cumul_pct": 140.0,
+        "rang_jour": 18,
+        "cumul_pct": 54.0,
         "hors_budget": true
       },
       {
@@ -1563,8 +721,8 @@
         "cote_estimee": true,
         "cote_reference": 2.12,
         "ecart_calibration": -12.9,
-        "rang_jour": 56,
-        "cumul_pct": 149.5,
+        "rang_jour": 21,
+        "cumul_pct": 56.5,
         "hors_budget": true
       }
     ],
@@ -1599,8 +757,8 @@
       "cote_estimee": true,
       "cote_reference": 1.45,
       "ecart_calibration": 2.0,
-      "rang_jour": 5,
-      "cumul_pct": 17.0,
+      "rang_jour": 4,
+      "cumul_pct": 12.0,
       "hors_budget": true
     },
     "no_picks": false,
@@ -1624,840 +782,6 @@
         "summary_fr": "🌦️ pluie légère · 4–9°C · humidité 69%"
       },
       "text": "Conditions : 🌦️ pluie légère · 4–9°C · humidité 69%. Stade : Complex Sportiv Craiova · 30 983 places · plein air."
-    }
-  },
-  {
-    "league": "Europa League",
-    "home": "Real Sociedad",
-    "away": "Lyon",
-    "start_ts": 1793900700,
-    "match_id": "6112270",
-    "page_url": "/matches/real-sociedad-vs-lyon/2rsgym#6112270",
-    "picks": [
-      {
-        "direction": "shots_under_28.5",
-        "type": "Tirs (total match)",
-        "label": "Moins de 28.5 tirs total",
-        "cote": null,
-        "cote_min": 1.26,
-        "value": [
-          "⚠️",
-          "Value serrée",
-          "#f59e0b"
-        ],
-        "confidence": 79,
-        "reasoning": "📊 Brut : Real Sociedad L10 TCC 14.4 (L5 TCC 14.8) tirs/m · Lyon L10 TCC 12.3 (L5 TCC 11.2) tirs/m\n🛡️ Défenses : Real Sociedad concède 14.0/m · Lyon concède 13.5/m\n🎯 Attendu : Real Sociedad ~11.5 · Lyon ~13.0 → total ~24.5\n⚖️ Lyon favori (#11 vs #16) · Real Sociedad forme : L-W-W-W-D · Lyon forme : W-L-L-W-W\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
-        "stats": {
-          "expected_total": 24.5
-        },
-        "tier": "safe",
-        "calibration_delta": -11.3,
-        "history_top3": false,
-        "p_cal": 62.5,
-        "statut_marche": "RETENU",
-        "mise_pct": 3.0,
-        "mise_label": "3 %",
-        "valeur_pct": null,
-        "cote_estimee": false,
-        "ecart_calibration": -16.5,
-        "rang_jour": 30,
-        "cumul_pct": 92.0,
-        "hors_budget": true
-      },
-      {
-        "direction": "tirs_(lyon)_under_15.5",
-        "type": "Tirs (Lyon)",
-        "label": "Moins de 15.5 tirs Lyon",
-        "cote": null,
-        "cote_min": 1.31,
-        "value": [
-          "💎",
-          "Value correcte",
-          "#84cc16"
-        ],
-        "confidence": 76,
-        "edge": null,
-        "reasoning": "Lyon prend 10.6/m [pondere vs opp #16] · adv. concède 14.0/m → attendu ~13.0 (Lyon favori (#11 vs #16))\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
-        "stats": {
-          "expected": 13.0
-        },
-        "tier": "safe",
-        "calibration_delta": -11.3,
-        "history_top3": true,
-        "p_cal": 47.3,
-        "statut_marche": "SURVEILLE",
-        "mise_pct": 0.5,
-        "mise_label": "0.5 %",
-        "valeur_pct": null,
-        "cote_estimee": false,
-        "ecart_calibration": -28.7,
-        "rang_jour": 71,
-        "cumul_pct": 157.0,
-        "hors_budget": true
-      }
-    ],
-    "home_players": [],
-    "away_players": [],
-    "fun_picks": [],
-    "top_pick": {
-      "direction": "shots_under_28.5",
-      "type": "Tirs (total match)",
-      "label": "Moins de 28.5 tirs total",
-      "cote": null,
-      "cote_min": 1.26,
-      "value": [
-        "⚠️",
-        "Value serrée",
-        "#f59e0b"
-      ],
-      "confidence": 79,
-      "reasoning": "📊 Brut : Real Sociedad L10 TCC 14.4 (L5 TCC 14.8) tirs/m · Lyon L10 TCC 12.3 (L5 TCC 11.2) tirs/m\n🛡️ Défenses : Real Sociedad concède 14.0/m · Lyon concède 13.5/m\n🎯 Attendu : Real Sociedad ~11.5 · Lyon ~13.0 → total ~24.5\n⚖️ Lyon favori (#11 vs #16) · Real Sociedad forme : L-W-W-W-D · Lyon forme : W-L-L-W-W\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
-      "stats": {
-        "expected_total": 24.5
-      },
-      "tier": "safe",
-      "calibration_delta": -11.3,
-      "history_top3": false,
-      "p_cal": 62.5,
-      "statut_marche": "RETENU",
-      "mise_pct": 3.0,
-      "mise_label": "3 %",
-      "valeur_pct": null,
-      "cote_estimee": false,
-      "ecart_calibration": -16.5,
-      "rang_jour": 30,
-      "cumul_pct": 92.0,
-      "hors_budget": true
-    },
-    "no_picks": false,
-    "context": {
-      "stadium": {
-        "name": "Estadio Municipal de Anoeta",
-        "city": "Donostia-San Sebastián",
-        "country": "Spain",
-        "lat": 43.301375816,
-        "lon": -1.97360158,
-        "capacity": 40000,
-        "surface": "grass"
-      },
-      "weather": {
-        "temp_max": 16.2,
-        "temp_min": 4.6,
-        "humidity": 65,
-        "precipitation_sum_mm": 0.0,
-        "wind_max_kmh": 9.4,
-        "weather_code": 0,
-        "summary_fr": "🌤️ conditions variables · 4–16°C · humidité 65%"
-      },
-      "text": "Conditions : 🌤️ conditions variables · 4–16°C · humidité 65%. Stade : Estadio Municipal de Anoeta · 40 000 places · plein air."
-    }
-  },
-  {
-    "league": "Europa League",
-    "home": "Benfica",
-    "away": "Lech Poznań",
-    "start_ts": 1793908800,
-    "match_id": "6112248",
-    "page_url": "/matches/lech-poznan-vs-benfica/16jqlj#6112248",
-    "picks": [
-      {
-        "direction": "shots_over_28.5",
-        "type": "Tirs (total match)",
-        "label": "Plus de 28.5 tirs total",
-        "cote": null,
-        "cote_min": 1.26,
-        "value": [
-          "⚠️",
-          "Value serrée",
-          "#f59e0b"
-        ],
-        "confidence": 79,
-        "reasoning": "📊 Brut : Benfica L10 TCC 19.1 (L5 TCC 21.0) tirs/m · Lech Poznań L10 TCC 15.3 (L5 TCC 14.8) tirs/m\n🛡️ Défenses : Benfica concède 10.9/m · Lech Poznań concède 17.3/m\n🎯 Attendu : Benfica ~23.6 · Lech Poznań ~9.6 → total ~33.2\n⚖️ Benfica favori (#4 vs #33) · Benfica forme : W-W-W-W-W · Lech Poznań forme : W-W-D-W-L\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
-        "stats": {
-          "expected_total": 33.2
-        },
-        "tier": "safe",
-        "calibration_delta": -11.3,
-        "history_top3": false,
-        "p_cal": 62.5,
-        "statut_marche": "RETENU",
-        "mise_pct": 3.0,
-        "mise_label": "3 %",
-        "valeur_pct": null,
-        "cote_estimee": false,
-        "ecart_calibration": -16.5,
-        "rang_jour": 31,
-        "cumul_pct": 95.0,
-        "hors_budget": true
-      },
-      {
-        "direction": "tirs_cadrés_(benfica)_over_5.5",
-        "type": "Tirs cadrés (Benfica)",
-        "label": "Plus de 5.5 tirs cadrés Benfica",
-        "cote": null,
-        "cote_min": 1.3,
-        "value": [
-          "💎",
-          "Value correcte",
-          "#84cc16"
-        ],
-        "confidence": 77,
-        "edge": null,
-        "reasoning": "Benfica prend 6.6/m [pondere vs opp #33] · adv. concède 6.7/m → attendu ~7.6 (Benfica favori (#4 vs #33))\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
-        "stats": {
-          "expected": 7.6
-        },
-        "tier": "safe",
-        "calibration_delta": -11.3,
-        "history_top3": true,
-        "p_cal": 47.3,
-        "statut_marche": "SURVEILLE",
-        "mise_pct": 0.5,
-        "mise_label": "0.5 %",
-        "valeur_pct": null,
-        "cote_estimee": false,
-        "ecart_calibration": -29.7,
-        "rang_jour": 74,
-        "cumul_pct": 158.5,
-        "hors_budget": true
-      },
-      {
-        "direction": "over35",
-        "type": "Over 3.5 buts",
-        "label": "Plus de 3.5 buts",
-        "cote": 1.61,
-        "confidence": 55,
-        "reasoning": "Benfica: 3.3 buts/L10 · défense Lech Poznań concède 3.0/L10 → ~3.2 attendus · Lech Poznań: 0.3 buts/L10 · défense Benfica concède 0.7/L10 → ~0.5 attendus · Total: ~3.7 buts (P=50.6% · contexte LDC (L10/L10))\n📉 Calibration : bucket 50-59% historiquement à WR 42% (claim 55%, n=41) — sur-estimé de 14pp",
-        "stats": {
-          "form": []
-        },
-        "is_fun": false,
-        "tier": "ok",
-        "calibration_delta": -13.6,
-        "edge_pp": -7.1,
-        "history_top3": true,
-        "p_cal": 49.0,
-        "statut_marche": "SURVEILLE",
-        "mise_pct": 0.5,
-        "mise_label": "0.5 %",
-        "valeur_pct": -21.1,
-        "cote_estimee": false,
-        "ecart_calibration": -6.0,
-        "rang_jour": 98,
-        "cumul_pct": 170.5,
-        "hors_budget": true
-      }
-    ],
-    "home_players": [],
-    "away_players": [],
-    "fun_picks": [],
-    "top_pick": {
-      "direction": "shots_over_28.5",
-      "type": "Tirs (total match)",
-      "label": "Plus de 28.5 tirs total",
-      "cote": null,
-      "cote_min": 1.26,
-      "value": [
-        "⚠️",
-        "Value serrée",
-        "#f59e0b"
-      ],
-      "confidence": 79,
-      "reasoning": "📊 Brut : Benfica L10 TCC 19.1 (L5 TCC 21.0) tirs/m · Lech Poznań L10 TCC 15.3 (L5 TCC 14.8) tirs/m\n🛡️ Défenses : Benfica concède 10.9/m · Lech Poznań concède 17.3/m\n🎯 Attendu : Benfica ~23.6 · Lech Poznań ~9.6 → total ~33.2\n⚖️ Benfica favori (#4 vs #33) · Benfica forme : W-W-W-W-W · Lech Poznań forme : W-W-D-W-L\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
-      "stats": {
-        "expected_total": 33.2
-      },
-      "tier": "safe",
-      "calibration_delta": -11.3,
-      "history_top3": false,
-      "p_cal": 62.5,
-      "statut_marche": "RETENU",
-      "mise_pct": 3.0,
-      "mise_label": "3 %",
-      "valeur_pct": null,
-      "cote_estimee": false,
-      "ecart_calibration": -16.5,
-      "rang_jour": 31,
-      "cumul_pct": 95.0,
-      "hors_budget": true
-    },
-    "no_picks": false,
-    "context": {
-      "stadium": {
-        "name": "Estádio do Sport Lisboa e Benfica (da Luz)",
-        "city": "Lisboa",
-        "country": "Portugal",
-        "lat": 38.75264836,
-        "lon": -9.184699059,
-        "capacity": 68100,
-        "surface": "grass"
-      },
-      "weather": {
-        "temp_max": 18.6,
-        "temp_min": 7.5,
-        "humidity": 55,
-        "precipitation_sum_mm": 0.0,
-        "wind_max_kmh": 12.3,
-        "weather_code": 45,
-        "summary_fr": "🌫️ brouillard · 7–18°C · humidité 55%"
-      },
-      "text": "Conditions : 🌫️ brouillard · 7–18°C · humidité 55%. Stade : Estádio do Sport Lisboa e Benfica (da Luz) · 68 100 places · plein air."
-    }
-  },
-  {
-    "league": "Europa League",
-    "home": "Sunderland",
-    "away": "Dinamo Zagreb",
-    "start_ts": 1793908800,
-    "match_id": "6112331",
-    "page_url": "/matches/sunderland-vs-dinamo-zagreb/2vb43m#6112331",
-    "picks": [
-      {
-        "direction": "shots_over_26.5",
-        "type": "Tirs (total match)",
-        "label": "Plus de 26.5 tirs total",
-        "cote": null,
-        "cote_min": 1.26,
-        "value": [
-          "⚠️",
-          "Value serrée",
-          "#f59e0b"
-        ],
-        "confidence": 79,
-        "reasoning": "📊 Brut : Sunderland L10 TCC 15.0 (L5 TCC 13.4) tirs/m · Dinamo Zagreb L10 TCC 16.5 (L5 TCC 17.6) tirs/m\n🛡️ Défenses : Sunderland concède 15.7/m · Dinamo Zagreb concède 11.3/m\n🎯 Attendu : Sunderland ~18.9 · Dinamo Zagreb ~12.2 → total ~31.1\n⚖️ Sunderland favori (#10 vs #21) · Sunderland forme : L-D-D-L-W · Dinamo Zagreb forme : L-W-L-W-W\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
-        "stats": {
-          "expected_total": 31.1
-        },
-        "tier": "safe",
-        "calibration_delta": -11.3,
-        "history_top3": false,
-        "p_cal": 62.5,
-        "statut_marche": "RETENU",
-        "mise_pct": 3.0,
-        "mise_label": "3 %",
-        "valeur_pct": null,
-        "cote_estimee": false,
-        "ecart_calibration": -16.5,
-        "rang_jour": 35,
-        "cumul_pct": 107.0,
-        "hors_budget": true
-      },
-      {
-        "direction": "tirs_(sunderland)_over_15.5",
-        "type": "Tirs (Sunderland)",
-        "label": "Plus de 15.5 tirs Sunderland",
-        "cote": null,
-        "cote_min": 1.28,
-        "value": [
-          "⚠️",
-          "Value serrée",
-          "#f59e0b"
-        ],
-        "confidence": 78,
-        "edge": null,
-        "reasoning": "Sunderland prend 22.1/m [pondere vs opp #21] · adv. concède 11.3/m → attendu ~18.9 (Sunderland favori (#10 vs #21))\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
-        "stats": {
-          "expected": 18.9
-        },
-        "tier": "safe",
-        "calibration_delta": -11.3,
-        "history_top3": false,
-        "p_cal": 47.3,
-        "statut_marche": "SURVEILLE",
-        "mise_pct": 0.5,
-        "mise_label": "0.5 %",
-        "valeur_pct": null,
-        "cote_estimee": false,
-        "ecart_calibration": -30.7,
-        "rang_jour": 79,
-        "cumul_pct": 161.0,
-        "hors_budget": true
-      }
-    ],
-    "home_players": [],
-    "away_players": [],
-    "fun_picks": [],
-    "top_pick": {
-      "direction": "shots_over_26.5",
-      "type": "Tirs (total match)",
-      "label": "Plus de 26.5 tirs total",
-      "cote": null,
-      "cote_min": 1.26,
-      "value": [
-        "⚠️",
-        "Value serrée",
-        "#f59e0b"
-      ],
-      "confidence": 79,
-      "reasoning": "📊 Brut : Sunderland L10 TCC 15.0 (L5 TCC 13.4) tirs/m · Dinamo Zagreb L10 TCC 16.5 (L5 TCC 17.6) tirs/m\n🛡️ Défenses : Sunderland concède 15.7/m · Dinamo Zagreb concède 11.3/m\n🎯 Attendu : Sunderland ~18.9 · Dinamo Zagreb ~12.2 → total ~31.1\n⚖️ Sunderland favori (#10 vs #21) · Sunderland forme : L-D-D-L-W · Dinamo Zagreb forme : L-W-L-W-W\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
-      "stats": {
-        "expected_total": 31.1
-      },
-      "tier": "safe",
-      "calibration_delta": -11.3,
-      "history_top3": false,
-      "p_cal": 62.5,
-      "statut_marche": "RETENU",
-      "mise_pct": 3.0,
-      "mise_label": "3 %",
-      "valeur_pct": null,
-      "cote_estimee": false,
-      "ecart_calibration": -16.5,
-      "rang_jour": 35,
-      "cumul_pct": 107.0,
-      "hors_budget": true
-    },
-    "no_picks": false,
-    "context": {
-      "stadium": {
-        "name": "Stadium of Light",
-        "city": "Sunderland",
-        "country": "England",
-        "lat": 54.914421504,
-        "lon": -1.388177276,
-        "capacity": 49000,
-        "surface": "grass"
-      },
-      "weather": {
-        "temp_max": 10.5,
-        "temp_min": 9.5,
-        "humidity": 90,
-        "precipitation_sum_mm": 0.8,
-        "wind_max_kmh": 23.0,
-        "weather_code": 53,
-        "summary_fr": "🌦️ bruine modérée · 10°C · humidité 90%"
-      },
-      "text": "Conditions : 🌦️ bruine modérée · 10°C · humidité 90%. Stade : Stadium of Light · 49 000 places · plein air."
-    }
-  },
-  {
-    "league": "Conference League",
-    "home": "FC København",
-    "away": "Iberia 1999",
-    "start_ts": 1793908800,
-    "match_id": "6112404",
-    "page_url": "/matches/fc-kobenhavn-vs-iberia-1999/1iuqu04u#6112404",
-    "picks": [
-      {
-        "direction": "sot_under_9.5",
-        "type": "Tirs cadrés (total)",
-        "label": "Moins de 9.5 tirs cadrés total",
-        "cote": null,
-        "cote_min": 1.27,
-        "value": [
-          "⚠️",
-          "Value serrée",
-          "#f59e0b"
-        ],
-        "confidence": 79,
-        "reasoning": "📊 Brut : FC København L10 TCC 5.1 (L5 TCC 5.8) tirs cadrés/m · Iberia 1999 L10 1.0 (L5 1.0) tirs cadrés/m\n🛡️ Défenses : FC København concède 2.6/m · Iberia 1999 concède 5.0/m\n🎯 Attendu : FC København ~5.8 · Iberia 1999 ~1.6 → total ~7.4\n⚖️ FC København favori (#13 vs #30) · FC København forme : W-D-D-D-W · Iberia 1999 forme : D-W-D-W-L\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
-        "stats": {
-          "expected_total": 7.4
-        },
-        "tier": "safe",
-        "calibration_delta": -11.3,
-        "history_top3": false,
-        "p_cal": 77.5,
-        "statut_marche": "RETENU",
-        "mise_pct": 3.0,
-        "mise_label": "3 %",
-        "valeur_pct": null,
-        "cote_estimee": false,
-        "ecart_calibration": -1.5,
-        "rang_jour": 16,
-        "cumul_pct": 50.0,
-        "hors_budget": true
-      },
-      {
-        "direction": "under35",
-        "type": "Under 3.5 buts",
-        "label": "Moins de 3.5 buts",
-        "cote": 1.71,
-        "confidence": 65,
-        "reasoning": "Défenses solides — FC København concède 1.0/L10, Iberia 1999 concède 1.5/L10 · Total attendu: ~2.8 buts (P Under=69.2%)\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
-        "stats": {
-          "form": []
-        },
-        "is_fun": false,
-        "tier": "ok",
-        "calibration_delta": -25.4,
-        "edge_pp": 6.5,
-        "history_top3": true,
-        "p_cal": 60.0,
-        "statut_marche": "SURVEILLE",
-        "mise_pct": 1.0,
-        "mise_label": "1 %",
-        "valeur_pct": 2.6,
-        "cote_estimee": false,
-        "ecart_calibration": -5.0,
-        "rang_jour": 53,
-        "cumul_pct": 147.0,
-        "hors_budget": true
-      },
-      {
-        "direction": "tirs_(fc_københavn)_over_14.5",
-        "type": "Tirs (FC København)",
-        "label": "Plus de 14.5 tirs FC København",
-        "cote": null,
-        "cote_min": 1.27,
-        "value": [
-          "⚠️",
-          "Value serrée",
-          "#f59e0b"
-        ],
-        "confidence": 79,
-        "edge": null,
-        "reasoning": "FC København prend 8.4/m [pondere vs opp #30] · adv. concède 21.5/m → attendu ~17.9 (FC København favori (#13 vs #30))\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
-        "stats": {
-          "expected": 17.9
-        },
-        "tier": "safe",
-        "calibration_delta": -11.3,
-        "history_top3": false,
-        "p_cal": 47.3,
-        "statut_marche": "SURVEILLE",
-        "mise_pct": 0.5,
-        "mise_label": "0.5 %",
-        "valeur_pct": null,
-        "cote_estimee": false,
-        "ecart_calibration": -31.7,
-        "rang_jour": 89,
-        "cumul_pct": 166.0,
-        "hors_budget": true
-      }
-    ],
-    "home_players": [],
-    "away_players": [],
-    "fun_picks": [],
-    "top_pick": {
-      "direction": "sot_under_9.5",
-      "type": "Tirs cadrés (total)",
-      "label": "Moins de 9.5 tirs cadrés total",
-      "cote": null,
-      "cote_min": 1.27,
-      "value": [
-        "⚠️",
-        "Value serrée",
-        "#f59e0b"
-      ],
-      "confidence": 79,
-      "reasoning": "📊 Brut : FC København L10 TCC 5.1 (L5 TCC 5.8) tirs cadrés/m · Iberia 1999 L10 1.0 (L5 1.0) tirs cadrés/m\n🛡️ Défenses : FC København concède 2.6/m · Iberia 1999 concède 5.0/m\n🎯 Attendu : FC København ~5.8 · Iberia 1999 ~1.6 → total ~7.4\n⚖️ FC København favori (#13 vs #30) · FC København forme : W-D-D-D-W · Iberia 1999 forme : D-W-D-W-L\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
-      "stats": {
-        "expected_total": 7.4
-      },
-      "tier": "safe",
-      "calibration_delta": -11.3,
-      "history_top3": false,
-      "p_cal": 77.5,
-      "statut_marche": "RETENU",
-      "mise_pct": 3.0,
-      "mise_label": "3 %",
-      "valeur_pct": null,
-      "cote_estimee": false,
-      "ecart_calibration": -1.5,
-      "rang_jour": 16,
-      "cumul_pct": 50.0,
-      "hors_budget": true
-    },
-    "no_picks": false,
-    "context": {
-      "stadium": {
-        "name": "Parken",
-        "city": "København",
-        "country": "Denmark",
-        "lat": 55.702717828,
-        "lon": 12.572290823,
-        "capacity": 38065,
-        "surface": "grass"
-      },
-      "weather": {
-        "temp_max": 11.2,
-        "temp_min": 4.6,
-        "humidity": 88,
-        "precipitation_sum_mm": 0.0,
-        "wind_max_kmh": 10.4,
-        "weather_code": 3,
-        "summary_fr": "☁️ couvert · 4–11°C · humidité 88%"
-      },
-      "text": "Conditions : ☁️ couvert · 4–11°C · humidité 88%. Stade : Parken · 38 065 places · plein air."
-    }
-  },
-  {
-    "league": "Conference League",
-    "home": "FC Twente",
-    "away": "Pafos FC",
-    "start_ts": 1793908800,
-    "match_id": "6112480",
-    "page_url": "/matches/pafos-fc-vs-fc-twente/yeai1#6112480",
-    "picks": [
-      {
-        "direction": "shots_over_25.5",
-        "type": "Tirs (total match)",
-        "label": "Plus de 25.5 tirs total",
-        "cote": null,
-        "cote_min": 1.27,
-        "value": [
-          "⚠️",
-          "Value serrée",
-          "#f59e0b"
-        ],
-        "confidence": 79,
-        "reasoning": "📊 Brut : FC Twente L10 TCC 21.2 (L5 TCC 23.2) tirs/m · Pafos FC L10 TCC 12.5 (L5 TCC 12.2) tirs/m\n🛡️ Défenses : FC Twente concède 8.8/m · Pafos FC concède 11.9/m\n🎯 Attendu : FC Twente ~21.7 · Pafos FC ~8.2 → total ~29.9\n⚖️ FC Twente favori (#5 vs #28) · FC Twente forme : W-W-W-L-W · Pafos FC forme : D-D-D-D-L\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
-        "stats": {
-          "expected_total": 29.9
-        },
-        "tier": "safe",
-        "calibration_delta": -11.3,
-        "history_top3": false,
-        "p_cal": 62.5,
-        "statut_marche": "RETENU",
-        "mise_pct": 3.0,
-        "mise_label": "3 %",
-        "valeur_pct": null,
-        "cote_estimee": false,
-        "ecart_calibration": -16.5,
-        "rang_jour": 44,
-        "cumul_pct": 134.0,
-        "hors_budget": true
-      },
-      {
-        "direction": "tirs_(pafos_fc)_under_10.5",
-        "type": "Tirs (Pafos FC)",
-        "label": "Moins de 10.5 tirs Pafos FC",
-        "cote": null,
-        "cote_min": 1.25,
-        "value": [
-          "⚠️",
-          "Value serrée",
-          "#f59e0b"
-        ],
-        "confidence": 80,
-        "edge": null,
-        "reasoning": "Pafos FC prend 11.6/m [pondere vs opp #5] · adv. concède 8.8/m → attendu ~8.2 (FC Twente favori (#5 vs #28))\n📉 Calibration : bucket 80-89% historiquement à WR 56% (claim 82%, n=63) — sur-estimé de 26pp",
-        "stats": {
-          "expected": 8.2
-        },
-        "tier": "safe",
-        "calibration_delta": -26.0,
-        "history_top3": false,
-        "p_cal": 47.3,
-        "statut_marche": "SURVEILLE",
-        "mise_pct": 0.5,
-        "mise_label": "0.5 %",
-        "valeur_pct": null,
-        "cote_estimee": false,
-        "ecart_calibration": -32.7,
-        "rang_jour": 90,
-        "cumul_pct": 166.5,
-        "hors_budget": true
-      }
-    ],
-    "home_players": [],
-    "away_players": [],
-    "fun_picks": [],
-    "top_pick": {
-      "direction": "shots_over_25.5",
-      "type": "Tirs (total match)",
-      "label": "Plus de 25.5 tirs total",
-      "cote": null,
-      "cote_min": 1.27,
-      "value": [
-        "⚠️",
-        "Value serrée",
-        "#f59e0b"
-      ],
-      "confidence": 79,
-      "reasoning": "📊 Brut : FC Twente L10 TCC 21.2 (L5 TCC 23.2) tirs/m · Pafos FC L10 TCC 12.5 (L5 TCC 12.2) tirs/m\n🛡️ Défenses : FC Twente concède 8.8/m · Pafos FC concède 11.9/m\n🎯 Attendu : FC Twente ~21.7 · Pafos FC ~8.2 → total ~29.9\n⚖️ FC Twente favori (#5 vs #28) · FC Twente forme : W-W-W-L-W · Pafos FC forme : D-D-D-D-L\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
-      "stats": {
-        "expected_total": 29.9
-      },
-      "tier": "safe",
-      "calibration_delta": -11.3,
-      "history_top3": false,
-      "p_cal": 62.5,
-      "statut_marche": "RETENU",
-      "mise_pct": 3.0,
-      "mise_label": "3 %",
-      "valeur_pct": null,
-      "cote_estimee": false,
-      "ecart_calibration": -16.5,
-      "rang_jour": 44,
-      "cumul_pct": 134.0,
-      "hors_budget": true
-    },
-    "no_picks": false,
-    "context": {
-      "stadium": {
-        "name": "De Grolsch Veste",
-        "city": "Enschede",
-        "country": "Netherlands",
-        "lat": 52.236561452,
-        "lon": 6.837702319,
-        "capacity": 30205,
-        "surface": "grass"
-      },
-      "weather": {
-        "temp_max": 9.7,
-        "temp_min": 2.7,
-        "humidity": 74,
-        "precipitation_sum_mm": 0.0,
-        "wind_max_kmh": 15.8,
-        "weather_code": 3,
-        "summary_fr": "☁️ couvert · 2–9°C · humidité 74%"
-      },
-      "text": "Conditions : ☁️ couvert · 2–9°C · humidité 74%. Stade : De Grolsch Veste · 30 205 places · plein air."
-    }
-  },
-  {
-    "league": "Conference League",
-    "home": "Monaco",
-    "away": "Nordsjælland",
-    "start_ts": 1793908800,
-    "match_id": "6112401",
-    "page_url": "/matches/monaco-vs-nordsjaelland/3bgf2d#6112401",
-    "picks": [
-      {
-        "direction": "sot_over_7.5",
-        "type": "Tirs cadrés (total)",
-        "label": "Plus de 7.5 tirs cadrés total",
-        "cote": null,
-        "cote_min": 1.27,
-        "value": [
-          "⚠️",
-          "Value serrée",
-          "#f59e0b"
-        ],
-        "confidence": 79,
-        "reasoning": "📊 Brut : Monaco L10 TCC 4.3 (L5 TCC 4.6) tirs cadrés/m · Nordsjælland L10 TCC 5.2 (L5 TCC 6.8) tirs cadrés/m\n🛡️ Défenses : Monaco concède 4.2/m · Nordsjælland concède 5.4/m\n🎯 Attendu : Monaco ~5.6 · Nordsjælland ~4.5 → total ~10.1\n⚖️ Monaco favori (#6 vs #20) · Monaco forme : L-D-W-L-W · Nordsjælland forme : L-D-D-D-D\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
-        "stats": {
-          "expected_total": 10.1
-        },
-        "tier": "safe",
-        "calibration_delta": -11.3,
-        "history_top3": false,
-        "p_cal": 77.5,
-        "statut_marche": "RETENU",
-        "mise_pct": 3.0,
-        "mise_label": "3 %",
-        "valeur_pct": null,
-        "cote_estimee": false,
-        "ecart_calibration": -1.5,
-        "rang_jour": 19,
-        "cumul_pct": 59.0,
-        "hors_budget": true
-      },
-      {
-        "direction": "under35",
-        "type": "Under 3.5 buts",
-        "label": "Moins de 3.5 buts",
-        "cote": 1.77,
-        "confidence": 61,
-        "reasoning": "Défenses solides — Monaco concède 0.5/L10, Nordsjælland concède 1.5/L10 · Total attendu: ~3.0 buts (P Under=64.7%)\n📉 Calibration : bucket 60-69% historiquement à WR 39% (claim 64%, n=92) — sur-estimé de 25pp",
-        "stats": {
-          "form": []
-        },
-        "is_fun": false,
-        "tier": "ok",
-        "calibration_delta": -25.4,
-        "edge_pp": 4.5,
-        "history_top3": true,
-        "p_cal": 60.0,
-        "statut_marche": "SURVEILLE",
-        "mise_pct": 1.0,
-        "mise_label": "1 %",
-        "valeur_pct": 6.2,
-        "cote_estimee": false,
-        "ecart_calibration": -1.0,
-        "rang_jour": 51,
-        "cumul_pct": 145.0,
-        "hors_budget": true
-      },
-      {
-        "direction": "tirs_(monaco)_under_16.5",
-        "type": "Tirs (Monaco)",
-        "label": "Moins de 16.5 tirs Monaco",
-        "cote": null,
-        "cote_min": 1.28,
-        "value": [
-          "⚠️",
-          "Value serrée",
-          "#f59e0b"
-        ],
-        "confidence": 78,
-        "edge": null,
-        "reasoning": "Monaco prend 10.4/m [pondere vs opp #20] · adv. concède 13.1/m → attendu ~13.7 (Monaco favori (#6 vs #20))\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
-        "stats": {
-          "expected": 13.7
-        },
-        "tier": "safe",
-        "calibration_delta": -11.3,
-        "history_top3": false,
-        "p_cal": 47.3,
-        "statut_marche": "SURVEILLE",
-        "mise_pct": 0.5,
-        "mise_label": "0.5 %",
-        "valeur_pct": null,
-        "cote_estimee": false,
-        "ecart_calibration": -30.7,
-        "rang_jour": 93,
-        "cumul_pct": 168.0,
-        "hors_budget": true
-      }
-    ],
-    "home_players": [],
-    "away_players": [],
-    "fun_picks": [],
-    "top_pick": {
-      "direction": "sot_over_7.5",
-      "type": "Tirs cadrés (total)",
-      "label": "Plus de 7.5 tirs cadrés total",
-      "cote": null,
-      "cote_min": 1.27,
-      "value": [
-        "⚠️",
-        "Value serrée",
-        "#f59e0b"
-      ],
-      "confidence": 79,
-      "reasoning": "📊 Brut : Monaco L10 TCC 4.3 (L5 TCC 4.6) tirs cadrés/m · Nordsjælland L10 TCC 5.2 (L5 TCC 6.8) tirs cadrés/m\n🛡️ Défenses : Monaco concède 4.2/m · Nordsjælland concède 5.4/m\n🎯 Attendu : Monaco ~5.6 · Nordsjælland ~4.5 → total ~10.1\n⚖️ Monaco favori (#6 vs #20) · Monaco forme : L-D-W-L-W · Nordsjælland forme : L-D-D-D-D\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
-      "stats": {
-        "expected_total": 10.1
-      },
-      "tier": "safe",
-      "calibration_delta": -11.3,
-      "history_top3": false,
-      "p_cal": 77.5,
-      "statut_marche": "RETENU",
-      "mise_pct": 3.0,
-      "mise_label": "3 %",
-      "valeur_pct": null,
-      "cote_estimee": false,
-      "ecart_calibration": -1.5,
-      "rang_jour": 19,
-      "cumul_pct": 59.0,
-      "hors_budget": true
-    },
-    "no_picks": false,
-    "context": {
-      "stadium": {
-        "name": "Stade Louis-II",
-        "city": "Monaco",
-        "country": "",
-        "lat": 43.727563789,
-        "lon": 7.415542156,
-        "capacity": 18523,
-        "surface": "grass"
-      },
-      "weather": {
-        "temp_max": 17.6,
-        "temp_min": 15.0,
-        "humidity": 62,
-        "precipitation_sum_mm": 11.5,
-        "wind_max_kmh": 21.1,
-        "weather_code": 80,
-        "summary_fr": "🌦️ averses légères · 17°C · humidité 62% · précipitations 11.5mm"
-      },
-      "text": "Conditions : 🌦️ averses légères · 17°C · humidité 62% · précipitations 11.5mm. Stade : Stade Louis-II · 18 523 places · plein air. ⚠️ Pluies prévues : terrain potentiellement lourd, jeu direct privilégié, plus d'erreurs techniques."
     }
   },
   {
@@ -2494,8 +818,8 @@
         "valeur_pct": null,
         "cote_estimee": false,
         "ecart_calibration": -16.5,
-        "rang_jour": 45,
-        "cumul_pct": 137.0,
+        "rang_jour": 17,
+        "cumul_pct": 51.0,
         "hors_budget": true
       },
       {
@@ -2525,8 +849,8 @@
         "valeur_pct": null,
         "cote_estimee": false,
         "ecart_calibration": -30.7,
-        "rang_jour": 96,
-        "cumul_pct": 169.5,
+        "rang_jour": 36,
+        "cumul_pct": 64.0,
         "hors_budget": true
       }
     ],
@@ -2559,8 +883,8 @@
       "valeur_pct": null,
       "cote_estimee": false,
       "ecart_calibration": -16.5,
-      "rang_jour": 45,
-      "cumul_pct": 137.0,
+      "rang_jour": 17,
+      "cumul_pct": 51.0,
       "hors_budget": true
     },
     "no_picks": false,
@@ -2620,8 +944,8 @@
         "valeur_pct": null,
         "cote_estimee": false,
         "ecart_calibration": -15.5,
-        "rang_jour": 22,
-        "cumul_pct": 68.0,
+        "rang_jour": 9,
+        "cumul_pct": 27.0,
         "hors_budget": true
       },
       {
@@ -2651,8 +975,8 @@
         "valeur_pct": null,
         "cote_estimee": false,
         "ecart_calibration": -31.7,
-        "rang_jour": 60,
-        "cumul_pct": 151.5,
+        "rang_jour": 25,
+        "cumul_pct": 58.5,
         "hors_budget": true
       }
     ],
@@ -2685,8 +1009,8 @@
       "valeur_pct": null,
       "cote_estimee": false,
       "ecart_calibration": -15.5,
-      "rang_jour": 22,
-      "cumul_pct": 68.0,
+      "rang_jour": 9,
+      "cumul_pct": 27.0,
       "hors_budget": true
     },
     "no_picks": false,
@@ -2746,8 +1070,8 @@
         "valeur_pct": null,
         "cote_estimee": false,
         "ecart_calibration": -15.5,
-        "rang_jour": 24,
-        "cumul_pct": 74.0,
+        "rang_jour": 11,
+        "cumul_pct": 33.0,
         "hors_budget": true
       },
       {
@@ -2777,8 +1101,8 @@
         "valeur_pct": null,
         "cote_estimee": false,
         "ecart_calibration": -30.7,
-        "rang_jour": 62,
-        "cumul_pct": 152.5,
+        "rang_jour": 27,
+        "cumul_pct": 59.5,
         "hors_budget": true
       }
     ],
@@ -2811,8 +1135,8 @@
       "valeur_pct": null,
       "cote_estimee": false,
       "ecart_calibration": -15.5,
-      "rang_jour": 24,
-      "cumul_pct": 74.0,
+      "rang_jour": 11,
+      "cumul_pct": 33.0,
       "hors_budget": true
     },
     "no_picks": false,
@@ -2872,8 +1196,8 @@
         "valeur_pct": null,
         "cote_estimee": false,
         "ecart_calibration": -15.5,
-        "rang_jour": 29,
-        "cumul_pct": 89.0,
+        "rang_jour": 14,
+        "cumul_pct": 42.0,
         "hors_budget": true
       },
       {
@@ -2903,8 +1227,8 @@
         "valeur_pct": null,
         "cote_estimee": false,
         "ecart_calibration": -32.7,
-        "rang_jour": 69,
-        "cumul_pct": 156.0,
+        "rang_jour": 31,
+        "cumul_pct": 61.5,
         "hors_budget": true
       }
     ],
@@ -2937,8 +1261,8 @@
       "valeur_pct": null,
       "cote_estimee": false,
       "ecart_calibration": -15.5,
-      "rang_jour": 29,
-      "cumul_pct": 89.0,
+      "rang_jour": 14,
+      "cumul_pct": 42.0,
       "hors_budget": true
     },
     "no_picks": false,
@@ -2962,282 +1286,6 @@
         "summary_fr": "⛅ partiellement nuageux · -3–5°C · humidité 90%"
       },
       "text": "Conditions : ⛅ partiellement nuageux · -3–5°C · humidité 90%. Stade : Åråsen Stadion · 11 637 places · plein air."
-    }
-  },
-  {
-    "league": "Europa League",
-    "home": "Sparta Prague",
-    "away": "AFC Bournemouth",
-    "start_ts": 1793900700,
-    "match_id": "6112304",
-    "page_url": "/matches/afc-bournemouth-vs-sparta-prague/2ymnbl#6112304",
-    "picks": [
-      {
-        "direction": "sot_under_10.5",
-        "type": "Tirs cadrés (total)",
-        "label": "Moins de 10.5 tirs cadrés total",
-        "cote": null,
-        "cote_min": 1.29,
-        "value": [
-          "⚠️",
-          "Value serrée",
-          "#f59e0b"
-        ],
-        "confidence": 78,
-        "reasoning": "📊 Brut : Sparta Prague L10 TCC 6.8 (L5 TCC 6.0) tirs cadrés/m · AFC Bournemouth L10 TCC 5.5 (L5 TCC 5.8) tirs cadrés/m\n🛡️ Défenses : Sparta Prague concède 2.5/m · AFC Bournemouth concède 2.4/m\n🎯 Attendu : Sparta Prague ~3.7 · AFC Bournemouth ~4.6 → total ~8.4\n⚖️ AFC Bournemouth favori (#1 vs #17) · Sparta Prague forme : D-L-W-L-D · AFC Bournemouth forme : W-W-W-W-W\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
-        "stats": {
-          "expected_total": 8.4
-        },
-        "tier": "safe",
-        "calibration_delta": -11.3,
-        "history_top3": false,
-        "p_cal": 77.5,
-        "statut_marche": "RETENU",
-        "mise_pct": 3.0,
-        "mise_label": "3 %",
-        "valeur_pct": null,
-        "cote_estimee": false,
-        "ecart_calibration": -0.5,
-        "rang_jour": 13,
-        "cumul_pct": 41.0,
-        "hors_budget": true
-      },
-      {
-        "direction": "tirs_(afc_bournemouth)_over_14.5",
-        "type": "Tirs (AFC Bournemouth)",
-        "label": "Plus de 14.5 tirs AFC Bournemouth",
-        "cote": null,
-        "cote_min": 1.31,
-        "value": [
-          "💎",
-          "Value correcte",
-          "#84cc16"
-        ],
-        "confidence": 76,
-        "edge": null,
-        "reasoning": "AFC Bournemouth prend 17.4/m [pondere vs opp #17] · adv. concède 12.1/m → attendu ~17.6 (AFC Bournemouth favori (#1 vs #17))\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
-        "stats": {
-          "expected": 17.6
-        },
-        "tier": "safe",
-        "calibration_delta": -11.3,
-        "history_top3": true,
-        "p_cal": 90.0,
-        "statut_marche": "SURVEILLE",
-        "mise_pct": 1.0,
-        "mise_label": "1 %",
-        "valeur_pct": null,
-        "cote_estimee": false,
-        "ecart_calibration": 14.0,
-        "rang_jour": 54,
-        "cumul_pct": 148.0,
-        "hors_budget": true
-      },
-      {
-        "direction": "away_win",
-        "type": "Victoire extérieur",
-        "label": "AFC Bournemouth gagne",
-        "cote": 1.62,
-        "confidence": 81,
-        "reasoning": "AFC Bournemouth : 5V/0N/0D sur 5 matchs · #1 au classement · H2H: 0V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 80-89% historiquement à WR 56% (claim 82%, n=63) — sur-estimé de 26pp",
-        "stats": {
-          "form": [
-            "W",
-            "W",
-            "W",
-            "W",
-            "W"
-          ]
-        },
-        "is_fun": false,
-        "tier": "safe",
-        "calibration_delta": -26.0,
-        "edge_pp": 19.3,
-        "history_top3": true,
-        "p_cal": 52.0,
-        "statut_marche": "SURVEILLE",
-        "mise_pct": 0.5,
-        "mise_label": "0.5 %",
-        "valeur_pct": -15.8,
-        "cote_estimee": false,
-        "ecart_calibration": -29.0,
-        "rang_jour": 97,
-        "cumul_pct": 170.0,
-        "hors_budget": true
-      }
-    ],
-    "home_players": [],
-    "away_players": [],
-    "fun_picks": [],
-    "top_pick": {
-      "direction": "sot_under_10.5",
-      "type": "Tirs cadrés (total)",
-      "label": "Moins de 10.5 tirs cadrés total",
-      "cote": null,
-      "cote_min": 1.29,
-      "value": [
-        "⚠️",
-        "Value serrée",
-        "#f59e0b"
-      ],
-      "confidence": 78,
-      "reasoning": "📊 Brut : Sparta Prague L10 TCC 6.8 (L5 TCC 6.0) tirs cadrés/m · AFC Bournemouth L10 TCC 5.5 (L5 TCC 5.8) tirs cadrés/m\n🛡️ Défenses : Sparta Prague concède 2.5/m · AFC Bournemouth concède 2.4/m\n🎯 Attendu : Sparta Prague ~3.7 · AFC Bournemouth ~4.6 → total ~8.4\n⚖️ AFC Bournemouth favori (#1 vs #17) · Sparta Prague forme : D-L-W-L-D · AFC Bournemouth forme : W-W-W-W-W\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
-      "stats": {
-        "expected_total": 8.4
-      },
-      "tier": "safe",
-      "calibration_delta": -11.3,
-      "history_top3": false,
-      "p_cal": 77.5,
-      "statut_marche": "RETENU",
-      "mise_pct": 3.0,
-      "mise_label": "3 %",
-      "valeur_pct": null,
-      "cote_estimee": false,
-      "ecart_calibration": -0.5,
-      "rang_jour": 13,
-      "cumul_pct": 41.0,
-      "hors_budget": true
-    },
-    "no_picks": false,
-    "context": {
-      "stadium": {
-        "name": "epet ARENA",
-        "city": "Praha",
-        "country": "Czech Republic",
-        "lat": 50.09981606,
-        "lon": 14.415827394,
-        "capacity": 20854,
-        "surface": "grass"
-      },
-      "weather": null,
-      "text": "Stade : epet ARENA · 20 854 places · plein air."
-    }
-  },
-  {
-    "league": "Europa League",
-    "home": "Sturm Graz",
-    "away": "NK Celje",
-    "start_ts": 1793908800,
-    "match_id": "6112316",
-    "page_url": "/matches/nk-celje-vs-sturm-graz/1rrwx8#6112316",
-    "picks": [
-      {
-        "direction": "shots_under_28.5",
-        "type": "Tirs (total match)",
-        "label": "Moins de 28.5 tirs total",
-        "cote": null,
-        "cote_min": 1.28,
-        "value": [
-          "⚠️",
-          "Value serrée",
-          "#f59e0b"
-        ],
-        "confidence": 78,
-        "reasoning": "📊 Brut : Sturm Graz L10 TCC 15.1 (L5 TCC 19.2) tirs/m · NK Celje L10 TCC 8.7 (L5 TCC 8.7) tirs/m\n🛡️ Défenses : Sturm Graz concède 13.8/m · NK Celje concède 15.3/m\n🎯 Attendu : Sturm Graz ~14.3 · NK Celje ~10.4 → total ~24.7\n⚖️ Sturm Graz favori (#23 vs #30) · Sturm Graz forme : D-L-D-W-W · NK Celje forme : W-D-D-D-L\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
-        "stats": {
-          "expected_total": 24.7
-        },
-        "tier": "safe",
-        "calibration_delta": -11.3,
-        "history_top3": false,
-        "p_cal": 62.5,
-        "statut_marche": "RETENU",
-        "mise_pct": 3.0,
-        "mise_label": "3 %",
-        "valeur_pct": null,
-        "cote_estimee": false,
-        "ecart_calibration": -15.5,
-        "rang_jour": 34,
-        "cumul_pct": 104.0,
-        "hors_budget": true
-      },
-      {
-        "direction": "tirs_(sturm_graz)_over_11.5",
-        "type": "Tirs (Sturm Graz)",
-        "label": "Plus de 11.5 tirs Sturm Graz",
-        "cote": null,
-        "cote_min": 1.31,
-        "value": [
-          "💎",
-          "Value correcte",
-          "#84cc16"
-        ],
-        "confidence": 76,
-        "edge": null,
-        "reasoning": "Sturm Graz prend 11.1/m [pondere vs opp #30] · adv. concède 15.3/m → attendu ~14.3 (Sturm Graz favori (#23 vs #30))\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
-        "stats": {
-          "expected": 14.3
-        },
-        "tier": "safe",
-        "calibration_delta": -11.3,
-        "history_top3": true,
-        "p_cal": 47.3,
-        "statut_marche": "SURVEILLE",
-        "mise_pct": 0.5,
-        "mise_label": "0.5 %",
-        "valeur_pct": null,
-        "cote_estimee": false,
-        "ecart_calibration": -28.7,
-        "rang_jour": 78,
-        "cumul_pct": 160.5,
-        "hors_budget": true
-      }
-    ],
-    "home_players": [],
-    "away_players": [],
-    "fun_picks": [],
-    "top_pick": {
-      "direction": "shots_under_28.5",
-      "type": "Tirs (total match)",
-      "label": "Moins de 28.5 tirs total",
-      "cote": null,
-      "cote_min": 1.28,
-      "value": [
-        "⚠️",
-        "Value serrée",
-        "#f59e0b"
-      ],
-      "confidence": 78,
-      "reasoning": "📊 Brut : Sturm Graz L10 TCC 15.1 (L5 TCC 19.2) tirs/m · NK Celje L10 TCC 8.7 (L5 TCC 8.7) tirs/m\n🛡️ Défenses : Sturm Graz concède 13.8/m · NK Celje concède 15.3/m\n🎯 Attendu : Sturm Graz ~14.3 · NK Celje ~10.4 → total ~24.7\n⚖️ Sturm Graz favori (#23 vs #30) · Sturm Graz forme : D-L-D-W-W · NK Celje forme : W-D-D-D-L\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
-      "stats": {
-        "expected_total": 24.7
-      },
-      "tier": "safe",
-      "calibration_delta": -11.3,
-      "history_top3": false,
-      "p_cal": 62.5,
-      "statut_marche": "RETENU",
-      "mise_pct": 3.0,
-      "mise_label": "3 %",
-      "valeur_pct": null,
-      "cote_estimee": false,
-      "ecart_calibration": -15.5,
-      "rang_jour": 34,
-      "cumul_pct": 104.0,
-      "hors_budget": true
-    },
-    "no_picks": false,
-    "context": {
-      "stadium": {
-        "name": "Stadion Graz-Liebenau",
-        "city": "Graz",
-        "country": "Austria",
-        "lat": 47.046374663,
-        "lon": 15.454781055,
-        "capacity": 17425,
-        "surface": "grass"
-      },
-      "weather": {
-        "temp_max": 7.8,
-        "temp_min": 5.4,
-        "humidity": 77,
-        "precipitation_sum_mm": 0.0,
-        "wind_max_kmh": 4.5,
-        "weather_code": 61,
-        "summary_fr": "🌦️ pluie légère · 7°C · humidité 77%"
-      },
-      "text": "Conditions : 🌦️ pluie légère · 7°C · humidité 77%. Stade : Stadion Graz-Liebenau · 17 425 places · plein air."
     }
   },
   {
@@ -3274,8 +1322,8 @@
         "valeur_pct": null,
         "cote_estimee": false,
         "ecart_calibration": 0.5,
-        "rang_jour": 15,
-        "cumul_pct": 47.0,
+        "rang_jour": 7,
+        "cumul_pct": 21.0,
         "hors_budget": true
       },
       {
@@ -3305,8 +1353,8 @@
         "valeur_pct": null,
         "cote_estimee": false,
         "ecart_calibration": -31.7,
-        "rang_jour": 76,
-        "cumul_pct": 159.5,
+        "rang_jour": 33,
+        "cumul_pct": 62.5,
         "hors_budget": true
       }
     ],
@@ -3339,8 +1387,8 @@
       "valeur_pct": null,
       "cote_estimee": false,
       "ecart_calibration": 0.5,
-      "rang_jour": 15,
-      "cumul_pct": 47.0,
+      "rang_jour": 7,
+      "cumul_pct": 21.0,
       "hors_budget": true
     },
     "no_picks": false,
@@ -3364,258 +1412,6 @@
         "summary_fr": "☁️ couvert · 6–9°C · humidité 81%"
       },
       "text": "Conditions : ☁️ couvert · 6–9°C · humidité 81%. Stade : Celtic Park · 60 832 places · plein air."
-    }
-  },
-  {
-    "league": "Europa League",
-    "home": "Torreense",
-    "away": "Ararat Armenia",
-    "start_ts": 1793908800,
-    "match_id": "6112361",
-    "page_url": "/matches/torreense-vs-ararat-armenia/7fdyqr2u#6112361",
-    "picks": [
-      {
-        "direction": "shots_over_25.5",
-        "type": "Tirs (total match)",
-        "label": "Plus de 25.5 tirs total",
-        "cote": null,
-        "cote_min": 1.31,
-        "value": [
-          "💎",
-          "Value correcte",
-          "#84cc16"
-        ],
-        "confidence": 77,
-        "reasoning": "📊 Brut : Torreense L10 TCC 7.3 (L5 TCC 7.3) tirs/m · Ararat Armenia L10 TCC 12.3 (L5 TCC 12.3) tirs/m\n🛡️ Défenses : Torreense concède 20.3/m · Ararat Armenia concède 17.7/m\n🎯 Attendu : Torreense ~14.4 · Ararat Armenia ~15.1 → total ~29.5\n⚖️ Torreense favori (#28 vs #36) · Torreense forme : D-W-L-L-L · Ararat Armenia forme : W-W-L-W-L\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
-        "stats": {
-          "expected_total": 29.5
-        },
-        "tier": "safe",
-        "calibration_delta": -11.3,
-        "history_top3": true,
-        "p_cal": 62.5,
-        "statut_marche": "RETENU",
-        "mise_pct": 3.0,
-        "mise_label": "3 %",
-        "valeur_pct": null,
-        "cote_estimee": false,
-        "ecart_calibration": -14.5,
-        "rang_jour": 36,
-        "cumul_pct": 110.0,
-        "hors_budget": true
-      },
-      {
-        "direction": "tirs_cadrés_(torreense)_over_3.5",
-        "type": "Tirs cadrés (Torreense)",
-        "label": "Plus de 3.5 tirs cadrés Torreense",
-        "cote": null,
-        "cote_min": 1.28,
-        "value": [
-          "⚠️",
-          "Value serrée",
-          "#f59e0b"
-        ],
-        "confidence": 78,
-        "edge": null,
-        "reasoning": "Torreense prend 2.7/m [pondere vs opp #36] · adv. concède 7.3/m → attendu ~5.3 (Torreense favori (#28 vs #36))\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
-        "stats": {
-          "expected": 5.3
-        },
-        "tier": "safe",
-        "calibration_delta": -11.3,
-        "history_top3": false,
-        "p_cal": 47.3,
-        "statut_marche": "SURVEILLE",
-        "mise_pct": 0.5,
-        "mise_label": "0.5 %",
-        "valeur_pct": null,
-        "cote_estimee": false,
-        "ecart_calibration": -30.7,
-        "rang_jour": 80,
-        "cumul_pct": 161.5,
-        "hors_budget": true
-      }
-    ],
-    "home_players": [],
-    "away_players": [],
-    "fun_picks": [],
-    "top_pick": {
-      "direction": "shots_over_25.5",
-      "type": "Tirs (total match)",
-      "label": "Plus de 25.5 tirs total",
-      "cote": null,
-      "cote_min": 1.31,
-      "value": [
-        "💎",
-        "Value correcte",
-        "#84cc16"
-      ],
-      "confidence": 77,
-      "reasoning": "📊 Brut : Torreense L10 TCC 7.3 (L5 TCC 7.3) tirs/m · Ararat Armenia L10 TCC 12.3 (L5 TCC 12.3) tirs/m\n🛡️ Défenses : Torreense concède 20.3/m · Ararat Armenia concède 17.7/m\n🎯 Attendu : Torreense ~14.4 · Ararat Armenia ~15.1 → total ~29.5\n⚖️ Torreense favori (#28 vs #36) · Torreense forme : D-W-L-L-L · Ararat Armenia forme : W-W-L-W-L\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
-      "stats": {
-        "expected_total": 29.5
-      },
-      "tier": "safe",
-      "calibration_delta": -11.3,
-      "history_top3": true,
-      "p_cal": 62.5,
-      "statut_marche": "RETENU",
-      "mise_pct": 3.0,
-      "mise_label": "3 %",
-      "valeur_pct": null,
-      "cote_estimee": false,
-      "ecart_calibration": -14.5,
-      "rang_jour": 36,
-      "cumul_pct": 110.0,
-      "hors_budget": true
-    },
-    "no_picks": false,
-    "context": {
-      "stadium": {
-        "name": "Estádio Dr. Magalhães Pessoa",
-        "city": "Leiria",
-        "country": "Portugal",
-        "lat": 39.748716038,
-        "lon": -8.813009262,
-        "capacity": 23888,
-        "surface": "grass"
-      },
-      "weather": {
-        "temp_max": 18.6,
-        "temp_min": 5.3,
-        "humidity": 59,
-        "precipitation_sum_mm": 0.0,
-        "wind_max_kmh": 10.0,
-        "weather_code": 45,
-        "summary_fr": "🌫️ brouillard · 5–18°C · humidité 59%"
-      },
-      "text": "Conditions : 🌫️ brouillard · 5–18°C · humidité 59%. Stade : Estádio Dr. Magalhães Pessoa · 23 888 places · plein air."
-    }
-  },
-  {
-    "league": "Conference League",
-    "home": "Lincoln Red Imps FC",
-    "away": "Hajduk Split",
-    "start_ts": 1793900700,
-    "match_id": "6112485",
-    "page_url": "/matches/hajduk-split-vs-lincoln-red-imps-fc/1ysmeyv9#6112485",
-    "picks": [
-      {
-        "direction": "shots_under_27.5",
-        "type": "Tirs (total match)",
-        "label": "Moins de 27.5 tirs total",
-        "cote": null,
-        "cote_min": 1.31,
-        "value": [
-          "💎",
-          "Value correcte",
-          "#84cc16"
-        ],
-        "confidence": 77,
-        "reasoning": "📊 Brut : Lincoln Red Imps FC L10 TCC 7.3 (L5 TCC 7.0) tirs/m · Hajduk Split L10 TCC 13.4 (L5 TCC 14.2) tirs/m\n🛡️ Défenses : Lincoln Red Imps FC concède 16.9/m · Hajduk Split concède 9.9/m\n🎯 Attendu : Lincoln Red Imps FC ~6.4 · Hajduk Split ~17.7 → total ~24.0\n⚖️ Hajduk Split favori (#1 vs #33) · Lincoln Red Imps FC forme : L-L-W-L-L · Hajduk Split forme : W-D-W-W-W\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
-        "stats": {
-          "expected_total": 24.0
-        },
-        "tier": "safe",
-        "calibration_delta": -11.3,
-        "history_top3": true,
-        "p_cal": 62.5,
-        "statut_marche": "RETENU",
-        "mise_pct": 3.0,
-        "mise_label": "3 %",
-        "valeur_pct": null,
-        "cote_estimee": false,
-        "ecart_calibration": -14.5,
-        "rang_jour": 40,
-        "cumul_pct": 122.0,
-        "hors_budget": true
-      },
-      {
-        "direction": "tirs_(hajduk_split)_over_14.5",
-        "type": "Tirs (Hajduk Split)",
-        "label": "Plus de 14.5 tirs Hajduk Split",
-        "cote": null,
-        "cote_min": 1.3,
-        "value": [
-          "💎",
-          "Value correcte",
-          "#84cc16"
-        ],
-        "confidence": 77,
-        "edge": null,
-        "reasoning": "Hajduk Split prend 12.5/m [pondere vs opp #33] · adv. concède 16.9/m → attendu ~17.7 (Hajduk Split favori (#1 vs #33))\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
-        "stats": {
-          "expected": 17.7
-        },
-        "tier": "safe",
-        "calibration_delta": -11.3,
-        "history_top3": true,
-        "p_cal": 47.3,
-        "statut_marche": "SURVEILLE",
-        "mise_pct": 0.5,
-        "mise_label": "0.5 %",
-        "valeur_pct": null,
-        "cote_estimee": false,
-        "ecart_calibration": -29.7,
-        "rang_jour": 86,
-        "cumul_pct": 164.5,
-        "hors_budget": true
-      }
-    ],
-    "home_players": [],
-    "away_players": [],
-    "fun_picks": [],
-    "top_pick": {
-      "direction": "shots_under_27.5",
-      "type": "Tirs (total match)",
-      "label": "Moins de 27.5 tirs total",
-      "cote": null,
-      "cote_min": 1.31,
-      "value": [
-        "💎",
-        "Value correcte",
-        "#84cc16"
-      ],
-      "confidence": 77,
-      "reasoning": "📊 Brut : Lincoln Red Imps FC L10 TCC 7.3 (L5 TCC 7.0) tirs/m · Hajduk Split L10 TCC 13.4 (L5 TCC 14.2) tirs/m\n🛡️ Défenses : Lincoln Red Imps FC concède 16.9/m · Hajduk Split concède 9.9/m\n🎯 Attendu : Lincoln Red Imps FC ~6.4 · Hajduk Split ~17.7 → total ~24.0\n⚖️ Hajduk Split favori (#1 vs #33) · Lincoln Red Imps FC forme : L-L-W-L-L · Hajduk Split forme : W-D-W-W-W\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
-      "stats": {
-        "expected_total": 24.0
-      },
-      "tier": "safe",
-      "calibration_delta": -11.3,
-      "history_top3": true,
-      "p_cal": 62.5,
-      "statut_marche": "RETENU",
-      "mise_pct": 3.0,
-      "mise_label": "3 %",
-      "valeur_pct": null,
-      "cote_estimee": false,
-      "ecart_calibration": -14.5,
-      "rang_jour": 40,
-      "cumul_pct": 122.0,
-      "hors_budget": true
-    },
-    "no_picks": false,
-    "context": {
-      "stadium": {
-        "name": "Europa Point Stadium",
-        "city": "Gibraltar",
-        "country": "Gibraltar",
-        "lat": 36.110713502,
-        "lon": -5.347034314,
-        "capacity": 2000,
-        "surface": "artificial turf"
-      },
-      "weather": {
-        "temp_max": 22.2,
-        "temp_min": 14.0,
-        "humidity": 67,
-        "precipitation_sum_mm": 0.1,
-        "wind_max_kmh": 12.9,
-        "weather_code": 45,
-        "summary_fr": "🌫️ brouillard · 14–22°C · humidité 67%"
-      },
-      "text": "Conditions : 🌫️ brouillard · 14–22°C · humidité 67%. Stade : Europa Point Stadium · 2 000 places · plein air."
     }
   },
   {
@@ -3654,8 +1450,8 @@
         "cote_estimee": true,
         "cote_reference": 2.12,
         "ecart_calibration": -19.9,
-        "rang_jour": 49,
-        "cumul_pct": 143.0,
+        "rang_jour": 20,
+        "cumul_pct": 56.0,
         "hors_budget": true
       }
     ],
@@ -3690,8 +1486,8 @@
       "cote_estimee": true,
       "cote_reference": 2.12,
       "ecart_calibration": -19.9,
-      "rang_jour": 49,
-      "cumul_pct": 143.0,
+      "rang_jour": 20,
+      "cumul_pct": 56.0,
       "hors_budget": true
     },
     "no_picks": false,
@@ -3751,8 +1547,8 @@
         "valeur_pct": null,
         "cote_estimee": false,
         "ecart_calibration": -13.5,
-        "rang_jour": 23,
-        "cumul_pct": 71.0,
+        "rang_jour": 10,
+        "cumul_pct": 30.0,
         "hors_budget": true
       },
       {
@@ -3782,8 +1578,8 @@
         "valeur_pct": null,
         "cote_estimee": false,
         "ecart_calibration": -31.7,
-        "rang_jour": 61,
-        "cumul_pct": 152.0,
+        "rang_jour": 26,
+        "cumul_pct": 59.0,
         "hors_budget": true
       }
     ],
@@ -3816,8 +1612,8 @@
       "valeur_pct": null,
       "cote_estimee": false,
       "ecart_calibration": -13.5,
-      "rang_jour": 23,
-      "cumul_pct": 71.0,
+      "rang_jour": 10,
+      "cumul_pct": 30.0,
       "hors_budget": true
     },
     "no_picks": false,
@@ -3841,1172 +1637,6 @@
         "summary_fr": "☁️ couvert · 10–22°C · humidité 44%"
       },
       "text": "Conditions : ☁️ couvert · 10–22°C · humidité 44%. Stade : Estadio Ramón Sánchez Pizjuán · 42 714 places · plein air."
-    }
-  },
-  {
-    "league": "Europa League",
-    "home": "Crystal Palace",
-    "away": "Hoffenheim",
-    "start_ts": 1793900700,
-    "match_id": "6112325",
-    "page_url": "/matches/hoffenheim-vs-crystal-palace/2p0pt8#6112325",
-    "picks": [
-      {
-        "direction": "shots_over_25.5",
-        "type": "Tirs (total match)",
-        "label": "Plus de 25.5 tirs total",
-        "cote": null,
-        "cote_min": 1.32,
-        "value": [
-          "💎",
-          "Value correcte",
-          "#84cc16"
-        ],
-        "confidence": 76,
-        "reasoning": "📊 Brut : Crystal Palace L10 TCC 10.0 (L5 TCC 7.2) tirs/m · Hoffenheim L10 TCC 17.8 (L5 TCC 16.8) tirs/m\n🛡️ Défenses : Crystal Palace concède 15.9/m · Hoffenheim concède 12.4/m\n🎯 Attendu : Crystal Palace ~11.1 · Hoffenheim ~18.3 → total ~29.3\n⚖️ Hoffenheim favori (#14 vs #19) · Crystal Palace forme : L-L-D-L-L · Hoffenheim forme : L-W-W-W-L\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
-        "stats": {
-          "expected_total": 29.3
-        },
-        "tier": "safe",
-        "calibration_delta": -11.3,
-        "history_top3": true,
-        "p_cal": 62.5,
-        "statut_marche": "RETENU",
-        "mise_pct": 3.0,
-        "mise_label": "3 %",
-        "valeur_pct": null,
-        "cote_estimee": false,
-        "ecart_calibration": -13.5,
-        "rang_jour": 28,
-        "cumul_pct": 86.0,
-        "hors_budget": true
-      },
-      {
-        "direction": "tirs_cadrés_(hoffenheim)_over_3.5",
-        "type": "Tirs cadrés (Hoffenheim)",
-        "label": "Plus de 3.5 tirs cadrés Hoffenheim",
-        "cote": null,
-        "cote_min": 1.26,
-        "value": [
-          "⚠️",
-          "Value serrée",
-          "#f59e0b"
-        ],
-        "confidence": 79,
-        "edge": null,
-        "reasoning": "Hoffenheim prend 5.4/m [pondere vs opp #19] · adv. concède 5.1/m → attendu ~5.5 (Hoffenheim favori (#14 vs #19))\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
-        "stats": {
-          "expected": 5.5
-        },
-        "tier": "safe",
-        "calibration_delta": -11.3,
-        "history_top3": false,
-        "p_cal": 47.3,
-        "statut_marche": "SURVEILLE",
-        "mise_pct": 0.5,
-        "mise_label": "0.5 %",
-        "valeur_pct": null,
-        "cote_estimee": false,
-        "ecart_calibration": -31.7,
-        "rang_jour": 67,
-        "cumul_pct": 155.0,
-        "hors_budget": true
-      }
-    ],
-    "home_players": [],
-    "away_players": [],
-    "fun_picks": [],
-    "top_pick": {
-      "direction": "shots_over_25.5",
-      "type": "Tirs (total match)",
-      "label": "Plus de 25.5 tirs total",
-      "cote": null,
-      "cote_min": 1.32,
-      "value": [
-        "💎",
-        "Value correcte",
-        "#84cc16"
-      ],
-      "confidence": 76,
-      "reasoning": "📊 Brut : Crystal Palace L10 TCC 10.0 (L5 TCC 7.2) tirs/m · Hoffenheim L10 TCC 17.8 (L5 TCC 16.8) tirs/m\n🛡️ Défenses : Crystal Palace concède 15.9/m · Hoffenheim concède 12.4/m\n🎯 Attendu : Crystal Palace ~11.1 · Hoffenheim ~18.3 → total ~29.3\n⚖️ Hoffenheim favori (#14 vs #19) · Crystal Palace forme : L-L-D-L-L · Hoffenheim forme : L-W-W-W-L\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
-      "stats": {
-        "expected_total": 29.3
-      },
-      "tier": "safe",
-      "calibration_delta": -11.3,
-      "history_top3": true,
-      "p_cal": 62.5,
-      "statut_marche": "RETENU",
-      "mise_pct": 3.0,
-      "mise_label": "3 %",
-      "valeur_pct": null,
-      "cote_estimee": false,
-      "ecart_calibration": -13.5,
-      "rang_jour": 28,
-      "cumul_pct": 86.0,
-      "hors_budget": true
-    },
-    "no_picks": false,
-    "context": {
-      "stadium": {
-        "name": "Selhurst Park",
-        "city": "London",
-        "country": "England",
-        "lat": 51.398278578,
-        "lon": -0.085503459,
-        "capacity": 25486,
-        "surface": "grass"
-      },
-      "weather": {
-        "temp_max": 10.1,
-        "temp_min": 8.6,
-        "humidity": 72,
-        "precipitation_sum_mm": 0.1,
-        "wind_max_kmh": 15.8,
-        "weather_code": 51,
-        "summary_fr": "🌦️ bruine légère · 10°C · humidité 72%"
-      },
-      "text": "Conditions : 🌦️ bruine légère · 10°C · humidité 72%. Stade : Selhurst Park · 25 486 places · plein air."
-    }
-  },
-  {
-    "league": "Europa League",
-    "home": "AZ Alkmaar",
-    "away": "Juventus",
-    "start_ts": 1793908800,
-    "match_id": "6112262",
-    "page_url": "/matches/juventus-vs-az-alkmaar/3cg4nc#6112262",
-    "picks": [
-      {
-        "direction": "sot_under_10.5",
-        "type": "Tirs cadrés (total)",
-        "label": "Moins de 10.5 tirs cadrés total",
-        "cote": null,
-        "cote_min": 1.31,
-        "value": [
-          "💎",
-          "Value correcte",
-          "#84cc16"
-        ],
-        "confidence": 76,
-        "reasoning": "📊 Brut : AZ Alkmaar L10 TCC 5.5 (L5 TCC 6.0) tirs cadrés/m · Juventus L10 TCC 4.9 (L5 TCC 3.2) tirs cadrés/m\n🛡️ Défenses : AZ Alkmaar concède 4.0/m · Juventus concède 2.9/m\n🎯 Attendu : AZ Alkmaar ~4.2 · Juventus ~4.3 → total ~8.5\n⚖️ Juventus favori (#8 vs #12) · AZ Alkmaar forme : L-L-W-D-W · Juventus forme : W-L-W-D-L\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
-        "stats": {
-          "expected_total": 8.5
-        },
-        "tier": "safe",
-        "calibration_delta": -11.3,
-        "history_top3": true,
-        "p_cal": 77.5,
-        "statut_marche": "RETENU",
-        "mise_pct": 3.0,
-        "mise_label": "3 %",
-        "valeur_pct": null,
-        "cote_estimee": false,
-        "ecart_calibration": 1.5,
-        "rang_jour": 14,
-        "cumul_pct": 44.0,
-        "hors_budget": true
-      },
-      {
-        "direction": "tirs_cadrés_(juventus)_over_2.5",
-        "type": "Tirs cadrés (Juventus)",
-        "label": "Plus de 2.5 tirs cadrés Juventus",
-        "cote": null,
-        "cote_min": 1.25,
-        "value": [
-          "⚠️",
-          "Value serrée",
-          "#f59e0b"
-        ],
-        "confidence": 80,
-        "edge": null,
-        "reasoning": "Juventus prend 4.2/m [pondere vs opp #12] · adv. concède 4.0/m → attendu ~4.3 (Juventus favori (#8 vs #12))\n📉 Calibration : bucket 80-89% historiquement à WR 56% (claim 82%, n=63) — sur-estimé de 26pp",
-        "stats": {
-          "expected": 4.3
-        },
-        "tier": "safe",
-        "calibration_delta": -26.0,
-        "history_top3": false,
-        "p_cal": 47.3,
-        "statut_marche": "SURVEILLE",
-        "mise_pct": 0.5,
-        "mise_label": "0.5 %",
-        "valeur_pct": null,
-        "cote_estimee": false,
-        "ecart_calibration": -32.7,
-        "rang_jour": 72,
-        "cumul_pct": 157.5,
-        "hors_budget": true
-      }
-    ],
-    "home_players": [],
-    "away_players": [],
-    "fun_picks": [],
-    "top_pick": {
-      "direction": "sot_under_10.5",
-      "type": "Tirs cadrés (total)",
-      "label": "Moins de 10.5 tirs cadrés total",
-      "cote": null,
-      "cote_min": 1.31,
-      "value": [
-        "💎",
-        "Value correcte",
-        "#84cc16"
-      ],
-      "confidence": 76,
-      "reasoning": "📊 Brut : AZ Alkmaar L10 TCC 5.5 (L5 TCC 6.0) tirs cadrés/m · Juventus L10 TCC 4.9 (L5 TCC 3.2) tirs cadrés/m\n🛡️ Défenses : AZ Alkmaar concède 4.0/m · Juventus concède 2.9/m\n🎯 Attendu : AZ Alkmaar ~4.2 · Juventus ~4.3 → total ~8.5\n⚖️ Juventus favori (#8 vs #12) · AZ Alkmaar forme : L-L-W-D-W · Juventus forme : W-L-W-D-L\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
-      "stats": {
-        "expected_total": 8.5
-      },
-      "tier": "safe",
-      "calibration_delta": -11.3,
-      "history_top3": true,
-      "p_cal": 77.5,
-      "statut_marche": "RETENU",
-      "mise_pct": 3.0,
-      "mise_label": "3 %",
-      "valeur_pct": null,
-      "cote_estimee": false,
-      "ecart_calibration": 1.5,
-      "rang_jour": 14,
-      "cumul_pct": 44.0,
-      "hors_budget": true
-    },
-    "no_picks": false,
-    "context": {
-      "stadium": {
-        "name": "AFAS Stadion",
-        "city": "Alkmaar",
-        "country": "Netherlands",
-        "lat": 52.612735728,
-        "lon": 4.742102623,
-        "capacity": 19500,
-        "surface": "grass"
-      },
-      "weather": {
-        "temp_max": 9.6,
-        "temp_min": 4.2,
-        "humidity": 77,
-        "precipitation_sum_mm": 0.0,
-        "wind_max_kmh": 20.5,
-        "weather_code": 3,
-        "summary_fr": "☁️ couvert · 4–9°C · humidité 77%"
-      },
-      "text": "Conditions : ☁️ couvert · 4–9°C · humidité 77%. Stade : AFAS Stadion · 19 500 places · plein air."
-    }
-  },
-  {
-    "league": "Europa League",
-    "home": "Hapoel Beer Sheva",
-    "away": "OFI Crete",
-    "start_ts": 1793908800,
-    "match_id": "6112365",
-    "page_url": "/matches/ofi-crete-vs-hapoel-beer-sheva/2j90ts#6112365",
-    "picks": [
-      {
-        "direction": "shots_under_27.5",
-        "type": "Tirs (total match)",
-        "label": "Moins de 27.5 tirs total",
-        "cote": null,
-        "cote_min": 1.32,
-        "value": [
-          "💎",
-          "Value correcte",
-          "#84cc16"
-        ],
-        "confidence": 76,
-        "reasoning": "📊 Brut : Hapoel Beer Sheva L10 TCC 11.7 (L5 TCC 10.4) tirs/m · OFI Crete L10 TCC 10.7 (L5 TCC 12.4) tirs/m\n🛡️ Défenses : Hapoel Beer Sheva concède 14.2/m · OFI Crete concède 18.1/m\n🎯 Attendu : Hapoel Beer Sheva ~13.7 · OFI Crete ~10.4 → total ~24.2\n⚖️ OFI Crete favori (#27 vs #31) · Hapoel Beer Sheva forme : W-W-L-W-L · OFI Crete forme : W-L-W-L-L\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
-        "stats": {
-          "expected_total": 24.2
-        },
-        "tier": "safe",
-        "calibration_delta": -11.3,
-        "history_top3": true,
-        "p_cal": 62.5,
-        "statut_marche": "RETENU",
-        "mise_pct": 3.0,
-        "mise_label": "3 %",
-        "valeur_pct": null,
-        "cote_estimee": false,
-        "ecart_calibration": -13.5,
-        "rang_jour": 33,
-        "cumul_pct": 101.0,
-        "hors_budget": true
-      },
-      {
-        "direction": "tirs_(hapoel_beer_sheva)_under_16.5",
-        "type": "Tirs (Hapoel Beer Sheva)",
-        "label": "Moins de 16.5 tirs Hapoel Beer Sheva",
-        "cote": null,
-        "cote_min": 1.29,
-        "value": [
-          "⚠️",
-          "Value serrée",
-          "#f59e0b"
-        ],
-        "confidence": 78,
-        "edge": null,
-        "reasoning": "Hapoel Beer Sheva prend 10.8/m [pondere vs opp #27] · adv. concède 18.1/m → attendu ~13.7 (OFI Crete favori (#27 vs #31))\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
-        "stats": {
-          "expected": 13.7
-        },
-        "tier": "safe",
-        "calibration_delta": -11.3,
-        "history_top3": false,
-        "p_cal": 47.3,
-        "statut_marche": "SURVEILLE",
-        "mise_pct": 0.5,
-        "mise_label": "0.5 %",
-        "valeur_pct": null,
-        "cote_estimee": false,
-        "ecart_calibration": -30.7,
-        "rang_jour": 77,
-        "cumul_pct": 160.0,
-        "hors_budget": true
-      }
-    ],
-    "home_players": [],
-    "away_players": [],
-    "fun_picks": [],
-    "top_pick": {
-      "direction": "shots_under_27.5",
-      "type": "Tirs (total match)",
-      "label": "Moins de 27.5 tirs total",
-      "cote": null,
-      "cote_min": 1.32,
-      "value": [
-        "💎",
-        "Value correcte",
-        "#84cc16"
-      ],
-      "confidence": 76,
-      "reasoning": "📊 Brut : Hapoel Beer Sheva L10 TCC 11.7 (L5 TCC 10.4) tirs/m · OFI Crete L10 TCC 10.7 (L5 TCC 12.4) tirs/m\n🛡️ Défenses : Hapoel Beer Sheva concède 14.2/m · OFI Crete concède 18.1/m\n🎯 Attendu : Hapoel Beer Sheva ~13.7 · OFI Crete ~10.4 → total ~24.2\n⚖️ OFI Crete favori (#27 vs #31) · Hapoel Beer Sheva forme : W-W-L-W-L · OFI Crete forme : W-L-W-L-L\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
-      "stats": {
-        "expected_total": 24.2
-      },
-      "tier": "safe",
-      "calibration_delta": -11.3,
-      "history_top3": true,
-      "p_cal": 62.5,
-      "statut_marche": "RETENU",
-      "mise_pct": 3.0,
-      "mise_label": "3 %",
-      "valeur_pct": null,
-      "cote_estimee": false,
-      "ecart_calibration": -13.5,
-      "rang_jour": 33,
-      "cumul_pct": 101.0,
-      "hors_budget": true
-    },
-    "no_picks": false,
-    "context": {
-      "stadium": {
-        "name": "Arena Giulești",
-        "city": "București",
-        "country": "Romania",
-        "lat": 44.456031,
-        "lon": 26.056829,
-        "capacity": 14073,
-        "surface": "grass"
-      },
-      "weather": {
-        "temp_max": 7.3,
-        "temp_min": 3.7,
-        "humidity": 78,
-        "precipitation_sum_mm": 1.4,
-        "wind_max_kmh": 7.7,
-        "weather_code": 61,
-        "summary_fr": "🌦️ pluie légère · 3–7°C · humidité 78% · précipitations 1.4mm"
-      },
-      "text": "Conditions : 🌦️ pluie légère · 3–7°C · humidité 78% · précipitations 1.4mm. Stade : Arena Giulești · 14 073 places · plein air."
-    }
-  },
-  {
-    "league": "Conference League",
-    "home": "AGF",
-    "away": "Braga",
-    "start_ts": 1793900700,
-    "match_id": "6112532",
-    "page_url": "/matches/agf-vs-braga/2s31dj#6112532",
-    "picks": [
-      {
-        "direction": "shots_under_26.5",
-        "type": "Tirs (total match)",
-        "label": "Moins de 26.5 tirs total",
-        "cote": null,
-        "cote_min": 1.31,
-        "value": [
-          "💎",
-          "Value correcte",
-          "#84cc16"
-        ],
-        "confidence": 76,
-        "reasoning": "📊 Brut : AGF L10 TCC 12.4 (L5 TCC 14.8) tirs/m · Braga L10 TCC 15.0 (L5 TCC 19.0) tirs/m\n🛡️ Défenses : AGF concède 14.6/m · Braga concède 8.4/m\n🎯 Attendu : AGF ~6.7 · Braga ~16.4 → total ~23.1\n⚖️ Braga favori (#17 vs #24) · AGF forme : L-W-D-D-L · Braga forme : W-L-W-L-L\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
-        "stats": {
-          "expected_total": 23.1
-        },
-        "tier": "safe",
-        "calibration_delta": -11.3,
-        "history_top3": true,
-        "p_cal": 62.5,
-        "statut_marche": "RETENU",
-        "mise_pct": 3.0,
-        "mise_label": "3 %",
-        "valeur_pct": null,
-        "cote_estimee": false,
-        "ecart_calibration": -13.5,
-        "rang_jour": 37,
-        "cumul_pct": 113.0,
-        "hors_budget": true
-      },
-      {
-        "direction": "tirs_cadrés_(braga)_over_3.5",
-        "type": "Tirs cadrés (Braga)",
-        "label": "Plus de 3.5 tirs cadrés Braga",
-        "cote": null,
-        "cote_min": 1.29,
-        "value": [
-          "⚠️",
-          "Value serrée",
-          "#f59e0b"
-        ],
-        "confidence": 77,
-        "edge": null,
-        "reasoning": "Braga prend 5.1/m [pondere vs opp #24] · adv. concède 4.8/m → attendu ~5.3 (Braga favori (#17 vs #24))\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
-        "stats": {
-          "expected": 5.3
-        },
-        "tier": "safe",
-        "calibration_delta": -11.3,
-        "history_top3": false,
-        "p_cal": 47.3,
-        "statut_marche": "SURVEILLE",
-        "mise_pct": 0.5,
-        "mise_label": "0.5 %",
-        "valeur_pct": null,
-        "cote_estimee": false,
-        "ecart_calibration": -29.7,
-        "rang_jour": 81,
-        "cumul_pct": 162.0,
-        "hors_budget": true
-      }
-    ],
-    "home_players": [],
-    "away_players": [],
-    "fun_picks": [],
-    "top_pick": {
-      "direction": "shots_under_26.5",
-      "type": "Tirs (total match)",
-      "label": "Moins de 26.5 tirs total",
-      "cote": null,
-      "cote_min": 1.31,
-      "value": [
-        "💎",
-        "Value correcte",
-        "#84cc16"
-      ],
-      "confidence": 76,
-      "reasoning": "📊 Brut : AGF L10 TCC 12.4 (L5 TCC 14.8) tirs/m · Braga L10 TCC 15.0 (L5 TCC 19.0) tirs/m\n🛡️ Défenses : AGF concède 14.6/m · Braga concède 8.4/m\n🎯 Attendu : AGF ~6.7 · Braga ~16.4 → total ~23.1\n⚖️ Braga favori (#17 vs #24) · AGF forme : L-W-D-D-L · Braga forme : W-L-W-L-L\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
-      "stats": {
-        "expected_total": 23.1
-      },
-      "tier": "safe",
-      "calibration_delta": -11.3,
-      "history_top3": true,
-      "p_cal": 62.5,
-      "statut_marche": "RETENU",
-      "mise_pct": 3.0,
-      "mise_label": "3 %",
-      "valeur_pct": null,
-      "cote_estimee": false,
-      "ecart_calibration": -13.5,
-      "rang_jour": 37,
-      "cumul_pct": 113.0,
-      "hors_budget": true
-    },
-    "no_picks": false,
-    "context": {
-      "stadium": {
-        "name": "Cepheus Park Randers",
-        "city": "Randers",
-        "country": "Denmark",
-        "lat": 56.46589716,
-        "lon": 10.010304451,
-        "capacity": 12000,
-        "surface": "grass"
-      },
-      "weather": {
-        "temp_max": 9.8,
-        "temp_min": 0.1,
-        "humidity": 99,
-        "precipitation_sum_mm": 0.0,
-        "wind_max_kmh": 9.4,
-        "weather_code": 3,
-        "summary_fr": "☁️ couvert · 0–9°C · humidité 99%"
-      },
-      "text": "Conditions : ☁️ couvert · 0–9°C · humidité 99%. Stade : Cepheus Park Randers · 12 000 places · plein air."
-    }
-  },
-  {
-    "league": "Conference League",
-    "home": "KuPS",
-    "away": "Gent",
-    "start_ts": 1793900700,
-    "match_id": "6112477",
-    "page_url": "/matches/kups-vs-gent/14ncdd#6112477",
-    "picks": [
-      {
-        "direction": "shots_over_25.5",
-        "type": "Tirs (total match)",
-        "label": "Plus de 25.5 tirs total",
-        "cote": null,
-        "cote_min": 1.32,
-        "value": [
-          "💎",
-          "Value correcte",
-          "#84cc16"
-        ],
-        "confidence": 76,
-        "reasoning": "📊 Brut : KuPS L10 TCC 16.0 (L5 TCC 16.0) tirs/m · Gent L10 TCC 13.1 (L5 TCC 13.8) tirs/m\n🛡️ Défenses : KuPS concède 12.8/m · Gent concède 14.5/m\n🎯 Attendu : KuPS ~11.3 · Gent ~18.1 → total ~29.3\n⚖️ Gent favori (#18 vs #34) · KuPS forme : L-D-D-L-W · Gent forme : L-W-L-W-W\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
-        "stats": {
-          "expected_total": 29.3
-        },
-        "tier": "safe",
-        "calibration_delta": -11.3,
-        "history_top3": true,
-        "p_cal": 62.5,
-        "statut_marche": "RETENU",
-        "mise_pct": 3.0,
-        "mise_label": "3 %",
-        "valeur_pct": null,
-        "cote_estimee": false,
-        "ecart_calibration": -13.5,
-        "rang_jour": 39,
-        "cumul_pct": 119.0,
-        "hors_budget": true
-      },
-      {
-        "direction": "tirs_(gent)_over_14.5",
-        "type": "Tirs (Gent)",
-        "label": "Plus de 14.5 tirs Gent",
-        "cote": null,
-        "cote_min": 1.26,
-        "value": [
-          "⚠️",
-          "Value serrée",
-          "#f59e0b"
-        ],
-        "confidence": 80,
-        "edge": null,
-        "reasoning": "Gent prend 17.5/m [pondere vs opp #34] · adv. concède 12.8/m → attendu ~18.1 (Gent favori (#18 vs #34))\n📉 Calibration : bucket 80-89% historiquement à WR 56% (claim 82%, n=63) — sur-estimé de 26pp",
-        "stats": {
-          "expected": 18.1
-        },
-        "tier": "safe",
-        "calibration_delta": -26.0,
-        "history_top3": false,
-        "p_cal": 47.3,
-        "statut_marche": "SURVEILLE",
-        "mise_pct": 0.5,
-        "mise_label": "0.5 %",
-        "valeur_pct": null,
-        "cote_estimee": false,
-        "ecart_calibration": -32.7,
-        "rang_jour": 85,
-        "cumul_pct": 164.0,
-        "hors_budget": true
-      }
-    ],
-    "home_players": [],
-    "away_players": [],
-    "fun_picks": [],
-    "top_pick": {
-      "direction": "shots_over_25.5",
-      "type": "Tirs (total match)",
-      "label": "Plus de 25.5 tirs total",
-      "cote": null,
-      "cote_min": 1.32,
-      "value": [
-        "💎",
-        "Value correcte",
-        "#84cc16"
-      ],
-      "confidence": 76,
-      "reasoning": "📊 Brut : KuPS L10 TCC 16.0 (L5 TCC 16.0) tirs/m · Gent L10 TCC 13.1 (L5 TCC 13.8) tirs/m\n🛡️ Défenses : KuPS concède 12.8/m · Gent concède 14.5/m\n🎯 Attendu : KuPS ~11.3 · Gent ~18.1 → total ~29.3\n⚖️ Gent favori (#18 vs #34) · KuPS forme : L-D-D-L-W · Gent forme : L-W-L-W-W\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
-      "stats": {
-        "expected_total": 29.3
-      },
-      "tier": "safe",
-      "calibration_delta": -11.3,
-      "history_top3": true,
-      "p_cal": 62.5,
-      "statut_marche": "RETENU",
-      "mise_pct": 3.0,
-      "mise_label": "3 %",
-      "valeur_pct": null,
-      "cote_estimee": false,
-      "ecart_calibration": -13.5,
-      "rang_jour": 39,
-      "cumul_pct": 119.0,
-      "hors_budget": true
-    },
-    "no_picks": false,
-    "context": {
-      "stadium": {
-        "name": "Tammelan stadion",
-        "city": "Tampere",
-        "country": "Finland",
-        "lat": 61.500277867,
-        "lon": 23.785464771,
-        "capacity": 8017,
-        "surface": "artificial turf"
-      },
-      "weather": {
-        "temp_max": 7.3,
-        "temp_min": 5.0,
-        "humidity": 69,
-        "precipitation_sum_mm": 0.1,
-        "wind_max_kmh": 35.3,
-        "weather_code": 51,
-        "summary_fr": "🌦️ bruine légère · 7°C · humidité 69%"
-      },
-      "text": "Conditions : 🌦️ bruine légère · 7°C · humidité 69%. Stade : Tammelan stadion · 8 017 places · plein air. ⚠️ Vent fort prévu : jeu aérien moins fiable, balles longues imprévisibles."
-    }
-  },
-  {
-    "league": "Conference League",
-    "home": "Mjällby",
-    "away": "Borac Banja Luka",
-    "start_ts": 1793900700,
-    "match_id": "6112548",
-    "page_url": "/matches/mjallby-vs-borac-banja-luka/2r2z39#6112548",
-    "picks": [
-      {
-        "direction": "shots_over_28.5",
-        "type": "Tirs (total match)",
-        "label": "Plus de 28.5 tirs total",
-        "cote": null,
-        "cote_min": 1.32,
-        "value": [
-          "💎",
-          "Value correcte",
-          "#84cc16"
-        ],
-        "confidence": 76,
-        "reasoning": "📊 Brut : Mjällby L10 TCC 13.9 (L5 TCC 13.6) tirs/m · Borac Banja Luka L10 14.0 (L5 14.0) tirs/m\n🛡️ Défenses : Mjällby concède 13.7/m · Borac Banja Luka concède 21.5/m\n🎯 Attendu : Mjällby ~20.7 · Borac Banja Luka ~11.8 → total ~32.5\n⚖️ Mjällby favori (#11 vs #15) · Mjällby forme : D-W-L-D-L · Borac Banja Luka forme : W-W-W-L-W\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
-        "stats": {
-          "expected_total": 32.5
-        },
-        "tier": "safe",
-        "calibration_delta": -11.3,
-        "history_top3": true,
-        "p_cal": 62.5,
-        "statut_marche": "RETENU",
-        "mise_pct": 3.0,
-        "mise_label": "3 %",
-        "valeur_pct": null,
-        "cote_estimee": false,
-        "ecart_calibration": -13.5,
-        "rang_jour": 41,
-        "cumul_pct": 125.0,
-        "hors_budget": true
-      },
-      {
-        "direction": "tirs_(mjällby)_over_16.5",
-        "type": "Tirs (Mjällby)",
-        "label": "Plus de 16.5 tirs Mjällby",
-        "cote": null,
-        "cote_min": 1.22,
-        "value": [
-          "⚠️",
-          "Value serrée",
-          "#f59e0b"
-        ],
-        "confidence": 82,
-        "edge": null,
-        "reasoning": "Mjällby prend 18.0/m [pondere vs opp #15] · adv. concède 21.5/m → attendu ~20.7 (Mjällby favori (#11 vs #15))\n📉 Calibration : bucket 80-89% historiquement à WR 56% (claim 82%, n=63) — sur-estimé de 26pp",
-        "stats": {
-          "expected": 20.7
-        },
-        "tier": "safe",
-        "calibration_delta": -26.0,
-        "history_top3": false,
-        "p_cal": 47.3,
-        "statut_marche": "SURVEILLE",
-        "mise_pct": 0.5,
-        "mise_label": "0.5 %",
-        "valeur_pct": null,
-        "cote_estimee": false,
-        "ecart_calibration": -34.7,
-        "rang_jour": 87,
-        "cumul_pct": 165.0,
-        "hors_budget": true
-      }
-    ],
-    "home_players": [],
-    "away_players": [],
-    "fun_picks": [],
-    "top_pick": {
-      "direction": "shots_over_28.5",
-      "type": "Tirs (total match)",
-      "label": "Plus de 28.5 tirs total",
-      "cote": null,
-      "cote_min": 1.32,
-      "value": [
-        "💎",
-        "Value correcte",
-        "#84cc16"
-      ],
-      "confidence": 76,
-      "reasoning": "📊 Brut : Mjällby L10 TCC 13.9 (L5 TCC 13.6) tirs/m · Borac Banja Luka L10 14.0 (L5 14.0) tirs/m\n🛡️ Défenses : Mjällby concède 13.7/m · Borac Banja Luka concède 21.5/m\n🎯 Attendu : Mjällby ~20.7 · Borac Banja Luka ~11.8 → total ~32.5\n⚖️ Mjällby favori (#11 vs #15) · Mjällby forme : D-W-L-D-L · Borac Banja Luka forme : W-W-W-L-W\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
-      "stats": {
-        "expected_total": 32.5
-      },
-      "tier": "safe",
-      "calibration_delta": -11.3,
-      "history_top3": true,
-      "p_cal": 62.5,
-      "statut_marche": "RETENU",
-      "mise_pct": 3.0,
-      "mise_label": "3 %",
-      "valeur_pct": null,
-      "cote_estimee": false,
-      "ecart_calibration": -13.5,
-      "rang_jour": 41,
-      "cumul_pct": 125.0,
-      "hors_budget": true
-    },
-    "no_picks": false,
-    "context": {
-      "stadium": {
-        "name": "Olympia",
-        "city": "Helsingborg",
-        "country": "Sweden",
-        "lat": 56.049938296,
-        "lon": 12.706777453,
-        "capacity": 16673,
-        "surface": "grass"
-      },
-      "weather": {
-        "temp_max": 10.0,
-        "temp_min": 3.7,
-        "humidity": 90,
-        "precipitation_sum_mm": 0.0,
-        "wind_max_kmh": 14.8,
-        "weather_code": 3,
-        "summary_fr": "☁️ couvert · 3–10°C · humidité 90%"
-      },
-      "text": "Conditions : ☁️ couvert · 3–10°C · humidité 90%. Stade : Olympia · 16 673 places · plein air."
-    }
-  },
-  {
-    "league": "Conference League",
-    "home": "Trabzonspor",
-    "away": "Freiburg",
-    "start_ts": 1793900700,
-    "match_id": "6112501",
-    "page_url": "/matches/freiburg-vs-trabzonspor/2pn6yh#6112501",
-    "picks": [
-      {
-        "direction": "shots_over_24.5",
-        "type": "Tirs (total match)",
-        "label": "Plus de 24.5 tirs total",
-        "cote": null,
-        "cote_min": 1.32,
-        "value": [
-          "💎",
-          "Value correcte",
-          "#84cc16"
-        ],
-        "confidence": 76,
-        "reasoning": "📊 Brut : Trabzonspor L10 TCC 14.4 (L5 TCC 15.6) tirs/m · Freiburg L10 TCC 15.6 (L5 TCC 13.2) tirs/m\n🛡️ Défenses : Trabzonspor concède 13.8/m · Freiburg concède 11.6/m\n🎯 Attendu : Trabzonspor ~14.0 · Freiburg ~14.2 → total ~28.3\n⚖️ équipes proches au classement · Trabzonspor forme : W-W-W-W-W · Freiburg forme : W-L-L-L-W\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
-        "stats": {
-          "expected_total": 28.3
-        },
-        "tier": "safe",
-        "calibration_delta": -11.3,
-        "history_top3": true,
-        "p_cal": 62.5,
-        "statut_marche": "RETENU",
-        "mise_pct": 3.0,
-        "mise_label": "3 %",
-        "valeur_pct": null,
-        "cote_estimee": false,
-        "ecart_calibration": -13.5,
-        "rang_jour": 43,
-        "cumul_pct": 131.0,
-        "hors_budget": true
-      },
-      {
-        "direction": "home_win",
-        "type": "Victoire domicile",
-        "label": "Trabzonspor gagne",
-        "cote": 2.4,
-        "confidence": 75,
-        "reasoning": "Trabzonspor : 5V/0N/0D sur 5 matchs · #7 au classement · H2H: 0V/0N/0D · Note Sofa: 6.5/10\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
-        "stats": {
-          "form": [
-            "W",
-            "W",
-            "W",
-            "W",
-            "W"
-          ]
-        },
-        "is_fun": false,
-        "tier": "ok",
-        "calibration_delta": -11.3,
-        "edge_pp": 33.3,
-        "history_top3": true,
-        "p_cal": 57.1,
-        "statut_marche": "SURVEILLE",
-        "mise_pct": 1.0,
-        "mise_label": "1 %",
-        "valeur_pct": 37.0,
-        "cote_estimee": false,
-        "ecart_calibration": -17.9,
-        "rang_jour": 47,
-        "cumul_pct": 141.0,
-        "hors_budget": true
-      },
-      {
-        "direction": "tirs_(freiburg)_over_11.5",
-        "type": "Tirs (Freiburg)",
-        "label": "Plus de 11.5 tirs Freiburg",
-        "cote": null,
-        "cote_min": 1.32,
-        "value": [
-          "💎",
-          "Value correcte",
-          "#84cc16"
-        ],
-        "confidence": 76,
-        "edge": null,
-        "reasoning": "Freiburg prend 14.6/m [pondere vs opp #7] · adv. concède 13.8/m → attendu ~14.2 (équipes proches au classement)\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
-        "stats": {
-          "expected": 14.2
-        },
-        "tier": "safe",
-        "calibration_delta": -11.3,
-        "history_top3": true,
-        "p_cal": 90.0,
-        "statut_marche": "SURVEILLE",
-        "mise_pct": 1.0,
-        "mise_label": "1 %",
-        "valeur_pct": null,
-        "cote_estimee": false,
-        "ecart_calibration": 14.0,
-        "rang_jour": 55,
-        "cumul_pct": 149.0,
-        "hors_budget": true
-      }
-    ],
-    "home_players": [],
-    "away_players": [],
-    "fun_picks": [],
-    "top_pick": {
-      "direction": "shots_over_24.5",
-      "type": "Tirs (total match)",
-      "label": "Plus de 24.5 tirs total",
-      "cote": null,
-      "cote_min": 1.32,
-      "value": [
-        "💎",
-        "Value correcte",
-        "#84cc16"
-      ],
-      "confidence": 76,
-      "reasoning": "📊 Brut : Trabzonspor L10 TCC 14.4 (L5 TCC 15.6) tirs/m · Freiburg L10 TCC 15.6 (L5 TCC 13.2) tirs/m\n🛡️ Défenses : Trabzonspor concède 13.8/m · Freiburg concède 11.6/m\n🎯 Attendu : Trabzonspor ~14.0 · Freiburg ~14.2 → total ~28.3\n⚖️ équipes proches au classement · Trabzonspor forme : W-W-W-W-W · Freiburg forme : W-L-L-L-W\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
-      "stats": {
-        "expected_total": 28.3
-      },
-      "tier": "safe",
-      "calibration_delta": -11.3,
-      "history_top3": true,
-      "p_cal": 62.5,
-      "statut_marche": "RETENU",
-      "mise_pct": 3.0,
-      "mise_label": "3 %",
-      "valeur_pct": null,
-      "cote_estimee": false,
-      "ecart_calibration": -13.5,
-      "rang_jour": 43,
-      "cumul_pct": 131.0,
-      "hors_budget": true
-    },
-    "no_picks": false,
-    "context": {
-      "stadium": {
-        "name": "Papara Park",
-        "city": "Trabzon",
-        "country": "Türkiye",
-        "lat": 40.998784031,
-        "lon": 39.646404547,
-        "capacity": 41513,
-        "surface": "grass"
-      },
-      "weather": {
-        "temp_max": 16.2,
-        "temp_min": 12.9,
-        "humidity": 73,
-        "precipitation_sum_mm": 20.8,
-        "wind_max_kmh": 15.6,
-        "weather_code": 63,
-        "summary_fr": "🌧️ pluie modérée · 12–16°C · humidité 73% · précipitations 20.8mm"
-      },
-      "text": "Conditions : 🌧️ pluie modérée · 12–16°C · humidité 73% · précipitations 20.8mm. Stade : Papara Park · 41 513 places · plein air. ⚠️ Pluies prévues : terrain potentiellement lourd, jeu direct privilégié, plus d'erreurs techniques."
-    }
-  },
-  {
-    "league": "Conference League",
-    "home": "Getafe",
-    "away": "Brighton & Hove Albion",
-    "start_ts": 1793908800,
-    "match_id": "6112474",
-    "page_url": "/matches/getafe-vs-brighton-hove-albion/2tzqy4#6112474",
-    "picks": [
-      {
-        "direction": "sot_over_7.5",
-        "type": "Tirs cadrés (total)",
-        "label": "Plus de 7.5 tirs cadrés total",
-        "cote": null,
-        "cote_min": 1.32,
-        "value": [
-          "💎",
-          "Value correcte",
-          "#84cc16"
-        ],
-        "confidence": 76,
-        "reasoning": "📊 Brut : Getafe L10 TCC 4.5 (L5 TCC 5.6) tirs cadrés/m · Brighton & Hove Albion L10 TCC 5.2 (L5 TCC 4.2) tirs cadrés/m\n🛡️ Défenses : Getafe concède 5.4/m · Brighton & Hove Albion concède 3.6/m\n🎯 Attendu : Getafe ~3.8 · Brighton & Hove Albion ~5.9 → total ~9.7\n⚖️ Brighton & Hove Albion favori (#12 vs #31) · Getafe forme : W-W-L-L-D · Brighton & Hove Albion forme : W-L-D-W-W\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
-        "stats": {
-          "expected_total": 9.7
-        },
-        "tier": "safe",
-        "calibration_delta": -11.3,
-        "history_top3": true,
-        "p_cal": 77.5,
-        "statut_marche": "RETENU",
-        "mise_pct": 3.0,
-        "mise_label": "3 %",
-        "valeur_pct": null,
-        "cote_estimee": false,
-        "ecart_calibration": 1.5,
-        "rang_jour": 17,
-        "cumul_pct": 53.0,
-        "hors_budget": true
-      },
-      {
-        "direction": "tirs_(getafe)_under_14.5",
-        "type": "Tirs (Getafe)",
-        "label": "Moins de 14.5 tirs Getafe",
-        "cote": null,
-        "cote_min": 1.27,
-        "value": [
-          "⚠️",
-          "Value serrée",
-          "#f59e0b"
-        ],
-        "confidence": 79,
-        "edge": null,
-        "reasoning": "Getafe prend 17.9/m [pondere vs opp #12] · adv. concède 11.7/m → attendu ~11.8 (Brighton & Hove Albion favori (#12 vs #31))\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
-        "stats": {
-          "expected": 11.8
-        },
-        "tier": "safe",
-        "calibration_delta": -11.3,
-        "history_top3": false,
-        "p_cal": 47.3,
-        "statut_marche": "SURVEILLE",
-        "mise_pct": 0.5,
-        "mise_label": "0.5 %",
-        "valeur_pct": null,
-        "cote_estimee": false,
-        "ecart_calibration": -31.7,
-        "rang_jour": 91,
-        "cumul_pct": 167.0,
-        "hors_budget": true
-      }
-    ],
-    "home_players": [],
-    "away_players": [],
-    "fun_picks": [],
-    "top_pick": {
-      "direction": "sot_over_7.5",
-      "type": "Tirs cadrés (total)",
-      "label": "Plus de 7.5 tirs cadrés total",
-      "cote": null,
-      "cote_min": 1.32,
-      "value": [
-        "💎",
-        "Value correcte",
-        "#84cc16"
-      ],
-      "confidence": 76,
-      "reasoning": "📊 Brut : Getafe L10 TCC 4.5 (L5 TCC 5.6) tirs cadrés/m · Brighton & Hove Albion L10 TCC 5.2 (L5 TCC 4.2) tirs cadrés/m\n🛡️ Défenses : Getafe concède 5.4/m · Brighton & Hove Albion concède 3.6/m\n🎯 Attendu : Getafe ~3.8 · Brighton & Hove Albion ~5.9 → total ~9.7\n⚖️ Brighton & Hove Albion favori (#12 vs #31) · Getafe forme : W-W-L-L-D · Brighton & Hove Albion forme : W-L-D-W-W\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
-      "stats": {
-        "expected_total": 9.7
-      },
-      "tier": "safe",
-      "calibration_delta": -11.3,
-      "history_top3": true,
-      "p_cal": 77.5,
-      "statut_marche": "RETENU",
-      "mise_pct": 3.0,
-      "mise_label": "3 %",
-      "valeur_pct": null,
-      "cote_estimee": false,
-      "ecart_calibration": 1.5,
-      "rang_jour": 17,
-      "cumul_pct": 53.0,
-      "hors_budget": true
-    },
-    "no_picks": false,
-    "context": {
-      "stadium": {
-        "name": "Estadio Coliseum",
-        "city": "Getafe",
-        "country": "Spain",
-        "lat": 40.325728646,
-        "lon": -3.714964092,
-        "capacity": 17393,
-        "surface": "grass"
-      },
-      "weather": {
-        "temp_max": 16.2,
-        "temp_min": 4.2,
-        "humidity": 42,
-        "precipitation_sum_mm": 0.0,
-        "wind_max_kmh": 9.8,
-        "weather_code": 3,
-        "summary_fr": "☁️ couvert · 4–16°C · humidité 42%"
-      },
-      "text": "Conditions : ☁️ couvert · 4–16°C · humidité 42%. Stade : Estadio Coliseum · 17 393 places · plein air."
-    }
-  },
-  {
-    "league": "Conference League",
-    "home": "Panathinaikos",
-    "away": "CSKA Sofia",
-    "start_ts": 1793908800,
-    "match_id": "6112416",
-    "page_url": "/matches/cska-sofia-vs-panathinaikos/3f7v04#6112416",
-    "picks": [
-      {
-        "direction": "sot_over_7.5",
-        "type": "Tirs cadrés (total)",
-        "label": "Plus de 7.5 tirs cadrés total",
-        "cote": null,
-        "cote_min": 1.32,
-        "value": [
-          "💎",
-          "Value correcte",
-          "#84cc16"
-        ],
-        "confidence": 76,
-        "reasoning": "📊 Brut : Panathinaikos L10 TCC 5.8 (L5 TCC 5.8) tirs cadrés/m · CSKA Sofia L10 TCC 6.8 (L5 TCC 7.0) tirs cadrés/m\n🛡️ Défenses : Panathinaikos concède 1.9/m · CSKA Sofia concède 4.5/m\n🎯 Attendu : Panathinaikos ~6.0 · CSKA Sofia ~3.7 → total ~9.8\n⚖️ Panathinaikos favori (#2 vs #26) · Panathinaikos forme : W-W-W-W-W · CSKA Sofia forme : D-W-D-L-W\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
-        "stats": {
-          "expected_total": 9.8
-        },
-        "tier": "safe",
-        "calibration_delta": -11.3,
-        "history_top3": true,
-        "p_cal": 77.5,
-        "statut_marche": "RETENU",
-        "mise_pct": 3.0,
-        "mise_label": "3 %",
-        "valeur_pct": null,
-        "cote_estimee": false,
-        "ecart_calibration": 1.5,
-        "rang_jour": 20,
-        "cumul_pct": 62.0,
-        "hors_budget": true
-      },
-      {
-        "direction": "tirs_(panathinaikos)_over_13.5",
-        "type": "Tirs (Panathinaikos)",
-        "label": "Plus de 13.5 tirs Panathinaikos",
-        "cote": null,
-        "cote_min": 1.29,
-        "value": [
-          "⚠️",
-          "Value serrée",
-          "#f59e0b"
-        ],
-        "confidence": 78,
-        "edge": null,
-        "reasoning": "Panathinaikos prend 17.4/m [pondere vs opp #26] · adv. concède 10.4/m → attendu ~16.6 (Panathinaikos favori (#2 vs #26))\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
-        "stats": {
-          "expected": 16.6
-        },
-        "tier": "safe",
-        "calibration_delta": -11.3,
-        "history_top3": false,
-        "p_cal": 47.3,
-        "statut_marche": "SURVEILLE",
-        "mise_pct": 0.5,
-        "mise_label": "0.5 %",
-        "valeur_pct": null,
-        "cote_estimee": false,
-        "ecart_calibration": -30.7,
-        "rang_jour": 94,
-        "cumul_pct": 168.5,
-        "hors_budget": true
-      }
-    ],
-    "home_players": [],
-    "away_players": [],
-    "fun_picks": [],
-    "top_pick": {
-      "direction": "sot_over_7.5",
-      "type": "Tirs cadrés (total)",
-      "label": "Plus de 7.5 tirs cadrés total",
-      "cote": null,
-      "cote_min": 1.32,
-      "value": [
-        "💎",
-        "Value correcte",
-        "#84cc16"
-      ],
-      "confidence": 76,
-      "reasoning": "📊 Brut : Panathinaikos L10 TCC 5.8 (L5 TCC 5.8) tirs cadrés/m · CSKA Sofia L10 TCC 6.8 (L5 TCC 7.0) tirs cadrés/m\n🛡️ Défenses : Panathinaikos concède 1.9/m · CSKA Sofia concède 4.5/m\n🎯 Attendu : Panathinaikos ~6.0 · CSKA Sofia ~3.7 → total ~9.8\n⚖️ Panathinaikos favori (#2 vs #26) · Panathinaikos forme : W-W-W-W-W · CSKA Sofia forme : D-W-D-L-W\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
-      "stats": {
-        "expected_total": 9.8
-      },
-      "tier": "safe",
-      "calibration_delta": -11.3,
-      "history_top3": true,
-      "p_cal": 77.5,
-      "statut_marche": "RETENU",
-      "mise_pct": 3.0,
-      "mise_label": "3 %",
-      "valeur_pct": null,
-      "cote_estimee": false,
-      "ecart_calibration": 1.5,
-      "rang_jour": 20,
-      "cumul_pct": 62.0,
-      "hors_budget": true
-    },
-    "no_picks": false,
-    "context": {
-      "stadium": {
-        "name": "Olympiako Stadio Spyros Louis",
-        "city": "Athína (Athens)",
-        "country": "Greece",
-        "lat": 38.036134911,
-        "lon": 23.787583709,
-        "capacity": 69618,
-        "surface": "grass"
-      },
-      "weather": {
-        "temp_max": 15.9,
-        "temp_min": 10.7,
-        "humidity": 67,
-        "precipitation_sum_mm": 0.0,
-        "wind_max_kmh": 18.2,
-        "weather_code": 3,
-        "summary_fr": "☁️ couvert · 10–15°C · humidité 67%"
-      },
-      "text": "Conditions : ☁️ couvert · 10–15°C · humidité 67%. Stade : Olympiako Stadio Spyros Louis · 69 618 places · plein air."
     }
   },
   {
@@ -5045,8 +1675,8 @@
         "cote_estimee": true,
         "cote_reference": 2.12,
         "ecart_calibration": -18.9,
-        "rang_jour": 48,
-        "cumul_pct": 142.0,
+        "rang_jour": 19,
+        "cumul_pct": 55.0,
         "hors_budget": true
       }
     ],
@@ -5081,8 +1711,8 @@
       "cote_estimee": true,
       "cote_reference": 2.12,
       "ecart_calibration": -18.9,
-      "rang_jour": 48,
-      "cumul_pct": 142.0,
+      "rang_jour": 19,
+      "cumul_pct": 55.0,
       "hors_budget": true
     },
     "no_picks": false,
@@ -5142,8 +1772,8 @@
         "valeur_pct": null,
         "cote_estimee": false,
         "ecart_calibration": -12.5,
-        "rang_jour": 25,
-        "cumul_pct": 77.0,
+        "rang_jour": 12,
+        "cumul_pct": 36.0,
         "hors_budget": true
       },
       {
@@ -5173,8 +1803,8 @@
         "valeur_pct": null,
         "cote_estimee": false,
         "ecart_calibration": -31.7,
-        "rang_jour": 63,
-        "cumul_pct": 153.0,
+        "rang_jour": 28,
+        "cumul_pct": 60.0,
         "hors_budget": true
       }
     ],
@@ -5207,8 +1837,8 @@
       "valeur_pct": null,
       "cote_estimee": false,
       "ecart_calibration": -12.5,
-      "rang_jour": 25,
-      "cumul_pct": 77.0,
+      "rang_jour": 12,
+      "cumul_pct": 36.0,
       "hors_budget": true
     },
     "no_picks": false,
@@ -5232,258 +1862,6 @@
         "summary_fr": "🌦️ pluie légère · 6–13°C · humidité 64%"
       },
       "text": "Conditions : 🌦️ pluie légère · 6–13°C · humidité 64%. Stade : Stadio Pier Luigi Penzo · 12 048 places · plein air."
-    }
-  },
-  {
-    "league": "Conference League",
-    "home": "Thun",
-    "away": "Heart of Midlothian",
-    "start_ts": 1793900700,
-    "match_id": "6112539",
-    "page_url": "/matches/heart-midlothian-vs-thun/3bp0de#6112539",
-    "picks": [
-      {
-        "direction": "shots_under_29.5",
-        "type": "Tirs (total match)",
-        "label": "Moins de 29.5 tirs total",
-        "cote": null,
-        "cote_min": 1.34,
-        "value": [
-          "💎",
-          "Value correcte",
-          "#84cc16"
-        ],
-        "confidence": 75,
-        "reasoning": "📊 Brut : Thun L10 TCC 14.9 (L5 TCC 13.5) tirs/m · Heart of Midlothian L10 TCC 15.1 (L5 TCC 13.8) tirs/m\n🛡️ Défenses : Thun concède 15.7/m · Heart of Midlothian concède 12.5/m\n🎯 Attendu : Thun ~12.4 · Heart of Midlothian ~13.8 → total ~26.2\n⚖️ Thun favori (#19 vs #32) · Thun forme : W-L-L-D-L · Heart of Midlothian forme : L-D-W-L-L\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
-        "stats": {
-          "expected_total": 26.2
-        },
-        "tier": "safe",
-        "calibration_delta": -11.3,
-        "history_top3": true,
-        "p_cal": 62.5,
-        "statut_marche": "RETENU",
-        "mise_pct": 3.0,
-        "mise_label": "3 %",
-        "valeur_pct": null,
-        "cote_estimee": false,
-        "ecart_calibration": -12.5,
-        "rang_jour": 42,
-        "cumul_pct": 128.0,
-        "hors_budget": true
-      },
-      {
-        "direction": "tirs_cadrés_(thun)_over_3.5",
-        "type": "Tirs cadrés (Thun)",
-        "label": "Plus de 3.5 tirs cadrés Thun",
-        "cote": null,
-        "cote_min": 1.26,
-        "value": [
-          "⚠️",
-          "Value serrée",
-          "#f59e0b"
-        ],
-        "confidence": 79,
-        "edge": null,
-        "reasoning": "Thun prend 4.2/m [pondere vs opp #32] · adv. concède 5.6/m → attendu ~5.4 (Thun favori (#19 vs #32))\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
-        "stats": {
-          "expected": 5.4
-        },
-        "tier": "safe",
-        "calibration_delta": -11.3,
-        "history_top3": false,
-        "p_cal": 47.3,
-        "statut_marche": "SURVEILLE",
-        "mise_pct": 0.5,
-        "mise_label": "0.5 %",
-        "valeur_pct": null,
-        "cote_estimee": false,
-        "ecart_calibration": -31.7,
-        "rang_jour": 88,
-        "cumul_pct": 165.5,
-        "hors_budget": true
-      }
-    ],
-    "home_players": [],
-    "away_players": [],
-    "fun_picks": [],
-    "top_pick": {
-      "direction": "shots_under_29.5",
-      "type": "Tirs (total match)",
-      "label": "Moins de 29.5 tirs total",
-      "cote": null,
-      "cote_min": 1.34,
-      "value": [
-        "💎",
-        "Value correcte",
-        "#84cc16"
-      ],
-      "confidence": 75,
-      "reasoning": "📊 Brut : Thun L10 TCC 14.9 (L5 TCC 13.5) tirs/m · Heart of Midlothian L10 TCC 15.1 (L5 TCC 13.8) tirs/m\n🛡️ Défenses : Thun concède 15.7/m · Heart of Midlothian concède 12.5/m\n🎯 Attendu : Thun ~12.4 · Heart of Midlothian ~13.8 → total ~26.2\n⚖️ Thun favori (#19 vs #32) · Thun forme : W-L-L-D-L · Heart of Midlothian forme : L-D-W-L-L\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
-      "stats": {
-        "expected_total": 26.2
-      },
-      "tier": "safe",
-      "calibration_delta": -11.3,
-      "history_top3": true,
-      "p_cal": 62.5,
-      "statut_marche": "RETENU",
-      "mise_pct": 3.0,
-      "mise_label": "3 %",
-      "valeur_pct": null,
-      "cote_estimee": false,
-      "ecart_calibration": -12.5,
-      "rang_jour": 42,
-      "cumul_pct": 128.0,
-      "hors_budget": true
-    },
-    "no_picks": false,
-    "context": {
-      "stadium": {
-        "name": "VISANA STADION",
-        "city": "Thun",
-        "country": "Switzerland",
-        "lat": 46.744588109,
-        "lon": 7.606626745,
-        "capacity": 10014,
-        "surface": "artificial turf"
-      },
-      "weather": {
-        "temp_max": 8.0,
-        "temp_min": 3.7,
-        "humidity": 77,
-        "precipitation_sum_mm": 0.0,
-        "wind_max_kmh": 6.0,
-        "weather_code": 3,
-        "summary_fr": "☁️ couvert · 3–8°C · humidité 77%"
-      },
-      "text": "Conditions : ☁️ couvert · 3–8°C · humidité 77%. Stade : VISANA STADION · 10 014 places · plein air."
-    }
-  },
-  {
-    "league": "Conference League",
-    "home": "Riga FC",
-    "away": "Jablonec",
-    "start_ts": 1793908800,
-    "match_id": "6112522",
-    "page_url": "/matches/jablonec-vs-riga-fc/2jy0bj79#6112522",
-    "picks": [
-      {
-        "direction": "sot_over_7.5",
-        "type": "Tirs cadrés (total)",
-        "label": "Plus de 7.5 tirs cadrés total",
-        "cote": null,
-        "cote_min": 1.33,
-        "value": [
-          "💎",
-          "Value correcte",
-          "#84cc16"
-        ],
-        "confidence": 75,
-        "reasoning": "📊 Brut : Riga FC L10 TCC 6.4 (L5 TCC 6.8) tirs cadrés/m · Jablonec L10 TCC 5.1 (L5 TCC 4.6) tirs cadrés/m\n🛡️ Défenses : Riga FC concède 2.9/m · Jablonec concède 5.5/m\n🎯 Attendu : Riga FC ~6.2 · Jablonec ~3.5 → total ~9.7\n⚖️ Riga FC favori (#22 vs #27) · Riga FC forme : D-W-D-W-D · Jablonec forme : L-W-D-L-L\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
-        "stats": {
-          "expected_total": 9.7
-        },
-        "tier": "safe",
-        "calibration_delta": -11.3,
-        "history_top3": true,
-        "p_cal": 77.5,
-        "statut_marche": "RETENU",
-        "mise_pct": 3.0,
-        "mise_label": "3 %",
-        "valeur_pct": null,
-        "cote_estimee": false,
-        "ecart_calibration": 2.5,
-        "rang_jour": 21,
-        "cumul_pct": 65.0,
-        "hors_budget": true
-      },
-      {
-        "direction": "tirs_(jablonec)_under_11.5",
-        "type": "Tirs (Jablonec)",
-        "label": "Moins de 11.5 tirs Jablonec",
-        "cote": null,
-        "cote_min": 1.35,
-        "value": [
-          "💎",
-          "Value correcte",
-          "#84cc16"
-        ],
-        "confidence": 74,
-        "edge": null,
-        "reasoning": "Jablonec prend 9.9/m [pondere vs opp #22] · adv. concède 10.5/m → attendu ~9.6 (Riga FC favori (#22 vs #27))\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
-        "stats": {
-          "expected": 9.6
-        },
-        "tier": "safe",
-        "calibration_delta": -11.3,
-        "history_top3": true,
-        "p_cal": 47.3,
-        "statut_marche": "SURVEILLE",
-        "mise_pct": 0.5,
-        "mise_label": "0.5 %",
-        "valeur_pct": null,
-        "cote_estimee": false,
-        "ecart_calibration": -26.7,
-        "rang_jour": 95,
-        "cumul_pct": 169.0,
-        "hors_budget": true
-      }
-    ],
-    "home_players": [],
-    "away_players": [],
-    "fun_picks": [],
-    "top_pick": {
-      "direction": "sot_over_7.5",
-      "type": "Tirs cadrés (total)",
-      "label": "Plus de 7.5 tirs cadrés total",
-      "cote": null,
-      "cote_min": 1.33,
-      "value": [
-        "💎",
-        "Value correcte",
-        "#84cc16"
-      ],
-      "confidence": 75,
-      "reasoning": "📊 Brut : Riga FC L10 TCC 6.4 (L5 TCC 6.8) tirs cadrés/m · Jablonec L10 TCC 5.1 (L5 TCC 4.6) tirs cadrés/m\n🛡️ Défenses : Riga FC concède 2.9/m · Jablonec concède 5.5/m\n🎯 Attendu : Riga FC ~6.2 · Jablonec ~3.5 → total ~9.7\n⚖️ Riga FC favori (#22 vs #27) · Riga FC forme : D-W-D-W-D · Jablonec forme : L-W-D-L-L\n📉 Calibration : bucket 70-79% historiquement à WR 65% (claim 76%, n=127) — sur-estimé de 11pp",
-      "stats": {
-        "expected_total": 9.7
-      },
-      "tier": "safe",
-      "calibration_delta": -11.3,
-      "history_top3": true,
-      "p_cal": 77.5,
-      "statut_marche": "RETENU",
-      "mise_pct": 3.0,
-      "mise_label": "3 %",
-      "valeur_pct": null,
-      "cote_estimee": false,
-      "ecart_calibration": 2.5,
-      "rang_jour": 21,
-      "cumul_pct": 65.0,
-      "hors_budget": true
-    },
-    "no_picks": false,
-    "context": {
-      "stadium": {
-        "name": "Stadions Skonto",
-        "city": "Rīga",
-        "country": "Latvia",
-        "lat": 56.961394151,
-        "lon": 24.116401076,
-        "capacity": 8207,
-        "surface": "grass"
-      },
-      "weather": {
-        "temp_max": 11.0,
-        "temp_min": 8.8,
-        "humidity": 73,
-        "precipitation_sum_mm": 0.0,
-        "wind_max_kmh": 32.4,
-        "weather_code": 3,
-        "summary_fr": "☁️ couvert · 11°C · humidité 73%"
-      },
-      "text": "Conditions : ☁️ couvert · 11°C · humidité 73%. Stade : Stadions Skonto · 8 207 places · plein air. ⚠️ Vent fort prévu : jeu aérien moins fiable, balles longues imprévisibles."
     }
   },
   {
@@ -5520,8 +1898,8 @@
         "valeur_pct": null,
         "cote_estimee": false,
         "ecart_calibration": -11.5,
-        "rang_jour": 38,
-        "cumul_pct": 116.0,
+        "rang_jour": 16,
+        "cumul_pct": 48.0,
         "hors_budget": true
       },
       {
@@ -5551,8 +1929,8 @@
         "valeur_pct": null,
         "cote_estimee": false,
         "ecart_calibration": -30.7,
-        "rang_jour": 84,
-        "cumul_pct": 163.5,
+        "rang_jour": 34,
+        "cumul_pct": 63.0,
         "hors_budget": true
       }
     ],
@@ -5585,8 +1963,8 @@
       "valeur_pct": null,
       "cote_estimee": false,
       "ecart_calibration": -11.5,
-      "rang_jour": 38,
-      "cumul_pct": 116.0,
+      "rang_jour": 16,
+      "cumul_pct": 48.0,
       "hors_budget": true
     },
     "no_picks": false,
@@ -5646,8 +2024,8 @@
         "valeur_pct": null,
         "cote_estimee": false,
         "ecart_calibration": -8.5,
-        "rang_jour": 26,
-        "cumul_pct": 80.0,
+        "rang_jour": 13,
+        "cumul_pct": 39.0,
         "hors_budget": true
       },
       {
@@ -5677,8 +2055,8 @@
         "valeur_pct": null,
         "cote_estimee": false,
         "ecart_calibration": -32.7,
-        "rang_jour": 64,
-        "cumul_pct": 153.5,
+        "rang_jour": 29,
+        "cumul_pct": 60.5,
         "hors_budget": true
       }
     ],
@@ -5711,8 +2089,8 @@
       "valeur_pct": null,
       "cote_estimee": false,
       "ecart_calibration": -8.5,
-      "rang_jour": 26,
-      "cumul_pct": 80.0,
+      "rang_jour": 13,
+      "cumul_pct": 39.0,
       "hors_budget": true
     },
     "no_picks": false,
@@ -5774,8 +2152,8 @@
         "cote_estimee": true,
         "cote_reference": 2.12,
         "ecart_calibration": -17.9,
-        "rang_jour": 58,
-        "cumul_pct": 150.5,
+        "rang_jour": 23,
+        "cumul_pct": 57.5,
         "hors_budget": true
       }
     ],
@@ -5810,8 +2188,8 @@
       "cote_estimee": true,
       "cote_reference": 2.12,
       "ecart_calibration": -17.9,
-      "rang_jour": 58,
-      "cumul_pct": 150.5,
+      "rang_jour": 23,
+      "cumul_pct": 57.5,
       "hors_budget": true
     },
     "no_picks": false,
@@ -5873,8 +2251,8 @@
         "cote_estimee": true,
         "cote_reference": 2.12,
         "ecart_calibration": -17.9,
-        "rang_jour": 59,
-        "cumul_pct": 151.0,
+        "rang_jour": 24,
+        "cumul_pct": 58.0,
         "hors_budget": true
       }
     ],
@@ -5909,8 +2287,8 @@
       "cote_estimee": true,
       "cote_reference": 2.12,
       "ecart_calibration": -17.9,
-      "rang_jour": 59,
-      "cumul_pct": 151.0,
+      "rang_jour": 24,
+      "cumul_pct": 58.0,
       "hors_budget": true
     },
     "no_picks": false,
@@ -5964,8 +2342,8 @@
         "cote_estimee": true,
         "cote_reference": 2.12,
         "ecart_calibration": -12.9,
-        "rang_jour": 57,
-        "cumul_pct": 150.0,
+        "rang_jour": 22,
+        "cumul_pct": 57.0,
         "hors_budget": true
       }
     ],
@@ -6000,8 +2378,8 @@
       "cote_estimee": true,
       "cote_reference": 2.12,
       "ecart_calibration": -12.9,
-      "rang_jour": 57,
-      "cumul_pct": 150.0,
+      "rang_jour": 22,
+      "cumul_pct": 57.0,
       "hors_budget": true
     },
     "no_picks": false,
