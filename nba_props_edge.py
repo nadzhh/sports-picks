@@ -291,7 +291,17 @@ def card_html(x):
                if x.get("derived") else
                f'<p class="pe-why">DraftKings : {x["dk"]:+d} ; <b>{x["am_novig"]:+d} sans la marge</b> ({round(100 * x["p_mkt"])} %), ')
             + f'ma simu {round(100 * x["p_sim"])} % → <b>cote juste {_fr(x["fair"])}</b>. '
-            f'<b class="eb-acc">Prends si ta cote ≥ {_fr(x["take"])}</b> (Betclic, Winamax…), sinon passe.</p>{mine}</div>')
+            f'<b class="eb-acc">Prends si ta cote ≥ {_fr(x["take"])}</b> (Betclic, Winamax…), sinon passe.</p>{mine}{_arg(x)}</div>')
+
+
+def _arg(x):
+    """Argumentaire facon « NBA PLAY » (nba_argument) replie sous la fiche."""
+    try:
+        import nba_argument as A
+        a = A.for_pick(x["gid"], x["id"], x["stat"], x["line"], x["over"])
+    except Exception:
+        return ""
+    return (f'<details class="eb-det pe-arg"><summary>📝 Argumentaire</summary>{A.html_block(a)}</details>' if a else "")
 
 
 def _tz():
@@ -324,6 +334,9 @@ CSS = """<style>
 .pe-ft{display:flex;justify-content:space-between;font-size:12.5px;color:var(--mu);margin-top:8px}
 .pe-why{font-size:12.5px;line-height:1.5;margin:8px 0 0;color:var(--tx)}
 .pe-go{margin-top:10px}
+.pe-arg{margin-top:10px}
+.na-w{font-weight:600;font-size:13px;margin:8px 0 2px;color:var(--warn)}
+.na-r{font-size:12.5px;line-height:1.5;color:var(--mu);margin:8px 0 0}
 .pe-mine{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-top:10px}
 .pe-mine input{width:170px;background:var(--bg);border:1px solid var(--line2);color:var(--tx);border-radius:8px;padding:7px 9px;font:13px var(--sans)}
 .pe-mv{font-size:12.5px;line-height:1.45}

@@ -256,9 +256,18 @@ def decide_conviction(state, picks, now=None):
         stake = _round(frac * mult * eq)
         if stake < PRM["min_stake"] or stake > cash(state) - sum(b["stake"] for b in placed): continue
         pj = {k: x.get(k) for k in ("kind", "src", "sport", "match_id", "match", "label", "price", "ko", "res", "book")}
+        why = None
+        r = x.get("res") or {}
+        if r.get("stat") and r.get("pid"):   # argumentaire facon « NBA PLAY » (nba_argument, 06/11/2026)
+            try:
+                import nba_argument
+                why = nba_argument.for_pick(r.get("gid"), r["pid"], r["stat"], r["line"], r.get("side") == "o")
+            except Exception as e:
+                print(f"  [!] argumentaire {x.get('label')} : {type(e).__name__}: {e}")
         leg = {"key": key, "ev_key": key, "pj": pj, "name": x["match"], "team": x.get("league", ""), "opp": x.get("book", ""),
                "stat": x["label"], "side": "", "line": 0, "dec": d, "am": None, "p_sim": x.get("p_sim") or p,
-               "p_mkt": x.get("p_fair") or p, "date": x["ko"], "gid": "", "pid": "", "sport": x.get("sport"), "tag": "conviction"}
+               "p_mkt": x.get("p_fair") or p, "date": x["ko"], "gid": "", "pid": "", "sport": x.get("sport"), "tag": "conviction",
+               "why": list(why) if why else None}
         placed.append({"legs": [leg], "stake": stake, "odds": d, "p": p, "ev": x["ev"], "kind": "conv", "mode": "conviction",
                        "conf": conf, "id": f'{night}-c{len(state["bets"]) + len(placed) + 1}', "night": night,
                        "placed_at": now.isoformat(timespec="minutes"), "status": "open", "news": []})
@@ -608,6 +617,9 @@ def telegram_placed(placed, state):
                        f'cote juste <b>{_fr(1 / b["p"])}</b> : rentable si ta cote ≥ {_fr(1 / b["p"])}'
                        + (f', sinon coût ≈ {round(100 * -b["ev"])} %' if b["ev"] < 0 else f', espérance +{round(100 * b["ev"])} %'))
             out.append(f'Mise <b>{_fr(b["stake"])} €</b> ({_fr(100 * b["stake"] / eq, 1)} % de la bankroll)')
+            if l.get("why"):
+                import nba_argument
+                out.append(nba_argument.telegram(l["why"]))
             continue
         if b["kind"] == "safe":
             out.append(f'\n🛡️ <b>Pari safe</b> (probabilité {round(100 * b["p"])} %)\n' + "\n".join("• " + _leg_txt(l) for l in b["legs"]))

@@ -91,8 +91,13 @@ def _bet_row(b, open_):
         lab = {"won": "Gagné", "lost": "Perdu", "void": "Remboursé"}.get(b["status"], b["status"])
         res = (f'<td><span class="eb-tag {cls}">{lab}</span></td>'
                f'<td class="n {"eb-acc" if b["pnl"] > 0 else "eb-neg" if b["pnl"] < 0 else ""}">{_eur(b["pnl"], True)}</td>')
+    arg = ""
+    if b["legs"] and b["legs"][0].get("why"):
+        import nba_argument
+        arg = (f'<details class="eb-det"><summary>Argumentaire</summary>{nba_argument.html_block(b["legs"][0]["why"])}'
+               '</details>')
     return (f'<tr><td class="n eb-dim">{_when(b["placed_at"])}</td><td class="eb-bk-legs">{legs} {kind}'
-            f'<div class="eb-dim eb-bk-why">{why}</div></td><td class="n"><b>{b["odds"]:.2f}</b></td>'
+            f'<div class="eb-dim eb-bk-why">{why}</div>{arg}</td><td class="n"><b>{b["odds"]:.2f}</b></td>'
             f'<td class="n">{_eur(b["stake"])}</td>{res}</tr>')
 
 
