@@ -305,7 +305,19 @@ def _shots_hist_card(g):
 def _video(g, gid):
     rp = g.get("replay")
     if not rp or not rp.get("events"): return ""
-    title = json.dumps({"home": g["home"]["name"], "away": g["away"]["name"],
+    # lignes du soir suivies dans la video (06/11/2026, facon PropsEdge) : tirs / tirs cadres de chaque equipe a la ligne
+    # la plus proche du nombre attendu, plus de 2,5 buts, les deux marquent, buteurs probables (>= 30 %)
+    lines = {"o25": True, "btts": True, "scorers": []}
+    sh = g.get("shots") or {}
+    for key, exp in (("home_sh", (sh.get("home") or [None])[0]), ("away_sh", (sh.get("away") or [None])[0]),
+                     ("home_so", (sh.get("home") or [None, None])[1]), ("away_so", (sh.get("away") or [None, None])[1])):
+        L = list(((sh.get("lines") or {}).get(key) or {}))
+        if L and exp is not None:
+            lines[key] = float(min(L, key=lambda x: abs(float(x) - exp)))
+    for s in ("home", "away"):
+        for sp in sorted((g.get(s + "_info") or {}).get("scorers") or [], key=lambda x: -x["p_goal"])[:2]:
+            if sp["p_goal"] >= 0.30: lines["scorers"].append({"name": sp["name"], "p": round(sp["p_goal"], 3)})
+    title = json.dumps({"home": g["home"]["name"], "away": g["away"]["name"], "lam": g.get("goals"), "lines": lines,
                         "foot": "Un match parmi 10 000 simulations : résultat tiré au sort selon les probabilités"},
                        ensure_ascii=False)
     data = json.dumps(rp, ensure_ascii=False, separators=(",", ":"))
@@ -499,7 +511,7 @@ window.ebFootVideo=function(btn){
   var card=btn.closest('.eb-video'),host=card.querySelector('.sp-foot-host');if(host.getAttribute('data-ready'))return;
   host.setAttribute('data-ready','1');btn.classList.add('eb-off');
   var d=JSON.parse(card.querySelector('.sp-foot-data').textContent),t=JSON.parse(card.querySelector('.sp-foot-title').textContent);
-  SPFoot.open(host,d,t);var p=host.querySelector('[data-a=play]');if(p)p.click();
+  host._fp=SPFoot.open(host,d,t);var p=host.querySelector('[data-a=play]');if(p)p.click();
 };
 </script>"""
 

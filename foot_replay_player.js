@@ -4,7 +4,8 @@
  * donnees FotMob : l'equipe a l'exterieur est retournee (elle attaque vers la gauche).
  */
 (function () {
-  if (window.SPFoot) return;
+  var VER = 2;   // 06/11/2026 : probabilite en direct, carte des tirs, lignes du soir, ecrans de fin
+  if (window.SPFoot && (window.SPFoot.v || 1) >= VER) return;
   var W = 1280, H = 720, PX = 120, PY = 130, PW = 1040, PH = 520;   // terrain dans le canvas
   var C = { di: '#6b7a70', bg: '#0a0d0b', grass: '#0f1a12', grass2: '#122016', line: 'rgba(238,243,239,0.55)', tx: '#eef3ef',
             mu: '#9aa89e', home: '#95e04a', away: '#f5b942', loss: '#ef4444', panel: 'rgba(15,20,17,0.92)' };
@@ -52,7 +53,7 @@
       var SP = [1, 1.25, 1.5, 2, 4]; me.speed = SP[(SP.indexOf(me.speed) + 1) % SP.length]; this.textContent = 'x' + String(me.speed).replace('.', ',');
     };
     this.speed = 1; this.t = 0;
-    if (data.teams) { this.S = prepareFull(data); this.T = this.S.T; } else this.timeline();   // v2 : les 22 joueurs
+    if (data.teams) { this.S = prepareFull(data); extras(this); this.T = this.S.T; } else this.timeline();   // v2 : les 22 joueurs
     this.draw();
   }
   // Ligne de temps : 0,55 s par minute de jeu sans action, 4,5 s par action (2,5 s pour un remplacement)
@@ -266,7 +267,7 @@
         if (e.kind === 'rate') to = [aim[0] + (attackRight(A) ? 3 : -3), aim[1] + (aim[1] > WID / 2 ? 6 : -6)];
         var nf = Math.max(6, Math.round(Math.hypot(to[0] - ball[0], to[1] - ball[1]) / (F_VB * 1.6) * F_FS)), b0 = ball.slice();
         var goal = e.kind === 'but' || e.kind === 'csc';
-        pushLog({ kind: 'shot', side: A, e: e, who: sh ? sh.k : null, goal: goal,
+        pushLog({ kind: 'shot', side: A, e: e, who: sh ? sh.k : null, goal: goal, at: spot.slice(), half: half,
                   txt: e.t + "'  " + (e.kind === 'csc' ? 'But contre son camp' : (sh ? sh.name : '') + (e.sit && SIT[e.sit] ? ' · ' + SIT[e.sit] : '') +
                        (e.type && TYP[e.type] ? ', ' + TYP[e.type] : '') + (e.xg ? ' · xG ' + e.xg.toFixed(2).replace('.', ',') : '') + ' · ' + KIND[e.kind]) });
         if (goal) score[A === 'home' ? 0 : 1]++;
@@ -355,13 +356,136 @@
   }
 
   var COL = ['#95e04a', '#f5b942'];
+  // ── Ajouts du 06/11/2026 (facon PropsEdge) : probabilite 1 / N / 2 en direct, carte des tirs, lignes du soir
+  // suivies (alerte « passe »), ecrans de fin (statistiques, lignes passees / pas passees).
+  function pois(l, k) { var p = Math.exp(-l); for (var i = 1; i <= k; i++) p *= l / i; return p; }
+  function wp(lam, minute, sc) {      // d'apres le score et les buts attendus restants de chaque equipe
+    var r = Math.max(0, (90 - minute) / 90), lh = lam[0] * r, la = lam[1] * r, h = 0, d = 0, a = 0;
+    for (var i = 0; i <= 8; i++) for (var j = 0; j <= 8; j++) {
+      var p = pois(lh, i) * pois(la, j), x = sc[0] + i, y = sc[1] + j;
+      if (x > y) h += p; else if (x === y) d += p; else a += p;
+    }
+    var t = h + d + a || 1; return [h / t, d / t, a / t];
+  }
+  function extras(me) {
+    var S = me.S, ti = me.title || {}, lam = ti.lam || [1.4, 1.1], L = ti.lines || {};
+    S.Tgame = S.T;
+    S.wpm = [];
+    S.frames.forEach(function (fr) { var m = Math.min(95, Math.floor(fr.gt / 60)); S.wpm[m] = wp(lam, m, fr.sc); });
+    for (var m = 0; m <= 95; m++) if (!S.wpm[m]) S.wpm[m] = m ? S.wpm[m - 1] : wp(lam, 0, [0, 0]);
+    var cnt = { home_sh: 0, away_sh: 0, home_so: 0, away_so: 0, tot_sh: 0 }, sc = [0, 0], cash = [], done = {};
+    var lab = { home_sh: 'tirs ' + (ti.home || ''), away_sh: 'tirs ' + (ti.away || ''), home_so: 'tirs cadrés ' + (ti.home || ''),
+                away_so: 'tirs cadrés ' + (ti.away || ''), tot_sh: 'tirs du match' };
+    var hit = function (key, txt, val, l) { if (done[key]) return; done[key] = true; cash.push({ f: l.f, key: key, txt: txt, val: val, min: l.e ? l.e.t : null }); };
+    var KEYS = ['home_sh', 'away_sh', 'home_so', 'away_so', 'tot_sh'];
+    S.log.forEach(function (l) {
+      if (l.kind !== 'shot') return;
+      var s = l.side; cnt[s + '_sh']++; cnt.tot_sh++;
+      if (l.e.kind === 'arret' || l.goal) cnt[s + '_so']++;
+      if (l.goal) sc[s === 'home' ? 0 : 1]++;
+      KEYS.forEach(function (k) {
+        if (L[k] != null && cnt[k] > L[k]) hit(k, 'Plus de ' + String(L[k]).replace('.', ',') + ' ' + lab[k], cnt[k] + ' ' + lab[k], l);
+      });
+      if (L.o25 && sc[0] + sc[1] > 2.5) hit('o25', 'Plus de 2,5 buts', (sc[0] + sc[1]) + ' buts', l);
+      if (L.btts && sc[0] > 0 && sc[1] > 0) hit('btts', 'Les deux équipes marquent', sc[0] + ' - ' + sc[1], l);
+      if (l.goal && l.e.who) (L.scorers || []).forEach(function (sp) {
+        if (sp.name === l.e.who) hit('sc|' + sp.name, sp.name + ' buteur', Math.round(100 * sp.p) + ' % avant le match', l);
+      });
+    });
+    var rows = [];
+    KEYS.forEach(function (k) {
+      if (L[k] != null) rows.push({ txt: 'Plus de ' + String(L[k]).replace('.', ',') + ' ' + lab[k], val: cnt[k], ok: !!done[k] });
+    });
+    rows.push({ txt: 'Plus de 2,5 buts', val: sc[0] + sc[1], ok: sc[0] + sc[1] > 2.5 });
+    rows.push({ txt: 'Les deux équipes marquent', val: sc[0] + ' - ' + sc[1], ok: sc[0] > 0 && sc[1] > 0 });
+    (L.scorers || []).forEach(function (sp) { rows.push({ txt: sp.name + ' buteur (' + Math.round(100 * sp.p) + ' %)', val: done['sc|' + sp.name] ? 'but' : '-', ok: !!done['sc|' + sp.name] }); });
+    S.cash = cash; S.rows = rows; S.cnt = cnt;
+    S.T = S.Tgame + 7 + 8;              // ecrans de fin : statistiques (7 s), lignes du soir (8 s)
+  }
+  function drawWp(me, g, fr) {
+    var S = me.S, m = Math.min(95, Math.floor(fr.gt / 60)), p = S.wpm[m] || [0.33, 0.34, 0.33], x0 = PX, y0 = 106, w = PW;
+    g.fillStyle = 'rgba(15,20,17,0.85)'; g.fillRect(x0, y0, w, 20);
+    g.font = '600 13px ' + MONO; g.textBaseline = 'middle';
+    g.fillStyle = COL[0]; g.textAlign = 'left'; g.fillText('1  ' + Math.round(100 * p[0]) + ' %', x0 + 10, y0 + 10);
+    g.fillStyle = C.mu; g.textAlign = 'left'; g.fillText('N  ' + Math.round(100 * p[1]) + ' %', x0 + 110, y0 + 10);
+    g.fillStyle = COL[1]; g.textAlign = 'right'; g.fillText(Math.round(100 * p[2]) + ' %  2', x0 + w - 10, y0 + 10);
+    g.fillStyle = C.di; g.textAlign = 'center'; g.font = '500 10px ' + MONO; g.fillText('PROBABILITÉ (VICTOIRE DOMICILE)', x0 + w / 2, y0 + 5);
+    g.strokeStyle = 'rgba(149,224,74,0.85)'; g.lineWidth = 1.6; g.beginPath();
+    for (var k = 0; k <= m; k++) { var q = S.wpm[k] || p, xx = x0 + 220 + (w - 440) * k / 95, yy = y0 + 18 - 12 * q[0]; k ? g.lineTo(xx, yy) : g.moveTo(xx, yy); }
+    g.stroke();
+  }
+  function drawShots(me, g, f, cv) {
+    var S = me.S, half = 1;
+    S.log.forEach(function (l) { if (l.kind === 'mt' && l.f <= f) half = 2; });
+    S.log.forEach(function (l) {
+      if (l.kind !== 'shot' || !l.at || l.f > f || (l.half || 1) !== half) return;
+      var q = cv(l.at[0], l.at[1]), r = 4 + 22 * (l.e.xg || 0.05);
+      if (l.goal) { g.fillStyle = 'rgba(149,224,74,0.8)'; g.beginPath(); g.arc(q[0], q[1], r, 0, 7); g.fill(); }
+      else if (l.e.kind === 'arret') { g.strokeStyle = 'rgba(245,185,66,0.85)'; g.lineWidth = 2; g.beginPath(); g.arc(q[0], q[1], r, 0, 7); g.stroke(); }
+      else {
+        g.strokeStyle = 'rgba(239,68,68,0.7)'; g.lineWidth = 2; var d = Math.max(4, r * 0.7);
+        g.beginPath(); g.moveTo(q[0] - d, q[1] - d); g.lineTo(q[0] + d, q[1] + d); g.moveTo(q[0] + d, q[1] - d); g.lineTo(q[0] - d, q[1] + d); g.stroke();
+      }
+    });
+  }
+  function drawToast(me, g, f) {
+    var S = me.S, cur = null;
+    S.cash.forEach(function (c) { if (f >= c.f && f < c.f + 3.2 * F_FS && (!cur || c.f > cur.f)) cur = c; });
+    if (!cur) return;
+    var u = (f - cur.f) / (3.2 * F_FS), a = u < 0.08 ? u / 0.08 : u > 0.85 ? (1 - u) / 0.15 : 1, w = 560, x = PX + (PW - w) / 2, y = PY + 14;
+    g.globalAlpha = a; g.fillStyle = 'rgba(11,18,8,0.94)'; g.fillRect(x, y, w, 52);
+    g.strokeStyle = COL[0]; g.lineWidth = 2; g.strokeRect(x, y, w, 52);
+    g.textAlign = 'left'; g.textBaseline = 'middle'; g.fillStyle = C.tx; g.font = '700 18px ' + SANS; g.fillText(cur.txt, x + 14, y + 19);
+    g.fillStyle = C.mu; g.font = '500 13px ' + MONO; g.fillText((cur.min != null ? cur.min + "'  ·  " : '') + cur.val, x + 14, y + 39);
+    g.fillStyle = COL[0]; g.fillRect(x + w - 110, y + 12, 96, 28);
+    g.fillStyle = '#0b1208'; g.font = '800 14px ' + SANS; g.textAlign = 'center'; g.fillText('✓ PASSÉ', x + w - 62, y + 26);
+    g.globalAlpha = 1;
+  }
+  function drawEnd(me, g) {
+    var S = me.S, ti = me.title || {}, t = me.t - S.Tgame, last = S.frames[S.frames.length - 1];
+    g.fillStyle = C.bg; g.fillRect(0, 0, W, H);
+    g.textAlign = 'center'; g.textBaseline = 'middle';
+    if (t < 7) {
+      g.fillStyle = C.tx; g.font = '800 34px ' + SANS; g.fillText('STATISTIQUES DU MATCH', W / 2, 70);
+      g.font = '700 28px ' + SANS; g.fillStyle = COL[0]; g.textAlign = 'right'; g.fillText(ti.home || '', W / 2 - 70, 140);
+      g.fillStyle = C.tx; g.textAlign = 'center'; g.font = '800 44px ' + MONO; g.fillText(last.sc[0] + ' - ' + last.sc[1], W / 2, 140);
+      g.fillStyle = COL[1]; g.textAlign = 'left'; g.font = '700 28px ' + SANS; g.fillText(ti.away || '', W / 2 + 70, 140);
+      var xg = [0, 0]; S.log.forEach(function (l) { if (l.kind === 'shot') xg[l.side === 'home' ? 0 : 1] += l.e.xg || 0; });
+      var R = [['Tirs', S.cnt.home_sh, S.cnt.away_sh], ['Tirs cadrés', S.cnt.home_so, S.cnt.away_so],
+               ['xG', xg[0], xg[1]], ['Possession', Math.round(100 * last.poss), 100 - Math.round(100 * last.poss)]];
+      R.forEach(function (r, i) {
+        var y = 230 + i * 92, a = r[1], b = r[2], s = a + b || 1;
+        var fa = r[0] === 'xG' ? a.toFixed(2).replace('.', ',') : r[0] === 'Possession' ? a + ' %' : a;
+        var fb = r[0] === 'xG' ? b.toFixed(2).replace('.', ',') : r[0] === 'Possession' ? b + ' %' : b;
+        g.fillStyle = C.mu; g.font = '600 18px ' + MONO; g.textAlign = 'center'; g.fillText(r[0].toUpperCase(), W / 2, y - 24);
+        g.fillStyle = C.tx; g.font = '800 30px ' + MONO; g.textAlign = 'right'; g.fillText(fa, W / 2 - 330, y + 8);
+        g.textAlign = 'left'; g.fillText(fb, W / 2 + 330, y + 8);
+        g.fillStyle = 'rgba(255,255,255,0.08)'; g.fillRect(W / 2 - 300, y, 600, 16);
+        g.fillStyle = COL[0]; g.fillRect(W / 2 - 300, y, 600 * a / s, 16);
+        g.fillStyle = COL[1]; g.fillRect(W / 2 - 300 + 600 * a / s, y, 600 * b / s, 16);
+      });
+    } else {
+      g.fillStyle = C.tx; g.font = '800 34px ' + SANS; g.fillText('LIGNES DU SOIR DANS CE MATCH', W / 2, 70);
+      g.fillStyle = C.mu; g.font = '500 15px ' + MONO; g.fillText('Un match simulé parmi 10 000, pas une prédiction', W / 2, 104);
+      S.rows.slice(0, 10).forEach(function (r, i) {
+        var y = 140 + i * 54;
+        g.fillStyle = C.panel; g.fillRect(200, y, 880, 44); g.fillStyle = r.ok ? COL[0] : C.loss; g.fillRect(200, y, 6, 44);
+        g.textAlign = 'left'; g.fillStyle = C.tx; g.font = '600 19px ' + SANS; g.fillText(r.txt, 222, y + 22);
+        g.textAlign = 'right'; g.font = '800 22px ' + MONO; g.fillText(String(r.val), 960, y + 22);
+        g.fillStyle = r.ok ? COL[0] : C.loss; g.font = '800 15px ' + SANS; g.fillText(r.ok ? '✓ PASSÉ' : '✗ PAS PASSÉ', 1068, y + 22);
+      });
+    }
+    g.fillStyle = C.di; g.font = '500 13px ' + MONO; g.textAlign = 'right'; g.fillText('Match simulé, pas une prédiction', W - 20, H - 12);
+  }
   function drawFull(me) {
+    if (me.S.Tgame != null && me.t >= me.S.Tgame) return drawEnd(me, me.g);
     var S = me.S, g = me.g, ff = Math.min(S.frames.length - 1, Math.max(0, me.t * F_FS)), f = Math.floor(ff), fr = S.frames[f], ti = me.title, tag = fr.tag || {};
     var nx = S.frames[Math.min(f + 1, S.frames.length - 1)], wf = ff - f;
     var lp = function (a, b) { return isNaN(b) ? a : a + (b - a) * wf; };   // lissage entre deux images
     g.fillStyle = C.bg; g.fillRect(0, 0, W, H);
     pitch(g);
     var cv = function (x, y) { return [PX + x / LEN * PW, PY + y / WID * PH]; };
+    if (S.cash) drawShots(me, g, f, cv);
     // Joueurs (masques pendant le panneau de mi-temps : changement de cote)
     if (tag.k !== 'mt') S.all.forEach(function (o) {
       var x = fr.P[2 * o.k], y = fr.P[2 * o.k + 1]; if (isNaN(x)) return;
@@ -411,6 +535,8 @@
     g.font = '600 18px ' + MONO; g.fillStyle = C.home; g.textAlign = 'left'; g.fillText(clock, PX + 16, 52);
     g.fillStyle = C.mu; g.textAlign = 'center'; g.font = '500 14px ' + MONO;
     g.fillText('possession ' + Math.round(100 * fr.poss) + ' % - ' + (100 - Math.round(100 * fr.poss)) + ' %', PX + PW / 2, 88);
+    if (S.wpm) drawWp(me, g, fr);
+    if (S.cash) drawToast(me, g, f);
     // Ticker : derniere action
     g.fillStyle = C.panel; g.fillRect(PX, PY + PH + 16, PW, 52);
     var lg = S.log[fr.L - 1];
@@ -424,5 +550,5 @@
     g.fillStyle = C.di || C.mu; g.font = '500 13px ' + MONO; g.textAlign = 'right'; g.fillText('Match simulé, pas une prédiction', W - 20, H - 12);
   }
 
-  window.SPFoot = { open: function (host, data, title) { return new Player(host, data, title); } };
+  window.SPFoot = { open: function (host, data, title) { return new Player(host, data, title); }, v: VER };
 })();
