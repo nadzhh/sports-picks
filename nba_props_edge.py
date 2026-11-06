@@ -154,9 +154,11 @@ def record(props, now=None):
         st = json.loads(PATH.read_text(encoding="utf-8"))
     except (OSError, ValueError):
         st = {"props": []}
-    have = {(p["gid"], p["id"], p["stat"], p["line"], p["over"]) for p in st["props"]}
+    # une seule fois par joueur / stat / sens et par match : la ligne bouge dans la soiree (05/11 : 115 enregistrements
+    # pour 78 props distinctes)
+    have = {(p["gid"], p["id"], p["stat"], p["over"]) for p in st["props"]}
     for x in props:
-        k = (x["gid"], x["id"], x["stat"], x["line"], x["over"])
+        k = (x["gid"], x["id"], x["stat"], x["over"])
         if k in have: continue
         st["props"].append({kk: x[kk] for kk in ("gid", "ko", "match", "id", "name", "stat", "line", "over", "p_mkt", "p", "fair", "take")}
                            | {"at": now.isoformat(timespec="minutes")})

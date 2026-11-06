@@ -44,7 +44,7 @@ def _leg(l):
     mark = {"win": " ✓", "loss": " ✗", "void": " (remboursé)", "push": " (nul)"}.get(res, "")
     if l.get("ev_key"):   # value bet (cote francaise au-dessus de la cote juste Pinnacle)
         return (f'<b>{_e(l["name"])}</b> <span class="eb-dim">{_e(l["team"])}</span> · {_e(l["stat"])} chez {_e(l["opp"])} '
-                f'@ {l["dec"]:.2f}{mark} <span class="eb-tag acc">value</span>')
+                f'@ {l["dec"]:.2f}{mark} <span class="eb-tag acc">{_e(l.get("tag", "value"))}</span>')
     act = f' <span class="eb-dim">réel {l["actual"]:g}</span>' if l.get("actual") is not None else ""
     return (f'<b>{_e(l["name"])}</b> <span class="eb-dim">{_e(l["team"])} vs {_e(l["opp"])}</span> · '
             f'{"Over" if l["side"] == "o" else "Under"} {l["line"]:g} {_e(UNIT.get(l["stat"], l["stat"]))} '

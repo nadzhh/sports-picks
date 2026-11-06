@@ -192,6 +192,11 @@ def settle(state, box):
     ev = None
     for b in state["bets"]:
         if b["status"] != "open": continue
+        if b["kind"] == "conv":    # pari conviction (picks du soir) : meme reglement que le canal Picks
+            import picks_du_jour as PJ
+            r = PJ.settle_pick(b["legs"][0]["pj"], box)
+            n += settle_bet(b, [{"push": "void"}.get(r, r)]) if r else 0
+            continue
         if b["kind"] == "value":   # value bet : resultat releve par ev_scan (scores ESPN)
             if ev is None:
                 import ev_scan
@@ -201,6 +206,64 @@ def settle(state, box):
             continue
         n += settle_bet(b, [leg_result(leg, box) for leg in b["legs"]])
     return n
+
+
+# Paris « conviction » (Wilson, 06/11/2026 : « la bankroll doit tourner ; mise selon ta confiance ; mieux vaut 1-2
+# paris gagnants que 4-5 avec 3 perdants ») : chaque soir, au plus 2 paris parmi les picks du soir, places a 20 h :
+#   1. d'abord ce qui a une esperance positive (value, boost rentable) : 1/4 de Kelly, au plus 10 % du capital ;
+#   2. sinon les plus surs : gagne >= 60 % (probabilite recalee), cote >= 1,40, cout <= 6 %, simulation pas contre.
+#      Mise selon la confiance : 1 % du capital a 60 %, jusqu'a 5 % a 80 % et plus. Ils coutent un peu (~4-6 % par
+#      pari) : le bot d'amelioration baisse leur mise si leur CLV reelle reste negative (model_params « conv »).
+CONV = {"per_night": 2, "p_min": 0.60, "min_odds": 1.40, "max_cost": 0.06, "lo": 0.01, "hi": 0.05}
+
+
+def decide_conviction(state, picks, now=None):
+    """Place les paris conviction de la soiree parmi les picks du soir (picks_du_jour.all_picks)."""
+    from nba_sim_bilan import night_of
+    now = now or datetime.now(timezone.utc)
+    try:
+        mult = (json.loads(Path("data/model_params.json").read_text(encoding="utf-8")).get("stakes") or {}).get("conv", 1.0)
+    except (OSError, ValueError):
+        mult = 1.0
+    taken = {leg.get("key") for b in state["bets"] for leg in b["legs"]}
+    eq = equity(state)
+    nights = {}
+    for b in state["bets"]:
+        if b["kind"] == "conv": nights[b["night"]] = nights.get(b["night"], 0) + 1
+    try:   # reservoir elargi : toutes les lignes et props du soir (pas seulement les 3-5 picks postes)
+        import picks_du_jour as PJ
+        have = {(x["match_id"], x["label"]) for x in picks}
+        picks = list(picks) + [dict(x, kind=x["kind"]) for x in PJ.value_candidates(now, 24, min_ev=-CONV["max_cost"])
+                               + PJ.prop_candidates(now, 24, min_ev=-CONV["max_cost"]) if (x["match_id"], x["label"]) not in have]
+    except Exception as e:
+        print(f"  [!] conviction : reservoir elargi indisponible ({type(e).__name__}: {e})")
+    pos = sorted((x for x in picks if x["ev"] >= 0), key=lambda x: -x["ev"])
+    safe = sorted((x for x in picks if x["ev"] < 0 and x["p"] >= CONV["p_min"] and x["price"] >= CONV["min_odds"]
+                   and x["ev"] >= -CONV["max_cost"] and (x.get("p_sim") is None or x["p_sim"] >= x["p"] - 0.02)),
+                  key=lambda x: (-x["p"], -x["ev"]))
+    placed, matches = [], set()
+    for x in pos + safe:
+        night = night_of(x["ko"])
+        key = f'pj|{x["match_id"]}|{x["label"]}'
+        if key in taken or x["match_id"] in matches or nights.get(night, 0) >= CONV["per_night"]: continue
+        d, p = x["price"], x["p"]
+        if x["ev"] >= 0:
+            frac, conf = min(0.25 * (p * d - 1) / (d - 1), VALUE_MAX), "value"
+        else:
+            frac = CONV["lo"] + (CONV["hi"] - CONV["lo"]) * min(max((p - CONV["p_min"]) / 0.20, 0.0), 1.0)
+            conf = "haute" if p >= 0.72 else "moyenne" if p >= 0.66 else "correcte"
+        stake = _round(frac * mult * eq)
+        if stake < PRM["min_stake"] or stake > cash(state) - sum(b["stake"] for b in placed): continue
+        pj = {k: x.get(k) for k in ("kind", "src", "sport", "match_id", "match", "label", "price", "ko", "res", "book")}
+        leg = {"key": key, "ev_key": key, "pj": pj, "name": x["match"], "team": x.get("league", ""), "opp": x.get("book", ""),
+               "stat": x["label"], "side": "", "line": 0, "dec": d, "am": None, "p_sim": x.get("p_sim") or p,
+               "p_mkt": x.get("p_fair") or p, "date": x["ko"], "gid": "", "pid": "", "sport": x.get("sport"), "tag": "conviction"}
+        placed.append({"legs": [leg], "stake": stake, "odds": d, "p": p, "ev": x["ev"], "kind": "conv", "mode": "conviction",
+                       "conf": conf, "id": f'{night}-c{len(state["bets"]) + len(placed) + 1}', "night": night,
+                       "placed_at": now.isoformat(timespec="minutes"), "status": "open", "news": []})
+        matches.add(x["match_id"]); nights[night] = nights.get(night, 0) + 1
+    state["bets"] += placed
+    return placed
 
 
 VALUE_MAX = 0.10     # mise max d'un value bet (part du capital)
@@ -534,6 +597,15 @@ def telegram_placed(placed, state):
             out.append(f'\n💎 <b>Value bet</b> · confiance {b.get("conf", "moyenne")} · {_leg_txt(l)}')
             out.append(f'Cote {l["opp"]} <b>{_fr(b["odds"])}</b> · cote juste Pinnacle <b>{_fr(1 / b["p"])}</b> · '
                        f'espérance +{round(100 * b["ev"], 1)} %')
+            out.append(f'Mise <b>{_fr(b["stake"])} €</b> ({_fr(100 * b["stake"] / eq, 1)} % de la bankroll)')
+            continue
+        if b["kind"] == "conv":    # pari conviction (06/11/2026) : seuil = cote juste, pas le seuil +5 %
+            l = b["legs"][0]
+            ico = "⚽" if l.get("sport") == "foot" else "🏀"
+            out.append(f'\n🎯 <b>Conviction</b> · confiance {b.get("conf", "correcte")} · {ico} {l["name"]} : <b>{l["stat"]}</b>')
+            out.append(f'Cote {l.get("opp") or ""} <b>{_fr(b["odds"])}</b> · gagné {round(100 * b["p"])} % (simu {round(100 * l["p_sim"])} %) · '
+                       f'cote juste <b>{_fr(1 / b["p"])}</b> : rentable si ta cote ≥ {_fr(1 / b["p"])}'
+                       + (f', sinon coût ≈ {round(100 * -b["ev"])} %' if b["ev"] < 0 else f', espérance +{round(100 * b["ev"])} %'))
             out.append(f'Mise <b>{_fr(b["stake"])} €</b> ({_fr(100 * b["stake"] / eq, 1)} % de la bankroll)')
             continue
         if b["kind"] == "safe":

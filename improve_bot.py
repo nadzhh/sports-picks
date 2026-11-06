@@ -20,14 +20,14 @@ Usage : python improve_bot.py [--candidates 8] [--sims 1000] [--dry]
 """
 import argparse, hashlib, json, math, os, subprocess, sys, time
 from concurrent.futures import ThreadPoolExecutor
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
 PARAMS_PATH = Path("data/model_params.json")
 REPORT_PATH = Path("data/improve_report.json")
 SEASONS = (("2024-25", "2024-08-01", "2025-06-30"), ("2025-26", "2025-08-01", "2026-06-30"))
 # Pas d'essai par parametre (autour de la valeur en vigueur) et bornes
-SPACE = {"hl_days": (40.0, 80, 500), "k_team": (1.0, 0.5, 12), "rating_beta": (0.1, 0.0, 1.0),
+SPACE = {"rest_w": (0.05, -0.3, 0.3), "cong_w": (0.03, -0.2, 0.2), "hl_days": (40.0, 80, 500), "k_team": (1.0, 0.5, 12), "rating_beta": (0.1, 0.0, 1.0),
          "intensity_sd": (0.1, 0.0, 0.8), "finish": (0.02, 0.85, 1.1), "lineup_pow": (0.2, 0.0, 2.0),
          "home_boost": (0.02, 0.9, 1.1), "k_cup": (4.0, 2, 40), "goal_w": (0.1, 0.0, 0.6), "k_share": (300.0, 200, 3000)}
 MIN_GAIN, MIN_SUM = 0.0004, 0.0012       # gain minimal de score par saison et au total (memes tirages : bruit ~1e-4)
@@ -175,6 +175,82 @@ def adjust_stakes(params):
     return notes
 
 
+# ─── Lecons de la veille (06/11/2026 : « d'une soiree a l'autre, ameliore-les selon les erreurs de la veille ») ──
+# Exclusion seulement sur des paris nombreux ET repartis sur plusieurs soirs : le 05/11, 98 props de 2 matchs seulement
+# (tres liees : un match a faible score fait gagner presque tous les « moins ») auraient sinon compte comme 98 preuves.
+EXCL_N, EXCL_CLV, EXCL_Z, EXCL_NIGHTS = 30, -0.04, 2.0, 5
+
+
+def _records():
+    """Paris suivis et regles : canal Picks, paris conviction de la Bankroll IA, props du soir.
+    -> [{seg, p, win, clv, ko, label, price, src}]"""
+    import picks_du_jour as PJ
+    out = []
+    for p in PJ.load().get("picks") or []:
+        if p.get("result") not in ("win", "loss"): continue
+        out.append({"seg": PJ.segment(p), "p": p["p"], "win": p["result"] == "win", "ko": p["ko"], "label": p["label"],
+                    "match": p["match"], "price": p["price"], "src": "canal",
+                    "clv": (p["price"] * p["last_p"] - 1) if p.get("last_p") else None})
+    try:
+        bk = json.loads(Path("data/nba_bankroll.json").read_text(encoding="utf-8"))
+        for b in bk.get("bets") or []:
+            if b.get("kind") != "conv" or b["status"] not in ("won", "lost"): continue
+            pj = b["legs"][0]["pj"]
+            out.append({"seg": PJ.segment(pj), "p": b["p"], "win": b["status"] == "won", "ko": pj["ko"], "label": pj["label"],
+                        "match": pj["match"], "price": b["odds"], "src": "bankroll", "clv": None})
+    except (OSError, ValueError, KeyError):
+        pass
+    try:
+        seen = set()   # une seule fois par joueur / stat / sens et par match (la ligne bouge dans la soiree)
+        for p in json.loads(Path("data/props_edge.json").read_text(encoding="utf-8")).get("props") or []:
+            if p.get("result") not in ("win", "loss"): continue
+            k = (p["gid"], p["id"], p["stat"], p["over"])
+            if k in seen: continue
+            seen.add(k)
+            seg = f'nba · {p["stat"]} {"plus" if p["over"] else "moins"}'
+            out.append({"seg": seg, "p": p["p"], "win": p["result"] == "win", "ko": p["ko"], "label": f'{p["name"]} {p["stat"]} {p["line"]:g}',
+                        "match": p["match"], "price": p["fair"], "src": "props", "clv": None, "gid": p["gid"]})
+    except (OSError, ValueError, KeyError):
+        pass
+    return out
+
+
+def lessons(params, now=None):
+    """Bilan de la veille + suivi cumule par type de pari ; ecarte un type qui perd de facon repetee, le reintegre quand
+    il redevient bon. Jamais sur un seul soir : au moins EXCL_N paris regles."""
+    now = now or _now()
+    R = _records()
+    yday = (now - timedelta(days=1)).strftime("%Y-%m-%d")
+    hier = [r for r in R if r["ko"][:10] in (yday, now.strftime("%Y-%m-%d"))]
+    segs = {}
+    for r in R:
+        s = segs.setdefault(r["seg"], {"n": 0, "w": 0, "exp": 0.0, "var": 0.0, "clv": [], "nights": set()})
+        s["n"] += 1; s["w"] += r["win"]; s["exp"] += r["p"]; s["var"] += r["p"] * (1 - r["p"]); s["nights"].add(r["ko"][:10])
+        if r["clv"] is not None: s["clv"].append(r["clv"])
+    ex = set(params.get("exclude") or [])
+    notes = []
+    for k, s in segs.items():
+        if s["n"] < EXCL_N or len(s["nights"]) < EXCL_NIGHTS: continue
+        clv = sum(s["clv"]) / len(s["clv"]) if len(s["clv"]) >= EXCL_N // 2 else None
+        z = (s["w"] - s["exp"]) / math.sqrt(max(s["var"], 1e-9))
+        bad = (clv is not None and clv <= EXCL_CLV) or z <= -EXCL_Z
+        good = (clv is None or clv >= 0) and z >= 0
+        if bad and k not in ex:
+            ex.add(k); notes.append(f"écarté : {k} ({s['w']}/{s['n']} gagnés pour {s['exp']:.1f} attendus"
+                                    + (f", CLV {100 * clv:+.1f} %" if clv is not None else "") + ")")
+        elif good and k in ex:
+            ex.discard(k); notes.append(f"réintégré : {k} ({s['w']}/{s['n']} gagnés pour {s['exp']:.1f} attendus)")
+    params["exclude"] = sorted(ex)
+    table = sorted(({"seg": k, "n": s["n"], "w": s["w"], "exp": round(s["exp"], 1),
+                     "clv": round(sum(s["clv"]) / len(s["clv"]), 4) if s["clv"] else None} for k, s in segs.items()),
+                   key=lambda x: -x["n"])
+    props = [r for r in hier if r["src"] == "props"]
+    return {"hier": [{k: r[k] for k in ("label", "match", "price", "p", "win", "src")} for r in hier if r["src"] != "props"],
+            "props": {"n": len(props), "w": sum(r["win"] for r in props), "exp": round(sum(r["p"] for r in props), 1),
+                      "matchs": len({r.get("gid") for r in props})},
+            "segments": table[:12], "exclus": sorted(ex), "notes": notes}
+
+
 # ─── Nuit ────────────────────────────────────────────────────────────────────
 def run(k=8, sims=1000, dry=False, workers=4):
     t0 = time.time()
@@ -222,6 +298,11 @@ def run(k=8, sims=1000, dry=False, workers=4):
         rep["notes"] += adjust_stakes(P)
     except Exception as e:
         rep["notes"].append(f"mises : {type(e).__name__}: {e}")
+    try:   # lecons de la veille : bilan, suivi par type de pari, exclusions / reintegrations
+        rep["lecons"] = lessons(P)
+        rep["notes"] += rep["lecons"]["notes"]
+    except Exception as e:
+        rep["notes"].append(f"lecons : {type(e).__name__}: {e}")
     rep["params"] = P.get("foot") or {}
     rep["minutes"] = round((time.time() - t0) / 60, 1)
     hist = []
@@ -254,6 +335,17 @@ def summary(rep):
               if a else "Aucun réglage n'améliore les deux saisons : rien ne change (c'est voulu)."),
              f"Écart au marché (log-loss 1X2) : {gap}"]
     lines += [f"• {n}" for n in rep.get("notes") or []]
+    L = rep.get("lecons") or {}
+    if L.get("hier"):
+        w = sum(r["win"] for r in L["hier"])
+        lines.append(f"\nVeille : {w}/{len(L['hier'])} gagnés (attendu {sum(r['p'] for r in L['hier']):.1f}).")
+        lines += [f"{'✅' if r['win'] else '❌'} {r['label']} @ {r['price']:.2f} ({round(100 * r['p'])} % annoncé)" for r in L["hier"][:8]]
+    pr = L.get("props") or {}
+    if pr.get("n"):
+        lines.append(f"Props du soir : {pr['w']}/{pr['n']} gagnées (attendu {pr['exp']:.1f}) sur {pr['matchs']} match(s) : "
+                     "très liées entre elles, ne pas en tirer de conclusion avant plusieurs soirs.")
+    if L.get("exclus"):
+        lines.append("Types de pari écartés : " + ", ".join(L["exclus"]))
     return "\n".join(lines)
 
 

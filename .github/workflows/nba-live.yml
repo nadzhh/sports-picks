@@ -80,6 +80,8 @@ jobs:
           ODDS_API_KEY:       ${{ secrets.ODDS_API_KEY }}
           ODDS_API_KEY2:      ${{ secrets.ODDS_API_KEY2 }}
           ODDS_API_KEY3:      ${{ secrets.ODDS_API_KEY3 }}
+          # relance du bot d'amelioration s'il n'a pas tourne (planification GitHub en retard) ; lu dans l'environnement
+          GH_TOKEN: ${{ github.token }}
         run: python nba_live.py --loop --max-minutes 330
 
       # Alerte : la veille a plante (elle ne se relance pas seule dans ce cas). Jeton lu par

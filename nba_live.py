@@ -207,7 +207,7 @@ class Live:
         bank = self.bankroll(fresh)
         foot = self.foot()
         ev = self.ev()
-        ev = " ; ".join(x for x in (ev, self.boosts(), self.digest(), self.lab()) if x)
+        ev = " ; ".join(x for x in (ev, self.boosts(), self.digest(), self.lab(), self.improve_kick()) if x)
         self.health()
         if (foot or ev) and not (changed or bank) and self.push:
             publish("Foot live : " + " ; ".join(x for x in (foot, ev) if x))
@@ -256,6 +256,14 @@ class Live:
             txt, picks = PJ.build(now)
             self.telegram(txt)
             PJ.record(picks, now)
+            try:   # Bankroll IA : ses 1-2 paris conviction du soir parmi ces picks (06/11/2026)
+                st = BK.load()
+                placed = BK.decide_conviction(st, picks, now)
+                if placed:
+                    BK.save(st); BS.write_fragment()
+                    self.telegram(BK.telegram_placed(placed, st), bank=True)
+            except Exception as e:
+                print(f"  [!] paris conviction : {type(e).__name__}: {e}")
             Path(DIGEST_PATH).write_text(json.dumps({"day": day, "at": now.isoformat(timespec="minutes")}), encoding="utf-8")
             return "recapitulatif Telegram des picks"
         except Exception as e:
@@ -298,6 +306,34 @@ class Live:
             return f" ; bankroll : {len(placed)} pari(s) place(s), {n_set} regle(s)"
         except Exception as e:
             print(f"  [!] bankroll : {type(e).__name__}: {e}")
+            return ""
+
+    def improve_kick(self):
+        """Relance le bot d'amelioration (improve.yml) s'il n'a pas tourne aujourd'hui a 6 h 30 UTC : la planification
+        GitHub peut prendre des heures de retard (validation foot du 05/11 : prevue 4 h 41, lancee 12 h 42). Une fois par
+        jour, seulement si aucune execution du jour n'existe. Jeton GH_TOKEN lu dans l'environnement, jamais affiche."""
+        now = datetime.now(timezone.utc)
+        day = now.strftime("%Y-%m-%d")
+        if getattr(self, "_kicked", None) == day or now.hour * 60 + now.minute < 390 or not os.environ.get("GH_TOKEN"):
+            return ""
+        try:
+            if json.loads(Path("data/improve_report.json").read_text(encoding="utf-8"))["last"]["at"][:10] == day:
+                self._kicked = day; return ""
+        except (OSError, ValueError, KeyError):
+            pass
+        try:
+            import requests
+            repo = os.environ.get("GITHUB_REPOSITORY", "nadzhh/sports-picks")
+            h = {"Authorization": f"Bearer {os.environ['GH_TOKEN']}", "Accept": "application/vnd.github+json"}
+            api = f"https://api.github.com/repos/{repo}/actions/workflows/improve.yml"
+            runs = requests.get(f"{api}/runs", params={"created": f">={day}"}, headers=h, timeout=20).json()
+            self._kicked = day
+            if runs.get("total_count"): return ""
+            r = requests.post(f"{api}/dispatches", json={"ref": "master"}, headers=h, timeout=20)
+            print(f"  [bot] relance du bot d'amelioration : HTTP {r.status_code}")
+            return "bot d'amelioration relance" if r.status_code == 204 else ""
+        except Exception as e:
+            print(f"  [!] relance du bot : {type(e).__name__}")
             return ""
 
     def boosts(self):

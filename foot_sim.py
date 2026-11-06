@@ -23,6 +23,10 @@ from datetime import date
 import numpy as np
 
 P = {
+    # Contexte (Wilson, 06/11/2026 : « le contexte doit primer ») : repos et enchainement des matchs. Poids a 0 tant que
+    # le bot d'amelioration (improve_bot.py) n'a pas prouve sur deux saisons qu'ils ameliorent la prevision.
+    "rest_w":         0.0,    # effet sur l'xG d'un ecart de jours de repos (par semaine d'ecart, plafonne a 7 j)
+    "cong_w":         0.0,    # effet d'un ecart de matchs joues sur les 14 derniers jours (par 2 matchs d'ecart)
     "hl_days":        200.0,  # demi-vie (jours) du poids d'un match dans le niveau des equipes
     "goal_w":         0.0,    # part des buts reels (hors penalty) melangee a l'xG dans le niveau des equipes
     "home_boost":     1.0,    # avantage du terrain en plus de celui mesure sur l'xG (1,04 teste : rejete)
@@ -241,6 +245,15 @@ class FootState:
             tot += self.expected_attack(ps)
         return tot / len(games)
 
+    def context(self, tid, day):
+        """(jours depuis le dernier match, matchs joues sur les 14 derniers jours) de l'equipe avant `day`."""
+        last, n14 = None, 0
+        for r in self.team_recs:
+            if r[1] != tid or r[0] >= day: continue
+            if last is None or r[0] > last: last = r[0]
+            if day - r[0] <= 14: n14 += 1
+        return (min(day - last, 30) if last is not None else 7), n14
+
     def project(self, home_id, away_id, league, home_squad, away_squad, day, neutral=False):
         """squad : {"xi": [pid], "bench": [pid], "confirmed": bool} (xi vide = composition probable
         d'apres les derniers matchs). -> entrees de simulate()."""
@@ -272,6 +285,14 @@ class FootState:
             out[side] = {"id": tid, "npxg": lam[side] * mult, "npxg_base": lam[side], "lineup_mult": mult, "xi_q": q,
                          "pen_rate": (pens[0] + self.p["pen_rate"] * 10) / (pens[1] + 10) * min(max(a, 0.6), 1.6),
                          "players": players}
+        rw, cw = self.p.get("rest_w", 0.0), self.p.get("cong_w", 0.0)
+        ctx = {s: self.context(out[s]["id"], day) for s in ("home", "away")}
+        for side, o in (("home", "away"), ("away", "home")):
+            out[side]["ctx"] = {"rest": ctx[side][0], "n14": ctx[side][1]}
+            if rw or cw:   # contexte : plus reposee / moins de matchs enchaines -> un peu plus d'occasions
+                k = math.exp(rw * (min(ctx[side][0], 7) - min(ctx[o][0], 7)) / 7 - cw * (ctx[side][1] - ctx[o][1]) / 2)
+                out[side]["npxg"] *= k
+                out[side]["lineup_mult"] *= k
         b = self.p.get("rating_beta", 0.0)
         if b:   # qualite de l'onze : plus d'attaque pour soi, moins d'occasions concedees
             for side, o in (("home", "away"), ("away", "home")):

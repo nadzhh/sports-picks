@@ -219,6 +219,17 @@ def _bot_card():
             f'{len(r.get("tried") or [])} réglages essayés, aucun n’améliore les deux saisons : rien ne change.')
     hist = "".join(f'<li>{_e(h["at"][8:10])}/{_e(h["at"][5:7])} : {_e(h["param"])} {_e(h["from"])} → {_e(h["to"])}</li>' for h in reversed(H))
     notes = "".join(f"<li>{_e(n)}</li>" for n in r.get("notes") or [])
+    L = r.get("lecons") or {}
+    if L.get("hier"):
+        w = sum(x["win"] for x in L["hier"])
+        notes += (f'<li>Veille : <b>{w}/{len(L["hier"])}</b> paris recommandés gagnés (attendu {_fr(sum(x["p"] for x in L["hier"]), 1)}) : '
+                  + ", ".join(f'{"✅" if x["win"] else "❌"} {_e(x["label"])}' for x in L["hier"][:6]) + "</li>")
+    pr = L.get("props") or {}
+    if pr.get("n"):
+        notes += (f'<li>Props du soir : {pr["w"]}/{pr["n"]} (attendu {_fr(pr["exp"], 1)}) sur {pr["matchs"]} match(s), '
+                  'très liées entre elles : pas de conclusion avant plusieurs soirs.</li>')
+    if L.get("exclus"):
+        notes += "<li>Types de pari écartés (perte répétée) : " + _e(", ".join(L["exclus"])) + "</li>"
     return ('<div class="eb-card"><h3 class="eb-h">🤖 Bot d’amélioration <small>nuit du ' + _e((r.get("at") or "")[8:10]) + "/"
             + _e((r.get("at") or "")[5:7]) + '</small></h3>'
             f'<p class="td-none" style="color:var(--tx)">{head}</p>'

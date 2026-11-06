@@ -610,6 +610,7 @@ def run_game(st, g, n_sims):
                     "shots": round(float(res[side + "_pshots"][:, j].mean()), 2),
                     "sot": round(float(res[side + "_psot"][:, j].mean()) * SHOT_CAL["scale_so"], 2)} for j, q in enumerate(pl)]
         out[side + "_info"] = {"lineup": lu[side]["type"], "lineup_mult": round(inp[side]["lineup_mult"], 3),
+                               "ctx": inp[side].get("ctx"),     # repos et matchs sur 14 j (contexte, 06/11/2026)
                                "npxg_base": round(inp[side]["npxg_base"], 2), "npxg": round(inp[side]["npxg"], 2),
                                "absences": absence_impact(st, g[side]["id"], lu[side]["unavailable"], day, pl),
                                "scorers": sorted([s for s in scorers if s["p_goal"] >= 0.03], key=lambda s: -s["p_goal"])[:8],

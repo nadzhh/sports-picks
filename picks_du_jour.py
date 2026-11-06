@@ -89,6 +89,35 @@ def _fr(x, d=2):
     return f"{x:.{d}f}".replace(".", ",")
 
 
+# ─── Types de pari (apprentissage de la veille, 06/11/2026) ──────────────────
+def segment(x):
+    """Type de pari pour le suivi cumule : « foot · 1X2 », « foot · total plus », « nba · 3PM moins », « boost »..."""
+    if x.get("src") == "boost" or x.get("kind") == "boost": return "boost"
+    lab = (x.get("label") or "").lower()
+    res = x.get("res") or {}
+    if res.get("stat"):
+        return f'nba · {res["stat"]} {"plus" if res.get("side") == "o" else "moins"}'
+    sport = x.get("sport") or "?"
+    if lab.startswith("victoire") or lab == "match nul": return f"{sport} · 1X2"
+    if lab.startswith(("plus de", "moins de")):
+        return f'{sport} · total {"plus" if lab.startswith("plus") else "moins"}'
+    return f"{sport} · autre"
+
+
+def excluded():
+    """Types de pari ecartes par le bot d'amelioration (perte repetee sur 30+ paris : CLV <= -4 % ou gains nettement
+    sous les probabilites annoncees). Reintegres des qu'ils redeviennent bons."""
+    try:
+        return set(json.loads(Path("data/model_params.json").read_text(encoding="utf-8")).get("exclude") or [])
+    except (OSError, ValueError):
+        return set()
+
+
+def _keep(out):
+    ex = excluded()
+    return [x for x in out if segment(x) not in ex] if ex else out
+
+
 # ─── Candidats ───────────────────────────────────────────────────────────────
 def value_candidates(now, hours=WINDOW_H, min_ev=MIN_EV_VALUE):
     """Lignes de match (foot + NBA) : meilleure cote francaise vs probabilite recalee (Pinnacle [+ simu sur le +2,5])."""
@@ -139,7 +168,7 @@ def value_candidates(now, hours=WINDOW_H, min_ev=MIN_EV_VALUE):
                         "p": round(p, 4), "p_fair": round(p_fair, 4), "p_sim": None if p_sim is None else round(p_sim, 4),
                         "ev": round(ev, 4), "res": {"espn": v.get("espn"), "home": v["home"], "away": v["away"],
                                                     "commence": v["commence"], "key": (v.get("keys") or {}).get(lab)}})
-    return out
+    return _keep(out)
 
 
 def prop_candidates(now, hours=WINDOW_H, min_ev=MIN_EV_PROP):
@@ -164,7 +193,7 @@ def prop_candidates(now, hours=WINDOW_H, min_ev=MIN_EV_PROP):
                             "price": round(d, 2), "book": "DraftKings", "p": round(p, 4), "p_fair": round(pm, 4),
                             "p_sim": round(ps, 4), "ev": round(ev, 4), "safe": p >= 0.58 and d >= 1.5,
                             "res": {"gid": g["gid"], "pid": pr["id"], "stat": pr["stat"], "line": pr["line"], "side": side}})
-    return out
+    return _keep(out)
 
 
 def fr_margin():
@@ -272,30 +301,37 @@ def record(picks, now):
     PATH.write_text(json.dumps(st, ensure_ascii=False, indent=0), encoding="utf-8")
 
 
+def settle_pick(p, box=None):
+    """Resultat d'un pick termine ('win' / 'loss' / 'push' / None si pas encore connu) : value / meilleur prix /
+    complement -> score ESPN ; prop -> feuille de match ; boost -> score et mi-temps. Partage avec la Bankroll IA."""
+    kind = p.get("src") if p["kind"] in ("safe", "fill") else p["kind"]
+    if kind == "boost" or p.get("src") == "boost":
+        import boosts as BO
+        return BO.settle((p.get("res") or {}).get("boost") or {})
+    if kind in ("value", "best") and (p.get("res") or {}).get("key") and p["res"].get("espn"):
+        import ev_scan
+        m, nm, pt = p["res"]["key"]
+        out = ev_scan._espn_result(dict(p["res"], market=m, name=nm, point=pt))
+        return out[0] if out else None
+    if kind == "prop" and box is not None:
+        import nba_bankroll
+        r = nba_bankroll.leg_result(dict(p["res"]), box)
+        return {"void": "push"}.get(r, r)
+    return None
+
+
 def resolve(box=None, now=None):
-    """Regle les picks postes termines : value -> score ESPN (ev_scan._espn_result) ; prop -> feuille de match."""
+    """Regle les picks postes termines (settle_pick)."""
     now = now or datetime.now(timezone.utc)
     st = load()
     n = 0
     for p in st["picks"]:
         if p.get("result") or now - _t(p["ko"]) < timedelta(hours=3): continue
-        r = None
         try:
-            kind = p.get("src") if p["kind"] in ("safe", "fill") else p["kind"]
-            if kind == "boost" or p.get("src") == "boost":
-                import boosts as BO
-                r = BO.settle((p.get("res") or {}).get("boost") or {})
-            elif kind in ("value", "best") and (p["res"] or {}).get("key") and p["res"].get("espn"):
-                import ev_scan
-                m, nm, pt = p["res"]["key"]
-                out = ev_scan._espn_result(dict(p["res"], market=m, name=nm, point=pt))
-                r = out[0] if out else None
-            elif kind == "prop" and box is not None:
-                import nba_bankroll
-                r = nba_bankroll.leg_result(dict(p["res"]), box)
-                r = {"void": "push"}.get(r, r)
+            r = settle_pick(p, box)
         except Exception as e:
             print(f"  [!] reglement pick {p.get('label')} : {type(e).__name__}: {e}")
+            r = None
         if r:
             p["result"] = r
             k = p.get("stake", 1.0)       # unites misees (paliers a mise reduite, 05/11/2026)

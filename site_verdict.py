@@ -112,6 +112,10 @@ def foot(g):
             info = g.get(s + "_info") or {}
             names = [z["name"] for z in info.get("absences") or [] if z.get("impact", 0) >= 0.05]
             if names: ab.append(f'{_e(g[s]["name"])} sans {_e(", ".join(names[:3]))}' + (" …" if len(names) > 3 else ""))
+        cx = [(g[s]["name"], (g.get(s + "_info") or {}).get("ctx")) for s in ("home", "away")]
+        if all(c for _, c in cx):   # contexte : repos et matchs enchaines (06/11/2026)
+            why.append("Contexte : " + " ; ".join(f'{_e(n)} {c["rest"]} j de repos, {c["n14"]} match{"s" if c["n14"] > 1 else ""} '
+                                                   f'en 14 j' for n, c in cx))
         lineup = (g.get("home_info") or {}).get("lineup", "")
         why.append(("Absences notables : " + " ; ".join(ab) if ab else "Aucune absence notable")
                    + (f' <span class="eb-dim">· composition {_e(lineup)}</span>' if lineup else ""))
