@@ -239,7 +239,8 @@ def decide_conviction(state, picks, now=None):
         print(f"  [!] conviction : reservoir elargi indisponible ({type(e).__name__}: {e})")
     pos = sorted((x for x in picks if x["ev"] >= 0), key=lambda x: -x["ev"])
     safe = sorted((x for x in picks if x["ev"] < 0 and x["p"] >= CONV["p_min"] and x["price"] >= CONV["min_odds"]
-                   and x["ev"] >= -CONV["max_cost"] and (x.get("p_sim") is None or x["p_sim"] >= x["p"] - 0.02)),
+                   and x["ev"] >= -CONV["max_cost"] and (x.get("p_sim") is None or x["p_sim"] >= x["p"] - 0.02)
+                   and __import__("picks_du_jour")._hist_ok(x)),   # historique du joueur pas contre (06/11/2026)
                   key=lambda x: (-x["p"], -x["ev"]))
     placed, matches = [], set()
     for x in pos + safe:

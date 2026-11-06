@@ -125,6 +125,57 @@ def candidates(now=None, hours=24):
     return top
 
 
+_LOGS = {}
+ANALYSE_KEY = {"PTS": "PTS", "REB": "REB", "AST": "AST", "3PM": "FG3M", "RA": "RA", "PR": "PR", "PA": "PA", "PRA": "PRA"}
+
+
+def hist_ok(pid, stat, line, over, min_l10=0.5):
+    """Garde-fou de contexte (06/11/2026) : l'historique du joueur ne contredit pas le pari (L10 >= 50 % du bon cote et
+    mediane L10 du bon cote de la ligne). True si l'historique manque (rien pour juger)."""
+    import nba_boxdb as B
+    season = B.season_year()
+    if _LOGS.get("season") != season: _LOGS.update(season=season, logs=game_logs((season - 1, season)))
+    log = _LOGS["logs"].get(str(pid)) or []
+    if len(log) < 10 or stat not in LABEL: return True
+    h = history(log, stat, float(line), over, "", season)
+    return h["l10"][0] / max(h["l10"][1], 1) >= min_l10 and h["med"] is not None and ((h["med"] > float(line)) == over)
+
+
+def card_for(gid, pid, stat, line, over):
+    """Fiche facon PropsEdge d'une prop precise (clic sur un pick : graphe L10, saison, H2H, L5, L10, L20, cote sans
+    marge, « prends si ») + lien vers Basket > Analyse. Chaine vide si la prop n'est plus dans la simulation du soir."""
+    try:
+        sim = json.loads(Path("data/nba_sim.json").read_text(encoding="utf-8"))
+    except (OSError, ValueError):
+        return ""
+    import nba_boxdb as B
+    season = B.season_year()
+    if _LOGS.get("season") != season: _LOGS.update(season=season, logs=game_logs((season - 1, season)))
+    g = next((g for g in sim.get("games") or [] if str(g["gid"]) == str(gid)), None)
+    if not g: return ""
+    pr = next((x for x in list(g.get("props") or []) + _derived_ra(g)
+               if str(x["id"]) == str(pid) and x["stat"] == stat and float(x["line"]) == float(line)), None)
+    log = _LOGS["logs"].get(str(pid)) or []
+    if not pr or stat not in LABEL or not log: return ""
+    opp = g["away"]["abbr"] if pr["side"] == "home" else g["home"]["abbr"]
+    pm = pr["p_mkt"] if over else 1 - pr["p_mkt"]
+    ps = pr["p_sim"] if over else 1 - pr["p_sim"]
+    p_ = pm + W_PROP * (ps - pm)
+    edge = EDGE_DERIVED if pr.get("derived") else EDGE
+    x = {"gid": g["gid"], "ko": g["date"], "match": f'{g["away"]["abbr"]} @ {g["home"]["abbr"]}', "opp": opp,
+         "id": str(pid), "name": pr["name"], "stat": stat, "line": pr["line"], "over": over, "p_mkt": round(pm, 4),
+         "p_sim": round(ps, 4), "p": round(p_, 4), "fair": round(1 / p_, 2), "take": round((1 + edge) / p_, 2),
+         "am_novig": _am(pm), "dk": pr["over"] if over else pr["under"], "derived": pr.get("derived"),
+         "hist": history(log, stat, pr["line"], over, opp, season)}
+    link = ""
+    if stat in ANALYSE_KEY:
+        # nom passe en JSON (guillemets doubles) puis echappe pour l'attribut HTML : « De'Anthony » reste valide
+        arg = _e(json.dumps(pr["name"])) + "," + _e(json.dumps(ANALYSE_KEY[stat]))
+        link = (f'<button class="td-go pe-go" onclick="event.stopPropagation();spNav(&quot;basket&quot;,&quot;analyse&quot;);goToAnalyse({arg})">'
+                'Analyse complète (L5 · L10 · L20 · H2H) →</button>')
+    return CSS + card_html(x).replace('</p></div>', f'</p>{link}</div>', 1)
+
+
 def _derived_ra(g):
     """Props REB+AST deduites des lignes principales rebonds et passes du meme joueur (voir RA_*)."""
     from props_combo_validate import nb_sf, mean_from
@@ -269,6 +320,7 @@ CSS = """<style>
 .pe-c small{font:10px var(--mono);color:var(--mu)} .pe-c b{font-size:13px} .pe-c span{font:10.5px var(--mono);color:var(--acc)}
 .pe-ft{display:flex;justify-content:space-between;font-size:12.5px;color:var(--mu);margin-top:8px}
 .pe-why{font-size:12.5px;line-height:1.5;margin:8px 0 0;color:var(--tx)}
+.pe-go{margin-top:10px}
 </style>"""
 
 

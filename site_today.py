@@ -104,7 +104,9 @@ def _pick_row(x, sims, nba):
             f'<span class="eb-dim">· {_hm(x["ko"])} · {_e(x["league"])}</span></span>{_go(_link(x, sims, nba))}</div>'
             f'<div class="td-l2"><b>{_e(x["label"])}</b> <span class="td-odds">@ {_fr(x["price"])}</span> '
             f'<span class="eb-dim">{_e(x["book"])}</span></div>'
-            f'<div class="td-l3">gagné {_pc(x["p"])} <span class="eb-dim">({ref})</span> · {ev}{_stake(x)}</div></div>')
+            f'<div class="td-l3">gagné {_pc(x["p"])} <span class="eb-dim">({ref})</span> · {ev}{_stake(x)}</div>'
+            + (f'<details class="eb-det pk-dd"><summary>📊 Analyse du pari (graphe L10 · saison · H2H · L5 · L10 · L20)</summary>'
+               f'{det}</details>' if (det := _detail(x, sims, nba)[0]) else "") + '</div>')
 
 
 def _tier_stats(kinds):
@@ -127,6 +129,37 @@ TIER_TAG = {"value": ("Value", "acc"), "prop": ("Value", "acc"), "boost": ("⚡ 
             "best": ("💡 Meilleur prix", "warn"), "fill": ("➕ Complément", "")}
 
 
+def _detail(x, sims, nba):
+    """(fiche a deplier, action du clic) d'un pick : prop NBA -> fiche facon PropsEdge (graphe L10, saison, H2H, L5,
+    L10, L20, cote sans marge) sous la ligne ; autre pari -> fiche du match dans la simulation (06/11/2026)."""
+    r = x.get("res") or {}
+    if r.get("stat") and r.get("pid"):
+        try:
+            import nba_props_edge as E
+            card = E.card_for(r.get("gid"), r["pid"], r["stat"], r["line"], r.get("side") == "o")
+        except Exception as e:
+            print(f"  [!] fiche du pick {x.get('label')} : {type(e).__name__}: {e}")
+            card = ""
+        if card: return card, "spPickToggle(this)"
+    link = _link(x, sims, nba)
+    return "", (f"spToday('{link[0]}','{_e(link[1])}')" if link else "")
+
+
+PK_CSS = """<style>
+.pk-row{cursor:pointer}
+.pk-row:hover>td{background:rgba(149,224,74,.05)}
+tr.pk-det:not(.on){display:none!important}
+tr.pk-det>td{padding:6px 0 14px!important;background:transparent}
+tr.pk-det .pe-card{max-width:520px;box-sizing:border-box}
+@media (max-width:760px){tr.pk-det.on{display:block!important}
+  tr.pk-det>td{display:block!important;width:100%!important;padding:4px 0 12px!important;box-sizing:border-box}
+  tr.pk-det>td::before{display:none!important}
+  tr.pk-det .pe-card{max-width:100%;width:100%}}
+</style><script>
+window.spPickToggle=function(tr){var d=tr.nextElementSibling;if(d&&d.classList.contains('pk-det'))d.classList.toggle('on');};
+</script>"""
+
+
 def picks_table(sport):
     """Carte « Picks du jour » des vues Picks foot / NBA : memes paliers que l'onglet Aujourd'hui, filtres sur le sport.
     Seules ces lignes portent data-np (notification « nouveaux picks ») : la selection brute du simulateur NBA a perdu
@@ -139,23 +172,26 @@ def picks_table(sport):
         return ""
     ico = "⚽" if sport == "foot" else "🏀"
     rows = ""
+    sims, nba = _games()
     for x in sorted((x for L in T.values() for x in L if x["sport"] == sport), key=lambda x: x["ko"]):
         lab, cls = TIER_TAG[x["kind"]]
+        det, act = _detail(x, sims, nba)
         ev = (f'<span class="eb-acc">+{_fr(100 * x["ev"], 1)} %</span>' if x["ev"] >= 0
               else f'<span class="eb-dim">coût {_fr(100 * -x["ev"], 1)} %</span>')
-        rows += (f'<tr data-np="pj|{_e(x["kind"])}|{_e(x["match_id"])}|{_e(x["label"])}" '
+        rows += (f'<tr class="pk-row" onclick="{act}" title="Cliquer pour l’analyse" data-np="pj|{_e(x["kind"])}|{_e(x["match_id"])}|{_e(x["label"])}" '
                  f'data-npl="{ico} {_e(x["match"])} · {_e(x["label"])} @ {_fr(x["price"])} ({lab})">'
                  f'<td class="n eb-dim">{_day(x["ko"], now)}{_hm(x["ko"])}</td><td><b>{_e(x["match"])}</b> '
                  f'<span class="eb-dim">{_e(x["league"])}</span></td><td><b>{_e(x["label"])}</b> '
                  f'<span class="eb-tag {cls}">{lab}</span></td><td>{_e(x["book"])}</td><td class="n"><b>{_fr(x["price"])}</b></td>'
                  f'<td class="n">{_pc(x["p"])}</td><td class="n">{ev}</td>'
-                 f'<td class="n">{_units(x)} u</td></tr>')
+                 f'<td class="n">{_units(x)} u</td></tr>'
+                 + (f'<tr class="pk-det"><td colspan="8">{det}</td></tr>' if det else ""))
     table = (f'<div class="eb-scroll"><table class="eb-tbl eb-cards"><tr><th>Heure</th><th>Match</th><th>Pari</th>'
              f'<th>Bookmaker</th><th>Cote</th><th>Gagné</th><th>Espérance</th><th>Mise</th></tr>{rows}</table></div>' if rows else
              '<div class="eb-empty">Aucun pari ne remplit les critères pour les 24 prochaines heures. Mieux vaut ne rien '
              'jouer que jouer un pari perdant sur la durée.</div>')
-    return ('<div class="eb-card"><h3 class="eb-h">🎯 Picks du jour <small>value · boosts · safe · meilleur prix · complément'
-            '</small></h3>' + table +
+    return (PK_CSS + '<div class="eb-card"><h3 class="eb-h">🎯 Picks du jour <small>value · boosts · safe · meilleur prix · '
+            'complément · cliquer une ligne pour l’analyse</small></h3>' + table +
             '<p class="eb-note">Les mêmes que l’onglet Aujourd’hui et le canal Telegram. Value = espérance positive contre la '
             'cote juste Pinnacle (1 u) ; boost = cote boostée Winamax au-dessus de sa cote juste (1 u) ; safe = cote ≥ 1,40 '
             'gagnée au moins 2 fois sur 3 (0,5 u) ; meilleur prix et complément = pas de la value, les paris les moins chers '

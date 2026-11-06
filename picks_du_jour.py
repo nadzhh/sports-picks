@@ -251,6 +251,19 @@ def _boost_pick(b, kind):
             "p_sim": None, "ev": b["ev"], "max_stake": b.get("max_stake"), "res": {"boost": b}}
 
 
+def _hist_ok(x):
+    """Contexte (Wilson, 06/11 : « le contexte doit primer ») : un pari sur prop NBA ne doit pas etre contredit par
+    l'historique du joueur (L10 >= 50 % du bon cote, mediane du bon cote). Ex. du 06/11 : Christie moins de 9,5 pts
+    avec 4/10 et une mediane de 11 sortait en complement."""
+    r = x.get("res") or {}
+    if not r.get("stat") or not r.get("pid"): return True
+    try:
+        import nba_props_edge as E
+        return E.hist_ok(r["pid"], r["stat"], r["line"], r.get("side") == "o")
+    except Exception:
+        return True
+
+
 def fill(now, taken=(), have=0, hours=WINDOW_H):
     """Complement jusqu'a TARGET_PICKS (au plus un pari par match) : les paris les moins chers du moment, boosts
     compris, esperance >= FILL_MIN_EV. Jamais plus de picks que de matchs dans la fenetre."""
@@ -260,7 +273,7 @@ def fill(now, taken=(), have=0, hours=WINDOW_H):
     if target <= 0: return []
     # jamais un pari que ma simulation contredit nettement (> 5 points sous la probabilite retenue)
     c = [dict(x, kind="fill", src=x["kind"]) for x in vc
-         if x["price"] >= SMALL_MIN_ODDS and (x.get("p_sim") is None or x["p_sim"] >= x["p"] - 0.05)]
+         if x["price"] >= SMALL_MIN_ODDS and (x.get("p_sim") is None or x["p_sim"] >= x["p"] - 0.05) and _hist_ok(x)]
     try:
         import boosts as BO
         c += [_boost_pick(b, "fill") for b in BO.current(now) if b.get("ev") is not None and b["ev"] >= FILL_MIN_EV
