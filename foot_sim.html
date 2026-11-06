@@ -243,7 +243,7 @@ if(!window.ebLiveTimer){var ebRelabel=window.ebRelabel=function(){document.query
  * donnees FotMob : l'equipe a l'exterieur est retournee (elle attaque vers la gauche).
  */
 (function () {
-  var VER = 2;   // 06/11/2026 : probabilite en direct, carte des tirs, lignes du soir, ecrans de fin
+  var VER = 3;   // 06/11 : probabilite en direct, carte des tirs, lignes du soir, ecrans de fin ; barre de position + resume 3 min
   if (window.SPFoot && (window.SPFoot.v || 1) >= VER) return;
   var W = 1280, H = 720, PX = 120, PY = 130, PW = 1040, PH = 520;   // terrain dans le canvas
   var C = { di: '#6b7a70', bg: '#0a0d0b', grass: '#0f1a12', grass2: '#122016', line: 'rgba(238,243,239,0.55)', tx: '#eef3ef',
@@ -282,8 +282,11 @@ if(!window.ebLiveTimer){var ebRelabel=window.ebRelabel=function(){document.query
   function Player(host, data, title) {
     this.d = data; this.title = title || {};
     host.innerHTML = '<canvas class="sp-foot-cv" width="' + W + '" height="' + H + '"></canvas>' +
-      '<div class="sp-foot-bar"><button data-a="play">▶ Lecture</button><button data-a="restart">↺</button>' +
-      '<button data-a="speed">x1</button><span class="sp-foot-hint"></span></div>';
+      '<div class="sp-foot-bar" style="flex-wrap:wrap"><button data-a="play">▶ Lecture</button><button data-a="restart">↺</button>' +
+      '<input class="sp-foot-seek" type="range" min="0" max="1000" value="0" style="flex:1;min-width:120px;accent-color:#95e04a">' +
+      '<span class="sp-foot-time" style="font:12px monospace;color:#9aa89e;white-space:nowrap">0:00</span>' +
+      '<button data-a="speed">x1</button><button data-a="mode" title="Match complet ou résumé des actions">Résumé 3 min</button>' +
+      '<span class="sp-foot-hint"></span></div>';
     this.cv = host.querySelector('canvas'); this.g = this.cv.getContext('2d');
     var me = this;
     host.querySelector('[data-a=play]').onclick = function () { me.toggle(this); };
@@ -291,10 +294,40 @@ if(!window.ebLiveTimer){var ebRelabel=window.ebRelabel=function(){document.query
     host.querySelector('[data-a=speed]').onclick = function () {
       var SP = [1, 1.25, 1.5, 2, 4]; me.speed = SP[(SP.indexOf(me.speed) + 1) % SP.length]; this.textContent = 'x' + String(me.speed).replace('.', ',');
     };
-    this.speed = 1; this.t = 0;
-    if (data.teams) { this.S = prepareFull(data); extras(this); this.T = this.S.T; } else this.timeline();   // v2 : les 22 joueurs
+    this.speed = 1; this.t = 0; this.mode = 'full';
+    if (data.teams) { this.S = prepareFull(data); extras(this); resumeSegs(this); this.T = this.S.T; } else this.timeline();   // v2 : les 22 joueurs
+    // Barre de position et resume (Wilson, 06/11/2026 : « comme au basket : resume 3 min, choisir a quel moment aller »)
+    this.seek = host.querySelector('.sp-foot-seek'); this.tm = host.querySelector('.sp-foot-time');
+    this.seek.oninput = function () { me.t = me.T * me.seek.value / 1000; me.draw(); };
+    host.querySelector('[data-a=mode]').onclick = function () {
+      if (!me.S) return;
+      me.mode = me.mode === 'full' ? 'resume' : 'full'; this.textContent = me.mode === 'full' ? 'Résumé 3 min' : 'Match complet';
+      me.T = me.gameT() + 15; me.t = 0; me.draw();
+    };
+    if (!this.S) { this.seek.style.display = 'none'; host.querySelector('[data-a=mode]').style.display = 'none'; }
     this.draw();
   }
+  function fmtT(x) { var m = Math.floor(x / 60), s = Math.floor(x % 60); return m + ':' + (s < 10 ? '0' : '') + s; }
+  // Resume : chaque tir (4 s avant, 2,5 s apres ; 4,5 s pour un but), carton rouge, mi-temps et fin
+  function resumeSegs(me) {
+    var S = me.S, n = S.frames.length, R = [];
+    S.log.forEach(function (l) {
+      if (l.kind !== 'shot' && l.kind !== 'rouge' && l.kind !== 'mt') return;
+      R.push([Math.max(0, l.f - 4 * F_FS), Math.min(n - 1, l.f + (l.goal ? 4.5 : l.kind === 'mt' ? 2 : 2.5) * F_FS)]);
+    });
+    R.push([Math.max(0, n - 3 * F_FS), n - 1]);
+    R.sort(function (a, b) { return a[0] - b[0]; });
+    var M = [];
+    R.forEach(function (r) { if (M.length && r[0] <= M[M.length - 1][1]) M[M.length - 1][1] = Math.max(M[M.length - 1][1], r[1]); else M.push(r.slice()); });
+    S.segR = M; S.TgR = M.reduce(function (a, r) { return a + (r[1] - r[0]) / F_FS; }, 0);
+  }
+  Player.prototype.gameT = function () { return this.mode === 'resume' && this.S.segR ? this.S.TgR : this.S.Tgame; };
+  Player.prototype.frameAt = function (t) {
+    if (this.mode !== 'resume' || !this.S.segR) return t * F_FS;
+    var acc = 0, M = this.S.segR;
+    for (var i = 0; i < M.length; i++) { var d = (M[i][1] - M[i][0]) / F_FS; if (t < acc + d) return M[i][0] + (t - acc) * F_FS; acc += d; }
+    return M[M.length - 1][1];
+  };
   // Ligne de temps : 0,55 s par minute de jeu sans action, 4,5 s par action (2,5 s pour un remplacement)
   Player.prototype.timeline = function () {
     var ev = this.d.events, segs = [], t = 0, last = 0;
@@ -315,6 +348,7 @@ if(!window.ebLiveTimer){var ebRelabel=window.ebRelabel=function(){document.query
     btn.textContent = '❚❚ Pause'; var prev = performance.now();
     var step = function (now) {
       me.t += (now - prev) / 1000 * me.speed; prev = now; me.draw();
+      if (me.seek) { me.seek.value = Math.round(1000 * me.t / me.T); me.tm.textContent = fmtT(me.t) + ' / ' + fmtT(me.T); }
       if (me.t < me.T) me.raf = requestAnimationFrame(step);
       else { me.raf = null; btn.textContent = '▶ Revoir'; }
     };
@@ -681,7 +715,7 @@ if(!window.ebLiveTimer){var ebRelabel=window.ebRelabel=function(){document.query
     g.globalAlpha = 1;
   }
   function drawEnd(me, g) {
-    var S = me.S, ti = me.title || {}, t = me.t - S.Tgame, last = S.frames[S.frames.length - 1];
+    var S = me.S, ti = me.title || {}, t = me.t - me.gameT(), last = S.frames[S.frames.length - 1];
     g.fillStyle = C.bg; g.fillRect(0, 0, W, H);
     g.textAlign = 'center'; g.textBaseline = 'middle';
     if (t < 7) {
@@ -717,8 +751,9 @@ if(!window.ebLiveTimer){var ebRelabel=window.ebRelabel=function(){document.query
     g.fillStyle = C.di; g.font = '500 13px ' + MONO; g.textAlign = 'right'; g.fillText('Match simulé, pas une prédiction', W - 20, H - 12);
   }
   function drawFull(me) {
-    if (me.S.Tgame != null && me.t >= me.S.Tgame) return drawEnd(me, me.g);
-    var S = me.S, g = me.g, ff = Math.min(S.frames.length - 1, Math.max(0, me.t * F_FS)), f = Math.floor(ff), fr = S.frames[f], ti = me.title, tag = fr.tag || {};
+    if (me.S.Tgame != null && me.t >= me.gameT()) return drawEnd(me, me.g);
+    if (me.seek && !me.raf) { me.seek.value = Math.round(1000 * me.t / me.T); me.tm.textContent = fmtT(me.t) + ' / ' + fmtT(me.T); }
+    var S = me.S, g = me.g, ff = Math.min(S.frames.length - 1, Math.max(0, me.frameAt(me.t))), f = Math.floor(ff), fr = S.frames[f], ti = me.title, tag = fr.tag || {};
     var nx = S.frames[Math.min(f + 1, S.frames.length - 1)], wf = ff - f;
     var lp = function (a, b) { return isNaN(b) ? a : a + (b - a) * wf; };   // lissage entre deux images
     g.fillStyle = C.bg; g.fillRect(0, 0, W, H);
