@@ -597,7 +597,18 @@ def _video(g, gid):
         q = sc.get("quarters") or []
         qt = (" <span class=\"eb-dim\">(" + " · ".join(f"{x[1]}-{x[0]}" for x in q) + ")</span>") if q else ""
         lines.append(f'{_e(_nick(a))} <b class="eb-acc">{fin[1]}-{fin[0]}</b> {_e(_nick(h))}{qt}')
+    # lignes de props du soir par joueur (id ESPN) : suivies dans la video (alerte « passe », ecran final, 06/11/2026)
+    lines_js = {}
+    try:
+        import nba_props_edge as PE
+        for pr in list(g.get("props") or []) + PE._derived_ra(g):
+            if pr.get("stat") in ("PTS", "REB", "AST", "3PM", "STL", "BLK", "PR", "PA", "RA", "PRA") and pr.get("line") is not None:
+                lines_js.setdefault(str(pr["id"]), {})[pr["stat"]] = float(pr["line"])
+    except Exception:
+        pass
+    lj = json.dumps(lines_js, separators=(",", ":")).replace("</", "<\\/")
     return ('<div class="eb-card eb-video">'
+            f'<script type="application/json" class="eb-video-lines">{lj}</script>'
             '<div class="eb-video-head"><div>'
             '<h3 class="eb-h eb-h-nomb">Le match en vidéo <small>match complet ~10 min, toutes les possessions · bouton « Résumé 3 min »</small></h3>'
             f'<div class="eb-meta">{n} matchs simulés possession par possession · match retenu : ' + " / ".join(lines) + '</div></div>'
@@ -665,6 +676,7 @@ window.ebVideo=function(btn,path,name){
   fetch(path,{cache:'no-cache'}).then(function(r){if(!r.ok)throw new Error('HTTP '+r.status);return r.json();})
     .then(function(d){
       if(host._rp&&host._rp.stop)host._rp.stop();
+      try{var L=card.querySelector('.eb-video-lines');if(L)d.lines=JSON.parse(L.textContent);}catch(x){}
       host.setAttribute('data-path',path);host._rp=SPReplay.open(host,d,name);
       card.querySelectorAll('.eb-video-btns .eb-btn').forEach(function(b){b.classList.toggle('on',b===btn);b.disabled=false;b.textContent=b.getAttribute('data-l')||b.textContent;});
       var p=host.querySelector('[data-a=play]');if(p)p.click();})

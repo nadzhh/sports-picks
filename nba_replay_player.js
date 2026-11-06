@@ -4,11 +4,12 @@
  * Donnees : JSON produit par nba_replay.py (evenements, joueurs, resume des simulations).
  */
 (function () {
-  if (window.SPReplay) return;
+  var VER = 2;   // 06/11/2026 : suivi des props ; une version plus recente remplace celle deja chargee par la page
+  if (window.SPReplay && (window.SPReplay.v || 1) >= VER) return;
   var W = 1920, H = 1080, FPS = 30;
   var C = { bg: '#0a0d0b', panel: 'rgba(15,20,17,0.92)', line: '#1f2a22', tx: '#eef3ef', mu: '#9aa89e', di: '#6b7a70', acc: '#95e04a', loss: '#ef4444' };
   var SANS = "'Space Grotesk', 'Segoe UI', sans-serif", MONO = "'JetBrains Mono', Consolas, monospace";
-  var DUR = { intro: 3.5, box: 8, summary: 7 };
+  var DUR = { intro: 3.5, box: 8, props: 9, summary: 7 };
 
   function lum(hex) {
     var h = (hex || '').replace('#', ''); if (h.length !== 6) return 0;
@@ -94,8 +95,108 @@
     var S = { data: data, mode: full ? 'full' : 'resume', tl: timeline, cols: cols, quarters: quarters,
               colors: teamColors(data.meta.home, data.meta.away) };
     simulateMotion(S);
-    S.total = S.gameEnd + DUR.box + DUR.summary;
+    S.props = propsTrack(S);
+    S.durProps = S.props.length ? DUR.props : 0;
+    S.total = S.gameEnd + DUR.box + S.durProps + DUR.summary;
     return S;
+  }
+
+  // ── Props du soir (06/11/2026, facon PropsEdge) : lignes DraftKings des joueurs (data.lines, ajoutees par la page),
+  // moment ou chaque ligne est depassee pendant le match, valeur finale.
+  var PSTAT = { PTS: ['PTS'], REB: ['REB'], AST: ['AST'], '3PM': ['TPM'], STL: ['STL'], BLK: ['BLK'],
+                PR: ['PTS', 'REB'], PA: ['PTS', 'AST'], RA: ['REB', 'AST'], PRA: ['PTS', 'REB', 'AST'] };
+  var PLAB = { PTS: 'PTS', REB: 'REB', AST: 'PD', '3PM': '3 PTS', STL: 'INT', BLK: 'CTR', PR: 'PTS+REB', PA: 'PTS+PD',
+               RA: 'REB+PD', PRA: 'PTS+REB+PD' };
+  function pval(S, box, j, stat) {
+    var s = 0; (PSTAT[stat] || []).forEach(function (c) { s += box[S.cols.indexOf(c)][j]; }); return s;
+  }
+  function propsTrack(S) {
+    var L = S.data.lines || {}, P = S.data.players, out = [], tl = S.tl;
+    if (!tl.length) return out;
+    var last = tl[tl.length - 1].box;
+    P.forEach(function (p, j) {
+      var lines = L[p.id]; if (!lines) return;
+      Object.keys(lines).forEach(function (stat) {
+        if (!PSTAT[stat]) return;
+        var line = lines[stat], hit = null;
+        for (var k = 0; k < tl.length; k++) { if (pval(S, tl[k].box, j, stat) > line) { hit = tl[k]; break; } }
+        out.push({ j: j, stat: stat, line: line, final: pval(S, last, j, stat), hit: hit,
+                   t: hit ? hit.t0 + hit.app + 0.2 : null, q: hit ? hit.e.q : null, c: hit ? hit.e.c : null });
+      });
+    });
+    return out;
+  }
+  function lineOf(S, j, stat) {
+    var p = S.data.players[j], L = (S.data.lines || {})[p.id]; return L && L[stat] != null ? L[stat] : null;
+  }
+  function qlab(q, c) { return (q <= 4 ? 'Q' + q : 'P' + (q - 4)) + ' ' + fmtClock(c); }
+  function frn(x) { return String(x).replace('.', ','); }
+  function drawCashToast(S, ctx, t) {
+    var cur = null;
+    S.props.forEach(function (p) { if (p.t != null && t >= p.t && t < p.t + 3.2 && (!cur || p.t > cur.t)) cur = p; });
+    if (!cur) return;
+    var u = (t - cur.t) / 3.2, a = u < 0.08 ? u / 0.08 : u > 0.85 ? (1 - u) / 0.15 : 1;
+    var P = S.data.players, pl = P[cur.j], w = 720, h = 70, x = (W - w) / 2, y = 232;   // sous la barre de probabilite
+    ctx.globalAlpha = a;
+    ctx.fillStyle = 'rgba(11,18,8,0.94)'; roundRect(ctx, x, y, w, h, 14); ctx.fill();
+    ctx.strokeStyle = C.acc; ctx.lineWidth = 2.5; ctx.stroke();
+    ctx.fillStyle = S.colors[pl.team]; roundRect(ctx, x + 14, y + 15, 40, 40, 20); ctx.fill();
+    ctx.fillStyle = '#fff'; ctx.font = '800 17px ' + MONO; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+    ctx.fillText(pl.num || '', x + 34, y + 36);
+    ctx.textAlign = 'left'; ctx.fillStyle = C.tx; ctx.font = '800 24px ' + SANS;
+    var head = pl.short.toUpperCase() + ' ';
+    ctx.fillText(head, x + 68, y + 26);
+    var hw = ctx.measureText(head).width;
+    ctx.fillStyle = C.acc; ctx.fillText('PLUS DE ' + frn(cur.line) + ' ' + PLAB[cur.stat], x + 68 + hw, y + 26);
+    ctx.fillStyle = C.mu; ctx.font = '500 16px ' + MONO;
+    ctx.fillText(frn(pval(S, cur.hit.box, cur.j, cur.stat)) + ' ' + PLAB[cur.stat] + ' · ' + qlab(cur.q, cur.c), x + 68, y + 52);
+    ctx.fillStyle = C.acc; roundRect(ctx, x + w - 150, y + 17, 134, 36, 10); ctx.fill();
+    ctx.fillStyle = '#0b1208'; ctx.font = '800 18px ' + SANS; ctx.textAlign = 'center'; ctx.fillText('✓ PASSÉ', x + w - 83, y + 36);
+    ctx.globalAlpha = 1;
+  }
+  function drawShotChart(S, ctx, idx) {
+    // carte des tirs de la mi-temps en cours (les equipes changent de cote a la pause) : reussis en vert, rates en rouge
+    var tl = S.tl, q = tl[idx].e.q, half = q <= 2 ? 1 : 2;
+    for (var k = 0; k < idx; k++) {
+      var e = tl[k].e;
+      if (e.k !== 'shot' || !e.xy || (e.q <= 2 ? 1 : 2) !== half) continue;
+      var c = toCourt(e.team, e.q, 5.25 + e.xy[1], e.xy[0]), p = proj(c[0], c[1]);
+      if (e.made) {
+        ctx.fillStyle = 'rgba(149,224,74,0.75)'; ctx.beginPath(); ctx.arc(p[0], p[1], 6 * p[2], 0, 2 * Math.PI); ctx.fill();
+      } else {
+        ctx.strokeStyle = 'rgba(239,68,68,0.7)'; ctx.lineWidth = 2.5; var r = 5 * p[2];
+        ctx.beginPath(); ctx.moveTo(p[0] - r, p[1] - r); ctx.lineTo(p[0] + r, p[1] + r); ctx.moveTo(p[0] + r, p[1] - r); ctx.lineTo(p[0] - r, p[1] + r); ctx.stroke();
+      }
+    }
+  }
+  function drawPropsScreen(S, ctx, t) {
+    var P = S.data.players, a = Math.min(1, t / 0.5);
+    ctx.globalAlpha = a;
+    ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+    ctx.fillStyle = C.tx; ctx.font = '800 44px ' + SANS; ctx.fillText('PROPS DU SOIR DANS CE MATCH', W / 2, 110);
+    ctx.fillStyle = C.mu; ctx.font = '500 18px ' + MONO;
+    ctx.fillText('Lignes DraftKings du soir · un match simulé, pas une prédiction', W / 2, 152);
+    var yes = S.props.filter(function (p) { return p.hit; }).sort(function (a, b) { return a.t - b.t; }).slice(0, 12);
+    var no = S.props.filter(function (p) { return !p.hit; }).sort(function (a, b) { return (b.final / b.line) - (a.final / a.line); }).slice(0, 12);
+    [[yes, 90, 'PASSÉES', C.acc], [no, 990, 'PAS PASSÉES', C.loss]].forEach(function (col) {
+      var L = col[0], x0 = col[1], y = 210;
+      ctx.textAlign = 'left'; ctx.fillStyle = col[3]; ctx.font = '800 24px ' + SANS; ctx.fillText(col[2] + ' (' + L.length + ')', x0, y); y += 44;
+      L.forEach(function (p) {
+        var pl = P[p.j];
+        ctx.fillStyle = C.panel; roundRect(ctx, x0, y - 26, 840, 56, 10); ctx.fill();
+        ctx.fillStyle = S.colors[pl.team]; ctx.fillRect(x0, y - 26, 5, 56);
+        ctx.textAlign = 'left'; ctx.fillStyle = C.tx; ctx.font = '700 21px ' + SANS; ctx.fillText(pl.short, x0 + 20, y - 6);
+        ctx.fillStyle = C.mu; ctx.font = '500 15px ' + MONO; ctx.fillText('Plus de ' + frn(p.line) + ' ' + PLAB[p.stat], x0 + 20, y + 16);
+        var f = Math.max(0, Math.min(1, p.final / Math.max(p.line, 0.5)));
+        ctx.fillStyle = C.line; roundRect(ctx, x0 + 330, y - 4, 260, 10, 5); ctx.fill();
+        ctx.fillStyle = col[3]; roundRect(ctx, x0 + 330, y - 4, 260 * f, 10, 5); ctx.fill();
+        ctx.textAlign = 'right'; ctx.fillStyle = C.tx; ctx.font = '800 26px ' + MONO; ctx.fillText(frn(p.final), x0 + 680, y + 2);
+        ctx.fillStyle = p.hit ? C.acc : C.mu; ctx.font = '600 15px ' + MONO;
+        ctx.fillText(p.hit ? 'passée ' + qlab(p.q, p.c) : 'ligne ' + frn(p.line), x0 + 825, y + 2);
+        y += 64;
+      });
+    });
+    ctx.globalAlpha = 1;
   }
 
   function simulateMotion(S) {
@@ -290,7 +391,8 @@
     ctx.fillStyle = g1; ctx.fillRect(0, 0, W, H);
     var g2 = ctx.createRadialGradient(1720, 0, 50, 1720, 0, 900); g2.addColorStop(0, hexA(S.colors[0], 0.18)); g2.addColorStop(1, 'rgba(0,0,0,0)');
     ctx.fillStyle = g2; ctx.fillRect(0, 0, W, H);
-    if (t >= S.gameEnd + DUR.box) return drawSummary(S, ctx, t - S.gameEnd - DUR.box);
+    if (t >= S.gameEnd + DUR.box + S.durProps) return drawSummary(S, ctx, t - S.gameEnd - DUR.box - S.durProps);
+    if (t >= S.gameEnd + DUR.box) return drawPropsScreen(S, ctx, t - S.gameEnd - DUR.box);
     if (t >= S.gameEnd) return drawFinalBox(S, ctx, t - S.gameEnd);
     var idx = 0, tl = S.tl;
     var lo = 0, hi = tl.length - 1;
@@ -300,6 +402,7 @@
     var ua = t < DUR.intro ? 0 : (cur.app > 0 ? Math.min(1, lt / cur.app) : 1);                 // mise en place
     var ux = t < DUR.intro ? 0 : Math.max(0, Math.min(1, (lt - cur.app) / Math.max(cur.d - cur.app, 1e-3)));   // issue
     drawCourt(ctx);
+    drawShotChart(S, ctx, idx);
     // Joueurs : trajets precalcules a vitesse de course constante (simulateMotion) + leger mouvement sur place
     var pos = framePos(S, t, cur.on);
     cur.on.forEach(function (j) {
@@ -344,6 +447,7 @@
     drawBox(S, ctx, cur, 1, 30, 'left');
     drawBox(S, ctx, cur, 0, W - 30, 'right');
     drawTicker(S, ctx, cur, ux);
+    drawCashToast(S, ctx, t);
     if (e.k === 'end' && idx < tl.length - 1) drawQuarters(S, ctx, 610, 300, e.q, e.s, Math.min(1, ux / 0.15));
     ctx.fillStyle = C.di; ctx.font = '500 17px ' + MONO; ctx.textAlign = 'right'; ctx.textBaseline = 'alphabetic';
     ctx.fillText('Match simulé, pas une prédiction · simulation ' + fmtN(D.summary.k) + ' sur ' + fmtN(D.summary.n), W - 34, H - 18);
@@ -465,7 +569,12 @@
       ctx.fillStyle = C.tx; ctx.font = '600 19px ' + SANS; ctx.textAlign = 'left'; ctx.fillText(P[j].short, x0 + 48, y + 1);
       ctx.font = '500 17px ' + MONO; ctx.textAlign = 'right';
       var vals = [Math.round(B.MIN[j]), B.PTS[j], B.FGM[j] + '-' + B.FGA[j], B.REB[j], B.AST[j], B.PF[j]];
-      vals.forEach(function (v, i) { ctx.fillStyle = i === 1 ? C.tx : C.mu; ctx.font = (i === 1 ? '700 ' : '500 ') + '17px ' + MONO; ctx.fillText(v, x0 + cx[i], y + 1); });
+      var lk = { 1: 'PTS', 3: 'REB', 4: 'AST' };   // case verte quand la ligne de prop du soir est depassee
+      vals.forEach(function (v, i) {
+        var ln = lk[i] ? lineOf(S, j, lk[i]) : null, over = ln != null && v > ln;
+        if (over) { ctx.fillStyle = 'rgba(149,224,74,0.18)'; roundRect(ctx, x0 + cx[i] - 34, y - 12, 38, 24, 5); ctx.fill(); }
+        ctx.fillStyle = over ? C.acc : i === 1 ? C.tx : C.mu; ctx.font = (i === 1 || over ? '700 ' : '500 ') + '17px ' + MONO; ctx.fillText(v, x0 + cx[i], y + 1);
+      });
       ctx.globalAlpha = 1;
       y += 30;
     });
@@ -631,7 +740,7 @@
     });
     seek.addEventListener('input', function () { t = S.total * seek.value / 1000; render(); });
     (document.fonts ? document.fonts.ready : Promise.resolve()).then(render);
-    return { draw: function (tt) { draw(S, ctx, tt); }, total: S.total,
+    return { draw: function (tt) { draw(S, ctx, tt); }, total: S.total, props: function () { return S.props; }, gameEnd: function () { return S.gameEnd; },
              stop: function () { playing = false; cancelAnimationFrame(raf); } };
   }
 
@@ -679,5 +788,5 @@
     btn.disabled = false;
   }
 
-  window.SPReplay = { open: open, prepare: prepare, draw: draw, W: W, H: H };
+  window.SPReplay = { open: open, prepare: prepare, draw: draw, W: W, H: H, v: VER };
 })();
