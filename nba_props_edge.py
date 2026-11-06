@@ -136,9 +136,10 @@ def hist_ok(pid, stat, line, over, min_l10=0.5):
     season = B.season_year()
     if _LOGS.get("season") != season: _LOGS.update(season=season, logs=game_logs((season - 1, season)))
     log = _LOGS["logs"].get(str(pid)) or []
-    if len(log) < 10 or stat not in LABEL: return True
+    # des 3 matchs (06/11 : Dybantsa, rookie a 3 matchs, 1/3 et mediane 19 pour un « moins de 17,5 » passait)
+    if len(log) < 3 or stat not in LABEL: return True
     h = history(log, stat, float(line), over, "", season)
-    return h["l10"][0] / max(h["l10"][1], 1) >= min_l10 and h["med"] is not None and ((h["med"] > float(line)) == over)
+    return h["l10"][0] / max(h["l10"][1], 1) >= min_l10 and h["med"] is not None and ((h["med"] > float(line)) == over)         and (len(log) >= 10 or h["l10"][0] / max(h["l10"][1], 1) >= 0.6)   # petit echantillon : exigence plus forte
 
 
 def card_for(gid, pid, stat, line, over):
@@ -301,7 +302,8 @@ def _arg(x):
         a = A.for_pick(x["gid"], x["id"], x["stat"], x["line"], x["over"])
     except Exception:
         return ""
-    return (f'<details class="eb-det pe-arg"><summary>📝 Argumentaire</summary>{A.html_block(a)}</details>' if a else "")
+    # ouvert d'office (Wilson, 06/11 : « quand je clique sur l'analyse, l'argumentaire doit s'afficher tout de suite »)
+    return (f'<details class="eb-det pe-arg" open><summary>📝 Argumentaire</summary>{A.html_block(a)}</details>' if a else "")
 
 
 def _tz():
