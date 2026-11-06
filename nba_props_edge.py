@@ -275,6 +275,9 @@ def card_html(x):
     chip = lambda lab, k: (f'<div class="pe-c"><small>{lab}</small><b>{h[k][0]}/{h[k][1]}</b>'
                            f'<span>{round(100 * h[k][0] / h[k][1]) if h[k][1] else 0} %</span></div>')
     stat = SHORT.get(x["stat"], LABEL[x["stat"]])
+    mine = (f'<div class="pe-mine" data-p="{x["p"]:.4f}"><input type="text" inputmode="decimal" autocomplete="off" '
+            f'placeholder="Ta cote (Betclic, Winamax…)" oninput="peEv(this)" onclick="event.stopPropagation()">'
+            f'<span class="pe-mv"></span></div>')
     return (f'<div class="pe-card"><div class="pe-hd"><div><b class="pe-n">{_e(x["name"])}</b>'
             f'<span class="eb-dim"> · {_e(x["match"])} · {datetime.fromisoformat(x["ko"].replace("Z", "+00:00")).astimezone(_tz()):%H:%M}</span></div>'
             f'<span class="pe-p">{_am(x["p"]):+d}</span></div>'
@@ -288,7 +291,7 @@ def card_html(x):
                if x.get("derived") else
                f'<p class="pe-why">DraftKings : {x["dk"]:+d} ; <b>{x["am_novig"]:+d} sans la marge</b> ({round(100 * x["p_mkt"])} %), ')
             + f'ma simu {round(100 * x["p_sim"])} % → <b>cote juste {_fr(x["fair"])}</b>. '
-            f'<b class="eb-acc">Prends si ta cote ≥ {_fr(x["take"])}</b> (Betclic, Winamax…), sinon passe.</p></div>')
+            f'<b class="eb-acc">Prends si ta cote ≥ {_fr(x["take"])}</b> (Betclic, Winamax…), sinon passe.</p>{mine}</div>')
 
 
 def _tz():
@@ -321,6 +324,23 @@ CSS = """<style>
 .pe-ft{display:flex;justify-content:space-between;font-size:12.5px;color:var(--mu);margin-top:8px}
 .pe-why{font-size:12.5px;line-height:1.5;margin:8px 0 0;color:var(--tx)}
 .pe-go{margin-top:10px}
+.pe-mine{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-top:10px}
+.pe-mine input{width:170px;background:var(--bg);border:1px solid var(--line2);color:var(--tx);border-radius:8px;padding:7px 9px;font:13px var(--sans)}
+.pe-mv{font-size:12.5px;line-height:1.45}
+</style><script>
+/* « Ta cote » (Wilson, 06/11/2026 : « tu me dis a prendre si > 1,8 alors que je suis a 1,6 max ») : esperance a la
+   cote francaise, chance qu'une serie de 10 paris de ce type soit positive, verdict. */
+window.peEv=function(inp){
+  var w=inp.closest('.pe-mine'),p=+w.getAttribute('data-p'),o=parseFloat(String(inp.value).replace(',','.')),out=w.querySelector('.pe-mv');
+  if(!(o>1)){out.textContent='';return;}
+  var ev=p*o-1,need=0,k,pos=0,c=1;
+  for(k=0;k<=10;k++){ if(k>0)c=c*(10-k+1)/k; if(k*(o-1)-(10-k)>0) pos+=c*Math.pow(p,k)*Math.pow(1-p,10-k); }
+  var f=function(x){return (x>0?'+':'')+(100*x).toFixed(1).replace('.',',')+' %';};
+  out.innerHTML='espérance <b class="'+(ev>=0?'eb-acc':'eb-neg')+'">'+f(ev)+'</b> · série de 10 positive '+Math.round(100*pos)+' % · '
+    +(ev>=0.03?'<b class="eb-acc">à jouer</b>':ev>=0?'<b>jouable, petite mise</b>':ev>=-0.04?'<span class="eb-dim">légèrement perdant : seulement en conviction, petite mise</span>'
+      :'<b class="eb-neg">à éviter</b> : tu perds en moyenne '+(100*-ev).toFixed(0)+' centimes par euro misé');
+};
+</script><style>
 </style>"""
 
 
