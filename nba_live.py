@@ -36,7 +36,7 @@ import site_today as ST
 DIGEST_PATH = "data/telegram_digest.json"   # jour du dernier recapitulatif Telegram envoye (pas de doublon)
 PUBLISHED = [FRAGMENT, R.OUT_PATH, str(R.PICKS_PATH), "data/nba_sim_history.json", BS.FRAGMENT, str(BK.BANK_PATH),
              FS.FRAGMENT, str(FR.OUT_PATH), str(FB.HIST_PATH), str(EV.PATH), DIGEST_PATH, "data/telegram_picks.json",
-             "data/foot_competitions.json", "data/strategy_lab.json", ST.FRAGMENT, "data/boosts.json", "data/props_edge.json"]
+             "data/foot_competitions.json", "data/strategy_lab.json", ST.FRAGMENT, "data/boosts.json", "data/props_edge.json", "data/sentinel.json"]
 # Foot (Top 5 + coupes d'Europe) : base mise a jour par tranches (premiere constitution en plusieurs
 # passages), simulation toutes les 30 min, a chaque cycle quand un match approche (composition officielle)
 FOOT_SEASONS = ("2026/2027", "2025/2026")   # saison en cours d'abord
@@ -207,7 +207,7 @@ class Live:
         bank = self.bankroll(fresh)
         foot = self.foot()
         ev = self.ev()
-        ev = " ; ".join(x for x in (ev, self.boosts(), self.digest(), self.lab(), self.improve_kick()) if x)
+        ev = " ; ".join(x for x in (ev, self.boosts(), self.digest(), self.lab(), self.improve_kick(), self.sentinel()) if x)
         self.health()
         if (foot or ev) and not (changed or bank) and self.push:
             publish("Foot live : " + " ; ".join(x for x in (foot, ev) if x))
@@ -306,6 +306,21 @@ class Live:
             return f" ; bankroll : {len(placed)} pari(s) place(s), {n_set} regle(s)"
         except Exception as e:
             print(f"  [!] bankroll : {type(e).__name__}: {e}")
+            return ""
+
+    def sentinel(self):
+        """Sentinelle des bots (sentinel.py) : au plus une verification par heure, alertes sur le canal Bankroll IA.
+        Renvoie un resume quand il y a une alerte, pour que l'etat soit publie (pas de double alerte au run suivant)."""
+        if not (self.push and os.environ.get("GITHUB_ACTIONS")) or time.time() - getattr(self, "_sentinel_at", 0) < 3600:
+            return ""
+        self._sentinel_at = time.time()
+        try:
+            import sentinel as SN
+            msgs = SN.check()
+            if msgs: self.telegram(*msgs, bank=True)
+            return f"sentinelle : {len(msgs)} message(s)" if msgs else ""
+        except Exception as e:
+            print(f"  [!] sentinelle : {type(e).__name__}: {e}")
             return ""
 
     def improve_kick(self):

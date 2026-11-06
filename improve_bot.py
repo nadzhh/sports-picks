@@ -444,6 +444,12 @@ def run(k=8, sims=1000, dry=False, workers=4, nba_k=4):
         rep["notes"] += rep["lecons"]["notes"]
     except Exception as e:
         rep["notes"].append(f"lecons : {type(e).__name__}: {e}")
+    try:   # post-mortem des paris regles : malchance ou erreur de lecture, probabilites annoncees vs reelles
+        import postmortem
+        pm = postmortem.run(write=not dry)
+        rep["postmortem"] = postmortem.text(pm)
+    except Exception as e:
+        rep["notes"].append(f"post-mortem : {type(e).__name__}: {e}")
     rep["params"] = P.get("foot") or {}
     rep["minutes"] = round((time.time() - t0) / 60, 1)
     hist = []
@@ -476,7 +482,7 @@ def summary(rep):
              f"{len(rep['tried'])} réglages essayés sur 2 saisons ({rep['minutes']} min).",
              (f"✅ Adopté : <b>{a['param']}</b> {a['from']} → {a['to']} (gain {sum(a['gain'].values()):.4f} sur les deux saisons)"
               if a else "Aucun réglage n'améliore les deux saisons : rien ne change (c'est voulu)."),
-             f"Écart au marché (log-loss 1X2) : {gap}"]
+             f"Écart au marché (log-loss 1X2) : {gap}" if gap else "Écart au marché foot : non mesuré cette nuit."]
     lines += [f"• {n}" for n in rep.get("notes") or []]
     N = rep.get("nba") or {}
     if N.get("tried") or N.get("notes"):
@@ -491,6 +497,7 @@ def summary(rep):
         w = sum(r["win"] for r in L["hier"])
         lines.append(f"\nVeille : {w}/{len(L['hier'])} gagnés (attendu {sum(r['p'] for r in L['hier']):.1f}).")
         lines += [f"{'✅' if r['win'] else '❌'} {r['label']} @ {r['price']:.2f} ({round(100 * r['p'])} % annoncé)" for r in L["hier"][:8]]
+    lines += [f"📋 {x}" for x in rep.get("postmortem") or []]
     lines += [f"🔟 {x}" for x in rep.get("series") or []]
     pr = L.get("props") or {}
     if pr.get("n"):

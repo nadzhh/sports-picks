@@ -61,7 +61,7 @@ jobs:
       - name: Publication
         run: |
           git config user.name "sport-picks-bot"; git config user.email "actions@github.com"
-          git add -f data/model_params.json data/improve_report.json
+          git add -f data/model_params.json data/improve_report.json; git add -f data/postmortem.json 2>/dev/null || true
           if git diff --cached --quiet; then echo "rien de nouveau"; exit 0; fi
           git commit -q -m "Bot d'amelioration : $(python -c "import json;r=json.load(open('data/improve_report.json'))['last'];a=r.get('adopted');print(('adopte '+a['param']+' '+str(a['from'])+' -> '+str(a['to'])) if a else 'aucun reglage adopte (%d essais)' % len(r['tried']))")"
           for i in 1 2 3 4 5; do git pull -q --rebase --autostash origin master && git push -q origin master && exit 0; sleep 15; done; exit 1

@@ -269,11 +269,20 @@ def _bot_card():
                        f'<span class="eb-dim">({v[2]} props)</span></span></div>'
                        for k, v in (N.get("gap") or {}).items() if v)
     notes = "".join(f"<li>{_e(n)}</li>" for n in (r.get("notes") or []) + (N.get("notes") or []))
+    try:   # etat des workflows (sentinel.py)
+        import sentinel as SN
+        sn = SN.status_html(_e)
+        if sn: head += "<br>" + sn
+    except Exception:
+        pass
     L = r.get("lecons") or {}
     if L.get("hier"):
         w = sum(x["win"] for x in L["hier"])
         notes += (f'<li>Veille : <b>{w}/{len(L["hier"])}</b> paris recommandés gagnés (attendu {_fr(sum(x["p"] for x in L["hier"]), 1)}) : '
                   + ", ".join(f'{"✅" if x["win"] else "❌"} {_e(x["label"])}' for x in L["hier"][:6]) + "</li>")
+    pmx = r.get("postmortem") or []
+    if pmx:
+        notes += "<li>📋 " + "<br>".join(_e(x) for x in pmx[:8]) + "</li>"
     pr = L.get("props") or {}
     if pr.get("n"):
         notes += (f'<li>Props du soir : {pr["w"]}/{pr["n"]} (attendu {_fr(pr["exp"], 1)}) sur {pr["matchs"]} match(s), '
