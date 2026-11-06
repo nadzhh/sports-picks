@@ -1,15 +1,15 @@
 {
-  "generated_at": "2026-11-06T14:25:10.660895",
-  "n_total": 2651,
+  "generated_at": "2026-11-06T20:43:21.472299",
+  "n_total": 2652,
   "globals": {
     "foot": {
-      "n": 2205,
+      "n": 2206,
       "w": 1022,
-      "l": 1112,
+      "l": 1113,
       "push": 71,
       "wr": 47.9,
-      "roi": -11.6,
-      "profit": -256.78,
+      "roi": -11.7,
+      "profit": -257.78,
       "avg_cote": 2.28,
       "break_even_wr": 43.8,
       "wr_vs_be": 4.1
@@ -56,18 +56,18 @@
         "calibration_gap": -18.5
       },
       "60-69": {
-        "n": 566,
+        "n": 567,
         "w": 242,
-        "l": 306,
+        "l": 307,
         "push": 18,
-        "wr": 44.2,
-        "roi": -18.1,
-        "profit": -102.57,
+        "wr": 44.1,
+        "roi": -18.3,
+        "profit": -103.57,
         "avg_cote": 2.11,
         "break_even_wr": 47.3,
         "wr_vs_be": -3.2,
         "expected_wr": 64.5,
-        "calibration_gap": -20.3
+        "calibration_gap": -20.4
       },
       "70-79": {
         "n": 807,
@@ -439,18 +439,6 @@
         "break_even_wr": 68.6,
         "wr_vs_be": -2.0
       },
-      "Victoire domicile": {
-        "n": 184,
-        "w": 99,
-        "l": 82,
-        "push": 3,
-        "wr": 54.7,
-        "roi": -0.6,
-        "profit": -1.03,
-        "avg_cote": 2.13,
-        "break_even_wr": 46.9,
-        "wr_vs_be": 7.8
-      },
       "Total buts": {
         "n": 59,
         "w": 26,
@@ -486,6 +474,18 @@
         "avg_cote": null,
         "break_even_wr": null,
         "wr_vs_be": null
+      },
+      "Victoire domicile": {
+        "n": 185,
+        "w": 99,
+        "l": 83,
+        "push": 3,
+        "wr": 54.4,
+        "roi": -1.1,
+        "profit": -2.03,
+        "avg_cote": 2.13,
+        "break_even_wr": 46.9,
+        "wr_vs_be": 7.5
       },
       "Under 2.5 buts": {
         "n": 3,
@@ -902,6 +902,18 @@
           "break_even_wr": null,
           "wr_vs_be": null
         },
+        "Bulgarian First": {
+          "n": 9,
+          "w": 4,
+          "l": 3,
+          "push": 2,
+          "wr": 57.1,
+          "roi": 2.2,
+          "profit": 0.2,
+          "avg_cote": null,
+          "break_even_wr": null,
+          "wr_vs_be": null
+        },
         "Paraguay Profesional": {
           "n": 45,
           "w": 10,
@@ -1250,18 +1262,6 @@
           "break_even_wr": null,
           "wr_vs_be": null
         },
-        "Bulgarian First": {
-          "n": 8,
-          "w": 4,
-          "l": 2,
-          "push": 2,
-          "wr": 66.7,
-          "roi": 15.0,
-          "profit": 1.2,
-          "avg_cote": null,
-          "break_even_wr": null,
-          "wr_vs_be": null
-        },
         "Lithuanian Toplyga": {
           "n": 24,
           "w": 10,
@@ -1397,16 +1397,16 @@
       },
       "direction": {
         "home_win": {
-          "n": 255,
+          "n": 256,
           "w": 135,
-          "l": 111,
+          "l": 112,
           "push": 9,
-          "wr": 54.9,
-          "roi": -0.8,
-          "profit": -2.04,
+          "wr": 54.7,
+          "roi": -1.2,
+          "profit": -3.04,
           "avg_cote": 2.06,
           "break_even_wr": 48.5,
-          "wr_vs_be": 6.4
+          "wr_vs_be": 6.2
         },
         "home_dc": {
           "n": 62,
@@ -1819,16 +1819,16 @@
       },
       "is_fun": {
         "False": {
-          "n": 2192,
+          "n": 2193,
           "w": 1018,
-          "l": 1103,
+          "l": 1104,
           "push": 71,
           "wr": 48.0,
           "roi": -11.9,
-          "profit": -260.51,
+          "profit": -261.51,
           "avg_cote": 2.2,
           "break_even_wr": 45.4,
-          "wr_vs_be": 2.6
+          "wr_vs_be": 2.5
         },
         "True": {
           "n": 13,
@@ -2188,20 +2188,20 @@
       "severity": "medium",
       "type": "miscalibrated_overconfident",
       "scope": "foot · conf 60-69",
-      "message": "Bucket conf <b>60-69</b> (foot) : modèle annonce ~64.5% mais WR réel = 44.2% (gap -20.3pp sur 566 picks). Modèle trop confiant → relever MIN_CONF ou ajuster formule.",
+      "message": "Bucket conf <b>60-69</b> (foot) : modèle annonce ~64.5% mais WR réel = 44.1% (gap -20.4pp sur 567 picks). Modèle trop confiant → relever MIN_CONF ou ajuster formule.",
       "stats": {
-        "n": 566,
+        "n": 567,
         "w": 242,
-        "l": 306,
+        "l": 307,
         "push": 18,
-        "wr": 44.2,
-        "roi": -18.1,
-        "profit": -102.57,
+        "wr": 44.1,
+        "roi": -18.3,
+        "profit": -103.57,
         "avg_cote": 2.11,
         "break_even_wr": 47.3,
         "wr_vs_be": -3.2,
         "expected_wr": 64.5,
-        "calibration_gap": -20.3
+        "calibration_gap": -20.4
       }
     },
     {
@@ -2476,7 +2476,7 @@
       "severity": "medium",
       "type": "context_signal",
       "scope": "foot · is_fun",
-      "message": "Signal contexte <b>is_fun</b> (foot) : is_fun=True → WR 30.8% (13 picks) vs is_fun=False → WR 48.0% (2192). Filtrer/ponderer.",
+      "message": "Signal contexte <b>is_fun</b> (foot) : is_fun=True → WR 30.8% (13 picks) vs is_fun=False → WR 48.0% (2193). Filtrer/ponderer.",
       "stats": {
         "worst": {
           "True": {
@@ -2494,16 +2494,16 @@
         },
         "best": {
           "False": {
-            "n": 2192,
+            "n": 2193,
             "w": 1018,
-            "l": 1103,
+            "l": 1104,
             "push": 71,
             "wr": 48.0,
             "roi": -11.9,
-            "profit": -260.51,
+            "profit": -261.51,
             "avg_cote": 2.2,
             "break_even_wr": 45.4,
-            "wr_vs_be": 2.6
+            "wr_vs_be": 2.5
           }
         }
       }
