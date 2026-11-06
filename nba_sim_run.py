@@ -242,7 +242,7 @@ def _ml_prob(ml):
     return 100 / (ml + 100) if ml > 0 else -ml / (-ml + 100)
 
 
-REPLAY_V = 3          # version des videos (3 : un seul match, vainqueur tire au sort selon les probabilites)
+REPLAY_V = 4          # version des videos (4, 06/11/2026 : le match le plus probable + scenario de l'outsider ; 3 : vainqueur tire au sort)
 KEY_STATS = [("3PM", "paniers à 3 pts"), ("3PA", "tirs à 3 pts tentés"), ("FTA", "lancers francs tentés"),
              ("FTM", "lancers francs réussis"), ("OREB", "rebonds offensifs"), ("DREB", "rebonds défensifs"),
              ("TO", "pertes de balle"), ("STL", "interceptions"), ("BLK", "contres"), ("PF", "fautes"), ("AST", "passes décisives")]
@@ -287,20 +287,25 @@ def run_replay(g, inp, lines, jerseys, profiles):
             "books_p_home": round(ph / (ph + pa), 3) if ph and pa else None}
     p_home = float((res["score"][:, 0] > res["score"][:, 1]).mean())
     REPLAY_DIR.mkdir(parents=True, exist_ok=True)
-    # Un seul match montre : le vainqueur est tire au sort selon les probabilites des simulations (un
-    # outsider a 44 % est montre gagnant 44 fois sur 100), puis le match le plus representatif de ses
-    # victoires. Tirage fixe par match (u derive de l'identifiant) : il ne change pas a chaque
-    # resimulation, seulement si la probabilite franchit u.
-    u = (int(g["gid"]) * 2654435761 % 2 ** 32) / 2 ** 32
-    home_wins = u < p_home
-    p = p_home if home_wins else 1 - p_home
-    k = pick_typical(res, inp, home_wins=home_wins)
-    rp = build_replay(res, k, inp, profiles, jerseys, dict(meta, scenario={"home_wins": home_wins, "p": round(p, 4)}), seed=seed)
-    path = REPLAY_DIR / f"{g['gid']}.json"
-    path.write_text(json.dumps(rp, ensure_ascii=False, separators=(",", ":")), encoding="utf-8")
-    (REPLAY_DIR / f"{g['gid']}_b.json").unlink(missing_ok=True)   # ancien 2e scenario (version 2)
-    scen = [{"path": path.as_posix(), "final": rp["final"], "quarters": rp["quarters"], "k": rp["summary"]["k"],
-             "home_wins": home_wins, "p": round(p, 4)}]
+    # Match montre (Wilson, 06/11/2026 : « la simulation doit etre realiste, il ne faut pas choisir au hasard ») :
+    # le PLUS PROBABLE — vainqueur majoritaire, score proche de la mediane, chaque joueur important proche de sa
+    # moyenne simulee (pick_typical). Le scenario de l'outsider reste visible en second bouton, avec sa
+    # probabilite, s'il en a au moins 10 % (avant : vainqueur tire au sort, l'outsider montre gagnant 1 fois sur 3).
+    home_major = p_home >= 0.5
+    scen, rp0 = [], None
+    for i, hw in enumerate((home_major, not home_major)):
+        p = p_home if hw else 1 - p_home
+        path = REPLAY_DIR / (f"{g['gid']}.json" if i == 0 else f"{g['gid']}_b.json")
+        if i == 1 and p < 0.10:
+            path.unlink(missing_ok=True); break
+        k = pick_typical(res, inp, home_wins=hw)
+        rp = build_replay(res, k, inp, profiles, jerseys,
+                          dict(meta, scenario={"home_wins": hw, "p": round(p, 4), "typical": i == 0}), seed=seed)
+        path.write_text(json.dumps(rp, ensure_ascii=False, separators=(",", ":")), encoding="utf-8")
+        scen.append({"path": path.as_posix(), "final": rp["final"], "quarters": rp["quarters"], "k": rp["summary"]["k"],
+                     "home_wins": hw, "p": round(p, 4), "typical": i == 0})
+        rp0 = rp0 or rp
+    rp = rp0
     sm = rp["summary"]
     return {"v": REPLAY_V, "path": scen[0]["path"], "final": scen[0]["final"], "p_home": sm["p_home"], "avg": sm["avg"],
             "p_over": sm["p_over"], "n": sm["n"], "k": scen[0]["k"], "scenarios": scen, "keys": match_keys(res, meta)}

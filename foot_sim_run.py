@@ -619,7 +619,7 @@ def run_game(st, g, n_sims):
             out[side + "_info"]["players"] = player_table(res, inp, side, g["ko"])
         except Exception as e:
             print(f"  [!] tableau joueurs {side} : {type(e).__name__}: {e}")
-    k = typical_index(res, g["id"])
+    k = typical_index(res)   # le resultat le plus probable (06/11/2026 : plus de tirage au sort du vainqueur)
     out["replay"] = replay(res, inp, k, g, lu)
     # probabilites affichees recalees (1X2, +2,5, les deux marquent ; foot_calib, 05/11/2026), brutes dans p_raw
     foot_calib.ensure(out)

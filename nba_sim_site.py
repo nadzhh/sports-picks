@@ -592,8 +592,10 @@ def _video(g, gid):
         win = h if sc["home_wins"] else a
         fin = sc["final"]
         name = f'match-{a["abbr"]}-{h["abbr"]}-{(g.get("date") or "")[:10]}-victoire-{win["abbr"]}'
+        lab = ('▶ Le match le plus probable' if sc.get("typical") else
+               f'▶ Si {_nick(win)} gagne ({_pct(sc["p"], 0)})' if i else '▶ Regarder')   # ancienne video : libelle neutre
         btns += (f'<button class="eb-btn{" eb-btn-alt" if i else ""}" onclick="ebVideo(this,\'{_e(sc["path"])}\',\'{_e(name)}\')">'
-                 f'▶ Regarder</button>')
+                 f'{_e(lab)}</button>')
         q = sc.get("quarters") or []
         qt = (" <span class=\"eb-dim\">(" + " · ".join(f"{x[1]}-{x[0]}" for x in q) + ")</span>") if q else ""
         lines.append(f'{_e(_nick(a))} <b class="eb-acc">{fin[1]}-{fin[0]}</b> {_e(_nick(h))}{qt}')
@@ -614,9 +616,11 @@ def _video(g, gid):
             f'<div class="eb-meta">{n} matchs simulés possession par possession · match retenu : ' + " / ".join(lines) + '</div></div>'
             f'<div class="eb-video-btns">{btns}</div></div>'
             '<div class="eb-video-host"></div>'
-            '<p class="eb-note">' + (f'Vainqueur tiré au sort selon les simulations ({_e(_nick(h))} gagne dans {_pct(rp["p_home"], 0)} '
-            f'des cas, {_e(_nick(a))} dans {_pct(1 - rp["p_home"], 0)}) : l’outsider apparaît gagnant aussi souvent qu’il gagne '
-            'dans les simulations, puis le match le plus représentatif de ces victoires est montré. ' if rp.get("p_home") is not None else "")
+            '<p class="eb-note">' + (f'Match le plus probable : {_e(_nick(h if rp["p_home"] >= 0.5 else a))} gagne '
+            f'({_pct(max(rp["p_home"], 1 - rp["p_home"]), 0)} des simulations), score proche de la médiane et chaque joueur '
+            'important proche de sa moyenne simulée (points, rebonds, passes, minutes). Le second bouton montre le match type '
+            'du scénario de l’outsider, avec sa probabilité. ' if rp.get("p_home") is not None and scen[0].get("typical") else
+            'Vidéo en cours de mise à jour : le match le plus probable remplace le tirage au sort. ' if rp.get("p_home") is not None else "")
             + 'Chaque possession est jouée en temps de jeu accéléré : remontée de balle, mise en place, action, horloge des 24 secondes. '
             + 'Score par quart-temps entre parenthèses (visiteur-domicile). Joueurs placés selon leurs zones de tir réelles, défense homme à homme, fautes et '
             'lancers francs simulés (6 fautes = exclusion, joueur chargé de fautes mis au repos). '

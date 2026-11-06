@@ -318,7 +318,7 @@ def _video(g, gid):
         for sp in sorted((g.get(s + "_info") or {}).get("scorers") or [], key=lambda x: -x["p_goal"])[:2]:
             if sp["p_goal"] >= 0.30: lines["scorers"].append({"name": sp["name"], "p": round(sp["p_goal"], 3)})
     title = json.dumps({"home": g["home"]["name"], "away": g["away"]["name"], "lam": g.get("goals"), "lines": lines,
-                        "foot": "Un match parmi 10 000 simulations : résultat tiré au sort selon les probabilités"},
+                        "foot": "Le match le plus probable parmi 10 000 simulations"},
                        ensure_ascii=False)
     data = json.dumps(rp, ensure_ascii=False, separators=(",", ":"))
     n_goals = sum(e["kind"] in ("but", "csc") for e in rp["events"])
@@ -330,8 +330,9 @@ def _video(g, gid):
             f'<script type="application/json" class="sp-foot-title">{title.replace("</", "<\\/")}</script>'
             '<p class="eb-note">Le match en entier (~9 min) : les 22 joueurs avec leur numéro, placés selon le vrai schéma '
             'de leur équipe (FotMob), bloc qui monte ou se replie, passes, pressing. Chaque tir est un tir réel passé du joueur '
-            '(sa position, son xG). Résultat tiré au sort selon les probabilités des simulations : l’outsider apparaît gagnant '
-            'aussi souvent qu’il gagne. Ce n’est pas un pronostic de score exact.</p></div>')
+            '(sa position, son xG). Match montré : le résultat le plus probable des simulations, avec un score représentatif '
+            '(fréquent et proche des buts attendus) et le déroulé dont l’xG est le plus proche de la moyenne. Ce n’est pas un '
+            'pronostic de score exact.</p></div>')
 
 
 def _crisis(g):
