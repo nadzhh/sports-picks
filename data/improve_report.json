@@ -1,6 +1,6 @@
 {
  "last": {
-  "at": "2026-11-06T10:22+00:00",
+  "at": "2026-11-07T06:41+00:00",
   "sims": 1000,
   "tried": [],
   "adopted": null,
@@ -10,63 +10,63 @@
   "nba": {
    "tried": [
     {
-     "param": "usage_pow",
-     "from": 1.15,
-     "to": 1.1,
+     "param": "hl_rates",
+     "from": 30.0,
+     "to": 25.0,
      "score": {
-      "2025-26": 0.70688,
-      "2026-27": 0.70207
+      "2025-26": 0.70694,
+      "2026-27": 0.70092
      },
      "gain": {
-      "2025-26": 6e-05,
-      "2026-27": -0.00066
+      "2025-26": -4e-05,
+      "2026-27": -0.0003
      }
     },
     {
-     "param": "usage_pow",
-     "from": 1.15,
-     "to": 1.2,
+     "param": "hl_rates",
+     "from": 30.0,
+     "to": 35.0,
      "score": {
-      "2025-26": 0.70678,
-      "2026-27": 0.70163
+      "2025-26": 0.70755,
+      "2026-27": 0.70149
      },
      "gain": {
-      "2025-26": 0.00016,
-      "2026-27": -0.00022
+      "2025-26": -0.00065,
+      "2026-27": -0.00087
      }
     },
     {
-     "param": "ast_pow",
-     "from": 1.15,
-     "to": 1.1,
+     "param": "hl_minutes",
+     "from": 4.0,
+     "to": 3.0,
      "score": {
-      "2025-26": 0.70669,
-      "2026-27": 0.70144
+      "2025-26": 0.70682,
+      "2026-27": 0.70172
      },
      "gain": {
-      "2025-26": 0.00025,
-      "2026-27": -3e-05
+      "2025-26": 8e-05,
+      "2026-27": -0.0011
      }
     },
     {
-     "param": "ast_pow",
-     "from": 1.15,
-     "to": 1.2,
+     "param": "hl_minutes",
+     "from": 4.0,
+     "to": 5.0,
      "score": {
-      "2025-26": 0.70741,
-      "2026-27": 0.70207
+      "2025-26": 0.70726,
+      "2026-27": 0.70026
      },
      "gain": {
-      "2025-26": -0.00047,
-      "2026-27": -0.00066
+      "2025-26": -0.00036,
+      "2026-27": 0.00036
      }
     }
    ],
    "adopted": null,
    "notes": [],
    "base": {
-    "2025-26": 0.70694,
-    "2026-27": 0.70141
+    "2025-26": 0.7069,
+    "2026-27": 0.70062
    },
    "gap": {
     "2025-26": [
@@ -75,16 +75,16 @@
      34033
     ],
     "2026-27": [
-     0.7014,
-     0.6858,
-     10088
+     0.7006,
+     0.6857,
+     10272
     ]
    }
   },
   "series": [
-   "canal Picks : série en cours 3/10, -1.25 u",
+   "canal Picks : série en cours 8/10, -2.29 u",
    "Bankroll IA : 4/7 séries de 10 positives (attendu 57 %)",
-   "Bankroll IA : série en cours 2/10, -1.50 €"
+   "Bankroll IA : série en cours 4/10, -2.71 €"
   ],
   "lecons": {
    "hier": [
@@ -105,111 +105,170 @@
      "src": "canal"
     },
     {
-     "label": "Moins de 2.5 buts",
-     "match": "Celta Vigo - Union Saint-Gilloise",
-     "price": 1.78,
-     "p": 0.5232,
+     "label": "Kentavious Caldwell-Pope moins de 1.5 paniers à 3 pts",
+     "match": "PHI @ CLE",
+     "price": 1.43,
+     "p": 0.6662,
+     "win": true,
+     "src": "canal"
+    },
+    {
+     "label": "Jaime Jaquez Jr. moins de 1.5 paniers à 3 pts",
+     "match": "TOR @ MIL",
+     "price": 1.46,
+     "p": 0.6533,
      "win": false,
      "src": "canal"
+    },
+    {
+     "label": "Alex Sarr moins de 0.5 paniers à 3 pts",
+     "match": "WSH @ ATL",
+     "price": 2.4,
+     "p": 0.4027,
+     "win": false,
+     "src": "canal"
+    },
+    {
+     "label": "Ajay Mitchell moins de 19.5 points",
+     "match": "OKC @ MEM",
+     "price": 1.85,
+     "p": 0.5233,
+     "win": false,
+     "src": "canal"
+    },
+    {
+     "label": "Malik Monk moins de 11.5 points",
+     "match": "SA @ SAC",
+     "price": 1.81,
+     "p": 0.5328,
+     "win": false,
+     "src": "canal"
+    },
+    {
+     "label": "Kentavious Caldwell-Pope moins de 1.5 paniers à 3 pts",
+     "match": "PHI @ CLE",
+     "price": 1.43,
+     "p": 0.6662,
+     "win": true,
+     "src": "bankroll"
+    },
+    {
+     "label": "Jeremiah Fears moins de 1.5 interceptions",
+     "match": "MIN @ NO",
+     "price": 1.42,
+     "p": 0.6644,
+     "win": false,
+     "src": "bankroll"
     }
    ],
    "props": {
-    "n": 78,
-    "w": 60,
-    "exp": 41.2,
-    "matchs": 2
+    "n": 236,
+    "w": 145,
+    "exp": 128.3,
+    "matchs": 11
    },
    "segments": [
     {
-     "seg": "nba · PR moins",
-     "n": 11,
-     "w": 9,
-     "exp": 5.7,
-     "clv": null
-    },
-    {
      "seg": "nba · PTS moins",
-     "n": 9,
-     "w": 7,
-     "exp": 4.7,
-     "clv": null
+     "n": 30,
+     "w": 16,
+     "exp": 15.4,
+     "clv": -0.097
     },
     {
-     "seg": "nba · PRA moins",
-     "n": 9,
-     "w": 5,
-     "exp": 4.6,
-     "clv": null
+     "seg": "nba · 3PM moins",
+     "n": 26,
+     "w": 16,
+     "exp": 14.8,
+     "clv": -0.0635
     },
     {
-     "seg": "nba · PA moins",
-     "n": 6,
-     "w": 4,
-     "exp": 3.0,
+     "seg": "nba · AST moins",
+     "n": 23,
+     "w": 16,
+     "exp": 13.2,
      "clv": null
     },
     {
      "seg": "nba · REB moins",
-     "n": 5,
-     "w": 4,
-     "exp": 2.7,
+     "n": 21,
+     "w": 15,
+     "exp": 11.7,
      "clv": null
     },
     {
-     "seg": "nba · AST plus",
-     "n": 5,
-     "w": 4,
-     "exp": 2.6,
-     "clv": null
-    },
-    {
-     "seg": "nba · 3PM moins",
-     "n": 4,
-     "w": 3,
-     "exp": 2.3,
-     "clv": -0.0585
-    },
-    {
-     "seg": "nba · 3PM plus",
-     "n": 4,
-     "w": 3,
-     "exp": 2.2,
-     "clv": null
-    },
-    {
-     "seg": "nba · RA plus",
-     "n": 4,
-     "w": 4,
-     "exp": 2.0,
-     "clv": null
-    },
-    {
-     "seg": "nba · REB plus",
-     "n": 4,
-     "w": 3,
-     "exp": 2.1,
-     "clv": null
-    },
-    {
-     "seg": "nba · PRA plus",
-     "n": 4,
-     "w": 3,
-     "exp": 2.0,
+     "seg": "nba · PR moins",
+     "n": 21,
+     "w": 14,
+     "exp": 10.8,
      "clv": null
     },
     {
      "seg": "nba · RA moins",
-     "n": 3,
-     "w": 2,
-     "exp": 1.7,
+     "n": 20,
+     "w": 11,
+     "exp": 11.6,
+     "clv": null
+    },
+    {
+     "seg": "nba · PRA moins",
+     "n": 14,
+     "w": 6,
+     "exp": 7.2,
+     "clv": null
+    },
+    {
+     "seg": "nba · AST plus",
+     "n": 12,
+     "w": 6,
+     "exp": 6.6,
+     "clv": null
+    },
+    {
+     "seg": "nba · PA moins",
+     "n": 12,
+     "w": 5,
+     "exp": 6.2,
+     "clv": null
+    },
+    {
+     "seg": "nba · 3PM plus",
+     "n": 11,
+     "w": 9,
+     "exp": 5.6,
+     "clv": null
+    },
+    {
+     "seg": "nba · REB plus",
+     "n": 11,
+     "w": 7,
+     "exp": 6.0,
+     "clv": null
+    },
+    {
+     "seg": "nba · STL plus",
+     "n": 10,
+     "w": 5,
+     "exp": 6.1,
      "clv": null
     }
    ],
    "exclus": [],
    "notes": []
   },
+  "postmortem": [
+   "Post-mortem du 06/11 : 2/7 gagnés.",
+   "🔎 erreur · MIN @ NO -0 Jeremiah Fears moins de 1.5 interceptions @ 1.42 : sans détail ()",
+   "🍀 malchance · Jaime Jaquez Jr. moins de 1.5 paniers à 3 pts (TOR @ MIL) @ 1.46 : perdu d'un rien (2 pour une ligne à 1.5)",
+   "🍀 malchance · Alex Sarr moins de 0.5 paniers à 3 pts (WSH @ ATL) @ 2.40 : perdu d'un rien (1 pour une ligne à 0.5)",
+   "🔎 erreur · Ajay Mitchell moins de 19.5 points (OKC @ MEM) @ 1.85 : rendement sous la projection (35 en 30 min (projeté 16.2 à ce temps de jeu))",
+   "🍀 malchance · Malik Monk moins de 11.5 points (SA @ SAC) @ 1.81 : perdu d'un rien (12 pour une ligne à 11.5 ; marché contre nous (52 → 48 %))",
+   "Bankroll IA sur 30 j : 74 paris, annoncé 54 % · gagné 54 % (hasard ±12 pts) · rendement +3.4 %",
+   "Canal Picks sur 30 j : 8 paris, annoncé 58 % · gagné 12 % (hasard ±35 pts) · rendement -82.1 %",
+   "41 paris perdus en 30 jours : 18 de malchance (bonne lecture, mauvais sort), 23 d'erreur de lecture."
+  ],
   "params": {},
-  "minutes": 23.5
+  "minutes": 14.5
  },
  "nights": [
   {
@@ -235,6 +294,34 @@
       0.7014,
       0.6858,
       10088
+     ]
+    },
+    "adopted": null
+   }
+  },
+  {
+   "at": "2026-11-07T06:41+00:00",
+   "base": null,
+   "gap": null,
+   "adopted": null,
+   "notes": [
+    "foot : moins de 500 matchs rejoues sur 2024-25 (0), aucun reglage juge cette nuit"
+   ],
+   "nba": {
+    "base": {
+     "2025-26": 0.7069,
+     "2026-27": 0.70062
+    },
+    "gap": {
+     "2025-26": [
+      0.7069,
+      0.6855,
+      34033
+     ],
+     "2026-27": [
+      0.7006,
+      0.6857,
+      10272
      ]
     },
     "adopted": null
