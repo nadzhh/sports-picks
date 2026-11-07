@@ -1,6 +1,6 @@
 {
- "genere_le": "2026-11-07T18:37:48",
- "n_resolus": 2592,
+ "genere_le": "2026-11-07T22:33:48",
+ "n_resolus": 2610,
  "parametres": {
   "n_min_jugement": 20,
   "seuil_pct": 50.0,
@@ -8,41 +8,61 @@
  },
  "marches": {
   "foot/Double chance": {
-   "n": 138,
+   "n": 139,
    "wins": 116,
-   "wr": 84.1,
-   "borne_basse": 77.0,
-   "borne_haute": 89.2,
+   "wr": 83.5,
+   "borne_basse": 76.4,
+   "borne_haute": 88.7,
    "statut": "RETENU",
    "cote_moyenne": 1.54,
    "n_cotes": 17
   },
   "foot/Victoire domicile": {
-   "n": 185,
-   "wins": 100,
-   "wr": 54.1,
-   "borne_basse": 46.9,
-   "borne_haute": 61.1,
+   "n": 188,
+   "wins": 101,
+   "wr": 53.7,
+   "borne_basse": 46.6,
+   "borne_haute": 60.7,
    "statut": "SURVEILLE",
-   "cote_moyenne": 2.13,
-   "n_cotes": 31
+   "cote_moyenne": 2.12,
+   "n_cotes": 32
   },
   "foot/Victoire extérieur": {
-   "n": 186,
+   "n": 189,
    "wins": 86,
-   "wr": 46.2,
-   "borne_basse": 39.2,
-   "borne_haute": 53.4,
+   "wr": 45.5,
+   "borne_basse": 38.6,
+   "borne_haute": 52.6,
    "statut": "SURVEILLE",
    "cote_moyenne": 2.33,
    "n_cotes": 23
   },
+  "foot/Under 3.5 buts": {
+   "n": 27,
+   "wins": 19,
+   "wr": 70.4,
+   "borne_basse": 51.5,
+   "borne_haute": 84.1,
+   "statut": "RETENU",
+   "cote_moyenne": 1.73,
+   "n_cotes": 27
+  },
+  "foot/Tirs cadrés (total)": {
+   "n": 55,
+   "wins": 39,
+   "wr": 70.9,
+   "borne_basse": 57.9,
+   "borne_haute": 81.2,
+   "statut": "RETENU",
+   "cote_moyenne": null,
+   "n_cotes": 0
+  },
   "foot/Tirs (total match)": {
-   "n": 81,
-   "wins": 53,
-   "wr": 65.4,
-   "borne_basse": 54.6,
-   "borne_haute": 74.9,
+   "n": 84,
+   "wins": 56,
+   "wr": 66.7,
+   "borne_basse": 56.1,
+   "borne_haute": 75.8,
    "statut": "RETENU",
    "cote_moyenne": 1.73,
    "n_cotes": 1
@@ -106,26 +126,6 @@
    "statut": "SURVEILLE",
    "cote_moyenne": null,
    "n_cotes": 0
-  },
-  "foot/Tirs cadrés (total)": {
-   "n": 51,
-   "wins": 38,
-   "wr": 74.5,
-   "borne_basse": 61.1,
-   "borne_haute": 84.5,
-   "statut": "RETENU",
-   "cote_moyenne": null,
-   "n_cotes": 0
-  },
-  "foot/Under 3.5 buts": {
-   "n": 23,
-   "wins": 16,
-   "wr": 69.6,
-   "borne_basse": 49.1,
-   "borne_haute": 84.4,
-   "statut": "SURVEILLE",
-   "cote_moyenne": 1.73,
-   "n_cotes": 23
   },
   "foot/Tirs (Lyon)": {
    "n": 1,
@@ -1065,22 +1065,22 @@
     "p": 83.0
    },
    "90-99": {
-    "n": 26,
-    "p": 90.0
+    "n": 27,
+    "p": 88.9
    },
    "70-79": {
     "n": 6,
-    "p": 73.6
+    "p": 73.4
    }
   },
   "foot/Victoire domicile": {
    "70-79": {
-    "n": 54,
-    "p": 55.6
+    "n": 55,
+    "p": 56.4
    },
    "60-69": {
-    "n": 83,
-    "p": 48.2
+    "n": 85,
+    "p": 47.1
    },
    "80-89": {
     "n": 25,
@@ -1093,12 +1093,12 @@
   },
   "foot/Victoire extérieur": {
    "70-79": {
-    "n": 62,
-    "p": 53.2
+    "n": 64,
+    "p": 51.6
    },
    "80-89": {
-    "n": 26,
-    "p": 53.8
+    "n": 27,
+    "p": 51.9
    },
    "60-69": {
     "n": 73,
@@ -1109,10 +1109,30 @@
     "p": 36.0
    }
   },
+  "foot/Under 3.5 buts": {
+   "60-69": {
+    "n": 23,
+    "p": 69.6
+   },
+   "70-79": {
+    "n": 4,
+    "p": 72.2
+   }
+  },
+  "foot/Tirs cadrés (total)": {
+   "70-79": {
+    "n": 50,
+    "p": 70.0
+   },
+   "80-89": {
+    "n": 5,
+    "p": 75.5
+   }
+  },
   "foot/Tirs (total match)": {
    "70-79": {
-    "n": 71,
-    "p": 63.4
+    "n": 74,
+    "p": 64.9
    },
    "80-89": {
     "n": 10,
@@ -1205,26 +1225,6 @@
    "70-79": {
     "n": 1,
     "p": 90.0
-   }
-  },
-  "foot/Tirs cadrés (total)": {
-   "70-79": {
-    "n": 46,
-    "p": 73.9
-   },
-   "80-89": {
-    "n": 5,
-    "p": 77.2
-   }
-  },
-  "foot/Under 3.5 buts": {
-   "60-69": {
-    "n": 19,
-    "p": 68.4
-   },
-   "70-79": {
-    "n": 4,
-    "p": 71.8
    }
   },
   "foot/Tirs (Lyon)": {
