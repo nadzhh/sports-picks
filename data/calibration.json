@@ -1,31 +1,41 @@
 {
- "genere_le": "2026-11-07T13:51:55",
- "n_resolus": 2587,
+ "genere_le": "2026-11-07T18:37:48",
+ "n_resolus": 2592,
  "parametres": {
   "n_min_jugement": 20,
   "seuil_pct": 50.0,
   "pas_tranche": 10
  },
  "marches": {
+  "foot/Double chance": {
+   "n": 138,
+   "wins": 116,
+   "wr": 84.1,
+   "borne_basse": 77.0,
+   "borne_haute": 89.2,
+   "statut": "RETENU",
+   "cote_moyenne": 1.54,
+   "n_cotes": 17
+  },
   "foot/Victoire domicile": {
-   "n": 183,
+   "n": 185,
    "wins": 100,
-   "wr": 54.6,
-   "borne_basse": 47.4,
-   "borne_haute": 61.7,
+   "wr": 54.1,
+   "borne_basse": 46.9,
+   "borne_haute": 61.1,
    "statut": "SURVEILLE",
    "cote_moyenne": 2.13,
    "n_cotes": 31
   },
-  "foot/Double chance": {
-   "n": 136,
-   "wins": 114,
-   "wr": 83.8,
-   "borne_basse": 76.7,
-   "borne_haute": 89.1,
-   "statut": "RETENU",
-   "cote_moyenne": 1.54,
-   "n_cotes": 17
+  "foot/Victoire extérieur": {
+   "n": 186,
+   "wins": 86,
+   "wr": 46.2,
+   "borne_basse": 39.2,
+   "borne_haute": 53.4,
+   "statut": "SURVEILLE",
+   "cote_moyenne": 2.33,
+   "n_cotes": 23
   },
   "foot/Tirs (total match)": {
    "n": 81,
@@ -146,16 +156,6 @@
    "statut": "SURVEILLE",
    "cote_moyenne": 1.95,
    "n_cotes": 11
-  },
-  "foot/Victoire extérieur": {
-   "n": 185,
-   "wins": 86,
-   "wr": 46.5,
-   "borne_basse": 39.4,
-   "borne_haute": 53.7,
-   "statut": "SURVEILLE",
-   "cote_moyenne": 2.33,
-   "n_cotes": 23
   },
   "foot/Tirs (AFC Bournemouth)": {
    "n": 3,
@@ -1059,10 +1059,24 @@
   }
  },
  "calibration": {
+  "foot/Double chance": {
+   "80-89": {
+    "n": 106,
+    "p": 83.0
+   },
+   "90-99": {
+    "n": 26,
+    "p": 90.0
+   },
+   "70-79": {
+    "n": 6,
+    "p": 73.6
+   }
+  },
   "foot/Victoire domicile": {
    "70-79": {
-    "n": 52,
-    "p": 57.7
+    "n": 54,
+    "p": 55.6
    },
    "60-69": {
     "n": 83,
@@ -1077,18 +1091,22 @@
     "p": 43.5
    }
   },
-  "foot/Double chance": {
-   "80-89": {
-    "n": 104,
-    "p": 82.7
-   },
-   "90-99": {
-    "n": 26,
-    "p": 90.0
-   },
+  "foot/Victoire extérieur": {
    "70-79": {
-    "n": 6,
-    "p": 73.5
+    "n": 62,
+    "p": 53.2
+   },
+   "80-89": {
+    "n": 26,
+    "p": 53.8
+   },
+   "60-69": {
+    "n": 73,
+    "p": 41.1
+   },
+   "50-59": {
+    "n": 25,
+    "p": 36.0
    }
   },
   "foot/Tirs (total match)": {
@@ -1229,24 +1247,6 @@
    "60-69": {
     "n": 7,
     "p": 90.0
-   }
-  },
-  "foot/Victoire extérieur": {
-   "80-89": {
-    "n": 26,
-    "p": 53.8
-   },
-   "70-79": {
-    "n": 61,
-    "p": 54.1
-   },
-   "60-69": {
-    "n": 73,
-    "p": 41.1
-   },
-   "50-59": {
-    "n": 25,
-    "p": 36.0
    }
   },
   "foot/Tirs (AFC Bournemouth)": {
