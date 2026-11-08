@@ -1,12 +1,52 @@
 {
- "genere_le": "2026-11-08T16:06:52",
- "n_resolus": 2646,
+ "genere_le": "2026-11-08T20:28:21",
+ "n_resolus": 2663,
  "parametres": {
   "n_min_jugement": 20,
   "seuil_pct": 50.0,
   "pas_tranche": 10
  },
  "marches": {
+  "foot/Double chance": {
+   "n": 156,
+   "wins": 129,
+   "wr": 82.7,
+   "borne_basse": 76.0,
+   "borne_haute": 87.8,
+   "statut": "RETENU",
+   "cote_moyenne": 1.55,
+   "n_cotes": 18
+  },
+  "foot/Victoire extérieur": {
+   "n": 196,
+   "wins": 88,
+   "wr": 44.9,
+   "borne_basse": 38.1,
+   "borne_haute": 51.9,
+   "statut": "SURVEILLE",
+   "cote_moyenne": 2.36,
+   "n_cotes": 25
+  },
+  "foot/Victoire domicile": {
+   "n": 200,
+   "wins": 109,
+   "wr": 54.5,
+   "borne_basse": 47.6,
+   "borne_haute": 61.3,
+   "statut": "SURVEILLE",
+   "cote_moyenne": 2.12,
+   "n_cotes": 32
+  },
+  "foot/Tirs (total match)": {
+   "n": 86,
+   "wins": 58,
+   "wr": 67.4,
+   "borne_basse": 57.0,
+   "borne_haute": 76.4,
+   "statut": "RETENU",
+   "cote_moyenne": 1.73,
+   "n_cotes": 1
+  },
   "nba/REB": {
    "n": 52,
    "wins": 25,
@@ -47,36 +87,6 @@
    "cote_moyenne": 1.99,
    "n_cotes": 24
   },
-  "foot/Double chance": {
-   "n": 150,
-   "wins": 126,
-   "wr": 84.0,
-   "borne_basse": 77.3,
-   "borne_haute": 89.0,
-   "statut": "RETENU",
-   "cote_moyenne": 1.54,
-   "n_cotes": 17
-  },
-  "foot/Victoire domicile": {
-   "n": 194,
-   "wins": 105,
-   "wr": 54.1,
-   "borne_basse": 47.1,
-   "borne_haute": 61.0,
-   "statut": "SURVEILLE",
-   "cote_moyenne": 2.12,
-   "n_cotes": 32
-  },
-  "foot/Victoire extérieur": {
-   "n": 192,
-   "wins": 88,
-   "wr": 45.8,
-   "borne_basse": 38.9,
-   "borne_haute": 52.9,
-   "statut": "SURVEILLE",
-   "cote_moyenne": 2.36,
-   "n_cotes": 25
-  },
   "foot/Under 3.5 buts": {
    "n": 29,
    "wins": 21,
@@ -96,16 +106,6 @@
    "statut": "RETENU",
    "cote_moyenne": null,
    "n_cotes": 0
-  },
-  "foot/Tirs (total match)": {
-   "n": 85,
-   "wins": 57,
-   "wr": 67.1,
-   "borne_basse": 56.5,
-   "borne_haute": 76.1,
-   "statut": "RETENU",
-   "cote_moyenne": 1.73,
-   "n_cotes": 1
   },
   "foot/Tirs (Osasuna)": {
    "n": 1,
@@ -1079,6 +1079,66 @@
   }
  },
  "calibration": {
+  "foot/Double chance": {
+   "90-99": {
+    "n": 30,
+    "p": 86.7
+   },
+   "80-89": {
+    "n": 120,
+    "p": 82.5
+   },
+   "70-79": {
+    "n": 6,
+    "p": 73.1
+   }
+  },
+  "foot/Victoire extérieur": {
+   "70-79": {
+    "n": 70,
+    "p": 50.0
+   },
+   "80-89": {
+    "n": 28,
+    "p": 50.0
+   },
+   "60-69": {
+    "n": 73,
+    "p": 41.1
+   },
+   "50-59": {
+    "n": 25,
+    "p": 36.0
+   }
+  },
+  "foot/Victoire domicile": {
+   "70-79": {
+    "n": 62,
+    "p": 58.1
+   },
+   "80-89": {
+    "n": 26,
+    "p": 76.9
+   },
+   "60-69": {
+    "n": 89,
+    "p": 48.3
+   },
+   "50-59": {
+    "n": 23,
+    "p": 43.5
+   }
+  },
+  "foot/Tirs (total match)": {
+   "70-79": {
+    "n": 76,
+    "p": 65.8
+   },
+   "80-89": {
+    "n": 10,
+    "p": 80.0
+   }
+  },
   "nba/REB": {
    "70-79": {
     "n": 17,
@@ -1159,56 +1219,6 @@
     "p": 59.8
    }
   },
-  "foot/Double chance": {
-   "80-89": {
-    "n": 115,
-    "p": 83.5
-   },
-   "90-99": {
-    "n": 29,
-    "p": 89.7
-   },
-   "70-79": {
-    "n": 6,
-    "p": 73.6
-   }
-  },
-  "foot/Victoire domicile": {
-   "70-79": {
-    "n": 59,
-    "p": 57.6
-   },
-   "60-69": {
-    "n": 87,
-    "p": 47.1
-   },
-   "80-89": {
-    "n": 25,
-    "p": 80.0
-   },
-   "50-59": {
-    "n": 23,
-    "p": 43.5
-   }
-  },
-  "foot/Victoire extérieur": {
-   "70-79": {
-    "n": 67,
-    "p": 52.2
-   },
-   "80-89": {
-    "n": 27,
-    "p": 51.9
-   },
-   "60-69": {
-    "n": 73,
-    "p": 41.1
-   },
-   "50-59": {
-    "n": 25,
-    "p": 36.0
-   }
-  },
   "foot/Under 3.5 buts": {
    "60-69": {
     "n": 25,
@@ -1227,16 +1237,6 @@
    "80-89": {
     "n": 5,
     "p": 74.8
-   }
-  },
-  "foot/Tirs (total match)": {
-   "70-79": {
-    "n": 75,
-    "p": 65.3
-   },
-   "80-89": {
-    "n": 10,
-    "p": 80.0
    }
   },
   "foot/Tirs (Osasuna)": {
@@ -2099,8 +2099,8 @@
   }
  },
  "replis_sport": {
-  "nba": 51.8,
   "foot": 48.3,
+  "nba": 51.8,
   "tennis": 61.7
  }
 }
