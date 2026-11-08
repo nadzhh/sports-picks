@@ -1,6 +1,6 @@
 {
  "last": {
-  "at": "2026-11-07T07:14+00:00",
+  "at": "2026-11-08T06:40+00:00",
   "sims": 1000,
   "tried": [],
   "adopted": null,
@@ -10,63 +10,75 @@
   "nba": {
    "tried": [
     {
-     "param": "k_usage",
-     "from": 150.0,
-     "to": 120.0,
+     "param": "min_sd_scale",
+     "from": 1.0,
+     "to": 0.9,
      "score": {
-      "2025-26": 0.70709,
-      "2026-27": 0.70097
+      "2025-26": 0.70789,
+      "2026-27": 0.70149
      },
      "gain": {
-      "2025-26": -0.00019,
-      "2026-27": -0.00035
+      "2025-26": -0.00095,
+      "2026-27": -0.00089
      }
     },
     {
-     "param": "k_usage",
-     "from": 150.0,
-     "to": 180.0,
+     "param": "min_sd_scale",
+     "from": 1.0,
+     "to": 1.1,
      "score": {
-      "2025-26": 0.70668,
-      "2026-27": 0.70052
+      "2025-26": 0.70627,
+      "2026-27": 0.70003
      },
      "gain": {
-      "2025-26": 0.00022,
-      "2026-27": 0.0001
+      "2025-26": 0.00067,
+      "2026-27": 0.00057
      }
     },
     {
-     "param": "usage_k",
-     "from": 12.0,
-     "to": 10.0,
+     "param": "wowy_min",
+     "from": 0.3,
+     "to": 0.2,
      "score": {
-      "2025-26": 0.70631,
-      "2026-27": 0.70185
+      "2025-26": 0.70695,
+      "2026-27": 0.70051
      },
      "gain": {
-      "2025-26": 0.00059,
-      "2026-27": -0.00123
+      "2025-26": -1e-05,
+      "2026-27": 9e-05
      }
     },
     {
-     "param": "usage_k",
-     "from": 12.0,
-     "to": 14.0,
+     "param": "wowy_min",
+     "from": 0.3,
+     "to": 0.4,
      "score": {
-      "2025-26": 0.70711,
-      "2026-27": 0.70102
+      "2025-26": 0.70666,
+      "2026-27": 0.70106
      },
      "gain": {
-      "2025-26": -0.00021,
-      "2026-27": -0.0004
+      "2025-26": 0.00028,
+      "2026-27": -0.00046
      }
     }
    ],
-   "adopted": null,
+   "adopted": {
+    "param": "min_sd_scale",
+    "from": 1.0,
+    "to": 1.1,
+    "score": {
+     "2025-26": 0.70627,
+     "2026-27": 0.70003
+    },
+    "gain": {
+     "2025-26": 0.00067,
+     "2026-27": 0.00057
+    }
+   },
    "notes": [],
    "base": {
-    "2025-26": 0.7069,
-    "2026-27": 0.70062
+    "2025-26": 0.70694,
+    "2026-27": 0.7006
    },
    "gap": {
     "2025-26": [
@@ -76,34 +88,19 @@
     ],
     "2026-27": [
      0.7006,
-     0.6857,
-     10272
+     0.6858,
+     11538
     ]
    }
   },
   "series": [
-   "canal Picks : série en cours 8/10, -2.29 u",
+   "canal Picks : 0/1 séries de 10 positives (attendu 46 %)",
+   "canal Picks : série en cours 3/10, +0.21 u",
    "Bankroll IA : 4/7 séries de 10 positives (attendu 57 %)",
-   "Bankroll IA : série en cours 4/10, -2.71 €"
+   "Bankroll IA : série en cours 6/10, -0.83 €"
   ],
   "lecons": {
    "hier": [
-    {
-     "label": "Jalen Green moins de 1.5 interceptions",
-     "match": "ORL @ PHX",
-     "price": 1.41,
-     "p": 0.6751,
-     "win": false,
-     "src": "canal"
-    },
-    {
-     "label": "Will Richard moins de 1.5 paniers à 3 pts",
-     "match": "MIA @ GS",
-     "price": 1.47,
-     "p": 0.6523,
-     "win": false,
-     "src": "canal"
-    },
     {
      "label": "Kentavious Caldwell-Pope moins de 1.5 paniers à 3 pts",
      "match": "PHI @ CLE",
@@ -145,6 +142,46 @@
      "src": "canal"
     },
     {
+     "label": "Nikola Jokic moins de 1.5 contres",
+     "match": "DEN @ IND",
+     "price": 1.41,
+     "p": 0.6718,
+     "win": true,
+     "src": "canal"
+    },
+    {
+     "label": "Donovan Clingan moins de 1.5 paniers à 3 pts",
+     "match": "SA @ POR",
+     "price": 1.46,
+     "p": 0.658,
+     "win": true,
+     "src": "canal"
+    },
+    {
+     "label": "Ajay Mitchell moins de 19.5 points",
+     "match": "WSH @ OKC",
+     "price": 1.93,
+     "p": 0.5013,
+     "win": true,
+     "src": "canal"
+    },
+    {
+     "label": "Karl-Anthony Towns moins de 20.5 points",
+     "match": "NY @ CLE",
+     "price": 1.96,
+     "p": 0.4917,
+     "win": false,
+     "src": "canal"
+    },
+    {
+     "label": "Stephen Curry moins de 26.5 points",
+     "match": "ORL @ GS",
+     "price": 1.96,
+     "p": 0.4925,
+     "win": false,
+     "src": "canal"
+    },
+    {
      "label": "Kentavious Caldwell-Pope moins de 1.5 paniers à 3 pts",
      "match": "PHI @ CLE",
      "price": 1.43,
@@ -159,97 +196,113 @@
      "p": 0.6644,
      "win": false,
      "src": "bankroll"
+    },
+    {
+     "label": "Nikola Jokic moins de 1.5 contres",
+     "match": "DEN @ IND",
+     "price": 1.41,
+     "p": 0.6718,
+     "win": true,
+     "src": "bankroll"
+    },
+    {
+     "label": "Victor Wembanyama moins de 1.5 interceptions",
+     "match": "SA @ POR",
+     "price": 1.43,
+     "p": 0.6605,
+     "win": true,
+     "src": "bankroll"
     }
    ],
    "props": {
-    "n": 236,
-    "w": 145,
-    "exp": 128.3,
-    "matchs": 11
+    "n": 303,
+    "w": 170,
+    "exp": 167.1,
+    "matchs": 16
    },
    "segments": [
     {
      "seg": "nba · PTS moins",
-     "n": 30,
-     "w": 16,
-     "exp": 15.4,
-     "clv": -0.097
+     "n": 49,
+     "w": 24,
+     "exp": 25.1,
+     "clv": -0.0567
     },
     {
      "seg": "nba · 3PM moins",
-     "n": 26,
-     "w": 16,
-     "exp": 14.8,
-     "clv": -0.0635
+     "n": 46,
+     "w": 31,
+     "exp": 26.3,
+     "clv": -0.06
     },
     {
      "seg": "nba · AST moins",
-     "n": 23,
-     "w": 16,
-     "exp": 13.2,
-     "clv": null
-    },
-    {
-     "seg": "nba · REB moins",
-     "n": 21,
-     "w": 15,
-     "exp": 11.7,
-     "clv": null
-    },
-    {
-     "seg": "nba · PR moins",
-     "n": 21,
-     "w": 14,
-     "exp": 10.8,
+     "n": 39,
+     "w": 26,
+     "exp": 22.3,
      "clv": null
     },
     {
      "seg": "nba · RA moins",
-     "n": 20,
-     "w": 11,
-     "exp": 11.6,
+     "n": 34,
+     "w": 22,
+     "exp": 19.5,
      "clv": null
     },
     {
-     "seg": "nba · PRA moins",
-     "n": 14,
-     "w": 6,
-     "exp": 7.2,
+     "seg": "nba · REB moins",
+     "n": 32,
+     "w": 22,
+     "exp": 17.9,
      "clv": null
     },
     {
-     "seg": "nba · AST plus",
-     "n": 12,
-     "w": 6,
-     "exp": 6.6,
-     "clv": null
-    },
-    {
-     "seg": "nba · PA moins",
-     "n": 12,
-     "w": 5,
-     "exp": 6.2,
-     "clv": null
-    },
-    {
-     "seg": "nba · 3PM plus",
-     "n": 11,
-     "w": 9,
-     "exp": 5.6,
+     "seg": "nba · PR moins",
+     "n": 28,
+     "w": 17,
+     "exp": 14.4,
      "clv": null
     },
     {
      "seg": "nba · REB plus",
-     "n": 11,
-     "w": 7,
-     "exp": 6.0,
+     "n": 23,
+     "w": 14,
+     "exp": 12.5,
      "clv": null
     },
     {
-     "seg": "nba · STL plus",
-     "n": 10,
-     "w": 5,
-     "exp": 6.1,
+     "seg": "nba · PA moins",
+     "n": 22,
+     "w": 12,
+     "exp": 11.4,
+     "clv": null
+    },
+    {
+     "seg": "nba · PRA moins",
+     "n": 19,
+     "w": 9,
+     "exp": 9.8,
+     "clv": null
+    },
+    {
+     "seg": "nba · STL moins",
+     "n": 17,
+     "w": 10,
+     "exp": 10.6,
+     "clv": -0.0607
+    },
+    {
+     "seg": "nba · 3PM plus",
+     "n": 17,
+     "w": 12,
+     "exp": 9.0,
+     "clv": null
+    },
+    {
+     "seg": "nba · AST plus",
+     "n": 15,
+     "w": 7,
+     "exp": 8.3,
      "clv": null
     }
    ],
@@ -257,18 +310,15 @@
    "notes": []
   },
   "postmortem": [
-   "Post-mortem du 06/11 : 2/7 gagnés.",
-   "🔎 erreur · MIN @ NO -0 Jeremiah Fears moins de 1.5 interceptions @ 1.42 : sans détail ()",
-   "🍀 malchance · Jaime Jaquez Jr. moins de 1.5 paniers à 3 pts (TOR @ MIL) @ 1.46 : perdu d'un rien (2 pour une ligne à 1.5)",
-   "🍀 malchance · Alex Sarr moins de 0.5 paniers à 3 pts (WSH @ ATL) @ 2.40 : perdu d'un rien (1 pour une ligne à 0.5)",
-   "🔎 erreur · Ajay Mitchell moins de 19.5 points (OKC @ MEM) @ 1.85 : rendement sous la projection (35 en 30 min (projeté 16.2 à ce temps de jeu))",
-   "🍀 malchance · Malik Monk moins de 11.5 points (SA @ SAC) @ 1.81 : perdu d'un rien (12 pour une ligne à 11.5 ; marché contre nous (52 → 48 %))",
-   "Bankroll IA sur 30 j : 74 paris, annoncé 54 % · gagné 54 % (hasard ±12 pts) · rendement +3.4 %",
-   "Canal Picks sur 30 j : 8 paris, annoncé 58 % · gagné 12 % (hasard ±35 pts) · rendement -82.1 %",
-   "41 paris perdus en 30 jours : 18 de malchance (bonne lecture, mauvais sort), 23 d'erreur de lecture."
+   "Post-mortem du 07/11 : 5/7 gagnés.",
+   "🔎 erreur · Karl-Anthony Towns moins de 20.5 points (NY @ CLE) @ 1.96 : rendement sous la projection (29 en 34 min (projeté 19.6 à ce temps de jeu))",
+   "🔎 erreur · Stephen Curry moins de 26.5 points (ORL @ GS) @ 1.96 : rendement sous la projection (41 en 36 min (projeté 28.8 à ce temps de jeu))",
+   "Bankroll IA sur 30 j : 76 paris, annoncé 54 % · gagné 55 % (hasard ±11 pts) · rendement +4.4 %",
+   "Canal Picks sur 30 j : 13 paris, annoncé 57 % · gagné 31 % (hasard ±27 pts) · rendement -52.1 %",
+   "43 paris perdus en 30 jours : 18 de malchance (bonne lecture, mauvais sort), 25 d'erreur de lecture."
   ],
   "params": {},
-  "minutes": 14.5
+  "minutes": 21.5
  },
  "nights": [
   {
@@ -353,6 +403,46 @@
      ]
     },
     "adopted": null
+   }
+  },
+  {
+   "at": "2026-11-08T06:40+00:00",
+   "base": null,
+   "gap": null,
+   "adopted": null,
+   "notes": [
+    "foot : moins de 500 matchs rejoues sur 2024-25 (0), aucun reglage juge cette nuit"
+   ],
+   "nba": {
+    "base": {
+     "2025-26": 0.70694,
+     "2026-27": 0.7006
+    },
+    "gap": {
+     "2025-26": [
+      0.7069,
+      0.6855,
+      34033
+     ],
+     "2026-27": [
+      0.7006,
+      0.6858,
+      11538
+     ]
+    },
+    "adopted": {
+     "param": "min_sd_scale",
+     "from": 1.0,
+     "to": 1.1,
+     "score": {
+      "2025-26": 0.70627,
+      "2026-27": 0.70003
+     },
+     "gain": {
+      "2025-26": 0.00067,
+      "2026-27": 0.00057
+     }
+    }
    }
   }
  ]
