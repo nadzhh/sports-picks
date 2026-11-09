@@ -1,6 +1,6 @@
 {
- "genere_le": "2026-11-08T20:28:21",
- "n_resolus": 2663,
+ "genere_le": "2026-11-09T00:03:14",
+ "n_resolus": 2716,
  "parametres": {
   "n_min_jugement": 20,
   "seuil_pct": 50.0,
@@ -8,44 +8,84 @@
  },
  "marches": {
   "foot/Double chance": {
-   "n": 156,
-   "wins": 129,
-   "wr": 82.7,
-   "borne_basse": 76.0,
-   "borne_haute": 87.8,
+   "n": 167,
+   "wins": 138,
+   "wr": 82.6,
+   "borne_basse": 76.2,
+   "borne_haute": 87.6,
    "statut": "RETENU",
    "cote_moyenne": 1.55,
    "n_cotes": 18
   },
   "foot/Victoire extérieur": {
-   "n": 196,
-   "wins": 88,
-   "wr": 44.9,
-   "borne_basse": 38.1,
-   "borne_haute": 51.9,
+   "n": 206,
+   "wins": 94,
+   "wr": 45.6,
+   "borne_basse": 39.0,
+   "borne_haute": 52.5,
    "statut": "SURVEILLE",
    "cote_moyenne": 2.36,
-   "n_cotes": 25
+   "n_cotes": 27
   },
   "foot/Victoire domicile": {
-   "n": 200,
-   "wins": 109,
-   "wr": 54.5,
-   "borne_basse": 47.6,
+   "n": 212,
+   "wins": 116,
+   "wr": 54.7,
+   "borne_basse": 48.0,
    "borne_haute": 61.3,
    "statut": "SURVEILLE",
-   "cote_moyenne": 2.12,
-   "n_cotes": 32
+   "cote_moyenne": 2.11,
+   "n_cotes": 35
   },
   "foot/Tirs (total match)": {
-   "n": 86,
-   "wins": 58,
-   "wr": 67.4,
-   "borne_basse": 57.0,
-   "borne_haute": 76.4,
+   "n": 98,
+   "wins": 67,
+   "wr": 68.4,
+   "borne_basse": 58.6,
+   "borne_haute": 76.7,
    "statut": "RETENU",
    "cote_moyenne": 1.73,
    "n_cotes": 1
+  },
+  "foot/Tirs cadrés (total)": {
+   "n": 60,
+   "wins": 42,
+   "wr": 70.0,
+   "borne_basse": 57.5,
+   "borne_haute": 80.1,
+   "statut": "RETENU",
+   "cote_moyenne": null,
+   "n_cotes": 0
+  },
+  "foot/Tirs (Le Mans)": {
+   "n": 1,
+   "wins": 0,
+   "wr": 0.0,
+   "borne_basse": 0.0,
+   "borne_haute": 79.3,
+   "statut": "SURVEILLE",
+   "cote_moyenne": null,
+   "n_cotes": 0
+  },
+  "foot/Tirs cadrés (Manchester United)": {
+   "n": 1,
+   "wins": 1,
+   "wr": 100.0,
+   "borne_basse": 20.7,
+   "borne_haute": 100.0,
+   "statut": "SURVEILLE",
+   "cote_moyenne": null,
+   "n_cotes": 0
+  },
+  "foot/Under 3.5 buts": {
+   "n": 31,
+   "wins": 21,
+   "wr": 67.7,
+   "borne_basse": 50.1,
+   "borne_haute": 81.4,
+   "statut": "RETENU",
+   "cote_moyenne": 1.73,
+   "n_cotes": 31
   },
   "nba/REB": {
    "n": 52,
@@ -86,26 +126,6 @@
    "statut": "SURVEILLE",
    "cote_moyenne": 1.99,
    "n_cotes": 24
-  },
-  "foot/Under 3.5 buts": {
-   "n": 29,
-   "wins": 21,
-   "wr": 72.4,
-   "borne_basse": 54.3,
-   "borne_haute": 85.3,
-   "statut": "RETENU",
-   "cote_moyenne": 1.74,
-   "n_cotes": 29
-  },
-  "foot/Tirs cadrés (total)": {
-   "n": 56,
-   "wins": 39,
-   "wr": 69.6,
-   "borne_basse": 56.7,
-   "borne_haute": 80.1,
-   "statut": "RETENU",
-   "cote_moyenne": null,
-   "n_cotes": 0
   },
   "foot/Tirs (Osasuna)": {
    "n": 1,
@@ -1081,26 +1101,26 @@
  "calibration": {
   "foot/Double chance": {
    "90-99": {
-    "n": 30,
-    "p": 86.7
+    "n": 31,
+    "p": 87.1
    },
    "80-89": {
-    "n": 120,
-    "p": 82.5
+    "n": 130,
+    "p": 82.3
    },
    "70-79": {
     "n": 6,
-    "p": 73.1
+    "p": 73.0
    }
   },
   "foot/Victoire extérieur": {
    "70-79": {
-    "n": 70,
+    "n": 78,
     "p": 50.0
    },
    "80-89": {
-    "n": 28,
-    "p": 50.0
+    "n": 30,
+    "p": 53.3
    },
    "60-69": {
     "n": 73,
@@ -1113,16 +1133,16 @@
   },
   "foot/Victoire domicile": {
    "70-79": {
-    "n": 62,
-    "p": 58.1
+    "n": 67,
+    "p": 59.7
    },
    "80-89": {
-    "n": 26,
-    "p": 76.9
+    "n": 29,
+    "p": 69.0
    },
    "60-69": {
-    "n": 89,
-    "p": 48.3
+    "n": 93,
+    "p": 49.5
    },
    "50-59": {
     "n": 23,
@@ -1131,12 +1151,44 @@
   },
   "foot/Tirs (total match)": {
    "70-79": {
-    "n": 76,
-    "p": 65.8
+    "n": 88,
+    "p": 67.0
    },
    "80-89": {
     "n": 10,
     "p": 80.0
+   }
+  },
+  "foot/Tirs cadrés (total)": {
+   "70-79": {
+    "n": 55,
+    "p": 69.1
+   },
+   "80-89": {
+    "n": 5,
+    "p": 75.0
+   }
+  },
+  "foot/Tirs (Le Mans)": {
+   "70-79": {
+    "n": 1,
+    "p": 5.0
+   }
+  },
+  "foot/Tirs cadrés (Manchester United)": {
+   "70-79": {
+    "n": 1,
+    "p": 90.0
+   }
+  },
+  "foot/Under 3.5 buts": {
+   "60-69": {
+    "n": 27,
+    "p": 66.7
+   },
+   "70-79": {
+    "n": 4,
+    "p": 70.6
    }
   },
   "nba/REB": {
@@ -1217,26 +1269,6 @@
    "90-99": {
     "n": 1,
     "p": 59.8
-   }
-  },
-  "foot/Under 3.5 buts": {
-   "60-69": {
-    "n": 25,
-    "p": 72.0
-   },
-   "70-79": {
-    "n": 4,
-    "p": 73.4
-   }
-  },
-  "foot/Tirs cadrés (total)": {
-   "70-79": {
-    "n": 51,
-    "p": 68.6
-   },
-   "80-89": {
-    "n": 5,
-    "p": 74.8
    }
   },
   "foot/Tirs (Osasuna)": {
@@ -2099,7 +2131,7 @@
   }
  },
  "replis_sport": {
-  "foot": 48.3,
+  "foot": 48.7,
   "nba": 51.8,
   "tennis": 61.7
  }
