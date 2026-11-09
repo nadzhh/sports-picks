@@ -561,6 +561,69 @@ def shots_hist_pair(g):
         return None
 
 
+# ── Ancrage au marche (Wilson, 09/11/2026 : « ancrer au marché ») ─────────────────────────────────────────────────
+# Mesures : sur 58 matchs de championnat 2026-27, log-loss 1X2 simulation 0,969 contre 0,928 pour la cloture du marche
+# (desaccords >= 12 points : 0,87 contre 0,59) ; backtests 2024-25 et 2025-26 (3 206 matchs cotes) : le meilleur poids
+# de la simulation dans le 1X2 ET dans le +2,5 buts est 0. Les buts attendus de chaque equipe sont donc cales sur la
+# cote juste Pinnacle du match (1X2 + total, relevee par ev_scan dans data/ev_picks.json, boost_model.fit) ; la
+# simulation garde ce que le marche ne donne pas (buteurs, tirs, cartons, deroule). Ses propres 1X2 restent affiches
+# (« simulation seule ») pour comparer. Sans cote Pinnacle (match non couvert), simulation seule comme avant.
+ANCHOR = True
+ANCHOR_PILOT = 4000          # simulations du passage de mesure (buts produits par la simulation seule)
+
+
+def market_fair(g, path="data/ev_picks.json"):
+    """Cote juste Pinnacle du match : {"1x2": [p1, pX, p2], "total": (ligne, p_plus) ou None, "at": releve} ou None."""
+    import difflib
+    from foot_backtest import _norm
+    try:
+        fair = json.loads(Path(path).read_text(encoding="utf-8")).get("fair") or {}
+    except (OSError, ValueError):
+        return None
+    ko = datetime.fromisoformat(g["ko"].replace("Z", "+00:00"))
+    sim = lambda a, b: difflib.SequenceMatcher(None, _norm(a), _norm(b)).ratio() + (0.3 if _norm(a) in _norm(b) or _norm(b) in _norm(a) else 0)
+    best, bs = None, 1.3
+    for v in fair.values():
+        if v.get("sport") != "foot": continue
+        if abs((datetime.fromisoformat(v["commence"].replace("Z", "+00:00")) - ko).total_seconds()) > 3 * 3600: continue
+        sc = sim(g["home"]["name"], v["home"]) + sim(g["away"]["name"], v["away"])
+        if sc > bs: best, bs = v, sc
+    if not best: return None
+    L = {lab: 1 / o for lab, o in best.get("lines") or [] if o}
+    p = [L.get(f"Victoire {best['home']}"), L.get("Match nul"), L.get(f"Victoire {best['away']}")]
+    if None in p: return None
+    s = sum(p)
+    tot = sorted(((float(lab.split()[2]), q) for lab, q in L.items() if lab.startswith("Plus de ") and lab.endswith(" buts")),
+                 key=lambda x: abs(x[0] - 2.5))
+    return {"1x2": [x / s for x in p], "total": tot[0] if tot else None, "at": best.get("at"),
+            "match": f"{best['home']} - {best['away']}"}
+
+
+def _p_main(res):
+    hg, ag = res["home_goals"], res["away_goals"]
+    return {"1": round(float(np.mean(hg > ag)), 4), "X": round(float(np.mean(hg == ag)), 4), "2": round(float(np.mean(hg < ag)), 4),
+            "o25": round(float(np.mean(hg + ag > 2.5)), 4), "btts": round(float(np.mean((hg > 0) & (ag > 0))), 4),
+            "over": {str(l): round(float(np.mean(hg + ag > l)), 4) for l in (0.5, 1.5, 2.5, 3.5, 4.5)},
+            "goals": [round(float(hg.mean()), 2), round(float(ag.mean()), 2)]}
+
+
+def anchor(st, g, inp, mk):
+    """Met a l'echelle les occasions de chaque equipe pour que la simulation produise les buts attendus du marche.
+    Renvoie le resume de l'ancrage (avec les probabilites de la simulation seule)."""
+    import boost_model as BM
+    lam = BM.fit(mk["1x2"], mk["total"])
+    pilot = simulate(inp, n=ANCHOR_PILOT, seed=int(g["id"]) % (2 ** 31), shots_db=st.player_shots, log_sims=0)
+    raw = _p_main(pilot)
+    k = {}
+    for side, l, gl in (("home", lam[0], raw["goals"][0]), ("away", lam[1], raw["goals"][1])):
+        k[side] = min(max(l / max(gl, 0.05), 0.4), 2.5)
+        inp[side]["npxg"] *= k[side]
+        inp[side]["pen_rate"] *= k[side]
+    return {"src": "Pinnacle", "at": mk["at"], "match": mk["match"], "mkt": [round(x, 4) for x in mk["1x2"]],
+            "total": list(mk["total"]) if mk["total"] else None, "lam": [round(lam[0], 2), round(lam[1], 2)],
+            "k": [round(k["home"], 3), round(k["away"], 3)], "sim": raw}
+
+
 def run_game(st, g, n_sims):
     day = _ord(g["ko"])
     lu = lineups(st, g, day)
@@ -570,6 +633,14 @@ def run_game(st, g, n_sims):
                 st.player_info[pid] = {"name": name, "pos": pos_group(pos)}
     inp = st.project(g["home"]["id"], g["away"]["id"], g["league"], lu["home"], lu["away"], day,
                      neutral=g["league"] in (42, 73) and "final" in str(g.get("round", "")).lower())
+    anc = None
+    if ANCHOR:
+        mk = market_fair(g)
+        if mk:
+            try:
+                anc = anchor(st, g, inp, mk)
+            except Exception as e:
+                print(f"  [!] ancrage marche {g['id']} : {type(e).__name__}: {e}")
     res = simulate(inp, n=n_sims, seed=int(g["id"]) % (2 ** 31), shots_db=st.player_shots, log_sims=LOG_SIMS)
     hg, ag = res["home_goals"], res["away_goals"]
     tot = hg + ag
@@ -621,6 +692,21 @@ def run_game(st, g, n_sims):
             print(f"  [!] tableau joueurs {side} : {type(e).__name__}: {e}")
     k = typical_index(res)   # le resultat le plus probable (06/11/2026 : plus de tirage au sort du vainqueur)
     out["replay"] = replay(res, inp, k, g, lu)
+    if anc:
+        # 1X2 et +2,5 = marche sans marge (deja calibre : pas de foot_calib) ; le reste vient de la simulation ancree
+        anc["after"] = _p_main(res)
+        out["anchor"] = anc
+        out["p_raw"] = json.loads(json.dumps(out["p"]))   # copie complete (le dict « over » est modifie ci-dessous)
+        out["p"]["1"], out["p"]["X"], out["p"]["2"] = anc["mkt"]
+        # lignes de buts, les deux marquent, clean sheets : modele de buts cale sur Pinnacle (boost_model), meilleur que
+        # la simulation sur les deux saisons (deux marquent : 0,6893 -> 0,6830 et 0,6928 -> 0,6819, 3 206 matchs)
+        import boost_model as BM
+        gr = BM.grid(*anc["lam"])
+        n_ = len(gr)
+        out["p"]["over"] = {l: round(BM.p_over(gr, float(l)), 4) for l in out["p"]["over"]}
+        out["p"]["btts"] = round(sum(gr[i][j] for i in range(1, n_) for j in range(1, n_)), 4)
+        out["p"]["clean"] = [round(sum(gr[i][0] for i in range(n_)), 4), round(sum(gr[0][j] for j in range(n_)), 4)]
+        return out
     # probabilites affichees recalees (1X2, +2,5, les deux marquent ; foot_calib, 05/11/2026), brutes dans p_raw
     foot_calib.ensure(out)
     return out

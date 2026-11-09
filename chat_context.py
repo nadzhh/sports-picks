@@ -246,6 +246,11 @@ def foot(now, hours=36):
         out.append(f"- Simulation 10 000 matchs : 1 {_pc(p['1'])} / N {_pc(p['X'])} / 2 {_pc(p['2'])} ; buts attendus "
                    f"{g['goals'][0]:.2f}-{g['goals'][1]:.2f} (xG {g['xg'][0]:.2f}-{g['xg'][1]:.2f}) ; +2,5 {_pc(p['over']['2.5'])} ; "
                    f"les deux marquent {_pc(p['btts'])}" + (f" ; tirs {g['shots']['home'][0]}-{g['shots']['away'][0]} (cadrés {g['shots']['home'][1]}-{g['shots']['away'][1]})" if g.get("shots") else ""))
+        a = g.get("anchor")
+        if a:   # 09/11/2026 : 1X2, buts et « les deux marquent » cales sur Pinnacle (la simulation seule perd contre le marche)
+            out.append(f"- Probabilités ci-dessus = cote Pinnacle sans marge (simulation ancrée sur le marché : sur 3 206 matchs "
+                       f"de backtest la simulation seule ne fait pas mieux). Simulation seule : 1 {_pc(a['sim']['1'])} / N "
+                       f"{_pc(a['sim']['X'])} / 2 {_pc(a['sim']['2'])}, +2,5 {_pc(a['sim']['o25'])} — un écart n'est PAS un avantage.")
         L = (g.get("shots") or {}).get("lines") or {}
         if L:
             nm = {"home_sh": f"tirs {hn}", "home_so": f"cadrés {hn}", "away_sh": f"tirs {an}", "away_so": f"cadrés {an}",

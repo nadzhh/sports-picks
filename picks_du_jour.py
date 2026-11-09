@@ -173,8 +173,12 @@ def value_candidates(now, hours=WINDOW_H, min_ev=MIN_EV_VALUE):
             p_fair = 1 / fair_odds
             p, p_sim = p_fair, None
             if sim:
-                q = sim["p"]                       # recalee (foot_calib) : affichage et accord de la simulation
-                qr = sim.get("p_raw") or q         # brute : melange du +2,5 (poids W_O25 valide sur la simulation brute)
+                import foot_calib as FC
+                if sim.get("anchor"):               # match ancre sur Pinnacle (09/11/2026) : avis de la simulation seule
+                    q = qr = FC.sim_only(sim)
+                else:
+                    q = sim["p"]                    # recalee (foot_calib) : affichage et accord de la simulation
+                    qr = sim.get("p_raw") or q      # brute : melange du +2,5 (poids W_O25 valide sur la simulation brute)
                 p_sim = {"Match nul": q["X"], f"Victoire {v['home']}": q["1"], f"Victoire {v['away']}": q["2"]}.get(lab)
                 for pre, over in (("Plus de ", True), ("Moins de ", False)):   # toutes les lignes x,5 simulees (0,5 a 4,5)
                     if lab.startswith(pre) and lab.endswith(" buts"):

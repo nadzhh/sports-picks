@@ -446,6 +446,8 @@ class Live:
                 p = prev.get(g["id"])
                 if not p or now - _t(p["sim_at"]) >= FOOT_REFRESH or (p.get("replay") or {}).get("v") != 2 or not (p.get("shots") or {}).get("lines")                         or not (p.get("home_info") or {}).get("players") or "style" not in p:
                     due.append(g)      # (v != 2 : video de l'ancien format ; sans « shots.lines » : avant les lignes de tirs recalees)
+                elif FR.ANCHOR and not p.get("anchor") and FR.market_fair(g):
+                    due.append(g)      # cote Pinnacle arrivee depuis la simulation : on l'ancre (09/11/2026)
                 elif _t(g["ko"]) - now <= timedelta(minutes=120) and now - _t(p["sim_at"]) >= timedelta(minutes=15)                         and "officielle" not in (p["home_info"]["lineup"], p["away_info"]["lineup"]):
                     due.append(g)      # composition officielle attendue : on reverifie
             fresh = []

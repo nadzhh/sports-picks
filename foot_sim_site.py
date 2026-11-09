@@ -113,16 +113,34 @@ def _header(g, now):
             f'\'{_e(g["home"]["name"] + " - " + g["away"]["name"]).replace(chr(39), "&#39;")}\',this)">💬 Analyse approfondie avec Claude</button></div>')
 
 
+def _rel(at):
+    try:
+        d = datetime.fromisoformat(str(at).replace("Z", "+00:00")).astimezone(TZ)
+        return f"le {d:%d/%m à %H:%M}"
+    except (TypeError, ValueError):
+        return "avant le match"
+
+
 def _kpis(g):
     p, r = g["p"], g.get("p_raw") or {}
+    anc = g.get("anchor")
 
     def raw(v):   # probabilite recalee (foot_calib) : la valeur brute de la simulation en petit
         return f"recalé · simulation brute {_pct(v)}" if v is not None else ""
     ro = (r.get("over") or {}).get("2.5")
+    if anc:   # ancre sur Pinnacle (09/11/2026) : la simulation seule en petit, pour voir ou elle n'etait pas d'accord
+        s_ = anc["sim"]
+        raw = lambda v: f"marché · simulation seule {_pct(v)}" if v is not None else "marché"
+        r = {"1": s_["1"], "X": s_["X"], "2": s_["2"], "btts": s_["btts"]}
+        ro = s_["o25"]
     return ('<div class="eb-g3">' + _kpi(f'Victoire {_e(g["home"]["name"])}', p["1"], raw(r.get("1"))) + _kpi("Match nul", p["X"], raw(r.get("X")))
             + _kpi(f'Victoire {_e(g["away"]["name"])}', p["2"], raw(r.get("2"))) + '</div>'
             '<div class="eb-g3">' + _kpi("Plus de 2,5 buts", p["over"]["2.5"], raw(ro)) + _kpi("Les deux équipes marquent", p["btts"], raw(r.get("btts")))
-            + _kpi("Au moins un carton rouge", p["red"]) + '</div>')
+            + _kpi("Au moins un carton rouge", p["red"]) + '</div>'
+            + (f'<p class="eb-note">Probabilités calées sur la cote Pinnacle sans marge (relevée {_e(_rel(anc.get("at")))}) : '
+               "sur 3 206 matchs de backtest, la simulation seule ne fait pas mieux que le marché. Elle sert pour les "
+               "compositions, les buteurs, les tirs et le déroulé, à partir de ces buts attendus "
+               f'({anc["lam"][0]:.2f} - {anc["lam"][1]:.2f}).</p>'.replace(f'{anc["lam"][0]:.2f} - {anc["lam"][1]:.2f}', f'{anc["lam"][0]:.2f} - {anc["lam"][1]:.2f}'.replace(".", ",")) if anc else ""))
 
 
 def _args(g):

@@ -52,6 +52,15 @@ def apply(p):
     return q
 
 
+def sim_only(g):
+    """Avis de la simulation SEULE pour un match (format de g["p"]) : depuis le 09/11/2026 les probabilites affichees
+    d'un match ancre sur Pinnacle sont celles du marche (foot_sim_run.anchor) ; les filtres « la simulation est
+    d'accord » (picks du jour, Bankroll IA, labo) gardent l'avis de la simulation, comme avant l'ancrage."""
+    a = (g.get("anchor") or {}).get("sim")
+    if not a: return g["p"]
+    return {"1": a["1"], "X": a["X"], "2": a["2"], "btts": a["btts"], "over": dict(a.get("over") or {"2.5": a["o25"]})}
+
+
 def ensure(g):
     """Recale une simulation archivee avant le 05/11/2026 (sans p_raw). Renvoie True si elle a change."""
     if "p_raw" in g or "p" not in g: return False

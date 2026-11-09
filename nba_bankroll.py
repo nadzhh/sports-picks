@@ -331,7 +331,8 @@ def sim_prob(p):
         if same(g["home"]["name"], p["home"]) + same(g["away"]["name"], p["away"]) < 1.3: continue
         home = p["name"] == p["home"]
         if p.get("sport") == "foot":
-            q = g["p"]
+            import foot_calib as FC
+            q = FC.sim_only(g)     # avis de la simulation seule (les probabilites affichees d'un match ancre = marche)
             if p["market"] == "h2h":
                 return q["X"] if p["name"] == "Draw" else q["1"] if home else q["2"]
             if p["market"] == "totals":
