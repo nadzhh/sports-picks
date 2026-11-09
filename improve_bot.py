@@ -323,7 +323,7 @@ def _nba_stamp(year):
 
 
 def nba_backtest(params, year, sims):
-    """[(p_sim, p_marche, over reel)] sur les vraies lignes (poussees exclues), via nba_backtest.py --blind."""
+    """[(p_sim, p_marche, over reel, stat)] sur les vraies lignes (poussees exclues), via nba_backtest.py --blind."""
     h = hashlib.sha1((json.dumps(params, sort_keys=True) + _nba_stamp(year)).encode()).hexdigest()[:10]
     label = f"bot_nba_{year}_{h}"
     out = NBA_DB / f"backtest_{label}.json"
@@ -334,16 +334,17 @@ def nba_backtest(params, year, sims):
         if r.returncode or not out.exists():
             raise RuntimeError(f"backtest {label} : {r.stderr[-300:]}")
     D = json.loads(out.read_text(encoding="utf-8"))
-    return [(r["p_sim"], r["p_mkt"], r["actual"] > r["line"]) for r in D.get("real") or [] if r["actual"] != r["line"]]
+    return [(r["p_sim"], r["p_mkt"], r["actual"] > r["line"], r["stat"]) for r in D.get("real") or []
+            if r["actual"] != r["line"] and r.get("p_play", 1) >= 0.9]
 
 
 def nba_score(rows):
-    return sum(_ll(p, y) for p, _, y in rows) / max(len(rows), 1)
+    return sum(_ll(p, y) for p, _, y, *_ in rows) / max(len(rows), 1)
 
 
 def nba_gap(rows):
     if not rows: return None
-    return round(nba_score(rows), 4), round(sum(_ll(m, y) for _, m, y in rows) / len(rows), 4), len(rows)
+    return round(nba_score(rows), 4), round(sum(_ll(m, y) for _, m, y, *_ in rows) / len(rows), 4), len(rows)
 
 
 def nba_refresh():
@@ -386,6 +387,14 @@ def nba_round(P, rep, k=4, sims=1000, workers=4, dry=False):
     small = [s for s, _ in samples if len(rows[(0, s)]) < NBA_MIN_PROPS]
     base = {s: round(nba_score(rows[(0, s)]), 5) for s, _ in samples}
     R["base"], R["gap"] = base, {s: nba_gap(rows[(0, s)]) for s, _ in samples}
+    # calage des probabilites de props par stat (nba_prop_calib, 09/11) : appris sur la saison passee, juge sur la
+    # saison en cours, garde seulement s'il bat le marche hors echantillon
+    if not dry:
+        try:
+            import nba_prop_calib as PC
+            R["calib"] = PC.refit(rows[(0, samples[0][0])], rows[(0, samples[-1][0])], rep["at"])
+        except Exception as e:
+            R["notes"].append(f"NBA : calage des props non refait ({type(e).__name__}: {e})"[:300])
     for i, (name, v, _) in enumerate(variants[1:], 1):
         sc = {s: round(nba_score(rows[(i, s)]), 5) for s, _ in samples}
         gains = {s: round(base[s] - sc[s], 5) for s in base}
@@ -460,7 +469,7 @@ def run(k=8, sims=1000, dry=False, workers=4, nba_k=4):
     if not dry:
         save_params(P)
         night = {k2: rep.get(k2) for k2 in ("at", "base", "gap", "adopted", "notes")}
-        if rep.get("nba"): night["nba"] = {k2: rep["nba"].get(k2) for k2 in ("base", "gap", "adopted")}
+        if rep.get("nba"): night["nba"] = {k2: rep["nba"].get(k2) for k2 in ("base", "gap", "adopted", "calib")}
         REPORT_PATH.write_text(json.dumps({"last": rep, "nights": (hist + [night])[-60:]},
                                           ensure_ascii=False, indent=1), encoding="utf-8")
     _cleanup(); _cleanup_nba()

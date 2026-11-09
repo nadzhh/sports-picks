@@ -61,7 +61,7 @@ jobs:
       - name: Publication
         run: |
           git config user.name "sport-picks-bot"; git config user.email "actions@github.com"
-          git add -f data/model_params.json data/improve_report.json; git add -f data/postmortem.json 2>/dev/null || true
+          git add -f data/model_params.json data/improve_report.json data/nba_prop_calib.json; git add -f data/postmortem.json 2>/dev/null || true
           if git diff --cached --quiet; then echo "rien de nouveau"; exit 0; fi
           git commit -q -m "Bot d'amelioration : $(python -c "
           import json

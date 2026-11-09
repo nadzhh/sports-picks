@@ -21,6 +21,8 @@ import difflib, json
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
+import nba_prop_calib as PC
+
 PATH = Path("data/telegram_picks.json")
 # 05/11/2026 (Wilson : « ne te bloque pas a 3 paris, c'est a toi de gerer ») : pas de quota fixe, ce sont les criteres
 # qui decident (esperance, accord de la simulation, un pari par match). MAX_PICKS ne sert qu'a garder le message
@@ -49,10 +51,12 @@ except (OSError, ValueError):
     pass
 # Cotes US -> France (Wilson, 09/11/2026 : « les cotes FR sont plus basses, 1,80 book US > 1,60 book FR ») : aucune
 # source automatique des lignes FR de props (The Odds API region fr : 0 book sur les props NBA ; flux Kambi refuse),
-# donc le prix FR d'une prop DraftKings est ESTIME a 89 % du prix US (meme ordre que la marge FR mesuree le 05/11 sur
+# donc le prix FR d'une prop DraftKings est ESTIME a 85 % du prix US (meme ordre que la marge FR mesuree le 05/11 sur
 # le 1X2 : -11 %). La selection ne change pas (Wilson : « on reste tel quel ») ; l'estimation est affichee et le bilan
 # du canal est aussi compte a ce prix.
-FR_US = 0.89
+# 09/11 (soir) : Wilson « enlever 15 % sur la cote pour avoir a peu pres les cotes FR » -> 85 % (les marges FR sur les
+# props sont plus lourdes que sur le 1X2).
+FR_US = 0.85
 US_BOOKS = ("DraftKings", "FanDuel")
 MAX_ODDS_WIN = 3.0   # victoires / nul : au-dela, retirer la marge a la proportionnelle surestime l'outsider (meme regle qu'ev_scan)
 UNIT = {"AST": "passes", "3PM": "paniers à 3 pts", "STL": "interceptions", "BLK": "contres", "PTS": "points",
@@ -73,6 +77,11 @@ def _px(x):
         ev = x["p"] * fr - 1
         s += f" (≈ {_fr(fr)} en France : " + (f"espérance {100 * ev:+.0f} %" if ev >= 0 else f"coût ≈ {100 * -ev:.0f} %") + ")"
     return s
+
+
+def _sl(x):
+    """Les props affichent la simulation SEULE (trop sure d'elle : 61 % annonces, 52 % gagnes) ; la proba retenue est calee."""
+    return "simu seule" if (x.get("res") or {}).get("stat") else "ma simu"
 
 
 def _cl(x):
@@ -202,7 +211,7 @@ def value_candidates(now, hours=WINDOW_H, min_ev=MIN_EV_VALUE):
 
 
 def prop_candidates(now, hours=WINDOW_H, min_ev=MIN_EV_PROP):
-    """Props NBA (toutes les lignes cotees) : probabilite = marche sans marge + 0,10 x ecart du simulateur."""
+    """Props NBA (toutes les lignes cotees) : probabilite calee par stat (nba_prop_calib)."""
     out = []
     for g in (_load("data/nba_sim.json", {}) or {}).get("games") or []:
         ko = _t(g["date"])
@@ -214,7 +223,9 @@ def prop_candidates(now, hours=WINDOW_H, min_ev=MIN_EV_PROP):
                 pm = pr["p_mkt"] if side == "o" else 1 - pr["p_mkt"]
                 if abs(ps - pm) >= MAX_GAP_PROP: continue
                 d = _dec(pr["over"] if side == "o" else pr["under"])
-                p = pm + W_PROP * (ps - pm)
+                # 09/11 : probabilite calee par stat (nba_prop_calib : biais du marche + part utile de la simulation)
+                # au lieu du melange fixe marche + 10 % de l'ecart (sur les 966 paris reels suivis : 0,6787 vs 0,6812)
+                p = PC.p_side(pr["stat"], pr["p_sim"], pr["p_mkt"], side == "o")
                 ev = p * d - 1
                 if ev < min_ev: continue
                 out.append({"kind": "prop", "sport": "nba", "match_id": g["gid"],
@@ -450,7 +461,7 @@ def message(picks, now):
         mini = 1.0 / x["p"] * (1 + (MIN_EV_VALUE if x["kind"] == "value" else MIN_EV_PROP))
         why = (f"cote juste Pinnacle {_fr(1 / x['p_fair'])}" if x["kind"] == "value" else f"marché {round(100 * x['p_fair'])} %")
         if x.get("p_sim") is not None:
-            why += f" · ma simu {round(100 * x['p_sim'])} %"
+            why += f" · {_sl(x)} {round(100 * x['p_sim'])} %"
         tag = " 🛡️" if x.get("safe") else ""
         lines.append(f"\n{i}. {ico} <b>{x['match']}</b> · {_hm(_t(x['ko']))} · <i>{x['league']}</i>\n"
                      f"• <b>{x['label']}</b>{tag} — {_px(x)} (à prendre si ≥ {_fr(mini)})\n"
@@ -472,7 +483,7 @@ def message(picks, now):
             ref = f"juste Pinnacle {_fr(1 / x['p_fair'])}" if x["src"] == "value" else f"marché {round(100 * x['p_fair'])} %"
             lines.append(f"{ico} <b>{x['match']}</b> · {_hm(_t(x['ko']))}\n"
                          f"• <b>{x['label']}</b> — {_px(x)} · gagné {round(100 * x['p'])} % ({ref}"
-                         + (f", ma simu {round(100 * x['p_sim'])} %" if x.get("p_sim") is not None else "") + ")"
+                         + (f", {_sl(x)} {round(100 * x['p_sim'])} %" if x.get("p_sim") is not None else "") + ")"
                          + (f" · espérance <b>{100 * x['ev']:+.0f} %</b>" if x["ev"] >= 0 else f" · {_cl(x)} {_fr(100 * -x['ev'], 1)} %")
                          + mise(x))
         ss = stats(("safe",))
@@ -487,7 +498,7 @@ def message(picks, now):
             ico = "⚽" if x["sport"] == "foot" else "🏀"
             lines.append(f"{ico} <b>{x['match']}</b> · {_hm(_t(x['ko']))}\n"
                          f"• <b>{x['label']}</b> — {_px(x)} · juste Pinnacle {_fr(1 / x['p_fair'])}"
-                         f" · ma simu {round(100 * x['p_sim'])} % · coût attendu <b>{_fr(100 * -x['ev'], 1)} %</b> de la mise"
+                         f" · {_sl(x)} {round(100 * x['p_sim'])} % · coût attendu <b>{_fr(100 * -x['ev'], 1)} %</b> de la mise"
                          + mise(x))
         sb = stats(("best",))
         if sb:

@@ -15,6 +15,7 @@ from datetime import datetime, timedelta, timezone
 from foot_analyse_site import SCRIPT as EB_SCRIPT
 import site_live
 import site_verdict as V
+import nba_prop_calib as PC
 
 try:
     from zoneinfo import ZoneInfo
@@ -314,7 +315,8 @@ def _props(g, gid):
         body += (f'<tr class="eb-prop{hide}" data-stat="{p["stat"]}" data-i="{i}"><td data-v="{_e(p["name"])}">{_e(p["name"])}</td>'
                  f'<td data-v="{_e(STAT_LABELS.get(p["stat"], p["stat"]))}">{_e(STAT_LABELS.get(p["stat"], p["stat"]))}</td>'
                  f'<td class="n" data-v="{p["line"]}"><b>{p["line"]}</b></td>'
-                 f'<td class="n" data-v="{p["p_sim"]:.4f}"><span class="eb-pp"><i style="--w:{100 * p["p_sim"]:.1f}%"></i></span>{_pct(p["p_sim"], 0)}</td>'
+                 f'<td class="n" data-v="{p["p_sim"]:.4f}"><span class="eb-pp"><i style="--w:{100 * p["p_sim"]:.1f}%"></i></span>{_pct(p["p_sim"], 0)}'
+                 f'<small class="eb-dim" title="Probabilité calée : ce que la simulation apporte vraiment sur cette stat, mesuré sur 2 saisons de vraies lignes"> · calé {_pct(PC.p_over(p["stat"], p["p_sim"], p["p_mkt"]), 0)}</small></td>'
                  f'<td class="n" data-v="{p["p_mkt"]:.4f}"><span class="eb-pp bk"><i style="--w:{100 * p["p_mkt"]:.1f}%"></i></span>{_pct(p["p_mkt"], 0)}</td>'
                  f'<td class="n {cls}" data-v="{abs(d):.4f}">{"+" if d >= 0 else "−"}{abs(100 * d):.0f} pts{flag}</td>'
                  f'<td class="n" data-v="{"Over" if over else "Under"}{_dec(price):06.3f}">{"Over" if over else "Under"} '
@@ -324,7 +326,9 @@ def _props(g, gid):
     head = "".join(f'<th class="eb-sort" onclick="ebSort(this)" title="Trier">{h}</th>'
                    for h in ("Joueur", "Marché", "Ligne", "Over simu", "Over book", "Écart", "Côté simu"))
     return (f'{seg}<div class="eb-scroll"><table class="eb-tbl eb-cards" id="eb-props-{gid}"><tr>{head}</tr>{body}</table></div>{more}'
-            '<p class="eb-note">Probabilité de dépasser la ligne, marge du bookmaker retirée. Écarts ≥ 20 pts (« suspect ») '
+            '<p class="eb-note">Probabilité de dépasser la ligne, marge du bookmaker retirée. La simulation seule est trop sûre '
+            'd’elle (sur sa sélection : 61 % annoncés, 52 % gagnés) : « calé » = marché + la part de son avis qui s’est vérifiée '
+            'sur deux saisons de vraies lignes, stat par stat (c’est la probabilité utilisée pour les picks). Écarts ≥ 20 pts (« suspect ») '
             'en fin de liste : ils signalent presque toujours une info que le modèle n’a pas (minutes, nouveau rôle, blessure).</p>')
 
 
