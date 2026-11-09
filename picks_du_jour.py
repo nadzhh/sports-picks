@@ -47,10 +47,36 @@ try:   # mises ajustees par improve_bot : un palier dont la CLV reelle est negat
     STAKE.update(json.loads(Path("data/model_params.json").read_text(encoding="utf-8")).get("stakes") or {})
 except (OSError, ValueError):
     pass
+# Cotes US -> France (Wilson, 09/11/2026 : « les cotes FR sont plus basses, 1,80 book US > 1,60 book FR ») : aucune
+# source automatique des lignes FR de props (The Odds API region fr : 0 book sur les props NBA ; flux Kambi refuse),
+# donc le prix FR d'une prop DraftKings est ESTIME a 89 % du prix US (meme ordre que la marge FR mesuree le 05/11 sur
+# le 1X2 : -11 %). La selection ne change pas (Wilson : « on reste tel quel ») ; l'estimation est affichee et le bilan
+# du canal est aussi compte a ce prix.
+FR_US = 0.89
+US_BOOKS = ("DraftKings", "FanDuel")
 MAX_ODDS_WIN = 3.0   # victoires / nul : au-dela, retirer la marge a la proportionnelle surestime l'outsider (meme regle qu'ev_scan)
 UNIT = {"AST": "passes", "3PM": "paniers à 3 pts", "STL": "interceptions", "BLK": "contres", "PTS": "points",
         "REB": "rebonds"}
 JOURS = ["lun.", "mar.", "mer.", "jeu.", "ven.", "sam.", "dim."]
+
+
+def fr_est(x):
+    """Prix estime chez un bookmaker francais d'un pick cote par un book US (None si deja une cote FR)."""
+    return round(max(1.01, x["price"] * FR_US), 2) if x.get("book") in US_BOOKS else None
+
+
+def _px(x):
+    """« @ 2,02 DraftKings (≈ 1,80 en France : coût ≈ 15 %) » pour le message Telegram."""
+    s = f"<b>@ {_fr(x['price'])}</b> {x['book']}"
+    fr = x.get("price_fr") or fr_est(x)
+    if fr:
+        ev = x["p"] * fr - 1
+        s += f" (≈ {_fr(fr)} en France : " + (f"espérance {100 * ev:+.0f} %" if ev >= 0 else f"coût ≈ {100 * -ev:.0f} %") + ")"
+    return s
+
+
+def _cl(x):
+    return "coût au prix US" if fr_est(x) else "coût attendu"
 
 
 def _load(p, d):
@@ -349,6 +375,8 @@ def resolve(box=None, now=None):
             p["result"] = r
             k = p.get("stake", 1.0)       # unites misees (paliers a mise reduite, 05/11/2026)
             p["units"] = round(k * (p["price"] - 1), 3) if r == "win" else -k if r == "loss" else 0.0
+            if p.get("price_fr"):   # meme pari au prix francais estime (cote US x FR_US)
+                p["units_fr"] = round(k * (p["price_fr"] - 1), 3) if r == "win" else -k if r == "loss" else 0.0
             n += 1
     if n: PATH.write_text(json.dumps(st, ensure_ascii=False, indent=0), encoding="utf-8")
     return n
@@ -377,8 +405,16 @@ def stats(kinds=("value", "prop")):
     w = sum(p["result"] == "win" for p in done)
     u = sum(p["units"] for p in done)
     staked = sum(p.get("stake", 1.0) for p in done) or 1
+    # au prix francais : prix FR estime pour les picks cotes par un book US (estime aussi pour les anciens picks)
+    def _ufr(p):
+        if "units_fr" in p: return p["units_fr"]
+        fr = fr_est(p)
+        if not fr or p["result"] != "win": return p["units"]
+        return round(p.get("stake", 1.0) * (fr - 1), 3)
+    u_fr = sum(_ufr(p) for p in done)
     clv = [p["price"] * p["last_p"] - 1 for p in done if p.get("last_p")]
     return {"n": len(done), "w": w, "units": round(u, 2), "roi": u / staked, "since": min(p["day"] for p in done),
+            "units_fr": round(u_fr, 2), "roi_fr": u_fr / staked,
             "clv": sum(clv) / len(clv) if clv else None, "clv_n": len(clv)}
 
 
@@ -387,7 +423,9 @@ def message(picks, now):
     head = f"🎯 <b>Picks du jour</b> · {_paris(now):%d/%m}"
     s = stats()
     foot = (f"\n\n<i>Suivi du canal depuis le {s['since'][8:]}/{s['since'][5:7]} : {s['w']}-{s['n'] - s['w']}, "
-            f"{s['units']:+.1f} u (ROI {100 * s['roi']:+.0f} %).</i>" if s else
+            f"{s['units']:+.1f} u (ROI {100 * s['roi']:+.0f} %)"
+            + (f", au prix français estimé {s['units_fr']:+.1f} u (ROI {100 * s['roi_fr']:+.0f} %)" if s["units_fr"] != s["units"] else "")
+            + ".</i>" if s else
             "\n\n<i>Chaque pick posté est suivi : le bilan du canal s'affichera ici.</i>")
     best = [x for x in picks if x["kind"] == "best"]
     safe = [x for x in picks if x["kind"] == "safe"]
@@ -411,7 +449,7 @@ def message(picks, now):
             why += f" · ma simu {round(100 * x['p_sim'])} %"
         tag = " 🛡️" if x.get("safe") else ""
         lines.append(f"\n{i}. {ico} <b>{x['match']}</b> · {_hm(_t(x['ko']))} · <i>{x['league']}</i>\n"
-                     f"• <b>{x['label']}</b>{tag} — <b>@ {_fr(x['price'])}</b> {x['book']} (à prendre si ≥ {_fr(mini)})\n"
+                     f"• <b>{x['label']}</b>{tag} — {_px(x)} (à prendre si ≥ {_fr(mini)})\n"
                      f"• proba retenue {round(100 * x['p'])} % ({why}) · espérance <b>{100 * x['ev']:+.0f} %</b>" + mise(x))
     if boost:
         lines.append("\n⚡ <b>Cotes boostées rentables</b> — boost au-dessus de sa cote juste (modèle calé sur Pinnacle, "
@@ -429,9 +467,9 @@ def message(picks, now):
             ico = "⚽" if x["sport"] == "foot" else "🏀"
             ref = f"juste Pinnacle {_fr(1 / x['p_fair'])}" if x["src"] == "value" else f"marché {round(100 * x['p_fair'])} %"
             lines.append(f"{ico} <b>{x['match']}</b> · {_hm(_t(x['ko']))}\n"
-                         f"• <b>{x['label']}</b> — <b>@ {_fr(x['price'])}</b> {x['book']} · gagné {round(100 * x['p'])} % ({ref}"
+                         f"• <b>{x['label']}</b> — {_px(x)} · gagné {round(100 * x['p'])} % ({ref}"
                          + (f", ma simu {round(100 * x['p_sim'])} %" if x.get("p_sim") is not None else "") + ")"
-                         + (f" · espérance <b>{100 * x['ev']:+.0f} %</b>" if x["ev"] >= 0 else f" · coût attendu {_fr(100 * -x['ev'], 1)} %")
+                         + (f" · espérance <b>{100 * x['ev']:+.0f} %</b>" if x["ev"] >= 0 else f" · {_cl(x)} {_fr(100 * -x['ev'], 1)} %")
                          + mise(x))
         ss = stats(("safe",))
         if ss:
@@ -444,7 +482,7 @@ def message(picks, now):
         for x in best:
             ico = "⚽" if x["sport"] == "foot" else "🏀"
             lines.append(f"{ico} <b>{x['match']}</b> · {_hm(_t(x['ko']))}\n"
-                         f"• <b>{x['label']}</b> — <b>@ {_fr(x['price'])}</b> {x['book']} · juste Pinnacle {_fr(1 / x['p_fair'])}"
+                         f"• <b>{x['label']}</b> — {_px(x)} · juste Pinnacle {_fr(1 / x['p_fair'])}"
                          f" · ma simu {round(100 * x['p_sim'])} % · coût attendu <b>{_fr(100 * -x['ev'], 1)} %</b> de la mise"
                          + mise(x))
         sb = stats(("best",))
@@ -457,8 +495,8 @@ def message(picks, now):
         for x in filler:
             ico = "⚽" if x["sport"] == "foot" else "🏀"
             lines.append(f"{ico} <b>{x['match']}</b> · {_hm(_t(x['ko']))}\n"
-                         f"• <b>{x['label']}</b> — <b>@ {_fr(x['price'])}</b> {x['book']} · gagné {round(100 * x['p'])} %"
-                         f" · coût attendu <b>{_fr(100 * max(-x['ev'], 0), 1)} %</b>" + mise(x))
+                         f"• <b>{x['label']}</b> — {_px(x)} · gagné {round(100 * x['p'])} %"
+                         f" · {_cl(x)} <b>{_fr(100 * max(-x['ev'], 0), 1)} %</b>" + mise(x))
         sf = stats(("fill",))
         if sf:
             lines.append(f"<i>Complément depuis le {sf['since'][8:]}/{sf['since'][5:7]} : {sf['w']}-{sf['n'] - sf['w']}, "
@@ -492,7 +530,9 @@ def all_picks(now=None):
     picks += safe_picks(now, taken={x["match_id"] for x in picks})
     picks += best_price(now, taken={x["match_id"] for x in picks})
     picks += fill(now, taken={x["match_id"] for x in picks}, have=len(picks))
-    for x in picks: x["stake"] = STAKE.get(x["kind"], 0.25)
+    for x in picks:
+        x["stake"] = STAKE.get(x["kind"], 0.25)
+        if fr_est(x): x["price_fr"] = fr_est(x)
     return picks
 
 

@@ -103,7 +103,8 @@ def _pick_row(x, sims, nba):
     return (f'<div class="td-pick"><div class="td-l1"><span>{ico} <b>{_e(x["match"])}</b> '
             f'<span class="eb-dim">· {_hm(x["ko"])} · {_e(x["league"])}</span></span>{_go(_link(x, sims, nba))}</div>'
             f'<div class="td-l2"><b>{_e(x["label"])}</b> <span class="td-odds">@ {_fr(x["price"])}</span> '
-            f'<span class="eb-dim">{_e(x["book"])}</span></div>'
+            f'<span class="eb-dim">{_e(x["book"])}</span>'
+            + (f' <span class="eb-dim">· ≈ {_fr(fr)} en France</span>' if (fr := PJ.fr_est(x)) else "") + '</div>'
             f'<div class="td-l3">gagné {_pc(x["p"])} <span class="eb-dim">({ref})</span> · {ev}{_stake(x)}</div>'
             + (f'<details class="eb-det pk-dd"><summary>📊 Analyse du pari (graphe L10 · saison · H2H · L5 · L10 · L20)</summary>'
                f'{det}</details>' if (det := _detail(x, sims, nba)[0]) else "") + '</div>')
@@ -182,7 +183,8 @@ def picks_table(sport):
                  f'data-npl="{ico} {_e(x["match"])} · {_e(x["label"])} @ {_fr(x["price"])} ({lab})">'
                  f'<td class="n eb-dim">{_day(x["ko"], now)}{_hm(x["ko"])}</td><td><b>{_e(x["match"])}</b> '
                  f'<span class="eb-dim">{_e(x["league"])}</span></td><td><b>{_e(x["label"])}</b> '
-                 f'<span class="eb-tag {cls}">{lab}</span></td><td>{_e(x["book"])}</td><td class="n"><b>{_fr(x["price"])}</b></td>'
+                 f'<span class="eb-tag {cls}">{lab}</span></td><td>{_e(x["book"])}</td><td class="n"><b>{_fr(x["price"])}</b>'
+                 + (f'<br><span class="eb-dim">≈ {_fr(fr)} FR</span>' if (fr := PJ.fr_est(x)) else "") + '</td>'
                  f'<td class="n">{_pc(x["p"])}</td><td class="n">{ev}</td>'
                  f'<td class="n">{_units(x)} u</td></tr>'
                  + (f'<tr class="pk-det"><td colspan="8">{det}</td></tr>' if det else ""))
