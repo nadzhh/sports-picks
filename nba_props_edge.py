@@ -262,6 +262,12 @@ def _e(s):
     return html.escape(str(s if s is not None else ""))
 
 
+def _dm(md):
+    """« 11-08 » -> « 08/11 »."""
+    m, _, d = str(md).partition("-")
+    return f"{d}/{m}" if d else str(md)
+
+
 def _fr(x, d=2):
     return f"{x:.{d}f}".replace(".", ",")
 
@@ -285,6 +291,8 @@ def card_html(x):
             f'<div class="pe-line">{side} de <b>{line:g}</b> {_e(LABEL[x["stat"]])}'
             + (f' <span class="eb-dim">({_e(stat)})</span>' if x["stat"] in SHORT else "") + '</div>'
             f'<div class="pe-plot"><div class="pe-ln" style="bottom:{100 * line / top:.1f}%"><span>{line:g}</span></div>{bars}</div>'
+            + (f'<div class="pe-ax"><span>◀ plus ancien · {_dm(h["bars"][0][0])}</span>'
+               f'<span>{_dm(h["bars"][-1][0])} · plus récent ▶</span></div>' if h["bars"] else '') +
             f'<div class="pe-chips">{chip("Saison", "season")}{chip("H2H", "h2h")}{chip("L5", "l5")}{chip("L10", "l10")}{chip("L20", "l20")}</div>'
             f'<div class="pe-ft"><span>Moyenne L10 <b>{_fr(h["avg"], 1)}</b></span><span>Médiane L10 <b>{h["med"]:g}</b></span></div>'
             + (f'<p class="pe-why">Ligne déduite des lignes DraftKings rebonds ({x["derived"]["REB"]:g}) et passes '
@@ -330,7 +338,8 @@ CSS = """<style>
 .pe-b{position:relative}
 .pe-ln{position:absolute;left:0;right:0;border-top:2px dashed #e5e7eb;opacity:.7}
 .pe-ln span{position:absolute;right:0;top:-9px;font:600 10.5px var(--mono);background:var(--panel2,#141b16);padding:0 3px}
-.pe-chips{display:grid;grid-template-columns:repeat(5,1fr);gap:4px;margin-top:22px}
+.pe-ax{display:flex;justify-content:space-between;font:10px var(--mono);color:var(--mu);margin-top:18px}
+.pe-chips{display:grid;grid-template-columns:repeat(5,1fr);gap:4px;margin-top:8px}
 .pe-c{background:var(--chip);border-radius:8px;padding:5px 2px;text-align:center;display:flex;flex-direction:column}
 .pe-c small{font:10px var(--mono);color:var(--mu)} .pe-c b{font-size:13px} .pe-c span{font:10.5px var(--mono);color:var(--acc)}
 .pe-ft{display:flex;justify-content:space-between;font-size:12.5px;color:var(--mu);margin-top:8px}

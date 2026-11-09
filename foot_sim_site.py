@@ -287,7 +287,7 @@ def _shots_hist_card(g):
                           ensure_ascii=False, separators=(",", ":")).replace("</", "<\\/")
         chart = (f'<div class="eb-shc" data-k="sh" data-n="10"><script type="application/json">{data}</script>'
                  '<div class="eb-shc-ctl"></div><div class="eb-shc-sum"></div><div class="eb-shc-plot"></div>'
-                 '<div class="eb-shc-x"></div><div class="eb-shc-cap eb-dim"></div></div>')
+                 '<div class="eb-shc-x"></div><div class="eb-shc-ax"></div><div class="eb-shc-cap eb-dim"></div></div>')
         cols += (f'<div><div class="eb-meta">{_e(g[s]["name"])} <span class="eb-dim">· face à {_e(g[o]["name"])} '
                  f'qui {strength} ({n1(conc)} tirs/match, moyenne {n1(h["ref"])})</span></div>{chart}'
                  f'<p class="eb-note" style="margin:6px 0">{means}</p><div class="eb-list2">{rows}</div>'
@@ -448,6 +448,7 @@ SHOTS_SCRIPT = r"""<style>
 .eb-shc-ln span{position:absolute;right:0;top:-9px;font:600 11px var(--mono);color:var(--warn);background:var(--panel);padding:0 4px;border-radius:4px}
 .eb-shc-x{display:flex;gap:4px;margin-top:4px;padding-right:40px}
 .eb-shc-x span{flex:1;min-width:0;text-align:center;font:10px var(--mono);color:var(--mu);overflow:hidden;white-space:nowrap}
+.eb-shc-ax{display:flex;justify-content:space-between;padding-right:40px;margin-top:3px;font:10px var(--mono);color:var(--mu)}
 .eb-shc-cap{font-size:12.5px;min-height:18px;margin-top:4px}
 @media (max-width:520px){.eb-shc-plot{height:130px;gap:2px}.eb-shc-x{gap:2px}.eb-shc-b em{font-size:9.5px}}
 </style><script>
@@ -500,7 +501,10 @@ SHOTS_SCRIPT = r"""<style>
         + (k === 'adj' ? f1(v) : v) + '</em><i style="height:' + (100 * v / top).toFixed(1) + '%"></i></div>';
     }).join('') + (line == null ? '' : '<div class="eb-shc-ln" style="bottom:' + (100 * line / top).toFixed(1) + '%"><span>' + f1(line) + '</span></div>');
     c.querySelector('.eb-shc-x').innerHTML = G.map(function(x){ return '<span>' + (G.length <= 10 ? q(ab(x[1])) : '') + '</span>'; }).join('');
-    c.querySelector('.eb-shc-cap').textContent = 'Touchez une barre pour le détail du match · ← plus ancien, plus récent →';
+    var dm = function(s){ return s.slice(8) + '/' + s.slice(5, 7); };
+    c.querySelector('.eb-shc-ax').innerHTML = '<span>◀ plus ancien · ' + dm(G[0][0]) + '</span><span>'
+      + dm(G[G.length - 1][0]) + ' · plus récent ▶</span>';
+    c.querySelector('.eb-shc-cap').textContent = 'Touchez une barre pour le détail du match';
   };
   document.querySelectorAll('.eb-shc').forEach(function(c){ ebShR(c); });
 })();

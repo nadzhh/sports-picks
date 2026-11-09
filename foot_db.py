@@ -27,7 +27,7 @@ DELAY = 0.6     # politesse : au moins 0,6 s entre deux pages
 # Copie compressee versionnee (saisons utiles en production) : la veille GitHub en part au lieu de
 # retelecharger ~2 600 pages (6 h par tranches) ; elle n'ajoute ensuite que les nouveaux matchs.
 SEED = Path("data/foot_db_seed.json.gz")
-SEED_SEASONS = ("2025/2026", "2026/2027")
+SEED_SEASONS = ("2024/2025", "2025/2026", "2026/2027")   # 2024-25 : 1re saison du test du bot de nuit (09/11/2026)
 
 
 def _path(lid, season):

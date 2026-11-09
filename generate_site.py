@@ -2335,6 +2335,12 @@ def _compose_prop_value(g, prop):
     }.get(prop, 0)
 
 
+def _dm_fr(g):
+    """Date d'un match au format jour/mois (« 2026-11-08 » -> « 08/11 »)."""
+    d = (g.get("date") or "")[:10]
+    return f"{d[8:10]}/{d[5:7]}" if len(d) == 10 else "?"
+
+
 def _build_prop_chart_bars(games_window, ref_line, chart_max, with_labels=True):
     """Construit la zone bar-chart (bars + labels). Helper interne, factorise
     pour pouvoir reutiliser sur L5/L10/L20.
@@ -2343,6 +2349,9 @@ def _build_prop_chart_bars(games_window, ref_line, chart_max, with_labels=True):
     CHART_PX = 120
     if not games_window or chart_max <= 0:
         return f'<div style="color:#475569;font-size:12px;padding:10px;text-align:center">Pas assez de games</div>'
+    # Les series arrivent du plus recent au plus ancien : on les affiche dans l'ordre du temps (plus ancien a gauche,
+    # plus recent a droite), comme tous les graphiques du site, avec le repere sous l'axe (Wilson, 09/11/2026).
+    games_window = list(games_window)[::-1]
     n = len(games_window)
     # Adapte gap et font selon la densite
     gap = 6 if n <= 5 else (3 if n <= 10 else 2)
@@ -2355,7 +2364,7 @@ def _build_prop_chart_bars(games_window, ref_line, chart_max, with_labels=True):
         bar_px = max(4, round(pct_h * CHART_PX / 100))
         is_hit = val > ref_line
         color = "#22c55e" if is_hit else "#ef4444"
-        date_short = (g.get("date","")[:10][-5:] or "?").replace("-","/")
+        date_short = _dm_fr(g)
         opp = (g.get("opp","?") or "?")[:4]
         loc = "vs" if g.get("is_home") else "@"
         mins = int(g.get("MIN") or 0)
@@ -2394,6 +2403,10 @@ def _build_prop_chart_bars(games_window, ref_line, chart_max, with_labels=True):
             )
     ref_px = round((ref_line / chart_max) * CHART_PX) if chart_max else 0
     labels_block = f'<div style="display:flex;gap:{gap}px">{labels_html}</div>' if with_labels else ''
+    _d = _dm_fr
+    labels_block += (
+        f'<div style="display:flex;justify-content:space-between;color:#64748b;font-size:10px;margin-top:4px">'
+        f'<span>◀ plus ancien · {_d(games_window[0][0])}</span><span>{_d(games_window[-1][0])} · plus récent ▶</span></div>')
     return (
         f'<div class="tg-chart-area" data-chart-max="{chart_max}" data-chart-px="{CHART_PX}" '
         f'style="position:relative;height:{CHART_PX + 22}px">'
