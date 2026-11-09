@@ -83,34 +83,34 @@
             {
               "name": "Plymouth Parkway",
               "side": "home",
-              "cote": 2.1,
+              "cote": 1.91,
               "book": "draftkings"
             },
             {
               "name": "Draw",
               "side": "draw",
-              "cote": 3.8,
+              "cote": 3.95,
               "book": "draftkings"
             },
             {
               "name": "Berkhamsted",
               "side": "away",
-              "cote": 3.2,
+              "cote": 3.8,
               "book": "draftkings"
             }
           ]
         },
         {
-          "marketName": "Goals Over/Under (3.5)",
+          "marketName": "Goals Over/Under (2.5)",
           "choices": [
             {
-              "name": "Over 3.5",
-              "cote": 2.4,
+              "name": "Over 2.5",
+              "cote": 1.71,
               "book": "draftkings"
             },
             {
-              "name": "Under 3.5",
-              "cote": 1.59,
+              "name": "Under 2.5",
+              "cote": 2.15,
               "book": "draftkings"
             }
           ]
@@ -193,33 +193,53 @@
       "value_bets": [
         {
           "marche": "Berkhamsted gagne (1X2)",
-          "cote": 3.2,
+          "cote": 3.8,
           "book": "draftkings",
           "p_ligue": 28,
           "p_modele": 40,
           "p_form": 32,
           "p_avg": 33,
-          "value": 106.4
+          "value": 126.4
         },
         {
           "marche": "Match nul (1X2)",
-          "cote": 3.8,
+          "cote": 3.95,
           "book": "draftkings",
           "p_ligue": 27,
           "p_modele": 24,
           "p_form": 30,
           "p_avg": 27,
-          "value": 102.4
+          "value": 106.4
+        },
+        {
+          "marche": "Plus de 2.5 buts",
+          "cote": 1.71,
+          "book": "draftkings",
+          "p_ligue": 50,
+          "p_modele": 60,
+          "p_form": 60,
+          "p_avg": 57,
+          "value": 96.8
+        },
+        {
+          "marche": "Moins de 2.5 buts",
+          "cote": 2.15,
+          "book": "draftkings",
+          "p_ligue": 50,
+          "p_modele": 40,
+          "p_form": 40,
+          "p_avg": 43,
+          "value": 93.3
         },
         {
           "marche": "Plymouth Parkway gagne (1X2)",
-          "cote": 2.1,
+          "cote": 1.91,
           "book": "draftkings",
           "p_ligue": 45,
           "p_modele": 36,
           "p_form": 38,
           "p_avg": 40,
-          "value": 83.6
+          "value": 76.0
         }
       ]
     },
@@ -1309,252 +1329,6 @@
     "team_streaks": null
   },
   {
-    "id": "1000014221",
-    "home": "Alianza FC",
-    "away": "Llaneros FC",
-    "home_id": "193029",
-    "away_id": "348397",
-    "_fotmob_lid": 274,
-    "_page_url": "/matches/alianza-fc-vs-llaneros-fc/1vc0zow8#1000014221",
-    "start_ts": 1794186900,
-    "league_id": 239,
-    "league": "Colombia Primera A",
-    "h2h": {
-      "teamDuel": {
-        "homeWins": 0,
-        "draws": 0,
-        "awayWins": 0
-      }
-    },
-    "pre_match_form": {
-      "homeTeam": {
-        "form": [
-          "L",
-          "L",
-          "W",
-          "W",
-          "D"
-        ],
-        "form_opps": [
-          "2528",
-          "6024",
-          "47240",
-          "4405",
-          "193025"
-        ],
-        "form_opp_ranks": [
-          11,
-          5,
-          8,
-          3,
-          12
-        ],
-        "position": 17,
-        "avgRating": null,
-        "l5_gf_pm": 1.0,
-        "l5_ga_pm": 1.0,
-        "l5_goals_n": 5
-      },
-      "awayTeam": {
-        "form": [
-          "W",
-          "L",
-          "L",
-          "W",
-          "L"
-        ],
-        "form_opps": [
-          "2254",
-          "424270",
-          "6387",
-          "7818",
-          "6024"
-        ],
-        "form_opp_ranks": [
-          2,
-          16,
-          9,
-          7,
-          5
-        ],
-        "position": 14,
-        "avgRating": null,
-        "l5_gf_pm": 0.8,
-        "l5_ga_pm": 1.4,
-        "l5_goals_n": 5
-      }
-    },
-    "match_odds": null,
-    "lineups_home": null,
-    "lineups_away": null,
-    "team_streaks": null,
-    "analyse": {
-      "ht_1x2": {
-        "home_pct": 30,
-        "draw_pct": 50,
-        "away_pct": 21,
-        "home_cote": 3.38,
-        "draw_cote": 2.01,
-        "away_cote": 4.82,
-        "lam_h": 0.5,
-        "lam_a": 0.38,
-        "lam_draw": 0.22
-      },
-      "ft_1x2": {
-        "home_pct": 43,
-        "draw_pct": 30,
-        "away_pct": 28,
-        "home_cote": 2.33,
-        "draw_cote": 3.39,
-        "away_cote": 3.63,
-        "lam_h": 1.2,
-        "lam_a": 0.9
-      },
-      "ht_total_buts": [
-        {
-          "label": "0 buts",
-          "pct": 41
-        },
-        {
-          "label": "1 but",
-          "pct": 37
-        },
-        {
-          "label": "2+ buts",
-          "pct": 22
-        }
-      ],
-      "ft_total_buts": [
-        {
-          "label": "0 buts",
-          "pct": 12
-        },
-        {
-          "label": "1 but",
-          "pct": 26
-        },
-        {
-          "label": "2 buts",
-          "pct": 27
-        },
-        {
-          "label": "3+ buts",
-          "pct": 35
-        }
-      ],
-      "btts": {
-        "yes": 41,
-        "no": 59
-      },
-      "league_stats": {
-        "btts": 46,
-        "ht_over_05": 72,
-        "ft_over_15": 68,
-        "ft_over_25": 42
-      },
-      "league_name": "Colombia Primera A",
-      "top_buteurs_home": [],
-      "top_buteurs_away": [],
-      "top_passeurs_home": [],
-      "top_passeurs_away": [],
-      "value_bets": []
-    },
-    "home_season_stats": {
-      "overall": {
-        "n": 14,
-        "wins_pct": 36,
-        "draws_pct": 36,
-        "losses_pct": 29,
-        "btts_pct": 43,
-        "over_15": 50,
-        "over_25": 36,
-        "over_35": 14,
-        "under_15": 50,
-        "under_25": 64,
-        "under_35": 86,
-        "gf_pm": 1.07,
-        "ga_pm": 0.86
-      },
-      "home": {
-        "n": 7,
-        "wins_pct": 57,
-        "draws_pct": 29,
-        "losses_pct": 14,
-        "btts_pct": 29,
-        "over_15": 43,
-        "over_25": 43,
-        "over_35": 14,
-        "under_15": 57,
-        "under_25": 57,
-        "under_35": 86,
-        "gf_pm": 1.29,
-        "ga_pm": 0.57
-      },
-      "away": {
-        "n": 7,
-        "wins_pct": 14,
-        "draws_pct": 43,
-        "losses_pct": 43,
-        "btts_pct": 57,
-        "over_15": 57,
-        "over_25": 29,
-        "over_35": 14,
-        "under_15": 43,
-        "under_25": 71,
-        "under_35": 86,
-        "gf_pm": 0.86,
-        "ga_pm": 1.14
-      }
-    },
-    "away_season_stats": {
-      "overall": {
-        "n": 14,
-        "wins_pct": 36,
-        "draws_pct": 36,
-        "losses_pct": 29,
-        "btts_pct": 29,
-        "over_15": 64,
-        "over_25": 29,
-        "over_35": 14,
-        "under_15": 36,
-        "under_25": 71,
-        "under_35": 86,
-        "gf_pm": 1.0,
-        "ga_pm": 0.93
-      },
-      "home": {
-        "n": 6,
-        "wins_pct": 50,
-        "draws_pct": 50,
-        "losses_pct": 0,
-        "btts_pct": 50,
-        "over_15": 83,
-        "over_25": 50,
-        "over_35": 33,
-        "under_15": 17,
-        "under_25": 50,
-        "under_35": 67,
-        "gf_pm": 1.83,
-        "ga_pm": 0.67
-      },
-      "away": {
-        "n": 8,
-        "wins_pct": 25,
-        "draws_pct": 25,
-        "losses_pct": 50,
-        "btts_pct": 12,
-        "over_15": 50,
-        "over_25": 12,
-        "over_35": 0,
-        "under_15": 50,
-        "under_25": 88,
-        "under_35": 100,
-        "gf_pm": 0.38,
-        "ga_pm": 1.12
-      }
-    }
-  },
-  {
     "id": "1000014224",
     "home": "Junior FC",
     "away": "Cúcuta",
@@ -2289,252 +2063,6 @@
         "under_35": 88,
         "gf_pm": 0.5,
         "ga_pm": 1.38
-      }
-    }
-  },
-  {
-    "id": "1000017298",
-    "home": "Universitario de Deportes",
-    "away": "Club Deportivo Moquegua",
-    "home_id": "4409",
-    "away_id": "1573140",
-    "_fotmob_lid": 131,
-    "_page_url": "/matches/universitario-de-deportes-vs-club-deportivo-moquegua/fvmyofsk#1000017298",
-    "start_ts": 1794187800,
-    "league_id": 281,
-    "league": "Peru Liga 1",
-    "h2h": {
-      "teamDuel": {
-        "homeWins": 0,
-        "draws": 1,
-        "awayWins": 0
-      }
-    },
-    "pre_match_form": {
-      "homeTeam": {
-        "form": [
-          "D",
-          "W",
-          "W",
-          "W",
-          "D"
-        ],
-        "form_opps": [
-          "4412",
-          "920789",
-          "1573153",
-          "4410",
-          "4417"
-        ],
-        "form_opp_ranks": [
-          11,
-          15,
-          17,
-          8,
-          5
-        ],
-        "position": 4,
-        "avgRating": null,
-        "l5_gf_pm": 2.8,
-        "l5_ga_pm": 1.2,
-        "l5_goals_n": 5
-      },
-      "awayTeam": {
-        "form": [
-          "D",
-          "L",
-          "L",
-          "W",
-          "L"
-        ],
-        "form_opps": [
-          "741328",
-          "1104719",
-          "6398",
-          "1696744",
-          "1845"
-        ],
-        "form_opp_ranks": [
-          2,
-          10,
-          1,
-          14,
-          3
-        ],
-        "position": 13,
-        "avgRating": null,
-        "l5_gf_pm": 0.2,
-        "l5_ga_pm": 1.0,
-        "l5_goals_n": 5
-      }
-    },
-    "match_odds": null,
-    "lineups_home": null,
-    "lineups_away": null,
-    "team_streaks": null,
-    "analyse": {
-      "ht_1x2": {
-        "home_pct": 45,
-        "draw_pct": 42,
-        "away_pct": 13,
-        "home_cote": 2.21,
-        "draw_cote": 2.39,
-        "away_cote": 7.81,
-        "lam_h": 0.8,
-        "lam_a": 0.29,
-        "lam_draw": 0.21
-      },
-      "ft_1x2": {
-        "home_pct": 66,
-        "draw_pct": 21,
-        "away_pct": 13,
-        "home_cote": 1.52,
-        "draw_cote": 4.73,
-        "away_cote": 7.7,
-        "lam_h": 1.9,
-        "lam_a": 0.7
-      },
-      "ht_total_buts": [
-        {
-          "label": "0 buts",
-          "pct": 34
-        },
-        {
-          "label": "1 but",
-          "pct": 37
-        },
-        {
-          "label": "2+ buts",
-          "pct": 30
-        }
-      ],
-      "ft_total_buts": [
-        {
-          "label": "0 buts",
-          "pct": 7
-        },
-        {
-          "label": "1 but",
-          "pct": 19
-        },
-        {
-          "label": "2 buts",
-          "pct": 25
-        },
-        {
-          "label": "3+ buts",
-          "pct": 48
-        }
-      ],
-      "btts": {
-        "yes": 43,
-        "no": 57
-      },
-      "league_stats": {
-        "btts": 47,
-        "ht_over_05": 73,
-        "ft_over_15": 69,
-        "ft_over_25": 43
-      },
-      "league_name": "Peru Liga 1",
-      "top_buteurs_home": [],
-      "top_buteurs_away": [],
-      "top_passeurs_home": [],
-      "top_passeurs_away": [],
-      "value_bets": []
-    },
-    "home_season_stats": {
-      "overall": {
-        "n": 12,
-        "wins_pct": 33,
-        "draws_pct": 33,
-        "losses_pct": 33,
-        "btts_pct": 58,
-        "over_15": 58,
-        "over_25": 58,
-        "over_35": 25,
-        "under_15": 42,
-        "under_25": 42,
-        "under_35": 75,
-        "gf_pm": 1.42,
-        "ga_pm": 1.0
-      },
-      "home": {
-        "n": 6,
-        "wins_pct": 50,
-        "draws_pct": 17,
-        "losses_pct": 33,
-        "btts_pct": 67,
-        "over_15": 67,
-        "over_25": 67,
-        "over_35": 33,
-        "under_15": 33,
-        "under_25": 33,
-        "under_35": 67,
-        "gf_pm": 1.83,
-        "ga_pm": 1.17
-      },
-      "away": {
-        "n": 6,
-        "wins_pct": 17,
-        "draws_pct": 50,
-        "losses_pct": 33,
-        "btts_pct": 50,
-        "over_15": 50,
-        "over_25": 50,
-        "over_35": 17,
-        "under_15": 50,
-        "under_25": 50,
-        "under_35": 83,
-        "gf_pm": 1.0,
-        "ga_pm": 0.83
-      }
-    },
-    "away_season_stats": {
-      "overall": {
-        "n": 17,
-        "wins_pct": 29,
-        "draws_pct": 18,
-        "losses_pct": 53,
-        "btts_pct": 47,
-        "over_15": 65,
-        "over_25": 65,
-        "over_35": 18,
-        "under_15": 35,
-        "under_25": 35,
-        "under_35": 82,
-        "gf_pm": 1.0,
-        "ga_pm": 1.41
-      },
-      "home": {
-        "n": 8,
-        "wins_pct": 50,
-        "draws_pct": 25,
-        "losses_pct": 25,
-        "btts_pct": 62,
-        "over_15": 75,
-        "over_25": 75,
-        "over_35": 25,
-        "under_15": 25,
-        "under_25": 25,
-        "under_35": 75,
-        "gf_pm": 1.62,
-        "ga_pm": 1.12
-      },
-      "away": {
-        "n": 9,
-        "wins_pct": 11,
-        "draws_pct": 11,
-        "losses_pct": 78,
-        "btts_pct": 33,
-        "over_15": 56,
-        "over_25": 56,
-        "over_35": 11,
-        "under_15": 44,
-        "under_25": 44,
-        "under_35": 89,
-        "gf_pm": 0.44,
-        "ga_pm": 1.67
       }
     }
   },
