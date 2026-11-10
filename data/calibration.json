@@ -1,12 +1,62 @@
 {
- "genere_le": "2026-11-10T06:37:28",
- "n_resolus": 2749,
+ "genere_le": "2026-11-10T15:19:40",
+ "n_resolus": 2759,
  "parametres": {
   "n_min_jugement": 20,
   "seuil_pct": 50.0,
   "pas_tranche": 10
  },
  "marches": {
+  "nba/FG3M": {
+   "n": 38,
+   "wins": 22,
+   "wr": 57.9,
+   "borne_basse": 42.2,
+   "borne_haute": 72.1,
+   "statut": "SURVEILLE",
+   "cote_moyenne": 2.0,
+   "n_cotes": 34
+  },
+  "nba/REB": {
+   "n": 57,
+   "wins": 27,
+   "wr": 47.4,
+   "borne_basse": 35.0,
+   "borne_haute": 60.1,
+   "statut": "SURVEILLE",
+   "cote_moyenne": 1.97,
+   "n_cotes": 37
+  },
+  "nba/PTS": {
+   "n": 43,
+   "wins": 21,
+   "wr": 48.8,
+   "borne_basse": 34.6,
+   "borne_haute": 63.2,
+   "statut": "SURVEILLE",
+   "cote_moyenne": 1.92,
+   "n_cotes": 42
+  },
+  "nba/PA": {
+   "n": 44,
+   "wins": 22,
+   "wr": 50.0,
+   "borne_basse": 35.8,
+   "borne_haute": 64.2,
+   "statut": "SURVEILLE",
+   "cote_moyenne": 1.91,
+   "n_cotes": 38
+  },
+  "nba/PRA": {
+   "n": 43,
+   "wins": 25,
+   "wr": 58.1,
+   "borne_basse": 43.3,
+   "borne_haute": 71.6,
+   "statut": "SURVEILLE",
+   "cote_moyenne": 1.87,
+   "n_cotes": 15
+  },
   "foot/Double chance": {
    "n": 170,
    "wins": 140,
@@ -27,16 +77,6 @@
    "cote_moyenne": 2.15,
    "n_cotes": 36
   },
-  "nba/FG3M": {
-   "n": 36,
-   "wins": 20,
-   "wr": 55.6,
-   "borne_basse": 39.6,
-   "borne_haute": 70.5,
-   "statut": "SURVEILLE",
-   "cote_moyenne": 1.99,
-   "n_cotes": 32
-  },
   "nba/AST": {
    "n": 50,
    "wins": 27,
@@ -47,16 +87,6 @@
    "cote_moyenne": 2.0,
    "n_cotes": 27
   },
-  "nba/PA": {
-   "n": 41,
-   "wins": 19,
-   "wr": 46.3,
-   "borne_basse": 32.1,
-   "borne_haute": 61.3,
-   "statut": "SURVEILLE",
-   "cote_moyenne": 1.9,
-   "n_cotes": 35
-  },
   "nba/PR": {
    "n": 30,
    "wins": 16,
@@ -66,26 +96,6 @@
    "statut": "SURVEILLE",
    "cote_moyenne": 1.89,
    "n_cotes": 27
-  },
-  "nba/PRA": {
-   "n": 42,
-   "wins": 25,
-   "wr": 59.5,
-   "borne_basse": 44.5,
-   "borne_haute": 73.0,
-   "statut": "SURVEILLE",
-   "cote_moyenne": 1.87,
-   "n_cotes": 14
-  },
-  "nba/PTS": {
-   "n": 41,
-   "wins": 19,
-   "wr": 46.3,
-   "borne_basse": 32.1,
-   "borne_haute": 61.3,
-   "statut": "SURVEILLE",
-   "cote_moyenne": 1.92,
-   "n_cotes": 40
   },
   "foot/Victoire extérieur": {
    "n": 207,
@@ -166,16 +176,6 @@
    "statut": "SURVEILLE",
    "cote_moyenne": 1.94,
    "n_cotes": 12
-  },
-  "nba/REB": {
-   "n": 55,
-   "wins": 27,
-   "wr": 49.1,
-   "borne_basse": 36.4,
-   "borne_haute": 61.9,
-   "statut": "SURVEILLE",
-   "cote_moyenne": 1.96,
-   "n_cotes": 35
   },
   "foot/Tirs (Osasuna)": {
    "n": 1,
@@ -1109,6 +1109,104 @@
   }
  },
  "calibration": {
+  "nba/FG3M": {
+   "60-69": {
+    "n": 15,
+    "p": 60.0
+   },
+   "70-79": {
+    "n": 12,
+    "p": 75.0
+   },
+   "50-59": {
+    "n": 2,
+    "p": 56.3
+   },
+   "80-89": {
+    "n": 8,
+    "p": 31.6
+   },
+   "90-99": {
+    "n": 1,
+    "p": 62.1
+   }
+  },
+  "nba/REB": {
+   "60-69": {
+    "n": 26,
+    "p": 42.3
+   },
+   "70-79": {
+    "n": 18,
+    "p": 38.9
+   },
+   "50-59": {
+    "n": 7,
+    "p": 54.2
+   },
+   "80-89": {
+    "n": 5,
+    "p": 73.7
+   },
+   "90-99": {
+    "n": 1,
+    "p": 42.7
+   }
+  },
+  "nba/PTS": {
+   "70-79": {
+    "n": 21,
+    "p": 52.4
+   },
+   "60-69": {
+    "n": 15,
+    "p": 46.7
+   },
+   "80-89": {
+    "n": 4,
+    "p": 59.3
+   },
+   "50-59": {
+    "n": 3,
+    "p": 34.2
+   }
+  },
+  "nba/PA": {
+   "70-79": {
+    "n": 20,
+    "p": 60.0
+   },
+   "80-89": {
+    "n": 3,
+    "p": 45.0
+   },
+   "60-69": {
+    "n": 17,
+    "p": 41.2
+   },
+   "50-59": {
+    "n": 4,
+    "p": 50.0
+   }
+  },
+  "nba/PRA": {
+   "70-79": {
+    "n": 15,
+    "p": 60.0
+   },
+   "60-69": {
+    "n": 20,
+    "p": 65.0
+   },
+   "50-59": {
+    "n": 6,
+    "p": 53.2
+   },
+   "80-89": {
+    "n": 2,
+    "p": 46.5
+   }
+  },
   "foot/Double chance": {
    "80-89": {
     "n": 133,
@@ -1141,28 +1239,6 @@
     "p": 43.5
    }
   },
-  "nba/FG3M": {
-   "60-69": {
-    "n": 14,
-    "p": 57.1
-   },
-   "50-59": {
-    "n": 2,
-    "p": 54.5
-   },
-   "70-79": {
-    "n": 11,
-    "p": 72.7
-   },
-   "80-89": {
-    "n": 8,
-    "p": 31.1
-   },
-   "90-99": {
-    "n": 1,
-    "p": 60.0
-   }
-  },
   "nba/AST": {
    "70-79": {
     "n": 24,
@@ -1185,24 +1261,6 @@
     "p": 58.6
    }
   },
-  "nba/PA": {
-   "70-79": {
-    "n": 19,
-    "p": 57.9
-   },
-   "60-69": {
-    "n": 16,
-    "p": 37.5
-   },
-   "50-59": {
-    "n": 4,
-    "p": 47.8
-   },
-   "80-89": {
-    "n": 2,
-    "p": 37.0
-   }
-  },
   "nba/PR": {
    "70-79": {
     "n": 12,
@@ -1215,42 +1273,6 @@
    "50-59": {
     "n": 3,
     "p": 47.3
-   }
-  },
-  "nba/PRA": {
-   "60-69": {
-    "n": 20,
-    "p": 65.0
-   },
-   "70-79": {
-    "n": 14,
-    "p": 64.3
-   },
-   "50-59": {
-    "n": 6,
-    "p": 53.8
-   },
-   "80-89": {
-    "n": 2,
-    "p": 47.6
-   }
-  },
-  "nba/PTS": {
-   "60-69": {
-    "n": 15,
-    "p": 46.7
-   },
-   "70-79": {
-    "n": 19,
-    "p": 47.4
-   },
-   "80-89": {
-    "n": 4,
-    "p": 57.8
-   },
-   "50-59": {
-    "n": 3,
-    "p": 32.4
    }
   },
   "foot/Victoire extérieur": {
@@ -1327,28 +1349,6 @@
    "60-69": {
     "n": 7,
     "p": 90.0
-   }
-  },
-  "nba/REB": {
-   "70-79": {
-    "n": 17,
-    "p": 41.2
-   },
-   "60-69": {
-    "n": 25,
-    "p": 44.0
-   },
-   "50-59": {
-    "n": 7,
-    "p": 54.7
-   },
-   "80-89": {
-    "n": 5,
-    "p": 74.5
-   },
-   "90-99": {
-    "n": 1,
-    "p": 44.2
    }
   },
   "foot/Tirs (Osasuna)": {
@@ -2147,8 +2147,8 @@
   }
  },
  "replis_sport": {
+  "nba": 52.5,
   "foot": 48.7,
-  "nba": 51.9,
   "tennis": 61.7
  }
 }
