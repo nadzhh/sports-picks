@@ -1,147 +1,283 @@
 {
  "last": {
-  "at": "2026-11-09T08:00+00:00",
+  "at": "2026-11-10T06:33+00:00",
   "sims": 1000,
-  "tried": [],
-  "adopted": null,
-  "notes": [
-   "foot : moins de 500 matchs rejoues sur 2024-25 (0), aucun reglage juge cette nuit"
+  "tried": [
+   {
+    "param": "rest_w",
+    "from": 0.0,
+    "to": -0.05,
+    "score": {
+     "2024-25": 2.34817,
+     "2025-26": 2.36579
+    },
+    "gain": {
+     "2024-25": 0.00223,
+     "2025-26": 0.00188
+    }
+   },
+   {
+    "param": "rest_w",
+    "from": 0.0,
+    "to": 0.05,
+    "score": {
+     "2024-25": 2.35105,
+     "2025-26": 2.36781
+    },
+    "gain": {
+     "2024-25": -0.00065,
+     "2025-26": -0.00014
+    }
+   },
+   {
+    "param": "cong_w",
+    "from": 0.0,
+    "to": -0.03,
+    "score": {
+     "2024-25": 2.34928,
+     "2025-26": 2.36829
+    },
+    "gain": {
+     "2024-25": 0.00112,
+     "2025-26": -0.00062
+    }
+   },
+   {
+    "param": "cong_w",
+    "from": 0.0,
+    "to": 0.03,
+    "score": {
+     "2024-25": 2.34965,
+     "2025-26": 2.36823
+    },
+    "gain": {
+     "2024-25": 0.00075,
+     "2025-26": -0.00056
+    }
+   },
+   {
+    "param": "hl_days",
+    "from": 200.0,
+    "to": 160.0,
+    "score": {
+     "2024-25": 2.35008,
+     "2025-26": 2.36805
+    },
+    "gain": {
+     "2024-25": 0.00032,
+     "2025-26": -0.00038
+    }
+   },
+   {
+    "param": "hl_days",
+    "from": 200.0,
+    "to": 240.0,
+    "score": {
+     "2024-25": 2.35221,
+     "2025-26": 2.36888
+    },
+    "gain": {
+     "2024-25": -0.00181,
+     "2025-26": -0.00121
+    }
+   },
+   {
+    "param": "k_team",
+    "from": 3.0,
+    "to": 2.0,
+    "score": {
+     "2024-25": 2.35045,
+     "2025-26": 2.37205
+    },
+    "gain": {
+     "2024-25": -5e-05,
+     "2025-26": -0.00438
+    }
+   },
+   {
+    "param": "k_team",
+    "from": 3.0,
+    "to": 4.0,
+    "score": {
+     "2024-25": 2.34879,
+     "2025-26": 2.36887
+    },
+    "gain": {
+     "2024-25": 0.00161,
+     "2025-26": -0.0012
+    }
+   }
   ],
+  "adopted": {
+   "param": "rest_w",
+   "from": 0.0,
+   "to": -0.05,
+   "score": {
+    "2024-25": 2.34817,
+    "2025-26": 2.36579
+   },
+   "gain": {
+    "2024-25": 0.00223,
+    "2025-26": 0.00188
+   }
+  },
+  "notes": [],
+  "base": {
+   "2024-25": 2.3504,
+   "2025-26": 2.36767
+  },
+  "gap": {
+   "2024-25": [
+    0.9848,
+    0.9625,
+    1521
+   ],
+   "2025-26": [
+    1.0099,
+    0.9811,
+    1686
+   ]
+  },
   "nba": {
    "tried": [
     {
-     "param": "usage_pow",
-     "from": 1.15,
-     "to": 1.1,
+     "param": "hl_rates",
+     "from": 30.0,
+     "to": 25.0,
      "score": {
-      "2025-26": 0.70473,
-      "2026-27": 0.69913
+      "2025-26": 0.70407,
+      "2026-27": 0.69863
      },
      "gain": {
-      "2025-26": 0.00034,
-      "2026-27": -0.00054
+      "2025-26": -0.00054,
+      "2026-27": -0.00016
      }
     },
     {
-     "param": "usage_pow",
-     "from": 1.15,
-     "to": 1.2,
+     "param": "hl_rates",
+     "from": 30.0,
+     "to": 35.0,
      "score": {
-      "2025-26": 0.70483,
-      "2026-27": 0.699
+      "2025-26": 0.70373,
+      "2026-27": 0.69873
      },
      "gain": {
-      "2025-26": 0.00024,
-      "2026-27": -0.00041
+      "2025-26": -0.0002,
+      "2026-27": -0.00026
      }
     },
     {
-     "param": "ast_pow",
-     "from": 1.15,
-     "to": 1.1,
+     "param": "hl_minutes",
+     "from": 4.0,
+     "to": 3.0,
      "score": {
-      "2025-26": 0.70449,
-      "2026-27": 0.69832
+      "2025-26": 0.70403,
+      "2026-27": 0.69947
      },
      "gain": {
-      "2025-26": 0.00058,
-      "2026-27": 0.00027
+      "2025-26": -0.0005,
+      "2026-27": -0.001
      }
     },
     {
-     "param": "ast_pow",
-     "from": 1.15,
-     "to": 1.2,
+     "param": "hl_minutes",
+     "from": 4.0,
+     "to": 5.0,
      "score": {
-      "2025-26": 0.70535,
-      "2026-27": 0.69935
+      "2025-26": 0.70374,
+      "2026-27": 0.69915
      },
      "gain": {
-      "2025-26": -0.00028,
-      "2026-27": -0.00076
+      "2025-26": -0.00021,
+      "2026-27": -0.00068
      }
     }
    ],
    "adopted": null,
    "notes": [],
    "base": {
-    "2025-26": 0.70507,
-    "2026-27": 0.69859
+    "2025-26": 0.70353,
+    "2026-27": 0.69847
    },
    "gap": {
     "2025-26": [
-     0.7051,
-     0.6855,
-     34033
+     0.7035,
+     0.6857,
+     32574
     ],
     "2026-27": [
-     0.6986,
-     0.6858,
-     11791
+     0.6985,
+     0.6859,
+     11908
     ]
+   },
+   "calib": {
+    "at": "2026-11-10T06:33+00:00",
+    "n": [
+     32574,
+     11908
+    ],
+    "test": {
+     "marche": 0.68589,
+     "cale": 0.68488
+    },
+    "coef": {
+     "PTS": [
+      -0.0557,
+      0.0
+     ],
+     "REB": [
+      -0.039,
+      0.1249
+     ],
+     "AST": [
+      -0.0961,
+      0.0441
+     ],
+     "PRA": [
+      -0.0646,
+      0.0119
+     ],
+     "PR": [
+      -0.0617,
+      0.0422
+     ],
+     "PA": [
+      -0.0718,
+      0.0
+     ],
+     "BLK": [
+      -0.1206,
+      0.1167
+     ],
+     "3PM": [
+      0.0126,
+      0.2116
+     ],
+     "STL": [
+      -0.1297,
+      0.1242
+     ],
+     "_all": [
+      -0.0588,
+      0.0598
+     ]
+    }
    }
   },
   "series": [
-   "canal Picks : 0/1 séries de 10 positives (attendu 46 %)",
-   "canal Picks : série en cours 8/10, +0.91 u",
-   "Bankroll IA : 4/7 séries de 10 positives (attendu 57 %)",
-   "Bankroll IA : série en cours 9/10, +3.26 €"
+   "canal Picks : 1/2 séries de 10 positives (attendu 44 %)",
+   "canal Picks : série en cours 3/10, +0.97 u",
+   "Bankroll IA : 5/8 séries de 10 positives (attendu 56 %)",
+   "Bankroll IA : série en cours 1/10, +1.41 €"
   ],
   "lecons": {
    "hier": [
-    {
-     "label": "Donovan Clingan moins de 1.5 paniers à 3 pts",
-     "match": "SA @ POR",
-     "price": 1.46,
-     "p": 0.658,
-     "win": true,
-     "src": "canal"
-    },
-    {
-     "label": "Ajay Mitchell moins de 19.5 points",
-     "match": "WSH @ OKC",
-     "price": 1.93,
-     "p": 0.5013,
-     "win": true,
-     "src": "canal"
-    },
-    {
-     "label": "Karl-Anthony Towns moins de 20.5 points",
-     "match": "NY @ CLE",
-     "price": 1.96,
-     "p": 0.4917,
-     "win": false,
-     "src": "canal"
-    },
-    {
-     "label": "Stephen Curry moins de 26.5 points",
-     "match": "ORL @ GS",
-     "price": 1.96,
-     "p": 0.4925,
-     "win": false,
-     "src": "canal"
-    },
-    {
-     "label": "Victoire Los Angeles Lakers",
-     "match": "Detroit Pistons - Los Angeles Lakers",
-     "price": 2.95,
-     "p": 0.367,
-     "win": true,
-     "src": "canal"
-    },
     {
      "label": "Kris Dunn moins de 1.5 paniers à 3 pts",
      "match": "NO @ LAC",
      "price": 1.46,
      "p": 0.6544,
-     "win": false,
-     "src": "canal"
-    },
-    {
-     "label": "Josh Giddey moins de 6.5 rebonds",
-     "match": "PHI @ CHI",
-     "price": 1.76,
-     "p": 0.5429,
      "win": false,
      "src": "canal"
     },
@@ -162,137 +298,169 @@
      "src": "canal"
     },
     {
-     "label": "Victor Wembanyama moins de 1.5 interceptions",
-     "match": "SA @ POR",
+     "label": "Pascal Siakam moins de 0.5 interceptions",
+     "match": "IND @ DAL",
+     "price": 2.7,
+     "p": 0.3905,
+     "win": false,
+     "src": "canal"
+    },
+    {
+     "label": "Jalen Green moins de 0.5 interceptions",
+     "match": "SA @ PHX",
+     "price": 2.76,
+     "p": 0.3841,
+     "win": true,
+     "src": "canal"
+    },
+    {
+     "label": "Paul Reed moins de 1.5 interceptions",
+     "match": "WSH @ DET",
+     "price": 1.41,
+     "p": 0.6959,
+     "win": true,
+     "src": "canal"
+    },
+    {
+     "label": "Peyton Watson moins de 1.5 contres",
+     "match": "CLE @ CHA",
+     "price": 1.45,
+     "p": 0.6804,
+     "win": true,
+     "src": "canal"
+    },
+    {
+     "label": "Stephen Curry moins de 1.5 interceptions",
+     "match": "NO @ GS",
      "price": 1.43,
-     "p": 0.6605,
+     "p": 0.6894,
+     "win": true,
+     "src": "canal"
+    },
+    {
+     "label": "Jalen Green moins de 0.5 interceptions",
+     "match": "SA @ PHX",
+     "price": 2.76,
+     "p": 0.3841,
      "win": true,
      "src": "bankroll"
     },
     {
-     "label": "Victoire Los Angeles Lakers",
-     "match": "Detroit Pistons - Los Angeles Lakers",
-     "price": 2.95,
-     "p": 0.367,
-     "win": true,
-     "src": "bankroll"
-    },
-    {
-     "label": "Joel Embiid moins de 1.5 contres",
-     "match": "PHI @ CHI",
-     "price": 1.42,
-     "p": 0.6643,
-     "win": true,
+     "label": "Pascal Siakam moins de 0.5 interceptions",
+     "match": "IND @ DAL",
+     "price": 2.7,
+     "p": 0.3905,
+     "win": false,
      "src": "bankroll"
     }
    ],
    "props": {
-    "n": 281,
-    "w": 169,
-    "exp": 156.1,
+    "n": 295,
+    "w": 178,
+    "exp": 163.4,
     "matchs": 13
    },
    "segments": [
     {
      "seg": "nba · 3PM moins",
-     "n": 66,
-     "w": 41,
-     "exp": 38.1,
+     "n": 91,
+     "w": 55,
+     "exp": 52.4,
      "clv": -0.0589
     },
     {
+     "seg": "nba · REB moins",
+     "n": 78,
+     "w": 48,
+     "exp": 43.7,
+     "clv": -0.1255
+    },
+    {
      "seg": "nba · PTS moins",
-     "n": 58,
-     "w": 29,
-     "exp": 29.8,
+     "n": 76,
+     "w": 41,
+     "exp": 39.2,
      "clv": -0.0527
     },
     {
      "seg": "nba · AST moins",
-     "n": 57,
-     "w": 37,
-     "exp": 32.5,
+     "n": 70,
+     "w": 46,
+     "exp": 40.1,
      "clv": -0.1031
     },
     {
-     "seg": "nba · REB moins",
-     "n": 55,
-     "w": 37,
-     "exp": 30.8,
-     "clv": -0.1255
-    },
-    {
      "seg": "nba · RA moins",
-     "n": 49,
-     "w": 32,
-     "exp": 28.2,
-     "clv": null
-    },
-    {
-     "seg": "nba · PR moins",
-     "n": 37,
-     "w": 24,
-     "exp": 19.1,
+     "n": 65,
+     "w": 38,
+     "exp": 37.4,
      "clv": null
     },
     {
      "seg": "nba · REB plus",
-     "n": 36,
-     "w": 23,
-     "exp": 19.8,
+     "n": 52,
+     "w": 29,
+     "exp": 28.6,
      "clv": null
     },
     {
-     "seg": "nba · PA moins",
-     "n": 28,
-     "w": 16,
-     "exp": 14.6,
+     "seg": "nba · PR moins",
+     "n": 49,
+     "w": 30,
+     "exp": 25.5,
      "clv": null
     },
     {
      "seg": "nba · PRA moins",
-     "n": 26,
-     "w": 14,
-     "exp": 13.5,
+     "n": 41,
+     "w": 24,
+     "exp": 21.4,
      "clv": null
     },
     {
-     "seg": "nba · 3PM plus",
-     "n": 21,
-     "w": 16,
-     "exp": 11.3,
+     "seg": "nba · PA moins",
+     "n": 39,
+     "w": 25,
+     "exp": 20.5,
      "clv": null
     },
     {
      "seg": "nba · AST plus",
-     "n": 21,
-     "w": 12,
-     "exp": 11.8,
+     "n": 32,
+     "w": 17,
+     "exp": 17.8,
+     "clv": null
+    },
+    {
+     "seg": "nba · 3PM plus",
+     "n": 31,
+     "w": 23,
+     "exp": 16.9,
      "clv": null
     },
     {
      "seg": "nba · STL moins",
-     "n": 20,
-     "w": 12,
-     "exp": 12.5,
-     "clv": -0.0607
+     "n": 28,
+     "w": 18,
+     "exp": 16.7,
+     "clv": -0.0643
     }
    ],
    "exclus": [],
    "notes": []
   },
   "postmortem": [
-   "Post-mortem du 08/11 : 4/8 gagnés.",
-   "🍀 malchance · Kris Dunn moins de 1.5 paniers à 3 pts (NO @ LAC) @ 1.46 : perdu d'un rien (2 pour une ligne à 1.5)",
-   "🔎 erreur · Josh Giddey moins de 6.5 rebonds (PHI @ CHI) @ 1.76 : minutes mal prévues (34 min jouées pour 28 prévues ; marché contre nous (53 → 50 %))",
-   "🔎 erreur · Daniel Gafford moins de 7.5 points (BKN @ DAL) @ 2.04 : rendement sous la projection (18 en 19 min (projeté 7.0 à ce temps de jeu))",
-   "🔎 erreur · Klay Thompson moins de 1.5 passes (MIA @ SAC) @ 2.02 : minutes mal prévues (32 min jouées pour 21 prévues)",
-   "Bankroll IA sur 30 j : 79 paris, annoncé 54 % · gagné 57 % (hasard ±11 pts) · rendement +9.7 %",
-   "Canal Picks sur 30 j : 18 paris, annoncé 55 % · gagné 28 % (hasard ±23 pts) · rendement -49.0 %",
-   "47 paris perdus en 30 jours : 19 de malchance (bonne lecture, mauvais sort), 28 d'erreur de lecture."
+   "Post-mortem du 09/11 : 5/7 gagnés.",
+   "🔎 erreur · IND @ DAL -0 Pascal Siakam moins de 0.5 interceptions @ 2.70 : sans détail ()",
+   "🔎 erreur · Pascal Siakam moins de 0.5 interceptions (IND @ DAL) @ 2.70 : rendement sous la projection (2 en 35 min (projeté 1.1 à ce temps de jeu))",
+   "Bankroll IA sur 30 j : 81 paris, annoncé 54 % · gagné 57 % (hasard ±11 pts) · rendement +10.4 %",
+   "Canal Picks sur 30 j : 23 paris, annoncé 56 % · gagné 39 % (hasard ±21 pts) · rendement -29.4 %",
+   "49 paris perdus en 30 jours : 19 de malchance (bonne lecture, mauvais sort), 30 d'erreur de lecture."
   ],
-  "params": {},
-  "minutes": 14.6
+  "params": {
+   "rest_w": -0.05
+  },
+  "minutes": 36.8
  },
  "nights": [
   {
@@ -513,6 +681,111 @@
      ]
     },
     "adopted": null
+   }
+  },
+  {
+   "at": "2026-11-10T06:33+00:00",
+   "base": {
+    "2024-25": 2.3504,
+    "2025-26": 2.36767
+   },
+   "gap": {
+    "2024-25": [
+     0.9848,
+     0.9625,
+     1521
+    ],
+    "2025-26": [
+     1.0099,
+     0.9811,
+     1686
+    ]
+   },
+   "adopted": {
+    "param": "rest_w",
+    "from": 0.0,
+    "to": -0.05,
+    "score": {
+     "2024-25": 2.34817,
+     "2025-26": 2.36579
+    },
+    "gain": {
+     "2024-25": 0.00223,
+     "2025-26": 0.00188
+    }
+   },
+   "notes": [],
+   "nba": {
+    "base": {
+     "2025-26": 0.70353,
+     "2026-27": 0.69847
+    },
+    "gap": {
+     "2025-26": [
+      0.7035,
+      0.6857,
+      32574
+     ],
+     "2026-27": [
+      0.6985,
+      0.6859,
+      11908
+     ]
+    },
+    "adopted": null,
+    "calib": {
+     "at": "2026-11-10T06:33+00:00",
+     "n": [
+      32574,
+      11908
+     ],
+     "test": {
+      "marche": 0.68589,
+      "cale": 0.68488
+     },
+     "coef": {
+      "PTS": [
+       -0.0557,
+       0.0
+      ],
+      "REB": [
+       -0.039,
+       0.1249
+      ],
+      "AST": [
+       -0.0961,
+       0.0441
+      ],
+      "PRA": [
+       -0.0646,
+       0.0119
+      ],
+      "PR": [
+       -0.0617,
+       0.0422
+      ],
+      "PA": [
+       -0.0718,
+       0.0
+      ],
+      "BLK": [
+       -0.1206,
+       0.1167
+      ],
+      "3PM": [
+       0.0126,
+       0.2116
+      ],
+      "STL": [
+       -0.1297,
+       0.1242
+      ],
+      "_all": [
+       -0.0588,
+       0.0598
+      ]
+     }
+    }
    }
   }
  ]

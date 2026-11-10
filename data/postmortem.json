@@ -1,120 +1,106 @@
 {
- "at": "2026-11-09T08:15+00:00",
- "last_night": "2026-11-08",
+ "at": "2026-11-10T07:10+00:00",
+ "last_night": "2026-11-09",
  "veille": [
   {
    "src": "Bankroll IA",
-   "night": "2026-11-08",
-   "p": 0.3669,
-   "price": 2.95,
+   "night": "2026-11-09",
+   "p": 0.3841,
+   "price": 2.76,
    "win": true,
-   "kind": "value",
-   "stake": 0.6,
-   "label": "Detroit Pistons - Los Angeles Lakers -0 Victoire Los Angeles Lakers"
+   "kind": "conv",
+   "stake": 0.8,
+   "label": "SA @ PHX -0 Jalen Green moins de 0.5 interceptions"
   },
   {
    "src": "Bankroll IA",
-   "night": "2026-11-08",
-   "p": 0.367,
-   "price": 2.95,
-   "win": true,
-   "kind": "conv",
-   "stake": 1.0,
-   "label": "Detroit Pistons - Los Angeles Lakers -0 Victoire Los Angeles Lakers"
-  },
-  {
-   "src": "Bankroll IA",
-   "night": "2026-11-08",
-   "p": 0.6643,
-   "price": 1.42,
-   "win": true,
-   "kind": "conv",
-   "stake": 2.3,
-   "label": "PHI @ CHI -0 Joel Embiid moins de 1.5 contres"
-  },
-  {
-   "src": "Canal Picks",
-   "night": "2026-11-08",
-   "p": 0.367,
-   "price": 2.95,
-   "win": true,
-   "kind": "value",
-   "stake": 1.0,
-   "label": "Victoire Los Angeles Lakers (Detroit Pistons - Los Angeles Lakers)"
-  },
-  {
-   "src": "Canal Picks",
-   "night": "2026-11-08",
-   "p": 0.6544,
-   "price": 1.46,
+   "night": "2026-11-09",
+   "p": 0.3905,
+   "price": 2.7,
    "win": false,
+   "kind": "conv",
+   "stake": 0.8,
+   "label": "IND @ DAL -0 Pascal Siakam moins de 0.5 interceptions",
+   "cause": "other",
+   "txt": ""
+  },
+  {
+   "src": "Canal Picks",
+   "night": "2026-11-09",
+   "p": 0.3905,
+   "price": 2.7,
+   "win": false,
+   "kind": "prop",
+   "stake": 1.0,
+   "label": "Pascal Siakam moins de 0.5 interceptions (IND @ DAL)",
+   "cause": "rate",
+   "txt": "2 en 35 min (projeté 1.1 à ce temps de jeu)"
+  },
+  {
+   "src": "Canal Picks",
+   "night": "2026-11-09",
+   "p": 0.3841,
+   "price": 2.76,
+   "win": true,
+   "kind": "prop",
+   "stake": 1.0,
+   "label": "Jalen Green moins de 0.5 interceptions (SA @ PHX)"
+  },
+  {
+   "src": "Canal Picks",
+   "night": "2026-11-09",
+   "p": 0.6959,
+   "price": 1.41,
+   "win": true,
    "kind": "safe",
    "stake": 0.5,
-   "label": "Kris Dunn moins de 1.5 paniers à 3 pts (NO @ LAC)",
-   "cause": "near",
-   "txt": "2 pour une ligne à 1.5"
+   "label": "Paul Reed moins de 1.5 interceptions (WSH @ DET)"
   },
   {
    "src": "Canal Picks",
-   "night": "2026-11-08",
-   "p": 0.5429,
-   "price": 1.76,
-   "win": false,
-   "kind": "fill",
-   "stake": 0.25,
-   "label": "Josh Giddey moins de 6.5 rebonds (PHI @ CHI)",
-   "cause": "minutes",
-   "txt": "34 min jouées pour 28 prévues ; marché contre nous (53 → 50 %)"
+   "night": "2026-11-09",
+   "p": 0.6804,
+   "price": 1.45,
+   "win": true,
+   "kind": "safe",
+   "stake": 0.5,
+   "label": "Peyton Watson moins de 1.5 contres (CLE @ CHA)"
   },
   {
    "src": "Canal Picks",
-   "night": "2026-11-08",
-   "p": 0.4705,
-   "price": 2.04,
-   "win": false,
-   "kind": "fill",
-   "stake": 0.25,
-   "label": "Daniel Gafford moins de 7.5 points (BKN @ DAL)",
-   "cause": "rate",
-   "txt": "18 en 19 min (projeté 7.0 à ce temps de jeu)"
-  },
-  {
-   "src": "Canal Picks",
-   "night": "2026-11-08",
-   "p": 0.4742,
-   "price": 2.02,
-   "win": false,
-   "kind": "fill",
-   "stake": 0.25,
-   "label": "Klay Thompson moins de 1.5 passes (MIA @ SAC)",
-   "cause": "minutes",
-   "txt": "32 min jouées pour 21 prévues"
+   "night": "2026-11-09",
+   "p": 0.6894,
+   "price": 1.43,
+   "win": true,
+   "kind": "safe",
+   "stake": 0.5,
+   "label": "Stephen Curry moins de 1.5 interceptions (NO @ GS)"
   }
  ],
  "causes": {
-  "rate": 17,
+  "rate": 18,
   "minutes": 9,
   "near": 19,
-  "other": 1,
+  "other": 2,
   "lecture": 1
  },
  "calib": {
   "Bankroll IA": {
-   "n": 79,
-   "win": 0.57,
-   "announced": 0.539,
-   "noise": 0.112,
-   "roi": 0.097
+   "n": 81,
+   "win": 0.568,
+   "announced": 0.535,
+   "noise": 0.111,
+   "roi": 0.104
   },
   "Canal Picks": {
-   "n": 18,
-   "win": 0.278,
-   "announced": 0.553,
-   "noise": 0.234,
-   "roi": -0.49
+   "n": 23,
+   "win": 0.391,
+   "announced": 0.556,
+   "noise": 0.207,
+   "roi": -0.294
   }
  },
  "lessons": [
-  "47 paris perdus en 30 jours : 19 de malchance (bonne lecture, mauvais sort), 28 d'erreur de lecture."
+  "49 paris perdus en 30 jours : 19 de malchance (bonne lecture, mauvais sort), 30 d'erreur de lecture."
  ]
 }
