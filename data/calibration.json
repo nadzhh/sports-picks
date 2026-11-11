@@ -1,12 +1,22 @@
 {
- "genere_le": "2026-11-10T21:30:03",
- "n_resolus": 2759,
+ "genere_le": "2026-11-11T01:33:09",
+ "n_resolus": 2760,
  "parametres": {
   "n_min_jugement": 20,
   "seuil_pct": 50.0,
   "pas_tranche": 10
  },
  "marches": {
+  "foot/Victoire domicile": {
+   "n": 218,
+   "wins": 117,
+   "wr": 53.7,
+   "borne_basse": 47.0,
+   "borne_haute": 60.2,
+   "statut": "SURVEILLE",
+   "cote_moyenne": 3.2,
+   "n_cotes": 37
+  },
   "nba/FG3M": {
    "n": 38,
    "wins": 22,
@@ -66,16 +76,6 @@
    "statut": "RETENU",
    "cote_moyenne": 1.55,
    "n_cotes": 18
-  },
-  "foot/Victoire domicile": {
-   "n": 217,
-   "wins": 117,
-   "wr": 53.9,
-   "borne_basse": 47.3,
-   "borne_haute": 60.4,
-   "statut": "SURVEILLE",
-   "cote_moyenne": 2.15,
-   "n_cotes": 36
   },
   "nba/AST": {
    "n": 50,
@@ -1109,6 +1109,24 @@
   }
  },
  "calibration": {
+  "foot/Victoire domicile": {
+   "60-69": {
+    "n": 96,
+    "p": 49.0
+   },
+   "70-79": {
+    "n": 68,
+    "p": 58.8
+   },
+   "80-89": {
+    "n": 31,
+    "p": 64.5
+   },
+   "50-59": {
+    "n": 23,
+    "p": 43.5
+   }
+  },
   "nba/FG3M": {
    "60-69": {
     "n": 15,
@@ -1219,24 +1237,6 @@
    "70-79": {
     "n": 6,
     "p": 73.0
-   }
-  },
-  "foot/Victoire domicile": {
-   "60-69": {
-    "n": 95,
-    "p": 49.5
-   },
-   "70-79": {
-    "n": 68,
-    "p": 58.8
-   },
-   "80-89": {
-    "n": 31,
-    "p": 64.5
-   },
-   "50-59": {
-    "n": 23,
-    "p": 43.5
    }
   },
   "nba/AST": {
@@ -2147,8 +2147,8 @@
   }
  },
  "replis_sport": {
-  "nba": 52.5,
   "foot": 48.7,
+  "nba": 52.5,
   "tennis": 61.7
  }
 }
