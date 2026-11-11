@@ -303,7 +303,49 @@
         "l5_goals_n": 5
       }
     },
-    "match_odds": null,
+    "match_odds": {
+      "markets": [
+        {
+          "marketName": "Full time",
+          "choices": [
+            {
+              "name": "CD Tarancon",
+              "side": "home",
+              "cote": 21.0,
+              "book": "draftkings"
+            },
+            {
+              "name": "Draw",
+              "side": "draw",
+              "cote": 11.0,
+              "book": "draftkings"
+            },
+            {
+              "name": "Levante",
+              "side": "away",
+              "cote": 1.09,
+              "book": "draftkings"
+            }
+          ]
+        },
+        {
+          "marketName": "Goals Over/Under (3.5)",
+          "choices": [
+            {
+              "name": "Over 3.5",
+              "cote": 1.71,
+              "book": "draftkings"
+            },
+            {
+              "name": "Under 3.5",
+              "cote": 2.1,
+              "book": "draftkings"
+            }
+          ]
+        }
+      ],
+      "_source": "espn"
+    },
     "lineups_home": null,
     "lineups_away": null,
     "team_streaks": null
@@ -384,7 +426,49 @@
         "l5_goals_n": 5
       }
     },
-    "match_odds": null,
+    "match_odds": {
+      "markets": [
+        {
+          "marketName": "Full time",
+          "choices": [
+            {
+              "name": "CD Artistico Navalcarnero",
+              "side": "home",
+              "cote": 14.0,
+              "book": "draftkings"
+            },
+            {
+              "name": "Draw",
+              "side": "draw",
+              "cote": 10.0,
+              "book": "draftkings"
+            },
+            {
+              "name": "Real Betis",
+              "side": "away",
+              "cote": 1.14,
+              "book": "draftkings"
+            }
+          ]
+        },
+        {
+          "marketName": "Goals Over/Under (3.5)",
+          "choices": [
+            {
+              "name": "Over 3.5",
+              "cote": 1.91,
+              "book": "draftkings"
+            },
+            {
+              "name": "Under 3.5",
+              "cote": 1.87,
+              "book": "draftkings"
+            }
+          ]
+        }
+      ],
+      "_source": "espn"
+    },
     "lineups_home": null,
     "lineups_away": null,
     "team_streaks": null,
@@ -457,7 +541,38 @@
       "top_buteurs_away": [],
       "top_passeurs_home": [],
       "top_passeurs_away": [],
-      "value_bets": []
+      "value_bets": [
+        {
+          "marche": "Navalcarnero gagne (1X2)",
+          "cote": 14.0,
+          "book": "draftkings",
+          "p_ligue": 45,
+          "p_modele": 37,
+          "p_form": 40,
+          "p_avg": 41,
+          "value": 568.4
+        },
+        {
+          "marche": "Match nul (1X2)",
+          "cote": 10.0,
+          "book": "draftkings",
+          "p_ligue": 27,
+          "p_modele": 26,
+          "p_form": 30,
+          "p_avg": 28,
+          "value": 278.0
+        },
+        {
+          "marche": "Real Betis gagne (1X2)",
+          "cote": 1.14,
+          "book": "draftkings",
+          "p_ligue": 28,
+          "p_modele": 37,
+          "p_form": 30,
+          "p_avg": 32,
+          "value": 36.0
+        }
+      ]
     },
     "home_season_stats": {
       "overall": {
@@ -1043,243 +1158,6 @@
         "under_35": 82,
         "gf_pm": 0.76,
         "ga_pm": 1.35
-      }
-    }
-  },
-  {
-    "id": "6539338",
-    "home": "Vietnam",
-    "away": "Chinese Taipei",
-    "home_id": "5894",
-    "away_id": "5896",
-    "_fotmob_lid": 114,
-    "_page_url": "/matches/vietnam-vs-chinese-taipei/15dx81#6539338",
-    "start_ts": 1794398400,
-    "league_id": 114,
-    "league": "Friendlies",
-    "h2h": {
-      "teamDuel": {
-        "homeWins": 0,
-        "draws": 0,
-        "awayWins": 0
-      }
-    },
-    "pre_match_form": {
-      "homeTeam": {
-        "form": [
-          "L",
-          "W",
-          "L",
-          "W",
-          "D"
-        ],
-        "form_opps": [
-          "5823",
-          "5910",
-          "5788",
-          "230139",
-          "5788"
-        ],
-        "form_opp_ranks": [
-          null,
-          null,
-          null,
-          null,
-          null
-        ],
-        "position": null,
-        "avgRating": null,
-        "l5_gf_pm": 1.4,
-        "l5_ga_pm": 1.4,
-        "l5_goals_n": 5
-      },
-      "awayTeam": {
-        "form": [
-          "L",
-          "L"
-        ],
-        "form_opps": [
-          "5895",
-          "5900"
-        ],
-        "form_opp_ranks": [
-          null,
-          null
-        ],
-        "position": null,
-        "avgRating": null,
-        "l5_gf_pm": 1.0,
-        "l5_ga_pm": 3.0,
-        "l5_goals_n": 2
-      }
-    },
-    "match_odds": null,
-    "lineups_home": null,
-    "lineups_away": null,
-    "team_streaks": null,
-    "analyse": {
-      "ht_1x2": {
-        "home_pct": 44,
-        "draw_pct": 37,
-        "away_pct": 19,
-        "home_cote": 2.26,
-        "draw_cote": 2.74,
-        "away_cote": 5.17,
-        "lam_h": 0.92,
-        "lam_a": 0.5,
-        "lam_draw": 0.33
-      },
-      "ft_1x2": {
-        "home_pct": 60,
-        "draw_pct": 20,
-        "away_pct": 20,
-        "home_cote": 1.67,
-        "draw_cote": 5.0,
-        "away_cote": 5.01,
-        "lam_h": 2.2,
-        "lam_a": 1.2
-      },
-      "ht_total_buts": [
-        {
-          "label": "0 buts",
-          "pct": 24
-        },
-        {
-          "label": "1 but",
-          "pct": 34
-        },
-        {
-          "label": "2+ buts",
-          "pct": 42
-        }
-      ],
-      "ft_total_buts": [
-        {
-          "label": "0 buts",
-          "pct": 3
-        },
-        {
-          "label": "1 but",
-          "pct": 11
-        },
-        {
-          "label": "2 buts",
-          "pct": 19
-        },
-        {
-          "label": "3+ buts",
-          "pct": 65
-        }
-      ],
-      "btts": {
-        "yes": 62,
-        "no": 38
-      },
-      "league_stats": {
-        "btts": 50,
-        "ht_over_05": 75,
-        "ft_over_15": 72,
-        "ft_over_25": 50
-      },
-      "league_name": "Friendlies",
-      "top_buteurs_home": [],
-      "top_buteurs_away": [],
-      "top_passeurs_home": [],
-      "top_passeurs_away": [],
-      "value_bets": []
-    },
-    "home_season_stats": {
-      "overall": {
-        "n": 5,
-        "wins_pct": 100,
-        "draws_pct": 0,
-        "losses_pct": 0,
-        "btts_pct": 40,
-        "over_15": 80,
-        "over_25": 60,
-        "over_35": 40,
-        "under_15": 20,
-        "under_25": 40,
-        "under_35": 60,
-        "gf_pm": 2.4,
-        "ga_pm": 0.4
-      },
-      "home": {
-        "n": 3,
-        "wins_pct": 100,
-        "draws_pct": 0,
-        "losses_pct": 0,
-        "btts_pct": 67,
-        "over_15": 100,
-        "over_25": 100,
-        "over_35": 67,
-        "under_15": 0,
-        "under_25": 0,
-        "under_35": 33,
-        "gf_pm": 3.0,
-        "ga_pm": 0.67
-      },
-      "away": {
-        "n": 2,
-        "wins_pct": 100,
-        "draws_pct": 0,
-        "losses_pct": 0,
-        "btts_pct": 0,
-        "over_15": 50,
-        "over_25": 0,
-        "over_35": 0,
-        "under_15": 50,
-        "under_25": 100,
-        "under_35": 100,
-        "gf_pm": 1.5,
-        "ga_pm": 0.0
-      }
-    },
-    "away_season_stats": {
-      "overall": {
-        "n": 2,
-        "wins_pct": 0,
-        "draws_pct": 0,
-        "losses_pct": 100,
-        "btts_pct": 100,
-        "over_15": 100,
-        "over_25": 100,
-        "over_35": 100,
-        "under_15": 0,
-        "under_25": 0,
-        "under_35": 0,
-        "gf_pm": 1.0,
-        "ga_pm": 3.0
-      },
-      "home": {
-        "n": 1,
-        "wins_pct": 0,
-        "draws_pct": 0,
-        "losses_pct": 100,
-        "btts_pct": 100,
-        "over_15": 100,
-        "over_25": 100,
-        "over_35": 100,
-        "under_15": 0,
-        "under_25": 0,
-        "under_35": 0,
-        "gf_pm": 1.0,
-        "ga_pm": 3.0
-      },
-      "away": {
-        "n": 1,
-        "wins_pct": 0,
-        "draws_pct": 0,
-        "losses_pct": 100,
-        "btts_pct": 100,
-        "over_15": 100,
-        "over_25": 100,
-        "over_35": 100,
-        "under_15": 0,
-        "under_25": 0,
-        "under_35": 0,
-        "gf_pm": 1.0,
-        "ga_pm": 3.0
       }
     }
   },
