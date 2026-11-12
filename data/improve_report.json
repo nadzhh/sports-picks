@@ -1,110 +1,110 @@
 {
  "last": {
-  "at": "2026-11-11T07:47+00:00",
+  "at": "2026-11-12T06:35+00:00",
   "sims": 1000,
   "tried": [
    {
-    "param": "cong_w",
-    "from": 0.0,
-    "to": -0.03,
-    "score": {
-     "2024-25": 2.35084,
-     "2025-26": 2.36662
-    },
-    "gain": {
-     "2024-25": -0.00267,
-     "2025-26": -0.00083
-    }
-   },
-   {
-    "param": "cong_w",
-    "from": 0.0,
-    "to": 0.03,
-    "score": {
-     "2024-25": 2.34975,
-     "2025-26": 2.36734
-    },
-    "gain": {
-     "2024-25": -0.00158,
-     "2025-26": -0.00155
-    }
-   },
-   {
-    "param": "hl_days",
-    "from": 200.0,
-    "to": 160.0,
-    "score": {
-     "2024-25": 2.34929,
-     "2025-26": 2.36926
-    },
-    "gain": {
-     "2024-25": -0.00112,
-     "2025-26": -0.00347
-    }
-   },
-   {
-    "param": "hl_days",
-    "from": 200.0,
-    "to": 240.0,
-    "score": {
-     "2024-25": 2.35025,
-     "2025-26": 2.36866
-    },
-    "gain": {
-     "2024-25": -0.00208,
-     "2025-26": -0.00287
-    }
-   },
-   {
-    "param": "k_team",
-    "from": 3.0,
-    "to": 2.0,
-    "score": {
-     "2024-25": 2.34906,
-     "2025-26": 2.36896
-    },
-    "gain": {
-     "2024-25": -0.00089,
-     "2025-26": -0.00317
-    }
-   },
-   {
-    "param": "k_team",
-    "from": 3.0,
-    "to": 4.0,
-    "score": {
-     "2024-25": 2.35003,
-     "2025-26": 2.37016
-    },
-    "gain": {
-     "2024-25": -0.00186,
-     "2025-26": -0.00437
-    }
-   },
-   {
-    "param": "rating_beta",
+    "param": "intensity_sd",
     "from": 0.3,
     "to": 0.2,
     "score": {
-     "2024-25": 2.35086,
-     "2025-26": 2.3687
+     "2024-25": 2.35157,
+     "2025-26": 2.37227
     },
     "gain": {
-     "2024-25": -0.00269,
-     "2025-26": -0.00291
+     "2024-25": -0.0034,
+     "2025-26": -0.00648
     }
    },
    {
-    "param": "rating_beta",
+    "param": "intensity_sd",
     "from": 0.3,
     "to": 0.4,
     "score": {
-     "2024-25": 2.34856,
-     "2025-26": 2.36886
+     "2024-25": 2.34826,
+     "2025-26": 2.36868
     },
     "gain": {
-     "2024-25": -0.00039,
-     "2025-26": -0.00307
+     "2024-25": -9e-05,
+     "2025-26": -0.00289
+    }
+   },
+   {
+    "param": "finish",
+    "from": 0.97,
+    "to": 0.95,
+    "score": {
+     "2024-25": 2.34925,
+     "2025-26": 2.36904
+    },
+    "gain": {
+     "2024-25": -0.00108,
+     "2025-26": -0.00325
+    }
+   },
+   {
+    "param": "finish",
+    "from": 0.97,
+    "to": 0.99,
+    "score": {
+     "2024-25": 2.35068,
+     "2025-26": 2.37097
+    },
+    "gain": {
+     "2024-25": -0.00251,
+     "2025-26": -0.00518
+    }
+   },
+   {
+    "param": "lineup_pow",
+    "from": 1.0,
+    "to": 0.8,
+    "score": {
+     "2024-25": 2.34772,
+     "2025-26": 2.36651
+    },
+    "gain": {
+     "2024-25": 0.00045,
+     "2025-26": -0.00072
+    }
+   },
+   {
+    "param": "lineup_pow",
+    "from": 1.0,
+    "to": 1.2,
+    "score": {
+     "2024-25": 2.34768,
+     "2025-26": 2.36877
+    },
+    "gain": {
+     "2024-25": 0.00049,
+     "2025-26": -0.00298
+    }
+   },
+   {
+    "param": "home_boost",
+    "from": 1.0,
+    "to": 0.98,
+    "score": {
+     "2024-25": 2.34923,
+     "2025-26": 2.3696
+    },
+    "gain": {
+     "2024-25": -0.00106,
+     "2025-26": -0.00381
+    }
+   },
+   {
+    "param": "home_boost",
+    "from": 1.0,
+    "to": 1.02,
+    "score": {
+     "2024-25": 2.34931,
+     "2025-26": 2.3664
+    },
+    "gain": {
+     "2024-25": -0.00114,
+     "2025-26": -0.00061
     }
    }
   ],
@@ -129,178 +129,138 @@
   "nba": {
    "tried": [
     {
-     "param": "mkt_min_alpha",
-     "from": 0.6,
-     "to": 0.5,
+     "param": "vol_c",
+     "from": 0.2,
+     "to": 0.1,
      "score": {
-      "2025-26": 0.70479,
-      "2026-27": 0.69864
+      "2025-26": 0.70367,
+      "2026-27": 0.69848
      },
      "gain": {
-      "2025-26": -0.00119,
-      "2026-27": -0.00111
+      "2025-26": -0.00014,
+      "2026-27": -0.00036
      }
     },
     {
-     "param": "mkt_min_alpha",
-     "from": 0.6,
-     "to": 0.7,
+     "param": "vol_c",
+     "from": 0.2,
+     "to": 0.3,
      "score": {
-      "2025-26": 0.70209,
-      "2026-27": 0.69721
+      "2025-26": 0.70334,
+      "2026-27": 0.69866
      },
      "gain": {
-      "2025-26": 0.00151,
-      "2026-27": 0.00032
+      "2025-26": 0.00019,
+      "2026-27": -0.00054
      }
     },
     {
-     "param": "blowout_slope",
-     "from": 0.006,
-     "to": 0.004,
+     "param": "shoot_c",
+     "from": 0.85,
+     "to": 0.75,
      "score": {
-      "2025-26": 0.70346,
-      "2026-27": 0.69723
+      "2025-26": 0.70353,
+      "2026-27": 0.69839
      },
      "gain": {
-      "2025-26": 0.00014,
-      "2026-27": 0.0003
+      "2025-26": 0.0,
+      "2026-27": -0.00027
      }
     },
     {
-     "param": "blowout_slope",
-     "from": 0.006,
-     "to": 0.008,
+     "param": "shoot_c",
+     "from": 0.85,
+     "to": 0.95,
      "score": {
-      "2025-26": 0.70434,
-      "2026-27": 0.69711
+      "2025-26": 0.70353,
+      "2026-27": 0.6979
      },
      "gain": {
-      "2025-26": -0.00074,
-      "2026-27": 0.00042
+      "2025-26": 0.0,
+      "2026-27": 0.00022
      }
     }
    ],
    "adopted": null,
    "notes": [],
    "base": {
-    "2025-26": 0.7036,
-    "2026-27": 0.69753
+    "2025-26": 0.70353,
+    "2026-27": 0.69812
    },
    "gap": {
     "2025-26": [
-     0.7036,
+     0.7035,
      0.6857,
      32574
     ],
     "2026-27": [
-     0.6975,
+     0.6981,
      0.6859,
-     12547
+     13139
     ]
    },
    "calib": {
-    "at": "2026-11-11T07:47+00:00",
+    "at": "2026-11-12T06:35+00:00",
     "n": [
      32574,
-     12547
+     13139
     ],
     "test": {
      "marche": 0.68588,
-     "cale": 0.68464
+     "cale": 0.68474
     },
     "coef": {
      "PTS": [
-      -0.0555,
+      -0.0534,
       0.0
      ],
      "REB": [
-      -0.045,
-      0.1301
+      -0.0469,
+      0.1234
      ],
      "AST": [
-      -0.1037,
-      0.0423
+      -0.1004,
+      0.0437
      ],
      "PRA": [
-      -0.0699,
-      0.0192
+      -0.0703,
+      0.0199
      ],
      "PR": [
-      -0.0644,
-      0.0514
+      -0.0649,
+      0.046
      ],
      "PA": [
-      -0.0734,
+      -0.0737,
       0.0
      ],
      "BLK": [
-      -0.1276,
-      0.1065
+      -0.1257,
+      0.1021
      ],
      "3PM": [
-      0.0158,
-      0.2058
+      0.0249,
+      0.2202
      ],
      "STL": [
-      -0.1348,
-      0.1334
+      -0.1317,
+      0.1493
      ],
      "_all": [
-      -0.0618,
-      0.0628
+      -0.0605,
+      0.0614
      ]
     }
    }
   },
   "series": [
-   "canal Picks : 1/2 séries de 10 positives (attendu 44 %)",
-   "canal Picks : série en cours 8/10, +1.95 u",
+   "canal Picks : 2/3 séries de 10 positives (attendu 47 %)",
+   "canal Picks : série en cours 4/10, +1.60 u",
    "Bankroll IA : 5/8 séries de 10 positives (attendu 56 %)",
-   "Bankroll IA : série en cours 3/10, +4.01 €"
+   "Bankroll IA : série en cours 5/10, +5.47 €"
   ],
   "lecons": {
    "hier": [
-    {
-     "label": "Pascal Siakam moins de 0.5 interceptions",
-     "match": "IND @ DAL",
-     "price": 2.7,
-     "p": 0.3905,
-     "win": false,
-     "src": "canal"
-    },
-    {
-     "label": "Jalen Green moins de 0.5 interceptions",
-     "match": "SA @ PHX",
-     "price": 2.76,
-     "p": 0.3841,
-     "win": true,
-     "src": "canal"
-    },
-    {
-     "label": "Paul Reed moins de 1.5 interceptions",
-     "match": "WSH @ DET",
-     "price": 1.41,
-     "p": 0.6959,
-     "win": true,
-     "src": "canal"
-    },
-    {
-     "label": "Peyton Watson moins de 1.5 contres",
-     "match": "CLE @ CHA",
-     "price": 1.45,
-     "p": 0.6804,
-     "win": true,
-     "src": "canal"
-    },
-    {
-     "label": "Stephen Curry moins de 1.5 interceptions",
-     "match": "NO @ GS",
-     "price": 1.43,
-     "p": 0.6894,
-     "win": true,
-     "src": "canal"
-    },
     {
      "label": "Derrick White moins de 1.5 interceptions",
      "match": "BOS @ PHI",
@@ -342,20 +302,52 @@
      "src": "canal"
     },
     {
-     "label": "Jalen Green moins de 0.5 interceptions",
-     "match": "SA @ PHX",
-     "price": 2.76,
-     "p": 0.3841,
+     "label": "Jamal Murray moins de 0.5 interceptions",
+     "match": "DEN @ MEM",
+     "price": 2.67,
+     "p": 0.3919,
      "win": true,
-     "src": "bankroll"
+     "src": "canal"
     },
     {
-     "label": "Pascal Siakam moins de 0.5 interceptions",
-     "match": "IND @ DAL",
-     "price": 2.7,
-     "p": 0.3905,
+     "label": "Peyton Watson moins de 1.5 contres",
+     "match": "CLE @ NY",
+     "price": 1.42,
+     "p": 0.6954,
      "win": false,
-     "src": "bankroll"
+     "src": "canal"
+    },
+    {
+     "label": "Anthony Davis moins de 1.5 interceptions",
+     "match": "WSH @ IND",
+     "price": 1.41,
+     "p": 0.6934,
+     "win": true,
+     "src": "canal"
+    },
+    {
+     "label": "Derrick White moins de 1.5 interceptions",
+     "match": "BOS @ TOR",
+     "price": 1.46,
+     "p": 0.6794,
+     "win": true,
+     "src": "canal"
+    },
+    {
+     "label": "Al Horford moins de 1.5 paniers à 3 pts",
+     "match": "GS @ HOU",
+     "price": 1.45,
+     "p": 0.6737,
+     "win": true,
+     "src": "canal"
+    },
+    {
+     "label": "Donovan Clingan moins de 1.5 paniers à 3 pts",
+     "match": "OKC @ POR",
+     "price": 1.41,
+     "p": 0.6853,
+     "win": true,
+     "src": "canal"
     },
     {
      "label": "Giannis Antetokounmpo moins de 1.5 contres",
@@ -372,97 +364,113 @@
      "p": 0.689,
      "win": true,
      "src": "bankroll"
+    },
+    {
+     "label": "Jamal Murray moins de 0.5 interceptions",
+     "match": "DEN @ MEM",
+     "price": 2.67,
+     "p": 0.3919,
+     "win": true,
+     "src": "bankroll"
+    },
+    {
+     "label": "Tari Eason moins de 1.5 interceptions",
+     "match": "GS @ HOU",
+     "price": 1.57,
+     "p": 0.6437,
+     "win": true,
+     "src": "bankroll"
     }
    ],
    "props": {
-    "n": 382,
-    "w": 230,
-    "exp": 212.8,
-    "matchs": 14
+    "n": 397,
+    "w": 239,
+    "exp": 223.7,
+    "matchs": 16
    },
    "segments": [
     {
      "seg": "nba · 3PM moins",
-     "n": 115,
-     "w": 68,
-     "exp": 66.4,
-     "clv": -0.0589
+     "n": 147,
+     "w": 85,
+     "exp": 85.4,
+     "clv": -0.0577
     },
     {
      "seg": "nba · REB moins",
-     "n": 103,
-     "w": 64,
-     "exp": 57.9,
+     "n": 123,
+     "w": 80,
+     "exp": 69.4,
      "clv": -0.1255
     },
     {
-     "seg": "nba · PTS moins",
-     "n": 95,
-     "w": 53,
-     "exp": 49.1,
-     "clv": -0.0527
-    },
-    {
      "seg": "nba · AST moins",
-     "n": 85,
-     "w": 56,
-     "exp": 49.0,
+     "n": 110,
+     "w": 70,
+     "exp": 63.7,
      "clv": -0.1031
     },
     {
+     "seg": "nba · PTS moins",
+     "n": 108,
+     "w": 57,
+     "exp": 56.0,
+     "clv": -0.0527
+    },
+    {
      "seg": "nba · RA moins",
-     "n": 81,
-     "w": 50,
-     "exp": 46.7,
+     "n": 98,
+     "w": 63,
+     "exp": 56.5,
      "clv": null
     },
     {
      "seg": "nba · REB plus",
-     "n": 71,
-     "w": 40,
-     "exp": 39.1,
+     "n": 90,
+     "w": 50,
+     "exp": 49.6,
      "clv": null
     },
     {
      "seg": "nba · PR moins",
-     "n": 64,
-     "w": 42,
-     "exp": 33.4,
+     "n": 81,
+     "w": 50,
+     "exp": 42.5,
      "clv": null
     },
     {
      "seg": "nba · PA moins",
-     "n": 52,
-     "w": 34,
-     "exp": 27.3,
+     "n": 65,
+     "w": 39,
+     "exp": 34.3,
      "clv": null
     },
     {
      "seg": "nba · PRA moins",
-     "n": 51,
-     "w": 30,
-     "exp": 26.7,
+     "n": 62,
+     "w": 34,
+     "exp": 32.5,
      "clv": null
     },
     {
      "seg": "nba · STL moins",
-     "n": 40,
-     "w": 28,
-     "exp": 24.4,
-     "clv": -0.0637
+     "n": 51,
+     "w": 36,
+     "exp": 30.9,
+     "clv": -0.0648
     },
     {
      "seg": "nba · 3PM plus",
-     "n": 40,
-     "w": 28,
-     "exp": 22.1,
+     "n": 50,
+     "w": 36,
+     "exp": 27.9,
      "clv": null
     },
     {
      "seg": "nba · AST plus",
-     "n": 39,
-     "w": 19,
-     "exp": 21.6,
+     "n": 46,
+     "w": 25,
+     "exp": 25.5,
      "clv": null
     }
    ],
@@ -470,15 +478,16 @@
    "notes": []
   },
   "postmortem": [
-   "Post-mortem du 10/11 : 7/7 gagnés.",
-   "Bankroll IA sur 30 j : 83 paris, annoncé 54 % · gagné 58 % (hasard ±11 pts) · rendement +11.2 %",
-   "Canal Picks sur 30 j : 28 paris, annoncé 57 % · gagné 50 % (hasard ±19 pts) · rendement -15.0 %",
-   "49 paris perdus en 30 jours : 19 de malchance (bonne lecture, mauvais sort), 30 d'erreur de lecture."
+   "Post-mortem du 11/11 : 7/8 gagnés.",
+   "🔎 erreur · Peyton Watson moins de 1.5 contres (CLE @ NY) @ 1.42 : rendement sous la projection (4 en 30 min (projeté 1.2 à ce temps de jeu))",
+   "Bankroll IA sur 30 j : 85 paris, annoncé 54 % · gagné 59 % (hasard ±11 pts) · rendement +13.6 %",
+   "Canal Picks sur 30 j : 34 paris, annoncé 59 % · gagné 56 % (hasard ±17 pts) · rendement -5.3 %",
+   "50 paris perdus en 30 jours : 19 de malchance (bonne lecture, mauvais sort), 31 d'erreur de lecture."
   ],
   "params": {
    "rest_w": -0.05
   },
-  "minutes": 19.3
+  "minutes": 34.8
  },
  "nights": [
   {
@@ -1082,6 +1091,99 @@
       "_all": [
        -0.0618,
        0.0628
+      ]
+     }
+    }
+   }
+  },
+  {
+   "at": "2026-11-12T06:35+00:00",
+   "base": {
+    "2024-25": 2.34817,
+    "2025-26": 2.36579
+   },
+   "gap": {
+    "2024-25": [
+     0.9847,
+     0.9625,
+     1521
+    ],
+    "2025-26": [
+     1.0086,
+     0.9811,
+     1686
+    ]
+   },
+   "adopted": null,
+   "notes": [],
+   "nba": {
+    "base": {
+     "2025-26": 0.70353,
+     "2026-27": 0.69812
+    },
+    "gap": {
+     "2025-26": [
+      0.7035,
+      0.6857,
+      32574
+     ],
+     "2026-27": [
+      0.6981,
+      0.6859,
+      13139
+     ]
+    },
+    "adopted": null,
+    "calib": {
+     "at": "2026-11-12T06:35+00:00",
+     "n": [
+      32574,
+      13139
+     ],
+     "test": {
+      "marche": 0.68588,
+      "cale": 0.68474
+     },
+     "coef": {
+      "PTS": [
+       -0.0534,
+       0.0
+      ],
+      "REB": [
+       -0.0469,
+       0.1234
+      ],
+      "AST": [
+       -0.1004,
+       0.0437
+      ],
+      "PRA": [
+       -0.0703,
+       0.0199
+      ],
+      "PR": [
+       -0.0649,
+       0.046
+      ],
+      "PA": [
+       -0.0737,
+       0.0
+      ],
+      "BLK": [
+       -0.1257,
+       0.1021
+      ],
+      "3PM": [
+       0.0249,
+       0.2202
+      ],
+      "STL": [
+       -0.1317,
+       0.1493
+      ],
+      "_all": [
+       -0.0605,
+       0.0614
       ]
      }
     }
