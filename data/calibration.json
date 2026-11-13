@@ -1,6 +1,6 @@
 {
- "genere_le": "2026-11-13T01:33:49",
- "n_resolus": 2774,
+ "genere_le": "2026-11-13T08:42:55",
+ "n_resolus": 2779,
  "parametres": {
   "n_min_jugement": 20,
   "seuil_pct": 50.0,
@@ -38,14 +38,34 @@
    "n_cotes": 0
   },
   "foot/Victoire extérieur": {
-   "n": 208,
-   "wins": 95,
-   "wr": 45.7,
-   "borne_basse": 39.0,
-   "borne_haute": 52.5,
+   "n": 209,
+   "wins": 96,
+   "wr": 45.9,
+   "borne_basse": 39.3,
+   "borne_haute": 52.7,
    "statut": "SURVEILLE",
    "cote_moyenne": 2.36,
    "n_cotes": 27
+  },
+  "foot/Double chance": {
+   "n": 172,
+   "wins": 141,
+   "wr": 82.0,
+   "borne_basse": 75.6,
+   "borne_haute": 87.0,
+   "statut": "RETENU",
+   "cote_moyenne": 1.55,
+   "n_cotes": 18
+  },
+  "foot/Victoire domicile": {
+   "n": 220,
+   "wins": 119,
+   "wr": 54.1,
+   "borne_basse": 47.5,
+   "borne_haute": 60.5,
+   "statut": "SURVEILLE",
+   "cote_moyenne": 3.2,
+   "n_cotes": 37
   },
   "nba/REB": {
    "n": 58,
@@ -87,16 +107,6 @@
    "cote_moyenne": 1.9,
    "n_cotes": 40
   },
-  "foot/Victoire domicile": {
-   "n": 218,
-   "wins": 117,
-   "wr": 53.7,
-   "borne_basse": 47.0,
-   "borne_haute": 60.2,
-   "statut": "SURVEILLE",
-   "cote_moyenne": 3.2,
-   "n_cotes": 37
-  },
   "nba/FG3M": {
    "n": 38,
    "wins": 22,
@@ -116,16 +126,6 @@
    "statut": "SURVEILLE",
    "cote_moyenne": 1.87,
    "n_cotes": 15
-  },
-  "foot/Double chance": {
-   "n": 170,
-   "wins": 140,
-   "wr": 82.4,
-   "borne_basse": 75.9,
-   "borne_haute": 87.3,
-   "statut": "RETENU",
-   "cote_moyenne": 1.55,
-   "n_cotes": 18
   },
   "nba/AST": {
    "n": 50,
@@ -1157,8 +1157,8 @@
     "p": 49.4
    },
    "80-89": {
-    "n": 31,
-    "p": 54.8
+    "n": 32,
+    "p": 56.2
    },
    "60-69": {
     "n": 73,
@@ -1167,6 +1167,38 @@
    "50-59": {
     "n": 25,
     "p": 36.0
+   }
+  },
+  "foot/Double chance": {
+   "80-89": {
+    "n": 135,
+    "p": 81.5
+   },
+   "90-99": {
+    "n": 31,
+    "p": 87.1
+   },
+   "70-79": {
+    "n": 6,
+    "p": 72.8
+   }
+  },
+  "foot/Victoire domicile": {
+   "70-79": {
+    "n": 70,
+    "p": 60.0
+   },
+   "60-69": {
+    "n": 96,
+    "p": 49.0
+   },
+   "80-89": {
+    "n": 31,
+    "p": 64.5
+   },
+   "50-59": {
+    "n": 23,
+    "p": 43.5
    }
   },
   "nba/REB": {
@@ -1245,24 +1277,6 @@
     "p": 51.3
    }
   },
-  "foot/Victoire domicile": {
-   "60-69": {
-    "n": 96,
-    "p": 49.0
-   },
-   "70-79": {
-    "n": 68,
-    "p": 58.8
-   },
-   "80-89": {
-    "n": 31,
-    "p": 64.5
-   },
-   "50-59": {
-    "n": 23,
-    "p": 43.5
-   }
-  },
   "nba/FG3M": {
    "60-69": {
     "n": 15,
@@ -1301,20 +1315,6 @@
    "80-89": {
     "n": 2,
     "p": 46.5
-   }
-  },
-  "foot/Double chance": {
-   "80-89": {
-    "n": 133,
-    "p": 82.0
-   },
-   "90-99": {
-    "n": 31,
-    "p": 87.1
-   },
-   "70-79": {
-    "n": 6,
-    "p": 73.0
    }
   },
   "nba/AST": {
@@ -2151,7 +2151,7 @@
   }
  },
  "replis_sport": {
-  "foot": 48.7,
+  "foot": 48.8,
   "nba": 52.1,
   "tennis": 61.7
  }
