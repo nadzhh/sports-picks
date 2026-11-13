@@ -1,110 +1,110 @@
 {
  "last": {
-  "at": "2026-11-12T08:23+00:00",
+  "at": "2026-11-13T06:36+00:00",
   "sims": 1000,
   "tried": [
    {
-    "param": "k_cup",
-    "from": 12.0,
-    "to": 8.0,
+    "param": "hl_days",
+    "from": 200.0,
+    "to": 160.0,
     "score": {
-     "2024-25": 2.35054,
+     "2024-25": 2.34929,
+     "2025-26": 2.36926
+    },
+    "gain": {
+     "2024-25": -0.00112,
+     "2025-26": -0.00347
+    }
+   },
+   {
+    "param": "hl_days",
+    "from": 200.0,
+    "to": 240.0,
+    "score": {
+     "2024-25": 2.35025,
+     "2025-26": 2.36866
+    },
+    "gain": {
+     "2024-25": -0.00208,
+     "2025-26": -0.00287
+    }
+   },
+   {
+    "param": "k_team",
+    "from": 3.0,
+    "to": 2.0,
+    "score": {
+     "2024-25": 2.34906,
+     "2025-26": 2.36896
+    },
+    "gain": {
+     "2024-25": -0.00089,
+     "2025-26": -0.00317
+    }
+   },
+   {
+    "param": "k_team",
+    "from": 3.0,
+    "to": 4.0,
+    "score": {
+     "2024-25": 2.35003,
+     "2025-26": 2.37016
+    },
+    "gain": {
+     "2024-25": -0.00186,
+     "2025-26": -0.00437
+    }
+   },
+   {
+    "param": "rating_beta",
+    "from": 0.3,
+    "to": 0.2,
+    "score": {
+     "2024-25": 2.35086,
+     "2025-26": 2.3687
+    },
+    "gain": {
+     "2024-25": -0.00269,
+     "2025-26": -0.00291
+    }
+   },
+   {
+    "param": "rating_beta",
+    "from": 0.3,
+    "to": 0.4,
+    "score": {
+     "2024-25": 2.34856,
      "2025-26": 2.36886
     },
     "gain": {
-     "2024-25": -0.00237,
+     "2024-25": -0.00039,
      "2025-26": -0.00307
     }
    },
    {
-    "param": "k_cup",
-    "from": 12.0,
-    "to": 16.0,
+    "param": "intensity_sd",
+    "from": 0.3,
+    "to": 0.2,
     "score": {
-     "2024-25": 2.34712,
-     "2025-26": 2.37062
+     "2024-25": 2.35157,
+     "2025-26": 2.37227
     },
     "gain": {
-     "2024-25": 0.00105,
-     "2025-26": -0.00483
+     "2024-25": -0.0034,
+     "2025-26": -0.00648
     }
    },
    {
-    "param": "goal_w",
-    "from": 0.0,
-    "to": 0.1,
+    "param": "intensity_sd",
+    "from": 0.3,
+    "to": 0.4,
     "score": {
-     "2024-25": 2.35036,
-     "2025-26": 2.36827
+     "2024-25": 2.34826,
+     "2025-26": 2.36868
     },
     "gain": {
-     "2024-25": -0.00219,
-     "2025-26": -0.00248
-    }
-   },
-   {
-    "param": "k_share",
-    "from": 900.0,
-    "to": 600.0,
-    "score": {
-     "2024-25": 2.35026,
-     "2025-26": 2.36927
-    },
-    "gain": {
-     "2024-25": -0.00209,
-     "2025-26": -0.00348
-    }
-   },
-   {
-    "param": "k_share",
-    "from": 900.0,
-    "to": 1200.0,
-    "score": {
-     "2024-25": 2.3475,
-     "2025-26": 2.36945
-    },
-    "gain": {
-     "2024-25": 0.00067,
-     "2025-26": -0.00366
-    }
-   },
-   {
-    "param": "rest_w",
-    "from": -0.05,
-    "to": -0.1,
-    "score": {
-     "2024-25": 2.34866,
-     "2025-26": 2.36542
-    },
-    "gain": {
-     "2024-25": -0.00049,
-     "2025-26": 0.00037
-    }
-   },
-   {
-    "param": "rest_w",
-    "from": -0.05,
-    "to": 0.0,
-    "score": {
-     "2024-25": 2.3504,
-     "2025-26": 2.36767
-    },
-    "gain": {
-     "2024-25": -0.00223,
-     "2025-26": -0.00188
-    }
-   },
-   {
-    "param": "cong_w",
-    "from": 0.0,
-    "to": -0.03,
-    "score": {
-     "2024-25": 2.35084,
-     "2025-26": 2.36662
-    },
-    "gain": {
-     "2024-25": -0.00267,
-     "2025-26": -0.00083
+     "2024-25": -9e-05,
+     "2025-26": -0.00289
     }
    }
   ],
@@ -129,190 +129,138 @@
   "nba": {
    "tried": [
     {
-     "param": "usage_pow",
-     "from": 1.15,
-     "to": 1.1,
+     "param": "hl_rates",
+     "from": 30.0,
+     "to": 25.0,
      "score": {
-      "2025-26": 0.70343,
-      "2026-27": 0.69859
+      "2025-26": 0.70376,
+      "2026-27": 0.69813
      },
      "gain": {
-      "2025-26": 0.0001,
-      "2026-27": -0.00047
+      "2025-26": -0.00077,
+      "2026-27": -0.00039
      }
     },
     {
-     "param": "usage_pow",
-     "from": 1.15,
-     "to": 1.2,
+     "param": "hl_rates",
+     "from": 30.0,
+     "to": 35.0,
      "score": {
-      "2025-26": 0.70349,
-      "2026-27": 0.69858
+      "2025-26": 0.70378,
+      "2026-27": 0.69867
      },
      "gain": {
-      "2025-26": 4e-05,
-      "2026-27": -0.00046
+      "2025-26": -0.00079,
+      "2026-27": -0.00093
      }
     },
     {
-     "param": "ast_pow",
-     "from": 1.15,
-     "to": 1.1,
+     "param": "hl_minutes",
+     "from": 4.0,
+     "to": 3.0,
      "score": {
-      "2025-26": 0.70291,
-      "2026-27": 0.69748
+      "2025-26": 0.70365,
+      "2026-27": 0.69902
      },
      "gain": {
-      "2025-26": 0.00062,
-      "2026-27": 0.00064
+      "2025-26": -0.00066,
+      "2026-27": -0.00128
      }
     },
     {
-     "param": "ast_pow",
-     "from": 1.15,
-     "to": 1.2,
+     "param": "hl_minutes",
+     "from": 4.0,
+     "to": 5.0,
      "score": {
-      "2025-26": 0.70377,
-      "2026-27": 0.69884
+      "2025-26": 0.7034,
+      "2026-27": 0.69881
      },
      "gain": {
-      "2025-26": -0.00024,
-      "2026-27": -0.00072
+      "2025-26": -0.00041,
+      "2026-27": -0.00107
      }
     }
    ],
-   "adopted": {
-    "param": "ast_pow",
-    "from": 1.15,
-    "to": 1.1,
-    "score": {
-     "2025-26": 0.70291,
-     "2026-27": 0.69748
-    },
-    "gain": {
-     "2025-26": 0.00062,
-     "2026-27": 0.00064
-    }
-   },
+   "adopted": null,
    "notes": [],
    "base": {
-    "2025-26": 0.70353,
-    "2026-27": 0.69812
+    "2025-26": 0.70299,
+    "2026-27": 0.69774
    },
    "gap": {
     "2025-26": [
-     0.7035,
+     0.703,
      0.6857,
      32574
     ],
     "2026-27": [
-     0.6981,
-     0.6859,
-     13139
+     0.6977,
+     0.6861,
+     13330
     ]
    },
    "calib": {
-    "at": "2026-11-12T08:23+00:00",
+    "at": "2026-11-13T06:36+00:00",
     "n": [
      32574,
-     13139
+     13330
     ],
     "test": {
-     "marche": 0.68588,
-     "cale": 0.68474
+     "marche": 0.68607,
+     "cale": 0.68492
     },
     "coef": {
      "PTS": [
-      -0.0534,
+      -0.0537,
       0.0
      ],
      "REB": [
-      -0.0469,
-      0.1234
+      -0.0467,
+      0.1358
      ],
      "AST": [
-      -0.1004,
-      0.0437
+      -0.0991,
+      0.0479
      ],
      "PRA": [
-      -0.0703,
-      0.0199
+      -0.0699,
+      0.021
      ],
      "PR": [
-      -0.0649,
-      0.046
+      -0.0629,
+      0.0479
      ],
      "PA": [
-      -0.0737,
+      -0.0717,
       0.0
      ],
      "BLK": [
-      -0.1257,
-      0.1021
+      -0.1272,
+      0.0834
      ],
      "3PM": [
-      0.0249,
-      0.2202
+      0.0317,
+      0.2615
      ],
      "STL": [
-      -0.1317,
-      0.1493
+      -0.1343,
+      0.1609
      ],
      "_all": [
-      -0.0605,
-      0.0614
+      -0.0593,
+      0.0685
      ]
     }
    }
   },
   "series": [
    "canal Picks : 2/3 séries de 10 positives (attendu 47 %)",
-   "canal Picks : série en cours 4/10, +1.60 u",
+   "canal Picks : série en cours 8/10, +1.27 u",
    "Bankroll IA : 5/8 séries de 10 positives (attendu 56 %)",
-   "Bankroll IA : série en cours 5/10, +5.47 €"
+   "Bankroll IA : série en cours 7/10, +5.69 €"
   ],
   "lecons": {
    "hier": [
-    {
-     "label": "Derrick White moins de 1.5 interceptions",
-     "match": "BOS @ PHI",
-     "price": 1.48,
-     "p": 0.6712,
-     "win": true,
-     "src": "canal"
-    },
-    {
-     "label": "Giannis Antetokounmpo moins de 1.5 contres",
-     "match": "MIA @ UTAH",
-     "price": 1.42,
-     "p": 0.6985,
-     "win": true,
-     "src": "canal"
-    },
-    {
-     "label": "Jalen Green moins de 1.5 interceptions",
-     "match": "LAC @ PHX",
-     "price": 1.45,
-     "p": 0.689,
-     "win": true,
-     "src": "canal"
-    },
-    {
-     "label": "OG Anunoby moins de 1.5 interceptions",
-     "match": "MIL @ NY",
-     "price": 1.59,
-     "p": 0.625,
-     "win": true,
-     "src": "canal"
-    },
-    {
-     "label": "Shai Gilgeous-Alexander moins de 1.5 interceptions",
-     "match": "OKC @ POR",
-     "price": 1.62,
-     "p": 0.6165,
-     "win": true,
-     "src": "canal"
-    },
     {
      "label": "Jamal Murray moins de 0.5 interceptions",
      "match": "DEN @ MEM",
@@ -362,20 +310,36 @@
      "src": "canal"
     },
     {
-     "label": "Giannis Antetokounmpo moins de 1.5 contres",
-     "match": "MIA @ UTAH",
-     "price": 1.42,
-     "p": 0.6985,
+     "label": "Anthony Davis moins de 1.5 interceptions",
+     "match": "DET @ WSH",
+     "price": 1.44,
+     "p": 0.6795,
      "win": true,
-     "src": "bankroll"
+     "src": "canal"
     },
     {
-     "label": "Jalen Green moins de 1.5 interceptions",
-     "match": "LAC @ PHX",
-     "price": 1.45,
-     "p": 0.689,
+     "label": "Rudy Gobert moins de 1.5 contres",
+     "match": "DAL @ MIN",
+     "price": 1.46,
+     "p": 0.6712,
+     "win": false,
+     "src": "canal"
+    },
+    {
+     "label": "Jaylen Brown moins de 4.5 passes",
+     "match": "TOR @ PHI",
+     "price": 1.8,
+     "p": 0.5459,
      "win": true,
-     "src": "bankroll"
+     "src": "canal"
+    },
+    {
+     "label": "Jalen Green moins de 3.5 rebonds",
+     "match": "CHA @ PHX",
+     "price": 2.05,
+     "p": 0.4832,
+     "win": false,
+     "src": "canal"
     },
     {
      "label": "Jamal Murray moins de 0.5 interceptions",
@@ -392,97 +356,113 @@
      "p": 0.6437,
      "win": true,
      "src": "bankroll"
+    },
+    {
+     "label": "Ausar Thompson moins de 1.5 interceptions",
+     "match": "DET @ WSH",
+     "price": 2.17,
+     "p": 0.4707,
+     "win": false,
+     "src": "bankroll"
+    },
+    {
+     "label": "Naji Marshall moins de 3.5 rebonds",
+     "match": "DAL @ MIN",
+     "price": 1.6,
+     "p": 0.6058,
+     "win": true,
+     "src": "bankroll"
     }
    ],
    "props": {
-    "n": 397,
-    "w": 239,
-    "exp": 223.7,
-    "matchs": 16
+    "n": 363,
+    "w": 206,
+    "exp": 202.3,
+    "matchs": 14
    },
    "segments": [
     {
      "seg": "nba · 3PM moins",
-     "n": 147,
-     "w": 85,
-     "exp": 85.4,
+     "n": 154,
+     "w": 90,
+     "exp": 89.2,
      "clv": -0.0577
     },
     {
      "seg": "nba · REB moins",
-     "n": 123,
-     "w": 80,
-     "exp": 69.4,
-     "clv": -0.1255
-    },
-    {
-     "seg": "nba · AST moins",
-     "n": 110,
-     "w": 70,
-     "exp": 63.7,
-     "clv": -0.1031
+     "n": 133,
+     "w": 84,
+     "exp": 74.9,
+     "clv": -0.0617
     },
     {
      "seg": "nba · PTS moins",
-     "n": 108,
-     "w": 57,
-     "exp": 56.0,
+     "n": 131,
+     "w": 69,
+     "exp": 68.3,
      "clv": -0.0527
     },
     {
+     "seg": "nba · AST moins",
+     "n": 130,
+     "w": 84,
+     "exp": 75.2,
+     "clv": -0.0545
+    },
+    {
      "seg": "nba · RA moins",
-     "n": 98,
-     "w": 63,
-     "exp": 56.5,
+     "n": 109,
+     "w": 70,
+     "exp": 62.9,
      "clv": null
     },
     {
      "seg": "nba · REB plus",
-     "n": 90,
-     "w": 50,
-     "exp": 49.6,
+     "n": 100,
+     "w": 56,
+     "exp": 54.9,
      "clv": null
     },
     {
      "seg": "nba · PR moins",
-     "n": 81,
-     "w": 50,
-     "exp": 42.5,
+     "n": 95,
+     "w": 57,
+     "exp": 50.0,
      "clv": null
     },
     {
      "seg": "nba · PA moins",
-     "n": 65,
-     "w": 39,
-     "exp": 34.3,
+     "n": 84,
+     "w": 47,
+     "exp": 44.5,
      "clv": null
     },
     {
      "seg": "nba · PRA moins",
-     "n": 62,
-     "w": 34,
-     "exp": 32.5,
+     "n": 78,
+     "w": 40,
+     "exp": 41.0,
      "clv": null
     },
     {
      "seg": "nba · STL moins",
-     "n": 51,
-     "w": 36,
-     "exp": 30.9,
-     "clv": -0.0648
-    },
-    {
-     "seg": "nba · 3PM plus",
-     "n": 50,
-     "w": 36,
-     "exp": 27.9,
-     "clv": null
+     "n": 56,
+     "w": 40,
+     "exp": 33.8,
+     "clv": -0.0636
     },
     {
      "seg": "nba · AST plus",
-     "n": 46,
-     "w": 25,
-     "exp": 25.5,
+     "n": 53,
+     "w": 31,
+     "exp": 29.1,
+     "clv": null
+    },
+    {
+     "seg": "nba · 3PM plus",
+     "n": 52,
+     "w": 38,
+     "exp": 29.0,
      "clv": null
     }
    ],
@@ -490,16 +470,18 @@
    "notes": []
   },
   "postmortem": [
-   "Post-mortem du 11/11 : 7/8 gagnés.",
-   "🔎 erreur · Peyton Watson moins de 1.5 contres (CLE @ NY) @ 1.42 : rendement sous la projection (4 en 30 min (projeté 1.2 à ce temps de jeu))",
-   "Bankroll IA sur 30 j : 85 paris, annoncé 54 % · gagné 59 % (hasard ±11 pts) · rendement +13.6 %",
-   "Canal Picks sur 30 j : 34 paris, annoncé 59 % · gagné 56 % (hasard ±17 pts) · rendement -5.3 %",
-   "50 paris perdus en 30 jours : 19 de malchance (bonne lecture, mauvais sort), 31 d'erreur de lecture."
+   "Post-mortem du 12/11 : 3/6 gagnés.",
+   "🔎 erreur · DET @ WSH -0 Ausar Thompson moins de 1.5 interceptions @ 2.17 : sans détail ()",
+   "🍀 malchance · Rudy Gobert moins de 1.5 contres (DAL @ MIN) @ 1.46 : perdu d'un rien (2 pour une ligne à 1.5)",
+   "🍀 malchance · Jalen Green moins de 3.5 rebonds (CHA @ PHX) @ 2.05 : perdu d'un rien (4 pour une ligne à 3.5)",
+   "Bankroll IA sur 30 j : 87 paris, annoncé 54 % · gagné 59 % (hasard ±11 pts) · rendement +12.8 %",
+   "Canal Picks sur 30 j : 38 paris, annoncé 59 % · gagné 55 % (hasard ±16 pts) · rendement -6.8 %",
+   "53 paris perdus en 30 jours : 21 de malchance (bonne lecture, mauvais sort), 32 d'erreur de lecture."
   ],
   "params": {
    "rest_w": -0.05
   },
-  "minutes": 37.5
+  "minutes": 25.6
  },
  "nights": [
   {
@@ -1301,6 +1283,99 @@
       "_all": [
        -0.0605,
        0.0614
+      ]
+     }
+    }
+   }
+  },
+  {
+   "at": "2026-11-13T06:36+00:00",
+   "base": {
+    "2024-25": 2.34817,
+    "2025-26": 2.36579
+   },
+   "gap": {
+    "2024-25": [
+     0.9847,
+     0.9625,
+     1521
+    ],
+    "2025-26": [
+     1.0086,
+     0.9811,
+     1686
+    ]
+   },
+   "adopted": null,
+   "notes": [],
+   "nba": {
+    "base": {
+     "2025-26": 0.70299,
+     "2026-27": 0.69774
+    },
+    "gap": {
+     "2025-26": [
+      0.703,
+      0.6857,
+      32574
+     ],
+     "2026-27": [
+      0.6977,
+      0.6861,
+      13330
+     ]
+    },
+    "adopted": null,
+    "calib": {
+     "at": "2026-11-13T06:36+00:00",
+     "n": [
+      32574,
+      13330
+     ],
+     "test": {
+      "marche": 0.68607,
+      "cale": 0.68492
+     },
+     "coef": {
+      "PTS": [
+       -0.0537,
+       0.0
+      ],
+      "REB": [
+       -0.0467,
+       0.1358
+      ],
+      "AST": [
+       -0.0991,
+       0.0479
+      ],
+      "PRA": [
+       -0.0699,
+       0.021
+      ],
+      "PR": [
+       -0.0629,
+       0.0479
+      ],
+      "PA": [
+       -0.0717,
+       0.0
+      ],
+      "BLK": [
+       -0.1272,
+       0.0834
+      ],
+      "3PM": [
+       0.0317,
+       0.2615
+      ],
+      "STL": [
+       -0.1343,
+       0.1609
+      ],
+      "_all": [
+       -0.0593,
+       0.0685
       ]
      }
     }

@@ -1,114 +1,98 @@
 {
- "at": "2026-11-12T09:00+00:00",
- "last_night": "2026-11-11",
+ "at": "2026-11-13T07:02+00:00",
+ "last_night": "2026-11-12",
  "veille": [
   {
    "src": "Bankroll IA",
-   "night": "2026-11-11",
-   "p": 0.3919,
-   "price": 2.67,
-   "win": true,
+   "night": "2026-11-12",
+   "p": 0.4707,
+   "price": 2.17,
+   "win": false,
    "kind": "conv",
-   "stake": 0.7,
-   "label": "DEN @ MEM -0 Jamal Murray moins de 0.5 interceptions"
+   "stake": 0.5,
+   "label": "DET @ WSH -0 Ausar Thompson moins de 1.5 interceptions",
+   "cause": "other",
+   "txt": ""
   },
   {
    "src": "Bankroll IA",
-   "night": "2026-11-11",
-   "p": 0.6437,
-   "price": 1.57,
+   "night": "2026-11-12",
+   "p": 0.6058,
+   "price": 1.6,
    "win": true,
    "kind": "conv",
-   "stake": 0.5,
-   "label": "GS @ HOU -0 Tari Eason moins de 1.5 interceptions"
+   "stake": 1.2,
+   "label": "DAL @ MIN -0 Naji Marshall moins de 3.5 rebonds"
   },
   {
    "src": "Canal Picks",
-   "night": "2026-11-11",
-   "p": 0.3919,
-   "price": 2.67,
+   "night": "2026-11-12",
+   "p": 0.6795,
+   "price": 1.44,
    "win": true,
-   "kind": "prop",
-   "stake": 1.0,
-   "label": "Jamal Murray moins de 0.5 interceptions (DEN @ MEM)"
+   "kind": "safe",
+   "stake": 0.5,
+   "label": "Anthony Davis moins de 1.5 interceptions (DET @ WSH)"
   },
   {
    "src": "Canal Picks",
-   "night": "2026-11-11",
-   "p": 0.6954,
-   "price": 1.42,
+   "night": "2026-11-12",
+   "p": 0.6712,
+   "price": 1.46,
    "win": false,
    "kind": "safe",
    "stake": 0.5,
-   "label": "Peyton Watson moins de 1.5 contres (CLE @ NY)",
-   "cause": "rate",
-   "txt": "4 en 30 min (projeté 1.2 à ce temps de jeu)"
+   "label": "Rudy Gobert moins de 1.5 contres (DAL @ MIN)",
+   "cause": "near",
+   "txt": "2 pour une ligne à 1.5"
   },
   {
    "src": "Canal Picks",
-   "night": "2026-11-11",
-   "p": 0.6934,
-   "price": 1.41,
+   "night": "2026-11-12",
+   "p": 0.5459,
+   "price": 1.8,
    "win": true,
-   "kind": "safe",
-   "stake": 0.5,
-   "label": "Anthony Davis moins de 1.5 interceptions (WSH @ IND)"
+   "kind": "fill",
+   "stake": 0.25,
+   "label": "Jaylen Brown moins de 4.5 passes (TOR @ PHI)"
   },
   {
    "src": "Canal Picks",
-   "night": "2026-11-11",
-   "p": 0.6794,
-   "price": 1.46,
-   "win": true,
-   "kind": "safe",
-   "stake": 0.5,
-   "label": "Derrick White moins de 1.5 interceptions (BOS @ TOR)"
-  },
-  {
-   "src": "Canal Picks",
-   "night": "2026-11-11",
-   "p": 0.6737,
-   "price": 1.45,
-   "win": true,
-   "kind": "safe",
-   "stake": 0.5,
-   "label": "Al Horford moins de 1.5 paniers à 3 pts (GS @ HOU)"
-  },
-  {
-   "src": "Canal Picks",
-   "night": "2026-11-11",
-   "p": 0.6853,
-   "price": 1.41,
-   "win": true,
-   "kind": "safe",
-   "stake": 0.5,
-   "label": "Donovan Clingan moins de 1.5 paniers à 3 pts (OKC @ POR)"
+   "night": "2026-11-12",
+   "p": 0.4832,
+   "price": 2.05,
+   "win": false,
+   "kind": "fill",
+   "stake": 0.25,
+   "label": "Jalen Green moins de 3.5 rebonds (CHA @ PHX)",
+   "cause": "near",
+   "txt": "4 pour une ligne à 3.5"
   }
  ],
  "causes": {
   "rate": 19,
   "minutes": 9,
-  "near": 19,
-  "other": 2,
+  "near": 21,
+  "other": 3,
   "lecture": 1
  },
  "calib": {
   "Bankroll IA": {
-   "n": 85,
-   "win": 0.588,
+   "n": 87,
+   "win": 0.586,
    "announced": 0.539,
-   "noise": 0.108,
-   "roi": 0.136
+   "noise": 0.107,
+   "roi": 0.128
   },
   "Canal Picks": {
-   "n": 34,
-   "win": 0.559,
-   "announced": 0.586,
-   "noise": 0.169,
-   "roi": -0.053
+   "n": 38,
+   "win": 0.553,
+   "announced": 0.587,
+   "noise": 0.16,
+   "roi": -0.068
   }
  },
  "lessons": [
-  "50 paris perdus en 30 jours : 19 de malchance (bonne lecture, mauvais sort), 31 d'erreur de lecture."
+  "53 paris perdus en 30 jours : 21 de malchance (bonne lecture, mauvais sort), 32 d'erreur de lecture."
  ]
 }
