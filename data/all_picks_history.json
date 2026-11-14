@@ -1,12 +1,142 @@
 {
-  "generated_at": "2026-11-13T22:56:08.692980",
-  "n_total": 2864,
+  "generated_at": "2026-11-14T03:10:44.590914",
+  "n_total": 2873,
   "by_sport": {
-    "foot": 2369,
-    "nba": 315,
+    "foot": 2376,
+    "nba": 317,
     "tennis": 180
   },
   "picks": [
+    {
+      "sport": "foot",
+      "id": "2026-11-14_6539346_team_home_win",
+      "date": "2026-11-14",
+      "matchup": "Colombia vs Chile",
+      "market": "Forme superieure",
+      "label": "Colombia gagne",
+      "line": null,
+      "direction": "home_win",
+      "confidence": 85,
+      "cote": null,
+      "cote_min": null,
+      "edge_pp": null,
+      "result": "WIN",
+      "actual": null,
+      "context": {
+        "league": "Friendlies",
+        "is_fun": false
+      }
+    },
+    {
+      "sport": "foot",
+      "id": "2026-11-14_6539346_team_home_over_15",
+      "date": "2026-11-14",
+      "matchup": "Colombia vs Chile",
+      "market": "Buteur equipe",
+      "label": "Colombia marque plus de 1.5 buts",
+      "line": null,
+      "direction": "home_over_15",
+      "confidence": 76,
+      "cote": null,
+      "cote_min": null,
+      "edge_pp": null,
+      "result": "LOSS",
+      "actual": null,
+      "context": {
+        "league": "Friendlies",
+        "is_fun": false
+      }
+    },
+    {
+      "sport": "foot",
+      "id": "2026-11-14_6539347_team_home_over_15",
+      "date": "2026-11-14",
+      "matchup": "Ecuador vs Costa Rica",
+      "market": "Buteur equipe",
+      "label": "Ecuador marque plus de 1.5 buts",
+      "line": null,
+      "direction": "home_over_15",
+      "confidence": 75,
+      "cote": null,
+      "cote_min": null,
+      "edge_pp": null,
+      "result": "WIN",
+      "actual": null,
+      "context": {
+        "league": "Friendlies",
+        "is_fun": false
+      }
+    },
+    {
+      "sport": "foot",
+      "id": "2026-11-14_6539347_team_home_win",
+      "date": "2026-11-14",
+      "matchup": "Ecuador vs Costa Rica",
+      "market": "Forme superieure",
+      "label": "Ecuador gagne",
+      "line": null,
+      "direction": "home_win",
+      "confidence": 72,
+      "cote": null,
+      "cote_min": null,
+      "edge_pp": null,
+      "result": "WIN",
+      "actual": null,
+      "context": {
+        "league": "Friendlies",
+        "is_fun": false
+      }
+    },
+    {
+      "sport": "nba",
+      "id": "2026-11-14_401909296_Kelly Oubre Jr._AST_over_0.5",
+      "date": "2026-11-14",
+      "matchup": "Knicks @ Pacers",
+      "market": "AST",
+      "label": "Kelly Oubre Jr. plus de 0.5 passes",
+      "line": 0.5,
+      "direction": "over",
+      "confidence": 66,
+      "cote": null,
+      "cote_min": 1.34,
+      "edge_pp": null,
+      "result": "LOSS",
+      "actual": 0,
+      "context": {
+        "player": "Kelly Oubre Jr.",
+        "team": "Pacers",
+        "side": "home",
+        "is_real_line": false,
+        "hit_l10_pct": 90.0,
+        "hit_l20_pct": 90.0,
+        "trend": "stable"
+      }
+    },
+    {
+      "sport": "nba",
+      "id": "2026-11-14_401909296_Miles McBride_REB_over_0.5",
+      "date": "2026-11-14",
+      "matchup": "Knicks @ Pacers",
+      "market": "REB",
+      "label": "Miles McBride plus de 0.5 rebonds",
+      "line": 0.5,
+      "direction": "over",
+      "confidence": 72,
+      "cote": null,
+      "cote_min": 1.42,
+      "edge_pp": null,
+      "result": "WIN",
+      "actual": 1.0,
+      "context": {
+        "player": "Miles McBride",
+        "team": "Knicks",
+        "side": "away",
+        "is_real_line": false,
+        "hit_l10_pct": 80.0,
+        "hit_l20_pct": 82.0,
+        "trend": "stable"
+      }
+    },
     {
       "sport": "foot",
       "id": "2026-11-13_6539343_team_away_win",
@@ -144,6 +274,66 @@
       "actual": null,
       "context": {
         "league": "UEFA Nations League B",
+        "is_fun": false
+      }
+    },
+    {
+      "sport": "foot",
+      "id": "2026-11-13_6462728_team_home_win",
+      "date": "2026-11-13",
+      "matchup": "Argentina vs Uruguay",
+      "market": "Forme superieure",
+      "label": "Argentina gagne",
+      "line": null,
+      "direction": "home_win",
+      "confidence": 85,
+      "cote": null,
+      "cote_min": null,
+      "edge_pp": null,
+      "result": "LOSS",
+      "actual": null,
+      "context": {
+        "league": "Friendlies",
+        "is_fun": false
+      }
+    },
+    {
+      "sport": "foot",
+      "id": "2026-11-13_6462728_team_over25",
+      "date": "2026-11-13",
+      "matchup": "Argentina vs Uruguay",
+      "market": "Total buts",
+      "label": "Plus de 2.5 buts",
+      "line": null,
+      "direction": "over25",
+      "confidence": 78,
+      "cote": null,
+      "cote_min": null,
+      "edge_pp": null,
+      "result": "WIN",
+      "actual": null,
+      "context": {
+        "league": "Friendlies",
+        "is_fun": false
+      }
+    },
+    {
+      "sport": "foot",
+      "id": "2026-11-13_6462728_team_home_over_15",
+      "date": "2026-11-13",
+      "matchup": "Argentina vs Uruguay",
+      "market": "Buteur equipe",
+      "label": "Argentina marque plus de 1.5 buts",
+      "line": null,
+      "direction": "home_over_15",
+      "confidence": 78,
+      "cote": null,
+      "cote_min": null,
+      "edge_pp": null,
+      "result": "LOSS",
+      "actual": null,
+      "context": {
+        "league": "Friendlies",
         "is_fun": false
       }
     },
