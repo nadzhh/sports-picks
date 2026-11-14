@@ -1,6 +1,6 @@
 {
- "genere_le": "2026-11-14T03:05:40",
- "n_resolus": 2786,
+ "genere_le": "2026-11-14T10:08:56",
+ "n_resolus": 2795,
  "parametres": {
   "n_min_jugement": 20,
   "seuil_pct": 50.0,
@@ -8,24 +8,44 @@
  },
  "marches": {
   "foot/Forme superieure": {
-   "n": 71,
-   "wins": 36,
-   "wr": 50.7,
-   "borne_basse": 39.3,
-   "borne_haute": 62.0,
+   "n": 74,
+   "wins": 38,
+   "wr": 51.4,
+   "borne_basse": 40.2,
+   "borne_haute": 62.4,
    "statut": "SURVEILLE",
    "cote_moyenne": null,
    "n_cotes": 0
   },
   "foot/Buteur equipe": {
-   "n": 52,
-   "wins": 26,
-   "wr": 50.0,
-   "borne_basse": 36.9,
-   "borne_haute": 63.1,
+   "n": 55,
+   "wins": 27,
+   "wr": 49.1,
+   "borne_basse": 36.4,
+   "borne_haute": 61.9,
    "statut": "SURVEILLE",
    "cote_moyenne": null,
    "n_cotes": 0
+  },
+  "nba/AST": {
+   "n": 51,
+   "wins": 27,
+   "wr": 52.9,
+   "borne_basse": 39.5,
+   "borne_haute": 65.9,
+   "statut": "SURVEILLE",
+   "cote_moyenne": 2.0,
+   "n_cotes": 27
+  },
+  "nba/REB": {
+   "n": 59,
+   "wins": 28,
+   "wr": 47.5,
+   "borne_basse": 35.3,
+   "borne_haute": 60.0,
+   "statut": "SURVEILLE",
+   "cote_moyenne": 1.97,
+   "n_cotes": 38
   },
   "foot/BTTS": {
    "n": 19,
@@ -58,11 +78,11 @@
    "n_cotes": 18
   },
   "foot/Total buts": {
-   "n": 49,
-   "wins": 27,
-   "wr": 55.1,
-   "borne_basse": 41.3,
-   "borne_haute": 68.1,
+   "n": 50,
+   "wins": 28,
+   "wr": 56.0,
+   "borne_basse": 42.3,
+   "borne_haute": 68.8,
    "statut": "SURVEILLE",
    "cote_moyenne": null,
    "n_cotes": 0
@@ -76,16 +96,6 @@
    "statut": "SURVEILLE",
    "cote_moyenne": 3.2,
    "n_cotes": 37
-  },
-  "nba/REB": {
-   "n": 58,
-   "wins": 27,
-   "wr": 46.6,
-   "borne_basse": 34.3,
-   "borne_haute": 59.2,
-   "statut": "SURVEILLE",
-   "cote_moyenne": 1.97,
-   "n_cotes": 38
   },
   "nba/PR": {
    "n": 32,
@@ -136,16 +146,6 @@
    "statut": "SURVEILLE",
    "cote_moyenne": 1.87,
    "n_cotes": 15
-  },
-  "nba/AST": {
-   "n": 50,
-   "wins": 27,
-   "wr": 54.0,
-   "borne_basse": 40.4,
-   "borne_haute": 67.0,
-   "statut": "SURVEILLE",
-   "cote_moyenne": 2.0,
-   "n_cotes": 27
   },
   "foot/Tirs (total match)": {
    "n": 101,
@@ -1111,12 +1111,12 @@
  "calibration": {
   "foot/Forme superieure": {
    "80-89": {
-    "n": 26,
+    "n": 28,
     "p": 50.0
    },
    "70-79": {
-    "n": 30,
-    "p": 60.0
+    "n": 31,
+    "p": 61.3
    },
    "60-69": {
     "n": 15,
@@ -1125,8 +1125,8 @@
   },
   "foot/Buteur equipe": {
    "70-79": {
-    "n": 19,
-    "p": 73.7
+    "n": 22,
+    "p": 68.2
    },
    "60-69": {
     "n": 22,
@@ -1135,6 +1135,50 @@
    "50-59": {
     "n": 11,
     "p": 27.3
+   }
+  },
+  "nba/AST": {
+   "60-69": {
+    "n": 21,
+    "p": 38.1
+   },
+   "70-79": {
+    "n": 24,
+    "p": 54.2
+   },
+   "50-59": {
+    "n": 3,
+    "p": 67.0
+   },
+   "80-89": {
+    "n": 2,
+    "p": 62.3
+   },
+   "90-99": {
+    "n": 1,
+    "p": 57.6
+   }
+  },
+  "nba/REB": {
+   "70-79": {
+    "n": 19,
+    "p": 42.1
+   },
+   "60-69": {
+    "n": 27,
+    "p": 40.7
+   },
+   "50-59": {
+    "n": 7,
+    "p": 54.2
+   },
+   "80-89": {
+    "n": 5,
+    "p": 73.8
+   },
+   "90-99": {
+    "n": 1,
+    "p": 42.8
    }
   },
   "foot/BTTS": {
@@ -1185,8 +1229,8 @@
   },
   "foot/Total buts": {
    "70-79": {
-    "n": 13,
-    "p": 76.9
+    "n": 14,
+    "p": 78.6
    },
    "60-69": {
     "n": 33,
@@ -1194,7 +1238,7 @@
    },
    "50-59": {
     "n": 3,
-    "p": 58.6
+    "p": 59.2
    }
   },
   "foot/Victoire domicile": {
@@ -1213,28 +1257,6 @@
    "50-59": {
     "n": 23,
     "p": 43.5
-   }
-  },
-  "nba/REB": {
-   "60-69": {
-    "n": 27,
-    "p": 40.7
-   },
-   "70-79": {
-    "n": 18,
-    "p": 38.9
-   },
-   "50-59": {
-    "n": 7,
-    "p": 54.0
-   },
-   "80-89": {
-    "n": 5,
-    "p": 73.3
-   },
-   "90-99": {
-    "n": 1,
-    "p": 41.9
    }
   },
   "nba/PR": {
@@ -1329,28 +1351,6 @@
    "80-89": {
     "n": 2,
     "p": 46.5
-   }
-  },
-  "nba/AST": {
-   "70-79": {
-    "n": 24,
-    "p": 54.2
-   },
-   "60-69": {
-    "n": 20,
-    "p": 40.0
-   },
-   "50-59": {
-    "n": 3,
-    "p": 67.8
-   },
-   "80-89": {
-    "n": 2,
-    "p": 63.2
-   },
-   "90-99": {
-    "n": 1,
-    "p": 58.6
    }
   },
   "foot/Tirs (total match)": {
@@ -2151,7 +2151,7 @@
   }
  },
  "replis_sport": {
-  "foot": 48.8,
+  "foot": 48.9,
   "nba": 52.1,
   "tennis": 61.7
  }
