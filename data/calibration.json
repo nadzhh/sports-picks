@@ -1,6 +1,6 @@
 {
- "genere_le": "2026-11-14T10:08:56",
- "n_resolus": 2795,
+ "genere_le": "2026-11-14T16:39:13",
+ "n_resolus": 2803,
  "parametres": {
   "n_min_jugement": 20,
   "seuil_pct": 50.0,
@@ -27,25 +27,65 @@
    "cote_moyenne": null,
    "n_cotes": 0
   },
-  "nba/AST": {
+  "foot/Total buts": {
    "n": 51,
-   "wins": 27,
-   "wr": 52.9,
-   "borne_basse": 39.5,
-   "borne_haute": 65.9,
+   "wins": 28,
+   "wr": 54.9,
+   "borne_basse": 41.4,
+   "borne_haute": 67.7,
+   "statut": "SURVEILLE",
+   "cote_moyenne": null,
+   "n_cotes": 0
+  },
+  "nba/PRA": {
+   "n": 45,
+   "wins": 26,
+   "wr": 57.8,
+   "borne_basse": 43.3,
+   "borne_haute": 71.0,
+   "statut": "SURVEILLE",
+   "cote_moyenne": 1.87,
+   "n_cotes": 15
+  },
+  "nba/AST": {
+   "n": 52,
+   "wins": 28,
+   "wr": 53.8,
+   "borne_basse": 40.5,
+   "borne_haute": 66.7,
    "statut": "SURVEILLE",
    "cote_moyenne": 2.0,
    "n_cotes": 27
   },
+  "nba/PR": {
+   "n": 33,
+   "wins": 16,
+   "wr": 48.5,
+   "borne_basse": 32.5,
+   "borne_haute": 64.8,
+   "statut": "SURVEILLE",
+   "cote_moyenne": 1.9,
+   "n_cotes": 29
+  },
   "nba/REB": {
-   "n": 59,
-   "wins": 28,
-   "wr": 47.5,
-   "borne_basse": 35.3,
-   "borne_haute": 60.0,
+   "n": 61,
+   "wins": 30,
+   "wr": 49.2,
+   "borne_basse": 37.1,
+   "borne_haute": 61.4,
    "statut": "SURVEILLE",
    "cote_moyenne": 1.97,
    "n_cotes": 38
+  },
+  "nba/PA": {
+   "n": 47,
+   "wins": 25,
+   "wr": 53.2,
+   "borne_basse": 39.2,
+   "borne_haute": 66.7,
+   "statut": "SURVEILLE",
+   "cote_moyenne": 1.9,
+   "n_cotes": 40
   },
   "foot/BTTS": {
    "n": 19,
@@ -77,16 +117,6 @@
    "cote_moyenne": 1.55,
    "n_cotes": 18
   },
-  "foot/Total buts": {
-   "n": 50,
-   "wins": 28,
-   "wr": 56.0,
-   "borne_basse": 42.3,
-   "borne_haute": 68.8,
-   "statut": "SURVEILLE",
-   "cote_moyenne": null,
-   "n_cotes": 0
-  },
   "foot/Victoire domicile": {
    "n": 220,
    "wins": 119,
@@ -96,16 +126,6 @@
    "statut": "SURVEILLE",
    "cote_moyenne": 3.2,
    "n_cotes": 37
-  },
-  "nba/PR": {
-   "n": 32,
-   "wins": 16,
-   "wr": 50.0,
-   "borne_basse": 33.6,
-   "borne_haute": 66.4,
-   "statut": "SURVEILLE",
-   "cote_moyenne": 1.9,
-   "n_cotes": 29
   },
   "nba/PTS": {
    "n": 48,
@@ -117,16 +137,6 @@
    "cote_moyenne": 1.93,
    "n_cotes": 47
   },
-  "nba/PA": {
-   "n": 46,
-   "wins": 24,
-   "wr": 52.2,
-   "borne_basse": 38.1,
-   "borne_haute": 65.9,
-   "statut": "SURVEILLE",
-   "cote_moyenne": 1.9,
-   "n_cotes": 40
-  },
   "nba/FG3M": {
    "n": 38,
    "wins": 22,
@@ -136,16 +146,6 @@
    "statut": "SURVEILLE",
    "cote_moyenne": 2.0,
    "n_cotes": 34
-  },
-  "nba/PRA": {
-   "n": 43,
-   "wins": 25,
-   "wr": 58.1,
-   "borne_basse": 43.3,
-   "borne_haute": 71.6,
-   "statut": "SURVEILLE",
-   "cote_moyenne": 1.87,
-   "n_cotes": 15
   },
   "foot/Tirs (total match)": {
    "n": 101,
@@ -1137,26 +1137,76 @@
     "p": 27.3
    }
   },
+  "foot/Total buts": {
+   "60-69": {
+    "n": 34,
+    "p": 44.1
+   },
+   "70-79": {
+    "n": 14,
+    "p": 78.6
+   },
+   "50-59": {
+    "n": 3,
+    "p": 58.4
+   }
+  },
+  "nba/PRA": {
+   "60-69": {
+    "n": 22,
+    "p": 63.6
+   },
+   "70-79": {
+    "n": 15,
+    "p": 60.0
+   },
+   "50-59": {
+    "n": 6,
+    "p": 53.1
+   },
+   "80-89": {
+    "n": 2,
+    "p": 46.2
+   }
+  },
   "nba/AST": {
    "60-69": {
     "n": 21,
     "p": 38.1
    },
    "70-79": {
-    "n": 24,
-    "p": 54.2
+    "n": 25,
+    "p": 56.0
    },
    "50-59": {
     "n": 3,
-    "p": 67.0
+    "p": 67.7
    },
    "80-89": {
     "n": 2,
-    "p": 62.3
+    "p": 63.0
    },
    "90-99": {
     "n": 1,
-    "p": 57.6
+    "p": 58.4
+   }
+  },
+  "nba/PR": {
+   "60-69": {
+    "n": 16,
+    "p": 43.8
+   },
+   "70-79": {
+    "n": 13,
+    "p": 61.5
+   },
+   "80-89": {
+    "n": 1,
+    "p": 43.6
+   },
+   "50-59": {
+    "n": 3,
+    "p": 43.9
    }
   },
   "nba/REB": {
@@ -1165,20 +1215,38 @@
     "p": 42.1
    },
    "60-69": {
-    "n": 27,
-    "p": 40.7
+    "n": 29,
+    "p": 44.8
    },
    "50-59": {
     "n": 7,
-    "p": 54.2
+    "p": 54.8
    },
    "80-89": {
     "n": 5,
-    "p": 73.8
+    "p": 74.6
    },
    "90-99": {
     "n": 1,
-    "p": 42.8
+    "p": 44.3
+   }
+  },
+  "nba/PA": {
+   "60-69": {
+    "n": 18,
+    "p": 44.4
+   },
+   "70-79": {
+    "n": 22,
+    "p": 63.6
+   },
+   "80-89": {
+    "n": 3,
+    "p": 47.2
+   },
+   "50-59": {
+    "n": 4,
+    "p": 51.9
    }
   },
   "foot/BTTS": {
@@ -1227,20 +1295,6 @@
     "p": 72.8
    }
   },
-  "foot/Total buts": {
-   "70-79": {
-    "n": 14,
-    "p": 78.6
-   },
-   "60-69": {
-    "n": 33,
-    "p": 45.5
-   },
-   "50-59": {
-    "n": 3,
-    "p": 59.2
-   }
-  },
   "foot/Victoire domicile": {
    "70-79": {
     "n": 70,
@@ -1259,24 +1313,6 @@
     "p": 43.5
    }
   },
-  "nba/PR": {
-   "70-79": {
-    "n": 13,
-    "p": 61.5
-   },
-   "80-89": {
-    "n": 1,
-    "p": 45.0
-   },
-   "60-69": {
-    "n": 15,
-    "p": 46.7
-   },
-   "50-59": {
-    "n": 3,
-    "p": 45.0
-   }
-  },
   "nba/PTS": {
    "70-79": {
     "n": 25,
@@ -1293,24 +1329,6 @@
    "50-59": {
     "n": 3,
     "p": 33.5
-   }
-  },
-  "nba/PA": {
-   "70-79": {
-    "n": 22,
-    "p": 63.6
-   },
-   "80-89": {
-    "n": 3,
-    "p": 46.5
-   },
-   "60-69": {
-    "n": 17,
-    "p": 41.2
-   },
-   "50-59": {
-    "n": 4,
-    "p": 51.3
    }
   },
   "nba/FG3M": {
@@ -1333,24 +1351,6 @@
    "90-99": {
     "n": 1,
     "p": 62.1
-   }
-  },
-  "nba/PRA": {
-   "70-79": {
-    "n": 15,
-    "p": 60.0
-   },
-   "60-69": {
-    "n": 20,
-    "p": 65.0
-   },
-   "50-59": {
-    "n": 6,
-    "p": 53.2
-   },
-   "80-89": {
-    "n": 2,
-    "p": 46.5
    }
   },
   "foot/Tirs (total match)": {
@@ -2151,8 +2151,8 @@
   }
  },
  "replis_sport": {
-  "foot": 48.9,
-  "nba": 52.1,
+  "foot": 48.8,
+  "nba": 52.5,
   "tennis": 61.7
  }
 }
