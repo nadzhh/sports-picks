@@ -1,6 +1,6 @@
 {
   "_meta": "Fiches équipes nationales : aisance off/def vs attendu Elo, forme L5/L10. Consommé par picks_engine pour ajuster λ Poisson WC.",
-  "_updated": "2026-11-14T21:10:28+00:00",
+  "_updated": "2026-11-15T01:14:50+00:00",
   "teams": {
     "mexico": {
       "fotmob_team_id": "6710",
@@ -163,7 +163,7 @@
       "notes_fr": [
         "Forme inquiétante : 3 défaites sur L5"
       ],
-      "last_updated": "2026-11-14T21:10:28+00:00"
+      "last_updated": "2026-11-15T01:13:13+00:00"
     },
     "south_africa": {
       "fotmob_team_id": "6316",
@@ -327,7 +327,7 @@
         "Défense +0.8 but/match vs attendu Elo",
         "Aucune phase finale WC sur les 3 dernières éditions"
       ],
-      "last_updated": "2026-11-14T21:10:28+00:00"
+      "last_updated": "2026-11-15T01:13:14+00:00"
     },
     "south_korea": {
       "fotmob_team_id": "7804",
@@ -492,7 +492,7 @@
         "Attaque +0.7 but/match vs attendu Elo",
         "Défense +1.0 but/match vs attendu Elo"
       ],
-      "last_updated": "2026-11-14T21:10:28+00:00"
+      "last_updated": "2026-11-15T01:13:14+00:00"
     },
     "czechia": {
       "fotmob_team_id": "8496",
@@ -658,7 +658,7 @@
         "Défense fragile : 2.0 buts encaissés/match sur L10",
         "Aucune phase finale WC sur les 3 dernières éditions"
       ],
-      "last_updated": "2026-11-14T21:10:28+00:00"
+      "last_updated": "2026-11-15T01:13:15+00:00"
     },
     "canada": {
       "fotmob_team_id": "5810",
@@ -822,7 +822,7 @@
         "Attaque +0.7 but/match vs attendu Elo",
         "Défense +0.8 but/match vs attendu Elo"
       ],
-      "last_updated": "2026-11-14T21:10:28+00:00"
+      "last_updated": "2026-11-15T01:13:15+00:00"
     },
     "bosnia_and_herzegovina": {
       "fotmob_team_id": "10106",
@@ -830,35 +830,46 @@
       "fifa_points": 1200,
       "matches_n": 12,
       "off_score": 1.0,
-      "def_score": 0.49,
+      "def_score": 0.42,
       "off_rating": "bon",
       "def_rating": "bon",
-      "form": "WDWDL",
+      "form": "LWDWD",
       "stats_l5": {
         "n": 5,
-        "gf_pm": 1.2,
-        "ga_pm": 1.0,
+        "gf_pm": 1.6,
+        "ga_pm": 1.2,
         "clean_sheets": 2,
-        "failed_to_score": 2,
-        "btts": 2,
+        "failed_to_score": 1,
+        "btts": 3,
         "wins": 2,
         "draws": 2,
         "losses": 1
       },
       "stats_l10": {
         "n": 10,
-        "gf_pm": 1.2,
-        "ga_pm": 1.2,
-        "clean_sheets": 3,
-        "failed_to_score": 3,
-        "btts": 6,
+        "gf_pm": 1.4,
+        "ga_pm": 1.5,
+        "clean_sheets": 2,
+        "failed_to_score": 2,
+        "btts": 7,
         "wins": 3,
-        "draws": 5,
-        "losses": 2,
-        "gf_expected_pm": 0.53,
-        "ga_expected_pm": 2.38
+        "draws": 4,
+        "losses": 3,
+        "gf_expected_pm": 0.39,
+        "ga_expected_pm": 2.57
       },
       "recent": [
+        {
+          "date": "2026-11-14",
+          "opp": "Sweden",
+          "opp_slug": "sweden",
+          "opp_id": 8520,
+          "venue": "away",
+          "gf": 2,
+          "ga": 3,
+          "result": "L",
+          "comp": "UEFA Nations League B Grp. 4"
+        },
         {
           "date": "2026-10-05",
           "opp": "Poland",
@@ -957,17 +968,6 @@
           "ga": 1,
           "result": "D",
           "comp": "Friendlies"
-        },
-        {
-          "date": "2026-05-29",
-          "opp": "North Macedonia",
-          "opp_slug": "north_macedonia",
-          "opp_id": 8260,
-          "venue": "home",
-          "gf": 0,
-          "ga": 0,
-          "result": "D",
-          "comp": "Friendlies"
         }
       ],
       "wc_pedigree": {
@@ -983,46 +983,57 @@
         "summary_fr": "phase de poules en 2014"
       },
       "notes_fr": [
-        "Attaque +0.7 but/match vs attendu Elo",
-        "Défense +1.2 but/match vs attendu Elo"
+        "Attaque +1.0 but/match vs attendu Elo",
+        "Défense +1.1 but/match vs attendu Elo"
       ],
-      "last_updated": "2026-11-14T21:10:28+00:00"
+      "last_updated": "2026-11-15T01:13:16+00:00"
     },
     "usa": {
       "fotmob_team_id": "6713",
       "fifa_rank": 18,
       "fifa_points": 1626,
       "matches_n": 12,
-      "off_score": 0.28,
+      "off_score": 0.41,
       "def_score": -0.48,
-      "off_rating": "moyen",
+      "off_rating": "bon",
       "def_rating": "nul",
-      "form": "WWWWL",
+      "form": "WWWWW",
       "stats_l5": {
         "n": 5,
-        "gf_pm": 2.6,
-        "ga_pm": 1.4,
-        "clean_sheets": 2,
+        "gf_pm": 3.6,
+        "ga_pm": 0.6,
+        "clean_sheets": 3,
         "failed_to_score": 0,
-        "btts": 3,
-        "wins": 4,
+        "btts": 2,
+        "wins": 5,
         "draws": 0,
-        "losses": 1
+        "losses": 0
       },
       "stats_l10": {
         "n": 10,
-        "gf_pm": 2.4,
-        "ga_pm": 1.3,
-        "clean_sheets": 4,
+        "gf_pm": 2.9,
+        "ga_pm": 1.1,
+        "clean_sheets": 5,
         "failed_to_score": 0,
-        "btts": 6,
-        "wins": 7,
+        "btts": 5,
+        "wins": 8,
         "draws": 0,
-        "losses": 3,
-        "gf_expected_pm": 1.87,
-        "ga_expected_pm": 0.88
+        "losses": 2,
+        "gf_expected_pm": 2.05,
+        "ga_expected_pm": 0.74
       },
       "recent": [
+        {
+          "date": "2026-11-14",
+          "opp": "Haiti",
+          "opp_slug": "haiti",
+          "opp_id": 5934,
+          "venue": "away",
+          "gf": 6,
+          "ga": 0,
+          "result": "W",
+          "comp": "CONCACAF Nations League A Championship Playoff"
+        },
         {
           "date": "2026-10-07",
           "opp": "Canada",
@@ -1121,17 +1132,6 @@
           "ga": 1,
           "result": "W",
           "comp": "World Cup Grp. D"
-        },
-        {
-          "date": "2026-06-06",
-          "opp": "Germany",
-          "opp_slug": "germany",
-          "opp_id": 8570,
-          "venue": "home",
-          "gf": 1,
-          "ga": 2,
-          "result": "L",
-          "comp": "Friendlies"
         }
       ],
       "wc_pedigree": {
@@ -1147,9 +1147,12 @@
         "summary_fr": "1/8 en 2022 · 1/8 en 2014"
       },
       "notes_fr": [
-        "Forme exceptionnelle : 4 victoires sur L5"
+        "Forme exceptionnelle : 5 victoires sur L5",
+        "Défense solide : 5 clean sheets sur L10",
+        "Attaque prolifique : 2.9 buts/match sur L10",
+        "Attaque +0.8 but/match vs attendu Elo"
       ],
-      "last_updated": "2026-11-14T21:10:28+00:00"
+      "last_updated": "2026-11-15T01:13:16+00:00"
     },
     "paraguay": {
       "fotmob_team_id": "6724",
@@ -1314,7 +1317,7 @@
         "Défense +0.8 but/match vs attendu Elo",
         "Aucune phase finale WC sur les 3 dernières éditions"
       ],
-      "last_updated": "2026-11-14T21:10:28+00:00"
+      "last_updated": "2026-11-15T01:13:17+00:00"
     },
     "qatar": {
       "fotmob_team_id": "5902",
@@ -1479,7 +1482,7 @@
         "Attaque -1.2 but/match vs attendu Elo",
         "Défense -0.6 but/match vs attendu Elo"
       ],
-      "last_updated": "2026-11-14T21:10:28+00:00"
+      "last_updated": "2026-11-15T01:13:17+00:00"
     },
     "switzerland": {
       "fotmob_team_id": "6717",
@@ -1643,43 +1646,54 @@
         "Forme exceptionnelle : 4 victoires sur L5",
         "Défense solide : 6 clean sheets sur L10"
       ],
-      "last_updated": "2026-11-14T21:10:28+00:00"
+      "last_updated": "2026-11-15T01:13:18+00:00"
     },
     "brazil": {
       "fotmob_team_id": "8256",
       "fifa_rank": 5,
       "fifa_points": 1776,
       "matches_n": 12,
-      "off_score": 0.1,
+      "off_score": -0.03,
       "def_score": -1.0,
       "off_rating": "moyen",
       "def_rating": "nul",
-      "form": "WWDLW",
+      "form": "LWWDL",
       "stats_l5": {
         "n": 5,
         "gf_pm": 2.4,
-        "ga_pm": 1.2,
+        "ga_pm": 1.6,
         "clean_sheets": 1,
         "failed_to_score": 0,
         "btts": 4,
-        "wins": 3,
+        "wins": 2,
         "draws": 1,
-        "losses": 1
+        "losses": 2
       },
       "stats_l10": {
         "n": 10,
-        "gf_pm": 2.7,
-        "ga_pm": 1.0,
+        "gf_pm": 2.3,
+        "ga_pm": 1.1,
         "clean_sheets": 3,
         "failed_to_score": 0,
         "btts": 7,
-        "wins": 7,
+        "wins": 6,
         "draws": 2,
-        "losses": 1,
-        "gf_expected_pm": 2.45,
-        "ga_expected_pm": 0.46
+        "losses": 2,
+        "gf_expected_pm": 2.37,
+        "ga_expected_pm": 0.5
       },
       "recent": [
+        {
+          "date": "2026-11-14",
+          "opp": "Japan",
+          "opp_slug": "japan",
+          "opp_id": 6715,
+          "venue": "away",
+          "gf": 2,
+          "ga": 3,
+          "result": "L",
+          "comp": "Friendlies"
+        },
         {
           "date": "2026-10-03",
           "opp": "India",
@@ -1778,17 +1792,6 @@
           "ga": 1,
           "result": "W",
           "comp": "Friendlies"
-        },
-        {
-          "date": "2026-05-31",
-          "opp": "Panama",
-          "opp_slug": "panama",
-          "opp_id": 5922,
-          "venue": "home",
-          "gf": 6,
-          "ga": 2,
-          "result": "W",
-          "comp": "Friendlies"
         }
       ],
       "wc_pedigree": {
@@ -1807,10 +1810,9 @@
         "summary_fr": "quart de finale en 2022 · quart de finale en 2018 · demi-finaliste en 2014 · 2 titres (1994, 2002)"
       },
       "notes_fr": [
-        "Attaque prolifique : 2.7 buts/match sur L10",
         "Habituée du tournoi : quart de finale en 2022 · quart de finale en 2018 · demi-finaliste en 2014 · 2 titres (1994, 2002)"
       ],
-      "last_updated": "2026-11-14T21:10:28+00:00"
+      "last_updated": "2026-11-15T01:13:18+00:00"
     },
     "morocco": {
       "fotmob_team_id": "6262",
@@ -1971,43 +1973,54 @@
         "summary_fr": "demi-finaliste en 2022 · phase de poules en 2018"
       },
       "notes_fr": [],
-      "last_updated": "2026-11-14T21:10:28+00:00"
+      "last_updated": "2026-11-15T01:13:18+00:00"
     },
     "haiti": {
       "fotmob_team_id": "5934",
       "fifa_rank": 75,
       "fifa_points": 1274,
       "matches_n": 12,
-      "off_score": 0.34,
-      "def_score": -0.07,
+      "off_score": 0.35,
+      "def_score": -0.3,
       "off_rating": "bon",
       "def_rating": "moyen",
-      "form": "LWWWL",
+      "form": "LLWWW",
       "stats_l5": {
         "n": 5,
-        "gf_pm": 2.2,
-        "ga_pm": 1.8,
+        "gf_pm": 1.8,
+        "ga_pm": 2.2,
         "clean_sheets": 1,
-        "failed_to_score": 1,
-        "btts": 3,
+        "failed_to_score": 2,
+        "btts": 2,
         "wins": 3,
         "draws": 0,
         "losses": 2
       },
       "stats_l10": {
         "n": 10,
-        "gf_pm": 1.7,
-        "ga_pm": 1.6,
+        "gf_pm": 1.6,
+        "ga_pm": 2.1,
         "clean_sheets": 2,
-        "failed_to_score": 3,
-        "btts": 5,
+        "failed_to_score": 4,
+        "btts": 4,
         "wins": 4,
-        "draws": 1,
-        "losses": 5,
-        "gf_expected_pm": 1.27,
-        "ga_expected_pm": 1.5
+        "draws": 0,
+        "losses": 6,
+        "gf_expected_pm": 1.19,
+        "ga_expected_pm": 1.62
       },
       "recent": [
+        {
+          "date": "2026-11-14",
+          "opp": "USA",
+          "opp_slug": "usa",
+          "opp_id": 6713,
+          "venue": "home",
+          "gf": 0,
+          "ga": 6,
+          "result": "L",
+          "comp": "CONCACAF Nations League A Championship Playoff"
+        },
         {
           "date": "2026-10-05",
           "opp": "Costa Rica",
@@ -2106,17 +2119,6 @@
           "ga": 0,
           "result": "W",
           "comp": "Friendlies"
-        },
-        {
-          "date": "2026-03-31",
-          "opp": "Iceland",
-          "opp_slug": "iceland",
-          "opp_id": 8536,
-          "venue": "home",
-          "gf": 1,
-          "ga": 1,
-          "result": "D",
-          "comp": "Friendlies"
         }
       ],
       "wc_pedigree": {
@@ -2132,9 +2134,11 @@
         "summary_fr": "Pas de phase finale récente"
       },
       "notes_fr": [
+        "Attaque en panne : 4 blanchies sur L10",
+        "Défense fragile : 2.1 buts encaissés/match sur L10",
         "Aucune phase finale WC sur les 3 dernières éditions"
       ],
-      "last_updated": "2026-11-14T21:10:28+00:00"
+      "last_updated": "2026-11-15T01:13:19+00:00"
     },
     "scotland": {
       "fotmob_team_id": "8498",
@@ -2298,7 +2302,7 @@
         "Attaque en panne : 4 blanchies sur L10",
         "Aucune phase finale WC sur les 3 dernières éditions"
       ],
-      "last_updated": "2026-11-14T21:10:28+00:00"
+      "last_updated": "2026-11-15T01:13:19+00:00"
     },
     "australia": {
       "fotmob_team_id": "6716",
@@ -2459,7 +2463,7 @@
         "summary_fr": "1/8 en 2022 · phase de poules en 2018 · phase de poules en 2014"
       },
       "notes_fr": [],
-      "last_updated": "2026-11-14T21:10:28+00:00"
+      "last_updated": "2026-11-15T01:13:20+00:00"
     },
     "turkiye": {
       "fotmob_team_id": "6595",
@@ -2625,7 +2629,7 @@
         "Défense fragile : 1.9 buts encaissés/match sur L10",
         "Aucune phase finale WC sur les 3 dernières éditions"
       ],
-      "last_updated": "2026-11-14T21:10:28+00:00"
+      "last_updated": "2026-11-15T01:13:20+00:00"
     },
     "germany": {
       "fotmob_team_id": "8570",
@@ -2791,7 +2795,7 @@
       "notes_fr": [
         "Habituée du tournoi : phase de poules en 2022 · phase de poules en 2018 · vainqueur en 2014 · 2 titres (1990, 2014)"
       ],
-      "last_updated": "2026-11-14T21:10:28+00:00"
+      "last_updated": "2026-11-15T01:13:21+00:00"
     },
     "curacao": {
       "fotmob_team_id": "287981",
@@ -2955,7 +2959,7 @@
         "Défense fragile : 2.3 buts encaissés/match sur L10",
         "Aucune phase finale WC sur les 3 dernières éditions"
       ],
-      "last_updated": "2026-11-14T21:10:28+00:00"
+      "last_updated": "2026-11-15T01:13:21+00:00"
     },
     "netherlands": {
       "fotmob_team_id": "6708",
@@ -3119,43 +3123,54 @@
         "Attaque prolifique : 2.7 buts/match sur L10",
         "Habituée du tournoi : quart de finale en 2022 · demi-finaliste en 2014"
       ],
-      "last_updated": "2026-11-14T21:10:28+00:00"
+      "last_updated": "2026-11-15T01:13:22+00:00"
     },
     "japan": {
       "fotmob_team_id": "6715",
       "fifa_rank": 16,
       "fifa_points": 1640,
       "matches_n": 12,
-      "off_score": 0.05,
-      "def_score": 0.29,
+      "off_score": 0.16,
+      "def_score": 0.1,
       "off_rating": "moyen",
       "def_rating": "moyen",
-      "form": "WDWWL",
+      "form": "WWDWW",
       "stats_l5": {
         "n": 5,
-        "gf_pm": 1.6,
+        "gf_pm": 2.0,
         "ga_pm": 1.0,
         "clean_sheets": 1,
         "failed_to_score": 1,
         "btts": 4,
-        "wins": 3,
+        "wins": 4,
         "draws": 1,
-        "losses": 1
+        "losses": 0
       },
       "stats_l10": {
         "n": 10,
-        "gf_pm": 1.7,
-        "ga_pm": 0.8,
-        "clean_sheets": 4,
+        "gf_pm": 1.9,
+        "ga_pm": 1.0,
+        "clean_sheets": 3,
         "failed_to_score": 1,
-        "btts": 6,
+        "btts": 7,
         "wins": 6,
         "draws": 3,
         "losses": 1,
-        "gf_expected_pm": 1.61,
-        "ga_expected_pm": 1.13
+        "gf_expected_pm": 1.63,
+        "ga_expected_pm": 1.11
       },
       "recent": [
+        {
+          "date": "2026-11-14",
+          "opp": "Brazil",
+          "opp_slug": "brazil",
+          "opp_id": 8256,
+          "venue": "home",
+          "gf": 3,
+          "ga": 2,
+          "result": "W",
+          "comp": "Friendlies"
+        },
         {
           "date": "2026-10-05",
           "opp": "New Zealand",
@@ -3254,17 +3269,6 @@
           "ga": 0,
           "result": "W",
           "comp": "Friendlies"
-        },
-        {
-          "date": "2026-03-31",
-          "opp": "England",
-          "opp_slug": "england",
-          "opp_id": 8491,
-          "venue": "away",
-          "gf": 1,
-          "ga": 0,
-          "result": "W",
-          "comp": "Friendlies"
         }
       ],
       "wc_pedigree": {
@@ -3279,8 +3283,10 @@
         "titles_recent": [],
         "summary_fr": "1/8 en 2022 · 1/8 en 2018 · phase de poules en 2014"
       },
-      "notes_fr": [],
-      "last_updated": "2026-11-14T21:10:28+00:00"
+      "notes_fr": [
+        "Forme exceptionnelle : 4 victoires sur L5"
+      ],
+      "last_updated": "2026-11-15T01:13:22+00:00"
     },
     "ivory_coast": {
       "fotmob_team_id": "6709",
@@ -3445,7 +3451,7 @@
         "Attaque +0.6 but/match vs attendu Elo",
         "Défense +1.5 but/match vs attendu Elo"
       ],
-      "last_updated": "2026-11-14T21:10:28+00:00"
+      "last_updated": "2026-11-15T01:13:23+00:00"
     },
     "ecuador": {
       "fotmob_team_id": "6707",
@@ -3609,43 +3615,54 @@
         "Attaque en panne : 5 blanchies sur L10",
         "Attaque -1.5 but/match vs attendu Elo"
       ],
-      "last_updated": "2026-11-14T21:10:28+00:00"
+      "last_updated": "2026-11-15T01:13:23+00:00"
     },
     "sweden": {
       "fotmob_team_id": "8520",
       "fifa_rank": 24,
       "fifa_points": 1587,
       "matches_n": 12,
-      "off_score": 0.12,
-      "def_score": -0.51,
+      "off_score": 0.13,
+      "def_score": -0.53,
       "off_rating": "moyen",
       "def_rating": "nul",
-      "form": "WDWWL",
+      "form": "WWDWW",
       "stats_l5": {
         "n": 5,
-        "gf_pm": 1.4,
-        "ga_pm": 1.2,
+        "gf_pm": 2.0,
+        "ga_pm": 1.0,
         "clean_sheets": 1,
-        "failed_to_score": 1,
-        "btts": 3,
-        "wins": 3,
+        "failed_to_score": 0,
+        "btts": 4,
+        "wins": 4,
         "draws": 1,
-        "losses": 1
+        "losses": 0
       },
       "stats_l10": {
         "n": 10,
-        "gf_pm": 1.7,
-        "ga_pm": 1.8,
+        "gf_pm": 1.9,
+        "ga_pm": 1.7,
         "clean_sheets": 1,
         "failed_to_score": 1,
         "btts": 8,
-        "wins": 4,
+        "wins": 5,
         "draws": 3,
-        "losses": 3,
-        "gf_expected_pm": 1.51,
-        "ga_expected_pm": 1.19
+        "losses": 2,
+        "gf_expected_pm": 1.69,
+        "ga_expected_pm": 1.11
       },
       "recent": [
+        {
+          "date": "2026-11-14",
+          "opp": "Bosnia and Herzegovina",
+          "opp_slug": "bosnia_and_herzegovina",
+          "opp_id": 10106,
+          "venue": "home",
+          "gf": 3,
+          "ga": 2,
+          "result": "W",
+          "comp": "UEFA Nations League B Grp. 4"
+        },
         {
           "date": "2026-10-05",
           "opp": "Romania",
@@ -3744,17 +3761,6 @@
           "ga": 2,
           "result": "D",
           "comp": "Friendlies"
-        },
-        {
-          "date": "2026-06-01",
-          "opp": "Norway",
-          "opp_slug": "norway",
-          "opp_id": 8492,
-          "venue": "away",
-          "gf": 1,
-          "ga": 3,
-          "result": "L",
-          "comp": "Friendlies"
         }
       ],
       "wc_pedigree": {
@@ -3770,10 +3776,9 @@
         "summary_fr": "quart de finale en 2018"
       },
       "notes_fr": [
-        "Défense fragile : 1.8 buts encaissés/match sur L10",
-        "Défense -0.6 but/match vs attendu Elo"
+        "Forme exceptionnelle : 4 victoires sur L5"
       ],
-      "last_updated": "2026-11-14T21:10:28+00:00"
+      "last_updated": "2026-11-15T01:13:24+00:00"
     },
     "tunisia": {
       "fotmob_team_id": "6719",
@@ -3940,7 +3945,7 @@
         "Attaque -1.1 but/match vs attendu Elo",
         "Défense -1.2 but/match vs attendu Elo"
       ],
-      "last_updated": "2026-11-14T21:10:28+00:00"
+      "last_updated": "2026-11-15T01:13:25+00:00"
     },
     "spain": {
       "fotmob_team_id": "6720",
@@ -4106,7 +4111,7 @@
         "Forme exceptionnelle : 5 victoires sur L5",
         "Défense solide : 5 clean sheets sur L10"
       ],
-      "last_updated": "2026-11-14T21:10:28+00:00"
+      "last_updated": "2026-11-15T01:13:25+00:00"
     },
     "cape_verde": {
       "fotmob_team_id": "5888",
@@ -4271,7 +4276,7 @@
         "Attaque +0.8 but/match vs attendu Elo",
         "Aucune phase finale WC sur les 3 dernières éditions"
       ],
-      "last_updated": "2026-11-14T21:10:28+00:00"
+      "last_updated": "2026-11-15T01:13:26+00:00"
     },
     "belgium": {
       "fotmob_team_id": "8263",
@@ -4434,7 +4439,7 @@
       "notes_fr": [
         "Habituée du tournoi : phase de poules en 2022 · demi-finaliste en 2018 · quart de finale en 2014"
       ],
-      "last_updated": "2026-11-14T21:10:28+00:00"
+      "last_updated": "2026-11-15T01:13:26+00:00"
     },
     "egypt": {
       "fotmob_team_id": "10255",
@@ -4595,7 +4600,7 @@
         "summary_fr": "phase de poules en 2018"
       },
       "notes_fr": [],
-      "last_updated": "2026-11-14T21:10:28+00:00"
+      "last_updated": "2026-11-15T01:13:27+00:00"
     },
     "saudi_arabia": {
       "fotmob_team_id": "7795",
@@ -4761,7 +4766,7 @@
         "Attaque en panne : 4 blanchies sur L10",
         "Défense +1.3 but/match vs attendu Elo"
       ],
-      "last_updated": "2026-11-14T21:10:28+00:00"
+      "last_updated": "2026-11-15T01:13:27+00:00"
     },
     "uruguay": {
       "fotmob_team_id": "5796",
@@ -4924,43 +4929,54 @@
       "notes_fr": [
         "Défense -0.6 but/match vs attendu Elo"
       ],
-      "last_updated": "2026-11-14T21:10:28+00:00"
+      "last_updated": "2026-11-15T01:13:28+00:00"
     },
     "iran": {
       "fotmob_team_id": "6711",
       "fifa_rank": 19,
       "fifa_points": 1620,
-      "matches_n": 8,
-      "off_score": -0.48,
-      "def_score": -0.79,
+      "matches_n": 9,
+      "off_score": -0.49,
+      "def_score": -0.74,
       "off_rating": "nul",
       "def_rating": "nul",
-      "form": "LLDDD",
+      "form": "WLLDD",
       "stats_l5": {
         "n": 5,
         "gf_pm": 0.8,
-        "ga_pm": 1.6,
-        "clean_sheets": 1,
+        "ga_pm": 1.2,
+        "clean_sheets": 2,
         "failed_to_score": 2,
-        "btts": 3,
-        "wins": 0,
-        "draws": 3,
+        "btts": 2,
+        "wins": 1,
+        "draws": 2,
         "losses": 2
       },
       "stats_l10": {
-        "n": 8,
-        "gf_pm": 1.0,
-        "ga_pm": 1.38,
-        "clean_sheets": 2,
+        "n": 9,
+        "gf_pm": 1.11,
+        "ga_pm": 1.22,
+        "clean_sheets": 3,
         "failed_to_score": 3,
         "btts": 5,
-        "wins": 1,
+        "wins": 2,
         "draws": 4,
         "losses": 3,
-        "gf_expected_pm": 2.14,
-        "ga_expected_pm": 0.73
+        "gf_expected_pm": 2.27,
+        "ga_expected_pm": 0.69
       },
       "recent": [
+        {
+          "date": "2026-11-14",
+          "opp": "Palestine",
+          "opp_slug": "palestine",
+          "opp_id": 6333,
+          "venue": "away",
+          "gf": 2,
+          "ga": 0,
+          "result": "W",
+          "comp": "Friendlies"
+        },
         {
           "date": "2026-09-29",
           "opp": "Russia",
@@ -5063,10 +5079,9 @@
         "summary_fr": "phase de poules en 2022 · phase de poules en 2018 · phase de poules en 2014"
       },
       "notes_fr": [
-        "Attaque -1.1 but/match vs attendu Elo",
-        "Défense -0.6 but/match vs attendu Elo"
+        "Attaque -1.2 but/match vs attendu Elo"
       ],
-      "last_updated": "2026-11-14T21:10:28+00:00"
+      "last_updated": "2026-11-15T01:13:29+00:00"
     },
     "new_zealand": {
       "fotmob_team_id": "5820",
@@ -5231,7 +5246,7 @@
         "Attaque +0.8 but/match vs attendu Elo",
         "Aucune phase finale WC sur les 3 dernières éditions"
       ],
-      "last_updated": "2026-11-14T21:10:28+00:00"
+      "last_updated": "2026-11-15T01:13:29+00:00"
     },
     "france": {
       "fotmob_team_id": "6723",
@@ -5398,7 +5413,7 @@
         "Défense solide : 5 clean sheets sur L10",
         "Pédigrée WC élite : finaliste en 2022 · vainqueur en 2018 · quart de finale en 2014 · 2 titres (1998, 2018)"
       ],
-      "last_updated": "2026-11-14T21:10:28+00:00"
+      "last_updated": "2026-11-15T01:13:29+00:00"
     },
     "senegal": {
       "fotmob_team_id": "6395",
@@ -5559,7 +5574,7 @@
         "summary_fr": "1/8 en 2022 · phase de poules en 2018"
       },
       "notes_fr": [],
-      "last_updated": "2026-11-14T21:10:28+00:00"
+      "last_updated": "2026-11-15T01:13:30+00:00"
     },
     "iraq": {
       "fotmob_team_id": "5819",
@@ -5726,7 +5741,7 @@
         "Défense -0.7 but/match vs attendu Elo",
         "Aucune phase finale WC sur les 3 dernières éditions"
       ],
-      "last_updated": "2026-11-14T21:10:28+00:00"
+      "last_updated": "2026-11-15T01:13:30+00:00"
     },
     "norway": {
       "fotmob_team_id": "8492",
@@ -5734,24 +5749,24 @@
       "fifa_points": 1527,
       "matches_n": 12,
       "off_score": 1.0,
-      "def_score": -0.07,
+      "def_score": -0.03,
       "off_rating": "bon",
       "def_rating": "moyen",
-      "form": "LLLWL",
+      "form": "WLLLW",
       "stats_l5": {
         "n": 5,
-        "gf_pm": 1.4,
-        "ga_pm": 2.0,
+        "gf_pm": 1.8,
+        "ga_pm": 1.8,
         "clean_sheets": 0,
         "failed_to_score": 0,
         "btts": 5,
-        "wins": 1,
+        "wins": 2,
         "draws": 0,
-        "losses": 4
+        "losses": 3
       },
       "stats_l10": {
         "n": 10,
-        "gf_pm": 1.9,
+        "gf_pm": 1.8,
         "ga_pm": 1.9,
         "clean_sheets": 0,
         "failed_to_score": 0,
@@ -5759,10 +5774,21 @@
         "wins": 5,
         "draws": 0,
         "losses": 5,
-        "gf_expected_pm": 0.94,
-        "ga_expected_pm": 1.78
+        "gf_expected_pm": 0.88,
+        "ga_expected_pm": 1.84
       },
       "recent": [
+        {
+          "date": "2026-11-14",
+          "opp": "Wales",
+          "opp_slug": "wales",
+          "opp_id": 5790,
+          "venue": "home",
+          "gf": 3,
+          "ga": 1,
+          "result": "W",
+          "comp": "UEFA Nations League A Grp. 4"
+        },
         {
           "date": "2026-10-04",
           "opp": "Portugal",
@@ -5861,17 +5887,6 @@
           "ga": 2,
           "result": "W",
           "comp": "World Cup Grp. I"
-        },
-        {
-          "date": "2026-06-16",
-          "opp": "Iraq",
-          "opp_slug": "iraq",
-          "opp_id": 5819,
-          "venue": "away",
-          "gf": 4,
-          "ga": 1,
-          "result": "W",
-          "comp": "World Cup Grp. I"
         }
       ],
       "wc_pedigree": {
@@ -5887,12 +5902,12 @@
         "summary_fr": "Pas de phase finale récente"
       },
       "notes_fr": [
-        "Forme inquiétante : 4 défaites sur L5",
+        "Forme inquiétante : 3 défaites sur L5",
         "Défense fragile : 1.9 buts encaissés/match sur L10",
-        "Attaque +1.0 but/match vs attendu Elo",
+        "Attaque +0.9 but/match vs attendu Elo",
         "Aucune phase finale WC sur les 3 dernières éditions"
       ],
-      "last_updated": "2026-11-14T21:10:28+00:00"
+      "last_updated": "2026-11-15T01:13:32+00:00"
     },
     "argentina": {
       "fotmob_team_id": "6706",
@@ -6058,43 +6073,54 @@
         "Attaque prolifique : 2.9 buts/match sur L10",
         "Pédigrée WC élite : vainqueur en 2022 · 1/8 en 2018 · finaliste en 2014 · 1 titre (2022)"
       ],
-      "last_updated": "2026-11-14T21:10:28+00:00"
+      "last_updated": "2026-11-15T01:13:33+00:00"
     },
     "algeria": {
       "fotmob_team_id": "6317",
       "fifa_rank": 38,
       "fifa_points": 1499,
       "matches_n": 12,
-      "off_score": 0.06,
-      "def_score": -0.03,
+      "off_score": 0.0,
+      "def_score": -0.19,
       "off_rating": "moyen",
       "def_rating": "moyen",
-      "form": "WDWLD",
+      "form": "WWDWL",
       "stats_l5": {
         "n": 5,
-        "gf_pm": 2.0,
-        "ga_pm": 1.8,
-        "clean_sheets": 0,
+        "gf_pm": 1.6,
+        "ga_pm": 1.2,
+        "clean_sheets": 1,
         "failed_to_score": 1,
-        "btts": 4,
-        "wins": 2,
-        "draws": 2,
+        "btts": 3,
+        "wins": 3,
+        "draws": 1,
         "losses": 1
       },
       "stats_l10": {
         "n": 10,
-        "gf_pm": 1.7,
+        "gf_pm": 1.8,
         "ga_pm": 1.3,
         "clean_sheets": 3,
-        "failed_to_score": 3,
+        "failed_to_score": 2,
         "btts": 5,
-        "wins": 5,
-        "draws": 3,
+        "wins": 6,
+        "draws": 2,
         "losses": 2,
-        "gf_expected_pm": 1.6,
-        "ga_expected_pm": 1.27
+        "gf_expected_pm": 1.8,
+        "ga_expected_pm": 1.09
       },
       "recent": [
+        {
+          "date": "2026-11-14",
+          "opp": "Togo",
+          "opp_slug": "togo",
+          "opp_id": 7740,
+          "venue": "home",
+          "gf": 1,
+          "ga": 0,
+          "result": "W",
+          "comp": "Africa Cup of Nations Qualification Grp. I"
+        },
         {
           "date": "2026-10-06",
           "opp": "Niger",
@@ -6193,17 +6219,6 @@
           "ga": 0,
           "result": "W",
           "comp": "Friendlies"
-        },
-        {
-          "date": "2026-03-31",
-          "opp": "Uruguay",
-          "opp_slug": "uruguay",
-          "opp_id": 5796,
-          "venue": "home",
-          "gf": 0,
-          "ga": 0,
-          "result": "D",
-          "comp": "Friendlies"
         }
       ],
       "wc_pedigree": {
@@ -6219,28 +6234,28 @@
         "summary_fr": "1/8 en 2014"
       },
       "notes_fr": [],
-      "last_updated": "2026-11-14T21:10:28+00:00"
+      "last_updated": "2026-11-15T01:13:33+00:00"
     },
     "austria": {
       "fotmob_team_id": "8255",
       "fifa_rank": 26,
       "fifa_points": 1578,
       "matches_n": 12,
-      "off_score": -0.14,
-      "def_score": -0.5,
+      "off_score": -0.07,
+      "def_score": -0.43,
       "off_rating": "moyen",
       "def_rating": "nul",
-      "form": "DDWWL",
+      "form": "WDDWW",
       "stats_l5": {
         "n": 5,
-        "gf_pm": 1.8,
-        "ga_pm": 1.6,
-        "clean_sheets": 0,
-        "failed_to_score": 1,
+        "gf_pm": 2.0,
+        "ga_pm": 1.0,
+        "clean_sheets": 1,
+        "failed_to_score": 0,
         "btts": 4,
-        "wins": 2,
+        "wins": 3,
         "draws": 2,
-        "losses": 1
+        "losses": 0
       },
       "stats_l10": {
         "n": 10,
@@ -6252,10 +6267,21 @@
         "wins": 5,
         "draws": 3,
         "losses": 2,
-        "gf_expected_pm": 1.97,
-        "ga_expected_pm": 0.93
+        "gf_expected_pm": 1.83,
+        "ga_expected_pm": 0.98
       },
       "recent": [
+        {
+          "date": "2026-11-14",
+          "opp": "Ireland",
+          "opp_slug": "ireland",
+          "opp_id": 5791,
+          "venue": "home",
+          "gf": 1,
+          "ga": 0,
+          "result": "W",
+          "comp": "UEFA Nations League B Grp. 3"
+        },
         {
           "date": "2026-10-04",
           "opp": "Kosovo",
@@ -6354,17 +6380,6 @@
           "ga": 0,
           "result": "W",
           "comp": "Friendlies"
-        },
-        {
-          "date": "2026-03-31",
-          "opp": "South Korea",
-          "opp_slug": "south_korea",
-          "opp_id": 7804,
-          "venue": "home",
-          "gf": 1,
-          "ga": 0,
-          "result": "W",
-          "comp": "Friendlies"
         }
       ],
       "wc_pedigree": {
@@ -6382,7 +6397,7 @@
       "notes_fr": [
         "Aucune phase finale WC sur les 3 dernières éditions"
       ],
-      "last_updated": "2026-11-14T21:10:28+00:00"
+      "last_updated": "2026-11-15T01:13:34+00:00"
     },
     "jordan": {
       "fotmob_team_id": "5816",
@@ -6547,43 +6562,54 @@
         "Défense fragile : 2.0 buts encaissés/match sur L10",
         "Aucune phase finale WC sur les 3 dernières éditions"
       ],
-      "last_updated": "2026-11-14T21:10:28+00:00"
+      "last_updated": "2026-11-15T01:13:34+00:00"
     },
     "portugal": {
       "fotmob_team_id": "8361",
       "fifa_rank": 6,
       "fifa_points": 1772,
       "matches_n": 12,
-      "off_score": -0.14,
-      "def_score": -0.28,
+      "off_score": -0.17,
+      "def_score": -0.66,
       "off_rating": "moyen",
-      "def_rating": "moyen",
-      "form": "WWWWL",
+      "def_rating": "nul",
+      "form": "LWWWW",
       "stats_l5": {
         "n": 5,
-        "gf_pm": 1.8,
-        "ga_pm": 1.0,
+        "gf_pm": 2.0,
+        "ga_pm": 1.6,
         "clean_sheets": 1,
-        "failed_to_score": 1,
-        "btts": 3,
+        "failed_to_score": 0,
+        "btts": 4,
         "wins": 4,
         "draws": 0,
         "losses": 1
       },
       "stats_l10": {
         "n": 10,
-        "gf_pm": 1.9,
-        "ga_pm": 0.8,
+        "gf_pm": 1.8,
+        "ga_pm": 1.1,
         "clean_sheets": 3,
         "failed_to_score": 2,
         "btts": 6,
-        "wins": 7,
+        "wins": 6,
         "draws": 2,
-        "losses": 1,
-        "gf_expected_pm": 2.21,
-        "ga_expected_pm": 0.63
+        "losses": 2,
+        "gf_expected_pm": 2.16,
+        "ga_expected_pm": 0.66
       },
       "recent": [
+        {
+          "date": "2026-11-14",
+          "opp": "Denmark",
+          "opp_slug": "denmark",
+          "opp_id": 8238,
+          "venue": "home",
+          "gf": 1,
+          "ga": 4,
+          "result": "L",
+          "comp": "UEFA Nations League A Grp. 4"
+        },
         {
           "date": "2026-10-04",
           "opp": "Norway",
@@ -6682,17 +6708,6 @@
           "ga": 1,
           "result": "D",
           "comp": "World Cup Grp. K"
-        },
-        {
-          "date": "2026-06-10",
-          "opp": "Nigeria",
-          "opp_slug": "nigeria",
-          "opp_id": 6346,
-          "venue": "home",
-          "gf": 2,
-          "ga": 1,
-          "result": "W",
-          "comp": "Friendlies"
         }
       ],
       "wc_pedigree": {
@@ -6710,7 +6725,7 @@
       "notes_fr": [
         "Forme exceptionnelle : 4 victoires sur L5"
       ],
-      "last_updated": "2026-11-14T21:10:28+00:00"
+      "last_updated": "2026-11-15T01:13:35+00:00"
     },
     "dr_congo": {
       "fotmob_team_id": "6321",
@@ -6874,7 +6889,7 @@
         "Défense +0.7 but/match vs attendu Elo",
         "Aucune phase finale WC sur les 3 dernières éditions"
       ],
-      "last_updated": "2026-11-14T21:10:28+00:00"
+      "last_updated": "2026-11-15T01:13:35+00:00"
     },
     "england": {
       "fotmob_team_id": "8491",
@@ -7041,7 +7056,7 @@
         "Défense -0.6 but/match vs attendu Elo",
         "Habituée du tournoi : quart de finale en 2022 · demi-finaliste en 2018 · phase de poules en 2014"
       ],
-      "last_updated": "2026-11-14T21:10:28+00:00"
+      "last_updated": "2026-11-15T01:13:36+00:00"
     },
     "croatia": {
       "fotmob_team_id": "10155",
@@ -7207,7 +7222,7 @@
         "Défense -1.2 but/match vs attendu Elo",
         "Habituée du tournoi : demi-finaliste en 2022 · finaliste en 2018 · phase de poules en 2014"
       ],
-      "last_updated": "2026-11-14T21:10:28+00:00"
+      "last_updated": "2026-11-15T01:13:37+00:00"
     },
     "ghana": {
       "fotmob_team_id": "6714",
@@ -7371,7 +7386,7 @@
         "Forme inquiétante : 4 défaites sur L5",
         "Attaque en panne : 4 blanchies sur L10"
       ],
-      "last_updated": "2026-11-14T21:10:28+00:00"
+      "last_updated": "2026-11-15T01:13:37+00:00"
     },
     "panama": {
       "fotmob_team_id": "5922",
@@ -7535,7 +7550,7 @@
         "Attaque en panne : 4 blanchies sur L10",
         "Attaque -0.7 but/match vs attendu Elo"
       ],
-      "last_updated": "2026-11-14T21:10:28+00:00"
+      "last_updated": "2026-11-15T01:13:39+00:00"
     },
     "uzbekistan": {
       "fotmob_team_id": "8700",
@@ -7701,7 +7716,7 @@
         "Défense fragile : 2.2 buts encaissés/match sur L10",
         "Aucune phase finale WC sur les 3 dernières éditions"
       ],
-      "last_updated": "2026-11-14T21:10:28+00:00"
+      "last_updated": "2026-11-15T01:13:39+00:00"
     },
     "colombia": {
       "fotmob_team_id": "8258",
@@ -7865,7 +7880,7 @@
         "Défense solide : 7 clean sheets sur L10",
         "Attaque -1.1 but/match vs attendu Elo"
       ],
-      "last_updated": "2026-11-14T21:10:28+00:00"
+      "last_updated": "2026-11-15T01:13:39+00:00"
     },
     "mexico_3cefhi": {
       "fotmob_team_id": "2037340",
@@ -7885,7 +7900,7 @@
         "summary_fr": "Pas d'historique récent en Coupe du Monde"
       },
       "notes_fr": [],
-      "last_updated": "2026-11-14T21:10:28+00:00"
+      "last_updated": "2026-11-15T01:13:40+00:00"
     },
     "usa_3befij": {
       "fotmob_team_id": "2040089",
@@ -7905,7 +7920,7 @@
         "summary_fr": "Pas d'historique récent en Coupe du Monde"
       },
       "notes_fr": [],
-      "last_updated": "2026-11-14T21:10:28+00:00"
+      "last_updated": "2026-11-15T01:13:41+00:00"
     },
     "germany_3abcdf": {
       "fotmob_team_id": "2042059",
@@ -7925,7 +7940,7 @@
         "summary_fr": "Pas d'historique récent en Coupe du Monde"
       },
       "notes_fr": [],
-      "last_updated": "2026-11-14T21:10:28+00:00"
+      "last_updated": "2026-11-15T01:13:42+00:00"
     },
     "argentina_2h": {
       "fotmob_team_id": "2046745",
@@ -7945,7 +7960,7 @@
         "summary_fr": "Pas d'historique récent en Coupe du Monde"
       },
       "notes_fr": [],
-      "last_updated": "2026-11-14T21:10:28+00:00"
+      "last_updated": "2026-11-15T01:13:42+00:00"
     },
     "switzerland_3efgij": {
       "fotmob_team_id": "2053120",
@@ -7965,7 +7980,7 @@
         "summary_fr": "Pas d'historique récent en Coupe du Monde"
       },
       "notes_fr": [],
-      "last_updated": "2026-11-14T21:10:28+00:00"
+      "last_updated": "2026-11-15T01:13:43+00:00"
     },
     "brazil_2f": {
       "fotmob_team_id": "2053131",
@@ -7985,7 +8000,7 @@
         "summary_fr": "Pas d'historique récent en Coupe du Monde"
       },
       "notes_fr": [],
-      "last_updated": "2026-11-14T21:10:28+00:00"
+      "last_updated": "2026-11-15T01:13:43+00:00"
     },
     "south_africa_canada": {
       "fotmob_team_id": "2053134",
@@ -8005,7 +8020,7 @@
         "summary_fr": "Pas d'historique récent en Coupe du Monde"
       },
       "notes_fr": [],
-      "last_updated": "2026-11-14T21:10:28+00:00"
+      "last_updated": "2026-11-15T01:13:44+00:00"
     },
     "ivory_coast_2i": {
       "fotmob_team_id": "2055059",
@@ -8025,7 +8040,7 @@
         "summary_fr": "Pas d'historique récent en Coupe du Monde"
       },
       "notes_fr": [],
-      "last_updated": "2026-11-14T21:10:28+00:00"
+      "last_updated": "2026-11-15T01:13:45+00:00"
     },
     "brazil_japan": {
       "fotmob_team_id": "2055063",
@@ -8045,7 +8060,7 @@
         "summary_fr": "Pas d'historique récent en Coupe du Monde"
       },
       "notes_fr": [],
-      "last_updated": "2026-11-14T21:10:28+00:00"
+      "last_updated": "2026-11-15T01:13:45+00:00"
     },
     "australia_2g": {
       "fotmob_team_id": "2055136",
@@ -8065,7 +8080,7 @@
         "summary_fr": "Pas d'historique récent en Coupe du Monde"
       },
       "notes_fr": [],
-      "last_updated": "2026-11-14T21:10:28+00:00"
+      "last_updated": "2026-11-15T01:13:46+00:00"
     },
     "netherlands_morocco": {
       "fotmob_team_id": "2055187",
@@ -8085,7 +8100,7 @@
         "summary_fr": "Pas d'historique récent en Coupe du Monde"
       },
       "notes_fr": [],
-      "last_updated": "2026-11-14T21:10:28+00:00"
+      "last_updated": "2026-11-15T01:13:47+00:00"
     },
     "usa_bosnia_and_herzegovina": {
       "fotmob_team_id": "2055190",
@@ -8105,7 +8120,7 @@
         "summary_fr": "Pas d'historique récent en Coupe du Monde"
       },
       "notes_fr": [],
-      "last_updated": "2026-11-14T21:10:28+00:00"
+      "last_updated": "2026-11-15T01:13:47+00:00"
     },
     "france_3cdfgh": {
       "fotmob_team_id": "2056781",
@@ -8125,7 +8140,7 @@
         "summary_fr": "Pas d'historique récent en Coupe du Monde"
       },
       "notes_fr": [],
-      "last_updated": "2026-11-14T21:10:28+00:00"
+      "last_updated": "2026-11-15T01:13:48+00:00"
     },
     "ivory_coast_norway": {
       "fotmob_team_id": "2056783",
@@ -8145,7 +8160,7 @@
         "summary_fr": "Pas d'historique récent en Coupe du Monde"
       },
       "notes_fr": [],
-      "last_updated": "2026-11-14T21:10:28+00:00"
+      "last_updated": "2026-11-15T01:13:49+00:00"
     },
     "spain_2j": {
       "fotmob_team_id": "2056837",
@@ -8165,7 +8180,7 @@
         "summary_fr": "Pas d'historique récent en Coupe du Monde"
       },
       "notes_fr": [],
-      "last_updated": "2026-11-14T21:10:28+00:00"
+      "last_updated": "2026-11-15T01:13:50+00:00"
     },
     "argentina_cape_verde": {
       "fotmob_team_id": "2056838",
@@ -8185,7 +8200,7 @@
         "summary_fr": "Pas d'historique récent en Coupe du Monde"
       },
       "notes_fr": [],
-      "last_updated": "2026-11-14T21:10:28+00:00"
+      "last_updated": "2026-11-15T01:13:50+00:00"
     },
     "germany_paraguay": {
       "fotmob_team_id": "2056846",
@@ -8205,7 +8220,7 @@
         "summary_fr": "Pas d'historique récent en Coupe du Monde"
       },
       "notes_fr": [],
-      "last_updated": "2026-11-14T21:10:28+00:00"
+      "last_updated": "2026-11-15T01:13:50+00:00"
     },
     "france_sweden": {
       "fotmob_team_id": "2056841",
@@ -8225,7 +8240,7 @@
         "summary_fr": "Pas d'historique récent en Coupe du Monde"
       },
       "notes_fr": [],
-      "last_updated": "2026-11-14T21:10:28+00:00"
+      "last_updated": "2026-11-15T01:13:51+00:00"
     },
     "belgium_3aehij": {
       "fotmob_team_id": "2056961",
@@ -8245,7 +8260,7 @@
         "summary_fr": "Pas d'historique récent en Coupe du Monde"
       },
       "notes_fr": [],
-      "last_updated": "2026-11-14T21:10:28+00:00"
+      "last_updated": "2026-11-15T01:13:52+00:00"
     },
     "australia_egypt": {
       "fotmob_team_id": "2056962",
@@ -8265,7 +8280,7 @@
         "summary_fr": "Pas d'historique récent en Coupe du Monde"
       },
       "notes_fr": [],
-      "last_updated": "2026-11-14T21:10:28+00:00"
+      "last_updated": "2026-11-15T01:13:52+00:00"
     },
     "england_3ehijk": {
       "fotmob_team_id": "2058675",
@@ -8285,7 +8300,7 @@
         "summary_fr": "Pas d'historique récent en Coupe du Monde"
       },
       "notes_fr": [],
-      "last_updated": "2026-11-14T21:10:28+00:00"
+      "last_updated": "2026-11-15T01:13:53+00:00"
     },
     "mexico_ecuador": {
       "fotmob_team_id": "2058680",
@@ -8305,7 +8320,7 @@
         "summary_fr": "Pas d'historique récent en Coupe du Monde"
       },
       "notes_fr": [],
-      "last_updated": "2026-11-14T21:10:28+00:00"
+      "last_updated": "2026-11-15T01:13:53+00:00"
     },
     "england_dr_congo": {
       "fotmob_team_id": "2058685",
@@ -8325,7 +8340,7 @@
         "summary_fr": "Pas d'historique récent en Coupe du Monde"
       },
       "notes_fr": [],
-      "last_updated": "2026-11-14T21:10:28+00:00"
+      "last_updated": "2026-11-15T01:13:54+00:00"
     },
     "portugal_croatia": {
       "fotmob_team_id": "2058684",
@@ -8345,7 +8360,7 @@
         "summary_fr": "Pas d'historique récent en Coupe du Monde"
       },
       "notes_fr": [],
-      "last_updated": "2026-11-14T21:10:28+00:00"
+      "last_updated": "2026-11-15T01:13:54+00:00"
     },
     "belgium_senegal": {
       "fotmob_team_id": "2058686",
@@ -8365,7 +8380,7 @@
         "summary_fr": "Pas d'historique récent en Coupe du Monde"
       },
       "notes_fr": [],
-      "last_updated": "2026-11-14T21:10:28+00:00"
+      "last_updated": "2026-11-15T01:13:55+00:00"
     },
     "colombia_ghana": {
       "fotmob_team_id": "2058683",
@@ -8385,7 +8400,7 @@
         "summary_fr": "Pas d'historique récent en Coupe du Monde"
       },
       "notes_fr": [],
-      "last_updated": "2026-11-14T21:10:28+00:00"
+      "last_updated": "2026-11-15T01:13:55+00:00"
     },
     "spain_austria": {
       "fotmob_team_id": "2058687",
@@ -8405,7 +8420,7 @@
         "summary_fr": "Pas d'historique récent en Coupe du Monde"
       },
       "notes_fr": [],
-      "last_updated": "2026-11-14T21:10:28+00:00"
+      "last_updated": "2026-11-15T01:13:56+00:00"
     },
     "switzerland_algeria": {
       "fotmob_team_id": "2058688",
@@ -8425,7 +8440,7 @@
         "summary_fr": "Pas d'historique récent en Coupe du Monde"
       },
       "notes_fr": [],
-      "last_updated": "2026-11-14T21:10:28+00:00"
+      "last_updated": "2026-11-15T01:13:56+00:00"
     },
     "canada_morocco": {
       "fotmob_team_id": "2060953",
@@ -8445,7 +8460,7 @@
         "summary_fr": "Pas d'historique récent en Coupe du Monde"
       },
       "notes_fr": [],
-      "last_updated": "2026-11-14T21:10:28+00:00"
+      "last_updated": "2026-11-15T01:13:57+00:00"
     },
     "brazil_norway": {
       "fotmob_team_id": "2061849",
@@ -8465,7 +8480,7 @@
         "summary_fr": "Pas d'historique récent en Coupe du Monde"
       },
       "notes_fr": [],
-      "last_updated": "2026-11-14T21:10:28+00:00"
+      "last_updated": "2026-11-15T01:13:58+00:00"
     },
     "paraguay_france": {
       "fotmob_team_id": "2061599",
@@ -8485,7 +8500,7 @@
         "summary_fr": "Pas d'historique récent en Coupe du Monde"
       },
       "notes_fr": [],
-      "last_updated": "2026-11-14T21:10:28+00:00"
+      "last_updated": "2026-11-15T01:13:58+00:00"
     },
     "mexico_england": {
       "fotmob_team_id": "2063936",
@@ -8505,7 +8520,7 @@
         "summary_fr": "Pas d'historique récent en Coupe du Monde"
       },
       "notes_fr": [],
-      "last_updated": "2026-11-14T21:10:28+00:00"
+      "last_updated": "2026-11-15T01:13:59+00:00"
     },
     "usa_belgium": {
       "fotmob_team_id": "2064024",
@@ -8525,7 +8540,7 @@
         "summary_fr": "Pas d'historique récent en Coupe du Monde"
       },
       "notes_fr": [],
-      "last_updated": "2026-11-14T21:10:28+00:00"
+      "last_updated": "2026-11-15T01:13:59+00:00"
     },
     "portugal_spain": {
       "fotmob_team_id": "2066499",
@@ -8545,7 +8560,7 @@
         "summary_fr": "Pas d'historique récent en Coupe du Monde"
       },
       "notes_fr": [],
-      "last_updated": "2026-11-14T21:10:28+00:00"
+      "last_updated": "2026-11-15T01:14:00+00:00"
     },
     "argentina_egypt": {
       "fotmob_team_id": "2068058",
@@ -8565,7 +8580,7 @@
         "summary_fr": "Pas d'historique récent en Coupe du Monde"
       },
       "notes_fr": [],
-      "last_updated": "2026-11-14T21:10:28+00:00"
+      "last_updated": "2026-11-15T01:14:01+00:00"
     },
     "switzerland_colombia": {
       "fotmob_team_id": "2068041",
@@ -8585,7 +8600,7 @@
         "summary_fr": "Pas d'historique récent en Coupe du Monde"
       },
       "notes_fr": [],
-      "last_updated": "2026-11-14T21:10:28+00:00"
+      "last_updated": "2026-11-15T01:14:02+00:00"
     },
     "france_morocco": {
       "fotmob_team_id": "2068681",
@@ -8605,7 +8620,7 @@
         "summary_fr": "Pas d'historique récent en Coupe du Monde"
       },
       "notes_fr": [],
-      "last_updated": "2026-11-14T21:10:28+00:00"
+      "last_updated": "2026-11-15T01:14:02+00:00"
     },
     "norway_england": {
       "fotmob_team_id": "2069301",
@@ -8625,7 +8640,7 @@
         "summary_fr": "Pas d'historique récent en Coupe du Monde"
       },
       "notes_fr": [],
-      "last_updated": "2026-11-14T21:10:28+00:00"
+      "last_updated": "2026-11-15T01:14:03+00:00"
     },
     "spain_belgium": {
       "fotmob_team_id": "2070470",
@@ -8645,7 +8660,7 @@
         "summary_fr": "Pas d'historique récent en Coupe du Monde"
       },
       "notes_fr": [],
-      "last_updated": "2026-11-14T21:10:28+00:00"
+      "last_updated": "2026-11-15T01:14:04+00:00"
     },
     "argentina_switzerland": {
       "fotmob_team_id": "2071144",
@@ -8665,7 +8680,7 @@
         "summary_fr": "Pas d'historique récent en Coupe du Monde"
       },
       "notes_fr": [],
-      "last_updated": "2026-11-14T21:10:28+00:00"
+      "last_updated": "2026-11-15T01:14:04+00:00"
     },
     "france_spain": {
       "fotmob_team_id": "2075533",
@@ -8685,7 +8700,7 @@
         "summary_fr": "Pas d'historique récent en Coupe du Monde"
       },
       "notes_fr": [],
-      "last_updated": "2026-11-14T21:10:28+00:00"
+      "last_updated": "2026-11-15T01:14:05+00:00"
     },
     "england_argentina": {
       "fotmob_team_id": "2076509",
@@ -8705,7 +8720,7 @@
         "summary_fr": "Pas d'historique récent en Coupe du Monde"
       },
       "notes_fr": [],
-      "last_updated": "2026-11-14T21:10:28+00:00"
+      "last_updated": "2026-11-15T01:14:05+00:00"
     },
     "vietnam": {
       "fotmob_team_id": "5894",
@@ -8864,7 +8879,7 @@
         "Défense solide : 5 clean sheets sur L10",
         "Aucune phase finale WC sur les 3 dernières éditions"
       ],
-      "last_updated": "2026-11-14T21:10:28+00:00"
+      "last_updated": "2026-11-15T01:14:06+00:00"
     },
     "myanmar": {
       "fotmob_team_id": "8307",
@@ -9024,7 +9039,7 @@
         "Défense -1.0 but/match vs attendu Elo",
         "Aucune phase finale WC sur les 3 dernières éditions"
       ],
-      "last_updated": "2026-11-14T21:10:28+00:00"
+      "last_updated": "2026-11-15T01:14:06+00:00"
     },
     "new_caledonia": {
       "fotmob_team_id": "101595",
@@ -9120,7 +9135,7 @@
         "Défense -1.1 but/match vs attendu Elo",
         "Aucune phase finale WC sur les 3 dernières éditions"
       ],
-      "last_updated": "2026-11-14T21:10:28+00:00"
+      "last_updated": "2026-11-15T01:14:07+00:00"
     },
     "solomon_islands": {
       "fotmob_team_id": "6319",
@@ -9203,7 +9218,7 @@
         "Défense -3.6 but/match vs attendu Elo",
         "Aucune phase finale WC sur les 3 dernières éditions"
       ],
-      "last_updated": "2026-11-14T21:10:28+00:00"
+      "last_updated": "2026-11-15T01:14:07+00:00"
     },
     "fiji": {
       "fotmob_team_id": "5925",
@@ -9284,7 +9299,7 @@
       "notes_fr": [
         "Aucune phase finale WC sur les 3 dernières éditions"
       ],
-      "last_updated": "2026-11-14T21:10:28+00:00"
+      "last_updated": "2026-11-15T01:14:08+00:00"
     },
     "vanuatu": {
       "fotmob_team_id": "5926",
@@ -9354,7 +9369,7 @@
       "notes_fr": [
         "Aucune phase finale WC sur les 3 dernières éditions"
       ],
-      "last_updated": "2026-11-14T21:10:28+00:00"
+      "last_updated": "2026-11-15T01:14:08+00:00"
     },
     "azerbaijan": {
       "fotmob_team_id": "8566",
@@ -9512,43 +9527,65 @@
       "notes_fr": [
         "Aucune phase finale WC sur les 3 dernières éditions"
       ],
-      "last_updated": "2026-11-14T21:10:28+00:00"
+      "last_updated": "2026-11-15T01:14:09+00:00"
     },
     "tajikistan": {
       "fotmob_team_id": "5898",
       "fifa_rank": 97,
       "fifa_points": 1142,
-      "matches_n": 7,
-      "off_score": 0.31,
-      "def_score": 0.07,
+      "matches_n": 9,
+      "off_score": 0.35,
+      "def_score": 0.34,
       "off_rating": "bon",
-      "def_rating": "moyen",
-      "form": "WLLDW",
+      "def_rating": "bon",
+      "form": "WWWLL",
       "stats_l5": {
         "n": 5,
-        "gf_pm": 1.4,
-        "ga_pm": 1.4,
-        "clean_sheets": 1,
+        "gf_pm": 1.0,
+        "ga_pm": 1.0,
+        "clean_sheets": 3,
         "failed_to_score": 1,
-        "btts": 3,
-        "wins": 2,
-        "draws": 1,
+        "btts": 1,
+        "wins": 3,
+        "draws": 0,
         "losses": 2
       },
       "stats_l10": {
-        "n": 7,
-        "gf_pm": 1.86,
-        "ga_pm": 1.14,
-        "clean_sheets": 2,
+        "n": 9,
+        "gf_pm": 1.67,
+        "ga_pm": 0.89,
+        "clean_sheets": 4,
         "failed_to_score": 1,
         "btts": 4,
-        "wins": 3,
+        "wins": 5,
         "draws": 2,
         "losses": 2,
-        "gf_expected_pm": 1.36,
-        "ga_expected_pm": 1.24
+        "gf_expected_pm": 1.22,
+        "ga_expected_pm": 1.38
       },
       "recent": [
+        {
+          "date": "2026-11-14",
+          "opp": "Oman",
+          "opp_slug": "oman",
+          "opp_id": 5824,
+          "venue": "away",
+          "gf": 1,
+          "ga": 0,
+          "result": "W",
+          "comp": "Friendlies"
+        },
+        {
+          "date": "2026-11-14",
+          "opp": "Oman",
+          "opp_slug": "oman",
+          "opp_id": 5824,
+          "venue": "away",
+          "gf": 1,
+          "ga": 0,
+          "result": "W",
+          "comp": "King's Cup"
+        },
         {
           "date": "2026-10-06",
           "opp": "China",
@@ -9637,7 +9674,7 @@
       "notes_fr": [
         "Aucune phase finale WC sur les 3 dernières éditions"
       ],
-      "last_updated": "2026-11-14T21:10:28+00:00"
+      "last_updated": "2026-11-15T01:14:10+00:00"
     },
     "gibraltar": {
       "fotmob_team_id": "507764",
@@ -9796,7 +9833,7 @@
         "Attaque en panne : 6 blanchies sur L10",
         "Aucune phase finale WC sur les 3 dernières éditions"
       ],
-      "last_updated": "2026-11-14T21:10:28+00:00"
+      "last_updated": "2026-11-15T01:14:10+00:00"
     },
     "sao_tome_and_principe": {
       "fotmob_team_id": "287979",
@@ -9857,7 +9894,7 @@
         "Défense +0.9 but/match vs attendu Elo",
         "Aucune phase finale WC sur les 3 dernières éditions"
       ],
-      "last_updated": "2026-11-14T21:10:28+00:00"
+      "last_updated": "2026-11-15T01:14:10+00:00"
     },
     "papua_new_guinea": {
       "fotmob_team_id": "287876",
@@ -9919,43 +9956,54 @@
         "Défense -1.1 but/match vs attendu Elo",
         "Aucune phase finale WC sur les 3 dernières éditions"
       ],
-      "last_updated": "2026-11-14T21:10:28+00:00"
+      "last_updated": "2026-11-15T01:14:10+00:00"
     },
     "palestine": {
       "fotmob_team_id": "6333",
       "fifa_rank": 104,
       "fifa_points": 1100,
-      "matches_n": 8,
-      "off_score": 0.91,
-      "def_score": 0.39,
+      "matches_n": 9,
+      "off_score": 0.89,
+      "def_score": 0.41,
       "off_rating": "bon",
       "def_rating": "bon",
-      "form": "WWDLD",
+      "form": "LWWDL",
       "stats_l5": {
         "n": 5,
         "gf_pm": 2.4,
-        "ga_pm": 1.2,
-        "clean_sheets": 2,
+        "ga_pm": 1.6,
+        "clean_sheets": 1,
         "failed_to_score": 1,
         "btts": 3,
         "wins": 2,
-        "draws": 2,
-        "losses": 1
+        "draws": 1,
+        "losses": 2
       },
       "stats_l10": {
-        "n": 8,
-        "gf_pm": 1.88,
-        "ga_pm": 1.0,
+        "n": 9,
+        "gf_pm": 1.67,
+        "ga_pm": 1.11,
         "clean_sheets": 4,
-        "failed_to_score": 2,
+        "failed_to_score": 3,
         "btts": 4,
         "wins": 3,
         "draws": 4,
-        "losses": 1,
-        "gf_expected_pm": 0.93,
-        "ga_expected_pm": 1.78
+        "losses": 2,
+        "gf_expected_pm": 0.86,
+        "ga_expected_pm": 1.95
       },
       "recent": [
+        {
+          "date": "2026-11-14",
+          "opp": "Iran",
+          "opp_slug": "iran",
+          "opp_id": 6711,
+          "venue": "home",
+          "gf": 0,
+          "ga": 2,
+          "result": "L",
+          "comp": "Friendlies"
+        },
         {
           "date": "2026-10-02",
           "opp": "China",
@@ -10053,47 +10101,58 @@
         "summary_fr": "Pas d'historique récent en Coupe du Monde"
       },
       "notes_fr": [
-        "Attaque +0.9 but/match vs attendu Elo",
+        "Attaque +0.8 but/match vs attendu Elo",
         "Défense +0.8 but/match vs attendu Elo",
         "Aucune phase finale WC sur les 3 dernières éditions"
       ],
-      "last_updated": "2026-11-14T21:10:28+00:00"
+      "last_updated": "2026-11-15T01:14:11+00:00"
     },
     "china": {
       "fotmob_team_id": "5822",
       "fifa_rank": null,
       "fifa_points": 1200,
-      "matches_n": 8,
-      "off_score": -0.36,
-      "def_score": -0.28,
+      "matches_n": 9,
+      "off_score": -0.31,
+      "def_score": -0.18,
       "off_rating": "nul",
       "def_rating": "moyen",
-      "form": "LLLWD",
+      "form": "WLLLW",
       "stats_l5": {
         "n": 5,
-        "gf_pm": 0.6,
+        "gf_pm": 1.0,
         "ga_pm": 1.8,
         "clean_sheets": 2,
-        "failed_to_score": 4,
+        "failed_to_score": 3,
         "btts": 0,
-        "wins": 1,
-        "draws": 1,
+        "wins": 2,
+        "draws": 0,
         "losses": 3
       },
       "stats_l10": {
-        "n": 8,
-        "gf_pm": 0.88,
-        "ga_pm": 1.5,
-        "clean_sheets": 3,
+        "n": 9,
+        "gf_pm": 1.0,
+        "ga_pm": 1.33,
+        "clean_sheets": 4,
         "failed_to_score": 5,
         "btts": 1,
-        "wins": 3,
+        "wins": 4,
         "draws": 1,
         "losses": 4,
-        "gf_expected_pm": 1.46,
-        "ga_expected_pm": 1.14
+        "gf_expected_pm": 1.49,
+        "ga_expected_pm": 1.11
       },
       "recent": [
+        {
+          "date": "2026-11-14",
+          "opp": "Malaysia",
+          "opp_slug": "malaysia",
+          "opp_id": 5823,
+          "venue": "home",
+          "gf": 2,
+          "ga": 0,
+          "result": "W",
+          "comp": "Friendlies"
+        },
         {
           "date": "2026-10-06",
           "opp": "Tajikistan",
@@ -10195,7 +10254,7 @@
         "Attaque en panne : 5 blanchies sur L10",
         "Aucune phase finale WC sur les 3 dernières éditions"
       ],
-      "last_updated": "2026-11-14T21:10:28+00:00"
+      "last_updated": "2026-11-15T01:14:12+00:00"
     },
     "maldives": {
       "fotmob_team_id": "5899",
@@ -10336,21 +10395,21 @@
         "Défense -1.9 but/match vs attendu Elo",
         "Aucune phase finale WC sur les 3 dernières éditions"
       ],
-      "last_updated": "2026-11-14T21:10:28+00:00"
+      "last_updated": "2026-11-15T01:14:12+00:00"
     },
     "denmark": {
       "fotmob_team_id": "8238",
       "fifa_rank": 20,
       "fifa_points": 1614,
-      "matches_n": 10,
-      "off_score": -0.07,
-      "def_score": -0.81,
+      "matches_n": 11,
+      "off_score": 0.19,
+      "def_score": -0.43,
       "off_rating": "moyen",
       "def_rating": "nul",
-      "form": "WLWLW",
+      "form": "WWLWL",
       "stats_l5": {
         "n": 5,
-        "gf_pm": 1.8,
+        "gf_pm": 2.2,
         "ga_pm": 1.6,
         "clean_sheets": 2,
         "failed_to_score": 0,
@@ -10361,18 +10420,29 @@
       },
       "stats_l10": {
         "n": 10,
-        "gf_pm": 1.9,
-        "ga_pm": 1.6,
+        "gf_pm": 2.1,
+        "ga_pm": 1.5,
         "clean_sheets": 4,
         "failed_to_score": 1,
         "btts": 6,
-        "wins": 4,
-        "draws": 3,
+        "wins": 5,
+        "draws": 2,
         "losses": 3,
-        "gf_expected_pm": 2.03,
-        "ga_expected_pm": 0.88
+        "gf_expected_pm": 1.76,
+        "ga_expected_pm": 1.05
       },
       "recent": [
+        {
+          "date": "2026-11-14",
+          "opp": "Portugal",
+          "opp_slug": "portugal",
+          "opp_id": 8361,
+          "venue": "away",
+          "gf": 4,
+          "ga": 1,
+          "result": "W",
+          "comp": "UEFA Nations League A Grp. 4"
+        },
         {
           "date": "2026-10-04",
           "opp": "Wales",
@@ -10471,17 +10541,6 @@
           "ga": 4,
           "result": "L",
           "comp": "World Cup Qualification UEFA 1st Round Grp. C"
-        },
-        {
-          "date": "2025-11-15",
-          "opp": "Belarus",
-          "opp_slug": "belarus",
-          "opp_id": 10057,
-          "venue": "home",
-          "gf": 2,
-          "ga": 2,
-          "result": "D",
-          "comp": "World Cup Qualification UEFA 1st Round Grp. C"
         }
       ],
       "wc_pedigree": {
@@ -10492,25 +10551,24 @@
         "summary_fr": "Pas d'historique récent en Coupe du Monde"
       },
       "notes_fr": [
-        "Défense -0.7 but/match vs attendu Elo",
         "Aucune phase finale WC sur les 3 dernières éditions"
       ],
-      "last_updated": "2026-11-14T21:10:28+00:00"
+      "last_updated": "2026-11-15T01:14:12+00:00"
     },
     "wales": {
       "fotmob_team_id": "5790",
       "fifa_rank": 28,
       "fifa_points": 1565,
-      "matches_n": 10,
-      "off_score": -0.31,
-      "def_score": -0.22,
-      "off_rating": "nul",
-      "def_rating": "moyen",
-      "form": "LWLLL",
+      "matches_n": 11,
+      "off_score": -0.25,
+      "def_score": -0.42,
+      "off_rating": "moyen",
+      "def_rating": "nul",
+      "form": "LLWLL",
       "stats_l5": {
         "n": 5,
         "gf_pm": 0.6,
-        "ga_pm": 1.4,
+        "ga_pm": 1.6,
         "clean_sheets": 0,
         "failed_to_score": 3,
         "btts": 2,
@@ -10521,17 +10579,28 @@
       "stats_l10": {
         "n": 10,
         "gf_pm": 1.4,
-        "ga_pm": 1.1,
-        "clean_sheets": 1,
+        "ga_pm": 1.4,
+        "clean_sheets": 0,
         "failed_to_score": 3,
-        "btts": 6,
-        "wins": 3,
+        "btts": 7,
+        "wins": 2,
         "draws": 3,
-        "losses": 4,
-        "gf_expected_pm": 2.04,
-        "ga_expected_pm": 0.9
+        "losses": 5,
+        "gf_expected_pm": 1.87,
+        "ga_expected_pm": 0.99
       },
       "recent": [
+        {
+          "date": "2026-11-14",
+          "opp": "Norway",
+          "opp_slug": "norway",
+          "opp_id": 8492,
+          "venue": "away",
+          "gf": 1,
+          "ga": 3,
+          "result": "L",
+          "comp": "UEFA Nations League A Grp. 4"
+        },
         {
           "date": "2026-10-04",
           "opp": "Denmark",
@@ -10630,17 +10699,6 @@
           "ga": 1,
           "result": "W",
           "comp": "World Cup Qualification UEFA 1st Round Grp. J"
-        },
-        {
-          "date": "2025-11-15",
-          "opp": "Liechtenstein",
-          "opp_slug": "liechtenstein",
-          "opp_id": 5799,
-          "venue": "away",
-          "gf": 1,
-          "ga": 0,
-          "result": "W",
-          "comp": "World Cup Qualification UEFA 1st Round Grp. J"
         }
       ],
       "wc_pedigree": {
@@ -10652,10 +10710,9 @@
       },
       "notes_fr": [
         "Forme inquiétante : 4 défaites sur L5",
-        "Attaque -0.6 but/match vs attendu Elo",
         "Aucune phase finale WC sur les 3 dernières éditions"
       ],
-      "last_updated": "2026-11-14T21:10:28+00:00"
+      "last_updated": "2026-11-15T01:14:13+00:00"
     },
     "serbia": {
       "fotmob_team_id": "8205",
@@ -10816,7 +10873,7 @@
         "Défense -1.0 but/match vs attendu Elo",
         "Aucune phase finale WC sur les 3 dernières éditions"
       ],
-      "last_updated": "2026-11-14T21:10:28+00:00"
+      "last_updated": "2026-11-15T01:14:13+00:00"
     },
     "greece": {
       "fotmob_team_id": "6383",
@@ -10975,43 +11032,54 @@
         "Attaque en panne : 6 blanchies sur L10",
         "Aucune phase finale WC sur les 3 dernières éditions"
       ],
-      "last_updated": "2026-11-14T21:10:28+00:00"
+      "last_updated": "2026-11-15T01:14:14+00:00"
     },
     "israel": {
       "fotmob_team_id": "8567",
       "fifa_rank": null,
       "fifa_points": 1200,
-      "matches_n": 7,
-      "off_score": 0.56,
-      "def_score": 0.21,
+      "matches_n": 8,
+      "off_score": 0.32,
+      "def_score": 0.29,
       "off_rating": "bon",
       "def_rating": "moyen",
-      "form": "DDLLW",
+      "form": "DDDLL",
       "stats_l5": {
         "n": 5,
-        "gf_pm": 0.6,
+        "gf_pm": 0.4,
         "ga_pm": 1.4,
         "clean_sheets": 2,
-        "failed_to_score": 2,
+        "failed_to_score": 3,
         "btts": 2,
-        "wins": 1,
-        "draws": 2,
+        "wins": 0,
+        "draws": 3,
         "losses": 2
       },
       "stats_l10": {
-        "n": 7,
-        "gf_pm": 1.29,
-        "ga_pm": 1.43,
-        "clean_sheets": 2,
-        "failed_to_score": 2,
+        "n": 8,
+        "gf_pm": 1.12,
+        "ga_pm": 1.25,
+        "clean_sheets": 3,
+        "failed_to_score": 3,
         "btts": 4,
         "wins": 2,
-        "draws": 3,
+        "draws": 4,
         "losses": 2,
-        "gf_expected_pm": 0.77,
-        "ga_expected_pm": 1.9
+        "gf_expected_pm": 0.83,
+        "ga_expected_pm": 1.84
       },
       "recent": [
+        {
+          "date": "2026-11-14",
+          "opp": "Kosovo",
+          "opp_slug": "kosovo",
+          "opp_id": 430156,
+          "venue": "away",
+          "gf": 0,
+          "ga": 0,
+          "result": "D",
+          "comp": "UEFA Nations League B Grp. 3"
+        },
         {
           "date": "2026-10-04",
           "opp": "Ireland",
@@ -11100,43 +11168,54 @@
       "notes_fr": [
         "Aucune phase finale WC sur les 3 dernières éditions"
       ],
-      "last_updated": "2026-11-14T21:10:28+00:00"
+      "last_updated": "2026-11-15T01:14:14+00:00"
     },
     "kosovo": {
       "fotmob_team_id": "430156",
       "fifa_rank": 84,
       "fifa_points": 1220,
-      "matches_n": 10,
-      "off_score": 1.0,
-      "def_score": 0.48,
+      "matches_n": 11,
+      "off_score": 0.51,
+      "def_score": 0.45,
       "off_rating": "bon",
       "def_rating": "bon",
-      "form": "DDLWW",
+      "form": "DDDLW",
       "stats_l5": {
         "n": 5,
-        "gf_pm": 1.2,
+        "gf_pm": 0.6,
         "ga_pm": 0.8,
         "clean_sheets": 3,
-        "failed_to_score": 1,
+        "failed_to_score": 2,
         "btts": 2,
-        "wins": 2,
-        "draws": 2,
+        "wins": 1,
+        "draws": 3,
         "losses": 1
       },
       "stats_l10": {
         "n": 10,
-        "gf_pm": 1.4,
+        "gf_pm": 1.2,
         "ga_pm": 1.1,
         "clean_sheets": 4,
-        "failed_to_score": 2,
+        "failed_to_score": 3,
         "btts": 5,
-        "wins": 4,
-        "draws": 3,
+        "wins": 3,
+        "draws": 4,
         "losses": 3,
-        "gf_expected_pm": 0.68,
-        "ga_expected_pm": 2.1
+        "gf_expected_pm": 0.79,
+        "ga_expected_pm": 1.99
       },
       "recent": [
+        {
+          "date": "2026-11-14",
+          "opp": "Israel",
+          "opp_slug": "israel",
+          "opp_id": 8567,
+          "venue": "home",
+          "gf": 0,
+          "ga": 0,
+          "result": "D",
+          "comp": "UEFA Nations League B Grp. 3"
+        },
         {
           "date": "2026-10-04",
           "opp": "Austria",
@@ -11235,17 +11314,6 @@
           "ga": 1,
           "result": "D",
           "comp": "World Cup Qualification UEFA 1st Round Grp. B"
-        },
-        {
-          "date": "2025-11-15",
-          "opp": "Slovenia",
-          "opp_slug": "slovenia",
-          "opp_id": 5787,
-          "venue": "away",
-          "gf": 2,
-          "ga": 0,
-          "result": "W",
-          "comp": "World Cup Qualification UEFA 1st Round Grp. B"
         }
       ],
       "wc_pedigree": {
@@ -11256,47 +11324,57 @@
         "summary_fr": "Pas d'historique récent en Coupe du Monde"
       },
       "notes_fr": [
-        "Attaque +0.7 but/match vs attendu Elo",
-        "Défense +1.0 but/match vs attendu Elo",
+        "Défense +0.9 but/match vs attendu Elo",
         "Aucune phase finale WC sur les 3 dernières éditions"
       ],
-      "last_updated": "2026-11-14T21:10:28+00:00"
+      "last_updated": "2026-11-15T01:14:14+00:00"
     },
     "ireland": {
       "fotmob_team_id": "5791",
       "fifa_rank": 48,
       "fifa_points": 1437,
-      "matches_n": 10,
-      "off_score": -0.06,
-      "def_score": -0.09,
+      "matches_n": 11,
+      "off_score": -0.2,
+      "def_score": 0.07,
       "off_rating": "moyen",
       "def_rating": "moyen",
-      "form": "DDWLD",
+      "form": "LDDWL",
       "stats_l5": {
         "n": 5,
-        "gf_pm": 1.4,
+        "gf_pm": 1.2,
         "ga_pm": 1.0,
         "clean_sheets": 1,
-        "failed_to_score": 1,
-        "btts": 3,
+        "failed_to_score": 2,
+        "btts": 2,
         "wins": 1,
-        "draws": 3,
-        "losses": 1
+        "draws": 2,
+        "losses": 2
       },
       "stats_l10": {
         "n": 10,
-        "gf_pm": 1.8,
-        "ga_pm": 0.9,
+        "gf_pm": 1.5,
+        "ga_pm": 0.8,
         "clean_sheets": 4,
-        "failed_to_score": 2,
-        "btts": 5,
-        "wins": 4,
+        "failed_to_score": 3,
+        "btts": 4,
+        "wins": 3,
         "draws": 5,
-        "losses": 1,
-        "gf_expected_pm": 1.91,
-        "ga_expected_pm": 0.83
+        "losses": 2,
+        "gf_expected_pm": 1.88,
+        "ga_expected_pm": 0.86
       },
       "recent": [
+        {
+          "date": "2026-11-14",
+          "opp": "Austria",
+          "opp_slug": "austria",
+          "opp_id": 8255,
+          "venue": "away",
+          "gf": 0,
+          "ga": 1,
+          "result": "L",
+          "comp": "UEFA Nations League B Grp. 3"
+        },
         {
           "date": "2026-10-04",
           "opp": "Israel",
@@ -11395,17 +11473,6 @@
           "ga": 2,
           "result": "D",
           "comp": "World Cup Qualification UEFA 2nd Round"
-        },
-        {
-          "date": "2025-11-16",
-          "opp": "Hungary",
-          "opp_slug": "hungary",
-          "opp_id": 8565,
-          "venue": "away",
-          "gf": 3,
-          "ga": 2,
-          "result": "W",
-          "comp": "World Cup Qualification UEFA 1st Round Grp. F"
         }
       ],
       "wc_pedigree": {
@@ -11418,7 +11485,7 @@
       "notes_fr": [
         "Aucune phase finale WC sur les 3 dernières éditions"
       ],
-      "last_updated": "2026-11-14T21:10:28+00:00"
+      "last_updated": "2026-11-15T01:14:15+00:00"
     },
     "andorra": {
       "fotmob_team_id": "10045",
@@ -11579,7 +11646,7 @@
         "Attaque -1.0 but/match vs attendu Elo",
         "Aucune phase finale WC sur les 3 dernières éditions"
       ],
-      "last_updated": "2026-11-14T21:10:28+00:00"
+      "last_updated": "2026-11-15T01:14:15+00:00"
     },
     "malta": {
       "fotmob_team_id": "8495",
@@ -11737,7 +11804,7 @@
       "notes_fr": [
         "Aucune phase finale WC sur les 3 dernières éditions"
       ],
-      "last_updated": "2026-11-14T21:10:28+00:00"
+      "last_updated": "2026-11-15T01:14:15+00:00"
     },
     "liechtenstein": {
       "fotmob_team_id": "5799",
@@ -11900,7 +11967,7 @@
         "Défense -0.9 but/match vs attendu Elo",
         "Aucune phase finale WC sur les 3 dernières éditions"
       ],
-      "last_updated": "2026-11-14T21:10:28+00:00"
+      "last_updated": "2026-11-15T01:14:16+00:00"
     },
     "lithuania": {
       "fotmob_team_id": "8254",
@@ -12059,43 +12126,54 @@
         "Attaque en panne : 5 blanchies sur L10",
         "Aucune phase finale WC sur les 3 dernières éditions"
       ],
-      "last_updated": "2026-11-14T21:10:28+00:00"
+      "last_updated": "2026-11-15T01:14:17+00:00"
     },
     "india": {
       "fotmob_team_id": "6329",
       "fifa_rank": null,
       "fifa_points": 1200,
       "matches_n": 12,
-      "off_score": -0.4,
-      "def_score": -0.56,
-      "off_rating": "nul",
+      "off_score": -0.29,
+      "def_score": -0.58,
+      "off_rating": "moyen",
       "def_rating": "nul",
-      "form": "LWWLL",
+      "form": "WLWWL",
       "stats_l5": {
         "n": 5,
-        "gf_pm": 1.0,
-        "ga_pm": 3.4,
+        "gf_pm": 1.4,
+        "ga_pm": 2.8,
         "clean_sheets": 1,
-        "failed_to_score": 2,
-        "btts": 2,
-        "wins": 2,
+        "failed_to_score": 1,
+        "btts": 3,
+        "wins": 3,
         "draws": 0,
-        "losses": 3
+        "losses": 2
       },
       "stats_l10": {
         "n": 10,
-        "gf_pm": 0.8,
-        "ga_pm": 2.5,
+        "gf_pm": 1.0,
+        "ga_pm": 2.4,
         "clean_sheets": 1,
-        "failed_to_score": 4,
-        "btts": 5,
-        "wins": 2,
+        "failed_to_score": 3,
+        "btts": 6,
+        "wins": 3,
         "draws": 2,
-        "losses": 6,
-        "gf_expected_pm": 1.32,
-        "ga_expected_pm": 1.6
+        "losses": 5,
+        "gf_expected_pm": 1.41,
+        "ga_expected_pm": 1.52
       },
       "recent": [
+        {
+          "date": "2026-11-14",
+          "opp": "Bhutan",
+          "opp_slug": "bhutan",
+          "opp_id": 95800,
+          "venue": "home",
+          "gf": 2,
+          "ga": 1,
+          "result": "W",
+          "comp": "SAFF Championship"
+        },
         {
           "date": "2026-11-12",
           "opp": "New Zealand",
@@ -12194,17 +12272,6 @@
           "ga": 1,
           "result": "L",
           "comp": "Friendlies"
-        },
-        {
-          "date": "2026-05-27",
-          "opp": "Jamaica",
-          "opp_slug": "jamaica",
-          "opp_id": 5806,
-          "venue": "away",
-          "gf": 0,
-          "ga": 2,
-          "result": "L",
-          "comp": "Friendlies"
         }
       ],
       "wc_pedigree": {
@@ -12215,13 +12282,11 @@
         "summary_fr": "Pas d'historique récent en Coupe du Monde"
       },
       "notes_fr": [
-        "Forme inquiétante : 3 défaites sur L5",
-        "Attaque en panne : 4 blanchies sur L10",
-        "Défense fragile : 2.5 buts encaissés/match sur L10",
+        "Défense fragile : 2.4 buts encaissés/match sur L10",
         "Défense -0.9 but/match vs attendu Elo",
         "Aucune phase finale WC sur les 3 dernières éditions"
       ],
-      "last_updated": "2026-11-14T21:10:28+00:00"
+      "last_updated": "2026-11-15T01:14:17+00:00"
     },
     "italy": {
       "fotmob_team_id": "8204",
@@ -12379,43 +12444,54 @@
       "notes_fr": [
         "Aucune phase finale WC sur les 3 dernières éditions"
       ],
-      "last_updated": "2026-11-14T21:10:28+00:00"
+      "last_updated": "2026-11-15T01:14:18+00:00"
     },
     "georgia": {
       "fotmob_team_id": "8268",
       "fifa_rank": 66,
       "fifa_points": 1328,
-      "matches_n": 10,
-      "off_score": -0.45,
-      "def_score": 0.12,
+      "matches_n": 11,
+      "off_score": -0.47,
+      "def_score": 0.19,
       "off_rating": "nul",
       "def_rating": "moyen",
-      "form": "DLDLW",
+      "form": "LDLDL",
       "stats_l5": {
         "n": 5,
-        "gf_pm": 0.4,
-        "ga_pm": 0.4,
-        "clean_sheets": 3,
-        "failed_to_score": 4,
+        "gf_pm": 0.0,
+        "ga_pm": 0.8,
+        "clean_sheets": 2,
+        "failed_to_score": 5,
         "btts": 0,
-        "wins": 1,
+        "wins": 0,
         "draws": 2,
-        "losses": 2
+        "losses": 3
       },
       "stats_l10": {
         "n": 10,
         "gf_pm": 0.8,
-        "ga_pm": 1.1,
+        "ga_pm": 0.9,
         "clean_sheets": 4,
         "failed_to_score": 5,
         "btts": 3,
         "wins": 2,
         "draws": 4,
         "losses": 4,
-        "gf_expected_pm": 1.46,
-        "ga_expected_pm": 1.25
+        "gf_expected_pm": 1.5,
+        "ga_expected_pm": 1.11
       },
       "recent": [
+        {
+          "date": "2026-11-14",
+          "opp": "Hungary",
+          "opp_slug": "hungary",
+          "opp_id": 8565,
+          "venue": "home",
+          "gf": 0,
+          "ga": 2,
+          "result": "L",
+          "comp": "UEFA Nations League B Grp. 2"
+        },
         {
           "date": "2026-10-05",
           "opp": "Northern Ireland",
@@ -12514,17 +12590,6 @@
           "ga": 2,
           "result": "L",
           "comp": "World Cup Qualification UEFA 1st Round Grp. E"
-        },
-        {
-          "date": "2025-11-15",
-          "opp": "Spain",
-          "opp_slug": "spain",
-          "opp_id": 6720,
-          "venue": "home",
-          "gf": 0,
-          "ga": 4,
-          "result": "L",
-          "comp": "World Cup Qualification UEFA 1st Round Grp. E"
         }
       ],
       "wc_pedigree": {
@@ -12535,47 +12600,59 @@
         "summary_fr": "Pas d'historique récent en Coupe du Monde"
       },
       "notes_fr": [
+        "Forme inquiétante : 3 défaites sur L5",
         "Attaque en panne : 5 blanchies sur L10",
         "Attaque -0.7 but/match vs attendu Elo",
         "Aucune phase finale WC sur les 3 dernières éditions"
       ],
-      "last_updated": "2026-11-14T21:10:28+00:00"
+      "last_updated": "2026-11-15T01:14:18+00:00"
     },
     "northern_ireland": {
       "fotmob_team_id": "10259",
       "fifa_rank": null,
       "fifa_points": 1200,
       "matches_n": 10,
-      "off_score": 0.31,
-      "def_score": 0.71,
+      "off_score": 0.54,
+      "def_score": 0.76,
       "off_rating": "bon",
       "def_rating": "bon",
-      "form": "DWDWL",
+      "form": "WDWDW",
       "stats_l5": {
         "n": 5,
         "gf_pm": 1.0,
-        "ga_pm": 0.6,
-        "clean_sheets": 4,
+        "ga_pm": 0.0,
+        "clean_sheets": 5,
         "failed_to_score": 2,
-        "btts": 1,
-        "wins": 2,
+        "btts": 0,
+        "wins": 3,
         "draws": 2,
-        "losses": 1
+        "losses": 0
       },
       "stats_l10": {
         "n": 10,
-        "gf_pm": 0.8,
-        "ga_pm": 0.7,
-        "clean_sheets": 6,
-        "failed_to_score": 4,
+        "gf_pm": 0.9,
+        "ga_pm": 0.6,
+        "clean_sheets": 7,
+        "failed_to_score": 3,
         "btts": 2,
-        "wins": 4,
+        "wins": 5,
         "draws": 3,
-        "losses": 3,
-        "gf_expected_pm": 0.61,
-        "ga_expected_pm": 2.38
+        "losses": 2,
+        "gf_expected_pm": 0.58,
+        "ga_expected_pm": 2.46
       },
       "recent": [
+        {
+          "date": "2026-11-14",
+          "opp": "Ukraine",
+          "opp_slug": "ukraine",
+          "opp_id": 6718,
+          "venue": "home",
+          "gf": 1,
+          "ga": 0,
+          "result": "W",
+          "comp": "UEFA Nations League B Grp. 2"
+        },
         {
           "date": "2026-10-05",
           "opp": "Georgia",
@@ -12674,17 +12751,6 @@
           "ga": 0,
           "result": "W",
           "comp": "World Cup Qualification UEFA 1st Round Grp. A"
-        },
-        {
-          "date": "2025-11-14",
-          "opp": "Slovakia",
-          "opp_slug": "slovakia",
-          "opp_id": 8497,
-          "venue": "away",
-          "gf": 0,
-          "ga": 1,
-          "result": "L",
-          "comp": "World Cup Qualification UEFA 1st Round Grp. A"
         }
       ],
       "wc_pedigree": {
@@ -12695,48 +12761,58 @@
         "summary_fr": "Pas d'historique récent en Coupe du Monde"
       },
       "notes_fr": [
-        "Défense solide : 6 clean sheets sur L10",
-        "Attaque en panne : 4 blanchies sur L10",
-        "Défense +1.7 but/match vs attendu Elo",
+        "Défense solide : 7 clean sheets sur L10",
+        "Défense +1.9 but/match vs attendu Elo",
         "Aucune phase finale WC sur les 3 dernières éditions"
       ],
-      "last_updated": "2026-11-14T21:10:28+00:00"
+      "last_updated": "2026-11-15T01:14:19+00:00"
     },
     "hungary": {
       "fotmob_team_id": "8565",
       "fifa_rank": 40,
       "fifa_points": 1488,
-      "matches_n": 9,
-      "off_score": -0.28,
-      "def_score": 0.16,
+      "matches_n": 10,
+      "off_score": -0.25,
+      "def_score": 0.23,
       "off_rating": "moyen",
       "def_rating": "moyen",
-      "form": "WWDLW",
+      "form": "WWWDL",
       "stats_l5": {
         "n": 5,
-        "gf_pm": 1.2,
-        "ga_pm": 0.6,
-        "clean_sheets": 2,
+        "gf_pm": 1.0,
+        "ga_pm": 0.4,
+        "clean_sheets": 3,
         "failed_to_score": 2,
-        "btts": 2,
+        "btts": 1,
         "wins": 3,
         "draws": 1,
         "losses": 1
       },
       "stats_l10": {
-        "n": 9,
-        "gf_pm": 1.22,
-        "ga_pm": 0.78,
-        "clean_sheets": 4,
+        "n": 10,
+        "gf_pm": 1.3,
+        "ga_pm": 0.7,
+        "clean_sheets": 5,
         "failed_to_score": 3,
         "btts": 4,
-        "wins": 5,
+        "wins": 6,
         "draws": 2,
         "losses": 2,
-        "gf_expected_pm": 1.72,
-        "ga_expected_pm": 0.94
+        "gf_expected_pm": 1.74,
+        "ga_expected_pm": 0.91
       },
       "recent": [
+        {
+          "date": "2026-11-14",
+          "opp": "Georgia",
+          "opp_slug": "georgia",
+          "opp_id": 8268,
+          "venue": "away",
+          "gf": 2,
+          "ga": 0,
+          "result": "W",
+          "comp": "UEFA Nations League B Grp. 2"
+        },
         {
           "date": "2026-10-05",
           "opp": "Ukraine",
@@ -12845,45 +12921,57 @@
         "summary_fr": "Pas d'historique récent en Coupe du Monde"
       },
       "notes_fr": [
+        "Défense solide : 5 clean sheets sur L10",
         "Aucune phase finale WC sur les 3 dernières éditions"
       ],
-      "last_updated": "2026-11-14T21:10:28+00:00"
+      "last_updated": "2026-11-15T01:14:19+00:00"
     },
     "ukraine": {
       "fotmob_team_id": "6718",
       "fifa_rank": 23,
       "fifa_points": 1593,
-      "matches_n": 9,
-      "off_score": -0.47,
-      "def_score": -0.44,
+      "matches_n": 10,
+      "off_score": -0.57,
+      "def_score": -0.55,
       "off_rating": "nul",
       "def_rating": "nul",
-      "form": "LLDWL",
+      "form": "LLLDW",
       "stats_l5": {
         "n": 5,
-        "gf_pm": 0.6,
-        "ga_pm": 1.4,
+        "gf_pm": 0.4,
+        "ga_pm": 1.2,
         "clean_sheets": 2,
-        "failed_to_score": 2,
-        "btts": 2,
+        "failed_to_score": 3,
+        "btts": 1,
         "wins": 1,
         "draws": 1,
         "losses": 3
       },
       "stats_l10": {
-        "n": 9,
-        "gf_pm": 1.0,
-        "ga_pm": 1.11,
+        "n": 10,
+        "gf_pm": 0.9,
+        "ga_pm": 1.1,
         "clean_sheets": 5,
-        "failed_to_score": 2,
+        "failed_to_score": 3,
         "btts": 3,
         "wins": 4,
         "draws": 1,
-        "losses": 4,
-        "gf_expected_pm": 1.97,
-        "ga_expected_pm": 0.76
+        "losses": 5,
+        "gf_expected_pm": 2.1,
+        "ga_expected_pm": 0.71
       },
       "recent": [
+        {
+          "date": "2026-11-14",
+          "opp": "Northern Ireland",
+          "opp_slug": "northern_ireland",
+          "opp_id": 10259,
+          "venue": "away",
+          "gf": 0,
+          "ga": 1,
+          "result": "L",
+          "comp": "UEFA Nations League B Grp. 2"
+        },
         {
           "date": "2026-10-05",
           "opp": "Hungary",
@@ -12994,46 +13082,57 @@
       "notes_fr": [
         "Forme inquiétante : 3 défaites sur L5",
         "Défense solide : 5 clean sheets sur L10",
-        "Attaque -1.0 but/match vs attendu Elo",
+        "Attaque -1.2 but/match vs attendu Elo",
         "Aucune phase finale WC sur les 3 dernières éditions"
       ],
-      "last_updated": "2026-11-14T21:10:28+00:00"
+      "last_updated": "2026-11-15T01:14:19+00:00"
     },
     "poland": {
       "fotmob_team_id": "8568",
       "fifa_rank": 29,
       "fifa_points": 1558,
       "matches_n": 10,
-      "off_score": -0.09,
-      "def_score": -0.54,
+      "off_score": -0.14,
+      "def_score": -0.86,
       "off_rating": "moyen",
       "def_rating": "nul",
-      "form": "LWLDD",
+      "form": "LLWLD",
       "stats_l5": {
         "n": 5,
-        "gf_pm": 1.8,
+        "gf_pm": 1.6,
         "ga_pm": 1.2,
         "clean_sheets": 2,
         "failed_to_score": 2,
         "btts": 2,
         "wins": 1,
-        "draws": 2,
-        "losses": 2
+        "draws": 1,
+        "losses": 3
       },
       "stats_l10": {
         "n": 10,
         "gf_pm": 1.7,
-        "ga_pm": 1.5,
+        "ga_pm": 1.6,
         "clean_sheets": 2,
         "failed_to_score": 3,
         "btts": 6,
         "wins": 3,
-        "draws": 3,
-        "losses": 4,
-        "gf_expected_pm": 1.88,
-        "ga_expected_pm": 0.97
+        "draws": 2,
+        "losses": 5,
+        "gf_expected_pm": 1.99,
+        "ga_expected_pm": 0.86
       },
       "recent": [
+        {
+          "date": "2026-11-14",
+          "opp": "Romania",
+          "opp_slug": "romania",
+          "opp_id": 9730,
+          "venue": "away",
+          "gf": 1,
+          "ga": 2,
+          "result": "L",
+          "comp": "UEFA Nations League B Grp. 4"
+        },
         {
           "date": "2026-10-05",
           "opp": "Bosnia and Herzegovina",
@@ -13132,17 +13231,6 @@
           "ga": 2,
           "result": "W",
           "comp": "World Cup Qualification UEFA 1st Round Grp. G"
-        },
-        {
-          "date": "2025-11-14",
-          "opp": "Netherlands",
-          "opp_slug": "netherlands",
-          "opp_id": 6708,
-          "venue": "home",
-          "gf": 1,
-          "ga": 1,
-          "result": "D",
-          "comp": "World Cup Qualification UEFA 1st Round Grp. G"
         }
       ],
       "wc_pedigree": {
@@ -13153,20 +13241,22 @@
         "summary_fr": "Pas d'historique récent en Coupe du Monde"
       },
       "notes_fr": [
+        "Forme inquiétante : 3 défaites sur L5",
+        "Défense -0.7 but/match vs attendu Elo",
         "Aucune phase finale WC sur les 3 dernières éditions"
       ],
-      "last_updated": "2026-11-14T21:10:28+00:00"
+      "last_updated": "2026-11-15T01:14:20+00:00"
     },
     "romania": {
       "fotmob_team_id": "9730",
       "fifa_rank": 42,
       "fifa_points": 1475,
-      "matches_n": 10,
-      "off_score": -0.16,
-      "def_score": -1.0,
+      "matches_n": 11,
+      "off_score": 0.01,
+      "def_score": -0.65,
       "off_rating": "moyen",
       "def_rating": "nul",
-      "form": "LLLLW",
+      "form": "WLLLL",
       "stats_l5": {
         "n": 5,
         "gf_pm": 1.0,
@@ -13180,18 +13270,29 @@
       },
       "stats_l10": {
         "n": 10,
-        "gf_pm": 1.4,
-        "ga_pm": 2.2,
+        "gf_pm": 1.5,
+        "ga_pm": 2.0,
         "clean_sheets": 0,
         "failed_to_score": 4,
         "btts": 6,
-        "wins": 2,
+        "wins": 3,
         "draws": 1,
-        "losses": 7,
-        "gf_expected_pm": 1.67,
-        "ga_expected_pm": 1.08
+        "losses": 6,
+        "gf_expected_pm": 1.49,
+        "ga_expected_pm": 1.21
       },
       "recent": [
+        {
+          "date": "2026-11-14",
+          "opp": "Poland",
+          "opp_slug": "poland",
+          "opp_id": 8568,
+          "venue": "home",
+          "gf": 2,
+          "ga": 1,
+          "result": "W",
+          "comp": "UEFA Nations League B Grp. 4"
+        },
         {
           "date": "2026-10-05",
           "opp": "Sweden",
@@ -13290,17 +13391,6 @@
           "ga": 1,
           "result": "W",
           "comp": "World Cup Qualification UEFA 1st Round Grp. H"
-        },
-        {
-          "date": "2025-11-15",
-          "opp": "Bosnia and Herzegovina",
-          "opp_slug": "bosnia_and_herzegovina",
-          "opp_id": 10106,
-          "venue": "away",
-          "gf": 1,
-          "ga": 3,
-          "result": "L",
-          "comp": "World Cup Qualification UEFA 1st Round Grp. H"
         }
       ],
       "wc_pedigree": {
@@ -13313,11 +13403,11 @@
       "notes_fr": [
         "Forme inquiétante : 4 défaites sur L5",
         "Attaque en panne : 4 blanchies sur L10",
-        "Défense fragile : 2.2 buts encaissés/match sur L10",
-        "Défense -1.1 but/match vs attendu Elo",
+        "Défense fragile : 2.0 buts encaissés/match sur L10",
+        "Défense -0.8 but/match vs attendu Elo",
         "Aucune phase finale WC sur les 3 dernières éditions"
       ],
-      "last_updated": "2026-11-14T21:10:28+00:00"
+      "last_updated": "2026-11-15T01:14:21+00:00"
     },
     "armenia": {
       "fotmob_team_id": "6583",
@@ -13466,7 +13556,7 @@
         "Défense -1.0 but/match vs attendu Elo",
         "Aucune phase finale WC sur les 3 dernières éditions"
       ],
-      "last_updated": "2026-11-14T21:10:28+00:00"
+      "last_updated": "2026-11-15T01:14:21+00:00"
     },
     "latvia": {
       "fotmob_team_id": "5795",
@@ -13626,7 +13716,7 @@
         "Attaque -0.8 but/match vs attendu Elo",
         "Aucune phase finale WC sur les 3 dernières éditions"
       ],
-      "last_updated": "2026-11-14T21:10:28+00:00"
+      "last_updated": "2026-11-15T01:14:22+00:00"
     },
     "montenegro": {
       "fotmob_team_id": "49437",
@@ -13786,7 +13876,7 @@
         "Attaque +0.6 but/match vs attendu Elo",
         "Aucune phase finale WC sur les 3 dernières éditions"
       ],
-      "last_updated": "2026-11-14T21:10:28+00:00"
+      "last_updated": "2026-11-15T01:14:22+00:00"
     },
     "cyprus": {
       "fotmob_team_id": "5793",
@@ -13944,7 +14034,7 @@
       "notes_fr": [
         "Aucune phase finale WC sur les 3 dernières éditions"
       ],
-      "last_updated": "2026-11-14T21:10:28+00:00"
+      "last_updated": "2026-11-15T01:14:23+00:00"
     },
     "peru": {
       "fotmob_team_id": "5798",
@@ -14103,7 +14193,7 @@
         "Forme inquiétante : 3 défaites sur L5",
         "Aucune phase finale WC sur les 3 dernières éditions"
       ],
-      "last_updated": "2026-11-14T21:10:28+00:00"
+      "last_updated": "2026-11-15T01:14:23+00:00"
     },
     "chile": {
       "fotmob_team_id": "9762",
@@ -14262,7 +14352,7 @@
         "Forme inquiétante : 3 défaites sur L5",
         "Aucune phase finale WC sur les 3 dernières éditions"
       ],
-      "last_updated": "2026-11-14T21:10:28+00:00"
+      "last_updated": "2026-11-15T01:14:23+00:00"
     },
     "slovenia": {
       "fotmob_team_id": "5787",
@@ -14420,7 +14510,7 @@
       "notes_fr": [
         "Aucune phase finale WC sur les 3 dernières éditions"
       ],
-      "last_updated": "2026-11-14T21:10:28+00:00"
+      "last_updated": "2026-11-15T01:14:24+00:00"
     },
     "north_macedonia": {
       "fotmob_team_id": "8260",
@@ -14581,7 +14671,7 @@
         "Défense fragile : 2.7 buts encaissés/match sur L10",
         "Aucune phase finale WC sur les 3 dernières éditions"
       ],
-      "last_updated": "2026-11-14T21:10:28+00:00"
+      "last_updated": "2026-11-15T01:14:24+00:00"
     },
     "bulgaria": {
       "fotmob_team_id": "10150",
@@ -14741,7 +14831,7 @@
         "Attaque en panne : 4 blanchies sur L10",
         "Aucune phase finale WC sur les 3 dernières éditions"
       ],
-      "last_updated": "2026-11-14T21:10:28+00:00"
+      "last_updated": "2026-11-15T01:14:25+00:00"
     },
     "luxembourg": {
       "fotmob_team_id": "5792",
@@ -14901,7 +14991,7 @@
         "Attaque en panne : 6 blanchies sur L10",
         "Aucune phase finale WC sur les 3 dernières éditions"
       ],
-      "last_updated": "2026-11-14T21:10:28+00:00"
+      "last_updated": "2026-11-15T01:14:26+00:00"
     },
     "faroe_islands": {
       "fotmob_team_id": "8269",
@@ -15059,7 +15149,7 @@
       "notes_fr": [
         "Aucune phase finale WC sur les 3 dernières éditions"
       ],
-      "last_updated": "2026-11-14T21:10:28+00:00"
+      "last_updated": "2026-11-15T01:14:26+00:00"
     },
     "kazakhstan": {
       "fotmob_team_id": "8265",
@@ -15218,7 +15308,7 @@
         "Forme inquiétante : 3 défaites sur L5",
         "Aucune phase finale WC sur les 3 dernières éditions"
       ],
-      "last_updated": "2026-11-14T21:10:28+00:00"
+      "last_updated": "2026-11-15T01:14:27+00:00"
     },
     "iceland": {
       "fotmob_team_id": "8536",
@@ -15377,7 +15467,7 @@
         "Attaque en panne : 4 blanchies sur L10",
         "Aucune phase finale WC sur les 3 dernières éditions"
       ],
-      "last_updated": "2026-11-14T21:10:28+00:00"
+      "last_updated": "2026-11-15T01:14:27+00:00"
     },
     "estonia": {
       "fotmob_team_id": "8261",
@@ -15536,7 +15626,7 @@
         "Défense solide : 6 clean sheets sur L10",
         "Aucune phase finale WC sur les 3 dernières éditions"
       ],
-      "last_updated": "2026-11-14T21:10:28+00:00"
+      "last_updated": "2026-11-15T01:14:28+00:00"
     },
     "san_marino": {
       "fotmob_team_id": "6035",
@@ -15699,7 +15789,7 @@
         "Défense -1.7 but/match vs attendu Elo",
         "Aucune phase finale WC sur les 3 dernières éditions"
       ],
-      "last_updated": "2026-11-14T21:10:28+00:00"
+      "last_updated": "2026-11-15T01:14:28+00:00"
     },
     "finland": {
       "fotmob_team_id": "7871",
@@ -15858,7 +15948,7 @@
         "Attaque en panne : 4 blanchies sur L10",
         "Aucune phase finale WC sur les 3 dernières éditions"
       ],
-      "last_updated": "2026-11-14T21:10:28+00:00"
+      "last_updated": "2026-11-15T01:14:29+00:00"
     },
     "albania": {
       "fotmob_team_id": "10024",
@@ -16018,7 +16108,7 @@
         "Attaque en panne : 4 blanchies sur L10",
         "Aucune phase finale WC sur les 3 dernières éditions"
       ],
-      "last_updated": "2026-11-14T21:10:28+00:00"
+      "last_updated": "2026-11-15T01:14:29+00:00"
     },
     "belarus": {
       "fotmob_team_id": "10057",
@@ -16178,7 +16268,7 @@
         "Défense +0.8 but/match vs attendu Elo",
         "Aucune phase finale WC sur les 3 dernières éditions"
       ],
-      "last_updated": "2026-11-14T21:10:28+00:00"
+      "last_updated": "2026-11-15T01:14:30+00:00"
     },
     "slovakia": {
       "fotmob_team_id": "8497",
@@ -16337,7 +16427,7 @@
         "Défense -1.0 but/match vs attendu Elo",
         "Aucune phase finale WC sur les 3 dernières éditions"
       ],
-      "last_updated": "2026-11-14T21:10:28+00:00"
+      "last_updated": "2026-11-15T01:14:30+00:00"
     },
     "moldova": {
       "fotmob_team_id": "5794",
@@ -16497,7 +16587,7 @@
         "Défense -0.8 but/match vs attendu Elo",
         "Aucune phase finale WC sur les 3 dernières éditions"
       ],
-      "last_updated": "2026-11-14T21:10:28+00:00"
+      "last_updated": "2026-11-15T01:14:31+00:00"
     },
     "seychelles": {
       "fotmob_team_id": "121274",
@@ -16570,7 +16660,7 @@
         "Défense -1.6 but/match vs attendu Elo",
         "Aucune phase finale WC sur les 3 dernières éditions"
       ],
-      "last_updated": "2026-11-14T21:10:28+00:00"
+      "last_updated": "2026-11-15T01:14:31+00:00"
     },
     "sri_lanka": {
       "fotmob_team_id": "5895",
@@ -16708,7 +16798,7 @@
         "Défense -1.0 but/match vs attendu Elo",
         "Aucune phase finale WC sur les 3 dernières éditions"
       ],
-      "last_updated": "2026-11-14T21:10:28+00:00"
+      "last_updated": "2026-11-15T01:14:32+00:00"
     },
     "syria": {
       "fotmob_team_id": "6320",
@@ -16867,7 +16957,7 @@
         "Forme inquiétante : 3 défaites sur L5",
         "Aucune phase finale WC sur les 3 dernières éditions"
       ],
-      "last_updated": "2026-11-14T21:10:28+00:00"
+      "last_updated": "2026-11-15T01:14:33+00:00"
     },
     "bolivia": {
       "fotmob_team_id": "5797",
@@ -17028,7 +17118,7 @@
         "Défense fragile : 2.3 buts encaissés/match sur L10",
         "Aucune phase finale WC sur les 3 dernières éditions"
       ],
-      "last_updated": "2026-11-14T21:10:28+00:00"
+      "last_updated": "2026-11-15T01:14:33+00:00"
     },
     "turkmenistan": {
       "fotmob_team_id": "5900",
@@ -17098,43 +17188,54 @@
       "notes_fr": [
         "Aucune phase finale WC sur les 3 dernières éditions"
       ],
-      "last_updated": "2026-11-14T21:10:28+00:00"
+      "last_updated": "2026-11-15T01:14:33+00:00"
     },
     "venezuela": {
       "fotmob_team_id": "5800",
       "fifa_rank": 43,
       "fifa_points": 1468,
-      "matches_n": 9,
-      "off_score": -0.38,
-      "def_score": 0.23,
+      "matches_n": 10,
+      "off_score": -0.5,
+      "def_score": 0.16,
       "off_rating": "nul",
       "def_rating": "moyen",
-      "form": "DDLWL",
+      "form": "LDDLW",
       "stats_l5": {
         "n": 5,
-        "gf_pm": 0.8,
-        "ga_pm": 0.8,
+        "gf_pm": 0.6,
+        "ga_pm": 0.6,
         "clean_sheets": 3,
-        "failed_to_score": 2,
-        "btts": 2,
+        "failed_to_score": 3,
+        "btts": 1,
         "wins": 1,
         "draws": 2,
         "losses": 2
       },
       "stats_l10": {
-        "n": 9,
-        "gf_pm": 1.0,
-        "ga_pm": 0.78,
+        "n": 10,
+        "gf_pm": 0.9,
+        "ga_pm": 0.8,
         "clean_sheets": 5,
-        "failed_to_score": 4,
+        "failed_to_score": 5,
         "btts": 3,
         "wins": 3,
         "draws": 3,
-        "losses": 3,
-        "gf_expected_pm": 1.68,
-        "ga_expected_pm": 1.03
+        "losses": 4,
+        "gf_expected_pm": 1.79,
+        "ga_expected_pm": 0.96
       },
       "recent": [
+        {
+          "date": "2026-11-14",
+          "opp": "Basque Country",
+          "opp_slug": "basque_country",
+          "opp_id": 2456066,
+          "venue": "away",
+          "gf": 0,
+          "ga": 1,
+          "result": "L",
+          "comp": "Hybrid Friendlies"
+        },
         {
           "date": "2026-10-06",
           "opp": "Jordan",
@@ -17244,47 +17345,58 @@
       },
       "notes_fr": [
         "Défense solide : 5 clean sheets sur L10",
-        "Attaque en panne : 4 blanchies sur L10",
-        "Attaque -0.7 but/match vs attendu Elo",
+        "Attaque en panne : 5 blanchies sur L10",
+        "Attaque -0.9 but/match vs attendu Elo",
         "Aucune phase finale WC sur les 3 dernières éditions"
       ],
-      "last_updated": "2026-11-14T21:10:28+00:00"
+      "last_updated": "2026-11-15T01:14:34+00:00"
     },
     "kyrgyzstan": {
       "fotmob_team_id": "5893",
       "fifa_rank": 95,
       "fifa_points": 1154,
-      "matches_n": 4,
-      "off_score": 0.46,
-      "def_score": -0.33,
+      "matches_n": 5,
+      "off_score": 0.55,
+      "def_score": -0.16,
       "off_rating": "bon",
-      "def_rating": "nul",
-      "form": "WWLL",
+      "def_rating": "moyen",
+      "form": "WWWLL",
       "stats_l5": {
-        "n": 4,
-        "gf_pm": 2.5,
-        "ga_pm": 1.75,
-        "clean_sheets": 1,
+        "n": 5,
+        "gf_pm": 2.6,
+        "ga_pm": 1.4,
+        "clean_sheets": 2,
         "failed_to_score": 1,
         "btts": 2,
-        "wins": 2,
+        "wins": 3,
         "draws": 0,
         "losses": 2
       },
       "stats_l10": {
-        "n": 4,
-        "gf_pm": 2.5,
-        "ga_pm": 1.75,
-        "clean_sheets": 1,
+        "n": 5,
+        "gf_pm": 2.6,
+        "ga_pm": 1.4,
+        "clean_sheets": 2,
         "failed_to_score": 1,
         "btts": 2,
-        "wins": 2,
+        "wins": 3,
         "draws": 0,
         "losses": 2,
-        "gf_expected_pm": 1.45,
-        "ga_expected_pm": 1.15
+        "gf_expected_pm": 1.46,
+        "ga_expected_pm": 1.14
       },
       "recent": [
+        {
+          "date": "2026-11-14",
+          "opp": "Chinese Taipei",
+          "opp_slug": "chinese_taipei",
+          "opp_id": 5896,
+          "venue": "away",
+          "gf": 3,
+          "ga": 0,
+          "result": "W",
+          "comp": "Friendlies"
+        },
         {
           "date": "2026-10-04",
           "opp": "Lebanon",
@@ -17338,12 +17450,11 @@
         "summary_fr": "Pas d'historique récent en Coupe du Monde"
       },
       "notes_fr": [
-        "Attaque prolifique : 2.5 buts/match sur L10",
-        "Attaque +1.0 but/match vs attendu Elo",
-        "Défense -0.6 but/match vs attendu Elo",
+        "Attaque prolifique : 2.6 buts/match sur L10",
+        "Attaque +1.1 but/match vs attendu Elo",
         "Aucune phase finale WC sur les 3 dernières éditions"
       ],
-      "last_updated": "2026-11-14T21:10:28+00:00"
+      "last_updated": "2026-11-15T01:14:35+00:00"
     },
     "russia": {
       "fotmob_team_id": "8713",
@@ -17492,7 +17603,7 @@
         "Attaque prolifique : 2.56 buts/match sur L10",
         "Aucune phase finale WC sur les 3 dernières éditions"
       ],
-      "last_updated": "2026-11-14T21:10:28+00:00"
+      "last_updated": "2026-11-15T01:14:35+00:00"
     },
     "mauritius": {
       "fotmob_team_id": "5750",
@@ -17565,7 +17676,7 @@
         "Défense -0.6 but/match vs attendu Elo",
         "Aucune phase finale WC sur les 3 dernières éditions"
       ],
-      "last_updated": "2026-11-14T21:10:28+00:00"
+      "last_updated": "2026-11-15T01:14:36+00:00"
     },
     "djibouti": {
       "fotmob_team_id": "121285",
@@ -17625,43 +17736,54 @@
         "Attaque -1.7 but/match vs attendu Elo",
         "Aucune phase finale WC sur les 3 dernières éditions"
       ],
-      "last_updated": "2026-11-14T21:10:28+00:00"
+      "last_updated": "2026-11-15T01:14:36+00:00"
     },
     "botswana": {
       "fotmob_team_id": "5887",
       "fifa_rank": null,
       "fifa_points": 1200,
-      "matches_n": 6,
-      "off_score": -0.36,
+      "matches_n": 7,
+      "off_score": -0.39,
       "def_score": -0.44,
       "off_rating": "nul",
       "def_rating": "nul",
-      "form": "DDLLL",
+      "form": "DDDLL",
       "stats_l5": {
         "n": 5,
-        "gf_pm": 0.8,
+        "gf_pm": 1.0,
         "ga_pm": 2.2,
         "clean_sheets": 0,
-        "failed_to_score": 3,
-        "btts": 2,
+        "failed_to_score": 2,
+        "btts": 3,
         "wins": 0,
-        "draws": 2,
-        "losses": 3
+        "draws": 3,
+        "losses": 2
       },
       "stats_l10": {
-        "n": 6,
-        "gf_pm": 0.67,
-        "ga_pm": 2.33,
+        "n": 7,
+        "gf_pm": 0.71,
+        "ga_pm": 2.14,
         "clean_sheets": 0,
         "failed_to_score": 4,
-        "btts": 2,
+        "btts": 3,
         "wins": 0,
-        "draws": 2,
+        "draws": 3,
         "losses": 4,
-        "gf_expected_pm": 1.26,
-        "ga_expected_pm": 1.48
+        "gf_expected_pm": 1.33,
+        "ga_expected_pm": 1.4
       },
       "recent": [
+        {
+          "date": "2026-11-14",
+          "opp": "Uganda",
+          "opp_slug": "uganda",
+          "opp_id": 5890,
+          "venue": "away",
+          "gf": 1,
+          "ga": 1,
+          "result": "D",
+          "comp": "Africa Cup of Nations Qualification Grp. H"
+        },
         {
           "date": "2026-09-28",
           "opp": "Tunisia",
@@ -17737,13 +17859,13 @@
         "summary_fr": "Pas d'historique récent en Coupe du Monde"
       },
       "notes_fr": [
-        "Forme inquiétante : 3 défaites sur L5",
         "Attaque en panne : 4 blanchies sur L10",
-        "Défense fragile : 2.33 buts encaissés/match sur L10",
-        "Défense -0.8 but/match vs attendu Elo",
+        "Défense fragile : 2.14 buts encaissés/match sur L10",
+        "Attaque -0.6 but/match vs attendu Elo",
+        "Défense -0.7 but/match vs attendu Elo",
         "Aucune phase finale WC sur les 3 dernières éditions"
       ],
-      "last_updated": "2026-11-14T21:10:28+00:00"
+      "last_updated": "2026-11-15T01:14:37+00:00"
     },
     "mozambique": {
       "fotmob_team_id": "5965",
@@ -17903,7 +18025,7 @@
         "Attaque en panne : 5 blanchies sur L10",
         "Aucune phase finale WC sur les 3 dernières éditions"
       ],
-      "last_updated": "2026-11-14T21:10:28+00:00"
+      "last_updated": "2026-11-15T01:14:37+00:00"
     },
     "lebanon": {
       "fotmob_team_id": "5897",
@@ -18018,43 +18140,54 @@
         "Forme inquiétante : 3 défaites sur L5",
         "Aucune phase finale WC sur les 3 dernières éditions"
       ],
-      "last_updated": "2026-11-14T21:10:28+00:00"
+      "last_updated": "2026-11-15T01:14:38+00:00"
     },
     "uganda": {
       "fotmob_team_id": "5890",
       "fifa_rank": 105,
       "fifa_points": 1094,
-      "matches_n": 8,
-      "off_score": 0.23,
-      "def_score": 0.24,
+      "matches_n": 9,
+      "off_score": 0.17,
+      "def_score": 0.25,
       "off_rating": "moyen",
       "def_rating": "moyen",
-      "form": "DWWDL",
+      "form": "DDWWD",
       "stats_l5": {
         "n": 5,
         "gf_pm": 1.2,
-        "ga_pm": 1.0,
+        "ga_pm": 0.6,
         "clean_sheets": 2,
         "failed_to_score": 0,
         "btts": 3,
         "wins": 2,
-        "draws": 2,
-        "losses": 1
+        "draws": 3,
+        "losses": 0
       },
       "stats_l10": {
-        "n": 8,
+        "n": 9,
         "gf_pm": 1.0,
-        "ga_pm": 1.62,
+        "ga_pm": 1.56,
         "clean_sheets": 2,
         "failed_to_score": 1,
-        "btts": 5,
+        "btts": 6,
         "wins": 2,
-        "draws": 3,
+        "draws": 4,
         "losses": 3,
-        "gf_expected_pm": 0.79,
-        "ga_expected_pm": 2.22
+        "gf_expected_pm": 0.85,
+        "ga_expected_pm": 2.12
       },
       "recent": [
+        {
+          "date": "2026-11-14",
+          "opp": "Botswana",
+          "opp_slug": "botswana",
+          "opp_id": 5887,
+          "venue": "home",
+          "gf": 1,
+          "ga": 1,
+          "result": "D",
+          "comp": "Africa Cup of Nations Qualification Grp. H"
+        },
         {
           "date": "2026-10-05",
           "opp": "DR Congo",
@@ -18152,10 +18285,9 @@
         "summary_fr": "Pas d'historique récent en Coupe du Monde"
       },
       "notes_fr": [
-        "Défense +0.6 but/match vs attendu Elo",
         "Aucune phase finale WC sur les 3 dernières éditions"
       ],
-      "last_updated": "2026-11-14T21:10:28+00:00"
+      "last_updated": "2026-11-15T01:14:38+00:00"
     },
     "namibia": {
       "fotmob_team_id": "5802",
@@ -18284,7 +18416,7 @@
         "Attaque -0.9 but/match vs attendu Elo",
         "Aucune phase finale WC sur les 3 dernières éditions"
       ],
-      "last_updated": "2026-11-14T21:10:28+00:00"
+      "last_updated": "2026-11-15T01:14:39+00:00"
     },
     "cameroon": {
       "fotmob_team_id": "6629",
@@ -18444,7 +18576,7 @@
         "Attaque -0.8 but/match vs attendu Elo",
         "Aucune phase finale WC sur les 3 dernières éditions"
       ],
-      "last_updated": "2026-11-14T21:10:28+00:00"
+      "last_updated": "2026-11-15T01:14:39+00:00"
     },
     "mali": {
       "fotmob_team_id": "5815",
@@ -18602,7 +18734,7 @@
       "notes_fr": [
         "Aucune phase finale WC sur les 3 dernières éditions"
       ],
-      "last_updated": "2026-11-14T21:10:28+00:00"
+      "last_updated": "2026-11-15T01:14:39+00:00"
     },
     "burkina_faso": {
       "fotmob_team_id": "6323",
@@ -18761,7 +18893,7 @@
         "Attaque en panne : 4 blanchies sur L10",
         "Aucune phase finale WC sur les 3 dernières éditions"
       ],
-      "last_updated": "2026-11-14T21:10:28+00:00"
+      "last_updated": "2026-11-15T01:14:40+00:00"
     },
     "comoros": {
       "fotmob_team_id": "230692",
@@ -18923,7 +19055,7 @@
         "Défense +1.3 but/match vs attendu Elo",
         "Aucune phase finale WC sur les 3 dernières éditions"
       ],
-      "last_updated": "2026-11-14T21:10:28+00:00"
+      "last_updated": "2026-11-15T01:14:41+00:00"
     },
     "gambia": {
       "fotmob_team_id": "5979",
@@ -19029,7 +19161,7 @@
         "Attaque +0.9 but/match vs attendu Elo",
         "Aucune phase finale WC sur les 3 dernières éditions"
       ],
-      "last_updated": "2026-11-14T21:10:28+00:00"
+      "last_updated": "2026-11-15T01:14:41+00:00"
     },
     "rwanda": {
       "fotmob_team_id": "5885",
@@ -19144,7 +19276,7 @@
         "Attaque +0.7 but/match vs attendu Elo",
         "Aucune phase finale WC sur les 3 dernières éditions"
       ],
-      "last_updated": "2026-11-14T21:10:28+00:00"
+      "last_updated": "2026-11-15T01:14:41+00:00"
     },
     "kenya": {
       "fotmob_team_id": "5884",
@@ -19280,7 +19412,7 @@
       "notes_fr": [
         "Aucune phase finale WC sur les 3 dernières éditions"
       ],
-      "last_updated": "2026-11-14T21:10:28+00:00"
+      "last_updated": "2026-11-15T01:14:42+00:00"
     },
     "nigeria": {
       "fotmob_team_id": "6346",
@@ -19438,7 +19570,7 @@
       "notes_fr": [
         "Aucune phase finale WC sur les 3 dernières éditions"
       ],
-      "last_updated": "2026-11-14T21:10:28+00:00"
+      "last_updated": "2026-11-15T01:14:43+00:00"
     },
     "niger": {
       "fotmob_team_id": "121281",
@@ -19555,7 +19687,7 @@
         "Défense -0.7 but/match vs attendu Elo",
         "Aucune phase finale WC sur les 3 dernières éditions"
       ],
-      "last_updated": "2026-11-14T21:10:28+00:00"
+      "last_updated": "2026-11-15T01:14:43+00:00"
     },
     "benin": {
       "fotmob_team_id": "5883",
@@ -19714,43 +19846,54 @@
         "Attaque en panne : 4 blanchies sur L10",
         "Aucune phase finale WC sur les 3 dernières éditions"
       ],
-      "last_updated": "2026-11-14T21:10:28+00:00"
+      "last_updated": "2026-11-15T01:14:44+00:00"
     },
     "chinese_taipei": {
       "fotmob_team_id": "5896",
       "fifa_rank": null,
       "fifa_points": 1200,
-      "matches_n": 3,
-      "off_score": -0.32,
-      "def_score": -0.93,
+      "matches_n": 4,
+      "off_score": -0.43,
+      "def_score": -1.0,
       "off_rating": "nul",
       "def_rating": "nul",
-      "form": "LLL",
+      "form": "LLLL",
       "stats_l5": {
-        "n": 3,
-        "gf_pm": 0.67,
-        "ga_pm": 2.67,
+        "n": 4,
+        "gf_pm": 0.5,
+        "ga_pm": 2.75,
         "clean_sheets": 0,
-        "failed_to_score": 1,
+        "failed_to_score": 2,
         "btts": 2,
         "wins": 0,
         "draws": 0,
-        "losses": 3
+        "losses": 4
       },
       "stats_l10": {
-        "n": 3,
-        "gf_pm": 0.67,
-        "ga_pm": 2.67,
+        "n": 4,
+        "gf_pm": 0.5,
+        "ga_pm": 2.75,
         "clean_sheets": 0,
-        "failed_to_score": 1,
+        "failed_to_score": 2,
         "btts": 2,
         "wins": 0,
         "draws": 0,
-        "losses": 3,
-        "gf_expected_pm": 1.61,
-        "ga_expected_pm": 0.99
+        "losses": 4,
+        "gf_expected_pm": 1.58,
+        "ga_expected_pm": 1.02
       },
       "recent": [
+        {
+          "date": "2026-11-14",
+          "opp": "Kyrgyzstan",
+          "opp_slug": "kyrgyzstan",
+          "opp_id": 5893,
+          "venue": "home",
+          "gf": 0,
+          "ga": 3,
+          "result": "L",
+          "comp": "Friendlies"
+        },
         {
           "date": "2026-11-11",
           "opp": "Vietnam",
@@ -19793,13 +19936,13 @@
         "summary_fr": "Pas d'historique récent en Coupe du Monde"
       },
       "notes_fr": [
-        "Forme inquiétante : 3 défaites sur L5",
-        "Défense fragile : 2.67 buts encaissés/match sur L10",
-        "Attaque -0.9 but/match vs attendu Elo",
+        "Forme inquiétante : 4 défaites sur L5",
+        "Défense fragile : 2.75 buts encaissés/match sur L10",
+        "Attaque -1.1 but/match vs attendu Elo",
         "Défense -1.7 but/match vs attendu Elo",
         "Aucune phase finale WC sur les 3 dernières éditions"
       ],
-      "last_updated": "2026-11-14T21:10:28+00:00"
+      "last_updated": "2026-11-15T01:14:44+00:00"
     },
     "suriname": {
       "fotmob_team_id": "127411",
@@ -19924,7 +20067,7 @@
       "notes_fr": [
         "Aucune phase finale WC sur les 3 dernières éditions"
       ],
-      "last_updated": "2026-11-14T21:10:28+00:00"
+      "last_updated": "2026-11-15T01:14:45+00:00"
     },
     "eswatini": {
       "fotmob_team_id": "4433",
@@ -19984,7 +20127,7 @@
         "Attaque -0.7 but/match vs attendu Elo",
         "Aucune phase finale WC sur les 3 dernières éditions"
       ],
-      "last_updated": "2026-11-14T21:10:28+00:00"
+      "last_updated": "2026-11-15T01:14:46+00:00"
     },
     "singapore": {
       "fotmob_team_id": "5825",
@@ -20144,7 +20287,7 @@
         "Défense fragile : 1.8 buts encaissés/match sur L10",
         "Aucune phase finale WC sur les 3 dernières éditions"
       ],
-      "last_updated": "2026-11-14T21:10:28+00:00"
+      "last_updated": "2026-11-15T01:14:46+00:00"
     },
     "uae": {
       "fotmob_team_id": "5789",
@@ -20302,7 +20445,7 @@
       "notes_fr": [
         "Aucune phase finale WC sur les 3 dernières éditions"
       ],
-      "last_updated": "2026-11-14T21:10:28+00:00"
+      "last_updated": "2026-11-15T01:14:46+00:00"
     },
     "honduras": {
       "fotmob_team_id": "5808",
@@ -20439,7 +20582,7 @@
         "Forme inquiétante : 3 défaites sur L5",
         "Aucune phase finale WC sur les 3 dernières éditions"
       ],
-      "last_updated": "2026-11-14T21:10:28+00:00"
+      "last_updated": "2026-11-15T01:14:46+00:00"
     },
     "kuwait": {
       "fotmob_team_id": "5821",
@@ -20588,7 +20731,7 @@
         "Attaque +0.8 but/match vs attendu Elo",
         "Aucune phase finale WC sur les 3 dernières éditions"
       ],
-      "last_updated": "2026-11-14T21:10:28+00:00"
+      "last_updated": "2026-11-15T01:14:46+00:00"
     },
     "indonesia": {
       "fotmob_team_id": "6324",
@@ -20747,7 +20890,7 @@
         "Attaque +0.7 but/match vs attendu Elo",
         "Aucune phase finale WC sur les 3 dernières éditions"
       ],
-      "last_updated": "2026-11-14T21:10:28+00:00"
+      "last_updated": "2026-11-15T01:14:46+00:00"
     },
     "costa_rica": {
       "fotmob_team_id": "6705",
@@ -20896,7 +21039,7 @@
         "Attaque en panne : 4 blanchies sur L10",
         "Aucune phase finale WC sur les 3 dernières éditions"
       ],
-      "last_updated": "2026-11-14T21:10:28+00:00"
+      "last_updated": "2026-11-15T01:14:46+00:00"
     },
     "bahrain": {
       "fotmob_team_id": "5901",
@@ -21045,7 +21188,7 @@
         "Défense fragile : 2.33 buts encaissés/match sur L10",
         "Aucune phase finale WC sur les 3 dernières éditions"
       ],
-      "last_updated": "2026-11-14T21:10:28+00:00"
+      "last_updated": "2026-11-15T01:14:47+00:00"
     },
     "yemen": {
       "fotmob_team_id": "5892",
@@ -21175,43 +21318,65 @@
         "Défense -0.9 but/match vs attendu Elo",
         "Aucune phase finale WC sur les 3 dernières éditions"
       ],
-      "last_updated": "2026-11-14T21:10:28+00:00"
+      "last_updated": "2026-11-15T01:14:48+00:00"
     },
     "oman": {
       "fotmob_team_id": "5824",
       "fifa_rank": 74,
       "fifa_points": 1280,
-      "matches_n": 10,
-      "off_score": -0.45,
-      "def_score": -0.07,
+      "matches_n": 12,
+      "off_score": -0.56,
+      "def_score": -0.04,
       "off_rating": "nul",
       "def_rating": "moyen",
-      "form": "LWLDW",
+      "form": "LLLWL",
       "stats_l5": {
         "n": 5,
-        "gf_pm": 1.2,
+        "gf_pm": 0.6,
         "ga_pm": 1.4,
         "clean_sheets": 0,
-        "failed_to_score": 2,
-        "btts": 3,
-        "wins": 2,
-        "draws": 1,
-        "losses": 2
+        "failed_to_score": 4,
+        "btts": 1,
+        "wins": 1,
+        "draws": 0,
+        "losses": 4
       },
       "stats_l10": {
         "n": 10,
-        "gf_pm": 0.9,
+        "gf_pm": 0.7,
         "ga_pm": 1.1,
-        "clean_sheets": 3,
-        "failed_to_score": 5,
+        "clean_sheets": 2,
+        "failed_to_score": 6,
         "btts": 4,
-        "wins": 3,
+        "wins": 2,
         "draws": 3,
-        "losses": 4,
-        "gf_expected_pm": 1.64,
-        "ga_expected_pm": 1.02
+        "losses": 5,
+        "gf_expected_pm": 1.61,
+        "ga_expected_pm": 1.06
       },
       "recent": [
+        {
+          "date": "2026-11-14",
+          "opp": "Tajikistan",
+          "opp_slug": "tajikistan",
+          "opp_id": 5898,
+          "venue": "home",
+          "gf": 0,
+          "ga": 1,
+          "result": "L",
+          "comp": "Friendlies"
+        },
+        {
+          "date": "2026-11-14",
+          "opp": "Tajikistan",
+          "opp_slug": "tajikistan",
+          "opp_id": 5898,
+          "venue": "home",
+          "gf": 0,
+          "ga": 1,
+          "result": "L",
+          "comp": "King's Cup"
+        },
         {
           "date": "2026-10-03",
           "opp": "UAE",
@@ -21299,28 +21464,6 @@
           "ga": 0,
           "result": "D",
           "comp": "Arab Cup Qualification"
-        },
-        {
-          "date": "2025-11-18",
-          "opp": "Ivory Coast",
-          "opp_slug": "ivory_coast",
-          "opp_id": 6709,
-          "venue": "home",
-          "gf": 0,
-          "ga": 2,
-          "result": "L",
-          "comp": "Friendlies"
-        },
-        {
-          "date": "2025-11-14",
-          "opp": "Sudan",
-          "opp_slug": "sudan",
-          "opp_id": 5805,
-          "venue": "home",
-          "gf": 2,
-          "ga": 0,
-          "result": "W",
-          "comp": "Friendlies"
         }
       ],
       "wc_pedigree": {
@@ -21331,22 +21474,23 @@
         "summary_fr": "Pas d'historique récent en Coupe du Monde"
       },
       "notes_fr": [
-        "Attaque en panne : 5 blanchies sur L10",
-        "Attaque -0.7 but/match vs attendu Elo",
+        "Forme inquiétante : 4 défaites sur L5",
+        "Attaque en panne : 6 blanchies sur L10",
+        "Attaque -0.9 but/match vs attendu Elo",
         "Aucune phase finale WC sur les 3 dernières éditions"
       ],
-      "last_updated": "2026-11-14T21:10:28+00:00"
+      "last_updated": "2026-11-15T01:14:49+00:00"
     },
     "malaysia": {
       "fotmob_team_id": "5823",
       "fifa_rank": null,
       "fifa_points": 1200,
       "matches_n": 12,
-      "off_score": 0.12,
-      "def_score": 0.35,
+      "off_score": -0.01,
+      "def_score": 0.26,
       "off_rating": "moyen",
-      "def_rating": "bon",
-      "form": "WWDWL",
+      "def_rating": "moyen",
+      "form": "LWWDW",
       "stats_l5": {
         "n": 5,
         "gf_pm": 2.0,
@@ -21360,18 +21504,29 @@
       },
       "stats_l10": {
         "n": 10,
-        "gf_pm": 1.7,
-        "ga_pm": 0.7,
+        "gf_pm": 1.5,
+        "ga_pm": 0.8,
         "clean_sheets": 6,
-        "failed_to_score": 4,
-        "btts": 1,
-        "wins": 6,
+        "failed_to_score": 5,
+        "btts": 0,
+        "wins": 5,
         "draws": 1,
-        "losses": 3,
+        "losses": 4,
         "gf_expected_pm": 1.52,
         "ga_expected_pm": 1.08
       },
       "recent": [
+        {
+          "date": "2026-11-14",
+          "opp": "China",
+          "opp_slug": "china",
+          "opp_id": 5822,
+          "venue": "away",
+          "gf": 0,
+          "ga": 2,
+          "result": "L",
+          "comp": "Friendlies"
+        },
         {
           "date": "2026-10-05",
           "opp": "Vietnam",
@@ -21470,17 +21625,6 @@
           "ga": 0,
           "result": "W",
           "comp": "ASEAN Championship Grp. B"
-        },
-        {
-          "date": "2026-07-25",
-          "opp": "Myanmar",
-          "opp_slug": "myanmar",
-          "opp_id": 8307,
-          "venue": "away",
-          "gf": 2,
-          "ga": 1,
-          "result": "W",
-          "comp": "ASEAN Championship Grp. B"
         }
       ],
       "wc_pedigree": {
@@ -21492,35 +21636,35 @@
       },
       "notes_fr": [
         "Défense solide : 6 clean sheets sur L10",
-        "Attaque en panne : 4 blanchies sur L10",
+        "Attaque en panne : 5 blanchies sur L10",
         "Aucune phase finale WC sur les 3 dernières éditions"
       ],
-      "last_updated": "2026-11-14T21:10:28+00:00"
+      "last_updated": "2026-11-15T01:14:49+00:00"
     },
     "thailand": {
       "fotmob_team_id": "5788",
       "fifa_rank": 85,
       "fifa_points": 1214,
       "matches_n": 12,
-      "off_score": 0.02,
-      "def_score": -0.18,
-      "off_rating": "moyen",
+      "off_score": 0.51,
+      "def_score": -0.19,
+      "off_rating": "bon",
       "def_rating": "moyen",
-      "form": "DLWWD",
+      "form": "WWDLW",
       "stats_l5": {
         "n": 5,
-        "gf_pm": 2.2,
-        "ga_pm": 1.2,
-        "clean_sheets": 2,
+        "gf_pm": 3.4,
+        "ga_pm": 0.8,
+        "clean_sheets": 3,
         "failed_to_score": 0,
-        "btts": 3,
-        "wins": 2,
-        "draws": 2,
+        "btts": 2,
+        "wins": 3,
+        "draws": 1,
         "losses": 1
       },
       "stats_l10": {
         "n": 10,
-        "gf_pm": 1.8,
+        "gf_pm": 2.7,
         "ga_pm": 1.1,
         "clean_sheets": 4,
         "failed_to_score": 1,
@@ -21528,10 +21672,32 @@
         "wins": 5,
         "draws": 2,
         "losses": 3,
-        "gf_expected_pm": 1.77,
-        "ga_expected_pm": 0.93
+        "gf_expected_pm": 1.78,
+        "ga_expected_pm": 0.92
       },
       "recent": [
+        {
+          "date": "2026-11-14",
+          "opp": "Brunei",
+          "opp_slug": "brunei",
+          "opp_id": 178671,
+          "venue": "home",
+          "gf": 6,
+          "ga": 0,
+          "result": "W",
+          "comp": "Friendlies"
+        },
+        {
+          "date": "2026-11-14",
+          "opp": "Brunei",
+          "opp_slug": "brunei",
+          "opp_id": 178671,
+          "venue": "home",
+          "gf": 6,
+          "ga": 0,
+          "result": "W",
+          "comp": "King's Cup"
+        },
         {
           "date": "2026-10-05",
           "opp": "Indonesia",
@@ -21619,28 +21785,6 @@
           "ga": 1,
           "result": "W",
           "comp": "ASEAN Championship"
-        },
-        {
-          "date": "2026-08-08",
-          "opp": "Myanmar",
-          "opp_slug": "myanmar",
-          "opp_id": 8307,
-          "venue": "home",
-          "gf": 2,
-          "ga": 0,
-          "result": "W",
-          "comp": "ASEAN Championship Grp. B"
-        },
-        {
-          "date": "2026-08-04",
-          "opp": "Philippines",
-          "opp_slug": "philippines",
-          "opp_id": 230139,
-          "venue": "away",
-          "gf": 1,
-          "ga": 0,
-          "result": "W",
-          "comp": "ASEAN Championship Grp. B"
         }
       ],
       "wc_pedigree": {
@@ -21651,45 +21795,69 @@
         "summary_fr": "Pas d'historique récent en Coupe du Monde"
       },
       "notes_fr": [
+        "Attaque prolifique : 2.7 buts/match sur L10",
+        "Attaque +0.9 but/match vs attendu Elo",
         "Aucune phase finale WC sur les 3 dernières éditions"
       ],
-      "last_updated": "2026-11-14T21:10:28+00:00"
+      "last_updated": "2026-11-15T01:14:50+00:00"
     },
     "brunei": {
       "fotmob_team_id": "178671",
       "fifa_rank": null,
       "fifa_points": 1200,
-      "matches_n": 4,
-      "off_score": -0.44,
-      "def_score": -0.96,
+      "matches_n": 6,
+      "off_score": -0.6,
+      "def_score": -1.0,
       "off_rating": "nul",
       "def_rating": "nul",
-      "form": "LLLL",
+      "form": "LLLLL",
       "stats_l5": {
-        "n": 4,
-        "gf_pm": 0.5,
-        "ga_pm": 2.5,
+        "n": 5,
+        "gf_pm": 0.4,
+        "ga_pm": 3.8,
         "clean_sheets": 0,
-        "failed_to_score": 2,
+        "failed_to_score": 3,
         "btts": 2,
         "wins": 0,
         "draws": 0,
-        "losses": 4
+        "losses": 5
       },
       "stats_l10": {
-        "n": 4,
-        "gf_pm": 0.5,
-        "ga_pm": 2.5,
+        "n": 6,
+        "gf_pm": 0.33,
+        "ga_pm": 3.67,
         "clean_sheets": 0,
-        "failed_to_score": 2,
+        "failed_to_score": 4,
         "btts": 2,
         "wins": 0,
         "draws": 0,
-        "losses": 4,
-        "gf_expected_pm": 1.6,
-        "ga_expected_pm": 1.0
+        "losses": 6,
+        "gf_expected_pm": 1.48,
+        "ga_expected_pm": 1.12
       },
       "recent": [
+        {
+          "date": "2026-11-14",
+          "opp": "Thailand",
+          "opp_slug": "thailand",
+          "opp_id": 5788,
+          "venue": "away",
+          "gf": 0,
+          "ga": 6,
+          "result": "L",
+          "comp": "Friendlies"
+        },
+        {
+          "date": "2026-11-14",
+          "opp": "Thailand",
+          "opp_slug": "thailand",
+          "opp_id": 5788,
+          "venue": "away",
+          "gf": 0,
+          "ga": 6,
+          "result": "L",
+          "comp": "King's Cup"
+        },
         {
           "date": "2026-09-30",
           "opp": "Hong Kong",
@@ -21743,13 +21911,14 @@
         "summary_fr": "Pas d'historique récent en Coupe du Monde"
       },
       "notes_fr": [
-        "Forme inquiétante : 4 défaites sur L5",
-        "Défense fragile : 2.5 buts encaissés/match sur L10",
-        "Attaque -1.1 but/match vs attendu Elo",
-        "Défense -1.5 but/match vs attendu Elo",
+        "Forme inquiétante : 5 défaites sur L5",
+        "Attaque en panne : 4 blanchies sur L10",
+        "Défense fragile : 3.67 buts encaissés/match sur L10",
+        "Attaque -1.2 but/match vs attendu Elo",
+        "Défense -2.6 but/match vs attendu Elo",
         "Aucune phase finale WC sur les 3 dernières éditions"
       ],
-      "last_updated": "2026-11-14T21:10:28+00:00"
+      "last_updated": "2026-11-15T01:14:50+00:00"
     }
   }
 }
