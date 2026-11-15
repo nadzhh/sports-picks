@@ -1,116 +1,104 @@
 {
- "at": "2026-11-14T08:04+00:00",
- "last_night": "2026-11-13",
+ "at": "2026-11-15T07:15+00:00",
+ "last_night": "2026-11-14",
  "veille": [
   {
    "src": "Bankroll IA",
-   "night": "2026-11-13",
-   "p": 0.7145,
-   "price": 1.42,
-   "win": true,
+   "night": "2026-11-14",
+   "p": 0.6662,
+   "price": 1.43,
+   "win": false,
    "kind": "conv",
-   "stake": 0.9,
-   "label": "OKC @ LAC -0 Darius Garland moins de 1.5 interceptions"
-  },
-  {
-   "src": "Bankroll IA",
-   "night": "2026-11-13",
-   "p": 0.7028,
-   "price": 1.41,
-   "win": true,
-   "kind": "conv",
-   "stake": 3.3,
-   "label": "MEM @ NO -0 Cedric Coward moins de 1.5 interceptions"
+   "stake": 2.5,
+   "label": "CHI @ MIN -0 Terrence Shannon Jr. plus de 0.5 paniers à 3 pts",
+   "cause": "other",
+   "txt": ""
   },
   {
    "src": "Canal Picks",
-   "night": "2026-11-13",
-   "p": 0.6692,
+   "night": "2026-11-14",
+   "p": 0.6662,
    "price": 1.43,
    "win": false,
    "kind": "safe",
    "stake": 0.5,
-   "label": "Mikal Bridges moins de 1.5 paniers à 3 pts (NY @ IND)",
-   "cause": "minutes",
-   "txt": "29 min jouées pour 22 prévues"
-  },
-  {
-   "src": "Canal Picks",
-   "night": "2026-11-13",
-   "p": 0.7028,
-   "price": 1.41,
-   "win": true,
-   "kind": "safe",
-   "stake": 0.5,
-   "label": "Cedric Coward moins de 1.5 interceptions (MEM @ NO)"
-  },
-  {
-   "src": "Canal Picks",
-   "night": "2026-11-13",
-   "p": 0.6833,
-   "price": 1.43,
-   "win": true,
-   "kind": "safe",
-   "stake": 0.5,
-   "label": "Jaxson Hayes moins de 1.5 contres (UTAH @ HOU)"
-  },
-  {
-   "src": "Canal Picks",
-   "night": "2026-11-13",
-   "p": 0.6937,
-   "price": 1.45,
-   "win": true,
-   "kind": "safe",
-   "stake": 0.5,
-   "label": "Stephon Castle moins de 1.5 interceptions (GS @ SA)"
-  },
-  {
-   "src": "Canal Picks",
-   "night": "2026-11-13",
-   "p": 0.6888,
-   "price": 1.44,
-   "win": false,
-   "kind": "safe",
-   "stake": 0.5,
-   "label": "Toumani Camara moins de 1.5 interceptions (POR @ SAC)",
+   "label": "Terrence Shannon Jr. plus de 0.5 paniers à 3 pts (CHI @ MIN)",
    "cause": "near",
-   "txt": "2 pour une ligne à 1.5"
+   "txt": "0 pour une ligne à 0.5"
   },
   {
    "src": "Canal Picks",
-   "night": "2026-11-13",
-   "p": 0.7145,
-   "price": 1.42,
-   "win": true,
-   "kind": "safe",
-   "stake": 0.5,
-   "label": "Darius Garland moins de 1.5 interceptions (OKC @ LAC)"
+   "night": "2026-11-14",
+   "p": 0.5315,
+   "price": 1.86,
+   "win": false,
+   "kind": "fill",
+   "stake": 0.25,
+   "label": "Jamal Murray moins de 6.5 passes (DEN @ NO)",
+   "cause": "rate",
+   "txt": "9 en 38 min (projeté 7.0 à ce temps de jeu)"
+  },
+  {
+   "src": "Canal Picks",
+   "night": "2026-11-14",
+   "p": 0.4837,
+   "price": 2.04,
+   "win": false,
+   "kind": "fill",
+   "stake": 0.25,
+   "label": "Kyrie Irving moins de 3.5 rebonds (DAL @ CLE)",
+   "cause": "rate",
+   "txt": "6 en 37 min (projeté 4.1 à ce temps de jeu)"
+  },
+  {
+   "src": "Canal Picks",
+   "night": "2026-11-14",
+   "p": 0.467,
+   "price": 2.15,
+   "win": false,
+   "kind": "fill",
+   "stake": 0.25,
+   "label": "Julius Randle moins de 4.5 passes (BKN @ MEM)",
+   "cause": "near",
+   "txt": "5 pour une ligne à 4.5"
+  },
+  {
+   "src": "Canal Picks",
+   "night": "2026-11-14",
+   "p": 0.5721,
+   "price": 1.72,
+   "win": false,
+   "kind": "fill",
+   "stake": 0.25,
+   "label": "Bam Adebayo moins de 3.5 passes (DET @ MIA)",
+   "cause": "near",
+   "txt": "4 pour une ligne à 3.5"
   }
  ],
  "causes": {
-  "rate": 19,
+  "rate": 21,
   "minutes": 10,
-  "near": 22,
-  "other": 3,
+  "near": 25,
+  "other": 4,
   "lecture": 1
  },
  "calib": {
   "Bankroll IA": {
-   "n": 89,
-   "win": 0.596,
-   "announced": 0.543,
-   "noise": 0.106,
-   "roi": 0.134
+   "n": 90,
+   "win": 0.589,
+   "announced": 0.544,
+   "noise": 0.105,
+   "roi": 0.122
   },
   "Canal Picks": {
-   "n": 44,
-   "win": 0.568,
-   "announced": 0.601,
-   "noise": 0.148,
-   "roi": -0.065
+   "n": 49,
+   "win": 0.51,
+   "announced": 0.595,
+   "noise": 0.14,
+   "roi": -0.16
   }
  },
  "lessons": [
-  "55 paris perdus en 30 jours : 22 de malchance (bonne lecture, mauvais sort), 33 d'erreur de lecture."
+  "61 paris perdus en 30 jours : 25 de malchance (bonne lecture, mauvais sort), 36 d'erreur de lecture."
  ]
 }
