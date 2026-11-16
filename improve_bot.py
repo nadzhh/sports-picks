@@ -527,11 +527,21 @@ if __name__ == "__main__":
     ap.add_argument("--nba-candidates", type=int, default=4, help="reglages NBA essayes par nuit (0 = pas de NBA)")
     ap.add_argument("--only-nba", action="store_true", help="test : seulement la partie NBA (sans ecrire)")
     ap.add_argument("--telegram", action="store_true", help="envoie le resume (le dimanche, en CI)")
+    ap.add_argument("--force", action="store_true", help="tourne meme si le bot est deja passe aujourd'hui")
     a = ap.parse_args()
     if a.only_nba:
         rep = {"at": _now().isoformat(timespec="minutes")}
         print(json.dumps(nba_round(load_params(), rep, a.nba_candidates, a.sims, a.workers, dry=True), ensure_ascii=False, indent=1))
         sys.exit(0)
+    # un seul passage par jour : la veille NBA relance le bot a 6 h 30 UTC (nba_live.improve_kick) quand la planification
+    # GitHub est en retard, et la planification d'origine arrive quand meme ~1 h 30 plus tard (10-16/11 : deux passages
+    # chaque nuit, double resume Telegram le dimanche, reglages juges deux fois). --force pour un passage de plus.
+    if not a.dry and not a.force:
+        try:
+            if json.loads(REPORT_PATH.read_text(encoding="utf-8"))["last"]["at"][:10] == _now().isoformat()[:10]:
+                print("bot deja passe aujourd'hui : rien a faire (--force pour relancer)"); sys.exit(0)
+        except (OSError, ValueError, KeyError):
+            pass
     rep = run(a.candidates, a.sims, a.dry, a.workers, a.nba_candidates)
     txt = summary(rep)
     print(txt)
