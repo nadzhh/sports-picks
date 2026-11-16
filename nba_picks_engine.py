@@ -15,6 +15,7 @@ Modele par joueur :
 """
 import json, math, os, sys
 from datetime import datetime, timedelta
+from pathlib import Path
 from statistics import mean, stdev
 
 os.makedirs("data", exist_ok=True)
@@ -68,6 +69,21 @@ NBA_KILLER_MIN_EDGE = 10                     # exige edge >= 10pp post-vig pour 
 NBA_HOME_PENALTY_PP = 4
 NBA_AWAY_BONUS_PP   = 4
 
+
+
+_H2H_P = None
+
+
+def _h2h_w(prop_key):
+    """Poids du face-a-face pour cette stat (nba_h2h_weight, remesure chaque nuit)."""
+    global _H2H_P
+    import nba_h2h_weight as HW
+    if _H2H_P is None:
+        try:
+            _H2H_P = json.loads(Path("data/model_params.json").read_text(encoding="utf-8"))
+        except Exception:
+            _H2H_P = {}
+    return HW.weight(prop_key, _H2H_P)
 
 def _nba_apply_calibration(confidence, market, side, edge_pp=None, is_real_line=False):
     """Applique shrinkage + bonus/malus contextuels a la confiance modele.
@@ -443,14 +459,15 @@ def player_props(player, ctx=None, real_lines=None, match_ctx=None):
         # H2H adjustment : en serie playoff (>=2 matchs vs cet adversaire dans
         # les 7 derniers), H2H tres significatif -> seuil baisse a 2 matchs et
         # cap a [0.90, 1.10]. Sinon, seuil >=3 et cap a [0.92, 1.08].
+        # 16/11/2026 : seule une petite part de l'ecart H2H se retrouve au match suivant (~10 %, mesure walk-forward
+        # sur 3 saisons) -> attendu x (H2H / niveau) ^ poids, poids mesure chaque nuit par stat (nba_h2h_weight,
+        # improve_bot). Avant : 100 % de l'ecart des qu'il depassait 10 %.
         if mu is not None and h2h_mean is not None and global_mean_for_ratio:
             min_h2h = 2 if is_series else 3
             cap_lo, cap_hi = (0.90, 1.10) if is_series else (0.92, 1.08)
-            if len(h2h_vals) >= min_h2h and global_mean_for_ratio > 0:
-                ratio = h2h_mean / global_mean_for_ratio
-                if abs(ratio - 1.0) > 0.10:
-                    ratio = max(cap_lo, min(cap_hi, ratio))
-                    mu = mu * ratio
+            if len(h2h_vals) >= min_h2h and global_mean_for_ratio > 0 and h2h_mean > 0:
+                ratio = (h2h_mean / global_mean_for_ratio) ** _h2h_w(prop_key)
+                mu = mu * max(cap_lo, min(cap_hi, ratio))
 
         # ─── Bounce back : si L3 << season_mean (slump recent), regression a ──
         # la moyenne attendue. Cas Harden : 9 puis 15 pts vs saison 20. L3
@@ -709,7 +726,8 @@ def player_props(player, ctx=None, real_lines=None, match_ctx=None):
                     # Skip cette pick : direction contredite par historique au lieu
                     continue
                 # H2H contradiction tres forte (<=25% sur sample >=4) → SKIP en serie
-                if h2h_pct is not None and h2h_pct <= 25 and n_h2h >= 4:
+                # (16/11/2026 : seulement si le H2H pese vraiment, poids mesure >= 0,3 ; ~0,1 aujourd'hui)
+                if h2h_pct is not None and h2h_pct <= 25 and n_h2h >= 4 and _h2h_w(prop_key) >= 0.3:
                     continue
                 # Venue confirmation forte (>=70%) → boost +5pp
                 if venue_pct is not None and venue_pct >= 70:
@@ -718,7 +736,7 @@ def player_props(player, ctx=None, real_lines=None, match_ctx=None):
                     signal_confirm = f"📍 {direction.upper()} hit rate {venue_hits}/{n_ven} à {v_loc}"
                 # H2H confirmation forte (>=70%) → boost +5pp (cumulable avec venue)
                 if h2h_pct is not None and h2h_pct >= 70:
-                    signal_bonus += 5
+                    signal_bonus += round(5 * min(1.0, _h2h_w(prop_key) / 0.5))   # 16/11 : proportionnel au poids mesure
                     h_msg = f"🆚 {direction.upper()} hit rate {h2h_hits}/{n_h2h} vs {opp_abbr_for_h2h}"
                     signal_confirm = signal_confirm + " · " + h_msg if signal_confirm else h_msg
                 # Venue ou H2H "tiede negatif" (31-45%) → warning mais on garde

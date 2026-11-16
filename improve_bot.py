@@ -439,6 +439,12 @@ def run(k=8, sims=1000, dry=False, workers=4, nba_k=4):
             rep.setdefault("nba", {"tried": [], "adopted": None, "notes": []})["notes"].append(f"NBA : {type(e).__name__}: {e}"[:300])
             rep["trace_nba"] = traceback.format_exc()[-1500:]
             print(rep["trace_nba"], flush=True)
+    if nba_k and not dry:   # poids du face-a-face du moteur de picks NBA, remesure chaque nuit (16/11/2026)
+        try:
+            import nba_h2h_weight as HW
+            rep["h2h"] = HW.refit(P, rep["at"])
+        except Exception as e:
+            rep["notes"].append(f"NBA : poids du face-a-face non remesure ({type(e).__name__}: {e})"[:300])
     try:
         rep["notes"] += adjust_stakes(P)
     except Exception as e:
@@ -500,6 +506,14 @@ def summary(rep):
         lines.append(f"🏀 NBA : {len(N.get('tried') or [])} réglages essayés · "
                      + (f"✅ adopté <b>{b['param']}</b> {b['from']} → {b['to']}" if b else "aucun n'améliore les deux échantillons"))
         if ng: lines.append(f"Écart au marché props (log-loss) : {ng}")
+        c = N.get("calib") or {}
+        if c.get("test"):
+            lines.append(f"Calage des props (hors échantillon) : {c['test']['cale']:.4f} contre marché {c['test']['marche']:.4f}"
+                         + (" → gardé" if c.get("coef") else " → précédent gardé"))
+    hw = ((rep.get("h2h") or {}).get("mesure")) or {}
+    if hw:
+        lines.append("Poids du face-à-face (part de l'écart H2H qui se retrouve au match suivant) : "
+                     + ", ".join(f"{k} {str(v['w']).replace('.', ',')}" for k, v in hw.items()))
         lines += [f"• {n}" for n in N.get("notes") or []]
     L = rep.get("lecons") or {}
     if L.get("hier"):

@@ -38,7 +38,7 @@
   {
    "at": "2026-11-05T15:33+00:00",
    "text": "Construire un suivi réel (historique résultats) des picks PrizePicks / stats combinées (REB+AST etc.) pour commencer à mesurer leur fiabilité, comme c'est déjà fait pour les props DraftKings.",
-   "status": "nouvelle",
+   "status": "faite (16/11) : carte « Suivi réel des props » (DraftKings vs combinées REB+AST)",
    "page": "basket / nbapicks",
    "source": "chat"
   },
@@ -52,7 +52,7 @@
   {
    "at": "2026-11-05T20:10+00:00",
    "text": "Filtrer les matchs foot déjà terminés de la liste \"simulation\"/footsim (et pas seulement du live) en vérifiant le statut réel du match (ESPN/FotMob) plutôt qu'une fenêtre horaire fixe — probablement la même cause que le bug \"match reste en direct après la fin\" déjà signalé.",
-   "status": "nouvelle",
+   "status": "faite (16/11) : statut réel ESPN / FotMob, groupe « Terminés »",
    "page": "foot / footsim",
    "source": "chat"
   },
@@ -66,21 +66,21 @@
   {
    "at": "2026-11-06T16:12+00:00",
    "text": "Ajouter aux props joueurs une stat de défense adverse spécifique au poste (ex. points permis aux ailiers forts), en complément du rang défensif global actuel qui peut masquer des trous positionnels.",
-   "status": "nouvelle",
+   "status": "faite (16/11) : défense par poste dans l'argumentaire (repère de lecture)",
    "page": "basket / nbapicks",
    "source": "chat"
   },
   {
    "at": "2026-11-06T16:12+00:00",
    "text": "Ajouter le suivi des confrontations directes (head-to-head) joueur vs adversaire dans le moteur de picks, au lieu de h2h_n=0 par défaut quand l'historique récent manque.",
-   "status": "nouvelle",
+   "status": "faite (16/11) : H2H sur 3 saisons ; poids dans le moteur mesuré chaque nuit",
    "page": "basket / nbapicks",
    "source": "chat"
   },
   {
    "at": "2026-11-06T16:12+00:00",
    "text": "Afficher la médiane (pas seulement la moyenne L5/L10) dans le raisonnement des props, car un gros écart moyenne/médiane signale un match extrême qui tire la moyenne.",
-   "status": "nouvelle",
+   "status": "faite (16/11) : médiane à côté des moyennes L5/L10, alerte si écart",
    "page": "basket / nbapicks",
    "source": "chat"
   },
@@ -94,7 +94,7 @@
   {
    "at": "2026-11-11T09:13+00:00",
    "text": "Sur la page iabank, afficher pour chaque pari réglé le résultat réel du joueur sur la stat (champ `actual` déjà présent dans nba_bankroll.json), pas seulement gagné/perdu — ex. « Under 1.5 interceptions → réalisé : 1 ».",
-   "status": "nouvelle",
+   "status": "faite (16/11) : « réalisé : N » sur chaque pari conviction réglé",
    "page": "iabank / iabank",
    "source": "chat"
   }
