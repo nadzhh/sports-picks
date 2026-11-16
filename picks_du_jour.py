@@ -22,6 +22,7 @@ from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
 import nba_prop_calib as PC
+import nba_lab as LAB
 
 PATH = Path("data/telegram_picks.json")
 # 05/11/2026 (Wilson : « ne te bloque pas a 3 paris, c'est a toi de gerer ») : pas de quota fixe, ce sont les criteres
@@ -237,7 +238,7 @@ def prop_candidates(now, hours=WINDOW_H, min_ev=MIN_EV_PROP):
                 d = _dec(pr["over"] if side == "o" else pr["under"])
                 # 09/11 : probabilite calee par stat (nba_prop_calib : biais du marche + part utile de la simulation)
                 # au lieu du melange fixe marche + 10 % de l'ecart (sur les 966 paris reels suivis : 0,6787 vs 0,6812)
-                p = PC.p_side(pr["stat"], pr["p_sim"], pr["p_mkt"], side == "o")
+                p = PC.p_side(pr["stat"], pr["p_sim"], pr["p_mkt"], side == "o", x=LAB.x_for(g, pr))   # + labo (16/11)
                 ev = p * d - 1
                 if ev < min_ev: continue
                 out.append({"kind": "prop", "sport": "nba", "match_id": g["gid"],

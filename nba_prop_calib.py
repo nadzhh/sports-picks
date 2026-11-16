@@ -47,8 +47,17 @@ def p_over(stat, p_sim, p_mkt):
     return 1 / (1 + math.exp(-z))
 
 
-def p_side(stat, p_sim_over, p_mkt_over, over):
-    p = p_over(stat, p_sim_over, p_mkt_over)
+def p_side(stat, p_sim_over, p_mkt_over, over, x=None):
+    """x = signaux du prop (nba_lab.x_for) : modele du labo d'analyses s'il a adopte des analyses, sinon le calage."""
+    p = None
+    if x is not None:
+        try:
+            import nba_lab
+            p = nba_lab.p_over(stat, p_sim_over, p_mkt_over, x)
+        except Exception:
+            p = None
+    if p is None:
+        p = p_over(stat, p_sim_over, p_mkt_over)
     return p if over else 1 - p
 
 

@@ -324,11 +324,14 @@ def _nba_stamp(year):
                     for f in (f"box_{year - 1}.json", f"box_{year}.json", f"props_{year}.json"))
 
 
+def nba_backtest_file(params, year):
+    h = hashlib.sha1((json.dumps(params, sort_keys=True) + _nba_stamp(year)).encode()).hexdigest()[:10]
+    return f"bot_nba_{year}_{h}", NBA_DB / f"backtest_bot_nba_{year}_{h}.json"
+
+
 def nba_backtest(params, year, sims):
     """[(p_sim, p_marche, over reel, stat)] sur les vraies lignes (poussees exclues), via nba_backtest.py --blind."""
-    h = hashlib.sha1((json.dumps(params, sort_keys=True) + _nba_stamp(year)).encode()).hexdigest()[:10]
-    label = f"bot_nba_{year}_{h}"
-    out = NBA_DB / f"backtest_{label}.json"
+    label, out = nba_backtest_file(params, year)
     if not out.exists():
         cmd = [sys.executable, "nba_backtest.py", "--year", str(year), "--params", json.dumps(params),
                "--sims", str(sims), "--blind", "--label", label]
@@ -417,6 +420,34 @@ def nba_round(P, rep, k=4, sims=1000, workers=4, dry=False):
     return R
 
 
+def lab_summary(lab):
+    """Lignes Telegram du labo d'analyses NBA (nba_lab)."""
+    if not lab or not lab.get("base"): return []
+    fr = lambda x, d=2: f"{x:.{d}f}".replace(".", ",")
+    b = lab["base"]
+    out = [f"\n🧪 Labo d'analyses NBA ({lab['n']} props rejoués à l'aveugle, récents pondérés)"]
+    if lab.get("removed"):
+        out.append(f"Retirée : « {lab['removed']} » n'aide plus le modèle.")
+    a = lab.get("adopted")
+    if a:
+        bf, af = a["before"], a["after"]
+        out.append(f"✅ Adoptée cette nuit : <b>{a['label']}</b> · réussite {fr(bf['acc'])} % → {fr(af['acc'])} % · "
+                   f"log-loss {bf['ll']:.4f} → {af['ll']:.4f} · picks {bf['picks']['hit']} % → {af['picks']['hit']} % "
+                   f"(ROI {bf['picks']['roi']} → {af['picks']['roi']} %)")
+    elif lab.get("tried"):
+        t = max(lab["tried"], key=lambda t: t["gain"])
+        out.append(f"{len(lab['tried'])} analyse(s) testée(s), aucune adoptée : la meilleure (« {t['label']} ») gagne "
+                   f"{t['gain']:+.5f} de log-loss, pas assez sûr (gain nul ou négatif dans {round(100 * t['p'])} % des tirages).")
+    else:
+        out.append("Rien à tester cette nuit (analyses déjà jugées récemment).")
+    act = lab.get("active") or []
+    if a: b = a["after"]
+    elif lab.get("base_after"): b = lab["base_after"]
+    out.append(f"Modèle en service : réussite {fr(b['acc'])} % · picks {b['picks']['hit']} % (ROI {b['picks']['roi']} %) · "
+               f"analyses adoptées : {', '.join(act) if act else 'aucune pour l’instant'}")
+    return out
+
+
 def _cleanup_nba():
     for f in NBA_DB.glob("backtest_bot_nba_*.json"):
         if time.time() - f.stat().st_mtime > 2 * 86400: f.unlink()
@@ -441,6 +472,20 @@ def run(k=8, sims=1000, dry=False, workers=4, nba_k=4):
             rep.setdefault("nba", {"tried": [], "adopted": None, "notes": []})["notes"].append(f"NBA : {type(e).__name__}: {e}"[:300])
             rep["trace_nba"] = traceback.format_exc()[-1500:]
             print(rep["trace_nba"], flush=True)
+    if nba_k:   # labo d'analyses NBA (16/11/2026) : essaie d'ajouter une analyse au modele de props, a l'aveugle
+        try:
+            import nba_lab
+            cur = nba_defaults()
+            files = [nba_backtest_file(cur, y)[1] for _, y in NBA_SAMPLES]
+            files = [f for f in files if f.exists()]
+            if len(files) == len(NBA_SAMPLES):
+                rep["lab"] = nba_lab.night(files, rep["at"], dry=dry, log=lambda m: print(m, flush=True))
+            else:
+                rep["notes"].append("labo NBA : backtests de la nuit absents, essai reporte")
+        except Exception as e:
+            rep["notes"].append(f"labo NBA : {type(e).__name__}: {e}"[:300])
+            rep["trace_lab"] = traceback.format_exc()[-1500:]
+            print(rep["trace_lab"], flush=True)
     if nba_k and not dry:   # poids du face-a-face du moteur de picks NBA, remesure chaque nuit (16/11/2026)
         try:
             import nba_h2h_weight as HW
@@ -512,6 +557,7 @@ def summary(rep):
         if c.get("test"):
             lines.append(f"Calage des props (hors échantillon) : {c['test']['cale']:.4f} contre marché {c['test']['marche']:.4f}"
                          + (" → gardé" if c.get("coef") else " → précédent gardé"))
+    lines += lab_summary(rep.get("lab"))
     hw = ((rep.get("h2h") or {}).get("mesure")) or {}
     if hw:
         lines.append("Poids du face-à-face (part de l'écart H2H qui se retrouve au match suivant) : "

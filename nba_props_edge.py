@@ -114,7 +114,7 @@ def candidates(now=None, hours=24):
             for over in (True, False):
                 pm = pr["p_mkt"] if over else 1 - pr["p_mkt"]
                 ps = pr["p_sim"] if over else 1 - pr["p_sim"]
-                p = _p(pr, pm, ps, over)
+                p = _p(pr, pm, ps, over, g)
                 fair = 1 / p
                 edge = EDGE_DERIVED if pr.get("derived") else EDGE
                 if fair * (1 + edge) < MIN_ODDS: continue
@@ -176,7 +176,7 @@ def card_for(gid, pid, stat, line, over):
     opp = g["away"]["abbr"] if pr["side"] == "home" else g["home"]["abbr"]
     pm = pr["p_mkt"] if over else 1 - pr["p_mkt"]
     ps = pr["p_sim"] if over else 1 - pr["p_sim"]
-    p_ = _p(pr, pm, ps, over)
+    p_ = _p(pr, pm, ps, over, g)
     edge = EDGE_DERIVED if pr.get("derived") else EDGE
     x = {"gid": g["gid"], "ko": g["date"], "match": f'{g["away"]["abbr"]} @ {g["home"]["abbr"]}', "opp": opp,
          "id": str(pid), "name": pr["name"], "stat": stat, "line": pr["line"], "over": over, "p_mkt": round(pm, 4),
@@ -193,11 +193,15 @@ def card_for(gid, pid, stat, line, over):
 
 
 
-def _p(pr, pm, ps, over):
+def _p(pr, pm, ps, over, g=None):
     """Probabilite retenue : calee par stat (nba_prop_calib, 09/11) ; les REB+AST deduites gardent leur propre
     correction (RA_BIAS) et l'ancien melange marche + 10 % de l'ecart."""
     if pr.get("derived"): return pm + W_PROP * (ps - pm)
-    return PC.p_side(pr["stat"], pr["p_sim"], pr["p_mkt"], over)
+    x = None
+    if g is not None:   # analyses adoptees par le labo (nba_lab, 16/11/2026)
+        import nba_lab
+        x = nba_lab.x_for(g, pr)
+    return PC.p_side(pr["stat"], pr["p_sim"], pr["p_mkt"], over, x=x)
 
 
 def _derived_ra(g):
