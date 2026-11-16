@@ -298,6 +298,9 @@ def _bot_card():
             f'<div class="eb-list2">{gap}</div>'
             + (f'<ul class="vd-why">{notes}</ul>' if notes else "")
             + (f'<div class="td-sub">Réglages adoptés</div><ul class="vd-why">{hist}</ul>' if hist else "")
+            + '<p style="margin:10px 0 4px"><a href="bot.html" style="display:inline-block;padding:7px 12px;border:1px solid #3b82f6;'
+              'border-radius:8px;color:#93c5fd;text-decoration:none;font-weight:600">📈 Voir le suivi de toutes les nuits '
+              '(essais, courbes, labo) →</a></p>'
             + '<p class="eb-note">Chaque nuit, le bot rejoue deux saisons de matchs (foot) et deux échantillons de vraies cotes '
               'de props (NBA) avec la simulation (sans information '
               'postérieure au coup d’envoi), essaie des réglages voisins un par un et n’en garde un que s’il prévoit mieux '

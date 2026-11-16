@@ -521,10 +521,20 @@ def run(k=8, sims=1000, dry=False, workers=4, nba_k=4):
         pass
     if not dry:
         save_params(P)
-        night = {k2: rep.get(k2) for k2 in ("at", "base", "gap", "adopted", "notes")}
-        if rep.get("nba"): night["nba"] = {k2: rep["nba"].get(k2) for k2 in ("base", "gap", "adopted", "calib")}
+        night = {k2: rep.get(k2) for k2 in ("at", "base", "gap", "adopted", "notes", "tried", "h2h", "minutes")}
+        if rep.get("nba"): night["nba"] = {k2: rep["nba"].get(k2) for k2 in ("base", "gap", "adopted", "calib", "tried")}
+        if rep.get("lab"):   # detail des essais du labo, pour la page « Nuits du bot » (bot_site.py, 16/11/2026)
+            night["lab"] = {k2: rep["lab"].get(k2) for k2 in ("n", "base", "adopted", "removed", "recheck", "active")}
+            night["lab"]["tried"] = [{k3: t.get(k3) for k3 in ("name", "label", "gain", "p", "ok", "acc")}
+                                     for t in rep["lab"].get("tried") or []]
         REPORT_PATH.write_text(json.dumps({"last": rep, "nights": (hist + [night])[-60:]},
                                           ensure_ascii=False, indent=1), encoding="utf-8")
+    if not dry:
+        try:   # page « Nuits du bot » (bot.html)
+            import bot_site
+            bot_site.write()
+        except Exception as e:
+            print(f"bot_site : {type(e).__name__}: {e}", flush=True)
     _cleanup(); _cleanup_nba()
     return rep
 
