@@ -37,7 +37,7 @@ DIGEST_PATH = "data/telegram_digest.json"   # jour du dernier recapitulatif Tele
 PUBLISHED = [FRAGMENT, R.OUT_PATH, str(R.PICKS_PATH), "data/nba_sim_history.json", BS.FRAGMENT, str(BK.BANK_PATH),
              FS.FRAGMENT, str(FR.OUT_PATH), str(FB.HIST_PATH), str(EV.PATH), DIGEST_PATH, "data/telegram_picks.json",
              "data/foot_competitions.json", "data/strategy_lab.json", ST.FRAGMENT, "data/boosts.json", "data/props_edge.json", "data/sentinel.json",
-             "data/espn_foot_odds.json", "data/foot_scorer_odds.json"]
+             "data/espn_foot_odds.json", "data/foot_scorer_odds.json", "data/props_edge_track.json"]
 # Foot (Top 5 + coupes d'Europe) : base mise a jour par tranches (premiere constitution en plusieurs
 # passages), simulation toutes les 30 min, a chaque cycle quand un match approche (composition officielle)
 FOOT_SEASONS = ("2026/2027", "2025/2026")   # saison en cours d'abord
@@ -290,6 +290,11 @@ class Live:
                 PE.resolve()
             except Exception as e:
                 print(f"  [!] props du soir (reglement) : {type(e).__name__}: {e}")
+            try:   # suivi reel par type (DraftKings / combinees deduites) et par stat
+                import props_edge_track as PT
+                PT.resolve()
+            except Exception as e:
+                print(f"  [!] suivi des props (reglement) : {type(e).__name__}: {e}")
             try:   # labo des strategies
                 import strategy_lab as SL
                 SL.resolve(box)
@@ -379,9 +384,17 @@ class Live:
             SL.update_prices()
             try:   # props du soir facon PropsEdge (nba_props_edge) : suivi reel de ceux affiches
                 import nba_props_edge as PE
-                PE.record(PE.candidates())
+                cards = PE.candidates()
+                PE.record(cards)
             except Exception as e:
+                cards = None
                 print(f"  [!] props du soir : {type(e).__name__}: {e}")
+            if cards is not None:
+                try:   # suivi reel detaille (props_edge_track) : type, cote DK, rang, derniere ligne vue
+                    import props_edge_track as PT
+                    PT.record(cards)
+                except Exception as e:
+                    print(f"  [!] suivi des props : {type(e).__name__}: {e}")
             try:   # CLV des picks postes sur le canal (05/11/2026)
                 import picks_du_jour as PJ
                 PJ.update_close()
