@@ -100,7 +100,7 @@ LIVE_SCRIPT = r"""<script>
           c.classList.remove('eb-off');if(!visible(c))return;
           J(API+path(k)+'/summary?event='+e.id).then(function(s){
             c.innerHTML=k[0]==='nba'?nbaCard(s,JSON.parse(c.getAttribute('data-picks')||'[]')):footCard(s);}).catch(function(){});});
-      });if(window.ebRelabel)window.ebRelabel();}).catch(function(){});});
+      });if(window.ebRelabel)window.ebRelabel();if(window.ebFootDone)window.ebFootDone();}).catch(function(){});});
   }
   window.spLive=tick;
   setInterval(tick,30000);

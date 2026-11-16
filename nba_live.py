@@ -42,7 +42,11 @@ PUBLISHED = [FRAGMENT, R.OUT_PATH, str(R.PICKS_PATH), "data/nba_sim_history.json
 # passages), simulation toutes les 30 min, a chaque cycle quand un match approche (composition officielle)
 FOOT_SEASONS = ("2026/2027", "2025/2026")   # saison en cours d'abord
 FOOT_EVERY, FOOT_DB_BUDGET, FOOT_REFRESH = 30 * 60, 10 * 60, timedelta(hours=3)   # 10 min : extension de la base (04/11/2026)
-LIVE_KEEP, FOOT_LIVE_KEEP = timedelta(hours=4), timedelta(hours=3)   # suivi en direct apres le coup d'envoi
+LIVE_KEEP = timedelta(hours=4)   # NBA : suivi en direct apres le coup d'envoi
+# Foot (16/11/2026) : « termine » vient du statut reel (foot_sim_run.live_status, decide par foot_sim_site.state) ;
+# un match termine reste dans data/foot_sim.json, replie dans « Terminés » avec son score, jusqu'a 6 h apres le
+# coup d'envoi (plafond : jamais garde indefiniment, meme sans statut)
+FOOT_DONE_KEEP = timedelta(hours=6)
 HORIZON = timedelta(hours=36)
 FINAL_BEFORE = timedelta(minutes=35)
 REFRESH_AGE = timedelta(hours=3)   # + resimulation immediate des matchs dont la video n'est pas a la version R.REPLAY_V
@@ -457,8 +461,13 @@ class Live:
         try:
             now = datetime.now(timezone.utc)
             prev = {g["id"]: g for g in (json.loads(FR.OUT_PATH.read_text(encoding="utf-8")).get("games") or [])}                 if FR.OUT_PATH.exists() else {}
+            ended = self.foot_status(prev, now)   # statut reel des matchs commences, a chaque cycle (appels legers)
             soon = any(timedelta(0) < _t(g["ko"]) - now <= timedelta(hours=2) for g in prev.values())
-            if not soon and time.time() - self.foot_at < FOOT_EVERY: return ""
+            if not soon and time.time() - self.foot_at < FOOT_EVERY:
+                if not ended: return ""
+                # match(s) fini(s) entre deux passages : on publie la liste a jour sans resimuler ni toucher a la base
+                self.foot_save({gid: g for gid, g in prev.items() if now - _t(g["ko"]) < FOOT_DONE_KEEP}, now)
+                return f"{ended} match(s) foot termine(s)"
             self.foot_at = time.time()
             # base : perimetre du modele d'abord, puis l'extension (C4, championnats des clubs europeens, coupes
             # nationales, selections : foot_comps), dans le meme budget
@@ -489,7 +498,7 @@ class Live:
                 except Exception as e:
                     print(f"  [!] foot {g['id']} : {type(e).__name__}: {e}")
             live = {g["id"] for g in games}
-            keep = {gid: g for gid, g in prev.items() if gid in live or now - _t(g["ko"]) < FOOT_LIVE_KEEP}
+            keep = {gid: g for gid, g in prev.items() if gid in live or now - _t(g["ko"]) < FOOT_DONE_KEEP}
             keep.update({r["id"]: r for r in fresh})
             added_hist = 0     # historique des tirs L5/L10/L20 (05/11/2026) : ajoute sans resimuler
             for p in keep.values():
@@ -498,16 +507,42 @@ class Live:
                 if _t(p["ko"]) > now and FR.foot_calib.ensure(p): added_hist += 1   # recalage (05/11/2026)
             FB.archive(fresh)                      # historique : derniere simulation d'avant-match
             resolved = FB.resolve()                # et resultats des matchs termines
-            if not fresh and not resolved and not added_hist and set(keep) == set(prev): return ""
-            FR.OUT_PATH.write_text(json.dumps({"generated_at": now.isoformat(timespec="seconds"),
-                                               "games": sorted(keep.values(), key=lambda g: g["ko"])}, ensure_ascii=False),
-                                   encoding="utf-8")
-            FS.write_fragment()
+            if not fresh and not resolved and not added_hist and not ended and set(keep) == set(prev): return ""
+            self.foot_save(keep, now)
             print(f"  [foot] {len(fresh)} match(s) simule(s), {len(keep)} affiches, base +{added}, {resolved} resultat(s)")
             return f"{len(fresh)} match(s) foot simule(s)"
         except Exception as e:
             print(f"  [!] foot : {type(e).__name__}: {e}")
             return ""
+
+    @staticmethod
+    def foot_status(prev, now):
+        """Releve le statut reel (ESPN, sinon FotMob) des matchs commences et pas encore donnes termines ; l'ecrit
+        dans chaque match (g["status"]). Renvoie le nombre de matchs passes a « termine »."""
+        todo = [g for g in prev.values() if _t(g["ko"]) <= now < _t(g["ko"]) + FOOT_DONE_KEEP
+                and (g.get("status") or {}).get("state") != "post"]
+        if not todo: return 0
+        try:
+            sts = FR.live_status(todo)
+        except Exception as e:
+            print(f"  [!] foot statut : {type(e).__name__}: {e}")
+            return 0
+        ended = 0
+        for g in todo:
+            s = sts.get(g["id"])
+            if not s: continue
+            if s["state"] == "post":
+                ended += 1
+                print(f"  [foot] termine : {g['home']['name']} - {g['away']['name']} {s.get('score')} ({s['src']} {s.get('detail')})")
+            g["status"] = dict(s, at=now.isoformat(timespec="minutes"))
+        return ended
+
+    @staticmethod
+    def foot_save(keep, now):
+        FR.OUT_PATH.write_text(json.dumps({"generated_at": now.isoformat(timespec="seconds"),
+                                           "games": sorted(keep.values(), key=lambda g: g["ko"])}, ensure_ascii=False),
+                               encoding="utf-8")
+        FS.write_fragment()
 
     @staticmethod
     def _reroll(why):

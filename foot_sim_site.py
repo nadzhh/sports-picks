@@ -81,10 +81,59 @@ def _badge(g):
     return site_live.badge("soccer", e.get("slug"), e.get("id"))
 
 
+# Match termine (16/11/2026) : decide par le statut reel releve par la veille (g["status"], ESPN ou FotMob :
+# foot_sim_run.live_status), plus par une fenetre fixe apres le coup d'envoi. Repli si aucune source n'a repondu
+# (ou statut fige) : termine 3 h 30 apres le coup d'envoi, pour ne jamais garder un match indefiniment.
+DONE_AFTER = timedelta(hours=3, minutes=30)
+_DETAIL = (("Postponed", "Reporté"), ("Canceled", "Annulé"), ("Cancelled", "Annulé"), ("Abandoned", "Arrêté"),
+           ("Pens", "t.a.b."), ("AET", "a.p."), ("Pen", "t.a.b."))
+
+
+def state(g, now=None):
+    """'pre' (a venir), 'in' (coup d'envoi passe, pas termine) ou 'post' (termine, reporte, annule)."""
+    now = now or datetime.now(timezone.utc)
+    s = (g.get("status") or {}).get("state")
+    if s == "post": return "post"
+    try:
+        ko = datetime.fromisoformat(g["ko"].replace("Z", "+00:00"))
+    except (KeyError, ValueError, AttributeError):
+        return "pre"
+    if now - ko >= DONE_AFTER: return "post"
+    return "in" if s == "in" or now >= ko else "pre"
+
+
+def _final(g):
+    """(score « 2-1 » ou None, mention courte) d'un match termine."""
+    st = g.get("status") or {}
+    det = next((fr for en, fr in _DETAIL if en.lower() in (st.get("detail") or "").lower()), "")
+    sc = st.get("score") if st.get("done") else None
+    return (f"{sc[0]}-{sc[1]}" if sc else None), det
+
+
+def _done_item(g, gid, now, first):
+    sc, det = _final(g)
+    tip = "" if sc or det else ' title="Score non relevé (ESPN et FotMob muets) : match donné terminé 3 h 30 après le coup d’envoi"'
+    tag = f'<span class="eb-tag"{tip}>{_e(det or "terminé")}</span>'
+    title = (f'{_e(g["home"]["name"])} <b>{sc}</b> {_e(g["away"]["name"])}' if sc
+             else f'{_e(g["home"]["name"])} - {_e(g["away"]["name"])}')
+    p = g["p"]
+    chips = "".join(f'<span class="eb-chip"><em>{k}</em>{_pct(p[k])}</span>' for k in ("1", "X", "2"))
+    return (f'<button class="eb-item eb-item-done{" on" if first else ""}" data-id="{gid}" onclick="ebPick(\'foot2\',\'{gid}\')">'
+            f'<div class="eb-item-top"><span>{_e(LIG.get(g["league"], g["league_name"]))} {tag}</span><span>{_when(g["ko"], now)}</span></div>'
+            f'<div class="eb-item-t">{title}</div><div class="eb-chips">{chips}</div></button>')
+
+
+def _done_group(items, n):
+    """Matchs termines : groupe replie sous la liste (le JS y range aussi un match qu'ESPN donne fini entre deux
+    publications)."""
+    return (f'<details class="eb-done-g"{"" if n else " hidden"}><summary>Terminés · <span class="eb-n">{n}</span></summary>'
+            f'<div class="eb-list eb-done-l">{items}</div></details>')
+
+
 def _item(g, gid, now, first):
     p = g["p"]
     chips = "".join(f'<span class="eb-chip"><em>{k}</em>{_pct(p[k])}</span>' for k in ("1", "X", "2"))
-    return (f'<button class="eb-item{" on" if first else ""}" data-id="{gid}" onclick="ebPick(\'foot2\',\'{gid}\')">'
+    return (f'<button class="eb-item{" on" if first else ""}" data-id="{gid}" data-ko="{_e(g["ko"])}" onclick="ebPick(\'foot2\',\'{gid}\')">'
             f'<div class="eb-item-top"><span>{_e(LIG.get(g["league"], g["league_name"]))} {_badge(g)}</span><span>{_when(g["ko"], now)}</span></div>'
             f'<div class="eb-item-t">{_e(g["home"]["name"])} - {_e(g["away"]["name"])}</div>'
             f'<div class="eb-chips">{chips}</div></button>')
@@ -636,11 +685,18 @@ def _history_view():
 
 def build_foot_sim_section(sim=None):
     sim = sim if sim is not None else load_sim()
-    games = sorted((sim or {}).get("games") or [], key=lambda g: g["ko"])
+    allg = sorted((sim or {}).get("games") or [], key=lambda g: g["ko"])
     now = datetime.now(TZ)
-    if games:
+    games = [g for g in allg if state(g, now) != "post"]      # liste principale : a venir et en cours
+    done = [g for g in reversed(allg) if state(g, now) == "post"]   # termines (le plus recent d'abord) : groupe replie
+    if allg:
         ids = [_e(g["id"]) for g in games]
+        dids = [_e(g["id"]) for g in done]
         items = "".join(_item(g, gid, now, i == 0) for i, (g, gid) in enumerate(zip(games, ids)))
+        ditems = "".join(_done_item(g, gid, now, not games and i == 0) for i, (g, gid) in enumerate(zip(done, dids)))
+        empty = ("" if games else '<div class="eb-card eb-empty">Aucun match à venir dans les 48 prochaines heures : '
+                 'les matchs terminés sont repliés ci-dessous.</div>')
+        games_all, ids_all = games + done, ids + dids
         details = "".join(
             f'<section class="eb-detail{" on" if i == 0 else ""}" data-id="{gid}">{_header(g, now)}{_livecard(g)}{V.foot(g)}{_kpis(g)}'
             # verdict en tete, cartes detaillees repliees (site_verdict, 05/11/2026)
@@ -648,9 +704,10 @@ def build_foot_sim_section(sim=None):
                      f'{_crisis(g)}{_scorers(g)}{_players_card(g)}{_scores(g)}{_markets(g)}'
                      + (f'<div class="eb-card"><p class="eb-note">{BACKTEST_NOTE}</p></div>' if BACKTEST_NOTE else ""),
                      "tactique, tirs, buteurs, joueurs, scores exacts, marchés") + '</section>'
-            for i, (g, gid) in enumerate(zip(games, ids)))
+            for i, (g, gid) in enumerate(zip(games_all, ids_all)))
         sim_view = ('<div class="eb eb-view on" data-view="sim" data-eb="foot2"><div class="eb-layout">'
-                    f'<aside class="eb-side"><div class="eb-label">Matchs · {len(games)}</div><div class="eb-list">{items}</div></aside>'
+                    f'<aside class="eb-side"><div class="eb-label">Matchs · <span class="eb-n">{len(games)}</span></div>{empty}'
+                    f'<div class="eb-list eb-act-l">{items}</div>{_done_group(ditems, len(done))}</aside>'
                     f'<div class="eb-main">{details}</div></div></div>')
     else:
         sim_view = ('<div class="eb eb-view on" data-view="sim" data-eb="foot2"><div class="eb-card eb-empty">Aucun match du '
@@ -659,7 +716,41 @@ def build_foot_sim_section(sim=None):
     hist_view = f'<div class="eb eb-view" data-view="hist" data-eb="foothist">{_history_view()}</div>'
     from nba_sim_site import PROPS_SCRIPT, ASK_SCRIPT
     return (f'<!--eb:start-->{sim_view}{picks_view}{hist_view}' + EB_SCRIPT + PROPS_SCRIPT + ASK_SCRIPT + site_live.LIVE_SCRIPT
-            + _player_script() + SHOTS_SCRIPT + V.CSS + V.SCRIPT + '<!--eb:end-->')
+            + _player_script() + SHOTS_SCRIPT + DONE_SCRIPT + V.CSS + V.SCRIPT + '<!--eb:end-->')
+
+
+# Entre deux publications de la veille : un match qu'ESPN donne termine (window.spLiveState, site_live, sa pastille
+# affiche alors « Final · score ») ou dont le coup d'envoi date de DONE_AFTER quitte la liste principale pour le
+# groupe « Terminés » (meme regle que state()).
+DONE_SCRIPT = r"""<style>
+.eb-done-g{margin-top:18px}
+.eb-done-g>summary{cursor:pointer;list-style:none;font-family:var(--mono);font-size:11.5px;font-weight:500;letter-spacing:1.2px;
+  text-transform:uppercase;color:var(--mu);margin:0 0 12px}
+.eb-done-g>summary::-webkit-details-marker{display:none}
+.eb-done-g>summary::before{content:"▸ ";color:var(--acc)}
+.eb-done-g[open]>summary::before{content:"▾ "}
+.eb-item-done{opacity:.8}
+.eb-item-done.on{opacity:1}
+</style><script>
+window.ebFootDone=function(){
+  var S=window.spLiveState||{};
+  document.querySelectorAll('[data-eb="foot2"] .eb-side').forEach(function(side){
+    var act=side.querySelector('.eb-act-l'),grp=side.querySelector('.eb-done-g');if(!act||!grp)return;
+    var moved=0,dl=grp.querySelector('.eb-done-l'),now=Date.now();
+    [].slice.call(act.querySelectorAll('.eb-item')).forEach(function(b){
+      var l=b.querySelector('[data-live]'),ko=Date.parse(b.getAttribute('data-ko')||'');
+      if(!((l&&S[l.getAttribute('data-live')]==='post')||(!isNaN(ko)&&now-ko>=__DONE_MIN__*60e3)))return;
+      b.classList.add('eb-item-done');dl.insertBefore(b,dl.firstChild);moved++;});
+    if(!moved)return;
+    grp.hidden=false;
+    var a=side.querySelector('.eb-label .eb-n'),d=grp.querySelector('.eb-n');
+    if(a)a.textContent=act.querySelectorAll('.eb-item').length;
+    if(d)d.textContent=grp.querySelectorAll('.eb-item').length;
+  });
+};
+window.ebFootDone();
+if(!window.ebFootDoneT)window.ebFootDoneT=setInterval(function(){if(window.ebFootDone)window.ebFootDone();},60000);
+</script>""".replace("__DONE_MIN__", str(int(DONE_AFTER.total_seconds() // 60)))
 
 
 FRAGMENT = "foot_sim.html"

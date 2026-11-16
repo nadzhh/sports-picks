@@ -115,9 +115,10 @@ def load_all(leagues=LEAGUES, seasons=SEASONS):
     return out
 
 
-def fixtures(lid, season):
+def fixtures(lid, season, ttl=6 * 3600):
+    """ttl court (foot_sim_run.live_status) : etat des matchs du jour (commence, termine, score)."""
     d = F.fetch(f"https://www.fotmob.com/api/data/leagues?id={lid}&season={season.replace('/', '%2F')}",
-                ttl=6 * 3600) or {}
+                ttl=ttl) or {}
     return ((d.get("fixtures") or {}).get("allMatches")) or []
 
 

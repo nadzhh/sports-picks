@@ -46,6 +46,54 @@ def espn_event(g):
         sc = sim(teams.get("home", ""), g["home"]["name"]) + sim(teams.get("away", ""), g["away"]["name"])
         if sc > score: best, score = e, sc
     return {"slug": slug, "id": str(best["id"])} if best and score >= 1.0 else None
+
+
+def _score(a, b):
+    try:
+        return [int(a), int(b)]
+    except (TypeError, ValueError):
+        return None
+
+
+def live_status(games):
+    """Etat reel des matchs (16/11/2026 : un match fini restait dans la liste de la simulation tant que la fenetre
+    fixe de 3 h n'etait pas passee ; meme cause que le « reste en direct » du 05/11). ESPN d'abord (scoreboard du
+    jour, comme espn_event et les pastilles du site), FotMob ensuite pour les matchs sans ESPN (calendrier de la
+    ligue, cache 10 min). {id: {"state": pre|in|post, "done", "score": [dom, ext] | None, "detail", "src"}} ;
+    un match absent = aucune source n'a repondu (le site retombe sur foot_sim_site.DONE_AFTER)."""
+    from nba_boxdb import _get
+    out, boards = {}, {}
+    for g in games:
+        e = g.get("espn") or {}
+        if not (e.get("slug") and e.get("id")): continue
+        key = (e["slug"], g["ko"][:10].replace("-", ""))
+        if key not in boards:
+            d = _get(f"https://site.api.espn.com/apis/site/v2/sports/soccer/{key[0]}/scoreboard?dates={key[1]}") or {}
+            boards[key] = {str(x.get("id")): x for x in d.get("events") or []}
+        ev = boards[key].get(str(e["id"]))
+        if not ev: continue
+        c = (ev.get("competitions") or [{}])[0]
+        t = (c.get("status") or ev.get("status") or {}).get("type") or {}
+        if t.get("state") not in ("pre", "in", "post"): continue
+        sc = {x.get("homeAway"): x.get("score") for x in c.get("competitors") or []}
+        out[g["id"]] = {"state": t["state"], "done": bool(t.get("completed")), "score": _score(sc.get("home"), sc.get("away")),
+                        "detail": t.get("shortDetail") or t.get("description") or "", "src": "espn"}
+    rest = [g for g in games if g["id"] not in out]
+    for lid in {g["league"] for g in rest}:
+        try:
+            fx = {str(m.get("id")): m for m in foot_db.fixtures(lid, CUR_SEASON, ttl=600)}
+        except Exception:
+            continue
+        for g in rest:
+            m = fx.get(g["id"]) if g["league"] == lid else None
+            if not m: continue
+            s = m.get("status") or {}
+            sc = (s.get("scoreStr") or "").replace(" ", "").split("-")
+            out[g["id"]] = {"state": "post" if s.get("finished") or s.get("cancelled") else "in" if s.get("started") else "pre",
+                            "done": bool(s.get("finished")) and not s.get("cancelled"),
+                            "score": _score(*sc) if len(sc) == 2 else None,
+                            "detail": "Canceled" if s.get("cancelled") else (s.get("reason") or {}).get("short") or "", "src": "fotmob"}
+    return out
 LINEUP_TYPES = {"standard": "officielle", "simple": "officielle", "predicted": "probable",
                 "laststarting11": "dernier onze"}
 
