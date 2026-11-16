@@ -11914,6 +11914,11 @@ def main():
         html = site_chat.inject(html)
     except Exception as e:
         print(f"⚠️  Chat non ajoute ({e})")
+    try:   # recherche globale (bouton 🔍 du menu, raccourci « / ») — site_search.py, 16/11/2026
+        import site_search
+        html = site_search.inject(html)
+    except Exception as e:
+        print(f"⚠️  Recherche non ajoutee ({e})")
     with open("index.html", "w", encoding="utf-8") as f:
         f.write(html)
     print(f"✅ index.html prêt — ⚽ {len(matches)} foot · 🏀 {len(nba_picks)} NBA")

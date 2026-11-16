@@ -147,7 +147,14 @@ def split(path="index.html"):
         with open(frag, "w", encoding="utf-8", newline="") as f:
             f.write(_chunked(body))
         v = hashlib.sha1(body.encode("utf-8")).hexdigest()[:10]
-        html = html[:r[0]] + f'<div class="sp-lazy" data-src="{frag}?v={v}"></div>' + html[r[1]:]
+        idx = ""
+        if sid == "sport-analyse":      # recherche globale (site_search.py) : noms des joueurs du fragment
+            try:
+                import site_search
+                idx = site_search.analyse_script(body)
+            except Exception as e:
+                print(f"  ⚠️ Index de recherche des fiches joueurs non ajoute ({e})")
+        html = html[:r[0]] + f'<div class="sp-lazy" data-src="{frag}?v={v}"></div>' + idx + html[r[1]:]
     k = html.rfind("</body>")
     html = html[:k] + SCRIPT + html[k:]
     with open(path, "w", encoding="utf-8", newline="") as f:
