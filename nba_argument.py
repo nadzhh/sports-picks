@@ -8,6 +8,20 @@ Memes rubriques, calculees sur nos donnees (feuilles de match des deux saisons, 
 coequipiers, simulation, marche sans marge), PLUS une rubrique « a surveiller » : les faits qui vont CONTRE le pari.
 Un post de ce genre choisit ses chiffres (ex. un echantillon « contre les 10 pires defenses ») ; ici ils sont affiches
 quel que soit le sens, et la decision reste la probabilite et la cote (cote juste, « prends si »).
+
+16/11/2026 (idees 3, 4, 5 de la boite a idees) — trois rubriques d'EXPLICATION, sans effet sur les probabilites ni la
+selection :
+  - defense adverse PAR POSTE (G / F / C, poste des feuilles de match ESPN) : ce que l'adversaire concede par match aux
+    joueurs du meme poste, rang /30 et moyenne ligue (posdef). Mesure (nba_posdef_validate.py, walk-forward 2024-25 a
+    2026-27, ~20 000 cas par stat et par saison) : a defense GLOBALE connue, la part propre au poste n'explique rien de
+    plus (pente PTS -0,01 ± 0,09 / +0,04 ± 0,08, REB +0,02 / +0,08 ± 0,07, AST +0,09 / +0,02 ± 0,06, 3PM +0,03 / +0,04
+    ± 0,06 ; la part globale : +0,2 a +0,7). C'est donc un repere de lecture, pas un signal a brancher ;
+  - confrontations directes (h2h) sur toutes les saisons en base (3), au lieu des 20 derniers matchs. Mesure walk-forward
+    (2025-26 et 2026-27, >= 3 face-a-face, ~10 000 cas par stat) : seuls ~10 % de l'ecart H2H / L20 se retrouvent dans
+    le match suivant (pente PTS +0,08 ± 0,04, REB +0,12, AST +0,13, 3PM +0,09), sans controle du niveau de carriere ;
+  - mediane a cote des moyennes L5 / L10, et alerte quand un match extreme tire la moyenne. Mesure : la mediane L10 ne
+    predit pas mieux le match suivant que la moyenne (erreur moyenne PTS 5,09 contre 5,02 ; 3PM 1,01 contre 1,02) :
+    c'est une aide a la lecture.
 """
 import statistics
 from collections import defaultdict
@@ -31,6 +45,11 @@ def _ord(n):
     return "1re" if n == 1 else f"{n}e"
 
 
+def _g(x):
+    """7.5 -> « 7,5 » ; 8.0 -> « 8 »."""
+    return f"{float(x):g}".replace(".", ",")
+
+
 def defense(season):
     """{saison: {stat: {abbr: (moyenne encaissee par match, rang 1 = defense la plus avare)}}} sur la saison."""
     if season in _DEF: return _DEF[season]
@@ -49,6 +68,129 @@ def defense(season):
         out[st] = {t: (m[t], order.index(t) + 1) for t in m}
     _DEF[season] = out
     return out
+
+
+# ─── Defense par poste (idee 3) ──────────────────────────────────────────────
+POS_FR = {"G": "arrières", "F": "ailiers", "C": "pivots"}
+POSDEF_STATS = ("PTS", "REB", "AST", "3PM", "PR", "PA", "RA", "PRA")
+POSDEF_MIN_GAMES = 8      # matchs joues par chaque equipe avant de quitter la saison precedente
+_POSDEF = {}
+
+
+def pos_group(p):
+    """Poste ESPN -> G / F / C (« PG », « SG » -> G ; « SF », « PF » -> F ; « F-C » -> C) ; None si inconnu."""
+    s = (p or "").upper()
+    if s in ("", "NA"): return None
+    return "C" if "C" in s else "F" if "F" in s else "G" if "G" in s else None
+
+
+def _posdef_season(year):
+    """{stat: {poste: {"lg": moyenne ligue par match, "teams": {abbr: (par match, rang 1 = concede le plus)}}}, "n": min
+    de matchs par equipe}. Saison reguliere seulement. Par match A TEMPS DE JEU EGAL : rythme concede par minute aux
+    joueurs du poste x minutes moyennes du poste par match dans la ligue (le total brut depend sinon de la composition
+    de l'adversaire du soir : 3 ailiers listes un soir, 2 le suivant)."""
+    import nba_boxdb as B
+    S = defaultdict(lambda: defaultdict(float))      # (equipe, poste) -> stat / MIN
+    games = defaultdict(int)
+    lg = defaultdict(lambda: defaultdict(float))     # poste -> stat / MIN
+    for g in B.load_season(year).values():
+        if g.get("type") not in (None, "regular"): continue
+        for side, opp in (("home", "away"), ("away", "home")):
+            rows = [r for r in (g.get(opp) or {}).get("players") or [] if not r.get("dnp") and r.get("MIN")]
+            if not rows: continue
+            t = g[side]["abbr"]; games[t] += 1
+            for r in rows:
+                P = pos_group(r.get("pos"))
+                if not P: continue
+                for acc in (S[(t, P)], lg[P]):
+                    acc["MIN"] += float(r["MIN"])
+                    for st in POSDEF_STATS: acc[st] += _val(r, st)
+    if not games: return {"n": 0}
+    tg = sum(games.values())
+    out = {"n": min(games.values()), "teams": len(games)}
+    for st in POSDEF_STATS:
+        out[st] = {}
+        for P in POS_FR:
+            if not lg[P]["MIN"]: continue
+            min_pg = lg[P]["MIN"] / tg
+            vals = {t: S[(t, P)][st] / S[(t, P)]["MIN"] * min_pg for t in games if S[(t, P)]["MIN"] > 0}
+            order = sorted(vals, key=lambda t: -vals[t])
+            out[st][P] = {"lg": lg[P][st] / tg, "teams": {t: (vals[t], order.index(t) + 1) for t in vals}}
+    return out
+
+
+def posdef(season):
+    """Defense par poste de la saison en cours, ou de la precedente tant que toutes les equipes n'ont pas
+    POSDEF_MIN_GAMES matchs. Renvoie (table, annee utilisee)."""
+    if season not in _POSDEF:
+        cur = _posdef_season(season)
+        if cur.get("n", 0) >= POSDEF_MIN_GAMES and cur.get("teams", 0) >= 28:
+            _POSDEF[season] = (cur, season)
+        else:
+            _POSDEF[season] = (_posdef_season(season - 1), season - 1)
+    return _POSDEF[season]
+
+
+def posdef_line(oab, oname, P, stat, season):
+    """(texte, rang) : « CHI concède 9,1 passes par match aux ailiers (2e plus haut total, moyenne ligue 7,4) »."""
+    T, year = posdef(season)
+    d = ((T.get(stat) or {}).get(P) or {})
+    v = (d.get("teams") or {}).get(oab)
+    if not v: return None, None
+    val, rk = v
+    nt = len(d["teams"])
+    if rk == 1: where = "plus haut total"
+    elif rk == nt: where = "plus bas total"
+    elif rk <= (nt + 1) // 2: where = f"{_ord(rk)} plus haut total"
+    else: where = f"{_ord(nt + 1 - rk)} plus bas total"
+    when = "" if year == season else f", saison {year - 1}-{str(year)[2:]} faute de recul"
+    return (f"{oname} concède {_fr(val)} {STAT_FR.get(stat, stat)} par match à l'ensemble des {POS_FR[P]} adverses "
+            f"({where} de la ligue, moyenne {_fr(d['lg'])}{when})"), rk
+
+
+# ─── Confrontations directes (idee 4) ────────────────────────────────────────
+_H2H = {}
+
+
+def _logs_all(season):
+    """Feuilles de match du joueur sur toutes les saisons en base (saison en cours + 2 precedentes)."""
+    if _H2H.get("season") != season:
+        import nba_props_edge as E
+        _H2H.update(season=season, logs=E.game_logs(tuple(range(season - 2, season + 1))))
+    return _H2H["logs"]
+
+
+def h2h(pid, opp, stat, line=None, over=True, season=None):
+    """Matchs du joueur contre cet adversaire (toutes saisons en base, du plus recent au plus ancien) :
+    {"n", "vals", "dates", "avg", "med", "hit" (si line), "seasons"} ; None si aucun match ou base absente."""
+    import nba_boxdb as B
+    season = season or B.season_year()
+    stat = {"FG3M": "3PM"}.get(stat, stat)
+    log = _logs_all(season).get(str(pid)) or []
+    rows = [(d, _val(r, stat), y) for d, o, r, y in log if o == opp]
+    if not rows: return None
+    vals = [v for _, v, _ in rows]
+    out = {"n": len(vals), "vals": vals, "dates": [d for d, _, _ in rows], "avg": statistics.mean(vals),
+           "med": statistics.median(vals), "seasons": len({y for _, _, y in rows})}
+    if line is not None:
+        out["hit"] = sum(1 for v in vals if (v > float(line)) == over)
+    return out
+
+
+def h2h_text(h, opp, line, over):
+    """« 3/4 au-dessus de 6,5 contre CHI, médiane 8 (2 saisons) »."""
+    g = lambda x: f"{float(x):g}".replace(".", ",")
+    sea = f", sur {h['seasons']} saisons" if h["seasons"] > 1 else ""
+    return (f"{h['hit']}/{h['n']} {'au-dessus' if over else 'en dessous'} de {g(line)} contre {opp}, médiane "
+            f"{g(h['med'])} (moyenne {_fr(h['avg'])}{sea})")
+
+
+# ─── Mediane (idee 5) ────────────────────────────────────────────────────────
+def mean_median(vals, line):
+    """(moyenne, mediane, ecart notable ?) ; notable = |moyenne - mediane| >= 10 % de la ligne (0,5 au moins)."""
+    if not vals: return None, None, False
+    m, md = statistics.mean(vals), statistics.median(vals)
+    return m, md, abs(m - md) >= max(0.5, 0.10 * float(line))
 
 
 def argue(g, pr, over, logs, season):
@@ -127,12 +269,35 @@ def argue(g, pr, over, logs, season):
             if statistics.mean(l5) < base - 3:
                 contre.append(f"Temps de jeu en baisse : {_fr(statistics.mean(l5))} min sur ses 5 derniers matchs contre {_fr(base)} avant")
 
-    # 5. Forme : L10 et dernier match
+    # 4b. Defense adverse sur le POSTE du joueur (G / F / C) : affichee quand elle est dans les 5 premiers ou les 5 derniers ; elle
+    # complete le rang global, qui peut masquer un trou sur un poste (rang 1 = concede le plus, a l'inverse du rang
+    # global). Repere de lecture : sans pouvoir predictif mesure au-dela de la defense globale (voir en-tete).
+    P = pos_group(log[0][2].get("pos")) if log else None
+    if P and stat in POSDEF_STATS:
+        txt, rk = posdef_line(oab, oab, P, stat, season)
+        if txt and (rk <= 5 or rk >= 26):
+            (pro if (rk <= 5) == over else contre).append(txt)
+
+    # 4c. Confrontations directes : toutes les saisons en base (et plus seulement les 20 derniers matchs)
+    H = h2h(pr["id"], oab, stat, line, over, season)
+    if H and H["n"] >= 2:
+        (pro if H["hit"] / H["n"] >= 0.55 else contre).append("Face à face : " + h2h_text(H, oab, line, over))
+
+    # 5. Forme : L10 (moyenne ET mediane) et dernier match
     l10 = [_val(r, stat) for _, _, r, _ in log[:10]]
     if l10:
         hit = sum(1 for v in l10 if (v > line) == over)
-        txt = f"{hit * 10} % de réussite sur ses 10 derniers matchs (moyenne {_fr(statistics.mean(l10))})"
-        (pro if hit >= 6 else contre).append(txt)
+        m10, md10, gap10 = mean_median(l10, line)
+        m5, md5, _ = mean_median(l10[:5], line)
+        txt = (f"{round(100 * hit / len(l10))} % de réussite sur ses {len(l10)} derniers matchs (moyenne {_fr(m10)}, "
+               f"médiane {_g(md10)} ; sur 5 : moyenne {_fr(m5)}, médiane {_g(md5)})")
+        (pro if hit / len(l10) >= 0.6 else contre).append(txt)
+        if gap10:   # un match extreme tire la moyenne : la mediane dit mieux ce qu'il fait d'habitude
+            up = m10 > md10
+            ext = max(l10) if up else min(l10)
+            txt = (f"Moyenne sur 10 ({_fr(m10)}) tirée vers le {'haut' if up else 'bas'} par un match à {_g(ext)} : "
+                   f"médiane {_g(md10)}" + (f", la ligne {_g(line)} est entre les deux" if min(m10, md10) < line < max(m10, md10) else ""))
+            (contre if up == over else pro).append(txt)
         last = l10[0]
         txt = f"Sort d'un match à {last:g} {sfr}"
         if (last > line) == over: pro.append(txt)

@@ -148,6 +148,22 @@ def _weighted_avg(l5_avg, l10_avg, season_avg, w5=0.50, w10=0.30, ws=0.20):
     return sum(v * w for v, w in vals) / total
 
 
+def _med(vals):
+    """Mediane (0 si vide) : affichee a cote des moyennes L5 / L10 (16/11/2026)."""
+    if not vals: return 0
+    s = sorted(vals); n = len(s)
+    return round(s[n // 2] if n % 2 else (s[n // 2 - 1] + s[n // 2]) / 2, 1)
+
+
+def _gap_note(vals, line):
+    """« · ⚠️ moy ≠ méd » quand un match extreme tire la moyenne L10 (ecart >= 10 % de la ligne, 0,5 au moins)."""
+    if not vals or line is None: return ""
+    m, md = sum(vals) / len(vals), _med(vals)
+    if abs(m - md) < max(0.5, 0.10 * float(line)): return ""
+    ext = max(vals) if m > md else min(vals)
+    return f" · ⚠️ moyenne L10 tirée vers le {'haut' if m > md else 'bas'} par un match à {ext:g} (médiane {md:g})"
+
+
 def _extract_values(games, key):
     """Extrait les valeurs d'un stat (PTS, REB...) depuis une liste de games."""
     return [g.get(key, 0) or 0 for g in games if g]
@@ -346,6 +362,16 @@ def player_props(player, ctx=None, real_lines=None, match_ctx=None):
     opp_abbr_for_h2h = (match_ctx.get("away_abbr") if is_home else match_ctx.get("home_abbr")) or ""
     h2h_games = [g for g in games if opp_abbr_for_h2h and g.get("opp", "").upper() == opp_abbr_for_h2h.upper()]
     venue_games = [g for g in games if bool(g.get("is_home")) == is_home]
+    pid_box = str(player.get("id") or "")
+
+    def _h2h_box(prop_key, line, direction):
+        """H2H du joueur contre l'adversaire sur toutes les saisons de data/nba_db (affichage) ; None si indisponible."""
+        if not pid_box or not opp_abbr_for_h2h: return None
+        try:
+            import nba_argument as _A
+            return _A.h2h(pid_box, opp_abbr_for_h2h.upper(), prop_key, line, direction == "over")
+        except Exception:
+            return None
 
     # ─── Detection contexte playoff series (inspire analyse Twitter Harden) ──
     # Si on a >=2 matchs vs ce meme adversaire dans les 7 derniers matchs du
@@ -640,9 +666,19 @@ def player_props(player, ctx=None, real_lines=None, match_ctx=None):
                     prop_key, (None, None, 0, 0, [], [])
                 )
                 split_parts = []
+                # H2H AFFICHE (16/11/2026) : toutes les saisons de la base de feuilles de match (nba_argument.h2h),
+                # au lieu des 20 derniers matchs (h2h_n = 0 en debut de saison). Le calcul (mu, bonus, exclusion)
+                # garde l'echantillon des 20 derniers matchs : pas d'effet sur les probabilites ni la selection.
+                HB = _h2h_box(prop_key, line, direction)
                 # Seuil H2H plus permissif en contexte playoff serie
                 min_h2h_display = 2 if is_series else 3
-                if n_h2h >= min_h2h_display and h2h_mean is not None:
+                if HB and HB["n"] >= 2:
+                    h2h_label = f"H2H vs {opp_abbr_for_h2h}"
+                    if is_series: h2h_label += f" (série {series_state})" if series_state else " (série)"
+                    sea = f", {HB['seasons']} saisons" if HB["seasons"] > 1 else ""
+                    split_parts.append(f"{h2h_label} (n={HB['n']}{sea}) : {round(HB['avg'], 1)}, méd {HB['med']:g}, "
+                                       f"{HB['hit']}/{HB['n']} {'au-dessus' if direction == 'over' else 'en dessous'} de {line:g}")
+                elif n_h2h >= min_h2h_display and h2h_mean is not None:
                     h2h_label = f"H2H vs {opp_abbr_for_h2h}"
                     if is_series: h2h_label += f" (série {series_state})" if series_state else " (série)"
                     split_parts.append(f"{h2h_label} (n={n_h2h}) : {round(h2h_mean,1)}")
@@ -768,8 +804,10 @@ def player_props(player, ctx=None, real_lines=None, match_ctx=None):
                     "signal_warning": signal_warning,
                     "venue_hit": f"{venue_hits}/{n_ven}" if n_ven else None,
                     "venue_hit_pct": venue_pct,
-                    "h2h_hit": f"{h2h_hits}/{n_h2h}" if n_h2h else None,
-                    "h2h_hit_pct": h2h_pct,
+                    "h2h_hit": (f"{HB['hit']}/{HB['n']}" if HB else f"{h2h_hits}/{n_h2h}" if n_h2h else None),
+                    "h2h_hit_pct": (round(100 * HB["hit"] / HB["n"]) if HB and HB["n"] >= 3 else None) if HB else h2h_pct,
+                    "h2h_med": HB["med"] if HB else None,
+                    "h2h_seasons": HB["seasons"] if HB else None,
                     "cote_min": cm,
                     "real_cote": real_cote,
                     "book": best_book if use_real else None,
@@ -797,8 +835,8 @@ def player_props(player, ctx=None, real_lines=None, match_ctx=None):
                     "series_state":  series_state,       # "down" / "tied" / "up"
                     "series_urgency": series_urgency,    # team down -> star usage etend
                     # H2H + Venue (style Outlier)
-                    "h2h_avg":  round(h2h_mean, 1)   if h2h_mean   is not None else None,
-                    "h2h_n":    n_h2h,
+                    "h2h_avg":  round(HB["avg"], 1) if HB else (round(h2h_mean, 1) if h2h_mean is not None else None),
+                    "h2h_n":    HB["n"] if HB else n_h2h,
                     "venue_avg": round(venue_mean, 1) if venue_mean is not None else None,
                     "venue_n":  n_ven,
                     "venue":    venue_label,
@@ -812,7 +850,11 @@ def player_props(player, ctx=None, real_lines=None, match_ctx=None):
                               "Saison": round(season_v or 0, 1)},
                     "last_played_date": games[0].get("date") if games else None,
                     "last_min":         games[0].get("MIN")  if games else None,
-                    "reasoning": f"L5 {round(l5_v or 0,1)} · L10 {round(l10_v or 0,1)} · Saison {round(season_v or 0,1)} → attendu {round(mu,1)}{ctx_str}{splits_str}",
+                    "l5_med":  _med(vals[:5]),
+                    "l10_med": _med(vals[:10]),
+                    "reasoning": (f"L5 {round(l5_v or 0,1)} (méd {_med(vals[:5]):g}) · L10 {round(l10_v or 0,1)} "
+                                  f"(méd {_med(vals[:10]):g}) · Saison {round(season_v or 0,1)} → attendu {round(mu,1)}"
+                                  f"{ctx_str}{splits_str}{_gap_note(vals[:10], line)}"),
                 })
 
     gen_picks("PTS",  "points",       pts_mu, pts_sd, BOOKMAKER_LINES["PTS"],  season.get("PTS"), pts_l5, pts_l10, pts_vals)

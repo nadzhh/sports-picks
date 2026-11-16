@@ -129,11 +129,14 @@ def splits_chip(p):
     unit = _PROP_UNIT.get(p.get("prop", ""), "")
     if p.get("h2h_avg") is not None and (p.get("h2h_n") or 0) >= 3:
         opp = p.get("opp_abbr", "?")
+        # 16/11/2026 : H2H sur toutes les saisons en base (nba_picks_engine), mediane et reussite a la ligne
+        sea = f" sur {p['h2h_seasons']} saisons" if (p.get("h2h_seasons") or 0) > 1 else ""
+        med = f' · méd. <b style="color:#e2e8f0">{p["h2h_med"]:g}</b>' if p.get("h2h_med") is not None else ""
+        hit = f' · {p["h2h_hit"]} à la ligne' if p.get("h2h_hit") else ""
         parts.append(
-            f'<span title="Moyenne du joueur sur ses {p["h2h_n"]} derniers matchs '
-            f'face a cette equipe ({opp})" style="background:#1e293b;color:#94a3b8;'
+            f'<span title="Matchs du joueur face a cette equipe ({opp}){sea}" style="background:#1e293b;color:#94a3b8;'
             f'font-size:11px;padding:2px 6px;border-radius:4px">'
-            f'Moy. vs {opp} ({p["h2h_n"]} matchs) : <b style="color:#e2e8f0">{p["h2h_avg"]} {unit}</b></span>'
+            f'Moy. vs {opp} ({p["h2h_n"]} matchs{sea}) : <b style="color:#e2e8f0">{p["h2h_avg"]} {unit}</b>{med}{hit}</span>'
         )
     if p.get("venue_avg") is not None and (p.get("venue_n") or 0) >= 5:
         venue = p.get("venue", "")
@@ -2419,6 +2422,16 @@ def _build_prop_chart_bars(games_window, ref_line, chart_max, with_labels=True):
     )
 
 
+def _mm_txt(vals, lab):
+    """« · L10 : moy. 8,4 / méd. 6 ⚠️ » ; l'alerte signale un match extreme qui tire la moyenne (16/11/2026)."""
+    if not vals: return ""
+    import statistics as _st
+    m, md = _st.mean(vals), _st.median(vals)
+    warn = (' <b style="color:#f59e0b" title="Un match extrême tire la moyenne : la médiane est plus parlante">⚠️</b>'
+            if abs(m - md) >= max(0.5, 0.10 * max(md, 1)) else "")
+    return f' · {lab} : moy. <b>{round(m, 1)}</b> / méd. <b>{md:g}</b>{warn}'
+
+
 def _build_prop_chart(player, prop, opp_abbr, book_line=None, match_ctx=None, book_over=None, book_under=None):
     """Construit le HTML d'une vue prop : badges hit rates + 3 bar charts
     (L5/L10/L20) selectionnables. Affiche L5 par defaut.
@@ -2442,6 +2455,16 @@ def _build_prop_chart(player, prop, opp_abbr, book_line=None, match_ctx=None, bo
                  for g in games[:20]
                  if opp_abbr and (g.get("opp","") or "").upper() == opp_abbr.upper()]
     h2h_vals = [v for _, v in h2h_pairs]
+    # 16/11/2026 : confrontations directes sur toutes les saisons de data/nba_db (et plus seulement les 20 derniers
+    # matchs, vides en debut de saison) ; repli sur l'ancien calcul si la base manque
+    try:
+        import nba_argument as _A
+        _hb = _A.h2h(player.get("id"), (opp_abbr or "").upper(), prop) if player.get("id") and opp_abbr else None
+        if _hb and _hb["n"] >= len(h2h_vals):
+            h2h_vals = _hb["vals"]
+            h2h_pairs = [(None, v) for v in h2h_vals]
+    except Exception:
+        pass
 
     import math as _math
     median = sorted(l20_vals)[len(l20_vals)//2] if l20_vals else 0
@@ -2479,7 +2502,7 @@ def _build_prop_chart(player, prop, opp_abbr, book_line=None, match_ctx=None, bo
         _badge_html("L10", hr10, data_key="l10") +
         _badge_html("L20", hr20, data_key="l20") +
         (_badge_html(f"H2H {opp_abbr}", hr_h2h, data_key="h2h") if opp_abbr and hr_h2h[0] is not None else "") +
-        f'<span style="color:#94a3b8;font-size:11px">Méd. <b>{median}</b> · Moy. <b>{mean}</b></span>'
+        f'<span style="color:#94a3b8;font-size:11px">L20 : méd. <b>{median}</b> · moy. <b>{mean}</b>{_mm_txt(l10_vals, "L10")}{_mm_txt(l5_vals, "L5")}</span>'
     )
 
     # Stocke les valeurs JS pour pouvoir recalculer hit rates a la volee

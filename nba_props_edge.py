@@ -69,6 +69,18 @@ def game_logs(years):
     return logs
 
 
+def _h2h_all(h, pid, stat, line, over, opp, season):
+    """Remplace le H2H de history() (2 saisons) par celui de toutes les saisons en base (nba_argument.h2h, 16/11/2026).
+    Affichage seulement : appele apres les filtres de selection."""
+    try:
+        import nba_argument as A
+        H = A.h2h(pid, opp, stat, line, over, season)
+    except Exception:
+        return h
+    if H: h.update(h2h=(H["hit"], H["n"]), h2h_med=H["med"])
+    return h
+
+
 def history(log, stat, line, over, opp, season):
     vals = [(d, o, _val(r, stat), y) for d, o, r, y in log]
     hit = lambda L: (sum(1 for x in L if (x[2] > line) == over), len(L))
@@ -111,6 +123,7 @@ def candidates(now=None, hours=24):
                 ok_hist = (rate("l10") or 0) >= 0.6 and (rate("season") or 0) >= 0.6 and h["med"] is not None \
                     and ((h["med"] > pr["line"]) == over)
                 if not ok_hist or ps < pm - 0.02: continue
+                _h2h_all(h, pr["id"], pr["stat"], pr["line"], over, opp, season)   # apres la selection : affichage
                 out.append({"gid": g["gid"], "ko": g["date"], "match": f'{g["away"]["abbr"]} @ {g["home"]["abbr"]}',
                             "opp": opp, "id": str(pr["id"]), "name": pr["name"], "stat": pr["stat"], "line": pr["line"],
                             "over": over, "p_mkt": round(pm, 4), "p_sim": round(ps, 4), "p": round(p, 4),
@@ -169,7 +182,7 @@ def card_for(gid, pid, stat, line, over):
          "id": str(pid), "name": pr["name"], "stat": stat, "line": pr["line"], "over": over, "p_mkt": round(pm, 4),
          "p_sim": round(ps, 4), "p": round(p_, 4), "fair": round(1 / p_, 2), "take": round((1 + edge) / p_, 2),
          "am_novig": _am(pm), "dk": pr["over"] if over else pr["under"], "derived": pr.get("derived"),
-         "hist": history(log, stat, pr["line"], over, opp, season)}
+         "hist": _h2h_all(history(log, stat, pr["line"], over, opp, season), pid, stat, pr["line"], over, opp, season)}
     link = ""
     if stat in ANALYSE_KEY:
         # nom passe en JSON (guillemets doubles) puis echappe pour l'attribut HTML : « De'Anthony » reste valide
@@ -305,6 +318,11 @@ def card_html(x):
                f'<span>{_dm(h["bars"][-1][0])} · plus récent ▶</span></div>' if h["bars"] else '') +
             f'<div class="pe-chips">{chip("Saison", "season")}{chip("H2H", "h2h")}{chip("L5", "l5")}{chip("L10", "l10")}{chip("L20", "l20")}</div>'
             f'<div class="pe-ft"><span>Moyenne L10 <b>{_fr(h["avg"], 1)}</b></span><span>Médiane L10 <b>{h["med"]:g}</b></span></div>'
+            # ecart net moyenne / mediane (16/11/2026) : un match extreme tire la moyenne, la mediane est plus parlante
+            + (f'<p class="pe-why" style="color:var(--warn)">⚠️ Moyenne et médiane s’écartent : un match '
+               f'{"très haut" if h["avg"] > h["med"] else "très bas"} tire la moyenne, fie-toi plutôt à la médiane.</p>'
+               if h.get("avg") is not None and h.get("med") is not None
+               and abs(h["avg"] - h["med"]) >= max(0.5, 0.10 * float(line)) else '')
             + (f'<p class="pe-why">Ligne déduite des lignes DraftKings rebonds ({x["derived"]["REB"]:g}) et passes '
                f'({x["derived"]["AST"]:g}) : <b>≈ {x["am_novig"]:+d} sans la marge</b> ({round(100 * x["p_mkt"])} %), '
                if x.get("derived") else
