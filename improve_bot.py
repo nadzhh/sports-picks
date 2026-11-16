@@ -306,7 +306,9 @@ NBA_SAMPLES = (("2025-26", 2026), ("2026-27", 2027))
 NBA_SPACE = {"usage_pow": (0.05, 0.9, 1.5), "ast_pow": (0.05, 0.9, 1.5), "hl_rates": (5.0, 10, 80),
              "hl_minutes": (1.0, 2, 12), "k_usage": (30.0, 30, 400), "usage_k": (2.0, 4, 40),
              "min_sd_scale": (0.1, 0.5, 1.5), "wowy_min": (0.1, 0.0, 1.0), "mkt_min_alpha": (0.1, 0.0, 1.0),
-             "blowout_slope": (0.002, 0.0, 0.02), "vol_c": (0.1, 0.0, 1.0), "shoot_c": (0.1, 0.3, 1.5)}
+             "blowout_slope": (0.002, 0.0, 0.02), "vol_c": (0.1, 0.0, 1.0), "shoot_c": (0.1, 0.3, 1.5),
+             # 16/11/2026 : seuil des blowouts (ecart final) et poids de la saison passee dans les taux joueur
+             "blowout_from": (2.0, 2.0, 16.0), "rate_prior_w": (0.1, 0.0, 1.0)}
 NBA_MIN_GAIN, NBA_MIN_SUM, NBA_MIN_PROPS = 0.0005, 0.0012, 1000
 NBA_DB = Path("data/nba_db")
 

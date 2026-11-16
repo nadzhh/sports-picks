@@ -13,8 +13,8 @@ entier : les stats des joueurs sont tirees a partir du meme scenario de match
    minutes, tentatives 2PT/3PT/LF et pertes par possession jouee, % de reussite,
    part des rebonds offensifs/defensifs disponibles, part des paniers assistes.
 3. Simulation (N tirages vectorises numpy) :
-   possessions -> choc d'adresse par equipe -> minutes (normalisees a 240, starters
-   reduits en cas de blowout) -> volumes d'equipe repartis selon minutes x usage
+   possessions -> choc d'adresse par equipe -> minutes (normalisees a 240 ; titulaires
+   sortis selon l'ecart final du tirage, 2e passe aux memes aleas d'equipe) -> volumes d'equipe repartis selon minutes x usage
    (les absents liberent des tirs pour les autres) -> reussite binomiale ->
    rebonds et passes repartis par multinomiale -> prolongations si egalite.
 
@@ -41,6 +41,9 @@ P = {
                                # sur l'ecart 2025-26 11.242 -> 11.192 et 2026-27 11.076 -> 10.949 en passant de 0.75 a 1.0 ;
                                # le modele d'equipe n'ajoute rien a Vegas, il reste la reference quand la ligne manque)
     "hl_rates":        30.0,   # demi-vie (matchs) des taux joueur
+    "rate_prior_w":    0.5,    # poids des matchs de la saison precedente dans les taux joueur (tirs, passes, rebonds),
+                               # distinct de prior_season_w (equipe) pour que le bot de nuit le remesure. 16/11/2026 :
+                               # 0,3 -> log-loss props +0,00033 (2025-26) / +0,00049 (2026-27) -> 0,5 garde
     "hl_minutes":      4.0,    # demi-vie (matchs) des minutes
     "min_long_w":      0.0,    # part d'une moyenne longue (demi-vie min_long_hl) dans les minutes attendues.
     "min_long_hl":     20.0,   # Teste le 28/10 (nba_minutes_diag) : 0,25 / 0,4 degradent l'erreur de minutes -> 0
@@ -60,12 +63,19 @@ P = {
     "min_sd_scale":    1.0,    # facteur sur l'ecart-type des minutes (titulaires plus stables que l'historique brut)
     "min_prior_w":     0.5,    # poids des matchs de la saison precedente dans les minutes
     "norm_pow":        2.0,    # retour des minutes vers 240 : poids m * (1 - m/46)^norm_pow
-    # Minutes des titulaires selon l'ecart : 2025-26, 31,6 min a 0-5 pts d'ecart final, 30,2 a 11-15, 27,0 au-dela
-    # de 20 -> baisse progressive des 4 pts (avant : seulement au-dela de 15). Backtest aveugle 30/10/2026 :
-    # log-loss props 0,6888->0,6886 / 0,6725->0,6713 / 0,6867->0,6859, ROI cloture meilleur sur les 3 echantillons.
-    "blowout_from":    4.0,    # ecart a partir duquel les titulaires jouent moins
-    "blowout_slope":   0.006,  # -0,6 % de minutes titulaires par point d'ecart au-dela
+    # Minutes des titulaires selon l'ecart FINAL (16/11/2026). Reel, feuilles de match 2025-26 + 2026-27, titulaires
+    # a 28+ min sur leurs 10 derniers matchs, par rapport au match serre (0-4 pts) : 0,991 (5-9), 0,961 (10-14),
+    # 0,917 (15-19), 0,870 (20-24), 0,819 (25+). L'ancien reglage (4 ; 0,006 sur l'ecart ATTENDU du scenario, avant
+    # la normalisation a 240 min qui en rendait l'essentiel) donnait dans la simulation 0,995 / 0,991 / 0,990 /
+    # 0,989 / 0,986 : quasi aucun effet. Nouveau (blowout_real) : reduction sur l'ecart final de chaque tirage,
+    # apres normalisation, minutes attendues ramenees a un match serre (_blowout_norm) -> simulation 0,988 / 0,942 /
+    # 0,918 / 0,886 / 0,813 (calage sur 271 matchs x 1500 tirages, (8 ; 0,009) parmi 14 essais). Backtests aveugles
+    # vraies props (2000 tirages) : log-loss 0,69696 -> 0,69662 (2025-26, 32 480 props) et 0,69925 -> 0,69912
+    # (2026-27, 15 781) ; gain faible, dans le bruit (erreur-type 0,0003-0,0005) ; temps de calcul x 1,45.
+    "blowout_from":    8.0,    # ecart final a partir duquel les titulaires jouent moins
+    "blowout_slope":   0.009,  # -0,9 % de minutes titulaires par point d'ecart au-dela
     "blowout_floor":   0.70,
+    "blowout_real":    1.0,    # 1 = sur l'ecart final de chaque tirage (_regulation) ; 0 = ancien mode
     # Effets de l'adversaire (0 = desactive, 1 = actif). Backtests --blind du 28/10/2026 sur les 3 echantillons
     # de vraies cotes (ESPN BET oct-nov 2025, avr-juin 2026, DraftKings 2026-27), log-loss de la stat visee :
     "opp_stl":         0.0,    # interceptions ~ pertes de balle adverses : -0,0006 / +0,0017 / +0,0004 -> rejete
@@ -153,6 +163,7 @@ class NBAState:
         self._last_date = None
         self.season = None
         self.team_recs = []                    # 1 ligne par equipe et par match
+        self.margins = []                      # ecart final de chaque match (domicile - exterieur)
         self.player_hist = defaultdict(list)   # pid -> [record] du plus ancien au plus recent
         self.player_info = {}                  # pid -> {name, pos, team}
         self.pos_sums = defaultdict(lambda: defaultdict(float))
@@ -173,6 +184,8 @@ class NBAState:
         h, a = g["home"], g["away"]
         if "stats" not in h or "stats" not in a: return
         poss = (_poss(h["stats"]) + _poss(a["stats"])) / 2.0
+        if h.get("pts") is not None and a.get("pts") is not None:
+            self.margins.append(float(h["pts"]) - float(a["pts"]))
         for side, opp, is_home in ((h, a, 1), (a, h, 0)):
             t, o = side["stats"], opp["stats"]
             fg2a, fg2m = t["FGA"] - t["3PA"], t["FGM"] - t["3PM"]
@@ -320,7 +333,8 @@ class NBAState:
         nh = len(recent)
         if nh:
             idx = np.arange(nh)[::-1]   # 0 = match le plus recent
-            seas = np.array([1.0 if r["season"] == self.season else self.p["prior_season_w"] for r in recent])
+            pw = self.p.get("rate_prior_w", self.p["prior_season_w"])
+            seas = np.array([1.0 if r["season"] == self.season else pw for r in recent])
             w = 0.5 ** (idx / self.p["hl_rates"]) * seas
             S = lambda key: float(np.dot(w, [r[key] for r in recent]))
         else:
@@ -421,6 +435,8 @@ class NBAState:
             "home": _team(home_id, away_id, home_roster), "away": _team(away_id, home_id, away_roster),
             "pace": pace_mu, "pts_h": pts_h, "pts_a": pts_a, "model": (model_h, model_a), "vegas": vegas,
             "dreb_credit": lg["dreb_credit"], "params": self.p, "lg_vto": lg["vto"], "lg_v2": lg["v2"],
+            # ecart-type des ecarts finals des ~2 dernieres saisons (16,4 en 2025-26) : normalisation des blowouts
+            "margin_sd": float(np.std(self.margins[-2500:])) if len(self.margins) >= 200 else 16.0,
         }
 
 
@@ -450,16 +466,33 @@ def _side_arrays(team):
     return A
 
 
-def _draw_minutes(rng, A, n, total, blow, pw=None):
-    """Minutes par joueur (n, k), somme = total ; titulaires reduits par `blow` (n,)."""
+def _draw_minutes(rng, A, n, total, blow, pw=None, post=False):
+    """Minutes par joueur (n, k), somme = total ; titulaires reduits par `blow` (n,).
+    post=True : la reduction s'applique APRES la normalisation a 240 (le temps libere va aux remplacants) ;
+    sinon (ancien mode) avant, et la normalisation en rendait l'essentiel aux titulaires."""
     m = rng.normal(A["m_mu"], A["m_sd"], size=(n, len(A["m_mu"])))
     m = np.clip(m, 0, 46)
     m[:, A["m_mu"] < 1] = 0
     m *= rng.random(m.shape) < A["p_play"][None, :]
-    m = m * np.where(A["starter_rate"] >= 0.5, 1.0, 0.0)[None, :] * (blow[:, None] - 1) + m
+    if not post:
+        m = m * np.where(A["starter_rate"] >= 0.5, 1.0, 0.0)[None, :] * (blow[:, None] - 1) + m
     if total < 240:   # prolongation : repartition proportionnelle
         return m * total / np.maximum(m.sum(axis=1, keepdims=True), 1e-9)
-    return _normalize_minutes(m, total, pw=pw)
+    m = _normalize_minutes(m, total, pw=pw)
+    return _garbage_time(m, A, blow) if post else m
+
+
+def _garbage_time(m, A, blow):
+    """Titulaires ramenes a blow x leurs minutes ; le temps libere va aux remplacants qui ont joue,
+    au prorata de leurs minutes (fin de match a sens unique) ; blow > 1 (match serre) : ils en cedent.
+    Sans remplacant : minutes inchangees."""
+    if np.all(blow == 1): return m
+    st = (A["starter_rate"] >= 0.5)[None, :]
+    cut = np.where(st, m * (1 - blow[:, None]), 0.0)
+    bench = np.where(st, 0.0, m)
+    bs = bench.sum(axis=1, keepdims=True)
+    give = cut.sum(axis=1, keepdims=True) * bench / np.maximum(bs, 1e-9)
+    return np.where(bs > 0, np.clip(m - cut + give, 0.0, 48.0), m)
 
 
 def _normalize_minutes(m, total, cap=46.0, pw=None):
@@ -482,49 +515,78 @@ def _split_counts(rng, total, weights):
     return rng.multinomial(total.astype(np.int64), pv)
 
 
-def _usage_split(rng, lam_team, share, k_disp, vol_c):
+def _usage_split(rng, lam_team, share, k_disp, vol_c, z=None):
     """Volume d'equipe ~ Poisson(lam_team) reparti par multinomiale selon share (n, k).
     Les parts recoivent un bruit gamma (soir avec / sans d'un joueur) mais le total
-    reste celui de l'equipe : si un joueur prend plus de tirs, les autres en prennent moins."""
+    reste celui de l'equipe : si un joueur prend plus de tirs, les autres en prennent moins.
+    z (n,) : alea du volume d'equipe fourni d'avance (memes tirages d'une passe a l'autre)."""
     share = share * rng.gamma(k_disp, 1.0 / k_disp, size=share.shape)
     # A possessions donnees le volume d'equipe varie peu (sous-disperse vs Poisson) :
     # le hasard du score vient surtout de l'adresse. vol_c calibre sur 2025-26.
-    team = np.maximum(np.rint(rng.normal(lam_team, vol_c * np.sqrt(lam_team))), 0)
+    if z is None: z = rng.standard_normal(len(lam_team))
+    team = np.maximum(np.rint(lam_team + vol_c * np.sqrt(lam_team) * z), 0)
     return _split_counts(rng, team, share)
 
 
-def _team_makes(rng, att, pct, shoot_c):
+def _team_makes(rng, att, pct, shoot_c, z=None):
     """Paniers reussis (n, k). Le total d'equipe est tire avec shoot_c x l'ecart-type
     binomial puis reparti entre joueurs selon tentatives x adresse : un vrai match
     est moins aleatoire que des tirs independants (choix de tirs qui s'adaptent,
     secondes chances), cf. calibrage sur 2025-26 (ecart-type equipe 11,5 pts)."""
     exp = att * pct
     mu, var = exp.sum(axis=1), (exp * (1 - pct)).sum(axis=1)
-    team = np.clip(np.rint(rng.normal(mu, shoot_c * np.sqrt(var))), 0, att.sum(axis=1))
+    if z is None: z = rng.standard_normal(len(mu))
+    team = np.clip(np.rint(mu + shoot_c * np.sqrt(var) * z), 0, att.sum(axis=1))
     made = _split_counts(rng, team, exp)
     return np.minimum(made, att)
 
 
-def _sim_block(rng, inp, n, frac, poss, shock, scale, blow):
-    """Simule une portion de match (frac=1 temps reglementaire, 5/48 une prolongation)."""
+def _binom_inv(u, N, p):
+    """Binomiale(N, p) par inversion d'un uniforme u (memes u -> resultats voisins quand N change un peu)."""
+    N = N.astype(np.int64)
+    q = np.clip(1 - p, 1e-9, 1.0)
+    pmf = q ** N
+    cdf = pmf.copy()
+    out = np.zeros(N.shape, dtype=np.int64)
+    r = p / q
+    for j in range(int(N.max()) if N.size else 0):
+        more = (cdf < u) & (j < N)
+        if not more.any(): break
+        out += more
+        pmf = pmf * (N - j) / (j + 1) * r
+        cdf = cdf + pmf
+    return out
+
+
+def _draw_z(rng, n, k):
+    """Aleas d'equipe qui decident du score (volumes, adresse, lancers francs) pour un cote."""
+    return {"v2": rng.standard_normal(n), "v3": rng.standard_normal(n), "vft": rng.standard_normal(n),
+            "vto": rng.standard_normal(n), "m2": rng.standard_normal(n), "m3": rng.standard_normal(n),
+            "uft": rng.random((n, k))}
+
+
+def _sim_block(rng, inp, n, frac, poss, shock, scale, blow, Z=None, post=False):
+    """Simule une portion de match (frac=1 temps reglementaire, 5/48 une prolongation).
+    Z : aleas d'equipe {cote: _draw_z} fournis d'avance (seconde passe des blowouts) ; tires ici sinon."""
     p = inp["params"]
     out = {}
     sides = {}
     for s in ("home", "away"):
         A = _side_arrays(inp[s])
-        m = _draw_minutes(rng, A, n, 240.0 * frac, blow[s], pw=p.get("norm_pow"))
+        z = Z[s] if Z is not None else _draw_z(rng, n, len(A["m_mu"]))
+        m = _draw_minutes(rng, A, n, 240.0 * frac, blow[s], pw=p.get("norm_pow"), post=post)
         on = m / (48.0 * frac)          # part du temps sur le terrain (somme = 5)
         vol = inp[s]["vol"]
         k = p["usage_k"]
         g = p.get("usage_pow", 1.0)
-        fg2a = _usage_split(rng, vol["v2"] * poss, on * A["r2"] ** g, k, p["vol_c"])
-        fg3a = _usage_split(rng, vol["v3"] * poss, on * A["r3"] ** g, k, p["vol_c"])
-        fta = _usage_split(rng, vol["vft"] * poss, on * A["rft"] ** g, k, p["vol_c"])
-        tov = _usage_split(rng, vol["vto"] * poss, on * A["rto"], k, p["vol_c"])
+        fg2a = _usage_split(rng, vol["v2"] * poss, on * A["r2"] ** g, k, p["vol_c"], z["v2"])
+        fg3a = _usage_split(rng, vol["v3"] * poss, on * A["r3"] ** g, k, p["vol_c"], z["v3"])
+        fta = _usage_split(rng, vol["vft"] * poss, on * A["rft"] ** g, k, p["vol_c"], z["vft"])
+        tov = _usage_split(rng, vol["vto"] * poss, on * A["rto"], k, p["vol_c"], z["vto"])
         sh = (1.0 + shock[s])[:, None] * scale[s]
-        fg2m = _team_makes(rng, fg2a, np.clip(A["p2"] * sh, 0.05, 0.95), p["shoot_c"])
-        fg3m = _team_makes(rng, fg3a, np.clip(A["p3"] * sh, 0.02, 0.80), p["shoot_c"])
-        ftm = rng.binomial(fta, np.clip(A["pft"] * np.sqrt(sh), 0.2, 0.98))
+        fg2m = _team_makes(rng, fg2a, np.clip(A["p2"] * sh, 0.05, 0.95), p["shoot_c"], z["m2"])
+        fg3m = _team_makes(rng, fg3a, np.clip(A["p3"] * sh, 0.02, 0.80), p["shoot_c"], z["m3"])
+        ftm = _binom_inv(z["uft"], fta, np.clip(A["pft"] * np.sqrt(sh), 0.2, 0.98))
         stl = rng.poisson(on * A["rstl"] * poss[:, None])
         blk = rng.poisson(on * A["rblk"] * poss[:, None])
         sides[s] = dict(A=A, m=m, on=on, fg2a=fg2a, fg3a=fg3a, fta=fta, fg2m=fg2m, fg3m=fg3m, ftm=ftm,
@@ -573,6 +635,54 @@ def _expected_pts(team, poss, pw=None, g=1.0):
                    + v["vft"] * np.dot(share(A["rft"]), A["pft"]))
 
 
+def _blowout_factor(p, margin):
+    """Part des minutes gardee par les titulaires selon l'ecart (n,)."""
+    excess = np.clip(np.abs(margin) - p["blowout_from"], 0, None)
+    return np.maximum(1 - p["blowout_slope"] * excess, p["blowout_floor"])
+
+
+_NORM_CACHE = {}
+
+
+def _blowout_norm(p, sd=16.0):
+    """Moyenne du facteur de blowout sur un match NBA type (ecart final ~ N(0, sd), sd mesure sur les matchs
+    joues : 15,9 / 16,4 / 16,9 en 2024-25 / 2025-26 / 2026-27). Les minutes
+    attendues d'un titulaire (m_mu) sont une moyenne sur tous ses matchs, blowouts compris : on les divise par
+    ce facteur moyen, sinon la simulation lui retirerait les blowouts une 2e fois (match serre : 1,05 x sa
+    moyenne en vrai, ecart de 25+ : 0,86)."""
+    key = (p["blowout_from"], p["blowout_slope"], p["blowout_floor"], round(sd, 1))
+    if key not in _NORM_CACHE:
+        x = np.linspace(0, 6, 1201) * key[3]
+        w = np.exp(-0.5 * (x / key[3]) ** 2)
+        _NORM_CACHE[key] = float(np.dot(w, _blowout_factor(p, x)) / w.sum())
+    return _NORM_CACHE[key]
+
+
+def _regulation(rng, inp, n, poss, shock, scale):
+    """Temps reglementaire. blowout_real=1 : 1re passe sans blowout -> ecart REEL de chaque tirage -> les tirages
+    a sens unique sont rejoues avec les MEMES aleas d'equipe (le score bouge a peine) et les titulaires sortis
+    (minutes en fonction de l'ecart final, comme les entraineurs). blowout_real=0 (ancien) : reduction decidee
+    d'avance sur l'ecart attendu du scenario (margin_est), avant la normalisation des minutes."""
+    p = inp["params"]
+    if not p.get("blowout_real", 0):
+        margin_est = (inp["pts_h"] * (1 + shock["home"]) - inp["pts_a"] * (1 + shock["away"])) * poss / inp["pace"]
+        b = _blowout_factor(p, margin_est)
+        return _sim_block(rng, inp, n, 1.0, poss, shock, scale, {"home": b, "away": b})
+    Z = {s: _draw_z(rng, n, len(inp[s]["players"])) for s in ("home", "away")}
+    c = _blowout_norm(p, inp.get("margin_sd", 16.0))
+    one = np.full(n, 1.0 / c)    # 1re passe : minutes d'un match serre
+    res = _sim_block(rng, inp, n, 1.0, poss, shock, scale, {"home": one, "away": one}, Z, post=True)
+    b = _blowout_factor(p, res["home"]["PTS"].sum(axis=1) - res["away"]["PTS"].sum(axis=1)) / c
+    idx = np.nonzero(b < 1.0 / c)[0]
+    if len(idx):
+        sub = _sim_block(rng, inp, len(idx), 1.0, poss[idx], {k: v[idx] for k, v in shock.items()}, scale,
+                         {"home": b[idx], "away": b[idx]}, {s: {k: v[idx] for k, v in Z[s].items()} for s in Z}, post=True)
+        for s in ("home", "away"):
+            for key in res[s]:
+                res[s][key][idx] = sub[s][key]
+    return res
+
+
 def simulate(inp, n=10000, seed=None):
     rng = np.random.default_rng(seed)
     p = inp["params"]
@@ -588,17 +698,15 @@ def simulate(inp, n=10000, seed=None):
         npil = p.get("pilot", 600)
         pposs = np.maximum(prng.normal(inp["pace"], p["pace_sd"], npil), 70)
         pshock = {s: prng.normal(0, p["eff_sd"], npil) for s in ("home", "away")}
-        pres = _sim_block(prng, inp, npil, 1.0, pposs, pshock, scale, {s: np.ones(npil) for s in ("home", "away")})
+        if p.get("blowout_real", 0):
+            pres = _regulation(prng, inp, npil, pposs, pshock, scale)
+        else:
+            pres = _sim_block(prng, inp, npil, 1.0, pposs, pshock, scale, {s: np.ones(npil) for s in ("home", "away")})
         for s, key in (("home", "pts_h"), ("away", "pts_a")):
             scale[s] *= inp[key] / max(pres[s]["PTS"].sum(axis=1).mean(), 1)
     poss = np.maximum(rng.normal(inp["pace"], p["pace_sd"], n), 70)
     shock = {"home": rng.normal(0, p["eff_sd"], n), "away": rng.normal(0, p["eff_sd"], n)}
-    # Ecart attendu dans ce scenario -> sorties des titulaires en cas de blowout
-    margin_est = (inp["pts_h"] * (1 + shock["home"]) - inp["pts_a"] * (1 + shock["away"])) * poss / inp["pace"]
-    excess = np.clip(np.abs(margin_est) - p["blowout_from"], 0, None)
-    b = np.maximum(1 - p["blowout_slope"] * excess, p["blowout_floor"])
-    blow = {"home": b, "away": b}
-    res = _sim_block(rng, inp, n, 1.0, poss, shock, scale, blow)
+    res = _regulation(rng, inp, n, poss, shock, scale)
     # Prolongations : on rejoue 5' pour les tirages a egalite
     n_ot = np.zeros(n, dtype=int)
     for _ in range(4):
@@ -607,7 +715,7 @@ def simulate(inp, n=10000, seed=None):
         if not len(idx): break
         n_ot[idx] += 1
         sub = _sim_block(rng, inp, len(idx), 5.0 / 48.0, poss[idx] * 5.0 / 48.0,
-                         {k: v[idx] for k, v in shock.items()}, scale, {k: np.ones(len(idx)) for k in blow})
+                         {k: v[idx] for k, v in shock.items()}, scale, {k: np.ones(len(idx)) for k in ("home", "away")})
         for s in ("home", "away"):
             for key in res[s]:
                 res[s][key][idx] += sub[s][key]
