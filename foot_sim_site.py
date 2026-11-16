@@ -137,7 +137,7 @@ def _kpis(g):
             + _kpi(f'Victoire {_e(g["away"]["name"])}', p["2"], raw(r.get("2"))) + '</div>'
             '<div class="eb-g3">' + _kpi("Plus de 2,5 buts", p["over"]["2.5"], raw(ro)) + _kpi("Les deux équipes marquent", p["btts"], raw(r.get("btts")))
             + _kpi("Au moins un carton rouge", p["red"]) + '</div>'
-            + (f'<p class="eb-note">Probabilités calées sur la cote Pinnacle sans marge (relevée {_e(_rel(anc.get("at")))}) : '
+            + (f'<p class="eb-note">Probabilités calées sur la cote {_e("DraftKings" if "DraftKings" in str(anc.get("src")) else "Pinnacle")} sans marge (relevée {_e(_rel(anc.get("at")))}) : '
                "sur 3 206 matchs de backtest, la simulation seule ne fait pas mieux que le marché. Elle sert pour les "
                "compositions, les buteurs, les tirs et le déroulé, à partir de ces buts attendus "
                f'({anc["lam"][0]:.2f} - {anc["lam"][1]:.2f}).</p>'.replace(f'{anc["lam"][0]:.2f} - {anc["lam"][1]:.2f}', f'{anc["lam"][0]:.2f} - {anc["lam"][1]:.2f}'.replace(".", ",")) if anc else ""))

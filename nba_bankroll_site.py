@@ -10,7 +10,8 @@ from datetime import datetime, timedelta, timezone
 import nba_bankroll as BK
 
 FRAGMENT = "nba_bankroll.html"
-UNIT = {"AST": "passes", "3PM": "paniers à 3 pts", "STL": "interceptions", "BLK": "contres"}
+UNIT = {"AST": "passes", "3PM": "paniers à 3 pts", "STL": "interceptions", "BLK": "contres", "PTS": "points", "REB": "rebonds",
+        "PR": "points + rebonds", "PA": "points + passes", "PRA": "points + rebonds + passes", "RA": "rebonds + passes"}
 try:
     from zoneinfo import ZoneInfo
     TZ = ZoneInfo("Europe/Paris")
@@ -42,9 +43,16 @@ def _when(iso):
 def _leg(l):
     res = l.get("result")
     mark = {"win": " ✓", "loss": " ✗", "void": " (remboursé)", "push": " (nul)"}.get(res, "")
-    if l.get("ev_key"):   # value bet (cote francaise au-dessus de la cote juste Pinnacle)
-        return (f'<b>{_e(l["name"])}</b> <span class="eb-dim">{_e(l["team"])}</span> · {_e(l["stat"])} chez {_e(l["opp"])} '
-                f'@ {l["dec"]:.2f}{mark} <span class="eb-tag acc">{_e(l.get("tag", "value"))}</span>')
+    if l.get("ev_key"):   # value bet, conviction, buteur
+        ico = "⚽ " if l.get("sport") == "foot" else "🏀 " if l.get("sport") == "nba" else ""
+        real = ""
+        if l.get("actual") is not None:   # valeur realisee par le joueur (idee du 11/11)
+            u = UNIT.get(((l.get("pj") or {}).get("res") or {}).get("stat"), "")
+            real = f' <span class="eb-dim">→ réalisé : <b>{l["actual"]:g}</b>{(" " + _e(u)) if u else ""}</span>'
+        elif l.get("tag") == "buteur" and res in ("win", "loss"):
+            real = f' <span class="eb-dim">→ {"a marqué" if res == "win" else "n’a pas marqué"}</span>'
+        return (f'{ico}<b>{_e(l["name"])}</b> <span class="eb-dim">{_e(l["team"])}</span> · {_e(l["stat"])} chez {_e(l["opp"])} '
+                f'@ {l["dec"]:.2f}{mark}{real} <span class="eb-tag acc">{_e(l.get("tag", "value"))}</span>')
     act = f' <span class="eb-dim">réel {l["actual"]:g}</span>' if l.get("actual") is not None else ""
     return (f'<b>{_e(l["name"])}</b> <span class="eb-dim">{_e(l["team"])} vs {_e(l["opp"])}</span> · '
             f'{"Over" if l["side"] == "o" else "Under"} {l["line"]:g} {_e(UNIT.get(l["stat"], l["stat"]))} '
@@ -82,7 +90,7 @@ def _bet_row(b, open_):
             if b.get("conf") else "")
     kind = conf + ('<span class="eb-tag acc">combiné</span>' if b["kind"] == "combine" else
             '<span class="eb-tag acc">safe</span>' + (' <span class="eb-tag">combiné</span>' if len(b["legs"]) > 1 else "") if b["kind"] == "safe" else "")
-    why = (f'{"cote juste Pinnacle " + format(1 / b["p"], ".2f") + " · " if b["kind"] == "value" else ""}proba estimée {_pct(b["p"])} · espérance {_pct(b["ev"], True)}'
+    why = (f'{"cote juste Pinnacle " + format(1 / b["p"], ".2f") + " · " if b["kind"] == "value" else ""}{"ma simulation (avantage pas encore prouvé) · " if b["kind"] == "scorer" else ""}proba estimée {_pct(b["p"])} · espérance {_pct(b["ev"], True)}'
            + (f' · simu {_pct(b["legs"][0]["p_sim"])} vs bookmaker {_pct(b["legs"][0]["p_mkt"])}' if len(b["legs"]) == 1 else ""))
     if open_:
         res = f'<td class="n">{_eur(b["stake"] * b["odds"])}</td>'

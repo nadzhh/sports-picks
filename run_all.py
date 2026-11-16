@@ -34,6 +34,35 @@ def run(script, description):
     return True
 
 
+# Credits The Odds API (16/11/2026 : quota epuise en 6 jours, 11 + 3 credits restants). Priorite aux cotes justes
+# Pinnacle (ev_scan : ancrage foot, value bets, CLV) et aux buteurs de la Bankroll IA. Les consommateurs secondaires
+# (nba_odds : 7 credits par match pour les anciennes pages NBA ; basket europeen) ne tournent que s'il reste de la
+# marge sur une cle. Les props de la simulation, du canal et de la Bankroll viennent d'ESPN (gratuit).
+SPARE_CREDITS = 250
+
+
+def odds_credits():
+    """Plus grand nombre de credits restants sur une cle (dernier releve d'ev_scan / des buteurs ; None si inconnu)."""
+    import json
+    best = None
+    for f in ("data/ev_picks.json", "data/foot_scorer_odds.json"):
+        try:
+            q = json.loads(Path(f).read_text(encoding="utf-8")).get("quota") or {}
+        except (OSError, ValueError):
+            continue
+        for v in q.values():
+            if isinstance(v, (int, float)): best = v if best is None else max(best, v)
+    return best
+
+
+def spare_ok(what):
+    c = odds_credits()
+    if c is not None and c < SPARE_CREDITS:
+        print(f"[quota] {what} saute : {c} credits restants au mieux (< {SPARE_CREDITS}, reserves aux cotes Pinnacle et aux buteurs)")
+        return False
+    return True
+
+
 def main():
     start = datetime.now()
     print(f"\nDemarrage pipeline — {start.strftime('%d/%m/%Y %H:%M')}")
@@ -51,7 +80,7 @@ def main():
 
     # 1.5 Cotes joueurs foot (The Odds API, freshness 24h pour menager le quota).
     # Critique : sans ca, les picks foot n'ont pas de "real_cote" -> pastilles absentes.
-    run("foot_odds.py", "Cotes joueurs foot (Odds API, cache 24h)")
+    if spare_ok("foot_odds (anciennes pages)"): run("foot_odds.py", "Cotes joueurs foot (Odds API, cache 24h)")
 
     # 2. Stats joueurs (backup avant ecrasement)
     if ps_path.exists():
@@ -73,7 +102,7 @@ def main():
         print("[!] NBA scraper a echoue, on continue avec football seul")
     else:
         # Odds reelles via The Odds API (optionnel, si ODDS_API_KEY)
-        run("nba_odds.py", "NBA odds bookmaker (DK/FD via Odds API)")
+        if spare_ok("nba_odds"): run("nba_odds.py", "NBA odds bookmaker (DK/FD via Odds API)")
         run("nba_picks_engine.py", "NBA picks engine")
 
     # 3.5 Tennis (Sackmann stats + Odds API)
@@ -81,7 +110,7 @@ def main():
     # tennis_matches.json contiendra 0 match et la section UI affichera un message.
     # run("tennis_scraper.py",      "Tennis scraper (Sackmann + Odds API)")   # tennis en pause (05/11/2026)
     # run("tennis_picks_engine.py", "Tennis picks engine")   # tennis en pause (05/11/2026)
-    run("tennis_resolver.py",     "Tennis resolver (scores Odds API)")
+    if spare_ok("tennis_resolver (tennis en pause)"): run("tennis_resolver.py", "Tennis resolver (scores Odds API)")
     # 3.6 Tennis schedule complementaire (ESPN) : matchs des tournois non couverts
     # par Odds API (grass season ATP 250 mens, etc.). Pas de cote → pas de pick,
     # juste affichage dans la sidebar V1 pour completude.
@@ -90,7 +119,7 @@ def main():
     # 3.7 Basketball Europe (Euroleague, ACB, LNB, Eurocup, etc) via Odds API.
     # On expose juste les matchs + cotes consensus dans Pronos V1 (pas de
     # picks engine player-level pour ces ligues — stats sources non integrees).
-    run("basketball_scraper.py", "Basketball Europe (Euroleague/ACB/LNB/Eurocup)")
+    if spare_ok("basket europeen"): run("basketball_scraper.py", "Basketball Europe (Euroleague/ACB/LNB/Eurocup)")
     # 3.8 Basketball schedule (TheSportsDB) : LNB, ACB, Lega A, BBL, etc
     # quand Odds API ne les expose pas. Sans cote -> affichage informatif.
     run("basketball_schedule_scraper.py", "Basketball schedule (TheSportsDB)")

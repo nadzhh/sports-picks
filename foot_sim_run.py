@@ -573,21 +573,21 @@ ANCHOR_PILOT = 4000          # simulations du passage de mesure (buts produits p
 
 
 def market_fair(g, path="data/ev_picks.json"):
-    """Cote juste Pinnacle du match : {"1x2": [p1, pX, p2], "total": (ligne, p_plus) ou None, "at": releve} ou None."""
+    """Cote juste du match (Pinnacle, sinon DraftKings via ESPN) : {"1x2", "total": (ligne, p_plus) ou None, "at", "src"} ou None."""
     import difflib
     from foot_backtest import _norm
     try:
         fair = json.loads(Path(path).read_text(encoding="utf-8")).get("fair") or {}
     except (OSError, ValueError):
-        return None
+        fair = {}
     ko = datetime.fromisoformat(g["ko"].replace("Z", "+00:00"))
-    sim = lambda a, b: difflib.SequenceMatcher(None, _norm(a), _norm(b)).ratio() + (0.3 if _norm(a) in _norm(b) or _norm(b) in _norm(a) else 0)
-    best, bs = None, 1.3
-    for v in fair.values():
-        if v.get("sport") != "foot": continue
-        if abs((datetime.fromisoformat(v["commence"].replace("Z", "+00:00")) - ko).total_seconds()) > 3 * 3600: continue
-        sc = sim(g["home"]["name"], v["home"]) + sim(g["away"]["name"], v["away"])
-        if sc > bs: best, bs = v, sc
+    best = _match_fair(g, ko, fair)
+    if not best:   # 16/11/2026 : quota The Odds API epuise -> cotes DraftKings (ESPN, gratuit) sans marge
+        try:
+            import espn_foot_odds
+            best = _match_fair(g, ko, espn_foot_odds.fair_entries())
+        except Exception:
+            best = None
     if not best: return None
     L = {lab: 1 / o for lab, o in best.get("lines") or [] if o}
     p = [L.get(f"Victoire {best['home']}"), L.get("Match nul"), L.get(f"Victoire {best['away']}")]
@@ -596,7 +596,20 @@ def market_fair(g, path="data/ev_picks.json"):
     tot = sorted(((float(lab.split()[2]), q) for lab, q in L.items() if lab.startswith("Plus de ") and lab.endswith(" buts")),
                  key=lambda x: abs(x[0] - 2.5))
     return {"1x2": [x / s for x in p], "total": tot[0] if tot else None, "at": best.get("at"),
-            "match": f"{best['home']} - {best['away']}"}
+            "match": f"{best['home']} - {best['away']}", "src": best.get("src") or "Pinnacle"}
+
+
+def _match_fair(g, ko, fair):
+    import difflib
+    from foot_backtest import _norm
+    sim = lambda a, b: difflib.SequenceMatcher(None, _norm(a), _norm(b)).ratio() + (0.3 if _norm(a) in _norm(b) or _norm(b) in _norm(a) else 0)
+    best, bs = None, 1.3
+    for v in fair.values():
+        if v.get("sport") != "foot": continue
+        if abs((datetime.fromisoformat(v["commence"].replace("Z", "+00:00")) - ko).total_seconds()) > 3 * 3600: continue
+        sc = sim(g["home"]["name"], v["home"]) + sim(g["away"]["name"], v["away"])
+        if sc > bs: best, bs = v, sc
+    return best
 
 
 def _p_main(res):
@@ -619,7 +632,7 @@ def anchor(st, g, inp, mk):
         k[side] = min(max(l / max(gl, 0.05), 0.4), 2.5)
         inp[side]["npxg"] *= k[side]
         inp[side]["pen_rate"] *= k[side]
-    return {"src": "Pinnacle", "at": mk["at"], "match": mk["match"], "mkt": [round(x, 4) for x in mk["1x2"]],
+    return {"src": mk.get("src") or "Pinnacle", "at": mk["at"], "match": mk["match"], "mkt": [round(x, 4) for x in mk["1x2"]],
             "total": list(mk["total"]) if mk["total"] else None, "lam": [round(lam[0], 2), round(lam[1], 2)],
             "k": [round(k["home"], 3), round(k["away"], 3)], "sim": raw}
 

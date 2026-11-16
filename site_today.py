@@ -96,7 +96,7 @@ def _pick_row(x, sims, nba):
     ico = "⚽" if x["sport"] == "foot" else "🏀"
     kind = x.get("src") if x["kind"] in ("safe", "fill") else x["kind"]
     ref = ("juste " + _fr(1 / x["p"]) + " (modèle calé sur Pinnacle)" if kind == "boost" else
-           f"juste Pinnacle {_fr(1 / x['p_fair'])}" if kind in ("value", "best") else f"marché {_pc(x['p_fair'])}")
+           f"juste {x.get('fair_src', 'Pinnacle')} {_fr(1 / x['p_fair'])}" if kind in ("value", "best") else f"marché {_pc(x['p_fair'])}")
     if x.get("p_sim") is not None: ref += f" · ma simu {_pc(x['p_sim'])}"
     ev = (f'<span class="eb-acc">espérance <b>{100 * x["ev"]:+.0f} %</b></span>' if x["ev"] >= 0
           else f'<span class="eb-dim">coût attendu <b>{_fr(100 * -x["ev"], 1)} %</b></span>')

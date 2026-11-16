@@ -36,7 +36,8 @@ import site_today as ST
 DIGEST_PATH = "data/telegram_digest.json"   # jour du dernier recapitulatif Telegram envoye (pas de doublon)
 PUBLISHED = [FRAGMENT, R.OUT_PATH, str(R.PICKS_PATH), "data/nba_sim_history.json", BS.FRAGMENT, str(BK.BANK_PATH),
              FS.FRAGMENT, str(FR.OUT_PATH), str(FB.HIST_PATH), str(EV.PATH), DIGEST_PATH, "data/telegram_picks.json",
-             "data/foot_competitions.json", "data/strategy_lab.json", ST.FRAGMENT, "data/boosts.json", "data/props_edge.json", "data/sentinel.json"]
+             "data/foot_competitions.json", "data/strategy_lab.json", ST.FRAGMENT, "data/boosts.json", "data/props_edge.json", "data/sentinel.json",
+             "data/espn_foot_odds.json", "data/foot_scorer_odds.json"]
 # Foot (Top 5 + coupes d'Europe) : base mise a jour par tranches (premiere constitution en plusieurs
 # passages), simulation toutes les 30 min, a chaque cycle quand un match approche (composition officielle)
 FOOT_SEASONS = ("2026/2027", "2025/2026")   # saison en cours d'abord
@@ -205,6 +206,7 @@ class Live:
             R.save(list(keep.values()), fresh, self.year)
             write_fragment()
         bank = self.bankroll(fresh)
+        self.espn_foot()     # avant foot() : la resimulation se declenche quand une cote de marche arrive
         foot = self.foot()
         ev = self.ev()
         ev = " ; ".join(x for x in (ev, self.boosts(), self.digest(), self.lab(), self.improve_kick(), self.sentinel()) if x)
@@ -294,6 +296,10 @@ class Live:
             except Exception as e:
                 print(f"  [!] labo (reglement) : {type(e).__name__}: {e}")
             placed = BK.decide(st, fresh) if fresh else []
+            try:   # buteurs foot (16/11/2026) : compositions officielles, titulaires, cote reelle relevee
+                placed += BK.decide_scorers(st)
+            except Exception as e:
+                print(f"  [!] buteurs : {type(e).__name__}: {e}")
             if not (n_set or placed or not Path(BS.FRAGMENT).exists()): return ""
             BK.save(st); BS.write_fragment()
             settled = [b for b in st["bets"] if b["id"] in before and b["status"] != "open"]
@@ -404,6 +410,15 @@ class Live:
             EV.save(st)
         except Exception as e:
             print(f"  [!] sante : {type(e).__name__}: {e}")
+
+    def espn_foot(self):
+        """Cotes DraftKings du foot via ESPN (gratuit, toutes les 2 h) : cote de marche quand Pinnacle manque."""
+        if not self.update: return
+        try:
+            import espn_foot_odds as EF
+            if EF.due(): EF.scan()
+        except Exception as e:
+            print(f"  [!] cotes foot ESPN : {type(e).__name__}: {e}")
 
     def ev(self):
         """Value bets (cotes francaises vs cote juste Pinnacle) : ~2 balayages par jour (quota The Odds API)."""

@@ -156,7 +156,18 @@ def _keep(out):
 # ─── Candidats ───────────────────────────────────────────────────────────────
 def value_candidates(now, hours=WINDOW_H, min_ev=MIN_EV_VALUE):
     """Lignes de match (foot + NBA) : meilleure cote francaise vs probabilite recalee (Pinnacle [+ simu sur le +2,5])."""
-    fair = (_load("data/ev_picks.json", {}) or {}).get("fair") or {}
+    fair = dict((_load("data/ev_picks.json", {}) or {}).get("fair") or {})
+    # 16/11/2026 : matchs de foot sans cote Pinnacle (quota The Odds API epuise) -> cotes DraftKings via ESPN, marge
+    # retiree (espn_foot_odds) ; prix DraftKings (prix FR estime a 85 %), reglement par le score ESPN comme les value bets
+    try:
+        import espn_foot_odds as EF
+        pin = [w for w in fair.values() if w.get("sport") == "foot"]
+        for k, w in EF.fair_entries().items():
+            if not any(abs(_t(x["commence"]) - _t(w["commence"])) <= timedelta(hours=3)
+                       and _same(x["home"], w["home"]) + _same(x["away"], w["away"]) >= 1.3 for x in pin):
+                fair[k] = w
+    except Exception as e:
+        print(f"  [!] cotes foot ESPN : {type(e).__name__}: {e}")
     sims = (_load("data/foot_sim.json", {}) or {}).get("games") or []
     nba = (_load("data/nba_sim.json", {}) or {}).get("games") or []
     out = []
@@ -205,7 +216,8 @@ def value_candidates(now, hours=WINDOW_H, min_ev=MIN_EV_VALUE):
             out.append({"kind": "value", "sport": v.get("sport"), "match_id": mid, "match": f"{v['home']} - {v['away']}",
                         "league": v.get("league", ""), "ko": v["commence"], "label": lab, "price": fr[0], "book": fr[1],
                         "p": round(p, 4), "p_fair": round(p_fair, 4), "p_sim": None if p_sim is None else round(p_sim, 4),
-                        "ev": round(ev, 4), "res": {"espn": v.get("espn"), "home": v["home"], "away": v["away"],
+                        "ev": round(ev, 4), "fair_src": "DraftKings" if "DraftKings" in str(v.get("src")) else "Pinnacle",
+                        "res": {"espn": v.get("espn"), "home": v["home"], "away": v["away"],
                                                     "commence": v["commence"], "key": (v.get("keys") or {}).get(lab)}})
     return _keep(out)
 
@@ -459,7 +471,7 @@ def message(picks, now):
     for i, x in enumerate(picks, 1):
         ico = "⚽" if x["sport"] == "foot" else "🏀"
         mini = 1.0 / x["p"] * (1 + (MIN_EV_VALUE if x["kind"] == "value" else MIN_EV_PROP))
-        why = (f"cote juste Pinnacle {_fr(1 / x['p_fair'])}" if x["kind"] == "value" else f"marché {round(100 * x['p_fair'])} %")
+        why = (f"cote juste {x.get('fair_src', 'Pinnacle')} {_fr(1 / x['p_fair'])}" if x["kind"] == "value" else f"marché {round(100 * x['p_fair'])} %")
         if x.get("p_sim") is not None:
             why += f" · {_sl(x)} {round(100 * x['p_sim'])} %"
         tag = " 🛡️" if x.get("safe") else ""
@@ -480,7 +492,7 @@ def message(picks, now):
                      "environ 1 fois sur 3.")
         for x in safe:
             ico = "⚽" if x["sport"] == "foot" else "🏀"
-            ref = f"juste Pinnacle {_fr(1 / x['p_fair'])}" if x["src"] == "value" else f"marché {round(100 * x['p_fair'])} %"
+            ref = f"juste {x.get('fair_src', 'Pinnacle')} {_fr(1 / x['p_fair'])}" if x["src"] == "value" else f"marché {round(100 * x['p_fair'])} %"
             lines.append(f"{ico} <b>{x['match']}</b> · {_hm(_t(x['ko']))}\n"
                          f"• <b>{x['label']}</b> — {_px(x)} · gagné {round(100 * x['p'])} % ({ref}"
                          + (f", {_sl(x)} {round(100 * x['p_sim'])} %" if x.get("p_sim") is not None else "") + ")"
@@ -497,7 +509,7 @@ def message(picks, now):
         for x in best:
             ico = "⚽" if x["sport"] == "foot" else "🏀"
             lines.append(f"{ico} <b>{x['match']}</b> · {_hm(_t(x['ko']))}\n"
-                         f"• <b>{x['label']}</b> — {_px(x)} · juste Pinnacle {_fr(1 / x['p_fair'])}"
+                         f"• <b>{x['label']}</b> — {_px(x)} · juste {x.get('fair_src', 'Pinnacle')} {_fr(1 / x['p_fair'])}"
                          f" · {_sl(x)} {round(100 * x['p_sim'])} % · coût attendu <b>{_fr(100 * -x['ev'], 1)} %</b> de la mise"
                          + mise(x))
         sb = stats(("best",))

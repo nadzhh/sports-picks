@@ -187,12 +187,36 @@ def settle_bet(b, results):
     return True
 
 
+def _conv_actual(b, box):
+    """Valeur realisee d'un pari conviction sur prop NBA (idee du 11/11 : « Under 1,5 interceptions -> realise : 1 »)."""
+    l = b["legs"][0]
+    rr = (l.get("pj") or {}).get("res") or {}
+    if l.get("actual") is not None or not rr.get("stat") or not rr.get("pid") or not box: return
+    tmp = dict(rr)
+    if leg_result(tmp, box) not in (None, "void") and tmp.get("actual") is not None:
+        l["actual"] = tmp["actual"]
+
+
 def settle(state, box):
     n = 0
     ev = None
     for b in state["bets"]:
+        if b["kind"] == "conv" and b["status"] != "open":
+            try:
+                _conv_actual(b, box)    # aussi pour les paris deja regles (rattrapage)
+            except Exception:
+                pass
         if b["status"] != "open": continue
+        if b["kind"] == "scorer":  # buteur : feuille de match ESPN
+            import foot_scorer_odds as FS
+            r = FS.scorer_result(b["legs"][0]["pj"]["res"])
+            n += settle_bet(b, [{"push": "void"}.get(r, r)]) if r else 0
+            continue
         if b["kind"] == "conv":    # pari conviction (picks du soir) : meme reglement que le canal Picks
+            try:
+                _conv_actual(b, box)
+            except Exception:
+                pass
             import picks_du_jour as PJ
             r = PJ.settle_pick(b["legs"][0]["pj"], box)
             n += settle_bet(b, [{"push": "void"}.get(r, r)]) if r else 0
@@ -215,6 +239,12 @@ def settle(state, box):
 #      Mise selon la confiance : 1 % du capital a 60 %, jusqu'a 5 % a 80 % et plus. Ils coutent un peu (~4-6 % par
 #      pari) : le bot d'amelioration baisse leur mise si leur CLV reelle reste negative (model_params « conv »).
 CONV = {"per_night": 2, "p_min": 0.60, "min_odds": 1.40, "max_cost": 0.06, "lo": 0.01, "hi": 0.05}
+# 16/11/2026 (Wilson : « ajoute le foot ; ok pour les paris safe ; tu peux mettre des paris + value ») : plafond de
+# paris surs PAR SPORT et par soiree (2 basket + 2 foot), plus jusqu'a 2 paris a esperance positive en sus ; mises
+# engagees sur une soiree <= 20 % du capital.
+CONV_SPORT = {"nba": 2, "foot": 2}
+CONV_VALUE_EXTRA = 2
+CONV_NIGHT_MAX = 0.20
 
 
 def decide_conviction(state, picks, now=None):
@@ -227,9 +257,13 @@ def decide_conviction(state, picks, now=None):
         mult = 1.0
     taken = {leg.get("key") for b in state["bets"] for leg in b["legs"]}
     eq = equity(state)
-    nights = {}
+    nights, extra, engaged = {}, {}, {}
     for b in state["bets"]:
-        if b["kind"] == "conv": nights[b["night"]] = nights.get(b["night"], 0) + 1
+        engaged[b["night"]] = engaged.get(b["night"], 0) + (b["stake"] if b["status"] == "open" else 0)
+        if b["kind"] != "conv": continue
+        sp = (b["legs"][0].get("sport") or "nba")
+        if b.get("conf") == "value": extra[b["night"]] = extra.get(b["night"], 0) + 1
+        else: nights[(b["night"], sp)] = nights.get((b["night"], sp), 0) + 1
     try:   # reservoir elargi : toutes les lignes et props du soir (pas seulement les 3-5 picks postes)
         import picks_du_jour as PJ
         have = {(x["match_id"], x["label"]) for x in picks}
@@ -246,16 +280,20 @@ def decide_conviction(state, picks, now=None):
     for x in pos + safe:
         night = night_of(x["ko"])
         key = f'pj|{x["match_id"]}|{x["label"]}'
-        if key in taken or x["match_id"] in matches or nights.get(night, 0) >= CONV["per_night"]: continue
+        sp = x.get("sport") or "nba"
+        if key in taken or x["match_id"] in matches: continue
+        if x["ev"] >= 0:
+            if extra.get(night, 0) >= CONV_VALUE_EXTRA: continue
+        elif nights.get((night, sp), 0) >= CONV_SPORT.get(sp, CONV["per_night"]): continue
         d, p = x["price"], x["p"]
         if x["ev"] >= 0:
             frac, conf = min(0.25 * (p * d - 1) / (d - 1), VALUE_MAX), "value"
         else:
             frac = CONV["lo"] + (CONV["hi"] - CONV["lo"]) * min(max((p - CONV["p_min"]) / 0.20, 0.0), 1.0)
             conf = "haute" if p >= 0.72 else "moyenne" if p >= 0.66 else "correcte"
-        stake = _round(frac * mult * eq)
+        stake = _round(min(frac * mult * eq, CONV_NIGHT_MAX * eq - engaged.get(night, 0)))
         if stake < PRM["min_stake"] or stake > cash(state) - sum(b["stake"] for b in placed): continue
-        pj = {k: x.get(k) for k in ("kind", "src", "sport", "match_id", "match", "label", "price", "ko", "res", "book")}
+        pj = {k: x.get(k) for k in ("kind", "src", "sport", "match_id", "match", "label", "price", "ko", "res", "book", "fair_src")}
         why = None
         r = x.get("res") or {}
         if r.get("stat") and r.get("pid"):   # argumentaire facon « NBA PLAY » (nba_argument, 06/11/2026)
@@ -271,7 +309,75 @@ def decide_conviction(state, picks, now=None):
         placed.append({"legs": [leg], "stake": stake, "odds": d, "p": p, "ev": x["ev"], "kind": "conv", "mode": "conviction",
                        "conf": conf, "id": f'{night}-c{len(state["bets"]) + len(placed) + 1}', "night": night,
                        "placed_at": now.isoformat(timespec="minutes"), "status": "open", "news": []})
-        matches.add(x["match_id"]); nights[night] = nights.get(night, 0) + 1
+        matches.add(x["match_id"]); engaged[night] = engaged.get(night, 0) + stake
+        if x["ev"] >= 0: extra[night] = extra.get(night, 0) + 1
+        else: nights[(night, sp)] = nights.get((night, sp), 0) + 1
+    state["bets"] += placed
+    return placed
+
+
+# Buteurs (Wilson, 16/11/2026 : « buteur uniquement titulaire ») : compositions officielles, titulaire, cote reelle
+# relevee (foot_scorer_odds), probabilite de la simulation ANCREE au marche (buts attendus de chaque equipe = cote du
+# match ; la part de chaque joueur vient de ses tirs / xG). Avantage non prouve : petites mises (1/8 de Kelly, 1,5 %
+# du capital au plus), seulement si la simulation voit au moins +10 % d'esperance, 2 par soiree, 1 par match.
+SCORER = {"min_ev": 0.10, "p_min": 0.20, "max_odds": 6.0, "kelly": 0.125, "max": 0.015, "per_night": 2}
+
+
+def decide_scorers(state, now=None):
+    from datetime import timedelta
+    from nba_sim_bilan import night_of
+    import foot_scorer_odds as FS
+    now = now or datetime.now(timezone.utc)
+    try:
+        games = json.loads(Path("data/foot_sim.json").read_text(encoding="utf-8")).get("games") or []
+    except (OSError, ValueError):
+        return []
+    try:
+        FS.fetch(games, now)
+    except Exception as e:
+        print(f"  [!] cotes buteurs : {type(e).__name__}: {e}")
+    taken = {leg.get("key") for b in state["bets"] for leg in b["legs"]}
+    per = {}
+    for b in state["bets"]:
+        if b["kind"] == "scorer": per[b["night"]] = per.get(b["night"], 0) + 1
+    eq, placed, matches = equity(state), [], set()
+    cands = []
+    for g in games:
+        if not g.get("anchor") or not FS.official(g) or not g.get("espn"): continue
+        ko = datetime.fromisoformat(g["ko"].replace("Z", "+00:00"))
+        if not timedelta(0) < ko - now <= FS.WINDOW: continue
+        for side in ("home", "away"):
+            for sc in (g.get(side + "_info") or {}).get("scorers") or []:
+                if not sc.get("starter") or sc["p_goal"] < SCORER["p_min"]: continue
+                pr = FS.price_for(g["id"], sc["name"])
+                if not pr or pr[0] > SCORER["max_odds"]: continue
+                ev = sc["p_goal"] * pr[0] - 1
+                if ev >= SCORER["min_ev"]: cands.append((ev, g, side, sc, pr))
+    for ev, g, side, sc, pr in sorted(cands, key=lambda c: -c[0]):
+        night = night_of(g["ko"])
+        key = f'scorer|{g["id"]}|{sc["name"]}'
+        if key in taken or g["id"] in matches or per.get(night, 0) >= SCORER["per_night"]: continue
+        d, p = pr[0], sc["p_goal"]
+        stake = _round(min(SCORER["kelly"] * (p * d - 1) / (d - 1), SCORER["max"]) * eq)
+        if stake < PRM["min_stake"] or stake > cash(state) - sum(b["stake"] for b in placed): continue
+        match = f'{g["home"]["name"]} - {g["away"]["name"]}'
+        pj = {"kind": "scorer", "src": "scorer", "sport": "foot", "match_id": str(g["id"]), "match": match,
+              "label": f'{sc["name"]} buteur', "price": d, "ko": g["ko"], "book": pr[1],
+              "res": {"espn": "soccer/" + g["espn"]["slug"], "espn_id": g["espn"]["id"], "player": sc["name"],
+                      "team": g[side]["name"]}}
+        leg = {"key": key, "ev_key": key, "pj": pj, "name": match, "team": g.get("league_name", ""), "opp": pr[1],
+               "stat": f'{sc["name"]} ({g[side]["name"]}) buteur', "side": "", "line": 0, "dec": d, "am": None,
+               "p_sim": p, "p_mkt": p, "date": g["ko"], "gid": "", "pid": "", "sport": "foot", "tag": "buteur",
+               # format nba_argument : (pour, a surveiller, resume)
+               "why": [[f'Titulaire (composition officielle), {sc.get("shots", 0):.1f} tirs simulés',
+                        f'Buts attendus de son équipe calés sur la cote du match ({g["anchor"].get("src", "marché")})'],
+                       ["Avantage pas encore prouvé : la part de chaque joueur dans les buts de son équipe vient de la "
+                        "simulation (tirs, xG), pas encore vérifiée contre les cotes buteur"],
+                       f'Ma simulation : {round(100 * p)} % de marquer, cote {d:.2f} ({pr[1]}) → espérance {100 * ev:+.0f} %']}
+        placed.append({"legs": [leg], "stake": stake, "odds": d, "p": p, "ev": round(ev, 4), "kind": "scorer", "mode": "buteur",
+                       "conf": "buteur", "id": f'{night}-b{len(state["bets"]) + len(placed) + 1}', "night": night,
+                       "placed_at": now.isoformat(timespec="minutes"), "status": "open", "news": []})
+        matches.add(g["id"]); per[night] = per.get(night, 0) + 1
     state["bets"] += placed
     return placed
 
@@ -609,6 +715,16 @@ def telegram_placed(placed, state):
             out.append(f'Cote {l["opp"]} <b>{_fr(b["odds"])}</b> · cote juste Pinnacle <b>{_fr(1 / b["p"])}</b> · '
                        f'espérance +{round(100 * b["ev"], 1)} %')
             out.append(f'Mise <b>{_fr(b["stake"])} €</b> ({_fr(100 * b["stake"] / eq, 1)} % de la bankroll)')
+            continue
+        if b["kind"] == "scorer":  # buteur (16/11/2026) : titulaire, compositions officielles
+            l = b["legs"][0]
+            out.append(f'\n⚽ <b>Buteur</b> · {l["name"]} : <b>{l["stat"]}</b>')
+            out.append(f'Cote {l.get("opp") or ""} <b>{_fr(b["odds"])}</b> · ma simulation {round(100 * b["p"])} % → '
+                       f'rentable si ta cote ≥ <b>{_fr(1 / b["p"])}</b> (espérance +{round(100 * b["ev"])} % à cette cote)')
+            out.append(f'Mise <b>{_fr(b["stake"])} €</b> ({_fr(100 * b["stake"] / eq, 1)} % de la bankroll) · avantage pas encore prouvé : petite mise')
+            if l.get("why"):
+                import nba_argument
+                out.append(nba_argument.telegram(l["why"]))
             continue
         if b["kind"] == "conv":    # pari conviction (06/11/2026) : seuil = cote juste, pas le seuil +5 %
             l = b["legs"][0]
