@@ -22,6 +22,16 @@ selection :
   - mediane a cote des moyennes L5 / L10, et alerte quand un match extreme tire la moyenne. Mesure : la mediane L10 ne
     predit pas mieux le match suivant que la moyenne (erreur moyenne PTS 5,09 contre 5,02 ; 3PM 1,01 contre 1,02) :
     c'est une aide a la lecture.
+
+16/11/2026 (Wilson, d'apres un post « COUP DU JOUR » qui lui plait : « oui go ») — deux rubriques empruntees a la forme :
+  - « Objection principale » : le fait le plus lourd CONTRE le pari, et la reponse chiffree (ce que la simulation, qui
+    l'integre ou non, en fait). Sans reponse (la simulation elle-meme est contre), on le dit ;
+  - « Risque de blowout » : ecart prevu par le marche, probabilite simulee d'un ecart >= 15 points, et ce que perd un
+    titulaire dans ces matchs. Mesure (3 saisons, titulaires a >= 28 min sur leurs 10 derniers matchs, 14 848 cas) :
+    par rapport a un match serre (0-4 pts), minutes -1 % (5-9 pts), -4 % (10-14), -9 % (15-19), -12 % (20-24),
+    -18 % (25+) ; sur l'ensemble des ecarts >= 15 : -13 % de minutes, -10 % de points (5 242 cas). nba_sim suppose
+    -0,6 %/pt au-dela de 4 (plancher -30 %) : -5 % a 12 pts, -8 % a 17, -14 % a 28 -> proche, un peu court sur les
+    gros ecarts (et un peu fort sur les ecarts moyens).
 """
 import statistics
 from collections import defaultdict
@@ -31,6 +41,9 @@ STAT_FR = {"PTS": "points", "REB": "rebonds", "AST": "passes", "3PM": "paniers �
            "BLK": "contres"}
 PARTS = {"PR": ("PTS", "REB"), "PA": ("PTS", "AST"), "RA": ("REB", "AST"), "PRA": ("PTS", "REB", "AST")}
 _DEF = {}
+BLOWOUT_MIN, BLOWOUT_PTS, BLOWOUT_N = 0.13, 0.10, 5242   # pertes d'un titulaire si ecart final >= 15 (mesure du 16/11)
+# ordre de gravite des faits « contre » pour choisir l'objection principale
+OBJ_ORDER = ("abs_mate", "sim", "abs_opp", "def", "h2h", "min", "blowout", "tiers", "form", "posdef")
 
 
 def _val(row, stat):
@@ -202,7 +215,11 @@ def argue(g, pr, over, logs, season):
     sfr = STAT_FR.get(stat, stat)
     log = logs.get(str(pr["id"])) or []
     D = defense(season) if len(defense(season).get(stat, {})) >= 20 else defense(season - 1)
-    pro, contre = [], []
+    pro, contre, kind = [], [], {}
+
+    def put(good, txt, k, val=None):
+        (pro if good else contre).append(txt)
+        if not good: kind[txt] = (k, val)
 
     # 1. Absences : chez l'adversaire (et ce qu'il encaisse sans eux), et dans sa propre equipe (effet mesure sur lui)
     out_opp = [o["name"] for o in ((g.get("injuries") or {}).get(opp) or {}).get("out") or []]
@@ -213,7 +230,7 @@ def argue(g, pr, over, logs, season):
             sans, avec = al[k]
             txt = (f"{a['name']} ABSENT chez {oname} : sans lui, ils encaissent {_fr(sans)} {STAT_FR.get(k, k)} "
                    f"par match ({al['n']} matchs) contre {_fr(avec)} avec")
-            (pro if (sans > avec) == over else contre).append(txt)
+            put((sans > avec) == over, txt, "abs_opp")
             break
     else:   # absence adverse sans effet mesure : argument seulement pour un « plus » (adversaire affaibli)
         if out_opp and over: pro.append(f"Absents chez {oname} : {', '.join(out_opp[:2])}")
@@ -224,7 +241,7 @@ def argue(g, pr, over, logs, season):
             sans, avec = m[k]
             txt = (f"Sans {a['name']} ({m['n']} matchs), {first} tourne à {_fr(sans)} {STAT_FR.get(k, k)} en "
                    f"{_fr(m['MIN'][0])} min, contre {_fr(avec)} avec lui")
-            (pro if (sans > avec) == over else contre).append(txt)
+            put((sans > avec) == over, txt, "abs_mate", (sans, a["name"], m["n"]) if k == stat else None)
             break
 
     # 2. Defense adverse sur cette stat
@@ -235,7 +252,7 @@ def argue(g, pr, over, logs, season):
         good = (rk >= 21) if over else (rk <= 10)
         bad = (rk <= 10) if over else (rk >= 21)
         if good: pro.append(txt)
-        elif bad: contre.append(txt)
+        elif bad: put(False, txt, "def")
 
     # 3. Reussite contre le meme type de defense (10 plus faibles si « plus », 10 meilleures si « moins »), 2 saisons
     tiers = []
@@ -248,7 +265,7 @@ def argue(g, pr, over, logs, season):
         lab = "10 pires" if over else "10 meilleures"
         txt = (f"{round(100 * hit / len(tiers))} % de réussite sur ses {len(tiers)} derniers matchs contre les {lab} défenses "
                f"en {sfr} ; moyenne de {_fr(avg)}")
-        (pro if hit / len(tiers) >= 0.55 else contre).append(txt)
+        put(hit / len(tiers) >= 0.55, txt, "tiers")
         sample = [r for r, _ in tiers]
     else:
         sample = [r for _, _, r, _ in log[:10]]
@@ -267,7 +284,22 @@ def argue(g, pr, over, logs, season):
         if len(log) >= 15:
             base = statistics.mean(r.get("MIN", 0) for _, _, r, _ in log[5:20])
             if statistics.mean(l5) < base - 3:
-                contre.append(f"Temps de jeu en baisse : {_fr(statistics.mean(l5))} min sur ses 5 derniers matchs contre {_fr(base)} avant")
+                put(False, f"Temps de jeu en baisse : {_fr(statistics.mean(l5))} min sur ses 5 derniers matchs contre {_fr(base)} avant", "min")
+
+    # 4a. Risque de blowout (16/11/2026) : titulaire (>= 28 min sur ses 10 derniers), ecart >= 15 pts simule >= 30 %
+    T = g.get("team") or {}
+    L = g.get("lines") or {}
+    m10 = [r.get("MIN", 0) for _, _, r, _ in log[:10]]
+    if m10 and statistics.mean(m10) >= 28 and (T.get("p_blowout") or 0) >= 0.30:
+        fav = ""
+        if L.get("home_spread") not in (None, 0):
+            fh = float(L["home_spread"]) < 0
+            fav = (f"{g['home' if fh else 'away'].get('name') or g['home' if fh else 'away']['abbr']} favori de "
+                   f"{_g(abs(float(L['home_spread'])))} points ; ")
+        lost = f"{round(100 * BLOWOUT_MIN)} % de minutes" + (f" et {round(100 * BLOWOUT_PTS)} % de points" if stat in ("PTS", "PR", "PA", "PRA") else "")
+        put(not over, f"Risque de blowout : {fav}ma simulation donne {round(100 * T['p_blowout'])} % de chances d'un écart de "
+                      f"15 points ou plus ; dans ces matchs, un titulaire perd en moyenne {lost} par rapport à un match "
+                      f"serré (3 saisons, {BLOWOUT_N // 1000} {BLOWOUT_N % 1000:03d} cas)", "blowout")
 
     # 4b. Defense adverse sur le POSTE du joueur (G / F / C) : affichee quand elle est dans les 5 premiers ou les 5 derniers ; elle
     # complete le rang global, qui peut masquer un trou sur un poste (rang 1 = concede le plus, a l'inverse du rang
@@ -276,12 +308,12 @@ def argue(g, pr, over, logs, season):
     if P and stat in POSDEF_STATS:
         txt, rk = posdef_line(oab, oab, P, stat, season)
         if txt and (rk <= 5 or rk >= 26):
-            (pro if (rk <= 5) == over else contre).append(txt)
+            put((rk <= 5) == over, txt, "posdef")
 
     # 4c. Confrontations directes : toutes les saisons en base (et plus seulement les 20 derniers matchs)
     H = h2h(pr["id"], oab, stat, line, over, season)
     if H and H["n"] >= 2:
-        (pro if H["hit"] / H["n"] >= 0.55 else contre).append("Face à face : " + h2h_text(H, oab, line, over))
+        put(H["hit"] / H["n"] >= 0.55, "Face à face : " + h2h_text(H, oab, line, over), "h2h")
 
     # 5. Forme : L10 (moyenne ET mediane) et dernier match
     l10 = [_val(r, stat) for _, _, r, _ in log[:10]]
@@ -291,18 +323,18 @@ def argue(g, pr, over, logs, season):
         m5, md5, _ = mean_median(l10[:5], line)
         txt = (f"{round(100 * hit / len(l10))} % de réussite sur ses {len(l10)} derniers matchs (moyenne {_fr(m10)}, "
                f"médiane {_g(md10)} ; sur 5 : moyenne {_fr(m5)}, médiane {_g(md5)})")
-        (pro if hit / len(l10) >= 0.6 else contre).append(txt)
+        put(hit / len(l10) >= 0.6, txt, "form")
         if gap10:   # un match extreme tire la moyenne : la mediane dit mieux ce qu'il fait d'habitude
             up = m10 > md10
             ext = max(l10) if up else min(l10)
             txt = (f"Moyenne sur 10 ({_fr(m10)}) tirée vers le {'haut' if up else 'bas'} par un match à {_g(ext)} : "
                    f"médiane {_g(md10)}" + (f", la ligne {_g(line)} est entre les deux" if min(m10, md10) < line < max(m10, md10) else ""))
-            (contre if up == over else pro).append(txt)
+            put(up != over, txt, "form")
         last = l10[0]
         txt = f"Sort d'un match à {last:g} {sfr}"
         if (last > line) == over: pro.append(txt)
         l5h = sum(1 for v in l10[:5] if (v > line) == over)
-        if l5h <= 2: contre.append(f"Seulement {l5h}/5 sur ses 5 derniers matchs")
+        if l5h <= 2: put(False, f"Seulement {l5h}/5 sur ses 5 derniers matchs", "form")
 
     # 6. Simulation et marche
     sm = next((p.get(stat) for p in g.get("players") or [] if str(p.get("id")) == str(pr["id"])), None) or {}
@@ -310,13 +342,45 @@ def argue(g, pr, over, logs, season):
     ps = pr["p_sim"] if over else 1 - pr["p_sim"]
     simtxt = (f"Ma simulation : {_fr(sm['mean'])} {sfr} en moyenne, " if sm.get("mean") else "Ma simulation : ") + \
              f"{round(100 * ps)} % de chances ; le marché sans la marge : {round(100 * pm)} %"
-    (pro if ps >= pm - 0.02 else contre).append(simtxt)
+    put(ps >= pm - 0.02, simtxt, "sim")
 
     ln = f"{line:g}".replace(".", ",")
     resume = (f"{name} doit faire {'plus' if over else 'moins'} de {ln} {sfr}. "
               + (f"Pour : {pro[0]}" + (f" ; {pro[1]}" if len(pro) > 1 else "") + ". " if pro else "")
-              + (f"À surveiller : {contre[0]}." if contre else "Aucun fait majeur contre."))
+              + (objection(contre, kind, sm, ps, pm, over, sfr, stat) if contre else "Aucun fait majeur contre."))
     return pro, contre, resume
+
+
+def objection(contre, kind, sm, ps, pm, over, sfr, stat):
+    """« Objection principale : … Réponse : … » — le fait contre le plus lourd et ce qu'on en fait, chiffres a l'appui."""
+    rank = {k: i for i, k in enumerate(OBJ_ORDER)}
+    obj = min(contre, key=lambda t: (rank.get((kind.get(t) or (None,))[0], 99), contre.index(t)))
+    k, val = kind.get(obj) or (None, None)
+    sim = ((f"{_fr(sm['mean'])} {sfr} en moyenne, " if sm.get("mean") else "")
+           + f"{round(100 * ps)} % pour le {'plus' if over else 'moins'} (marché sans marge : {round(100 * pm)} %)")
+    if k == "sim":
+        rep = ("aucune : ma simulation est moins optimiste que le marché, le pari tient au calage du marché (biais "
+               "mesuré par stat), pas à elle. Prudence sur la mise")
+    elif k == "abs_mate" and val and sm.get("mean") and abs(sm["mean"] - val[0]) >= 0.15 * val[0]:
+        # la simulation integre l'absence mais reste loin de ce qu'il fait reellement sans lui : on le dit
+        rep = (f"fragile : ma simulation l'intègre mais n'attend que {_fr(sm['mean'])} {sfr}, contre {_fr(val[0])} "
+               f"sans {val[1]} sur {val[2]} matchs ; elle parie sur un retour vers son niveau habituel "
+               f"({round(100 * ps)} % pour le {'plus' if over else 'moins'}, marché sans marge : {round(100 * pm)} %)")
+    elif k == "h2h":
+        try:
+            import nba_h2h_weight as HW
+            w = HW.weight(stat)
+        except Exception:
+            w = 0.10
+        rep = (f"le face-à-face pèse peu : seuls ~{round(100 * w)} % de l'écart se retrouvent au match suivant (mesure sur "
+               f"3 saisons) ; ma simulation : {sim}")
+    elif k == "tiers":
+        rep = f"échantillon trié sur un type de défense, moins fiable que son niveau global ; ma simulation : {sim}"
+    elif k == "posdef":
+        rep = f"la défense par poste n'ajoute rien de mesurable à la défense globale ; ma simulation : {sim}"
+    else:   # absences, defense, minutes, forme, blowout : integres a la simulation
+        rep = f"ma simulation l'intègre déjà : {sim}"
+    return f"Objection principale : {obj}. Réponse : {rep}."
 
 
 def for_pick(gid, pid, stat, line, over):

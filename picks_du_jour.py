@@ -446,6 +446,37 @@ def stats(kinds=("value", "prop")):
 
 
 # ─── Message ─────────────────────────────────────────────────────────────────
+def coup_du_jour(picks):
+    """Bloc « COUP DU JOUR » (Wilson, 16/11/2026, d'apres un post qui lui plait) : le pick a la meilleure esperance, une
+    accroche chiffree, ses meilleurs arguments et l'objection principale avec sa reponse (nba_argument pour les props)."""
+    i, x = max(enumerate(picks, 1), key=lambda t: t[1]["ev"])
+    ico = "⚽" if x["sport"] == "foot" else "🏀"
+    out = [f"\n{ico}⭐ <b>COUP DU JOUR</b> (n° {i})",
+           f"<b>{x['label'].upper()}</b> · {x['match']} · @ {_fr(x['price'])}",
+           f"Mon modèle : <b>{round(100 * x['p'])} %</b> de chances. La cote {_fr(x['price'])} n'en suppose que "
+           f"{round(100 / x['price'])} %. Espérance <b>{100 * x['ev']:+.0f} %</b>."]
+    r = x.get("res") or {}
+    arg = None
+    if r.get("pid") and r.get("stat"):
+        try:
+            import nba_argument as NA
+            arg = NA.for_pick(r.get("gid"), r["pid"], r["stat"], r["line"], r.get("side") == "o")
+        except Exception as e:
+            print(f"  [!] argumentaire coup du jour : {type(e).__name__}: {e}")
+    if arg:
+        import html
+        pro, _, resume = arg
+        out += [f"• {html.escape(t, quote=False)}" for t in pro[:3]]
+        if "Objection principale : " in resume:
+            o, _, r2 = resume.split("Objection principale : ", 1)[1].partition(" Réponse : ")
+            out.append(f"⚠️ <b>L'objection</b> : <i>{html.escape(o, quote=False)}</i>" + (f"\n→ <b>Ma réponse</b> : {html.escape(r2, quote=False)}" if r2 else ""))
+    elif x["kind"] == "value":
+        out.append(f"• cote juste {x.get('fair_src', 'Pinnacle')} {_fr(1 / x['p_fair'])} : la cote proposée est au-dessus")
+        if x.get("p_sim") is not None:
+            out.append(f"• {_sl(x)} {round(100 * x['p_sim'])} %")
+    return "\n".join(out)
+
+
 def message(picks, now):
     head = f"🎯 <b>Picks du jour</b> · {_paris(now):%d/%m}"
     s = stats()
@@ -468,9 +499,11 @@ def message(picks, now):
                 "Je préfère ne rien poster que poster un pari perdant sur la durée." + foot)
     lines = [head, (f"{len(picks)} pick{'s' if len(picks) > 1 else ''}, classés par heure · probabilités recalées sur les résultats réels"
                     if picks else "Aucun pari ne bat la marge du bookmaker aujourd'hui (pas de value).")]
+    if picks:
+        lines.append(coup_du_jour(picks))
     for i, x in enumerate(picks, 1):
         ico = "⚽" if x["sport"] == "foot" else "🏀"
-        mini = 1.0 / x["p"] * (1 + (MIN_EV_VALUE if x["kind"] == "value" else MIN_EV_PROP))
+        mini =1.0 / x["p"] * (1 + (MIN_EV_VALUE if x["kind"] == "value" else MIN_EV_PROP))
         why = (f"cote juste {x.get('fair_src', 'Pinnacle')} {_fr(1 / x['p_fair'])}" if x["kind"] == "value" else f"marché {round(100 * x['p_fair'])} %")
         if x.get("p_sim") is not None:
             why += f" · {_sl(x)} {round(100 * x['p_sim'])} %"
