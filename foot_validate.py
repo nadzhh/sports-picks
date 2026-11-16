@@ -55,7 +55,7 @@ def main(force=False):
     except (OSError, ValueError):
         pass
     if not force and prev.get("at") and time.time() - prev.get("ts", 0) < REVALIDATE_DAYS * 86400 and prev.get("enabled"):
-        print(f"[validation] decision recente ({prev['at']}) : base etendue active, rien a faire"); return prev
+        print(f"[validation] decision recente ({prev['at']}) : base etendue active, rien a faire"); return prev, prev
     cov, have, total = coverage()
     now = datetime.now(timezone.utc).isoformat(timespec="minutes")
     res = {"at": now, "ts": time.time(), "coverage": round(cov, 3), "have": have, "total": total, "enabled": False}
@@ -74,16 +74,20 @@ def main(force=False):
                          f"({core['n_odds']} matchs Top 5 avec cotes) : " + ("ACTIVEE" if res["enabled"] else "refusee (moins bien)"))
         print("[validation] " + res["reason"])
     OUT.write_text(json.dumps(res, ensure_ascii=False, indent=1), encoding="utf-8")
-    return res
+    return res, prev
 
 
 if __name__ == "__main__":
     sys.stdout.reconfigure(encoding="utf-8", line_buffering=True)
     ap = argparse.ArgumentParser()
     ap.add_argument("--force", action="store_true")
-    r = main(ap.parse_args().force)
+    r, prev = main(ap.parse_args().force)
     import os
-    if os.environ.get("GITHUB_ACTIONS") and os.environ.get("TELEGRAM_BOT_TOKEN") and r.get("core"):   # un vrai backtest a tourne
+    # 16/11/2026 (Wilson : « pourquoi je reçois toujours base foot étendue … ? ») : le chemin « decision recente » renvoyait
+    # l'ancien resultat, pris pour un nouveau backtest -> meme message chaque matin. Desormais : seulement si un backtest
+    # vient de tourner (r n'est pas prev) ET que la decision change (activee <-> refusee) ou qu'il n'y en avait pas.
+    changed = r is not prev and r.get("core") and (not prev.get("core") or bool(prev.get("enabled")) != bool(r.get("enabled")))
+    if os.environ.get("GITHUB_ACTIONS") and os.environ.get("TELEGRAM_BOT_TOKEN") and changed:
         try:
             import notify
             notify.tg_send(f"⚽ <b>Base foot étendue</b> : {r['reason']}", chat_id=notify.TELEGRAM_CHAT_ID_BANKROLL)
