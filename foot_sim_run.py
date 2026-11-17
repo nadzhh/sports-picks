@@ -643,8 +643,16 @@ def market_fair(g, path="data/ev_picks.json"):
     s = sum(p)
     tot = sorted(((float(lab.split()[2]), q) for lab, q in L.items() if lab.startswith("Plus de ") and lab.endswith(" buts")),
                  key=lambda x: abs(x[0] - 2.5))
+    # vrais prix du bookmaker (avec marge) : paris fictifs du simulateur, bilan V-D et unites (foot_sim_bilan.bets)
+    fr = best.get("fr") or {}
+    pr = {k: (fr.get(lab) or [None])[0] for k, lab in (("1", f"Victoire {best['home']}"), ("X", "Match nul"),
+                                                       ("2", f"Victoire {best['away']}"), ("o25", "Plus de 2.5 buts"),
+                                                       ("u25", "Moins de 2.5 buts"))}
+    pr = {k: float(v) for k, v in pr.items() if v}
+    book = next((v[1] for v in fr.values() if isinstance(v, (list, tuple)) and len(v) > 1), None)
     return {"1x2": [x / s for x in p], "total": tot[0] if tot else None, "at": best.get("at"),
-            "match": f"{best['home']} - {best['away']}", "src": best.get("src") or "Pinnacle"}
+            "match": f"{best['home']} - {best['away']}", "src": best.get("src") or "Pinnacle",
+            "prices": pr or None, "book": book}
 
 
 def _match_fair(g, ko, fair):
@@ -700,6 +708,7 @@ def run_game(st, g, n_sims):
         if mk:
             try:
                 anc = anchor(st, g, inp, mk)
+                if mk.get("prices"): anc["prices"], anc["book"] = mk["prices"], mk.get("book") or mk.get("src")
             except Exception as e:
                 print(f"  [!] ancrage marche {g['id']} : {type(e).__name__}: {e}")
     res = simulate(inp, n=n_sims, seed=int(g["id"]) % (2 ** 31), shots_db=st.player_shots, log_sims=LOG_SIMS)

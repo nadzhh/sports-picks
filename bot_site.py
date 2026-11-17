@@ -1,8 +1,9 @@
-"""Page « Suivi des nuits du bot » (bot.html, Wilson 16/11/2026 : « voir dans l'interface les différents tests des
+"""Page « Suivi des nuits du bot » (Wilson 16/11/2026 : « voir dans l'interface les différents tests des
 bots de la nuit afin de voir le suivi des améliorations »).
 
 Lit data/improve_report.json (une entree par nuit, avec le detail des essais depuis le 16/11), data/model_params.json
-(reglages adoptes) et data/nba_lab.json (labo d'analyses NBA). Ecrit bot.html, page autonome publiee avec le site ;
+(reglages adoptes) et data/nba_lab.json (labo d'analyses NBA). Ecrit lazy/bot.html, charge dans la page principale (Aujourd'hui › Bot de nuit, Wilson 17/11 : « sur la page
+principale, pas une page a part ») ;
 regeneree a la fin de chaque nuit par improve_bot.py et a la demande : python bot_site.py
 """
 import html
@@ -10,7 +11,8 @@ import json
 from datetime import datetime
 from pathlib import Path
 
-OUT = Path("bot.html")
+OUT = Path("bot.html")        # ancienne adresse : redirige vers la page principale
+FRAG = Path("lazy/bot.html")  # Aujourd'hui › Bot de nuit (charge a la demande, site_lazy)
 JOURS = ("lun.", "mar.", "mer.", "jeu.", "ven.", "sam.", "dim.")
 C1, C2 = "#3987e5", "#d95926"      # saison ancienne / saison recente (palette validee sur fond sombre)
 
@@ -256,49 +258,54 @@ def build():
 
     journal = "".join(_night(n, open_=(i == 0)) for i, n in enumerate(reversed(nights)))
     stamp = last.get("at") or ""
-    return f"""<!doctype html><html lang="fr"><head><meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1"><title>Nuits du bot</title>
-<style>
-:root{{--bg:#0b1220;--card:#0f172a;--line:#1e293b;--tx:#e2e8f0;--mu:#94a3b8;--ok:#4ade80;--ko:#f87171}}
-*{{box-sizing:border-box}}body{{margin:0;background:var(--bg);color:var(--tx);font:14px/1.45 system-ui,-apple-system,Segoe UI,sans-serif}}
-.wrap{{max-width:980px;margin:0 auto;padding:16px}}a{{color:#60a5fa}}
-h1{{font-size:20px;margin:6px 0 2px}}h3{{margin:0 0 8px;font-size:15px}}h3 small,.mu{{color:var(--mu);font-weight:400;font-size:12.5px}}
-.card{{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px;margin:12px 0}}
-.big{{font-size:17px;font-weight:700;margin:2px 0 6px}}
-.ch{{width:100%;height:auto;display:block}}.gr{{stroke:#1e293b;stroke-width:1}}.ax{{fill:var(--mu);font-size:11px}}
-.leg{{display:flex;flex-wrap:wrap;gap:14px;color:var(--mu);font-size:12px;margin-top:4px}}
-.leg i{{display:inline-block;width:14px;height:3px;border-radius:2px;margin-right:6px;vertical-align:middle}}
-.leg i.dot{{width:9px;height:9px;border-radius:50%;background:var(--mu)}}
-details{{background:var(--card);border:1px solid var(--line);border-radius:12px;margin:8px 0}}
-summary{{cursor:pointer;padding:11px 14px;display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}}
-.tg{{color:var(--mu)}}.sb{{padding:4px 14px 10px}}.sh{{margin:6px 0}}
-.tw{{overflow-x:auto}}table{{width:100%;border-collapse:collapse;font-size:12.5px}}
-th,td{{padding:5px 8px;border-top:1px solid var(--line);text-align:left;white-space:nowrap}}th{{color:var(--mu);font-weight:500}}
-td.ok{{color:var(--ok)}}td.ko{{color:var(--ko)}}tr.win td{{background:#0f2a1c}}
-.tk{{display:block;color:#64748b;font-size:11px}}.nt{{color:var(--mu);margin:6px 0;padding-left:18px}}
-.grid{{display:grid;grid-template-columns:1fr 1fr;gap:12px}}@media(max-width:760px){{.grid{{grid-template-columns:1fr}}}}
-.grid .card{{margin:0}}.grid>*,.card,details,.tw{{min-width:0;max-width:100%}}
-@media(max-width:560px){{.wrap{{padding:12px 16px}}th,td{{padding:5px 6px}}summary{{padding:10px 12px}}.sb{{padding:4px 10px 10px}}}}
-</style></head><body><div class="wrap">
-<a href="./">← Retour au site</a>
-<h1>🤖 Nuits du bot d’amélioration</h1>
+    return f"""<div class="bt"><style>
+.bt{{--bcard:#0f172a;--bline:#1e293b;--btx:#e2e8f0;--bmu:#94a3b8;--bok:#4ade80;--bko:#f87171;color:var(--btx);font-size:14px;line-height:1.45}}
+.bt *{{box-sizing:border-box}}
+.bt h2{{font-size:19px;margin:4px 0 2px}}.bt h3{{margin:0 0 8px;font-size:15px}}.bt h3 small,.bt .mu{{color:var(--bmu);font-weight:400;font-size:12.5px}}
+.bt .card{{background:var(--bcard);border:1px solid var(--bline);border-radius:12px;padding:14px;margin:12px 0}}
+.bt .big{{font-size:17px;font-weight:700;margin:2px 0 6px}}
+.bt .ch{{width:100%;height:auto;display:block}}.bt .gr{{stroke:#1e293b;stroke-width:1}}.bt .ax{{fill:var(--bmu);font-size:11px}}
+.bt .leg{{display:flex;flex-wrap:wrap;gap:14px;color:var(--bmu);font-size:12px;margin-top:4px}}
+.bt .leg i{{display:inline-block;width:14px;height:3px;border-radius:2px;margin-right:6px;vertical-align:middle}}
+.bt .leg i.dot{{width:9px;height:9px;border-radius:50%;background:var(--bmu)}}
+.bt details{{background:var(--bcard);border:1px solid var(--bline);border-radius:12px;margin:8px 0}}
+.bt summary{{cursor:pointer;padding:11px 14px;display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}}
+.bt .tg{{color:var(--bmu)}}.bt .sb{{padding:4px 14px 10px}}.bt .sh{{margin:6px 0}}
+.bt .tw{{overflow-x:auto}}.bt table{{width:100%;border-collapse:collapse;font-size:12.5px}}
+.bt th,.bt td{{padding:5px 8px;border-top:1px solid var(--bline);text-align:left;white-space:nowrap}}.bt th{{color:var(--bmu);font-weight:500}}
+.bt td.ok{{color:var(--bok)}}.bt td.ko{{color:var(--bko)}}.bt tr.win td{{background:#0f2a1c}}
+.bt .tk{{display:block;color:#64748b;font-size:11px}}.bt .nt{{color:var(--bmu);margin:6px 0;padding-left:18px}}
+.bt .grid{{display:grid;grid-template-columns:1fr 1fr;gap:12px}}@media(max-width:760px){{.bt .grid{{grid-template-columns:1fr}}}}
+.bt .grid .card{{margin:0}}.bt .grid>*,.bt .card,.bt details,.bt .tw{{min-width:0;max-width:100%}}
+@media(max-width:560px){{.bt th,.bt td{{padding:5px 6px}}.bt summary{{padding:10px 12px}}.bt .sb{{padding:4px 10px 10px}}}}
+</style>
+<h2>🤖 Nuits du bot d’amélioration</h2>
 <p class="mu">Dernière nuit : {_when(stamp)}. Chaque nuit (vers 2 h 15, heure de Paris), le bot rejoue des matchs déjà joués
 avec la simulation, sans rien savoir du résultat, essaie des réglages voisins et des analyses nouvelles, et ne garde
 que ce qui prévoit mieux. Les matchs récents comptent plus dans le jugement du labo.</p>
 <div class="grid">{charts}</div>
 {service}
 <h3 style="margin:18px 0 4px">📒 Journal des nuits</h3>
-<p class="mu">Gains en millièmes (‰) d’erreur de prévision : <span style="color:var(--ok)">vert = mieux</span>,
-<span style="color:var(--ko)">rouge = moins bien</span>. Un réglage n’est adopté que s’il améliore les deux saisons
+<p class="mu">Gains en millièmes (‰) d’erreur de prévision : <span style="color:var(--bok)">vert = mieux</span>,
+<span style="color:var(--bko)">rouge = moins bien</span>. Un réglage n’est adopté que s’il améliore les deux saisons
 (une seule pourrait être de la chance). « Risque hasard » = probabilité que le gain d’une analyse soit dû au hasard (≤ 1 % exigé).
 Le détail essai par essai est archivé depuis le 16/11.</p>
 {journal}
-</div></body></html>"""
+</div>"""
+
+
+def fragment():
+    return build().replace("<table>", '<div class="tw"><table>').replace("</table>", "</table></div>")
 
 
 def write():
-    OUT.write_text(build().replace("<table>", '<div class="tw"><table>').replace("</table>", "</table></div>"), encoding="utf-8")
-    return OUT
+    """Fragment de la page principale (Aujourd'hui › Bot de nuit, charge a la demande) + ancienne adresse redirigee."""
+    FRAG.parent.mkdir(parents=True, exist_ok=True)
+    FRAG.write_text(fragment(), encoding="utf-8")
+    OUT.write_text('<!doctype html><meta charset="utf-8"><meta http-equiv="refresh" content="0;url=./#bot">'
+                   '<title>Nuits du bot</title><a href="./#bot">Suivi du bot : page principale, Aujourd’hui › Bot de nuit</a>',
+                   encoding="utf-8")
+    return FRAG
 
 
 if __name__ == "__main__":

@@ -55,6 +55,17 @@ def _e(s):
     return html.escape(str(s if s is not None else ""))
 
 
+def _bet_tag(b):
+    if not b.get("result"): return ""
+    return (f'<span class="eb-tag acc">gagné {_su(b["units"])}</span>' if b["result"] == "win"
+            else '<span class="eb-tag neg">perdu −1 u</span>')
+
+
+def _su(x, d=1):
+    """Unites signees a la francaise : +2,4 u / −1,0 u."""
+    return f"{x:+.{d}f}".replace(".", ",").replace("-", "−") + " u"
+
+
 def _pct(x, d=0):
     return f"{100 * x:.{d}f}".replace(".", ",") + " %"
 
@@ -208,7 +219,8 @@ def _args(g):
                    f'<li>Tirs attendus : <b>{h} {n1(hs)}</b> ({n1(ht)} cadrés) · <b>{a} {n1(as_)}</b> ({n1(at)} cadrés), '
                    f'soit <b>{n1(hs + as_)}</b> tirs et <b>{n1(ht + at)}</b> cadrés dans le match.</li>')
         for (name, fo, opp_name, fopp, sim, xg) in ((h, fh, a, fa, hs, g["xg"][0]), (a, fa, h, fh, as_, g["xg"][1])):
-            if not (fo and fopp): continue
+            # petits clubs (coupes) : forme sans statistiques de tirs (17/11/2026 : KeyError qui bloquait la section)
+            if not (fo and fopp and "sh_f" in fo and "sh_a" in fopp and "sh_a" in fo and "sh_f" in fopp): continue
             ref = (fo["sh_f"] + fopp["sh_a"]) / 2
             verdict = ("au-dessus" if sim > ref + 1 else "en dessous" if sim < ref - 1 else "dans la ligne")
             out.append(f'<li><b>{name}</b> tire <b>{n1(fo["sh_f"])}</b> fois par match ({n1(fo["sot_f"])} cadrés, xG '
@@ -633,6 +645,7 @@ def _history_view():
     import foot_sim_bilan as FB
     h = FB.load()
     ds = [d for d, (t, done) in FB.days(h).items() if done][:14]
+    allb = FB.bets_summary(list(h["games"].values()))
     if not ds:
         return ('<div class="eb-card eb-empty">Premier bilan après les premiers matchs terminés : chaque match simulé est '
                 'archivé avant le coup d’envoi puis comparé au résultat.</div>')
@@ -641,10 +654,14 @@ def _history_view():
         rep_ = FB.day_report(d, h)
         sm = rep_["sum"]
         dt = datetime.strptime(d, "%Y-%m-%d")
+        bs = FB.bets_summary(rep_["games"])
+        title = (f'{bs["w"]}-{bs["l"]} · <b class="{"eb-acc" if bs["units"] >= 0 else "eb-neg"}">{_su(bs["units"])}</b>'
+                 if bs else f'Favori trouvé {sm["hit"]}/{sm["n"]}')
         items += (f'<button class="eb-item{" on" if i == 0 else ""}" data-id="fday-{d}" onclick="ebPick(\'foothist\',\'fday-{d}\')">'
                   f'<div class="eb-item-top"><span>Bilan</span><span>{JOURS[dt.weekday()]} {dt:%d/%m}</span></div>'
-                  f'<div class="eb-item-t">Favori trouvé {sm["hit"]}/{sm["n"]}</div>'
-                  f'<div class="eb-chips"><span class="eb-chip"><em>Proba du vrai résultat</em>{_pct(sm["p_true"])}</span></div></button>')
+                  f'<div class="eb-item-t">{title}</div>'
+                  f'<div class="eb-chips">' + (f'<span class="eb-chip"><em>Favori</em>{sm["hit"]}/{sm["n"]}</span>' if bs else "")
+                  + f'<span class="eb-chip"><em>Proba du vrai résultat</em>{_pct(sm["p_true"])}</span></div></button>')
         rows = ""
         for g in rep_["games"]:
             f = g.get("final")
@@ -663,7 +680,28 @@ def _history_view():
                      f'<td class="n">{_pct(g["p"]["o25"])} {o25}</td><td>{tag}</td></tr>')
         scor = [f'{_e(nm)} ({_pct(p)})' for g in rep_["games"] for nm, p in g.get("scorers") or []
                 if p >= 0.35 and nm in (g.get("goalscorers") or [])]
-        facts = (f'<ul class="eb-why-l"><li>Favori du simulateur trouvé <b>{sm["hit"]} fois sur {sm["n"]}</b> ; probabilité '
+        B = [(g, b) for g in rep_["games"] for b in FB.bets(g)]
+        bets_html = ""
+        if B:
+            brow = "".join(
+                f'<tr><td><b>{_e(g["home"])} - {_e(g["away"])}</b></td><td>{_e(b["label"])}</td>'
+                f'<td class="n">{_n(b["price"])}</td><td class="n">{_pct(b["p"])}</td><td class="n">+{_pct(b["ev"])}</td>'
+                f'<td class="n">{"<b>" + str(g["final"][0]) + "-" + str(g["final"][1]) + "</b>" if g.get("final") else "–"}</td>'
+                f'<td>{_bet_tag(b)}</td></tr>'
+                for g, b in B)
+            srcs = sorted({g.get("odds_src") or "" for g, _ in B} - {""})
+            bets_html = (f'<div class="eb-card"><h3 class="eb-h">Paris du simulateur <small>1 u chacun · '
+                         + (f'{bs["w"]}-{bs["l"]}, {_su(bs["units"])}' if bs else "à venir") + '</small></h3>'
+                         f'<div class="eb-scroll"><table class="eb-tbl eb-cards"><tr><th>Match</th><th>Pari</th><th>Cote</th>'
+                         f'<th>Simu</th><th>Espérance</th><th>Score</th><th>Résultat</th></tr>{brow}</table></div>'
+                         f'<p class="eb-note">Chaque cote où la simulation seule (sans l’ancrage au marché) voit au moins '
+                         f'+5 % d’espérance, au plus un pari 1X2 et un pari ±2,5 buts par match. Cotes : {_e(", ".join(srcs))}. '
+                         'Banc d’essai comme les picks du simulateur NBA, pas des conseils : ce ne sont pas les picks du jour.</p></div>')
+        facts = (f'<ul class="eb-why-l">'
+                 + (f'<li>Paris du simulateur : <b>{bs["w"]}-{bs["l"]}, {_su(bs["units"])}</b> (1 u par pari) ; '
+                    f'depuis le début : {allb["w"]}-{allb["l"]}, {_su(allb["units"])} (ROI {_su(100 * allb["roi"], 0)[:-2]} %).</li>'
+                    if bs and allb else "")
+                 + f'<li>Favori du simulateur trouvé <b>{sm["hit"]} fois sur {sm["n"]}</b> ; probabilité '
                  f'moyenne donnée au vrai résultat <b>{_pct(sm["p_true"])}</b> (33 % = hasard).</li>'
                  f'<li>Buts : <b>{_n(sm["goals_sim"])}</b> attendus par match, <b>{_n(sm["goals_real"])}</b> réels · xG '
                  f'{_n(sm["xg_sim"])} attendus, {_n(sm["xg_real"])} réels.</li>'
@@ -675,7 +713,7 @@ def _history_view():
                     f'{rep_["done"]}/{rep_["total"]} matchs terminés</div><h3 class="eb-h eb-bil-t">Ce que le simulateur avait prévu, ce qui s’est passé</h3>{facts}</div>'
                     f'<div class="eb-card"><h3 class="eb-h">Matchs <small>1 / N / 2 simulés · buts attendus · score · xG attendus → réels · +2,5</small></h3>'
                     f'<div class="eb-scroll"><table class="eb-tbl eb-cards"><tr><th>Match</th><th>1 / N / 2</th><th>Buts att.</th><th>Score</th>'
-                    f'<th>xG</th><th>+2,5</th><th>Favori</th></tr>{rows}</table></div></div>'
+                    f'<th>xG</th><th>+2,5</th><th>Favori</th></tr>{rows}</table></div></div>' + bets_html +
                     '<div class="eb-card"><h3 class="eb-h">Comment l’améliorer</h3><ul class="eb-why-l">'
                     + "".join(f"<li>{_e(t)}</li>" for t in FB.insights(h)) + '</ul></div></section>')
     return ('<div class="eb-layout">'

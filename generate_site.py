@@ -5744,6 +5744,12 @@ def build_html(matches, team_ai, player_ai, pstats_data, nba_picks=None, nba_his
         print(f"  [!] Section Bankroll IA ignoree : {_e_bk}")
         iabank_html = '<div style="padding:40px;text-align:center;color:#64748b">Bankroll IA indisponible.</div>'
 
+    # Onglet Aujourd'hui › Bot de nuit (bot_site.py, 17/11/2026) : fragment charge a la demande, version = contenu
+    try:
+        import hashlib as _hl
+        bot_v = _hl.sha1(open('lazy/bot.html', 'rb').read()).hexdigest()[:10]
+    except OSError:
+        bot_v = '0'
     # Onglet Aujourd'hui (site_today.py) : picks du jour par palier, matchs des 24 h, resume Bankroll IA
     try:
         import site_today as _std
@@ -7022,6 +7028,9 @@ def build_html(matches, team_ai, player_ai, pstats_data, nba_picks=None, nba_his
     {footsim_html}
   </div>
 
+<!-- Section Bot de nuit (bot_site.py : lazy/bot.html, regenere par improve_bot chaque nuit) -->
+  <div id="sport-bot" style="display:none"><div class="sp-lazy" data-src="lazy/bot.html?v={bot_v}"></div></div>
+
   <!-- Section Aujourd'hui (site_today.py, today.html publie par la veille) -->
   <div id="sport-today" style="display:none">
     {today_html}
@@ -7090,7 +7099,7 @@ window._currentSubPick = window._currentSubPick || 'football';
 window._currentSubHist = window._currentSubHist || 'foot';
 
 function _hideAllSportSections(){{
-  ['football','nba','tennis','analyse','nbasim','iabank','today','footsim','footanalyse','userpicks','foothist','nbahist','tennishist','pronos'].forEach(function(s){{
+  ['football','nba','tennis','analyse','nbasim','iabank','today','bot','footsim','footanalyse','userpicks','foothist','nbahist','tennishist','pronos'].forEach(function(s){{
     var el = document.getElementById('sport-'+s);
     if(el) el.style.display = 'none';
   }});
@@ -7108,7 +7117,7 @@ function _setMainBtnActive(tab){{
 // Simulation, Picks et Historique de Foot et Basket sont des vues de la meme section (mise a jour en
 // direct par la veille : foot_sim.html / nba_sim.html).
 var SP_NAV = {{
-  today:  [['today','Aujourd’hui']],
+  today:  [['today','Aujourd’hui'],['bot','🤖 Bot de nuit']],
   foot:   [['footsim','Simulation'],['footanalyse','Analyse'],['footpicks','Picks'],['foothist2','Historique']],
   basket: [['nbasim','Simulation'],['analyse','Analyse'],['nbapicks','Picks'],['nbahist2','Historique']],
   // tennis retire du menu le 05/11/2026 (Wilson : « je n'utilise plus le tennis ») ; pour le remettre :
@@ -7174,6 +7183,7 @@ document.addEventListener('DOMContentLoaded', function(){{ spInit(); ebLabel(); 
 function spInit(){{
   var main = 'today';   // premiere visite : l'onglet Aujourd'hui (05/11/2026)
   try {{ var m = JSON.parse(localStorage.getItem('spNavLast') || '{{}}'); if(m._main && SP_NAV[m._main]) main = m._main; }} catch(e) {{}}
+  if(location.hash === '#bot'){{ spNav('today', 'bot'); return; }}   // ancienne adresse bot.html
   spNav(main);
 }}
 
@@ -7214,6 +7224,9 @@ function showSport(sport){{
   }} else if(sport === 'nbasim'){{
     var el = document.getElementById('sport-nbasim'); if(el) el.style.display = 'block';
     _setMainBtnActive('nbasim');
+  }} else if(sport === 'bot'){{
+    var el = document.getElementById('sport-bot'); if(el) el.style.display = 'block';
+    _setMainBtnActive('today');
   }} else if(sport === 'today'){{
     var el = document.getElementById('sport-today'); if(el) el.style.display = 'block';
     _setMainBtnActive('today');
