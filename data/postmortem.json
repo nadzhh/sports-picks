@@ -1,106 +1,110 @@
 {
- "at": "2026-11-16T08:39+00:00",
- "last_night": "2026-11-15",
+ "at": "2026-11-17T07:27+00:00",
+ "last_night": "2026-11-16",
  "veille": [
   {
    "src": "Bankroll IA",
-   "night": "2026-11-15",
-   "p": 0.6406,
-   "price": 1.49,
-   "win": true,
+   "night": "2026-11-16",
+   "p": 0.6409,
+   "price": 1.53,
+   "win": false,
    "kind": "conv",
-   "stake": 1.9,
-   "label": "CHA @ LAC -0 Sion James moins de 1.5 paniers à 3 pts"
+   "stake": 2.0,
+   "label": "PHX @ DEN -0 Dillon Brooks moins de 2.5 passes",
+   "cause": "other",
+   "txt": ""
   },
   {
    "src": "Bankroll IA",
-   "night": "2026-11-15",
-   "p": 0.626,
+   "night": "2026-11-16",
+   "p": 0.6394,
    "price": 1.52,
    "win": true,
    "kind": "conv",
-   "stake": 1.6,
-   "label": "SA @ UTAH -0 Keyonte George moins de 2.5 paniers à 3 pts"
+   "stake": 1.9,
+   "label": "CHI @ CLE -0 Matas Buzelis moins de 2.5 passes"
   },
   {
    "src": "Canal Picks",
-   "night": "2026-11-15",
-   "p": 0.4512,
-   "price": 2.21,
+   "night": "2026-11-16",
+   "p": 0.5,
+   "price": 1.99,
+   "win": true,
+   "kind": "fill",
+   "stake": 0.25,
+   "label": "Josh Giddey moins de 6.5 rebonds (CHI @ CLE)"
+  },
+  {
+   "src": "Canal Picks",
+   "night": "2026-11-16",
+   "p": 0.5081,
+   "price": 1.94,
+   "win": true,
+   "kind": "fill",
+   "stake": 0.25,
+   "label": "Derrick White moins de 4.5 passes (ORL @ BOS)"
+  },
+  {
+   "src": "Canal Picks",
+   "night": "2026-11-16",
+   "p": 0.5956,
+   "price": 1.66,
    "win": false,
    "kind": "fill",
    "stake": 0.25,
-   "label": "Walker Kessler moins de 1.5 contres (LAL @ PHX)",
+   "label": "Alex Sarr moins de 1.5 contres (MEM @ WSH)",
    "cause": "near",
    "txt": "2 pour une ligne à 1.5"
   },
   {
    "src": "Canal Picks",
-   "night": "2026-11-15",
-   "p": 0.5235,
-   "price": 1.9,
+   "night": "2026-11-16",
+   "p": 0.5751,
+   "price": 1.73,
    "win": false,
    "kind": "fill",
    "stake": 0.25,
-   "label": "Moussa Diabate moins de 9.5 rebonds (CHA @ LAC)",
+   "label": "Day'Ron Sharpe moins de 8.5 rebonds (PHI @ BKN)",
+   "cause": "near",
+   "txt": "9 pour une ligne à 8.5"
+  },
+  {
+   "src": "Canal Picks",
+   "night": "2026-11-16",
+   "p": 0.4925,
+   "price": 2.03,
+   "win": false,
+   "kind": "fill",
+   "stake": 0.25,
+   "label": "LaMelo Ball plus de 3.5 paniers à 3 pts (POR @ MIN)",
    "cause": "rate",
-   "txt": "12 en 26 min (projeté 8.0 à ce temps de jeu)"
-  },
-  {
-   "src": "Canal Picks",
-   "night": "2026-11-15",
-   "p": 0.577,
-   "price": 1.72,
-   "win": true,
-   "kind": "fill",
-   "stake": 0.25,
-   "label": "Victor Wembanyama moins de 11.5 rebonds (SA @ UTAH)"
-  },
-  {
-   "src": "Canal Picks",
-   "night": "2026-11-15",
-   "p": 0.5417,
-   "price": 1.83,
-   "win": true,
-   "kind": "fill",
-   "stake": 0.25,
-   "label": "Neemias Queta moins de 7.5 rebonds (DAL @ BOS)"
-  },
-  {
-   "src": "Canal Picks",
-   "night": "2026-11-15",
-   "p": 0.4606,
-   "price": 2.14,
-   "win": true,
-   "kind": "fill",
-   "stake": 0.25,
-   "label": "Tyler Herro moins de 4.5 passes (ATL @ MIL)"
+   "txt": "2 en 24 min (projeté 3.3 à ce temps de jeu)"
   }
  ],
  "causes": {
-  "rate": 22,
+  "rate": 23,
   "minutes": 10,
-  "near": 26,
-  "other": 4,
+  "near": 28,
+  "other": 5,
   "lecture": 1
  },
  "calib": {
   "Bankroll IA": {
-   "n": 92,
-   "win": 0.598,
-   "announced": 0.546,
-   "noise": 0.104,
-   "roi": 0.13
+   "n": 94,
+   "win": 0.596,
+   "announced": 0.548,
+   "noise": 0.103,
+   "roi": 0.122
   },
   "Canal Picks": {
-   "n": 54,
-   "win": 0.519,
-   "announced": 0.587,
-   "noise": 0.134,
-   "roi": -0.133
+   "n": 59,
+   "win": 0.508,
+   "announced": 0.583,
+   "noise": 0.128,
+   "roi": -0.14
   }
  },
  "lessons": [
-  "63 paris perdus en 30 jours : 26 de malchance (bonne lecture, mauvais sort), 37 d'erreur de lecture."
+  "67 paris perdus en 30 jours : 28 de malchance (bonne lecture, mauvais sort), 39 d'erreur de lecture."
  ]
 }

@@ -1,5 +1,584 @@
 {
  "active": [],
- "tested": {},
- "history": []
+ "tested": {
+  "b2b": {
+   "at": "2026-11-17T06:59+00:00",
+   "gain": -0.00045,
+   "p": 0.917,
+   "ok": false,
+   "vs": []
+  },
+  "rest_adv": {
+   "at": "2026-11-17T06:59+00:00",
+   "gain": 3e-05,
+   "p": 0.372,
+   "ok": false,
+   "vs": []
+  },
+  "home": {
+   "at": "2026-11-17T06:59+00:00",
+   "gain": -8e-05,
+   "p": 0.978,
+   "ok": false,
+   "vs": []
+  },
+  "min_trend": {
+   "at": "2026-11-17T06:59+00:00",
+   "gain": -0.00017,
+   "p": 0.838,
+   "ok": false,
+   "vs": []
+  },
+  "line_l10": {
+   "at": "2026-11-17T06:59+00:00",
+   "gain": 0.00011,
+   "p": 0.383,
+   "ok": false,
+   "vs": []
+  },
+  "line_l40": {
+   "at": "2026-11-17T06:59+00:00",
+   "gain": -0.00025,
+   "p": 0.818,
+   "ok": false,
+   "vs": []
+  },
+  "med_gap": {
+   "at": "2026-11-17T06:59+00:00",
+   "gain": 8e-05,
+   "p": 0.41,
+   "ok": false,
+   "vs": []
+  },
+  "last_dev": {
+   "at": "2026-11-17T06:59+00:00",
+   "gain": -0.00096,
+   "p": 1.0,
+   "ok": false,
+   "vs": []
+  },
+  "hit_l10": {
+   "at": "2026-11-17T06:59+00:00",
+   "gain": -3e-05,
+   "p": 0.535,
+   "ok": false,
+   "vs": []
+  },
+  "move": {
+   "at": "2026-11-17T06:59+00:00",
+   "gain": 0.0,
+   "p": 0.465,
+   "ok": false,
+   "vs": []
+  },
+  "cv": {
+   "at": "2026-11-17T06:59+00:00",
+   "gain": -0.00034,
+   "p": 0.97,
+   "ok": false,
+   "vs": []
+  },
+  "star_out": {
+   "at": "2026-11-17T06:59+00:00",
+   "gain": -0.00036,
+   "p": 0.843,
+   "ok": false,
+   "vs": []
+  },
+  "opp_allowed": {
+   "at": "2026-11-17T06:59+00:00",
+   "gain": -0.0006,
+   "p": 1.0,
+   "ok": false,
+   "vs": []
+  },
+  "h2h": {
+   "at": "2026-11-17T06:59+00:00",
+   "gain": 2e-05,
+   "p": 0.033,
+   "ok": false,
+   "vs": []
+  },
+  "venue_split": {
+   "at": "2026-11-17T06:59+00:00",
+   "gain": -7e-05,
+   "p": 0.905,
+   "ok": false,
+   "vs": []
+  },
+  "blowout": {
+   "at": "2026-11-17T06:59+00:00",
+   "gain": -0.0007,
+   "p": 0.998,
+   "ok": false,
+   "vs": []
+  },
+  "total": {
+   "at": "2026-11-17T06:59+00:00",
+   "gain": -4e-05,
+   "p": 0.655,
+   "ok": false,
+   "vs": []
+  },
+  "fav": {
+   "at": "2026-11-17T06:59+00:00",
+   "gain": -6e-05,
+   "p": 0.655,
+   "ok": false,
+   "vs": []
+  },
+  "form_combo": {
+   "at": "2026-11-17T06:59+00:00",
+   "gain": 0.0001,
+   "p": 0.403,
+   "ok": false,
+   "vs": []
+  },
+  "sim_min_gap": {
+   "at": "2026-11-17T06:59+00:00",
+   "gain": -0.00054,
+   "p": 0.998,
+   "ok": false,
+   "vs": []
+  },
+  "early": {
+   "at": "2026-11-17T06:59+00:00",
+   "gain": -0.00059,
+   "p": 0.995,
+   "ok": false,
+   "vs": []
+  },
+  "vig": {
+   "at": "2026-11-17T06:59+00:00",
+   "gain": -6e-05,
+   "p": 0.905,
+   "ok": false,
+   "vs": []
+  },
+  "shots_trend": {
+   "at": "2026-11-17T06:59+00:00",
+   "gain": -7e-05,
+   "p": 0.655,
+   "ok": false,
+   "vs": []
+  }
+ },
+ "history": [],
+ "model": null,
+ "at": "2026-11-17T06:59+00:00",
+ "last": {
+  "at": "2026-11-17T06:59+00:00",
+  "n": 39069,
+  "active_before": [],
+  "adopted": null,
+  "removed": null,
+  "base": {
+   "n": 33782,
+   "ll": 0.6865603985136768,
+   "season": {
+    "2025-26": 0.68787,
+    "2026-27": 0.68629
+   },
+   "acc": 53.59,
+   "picks": {
+    "n": 651,
+    "hit": 44.7,
+    "roi": -5.0
+   }
+  },
+  "active": [],
+  "tried": [
+   {
+    "name": "b2b",
+    "label": "dos-à-dos (son équipe a joué la veille)",
+    "gain": -0.00045,
+    "p": 0.917,
+    "ok": false,
+    "acc": 53.46,
+    "picks": {
+     "n": 3600,
+     "hit": 51.7,
+     "roi": -1.4
+    },
+    "season": {
+     "2025-26": 0.68769,
+     "2026-27": 0.68687
+    }
+   },
+   {
+    "name": "rest_adv",
+    "label": "jours de repos de son équipe moins ceux de l'adversaire",
+    "gain": 3e-05,
+    "p": 0.372,
+    "ok": false,
+    "acc": 53.55,
+    "picks": {
+     "n": 866,
+     "hit": 49.1,
+     "roi": 2.5
+    },
+    "season": {
+     "2025-26": 0.68771,
+     "2026-27": 0.68629
+    }
+   },
+   {
+    "name": "home",
+    "label": "domicile / extérieur",
+    "gain": -8e-05,
+    "p": 0.978,
+    "ok": false,
+    "acc": 53.43,
+    "picks": {
+     "n": 1090,
+     "hit": 45.8,
+     "roi": -3.4
+    },
+    "season": {
+     "2025-26": 0.68837,
+     "2026-27": 0.68631
+    }
+   },
+   {
+    "name": "min_trend",
+    "label": "tendance des minutes (5 derniers matchs contre 20)",
+    "gain": -0.00017,
+    "p": 0.838,
+    "ok": false,
+    "acc": 53.55,
+    "picks": {
+     "n": 720,
+     "hit": 46.4,
+     "roi": -2.9
+    },
+    "season": {
+     "2025-26": 0.68789,
+     "2026-27": 0.68649
+    }
+   },
+   {
+    "name": "line_l10",
+    "label": "ligne comparée à sa moyenne sur 10 matchs",
+    "gain": 0.00011,
+    "p": 0.383,
+    "ok": false,
+    "acc": 53.6,
+    "picks": {
+     "n": 1124,
+     "hit": 51.0,
+     "roi": -4.0
+    },
+    "season": {
+     "2025-26": 0.68766,
+     "2026-27": 0.68617
+    }
+   },
+   {
+    "name": "line_l40",
+    "label": "ligne comparée à sa moyenne sur 40 matchs",
+    "gain": -0.00025,
+    "p": 0.818,
+    "ok": false,
+    "acc": 53.4,
+    "picks": {
+     "n": 956,
+     "hit": 51.9,
+     "roi": -1.9
+    },
+    "season": {
+     "2025-26": 0.68761,
+     "2026-27": 0.68661
+    }
+   },
+   {
+    "name": "med_gap",
+    "label": "ligne comparée à sa médiane sur 10 matchs",
+    "gain": 8e-05,
+    "p": 0.41,
+    "ok": false,
+    "acc": 53.74,
+    "picks": {
+     "n": 2284,
+     "hit": 51.9,
+     "roi": -2.6
+    },
+    "season": {
+     "2025-26": 0.68825,
+     "2026-27": 0.68612
+    }
+   },
+   {
+    "name": "last_dev",
+    "label": "dernier match au-dessus / en dessous de sa moyenne (sur-réaction du marché)",
+    "gain": -0.00096,
+    "p": 1.0,
+    "ok": false,
+    "acc": 53.16,
+    "picks": {
+     "n": 5330,
+     "hit": 48.3,
+     "roi": -7.1
+    },
+    "season": {
+     "2025-26": 0.69187,
+     "2026-27": 0.6868
+    }
+   },
+   {
+    "name": "hit_l10",
+    "label": "part de ses 10 derniers matchs au-dessus de la ligne",
+    "gain": -3e-05,
+    "p": 0.535,
+    "ok": false,
+    "acc": 53.46,
+    "picks": {
+     "n": 3155,
+     "hit": 50.9,
+     "roi": -4.9
+    },
+    "season": {
+     "2025-26": 0.68877,
+     "2026-27": 0.68617
+    }
+   },
+   {
+    "name": "move",
+    "label": "mouvement de la cote depuis l'ouverture",
+    "gain": 0.0,
+    "p": 0.465,
+    "ok": false,
+    "acc": 53.44,
+    "picks": {
+     "n": 1219,
+     "hit": 44.5,
+     "roi": -4.8
+    },
+    "season": {
+     "2025-26": 0.68813,
+     "2026-27": 0.68625
+    }
+   },
+   {
+    "name": "cv",
+    "label": "irrégularité du joueur (écart-type / moyenne sur 20 matchs)",
+    "gain": -0.00034,
+    "p": 0.97,
+    "ok": false,
+    "acc": 53.52,
+    "picks": {
+     "n": 6840,
+     "hit": 49.7,
+     "roi": -4.0
+    },
+    "season": {
+     "2025-26": 0.69104,
+     "2026-27": 0.6862
+    }
+   },
+   {
+    "name": "star_out",
+    "label": "points des coéquipiers majeurs absents",
+    "gain": -0.00036,
+    "p": 0.843,
+    "ok": false,
+    "acc": 53.48,
+    "picks": {
+     "n": 1021,
+     "hit": 47.2,
+     "roi": -4.5
+    },
+    "season": {
+     "2025-26": 0.68893,
+     "2026-27": 0.68657
+    }
+   },
+   {
+    "name": "opp_allowed",
+    "label": "ce que l'adversaire concède sur cette stat (15 derniers matchs)",
+    "gain": -0.0006,
+    "p": 1.0,
+    "ok": false,
+    "acc": 53.08,
+    "picks": {
+     "n": 3900,
+     "hit": 47.7,
+     "roi": -7.1
+    },
+    "season": {
+     "2025-26": 0.69216,
+     "2026-27": 0.68634
+    }
+   },
+   {
+    "name": "h2h",
+    "label": "face-à-face contre cet adversaire",
+    "gain": 2e-05,
+    "p": 0.033,
+    "ok": false,
+    "acc": 53.59,
+    "picks": {
+     "n": 646,
+     "hit": 45.2,
+     "roi": -4.0
+    },
+    "season": {
+     "2025-26": 0.68787,
+     "2026-27": 0.68627
+    }
+   },
+   {
+    "name": "venue_split",
+    "label": "écart domicile / extérieur propre au joueur",
+    "gain": -7e-05,
+    "p": 0.905,
+    "ok": false,
+    "acc": 53.47,
+    "picks": {
+     "n": 636,
+     "hit": 46.2,
+     "roi": -2.0
+    },
+    "season": {
+     "2025-26": 0.68787,
+     "2026-27": 0.68637
+    }
+   },
+   {
+    "name": "blowout",
+    "label": "écart prévu par le marché (titulaires sortis en cas de blowout)",
+    "gain": -0.0007,
+    "p": 0.998,
+    "ok": false,
+    "acc": 53.37,
+    "picks": {
+     "n": 798,
+     "hit": 46.6,
+     "roi": -1.5
+    },
+    "season": {
+     "2025-26": 0.68788,
+     "2026-27": 0.68708
+    }
+   },
+   {
+    "name": "total",
+    "label": "total de points prévu par le marché (rythme)",
+    "gain": -4e-05,
+    "p": 0.655,
+    "ok": false,
+    "acc": 53.49,
+    "picks": {
+     "n": 655,
+     "hit": 45.3,
+     "roi": -5.1
+    },
+    "season": {
+     "2025-26": 0.68787,
+     "2026-27": 0.68634
+    }
+   },
+   {
+    "name": "fav",
+    "label": "son équipe favorite ou outsider (écart du marché)",
+    "gain": -6e-05,
+    "p": 0.655,
+    "ok": false,
+    "acc": 53.6,
+    "picks": {
+     "n": 684,
+     "hit": 45.5,
+     "roi": -4.4
+    },
+    "season": {
+     "2025-26": 0.68788,
+     "2026-27": 0.68635
+    }
+   },
+   {
+    "name": "form_combo",
+    "label": "ligne contre sa forme récente (moyenne, médiane et réussite sur 10 matchs réunies)",
+    "gain": 0.0001,
+    "p": 0.403,
+    "ok": false,
+    "acc": 53.69,
+    "picks": {
+     "n": 1956,
+     "hit": 51.8,
+     "roi": -2.7
+    },
+    "season": {
+     "2025-26": 0.68801,
+     "2026-27": 0.68613
+    }
+   },
+   {
+    "name": "sim_min_gap",
+    "label": "minutes prévues par la simulation contre ses 10 derniers matchs",
+    "gain": -0.00054,
+    "p": 0.998,
+    "ok": false,
+    "acc": 53.18,
+    "picks": {
+     "n": 4324,
+     "hit": 47.8,
+     "roi": -7.7
+    },
+    "season": {
+     "2025-26": 0.69202,
+     "2026-27": 0.68628
+    }
+   },
+   {
+    "name": "early",
+    "label": "début de saison (peu de matchs joués cette saison)",
+    "gain": -0.00059,
+    "p": 0.995,
+    "ok": false,
+    "acc": 53.12,
+    "picks": {
+     "n": 6493,
+     "hit": 49.1,
+     "roi": -5.3
+    },
+    "season": {
+     "2025-26": 0.69076,
+     "2026-27": 0.68655
+    }
+   },
+   {
+    "name": "vig",
+    "label": "marge du bookmaker sur ce prop (ligne incertaine)",
+    "gain": -6e-05,
+    "p": 0.905,
+    "ok": false,
+    "acc": 53.52,
+    "picks": {
+     "n": 558,
+     "hit": 45.7,
+     "roi": -6.0
+    },
+    "season": {
+     "2025-26": 0.68789,
+     "2026-27": 0.68636
+    }
+   },
+   {
+    "name": "shots_trend",
+    "label": "tendance de ses tirs tentés (5 derniers matchs contre 20)",
+    "gain": -7e-05,
+    "p": 0.655,
+    "ok": false,
+    "acc": 53.37,
+    "picks": {
+     "n": 645,
+     "hit": 48.1,
+     "roi": -0.5
+    },
+    "season": {
+     "2025-26": 0.68788,
+     "2026-27": 0.68637
+    }
+   }
+  ]
+ }
 }
