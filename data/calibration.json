@@ -1,12 +1,22 @@
 {
- "genere_le": "2026-11-16T18:12:41",
- "n_resolus": 2850,
+ "genere_le": "2026-11-17T02:08:03",
+ "n_resolus": 2851,
  "parametres": {
   "n_min_jugement": 20,
   "seuil_pct": 50.0,
   "pas_tranche": 10
  },
  "marches": {
+  "foot/Victoire extérieur": {
+   "n": 216,
+   "wins": 100,
+   "wr": 46.3,
+   "borne_basse": 39.8,
+   "borne_haute": 53.0,
+   "statut": "SURVEILLE",
+   "cote_moyenne": 2.36,
+   "n_cotes": 27
+  },
   "foot/Double chance": {
    "n": 179,
    "wins": 146,
@@ -16,16 +26,6 @@
    "statut": "RETENU",
    "cote_moyenne": 1.55,
    "n_cotes": 18
-  },
-  "foot/Victoire extérieur": {
-   "n": 215,
-   "wins": 100,
-   "wr": 46.5,
-   "borne_basse": 40.0,
-   "borne_haute": 53.2,
-   "statut": "SURVEILLE",
-   "cote_moyenne": 2.36,
-   "n_cotes": 27
   },
   "foot/Victoire domicile": {
    "n": 228,
@@ -1109,24 +1109,10 @@
   }
  },
  "calibration": {
-  "foot/Double chance": {
-   "80-89": {
-    "n": 141,
-    "p": 80.9
-   },
-   "90-99": {
-    "n": 32,
-    "p": 87.5
-   },
-   "70-79": {
-    "n": 6,
-    "p": 72.6
-   }
-  },
   "foot/Victoire extérieur": {
    "70-79": {
-    "n": 82,
-    "p": 50.0
+    "n": 83,
+    "p": 49.4
    },
    "80-89": {
     "n": 35,
@@ -1139,6 +1125,20 @@
    "50-59": {
     "n": 25,
     "p": 36.0
+   }
+  },
+  "foot/Double chance": {
+   "80-89": {
+    "n": 141,
+    "p": 80.9
+   },
+   "90-99": {
+    "n": 32,
+    "p": 87.5
+   },
+   "70-79": {
+    "n": 6,
+    "p": 72.6
    }
   },
   "foot/Victoire domicile": {
