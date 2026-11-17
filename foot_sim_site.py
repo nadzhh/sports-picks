@@ -5,6 +5,7 @@ Donnees : data/foot_sim.json (foot_sim_run.py, 10 000 simulations minute par min
 Styles : composants .eb-* de site_theme.py ; JS de selection partage (foot_analyse_site.SCRIPT).
 Video du match type : foot_replay_player.js (canvas), donnees embarquees dans la fiche.
 """
+import os
 import html
 import json
 from datetime import datetime, timedelta, timezone
@@ -804,8 +805,14 @@ def build_foot_sim_page():
 
 
 def write_fragment(sec=None):
-    with open(FRAGMENT, "w", encoding="utf-8") as f:
-        f.write(sec if sec is not None else build_foot_sim_page()[1])
+    # construire AVANT d'ouvrir le fichier, puis remplacer d'un coup : une erreur de construction laisse la page
+    # precedente en place (17/11/2026 : foot_sim.html publie VIDE ~14 h apres un KeyError sur un petit club)
+    sec = sec if sec is not None else build_foot_sim_page()[1]
+    if not sec: raise ValueError("fragment vide : page precedente conservee")
+    tmp = FRAGMENT + ".tmp"
+    with open(tmp, "w", encoding="utf-8") as f:
+        f.write(sec)
+    os.replace(tmp, FRAGMENT)
 
 
 LOADER = """<script>

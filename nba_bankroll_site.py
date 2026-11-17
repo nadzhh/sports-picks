@@ -4,6 +4,7 @@ nba_bankroll_site.py — Onglet « Bankroll IA » (data/nba_bankroll.json, gere 
 Comme la section Simulation NBA : la page est ecrite dans nba_bankroll.html (publie par la veille a
 chaque pari place ou regle) ; index.html en garde une copie de secours remplacee si plus recente.
 """
+import os
 import html
 from datetime import datetime, timedelta, timezone
 
@@ -224,8 +225,14 @@ def build_bankroll_section(state=None):
 
 
 def write_fragment(sec=None):
-    with open(FRAGMENT, "w", encoding="utf-8") as f:
-        f.write(sec if sec is not None else build_bankroll_section())
+    # construire AVANT d'ouvrir le fichier, puis remplacer d'un coup : une erreur de construction laisse la page
+    # precedente en place (17/11/2026 : foot_sim.html publie VIDE ~14 h apres un KeyError sur un petit club)
+    sec = sec if sec is not None else build_bankroll_section()
+    if not sec: raise ValueError("fragment vide : page precedente conservee")
+    tmp = FRAGMENT + ".tmp"
+    with open(tmp, "w", encoding="utf-8") as f:
+        f.write(sec)
+    os.replace(tmp, FRAGMENT)
 
 
 def build_bankroll_page():

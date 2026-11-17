@@ -8,6 +8,7 @@ Styles : composants .eb-* de site_theme.py ; JS de selection partage avec
 foot_analyse_site.py. Visibilite par classes uniquement (optimize_html convertit
 les styles en ligne en classes).
 """
+import os
 import html
 import json
 from datetime import datetime, timedelta, timezone
@@ -1074,8 +1075,14 @@ def build_nba_sim_page():
 
 
 def write_fragment(sec=None):
-    with open(FRAGMENT, "w", encoding="utf-8") as f:
-        f.write(sec if sec is not None else build_nba_sim_section())
+    # construire AVANT d'ouvrir le fichier, puis remplacer d'un coup : une erreur de construction laisse la page
+    # precedente en place (17/11/2026 : foot_sim.html publie VIDE ~14 h apres un KeyError sur un petit club)
+    sec = sec if sec is not None else build_nba_sim_section()
+    if not sec: raise ValueError("fragment vide : page precedente conservee")
+    tmp = FRAGMENT + ".tmp"
+    with open(tmp, "w", encoding="utf-8") as f:
+        f.write(sec)
+    os.replace(tmp, FRAGMENT)
 
 
 LOADER_SCRIPT = """<script>
