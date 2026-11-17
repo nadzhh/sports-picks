@@ -159,11 +159,11 @@ def refit_calibration(rows_by_season):
 # ─── Mises par palier d'apres la realite ─────────────────────────────────────
 def adjust_stakes(params):
     import picks_du_jour as PJ
-    base = {"value": 1.0, "prop": 1.0, "boost": 1.0, "safe": 0.5, "best": 0.25, "fill": 0.25}
+    base = {"value": 1.0, "prop": 1.0, "boost": 1.0, "safe": 0.5, "best": 0.25, "fill": 0.25, "coup": 0.5}
     cur = dict(base, **(params.get("stakes") or {}))
     notes = []
     for kinds, key in ((("value", "prop"), "value"), (("boost",), "boost"), (("safe",), "safe"),
-                       (("best",), "best"), (("fill",), "fill")):
+                       (("best",), "best"), (("fill",), "fill"), (("coup",), "coup")):
         s = PJ.stats(kinds)
         if not s or s.get("clv") is None or s.get("clv_n", 0) < STAKE_MIN_N: continue
         if s["clv"] < STAKE_CUT and cur[key] > 0.1:

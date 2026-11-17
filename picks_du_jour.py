@@ -17,7 +17,7 @@ Palier « Meilleur prix » (Wilson, 05/11/2026 : les cotes francaises sont nette
 de 3 % de la cote juste Pinnacle ET ou ma simulation donne au moins la probabilite de Pinnacle. Esperance encore
 legerement NEGATIVE, annoncee comme telle : on paie ~1-3 % de marge au lieu de ~9,5 %. Suivi a part du palier value.
 """
-import difflib, json
+import difflib, html, json
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
@@ -45,7 +45,12 @@ TARGET_PICKS, FILL_MIN_EV = 5, -0.08   # 05/11 : les cotes FR coutent ~11 % ; a 
 # Paliers a petite mise (meilleur prix, complement) : cote >= 1,50 (Wilson, 05/11 : « 0,25 u a 1,09 ? inutile » :
 # gain de 0,02 u pour un cout de 8 %). Le palier safe garde son seuil de 1,40.
 SMALL_MIN_ODDS = 1.50
-STAKE = {"value": 1.0, "prop": 1.0, "boost": 1.0, "safe": 0.5, "best": 0.25, "fill": 0.25}
+STAKE = {"value": 1.0, "prop": 1.0, "boost": 1.0, "safe": 0.5, "best": 0.25, "fill": 0.25, "coup": 0.5}
+# 🔥 Bons coups (Wilson, 17/11/2026 : « le côté bon coup doit peser plus que le rendement ; une analyse vraiment
+# conséquente et favorable, même si le ROI est négatif, faudrait le prendre ») : props NBA dont l'argumentaire
+# (nba_argument) compte au moins COUP_MIN_PRO faits pour et COUP_MIN_NET de plus que contre, simulation d'accord,
+# classes par l'argumentaire AVANT l'esperance ; esperance toleree jusqu'a COUP_MIN_EV. Suivis a part (kind « coup »).
+COUP_MIN_EV, COUP_MIN_PRO, COUP_MIN_NET, COUP_MAX = -0.06, 5, 4, 3
 try:   # mises ajustees par improve_bot : un palier dont la CLV reelle est negative voit sa mise baisser
     STAKE.update(json.loads(Path("data/model_params.json").read_text(encoding="utf-8")).get("stakes") or {})
 except (OSError, ValueError):
@@ -318,6 +323,48 @@ def _hist_ok(x):
         return True
 
 
+_ARG = {}
+
+
+def strength(x):
+    """(pour, contre, puces pour, objection) de l'argumentaire d'un prop NBA, ou None (cache par passage)."""
+    r = x.get("res") or {}
+    if not (r.get("pid") and r.get("stat")): return None
+    key = (r.get("gid"), r["pid"], r["stat"], r["line"], r.get("side"))
+    if key not in _ARG:
+        try:
+            import nba_argument as NA
+            a = NA.for_pick(r.get("gid"), r["pid"], r["stat"], r["line"], r.get("side") == "o")
+        except Exception as e:
+            print(f"  [!] argumentaire {x.get('label')} : {type(e).__name__}: {e}")
+            a = None
+        if a:
+            pro, contre, resume = a
+            obj = resume.split("Objection principale : ", 1)[1] if "Objection principale : " in resume else ""
+            _ARG[key] = {"pro": len(pro), "contre": len(contre), "top": pro[:3], "obj": obj}
+        else:
+            _ARG[key] = None
+    return _ARG[key]
+
+
+def bons_coups(now, taken=(), hours=WINDOW_H):
+    """🔥 Bons coups : l'argumentaire d'abord (faits pour moins faits contre), l'esperance ensuite."""
+    out, seen = [], set(taken)
+    c = []
+    for x in prop_candidates(now, hours, min_ev=COUP_MIN_EV):
+        if x["price"] < SMALL_MIN_ODDS or x["match_id"] in seen: continue
+        if x.get("p_sim") is not None and x["p_sim"] < x["p_fair"] - 0.02: continue   # simulation d'accord
+        a = strength(x)
+        if not a or a["pro"] < COUP_MIN_PRO or a["pro"] - a["contre"] < COUP_MIN_NET: continue
+        if a["obj"].split(" Réponse : ")[-1].startswith(("aucune", "fragile")): continue   # objection sans reponse
+        c.append(dict(x, kind="coup", src="prop", arg=a))
+    for x in sorted(c, key=lambda x: (-(x["arg"]["pro"] - x["arg"]["contre"]), -x["arg"]["pro"], -x["ev"])):
+        if x["match_id"] in seen: continue
+        out.append(x); seen.add(x["match_id"])
+        if len(out) >= COUP_MAX: break
+    return sorted(out, key=lambda x: x["ko"])
+
+
 def fill(now, taken=(), have=0, hours=WINDOW_H):
     """Complement jusqu'a TARGET_PICKS (au plus un pari par match) : les paris les moins chers du moment, boosts
     compris, esperance >= FILL_MIN_EV. Jamais plus de picks que de matchs dans la fenetre."""
@@ -371,7 +418,7 @@ def record(picks, now):
 def settle_pick(p, box=None):
     """Resultat d'un pick termine ('win' / 'loss' / 'push' / None si pas encore connu) : value / meilleur prix /
     complement -> score ESPN ; prop -> feuille de match ; boost -> score et mi-temps. Partage avec la Bankroll IA."""
-    kind = p.get("src") if p["kind"] in ("safe", "fill") else p["kind"]
+    kind = p.get("src") if p["kind"] in ("safe", "fill", "coup") else p["kind"]
     if kind == "boost" or p.get("src") == "boost":
         import boosts as BO
         return BO.settle((p.get("res") or {}).get("boost") or {})
@@ -447,15 +494,23 @@ def stats(kinds=("value", "prop")):
 
 
 # ─── Message ─────────────────────────────────────────────────────────────────
-def coup_du_jour(picks):
-    """Bloc « COUP DU JOUR » (Wilson, 16/11/2026, d'apres un post qui lui plait) : le pick a la meilleure esperance, une
-    accroche chiffree, ses meilleurs arguments et l'objection principale avec sa reponse (nba_argument pour les props)."""
-    i, x = max(enumerate(picks, 1), key=lambda t: t[1]["ev"])
+def coup_du_jour(picks, coups=()):
+    """Bloc « COUP DU JOUR » (Wilson, 16/11/2026, d'apres un post qui lui plait) : une accroche chiffree, ses meilleurs
+    arguments et l'objection principale avec sa reponse (nba_argument pour les props). 17/11 : le bon coup le mieux
+    argumente passe avant le pick a la meilleure esperance (« le bon coup doit peser plus que le rendement »)."""
+    if coups:
+        x = max(coups, key=lambda x: (x["arg"]["pro"] - x["arg"]["contre"], x["ev"]))
+        tag = f"🔥 {x['arg']['pro']} faits pour, {x['arg']['contre']} contre"
+    else:
+        i, x = max(enumerate(picks, 1), key=lambda t: t[1]["ev"])
+        tag = f"n° {i}"
     ico = "⚽" if x["sport"] == "foot" else "🏀"
-    out = [f"\n{ico}⭐ <b>COUP DU JOUR</b> (n° {i})",
+    ev = (f"Espérance <b>{100 * x['ev']:+.0f} %</b>." if x["ev"] >= 0 else
+          f"Coût attendu {_fr(100 * -x['ev'], 1)} % : je le prends pour l'analyse, pas pour le prix.")
+    out = [f"\n{ico}⭐ <b>COUP DU JOUR</b> ({tag})",
            f"<b>{x['label'].upper()}</b> · {x['match']} · @ {_fr(x['price'])}",
-           f"Mon modèle : <b>{round(100 * x['p'])} %</b> de chances. La cote {_fr(x['price'])} n'en suppose que "
-           f"{round(100 / x['price'])} %. Espérance <b>{100 * x['ev']:+.0f} %</b>."]
+           f"Mon modèle : <b>{round(100 * x['p'])} %</b> de chances. La cote {_fr(x['price'])} en suppose "
+           f"{round(100 / x['price'])} %. " + ev]
     r = x.get("res") or {}
     arg = None
     if r.get("pid") and r.get("stat"):
@@ -490,18 +545,19 @@ def message(picks, now):
     safe = [x for x in picks if x["kind"] == "safe"]
     boost = [x for x in picks if x["kind"] == "boost"]
     filler = [x for x in picks if x["kind"] == "fill"]
-    picks = [x for x in picks if x["kind"] not in ("best", "safe", "boost", "fill")]
+    coups = [x for x in picks if x["kind"] == "coup"]
+    picks = [x for x in picks if x["kind"] not in ("best", "safe", "boost", "fill", "coup")]
 
     def mise(x):
         k = x.get("stake", 1.0)
         return f" · mise <b>{(f'{k:g}').replace('.', ',')} u</b>"
-    if not picks and not best and not safe and not boost and not filler:
+    if not picks and not best and not safe and not boost and not filler and not coups:
         return (head + "\n\nAucun pari ne bat la marge du bookmaker pour les 24 prochaines heures. "
                 "Je préfère ne rien poster que poster un pari perdant sur la durée." + foot)
     lines = [head, (f"{len(picks)} pick{'s' if len(picks) > 1 else ''}, classés par heure · probabilités recalées sur les résultats réels"
                     if picks else "Aucun pari ne bat la marge du bookmaker aujourd'hui (pas de value).")]
-    if picks:
-        lines.append(coup_du_jour(picks))
+    if picks or coups:
+        lines.append(coup_du_jour(picks, coups))
     for i, x in enumerate(picks, 1):
         ico = "⚽" if x["sport"] == "foot" else "🏀"
         mini =1.0 / x["p"] * (1 + (MIN_EV_VALUE if x["kind"] == "value" else MIN_EV_PROP))
@@ -512,6 +568,20 @@ def message(picks, now):
         lines.append(f"\n{i}. {ico} <b>{x['match']}</b> · {_hm(_t(x['ko']))} · <i>{x['league']}</i>\n"
                      f"• <b>{x['label']}</b>{tag} — {_px(x)} (à prendre si ≥ {_fr(mini)})\n"
                      f"• proba retenue {round(100 * x['p'])} % ({why}) · espérance <b>{100 * x['ev']:+.0f} %</b>" + mise(x))
+    if coups:
+        lines.append("\n🔥 <b>Bons coups</b> — l'analyse avant le prix : beaucoup de faits pour, peu contre, simulation "
+                     "d'accord. Ils peuvent coûter un peu (coût affiché) ; suivis à part.")
+        for x in coups:
+            a = x["arg"]
+            lines.append(f"🏀 <b>{x['match']}</b> · {_hm(_t(x['ko']))}\n"
+                         f"• <b>{x['label']}</b> — {_px(x)} · gagné {round(100 * x['p'])} % · "
+                         f"<b>{a['pro']} faits pour, {a['contre']} contre</b> · "
+                         + (f"espérance <b>{100 * x['ev']:+.0f} %</b>" if x["ev"] >= 0 else f"{_cl(x)} {_fr(100 * -x['ev'], 1)} %")
+                         + mise(x) + "".join(f"\n  ✓ {html.escape(t, quote=False)}" for t in a["top"][:2]))
+        sc = stats(("coup",))
+        if sc:
+            lines.append(f"<i>Bons coups depuis le {sc['since'][8:]}/{sc['since'][5:7]} : {sc['w']}-{sc['n'] - sc['w']}, "
+                         f"{sc['units']:+.1f} u (ROI {100 * sc['roi']:+.0f} %).</i>")
     if boost:
         lines.append("\n⚡ <b>Cotes boostées rentables</b> — boost au-dessus de sa cote juste (modèle calé sur Pinnacle, "
                      "vérifié sur 2 548 matchs), espérance ≥ +5 %.")
@@ -587,6 +657,7 @@ def all_picks(now=None):
     """La selection du soir, tous paliers, avec la mise de chacun (meme liste pour Telegram et le site)."""
     now = now or datetime.now(timezone.utc)
     picks = select(now)
+    picks += bons_coups(now, taken={x["match_id"] for x in picks})
     picks += boost_picks(now, taken={x["match_id"] for x in picks})
     picks += safe_picks(now, taken={x["match_id"] for x in picks})
     picks += best_price(now, taken={x["match_id"] for x in picks})

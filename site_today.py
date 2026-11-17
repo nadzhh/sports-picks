@@ -95,7 +95,7 @@ def _stake(x):
 
 def _pick_row(x, sims, nba):
     ico = "⚽" if x["sport"] == "foot" else "🏀"
-    kind = x.get("src") if x["kind"] in ("safe", "fill") else x["kind"]
+    kind = x.get("src") if x["kind"] in ("safe", "fill", "coup") else x["kind"]
     ref = ("juste " + _fr(1 / x["p"]) + " (modèle calé sur Pinnacle)" if kind == "boost" else
            f"juste {x.get('fair_src', 'Pinnacle')} {_fr(1 / x['p_fair'])}" if kind in ("value", "best") else f"marché {_pc(x['p_fair'])}")
     if x.get("p_sim") is not None: ref += f" · ma simu {_pc(x['p_sim'])}"
@@ -121,14 +121,14 @@ def _tier_stats(kinds):
 
 def _tiers(now):
     """{palier: [picks]} de la selection du soir (picks_du_jour.all_picks : meme liste que le canal Telegram)."""
-    T = {"value": [], "boost": [], "safe": [], "best": [], "fill": []}
+    T = {"value": [], "coup": [], "boost": [], "safe": [], "best": [], "fill": []}
     for x in PJ.all_picks(now):
         T["value" if x["kind"] in ("value", "prop") else x["kind"]].append(x)
     return T
 
 
 TIER_TAG = {"value": ("Value", "acc"), "prop": ("Value", "acc"), "boost": ("⚡ Boost", "acc"), "safe": ("🛡️ Safe", "acc"),
-            "best": ("💡 Meilleur prix", "warn"), "fill": ("➕ Complément", "")}
+            "best": ("💡 Meilleur prix", "warn"), "fill": ("➕ Complément", ""), "coup": ("🔥 Bon coup", "acc")}
 
 
 def _detail(x, sims, nba):
@@ -210,6 +210,12 @@ def _picks_card(now, sims, nba):
     out += ("".join(_pick_row(x, sims, nba) for x in T["value"]) if T["value"] else
             '<p class="td-none">Aucun pari ne bat la marge du bookmaker en ce moment.</p>')
     out += _tier_stats(("value", "prop"))
+    if T["coup"]:
+        out += ('<div class="td-tier">🔥 Bons coups <span class="eb-tag acc">analyse très favorable · 0,5 u</span></div>'
+                + "".join(_pick_row(x, sims, nba) for x in T["coup"])
+                + f'<p class="eb-note">L’analyse avant le prix : au moins {PJ.COUP_MIN_PRO} faits pour et {PJ.COUP_MIN_NET} de '
+                  'plus que contre, simulation d’accord, objection principale avec une réponse. Ils peuvent coûter un peu '
+                  '(coût affiché) ; leur bilan est suivi à part pour vérifier que l’analyse paie.</p>' + _tier_stats(("coup",)))
     if T["boost"]:
         out += ('<div class="td-tier">⚡ Cotes boostées <span class="eb-tag acc">au-dessus de leur cote juste · 1 u</span></div>'
                 + "".join(_pick_row(x, sims, nba) for x in T["boost"]) + _tier_stats(("boost",)))
