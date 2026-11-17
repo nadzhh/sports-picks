@@ -80,10 +80,24 @@ CSS = """<style>
 .pc-seg span{padding:4px 6px;min-width:34px;text-align:center;font-weight:700}
 .pc-plot{position:relative;display:flex;align-items:flex-end;gap:3px;height:150px;padding:16px 34px 0 0;border-bottom:1px solid var(--line,#1e293b)}
 .pc-col{flex:1 1 0;min-width:0;height:100%;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;cursor:pointer;position:relative}
-.pc-col i{display:block;width:100%;max-width:30px;border-radius:4px 4px 0 0;min-height:3px}
+.pc-col i{display:block;width:100%;max-width:30px;border-radius:4px 4px 0 0;min-height:3px;transform-origin:50% 100%;transition:transform .12s,opacity .12s,filter .12s}
 .pc-col.ok i{background:rgba(74,222,128,.55)}.pc-col.ko i{background:rgba(248,113,113,.55)}
-.pc-col.sel i,.pc-col:hover i{filter:brightness(1.35)}
-.pc-col em{font-style:normal;font-size:10.5px;color:var(--tx,#e2e8f0);margin-bottom:2px}
+.pc-col em{font-style:normal;font-size:10.5px;color:var(--tx,#e2e8f0);margin-bottom:2px;transition:transform .12s}
+.pc-plot.hv .pc-col:not(.hv) i{opacity:.4}
+.pc-col.hv i{transform:scale(1.22,1.03);filter:brightness(1.3) saturate(1.5)}
+.pc-col.ok.hv i{background:#22c55e}.pc-col.ko.hv i{background:#ef4444}
+.pc-col.hv em{font-weight:800;transform:scale(1.25) translateY(-2px)}
+.pc-col.hv::before{content:"";position:absolute;top:-16px;bottom:0;left:50%;border-left:1px solid rgba(226,232,240,.4);pointer-events:none}
+.pc-x div.hv{color:var(--tx,#e2e8f0)}
+.pc-pop{position:absolute;top:2px;z-index:5;display:none;min-width:150px;max-width:220px;background:var(--panel,#0f1511);border:1px solid rgba(148,163,184,.35);border-radius:10px;padding:7px 10px;box-shadow:0 8px 24px rgba(0,0,0,.45);pointer-events:none;font-size:11.5px;line-height:1.4}
+.pc-pop.on{display:block}
+.pc-ph{display:flex;align-items:center;gap:6px;justify-content:space-between}
+.pc-ph b{font-size:13px}
+.pc-res{font-weight:700;font-size:11px;padding:1px 6px;border-radius:5px;color:#fff}
+.pc-res.v{background:#16a34a}.pc-res.d{background:#dc2626}
+.pc-pd{color:var(--mu,#94a3b8);font-size:11px}
+.pc-pv{display:flex;justify-content:space-between;align-items:baseline;border-top:1px solid rgba(148,163,184,.2);margin-top:5px;padding-top:4px}
+.pc-pv b{font-size:18px}
 .pc-ln{position:absolute;left:0;right:34px;border-top:1.5px dashed #eab308;pointer-events:none}
 .pc-ln span{position:absolute;right:-34px;top:-9px;background:rgba(234,179,8,.15);color:#facc15;font-size:10.5px;padding:1px 4px;border-radius:4px}
 .pc-min{position:relative;height:26px;margin-right:34px}
@@ -140,11 +154,10 @@ function render(el){
     cols+='<div class="pc-col '+(win(v)?'ok':'ko')+(S.sel===i?' sel':'')+'" data-a="tip" data-v="'+i+'"><em>'+v+'</em><i style="height:'+(100*v/top).toFixed(1)+'%"></i></div>';
     xs+='<div><b>'+(g[2]?'':'@')+e(g[1])+'</b>'+g[0].slice(8,10)+'/'+g[0].slice(5,7)+'</div>';
     pts.push(((i+0.5)/G.length*100).toFixed(2)+','+(26-22*g[4]/48).toFixed(1));});
-  h+='<div class="pc-plot"><div class="pc-ln" style="bottom:'+(100*S.line/top).toFixed(1)+'%"><span>'+fr(S.line,1)+'</span></div>'+cols+'</div>';
+  h+='<div class="pc-plot"><div class="pc-pop"></div><div class="pc-ln" style="bottom:'+(100*S.line/top).toFixed(1)+'%"><span>'+fr(S.line,1)+'</span></div>'+cols+'</div>';
   h+='<div class="pc-min"><svg viewBox="0 0 100 26" preserveAspectRatio="none"><polyline points="'+pts.join(' ')+'" fill="none" stroke="#60a5fa" stroke-width="1.6" vector-effect="non-scaling-stroke"/></svg><span class="pc-mlab">min</span></div>';
   h+='<div class="pc-x">'+xs+'</div>';
-  var t=S.sel>=0&&G[S.sel]?G[S.sel]:null;
-  h+='<div class="pc-tip">'+(t?(t[2]?'vs ':'@ ')+'<b>'+e(t[1])+'</b> · '+t[0].slice(8,10)+'/'+t[0].slice(5,7)+'/'+t[0].slice(0,4)+(t[3]?' · '+e(t[3]):'')+' · <b>'+t[4]+' min</b> · <b>'+val(t,S.stat)+' '+e(def(S.stat)[1].toLowerCase())+'</b>':'Touche une barre pour le détail du match.')+'</div>';
+  h+='<div class="pc-tip">Survole ou touche une barre : score, date, minutes et '+e(def(S.stat)[1].toLowerCase())+' du match.</div>';
   function tile(lab,L){var n=L.length,k=L.filter(function(g){return win(val(g,S.stat));}).length,p=n?Math.round(100*k/n):0;
     return '<div><small>'+lab+'</small><b class="'+(n&&p>=50?'pc-ok':'pc-ko')+'">'+k+'/'+n+'</b><span class="'+(n&&p>=50?'pc-ok':'pc-ko')+'">'+(n?p+' %':'–')+'</span></div>';}
   var m5=all.slice(0,5).map(function(g){return g[4];}),m20=all.slice(0,20).map(function(g){return g[4];});
@@ -153,17 +166,46 @@ function render(el){
     +tile('Saison',all.filter(function(g){return g[14]===J.season;}))+tile('H2H '+e(J.opp),J.g.filter(function(g){return g[1]===J.opp;}))
     +'<div><small>Min L5</small><b>'+fr(a5,0)+'</b><span style="color:var(--mu,#94a3b8)">'+(a5-a20>=0?'+':'−')+fr(Math.abs(a5-a20),1)+' vs L20</span></div></div>';
   h+='<div class="pc-leg"><span><i></i>ligne</span><span><i class="m"></i>minutes jouées</span><span>barre verte = pari gagnant</span></div>';
-  el.innerHTML=h; el.setAttribute('data-r','1');
+  el.innerHTML=h; el.setAttribute('data-r','1'); el._G=G; el._win=win;
+  if(S.sel>=0&&G[S.sel]) pop(el,S.sel); 
 }
+/* bulle facon StatsHub (Wilson, 17/11/2026 : « quand je mets la souris dessus ça zoome et affiche le résultat du match
+   + la date et surtout le nombre de points / rebonds selon la stat choisie ») */
+var AB={PTS:'pts',REB:'reb',AST:'pas','3PM':'3pts'};
+function pop(el,i){
+  var G=el._G,g=G&&G[i],S=el._s,P=el.querySelector('.pc-pop'),plot=el.querySelector('.pc-plot');if(!g||!P)return;
+  var cols=plot.querySelectorAll('.pc-col'),xs=el.querySelectorAll('.pc-x div'),c=cols[i];
+  plot.classList.add('hv');
+  cols.forEach(function(x,k){x.classList.toggle('hv',k===i);});xs.forEach(function(x,k){x.classList.toggle('hv',k===i);});
+  var v=val(g,S.stat),d=def(S.stat),r=g[3]||'';
+  var parts=d[2].length>1?d[2].map(function(k){return (g[C[k]]||0)+' '+(AB[k]||k.toLowerCase());}).join(' · '):'';
+  P.innerHTML='<div class="pc-ph"><span>'+(g[2]?'vs ':'@ ')+'<b>'+e(g[1])+'</b> <span class="pc-pd">'+(g[2]?'domicile':'extérieur')+'</span></span>'
+    +(r?'<span class="pc-res '+(r.charAt(0)==='V'?'v':'d')+'">'+e(r)+'</span>':'')+'</div>'
+    +'<div class="pc-pd">'+g[0].slice(8,10)+'/'+g[0].slice(5,7)+'/'+g[0].slice(0,4)+' · '+g[4]+' min</div>'
+    +'<div class="pc-pv"><span>'+e(d[1])+'</span><b class="'+(el._win(v)?'pc-ok':'pc-ko')+'">'+v+'</b></div>'
+    +(parts?'<div class="pc-pd">'+parts+'</div>':'');
+  P.classList.add('on');
+  var W=plot.clientWidth,pw=P.offsetWidth,cx=c.offsetLeft+c.offsetWidth/2,
+      x=cx<W/2?c.offsetLeft+c.offsetWidth+6:c.offsetLeft-pw-6;
+  P.style.left=Math.max(0,Math.min(W-pw,x))+'px';
+}
+function unpop(el){var S=el._s;if(S&&S.sel>=0&&el._G&&el._G[S.sel]){pop(el,S.sel);return;}
+  var plot=el.querySelector('.pc-plot');if(!plot)return;plot.classList.remove('hv');
+  el.querySelectorAll('.hv').forEach(function(x){x.classList.remove('hv');});
+  var P=el.querySelector('.pc-pop');if(P)P.classList.remove('on');}
+function over(ev){var c=ev.target.closest&&ev.target.closest('.pc-col');var el=ev.currentTarget;
+  if(c&&el.contains(c))pop(el,parseInt(c.getAttribute('data-v'),10));
+  else if(!(ev.target.closest&&ev.target.closest('.pc-plot')))unpop(el);}
 function act(ev){var b=ev.target.closest('[data-a]'),el=ev.currentTarget;if(!b)return;ev.stopPropagation();var S=el._s,J=el._j,v=b.getAttribute('data-v'),a=b.getAttribute('data-a');
   if(a==='st'){S.stat=v;S.sel=-1;var L=v===J.stat?J.line:(J.lines[v]!=null?J.lines[v]:null);
     if(L==null){var vv=J.g.slice(0,10).map(function(g){return val(g,v);});L=Math.floor(med(vv))+0.5;}S.line=L;}
   else if(a==='l'){S.line=Math.max(0.5,S.line+parseFloat(v));}
   else if(a==='n'){S.n=Math.max(5,Math.min(J.g.length,S.n+parseInt(v,10)));S.sel=-1;}
   else if(a==='loc'){S.loc=v;S.sel=-1;}
-  else if(a==='tip'){S.sel=parseInt(v,10);}
+  else if(a==='tip'){var k=parseInt(v,10);S.sel=S.sel===k?-1:k;}
   render(el);}
-function scan(root){(root||document).querySelectorAll('.pc-chart:not([data-r])').forEach(function(el){try{render(el);el.addEventListener('click',act);}catch(x){}});}
+function scan(root){(root||document).querySelectorAll('.pc-chart:not([data-r])').forEach(function(el){try{render(el);el.addEventListener('click',act);el.addEventListener('mouseover',over);
+  el.addEventListener('mouseleave',function(){unpop(el);});}catch(x){}});}
 window.spPC={render:render,scan:scan};
 scan();
 var pend=false;new MutationObserver(function(){if(pend)return;pend=true;requestAnimationFrame(function(){pend=false;scan();});})

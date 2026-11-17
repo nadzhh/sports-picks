@@ -153,6 +153,7 @@ PK_CSS = """<style>
 tr.pk-det:not(.on){display:none!important}
 tr.pk-det>td{padding:6px 0 14px!important;background:transparent}
 tr.pk-det .pe-card{max-width:520px;box-sizing:border-box}
+tr.pk-det .pe-card.pe-wide{max-width:1180px}
 @media (max-width:760px){tr.pk-det.on{display:block!important}
   tr.pk-det>td{display:block!important;width:100%!important;padding:4px 0 12px!important;box-sizing:border-box}
   tr.pk-det>td::before{display:none!important}

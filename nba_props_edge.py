@@ -189,7 +189,7 @@ def card_for(gid, pid, stat, line, over):
         arg = _e(json.dumps(pr["name"])) + "," + _e(json.dumps(ANALYSE_KEY[stat]))
         link = (f'<button class="td-go pe-go" onclick="event.stopPropagation();spNav(&quot;basket&quot;,&quot;analyse&quot;);goToAnalyse({arg})">'
                 'Analyse complète (L5 · L10 · L20 · H2H) →</button>')
-    return CSS + assets() + card_html(x).replace('</p></div>', f'</p>{link}</div>', 1)
+    return CSS + assets() + card_html(x, link=link, wide=True)
 
 
 
@@ -339,7 +339,9 @@ def assets():
         return ""
 
 
-def card_html(x):
+def card_html(x, link="", wide=False):
+    """Fiche d'une prop. wide (clic sur un pick, 17/11/2026, Wilson : « l'argumentaire ecrit a droite du graphique ») :
+    graphique et chiffres a gauche, argumentaire a droite (empiles quand la fiche est etroite)."""
     h, line = x["hist"], x["line"]
     chart = _chart(x)
     side = "Plus" if x["over"] else "Moins"
@@ -353,12 +355,13 @@ def card_html(x):
     mine = (f'<div class="pe-mine" data-p="{x["p"]:.4f}"><input type="text" inputmode="decimal" autocomplete="off" '
             f'placeholder="Ta cote (Betclic, Winamax…)" oninput="peEv(this)" onclick="event.stopPropagation()">'
             f'<span class="pe-mv"></span></div>')
-    return (f'<div class="pe-card"><div class="pe-hd"><div><b class="pe-n">{_e(x["name"])}</b>'
+    arg = _arg(x, wide)
+    head = (f'<div class="pe-hd"><div><b class="pe-n">{_e(x["name"])}</b>'
             f'<span class="eb-dim"> · {_e(x["match"])} · {datetime.fromisoformat(x["ko"].replace("Z", "+00:00")).astimezone(_tz()):%H:%M}</span></div>'
             f'<span class="pe-p">{_am(x["p"]):+d}</span></div>'
             f'<div class="pe-line">{side} de <b>{line:g}</b> {_e(LABEL[x["stat"]])}'
-            + (f' <span class="eb-dim">({_e(stat)})</span>' if x["stat"] in SHORT else "") + '</div>'
-            + (chart or (
+            + (f' <span class="eb-dim">({_e(stat)})</span>' if x["stat"] in SHORT else "") + '</div>')
+    body = ((chart or (
             f'<div class="pe-plot"><div class="pe-ln" style="bottom:{100 * line / top:.1f}%"><span>{line:g}</span></div>{bars}</div>'
             + (f'<div class="pe-ax"><span>◀ plus ancien · {_dm(h["bars"][0][0])}</span>'
                f'<span>{_dm(h["bars"][-1][0])} · plus récent ▶</span></div>' if h["bars"] else '') +
@@ -374,18 +377,24 @@ def card_html(x):
                if x.get("derived") else
                f'<p class="pe-why">DraftKings : {x["dk"]:+d} ; <b>{x["am_novig"]:+d} sans la marge</b> ({round(100 * x["p_mkt"])} %), ')
             + f'ma simu {round(100 * x["p_sim"])} % → <b>cote juste {_fr(x["fair"])}</b>. '
-            f'<b class="eb-acc">Prends si ta cote ≥ {_fr(x["take"])}</b> (Betclic, Winamax…), sinon passe.</p>{mine}{_arg(x)}</div>')
+            f'<b class="eb-acc">Prends si ta cote ≥ {_fr(x["take"])}</b> (Betclic, Winamax…), sinon passe.</p>{mine}')
+    if wide and arg:
+        return (f'<div class="pe-card pe-wide">{head}<div class="pe-cols"><div class="pe-main">{body}{link}</div>'
+                f'<div class="pe-side">{arg}</div></div></div>')
+    return f'<div class="pe-card">{head}{body}{arg}{link}</div>'
 
 
-def _arg(x):
-    """Argumentaire facon « NBA PLAY » (nba_argument) replie sous la fiche."""
+def _arg(x, wide=False):
+    """Argumentaire facon « NBA PLAY » (nba_argument) : replie sous la fiche, ou colonne de droite (wide)."""
     try:
         import nba_argument as A
         a = A.for_pick(x["gid"], x["id"], x["stat"], x["line"], x["over"])
     except Exception:
         return ""
     # ouvert d'office (Wilson, 06/11 : « quand je clique sur l'analyse, l'argumentaire doit s'afficher tout de suite »)
-    return (f'<details class="eb-det pe-arg" open><summary>📝 Argumentaire</summary>{A.html_block(a)}</details>' if a else "")
+    if not a: return ""
+    if wide: return f'<div class="pe-arg"><div class="pe-ah">📝 Argumentaire</div>{A.html_block(a)}</div>'
+    return f'<details class="eb-det pe-arg" open><summary>📝 Argumentaire</summary>{A.html_block(a)}</details>'
 
 
 def _tz():
@@ -420,6 +429,13 @@ CSS = """<style>
 .pe-why{font-size:12.5px;line-height:1.5;margin:8px 0 0;color:var(--tx)}
 .pe-go{margin-top:10px}
 .pe-arg{margin-top:10px}
+.pe-wide{container-type:inline-size}
+.pe-cols{display:grid;grid-template-columns:minmax(0,600px) minmax(0,1fr);gap:22px;align-items:start}
+.pe-side .pe-arg{margin-top:0;border-left:1px solid var(--line);padding-left:20px}
+.pe-ah{font-weight:700;font-size:14px;margin:2px 0 4px}
+.pe-side .vd-why{margin-top:6px}
+@container (max-width:860px){.pe-cols{grid-template-columns:minmax(0,1fr);gap:4px}
+  .pe-side .pe-arg{border-left:0;padding-left:0;border-top:1px solid var(--line);padding-top:10px;margin-top:10px}}
 .na-w{font-weight:600;font-size:13px;margin:8px 0 2px;color:var(--warn)}
 .na-r{font-size:12.5px;line-height:1.5;color:var(--mu);margin:8px 0 0}
 .pe-mine{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-top:10px}
