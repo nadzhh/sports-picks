@@ -189,7 +189,7 @@ def card_for(gid, pid, stat, line, over):
         arg = _e(json.dumps(pr["name"])) + "," + _e(json.dumps(ANALYSE_KEY[stat]))
         link = (f'<button class="td-go pe-go" onclick="event.stopPropagation();spNav(&quot;basket&quot;,&quot;analyse&quot;);goToAnalyse({arg})">'
                 'Analyse complète (L5 · L10 · L20 · H2H) →</button>')
-    return CSS + card_html(x).replace('</p></div>', f'</p>{link}</div>', 1)
+    return CSS + assets() + card_html(x).replace('</p></div>', f'</p>{link}</div>', 1)
 
 
 
@@ -299,8 +299,49 @@ def _fr(x, d=2):
     return f"{x:.{d}f}".replace(".", ",")
 
 
+_LINES = {}
+
+
+def _player_lines(gid, pid):
+    """{stat: ligne du soir} de toutes les props DraftKings du joueur (onglets du graphique)."""
+    try:
+        from pathlib import Path as _P
+        f = _P("data/nba_sim.json"); mt = f.stat().st_mtime
+        if _LINES.get("mt") != mt:
+            sim = json.loads(f.read_text(encoding="utf-8"))
+            d = {}
+            for g in sim.get("games") or []:
+                for pr in g.get("props") or []:
+                    d.setdefault((str(g["gid"]), str(pr["id"])), {})[pr["stat"]] = pr["line"]
+            _LINES.clear(); _LINES.update(mt=mt, d=d)
+        return _LINES["d"].get((str(gid), str(pid))) or {}
+    except Exception:
+        return {}
+
+
+def _chart(x):
+    """Graphique joueur interactif facon StatsHub (nba_chart, 17/11/2026) ; chaine vide en cas de souci."""
+    try:
+        import nba_chart, nba_boxdb as B
+        return nba_chart.html(x["id"], x["name"], x["stat"], x["line"], x["over"], x["opp"], B.season_year(),
+                              lines=_player_lines(x.get("gid"), x["id"]),
+                              price=(f'DK {x["dk"]:+d}' if isinstance(x.get("dk"), (int, float)) else ""))
+    except Exception as e:
+        print(f"  [!] graphique {x.get('name')} : {type(e).__name__}: {e}")
+        return ""
+
+
+def assets():
+    try:
+        import nba_chart
+        return nba_chart.assets()
+    except Exception:
+        return ""
+
+
 def card_html(x):
     h, line = x["hist"], x["line"]
+    chart = _chart(x)
     side = "Plus" if x["over"] else "Moins"
     top = max([v for _, _, v in h["bars"]] + [line]) * 1.2 or 1
     bars = "".join(
@@ -317,11 +358,12 @@ def card_html(x):
             f'<span class="pe-p">{_am(x["p"]):+d}</span></div>'
             f'<div class="pe-line">{side} de <b>{line:g}</b> {_e(LABEL[x["stat"]])}'
             + (f' <span class="eb-dim">({_e(stat)})</span>' if x["stat"] in SHORT else "") + '</div>'
+            + (chart or (
             f'<div class="pe-plot"><div class="pe-ln" style="bottom:{100 * line / top:.1f}%"><span>{line:g}</span></div>{bars}</div>'
             + (f'<div class="pe-ax"><span>◀ plus ancien · {_dm(h["bars"][0][0])}</span>'
                f'<span>{_dm(h["bars"][-1][0])} · plus récent ▶</span></div>' if h["bars"] else '') +
             f'<div class="pe-chips">{chip("Saison", "season")}{chip("H2H", "h2h")}{chip("L5", "l5")}{chip("L10", "l10")}{chip("L20", "l20")}</div>'
-            f'<div class="pe-ft"><span>Moyenne L10 <b>{_fr(h["avg"], 1)}</b></span><span>Médiane L10 <b>{h["med"]:g}</b></span></div>'
+            f'<div class="pe-ft"><span>Moyenne L10 <b>{_fr(h["avg"], 1)}</b></span><span>Médiane L10 <b>{h["med"]:g}</b></span></div>'))
             # ecart net moyenne / mediane (16/11/2026) : un match extreme tire la moyenne, la mediane est plus parlante
             + (f'<p class="pe-why" style="color:var(--warn)">⚠️ Moyenne et médiane s’écartent : un match '
                f'{"très haut" if h["avg"] > h["med"] else "très bas"} tire la moyenne, fie-toi plutôt à la médiane.</p>'
@@ -416,7 +458,7 @@ def section_html(now=None):
     body = (f'<div class="pe-grid">{"".join(card_html(x) for x in P[:SHOW_FIRST])}</div>{more}' if P else
             '<p class="td-none">Aucun prop ce soir où le marché, ma simulation et l’historique vont dans le même sens à une '
             'cote d’au moins 1,60.</p>')
-    return (CSS + '<div class="eb-card"><h3 class="eb-h">📊 Props du soir <small>façon PropsEdge · marché sans marge + '
+    return (CSS + assets() + '<div class="eb-card"><h3 class="eb-h">📊 Props du soir <small>façon PropsEdge · marché sans marge + '
             'historique + ma simu</small></h3>' + body +
             '<p class="eb-note">Cote juste = probabilité DraftKings sans sa marge, corrigée de 10 % de l’écart de ma simulation '
             '(réglage validé sur 613 sélections réelles). L’historique (saison, face à l’adversaire, L5, L10, L20) sert de '

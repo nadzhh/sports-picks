@@ -601,12 +601,20 @@ def build_today_section(now=None):
         print(f"  [!] Aujourd'hui : picks du jour indisponibles ({type(e).__name__}: {e})")
         picks = '<div class="eb-card"><h3 class="eb-h">🎯 Picks du jour</h3><div class="eb-empty">Indisponibles pour le moment.</div></div>'
     stamp = now.isoformat(timespec="seconds")
-    return (f'<!--today:{stamp}--><!--eb:start--><div class="eb">'
+    return _dedupe(f'<!--today:{stamp}--><!--eb:start--><div class="eb">'
             f'<div class="td-head"><h2>{JOURS[loc.weekday()].capitalize()} {loc.day} {MOIS[loc.month - 1]}</h2>'
             f'<span class="eb-meta">mis à jour à {loc:%H:%M}</span></div>'
             f'<div class="td-grid"><div class="td-col">{picks}{_safe(_props_card)}{_bank_card()}{_safe(_bilan_card)}{_safe(_series_card)}{_safe(_bot_card)}</div>'
             f'<div class="td-col">{_safe(lambda: _boosts_card(now))}{_matches_card(now, sims, nba)}</div></div></div>'
             + CSS + SCRIPT + '<!--eb:end-->')
+
+
+def _dedupe(page):
+    try:
+        import nba_chart
+        return nba_chart.dedupe(page)
+    except Exception:
+        return page
 
 
 def write_fragment(sec=None):

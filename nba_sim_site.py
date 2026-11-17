@@ -1049,6 +1049,11 @@ def build_nba_sim_section(sim=None):
         hist_view = (f'<div class="eb eb-view" data-view="hist" data-eb="nbahist">{h_items or ""}'
                      '<div class="eb-card eb-empty">Premier bilan après les matchs.</div></div>')
     picks_view = f'<div class="eb eb-view" data-view="picks" data-eb="nbapick">{_picks_view(games, picks)}</div>'
+    try:   # graphique joueur (nba_chart) : un seul bloc style + script dans la section
+        import nba_chart
+        picks_view = nba_chart.dedupe(picks_view)
+    except Exception:
+        pass
     return (f'<!--nba-sim:{_e((sim or {}).get("generated_at", ""))}-->'
             f'<!--eb:start-->{sim_view}{picks_view}{hist_view}'
             + EB_SCRIPT + PROPS_SCRIPT + ASK_SCRIPT + SIDE_SCRIPT + site_live.LIVE_SCRIPT + _player_script() + V.CSS + V.SCRIPT + '<!--eb:end-->')
