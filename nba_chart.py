@@ -80,7 +80,7 @@ CSS = """<style>
 .pc-seg span{padding:4px 6px;min-width:34px;text-align:center;font-weight:700}
 .pc-plot{position:relative;display:flex;align-items:flex-end;gap:3px;height:150px;padding:16px 34px 0 0;border-bottom:1px solid var(--line,#1e293b)}
 .pc-col{flex:1 1 0;min-width:0;height:100%;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;cursor:pointer;position:relative}
-.pc-col i{display:block;width:100%;max-width:30px;border-radius:4px 4px 0 0;min-height:3px;transform-origin:50% 100%;transition:transform .12s,opacity .12s,filter .12s}
+.pc-col i{display:block;flex-shrink:0;width:100%;max-width:30px;border-radius:4px 4px 0 0;min-height:3px;transform-origin:50% 100%;transition:transform .12s,opacity .12s,filter .12s}
 .pc-col.ok i{background:rgba(74,222,128,.55)}.pc-col.ko i{background:rgba(248,113,113,.55)}
 .pc-col em{font-style:normal;font-size:10.5px;color:var(--tx,#e2e8f0);margin-bottom:2px;transition:transform .12s}
 .pc-plot.hv .pc-col:not(.hv) i{opacity:.4}
@@ -154,7 +154,7 @@ function render(el){
     cols+='<div class="pc-col '+(win(v)?'ok':'ko')+(S.sel===i?' sel':'')+'" data-a="tip" data-v="'+i+'"><em>'+v+'</em><i style="height:'+(100*v/top).toFixed(1)+'%"></i></div>';
     xs+='<div><b>'+(g[2]?'':'@')+e(g[1])+'</b>'+g[0].slice(8,10)+'/'+g[0].slice(5,7)+'</div>';
     pts.push(((i+0.5)/G.length*100).toFixed(2)+','+(26-22*g[4]/48).toFixed(1));});
-  h+='<div class="pc-plot"><div class="pc-pop"></div><div class="pc-ln" style="bottom:'+(100*S.line/top).toFixed(1)+'%"><span>'+fr(S.line,1)+'</span></div>'+cols+'</div>';
+  h+='<div class="pc-plot"><div class="pc-pop"></div><div class="pc-ln" style="bottom:calc((100% - 16px)*'+(S.line/top).toFixed(4)+')"><span>'+fr(S.line,1)+'</span></div>'+cols+'</div>';
   h+='<div class="pc-min"><svg viewBox="0 0 100 26" preserveAspectRatio="none"><polyline points="'+pts.join(' ')+'" fill="none" stroke="#60a5fa" stroke-width="1.6" vector-effect="non-scaling-stroke"/></svg><span class="pc-mlab">min</span></div>';
   h+='<div class="pc-x">'+xs+'</div>';
   h+='<div class="pc-tip">Survole ou touche une barre : score, date, minutes et '+e(def(S.stat)[1].toLowerCase())+' du match.</div>';
