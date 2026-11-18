@@ -37,7 +37,7 @@ DIGEST_PATH = "data/telegram_digest.json"   # jour du dernier recapitulatif Tele
 PUBLISHED = [FRAGMENT, R.OUT_PATH, str(R.PICKS_PATH), "data/nba_sim_history.json", BS.FRAGMENT, str(BK.BANK_PATH),
              FS.FRAGMENT, str(FR.OUT_PATH), str(FB.HIST_PATH), str(EV.PATH), DIGEST_PATH, "data/telegram_picks.json",
              "data/foot_competitions.json", "data/strategy_lab.json", ST.FRAGMENT, "data/boosts.json", "data/props_edge.json", "data/sentinel.json",
-             "data/espn_foot_odds.json", "data/foot_scorer_odds.json", "data/props_edge_track.json"]
+             "data/espn_foot_odds.json", "data/foot_scorer_odds.json", "data/props_edge_track.json", "data/nba_results.json"]
 # Foot (Top 5 + coupes d'Europe) : base mise a jour par tranches (premiere constitution en plusieurs
 # passages), simulation toutes les 30 min, a chaque cycle quand un match approche (composition officielle)
 FOOT_SEASONS = ("2026/2027", "2025/2026")   # saison en cours d'abord
@@ -205,7 +205,12 @@ class Live:
         # matchs commences : gardes 4 h apres le coup d'envoi pour le suivi en direct (score ESPN dans le navigateur)
         keep = {gid: g for gid, g in prev.items() if gid in live or now - _t(g["date"]) < LIVE_KEEP}
         keep.update({r["gid"]: r for r in fresh})
-        changed = bool(fresh) or new_results or set(keep) != set(prev)
+        try:   # Basket > Resultats : lignes DraftKings des matchs termines, proba simu d'avant-match (18/11/2026)
+            import nba_results
+            res_changed = nba_results.refresh(now)
+        except Exception as e:
+            print(f"  [!] resultats NBA : {type(e).__name__}: {e}"); res_changed = False
+        changed = bool(fresh) or new_results or res_changed or set(keep) != set(prev)
         if changed:
             R.save(list(keep.values()), fresh, self.year)
             write_fragment()

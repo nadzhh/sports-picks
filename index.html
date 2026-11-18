@@ -4711,13 +4711,13 @@ function _setMainBtnActive(tab){
 var SP_NAV = {
   today:  [['today','Aujourd’hui'],['bot','🤖 Bot de nuit']],
   foot:   [['footsim','Simulation'],['footanalyse','Analyse'],['footpicks','Picks'],['foothist2','Historique']],
-  basket: [['nbasim','Simulation'],['analyse','Analyse'],['nbapicks','Picks'],['nbahist2','Historique']],
+  basket: [['nbasim','Simulation'],['analyse','Analyse'],['nbapicks','Picks'],['nbares','Résultats 24 h'],['nbahist2','Historique']],
   // tennis retire du menu le 05/11/2026 (Wilson : « je n'utilise plus le tennis ») ; pour le remettre :
   // tennis: [['tennis','Picks'],['tennishist','Historique']],  + bouton nav-tennis + 5 colonnes (site_theme)
   iabank: [['iabank','Bankroll IA']]
 };
 var SP_VIEW = { footsim:['footsim','sim'], footpicks:['footsim','picks'], foothist2:['footsim','hist'],
-                nbasim:['nbasim','sim'], nbapicks:['nbasim','picks'], nbahist2:['nbasim','hist'] };
+                nbasim:['nbasim','sim'], nbapicks:['nbasim','picks'], nbares:['nbasim','res'], nbahist2:['nbasim','hist'] };
 window._spMain = 'basket'; window._spSub = 'nbasim';
 function spNav(main, sub){
   var items = SP_NAV[main] || SP_NAV.basket;

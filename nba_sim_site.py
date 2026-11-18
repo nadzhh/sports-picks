@@ -1049,13 +1049,20 @@ def build_nba_sim_section(sim=None):
         hist_view = (f'<div class="eb eb-view" data-view="hist" data-eb="nbahist">{h_items or ""}'
                      '<div class="eb-card eb-empty">Premier bilan après les matchs.</div></div>')
     picks_view = f'<div class="eb eb-view" data-view="picks" data-eb="nbapick">{_picks_view(games, picks)}</div>'
+    try:   # Basket > Resultats : matchs termines depuis moins de 24 h (nba_results, 18/11/2026)
+        import nba_results
+        res_view = f'<div class="eb eb-view" data-view="res" data-eb="nbares">{nba_results.view()}</div>'
+        res_v = nba_results.stamp()
+    except Exception as e:
+        print(f"  [!] resultats NBA : {type(e).__name__}: {e}")
+        res_view, res_v = '<div class="eb eb-view" data-view="res" data-eb="nbares"><div class="eb-card eb-empty">Résultats indisponibles.</div></div>', ""
     try:   # graphique joueur (nba_chart) : un seul bloc style + script dans la section
         import nba_chart
         picks_view = nba_chart.dedupe(picks_view)
     except Exception:
         pass
-    return (f'<!--nba-sim:{_e((sim or {}).get("generated_at", ""))}-->'
-            f'<!--eb:start-->{sim_view}{picks_view}{hist_view}'
+    return (f'<!--nba-sim:{_e((sim or {}).get("generated_at", ""))}{"|" + _e(res_v) if res_v else ""}-->'
+            f'<!--eb:start-->{sim_view}{picks_view}{res_view}{hist_view}'
             + EB_SCRIPT + PROPS_SCRIPT + ASK_SCRIPT + SIDE_SCRIPT + site_live.LIVE_SCRIPT + _player_script() + V.CSS + V.SCRIPT + '<!--eb:end-->')
 
 
