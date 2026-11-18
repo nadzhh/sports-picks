@@ -2991,10 +2991,10 @@ function render(el){
     +'<div class="pc-seg">'+[['all','Dom. + ext.'],['h','Domicile'],['a','Extérieur']].map(function(o){return '<button data-a="loc" data-v="'+o[0]+'" class="'+(S.loc===o[0]?'on':'')+'">'+o[1]+'</button>';}).join('')+'</div></div>';
   var cols='',xs='',pts=[];
   G.forEach(function(g,i){var v=vals[i];
-    cols+='<div class="pc-col '+(win(v)?'ok':'ko')+(S.sel===i?' sel':'')+'" data-a="tip" data-v="'+i+'"><em>'+v+'</em><i class="s3d4"></i></div>';
+    cols+='<div class="pc-col '+(win(v)?'ok':'ko')+(S.sel===i?' sel':'')+'" data-a="tip" data-v="'+i+'"><em>'+v+'</em><i data-h="'+(100*v/top).toFixed(1)+'"></i></div>';
     xs+='<div><b>'+(g[2]?'':'@')+e(g[1])+'</b>'+g[0].slice(8,10)+'/'+g[0].slice(5,7)+'</div>';
     pts.push(((i+0.5)/G.length*100).toFixed(2)+','+(26-22*g[4]/48).toFixed(1));});
-  h+='<div class="pc-plot"><div class="pc-pop"></div><div class="pc-ln s385"><span>'+fr(S.line,1)+'</span></div>'+cols+'</div>';
+  h+='<div class="pc-plot"><div class="pc-pop"></div><div class="pc-ln" data-r="'+(S.line/top).toFixed(4)+'"><span>'+fr(S.line,1)+'</span></div>'+cols+'</div>';
   h+='<div class="pc-min"><svg viewBox="0 0 100 26" preserveAspectRatio="none"><polyline points="'+pts.join(' ')+'" fill="none" stroke="#60a5fa" stroke-width="1.6" vector-effect="non-scaling-stroke"/></svg><span class="pc-mlab">min</span></div>';
   h+='<div class="pc-x">'+xs+'</div>';
   h+='<div class="pc-tip">Survole ou touche une barre : score, date, minutes et '+e(def(S.stat)[1].toLowerCase())+' du match.</div>';
@@ -3006,7 +3006,7 @@ function render(el){
     +tile('Saison',all.filter(function(g){return g[14]===J.season;}))+tile('H2H '+e(J.opp),J.g.filter(function(g){return g[1]===J.opp;}))
     +'<div><small>Min L5</small><b>'+fr(a5,0)+'</b><span class="s3ee">'+(a5-a20>=0?'+':'−')+fr(Math.abs(a5-a20),1)+' vs L20</span></div></div>';
   h+='<div class="pc-leg"><span><i></i>ligne</span><span><i class="m"></i>minutes jouées</span><span>barre verte = pari gagnant</span></div>';
-  el.innerHTML=h; el.setAttribute('data-r','1'); el._G=G; el._win=win;
+  el.innerHTML=h; el.setAttribute('data-r','1'); el._G=G; el._win=win;el.querySelectorAll('.pc-col i[data-h]').forEach(function(x){x.style.height=x.getAttribute('data-h')+'%';});var ln=el.querySelector('.pc-ln[data-r]');if(ln)ln.style.bottom='calc((100% - 16px)*'+ln.getAttribute('data-r')+')';
   if(S.sel>=0&&G[S.sel]) pop(el,S.sel); 
 }
 /* bulle facon StatsHub (Wilson, 17/11/2026 : « quand je mets la souris dessus ça zoome et affiche le résultat du match
@@ -3396,10 +3396,10 @@ function render(el){
     +'<div class="pc-seg">'+[['all','Dom. + ext.'],['h','Domicile'],['a','Extérieur']].map(function(o){return '<button data-a="loc" data-v="'+o[0]+'" class="'+(S.loc===o[0]?'on':'')+'">'+o[1]+'</button>';}).join('')+'</div></div>';
   var cols='',xs='',pts=[];
   G.forEach(function(g,i){var v=vals[i];
-    cols+='<div class="pc-col '+(win(v)?'ok':'ko')+(S.sel===i?' sel':'')+'" data-a="tip" data-v="'+i+'"><em>'+v+'</em><i class="s3d4"></i></div>';
+    cols+='<div class="pc-col '+(win(v)?'ok':'ko')+(S.sel===i?' sel':'')+'" data-a="tip" data-v="'+i+'"><em>'+v+'</em><i data-h="'+(100*v/top).toFixed(1)+'"></i></div>';
     xs+='<div><b>'+(g[2]?'':'@')+e(g[1])+'</b>'+g[0].slice(8,10)+'/'+g[0].slice(5,7)+'</div>';
     pts.push(((i+0.5)/G.length*100).toFixed(2)+','+(26-22*g[4]/48).toFixed(1));});
-  h+='<div class="pc-plot"><div class="pc-pop"></div><div class="pc-ln s385"><span>'+fr(S.line,1)+'</span></div>'+cols+'</div>';
+  h+='<div class="pc-plot"><div class="pc-pop"></div><div class="pc-ln" data-r="'+(S.line/top).toFixed(4)+'"><span>'+fr(S.line,1)+'</span></div>'+cols+'</div>';
   h+='<div class="pc-min"><svg viewBox="0 0 100 26" preserveAspectRatio="none"><polyline points="'+pts.join(' ')+'" fill="none" stroke="#60a5fa" stroke-width="1.6" vector-effect="non-scaling-stroke"/></svg><span class="pc-mlab">min</span></div>';
   h+='<div class="pc-x">'+xs+'</div>';
   h+='<div class="pc-tip">Survole ou touche une barre : score, date, minutes et '+e(def(S.stat)[1].toLowerCase())+' du match.</div>';
@@ -3411,7 +3411,7 @@ function render(el){
     +tile('Saison',all.filter(function(g){return g[14]===J.season;}))+tile('H2H '+e(J.opp),J.g.filter(function(g){return g[1]===J.opp;}))
     +'<div><small>Min L5</small><b>'+fr(a5,0)+'</b><span class="s3ee">'+(a5-a20>=0?'+':'−')+fr(Math.abs(a5-a20),1)+' vs L20</span></div></div>';
   h+='<div class="pc-leg"><span><i></i>ligne</span><span><i class="m"></i>minutes jouées</span><span>barre verte = pari gagnant</span></div>';
-  el.innerHTML=h; el.setAttribute('data-r','1'); el._G=G; el._win=win;
+  el.innerHTML=h; el.setAttribute('data-r','1'); el._G=G; el._win=win;el.querySelectorAll('.pc-col i[data-h]').forEach(function(x){x.style.height=x.getAttribute('data-h')+'%';});var ln=el.querySelector('.pc-ln[data-r]');if(ln)ln.style.bottom='calc((100% - 16px)*'+ln.getAttribute('data-r')+')';
   if(S.sel>=0&&G[S.sel]) pop(el,S.sel); 
 }
 /* bulle facon StatsHub (Wilson, 17/11/2026 : « quand je mets la souris dessus ça zoome et affiche le résultat du match

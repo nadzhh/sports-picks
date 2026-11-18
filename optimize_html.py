@@ -77,6 +77,10 @@ def collecte(html: str) -> dict:
         if not a:
             continue
         v = a[2].strip()
+        # style calcule par du code (chaine JavaScript « style="height:'+h+'%" ») : ce n'est pas une valeur, le figer
+        # en classe casse le code (19/11/2026 : barres du graphique joueur sans hauteur)
+        if any(t in v for t in ("'+", "+'", '"+', '+"')):
+            continue
         if len(v) >= 4:
             compte[v] = compte.get(v, 0) + 1
     return compte
