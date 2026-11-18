@@ -828,9 +828,10 @@ def _ana_view(sim, games, now, write=False):
         blocks += (f'<div class="sa-match"><div class="sa-host" data-src="lazy/simana/{_e(gid)}.html?v={vers[gid]}">'
                    f'<div class="sa-wait"><b>{_e(g["away"].get("name") or "")} @ {_e(g["home"].get("name") or "")}</b>'
                    f' <span>{_when(g.get("date", ""), now)} · chargement…</span></div></div></div>')
-    return (head + '<div class="sa-intro">🎬 <b>Analyse simulation</b> — mêmes graphiques que l’onglet Analyse, mais chaque '
-            'barre est un <b>match simulé</b> (le plus probable, calculé avant le match), pas un vrai match. Dernière barre = '
-            'ce soir. <b style="color:#60a5fa">━ Trait bleu</b> = ce que le joueur a vraiment fait ; ✅ / ❌ sous chaque match = la simu avait vu le bon côté de la ligne ou non.</div>'
+    return (head + '<div class="sa-intro">🎬 <b>Analyse simulation</b> — mêmes graphiques que l’onglet Analyse : '
+            'chaque barre est le <b>vrai match</b> (vert / rouge selon la ligne) et le <b style="color:#60a5fa">━ trait bleu</b> la '
+            '<b>simulation</b> faite avant ce match (le match le plus probable). ✅ / ❌ sous chaque match = la simu avait vu le bon '
+            'côté de la ligne ou non. Dernière barre en pointillés violets = ce soir, pas encore joué : la simu seule.</div>'
             f'{blocks}</div>' + SA_CSS + SA_SCRIPT)
 
 
