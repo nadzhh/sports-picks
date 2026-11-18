@@ -809,8 +809,9 @@ def _likely_safe(g):
 
 
 def _ana_view(sim, games, now, write=False):
-    """Basket > Analyse simu (nba_sim_analyse) : un bouton par match, la fiche (cadres facon Analyse sur les matchs
-    simules) est chargee au clic depuis lazy/simana/<gid>.html."""
+    """Basket > Analyse simu (nba_sim_analyse) : les matchs les uns sous les autres comme dans l'onglet Analyse
+    (Wilson, 18/11/2026) ; chaque match (cadres facon Analyse sur les matchs simules) est charge depuis
+    lazy/simana/<gid>.html quand on arrive dessus en defilant (~2,8 Mo chacun, 60 ko compresses)."""
     try:
         import nba_sim_analyse as SA
         vers = SA.write_all(sim) if write else SA.versions(sim)
@@ -820,48 +821,47 @@ def _ana_view(sim, games, now, write=False):
     head = '<div class="eb eb-view" data-view="ana" data-eb="nbasa">'
     if not vers:
         return head + '<div class="eb-card eb-empty">Analyse simulation indisponible pour le moment.</div></div>'
-    btns, dets, first = "", "", True
+    blocks = ""
     for g in games:
         gid = str(g["gid"])
         if gid not in vers: continue
-        btns += (f'<button class="eb-item{" on" if first else ""}" data-id="{_e(gid)}" onclick="ebPick(\'nbasa\',\'{_e(gid)}\');saShow()">'
-                 f'<div class="eb-item-top"><span>🎬 NBA</span><span>{_when(g.get("date", ""), now)}</span></div>'
-                 f'<div class="eb-item-t">{_e(_nick(g["away"]))} @ {_e(_nick(g["home"]))}</div></button>')
-        dets += (f'<section class="eb-detail{" on" if first else ""}" data-id="{_e(gid)}">'
-                 f'<div class="sa-host" data-src="lazy/simana/{_e(gid)}.html?v={vers[gid]}"></div></section>')
-        first = False
+        blocks += (f'<div class="sa-match"><div class="sa-host" data-src="lazy/simana/{_e(gid)}.html?v={vers[gid]}">'
+                   f'<div class="sa-wait"><b>{_e(g["away"].get("name") or "")} @ {_e(g["home"].get("name") or "")}</b>'
+                   f' <span>{_when(g.get("date", ""), now)} · chargement…</span></div></div></div>')
     return (head + '<div class="sa-intro">🎬 <b>Analyse simulation</b> — mêmes graphiques que l’onglet Analyse, mais chaque '
             'barre est un <b>match simulé</b> (le plus probable, calculé avant le match), pas un vrai match. Dernière barre = '
             'ce soir ; sous les matchs déjà joués, « réel » = ce que le joueur a vraiment fait.</div>'
-            f'<div class="sa-nav">{btns}</div><div class="sa-main">{dets}</div></div>' + SA_CSS + SA_SCRIPT)
+            f'{blocks}</div>' + SA_CSS + SA_SCRIPT)
 
 
 SA_CSS = """<style>
-.sa-intro{background:#1b1530;border:1px solid #7c3aed;color:#ddd6fe;border-radius:12px;padding:10px 14px;font-size:13px;line-height:1.5;margin-bottom:12px}
-.sa-nav{display:flex;gap:8px;overflow-x:auto;padding-bottom:6px;margin-bottom:12px}
-.sa-nav .eb-item{flex:0 0 auto;min-width:170px}
+.sa-intro{background:#1b1530;border:1px solid #7c3aed;color:#ddd6fe;border-radius:12px;padding:10px 14px;font-size:13px;line-height:1.5;margin-bottom:14px}
+.sa-match{background:#0f172a;border-radius:14px;margin-bottom:18px;padding:14px 18px;box-shadow:0 4px 20px rgba(0,0,0,.4)}
+.sa-wait{min-height:260px;color:#94a3b8;font-size:13px}.sa-wait b{color:#f1f5f9;font-size:17px;margin-right:8px}
 .sa-host .player-analyse{background:#1a1730!important}
 .sa-host .player-analyse[data-is-starter="1"]{border-left-color:#a78bfa!important}
+@media (max-width:640px){.sa-match{padding:10px 8px}}
 </style>"""
 
 SA_SCRIPT = """<script>
 (function(){
-  if(window.saShow)return;
-  window.saLoad=function(host){
-    if(!host||host.getAttribute('data-st'))return;
-    host.setAttribute('data-st','1');host.innerHTML='<div class="eb-card eb-empty">Chargement de l’analyse simulation…</div>';
-    fetch(host.getAttribute('data-src'),{cache:'no-cache'}).then(function(r){if(!r.ok)throw 0;return r.text();})
-      .then(function(h){host.innerHTML=h;})
-      .catch(function(){host.removeAttribute('data-st');
-        host.innerHTML='<div class="eb-card eb-empty">Chargement impossible. <button class="eb-more" onclick="saRetry(this)">Réessayer</button></div>';});
-  };
-  window.saRetry=function(b){saLoad(b.closest('.sa-host'));};
-  window.saShow=function(){
-    var v=document.querySelector('[data-eb="nbasa"]');if(!v||!v.classList.contains('on'))return;
-    saLoad(v.querySelector('.eb-detail.on .sa-host'));
-  };
-  var ev=window.ebView;
-  if(ev&&!ev._sa){window.ebView=function(s,w){ev(s,w);if(w==='ana')saShow();};window.ebView._sa=1;}
+  if(!window.saShow){
+    window.saLoad=function(host){
+      if(!host||host.getAttribute('data-st'))return;
+      host.setAttribute('data-st','1');
+      fetch(host.getAttribute('data-src'),{cache:'no-cache'}).then(function(r){if(!r.ok)throw 0;return r.text();})
+        .then(function(h){host.innerHTML=h;})
+        .catch(function(){host.removeAttribute('data-st');
+          host.innerHTML='<div class="eb-card eb-empty">Chargement impossible. <button class="eb-more" onclick="saRetry(this)">Réessayer</button></div>';});
+    };
+    window.saRetry=function(b){saLoad(b.closest('.sa-host'));};
+    var io='IntersectionObserver' in window?new IntersectionObserver(function(es){
+      es.forEach(function(e){if(e.isIntersecting){io.unobserve(e.target);saLoad(e.target);}});},{rootMargin:'900px 0px'}):null;
+    window.saShow=function(){
+      document.querySelectorAll('[data-eb="nbasa"] .sa-host:not([data-ob])').forEach(function(h){
+        h.setAttribute('data-ob','1');if(io)io.observe(h);else saLoad(h);});
+    };
+  }
   saShow();
 })();
 </script>"""
