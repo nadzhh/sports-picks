@@ -830,7 +830,7 @@ def _ana_view(sim, games, now, write=False):
                    f' <span>{_when(g.get("date", ""), now)} · chargement…</span></div></div></div>')
     return (head + '<div class="sa-intro">🎬 <b>Analyse simulation</b> — mêmes graphiques que l’onglet Analyse, mais chaque '
             'barre est un <b>match simulé</b> (le plus probable, calculé avant le match), pas un vrai match. Dernière barre = '
-            'ce soir. <b style="color:#60a5fa">Barre bleue</b> à côté = ce que le joueur a vraiment fait (matchs déjà joués).</div>'
+            'ce soir. <b style="color:#60a5fa">━ Trait bleu</b> = ce que le joueur a vraiment fait ; ✅ / ❌ sous chaque match = la simu avait vu le bon côté de la ligne ou non.</div>'
             f'{blocks}</div>' + SA_CSS + SA_SCRIPT)
 
 
@@ -862,6 +862,18 @@ SA_SCRIPT = """<script>
         h.setAttribute('data-ob','1');if(io)io.observe(h);else saLoad(h);});
     };
   }
+  if(window.recalcChart&&!window.recalcChart._sa){
+    var rc=window.recalcChart;
+    window.recalcChart=function(chart,v){rc(chart,v);if(chart)saVerdict(chart,v);};window.recalcChart._sa=1;
+  }
+  window.saVerdict=window.saVerdict||function(chart,v){
+    chart.querySelectorAll('.sa-pill').forEach(function(p){
+      var ok=(+p.getAttribute('data-s')>v)===(+p.getAttribute('data-r')>v);
+      p.textContent=ok?'✅ juste':'❌ ratée';p.style.color=ok?'#4ade80':'#f87171';});
+    chart.querySelectorAll('.sa-score').forEach(function(e){
+      var P=JSON.parse(e.getAttribute('data-p')||'[]'),k=0;
+      P.forEach(function(x){if((x[0]>v)===(x[1]>v))k++;});e.querySelector('b').textContent=k;});
+  };
   saShow();
 })();
 </script>"""

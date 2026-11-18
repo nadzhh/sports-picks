@@ -2386,21 +2386,28 @@ def _build_prop_chart_bars(games_window, ref_line, chart_max, with_labels=True, 
             rv = g.get("sim_real")
             sim_lbl = ('<br><span style="color:#60a5fa">réel <b>' + str(int(_compose_prop_value(rv, prop))) + '</b></span>'
                        if rv else '<br><span style="color:#64748b">réel —</span>')
-        # Analyse simu (19/11/2026, Wilson) : la vraie stat en barre bleue fine a cote de la barre simulee, meme
-        # echelle ; la barre verte / rouge garde l'essentiel de la largeur (et sa couleur, seule recalculee en JS)
+        # Analyse simu (19/11/2026, Wilson : « pas très ludique ») : une seule barre = la simu (vert / rouge selon la
+        # ligne, valeur dans la barre), la vraie stat = un trait bleu a sa hauteur, et sous le match une pastille
+        # ✅ simu juste / ❌ ratee (simu et vrai match du meme cote de la ligne) ; pastilles et bilan recalcules en JS
+        # quand on deplace la ligne (saVerdict, nba_sim_site)
         rv = g.get("sim_real")
         rval = int(_compose_prop_value(rv, prop)) if rv else None
         if "sim_real" in g or g.get("sim_tonight"):
-            r_px = max(3, round((rval / chart_max) * CHART_PX)) if (rval is not None and chart_max) else 0
-            top = (f'<div style="font-size:{font_val}px;font-weight:700;margin-bottom:3px;white-space:nowrap">'
-                   f'<span style="color:#f1f5f9">{int(val)}</span>'
-                   + (f' <span style="color:#60a5fa;font-size:{max(8, font_val - 2)}px">{rval}</span>' if rval is not None else "")
-                   + '</div>')
-            blue = (f'<div class="tg-real" title="Vrai match : {rval}" style="flex:0 0 24%;background:#3b82f6;height:{r_px}px;'
-                    f'border-radius:3px 3px 0 0"></div>' if rval is not None else '<div style="flex:0 0 24%"></div>')
-            fill = (f'<div style="width:100%;display:flex;align-items:flex-end;gap:2px">'
-                    f'<div class="tg-bar-fill" style="flex:1;min-width:0;background:{color};height:{bar_px}px;border-radius:3px 3px 0 0"></div>'
-                    f'{blue}</div>')
+            lab_in = bar_px >= 20
+            top = ("" if lab_in else f'<div style="color:#f1f5f9;font-size:{font_val}px;font-weight:700;margin-bottom:3px">{int(val)}</div>')
+            r_px = round((rval / chart_max) * CHART_PX) if (rval is not None and chart_max) else 0
+            mark = (f'<div class="tg-real" title="Vrai match : {rval}" style="position:absolute;left:-5px;right:-5px;'
+                    f'bottom:{max(0, r_px - 2)}px;height:4px;background:#60a5fa;border-radius:2px;'
+                    f'box-shadow:0 0 0 1.5px #0b1220;pointer-events:none"></div>' if rval is not None else "")
+            fill = (f'<div style="position:relative;width:100%">'
+                    f'<div class="tg-bar-fill" style="width:100%;background:{color};height:{bar_px}px;border-radius:3px 3px 0 0;'
+                    f'display:flex;justify-content:center;align-items:flex-start;padding-top:3px;box-sizing:border-box;color:#fff;'
+                    f'font-weight:800;font-size:{font_val}px;text-shadow:0 1px 2px rgba(0,0,0,.55)">{int(val) if lab_in else ""}</div>'
+                    f'{mark}</div>')
+            if rval is not None:
+                ok = (val > ref_line) == (rval > ref_line)
+                sim_lbl += (f'<br><span class="sa-pill" data-s="{val}" data-r="{rval}" style="color:{"#4ade80" if ok else "#f87171"};'
+                            f'font-weight:800">{"✅ juste" if ok else "❌ ratée"}</span>')
         else:
             top = f'<div style="color:#f1f5f9;font-size:{font_val}px;font-weight:700;margin-bottom:3px">{int(val)}</div>'
             fill = f'<div class="tg-bar-fill" style="width:100%;background:{color};height:{bar_px}px;border-radius:3px 3px 0 0"></div>'
@@ -2493,6 +2500,7 @@ def _build_prop_chart(player, prop, opp_abbr, book_line=None, match_ctx=None, bo
         pass
 
     import math as _math
+    _sim_pairs = [[v, _compose_prop_value(g["sim_real"], prop)] for g, v in pairs_l20 if g.get("sim_real")]
     median = sorted(l20_vals)[len(l20_vals)//2] if l20_vals else 0
     mean   = round(sum(l20_vals)/len(l20_vals), 1) if l20_vals else 0
     # Snap au demi-point le + proche (.5) car les bookmakers quotent toujours
@@ -2598,6 +2606,14 @@ def _build_prop_chart(player, prop, opp_abbr, book_line=None, match_ctx=None, bo
     )
 
     if player.get("_sim"): add_buttons = ""   # Analyse simu : pas d'ajout de pari depuis des matchs simules
+    sim_head = ""
+    if _sim_pairs:   # Analyse simu : bilan « la simu a vu juste X fois sur N » a la ligne courante
+        _k = sum(1 for x, y in _sim_pairs if (x > ref_line) == (y > ref_line))
+        sim_head = (f'<div class="sa-score" data-p="{_json.dumps(_sim_pairs)}" style="background:#1b1530;border:1px solid #4c1d95;'
+                    f'border-radius:8px;padding:6px 10px;margin-bottom:8px;font-size:13px;color:#ddd6fe">🎯 Simu juste '
+                    f'<b style="color:#fff">{_k}</b> fois sur <b style="color:#fff">{len(_sim_pairs)}</b> à cette ligne '
+                    f'<span style="color:#94a3b8;font-size:11.5px">· barre = simu (vert = au-dessus) · '
+                    f'<span style="color:#60a5fa;font-weight:700">━ trait bleu = vrai match</span> · ✅ = même côté de la ligne</span></div>')
     # Controle pour ajuster la ligne de reference (bookmakers quotent en x.5
     # uniquement, donc on bouge par pas de 1 sur la grille x.5)
     line_control = (
@@ -2630,7 +2646,7 @@ def _build_prop_chart(player, prop, opp_abbr, book_line=None, match_ctx=None, bo
         f'data-book-line="{"" if book_line is None else book_line}" data-median="{median}" '
         f'style="padding:6px 4px">'
         # Controle ligne
-        f'{line_control}'
+        f'{sim_head}{line_control}'
         # Badges hit rates en haut
         f'<div class="tg-badges-row" style="margin-bottom:8px;display:flex;flex-wrap:wrap;gap:4px;align-items:center">{badges}</div>'
         # Zone chart container
