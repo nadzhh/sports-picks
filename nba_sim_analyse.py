@@ -133,7 +133,7 @@ def build_game(g, now=None, real=None):
             f'{H.escape(win.get("name") or "")} dans {round(100 * (sc.get("p") or 0))} % des simulations. Chaque barre = la stat '
             'du joueur dans le match le plus probable simulé <b>avant</b> chaque match ; la plus récente est ce soir '
             '(<span style="color:#c4b5fd;font-weight:700">🎬 ce soir</span>). Sous les barres des matchs déjà joués : '
-            '<b>réel</b> = ce qu’il a vraiment fait. Lignes DraftKings de ce soir.</div></div>'
+            '<b style="color:#60a5fa">barre bleue et « réel »</b> = ce qu’il a vraiment fait. Lignes DraftKings de ce soir.</div></div>'
             '<div class="nba-teams2" style="display:grid;grid-template-columns:1fr 1fr;gap:12px">'
             f'<div><div style="color:#a78bfa;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:8px">'
             f'🏠 {H.escape(h.get("name") or "")}</div>{cols.get(0) or "Pas de joueurs"}</div>'

@@ -2384,13 +2384,30 @@ def _build_prop_chart_bars(games_window, ref_line, chart_max, with_labels=True, 
             sim_lbl = '<br><span style="color:#c4b5fd;font-weight:800">🎬 ce soir</span>'
         elif "sim_real" in g:
             rv = g.get("sim_real")
-            sim_lbl = ('<br><span style="color:#cbd5e1">réel <b>' + str(int(_compose_prop_value(rv, prop))) + '</b></span>'
+            sim_lbl = ('<br><span style="color:#60a5fa">réel <b>' + str(int(_compose_prop_value(rv, prop))) + '</b></span>'
                        if rv else '<br><span style="color:#64748b">réel —</span>')
+        # Analyse simu (19/11/2026, Wilson) : la vraie stat en barre bleue fine a cote de la barre simulee, meme
+        # echelle ; la barre verte / rouge garde l'essentiel de la largeur (et sa couleur, seule recalculee en JS)
+        rv = g.get("sim_real")
+        rval = int(_compose_prop_value(rv, prop)) if rv else None
+        if "sim_real" in g or g.get("sim_tonight"):
+            r_px = max(3, round((rval / chart_max) * CHART_PX)) if (rval is not None and chart_max) else 0
+            top = (f'<div style="font-size:{font_val}px;font-weight:700;margin-bottom:3px;white-space:nowrap">'
+                   f'<span style="color:#f1f5f9">{int(val)}</span>'
+                   + (f' <span style="color:#60a5fa;font-size:{max(8, font_val - 2)}px">{rval}</span>' if rval is not None else "")
+                   + '</div>')
+            blue = (f'<div class="tg-real" title="Vrai match : {rval}" style="flex:0 0 24%;background:#3b82f6;height:{r_px}px;'
+                    f'border-radius:3px 3px 0 0"></div>' if rval is not None else '<div style="flex:0 0 24%"></div>')
+            fill = (f'<div style="width:100%;display:flex;align-items:flex-end;gap:2px">'
+                    f'<div class="tg-bar-fill" style="flex:1;min-width:0;background:{color};height:{bar_px}px;border-radius:3px 3px 0 0"></div>'
+                    f'{blue}</div>')
+        else:
+            top = f'<div style="color:#f1f5f9;font-size:{font_val}px;font-weight:700;margin-bottom:3px">{int(val)}</div>'
+            fill = f'<div class="tg-bar-fill" style="width:100%;background:{color};height:{bar_px}px;border-radius:3px 3px 0 0"></div>'
         bars_html += (
             f'<div class="tg-bar" data-value="{val}" '
             f'style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;min-width:0">'
-            f'<div style="color:#f1f5f9;font-size:{font_val}px;font-weight:700;margin-bottom:3px">{int(val)}</div>'
-            f'<div class="tg-bar-fill" style="width:100%;background:{color};height:{bar_px}px;border-radius:3px 3px 0 0"></div>'
+            f'{top}{fill}'
             f'</div>'
         )
         if with_labels:
@@ -2531,7 +2548,7 @@ def _build_prop_chart(player, prop, opp_abbr, book_line=None, match_ctx=None, bo
             content = '<div style="color:#475569;font-size:12px;padding:10px;text-align:center">Pas assez de games</div>'
         else:
             window_vals = [v for _, v in pairs]
-            cmax = max(window_vals + [ref_line])
+            cmax = max(window_vals + [ref_line] + [_compose_prop_value(g["sim_real"], prop) for g, _ in pairs if g and g.get("sim_real")])
             if cmax <= 0: cmax = 1
             content = _build_prop_chart_bars(pairs, ref_line, cmax, with_labels=with_lbl, prop=prop)
         display = "block" if window_key == "L5" else "none"

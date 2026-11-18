@@ -830,7 +830,7 @@ def _ana_view(sim, games, now, write=False):
                    f' <span>{_when(g.get("date", ""), now)} · chargement…</span></div></div></div>')
     return (head + '<div class="sa-intro">🎬 <b>Analyse simulation</b> — mêmes graphiques que l’onglet Analyse, mais chaque '
             'barre est un <b>match simulé</b> (le plus probable, calculé avant le match), pas un vrai match. Dernière barre = '
-            'ce soir ; sous les matchs déjà joués, « réel » = ce que le joueur a vraiment fait.</div>'
+            'ce soir. <b style="color:#60a5fa">Barre bleue</b> à côté = ce que le joueur a vraiment fait (matchs déjà joués).</div>'
             f'{blocks}</div>' + SA_CSS + SA_SCRIPT)
 
 
