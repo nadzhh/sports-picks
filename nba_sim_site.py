@@ -26,6 +26,7 @@ except Exception:
 
 SIM_PATH = "data/nba_sim.json"
 FRAGMENT = "nba_sim.html"
+SECTION_REV = "r2"   # a augmenter quand le code de la section change sans nouvelle simulation (r2 : match le plus probable face aux lignes, 18/11/2026)
 JOURS = ["Lun.", "Mar.", "Mer.", "Jeu.", "Ven.", "Sam.", "Dim."]
 STAT_LABELS = {"PTS": "Points", "REB": "Rebonds", "AST": "Passes", "3PM": "Paniers à 3 pts", "PRA": "Pts + Reb + Pas",
                "PR": "Pts + Reb", "PA": "Pts + Pas", "RA": "Reb + Pas", "STL": "Interceptions", "BLK": "Contres"}
@@ -632,6 +633,129 @@ def _video(g, gid):
             'Bouton « Télécharger MP4 » sous la vidéo.</p></div>' + _keys(g))
 
 
+def _replay_box(path):
+    """Feuille de match du match video, cumulee depuis ses evenements exactement comme le lecteur
+    (nba_replay_player.js, prepare) : memes chiffres que l'ecran final de la video."""
+    try:
+        with open(path, encoding="utf-8") as f:
+            d = json.load(f)
+    except (OSError, ValueError):
+        return None, None
+    n = len(d.get("players") or [])
+    B = {k: [0.0] * n for k in ("MIN", "PTS", "REB", "AST", "3PM", "STL", "BLK")}
+    on, gprev = set(d.get("starters") or []), 0.0
+    for e in d.get("events") or []:
+        q, c = e.get("q", 1), e.get("c", 0)
+        g = (q - 1) * 720 + (720 - c) if q <= 4 else 2880 + (q - 5) * 300 + (300 - c)
+        for j in on: B["MIN"][j] += max(0.0, g - gprev) / 60
+        gprev = max(gprev, g)
+        k = e.get("k")
+        if k == "sub":
+            on -= set(e.get("out") or []); on |= set(e.get("in") or [])
+        elif k == "shot":
+            if e.get("made"):
+                B["PTS"][e["p"]] += e["v"]
+                if e["v"] == 3: B["3PM"][e["p"]] += 1
+                if e.get("ast") is not None: B["AST"][e["ast"]] += 1
+            if e.get("blk") is not None: B["BLK"][e["blk"]] += 1
+        elif k == "ft" and e.get("made"):
+            B["PTS"][e["p"]] += 1
+        elif k == "reb":
+            B["REB"][e["p"]] += 1
+        elif k == "to" and e.get("stl") is not None:
+            B["STL"][e["stl"]] += 1
+    return d, B
+
+
+LIKELY_COMP = {"PTS": ("PTS",), "REB": ("REB",), "AST": ("AST",), "3PM": ("3PM",), "STL": ("STL",), "BLK": ("BLK",),
+               "PR": ("PTS", "REB"), "PA": ("PTS", "AST"), "RA": ("REB", "AST"), "PRA": ("PTS", "REB", "AST")}
+
+
+def _likely(g):
+    """« Le match le plus probable face aux lignes » (Wilson, 18/11/2026) : chaque vraie ligne DraftKings du
+    match (props principales, pas les Reb+Pas deduites) face a ce que le joueur fait dans le match le plus
+    probable (celui de la video), avec la frequence sur toutes les simulations pour ne pas lire un seul
+    match comme une certitude."""
+    import nba_results as NR
+    rp = g.get("replay") or {}
+    sc = next((s for s in rp.get("scenarios") or [] if s.get("typical")), None)
+    props = [p for p in g.get("props") or [] if p.get("stat") in LIKELY_COMP and p.get("line") is not None]
+    if not sc or not props:
+        return ""
+    d, B = _replay_box(sc["path"])
+    if not d:
+        return ""
+    idx = {str(p["id"]): j for j, p in enumerate(d["players"])}
+    h, a = g["home"], g["away"]
+    fin, q = sc["final"], sc.get("quarters") or []
+    win = h if fin[0] > fin[1] else a
+    by = {}
+    for p in props:
+        by.setdefault(str(p["id"]), []).append(p)
+    rows, seen, n, n_over, agree, n_freq = "", [], 0, 0, 0, 0
+    for side, team in (("away", a), ("home", h)):
+        pids = sorted((pid for pid, ps in by.items() if ps[0].get("side") == side),
+                      key=lambda pid: -(B["MIN"][idx[pid]] if pid in idx else -1))
+        for pid in pids:
+            j = idx.get(pid)
+            mins = B["MIN"][j] if j is not None else 0
+            first = True
+            for p in sorted(by[pid], key=lambda p: NR.ORDER.index(p["stat"]) if p["stat"] in NR.ORDER else 99):
+                stat, line = p["stat"], float(p["line"])
+                if stat not in seen: seen.append(stat)
+                who = (f'<b>{_e(p["name"])}</b> <span class="eb-dim">{_e(team.get("abbr"))} · {round(mins)} min</span>')
+                ps = p.get("p_sim")
+                if j is None or mins <= 0:
+                    val, res = "—", '<span class="eb-dim">absent du match simulé</span>'
+                else:
+                    v = int(sum(B[c][j] for c in LIKELY_COMP[stat]))
+                    dlt = v - line
+                    n += 1; n_over += dlt > 0
+                    if ps is not None:
+                        n_freq += 1; agree += (dlt > 0) == (ps >= 0.5)
+                    val = f'<b>{v}</b>'
+                    res = (f'<span class="nr-ok">Plus</span> <span class="eb-dim">(+{NR._fr(dlt, 1)})</span>' if dlt > 0 else
+                           f'<span class="nr-ko">Moins</span> <span class="eb-dim">({NR._fr(dlt, 1)})</span>')
+                ov, un = p.get("over"), p.get("under")
+                odds = f'{int(ov):+d} / {int(un):+d}' if isinstance(ov, (int, float)) and isinstance(un, (int, float)) else ""
+                freq = f'{round(100 * ps)} % plus' if ps is not None else ""
+                mkt = f'{round(100 * p["p_mkt"])} %' if p.get("p_mkt") is not None else ""
+                rows += (f'<tr data-s="{stat}"><td class="{"" if first else "nr-rep"}">{who}</td>'
+                         f'<td>{_e(NR.LABEL.get(stat, stat))}</td><td class="n num">{line:g}</td><td class="n num">{val}</td>'
+                         f'<td>{res}</td><td class="n eb-dim nr-x">{odds}</td><td class="n">{freq}</td>'
+                         f'<td class="n eb-dim nr-x">{mkt}</td></tr>')
+                first = False
+    if not rows:
+        return ""
+    chips = ('<div class="nr-f"><button class="on" onclick="nrF(this,\'\')">Toutes</button>'
+             + "".join(f'<button onclick="nrF(this,\'{s}\')">{_e(NR.LABEL.get(s, s))}</button>'
+                       for s in NR.ORDER if s in seen) + '</div>')
+    qt = (" <span class=\"eb-dim\">(" + " · ".join(f"{x[1]}-{x[0]}" for x in q) + ")</span>") if q else ""
+    nsim = f'{rp.get("n") or 0:,}'.replace(",", " ")
+    return ('<div class="eb-card nr-likely"><h3 class="eb-h">🎬 Le match le plus probable face aux lignes '
+            f'<small>{n} lignes {_e(g.get("book") or "DraftKings")} · {n_over} passées au-dessus'
+            f'{f" ({round(100 * n_over / n)} %)" if n else ""}</small></h3>'
+            f'<p class="nr-p">{_e(_nick(a))} <b class="eb-acc">{fin[1]}-{fin[0]}</b> {_e(_nick(h))}{qt} · '
+            f'victoire {_e(_nick(win))} dans {_pct(sc.get("p") or 0, 0)} des {nsim} matchs simulés possession par possession</p>'
+            f'{chips}<div class="eb-scroll"><table class="eb-tbl nr-props"><tr><th>Joueur</th><th>Stat</th>'
+            '<th class="num">Ligne</th><th class="num">Match simulé</th><th>Résultat</th><th class="nr-x">Cotes plus / moins</th>'
+            '<th>Toutes les simus</th><th class="nr-x">Marché</th></tr>' + rows + '</table></div>'
+            '<p class="eb-note">« Match simulé » : la stat du joueur dans le match le plus probable, celui de la vidéo '
+            '(même feuille de match que l’écran final). C’est un seul match : un joueur proche de sa ligne peut tomber d’un côté '
+            'ou de l’autre. « Toutes les simus » donne la fréquence du « plus » sur l’ensemble des simulations, et « Marché » '
+            'la probabilité du bookmaker, marge retirée.'
+            + (f' Ici, le match simulé va dans le même sens que la majorité des simulations sur {agree} lignes sur {n_freq}.'
+               if n_freq else "") + '</p></div>')
+
+
+def _likely_safe(g):
+    try:
+        return _likely(g)
+    except Exception as e:   # la carte ne doit jamais casser la fiche
+        print(f"  [!] match le plus probable {g.get('gid')} : {type(e).__name__}: {e}")
+        return ""
+
+
 KEY_LOWER_BETTER = {"pertes de balle", "fautes"}
 
 
@@ -1026,7 +1150,7 @@ def build_nba_sim_section(sim=None):
         items = "".join(_item(g, gid, now, i == 0) for i, (g, gid) in enumerate(zip(games, ids)))
         details = "".join(
             f'<section class="eb-detail{" on" if i == 0 else ""}" data-id="{gid}">'
-            f'{_header(g, now)}{_livecard(g)}{V.nba(g)}{_selection(g, picks)}{_kpis(g)}'
+            f'{_header(g, now)}{_livecard(g)}{V.nba(g)}{_selection(g, picks)}{_kpis(g)}{_likely_safe(g)}'
             # verdict en tete, cartes detaillees repliees (site_verdict, 05/11/2026)
             + V.fold(f'{_combos_card(g)}{_infos(g)}{_infobar(g)}{_video(g, gid)}{_hist(g)}{_tabs(g, gid)}',
                      "combinés, absences, contexte, match type, distribution, joueurs") + '</section>'
@@ -1061,7 +1185,7 @@ def build_nba_sim_section(sim=None):
         picks_view = nba_chart.dedupe(picks_view)
     except Exception:
         pass
-    return (f'<!--nba-sim:{_e((sim or {}).get("generated_at", ""))}{"|" + _e(res_v) if res_v else ""}-->'
+    return (f'<!--nba-sim:{_e((sim or {}).get("generated_at", ""))}{"|" + _e(res_v) if res_v else ""}|{SECTION_REV}-->'
             f'<!--eb:start-->{sim_view}{picks_view}{res_view}{hist_view}'
             + EB_SCRIPT + PROPS_SCRIPT + ASK_SCRIPT + SIDE_SCRIPT + site_live.LIVE_SCRIPT + _player_script() + V.CSS + V.SCRIPT + '<!--eb:end-->')
 
