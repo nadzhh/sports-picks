@@ -26,7 +26,7 @@ except Exception:
 
 SIM_PATH = "data/nba_sim.json"
 FRAGMENT = "nba_sim.html"
-SECTION_REV = "r2"   # a augmenter quand le code de la section change sans nouvelle simulation (r2 : match le plus probable face aux lignes, 18/11/2026)
+SECTION_REV = "r3"   # a augmenter quand le code de la section change sans nouvelle simulation (r2 : match le plus probable face aux lignes, 18/11/2026)
 JOURS = ["Lun.", "Mar.", "Mer.", "Jeu.", "Ven.", "Sam.", "Dim."]
 STAT_LABELS = {"PTS": "Points", "REB": "Rebonds", "AST": "Passes", "3PM": "Paniers à 3 pts", "PRA": "Pts + Reb + Pas",
                "PR": "Pts + Reb", "PA": "Pts + Pas", "RA": "Reb + Pas", "STL": "Interceptions", "BLK": "Contres"}
@@ -583,7 +583,7 @@ def _combos_card(g):
             '<b>dépasse la cote juste</b>. Outil de vérification, non validé sur l’historique (ces prix n’y figurent pas).</p></div>')
 
 
-def _video(g, gid):
+def _video(g, gid, keys=True):
     """Carte « match type en video » : le deroule (data/replays/<gid>.json, nba_replay.py)
     est charge a la demande et rejoue par le lecteur canvas (nba_replay_player.js)."""
     rp = g.get("replay")
@@ -630,7 +630,7 @@ def _video(g, gid):
             + 'Chaque possession est jouée en temps de jeu accéléré : remontée de balle, mise en place, action, horloge des 24 secondes. '
             + 'Score par quart-temps entre parenthèses (visiteur-domicile). Joueurs placés selon leurs zones de tir réelles, défense homme à homme, fautes et '
             'lancers francs simulés (6 fautes = exclusion, joueur chargé de fautes mis au repos). '
-            'Bouton « Télécharger MP4 » sous la vidéo.</p></div>' + _keys(g))
+            'Bouton « Télécharger MP4 » sous la vidéo.</p></div>' + (_keys(g) if keys else ""))
 
 
 def _replay_box(path):
@@ -692,7 +692,7 @@ def _likely(g):
     by = {}
     for p in props:
         by.setdefault(str(p["id"]), []).append(p)
-    rows, seen, n, n_over, agree, n_freq = "", [], 0, 0, 0, 0
+    rows, seen, n, n_over, agree, n_freq, nrow = "", [], 0, 0, 0, 0, 0
     for side, team in (("away", a), ("home", h)):
         pids = sorted((pid for pid, ps in by.items() if ps[0].get("side") == side),
                       key=lambda pid: -(B["MIN"][idx[pid]] if pid in idx else -1))
@@ -705,6 +705,7 @@ def _likely(g):
                 if stat not in seen: seen.append(stat)
                 who = (f'<b>{_e(p["name"])}</b> <span class="eb-dim">{_e(team.get("abbr"))} · {round(mins)} min</span>')
                 ps = p.get("p_sim")
+                ag, dlt, v = "a", 0, 0
                 if j is None or mins <= 0:
                     val, res = "—", '<span class="eb-dim">absent du match simulé</span>'
                 else:
@@ -713,6 +714,7 @@ def _likely(g):
                     n += 1; n_over += dlt > 0
                     if ps is not None:
                         n_freq += 1; agree += (dlt > 0) == (ps >= 0.5)
+                        ag = "a" if (dlt > 0) == (ps >= 0.5) else "d"
                     val = f'<b>{v}</b>'
                     res = (f'<span class="nr-ok">Plus</span> <span class="eb-dim">(+{NR._fr(dlt, 1)})</span>' if dlt > 0 else
                            f'<span class="nr-ko">Moins</span> <span class="eb-dim">({NR._fr(dlt, 1)})</span>')
@@ -720,32 +722,82 @@ def _likely(g):
                 odds = f'{int(ov):+d} / {int(un):+d}' if isinstance(ov, (int, float)) and isinstance(un, (int, float)) else ""
                 freq = f'{round(100 * ps)} % plus' if ps is not None else ""
                 mkt = f'{round(100 * p["p_mkt"])} %' if p.get("p_mkt") is not None else ""
-                rows += (f'<tr data-s="{stat}"><td class="{"" if first else "nr-rep"}">{who}</td>'
-                         f'<td>{_e(NR.LABEL.get(stat, stat))}</td><td class="n num">{line:g}</td><td class="n num">{val}</td>'
-                         f'<td>{res}</td><td class="n eb-dim nr-x">{odds}</td><td class="n">{freq}</td>'
-                         f'<td class="n eb-dim nr-x">{mkt}</td></tr>')
+                rk = "x" if val == "—" else ("o" if dlt > 0 else "u")
+                rows += (f'<tr data-s="{stat}" data-r="{rk}" data-a="{ag}"><td class="{"" if first else "nr-rep"}" data-o="{nrow}">{who}</td>'
+                         f'<td data-o="{NR.ORDER.index(stat) if stat in NR.ORDER else 99}">{_e(NR.LABEL.get(stat, stat))}</td>'
+                         f'<td class="n num" data-o="{line}">{line:g}</td><td class="n num" data-o="{-999 if val == "—" else v}">{val}</td>'
+                         f'<td data-o="{-999 if val == "—" else dlt}">{res}</td>'
+                         f'<td class="n eb-dim nr-x" data-o="{_dec(ov) if isinstance(ov, (int, float)) else 0}">{odds}</td>'
+                         f'<td class="n" data-o="{ps if ps is not None else -1}">{freq}</td>'
+                         f'<td class="n eb-dim nr-x" data-o="{p.get("p_mkt") if p.get("p_mkt") is not None else -1}">{mkt}</td></tr>')
+                nrow += 1
                 first = False
     if not rows:
         return ""
-    chips = ('<div class="nr-f"><button class="on" onclick="nrF(this,\'\')">Toutes</button>'
-             + "".join(f'<button onclick="nrF(this,\'{s}\')">{_e(NR.LABEL.get(s, s))}</button>'
-                       for s in NR.ORDER if s in seen) + '</div>')
-    qt = (" <span class=\"eb-dim\">(" + " · ".join(f"{x[1]}-{x[0]}" for x in q) + ")</span>") if q else ""
+    chips = ('<div class="nr-f" data-k="s"><button class="on" onclick="nlF(this,\'s\',\'\')">Toutes les stats</button>'
+             + "".join(f'<button onclick="nlF(this,\'s\',\'{s}\')">{_e(NR.LABEL.get(s, s))}</button>'
+                       for s in NR.ORDER if s in seen) + '</div>'
+             '<div class="nr-f" data-k="r"><button class="on" onclick="nlF(this,\'r\',\'\')">Tous les résultats</button>'
+             '<button onclick="nlF(this,\'r\',\'o\')">✅ Plus</button><button onclick="nlF(this,\'r\',\'u\')">❌ Moins</button>'
+             '<button onclick="nlF(this,\'a\',\'a\')">Simu d’accord</button>'
+             '<button onclick="nlF(this,\'a\',\'d\')">Simu en désaccord</button></div>')
+    qt =(" <span class=\"eb-dim\">(" + " · ".join(f"{x[1]}-{x[0]}" for x in q) + ")</span>") if q else ""
     nsim = f'{rp.get("n") or 0:,}'.replace(",", " ")
-    return ('<div class="eb-card nr-likely"><h3 class="eb-h">🎬 Le match le plus probable face aux lignes '
+    return (NL_ASSETS + '<div class="eb-card nr-likely"><h3 class="eb-h">🎬 Le match le plus probable face aux lignes '
             f'<small>{n} lignes {_e(g.get("book") or "DraftKings")} · {n_over} passées au-dessus'
             f'{f" ({round(100 * n_over / n)} %)" if n else ""}</small></h3>'
             f'<p class="nr-p">{_e(_nick(a))} <b class="eb-acc">{fin[1]}-{fin[0]}</b> {_e(_nick(h))}{qt} · '
             f'victoire {_e(_nick(win))} dans {_pct(sc.get("p") or 0, 0)} des {nsim} matchs simulés possession par possession</p>'
-            f'{chips}<div class="eb-scroll"><table class="eb-tbl nr-props"><tr><th>Joueur</th><th>Stat</th>'
-            '<th class="num">Ligne</th><th class="num">Match simulé</th><th>Résultat</th><th class="nr-x">Cotes plus / moins</th>'
-            '<th>Toutes les simus</th><th class="nr-x">Marché</th></tr>' + rows + '</table></div>'
+            f'{chips}<div class="eb-scroll"><table class="eb-tbl nr-props nl-sort"><tr>'
+            + "".join(f'<th class="{c}" onclick="nlS(this,{i})" title="Trier">{t}<i></i></th>' for i, (t, c) in enumerate((
+                ("Joueur", ""), ("Stat", ""), ("Ligne", "num"), ("Match simulé", "num"), ("Résultat", ""),
+                ("Cotes plus / moins", "nr-x"), ("Toutes les simus", ""), ("Marché", "nr-x"))))
+            + '</tr>' + rows + '</table></div>'
             '<p class="eb-note">« Match simulé » : la stat du joueur dans le match le plus probable, celui de la vidéo '
             '(même feuille de match que l’écran final). C’est un seul match : un joueur proche de sa ligne peut tomber d’un côté '
             'ou de l’autre. « Toutes les simus » donne la fréquence du « plus » sur l’ensemble des simulations, et « Marché » '
-            'la probabilité du bookmaker, marge retirée.'
+            'la probabilité du bookmaker, marge retirée. Clic sur un titre de colonne pour trier (deuxième clic : sens '
+            'inverse). « Simu d’accord » : le match simulé et la majorité des simulations tombent du même côté de la ligne.'
             + (f' Ici, le match simulé va dans le même sens que la majorité des simulations sur {agree} lignes sur {n_freq}.'
                if n_freq else "") + '</p></div>')
+
+
+NL_ASSETS = """<style>
+.nl-sort th{cursor:pointer;user-select:none}.nl-sort th:hover{color:var(--tx)}
+.nl-sort th i{font-style:normal;margin-left:3px;color:var(--acc)}
+</style><script>
+(function(){
+  if(window.nlF)return;
+  function apply(c){
+    var f={s:c.getAttribute('data-fs')||'',r:c.getAttribute('data-fr')||'',a:c.getAttribute('data-fa')||''};
+    var t=c.querySelector('.nr-props');
+    if(t)t.classList.toggle('flt',!!(f.s||f.r||f.a||t.getAttribute('data-sorted')));
+    c.querySelectorAll('tr[data-s]').forEach(function(x){
+      var ok=(!f.s||x.getAttribute('data-s')===f.s)&&(!f.r||x.getAttribute('data-r')===f.r)&&(!f.a||x.getAttribute('data-a')===f.a);
+      x.style.display=ok?'':'none';});
+  }
+  window.nlF=function(b,k,v){
+    var c=b.closest('.eb-card'),row=b.closest('.nr-f');
+    if(k==='a'){c.setAttribute('data-fr','');c.setAttribute('data-fa',v);}
+    else if(k==='r'){c.setAttribute('data-fa','');c.setAttribute('data-fr',v);}
+    else c.setAttribute('data-fs',v);
+    row.querySelectorAll('button').forEach(function(x){x.classList.toggle('on',x===b);});
+    apply(c);
+  };
+  window.nlS=function(th,i){
+    var t=th.closest('table'),c=th.closest('.eb-card'),body=t.tBodies[0]||t;
+    var dir=th.getAttribute('data-d')==='1'?-1:1;
+    t.querySelectorAll('th').forEach(function(h){h.removeAttribute('data-d');var e=h.querySelector('i');if(e)e.textContent='';});
+    th.setAttribute('data-d',dir===1?'1':'-1');th.querySelector('i').textContent=dir===1?'▲':'▼';
+    var rows=[].slice.call(t.querySelectorAll('tr[data-s]'));
+    rows.sort(function(a,b){var x=parseFloat(a.cells[i].getAttribute('data-o')),y=parseFloat(b.cells[i].getAttribute('data-o'));
+      return (x-y)*dir||(parseFloat(a.cells[0].getAttribute('data-o'))-parseFloat(b.cells[0].getAttribute('data-o')));});
+    rows.forEach(function(r){r.parentNode.appendChild(r);});
+    if(i===0&&dir===1)t.removeAttribute('data-sorted');else t.setAttribute('data-sorted','1');
+    apply(c);
+  };
+})();
+</script>"""
 
 
 def _likely_safe(g):
@@ -754,6 +806,65 @@ def _likely_safe(g):
     except Exception as e:   # la carte ne doit jamais casser la fiche
         print(f"  [!] match le plus probable {g.get('gid')} : {type(e).__name__}: {e}")
         return ""
+
+
+def _ana_view(sim, games, now, write=False):
+    """Basket > Analyse simu (nba_sim_analyse) : un bouton par match, la fiche (cadres facon Analyse sur les matchs
+    simules) est chargee au clic depuis lazy/simana/<gid>.html."""
+    try:
+        import nba_sim_analyse as SA
+        vers = SA.write_all(sim) if write else SA.versions(sim)
+    except Exception as e:
+        print(f"  [!] analyse simu : {type(e).__name__}: {e}")
+        vers = {}
+    head = '<div class="eb eb-view" data-view="ana" data-eb="nbasa">'
+    if not vers:
+        return head + '<div class="eb-card eb-empty">Analyse simulation indisponible pour le moment.</div></div>'
+    btns, dets, first = "", "", True
+    for g in games:
+        gid = str(g["gid"])
+        if gid not in vers: continue
+        btns += (f'<button class="eb-item{" on" if first else ""}" data-id="{_e(gid)}" onclick="ebPick(\'nbasa\',\'{_e(gid)}\');saShow()">'
+                 f'<div class="eb-item-top"><span>🎬 NBA</span><span>{_when(g.get("date", ""), now)}</span></div>'
+                 f'<div class="eb-item-t">{_e(_nick(g["away"]))} @ {_e(_nick(g["home"]))}</div></button>')
+        dets += (f'<section class="eb-detail{" on" if first else ""}" data-id="{_e(gid)}">'
+                 f'<div class="sa-host" data-src="lazy/simana/{_e(gid)}.html?v={vers[gid]}"></div></section>')
+        first = False
+    return (head + '<div class="sa-intro">🎬 <b>Analyse simulation</b> — mêmes graphiques que l’onglet Analyse, mais chaque '
+            'barre est un <b>match simulé</b> (le plus probable, calculé avant le match), pas un vrai match. Dernière barre = '
+            'ce soir ; sous les matchs déjà joués, « réel » = ce que le joueur a vraiment fait.</div>'
+            f'<div class="sa-nav">{btns}</div><div class="sa-main">{dets}</div></div>' + SA_CSS + SA_SCRIPT)
+
+
+SA_CSS = """<style>
+.sa-intro{background:#1b1530;border:1px solid #7c3aed;color:#ddd6fe;border-radius:12px;padding:10px 14px;font-size:13px;line-height:1.5;margin-bottom:12px}
+.sa-nav{display:flex;gap:8px;overflow-x:auto;padding-bottom:6px;margin-bottom:12px}
+.sa-nav .eb-item{flex:0 0 auto;min-width:170px}
+.sa-host .player-analyse{background:#1a1730!important}
+.sa-host .player-analyse[data-is-starter="1"]{border-left-color:#a78bfa!important}
+</style>"""
+
+SA_SCRIPT = """<script>
+(function(){
+  if(window.saShow)return;
+  window.saLoad=function(host){
+    if(!host||host.getAttribute('data-st'))return;
+    host.setAttribute('data-st','1');host.innerHTML='<div class="eb-card eb-empty">Chargement de l’analyse simulation…</div>';
+    fetch(host.getAttribute('data-src'),{cache:'no-cache'}).then(function(r){if(!r.ok)throw 0;return r.text();})
+      .then(function(h){host.innerHTML=h;})
+      .catch(function(){host.removeAttribute('data-st');
+        host.innerHTML='<div class="eb-card eb-empty">Chargement impossible. <button class="eb-more" onclick="saRetry(this)">Réessayer</button></div>';});
+  };
+  window.saRetry=function(b){saLoad(b.closest('.sa-host'));};
+  window.saShow=function(){
+    var v=document.querySelector('[data-eb="nbasa"]');if(!v||!v.classList.contains('on'))return;
+    saLoad(v.querySelector('.eb-detail.on .sa-host'));
+  };
+  var ev=window.ebView;
+  if(ev&&!ev._sa){window.ebView=function(s,w){ev(s,w);if(w==='ana')saShow();};window.ebView._sa=1;}
+  saShow();
+})();
+</script>"""
 
 
 KEY_LOWER_BETTER = {"pertes de balle", "fautes"}
@@ -1138,7 +1249,7 @@ def _picks_view(games, picks):
             + (blocks or '<div class="eb-card eb-empty">Aucune sélection pour l’instant : props pas encore publiées ou pas d’écart assez net.</div>'))
 
 
-def build_nba_sim_section(sim=None):
+def build_nba_sim_section(sim=None, write_ana=False):
     sim = sim if sim is not None else load_sim()
     games = sorted((sim or {}).get("games") or [], key=lambda g: g.get("date", ""))
     h_items, h_details, n_nights, banner = _history()
@@ -1150,10 +1261,10 @@ def build_nba_sim_section(sim=None):
         items = "".join(_item(g, gid, now, i == 0) for i, (g, gid) in enumerate(zip(games, ids)))
         details = "".join(
             f'<section class="eb-detail{" on" if i == 0 else ""}" data-id="{gid}">'
-            f'{_header(g, now)}{_livecard(g)}{V.nba(g)}{_selection(g, picks)}{_kpis(g)}{_likely_safe(g)}'
+            f'{_header(g, now)}{_livecard(g)}{V.nba(g)}{_selection(g, picks)}{_kpis(g)}{_video(g, gid, keys=False)}{_likely_safe(g)}'
             # verdict en tete, cartes detaillees repliees (site_verdict, 05/11/2026)
-            + V.fold(f'{_combos_card(g)}{_infos(g)}{_infobar(g)}{_video(g, gid)}{_hist(g)}{_tabs(g, gid)}',
-                     "combinés, absences, contexte, match type, distribution, joueurs") + '</section>'
+            + V.fold(f'{_combos_card(g)}{_infos(g)}{_infobar(g)}{_keys(g) if g.get("replay") else ""}{_hist(g)}{_tabs(g, gid)}',
+                     "combinés, absences, contexte, clés du match, distribution, joueurs") + '</section>'
             for i, (g, gid) in enumerate(zip(games, ids)))
         sim_view = ('<div class="eb eb-view on" data-view="sim" data-eb="nba"><div class="eb-layout">'
                     f'<aside class="eb-side">{banner}<div class="eb-label">Matchs NBA à venir · {len(games)}</div>'
@@ -1186,7 +1297,7 @@ def build_nba_sim_section(sim=None):
     except Exception:
         pass
     return (f'<!--nba-sim:{_e((sim or {}).get("generated_at", ""))}{"|" + _e(res_v) if res_v else ""}|{SECTION_REV}-->'
-            f'<!--eb:start-->{sim_view}{picks_view}{res_view}{hist_view}'
+            f'<!--eb:start-->{sim_view}{_ana_view(sim, games, now, write_ana)}{picks_view}{res_view}{hist_view}'
             + EB_SCRIPT + PROPS_SCRIPT + ASK_SCRIPT + SIDE_SCRIPT + site_live.LIVE_SCRIPT + _player_script() + V.CSS + V.SCRIPT + '<!--eb:end-->')
 
 
@@ -1213,7 +1324,7 @@ def build_nba_sim_page():
 def write_fragment(sec=None):
     # construire AVANT d'ouvrir le fichier, puis remplacer d'un coup : une erreur de construction laisse la page
     # precedente en place (17/11/2026 : foot_sim.html publie VIDE ~14 h apres un KeyError sur un petit club)
-    sec = sec if sec is not None else build_nba_sim_section()
+    sec = sec if sec is not None else build_nba_sim_section(write_ana=True)
     if not sec: raise ValueError("fragment vide : page precedente conservee")
     tmp = FRAGMENT + ".tmp"
     with open(tmp, "w", encoding="utf-8") as f:

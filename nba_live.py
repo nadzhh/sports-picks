@@ -38,6 +38,7 @@ PUBLISHED = [FRAGMENT, R.OUT_PATH, str(R.PICKS_PATH), "data/nba_sim_history.json
              FS.FRAGMENT, str(FR.OUT_PATH), str(FB.HIST_PATH), str(EV.PATH), DIGEST_PATH, "data/telegram_picks.json",
              "data/foot_competitions.json", "data/strategy_lab.json", ST.FRAGMENT, "data/boosts.json", "data/props_edge.json", "data/sentinel.json",
              "data/espn_foot_odds.json", "data/foot_scorer_odds.json", "data/props_edge_track.json", "data/nba_results.json"]
+LAZY_DIRS = ["data/replays", "lazy/simana"]   # dossiers publies en entier (lazy/simana : Basket > Analyse simu, 18/11/2026)
 # Foot (Top 5 + coupes d'Europe) : base mise a jour par tranches (premiere constitution en plusieurs
 # passages), simulation toutes les 30 min, a chaque cycle quand un match approche (composition officielle)
 FOOT_SEASONS = ("2026/2027", "2025/2026")   # saison en cours d'abord
@@ -131,7 +132,7 @@ def publish(msg):
     except Exception as e:
         print(f"  [!] today.html non ecrit : {type(e).__name__}: {e}")
     _git("add", "-f", *[f for f in PUBLISHED if os.path.exists(f)])
-    _git("add", "-A", "data/replays")
+    _git("add", "-A", "-f", *[d for d in LAZY_DIRS if os.path.exists(d)])
     if not _git("diff", "--cached", "--quiet", check=False).returncode:
         print("  [publication] rien de nouveau"); return False
     _git("commit", "-q", "-m", msg)
@@ -140,16 +141,16 @@ def publish(msg):
             # Ne devrait pas arriver (fichiers disjoints) : on repart de master avec nos fichiers
             _git("rebase", "--abort", check=False)
             tmp = Path(tempfile.mkdtemp())
-            for f in PUBLISHED + ["data/replays"]:
+            for f in PUBLISHED + LAZY_DIRS:
                 if os.path.exists(f): shutil.copytree(f, tmp / f) if os.path.isdir(f) else (
                     (tmp / f).parent.mkdir(parents=True, exist_ok=True), shutil.copy2(f, tmp / f))
             _git("reset", "-q", "--hard", "origin/master")
-            for f in PUBLISHED + ["data/replays"]:
+            for f in PUBLISHED + LAZY_DIRS:
                 src = tmp / f
                 if src.is_dir(): shutil.rmtree(f, ignore_errors=True); shutil.copytree(src, f)
                 elif src.exists(): shutil.copy2(src, f)
             _git("add", "-f", *[f for f in PUBLISHED if os.path.exists(f)])
-            _git("add", "-A", "data/replays")
+            _git("add", "-A", "-f", *[d for d in LAZY_DIRS if os.path.exists(d)])
             _git("commit", "-q", "-m", msg, check=False)
         if not _git("push", "-q", "origin", "HEAD:master", check=False).returncode:
             _git("push", "-q", "--force", "origin", "HEAD:gh-pages", check=False)

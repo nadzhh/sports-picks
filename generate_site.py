@@ -2344,7 +2344,7 @@ def _dm_fr(g):
     return f"{d[8:10]}/{d[5:7]}" if len(d) == 10 else "?"
 
 
-def _build_prop_chart_bars(games_window, ref_line, chart_max, with_labels=True):
+def _build_prop_chart_bars(games_window, ref_line, chart_max, with_labels=True, prop=None):
     """Construit la zone bar-chart (bars + labels). Helper interne, factorise
     pour pouvoir reutiliser sur L5/L10/L20.
     Les bars ont data-value pour permettre la recoloration JS quand l'user
@@ -2377,6 +2377,15 @@ def _build_prop_chart_bars(games_window, ref_line, chart_max, with_labels=True):
         elif mins < 25: min_color = "#f59e0b"
         else:           min_color = "#94a3b8"
         min_suffix = "min" if n <= 5 else "m"
+        # Basket > Analyse simu (nba_sim_analyse, 18/11/2026) : barres = matchs SIMULES ; repere du match de ce soir
+        # et vraie stat sous les matchs deja joues, pour ne pas confondre simulation et vraie vie
+        sim_lbl = ""
+        if g.get("sim_tonight"):
+            sim_lbl = '<br><span style="color:#c4b5fd;font-weight:800">🎬 ce soir</span>'
+        elif "sim_real" in g:
+            rv = g.get("sim_real")
+            sim_lbl = ('<br><span style="color:#cbd5e1">réel <b>' + str(int(_compose_prop_value(rv, prop))) + '</b></span>'
+                       if rv else '<br><span style="color:#64748b">réel —</span>')
         bars_html += (
             f'<div class="tg-bar" data-value="{val}" '
             f'style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;min-width:0">'
@@ -2388,17 +2397,17 @@ def _build_prop_chart_bars(games_window, ref_line, chart_max, with_labels=True):
             if n <= 5:
                 label_text = (
                     f'{date_short}<br>{loc} {opp}<br>'
-                    f'<span style="color:{min_color};font-weight:700">{mins} {min_suffix}</span>'
+                    f'<span style="color:{min_color};font-weight:700">{mins} {min_suffix}</span>{sim_lbl}'
                 )
             elif n <= 10:
                 label_text = (
                     f'{date_short}<br>{loc} {opp}<br>'
-                    f'<span style="color:{min_color};font-weight:700">{mins}{min_suffix}</span>'
+                    f'<span style="color:{min_color};font-weight:700">{mins}{min_suffix}</span>{sim_lbl}'
                 )
             else:
                 label_text = (
                     f'{loc}{opp}<br>'
-                    f'<span style="color:{min_color};font-weight:700">{mins}{min_suffix}</span>'
+                    f'<span style="color:{min_color};font-weight:700">{mins}{min_suffix}</span>{sim_lbl}'
                 )
             labels_html += (
                 f'<div style="flex:1;color:#475569;font-size:{font_lbl}px;text-align:center;line-height:1.3;padding-top:5px;min-width:0;overflow:hidden">'
@@ -2524,7 +2533,7 @@ def _build_prop_chart(player, prop, opp_abbr, book_line=None, match_ctx=None, bo
             window_vals = [v for _, v in pairs]
             cmax = max(window_vals + [ref_line])
             if cmax <= 0: cmax = 1
-            content = _build_prop_chart_bars(pairs, ref_line, cmax, with_labels=with_lbl)
+            content = _build_prop_chart_bars(pairs, ref_line, cmax, with_labels=with_lbl, prop=prop)
         display = "block" if window_key == "L5" else "none"
         chart_blocks += (
             f'<div class="tg-window-block" data-window="{window_key}" style="display:{display}">{content}</div>'
@@ -2571,6 +2580,7 @@ def _build_prop_chart(player, prop, opp_abbr, book_line=None, match_ctx=None, bo
         f'</div>'
     )
 
+    if player.get("_sim"): add_buttons = ""   # Analyse simu : pas d'ajout de pari depuis des matchs simules
     # Controle pour ajuster la ligne de reference (bookmakers quotent en x.5
     # uniquement, donc on bouge par pas de 1 sur la grille x.5)
     line_control = (
@@ -7119,13 +7129,13 @@ function _setMainBtnActive(tab){{
 var SP_NAV = {{
   today:  [['today','Aujourd’hui'],['bot','🤖 Bot de nuit']],
   foot:   [['footsim','Simulation'],['footanalyse','Analyse'],['footpicks','Picks'],['foothist2','Historique']],
-  basket: [['nbasim','Simulation'],['analyse','Analyse'],['nbapicks','Picks'],['nbares','Résultats 24 h'],['nbahist2','Historique']],
+  basket: [['nbasim','Simulation'],['analyse','Analyse'],['nbasimana','Analyse simu'],['nbapicks','Picks'],['nbares','Résultats 24 h'],['nbahist2','Historique']],
   // tennis retire du menu le 05/11/2026 (Wilson : « je n'utilise plus le tennis ») ; pour le remettre :
   // tennis: [['tennis','Picks'],['tennishist','Historique']],  + bouton nav-tennis + 5 colonnes (site_theme)
   iabank: [['iabank','Bankroll IA']]
 }};
 var SP_VIEW = {{ footsim:['footsim','sim'], footpicks:['footsim','picks'], foothist2:['footsim','hist'],
-                nbasim:['nbasim','sim'], nbapicks:['nbasim','picks'], nbares:['nbasim','res'], nbahist2:['nbasim','hist'] }};
+                nbasim:['nbasim','sim'], nbapicks:['nbasim','picks'], nbares:['nbasim','res'], nbasimana:['nbasim','ana'], nbahist2:['nbasim','hist'] }};
 window._spMain = 'basket'; window._spSub = 'nbasim';
 function spNav(main, sub){{
   var items = SP_NAV[main] || SP_NAV.basket;
