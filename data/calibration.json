@@ -1,12 +1,42 @@
 {
- "genere_le": "2026-11-17T19:49:09",
- "n_resolus": 2858,
+ "genere_le": "2026-11-18T02:20:24",
+ "n_resolus": 2868,
  "parametres": {
   "n_min_jugement": 20,
   "seuil_pct": 50.0,
   "pas_tranche": 10
  },
  "marches": {
+  "foot/Forme superieure": {
+   "n": 80,
+   "wins": 42,
+   "wr": 52.5,
+   "borne_basse": 41.7,
+   "borne_haute": 63.1,
+   "statut": "SURVEILLE",
+   "cote_moyenne": null,
+   "n_cotes": 0
+  },
+  "foot/Total buts": {
+   "n": 55,
+   "wins": 31,
+   "wr": 56.4,
+   "borne_basse": 43.3,
+   "borne_haute": 68.6,
+   "statut": "SURVEILLE",
+   "cote_moyenne": null,
+   "n_cotes": 0
+  },
+  "foot/Buteur equipe": {
+   "n": 61,
+   "wins": 31,
+   "wr": 50.8,
+   "borne_basse": 38.6,
+   "borne_haute": 62.9,
+   "statut": "SURVEILLE",
+   "cote_moyenne": null,
+   "n_cotes": 0
+  },
   "foot/Victoire extérieur": {
    "n": 216,
    "wins": 100,
@@ -36,26 +66,6 @@
    "statut": "SURVEILLE",
    "cote_moyenne": 3.2,
    "n_cotes": 37
-  },
-  "foot/Forme superieure": {
-   "n": 76,
-   "wins": 40,
-   "wr": 52.6,
-   "borne_basse": 41.6,
-   "borne_haute": 63.5,
-   "statut": "SURVEILLE",
-   "cote_moyenne": null,
-   "n_cotes": 0
-  },
-  "foot/Total buts": {
-   "n": 53,
-   "wins": 29,
-   "wr": 54.7,
-   "borne_basse": 41.5,
-   "borne_haute": 67.3,
-   "statut": "SURVEILLE",
-   "cote_moyenne": null,
-   "n_cotes": 0
   },
   "nba/PTS": {
    "n": 49,
@@ -116,16 +126,6 @@
    "statut": "SURVEILLE",
    "cote_moyenne": 1.97,
    "n_cotes": 38
-  },
-  "foot/Buteur equipe": {
-   "n": 57,
-   "wins": 29,
-   "wr": 50.9,
-   "borne_basse": 38.3,
-   "borne_haute": 63.4,
-   "statut": "SURVEILLE",
-   "cote_moyenne": null,
-   "n_cotes": 0
   },
   "foot/Passeur": {
    "n": 21,
@@ -1109,6 +1109,48 @@
   }
  },
  "calibration": {
+  "foot/Forme superieure": {
+   "80-89": {
+    "n": 32,
+    "p": 50.0
+   },
+   "70-79": {
+    "n": 33,
+    "p": 63.6
+   },
+   "60-69": {
+    "n": 15,
+    "p": 33.3
+   }
+  },
+  "foot/Total buts": {
+   "70-79": {
+    "n": 17,
+    "p": 76.5
+   },
+   "50-59": {
+    "n": 4,
+    "p": 63.8
+   },
+   "60-69": {
+    "n": 34,
+    "p": 44.1
+   }
+  },
+  "foot/Buteur equipe": {
+   "70-79": {
+    "n": 28,
+    "p": 67.9
+   },
+   "60-69": {
+    "n": 22,
+    "p": 40.9
+   },
+   "50-59": {
+    "n": 11,
+    "p": 27.3
+   }
+  },
   "foot/Victoire extérieur": {
    "70-79": {
     "n": 83,
@@ -1157,34 +1199,6 @@
    "50-59": {
     "n": 23,
     "p": 43.5
-   }
-  },
-  "foot/Forme superieure": {
-   "80-89": {
-    "n": 29,
-    "p": 51.7
-   },
-   "70-79": {
-    "n": 32,
-    "p": 62.5
-   },
-   "60-69": {
-    "n": 15,
-    "p": 33.3
-   }
-  },
-  "foot/Total buts": {
-   "70-79": {
-    "n": 16,
-    "p": 75.0
-   },
-   "60-69": {
-    "n": 34,
-    "p": 44.1
-   },
-   "50-59": {
-    "n": 3,
-    "p": 58.3
    }
   },
   "nba/PTS": {
@@ -1301,20 +1315,6 @@
    "90-99": {
     "n": 1,
     "p": 47.7
-   }
-  },
-  "foot/Buteur equipe": {
-   "70-79": {
-    "n": 24,
-    "p": 70.8
-   },
-   "60-69": {
-    "n": 22,
-    "p": 40.9
-   },
-   "50-59": {
-    "n": 11,
-    "p": 27.3
    }
   },
   "foot/Passeur": {
