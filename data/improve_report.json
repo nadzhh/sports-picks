@@ -1,110 +1,110 @@
 {
  "last": {
-  "at": "2026-11-17T06:59+00:00",
+  "at": "2026-11-18T06:42+00:00",
   "sims": 1000,
   "tried": [
    {
-    "param": "cong_w",
-    "from": 0.0,
-    "to": -0.03,
-    "score": {
-     "2024-25": 2.35084,
-     "2025-26": 2.36662
-    },
-    "gain": {
-     "2024-25": -0.00267,
-     "2025-26": -0.00083
-    }
-   },
-   {
-    "param": "cong_w",
-    "from": 0.0,
-    "to": 0.03,
-    "score": {
-     "2024-25": 2.34975,
-     "2025-26": 2.36734
-    },
-    "gain": {
-     "2024-25": -0.00158,
-     "2025-26": -0.00155
-    }
-   },
-   {
-    "param": "hl_days",
-    "from": 200.0,
-    "to": 160.0,
-    "score": {
-     "2024-25": 2.34929,
-     "2025-26": 2.36926
-    },
-    "gain": {
-     "2024-25": -0.00112,
-     "2025-26": -0.00347
-    }
-   },
-   {
-    "param": "hl_days",
-    "from": 200.0,
-    "to": 240.0,
-    "score": {
-     "2024-25": 2.35025,
-     "2025-26": 2.36866
-    },
-    "gain": {
-     "2024-25": -0.00208,
-     "2025-26": -0.00287
-    }
-   },
-   {
-    "param": "k_team",
-    "from": 3.0,
-    "to": 2.0,
-    "score": {
-     "2024-25": 2.34906,
-     "2025-26": 2.36896
-    },
-    "gain": {
-     "2024-25": -0.00089,
-     "2025-26": -0.00317
-    }
-   },
-   {
-    "param": "k_team",
-    "from": 3.0,
-    "to": 4.0,
-    "score": {
-     "2024-25": 2.35003,
-     "2025-26": 2.37016
-    },
-    "gain": {
-     "2024-25": -0.00186,
-     "2025-26": -0.00437
-    }
-   },
-   {
-    "param": "rating_beta",
+    "param": "intensity_sd",
     "from": 0.3,
     "to": 0.2,
     "score": {
-     "2024-25": 2.35086,
-     "2025-26": 2.3687
+     "2024-25": 2.35157,
+     "2025-26": 2.37227
     },
     "gain": {
-     "2024-25": -0.00269,
-     "2025-26": -0.00291
+     "2024-25": -0.0034,
+     "2025-26": -0.00648
     }
    },
    {
-    "param": "rating_beta",
+    "param": "intensity_sd",
     "from": 0.3,
     "to": 0.4,
     "score": {
-     "2024-25": 2.34856,
-     "2025-26": 2.36886
+     "2024-25": 2.34826,
+     "2025-26": 2.36868
     },
     "gain": {
-     "2024-25": -0.00039,
-     "2025-26": -0.00307
+     "2024-25": -9e-05,
+     "2025-26": -0.00289
+    }
+   },
+   {
+    "param": "finish",
+    "from": 0.97,
+    "to": 0.95,
+    "score": {
+     "2024-25": 2.34925,
+     "2025-26": 2.36904
+    },
+    "gain": {
+     "2024-25": -0.00108,
+     "2025-26": -0.00325
+    }
+   },
+   {
+    "param": "finish",
+    "from": 0.97,
+    "to": 0.99,
+    "score": {
+     "2024-25": 2.35068,
+     "2025-26": 2.37097
+    },
+    "gain": {
+     "2024-25": -0.00251,
+     "2025-26": -0.00518
+    }
+   },
+   {
+    "param": "lineup_pow",
+    "from": 1.0,
+    "to": 0.8,
+    "score": {
+     "2024-25": 2.34772,
+     "2025-26": 2.36651
+    },
+    "gain": {
+     "2024-25": 0.00045,
+     "2025-26": -0.00072
+    }
+   },
+   {
+    "param": "lineup_pow",
+    "from": 1.0,
+    "to": 1.2,
+    "score": {
+     "2024-25": 2.34768,
+     "2025-26": 2.36877
+    },
+    "gain": {
+     "2024-25": 0.00049,
+     "2025-26": -0.00298
+    }
+   },
+   {
+    "param": "home_boost",
+    "from": 1.0,
+    "to": 0.98,
+    "score": {
+     "2024-25": 2.34923,
+     "2025-26": 2.3696
+    },
+    "gain": {
+     "2024-25": -0.00106,
+     "2025-26": -0.00381
+    }
+   },
+   {
+    "param": "home_boost",
+    "from": 1.0,
+    "to": 1.02,
+    "score": {
+     "2024-25": 2.34931,
+     "2025-26": 2.3664
+    },
+    "gain": {
+     "2024-25": -0.00114,
+     "2025-26": -0.00061
     }
    }
   ],
@@ -121,71 +121,83 @@
     1521
    ],
    "2025-26": [
-    1.0086,
-    0.9811,
-    1686
+    1.0157,
+    0.9879,
+    1380
    ]
   },
   "nba": {
    "tried": [
     {
-     "param": "min_sd_scale",
-     "from": 1.1,
-     "to": 1.0,
+     "param": "mkt_min_alpha",
+     "from": 0.6,
+     "to": 0.5,
      "score": {
-      "2025-26": 0.70319,
-      "2026-27": 0.69901
+      "2025-26": 0.70417,
+      "2026-27": 0.69998
      },
      "gain": {
-      "2025-26": -0.00046,
-      "2026-27": 8e-05
+      "2025-26": -0.00143,
+      "2026-27": -0.00123
      }
     },
     {
-     "param": "min_sd_scale",
-     "from": 1.1,
-     "to": 1.2,
+     "param": "mkt_min_alpha",
+     "from": 0.6,
+     "to": 0.7,
      "score": {
-      "2025-26": 0.70263,
-      "2026-27": 0.69919
+      "2025-26": 0.70204,
+      "2026-27": 0.69766
      },
      "gain": {
-      "2025-26": 0.0001,
-      "2026-27": -0.0001
+      "2025-26": 0.0007,
+      "2026-27": 0.00109
      }
     },
     {
-     "param": "wowy_min",
-     "from": 0.3,
-     "to": 0.2,
+     "param": "blowout_slope",
+     "from": 0.009,
+     "to": 0.007,
      "score": {
-      "2025-26": 0.70337,
-      "2026-27": 0.69905
+      "2025-26": 0.70334,
+      "2026-27": 0.69961
      },
      "gain": {
-      "2025-26": -0.00064,
-      "2026-27": 4e-05
+      "2025-26": -0.0006,
+      "2026-27": -0.00086
      }
     },
     {
-     "param": "wowy_min",
-     "from": 0.3,
-     "to": 0.4,
+     "param": "blowout_slope",
+     "from": 0.009,
+     "to": 0.011,
      "score": {
-      "2025-26": 0.70327,
-      "2026-27": 0.6999
+      "2025-26": 0.70277,
+      "2026-27": 0.69886
      },
      "gain": {
-      "2025-26": -0.00054,
-      "2026-27": -0.00081
+      "2025-26": -3e-05,
+      "2026-27": -0.00011
      }
     }
    ],
-   "adopted": null,
+   "adopted": {
+    "param": "mkt_min_alpha",
+    "from": 0.6,
+    "to": 0.7,
+    "score": {
+     "2025-26": 0.70204,
+     "2026-27": 0.69766
+    },
+    "gain": {
+     "2025-26": 0.0007,
+     "2026-27": 0.00109
+    }
+   },
    "notes": [],
    "base": {
-    "2025-26": 0.70273,
-    "2026-27": 0.69909
+    "2025-26": 0.70274,
+    "2026-27": 0.69875
    },
    "gap": {
     "2025-26": [
@@ -194,543 +206,143 @@
      32574
     ],
     "2026-27": [
-     0.6991,
-     0.6867,
-     15583
+     0.6987,
+     0.6866,
+     16221
     ]
    },
    "calib": {
-    "at": "2026-11-17T06:59+00:00",
+    "at": "2026-11-18T06:42+00:00",
     "n": [
      32574,
-     15583
+     16221
     ],
     "test": {
-     "marche": 0.68674,
-     "cale": 0.68598
+     "marche": 0.68662,
+     "cale": 0.6859
     },
     "coef": {
      "PTS": [
-      -0.0487,
+      -0.0483,
       0.0
      ],
      "REB": [
-      -0.0479,
-      0.1427
+      -0.0422,
+      0.1366
      ],
      "AST": [
-      -0.0853,
-      0.0483
+      -0.0876,
+      0.0428
      ],
      "PRA": [
-      -0.0693,
-      0.0021
+      -0.0671,
+      0.0163
      ],
      "PR": [
-      -0.0653,
-      0.0483
+      -0.0624,
+      0.0564
      ],
      "PA": [
-      -0.0676,
+      -0.0669,
       0.0
      ],
      "BLK": [
-      -0.1192,
-      0.0567
+      -0.1121,
+      0.0581
      ],
      "3PM": [
-      0.0274,
-      0.191
+      0.0256,
+      0.1802
      ],
      "STL": [
-      -0.1377,
-      0.1238
+      -0.1421,
+      0.1287
      ],
      "_all": [
-      -0.0563,
-      0.0584
+      -0.0554,
+      0.0609
      ]
     }
    }
   },
   "lab": {
-   "at": "2026-11-17T06:59+00:00",
-   "n": 39069,
+   "at": "2026-11-18T06:42+00:00",
+   "n": 39707,
    "active_before": [],
-   "tried": [
-    {
-     "name": "b2b",
-     "label": "dos-à-dos (son équipe a joué la veille)",
-     "gain": -0.00045,
-     "p": 0.917,
-     "ok": false,
-     "acc": 53.46,
-     "picks": {
-      "n": 3600,
-      "hit": 51.7,
-      "roi": -1.4
-     },
-     "season": {
-      "2025-26": 0.68769,
-      "2026-27": 0.68687
-     }
-    },
-    {
-     "name": "rest_adv",
-     "label": "jours de repos de son équipe moins ceux de l'adversaire",
-     "gain": 3e-05,
-     "p": 0.372,
-     "ok": false,
-     "acc": 53.55,
-     "picks": {
-      "n": 866,
-      "hit": 49.1,
-      "roi": 2.5
-     },
-     "season": {
-      "2025-26": 0.68771,
-      "2026-27": 0.68629
-     }
-    },
-    {
-     "name": "home",
-     "label": "domicile / extérieur",
-     "gain": -8e-05,
-     "p": 0.978,
-     "ok": false,
-     "acc": 53.43,
-     "picks": {
-      "n": 1090,
-      "hit": 45.8,
-      "roi": -3.4
-     },
-     "season": {
-      "2025-26": 0.68837,
-      "2026-27": 0.68631
-     }
-    },
-    {
-     "name": "min_trend",
-     "label": "tendance des minutes (5 derniers matchs contre 20)",
-     "gain": -0.00017,
-     "p": 0.838,
-     "ok": false,
-     "acc": 53.55,
-     "picks": {
-      "n": 720,
-      "hit": 46.4,
-      "roi": -2.9
-     },
-     "season": {
-      "2025-26": 0.68789,
-      "2026-27": 0.68649
-     }
-    },
-    {
-     "name": "line_l10",
-     "label": "ligne comparée à sa moyenne sur 10 matchs",
-     "gain": 0.00011,
-     "p": 0.383,
-     "ok": false,
-     "acc": 53.6,
-     "picks": {
-      "n": 1124,
-      "hit": 51.0,
-      "roi": -4.0
-     },
-     "season": {
-      "2025-26": 0.68766,
-      "2026-27": 0.68617
-     }
-    },
-    {
-     "name": "line_l40",
-     "label": "ligne comparée à sa moyenne sur 40 matchs",
-     "gain": -0.00025,
-     "p": 0.818,
-     "ok": false,
-     "acc": 53.4,
-     "picks": {
-      "n": 956,
-      "hit": 51.9,
-      "roi": -1.9
-     },
-     "season": {
-      "2025-26": 0.68761,
-      "2026-27": 0.68661
-     }
-    },
-    {
-     "name": "med_gap",
-     "label": "ligne comparée à sa médiane sur 10 matchs",
-     "gain": 8e-05,
-     "p": 0.41,
-     "ok": false,
-     "acc": 53.74,
-     "picks": {
-      "n": 2284,
-      "hit": 51.9,
-      "roi": -2.6
-     },
-     "season": {
-      "2025-26": 0.68825,
-      "2026-27": 0.68612
-     }
-    },
-    {
-     "name": "last_dev",
-     "label": "dernier match au-dessus / en dessous de sa moyenne (sur-réaction du marché)",
-     "gain": -0.00096,
-     "p": 1.0,
-     "ok": false,
-     "acc": 53.16,
-     "picks": {
-      "n": 5330,
-      "hit": 48.3,
-      "roi": -7.1
-     },
-     "season": {
-      "2025-26": 0.69187,
-      "2026-27": 0.6868
-     }
-    },
-    {
-     "name": "hit_l10",
-     "label": "part de ses 10 derniers matchs au-dessus de la ligne",
-     "gain": -3e-05,
-     "p": 0.535,
-     "ok": false,
-     "acc": 53.46,
-     "picks": {
-      "n": 3155,
-      "hit": 50.9,
-      "roi": -4.9
-     },
-     "season": {
-      "2025-26": 0.68877,
-      "2026-27": 0.68617
-     }
-    },
-    {
-     "name": "move",
-     "label": "mouvement de la cote depuis l'ouverture",
-     "gain": 0.0,
-     "p": 0.465,
-     "ok": false,
-     "acc": 53.44,
-     "picks": {
-      "n": 1219,
-      "hit": 44.5,
-      "roi": -4.8
-     },
-     "season": {
-      "2025-26": 0.68813,
-      "2026-27": 0.68625
-     }
-    },
-    {
-     "name": "cv",
-     "label": "irrégularité du joueur (écart-type / moyenne sur 20 matchs)",
-     "gain": -0.00034,
-     "p": 0.97,
-     "ok": false,
-     "acc": 53.52,
-     "picks": {
-      "n": 6840,
-      "hit": 49.7,
-      "roi": -4.0
-     },
-     "season": {
-      "2025-26": 0.69104,
-      "2026-27": 0.6862
-     }
-    },
-    {
-     "name": "star_out",
-     "label": "points des coéquipiers majeurs absents",
-     "gain": -0.00036,
-     "p": 0.843,
-     "ok": false,
-     "acc": 53.48,
-     "picks": {
-      "n": 1021,
-      "hit": 47.2,
-      "roi": -4.5
-     },
-     "season": {
-      "2025-26": 0.68893,
-      "2026-27": 0.68657
-     }
-    },
-    {
-     "name": "opp_allowed",
-     "label": "ce que l'adversaire concède sur cette stat (15 derniers matchs)",
-     "gain": -0.0006,
-     "p": 1.0,
-     "ok": false,
-     "acc": 53.08,
-     "picks": {
-      "n": 3900,
-      "hit": 47.7,
-      "roi": -7.1
-     },
-     "season": {
-      "2025-26": 0.69216,
-      "2026-27": 0.68634
-     }
-    },
-    {
-     "name": "h2h",
-     "label": "face-à-face contre cet adversaire",
-     "gain": 2e-05,
-     "p": 0.033,
-     "ok": false,
-     "acc": 53.59,
-     "picks": {
-      "n": 646,
-      "hit": 45.2,
-      "roi": -4.0
-     },
-     "season": {
-      "2025-26": 0.68787,
-      "2026-27": 0.68627
-     }
-    },
-    {
-     "name": "venue_split",
-     "label": "écart domicile / extérieur propre au joueur",
-     "gain": -7e-05,
-     "p": 0.905,
-     "ok": false,
-     "acc": 53.47,
-     "picks": {
-      "n": 636,
-      "hit": 46.2,
-      "roi": -2.0
-     },
-     "season": {
-      "2025-26": 0.68787,
-      "2026-27": 0.68637
-     }
-    },
-    {
-     "name": "blowout",
-     "label": "écart prévu par le marché (titulaires sortis en cas de blowout)",
-     "gain": -0.0007,
-     "p": 0.998,
-     "ok": false,
-     "acc": 53.37,
-     "picks": {
-      "n": 798,
-      "hit": 46.6,
-      "roi": -1.5
-     },
-     "season": {
-      "2025-26": 0.68788,
-      "2026-27": 0.68708
-     }
-    },
-    {
-     "name": "total",
-     "label": "total de points prévu par le marché (rythme)",
-     "gain": -4e-05,
-     "p": 0.655,
-     "ok": false,
-     "acc": 53.49,
-     "picks": {
-      "n": 655,
-      "hit": 45.3,
-      "roi": -5.1
-     },
-     "season": {
-      "2025-26": 0.68787,
-      "2026-27": 0.68634
-     }
-    },
-    {
-     "name": "fav",
-     "label": "son équipe favorite ou outsider (écart du marché)",
-     "gain": -6e-05,
-     "p": 0.655,
-     "ok": false,
-     "acc": 53.6,
-     "picks": {
-      "n": 684,
-      "hit": 45.5,
-      "roi": -4.4
-     },
-     "season": {
-      "2025-26": 0.68788,
-      "2026-27": 0.68635
-     }
-    },
-    {
-     "name": "form_combo",
-     "label": "ligne contre sa forme récente (moyenne, médiane et réussite sur 10 matchs réunies)",
-     "gain": 0.0001,
-     "p": 0.403,
-     "ok": false,
-     "acc": 53.69,
-     "picks": {
-      "n": 1956,
-      "hit": 51.8,
-      "roi": -2.7
-     },
-     "season": {
-      "2025-26": 0.68801,
-      "2026-27": 0.68613
-     }
-    },
-    {
-     "name": "sim_min_gap",
-     "label": "minutes prévues par la simulation contre ses 10 derniers matchs",
-     "gain": -0.00054,
-     "p": 0.998,
-     "ok": false,
-     "acc": 53.18,
-     "picks": {
-      "n": 4324,
-      "hit": 47.8,
-      "roi": -7.7
-     },
-     "season": {
-      "2025-26": 0.69202,
-      "2026-27": 0.68628
-     }
-    },
-    {
-     "name": "early",
-     "label": "début de saison (peu de matchs joués cette saison)",
-     "gain": -0.00059,
-     "p": 0.995,
-     "ok": false,
-     "acc": 53.12,
-     "picks": {
-      "n": 6493,
-      "hit": 49.1,
-      "roi": -5.3
-     },
-     "season": {
-      "2025-26": 0.69076,
-      "2026-27": 0.68655
-     }
-    },
-    {
-     "name": "vig",
-     "label": "marge du bookmaker sur ce prop (ligne incertaine)",
-     "gain": -6e-05,
-     "p": 0.905,
-     "ok": false,
-     "acc": 53.52,
-     "picks": {
-      "n": 558,
-      "hit": 45.7,
-      "roi": -6.0
-     },
-     "season": {
-      "2025-26": 0.68789,
-      "2026-27": 0.68636
-     }
-    },
-    {
-     "name": "shots_trend",
-     "label": "tendance de ses tirs tentés (5 derniers matchs contre 20)",
-     "gain": -7e-05,
-     "p": 0.655,
-     "ok": false,
-     "acc": 53.37,
-     "picks": {
-      "n": 645,
-      "hit": 48.1,
-      "roi": -0.5
-     },
-     "season": {
-      "2025-26": 0.68788,
-      "2026-27": 0.68637
-     }
-    }
-   ],
+   "tried": [],
    "adopted": null,
    "removed": null,
    "base": {
-    "n": 33782,
-    "ll": 0.6865603985136768,
+    "n": 34420,
+    "ll": 0.6864977987119848,
     "season": {
-     "2025-26": 0.68787,
-     "2026-27": 0.68629
+     "2025-26": 0.68788,
+     "2026-27": 0.68624
     },
-    "acc": 53.59,
+    "acc": 53.63,
     "picks": {
-     "n": 651,
-     "hit": 44.7,
-     "roi": -5.0
+     "n": 697,
+     "hit": 44.2,
+     "roi": -5.9
     }
    },
    "active": []
   },
   "h2h": {
-   "at": "2026-11-17T06:59+00:00",
+   "at": "2026-11-18T06:42+00:00",
    "mesure": {
     "PTS": {
-     "w": 0.061,
+     "w": 0.062,
      "slope": 0.081,
-     "se": 0.046,
-     "n": 2284
+     "se": 0.045,
+     "n": 2341
     },
     "REB": {
-     "w": 0.062,
-     "slope": 0.08,
+     "w": 0.046,
+     "slope": 0.065,
      "se": 0.042,
-     "n": 2283
+     "n": 2340
     },
     "AST": {
-     "w": 0.04,
-     "slope": 0.059,
-     "se": 0.04,
-     "n": 2223
-    },
-    "3PM": {
-     "w": 0.026,
-     "slope": 0.049,
-     "se": 0.045,
-     "n": 1761
-    },
-    "PRA": {
-     "w": 0.054,
-     "slope": 0.071,
-     "se": 0.039,
-     "n": 2284
-    },
-    "PR": {
      "w": 0.053,
      "slope": 0.07,
+     "se": 0.039,
+     "n": 2278
+    },
+    "3PM": {
+     "w": 0.027,
+     "slope": 0.05,
+     "se": 0.045,
+     "n": 1806
+    },
+    "PRA": {
+     "w": 0.052,
+     "slope": 0.068,
+     "se": 0.039,
+     "n": 2341
+    },
+    "PR": {
+     "w": 0.048,
+     "slope": 0.066,
      "se": 0.04,
-     "n": 2284
+     "n": 2341
     },
     "PA": {
-     "w": 0.047,
-     "slope": 0.066,
-     "se": 0.042,
-     "n": 2284
+     "w": 0.053,
+     "slope": 0.07,
+     "se": 0.041,
+     "n": 2341
     }
    }
   },
   "series": [
-   "canal Picks : 3/5 séries de 10 positives (attendu 48 %)",
-   "canal Picks : série en cours 9/10, +0.15 u",
+   "canal Picks : 4/6 séries de 10 positives (attendu 47 %)",
+   "canal Picks : série en cours 3/10, +0.43 u",
    "Bankroll IA : 6/9 séries de 10 positives (attendu 56 %)",
-   "Bankroll IA : série en cours 4/10, +0.75 €"
+   "Bankroll IA : série en cours 6/10, -3.55 €"
   ],
   "lecons": {
    "hier": [
-    {
-     "label": "Tyler Herro moins de 4.5 passes",
-     "match": "ATL @ MIL",
-     "price": 2.14,
-     "p": 0.4606,
-     "win": true,
-     "src": "canal"
-    },
     {
      "label": "Josh Giddey moins de 6.5 rebonds",
      "match": "CHI @ CLE",
@@ -772,6 +384,38 @@
      "src": "canal"
     },
     {
+     "label": "Dylan Harper moins de 4.5 passes",
+     "match": "DET @ SA",
+     "price": 1.82,
+     "p": 0.5419,
+     "win": true,
+     "src": "canal"
+    },
+    {
+     "label": "Rui Hachimura moins de 1.5 passes",
+     "match": "UTAH @ LAC",
+     "price": 1.55,
+     "p": 0.6286,
+     "win": true,
+     "src": "canal"
+    },
+    {
+     "label": "Jalen Brunson moins de 6.5 passes",
+     "match": "NY @ TOR",
+     "price": 1.9,
+     "p": 0.5191,
+     "win": true,
+     "src": "canal"
+    },
+    {
+     "label": "Sidy Cissoko moins de 3.5 rebonds",
+     "match": "POR @ MIN",
+     "price": 1.85,
+     "p": 0.536,
+     "win": false,
+     "src": "canal"
+    },
+    {
      "label": "Dillon Brooks moins de 2.5 passes",
      "match": "PHX @ DEN",
      "price": 1.53,
@@ -786,97 +430,113 @@
      "p": 0.6394,
      "win": true,
      "src": "bankroll"
+    },
+    {
+     "label": "Sidy Cissoko moins de 1.5 paniers à 3 pts",
+     "match": "POR @ MIN",
+     "price": 1.45,
+     "p": 0.6524,
+     "win": false,
+     "src": "bankroll"
+    },
+    {
+     "label": "Collin Murray-Boyles moins de 1.5 contres",
+     "match": "NY @ TOR",
+     "price": 1.51,
+     "p": 0.6495,
+     "win": false,
+     "src": "bankroll"
     }
    ],
    "props": {
-    "n": 249,
-    "w": 130,
-    "exp": 138.4,
-    "matchs": 11
+    "n": 260,
+    "w": 146,
+    "exp": 145.8,
+    "matchs": 12
    },
    "segments": [
     {
      "seg": "nba · 3PM moins",
-     "n": 231,
-     "w": 126,
-     "exp": 134.3,
+     "n": 243,
+     "w": 131,
+     "exp": 141.3,
      "clv": -0.0586
     },
     {
      "seg": "nba · REB moins",
-     "n": 217,
-     "w": 129,
-     "exp": 123.0,
-     "clv": -0.0537
+     "n": 228,
+     "w": 135,
+     "exp": 129.4,
+     "clv": -0.0494
     },
     {
      "seg": "nba · AST moins",
-     "n": 208,
-     "w": 130,
-     "exp": 120.9,
-     "clv": -0.0383
+     "n": 222,
+     "w": 141,
+     "exp": 128.8,
+     "clv": -0.0315
     },
     {
      "seg": "nba · RA moins",
-     "n": 193,
-     "w": 120,
-     "exp": 111.5,
+     "n": 202,
+     "w": 126,
+     "exp": 116.8,
      "clv": null
     },
     {
      "seg": "nba · PTS moins",
-     "n": 184,
-     "w": 99,
-     "exp": 96.4,
+     "n": 194,
+     "w": 104,
+     "exp": 101.6,
      "clv": -0.0527
     },
     {
      "seg": "nba · REB plus",
-     "n": 143,
-     "w": 80,
-     "exp": 78.0,
+     "n": 154,
+     "w": 85,
+     "exp": 84.1,
      "clv": null
     },
     {
      "seg": "nba · PR moins",
-     "n": 139,
-     "w": 80,
-     "exp": 73.4,
+     "n": 147,
+     "w": 85,
+     "exp": 77.7,
      "clv": null
     },
     {
      "seg": "nba · PA moins",
-     "n": 128,
-     "w": 72,
-     "exp": 67.9,
+     "n": 135,
+     "w": 77,
+     "exp": 71.7,
      "clv": null
     },
     {
      "seg": "nba · PRA moins",
-     "n": 114,
-     "w": 62,
-     "exp": 60.1,
+     "n": 120,
+     "w": 66,
+     "exp": 63.3,
      "clv": null
     },
     {
      "seg": "nba · 3PM plus",
-     "n": 86,
-     "w": 50,
-     "exp": 49.0,
+     "n": 92,
+     "w": 54,
+     "exp": 52.4,
      "clv": -0.0594
     },
     {
      "seg": "nba · AST plus",
-     "n": 76,
-     "w": 46,
-     "exp": 41.6,
+     "n": 81,
+     "w": 48,
+     "exp": 44.4,
      "clv": null
     },
     {
      "seg": "nba · STL moins",
-     "n": 68,
-     "w": 49,
-     "exp": 41.8,
+     "n": 69,
+     "w": 50,
+     "exp": 42.3,
      "clv": -0.0636
     }
    ],
@@ -886,19 +546,18 @@
    "notes": []
   },
   "postmortem": [
-   "Post-mortem du 16/11 : 3/7 gagnés.",
-   "🔎 erreur · PHX @ DEN -0 Dillon Brooks moins de 2.5 passes @ 1.53 : sans détail ()",
-   "🍀 malchance · Alex Sarr moins de 1.5 contres (MEM @ WSH) @ 1.66 : perdu d'un rien (2 pour une ligne à 1.5)",
-   "🍀 malchance · Day'Ron Sharpe moins de 8.5 rebonds (PHI @ BKN) @ 1.73 : perdu d'un rien (9 pour une ligne à 8.5)",
-   "🔎 erreur · LaMelo Ball plus de 3.5 paniers à 3 pts (POR @ MIN) @ 2.03 : rendement sous la projection (2 en 24 min (projeté 3.3 à ce temps de jeu))",
-   "Bankroll IA sur 30 j : 94 paris, annoncé 55 % · gagné 60 % (hasard ±10 pts) · rendement +12.2 %",
-   "Canal Picks sur 30 j : 59 paris, annoncé 58 % · gagné 51 % (hasard ±13 pts) · rendement -14.0 %",
-   "67 paris perdus en 30 jours : 28 de malchance (bonne lecture, mauvais sort), 39 d'erreur de lecture."
+   "Post-mortem du 17/11 : 3/6 gagnés.",
+   "🔎 erreur · POR @ MIN -0 Sidy Cissoko moins de 1.5 paniers à 3 pts @ 1.45 : sans détail ()",
+   "🔎 erreur · NY @ TOR -0 Collin Murray-Boyles moins de 1.5 contres @ 1.51 : sans détail ()",
+   "🔎 erreur · Sidy Cissoko moins de 3.5 rebonds (POR @ MIN) @ 1.85 : minutes mal prévues (32 min jouées pour 26 prévues)",
+   "Bankroll IA sur 30 j : 96 paris, annoncé 55 % · gagné 58 % (hasard ±10 pts) · rendement +9.9 %",
+   "Canal Picks sur 30 j : 63 paris, annoncé 58 % · gagné 52 % (hasard ±12 pts) · rendement -11.1 %",
+   "70 paris perdus en 30 jours : 28 de malchance (bonne lecture, mauvais sort), 42 d'erreur de lecture."
   ],
   "params": {
    "rest_w": -0.05
   },
-  "minutes": 27.9
+  "minutes": 35.7
  },
  "nights": [
   {
@@ -2957,6 +2616,341 @@
       "acc": 53.37
      }
     ]
+   }
+  },
+  {
+   "at": "2026-11-18T06:42+00:00",
+   "base": {
+    "2024-25": 2.34817,
+    "2025-26": 2.36579
+   },
+   "gap": {
+    "2024-25": [
+     0.9847,
+     0.9625,
+     1521
+    ],
+    "2025-26": [
+     1.0157,
+     0.9879,
+     1380
+    ]
+   },
+   "adopted": null,
+   "notes": [],
+   "tried": [
+    {
+     "param": "intensity_sd",
+     "from": 0.3,
+     "to": 0.2,
+     "score": {
+      "2024-25": 2.35157,
+      "2025-26": 2.37227
+     },
+     "gain": {
+      "2024-25": -0.0034,
+      "2025-26": -0.00648
+     }
+    },
+    {
+     "param": "intensity_sd",
+     "from": 0.3,
+     "to": 0.4,
+     "score": {
+      "2024-25": 2.34826,
+      "2025-26": 2.36868
+     },
+     "gain": {
+      "2024-25": -9e-05,
+      "2025-26": -0.00289
+     }
+    },
+    {
+     "param": "finish",
+     "from": 0.97,
+     "to": 0.95,
+     "score": {
+      "2024-25": 2.34925,
+      "2025-26": 2.36904
+     },
+     "gain": {
+      "2024-25": -0.00108,
+      "2025-26": -0.00325
+     }
+    },
+    {
+     "param": "finish",
+     "from": 0.97,
+     "to": 0.99,
+     "score": {
+      "2024-25": 2.35068,
+      "2025-26": 2.37097
+     },
+     "gain": {
+      "2024-25": -0.00251,
+      "2025-26": -0.00518
+     }
+    },
+    {
+     "param": "lineup_pow",
+     "from": 1.0,
+     "to": 0.8,
+     "score": {
+      "2024-25": 2.34772,
+      "2025-26": 2.36651
+     },
+     "gain": {
+      "2024-25": 0.00045,
+      "2025-26": -0.00072
+     }
+    },
+    {
+     "param": "lineup_pow",
+     "from": 1.0,
+     "to": 1.2,
+     "score": {
+      "2024-25": 2.34768,
+      "2025-26": 2.36877
+     },
+     "gain": {
+      "2024-25": 0.00049,
+      "2025-26": -0.00298
+     }
+    },
+    {
+     "param": "home_boost",
+     "from": 1.0,
+     "to": 0.98,
+     "score": {
+      "2024-25": 2.34923,
+      "2025-26": 2.3696
+     },
+     "gain": {
+      "2024-25": -0.00106,
+      "2025-26": -0.00381
+     }
+    },
+    {
+     "param": "home_boost",
+     "from": 1.0,
+     "to": 1.02,
+     "score": {
+      "2024-25": 2.34931,
+      "2025-26": 2.3664
+     },
+     "gain": {
+      "2024-25": -0.00114,
+      "2025-26": -0.00061
+     }
+    }
+   ],
+   "h2h": {
+    "at": "2026-11-18T06:42+00:00",
+    "mesure": {
+     "PTS": {
+      "w": 0.062,
+      "slope": 0.081,
+      "se": 0.045,
+      "n": 2341
+     },
+     "REB": {
+      "w": 0.046,
+      "slope": 0.065,
+      "se": 0.042,
+      "n": 2340
+     },
+     "AST": {
+      "w": 0.053,
+      "slope": 0.07,
+      "se": 0.039,
+      "n": 2278
+     },
+     "3PM": {
+      "w": 0.027,
+      "slope": 0.05,
+      "se": 0.045,
+      "n": 1806
+     },
+     "PRA": {
+      "w": 0.052,
+      "slope": 0.068,
+      "se": 0.039,
+      "n": 2341
+     },
+     "PR": {
+      "w": 0.048,
+      "slope": 0.066,
+      "se": 0.04,
+      "n": 2341
+     },
+     "PA": {
+      "w": 0.053,
+      "slope": 0.07,
+      "se": 0.041,
+      "n": 2341
+     }
+    }
+   },
+   "minutes": 35.7,
+   "nba": {
+    "base": {
+     "2025-26": 0.70274,
+     "2026-27": 0.69875
+    },
+    "gap": {
+     "2025-26": [
+      0.7027,
+      0.6857,
+      32574
+     ],
+     "2026-27": [
+      0.6987,
+      0.6866,
+      16221
+     ]
+    },
+    "adopted": {
+     "param": "mkt_min_alpha",
+     "from": 0.6,
+     "to": 0.7,
+     "score": {
+      "2025-26": 0.70204,
+      "2026-27": 0.69766
+     },
+     "gain": {
+      "2025-26": 0.0007,
+      "2026-27": 0.00109
+     }
+    },
+    "calib": {
+     "at": "2026-11-18T06:42+00:00",
+     "n": [
+      32574,
+      16221
+     ],
+     "test": {
+      "marche": 0.68662,
+      "cale": 0.6859
+     },
+     "coef": {
+      "PTS": [
+       -0.0483,
+       0.0
+      ],
+      "REB": [
+       -0.0422,
+       0.1366
+      ],
+      "AST": [
+       -0.0876,
+       0.0428
+      ],
+      "PRA": [
+       -0.0671,
+       0.0163
+      ],
+      "PR": [
+       -0.0624,
+       0.0564
+      ],
+      "PA": [
+       -0.0669,
+       0.0
+      ],
+      "BLK": [
+       -0.1121,
+       0.0581
+      ],
+      "3PM": [
+       0.0256,
+       0.1802
+      ],
+      "STL": [
+       -0.1421,
+       0.1287
+      ],
+      "_all": [
+       -0.0554,
+       0.0609
+      ]
+     }
+    },
+    "tried": [
+     {
+      "param": "mkt_min_alpha",
+      "from": 0.6,
+      "to": 0.5,
+      "score": {
+       "2025-26": 0.70417,
+       "2026-27": 0.69998
+      },
+      "gain": {
+       "2025-26": -0.00143,
+       "2026-27": -0.00123
+      }
+     },
+     {
+      "param": "mkt_min_alpha",
+      "from": 0.6,
+      "to": 0.7,
+      "score": {
+       "2025-26": 0.70204,
+       "2026-27": 0.69766
+      },
+      "gain": {
+       "2025-26": 0.0007,
+       "2026-27": 0.00109
+      }
+     },
+     {
+      "param": "blowout_slope",
+      "from": 0.009,
+      "to": 0.007,
+      "score": {
+       "2025-26": 0.70334,
+       "2026-27": 0.69961
+      },
+      "gain": {
+       "2025-26": -0.0006,
+       "2026-27": -0.00086
+      }
+     },
+     {
+      "param": "blowout_slope",
+      "from": 0.009,
+      "to": 0.011,
+      "score": {
+       "2025-26": 0.70277,
+       "2026-27": 0.69886
+      },
+      "gain": {
+       "2025-26": -3e-05,
+       "2026-27": -0.00011
+      }
+     }
+    ]
+   },
+   "lab": {
+    "n": 39707,
+    "base": {
+     "n": 34420,
+     "ll": 0.6864977987119848,
+     "season": {
+      "2025-26": 0.68788,
+      "2026-27": 0.68624
+     },
+     "acc": 53.63,
+     "picks": {
+      "n": 697,
+      "hit": 44.2,
+      "roi": -5.9
+     }
+    },
+    "adopted": null,
+    "removed": null,
+    "recheck": null,
+    "active": [],
+    "tried": []
    }
   }
  ]
