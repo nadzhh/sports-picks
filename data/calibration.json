@@ -1,12 +1,32 @@
 {
- "genere_le": "2026-11-19T09:22:12",
- "n_resolus": 2884,
+ "genere_le": "2026-11-19T18:40:06",
+ "n_resolus": 2887,
  "parametres": {
   "n_min_jugement": 20,
   "seuil_pct": 50.0,
   "pas_tranche": 10
  },
  "marches": {
+  "foot/Double chance": {
+   "n": 183,
+   "wins": 149,
+   "wr": 81.4,
+   "borne_basse": 75.2,
+   "borne_haute": 86.4,
+   "statut": "RETENU",
+   "cote_moyenne": 1.55,
+   "n_cotes": 18
+  },
+  "foot/Victoire domicile": {
+   "n": 234,
+   "wins": 128,
+   "wr": 54.7,
+   "borne_basse": 48.3,
+   "borne_haute": 61.0,
+   "statut": "SURVEILLE",
+   "cote_moyenne": 3.2,
+   "n_cotes": 37
+  },
   "foot/Forme superieure": {
    "n": 83,
    "wins": 44,
@@ -37,16 +57,6 @@
    "cote_moyenne": null,
    "n_cotes": 0
   },
-  "foot/Double chance": {
-   "n": 181,
-   "wins": 148,
-   "wr": 81.8,
-   "borne_basse": 75.5,
-   "borne_haute": 86.7,
-   "statut": "RETENU",
-   "cote_moyenne": 1.55,
-   "n_cotes": 18
-  },
   "foot/Victoire extérieur": {
    "n": 219,
    "wins": 101,
@@ -66,16 +76,6 @@
    "statut": "SURVEILLE",
    "cote_moyenne": 1.53,
    "n_cotes": 3
-  },
-  "foot/Victoire domicile": {
-   "n": 233,
-   "wins": 127,
-   "wr": 54.5,
-   "borne_basse": 48.1,
-   "borne_haute": 60.8,
-   "statut": "SURVEILLE",
-   "cote_moyenne": 3.2,
-   "n_cotes": 37
   },
   "nba/PTS": {
    "n": 49,
@@ -1109,6 +1109,38 @@
   }
  },
  "calibration": {
+  "foot/Double chance": {
+   "80-89": {
+    "n": 145,
+    "p": 80.7
+   },
+   "90-99": {
+    "n": 32,
+    "p": 87.5
+   },
+   "70-79": {
+    "n": 6,
+    "p": 72.6
+   }
+  },
+  "foot/Victoire domicile": {
+   "70-79": {
+    "n": 74,
+    "p": 60.8
+   },
+   "60-69": {
+    "n": 103,
+    "p": 50.5
+   },
+   "80-89": {
+    "n": 34,
+    "p": 61.8
+   },
+   "50-59": {
+    "n": 23,
+    "p": 43.5
+   }
+  },
   "foot/Forme superieure": {
    "80-89": {
     "n": 34,
@@ -1151,20 +1183,6 @@
     "p": 27.3
    }
   },
-  "foot/Double chance": {
-   "80-89": {
-    "n": 143,
-    "p": 81.1
-   },
-   "90-99": {
-    "n": 32,
-    "p": 87.5
-   },
-   "70-79": {
-    "n": 6,
-    "p": 72.7
-   }
-  },
   "foot/Victoire extérieur": {
    "80-89": {
     "n": 36,
@@ -1195,24 +1213,6 @@
    "60-69": {
     "n": 10,
     "p": 40.0
-   }
-  },
-  "foot/Victoire domicile": {
-   "60-69": {
-    "n": 103,
-    "p": 50.5
-   },
-   "80-89": {
-    "n": 34,
-    "p": 61.8
-   },
-   "70-79": {
-    "n": 73,
-    "p": 60.3
-   },
-   "50-59": {
-    "n": 23,
-    "p": 43.5
    }
   },
   "nba/PTS": {
@@ -2151,7 +2151,7 @@
   }
  },
  "replis_sport": {
-  "foot": 49.3,
+  "foot": 49.4,
   "nba": 53.9,
   "tennis": 61.7
  }
