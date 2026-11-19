@@ -1,76 +1,86 @@
 {
- "at": "2026-11-18T07:17+00:00",
- "last_night": "2026-11-17",
+ "at": "2026-11-19T07:11+00:00",
+ "last_night": "2026-11-18",
  "veille": [
   {
    "src": "Bankroll IA",
-   "night": "2026-11-17",
-   "p": 0.6524,
-   "price": 1.45,
-   "win": false,
+   "night": "2026-11-18",
+   "p": 0.6944,
+   "price": 1.41,
+   "win": true,
    "kind": "conv",
-   "stake": 2.2,
-   "label": "POR @ MIN -0 Sidy Cissoko moins de 1.5 paniers à 3 pts",
-   "cause": "other",
-   "txt": ""
+   "stake": 3.0,
+   "label": "MIL @ MIA -0 Giannis Antetokounmpo moins de 1.5 contres"
   },
   {
    "src": "Bankroll IA",
-   "night": "2026-11-17",
-   "p": 0.6495,
-   "price": 1.51,
-   "win": false,
+   "night": "2026-11-18",
+   "p": 0.6795,
+   "price": 1.44,
+   "win": true,
    "kind": "conv",
-   "stake": 2.1,
-   "label": "NY @ TOR -0 Collin Murray-Boyles moins de 1.5 contres",
-   "cause": "other",
-   "txt": ""
+   "stake": 2.7,
+   "label": "BOS @ DEN -0 Neemias Queta moins de 1.5 contres"
   },
   {
    "src": "Canal Picks",
-   "night": "2026-11-17",
-   "p": 0.5419,
-   "price": 1.82,
-   "win": true,
+   "night": "2026-11-18",
+   "p": 0.6376,
+   "price": 1.52,
+   "win": false,
    "kind": "coup",
    "stake": 0.5,
-   "label": "Dylan Harper moins de 4.5 passes (DET @ SA)"
+   "label": "Myles Turner moins de 2.5 passes (MIL @ MIA)",
+   "cause": "rate",
+   "txt": "4 en 21 min (projeté 1.7 à ce temps de jeu)"
   },
   {
    "src": "Canal Picks",
-   "night": "2026-11-17",
-   "p": 0.6286,
-   "price": 1.55,
-   "win": true,
-   "kind": "coup",
-   "stake": 0.5,
-   "label": "Rui Hachimura moins de 1.5 passes (UTAH @ LAC)"
-  },
-  {
-   "src": "Canal Picks",
-   "night": "2026-11-17",
-   "p": 0.5191,
-   "price": 1.9,
-   "win": true,
-   "kind": "fill",
-   "stake": 0.25,
-   "label": "Jalen Brunson moins de 6.5 passes (NY @ TOR)"
-  },
-  {
-   "src": "Canal Picks",
-   "night": "2026-11-17",
-   "p": 0.536,
+   "night": "2026-11-18",
+   "p": 0.5199,
    "price": 1.85,
+   "win": true,
+   "kind": "coup",
+   "stake": 0.5,
+   "label": "Kyshawn George moins de 4.5 rebonds (WSH @ TOR)"
+  },
+  {
+   "src": "Canal Picks",
+   "night": "2026-11-18",
+   "p": 0.566,
+   "price": 1.72,
+   "win": false,
+   "kind": "coup",
+   "stake": 0.5,
+   "label": "Jalen Johnson moins de 7.5 passes (ATL @ OKC)",
+   "cause": "rate",
+   "txt": "11 en 34 min (projeté 6.8 à ce temps de jeu)"
+  },
+  {
+   "src": "Canal Picks",
+   "night": "2026-11-18",
+   "p": 0.6795,
+   "price": 1.44,
+   "win": true,
+   "kind": "safe",
+   "stake": 0.5,
+   "label": "Neemias Queta moins de 1.5 contres (BOS @ DEN)"
+  },
+  {
+   "src": "Canal Picks",
+   "night": "2026-11-18",
+   "p": 0.4319,
+   "price": 2.31,
    "win": false,
    "kind": "fill",
    "stake": 0.25,
-   "label": "Sidy Cissoko moins de 3.5 rebonds (POR @ MIN)",
-   "cause": "minutes",
-   "txt": "32 min jouées pour 26 prévues"
+   "label": "Kyrie Irving plus de 3.5 paniers à 3 pts (GS @ DAL)",
+   "cause": "rate",
+   "txt": "1 en 29 min (projeté 3.4 à ce temps de jeu)"
   }
  ],
  "causes": {
-  "rate": 23,
+  "rate": 26,
   "minutes": 11,
   "near": 28,
   "other": 7,
@@ -78,21 +88,21 @@
  },
  "calib": {
   "Bankroll IA": {
-   "n": 96,
-   "win": 0.583,
-   "announced": 0.55,
-   "noise": 0.102,
-   "roi": 0.099
+   "n": 98,
+   "win": 0.592,
+   "announced": 0.553,
+   "noise": 0.1,
+   "roi": 0.105
   },
   "Canal Picks": {
-   "n": 63,
-   "win": 0.524,
-   "announced": 0.581,
-   "noise": 0.124,
-   "roi": -0.111
+   "n": 69,
+   "win": 0.522,
+   "announced": 0.579,
+   "noise": 0.119,
+   "roi": -0.112
   }
  },
  "lessons": [
-  "70 paris perdus en 30 jours : 28 de malchance (bonne lecture, mauvais sort), 42 d'erreur de lecture."
+  "73 paris perdus en 30 jours : 28 de malchance (bonne lecture, mauvais sort), 45 d'erreur de lecture."
  ]
 }
