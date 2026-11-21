@@ -1,98 +1,119 @@
 {
- "at": "2026-11-20T07:13+00:00",
- "last_night": "2026-11-19",
+ "at": "2026-11-21T07:23+00:00",
+ "last_night": "2026-11-20",
  "veille": [
   {
    "src": "Bankroll IA",
-   "night": "2026-11-19",
-   "p": 0.6451,
-   "price": 1.5,
-   "win": false,
+   "night": "2026-11-20",
+   "p": 0.6865,
+   "price": 1.42,
+   "win": true,
    "kind": "conv",
-   "stake": 2.0,
-   "label": "LAC @ SA -0 Rui Hachimura moins de 1.5 passes",
-   "cause": "other",
-   "txt": ""
+   "stake": 2.9,
+   "label": "CHA @ ATL -0 Onyeka Okongwu moins de 1.5 contres"
   },
   {
    "src": "Bankroll IA",
-   "night": "2026-11-19",
-   "p": 0.642,
-   "price": 1.53,
+   "night": "2026-11-20",
+   "p": 0.6391,
+   "price": 1.52,
    "win": true,
    "kind": "conv",
    "stake": 1.9,
-   "label": "NY @ MIN -0 Rudy Gobert moins de 1.5 contres"
+   "label": "TOR @ DET -0 Jamal Shead moins de 2.5 rebonds"
   },
   {
    "src": "Canal Picks",
-   "night": "2026-11-19",
-   "p": 0.6438,
-   "price": 1.51,
-   "win": true,
-   "kind": "coup",
-   "stake": 0.5,
-   "label": "Derrick Jones Jr. moins de 1.5 passes (LAC @ SA)"
-  },
-  {
-   "src": "Canal Picks",
-   "night": "2026-11-19",
-   "p": 0.5777,
-   "price": 1.63,
+   "night": "2026-11-20",
+   "p": 0.5264,
+   "price": 1.85,
    "win": false,
    "kind": "coup",
    "stake": 0.5,
-   "label": "Jrue Holiday plus de 3.5 rebonds (POR @ MIL)",
+   "label": "Dyson Daniels moins de 5.5 passes (CHA @ ATL)",
+   "cause": "market",
+   "txt": "10 en 35 min (projeté 5.9 à ce temps de jeu) ; marché contre nous (51 → 45 %)"
+  },
+  {
+   "src": "Canal Picks",
+   "night": "2026-11-20",
+   "p": 0.5555,
+   "price": 1.74,
+   "win": false,
+   "kind": "coup",
+   "stake": 0.5,
+   "label": "Day'Ron Sharpe moins de 8.5 points (ORL @ BKN)",
    "cause": "rate",
-   "txt": "2 en 31 min (projeté 4.8 à ce temps de jeu)"
+   "txt": "17 en 26 min (projeté 10.2 à ce temps de jeu)"
   },
   {
    "src": "Canal Picks",
-   "night": "2026-11-19",
-   "p": 0.436,
-   "price": 2.26,
-   "win": false,
+   "night": "2026-11-20",
+   "p": 0.467,
+   "price": 2.1,
+   "win": true,
    "kind": "coup",
    "stake": 0.5,
-   "label": "Ayo Dosunmu moins de 3.5 passes (NY @ MIN)",
-   "cause": "near",
-   "txt": "4 pour une ligne à 3.5"
+   "label": "Malik Monk moins de 3.5 passes (SAC @ LAL)"
   },
   {
    "src": "Canal Picks",
-   "night": "2026-11-19",
-   "p": 0.5193,
-   "price": 1.9,
+   "night": "2026-11-20",
+   "p": 0.6874,
+   "price": 1.42,
+   "win": false,
+   "kind": "safe",
+   "stake": 0.5,
+   "label": "Jarrett Allen moins de 1.5 contres (IND @ CLE)",
+   "cause": "near",
+   "txt": "2 pour une ligne à 1.5"
+  },
+  {
+   "src": "Canal Picks",
+   "night": "2026-11-20",
+   "p": 0.6738,
+   "price": 1.42,
    "win": true,
-   "kind": "fill",
+   "kind": "safe",
+   "stake": 0.5,
+   "label": "Ajay Mitchell plus de 0.5 paniers à 3 pts (NO @ OKC)"
+  },
+  {
+   "src": "Canal Picks",
+   "night": "2026-11-20",
+   "p": 0.5404,
+   "price": 1.87,
+   "win": true,
+   "kind": "best",
    "stake": 0.25,
-   "label": "Jaylen Wells moins de 1.5 passes (GS @ MEM)"
+   "label": "Plus de 2.5 buts (Troyes - Le Havre AC)"
   }
  ],
  "causes": {
-  "rate": 27,
+  "rate": 28,
   "minutes": 11,
-  "near": 29,
+  "near": 30,
   "other": 8,
-  "lecture": 1
+  "lecture": 1,
+  "market": 1
  },
  "calib": {
   "Bankroll IA": {
-   "n": 100,
-   "win": 0.59,
-   "announced": 0.555,
-   "noise": 0.099,
-   "roi": 0.099
+   "n": 102,
+   "win": 0.598,
+   "announced": 0.557,
+   "noise": 0.098,
+   "roi": 0.106
   },
   "Canal Picks": {
-   "n": 73,
-   "win": 0.521,
+   "n": 79,
+   "win": 0.519,
    "announced": 0.577,
-   "noise": 0.116,
-   "roi": -0.114
+   "noise": 0.111,
+   "roi": -0.113
   }
  },
  "lessons": [
-  "76 paris perdus en 30 jours : 29 de malchance (bonne lecture, mauvais sort), 47 d'erreur de lecture."
+  "79 paris perdus en 30 jours : 30 de malchance (bonne lecture, mauvais sort), 49 d'erreur de lecture."
  ]
 }
