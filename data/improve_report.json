@@ -1,110 +1,110 @@
 {
  "last": {
-  "at": "2026-11-22T06:40+00:00",
+  "at": "2026-11-23T06:31+00:00",
   "sims": 1000,
   "tried": [
    {
-    "param": "goal_w",
-    "from": 0.0,
-    "to": 0.1,
+    "param": "k_team",
+    "from": 3.0,
+    "to": 2.0,
     "score": {
-     "2024-25": 2.35036,
-     "2025-26": 2.36827
+     "2024-25": 2.34906,
+     "2025-26": 2.36896
     },
     "gain": {
-     "2024-25": -0.00219,
-     "2025-26": -0.00248
+     "2024-25": -0.00089,
+     "2025-26": -0.00317
     }
    },
    {
-    "param": "k_share",
-    "from": 900.0,
-    "to": 600.0,
+    "param": "k_team",
+    "from": 3.0,
+    "to": 4.0,
     "score": {
-     "2024-25": 2.35026,
-     "2025-26": 2.36927
+     "2024-25": 2.35003,
+     "2025-26": 2.37016
     },
     "gain": {
-     "2024-25": -0.00209,
-     "2025-26": -0.00348
+     "2024-25": -0.00186,
+     "2025-26": -0.00437
     }
    },
    {
-    "param": "k_share",
-    "from": 900.0,
-    "to": 1200.0,
+    "param": "rating_beta",
+    "from": 0.3,
+    "to": 0.2,
     "score": {
-     "2024-25": 2.3475,
-     "2025-26": 2.36945
+     "2024-25": 2.35086,
+     "2025-26": 2.3687
     },
     "gain": {
-     "2024-25": 0.00067,
-     "2025-26": -0.00366
+     "2024-25": -0.00269,
+     "2025-26": -0.00291
     }
    },
    {
-    "param": "rest_w",
-    "from": -0.05,
-    "to": -0.1,
+    "param": "rating_beta",
+    "from": 0.3,
+    "to": 0.4,
     "score": {
-     "2024-25": 2.34866,
-     "2025-26": 2.36542
+     "2024-25": 2.34856,
+     "2025-26": 2.36886
     },
     "gain": {
-     "2024-25": -0.00049,
-     "2025-26": 0.00037
+     "2024-25": -0.00039,
+     "2025-26": -0.00307
     }
    },
    {
-    "param": "rest_w",
-    "from": -0.05,
-    "to": 0.0,
+    "param": "intensity_sd",
+    "from": 0.3,
+    "to": 0.2,
     "score": {
-     "2024-25": 2.3504,
-     "2025-26": 2.36767
+     "2024-25": 2.35157,
+     "2025-26": 2.37227
     },
     "gain": {
-     "2024-25": -0.00223,
-     "2025-26": -0.00188
+     "2024-25": -0.0034,
+     "2025-26": -0.00648
     }
    },
    {
-    "param": "cong_w",
-    "from": 0.0,
-    "to": -0.03,
+    "param": "intensity_sd",
+    "from": 0.3,
+    "to": 0.4,
     "score": {
-     "2024-25": 2.35084,
-     "2025-26": 2.36662
+     "2024-25": 2.34826,
+     "2025-26": 2.36868
     },
     "gain": {
-     "2024-25": -0.00267,
-     "2025-26": -0.00083
+     "2024-25": -9e-05,
+     "2025-26": -0.00289
     }
    },
    {
-    "param": "cong_w",
-    "from": 0.0,
-    "to": 0.03,
+    "param": "finish",
+    "from": 0.97,
+    "to": 0.95,
     "score": {
-     "2024-25": 2.34975,
-     "2025-26": 2.36734
+     "2024-25": 2.34925,
+     "2025-26": 2.36904
     },
     "gain": {
-     "2024-25": -0.00158,
-     "2025-26": -0.00155
+     "2024-25": -0.00108,
+     "2025-26": -0.00325
     }
    },
    {
-    "param": "hl_days",
-    "from": 200.0,
-    "to": 160.0,
+    "param": "finish",
+    "from": 0.97,
+    "to": 0.99,
     "score": {
-     "2024-25": 2.34929,
-     "2025-26": 2.36926
+     "2024-25": 2.35068,
+     "2025-26": 2.37097
     },
     "gain": {
-     "2024-25": -0.00112,
-     "2025-26": -0.00347
+     "2024-25": -0.00251,
+     "2025-26": -0.00518
     }
    }
   ],
@@ -129,55 +129,55 @@
   "nba": {
    "tried": [
     {
-     "param": "hl_rates",
-     "from": 30.0,
-     "to": 25.0,
+     "param": "k_usage",
+     "from": 150.0,
+     "to": 120.0,
      "score": {
-      "2025-26": 0.7018,
-      "2026-27": 0.6969
+      "2025-26": 0.70227,
+      "2026-27": 0.69712
      },
      "gain": {
-      "2025-26": 9e-05,
-      "2026-27": -1e-05
+      "2025-26": -0.00038,
+      "2026-27": -0.00036
      }
     },
     {
-     "param": "hl_rates",
-     "from": 30.0,
-     "to": 35.0,
+     "param": "k_usage",
+     "from": 150.0,
+     "to": 180.0,
      "score": {
-      "2025-26": 0.70256,
-      "2026-27": 0.69775
+      "2025-26": 0.70208,
+      "2026-27": 0.69699
      },
      "gain": {
-      "2025-26": -0.00067,
-      "2026-27": -0.00086
+      "2025-26": -0.00019,
+      "2026-27": -0.00023
      }
     },
     {
-     "param": "hl_minutes",
-     "from": 4.0,
-     "to": 3.0,
+     "param": "usage_k",
+     "from": 12.0,
+     "to": 10.0,
      "score": {
-      "2025-26": 0.7019,
-      "2026-27": 0.69781
+      "2025-26": 0.70169,
+      "2026-27": 0.69707
      },
      "gain": {
-      "2025-26": -1e-05,
-      "2026-27": -0.00092
+      "2025-26": 0.0002,
+      "2026-27": -0.00031
      }
     },
     {
-     "param": "hl_minutes",
-     "from": 4.0,
-     "to": 5.0,
+     "param": "usage_k",
+     "from": 12.0,
+     "to": 14.0,
      "score": {
-      "2025-26": 0.7024,
-      "2026-27": 0.69797
+      "2025-26": 0.7022,
+      "2026-27": 0.69669
      },
      "gain": {
-      "2025-26": -0.00051,
-      "2026-27": -0.00108
+      "2025-26": -0.00031,
+      "2026-27": 7e-05
      }
     }
    ],
@@ -185,7 +185,7 @@
    "notes": [],
    "base": {
     "2025-26": 0.70189,
-    "2026-27": 0.69689
+    "2026-27": 0.69676
    },
    "gap": {
     "2025-26": [
@@ -194,82 +194,82 @@
      32574
     ],
     "2026-27": [
-     0.6969,
-     0.6859,
-     19090
+     0.6968,
+     0.686,
+     19303
     ]
    },
    "calib": {
-    "at": "2026-11-22T06:40+00:00",
+    "at": "2026-11-23T06:31+00:00",
     "n": [
      32574,
-     19090
+     19303
     ],
     "test": {
-     "marche": 0.68588,
-     "cale": 0.6852
+     "marche": 0.68596,
+     "cale": 0.68525
     },
     "coef": {
      "PTS": [
-      -0.0453,
-      0.0233
+      -0.0464,
+      0.0284
      ],
      "REB": [
-      -0.0459,
-      0.1244
+      -0.0449,
+      0.1284
      ],
      "AST": [
-      -0.0795,
-      0.0403
+      -0.0801,
+      0.0389
      ],
      "PRA": [
-      -0.0648,
-      0.0259
+      -0.0661,
+      0.0343
      ],
      "PR": [
-      -0.0628,
-      0.0634
+      -0.063,
+      0.0707
      ],
      "PA": [
-      -0.0606,
+      -0.0621,
       0.0
      ],
      "BLK": [
-      -0.1316,
+      -0.1306,
       0.0
      ],
      "3PM": [
-      0.0262,
-      0.178
+      0.0229,
+      0.1711
      ],
      "STL": [
-      -0.1413,
-      0.1671
+      -0.1417,
+      0.175
      ],
      "_all": [
-      -0.0548,
-      0.0661
+      -0.0555,
+      0.0699
      ]
     }
    }
   },
   "lab": {
-   "at": "2026-11-22T06:40+00:00",
-   "n": 42576,
+   "at": "2026-11-23T06:31+00:00",
+   "n": 42789,
    "active_before": [],
    "tried": [],
    "adopted": null,
    "removed": null,
    "base": {
-    "n": 37289,
-    "ll": 0.6858686313529034,
+    "n": 37502,
+    "ll": 0.6859069202160928,
     "season": {
      "2025-26": 0.68794,
-     "2026-27": 0.68561
+     "2026-27": 0.68565
     },
-    "acc": 53.86,
+    "acc": 53.87,
     "picks": {
-     "n": 810,
+     "n": 814,
      "hit": 45.9,
      "roi": -1.9
     }
@@ -277,162 +277,66 @@
    "active": []
   },
   "h2h": {
-   "at": "2026-11-22T06:40+00:00",
+   "at": "2026-11-23T06:31+00:00",
    "mesure": {
     "PTS": {
-     "w": 0.064,
+     "w": 0.063,
      "slope": 0.081,
      "se": 0.043,
-     "n": 2523
+     "n": 2534
     },
     "REB": {
-     "w": 0.041,
-     "slope": 0.06,
+     "w": 0.044,
+     "slope": 0.062,
      "se": 0.04,
-     "n": 2522
+     "n": 2533
     },
     "AST": {
-     "w": 0.061,
-     "slope": 0.076,
+     "w": 0.056,
+     "slope": 0.071,
      "se": 0.038,
-     "n": 2457
+     "n": 2467
     },
     "3PM": {
-     "w": 0.028,
-     "slope": 0.049,
+     "w": 0.026,
+     "slope": 0.048,
      "se": 0.043,
-     "n": 1953
+     "n": 1962
     },
     "PRA": {
-     "w": 0.049,
-     "slope": 0.065,
+     "w": 0.048,
+     "slope": 0.064,
      "se": 0.037,
-     "n": 2523
+     "n": 2534
     },
     "PR": {
      "w": 0.047,
      "slope": 0.064,
      "se": 0.038,
-     "n": 2523
+     "n": 2534
     },
     "PA": {
-     "w": 0.054,
-     "slope": 0.071,
+     "w": 0.052,
+     "slope": 0.068,
      "se": 0.039,
-     "n": 2523
+     "n": 2534
     }
    }
   },
   "series": [
-   "canal Picks : 5/9 séries de 10 positives (attendu 47 %)",
-   "canal Picks : série en cours 2/10, -1.00 u",
-   "Bankroll IA : 6/10 séries de 10 positives (attendu 55 %)",
-   "Bankroll IA : série en cours 9/10, +0.39 €"
+   "canal Picks : 5/10 séries de 10 positives (attendu 48 %)",
+   "canal Picks : série en cours 2/10, -0.09 u",
+   "Bankroll IA : 7/11 séries de 10 positives (attendu 55 %)",
+   "Bankroll IA : série en cours 3/10, -0.18 €"
   ],
   "lecons": {
    "hier": [
     {
-     "label": "Dyson Daniels moins de 5.5 passes",
-     "match": "CHA @ ATL",
-     "price": 1.85,
-     "p": 0.5264,
-     "win": false,
-     "src": "canal"
-    },
-    {
-     "label": "Day'Ron Sharpe moins de 8.5 points",
-     "match": "ORL @ BKN",
-     "price": 1.74,
-     "p": 0.5555,
-     "win": false,
-     "src": "canal"
-    },
-    {
-     "label": "Malik Monk moins de 3.5 passes",
-     "match": "SAC @ LAL",
-     "price": 2.1,
-     "p": 0.467,
-     "win": true,
-     "src": "canal"
-    },
-    {
-     "label": "Jarrett Allen moins de 1.5 contres",
-     "match": "IND @ CLE",
-     "price": 1.42,
-     "p": 0.6874,
-     "win": false,
-     "src": "canal"
-    },
-    {
-     "label": "Ajay Mitchell plus de 0.5 paniers à 3 pts",
-     "match": "NO @ OKC",
-     "price": 1.42,
-     "p": 0.6738,
-     "win": true,
-     "src": "canal"
-    },
-    {
-     "label": "Moins de 2.5 buts",
-     "match": "SV Elversberg - SC Freiburg",
-     "price": 2.4,
-     "p": 0.4146,
-     "win": true,
-     "src": "canal"
-    },
-    {
      "label": "Plus de 2.5 buts",
-     "match": "Chelsea - Leeds United",
-     "price": 1.833,
-     "p": 0.5537,
+     "match": "Juventus - Venezia",
+     "price": 1.645,
+     "p": 0.6336,
      "win": true,
-     "src": "canal"
-    },
-    {
-     "label": "Plus de 2.5 buts",
-     "match": "AFC Bournemouth - Nottingham Forest",
-     "price": 1.833,
-     "p": 0.5297,
-     "win": false,
-     "src": "canal"
-    },
-    {
-     "label": "Plus de 2.5 buts",
-     "match": "Coventry City - Crystal Palace",
-     "price": 1.741,
-     "p": 0.5575,
-     "win": true,
-     "src": "canal"
-    },
-    {
-     "label": "Moins de 2.5 buts",
-     "match": "Rayo Vallecano - Valencia",
-     "price": 1.8,
-     "p": 0.5404,
-     "win": true,
-     "src": "canal"
-    },
-    {
-     "label": "Moins de 2.5 buts",
-     "match": "Sevilla - Real Betis",
-     "price": 1.952,
-     "p": 0.5015,
-     "win": true,
-     "src": "canal"
-    },
-    {
-     "label": "Moins de 2.5 buts",
-     "match": "AS Monaco - AJ Auxerre",
-     "price": 2.25,
-     "p": 0.4713,
-     "win": true,
-     "src": "canal"
-    },
-    {
-     "label": "Plus de 2.5 buts",
-     "match": "Lens - Toulouse",
-     "price": 1.8,
-     "p": 0.5696,
-     "win": false,
      "src": "canal"
     },
     {
@@ -460,59 +364,83 @@
      "src": "canal"
     },
     {
-     "label": "Plus de 2.5 buts",
-     "match": "Lille - Lyon",
-     "price": 2.15,
-     "p": 0.461,
+     "label": "Moins de 2.5 buts",
+     "match": "Paris FC - Angers",
+     "price": 2.4,
+     "p": 0.4072,
      "win": false,
      "src": "canal"
     },
     {
+     "label": "Moins de 2.5 buts",
+     "match": "Bologna - Udinese",
+     "price": 1.909,
+     "p": 0.5119,
+     "win": true,
+     "src": "canal"
+    },
+    {
      "label": "Plus de 2.5 buts",
-     "match": "Napoli - Torino",
-     "price": 1.769,
-     "p": 0.549,
+     "match": "Lorient - Stade Rennais",
+     "price": 1.87,
+     "p": 0.531,
+     "win": false,
+     "src": "canal"
+    },
+    {
+     "label": "Trae Young moins de 20.5 PR",
+     "match": "ORL @ WSH",
+     "price": 1.79,
+     "p": 0.5413,
+     "win": true,
+     "src": "canal"
+    },
+    {
+     "label": "Aaron Nesmith moins de 16.5 PR",
+     "match": "IND @ NY",
+     "price": 1.81,
+     "p": 0.5343,
+     "win": true,
+     "src": "canal"
+    },
+    {
+     "label": "Brandin Podziemski moins de 15.5 points",
+     "match": "BOS @ GS",
+     "price": 1.93,
+     "p": 0.502,
      "win": false,
      "src": "canal"
     },
     {
      "label": "Onyeka Okongwu moins de 1.5 contres",
-     "match": "CHA @ ATL",
+     "match": "DET @ ATL",
      "price": 1.42,
-     "p": 0.6865,
+     "p": 0.6881,
      "win": true,
-     "src": "bankroll"
-    },
-    {
-     "label": "Jamal Shead moins de 2.5 rebonds",
-     "match": "TOR @ DET",
-     "price": 1.52,
-     "p": 0.6391,
-     "win": true,
-     "src": "bankroll"
+     "src": "canal"
     },
     {
      "label": "Plus de 2.5 buts",
-     "match": "Tottenham Hotspur - Ipswich Town",
-     "price": 1.606,
-     "p": 0.6013,
-     "win": false,
-     "src": "bankroll"
+     "match": "Marseille - Le Mans",
+     "price": 1.571,
+     "p": 0.6192,
+     "win": true,
+     "src": "canal"
     },
     {
      "label": "Moins de 2.5 buts",
-     "match": "AS Monaco - AJ Auxerre",
-     "price": 2.25,
-     "p": 0.4713,
-     "win": true,
-     "src": "bankroll"
+     "match": "Getafe - Atlético Madrid",
+     "price": 1.69,
+     "p": 0.5923,
+     "win": false,
+     "src": "canal"
     },
     {
      "label": "Plus de 2.5 buts",
-     "match": "Lens - Toulouse",
-     "price": 1.8,
-     "p": 0.5696,
-     "win": false,
+     "match": "Juventus - Venezia",
+     "price": 1.645,
+     "p": 0.6336,
+     "win": true,
      "src": "bankroll"
     },
     {
@@ -530,97 +458,121 @@
      "p": 0.6204,
      "win": true,
      "src": "bankroll"
+    },
+    {
+     "label": "Onyeka Okongwu moins de 1.5 contres",
+     "match": "DET @ ATL",
+     "price": 1.42,
+     "p": 0.6881,
+     "win": true,
+     "src": "bankroll"
+    },
+    {
+     "label": "Alex Sarr moins de 1.5 paniers à 3 pts",
+     "match": "ORL @ WSH",
+     "price": 1.46,
+     "p": 0.6518,
+     "win": false,
+     "src": "bankroll"
+    },
+    {
+     "label": "Plus de 2.5 buts",
+     "match": "Marseille - Le Mans",
+     "price": 1.571,
+     "p": 0.6192,
+     "win": true,
+     "src": "bankroll"
     }
    ],
    "props": {
-    "n": 352,
-    "w": 210,
-    "exp": 196.8,
-    "matchs": 15
+    "n": 310,
+    "w": 168,
+    "exp": 170.0,
+    "matchs": 12
    },
    "segments": [
     {
      "seg": "nba · 3PM moins",
-     "n": 328,
-     "w": 184,
-     "exp": 190.7,
+     "n": 355,
+     "w": 198,
+     "exp": 206.1,
      "clv": -0.0586
     },
     {
      "seg": "nba · AST moins",
-     "n": 319,
-     "w": 198,
-     "exp": 185.7,
+     "n": 330,
+     "w": 203,
+     "exp": 192.0,
      "clv": -0.038
     },
     {
      "seg": "nba · REB moins",
-     "n": 306,
-     "w": 184,
-     "exp": 173.9,
+     "n": 321,
+     "w": 192,
+     "exp": 182.3,
      "clv": -0.0353
     },
     {
      "seg": "nba · RA moins",
-     "n": 288,
-     "w": 172,
-     "exp": 166.6,
+     "n": 300,
+     "w": 176,
+     "exp": 173.5,
      "clv": null
     },
     {
      "seg": "nba · PTS moins",
-     "n": 261,
-     "w": 136,
-     "exp": 137.0,
-     "clv": -0.0536
+     "n": 282,
+     "w": 147,
+     "exp": 148.0,
+     "clv": -0.0484
     },
     {
      "seg": "nba · PR moins",
-     "n": 203,
-     "w": 115,
-     "exp": 107.4,
-     "clv": -0.0615
+     "n": 227,
+     "w": 126,
+     "exp": 120.2,
+     "clv": -0.0634
     },
     {
      "seg": "nba · REB plus",
-     "n": 198,
-     "w": 107,
-     "exp": 108.6,
+     "n": 205,
+     "w": 111,
+     "exp": 112.3,
      "clv": -0.0616
     },
     {
      "seg": "nba · PA moins",
-     "n": 188,
-     "w": 105,
-     "exp": 99.6,
+     "n": 204,
+     "w": 116,
+     "exp": 108.1,
      "clv": null
     },
     {
      "seg": "nba · PRA moins",
-     "n": 169,
-     "w": 94,
-     "exp": 89.1,
+     "n": 185,
+     "w": 101,
+     "exp": 97.6,
      "clv": null
     },
     {
      "seg": "nba · 3PM plus",
-     "n": 118,
-     "w": 72,
-     "exp": 67.5,
+     "n": 122,
+     "w": 74,
+     "exp": 69.9,
      "clv": -0.0556
     },
     {
      "seg": "nba · AST plus",
-     "n": 115,
-     "w": 74,
-     "exp": 63.3,
+     "n": 122,
+     "w": 77,
+     "exp": 67.3,
      "clv": null
     },
     {
      "seg": "nba · STL moins",
-     "n": 82,
-     "w": 61,
-     "exp": 50.3,
+     "n": 84,
+     "w": 63,
+     "exp": 51.5,
      "clv": -0.0636
     }
    ],
@@ -630,24 +582,18 @@
    "notes": []
   },
   "postmortem": [
-   "Post-mortem du 21/11 : 5/14 gagnés.",
-   "🔎 erreur · Tottenham Hotspur - Ipswich Town -0 Plus de 2.5 buts @ 1.61 : sans détail ()",
-   "🔎 erreur · Deportivo Alavés - Deportivo A Coruña -0 Pierre-Emerick Aubameyang (Deportivo A Coruña) buteur @ 3.20 : sans détail ()",
-   "🔎 erreur · Lazio - Lecce -0 Willem Geubbels (Lecce) buteur @ 4.60 : sans détail ()",
-   "🔎 erreur · Lens - Toulouse -0 Plus de 2.5 buts @ 1.80 : sans détail ()",
-   "🍀 malchance · Plus de 2.5 buts (Lens - Toulouse) @ 1.80 : malchance (xG favorables) (score 1-1, xG 2.6-0.8)",
-   "🔎 erreur · Cedric Coward moins de 23.5 PR (MEM @ MIN) @ 1.93 : rendement sous la projection (30 en 30 min (projeté 22.0 à ce temps de jeu))",
-   "🍀 malchance · Darius Acuff Jr. moins de 26.5 PR (BOS @ SAC) @ 1.83 : perdu d'un rien (27 pour une ligne à 26.5 ; marché contre nous (51 → 49 %))",
-   "🔎 erreur · Plus de 2.5 buts (Lille - Lyon) @ 2.15 : lecture contredite par le match (xG) (score 0-1, xG 0.9-0.8)",
-   "🔎 erreur · Plus de 2.5 buts (Napoli - Torino) @ 1.77 : lecture contredite par le match (xG) (score 1-0, xG 1.7-0.6)",
-   "Bankroll IA sur 30 j : 109 paris, annoncé 55 % · gagné 59 % (hasard ±10 pts) · rendement +8.4 %",
-   "Canal Picks sur 30 j : 92 paris, annoncé 57 % · gagné 52 % (hasard ±10 pts) · rendement -8.8 %",
-   "89 paris perdus en 30 jours : 33 de malchance (bonne lecture, mauvais sort), 56 d'erreur de lecture."
+   "Post-mortem du 22/11 : 7/10 gagnés.",
+   "🔎 erreur · ORL @ WSH -0 Alex Sarr moins de 1.5 paniers à 3 pts @ 1.46 : sans détail ()",
+   "🔎 erreur · Brandin Podziemski moins de 15.5 points (BOS @ GS) @ 1.93 : minutes mal prévues (38 min jouées pour 32 prévues)",
+   "🍀 malchance · Moins de 2.5 buts (Getafe - Atlético Madrid) @ 1.69 : carton rouge (score 0-3, xG 0.5-4.3, 1 carton(s) rouge(s))",
+   "Bankroll IA sur 30 j : 113 paris, annoncé 56 % · gagné 59 % (hasard ±9 pts) · rendement +8.6 %",
+   "Canal Picks sur 30 j : 102 paris, annoncé 57 % · gagné 53 % (hasard ±10 pts) · rendement -7.8 %",
+   "94 paris perdus en 30 jours : 35 de malchance (bonne lecture, mauvais sort), 59 d'erreur de lecture."
   ],
   "params": {
    "rest_w": -0.05
   },
-  "minutes": 18.2
+  "minutes": 21.6
  },
  "nights": [
   {
@@ -4324,6 +4270,329 @@
      "acc": 53.86,
      "picks": {
       "n": 810,
+      "hit": 45.9,
+      "roi": -1.9
+     }
+    },
+    "adopted": null,
+    "removed": null,
+    "recheck": null,
+    "active": [],
+    "tried": []
+   }
+  },
+  {
+   "at": "2026-11-23T06:31+00:00",
+   "base": {
+    "2024-25": 2.34817,
+    "2025-26": 2.36579
+   },
+   "gap": {
+    "2024-25": [
+     0.9847,
+     0.9625,
+     1521
+    ],
+    "2025-26": [
+     1.0086,
+     0.9811,
+     1686
+    ]
+   },
+   "adopted": null,
+   "notes": [],
+   "tried": [
+    {
+     "param": "k_team",
+     "from": 3.0,
+     "to": 2.0,
+     "score": {
+      "2024-25": 2.34906,
+      "2025-26": 2.36896
+     },
+     "gain": {
+      "2024-25": -0.00089,
+      "2025-26": -0.00317
+     }
+    },
+    {
+     "param": "k_team",
+     "from": 3.0,
+     "to": 4.0,
+     "score": {
+      "2024-25": 2.35003,
+      "2025-26": 2.37016
+     },
+     "gain": {
+      "2024-25": -0.00186,
+      "2025-26": -0.00437
+     }
+    },
+    {
+     "param": "rating_beta",
+     "from": 0.3,
+     "to": 0.2,
+     "score": {
+      "2024-25": 2.35086,
+      "2025-26": 2.3687
+     },
+     "gain": {
+      "2024-25": -0.00269,
+      "2025-26": -0.00291
+     }
+    },
+    {
+     "param": "rating_beta",
+     "from": 0.3,
+     "to": 0.4,
+     "score": {
+      "2024-25": 2.34856,
+      "2025-26": 2.36886
+     },
+     "gain": {
+      "2024-25": -0.00039,
+      "2025-26": -0.00307
+     }
+    },
+    {
+     "param": "intensity_sd",
+     "from": 0.3,
+     "to": 0.2,
+     "score": {
+      "2024-25": 2.35157,
+      "2025-26": 2.37227
+     },
+     "gain": {
+      "2024-25": -0.0034,
+      "2025-26": -0.00648
+     }
+    },
+    {
+     "param": "intensity_sd",
+     "from": 0.3,
+     "to": 0.4,
+     "score": {
+      "2024-25": 2.34826,
+      "2025-26": 2.36868
+     },
+     "gain": {
+      "2024-25": -9e-05,
+      "2025-26": -0.00289
+     }
+    },
+    {
+     "param": "finish",
+     "from": 0.97,
+     "to": 0.95,
+     "score": {
+      "2024-25": 2.34925,
+      "2025-26": 2.36904
+     },
+     "gain": {
+      "2024-25": -0.00108,
+      "2025-26": -0.00325
+     }
+    },
+    {
+     "param": "finish",
+     "from": 0.97,
+     "to": 0.99,
+     "score": {
+      "2024-25": 2.35068,
+      "2025-26": 2.37097
+     },
+     "gain": {
+      "2024-25": -0.00251,
+      "2025-26": -0.00518
+     }
+    }
+   ],
+   "h2h": {
+    "at": "2026-11-23T06:31+00:00",
+    "mesure": {
+     "PTS": {
+      "w": 0.063,
+      "slope": 0.081,
+      "se": 0.043,
+      "n": 2534
+     },
+     "REB": {
+      "w": 0.044,
+      "slope": 0.062,
+      "se": 0.04,
+      "n": 2533
+     },
+     "AST": {
+      "w": 0.056,
+      "slope": 0.071,
+      "se": 0.038,
+      "n": 2467
+     },
+     "3PM": {
+      "w": 0.026,
+      "slope": 0.048,
+      "se": 0.043,
+      "n": 1962
+     },
+     "PRA": {
+      "w": 0.048,
+      "slope": 0.064,
+      "se": 0.037,
+      "n": 2534
+     },
+     "PR": {
+      "w": 0.047,
+      "slope": 0.064,
+      "se": 0.038,
+      "n": 2534
+     },
+     "PA": {
+      "w": 0.052,
+      "slope": 0.068,
+      "se": 0.039,
+      "n": 2534
+     }
+    }
+   },
+   "minutes": 21.6,
+   "nba": {
+    "base": {
+     "2025-26": 0.70189,
+     "2026-27": 0.69676
+    },
+    "gap": {
+     "2025-26": [
+      0.7019,
+      0.6857,
+      32574
+     ],
+     "2026-27": [
+      0.6968,
+      0.686,
+      19303
+     ]
+    },
+    "adopted": null,
+    "calib": {
+     "at": "2026-11-23T06:31+00:00",
+     "n": [
+      32574,
+      19303
+     ],
+     "test": {
+      "marche": 0.68596,
+      "cale": 0.68525
+     },
+     "coef": {
+      "PTS": [
+       -0.0464,
+       0.0284
+      ],
+      "REB": [
+       -0.0449,
+       0.1284
+      ],
+      "AST": [
+       -0.0801,
+       0.0389
+      ],
+      "PRA": [
+       -0.0661,
+       0.0343
+      ],
+      "PR": [
+       -0.063,
+       0.0707
+      ],
+      "PA": [
+       -0.0621,
+       0.0
+      ],
+      "BLK": [
+       -0.1306,
+       0.0
+      ],
+      "3PM": [
+       0.0229,
+       0.1711
+      ],
+      "STL": [
+       -0.1417,
+       0.175
+      ],
+      "_all": [
+       -0.0555,
+       0.0699
+      ]
+     }
+    },
+    "tried": [
+     {
+      "param": "k_usage",
+      "from": 150.0,
+      "to": 120.0,
+      "score": {
+       "2025-26": 0.70227,
+       "2026-27": 0.69712
+      },
+      "gain": {
+       "2025-26": -0.00038,
+       "2026-27": -0.00036
+      }
+     },
+     {
+      "param": "k_usage",
+      "from": 150.0,
+      "to": 180.0,
+      "score": {
+       "2025-26": 0.70208,
+       "2026-27": 0.69699
+      },
+      "gain": {
+       "2025-26": -0.00019,
+       "2026-27": -0.00023
+      }
+     },
+     {
+      "param": "usage_k",
+      "from": 12.0,
+      "to": 10.0,
+      "score": {
+       "2025-26": 0.70169,
+       "2026-27": 0.69707
+      },
+      "gain": {
+       "2025-26": 0.0002,
+       "2026-27": -0.00031
+      }
+     },
+     {
+      "param": "usage_k",
+      "from": 12.0,
+      "to": 14.0,
+      "score": {
+       "2025-26": 0.7022,
+       "2026-27": 0.69669
+      },
+      "gain": {
+       "2025-26": -0.00031,
+       "2026-27": 7e-05
+      }
+     }
+    ]
+   },
+   "lab": {
+    "n": 42789,
+    "base": {
+     "n": 37502,
+     "ll": 0.6859069202160928,
+     "season": {
+      "2025-26": 0.68794,
+      "2026-27": 0.68565
+     },
+     "acc": 53.87,
+     "picks": {
+      "n": 814,
       "hit": 45.9,
       "roi": -1.9
      }
