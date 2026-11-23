@@ -1,12 +1,52 @@
 {
-  "generated_at": "2026-11-23T03:11:02.724548",
-  "n_total": 3116,
+  "generated_at": "2026-11-23T12:28:18.693660",
+  "n_total": 3123,
   "by_sport": {
-    "foot": 2572,
-    "nba": 364,
+    "foot": 2574,
+    "nba": 369,
     "tennis": 180
   },
   "picks": [
+    {
+      "sport": "foot",
+      "id": "2026-11-23_6665007_team_home_win",
+      "date": "2026-11-23",
+      "matchup": "Vancouver Whitecaps vs Real Salt Lake",
+      "market": "Victoire domicile",
+      "label": "Vancouver Whitecaps gagne",
+      "line": null,
+      "direction": "home_win",
+      "confidence": 77,
+      "cote": 1.42,
+      "cote_min": null,
+      "edge_pp": null,
+      "result": "WIN",
+      "actual": null,
+      "context": {
+        "league": "MLS",
+        "is_fun": false
+      }
+    },
+    {
+      "sport": "foot",
+      "id": "2026-11-23_6665007_team_home_dc",
+      "date": "2026-11-23",
+      "matchup": "Vancouver Whitecaps vs Real Salt Lake",
+      "market": "Double chance",
+      "label": "Vancouver Whitecaps ou Nul (1X)",
+      "line": null,
+      "direction": "home_dc",
+      "confidence": 89,
+      "cote": null,
+      "cote_min": null,
+      "edge_pp": null,
+      "result": "WIN",
+      "actual": null,
+      "context": {
+        "league": "MLS",
+        "is_fun": false
+      }
+    },
     {
       "sport": "nba",
       "id": "2026-11-23_401910032_Aaron Gordon_PRA_under_24.5",
@@ -34,6 +74,56 @@
     },
     {
       "sport": "nba",
+      "id": "2026-11-23_401910034_Andrew Nembhard_REB_over_1.5",
+      "date": "2026-11-23",
+      "matchup": "Pacers @ Knicks",
+      "market": "REB",
+      "label": "Andrew Nembhard plus de 1.5 rebonds",
+      "line": 1.5,
+      "direction": "over",
+      "confidence": 75,
+      "cote": null,
+      "cote_min": 1.31,
+      "edge_pp": null,
+      "result": "WIN",
+      "actual": 2.0,
+      "context": {
+        "player": "Andrew Nembhard",
+        "team": "Pacers",
+        "side": "away",
+        "is_real_line": false,
+        "hit_l10_pct": 80.0,
+        "hit_l20_pct": 83.0,
+        "trend": "stable"
+      }
+    },
+    {
+      "sport": "nba",
+      "id": "2026-11-23_401910035_Draymond Green_PRA_over_9.5",
+      "date": "2026-11-23",
+      "matchup": "Celtics @ Warriors",
+      "market": "PRA",
+      "label": "Draymond Green plus de 9.5 PRA",
+      "line": 9.5,
+      "direction": "over",
+      "confidence": 62,
+      "cote": null,
+      "cote_min": 1.47,
+      "edge_pp": null,
+      "result": "WIN",
+      "actual": 18.0,
+      "context": {
+        "player": "Draymond Green",
+        "team": "Warriors",
+        "side": "home",
+        "is_real_line": false,
+        "hit_l10_pct": 90.0,
+        "hit_l20_pct": 92.0,
+        "trend": "stable"
+      }
+    },
+    {
+      "sport": "nba",
       "id": "2026-11-23_401910033_Morez Johnson Jr._AST_over_0.5",
       "date": "2026-11-23",
       "matchup": "Mavericks @ Jazz",
@@ -54,6 +144,81 @@
         "is_real_line": false,
         "hit_l10_pct": 80.0,
         "hit_l20_pct": 80.0,
+        "trend": "stable"
+      }
+    },
+    {
+      "sport": "nba",
+      "id": "2026-11-23_401910034_Pascal Siakam_PA_over_21.5",
+      "date": "2026-11-23",
+      "matchup": "Pacers @ Knicks",
+      "market": "PA",
+      "label": "Pascal Siakam plus de 21.5 pts + ast",
+      "line": 21.5,
+      "direction": "over",
+      "confidence": 63,
+      "cote": null,
+      "cote_min": 1.77,
+      "edge_pp": null,
+      "result": "WIN",
+      "actual": 26.0,
+      "context": {
+        "player": "Pascal Siakam",
+        "team": "Pacers",
+        "side": "away",
+        "is_real_line": false,
+        "hit_l10_pct": 80.0,
+        "hit_l20_pct": 87.0,
+        "trend": "stable"
+      }
+    },
+    {
+      "sport": "nba",
+      "id": "2026-11-23_401910034_Andrew Nembhard_PRA_over_19.5",
+      "date": "2026-11-23",
+      "matchup": "Pacers @ Knicks",
+      "market": "PRA",
+      "label": "Andrew Nembhard plus de 19.5 PRA",
+      "line": 19.5,
+      "direction": "over",
+      "confidence": 65,
+      "cote": null,
+      "cote_min": 1.67,
+      "edge_pp": null,
+      "result": "WIN",
+      "actual": 26.0,
+      "context": {
+        "player": "Andrew Nembhard",
+        "team": "Pacers",
+        "side": "away",
+        "is_real_line": false,
+        "hit_l10_pct": 80.0,
+        "hit_l20_pct": 83.0,
+        "trend": "stable"
+      }
+    },
+    {
+      "sport": "nba",
+      "id": "2026-11-23_401910035_Jayson Tatum_AST_over_5.5",
+      "date": "2026-11-23",
+      "matchup": "Celtics @ Warriors",
+      "market": "AST",
+      "label": "Jayson Tatum plus de 5.5 passes",
+      "line": 5.5,
+      "direction": "over",
+      "confidence": 69,
+      "cote": null,
+      "cote_min": 1.49,
+      "edge_pp": null,
+      "result": "WIN",
+      "actual": 6.0,
+      "context": {
+        "player": "Jayson Tatum",
+        "team": "Celtics",
+        "side": "away",
+        "is_real_line": false,
+        "hit_l10_pct": 70.0,
+        "hit_l20_pct": 79.0,
         "trend": "stable"
       }
     },
