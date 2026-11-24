@@ -1,41 +1,71 @@
 {
- "genere_le": "2026-11-23T12:22:25",
- "n_resolus": 3036,
+ "genere_le": "2026-11-24T00:20:32",
+ "n_resolus": 3043,
  "parametres": {
   "n_min_jugement": 20,
   "seuil_pct": 50.0,
   "pas_tranche": 10
  },
  "marches": {
+  "foot/Victoire domicile": {
+   "n": 267,
+   "wins": 149,
+   "wr": 55.8,
+   "borne_basse": 49.8,
+   "borne_haute": 61.6,
+   "statut": "SURVEILLE",
+   "cote_moyenne": 2.96,
+   "n_cotes": 45
+  },
+  "foot/Double chance": {
+   "n": 211,
+   "wins": 174,
+   "wr": 82.5,
+   "borne_basse": 76.8,
+   "borne_haute": 87.0,
+   "statut": "RETENU",
+   "cote_moyenne": 1.55,
+   "n_cotes": 18
+  },
   "nba/PRA": {
-   "n": 54,
-   "wins": 33,
-   "wr": 61.1,
-   "borne_basse": 47.8,
-   "borne_haute": 73.0,
+   "n": 56,
+   "wins": 35,
+   "wr": 62.5,
+   "borne_basse": 49.4,
+   "borne_haute": 74.0,
    "statut": "SURVEILLE",
    "cote_moyenne": 1.86,
    "n_cotes": 16
   },
+  "nba/REB": {
+   "n": 70,
+   "wins": 38,
+   "wr": 54.3,
+   "borne_basse": 42.7,
+   "borne_haute": 65.4,
+   "statut": "SURVEILLE",
+   "cote_moyenne": 1.97,
+   "n_cotes": 38
+  },
   "nba/AST": {
-   "n": 65,
-   "wins": 36,
-   "wr": 55.4,
-   "borne_basse": 43.3,
-   "borne_haute": 66.8,
+   "n": 66,
+   "wins": 37,
+   "wr": 56.1,
+   "borne_basse": 44.1,
+   "borne_haute": 67.4,
    "statut": "SURVEILLE",
    "cote_moyenne": 2.0,
    "n_cotes": 28
   },
-  "foot/Double chance": {
-   "n": 210,
-   "wins": 173,
-   "wr": 82.4,
-   "borne_basse": 76.7,
-   "borne_haute": 86.9,
-   "statut": "RETENU",
-   "cote_moyenne": 1.55,
-   "n_cotes": 18
+  "nba/PA": {
+   "n": 54,
+   "wins": 30,
+   "wr": 55.6,
+   "borne_basse": 42.4,
+   "borne_haute": 68.0,
+   "statut": "SURVEILLE",
+   "cote_moyenne": 1.9,
+   "n_cotes": 43
   },
   "foot/Victoire extérieur": {
    "n": 243,
@@ -76,16 +106,6 @@
    "statut": "RETENU",
    "cote_moyenne": 1.73,
    "n_cotes": 1
-  },
-  "foot/Victoire domicile": {
-   "n": 266,
-   "wins": 148,
-   "wr": 55.6,
-   "borne_basse": 49.6,
-   "borne_haute": 61.5,
-   "statut": "SURVEILLE",
-   "cote_moyenne": 3.0,
-   "n_cotes": 44
   },
   "foot/Tirs (Paris FC)": {
    "n": 1,
@@ -147,16 +167,6 @@
    "cote_moyenne": null,
    "n_cotes": 0
   },
-  "nba/REB": {
-   "n": 69,
-   "wins": 37,
-   "wr": 53.6,
-   "borne_basse": 42.0,
-   "borne_haute": 64.9,
-   "statut": "SURVEILLE",
-   "cote_moyenne": 1.97,
-   "n_cotes": 38
-  },
   "foot/Tirs (Manchester City)": {
    "n": 3,
    "wins": 3,
@@ -216,16 +226,6 @@
    "statut": "SURVEILLE",
    "cote_moyenne": 1.9,
    "n_cotes": 30
-  },
-  "nba/PA": {
-   "n": 53,
-   "wins": 29,
-   "wr": 54.7,
-   "borne_basse": 41.5,
-   "borne_haute": 67.3,
-   "statut": "SURVEILLE",
-   "cote_moyenne": 1.9,
-   "n_cotes": 43
   },
   "foot/Forme superieure": {
    "n": 83,
@@ -1199,14 +1199,46 @@
   }
  },
  "calibration": {
+  "foot/Victoire domicile": {
+   "70-79": {
+    "n": 87,
+    "p": 63.2
+   },
+   "60-69": {
+    "n": 120,
+    "p": 50.0
+   },
+   "80-89": {
+    "n": 37,
+    "p": 64.9
+   },
+   "50-59": {
+    "n": 23,
+    "p": 43.5
+   }
+  },
+  "foot/Double chance": {
+   "80-89": {
+    "n": 168,
+    "p": 82.7
+   },
+   "90-99": {
+    "n": 37,
+    "p": 83.8
+   },
+   "70-79": {
+    "n": 6,
+    "p": 73.0
+   }
+  },
   "nba/PRA": {
    "60-69": {
-    "n": 27,
-    "p": 66.7
+    "n": 29,
+    "p": 69.0
    },
    "50-59": {
     "n": 8,
-    "p": 62.2
+    "p": 62.5
    },
    "70-79": {
     "n": 17,
@@ -1214,6 +1246,28 @@
    },
    "80-89": {
     "n": 2,
+    "p": 50.0
+   }
+  },
+  "nba/REB": {
+   "70-79": {
+    "n": 22,
+    "p": 50.0
+   },
+   "60-69": {
+    "n": 33,
+    "p": 48.5
+   },
+   "50-59": {
+    "n": 9,
+    "p": 65.4
+   },
+   "80-89": {
+    "n": 5,
+    "p": 77.2
+   },
+   "90-99": {
+    "n": 1,
     "p": 48.9
    }
   },
@@ -1223,34 +1277,38 @@
     "p": 58.8
    },
    "60-69": {
-    "n": 25,
-    "p": 40.0
+    "n": 26,
+    "p": 42.3
    },
    "50-59": {
     "n": 3,
-    "p": 68.8
+    "p": 69.3
    },
    "80-89": {
     "n": 2,
-    "p": 64.3
+    "p": 64.9
    },
    "90-99": {
     "n": 1,
-    "p": 59.9
+    "p": 60.5
    }
   },
-  "foot/Double chance": {
-   "90-99": {
-    "n": 37,
-    "p": 83.8
+  "nba/PA": {
+   "60-69": {
+    "n": 24,
+    "p": 50.0
    },
-   "80-89": {
-    "n": 167,
-    "p": 82.6
+   "50-59": {
+    "n": 5,
+    "p": 57.8
    },
    "70-79": {
-    "n": 6,
-    "p": 73.0
+    "n": 22,
+    "p": 63.6
+   },
+   "80-89": {
+    "n": 3,
+    "p": 48.9
    }
   },
   "foot/Victoire extérieur": {
@@ -1297,24 +1355,6 @@
     "p": 80.0
    }
   },
-  "foot/Victoire domicile": {
-   "60-69": {
-    "n": 120,
-    "p": 50.0
-   },
-   "80-89": {
-    "n": 37,
-    "p": 64.9
-   },
-   "70-79": {
-    "n": 86,
-    "p": 62.8
-   },
-   "50-59": {
-    "n": 23,
-    "p": 43.5
-   }
-  },
   "foot/Tirs (Paris FC)": {
    "70-79": {
     "n": 1,
@@ -1353,28 +1393,6 @@
    "70-79": {
     "n": 1,
     "p": 90.0
-   }
-  },
-  "nba/REB": {
-   "70-79": {
-    "n": 21,
-    "p": 47.6
-   },
-   "60-69": {
-    "n": 33,
-    "p": 48.5
-   },
-   "50-59": {
-    "n": 9,
-    "p": 65.4
-   },
-   "80-89": {
-    "n": 5,
-    "p": 76.8
-   },
-   "90-99": {
-    "n": 1,
-    "p": 48.2
    }
   },
   "foot/Tirs (Manchester City)": {
@@ -1431,24 +1449,6 @@
    "50-59": {
     "n": 3,
     "p": 47.0
-   }
-  },
-  "nba/PA": {
-   "60-69": {
-    "n": 23,
-    "p": 47.8
-   },
-   "50-59": {
-    "n": 5,
-    "p": 57.4
-   },
-   "70-79": {
-    "n": 22,
-    "p": 63.6
-   },
-   "80-89": {
-    "n": 3,
-    "p": 48.3
    }
   },
   "foot/Forme superieure": {
@@ -2299,8 +2299,8 @@
   }
  },
  "replis_sport": {
-  "nba": 54.7,
-  "foot": 50.5,
+  "foot": 50.6,
+  "nba": 55.3,
   "tennis": 61.7
  }
 }
