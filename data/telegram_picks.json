@@ -3653,6 +3653,187 @@ null
 "result": "loss",
 "units": -0.25,
 "units_fr": -0.25
+},
+{
+"kind": "coup",
+"sport": "nba",
+"match_id": "401909314",
+"match": "DET @ ORL",
+"league": "NBA",
+"ko": "2026-11-25T00:00Z",
+"label": "Kevin Huerter moins de 14.5 PR",
+"price": 1.98,
+"book": "DraftKings",
+"p": 0.4877,
+"p_fair": 0.4718,
+"p_sim": 0.4827,
+"ev": -0.0342,
+"safe": false,
+"res": {
+"gid": "401909314",
+"pid": "4066372",
+"stat": "PR",
+"line": 14.5,
+"side": "u"
+},
+"src": "prop",
+"arg": {
+"pro": 10,
+"contre": 2,
+"top": [
+"Paolo Banchero ABSENT chez Orlando Magic : sans lui, ils encaissent 111,2 points par match (14 matchs) contre 113,5 avec",
+"Orlando Magic : 10e défense de la ligue en points + rebonds encaissés (154,2 par match ; 1re = la plus avare)",
+"73 % de réussite sur ses 22 derniers matchs contre les 10 meilleures défenses en points + rebonds ; moyenne de 10,6"
+],
+"obj": "Sans Jalen Duren (16 matchs), Kevin tourne à 11,6 points en 28,2 min, contre 7,3 avec lui. Réponse : ma simulation l'intègre déjà : 15,7 points + rebonds en moyenne, 48 % pour le moins (marché sans marge : 47 %)."
+},
+"stake": 0.5,
+"price_fr": 1.68,
+"day": "2026-11-24",
+"posted_at": "2026-11-24T19:01+00:00",
+"last_p": 0.4718
+},
+{
+"kind": "coup",
+"sport": "nba",
+"match_id": "401909315",
+"match": "BOS @ WSH",
+"league": "NBA",
+"ko": "2026-11-25T01:00Z",
+"label": "Trae Young moins de 15.5 points",
+"price": 1.81,
+"book": "DraftKings",
+"p": 0.5326,
+"p_fair": 0.5209,
+"p_sim": 0.5473,
+"ev": -0.0344,
+"safe": false,
+"res": {
+"gid": "401909315",
+"pid": "4277905",
+"stat": "PTS",
+"line": 15.5,
+"side": "u"
+},
+"src": "prop",
+"arg": {
+"pro": 9,
+"contre": 1,
+"top": [
+"Sans Justin Champagnie (17 matchs), Trae tourne à 15,8 points en 31,4 min, contre 19,2 avec lui",
+"Boston Celtics : 1re défense de la ligue en points encaissés (102,1 par match ; 1re = la plus avare)",
+"58 % de réussite sur ses 12 derniers matchs contre les 10 meilleures défenses en points ; moyenne de 15,2"
+],
+"obj": "Temps de jeu en baisse : 30,8 min sur ses 5 derniers matchs contre 34,2 avant. Réponse : ma simulation l'intègre déjà : 15,4 points en moyenne, 55 % pour le moins (marché sans marge : 52 %)."
+},
+"stake": 0.5,
+"price_fr": 1.54,
+"day": "2026-11-24",
+"posted_at": "2026-11-24T19:01+00:00",
+"last_p": 0.5209
+},
+{
+"kind": "coup",
+"sport": "nba",
+"match_id": "401909316",
+"match": "DAL @ DEN",
+"league": "NBA",
+"ko": "2026-11-25T03:00Z",
+"label": "Naji Marshall plus de 0.5 paniers à 3 pts",
+"price": 1.72,
+"book": "DraftKings",
+"p": 0.5463,
+"p_fair": 0.5431,
+"p_sim": 0.5247,
+"ev": -0.0578,
+"safe": false,
+"res": {
+"gid": "401909316",
+"pid": "4278594",
+"stat": "3PM",
+"line": 0.5,
+"side": "o"
+},
+"src": "prop",
+"arg": {
+"pro": 8,
+"contre": 0,
+"top": [
+"Denver Nuggets : 22e défense de la ligue en paniers à 3 pts encaissés (14,4 par match ; 1re = la plus avare)",
+"74 % de réussite sur ses 19 derniers matchs contre les 10 pires défenses en paniers à 3 pts ; moyenne de 0,9",
+"Moyenne de 2,8 tirs à 3 pts tentés et 28,5 minutes"
+],
+"obj": ""
+},
+"stake": 0.5,
+"price_fr": 1.46,
+"day": "2026-11-24",
+"posted_at": "2026-11-24T19:01+00:00",
+"last_p": 0.5431
+},
+{
+"kind": "best",
+"sport": "foot",
+"match_id": "espn|401915295",
+"match": "Arsenal - Borussia Dortmund",
+"league": "Ligue des champions",
+"ko": "2026-11-24T20:00Z",
+"label": "Moins de 2.5 buts",
+"price": 2.1,
+"book": "DraftKings",
+"p": 0.4717,
+"p_fair": 0.4494,
+"p_sim": 0.5383,
+"ev": -0.0095,
+"fair_src": "DraftKings",
+"res": {
+"espn": "soccer/uefa.champions",
+"home": "Arsenal",
+"away": "Borussia Dortmund",
+"commence": "2026-11-24T20:00Z",
+"key": [
+"totals",
+"Under",
+2.5
+]
+},
+"stake": 0.25,
+"price_fr": 1.78,
+"day": "2026-11-24",
+"posted_at": "2026-11-24T19:01+00:00",
+"last_p": 0.4494
+},
+{
+"kind": "best",
+"sport": "foot",
+"match_id": "espn|401915294",
+"match": "Feyenoord Rotterdam - FC Porto",
+"league": "Ligue des champions",
+"ko": "2026-11-24T20:00Z",
+"label": "Plus de 2.5 buts",
+"price": 1.714,
+"book": "DraftKings",
+"p": 0.5703,
+"p_fair": 0.5565,
+"p_sim": 0.6118,
+"ev": -0.0225,
+"fair_src": "DraftKings",
+"res": {
+"espn": "soccer/uefa.champions",
+"home": "Feyenoord Rotterdam",
+"away": "FC Porto",
+"commence": "2026-11-24T20:00Z",
+"key": [
+"totals",
+"Over",
+2.5
+]
+},
+"stake": 0.25,
+"price_fr": 1.46,
+"day": "2026-11-24",
+"posted_at": "2026-11-24T19:01+00:00",
+"last_p": 0.5565
 }
 ]
 }
