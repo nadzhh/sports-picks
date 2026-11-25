@@ -1,6 +1,6 @@
 {
- "genere_le": "2026-11-25T04:09:42",
- "n_resolus": 3056,
+ "genere_le": "2026-11-25T14:14:10",
+ "n_resolus": 3066,
  "parametres": {
   "n_min_jugement": 20,
   "seuil_pct": 50.0,
@@ -8,34 +8,44 @@
  },
  "marches": {
   "foot/Double chance": {
-   "n": 216,
-   "wins": 177,
-   "wr": 81.9,
-   "borne_basse": 76.3,
-   "borne_haute": 86.5,
+   "n": 218,
+   "wins": 178,
+   "wr": 81.7,
+   "borne_basse": 76.0,
+   "borne_haute": 86.2,
    "statut": "RETENU",
    "cote_moyenne": 1.55,
    "n_cotes": 18
   },
   "foot/Tirs (total match)": {
-   "n": 123,
-   "wins": 85,
-   "wr": 69.1,
+   "n": 126,
+   "wins": 87,
+   "wr": 69.0,
    "borne_basse": 60.5,
-   "borne_haute": 76.6,
+   "borne_haute": 76.5,
    "statut": "RETENU",
    "cote_moyenne": 1.73,
    "n_cotes": 1
   },
   "foot/Victoire domicile": {
-   "n": 272,
-   "wins": 152,
-   "wr": 55.9,
+   "n": 274,
+   "wins": 153,
+   "wr": 55.8,
    "borne_basse": 49.9,
-   "borne_haute": 61.7,
+   "borne_haute": 61.6,
    "statut": "SURVEILLE",
-   "cote_moyenne": 2.96,
-   "n_cotes": 45
+   "cote_moyenne": 2.93,
+   "n_cotes": 46
+  },
+  "foot/Over 3.5 buts": {
+   "n": 15,
+   "wins": 10,
+   "wr": 66.7,
+   "borne_basse": 41.7,
+   "borne_haute": 84.8,
+   "statut": "SURVEILLE",
+   "cote_moyenne": 1.92,
+   "n_cotes": 15
   },
   "foot/Victoire extérieur": {
    "n": 244,
@@ -326,16 +336,6 @@
    "statut": "SURVEILLE",
    "cote_moyenne": null,
    "n_cotes": 0
-  },
-  "foot/Over 3.5 buts": {
-   "n": 12,
-   "wins": 8,
-   "wr": 66.7,
-   "borne_basse": 39.1,
-   "borne_haute": 86.2,
-   "statut": "SURVEILLE",
-   "cote_moyenne": 1.94,
-   "n_cotes": 12
   },
   "foot/Tirs (Osasuna)": {
    "n": 1,
@@ -1201,8 +1201,8 @@
  "calibration": {
   "foot/Double chance": {
    "80-89": {
-    "n": 172,
-    "p": 82.0
+    "n": 174,
+    "p": 81.6
    },
    "90-99": {
     "n": 38,
@@ -1210,12 +1210,12 @@
    },
    "70-79": {
     "n": 6,
-    "p": 72.8
+    "p": 72.7
    }
   },
   "foot/Tirs (total match)": {
    "70-79": {
-    "n": 113,
+    "n": 116,
     "p": 68.1
    },
    "80-89": {
@@ -1225,20 +1225,30 @@
   },
   "foot/Victoire domicile": {
    "70-79": {
-    "n": 88,
-    "p": 62.5
+    "n": 89,
+    "p": 62.9
+   },
+   "60-69": {
+    "n": 124,
+    "p": 50.0
    },
    "80-89": {
     "n": 38,
     "p": 65.8
    },
-   "60-69": {
-    "n": 123,
-    "p": 50.4
-   },
    "50-59": {
     "n": 23,
     "p": 43.5
+   }
+  },
+  "foot/Over 3.5 buts": {
+   "60-69": {
+    "n": 10,
+    "p": 90.0
+   },
+   "50-59": {
+    "n": 5,
+    "p": 43.4
    }
   },
   "foot/Victoire extérieur": {
@@ -1580,16 +1590,6 @@
   "foot/Tirs (Hoffenheim)": {
    "70-79": {
     "n": 1,
-    "p": 90.0
-   }
-  },
-  "foot/Over 3.5 buts": {
-   "50-59": {
-    "n": 5,
-    "p": 43.4
-   },
-   "60-69": {
-    "n": 7,
     "p": 90.0
    }
   },
