@@ -1,12 +1,32 @@
 {
- "genere_le": "2026-11-24T20:53:06",
- "n_resolus": 3054,
+ "genere_le": "2026-11-25T04:09:42",
+ "n_resolus": 3056,
  "parametres": {
   "n_min_jugement": 20,
   "seuil_pct": 50.0,
   "pas_tranche": 10
  },
  "marches": {
+  "foot/Double chance": {
+   "n": 216,
+   "wins": 177,
+   "wr": 81.9,
+   "borne_basse": 76.3,
+   "borne_haute": 86.5,
+   "statut": "RETENU",
+   "cote_moyenne": 1.55,
+   "n_cotes": 18
+  },
+  "foot/Tirs (total match)": {
+   "n": 123,
+   "wins": 85,
+   "wr": 69.1,
+   "borne_basse": 60.5,
+   "borne_haute": 76.6,
+   "statut": "RETENU",
+   "cote_moyenne": 1.73,
+   "n_cotes": 1
+  },
   "foot/Victoire domicile": {
    "n": 272,
    "wins": 152,
@@ -17,16 +37,6 @@
    "cote_moyenne": 2.96,
    "n_cotes": 45
   },
-  "foot/Double chance": {
-   "n": 215,
-   "wins": 177,
-   "wr": 82.3,
-   "borne_basse": 76.7,
-   "borne_haute": 86.8,
-   "statut": "RETENU",
-   "cote_moyenne": 1.55,
-   "n_cotes": 18
-  },
   "foot/Victoire extérieur": {
    "n": 244,
    "wins": 117,
@@ -36,16 +46,6 @@
    "statut": "SURVEILLE",
    "cote_moyenne": 2.37,
    "n_cotes": 30
-  },
-  "foot/Tirs (total match)": {
-   "n": 122,
-   "wins": 85,
-   "wr": 69.7,
-   "borne_basse": 61.0,
-   "borne_haute": 77.1,
-   "statut": "RETENU",
-   "cote_moyenne": 1.73,
-   "n_cotes": 1
   },
   "nba/PRA": {
    "n": 56,
@@ -1199,6 +1199,30 @@
   }
  },
  "calibration": {
+  "foot/Double chance": {
+   "80-89": {
+    "n": 172,
+    "p": 82.0
+   },
+   "90-99": {
+    "n": 38,
+    "p": 84.2
+   },
+   "70-79": {
+    "n": 6,
+    "p": 72.8
+   }
+  },
+  "foot/Tirs (total match)": {
+   "70-79": {
+    "n": 113,
+    "p": 68.1
+   },
+   "80-89": {
+    "n": 10,
+    "p": 80.0
+   }
+  },
   "foot/Victoire domicile": {
    "70-79": {
     "n": 88,
@@ -1217,20 +1241,6 @@
     "p": 43.5
    }
   },
-  "foot/Double chance": {
-   "80-89": {
-    "n": 171,
-    "p": 82.5
-   },
-   "90-99": {
-    "n": 38,
-    "p": 84.2
-   },
-   "70-79": {
-    "n": 6,
-    "p": 72.9
-   }
-  },
   "foot/Victoire extérieur": {
    "80-89": {
     "n": 43,
@@ -1247,16 +1257,6 @@
    "50-59": {
     "n": 25,
     "p": 36.0
-   }
-  },
-  "foot/Tirs (total match)": {
-   "70-79": {
-    "n": 112,
-    "p": 68.8
-   },
-   "80-89": {
-    "n": 10,
-    "p": 80.0
    }
   },
   "nba/PRA": {
