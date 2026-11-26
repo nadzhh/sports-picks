@@ -46,6 +46,32 @@ def _history(state):
             f'{rows}</table></div></div>')
 
 
+def _live_card():
+    """Alertes live de 2e mi-temps (foot_live_alerts) : pour Wilson, hors bankroll."""
+    try:
+        import foot_live_alerts as LA
+        al = LA.FP._load(LA.PATH, {"alerts": []})["alerts"]
+        s = LA.stats()
+    except Exception:
+        return ""
+    rows = "".join(
+        f'<tr><td class="n eb-dim">{_when(a["at"])}</td><td><b>{_e(a["team"])}</b> <span class="eb-dim">{_e(a["match"])}</span>'
+        f'<div class="eb-dim eb-bk-why">{a["minute"]}e, {_e(a["score"])} · tirs cadrés {a["sot"][0]}-{a["sot"][1]}, '
+        f'tirs {a["shots"][0]}-{a["shots"][1]}</div></td><td class="n">{_pct(a["p"])}</td><td class="n">{a["min_odds"]:.2f}</td>'
+        f'<td>{"<span class=\"eb-tag acc\">a marqué</span>" if a.get("result") == "win" else "<span class=\"eb-tag neg\">n’a pas marqué</span>" if a.get("result") == "loss" else "<span class=\"eb-tag\">en cours</span>"}</td></tr>'
+        for a in sorted(al, key=lambda a: a["at"], reverse=True)[:40])
+    sub = (f'{s["win"]}/{s["n"]} réussies · rendement à la cote minimum {_pct(s["roi_min"], True)}' if s["n"]
+           else "aucune alerte réglée pour l’instant")
+    return ('<div class="eb-card"><h3 class="eb-h">⏱️ Alertes live 2e mi-temps <small>pour toi, hors bankroll · ' + sub + '</small></h3>'
+            + (f'<div class="eb-scroll"><table class="eb-tbl eb-cards"><tr><th>Alerte</th><th>Équipe</th><th>Ma proba</th>'
+               f'<th>Cote mini</th><th>Résultat</th></tr>{rows}</table></div>' if rows else
+               '<div class="eb-empty">Pas encore d’alerte : entre la 52e et la 68e, une équipe qui ne mène pas, n’a pas marqué '
+               'et domine (au moins 3 tirs cadrés, deux fois plus que l’adversaire).</div>')
+            + '<p class="eb-note">Pas de cote en direct disponible : la bankroll ne peut pas jouer ce pari, l’alerte part sur '
+              'Telegram avec ma probabilité et la cote minimum à prendre. Modèle simple (buts attendus de l’équipe avant le match, '
+              'minutes restantes, bonus de domination), pas encore vérifié : on le jugera sur ce suivi.</p></div>')
+
+
 def build_section(state=None):
     state = state if state is not None else F.load()
     if not state.get("challenges"):
@@ -79,6 +105,13 @@ def build_section(state=None):
         f'd’accord), moyenne {_pct(R["stake"]["moyenne"])} (coût ≤ 3 %, simulation pas contre), correcte '
         f'{_pct(R["stake"]["correcte"])} (coût ≤ 6 %) ; combiné {_pct(R["combo_stake"])}. Au plus {_pct(R["day_max"])} '
         'du capital engagé sur une même journée.',
+        f'<b>Paris joueurs</b> (depuis le 26/11/2026) : buteur ou passeur décisif <b>titulaire</b>, une fois les compositions '
+        f'officielles publiées (~1 h avant le match) ; au plus {R["per_day_player"]} par jour et 1 par match, cote '
+        f'{R["player_odds"][0]:.2f} à {R["player_odds"][1]:.2f}, même barème de confiance. DraftKings ne donne qu’une cote '
+        '(pas le « non ») : je suppose 10 % de marge et ne garde que la moitié de l’écart entre mon modèle et le bookmaker. '
+        'Buteur : ma simulation foot ; passeur : passes décisives par 90 min de la saison, minutes attendues et buts '
+        'attendus de son équipe (modèle pas encore vérifié). Pas de joueur décisif, de buteur à la mi-temps ni de pari en '
+        'direct : aucune cote fiable disponible.',
         f'<b>Freins</b> : sous {_eur(R["brake_below"])}, mises divisées par 2. Objectif atteint : je fige la bankroll '
         'jusqu’à la fin du défi. Bankroll à sec : recharge à 100 €, notée à part.',
         '<b>Honnêtement</b> : aucun avantage n’est démontré sur ces paris (simulation et marché font jeu égal). Calcul fait '
@@ -98,7 +131,7 @@ def build_section(state=None):
             '<div class="eb-card"><h3 class="eb-h">Historique</h3>'
             + (f'<div class="eb-scroll"><table class="eb-tbl eb-cards">{head}<th>Résultat</th><th>Gain</th></tr>{d_rows}</table></div>' if d_rows
                else '<div class="eb-empty">Pas encore de pari réglé.</div>') + '</div>'
-            + _history(state)
+            + _history(state) + _live_card()
             + '<div class="eb-card"><h3 class="eb-h">Comment je gère</h3><ul class="eb-why-l">'
             + "".join(f"<li>{r}</li>" for r in rules) + '</ul></div>'
             '</div>' + CSS + '<!--eb:end-->')

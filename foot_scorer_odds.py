@@ -132,6 +132,7 @@ def scorer_result(res):
     for k in d.get("keyEvents") or []:
         typ = str(((k.get("type") or {}).get("text")) or "")
         if not k.get("scoringPlay") or "own" in typ.lower(): continue
-        if any(same_player((p.get("athlete") or {}).get("displayName"), res["player"]) for p in k.get("participants") or []):
+        parts = k.get("participants") or []   # [0] = buteur, [1] = passeur (26/11/2026 : avant, un passeur comptait buteur)
+        if parts and same_player((parts[0].get("athlete") or {}).get("displayName"), res["player"]):
             return "win"
     return "loss" if played else "push"

@@ -38,7 +38,7 @@ PUBLISHED = [FRAGMENT, R.OUT_PATH, str(R.PICKS_PATH), "data/nba_sim_history.json
              FS.FRAGMENT, str(FR.OUT_PATH), str(FB.HIST_PATH), str(EV.PATH), DIGEST_PATH, "data/telegram_picks.json",
              "data/foot_competitions.json", "data/strategy_lab.json", ST.FRAGMENT, "data/boosts.json", "data/props_edge.json", "data/sentinel.json",
              "data/espn_foot_odds.json", "data/foot_scorer_odds.json", "data/props_edge_track.json", "data/nba_results.json",
-             "data/foot_bankroll.json", "foot_bankroll.html"]
+             "data/foot_bankroll.json", "foot_bankroll.html", "data/espn_foot_props.json", "data/foot_live_alerts.json"]
 LAZY_DIRS = ["data/replays", "lazy/simana"]   # dossiers publies en entier (lazy/simana : Basket > Analyse simu, 18/11/2026)
 # Foot (Top 5 + coupes d'Europe) : base mise a jour par tranches (premiere constitution en plusieurs
 # passages), simulation toutes les 30 min, a chaque cycle quand un match approche (composition officielle)
@@ -290,16 +290,25 @@ class Live:
         try:
             import foot_bankroll as FBK
             import foot_bankroll_site as FBS
+            msg = []
+            try:   # alertes live de 2e mi-temps (pour Wilson, hors bankroll : pas de cote en direct)
+                import foot_live_alerts as LA
+                new, done = LA.check(), LA.settle()
+                if new: self.telegram(LA.telegram(new), bank=True)
+                if done: self.telegram(LA.telegram_settled(done), bank=True)
+                if new or done: msg.append(f"alertes live : {len(new)} nouvelle(s), {len(done)} reglee(s)")
+            except Exception as e:
+                print(f"  [!] alertes live foot : {type(e).__name__}: {e}")
             st = FBK.load()
             fresh_state = not Path(str(FBK.PATH)).exists()
             settled = FBK.settle(st)
             placed = FBK.decide(st)
-            if not (settled or placed or fresh_state or not Path(FBS.FRAGMENT).exists()): return ""
+            if not (settled or placed or fresh_state or msg or not Path(FBS.FRAGMENT).exists()): return ""
             FBK.save(st); FBS.write_fragment()
             self.telegram(FBK.telegram_placed(placed, st) if placed else None,
                           FBK.telegram_settled(settled, st) if settled else None, bank=True)
             print(f"  [bankroll foot] capital {FBK.equity(st):.2f} EUR, {len(settled)} regle(s), {len(placed)} place(s)")
-            return f"bankroll foot : {len(placed)} pari(s) place(s), {len(settled)} regle(s)"
+            return " ; ".join([f"bankroll foot : {len(placed)} pari(s) place(s), {len(settled)} regle(s)"] + msg)
         except Exception as e:
             print(f"  [!] bankroll foot : {type(e).__name__}: {e}")
             return ""
@@ -616,6 +625,11 @@ def main():
         games = live.cycle()
         now = datetime.now(timezone.utc)
         soon = [g for g in games if timedelta(0) < _t(g["date"]) - now <= timedelta(hours=6)]
+        try:   # grand match de foot dans les 2 h ou en cours : cycles de 10 min (compositions, alerte live de 2e MT)
+            import foot_player_props as FP
+            if not soon and FP.busy(now): soon = [None]
+        except Exception:
+            pass
         left = a.max_minutes * 60 - (time.time() - t0)
         if not a.loop or not games:
             print("Veille terminee" + (" : aucun match dans les 36 h" if a.loop else ""))
