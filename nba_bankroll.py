@@ -242,7 +242,8 @@ CONV = {"per_night": 2, "p_min": 0.60, "min_odds": 1.40, "max_cost": 0.06, "lo":
 # 16/11/2026 (Wilson : « ajoute le foot ; ok pour les paris safe ; tu peux mettre des paris + value ») : plafond de
 # paris surs PAR SPORT et par soiree (2 basket + 2 foot), plus jusqu'a 2 paris a esperance positive en sus ; mises
 # engagees sur une soiree <= 20 % du capital.
-CONV_SPORT = {"nba": 2, "foot": 2}
+# 26/11/2026 (Wilson) : le foot a sa propre bankroll (foot_bankroll, defi x2) ; celle-ci ne joue plus que la NBA
+CONV_SPORT = {"nba": 2, "foot": 0}
 CONV_VALUE_EXTRA = 2
 CONV_NIGHT_MAX = 0.20
 
@@ -271,6 +272,7 @@ def decide_conviction(state, picks, now=None):
                                + PJ.prop_candidates(now, 24, min_ev=-CONV["max_cost"]) if (x["match_id"], x["label"]) not in have]
     except Exception as e:
         print(f"  [!] conviction : reservoir elargi indisponible ({type(e).__name__}: {e})")
+    picks = [x for x in picks if CONV_SPORT.get(x.get("sport") or "nba", 0) > 0]   # NBA seulement (26/11/2026)
     pos = sorted((x for x in picks if x["ev"] >= 0), key=lambda x: -x["ev"])
     safe = sorted((x for x in picks if x["ev"] < 0 and x["p"] >= CONV["p_min"] and x["price"] >= CONV["min_odds"]
                    and x["ev"] >= -CONV["max_cost"] and (x.get("p_sim") is None or x["p_sim"] >= x["p"] - 0.02)
@@ -475,7 +477,7 @@ def decide_value(state, new):
     proven = value_proven()[0]
     fracs, vmax = (CONF, VALUE_MAX) if proven else (CONF_UNPROVEN, VALUE_MAX_UNPROVEN)
     for p in new:
-        if p["key"] in taken: continue
+        if p["key"] in taken or p.get("sport") == "foot": continue   # foot : bankroll foot (26/11/2026)
         d, pf = p["price"], p["fair"]
         conf, ps = value_conf(p)
         k = (pf * d - 1) / (d - 1)

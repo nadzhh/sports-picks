@@ -111,7 +111,7 @@ def _bet_row(b, open_):
 
 
 RULES = [
-    "<b>Ma bankroll, mes décisions</b> (depuis le 04/11/2026) : je parie en foot et en basket quand je vois un avantage, "
+    "<b>Ma bankroll NBA, mes décisions</b> (depuis le 04/11/2026) : je parie quand je vois un avantage. Depuis le 26/11/2026, elle ne joue plus que la NBA : le foot a sa propre bankroll (Foot › Bankroll IA, défi x2) ; ses anciens paris foot restent dans l’historique. "
     "et la mise suit ma confiance, jusqu’à {mb} du capital sur un seul pari (garde-fous : {mg} par match, {mn} par jour). "
     "Sans avantage, je ne parie pas : c’est ce qui protège le capital. Les picks safe et high value pour toi partent "
     "à part, dans le récapitulatif Telegram de 20 h.",
@@ -204,7 +204,7 @@ def build_bankroll_section(state=None):
     head = '<tr><th>Placé</th><th>Pari</th><th>Cote</th><th>Mise</th>'
     return (f'<!--nba-bank:{_e(state.get("updated", ""))}-->'
             '<!--eb:start--><div class="eb eb-bk" data-eb="bank">'
-            '<div class="eb-card"><div class="eb-meta">Bankroll IA · foot et basket · gérée seule par Claude</div>'
+            '<div class="eb-card"><div class="eb-meta">🏀 Bankroll IA NBA · gérée seule par Claude</div>'
             '<h3 class="eb-h eb-bil-t">100 € de départ, aucune intervention humaine</h3>'
             f'<div class="eb-stats">{stats}</div>{_curve(state)}'
             '<p class="eb-note">Bankroll fictive, cotes DraftKings publiées par ESPN : aucun argent réel. '

@@ -5805,6 +5805,13 @@ def build_html(matches, team_ai, player_ai, pstats_data, nba_picks=None, nba_his
     except Exception as _e_bk:
         print(f"  [!] Section Bankroll IA ignoree : {_e_bk}")
         iabank_html = '<div style="padding:40px;text-align:center;color:#64748b">Bankroll IA indisponible.</div>'
+    # Foot › Bankroll IA (defi x2, 26/11/2026) : copie de secours ; seule la veille ecrit data/foot_bankroll.json
+    try:
+        import foot_bankroll_site as _fbks
+        footbank_html, _fbfrag = _fbks.build_page()
+    except Exception as _e_fbk:
+        print(f"  [!] Section Bankroll IA foot ignoree : {_e_fbk}")
+        footbank_html = '<div style="padding:40px;text-align:center;color:#64748b">Bankroll IA foot indisponible.</div>'
 
     # Onglet Aujourd'hui › Bot de nuit (bot_site.py, 17/11/2026) : fragment charge a la demande, version = contenu
     try:
@@ -6971,7 +6978,6 @@ def build_html(matches, team_ai, player_ai, pstats_data, nba_picks=None, nba_his
     <button class="sport-btn" onclick="spNav('today')"  id="nav-today"><span class="sp-ic">🎯</span> <span class="sp-lb">Aujourd’hui</span></button>
     <button class="sport-btn" onclick="spNav('foot')"   id="nav-foot"><span class="sp-ic">⚽</span> <span class="sp-lb">Foot</span></button>
     <button class="sport-btn" onclick="spNav('basket')" id="nav-basket"><span class="sp-ic">🏀</span> <span class="sp-lb">Basket</span></button>
-    <button class="sport-btn" onclick="spNav('iabank')" id="nav-iabank"><span class="sp-ic">🤖</span> <span class="sp-lb">Bankroll IA</span></button>
   </div>
   <!-- Sous-menus du menu choisi (spNav) -->
   <div id="sp-subnav" class="sub-tg-bar" style="display:none;margin-bottom:14px"></div>
@@ -7103,6 +7109,11 @@ def build_html(matches, team_ai, player_ai, pstats_data, nba_picks=None, nba_his
     {iabank_html}
   </div>
 
+  <!-- Section Foot › Bankroll IA (foot_bankroll_site.py, defi x2, foot_bankroll.html publie par la veille) -->
+  <div id="sport-footbank" style="display:none">
+    {footbank_html}
+  </div>
+
   <!-- Section Simulation NBA (nba_sim_site.py) -->
   <div id="sport-nbasim" style="display:none">
     {nba_sim_html}
@@ -7161,7 +7172,7 @@ window._currentSubPick = window._currentSubPick || 'football';
 window._currentSubHist = window._currentSubHist || 'foot';
 
 function _hideAllSportSections(){{
-  ['football','nba','tennis','analyse','nbasim','iabank','today','bot','footsim','footanalyse','userpicks','foothist','nbahist','tennishist','pronos'].forEach(function(s){{
+  ['football','nba','tennis','analyse','nbasim','iabank','footbank','today','bot','footsim','footanalyse','userpicks','foothist','nbahist','tennishist','pronos'].forEach(function(s){{
     var el = document.getElementById('sport-'+s);
     if(el) el.style.display = 'none';
   }});
@@ -7180,11 +7191,11 @@ function _setMainBtnActive(tab){{
 // direct par la veille : foot_sim.html / nba_sim.html).
 var SP_NAV = {{
   today:  [['today','Aujourd’hui'],['bot','🤖 Bot de nuit']],
-  foot:   [['footsim','Simulation'],['footanalyse','Analyse'],['footpicks','Picks'],['foothist2','Historique']],
-  basket: [['nbasim','Simulation'],['analyse','Analyse'],['nbasimana','Analyse simu'],['nbapicks','Picks'],['nbares','Résultats 24 h'],['nbahist2','Historique']],
+  foot:   [['footsim','Simulation'],['footanalyse','Analyse'],['footpicks','Picks'],['footbank','Bankroll IA'],['foothist2','Historique']],
+  basket: [['nbasim','Simulation'],['analyse','Analyse'],['nbasimana','Analyse simu'],['nbapicks','Picks'],['nbares','Résultats 24 h'],['iabank','Bankroll IA'],['nbahist2','Historique']],
   // tennis retire du menu le 05/11/2026 (Wilson : « je n'utilise plus le tennis ») ; pour le remettre :
   // tennis: [['tennis','Picks'],['tennishist','Historique']],  + bouton nav-tennis + 5 colonnes (site_theme)
-  iabank: [['iabank','Bankroll IA']]
+  // 26/11/2026 : Bankroll IA deplacee dans Basket (NBA) ; Foot a la sienne (footbank, defi x2)
 }};
 var SP_VIEW = {{ footsim:['footsim','sim'], footpicks:['footsim','picks'], foothist2:['footsim','hist'],
                 nbasim:['nbasim','sim'], nbapicks:['nbasim','picks'], nbares:['nbasim','res'], nbasimana:['nbasim','ana'], nbahist2:['nbasim','hist'] }};
@@ -7292,6 +7303,9 @@ function showSport(sport){{
   }} else if(sport === 'today'){{
     var el = document.getElementById('sport-today'); if(el) el.style.display = 'block';
     _setMainBtnActive('today');
+  }} else if(sport === 'footbank'){{
+    var el = document.getElementById('sport-footbank'); if(el) el.style.display = 'block';
+    _setMainBtnActive('footsim');
   }} else if(sport === 'iabank'){{
     var el = document.getElementById('sport-iabank'); if(el) el.style.display = 'block';
     _setMainBtnActive('iabank');

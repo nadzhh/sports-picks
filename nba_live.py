@@ -37,7 +37,8 @@ DIGEST_PATH = "data/telegram_digest.json"   # jour du dernier recapitulatif Tele
 PUBLISHED = [FRAGMENT, R.OUT_PATH, str(R.PICKS_PATH), "data/nba_sim_history.json", BS.FRAGMENT, str(BK.BANK_PATH),
              FS.FRAGMENT, str(FR.OUT_PATH), str(FB.HIST_PATH), str(EV.PATH), DIGEST_PATH, "data/telegram_picks.json",
              "data/foot_competitions.json", "data/strategy_lab.json", ST.FRAGMENT, "data/boosts.json", "data/props_edge.json", "data/sentinel.json",
-             "data/espn_foot_odds.json", "data/foot_scorer_odds.json", "data/props_edge_track.json", "data/nba_results.json"]
+             "data/espn_foot_odds.json", "data/foot_scorer_odds.json", "data/props_edge_track.json", "data/nba_results.json",
+             "data/foot_bankroll.json", "foot_bankroll.html"]
 LAZY_DIRS = ["data/replays", "lazy/simana"]   # dossiers publies en entier (lazy/simana : Basket > Analyse simu, 18/11/2026)
 # Foot (Top 5 + coupes d'Europe) : base mise a jour par tranches (premiere constitution en plusieurs
 # passages), simulation toutes les 30 min, a chaque cycle quand un match approche (composition officielle)
@@ -219,7 +220,8 @@ class Live:
         self.espn_foot()     # avant foot() : la resimulation se declenche quand une cote de marche arrive
         foot = self.foot()
         ev = self.ev()
-        ev = " ; ".join(x for x in (ev, self.boosts(), self.digest(), self.lab(), self.improve_kick(), self.sentinel()) if x)
+        fbank = self.foot_bankroll()
+        ev = " ; ".join(x for x in (ev, fbank, self.boosts(), self.digest(), self.lab(), self.improve_kick(), self.sentinel()) if x)
         self.health()
         if (foot or ev) and not (changed or bank) and self.push:
             publish("Foot live : " + " ; ".join(x for x in (foot, ev) if x))
@@ -282,6 +284,26 @@ class Live:
             print(f"  [!] recapitulatif : {type(e).__name__}: {e}")
             return ""
 
+    def foot_bankroll(self):
+        """Bankroll IA foot (defi x2, foot_bankroll, 26/11/2026) : regle les paris termines, place ceux du jour (a
+        partir de 9 h, cotes DraftKings fraiches de espn_foot), publie la page et previent le canal Bankroll IA."""
+        try:
+            import foot_bankroll as FBK
+            import foot_bankroll_site as FBS
+            st = FBK.load()
+            fresh_state = not Path(str(FBK.PATH)).exists()
+            settled = FBK.settle(st)
+            placed = FBK.decide(st)
+            if not (settled or placed or fresh_state or not Path(FBS.FRAGMENT).exists()): return ""
+            FBK.save(st); FBS.write_fragment()
+            self.telegram(FBK.telegram_placed(placed, st) if placed else None,
+                          FBK.telegram_settled(settled, st) if settled else None, bank=True)
+            print(f"  [bankroll foot] capital {FBK.equity(st):.2f} EUR, {len(settled)} regle(s), {len(placed)} place(s)")
+            return f"bankroll foot : {len(placed)} pari(s) place(s), {len(settled)} regle(s)"
+        except Exception as e:
+            print(f"  [!] bankroll foot : {type(e).__name__}: {e}")
+            return ""
+
     def bankroll(self, fresh):
         """Bankroll IA : regle les paris termines, place les nouveaux sur les matchs simules a l'instant
         (cote actuelle ; une simulation plus ancienne aurait une cote perimee)."""
@@ -311,10 +333,7 @@ class Live:
             except Exception as e:
                 print(f"  [!] labo (reglement) : {type(e).__name__}: {e}")
             placed = BK.decide(st, fresh) if fresh else []
-            try:   # buteurs foot (16/11/2026) : compositions officielles, titulaires, cote reelle relevee
-                placed += BK.decide_scorers(st)
-            except Exception as e:
-                print(f"  [!] buteurs : {type(e).__name__}: {e}")
+            # buteurs foot : plus dans la bankroll NBA depuis le 26/11/2026 (le foot a sa bankroll, foot_bankroll)
             if not (n_set or placed or not Path(BS.FRAGMENT).exists()): return ""
             BK.save(st); BS.write_fragment()
             settled = [b for b in st["bets"] if b["id"] in before and b["status"] != "open"]

@@ -64,7 +64,7 @@ CSS = """<style id="sp-search-css">
 #sps-toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);z-index:10011;background:var(--chip,#1a221c);color:var(--tx,#eef3ef);
   border:1px solid var(--line2,#2a352c);border-radius:10px;padding:9px 14px;font-size:13px;box-shadow:0 6px 24px rgba(0,0,0,.45)}
 @media (max-width:720px){
-  .sp-nav.sps-on{grid-template-columns:repeat(5,1fr)!important}
+  .sp-nav.sps-on{grid-template-columns:repeat(4,1fr)!important}
   .sps-nav{margin-left:0}
   .sps-kbd{display:none}
   #sps{padding:8px 8px calc(8px + env(safe-area-inset-bottom,0px))}
@@ -96,12 +96,13 @@ SCRIPT = r"""<script>
     {id: 'sport-nbasim', main: 'basket', sp: 'nba', views: {sim: 'nbasim', picks: 'nbapicks', hist: 'nbahist2'}},
     {id: 'sport-footsim', main: 'foot', sp: 'foot', views: {sim: 'footsim', picks: 'footpicks', hist: 'foothist2'}},
     {id: 'sport-footanalyse', main: 'foot', sub: 'footanalyse', g: 'footana'},
-    {id: 'sport-iabank', main: 'iabank', sub: 'iabank', g: 'iabank'}
+    {id: 'sport-iabank', main: 'basket', sub: 'iabank', g: 'iabank'},
+    {id: 'sport-footbank', main: 'foot', sub: 'footbank', g: 'footbank'}
   ];
   var GROUPS = [['today', '🎯 Aujourd’hui · picks du jour'], ['nba-sim', '🏀 Matchs NBA'], ['nba-row', '🏀 Props et joueurs NBA'],
     ['nba-picks', '🏀 Picks NBA'], ['nba-fiche', '🏀 Fiches joueurs NBA (Analyse)'], ['foot-sim', '⚽ Matchs foot'],
     ['foot-row', '⚽ Props et joueurs foot'], ['foot-picks', '⚽ Picks foot'], ['footana', '⚽ Analyse foot'],
-    ['iabank', '🤖 Bankroll IA'], ['nba-hist', '🏀 Historique NBA'], ['foot-hist', '⚽ Historique foot']];
+    ['iabank', '🏀 Bankroll IA NBA'], ['footbank', '⚽ Bankroll IA foot'], ['nba-hist', '🏀 Historique NBA'], ['foot-hist', '⚽ Historique foot']];
   // Blocs qui representent un resultat : leur texte entier (textContent, sans redescendre dedans) ; .eb-card sert de
   // bloc de repli pour le texte qui n'est dans aucun de ces blocs (titre de carte…).
   var LEAF_TAG = {TR: 1, LI: 1, SUMMARY: 1, H3: 1, H4: 1};
