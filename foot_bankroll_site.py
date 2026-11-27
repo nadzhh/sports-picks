@@ -28,7 +28,11 @@ def _gauge(state, ch):
             f'<span>{"terminé" if days == 0 else f"J-{days}"} · du {_when(ch["start_at"])[:5]} au {_when(ch["end_at"])[:5]}</span></div>'
             f'<div class="fb-bar"><i data-w="{100 * prog:.1f}"></i></div>'
             f'<div class="fb-g-lab"><span>{_eur(ch["start_eq"])}</span><b class="{"eb-acc" if won else ""}">{lab}</b>'
-            f'<span>{_eur(ch["target"])}</span></div></div>')
+            f'<span>{_eur(ch["target"])}</span></div>'
+            f'<div class="fb-g-pal">🔒 Plancher sécurisé <b>{_eur(F.floor(ch, eq))}</b> · paliers '
+            + " · ".join(f'<span class="{"on" if ch.get("best", ch["start_eq"]) >= ch["start_eq"] * k - 1e-6 else ""}">'
+                         f'{_eur(ch["start_eq"] * k)}</span>' for k in F.LEVELS[1:])
+            + '</div></div>')
 
 
 def _history(state):
@@ -72,8 +76,12 @@ def _live_card():
               'minutes restantes, bonus de domination), pas encore vérifié : on le jugera sur ce suivi.</p></div>')
 
 
-def build_section(state=None):
-    state = state if state is not None else F.load()
+TITLE = {"foot": ("⚽ Bankroll IA foot · gérée seule par Claude", "foot-bank", "fbank"),
+         "nba": ("🏀 Bankroll IA NBA · gérée seule par Claude", "nba-bank", "bank")}
+
+
+def build_section(state=None, sp="foot", extra=""):
+    state = state if state is not None else F.load(sp=sp)
     if not state.get("challenges"):
         F.challenge(state)   # affichage seulement (pas d'ecriture) : defi n°1 tel qu'il demarrera
     ch = state["challenges"][-1]
@@ -84,20 +92,32 @@ def build_section(state=None):
     w = sum(b["status"] == "won" for b in done)
     pnl = sum(b.get("pnl", 0.0) for b in done)
     R = F.RULES
+    fl = F.floor(ch, eq)
+    risk = sum(b["stake"] for b in open_)
+    brake = eq < 0.5 * ch["start_eq"]
     stats = (_stat("Capital", _eur(eq), f'{_pct(eq / ch["start_eq"] - 1, True)} sur ce défi', "eb-acc" if eq >= ch["start_eq"] else "eb-neg")
-             + _stat("En jeu", _eur(sum(b["stake"] for b in open_)), f'{len(open_)} pari{"s" if len(open_) > 1 else ""} en cours')
+             + _stat("En jeu", _eur(risk), f'{len(open_)} pari{"s" if len(open_) > 1 else ""} en cours')
+             + _stat("Pire cas", _eur(eq - risk), f'si tout ce qui est en cours perd · plancher {_eur(fl)}',
+                     "eb-acc" if eq - risk >= fl - 0.01 else "eb-neg")
              + _stat("Paris réglés", f'{w}-{len(done) - w}', f'ROI {_pct(pnl / stakes, True) if stakes else "–"} sur {_eur(stakes)} misés')
-             + _stat("Mode", "frein" if eq < R["brake_below"] else "objectif atteint" if ch.get("won_at") else "défi",
-                     "mises divisées par 2 (sous 50 €)" if eq < R["brake_below"] else "plus de pari jusqu’à la fin" if ch.get("won_at")
-                     else "mises de 8 à 15 % selon la confiance", "eb-neg" if eq < R["brake_below"] else "eb-acc"))
+             + _stat("Mode", "frein" if brake else "objectif atteint" if ch.get("won_at") else "défi",
+                     f'mises divisées par 2 (sous {_eur(0.5 * ch["start_eq"])})' if brake else "plus de pari jusqu’à la fin" if ch.get("won_at")
+                     else "mises de 8 à 15 % selon la confiance", "eb-neg" if brake else "eb-acc"))
     o_rows = "".join(BS._bet_row(b, True) for b in sorted(open_, key=lambda b: b["placed_at"], reverse=True))
     d_rows = "".join(BS._bet_row(b, False) for b in sorted((b for b in state["bets"] if b["status"] != "open"),
                                                          key=lambda b: b.get("settled_at", ""), reverse=True)[:80])
     head = '<tr><th>Placé</th><th>Pari</th><th>Cote</th><th>Mise</th>'
     curve_state = dict(state, start=ch["start_eq"], bets=[b for b in state["bets"] if b.get("challenge") == ch["n"]])
     rules = [
-        f'<b>Le défi</b> (demandé par Wilson le 26/11/2026) : doubler la bankroll en {F.DAYS} jours, en pariant ce que je veux, '
-        'combien je veux. Quand un défi se termine, le suivant repart du solde, avec de nouveau l’objectif x2.',
+        f'<b>Le défi</b> (demandé par Wilson le 26/11/2026 pour le foot, le 27/11 pour la NBA) : doubler la bankroll en '
+        f'{F.DAYS} jours, en pariant ce que je veux, combien je veux. Quand un défi se termine, le suivant repart du solde, '
+        'avec de nouveau l’objectif x2.',
+        '<b>Paliers sécurisés</b> (Wilson, 27/11/2026 : « il fallait anticiper que si les 2 ne passaient pas, tu passais sous '
+        'l’objectif ») : paliers ' + " / ".join(_eur(ch["start_eq"] * k) for k in F.LEVELS[1:]) + '. Dès qu’un palier est '
+        'atteint, le précédent est sécurisé : avant chaque pari, je compte le <b>pire cas</b> (tous les paris en cours perdus) '
+        f'et il ne doit jamais passer sous ce plancher. Avant le 1er palier, au plus {_pct(1 - F.FLOOR0)} du départ en jeu. '
+        f'Coincé au plancher : une seule petite mise ({_pct(F.STUCK)}) quand rien n’est en cours. Chiffré (Monte Carlo) : '
+        'chances de doubler 7,8 % → 5,2 %, risque de finir sous la moitié 23 % → 0 %.',
         f'<b>Chaque jour de match</b> : au plus {R["per_day_single"]} paris simples (cote {R["single_odds"][0]:.2f} à '
         f'{R["single_odds"][1]:.2f}) et {R["per_day_combo"]} combiné de 2 ou 3 matchs différents (cote totale '
         f'{R["combo_odds"][0]:g} à {R["combo_odds"][1]:g}, coût ≤ {_pct(-R["combo_cost"])}), un seul pari par match.',
@@ -105,14 +125,19 @@ def build_section(state=None):
         f'd’accord), moyenne {_pct(R["stake"]["moyenne"])} (coût ≤ 3 %, simulation pas contre), correcte '
         f'{_pct(R["stake"]["correcte"])} (coût ≤ 6 %) ; combiné {_pct(R["combo_stake"])}. Au plus {_pct(R["day_max"])} '
         'du capital engagé sur une même journée.',
-        f'<b>Paris joueurs</b> (depuis le 26/11/2026) : buteur ou passeur décisif <b>titulaire</b>, une fois les compositions '
+        (f'<b>Paris joueurs</b> (depuis le 26/11/2026) : buteur ou passeur décisif <b>titulaire</b>, une fois les compositions '
         f'officielles publiées (~1 h avant le match) ; au plus {R["per_day_player"]} par jour et 1 par match, cote '
         f'{R["player_odds"][0]:.2f} à {R["player_odds"][1]:.2f}, même barème de confiance. DraftKings ne donne qu’une cote '
         '(pas le « non ») : je suppose 10 % de marge et ne garde que la moitié de l’écart entre mon modèle et le bookmaker. '
         'Buteur : ma simulation foot ; passeur : passes décisives par 90 min de la saison, minutes attendues et buts '
         'attendus de son équipe (modèle pas encore vérifié). Pas de joueur décisif, de buteur à la mi-temps ni de pari en '
-        'direct : aucune cote fiable disponible.',
-        f'<b>Freins</b> : sous {_eur(R["brake_below"])}, mises divisées par 2. Objectif atteint : je fige la bankroll '
+        'direct : aucune cote fiable disponible.') if sp == "foot" else
+        (f'<b>Props NBA</b> : les lignes DraftKings des joueurs, avec ma probabilité calée (simulation tirée vers le '
+         f'bookmaker, stat par stat) ; au plus {R["per_day_player"]} par nuit et 1 par match, cote {R["player_odds"][0]:.2f} '
+         f'à {R["player_odds"][1]:.2f} ; décision dans les 2 h 30 avant le match (rapport officiel des blessures). '
+         'Avant le 27/11, cette bankroll était gérée en mode prudent (100 → 110,77 € en 4 semaines) : ses anciens paris '
+         'restent dans l’historique.'),
+        f'<b>Freins</b> : sous la moitié du départ du défi, mises divisées par 2. Objectif atteint : je fige la bankroll '
         'jusqu’à la fin du défi. Bankroll à sec : recharge à 100 €, notée à part.',
         '<b>Honnêtement</b> : aucun avantage n’est démontré sur ces paris (simulation et marché font jeu égal). Calcul fait '
         'avant de lancer le défi (200 000 défis simulés) : environ 15 à 20 % de chances de doubler en 10 jours, et 25 à 30 % '
@@ -120,18 +145,21 @@ def build_section(state=None):
         'Cotes DraftKings publiées par ESPN : bankroll fictive, aucun argent réel. La cote française estimée est environ '
         '15 % plus basse (indiquée dans le message Telegram de chaque pari).',
     ]
-    return (f'<!--foot-bank:{_e(state.get("updated", ""))}-->'
-            '<!--eb:start--><div class="eb eb-bk eb-fbk" data-eb="fbank">'
-            '<div class="eb-card"><div class="eb-meta">⚽ Bankroll IA foot · gérée seule par Claude</div>'
+    title, tag, eb = TITLE[sp]
+    return (f'<!--{tag}:{_e(state.get("updated", ""))}-->'
+            f'<!--eb:start--><div class="eb eb-bk eb-fbk" data-eb="{eb}">'
+            f'<div class="eb-card"><div class="eb-meta">{title}</div>'
             f'<h3 class="eb-h eb-bil-t">Défi : x2 en {F.DAYS} jours</h3>{_gauge(state, ch)}'
             f'<div class="eb-stats">{stats}</div>{BS._curve(curve_state)}</div>'
             '<div class="eb-card"><h3 class="eb-h">Paris en cours</h3>'
             + (f'<div class="eb-scroll"><table class="eb-tbl eb-cards">{head}<th>Gain possible</th></tr>{o_rows}</table></div>' if o_rows
-               else '<div class="eb-empty">Aucun pari en cours : je choisis chaque jour de match à partir de 9 h.</div>') + '</div>'
+               else '<div class="eb-empty">Aucun pari en cours : ' + ("je choisis chaque jour de match à partir de 9 h."
+                                                                        if sp == "foot" else "je choisis dans les 2 h 30 avant chaque match.")
+               + '</div>') + '</div>'
             '<div class="eb-card"><h3 class="eb-h">Historique</h3>'
             + (f'<div class="eb-scroll"><table class="eb-tbl eb-cards">{head}<th>Résultat</th><th>Gain</th></tr>{d_rows}</table></div>' if d_rows
                else '<div class="eb-empty">Pas encore de pari réglé.</div>') + '</div>'
-            + _history(state) + _live_card()
+            + _history(state) + (_live_card() if sp == "foot" else "") + extra
             + '<div class="eb-card"><h3 class="eb-h">Comment je gère</h3><ul class="eb-why-l">'
             + "".join(f"<li>{r}</li>" for r in rules) + '</ul></div>'
             '</div>' + CSS + '<!--eb:end-->')
@@ -145,6 +173,9 @@ CSS = """<style>
 .fb-bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,#4ade80,var(--acc));border-radius:8px}
 .fb-g-lab{display:flex;justify-content:space-between;gap:8px;font-size:12.5px;color:var(--mu);flex-wrap:wrap}
 .fb-g-lab b{color:var(--tx);text-align:center;flex:1}
+.fb-g-pal{margin-top:8px;font-size:12.5px;color:var(--mu)}.fb-g-pal b{color:var(--tx)}
+.fb-g-pal span{padding:1px 6px;border-radius:6px;background:var(--chip,rgba(148,163,184,.1))}
+.fb-g-pal span.on{background:rgba(149,224,74,.18);color:var(--tx);font-weight:700}
 </style><script>
 (function(){
   function fill(){document.querySelectorAll('.fb-bar i[data-w]').forEach(function(i){i.style.width=i.getAttribute('data-w')+'%';});}

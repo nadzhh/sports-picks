@@ -341,18 +341,21 @@ class Live:
                 SL.resolve(box)
             except Exception as e:
                 print(f"  [!] labo (reglement) : {type(e).__name__}: {e}")
-            placed = BK.decide(st, fresh) if fresh else []
-            # buteurs foot : plus dans la bankroll NBA depuis le 26/11/2026 (le foot a sa bankroll, foot_bankroll)
-            if not (n_set or placed or not Path(BS.FRAGMENT).exists()): return ""
+            # 27/11/2026 : la bankroll NBA passe au moteur de defi (foot_bankroll, sp="nba", paliers securises)
+            import foot_bankroll as FBK
+            d_set = FBK.settle(st, box, sp="nba")
+            placed = FBK.decide(st, sp="nba")
+            if not (n_set or d_set or placed or not Path(BS.FRAGMENT).exists()): return ""
             BK.save(st); BS.write_fragment()
-            settled = [b for b in st["bets"] if b["id"] in before and b["status"] != "open"]
-            self.telegram(BK.telegram_placed(placed, st) if placed else None,
-                          BK.telegram_settled(settled, st) if settled else None, bank=True)
+            settled = [b for b in st["bets"] if b["id"] in before and b["status"] != "open" and b.get("mode") != "défi"]
+            self.telegram(FBK.telegram_placed(placed, st, "nba") if placed else None,
+                          BK.telegram_settled(settled, st) if settled else None,
+                          FBK.telegram_settled(d_set, st, "nba") if d_set else None, bank=True)
             for b in placed:
                 print(f"  [bankroll] {b['kind']} {b['stake']:.2f} EUR @ {b['odds']:.2f} : "
                       + " + ".join(f"{l['name']} {l['side']}{l['line']:g} {l['stat']}" for l in b["legs"]))
-            print(f"  [bankroll] capital {BK.equity(st):.2f} EUR, {n_set} pari(s) regle(s), {len(placed)} place(s)")
-            return f" ; bankroll : {len(placed)} pari(s) place(s), {n_set} regle(s)"
+            print(f"  [bankroll] capital {BK.equity(st):.2f} EUR, {n_set + len(d_set)} pari(s) regle(s), {len(placed)} place(s)")
+            return f" ; bankroll : {len(placed)} pari(s) place(s), {n_set + len(d_set)} regle(s)"
         except Exception as e:
             print(f"  [!] bankroll : {type(e).__name__}: {e}")
             return ""

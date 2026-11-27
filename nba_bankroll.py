@@ -48,6 +48,10 @@ PRM = {
     "wait_until": 40,     # minutes avant le coup d'envoi
 }
 UNCERTAIN = ("questionable", "doubtful", "day-to-day")
+# 27/11/2026 (Wilson : « gère la bankroll basket de la même manière [que le défi foot], on stagne à 110 € depuis
+# 3 semaines ») : les décisions passent au moteur de défi (foot_bankroll, sp="nba", paliers sécurisés). Ce module ne
+# place plus rien ; il règle encore ses anciens paris et garde ses outils (settle_bet, labo, discipline).
+LEGACY_OFF = True
 # Discipline : la bankroll mesure sa propre CLV (cote prise vs derniere cote avant le match, suivi
 # data/nba_sim_picks.json). Sans avantage mesure, un bon parieur reduit puis arrete.
 PRUDENT = (30, 0.0)    # apres 30 selections reglees, CLV moyenne < 0 -> mises divisees par 2
@@ -206,7 +210,7 @@ def settle(state, box):
                 _conv_actual(b, box)    # aussi pour les paris deja regles (rattrapage)
             except Exception:
                 pass
-        if b["status"] != "open": continue
+        if b["status"] != "open" or b.get("mode") == "défi": continue   # paris du defi : regles par foot_bankroll
         if b["kind"] == "scorer":  # buteur : feuille de match ESPN
             import foot_scorer_odds as FS
             r = FS.scorer_result(b["legs"][0]["pj"]["res"])
@@ -250,6 +254,7 @@ CONV_NIGHT_MAX = 0.20
 
 def decide_conviction(state, picks, now=None):
     """Place les paris conviction de la soiree parmi les picks du soir (picks_du_jour.all_picks)."""
+    if LEGACY_OFF: return []
     from nba_sim_bilan import night_of
     now = now or datetime.now(timezone.utc)
     try:
@@ -470,6 +475,7 @@ def value_conf(p):
 def decide_value(state, new):
     """Value bets (ev_scan : cote francaise au-dessus de la cote juste Pinnacle) : 1/4 de Kelly sur la
     probabilite juste, au plus VALUE_MAX du capital. Seul avantage valide (CLV positive sur deux saisons)."""
+    if LEGACY_OFF: return []
     from nba_sim_bilan import night_of
     now = datetime.now(timezone.utc).isoformat(timespec="minutes")
     taken = {leg.get("ev_key") for b in state["bets"] for leg in b["legs"]}
@@ -611,6 +617,7 @@ def discipline(state, picks=None):
 
 def decide(state, games):
     """Place les nouveaux paris de la veille. Renvoie la liste des paris places."""
+    if LEGACY_OFF: return []
     now = datetime.now(timezone.utc).isoformat(timespec="minutes")
     mode, clv, n_clv = discipline(state)
     state["mode"] = {"mode": mode, "clv": round(clv, 4), "n": n_clv}

@@ -18,7 +18,19 @@ Règles du défi :
   - cotes DraftKings publiées par ESPN (marge retirée pour la probabilité juste, simulation foot sur les +/- 2,5 buts),
     comme les picks du jour : bankroll fictive, aucun argent réel ; la cote française estimée est ~15 % plus basse.
 
-    st = load(); settle(st); placed = decide(st); save(st)
+Paliers sécurisés (Wilson, 27/11/2026 : « hier 2 paris à 15 € passés, tu es monté à 128 € ; puis 19 € sur 2 buteurs :
+c'est ce que j'attends de toi, mais il fallait anticiper que si les 2 ne passaient pas tu passais à 90 €, -10 sur
+l'objectif ») : paliers départ, x1,2, x1,5, x1,75, x2 ; dès qu'un palier est atteint, le précédent est sécurisé :
+la somme des mises EN COURS (pire cas : tout perdu) ne peut plus faire passer sous ce plancher. Avant le 1er palier,
+au plus 30 % du départ en jeu. Coincé au plancher : une seule petite mise (5 %) quand rien n'est en cours.
+Chiffré (Monte Carlo, 7 jours de match, EV -4 %) : x2 7,8 % -> 5,2 %, finir sous 50 € 23 % -> 0 %.
+
+Même moteur pour la Bankroll IA NBA depuis le 27/11/2026 (Wilson : « gère la bankroll basket de la même manière,
+on stagne à 110 € depuis 3 semaines ») : sport="nba", props NBA du simulateur (probabilité calée), décision dans les
+2 h 30 avant le match (rapport des blessures), nuit NBA ; ses anciens paris restent réglés par nba_bankroll.
+
+    st = load(); settle(st); placed = decide(st); save(st)        # foot
+    st = load(sp="nba"); settle(st, box, sp="nba"); decide(st, sp="nba")
 """
 import json
 import math
@@ -41,6 +53,15 @@ RULES = {
     "per_day_player": 2, "player_odds": (1.80, 5.00),
 }
 SITE = "https://nadzhh.github.io/sports-picks/"
+LEVELS = (1.0, 1.2, 1.5, 1.75, 2.0)      # paliers, en multiple du depart du defi
+FLOOR0 = 0.70                            # avant le 1er palier : plancher a 70 % du depart (30 % en jeu au plus)
+STUCK = 0.05                             # coince au plancher : une mise de 5 % si rien n'est en cours
+CFG = {
+    "foot": {"path": PATH, "sport": "foot", "label": "foot", "ico": "⚽", "first_hour": 9, "horizon_h": 16, "lead_min": 25,
+             "night": False, "prefix": "f", "key": "fb", "combo_players": False},
+    "nba": {"path": Path("data/nba_bankroll.json"), "sport": "nba", "label": "NBA", "ico": "🏀", "first_hour": 0,
+            "horizon_h": 2.5, "lead_min": 15, "night": True, "prefix": "n", "key": "nb", "combo_players": True},
+}
 
 try:
     from zoneinfo import ZoneInfo
@@ -53,7 +74,10 @@ def _t(iso):
     return datetime.fromisoformat(iso.replace("Z", "+00:00"))
 
 
-def day_of(iso):
+def day_of(iso, sp="foot"):
+    if CFG[sp]["night"]:
+        from nba_sim_bilan import night_of
+        return night_of(iso)
     return _t(iso).astimezone(TZ).strftime("%Y-%m-%d")
 
 
@@ -61,7 +85,8 @@ def _round(x):
     return math.floor(round(x * 10, 6)) / 10
 
 
-def load(path=PATH):
+def load(path=None, sp="foot"):
+    path = path or CFG[sp]["path"]
     try:
         return json.loads(Path(path).read_text(encoding="utf-8"))
     except (OSError, ValueError):
@@ -69,7 +94,8 @@ def load(path=PATH):
                 "bets": [], "challenges": [], "topups": []}
 
 
-def save(state, path=PATH):
+def save(state, path=None, sp="foot"):
+    path = path or CFG[sp]["path"]
     state["updated"] = datetime.now(timezone.utc).isoformat(timespec="seconds")
     tmp = Path(str(path) + ".tmp")
     tmp.write_text(json.dumps(state, ensure_ascii=False, indent=0), encoding="utf-8")
@@ -108,6 +134,18 @@ def challenge(state, now=None):
     return ch
 
 
+def floor(ch, eq=None):
+    """Plancher securise du defi : le palier precedant le plus haut palier atteint (70 % du depart avant le 1er).
+    Deja passe dessous (perte d'avant la regle, 27/11/2026 : 88,68 EUR pour un palier de 100) : le plus haut palier
+    securise encore sous le capital (sinon le defi serait bloque a une mise de 5 %)."""
+    s = ch["start_eq"]
+    reached = [s * k for k in LEVELS if ch.get("best", s) >= s * k - 1e-6]
+    secured = [s * FLOOR0] + reached[:-1]
+    if eq is not None:
+        secured = [x for x in secured if x <= eq + 1e-6] or [min(s * FLOOR0, eq)]
+    return round(max(secured), 2)
+
+
 def _conf(x):
     """(niveau, part du capital) ou None : la confiance d'un pari simple."""
     ps = x.get("p_sim")
@@ -120,57 +158,68 @@ def _conf(x):
     return None
 
 
-def candidates(now):
+def candidates(now, sp="foot"):
     import picks_du_jour as PJ
+    c = CFG[sp]
+    pool = PJ.value_candidates(now, max(c["horizon_h"], 1), min_ev=-0.08)
+    if sp == "nba":   # props NBA = paris joueurs du defi
+        pool += [dict(x, kind="player", market="prop") for x in PJ.prop_candidates(now, max(c["horizon_h"], 1), min_ev=-0.08)]
     out = []
-    for x in PJ.value_candidates(now, RULES["horizon_h"], min_ev=-0.08):
-        if x.get("sport") != "foot": continue
-        if not timedelta(minutes=RULES["lead_min"]) <= _t(x["ko"]) - now <= timedelta(hours=RULES["horizon_h"]): continue
+    for x in pool:
+        if x.get("sport") != c["sport"]: continue
+        if not timedelta(minutes=c["lead_min"]) <= _t(x["ko"]) - now <= timedelta(hours=c["horizon_h"]): continue
         out.append(x)
     return out
 
 
-def _leg(x, tag):
+def _leg(x, tag, sp="foot"):
     import picks_du_jour as PJ
     pj = {k: x.get(k) for k in ("kind", "src", "sport", "match_id", "match", "label", "price", "ko", "res", "book", "fair_src")}
-    key = f'fb|{x["match_id"]}|{x["label"]}'
+    key = f'{CFG[sp]["key"]}|{x["match_id"]}|{x["label"]}'
     return {"key": key, "ev_key": key, "pj": pj, "name": x["match"], "team": x.get("league", ""), "opp": x.get("book", ""),
             "stat": x["label"], "side": "", "line": 0, "dec": x["price"], "am": None, "price_fr": round(x["price"] * PJ.FR_US, 2),
             "p_sim": x.get("p_sim") if x.get("p_sim") is not None else x["p"], "p_mkt": x.get("p_fair") or x["p"],
-            "date": x["ko"], "gid": "", "pid": "", "sport": "foot", "tag": tag}
+            "date": x["ko"], "gid": "", "pid": "", "sport": CFG[sp]["sport"], "tag": tag}
 
 
-def decide(state, now=None):
+def decide(state, now=None, sp="foot"):
     """Place les paris du défi pour les matchs des prochaines heures. Renvoie la liste des paris placés."""
     now = now or datetime.now(timezone.utc)
+    cf = CFG[sp]
     ch = challenge(state, now)
     if ch.get("won_at"): return []                       # objectif atteint : on fige jusqu'a la fin du defi
-    if now.astimezone(TZ).hour < RULES["first_hour"]: return []
+    if now.astimezone(TZ).hour < cf["first_hour"]: return []
     eq = equity(state)
-    brake = RULES["brake"] if eq < RULES["brake_below"] else 1.0
-    taken = {l["pj"]["match_id"] for b in state["bets"] if b["kind"] != "player" for l in b["legs"]}
-    taken_pl = {l["pj"]["match_id"] for b in state["bets"] if b["kind"] == "player" for l in b["legs"]}
-    cands = [x for x in candidates(now) if x["match_id"] not in taken]
-    try:   # buteurs / passeurs titulaires (cotes DraftKings via ESPN, compositions officielles)
-        import foot_player_props as FP
-        players = [x for x in FP.scan(now) if x["match_id"] not in taken_pl]
-    except Exception as e:
-        print(f"  [!] bankroll foot, paris joueurs : {type(e).__name__}: {e}")
-        players = []
-    cands += players
+    brake = RULES["brake"] if eq < 0.5 * ch["start_eq"] else 1.0
+    fl = floor(ch, eq)
+    dfi = [b for b in state["bets"] if b.get("mode") == "défi"]
+    taken = {l["pj"]["match_id"] for b in dfi if b["kind"] != "player" for l in b["legs"]}
+    taken_pl = {l["pj"]["match_id"] for b in dfi if b["kind"] == "player" for l in b["legs"]}
+    cands = [x for x in candidates(now, sp) if x["match_id"] not in (taken_pl if x.get("kind") == "player" else taken)]
+    if sp == "foot":
+        try:   # buteurs / passeurs titulaires (cotes DraftKings via ESPN, compositions officielles)
+            import foot_player_props as FP
+            cands += [x for x in FP.scan(now) if x["match_id"] not in taken_pl]
+        except Exception as e:
+            print(f"  [!] bankroll foot, paris joueurs : {type(e).__name__}: {e}")
     placed = []
-    for day in sorted({day_of(x["ko"]) for x in cands}):
-        mine = [b for b in state["bets"] if b.get("day") == day]
+    for day in sorted({day_of(x["ko"], sp) for x in cands}):
+        mine = [b for b in dfi if b.get("day") == day]
         n_single = sum(1 for b in mine if b["kind"] == "single")
         n_combo = sum(1 for b in mine if b["kind"] == "combine")
         engaged = sum(b["stake"] for b in mine if b["status"] == "open") + sum(b["stake"] for b in placed if b["day"] == day)
         used = set()
-        cs = [x for x in cands if day_of(x["ko"]) == day and x.get("kind") != "player"]
-        ps = [x for x in cands if day_of(x["ko"]) == day and x.get("kind") == "player"]
+        cs = [x for x in cands if day_of(x["ko"], sp) == day and x.get("kind") != "player"]
+        ps = [x for x in cands if day_of(x["ko"], sp) == day and x.get("kind") == "player"]
         n_player = sum(1 for b in mine if b["kind"] == "player")
 
         def room(stake):
-            return min(stake, RULES["day_max"] * eq - engaged, cash(state) - sum(b["stake"] for b in placed))
+            # pire cas : toutes les mises en cours perdues -> jamais sous le plancher securise (paliers, 27/11/2026)
+            open_all = sum(b["stake"] for b in state["bets"] if b["status"] == "open") + sum(b["stake"] for b in placed)
+            lim = min(stake, RULES["day_max"] * eq - engaged, cash(state) - sum(b["stake"] for b in placed), eq - open_all - fl)
+            if lim < RULES["min_stake"] and open_all == 0:   # coince au plancher : une petite mise
+                lim = min(stake, STUCK * eq)
+            return lim
 
         # 1. simples : la meilleure confiance d'abord, puis l'esperance
         rank = {"forte": 0, "moyenne": 1, "correcte": 2}
@@ -184,7 +233,7 @@ def decide(state, now=None):
             if x["match_id"] in used: continue
             stake = _round(room(frac * brake * eq))
             if stake < RULES["min_stake"]: break
-            placed.append(_bet(state, placed, [_leg(x, "simple")], stake, x["price"], x["p"], x["ev"], "single", conf, day, now))
+            placed.append(_bet(state, placed, [_leg(x, "simple", sp)], stake, x["price"], x["p"], x["ev"], "single", conf, day, now, sp))
             used.add(x["match_id"]); n_single += 1; engaged += stake
         # 2. paris joueurs : buteur / passeur titulaire, meme bareme de confiance
         used_pl = set()
@@ -197,13 +246,14 @@ def decide(state, now=None):
             if x["match_id"] in used_pl: continue
             stake = _round(room(frac * brake * eq))
             if stake < RULES["min_stake"]: break
-            placed.append(_bet(state, placed, [_leg(x, "buteur" if x.get("market") == "goal" else "passeur")], stake,
-                               x["price"], x["p"], x["ev"], "player", conf, day, now))
+            tag = {"goal": "buteur", "ast": "passeur"}.get(x.get("market"), "prop")
+            placed.append(_bet(state, placed, [_leg(x, tag, sp)], stake, x["price"], x["p"], x["ev"], "player", conf, day, now, sp))
             used_pl.add(x["match_id"]); n_player += 1; engaged += stake
         # 3. combine : le plus probable dont la cote totale tombe entre 3 et 5
         if n_combo < RULES["per_day_combo"]:
             lo, hi = RULES["leg_odds"]
-            pool = sorted((x for x in cs if x["match_id"] not in used and lo <= x["price"] <= hi and x["p"] >= RULES["leg_p"]
+            pool = sorted((x for x in cs + (ps if cf["combo_players"] else []) if x["match_id"] not in used | used_pl
+                           and lo <= x["price"] <= hi and x["p"] >= RULES["leg_p"]
                            and x["ev"] >= RULES["leg_ev"] and (x.get("p_sim") is None or x["p_sim"] >= x["p"] - 0.05)),
                           key=lambda x: -x["p"])
             best_per_match = {}
@@ -221,27 +271,27 @@ def decide(state, now=None):
                 p, d, legs = best
                 stake = _round(room(RULES["combo_stake"] * brake * eq))
                 if stake >= RULES["min_stake"]:
-                    placed.append(_bet(state, placed, [_leg(x, "combiné") for x in legs], stake, round(d, 3), round(p, 4),
-                                       round(p * d - 1, 4), "combine", "combiné", day, now))
+                    placed.append(_bet(state, placed, [_leg(x, "combiné", sp) for x in legs], stake, round(d, 3), round(p, 4),
+                                       round(p * d - 1, 4), "combine", "combiné", day, now, sp))
     state["bets"] += placed
     return placed
 
 
-def _bet(state, placed, legs, stake, odds, p, ev, kind, conf, day, now):
+def _bet(state, placed, legs, stake, odds, p, ev, kind, conf, day, now, sp="foot"):
     return {"legs": legs, "stake": stake, "odds": round(odds, 3), "p": round(p, 4), "ev": round(ev, 4), "kind": kind,
-            "mode": "défi", "conf": conf, "id": f'{day}-f{len(state["bets"]) + len(placed) + 1}', "day": day, "night": day,
+            "mode": "défi", "conf": conf, "id": f'{day}-{CFG[sp]["prefix"]}{len(state["bets"]) + len(placed) + 1}', "day": day, "night": day,
             "challenge": (state.get("challenges") or [{}])[-1].get("n"), "placed_at": now.isoformat(timespec="minutes"),
             "status": "open", "news": []}
 
 
-def settle(state, now=None):
+def settle(state, box=None, now=None, sp="foot"):
     """Règle les paris terminés (score ESPN, comme les picks du jour). Renvoie les paris réglés."""
     import picks_du_jour as PJ
     import nba_bankroll as BK
     now = now or datetime.now(timezone.utc)
     done = []
     for b in state["bets"]:
-        if b["status"] != "open": continue
+        if b["status"] != "open" or b.get("mode") != "défi": continue
         res = []
         for l in b["legs"]:
             if l.get("result") in ("win", "loss", "void"):
@@ -253,9 +303,9 @@ def settle(state, now=None):
                     import foot_player_props as FP
                     r = FP.settle(l["pj"]["res"])
                 else:
-                    r = PJ.settle_pick(l["pj"])
+                    r = PJ.settle_pick(l["pj"], box)
             except Exception as e:
-                print(f"  [!] bankroll foot, reglement {l['stat']} : {type(e).__name__}: {e}")
+                print(f"  [!] bankroll {CFG[sp]['label']}, reglement {l['stat']} : {type(e).__name__}: {e}")
                 r = None
             res.append({"push": "void"}.get(r, r))
         if BK.settle_bet(b, res): done.append(b)
@@ -275,21 +325,24 @@ def _head(state):
     if not ch: return f"Capital {_fr(eq)} €"
     left = min(DAYS, max(0, math.ceil((_t(ch["end_at"]) - datetime.now(timezone.utc)).total_seconds() / 86400 - 0.01)))
     return (f'Défi x2 n°{ch["n"]} : <b>{_fr(eq)} €</b> / objectif {_fr(ch["target"])} € '
-            f'({_fr(100 * (eq - ch["start_eq"]) / max(ch["target"] - ch["start_eq"], 0.01), 0)} % du chemin) · J-{left}')
+            f'({_fr(100 * (eq - ch["start_eq"]) / max(ch["target"] - ch["start_eq"], 0.01), 0)} % du chemin) · J-{left} · '
+            f'plancher sécurisé {_fr(floor(ch, eq))} €')
 
 
-def telegram_placed(placed, state):
+def telegram_placed(placed, state, sp="foot"):
     eq = equity(state)
-    out = ["⚽ <b>Bankroll IA foot · défi x2 : paris à prendre</b>"]
+    c = CFG[sp]
+    out = [f'{c["ico"]} <b>Bankroll IA {c["label"]} · défi x2 : paris à prendre</b>']
     for b in placed:
         when = _t(b["legs"][0]["date"]).astimezone(TZ).strftime("%d/%m %H:%M")
         if b["kind"] == "player":
             l = b["legs"][0]
-            out.append(f'\n{"⚽" if l["tag"] == "buteur" else "🅰️"} <b>{l["stat"]}</b> · {l["name"]} ({when}), titulaire')
+            out.append(f'\n{ {"buteur": "⚽", "passeur": "🅰️"}.get(l["tag"], "🏀") } <b>{l["stat"]}</b> · {l["name"]} ({when})'
+                       + (", titulaire" if l["tag"] in ("buteur", "passeur") else ""))
             out.append(f'Cote {l["opp"]} <b>{_fr(b["odds"])}</b> (FR estimée {_fr(l["price_fr"])}) · ma estimation {round(100 * b["p"])} % '
                        f'(modèle {round(100 * l["p_sim"])} %) · confiance {b["conf"]} · '
                        + (f'espérance +{round(100 * b["ev"])} %' if b["ev"] >= 0 else f'coût ≈ {round(-100 * b["ev"])} %')
-                       + ("" if l["tag"] == "buteur" else " · modèle passeur pas encore vérifié"))
+                       + (" · modèle passeur pas encore vérifié" if l["tag"] == "passeur" else ""))
         elif b["kind"] == "combine":
             out.append(f'\n🔗 <b>Combiné</b> · cote <b>{_fr(b["odds"])}</b> · gagné {round(100 * b["p"])} %')
             out += [f'• {l["name"]} ({_t(l["date"]).astimezone(TZ).strftime("%d/%m %H:%M")}) : <b>{l["stat"]}</b> @ {_fr(l["dec"])}'
@@ -300,13 +353,15 @@ def telegram_placed(placed, state):
             out.append(f'Cote {l["opp"]} <b>{_fr(b["odds"])}</b> (FR estimée {_fr(l["price_fr"])}) · gagné {round(100 * b["p"])} % · '
                        f'confiance {b["conf"]} · ' + (f'espérance +{round(100 * b["ev"])} %' if b["ev"] >= 0 else f'coût ≈ {round(-100 * b["ev"])} %'))
         out.append(f'Mise <b>{_fr(b["stake"])} €</b> ({_fr(100 * b["stake"] / eq, 0)} % de la bankroll)')
-    out.append(f'\n{_head(state)} · <a href="{SITE}">détails sur le site</a>')
+    risk = sum(b["stake"] for b in state["bets"] if b["status"] == "open")
+    out.append(f'\nPire cas si tout ce qui est en cours perd : <b>{_fr(eq - risk)} €</b> (plancher {_fr(floor(state["challenges"][-1], eq))} €)')
+    out.append(f'{_head(state)} · <a href="{SITE}">détails sur le site</a>')
     return "\n".join(out)
 
 
-def telegram_settled(bets, state):
+def telegram_settled(bets, state, sp="foot"):
     lab = {"won": "✅", "lost": "❌", "void": "↩️"}
-    out = ["⚽ <b>Bankroll IA foot : paris réglés</b>"]
+    out = [f'{CFG[sp]["ico"]} <b>Bankroll IA {CFG[sp]["label"]} : paris réglés</b>']
     for b in bets:
         legs = " + ".join(f'{l["name"]} : {l["stat"]}' for l in b["legs"])
         out.append(f'{lab.get(b["status"], "")} {legs} : {"+" if b["pnl"] > 0 else ""}{_fr(b["pnl"])} €')

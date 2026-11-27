@@ -167,6 +167,12 @@ def _lab_card():
 
 
 def build_bankroll_section(state=None):
+    # 27/11/2026 : la bankroll NBA est geree en defi x2 (foot_bankroll, sp="nba") : meme page que le foot + labo
+    import foot_bankroll_site as FBS
+    return FBS.build_section(state if state is not None else BK.load(), "nba", extra=_lab_card())
+
+
+def _legacy_section(state=None):
     state = state if state is not None else BK.load()
     p = BK.PRM
     eq, start = BK.equity(state), state["start"]
