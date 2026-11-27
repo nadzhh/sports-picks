@@ -40,6 +40,7 @@ HTML = r"""
 #sp-chat .m.a th{color:var(--mu,#9aa89e);font-weight:600}
 #sp-chat .sep{align-self:center;font:11px var(--mono,monospace);color:var(--di,#6b7a70);padding:4px 0}
 #sp-chat .wait{align-self:flex-start;font:12.5px var(--mono,monospace);color:var(--mu,#9aa89e)}
+#sp-chat .m .perf{margin-top:6px;font:11px var(--mono,monospace);color:var(--mu,#9aa89e);opacity:.8}
 #sp-chat .wait i{display:inline-block;width:6px;height:6px;border-radius:3px;background:var(--acc,#95e04a);margin-right:4px;animation:spch 1.2s infinite}
 #sp-chat .wait i:nth-child(2){animation-delay:.2s}#sp-chat .wait i:nth-child(3){animation-delay:.4s;margin-right:8px}
 @keyframes spch{0%,80%,100%{opacity:.25}40%{opacity:1}}
@@ -102,6 +103,9 @@ window.spChat = (function(){
     return out.join('').replace(/(<br>)+$/, '');
   }
   function ms(d){ return d.at && d.at.toMillis ? d.at.toMillis() : Date.now(); }
+  // compteur d'attente (27/11/2026) : secondes ecoulees depuis l'envoi
+  setInterval(function(){ document.querySelectorAll('#sp-chat-b .el[data-t]').forEach(function(e){
+    var t = Math.max(0, Math.round((Date.now() - (+e.getAttribute('data-t'))) / 1000)); e.textContent = t ? t + ' s' : ''; }); }, 1000);
   // force : aller en bas (ouverture, envoi). Sinon on ne descend que si la vue etait deja en bas : Wilson peut
   // remonter lire l'historique sans etre ramene en bas par le rafraichissement (05/11/2026).
   function render(force){
@@ -116,13 +120,15 @@ window.spChat = (function(){
     }
     cur.forEach(function(d){
       if(d.role === 'user') h.push('<div class="m u">' + esc(d.text || '') + '</div>');
-      else if(d.role === 'assistant') h.push('<div class="m a' + (/^Erreur du relais|^Limite de/.test(d.text || '') ? ' err' : '') + '">' + md(d.text || '') + '</div>');
+      else if(d.role === 'assistant') h.push('<div class="m a' + (/^Erreur du relais|^Limite de/.test(d.text || '') ? ' err' : '') + '">' + md(d.text || '')
+        + (d.perf ? '<div class="perf">' + esc(d.perf) + '</div>' : '') + '</div>');
     });
     var last = cur.filter(function(d){ return d.role === 'user'; }).pop();
     if(last && (last.status === 'pending' || last.status === 'thinking')){
       var late = last.status === 'pending' && Date.now() - ms(last) > 3 * 60 * 1000;
       h.push('<div class="wait"><i></i><i></i><i></i>' + (late ? 'Le relais ne répond pas encore (il redémarre peut-être) : ton message sera traité à son retour.'
-        : last.status === 'thinking' ? 'Claude réfléchit…' : 'Message transmis…') + '</div>');
+        : last.status === 'thinking' ? 'Claude réfléchit…' : 'Message transmis…')
+        + ' <span class="el" data-t="' + ms(last) + '"></span></div>');
     }
     b.innerHTML = h.join('');
     b.scrollTop = (force || atBottom) ? b.scrollHeight : keep;

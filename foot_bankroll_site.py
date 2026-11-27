@@ -124,7 +124,9 @@ def build_section(state=None, sp="foot", extra=""):
         f'<b>Mise selon ma confiance</b> : forte {_pct(R["stake"]["forte"])} du capital (espérance positive et ma simulation '
         f'd’accord), moyenne {_pct(R["stake"]["moyenne"])} (coût ≤ 3 %, simulation pas contre), correcte '
         f'{_pct(R["stake"]["correcte"])} (coût ≤ 6 %) ; combiné {_pct(R["combo_stake"])}. Au plus {_pct(R["day_max"])} '
-        'du capital engagé sur une même journée.',
+        'du capital engagé sur une même journée. Les pourcentages portent sur le capital de <b>départ du défi</b> (Wilson, '
+        '27/11 : « si tu gagnes, pas forcément mettre plus ») : les gains ne gonflent pas les mises, une perte les réduit. '
+        'Au-delà d’une cote de 2,50 la mise baisse avec la cote (×0,71 à 3,10, ×0,5 à 4,00) ; buteur ou passeur : 10 % au plus.',
         (f'<b>Paris joueurs</b> (depuis le 26/11/2026) : buteur ou passeur décisif <b>titulaire</b>, une fois les compositions '
         f'officielles publiées (~1 h avant le match) ; au plus {R["per_day_player"]} par jour et 1 par match, cote '
         f'{R["player_odds"][0]:.2f} à {R["player_odds"][1]:.2f}, même barème de confiance. DraftKings ne donne qu’une cote '

@@ -14,7 +14,7 @@ plusieurs centaines de Ko, le relais lui prepare ici :
 
     python chat_context.py      # affiche le briefing (controle)
 """
-import difflib, json
+import difflib, json, re
 from collections import defaultdict
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
@@ -228,7 +228,31 @@ def _fair_for(fair, home, away, ko):
     return None
 
 
-def foot(now, hours=36):
+FOOT_DETAIL_H = 12      # 27/11/2026 : detail complet des matchs des 12 prochaines heures (ou cites dans la question)
+_STOP = {"united", "city", "real", "club", "sporting", "olympique", "borussia", "athletic", "atletico", "inter", "racing",
+         "stade", "union", "hotspur", "albion", "wanderers", "rovers", "town", "county", "calcio", "football", "saint"}
+
+
+ALIAS = {"psg": "paris saint germain", "om": "marseille", "ol": "lyon", "losc": "lille", "asse": "saint etienne",
+         "barca": "barcelona", "real": "real madrid", "atleti": "atletico madrid", "juve": "juventus", "bvb": "dortmund",
+         "man utd": "manchester united", "man united": "manchester united", "man city": "manchester city", "spurs": "tottenham",
+         "bayern": "bayern munich", "inter": "inter milan internazionale", "milan": "ac milan", "napoli": "napoli",
+         "leverkusen": "bayer leverkusen", "gladbach": "monchengladbach"}
+
+
+def _cited(name, focus):
+    """Vrai si l'equipe est citee dans la question (nom complet ou mot distinctif de 5 lettres ou plus)."""
+    import unicodedata
+    n = lambda s: re.sub(r"[^a-z0-9 ]", " ", unicodedata.normalize("NFKD", s or "").encode("ascii", "ignore").decode().lower())
+    f, nm = f" {n(focus)} ", n(name).strip()
+    for k, v in ALIAS.items():   # surnoms courants (PSG, OM, Barça…)
+        f = f.replace(f" {k} ", f" {k} {v} ")
+    if not nm or len(f.strip()) < 3: return False
+    if f" {nm} " in f: return True
+    return any(len(w) >= 5 and w not in _STOP and f" {w} " in f for w in nm.split())
+
+
+def foot(now, hours=36, focus=""):
     sim = [g for g in (_load("data/foot_sim.json", {}) or {}).get("games") or []
            if timedelta(hours=-2) <= _t(g["ko"]) - now <= timedelta(hours=hours)]
     picks = [m for m in _load("data/picks.json", []) or []
@@ -239,10 +263,20 @@ def foot(now, hours=36):
         eff = notify._effective_cote
     except Exception:
         eff = lambda p: (None, None)
-    out = [f"## 3. Foot (matchs des {hours} prochaines heures)"]
+    out = [f"## 3. Foot (matchs des {hours} prochaines heures ; détail complet pour ceux des {FOOT_DETAIL_H} prochaines "
+           "heures et ceux cités dans la question, une ligne pour les autres)"]
     used = set()
+    compact = []
     for g in sorted(sim, key=lambda g: g["ko"]):
         ko, hn, an, p = _t(g["ko"]), g["home"]["name"], g["away"]["name"], g["p"]
+        # 27/11/2026 (Wilson : « le chat est très lent ») : 62 matchs détaillés = 77 000 caractères relus à CHAQUE
+        # question ; on ne détaille que les matchs proches ou cités, une ligne pour les autres (le dossier complet
+        # reste disponible via « Analyse approfondie »)
+        if not (ko - now <= timedelta(hours=FOOT_DETAIL_H) or _cited(hn, focus) or _cited(an, focus)):
+            compact.append(f"- {hn} - {an} ({g.get('league_name', '')}, {_hm(ko)}) : 1 {_pc(p['1'])} / N {_pc(p['X'])} / "
+                           f"2 {_pc(p['2'])} ; buts attendus {g['goals'][0]:.2f}-{g['goals'][1]:.2f} ; +2,5 {_pc(p['over']['2.5'])}"
+                           + (" (calé sur la cote)" if g.get("anchor") else ""))
+            continue
         out.append(f"\n### {hn} - {an} · {g.get('league_name', '')} · {_hm(ko)} (simulé)")
         out.append(f"- Simulation 10 000 matchs : 1 {_pc(p['1'])} / N {_pc(p['X'])} / 2 {_pc(p['2'])} ; buts attendus "
                    f"{g['goals'][0]:.2f}-{g['goals'][1]:.2f} (xG {g['xg'][0]:.2f}-{g['xg'][1]:.2f}) ; +2,5 {_pc(p['over']['2.5'])} ; "
@@ -287,6 +321,9 @@ def foot(now, hours=36):
             booked = [f"{x['label']} @ {c:.2f}" + (f" (edge {x['edge_pp']:+.0f} pts)" if x.get("edge_pp") is not None else "")
                       for x, c, src in pk if src == "book" and c]
             if booked: out.append("- Cotes bookmaker relevées (moteur picks) : " + " · ".join(booked[:8]))
+    if compact:
+        out.append("\n### Autres matchs simulés (résumé ; cite une équipe pour en avoir le détail)")
+        out += compact
     rest = []
     for m in picks:
         if id(m) in used: continue
@@ -322,12 +359,12 @@ def money(now):
     return out
 
 
-def briefing(now=None):
+def briefing(now=None, focus=""):
     now = now or datetime.now(timezone.utc)
     parts = []
     for f in (reliability, nba, foot, money):
         try:
-            parts.append("\n".join(f(now)))
+            parts.append("\n".join(f(now, focus=focus) if f is foot else f(now)))
         except Exception as e:
             parts.append(f"## ({f.__name__} indisponible : {type(e).__name__})")
     return f"# Briefing SportsPicks · {_hm(now)} (heure de Paris)\n\n" + "\n\n".join(parts)

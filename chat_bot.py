@@ -177,11 +177,14 @@ def state_summary():
 MEMO_MAX = 40   # lecons / preferences retenues des echanges (role « memo » dans users/<uid>/chat)
 
 
+PERF = []
+
+
 def ask_claude(history, msg, memos=(), extra=""):
     convo = "\n\n".join(f"{'Wilson' if h.get('role') == 'user' else 'Claude'} : {h.get('text', '')}" for h in history)
     try:
         import chat_context
-        brief = chat_context.briefing()
+        brief = chat_context.briefing(focus=f"{msg.get('text', '')} {msg.get('ctx') or ''}")
     except Exception as e:
         brief = f"(briefing indisponible : {type(e).__name__})"
     prompt = (f"Date et heure (Paris) : {_paris_now():%A %d/%m/%Y %H:%M}.\n"
@@ -211,6 +214,8 @@ def ask_claude(history, msg, memos=(), extra=""):
         raise RuntimeError(f"Claude Code sans reponse lisible (code {r.returncode})")
     if d.get("is_error"):
         raise RuntimeError(f"Claude Code : {str(d.get('result') or d.get('subtype'))[:200]}")
+    # mesure (27/11/2026, « le chat est très lent ») : duree, tours d'outils, taille du contexte (chiffres seulement)
+    PERF.append({"s": (d.get("duration_ms") or 0) / 1000, "turns": d.get("num_turns") or 1, "chars": len(prompt)})
     return (d.get("result") or "").strip() or "(réponse vide)"
 
 
@@ -292,6 +297,8 @@ def split_sims(txt):
 
 
 def handle(fire, uid, msg, recent):
+    t0 = time.time()
+    PERF.clear()
     fire.patch(msg["_name"], {"status": "thinking"})
     memos = sorted(fire.query(uid, where=("role", "memo"), limit=200), key=lambda m: m.get("at") or "")
     memos = [m.get("text", "") for m in memos][-MEMO_MAX:]
@@ -354,10 +361,15 @@ def handle(fire, uid, msg, recent):
     txt, new_memos = split_memos(txt)
     for m in new_memos:   # memoire durable : relue a chaque question (« Nouvelle » ne l'efface pas)
         fire.add(uid, {"role": "memo", "text": m, "at": datetime.now(timezone.utc), "reply_to": msg["_id"]})
-    fire.add(uid, {"role": "assistant", "text": txt or "(réponse vide)", "at": datetime.now(timezone.utc), "reply_to": msg["_id"]})
+    tot = time.time() - t0
+    perf = (f"répondu en {tot:.0f} s" + (f" · Claude {sum(x['s'] for x in PERF):.0f} s, {sum(x['turns'] for x in PERF)} tour"
+                                          f"{'s' if sum(x['turns'] for x in PERF) > 1 else ''}, contexte {max(x['chars'] for x in PERF) // 1000} k car."
+                                          if PERF else ""))
+    fire.add(uid, {"role": "assistant", "text": txt or "(réponse vide)", "at": datetime.now(timezone.utc), "reply_to": msg["_id"],
+                   "perf": perf})
     fire.patch(msg["_name"], {"status": st})
     recent.append(time.time())
-    print(f"  [chat] reponse envoyee ({st}, {len(txt)} car.)", flush=True)
+    print(f"  [chat] reponse envoyee ({st}, {len(txt)} car., {perf})", flush=True)
 
 
 def cycle(fire, uids, recent):

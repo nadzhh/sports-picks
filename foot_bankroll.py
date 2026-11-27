@@ -50,7 +50,7 @@ RULES = {
     "lead_min": 25, "horizon_h": 16, "first_hour": 9,
     # 26/11/2026 (Wilson : « buteurs titulaires, passes décisives », mises normales) : paris joueurs, compositions
     # officielles publiees (foot_player_props), 2 par jour, 1 par match, cote 1,80 a 5,00
-    "per_day_player": 2, "player_odds": (1.80, 5.00),
+    "per_day_player": 2, "player_odds": (1.80, 5.00), "player_max": 0.10, "odds_ref": 2.5,
 }
 SITE = "https://nadzhh.github.io/sports-picks/"
 LEVELS = (1.0, 1.2, 1.5, 1.75, 2.0)      # paliers, en multiple du depart du defi
@@ -146,6 +146,12 @@ def floor(ch, eq=None):
     return round(max(secured), 2)
 
 
+def odds_factor(d):
+    """Mise reduite au-dela d'une cote de 2,50 (meme gain vise, moins de capital expose) : 1 jusqu'a 2,50,
+    0,71 a 3,10, 0,5 a 4,00."""
+    return min(1.0, (RULES["odds_ref"] - 1) / max(d - 1, 0.01))
+
+
 def _conf(x):
     """(niveau, part du capital) ou None : la confiance d'un pari simple."""
     ps = x.get("p_sim")
@@ -192,6 +198,10 @@ def decide(state, now=None, sp="foot"):
     eq = equity(state)
     brake = RULES["brake"] if eq < 0.5 * ch["start_eq"] else 1.0
     fl = floor(ch, eq)
+    # 27/11/2026 (Wilson : « 15 EUR sur un pari j'aime bien, mais si tu gagnes faut pas forcement mettre +, en tout cas
+    # pas sur un buteur a 3,1 ») : mises calculees sur le capital de DEPART du defi (les gains ne gonflent pas les
+    # mises ; une perte les reduit) ; au-dela de 2,50 la mise baisse avec la cote ; buteur / passeur : 10 % au plus.
+    base = min(eq, ch["start_eq"])
     dfi = [b for b in state["bets"] if b.get("mode") == "défi"]
     taken = {l["pj"]["match_id"] for b in dfi if b["kind"] != "player" for l in b["legs"]}
     taken_pl = {l["pj"]["match_id"] for b in dfi if b["kind"] == "player" for l in b["legs"]}
@@ -231,7 +241,7 @@ def decide(state, now=None, sp="foot"):
         for _, _, x, (conf, frac) in sorted(singles, key=lambda r: (r[0], r[1])):
             if n_single >= RULES["per_day_single"]: break
             if x["match_id"] in used: continue
-            stake = _round(room(frac * brake * eq))
+            stake = _round(room(frac * brake * base * odds_factor(x["price"])))
             if stake < RULES["min_stake"]: break
             placed.append(_bet(state, placed, [_leg(x, "simple", sp)], stake, x["price"], x["p"], x["ev"], "single", conf, day, now, sp))
             used.add(x["match_id"]); n_single += 1; engaged += stake
@@ -244,9 +254,10 @@ def decide(state, now=None, sp="foot"):
         for _, _, x, (conf, frac) in sorted(rows, key=lambda r: (r[0], r[1])):
             if n_player >= RULES["per_day_player"]: break
             if x["match_id"] in used_pl: continue
-            stake = _round(room(frac * brake * eq))
-            if stake < RULES["min_stake"]: break
             tag = {"goal": "buteur", "ast": "passeur"}.get(x.get("market"), "prop")
+            if tag != "prop": frac = min(frac, RULES["player_max"])
+            stake = _round(room(frac * brake * base * odds_factor(x["price"])))
+            if stake < RULES["min_stake"]: break
             placed.append(_bet(state, placed, [_leg(x, tag, sp)], stake, x["price"], x["p"], x["ev"], "player", conf, day, now, sp))
             used_pl.add(x["match_id"]); n_player += 1; engaged += stake
         # 3. combine : le plus probable dont la cote totale tombe entre 3 et 5
@@ -269,7 +280,7 @@ def decide(state, now=None, sp="foot"):
                     if best is None or (p, p * d) > (best[0], best[0] * best[1]): best = (p, d, legs)
             if best:
                 p, d, legs = best
-                stake = _round(room(RULES["combo_stake"] * brake * eq))
+                stake = _round(room(RULES["combo_stake"] * brake * base * odds_factor(d)))
                 if stake >= RULES["min_stake"]:
                     placed.append(_bet(state, placed, [_leg(x, "combiné", sp) for x in legs], stake, round(d, 3), round(p, 4),
                                        round(p * d - 1, 4), "combine", "combiné", day, now, sp))
