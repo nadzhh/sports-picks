@@ -26,7 +26,7 @@ except Exception:
 
 SIM_PATH = "data/nba_sim.json"
 FRAGMENT = "nba_sim.html"
-SECTION_REV = "r3"   # a augmenter quand le code de la section change sans nouvelle simulation (r2 : match le plus probable face aux lignes, 18/11/2026)
+SECTION_REV = "r4"   # a augmenter quand le code de la section change sans nouvelle simulation (r2 : match le plus probable face aux lignes, 18/11/2026)
 JOURS = ["Lun.", "Mar.", "Mer.", "Jeu.", "Ven.", "Sam.", "Dim."]
 STAT_LABELS = {"PTS": "Points", "REB": "Rebonds", "AST": "Passes", "3PM": "Paniers à 3 pts", "PRA": "Pts + Reb + Pas",
                "PR": "Pts + Reb", "PA": "Pts + Pas", "RA": "Reb + Pas", "STL": "Interceptions", "BLK": "Contres"}
@@ -1056,10 +1056,12 @@ def _record(s):
 def _night_item(rep):
     n, s = rep["night"], rep["sum"]
     d = datetime.strptime(n, "%Y-%m-%d")
-    title = f'{_record(s)} · {_u(s["units"])}' if s["n"] else f'{rep["total"]} match{"s" if rep["total"] > 1 else ""}'
+    # 27/11/2026 (Wilson : « applique le foot à la NBA ») : unités en vert / rouge et pastilles comme le bilan foot
+    title = (f'{_record(s)} · <b class="{"eb-acc" if s["units"] >= 0 else "eb-neg"}">{_u(s["units"])}</b>' if s["n"]
+             else f'{rep["total"]} match{"s" if rep["total"] > 1 else ""}')
     chips = f'<span class="eb-chip"><em>Matchs</em>{rep["done"]}/{rep["total"]}</span>'
     if s["with_us"] is not None:
-        chips += f'<span class="eb-chip"><em>Cotes</em>{100 * s["with_us"]:.0f} % pour nous</span>'
+        chips += f'<span class="eb-chip"><em>Cotes dans notre sens</em>{100 * s["with_us"]:.0f} %</span>'
     return (f'<button class="eb-item" data-id="bilan-{n}" onclick="ebPick(\'nbahist\',\'bilan-{n}\')">'
             f'<div class="eb-item-top"><span>Bilan</span><span>{JOURS[d.weekday()]} {d:%d/%m}</span></div>'
             f'<div class="eb-item-t">{title}</div><div class="eb-chips">{chips}</div></button>')

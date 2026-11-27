@@ -50,7 +50,7 @@ RULES = {
     "lead_min": 25, "horizon_h": 16, "first_hour": 9,
     # 26/11/2026 (Wilson : « buteurs titulaires, passes décisives », mises normales) : paris joueurs, compositions
     # officielles publiees (foot_player_props), 2 par jour, 1 par match, cote 1,80 a 5,00
-    "per_day_player": 2, "player_odds": (1.80, 5.00), "player_max": 0.10, "odds_ref": 2.5,
+    "per_day_player": 2, "player_odds": (1.80, 5.00), "player_max": 0.05, "odds_ref": 2.5,
 }
 SITE = "https://nadzhh.github.io/sports-picks/"
 LEVELS = (1.0, 1.2, 1.5, 1.75, 2.0)      # paliers, en multiple du depart du defi
@@ -198,10 +198,11 @@ def decide(state, now=None, sp="foot"):
     eq = equity(state)
     brake = RULES["brake"] if eq < 0.5 * ch["start_eq"] else 1.0
     fl = floor(ch, eq)
-    # 27/11/2026 (Wilson : « 15 EUR sur un pari j'aime bien, mais si tu gagnes faut pas forcement mettre +, en tout cas
-    # pas sur un buteur a 3,1 ») : mises calculees sur le capital de DEPART du defi (les gains ne gonflent pas les
-    # mises ; une perte les reduit) ; au-dela de 2,50 la mise baisse avec la cote ; buteur / passeur : 10 % au plus.
-    base = min(eq, ch["start_eq"])
+    # 27/11/2026, precise par Wilson : « je dis pas que le gain ne doit pas gonfler la mise, il faut que ca se base sur
+    # une logique de confiance ; 19 EUR sur 2 buteurs, il aurait fallu rester a 5 % max (6,40 EUR sur 128) » :
+    # mises en % du capital du moment selon la confiance ; au-dela de 2,50 la mise baisse avec la cote ;
+    # buteur / passeur : le tiers du bareme (forte 5 %, moyenne 3,3 %, correcte 2,7 %), jamais plus de 5 %.
+    base = eq
     dfi = [b for b in state["bets"] if b.get("mode") == "défi"]
     taken = {l["pj"]["match_id"] for b in dfi if b["kind"] != "player" for l in b["legs"]}
     taken_pl = {l["pj"]["match_id"] for b in dfi if b["kind"] == "player" for l in b["legs"]}
@@ -255,8 +256,11 @@ def decide(state, now=None, sp="foot"):
             if n_player >= RULES["per_day_player"]: break
             if x["match_id"] in used_pl: continue
             tag = {"goal": "buteur", "ast": "passeur"}.get(x.get("market"), "prop")
-            if tag != "prop": frac = min(frac, RULES["player_max"])
-            stake = _round(room(frac * brake * base * odds_factor(x["price"])))
+            if tag != "prop":
+                frac = min(frac * RULES["player_max"] / RULES["stake"]["forte"], RULES["player_max"])
+                stake = _round(room(frac * brake * base))
+            else:
+                stake = _round(room(frac * brake * base * odds_factor(x["price"])))
             if stake < RULES["min_stake"]: break
             placed.append(_bet(state, placed, [_leg(x, tag, sp)], stake, x["price"], x["p"], x["ev"], "player", conf, day, now, sp))
             used_pl.add(x["match_id"]); n_player += 1; engaged += stake
