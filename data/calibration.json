@@ -1,6 +1,6 @@
 {
- "genere_le": "2026-11-27T19:02:21",
- "n_resolus": 3139,
+ "genere_le": "2026-11-28T02:17:17",
+ "n_resolus": 3142,
  "parametres": {
   "n_min_jugement": 20,
   "seuil_pct": 50.0,
@@ -8,21 +8,31 @@
  },
  "marches": {
   "foot/Double chance": {
-   "n": 227,
+   "n": 228,
    "wins": 182,
-   "wr": 80.2,
-   "borne_basse": 74.5,
-   "borne_haute": 84.8,
+   "wr": 79.8,
+   "borne_basse": 74.1,
+   "borne_haute": 84.5,
    "statut": "RETENU",
    "cote_moyenne": 1.58,
    "n_cotes": 23
   },
+  "foot/Victoire extérieur": {
+   "n": 246,
+   "wins": 117,
+   "wr": 47.6,
+   "borne_basse": 41.4,
+   "borne_haute": 53.8,
+   "statut": "SURVEILLE",
+   "cote_moyenne": 2.44,
+   "n_cotes": 31
+  },
   "foot/Victoire domicile": {
-   "n": 279,
-   "wins": 155,
-   "wr": 55.6,
-   "borne_basse": 49.7,
-   "borne_haute": 61.3,
+   "n": 280,
+   "wins": 156,
+   "wr": 55.7,
+   "borne_basse": 49.9,
+   "borne_haute": 61.4,
    "statut": "SURVEILLE",
    "cote_moyenne": 3.0,
    "n_cotes": 49
@@ -36,16 +46,6 @@
    "statut": "RETENU",
    "cote_moyenne": 1.73,
    "n_cotes": 1
-  },
-  "foot/Victoire extérieur": {
-   "n": 245,
-   "wins": 117,
-   "wr": 47.8,
-   "borne_basse": 41.6,
-   "borne_haute": 54.0,
-   "statut": "SURVEILLE",
-   "cote_moyenne": 2.44,
-   "n_cotes": 31
   },
   "foot/Tirs cadrés (Inter Club d'Escaldes)": {
    "n": 1,
@@ -1301,8 +1301,8 @@
  "calibration": {
   "foot/Double chance": {
    "80-89": {
-    "n": 181,
-    "p": 80.1
+    "n": 182,
+    "p": 79.7
    },
    "90-99": {
     "n": 40,
@@ -1310,13 +1310,31 @@
    },
    "70-79": {
     "n": 6,
-    "p": 72.1
+    "p": 71.9
+   }
+  },
+  "foot/Victoire extérieur": {
+   "80-89": {
+    "n": 44,
+    "p": 59.1
+   },
+   "70-79": {
+    "n": 104,
+    "p": 50.0
+   },
+   "60-69": {
+    "n": 73,
+    "p": 41.1
+   },
+   "50-59": {
+    "n": 25,
+    "p": 36.0
    }
   },
   "foot/Victoire domicile": {
    "60-69": {
-    "n": 127,
-    "p": 49.6
+    "n": 128,
+    "p": 50.0
    },
    "70-79": {
     "n": 91,
@@ -1339,24 +1357,6 @@
    "80-89": {
     "n": 10,
     "p": 80.0
-   }
-  },
-  "foot/Victoire extérieur": {
-   "70-79": {
-    "n": 104,
-    "p": 50.0
-   },
-   "80-89": {
-    "n": 43,
-    "p": 60.5
-   },
-   "60-69": {
-    "n": 73,
-    "p": 41.1
-   },
-   "50-59": {
-    "n": 25,
-    "p": 36.0
    }
   },
   "foot/Tirs cadrés (Inter Club d'Escaldes)": {
@@ -2459,7 +2459,7 @@
   }
  },
  "replis_sport": {
-  "foot": 50.8,
+  "foot": 50.7,
   "nba": 55.3,
   "tennis": 61.7
  }
