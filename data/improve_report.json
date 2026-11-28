@@ -1,110 +1,110 @@
 {
  "last": {
-  "at": "2026-11-27T06:46+00:00",
+  "at": "2026-11-28T06:47+00:00",
   "sims": 1000,
   "tried": [
    {
-    "param": "home_boost",
-    "from": 1.0,
-    "to": 0.98,
+    "param": "cong_w",
+    "from": 0.0,
+    "to": -0.03,
     "score": {
-     "2024-25": 2.34923,
-     "2025-26": 2.3696
+     "2024-25": 2.35084,
+     "2025-26": 2.36662
     },
     "gain": {
-     "2024-25": -0.00106,
-     "2025-26": -0.00381
+     "2024-25": -0.00267,
+     "2025-26": -0.00083
     }
    },
    {
-    "param": "home_boost",
-    "from": 1.0,
-    "to": 1.02,
+    "param": "cong_w",
+    "from": 0.0,
+    "to": 0.03,
     "score": {
-     "2024-25": 2.34931,
-     "2025-26": 2.3664
+     "2024-25": 2.34975,
+     "2025-26": 2.36734
     },
     "gain": {
-     "2024-25": -0.00114,
-     "2025-26": -0.00061
+     "2024-25": -0.00158,
+     "2025-26": -0.00155
     }
    },
    {
-    "param": "k_cup",
-    "from": 12.0,
-    "to": 8.0,
+    "param": "hl_days",
+    "from": 200.0,
+    "to": 160.0,
     "score": {
-     "2024-25": 2.35054,
+     "2024-25": 2.34929,
+     "2025-26": 2.36926
+    },
+    "gain": {
+     "2024-25": -0.00112,
+     "2025-26": -0.00347
+    }
+   },
+   {
+    "param": "hl_days",
+    "from": 200.0,
+    "to": 240.0,
+    "score": {
+     "2024-25": 2.35025,
+     "2025-26": 2.36866
+    },
+    "gain": {
+     "2024-25": -0.00208,
+     "2025-26": -0.00287
+    }
+   },
+   {
+    "param": "k_team",
+    "from": 3.0,
+    "to": 2.0,
+    "score": {
+     "2024-25": 2.34906,
+     "2025-26": 2.36896
+    },
+    "gain": {
+     "2024-25": -0.00089,
+     "2025-26": -0.00317
+    }
+   },
+   {
+    "param": "k_team",
+    "from": 3.0,
+    "to": 4.0,
+    "score": {
+     "2024-25": 2.35003,
+     "2025-26": 2.37016
+    },
+    "gain": {
+     "2024-25": -0.00186,
+     "2025-26": -0.00437
+    }
+   },
+   {
+    "param": "rating_beta",
+    "from": 0.3,
+    "to": 0.2,
+    "score": {
+     "2024-25": 2.35086,
+     "2025-26": 2.3687
+    },
+    "gain": {
+     "2024-25": -0.00269,
+     "2025-26": -0.00291
+    }
+   },
+   {
+    "param": "rating_beta",
+    "from": 0.3,
+    "to": 0.4,
+    "score": {
+     "2024-25": 2.34856,
      "2025-26": 2.36886
     },
     "gain": {
-     "2024-25": -0.00237,
+     "2024-25": -0.00039,
      "2025-26": -0.00307
-    }
-   },
-   {
-    "param": "k_cup",
-    "from": 12.0,
-    "to": 16.0,
-    "score": {
-     "2024-25": 2.34712,
-     "2025-26": 2.37062
-    },
-    "gain": {
-     "2024-25": 0.00105,
-     "2025-26": -0.00483
-    }
-   },
-   {
-    "param": "goal_w",
-    "from": 0.0,
-    "to": 0.1,
-    "score": {
-     "2024-25": 2.35036,
-     "2025-26": 2.36827
-    },
-    "gain": {
-     "2024-25": -0.00219,
-     "2025-26": -0.00248
-    }
-   },
-   {
-    "param": "k_share",
-    "from": 900.0,
-    "to": 600.0,
-    "score": {
-     "2024-25": 2.35026,
-     "2025-26": 2.36927
-    },
-    "gain": {
-     "2024-25": -0.00209,
-     "2025-26": -0.00348
-    }
-   },
-   {
-    "param": "k_share",
-    "from": 900.0,
-    "to": 1200.0,
-    "score": {
-     "2024-25": 2.3475,
-     "2025-26": 2.36945
-    },
-    "gain": {
-     "2024-25": 0.00067,
-     "2025-26": -0.00366
-    }
-   },
-   {
-    "param": "rest_w",
-    "from": -0.05,
-    "to": -0.1,
-    "score": {
-     "2024-25": 2.34866,
-     "2025-26": 2.36542
-    },
-    "gain": {
-     "2024-25": -0.00049,
-     "2025-26": 0.00037
     }
    }
   ],
@@ -129,55 +129,55 @@
   "nba": {
    "tried": [
     {
-     "param": "blowout_from",
-     "from": 8.0,
-     "to": 6.0,
-     "score": {
-      "2025-26": 0.70205,
-      "2026-27": 0.69792
-     },
-     "gain": {
-      "2025-26": -0.00016,
-      "2026-27": -0.00062
-     }
-    },
-    {
-     "param": "blowout_from",
-     "from": 8.0,
-     "to": 10.0,
+     "param": "usage_pow",
+     "from": 1.15,
+     "to": 1.1,
      "score": {
       "2025-26": 0.70211,
-      "2026-27": 0.69758
+      "2026-27": 0.69767
      },
      "gain": {
       "2025-26": -0.00022,
-      "2026-27": -0.00028
+      "2026-27": -0.00037
      }
     },
     {
-     "param": "rate_prior_w",
-     "from": 0.5,
-     "to": 0.4,
+     "param": "usage_pow",
+     "from": 1.15,
+     "to": 1.2,
      "score": {
-      "2025-26": 0.70189,
-      "2026-27": 0.69732
+      "2025-26": 0.70207,
+      "2026-27": 0.69812
      },
      "gain": {
-      "2025-26": 0.0,
-      "2026-27": -2e-05
+      "2025-26": -0.00018,
+      "2026-27": -0.00082
      }
     },
     {
-     "param": "rate_prior_w",
-     "from": 0.5,
-     "to": 0.6,
+     "param": "ast_pow",
+     "from": 1.1,
+     "to": 1.05,
      "score": {
-      "2025-26": 0.70189,
-      "2026-27": 0.69807
+      "2025-26": 0.70168,
+      "2026-27": 0.69763
      },
      "gain": {
-      "2025-26": 0.0,
-      "2026-27": -0.00077
+      "2025-26": 0.00021,
+      "2026-27": -0.00033
+     }
+    },
+    {
+     "param": "ast_pow",
+     "from": 1.1,
+     "to": 1.15,
+     "score": {
+      "2025-26": 0.70225,
+      "2026-27": 0.69777
+     },
+     "gain": {
+      "2025-26": -0.00036,
+      "2026-27": -0.00047
      }
     }
    ],
@@ -200,7 +200,7 @@
     ]
    },
    "calib": {
-    "at": "2026-11-27T06:46+00:00",
+    "at": "2026-11-28T06:47+00:00",
     "n": [
      32574,
      21268
@@ -254,7 +254,7 @@
    }
   },
   "lab": {
-   "at": "2026-11-27T06:46+00:00",
+   "at": "2026-11-28T06:47+00:00",
    "n": 44754,
    "active_before": [],
    "tried": [],
@@ -277,7 +277,7 @@
    "active": []
   },
   "h2h": {
-   "at": "2026-11-27T06:46+00:00",
+   "at": "2026-11-28T06:47+00:00",
    "mesure": {
     "PTS": {
      "w": 0.075,
@@ -324,224 +324,151 @@
    }
   },
   "series": [
-   "canal Picks : 7/12 séries de 10 positives (attendu 48 %)",
-   "canal Picks : série en cours 4/10, -0.87 u",
+   "canal Picks : 7/13 séries de 10 positives (attendu 48 %)",
    "Bankroll IA : 8/12 séries de 10 positives (attendu 55 %)",
    "Bankroll IA : série en cours 3/10, +1.16 €"
   ],
   "lecons": {
    "hier": [
     {
-     "label": "Plus de 2.5 buts",
-     "match": "Celta Vigo - AFC Bournemouth",
-     "price": 1.909,
-     "p": 0.5473,
-     "win": true,
-     "src": "canal"
-    },
-    {
-     "label": "Josh Giddey moins de 27.5 PRA",
-     "match": "CHI @ CHA",
-     "price": 1.89,
-     "p": 0.5096,
+     "label": "Julius Randle moins de 4.5 passes",
+     "match": "BKN @ TOR",
+     "price": 1.9,
+     "p": 0.5127,
      "win": false,
      "src": "canal"
     },
     {
-     "label": "Ajay Mitchell moins de 21.5 PR",
-     "match": "MIN @ OKC",
+     "label": "Nickeil Alexander-Walker moins de 20.5 points",
+     "match": "ATL @ BOS",
      "price": 1.88,
-     "p": 0.5124,
-     "win": false,
+     "p": 0.512,
+     "win": true,
      "src": "canal"
     },
     {
-     "label": "Oso Ighodaro moins de 5.5 rebonds",
-     "match": "PHX @ HOU",
-     "price": 1.74,
-     "p": 0.5481,
+     "label": "Ty Jerome moins de 25.5 PR",
+     "match": "MEM @ MIN",
+     "price": 1.88,
+     "p": 0.5143,
+     "win": true,
+     "src": "canal"
+    },
+    {
+     "label": "Caleb Martin moins de 1.5 paniers à 3 pts",
+     "match": "DAL @ PHX",
+     "price": 1.42,
+     "p": 0.6749,
      "win": true,
      "src": "canal"
     },
     {
      "label": "Derrick Jones Jr. moins de 1.5 passes",
-     "match": "LAC @ MEM",
-     "price": 1.47,
-     "p": 0.6565,
+     "match": "NO @ LAC",
+     "price": 1.48,
+     "p": 0.653,
      "win": true,
      "src": "canal"
     },
     {
      "label": "Plus de 2.5 buts",
-     "match": "Olympiacos - AC Milan",
-     "price": 1.833,
-     "p": 0.5407,
-     "win": true,
-     "src": "canal"
-    },
-    {
-     "label": "Moins de 2.5 buts",
-     "match": "Juventus - Omonia Nicosia",
-     "price": 2.4,
-     "p": 0.4548,
+     "match": "Venezia - Bologna",
+     "price": 2.15,
+     "p": 0.4546,
      "win": false,
      "src": "canal"
-    },
-    {
-     "label": "Plus de 2.5 buts",
-     "match": "OFI Crete - Anderlecht",
-     "price": 1.769,
-     "p": 0.5734,
-     "win": true,
-     "src": "canal"
-    },
-    {
-     "label": "Plus de 2.5 buts",
-     "match": "Sparta Prague - AZ Alkmaar",
-     "price": 1.741,
-     "p": 0.5711,
-     "win": true,
-     "src": "canal"
-    },
-    {
-     "label": "Plus de 2.5 buts",
-     "match": "Sunderland - Jagiellonia Bialystok",
-     "price": 1.645,
-     "p": 0.6009,
-     "win": false,
-     "src": "canal"
-    },
-    {
-     "label": "Victoire Stade Rennais",
-     "match": "NEC Nijmegen - Stade Rennais",
-     "price": 2.2,
-     "p": 0.4354,
-     "win": false,
-     "src": "canal"
-    },
-    {
-     "label": "Plus de 2.5 buts",
-     "match": "Celta Vigo - AFC Bournemouth",
-     "price": 1.909,
-     "p": 0.5473,
-     "win": true,
-     "src": "bankroll"
-    },
-    {
-     "label": "Derrick Jones Jr. moins de 1.5 passes",
-     "match": "LAC @ MEM",
-     "price": 1.47,
-     "p": 0.6565,
-     "win": true,
-     "src": "bankroll"
-    },
-    {
-     "label": "Ajay Mitchell plus de 0.5 paniers à 3 pts",
-     "match": "MIN @ OKC",
-     "price": 1.47,
-     "p": 0.6462,
-     "win": true,
-     "src": "bankroll"
-    },
-    {
-     "label": "Plus de 2.5 buts",
-     "match": "Marseille - Levski Sofia",
-     "price": 1.606,
-     "p": 0.6029,
-     "win": false,
-     "src": "bankroll"
     }
    ],
    "props": {
-    "n": 169,
-    "w": 97,
-    "exp": 92.8,
-    "matchs": 8
+    "n": 187,
+    "w": 95,
+    "exp": 107.7,
+    "matchs": 11
    },
    "segments": [
     {
      "seg": "nba · 3PM moins",
-     "n": 407,
-     "w": 228,
-     "exp": 236.4,
-     "clv": -0.0586
-    },
-    {
-     "seg": "nba · REB moins",
-     "n": 379,
-     "w": 232,
-     "exp": 215.5,
-     "clv": -0.0412
+     "n": 429,
+     "w": 238,
+     "exp": 249.7,
+     "clv": -0.0702
     },
     {
      "seg": "nba · AST moins",
-     "n": 372,
-     "w": 226,
-     "exp": 216.7,
-     "clv": -0.0394
+     "n": 401,
+     "w": 242,
+     "exp": 234.0,
+     "clv": -0.0359
+    },
+    {
+     "seg": "nba · REB moins",
+     "n": 397,
+     "w": 241,
+     "exp": 226.0,
+     "clv": -0.0412
     },
     {
      "seg": "nba · RA moins",
-     "n": 347,
-     "w": 200,
-     "exp": 200.3,
+     "n": 378,
+     "w": 214,
+     "exp": 218.4,
      "clv": null
     },
     {
      "seg": "nba · PTS moins",
-     "n": 325,
-     "w": 168,
-     "exp": 170.4,
-     "clv": -0.0501
+     "n": 333,
+     "w": 172,
+     "exp": 174.7,
+     "clv": -0.051
     },
     {
      "seg": "nba · PR moins",
-     "n": 266,
-     "w": 148,
-     "exp": 140.8,
-     "clv": -0.0558
+     "n": 276,
+     "w": 153,
+     "exp": 146.0,
+     "clv": -0.0565
     },
     {
      "seg": "nba · PA moins",
-     "n": 234,
-     "w": 130,
-     "exp": 123.9,
+     "n": 243,
+     "w": 135,
+     "exp": 128.6,
      "clv": null
     },
     {
      "seg": "nba · REB plus",
-     "n": 232,
-     "w": 125,
-     "exp": 126.9,
+     "n": 242,
+     "w": 131,
+     "exp": 132.4,
      "clv": -0.0616
     },
     {
      "seg": "nba · PRA moins",
-     "n": 216,
-     "w": 115,
-     "exp": 113.9,
+     "n": 222,
+     "w": 118,
+     "exp": 117.0,
      "clv": -0.0703
     },
     {
      "seg": "nba · AST plus",
-     "n": 157,
-     "w": 102,
-     "exp": 86.6,
+     "n": 175,
+     "w": 110,
+     "exp": 96.9,
      "clv": null
     },
     {
      "seg": "nba · 3PM plus",
-     "n": 149,
-     "w": 85,
-     "exp": 85.1,
+     "n": 161,
+     "w": 94,
+     "exp": 92.3,
      "clv": -0.0482
     },
     {
-     "seg": "nba · STL moins",
-     "n": 87,
-     "w": 65,
-     "exp": 53.3,
-     "clv": -0.0636
+     "seg": "nba · STL plus",
+     "n": 96,
+     "w": 60,
+     "exp": 58.3,
+     "clv": null
     }
    ],
    "exclus": [
@@ -550,19 +477,17 @@
    "notes": []
   },
   "postmortem": [
-   "Post-mortem du 26/11 : 3/7 gagnés.",
-   "🔎 erreur · Marseille - Levski Sofia -0 Plus de 2.5 buts @ 1.61 : sans détail ()",
-   "🔎 erreur · Moins de 2.5 buts (Juventus - Omonia Nicosia) @ 2.40 : lecture contredite par le match (xG) (score 4-1, xG 2.3-0.8)",
-   "🍀 malchance · Plus de 2.5 buts (Sunderland - Jagiellonia Bialystok) @ 1.65 : malchance (xG favorables) (score 1-1, xG 2.1-1.9)",
-   "🔎 erreur · Victoire Stade Rennais (NEC Nijmegen - Stade Rennais) @ 2.20 : lecture contredite par le match (xG) (score 3-1, xG 3.1-2.5)",
-   "Bankroll IA sur 30 j : 123 paris, annoncé 56 % · gagné 60 % (hasard ±9 pts) · rendement +9.1 %",
-   "Canal Picks sur 30 j : 124 paris, annoncé 56 % · gagné 53 % (hasard ±9 pts) · rendement -6.8 %",
-   "107 paris perdus en 30 jours : 38 de malchance (bonne lecture, mauvais sort), 69 d'erreur de lecture."
+   "Post-mortem du 27/11 : 4/6 gagnés.",
+   "🍀 malchance · Julius Randle moins de 4.5 passes (BKN @ TOR) @ 1.90 : perdu d'un rien (5 pour une ligne à 4.5)",
+   "🔎 erreur · Plus de 2.5 buts (Venezia - Bologna) @ 2.15 : lecture contredite par le match (xG) (score 0-0, xG 1.3-1.1)",
+   "Bankroll IA sur 30 j : 118 paris, annoncé 56 % · gagné 62 % (hasard ±9 pts) · rendement +12.3 %",
+   "Canal Picks sur 30 j : 130 paris, annoncé 56 % · gagné 54 % (hasard ±9 pts) · rendement -5.9 %",
+   "105 paris perdus en 30 jours : 38 de malchance (bonne lecture, mauvais sort), 67 d'erreur de lecture."
   ],
   "params": {
    "rest_w": -0.05
   },
-  "minutes": 28.5
+  "minutes": 27.3
  },
  "nights": [
   {
@@ -5838,6 +5763,329 @@
       "gain": {
        "2025-26": 0.0,
        "2026-27": -0.00077
+      }
+     }
+    ]
+   },
+   "lab": {
+    "n": 44754,
+    "base": {
+     "n": 39467,
+     "ll": 0.6863101197858588,
+     "season": {
+      "2025-26": 0.68794,
+      "2026-27": 0.68608
+     },
+     "acc": 53.73,
+     "picks": {
+      "n": 837,
+      "hit": 46.1,
+      "roi": -1.6
+     }
+    },
+    "adopted": null,
+    "removed": null,
+    "recheck": null,
+    "active": [],
+    "tried": []
+   }
+  },
+  {
+   "at": "2026-11-28T06:47+00:00",
+   "base": {
+    "2024-25": 2.34817,
+    "2025-26": 2.36579
+   },
+   "gap": {
+    "2024-25": [
+     0.9847,
+     0.9625,
+     1521
+    ],
+    "2025-26": [
+     1.0086,
+     0.9811,
+     1686
+    ]
+   },
+   "adopted": null,
+   "notes": [],
+   "tried": [
+    {
+     "param": "cong_w",
+     "from": 0.0,
+     "to": -0.03,
+     "score": {
+      "2024-25": 2.35084,
+      "2025-26": 2.36662
+     },
+     "gain": {
+      "2024-25": -0.00267,
+      "2025-26": -0.00083
+     }
+    },
+    {
+     "param": "cong_w",
+     "from": 0.0,
+     "to": 0.03,
+     "score": {
+      "2024-25": 2.34975,
+      "2025-26": 2.36734
+     },
+     "gain": {
+      "2024-25": -0.00158,
+      "2025-26": -0.00155
+     }
+    },
+    {
+     "param": "hl_days",
+     "from": 200.0,
+     "to": 160.0,
+     "score": {
+      "2024-25": 2.34929,
+      "2025-26": 2.36926
+     },
+     "gain": {
+      "2024-25": -0.00112,
+      "2025-26": -0.00347
+     }
+    },
+    {
+     "param": "hl_days",
+     "from": 200.0,
+     "to": 240.0,
+     "score": {
+      "2024-25": 2.35025,
+      "2025-26": 2.36866
+     },
+     "gain": {
+      "2024-25": -0.00208,
+      "2025-26": -0.00287
+     }
+    },
+    {
+     "param": "k_team",
+     "from": 3.0,
+     "to": 2.0,
+     "score": {
+      "2024-25": 2.34906,
+      "2025-26": 2.36896
+     },
+     "gain": {
+      "2024-25": -0.00089,
+      "2025-26": -0.00317
+     }
+    },
+    {
+     "param": "k_team",
+     "from": 3.0,
+     "to": 4.0,
+     "score": {
+      "2024-25": 2.35003,
+      "2025-26": 2.37016
+     },
+     "gain": {
+      "2024-25": -0.00186,
+      "2025-26": -0.00437
+     }
+    },
+    {
+     "param": "rating_beta",
+     "from": 0.3,
+     "to": 0.2,
+     "score": {
+      "2024-25": 2.35086,
+      "2025-26": 2.3687
+     },
+     "gain": {
+      "2024-25": -0.00269,
+      "2025-26": -0.00291
+     }
+    },
+    {
+     "param": "rating_beta",
+     "from": 0.3,
+     "to": 0.4,
+     "score": {
+      "2024-25": 2.34856,
+      "2025-26": 2.36886
+     },
+     "gain": {
+      "2024-25": -0.00039,
+      "2025-26": -0.00307
+     }
+    }
+   ],
+   "h2h": {
+    "at": "2026-11-28T06:47+00:00",
+    "mesure": {
+     "PTS": {
+      "w": 0.075,
+      "slope": 0.09,
+      "se": 0.041,
+      "n": 2724
+     },
+     "REB": {
+      "w": 0.047,
+      "slope": 0.064,
+      "se": 0.038,
+      "n": 2723
+     },
+     "AST": {
+      "w": 0.055,
+      "slope": 0.07,
+      "se": 0.036,
+      "n": 2654
+     },
+     "3PM": {
+      "w": 0.038,
+      "slope": 0.058,
+      "se": 0.042,
+      "n": 2104
+     },
+     "PRA": {
+      "w": 0.059,
+      "slope": 0.073,
+      "se": 0.035,
+      "n": 2724
+     },
+     "PR": {
+      "w": 0.061,
+      "slope": 0.075,
+      "se": 0.037,
+      "n": 2724
+     },
+     "PA": {
+      "w": 0.062,
+      "slope": 0.076,
+      "se": 0.037,
+      "n": 2724
+     }
+    }
+   },
+   "minutes": 27.3,
+   "nba": {
+    "base": {
+     "2025-26": 0.70189,
+     "2026-27": 0.6973
+    },
+    "gap": {
+     "2025-26": [
+      0.7019,
+      0.6857,
+      32574
+     ],
+     "2026-27": [
+      0.6973,
+      0.6862,
+      21268
+     ]
+    },
+    "adopted": null,
+    "calib": {
+     "at": "2026-11-28T06:47+00:00",
+     "n": [
+      32574,
+      21268
+     ],
+     "test": {
+      "marche": 0.68622,
+      "cale": 0.68569
+     },
+     "coef": {
+      "PTS": [
+       -0.0467,
+       0.0077
+      ],
+      "REB": [
+       -0.0452,
+       0.1367
+      ],
+      "AST": [
+       -0.0657,
+       0.038
+      ],
+      "PRA": [
+       -0.0589,
+       0.0407
+      ],
+      "PR": [
+       -0.0611,
+       0.0699
+      ],
+      "PA": [
+       -0.0538,
+       0.0
+      ],
+      "BLK": [
+       -0.1309,
+       0.0
+      ],
+      "3PM": [
+       0.0196,
+       0.1482
+      ],
+      "STL": [
+       -0.1478,
+       0.1717
+      ],
+      "_all": [
+       -0.052,
+       0.0676
+      ]
+     }
+    },
+    "tried": [
+     {
+      "param": "usage_pow",
+      "from": 1.15,
+      "to": 1.1,
+      "score": {
+       "2025-26": 0.70211,
+       "2026-27": 0.69767
+      },
+      "gain": {
+       "2025-26": -0.00022,
+       "2026-27": -0.00037
+      }
+     },
+     {
+      "param": "usage_pow",
+      "from": 1.15,
+      "to": 1.2,
+      "score": {
+       "2025-26": 0.70207,
+       "2026-27": 0.69812
+      },
+      "gain": {
+       "2025-26": -0.00018,
+       "2026-27": -0.00082
+      }
+     },
+     {
+      "param": "ast_pow",
+      "from": 1.1,
+      "to": 1.05,
+      "score": {
+       "2025-26": 0.70168,
+       "2026-27": 0.69763
+      },
+      "gain": {
+       "2025-26": 0.00021,
+       "2026-27": -0.00033
+      }
+     },
+     {
+      "param": "ast_pow",
+      "from": 1.1,
+      "to": 1.15,
+      "score": {
+       "2025-26": 0.70225,
+       "2026-27": 0.69777
+      },
+      "gain": {
+       "2025-26": -0.00036,
+       "2026-27": -0.00047
       }
      }
     ]
